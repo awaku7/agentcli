@@ -161,12 +161,16 @@ def test_orchestrator_exposes_bounded_round_summary() -> None:
     registry = ProviderRuntimeRegistry()
     registry.register("fake", _Runtime())
 
-    result = RoundOrchestrator(registry).run(
-        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
-        provider="fake",
-        session={},
-        cancellation=_Cancellation(),
-    ).result
+    result = (
+        RoundOrchestrator(registry)
+        .run(
+            ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+            provider="fake",
+            session={},
+            cancellation=_Cancellation(),
+        )
+        .result
+    )
 
     assert result.summary is not None
     summary = result.summary.to_dict()
