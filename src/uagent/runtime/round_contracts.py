@@ -117,6 +117,51 @@ class StreamEvent:
 
 
 @dataclass(frozen=True)
+class RoundSummary:
+    """Bounded, provider-neutral telemetry for one completed round.
+
+    The summary is deliberately numeric/enum-like. Provider payloads,
+    prompts, tool arguments, and tool results do not belong in this object;
+    those remain subject to the normal masking and persistence policies.
+    """
+
+    status: RoundStatus
+    duration_ms: int | float = 0
+    event_count: int = 0
+    tool_call_count: int = 0
+    assistant_chars: int = 0
+    reasoning_chars: int = 0
+    request_tokens: int = 0
+    projection_size: int = 0
+    tool_schema_size: int = 0
+    recovery_strategy: str = ""
+    fallback_count: int = 0
+    duplicate_event_count: int = 0
+    out_of_order_event_count: int = 0
+    usage_delta: Mapping[str, int] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        """Return a JSON-serializable telemetry projection."""
+
+        return {
+            "status": self.status,
+            "duration_ms": self.duration_ms,
+            "event_count": self.event_count,
+            "tool_call_count": self.tool_call_count,
+            "assistant_chars": self.assistant_chars,
+            "reasoning_chars": self.reasoning_chars,
+            "request_tokens": self.request_tokens,
+            "projection_size": self.projection_size,
+            "tool_schema_size": self.tool_schema_size,
+            "recovery_strategy": self.recovery_strategy,
+            "fallback_count": self.fallback_count,
+            "duplicate_event_count": self.duplicate_event_count,
+            "out_of_order_event_count": self.out_of_order_event_count,
+            "usage_delta": dict(self.usage_delta),
+        }
+
+
+@dataclass(frozen=True)
 class RoundResult:
     """Collected terminal result for exactly one LLM round."""
 
@@ -133,6 +178,7 @@ class RoundResult:
     continuation_update: Mapping[str, Any] = field(default_factory=dict)
     error: Mapping[str, Any] | None = None
     recovery_hint: Mapping[str, Any] | None = None
+    summary: RoundSummary | None = None
 
 
 class CancellationToken(Protocol):
@@ -216,6 +262,7 @@ __all__ = [
     "RoundIdentifiers",
     "RoundResult",
     "RoundStatus",
+    "RoundSummary",
     "RoundTransportSelection",
     "SerializedRequest",
     "StreamEvent",

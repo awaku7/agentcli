@@ -102,6 +102,9 @@ def test_orchestrator_runs_three_stage_contract() -> None:
     assert round_.result.assistant_text == "hello"
     assert round_.result.continuation_update == {"response_id": "resp_1"}
     assert round_.result.recovery_hint == {"strategy": "bounded_rollback"}
+    assert round_.result.summary is not None
+    assert round_.result.summary.to_dict()["status"] == "completed"
+    assert round_.result.summary.to_dict()["event_count"] == 3
     assert responses_runtime.calls == [("resp_1", ())]
     assert [event.type for event in round_.events] == [
         "ResponseStarted",
@@ -146,6 +149,31 @@ def test_orchestrator_emits_projection_and_request_telemetry(monkeypatch) -> Non
     assert captured["out_of_order_event_count"] == 0
     assert captured["input_tokens_delta"] == 5
     assert captured["output_tokens_delta"] == 3
+    assert captured["status"] == "completed"
+    assert captured["event_count"] == 3
+    assert captured["usage_delta"] == {
+        "input_tokens_delta": 5,
+        "output_tokens_delta": 3,
+    }
+
+
+def test_orchestrator_exposes_bounded_round_summary() -> None:
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _Runtime())
+
+    result = RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+    ).result
+
+    assert result.summary is not None
+    summary = result.summary.to_dict()
+    assert summary["assistant_chars"] == len("hello")
+    assert summary["tool_call_count"] == 0
+    assert summary["usage_delta"] == {}
+    assert "content" not in summary
 
 
 def test_orchestrator_synchronizes_non_successful_response_terminals() -> None:

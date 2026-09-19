@@ -15,6 +15,7 @@ from .round_contracts import (
     ContextPlan,
     ProviderRuntimeRegistry,
     RoundResult,
+    RoundSummary,
     SerializedRequest,
     StreamEvent,
 )
@@ -85,19 +86,6 @@ class RoundOrchestrator:
             response_id = terminal.data.get("response_id")
             if response_id:
                 continuation_update["response_id"] = str(response_id)
-        result = RoundResult(
-            identifiers=request.identifiers,
-            plan_id=plan.plan_id,
-            projection_id=projection.projection_id,
-            status=status,  # type: ignore[arg-type]
-            assistant_text=rendered.assistant_text,
-            partial_text=rendered.partial_text,
-            reasoning_text=rendered.reasoning_text,
-            tool_calls=rendered.tool_calls,
-            continuation_update=continuation_update,
-            error=dict(terminal.data) if status == "failed" else None,
-            recovery_hint=dict(session.get("recovery_hint") or {}),
-        )
         recovery_hint = dict(session.get("recovery_hint") or {})
         plan_telemetry = dict(plan.telemetry or {})
         request_input = request.payload.get(
@@ -125,11 +113,8 @@ class RoundOrchestrator:
             session.get("usage_before"),
             usage_after if isinstance(usage_after, Mapping) else None,
         )
-        log_event(
-            "llm.round.completed",
-            provider=request.provider,
-            model=request.model,
-            status=status,
+        summary = RoundSummary(
+            status=status,  # type: ignore[arg-type]
             duration_ms=(time.perf_counter() - started) * 1000.0,
             event_count=len(events),
             tool_call_count=len(rendered.tool_calls),
@@ -138,10 +123,31 @@ class RoundOrchestrator:
             request_tokens=request_tokens,
             tool_schema_size=tool_schema_size,
             projection_size=projection_size,
-            recovery_strategy=recovery_hint.get("strategy", ""),
-            fallback_count=plan_telemetry.get("fallback_count", 0),
+            recovery_strategy=str(recovery_hint.get("strategy", "")),
+            fallback_count=int(plan_telemetry.get("fallback_count", 0) or 0),
             duplicate_event_count=validator.duplicate_events,
             out_of_order_event_count=validator.out_of_order_events,
+            usage_delta=usage_delta,
+        )
+        result = RoundResult(
+            identifiers=request.identifiers,
+            plan_id=plan.plan_id,
+            projection_id=projection.projection_id,
+            status=status,  # type: ignore[arg-type]
+            assistant_text=rendered.assistant_text,
+            partial_text=rendered.partial_text,
+            reasoning_text=rendered.reasoning_text,
+            tool_calls=rendered.tool_calls,
+            continuation_update=continuation_update,
+            error=dict(terminal.data) if status == "failed" else None,
+            recovery_hint=recovery_hint,
+            summary=summary,
+        )
+        log_event(
+            "llm.round.completed",
+            provider=request.provider,
+            model=request.model,
+            **summary.to_dict(),
             **usage_delta,
         )
         if continuation_update:
