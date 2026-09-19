@@ -1237,3 +1237,79 @@ OpenRouter の characterization test 群（round helper、SDK compatibility、Re
 `nvidia` と `moonshot` は専用 legacy round handler と Responses 固有変換を持たない OpenAI-compatible providerとして、Chat Completions の request、tool call、stream event の generic adapter characterization を通過したため `_SUPPORTED` に追加した。`alibaba` と `sakana` は OpenAI-compatible Responses の request / completion 正規化 characterization、`bedrock` は専用の transcript flattening と flat tool request、`ollama` は Chat/Responses の extra-body compatibility、`lmstudio` は REST Chat/Responses transport、`meta` は Responses reasoning summary の compatibility characterization を通過したため同じく追加した。LM Studio SDK transport は registry 対象外とした。PFN/PLaMo は専用の tool schema、catalog steering、embedded tool-call fallback、非ストリーミング tool round 契約を `PfnProviderRuntime` に隔離し、pure stream parser と StreamEvent 変換の characterization tests を通過したため `_SUPPORTED` に追加した。Grok も `GrokGrpcProviderRuntime` に xAI SDK / gRPC の message、tool、stream event 変換を隔離し、registry adapter characterization を通過したため `_SUPPORTED` に追加した。既存の `llm_grok_round.py` と REST override（`UAGENT_GROK_USE_XAI_SDK=0`）は互換経路として残し、専用 message/tool 変換の比較を継続する。
 
 Grok は専用 `GrokGrpcProviderRuntime`、PFN は専用 `PfnProviderRuntime` に provider 固有契約を隔離して registry 経路へ移行した。両者とも既存の legacy round wrapper と tool continuation は互換性のため当面残す。
+
+## TypeSafe 採用案（検討）
+
+### 目的と位置づけ
+
+[TypeSafe System One](https://docs.typesafe.ai/introduction) は、状態に対する `Noul`（Yes/No確率）、`Choice`（選択肢）、`Score`（評価値）を返す判断サービスである。uagent のメイン LLM や `ProviderRuntimeRegistry` を置き換えるのではなく、**tool policy / auto-pilot routing / guardrail 用の任意の JudgmentBackend** として導入する。
+
+TypeSafe の結果だけで安全境界を決めず、既存の deny policy、schema 検証、human confirmation、timeout、cancel、stale guard を常に優先する。TypeSafe が利用できない場合でも、既存の決定論的な経路で動作を継続する。
+
+### 適用候補
+
+優先順位は次の通りとする。
+
+1. **Tool 実行前のリスク判定**: `allow / review / block`、副作用の有無、危険度、prompt injection の可能性を判断する。`block` は拒否し、`review` は既存の `human_ask` へ渡す。
+1. **Auto-pilot goal の分類**: read-only、file edit、external network、device control、destructive、human-required などへ分類し、コード側で許可 tool、確認、round budget を決める。
+1. **LLM 入出力と tool result の guardrail**: 外部コンテンツに含まれる隠れた指示、jailbreak、危険出力を入力・出力の両側で検査する。
+1. **Shadow evaluation**: 既存 policy の判定と TypeSafe の判定を比較し、実際の traffic で閾値を校正する。
+
+### 適用しないもの
+
+同じ tool の繰り返し検出、retry budget、timeout、cancel/stale、session restore、Responses continuation、JSON schema検証、ファイルパスやコマンドの allowlist は、既存のコード側の決定論的制御を維持する。TypeSafe を最終的な実行許可の唯一の根拠にしない。
+
+Jev は現時点で画像・音声・動画を扱わず、英語中心で CJK は精度が低いと説明されているため、日本語やマルチモーダルの critical path には直接依存させない。
+
+### 実装境界
+
+provider としてではなく、次の任意 backend として追加する。
+
+```text
+src/uagent/runtime/judgment_backend.py       # provider-neutral Protocol / result
+src/uagent/runtime/typesafe_judgment.py      # optional typesafe-sdk adapter
+```
+
+`_execute_tool_calls`、tool policy、auto-pilot の goal parser、`ContextResultManager` の境界から呼び出し、`uagent_llm.py` の provider 分岐へ直接埋め込まない。TypeSafe の質問文と閾値は一つの policy module に集約し、人間がレビュー可能にする。
+
+依存関係は optional extra とし、通常の uagent 利用者へ必須化しない。
+
+```toml
+[project.optional-dependencies]
+typesafe = ["typesafe-sdk"]
+```
+
+想定設定は次の通りである。
+
+```env
+TYPESAFE_API_KEY=
+TYPESAFE_BASE_URL=https://api.typesafe.ai
+TYPESAFE_DEFAULT_MODEL=jev-latest
+TYPESAFE_TIMEOUT=5
+UAGENT_TYPESAFE_MODE=off       # off | shadow | enforce
+```
+
+`TYPESAFE_API_KEY` を含む state は既存の secret masking 境界を通し、TypeSafe へ送る state は最小化・マスキングする。API障害、timeout、rate limit 時の挙動は mode と tool policy に応じて、side-effect tool は fail-closed、read-only の補助判定は既存経路へ fallback する。
+
+### 導入順序
+
+```text
+P0  typesafe-sdk を optional dependency として追加し、adapter / env / secret boundary を固定
+P1  代表ケース10〜30件を用意し、shadow mode で既存 policy と判定差を記録
+P2  tool call の allow / review / block を既存 policy の前段で評価
+P3  auto-pilot goal の intent / risk 分類で tool allowlist と確認要否を決定
+P4  tool result と LLM 入出力の prompt-injection / guardrail 評価を追加
+P5  probability / confidence / latency / cost / false-positive を評価し閾値を校正
+P6  read-only から enforce mode を段階適用し、副作用 tool は明示 opt-in で有効化
+```
+
+### 完了条件とロールバック
+
+- TypeSafe 無効時に既存テストと既存 tool policy が変わらない
+- shadow mode で request、判定、latency、failure、cost を秘密情報なしで観測できる
+- `allow / review / block` の境界に unit test と characterization test がある
+- TypeSafe の timeout、API error、未知 answer、モデル切替をテストする
+- `UAGENT_TYPESAFE_MODE=off` で即時に旧経路へ戻せる
+- APIへ送信する state のデータ分類・保持期間・利用規約を導入前に確認する
+
+参照: [TypeSafe Python SDK](https://docs.typesafe.ai/sdk/python/usage)、[Guardrails cookbook](https://docs.typesafe.ai/cookbooks/llm_guardrails)、[Agent skill](https://docs.typesafe.ai/agent-skill)。Agent skill の導入は開発支援用であり、uagent の実行時依存や安全判定の代替ではない。
