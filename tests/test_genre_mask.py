@@ -48,7 +48,7 @@ def test_genre_mask_parse_ok(monkeypatch):
     assert args["tool_genre_mask"] == 8191
 
 
-def test_embedded_ignores_genre_mask(monkeypatch):
+def test_embedded_ignores_genre_mask_with_warning(monkeypatch, capsys):
     from uagent.tools import _genre_control_util as G
 
     G._ENABLED_GENRES.clear()
@@ -57,6 +57,18 @@ def test_embedded_ignores_genre_mask(monkeypatch):
 
     _apply_startup_tool_genre_mask(sum(G._GENRE_BITMAP.values()))
     assert G._ENABLED_GENRES == set()
+    assert "ignored in embedded mode" in capsys.readouterr().err
+
+
+def test_embedded_zero_genre_mask_is_silent(monkeypatch, capsys):
+    from uagent.tools import _genre_control_util as G
+
+    G._ENABLED_GENRES.clear()
+    monkeypatch.setenv("UAGENT_EMBEDDED", "1")
+    from uagent.cli_startup import _apply_startup_tool_genre_mask
+
+    _apply_startup_tool_genre_mask(0)
+    assert capsys.readouterr().err == ""
 
 
 def test_apply_full_mask_enables_all_genres():

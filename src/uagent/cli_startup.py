@@ -54,6 +54,12 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
         "yes",
         "on",
     }:
+        if mask > 0:
+            print(
+                "[WARN] --tool-genre-mask is ignored in embedded mode; "
+                "use --enable-tool to select tools explicitly.",
+                file=sys.stderr,
+            )
         return
     if mask <= 0:
         return
