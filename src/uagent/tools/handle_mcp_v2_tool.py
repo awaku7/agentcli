@@ -225,6 +225,28 @@ def _validate_mcp_arguments(name: str, argv: dict[str, Any], tools_result: Any) 
     )
 
 
+class _McpCancelled(Exception):
+    """Raised when the host cancels an in-flight MCP request."""
+
+
+async def _await_mcp_operation(awaitable: Any) -> Any:
+    task = asyncio.create_task(awaitable)
+    callback = getattr(get_callbacks(), "is_cancelled", None)
+    try:
+        while not task.done():
+            if callable(callback) and callback():
+                task.cancel()
+                await asyncio.gather(task, return_exceptions=True)
+                raise _McpCancelled()
+            await asyncio.sleep(0.05)
+        return await task
+    except asyncio.CancelledError as exc:
+        if not task.done():
+            task.cancel()
+            await asyncio.gather(task, return_exceptions=True)
+        raise _McpCancelled() from exc
+
+
 async def _call_mcp_stdio(
     command: str,
     args: list[str],
@@ -247,8 +269,10 @@ async def _call_mcp_stdio(
             validation_error = _validate_mcp_arguments(name, argv, tools_result)
             if validation_error is not None:
                 return validation_error
-            result = await client.call_tool(name, argv)
+            result = await _await_mcp_operation(client.call_tool(name, argv))
             return _format_result(result)
+    except _McpCancelled:
+        return _error_out("MCP request cancelled", "MCP_CANCELLED")
     except Exception as exc:
         return _error_out(f"MCP stdio call failed: {exc}", "MCP_STDIO_CALL_FAILED")
 
@@ -300,8 +324,10 @@ async def _call_mcp_http(
             validation_error = _validate_mcp_arguments(name, argv, tools_result)
             if validation_error is not None:
                 return validation_error
-            result = await client.call_tool(name, argv)
+            result = await _await_mcp_operation(client.call_tool(name, argv))
             return _format_result(result)
+    except _McpCancelled:
+        return _error_out("MCP request cancelled", "MCP_CANCELLED")
     except Exception as exc:
         return _error_out(f"MCP http call failed: {exc}", "MCP_HTTP_CALL_FAILED")
 

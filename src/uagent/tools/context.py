@@ -49,6 +49,7 @@ class ToolCallbacks:
 
     # Auto-pilot mode detection
     is_auto_pilot_active: Optional[Callable[[], bool]] = None
+    is_cancelled: Optional[Callable[[], bool]] = None
 
     # Event injection (e.g., timers)
     event_queue: Any = None

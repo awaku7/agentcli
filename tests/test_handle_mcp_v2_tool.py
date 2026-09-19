@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import base64
 import json
+import types
 from pathlib import Path
 
 import pytest
@@ -159,6 +160,39 @@ def test_handle_mcp_v2_tolerant_argument_validation_calls_tool(
     out = asyncio.run(m._call_mcp_http("http://example.com", "demo", {"extra": 1}))
     assert out == "CALLED"
     assert calls == [{"name": "demo", "arguments": {"extra": 1}}]
+
+
+def test_handle_mcp_v2_cancels_in_flight_request(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    class FakeClient:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def list_tools(self):
+            return {"tools": []}
+
+        async def call_tool(self, _name, _arguments):
+            await asyncio.sleep(10)
+            return "TOO_LATE"
+
+    monkeypatch.setattr(m, "MCPClient", lambda **_kwargs: FakeClient())
+    monkeypatch.setattr(
+        m,
+        "get_callbacks",
+        lambda: types.SimpleNamespace(is_cancelled=lambda: True),
+    )
+
+    out = asyncio.run(m._call_mcp_http("http://example.com", "demo", {}))
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "MCP_CANCELLED"
+    assert "cancelled" in payload["error"]["message"].lower()
 
 
 def test_handle_mcp_v2_uses_http_and_truncates(monkeypatch: pytest.MonkeyPatch) -> None:

@@ -107,6 +107,16 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "auto_pilot_active")
             else None
         ),
+        is_cancelled=(
+            lambda: bool(getattr(core, "interrupt_requested", False))
+            or bool(
+                getattr(
+                    getattr(core, "cancellation_token", None),
+                    "is_cancelled",
+                    lambda: False,
+                )()
+            )
+        ),
         event_queue=getattr(core, "event_queue", None),
         session_id=getattr(core, "session_id", None),
         session_store=getattr(core, "session_store", None),
