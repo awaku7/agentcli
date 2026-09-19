@@ -41,6 +41,12 @@ def _sentinel_judgment(messages: list[dict[str, Any]]) -> str | None:
     for message in reversed(messages or []):
         if not isinstance(message, dict) or message.get("role") != "assistant":
             continue
+        # A tool-call-only assistant message is not a text-only sentinel turn.
+        # Tool execution still has to be accounted for, so continue safely
+        # instead of stopping because ``content`` is empty.
+        if message.get("tool_calls"):
+            return "CONTINUE"
+
         content = message.get("content", "")
         if isinstance(content, list):
             content = " ".join(

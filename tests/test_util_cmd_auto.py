@@ -158,3 +158,34 @@ def test_sentinel_judgment_rejects_extra_text() -> None:
         _sentinel_judgment([{"role": "assistant", "content": "AUTO_COMPLETE now"}])
         is None
     )
+
+
+def test_sentinel_judgment_continues_for_tool_call_only_response() -> None:
+    assert (
+        _sentinel_judgment(
+            [
+                {
+                    "role": "assistant",
+                    "content": "",
+                    "tool_calls": [{"id": "call-1", "type": "function"}],
+                }
+            ]
+        )
+        == "CONTINUE"
+    )
+
+
+def test_sentinel_judgment_does_not_use_older_marker_after_tool_call() -> None:
+    assert (
+        _sentinel_judgment(
+            [
+                {"role": "assistant", "content": "<AUTO_COMPLETE>"},
+                {
+                    "role": "assistant",
+                    "content": None,
+                    "tool_calls": [{"id": "call-1"}],
+                },
+            ]
+        )
+        == "CONTINUE"
+    )
