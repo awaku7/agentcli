@@ -59,6 +59,17 @@ UAGENT_IMG_GENERATE_SAVE_META=1
 
 `UAGENT_IMG_GENERATE_DEBUG=1` を設定すると、MetaのResponses APIによる画像生成や `img2img` の継続経路（`response_id` の有無・利用結果）も記録されます。通常運用では `0` または未設定にしてください。
 
+## CLIのtool result表示（明示的opt-in）
+
+boundedな`[TOOL-RESULT]`サマリーは既定では表示されません。CLIでtool呼び出し後の短いマスク済み結果を表示したい場合だけ、次を設定してください。Web/GUIではこの設定は無効です。
+
+```env
+# CLIのみ。既定: 0
+UAGENT_SHOW_TOOL_RESULTS=1
+```
+
+表示内容はtool名、status、call ID、最大400文字のマスク済みsummary、利用可能な場合の`artifact_ref`です。rawのtool result本文は表示しません。
+
 ## セットアップウィザード
 
 最も簡単に設定を行うには、以下のコマンドを実行して対話型セットアップウィザードを起動してください：
