@@ -49,6 +49,19 @@ class CommandResult:
         return self.continue_running
 
 
+def _mcp_generation(core: Any) -> int:
+    value = getattr(core, "mcp_request_generation", None)
+    if value is None:
+        state = getattr(getattr(core, "agent_state_manager", None), "state", None)
+        value = getattr(state, "mcp_request_generation", 0)
+    try:
+        generation = max(0, int(value or 0))
+    except (TypeError, ValueError):
+        generation = 0
+    core.mcp_request_generation = generation
+    return generation
+
+
 def _host_is_cancelled(core: Any) -> bool:
     cancelled = bool(getattr(core, "interrupt_requested", False)) or bool(
         getattr(
@@ -58,11 +71,19 @@ def _host_is_cancelled(core: Any) -> bool:
         )()
     )
     if cancelled and not bool(getattr(core, "_mcp_cancel_seen", False)):
-        try:
-            current = int(getattr(core, "mcp_request_generation", 0) or 0)
-        except (TypeError, ValueError):
-            current = 0
-        core.mcp_request_generation = current + 1
+        current = _mcp_generation(core)
+        next_generation = current + 1
+        core.mcp_request_generation = next_generation
+        manager = getattr(core, "agent_state_manager", None)
+        save_state = getattr(core, "save_agent_state", None)
+        update_state = getattr(manager, "update", None)
+        if callable(update_state) and callable(save_state):
+            try:
+                save_state(
+                    update_state(mcp_request_generation=next_generation).to_dict()
+                )
+            except Exception:
+                pass
         core._mcp_cancel_seen = True
     elif not cancelled:
         core._mcp_cancel_seen = False
@@ -128,7 +149,7 @@ def init_tools_callbacks(core: Any) -> None:
             else None
         ),
         is_cancelled=(lambda: _host_is_cancelled(core)),
-        request_generation=(lambda: getattr(core, "mcp_request_generation", 0)),
+        request_generation=(lambda: _mcp_generation(core)),
         event_queue=getattr(core, "event_queue", None),
         session_id=getattr(core, "session_id", None),
         session_store=getattr(core, "session_store", None),

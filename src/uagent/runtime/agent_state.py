@@ -12,6 +12,13 @@ def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def _safe_generation(value: Any) -> int:
+    try:
+        return max(0, int(value or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
 @dataclass(frozen=True)
 class AgentState:
     """Serializable progress state independent of conversation history."""
@@ -22,6 +29,7 @@ class AgentState:
     files: tuple[str, ...] = ()
     errors: tuple[str, ...] = ()
     next_action: str = ""
+    mcp_request_generation: int = 0
     updated_at: str = field(default_factory=_utc_now)
 
     def to_dict(self) -> dict[str, Any]:
@@ -45,6 +53,9 @@ class AgentState:
             files=tuple(str(item) for item in value.get("files", []) if item),
             errors=tuple(str(item) for item in value.get("errors", []) if item),
             next_action=str(value.get("next_action") or ""),
+            mcp_request_generation=_safe_generation(
+                value.get("mcp_request_generation")
+            ),
             updated_at=str(value.get("updated_at") or _utc_now()),
         )
 
@@ -63,6 +74,7 @@ class AgentStateManager:
             "files",
             "errors",
             "next_action",
+            "mcp_request_generation",
         }
         unknown = set(changes) - allowed
         if unknown:
@@ -71,6 +83,10 @@ class AgentStateManager:
         for key in ("completed_steps", "files", "errors"):
             if key in normalized:
                 normalized[key] = tuple(str(item) for item in normalized[key] if item)
+        if "mcp_request_generation" in normalized:
+            normalized["mcp_request_generation"] = _safe_generation(
+                normalized["mcp_request_generation"]
+            )
         normalized["updated_at"] = _utc_now()
         self.state = replace(self.state, **normalized)
         return self.state

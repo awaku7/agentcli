@@ -13,12 +13,14 @@ def test_agent_state_round_trips_as_json() -> None:
         files=("src/app.py",),
         errors=(),
         next_action="run tests",
+        mcp_request_generation=4,
     )
 
     restored = AgentState.from_dict(state.to_dict())
 
     assert restored.goal == "ship feature"
     assert restored.completed_steps == ("design",)
+    assert restored.mcp_request_generation == 4
     assert restored.to_json() == state.to_json()
 
 
