@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import shlex
 import shutil
 import subprocess
 from typing import Any
@@ -67,22 +68,48 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
-def _policy_block_reason() -> str | None:
+def _policy_block_reason(command: str) -> str | None:
     policy = os.environ.get("UAGENT_BASH_EXEC_POLICY", "").strip().lower()
     if policy in {"deny", "off", "disabled", "0", "false", "no"}:
         return "disabled by UAGENT_BASH_EXEC_POLICY"
 
     non_interactive = os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower()
     allow = os.environ.get("UAGENT_ALLOW_BASH_EXEC", "").strip().lower()
-    if non_interactive in {"1", "true", "yes", "on"} and allow not in {
-        "1",
-        "true",
-        "yes",
-        "on",
-    }:
+    is_non_interactive = non_interactive in {"1", "true", "yes", "on"}
+    if is_non_interactive and allow not in {"1", "true", "yes", "on"}:
         return (
             "disabled in non-interactive mode; set UAGENT_ALLOW_BASH_EXEC=1 "
             "for explicit opt-in"
+        )
+
+    raw_allowlist = os.environ.get("UAGENT_BASH_EXEC_ALLOWLIST", "")
+    allowlist = {
+        item.strip().lower()
+        for item in raw_allowlist.split(",")
+        if item.strip()
+    }
+    require_allowlist = os.environ.get(
+        "UAGENT_BASH_EXEC_REQUIRE_ALLOWLIST", ""
+    ).strip().lower() in {"1", "true", "yes", "on"}
+    if is_non_interactive and not allowlist:
+        require_allowlist = True
+    if not allowlist and require_allowlist:
+        return (
+            "no bash command allowlist configured; set "
+            "UAGENT_BASH_EXEC_ALLOWLIST=command1,command2"
+        )
+
+    try:
+        tokens = shlex.split(command, posix=True)
+    except ValueError as exc:
+        return f"command could not be parsed safely: {exc}"
+    if not tokens:
+        return "empty command"
+    executable = os.path.basename(tokens[0]).strip().lower()
+    if allowlist and executable not in allowlist:
+        return (
+            f"command '{executable}' is not in UAGENT_BASH_EXEC_ALLOWLIST "
+            f"({','.join(sorted(allowlist))})"
         )
     return None
 
@@ -92,7 +119,7 @@ def run_tool(args: dict[str, Any]) -> str:
     if not command:
         raise ValueError("command is required")
 
-    policy_reason = _policy_block_reason()
+    policy_reason = _policy_block_reason(command)
     if policy_reason:
         return _(
             "err.blocked",

@@ -13,6 +13,7 @@ def test_bash_exec_uses_devnull_stdin(monkeypatch):
     # The test intentionally exercises execution, including under the
     # non-interactive environment used by the test runner.
     monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.setenv("UAGENT_BASH_EXEC_ALLOWLIST", "echo")
     monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
 
     if os.name == "nt":
@@ -56,6 +57,33 @@ def test_bash_exec_blocks_non_interactive_without_explicit_opt_in(monkeypatch):
     out = mod.run_tool({"command": "echo should-not-run"})
     assert "[bash_exec" in out
     assert "UAGENT_ALLOW_BASH_EXEC=1" in out
+
+
+def test_bash_exec_requires_allowlist_in_non_interactive_mode(monkeypatch):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setattr(mod, "_TOOL_AVAILABLE", True)
+    monkeypatch.setenv("UAGENT_NON_INTERACTIVE", "1")
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.delenv("UAGENT_BASH_EXEC_ALLOWLIST", raising=False)
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
+    out = mod.run_tool({"command": "echo should-not-run"})
+    assert "[bash_exec" in out
+    assert "UAGENT_BASH_EXEC_ALLOWLIST" in out
+
+
+def test_bash_exec_rejects_command_outside_allowlist(monkeypatch):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setattr(mod, "_TOOL_AVAILABLE", True)
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.setenv("UAGENT_BASH_EXEC_ALLOWLIST", "echo")
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
+    out = mod.run_tool({"command": "python -V"})
+    assert "[bash_exec" in out
+    assert "not in UAGENT_BASH_EXEC_ALLOWLIST" in out
 
 
 def test_bash_exec_policy_deny_overrides_explicit_opt_in(monkeypatch):
