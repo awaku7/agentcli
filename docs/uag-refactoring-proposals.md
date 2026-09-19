@@ -1240,7 +1240,7 @@ Grok は専用 `GrokGrpcProviderRuntime`、PFN は専用 `PfnProviderRuntime` �
 
 ## 115. 実測報告への回答ログ（現行 HEAD 基準）
 
-外部の自動操縦実測報告（0.6.11 / 2026-09-17）を現行 HEAD [`f16636f5`](https://github.com/awaku7/agentcli/tree/f16636f5) と照合した際の回答を、調査結果と実装判断が混ざらないように記録する。
+対象資料 `../uag_報告_2026-09-17.md.enc`（復号した自動操縦実測報告、0.6.11 / 2026-09-17）を現行 HEAD [`f16636f5`](https://github.com/awaku7/agentcli/tree/f16636f5) と照合した際の回答を、調査結果と実装判断が混ざらないように記録する。
 
 ### 115.1 「legacy に残るのは Grok と PFN だけか」
 
