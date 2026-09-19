@@ -12,6 +12,7 @@ from typing import Any, Optional
 
 from .env_utils import env_get
 from .i18n import _
+from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.stream_host import build_stream_callbacks
 
 
@@ -125,6 +126,8 @@ def _call_grok_round(
 
     Returns (ok, client, assistant_text, tool_calls_list).
     """
+    retry_coordinator = RoundRetryCoordinator(max_retries_429)
+    retry_coordinator.expose_budget(core)
     attempt_429 = 0
     assistant_text: str = ""
     tool_calls_list: list[dict[str, Any]] = []
@@ -134,7 +137,6 @@ def _call_grok_round(
 
         send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
 
-    from .llm_errors import _rate_limit_retry_step
     from .llm_helpers import _maybe_print_certifi_where
     from urllib.error import URLError
 
@@ -305,7 +307,7 @@ def _call_grok_round(
                     print("[GROK Error] " + str(e))
                     return False, client, "", []
                 elif status_code == grpc.StatusCode.RESOURCE_EXHAUSTED:
-                    attempt_429, new_client, action = _rate_limit_retry_step(
+                    attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                         exception=e,
                         provider=provider,
                         model=depname,
@@ -376,7 +378,7 @@ def _call_grok_round(
                 print(repr(e))
                 return False, client, "", []
 
-            attempt_429, new_client, action = _rate_limit_retry_step(
+            attempt_429, new_client, action = retry_coordinator.rate_limit_step(
                 exception=e,
                 provider=provider,
                 model=depname,
