@@ -227,6 +227,43 @@ def test_handle_mcp_v2_marks_completed_response_stale_after_cancel(
     assert payload["error"]["code"] == "MCP_STALE"
 
 
+def test_handle_mcp_v2_rejects_response_from_old_generation(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    generation = [0]
+
+    class FakeClient:
+        async def __aenter__(self):
+            return self
+
+        async def __aexit__(self, *_args):
+            return None
+
+        async def list_tools(self):
+            return {"tools": []}
+
+        async def call_tool(self, _name, _arguments):
+            generation[0] = 1
+            return "OLD_GENERATION"
+
+    monkeypatch.setattr(m, "MCPClient", lambda **_kwargs: FakeClient())
+    monkeypatch.setattr(
+        m,
+        "get_callbacks",
+        lambda: types.SimpleNamespace(
+            is_cancelled=lambda: False,
+            request_generation=lambda: generation[0],
+        ),
+    )
+
+    out = asyncio.run(m._call_mcp_http("http://example.com", "demo", {}))
+    payload = json.loads(out)
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "MCP_STALE"
+
+
 def test_handle_mcp_v2_uses_http_and_truncates(monkeypatch: pytest.MonkeyPatch) -> None:
     import uagent.tools.handle_mcp_v2_tool as m
     from uagent.tools.context import ToolCallbacks

@@ -49,6 +49,26 @@ class CommandResult:
         return self.continue_running
 
 
+def _host_is_cancelled(core: Any) -> bool:
+    cancelled = bool(getattr(core, "interrupt_requested", False)) or bool(
+        getattr(
+            getattr(core, "cancellation_token", None),
+            "is_cancelled",
+            lambda: False,
+        )()
+    )
+    if cancelled and not bool(getattr(core, "_mcp_cancel_seen", False)):
+        try:
+            current = int(getattr(core, "mcp_request_generation", 0) or 0)
+        except (TypeError, ValueError):
+            current = 0
+        core.mcp_request_generation = current + 1
+        core._mcp_cancel_seen = True
+    elif not cancelled:
+        core._mcp_cancel_seen = False
+    return cancelled
+
+
 def init_tools_callbacks(core: Any) -> None:
     """tools 側へ、ホスト側の依存（core の関数・状態）を注入する。"""
 
@@ -107,16 +127,8 @@ def init_tools_callbacks(core: Any) -> None:
             if hasattr(core, "auto_pilot_active")
             else None
         ),
-        is_cancelled=(
-            lambda: bool(getattr(core, "interrupt_requested", False))
-            or bool(
-                getattr(
-                    getattr(core, "cancellation_token", None),
-                    "is_cancelled",
-                    lambda: False,
-                )()
-            )
-        ),
+        is_cancelled=(lambda: _host_is_cancelled(core)),
+        request_generation=(lambda: getattr(core, "mcp_request_generation", 0)),
         event_queue=getattr(core, "event_queue", None),
         session_id=getattr(core, "session_id", None),
         session_store=getattr(core, "session_store", None),

@@ -237,7 +237,15 @@ class _McpStale(Exception):
 
 async def _await_mcp_operation(awaitable: Any) -> Any:
     task = asyncio.create_task(awaitable)
-    callback = getattr(get_callbacks(), "is_cancelled", None)
+    callbacks = get_callbacks()
+    callback = getattr(callbacks, "is_cancelled", None)
+    generation_callback = getattr(callbacks, "request_generation", None)
+    try:
+        initial_generation = (
+            generation_callback() if callable(generation_callback) else None
+        )
+    except Exception:
+        initial_generation = None
     try:
         while not task.done():
             if callable(callback) and callback():
@@ -248,6 +256,14 @@ async def _await_mcp_operation(awaitable: Any) -> Any:
         result = await task
         if callable(callback) and callback():
             raise _McpStale()
+        if callable(generation_callback):
+            try:
+                if generation_callback() != initial_generation:
+                    raise _McpStale()
+            except _McpStale:
+                raise
+            except Exception:
+                pass
         return result
     except asyncio.CancelledError as exc:
         if not task.done():
