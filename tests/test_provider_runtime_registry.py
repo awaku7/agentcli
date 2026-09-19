@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from uagent.providers.grok_runtime import GrokGrpcProviderRuntime
 from uagent.providers.inception_runtime import InceptionProviderRuntime
 from uagent.providers.openai_compatible_runtime import OpenAICompatibleRuntime
 from uagent.providers.pfn_runtime import PfnProviderRuntime
@@ -60,6 +61,20 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
         assert runtime.capabilities.transport == "chat_completions"
         assert registry.capability_snapshot(provider) is runtime.capabilities
         assert registry.providers() == (provider,)
+
+
+def test_registry_builds_grok_specialized_adapter() -> None:
+    registry = build_provider_runtime_registry(
+        provider="grok",
+        client=SimpleNamespace(),
+        model="grok-test",
+        identifiers=_identifiers(),
+    )
+
+    runtime = registry.resolve("grok")
+    assert isinstance(runtime, GrokGrpcProviderRuntime)
+    assert runtime.capabilities.provider == "grok"
+    assert supports_provider_runtime("grok") is True
 
 
 def test_registry_builds_pfn_specialized_adapter() -> None:

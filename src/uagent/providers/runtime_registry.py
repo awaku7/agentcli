@@ -14,6 +14,7 @@ from ..runtime.round_contracts import (
     RoundIdentifiers,
     RoundTransportSelection,
 )
+from .grok_runtime import GrokGrpcProviderRuntime
 from .inception_runtime import InceptionProviderRuntime
 from .openai_compatible_runtime import OpenAICompatibleRuntime
 from .pfn_runtime import PfnProviderRuntime
@@ -33,6 +34,7 @@ _SUPPORTED = frozenset(
         "lmstudio",
         "meta",
         "pfn",
+        "grok",
     }
 )
 
@@ -85,6 +87,17 @@ def build_provider_runtime_registry(
             client=client,
             model=model,
             identifiers=identifiers,
+            options=options,
+            capability_resolver=capability_resolver,
+        )
+    elif provider_key == "grok":
+        runtime = GrokGrpcProviderRuntime(
+            client=client,
+            provider=provider_key,
+            model=model,
+            identifiers=identifiers,
+            transport=transport,
+            streaming=streaming,
             options=options,
             capability_resolver=capability_resolver,
         )
