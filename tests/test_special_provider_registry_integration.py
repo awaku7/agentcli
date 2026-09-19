@@ -4,6 +4,10 @@ from types import SimpleNamespace
 
 from uagent.uagent_llm import _try_registry_simple_chat_round
 from uagent.runtime.provider_round_dispatcher import RegistryRoundRoute
+from uagent.runtime.round_identity import (
+    DeterministicTestWorkspaceKeyProvider,
+    RoundIdentityFactory,
+)
 
 
 class _Cancellation:
@@ -66,6 +70,9 @@ def _core(tmp_path, *, context_tool_specs=()):
         cancellation_token=_Cancellation(),
         context_tool_specs=context_tool_specs,
         responses_state={},
+        round_identity_factory=RoundIdentityFactory(
+            str(tmp_path), DeterministicTestWorkspaceKeyProvider()
+        ),
     )
 
 

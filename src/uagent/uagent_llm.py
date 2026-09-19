@@ -943,8 +943,15 @@ def _try_registry_simple_chat_round(
             session_generation=_responses_session_generation(core),
         )
         workspace_id = str(getattr(core, "workdir", "") or os.getcwd())
-        key_provider = CredentialStoreWorkspaceKeyProvider()
-        identity_factory = RoundIdentityFactory(workspace_id, key_provider)
+        identity_factory = getattr(core, "round_identity_factory", None)
+        supplied_key_provider = getattr(identity_factory, "key_provider", None)
+        if not callable(
+            getattr(identity_factory, "projection_id", None)
+        ) or not callable(getattr(supplied_key_provider, "get_key", None)):
+            key_provider = CredentialStoreWorkspaceKeyProvider()
+            identity_factory = RoundIdentityFactory(workspace_id, key_provider)
+        else:
+            key_provider = supplied_key_provider
         tool_specs = getattr(core, "context_tool_specs", None) or ()
         if send_tools_this_round and not tool_specs:
             from . import tools as _tools
