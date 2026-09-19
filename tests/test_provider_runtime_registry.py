@@ -6,6 +6,7 @@ import pytest
 
 from uagent.providers.inception_runtime import InceptionProviderRuntime
 from uagent.providers.openai_compatible_runtime import OpenAICompatibleRuntime
+from uagent.providers.pfn_runtime import PfnProviderRuntime
 from uagent.providers.runtime_registry import (
     build_provider_runtime_registry,
     supports_provider_runtime,
@@ -59,6 +60,20 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
         assert runtime.capabilities.transport == "chat_completions"
         assert registry.capability_snapshot(provider) is runtime.capabilities
         assert registry.providers() == (provider,)
+
+
+def test_registry_builds_pfn_specialized_adapter() -> None:
+    registry = build_provider_runtime_registry(
+        provider="pfn",
+        client=SimpleNamespace(),
+        model="plamo-test",
+        identifiers=_identifiers(),
+    )
+
+    runtime = registry.resolve("pfn")
+    assert isinstance(runtime, PfnProviderRuntime)
+    assert runtime.capabilities.provider == "pfn"
+    assert supports_provider_runtime("pfn") is True
 
 
 def test_registry_adapters_use_injected_capability_resolver() -> None:

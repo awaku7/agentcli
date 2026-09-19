@@ -16,6 +16,7 @@ from ..runtime.round_contracts import (
 )
 from .inception_runtime import InceptionProviderRuntime
 from .openai_compatible_runtime import OpenAICompatibleRuntime
+from .pfn_runtime import PfnProviderRuntime
 
 _SUPPORTED = frozenset(
     {
@@ -31,6 +32,7 @@ _SUPPORTED = frozenset(
         "ollama",
         "lmstudio",
         "meta",
+        "pfn",
     }
 )
 
@@ -83,6 +85,17 @@ def build_provider_runtime_registry(
             client=client,
             model=model,
             identifiers=identifiers,
+            options=options,
+            capability_resolver=capability_resolver,
+        )
+    elif provider_key == "pfn":
+        runtime = PfnProviderRuntime(
+            client=client,
+            provider=provider_key,
+            model=model,
+            identifiers=identifiers,
+            transport=transport,
+            streaming=streaming,
             options=options,
             capability_resolver=capability_resolver,
         )
