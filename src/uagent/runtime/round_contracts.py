@@ -12,6 +12,7 @@ from typing import Any, Iterable, Iterator, Literal, Mapping, Protocol, Sequence
 
 RoundStatus = Literal[
     "completed",
+    "continue",
     "failed",
     "cancelled",
     "timed_out",

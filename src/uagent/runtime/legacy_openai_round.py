@@ -10,6 +10,7 @@ from .legacy_round_registry import (
     LegacyRoundOutcome,
     RoundOutcomeCapabilities,
 )
+from .round_contracts import RoundSummary
 
 RoundDispatchResult = tuple[bool, Any, str, str, list[dict[str, Any]], bool]
 
@@ -84,6 +85,7 @@ def call_legacy_openai_compatible_outcome(
     """Wrap the OpenAI-compatible tuple for the shared legacy boundary."""
     result = call_legacy_openai_compatible_round(**kwargs)
     ok, client, assistant_text, reasoning_text, tool_calls, is_xai_grpc = result
+    normalized_tool_calls = tuple(tool_calls or ())
     return LegacyRoundOutcome(
         provider=str(kwargs.get("provider") or "").strip().lower(),
         status="ok" if ok else "return",
@@ -91,7 +93,7 @@ def call_legacy_openai_compatible_outcome(
         raw_result=result,
         client=client,
         reasoning_text=str(reasoning_text or ""),
-        tool_calls=tuple(tool_calls or ()),
+        tool_calls=normalized_tool_calls,
         is_xai_grpc=bool(is_xai_grpc),
         capabilities=RoundOutcomeCapabilities(
             host_rendered=bool(
@@ -101,6 +103,12 @@ def call_legacy_openai_compatible_outcome(
             supports_tool_continuation=bool(tool_calls),
         ),
         flow="openai_compatible",
+        summary=RoundSummary(
+            status="completed" if ok else "failed",
+            tool_call_count=len(normalized_tool_calls),
+            assistant_chars=len(str(assistant_text or "")),
+            reasoning_chars=len(str(reasoning_text or "")),
+        ),
     )
 
 

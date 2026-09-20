@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from uagent.runtime.round_contracts import RoundIdentifiers, RoundResult, RoundSummary
 from uagent.runtime.round_outcome import (
     project_round_outcome,
     round_outcome_event,
@@ -36,3 +37,29 @@ def test_round_outcome_key_suppresses_duplicate_host_updates() -> None:
         "completed",
         None,
     )
+
+
+def test_project_round_outcome_accepts_provider_neutral_result() -> None:
+    result = RoundResult(
+        identifiers=RoundIdentifiers(
+            "turn", "round-2", "attempt", "request", "stream", 1
+        ),
+        plan_id="plan",
+        projection_id="projection",
+        status="continue",
+        assistant_text="partial",
+        tool_calls=({"id": "call-1"},),
+        summary=RoundSummary(
+            status="continue",
+            tool_call_count=1,
+            assistant_chars=7,
+        ),
+    )
+
+    projected = project_round_outcome(result)
+
+    assert projected["round"] == "round-2"
+    assert projected["status"] == "continue"
+    assert projected["tool_calls"] == 1
+    assert projected["summary"]["tool_call_count"] == 1
+    assert "assistant_text" not in projected

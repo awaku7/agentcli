@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import time
 from dataclasses import dataclass
 from typing import Any, Literal, Mapping, TypeAlias
+
+from .round_contracts import RoundSummary
 
 LegacyRoundResult: TypeAlias = tuple[Any, ...]
 
@@ -32,6 +35,7 @@ class LegacyRoundOutcome:
     is_xai_grpc: bool = False
     capabilities: RoundOutcomeCapabilities = RoundOutcomeCapabilities()
     flow: Literal["registry", "legacy", "openai_compatible"] = "legacy"
+    summary: RoundSummary | None = None
 
 
 from .legacy_claude_round import run_legacy_claude_round
@@ -67,19 +71,27 @@ def run_legacy_provider_outcome(
     *, provider: str, **kwargs: Any
 ) -> LegacyRoundOutcome | None:
     """Wrap a legacy tuple without changing its compatibility payload."""
+    started = time.perf_counter()
     result = run_legacy_provider_round(provider=provider, **kwargs)
     if result is None:
         return None
+    assistant_text = str(result[4] or "") if len(result) > 4 else ""
+    summary = RoundSummary(
+        status="completed",
+        duration_ms=(time.perf_counter() - started) * 1000.0,
+        assistant_chars=len(assistant_text),
+    )
     return LegacyRoundOutcome(
         provider=(provider or "").strip().lower(),
         status=str(result[0]),
-        assistant_text=str(result[4] or ""),
+        assistant_text=assistant_text,
         raw_result=result,
         client=result[1] if len(result) > 1 else None,
         capabilities=RoundOutcomeCapabilities(
             owns_tool_execution=True,
             host_rendered=True,
         ),
+        summary=summary,
     )
 
 
