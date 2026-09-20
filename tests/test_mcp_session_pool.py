@@ -116,6 +116,67 @@ def test_http_session_pool_cancels_inflight_call(monkeypatch):
         pool.close()
 
 
+class _RecoveringMCPClient:
+    created = 0
+    closed = 0
+
+    def __init__(self, **kwargs):
+        type(self).created += 1
+        self.instance = type(self).created
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc, tb):
+        type(self).closed += 1
+
+    async def list_tools(self):
+        return {"tools": []}
+
+    async def call_tool(self, name, arguments):
+        if self.instance == 1:
+            await asyncio.sleep(2)
+        return {"name": name, "arguments": arguments, "instance": self.instance}
+
+
+def test_http_session_pool_discards_cancelled_session_before_next_round(
+    monkeypatch,
+):
+    _RecoveringMCPClient.created = 0
+    _RecoveringMCPClient.closed = 0
+    monkeypatch.setattr(session_pool, "MCPClient", _RecoveringMCPClient)
+    pool = session_pool.MCPHTTPSessionPool()
+    started = time.monotonic()
+    try:
+        pool.list_tools(
+            url="http://recover.example.test/mcp",
+            headers={},
+            protocol_mode="auto",
+        )
+        with pytest.raises(session_pool.MCPSessionCancelled):
+            pool.call_tool(
+                url="http://recover.example.test/mcp",
+                name="slow",
+                arguments={},
+                headers={},
+                protocol_mode="auto",
+                is_cancelled=lambda: time.monotonic() - started > 0.1,
+            )
+
+        _, result = pool.call_tool(
+            url="http://recover.example.test/mcp",
+            name="next",
+            arguments={},
+            headers={},
+            protocol_mode="auto",
+        )
+        assert result["instance"] == 2
+        assert _RecoveringMCPClient.created == 2
+        assert _RecoveringMCPClient.closed >= 1
+    finally:
+        pool.close()
+
+
 def test_http_session_pool_rejects_stale_generation(monkeypatch):
     monkeypatch.setattr(session_pool, "MCPClient", _SlowMCPClient)
     pool = session_pool.MCPHTTPSessionPool()

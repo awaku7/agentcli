@@ -357,6 +357,10 @@ def _call_mcp_http_reused(
         url=url,
         headers=headers,
         protocol_mode=protocol_mode,
+        is_cancelled=is_cancelled if callable(is_cancelled) else None,
+        request_generation=(
+            request_generation if callable(request_generation) else None
+        ),
     )
     validation_error = _validate_mcp_arguments(name, argv, tools_result)
     if validation_error is not None:

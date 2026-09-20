@@ -82,6 +82,68 @@ class MCPHTTPSessionPool:
             loop.close()
             self._loop = None
 
+    async def _discard_entry(self, key: str) -> None:
+        entry = self._entries.pop(key, None)
+        if entry is None:
+            return
+        try:
+            await entry.client.__aexit__(None, None, None)
+        except Exception:
+            pass
+
+    def _discard_entry_sync(self, key: str) -> None:
+        try:
+            self._submit(self._discard_entry(key)).result(timeout=2)
+        except Exception:
+            pass
+
+    @staticmethod
+    def _generation_value(callback: Callable[[], Any] | None) -> Any:
+        if not callable(callback):
+            return None
+        try:
+            return callback()
+        except Exception:
+            return None
+
+    def _wait_for_future(
+        self,
+        future: Any,
+        *,
+        key: str,
+        is_cancelled: Callable[[], bool] | None,
+        request_generation: Callable[[], Any] | None,
+    ) -> Any:
+        initial_generation = self._generation_value(request_generation)
+        try:
+            while not future.done():
+                if callable(is_cancelled) and is_cancelled():
+                    future.cancel()
+                    self._discard_entry_sync(key)
+                    raise MCPSessionCancelled()
+                if (
+                    callable(request_generation)
+                    and self._generation_value(request_generation) != initial_generation
+                ):
+                    future.cancel()
+                    self._discard_entry_sync(key)
+                    raise MCPSessionStale()
+                time.sleep(0.05)
+            result = future.result()
+            if callable(is_cancelled) and is_cancelled():
+                self._discard_entry_sync(key)
+                raise MCPSessionStale()
+            if (
+                callable(request_generation)
+                and self._generation_value(request_generation) != initial_generation
+            ):
+                self._discard_entry_sync(key)
+                raise MCPSessionStale()
+            return result
+        except (MCPSessionCancelled, MCPSessionStale):
+            future.cancel()
+            raise
+
     def _submit(self, coroutine: Any):
         self._ensure_worker()
         assert self._loop is not None
@@ -156,6 +218,8 @@ class MCPHTTPSessionPool:
         url: str,
         headers: dict[str, str],
         protocol_mode: str,
+        is_cancelled: Callable[[], bool] | None = None,
+        request_generation: Callable[[], Any] | None = None,
     ) -> Any:
         """Return the cached tool list, initializing the session if needed."""
         key = self._key(url, headers, protocol_mode, id(self._client_factory))
@@ -167,7 +231,12 @@ class MCPHTTPSessionPool:
                 protocol_mode=protocol_mode,
             )
         )
-        return future.result().tools_result
+        return self._wait_for_future(
+            future,
+            key=key,
+            is_cancelled=is_cancelled,
+            request_generation=request_generation,
+        ).tools_result
 
     def call_tool(
         self,
@@ -181,12 +250,6 @@ class MCPHTTPSessionPool:
         request_generation: Callable[[], Any] | None = None,
     ) -> tuple[Any, Any]:
         """Call an MCP tool, reusing the initialized HTTP session."""
-        initial_generation = None
-        if callable(request_generation):
-            try:
-                initial_generation = request_generation()
-            except Exception:
-                pass
         key = self._key(url, headers, protocol_mode, id(self._client_factory))
         future = self._submit(
             self._call_tool(
@@ -198,36 +261,12 @@ class MCPHTTPSessionPool:
                 protocol_mode=protocol_mode,
             )
         )
-        try:
-            while not future.done():
-                if callable(is_cancelled) and is_cancelled():
-                    future.cancel()
-                    raise MCPSessionCancelled()
-                if callable(request_generation):
-                    try:
-                        if request_generation() != initial_generation:
-                            future.cancel()
-                            raise MCPSessionStale()
-                    except (MCPSessionCancelled, MCPSessionStale):
-                        raise
-                    except Exception:
-                        pass
-                time.sleep(0.05)
-            result = future.result()
-            if callable(is_cancelled) and is_cancelled():
-                raise MCPSessionStale()
-            if callable(request_generation):
-                try:
-                    if request_generation() != initial_generation:
-                        raise MCPSessionStale()
-                except MCPSessionStale:
-                    raise
-                except Exception:
-                    pass
-            return result
-        except (MCPSessionCancelled, MCPSessionStale):
-            future.cancel()
-            raise
+        return self._wait_for_future(
+            future,
+            key=key,
+            is_cancelled=is_cancelled,
+            request_generation=request_generation,
+        )
 
     async def _close_all(self) -> None:
         entries = list(self._entries.values())
