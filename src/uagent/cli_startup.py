@@ -19,6 +19,9 @@ class CliStartupState:
     session_id: str | None = None
     inject_message_auto: str | None = None
     should_exit: bool = False
+    startup_timing_enabled: bool = False
+    startup_timing_started: float | None = None
+    startup_timing_marks: dict[str, float] | None = None
 
 
 def _prompt_startup_tool_genre_mask() -> int:
@@ -484,6 +487,11 @@ def run_cli_startup(
             session_id=session_id,
             inject_message_auto=inject_message_auto,
             should_exit=True,
+            startup_timing_enabled=startup_timing_enabled,
+            startup_timing_started=(
+                startup_timing_started if startup_timing_enabled else None
+            ),
+            startup_timing_marks=dict(startup_timing_marks),
         )
 
     _startup_timing_mark("complete")
@@ -498,4 +506,9 @@ def run_cli_startup(
         session_id=session_id,
         inject_message_auto=inject_message_auto,
         should_exit=False,
+        startup_timing_enabled=startup_timing_enabled,
+        startup_timing_started=(
+            startup_timing_started if startup_timing_enabled else None
+        ),
+        startup_timing_marks=dict(startup_timing_marks),
     )

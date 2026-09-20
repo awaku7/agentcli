@@ -6,6 +6,7 @@ import json
 import os
 import sys
 import threading
+import time
 from typing import Any
 
 from ..i18n import _
@@ -76,6 +77,19 @@ def main() -> None:
     session_store = startup.session_store
     _bootstrap_prompt_history(messages)
 
+    def _startup_timing_mark(name: str) -> None:
+        if not getattr(startup, "startup_timing_enabled", False):
+            return
+        started = getattr(startup, "startup_timing_started", None)
+        if not isinstance(started, (int, float)):
+            return
+        elapsed = time.perf_counter() - started
+        print(
+            f"[startup-timing] {name}={elapsed:.3f}s",
+            file=sys.stderr,
+            flush=True,
+        )
+
     if startup.should_exit:
         return
 
@@ -131,8 +145,12 @@ def main() -> None:
 
     t = threading.Thread(target=stdin_loop, daemon=True)
     t.start()
+    _startup_timing_mark("stdin_loop_started")
 
     running = True
+    first_event_received = False
+    first_llm_started = False
+    first_llm_completed = False
     try:
         # Scheduler execution records are updated when scheduled events enter
         # the interactive worker loop.  The store is durable and independent
@@ -207,6 +225,9 @@ def main() -> None:
                 print()
                 print("[INFO] " + _("Received Ctrl+C. Starting shutdown..."))
                 break
+            if not first_event_received:
+                first_event_received = True
+                _startup_timing_mark("first_event_received")
             kind = ev.get("kind")
 
             if kind == "command":
@@ -222,6 +243,9 @@ def main() -> None:
                     messages.append(user_msg)
                     _append_prompt_history_entry(prompt)
                     core.log_message(user_msg)
+                    if not first_llm_started:
+                        first_llm_started = True
+                        _startup_timing_mark("first_llm_started")
                     with lifecycle_execution() as lifecycle:
                         try:
                             _run_llm_event(
@@ -267,6 +291,10 @@ def main() -> None:
                         except Exception as exc:
                             lifecycle.fail()
                             print(_("LLM round interrupted: %(err)s") % {"err": exc})
+
+                    if first_llm_started and not first_llm_completed:
+                        first_llm_completed = True
+                        _startup_timing_mark("first_llm_completed")
 
                     # Auto-pilot loop: if auto mode is active, continue rounds
                     if core.auto_pilot_active:
