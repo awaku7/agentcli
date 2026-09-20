@@ -262,9 +262,19 @@ class MemoryStore:
         ):
             raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
         try:
-            self.db.execute(
-                "DELETE FROM memories WHERE memory_id = ?", (str(memory_id),)
-            )
+            if expected_revision is None:
+                cursor = self.db.execute(
+                    "DELETE FROM memories WHERE memory_id = ?", (str(memory_id),)
+                )
+            else:
+                cursor = self.db.execute(
+                    "DELETE FROM memories WHERE memory_id = ? "
+                    "AND status = 'active' AND revision = ?",
+                    (str(memory_id), int(expected_revision)),
+                )
+            if cursor.rowcount != 1:
+                self.db.rollback()
+                raise MemoryStoreConflictError(f"memory revision conflict: {memory_id}")
             self.db.commit()
         except Exception:
             self.db.rollback()
