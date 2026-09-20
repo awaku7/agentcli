@@ -1391,9 +1391,11 @@ def _run_one_round(
     )
     call_messages = apply_memory_projection(
         call_messages,
-        getattr(core, "memory_projection_snapshot", None)
-        if not judgment_mode
-        else None,
+        (
+            getattr(core, "memory_projection_snapshot", None)
+            if not judgment_mode
+            else None
+        ),
         core,
     )
 
@@ -2489,7 +2491,9 @@ def run_llm_rounds(
             try:
                 # Prepare once per user turn; _run_one_round reuses this
                 # snapshot for retries and the entire tool loop.
-                core.memory_projection_snapshot = prepare_memory_projection(messages, core)
+                core.memory_projection_snapshot = prepare_memory_projection(
+                    messages, core
+                )
             except Exception:
                 core.memory_projection_snapshot = None
             _inject_agent_state_context(messages, core)

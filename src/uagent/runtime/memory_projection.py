@@ -11,7 +11,6 @@ from ..profile_manager import is_profiling_enabled, load_profile
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
 from .runtime_memory import _format_profile
 
-
 _TRUE = {"1", "true", "yes", "on"}
 _EVIDENCE_HEADER = (
     "[MEMORY EVIDENCE]\n"
@@ -51,9 +50,7 @@ def _project_name(core: Any) -> str:
 def _memory_owner(core: Any) -> str:
     """Resolve the explicit owner boundary for this runtime projection."""
     return str(
-        getattr(core, "memory_owner", "")
-        or env_get("UAGENT_MEMORY_OWNER", "")
-        or ""
+        getattr(core, "memory_owner", "") or env_get("UAGENT_MEMORY_OWNER", "") or ""
     ).strip()
 
 
@@ -77,7 +74,9 @@ class MemoryProjectionSnapshot:
         return dict(self.diagnostics)
 
 
-def _items_from_result(scope: str, result: MemoryShadowResult) -> list[MemoryProjectionItem]:
+def _items_from_result(
+    scope: str, result: MemoryShadowResult
+) -> list[MemoryProjectionItem]:
     return [
         MemoryProjectionItem(
             scope=scope,
@@ -265,7 +264,11 @@ def apply_memory_projection(
         projected.append(dict(message))
 
     insertion = next(
-        (index for index, message in enumerate(projected) if message.get("role") != "system"),
+        (
+            index
+            for index, message in enumerate(projected)
+            if message.get("role") != "system"
+        ),
         len(projected),
     )
     additions: list[dict[str, Any]] = []

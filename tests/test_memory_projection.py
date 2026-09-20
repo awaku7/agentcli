@@ -32,7 +32,10 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     monkeypatch.setattr(
         memory_projection,
         "load_profile",
-        lambda: {"constraints": ["never expose secrets"], "preferences": ["be concise"]},
+        lambda: {
+            "constraints": ["never expose secrets"],
+            "preferences": ["be concise"],
+        },
     )
 
     baseline = "[legacy broad memory]\n- database rule"
@@ -55,7 +58,9 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     contents = [str(message.get("content")) for message in projected]
     assert baseline not in contents
     assert any("[USER PROFILE]" in content for content in contents)
-    evidence = [content for content in contents if content.startswith("[MEMORY EVIDENCE]")]
+    evidence = [
+        content for content in contents if content.startswith("[MEMORY EVIDENCE]")
+    ]
     assert len(evidence) == 1
     assert evidence[0].count("database rule") == 1
     assert len(evidence[0]) <= 500
@@ -71,8 +76,13 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
 
     retried = apply_memory_projection(projected, snapshot, core)
     retried_contents = [str(message.get("content")) for message in retried]
-    assert sum(content.startswith("[MEMORY EVIDENCE]") for content in retried_contents) == 1
-    assert sum(content.startswith("[USER PROFILE]") for content in retried_contents) == 1
+    assert (
+        sum(content.startswith("[MEMORY EVIDENCE]") for content in retried_contents)
+        == 1
+    )
+    assert (
+        sum(content.startswith("[USER PROFILE]") for content in retried_contents) == 1
+    )
 
 
 def test_projection_is_disabled_without_explicit_opt_in(monkeypatch) -> None:
