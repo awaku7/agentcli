@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -19,6 +20,37 @@ LOAD_DISABLED_REASON = _(
     "err.unavailable",
     default="This tool is available on Unix-like systems with bash installed.",
 )
+
+_COMMAND_SEPARATORS = {";", "&&", "||", "|", "&"}
+_REDIRECTION_OPERATORS = {"<", ">", "<<", ">>"}
+_INDIRECT_EXECUTORS = {
+    "bash",
+    "builtin",
+    "chroot",
+    "command",
+    "doas",
+    "env",
+    "exec",
+    "find",
+    "nice",
+    "nohup",
+    "runuser",
+    "setsid",
+    "sh",
+    "stdbuf",
+    "su",
+    "sudo",
+    "time",
+    "timeout",
+    "xargs",
+}
+_ASSIGNMENT_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=.*$", re.DOTALL)
+_QUOTED_PUNCTUATION_MASK = str.maketrans(
+    {character: chr(0xE000 + index) for index, character in enumerate(";&|<>()")}
+)
+_QUOTED_PUNCTUATION_RESTORE = {
+    value: key for key, value in _QUOTED_PUNCTUATION_MASK.items()
+}
 
 TOOL_SPEC: dict[str, Any] = {
     "computer_use_conflict": True,
@@ -68,6 +100,132 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _mask_quoted_shell_punctuation(command: str) -> str:
+    """Hide quoted operator characters from ``shlex`` punctuation splitting."""
+    output: list[str] = []
+    quote: str | None = None
+    escaped = False
+    for character in command:
+        if escaped:
+            output.append(character.translate(_QUOTED_PUNCTUATION_MASK))
+            escaped = False
+            continue
+        if character == "\\" and quote != "'":
+            output.append(character)
+            escaped = True
+            continue
+        if character in {"'", '"'}:
+            if quote is None:
+                quote = character
+            elif quote == character:
+                quote = None
+            output.append(character)
+            continue
+        output.append(
+            character.translate(_QUOTED_PUNCTUATION_MASK) if quote else character
+        )
+    return "".join(output)
+
+
+def _has_active_shell_substitution(command: str) -> bool:
+    """Detect substitutions that are active outside single-quoted literals."""
+    quote: str | None = None
+    escaped = False
+    index = 0
+    while index < len(command):
+        character = command[index]
+        if escaped:
+            escaped = False
+            index += 1
+            continue
+        if character == "\\" and quote != "'":
+            escaped = True
+            index += 1
+            continue
+        if character in {"'", '"'}:
+            if quote is None:
+                quote = character
+            elif quote == character:
+                quote = None
+            index += 1
+            continue
+        if quote != "'":
+            if character == "`":
+                return True
+            if command.startswith(("$(", "<(", ">("), index):
+                return True
+        index += 1
+    return False
+
+
+def _allowlisted_executables(command: str) -> tuple[list[str], str | None]:
+    """Return every command head in a conservatively supported shell command.
+
+    The non-interactive allowlist is a guard around ``bash -lc``, not a full
+    shell sandbox. Support ordinary chaining and pipelines, but reject shell
+    constructs that can hide another executable from command-head inspection.
+    """
+    if "\n" in command or "\r" in command:
+        return [], "multiline shell commands are not supported in allowlist mode"
+    if _has_active_shell_substitution(command):
+        return [], "shell substitution is not supported in allowlist mode"
+
+    try:
+        lexer = shlex.shlex(
+            _mask_quoted_shell_punctuation(command),
+            posix=True,
+            punctuation_chars=";&|<>()",
+        )
+        lexer.whitespace_split = True
+        lexer.commenters = ""
+        tokens = [token.translate(_QUOTED_PUNCTUATION_RESTORE) for token in lexer]
+    except ValueError as exc:
+        return [], f"command could not be parsed safely: {exc}"
+
+    if not tokens:
+        return [], "empty command"
+
+    executables: list[str] = []
+    expect_command = True
+    skip_redirection_target = False
+    for token in tokens:
+        if token in {"(", ")"}:
+            return [], "subshell grouping is not supported in allowlist mode"
+        if token in _COMMAND_SEPARATORS:
+            if expect_command:
+                return [], f"unexpected shell operator '{token}'"
+            expect_command = True
+            skip_redirection_target = False
+            continue
+        if token in _REDIRECTION_OPERATORS:
+            skip_redirection_target = True
+            continue
+        if skip_redirection_target:
+            skip_redirection_target = False
+            continue
+        if not expect_command:
+            continue
+        if token == "!" or _ASSIGNMENT_RE.match(token):
+            continue
+
+        executable = os.path.basename(token).strip().lower()
+        if not executable:
+            return [], "empty executable name"
+        if executable in _INDIRECT_EXECUTORS:
+            return [], (
+                f"indirect executor '{executable}' is not supported in "
+                "allowlist mode"
+            )
+        executables.append(executable)
+        expect_command = False
+
+    if skip_redirection_target:
+        return [], "redirection target is missing"
+    if expect_command:
+        return [], "command is missing after a shell operator"
+    return executables, None
+
+
 def _policy_block_reason(command: str) -> str | None:
     policy = os.environ.get("UAGENT_BASH_EXEC_POLICY", "").strip().lower()
     if policy in {"deny", "off", "disabled", "0", "false", "no"}:
@@ -97,18 +255,16 @@ def _policy_block_reason(command: str) -> str | None:
             "UAGENT_BASH_EXEC_ALLOWLIST=command1,command2"
         )
 
-    try:
-        tokens = shlex.split(command, posix=True)
-    except ValueError as exc:
-        return f"command could not be parsed safely: {exc}"
-    if not tokens:
-        return "empty command"
-    executable = os.path.basename(tokens[0]).strip().lower()
-    if allowlist and executable not in allowlist:
-        return (
-            f"command '{executable}' is not in UAGENT_BASH_EXEC_ALLOWLIST "
-            f"({','.join(sorted(allowlist))})"
-        )
+    if allowlist:
+        executables, parse_error = _allowlisted_executables(command)
+        if parse_error:
+            return parse_error
+        blocked = [name for name in executables if name not in allowlist]
+        if blocked:
+            return (
+                f"command '{blocked[0]}' is not in UAGENT_BASH_EXEC_ALLOWLIST "
+                f"({','.join(sorted(allowlist))})"
+            )
     return None
 
 
