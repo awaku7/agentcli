@@ -182,3 +182,57 @@ def test_projection_excludes_owner_mismatch_but_keeps_legacy_records(
         for item in diagnostics
         if item["action"] == "candidate"
     )
+
+
+def test_strict_scope_opt_in_excludes_legacy_unknown_records(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime.memory_projection import (
+        apply_memory_projection,
+        prepare_memory_projection,
+    )
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_STRICT_SCOPE", "1")
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [
+            {
+                "note": "scoped rule",
+                "owner": "alice",
+                "project": tmp_path.name,
+            },
+            {
+                "note": "other owner rule",
+                "owner": "bob",
+                "project": tmp_path.name,
+            },
+            {"note": "legacy rule"},
+        ],
+    )
+    core = type("Core", (), {})()
+    core.workdir = str(tmp_path)
+    core.memory_owner = "alice"
+
+    snapshot = prepare_memory_projection([{"role": "user", "content": "rule"}], core)
+    projected = apply_memory_projection(
+        [{"role": "user", "content": "rule"}], snapshot, core
+    )
+
+    assert snapshot is not None
+    evidence = [
+        str(message["content"])
+        for message in projected
+        if str(message.get("content", "")).startswith("[MEMORY EVIDENCE]")
+    ]
+    assert len(evidence) == 1
+    assert "scoped rule" in evidence[0]
+    assert "other owner rule" not in evidence[0]
+    assert "legacy rule" not in evidence[0]
+    assert snapshot.diagnostics["strict_scope"] is True
+    reasons = {
+        item["reason"] for item in snapshot.diagnostics["personal"]["diagnostics"]
+    }
+    assert "scope_unknown" in reasons

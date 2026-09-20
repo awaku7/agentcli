@@ -98,6 +98,9 @@ def prepare_memory_projection(
     query = _latest_user_query(messages)
     owner = _memory_owner(core)
     project = _project_name(core)
+    strict_scope = _enabled("UAGENT_MEMORY_STRICT_SCOPE")
+    owner_filter = owner if owner else ("<missing-owner>" if strict_scope else "")
+    allow_legacy_unknown = not strict_scope
     max_candidates = _positive_int("UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES", 20)
     try:
         from ..tools import long_memory, shared_memory
@@ -106,12 +109,10 @@ def prepare_memory_projection(
             long_memory.load_long_memory_records(),
             query=query,
             scope="personal",
-            owner=owner,
+            owner=owner_filter,
             project=project,
             max_candidates=max_candidates,
-            # PR3 keeps legacy records usable; PR4 will enable strict scope
-            # enforcement after owner/project metadata migration.
-            allow_legacy_unknown=True,
+            allow_legacy_unknown=allow_legacy_unknown,
         )
         shared_result: MemoryShadowResult | None = None
         if shared_memory.is_enabled():
@@ -119,12 +120,10 @@ def prepare_memory_projection(
                 shared_memory.load_shared_memory_records(),
                 query=query,
                 scope="shared",
-                owner=owner,
+                owner=owner_filter,
                 project=project,
                 max_candidates=max_candidates,
-                # PR3 keeps legacy records usable; PR4 will enable strict scope
-                # enforcement after owner/project metadata migration.
-                allow_legacy_unknown=True,
+                allow_legacy_unknown=allow_legacy_unknown,
             )
     except Exception as exc:
         return MemoryProjectionSnapshot(
@@ -186,6 +185,7 @@ def prepare_memory_projection(
     )
     diagnostics = {
         "enabled": True,
+        "strict_scope": strict_scope,
         "query_chars": len(query),
         "owner": owner_label,
         "project": project,
