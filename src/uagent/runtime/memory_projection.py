@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass
 from typing import Any, Sequence
 
@@ -42,9 +41,10 @@ def _latest_user_query(messages: Sequence[dict[str, Any]]) -> str:
 
 
 def _project_name(core: Any) -> str:
-    from .session_store import project_id_from_path
+    del core
+    from .memory_scope import resolve_memory_project
 
-    return project_id_from_path(str(getattr(core, "workdir", "") or os.getcwd()))
+    return resolve_memory_project()
 
 
 def _memory_owner(core: Any) -> str:

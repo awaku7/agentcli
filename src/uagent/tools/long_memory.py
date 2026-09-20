@@ -62,17 +62,16 @@ def get_max_memory_bytes() -> int:
 def _resolve_project(project: str = "") -> str:
     if project.strip():
         return project.strip()
-    configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
-    if configured:
-        return configured
-    from ..runtime.session_store import project_id_from_path
+    from ..runtime.memory_scope import resolve_memory_project
 
-    return project_id_from_path(os.getcwd())
+    return resolve_memory_project()
 
 
 def append_long_memory(note: str, *, owner: str = "", project: str = "") -> bool:
     """Append one personal memory record and report whether it was saved."""
-    owner = owner.strip() or str(env_get("UAGENT_MEMORY_OWNER", "") or "").strip()
+    from ..runtime.memory_scope import resolve_memory_owner
+
+    owner = resolve_memory_owner(owner)
     project = _resolve_project(project)
     if _use_sqlite():
         try:

@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import os
 import time
 import uuid
 from pathlib import Path
@@ -47,12 +46,9 @@ def get_shared_memory_file() -> str:
 def _resolve_project(project: str = "") -> str:
     if project.strip():
         return project.strip()
-    configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
-    if configured:
-        return configured
-    from ..runtime.session_store import project_id_from_path
+    from ..runtime.memory_scope import resolve_memory_project
 
-    return project_id_from_path(os.getcwd())
+    return resolve_memory_project()
 
 
 def get_max_bytes() -> int:
@@ -69,7 +65,9 @@ def get_max_bytes() -> int:
 
 def append_shared_memory(note: str, *, owner: str = "", project: str = "") -> None:
     """Append a structured record to the shared memory file."""
-    owner = owner.strip() or str(env_get("UAGENT_MEMORY_OWNER", "") or "").strip()
+    from ..runtime.memory_scope import resolve_memory_owner
+
+    owner = resolve_memory_owner(owner)
     project = _resolve_project(project)
     path = _get_shared_memory_file()
     if not path:
