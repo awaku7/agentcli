@@ -58,7 +58,7 @@ def analyze_image_gemini(
 
     model_name = _img_env(provider, "analysis", "depname", required=False)
     if not model_name:
-        model_name = "gemini-2.5-flash"
+        model_name = "gemini-3.8-flash"
 
     # Initialize client
     try:

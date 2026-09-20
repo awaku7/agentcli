@@ -353,7 +353,7 @@ def _image_analysis_model_keys(provider: str) -> tuple[list[str], str]:
         keys.append(f"UAGENT_{p}_DEPNAME")
         return keys, f"UAGENT_{p}_DEPNAME/default"
     if provider in ("gemini", "vertexai"):
-        return keys, "default gemini-2.5-flash"
+        return keys, "default gemini-3.8-flash"
     if provider == "deepseek":
         return keys, "default deepseek-flash"
     return keys, "default"
