@@ -9,10 +9,12 @@ memory IDs.
 
 from __future__ import annotations
 
+import os
 import re
 from dataclasses import dataclass
 from typing import Any, Literal, Sequence
 
+from ..env_utils import env_get
 from .active_context import ContextCandidate
 
 MemoryScope = Literal["personal", "shared"]
@@ -291,9 +293,103 @@ def shadow_retrieve_memories(
     )
 
 
+def _env_enabled(name: str) -> bool:
+    return (env_get(name, "0") or "0").strip().casefold() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+
+def _latest_user_query(messages: Sequence[dict[str, Any]]) -> str:
+    for message in reversed(messages):
+        if not isinstance(message, dict) or message.get("role") != "user":
+            continue
+        content = message.get("content")
+        if isinstance(content, str) and content.strip():
+            return content[-4000:]
+    return ""
+
+
+def observe_memory_shadow_retrieval(
+    messages: Sequence[dict[str, Any]],
+    core: Any,
+    *,
+    max_candidates: int = 20,
+) -> dict[str, Any] | None:
+    """Observe shadow retrieval during a real turn without changing its input.
+
+    The feature is opt-in via ``UAGENT_MEMORY_SHADOW_RETRIEVAL``.  Only counts,
+    temporary candidate IDs, scope decisions, and query length are retained in
+    the runtime observation; memory note bodies are never logged.
+    """
+    if not _env_enabled("UAGENT_MEMORY_SHADOW_RETRIEVAL"):
+        return None
+
+    query = _latest_user_query(messages)
+    try:
+        from ..tools import long_memory, shared_memory
+        from .session_store import project_id_from_path
+
+        project = project_id_from_path(
+            str(getattr(core, "workdir", "") or os.getcwd())
+        )
+        personal = shadow_retrieve_memories(
+            long_memory.load_long_memory_records(),
+            query=query,
+            scope="personal",
+            project=project,
+            max_candidates=max_candidates,
+        )
+        shared = None
+        if shared_memory.is_enabled():
+            shared = shadow_retrieve_memories(
+                shared_memory.load_shared_memory_records(),
+                query=query,
+                scope="shared",
+                project=project,
+                max_candidates=max_candidates,
+            )
+        observation: dict[str, Any] = {
+            "type": "memory_shadow_retrieval",
+            "schema_version": 1,
+            "query_chars": len(query),
+            "project": project,
+            "personal": personal.to_dict(),
+            "shared": shared.to_dict() if shared is not None else None,
+        }
+    except Exception as exc:
+        observation = {
+            "type": "memory_shadow_retrieval",
+            "schema_version": 1,
+            "query_chars": len(query),
+            "error": type(exc).__name__,
+        }
+
+    try:
+        core.memory_shadow_last_observation = observation
+        history = list(getattr(core, "memory_shadow_observations", []) or [])
+        history.append(observation)
+        core.memory_shadow_observations = history[-20:]
+    except Exception:
+        pass
+
+    # A non-role event is ignored by the SQLite session-message callback, while
+    # JSONL logging and host-specific observers can still inspect the counts.
+    try:
+        logger = getattr(core, "log_message", None)
+        if callable(logger):
+            logger(observation)
+    except Exception:
+        pass
+    return observation
+
+
 __all__ = [
     "MemoryShadowDiagnostic",
     "MemoryShadowResult",
     "MemoryScope",
     "shadow_retrieve_memories",
+    "observe_memory_shadow_retrieval",
 ]
