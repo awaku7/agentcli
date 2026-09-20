@@ -376,10 +376,10 @@ def get_model_name() -> str:
         )
     if provider == "claude":
         return (
-            env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5") or "claude-sonnet-4.5"
+            env_get("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4-6") or "claude-sonnet-4-6"
         )
     if provider == "ollama":
-        return env_get("UAGENT_OLLAMA_DEPNAME", "llama3.1") or "llama3.1"
+        return env_get("UAGENT_OLLAMA_DEPNAME", "llama3.3") or "llama3.3"
     if provider == "llama_cpp":
         return env_get("UAGENT_LLAMA_CPP_DEPNAME", "local-model") or "local-model"
     if provider == "nvidia":

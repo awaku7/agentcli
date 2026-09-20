@@ -232,7 +232,7 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
     if provider == "ollama":
         if _env("UAGENT_PROVIDER").lower() != "ollama":
             return None
-        return provider, _env("UAGENT_OLLAMA_DEPNAME", "llama3.1") or "llama3.1"
+        return provider, _env("UAGENT_OLLAMA_DEPNAME", "llama3.3") or "llama3.3"
 
     include_global = provider in {"openai", "azure"}
     depname = _img_env(provider, "analysis", "depname", include_global=include_global)
