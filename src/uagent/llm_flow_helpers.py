@@ -29,6 +29,20 @@ def _is_external_data_tool(name: str) -> bool:
     return name in tools.get_external_data_tools()
 
 
+def _normalize_tool_result_json(text: str) -> str:
+    """Optionally decode JSON unicode escapes before passing results to an LLM."""
+    raw = (env_get("UAGENT_TOOL_RESULT_JSON_UNESCAPE", "0") or "0").strip().lower()
+    if raw not in {"1", "true", "yes", "on"}:
+        return text
+    try:
+        value = json.loads(text)
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return text
+    if not isinstance(value, (dict, list)):
+        return text
+    return json.dumps(value, ensure_ascii=False)
+
+
 def _strip_inline_binary_payloads(value: Any) -> Any:
     """Return a tool result copy without inline binary payloads.
 
@@ -753,6 +767,7 @@ def _execute_tool_calls(
         # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)
         if not isinstance(tool_result, str):
             tool_result = json.dumps(tool_result, ensure_ascii=False)
+        tool_result = _normalize_tool_result_json(tool_result)
 
         tool_msg: dict[str, Any] = {
             "role": "tool",
