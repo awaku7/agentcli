@@ -5,6 +5,7 @@ from uagent.runtime.provider_round_dispatcher import (
     RegistryRoundRoute,
     dispatch_provider_round,
     registry_result_to_legacy_tuple,
+    registry_tuple_to_outcome,
     registry_round_allowed,
     resolve_registry_round_route,
 )
@@ -64,6 +65,12 @@ def test_dispatcher_exposes_shared_outcome_without_changing_raw_result() -> None
     assert dispatch.outcome.capabilities.handles_collected_result is True
     assert dispatch.outcome.capabilities.owns_tool_execution is False
     assert dispatch.outcome.capabilities.supports_tool_continuation is True
+    assert dispatch.outcome.summary is not None
+    assert dispatch.outcome.summary.tool_call_count == 1
+    assert dispatch.handles_collected_result is True
+    assert dispatch.owns_tool_execution is False
+    assert dispatch.supports_tool_continuation is True
+    assert dispatch.host_rendered is False
 
     legacy_outcome = LegacyRoundOutcome(
         provider="claude",
@@ -343,3 +350,24 @@ def test_registry_result_adapter_rejects_non_terminal_or_empty_results() -> None
         )
         is None
     )
+
+
+def test_registry_tuple_to_outcome_is_the_shared_legacy_bridge() -> None:
+    result = (
+        False,
+        "partial",
+        "reasoning",
+        [{"id": "call-1", "type": "function"}],
+    )
+
+    outcome = registry_tuple_to_outcome(result, "OpenAI")
+
+    assert outcome is not None
+    assert outcome.provider == "openai"
+    assert outcome.status == "return"
+    assert outcome.raw_result == result
+    assert outcome.tool_calls == (result[3][0],)
+    assert outcome.summary is not None
+    assert outcome.summary.status == "failed"
+
+

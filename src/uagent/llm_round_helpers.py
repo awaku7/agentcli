@@ -32,8 +32,9 @@ _provider_error_label = provider_error_label
 _is_zscaler_responses_block = is_zscaler_responses_block
 from .runtime.retry_coordinator import RoundRetryCoordinator
 from .runtime.reasoning_renderer import render_tool_call_reasoning
-from .runtime.telemetry import reconcile_usage
+from .runtime.legacy_round_support import record_legacy_usage_telemetry
 from .runtime.logging_setup import log_event
+from .runtime.telemetry import reconcile_usage
 from .llm_message_helpers import _get_shrink_max_tokens
 from .providers.llm_gemini import (
     gemini_chat_with_tools,
@@ -52,22 +53,23 @@ from .providers.responses_common import (
     parse_assistant_text_tool_calls,
 )
 from .providers.llm_bedrock_responses import build_bedrock_responses_request
-from .providers.llm_inception import inception_stream_events
 from .runtime.inception_stream_host import (
     build_inception_stream_callbacks,
     render_inception_stream_events,
 )
 from .runtime.round_contracts import RoundIdentifiers
+from .runtime.inception_stream_compat import (
+    render_legacy_inception_stream,
+)
 from .runtime.stream_host import build_stream_callbacks
 from .providers.provider_caps import temperature_env_name
 from .providers.responses_manager import get_responses_capabilities
 from .providers.responses_runtime import (
     _responses_session_generation,
 )
-
-_CHAT_COMPLETIONS_MAX_TOOLS = 128
-_CHAT_TOOL_HELPERS = frozenset(
-    {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
+from .runtime.chat_tool_policy import (
+    initial_chat_completion_tools as _initial_chat_completion_tools,
+    limit_chat_completion_tools as _limit_chat_completion_tools,
 )
 
 
@@ -78,31 +80,12 @@ def _render_inception_stream(
     print_delta_fn: Any,
     core: Any,
 ) -> tuple[str, str, list[dict[str, Any]]]:
-    """Render an Inception stream through the host-owned event boundary."""
-    stream_id = "inception-" + uuid.uuid4().hex
-    identifiers = RoundIdentifiers(
-        turn_id="compat-" + stream_id,
-        round_id="compat-" + stream_id,
-        attempt_id="compat-" + stream_id,
-        request_id="compat-" + stream_id,
-        stream_id=stream_id,
-        session_generation=_responses_session_generation(core),
-    )
-    events = inception_stream_events(
+    """Compatibility wrapper for the shared Inception host boundary."""
+    return render_legacy_inception_stream(
         stream,
-        identifiers=identifiers,
-        diffusing=diffusing,
-        cancellation=getattr(core, "cancellation_token", None),
-    )
-    return render_inception_stream_events(
-        events,
         diffusing=diffusing,
         print_delta_fn=print_delta_fn,
         core=core,
-        callbacks=build_inception_stream_callbacks(
-            print_delta_fn=print_delta_fn,
-            core=core,
-        ),
     )
 
 
@@ -113,107 +96,15 @@ def _record_legacy_usage_telemetry(
     model: str,
     before: dict[str, Any],
 ) -> None:
-    """Bridge provider usage retained on legacy core state into events."""
-    after = getattr(core, "_last_responses_usage", None) if core is not None else None
-    if not isinstance(after, dict) or not after or after == before:
-        return
-    usage_delta = reconcile_usage(before, after)
-    if not usage_delta:
-        return
-    log_event(
-        "llm.usage.reconciled",
+    """Compatibility wrapper for the shared legacy telemetry boundary."""
+    record_legacy_usage_telemetry(
+        core=core,
         provider=provider,
         model=model,
-        usage_source="legacy_core",
-        **usage_delta,
+        before=before,
+        log_event_fn=log_event,
+        reconcile_usage_fn=reconcile_usage,
     )
-
-
-def _tool_spec_name(spec: Any) -> str:
-    function = spec.get("function") if isinstance(spec, dict) else None
-    return str(function.get("name") or "").strip() if isinstance(function, dict) else ""
-
-
-def _latest_user_text(messages: list[dict[str, Any]]) -> str:
-    for message in reversed(messages or []):
-        if not isinstance(message, dict) or message.get("role") != "user":
-            continue
-        content = message.get("content")
-        if isinstance(content, str) and content.strip():
-            return content.strip()
-        if isinstance(content, list):
-            parts = []
-            for item in content:
-                if isinstance(item, dict) and isinstance(item.get("text"), str):
-                    parts.append(item["text"].strip())
-            if parts:
-                return "\n".join(part for part in parts if part)
-    return ""
-
-
-def _limit_chat_completion_tools(
-    tool_specs: Any, messages: list[dict[str, Any]]
-) -> list[dict[str, Any]]:
-    """Keep Chat Completions requests within OpenAI's 128-tool limit.
-
-    The provider-neutral context selector may legitimately return every loaded
-    tool. Chat Completions rejects more than 128 definitions, so narrow only
-    this transport and retain discovery/confirmation helpers plus the most
-    relevant schemas.
-    """
-    specs = [spec for spec in (tool_specs or []) if isinstance(spec, dict)]
-    if len(specs) <= _CHAT_COMPLETIONS_MAX_TOOLS:
-        return specs
-
-    selected: list[dict[str, Any]] = []
-    try:
-        from .runtime.context_budget import ContextBudget
-        from .runtime.context_tools import select_tool_definitions
-
-        selected = select_tool_definitions(
-            specs,
-            task=_latest_user_text(messages),
-            budget=ContextBudget.without_limit(),
-            max_tools=_CHAT_COMPLETIONS_MAX_TOOLS,
-        ).specs
-    except Exception:
-        selected = []
-
-    selected_names = {_tool_spec_name(spec) for spec in selected}
-    helper_specs = [
-        spec for spec in specs if _tool_spec_name(spec) in _CHAT_TOOL_HELPERS
-    ]
-    selected_names.update(_tool_spec_name(spec) for spec in helper_specs)
-    result: list[dict[str, Any]] = []
-    seen_ids: set[int] = set()
-    for spec in helper_specs:
-        result.append(spec)
-        seen_ids.add(id(spec))
-    for spec in specs:
-        if _tool_spec_name(spec) in selected_names and id(spec) not in seen_ids:
-            result.append(spec)
-            seen_ids.add(id(spec))
-        if len(result) >= _CHAT_COMPLETIONS_MAX_TOOLS:
-            break
-    if len(result) < _CHAT_COMPLETIONS_MAX_TOOLS:
-        for spec in specs:
-            if id(spec) not in seen_ids:
-                result.append(spec)
-                seen_ids.add(id(spec))
-            if len(result) >= _CHAT_COMPLETIONS_MAX_TOOLS:
-                break
-    return result[:_CHAT_COMPLETIONS_MAX_TOOLS]
-
-
-def _initial_chat_completion_tools(tool_specs: Any) -> list[dict[str, Any]]:
-    """Return only the three discovery tools for the first Chat round."""
-    specs = [spec for spec in (tool_specs or []) if isinstance(spec, dict)]
-    initial = [
-        spec
-        for spec in specs
-        if _tool_spec_name(spec) in {"tool_catalog", "tool_load", "unload_tool"}
-    ]
-    return initial or _limit_chat_completion_tools(specs, [])
 
 
 def _rollback_largest_recent_history(

@@ -18,32 +18,48 @@ RoundRunner = Callable[..., Any]
 RegistryLegacyResult = tuple[bool, str, str, list[dict[str, Any]]]
 
 
-def _dispatch_outcome(source: DispatchSource, result: Any, provider: str) -> Any:
-    """Return a shared outcome view without changing ``result``."""
-
+def registry_tuple_to_outcome(result: Any, provider: str) -> Any:
+    """Normalize a registry compatibility tuple to ``LegacyRoundOutcome``."""
     from .legacy_round_registry import (
         LegacyRoundOutcome,
         RoundOutcomeCapabilities,
     )
+    from .round_contracts import RoundSummary
 
     if isinstance(result, LegacyRoundOutcome):
         return result
-    if source == "registry" and isinstance(result, tuple) and len(result) == 4:
-        ok, assistant_text, reasoning_text, tool_calls = result
-        return LegacyRoundOutcome(
-            provider=(provider or "").strip().lower(),
-            status="ok" if ok else "return",
-            assistant_text=str(assistant_text or ""),
-            raw_result=result,
-            reasoning_text=str(reasoning_text or ""),
-            tool_calls=tuple(tool_calls or ()),
-            capabilities=RoundOutcomeCapabilities(
-                handles_collected_result=True,
-                supports_tool_continuation=bool(tool_calls),
-            ),
-            flow="registry",
-        )
-    return None
+    if not isinstance(result, tuple) or len(result) != 4:
+        return None
+    ok, assistant_text, reasoning_text, tool_calls = result
+    normalized_tool_calls = tuple(tool_calls or ())
+    return LegacyRoundOutcome(
+        provider=(provider or "").strip().lower(),
+        status="ok" if ok else "return",
+        assistant_text=str(assistant_text or ""),
+        raw_result=result,
+        reasoning_text=str(reasoning_text or ""),
+        tool_calls=normalized_tool_calls,
+        summary=RoundSummary(
+            status="completed" if ok else "failed",
+            tool_call_count=len(normalized_tool_calls),
+            assistant_chars=len(str(assistant_text or "")),
+            reasoning_chars=len(str(reasoning_text or "")),
+        ),
+        capabilities=RoundOutcomeCapabilities(
+            handles_collected_result=True,
+            supports_tool_continuation=bool(tool_calls),
+        ),
+        flow="registry",
+    )
+
+
+def _dispatch_outcome(source: DispatchSource, result: Any, provider: str) -> Any:
+    """Return a shared outcome view without changing ``result``."""
+    if source == "registry":
+        return registry_tuple_to_outcome(result, provider)
+    from .legacy_round_registry import LegacyRoundOutcome
+
+    return result if isinstance(result, LegacyRoundOutcome) else None
 
 
 def registry_result_to_legacy_tuple(result: Any) -> RegistryLegacyResult | None:
@@ -148,6 +164,34 @@ class ProviderRoundDispatch:
     result: Any
     outcome: Any = None
 
+    @property
+    def handles_collected_result(self) -> bool:
+        return bool(
+            self.outcome is not None
+            and self.outcome.capabilities.handles_collected_result
+        )
+
+    @property
+    def owns_tool_execution(self) -> bool:
+        return bool(
+            self.outcome is not None
+            and self.outcome.capabilities.owns_tool_execution
+        )
+
+    @property
+    def supports_tool_continuation(self) -> bool:
+        return bool(
+            self.outcome is not None
+            and self.outcome.capabilities.supports_tool_continuation
+        )
+
+    @property
+    def host_rendered(self) -> bool:
+        return bool(
+            self.outcome is not None
+            and self.outcome.capabilities.host_rendered
+        )
+
 
 def dispatch_provider_round(
     *,
@@ -218,6 +262,7 @@ __all__ = [
     "RegistryRoundRoute",
     "dispatch_provider_round",
     "registry_result_to_legacy_tuple",
+    "registry_tuple_to_outcome",
     "registry_round_allowed",
     "resolve_registry_round_route",
 ]

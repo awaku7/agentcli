@@ -45,7 +45,7 @@ from .runtime.context_policy import ContextPolicy
 from .runtime.message_transform import MessageTransformPipeline
 from .runtime.provider_context import project_messages_for_provider
 from .runtime.provider_cache import plan_provider_cache
-from .runtime.round_contracts import RoundTransportSelection
+from .runtime.round_contracts import RoundSummary, RoundTransportSelection
 from .llm_helpers import (
     _call_maybe_thread,
     _env_default_on,
@@ -1052,7 +1052,9 @@ def _try_registry_simple_chat_round(
                 if management_specs:
                     tool_specs = management_specs
         if send_tools_this_round and not use_responses_api:
-            from .llm_round_helpers import _limit_chat_completion_tools
+            from .runtime.chat_tool_policy import (
+                limit_chat_completion_tools as _limit_chat_completion_tools,
+            )
             from . import tools as _tools
 
             tool_specs = tuple(
@@ -1594,28 +1596,19 @@ def _run_one_round(
             "round_count": round_count,
         },
     )
-    dispatch_outcome = dispatch.outcome
     if dispatch.source != "registry":
         _sync_responses_runtime_completed(
             core=core,
             enabled=use_responses_api and not judgment_mode,
-            round_outcome=dispatch_outcome,
+            round_outcome=dispatch.outcome,
         )
     registry_simple_result = (
-        dispatch_outcome.raw_result
-        if (
-            dispatch_outcome is not None
-            and dispatch_outcome.capabilities.handles_collected_result
-        )
-        else None
+        dispatch.outcome.raw_result if dispatch.handles_collected_result else None
     )
     round_supports_tool_continuation = False
     if registry_simple_result is not None:
         ok, assistant_text, reasoning_content, tool_calls_list = registry_simple_result
-        round_supports_tool_continuation = bool(
-            dispatch_outcome
-            and dispatch_outcome.capabilities.supports_tool_continuation
-        )
+        round_supports_tool_continuation = dispatch.supports_tool_continuation
         if not ok:
             core._last_round_reason = "error"
             return (
@@ -1666,17 +1659,10 @@ def _run_one_round(
     if registry_simple_result is not None:
         pass
     else:
-        legacy_round_result = (
-            dispatch_outcome
-            if (
-                dispatch_outcome is not None
-                and dispatch_outcome.capabilities.owns_tool_execution
-            )
-            else None
-        )
+        legacy_round_result = dispatch.outcome if dispatch.owns_tool_execution else None
         if legacy_round_result is not None:
             return legacy_round_result.raw_result
-        openai_round_result = dispatch_outcome
+        openai_round_result = dispatch.outcome
         (
             ok,
             client,
@@ -1685,9 +1671,7 @@ def _run_one_round(
             tool_calls_list,
             _is_xai_grpc,
         ) = openai_round_result.raw_result
-        round_supports_tool_continuation = bool(
-            dispatch_outcome.capabilities.supports_tool_continuation
-        )
+        round_supports_tool_continuation = dispatch.supports_tool_continuation
         if not ok:
             core._last_round_reason = "error"
             return (
@@ -1778,10 +1762,7 @@ def _run_one_round(
                     stream_responses=stream_responses,
                     append_result_to_outfile_fn=append_result_to_outfile_fn,
                     try_open_images_from_text_fn=try_open_images_from_text_fn,
-                    skip_print=bool(
-                        dispatch_outcome is not None
-                        and dispatch_outcome.capabilities.host_rendered
-                    ),
+                    skip_print=dispatch.host_rendered,
                     core=core,
                     provider=provider,
                 )
@@ -2798,12 +2779,36 @@ def run_llm_rounds(
                     reason=round_reason,
                     assistant_text=str(_round_text or ""),
                 )
+                round_duration_ms = round(
+                    (time.perf_counter() - round_started) * 1000, 3
+                )
+                round_summary = RoundSummary(
+                    status=(
+                        public_status
+                        if public_status
+                        in {
+                            "completed",
+                            "continue",
+                            "failed",
+                            "cancelled",
+                            "interrupted",
+                        }
+                        else "completed"
+                    ),
+                    duration_ms=round_duration_ms,
+                    event_count=max(0, len(messages) - message_count_before_round),
+                    tool_call_count=round_tool_calls,
+                    assistant_chars=len(str(_round_text or "")),
+                    reasoning_chars=0,
+                    usage_delta=usage_delta,
+                )
                 core._last_round_outcome = {
                     "round": round_count,
                     "status": public_status,
                     "reason": round_reason,
                     "tool_calls": round_tool_calls,
                     "assistant_chars": len(str(_round_text or "")),
+                    "summary": round_summary.to_dict(),
                 }
                 if (env_get("UAGENT_SHOW_USAGE", "") or "").strip().lower() in {
                     "1",
@@ -2831,14 +2836,10 @@ def run_llm_rounds(
                     provider=provider,
                     model=depname,
                     round=round_count,
-                    status=public_status,
                     internal_status=str(round_status),
                     reason=round_reason,
-                    duration_ms=round((time.perf_counter() - round_started) * 1000, 3),
-                    tool_call_count=round_tool_calls,
-                    assistant_chars=len(str(_round_text or "")),
+                    **round_summary.to_dict(),
                     messages_added=max(0, len(messages) - message_count_before_round),
-                    usage_delta=usage_delta,
                     usage_available=bool(usage_delta),
                 )
                 if (env_get("UAGENT_SHOW_ROUND_STATUS", "") or "").strip().lower() in {

@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Any, Callable
 
 from .. import core as _core_module
+from .logging_setup import log_event
+from .telemetry import reconcile_usage
 
 
 def consume_legacy_interrupt(
@@ -142,10 +144,36 @@ def resolve_legacy_empty_round(
     return None, updated_rounds
 
 
+def record_legacy_usage_telemetry(
+    *,
+    core: Any,
+    provider: str,
+    model: str,
+    before: dict[str, Any],
+    log_event_fn: Callable[..., Any] = log_event,
+    reconcile_usage_fn: Callable[[dict[str, Any], dict[str, Any]], dict[str, Any]] = reconcile_usage,
+) -> None:
+    """Bridge provider usage retained on legacy core state into events."""
+    after = getattr(core, "_last_responses_usage", None) if core is not None else None
+    if not isinstance(after, dict) or not after or after == before:
+        return
+    usage_delta = reconcile_usage_fn(before, after)
+    if not usage_delta:
+        return
+    log_event_fn(
+        "llm.usage.reconciled",
+        provider=provider,
+        model=model,
+        usage_source="legacy_core",
+        **usage_delta,
+    )
+
+
 __all__ = [
     "append_legacy_reasoning_assistant",
     "consume_legacy_interrupt",
     "finish_legacy_without_tools",
+    "record_legacy_usage_telemetry",
     "resolve_legacy_empty_round",
     "translate_and_append_legacy_assistant",
 ]
