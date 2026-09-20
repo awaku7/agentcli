@@ -8,7 +8,7 @@ import re
 from typing import Any
 
 from .env_utils import env_get
-from .i18n import _
+from .i18n import _, get_locale
 from .util_common import CommandResult, append_result_to_outfile
 from .util_image import try_open_images_from_text
 from .utils.secret_mask import _mask_inline_secrets, mask_message
@@ -140,6 +140,16 @@ def _tool_result_summary_for_judgment(message: dict[str, Any]) -> str:
     return f"[TOOL-RESULT] tool={name} status={status}{call_suffix} summary={summary}"
 
 
+def _review_language() -> str:
+    configured = (env_get("UAGENT_AUTO_REVIEW_LANGUAGE", "") or "").strip()
+    if configured:
+        return configured
+    try:
+        return str(get_locale() or "en")
+    except Exception:
+        return "en"
+
+
 def _build_judgment_messages(
     messages: list[dict[str, Any]],
     goal: str,
@@ -161,6 +171,11 @@ def _build_judgment_messages(
             "Format: CONTINUE: <reason>"
         ),
     ) % {"goal": goal}
+    system_prompt += (
+        "\nWrite any CONTINUE reason only in the requested review language: "
+        + _review_language()
+        + ". Do not mix languages. Keep COMPLETE/CONTINUE unchanged."
+    )
 
     msgs: list[dict[str, Any]] = [{"role": "system", "content": system_prompt}]
 

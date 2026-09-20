@@ -232,3 +232,13 @@ def test_sentinel_judgment_does_not_use_older_marker_after_tool_call() -> None:
         )
         == "CONTINUE"
     )
+
+
+def test_reviewer_prompt_uses_configured_feedback_language(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_AUTO_REVIEW_LANGUAGE", "ja")
+
+    judgment = _build_judgment_messages([], "inspect")
+    system = str(judgment[0]["content"])
+
+    assert "requested review language: ja" in system
+    assert "Keep COMPLETE/CONTINUE unchanged" in system

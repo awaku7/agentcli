@@ -363,6 +363,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_SHOW_USAGE`: Set to `1` to print opt-in `[USAGE]` token lines to stderr when provider usage is available.
 - `UAGENT_MCP_SESSION_REUSE`: Reuse initialized Streamable HTTP MCP sessions and cached `tools/list` results within the process (default: `1`). Set to `0` to restore per-call connection creation.
 - `UAGENT_TOOL_RESULT_JSON_UNESCAPE`: Set to `1` to parse JSON-shaped tool results and reserialize them with `ensure_ascii=False` before passing them to the LLM. This converts escaped Unicode such as `\u65e5` into readable text. Default: `0`.
+- `UAGENT_AUTO_REVIEW_LANGUAGE`: Language or locale requested for auto-pilot reviewer feedback (for example `ja` or `en`). Defaults to the current UI locale; `COMPLETE` and `CONTINUE` remain fixed protocol tokens.
 - `--complete-regex REGEX`: CLI option for non-interactive or auto-pilot runs. Stops after the latest assistant text matches the regex and prints a structured `[COMPLETE]` line. Example: `uag --inject-message-auto "build the project --max-rounds 5" --complete-regex "^ALL DONE$"`.
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: Maximum characters retained for each tool result passed to an LLM (default: `12000`). Applies during normal conversations and when replaying history to the Responses API. Oversized results keep their beginning and end. Set to `0` to disable truncation.
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: Legacy setting name. Used only when `UAGENT_TOOL_RESULT_MAX_CHARS` is not set.
