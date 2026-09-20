@@ -59,15 +59,28 @@ def get_max_memory_bytes() -> int:
     return 200_000
 
 
-def append_long_memory(note: str) -> bool:
+def _resolve_project(project: str = "") -> str:
+    if project.strip():
+        return project.strip()
+    configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+    if configured:
+        return configured
+    from ..runtime.session_store import project_id_from_path
+
+    return project_id_from_path(os.getcwd())
+
+
+def append_long_memory(note: str, *, owner: str = "", project: str = "") -> bool:
     """Append one personal memory record and report whether it was saved."""
+    owner = owner.strip() or str(env_get("UAGENT_MEMORY_OWNER", "") or "").strip()
+    project = _resolve_project(project)
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
 
             store = open_memory_store(_sqlite_path())
             try:
-                store.append(note)
+                store.append(note, owner=owner, project=project)
             finally:
                 store.close()
             return True
@@ -86,6 +99,8 @@ def append_long_memory(note: str) -> bool:
             "updated_at": now,
             "ts": now,
             "note": note,
+            "owner": owner,
+            "project": project,
             "kind": "note",
             "revision": 1,
             "status": "active",

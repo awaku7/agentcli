@@ -50,7 +50,15 @@ TOOL_SPEC: dict[str, Any] = {
                             "The note text to share. Use this for project-wide assumptions/policies that should be reused across sessions."
                         ),
                     ),
-                }
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Explicit memory owner boundary (optional).",
+                },
+                "project": {
+                    "type": "string",
+                    "description": "Explicit project boundary (optional).",
+                },
             },
             "required": ["note"],
             "additionalProperties": False,
@@ -70,8 +78,13 @@ def run_tool(args: dict[str, Any]) -> str:
             "Set UAGENT_SHARED_MEMORY_FILE to enable shared memory."
         )
 
+    owner = str(args.get("owner") or "").strip()
+    project = str(args.get("project") or "").strip()
     try:
-        shared_memory.append_shared_memory(note)
+        if owner or project:
+            shared_memory.append_shared_memory(note, owner=owner, project=project)
+        else:
+            shared_memory.append_shared_memory(note)
     except Exception as e:
         return (
             "[add_shared_memory] failed to write shared memory.\n"

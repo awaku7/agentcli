@@ -56,7 +56,15 @@ TOOL_SPEC: dict[str, Any] = {
                             "Write exactly one concise note (Japanese preferred) that should be reusable in future conversations."
                         ),
                     ),
-                }
+                },
+                "owner": {
+                    "type": "string",
+                    "description": "Explicit memory owner boundary (optional).",
+                },
+                "project": {
+                    "type": "string",
+                    "description": "Explicit project boundary (optional).",
+                },
             },
             "required": ["note"],
         },
@@ -69,7 +77,13 @@ def run_tool(args: dict[str, Any]) -> str:
     if not note:
         return _("err.note_empty", default="[add_long_memory error] note is empty")
 
-    if not long_memory.append_long_memory(note):
+    owner = str(args.get("owner") or "").strip()
+    project = str(args.get("project") or "").strip()
+    if owner or project:
+        saved = long_memory.append_long_memory(note, owner=owner, project=project)
+    else:
+        saved = long_memory.append_long_memory(note)
+    if not saved:
         return _(
             "err.save",
             default="[add_long_memory error] failed to save memory",
