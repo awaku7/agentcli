@@ -303,10 +303,12 @@ def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:
 
     try:
         if isinstance(long_mem_raw, list):
-            for rec in long_mem_raw:
+            # Prefer recent records so an old prefix cannot hide new notes.
+            for rec in reversed(long_mem_raw):
                 if isinstance(rec, dict):
                     text = (
-                        rec.get("summary")
+                        rec.get("note")
+                        or rec.get("summary")
                         or rec.get("text")
                         or rec.get("content")
                         or rec.get("memory")
@@ -319,11 +321,14 @@ def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:
                 if not text:
                     continue
 
-                body_lines.append(f"- {text}")
-                candidate = header + "\n".join(body_lines)
+                candidate = header + "\n".join(body_lines + [f"- {text}"])
                 if len(candidate) > max_chars:
-                    body_lines.append("...(truncated: long-term memory is too long)...")
+                    marker = "...(truncated: long-term memory is too long)..."
+                    marked = header + "\n".join(body_lines + [marker])
+                    if len(marked) <= max_chars:
+                        body_lines.append(marker)
                     break
+                body_lines.append(f"- {text}")
         else:
             text = str(long_mem_raw).strip()
             if text:
@@ -334,9 +339,6 @@ def build_long_memory_system_message(long_mem_raw: Any) -> dict[str, Any]:
     else:
         content = header + "\n".join(body_lines)
         if len(content) > max_chars:
-            content = (
-                content[:max_chars]
-                + "\n...(truncated: long-term memory is too long)..."
-            )
+            content = content[:max_chars]
 
     return {"role": "system", "content": content}
