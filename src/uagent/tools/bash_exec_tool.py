@@ -237,9 +237,7 @@ def _scope_tokens(command: str) -> tuple[list[str], str | None]:
         )
         lexer.whitespace_split = True
         lexer.commenters = ""
-        return [
-            token.translate(_QUOTED_PUNCTUATION_RESTORE) for token in lexer
-        ], None
+        return [token.translate(_QUOTED_PUNCTUATION_RESTORE) for token in lexer], None
     except ValueError as exc:
         return [], f"command could not be parsed safely: {exc}"
 

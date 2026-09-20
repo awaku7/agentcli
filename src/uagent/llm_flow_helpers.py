@@ -539,14 +539,10 @@ def _execute_tool_calls(
     # Bound it per user turn so a model that keeps inventing new search patterns
     # is forced to consume the result with read_file or an index-section tool.
     try:
-        _file_grep_limit = max(
-            1, int(env_get("UAGENT_FILE_GREP_TURN_LIMIT", "8"))
-        )
+        _file_grep_limit = max(1, int(env_get("UAGENT_FILE_GREP_TURN_LIMIT", "8")))
     except (TypeError, ValueError):
         _file_grep_limit = 8
-    _file_grep_turn_count = int(
-        getattr(core, "_file_grep_turn_count", 0) or 0
-    )
+    _file_grep_turn_count = int(getattr(core, "_file_grep_turn_count", 0) or 0)
     _blocked_file_grep_ids: set[str] = set()
     for _tc in tool_calls_list:
         _fn = _tc.get("function") if isinstance(_tc, dict) else None
