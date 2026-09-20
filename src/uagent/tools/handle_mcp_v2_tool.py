@@ -12,6 +12,11 @@ from ..env_utils import env_get
 from typing import Any
 
 from .mcp.client import MCPClient
+from .mcp.session_pool import (
+    MCPSessionCancelled,
+    MCPSessionStale,
+    get_mcp_http_session_pool,
+)
 
 try:
     from .mcp_servers_shared import get_default_mcp_config_path
@@ -331,6 +336,45 @@ def _resolve_http_headers(raw: Any) -> dict[str, str]:
     return out
 
 
+def _mcp_session_reuse_enabled() -> bool:
+    raw = (env_get("UAGENT_MCP_SESSION_REUSE", "1") or "1").strip().lower()
+    return raw in {"1", "true", "yes", "on"}
+
+
+def _call_mcp_http_reused(
+    url: str,
+    name: str,
+    argv: dict[str, Any],
+    headers: dict[str, str],
+    protocol_mode: str,
+) -> str:
+    callbacks = get_callbacks()
+    is_cancelled = getattr(callbacks, "is_cancelled", None)
+    request_generation = getattr(callbacks, "request_generation", None)
+    pool = get_mcp_http_session_pool()
+    pool.set_client_factory(MCPClient)
+    tools_result = pool.list_tools(
+        url=url,
+        headers=headers,
+        protocol_mode=protocol_mode,
+    )
+    validation_error = _validate_mcp_arguments(name, argv, tools_result)
+    if validation_error is not None:
+        return validation_error
+    _tools_result, result = pool.call_tool(
+        url=url,
+        name=name,
+        arguments=argv,
+        headers=headers,
+        protocol_mode=protocol_mode,
+        is_cancelled=is_cancelled if callable(is_cancelled) else None,
+        request_generation=(
+            request_generation if callable(request_generation) else None
+        ),
+    )
+    return _format_result(result)
+
+
 async def _call_mcp_http(
     url: str,
     name: str,
@@ -338,6 +382,22 @@ async def _call_mcp_http(
     headers: dict[str, str] | None = None,
     protocol_mode: str = "auto",
 ) -> str:
+    if _mcp_session_reuse_enabled():
+        try:
+            return _call_mcp_http_reused(
+                url, name, argv, headers or {}, protocol_mode
+            )
+        except MCPSessionStale:
+            return _error_out(
+                "MCP response arrived after cancellation", "MCP_STALE"
+            )
+        except MCPSessionCancelled:
+            return _error_out("MCP request cancelled", "MCP_CANCELLED")
+        except Exception as exc:
+            return _error_out(
+                f"MCP http session call failed: {exc}", "MCP_HTTP_CALL_FAILED"
+            )
+
     try:
         async with MCPClient(
             url=url,
