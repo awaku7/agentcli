@@ -7,7 +7,7 @@ from __future__ import annotations
 
 import json
 import uuid
-from typing import Any, Optional
+from typing import Any, Iterator, Optional
 
 
 from ..env_utils import env_get
@@ -412,17 +412,46 @@ def parse_xai_response(
     return assistant_text, tool_calls_list
 
 
+def _normalize_xai_stream_tool_call(tool_call: Any) -> dict[str, Any] | None:
+    function = getattr(tool_call, "function", None)
+    name = getattr(function, "name", "") if function is not None else ""
+    if not name:
+        return None
+    arguments = getattr(function, "arguments", "") or ""
+    if isinstance(arguments, dict):
+        arguments = json.dumps(arguments, ensure_ascii=False)
+    elif not isinstance(arguments, str):
+        arguments = str(arguments)
+    tool_call_id = getattr(tool_call, "id", "") or uuid.uuid4().hex[:12]
+    return {
+        "id": tool_call_id,
+        "type": "function",
+        "function": {"name": name, "arguments": arguments},
+    }
+
+
+def iter_xai_stream_parts(stream_iter: Any) -> Iterator[tuple[str, Any]]:
+    """Yield normalized xAI stream parts without buffering provider output."""
+    for _response, chunk in stream_iter:
+        content = getattr(chunk, "content", "") or ""
+        if content:
+            yield "text", _as_str(content)
+        reasoning = getattr(chunk, "reasoning_content", "") or ""
+        if reasoning:
+            yield "reasoning", _as_str(reasoning)
+        for tool_call in getattr(chunk, "tool_calls", None) or ():
+            normalized = _normalize_xai_stream_tool_call(tool_call)
+            if normalized is not None:
+                yield "tool_call", normalized
+
+
 def parse_xai_stream(
     stream_iter: Any,
     *,
     core: Any = None,
     callbacks: StreamCallbacks | None = None,
 ) -> tuple[str, list[dict[str, Any]]]:
-    """Parse an xai_sdk stream iterator.
-
-    Yields (response, chunk) pairs. The final response is accumulated.
-    Returns (assistant_text, tool_calls_list) from the final response.
-    """
+    """Parse an xai_sdk stream iterator for the legacy callback path."""
     assistant_text = ""
     tool_calls_list: list[dict[str, Any]] = []
     callbacks = callbacks or StreamCallbacks()
@@ -431,8 +460,8 @@ def parse_xai_stream(
             callbacks.on_terminal("ResponseStarted", {})
         except Exception:
             pass
-    _reasoning_started = False
-    _saw_reasoning = False
+    reasoning_started = False
+    saw_reasoning = False
 
     def _print_delta(s: str) -> None:
         if callable(callbacks.on_delta):
@@ -441,76 +470,42 @@ def parse_xai_stream(
                 return
             except Exception:
                 pass
-        _psd = getattr(core, "print_stream_delta", None) if core is not None else None
-        if callable(_psd):
-            _psd(s)
+        print_stream_delta = (
+            getattr(core, "print_stream_delta", None) if core is not None else None
+        )
+        if callable(print_stream_delta):
+            print_stream_delta(s)
         else:
             print(s, end="", flush=True)
 
     try:
-        for response, chunk in stream_iter:
-            # Accumulate text from chunk
-            if hasattr(chunk, "content"):
-                text_delta = chunk.content or ""
-                if text_delta:
-                    # Separate reasoning stream from answer text
-                    if _saw_reasoning:
-                        _print_delta("\n")
-                        _saw_reasoning = False
-                    _print_delta(text_delta)
-                    assistant_text += text_delta
-            # Stream reasoning deltas immediately (do not break on '.').
-            # show_reasoning defaults to print() which adds a newline per call;
-            # use end="" so sentence-final periods do not force line breaks.
-            if hasattr(chunk, "reasoning_content"):
-                rc = chunk.reasoning_content or ""
-                if rc:
-                    if callable(callbacks.on_reasoning):
-                        try:
-                            callbacks.on_reasoning(rc)
-                        except Exception:
-                            pass
-                    else:
-                        show_reasoning(
-                            rc,
-                            provider="Grok",
-                            is_first=(not _reasoning_started),
-                            print_fn=_print_delta,
-                            core=core,
-                        )
-                    _reasoning_started = True
-                    _saw_reasoning = True
-
-            # Tool calls from chunk
-            if hasattr(chunk, "tool_calls"):
-                for tc in chunk.tool_calls:
-                    fn_name = ""
-                    fn_args = ""
-                    tc_id = ""
-                    if hasattr(tc, "id"):
-                        tc_id = tc.id or ""
-                    if hasattr(tc, "function"):
-                        fn = tc.function
-                        if hasattr(fn, "name"):
-                            fn_name = fn.name or ""
-                        if hasattr(fn, "arguments"):
-                            fn_args = fn.arguments or ""
-                    if isinstance(fn_args, dict):
-                        fn_args = json.dumps(fn_args, ensure_ascii=False)
-                    elif not isinstance(fn_args, str):
-                        fn_args = str(fn_args)
-                    if fn_name:
-                        _tid = tc_id if tc_id else uuid.uuid4().hex[:12]
-                        tool_calls_list.append(
-                            {
-                                "id": _tid,
-                                "type": "function",
-                                "function": {"name": fn_name, "arguments": fn_args},
-                            }
-                        )
-
-    except Exception as e:
-        _debug_log("stream_error", error=str(e))
+        for part_type, value in iter_xai_stream_parts(stream_iter):
+            if part_type == "text":
+                if saw_reasoning:
+                    _print_delta("\n")
+                    saw_reasoning = False
+                _print_delta(value)
+                assistant_text += value
+            elif part_type == "reasoning":
+                if callable(callbacks.on_reasoning):
+                    try:
+                        callbacks.on_reasoning(value)
+                    except Exception:
+                        pass
+                else:
+                    show_reasoning(
+                        value,
+                        provider="Grok",
+                        is_first=(not reasoning_started),
+                        print_fn=_print_delta,
+                        core=core,
+                    )
+                reasoning_started = True
+                saw_reasoning = True
+            elif part_type == "tool_call":
+                tool_calls_list.append(value)
+    except Exception as exc:
+        _debug_log("stream_error", error=str(exc))
 
     # Print final newline after streaming to avoid state messages on same line.
     _print_delta(chr(10))

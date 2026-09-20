@@ -15,20 +15,31 @@ class _Cancellation:
         return False
 
 
+class _CancelAfter:
+    def __init__(self, allowed_checks: int) -> None:
+        self.allowed_checks = allowed_checks
+        self.checks = 0
+
+    def is_cancelled(self) -> bool:
+        self.checks += 1
+        return self.checks > self.allowed_checks
+
+
 class _Chat:
-    def __init__(self) -> None:
+    def __init__(self, stream=()) -> None:
         self.calls = []
+        self.stream_values = stream
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
         return SimpleNamespace(
-            stream=lambda: iter(()), sample=lambda: SimpleNamespace()
+            stream=lambda: iter(self.stream_values), sample=lambda: SimpleNamespace()
         )
 
 
 class _Client:
-    def __init__(self) -> None:
-        self.chat = _Chat()
+    def __init__(self, stream=()) -> None:
+        self.chat = _Chat(stream)
 
 
 def _identifiers() -> RoundIdentifiers:
@@ -56,12 +67,7 @@ def test_grok_runtime_normalizes_sdk_stream(monkeypatch) -> None:
         lambda enabled, call_messages=None: None,
     )
 
-    def parse_stream(stream, *, callbacks):
-        callbacks.on_delta("hello")
-        return "hello", []
-
-    monkeypatch.setattr("uagent.providers.grok_runtime.parse_xai_stream", parse_stream)
-    client = _Client()
+    client = _Client([(None, SimpleNamespace(content="hello"))])
     runtime = GrokGrpcProviderRuntime(
         client=client,
         provider="grok",
@@ -79,6 +85,120 @@ def test_grok_runtime_normalizes_sdk_stream(monkeypatch) -> None:
         "ResponseCompleted",
     ]
     assert client.chat.calls[0]["messages"] == ["native-message"]
+
+
+def test_grok_runtime_yields_chunks_incrementally(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_messages",
+        lambda messages: (None, ["native-message"]),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_tools",
+        lambda enabled, call_messages=None: None,
+    )
+    consumed: list[str] = []
+
+    def stream():
+        for text in ("first", "second"):
+            consumed.append(text)
+            yield None, SimpleNamespace(content=text)
+
+    runtime = GrokGrpcProviderRuntime(
+        client=_Client(stream()),
+        provider="grok",
+        model="grok-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = runtime.run(_request(), _Cancellation())
+    assert next(events).type == "ResponseStarted"
+    assert consumed == []
+    first_delta = next(events)
+    assert first_delta.type == "TextDelta"
+    assert first_delta.data["text"] == "first"
+    assert consumed == ["first"]
+    assert [event.type for event in events] == ["TextDelta", "ResponseCompleted"]
+    assert consumed == ["first", "second"]
+
+
+def test_grok_runtime_preserves_reasoning_text_and_tool_order(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_messages",
+        lambda messages: (None, ["native-message"]),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_tools",
+        lambda enabled, call_messages=None: None,
+    )
+    tool_call = SimpleNamespace(
+        id="call-1",
+        function=SimpleNamespace(name="read_file", arguments='{"path":"a"}'),
+    )
+    stream = [
+        (None, SimpleNamespace(reasoning_content="think")),
+        (None, SimpleNamespace(content="answer")),
+        (None, SimpleNamespace(tool_calls=[tool_call])),
+    ]
+    runtime = GrokGrpcProviderRuntime(
+        client=_Client(stream),
+        provider="grok",
+        model="grok-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(runtime.run(_request(), _Cancellation()))
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "ReasoningDelta",
+        "TextDelta",
+        "ToolCallDelta",
+        "ToolCallCompleted",
+        "ResponseCompleted",
+    ]
+    assert events[1].data["text"] == "think"
+    assert events[2].data["text"] == "answer"
+    assert events[4].data["name"] == "read_file"
+
+
+def test_grok_runtime_cancels_between_stream_chunks(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_messages",
+        lambda messages: (None, ["native-message"]),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_tools",
+        lambda enabled, call_messages=None: None,
+    )
+    consumed: list[str] = []
+
+    def stream():
+        for text in ("first", "second", "third"):
+            consumed.append(text)
+            yield None, SimpleNamespace(content=text)
+
+    runtime = GrokGrpcProviderRuntime(
+        client=_Client(stream()),
+        provider="grok",
+        model="grok-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(runtime.run(_request(), _CancelAfter(3)))
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ResponseCancelled",
+    ]
+    assert events[1].data["text"] == "first"
+    assert events[2].data["reason"] == "cancelled"
+    assert consumed == ["first"]
 
 
 __all__ = []

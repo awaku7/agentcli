@@ -54,13 +54,14 @@ class _PfnToolCompletions:
 
 
 class _GrokChat:
-    def __init__(self) -> None:
+    def __init__(self, stream=()) -> None:
         self.calls = []
+        self.stream_values = stream
 
     def create(self, **kwargs):
         self.calls.append(kwargs)
         return SimpleNamespace(
-            stream=lambda: iter(()), sample=lambda: SimpleNamespace()
+            stream=lambda: iter(self.stream_values), sample=lambda: SimpleNamespace()
         )
 
 
@@ -140,12 +141,7 @@ def test_grok_registry_route_runs_through_round_orchestrator(
         lambda enabled, call_messages=None: None,
     )
 
-    def parse_stream(stream, *, callbacks):
-        callbacks.on_delta("grok-ok")
-        return "grok-ok", []
-
-    monkeypatch.setattr("uagent.providers.grok_runtime.parse_xai_stream", parse_stream)
-    chat = _GrokChat()
+    chat = _GrokChat([(None, SimpleNamespace(content="grok-ok"))])
     client = SimpleNamespace(chat=chat)
 
     result = _try_registry_simple_chat_round(
