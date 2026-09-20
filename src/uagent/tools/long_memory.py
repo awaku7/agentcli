@@ -5,9 +5,11 @@ from __future__ import annotations
 
 import json
 import os
-from ..env_utils import env_get
 import time
+import uuid
 from typing import Any
+
+from ..env_utils import env_get
 
 from .i18n_helper import make_tool_translator
 
@@ -66,7 +68,13 @@ def append_long_memory(note: str) -> bool:
         dirpath = os.path.dirname(memory_file)
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
-        record = {"ts": time.time(), "note": note}
+        record = {
+            "memory_id": uuid.uuid4().hex,
+            "ts": time.time(),
+            "note": note,
+            "revision": 1,
+            "status": "active",
+        }
         with open(memory_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
         return True
@@ -116,7 +124,10 @@ def load_long_memory_records() -> list[dict[str, Any]]:
             store = open_memory_store(_sqlite_path())
             try:
                 return [
-                    {"ts": row["created_at"], "note": row["note"]}
+                    {
+                        **row,
+                        "ts": row.get("created_at", row.get("ts")),
+                    }
                     for row in store.records()
                 ]
             finally:
@@ -150,16 +161,23 @@ def update_long_memory_entry(index: int, note: str) -> bool:
         records = load_long_memory_records()
         if index < 0 or index >= len(records):
             return False
-        records[index] = {"ts": time.time(), "note": note}
+        target = records[index]
+        memory_id = str(target.get("memory_id") or "")
+        if not memory_id:
+            return False
         try:
             from ..runtime.memory_store import open_memory_store
 
             store = open_memory_store(_sqlite_path())
             try:
-                store.replace(records)
+                updated = store.update_by_id(
+                    memory_id,
+                    note,
+                    expected_revision=int(target.get("revision") or 1),
+                )
             finally:
                 store.close()
-            return True
+            return updated is not None
         except Exception:
             return False
     records = load_long_memory_records()
@@ -167,7 +185,12 @@ def update_long_memory_entry(index: int, note: str) -> bool:
         return False
     memory_file = get_memory_file_path()
     try:
-        records[index] = {"ts": time.time(), "note": note}
+        updated = dict(records[index])
+        updated["ts"] = time.time()
+        updated["note"] = note
+        updated["revision"] = int(updated.get("revision") or 1) + 1
+        updated["status"] = "active"
+        records[index] = updated
         dirpath = os.path.dirname(memory_file)
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
