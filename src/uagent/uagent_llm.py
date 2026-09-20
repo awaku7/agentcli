@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from urllib.parse import urlparse
 
 from .env_utils import env_get
@@ -2667,6 +2668,8 @@ def run_llm_rounds(
     try:
         while True:
             round_count += 1
+            round_started = time.perf_counter()
+            message_count_before_round = len(messages)
             _TOTAL_ROUNDS += 1
             if not judgment_mode:
                 core.computer_use_turn_id = str(round_count)
@@ -2715,6 +2718,30 @@ def run_llm_rounds(
                 use_llm_thread=use_llm_thread,
                 judgment_mode=judgment_mode,
             )
+
+            try:
+                from .runtime.logging_setup import log_event
+
+                round_tool_calls = 0
+                for _message in messages[message_count_before_round:]:
+                    if not isinstance(_message, dict):
+                        continue
+                    _calls = _message.get("tool_calls")
+                    if isinstance(_calls, list):
+                        round_tool_calls += len(_calls)
+                log_event(
+                    "llm.round.completed",
+                    provider=provider,
+                    model=depname,
+                    round=round_count,
+                    status=str(round_status),
+                    duration_ms=round((time.perf_counter() - round_started) * 1000, 3),
+                    tool_call_count=round_tool_calls,
+                    assistant_chars=len(str(_round_text or "")),
+                    messages_added=max(0, len(messages) - message_count_before_round),
+                )
+            except Exception:
+                pass
 
             if round_status == _RS_RETURN:
                 if judgment_mode:
