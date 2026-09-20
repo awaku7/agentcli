@@ -383,6 +383,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_TOOL_RESULT_JSON_UNESCAPE`: `1`に設定すると、JSON形式のtool結果を`ensure_ascii=False`で再直列化してからLLMへ渡します。`\u65e5`のようなUnicodeエスケープを読みやすい文字へ変換します。既定: `0`。
 - `UAGENT_AUTO_REVIEW_LANGUAGE`: auto-pilotのreviewer feedbackに指定する言語またはlocale（例: `ja`、`en`）です。未指定時は現在のUI localeを使い、`COMPLETE`と`CONTINUE`はプロトコル用に固定します。
 - `--complete-regex REGEX`: 非対話またはauto-pilot実行時のCLIオプションです。直近のassistant本文が正規表現に一致した時点で停止し、構造化された`[COMPLETE]`行を出力します。例: `uag --inject-message-auto "build the project --max-rounds 5" --complete-regex "^ALL DONE$"`。
+- 非対話実行の終了コード: 完了は`0`、失敗・loop guard・最大round到達は`1`、キャンセル・割り込みは`130`です。
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: LLMへ渡す各tool結果の最大文字数（既定: `12000`）。通常会話中およびResponses APIで履歴を再送する際に適用されます。上限を超えた結果は先頭と末尾を残して短縮します。`0` で短縮を無効化します。
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: 旧設定名。`UAGENT_TOOL_RESULT_MAX_CHARS` が未設定の場合のみ使用されます。
 - `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`: この文字数を超えるテキスト形式のtool結果をworkdirローカルのartifactへ保存し、LLMにはプレビューと参照だけを渡します（既定: `100000`）。`0` でartifact化を無効にできます。その場合も通常の結果サイズ上限は適用されます。

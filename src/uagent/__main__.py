@@ -4,7 +4,7 @@ from .cli import main
 
 if __name__ == "__main__":
     try:
-        main()
+        raise SystemExit(main())
     except KeyboardInterrupt:
         print()
         print("[INFO] Interrupted. Exiting...")

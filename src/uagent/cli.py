@@ -88,11 +88,11 @@ __all__ = [
 ]
 
 
-def main():
+def main() -> int:
     # Top-level Ctrl+C guard: stray KeyboardInterrupt becomes one line.
     # Covers the uag console-script entry point.
     try:
-        _cli_impl_main()
+        return int(_cli_impl_main() or 0)
     except KeyboardInterrupt:
         print()
         print("[INFO] Interrupted. Exiting...")

@@ -44,7 +44,17 @@ from .state import _CLI_SHUTDOWN
 from .stdin_loop import stdin_loop
 
 
-def main() -> None:
+def _exit_code_for_round_outcome(core: Any) -> int:
+    outcome = getattr(core, "_last_round_outcome", {}) or {}
+    status = str(outcome.get("status") or "")
+    if status in {"cancelled", "interrupted"}:
+        return 130
+    if status == "failed":
+        return 1
+    return 0
+
+
+def main() -> int:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
 
@@ -77,6 +87,11 @@ def main() -> None:
     depname = startup.depname
     messages = startup.messages
     session_store = startup.session_store
+    process_exit_code = 0
+
+    def _noninteractive_exit_code() -> int:
+        return _exit_code_for_round_outcome(core)
+
     _bootstrap_prompt_history(messages)
 
     def _startup_timing_mark(name: str) -> None:
@@ -93,7 +108,7 @@ def main() -> None:
         )
 
     if startup.should_exit:
-        return
+        return _noninteractive_exit_code()
 
     # Computer Use backends are created lazily by the action handler.
     # Merely enabling the capability must not open a browser or desktop session.
@@ -263,6 +278,7 @@ def main() -> None:
                                 try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                             )
                         except KeyboardInterrupt:
+                            process_exit_code = max(process_exit_code, 130)
                             # Ctrl+C during generation: stop and return to the
                             # prompt like ollama (no traceback). The `with`
                             # block did not see the exception (caught here), so
@@ -313,6 +329,7 @@ def main() -> None:
                                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                                 )
                         except KeyboardInterrupt:
+                            process_exit_code = max(process_exit_code, 130)
                             # Auto-pilot aborted by the user: no traceback.
                             try:
                                 core.set_status(False, "")
@@ -326,6 +343,10 @@ def main() -> None:
                                 + _("Auto-pilot interrupted: %(err)s") % {"err": exc}
                             )
                         core.set_status(False, "")
+                    if UAGENT_NON_INTERACTIVE or UAGENT_INJECT_MESSAGE_AUTO:
+                        process_exit_code = max(
+                            process_exit_code, _noninteractive_exit_code()
+                        )
                     if UAGENT_INJECT_MESSAGE_AUTO:
                         running = False
                         break
@@ -652,3 +673,5 @@ def main() -> None:
                 pass
         core.set_status(False, "")
         print(_("Exited uag."))
+
+    return process_exit_code

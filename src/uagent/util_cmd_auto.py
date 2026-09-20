@@ -403,6 +403,10 @@ def _run_auto_pilot_loop(
 
             if judgment == "COMPLETE":
                 core.auto_pilot_active = False
+                core._last_round_outcome = {
+                    "status": "completed",
+                    "reason": "reviewer",
+                }
                 print(_("[AUTO] Review/analysis completed."))
                 return
 
@@ -411,6 +415,10 @@ def _run_auto_pilot_loop(
             max_rounds = core.auto_pilot_max_rounds
             if max_rounds is not None and core.auto_pilot_round > max_rounds:
                 core.auto_pilot_active = False
+                core._last_round_outcome = {
+                    "status": "failed",
+                    "reason": "max_rounds",
+                }
                 print(
                     _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
                     % {"max": max_rounds}
