@@ -2451,6 +2451,15 @@ def run_llm_rounds(
                 for message in messages
                 if isinstance(message, dict)
             )
+            # Shadow retrieval is observational and opt-in. Run it before
+            # state/tool-result injection so its query is the user's original
+            # turn and never changes the provider input.
+            try:
+                from .runtime.memory_retrieval import observe_memory_shadow_retrieval
+
+                observe_memory_shadow_retrieval(messages, core)
+            except Exception:
+                pass
             _inject_agent_state_context(messages, core)
             _inject_retrieved_tool_context(messages, core)
             _update_agent_state_for_turn(messages, core)
