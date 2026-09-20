@@ -21,8 +21,7 @@ _PLACEHOLDER_RE = re.compile(
 
 def _placeholder_names(value: object) -> set[str]:
     return {
-        first or second
-        for first, second in _PLACEHOLDER_RE.findall(str(value or ""))
+        first or second for first, second in _PLACEHOLDER_RE.findall(str(value or ""))
     }
 
 
@@ -44,7 +43,9 @@ def repair_file(path: Path, *, apply: bool) -> bool:
         normalized = list(current[: len(terms)])
         normalized.extend(terms[len(normalized) :])
         for index, english_term in enumerate(terms):
-            if _placeholder_names(normalized[index]) != _placeholder_names(english_term):
+            if _placeholder_names(normalized[index]) != _placeholder_names(
+                english_term
+            ):
                 normalized[index] = english_term
         if normalized != current:
             block["x_search_terms"] = normalized

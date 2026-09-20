@@ -158,9 +158,7 @@ class MCPHTTPSessionPool:
         protocol_mode: str,
     ) -> Any:
         """Return the cached tool list, initializing the session if needed."""
-        key = self._key(
-            url, headers, protocol_mode, id(self._client_factory)
-        )
+        key = self._key(url, headers, protocol_mode, id(self._client_factory))
         future = self._submit(
             self._get_entry(
                 key,
@@ -189,9 +187,7 @@ class MCPHTTPSessionPool:
                 initial_generation = request_generation()
             except Exception:
                 pass
-        key = self._key(
-            url, headers, protocol_mode, id(self._client_factory)
-        )
+        key = self._key(url, headers, protocol_mode, id(self._client_factory))
         future = self._submit(
             self._call_tool(
                 key,

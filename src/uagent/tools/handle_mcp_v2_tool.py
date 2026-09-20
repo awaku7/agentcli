@@ -384,13 +384,9 @@ async def _call_mcp_http(
 ) -> str:
     if _mcp_session_reuse_enabled():
         try:
-            return _call_mcp_http_reused(
-                url, name, argv, headers or {}, protocol_mode
-            )
+            return _call_mcp_http_reused(url, name, argv, headers or {}, protocol_mode)
         except MCPSessionStale:
-            return _error_out(
-                "MCP response arrived after cancellation", "MCP_STALE"
-            )
+            return _error_out("MCP response arrived after cancellation", "MCP_STALE")
         except MCPSessionCancelled:
             return _error_out("MCP request cancelled", "MCP_CANCELLED")
         except Exception as exc:
