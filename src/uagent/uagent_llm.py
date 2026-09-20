@@ -42,6 +42,10 @@ from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
 from .runtime.context_plan_builder import build_context_plan, context_plan_matches
 from .runtime.context_policy import ContextPolicy
+from .runtime.memory_projection import (
+    apply_memory_projection,
+    prepare_memory_projection,
+)
 from .runtime.message_transform import MessageTransformPipeline
 from .runtime.provider_context import project_messages_for_provider
 from .runtime.provider_cache import plan_provider_cache
@@ -603,6 +607,16 @@ def _build_round_context_plan(
     embedded callers that predate the context manager boundary.
     """
     decisions = getattr(core, "context_tool_decisions", None) or ()
+    if telemetry is None:
+        telemetry = {}
+    else:
+        telemetry = dict(telemetry)
+    memory_snapshot = getattr(core, "memory_projection_snapshot", None)
+    if memory_snapshot is not None:
+        try:
+            telemetry["memory_projection"] = memory_snapshot.to_diagnostics()
+        except Exception:
+            pass
     manager = getattr(core, "context_manager", None)
     builder = getattr(manager, "build_context_plan", None)
     if callable(builder):
@@ -1375,6 +1389,13 @@ def _run_one_round(
         depname=depname,
         gemini_cache_name=gemini_cache_name,
     )
+    call_messages = apply_memory_projection(
+        call_messages,
+        getattr(core, "memory_projection_snapshot", None)
+        if not judgment_mode
+        else None,
+        core,
+    )
 
     def _call_maybe_thread_fn(fn: Any) -> Any:
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
@@ -1417,6 +1438,11 @@ def _run_one_round(
                 core=core,
                 depname=depname,
                 gemini_cache_name=gemini_cache_name,
+            )
+            call_messages = apply_memory_projection(
+                call_messages,
+                getattr(core, "memory_projection_snapshot", None),
+                core,
             )
 
     if not judgment_mode:
@@ -2460,6 +2486,12 @@ def run_llm_rounds(
                 observe_memory_shadow_retrieval(messages, core)
             except Exception:
                 pass
+            try:
+                # Prepare once per user turn; _run_one_round reuses this
+                # snapshot for retries and the entire tool loop.
+                core.memory_projection_snapshot = prepare_memory_projection(messages, core)
+            except Exception:
+                core.memory_projection_snapshot = None
             _inject_agent_state_context(messages, core)
             _inject_retrieved_tool_context(messages, core)
             _update_agent_state_for_turn(messages, core)
