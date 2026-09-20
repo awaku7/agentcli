@@ -69,5 +69,9 @@ def run_tool(args: dict[str, Any]) -> str:
     if not note:
         return _("err.note_empty", default="[add_long_memory error] note is empty")
 
-    long_memory.append_long_memory(note)
+    if not long_memory.append_long_memory(note):
+        return _(
+            "err.save",
+            default="[add_long_memory error] failed to save memory",
+        )
     return "[add_long_memory] saved"

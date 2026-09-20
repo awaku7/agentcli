@@ -47,8 +47,8 @@ def get_max_memory_bytes() -> int:
     return 200_000
 
 
-def append_long_memory(note: str) -> None:
-    """Append one personal memory record."""
+def append_long_memory(note: str) -> bool:
+    """Append one personal memory record and report whether it was saved."""
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
@@ -58,9 +58,9 @@ def append_long_memory(note: str) -> None:
                 store.append(note)
             finally:
                 store.close()
+            return True
         except Exception:
-            pass
-        return
+            return False
     memory_file = get_memory_file_path()
     try:
         dirpath = os.path.dirname(memory_file)
@@ -69,8 +69,9 @@ def append_long_memory(note: str) -> None:
         record = {"ts": time.time(), "note": note}
         with open(memory_file, "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        return True
     except Exception:
-        pass
+        return False
 
 
 def load_long_memory_raw() -> str:
