@@ -3,10 +3,14 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import shutil
+import tempfile
 import time
 import uuid
+from pathlib import Path
 from typing import Any
 
 from ..env_utils import env_get
@@ -14,6 +18,12 @@ from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
+
+JSONL_SCHEMA_VERSION = 2
+
+
+class MemoryMigrationError(RuntimeError):
+    """Raised when a JSONL migration cannot be completed without data loss."""
 
 
 def _get_base_log_dir() -> str:
@@ -68,10 +78,15 @@ def append_long_memory(note: str) -> bool:
         dirpath = os.path.dirname(memory_file)
         if dirpath:
             os.makedirs(dirpath, exist_ok=True)
+        now = time.time()
         record = {
+            "schema_version": JSONL_SCHEMA_VERSION,
             "memory_id": uuid.uuid4().hex,
-            "ts": time.time(),
+            "created_at": now,
+            "updated_at": now,
+            "ts": now,
             "note": note,
+            "kind": "note",
             "revision": 1,
             "status": "active",
         }
@@ -80,6 +95,139 @@ def append_long_memory(note: str) -> bool:
         return True
     except Exception:
         return False
+
+
+def _legacy_jsonl_memory_id(record: dict[str, Any], index: int) -> str:
+    payload = json.dumps(
+        {
+            "index": index,
+            "created_at": record.get("created_at", record.get("ts")),
+            "note": str(record.get("note") or ""),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    ).encode("utf-8")
+    return "legacy-jsonl-" + hashlib.sha256(payload).hexdigest()[:32]
+
+
+def _normalize_jsonl_record(record: dict[str, Any], index: int) -> dict[str, Any]:
+    note = str(record.get("note") or "").strip()
+    try:
+        schema_version = int(record.get("schema_version") or 0)
+    except (TypeError, ValueError):
+        schema_version = 0
+    is_legacy = schema_version < JSONL_SCHEMA_VERSION or not record.get("memory_id")
+    if not note:
+        raise MemoryMigrationError(f"record {index} has no non-empty note")
+    created_at = record.get("created_at", record.get("ts"))
+    if created_at is None:
+        created_at = time.time()
+    try:
+        revision = max(1, int(record.get("revision") or 1))
+    except (TypeError, ValueError):
+        revision = 1
+    normalized = dict(record)
+    normalized.update(
+        {
+            "schema_version": JSONL_SCHEMA_VERSION,
+            "memory_id": str(
+                record.get("memory_id") or _legacy_jsonl_memory_id(record, index)
+            ),
+            "created_at": created_at,
+            "updated_at": record.get("updated_at", created_at),
+            "ts": record.get("ts", created_at),
+            "note": note,
+            "kind": str(record.get("kind") or "note"),
+            "revision": revision,
+            "status": str(record.get("status") or "active"),
+        }
+    )
+    if is_legacy and not normalized.get("source"):
+        normalized["source"] = "legacy_jsonl"
+    return normalized
+
+
+def migrate_long_memory_jsonl(
+    path: str | os.PathLike[str] | None = None, *, backup: bool = True
+) -> dict[str, Any]:
+    """Migrate legacy JSONL records atomically to the structured schema.
+
+    The operation is explicit: normal reads never rewrite the memory file.
+    Invalid non-empty lines abort before the original file is modified.
+    """
+    memory_path = Path(path or get_memory_file_path()).expanduser()
+    if not memory_path.exists():
+        return {
+            "path": str(memory_path),
+            "changed": False,
+            "record_count": 0,
+            "backup_path": None,
+        }
+
+    raw_lines = memory_path.read_text(encoding="utf-8").splitlines()
+    normalized_records: list[dict[str, Any]] = []
+    changed = False
+    for index, raw_line in enumerate(raw_lines):
+        if not raw_line.strip():
+            continue
+        try:
+            record = json.loads(raw_line)
+        except (TypeError, ValueError) as exc:
+            raise MemoryMigrationError(f"invalid JSON at line {index + 1}") from exc
+        if not isinstance(record, dict):
+            raise MemoryMigrationError(f"record {index} is not an object")
+        normalized = _normalize_jsonl_record(record, index)
+        normalized_records.append(normalized)
+        if json.dumps(normalized, ensure_ascii=False, sort_keys=True) != json.dumps(
+            record, ensure_ascii=False, sort_keys=True
+        ):
+            changed = True
+
+    if not changed:
+        return {
+            "path": str(memory_path),
+            "changed": False,
+            "record_count": len(normalized_records),
+            "backup_path": None,
+        }
+
+    backup_path: str | None = None
+    if backup:
+        candidate = memory_path.with_name(memory_path.name + ".bak")
+        if candidate.exists():
+            candidate = memory_path.with_name(
+                memory_path.name + f".bak.{int(time.time())}"
+            )
+        shutil.copy2(memory_path, candidate)
+        backup_path = str(candidate)
+
+    temporary_path: str | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            "w",
+            encoding="utf-8",
+            newline="\n",
+            dir=memory_path.parent,
+            prefix=memory_path.name + ".",
+            suffix=".tmp",
+            delete=False,
+        ) as stream:
+            temporary_path = stream.name
+            for record in normalized_records:
+                stream.write(json.dumps(record, ensure_ascii=False) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary_path, memory_path)
+    finally:
+        if temporary_path and os.path.exists(temporary_path):
+            os.remove(temporary_path)
+
+    return {
+        "path": str(memory_path),
+        "changed": True,
+        "record_count": len(normalized_records),
+        "backup_path": backup_path,
+    }
 
 
 def load_long_memory_raw() -> str:
