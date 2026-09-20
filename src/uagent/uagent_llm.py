@@ -2735,6 +2735,27 @@ def run_llm_rounds(
                         round_tool_calls += len(_calls)
                 usage_after_round = getattr(core, "_last_responses_usage", {})
                 usage_delta = reconcile_usage(usage_before_round, usage_after_round)
+                if (env_get("UAGENT_SHOW_USAGE", "") or "").strip().lower() in {
+                    "1",
+                    "true",
+                    "yes",
+                    "on",
+                } and usage_delta:
+                    print(
+                        "[USAGE] "
+                        + json.dumps(
+                            {
+                                "round": round_count,
+                                "prompt": usage_delta.get("input_tokens_delta"),
+                                "completion": usage_delta.get("output_tokens_delta"),
+                                "total": usage_delta.get("total_tokens_delta"),
+                            },
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                        ),
+                        file=sys.stderr,
+                        flush=True,
+                    )
                 log_event(
                     "llm.round.completed",
                     provider=provider,

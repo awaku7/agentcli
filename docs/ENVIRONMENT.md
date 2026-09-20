@@ -360,6 +360,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_FILE_GREP_TURN_LIMIT`: Maximum actual `file_grep` executions per user turn (default: `8`). After the limit, the agent is directed to use `read_file`, an index section tool, or `code_map` instead.
 - `UAGENT_STARTUP_TIMING`: Set to `1` to print startup, stdin-loop, first-event, and first-LLM timing markers to stderr.
 - `UAGENT_SHOW_ROUND_STATUS`: Set to `1` to print machine-readable `[ROUND]` status lines to stderr for each LLM round.
+- `UAGENT_SHOW_USAGE`: Set to `1` to print opt-in `[USAGE]` token lines to stderr when provider usage is available.
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: Maximum characters retained for each tool result passed to an LLM (default: `12000`). Applies during normal conversations and when replaying history to the Responses API. Oversized results keep their beginning and end. Set to `0` to disable truncation.
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: Legacy setting name. Used only when `UAGENT_TOOL_RESULT_MAX_CHARS` is not set.
 - `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`: Promote a textual tool result larger than this many characters to a workdir-local artifact and pass only a preview plus reference to the LLM (default: `100000`). Set to `0` to disable artifact promotion; the normal result-size limit still applies.
