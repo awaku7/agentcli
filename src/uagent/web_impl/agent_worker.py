@@ -16,6 +16,7 @@ from ..providers import util_providers as providers
 from .. import uagent_llm as llm_util
 from ..runtime.logging_setup import log_event
 from ..runtime.execution import lifecycle_execution
+from ..runtime.round_outcome import project_round_outcome, round_outcome_event
 from ..image_session import build_image_session_message
 from ..llm_helpers import LLMWaitInterrupted
 from .helpers import _save_input_history
@@ -123,10 +124,12 @@ def run_agent_worker(
                 pass
 
         def _emit_round_outcome() -> None:
-            outcome = getattr(core, "_last_round_outcome", {}) or {}
-            if not isinstance(outcome, dict) or not outcome:
+            outcome = project_round_outcome(
+                getattr(core, "_last_round_outcome", {}) or {}
+            )
+            if not outcome:
                 return
-            payload = {"type": "round_outcome", **dict(outcome)}
+            payload = round_outcome_event(outcome)
             _web_stream_send(payload)
             try:
                 room.status["round_outcome"] = dict(outcome)

@@ -31,6 +31,7 @@ from ..util_tools import (
 from ..tools.pybitchat_shared import forward_to_mesh
 from ..attachment_utils import materialize_attachment
 from ..scheduler import stop_background_scheduler
+from ..runtime.round_outcome import project_round_outcome, round_outcome_key
 from ..welcome import get_welcome_message
 from . import state
 from .config import (
@@ -1134,12 +1135,10 @@ class MainWindow(QtWidgets.QMainWindow):
                 pass
 
             try:
-                outcome = getattr(core, "_last_round_outcome", {}) or {}
-                outcome_key = (
-                    outcome.get("round"),
-                    outcome.get("status"),
-                    outcome.get("reason"),
+                outcome = project_round_outcome(
+                    getattr(core, "_last_round_outcome", {}) or {}
                 )
+                outcome_key = round_outcome_key(outcome)
                 if outcome and outcome_key != getattr(
                     self, "_last_round_outcome_key", None
                 ):

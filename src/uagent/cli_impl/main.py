@@ -17,6 +17,7 @@ from .. import util_tools as tools_util
 from ..providers import util_providers as providers
 from ..runtime.execution import lifecycle_execution
 from ..runtime.logging_setup import configure_event_logging, log_event
+from ..runtime.round_outcome import project_round_outcome
 from ..scheduler import start_background_scheduler, stop_background_scheduler
 from ..tools.pybitchat_shared import reply_to_mesh, set_llm_event_queue
 from ..util_tools import (
@@ -45,7 +46,7 @@ from .stdin_loop import stdin_loop
 
 
 def _exit_code_for_round_outcome(core: Any) -> int:
-    outcome = getattr(core, "_last_round_outcome", {}) or {}
+    outcome = project_round_outcome(getattr(core, "_last_round_outcome", {}) or {})
     status = str(outcome.get("status") or "")
     if status in {"cancelled", "interrupted"}:
         return 130
