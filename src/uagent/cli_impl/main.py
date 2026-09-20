@@ -30,6 +30,7 @@ from ..cli_startup import run_cli_startup as _run_cli_startup
 from .history import _append_prompt_history_entry, _bootstrap_prompt_history
 from .startup import (
     INITIAL_FILE_ARG,
+    UAGENT_COMPLETE_REGEX,
     UAGENT_ENABLE_TOOLS,
     UAGENT_INJECT_MESSAGE,
     UAGENT_INJECT_MESSAGE_AUTO,
@@ -67,6 +68,7 @@ def main() -> None:
         tool_genre_mask=UAGENT_TOOL_GENRE_MASK,
         inject_message=UAGENT_INJECT_MESSAGE,
         inject_message_auto=UAGENT_INJECT_MESSAGE_AUTO,
+        complete_regex=UAGENT_COMPLETE_REGEX,
         enable_tools=UAGENT_ENABLE_TOOLS,
     )
 

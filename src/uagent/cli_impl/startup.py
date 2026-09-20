@@ -46,6 +46,7 @@ _env_workdir = env_get("UAGENT_WORKDIR")
 UAGENT_NON_INTERACTIVE = bool(_startup_args.get("non_interactive"))
 UAGENT_INJECT_MESSAGE = _startup_args.get("inject_message")
 UAGENT_INJECT_MESSAGE_AUTO = _startup_args.get("inject_message_auto")
+UAGENT_COMPLETE_REGEX = _startup_args.get("complete_regex")
 if UAGENT_INJECT_MESSAGE is not None:
     UAGENT_NON_INTERACTIVE = True
 if UAGENT_INJECT_MESSAGE is not None or UAGENT_INJECT_MESSAGE_AUTO is not None:

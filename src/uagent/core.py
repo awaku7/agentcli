@@ -75,6 +75,7 @@ auto_pilot_exit_lock = threading.Lock()
 auto_pilot_round = 0
 auto_pilot_max_rounds: int | None = 10
 auto_pilot_goal: str = ""
+auto_pilot_complete_regex: str | None = None
 responses_state: dict = {}
 # Opaque per-tool context. The core transports it; tools own its schema.
 tool_context: dict[str, dict] = {}

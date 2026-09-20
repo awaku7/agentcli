@@ -67,6 +67,29 @@ def _sentinel_judgment(messages: list[dict[str, Any]]) -> str | None:
     return None
 
 
+def _completion_regex_matches(messages: list[dict[str, Any]], pattern: Any) -> bool:
+    """Check the latest assistant text against the optional CLI completion regex."""
+    raw_pattern = str(pattern or "").strip()
+    if not raw_pattern:
+        return False
+    latest_text = ""
+    for message in reversed(messages or []):
+        if isinstance(message, dict) and message.get("role") == "assistant":
+            content = message.get("content", "")
+            if isinstance(content, list):
+                content = " ".join(
+                    str(item.get("text", "")) if isinstance(item, dict) else str(item)
+                    for item in content
+                )
+            latest_text = str(content or "")
+            break
+    try:
+        return re.search(raw_pattern, latest_text, flags=re.MULTILINE) is not None
+    except re.error as exc:
+        print(f"[WARN] Invalid --complete-regex: {exc}", flush=True)
+        return False
+
+
 def _get_followup_prompt(goal: str, feedback: str = "") -> str:
     """Generate continuation prompt for the main query (i18n)."""
     prompt = _("Continue. Goal: %(goal)s") % {"goal": goal}
@@ -322,6 +345,22 @@ def _run_auto_pilot_loop(
                     core.auto_pilot_active = False
                     print(_("[AUTO] Exited by user (F11)."))
                     return
+
+            # Check the deterministic completion path before spending another
+            # reviewer LLM call. This is useful for batch runs whose final
+            # answer contains a known marker.
+            if _completion_regex_matches(
+                messages, getattr(core, "auto_pilot_complete_regex", None)
+            ):
+                core.auto_pilot_active = False
+                if not getattr(core, "_last_completion_reason", None):
+                    core._last_completion_reason = "regex"
+                    print(
+                        '[COMPLETE] {"reason":"regex","source":"auto"}',
+                        flush=True,
+                    )
+                print(_("[AUTO] Completion regex matched."))
+                return
 
             # === Step B first: Reviewer judgment ===
             # Sentinel mode is an opt-in single-LLM path: the target model's

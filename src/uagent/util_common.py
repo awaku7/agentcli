@@ -277,6 +277,14 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         ),
     )
     parser.add_argument(
+        "--complete-regex",
+        dest="complete_regex",
+        default=None,
+        help=(
+            "Stop the current non-interactive/auto operation when the latest assistant text matches this regex."
+        ),
+    )
+    parser.add_argument(
         "--enable-tool",
         dest="enable_tools",
         action="append",

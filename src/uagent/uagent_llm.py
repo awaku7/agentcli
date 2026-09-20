@@ -551,6 +551,18 @@ _RS_CONTINUE = "continue"  # skip postamble, continue loop
 _RS_OK = "ok"  # execute postamble then continue loop
 
 
+def _completion_regex_matches(text: Any, pattern: Any) -> bool:
+    """Return whether a configured completion regex matches assistant text."""
+    raw_pattern = str(pattern or "").strip()
+    if not raw_pattern:
+        return False
+    try:
+        return re.search(raw_pattern, str(text or ""), flags=re.MULTILINE) is not None
+    except re.error as exc:
+        print(f"[WARN] Invalid --complete-regex: {exc}", file=sys.stderr, flush=True)
+        return False
+
+
 def _build_round_context_plan(
     *,
     provider: str,
@@ -2722,6 +2734,22 @@ def run_llm_rounds(
                 use_llm_thread=use_llm_thread,
                 judgment_mode=judgment_mode,
             )
+
+            completion_regex = getattr(core, "auto_pilot_complete_regex", None)
+            if completion_regex and _completion_regex_matches(
+                _round_text, completion_regex
+            ):
+                round_status = _RS_RETURN
+                core._last_completion_reason = "regex"
+                print(
+                    "[COMPLETE] "
+                    + json.dumps(
+                        {"reason": "regex", "round": round_count},
+                        ensure_ascii=False,
+                        separators=(",", ":"),
+                    ),
+                    flush=True,
+                )
 
             try:
                 from .runtime.logging_setup import log_event

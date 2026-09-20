@@ -98,6 +98,7 @@ def run_cli_startup(
     tool_genre_mask: int | None = None,
     inject_message: str | None = None,
     inject_message_auto: str | None = None,
+    complete_regex: str | None = None,
     enable_tools: list[str] | None = None,
 ) -> CliStartupState:
     import io
@@ -105,6 +106,13 @@ def run_cli_startup(
 
     if non_interactive:
         os.environ["UAGENT_NON_INTERACTIVE"] = "1"
+
+    try:
+        core.auto_pilot_complete_regex = (
+            str(complete_regex).strip() if complete_regex else None
+        )
+    except Exception:
+        pass
 
     startup_timing_enabled = (
         os.environ.get("UAGENT_STARTUP_TIMING") or ""

@@ -379,6 +379,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。
 - `UAGENT_SHOW_ROUND_STATUS`: `1` に設定すると、各LLM roundの機械可読な`[ROUND]`行をstderrへ出力します。
 - `UAGENT_SHOW_USAGE`: `1` に設定すると、providerからusageを取得できた場合に`[USAGE]` token行をstderrへ出力します。
+- `--complete-regex REGEX`: 非対話またはauto-pilot実行時のCLIオプションです。直近のassistant本文が正規表現に一致した時点で停止し、構造化された`[COMPLETE]`行を出力します。例: `uag --inject-message-auto "build the project --max-rounds 5" --complete-regex "^ALL DONE$"`。
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: LLMへ渡す各tool結果の最大文字数（既定: `12000`）。通常会話中およびResponses APIで履歴を再送する際に適用されます。上限を超えた結果は先頭と末尾を残して短縮します。`0` で短縮を無効化します。
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: 旧設定名。`UAGENT_TOOL_RESULT_MAX_CHARS` が未設定の場合のみ使用されます。
 - `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`: この文字数を超えるテキスト形式のtool結果をworkdirローカルのartifactへ保存し、LLMにはプレビューと参照だけを渡します（既定: `100000`）。`0` でartifact化を無効にできます。その場合も通常の結果サイズ上限は適用されます。
