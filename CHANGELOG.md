@@ -2,6 +2,17 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add real-network MCP Streamable HTTP integration coverage for discovery,
+  tool calls, and pooled session reuse.
+- Add shared public round-outcome projection helpers and regression tests.
+
+### Changed
+
+- Use the same detached round-outcome schema for CLI exit handling and GUI/Web
+  host updates.
+
 ## [0.7.9] - 2026-09-20
 
 ### Added

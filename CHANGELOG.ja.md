@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### 追加
+
+- MCP Streamable HTTP の discovery、tool call、session pool 再利用を実ネットワークで検証する統合テストを追加。
+- 公開 round outcome の共通投影ヘルパーと回帰テストを追加。
+
+### 変更
+
+- CLI の終了コード判定と GUI/Web の host 更新で、同じ detached round outcome schema を使用。
+
 ## [0.7.9] - 2026-09-20
 
 ### 追加
