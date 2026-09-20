@@ -648,7 +648,7 @@ code_mapの `format="mermaid"` で生成した現在のプロジェクト構造�
 
 ## Realtime Voice Architecture
 
-- Supports OpenAI Realtime, xAI Grok Voice API, and Google Gemini Multimodal Live API (`gemini-2.0-flash-exp`).
+- Supports OpenAI Realtime, xAI Grok Voice API, and Google Gemini Multimodal Live API (`gemini-3.1-flash-live-preview`).
 - Kept strictly isolated in `src/uagent/realtime.py` to prevent side effects on standard text execution flows.
 
 ## Maintenance Notes (util_tools split and tests)

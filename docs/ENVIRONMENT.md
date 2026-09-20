@@ -164,7 +164,7 @@ The llama.cpp integration currently uses Chat Completions. Keep `UAGENT_RESPONSE
 Required if `UAGENT_PROVIDER=gemini`:
 
 - `UAGENT_GEMINI_API_KEY` (required)
-- `UAGENT_GEMINI_DEPNAME` (optional, default: `gemini-2.5-pro-exp-03-25`)
+- `UAGENT_GEMINI_DEPNAME` (optional, default: `gemini-3.8-flash`)
 
 #### Google Vertex AI
 
@@ -180,7 +180,7 @@ Required if `UAGENT_PROVIDER=vertexai`:
 Required if `UAGENT_PROVIDER=claude`:
 
 - `UAGENT_CLAUDE_API_KEY` (required)
-- `UAGENT_CLAUDE_DEPNAME` (optional, default: `claude-sonnet-4-20250514`)
+- `UAGENT_CLAUDE_DEPNAME` (optional, default: `claude-sonnet-4-6`)
 
 #### Grok
 
@@ -393,7 +393,7 @@ Configuration settings for built-in web search (grounding) features provided dir
 
 - `UAGENT_AUDIO_REALTIME_PROVIDER`: Provider override (`openai`, `grok`, `xai`, `google`, `gemini`, `vertexai`).
 - `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: API key for Gemini Realtime.
-- `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtime model deployment name (default `gemini-2.0-flash-exp`).
+- `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtime model deployment name (default `gemini-3.1-flash-live-preview`).
 - `UAGENT_GEMINI_REALTIME_VOICE` / `UAGENT_GOOGLE_REALTIME_VOICE`: Prebuilt voice name (default `Puck`).
 
 ## envsec key storage

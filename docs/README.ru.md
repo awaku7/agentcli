@@ -209,7 +209,7 @@ export ANTHROPIC_API_KEY="your-api-key"
 # Local Ollama
 export UAGENT_PROVIDER=ollama
 export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-export UAGENT_OLLAMA_DEPNAME=llama3.1
+export UAGENT_OLLAMA_DEPNAME=llama3.3
 ```
 
 В Windows PowerShell вместо `export NAME=value` используется `$env:NAME = "value"`.

@@ -194,7 +194,7 @@ export ANTHROPIC_API_KEY="your-api-key"
 # Local Ollama
 export UAGENT_PROVIDER=ollama
 export UAGENT_OLLAMA_BASE_URL=http://localhost:11434/v1
-export UAGENT_OLLAMA_DEPNAME=llama3.1
+export UAGENT_OLLAMA_DEPNAME=llama3.3
 ```
 
 Windows PowerShell, `export NAME=value` yerine `$env:NAME = "value"` kullanır. Tam sağlayıcı matrisi için [Environment variables](https://github.com/awaku7/agentcli/blob/main/docs/ENVIRONMENT.md) sayfasına bakın.

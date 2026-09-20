@@ -182,7 +182,7 @@ llama.cpp 連携は現在 Chat Completions を使用します。互換プロキ�
 `UAGENT_PROVIDER=gemini` の場合に必要：
 
 - `UAGENT_GEMINI_API_KEY`（必須）
-- `UAGENT_GEMINI_DEPNAME`（省略可、既定: `gemini-2.5-pro-exp-03-25`）
+- `UAGENT_GEMINI_DEPNAME`（省略可、既定: `gemini-3.8-flash`）
 
 #### Google Vertex AI
 
@@ -198,7 +198,7 @@ llama.cpp 連携は現在 Chat Completions を使用します。互換プロキ�
 `UAGENT_PROVIDER=claude` の場合に必要：
 
 - `UAGENT_CLAUDE_API_KEY`（必須）
-- `UAGENT_CLAUDE_DEPNAME`（省略可、既定: `claude-sonnet-4-20250514`）
+- `UAGENT_CLAUDE_DEPNAME`（省略可、既定: `claude-sonnet-4-6`）
 
 #### Grok
 
@@ -409,7 +409,7 @@ LLM バックエンドが直接提供する組み込み Web 検索（グラウ�
 
 - `UAGENT_AUDIO_REALTIME_PROVIDER`: プロバイダーの上書き（`openai` / `grok` / `xai` / `google` / `gemini` / `vertexai`）。
 - `UAGENT_GEMINI_API_KEY` / `UAGENT_GOOGLE_API_KEY` / `GEMINI_API_KEY` / `GOOGLE_API_KEY`: Gemini Realtime用APIキー。
-- `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtimeモデル名（既定: `gemini-2.0-flash-exp`）。
+- `UAGENT_GEMINI_REALTIME_DEPNAME` / `UAGENT_GOOGLE_REALTIME_DEPNAME`: Realtimeモデル名（既定: `gemini-3.1-flash-live-preview`）。
 - `UAGENT_GEMINI_REALTIME_VOICE` / `UAGENT_GOOGLE_REALTIME_VOICE`: プリセットボイス名（既定: `Puck`）。
 
 ## 暗号化環境ファイルの編集
