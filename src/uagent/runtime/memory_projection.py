@@ -48,6 +48,15 @@ def _project_name(core: Any) -> str:
     return project_id_from_path(str(getattr(core, "workdir", "") or os.getcwd()))
 
 
+def _memory_owner(core: Any) -> str:
+    """Resolve the explicit owner boundary for this runtime projection."""
+    return str(
+        getattr(core, "memory_owner", "")
+        or env_get("UAGENT_MEMORY_OWNER", "")
+        or ""
+    ).strip()
+
+
 @dataclass(frozen=True)
 class MemoryProjectionItem:
     scope: str
@@ -88,6 +97,7 @@ def prepare_memory_projection(
         return None
 
     query = _latest_user_query(messages)
+    owner = _memory_owner(core)
     project = _project_name(core)
     max_candidates = _positive_int("UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES", 20)
     try:
@@ -97,8 +107,10 @@ def prepare_memory_projection(
             long_memory.load_long_memory_records(),
             query=query,
             scope="personal",
+            owner=owner,
             project=project,
             max_candidates=max_candidates,
+            allow_legacy_unknown=False,
         )
         shared_result: MemoryShadowResult | None = None
         if shared_memory.is_enabled():
@@ -106,8 +118,10 @@ def prepare_memory_projection(
                 shared_memory.load_shared_memory_records(),
                 query=query,
                 scope="shared",
+                owner=owner,
                 project=project,
                 max_candidates=max_candidates,
+                allow_legacy_unknown=False,
             )
     except Exception as exc:
         return MemoryProjectionSnapshot(
@@ -151,7 +165,7 @@ def prepare_memory_projection(
         max_chars=memory_budget_chars,
         existing_system_text="",
     )
-    owner = str(env_get("UAGENT_MEMORY_OWNER", "") or "unknown")
+    owner_label = owner or "unknown"
     session_id = str(
         getattr(core, "_session_store_active_id", "")
         or getattr(core, "session_id", "")
@@ -170,7 +184,7 @@ def prepare_memory_projection(
     diagnostics = {
         "enabled": True,
         "query_chars": len(query),
-        "owner": owner,
+        "owner": owner_label,
         "project": project,
         "session_id": session_id,
         "turn_id": turn_id,

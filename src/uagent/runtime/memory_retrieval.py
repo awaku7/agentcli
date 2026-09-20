@@ -132,12 +132,15 @@ def shadow_retrieve_memories(
     project: str = "",
     backend_revision: str = "",
     max_candidates: int = 20,
+    allow_legacy_unknown: bool = True,
 ) -> MemoryShadowResult:
     """Retrieve eligible memory candidates without changing runtime input.
 
     ``scope`` is required so personal and shared records cannot be silently
     promoted into one another.  Missing owner/project metadata is retained as
     ``legacy_unknown`` for shadow visibility, but is never inferred or changed.
+    Set ``allow_legacy_unknown=False`` for an actual projection that must not
+    use records whose owner or project boundary cannot be verified.
     """
     if scope not in ("personal", "shared"):
         raise ValueError("scope must be personal or shared")
@@ -181,6 +184,20 @@ def shadow_retrieve_memories(
         record_project = _field(record, "project", "project_id")
         owner_known = bool(record_owner)
         project_known = bool(record_project)
+        scope_status = (
+            "legacy_unknown" if not owner_known or not project_known else "scoped"
+        )
+        if not allow_legacy_unknown and (not owner_known or not project_known):
+            diagnostics.append(
+                MemoryShadowDiagnostic(
+                    index=index,
+                    action="exclude",
+                    reason="scope_unknown",
+                    item_id=item_id,
+                    scope_status=scope_status,
+                )
+            )
+            continue
         if requested_owner and owner_known and record_owner.casefold() != requested_owner:
             diagnostics.append(
                 MemoryShadowDiagnostic(
@@ -222,9 +239,6 @@ def shadow_retrieve_memories(
             continue
 
         normalized_note = note.casefold()
-        scope_status = (
-            "legacy_unknown" if not owner_known or not project_known else "scoped"
-        )
         relevance = _relevance(query, note)
         if relevance <= 0.0:
             diagnostics.append(
@@ -328,6 +342,11 @@ def observe_memory_shadow_retrieval(
         return None
 
     query = _latest_user_query(messages)
+    owner = str(
+        getattr(core, "memory_owner", "")
+        or env_get("UAGENT_MEMORY_OWNER", "")
+        or ""
+    ).strip()
     try:
         from ..tools import long_memory, shared_memory
         from .session_store import project_id_from_path
@@ -339,6 +358,7 @@ def observe_memory_shadow_retrieval(
             long_memory.load_long_memory_records(),
             query=query,
             scope="personal",
+            owner=owner,
             project=project,
             max_candidates=max_candidates,
         )
@@ -348,6 +368,7 @@ def observe_memory_shadow_retrieval(
                 shared_memory.load_shared_memory_records(),
                 query=query,
                 scope="shared",
+                owner=owner,
                 project=project,
                 max_candidates=max_candidates,
             )
@@ -355,6 +376,7 @@ def observe_memory_shadow_retrieval(
             "type": "memory_shadow_retrieval",
             "schema_version": 1,
             "query_chars": len(query),
+            "owner": owner or "unknown",
             "project": project,
             "personal": personal.to_dict(),
             "shared": shared.to_dict() if shared is not None else None,

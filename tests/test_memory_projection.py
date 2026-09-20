@@ -17,7 +17,17 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
     monkeypatch.setenv("UAGENT_MEMORY_FILE", str(tmp_path / "memory.jsonl"))
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION_CHARS", "500")
-    assert long_memory.append_long_memory("database rule") is True
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [
+            {
+                "note": "database rule",
+                "owner": "alice",
+                "project": tmp_path.name,
+            }
+        ],
+    )
     monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: True)
     monkeypatch.setattr(
         memory_projection,
@@ -28,6 +38,7 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     baseline = "[legacy broad memory]\n- database rule"
     core = type("Core", (), {})()
     core.workdir = str(tmp_path)
+    core.memory_owner = "alice"
     core._uagent_memory_system_contents = {"personal": {baseline}}
     messages = [
         {"role": "system", "content": "system instruction"},
@@ -50,7 +61,7 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     assert len(evidence[0]) <= 500
     diagnostics = snapshot.to_diagnostics()
     assert diagnostics["profile_present"] is True
-    assert diagnostics["owner"] == "unknown"
+    assert diagnostics["owner"] == "alice"
     assert diagnostics["project"] == tmp_path.name
     assert diagnostics["session_id"] == "unknown"
     assert diagnostics["source_revision"] == "unknown"
@@ -106,3 +117,55 @@ def test_projection_diagnostics_are_added_to_context_plan_telemetry() -> None:
 
     assert plan["telemetry"]["memory_projection"]["enabled"] is True
     assert plan["telemetry"]["memory_projection"]["memory_budget_chars"] == 4000
+
+
+def test_projection_excludes_owner_mismatch_and_unscoped_legacy_records(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime.memory_projection import (
+        apply_memory_projection,
+        prepare_memory_projection,
+    )
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [
+            {
+                "note": "allowed database rule",
+                "owner": "alice",
+                "project": tmp_path.name,
+            },
+            {
+                "note": "other owner database rule",
+                "owner": "bob",
+                "project": tmp_path.name,
+            },
+            {"note": "legacy database rule"},
+        ],
+    )
+    core = type("Core", (), {})()
+    core.workdir = str(tmp_path)
+    core.memory_owner = "alice"
+    messages = [{"role": "user", "content": "database rule"}]
+
+    snapshot = prepare_memory_projection(messages, core)
+    projected = apply_memory_projection(messages, snapshot, core)
+
+    assert snapshot is not None
+    evidence = [
+        str(message["content"])
+        for message in projected
+        if str(message.get("content", "")).startswith("[MEMORY EVIDENCE]")
+    ]
+    assert len(evidence) == 1
+    assert "allowed database rule" in evidence[0]
+    assert "other owner database rule" not in evidence[0]
+    assert "legacy database rule" not in evidence[0]
+    reasons = {
+        item["reason"] for item in snapshot.diagnostics["personal"]["diagnostics"]
+    }
+    assert "owner_mismatch" in reasons
+    assert "scope_unknown" in reasons
