@@ -508,6 +508,15 @@ def _cli_tool_result_display_enabled(core: Any) -> bool:
     }
 
 
+def _host_tool_result_display_enabled(core: Any) -> bool:
+    """Return whether GUI/Web should receive the bounded tool-result line."""
+
+    return bool(
+        core is not None
+        and (getattr(core, "_is_web", False) or getattr(core, "IS_GUI", False))
+    )
+
+
 def _tool_result_status(value: Any) -> str:
     """Classify a result for the bounded UI projection."""
 
@@ -904,6 +913,9 @@ def _execute_tool_calls(
         )
         if _cli_tool_result_display_enabled(core):
             print(projections.ui_display)
+        host_tool_result_display = (
+            projections.ui_display if _host_tool_result_display_enabled(core) else ""
+        )
         record_result = getattr(core, "record_tool_result", None)
         if callable(record_result):
             record_result(result_record.to_dict(), projections.persistent_history)
@@ -932,6 +944,15 @@ def _execute_tool_calls(
                 pass
 
         messages.append(tool_msg)
+        if host_tool_result_display:
+            core.log_message(
+                {
+                    "role": "assistant",
+                    "content": host_tool_result_display,
+                    "_uagent_ui_only": True,
+                    "_uagent_tool_result": True,
+                }
+            )
         core.log_message(tool_msg)
 
         # Responses API continuations must place function outputs directly

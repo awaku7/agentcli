@@ -4,6 +4,7 @@ from types import SimpleNamespace
 
 from uagent.llm_flow_helpers import (
     _cli_tool_result_display_enabled,
+    _host_tool_result_display_enabled,
     _tool_result_status,
 )
 
@@ -24,6 +25,16 @@ def test_tool_result_display_is_opt_in_and_cli_only(monkeypatch) -> None:
         _cli_tool_result_display_enabled(SimpleNamespace(_is_web=False, IS_GUI=True))
         is False
     )
+
+
+def test_host_tool_result_display_is_enabled_for_gui_and_web() -> None:
+    assert _host_tool_result_display_enabled(SimpleNamespace(_is_web=True)) is True
+    assert _host_tool_result_display_enabled(SimpleNamespace(IS_GUI=True)) is True
+    assert (
+        _host_tool_result_display_enabled(SimpleNamespace(_is_web=False, IS_GUI=False))
+        is False
+    )
+    assert _host_tool_result_display_enabled(None) is False
 
 
 def test_tool_result_status_classifies_common_results() -> None:
