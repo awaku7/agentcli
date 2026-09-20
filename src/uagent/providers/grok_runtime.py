@@ -30,7 +30,9 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
         call_messages = list(payload.get("messages") or ())
         instructions, xai_messages = build_xai_messages(call_messages)
         request_tools = build_xai_tools(
-            bool(payload.get("tools")), call_messages=call_messages
+            bool(payload.get("tools")),
+            call_messages=call_messages,
+            tool_specs=list(payload.get("tools") or ()),
         )
         options = {
             key: value

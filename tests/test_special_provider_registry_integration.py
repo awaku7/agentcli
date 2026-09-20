@@ -138,7 +138,7 @@ def test_grok_registry_route_runs_through_round_orchestrator(
     )
     monkeypatch.setattr(
         "uagent.providers.grok_runtime.build_xai_tools",
-        lambda enabled, call_messages=None: None,
+        lambda enabled, call_messages=None, **kwargs: None,
     )
 
     chat = _GrokChat([(None, SimpleNamespace(content="grok-ok"))])

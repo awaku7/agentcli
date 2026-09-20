@@ -171,11 +171,41 @@ def build_xai_tools(
     send_tools_this_round: bool,
     call_messages: Optional[list[dict[str, Any]]] = None,
     core: Any = None,
+    tool_specs: Optional[list[dict[str, Any]]] = None,
 ) -> Optional[list[Any]]:
-    """Build xai_sdk Tool list: management tools + tools loaded via tool_load."""
+    """Build xai_sdk tools from the registry projection or legacy state."""
     if not send_tools_this_round:
         return None
     _ensure_xai_chat()
+
+    # Registry rounds already computed the exact tool projection for this request.
+    # Treat it as authoritative instead of reconstructing stale state from messages.
+    if tool_specs is not None:
+        xai_tool_list: list[Any] = []
+        seen_names: set[str] = set()
+        for spec in tool_specs:
+            if not isinstance(spec, dict):
+                continue
+            fn = spec.get("function") or {}
+            if not isinstance(fn, dict):
+                continue
+            name = fn.get("name")
+            if not name or name in seen_names:
+                continue
+            seen_names.add(name)
+            xai_tool_list.append(
+                xai_tool(
+                    name=name,
+                    description=_as_str(fn.get("description", "")),
+                    parameters=fn.get("parameters")
+                    or {"type": "object", "properties": {}},
+                )
+            )
+        _debug_log(
+            "xai_tools_sent",
+            tools=[t.function.name for t in xai_tool_list],
+        )
+        return xai_tool_list or None
 
     # Always include management tools
     try:
@@ -210,6 +240,11 @@ def build_xai_tools(
                                 name = args.get("name") or args.get("tool_name") or ""
                                 if name:
                                     loaded_names.add(name)
+                                names = args.get("names")
+                                if isinstance(names, list):
+                                    loaded_names.update(
+                                        item for item in names if isinstance(item, str)
+                                    )
                         except Exception:
                             pass
             # Also check tool results for successful load
