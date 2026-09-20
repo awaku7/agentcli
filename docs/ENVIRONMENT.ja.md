@@ -373,6 +373,11 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_DEBUG_ENDPOINT`: `1` に設定すると、起動時にエンドポイントとモデル情報を出力します。
 - `UAGENT_PARALLEL_WORKERS`: 並列ツール実行のスレッド数（既定: `8`）。I/O バウンドなタスクが多い場合は増やしてください。
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: 指定されたラウンド数だけ使用されなかったツールを自動的にアンロードします（既定: `10`）。`0` に設定すると自動アンロードが無効になります。
+- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: 引数に関係なく、同じtoolを連続して呼び出せる最大回数（既定: `8`）。
+- `UAGENT_MAX_TOOL_ROUNDS`: 1回のユーザー操作で許可するLLM/toolラウンドの最大数（既定: `64`）。
+- `UAGENT_FILE_GREP_TURN_LIMIT`: 1回のユーザー操作で実行できる`file_grep`の最大回数（既定: `8`）。超過後は`read_file`、indexのsection、`code_map`などへ切り替えるよう促します。
+- `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。
+- `UAGENT_SHOW_ROUND_STATUS`: `1` に設定すると、各LLM roundの機械可読な`[ROUND]`行をstderrへ出力します。
 - `UAGENT_TOOL_RESULT_MAX_CHARS`: LLMへ渡す各tool結果の最大文字数（既定: `12000`）。通常会話中およびResponses APIで履歴を再送する際に適用されます。上限を超えた結果は先頭と末尾を残して短縮します。`0` で短縮を無効化します。
 - `UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS`: 旧設定名。`UAGENT_TOOL_RESULT_MAX_CHARS` が未設定の場合のみ使用されます。
 - `UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS`: この文字数を超えるテキスト形式のtool結果をworkdirローカルのartifactへ保存し、LLMにはプレビューと参照だけを渡します（既定: `100000`）。`0` でartifact化を無効にできます。その場合も通常の結果サイズ上限は適用されます。

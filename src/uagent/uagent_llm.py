@@ -81,6 +81,7 @@ from .tools._genre_control_util import (
 from .tools import TOOL_SPECS as _TOOL_SPECS
 from .tools import _should_preload_lazy_specs
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
+from .runtime.telemetry import reconcile_usage
 from .runtime.tool_discovery import MANAGEMENT_TOOL_NAMES as _MGMT_TOOLS
 from .tools.context import get_callbacks
 from .tools.skill_history import make_finish_skill_handler
@@ -2670,6 +2671,9 @@ def run_llm_rounds(
             round_count += 1
             round_started = time.perf_counter()
             message_count_before_round = len(messages)
+            usage_before_round = getattr(core, "_last_responses_usage", {})
+            if not isinstance(usage_before_round, dict):
+                usage_before_round = {}
             _TOTAL_ROUNDS += 1
             if not judgment_mode:
                 core.computer_use_turn_id = str(round_count)
@@ -2729,6 +2733,8 @@ def run_llm_rounds(
                     _calls = _message.get("tool_calls")
                     if isinstance(_calls, list):
                         round_tool_calls += len(_calls)
+                usage_after_round = getattr(core, "_last_responses_usage", {})
+                usage_delta = reconcile_usage(usage_before_round, usage_after_round)
                 log_event(
                     "llm.round.completed",
                     provider=provider,
@@ -2739,7 +2745,40 @@ def run_llm_rounds(
                     tool_call_count=round_tool_calls,
                     assistant_chars=len(str(_round_text or "")),
                     messages_added=max(0, len(messages) - message_count_before_round),
+                    usage_delta=usage_delta,
+                    usage_available=bool(usage_delta),
                 )
+                if (env_get("UAGENT_SHOW_ROUND_STATUS", "") or "").strip().lower() in {
+                    "1",
+                    "true",
+                    "yes",
+                    "on",
+                }:
+                    round_label = {
+                        _RS_RETURN: "complete",
+                        _RS_BREAK: "failed",
+                        _RS_CONTINUE: "continue",
+                        _RS_OK: "continue",
+                    }.get(round_status, "failed")
+                    print(
+                        "[ROUND] "
+                        + json.dumps(
+                            {
+                                "round": round_count,
+                                "status": round_label,
+                                "tool_calls": round_tool_calls,
+                                "duration_ms": round(
+                                    (time.perf_counter() - round_started) * 1000, 3
+                                ),
+                                "usage_available": bool(usage_delta),
+                                "final": round_status == _RS_RETURN,
+                            },
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                        ),
+                        file=sys.stderr,
+                        flush=True,
+                    )
             except Exception:
                 pass
 
