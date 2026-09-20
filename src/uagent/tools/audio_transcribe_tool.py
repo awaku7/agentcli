@@ -213,7 +213,7 @@ def _model(provider: str) -> str:
     if provider in ("gemini", "vertexai"):
         return _env_first(
             ["UAGENT_GEMINI_TRANSCRIBE_DEPNAME", "UAGENT_GEMINI_MODEL"],
-            default="gemini-1.5-flash",
+            default="gemini-2.5-flash",
         )
     if provider == "grok":
         return _env_first(

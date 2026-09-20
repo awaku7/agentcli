@@ -58,10 +58,7 @@ def analyze_image_gemini(
 
     model_name = _img_env(provider, "analysis", "depname", required=False)
     if not model_name:
-        if provider == "vertexai":
-            model_name = "gemini-1.5-flash"  # Default for Vertex AI Vision
-        else:
-            model_name = "gemini-1.5-flash"  # Default for Gemini AI Studio
+        model_name = "gemini-2.5-flash"
 
     # Initialize client
     try:

@@ -11,8 +11,8 @@ def default_image_model(provider: str) -> str | None:
     defaults = {
         "openai": DEFAULT_OPENAI_IMAGE_MODEL,
         "meta": "muse-image-1.0",
-        "gemini": "imagen-4.0-generate-001",
-        "vertexai": "imagen-4.0-generate-001",
+        "gemini": "gemini-3.1-flash-image",
+        "vertexai": "gemini-3.1-flash-image",
         "zai": "glm-image",
         "grok": "grok-imagine-image",
     }

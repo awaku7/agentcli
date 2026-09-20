@@ -1005,10 +1005,8 @@ def run_tool(args: dict[str, Any]) -> str:
     provider = _get_provider()
     try:
         image_model = _get_image_depname(cb.get_env, provider)
-        if provider == "gemini" and "imagen" not in image_model.lower():
-            image_model = "imagen-4.0-generate-001"
-        if provider == "vertexai" and "imagen" not in image_model.lower():
-            image_model = "imagen-4.0-generate-001"
+        if provider in ("gemini", "vertexai") and not image_model:
+            image_model = "gemini-3.1-flash-image"
         try:
             from uagent.llmcapa_util import (
                 check_image_output_support,
@@ -1029,8 +1027,8 @@ def run_tool(args: dict[str, Any]) -> str:
         except Exception:
             pass
     except RuntimeError:
-        if provider == "vertexai":
-            image_model = "imagen-4.0-generate-001"
+        if provider in ("gemini", "vertexai"):
+            image_model = "gemini-3.1-flash-image"
         else:
             return _(
                 "err.depname_missing",

@@ -353,7 +353,7 @@ def _image_analysis_model_keys(provider: str) -> tuple[list[str], str]:
         keys.append(f"UAGENT_{p}_DEPNAME")
         return keys, f"UAGENT_{p}_DEPNAME/default"
     if provider in ("gemini", "vertexai"):
-        return keys, "default gemini-1.5-flash"
+        return keys, "default gemini-2.5-flash"
     return keys, "default"
 
 
@@ -362,8 +362,8 @@ def _image_generation_model_keys(provider: str) -> tuple[list[str], str]:
     keys = [f"UAGENT_{p}_IMG_GENERATE_DEPNAME", "UAGENT_IMG_GENERATE_DEPNAME"]
     defaults = {
         "openai": f"default {default_image_model('openai')}",
-        "gemini": "default imagen-4.0-generate-001",
-        "vertexai": "default imagen-4.0-generate-001",
+        "gemini": "default gemini-3.1-flash-image",
+        "vertexai": "default gemini-3.1-flash-image",
         "zai": "default glm-image",
         "grok": "default grok-imagine-image",
         "meta": "default muse-image-1.0",
