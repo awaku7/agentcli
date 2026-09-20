@@ -185,6 +185,44 @@ def _debug_tool_loop(event: str, **fields: Any) -> None:
     return
 
 
+def _emit_tool_loop_block(
+    *,
+    core: Any,
+    tool_name: str,
+    count: int,
+    reason: str,
+    round_count: int,
+    tool_calls_list: list[dict[str, Any]],
+) -> None:
+    """Emit a bounded operator line and structured durable loop event."""
+    call_id = ""
+    for tool_call in tool_calls_list or []:
+        if not isinstance(tool_call, dict):
+            continue
+        function = tool_call.get("function") or {}
+        if isinstance(function, dict) and str(function.get("name") or "") == tool_name:
+            call_id = str(tool_call.get("id") or "")
+            break
+    payload = {
+        "tool": str(tool_name or "unknown"),
+        "count": int(count),
+        "reason": str(reason),
+        "round": int(round_count),
+        "call_id": call_id,
+    }
+    print(
+        "[LOOP-GUARD] "
+        + json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
+        flush=True,
+    )
+    try:
+        from .runtime.logging_setup import log_event
+
+        log_event("tool.loop_blocked", **payload)
+    except Exception:
+        pass
+
+
 _GENERAL_LOOP_EXEMPT_TOOLS = frozenset(
     {
         "human_ask",
@@ -1832,6 +1870,14 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _emit_tool_loop_block(
+                core=core,
+                tool_name=blocked_name,
+                count=blocked_count,
+                reason="management_tool_repeat",
+                round_count=round_count,
+                tool_calls_list=tool_calls_list,
+            )
             _spinner_stop_quietly()
             print(
                 "[WARN] Management tool call '%(name)s' repeated %(n)d times; aborting to prevent loop."
@@ -1851,6 +1897,14 @@ def _run_one_round(
         )
         if blocked:
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _emit_tool_loop_block(
+                core=core,
+                tool_name=_CONSECUTIVE_TOOL_CALL_NAME or blocked_name,
+                count=blocked_count,
+                reason="consecutive_tool_calls",
+                round_count=round_count,
+                tool_calls_list=fresh_tool_calls,
+            )
             _spinner_stop_quietly()
             print(
                 _(
@@ -1869,6 +1923,14 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _emit_tool_loop_block(
+                core=core,
+                tool_name=blocked_name,
+                count=blocked_count,
+                reason="same_arguments",
+                round_count=round_count,
+                tool_calls_list=fresh_tool_calls,
+            )
             _spinner_stop_quietly()
             print(
                 "[WARN] Tool call '%(name)s' repeated %(n)d times with the same "
