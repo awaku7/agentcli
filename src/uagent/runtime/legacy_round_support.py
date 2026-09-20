@@ -151,7 +151,9 @@ def record_legacy_usage_telemetry(
     model: str,
     before: dict[str, Any],
     log_event_fn: Callable[..., Any] = log_event,
-    reconcile_usage_fn: Callable[[dict[str, Any], dict[str, Any]], dict[str, Any]] = reconcile_usage,
+    reconcile_usage_fn: Callable[
+        [dict[str, Any], dict[str, Any]], dict[str, Any]
+    ] = reconcile_usage,
 ) -> None:
     """Bridge provider usage retained on legacy core state into events."""
     after = getattr(core, "_last_responses_usage", None) if core is not None else None

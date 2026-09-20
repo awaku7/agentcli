@@ -369,5 +369,3 @@ def test_registry_tuple_to_outcome_is_the_shared_legacy_bridge() -> None:
     assert outcome.tool_calls == (result[3][0],)
     assert outcome.summary is not None
     assert outcome.summary.status == "failed"
-
-

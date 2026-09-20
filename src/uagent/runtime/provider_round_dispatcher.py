@@ -174,8 +174,7 @@ class ProviderRoundDispatch:
     @property
     def owns_tool_execution(self) -> bool:
         return bool(
-            self.outcome is not None
-            and self.outcome.capabilities.owns_tool_execution
+            self.outcome is not None and self.outcome.capabilities.owns_tool_execution
         )
 
     @property
@@ -188,8 +187,7 @@ class ProviderRoundDispatch:
     @property
     def host_rendered(self) -> bool:
         return bool(
-            self.outcome is not None
-            and self.outcome.capabilities.host_rendered
+            self.outcome is not None and self.outcome.capabilities.host_rendered
         )
 
 

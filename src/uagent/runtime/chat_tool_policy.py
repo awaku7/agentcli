@@ -12,9 +12,7 @@ from .context_budget import ContextBudget
 from .context_tools import select_tool_definitions
 
 CHAT_COMPLETIONS_MAX_TOOLS = 128
-CHAT_TOOL_HELPERS = frozenset(
-    {"tool_catalog", "tool_load", "unload_tool", "human_ask"}
-)
+CHAT_TOOL_HELPERS = frozenset({"tool_catalog", "tool_load", "unload_tool", "human_ask"})
 
 
 def _tool_spec_name(spec: Any) -> str:
