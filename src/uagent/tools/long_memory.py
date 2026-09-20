@@ -112,6 +112,11 @@ def _legacy_jsonl_memory_id(record: dict[str, Any], index: int) -> str:
 
 def _normalize_jsonl_record(record: dict[str, Any], index: int) -> dict[str, Any]:
     note = str(record.get("note") or "").strip()
+    try:
+        schema_version = int(record.get("schema_version") or 0)
+    except (TypeError, ValueError):
+        schema_version = 0
+    is_legacy = schema_version < JSONL_SCHEMA_VERSION or not record.get("memory_id")
     if not note:
         raise MemoryMigrationError(f"record {index} has no non-empty note")
     created_at = record.get("created_at", record.get("ts"))
@@ -137,7 +142,7 @@ def _normalize_jsonl_record(record: dict[str, Any], index: int) -> dict[str, Any
             "status": str(record.get("status") or "active"),
         }
     )
-    if not normalized.get("source"):
+    if is_legacy and not normalized.get("source"):
         normalized["source"] = "legacy_jsonl"
     return normalized
 

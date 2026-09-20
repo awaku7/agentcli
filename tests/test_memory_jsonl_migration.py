@@ -24,13 +24,28 @@ def test_jsonl_migration_adds_stable_ids_atomically_and_is_idempotent(
             },
             ensure_ascii=False,
         )
+        + "\n"
+        + json.dumps(
+            {
+                "schema_version": 2,
+                "memory_id": "v2-id",
+                "created_at": 3,
+                "updated_at": 3,
+                "ts": 3,
+                "note": "current schema",
+                "kind": "note",
+                "revision": 1,
+                "status": "active",
+            },
+            ensure_ascii=False,
+        )
         + "\n",
         encoding="utf-8",
     )
 
     first = migrate_long_memory_jsonl(path)
     assert first["changed"] is True
-    assert first["record_count"] == 2
+    assert first["record_count"] == 3
     assert first["backup_path"]
     assert Path(first["backup_path"]).exists()
 
@@ -38,10 +53,17 @@ def test_jsonl_migration_adds_stable_ids_atomically_and_is_idempotent(
         json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()
     ]
     assert all(record["schema_version"] == 2 for record in records)
-    assert all(record["memory_id"].startswith("legacy-jsonl-") for record in records)
-    assert [record["note"] for record in records] == ["legacy one", "legacy two"]
+    assert records[0]["memory_id"].startswith("legacy-jsonl-")
+    assert records[1]["memory_id"].startswith("legacy-jsonl-")
+    assert records[2]["memory_id"] == "v2-id"
+    assert [record["note"] for record in records] == [
+        "legacy one",
+        "legacy two",
+        "current schema",
+    ]
     assert records[1]["owner"] == "alice"
     assert records[1]["project"] == "app"
+    assert "source" not in records[2]
     ids = [record["memory_id"] for record in records]
 
     second = migrate_long_memory_jsonl(path, backup=False)
