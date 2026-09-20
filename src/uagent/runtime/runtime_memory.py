@@ -64,6 +64,20 @@ def _format_profile(profile: dict[str, Any]) -> str:
     return "\n\n".join(blocks)
 
 
+def _register_memory_system_content(core: Any, scope: str, content: str) -> None:
+    """Track startup memory projections without adding provider metadata."""
+    try:
+        registry = getattr(core, "_uagent_memory_system_contents", None)
+        if not isinstance(registry, dict):
+            registry = {}
+            setattr(core, "_uagent_memory_system_contents", registry)
+        values = registry.setdefault(scope, set())
+        if isinstance(values, set):
+            values.add(content)
+    except Exception:
+        pass
+
+
 def append_long_memory_system_messages(
     *,
     core: Any,
@@ -104,6 +118,9 @@ def append_long_memory_system_messages(
         personal_msg = build_long_memory_system_message_fn(personal_records)
         if personal_msg:
             messages.append(personal_msg)
+            _register_memory_system_content(
+                core, "personal", str(personal_msg.get("content") or "")
+            )
             core.log_message(personal_msg)
     except Exception:
         pass
@@ -125,6 +142,9 @@ def append_long_memory_system_messages(
         shared_msg = build_long_memory_system_message_fn(shared_records)
         if shared_msg:
             messages.append(shared_msg)
+            _register_memory_system_content(
+                core, "shared", str(shared_msg.get("content") or "")
+            )
             core.log_message(shared_msg)
     except Exception:
         pass

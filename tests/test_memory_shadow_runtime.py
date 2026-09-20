@@ -42,7 +42,8 @@ def test_runtime_shadow_observation_is_disabled_by_default(monkeypatch) -> None:
     monkeypatch.delenv("UAGENT_MEMORY_SHADOW_RETRIEVAL", raising=False)
     core = SimpleNamespace(log_message=lambda _event: None)
 
-    assert observe_memory_shadow_retrieval(
-        [{"role": "user", "content": "database"}], core
-    ) is None
+    assert (
+        observe_memory_shadow_retrieval([{"role": "user", "content": "database"}], core)
+        is None
+    )
     assert not hasattr(core, "memory_shadow_last_observation")
