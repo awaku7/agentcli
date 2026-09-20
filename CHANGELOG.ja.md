@@ -6,6 +6,7 @@
 
 - MCP Streamable HTTP の discovery、tool call、session pool 再利用を実ネットワークで検証する統合テストを追加。
 - 公開 round outcome の共通投影ヘルパーと回帰テストを追加。
+- raw result を含めず、bounded な tool result summary を GUI/Web host UI へ投影。
 
 ### 変更
 

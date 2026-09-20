@@ -7,6 +7,7 @@
 - Add real-network MCP Streamable HTTP integration coverage for discovery,
   tool calls, and pooled session reuse.
 - Add shared public round-outcome projection helpers and regression tests.
+- Project bounded tool-result summaries to GUI/Web host UIs without raw results.
 
 ### Changed
 
