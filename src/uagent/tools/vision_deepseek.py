@@ -58,8 +58,8 @@ def _get_deepseek_client():
 def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
     client = _get_deepseek_client()
     model = (
-        env_get("UAGENT_DEEPSEEK_IMG_ANALYSIS_DEPNAME", "deepseek-v4-flash-vision-exp")
-        or "deepseek-v4-flash-vision-exp"
+        env_get("UAGENT_DEEPSEEK_IMG_ANALYSIS_DEPNAME", "deepseek-flash")
+        or "deepseek-flash"
     )
     text = (prompt or "").strip() or "Please describe this image in detail."
     data_url = _image_file_to_data_url(image_path)
@@ -131,7 +131,7 @@ def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
                         "The configured DeepSeek endpoint does not support image input. "
                         "To use DeepSeek vision, set UAGENT_DEEPSEEK_BASE_URL to a vision-capable endpoint "
                         "(e.g., a provider that supports vision models) and UAGENT_DEEPSEEK_DEPNAME to the model name. "
-                        "The default vision model is deepseek-v4-flash-vision-exp."
+                        "The default vision model is deepseek-flash."
                     ),
                 },
                 ensure_ascii=False,

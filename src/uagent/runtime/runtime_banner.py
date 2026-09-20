@@ -239,7 +239,7 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
     if provider in {"gemini", "vertexai"} and not depname:
         depname = "gemini-2.5-flash"
     if provider == "deepseek" and not depname:
-        depname = "deepseek-v4-flash-vision-exp"
+        depname = "deepseek-flash"
     if not depname:
         return None
 
