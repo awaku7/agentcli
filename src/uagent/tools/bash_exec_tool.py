@@ -6,6 +6,7 @@ import shlex
 import shutil
 import subprocess
 from typing import Any
+from urllib.parse import urlparse
 
 from .i18n_helper import make_tool_translator
 from .safe_exec_ops import confirm_if_needed, decide_cmd_exec
@@ -226,6 +227,90 @@ def _allowlisted_executables(command: str) -> tuple[list[str], str | None]:
     return executables, None
 
 
+def _scope_tokens(command: str) -> tuple[list[str], str | None]:
+    """Tokenize command arguments for optional path/network scope checks."""
+    try:
+        lexer = shlex.shlex(
+            _mask_quoted_shell_punctuation(command),
+            posix=True,
+            punctuation_chars=";&|<>()",
+        )
+        lexer.whitespace_split = True
+        lexer.commenters = ""
+        return [
+            token.translate(_QUOTED_PUNCTUATION_RESTORE) for token in lexer
+        ], None
+    except ValueError as exc:
+        return [], f"command could not be parsed safely: {exc}"
+
+
+def _split_scope_values(name: str) -> list[str]:
+    return [
+        os.path.abspath(os.path.expanduser(item.strip()))
+        for item in os.environ.get(name, "").split(os.pathsep)
+        if item.strip()
+    ]
+
+
+def _path_scope_reason(command: str) -> str | None:
+    roots = _split_scope_values("UAGENT_BASH_EXEC_ALLOWED_PATHS")
+    if not roots:
+        return None
+    tokens, parse_error = _scope_tokens(command)
+    if parse_error:
+        return parse_error
+    operators = _COMMAND_SEPARATORS | _REDIRECTION_OPERATORS | {"(", ")"}
+    for token in tokens:
+        if not token or token in operators or token.startswith("-"):
+            continue
+        if "://" in token or _ASSIGNMENT_RE.match(token):
+            continue
+        looks_like_path = (
+            token.startswith(("/", "./", "../", "~/"))
+            or bool(re.match(r"^[A-Za-z]:[\\/]", token))
+            or os.path.exists(os.path.expanduser(token))
+        )
+        if not looks_like_path:
+            continue
+        candidate = os.path.abspath(os.path.expanduser(token))
+        try:
+            in_scope = any(
+                os.path.commonpath((candidate, root)) == root for root in roots
+            )
+        except ValueError:
+            in_scope = False
+        if not in_scope:
+            return (
+                f"path '{token}' is outside UAGENT_BASH_EXEC_ALLOWED_PATHS "
+                f"({os.pathsep.join(roots)})"
+            )
+    return None
+
+
+def _network_scope_reason(command: str) -> str | None:
+    allowed = {
+        item.strip().lower().rstrip(".")
+        for item in os.environ.get("UAGENT_BASH_EXEC_ALLOWED_HOSTS", "").split(",")
+        if item.strip()
+    }
+    if not allowed:
+        return None
+    tokens, parse_error = _scope_tokens(command)
+    if parse_error:
+        return parse_error
+    for token in tokens:
+        parsed = urlparse(token)
+        host = (parsed.hostname or "").lower().rstrip(".")
+        if not host:
+            continue
+        if not any(host == item or host.endswith("." + item) for item in allowed):
+            return (
+                f"host '{host}' is outside UAGENT_BASH_EXEC_ALLOWED_HOSTS "
+                f"({','.join(sorted(allowed))})"
+            )
+    return None
+
+
 def _policy_block_reason(command: str) -> str | None:
     policy = os.environ.get("UAGENT_BASH_EXEC_POLICY", "").strip().lower()
     if policy in {"deny", "off", "disabled", "0", "false", "no"}:
@@ -265,7 +350,21 @@ def _policy_block_reason(command: str) -> str | None:
                 f"command '{blocked[0]}' is not in UAGENT_BASH_EXEC_ALLOWLIST "
                 f"({','.join(sorted(allowlist))})"
             )
+    path_reason = _path_scope_reason(command)
+    if path_reason:
+        return path_reason
+    network_reason = _network_scope_reason(command)
+    if network_reason:
+        return network_reason
     return None
+
+
+def _timeout_seconds() -> float:
+    raw = os.environ.get("UAGENT_BASH_EXEC_TIMEOUT_SEC", "120").strip()
+    try:
+        return min(900.0, max(1.0, float(raw)))
+    except ValueError:
+        return 120.0
 
 
 def run_tool(args: dict[str, Any]) -> str:
@@ -303,7 +402,13 @@ def run_tool(args: dict[str, Any]) -> str:
             stdin=subprocess.DEVNULL,
             capture_output=True,
             text=True,
+            timeout=_timeout_seconds(),
         )
+    except subprocess.TimeoutExpired:
+        return _(
+            "err.timeout",
+            default="[bash_exec timeout] command exceeded the configured timeout: {seconds}s",
+        ).format(seconds=_timeout_seconds())
     except Exception as e:
         return _(
             "err.exception",
