@@ -70,7 +70,12 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "file_grep",
         "description": _(
             "tool.description",
-            default="Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
+            default=(
+                "Locate an unknown file, symbol, or text pattern and return matching "
+                "lines with line numbers (like grep -n). Use this for discovery only; "
+                "once the target file or line is known, use read_file or a language-specific "
+                "index section tool instead. Pattern is required."
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",

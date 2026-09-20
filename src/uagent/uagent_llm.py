@@ -328,7 +328,11 @@ def check_consecutive_tool_calls(
     so calls of the same tool with different arguments still count together.
     """
     global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
-    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "100")
+    # Keep a model from using one discovery tool as a general-purpose reader.
+    # Users can raise this for intentionally long workflows, but the default
+    # must be low enough to stop a discovery tool from being selected
+    # repeatedly across rounds.
+    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "8")
     try:
         default_limit = max(1, int(raw_limit))
     except (TypeError, ValueError):
@@ -2538,9 +2542,9 @@ def run_llm_rounds(
     # Keep the safety cap conservative, while allowing explicit override for
     # genuinely long workflows.
     try:
-        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "200")))
+        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "24")))
     except (TypeError, ValueError):
-        max_tool_rounds = 200
+        max_tool_rounds = 24
     round_count = 0
 
     empty_no_tool_rounds = 0
@@ -2574,6 +2578,10 @@ def run_llm_rounds(
     if not preserve_tool_loop_state:
         _TOOL_CALL_FINGERPRINTS.clear()
         clear_consecutive_tool_call_streak()
+        try:
+            core._file_grep_turn_count = 0
+        except Exception:
+            pass
         if provider in ("gemini", "vertexai"):
             core._gemini_tool_catalog_ready = False
 

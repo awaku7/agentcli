@@ -535,6 +535,33 @@ def _execute_tool_calls(
         core, "context_manager", ContextManager.from_environment()
     )
 
+    # file_grep is a discovery tool, not a general-purpose source reader.
+    # Bound it per user turn so a model that keeps inventing new search patterns
+    # is forced to consume the result with read_file or an index-section tool.
+    try:
+        _file_grep_limit = max(
+            1, int(env_get("UAGENT_FILE_GREP_TURN_LIMIT", "8"))
+        )
+    except (TypeError, ValueError):
+        _file_grep_limit = 8
+    _file_grep_turn_count = int(
+        getattr(core, "_file_grep_turn_count", 0) or 0
+    )
+    _blocked_file_grep_ids: set[str] = set()
+    for _tc in tool_calls_list:
+        _fn = _tc.get("function") if isinstance(_tc, dict) else None
+        _name = _fn.get("name") if isinstance(_fn, dict) else ""
+        if _name != "file_grep":
+            continue
+        if _file_grep_turn_count >= _file_grep_limit:
+            _blocked_file_grep_ids.add(str(_tc.get("id") or ""))
+        else:
+            _file_grep_turn_count += 1
+    try:
+        core._file_grep_turn_count = _file_grep_turn_count
+    except Exception:
+        pass
+
     # ---- Phase 1: pre-execute parallel-safe tools ----
     # Collect parallel-safe tool calls, run them concurrently, and store results.
     _prefetched: dict[str, str] = {}  # tc_id -> tool_result
@@ -545,6 +572,8 @@ def _execute_tool_calls(
 
     for tc in tool_calls_list:
         name = tc["function"]["name"]
+        if str(tc.get("id") or "") in _blocked_file_grep_ids:
+            continue
         arg_str = tc["function"].get("arguments") or "{}"
         try:
             parsed_args = json.loads(arg_str)
@@ -591,6 +620,21 @@ def _execute_tool_calls(
         parsed_args = None
         tool_result = ""
 
+        if str(tc.get("id") or "") in _blocked_file_grep_ids:
+            tool_result = json.dumps(
+                {
+                    "ok": False,
+                    "error": (
+                        "file_grep budget exhausted for this user turn. "
+                        "Do not call file_grep again. Use read_file for a known "
+                        "file/line range, or use the language-specific index "
+                        "tool with mode='section'."
+                    ),
+                    "recommended_tools": ["read_file", "py2idx", "code_map"],
+                },
+                ensure_ascii=False,
+            )
+
         try:
             parsed_args = json.loads(arg_str)
             if not isinstance(parsed_args, dict):
@@ -612,6 +656,9 @@ def _execute_tool_calls(
                 "err": e,
                 "tb": tb,
             }
+            parsed_args = None
+
+        if str(tc.get("id") or "") in _blocked_file_grep_ids:
             parsed_args = None
 
         if parsed_args is not None:

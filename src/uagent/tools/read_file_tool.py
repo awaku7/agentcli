@@ -55,7 +55,11 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "read_file",
         "description": _(
             "tool.description",
-            default="Read file contents (max 1MB). Supports partial reading via start_line/max_lines.",
+            default=(
+                "Read the contents of a known text file (max 1MB). Prefer this over "
+                "file_grep when the path is already known. Supports partial reading "
+                "via start_line/max_lines."
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",

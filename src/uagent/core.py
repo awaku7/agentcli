@@ -97,6 +97,9 @@ SYSTEM_PROMPT_FULL_RULES = _("""## Rules
 SYSTEM_PROMPT_FULL_NOTES = _("""## Notes
 - All user messages come via this script's standard input.
 - For tool-specific purpose/arguments/constraints/operational details, prefer each tool's description.
+- Source inspection tool routing: use file_grep only to locate an unknown file, symbol, or text pattern. Once the file is known, use read_file with start_line/maxl for source text instead of repeating file_grep.
+- For supported source languages, prefer the language-specific index tool. After mode='index' returns a numbered index, call that same tool with mode='section' and the relevant section number; do not re-read the definition with file_grep.
+- After one locating search identifies the target, switch to read_file, an index section tool, code_map, or the relevant test tool. Do not use file_grep as a general-purpose source reader.
 - If you need additional information or confirmation from the user, use the human_ask tool.
 - For Computer Use browser tasks, keep using the currently visible browser session. When the user asks to search, enter only the new search query in the page's search field; do not prepend or concatenate the current URL. Use the address bar only when the user explicitly asks to open a URL.
 - When handling relative date expressions, call get_current_time to reference the current time.
@@ -131,6 +134,7 @@ SYSTEM_PROMPT_COMPACT_RULES = _("""## Rules
 """)
 SYSTEM_PROMPT_COMPACT_NOTES = _("""## Notes
 - All user messages come via this script's standard input.
+- Source inspection tool routing: use file_grep only to locate an unknown file, symbol, or text pattern. For a known file use read_file with start_line/maxl; after an index tool returns sections, use mode='section'. Do not repeat file_grep to read known source.
 - If required info/parameters are missing, ask via human_ask (do not guess).
 - Relative dates: call get_current_time.
 - Specify file paths relative to the workdir. Use absolute paths only for files outside the workdir.

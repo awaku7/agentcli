@@ -22,7 +22,9 @@ TOOL_SPEC = {
                 "need to read a large Python file: first call with mode='index' to get "
                 "the table of contents, then call with mode='section' and the section "
                 "number to retrieve only the definition you need. "
-                "This saves tokens compared to reading the entire file."
+                "This saves tokens compared to reading the entire file. After an index "
+                "is returned, use mode='section' rather than file_grep to retrieve a "
+                "known definition."
             ),
         ),
         "x_search_terms": _(
