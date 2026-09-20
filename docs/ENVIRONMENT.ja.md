@@ -377,7 +377,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_MAX_TOOL_ROUNDS`: 1回のユーザー操作で許可するLLM/toolラウンドの最大数（既定: `64`）。
 - `UAGENT_FILE_GREP_TURN_LIMIT`: 1回のユーザー操作で実行できる`file_grep`の最大回数（既定: `8`）。超過後は`read_file`、indexのsection、`code_map`などへ切り替えるよう促します。
 - `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。
-- `UAGENT_SHOW_ROUND_STATUS`: `1` に設定すると、各LLM roundの機械可読な`[ROUND]`行をstderrへ出力します。
+- `UAGENT_SHOW_ROUND_STATUS`: `1` に設定すると、各LLM roundの機械可読な`[ROUND]`行をstderrへ出力します。公開statusは`completed`、`continue`、`failed`、`cancelled`、`interrupted`です。
 - `UAGENT_SHOW_USAGE`: `1` に設定すると、providerからusageを取得できた場合に`[USAGE]` token行をstderrへ出力します。
 - `UAGENT_MCP_SESSION_REUSE`: プロセス内でStreamable HTTP MCPセッションと`tools/list`結果を再利用します（既定: `1`）。`0`に設定すると呼び出しごとの接続作成に戻ります。
 - `UAGENT_TOOL_RESULT_JSON_UNESCAPE`: `1`に設定すると、JSON形式のtool結果を`ensure_ascii=False`で再直列化してからLLMへ渡します。`\u65e5`のようなUnicodeエスケープを読みやすい文字へ変換します。既定: `0`。

@@ -359,7 +359,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `64`). Set higher only for workflows that require it.
 - `UAGENT_FILE_GREP_TURN_LIMIT`: Maximum actual `file_grep` executions per user turn (default: `8`). After the limit, the agent is directed to use `read_file`, an index section tool, or `code_map` instead.
 - `UAGENT_STARTUP_TIMING`: Set to `1` to print startup, stdin-loop, first-event, and first-LLM timing markers to stderr.
-- `UAGENT_SHOW_ROUND_STATUS`: Set to `1` to print machine-readable `[ROUND]` status lines to stderr for each LLM round.
+- `UAGENT_SHOW_ROUND_STATUS`: Set to `1` to print machine-readable `[ROUND]` status lines to stderr for each LLM round. Public statuses are `completed`, `continue`, `failed`, `cancelled`, or `interrupted`.
 - `UAGENT_SHOW_USAGE`: Set to `1` to print opt-in `[USAGE]` token lines to stderr when provider usage is available.
 - `UAGENT_MCP_SESSION_REUSE`: Reuse initialized Streamable HTTP MCP sessions and cached `tools/list` results within the process (default: `1`). Set to `0` to restore per-call connection creation.
 - `UAGENT_TOOL_RESULT_JSON_UNESCAPE`: Set to `1` to parse JSON-shaped tool results and reserialize them with `ensure_ascii=False` before passing them to the LLM. This converts escaped Unicode such as `\u65e5` into readable text. Default: `0`.

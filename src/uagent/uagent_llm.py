@@ -551,6 +551,26 @@ _RS_CONTINUE = "continue"  # skip postamble, continue loop
 _RS_OK = "ok"  # execute postamble then continue loop
 
 
+def _public_round_status(
+    round_status: str,
+    *,
+    reason: str,
+    assistant_text: str,
+) -> str:
+    """Map internal loop control to the stable host-visible status vocabulary."""
+    if reason in {"cancelled", "interrupted"}:
+        return reason
+    if reason in {"loop_guard", "max_tool_rounds", "error"}:
+        return "failed"
+    if round_status == _RS_RETURN:
+        return "completed"
+    if round_status == _RS_BREAK and assistant_text.strip():
+        return "completed"
+    if round_status in {_RS_CONTINUE, _RS_OK}:
+        return "continue"
+    return "failed"
+
+
 def _completion_regex_matches(text: Any, pattern: Any) -> bool:
     """Return whether a configured completion regex matches assistant text."""
     raw_pattern = str(pattern or "").strip()
@@ -1330,6 +1350,7 @@ def _run_one_round(
     with _core_module.interrupt_lock:
         if _core_module.interrupt_requested:
             _core_module.interrupt_requested = False
+            core._last_round_reason = "interrupted"
             _inject_stop_prompt(messages, core)
             return (
                 _RS_BREAK,
@@ -1442,6 +1463,7 @@ def _run_one_round(
                 core._gemini_cache_needs_refresh = True
             except Exception:
                 pass
+        core._last_round_reason = "max_tool_rounds"
         _spinner_stop_quietly()
         print(
             _("[WARN] Tool rounds exceeded %(max)d; aborting.")
@@ -1594,6 +1616,7 @@ def _run_one_round(
             and dispatch_outcome.capabilities.supports_tool_continuation
         )
         if not ok:
+            core._last_round_reason = "error"
             return (
                 _RS_RETURN,
                 client,
@@ -1665,6 +1688,7 @@ def _run_one_round(
             dispatch_outcome.capabilities.supports_tool_continuation
         )
         if not ok:
+            core._last_round_reason = "error"
             return (
                 _RS_RETURN,
                 client,
@@ -1883,6 +1907,7 @@ def _run_one_round(
 
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
+            core._last_round_reason = "loop_guard"
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             _emit_tool_loop_block(
                 core=core,
@@ -1910,6 +1935,7 @@ def _run_one_round(
             fresh_tool_calls
         )
         if blocked:
+            core._last_round_reason = "loop_guard"
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             _emit_tool_loop_block(
                 core=core,
@@ -1936,6 +1962,7 @@ def _run_one_round(
         # The narrower detector catches repeated calls with identical args.
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
+            core._last_round_reason = "loop_guard"
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             _emit_tool_loop_block(
                 core=core,
@@ -2681,6 +2708,7 @@ def run_llm_rounds(
     try:
         while True:
             round_count += 1
+            core._last_round_reason = ""
             round_started = time.perf_counter()
             message_count_before_round = len(messages)
             usage_before_round = getattr(core, "_last_responses_usage", {})
@@ -2763,6 +2791,19 @@ def run_llm_rounds(
                         round_tool_calls += len(_calls)
                 usage_after_round = getattr(core, "_last_responses_usage", {})
                 usage_delta = reconcile_usage(usage_before_round, usage_after_round)
+                round_reason = str(getattr(core, "_last_round_reason", "") or "")
+                public_status = _public_round_status(
+                    str(round_status),
+                    reason=round_reason,
+                    assistant_text=str(_round_text or ""),
+                )
+                core._last_round_outcome = {
+                    "round": round_count,
+                    "status": public_status,
+                    "reason": round_reason,
+                    "tool_calls": round_tool_calls,
+                    "assistant_chars": len(str(_round_text or "")),
+                }
                 if (env_get("UAGENT_SHOW_USAGE", "") or "").strip().lower() in {
                     "1",
                     "true",
@@ -2789,7 +2830,9 @@ def run_llm_rounds(
                     provider=provider,
                     model=depname,
                     round=round_count,
-                    status=str(round_status),
+                    status=public_status,
+                    internal_status=str(round_status),
+                    reason=round_reason,
                     duration_ms=round((time.perf_counter() - round_started) * 1000, 3),
                     tool_call_count=round_tool_calls,
                     assistant_chars=len(str(_round_text or "")),
@@ -2803,12 +2846,7 @@ def run_llm_rounds(
                     "yes",
                     "on",
                 }:
-                    round_label = {
-                        _RS_RETURN: "complete",
-                        _RS_BREAK: "failed",
-                        _RS_CONTINUE: "continue",
-                        _RS_OK: "continue",
-                    }.get(round_status, "failed")
+                    round_label = public_status
                     print(
                         "[ROUND] "
                         + json.dumps(
@@ -2820,7 +2858,8 @@ def run_llm_rounds(
                                     (time.perf_counter() - round_started) * 1000, 3
                                 ),
                                 "usage_available": bool(usage_delta),
-                                "final": round_status == _RS_RETURN,
+                                "reason": round_reason,
+                                "final": public_status != "continue",
                             },
                             ensure_ascii=False,
                             separators=(",", ":"),
