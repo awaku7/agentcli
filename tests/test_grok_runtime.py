@@ -164,6 +164,96 @@ def test_grok_runtime_preserves_reasoning_text_and_tool_order(monkeypatch) -> No
     assert events[4].data["name"] == "read_file"
 
 
+def test_grok_runtime_completes_repeated_stream_tool_call_once(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_messages",
+        lambda messages: (None, ["native-message"]),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_tools",
+        lambda enabled, call_messages=None: None,
+    )
+    repeated_call = SimpleNamespace(
+        id="call-time",
+        function=SimpleNamespace(name="get_current_time", arguments="{}"),
+    )
+    repeated_call_with_new_id = SimpleNamespace(
+        id="call-time-repeated",
+        function=SimpleNamespace(name="get_current_time", arguments="{}"),
+    )
+    runtime = GrokGrpcProviderRuntime(
+        client=_Client(
+            [
+                (None, SimpleNamespace(tool_calls=[repeated_call])),
+                (None, SimpleNamespace(content="checking")),
+                (None, SimpleNamespace(tool_calls=[repeated_call])),
+                (
+                    None,
+                    SimpleNamespace(tool_calls=[repeated_call_with_new_id]),
+                ),
+            ]
+        ),
+        provider="grok",
+        model="grok-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(runtime.run(_request(), _Cancellation()))
+
+    validate_stream_events(events)
+    assert [event.type for event in events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ToolCallDelta",
+        "ToolCallCompleted",
+        "ResponseCompleted",
+    ]
+    completed = [event for event in events if event.type == "ToolCallCompleted"]
+    assert len(completed) == 1
+    assert completed[0].data["tool_call_id"] == "call-time"
+    assert completed[0].data["name"] == "get_current_time"
+
+
+def test_grok_runtime_keeps_distinct_stream_tool_calls(monkeypatch) -> None:
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_messages",
+        lambda messages: (None, ["native-message"]),
+    )
+    monkeypatch.setattr(
+        "uagent.providers.grok_runtime.build_xai_tools",
+        lambda enabled, call_messages=None: None,
+    )
+    calls = [
+        SimpleNamespace(
+            id="call-location",
+            function=SimpleNamespace(name="get_current_location", arguments="{}"),
+        ),
+        SimpleNamespace(
+            id="call-weather",
+            function=SimpleNamespace(
+                name="get_weather_wttr", arguments='{"location":"Tokyo"}'
+            ),
+        ),
+    ]
+    runtime = GrokGrpcProviderRuntime(
+        client=_Client([(None, SimpleNamespace(tool_calls=calls))]),
+        provider="grok",
+        model="grok-test",
+        identifiers=_identifiers(),
+        streaming=True,
+    )
+
+    events = list(runtime.run(_request(), _Cancellation()))
+
+    validate_stream_events(events)
+    completed = [event for event in events if event.type == "ToolCallCompleted"]
+    assert [event.data["tool_call_id"] for event in completed] == [
+        "call-location",
+        "call-weather",
+    ]
+
+
 def test_grok_runtime_cancels_between_stream_chunks(monkeypatch) -> None:
     monkeypatch.setattr(
         "uagent.providers.grok_runtime.build_xai_messages",

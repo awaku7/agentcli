@@ -54,7 +54,7 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
                 **options,
             )
             if self._streaming:
-                tool_index = 0
+                pending_tool_calls: dict[str, Mapping[str, Any]] = {}
                 parts = iter(iter_xai_stream_parts(chat.stream()))
                 while True:
                     if cancellation.is_cancelled():
@@ -72,12 +72,23 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
                     elif part_type == "reasoning":
                         yield self._event("ReasoningDelta", {"text": str(value)})
                     elif part_type == "tool_call":
-                        normalized, tool_events = self._normalize_tool_calls(
-                            [value], start_index=tool_index
-                        )
-                        yield from tool_events
-                        yield from self._complete_tools(normalized)
-                        tool_index += 1
+                        call_id = str(value.get("id") or "")
+                        pending_tool_calls[call_id] = value
+                unique_tool_calls: list[Mapping[str, Any]] = []
+                seen_signatures: set[tuple[str, str]] = set()
+                for call in pending_tool_calls.values():
+                    function = call.get("function") or {}
+                    signature = (
+                        str(function.get("name") or ""),
+                        str(function.get("arguments") or ""),
+                    )
+                    if signature in seen_signatures:
+                        continue
+                    seen_signatures.add(signature)
+                    unique_tool_calls.append(call)
+                normalized, tool_events = self._normalize_tool_calls(unique_tool_calls)
+                yield from tool_events
+                yield from self._complete_tools(normalized)
             else:
                 text, tool_calls = parse_xai_response(chat.sample())
                 if text:
