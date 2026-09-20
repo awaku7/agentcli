@@ -368,7 +368,7 @@ def get_model_name() -> str:
         )
     if provider == "gemini":
         return (
-            env_get("UAGENT_GEMINI_DEPNAME", "gemini-1.5-flash") or "gemini-1.5-flash"
+            env_get("UAGENT_GEMINI_DEPNAME", "gemini-2.5-flash") or "gemini-2.5-flash"
         )
     if provider == "vertexai":
         return (
