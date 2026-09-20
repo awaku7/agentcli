@@ -1133,6 +1133,27 @@ class MainWindow(QtWidgets.QMainWindow):
             except Exception:
                 pass
 
+            try:
+                outcome = getattr(core, "_last_round_outcome", {}) or {}
+                outcome_key = (
+                    outcome.get("round"),
+                    outcome.get("status"),
+                    outcome.get("reason"),
+                )
+                if outcome and outcome_key != getattr(
+                    self, "_last_round_outcome_key", None
+                ):
+                    self._last_round_outcome_key = outcome_key
+                    self.statusBar().showMessage(
+                        "[ROUND] "
+                        + json.dumps(
+                            outcome, ensure_ascii=False, separators=(",", ":")
+                        ),
+                        5000,
+                    )
+            except Exception:
+                pass
+
             with core.human_ask_lock:
                 active = core.human_ask_active
                 is_password = core.human_ask_is_password

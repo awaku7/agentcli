@@ -122,6 +122,17 @@ def run_agent_worker(
             except Exception:
                 pass
 
+        def _emit_round_outcome() -> None:
+            outcome = getattr(core, "_last_round_outcome", {}) or {}
+            if not isinstance(outcome, dict) or not outcome:
+                return
+            payload = {"type": "round_outcome", **dict(outcome)}
+            _web_stream_send(payload)
+            try:
+                room.status["round_outcome"] = dict(outcome)
+            except Exception:
+                pass
+
         def _stream_start() -> str:
             sid = f"asst_{int(time.time() * 1000)}"
             stream_state["id"] = sid
@@ -436,6 +447,7 @@ def run_agent_worker(
                     append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                 )
+                _emit_round_outcome()
                 # Auto-pilot loop
                 if core.auto_pilot_active:
                     tools_util._run_auto_pilot_loop(
@@ -448,6 +460,7 @@ def run_agent_worker(
                         append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                         try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                     )
+                _emit_round_outcome()
             # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
             for m in room.history[_before_hist_len:]:
                 if isinstance(m, dict) and m.get("role") == "assistant":
