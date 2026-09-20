@@ -953,7 +953,8 @@ def _execute_tool_calls(
                     "_uagent_tool_result": True,
                 }
             )
-        core.log_message(tool_msg)
+        else:
+            core.log_message(tool_msg)
 
         # Responses API continuations must place function outputs directly
         # after the assistant tool call. Tools such as screenshot expose a

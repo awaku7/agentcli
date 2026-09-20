@@ -286,6 +286,10 @@ def _emit_tool_trace(name: str, args: dict[str, Any]) -> None:
             try:
                 from .. import core as _core
 
+                if bool(getattr(_core, "IS_GUI", False)) or bool(
+                    getattr(_core, "_is_web", False)
+                ):
+                    return
                 with _core.print_lock:
                     print(f"{trace_prefix}{ts} name={name} args={arg_str}", flush=True)
             except Exception:
