@@ -1,0 +1,113 @@
+from __future__ import annotations
+
+from uagent.runtime.memory_retrieval import shadow_retrieve_memories
+
+
+def test_shadow_retrieval_adapts_note_without_metadata_leakage() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {
+                "note": "コードは必ず全体を表示する",
+                "ts": 10,
+                "id": "legacy-id",
+                "owner": "alice",
+            }
+        ],
+        query="全体を表示",
+        scope="personal",
+        owner="alice",
+        backend_revision="r1",
+    )
+
+    assert len(result.candidates) == 1
+    candidate = result.candidates[0]
+    assert candidate.content == "コードは必ず全体を表示する"
+    assert candidate.source == "memory"
+    assert candidate.section == "memory"
+    assert candidate.relevance and candidate.relevance > 0
+    assert candidate.reference == "memory-shadow://personal/0?revision=r1"
+    assert "legacy-id" not in result.to_dict().__repr__()
+
+
+def test_shadow_retrieval_excludes_unrelated_records_before_ranking() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "天気のメモ", "ts": 100},
+            {"note": "database migration completed", "ts": 1},
+        ],
+        query="database migration",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "database migration completed"
+    ]
+    assert result.excluded_records == 1
+    assert any(
+        item.reason == "no_query_match" and item.action == "exclude"
+        for item in result.diagnostics
+    )
+
+
+def test_shadow_retrieval_supports_paths_and_short_japanese_queries() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "編集対象は src/uagent/runtime/memory_store.py"},
+            {"note": "関係ない記録"},
+        ],
+        query="memory_store.py",
+        scope="personal",
+    )
+
+    assert len(result.candidates) == 1
+    assert "memory_store.py" in result.candidates[0].content
+
+
+def test_shadow_retrieval_applies_owner_and_project_boundaries() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "project rule", "owner": "alice", "project": "app"},
+            {"note": "other owner", "owner": "bob", "project": "app"},
+            {"note": "other project", "owner": "alice", "project": "web"},
+            {"note": "legacy project note"},
+        ],
+        query="project",
+        scope="personal",
+        owner="alice",
+        project="app",
+    )
+
+    assert {candidate.content for candidate in result.candidates} == {
+        "project rule",
+        "legacy project note",
+    }
+    reasons = {item.reason for item in result.diagnostics if item.action == "exclude"}
+    assert {"owner_mismatch", "project_mismatch"} <= reasons
+    assert any(item.scope_status == "legacy_unknown" for item in result.diagnostics)
+
+
+def test_shadow_retrieval_does_not_promote_shared_records() -> None:
+    result = shadow_retrieve_memories(
+        [{"scope": "shared", "note": "team database rule"}],
+        query="database",
+        scope="personal",
+    )
+
+    assert result.candidates == []
+    assert result.diagnostics[0].reason == "scope_mismatch"
+
+
+def test_shadow_retrieval_deduplicates_notes_and_caps_candidates() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "same decision", "ts": 1},
+            {"note": "same decision", "ts": 2},
+            {"note": "another decision", "ts": 3},
+        ],
+        query="decision",
+        scope="personal",
+        max_candidates=1,
+    )
+
+    assert len(result.candidates) == 1
+    assert sum(item.reason == "duplicate_note" for item in result.diagnostics) == 1
