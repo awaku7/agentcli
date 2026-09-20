@@ -109,7 +109,9 @@ def prepare_memory_projection(
             owner=owner,
             project=project,
             max_candidates=max_candidates,
-            allow_legacy_unknown=False,
+            # PR3 keeps legacy records usable; PR4 will enable strict scope
+            # enforcement after owner/project metadata migration.
+            allow_legacy_unknown=True,
         )
         shared_result: MemoryShadowResult | None = None
         if shared_memory.is_enabled():
@@ -120,7 +122,9 @@ def prepare_memory_projection(
                 owner=owner,
                 project=project,
                 max_candidates=max_candidates,
-                allow_legacy_unknown=False,
+                # PR3 keeps legacy records usable; PR4 will enable strict scope
+                # enforcement after owner/project metadata migration.
+                allow_legacy_unknown=True,
             )
     except Exception as exc:
         return MemoryProjectionSnapshot(

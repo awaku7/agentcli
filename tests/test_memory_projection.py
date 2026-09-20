@@ -129,7 +129,7 @@ def test_projection_diagnostics_are_added_to_context_plan_telemetry() -> None:
     assert plan["telemetry"]["memory_projection"]["memory_budget_chars"] == 4000
 
 
-def test_projection_excludes_owner_mismatch_and_unscoped_legacy_records(
+def test_projection_excludes_owner_mismatch_but_keeps_legacy_records(
     tmp_path, monkeypatch
 ) -> None:
     from uagent.runtime.memory_projection import (
@@ -173,9 +173,12 @@ def test_projection_excludes_owner_mismatch_and_unscoped_legacy_records(
     assert len(evidence) == 1
     assert "allowed database rule" in evidence[0]
     assert "other owner database rule" not in evidence[0]
-    assert "legacy database rule" not in evidence[0]
-    reasons = {
-        item["reason"] for item in snapshot.diagnostics["personal"]["diagnostics"]
-    }
+    assert "legacy database rule" in evidence[0]
+    diagnostics = snapshot.diagnostics["personal"]["diagnostics"]
+    reasons = {item["reason"] for item in diagnostics}
     assert "owner_mismatch" in reasons
-    assert "scope_unknown" in reasons
+    assert any(
+        item["scope_status"] == "legacy_unknown"
+        for item in diagnostics
+        if item["action"] == "candidate"
+    )
