@@ -1,5 +1,22 @@
 # 変更履歴
 
+## [0.7.11] - 2026-09-20
+
+### 追加
+
+- 安全な legacy round outcome summary と互換境界を追加。
+- キャンセル後の MCP session 復旧に対応。
+
+### 変更
+
+- refactor モジュールへ Black のフォーマットを適用。
+- embedded tool genre mask の挙動を明確化。
+
+### 修正
+
+- キャンセル後の MCP session を安全に復旧。
+
+
 ## [0.7.10] - 2026-09-20
 
 ### 追加

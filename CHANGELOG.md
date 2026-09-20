@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.7.11] - 2026-09-20
+
+### Added
+
+- Add safe legacy round outcome summaries and compatibility boundaries.
+- Add MCP session recovery after cancellation.
+
+### Changed
+
+- Apply Black formatting to refactored modules.
+- Clarify embedded tool genre mask behavior.
+
+### Fixed
+
+- Recover MCP sessions safely after cancellation.
+
+
 ## [0.7.10] - 2026-09-20
 
 ### Added
