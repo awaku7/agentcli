@@ -39,12 +39,12 @@ With `UAGENT_IMG_GENERATE_DEBUG=1`, Meta image generation and `img2img` continua
 
 ## CLI tool-result display (opt-in)
 
-The bounded `[TOOL-RESULT]` summary is hidden by default. Enable it only for
-interactive CLI runs when you want a short, masked result line after each tool
-call. Web and GUI hosts ignore this setting.
+The bounded `[TOOL-RESULT]` summary is hidden by default in every host. Enable
+it when you want a short, masked result line after each tool call in the CLI,
+Web, or GUI.
 
 ```env
-# CLI only; default: 0
+# CLI, Web, and GUI; default: 0
 UAGENT_SHOW_TOOL_RESULTS=1
 ```
 

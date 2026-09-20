@@ -508,13 +508,26 @@ def _cli_tool_result_display_enabled(core: Any) -> bool:
     }
 
 
-def _host_tool_result_display_enabled(core: Any) -> bool:
-    """Return whether GUI/Web should receive the bounded tool-result line."""
+def _host_ui_active(core: Any) -> bool:
+    """Return whether the current host is the GUI or Web UI."""
 
     return bool(
         core is not None
         and (getattr(core, "_is_web", False) or getattr(core, "IS_GUI", False))
     )
+
+
+def _host_tool_result_display_enabled(core: Any) -> bool:
+    """Return whether GUI/Web may show the opt-in bounded tool-result line."""
+
+    return _host_ui_active(core) and (
+        env_get("UAGENT_SHOW_TOOL_RESULTS", "0") or ""
+    ).strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
 
 
 def _tool_result_status(value: Any) -> str:
@@ -913,6 +926,7 @@ def _execute_tool_calls(
         )
         if _cli_tool_result_display_enabled(core):
             print(projections.ui_display)
+        host_ui_active = _host_ui_active(core)
         host_tool_result_display = (
             projections.ui_display if _host_tool_result_display_enabled(core) else ""
         )
@@ -944,7 +958,7 @@ def _execute_tool_calls(
                 pass
 
         messages.append(tool_msg)
-        if host_tool_result_display:
+        if host_ui_active and host_tool_result_display:
             core.log_message(
                 {
                     "role": "assistant",
@@ -953,7 +967,7 @@ def _execute_tool_calls(
                     "_uagent_tool_result": True,
                 }
             )
-        else:
+        elif not host_ui_active:
             core.log_message(tool_msg)
 
         # Responses API continuations must place function outputs directly

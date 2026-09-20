@@ -9,6 +9,7 @@
 - Add shared public round-outcome projection helpers and regression tests.
 - Project bounded tool-result summaries to GUI/Web host UIs without raw results.
 - Suppress raw `[TOOL]` invocation traces and raw tool messages in GUI/Web UIs.
+- Require `UAGENT_SHOW_TOOL_RESULTS=1` to display bounded tool results in every host.
 
 ### Changed
 

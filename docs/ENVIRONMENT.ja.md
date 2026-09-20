@@ -61,10 +61,10 @@ UAGENT_IMG_GENERATE_SAVE_META=1
 
 ## CLIのtool result表示（明示的opt-in）
 
-boundedな`[TOOL-RESULT]`サマリーは既定では表示されません。CLIでtool呼び出し後の短いマスク済み結果を表示したい場合だけ、次を設定してください。Web/GUIではこの設定は無効です。
+boundedな`[TOOL-RESULT]`サマリーは、すべてのホストで既定では表示されません。CLI、Web、GUIでtool呼び出し後の短いマスク済み結果を表示したい場合だけ、次を設定してください。
 
 ```env
-# CLIのみ。既定: 0
+# CLI、Web、GUI。既定: 0
 UAGENT_SHOW_TOOL_RESULTS=1
 ```
 
