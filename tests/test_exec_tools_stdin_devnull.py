@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import subprocess
 
+import pytest
+
 
 def test_bash_exec_uses_devnull_stdin(monkeypatch):
     import os
@@ -84,6 +86,77 @@ def test_bash_exec_rejects_command_outside_allowlist(monkeypatch):
     out = mod.run_tool({"command": "python -V"})
     assert "[bash_exec" in out
     assert "not in UAGENT_BASH_EXEC_ALLOWLIST" in out
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "echo ok && uname",
+        "echo ok; uname",
+        "echo ok | uname",
+    ],
+)
+def test_bash_exec_checks_every_command_against_allowlist(monkeypatch, command):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setenv("UAGENT_NON_INTERACTIVE", "1")
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.setenv("UAGENT_BASH_EXEC_ALLOWLIST", "echo")
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
+    reason = mod._policy_block_reason(command)
+    assert reason is not None
+    assert "command 'uname'" in reason
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "echo $(uname)",
+        "echo `uname`",
+        "echo ok\nuname",
+        "env PATH=/bin echo ok",
+        "bash -lc 'uname'",
+        "timeout 10 uname",
+        "nice uname",
+        "xargs uname",
+    ],
+)
+def test_bash_exec_rejects_hidden_execution_in_allowlist_mode(monkeypatch, command):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setenv("UAGENT_NON_INTERACTIVE", "1")
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.setenv("UAGENT_BASH_EXEC_ALLOWLIST", "echo,env,bash")
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
+    assert mod._policy_block_reason(command) is not None
+
+
+@pytest.mark.parametrize(
+    "command",
+    [
+        "git status && pytest -q",
+        "printf ok | sed s/o/O/",
+        "NAME=value echo ok; git status",
+        "echo ok > result.txt",
+        "echo ';'",
+        'echo "a && b"',
+        "echo '$(uname)'",
+        "echo '`uname`'",
+    ],
+)
+def test_bash_exec_allows_composition_when_every_command_is_allowlisted(
+    monkeypatch, command
+):
+    from uagent.tools import bash_exec_tool as mod
+
+    monkeypatch.setenv("UAGENT_NON_INTERACTIVE", "1")
+    monkeypatch.setenv("UAGENT_ALLOW_BASH_EXEC", "1")
+    monkeypatch.setenv("UAGENT_BASH_EXEC_ALLOWLIST", "echo,git,printf,pytest,sed")
+    monkeypatch.delenv("UAGENT_BASH_EXEC_POLICY", raising=False)
+
+    assert mod._policy_block_reason(command) is None
 
 
 def test_bash_exec_policy_deny_overrides_explicit_opt_in(monkeypatch):
