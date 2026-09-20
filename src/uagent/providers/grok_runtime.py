@@ -1,8 +1,8 @@
 """Registry adapter for Grok's xAI SDK/gRPC transport.
 
 The registry owns the round boundary, while xAI message/tool conversion and
-stream parsing remain provider-specific. No host object or callback is passed
-into this adapter; parser callbacks only collect normalized data locally.
+stream parsing remain provider-specific. Provider chunks are converted to
+normalized events as they arrive, without buffering a complete response.
 """
 
 from __future__ import annotations
@@ -10,12 +10,11 @@ from __future__ import annotations
 from typing import Any, Iterator, Mapping
 
 from ..runtime.round_contracts import CancellationToken, SerializedRequest, StreamEvent
-from ..runtime.stream_renderer import StreamCallbacks
 from .llm_grok import (
     build_xai_messages,
     build_xai_tools,
+    iter_xai_stream_parts,
     parse_xai_response,
-    parse_xai_stream,
 )
 from .openai_compatible_runtime import OpenAICompatibleRuntime
 
@@ -55,28 +54,30 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
                 **options,
             )
             if self._streaming:
-                deltas: list[str] = []
-                reasoning: list[str] = []
-                tool_calls: list[Mapping[str, Any]] = []
-                parse_xai_stream(
-                    chat.stream(),
-                    callbacks=StreamCallbacks(
-                        on_delta=deltas.append,
-                        on_reasoning=reasoning.append,
-                        on_tool_call=tool_calls.append,
-                    ),
-                )
-                for text in reasoning:
-                    yield self._event("ReasoningDelta", {"text": text})
-                for text in deltas:
+                tool_index = 0
+                parts = iter(iter_xai_stream_parts(chat.stream()))
+                while True:
                     if cancellation.is_cancelled():
                         yield self._event("ResponseCancelled", {"reason": "cancelled"})
                         return
-                    if text != "\n":
-                        yield self._event("TextDelta", {"text": text})
-                normalized, tool_events = self._normalize_tool_calls(tool_calls)
-                yield from tool_events
-                yield from self._complete_tools(normalized)
+                    try:
+                        part_type, value = next(parts)
+                    except StopIteration:
+                        break
+                    if cancellation.is_cancelled():
+                        yield self._event("ResponseCancelled", {"reason": "cancelled"})
+                        return
+                    if part_type == "text":
+                        yield self._event("TextDelta", {"text": str(value)})
+                    elif part_type == "reasoning":
+                        yield self._event("ReasoningDelta", {"text": str(value)})
+                    elif part_type == "tool_call":
+                        normalized, tool_events = self._normalize_tool_calls(
+                            [value], start_index=tool_index
+                        )
+                        yield from tool_events
+                        yield from self._complete_tools(normalized)
+                        tool_index += 1
             else:
                 text, tool_calls = parse_xai_response(chat.sample())
                 if text:
@@ -92,11 +93,14 @@ class GrokGrpcProviderRuntime(OpenAICompatibleRuntime):
             )
 
     def _normalize_tool_calls(
-        self, tool_calls: list[Mapping[str, Any]]
+        self,
+        tool_calls: list[Mapping[str, Any]],
+        *,
+        start_index: int = 0,
     ) -> tuple[dict[int, dict[str, str]], list[StreamEvent]]:
         normalized: dict[int, dict[str, str]] = {}
         events: list[StreamEvent] = []
-        for index, call in enumerate(tool_calls):
+        for index, call in enumerate(tool_calls, start=start_index):
             function = call.get("function") or {}
             name = str(function.get("name") or "")
             arguments = str(function.get("arguments") or "")
