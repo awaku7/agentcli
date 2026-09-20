@@ -1,0 +1,2193 @@
+graph TD
+    n1["scheck.py"]
+    n2["setup.py"]
+    n3["upload_whl_github.py"]
+    n4["upload_whl_http.py"]
+    n5["frontend/"]
+    n6["svelte.config.js"]
+    n5 --> n6
+    n7["vite.config.js"]
+    n5 --> n7
+    n8["src/"]
+    n5 --> n8
+    n9["main.js"]
+    n8 --> n9
+    n10["lib/"]
+    n8 --> n10
+    n11["i18n.svelte.js"]
+    n10 --> n11
+    n12["stores.svelte.js"]
+    n10 --> n12
+    n13["utils.js"]
+    n10 --> n13
+    n14["mcps/"]
+    n15["ucp_mcp_server_main.py"]
+    n14 --> n15
+    n16["scripts/"]
+    n17["acceptance_check.py"]
+    n16 --> n17
+    n18["build_i18n.py"]
+    n16 --> n18
+    n19["check_import_graph.py"]
+    n16 --> n19
+    n20["compile_locales.py"]
+    n16 --> n20
+    n21["i18n_audit.py"]
+    n16 --> n21
+    n22["i18n_migrate.py"]
+    n16 --> n22
+    n23["i18n_structure_audit.py"]
+    n16 --> n23
+    n24["i18n_structure_repair.py"]
+    n16 --> n24
+    n25["i18n_tools_check.py"]
+    n16 --> n25
+    n26["i18n_translate.py"]
+    n16 --> n26
+    n27["i18n_validate.py"]
+    n16 --> n27
+    n28["modernize_types.py"]
+    n16 --> n28
+    n29["nn_manual_review.py"]
+    n16 --> n29
+    n30["ollama_vision_models.py"]
+    n16 --> n30
+    n31["po_i18n_batch.py"]
+    n16 --> n31
+    n32["po_qc_summary.py"]
+    n16 --> n32
+    n33["po_rebuild_en.py"]
+    n16 --> n33
+    n34["po_rebuild_non_en.py"]
+    n16 --> n34
+    n35["repair_tool_json_i18n.py"]
+    n16 --> n35
+    n36["tool_json_i18n_batch.py"]
+    n16 --> n36
+    n37["skills/"]
+    n38["jp-postage/"]
+    n37 --> n38
+    n39["scripts/"]
+    n38 --> n39
+    n40["postage_lookup.py"]
+    n39 --> n40
+    n41["src/"]
+    n42["uagent/"]
+    n41 --> n42
+    n43["attachment_utils.py"]
+    n42 --> n43
+    n44["checks.py"]
+    n42 --> n44
+    n45["cli.py"]
+    n42 --> n45
+    n46["cli_docs.py"]
+    n42 --> n46
+    n47["cli_startup.py"]
+    n42 --> n47
+    n48["core.py"]
+    n42 --> n48
+    n49["docs_util.py"]
+    n42 --> n49
+    n50["env_utils.py"]
+    n42 --> n50
+    n51["env_validate.py"]
+    n42 --> n51
+    n52["gui.py"]
+    n42 --> n52
+    n53["gui_ansi.py"]
+    n42 --> n53
+    n54["hooks_engine.py"]
+    n42 --> n54
+    n55["i18n.py"]
+    n42 --> n55
+    n56["i18n_runtime.py"]
+    n42 --> n56
+    n57["image_defaults.py"]
+    n42 --> n57
+    n58["image_output.py"]
+    n42 --> n58
+    n59["image_session.py"]
+    n42 --> n59
+    n60["lazy_import.py"]
+    n42 --> n60
+    n61["llmcapa_util.py"]
+    n42 --> n61
+    n62["llm_errors.py"]
+    n42 --> n62
+    n63["llm_flow_helpers.py"]
+    n42 --> n63
+    n64["llm_grok_round.py"]
+    n42 --> n64
+    n65["llm_helpers.py"]
+    n42 --> n65
+    n66["llm_image_helpers.py"]
+    n42 --> n66
+    n67["llm_message_helpers.py"]
+    n42 --> n67
+    n68["llm_round_helpers.py"]
+    n42 --> n68
+    n69["plugin_shared.py"]
+    n42 --> n69
+    n70["profile_manager.py"]
+    n42 --> n70
+    n71["realtime.py"]
+    n42 --> n71
+    n72["realtime_audio.py"]
+    n42 --> n72
+    n73["realtime_bedrock.py"]
+    n42 --> n73
+    n74["reasoning_display.py"]
+    n42 --> n74
+    n75["scheckgui.py"]
+    n42 --> n75
+    n76["setup_cli.py"]
+    n42 --> n76
+    n77["translate.py"]
+    n42 --> n77
+    n78["uagent_env_keys.py"]
+    n42 --> n78
+    n79["uagent_llm.py"]
+    n42 --> n79
+    n80["util.py"]
+    n42 --> n80
+    n81["util_cmd_auto.py"]
+    n42 --> n81
+    n82["util_cmd_credentials.py"]
+    n42 --> n82
+    n83["util_cmd_files.py"]
+    n42 --> n83
+    n84["util_cmd_responses.py"]
+    n42 --> n84
+    n85["util_cmd_session.py"]
+    n42 --> n85
+    n86["util_common.py"]
+    n42 --> n86
+    n87["util_help.py"]
+    n42 --> n87
+    n88["util_image.py"]
+    n42 --> n88
+    n89["util_message.py"]
+    n42 --> n89
+    n90["util_mode.py"]
+    n42 --> n90
+    n91["util_model.py"]
+    n42 --> n91
+    n92["util_tools.py"]
+    n42 --> n92
+    n93["web.py"]
+    n42 --> n93
+    n94["welcome.py"]
+    n42 --> n94
+    n95["ws_config.py"]
+    n42 --> n95
+    n96["ws_handler.py"]
+    n42 --> n96
+    n97["ws_server.py"]
+    n42 --> n97
+    n98["ws_session.py"]
+    n42 --> n98
+    n99["_pip_auto.py"]
+    n42 --> n99
+    n100["__init__.py"]
+    n42 --> n100
+    n101["__main__.py"]
+    n42 --> n101
+    n102["a2a/"]
+    n42 --> n102
+    n103["auth.py"]
+    n102 --> n103
+    n104["client.py"]
+    n102 --> n104
+    n105["engine.py"]
+    n102 --> n105
+    n106["errors.py"]
+    n102 --> n106
+    n107["models.py"]
+    n102 --> n107
+    n108["server.py"]
+    n102 --> n108
+    n109["task_store.py"]
+    n102 --> n109
+    n110["__init__.py"]
+    n102 --> n110
+    n111["auth/"]
+    n42 --> n111
+    n112["credential_store.py"]
+    n111 --> n112
+    n113["oauth_common.py"]
+    n111 --> n113
+    n114["pkce.py"]
+    n111 --> n114
+    n115["provider_credentials.py"]
+    n111 --> n115
+    n116["token_store.py"]
+    n111 --> n116
+    n117["__init__.py"]
+    n111 --> n117
+    n118["cli_impl/"]
+    n42 --> n118
+    n119["history.py"]
+    n118 --> n119
+    n120["input_ui.py"]
+    n118 --> n120
+    n121["main.py"]
+    n118 --> n121
+    n122["prompt_session.py"]
+    n118 --> n122
+    n123["startup.py"]
+    n118 --> n123
+    n124["state.py"]
+    n118 --> n124
+    n125["stdin_loop.py"]
+    n118 --> n125
+    n126["__init__.py"]
+    n118 --> n126
+    n127["computer_use/"]
+    n42 --> n127
+    n128["actions.py"]
+    n127 --> n128
+    n129["audit.py"]
+    n127 --> n129
+    n130["bootstrap.py"]
+    n127 --> n130
+    n131["capability.py"]
+    n127 --> n131
+    n132["config.py"]
+    n127 --> n132
+    n133["entrypoint_runtime.py"]
+    n127 --> n133
+    n134["integration.py"]
+    n127 --> n134
+    n135["loop.py"]
+    n127 --> n135
+    n136["native.py"]
+    n127 --> n136
+    n137["policy.py"]
+    n127 --> n137
+    n138["results.py"]
+    n127 --> n138
+    n139["runtime.py"]
+    n127 --> n139
+    n140["__init__.py"]
+    n127 --> n140
+    n141["adapters/"]
+    n127 --> n141
+    n142["anthropic.py"]
+    n141 --> n142
+    n143["custom.py"]
+    n141 --> n143
+    n144["gemini.py"]
+    n141 --> n144
+    n145["openai.py"]
+    n141 --> n145
+    n146["__init__.py"]
+    n141 --> n146
+    n147["runtimes/"]
+    n127 --> n147
+    n148["browser.py"]
+    n147 --> n148
+    n149["desktop.py"]
+    n147 --> n149
+    n150["mock.py"]
+    n147 --> n150
+    n151["__init__.py"]
+    n147 --> n151
+    n152["transports/"]
+    n127 --> n152
+    n153["bedrock.py"]
+    n152 --> n153
+    n154["__init__.py"]
+    n152 --> n154
+    n155["core_impl/"]
+    n42 --> n155
+    n156["console.py"]
+    n155 --> n156
+    n157["display.py"]
+    n155 --> n157
+    n158["fim.py"]
+    n155 --> n158
+    n159["help.py"]
+    n155 --> n159
+    n160["history.py"]
+    n155 --> n160
+    n161["interrupt.py"]
+    n155 --> n161
+    n162["logs.py"]
+    n155 --> n162
+    n163["prompt.py"]
+    n155 --> n163
+    n164["responses_state.py"]
+    n155 --> n164
+    n165["status.py"]
+    n155 --> n165
+    n166["__init__.py"]
+    n155 --> n166
+    n167["docs/"]
+    n42 --> n167
+    n168["__init__.py"]
+    n167 --> n168
+    n169["providers/"]
+    n42 --> n169
+    n170["gemini_cache_mgr.py"]
+    n169 --> n170
+    n171["grok_runtime.py"]
+    n169 --> n171
+    n172["inception_runtime.py"]
+    n169 --> n172
+    n173["llm_bedrock_responses.py"]
+    n169 --> n173
+    n174["llm_claude.py"]
+    n169 --> n174
+    n175["llm_deepseek.py"]
+    n169 --> n175
+    n176["llm_deepseek_responses.py"]
+    n169 --> n176
+    n177["llm_gemini.py"]
+    n169 --> n177
+    n178["llm_grok.py"]
+    n169 --> n178
+    n179["llm_inception.py"]
+    n169 --> n179
+    n180["llm_llama_cpp.py"]
+    n169 --> n180
+    n181["llm_lmstudio.py"]
+    n169 --> n181
+    n182["llm_lmstudio_chat.py"]
+    n169 --> n182
+    n183["llm_lmstudio_responses.py"]
+    n169 --> n183
+    n184["llm_lmstudio_sdk.py"]
+    n169 --> n184
+    n185["llm_meta_responses.py"]
+    n169 --> n185
+    n186["llm_novita.py"]
+    n169 --> n186
+    n187["llm_ollama.py"]
+    n169 --> n187
+    n188["llm_ollama_responses.py"]
+    n169 --> n188
+    n189["llm_openai_responses.py"]
+    n169 --> n189
+    n190["llm_openrouter.py"]
+    n169 --> n190
+    n191["llm_openrouter_responses.py"]
+    n169 --> n191
+    n192["llm_pfn.py"]
+    n169 --> n192
+    n193["llm_together.py"]
+    n169 --> n193
+    n194["llm_vercel.py"]
+    n169 --> n194
+    n195["llm_zai.py"]
+    n169 --> n195
+    n196["openai_compatible_runtime.py"]
+    n169 --> n196
+    n197["openai_projection_policy.py"]
+    n169 --> n197
+    n198["pfn_runtime.py"]
+    n169 --> n198
+    n199["provider_caps.py"]
+    n169 --> n199
+    n200["responses_common.py"]
+    n169 --> n200
+    n201["responses_manager.py"]
+    n169 --> n201
+    n202["responses_recovery_port.py"]
+    n169 --> n202
+    n203["responses_runtime.py"]
+    n169 --> n203
+    n204["responses_web_search_openai.py"]
+    n169 --> n204
+    n205["runtime_registry.py"]
+    n169 --> n205
+    n206["structured_output.py"]
+    n169 --> n206
+    n207["util_providers.py"]
+    n169 --> n207
+    n208["__init__.py"]
+    n169 --> n208
+    n209["runtime/"]
+    n42 --> n209
+    n210["active_context.py"]
+    n209 --> n210
+    n211["agent_state.py"]
+    n209 --> n211
+    n212["artifact_helpers.py"]
+    n209 --> n212
+    n213["artifact_manager.py"]
+    n209 --> n213
+    n214["artifact_retention.py"]
+    n209 --> n214
+    n215["bitchat_identity_store.py"]
+    n209 --> n215
+    n216["cancellation.py"]
+    n209 --> n216
+    n217["capability_resolver.py"]
+    n209 --> n217
+    n218["console.py"]
+    n209 --> n218
+    n219["context_benchmark.py"]
+    n209 --> n219
+    n220["context_budget.py"]
+    n209 --> n220
+    n221["context_decision.py"]
+    n209 --> n221
+    n222["context_manager.py"]
+    n209 --> n222
+    n223["context_plan_builder.py"]
+    n209 --> n223
+    n224["context_policy.py"]
+    n209 --> n224
+    n225["context_recovery.py"]
+    n209 --> n225
+    n226["context_retrieval.py"]
+    n209 --> n226
+    n227["context_tokens.py"]
+    n209 --> n227
+    n228["context_tools.py"]
+    n209 --> n228
+    n229["dag_scheduler.py"]
+    n209 --> n229
+    n230["distributed_coordination.py"]
+    n209 --> n230
+    n231["error_renderer.py"]
+    n209 --> n231
+    n232["execution.py"]
+    n209 --> n232
+    n233["history.py"]
+    n209 --> n233
+    n234["inception_stream_compat.py"]
+    n209 --> n234
+    n235["inception_stream_host.py"]
+    n209 --> n235
+    n236["legacy_claude_adapter.py"]
+    n209 --> n236
+    n237["legacy_claude_round.py"]
+    n209 --> n237
+    n238["legacy_context_recovery.py"]
+    n209 --> n238
+    n239["legacy_deepseek_round.py"]
+    n209 --> n239
+    n240["legacy_gateway_round.py"]
+    n209 --> n240
+    n241["legacy_gemini_adapter.py"]
+    n209 --> n241
+    n242["legacy_gemini_round.py"]
+    n209 --> n242
+    n243["legacy_openai_round.py"]
+    n209 --> n243
+    n244["legacy_provider_dispatch.py"]
+    n209 --> n244
+    n245["legacy_round_registry.py"]
+    n209 --> n245
+    n246["legacy_round_support.py"]
+    n209 --> n246
+    n247["legacy_special_provider_fallback.py"]
+    n209 --> n247
+    n248["legacy_tool_continuation.py"]
+    n209 --> n248
+    n249["legacy_zai_round.py"]
+    n209 --> n249
+    n250["lifecycle.py"]
+    n209 --> n250
+    n251["llm_error_classifier.py"]
+    n209 --> n251
+    n252["logging_setup.py"]
+    n209 --> n252
+    n253["memory_manager.py"]
+    n209 --> n253
+    n254["memory_store.py"]
+    n209 --> n254
+    n255["message_transform.py"]
+    n209 --> n255
+    n256["multi_agent.py"]
+    n209 --> n256
+    n257["openai_special_dispatch.py"]
+    n209 --> n257
+    n258["policy_engine.py"]
+    n209 --> n258
+    n259["prompt_context.py"]
+    n209 --> n259
+    n260["provider_cache.py"]
+    n209 --> n260
+    n261["provider_context.py"]
+    n209 --> n261
+    n262["provider_round_dispatcher.py"]
+    n209 --> n262
+    n263["reasoning_renderer.py"]
+    n209 --> n263
+    n264["remote_agent.py"]
+    n209 --> n264
+    n265["responses_command_mutation.py"]
+    n209 --> n265
+    n266["responses_command_service.py"]
+    n209 --> n266
+    n267["responses_command_state.py"]
+    n209 --> n267
+    n268["retry_coordinator.py"]
+    n209 --> n268
+    n269["round_contracts.py"]
+    n209 --> n269
+    n270["round_identity.py"]
+    n209 --> n270
+    n271["round_orchestrator.py"]
+    n209 --> n271
+    n272["round_runtime.py"]
+    n209 --> n272
+    n273["round_ui.py"]
+    n209 --> n273
+    n274["runtime_banner.py"]
+    n209 --> n274
+    n275["runtime_env.py"]
+    n209 --> n275
+    n276["runtime_init.py"]
+    n209 --> n276
+    n277["runtime_instructions.py"]
+    n209 --> n277
+    n278["runtime_memory.py"]
+    n209 --> n278
+    n279["runtime_plugins.py"]
+    n209 --> n279
+    n280["runtime_workdir.py"]
+    n209 --> n280
+    n281["session_command_service.py"]
+    n209 --> n281
+    n282["session_restore.py"]
+    n209 --> n282
+    n283["session_store.py"]
+    n209 --> n283
+    n284["skill_lifecycle.py"]
+    n209 --> n284
+    n285["spinner.py"]
+    n209 --> n285
+    n286["state.py"]
+    n209 --> n286
+    n287["status.py"]
+    n209 --> n287
+    n288["stream_host.py"]
+    n209 --> n288
+    n289["stream_renderer.py"]
+    n209 --> n289
+    n290["telemetry.py"]
+    n209 --> n290
+    n291["tool_discovery.py"]
+    n209 --> n291
+    n292["tool_result_manager.py"]
+    n209 --> n292
+    n293["tool_result_persistence.py"]
+    n209 --> n293
+    n294["__init__.py"]
+    n209 --> n294
+    n295["scheckgui_impl/"]
+    n42 --> n295
+    n296["config.py"]
+    n295 --> n296
+    n297["icons.py"]
+    n295 --> n297
+    n298["main.py"]
+    n295 --> n298
+    n299["mainwindow.py"]
+    n295 --> n299
+    n300["state.py"]
+    n295 --> n300
+    n301["theme.py"]
+    n295 --> n301
+    n302["widgets.py"]
+    n295 --> n302
+    n303["worker.py"]
+    n295 --> n303
+    n304["__init__.py"]
+    n295 --> n304
+    n305["scheduler/"]
+    n42 --> n305
+    n306["direct.py"]
+    n305 --> n306
+    n307["models.py"]
+    n305 --> n307
+    n308["run_store.py"]
+    n305 --> n308
+    n309["service.py"]
+    n305 --> n309
+    n310["store.py"]
+    n305 --> n310
+    n311["tool_guard.py"]
+    n305 --> n311
+    n312["worker.py"]
+    n305 --> n312
+    n313["__init__.py"]
+    n305 --> n313
+    n314["static/"]
+    n42 --> n314
+    n315["assets/"]
+    n314 --> n315
+    n316["index.js"]
+    n315 --> n316
+    n317["tools/"]
+    n42 --> n317
+    n318["a2a_poll_tool.py"]
+    n317 --> n318
+    n319["a2a_send_tool.py"]
+    n317 --> n319
+    n320["a2a_servers_tool.py"]
+    n317 --> n320
+    n321["add_long_memory_tool.py"]
+    n317 --> n321
+    n322["add_shared_memory_tool.py"]
+    n317 --> n322
+    n323["agent_skills_shared.py"]
+    n317 --> n323
+    n324["analyze_image_tool.py"]
+    n317 --> n324
+    n325["apply_patch_tool.py"]
+    n317 --> n325
+    n326["arg_util.py"]
+    n317 --> n326
+    n327["artifact_access.py"]
+    n317 --> n327
+    n328["artifact_export_tool.py"]
+    n317 --> n328
+    n329["artifact_info_tool.py"]
+    n317 --> n329
+    n330["artifact_read_tool.py"]
+    n317 --> n330
+    n331["asyncio_loop_util.py"]
+    n317 --> n331
+    n332["audio_speech_tool.py"]
+    n317 --> n332
+    n333["audio_transcribe_tool.py"]
+    n317 --> n333
+    n334["aws_api_tool.py"]
+    n317 --> n334
+    n335["azure_api_tool.py"]
+    n317 --> n335
+    n336["bacnet_cov_subscribe_tool.py"]
+    n317 --> n336
+    n337["bacnet_cov_unsubscribe_tool.py"]
+    n317 --> n337
+    n338["bacnet_read_tool.py"]
+    n317 --> n338
+    n339["bacnet_scan_tool.py"]
+    n317 --> n339
+    n340["bacnet_shared.py"]
+    n317 --> n340
+    n341["bacnet_write_tool.py"]
+    n317 --> n341
+    n342["bash_exec_tool.py"]
+    n317 --> n342
+    n343["batch_state_tool.py"]
+    n317 --> n343
+    n344["binary_edit_tool.py"]
+    n317 --> n344
+    n345["bitchat_geo.py"]
+    n317 --> n345
+    n346["bitchat_noise.py"]
+    n317 --> n346
+    n347["ble_ops_tool.py"]
+    n317 --> n347
+    n348["bluesky_tool.py"]
+    n317 --> n348
+    n349["browser_playwright_tool.py"]
+    n317 --> n349
+    n350["calculator_tool.py"]
+    n317 --> n350
+    n351["capture_analyze_tool.py"]
+    n317 --> n351
+    n352["catalog_tool.py"]
+    n317 --> n352
+    n353["change_workdir_tool.py"]
+    n317 --> n353
+    n354["cl2idx_tool.py"]
+    n317 --> n354
+    n355["cmake2idx_tool.py"]
+    n317 --> n355
+    n356["cmd_exec_json_tool.py"]
+    n317 --> n356
+    n357["cobol2idx_tool.py"]
+    n317 --> n357
+    n358["code_map_tool.py"]
+    n317 --> n358
+    n359["context.py"]
+    n317 --> n359
+    n360["coverage_report_tool.py"]
+    n317 --> n360
+    n361["cpp2idx_tool.py"]
+    n317 --> n361
+    n362["create_file_tool.py"]
+    n317 --> n362
+    n363["create_tool_tool.py"]
+    n317 --> n363
+    n364["cs2idx_tool.py"]
+    n317 --> n364
+    n365["csv2idx_tool.py"]
+    n317 --> n365
+    n366["current_location_tool.py"]
+    n317 --> n366
+    n367["dali_read_tool.py"]
+    n317 --> n367
+    n368["dali_scan_tool.py"]
+    n317 --> n368
+    n369["dali_shared.py"]
+    n317 --> n369
+    n370["dali_write_tool.py"]
+    n317 --> n370
+    n371["dart2idx_tool.py"]
+    n317 --> n371
+    n372["date_calc_tool.py"]
+    n317 --> n372
+    n373["db_query_tool.py"]
+    n317 --> n373
+    n374["dds2idx_tool.py"]
+    n317 --> n374
+    n375["delete_file_tool.py"]
+    n317 --> n375
+    n376["diff_files_tool.py"]
+    n317 --> n376
+    n377["discord_channel_tool.py"]
+    n317 --> n377
+    n378["document_extract_tool.py"]
+    n317 --> n378
+    n379["docx2idx_tool.py"]
+    n317 --> n379
+    n380["echonet_cache_shared.py"]
+    n317 --> n380
+    n381["echonet_cache_tool.py"]
+    n317 --> n381
+    n382["echonet_control_tool.py"]
+    n317 --> n382
+    n383["echonet_monitor_tool.py"]
+    n317 --> n383
+    n384["echonet_node_status_tool.py"]
+    n317 --> n384
+    n385["echonet_object_list_tool.py"]
+    n317 --> n385
+    n386["echonet_property_get_tool.py"]
+    n317 --> n386
+    n387["echonet_property_list_tool.py"]
+    n317 --> n387
+    n388["echonet_property_set_tool.py"]
+    n317 --> n388
+    n389["echonet_scan_tool.py"]
+    n317 --> n389
+    n390["echonet_shared.py"]
+    n317 --> n390
+    n391["echonet_subscribe_tool.py"]
+    n317 --> n391
+    n392["echonet_unsubscribe_tool.py"]
+    n317 --> n392
+    n393["email_utils.py"]
+    n317 --> n393
+    n394["enterprise_policy.py"]
+    n317 --> n394
+    n395["excel2idx_tool.py"]
+    n317 --> n395
+    n396["excel_ops_tool.py"]
+    n317 --> n396
+    n397["exstruct_tool.py"]
+    n317 --> n397
+    n398["fetch_url_tool.py"]
+    n317 --> n398
+    n399["file_exists_tool.py"]
+    n317 --> n399
+    n400["file_grep_tool.py"]
+    n317 --> n400
+    n401["file_hash_tool.py"]
+    n317 --> n401
+    n402["file_type_tool.py"]
+    n317 --> n402
+    n403["finish_skill_tool.py"]
+    n317 --> n403
+    n404["forecast_tool.py"]
+    n317 --> n404
+    n405["gcp_api_tool.py"]
+    n317 --> n405
+    n406["generate_grok.py"]
+    n317 --> n406
+    n407["generate_image_tool.py"]
+    n317 --> n407
+    n408["generate_prompt_tool.py"]
+    n317 --> n408
+    n409["generate_qr_code_tool.py"]
+    n317 --> n409
+    n410["generate_zai.py"]
+    n317 --> n410
+    n411["genre_control_tool.py"]
+    n317 --> n411
+    n412["geodesic_distance_tool.py"]
+    n317 --> n412
+    n413["get_current_time_tool.py"]
+    n317 --> n413
+    n414["get_env_tool.py"]
+    n317 --> n414
+    n415["get_geoip_tool.py"]
+    n317 --> n415
+    n416["get_long_memory_tool.py"]
+    n317 --> n416
+    n417["get_shared_memory_tool.py"]
+    n317 --> n417
+    n418["get_workdir_tool.py"]
+    n317 --> n418
+    n419["git_ops_tool.py"]
+    n317 --> n419
+    n420["git_review_tool.py"]
+    n317 --> n420
+    n421["gmail_read_tool.py"]
+    n317 --> n421
+    n422["gmail_send_tool.py"]
+    n317 --> n422
+    n423["go2idx_tool.py"]
+    n317 --> n423
+    n424["graph_rag_search_tool.py"]
+    n317 --> n424
+    n425["handle_mcp_v2_tool.py"]
+    n317 --> n425
+    n426["html2idx_tool.py"]
+    n317 --> n426
+    n427["http_request_tool.py"]
+    n317 --> n427
+    n428["human_ask_tool.py"]
+    n317 --> n428
+    n429["i18n_helper.py"]
+    n317 --> n429
+    n430["img2img_tool.py"]
+    n317 --> n430
+    n431["index_files_tool.py"]
+    n317 --> n431
+    n432["index_tool_helpers.py"]
+    n317 --> n432
+    n433["json2idx_tool.py"]
+    n317 --> n433
+    n434["jv2idx_tool.py"]
+    n317 --> n434
+    n435["kt2idx_tool.py"]
+    n317 --> n435
+    n436["lint_format_tool.py"]
+    n317 --> n436
+    n437["lint_js_ts_tool.py"]
+    n317 --> n437
+    n438["list_dir_tool.py"]
+    n317 --> n438
+    n439["list_windows_titles_tool.py"]
+    n317 --> n439
+    n440["llm_tool_narrowing.py"]
+    n317 --> n440
+    n441["local_network_tool.py"]
+    n317 --> n441
+    n442["location_backends.py"]
+    n317 --> n442
+    n443["log2idx_tool.py"]
+    n317 --> n443
+    n444["long_memory.py"]
+    n317 --> n444
+    n445["ls2idx_tool.py"]
+    n317 --> n445
+    n446["matter_bridge_list_tool.py"]
+    n317 --> n446
+    n447["matter_cache_status_tool.py"]
+    n317 --> n447
+    n448["matter_cluster_list_tool.py"]
+    n317 --> n448
+    n449["matter_controller_list_tool.py"]
+    n317 --> n449
+    n450["matter_control_tool.py"]
+    n317 --> n450
+    n451["matter_device_status_tool.py"]
+    n317 --> n451
+    n452["matter_endpoint_list_tool.py"]
+    n317 --> n452
+    n453["matter_state_history_tool.py"]
+    n317 --> n453
+    n454["matter_subscribe_tool.py"]
+    n317 --> n454
+    n455["matter_subscription_list_tool.py"]
+    n317 --> n455
+    n456["matter_unsubscribe_tool.py"]
+    n317 --> n456
+    n457["mcp_prompts_tool.py"]
+    n317 --> n457
+    n458["mcp_resources_tool.py"]
+    n317 --> n458
+    n459["mcp_servers_shared.py"]
+    n317 --> n459
+    n460["mcp_servers_tool.py"]
+    n317 --> n460
+    n461["mcp_server_discover_tool.py"]
+    n317 --> n461
+    n462["mcp_tools_list_tool.py"]
+    n317 --> n462
+    n463["md2idx_tool.py"]
+    n317 --> n463
+    n464["mdformat_tool.py"]
+    n317 --> n464
+    n465["mdreorder_tool.py"]
+    n317 --> n465
+    n466["mermaid_render_tool.py"]
+    n317 --> n466
+    n467["mermaid_to_excel_tool.py"]
+    n317 --> n467
+    n468["mk2idx_tool.py"]
+    n317 --> n468
+    n469["mmd_to_svg_tool.py"]
+    n317 --> n469
+    n470["modbus_monitor_tool.py"]
+    n317 --> n470
+    n471["modbus_read_tool.py"]
+    n317 --> n471
+    n472["modbus_scan_tool.py"]
+    n317 --> n472
+    n473["modbus_shared.py"]
+    n317 --> n473
+    n474["modbus_write_tool.py"]
+    n317 --> n474
+    n475["mqtt_publish_tool.py"]
+    n317 --> n475
+    n476["mqtt_shared.py"]
+    n317 --> n476
+    n477["mqtt_subscribe_tool.py"]
+    n317 --> n477
+    n478["mqtt_unsubscribe_tool.py"]
+    n317 --> n478
+    n479["msbuild2idx_tool.py"]
+    n317 --> n479
+    n480["network_capabilities_tool.py"]
+    n317 --> n480
+    n481["network_discover_tool.py"]
+    n317 --> n481
+    n482["network_privileged_helper.py"]
+    n317 --> n482
+    n483["nostr_transport.py"]
+    n317 --> n483
+    n484["office_to_markdown_tool.py"]
+    n317 --> n484
+    n485["opcua_browse_tool.py"]
+    n317 --> n485
+    n486["opcua_read_tool.py"]
+    n317 --> n486
+    n487["opcua_scan_tool.py"]
+    n317 --> n487
+    n488["opcua_shared.py"]
+    n317 --> n488
+    n489["opcua_subscribe_tool.py"]
+    n317 --> n489
+    n490["opcua_unsubscribe_tool.py"]
+    n317 --> n490
+    n491["opcua_write_tool.py"]
+    n317 --> n491
+    n492["openers.py"]
+    n317 --> n492
+    n493["os_scheduler_helper.py"]
+    n317 --> n493
+    n494["packet_probe_tool.py"]
+    n317 --> n494
+    n495["packet_send_tool.py"]
+    n317 --> n495
+    n496["pagination_util.py"]
+    n317 --> n496
+    n497["parse_eml_tool.py"]
+    n317 --> n497
+    n498["path_alias_shared.py"]
+    n317 --> n498
+    n499["path_alias_tool.py"]
+    n317 --> n499
+    n500["pcap_analyze_tool.py"]
+    n317 --> n500
+    n501["pdf2idx_tool.py"]
+    n317 --> n501
+    n502["pdf_export_tool.py"]
+    n317 --> n502
+    n503["php2idx_tool.py"]
+    n317 --> n503
+    n504["playwright_inspector_tool.py"]
+    n317 --> n504
+    n505["plugin_manage_tool.py"]
+    n317 --> n505
+    n506["ppt2idx_tool.py"]
+    n317 --> n506
+    n507["preprocess_image_tool.py"]
+    n317 --> n507
+    n508["protocol_inspect_tool.py"]
+    n317 --> n508
+    n509["public_transit_route_tool.py"]
+    n317 --> n509
+    n510["pwsh_exec_tool.py"]
+    n317 --> n510
+    n511["py2idx_tool.py"]
+    n317 --> n511
+    n512["pybitchat_send_tool.py"]
+    n317 --> n512
+    n513["pybitchat_shared.py"]
+    n317 --> n513
+    n514["pybitchat_subscribe_tool.py"]
+    n317 --> n514
+    n515["python_compile_tool.py"]
+    n317 --> n515
+    n516["python_exec_tool.py"]
+    n317 --> n516
+    n517["quantities_tool.py"]
+    n317 --> n517
+    n518["read_file_tool.py"]
+    n317 --> n518
+    n519["read_pptx_pdf_tool.py"]
+    n317 --> n519
+    n520["recalc_excel_tool.py"]
+    n317 --> n520
+    n521["rename_path_tool.py"]
+    n317 --> n521
+    n522["replace_in_file_tool.py"]
+    n317 --> n522
+    n523["response_util.py"]
+    n317 --> n523
+    n524["reverse_geocode_tool.py"]
+    n317 --> n524
+    n525["rpg2idx_tool.py"]
+    n317 --> n525
+    n526["rs2idx_tool.py"]
+    n317 --> n526
+    n527["run_tests_tool.py"]
+    n317 --> n527
+    n528["rust_helper.py"]
+    n317 --> n528
+    n529["safe_exec_ops.py"]
+    n317 --> n529
+    n530["safe_file_ops.py"]
+    n317 --> n530
+    n531["safe_file_ops_extras.py"]
+    n317 --> n531
+    n532["sbom_tool.py"]
+    n317 --> n532
+    n533["screenshot_tool.py"]
+    n317 --> n533
+    n534["search_files_tool.py"]
+    n317 --> n534
+    n535["search_web_tool.py"]
+    n317 --> n535
+    n536["secrets_tool.py"]
+    n317 --> n536
+    n537["security_scan_tool.py"]
+    n317 --> n537
+    n538["semantic_search_files_tool.py"]
+    n317 --> n538
+    n539["set_timer_tool.py"]
+    n317 --> n539
+    n540["shared_memory.py"]
+    n317 --> n540
+    n541["skills_apm_tool.py"]
+    n317 --> n541
+    n542["skills_install_tool.py"]
+    n317 --> n542
+    n543["skills_lifecycle_tool.py"]
+    n317 --> n543
+    n544["skills_list_tool.py"]
+    n317 --> n544
+    n545["skills_load_tool.py"]
+    n317 --> n545
+    n546["skills_mp_search_tool.py"]
+    n317 --> n546
+    n547["skills_read_file_tool.py"]
+    n317 --> n547
+    n548["skills_uninstall_tool.py"]
+    n317 --> n548
+    n549["skills_validate_tool.py"]
+    n317 --> n549
+    n550["skill_history.py"]
+    n317 --> n550
+    n551["sln2idx_tool.py"]
+    n317 --> n551
+    n552["space_steganography_tool.py"]
+    n317 --> n552
+    n553["spawn_process_tool.py"]
+    n317 --> n553
+    n554["spreadsheet_analyze_tool.py"]
+    n317 --> n554
+    n555["sql2idx_tool.py"]
+    n317 --> n555
+    n556["sub_agent_chain_tool.py"]
+    n317 --> n556
+    n557["sub_agent_tool.py"]
+    n317 --> n557
+    n558["svg_to_image_tool.py"]
+    n317 --> n558
+    n559["swift2idx_tool.py"]
+    n317 --> n559
+    n560["switchbot_batch_tool.py"]
+    n317 --> n560
+    n561["switchbot_ble_control_tool.py"]
+    n317 --> n561
+    n562["switchbot_ble_scan_tool.py"]
+    n317 --> n562
+    n563["switchbot_ble_status_tool.py"]
+    n317 --> n563
+    n564["switchbot_cloud_control_tool.py"]
+    n317 --> n564
+    n565["switchbot_cloud_list_tool.py"]
+    n317 --> n565
+    n566["switchbot_cloud_status_tool.py"]
+    n317 --> n566
+    n567["switchbot_shared.py"]
+    n317 --> n567
+    n568["switchbot_subscribe_tool.py"]
+    n317 --> n568
+    n569["switchbot_unsubscribe_tool.py"]
+    n317 --> n569
+    n570["system_reload_tool.py"]
+    n317 --> n570
+    n571["system_specs_tool.py"]
+    n317 --> n571
+    n572["task_history.py"]
+    n317 --> n572
+    n573["teams_webhook_tool.py"]
+    n317 --> n573
+    n574["threat_detect_tool.py"]
+    n317 --> n574
+    n575["tools_control_tool.py"]
+    n317 --> n575
+    n576["tool_policy.py"]
+    n317 --> n576
+    n577["traffic_monitor_tool.py"]
+    n317 --> n577
+    n578["translate_text_tool.py"]
+    n317 --> n578
+    n579["ts2idx_tool.py"]
+    n317 --> n579
+    n580["ucp_ap2_tool.py"]
+    n317 --> n580
+    n581["ucp_cart_tool.py"]
+    n317 --> n581
+    n582["ucp_catalog_tool.py"]
+    n317 --> n582
+    n583["ucp_checkout_tool.py"]
+    n317 --> n583
+    n584["ucp_discover_tool.py"]
+    n317 --> n584
+    n585["ucp_identity_tool.py"]
+    n317 --> n585
+    n586["ucp_mcp_server_tool.py"]
+    n317 --> n586
+    n587["ucp_order_tool.py"]
+    n317 --> n587
+    n588["ucp_shared.py"]
+    n317 --> n588
+    n589["upnp_device_info_tool.py"]
+    n317 --> n589
+    n590["upnp_igd_control_tool.py"]
+    n317 --> n590
+    n591["upnp_scan_tool.py"]
+    n317 --> n591
+    n592["url_alias_tool.py"]
+    n317 --> n592
+    n593["usb_camera_tool.py"]
+    n317 --> n593
+    n594["vba2idx_tool.py"]
+    n317 --> n594
+    n595["vision_deepseek.py"]
+    n317 --> n595
+    n596["vision_gemini.py"]
+    n317 --> n596
+    n597["vision_ollama.py"]
+    n317 --> n597
+    n598["vision_openai.py"]
+    n317 --> n598
+    n599["vision_runtime.py"]
+    n317 --> n599
+    n600["vision_zai.py"]
+    n317 --> n600
+    n601["wc_tool.py"]
+    n317 --> n601
+    n602["windows_uac_launcher.py"]
+    n317 --> n602
+    n603["workspace_status_tool.py"]
+    n317 --> n603
+    n604["wttrin_tool.py"]
+    n317 --> n604
+    n605["yaml2idx_tool.py"]
+    n317 --> n605
+    n606["zipcode_check_tool.py"]
+    n317 --> n606
+    n607["zip_ops_tool.py"]
+    n317 --> n607
+    n608["_bleak_helper.py"]
+    n317 --> n608
+    n609["_browser_session_registry.py"]
+    n317 --> n609
+    n610["_genre_control_util.py"]
+    n317 --> n610
+    n611["_matter_cache.py"]
+    n317 --> n611
+    n612["_matter_common.py"]
+    n317 --> n612
+    n613["_matter_history.py"]
+    n317 --> n613
+    n614["_matter_log.py"]
+    n317 --> n614
+    n615["_matter_subscribe.py"]
+    n317 --> n615
+    n616["_secp256k1.py"]
+    n317 --> n616
+    n617["_upnp_shared.py"]
+    n317 --> n617
+    n618["_xlsm_support.py"]
+    n317 --> n618
+    n619["__init__.py"]
+    n317 --> n619
+    n620["code_map_impl/"]
+    n317 --> n620
+    n621["caches.py"]
+    n620 --> n621
+    n622["cmake.py"]
+    n620 --> n622
+    n623["conflicts.py"]
+    n620 --> n623
+    n624["excel_vba.py"]
+    n620 --> n624
+    n625["graph_renderer.py"]
+    n620 --> n625
+    n626["language_detection.py"]
+    n620 --> n626
+    n627["lockfiles.py"]
+    n620 --> n627
+    n628["manifests.py"]
+    n620 --> n628
+    n629["relations.py"]
+    n620 --> n629
+    n630["renderers.py"]
+    n620 --> n630
+    n631["resolvers.py"]
+    n620 --> n631
+    n632["runner.py"]
+    n620 --> n632
+    n633["symbols.py"]
+    n620 --> n633
+    n634["tree_sitter_symbols.py"]
+    n620 --> n634
+    n635["__init__.py"]
+    n620 --> n635
+    n636["mcp/"]
+    n317 --> n636
+    n637["client.py"]
+    n636 --> n637
+    n638["errors.py"]
+    n636 --> n638
+    n639["http_client.py"]
+    n636 --> n639
+    n640["oauth_authorization.py"]
+    n636 --> n640
+    n641["oauth_browser_flow.py"]
+    n636 --> n641
+    n642["oauth_callback.py"]
+    n636 --> n642
+    n643["oauth_cimd.py"]
+    n636 --> n643
+    n644["oauth_flow.py"]
+    n636 --> n644
+    n645["oauth_metadata.py"]
+    n636 --> n645
+    n646["oauth_pkce.py"]
+    n636 --> n646
+    n647["oauth_provider.py"]
+    n636 --> n647
+    n648["protocol.py"]
+    n636 --> n648
+    n649["stateless_http.py"]
+    n636 --> n649
+    n650["stateless_transport.py"]
+    n636 --> n650
+    n651["token_store.py"]
+    n636 --> n651
+    n652["__init__.py"]
+    n636 --> n652
+    n653["mermaid_excel_impl/"]
+    n317 --> n653
+    n654["drawingml.py"]
+    n653 --> n654
+    n655["layout.py"]
+    n653 --> n655
+    n656["model.py"]
+    n653 --> n656
+    n657["parser.py"]
+    n653 --> n657
+    n658["xlsx.py"]
+    n653 --> n658
+    n659["__init__.py"]
+    n653 --> n659
+    n660["tools_rust/"]
+    n42 --> n660
+    n661["rust_slugify_tool.py"]
+    n660 --> n661
+    n662["rust_uuid_gen_tool.py"]
+    n660 --> n662
+    n663["src/"]
+    n660 --> n663
+    n664["lib.rs"]
+    n663 --> n664
+    n665["slugify.rs"]
+    n663 --> n665
+    n666["uuid_gen.rs"]
+    n663 --> n666
+    n667["utils/"]
+    n42 --> n667
+    n668["paths.py"]
+    n667 --> n668
+    n669["scan_filters.py"]
+    n667 --> n669
+    n670["secret_mask.py"]
+    n667 --> n670
+    n671["__init__.py"]
+    n667 --> n671
+    n672["web_impl/"]
+    n42 --> n672
+    n673["agent_worker.py"]
+    n672 --> n673
+    n674["app.py"]
+    n672 --> n674
+    n675["helpers.py"]
+    n672 --> n675
+    n676["history.py"]
+    n672 --> n676
+    n677["init.py"]
+    n672 --> n677
+    n678["io.py"]
+    n672 --> n678
+    n679["rooms.py"]
+    n672 --> n679
+    n680["routes_api.py"]
+    n672 --> n680
+    n681["routes_pages.py"]
+    n672 --> n681
+    n682["routes_ws.py"]
+    n672 --> n682
+    n683["__init__.py"]
+    n672 --> n683
+    n684["uag_envsec/"]
+    n41 --> n684
+    n685["cli.py"]
+    n684 --> n685
+    n686["secret_core.py"]
+    n684 --> n686
+    n687["__init__.py"]
+    n684 --> n687
+    n688["steganography/"]
+    n689["detect_space_steganography.py"]
+    n688 --> n689
+    n690["sample_space_steganography.py"]
+    n688 --> n690
+    n691["tests/"]
+    n692["conftest.py"]
+    n691 --> n692
+    n693["matter_fixtures.py"]
+    n691 --> n693
+    n694["test_a2a_credential_store.py"]
+    n691 --> n694
+    n695["test_a2a_session_store.py"]
+    n691 --> n695
+    n696["test_a2a_task_store.py"]
+    n691 --> n696
+    n697["test_a2a_task_store_config.py"]
+    n691 --> n697
+    n698["test_active_context.py"]
+    n691 --> n698
+    n699["test_additional_safe_tools_smoke.py"]
+    n691 --> n699
+    n700["test_agent_skills_shared.py"]
+    n691 --> n700
+    n701["test_agent_state.py"]
+    n691 --> n701
+    n702["test_agent_state_context_injection.py"]
+    n691 --> n702
+    n703["test_agent_state_integration.py"]
+    n691 --> n703
+    n704["test_agent_state_store.py"]
+    n691 --> n704
+    n705["test_artifact_binary_tools.py"]
+    n691 --> n705
+    n706["test_artifact_manager.py"]
+    n691 --> n706
+    n707["test_artifact_read_tool.py"]
+    n691 --> n707
+    n708["test_artifact_retention.py"]
+    n691 --> n708
+    n709["test_audio_speech_grok.py"]
+    n691 --> n709
+    n710["test_audio_transcribe_grok.py"]
+    n691 --> n710
+    n711["test_auth_runtime_policy.py"]
+    n691 --> n711
+    n712["test_auto_judgment.py"]
+    n691 --> n712
+    n713["test_auto_unload_grace_from_load.py"]
+    n691 --> n713
+    n714["test_capability_resolver.py"]
+    n691 --> n714
+    n715["test_capture_analyze_live_integration.py"]
+    n691 --> n715
+    n716["test_capture_analyze_tool.py"]
+    n691 --> n716
+    n717["test_catalog_steering_gate.py"]
+    n691 --> n717
+    n718["test_chat_reasoning_stream_callbacks.py"]
+    n691 --> n718
+    n719["test_cl2idx_tool.py"]
+    n691 --> n719
+    n720["test_cli_completion.py"]
+    n691 --> n720
+    n721["test_cli_exit_regressions.py"]
+    n691 --> n721
+    n722["test_cli_startup_prompt_toolkit.py"]
+    n691 --> n722
+    n723["test_cmake2idx.py"]
+    n691 --> n723
+    n724["test_cobol2idx_tool.py"]
+    n691 --> n724
+    n725["test_code_map_tool.py"]
+    n691 --> n725
+    n726["test_computer_use_anthropic.py"]
+    n691 --> n726
+    n727["test_computer_use_bedrock.py"]
+    n691 --> n727
+    n728["test_computer_use_cli_flags.py"]
+    n691 --> n728
+    n729["test_computer_use_config.py"]
+    n691 --> n729
+    n730["test_computer_use_core.py"]
+    n691 --> n730
+    n731["test_computer_use_custom.py"]
+    n691 --> n731
+    n732["test_computer_use_entrypoint_policy.py"]
+    n691 --> n732
+    n733["test_computer_use_final_phase.py"]
+    n691 --> n733
+    n734["test_computer_use_gemini.py"]
+    n691 --> n734
+    n735["test_computer_use_integration.py"]
+    n691 --> n735
+    n736["test_computer_use_llm_dispatch.py"]
+    n691 --> n736
+    n737["test_computer_use_loop.py"]
+    n691 --> n737
+    n738["test_computer_use_openai.py"]
+    n691 --> n738
+    n739["test_computer_use_openai_e2e_boundaries.py"]
+    n691 --> n739
+    n740["test_computer_use_public_api.py"]
+    n691 --> n740
+    n741["test_computer_use_runtime.py"]
+    n691 --> n741
+    n742["test_computer_use_runtimes.py"]
+    n691 --> n742
+    n743["test_computer_use_safety_audit.py"]
+    n691 --> n743
+    n744["test_computer_use_safety_integration.py"]
+    n691 --> n744
+    n745["test_context_benchmark.py"]
+    n691 --> n745
+    n746["test_context_budget.py"]
+    n691 --> n746
+    n747["test_context_budget_integration.py"]
+    n691 --> n747
+    n748["test_context_decision.py"]
+    n691 --> n748
+    n749["test_context_manager.py"]
+    n691 --> n749
+    n750["test_context_manager_pipeline.py"]
+    n691 --> n750
+    n751["test_context_policy.py"]
+    n691 --> n751
+    n752["test_context_recovery_integration.py"]
+    n691 --> n752
+    n753["test_context_recovery_legacy.py"]
+    n691 --> n753
+    n754["test_context_retrieval.py"]
+    n691 --> n754
+    n755["test_context_retrieval_injection.py"]
+    n691 --> n755
+    n756["test_context_tokens.py"]
+    n691 --> n756
+    n757["test_context_tools.py"]
+    n691 --> n757
+    n758["test_coverage_report_tool.py"]
+    n691 --> n758
+    n759["test_cpp2idx_tool.py"]
+    n691 --> n759
+    n760["test_credential_cli.py"]
+    n691 --> n760
+    n761["test_credential_store.py"]
+    n691 --> n761
+    n762["test_cs2idx_tool.py"]
+    n691 --> n762
+    n763["test_dag_scheduler.py"]
+    n691 --> n763
+    n764["test_dart2idx_tool.py"]
+    n691 --> n764
+    n765["test_dds2idx_tool.py"]
+    n691 --> n765
+    n766["test_delete_file_glob.py"]
+    n691 --> n766
+    n767["test_diff_patch_llm_flow.py"]
+    n691 --> n767
+    n768["test_distributed_coordination.py"]
+    n691 --> n768
+    n769["test_document_extract_tool.py"]
+    n691 --> n769
+    n770["test_embedded_mode.py"]
+    n691 --> n770
+    n771["test_empty_no_tool_recovery.py"]
+    n691 --> n771
+    n772["test_enable_tool_cli.py"]
+    n691 --> n772
+    n773["test_enterprise_policy.py"]
+    n691 --> n773
+    n774["test_envsec_keyring.py"]
+    n691 --> n774
+    n775["test_env_validate.py"]
+    n691 --> n775
+    n776["test_error_renderer.py"]
+    n691 --> n776
+    n777["test_excel2idx.py"]
+    n691 --> n777
+    n778["test_exec_tools_stdin_devnull.py"]
+    n691 --> n778
+    n779["test_finish_skill_tool_smoke.py"]
+    n691 --> n779
+    n780["test_gemini_tool_surface.py"]
+    n691 --> n780
+    n781["test_gemini_turn_recovery.py"]
+    n691 --> n781
+    n782["test_general_tool_loop.py"]
+    n691 --> n782
+    n783["test_genre_mask.py"]
+    n691 --> n783
+    n784["test_geodesic_distance_tool.py"]
+    n691 --> n784
+    n785["test_git_review_tool.py"]
+    n691 --> n785
+    n786["test_go2idx_tool.py"]
+    n691 --> n786
+    n787["test_gpt54_tool_search.py"]
+    n691 --> n787
+    n788["test_grok_pfn_stream_callbacks.py"]
+    n691 --> n788
+    n789["test_grok_runtime.py"]
+    n691 --> n789
+    n790["test_handle_mcp_v2_tool.py"]
+    n691 --> n790
+    n791["test_high_priority_tools_safe.py"]
+    n691 --> n791
+    n792["test_hooks_all_events.py"]
+    n691 --> n792
+    n793["test_hooks_engine.py"]
+    n691 --> n793
+    n794["test_i18n_command_syntax.py"]
+    n691 --> n794
+    n795["test_i18n_structure_audit.py"]
+    n691 --> n795
+    n796["test_image_capability_tools.py"]
+    n691 --> n796
+    n797["test_inception_runtime.py"]
+    n691 --> n797
+    n798["test_interrupt_clears_responses_rid.py"]
+    n691 --> n798
+    n799["test_jv2idx_tool.py"]
+    n691 --> n799
+    n800["test_kt2idx_tool.py"]
+    n691 --> n800
+    n801["test_legacy_adapter_retry_coordinator.py"]
+    n691 --> n801
+    n802["test_legacy_claude_round.py"]
+    n691 --> n802
+    n803["test_legacy_context_recovery.py"]
+    n691 --> n803
+    n804["test_legacy_deepseek_round.py"]
+    n691 --> n804
+    n805["test_legacy_gateway_round.py"]
+    n691 --> n805
+    n806["test_legacy_gemini_round.py"]
+    n691 --> n806
+    n807["test_legacy_openai_round.py"]
+    n691 --> n807
+    n808["test_legacy_provider_dispatch.py"]
+    n691 --> n808
+    n809["test_legacy_round_registry.py"]
+    n691 --> n809
+    n810["test_legacy_round_support.py"]
+    n691 --> n810
+    n811["test_legacy_tool_continuation.py"]
+    n691 --> n811
+    n812["test_legacy_usage_telemetry.py"]
+    n691 --> n812
+    n813["test_legacy_zai_round.py"]
+    n691 --> n813
+    n814["test_list_dir_tool.py"]
+    n691 --> n814
+    n815["test_llama_cpp_reasoning.py"]
+    n691 --> n815
+    n816["test_llama_cpp_structured_output.py"]
+    n691 --> n816
+    n817["test_llama_cpp_video_input.py"]
+    n691 --> n817
+    n818["test_llmcapa.py"]
+    n691 --> n818
+    n819["test_llmcapa_util.py"]
+    n691 --> n819
+    n820["test_llm_claude_thinking.py"]
+    n691 --> n820
+    n821["test_llm_deepseek_effort.py"]
+    n691 --> n821
+    n822["test_llm_deepseek_responses.py"]
+    n691 --> n822
+    n823["test_llm_deepseek_stream.py"]
+    n691 --> n823
+    n824["test_llm_error_classifier.py"]
+    n691 --> n824
+    n825["test_llm_error_summary.py"]
+    n691 --> n825
+    n826["test_llm_gemini_thinking.py"]
+    n691 --> n826
+    n827["test_llm_inception.py"]
+    n691 --> n827
+    n828["test_llm_meta_responses.py"]
+    n691 --> n828
+    n829["test_llm_ollama.py"]
+    n691 --> n829
+    n830["test_llm_pfn.py"]
+    n691 --> n830
+    n831["test_local_network_connections.py"]
+    n691 --> n831
+    n832["test_local_network_correlate.py"]
+    n691 --> n832
+    n833["test_local_network_tool.py"]
+    n691 --> n833
+    n834["test_logs_load_count_consistency.py"]
+    n691 --> n834
+    n835["test_matter_state_subscribe.py"]
+    n691 --> n835
+    n836["test_matter_tools.py"]
+    n691 --> n836
+    n837["test_matter_tools_mock.py"]
+    n691 --> n837
+    n838["test_mcp_client_stateless.py"]
+    n691 --> n838
+    n839["test_mcp_generation_persistence.py"]
+    n691 --> n839
+    n840["test_mcp_generation_provider_mismatch.py"]
+    n691 --> n840
+    n841["test_mcp_generation_restore_integration.py"]
+    n691 --> n841
+    n842["test_mcp_http_client.py"]
+    n691 --> n842
+    n843["test_mcp_oauth_authorization.py"]
+    n691 --> n843
+    n844["test_mcp_oauth_authorization_extra.py"]
+    n691 --> n844
+    n845["test_mcp_oauth_browser_flow.py"]
+    n691 --> n845
+    n846["test_mcp_oauth_callback.py"]
+    n691 --> n846
+    n847["test_mcp_oauth_cimd.py"]
+    n691 --> n847
+    n848["test_mcp_oauth_external_http_client.py"]
+    n691 --> n848
+    n849["test_mcp_oauth_flow.py"]
+    n691 --> n849
+    n850["test_mcp_oauth_httpx_auth.py"]
+    n691 --> n850
+    n851["test_mcp_oauth_metadata.py"]
+    n691 --> n851
+    n852["test_mcp_oauth_pkce.py"]
+    n691 --> n852
+    n853["test_mcp_oauth_provider.py"]
+    n691 --> n853
+    n854["test_mcp_oauth_resolver.py"]
+    n691 --> n854
+    n855["test_mcp_process_restore.py"]
+    n691 --> n855
+    n856["test_mcp_prompts_tool.py"]
+    n691 --> n856
+    n857["test_mcp_protocol.py"]
+    n691 --> n857
+    n858["test_mcp_resources_tool.py"]
+    n691 --> n858
+    n859["test_mcp_servers_tools_smoke.py"]
+    n691 --> n859
+    n860["test_mcp_server_discover_tool.py"]
+    n691 --> n860
+    n861["test_mcp_stateless_http.py"]
+    n691 --> n861
+    n862["test_mcp_stateless_transport.py"]
+    n691 --> n862
+    n863["test_mcp_token_store.py"]
+    n691 --> n863
+    n864["test_mcp_token_store_concurrency.py"]
+    n691 --> n864
+    n865["test_md2idx_tool.py"]
+    n691 --> n865
+    n866["test_memory_and_workdir_tools.py"]
+    n691 --> n866
+    n867["test_memory_backend_consistency.py"]
+    n691 --> n867
+    n868["test_memory_manager.py"]
+    n691 --> n868
+    n869["test_memory_manager_layers.py"]
+    n691 --> n869
+    n870["test_mermaid_to_excel_tool.py"]
+    n691 --> n870
+    n871["test_message_transform.py"]
+    n691 --> n871
+    n872["test_mgmt_tool_loop.py"]
+    n691 --> n872
+    n873["test_model_auth_display.py"]
+    n691 --> n873
+    n874["test_more_safe_tools.py"]
+    n691 --> n874
+    n875["test_multiline_editor.py"]
+    n691 --> n875
+    n876["test_multi_agent_runtime.py"]
+    n691 --> n876
+    n877["test_network_capabilities_tool.py"]
+    n691 --> n877
+    n878["test_network_discover_nmap.py"]
+    n691 --> n878
+    n879["test_network_discover_nmap_path.py"]
+    n691 --> n879
+    n880["test_network_discover_tool.py"]
+    n691 --> n880
+    n881["test_network_privileged_helper.py"]
+    n691 --> n881
+    n882["test_network_tools_mock.py"]
+    n691 --> n882
+    n883["test_new_2idx.py"]
+    n691 --> n883
+    n884["test_non_interactive_mode.py"]
+    n691 --> n884
+    n885["test_npcap_capability.py"]
+    n691 --> n885
+    n886["test_office_tools_smoke.py"]
+    n691 --> n886
+    n887["test_office_to_markdown_tool.py"]
+    n691 --> n887
+    n888["test_openai_compatible_runtime.py"]
+    n691 --> n888
+    n889["test_openai_special_dispatch.py"]
+    n691 --> n889
+    n890["test_openrouter_round_helpers.py"]
+    n691 --> n890
+    n891["test_openrouter_sdk_compat.py"]
+    n691 --> n891
+    n892["test_packet_probe_confirmation.py"]
+    n691 --> n892
+    n893["test_packet_probe_privileged_dryrun.py"]
+    n691 --> n893
+    n894["test_packet_probe_tool.py"]
+    n691 --> n894
+    n895["test_packet_probe_uac_integration.py"]
+    n691 --> n895
+    n896["test_packet_send_confirmation.py"]
+    n691 --> n896
+    n897["test_packet_send_tool.py"]
+    n691 --> n897
+    n898["test_pcap_analyze_beaconing.py"]
+    n691 --> n898
+    n899["test_pcap_analyze_cleartext.py"]
+    n691 --> n899
+    n900["test_pcap_analyze_connection_burst.py"]
+    n691 --> n900
+    n901["test_pcap_analyze_detect.py"]
+    n691 --> n901
+    n902["test_pcap_analyze_filter_and_broadcast.py"]
+    n691 --> n902
+    n903["test_pcap_analyze_flows.py"]
+    n691 --> n903
+    n904["test_pcap_analyze_host_scan.py"]
+    n691 --> n904
+    n905["test_pcap_analyze_impact.py"]
+    n691 --> n905
+    n906["test_pcap_analyze_large_transfer.py"]
+    n691 --> n906
+    n907["test_pcap_analyze_packets.py"]
+    n691 --> n907
+    n908["test_pcap_analyze_remaining_rules.py"]
+    n691 --> n908
+    n909["test_pcap_analyze_repeated_failure.py"]
+    n691 --> n909
+    n910["test_pcap_analyze_retransmission.py"]
+    n691 --> n910
+    n911["test_pcap_analyze_statistics.py"]
+    n691 --> n911
+    n912["test_pcap_analyze_summary.py"]
+    n691 --> n912
+    n913["test_pcap_analyze_suspicious_dns.py"]
+    n691 --> n913
+    n914["test_pcap_analyze_syn_handshake.py"]
+    n691 --> n914
+    n915["test_pcap_analyze_tool.py"]
+    n691 --> n915
+    n916["test_pcap_analyze_unusual_port.py"]
+    n691 --> n916
+    n917["test_pcap_analyze_unusual_port_direction.py"]
+    n691 --> n917
+    n918["test_pcap_metadata_cache.py"]
+    n691 --> n918
+    n919["test_pcap_real_integration.py"]
+    n691 --> n919
+    n920["test_pdf2idx.py"]
+    n691 --> n920
+    n921["test_pfn_runtime.py"]
+    n691 --> n921
+    n922["test_php2idx_tool.py"]
+    n691 --> n922
+    n923["test_pip_auto_policy.py"]
+    n691 --> n923
+    n924["test_plugin_channels.py"]
+    n691 --> n924
+    n925["test_plugin_marketplace.py"]
+    n691 --> n925
+    n926["test_plugin_outputstyles.py"]
+    n691 --> n926
+    n927["test_plugin_system.py"]
+    n691 --> n927
+    n928["test_plugin_userconfig.py"]
+    n691 --> n928
+    n929["test_policy_engine.py"]
+    n691 --> n929
+    n930["test_policy_engine_env.py"]
+    n691 --> n930
+    n931["test_ppt2idx.py"]
+    n691 --> n931
+    n932["test_previous_response_id_compat.py"]
+    n691 --> n932
+    n933["test_prompt_application_exit.py"]
+    n691 --> n933
+    n934["test_protocol_inspect_tool.py"]
+    n691 --> n934
+    n935["test_protocol_inspect_tshark.py"]
+    n691 --> n935
+    n936["test_protocol_inspect_tshark_path.py"]
+    n691 --> n936
+    n937["test_provider_cache.py"]
+    n691 --> n937
+    n938["test_provider_context.py"]
+    n691 --> n938
+    n939["test_provider_credentials.py"]
+    n691 --> n939
+    n940["test_provider_round_dispatcher.py"]
+    n691 --> n940
+    n941["test_provider_runtime_registry.py"]
+    n691 --> n941
+    n942["test_public_transit_route_tool.py"]
+    n691 --> n942
+    n943["test_pwsh_exec_tool.py"]
+    n691 --> n943
+    n944["test_py2idx_tool.py"]
+    n691 --> n944
+    n945["test_pybitchat_announce.py"]
+    n691 --> n945
+    n946["test_pybitchat_ble_scan.py"]
+    n691 --> n946
+    n947["test_pybitchat_courier.py"]
+    n691 --> n947
+    n948["test_pybitchat_fragment.py"]
+    n691 --> n948
+    n949["test_pybitchat_llm_inject_reload.py"]
+    n691 --> n949
+    n950["test_pybitchat_noise.py"]
+    n691 --> n950
+    n951["test_pybitchat_protocol.py"]
+    n691 --> n951
+    n952["test_pybitchat_relay.py"]
+    n691 --> n952
+    n953["test_pybitchat_send_tool.py"]
+    n691 --> n953
+    n954["test_pybitchat_subscribe_tool.py"]
+    n691 --> n954
+    n955["test_quantities_tool.py"]
+    n691 --> n955
+    n956["test_read_file_tricky.py"]
+    n691 --> n956
+    n957["test_read_pptx_pdf_smoke.py"]
+    n691 --> n957
+    n958["test_realtime.py"]
+    n691 --> n958
+    n959["test_reasoning_renderer.py"]
+    n691 --> n959
+    n960["test_registry_generation_options.py"]
+    n691 --> n960
+    n961["test_registry_output_parity.py"]
+    n691 --> n961
+    n962["test_replace_in_file_additional_actions.py"]
+    n691 --> n962
+    n963["test_replace_in_file_crlf_repro.py"]
+    n691 --> n963
+    n964["test_replace_in_file_strict.py"]
+    n691 --> n964
+    n965["test_replace_in_file_tricky.py"]
+    n691 --> n965
+    n966["test_repository_tools_integration.py"]
+    n691 --> n966
+    n967["test_responses_command_mutation.py"]
+    n691 --> n967
+    n968["test_responses_command_service.py"]
+    n691 --> n968
+    n969["test_responses_command_state.py"]
+    n691 --> n969
+    n970["test_responses_compaction.py"]
+    n691 --> n970
+    n971["test_responses_full_history_sanitize.py"]
+    n691 --> n971
+    n972["test_responses_manager.py"]
+    n691 --> n972
+    n973["test_responses_recovery_port.py"]
+    n691 --> n973
+    n974["test_responses_runtime.py"]
+    n691 --> n974
+    n975["test_responses_tool_result_limit.py"]
+    n691 --> n975
+    n976["test_responses_web_search_openai.py"]
+    n691 --> n976
+    n977["test_response_command.py"]
+    n691 --> n977
+    n978["test_retry_coordinator.py"]
+    n691 --> n978
+    n979["test_risky_tools_execution.py"]
+    n691 --> n979
+    n980["test_round_contracts.py"]
+    n691 --> n980
+    n981["test_round_integration_regressions.py"]
+    n691 --> n981
+    n982["test_round_orchestrator.py"]
+    n691 --> n982
+    n983["test_round_runtime_flags.py"]
+    n691 --> n983
+    n984["test_round_ui.py"]
+    n691 --> n984
+    n985["test_rpg2idx_tool.py"]
+    n691 --> n985
+    n986["test_rs2idx_tool.py"]
+    n691 --> n986
+    n987["test_runtime_banner_audio_model.py"]
+    n691 --> n987
+    n988["test_runtime_execution.py"]
+    n691 --> n988
+    n989["test_runtime_lifecycle.py"]
+    n691 --> n989
+    n990["test_safe_execution_smoke.py"]
+    n691 --> n990
+    n991["test_scheduler_direct.py"]
+    n691 --> n991
+    n992["test_scheduler_integration.py"]
+    n691 --> n992
+    n993["test_scheduler_run_store.py"]
+    n691 --> n993
+    n994["test_scheduler_tool_guard.py"]
+    n691 --> n994
+    n995["test_scheduler_worker.py"]
+    n691 --> n995
+    n996["test_search_files_tool_strengthened.py"]
+    n691 --> n996
+    n997["test_secret_mask.py"]
+    n691 --> n997
+    n998["test_security_scan_tool.py"]
+    n691 --> n998
+    n999["test_session_command_dispatch.py"]
+    n691 --> n999
+    n1000["test_session_command_service.py"]
+    n691 --> n1000
+    n1001["test_session_restore.py"]
+    n691 --> n1001
+    n1002["test_session_runtime_attachment.py"]
+    n691 --> n1002
+    n1003["test_session_search_command.py"]
+    n691 --> n1003
+    n1004["test_session_sqlite_commands.py"]
+    n691 --> n1004
+    n1005["test_session_store.py"]
+    n691 --> n1005
+    n1006["test_session_summary.py"]
+    n691 --> n1006
+    n1007["test_set_timer_screenshot_spawn_process.py"]
+    n691 --> n1007
+    n1008["test_short_log_clean.py"]
+    n691 --> n1008
+    n1009["test_shrink_llm.py"]
+    n691 --> n1009
+    n1010["test_skills_tools.py"]
+    n691 --> n1010
+    n1011["test_skill_command_hint.py"]
+    n691 --> n1011
+    n1012["test_skill_lifecycle.py"]
+    n691 --> n1012
+    n1013["test_space_steganography_tool.py"]
+    n691 --> n1013
+    n1014["test_special_provider_registry_integration.py"]
+    n691 --> n1014
+    n1015["test_sqlite_task_store.py"]
+    n691 --> n1015
+    n1016["test_status_line_no_midtext.py"]
+    n691 --> n1016
+    n1017["test_stream_renderer.py"]
+    n691 --> n1017
+    n1018["test_structured_observability.py"]
+    n691 --> n1018
+    n1019["test_structured_output_capabilities.py"]
+    n691 --> n1019
+    n1020["test_suricata_threat_detect_tool.py"]
+    n691 --> n1020
+    n1021["test_swift2idx_tool.py"]
+    n691 --> n1021
+    n1022["test_switchbot_ble_status_tool.py"]
+    n691 --> n1022
+    n1023["test_telemetry.py"]
+    n691 --> n1023
+    n1024["test_tools_i18n_smoke.py"]
+    n691 --> n1024
+    n1025["test_tools_impl_i18n.py"]
+    n691 --> n1025
+    n1026["test_tools_send_order_and_log.py"]
+    n691 --> n1026
+    n1027["test_tools_utilities_i18n.py"]
+    n691 --> n1027
+    n1028["test_tool_catalog_ranking.py"]
+    n691 --> n1028
+    n1029["test_tool_catalog_resets_general_loop.py"]
+    n691 --> n1029
+    n1030["test_tool_coverage.py"]
+    n691 --> n1030
+    n1031["test_tool_discovery.py"]
+    n691 --> n1031
+    n1032["test_tool_input_validation_errors.py"]
+    n691 --> n1032
+    n1033["test_tool_json_specs_i18n.py"]
+    n691 --> n1033
+    n1034["test_tool_pin_and_browser_keepalive.py"]
+    n691 --> n1034
+    n1035["test_tool_policy_provider_registry.py"]
+    n691 --> n1035
+    n1036["test_tool_result_artifact.py"]
+    n691 --> n1036
+    n1037["test_tool_result_context_limit.py"]
+    n691 --> n1037
+    n1038["test_tool_result_display.py"]
+    n691 --> n1038
+    n1039["test_tool_result_manager.py"]
+    n691 --> n1039
+    n1040["test_tool_result_persistence.py"]
+    n691 --> n1040
+    n1041["test_tool_result_retention.py"]
+    n691 --> n1041
+    n1042["test_tool_result_store.py"]
+    n691 --> n1042
+    n1043["test_tool_sequence_sanitizer.py"]
+    n691 --> n1043
+    n1044["test_tool_specs_schema.py"]
+    n691 --> n1044
+    n1045["test_translate_text_deepl.py"]
+    n691 --> n1045
+    n1046["test_tree_sitter_symbols.py"]
+    n691 --> n1046
+    n1047["test_ts2idx_tool.py"]
+    n691 --> n1047
+    n1048["test_unified_policy.py"]
+    n691 --> n1048
+    n1049["test_util_cmd_auto.py"]
+    n691 --> n1049
+    n1050["test_util_tools_ls_glob.py"]
+    n691 --> n1050
+    n1051["test_vs_indexers.py"]
+    n691 --> n1051
+    n1052["test_wc_tool.py"]
+    n691 --> n1052
+    n1053["test_windows_uac_ipc.py"]
+    n691 --> n1053
+    n1054["test_windows_uac_launcher.py"]
+    n691 --> n1054
+    n1055["test_workspace_status_tool.py"]
+    n691 --> n1055
+    n1056["test_wttrin_tool.py"]
+    n691 --> n1056
+    n1057["test_yaml2idx_tool.py"]
+    n691 --> n1057
+    n1058["test_zeek_traffic_monitor_tool.py"]
+    n691 --> n1058
+    n1059["test_zip_ops_advanced.py"]
+    n691 --> n1059
+    n1060["ucp_mock_server.py"]
+    n691 --> n1060
+    n1061["__init__.py"]
+    n691 --> n1061
+    n1062["fixtures/"]
+    n691 --> n1062
+    n1063["cobol/"]
+    n1062 --> n1063
+    n1064["sample.cbl"]
+    n1063 --> n1064
+    n1065["cpp/"]
+    n1062 --> n1065
+    n1066["sample.cpp"]
+    n1065 --> n1066
+    n1067["cs/"]
+    n1062 --> n1067
+    n1068["broken.cs"]
+    n1067 --> n1068
+    n1069["emptyish.cs"]
+    n1067 --> n1069
+    n1070["sample.cs"]
+    n1067 --> n1070
+    n1071["dart/"]
+    n1062 --> n1071
+    n1072["sample.dart"]
+    n1071 --> n1072
+    n1073["go/"]
+    n1062 --> n1073
+    n1074["sample.go"]
+    n1073 --> n1074
+    n1075["jv/"]
+    n1062 --> n1075
+    n1076["sample.java"]
+    n1075 --> n1076
+    n1077["kt/"]
+    n1062 --> n1077
+    n1078["sample.kt"]
+    n1077 --> n1078
+    n1079["php/"]
+    n1062 --> n1079
+    n1080["sample.php"]
+    n1079 --> n1080
+    n1081["py/"]
+    n1062 --> n1081
+    n1082["sample.py"]
+    n1081 --> n1082
+    n1083["rs/"]
+    n1062 --> n1083
+    n1084["sample.rs"]
+    n1083 --> n1084
+    n1085["swift/"]
+    n1062 --> n1085
+    n1086["sample.swift"]
+    n1085 --> n1086
+    n1087["ts/"]
+    n1062 --> n1087
+    n1088["sample.ts"]
+    n1087 --> n1088
+    n1089["forecast/"]
+    n691 --> n1089
+    n1090["conftest.py"]
+    n1089 --> n1090
+    n1091["test_forecast_tool.py"]
+    n1089 --> n1091
+    n1092["__init__.py"]
+    n1089 --> n1092
+    n1093["integration/"]
+    n691 --> n1093
+    n1094["test_mcp_oauth_proxy_integration.py"]
+    n1093 --> n1094
+    n1095["test_mcp_oauth_security_integration.py"]
+    n1093 --> n1095
+    n1096["vscode-extension/"]
+    n1097["src/"]
+    n1096 --> n1097
+    n1098["editorIntegration.ts"]
+    n1097 --> n1098
+    n1099["extension.ts"]
+    n1097 --> n1099
+    n1100["panel.ts"]
+    n1097 --> n1100
+    n1101["treeProvider.ts"]
+    n1097 --> n1101
+    n1102["wsClient.ts"]
+    n1097 --> n1102
