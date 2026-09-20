@@ -227,7 +227,7 @@ def _model(provider: str) -> str:
         )
     return _env_first(
         ["UAGENT_OPENAI_TRANSCRIBE_DEPNAME"],
-        default="gpt-4o-mini-transcribe",
+        default="gpt-transcribe",
     )
 
 

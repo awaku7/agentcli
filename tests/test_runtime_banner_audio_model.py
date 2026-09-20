@@ -52,7 +52,7 @@ def test_audio_transcribe_openai_default(clean_audio_env, monkeypatch):
 
     monkeypatch.setenv("UAGENT_PROVIDER", "openai")
     monkeypatch.setenv("UAGENT_OPENAI_API_KEY", "sk-test")
-    assert _audio_model_info("transcribe") == ("openai", "gpt-4o-mini-transcribe")
+    assert _audio_model_info("transcribe") == ("openai", "gpt-transcribe")
 
 
 def test_audio_speech_grok_fallback_from_provider(clean_audio_env, monkeypatch):

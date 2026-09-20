@@ -84,8 +84,8 @@ def _audio_model_info(mode: str) -> tuple[str, str] | None:
         provider = _env_first(
             ["UAGENT_AUDIO_TRANSCRIBE_PROVIDER", "UAGENT_PROVIDER"], default="openai"
         ).lower()
-        default_model = "gpt-4o-mini-transcribe"
-        default_google_model = "gemini-1.5-flash"
+        default_model = "gpt-transcribe"
+        default_google_model = "gemini-2.5-flash"
         default_grok_model = "grok-stt-batch"
 
     # Align with audio_speech / audio_transcribe tools (xai is an alias of grok).
@@ -237,7 +237,7 @@ def _image_analysis_model_info() -> tuple[str, str] | None:
     include_global = provider in {"openai", "azure"}
     depname = _img_env(provider, "analysis", "depname", include_global=include_global)
     if provider in {"gemini", "vertexai"} and not depname:
-        depname = "gemini-1.5-flash"
+        depname = "gemini-2.5-flash"
     if provider == "deepseek" and not depname:
         depname = "deepseek-v4-flash-vision-exp"
     if not depname:

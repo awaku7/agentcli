@@ -111,8 +111,8 @@ def _depname(provider: str) -> str:
         if value:
             return value
     defaults = {
-        "openai": "gpt-realtime-2",
-        "azure": "gpt-realtime-2",
+        "openai": "gpt-realtime-2.1",
+        "azure": "gpt-realtime-2.1",
         "google": "gemini-3.1-flash-live-preview",
         "vertexai": "gemini-3.1-flash-live-preview",
         "grok": "grok-voice-latest",
