@@ -31,14 +31,22 @@ def _registered_personal_memory_contents(core: Any) -> set[str]:
     return {str(value) for value in values if str(value)}
 
 
-def _purge_registered_session_memory(core: Any, contents: set[str]) -> None:
-    """Best-effort removal of exact derived memory blocks from durable sessions."""
-    if not contents:
-        return
+def _purge_session_memory_projections(core: Any) -> None:
+    """Best-effort physical cleanup of derived context from durable sessions."""
     store = getattr(core, "session_store", None)
     if store is None:
         return
+    list_messages = getattr(
+        store, "_uagent_memory_original_list_messages", None
+    ) or getattr(store, "list_messages", None)
+    replace_messages = getattr(
+        store, "_uagent_memory_original_replace_messages", None
+    ) or getattr(store, "replace_messages", None)
+    if not callable(list_messages) or not callable(replace_messages):
+        return
     try:
+        from .memory_history_boundary import strip_derived_memory_context
+
         sessions = list(store.list_sessions())
     except Exception:
         return
@@ -47,18 +55,10 @@ def _purge_registered_session_memory(core: Any, contents: set[str]) -> None:
         if not session_id:
             continue
         try:
-            messages = list(store.list_messages(session_id))
-            filtered = [
-                message
-                for message in messages
-                if not (
-                    isinstance(message, dict)
-                    and message.get("role") == "system"
-                    and str(message.get("content") or "") in contents
-                )
-            ]
+            messages = list(list_messages(session_id))
+            filtered = strip_derived_memory_context(messages)
             if len(filtered) != len(messages):
-                store.replace_messages(session_id, filtered)
+                replace_messages(session_id, filtered)
         except Exception:
             continue
 
@@ -90,10 +90,10 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
     except Exception:
         pass
 
-    # Remove exact startup projections that were previously persisted by older
-    # runtimes. The restore/search boundary separately rejects legacy derived
-    # blocks whose text no longer matches the current projection exactly.
-    _purge_registered_session_memory(core, invalidated_contents)
+    # Older runtimes could persist transient Memory/Profile system blocks in
+    # SessionStore. Remove those derived rows through the unfiltered raw store
+    # methods so they cannot survive a restart, search index, or later rewrite.
+    _purge_session_memory_projections(core)
 
     # These objects can contain, or point at, memory-derived provider input.
     for name in (
