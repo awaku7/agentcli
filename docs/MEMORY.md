@@ -45,6 +45,24 @@ Session memory candidates are extracted only from explicit `remember:` or `è¨˜æ†
 
 - **Never store sensitive credentials** (passwords, API keys, tokens) in long-term or shared memory.
 
+### Opt-in turn projection
+
+The current runtime can prepare a read-only, turn-local projection of profile
+and relevant memory evidence. It does not rewrite the user's original message
+or add the projection to durable history.
+
+```env
+UAGENT_MEMORY_PROJECTION=0
+UAGENT_MEMORY_STRICT_SCOPE=0
+UAGENT_MEMORY_OWNER=
+UAGENT_MEMORY_PROJECT=
+```
+
+Projection and strict scope are disabled by default. Legacy records remain
+compatible while strict scope is disabled. When strict scope is enabled,
+records without verifiable owner/project metadata are excluded. Use the
+[deterministic evaluation gate](MEMORY_EVALUATION.md) before changing defaults.
+
 ______________________________________________________________________
 
 ## 3. User Profile (Profiling System)
@@ -93,3 +111,8 @@ When a new LLM session starts, system messages are injected in the following str
 1. **Shared Memory Messages** (Loaded from `shared_memory.jsonl`)
 1. **User Profile Message** (Formatted as `[USER PROFILE] ...`)
 1. **Active Skill Messages** (Injected via `:skills` if a skill is active)
+
+The startup blocks above remain for backward-compatible hosts. When opt-in
+turn projection is enabled, the provider-facing request uses a frozen,
+budgeted projection and removes broad startup memory blocks before adding
+relevant evidence. Derived projection content is excluded from durable history.

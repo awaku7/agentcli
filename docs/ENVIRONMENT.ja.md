@@ -22,6 +22,32 @@ UAGENT_SUMMARY_ON_EXIT=1
 UAGENT_PROFILE_ON_EXIT=0
 ```
 
+### Memory projection / 評価（opt-in）
+
+Memory projectionとstrict scopeは既定で無効です。利用する場合は、まず
+[`MEMORY_EVALUATION.md`](MEMORY_EVALUATION.md)の決定論的な評価ゲートを確認してください。
+
+```env
+# 読み取り専用shadow retrieval診断（デフォルト: 0）
+UAGENT_MEMORY_SHADOW_RETRIEVAL=0
+# turn単位のMemory projection（デフォルト: 0）
+UAGENT_MEMORY_PROJECTION=0
+# owner/projectを検証できないlegacy recordを除外（デフォルト: 0）
+UAGENT_MEMORY_STRICT_SCOPE=0
+# 新規Memory保存時のscope
+UAGENT_MEMORY_OWNER=
+UAGENT_MEMORY_PROJECT=
+# projection上限
+UAGENT_MEMORY_PROJECTION_CHARS=4000
+UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES=20
+UAGENT_MEMORY_GUIDANCE_CHARS=1200
+```
+
+`UAGENT_MEMORY_PROJECT`が明示的なprojectの正規設定です。未設定時は保存と
+projectionで同じ`UAGENT_WORKDIR`/カレントディレクトリ基準を使用します。
+strict scopeが無効ならlegacy recordを互換利用し、有効ならowner/projectを
+検証できないrecordをprojectionから除外します。
+
 `UAGENT_SESSION_BACKEND` は次の値を指定できます。
 
 - `jsonl`: 従来のJSONLのみ
