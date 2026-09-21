@@ -31,6 +31,27 @@ def _registered_personal_memory_contents(core: Any) -> set[str]:
     return {str(value) for value in values if str(value)}
 
 
+def _clear_persisted_session_derivatives(store: Any) -> None:
+    """Invalidate durable summaries and provider continuations after forget."""
+    execute = getattr(store, "_execute", None)
+    if not callable(execute):
+        return
+
+    def clear() -> None:
+        execute("DELETE FROM response_states")
+        execute("DELETE FROM session_summaries")
+
+    try:
+        lock = getattr(store, "_db_lock", None)
+        if lock is None:
+            clear()
+        else:
+            with lock:
+                clear()
+    except Exception:
+        pass
+
+
 def _purge_session_memory_projections(core: Any) -> None:
     """Best-effort physical cleanup of derived context from durable sessions."""
     store = getattr(core, "session_store", None)
@@ -61,6 +82,7 @@ def _purge_session_memory_projections(core: Any) -> None:
                 replace_messages(session_id, filtered)
         except Exception:
             continue
+    _clear_persisted_session_derivatives(store)
 
 
 def invalidate_memory_runtime(core: Any | None = None) -> int:
@@ -77,10 +99,9 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
         core = core_module
 
     next_generation = memory_generation(core) + 1
-    invalidated_contents = (
-        forgotten_memory_system_contents(core)
-        | _registered_personal_memory_contents(core)
-    )
+    invalidated_contents = forgotten_memory_system_contents(
+        core
+    ) | _registered_personal_memory_contents(core)
     try:
         core.memory_generation = next_generation
         # Snapshot only the startup Personal Memory blocks that existed before
