@@ -15,6 +15,7 @@ from typing import Any, Literal, Sequence
 
 from ..env_utils import env_get
 from .active_context import ContextCandidate
+from .memory_query import build_memory_retrieval_query
 
 MemoryScope = Literal["personal", "shared"]
 
@@ -92,6 +93,10 @@ def _char_ngrams(value: str, size: int = 2) -> set[str]:
 
 def _relevance(query: str, note: str) -> float:
     """Return deterministic lexical relevance without an importance fallback."""
+    query_parts = [_clean(part) for part in str(query or "").splitlines()]
+    query_parts = [part for part in query_parts if part]
+    if len(query_parts) > 1:
+        return max(_relevance(part, note) for part in query_parts)
     normalized_query = _clean(query).casefold()
     normalized_note = _clean(note).casefold()
     if not normalized_query:
@@ -321,16 +326,6 @@ def _env_enabled(name: str) -> bool:
     }
 
 
-def _latest_user_query(messages: Sequence[dict[str, Any]]) -> str:
-    for message in reversed(messages):
-        if not isinstance(message, dict) or message.get("role") != "user":
-            continue
-        content = message.get("content")
-        if isinstance(content, str) and content.strip():
-            return content[-4000:]
-    return ""
-
-
 def observe_memory_shadow_retrieval(
     messages: Sequence[dict[str, Any]],
     core: Any,
@@ -346,14 +341,15 @@ def observe_memory_shadow_retrieval(
     if not _env_enabled("UAGENT_MEMORY_SHADOW_RETRIEVAL"):
         return None
 
-    query = _latest_user_query(messages)
     from .memory_scope import resolve_memory_owner, resolve_memory_project
 
     owner = resolve_memory_owner(getattr(core, "memory_owner", ""))
+    project = resolve_memory_project()
+    query_plan = build_memory_retrieval_query(messages, core, project=project)
+    query = query_plan.text
     try:
         from ..tools import long_memory, shared_memory
 
-        project = resolve_memory_project()
         personal = shadow_retrieve_memories(
             long_memory.load_long_memory_records(),
             query=query,
@@ -376,6 +372,8 @@ def observe_memory_shadow_retrieval(
             "type": "memory_shadow_retrieval",
             "schema_version": 1,
             "query_chars": len(query),
+            "query_sources": list(query_plan.sources),
+            "query_context_enriched": query_plan.context_enriched,
             "owner": owner or "unknown",
             "project": project,
             "personal": personal.to_dict(),
@@ -386,6 +384,8 @@ def observe_memory_shadow_retrieval(
             "type": "memory_shadow_retrieval",
             "schema_version": 1,
             "query_chars": len(query),
+            "query_sources": list(query_plan.sources),
+            "query_context_enriched": query_plan.context_enriched,
             "error": type(exc).__name__,
         }
 
