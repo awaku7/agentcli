@@ -1,5 +1,26 @@
 # 変更履歴
 
+## [0.7.12] - 2026-09-21
+
+### 追加
+
+- stable ID、revision、SQLite/JSONL migration、scope metadata、forget propagation、
+  durable history boundaryを含む長期Memoryのライフサイクル基盤を追加。
+- frozen snapshot、contextual multilingual query、applicable guidance分離、
+  決定論的なMemory評価ゲートを含むopt-in turn projectionを追加。
+- Recall、scope隔離、重複・無関連候補除外、projection予算、snapshot再利用、
+  history boundaryを検証する決定論的fixtureとcontract testを追加。
+
+### 変更
+
+- Memory projectionとstrict scopeは既定OFFのまま、展開手順と評価設定を文書化。
+- 日本語・パス検索を改善し、偶然の英語n-gram一致による無関連候補を抑制。
+
+### ドキュメント
+
+- 現行実装とopt-in動作に合わせて、Memory architecture、環境設定、利用方法、
+  rollout guidanceを更新。
+
 ## [0.7.11] - 2026-09-20
 
 ### 追加

@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.7.12] - 2026-09-21
+
+### Added
+
+- Add structured long-term memory lifecycle support with stable IDs, revisions,
+  SQLite/JSONL migration, scope metadata, forget propagation, and durable-history
+  boundaries.
+- Add opt-in turn-local memory projection with frozen snapshots, contextual
+  multilingual queries, applicable guidance separation, and deterministic
+  memory evaluation gates.
+- Add deterministic evaluation fixtures and contract coverage for memory recall,
+  scope isolation, duplicate/unrelated filtering, projection budgets, snapshot
+  reuse, and history boundaries.
+
+### Changed
+
+- Keep memory projection and strict scope disabled by default while documenting
+  their rollout and evaluation settings.
+- Improve Japanese and path-aware retrieval without allowing incidental English
+  n-gram matches to produce unrelated candidates.
+
+### Documentation
+
+- Update memory architecture, environment settings, memory usage, and rollout
+  guidance to reflect the current implementation and opt-in behavior.
+
 ## [0.7.11] - 2026-09-20
 
 ### Added
