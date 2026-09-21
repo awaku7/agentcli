@@ -262,10 +262,9 @@ def apply_memory_projection(
     before an explicit forget is stripped and never re-applied.
     """
     forgotten_contents = forgotten_memory_system_contents(core)
-    stale_snapshot = (
-        snapshot is not None
-        and int(snapshot.generation) != memory_generation(core)
-    )
+    stale_snapshot = snapshot is not None and int(
+        snapshot.generation
+    ) != memory_generation(core)
     if snapshot is None and not forgotten_contents:
         return [dict(message) for message in call_messages]
 
