@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import copy
 
+import pytest
+
 
 def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     tmp_path, monkeypatch
@@ -81,7 +83,13 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     assert diagnostics["memory_budget_chars"] == 500
     assert diagnostics["memory_budget_used_chars"] <= 500
     assert diagnostics["selection_reasons"]["personal"] == "query_match"
+    assert snapshot.evidence_content == evidence[0]
+    assert len(snapshot.projection_fingerprint) == 64
+    assert diagnostics["projection_fingerprint"] == snapshot.projection_fingerprint
+    with pytest.raises(TypeError):
+        snapshot.diagnostics["memory_budget_chars"] = 1
 
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION_CHARS", "1")
     retried = apply_memory_projection(projected, snapshot, core)
     retried_contents = [str(message.get("content")) for message in retried]
     assert (
@@ -95,6 +103,7 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
         )
         == 1
     )
+    assert evidence[0] in retried_contents
 
 
 def test_projection_guidance_excludes_environment_and_ignores_query_match(
@@ -190,6 +199,38 @@ def test_projection_guidance_budget_keeps_whole_items_and_reports_drops(
     assert "X" * 20 not in guidance
     assert snapshot.diagnostics["guidance_items"] == 2
     assert snapshot.diagnostics["guidance_dropped_items"] == 1
+
+
+def test_snapshot_fingerprint_covers_frozen_budgets(tmp_path, monkeypatch) -> None:
+    from uagent.runtime.memory_projection import prepare_memory_projection
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [{"note": "database rule"}],
+    )
+    messages = [{"role": "user", "content": "database"}]
+    core = type("Core", (), {})()
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION_CHARS", "500")
+    first = prepare_memory_projection(messages, core)
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION_CHARS", "600")
+    second = prepare_memory_projection(messages, core)
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION_CHARS", "500")
+    same_as_first = prepare_memory_projection(messages, core)
+
+    assert first is not None
+    assert second is not None
+    assert same_as_first is not None
+    assert first.evidence_content == second.evidence_content
+    assert first.diagnostics["memory_budget_chars"] == 500
+    assert second.diagnostics["memory_budget_chars"] == 600
+    assert first.projection_fingerprint != second.projection_fingerprint
+    assert first.projection_fingerprint == same_as_first.projection_fingerprint
+    assert "database rule" not in str(first.to_diagnostics())
 
 
 def test_projection_is_disabled_without_explicit_opt_in(monkeypatch) -> None:

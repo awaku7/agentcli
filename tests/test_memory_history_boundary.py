@@ -19,6 +19,10 @@ def _legacy_messages() -> list[dict[str, str]]:
         {"role": "system", "content": _history_summary()},
         {"role": "system", "content": "translated memory header\n- old rule"},
         {"role": "system", "content": "[USER PROFILE]\nold profile"},
+        {
+            "role": "system",
+            "content": "[APPLICABLE USER GUIDANCE]\n- transient preference",
+        },
         {"role": "system", "content": "[HOOK] keep this durable hook"},
         {"role": "user", "content": "hello"},
         {"role": "system", "content": "[MEMORY EVIDENCE]\nstale evidence"},

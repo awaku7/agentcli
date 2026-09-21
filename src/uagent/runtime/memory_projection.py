@@ -2,8 +2,13 @@
 
 from __future__ import annotations
 
+import hashlib
+import hmac
+import json
+import secrets
 from dataclasses import dataclass
-from typing import Any, Sequence
+from types import MappingProxyType
+from typing import Any, Mapping, Sequence
 
 from ..env_utils import env_get
 from ..profile_manager import (
@@ -16,6 +21,7 @@ from .memory_query import build_memory_retrieval_query
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
 
 _TRUE = {"1", "true", "yes", "on"}
+_FINGERPRINT_KEY = secrets.token_bytes(32)
 _EVIDENCE_HEADER = (
     "[MEMORY EVIDENCE]\n"
     "The following are read-only, possibly historical memory evidence. "
@@ -40,6 +46,13 @@ def _positive_int(name: str, default: int) -> int:
         return default
 
 
+def _nonnegative_int(value: Any) -> int:
+    try:
+        return max(0, int(value or 0))
+    except (TypeError, ValueError):
+        return 0
+
+
 def _project_name(core: Any) -> str:
     del core
     from .memory_scope import resolve_memory_project
@@ -52,6 +65,32 @@ def _memory_owner(core: Any) -> str:
     return str(
         getattr(core, "memory_owner", "") or env_get("UAGENT_MEMORY_OWNER", "") or ""
     ).strip()
+
+
+def _projection_fingerprint(
+    *,
+    profile_content: str,
+    evidence_content: str,
+    generation: int,
+    guidance_budget_chars: Any,
+    memory_budget_chars: Any,
+) -> str:
+    """Create an opaque process-local fingerprint without exposing text."""
+    payload = {
+        "schema": 1,
+        "generation": _nonnegative_int(generation),
+        "guidance_budget_chars": _nonnegative_int(guidance_budget_chars),
+        "memory_budget_chars": _nonnegative_int(memory_budget_chars),
+        "profile_content": profile_content,
+        "evidence_content": evidence_content,
+    }
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hmac.new(_FINGERPRINT_KEY, encoded, hashlib.sha256).hexdigest()
 
 
 @dataclass(frozen=True)
@@ -67,12 +106,51 @@ class MemoryProjectionSnapshot:
 
     profile_content: str
     evidence_items: tuple[MemoryProjectionItem, ...]
-    diagnostics: dict[str, Any]
+    diagnostics: Mapping[str, Any]
     generation: int = 0
+    evidence_content: str = ""
+    projection_fingerprint: str = ""
+
+    def __post_init__(self) -> None:
+        """Complete legacy constructors while keeping the snapshot immutable."""
+        object.__setattr__(
+            self,
+            "diagnostics",
+            MappingProxyType(dict(self.diagnostics)),
+        )
+        evidence_content = self.evidence_content
+        if not evidence_content and self.evidence_items:
+            evidence_content = _format_evidence(
+                self.evidence_items,
+                max_chars=max(
+                    1,
+                    _nonnegative_int(
+                        self.diagnostics.get("memory_budget_chars", 4_000)
+                    ),
+                ),
+                existing_system_text="",
+            )
+            object.__setattr__(self, "evidence_content", evidence_content)
+        if not self.projection_fingerprint:
+            object.__setattr__(
+                self,
+                "projection_fingerprint",
+                _projection_fingerprint(
+                    profile_content=self.profile_content,
+                    evidence_content=evidence_content,
+                    generation=self.generation,
+                    guidance_budget_chars=self.diagnostics.get(
+                        "guidance_budget_chars", 0
+                    ),
+                    memory_budget_chars=self.diagnostics.get("memory_budget_chars", 0),
+                ),
+            )
 
     def to_diagnostics(self) -> dict[str, Any]:
         """Return metadata only; never expose evidence or profile text."""
-        return dict(self.diagnostics)
+        diagnostics = dict(self.diagnostics)
+        diagnostics["projection_fingerprint"] = self.projection_fingerprint
+        return diagnostics
 
 
 @dataclass(frozen=True)
@@ -197,6 +275,7 @@ def prepare_memory_projection(
             generation=generation,
         )
 
+    guidance_budget_chars = _positive_int("UAGENT_MEMORY_GUIDANCE_CHARS", 1_200)
     guidance = _GuidanceProjection("", 0, 0)
     try:
         if is_profiling_enabled():
@@ -204,7 +283,7 @@ def prepare_memory_projection(
             if isinstance(profile, dict):
                 guidance = _format_applicable_guidance(
                     profile,
-                    max_chars=_positive_int("UAGENT_MEMORY_GUIDANCE_CHARS", 1_200),
+                    max_chars=guidance_budget_chars,
                 )
     except Exception:
         guidance = _GuidanceProjection("", 0, 0)
@@ -223,10 +302,15 @@ def prepare_memory_projection(
             unique_items.append(item)
 
     memory_budget_chars = _positive_int("UAGENT_MEMORY_PROJECTION_CHARS", 4_000)
+    existing_system_text = "\n".join(
+        str(message.get("content") or "")
+        for message in messages
+        if isinstance(message, dict) and message.get("role") == "system"
+    )
     projected_evidence = _format_evidence(
         unique_items,
         max_chars=memory_budget_chars,
-        existing_system_text="",
+        existing_system_text=existing_system_text,
     )
     owner_label = owner or "unknown"
     session_id = str(
@@ -244,6 +328,13 @@ def prepare_memory_projection(
         or getattr(core, "memory_revision", "")
         or "unknown"
     )
+    projection_fingerprint = _projection_fingerprint(
+        profile_content=guidance.content,
+        evidence_content=projected_evidence,
+        generation=generation,
+        guidance_budget_chars=guidance_budget_chars,
+        memory_budget_chars=memory_budget_chars,
+    )
     diagnostics = {
         "enabled": True,
         "strict_scope": strict_scope,
@@ -260,7 +351,7 @@ def prepare_memory_projection(
         "guidance_present": bool(guidance.content),
         "guidance_items": guidance.included_items,
         "guidance_dropped_items": guidance.dropped_items,
-        "guidance_budget_chars": _positive_int("UAGENT_MEMORY_GUIDANCE_CHARS", 1_200),
+        "guidance_budget_chars": guidance_budget_chars,
         "guidance_budget_used_chars": len(guidance.content),
         "evidence_count": len(unique_items),
         "memory_budget_chars": memory_budget_chars,
@@ -277,6 +368,8 @@ def prepare_memory_projection(
         evidence_items=tuple(unique_items),
         diagnostics=diagnostics,
         generation=generation,
+        evidence_content=projected_evidence,
+        projection_fingerprint=projection_fingerprint,
     )
 
 
@@ -338,7 +431,6 @@ def apply_memory_projection(
         baseline_contents = forgotten_contents
 
     projected: list[dict[str, Any]] = []
-    existing_system: list[str] = []
     for message in call_messages:
         if not isinstance(message, dict):
             continue
@@ -353,8 +445,6 @@ def apply_memory_projection(
         )
         if is_memory_system:
             continue
-        if role == "system":
-            existing_system.append(text)
         projected.append(dict(message))
 
     if snapshot is None or stale_snapshot:
@@ -371,13 +461,8 @@ def apply_memory_projection(
     additions: list[dict[str, Any]] = []
     if snapshot.profile_content:
         additions.append({"role": "system", "content": snapshot.profile_content})
-    evidence = _format_evidence(
-        snapshot.evidence_items,
-        max_chars=_positive_int("UAGENT_MEMORY_PROJECTION_CHARS", 4_000),
-        existing_system_text="\n".join(existing_system),
-    )
-    if evidence:
-        additions.append({"role": "system", "content": evidence})
+    if snapshot.evidence_content:
+        additions.append({"role": "system", "content": snapshot.evidence_content})
     return projected[:insertion] + additions + projected[insertion:]
 
 
