@@ -2,13 +2,24 @@
 
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import get_locale, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
 from typing import Any
 
 from . import shared_memory
+
+
+def _scope_description(kind: str) -> str:
+    if get_locale() == "ja":
+        if kind == "owner":
+            return "メモリ所有者の明示的な境界（任意）。"
+        return "明示的なプロジェクト境界（任意）。"
+    if kind == "owner":
+        return "Explicit memory owner boundary (optional)."
+    return "Explicit project boundary (optional)."
+
 
 TOOL_SPEC: dict[str, Any] = {
     "tool_level": -1,
@@ -53,11 +64,11 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "owner": {
                     "type": "string",
-                    "description": "Explicit memory owner boundary (optional).",
+                    "description": _scope_description("owner"),
                 },
                 "project": {
                     "type": "string",
-                    "description": "Explicit project boundary (optional).",
+                    "description": _scope_description("project"),
                 },
             },
             "required": ["note"],
