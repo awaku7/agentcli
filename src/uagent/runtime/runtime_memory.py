@@ -78,6 +78,45 @@ def _register_memory_system_content(core: Any, scope: str, content: str) -> None
         pass
 
 
+def _ensure_memory_rewrite_boundary(core: Any) -> None:
+    """Filter derived memory before any durable history rewrite."""
+    current = getattr(core, "rewrite_current_log_from_messages", None)
+    installed = getattr(core, "_uagent_memory_rewrite_boundary_wrapper", None)
+    if current is installed:
+        return
+    if not callable(current):
+        return
+    original = current
+
+    def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> Any:
+        try:
+            from .memory_history_boundary import strip_derived_memory_context
+
+            messages = strip_derived_memory_context(messages, core=core)
+        except Exception:
+            pass
+        return original(messages)
+
+    try:
+        core._uagent_memory_rewrite_boundary_original = original
+        core._uagent_memory_rewrite_boundary_wrapper = rewrite_current_log_from_messages
+        core.rewrite_current_log_from_messages = rewrite_current_log_from_messages
+    except Exception:
+        return
+
+    # Tool callbacks may have captured the original function before Memory
+    # initialization. Update only that exact callback; later callback setup will
+    # naturally observe the wrapped core function.
+    try:
+        from ..tools.context import get_callbacks
+
+        callbacks = get_callbacks()
+        if getattr(callbacks, "rewrite_current_log_from_messages", None) is original:
+            callbacks.rewrite_current_log_from_messages = rewrite_current_log_from_messages
+    except Exception:
+        pass
+
+
 def _ensure_memory_log_boundary(core: Any) -> None:
     """Prevent derived memory/profile system blocks from becoming history."""
     try:
@@ -86,6 +125,8 @@ def _ensure_memory_log_boundary(core: Any) -> None:
         install_session_store_memory_boundary(core)
     except Exception:
         pass
+
+    _ensure_memory_rewrite_boundary(core)
 
     current = getattr(core, "log_message", None)
     installed = getattr(core, "_uagent_memory_log_boundary_wrapper", None)
