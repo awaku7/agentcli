@@ -12,6 +12,7 @@ from ..profile_manager import (
     load_profile,
 )
 from .memory_forget import forgotten_memory_system_contents, memory_generation
+from .memory_query import build_memory_retrieval_query
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
 
 _TRUE = {"1", "true", "yes", "on"}
@@ -37,16 +38,6 @@ def _positive_int(name: str, default: int) -> int:
         return max(1, int(env_get(name, str(default)) or str(default)))
     except (TypeError, ValueError):
         return default
-
-
-def _latest_user_query(messages: Sequence[dict[str, Any]]) -> str:
-    for message in reversed(messages):
-        if not isinstance(message, dict) or message.get("role") != "user":
-            continue
-        content = message.get("content")
-        if isinstance(content, str) and content.strip():
-            return content[-4000:]
-    return ""
 
 
 def _project_name(core: Any) -> str:
@@ -158,9 +149,10 @@ def prepare_memory_projection(
     if not _enabled("UAGENT_MEMORY_PROJECTION"):
         return None
 
-    query = _latest_user_query(messages)
     owner = _memory_owner(core)
     project = _project_name(core)
+    query_plan = build_memory_retrieval_query(messages, core, project=project)
+    query = query_plan.text
     generation = memory_generation(core)
     strict_scope = _enabled("UAGENT_MEMORY_STRICT_SCOPE")
     owner_filter = owner if owner else ("<missing-owner>" if strict_scope else "")
@@ -196,6 +188,8 @@ def prepare_memory_projection(
             diagnostics={
                 "enabled": True,
                 "query_chars": len(query),
+                "query_sources": list(query_plan.sources),
+                "query_context_enriched": query_plan.context_enriched,
                 "project": project,
                 "memory_generation": generation,
                 "error": type(exc).__name__,
@@ -254,6 +248,8 @@ def prepare_memory_projection(
         "enabled": True,
         "strict_scope": strict_scope,
         "query_chars": len(query),
+        "query_sources": list(query_plan.sources),
+        "query_context_enriched": query_plan.context_enriched,
         "owner": owner_label,
         "project": project,
         "session_id": session_id,
