@@ -153,7 +153,9 @@ def test_runtime_log_boundary_reinstalls_after_logger_replacement() -> None:
     assert second_log == [{"role": "user", "content": "keep me too"}]
 
 
-def test_runtime_rewrite_boundary_filters_core_and_callback_rewrites(monkeypatch) -> None:
+def test_runtime_rewrite_boundary_filters_core_and_callback_rewrites(
+    monkeypatch,
+) -> None:
     from uagent.runtime.runtime_memory import _ensure_memory_log_boundary
 
     rewritten: list[list[dict[str, str]]] = []
@@ -171,7 +173,10 @@ def test_runtime_rewrite_boundary_filters_core_and_callback_rewrites(monkeypatch
 
     _ensure_memory_log_boundary(core)
 
-    assert callbacks.rewrite_current_log_from_messages is core.rewrite_current_log_from_messages
+    assert (
+        callbacks.rewrite_current_log_from_messages
+        is core.rewrite_current_log_from_messages
+    )
     assert core.rewrite_current_log_from_messages(_legacy_messages()) == "history"
     assert callbacks.rewrite_current_log_from_messages(_legacy_messages()) == "history"
     assert len(rewritten) == 2
