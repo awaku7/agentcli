@@ -112,7 +112,9 @@ def _ensure_memory_rewrite_boundary(core: Any) -> None:
 
         callbacks = get_callbacks()
         if getattr(callbacks, "rewrite_current_log_from_messages", None) is original:
-            callbacks.rewrite_current_log_from_messages = rewrite_current_log_from_messages
+            callbacks.rewrite_current_log_from_messages = (
+                rewrite_current_log_from_messages
+            )
     except Exception:
         pass
 
