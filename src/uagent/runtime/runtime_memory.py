@@ -78,6 +78,32 @@ def _register_memory_system_content(core: Any, scope: str, content: str) -> None
         pass
 
 
+def _ensure_memory_log_boundary(core: Any) -> None:
+    """Prevent derived memory/profile system blocks from becoming history."""
+    if getattr(core, "_uagent_memory_log_boundary_installed", False):
+        return
+    original = getattr(core, "log_message", None)
+    if not callable(original):
+        return
+
+    def log_message(message: dict[str, Any]) -> None:
+        try:
+            from .memory_history_boundary import is_runtime_memory_system_message
+
+            if is_runtime_memory_system_message(message, core=core):
+                return
+        except Exception:
+            pass
+        original(message)
+
+    try:
+        core._uagent_memory_log_boundary_original = original
+        core.log_message = log_message
+        core._uagent_memory_log_boundary_installed = True
+    except Exception:
+        pass
+
+
 def append_long_memory_system_messages(
     *,
     core: Any,
@@ -88,6 +114,7 @@ def append_long_memory_system_messages(
 ) -> dict[str, bool]:
     """Append personal/shared long-term memory system messages if available."""
     flags: dict[str, bool] = {"shared_enabled": False}
+    _ensure_memory_log_boundary(core)
 
     # Inject user profile if profiling is enabled and profile exists.
     try:
