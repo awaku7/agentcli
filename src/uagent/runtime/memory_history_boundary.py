@@ -49,8 +49,22 @@ def _is_startup_cwd_message(message: Any) -> bool:
     return isinstance(payload, dict) and payload.get("event") == "startup"
 
 
+def _is_durable_history_summary(message: Any) -> bool:
+    """Return True for a history-compression summary that must stay durable."""
+    if not isinstance(message, dict):
+        return False
+    try:
+        from ..llm_message_helpers import _is_history_summary_message
+
+        return bool(_is_history_summary_message(message))
+    except Exception:
+        return False
+
+
 def strip_derived_memory_context(
     messages: Sequence[dict[str, Any]],
+    *,
+    core: Any | None = None,
 ) -> list[dict[str, Any]]:
     """Remove derived memory context from a durable/restored message sequence.
 
@@ -60,7 +74,8 @@ def strip_derived_memory_context(
     marker at the end of the durable leading system block and memory/profile
     blocks are appended afterwards. Therefore system messages between that
     startup marker and the first conversational message are legacy derived
-    context, except for explicitly durable runtime markers.
+    context, except for explicitly durable runtime markers and conversation
+    summaries produced by history compression.
     """
     items = [message for message in messages if isinstance(message, dict)]
     first_conversation = next(
@@ -78,13 +93,16 @@ def strip_derived_memory_context(
 
     filtered: list[dict[str, Any]] = []
     for index, message in enumerate(items):
-        if is_runtime_memory_system_message(message):
+        if is_runtime_memory_system_message(message, core=core):
             continue
         if (
             startup_cwd_index is not None
             and startup_cwd_index < index < first_conversation
             and message.get("role") == "system"
         ):
+            if _is_durable_history_summary(message):
+                filtered.append(message)
+                continue
             content = str(message.get("content") or "")
             if not content.startswith(_DURABLE_RUNTIME_PREFIXES):
                 continue
@@ -114,12 +132,15 @@ def install_session_store_memory_boundary(core: Any) -> None:
         return
 
     def bounded_list_messages(session_id: str) -> list[dict[str, Any]]:
-        return strip_derived_memory_context(list_messages(session_id))
+        return strip_derived_memory_context(list_messages(session_id), core=core)
 
     def bounded_replace_messages(
         session_id: str, messages: list[dict[str, Any]]
     ) -> None:
-        replace_messages(session_id, strip_derived_memory_context(messages))
+        replace_messages(
+            session_id,
+            strip_derived_memory_context(messages, core=core),
+        )
 
     try:
         store._uagent_memory_original_list_messages = list_messages
@@ -130,14 +151,50 @@ def install_session_store_memory_boundary(core: Any) -> None:
             store._uagent_memory_original_search = search
 
             def bounded_search(*args: Any, **kwargs: Any) -> list[dict[str, Any]]:
-                rows = search(*args, **kwargs)
-                return [
-                    row
-                    for row in rows
-                    if not (
-                        isinstance(row, dict) and str(row.get("role") or "") == "system"
-                    )
-                ]
+                try:
+                    target_limit = max(1, int(kwargs.get("limit", 20)))
+                except (TypeError, ValueError):
+                    target_limit = 20
+
+                fetch_limit = max(64, target_limit)
+                while True:
+                    search_kwargs = dict(kwargs)
+                    search_kwargs["limit"] = fetch_limit
+                    rows = search(*args, **search_kwargs)
+                    durable_systems: dict[str, set[str]] = {}
+                    filtered: list[dict[str, Any]] = []
+
+                    for row in rows:
+                        if not isinstance(row, dict):
+                            continue
+                        if str(row.get("role") or "") == "system":
+                            if is_runtime_memory_system_message(row, core=core):
+                                continue
+                            session_id = str(row.get("session_id") or "")
+                            if session_id:
+                                if session_id not in durable_systems:
+                                    try:
+                                        durable_messages = strip_derived_memory_context(
+                                            list_messages(session_id), core=core
+                                        )
+                                    except Exception:
+                                        durable_messages = []
+                                    durable_systems[session_id] = {
+                                        str(message.get("content") or "")
+                                        for message in durable_messages
+                                        if message.get("role") == "system"
+                                    }
+                                if str(row.get("content") or "") not in durable_systems[
+                                    session_id
+                                ]:
+                                    continue
+                        filtered.append(row)
+                        if len(filtered) >= target_limit:
+                            return filtered[:target_limit]
+
+                    if len(rows) < fetch_limit or fetch_limit >= 10_000:
+                        return filtered[:target_limit]
+                    fetch_limit = min(10_000, fetch_limit * 4)
 
             store.search = bounded_search
         store._uagent_memory_boundary_installed = True
