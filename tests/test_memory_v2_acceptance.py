@@ -85,3 +85,35 @@ def test_v2_projection_acceptance_gate_passes_without_llm() -> None:
     assert projection["scope_violation_count"] == 0
     assert projection["forget_reappearance_count"] == 0
     assert projection["provider_continuation_cleared"] is True
+
+
+def test_v2_completion_keeps_rollout_features_opt_in(tmp_path, monkeypatch) -> None:
+    from uagent.runtime import memory_projection
+    from uagent.runtime.memory_projection import prepare_memory_projection
+    from uagent.tools import long_memory, shared_memory
+
+    monkeypatch.delenv("UAGENT_MEMORY_PROJECTION", raising=False)
+    monkeypatch.delenv("UAGENT_MEMORY_STRICT_SCOPE", raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+
+    core = type("Core", (), {})()
+    messages = [{"role": "user", "content": "database"}]
+
+    # Memory V2 completes with projection still opt-in.
+    assert prepare_memory_projection(messages, core) is None
+
+    # Enabling projection alone must retain legacy-compatible, non-strict scope.
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [{"note": "legacy database rule"}],
+    )
+    monkeypatch.setattr(shared_memory, "is_enabled", lambda: False)
+    monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: False)
+
+    snapshot = prepare_memory_projection(messages, core)
+
+    assert snapshot is not None
+    assert snapshot.diagnostics["strict_scope"] is False
+    assert any(item.note == "legacy database rule" for item in snapshot.evidence_items)
