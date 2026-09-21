@@ -36,6 +36,7 @@ def test_invalidate_memory_runtime_clears_memory_and_provider_state() -> None:
 
     assert generation == 5
     assert core.memory_generation == 5
+    assert core.memory_forget_pending is True
     assert core.memory_projection_snapshot is None
     assert core.context_plan is None
     assert core.context_projection_id is None
@@ -78,6 +79,35 @@ def test_stale_projection_is_stripped_after_generation_change() -> None:
     assert projected == [{"role": "user", "content": "continue"}]
 
 
+def test_forget_pending_strips_only_personal_startup_memory() -> None:
+    from uagent.runtime.memory_projection import apply_memory_projection
+
+    personal = "[LONG MEMORY]\npersonal old rule"
+    shared = "[LONG MEMORY]\nshared rule"
+    profile = "[USER PROFILE]\nPreferences:\n  - keep profile"
+    core = SimpleNamespace(
+        memory_forget_pending=True,
+        _uagent_memory_system_contents={
+            "personal": {personal},
+            "shared": {shared},
+        },
+    )
+    messages = [
+        {"role": "system", "content": profile},
+        {"role": "system", "content": personal},
+        {"role": "system", "content": shared},
+        {"role": "user", "content": "continue"},
+    ]
+
+    projected = apply_memory_projection(messages, None, core)
+
+    assert {str(message.get("content")) for message in projected} == {
+        profile,
+        shared,
+        "continue",
+    }
+
+
 @pytest.mark.parametrize("backend", ["jsonl", "sqlite"])
 def test_delete_propagates_and_forgotten_note_does_not_reappear(
     tmp_path, monkeypatch, backend: str
@@ -114,6 +144,7 @@ def test_delete_propagates_and_forgotten_note_does_not_reappear(
 
     assert long_memory.delete_long_memory_entry(0, core=core) is True
     assert core.memory_generation == 1
+    assert core.memory_forget_pending is True
     assert core.memory_projection_snapshot is None
     assert "previous_response_id" not in core.responses_state
 
