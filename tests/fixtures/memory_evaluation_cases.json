@@ -27,7 +27,9 @@
           "note": "legacy database rule"
         }
       ],
-      "expected_notes": ["database migration rule"]
+      "expected_notes": [
+        "database migration rule"
+      ]
     },
     {
       "id": "legacy_compatibility",
@@ -37,10 +39,16 @@
       "query": "日本語 設定",
       "strict_scope": false,
       "records": [
-        {"note": "日本語の設定ルール"},
-        {"note": "unrelated weather note"}
+        {
+          "note": "日本語の設定ルール"
+        },
+        {
+          "note": "unrelated weather note"
+        }
       ],
-      "expected_notes": ["日本語の設定ルール"]
+      "expected_notes": [
+        "日本語の設定ルール"
+      ]
     },
     {
       "id": "japanese_ngram_and_path",
@@ -61,7 +69,56 @@
           "project": "web"
         }
       ],
-      "expected_notes": ["src/app.py はPython 3.12で実行する"]
+      "expected_notes": [
+        "src/app.py はPython 3.12で実行する"
+      ]
+    },
+    {
+      "id": "duplicate_and_unrelated",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "database migration",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "database rule",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "database rule",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "weather note",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "database rule"
+      ]
+    },
+    {
+      "id": "scope_unknown_strict",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "deployment",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "legacy deployment rule"
+        },
+        {
+          "note": "wrong deployment rule",
+          "owner": "bob",
+          "project": "app"
+        }
+      ],
+      "expected_notes": []
     }
   ]
 }

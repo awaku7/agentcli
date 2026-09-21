@@ -20,6 +20,7 @@ from .memory_query import build_memory_retrieval_query
 MemoryScope = Literal["personal", "shared"]
 
 _TOKEN_RE = re.compile(r"[\w][\w./:#@+-]*", re.UNICODE)
+_CJK_RE = re.compile(r"[一-龯ぁ-んァ-ヶ]")
 
 
 @dataclass(frozen=True)
@@ -109,6 +110,13 @@ def _relevance(query: str, note: str) -> float:
     token_score = (
         len(query_tokens & note_tokens) / len(query_tokens) if query_tokens else 0.0
     )
+    if token_score > 0.0:
+        return token_score
+    # Character n-grams are useful for Japanese text where tokenization often
+    # yields one long token, but incidental English bigrams must not make an
+    # unrelated record a candidate.
+    if not _CJK_RE.search(normalized_query):
+        return 0.0
 
     query_ngrams = _char_ngrams(normalized_query)
     note_ngrams = _char_ngrams(normalized_note)
