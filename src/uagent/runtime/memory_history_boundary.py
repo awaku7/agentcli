@@ -86,7 +86,62 @@ def strip_derived_memory_context(
     return filtered
 
 
+def install_session_store_memory_boundary(core: Any) -> None:
+    """Wrap one attached SessionStore so derived context stays transient.
+
+    This is intentionally an instance-level rollout adapter: it avoids a
+    storage-schema migration while protecting all in-process SessionStore
+    consumers, including history compression and profile reconstruction.
+    Raw methods are retained on the instance for privacy cleanup code that
+    must physically remove legacy derived rows.
+    """
+    store = getattr(core, "session_store", None)
+    if store is None:
+        return
+    if getattr(store, "_uagent_memory_boundary_installed", False):
+        return
+
+    list_messages = getattr(store, "list_messages", None)
+    replace_messages = getattr(store, "replace_messages", None)
+    search = getattr(store, "search", None)
+    if not callable(list_messages) or not callable(replace_messages):
+        return
+
+    def bounded_list_messages(session_id: str) -> list[dict[str, Any]]:
+        return strip_derived_memory_context(list_messages(session_id))
+
+    def bounded_replace_messages(
+        session_id: str, messages: list[dict[str, Any]]
+    ) -> None:
+        replace_messages(session_id, strip_derived_memory_context(messages))
+
+    try:
+        store._uagent_memory_original_list_messages = list_messages
+        store._uagent_memory_original_replace_messages = replace_messages
+        store.list_messages = bounded_list_messages
+        store.replace_messages = bounded_replace_messages
+        if callable(search):
+            store._uagent_memory_original_search = search
+
+            def bounded_search(*args: Any, **kwargs: Any) -> list[dict[str, Any]]:
+                rows = search(*args, **kwargs)
+                return [
+                    row
+                    for row in rows
+                    if not (
+                        isinstance(row, dict)
+                        and str(row.get("role") or "") == "system"
+                    )
+                ]
+
+            store.search = bounded_search
+        store._uagent_memory_boundary_installed = True
+    except Exception:
+        pass
+
+
 __all__ = [
+    "install_session_store_memory_boundary",
     "is_runtime_memory_system_message",
     "registered_memory_system_contents",
     "strip_derived_memory_context",
