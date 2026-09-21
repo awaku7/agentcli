@@ -58,7 +58,14 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     assert messages == before
     contents = [str(message.get("content")) for message in projected]
     assert baseline not in contents
-    assert any("[USER PROFILE]" in content for content in contents)
+    guidance = [
+        content
+        for content in contents
+        if content.startswith("[APPLICABLE USER GUIDANCE]")
+    ]
+    assert len(guidance) == 1
+    assert "never expose secrets" in guidance[0]
+    assert "be concise" in guidance[0]
     evidence = [
         content for content in contents if content.startswith("[MEMORY EVIDENCE]")
     ]
@@ -82,8 +89,107 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
         == 1
     )
     assert (
-        sum(content.startswith("[USER PROFILE]") for content in retried_contents) == 1
+        sum(
+            content.startswith("[APPLICABLE USER GUIDANCE]")
+            for content in retried_contents
+        )
+        == 1
     )
+
+
+def test_projection_guidance_excludes_environment_and_ignores_query_match(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_projection
+    from uagent.runtime.memory_projection import (
+        apply_memory_projection,
+        prepare_memory_projection,
+    )
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+    monkeypatch.setattr(long_memory, "load_long_memory_records", lambda: [])
+    monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: True)
+    monkeypatch.setattr(
+        memory_projection,
+        "load_profile",
+        lambda: {
+            "environment": {
+                "os": "Windows 11",
+                "shell": "PowerShell",
+                "editor": "Visual Studio",
+            },
+            "constraints": ["Always show the complete program"],
+            "preferences": ["Use Japanese"],
+        },
+    )
+
+    messages = [{"role": "user", "content": "What is the weather?"}]
+    core = type("Core", (), {"memory_owner": "alice"})()
+    snapshot = prepare_memory_projection(messages, core)
+    projected = apply_memory_projection(messages, snapshot, core)
+
+    assert snapshot is not None
+    guidance = next(
+        str(message["content"])
+        for message in projected
+        if str(message.get("content", "")).startswith("[APPLICABLE USER GUIDANCE]")
+    )
+    assert "Always show the complete program" in guidance
+    assert "Use Japanese" in guidance
+    assert "Windows 11" not in guidance
+    assert "PowerShell" not in guidance
+    assert "Visual Studio" not in guidance
+    assert snapshot.diagnostics["guidance_present"] is True
+    assert snapshot.diagnostics["guidance_items"] == 2
+    assert snapshot.diagnostics["guidance_dropped_items"] == 0
+
+
+def test_projection_guidance_budget_keeps_whole_items_and_reports_drops(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_projection
+    from uagent.runtime.memory_projection import (
+        apply_memory_projection,
+        prepare_memory_projection,
+    )
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+    monkeypatch.setenv("UAGENT_MEMORY_GUIDANCE_CHARS", "260")
+    monkeypatch.setattr(long_memory, "load_long_memory_records", lambda: [])
+    monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: True)
+    monkeypatch.setattr(
+        memory_projection,
+        "load_profile",
+        lambda: {
+            "constraints": [
+                "Keep this short constraint intact",
+                "X" * 300,
+            ],
+            "preferences": ["Prefer deterministic tests"],
+        },
+    )
+
+    messages = [{"role": "user", "content": "unrelated query"}]
+    core = type("Core", (), {"memory_owner": "alice"})()
+    snapshot = prepare_memory_projection(messages, core)
+    projected = apply_memory_projection(messages, snapshot, core)
+
+    assert snapshot is not None
+    guidance = next(
+        str(message["content"])
+        for message in projected
+        if str(message.get("content", "")).startswith("[APPLICABLE USER GUIDANCE]")
+    )
+    assert len(guidance) <= 260
+    assert "Keep this short constraint intact" in guidance
+    assert "Prefer deterministic tests" in guidance
+    assert "X" * 20 not in guidance
+    assert snapshot.diagnostics["guidance_items"] == 2
+    assert snapshot.diagnostics["guidance_dropped_items"] == 1
 
 
 def test_projection_is_disabled_without_explicit_opt_in(monkeypatch) -> None:
