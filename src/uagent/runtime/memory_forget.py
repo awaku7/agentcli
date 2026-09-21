@@ -31,6 +31,38 @@ def _registered_personal_memory_contents(core: Any) -> set[str]:
     return {str(value) for value in values if str(value)}
 
 
+def _purge_registered_session_memory(core: Any, contents: set[str]) -> None:
+    """Best-effort removal of exact derived memory blocks from durable sessions."""
+    if not contents:
+        return
+    store = getattr(core, "session_store", None)
+    if store is None:
+        return
+    try:
+        sessions = list(store.list_sessions())
+    except Exception:
+        return
+    for row in sessions:
+        session_id = str(row.get("session_id") or "")
+        if not session_id:
+            continue
+        try:
+            messages = list(store.list_messages(session_id))
+            filtered = [
+                message
+                for message in messages
+                if not (
+                    isinstance(message, dict)
+                    and message.get("role") == "system"
+                    and str(message.get("content") or "") in contents
+                )
+            ]
+            if len(filtered) != len(messages):
+                store.replace_messages(session_id, filtered)
+        except Exception:
+            continue
+
+
 def invalidate_memory_runtime(core: Any | None = None) -> int:
     """Invalidate memory-derived runtime state after a successful forget.
 
@@ -45,17 +77,23 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
         core = core_module
 
     next_generation = memory_generation(core) + 1
+    invalidated_contents = (
+        forgotten_memory_system_contents(core)
+        | _registered_personal_memory_contents(core)
+    )
     try:
         core.memory_generation = next_generation
         # Snapshot only the startup Personal Memory blocks that existed before
         # this forget. A later room/startup may register fresh memory content;
         # it must not be hidden merely because an earlier forget occurred.
-        core._uagent_forgotten_memory_system_contents = (
-            forgotten_memory_system_contents(core)
-            | _registered_personal_memory_contents(core)
-        )
+        core._uagent_forgotten_memory_system_contents = invalidated_contents
     except Exception:
         pass
+
+    # Remove exact startup projections that were previously persisted by older
+    # runtimes. The restore/search boundary separately rejects legacy derived
+    # blocks whose text no longer matches the current projection exactly.
+    _purge_registered_session_memory(core, invalidated_contents)
 
     # These objects can contain, or point at, memory-derived provider input.
     for name in (
