@@ -1,0 +1,67 @@
+{
+  "retrieval_cases": [
+    {
+      "id": "scoped_owner_project",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "database migration",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "database migration rule",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "other owner database rule",
+          "owner": "bob",
+          "project": "app"
+        },
+        {
+          "note": "other project database rule",
+          "owner": "alice",
+          "project": "web"
+        },
+        {
+          "note": "legacy database rule"
+        }
+      ],
+      "expected_notes": ["database migration rule"]
+    },
+    {
+      "id": "legacy_compatibility",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "日本語 設定",
+      "strict_scope": false,
+      "records": [
+        {"note": "日本語の設定ルール"},
+        {"note": "unrelated weather note"}
+      ],
+      "expected_notes": ["日本語の設定ルール"]
+    },
+    {
+      "id": "japanese_ngram_and_path",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "src/app.py",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "src/app.py はPython 3.12で実行する",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "別プロジェクトの設定",
+          "owner": "alice",
+          "project": "web"
+        }
+      ],
+      "expected_notes": ["src/app.py はPython 3.12で実行する"]
+    }
+  ]
+}
