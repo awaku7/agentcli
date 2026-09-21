@@ -29,6 +29,10 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
     next_generation = memory_generation(core) + 1
     try:
         core.memory_generation = next_generation
+        # Startup personal-memory system messages are durable in the in-memory
+        # conversation list.  Keep stripping those registered projections for
+        # the rest of this process after a successful forget.
+        core.memory_forget_pending = True
     except Exception:
         pass
 
