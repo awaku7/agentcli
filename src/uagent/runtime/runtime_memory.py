@@ -80,11 +80,13 @@ def _register_memory_system_content(core: Any, scope: str, content: str) -> None
 
 def _ensure_memory_log_boundary(core: Any) -> None:
     """Prevent derived memory/profile system blocks from becoming history."""
-    if getattr(core, "_uagent_memory_log_boundary_installed", False):
+    current = getattr(core, "log_message", None)
+    installed = getattr(core, "_uagent_memory_log_boundary_wrapper", None)
+    if current is installed:
         return
-    original = getattr(core, "log_message", None)
-    if not callable(original):
+    if not callable(current):
         return
+    original = current
 
     def log_message(message: dict[str, Any]) -> None:
         try:
@@ -98,8 +100,8 @@ def _ensure_memory_log_boundary(core: Any) -> None:
 
     try:
         core._uagent_memory_log_boundary_original = original
+        core._uagent_memory_log_boundary_wrapper = log_message
         core.log_message = log_message
-        core._uagent_memory_log_boundary_installed = True
     except Exception:
         pass
 
