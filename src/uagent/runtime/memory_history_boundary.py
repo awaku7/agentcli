@@ -5,7 +5,11 @@ from __future__ import annotations
 import json
 from typing import Any, Sequence
 
-_EXPLICIT_DERIVED_PREFIXES = ("[USER PROFILE]", "[MEMORY EVIDENCE]")
+_EXPLICIT_DERIVED_PREFIXES = (
+    "[USER PROFILE]",
+    "[APPLICABLE USER GUIDANCE]",
+    "[MEMORY EVIDENCE]",
+)
 _DURABLE_RUNTIME_PREFIXES = ("[CWD] ", "[SKILL] ", "[HOOK] ")
 _CWD_PREFIX = "[CWD] "
 
