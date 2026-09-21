@@ -65,7 +65,7 @@ def _format_profile(profile: dict[str, Any]) -> str:
 
 
 def _register_memory_system_content(core: Any, scope: str, content: str) -> None:
-    """Track startup memory projections without adding provider metadata."""
+    """Track runtime-only memory projections without adding provider metadata."""
     try:
         registry = getattr(core, "_uagent_memory_system_contents", None)
         if not isinstance(registry, dict):
@@ -102,6 +102,9 @@ def append_long_memory_system_messages(
             ):
                 profile_msg = {"role": "system", "content": _format_profile(profile)}
                 messages.append(profile_msg)
+                _register_memory_system_content(
+                    core, "profile", str(profile_msg.get("content") or "")
+                )
                 core.log_message(profile_msg)
     except Exception:
         pass
