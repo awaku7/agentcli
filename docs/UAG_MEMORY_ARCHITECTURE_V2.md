@@ -184,11 +184,11 @@ stable ID、transaction、version、source、supersede、削除制御を追加�
 ### 8.1 毎回の開始手順
 
 1. fetch後に基準commit、作業ツリー、既存PRを確認する。未コミット変更を混ぜず、実装は目的別branchへ分ける。
-2. 変更対象の入口、保存先、caller、host、provider境界を表にする。名称やテストの存在だけで本番接続済みと判断しない。
-3. 問題の再現テストを先に作り、現行失敗と期待結果を記録する。外部APIは原則fake/mock、保存先は一時領域へ隔離する。
-4. 最小変更で対象テストを通し、関連範囲、lint、全体CI相当へ広げる。未実行・既知失敗・今回の退行を区別する。
-5. diffをレビューし、変更対象だけをstageする。テスト結果と未解決事項を記した単一目的のcommitを作る。
-6. push後にremote commitを確認し、CI結果を確認する。push成功とCI成功は別々に報告する。
+1. 変更対象の入口、保存先、caller、host、provider境界を表にする。名称やテストの存在だけで本番接続済みと判断しない。
+1. 問題の再現テストを先に作り、現行失敗と期待結果を記録する。外部APIは原則fake/mock、保存先は一時領域へ隔離する。
+1. 最小変更で対象テストを通し、関連範囲、lint、全体CI相当へ広げる。未実行・既知失敗・今回の退行を区別する。
+1. diffをレビューし、変更対象だけをstageする。テスト結果と未解決事項を記した単一目的のcommitを作る。
+1. push後にremote commitを確認し、CI結果を確認する。push成功とCI成功は別々に報告する。
 
 今回のcommitは設計文書だけであり、以下の実装PRを実施したことにはしない。
 
@@ -237,9 +237,20 @@ legacy noteのproject/ownerが不明なら、勝手に推定して他scopeへ配
 
 PR 2/3は入力projectionの切替で戻せる。ただし訂正・忘却が発生した後は旧snapshotへ戻して情報を復活させない。PR 4のschema rollbackは別手順とし、backup復元で新しい記憶やtombstoneを失わないか確認する。新schemaを旧binaryが安全に読めないなら無条件downgradeを許可しない。
 
-### 8.6 直近の着手点
+### 8.6 現行実装を基準にした直近の着手点
 
-次の実装はPR 1に限定する。最初に保存失敗、note整形、初回Profile未反映の再現fixtureを作り、保存成功の判定と整形を修正する。その結果を見てPR 2へ進む。現時点ではBrain/Dream、新しいDB、Embedding、全面的なProfile移行は着手対象にしない。
+本書の初期実装順序（PR1〜PR4）は完了し、その後に次の拡張をmainへ反映している。
+
+- PR1: 保存結果の信頼性、`note`整形、上限処理
+- PR2: 読み取り専用shadow retrievalとruntime観測
+- PR3: opt-in turn projection、frozen snapshot、owner/project scope
+- PR4: stable ID、revision、SQLite/JSONL migration、forget propagation、session/history boundary
+- PR6: contextual memory query
+- PR7: turn-local frozen memory snapshotの不変性
+- PR8: deterministic evaluation gate
+- PR9: scope/query/evaluation contractの拡張
+
+現行の次の作業は、評価結果を基にした既定値変更の判断である。既定値を変更する前に、baseline、shadow、opt-in projection、strict scopeを比較し、Recall、無関連注入率、scope違反、forget後再出現、遅延、context量を記録する。Embedding、Brain/Dream、第二の正本、効果未測定の自動Memory更新は引き続き着手対象にしない。
 
 ## 主な根拠ファイル
 
