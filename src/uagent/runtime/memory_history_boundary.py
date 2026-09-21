@@ -184,9 +184,10 @@ def install_session_store_memory_boundary(core: Any) -> None:
                                         for message in durable_messages
                                         if message.get("role") == "system"
                                     }
-                                if str(row.get("content") or "") not in durable_systems[
-                                    session_id
-                                ]:
+                                if (
+                                    str(row.get("content") or "")
+                                    not in durable_systems[session_id]
+                                ):
                                     continue
                         filtered.append(row)
                         if len(filtered) >= target_limit:
