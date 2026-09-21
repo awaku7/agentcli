@@ -20,10 +20,18 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 JSONL_SCHEMA_VERSION = 2
+_MIGRATION_MISSING_NOTE = "missing_note"
+_MIGRATION_INVALID_JSON = "invalid_json"
+_MIGRATION_NOT_OBJECT = "not_object"
 
 
 class MemoryMigrationError(RuntimeError):
     """Raised when a JSONL migration cannot be completed without data loss."""
+
+    def __init__(self, code: str, *, index: int):
+        self.code = code
+        self.index = index
+        super().__init__(code)
 
 
 def _get_base_log_dir() -> str:
@@ -59,15 +67,27 @@ def get_max_memory_bytes() -> int:
     return 200_000
 
 
-def append_long_memory(note: str) -> bool:
+def _resolve_project(project: str = "") -> str:
+    if project.strip():
+        return project.strip()
+    from ..runtime.memory_scope import resolve_memory_project
+
+    return resolve_memory_project()
+
+
+def append_long_memory(note: str, *, owner: str = "", project: str = "") -> bool:
     """Append one personal memory record and report whether it was saved."""
+    from ..runtime.memory_scope import resolve_memory_owner
+
+    owner = resolve_memory_owner(owner)
+    project = _resolve_project(project)
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
 
             store = open_memory_store(_sqlite_path())
             try:
-                store.append(note)
+                store.append(note, owner=owner, project=project)
             finally:
                 store.close()
             return True
@@ -86,6 +106,8 @@ def append_long_memory(note: str) -> bool:
             "updated_at": now,
             "ts": now,
             "note": note,
+            "owner": owner,
+            "project": project,
             "kind": "note",
             "revision": 1,
             "status": "active",
@@ -118,7 +140,7 @@ def _normalize_jsonl_record(record: dict[str, Any], index: int) -> dict[str, Any
         schema_version = 0
     is_legacy = schema_version < JSONL_SCHEMA_VERSION or not record.get("memory_id")
     if not note:
-        raise MemoryMigrationError(f"record {index} has no non-empty note")
+        raise MemoryMigrationError(_MIGRATION_MISSING_NOTE, index=index)
     created_at = record.get("created_at", record.get("ts"))
     if created_at is None:
         created_at = time.time()
@@ -173,9 +195,9 @@ def migrate_long_memory_jsonl(
         try:
             record = json.loads(raw_line)
         except (TypeError, ValueError) as exc:
-            raise MemoryMigrationError(f"invalid JSON at line {index + 1}") from exc
+            raise MemoryMigrationError(_MIGRATION_INVALID_JSON, index=index + 1) from exc
         if not isinstance(record, dict):
-            raise MemoryMigrationError(f"record {index} is not an object")
+            raise MemoryMigrationError(_MIGRATION_NOT_OBJECT, index=index)
         normalized = _normalize_jsonl_record(record, index)
         normalized_records.append(normalized)
         if json.dumps(normalized, ensure_ascii=False, sort_keys=True) != json.dumps(

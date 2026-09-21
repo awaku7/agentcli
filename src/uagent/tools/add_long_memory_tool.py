@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .i18n_helper import make_tool_translator
+from .i18n_helper import get_locale, make_tool_translator
 
 _ = make_tool_translator(__file__)
 
@@ -11,6 +11,16 @@ from typing import Any
 from . import long_memory
 
 BUSY_LABEL = False
+
+
+def _scope_description(kind: str) -> str:
+    if get_locale() == "ja":
+        if kind == "owner":
+            return "メモリ所有者の明示的な境界（任意）。"
+        return "明示的なプロジェクト境界（任意）。"
+    if kind == "owner":
+        return "Explicit memory owner boundary (optional)."
+    return "Explicit project boundary (optional)."
 
 
 TOOL_SPEC: dict[str, Any] = {
@@ -56,7 +66,15 @@ TOOL_SPEC: dict[str, Any] = {
                             "Write exactly one concise note (Japanese preferred) that should be reusable in future conversations."
                         ),
                     ),
-                }
+                },
+                "owner": {
+                    "type": "string",
+                    "description": _scope_description("owner"),
+                },
+                "project": {
+                    "type": "string",
+                    "description": _scope_description("project"),
+                },
             },
             "required": ["note"],
         },
@@ -69,7 +87,13 @@ def run_tool(args: dict[str, Any]) -> str:
     if not note:
         return _("err.note_empty", default="[add_long_memory error] note is empty")
 
-    if not long_memory.append_long_memory(note):
+    owner = str(args.get("owner") or "").strip()
+    project = str(args.get("project") or "").strip()
+    if owner or project:
+        saved = long_memory.append_long_memory(note, owner=owner, project=project)
+    else:
+        saved = long_memory.append_long_memory(note)
+    if not saved:
         return _(
             "err.save",
             default="[add_long_memory error] failed to save memory",

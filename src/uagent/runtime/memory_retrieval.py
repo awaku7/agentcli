@@ -9,7 +9,6 @@ memory IDs.
 
 from __future__ import annotations
 
-import os
 import re
 from dataclasses import dataclass
 from typing import Any, Literal, Sequence
@@ -348,14 +347,13 @@ def observe_memory_shadow_retrieval(
         return None
 
     query = _latest_user_query(messages)
-    owner = str(
-        getattr(core, "memory_owner", "") or env_get("UAGENT_MEMORY_OWNER", "") or ""
-    ).strip()
+    from .memory_scope import resolve_memory_owner, resolve_memory_project
+
+    owner = resolve_memory_owner(getattr(core, "memory_owner", ""))
     try:
         from ..tools import long_memory, shared_memory
-        from .session_store import project_id_from_path
 
-        project = project_id_from_path(str(getattr(core, "workdir", "") or os.getcwd()))
+        project = resolve_memory_project()
         personal = shadow_retrieve_memories(
             long_memory.load_long_memory_records(),
             query=query,

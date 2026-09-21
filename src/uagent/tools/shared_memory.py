@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import json
-from ..env_utils import env_get
 import time
+import uuid
 from pathlib import Path
+
+from ..env_utils import env_get
 from typing import Any, Optional
 
 from .i18n_helper import make_tool_translator
@@ -41,6 +43,14 @@ def get_shared_memory_file() -> str:
     return _get_shared_memory_file()
 
 
+def _resolve_project(project: str = "") -> str:
+    if project.strip():
+        return project.strip()
+    from ..runtime.memory_scope import resolve_memory_project
+
+    return resolve_memory_project()
+
+
 def get_max_bytes() -> int:
     env = env_get("UAGENT_MAX_SHARED_MEMORY_BYTES")
     if env:
@@ -53,15 +63,32 @@ def get_max_bytes() -> int:
     return DEFAULT_MAX_SHARED_MEMORY_BYTES
 
 
-def append_shared_memory(note: str) -> None:
-    """Append a record to the shared memory file."""
+def append_shared_memory(note: str, *, owner: str = "", project: str = "") -> None:
+    """Append a structured record to the shared memory file."""
+    from ..runtime.memory_scope import resolve_memory_owner
+
+    owner = resolve_memory_owner(owner)
+    project = _resolve_project(project)
     path = _get_shared_memory_file()
     if not path:
         return
 
     try:
         Path(path).parent.mkdir(parents=True, exist_ok=True)
-        record = {"ts": time.time(), "note": note}
+        now = time.time()
+        record = {
+            "schema_version": 2,
+            "memory_id": uuid.uuid4().hex,
+            "created_at": now,
+            "updated_at": now,
+            "ts": now,
+            "note": note,
+            "owner": owner,
+            "project": project,
+            "kind": "note",
+            "revision": 1,
+            "status": "active",
+        }
         with open(path, "a", encoding="utf-8") as f:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
     except Exception:

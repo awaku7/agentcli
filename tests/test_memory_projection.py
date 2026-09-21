@@ -16,6 +16,7 @@ def test_opt_in_projection_replaces_broad_memory_and_adds_current_profile(
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
     monkeypatch.setenv("UAGENT_MEMORY_FILE", str(tmp_path / "memory.jsonl"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION_CHARS", "500")
     monkeypatch.setattr(
         long_memory,
@@ -139,6 +140,7 @@ def test_projection_excludes_owner_mismatch_but_keeps_legacy_records(
     from uagent.tools import long_memory
 
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
     monkeypatch.setattr(
         long_memory,
         "load_long_memory_records",
@@ -181,4 +183,97 @@ def test_projection_excludes_owner_mismatch_but_keeps_legacy_records(
         item["scope_status"] == "legacy_unknown"
         for item in diagnostics
         if item["action"] == "candidate"
+    )
+
+
+def test_strict_scope_opt_in_excludes_legacy_unknown_records(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime.memory_projection import (
+        apply_memory_projection,
+        prepare_memory_projection,
+    )
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+    monkeypatch.setenv("UAGENT_MEMORY_STRICT_SCOPE", "1")
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [
+            {
+                "note": "scoped rule",
+                "owner": "alice",
+                "project": tmp_path.name,
+            },
+            {
+                "note": "other owner rule",
+                "owner": "bob",
+                "project": tmp_path.name,
+            },
+            {"note": "legacy rule"},
+        ],
+    )
+    core = type("Core", (), {})()
+    core.workdir = str(tmp_path)
+    core.memory_owner = "alice"
+
+    snapshot = prepare_memory_projection([{"role": "user", "content": "rule"}], core)
+    projected = apply_memory_projection(
+        [{"role": "user", "content": "rule"}], snapshot, core
+    )
+
+    assert snapshot is not None
+    evidence = [
+        str(message["content"])
+        for message in projected
+        if str(message.get("content", "")).startswith("[MEMORY EVIDENCE]")
+    ]
+    assert len(evidence) == 1
+    assert "scoped rule" in evidence[0]
+    assert "other owner rule" not in evidence[0]
+    assert "legacy rule" not in evidence[0]
+    assert snapshot.diagnostics["strict_scope"] is True
+    reasons = {
+        item["reason"] for item in snapshot.diagnostics["personal"]["diagnostics"]
+    }
+    assert "scope_unknown" in reasons
+
+
+def test_projection_uses_same_explicit_project_basis_as_save(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime.memory_projection import (
+        apply_memory_projection,
+        prepare_memory_projection,
+    )
+    from uagent.tools import long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_STRICT_SCOPE", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_OWNER", "alice")
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "canonical-app")
+    monkeypatch.setattr(
+        long_memory,
+        "load_long_memory_records",
+        lambda: [
+            {
+                "note": "same project rule",
+                "owner": "alice",
+                "project": "canonical-app",
+            }
+        ],
+    )
+    core = type("Core", (), {})()
+    core.workdir = str(tmp_path / "different-workdir")
+
+    messages = [{"role": "user", "content": "project rule"}]
+    snapshot = prepare_memory_projection(messages, core)
+    projected = apply_memory_projection(messages, snapshot, core)
+
+    assert snapshot is not None
+    assert snapshot.diagnostics["project"] == "canonical-app"
+    assert any(
+        "same project rule" in str(message.get("content", "")) for message in projected
     )
