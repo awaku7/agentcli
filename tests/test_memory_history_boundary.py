@@ -41,6 +41,7 @@ class _FakeStore:
     def __init__(self) -> None:
         self.messages = {"s1": _legacy_messages()}
         self.replace_calls: list[tuple[str, list[dict[str, str]]]] = []
+        self.sql: list[str] = []
 
     def list_sessions(self):
         return [{"session_id": "s1"}]
@@ -59,6 +60,11 @@ class _FakeStore:
             {"session_id": "s1", "role": "system", "content": "old memory"},
             {"session_id": "s1", "role": "user", "content": "user fact"},
         ]
+
+    def _execute(self, sql: str, parameters=()):
+        del parameters
+        self.sql.append(sql)
+        return SimpleNamespace()
 
 
 def test_attached_session_store_boundary_filters_read_replace_and_search() -> None:
@@ -82,10 +88,11 @@ def test_attached_session_store_boundary_filters_read_replace_and_search() -> No
     store.replace_messages("s1", _legacy_messages())
     persisted = store.messages["s1"]
     assert all("old rule" not in message["content"] for message in persisted)
-    assert all(not message["content"].startswith("[USER PROFILE]") for message in persisted)
     assert all(
-        not message["content"].startswith("[MEMORY EVIDENCE]")
-        for message in persisted
+        not message["content"].startswith("[USER PROFILE]") for message in persisted
+    )
+    assert all(
+        not message["content"].startswith("[MEMORY EVIDENCE]") for message in persisted
     )
 
     assert store.search("fact") == [
@@ -149,6 +156,8 @@ def test_forget_physically_purges_legacy_projection_using_raw_store_methods() ->
         "hi",
     ]
     assert store.replace_calls
+    assert "DELETE FROM response_states" in store.sql
+    assert "DELETE FROM session_summaries" in store.sql
 
 
 def test_restore_plan_never_reintroduces_derived_memory() -> None:
