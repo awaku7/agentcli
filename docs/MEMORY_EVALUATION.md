@@ -160,3 +160,21 @@ Any scope leakage, forgotten-memory reappearance, source-history contamination,
 or save-success false positive blocks rollout. Recall, irrelevant injection,
 latency, and context size should be recorded against the baseline before the V2
 default decision is documented.
+
+## V2 completion and default decision
+
+Memory V2 is complete as an implemented and executable opt-in architecture. The
+completion decision keeps both rollout features disabled by default:
+
+```text
+UAGENT_MEMORY_PROJECTION=0
+UAGENT_MEMORY_STRICT_SCOPE=0
+```
+
+This is a deliberate compatibility decision, not an unfinished implementation.
+Projection and strict scope remain available for explicit controlled rollout.
+Default-on can be reconsidered later after representative production/provider
+measurements are collected.
+
+The authoritative completion rationale and V3 handoff boundary are documented
+in `docs/MEMORY_V2_COMPLETION.md`.
