@@ -11,6 +11,8 @@ import os
 from dataclasses import dataclass
 from typing import Any
 
+from .memory_history_boundary import strip_derived_memory_context
+
 
 @dataclass(frozen=True)
 class LoadTargetResolution:
@@ -187,7 +189,7 @@ class SessionCommandService:
         state: SessionContextState | None = None,
     ) -> SessionRestorePlan:
         """Prepare loaded messages and persisted state without host mutation."""
-        restored_messages = list(messages)
+        restored_messages = strip_derived_memory_context(messages)
         if system_prompt and not any(
             isinstance(message, dict) and message.get("role") == "system"
             for message in restored_messages
@@ -219,11 +221,16 @@ class SessionCommandService:
     ) -> list[SessionSearchResult]:
         """Search, collapse, enrich, and sort message hits by session.
 
-        ``SessionStore.search`` returns message-level hits.  The command UI
+        ``SessionStore.search`` returns message-level hits. The command UI
         displays one row per session, so this service owns that projection and
         leaves formatting and translation of the matching message to the caller.
+        Derived system context is intentionally excluded from episodic search.
         """
-        results = self._store.search(query, project=project)
+        results = [
+            row
+            for row in self._store.search(query, project=project)
+            if str(row.get("role") or "") != "system"
+        ]
         if not results:
             return []
 

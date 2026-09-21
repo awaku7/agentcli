@@ -31,6 +31,60 @@ def _registered_personal_memory_contents(core: Any) -> set[str]:
     return {str(value) for value in values if str(value)}
 
 
+def _clear_persisted_session_derivatives(store: Any) -> None:
+    """Invalidate durable summaries and provider continuations after forget."""
+    execute = getattr(store, "_execute", None)
+    if not callable(execute):
+        return
+
+    def clear() -> None:
+        execute("DELETE FROM response_states")
+        execute("DELETE FROM session_summaries")
+
+    try:
+        lock = getattr(store, "_db_lock", None)
+        if lock is None:
+            clear()
+        else:
+            with lock:
+                clear()
+    except Exception:
+        pass
+
+
+def _purge_session_memory_projections(core: Any) -> None:
+    """Best-effort physical cleanup of derived context from durable sessions."""
+    store = getattr(core, "session_store", None)
+    if store is None:
+        return
+    list_messages = getattr(
+        store, "_uagent_memory_original_list_messages", None
+    ) or getattr(store, "list_messages", None)
+    replace_messages = getattr(
+        store, "_uagent_memory_original_replace_messages", None
+    ) or getattr(store, "replace_messages", None)
+    if not callable(list_messages) or not callable(replace_messages):
+        return
+    try:
+        from .memory_history_boundary import strip_derived_memory_context
+
+        sessions = list(store.list_sessions())
+    except Exception:
+        return
+    for row in sessions:
+        session_id = str(row.get("session_id") or "")
+        if not session_id:
+            continue
+        try:
+            messages = list(list_messages(session_id))
+            filtered = strip_derived_memory_context(messages)
+            if len(filtered) != len(messages):
+                replace_messages(session_id, filtered)
+        except Exception:
+            continue
+    _clear_persisted_session_derivatives(store)
+
+
 def invalidate_memory_runtime(core: Any | None = None) -> int:
     """Invalidate memory-derived runtime state after a successful forget.
 
@@ -45,17 +99,22 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
         core = core_module
 
     next_generation = memory_generation(core) + 1
+    invalidated_contents = forgotten_memory_system_contents(
+        core
+    ) | _registered_personal_memory_contents(core)
     try:
         core.memory_generation = next_generation
         # Snapshot only the startup Personal Memory blocks that existed before
         # this forget. A later room/startup may register fresh memory content;
         # it must not be hidden merely because an earlier forget occurred.
-        core._uagent_forgotten_memory_system_contents = (
-            forgotten_memory_system_contents(core)
-            | _registered_personal_memory_contents(core)
-        )
+        core._uagent_forgotten_memory_system_contents = invalidated_contents
     except Exception:
         pass
+
+    # Older runtimes could persist transient Memory/Profile system blocks in
+    # SessionStore. Remove those derived rows through the unfiltered raw store
+    # methods so they cannot survive a restart, search index, or later rewrite.
+    _purge_session_memory_projections(core)
 
     # These objects can contain, or point at, memory-derived provider input.
     for name in (

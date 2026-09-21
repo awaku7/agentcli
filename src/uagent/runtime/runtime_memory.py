@@ -65,7 +65,7 @@ def _format_profile(profile: dict[str, Any]) -> str:
 
 
 def _register_memory_system_content(core: Any, scope: str, content: str) -> None:
-    """Track startup memory projections without adding provider metadata."""
+    """Track runtime-only memory projections without adding provider metadata."""
     try:
         registry = getattr(core, "_uagent_memory_system_contents", None)
         if not isinstance(registry, dict):
@@ -74,6 +74,84 @@ def _register_memory_system_content(core: Any, scope: str, content: str) -> None
         values = registry.setdefault(scope, set())
         if isinstance(values, set):
             values.add(content)
+    except Exception:
+        pass
+
+
+def _ensure_memory_rewrite_boundary(core: Any) -> None:
+    """Filter derived memory before any durable history rewrite."""
+    current = getattr(core, "rewrite_current_log_from_messages", None)
+    installed = getattr(core, "_uagent_memory_rewrite_boundary_wrapper", None)
+    if current is installed:
+        return
+    if not callable(current):
+        return
+    original = current
+
+    def rewrite_current_log_from_messages(messages: list[dict[str, Any]]) -> Any:
+        try:
+            from .memory_history_boundary import strip_derived_memory_context
+
+            messages = strip_derived_memory_context(messages, core=core)
+        except Exception:
+            pass
+        return original(messages)
+
+    try:
+        core._uagent_memory_rewrite_boundary_original = original
+        core._uagent_memory_rewrite_boundary_wrapper = rewrite_current_log_from_messages
+        core.rewrite_current_log_from_messages = rewrite_current_log_from_messages
+    except Exception:
+        return
+
+    # Tool callbacks may have captured the original function before Memory
+    # initialization. Update only that exact callback; later callback setup will
+    # naturally observe the wrapped core function.
+    try:
+        from ..tools.context import get_callbacks
+
+        callbacks = get_callbacks()
+        if getattr(callbacks, "rewrite_current_log_from_messages", None) is original:
+            callbacks.rewrite_current_log_from_messages = (
+                rewrite_current_log_from_messages
+            )
+    except Exception:
+        pass
+
+
+def _ensure_memory_log_boundary(core: Any) -> None:
+    """Prevent derived memory/profile system blocks from becoming history."""
+    try:
+        from .memory_history_boundary import install_session_store_memory_boundary
+
+        install_session_store_memory_boundary(core)
+    except Exception:
+        pass
+
+    _ensure_memory_rewrite_boundary(core)
+
+    current = getattr(core, "log_message", None)
+    installed = getattr(core, "_uagent_memory_log_boundary_wrapper", None)
+    if current is installed:
+        return
+    if not callable(current):
+        return
+    original = current
+
+    def log_message(message: dict[str, Any]) -> None:
+        try:
+            from .memory_history_boundary import is_runtime_memory_system_message
+
+            if is_runtime_memory_system_message(message, core=core):
+                return
+        except Exception:
+            pass
+        original(message)
+
+    try:
+        core._uagent_memory_log_boundary_original = original
+        core._uagent_memory_log_boundary_wrapper = log_message
+        core.log_message = log_message
     except Exception:
         pass
 
@@ -88,6 +166,7 @@ def append_long_memory_system_messages(
 ) -> dict[str, bool]:
     """Append personal/shared long-term memory system messages if available."""
     flags: dict[str, bool] = {"shared_enabled": False}
+    _ensure_memory_log_boundary(core)
 
     # Inject user profile if profiling is enabled and profile exists.
     try:
@@ -102,6 +181,9 @@ def append_long_memory_system_messages(
             ):
                 profile_msg = {"role": "system", "content": _format_profile(profile)}
                 messages.append(profile_msg)
+                _register_memory_system_content(
+                    core, "profile", str(profile_msg.get("content") or "")
+                )
                 core.log_message(profile_msg)
     except Exception:
         pass
