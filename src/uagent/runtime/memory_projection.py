@@ -7,7 +7,7 @@ from typing import Any, Sequence
 
 from ..env_utils import env_get
 from ..profile_manager import is_profiling_enabled, load_profile
-from .memory_forget import memory_generation
+from .memory_forget import forgotten_memory_system_contents, memory_generation
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
 from .runtime_memory import _format_profile
 
@@ -258,20 +258,23 @@ def apply_memory_projection(
 
     The input sequence and its dictionaries are never modified. Reapplying the
     same snapshot replaces prior projection messages, which prevents duplicate
-    evidence during retries or repeated provider preparation.  A snapshot from
+    evidence during retries or repeated provider preparation. A snapshot from
     before an explicit forget is stripped and never re-applied.
     """
-    forget_pending = bool(getattr(core, "memory_forget_pending", False))
-    stale_snapshot = snapshot is not None and int(snapshot.generation) != memory_generation(
-        core
+    forgotten_contents = forgotten_memory_system_contents(core)
+    stale_snapshot = (
+        snapshot is not None
+        and int(snapshot.generation) != memory_generation(core)
     )
-    if snapshot is None and not forget_pending:
+    if snapshot is None and not forgotten_contents:
         return [dict(message) for message in call_messages]
 
     replace_all_memory = snapshot is not None and not stale_snapshot
-    baseline_contents = _registered_memory_contents(
-        core, None if replace_all_memory else {"personal"}
-    )
+    if replace_all_memory:
+        baseline_contents = _registered_memory_contents(core, None) | forgotten_contents
+    else:
+        baseline_contents = forgotten_contents
+
     projected: list[dict[str, Any]] = []
     existing_system: list[str] = []
     for message in call_messages:
