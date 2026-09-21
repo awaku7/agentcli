@@ -4,24 +4,15 @@
 
 対象は `awaku7/agentcli` v0.7.12、基準 commit `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。
 
-v2 で定義した次の原則を継承する。
-
-- 正本と projection の分離
-- owner / project / scope を検索前の境界にする
-- turn-local frozen snapshot
-- forget propagation
-- deterministic evaluation gate
-- 評価してから既定化する
+v2 で定義した「正本と projection の分離」「owner / project / scope を検索前の境界にする」「turn-local frozen snapshot」「forget propagation」「評価してから既定化する」を継承する。
 
 v0.7.12 では stable ID / revision、SQLite・JSONL migration、owner / project metadata、turn-local projection、Applicable User Guidance と Memory Evidence の分離、38 locale の contextual query、frozen snapshot、deterministic evaluation gate まで実装された。
 
-v3 の目的は v2 を作り直すことではない。v0.7.12 で顕在化した次の問題を解決する。
+v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同じ room を共有する場合でも、Personal Memory / Profile を混線させず、Room Shared Memory は参加者間で共有できるようにすることである。
 
-> **同一 UAG Web process を複数人が利用し、さらに同じ room を共有する場合でも、個人 Memory / Profile を混線させず、room 共有 Memory は参加者間で共有できること。**
+同時に、Memory のためだけに独自ログイン機構を持たず、Local / OIDC / Trusted Proxy / API credential を共通の Identity contract へ正規化する。
 
-同時に、Memory のためだけに独自ログイン機構を抱え込まず、Local / OIDC / Trusted Proxy / API credential を共通の Identity contract へ正規化する。
-
-本書は設計書であり、記載した v3 機能が現在実装済みであることを意味しない。
+本書は設計書であり、v3 機能が現在実装済みであることを意味しない。
 
 ---
 
@@ -52,22 +43,11 @@ Memory Projection は owner / project を利用できるが、owner は process 
 
 ### 1.2 Web
 
-Web は `room_id` ごとに `WebRoom` を持ち、次を room 単位で分離している。
+Web は `room_id` ごとに `WebRoom` を持ち、UI messages、LLM history、workdir、status、human_ask state、worker lock を room 単位で分離している。
 
-- UI messages
-- LLM history
-- workdir
-- status
-- human_ask state
-- worker lock
-
-同じ `WebRoom` へ複数 WebSocket connection を接続できる。
-
-しかし現在の `room_id` は「会話の部屋」であって「誰が発言しているか」を表す stable user identity ではない。
+同じ `WebRoom` へ複数 WebSocket connection を接続できるが、`room_id` は会話の部屋であり stable user identity ではない。
 
 ### 1.3 現在の問題
-
-概念上、現在は次の状態になり得る。
 
 ```text
 room-X
@@ -79,7 +59,7 @@ room-X
 
 Profile も同様に principal boundary を持たない。
 
-また既存 `/api/memories` は global long-memory store を直接扱うため、multi-user mode ではそのまま使用できない。
+既存 `/api/memories` も global long-memory store を直接扱うため、multi-user mode ではそのまま使用しない。
 
 ---
 
@@ -103,21 +83,13 @@ principal_id != room_id != project_id != session_id
 
 `room_id` を owner にしない。
 
-同一人物は複数 room に参加でき、同一 room には複数人物が参加できるからである。
-
 ---
 
 ## 3. Identity と Authentication を分離する
 
-### 3.1 Identity
+Identity は「この turn を実行している principal は誰か」。Authentication は「その principal を名乗ってよいことをどう検証したか」である。
 
-Memory が必要とするのは「この turn を実行している principal は誰か」という identity である。
-
-### 3.2 Authentication
-
-Authentication は「その principal を名乗ってよいことをどう検証したか」である。
-
-したがって Memory core は login UI、Google、Microsoft、GitHub、Keycloak 等を直接知らない。
+Memory core は login provider 固有処理を知らない。
 
 ```text
 Authentication / Local Trust / API Credential
@@ -131,27 +103,25 @@ Authentication / Local Trust / API Credential
          MemoryAccessContext
 ```
 
-### 3.3 v3 の正式対応方針
+### 3.1 正式対応方針
 
-初期 v3 では次を正式方式とする。
+初期 v3 の正式方式:
 
 1. `local`
 2. `oidc`
 
-次を拡張方式として contract を用意する。
+拡張 contract:
 
 3. `trusted_proxy`
-4. `token` / service principal
+4. `oauth`
+5. `token` / service principal
+6. `external`
 
-独自の username/password database は v3 初期実装では採用しない。
+独自 username/password database は v3 初期実装では採用しない。
 
 ---
 
 ## 4. IdentityContext
-
-すべての entry point は identity を共通 contract へ正規化する。
-
-概念 API:
 
 ```python
 from dataclasses import dataclass
@@ -167,11 +137,11 @@ class IdentityContext:
     display_name: str = ""
 ```
 
-### 4.1 必須 invariant
+必須 invariant:
 
 - browser / model / tool payload の `owner` を信用しない。
 - `principal_id` は server-side で決める。
-- `room_id` を principal identity として使用しない。
+- `room_id` を principal identity に使わない。
 - email を principal primary key にしない。
 - raw access token / ID token / API key を principal ID にしない。
 - identity 解決失敗時に `local` や別 user へ fallback しない。
@@ -181,29 +151,19 @@ class IdentityContext:
 
 ## 5. Local IdentityResolver
 
-CLI / Desktop GUI / trusted single-user Web では login を要求しない。
+CLI / Desktop GUI / trusted single-user Web は login 不要とする。
 
 ```text
-IdentityContext(
-    principal_id="local",
-    authenticated=True,
-    authn_kind="local"
-)
+principal_id = "local"
+authn_kind   = "local"
+authenticated= true
 ```
 
-ここで `local` は machine 全体のユーザーIDではなく、**現在の UAG user-state namespace における local principal** を意味する。
+`local` は machine 全体のユーザーIDではなく、現在の UAG user-state namespace における local principal を意味する。
 
 OS username を Memory key に直接使用しない。
 
-理由:
-
-- username 変更
-- domain 参加
-- privacy
-- platform 差
-- service account / container 差
-
-既存 `UAGENT_MEMORY_OWNER` は local / legacy override として残せるが、multi-user Web の全 user 共通 owner には使用しない。
+既存 `UAGENT_MEMORY_OWNER` は local / legacy override として残せるが、multi-user Web の全 user 共通 owner には使わない。
 
 ---
 
@@ -211,27 +171,18 @@ OS username を Memory key に直接使用しない。
 
 multi-user Web の標準方式は OpenID Connect とする。
 
-対応先を UAG 内で固定しない。
-
-例:
-
-- Microsoft Entra ID
-- Google
-- GitHub が OIDC-compatible provider として利用可能な構成
-- Keycloak
-- Auth0
-- 社内 OIDC Provider
+代表的な OIDC provider として Microsoft Entra ID、Google、Keycloak、Auth0、社内 OIDC Provider 等を接続可能な構造にする。
 
 ### 6.1 Stable identity
 
-OIDC では email ではなく、検証済み token の次の組を identity source とする。
+OIDC は email ではなく、検証済み token の `iss + sub` を identity source とする。
 
 ```text
 issuer (iss)
 subject (sub)
+      ↓
+opaque principal_id
 ```
-
-内部 `principal_id` は `iss + sub` から安定かつ opaque に導出する。
 
 概念例:
 
@@ -239,24 +190,22 @@ subject (sub)
 principal_id = "oidc:" + stable_hash(issuer + "\x00" + subject)
 ```
 
-`display_name` や `email` は表示用 metadata として利用できるが、ownership key にしない。
+`display_name` / `email` は表示 metadata にできるが ownership key にしない。
 
-### 6.2 OIDC token validation
+### 6.2 Validation
 
-IdentityResolver が principal を生成する前に少なくとも次を検証する。
+principal 生成前に少なくとも次を検証する。
 
 - issuer
 - signature
 - audience / client ID
 - expiration
-- nonce / authorization-flow integrity where applicable
+- nonce / flow integrity where applicable
 - provider configuration
 
-未検証 claim から `principal_id` を生成してはいけない。
+未検証 claim から principal を作らない。
 
 ### 6.3 Browser session
-
-ブラウザは毎回 raw OIDC token を Memory API に渡す方式を基本にしない。
 
 推奨:
 
@@ -265,20 +214,16 @@ Browser
    ↓
 OIDC Authorization Code flow + PKCE
    ↓
-UAG auth callback
+UAG callback
    ↓
 server-side session
    ↓
 Secure + HttpOnly + SameSite cookie
 ```
 
-server-side session は IdentityContext またはその参照を保持する。
-
-ブラウザ JavaScript から Personal Memory の `owner_id` を自由指定できないようにする。
+browser JavaScript に Personal Memory owner を決めさせない。
 
 ### 6.4 WebSocket
-
-WebSocket でも query parameter で owner を渡さない。
 
 不採用:
 
@@ -291,7 +236,7 @@ WebSocket でも query parameter で owner を渡さない。
 ```text
 HTTP authenticated session / cookie
               +
-        room=abc
+          room=abc
               ↓
       WebConnectionContext
               ↓
@@ -300,15 +245,23 @@ HTTP authenticated session / cookie
       TurnContext per input
 ```
 
-connection A と connection B が同じ room に接続しても identity は別々に保持する。
+同じ room に connection A / B がいても identity は connection 単位で保持する。
 
 ---
 
-## 7. Trusted Proxy IdentityResolver
+## 7. OAuth Identity Adapter
 
-社内 SSO や既存 reverse proxy を使う場合、UAG 自身が OIDC client を持たず upstream authentication を信頼する構成を許可する。
+OIDC ではない OAuth user-login provider も将来接続できるよう `OAuthIdentityResolver` を拡張 point として用意する。
 
-例:
+OAuth access token そのものを principal ID にせず、provider の user identity endpoint で検証した stable provider user ID と issuer/provider namespace から opaque principal を導出する。
+
+例として GitHub user login を対応する場合はこの OAuth adapter 側で扱い、OIDC ID token 前提の処理へ混ぜない。
+
+---
+
+## 8. Trusted Proxy IdentityResolver
+
+社内 SSO / authenticating reverse proxy を使う場合、UAG 自身が OIDC client を持たず upstream authentication を信頼する構成を許可する。
 
 ```text
 Browser
@@ -320,28 +273,19 @@ UAG
 
 ただし arbitrary request header を identity として採用しない。
 
-Trusted Proxy mode の必須条件:
+必須条件:
 
-- UAG へ直接到達できない network 構成、または trusted proxy source を検証する。
-- proxy が外部入力の identity header を削除してから再付与する。
-- UAG は明示設定した header 名のみ読む。
+- UAG への直接 bypass を防ぐ。
+- proxy が外部入力の identity header を削除して再付与する。
+- UAG は明示設定した header のみ読む。
+- trusted source / transport boundary を検証する。
 - unresolved identity は fail-closed。
-
-概念 header:
-
-```text
-X-UAG-Authenticated-Subject
-X-UAG-Authenticated-Issuer
-X-UAG-Display-Name
-```
-
-header 名は実装時に確定する。
 
 ---
 
-## 8. API / A2A IdentityResolver
+## 9. API / A2A IdentityResolver
 
-API key や bearer token そのものを owner にしない。
+API key / bearer token そのものを owner にしない。
 
 ```text
 credential
@@ -351,20 +295,11 @@ service/account record
 principal_id
 ```
 
-service principal も human principal と同じ IdentityContext contract に正規化する。
-
-```text
-authn_kind = token / oidc / external
-principal_id = stable opaque ID
-```
-
-Memory policy は human / service の種別を必要に応じて別途評価できるが、raw credential を Memory boundary として使用しない。
+service principal も同じ IdentityContext contract に正規化する。
 
 ---
 
-## 9. IdentityResolver interface
-
-概念 interface:
+## 10. IdentityResolver interface
 
 ```python
 class IdentityResolver:
@@ -379,21 +314,22 @@ LocalIdentityResolver
 OIDCIdentityResolver
 ```
 
-extension point:
+extension:
 
 ```text
+OAuthIdentityResolver
 TrustedProxyIdentityResolver
 TokenIdentityResolver
 ExternalIdentityResolver
 ```
 
-Memory / Profile / Session 層は resolver の種類を知らない。
+Memory / Profile / Session は resolver の種類を知らない。
 
 ---
 
-## 10. Connection / Room / Turn boundary
+## 11. Connection / Room / Turn boundary
 
-identity を `WebRoom` に1個だけ持たせてはいけない。
+identity を `WebRoom` に1個だけ持たせない。
 
 ```text
 WebSocket A ─ Identity(user-A) ─┐
@@ -401,7 +337,7 @@ WebSocket A ─ Identity(user-A) ─┐
 WebSocket B ─ Identity(user-B) ─┘
 ```
 
-各 user input から immutable `TurnContext` を生成する。
+各 user input から immutable TurnContext を生成する。
 
 ```python
 @dataclass(frozen=True)
@@ -417,7 +353,7 @@ class TurnContext:
 
 `run_agent_worker()`、Memory Projection、tool execution、Profile extraction、Session persistence は同じ TurnContext を参照する。
 
-### 10.1 Global mutable owner を禁止
+### 11.1 Global mutable owner を禁止
 
 不採用:
 
@@ -425,22 +361,13 @@ class TurnContext:
 core.memory_owner = current_web_user
 ```
 
-理由:
-
-- shared room の別 connection と衝突する。
-- tool thread / sub-agent に誤 owner が漏れる。
-- retry / cancellation 時の ownership が不明確になる。
-- 将来並列実行を増やすと race になる。
-
-明示引数を優先し、legacy bridge に必要なら `contextvars.ContextVar` 等の turn-local context を使う。
+明示引数を優先し、legacy bridge に必要なら `contextvars.ContextVar` 等の turn-local context を使用する。
 
 ---
 
-## 11. Memory owner と audience
+## 12. Memory owner と audience
 
-v3 では **誰が所有・作成したか** と **誰に見せるか** を分離する。
-
-### 11.1 MemoryRecord v3 logical contract
+v3 では「誰が所有・作成したか」と「誰に見せるか」を分離する。
 
 ```text
 memory_id
@@ -477,9 +404,9 @@ project  -> project_id
 global   -> fixed / empty
 ```
 
-### 11.2 DB
+### 12.1 DB
 
-v3 の基本は **同じ SQLite DB を使い、レコード単位で論理分離する**。
+基本は同じ SQLite DB を使い、レコード単位で論理分離する。
 
 ```text
 memory.sqlite3
@@ -490,21 +417,13 @@ memory.sqlite3
     project:agentcli
 ```
 
-ユーザーごとに DB file を分割することを基本形にはしない。
+将来 enterprise tenant isolation が必要なら tenant 単位 DB / schema を上位 boundary として追加できる。
 
-理由:
+### 12.2 Store-level filtering
 
-- room shared memory を自然に扱える。
-- project shared memory を自然に扱える。
-- migration / backup / evaluation が単純になる。
+別 user の Memory を一旦検索してから除外しない。
 
-将来 enterprise tenant isolation が必要なら tenant 単位 DB / schema / database を上位 boundary として追加できる。
-
-### 11.3 Store-level filtering
-
-別 user の Memory を一旦検索してから除外する設計にしない。
-
-Personal の概念 SQL:
+Personal 概念 SQL:
 
 ```sql
 WHERE audience_type = 'personal'
@@ -512,7 +431,7 @@ WHERE audience_type = 'personal'
   AND project_id = :project_id
 ```
 
-Room の概念 SQL:
+Room 概念 SQL:
 
 ```sql
 WHERE audience_type = 'room'
@@ -523,11 +442,7 @@ access boundary は relevance ranking より前に適用する。
 
 ---
 
-## 12. MemoryAccessContext
-
-caller が arbitrary owner / audience を指定しない。
-
-TurnContext と access policy から server-side で構築する。
+## 13. MemoryAccessContext
 
 ```python
 @dataclass(frozen=True)
@@ -548,7 +463,7 @@ project=agentcli
 readable:
 - personal:user-A
 - room:room-X
-- project:agentcli   # policy で許可された場合
+- project:agentcli   # policy 許可時
 ```
 
 filtering order:
@@ -569,9 +484,7 @@ projection
 
 ---
 
-## 13. Shared Room
-
-同じ room を A と B が共有する場合:
+## 14. Shared Room
 
 ```text
 user-A turn
@@ -585,9 +498,9 @@ user-B turn
   +  allowed Project Memory
 ```
 
-A の Personal Memory は B の turn に入らない。
+A Personal Memory は B turn に入らない。
 
-### 13.1 RoomAccessPolicy
+RoomAccessPolicy:
 
 ```python
 can_join(principal_id, room_id)
@@ -598,19 +511,17 @@ can_delete_room_memory(principal_id, room_id, memory_id)
 
 `room_id` を知っていることだけを permission としない。
 
-Personal Memory から room shared memory への自動昇格は禁止する。
+Personal -> Room Shared Memory の自動昇格は禁止する。
 
 ---
 
-## 14. Profile v3
-
-Profile も principal boundary を持つ。
+## 15. Profile v3
 
 ```text
 Profile(user-A) != Profile(user-B)
 ```
 
-shared room の user message には actor metadata を保存する。
+shared room user message には actor metadata を保存する。
 
 ```text
 role=user
@@ -620,27 +531,13 @@ content=...
 
 Profile extraction は actor の Profile にのみ反映する。
 
-別参加者の発言や assistant proposal を personal preference として自動昇格しない。
-
 multi-user mode では principal-keyed ProfileStore を導入する。
-
-```text
-profiles
-- principal_id
-- environment_json
-- preferences_json
-- constraints_json
-- revision
-- updated_at
-```
-
-single-user compatibility では既存 profile file を利用可能とする。
 
 ---
 
-## 15. Session / Episodic Memory
+## 16. Session / Episodic Memory
 
-SessionStore には少なくとも次を持たせる。
+SessionStore は少なくとも次を保持する。
 
 ```text
 principal_id
@@ -649,19 +546,15 @@ project_id
 entry_point
 ```
 
-shared room message には `actor_id` を保存する。
-
-これにより「以前自分が言ったこと」と「room の別参加者が言ったこと」を区別する。
+shared room message は `actor_id` を保持する。
 
 Episodic retrieval でも identity / audience filter を relevance より前に適用する。
 
 ---
 
-## 16. Frozen Projection Snapshot v3
+## 17. Frozen Projection Snapshot v3
 
-snapshot は content fingerprint だけでなく identity boundary と結び付ける。
-
-最低限:
+snapshot は少なくとも次へ bind する。
 
 ```text
 principal identity fingerprint
@@ -671,17 +564,13 @@ memory generation
 readable audience set fingerprint
 ```
 
-A 用 snapshot を B turn へ再適用しない。
+A snapshot を B turn へ再利用しない。
 
-retry / tool loop 中は同一 turn の snapshot を再利用する。
-
-raw principal ID を診断ログへ出す必要はなく opaque hash を使用できる。
+retry / tool loop 中は同一 turn snapshot を再利用する。
 
 ---
 
-## 17. Context Projection order
-
-Provider へ渡す概念順序:
+## 18. Context Projection order
 
 ```text
 Base System / Safety / Policy
@@ -697,13 +586,13 @@ Working Context / Conversation
 Current User Request
 ```
 
-projection された guidance / evidence は durable user / assistant history として保存しない。
+projection content は durable user / assistant history として保存しない。
 
 ---
 
-## 18. Memory write / update / forget
+## 19. Memory write / update / forget
 
-### Personal
+Personal:
 
 ```text
 TurnContext.principal_id
@@ -715,35 +604,17 @@ audience=personal:<principal_id>
 
 browser / model は arbitrary owner を指定できない。
 
-### Room
+Room Shared Memory は別 operation または明示 audience operation とし、RoomAccessPolicy を通す。
 
-room shared memory は別 operation または明示 audience operation とする。
-
-```text
-add_room_memory(note)
-```
-
-書込み前に RoomAccessPolicy を通す。
-
-### Update / Forget
-
-index ではなく stable `memory_id` を主 API とする。
-
-Personal:
-- owner principal のみ
-
-Room:
-- RoomAccessPolicy に従う
+update / forget は stable `memory_id` を主 API とする。
 
 Admin / migration operation は通常 user operation と分離する。
 
 ---
 
-## 19. Web API v3
+## 20. Web API v3
 
-### 19.1 Personal Memory
-
-推奨:
+### Personal Memory
 
 ```text
 GET    /api/me/memories
@@ -752,7 +623,7 @@ PUT    /api/me/memories/{memory_id}
 DELETE /api/me/memories/{memory_id}
 ```
 
-`/api/me` の principal は authenticated server session から決める。
+`/api/me` principal は authenticated server session から決める。
 
 不採用:
 
@@ -760,9 +631,7 @@ DELETE /api/me/memories/{memory_id}
 GET /api/memories?owner=user-A
 ```
 
-client が任意 owner を指定できるためである。
-
-### 19.2 Room Memory
+### Room Memory
 
 ```text
 GET    /api/rooms/{room_id}/memories
@@ -773,34 +642,26 @@ DELETE /api/rooms/{room_id}/memories/{memory_id}
 
 全 operation で membership / permission を検証する。
 
-### 19.3 Profile
+### Profile
 
 ```text
 GET /api/me/profile
 PUT /api/me/profile
 ```
 
-Admin API と本人 API は分離する。
-
 ---
 
-## 20. 管理機能
+## 21. 管理機能
 
-共通 DB を採用するため、管理機能は identity / audience aware にする。
-
-### 20.1 My Memory
-
-本人が扱えるもの:
+### My Memory
 
 - Personal Memory list/search
 - add/update/forget
 - Profile
 - export
-- projected / applicable diagnostics where safe
+- safe diagnostics
 
-### 20.2 Room 管理
-
-room ごとに:
+### Room
 
 - members
 - role / permission
@@ -808,17 +669,9 @@ room ごとに:
 - read/write/delete policy
 - audit
 
-Room role の名称に Memory の `owner_id` と衝突する `owner` を安易に使わない。
+Room role は `admin / editor / member` 等とし、Memory の `owner_id` と用語を衝突させない。
 
-例:
-
-```text
-admin
-editor
-member
-```
-
-### 20.3 Administrator
+### Administrator
 
 - principals
 - rooms
@@ -832,17 +685,9 @@ member
 
 Admin 全体検索は通常 user API と分離し、明示 authorization を要求する。
 
-### 20.4 API principle
-
-本人 API では client が principal ID を選べない。
-
-Room API では client が room ID を選べても、server が membership / permission を検証する。
-
 ---
 
-## 21. Proposed configuration
-
-名称は実装時に確定するが責務は分ける。
+## 22. Proposed configuration
 
 ```env
 # Memory rollout
@@ -855,30 +700,26 @@ UAGENT_MEMORY_PROJECT=
 
 # Identity
 UAGENT_IDENTITY_MODE=local
-# local | oidc | trusted_proxy | token | external
+# local | oidc | oauth | trusted_proxy | token | external
 
-# OIDC example
+# OIDC
 UAGENT_OIDC_ISSUER=
 UAGENT_OIDC_CLIENT_ID=
 UAGENT_OIDC_CLIENT_SECRET=
 UAGENT_OIDC_REDIRECT_URI=
 
-# Trusted proxy example
+# Trusted proxy
 UAGENT_TRUSTED_PROXY_IDENTITY_HEADER=
 UAGENT_TRUSTED_PROXY_ISSUER_HEADER=
 ```
 
-secret 名・保存方式は実装時に security review する。
-
-multi-user mode で identity provider が未設定または identity 解決に失敗した場合、Personal Memory Projection は fail-closed とする。
+multi-user mode で identity 解決に失敗した場合、Personal Memory Projection は fail-closed とする。
 
 process-wide common owner へ fallback しない。
 
 ---
 
-## 22. Security invariants
-
-v3 必須 invariant:
+## 23. Security invariants
 
 1. user-B request から user-A Personal Memory を取得できない。
 2. request payload の `owner=user-A` で境界を越えられない。
@@ -888,44 +729,43 @@ v3 必須 invariant:
 6. Profile は principal 間で混ざらない。
 7. shared room の他 user 発言を自分の Personal Profile / Memory として自動学習しない。
 8. identity context は tool thread / sub-agent / retry で別 turn と混ざらない。
-9. unresolved identity を privileged `local` principal へ自動昇格しない。
+9. unresolved identity を privileged `local` principal へ昇格しない。
 10. raw token / API key / password を principal ID として保存しない。
-11. email address を stable ownership key にしない。
+11. email を stable ownership key にしない。
 12. OIDC claim は検証成功後のみ identity source に使う。
-13. WebSocket owner を query parameter / user payload から決定しない。
+13. WebSocket owner を query parameter / payload から決定しない。
 14. trusted proxy header は trusted transport boundary なしで使用しない。
 15. Admin API と user-facing API の authorization を分離する。
 
 ---
 
-## 23. Evaluation v3
+## 24. Evaluation v3
 
-既存 deterministic Memory Evaluation に multi-user fixture を追加する。
+追加 fixture:
 
 ### Identity isolation
 
-- A personal が A では recall される。
+- A personal は A で recall。
 - 同一 query を B が実行しても A personal は0件。
-- spoofed owner input が無効。
+- spoofed owner input は無効。
 
-### OIDC identity
+### OIDC
 
-- same `iss + sub` は session を跨いでも同じ principal。
-- same `sub` でも issuer が違えば別 principal。
-- email 変更で principal が変わらない。
-- invalid signature / issuer / audience / expiry は identity resolution failure。
+- same `iss + sub` は session を跨いでも同一 principal。
+- same `sub` でも issuer 違いは別 principal。
+- email 変更で principal は変わらない。
+- invalid signature / issuer / audience / expiry は resolution failure。
 
 ### Shared room
 
-- A と B が room-X member。
-- room-X memory は両者に見える。
+- room-X memory は A/B member に見える。
 - A personal は B に見えない。
 - room-Y user には room-X memory が見えない。
 
 ### WebSocket
 
-- 同一 room の connection A / B で IdentityContext が混ざらない。
-- reconnect 後も server session identity を正しく再解決する。
+- same room connection A/B で identity が混ざらない。
+- reconnect 後も server session identity を再解決できる。
 
 ### Profile
 
@@ -939,12 +779,12 @@ v3 必須 invariant:
 
 ### Trusted proxy
 
-- untrusted direct request の forged identity header を拒否する。
-- trusted path の verified header は principal に解決できる。
+- untrusted direct request の forged identity header を拒否。
+- trusted path の verified header は principal に解決。
 
 ### Legacy
 
-- local mode では v0.7.12 compatibility を維持。
+- local mode で v0.7.12 compatibility を維持。
 - owner 不明 record は multi-user strict mode で除外。
 
 追加 metric:
@@ -961,9 +801,7 @@ unauthenticated_fallback_count
 
 ---
 
-## 24. 実装順序
-
-大きな account system を最初に作らない。
+## 25. 実装順序
 
 ### PR V3-1: IdentityContext / TurnContext
 
@@ -974,9 +812,7 @@ unauthenticated_fallback_count
 - CLI / GUI / Web / A2A adapter
 - behavior change なし
 
-完了条件:
-
-> global mutable owner なしで同一 turn の全処理へ identity が届く。
+完了条件: global mutable owner なしで同一 turn の全処理へ identity が届く。
 
 ### PR V3-2: Web connection identity boundary
 
@@ -986,34 +822,28 @@ unauthenticated_fallback_count
 - same-room A / B separation
 - unresolved multi-user identity fail-closed
 
-完了条件:
-
-> 同じ room の2 connection に異なる principal を安全に割り当てられる。
+完了条件: 同じ room の2 connection に異なる principal を割り当てられる。
 
 ### PR V3-3: OIDC authentication
 
 - Authorization Code + PKCE
-- OIDC discovery / token validation
+- discovery / token validation
 - server-side authenticated session
 - Secure / HttpOnly / SameSite cookie
-- `iss + sub` -> opaque principal ID
+- `iss + sub` -> opaque principal
 - WebSocket session inheritance
 
-完了条件:
-
-> login session と WebSocket turn が stable principal で結ばれ、client owner parameter が不要になる。
+完了条件: login session と WebSocket turn が stable principal で結ばれる。
 
 ### PR V3-4: Memory audience contract
 
 - audience_type / audience_id
 - schema migration
 - MemoryAccessContext
-- store-level pre-retrieval access filter
+- store-level pre-retrieval filter
 - legacy owner mapping
 
-完了条件:
-
-> Personal / room audience isolation を store-level fixture で証明する。
+完了条件: Personal / room isolation を store-level fixture で証明。
 
 ### PR V3-5: Projection / Profile / Session integration
 
@@ -1023,9 +853,7 @@ unauthenticated_fallback_count
 - episodic retrieval boundary
 - forget propagation
 
-完了条件:
-
-> shared room 内で Personal Guidance / Memory / Profile が cross-user leak しない。
+完了条件: Personal Guidance / Memory / Profile が cross-user leak しない。
 
 ### PR V3-6: Web management API / Room policy
 
@@ -1036,19 +864,16 @@ unauthenticated_fallback_count
 - Room Shared Memory
 - admin authorization boundary
 
-完了条件:
+完了条件: browser から arbitrary principal の Personal Memory を操作できない。
 
-> browser request から arbitrary principal の Personal Memory を操作できない。
+### PR V3-7: OAuth / Trusted Proxy / API adapters
 
-### PR V3-7: Trusted Proxy / API identity adapters
-
+- OAuthIdentityResolver
 - TrustedProxyIdentityResolver
-- TokenIdentityResolver contract
+- TokenIdentityResolver
 - spoof prevention tests
 
-完了条件:
-
-> OIDC 以外の enterprise / API entry point も Memory core を変えず接続できる。
+完了条件: OIDC 以外も Memory core を変えず接続できる。
 
 ### PR V3-8: Evaluation / rollout
 
@@ -1058,15 +883,11 @@ unauthenticated_fallback_count
 - docs / env
 - shadow -> opt-in multi-user projection
 
-完了条件:
-
-> leak metrics 0、single-user regression なし。
+完了条件: leak metrics 0、single-user regression なし。
 
 ---
 
-## 25. Rollout
-
-推奨順序:
+## 26. Rollout
 
 ```text
 v0.7.12 single-user baseline
@@ -1083,7 +904,7 @@ Authenticated multi-user projection opt-in
         ↓
 Shared-room Memory opt-in
         ↓
-Trusted Proxy / API adapters
+OAuth / Trusted Proxy / API adapters
         ↓
 Default decision
 ```
@@ -1092,101 +913,68 @@ Memory Projection の default ON と multi-user authentication rollout は別判
 
 ---
 
-## 26. 採らない設計
+## 27. 採らない設計
 
-### owner = room_id
-
-不採用。同一 user が別 room に移るたび別人になる。
-
-### owner = IP address
-
-不採用。NAT / VPN / mobile / privacy / shared terminal で stable identity ではない。
-
-### owner = email
-
-不採用。変更可能で provider 間 collision / privacy 問題もある。
-
-### owner = browser random ID を authenticated user と同等に扱う
-
-不採用。client instance ID と authorization identity は別。
-
-### client が owner を自由指定
-
-不採用。
-
-### UAGENT_MEMORY_OWNER を multi-user Web 全員に適用
-
-不採用。
-
-### raw OIDC token / API key を owner として保存
-
-不採用。
-
-### shared room 会話を全参加者の Personal Profile に学習
-
-不採用。
-
-###独自 username/password account DB を v3 Memory の前提にする
-
-不採用。まず OIDC / local trust を採用する。
-
-### login system を MemoryStore に直接組み込む
-
-不採用。IdentityResolver / AccessPolicy の外側に置く。
+- `owner = room_id`
+- `owner = IP address`
+- `owner = email`
+- browser random ID を authenticated user と同等に扱う
+- client が owner を自由指定
+- `UAGENT_MEMORY_OWNER` を multi-user Web 全員に適用
+- raw OIDC token / OAuth access token / API key を owner として保存
+- shared room 会話を全参加者の Personal Profile に学習
+- 独自 username/password account DB を v3 Memory の前提にする
+- login system を MemoryStore に直接組み込む
 
 ---
 
-## 27. 最終アーキテクチャ
+## 28. 最終アーキテクチャ
 
 ```text
- Local trust     OIDC       Trusted Proxy      API credential
-     │            │              │                   │
-     └────────────┴───────┬──────┴───────────────────┘
-                          │
-                   IdentityResolver
-                          │
-                    IdentityContext
-                          │
-        ┌─────────────────┼──────────────────┐
-        │                 │                  │
-      CLI/GUI        Web Connection        A2A/API
-        │          user-A / user-B            │
-        └─────────────────┼──────────────────┘
-                          │
-                      TurnContext
-             principal + room + project
-                          │
-                  MemoryAccessContext
-                          │
-        ┌─────────────────┼─────────────────┐
-        │                 │                 │
- personal:<principal>  room:<room>   project:<project>
-        │                 │                 │
-        └─────────────────┼─────────────────┘
-                          │
-             store-level access filtering
-                          │
-             relevance / ranking / budget
-                          │
-              Frozen Projection Snapshot
-                          │
-        ┌─────────────────┴─────────────────┐
-        │                                   │
-Applicable Principal Guidance      Retrieved Evidence
-        │                                   │
-        └─────────────────┬─────────────────┘
-                          │
-                       Provider
+ Local trust      OIDC       OAuth      Trusted Proxy      API credential
+     │              │          │              │                   │
+     └──────────────┴──────────┴───────┬──────┴───────────────────┘
+                                       │
+                                IdentityResolver
+                                       │
+                                 IdentityContext
+                                       │
+                ┌──────────────────────┼─────────────────────┐
+                │                      │                     │
+              CLI/GUI             Web Connection           A2A/API
+                │              user-A / user-B               │
+                └──────────────────────┼─────────────────────┘
+                                       │
+                                   TurnContext
+                          principal + room + project
+                                       │
+                               MemoryAccessContext
+                                       │
+                ┌──────────────────────┼─────────────────────┐
+                │                      │                     │
+       personal:<principal>        room:<room>       project:<project>
+                │                      │                     │
+                └──────────────────────┼─────────────────────┘
+                                       │
+                          store-level access filtering
+                                       │
+                          relevance / ranking / budget
+                                       │
+                           Frozen Projection Snapshot
+                                       │
+                ┌──────────────────────┴─────────────────────┐
+                │                                            │
+     Applicable Principal Guidance                 Retrieved Evidence
+                │                                            │
+                └──────────────────────┬─────────────────────┘
+                                       │
+                                    Provider
 ```
 
-ローカル単一ユーザーでは login なしで現在の使い勝手を維持する。
+ローカル単一ユーザーは login なしで現在の使い勝手を維持する。
 
-multi-user Web では OIDC を標準方式として stable principal を得る。
+multi-user Web は OIDC を標準方式とする。OIDC ではない user-login provider は OAuth adapter、社内 SSO は Trusted Proxy、API / A2A は service-principal adapter で接続する。
 
-社内環境では Trusted Proxy / SSO Gateway、API / A2A では service principal adapter を追加できる。
+Memory core は認証 provider 固有処理を持たない。
 
-Memory core が認証 provider 固有処理を持たないため、将来の認証方式追加で Memory schema / retrieval / projection を再設計しない。
-
-v3 の中心は「ログイン画面」ではない。
-
-> **identity を信頼できる方法で確定し、principal / room / project / audience を分離し、その境界を Memory / Profile / Session / Projection / 管理 API のすべてで一貫して守ること。**
+v3 の中心はログイン画面ではなく、**identity を信頼できる方法で確定し、principal / room / project / audience を分離し、その境界を Memory / Profile / Session / Projection / 管理 API のすべてで一貫して守ること**である。
