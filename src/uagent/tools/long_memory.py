@@ -195,7 +195,9 @@ def migrate_long_memory_jsonl(
         try:
             record = json.loads(raw_line)
         except (TypeError, ValueError) as exc:
-            raise MemoryMigrationError(_MIGRATION_INVALID_JSON, index=index + 1) from exc
+            raise MemoryMigrationError(
+                _MIGRATION_INVALID_JSON, index=index + 1
+            ) from exc
         if not isinstance(record, dict):
             raise MemoryMigrationError(_MIGRATION_NOT_OBJECT, index=index)
         normalized = _normalize_jsonl_record(record, index)
