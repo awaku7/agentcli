@@ -16,6 +16,7 @@ def test_invalidate_memory_runtime_clears_memory_and_provider_state() -> None:
             self.reason = reason
 
     runtime = Runtime()
+    personal = "[LONG MEMORY]\npersonal old rule"
     core = SimpleNamespace(
         memory_generation=4,
         memory_projection_snapshot=object(),
@@ -24,6 +25,7 @@ def test_invalidate_memory_runtime_clears_memory_and_provider_state() -> None:
         memory_shadow_last_observation={"candidate": "old"},
         memory_shadow_observations=[{"candidate": "old"}],
         _gemini_cache_needs_refresh=False,
+        _uagent_memory_system_contents={"personal": {personal}},
         responses_runtime=runtime,
         responses_state={
             "previous_response_id": "resp_old",
@@ -36,7 +38,7 @@ def test_invalidate_memory_runtime_clears_memory_and_provider_state() -> None:
 
     assert generation == 5
     assert core.memory_generation == 5
-    assert core.memory_forget_pending is True
+    assert core._uagent_forgotten_memory_system_contents == {personal}
     assert core.memory_projection_snapshot is None
     assert core.context_plan is None
     assert core.context_projection_id is None
@@ -79,22 +81,27 @@ def test_stale_projection_is_stripped_after_generation_change() -> None:
     assert projected == [{"role": "user", "content": "continue"}]
 
 
-def test_forget_pending_strips_only_personal_startup_memory() -> None:
+def test_forget_strips_only_startup_memory_registered_before_forget() -> None:
+    from uagent.runtime.memory_forget import invalidate_memory_runtime
     from uagent.runtime.memory_projection import apply_memory_projection
 
-    personal = "[LONG MEMORY]\npersonal old rule"
+    old_personal = "[LONG MEMORY]\npersonal old rule"
+    fresh_personal = "[LONG MEMORY]\npersonal fresh rule"
     shared = "[LONG MEMORY]\nshared rule"
     profile = "[USER PROFILE]\nPreferences:\n  - keep profile"
     core = SimpleNamespace(
-        memory_forget_pending=True,
+        memory_generation=0,
         _uagent_memory_system_contents={
-            "personal": {personal},
+            "personal": {old_personal},
             "shared": {shared},
         },
     )
+    invalidate_memory_runtime(core)
+    core._uagent_memory_system_contents["personal"].add(fresh_personal)
     messages = [
         {"role": "system", "content": profile},
-        {"role": "system", "content": personal},
+        {"role": "system", "content": old_personal},
+        {"role": "system", "content": fresh_personal},
         {"role": "system", "content": shared},
         {"role": "user", "content": "continue"},
     ]
@@ -103,6 +110,7 @@ def test_forget_pending_strips_only_personal_startup_memory() -> None:
 
     assert {str(message.get("content")) for message in projected} == {
         profile,
+        fresh_personal,
         shared,
         "continue",
     }
@@ -144,7 +152,6 @@ def test_delete_propagates_and_forgotten_note_does_not_reappear(
 
     assert long_memory.delete_long_memory_entry(0, core=core) is True
     assert core.memory_generation == 1
-    assert core.memory_forget_pending is True
     assert core.memory_projection_snapshot is None
     assert "previous_response_id" not in core.responses_state
 
