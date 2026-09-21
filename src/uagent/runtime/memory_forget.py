@@ -13,11 +13,29 @@ def memory_generation(core: Any) -> int:
         return 0
 
 
+def forgotten_memory_system_contents(core: Any) -> set[str]:
+    """Return startup personal-memory projections invalidated by forgets."""
+    values = getattr(core, "_uagent_forgotten_memory_system_contents", set()) or set()
+    if not isinstance(values, (set, list, tuple)):
+        return set()
+    return {str(value) for value in values if str(value)}
+
+
+def _registered_personal_memory_contents(core: Any) -> set[str]:
+    registry = getattr(core, "_uagent_memory_system_contents", {}) or {}
+    if not isinstance(registry, dict):
+        return set()
+    values = registry.get("personal", set())
+    if not isinstance(values, (set, list, tuple)):
+        return set()
+    return {str(value) for value in values if str(value)}
+
+
 def invalidate_memory_runtime(core: Any | None = None) -> int:
     """Invalidate memory-derived runtime state after a successful forget.
 
     Forgetting persisted memory must also make any turn-local projection and
-    provider continuation unusable.  The generation counter lets projection
+    provider continuation unusable. The generation counter lets projection
     application reject a snapshot that was captured before the forget even if
     a caller still holds a reference to it.
     """
@@ -29,10 +47,13 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
     next_generation = memory_generation(core) + 1
     try:
         core.memory_generation = next_generation
-        # Startup personal-memory system messages are durable in the in-memory
-        # conversation list.  Keep stripping those registered projections for
-        # the rest of this process after a successful forget.
-        core.memory_forget_pending = True
+        # Snapshot only the startup Personal Memory blocks that existed before
+        # this forget. A later room/startup may register fresh memory content;
+        # it must not be hidden merely because an earlier forget occurred.
+        core._uagent_forgotten_memory_system_contents = (
+            forgotten_memory_system_contents(core)
+            | _registered_personal_memory_contents(core)
+        )
     except Exception:
         pass
 
@@ -62,7 +83,7 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
         pass
 
     # Responses API continuation can retain provider-side context that no
-    # longer matches local memory state.  Clear both the runtime object and the
+    # longer matches local memory state. Clear both the runtime object and the
     # compatibility state dictionary without touching durable conversation
     # history.
     runtime = getattr(core, "responses_runtime", None)
@@ -89,4 +110,8 @@ def invalidate_memory_runtime(core: Any | None = None) -> int:
     return next_generation
 
 
-__all__ = ["invalidate_memory_runtime", "memory_generation"]
+__all__ = [
+    "forgotten_memory_system_contents",
+    "invalidate_memory_runtime",
+    "memory_generation",
+]
