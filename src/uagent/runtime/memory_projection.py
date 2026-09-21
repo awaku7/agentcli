@@ -236,6 +236,19 @@ def _format_evidence(
     return "\n".join(lines) if len(lines) > 1 else ""
 
 
+def _registered_memory_contents(core: Any, scopes: set[str] | None) -> set[str]:
+    registered = getattr(core, "_uagent_memory_system_contents", {}) or {}
+    if not isinstance(registered, dict):
+        return set()
+    contents: set[str] = set()
+    for scope, values in registered.items():
+        if scopes is not None and str(scope) not in scopes:
+            continue
+        if isinstance(values, (set, list, tuple)):
+            contents.update(str(content) for content in values)
+    return contents
+
+
 def apply_memory_projection(
     call_messages: Sequence[dict[str, Any]],
     snapshot: MemoryProjectionSnapshot | None,
@@ -248,15 +261,17 @@ def apply_memory_projection(
     evidence during retries or repeated provider preparation.  A snapshot from
     before an explicit forget is stripped and never re-applied.
     """
-    if snapshot is None:
+    forget_pending = bool(getattr(core, "memory_forget_pending", False))
+    stale_snapshot = snapshot is not None and int(snapshot.generation) != memory_generation(
+        core
+    )
+    if snapshot is None and not forget_pending:
         return [dict(message) for message in call_messages]
 
-    registered = getattr(core, "_uagent_memory_system_contents", {}) or {}
-    baseline_contents = {
-        str(content)
-        for values in registered.values()
-        for content in (values if isinstance(values, (set, list, tuple)) else ())
-    }
+    replace_all_memory = snapshot is not None and not stale_snapshot
+    baseline_contents = _registered_memory_contents(
+        core, None if replace_all_memory else {"personal"}
+    )
     projected: list[dict[str, Any]] = []
     existing_system: list[str] = []
     for message in call_messages:
@@ -265,17 +280,18 @@ def apply_memory_projection(
         role = message.get("role")
         content = message.get("content")
         text = str(content or "")
-        if role == "system" and (
-            text.startswith("[USER PROFILE]")
-            or text.startswith("[MEMORY EVIDENCE]")
+        is_memory_system = role == "system" and (
+            text.startswith("[MEMORY EVIDENCE]")
             or text in baseline_contents
-        ):
+            or (replace_all_memory and text.startswith("[USER PROFILE]"))
+        )
+        if is_memory_system:
             continue
         if role == "system":
             existing_system.append(text)
         projected.append(dict(message))
 
-    if int(snapshot.generation) != memory_generation(core):
+    if snapshot is None or stale_snapshot:
         return projected
 
     insertion = next(
