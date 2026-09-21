@@ -80,6 +80,13 @@ def _register_memory_system_content(core: Any, scope: str, content: str) -> None
 
 def _ensure_memory_log_boundary(core: Any) -> None:
     """Prevent derived memory/profile system blocks from becoming history."""
+    try:
+        from .memory_history_boundary import install_session_store_memory_boundary
+
+        install_session_store_memory_boundary(core)
+    except Exception:
+        pass
+
     current = getattr(core, "log_message", None)
     installed = getattr(core, "_uagent_memory_log_boundary_wrapper", None)
     if current is installed:
