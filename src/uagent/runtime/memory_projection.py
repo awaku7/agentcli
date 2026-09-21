@@ -7,6 +7,7 @@ from typing import Any, Sequence
 
 from ..env_utils import env_get
 from ..profile_manager import is_profiling_enabled, load_profile
+from .memory_forget import forgotten_memory_system_contents, memory_generation
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
 from .runtime_memory import _format_profile
 
@@ -68,6 +69,7 @@ class MemoryProjectionSnapshot:
     profile_content: str
     evidence_items: tuple[MemoryProjectionItem, ...]
     diagnostics: dict[str, Any]
+    generation: int = 0
 
     def to_diagnostics(self) -> dict[str, Any]:
         """Return metadata only; never expose evidence or profile text."""
@@ -98,6 +100,7 @@ def prepare_memory_projection(
     query = _latest_user_query(messages)
     owner = _memory_owner(core)
     project = _project_name(core)
+    generation = memory_generation(core)
     strict_scope = _enabled("UAGENT_MEMORY_STRICT_SCOPE")
     owner_filter = owner if owner else ("<missing-owner>" if strict_scope else "")
     allow_legacy_unknown = not strict_scope
@@ -133,8 +136,10 @@ def prepare_memory_projection(
                 "enabled": True,
                 "query_chars": len(query),
                 "project": project,
+                "memory_generation": generation,
                 "error": type(exc).__name__,
             },
+            generation=generation,
         )
 
     profile_content = ""
@@ -192,6 +197,7 @@ def prepare_memory_projection(
         "session_id": session_id,
         "turn_id": turn_id,
         "source_revision": source_revision,
+        "memory_generation": generation,
         "profile_present": bool(profile_content),
         "evidence_count": len(unique_items),
         "memory_budget_chars": memory_budget_chars,
@@ -207,6 +213,7 @@ def prepare_memory_projection(
         profile_content=profile_content,
         evidence_items=tuple(unique_items),
         diagnostics=diagnostics,
+        generation=generation,
     )
 
 
@@ -229,6 +236,19 @@ def _format_evidence(
     return "\n".join(lines) if len(lines) > 1 else ""
 
 
+def _registered_memory_contents(core: Any, scopes: set[str] | None) -> set[str]:
+    registered = getattr(core, "_uagent_memory_system_contents", {}) or {}
+    if not isinstance(registered, dict):
+        return set()
+    contents: set[str] = set()
+    for scope, values in registered.items():
+        if scopes is not None and str(scope) not in scopes:
+            continue
+        if isinstance(values, (set, list, tuple)):
+            contents.update(str(content) for content in values)
+    return contents
+
+
 def apply_memory_projection(
     call_messages: Sequence[dict[str, Any]],
     snapshot: MemoryProjectionSnapshot | None,
@@ -238,17 +258,22 @@ def apply_memory_projection(
 
     The input sequence and its dictionaries are never modified. Reapplying the
     same snapshot replaces prior projection messages, which prevents duplicate
-    evidence during retries or repeated provider preparation.
+    evidence during retries or repeated provider preparation. A snapshot from
+    before an explicit forget is stripped and never re-applied.
     """
-    if snapshot is None:
+    forgotten_contents = forgotten_memory_system_contents(core)
+    stale_snapshot = snapshot is not None and int(
+        snapshot.generation
+    ) != memory_generation(core)
+    if snapshot is None and not forgotten_contents:
         return [dict(message) for message in call_messages]
 
-    registered = getattr(core, "_uagent_memory_system_contents", {}) or {}
-    baseline_contents = {
-        str(content)
-        for values in registered.values()
-        for content in (values if isinstance(values, (set, list, tuple)) else ())
-    }
+    replace_all_memory = snapshot is not None and not stale_snapshot
+    if replace_all_memory:
+        baseline_contents = _registered_memory_contents(core, None) | forgotten_contents
+    else:
+        baseline_contents = forgotten_contents
+
     projected: list[dict[str, Any]] = []
     existing_system: list[str] = []
     for message in call_messages:
@@ -257,15 +282,19 @@ def apply_memory_projection(
         role = message.get("role")
         content = message.get("content")
         text = str(content or "")
-        if role == "system" and (
-            text.startswith("[USER PROFILE]")
-            or text.startswith("[MEMORY EVIDENCE]")
+        is_memory_system = role == "system" and (
+            text.startswith("[MEMORY EVIDENCE]")
             or text in baseline_contents
-        ):
+            or (replace_all_memory and text.startswith("[USER PROFILE]"))
+        )
+        if is_memory_system:
             continue
         if role == "system":
             existing_system.append(text)
         projected.append(dict(message))
+
+    if snapshot is None or stale_snapshot:
+        return projected
 
     insertion = next(
         (

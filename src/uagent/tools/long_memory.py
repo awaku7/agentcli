@@ -195,7 +195,9 @@ def migrate_long_memory_jsonl(
         try:
             record = json.loads(raw_line)
         except (TypeError, ValueError) as exc:
-            raise MemoryMigrationError(_MIGRATION_INVALID_JSON, index=index + 1) from exc
+            raise MemoryMigrationError(
+                _MIGRATION_INVALID_JSON, index=index + 1
+            ) from exc
         if not isinstance(record, dict):
             raise MemoryMigrationError(_MIGRATION_NOT_OBJECT, index=index)
         normalized = _normalize_jsonl_record(record, index)
@@ -372,19 +374,32 @@ def update_long_memory_entry(index: int, note: str) -> bool:
     return True
 
 
-def delete_long_memory_entry(index: int) -> bool:
-    """Delete one record by index. Returns True on success."""
+def _propagate_memory_forget(core: Any | None = None) -> None:
+    """Best-effort invalidation of memory-derived runtime state."""
+    try:
+        from ..runtime.memory_forget import invalidate_memory_runtime
+
+        invalidate_memory_runtime(core)
+    except Exception:
+        pass
+
+
+def delete_long_memory_entry(index: int, *, core: Any | None = None) -> bool:
+    """Delete one record by index and invalidate stale runtime projections."""
     if _use_sqlite():
         try:
             from ..runtime.memory_store import open_memory_store
 
             store = open_memory_store(_sqlite_path())
             try:
-                return store.delete(index)
+                deleted = store.delete(index)
             finally:
                 store.close()
         except Exception:
             return False
+        if deleted:
+            _propagate_memory_forget(core)
+        return deleted
     records = load_long_memory_records()
     if index < 0 or index >= len(records):
         return False
@@ -399,6 +414,7 @@ def delete_long_memory_entry(index: int) -> bool:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     except Exception:
         return False
+    _propagate_memory_forget(core)
     return True
 
 
