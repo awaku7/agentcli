@@ -18,7 +18,9 @@ def registered_memory_system_contents(core: Any) -> set[str]:
         for values in registry.values():
             if isinstance(values, (set, list, tuple)):
                 contents.update(str(value) for value in values if str(value))
-    forgotten = getattr(core, "_uagent_forgotten_memory_system_contents", set()) or set()
+    forgotten = (
+        getattr(core, "_uagent_forgotten_memory_system_contents", set()) or set()
+    )
     if isinstance(forgotten, (set, list, tuple)):
         contents.update(str(value) for value in forgotten if str(value))
     return contents
@@ -62,7 +64,11 @@ def strip_derived_memory_context(
     """
     items = [message for message in messages if isinstance(message, dict)]
     first_conversation = next(
-        (index for index, message in enumerate(items) if message.get("role") != "system"),
+        (
+            index
+            for index, message in enumerate(items)
+            if message.get("role") != "system"
+        ),
         len(items),
     )
     startup_cwd_index: int | None = None
@@ -129,8 +135,7 @@ def install_session_store_memory_boundary(core: Any) -> None:
                     row
                     for row in rows
                     if not (
-                        isinstance(row, dict)
-                        and str(row.get("role") or "") == "system"
+                        isinstance(row, dict) and str(row.get("role") or "") == "system"
                     )
                 ]
 
