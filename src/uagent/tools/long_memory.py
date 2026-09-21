@@ -20,10 +20,18 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 JSONL_SCHEMA_VERSION = 2
+_MIGRATION_MISSING_NOTE = "missing_note"
+_MIGRATION_INVALID_JSON = "invalid_json"
+_MIGRATION_NOT_OBJECT = "not_object"
 
 
 class MemoryMigrationError(RuntimeError):
     """Raised when a JSONL migration cannot be completed without data loss."""
+
+    def __init__(self, code: str, *, index: int):
+        self.code = code
+        self.index = index
+        super().__init__(code)
 
 
 def _get_base_log_dir() -> str:
@@ -132,7 +140,7 @@ def _normalize_jsonl_record(record: dict[str, Any], index: int) -> dict[str, Any
         schema_version = 0
     is_legacy = schema_version < JSONL_SCHEMA_VERSION or not record.get("memory_id")
     if not note:
-        raise MemoryMigrationError(f"record {index} has no non-empty note")
+        raise MemoryMigrationError(_MIGRATION_MISSING_NOTE, index=index)
     created_at = record.get("created_at", record.get("ts"))
     if created_at is None:
         created_at = time.time()
@@ -187,9 +195,9 @@ def migrate_long_memory_jsonl(
         try:
             record = json.loads(raw_line)
         except (TypeError, ValueError) as exc:
-            raise MemoryMigrationError(f"invalid JSON at line {index + 1}") from exc
+            raise MemoryMigrationError(_MIGRATION_INVALID_JSON, index=index + 1) from exc
         if not isinstance(record, dict):
-            raise MemoryMigrationError(f"record {index} is not an object")
+            raise MemoryMigrationError(_MIGRATION_NOT_OBJECT, index=index)
         normalized = _normalize_jsonl_record(record, index)
         normalized_records.append(normalized)
         if json.dumps(normalized, ensure_ascii=False, sort_keys=True) != json.dumps(
