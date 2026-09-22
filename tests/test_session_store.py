@@ -151,7 +151,7 @@ def test_list_sessions_orders_by_last_used_at(tmp_path):
     assert rows[0]["last_used_at"] == "2026-09-22 11:00:00"
 
 
-def test_legacy_session_schema_migrates_last_used_at_from_created_at(tmp_path):
+def test_legacy_session_schema_recovers_created_at_and_preserves_last_used(tmp_path):
     db_path = tmp_path / "legacy.sqlite3"
     connection = sqlite3.connect(db_path)
     connection.execute("""
@@ -164,10 +164,24 @@ def test_legacy_session_schema_migrates_last_used_at_from_created_at(tmp_path):
             created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         )
         """)
+    connection.execute("""
+        CREATE TABLE messages (
+            message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            session_id TEXT NOT NULL,
+            role TEXT NOT NULL,
+            content TEXT NOT NULL,
+            payload_json TEXT,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+        """)
     connection.execute(
         "INSERT INTO sessions(session_id, project, project_key, entry_point, created_at) "
         "VALUES (?, ?, ?, ?, ?)",
-        ("legacy-1", "demo", "legacy-key", "cli", "2026-09-21 09:00:00"),
+        ("legacy-1", "demo", "legacy-key", "cli", "2026-09-22 12:00:00"),
+    )
+    connection.execute(
+        "INSERT INTO messages(session_id, role, content, created_at) VALUES (?, ?, ?, ?)",
+        ("legacy-1", "user", "yesterday work", "2026-09-21 09:00:00"),
     )
     connection.commit()
     connection.close()
@@ -176,7 +190,49 @@ def test_legacy_session_schema_migrates_last_used_at_from_created_at(tmp_path):
 
     row = store.get_session("legacy-1")
     assert row["created_at"] == "2026-09-21 09:00:00"
-    assert row["last_used_at"] == "2026-09-21 09:00:00"
+    assert row["last_used_at"] == "2026-09-22 12:00:00"
+
+
+def test_legacy_session_schema_does_not_move_creation_forward(tmp_path):
+    db_path = tmp_path / "legacy-untouched.sqlite3"
+    connection = sqlite3.connect(db_path)
+    connection.execute("""
+        CREATE TABLE sessions (
+            session_id TEXT PRIMARY KEY,
+            project TEXT,
+            project_key TEXT NOT NULL,
+            project_path TEXT,
+            entry_point TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+        """)
+    connection.execute("""
+        CREATE TABLE messages (
+            message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            session_id TEXT NOT NULL,
+            role TEXT NOT NULL,
+            content TEXT NOT NULL,
+            payload_json TEXT,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+        """)
+    connection.execute(
+        "INSERT INTO sessions(session_id, project, project_key, entry_point, created_at) "
+        "VALUES (?, ?, ?, ?, ?)",
+        ("legacy-2", "demo", "legacy-key", "cli", "2026-09-21 08:59:00"),
+    )
+    connection.execute(
+        "INSERT INTO messages(session_id, role, content, created_at) VALUES (?, ?, ?, ?)",
+        ("legacy-2", "user", "first message", "2026-09-21 09:00:00"),
+    )
+    connection.commit()
+    connection.close()
+
+    store = SessionStore(db_path)
+
+    row = store.get_session("legacy-2")
+    assert row["created_at"] == "2026-09-21 08:59:00"
+    assert row["last_used_at"] == "2026-09-21 08:59:00"
 
 
 def test_execute_retries_transient_database_lock(monkeypatch, tmp_path):
@@ -213,6 +269,8 @@ def test_sqlite_runtime_pragmas_and_indexes_are_configured(tmp_path):
         )
     }
     assert {
+        "idx_sessions_last_used",
+        "idx_sessions_project_last_used",
         "idx_messages_session_role_id",
         "idx_tool_calls_session_created",
         "idx_policy_decisions_session_id",

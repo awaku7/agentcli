@@ -436,9 +436,30 @@ class SessionStore:
                 self._connection.execute(
                     "ALTER TABLE sessions ADD COLUMN last_used_at TEXT"
                 )
+                # Legacy stores used ``created_at`` as a recency timestamp when
+                # a session was loaded. Preserve that value as last-used time,
+                # then recover the original session date from the first durable
+                # message only when it predates the stored recency value.
                 self._connection.execute(
                     "UPDATE sessions SET last_used_at = created_at WHERE last_used_at IS NULL"
                 )
+                self._connection.execute(
+                    "UPDATE sessions SET created_at = ("
+                    "SELECT MIN(m.created_at) FROM messages m "
+                    "WHERE m.session_id = sessions.session_id"
+                    ") WHERE EXISTS ("
+                    "SELECT 1 FROM messages m WHERE m.session_id = sessions.session_id "
+                    "AND m.created_at < sessions.created_at"
+                    ")"
+                )
+            self._connection.execute(
+                "CREATE INDEX IF NOT EXISTS idx_sessions_last_used "
+                "ON sessions(last_used_at DESC)"
+            )
+            self._connection.execute(
+                "CREATE INDEX IF NOT EXISTS idx_sessions_project_last_used "
+                "ON sessions(project, last_used_at DESC)"
+            )
             message_columns = {
                 row["name"]
                 for row in self._connection.execute("PRAGMA table_info(messages)")
