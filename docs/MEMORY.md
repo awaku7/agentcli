@@ -38,30 +38,42 @@ Session memory candidates are extracted only from explicit `remember:` or `è¨˜æ†
 
 - **Long-term Memory** is used to store stable, persistent facts (e.g., "The user prefers Python for scripting").
 - **Shared Memory** is designed for multi-agent or cross-session collaboration.
-- Both are stored as JSONL files under the logs directory.
-- At startup, these memories are loaded and appended to the LLM's system messages.
+- Long-term Memory uses SQLite by default; JSONL remains available as a compatibility backend. Shared Memory uses its configured shared store.
+- Provider-facing Memory is selected per turn through the V2 projection path rather than sending every stored note broadly.
 
 ### Security Constraint
 
 - **Never store sensitive credentials** (passwords, API keys, tokens) in long-term or shared memory.
 
-### Opt-in turn projection
+### Default turn projection
 
-The current runtime can prepare a read-only, turn-local projection of profile
-and relevant memory evidence. It does not rewrite the user's original message
-or add the projection to durable history.
+The runtime prepares a read-only, turn-local projection of profile guidance and
+relevant Memory evidence. It does not rewrite the user's original message or add
+the projection to durable history.
+
+Memory V2 defaults are:
 
 ```env
-UAGENT_MEMORY_PROJECTION=0
-UAGENT_MEMORY_STRICT_SCOPE=0
+UAGENT_MEMORY_PROJECTION=1
+UAGENT_MEMORY_STRICT_SCOPE=1
 UAGENT_MEMORY_OWNER=
 UAGENT_MEMORY_PROJECT=
 ```
 
-Projection and strict scope are disabled by default. Legacy records remain
-compatible while strict scope is disabled. When strict scope is enabled,
-records without verifiable owner/project metadata are excluded. Use the
-[deterministic evaluation gate](MEMORY_EVALUATION.md) before changing defaults.
+`UAGENT_MEMORY_OWNER` is optional. When unset, the current OS login ID is used
+as the V2 local owner. On Windows, `USERDOMAIN\\username` is used when the
+domain is available. New Memory writes therefore receive an owner even when the
+user has not configured one explicitly.
+
+At projection time, legacy records without owner metadata are treated as owned
+by the current OS login user. This does not rewrite the stored record. Missing
+project metadata is not inferred; project-unknown legacy records are excluded by
+Strict Scope.
+
+Set `UAGENT_MEMORY_PROJECTION=0` to roll back to the compatibility path. Set
+`UAGENT_MEMORY_STRICT_SCOPE=0` only when intentionally evaluating legacy-unknown
+compatibility. See [Memory Evaluation Gates](MEMORY_EVALUATION.md) for the
+measured rollout decision.
 
 ______________________________________________________________________
 
@@ -104,15 +116,16 @@ ______________________________________________________________________
 
 ## 4. System Message Injection Order
 
-When a new LLM session starts, system messages are injected in the following strict order to establish the agent's persona and context:
+The compatibility startup path may still construct broad Memory/Profile system
+blocks before the provider call. Memory V2 then applies its frozen turn-local
+projection at the shared LLM-round boundary:
 
-1. **Base System Prompt** (Core instructions and safety guidelines)
-1. **Long-term Memory Messages** (Loaded from `long_memory.jsonl`)
-1. **Shared Memory Messages** (Loaded from `shared_memory.jsonl`)
-1. **User Profile Message** (Formatted as `[USER PROFILE] ...`)
-1. **Active Skill Messages** (Injected via `:skills` if a skill is active)
+1. **Base System Prompt**
+1. **Compatibility Long-term / Shared Memory / Profile blocks**
+1. **Memory V2 projection preparation**
+1. **Provider-facing replacement with Applicable User Guidance and selected Memory Evidence**
+1. **Active Skill Messages / other runtime context as applicable**
 
-The startup blocks above remain for backward-compatible hosts. When opt-in
-turn projection is enabled, the provider-facing request uses a frozen,
-budgeted projection and removes broad startup memory blocks before adding
-relevant evidence. Derived projection content is excluded from durable history.
+When turn projection is applied, broad startup Memory blocks are removed from
+the provider-facing request before relevant evidence is added. Derived
+projection content is excluded from durable history.
