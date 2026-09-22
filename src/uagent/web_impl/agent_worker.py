@@ -17,6 +17,7 @@ from .. import uagent_llm as llm_util
 from ..runtime.logging_setup import log_event
 from ..runtime.execution import lifecycle_execution
 from ..runtime.turn_context_runtime import call_with_resolved_turn_context
+from ..runtime.session_store import project_id_from_path
 from ..runtime.identity_context import (
     IdentityContext,
     IdentityResolutionError,
@@ -40,6 +41,7 @@ def run_agent_worker(
     *,
     turn_context: TurnContext | None = None,
     identity_context: IdentityContext | None = None,
+    project_path: str | None = None,
 ):
     """Run one user turn for a room.
 
@@ -57,6 +59,16 @@ def run_agent_worker(
             raise IdentityResolutionError("Web turn room mismatch")
         if identity_context is None or not identity_context.authenticated:
             raise IdentityResolutionError("Web turn requires authenticated identity")
+        if (
+            turn_context.principal_id != identity_context.principal_id
+            or turn_context.authenticated != identity_context.authenticated
+            or turn_context.authn_kind != identity_context.authn_kind
+        ):
+            raise IdentityResolutionError("Web identity/turn mismatch")
+        if not project_path or turn_context.project_id != project_id_from_path(
+            project_path
+        ):
+            raise IdentityResolutionError("Web turn project mismatch")
 
     def _run_web_turn(fn, *args, **kwargs):
         if turn_context is not None:
@@ -109,7 +121,7 @@ def run_agent_worker(
     try:
         # Switch to this room's base_dir for the duration of the worker
         try:
-            os.chdir(room.base_dir)
+            os.chdir(project_path if turn_context is not None else room.base_dir)
         except Exception:
             pass
 
