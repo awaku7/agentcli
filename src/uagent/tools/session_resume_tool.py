@@ -214,7 +214,11 @@ def run_tool(args: dict[str, Any]) -> str:
         try:
             store.get_session(explicit_session_id)
         except Exception:
-            return _result(ok=False, error="unknown_session", session_id=explicit_session_id)
+            return _result(
+                ok=False,
+                error="unknown_session",
+                session_id=explicit_session_id,
+            )
         return _queue_session(event_queue, explicit_session_id)
 
     when = str(args.get("when") or "").strip().lower()
