@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 
 
 class MemoryStoreConflictError(RuntimeError):
@@ -16,7 +16,11 @@ class MemoryStoreConflictError(RuntimeError):
 
 
 class MemoryStore:
-    """Small SQLite repository with stable IDs and revision-checked writes."""
+    """Trusted local/migration repository, without per-user authorization.
+
+    Multi-user adapters must use ScopedMemoryStore rather than these legacy
+    methods. Opening a V2 database never grants an authenticated user access.
+    """
 
     def __init__(self, path: str | Path):
         self.path = Path(path)
@@ -25,7 +29,14 @@ class MemoryStore:
         self.db.row_factory = sqlite3.Row
         self.db.execute("PRAGMA busy_timeout=5000")
         self.db.execute("PRAGMA journal_mode=WAL")
-        self._migrate_schema()
+        self.db.execute("PRAGMA foreign_keys=ON")
+        try:
+            self.db.execute("BEGIN IMMEDIATE")
+            self._migrate_schema()
+        except Exception:
+            self.db.rollback()
+            self.db.close()
+            raise
 
     def _migrate_schema(self) -> None:
         self.db.execute(
@@ -56,6 +67,9 @@ class MemoryStore:
             "revision": "INTEGER NOT NULL DEFAULT 1",
             "status": "TEXT NOT NULL DEFAULT 'active'",
             "supersedes_id": "TEXT",
+            "owner_id": "TEXT",
+            "audience_type": "TEXT NOT NULL DEFAULT 'legacy'",
+            "audience_id": "TEXT",
         }
         for name, definition in additions.items():
             if name not in columns:
@@ -86,6 +100,7 @@ class MemoryStore:
             "CREATE UNIQUE INDEX IF NOT EXISTS idx_memories_source_id "
             "ON memories(source_id) WHERE source_id IS NOT NULL AND source_id <> ''"
         )
+        self._migrate_access_schema()
         self.db.execute(
             "INSERT OR IGNORE INTO memory_metadata(key, value) "
             "VALUES ('schema_version', ?)",
@@ -96,6 +111,56 @@ class MemoryStore:
             (str(SCHEMA_VERSION),),
         )
         self.db.commit()
+
+    def _migrate_access_schema(self) -> None:
+        """Add V3 grants without interpreting legacy owner labels as identity."""
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_memories_audience "
+            "ON memories(project, audience_type, audience_id, status)"
+        )
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS memory_grants ("
+            "grant_id TEXT PRIMARY KEY, memory_id TEXT NOT NULL "
+            "REFERENCES memories(memory_id) ON DELETE CASCADE, "
+            "memory_revision INTEGER NOT NULL CHECK(memory_revision > 0), "
+            "grantee_principal_id TEXT NOT NULL, "
+            "permission TEXT NOT NULL CHECK(permission = 'read'), "
+            "granted_by TEXT NOT NULL, status TEXT NOT NULL "
+            "CHECK(status IN ('active', 'revoked')), "
+            "revision INTEGER NOT NULL DEFAULT 1, "
+            "created_at REAL NOT NULL, revoked_at REAL)"
+        )
+        self.db.execute(
+            "CREATE UNIQUE INDEX IF NOT EXISTS idx_memory_grants_active "
+            "ON memory_grants(memory_id, memory_revision, grantee_principal_id) "
+            "WHERE status = 'active'"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_memory_grants_reader "
+            "ON memory_grants(grantee_principal_id, memory_id, status)"
+        )
+        self.db.execute(
+            "INSERT OR IGNORE INTO memory_metadata(key, value) "
+            "VALUES ('access_generation', '0')"
+        )
+        # Include legacy writes: they must not leave a valid grant to new text.
+        self.db.execute(
+            "CREATE TRIGGER IF NOT EXISTS memory_grants_invalidate "
+            "AFTER UPDATE OF note, owner, owner_id, project, audience_type, "
+            "audience_id, revision, status ON memories BEGIN "
+            "UPDATE memory_grants SET status = 'revoked', revision = revision + 1, "
+            "revoked_at = CAST(strftime('%s', 'now') AS REAL) "
+            "WHERE memory_id = OLD.memory_id AND status = 'active'; END"
+        )
+        for table in ("memories", "memory_grants"):
+            for operation in ("INSERT", "UPDATE", "DELETE"):
+                self.db.execute(
+                    f"CREATE TRIGGER IF NOT EXISTS {table}_generation_{operation} "
+                    f"AFTER {operation} ON {table} BEGIN "
+                    "UPDATE memory_metadata SET value = "
+                    "CAST(CAST(value AS INTEGER) + 1 AS TEXT) "
+                    "WHERE key = 'access_generation'; END"
+                )
 
     def close(self) -> None:
         self.db.close()
