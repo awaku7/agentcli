@@ -7,7 +7,6 @@ from uagent.tools.context import ToolCallbacks, init_callbacks
 from uagent.tools.i18n_helper import make_tool_translator
 from uagent.tools import session_resume_tool
 
-
 HOST_LOCALES = (
     "ar",
     "bn",
@@ -65,9 +64,7 @@ class _FakeStore:
         if project is not None:
             rows = [row for row in rows if row.get("project") == project]
         if exclude_session_id is not None:
-            rows = [
-                row for row in rows if row.get("session_id") != exclude_session_id
-            ]
+            rows = [row for row in rows if row.get("session_id") != exclude_session_id]
         return [dict(row) for row in rows]
 
     def search(self, query, *, project=None):
