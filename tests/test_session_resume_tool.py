@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta
 from queue import Empty, Queue
 
 from uagent.tools.context import ToolCallbacks, init_callbacks
@@ -136,17 +137,36 @@ def test_latest_prefers_current_project_and_queues_load_command():
 
 
 def test_yesterday_with_multiple_matches_requires_user_choice():
+    now = datetime.now().astimezone()
+    yesterday = now.date() - timedelta(days=1)
+    active_created_at = now.isoformat()
+    weather_created_at = datetime(
+        yesterday.year,
+        yesterday.month,
+        yesterday.day,
+        10,
+        30,
+        tzinfo=now.tzinfo,
+    ).isoformat()
+    memory_created_at = datetime(
+        yesterday.year,
+        yesterday.month,
+        yesterday.day,
+        1,
+        0,
+        tzinfo=now.tzinfo,
+    ).isoformat()
     store = _FakeStore(
         [
             {
                 "session_id": "active",
                 "project": "app",
-                "created_at": "2026-09-22 02:00:00",
+                "created_at": active_created_at,
             },
             {
                 "session_id": "weather",
                 "project": "app",
-                "created_at": "2026-09-21 10:30:00",
+                "created_at": weather_created_at,
                 "first_message": "今日の天気",
                 "last_message": "今日の天気",
                 "summary": "天気確認",
@@ -154,7 +174,7 @@ def test_yesterday_with_multiple_matches_requires_user_choice():
             {
                 "session_id": "memory",
                 "project": "app",
-                "created_at": "2026-09-21 01:00:00",
+                "created_at": memory_created_at,
                 "first_message": "UAG Memoryの続き",
                 "last_message": "PRをマージ",
                 "summary": "Memory作業",
