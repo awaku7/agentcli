@@ -1193,6 +1193,8 @@ V3-2 の接続境界実装では、WebSocket handshake 時に選択中の resolv
 
 V3-3 は認証境界ごとに分割する。最初に browser binding に紐付く一回限りの state / nonce / PKCE S256 transaction と期限・容量制限を実装する。次に検証済み discovery / JWKS / ID token（issuer、signature、audience、expiry、nonce）と Authorization Code callback を接続し、最後に server-side session / WebSocket cookie inheritance を確認する。transaction 単体ではログイン機能を有効にせず、`oidc` mode は検証経路が完成するまで fail-closed のままにする。
 
+署名検証段階では HTTPS discovery の issuer 一致と signing key の JWKS を検証し、RS256 ID token の issuer / audience / expiry / nonce / authorized party を確認した後だけ `iss + sub` から principal を導出する。現在の verifier は純粋な認証部品であり、Web callback と session への接続は後続の変更で行う。
+
 ### PR V3-4: Memory audience contract
 
 - audience_type / audience_id
