@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.13] - 2026-09-23
+
+### Added
+
+- Add OIDC Authorization Code + PKCE Web authentication with browser-bound transactions, ID-token verification, server-side sessions, cookie-backed WebSocket identity, and authentication endpoints.
+- Add regression coverage for OIDC sessions and turn-local identity resolution.
+
+### Changed
+
+- Raise the default consecutive fresh tool-call loop guard from `8` to `50` while retaining the environment-variable override.
+- Bump the pinned `llmcapa` dependency to `0.5.38`.
+
+### Documentation
+
+- Document the implemented OIDC Web session boundary, cookie controls, and remaining persistence limitations.
+
 ## [0.7.12] - 2026-09-21
 
 ### Added
@@ -41,7 +57,6 @@
 ### Fixed
 
 - Recover MCP sessions safely after cancellation.
-
 
 ## [0.7.10] - 2026-09-20
 

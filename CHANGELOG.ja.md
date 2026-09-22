@@ -1,5 +1,21 @@
 # 変更履歴
 
+## [0.7.13] - 2026-09-23
+
+### 追加
+
+- browser binding transaction、Authorization Code + PKCE、ID token検証、server-side session、cookie経由のWebSocket identity、認証エンドポイントを含むOIDC Web認証を追加。
+- OIDC sessionとturn-local identity resolutionの回帰テストを追加。
+
+### 変更
+
+- 連続するfresh tool callのループガード既定値を`8`から`50`へ変更。環境変数による上書きは維持。
+- `llmcapa`の固定依存バージョンを`0.5.38`へ更新。
+
+### ドキュメント
+
+- 実装済みのOIDC Web session境界、cookie設定、残る永続化制約を文書化。
+
 ## [0.7.12] - 2026-09-21
 
 ### 追加
@@ -36,7 +52,6 @@
 ### 修正
 
 - キャンセル後の MCP session を安全に復旧。
-
 
 ## [0.7.10] - 2026-09-20
 
