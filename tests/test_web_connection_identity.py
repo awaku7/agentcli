@@ -28,12 +28,18 @@ def test_same_room_connections_keep_distinct_principals(tmp_path, monkeypatch):
     assert turn_a.room_id == turn_b.room_id == "shared"
     assert turn_a.principal_id == "user-A"
     assert turn_b.principal_id == "user-B"
-    assert call_with_turn_context(
-        turn_a, get_current_turn_context, identity_context=a.identity
-    ) == turn_a
-    assert call_with_turn_context(
-        turn_b, get_current_turn_context, identity_context=b.identity
-    ) == turn_b
+    assert (
+        call_with_turn_context(
+            turn_a, get_current_turn_context, identity_context=a.identity
+        )
+        == turn_a
+    )
+    assert (
+        call_with_turn_context(
+            turn_b, get_current_turn_context, identity_context=b.identity
+        )
+        == turn_b
+    )
     assert get_current_turn_context() is None
 
 
