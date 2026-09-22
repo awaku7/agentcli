@@ -149,13 +149,13 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                     cursor = document.cursor_position
                     before_cursor = document.text_before_cursor
                     token_start = cursor
-                    while token_start > 0 and not before_cursor[token_start - 1].isspace():
+                    while (
+                        token_start > 0 and not before_cursor[token_start - 1].isspace()
+                    ):
                         token_start -= 1
                     path_text = before_cursor[token_start:]
                     command_prefix = before_cursor[:token_start].lstrip()
-                    command_names = {
-                        value.strip().lower() for value in path_cmds
-                    }
+                    command_names = {value.strip().lower() for value in path_cmds}
                     command_path_context = bool(command_prefix) and (
                         command_prefix.split(None, 1)[0].lower() in command_names
                     )

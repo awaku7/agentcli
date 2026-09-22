@@ -78,10 +78,15 @@ jobs:
   compatibility-tests:
     if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.13"]
+        python-version: ["3.11", "3.13", "3.14"]
+        experimental: [false]
+        include:
+          - python-version: "3.15"
+            experimental: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -106,7 +111,7 @@ jobs:
         run: |
           # Keep cross-version coverage focused on runtime boundaries most
           # likely to expose Python/SDK compatibility differences. The full
-          # suite still runs on 3.12 for every change and nightly on all three.
+          # suite still runs on 3.12 for every change and nightly on all five.
           python -m pytest -q \
             tests/test_capability_resolver.py \
             tests/test_context_recovery_integration.py \
@@ -129,14 +134,19 @@ jobs:
             tests/test_tool_discovery.py
 
   nightly-full-tests:
-    # Scheduled/manual runs preserve the former three-version full-suite
+    # Scheduled/manual runs preserve the former five-version full-suite
     # safety net without charging every pull request for it.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+        experimental: [false]
+        include:
+          - python-version: "3.15"
+            experimental: true
     steps:
       - name: Checkout
         uses: actions/checkout@v4
