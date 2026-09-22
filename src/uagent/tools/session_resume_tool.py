@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import date
 from typing import Any
 
 from ..runtime.session_command_service import SessionCommandService
@@ -249,6 +250,21 @@ def _int_arg(args: dict[str, Any], name: str) -> tuple[int | None, str | None]:
     return parsed, None
 
 
+def _validate_date_range(date_start: str, date_end: str) -> str | None:
+    if not date_start and not date_end:
+        return None
+    if bool(date_start) != bool(date_end):
+        return "incomplete_date_range"
+    try:
+        start = date.fromisoformat(date_start)
+        end = date.fromisoformat(date_end)
+    except ValueError:
+        return "invalid_date_range"
+    if start > end:
+        return "invalid_date_range"
+    return None
+
+
 def run_tool(args: dict[str, Any]) -> str:
     callbacks = get_callbacks()
     store = callbacks.session_store
@@ -291,8 +307,9 @@ def run_tool(args: dict[str, Any]) -> str:
 
     date_start = str(args.get("date_start") or "").strip()
     date_end = str(args.get("date_end") or "").strip()
-    if bool(date_start) != bool(date_end):
-        return _result(ok=False, error="incomplete_date_range")
+    date_error = _validate_date_range(date_start, date_end)
+    if date_error:
+        return _result(ok=False, error=date_error)
 
     selectors = sum(
         (
