@@ -113,4 +113,5 @@ def test_web_worker_directory_is_captured_with_turn():
     assert routes.count("worker_dir = room.base_dir") == 2
     assert routes.count('"project_path": worker_dir') == 2
     assert routes.count("project_path=worker_dir") == 2
-    assert "os.chdir(project_path if turn_context is not None else room.base_dir)" in worker
+    expected = "os.chdir(project_path if turn_context is not None else room.base_dir)"
+    assert expected in worker
