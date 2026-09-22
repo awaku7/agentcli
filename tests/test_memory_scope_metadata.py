@@ -23,6 +23,27 @@ def test_new_personal_records_store_owner_and_project(
     assert record["memory_id"]
 
 
+def test_new_personal_records_default_owner_to_os_login(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_scope
+    from uagent.tools import long_memory
+    from uagent.tools.add_long_memory_tool import run_tool as add_long_memory
+
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
+    monkeypatch.setenv("UAGENT_MEMORY_FILE", str(tmp_path / "personal.jsonl"))
+    monkeypatch.delenv("UAGENT_MEMORY_OWNER", raising=False)
+    monkeypatch.delenv("USERDOMAIN", raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "app")
+    monkeypatch.setattr(memory_scope.getpass, "getuser", lambda: "alice")
+
+    assert "saved" in add_long_memory({"note": "personal rule"}).lower()
+    record = long_memory.load_long_memory_records()[0]
+
+    assert record["owner"] == "alice"
+    assert record["project"] == "app"
+
+
 def test_new_shared_records_store_owner_and_project(
     tmp_path: Path, monkeypatch
 ) -> None:
