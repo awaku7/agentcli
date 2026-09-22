@@ -19,6 +19,42 @@ ______________________________________________________________________
 
 `spreadsheet_analyze` provides read-only analysis of `.xlsm` workbooks. It uses `openpyxl` for worksheet structure and `oletools` for embedded VBA extraction; macros are never executed. The tool reports sheets, formulas, merged ranges, VBA procedures/calls, and potentially risky operations, and can return JSON or Markdown. Localized tool strings live in `src/uagent/tools/spreadsheet_analyze_tool.json`.
 
+## Memory V3 store boundary (staged)
+
+`runtime/memory_access.py` adds `MemoryAccessContext` and `ScopedMemoryStore`
+over the existing SQLite database. Contexts must come from authenticated,
+server-controlled identity and audience policy; never deserialize tool/browser
+payloads into an authorized context. `private_session` defaults to false. Set it
+only after verifying that the output and persisted history are principal-private.
+Room/project audiences require an explicit policy decision, not merely a room ID.
+
+Schema V3 adds `owner_id`, audience columns, revision-bound read grants and an
+access generation counter. Existing V2 rows remain `legacy` and continue to work
+through the trusted local `MemoryStore` API. They are invisible to scoped reads
+until an administrator explicitly verifies and applies `map_legacy_owner` for a
+nonempty legacy owner and project. No grants are created by migration. JSONL
+does not implement V3 grants and must not be used as a multi-user fallback.
+
+Scoped get/search/count/export use the same SQL access boundary. Personal
+writes derive ownership from the context; read recipients cannot update,
+forget or reshare. A grant permits only the confirmed record revision, within
+the same project and a private session. Returned shared references retain
+`owner_id`, `memory_id`, `revision` and `read_grant_id`, with
+`shared_reference=true`; private source paths and unrelated source IDs are omitted.
+The receiver must treat these as attributed evidence, never personal guidance.
+
+Grant changes and all memory writes increment `access_generation` transactionally,
+including legacy writes. Updating a memory revokes old grants; forgetting it
+removes all grants. Reopening the store does not reset the generation. It is a
+store generation only: future adapters must also track membership/policy changes.
+
+This is the first V3-4 store implementation. It does not yet connect the legacy
+Web Memory API, tools, projection, Profile, response delivery or continuation
+invalidation to this boundary. Do not treat OIDC login alone or this store API
+as completion of multi-user Memory isolation. V3-5/V3-6 must wire these paths,
+recheck access at provider/delivery boundaries, and implement the sharing UI/API.
+Run `tests/test_memory_access.py` and the existing Memory suites for this layer.
+
 ## 0. Runtime requirements
 
 - Python: 3.11+
