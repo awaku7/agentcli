@@ -65,10 +65,13 @@ def test_shadow_retrieval_drops_weak_matches_relative_to_best_candidate() -> Non
     ]
     assert result.eligible_records == 1
     assert result.excluded_records == 2
-    assert sum(
-        item.reason == "weak_query_match" and item.action == "exclude"
-        for item in result.diagnostics
-    ) == 2
+    assert (
+        sum(
+            item.reason == "weak_query_match" and item.action == "exclude"
+            for item in result.diagnostics
+        )
+        == 2
+    )
 
 
 def test_shadow_retrieval_supports_paths_and_short_japanese_queries() -> None:

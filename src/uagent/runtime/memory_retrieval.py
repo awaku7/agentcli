@@ -331,15 +331,12 @@ def shadow_retrieve_memories(
                         scope_status=item.scope_status,
                         relevance=item.relevance,
                     )
-                    if item.action == "candidate"
-                    and item.item_id in weak_item_ids
+                    if item.action == "candidate" and item.item_id in weak_item_ids
                     else item
                 )
                 for item in diagnostics
             ]
-            scored = [
-                item for item in scored if item[3].item_id not in weak_item_ids
-            ]
+            scored = [item for item in scored if item[3].item_id not in weak_item_ids]
     candidates = [item[3] for item in scored[:max_candidates]]
     eligible_records = len(scored)
     excluded_records = len(records) - eligible_records
