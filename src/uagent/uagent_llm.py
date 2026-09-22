@@ -367,16 +367,19 @@ def check_consecutive_tool_calls(
     record: bool = True,
     threshold: int | None = None,
 ) -> tuple[bool, str, int]:
-    """Detect too many consecutive calls of the same tool.
+    """Detect too many consecutive *rounds* using only the same tool.
 
-    A different tool starts a new streak. Arguments are intentionally ignored,
-    so calls of the same tool with different arguments still count together.
+    One invocation of this function represents one LLM tool round. Multiple
+    calls of the same tool in that round (for example parallel ``read_file``
+    calls for different files) count as a single round. A round containing
+    more than one tool name resets the streak. Arguments remain intentionally
+    ignored here; repeated identical arguments are handled by the general
+    tool-loop fingerprint guard.
     """
     global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
-    # Keep a model from using one discovery tool as a general-purpose reader.
-    # Users can raise this for intentionally long workflows, but the default
-    # must be low enough to stop a discovery tool from being selected
-    # repeatedly across rounds.
+    # Keep a model from using one discovery tool as a general-purpose reader
+    # across many consecutive rounds without penalizing legitimate parallel
+    # fan-out inside one round.
     raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "8")
     try:
         default_limit = max(1, int(raw_limit))
@@ -388,23 +391,33 @@ def check_consecutive_tool_calls(
             clear_consecutive_tool_call_streak()
         return False, "", 0
 
-    count = _CONSECUTIVE_TOOL_CALL_COUNT
-    name = _CONSECUTIVE_TOOL_CALL_NAME
+    round_names: list[str] = []
     for tool_call in tool_calls_list:
         function = tool_call.get("function", {}) if isinstance(tool_call, dict) else {}
         current_name = (
             str(function.get("name", "")).strip() if isinstance(function, dict) else ""
         )
-        if not current_name:
-            continue
-        if current_name == name:
-            count += 1
-        else:
-            name = current_name
-            count = 1
+        if current_name and current_name not in round_names:
+            round_names.append(current_name)
+
+    if not round_names:
+        if record:
+            clear_consecutive_tool_call_streak()
+        return False, "", 0
+
+    if len(round_names) != 1:
+        if record:
+            clear_consecutive_tool_call_streak()
+        return False, _("consecutive tool calls"), 0
+
+    current_name = round_names[0]
+    if current_name == _CONSECUTIVE_TOOL_CALL_NAME:
+        count = _CONSECUTIVE_TOOL_CALL_COUNT + 1
+    else:
+        count = 1
 
     if record:
-        _CONSECUTIVE_TOOL_CALL_NAME = name
+        _CONSECUTIVE_TOOL_CALL_NAME = current_name
         _CONSECUTIVE_TOOL_CALL_COUNT = count
     return count >= limit, _("consecutive tool calls"), count
 

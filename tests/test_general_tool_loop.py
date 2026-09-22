@@ -45,6 +45,57 @@ def test_consecutive_tool_calls_reset_when_tool_name_changes() -> None:
     assert count == 1
 
 
+def test_parallel_same_tool_calls_count_as_one_round() -> None:
+    calls = [_tc("read_file", filename=f"file-{i}.py") for i in range(5)]
+
+    blocked, name, count = check_consecutive_tool_calls(calls, threshold=3)
+    assert blocked is False
+    assert name == "consecutive tool calls"
+    assert count == 1
+
+    blocked, _, count = check_consecutive_tool_calls(
+        [
+            _tc("read_file", filename="next-a.py"),
+            _tc("read_file", filename="next-b.py"),
+        ],
+        threshold=3,
+    )
+    assert blocked is False
+    assert count == 2
+
+    blocked, name, count = check_consecutive_tool_calls(
+        [_tc("read_file", filename="third.py")], threshold=3
+    )
+    assert blocked is True
+    assert name == "consecutive tool calls"
+    assert count == 3
+
+
+def test_mixed_tool_round_resets_consecutive_round_streak() -> None:
+    blocked, _, count = check_consecutive_tool_calls(
+        [_tc("read_file", filename="one.py")], threshold=3
+    )
+    assert blocked is False
+    assert count == 1
+
+    blocked, name, count = check_consecutive_tool_calls(
+        [
+            _tc("read_file", filename="two.py"),
+            _tc("list_dir", path="."),
+        ],
+        threshold=3,
+    )
+    assert blocked is False
+    assert name == "consecutive tool calls"
+    assert count == 0
+
+    blocked, _, count = check_consecutive_tool_calls(
+        [_tc("read_file", filename="three.py")], threshold=3
+    )
+    assert blocked is False
+    assert count == 1
+
+
 def test_empty_round_resets_consecutive_tool_calls() -> None:
     check_consecutive_tool_calls([_tc("add_long_memory", note="one")], threshold=2)
     check_consecutive_tool_calls([])
