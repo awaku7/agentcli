@@ -8,7 +8,6 @@ from queue import Queue
 from uagent.tools import session_resume_tool
 from uagent.tools.context import ToolCallbacks, init_callbacks
 
-
 HOST_LOCALES = (
     "ar",
     "bn",
