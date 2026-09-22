@@ -32,9 +32,7 @@ def test_callback_from_another_browser_cannot_consume_transaction():
 
 def test_expired_transaction_is_rejected_and_capacity_is_reclaimed():
     now = [100.0]
-    store = OIDCTransactionStore(
-        ttl_seconds=30, max_pending=1, clock=lambda: now[0]
-    )
+    store = OIDCTransactionStore(ttl_seconds=30, max_pending=1, clock=lambda: now[0])
     expired = store.begin("browser-A")
     with pytest.raises(RuntimeError, match="capacity"):
         store.begin("browser-B")
