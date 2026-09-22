@@ -107,9 +107,7 @@ def test_web_worker_directory_is_captured_with_turn():
 
     root = Path(__file__).resolve().parents[1]
     routes = (root / "src/uagent/web_impl/routes_ws.py").read_text(encoding="utf-8")
-    worker = (root / "src/uagent/web_impl/agent_worker.py").read_text(
-        encoding="utf-8"
-    )
+    worker = (root / "src/uagent/web_impl/agent_worker.py").read_text(encoding="utf-8")
     assert routes.count("worker_dir = room.base_dir") == 2
     assert routes.count('"project_path": worker_dir') == 2
     assert routes.count("project_path=worker_dir") == 2
