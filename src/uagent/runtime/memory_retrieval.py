@@ -182,9 +182,7 @@ def _discriminative_relevance(
     denominator = sum(weights.values())
     if denominator <= 0.0:
         return 0.0
-    numerator = sum(
-        weight for ngram, weight in weights.items() if ngram in note_ngrams
-    )
+    numerator = sum(weight for ngram, weight in weights.items() if ngram in note_ngrams)
     return numerator / denominator
 
 
@@ -404,7 +402,9 @@ def shadow_retrieve_memories(
     scored.sort(key=lambda item: (-item[0], -item[1], -item[2]))
     if scored and phrase_match_ids:
         weaker_tier_ids = {
-            item[3].item_id for item in scored if item[3].item_id not in phrase_match_ids
+            item[3].item_id
+            for item in scored
+            if item[3].item_id not in phrase_match_ids
         }
         diagnostics = _mark_excluded_candidates(
             diagnostics, weaker_tier_ids, "weaker_match_tier"
@@ -429,9 +429,7 @@ def shadow_retrieve_memories(
             diagnostics, weak_discriminative_ids, "weak_discriminative_match"
         )
         scored = [
-            item
-            for item in scored
-            if item[3].item_id not in weak_discriminative_ids
+            item for item in scored if item[3].item_id not in weak_discriminative_ids
         ]
 
     if scored:
