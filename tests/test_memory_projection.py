@@ -233,20 +233,33 @@ def test_snapshot_fingerprint_covers_frozen_budgets(tmp_path, monkeypatch) -> No
     assert "database rule" not in str(first.to_diagnostics())
 
 
-def test_projection_is_disabled_without_explicit_opt_in(monkeypatch) -> None:
-    from uagent.runtime.memory_projection import (
-        apply_memory_projection,
-        prepare_memory_projection,
-    )
+def test_projection_is_enabled_by_default_and_can_be_disabled(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_projection, memory_scope
+    from uagent.runtime.memory_projection import prepare_memory_projection
+    from uagent.tools import long_memory, shared_memory
 
     monkeypatch.delenv("UAGENT_MEMORY_PROJECTION", raising=False)
+    monkeypatch.delenv("UAGENT_MEMORY_STRICT_SCOPE", raising=False)
+    monkeypatch.delenv("UAGENT_MEMORY_OWNER", raising=False)
+    monkeypatch.delenv("USERDOMAIN", raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
+    monkeypatch.setattr(memory_scope.getpass, "getuser", lambda: "alice")
+    monkeypatch.setattr(long_memory, "load_long_memory_records", lambda: [])
+    monkeypatch.setattr(shared_memory, "is_enabled", lambda: False)
+    monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: False)
+
     messages = [{"role": "user", "content": "database"}]
     core = type("Core", (), {})()
 
+    snapshot = prepare_memory_projection(messages, core)
+    assert snapshot is not None
+    assert snapshot.diagnostics["strict_scope"] is True
+    assert snapshot.diagnostics["owner"] == "alice"
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "0")
     assert prepare_memory_projection(messages, core) is None
-    projected = apply_memory_projection(messages, None, core)
-    assert projected == messages
-    assert projected is not messages
 
 
 def test_projection_diagnostics_are_added_to_context_plan_telemetry() -> None:
@@ -287,6 +300,7 @@ def test_projection_excludes_owner_mismatch_but_keeps_legacy_records(
     from uagent.tools import long_memory
 
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_STRICT_SCOPE", "0")
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
     monkeypatch.setattr(
         long_memory,
