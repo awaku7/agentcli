@@ -69,7 +69,7 @@ def test_v2_strict_scope_acceptance_gate_passes_without_llm() -> None:
     assert strict["provider_continuation_cleared"] is True
 
 
-def test_v2_projection_acceptance_gate_passes_without_llm() -> None:
+def test_v2_non_strict_projection_exposes_legacy_compatibility_cost() -> None:
     report = run_evaluation(
         _load_cases(),
         iterations=1,
@@ -78,42 +78,47 @@ def test_v2_projection_acceptance_gate_passes_without_llm() -> None:
 
     projection = report["modes"]["projection"]
 
-    assert report["overall_gate_passed"] is True
-    assert projection["gate_passed"] is True
+    # Non-strict projection intentionally retains legacy-unknown compatibility,
+    # so it is not the default-on acceptance gate.
+    assert report["overall_gate_passed"] is False
+    assert projection["gate_passed"] is False
     assert projection["recall"] == 1.0
-    assert projection["irrelevant_injection_rate"] == 0.0
+    assert projection["irrelevant_injection_rate"] > 0.0
     assert projection["scope_violation_count"] == 0
+    assert projection["legacy_unknown_selected_count"] > 0
     assert projection["forget_reappearance_count"] == 0
     assert projection["provider_continuation_cleared"] is True
 
 
-def test_v2_completion_keeps_rollout_features_opt_in(tmp_path, monkeypatch) -> None:
-    from uagent.runtime import memory_projection
+def test_v2_completion_defaults_to_strict_projection(tmp_path, monkeypatch) -> None:
+    from uagent.runtime import memory_projection, memory_scope
     from uagent.runtime.memory_projection import prepare_memory_projection
     from uagent.tools import long_memory, shared_memory
 
     monkeypatch.delenv("UAGENT_MEMORY_PROJECTION", raising=False)
     monkeypatch.delenv("UAGENT_MEMORY_STRICT_SCOPE", raising=False)
+    monkeypatch.delenv("UAGENT_MEMORY_OWNER", raising=False)
+    monkeypatch.delenv("USERDOMAIN", raising=False)
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
-
-    core = type("Core", (), {})()
-    messages = [{"role": "user", "content": "database"}]
-
-    # Memory V2 completes with projection still opt-in.
-    assert prepare_memory_projection(messages, core) is None
-
-    # Enabling projection alone must retain legacy-compatible, non-strict scope.
-    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setattr(memory_scope.getpass, "getuser", lambda: "alice")
     monkeypatch.setattr(
         long_memory,
         "load_long_memory_records",
-        lambda: [{"note": "legacy database rule"}],
+        lambda: [{"note": "database rule", "project": tmp_path.name}],
     )
     monkeypatch.setattr(shared_memory, "is_enabled", lambda: False)
     monkeypatch.setattr(memory_projection, "is_profiling_enabled", lambda: False)
 
+    core = type("Core", (), {})()
+    messages = [{"role": "user", "content": "database"}]
     snapshot = prepare_memory_projection(messages, core)
 
     assert snapshot is not None
-    assert snapshot.diagnostics["strict_scope"] is False
-    assert any(item.note == "legacy database rule" for item in snapshot.evidence_items)
+    assert snapshot.diagnostics["strict_scope"] is True
+    assert snapshot.diagnostics["owner"] == "alice"
+    assert snapshot.diagnostics["defaulted_owner_records"]["personal"] == 1
+    assert any(item.note == "database rule" for item in snapshot.evidence_items)
+
+    # Rollback remains explicit and reversible.
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "0")
+    assert prepare_memory_projection(messages, core) is None
