@@ -1178,6 +1178,8 @@ directory_role_violation_count
 
 完了条件: 同じ room の2 connection に異なる principal を割り当てられる。
 
+V3-2 の接続境界実装では、WebSocket handshake 時に選択中の resolver で identity を確定し、接続ごとに保持する。user input と LLM 実行 command は接続から生成した immutable TurnContext を worker に渡す。未解決・未認証接続は room に参加させず、非 local mode の直接 worker 起動も拒否する。現段階では local resolver のみが利用可能で、異なる実ユーザーの認証は V3-3 以降で実装する。共有 room の UI 履歴と既存 Memory store のアクセス制御は V3-4 以降の対象である。
+
 ### PR V3-3: OIDC authentication
 
 - Authorization Code + PKCE

@@ -11,9 +11,14 @@ from fastapi import WebSocket, WebSocketDisconnect
 from ..i18n import _
 from .. import core
 from ..providers import util_providers as providers
+from ..runtime.identity_context import (
+    IdentityConfigurationError,
+    IdentityResolutionError,
+)
 from .. import util_tools as tools_util
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
+from .connection_identity import resolve_web_connection
 from .app import app
 from .helpers import _enrich_message_attachments, _load_input_history
 from .history import _bootstrap_room_on_connect
@@ -33,6 +38,11 @@ async def websocket_endpoint(websocket: WebSocket):
         ws_lang = "en"
     if not room_id:
         # require explicit room for safety
+        await websocket.close(code=1008)
+        return
+    try:
+        connection = resolve_web_connection(websocket, room_id)
+    except (IdentityConfigurationError, IdentityResolutionError):
         await websocket.close(code=1008)
         return
     room = web_manager.get_room(room_id)
@@ -57,9 +67,18 @@ async def websocket_endpoint(websocket: WebSocket):
                 forward_to_mesh(str(user_text or ""))
                 if is_chat_mode() == "on":
                     continue
+                worker_dir = room.base_dir
                 threading.Thread(
                     target=run_agent_worker,
                     args=(room, user_text, payload.get("attachments")),
+                    kwargs={
+                        "project_path": worker_dir,
+                        "turn_context": connection.make_turn(
+                            project_path=worker_dir,
+                            session_id=str(getattr(core, "session_id", "") or ""),
+                        ),
+                        "identity_context": connection.identity,
+                    },
                     daemon=True,
                 ).start()
 
@@ -137,9 +156,20 @@ async def websocket_endpoint(websocket: WebSocket):
                         isinstance(_result, tools_util.CommandResult)
                         and _result.run_llm
                     ):
+                        worker_dir = room.base_dir
                         threading.Thread(
                             target=run_agent_worker,
                             args=(room, _result.prompt, None),
+                            kwargs={
+                                "project_path": worker_dir,
+                                "turn_context": connection.make_turn(
+                                    project_path=worker_dir,
+                                    session_id=str(
+                                        getattr(core, "session_id", "") or ""
+                                    ),
+                                ),
+                                "identity_context": connection.identity,
+                            },
                             daemon=True,
                         ).start()
                     elif _output:

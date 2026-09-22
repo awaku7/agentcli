@@ -17,6 +17,14 @@ from .. import uagent_llm as llm_util
 from ..runtime.logging_setup import log_event
 from ..runtime.execution import lifecycle_execution
 from ..runtime.turn_context_runtime import call_with_resolved_turn_context
+from ..runtime.session_store import project_id_from_path
+from ..runtime.identity_context import (
+    IdentityContext,
+    IdentityResolutionError,
+    TurnContext,
+    call_with_turn_context,
+    resolve_identity_mode,
+)
 from ..runtime.round_outcome import project_round_outcome, round_outcome_event
 from ..image_session import build_image_session_message
 from ..llm_helpers import LLMWaitInterrupted
@@ -30,6 +38,10 @@ def run_agent_worker(
     room: WebRoom,
     user_input: str,
     attachments: Optional[list[dict[str, Any]]] = None,
+    *,
+    turn_context: TurnContext | None = None,
+    identity_context: IdentityContext | None = None,
+    project_path: str | None = None,
 ):
     """Run one user turn for a room.
 
@@ -40,7 +52,31 @@ def run_agent_worker(
     - finally always clears room/core status and releases locks
     """
 
+    if turn_context is None and resolve_identity_mode() != "local":
+        raise IdentityResolutionError("Web worker requires connection identity")
+    if turn_context is not None:
+        if turn_context.entry_point != "web" or turn_context.room_id != room.room_id:
+            raise IdentityResolutionError("Web turn room mismatch")
+        if identity_context is None or not identity_context.authenticated:
+            raise IdentityResolutionError("Web turn requires authenticated identity")
+        if (
+            turn_context.principal_id != identity_context.principal_id
+            or turn_context.authenticated != identity_context.authenticated
+            or turn_context.authn_kind != identity_context.authn_kind
+        ):
+            raise IdentityResolutionError("Web identity/turn mismatch")
+        if not project_path or turn_context.project_id != project_id_from_path(
+            project_path
+        ):
+            raise IdentityResolutionError("Web turn project mismatch")
+
     def _run_web_turn(fn, *args, **kwargs):
+        if turn_context is not None:
+            return call_with_turn_context(
+                turn_context, fn, *args, identity_context=identity_context, **kwargs
+            )
+        # Legacy direct worker calls use the selected resolver; non-local modes
+        # fail closed because no authenticated connection was supplied.
         return call_with_resolved_turn_context(
             fn,
             *args,
@@ -85,7 +121,7 @@ def run_agent_worker(
     try:
         # Switch to this room's base_dir for the duration of the worker
         try:
-            os.chdir(room.base_dir)
+            os.chdir(project_path if turn_context is not None else room.base_dir)
         except Exception:
             pass
 
