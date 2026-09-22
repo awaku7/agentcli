@@ -147,6 +147,146 @@
       "expected_notes": [
         "V2デモのPython合言葉は COBALT-731"
       ]
+    },
+    {
+      "id": "phrase_normalization_japanese_punctuation",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "V2デモの料理の合言葉は？",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "V2デモのPython合言葉は COBALT-731",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2デモの料理の合言葉は MISO-204。",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2デモの旅行の合言葉は RAIL-918。",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "V2デモの料理の合言葉は MISO-204。"
+      ]
+    },
+    {
+      "id": "discriminative_japanese_missing_particle",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "V2デモの料理合言葉は？",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "V2デモのPython合言葉は COBALT-731",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2デモの料理の合言葉は MISO-204。",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2デモの旅行の合言葉は RAIL-918。",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "V2デモの料理の合言葉は MISO-204。"
+      ]
+    },
+    {
+      "id": "discriminative_chinese",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "V2演示料理口令是什么？",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "V2演示的Python口令是 COBALT-731。",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2演示的料理口令是 MISO-204。",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2演示的旅行口令是 RAIL-918。",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "V2演示的料理口令是 MISO-204。"
+      ]
+    },
+    {
+      "id": "discriminative_thai",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "V2เดโมรหัสอาหารคืออะไร?",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "V2เดโมรหัสPythonคือ COBALT-731",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2เดโมรหัสอาหารคือ MISO-204",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2เดโมรหัสท่องเที่ยวคือ RAIL-918",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "V2เดโมรหัสอาหารคือ MISO-204"
+      ]
+    },
+    {
+      "id": "word_based_english",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "V2 demo cooking passphrase?",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "V2 demo Python passphrase is COBALT-731",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2 demo cooking passphrase is MISO-204",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2 demo travel passphrase is RAIL-918",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "V2 demo cooking passphrase is MISO-204"
+      ]
     }
   ]
 }
