@@ -111,6 +111,74 @@ def test_create_session_has_unique_id_and_can_be_reopened(tmp_path):
     assert reopened.get_session(first.session_id)["entry_point"] == "cli"
 
 
+def test_touch_session_preserves_created_at_and_updates_last_used_at(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    original_created = "2001-02-03 04:05:06"
+    original_last_used = "2001-02-03 04:05:06"
+    store._execute(
+        "UPDATE sessions SET created_at = ?, last_used_at = ? WHERE session_id = ?",
+        (original_created, original_last_used, session.session_id),
+    )
+
+    store.touch_session(session.session_id)
+
+    row = store.get_session(session.session_id)
+    assert row["created_at"] == original_created
+    assert row["last_used_at"] != original_last_used
+
+
+def test_list_sessions_orders_by_last_used_at(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    first = store.create_session(project="demo", entry_point="cli")
+    second = store.create_session(project="demo", entry_point="cli")
+    store._execute(
+        "UPDATE sessions SET created_at = ?, last_used_at = ? WHERE session_id = ?",
+        ("2026-09-22 10:00:00", "2026-09-22 10:00:00", first.session_id),
+    )
+    store._execute(
+        "UPDATE sessions SET created_at = ?, last_used_at = ? WHERE session_id = ?",
+        ("2026-09-21 10:00:00", "2026-09-22 11:00:00", second.session_id),
+    )
+
+    rows = store.list_sessions()
+
+    assert [row["session_id"] for row in rows[:2]] == [
+        second.session_id,
+        first.session_id,
+    ]
+    assert rows[0]["created_at"] == "2026-09-21 10:00:00"
+    assert rows[0]["last_used_at"] == "2026-09-22 11:00:00"
+
+
+def test_legacy_session_schema_migrates_last_used_at_from_created_at(tmp_path):
+    db_path = tmp_path / "legacy.sqlite3"
+    connection = sqlite3.connect(db_path)
+    connection.execute("""
+        CREATE TABLE sessions (
+            session_id TEXT PRIMARY KEY,
+            project TEXT,
+            project_key TEXT NOT NULL,
+            project_path TEXT,
+            entry_point TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )
+        """)
+    connection.execute(
+        "INSERT INTO sessions(session_id, project, project_key, entry_point, created_at) "
+        "VALUES (?, ?, ?, ?, ?)",
+        ("legacy-1", "demo", "legacy-key", "cli", "2026-09-21 09:00:00"),
+    )
+    connection.commit()
+    connection.close()
+
+    store = SessionStore(db_path)
+
+    row = store.get_session("legacy-1")
+    assert row["created_at"] == "2026-09-21 09:00:00"
+    assert row["last_used_at"] == "2026-09-21 09:00:00"
+
+
 def test_execute_retries_transient_database_lock(monkeypatch, tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     calls = 0

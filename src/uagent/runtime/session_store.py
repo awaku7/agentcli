@@ -306,7 +306,8 @@ class SessionStore:
                     project_key TEXT NOT NULL,
                     project_path TEXT,
                     entry_point TEXT NOT NULL,
-                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    last_used_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
                 CREATE TABLE IF NOT EXISTS messages (
                     message_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -431,6 +432,13 @@ class SessionStore:
                 self._connection.execute(
                     "ALTER TABLE sessions ADD COLUMN project_path TEXT"
                 )
+            if "last_used_at" not in columns:
+                self._connection.execute(
+                    "ALTER TABLE sessions ADD COLUMN last_used_at TEXT"
+                )
+                self._connection.execute(
+                    "UPDATE sessions SET last_used_at = created_at WHERE last_used_at IS NULL"
+                )
             message_columns = {
                 row["name"]
                 for row in self._connection.execute("PRAGMA table_info(messages)")
@@ -512,7 +520,8 @@ class SessionStore:
     @_db_locked
     def get_session(self, session_id: str) -> dict[str, Any]:
         row = self._execute(
-            "SELECT session_id, project, project_key, project_path, entry_point, created_at FROM sessions WHERE session_id = ?",
+            "SELECT session_id, project, project_key, project_path, entry_point, "
+            "created_at, last_used_at FROM sessions WHERE session_id = ?",
             (session_id,),
         ).fetchone()
         if row is None:
@@ -524,7 +533,8 @@ class SessionStore:
         """Mark a session as most recently used."""
         self._require_session(session_id)
         self._execute(
-            "UPDATE sessions SET created_at = strftime('%Y-%m-%d %H:%M:%f', 'now') WHERE session_id = ?",
+            "UPDATE sessions SET last_used_at = strftime('%Y-%m-%d %H:%M:%f', 'now') "
+            "WHERE session_id = ?",
             (session_id,),
         )
 
@@ -676,7 +686,7 @@ class SessionStore:
         limit: int | None = None,
         exclude_session_id: str | None = None,
     ) -> list[dict[str, Any]]:
-        """List stored sessions, newest first.
+        """List stored sessions, most recently used first.
 
         ``limit`` is applied in SQL rather than after fetching every session.
         This keeps the interactive ``:logs`` command fast on large histories.
@@ -696,14 +706,15 @@ class SessionStore:
             params.append(max(0, int(limit)))
 
         rows = self._execute(
-            "SELECT s.session_id, s.project, s.project_path, s.entry_point, s.created_at, "
+            "SELECT s.session_id, s.project, s.project_path, s.entry_point, "
+            "s.created_at, s.last_used_at, "
             "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id ASC LIMIT 1) AS first_message, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id DESC LIMIT 1) AS last_message, "
             "(SELECT summary FROM session_summaries ss WHERE ss.session_id = s.session_id) AS summary "
             "FROM sessions s"
             + where
-            + " ORDER BY s.created_at DESC, s.rowid DESC"
+            + " ORDER BY COALESCE(s.last_used_at, s.created_at) DESC, s.rowid DESC"
             + limit_sql,
             tuple(params),
         ).fetchall()
