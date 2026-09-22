@@ -44,7 +44,7 @@ updated_at
 note
 ```
 
-`UAGENT_MEMORY_OWNER` は明示 owner の fallback、`UAGENT_MEMORY_PROJECT` は project override である。
+`UAGENT_MEMORY_OWNER` は明示 owner の override、`UAGENT_MEMORY_PROJECT` は project override である。V2のlocal/single-user実行では、owner未指定時に現在のOSログインIDをlocal ownerとして使用する。
 
 Memory Projection は owner / project を利用できるが、owner は process / runtime 側の値であり、WebSocket connection ごとの発言者 identity ではない。
 
@@ -244,7 +244,7 @@ authenticated= true
 
 `local` は machine 全体のユーザーIDではなく、現在の UAG user-state namespace における local principal を意味する。
 
-OS username を Memory key に直接使用しない。
+V2はlocal ownerの互換ラベルとしてOSログインIDを使用するが、v3ではその文字列をstable `principal_id`として引き継がない。V3移行時にLocalIdentityResolverのprincipalへ正規化する。
 
 既存 `UAGENT_MEMORY_OWNER` は local / legacy override として残せるが、multi-user Web の全 user 共通 owner には使わない。
 
@@ -1015,11 +1015,12 @@ Admin 全体検索は通常 user API と分離し、明示 authorization を要�
 ## 24. Proposed configuration
 
 ```env
-# Memory rollout
-UAGENT_MEMORY_PROJECTION=0
-UAGENT_MEMORY_STRICT_SCOPE=0
+# V2 Memory rollout baseline (default-on)
+UAGENT_MEMORY_PROJECTION=1
+UAGENT_MEMORY_STRICT_SCOPE=1
 
-# Existing compatibility
+# V2 local compatibility / explicit overrides
+# UAGENT_MEMORY_OWNER unset -> current OS login ID
 UAGENT_MEMORY_OWNER=
 UAGENT_MEMORY_PROJECT=
 
@@ -1133,8 +1134,8 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 
 ### Legacy
 
-- local mode で v0.7.12 compatibility を維持。
-- owner 不明 record は multi-user strict mode で除外。
+- local modeではV2のdefault-on strict projectionとOS-login owner fallbackを維持する。
+- multi-user modeではV2のOS-login ownerをauthenticated principalへ移行し、owner不明recordをfail-closedで扱う。
 
 追加 metric:
 
@@ -1256,7 +1257,7 @@ directory_role_violation_count
 ## 28. Rollout
 
 ```text
-v0.7.12 single-user baseline
+V2 single-user default-on strict projection
         ↓
 IdentityContext + selectable resolver
         ↓
@@ -1274,10 +1275,10 @@ Enterprise adapters (AD / Trusted Proxy / OAuth / Token)
         ↓
 Authentication management UI/API
         ↓
-Default decision
+Multi-user default decision
 ```
 
-Memory Projection の default ON と multi-user authentication rollout は別判断とする。
+V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、authenticated multi-user projection / shared-room Memoryをどの段階でdefault化するかであり、V2のlocal defaultを再びOFFへ戻すことではない。
 
 認証方式ごとに同じ Memory isolation gate を通す。
 
@@ -1287,7 +1288,7 @@ Memory Projection の default ON と multi-user authentication rollout は別判
 
 - `owner = room_id`
 - `owner = IP address`
-- `owner = email / UPN / DOMAIN\\username`
+- `owner = email / UPN / DOMAIN\\username` をv3のstable authenticated principalとして使う
 - browser random ID を authenticated user と同等に扱う
 - client が owner を自由指定
 - `UAGENT_MEMORY_OWNER` を multi-user Web 全員に適用

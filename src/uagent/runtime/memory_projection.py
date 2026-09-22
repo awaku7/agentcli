@@ -1,4 +1,4 @@
-"""Opt-in, turn-local projection of profile and retrieved memory evidence."""
+"""Turn-local projection of profile and retrieved memory evidence."""
 
 from __future__ import annotations
 
@@ -61,10 +61,39 @@ def _project_name(core: Any) -> str:
 
 
 def _memory_owner(core: Any) -> str:
-    """Resolve the explicit owner boundary for this runtime projection."""
-    return str(
-        getattr(core, "memory_owner", "") or env_get("UAGENT_MEMORY_OWNER", "") or ""
-    ).strip()
+    """Resolve the owner boundary, falling back to the current OS login."""
+    from .memory_scope import resolve_memory_owner
+
+    return resolve_memory_owner(getattr(core, "memory_owner", ""))
+
+
+def _records_with_default_owner(
+    records: Sequence[Any], owner: str
+) -> tuple[list[Any], int]:
+    """Treat owner-less legacy records as belonging to the local OS user.
+
+    This is a V2 single-user compatibility rule. It is intentionally read-only:
+    stored records are not rewritten. Missing project metadata is not inferred,
+    so strict scope still rejects records whose project boundary is unknown.
+    """
+    normalized: list[Any] = []
+    defaulted = 0
+    for record in records:
+        if not isinstance(record, dict):
+            normalized.append(record)
+            continue
+        has_owner = any(
+            str(record.get(name) or "").strip()
+            for name in ("owner", "owner_id", "user", "user_id")
+        )
+        if has_owner or not owner:
+            normalized.append(record)
+            continue
+        copied = dict(record)
+        copied["owner"] = owner
+        normalized.append(copied)
+        defaulted += 1
+    return normalized, defaulted
 
 
 def _projection_fingerprint(
@@ -223,8 +252,8 @@ def _items_from_result(
 def prepare_memory_projection(
     messages: Sequence[dict[str, Any]], core: Any
 ) -> MemoryProjectionSnapshot | None:
-    """Prepare one opt-in snapshot without changing ``messages``."""
-    if not _enabled("UAGENT_MEMORY_PROJECTION"):
+    """Prepare one default-on snapshot without changing ``messages``."""
+    if not _enabled("UAGENT_MEMORY_PROJECTION", default=True):
         return None
 
     owner = _memory_owner(core)
@@ -232,15 +261,20 @@ def prepare_memory_projection(
     query_plan = build_memory_retrieval_query(messages, core, project=project)
     query = query_plan.text
     generation = memory_generation(core)
-    strict_scope = _enabled("UAGENT_MEMORY_STRICT_SCOPE")
+    strict_scope = _enabled("UAGENT_MEMORY_STRICT_SCOPE", default=True)
     owner_filter = owner if owner else ("<missing-owner>" if strict_scope else "")
     allow_legacy_unknown = not strict_scope
     max_candidates = _positive_int("UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES", 20)
+    personal_defaulted_owner = 0
+    shared_defaulted_owner = 0
     try:
         from ..tools import long_memory, shared_memory
 
+        personal_records, personal_defaulted_owner = _records_with_default_owner(
+            long_memory.load_long_memory_records(), owner
+        )
         personal_result = shadow_retrieve_memories(
-            long_memory.load_long_memory_records(),
+            personal_records,
             query=query,
             scope="personal",
             owner=owner_filter,
@@ -250,8 +284,11 @@ def prepare_memory_projection(
         )
         shared_result: MemoryShadowResult | None = None
         if shared_memory.is_enabled():
+            shared_records, shared_defaulted_owner = _records_with_default_owner(
+                shared_memory.load_shared_memory_records(), owner
+            )
             shared_result = shadow_retrieve_memories(
-                shared_memory.load_shared_memory_records(),
+                shared_records,
                 query=query,
                 scope="shared",
                 owner=owner_filter,
@@ -268,6 +305,7 @@ def prepare_memory_projection(
                 "query_chars": len(query),
                 "query_sources": list(query_plan.sources),
                 "query_context_enriched": query_plan.context_enriched,
+                "owner": owner or "unknown",
                 "project": project,
                 "memory_generation": generation,
                 "error": type(exc).__name__,
@@ -356,6 +394,10 @@ def prepare_memory_projection(
         "evidence_count": len(unique_items),
         "memory_budget_chars": memory_budget_chars,
         "memory_budget_used_chars": len(projected_evidence),
+        "defaulted_owner_records": {
+            "personal": personal_defaulted_owner,
+            "shared": shared_defaulted_owner,
+        },
         "selection_reasons": {
             "personal": "query_match",
             "shared": "query_match" if shared_result is not None else "disabled",

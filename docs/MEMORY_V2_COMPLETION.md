@@ -1,90 +1,94 @@
 # Memory V2 Completion Decision
 
-Status: **Complete**  
+Status: **Complete after default-on rollout correction**  
 Decision date: 2026-09-22 (JST)  
-Baseline after acceptance merge: `15affcedbc39f2ed34efda8ffd399fcbbbb8707d`
+Baseline before default-on change: `e4b157ba143aa497eaf270473ce090f83bb545b2`
 
-## 1. Completion decision
+## 1. Final completion decision
 
-Memory V2 is complete as an implemented, tested, opt-in memory projection architecture.
+Memory V2 is complete when its safer retrieval path is the normal runtime path, not only an opt-in experiment.
 
-The completion decision does **not** require Memory Projection or Strict Scope to become default-on. The V2 rollout defaults remain:
-
-```text
-UAGENT_MEMORY_PROJECTION=0
-UAGENT_MEMORY_STRICT_SCOPE=0
-```
-
-Users and controlled deployments may explicitly enable either feature for evaluation or production use.
-
-## 2. Why the defaults remain opt-in
-
-The V2 implementation and deterministic acceptance contracts are in place, including:
-
-- reliable Memory save/result handling;
-- structured Memory records with stable IDs and revisions;
-- SQLite/JSONL migration support;
-- owner/project scope boundaries;
-- read-only shadow retrieval;
-- turn-local Memory Projection;
-- Applicable User Guidance separated from retrieved evidence;
-- contextual retrieval queries;
-- frozen projection snapshots across retries/tool loops;
-- forget-generation invalidation and stale-snapshot rejection;
-- durable SessionStore/history boundaries for derived Memory context;
-- deterministic retrieval/evaluation gates;
-- baseline/shadow/projection/strict-scope comparison runner;
-- host-routing acceptance contracts for CLI, GUI, Web, and A2A;
-- Responses continuation invalidation/retry coverage.
-
-However, deterministic/local acceptance is intentionally not treated as proof that default-on behavior is appropriate for every deployment. A default-on decision would additionally benefit from measured production data covering provider/model combinations, real workload latency, context growth, legacy-memory populations, and deployment-specific compatibility.
-
-Keeping both features opt-in therefore preserves backward compatibility while leaving the completed V2 mechanisms available for controlled rollout.
-
-## 3. Final V2 rollout contract
-
-### Projection disabled
-
-With no explicit setting:
-
-```text
-UAGENT_MEMORY_PROJECTION=0
-```
-
-UAG keeps the existing compatibility behavior and does not replace the broad startup Memory path with turn-local retrieval projection.
-
-### Projection enabled, Strict Scope disabled
-
-```text
-UAGENT_MEMORY_PROJECTION=1
-UAGENT_MEMORY_STRICT_SCOPE=0
-```
-
-Turn-local projection is enabled while legacy records with unknown owner/project metadata remain eligible under the compatibility policy.
-
-### Projection enabled, Strict Scope enabled
+The final defaults are:
 
 ```text
 UAGENT_MEMORY_PROJECTION=1
 UAGENT_MEMORY_STRICT_SCOPE=1
 ```
 
-Turn-local projection is enabled and records without a verifiable owner/project boundary are rejected from the projection candidate set.
+Both remain explicitly reversible: setting either variable to `0` disables that layer for rollback or compatibility testing.
 
-Strict Scope is intentionally not made the default while legacy records may still exist without complete scope metadata.
+## 2. Default owner rule
 
-## 4. Acceptance evidence
+`UAGENT_MEMORY_OWNER` remains the explicit override. When it is not configured, V2 resolves the owner from the current OS login.
 
-The deterministic comparison path is implemented by:
+Resolution order:
 
 ```text
-python -m uagent.runtime.memory_evaluation_runner \
-  --fixture tests/fixtures/memory_evaluation_cases.json \
-  --gate-mode strict_scope \
-  --enforce
+explicit owner argument
+-> UAGENT_MEMORY_OWNER
+-> OS login ID
+-> local-default (last-resort fallback)
 ```
 
-The focused V2 acceptance group is:
+On Windows, `USERDOMAIN\\username` is used when `USERDOMAIN` is available; otherwise the login username is used.
+
+New Personal and Shared Memory records are therefore written with a non-empty owner by default.
+
+For legacy records with no owner, projection treats the record as owned by the current OS login user for V2 single-user compatibility. This compatibility is read-only and does not rewrite the stored record.
+
+Missing project metadata is **not** inferred. Under Strict Scope, a legacy record whose project cannot be verified remains excluded. This avoids silently assigning old data to whichever project happens to read it first.
+
+## 3. Why both defaults are ON
+
+The purpose of V2 is to improve normal Memory behavior. Leaving Projection and Strict Scope disabled would preserve most of the old broad-memory behavior and would not deliver the main retrieval improvement by default.
+
+The measured deterministic comparison on 2026-09-22 produced:
+
+| Mode | Recall | Irrelevant injection | Scope violations | Legacy unknown selected | Forget reappearance | Avg context chars | Mean latency ms | Gate |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| baseline | 1.000 | 0.654 | 4 | 4 | 0 | 166.8 | 1.733 | INFO |
+| shadow | 1.000 | 0.333 | 0 | 3 | 0 | 0.0 | 0.026 | FAIL |
+| projection | 1.000 | 0.333 | 0 | 3 | 0 | 237.6 | 0.055 | FAIL |
+| strict_scope | 1.000 | 0.000 | 0 | 0 | 0 | 133.4 | 0.040 | PASS |
+
+The non-strict projection result is intentionally not accepted as the production default because legacy-unknown compatibility still injected irrelevant records in the fixture. Strict Scope removed those records while retaining fixture recall.
+
+These measurements are local deterministic retrieval/render measurements. They do not include LLM/provider network latency and must not be presented as an external-provider benchmark.
+
+## 4. Final V2 runtime contract
+
+### Normal operation
+
+No Memory rollout environment variables are required:
+
+```text
+Projection   = ON
+Strict Scope = ON
+Owner        = explicit configured owner, otherwise OS login ID
+Project      = UAGENT_MEMORY_PROJECT, otherwise workdir-derived project ID
+```
+
+The provider-facing request receives a frozen, turn-local Memory projection. Broad startup Memory blocks are removed from the provider call when the projection is applied, and derived projection text is not persisted as original conversation history.
+
+### Compatibility rollback
+
+Projection can be disabled explicitly:
+
+```text
+UAGENT_MEMORY_PROJECTION=0
+```
+
+Strict Scope can be disabled explicitly for legacy compatibility experiments:
+
+```text
+UAGENT_MEMORY_STRICT_SCOPE=0
+```
+
+Disabling Strict Scope allows owner/project-unknown legacy records to remain eligible. The evaluation runner demonstrates why that mode is not the default.
+
+## 5. Acceptance commands
+
+Run the focused V2 acceptance group:
 
 ```text
 python -m pytest -q \
@@ -98,50 +102,46 @@ python -m pytest -q \
   tests/test_previous_response_id_compat.py
 ```
 
-The repository does not currently expose a required GitHub Actions status check for this acceptance group. Therefore this document records the architectural/default decision and the executable acceptance contract; it does not claim that every external provider/model combination has been exercised in CI.
+Run the strict deterministic gate:
 
-## 5. Conditions for revisiting default-on
+```text
+python -m uagent.runtime.memory_evaluation_runner \
+  --gate-mode strict_scope \
+  --enforce
+```
 
-Changing either V2 feature to default-on is a separate rollout decision, not unfinished V2 implementation work.
+A scope leak, forgotten-memory reappearance, history contamination, or stale provider continuation surviving forget remains a stop condition.
 
-Before changing defaults, collect representative measurements for:
+## 6. Multi-user boundary
 
-- recall and irrelevant-injection rate;
-- scope violations;
-- forgotten-memory reappearance;
-- latency and context-size deltas;
-- legacy-record exclusion impact;
-- CLI/GUI/Web/A2A behavior in representative deployments;
-- stateless providers and Responses-style continuation paths;
-- provider cache/retry/recovery behavior where applicable.
+The OS-login fallback is deliberately a V2 local/single-user identity rule. It is not a substitute for authenticated multi-user identity.
 
-Any scope leak, forgotten-memory reappearance, history contamination, or false save-success remains a stop condition.
+For a Web or A2A service shared by multiple human users, the process OS account identifies the service process, not the remote human. V3 must replace this fallback with authenticated `principal_id` propagation before Personal Memory is considered multi-user isolated.
 
-## 6. What is outside V2
+This does not block V2 default-on for the existing local/single-user model; it defines the boundary V3 must replace.
 
-The following work belongs to V3 or later and is not required to reopen V2:
+## 7. What remains outside V2
 
-- stable multi-user `principal_id` identity;
-- selectable authentication modes;
-- OIDC / Entra ID / AD FS / Windows AD integration;
+The following belongs to V3 or later:
+
+- stable authenticated `principal_id`;
+- OIDC / OAuth / trusted-proxy / Windows AD identity modes;
 - per-principal Profile isolation;
 - Personal / Room / Project / Global audience separation;
 - shared-room Memory ACLs and management APIs;
-- multi-user Web identity propagation;
 - tenant-level isolation;
-- Brain/Dream or semantic/embedding retrieval as a new default path.
+- Brain/Dream or embedding retrieval as a new source layer.
 
-These extend the completed V2 projection/retrieval contracts rather than replacing their source-of-truth, snapshot, scope, forget, and evaluation principles.
-
-## 7. Final state
-
-Memory V2 is closed with the following state:
+## 8. Final state
 
 ```text
 implementation        = complete
 acceptance contract   = complete
 evaluation runner     = complete
-projection default    = OFF (opt-in)
-strict scope default  = OFF (opt-in)
+projection default    = ON
+strict scope default  = ON
+default owner         = OS login ID (unless explicitly configured)
+legacy owner fallback = current OS login ID
+legacy project unknown= excluded under strict scope
 V3 identity work      = separate next phase
 ```

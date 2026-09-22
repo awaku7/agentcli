@@ -85,11 +85,11 @@ def _record_boundary_status(
 def _strict_expected_notes(case: Mapping[str, Any]) -> set[str]:
     """Remove legacy-unknown expectations when strict scope intentionally rejects them."""
     expected = {
-        _clean(note)
-        for note in (case.get("expected_notes") or [])
-        if _clean(note)
+        _clean(note) for note in (case.get("expected_notes") or []) if _clean(note)
     }
-    records = [record for record in (case.get("records") or []) if isinstance(record, dict)]
+    records = [
+        record for record in (case.get("records") or []) if isinstance(record, dict)
+    ]
     scope = _clean(case.get("scope")) or "personal"
     owner = _clean(case.get("owner"))
     project = _clean(case.get("project"))
@@ -116,11 +116,7 @@ def _strict_expected_notes(case: Mapping[str, Any]) -> set[str]:
 def _expected_notes(case: Mapping[str, Any], mode: str) -> set[str]:
     if mode == "strict_scope":
         return _strict_expected_notes(case)
-    return {
-        _clean(note)
-        for note in (case.get("expected_notes") or [])
-        if _clean(note)
-    }
+    return {_clean(note) for note in (case.get("expected_notes") or []) if _clean(note)}
 
 
 def _baseline_selected_records(
@@ -140,7 +136,9 @@ def _baseline_selected_records(
 
 
 def _run_baseline_once(case: Mapping[str, Any]) -> dict[str, Any]:
-    records = [record for record in (case.get("records") or []) if isinstance(record, dict)]
+    records = [
+        record for record in (case.get("records") or []) if isinstance(record, dict)
+    ]
     message = build_long_memory_system_message(records)
     content = str(message.get("content") or "")
     returned_notes = tuple(
@@ -210,7 +208,9 @@ def _run_retrieval_once(
     render_projection: bool,
     projection_chars: int,
 ) -> dict[str, Any]:
-    records = [record for record in (case.get("records") or []) if isinstance(record, dict)]
+    records = [
+        record for record in (case.get("records") or []) if isinstance(record, dict)
+    ]
     scope = _clean(case.get("scope")) or "personal"
     owner = _clean(case.get("owner"))
     project = _clean(case.get("project"))
@@ -461,7 +461,8 @@ def _aggregate_mode(
     expected_total = sum(result.expected_count for result in results)
     returned_total = sum(result.returned_count for result in results)
     recall = (
-        sum(result.recall * result.expected_count for result in results) / expected_total
+        sum(result.recall * result.expected_count for result in results)
+        / expected_total
         if expected_total
         else 1.0
     )
@@ -481,7 +482,9 @@ def _aggregate_mode(
         and int(forget_probe.get("forget_reappearance_count", 0)) == 0
         and bool(forget_probe.get("provider_continuation_cleared", False))
     )
-    gate_passed: bool | None = None if informational else quality_passed and safety_passed
+    gate_passed: bool | None = (
+        None if informational else quality_passed and safety_passed
+    )
     return {
         "informational": informational,
         "gate_passed": gate_passed,
@@ -607,8 +610,10 @@ def render_markdown(report: Mapping[str, Any]) -> str:
     ]
     for mode in EVALUATION_MODES:
         item = modes.get(mode) or {}
-        gate = "INFO" if item.get("gate_passed") is None else (
-            "PASS" if item.get("gate_passed") else "FAIL"
+        gate = (
+            "INFO"
+            if item.get("gate_passed") is None
+            else ("PASS" if item.get("gate_passed") else "FAIL")
         )
         lines.append(
             "| {mode} | {recall:.3f} | {irrelevant:.3f} | {scope} | {legacy} | "

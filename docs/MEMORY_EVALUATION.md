@@ -56,14 +56,15 @@ selected explicitly.
 ### Mode definitions
 
 - `baseline`: uses the production broad startup formatter
-  `build_long_memory_system_message()`. It intentionally represents the current
+  `build_long_memory_system_message()`. It intentionally represents the old
   broad prompt baseline and does not add V2 owner/project retrieval filtering.
 - `shadow`: uses `shadow_retrieve_memories()` with legacy-unknown compatibility,
   but injects no provider context.
 - `projection`: uses the same non-strict retrieval and then the production
   Memory Evidence whole-item budget behavior.
 - `strict_scope`: uses projection rendering while rejecting records whose
-  owner/project boundary cannot be verified.
+  project boundary cannot be verified. In the production V2 path, an owner-less
+  legacy record is first treated as belonging to the current OS login user.
 
 Strict-scope expectations are adjusted only when an expected fixture note is a
 legacy-unknown record that strict scope is intentionally required to reject.
@@ -116,8 +117,8 @@ The runner is intentionally local and deterministic:
 - `context_chars` covers broad Memory text or projected Memory Evidence only;
 - Profile/Applicable User Guidance budget behavior remains covered by dedicated
   projection tests;
-- full CLI/GUI/Web/A2A and provider continuation acceptance remains a separate
-  V2 acceptance step.
+- host/provider routing and continuation behavior remain covered by their
+  dedicated acceptance tests rather than by this local benchmark.
 
 The CPU timings are useful for relative comparison on the same machine and run.
 They are not a cross-machine performance benchmark.
@@ -128,7 +129,7 @@ The fixture covers:
 
 - owner/project scoped retrieval
 - owner and project mismatch exclusion
-- strict-scope rejection of legacy records
+- strict-scope rejection of project-unknown legacy records
 - legacy compatibility mode
 - Japanese query matching
 - path and alphanumeric query matching
@@ -136,45 +137,44 @@ The fixture covers:
 
 The production projection, forget propagation, history boundary, frozen
 snapshot, applicable-guidance, and contextual-query contracts remain covered by
-their dedicated test modules. Run those together with the comparison runner
-before changing defaults.
+their dedicated test modules.
 
-## Rollout rule
+## Measured V2 decision
 
-The V2 rollout order remains:
+A 25-iteration run on 2026-09-22 produced:
 
-```text
-baseline -> shadow -> opt-in projection -> opt-in strict scope -> default decision
-```
+| Mode | Recall | Irrelevant injection | Scope violations | Legacy unknown selected | Forget reappearance | Avg context chars | Mean latency ms | Gate |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| baseline | 1.000 | 0.654 | 4 | 4 | 0 | 166.8 | 1.733 | INFO |
+| shadow | 1.000 | 0.333 | 0 | 3 | 0 | 0.0 | 0.026 | FAIL |
+| projection | 1.000 | 0.333 | 0 | 3 | 0 | 237.6 | 0.055 | FAIL |
+| strict_scope | 1.000 | 0.000 | 0 | 0 | 0 | 133.4 | 0.040 | PASS |
 
-Passing the deterministic runner is necessary but not sufficient to change a
-default. Before the default decision, record the comparison report and complete
-host/provider acceptance for:
+The result shows why non-strict projection is not the final default: legacy
+unknown compatibility retained irrelevant records. The strict path preserved
+fixture recall while eliminating irrelevant injection and scope violations.
 
-- CLI / GUI / Web / A2A
-- stateless chat and Responses continuation
-- retry/recovery and available provider-cache paths
-- forget/restart behavior
+## Final V2 rollout rule
 
-Any scope leakage, forgotten-memory reappearance, source-history contamination,
-or save-success false positive blocks rollout. Recall, irrelevant injection,
-latency, and context size should be recorded against the baseline before the V2
-default decision is documented.
-
-## V2 completion and default decision
-
-Memory V2 is complete as an implemented and executable opt-in architecture. The
-completion decision keeps both rollout features disabled by default:
+The rollout stages were:
 
 ```text
-UAGENT_MEMORY_PROJECTION=0
-UAGENT_MEMORY_STRICT_SCOPE=0
+baseline -> shadow -> opt-in projection -> opt-in strict scope -> measured default decision
 ```
 
-This is a deliberate compatibility decision, not an unfinished implementation.
-Projection and strict scope remain available for explicit controlled rollout.
-Default-on can be reconsidered later after representative production/provider
-measurements are collected.
+The measured default decision is now:
 
-The authoritative completion rationale and V3 handoff boundary are documented
+```text
+UAGENT_MEMORY_PROJECTION=1
+UAGENT_MEMORY_STRICT_SCOPE=1
+```
+
+`UAGENT_MEMORY_OWNER` is optional. If it is unset, the current OS login ID is the
+V2 local owner. Owner-less legacy records are treated as belonging to that local
+owner at projection time without rewriting storage. Missing project metadata is
+not inferred and remains excluded by strict scope.
+
+Both rollout flags remain reversible by setting them explicitly to `0`.
+
+The authoritative completion rationale and V3 identity boundary are documented
 in `docs/MEMORY_V2_COMPLETION.md`.

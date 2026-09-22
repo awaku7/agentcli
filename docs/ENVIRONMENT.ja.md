@@ -22,19 +22,21 @@ UAGENT_SUMMARY_ON_EXIT=1
 UAGENT_PROFILE_ON_EXIT=0
 ```
 
-### Memory projection / 評価（opt-in）
+### Memory projection / 評価（デフォルトON）
 
-Memory projectionとstrict scopeは既定で無効です。利用する場合は、まず
-[`MEMORY_EVALUATION.md`](MEMORY_EVALUATION.md)の決定論的な評価ゲートを確認してください。
+Memory V2のturn単位projectionとstrict scopeは既定で有効です。既定値は
+strict-scopeの決定論的AcceptanceがPASSした結果に基づいています。詳細は
+[`MEMORY_EVALUATION.md`](MEMORY_EVALUATION.md)を参照してください。
 
 ```env
 # 読み取り専用shadow retrieval診断（デフォルト: 0）
 UAGENT_MEMORY_SHADOW_RETRIEVAL=0
-# turn単位のMemory projection（デフォルト: 0）
-UAGENT_MEMORY_PROJECTION=0
-# owner/projectを検証できないlegacy recordを除外（デフォルト: 0）
-UAGENT_MEMORY_STRICT_SCOPE=0
-# 新規Memory保存時のscope
+# turn単位のMemory projection（デフォルト: 1）
+UAGENT_MEMORY_PROJECTION=1
+# project境界を検証できないrecordを除外（デフォルト: 1）
+UAGENT_MEMORY_STRICT_SCOPE=1
+# owner/projectの明示override（省略可）
+# owner未設定時は現在のOSログインIDを使用
 UAGENT_MEMORY_OWNER=
 UAGENT_MEMORY_PROJECT=
 # projection上限
@@ -43,10 +45,16 @@ UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES=20
 UAGENT_MEMORY_GUIDANCE_CHARS=1200
 ```
 
+`UAGENT_MEMORY_OWNER`は省略できます。未設定時は新規Memory保存で現在のOS
+ログインIDをV2のlocal ownerとして使用します。Windowsでは利用可能なら
+`USERDOMAIN\\username`を使用します。ownerのないlegacy recordは保存内容を
+書き換えず、projection時に現在のlocal owner所有として扱います。
+
 `UAGENT_MEMORY_PROJECT`が明示的なprojectの正規設定です。未設定時は保存と
 projectionで同じ`UAGENT_WORKDIR`/カレントディレクトリ基準を使用します。
-strict scopeが無効ならlegacy recordを互換利用し、有効ならowner/projectを
-検証できないrecordをprojectionから除外します。
+legacy recordのproject不明値は推測しないため、Strict Scopeでは除外します。
+`UAGENT_MEMORY_PROJECTION=0`または`UAGENT_MEMORY_STRICT_SCOPE=0`は、rollbackや
+互換性確認を行う場合だけ明示的に指定してください。
 
 `UAGENT_SESSION_BACKEND` は次の値を指定できます。
 

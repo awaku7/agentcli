@@ -38,9 +38,9 @@ def test_v2_evaluation_runner_compares_all_rollout_modes() -> None:
     assert baseline["avg_context_chars"] > 0
 
     assert projection["avg_context_chars"] > 0
-    assert projection["irrelevant_injection_rate"] < baseline[
-        "irrelevant_injection_rate"
-    ]
+    assert (
+        projection["irrelevant_injection_rate"] < baseline["irrelevant_injection_rate"]
+    )
 
     assert strict_scope["gate_passed"] is True
     assert strict_scope["recall"] == 1.0
@@ -107,10 +107,14 @@ def test_runner_cli_writes_json_and_markdown(tmp_path) -> None:
     )
 
 
-def test_strict_scope_adjusts_legacy_expectation_instead_of_counting_it_as_loss() -> None:
+def test_strict_scope_adjusts_legacy_expectation_instead_of_counting_it_as_loss() -> (
+    None
+):
     from uagent.runtime.memory_evaluation_runner import evaluate_mode_case
 
-    case = next(case for case in _fixture_cases() if case["id"] == "legacy_compatibility")
+    case = next(
+        case for case in _fixture_cases() if case["id"] == "legacy_compatibility"
+    )
     result = evaluate_mode_case(case, "strict_scope", iterations=1)
 
     assert result.expected_count == 0
