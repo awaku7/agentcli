@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta
 from pathlib import Path
 from queue import Queue
 
@@ -106,10 +107,29 @@ def test_tool_exposes_language_neutral_relative_time_fields():
 
 
 def test_day_offset_can_return_ambiguous_candidates():
+    local_now = datetime.now().astimezone()
+    target_date = local_now.date() - timedelta(days=2)
+    target_noon = datetime.combine(
+        target_date,
+        datetime.min.time().replace(hour=12),
+        tzinfo=local_now.tzinfo,
+    )
     rows = [
-        {"session_id": "active", "project": "app", "created_at": "2026-09-22 00:00:00"},
-        {"session_id": "a", "project": "app", "created_at": "2026-09-20 10:00:00"},
-        {"session_id": "b", "project": "app", "created_at": "2026-09-20 08:00:00"},
+        {
+            "session_id": "active",
+            "project": "app",
+            "created_at": local_now.isoformat(),
+        },
+        {
+            "session_id": "a",
+            "project": "app",
+            "created_at": target_noon.isoformat(),
+        },
+        {
+            "session_id": "b",
+            "project": "app",
+            "created_at": (target_noon - timedelta(hours=2)).isoformat(),
+        },
     ]
     result, queue = _run(rows, {"day_offset": 2})
     assert result["ok"] is True
