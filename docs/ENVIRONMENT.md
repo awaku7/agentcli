@@ -310,7 +310,7 @@ for source-language requests. See the official language list:
 Used by Gemini / Vertex AI features that need Google Cloud access.
 
 - `UAGENT_GOOGLE_CREDENTIALS`: Path to Google Cloud service account JSON or JSON string (optional).
-- `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g., `asia-northeast1`).
+- `UAGENT_GOOGLE_LOCATION`: Google Cloud location/region (e.g. `asia-northeast1`).
 
 #### AWS / GCP / Azure management tools
 
