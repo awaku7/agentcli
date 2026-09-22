@@ -42,9 +42,7 @@ def signed_token(private_key, metadata, **changes):
         "name": "Initial Name",
     }
     claims.update(changes)
-    return jwt.encode(
-        claims, private_key, algorithm="RS256", headers={"kid": "key-1"}
-    )
+    return jwt.encode(claims, private_key, algorithm="RS256", headers={"kid": "key-1"})
 
 
 def verify(token, metadata, jwks, **options):
@@ -57,9 +55,7 @@ def verify(token, metadata, jwks, **options):
     )
 
 
-def test_verified_subject_is_stable_across_display_changes(
-    signing_material, metadata
-):
+def test_verified_subject_is_stable_across_display_changes(signing_material, metadata):
     private_key, jwks = signing_material
     a = verify(signed_token(private_key, metadata), metadata, jwks)
     b = verify(signed_token(private_key, metadata, name="New Name"), metadata, jwks)
