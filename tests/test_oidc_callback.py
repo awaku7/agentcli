@@ -109,17 +109,17 @@ def test_callback_exchanges_code_with_transaction_verifier_and_nonce(
     with pytest.raises(IdentityResolutionError, match="authorization callback"):
         asyncio.run(
             complete_authorization_callback(
-            store=store,
-            metadata=metadata,
-            state=transaction.state,
-            browser_binding="browser-A",
-            code="authorization-code",
-            client_id="uag-client",
-            redirect_uri="https://uag.example/auth/callback",
-            http_client=client,
-            jwks=jwks,
+                store=store,
+                metadata=metadata,
+                state=transaction.state,
+                browser_binding="browser-A",
+                code="authorization-code",
+                client_id="uag-client",
+                redirect_uri="https://uag.example/auth/callback",
+                http_client=client,
+                jwks=jwks,
+            )
         )
-    )
 
 
 def test_callback_rejects_wrong_browser_before_token_exchange(
@@ -134,17 +134,17 @@ def test_callback_rejects_wrong_browser_before_token_exchange(
     with pytest.raises(IdentityResolutionError, match="authorization callback"):
         asyncio.run(
             complete_authorization_callback(
-            store=store,
-            metadata=metadata,
-            state=transaction.state,
-            browser_binding="browser-B",
-            code="authorization-code",
-            client_id="uag-client",
-            redirect_uri="https://uag.example/auth/callback",
-            http_client=client,
-            jwks=jwks,
+                store=store,
+                metadata=metadata,
+                state=transaction.state,
+                browser_binding="browser-B",
+                code="authorization-code",
+                client_id="uag-client",
+                redirect_uri="https://uag.example/auth/callback",
+                http_client=client,
+                jwks=jwks,
+            )
         )
-    )
 
     assert client.requests == []
 
@@ -159,17 +159,17 @@ def test_callback_rejects_id_token_with_wrong_nonce(metadata, signing_material):
     with pytest.raises(IdentityResolutionError, match="nonce mismatch"):
         asyncio.run(
             complete_authorization_callback(
-            store=store,
-            metadata=metadata,
-            state=transaction.state,
-            browser_binding="browser-A",
-            code="authorization-code",
-            client_id="uag-client",
-            redirect_uri="https://uag.example/auth/callback",
-            http_client=client,
-            jwks=jwks,
+                store=store,
+                metadata=metadata,
+                state=transaction.state,
+                browser_binding="browser-A",
+                code="authorization-code",
+                client_id="uag-client",
+                redirect_uri="https://uag.example/auth/callback",
+                http_client=client,
+                jwks=jwks,
+            )
         )
-    )
 
 
 def test_callback_rejects_missing_id_token(metadata):
@@ -180,15 +180,14 @@ def test_callback_rejects_missing_id_token(metadata):
     with pytest.raises(IdentityResolutionError, match="missing ID token"):
         asyncio.run(
             complete_authorization_callback(
-            store=store,
-            metadata=metadata,
-            state=transaction.state,
-            browser_binding="browser-A",
-            code="authorization-code",
-            client_id="uag-client",
-            redirect_uri="https://uag.example/auth/callback",
-            http_client=client,
-            jwks={"keys": []},
+                store=store,
+                metadata=metadata,
+                state=transaction.state,
+                browser_binding="browser-A",
+                code="authorization-code",
+                client_id="uag-client",
+                redirect_uri="https://uag.example/auth/callback",
+                http_client=client,
+                jwks={"keys": []},
+            )
         )
-    )
-
