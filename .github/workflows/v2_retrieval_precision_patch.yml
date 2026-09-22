@@ -133,8 +133,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install package
-        run: python -m pip install -e .
+      - name: Install package and test runner
+        run: python -m pip install -e . pytest
 
       - name: Run focused tests
         run: python -m pytest -q tests/test_memory_shadow_retrieval.py tests/test_memory_evaluation.py tests/test_memory_evaluation_runner.py
