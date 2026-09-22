@@ -230,6 +230,36 @@ def _emit_tool_loop_block(
         pass
 
 
+def _clear_responses_after_tool_loop(core: Any) -> None:
+    """Invalidate an incomplete Responses continuation before breaking.
+
+    The guard runs after tool execution but before the matching continuation
+    request is sent. Reusing that response id on the next user turn makes the
+    provider reject it as a stale/old ``previous_response_id``.
+    """
+    try:
+        runtime = getattr(core, "responses_runtime", None)
+        clear_runtime = getattr(runtime, "clear_continuation", None)
+        if callable(clear_runtime):
+            clear_runtime("tool_loop_guard")
+    except Exception:
+        pass
+    try:
+        clear_fn = getattr(core, "clear_responses_continuation", None)
+        if not callable(clear_fn):
+            clear_fn = getattr(_core_module, "clear_responses_continuation", None)
+        if callable(clear_fn):
+            clear_fn()
+            return
+    except Exception:
+        pass
+    state = getattr(core, "responses_state", None)
+    if isinstance(state, dict):
+        state.pop("previous_response_id", None)
+        state.pop("active_response_id", None)
+        state.pop("_stale_rid_occurred", None)
+
+
 _GENERAL_LOOP_EXEMPT_TOOLS = frozenset(
     {
         "human_ask",
@@ -1944,6 +1974,7 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_mgmt_tool_loop(tool_calls_list)
         if blocked:
             core._last_round_reason = "loop_guard"
+            _clear_responses_after_tool_loop(core)
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             _emit_tool_loop_block(
                 core=core,
@@ -1972,6 +2003,7 @@ def _run_one_round(
         )
         if blocked:
             core._last_round_reason = "loop_guard"
+            _clear_responses_after_tool_loop(core)
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             _emit_tool_loop_block(
                 core=core,
@@ -1999,6 +2031,7 @@ def _run_one_round(
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             core._last_round_reason = "loop_guard"
+            _clear_responses_after_tool_loop(core)
             _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
             _emit_tool_loop_block(
                 core=core,

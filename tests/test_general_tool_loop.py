@@ -185,3 +185,34 @@ def test_different_fingerprint_resets_other_counters() -> None:
     assert blocked is True
     assert name == "get_current_location"
     assert count == _GENERAL_TOOL_LOOP_THRESHOLD
+
+
+def test_loop_guard_clears_incomplete_responses_continuation() -> None:
+    from types import SimpleNamespace
+
+    from uagent.uagent_llm import _clear_responses_after_tool_loop
+
+    calls: list[str] = []
+
+    class Runtime:
+        def clear_continuation(self, reason: str) -> None:
+            calls.append(reason)
+
+    state = {
+        "previous_response_id": "resp_incomplete",
+        "active_response_id": "resp_incomplete",
+    }
+    core = SimpleNamespace(
+        responses_runtime=Runtime(),
+        responses_state=state,
+        clear_responses_continuation=lambda: (
+            state.pop("previous_response_id", None),
+            state.pop("active_response_id", None),
+        ),
+    )
+
+    _clear_responses_after_tool_loop(core)
+
+    assert calls == ["tool_loop_guard"]
+    assert "previous_response_id" not in state
+    assert "active_response_id" not in state
