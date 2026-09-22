@@ -1956,8 +1956,12 @@ def run_tools_parallel(
     _ensure_loaded()
     future_map: dict[concurrent.futures.Future, tuple[int, str, dict[str, Any]]] = {}
 
+    from ..runtime.identity_context import submit_with_current_context
+
     for idx, (name, args) in enumerate(calls):
-        future = _PARALLEL_TOOL_EXECUTOR.submit(run_tool, name, args)
+        future = submit_with_current_context(
+            _PARALLEL_TOOL_EXECUTOR, run_tool, name, args
+        )
         future_map[future] = (idx, name, args)
 
     results: list[tuple[str, dict[str, Any], str] | None] = [None] * len(calls)

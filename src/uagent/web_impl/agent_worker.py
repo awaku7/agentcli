@@ -16,6 +16,7 @@ from ..providers import util_providers as providers
 from .. import uagent_llm as llm_util
 from ..runtime.logging_setup import log_event
 from ..runtime.execution import lifecycle_execution
+from ..runtime.turn_context_runtime import call_with_resolved_turn_context
 from ..runtime.round_outcome import project_round_outcome, round_outcome_event
 from ..image_session import build_image_session_message
 from ..llm_helpers import LLMWaitInterrupted
@@ -38,6 +39,18 @@ def run_agent_worker(
     - room status BUSY is set only after both locks are held
     - finally always clears room/core status and releases locks
     """
+
+    def _run_web_turn(fn, *args, **kwargs):
+        return call_with_resolved_turn_context(
+            fn,
+            *args,
+            entry_point="web",
+            room_id=str(getattr(room, "room_id", "") or ""),
+            project_path=str(getattr(room, "base_dir", "") or os.getcwd()),
+            session_id=str(getattr(core, "session_id", "") or ""),
+            **kwargs,
+        )
+
     # Ensure logs/status go to this room (thread-local). Parallel tool workers
     # inherit room via tools.run_tool wrapper (see init_web).
     _thread_ctx.room = room
@@ -440,7 +453,8 @@ def run_agent_worker(
                     room.agent_lifecycle = lifecycle
                 except Exception:
                     pass
-                llm_util.run_llm_rounds(
+                _run_web_turn(
+                    llm_util.run_llm_rounds,
                     provider_name,
                     client,
                     depname,
@@ -453,7 +467,8 @@ def run_agent_worker(
                 _emit_round_outcome()
                 # Auto-pilot loop
                 if core.auto_pilot_active:
-                    tools_util._run_auto_pilot_loop(
+                    _run_web_turn(
+                        tools_util._run_auto_pilot_loop,
                         provider_name,
                         client,
                         depname,

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextvars import copy_context
 import re
 import threading
 from typing import Any
@@ -244,7 +245,12 @@ def _call_maybe_thread(fn: Any, *, use_llm_thread: bool) -> Any:
         except BaseException as e:
             box["exc"] = e
 
-    th = threading.Thread(target=_runner, daemon=True, name="uagent-llm-call")
+    caller_context = copy_context()
+    th = threading.Thread(
+        target=lambda: caller_context.run(_runner),
+        daemon=True,
+        name="uagent-llm-call",
+    )
     th.start()
 
     while th.is_alive():
