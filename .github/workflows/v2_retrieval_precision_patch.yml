@@ -1,0 +1,153 @@
+name: Apply V2 retrieval precision fix
+
+on:
+  push:
+    branches:
+      - fix/memory-v2-retrieval-precision
+    paths:
+      - .github/workflows/v2_retrieval_precision_patch.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/memory-v2-retrieval-precision
+          fetch-depth: 0
+
+      - name: Patch retrieval precision and regression tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+
+          def replace(path, old, new, expected=1):
+              p = Path(path)
+              text = p.read_text(encoding="utf-8")
+              count = text.count(old)
+              if count != expected:
+                  raise SystemExit(f"{path}: expected {expected} matches, got {count}: {old!r}")
+              p.write_text(text.replace(old, new), encoding="utf-8")
+
+          retrieval = "src/uagent/runtime/memory_retrieval.py"
+          replace(
+              retrieval,
+              '_CJK_RE = re.compile(r"[一-龯ぁ-んァ-ヶ]")\n',
+              '_CJK_RE = re.compile(r"[一-龯ぁ-んァ-ヶ]")\n'
+              '_RELATIVE_RELEVANCE_RATIO = 0.60\n',
+          )
+          replace(
+              retrieval,
+              '    scored.sort(key=lambda item: (-item[0], -item[1], -item[2]))\n'
+              '    candidates = [item[3] for item in scored[:max_candidates]]\n'
+              '    eligible_records = len(scored)\n'
+              '    excluded_records = len(records) - eligible_records\n',
+              '    scored.sort(key=lambda item: (-item[0], -item[1], -item[2]))\n'
+              '    if scored:\n'
+              '        best_relevance = scored[0][0]\n'
+              '        relevance_floor = best_relevance * _RELATIVE_RELEVANCE_RATIO\n'
+              '        weak_item_ids = {\n'
+              '            item[3].item_id for item in scored if item[0] < relevance_floor\n'
+              '        }\n'
+              '        if weak_item_ids:\n'
+              '            diagnostics = [\n'
+              '                (\n'
+              '                    MemoryShadowDiagnostic(\n'
+              '                        index=item.index,\n'
+              '                        action="exclude",\n'
+              '                        reason="weak_query_match",\n'
+              '                        item_id=item.item_id,\n'
+              '                        scope_status=item.scope_status,\n'
+              '                        relevance=item.relevance,\n'
+              '                    )\n'
+              '                    if item.action == "candidate"\n'
+              '                    and item.item_id in weak_item_ids\n'
+              '                    else item\n'
+              '                )\n'
+              '                for item in diagnostics\n'
+              '            ]\n'
+              '            scored = [\n'
+              '                item for item in scored if item[3].item_id not in weak_item_ids\n'
+              '            ]\n'
+              '    candidates = [item[3] for item in scored[:max_candidates]]\n'
+              '    eligible_records = len(scored)\n'
+              '    excluded_records = len(records) - eligible_records\n',
+          )
+
+          test_path = Path("tests/test_memory_shadow_retrieval.py")
+          test_text = test_path.read_text(encoding="utf-8")
+          marker = '\n\ndef test_shadow_retrieval_supports_paths_and_short_japanese_queries() -> None:\n'
+          if marker not in test_text:
+              raise SystemExit("test insertion marker not found")
+          new_test = '''\n\ndef test_shadow_retrieval_drops_weak_matches_relative_to_best_candidate() -> None:\n    result = shadow_retrieve_memories(\n        [\n            {"note": "V2デモのPython合言葉は COBALT-731"},\n            {"note": "V2デモの料理の合言葉は MISO-204。"},\n            {"note": "V2デモの旅行の合言葉は RAIL-918。"},\n        ],\n        query="V2デモのPython合言葉は？",\n        scope="personal",\n    )\n\n    assert [candidate.content for candidate in result.candidates] == [\n        "V2デモのPython合言葉は COBALT-731"\n    ]\n    assert result.eligible_records == 1\n    assert result.excluded_records == 2\n    assert sum(\n        item.reason == "weak_query_match" and item.action == "exclude"\n        for item in result.diagnostics\n    ) == 2\n'''
+          test_path.write_text(test_text.replace(marker, new_test + marker, 1), encoding="utf-8")
+
+          fixture_path = Path("tests/fixtures/memory_evaluation_cases.json")
+          fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+          cases = fixture["retrieval_cases"]
+          if any(case.get("id") == "relative_precision_japanese_common_prefix" for case in cases):
+              raise SystemExit("fixture case already exists")
+          cases.append(
+              {
+                  "id": "relative_precision_japanese_common_prefix",
+                  "scope": "personal",
+                  "owner": "alice",
+                  "project": "app",
+                  "query": "V2デモのPython合言葉は？",
+                  "strict_scope": True,
+                  "records": [
+                      {
+                          "note": "V2デモのPython合言葉は COBALT-731",
+                          "owner": "alice",
+                          "project": "app",
+                      },
+                      {
+                          "note": "V2デモの料理の合言葉は MISO-204。",
+                          "owner": "alice",
+                          "project": "app",
+                      },
+                      {
+                          "note": "V2デモの旅行の合言葉は RAIL-918。",
+                          "owner": "alice",
+                          "project": "app",
+                      },
+                  ],
+                  "expected_notes": ["V2デモのPython合言葉は COBALT-731"],
+              }
+          )
+          fixture_path.write_text(
+              json.dumps(fixture, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+
+          Path(".github/workflows/v2_retrieval_precision_patch.yml").unlink()
+          PY
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install package
+        run: python -m pip install -e .
+
+      - name: Run focused tests
+        run: python -m pytest -q tests/test_memory_shadow_retrieval.py tests/test_memory_evaluation.py tests/test_memory_evaluation_runner.py
+
+      - name: Run strict evaluation gate
+        run: python -m uagent.runtime.memory_evaluation_runner --gate-mode strict_scope --enforce
+
+      - name: Commit fix
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "fix: improve Memory V2 retrieval precision"
+          git push origin HEAD:fix/memory-v2-retrieval-precision
