@@ -115,9 +115,7 @@ def test_discovery_requires_exact_issuer_and_https(monkeypatch, metadata):
     document["issuer"] = trailing_issuer
     trailing_metadata = oidc.discover_provider(trailing_issuer)
     assert trailing_metadata.issuer == trailing_issuer
-    assert requested_urls[-1] == (
-        metadata.issuer + "/.well-known/openid-configuration"
-    )
+    assert requested_urls[-1] == metadata.issuer + "/.well-known/openid-configuration"
 
     document["issuer"] = "https://identity.example/other"
     with pytest.raises(IdentityResolutionError, match="issuer mismatch"):
