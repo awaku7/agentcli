@@ -49,6 +49,28 @@ def test_shadow_retrieval_excludes_unrelated_records_before_ranking() -> None:
     )
 
 
+def test_shadow_retrieval_drops_weak_matches_relative_to_best_candidate() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "V2デモのPython合言葉は COBALT-731"},
+            {"note": "V2デモの料理の合言葉は MISO-204。"},
+            {"note": "V2デモの旅行の合言葉は RAIL-918。"},
+        ],
+        query="V2デモのPython合言葉は？",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "V2デモのPython合言葉は COBALT-731"
+    ]
+    assert result.eligible_records == 1
+    assert result.excluded_records == 2
+    assert sum(
+        item.reason == "weak_query_match" and item.action == "exclude"
+        for item in result.diagnostics
+    ) == 2
+
+
 def test_shadow_retrieval_supports_paths_and_short_japanese_queries() -> None:
     result = shadow_retrieve_memories(
         [
