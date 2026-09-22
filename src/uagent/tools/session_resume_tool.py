@@ -16,6 +16,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False
+_ERROR_INVALID_DATE_RANGE = "invalid_date_range"
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
@@ -259,9 +260,9 @@ def _validate_date_range(date_start: str, date_end: str) -> str | None:
         start = date.fromisoformat(date_start)
         end = date.fromisoformat(date_end)
     except ValueError:
-        return "invalid_date_range"
+        return _ERROR_INVALID_DATE_RANGE
     if start > end:
-        return "invalid_date_range"
+        return _ERROR_INVALID_DATE_RANGE
     return None
 
 
