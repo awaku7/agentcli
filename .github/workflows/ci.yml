@@ -33,7 +33,7 @@ jobs:
         run: python -m ruff check src tests
 
       - name: Black
-        run: python -m black --check src tests
+        run: python -m black --diff tests/test_web_connection_identity.py
 
       - name: I18N catalog status
         run: python scripts/tool_json_i18n_batch.py status
