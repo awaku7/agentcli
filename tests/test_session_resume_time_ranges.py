@@ -150,6 +150,24 @@ def test_partial_explicit_date_range_is_rejected():
     assert queue.empty()
 
 
+def test_malformed_explicit_date_range_is_rejected():
+    result, queue = _run(
+        [],
+        {"date_start": "2026-09-xx", "date_end": "2026-09-20"},
+    )
+    assert result == {"error": "invalid_date_range", "ok": False}
+    assert queue.empty()
+
+
+def test_reversed_explicit_date_range_is_rejected():
+    result, queue = _run(
+        [],
+        {"date_start": "2026-09-20", "date_end": "2026-09-14"},
+    )
+    assert result == {"error": "invalid_date_range", "ok": False}
+    assert queue.empty()
+
+
 def test_all_host_locales_are_explicitly_translated_without_fallback():
     catalog_path = Path(session_resume_tool.__file__).with_suffix(".json")
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
