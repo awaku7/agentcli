@@ -82,7 +82,8 @@ def test_callback_exchanges_code_with_transaction_verifier_and_nonce(
     token = make_token(private_key, metadata, nonce=transaction.nonce)
     client = FakeClient(FakeResponse({"id_token": token}))
 
-    identity = asyncio.run(complete_authorization_callback(
+    identity = asyncio.run(
+        complete_authorization_callback(
         store=store,
         metadata=metadata,
         state=transaction.state,
@@ -91,7 +92,9 @@ def test_callback_exchanges_code_with_transaction_verifier_and_nonce(
         client_id="uag-client",
         redirect_uri="https://uag.example/auth/callback",
         http_client=client,
-        jwks=jwks,\n    ))
+        jwks=jwks,
+        )
+    )
 
     assert identity.authenticated
     assert identity.authn_kind == "oidc"
@@ -103,7 +106,9 @@ def test_callback_exchanges_code_with_transaction_verifier_and_nonce(
     assert "client_secret" not in data
     assert headers == {"Accept": "application/json"}
 
-    with pytest.raises(IdentityResolutionError, match="authorization callback"):\n        asyncio.run(complete_authorization_callback(
+    with pytest.raises(IdentityResolutionError, match="authorization callback"):
+        asyncio.run(
+            complete_authorization_callback(
             store=store,
             metadata=metadata,
             state=transaction.state,
@@ -112,7 +117,8 @@ def test_callback_exchanges_code_with_transaction_verifier_and_nonce(
             client_id="uag-client",
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
-            jwks=jwks,\n        ))
+            jwks=jwks,
+        ))
 
 
 def test_callback_rejects_wrong_browser_before_token_exchange(
@@ -124,7 +130,9 @@ def test_callback_rejects_wrong_browser_before_token_exchange(
     token = make_token(private_key, metadata, nonce=transaction.nonce)
     client = FakeClient(FakeResponse({"id_token": token}))
 
-    with pytest.raises(IdentityResolutionError, match="authorization callback"):\n        asyncio.run(complete_authorization_callback(
+    with pytest.raises(IdentityResolutionError, match="authorization callback"):
+        asyncio.run(
+            complete_authorization_callback(
             store=store,
             metadata=metadata,
             state=transaction.state,
@@ -133,7 +141,8 @@ def test_callback_rejects_wrong_browser_before_token_exchange(
             client_id="uag-client",
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
-            jwks=jwks,\n        ))
+            jwks=jwks,
+        ))
     assert client.requests == []
 
 
@@ -144,7 +153,9 @@ def test_callback_rejects_id_token_with_wrong_nonce(metadata, signing_material):
     token = make_token(private_key, metadata, nonce="wrong-nonce")
     client = FakeClient(FakeResponse({"id_token": token}))
 
-    with pytest.raises(IdentityResolutionError, match="nonce mismatch"):\n        asyncio.run(complete_authorization_callback(
+    with pytest.raises(IdentityResolutionError, match="nonce mismatch"):
+        asyncio.run(
+            complete_authorization_callback(
             store=store,
             metadata=metadata,
             state=transaction.state,
@@ -153,7 +164,8 @@ def test_callback_rejects_id_token_with_wrong_nonce(metadata, signing_material):
             client_id="uag-client",
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
-            jwks=jwks,\n        ))
+            jwks=jwks,
+        ))
 
 
 def test_callback_rejects_missing_id_token(metadata):
@@ -161,7 +173,9 @@ def test_callback_rejects_missing_id_token(metadata):
     transaction = store.begin("browser-A")
     client = FakeClient(FakeResponse({"access_token": "not-an-identity"}))
 
-    with pytest.raises(IdentityResolutionError, match="missing ID token"):\n        asyncio.run(complete_authorization_callback(
+    with pytest.raises(IdentityResolutionError, match="missing ID token"):
+        asyncio.run(
+            complete_authorization_callback(
             store=store,
             metadata=metadata,
             state=transaction.state,
@@ -170,4 +184,5 @@ def test_callback_rejects_missing_id_token(metadata):
             client_id="uag-client",
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
-            jwks={"keys": []},\n        ))
+            jwks={"keys": []},
+        ))
