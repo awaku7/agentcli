@@ -77,9 +77,7 @@ def select_session_resume_candidate(
         created_at = _parse_created_at(row.get("created_at"))
         if created_at is None or not _session_in_window(created_at, request, local_now):
             continue
-        candidates.append(
-            (created_at, session_id, str(row.get("created_at") or ""))
-        )
+        candidates.append((created_at, session_id, str(row.get("created_at") or "")))
 
     if not candidates:
         return None
