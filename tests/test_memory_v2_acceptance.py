@@ -7,7 +7,6 @@ import pytest
 
 from uagent.runtime.memory_evaluation_runner import run_evaluation
 
-
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "memory_evaluation_cases.json"
 
