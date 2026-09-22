@@ -119,6 +119,34 @@
         }
       ],
       "expected_notes": []
+    },
+    {
+      "id": "relative_precision_japanese_common_prefix",
+      "scope": "personal",
+      "owner": "alice",
+      "project": "app",
+      "query": "V2デモのPython合言葉は？",
+      "strict_scope": true,
+      "records": [
+        {
+          "note": "V2デモのPython合言葉は COBALT-731",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2デモの料理の合言葉は MISO-204。",
+          "owner": "alice",
+          "project": "app"
+        },
+        {
+          "note": "V2デモの旅行の合言葉は RAIL-918。",
+          "owner": "alice",
+          "project": "app"
+        }
+      ],
+      "expected_notes": [
+        "V2デモのPython合言葉は COBALT-731"
+      ]
     }
   ]
 }

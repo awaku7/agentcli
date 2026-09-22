@@ -21,6 +21,7 @@ MemoryScope = Literal["personal", "shared"]
 
 _TOKEN_RE = re.compile(r"[\w][\w./:#@+-]*", re.UNICODE)
 _CJK_RE = re.compile(r"[一-龯ぁ-んァ-ヶ]")
+_RELATIVE_RELEVANCE_RATIO = 0.60
 
 
 @dataclass(frozen=True)
@@ -313,6 +314,29 @@ def shadow_retrieve_memories(
         )
 
     scored.sort(key=lambda item: (-item[0], -item[1], -item[2]))
+    if scored:
+        best_relevance = scored[0][0]
+        relevance_floor = best_relevance * _RELATIVE_RELEVANCE_RATIO
+        weak_item_ids = {
+            item[3].item_id for item in scored if item[0] < relevance_floor
+        }
+        if weak_item_ids:
+            diagnostics = [
+                (
+                    MemoryShadowDiagnostic(
+                        index=item.index,
+                        action="exclude",
+                        reason="weak_query_match",
+                        item_id=item.item_id,
+                        scope_status=item.scope_status,
+                        relevance=item.relevance,
+                    )
+                    if item.action == "candidate" and item.item_id in weak_item_ids
+                    else item
+                )
+                for item in diagnostics
+            ]
+            scored = [item for item in scored if item[3].item_id not in weak_item_ids]
     candidates = [item[3] for item in scored[:max_candidates]]
     eligible_records = len(scored)
     excluded_records = len(records) - eligible_records
