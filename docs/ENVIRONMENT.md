@@ -22,20 +22,21 @@ UAGENT_SUMMARY_ON_EXIT=1
 UAGENT_PROFILE_ON_EXIT=0
 ```
 
-### Memory projection and evaluation (opt-in)
+### Memory projection and evaluation (default-on)
 
-Memory projection and strict scope are disabled by default. Enable them only
-after reviewing the deterministic evaluation gate in
+Memory V2 turn projection and strict scope are enabled by default. The defaults
+were selected after the deterministic strict-scope acceptance gate passed; see
 [`MEMORY_EVALUATION.md`](MEMORY_EVALUATION.md).
 
 ```env
 # Read-only shadow retrieval diagnostics (default: 0)
 UAGENT_MEMORY_SHADOW_RETRIEVAL=0
-# Turn-local memory projection (default: 0)
-UAGENT_MEMORY_PROJECTION=0
-# Reject legacy records without verified owner/project (default: 0)
-UAGENT_MEMORY_STRICT_SCOPE=0
-# Explicit scope values used by new memory writes
+# Turn-local memory projection (default: 1)
+UAGENT_MEMORY_PROJECTION=1
+# Reject records whose project boundary cannot be verified (default: 1)
+UAGENT_MEMORY_STRICT_SCOPE=1
+# Optional explicit owner/project overrides
+# Owner falls back to the current OS login ID when unset.
 UAGENT_MEMORY_OWNER=
 UAGENT_MEMORY_PROJECT=
 # Projection limits
@@ -44,10 +45,16 @@ UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES=20
 UAGENT_MEMORY_GUIDANCE_CHARS=1200
 ```
 
+`UAGENT_MEMORY_OWNER` is optional. When unset, new Memory writes use the current
+OS login ID as the local V2 owner; on Windows, `USERDOMAIN\\username` is used
+when available. Owner-less legacy records are treated as belonging to that local
+owner at projection time without rewriting the stored record.
+
 `UAGENT_MEMORY_PROJECT` is the canonical project override. If unset, saving and
-projection use the same `UAGENT_WORKDIR`/current-directory basis. Legacy records
-remain usable when strict scope is disabled; they are excluded from projection
-when strict scope is enabled and their owner/project cannot be verified.
+projection use the same `UAGENT_WORKDIR`/current-directory basis. Missing legacy
+project metadata is not inferred, so Strict Scope excludes project-unknown
+records. Set `UAGENT_MEMORY_PROJECTION=0` or `UAGENT_MEMORY_STRICT_SCOPE=0`
+explicitly only for rollback or compatibility testing.
 
 Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an optional development-time restriction.
 
