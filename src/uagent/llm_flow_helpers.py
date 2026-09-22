@@ -564,6 +564,19 @@ def _execute_tool_calls(
         executed_new_tool: True if at least one tool ran (not cache-reuse only)
         fresh_tool_calls: tool_call dicts that actually executed (for loop detect)
     """
+    # Session resume is a control-transfer tool. If a provider emits it beside
+    # ordinary tools, execute only the resume call so no stale-session work can
+    # run before the queued :sessions load command is handled by the host loop.
+    session_resume_calls = [
+        tc
+        for tc in tool_calls_list
+        if isinstance(tc, dict)
+        and isinstance(tc.get("function"), dict)
+        and str(tc["function"].get("name") or "") == "session_resume"
+    ]
+    if session_resume_calls:
+        tool_calls_list = [session_resume_calls[0]]
+
     executed_new_tool = False
     fresh_tool_calls: list[dict[str, Any]] = []
     pending_auto_user_msgs: list[dict[str, Any]] = []
@@ -823,6 +836,13 @@ def _execute_tool_calls(
             parsed_tool_result = json.loads(tool_result)
         except Exception:
             parsed_tool_result = None
+        session_resume_control_transfer = bool(
+            name == "session_resume"
+            and isinstance(parsed_tool_result, dict)
+            and parsed_tool_result.get("ok") is True
+            and parsed_tool_result.get("status") == "queued"
+            and parsed_tool_result.get("control_transfer") is True
+        )
         if isinstance(parsed_tool_result, dict):
             # Keep binary data in attachments for the UI/remote client, but
             # never put inline Base64 into the textual tool result sent to the
@@ -969,6 +989,13 @@ def _execute_tool_calls(
             )
         elif not host_ui_active:
             core.log_message(tool_msg)
+
+        if session_resume_control_transfer:
+            try:
+                core._session_resume_control_transfer = True
+            except Exception:
+                pass
+            break
 
         # Responses API continuations must place function outputs directly
         # after the assistant tool call. Tools such as screenshot expose a

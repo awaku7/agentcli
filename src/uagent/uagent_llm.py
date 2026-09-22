@@ -1849,6 +1849,19 @@ def _run_one_round(
         responses_api_continuation=response_tool_continuation,
         responses_runtime=getattr(core, "responses_runtime", None),
     )
+    if bool(getattr(core, "_session_resume_control_transfer", False)):
+        try:
+            core._session_resume_control_transfer = False
+        except Exception:
+            pass
+        core._last_round_reason = "session_resume"
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            assistant_text,
+        )
     if provider in ("gemini", "vertexai") and any(
         isinstance(tc, dict)
         and (tc.get("function") or {}).get("name") == "tool_catalog"
