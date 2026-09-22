@@ -154,6 +154,7 @@ def run_cli_startup(
     from . import util_tools as tools_util
     from .env_utils import env_get
     from .runtime.runtime_memory import append_long_memory_system_messages
+    from .runtime.turn_context_runtime import call_with_resolved_turn_context
     from .runtime.runtime_init import (
         apply_workdir,
         build_startup_banner,
@@ -416,6 +417,16 @@ def run_cli_startup(
     _startup_timing_mark("memory")
     _flush_startup_pager_and_continue()
 
+    def _run_cli_startup_turn(fn, *args, **kwargs):
+        return call_with_resolved_turn_context(
+            fn,
+            *args,
+            entry_point="cli",
+            project_path=os.getcwd(),
+            session_id=str(session_id or ""),
+            **kwargs,
+        )
+
     file_path = initial_file_arg
 
     if file_path:
@@ -449,7 +460,8 @@ def run_cli_startup(
             }
             messages.append(initial_file_msg)
             core.log_message(initial_file_msg)
-            llm_util.run_llm_rounds(
+            _run_cli_startup_turn(
+                llm_util.run_llm_rounds,
                 provider,
                 client,
                 depname,
@@ -466,7 +478,8 @@ def run_cli_startup(
         inject_msg = {"role": "user", "content": str(inject_message)}
         messages.append(inject_msg)
         core.log_message(inject_msg)
-        llm_util.run_llm_rounds(
+        _run_cli_startup_turn(
+            llm_util.run_llm_rounds,
             provider,
             client,
             depname,

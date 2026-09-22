@@ -15,6 +15,7 @@ from .. import core
 from .. import tools
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.execution import lifecycle_execution
+from ..runtime.turn_context_runtime import call_with_resolved_turn_context
 from ..scheduler import start_background_scheduler
 from ..util_tools import (
     append_result_to_outfile,
@@ -73,6 +74,16 @@ class ScheckWorker(QtCore.QObject):
         self._provider = ""
         self._client = None
         self._depname = ""
+
+    def _run_gui_turn(self, fn, *args, **kwargs):
+        return call_with_resolved_turn_context(
+            fn,
+            *args,
+            entry_point="gui",
+            project_path=os.getcwd(),
+            session_id=str(getattr(core, "session_id", "") or ""),
+            **kwargs,
+        )
 
     def _init_callbacks(self):
         cb = ToolCallbacks(
@@ -287,7 +298,9 @@ class ScheckWorker(QtCore.QObject):
                         required,
                         reason=f"scheduled direct run:{run_id}",
                     ):
-                        return execute_direct_tool(target_tool, target_args)
+                        return self._run_gui_turn(
+                            execute_direct_tool, target_tool, target_args
+                        )
 
                 result = SchedulerWorker(scheduled_run_store).execute(
                     run_id,
@@ -328,6 +341,7 @@ class ScheckWorker(QtCore.QObject):
                             )
                             _run_scheduled_lifecycle(
                                 ev,
+                                self._run_gui_turn,
                                 util_run_llm_rounds,
                                 self._provider,
                                 self._client,
@@ -341,6 +355,7 @@ class ScheckWorker(QtCore.QObject):
                             # Auto-pilot loop (first call)
                             if core.auto_pilot_active:
                                 _run_lifecycle(
+                                    self._run_gui_turn,
                                     _run_auto_pilot_loop,
                                     self._provider,
                                     self._client,
@@ -449,6 +464,7 @@ class ScheckWorker(QtCore.QObject):
 
                             _run_scheduled_lifecycle(
                                 ev,
+                                self._run_gui_turn,
                                 util_run_llm_rounds,
                                 self._provider,
                                 self._client,
@@ -462,6 +478,7 @@ class ScheckWorker(QtCore.QObject):
                             # Auto-pilot loop (native multimodal path)
                             if core.auto_pilot_active:
                                 _run_lifecycle(
+                                    self._run_gui_turn,
                                     _run_auto_pilot_loop,
                                     self._provider,
                                     self._client,
@@ -484,8 +501,10 @@ class ScheckWorker(QtCore.QObject):
                             if os.path.isfile(p):
                                 core.set_status(True, "analyze_image")
                                 try:
-                                    res = self.tools.run_tool(
-                                        "analyze_image", {"image_path": p}
+                                    res = self._run_gui_turn(
+                                        self.tools.run_tool,
+                                        "analyze_image",
+                                        {"image_path": p},
                                     )
                                 except Exception as e:
                                     res = (
@@ -507,6 +526,7 @@ class ScheckWorker(QtCore.QObject):
                             )
                             _run_scheduled_lifecycle(
                                 ev,
+                                self._run_gui_turn,
                                 util_run_llm_rounds,
                                 self._provider,
                                 self._client,
@@ -520,6 +540,7 @@ class ScheckWorker(QtCore.QObject):
                             # Auto-pilot loop (fallback path)
                             if core.auto_pilot_active:
                                 _run_lifecycle(
+                                    self._run_gui_turn,
                                     _run_auto_pilot_loop,
                                     self._provider,
                                     self._client,

@@ -7,6 +7,7 @@ from typing import Any
 
 from ..env_utils import env_get
 from ..i18n import _
+from ..runtime.turn_context_runtime import call_with_resolved_turn_context
 
 
 def _norm(v: str) -> str:
@@ -41,6 +42,16 @@ def run_once_uag(
     )
     core.task_id = str(task_id or "")
 
+    def _run_a2a_turn(fn, *args, **kwargs):
+        return call_with_resolved_turn_context(
+            fn,
+            *args,
+            entry_point="a2a",
+            project_path=os.getcwd(),
+            session_id=str(_session_id or ""),
+            **kwargs,
+        )
+
     messages = build_initial_messages(core=core)
     user_msg: dict[str, Any] = {"role": "user", "content": user_text}
     messages.append(user_msg)
@@ -53,7 +64,8 @@ def run_once_uag(
 
     # Execute one round (same as CLI/web usage)
     try:
-        llm_util.run_llm_rounds(
+        _run_a2a_turn(
+            llm_util.run_llm_rounds,
             provider,
             client,
             depname,

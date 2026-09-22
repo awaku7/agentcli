@@ -16,6 +16,7 @@ from .. import tools
 from .. import util_tools as tools_util
 from ..providers import util_providers as providers
 from ..runtime.execution import lifecycle_execution
+from ..runtime.turn_context_runtime import call_with_resolved_turn_context
 from ..runtime.logging_setup import configure_event_logging, log_event
 from ..runtime.round_outcome import project_round_outcome
 from ..scheduler import start_background_scheduler, stop_background_scheduler
@@ -89,6 +90,16 @@ def main() -> int:
     messages = startup.messages
     session_store = startup.session_store
     process_exit_code = 0
+
+    def _run_cli_turn(fn, *args, **kwargs):
+        return call_with_resolved_turn_context(
+            fn,
+            *args,
+            entry_point="cli",
+            project_path=os.getcwd(),
+            session_id=str(getattr(core, "session_id", "") or ""),
+            **kwargs,
+        )
 
     def _noninteractive_exit_code() -> int:
         return _exit_code_for_round_outcome(core)
@@ -218,7 +229,7 @@ def main() -> int:
                     required,
                     reason=f"scheduled direct run:{run_id}",
                 ):
-                    return execute_direct_tool(target_tool, target_args)
+                    return _run_cli_turn(execute_direct_tool, target_tool, target_args)
 
             result = SchedulerWorker(scheduled_run_store).execute(
                 run_id,
@@ -268,6 +279,7 @@ def main() -> int:
                         try:
                             _run_llm_event(
                                 ev,
+                                _run_cli_turn,
                                 llm_util.run_llm_rounds,
                                 provider,
                                 client,
@@ -319,7 +331,8 @@ def main() -> int:
                     if core.auto_pilot_active:
                         try:
                             with lifecycle_execution():
-                                tools_util._run_auto_pilot_loop(
+                                _run_cli_turn(
+                                    tools_util._run_auto_pilot_loop,
                                     provider,
                                     client,
                                     depname,
@@ -457,8 +470,10 @@ def main() -> int:
                             )
                             try:
                                 core.set_status(False, "")
-                                res_json = tools.run_tool(
-                                    "human_ask", {"message": msg, "is_password": False}
+                                res_json = _run_cli_turn(
+                                    tools.run_tool,
+                                    "human_ask",
+                                    {"message": msg, "is_password": False},
                                 )
                                 try:
                                     res = json.loads(res_json)
@@ -499,6 +514,7 @@ def main() -> int:
                     try:
                         _run_llm_event(
                             ev,
+                            _run_cli_turn,
                             llm_util.run_llm_rounds,
                             provider,
                             client,
