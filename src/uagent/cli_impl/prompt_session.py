@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import re
 import sys
 from typing import Any
 
@@ -126,18 +127,6 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                     # background warmup keeps loading and partial results are fine.
                     dyn_map = tools.get_dynamic_commands_map(block=False)
 
-                    # Free-form path completion: ./ or ../ prefix
-                    if stripped.startswith(("./", "../")):
-                        path_doc = Document(
-                            text=stripped,
-                            cursor_position=len(stripped),
-                        )
-                        for comp in PathCompleter().get_completions(
-                            path_doc, complete_event
-                        ):
-                            yield comp
-                        return
-
                     # Path completion for file-operating commands
                     path_cmds = (
                         ":ls ",
@@ -155,10 +144,28 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                         "mv ",
                         "cat ",
                     )
-                    if stripped.startswith(path_cmds):
-                        # Strip the command prefix so PathCompleter sees only the path
-                        prefix_end = stripped.index(" ") + 1
-                        path_text = stripped[prefix_end:]
+                    # Complete the path at the cursor, not only at the end of
+                    # the prompt. This keeps prose before and after the path.
+                    cursor = document.cursor_position
+                    before_cursor = document.text_before_cursor
+                    token_start = cursor
+                    while token_start > 0 and not before_cursor[token_start - 1].isspace():
+                        token_start -= 1
+                    path_text = before_cursor[token_start:]
+                    command_prefix = before_cursor[:token_start].lstrip()
+                    command_names = {
+                        value.strip().lower() for value in path_cmds
+                    }
+                    command_path_context = bool(command_prefix) and (
+                        command_prefix.split(None, 1)[0].lower() in command_names
+                    )
+                    path_shaped = bool(
+                        path_text.startswith(("./", "../", "~/", "/"))
+                        or "/" in path_text
+                        or "\\" in path_text
+                        or re.match(r"^[A-Za-z]:[\\/]", path_text)
+                    )
+                    if command_path_context or path_shaped:
                         path_doc = Document(
                             text=path_text,
                             cursor_position=len(path_text),
@@ -167,6 +174,9 @@ def _get_prompt_session(*, reply: bool = False) -> Any:
                             path_doc, complete_event
                         ):
                             yield comp
+                        # Do not fall through to command completion for a path
+                        # token, even when there are no matching files.
+                        return
                     elif stripped.startswith(":logs "):
                         # :logs subcommands and numeric/export arguments.
                         after_logs = stripped[len(":logs ") :]
