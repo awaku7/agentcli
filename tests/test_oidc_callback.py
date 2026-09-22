@@ -118,9 +118,8 @@ def test_callback_exchanges_code_with_transaction_verifier_and_nonce(
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
             jwks=jwks,
-            )
         )
-
+        )
 
 
 def test_callback_rejects_wrong_browser_before_token_exchange(
@@ -144,7 +143,7 @@ def test_callback_rejects_wrong_browser_before_token_exchange(
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
             jwks=jwks,
-            )
+        )
         )
 
     assert client.requests == []
@@ -169,9 +168,8 @@ def test_callback_rejects_id_token_with_wrong_nonce(metadata, signing_material):
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
             jwks=jwks,
-            )
         )
-
+        )
 
 
 def test_callback_rejects_missing_id_token(metadata):
@@ -191,6 +189,6 @@ def test_callback_rejects_missing_id_token(metadata):
             redirect_uri="https://uag.example/auth/callback",
             http_client=client,
             jwks={"keys": []},
-            )
+        )
         )
 
