@@ -113,6 +113,7 @@ platform = [
 ]
 web = [
     "pydantic",
+    "PyJWT[crypto]>=2.10,<3",
 ]
 test = [
     # SDKs imported directly by provider and compatibility tests.
@@ -137,6 +138,7 @@ test = [
     "fastapi",
     "uvicorn",
     "cryptography",
+    "PyJWT[crypto]>=2.10,<3",
 ]
 zai = ["zai-sdk"]
 realtime = ["sounddevice>=0.5.0"]
