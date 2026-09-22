@@ -1,8 +1,10 @@
 # Memory Evaluation Gates
 
+Status: **Current acceptance reference for Memory V2.**
+
 This document describes the deterministic evaluation gate and comparison runner
-for the Memory V2 rollout. Neither path calls an LLM or writes a persistent
-memory store.
+for the Memory V2 rollout and the final retrieval-precision regression set.
+Neither path calls an LLM or writes a persistent memory store.
 
 ## Deterministic retrieval gate
 
@@ -22,6 +24,9 @@ Each case reports:
 - `scope_violation_count`: candidates marked with an invalid scope status
 - `excluded_count`: records excluded before projection
 - `failure_reasons`: deterministic failure categories
+
+The production retrieval implementation also has focused regression coverage in
+`tests/test_memory_shadow_retrieval.py`.
 
 ## V2 comparison runner
 
@@ -134,14 +139,27 @@ The fixture covers:
 - Japanese query matching
 - path and alphanumeric query matching
 - duplicate and unrelated-record suppression
+- common-prefix precision where unrelated memories share most of the query text
+- punctuation-normalized phrase matching
+- Japanese particle omission using discriminative fallback ranking
+- Chinese discriminative retrieval
+- Thai retrieval without requiring whitespace word boundaries
+- English word-based retrieval
+
+The multilingual precision cases intentionally verify that V2 remains useful
+without requiring a Japanese-, Chinese-, or Thai-specific tokenizer. Exact and
+normalized phrase evidence is preferred, while script-aware character n-grams
+remain a fallback for languages where whitespace is not a reliable word
+boundary.
 
 The production projection, forget propagation, history boundary, frozen
 snapshot, applicable-guidance, and contextual-query contracts remain covered by
 their dedicated test modules.
 
-## Measured V2 decision
+## Measured V2 rollout decision
 
-A 25-iteration run on 2026-09-22 produced:
+A 25-iteration run on 2026-09-22 produced the following values at the point when
+the default-on rollout decision was made:
 
 | Mode | Recall | Irrelevant injection | Scope violations | Legacy unknown selected | Forget reappearance | Avg context chars | Mean latency ms | Gate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
@@ -153,6 +171,12 @@ A 25-iteration run on 2026-09-22 produced:
 The result shows why non-strict projection is not the final default: legacy
 unknown compatibility retained irrelevant records. The strict path preserved
 fixture recall while eliminating irrelevant injection and scope violations.
+
+This table is preserved as the rollout-decision measurement rather than silently
+replacing historical numbers after later fixture additions. The current fixture
+contains additional retrieval-precision cases, so a newly generated report may
+have different aggregate baseline/shadow/projection values while the acceptance
+contract remains the same.
 
 ## Final V2 rollout rule
 
@@ -177,4 +201,5 @@ not inferred and remains excluded by strict scope.
 Both rollout flags remain reversible by setting them explicitly to `0`.
 
 The authoritative completion rationale and V3 identity boundary are documented
-in `docs/MEMORY_V2_COMPLETION.md`.
+in `docs/MEMORY_V2_COMPLETION.md`. The current runtime behavior is summarized in
+`docs/MEMORY.md`.

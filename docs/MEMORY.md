@@ -1,15 +1,20 @@
 # Memory and Profile Architecture
 
-This document describes the mechanisms, storage, and lifecycle of Long-term Memory, Shared Memory, and User Profiles in **uag**.
+Status: **Current runtime reference for Memory V2.** Historical design rationale lives in
+`UAG_MEMORY_ARCHITECTURE_V2.md`; V3 identity work is tracked separately in
+`UAG_MEMORY_ARCHITECTURE_V3.md`.
+
+This document describes the mechanisms, storage, retrieval, and lifecycle of
+Long-term Memory, Shared Memory, and User Profiles in **uag**.
 
 ______________________________________________________________________
 
 ## 1. Overview of Memory Types
 
-| Memory Type | Storage File | Purpose | Management Tools / Commands |
+| Memory Type | Default Storage | Purpose | Management Tools / Commands |
 | :--- | :--- | :--- | :--- |
-| **Long-term Memory** | `~/.uag/logs/long_memory.jsonl` | Persistent notes about the user or environment. | `add_long_memory`, `get_long_memory` |
-| **Shared Memory** | `~/.uag/logs/shared_memory.jsonl` | Shared context across multiple agents or sessions. | `add_shared_memory`, `get_shared_memory` |
+| **Long-term Memory** | user state directory `memory.sqlite3` | Persistent notes about the user or environment. JSONL remains available as a compatibility backend. | `add_long_memory`, `get_long_memory` |
+| **Shared Memory** | configured shared store | Shared context across multiple agents or sessions. | `add_shared_memory`, `get_shared_memory` |
 | **User Profile** | `scheck_profile.jsonl` | Automatically learned environment, preferences, and constraints. | `:profile`, `:profile-fromlog`, `:profile-clear` |
 
 ______________________________________________________________________
@@ -40,6 +45,28 @@ Session memory candidates are extracted only from explicit `remember:` or `è¨˜æ†
 - **Shared Memory** is designed for multi-agent or cross-session collaboration.
 - Long-term Memory uses SQLite by default; JSONL remains available as a compatibility backend. Shared Memory uses its configured shared store.
 - Provider-facing Memory is selected per turn through the V2 projection path rather than sending every stored note broadly.
+
+### Retrieval behavior
+
+Memory V2 retrieval is deterministic and tokenizer-free by default. It is designed to
+remain useful across languages without making a language-specific morphological
+analyzer a required dependency.
+
+The retrieval path prefers stronger lexical evidence before weaker fallback matching:
+
+1. normalized exact / phrase matching;
+1. word-like token matching where reliable boundaries are available;
+1. script-aware character n-gram fallback for text where whitespace is not a dependable word boundary;
+1. candidate-relative discriminative ranking to suppress notes that only match common boilerplate.
+
+Normalization removes retrieval-irrelevant punctuation and normalizes compatible
+Unicode forms before phrase comparison. Character n-gram fallback is not limited to
+CJK; regression coverage includes Japanese, Chinese, and Thai. English word-based
+retrieval remains covered separately.
+
+Language-specific tokenizers or morphological analyzers are not required by the V2
+runtime. They may be considered later only if the language-independent path proves
+insufficient.
 
 ### Security Constraint
 
