@@ -470,8 +470,10 @@ def main() -> int:
                             )
                             try:
                                 core.set_status(False, "")
-                                res_json = tools.run_tool(
-                                    "human_ask", {"message": msg, "is_password": False}
+                                res_json = _run_cli_turn(
+                                    tools.run_tool,
+                                    "human_ask",
+                                    {"message": msg, "is_password": False},
                                 )
                                 try:
                                     res = json.loads(res_json)
