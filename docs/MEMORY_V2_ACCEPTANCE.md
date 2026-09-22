@@ -1,7 +1,7 @@
 # Memory V2 Acceptance
 
-This document defines the final acceptance gate before changing the default
-Memory V2 rollout settings.
+This document defines the final Memory V2 acceptance contract for the default-on
+strict projection path.
 
 The acceptance step does not add a new Memory architecture. It verifies that
 the implemented V2 contracts remain valid across the supported host entry
@@ -26,8 +26,7 @@ Memory integration.
 
 ## 2. Deterministic acceptance gate
 
-The V2 evaluation runner must pass both projection and strict-scope gates
-without an LLM call.
+The production acceptance gate is `strict_scope`.
 
 Required strict-scope conditions:
 
@@ -39,11 +38,15 @@ Required strict-scope conditions:
 - forget reappearance count = 0;
 - provider continuation state is cleared after forget.
 
-The legacy baseline is informational. It is intentionally not a pass/fail gate.
+The legacy baseline is informational. Non-strict `projection` is also retained
+as a comparison/rollback mode, but it is expected to fail the quality gate while
+legacy-unknown records can still be selected. That failure is evidence for why
+Strict Scope is part of the default-on V2 path rather than a reason to disable
+Projection altogether.
 
 ## 3. Required test command
 
-Before the V2 default decision, run the following group together:
+Run the following group together:
 
 ```text
 python -m pytest -q \
@@ -82,11 +85,32 @@ python -m uagent.runtime.memory_evaluation_runner \
   --enforce
 ```
 
-The generated report should be retained for the default-decision PR when
-practical, but raw Memory note bodies must not be committed merely to support
-telemetry. The runner omits note bodies by default.
+A measured 2026-09-22 run produced strict-scope Recall 1.000, irrelevant
+injection 0.000, zero scope violations, zero legacy-unknown selections, zero
+forget reappearance, and an overall PASS. See `MEMORY_EVALUATION.md` for the
+full comparison table.
 
-## 5. Provider and recovery boundary
+The generated report should be retained when practical, but raw Memory note
+bodies must not be committed merely to support telemetry. The runner omits note
+bodies by default.
+
+## 5. Default runtime contract
+
+Memory V2 is now default-on:
+
+```text
+UAGENT_MEMORY_PROJECTION=1
+UAGENT_MEMORY_STRICT_SCOPE=1
+```
+
+When `UAGENT_MEMORY_OWNER` is unset, the current OS login ID is the V2 local
+owner. Owner-less legacy records are treated as belonging to that owner at
+projection time without rewriting storage. Missing project metadata is not
+inferred and is rejected by Strict Scope.
+
+Explicit rollback remains supported by setting either rollout flag to `0`.
+
+## 6. Provider and recovery boundary
 
 Memory V2 must remain safe when provider state can retain prior context.
 Acceptance therefore includes the existing contracts for:
@@ -102,9 +126,9 @@ Acceptance therefore includes the existing contracts for:
 The provider tests are compatibility contracts, not a requirement to make live
 provider calls during the deterministic acceptance run.
 
-## 6. Stop conditions
+## 7. Stop conditions
 
-Do not advance the rollout if any of the following occurs:
+Do not ship or keep the default-on path if any of the following occurs:
 
 - scope violation;
 - forgotten Memory reappears;
@@ -114,19 +138,11 @@ Do not advance the rollout if any of the following occurs:
 - provider continuation survives a forget when it can retain stale Memory;
 - a supported host bypasses the shared Memory turn boundary.
 
-## 7. What remains after this gate
+## 8. V3 boundary
 
-After this acceptance gate is green, V2 has no remaining required feature
-implementation. The remaining work is the explicit default decision:
+Embedding, Brain/Dream integration, authenticated multi-user identity,
+authentication modes, and shared-room ownership belong to later work.
 
-```text
-UAGENT_MEMORY_PROJECTION
-UAGENT_MEMORY_STRICT_SCOPE
-```
-
-The decision may keep either setting opt-in. V2 completion means the decision
-is measured, documented, and reversible; it does not require both flags to be
-enabled by default.
-
-Embedding, Brain/Dream integration, multi-user identity, authentication, and
-shared-room ownership belong to later work and are not V2 completion criteria.
+The OS-login owner fallback is intentionally a V2 local/single-user rule. V3
+must replace it with authenticated `principal_id` propagation for shared Web or
+A2A deployments serving multiple human users.
