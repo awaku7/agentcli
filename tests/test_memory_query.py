@@ -163,11 +163,19 @@ def test_projection_finds_goal_for_generic_continuation(tmp_path, monkeypatch) -
     from uagent.tools import long_memory
 
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_STRICT_SCOPE", "1")
+    monkeypatch.setenv("UAGENT_MEMORY_OWNER", "alice")
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", tmp_path.name)
     monkeypatch.setattr(
         long_memory,
         "load_long_memory_records",
-        lambda: [{"note": "UAG memory architecture uses stable source IDs"}],
+        lambda: [
+            {
+                "note": "UAG memory architecture uses stable source IDs",
+                "owner": "alice",
+                "project": tmp_path.name,
+            }
+        ],
     )
     core = SimpleNamespace(
         get_agent_state=lambda: {"goal": "complete the UAG memory architecture"}
