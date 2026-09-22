@@ -11,7 +11,10 @@ from fastapi import WebSocket, WebSocketDisconnect
 from ..i18n import _
 from .. import core
 from ..providers import util_providers as providers
-from ..runtime.identity_context import IdentityConfigurationError, IdentityResolutionError
+from ..runtime.identity_context import (
+    IdentityConfigurationError,
+    IdentityResolutionError,
+)
 from .. import util_tools as tools_util
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
@@ -157,7 +160,9 @@ async def websocket_endpoint(websocket: WebSocket):
                             kwargs={
                                 "turn_context": connection.make_turn(
                                     project_path=room.base_dir,
-                                    session_id=str(getattr(core, "session_id", "") or ""),
+                                    session_id=str(
+                                        getattr(core, "session_id", "") or ""
+                                    ),
                                 ),
                                 "identity_context": connection.identity,
                             },
