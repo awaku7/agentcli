@@ -49,7 +49,7 @@ def test_shadow_retrieval_excludes_unrelated_records_before_ranking() -> None:
     )
 
 
-def test_shadow_retrieval_drops_weak_matches_relative_to_best_candidate() -> None:
+def test_shadow_retrieval_prefers_phrase_tier_over_common_prefix_matches() -> None:
     result = shadow_retrieve_memories(
         [
             {"note": "V2デモのPython合言葉は COBALT-731"},
@@ -67,7 +67,7 @@ def test_shadow_retrieval_drops_weak_matches_relative_to_best_candidate() -> Non
     assert result.excluded_records == 2
     assert (
         sum(
-            item.reason == "weak_query_match" and item.action == "exclude"
+            item.reason == "weaker_match_tier" and item.action == "exclude"
             for item in result.diagnostics
         )
         == 2
