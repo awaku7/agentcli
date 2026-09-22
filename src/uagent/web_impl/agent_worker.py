@@ -17,6 +17,12 @@ from .. import uagent_llm as llm_util
 from ..runtime.logging_setup import log_event
 from ..runtime.execution import lifecycle_execution
 from ..runtime.turn_context_runtime import call_with_resolved_turn_context
+from ..runtime.identity_context import (
+    IdentityContext,
+    IdentityResolutionError,
+    TurnContext,
+    call_with_turn_context,
+)
 from ..runtime.round_outcome import project_round_outcome, round_outcome_event
 from ..image_session import build_image_session_message
 from ..llm_helpers import LLMWaitInterrupted
@@ -30,6 +36,9 @@ def run_agent_worker(
     room: WebRoom,
     user_input: str,
     attachments: Optional[list[dict[str, Any]]] = None,
+    *,
+    turn_context: TurnContext | None = None,
+    identity_context: IdentityContext | None = None,
 ):
     """Run one user turn for a room.
 
@@ -40,7 +49,19 @@ def run_agent_worker(
     - finally always clears room/core status and releases locks
     """
 
+    if turn_context is not None:
+        if turn_context.entry_point != "web" or turn_context.room_id != room.room_id:
+            raise IdentityResolutionError("Web turn room mismatch")
+        if identity_context is None or not identity_context.authenticated:
+            raise IdentityResolutionError("Web turn requires authenticated identity")
+
     def _run_web_turn(fn, *args, **kwargs):
+        if turn_context is not None:
+            return call_with_turn_context(
+                turn_context, fn, *args, identity_context=identity_context, **kwargs
+            )
+        # Legacy direct worker calls use the selected resolver; non-local modes
+        # fail closed because no authenticated connection was supplied.
         return call_with_resolved_turn_context(
             fn,
             *args,
