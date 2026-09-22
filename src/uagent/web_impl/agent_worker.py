@@ -22,6 +22,7 @@ from ..runtime.identity_context import (
     IdentityResolutionError,
     TurnContext,
     call_with_turn_context,
+    resolve_identity_mode,
 )
 from ..runtime.round_outcome import project_round_outcome, round_outcome_event
 from ..image_session import build_image_session_message
@@ -49,6 +50,8 @@ def run_agent_worker(
     - finally always clears room/core status and releases locks
     """
 
+    if turn_context is None and resolve_identity_mode() != "local":
+        raise IdentityResolutionError("Web worker requires connection identity")
     if turn_context is not None:
         if turn_context.entry_point != "web" or turn_context.room_id != room.room_id:
             raise IdentityResolutionError("Web turn room mismatch")
