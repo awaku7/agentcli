@@ -67,12 +67,14 @@ async def websocket_endpoint(websocket: WebSocket):
                 forward_to_mesh(str(user_text or ""))
                 if is_chat_mode() == "on":
                     continue
+                worker_dir = room.base_dir
                 threading.Thread(
                     target=run_agent_worker,
                     args=(room, user_text, payload.get("attachments")),
                     kwargs={
+                        "project_path": worker_dir,
                         "turn_context": connection.make_turn(
-                            project_path=room.base_dir,
+                            project_path=worker_dir,
                             session_id=str(getattr(core, "session_id", "") or ""),
                         ),
                         "identity_context": connection.identity,
@@ -154,12 +156,14 @@ async def websocket_endpoint(websocket: WebSocket):
                         isinstance(_result, tools_util.CommandResult)
                         and _result.run_llm
                     ):
+                        worker_dir = room.base_dir
                         threading.Thread(
                             target=run_agent_worker,
                             args=(room, _result.prompt, None),
                             kwargs={
+                                "project_path": worker_dir,
                                 "turn_context": connection.make_turn(
-                                    project_path=room.base_dir,
+                                    project_path=worker_dir,
                                     session_id=str(
                                         getattr(core, "session_id", "") or ""
                                     ),
