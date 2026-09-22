@@ -7,15 +7,19 @@ only applies deterministic time/topic constraints to stored sessions.
 """
 
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from typing import Any, Iterable
 
 
 @dataclass(frozen=True)
 class SessionResumeRequest:
-    when: str
+    when: str = ""
     topic: str = ""
     project: str = ""
+    day_offset: int | None = None
+    week_offset: int | None = None
+    date_start: str = ""
+    date_end: str = ""
 
 
 @dataclass(frozen=True)
@@ -42,20 +46,79 @@ def _parse_created_at(value: Any) -> datetime | None:
     return parsed.astimezone(timezone.utc)
 
 
+def _parse_local_date(value: str) -> date | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    try:
+        return date.fromisoformat(text)
+    except ValueError:
+        return None
+
+
+def _date_window(
+    request: SessionResumeRequest,
+    local_now: datetime,
+) -> tuple[date, date] | None:
+    if request.date_start or request.date_end:
+        start = _parse_local_date(request.date_start)
+        end = _parse_local_date(request.date_end)
+        if start is None or end is None or start > end:
+            return None
+        return start, end
+
+    if request.day_offset is not None:
+        if request.day_offset < 0:
+            return None
+        target = local_now.date() - timedelta(days=request.day_offset)
+        return target, target
+
+    if request.week_offset is not None:
+        if request.week_offset < 0:
+            return None
+        # Deterministic ISO-style local week: Monday through Sunday.
+        this_monday = local_now.date() - timedelta(days=local_now.weekday())
+        start = this_monday - timedelta(weeks=request.week_offset)
+        return start, start + timedelta(days=6)
+
+    if request.when == "yesterday":
+        target = local_now.date() - timedelta(days=1)
+        return target, target
+
+    return None
+
+
 def _session_in_window(
     created_at: datetime,
     request: SessionResumeRequest,
     local_now: datetime,
 ) -> bool:
     local_created = created_at.astimezone(local_now.tzinfo)
-    if request.when == "latest":
+    if request.when == "latest" and not any(
+        (
+            request.day_offset is not None,
+            request.week_offset is not None,
+            request.date_start,
+            request.date_end,
+        )
+    ):
         return created_at <= local_now.astimezone(timezone.utc)
-    if request.when == "yesterday":
-        return local_created.date() == local_now.date() - timedelta(days=1)
-    if request.when == "recent":
+    if request.when == "recent" and not any(
+        (
+            request.day_offset is not None,
+            request.week_offset is not None,
+            request.date_start,
+            request.date_end,
+        )
+    ):
         age = local_now - local_created
         return timedelta(0) <= age <= timedelta(hours=6)
-    return False
+
+    window = _date_window(request, local_now)
+    if window is None:
+        return False
+    start, end = window
+    return start <= local_created.date() <= end
 
 
 def list_session_resume_candidates(
