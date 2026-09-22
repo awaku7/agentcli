@@ -102,11 +102,95 @@ def test_discovery_requires_exact_issuer_and_https(monkeypatch, metadata):
         "token_endpoint": metadata.token_endpoint,
         "jwks_uri": metadata.jwks_uri,
     }
-    monkeypatch.setattr(oidc, "_get_json", lambda url: document)
+    requested_urls = []
+
+    def fake_get_json(url):
+        requested_urls.append(url)
+        return document
+
+    monkeypatch.setattr(oidc, "_get_json", fake_get_json)
     assert oidc.discover_provider(metadata.issuer) == metadata
+
+    trailing_issuer = metadata.issuer + "/"
+    document["issuer"] = trailing_issuer
+    trailing_metadata = oidc.discover_provider(trailing_issuer)
+    assert trailing_metadata.issuer == trailing_issuer
+    assert requested_urls[-1] == (
+        metadata.issuer + "/.well-known/openid-configuration"
+    )
 
     document["issuer"] = "https://identity.example/other"
     with pytest.raises(IdentityResolutionError, match="issuer mismatch"):
         oidc.discover_provider(metadata.issuer)
     with pytest.raises(IdentityResolutionError, match="invalid OIDC issuer"):
         oidc.discover_provider("http://identity.example/tenant")
+
+
+def test_get_json_accepts_streamed_document_within_limit(monkeypatch):
+    chunks = [b'{"keys":', b"[]", b"}"]
+
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def iter_bytes(self):
+            yield from chunks
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            pass
+
+        def stream(self, method, url):
+            return FakeResponse()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+    monkeypatch.setattr(oidc.httpx, "Client", FakeClient)
+    assert oidc._get_json("https://identity.example/keys") == {"keys": []}
+
+
+def test_get_json_stops_when_stream_exceeds_limit(monkeypatch):
+    chunks_read = []
+
+    class FakeResponse:
+        def raise_for_status(self):
+            return None
+
+        def iter_bytes(self):
+            for chunk in (b'{"value":"', b"x" * oidc._MAX_DOCUMENT_BYTES, b'"}'):
+                chunks_read.append(chunk)
+                yield chunk
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+    class FakeClient:
+        def __init__(self, **kwargs):
+            pass
+
+        def stream(self, method, url):
+            return FakeResponse()
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+    monkeypatch.setattr(oidc.httpx, "Client", FakeClient)
+    with pytest.raises(IdentityResolutionError, match="exceeds size limit"):
+        oidc._get_json("https://identity.example/keys")
+    assert len(chunks_read) == 2
