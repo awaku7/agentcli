@@ -244,11 +244,19 @@ PR 2/3は入力projectionの切替で戻せる。ただし訂正・忘却が発�
 - PR1: 保存結果の信頼性、`note`整形、上限処理
 - PR2: 読み取り専用shadow retrievalとruntime観測
 - PR3: opt-in turn projection、frozen snapshot、owner/project scope
-- PR4: stable ID、revision、SQLite/JSONL migration、forget propagation、session/history boundary
-- PR6: contextual memory query
+- PR4: stable ID（`memory_id`=uuid hex、`legacy-<id>`移行）、revision楽観ロック（`MemoryStoreConflictError`）、SQLite schema version 2、forgetはDELETEによる物理削除＋他recordの再採番なし、session/history boundary
+- PR6: contextual memory query（`runtime/memory_query.py`: `build_memory_retrieval_query`、多言語の継続語・短文マーカー補完、原文不変のbounded query）
 - PR7: turn-local frozen memory snapshotの不変性
 - PR8: deterministic evaluation gate
 - PR9: scope/query/evaluation contractの拡張
+
+実装に合わせた補足（再レビュー時点の固定commit記述との差分是正）:
+
+- `runtime/runtime_memory.py`は`append_long_memory_system_messages`に加え、`_ensure_memory_rewrite_boundary` / `_ensure_memory_log_boundary`を持ち、`core.rewrite_current_log_from_messages`・`core.log_message`・SessionStore経由の永続化境界をwrapして派生memory/profileブロックの履歴混入を防ぐ。第3節「背景workerによる会話直接変更を避ける」方針の具体化である。
+- 派生判定は`runtime/memory_history_boundary.py`に集約（`[USER PROFILE]` / `[APPLICABLE USER GUIDANCE]` / `[MEMORY EVIDENCE]` prefix＋`core._uagent_memory_system_contents`登録内容の完全一致、`[CWD]/[SKILL]/[HOOK]`等のdurable要約は除外）。forget時は`_uagent_forgotten_memory_system_contents`も除去対象に含める。
+- `runtime/memory_manager.py`の現行Facadeはpersonal/shared/profile/sessionの読取統合のみで、`remember()`はpersonal/sharedへの書込、`profile`/`session`はread-onlyとして`RuntimeError`、scope不明値は`ValueError`。第2.1節と矛盾しない（sessionは`session_store`＋`session_id`指定時のみ）。
+- `runtime/memory_store.py`は`SCHEMA_VERSION=2`、`source_id`冪等append、`update_by_id`/`forget_by_id(expected_revision)`、`replace()`はstable ID保持互換。4.6節の単一writer/transaction・expected revision・source ID冪等性に対応し、forgetはstatus反転ではなくDELETEである。
+- `runtime/memory_query.py`は4.4節「『続き』だけでは語句検索にならない」対応の現行部品であり、原文を変更せず直近発言・task/project状態からboundedな検索queryを組み立てる（`build_memory_retrieval_query`）。
 
 現行の次の作業は、評価結果を基にした既定値変更の判断である。既定値を変更する前に、baseline、shadow、opt-in projection、strict scopeを比較し、Recall、無関連注入率、scope違反、forget後再出現、遅延、context量を記録する。Embedding、Brain/Dream、第二の正本、効果未測定の自動Memory更新は引き続き着手対象にしない。
 
@@ -259,6 +267,8 @@ PR 2/3は入力projectionの切替で戻せる。ただし訂正・忘却が発�
 - src/uagent/runtime/memory_manager.py
 - src/uagent/runtime/memory_store.py
 - src/uagent/runtime/runtime_memory.py
+- src/uagent/runtime/memory_history_boundary.py
+- src/uagent/runtime/memory_query.py
 - src/uagent/tools/long_memory.py
 - src/uagent/tools/add_long_memory_tool.py
 - src/uagent/util_message.py
