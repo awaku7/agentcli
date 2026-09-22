@@ -136,3 +136,84 @@ def test_shadow_retrieval_deduplicates_notes_and_caps_candidates() -> None:
 
     assert len(result.candidates) == 1
     assert sum(item.reason == "duplicate_note" for item in result.diagnostics) == 1
+
+
+def test_shadow_retrieval_normalizes_punctuation_before_phrase_ranking() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "V2デモのPython合言葉は COBALT-731"},
+            {"note": "V2デモの料理の合言葉は MISO-204。"},
+            {"note": "V2デモの旅行の合言葉は RAIL-918。"},
+        ],
+        query="V2デモの料理の合言葉は？",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "V2デモの料理の合言葉は MISO-204。"
+    ]
+    assert sum(item.reason == "weaker_match_tier" for item in result.diagnostics) == 2
+
+
+def test_shadow_retrieval_uses_discriminative_fallback_for_japanese() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "V2デモのPython合言葉は COBALT-731"},
+            {"note": "V2デモの料理の合言葉は MISO-204。"},
+            {"note": "V2デモの旅行の合言葉は RAIL-918。"},
+        ],
+        query="V2デモの料理合言葉は？",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "V2デモの料理の合言葉は MISO-204。"
+    ]
+
+
+def test_shadow_retrieval_uses_discriminative_fallback_for_chinese() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "V2演示的Python口令是 COBALT-731。"},
+            {"note": "V2演示的料理口令是 MISO-204。"},
+            {"note": "V2演示的旅行口令是 RAIL-918。"},
+        ],
+        query="V2演示料理口令是什么？",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "V2演示的料理口令是 MISO-204。"
+    ]
+
+
+def test_shadow_retrieval_uses_discriminative_fallback_for_thai() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "V2เดโมรหัสPythonคือ COBALT-731"},
+            {"note": "V2เดโมรหัสอาหารคือ MISO-204"},
+            {"note": "V2เดโมรหัสท่องเที่ยวคือ RAIL-918"},
+        ],
+        query="V2เดโมรหัสอาหารคืออะไร?",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "V2เดโมรหัสอาหารคือ MISO-204"
+    ]
+
+
+def test_shadow_retrieval_keeps_word_based_english_ranking() -> None:
+    result = shadow_retrieve_memories(
+        [
+            {"note": "V2 demo Python passphrase is COBALT-731"},
+            {"note": "V2 demo cooking passphrase is MISO-204"},
+            {"note": "V2 demo travel passphrase is RAIL-918"},
+        ],
+        query="V2 demo cooking passphrase?",
+        scope="personal",
+    )
+
+    assert [candidate.content for candidate in result.candidates] == [
+        "V2 demo cooking passphrase is MISO-204"
+    ]
