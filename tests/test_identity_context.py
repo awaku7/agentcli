@@ -10,6 +10,7 @@ from uagent.runtime.identity_context import (
     IdentityContext,
     IdentityResolutionError,
     LocalIdentityResolver,
+    OIDCIdentityResolver,
     TurnContext,
     bind_turn_context,
     create_identity_resolver,
@@ -43,11 +44,11 @@ def test_unknown_identity_mode_fails_fast(monkeypatch) -> None:
         create_identity_resolver()
 
 
-def test_known_future_mode_does_not_fallback_to_local(monkeypatch) -> None:
+def test_oidc_mode_selects_cookie_resolver(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
 
-    with pytest.raises(IdentityConfigurationError, match="not implemented"):
-        create_identity_resolver()
+    resolver = create_identity_resolver()
+    assert isinstance(resolver, OIDCIdentityResolver)
 
 
 def test_identity_and_turn_contexts_are_immutable() -> None:
@@ -189,3 +190,24 @@ def test_parallel_turn_contexts_do_not_leak_between_workers() -> None:
         assert future_b.result(timeout=5) == ("user-b", "room-b")
 
     assert get_current_turn_context() is None
+
+
+def test_oidc_resolver_reads_server_side_cookie(monkeypatch) -> None:
+    from types import SimpleNamespace
+
+    from uagent.auth.oidc_sessions import OIDCSessionStore
+
+    identity = IdentityContext("oidc:user", True, "oidc")
+    store = OIDCSessionStore()
+    token = store.create(identity)
+    monkeypatch.setattr(
+        "uagent.auth.oidc_sessions.get_oidc_session_store", lambda: store
+    )
+
+    resolved = create_identity_resolver("oidc").resolve(
+        SimpleNamespace(cookies={"uag_oidc_session": token})
+    )
+    assert resolved == identity
+
+    with pytest.raises(IdentityResolutionError, match="missing"):
+        create_identity_resolver("oidc").resolve(SimpleNamespace(cookies={}))

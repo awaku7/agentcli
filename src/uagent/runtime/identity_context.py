@@ -2,8 +2,8 @@
 
 This module deliberately contains no provider-specific authentication logic.  It
 normalizes an already selected identity mode into immutable identity/turn
-contexts and provides ContextVar helpers for legacy call paths.  Multi-user Web
-connection binding is added in a later V3 step.
+contexts and provides ContextVar helpers for legacy call paths. Web connections
+bind their authenticated identity before creating turn contexts.
 """
 
 from __future__ import annotations
@@ -135,6 +135,25 @@ class LocalIdentityResolver(IdentityResolver):
         )
 
 
+class OIDCIdentityResolver(IdentityResolver):
+    """Resolve a Web request from the server-side OIDC session cookie."""
+
+    mode = "oidc"
+    cookie_name = "uag_oidc_session"
+
+    def resolve(self, request_context: Any = None) -> IdentityContext:
+        cookies = getattr(request_context, "cookies", None)
+        token = str((cookies or {}).get(self.cookie_name) or "").strip()
+        if not token:
+            raise IdentityResolutionError("OIDC session cookie is missing")
+        from ..auth.oidc_sessions import get_oidc_session_store
+
+        identity = get_oidc_session_store().resolve(token)
+        if identity is None:
+            raise IdentityResolutionError("OIDC session is invalid or expired")
+        return identity
+
+
 def resolve_identity_mode(mode: str | None = None) -> str:
     """Return one explicitly selected identity mode without silent fallback."""
     raw = mode if mode is not None else env_get("UAGENT_IDENTITY_MODE", "local")
@@ -145,15 +164,17 @@ def resolve_identity_mode(mode: str | None = None) -> str:
 
 
 def create_identity_resolver(mode: str | None = None) -> IdentityResolver:
-    """Create the configured resolver.
+    """Create the configured resolver without implicit local fallback.
 
-    V3-1 implements only ``local``.  Selecting a future mode is an explicit
-    configuration request and therefore fails closed until its adapter exists;
-    it must never fall back to the local principal.
+    ``local`` resolves the process-local principal. ``oidc`` resolves a
+    server-side browser session cookie. Other modes remain fail-closed until
+    their adapters are implemented.
     """
     selected = resolve_identity_mode(mode)
     if selected == "local":
         return LocalIdentityResolver()
+    if selected == "oidc":
+        return OIDCIdentityResolver()
     raise IdentityConfigurationError(
         f"identity mode is not implemented in this build: {selected}"
     )
@@ -265,6 +286,7 @@ __all__ = [
     "IdentityResolutionError",
     "IdentityResolver",
     "LocalIdentityResolver",
+    "OIDCIdentityResolver",
     "TurnContext",
     "bind_turn_context",
     "call_with_turn_context",

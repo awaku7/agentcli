@@ -410,7 +410,7 @@ def check_consecutive_tool_calls(
     # Keep a model from using one discovery tool as a general-purpose reader
     # across many consecutive rounds without penalizing legitimate parallel
     # fan-out inside one round.
-    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "8")
+    raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "50")
     try:
         default_limit = max(1, int(raw_limit))
     except (TypeError, ValueError):

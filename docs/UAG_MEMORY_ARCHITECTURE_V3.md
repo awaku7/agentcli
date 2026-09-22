@@ -503,6 +503,10 @@ UAGENT_OIDC_ISSUER=
 UAGENT_OIDC_CLIENT_ID=
 UAGENT_OIDC_CLIENT_SECRET=
 UAGENT_OIDC_REDIRECT_URI=
+# Browser cookie / server-side session controls
+UAGENT_OIDC_COOKIE_SECURE=1
+UAGENT_OIDC_SESSION_TTL=28800
+UAGENT_OIDC_SESSION_MAX=4096
 ```
 
 #### OAuth
@@ -1191,9 +1195,15 @@ V3-2 の接続境界実装では、WebSocket handshake 時に選択中の resolv
 
 完了条件: login session と WebSocket turn が stable principal で結ばれる。
 
+実装状況: browser binding、Authorization Code + PKCE callback、ID token検証、server-side opaque session、cookie経由のWebSocket identity resolverまで実装済み。永続session store、管理API、複数認証方式のhybrid化は未実装。
+
 V3-3 は認証境界ごとに分割する。最初に browser binding に紐付く一回限りの state / nonce / PKCE S256 transaction と期限・容量制限を実装する。次に検証済み discovery / JWKS / ID token（issuer、signature、audience、expiry、nonce）と Authorization Code callback を接続し、最後に server-side session / WebSocket cookie inheritance を確認する。transaction 単体ではログイン機能を有効にせず、`oidc` mode は検証経路が完成するまで fail-closed のままにする。
 
-署名検証段階では HTTPS discovery の issuer 一致と signing key の JWKS を検証し、RS256 ID token の issuer / audience / expiry / nonce / authorized party を確認した後だけ `iss + sub` から principal を導出する。現在の verifier は純粋な認証部品であり、Web callback と session への接続は後続の変更で行う。
+署名検証段階では HTTPS discovery の issuer 一致と signing key の JWKS を検証し、RS256 ID token の issuer / audience / expiry / nonce / authorized party を確認した後だけ `iss + sub` から principal を導出する。
+
+現在は、browser binding cookie、Authorization Code + PKCE callback、ID token検証、opaqueなserver-side session、`Secure` / `HttpOnly` / `SameSite=Lax` cookie、WebSocketからのsession継承までを接続する。session token自体は保存せず、ハッシュ化したキーと検証済みIdentityContextだけをprocess-localなbounded storeで保持する。process再起動でsessionが失効することは意図した初期実装の制約であり、永続session storeは後続フェーズで追加する。
+
+未実装のidentity modeはlocalへfallbackせずfail-closedとする。OIDC loginは `UAGENT_IDENTITY_MODE=oidc` と issuer / client ID / redirect URI の設定が揃った場合だけ有効になる。
 
 ### PR V3-4: Memory audience contract
 

@@ -46,6 +46,12 @@ from .web_impl.history import (
     _ensure_room_history_initialized,
 )
 from .web_impl.agent_worker import run_agent_worker
+from .web_impl.routes_auth import (
+    auth_status,
+    oidc_callback,
+    oidc_login,
+    oidc_logout,
+)
 from .web_impl.routes_pages import (
     get_local_file,
     get_room,
@@ -91,6 +97,7 @@ __all__ = [
     "_ensure_room_history_initialized",
     "_genre_enabled",
     "_handle_mode_command",
+    "auth_status",
     "_lang_from_accept_language",
     "_load_input_history",
     "_log_first_user_message",
@@ -115,6 +122,9 @@ __all__ = [
     "get_root",
     "get_tool_genres",
     "get_tools_enabled",
+    "oidc_callback",
+    "oidc_login",
+    "oidc_logout",
     "init_web",
     "main",
     "profile_from_logs",
