@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from ..runtime.session_command_service import SessionCommandService
@@ -89,6 +90,10 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
+def _result(**payload: Any) -> str:
+    return json.dumps(payload, ensure_ascii=False, sort_keys=True)
+
+
 def _current_project(store: Any, active_session_id: str) -> str:
     if not active_session_id:
         return ""
@@ -149,9 +154,10 @@ def _select(
 def run_tool(args: dict[str, Any]) -> str:
     when = str(args.get("when") or "").strip().lower()
     if when not in {"latest", "recent", "yesterday"}:
-        return _(
-            "err.when_invalid",
-            default="[session_resume error] when must be latest, recent, or yesterday.",
+        return _result(
+            ok=False,
+            error="invalid_when",
+            allowed=["latest", "recent", "yesterday"],
         )
 
     topic = str(args.get("topic") or "").strip()
@@ -162,17 +168,9 @@ def run_tool(args: dict[str, Any]) -> str:
     event_queue = callbacks.event_queue
 
     if store is None:
-        return _(
-            "err.store_unavailable",
-            default="[session_resume error] Session Store is not enabled.",
-        )
+        return _result(ok=False, error="session_store_unavailable")
     if event_queue is None or not callable(getattr(event_queue, "put", None)):
-        return _(
-            "err.host_unavailable",
-            default=(
-                "[session_resume error] The current host cannot switch sessions from a tool call."
-            ),
-        )
+        return _result(ok=False, error="host_session_switch_unavailable")
 
     inferred_project = explicit_project or _current_project(store, active_session_id)
     request = SessionResumeRequest(
@@ -199,9 +197,12 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     if candidate is None:
-        return _(
-            "out.not_found",
-            default="[session_resume] No stored session matched the requested time/topic.",
+        return _result(
+            ok=False,
+            error="no_matching_session",
+            when=when,
+            topic=topic,
+            project=explicit_project or inferred_project,
         )
 
     event_queue.put(
@@ -211,10 +212,10 @@ def run_tool(args: dict[str, Any]) -> str:
             "src": "session_resume",
         }
     )
-    return _(
-        "out.queued",
-        default=(
-            "[session_resume] Session switch queued: {session_id}. "
-            "The stored conversation will become active after this LLM round."
-        ),
-    ).format(session_id=candidate.session_id)
+    return _result(
+        ok=True,
+        status="queued",
+        session_id=candidate.session_id,
+        when=when,
+        topic=topic,
+    )
