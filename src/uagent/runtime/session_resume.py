@@ -2,7 +2,7 @@ from __future__ import annotations
 
 """Language-neutral selection helpers for natural session resume.
 
-Natural-language interpretation belongs to the LLM/tool layer.  This module
+Natural-language interpretation belongs to the LLM/tool layer. This module
 only applies deterministic time/topic constraints to stored sessions.
 """
 
@@ -22,6 +22,10 @@ class SessionResumeRequest:
 class SessionResumeCandidate:
     session_id: str
     created_at: str
+    project: str = ""
+    first_message: str = ""
+    last_message: str = ""
+    summary: str = ""
 
 
 def _parse_created_at(value: Any) -> datetime | None:
@@ -54,20 +58,20 @@ def _session_in_window(
     return False
 
 
-def select_session_resume_candidate(
+def list_session_resume_candidates(
     sessions: Iterable[dict[str, Any]],
     request: SessionResumeRequest,
     *,
     now: datetime | None = None,
     matching_session_ids: set[str] | None = None,
-) -> SessionResumeCandidate | None:
-    """Select the newest session satisfying time and optional topic matches."""
+) -> list[SessionResumeCandidate]:
+    """Return matching sessions newest-first without resolving ambiguity."""
 
     local_now = now or datetime.now().astimezone()
     if local_now.tzinfo is None:
         local_now = local_now.astimezone()
 
-    candidates: list[tuple[datetime, str, str]] = []
+    candidates: list[tuple[datetime, SessionResumeCandidate]] = []
     for row in sessions:
         session_id = str(row.get("session_id") or "")
         if not session_id:
@@ -77,17 +81,45 @@ def select_session_resume_candidate(
         created_at = _parse_created_at(row.get("created_at"))
         if created_at is None or not _session_in_window(created_at, request, local_now):
             continue
-        candidates.append((created_at, session_id, str(row.get("created_at") or "")))
+        candidates.append(
+            (
+                created_at,
+                SessionResumeCandidate(
+                    session_id=session_id,
+                    created_at=str(row.get("created_at") or ""),
+                    project=str(row.get("project") or ""),
+                    first_message=str(row.get("first_message") or ""),
+                    last_message=str(row.get("last_message") or ""),
+                    summary=str(row.get("summary") or ""),
+                ),
+            )
+        )
 
-    if not candidates:
-        return None
-    candidates.sort(reverse=True)
-    _, session_id, created_text = candidates[0]
-    return SessionResumeCandidate(session_id=session_id, created_at=created_text)
+    candidates.sort(key=lambda item: (item[0], item[1].session_id), reverse=True)
+    return [candidate for _, candidate in candidates]
+
+
+def select_session_resume_candidate(
+    sessions: Iterable[dict[str, Any]],
+    request: SessionResumeRequest,
+    *,
+    now: datetime | None = None,
+    matching_session_ids: set[str] | None = None,
+) -> SessionResumeCandidate | None:
+    """Select the newest matching session for backward-compatible callers."""
+
+    candidates = list_session_resume_candidates(
+        sessions,
+        request,
+        now=now,
+        matching_session_ids=matching_session_ids,
+    )
+    return candidates[0] if candidates else None
 
 
 __all__ = [
     "SessionResumeCandidate",
     "SessionResumeRequest",
+    "list_session_resume_candidates",
     "select_session_resume_candidate",
 ]

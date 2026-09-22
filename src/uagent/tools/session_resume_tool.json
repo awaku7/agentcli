@@ -1,37 +1,42 @@
 {
   "en": {
-    "tool.description": "Resumes a stored UAG CLI session from a natural-language request. Interpret the user's language and map it to when=latest, recent, or yesterday, with optional topic keywords.",
+    "tool.description": "Resumes a stored UAG CLI session from a natural-language request. Interpret the user's language and map it to when=latest, recent, or yesterday. If several sessions match, ask the user which candidate they want and call again with that session_id.",
     "x_search_terms": ["session resume", "resume previous session", "continue previous work", "yesterday work", "recent work", "previous conversation"],
     "param.when.description": "Time selector: latest = newest previous session; recent = used within about six hours; yesterday = the user's local calendar day before today.",
     "param.topic.description": "Optional meaningful topic keywords. Exclude words that only mean resume, work, recent, or yesterday.",
-    "param.project.description": "Optional exact stored project name. Leave empty to prefer the current project's sessions."
+    "param.project.description": "Optional exact stored project name. Leave empty to prefer the current project's sessions.",
+    "param.session_id.description": "Exact candidate session_id to resume after the user chooses from an ambiguous result. When set, when/topic are not required."
   },
   "ja": {
-    "tool.description": "自然文の依頼から保存済みUAG CLIセッションを再開します。利用者の言語を解釈し、when=latest / recent / yesterday と必要に応じたtopicへ正規化してください。",
+    "tool.description": "自然文の依頼から保存済みUAG CLIセッションを再開します。利用者の言語を解釈し、when=latest / recent / yesterday と必要に応じたtopicへ正規化してください。複数候補が返った場合は利用者に選んでもらい、そのsession_idで再実行してください。",
     "x_search_terms": ["セッション再開", "前のセッションを再開", "前の作業を続ける", "昨日の作業", "さきほどの作業", "前の会話"],
     "param.when.description": "時間条件。latest=直前の保存済みセッション、recent=おおむね6時間以内、yesterday=利用者のローカル日付で昨日。",
     "param.topic.description": "必要なら意味のある話題キーワードだけを指定します。再開・作業・さきほど・昨日だけを表す語は除外してください。",
-    "param.project.description": "保存済みproject名を明示する場合に指定します。空なら現在projectのセッションを優先します。"
+    "param.project.description": "保存済みproject名を明示する場合に指定します。空なら現在projectのセッションを優先します。",
+    "param.session_id.description": "複数候補から利用者が選んだ後、その候補のsession_idを指定して再開します。指定時はwhen/topicは不要です。"
   },
   "zh_CN": {
-    "tool.description": "根据自然语言请求恢复已保存的 UAG CLI 会话。请理解用户语言，并将请求规范化为 when=latest、recent 或 yesterday，以及可选的 topic。",
+    "tool.description": "根据自然语言请求恢复已保存的 UAG CLI 会话。请理解用户语言，并将请求规范化为 when=latest、recent 或 yesterday，以及可选的 topic。若返回多个候选，请让用户选择后用该 session_id 再次调用。",
     "x_search_terms": ["恢复会话", "继续之前的会话", "继续之前的工作", "昨天的工作", "刚才的工作", "之前的对话"],
     "param.when.description": "时间条件：latest=最新的上一个会话；recent=大约六小时内使用过；yesterday=用户本地日历中的昨天。",
     "param.topic.description": "可选的有效主题关键词。不要包含仅表示继续、工作、刚才或昨天的词。",
-    "param.project.description": "可选的精确项目名。留空时优先使用当前项目的会话。"
+    "param.project.description": "可选的精确项目名。留空时优先使用当前项目的会话。",
+    "param.session_id.description": "用户从多个候选中选择后，指定该候选的 session_id 进行恢复。设置后无需 when/topic。"
   },
   "zh_TW": {
-    "tool.description": "依自然語言要求恢復已儲存的 UAG CLI 工作階段。請理解使用者語言，並將要求正規化為 when=latest、recent 或 yesterday，以及可選的 topic。",
+    "tool.description": "依自然語言要求恢復已儲存的 UAG CLI 工作階段。請理解使用者語言，並將要求正規化為 when=latest、recent 或 yesterday，以及可選的 topic。若有多個候選，請讓使用者選擇後以該 session_id 再次呼叫。",
     "x_search_terms": ["恢復工作階段", "繼續之前的工作階段", "繼續之前的工作", "昨天的工作", "剛才的工作", "之前的對話"],
     "param.when.description": "時間條件：latest=最新的上一個工作階段；recent=約六小時內使用過；yesterday=使用者本地日曆中的昨天。",
     "param.topic.description": "可選的有效主題關鍵字。不要包含只表示繼續、工作、剛才或昨天的詞。",
-    "param.project.description": "可選的精確專案名稱。留空時優先使用目前專案的工作階段。"
+    "param.project.description": "可選的精確專案名稱。留空時優先使用目前專案的工作階段。",
+    "param.session_id.description": "使用者從多個候選中選擇後，指定該候選的 session_id 進行恢復。設定後不需要 when/topic。"
   },
   "th": {
-    "tool.description": "กลับไปทำเซสชัน UAG CLI ที่บันทึกไว้ต่อจากคำขอภาษาธรรมชาติ ให้ตีความภาษาของผู้ใช้แล้วแปลงเป็น when=latest, recent หรือ yesterday พร้อม topic ถ้าจำเป็น",
+    "tool.description": "กลับไปทำเซสชัน UAG CLI ที่บันทึกไว้ต่อจากคำขอภาษาธรรมชาติ ให้ตีความภาษาของผู้ใช้แล้วแปลงเป็น when=latest, recent หรือ yesterday พร้อม topic ถ้าจำเป็น หากมีหลายตัวเลือก ให้ผู้ใช้เลือกแล้วเรียกอีกครั้งด้วย session_id นั้น",
     "x_search_terms": ["ทำเซสชันต่อ", "ทำเซสชันก่อนหน้าต่อ", "ทำงานก่อนหน้าต่อ", "งานเมื่อวาน", "งานเมื่อสักครู่", "บทสนทนาก่อนหน้า"],
     "param.when.description": "เงื่อนไขเวลา: latest=เซสชันก่อนหน้าล่าสุด, recent=ใช้งานภายในประมาณหกชั่วโมง, yesterday=เมื่อวานตามปฏิทินท้องถิ่นของผู้ใช้",
     "param.topic.description": "คีย์เวิร์ดหัวข้อที่มีความหมายถ้าจำเป็น โดยไม่รวมคำที่หมายถึงทำต่อ งาน เมื่อสักครู่ หรือเมื่อวานเท่านั้น",
-    "param.project.description": "ชื่อโปรเจกต์ที่บันทึกไว้อย่างตรงตัวถ้าต้องการ เว้นว่างเพื่อให้ความสำคัญกับเซสชันของโปรเจกต์ปัจจุบัน"
+    "param.project.description": "ชื่อโปรเจกต์ที่บันทึกไว้อย่างตรงตัวถ้าต้องการ เว้นว่างเพื่อให้ความสำคัญกับเซสชันของโปรเจกต์ปัจจุบัน",
+    "param.session_id.description": "หลังผู้ใช้เลือกจากหลายตัวเลือก ให้ระบุ session_id ของตัวเลือกนั้นเพื่อกลับไปทำต่อ เมื่อกำหนดแล้วไม่ต้องใช้ when/topic"
   }
 }

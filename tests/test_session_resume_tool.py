@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from queue import Queue
+from queue import Empty, Queue
 
 from uagent.tools.context import ToolCallbacks, init_callbacks
 from uagent.tools.i18n_helper import make_tool_translator
@@ -124,6 +124,8 @@ def test_latest_prefers_current_project_and_queues_load_command():
     result = _run_with_callbacks(store, queue, {"when": "latest"})
 
     assert result["ok"] is True
+    assert result["status"] == "queued"
+    assert result["control_transfer"] is True
     assert result["session_id"] == "app-previous"
     event = queue.get_nowait()
     assert event == {
@@ -131,6 +133,77 @@ def test_latest_prefers_current_project_and_queues_load_command():
         "text": ":sessions load app-previous",
         "src": "session_resume",
     }
+
+
+def test_yesterday_with_multiple_matches_requires_user_choice():
+    store = _FakeStore(
+        [
+            {
+                "session_id": "active",
+                "project": "app",
+                "created_at": "2026-09-22 02:00:00",
+            },
+            {
+                "session_id": "weather",
+                "project": "app",
+                "created_at": "2026-09-21 10:30:00",
+                "first_message": "今日の天気",
+                "last_message": "今日の天気",
+                "summary": "天気確認",
+            },
+            {
+                "session_id": "memory",
+                "project": "app",
+                "created_at": "2026-09-21 01:00:00",
+                "first_message": "UAG Memoryの続き",
+                "last_message": "PRをマージ",
+                "summary": "Memory作業",
+            },
+        ]
+    )
+    queue = Queue()
+
+    result = _run_with_callbacks(store, queue, {"when": "yesterday"})
+
+    assert result["ok"] is True
+    assert result["status"] == "ambiguous"
+    assert result["requires_user_choice"] is True
+    assert result["candidate_count"] == 2
+    assert [item["session_id"] for item in result["candidates"]] == [
+        "weather",
+        "memory",
+    ]
+    assert result["candidates"][1]["summary"] == "Memory作業"
+    with __import__("pytest").raises(Empty):
+        queue.get_nowait()
+
+
+def test_explicit_candidate_session_id_queues_selected_session():
+    store = _FakeStore(
+        [
+            {
+                "session_id": "active",
+                "project": "app",
+                "created_at": "2026-09-22 02:00:00",
+            },
+            {
+                "session_id": "memory",
+                "project": "app",
+                "created_at": "2026-09-21 01:00:00",
+            },
+        ]
+    )
+    queue = Queue()
+
+    result = _run_with_callbacks(store, queue, {"session_id": "memory"})
+
+    assert result == {
+        "control_transfer": True,
+        "ok": True,
+        "session_id": "memory",
+        "status": "queued",
+    }
+    assert queue.get_nowait()["text"] == ":sessions load memory"
 
 
 def test_topic_can_fall_back_to_another_project():
@@ -212,8 +285,12 @@ def test_tool_catalog_has_safe_fallback_for_all_host_locales(monkeypatch):
         monkeypatch.setenv("UAGENT_LANG", locale)
         description = translator("tool.description", default="fallback")
         search_terms = translator("x_search_terms", default=["fallback"])
+        session_id_description = translator(
+            "param.session_id.description", default="fallback"
+        )
         assert isinstance(description, str) and description
         assert isinstance(search_terms, list) and search_terms
+        assert isinstance(session_id_description, str) and session_id_description
 
 
 def test_representative_non_english_tool_catalogs_are_localized(monkeypatch):

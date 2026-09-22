@@ -5,8 +5,9 @@ from typing import Any
 
 from ..runtime.session_command_service import SessionCommandService
 from ..runtime.session_resume import (
+    SessionResumeCandidate,
     SessionResumeRequest,
-    select_session_resume_candidate,
+    list_session_resume_candidates,
 )
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
@@ -26,7 +27,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "Resumes a stored UAG CLI session from natural-language requests such as "
                 "'resume yesterday's work' or 'continue the work from a moment ago'. "
                 "Interpret the user's language yourself and map the request to when=latest, "
-                "recent, or yesterday. Optionally pass the meaningful topic words."
+                "recent, or yesterday. If the tool returns ambiguous candidates, ask the "
+                "user which one they want and call again with that candidate's session_id."
             ),
         ),
         "x_search_terms": _(
@@ -83,8 +85,18 @@ TOOL_SPEC: dict[str, Any] = {
                         ),
                     ),
                 },
+                "session_id": {
+                    "type": "string",
+                    "description": _(
+                        "param.session_id.description",
+                        default=(
+                            "Exact candidate session_id to resume after the user chooses from "
+                            "an ambiguous result. When set, when/topic are not required."
+                        ),
+                    ),
+                },
             },
-            "required": ["when"],
+            "required": [],
         },
     },
 }
@@ -123,13 +135,13 @@ def _matching_ids(
     }
 
 
-def _select(
+def _candidates(
     store: Any,
     request: SessionResumeRequest,
     *,
     active_session_id: str,
     project: str | None,
-):
+) -> list[SessionResumeCandidate]:
     try:
         sessions = store.list_sessions(
             project=project,
@@ -144,24 +156,47 @@ def _select(
         ]
     service = SessionCommandService(store)
     matching_ids = _matching_ids(service, request.topic, project=project)
-    return select_session_resume_candidate(
+    return list_session_resume_candidates(
         sessions,
         request,
         matching_session_ids=matching_ids,
     )
 
 
-def run_tool(args: dict[str, Any]) -> str:
-    when = str(args.get("when") or "").strip().lower()
-    if when not in {"latest", "recent", "yesterday"}:
-        return _result(
-            ok=False,
-            error="invalid_when",
-            allowed=["latest", "recent", "yesterday"],
-        )
+def _clip(value: str, limit: int = 180) -> str:
+    text = " ".join(str(value or "").split())
+    return text if len(text) <= limit else text[: limit - 1] + "…"
 
-    topic = str(args.get("topic") or "").strip()
-    explicit_project = str(args.get("project") or "").strip()
+
+def _candidate_payload(candidate: SessionResumeCandidate, index: int) -> dict[str, Any]:
+    return {
+        "index": index,
+        "session_id": candidate.session_id,
+        "created_at": candidate.created_at,
+        "project": candidate.project,
+        "summary": _clip(candidate.summary),
+        "first_message": _clip(candidate.first_message),
+        "last_message": _clip(candidate.last_message),
+    }
+
+
+def _queue_session(event_queue: Any, session_id: str) -> str:
+    event_queue.put(
+        {
+            "kind": "command",
+            "text": f":sessions load {session_id}",
+            "src": "session_resume",
+        }
+    )
+    return _result(
+        ok=True,
+        status="queued",
+        control_transfer=True,
+        session_id=session_id,
+    )
+
+
+def run_tool(args: dict[str, Any]) -> str:
     callbacks = get_callbacks()
     store = callbacks.session_store
     active_session_id = str(callbacks.session_id or "")
@@ -172,6 +207,30 @@ def run_tool(args: dict[str, Any]) -> str:
     if event_queue is None or not callable(getattr(event_queue, "put", None)):
         return _result(ok=False, error="host_session_switch_unavailable")
 
+    explicit_session_id = str(args.get("session_id") or "").strip()
+    if explicit_session_id:
+        if explicit_session_id == active_session_id:
+            return _result(ok=False, error="session_already_active")
+        try:
+            store.get_session(explicit_session_id)
+        except Exception:
+            return _result(
+                ok=False,
+                error="unknown_session",
+                session_id=explicit_session_id,
+            )
+        return _queue_session(event_queue, explicit_session_id)
+
+    when = str(args.get("when") or "").strip().lower()
+    if when not in {"latest", "recent", "yesterday"}:
+        return _result(
+            ok=False,
+            error="invalid_when",
+            allowed=["latest", "recent", "yesterday"],
+        )
+
+    topic = str(args.get("topic") or "").strip()
+    explicit_project = str(args.get("project") or "").strip()
     inferred_project = explicit_project or _current_project(store, active_session_id)
     request = SessionResumeRequest(
         when=when,
@@ -179,24 +238,24 @@ def run_tool(args: dict[str, Any]) -> str:
         project=explicit_project,
     )
 
-    candidate = _select(
+    candidates = _candidates(
         store,
         request,
         active_session_id=active_session_id,
         project=inferred_project or None,
     )
 
-    # A meaningful topic may identify another project. If no explicit project
-    # was requested and the current project has no match, retry across projects.
-    if candidate is None and topic and not explicit_project and inferred_project:
-        candidate = _select(
+    # A meaningful topic may identify another project. If the current project
+    # has no match and no explicit project was requested, retry across projects.
+    if not candidates and topic and not explicit_project and inferred_project:
+        candidates = _candidates(
             store,
             request,
             active_session_id=active_session_id,
             project=None,
         )
 
-    if candidate is None:
+    if not candidates:
         return _result(
             ok=False,
             error="no_matching_session",
@@ -205,17 +264,21 @@ def run_tool(args: dict[str, Any]) -> str:
             project=explicit_project or inferred_project,
         )
 
-    event_queue.put(
-        {
-            "kind": "command",
-            "text": f":sessions load {candidate.session_id}",
-            "src": "session_resume",
-        }
-    )
-    return _result(
-        ok=True,
-        status="queued",
-        session_id=candidate.session_id,
-        when=when,
-        topic=topic,
-    )
+    # "latest" is explicitly deterministic. Relative windows can legitimately
+    # contain several different jobs, so do not silently choose one for the user.
+    if when != "latest" and len(candidates) > 1:
+        visible = candidates[:8]
+        return _result(
+            ok=True,
+            status="ambiguous",
+            requires_user_choice=True,
+            when=when,
+            topic=topic,
+            candidate_count=len(candidates),
+            candidates=[
+                _candidate_payload(candidate, index)
+                for index, candidate in enumerate(visible, start=1)
+            ],
+        )
+
+    return _queue_session(event_queue, candidates[0].session_id)
