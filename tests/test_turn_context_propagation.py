@@ -148,3 +148,13 @@ def test_gui_image_preprocessing_uses_turn_context() -> None:
         "                                    )"
     )
     assert expected in source
+
+
+def test_cli_image_confirmation_uses_turn_context() -> None:
+    root = Path(__file__).resolve().parents[1]
+    source = (root / "src/uagent/cli_impl/main.py").read_text(encoding="utf-8")
+    assert (
+        "res_json = _run_cli_turn(\n"
+        "                                    tools.run_tool,\n"
+        '                                    "human_ask",\n'
+    ) in source
