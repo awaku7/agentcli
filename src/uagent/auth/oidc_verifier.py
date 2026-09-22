@@ -42,11 +42,14 @@ def _https_url(value: str) -> bool:
 
 def _get_json(url: str) -> dict:
     with httpx.Client(timeout=5.0, follow_redirects=False) as client:
-        response = client.get(url)
-        response.raise_for_status()
-        if len(response.content) > _MAX_DOCUMENT_BYTES:
-            raise IdentityResolutionError("OIDC document exceeds size limit")
-        data = response.json()
+        with client.stream("GET", url) as response:
+            response.raise_for_status()
+            content = bytearray()
+            for chunk in response.iter_bytes():
+                content.extend(chunk)
+                if len(content) > _MAX_DOCUMENT_BYTES:
+                    raise IdentityResolutionError("OIDC document exceeds size limit")
+    data = json.loads(content)
     if not isinstance(data, dict):
         raise IdentityResolutionError("invalid OIDC document")
     return data
@@ -54,10 +57,11 @@ def _get_json(url: str) -> dict:
 
 def discover_provider(issuer: str) -> OIDCProviderMetadata:
     """Read HTTPS discovery and require the configured issuer exactly."""
-    if not _https_url(issuer) or issuer.endswith("/"):
+    if not _https_url(issuer):
         raise IdentityResolutionError("invalid OIDC issuer URL")
     try:
-        document = _get_json(issuer + "/.well-known/openid-configuration")
+        discovery_base = issuer.rstrip("/")
+        document = _get_json(discovery_base + "/.well-known/openid-configuration")
         if document.get("issuer") != issuer:
             raise IdentityResolutionError("OIDC discovery issuer mismatch")
         endpoints = [
