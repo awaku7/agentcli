@@ -93,9 +93,7 @@ def _normalized_text(value: str) -> str:
 def _phrase_key(value: str) -> str:
     normalized = _normalized_text(value)
     return "".join(
-        char
-        for char in normalized
-        if not unicodedata.category(char).startswith("P")
+        char for char in normalized if not unicodedata.category(char).startswith("P")
     )
 
 
@@ -180,9 +178,7 @@ def _discriminative_relevance(
     weights: dict[str, float] = {}
     for ngram in query_ngrams:
         document_frequency = sum(ngram in item for item in corpus_ngrams)
-        weights[ngram] = math.log(
-            (corpus_size + 1) / (document_frequency + 1)
-        ) + 1.0
+        weights[ngram] = math.log((corpus_size + 1) / (document_frequency + 1)) + 1.0
     denominator = sum(weights.values())
     if denominator <= 0.0:
         return 0.0
@@ -423,9 +419,7 @@ def shadow_retrieve_memories(
             for item in scored
         }
         best_discriminative = max(discriminative_scores.values(), default=0.0)
-        discriminative_floor = (
-            best_discriminative * _DISCRIMINATIVE_RELEVANCE_RATIO
-        )
+        discriminative_floor = best_discriminative * _DISCRIMINATIVE_RELEVANCE_RATIO
         weak_discriminative_ids = {
             item_id
             for item_id, score in discriminative_scores.items()
