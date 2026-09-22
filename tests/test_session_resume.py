@@ -94,6 +94,71 @@ def test_select_latest_ignores_future_rows():
     assert candidate.session_id == "latest"
 
 
+def test_day_offset_two_means_day_before_yesterday_in_local_calendar():
+    jst = timezone(timedelta(hours=9))
+    now = datetime(2026, 9, 22, 18, 0, tzinfo=jst)
+    sessions = [
+        {"session_id": "target", "created_at": "2026-09-20 03:00:00"},
+        {"session_id": "yesterday", "created_at": "2026-09-21 03:00:00"},
+        {"session_id": "older", "created_at": "2026-09-19 03:00:00"},
+    ]
+
+    candidate = select_session_resume_candidate(
+        sessions,
+        SessionResumeRequest(day_offset=2),
+        now=now,
+    )
+
+    assert candidate is not None
+    assert candidate.session_id == "target"
+
+
+def test_week_offset_one_uses_previous_local_monday_to_sunday():
+    jst = timezone(timedelta(hours=9))
+    now = datetime(2026, 9, 22, 18, 0, tzinfo=jst)  # Tuesday
+    sessions = [
+        {"session_id": "sun", "created_at": "2026-09-20 10:00:00"},
+        {"session_id": "mon", "created_at": "2026-09-14 10:00:00"},
+        {"session_id": "before", "created_at": "2026-09-13 10:00:00"},
+        {"session_id": "this-week", "created_at": "2026-09-21 10:00:00"},
+    ]
+
+    candidates = list_session_resume_candidates(
+        sessions,
+        SessionResumeRequest(week_offset=1),
+        now=now,
+    )
+
+    assert [candidate.session_id for candidate in candidates] == ["sun", "mon"]
+
+
+def test_explicit_local_date_range_is_inclusive():
+    jst = timezone(timedelta(hours=9))
+    now = datetime(2026, 9, 22, 18, 0, tzinfo=jst)
+    sessions = [
+        {"session_id": "end", "created_at": "2026-09-18 12:00:00"},
+        {"session_id": "start", "created_at": "2026-09-16 00:00:00"},
+        {"session_id": "outside", "created_at": "2026-09-15 00:00:00"},
+    ]
+
+    candidates = list_session_resume_candidates(
+        sessions,
+        SessionResumeRequest(date_start="2026-09-16", date_end="2026-09-18"),
+        now=now,
+    )
+
+    assert [candidate.session_id for candidate in candidates] == ["end", "start"]
+
+
+def test_invalid_date_range_matches_nothing():
+    candidate = select_session_resume_candidate(
+        [{"session_id": "s1", "created_at": "2026-09-20 03:00:00"}],
+        SessionResumeRequest(date_start="2026-09-21", date_end="2026-09-20"),
+        now=datetime(2026, 9, 22, 4, 0, tzinfo=timezone.utc),
+    )
+    assert candidate is None
+
+
 def test_unknown_window_matches_nothing():
     candidate = select_session_resume_candidate(
         [{"session_id": "s1", "created_at": "2026-09-22 03:00:00"}],
