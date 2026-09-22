@@ -24,11 +24,10 @@ TOOL_SPEC: dict[str, Any] = {
         "description": _(
             "tool.description",
             default=(
-                "Resumes a stored UAG CLI session from natural-language requests such as "
-                "'resume yesterday's work' or 'continue the work from a moment ago'. "
-                "Interpret the user's language yourself and map the request to when=latest, "
-                "recent, or yesterday. If the tool returns ambiguous candidates, ask the "
-                "user which one they want and call again with that candidate's session_id."
+                "Resume a stored UAG CLI session from natural language. Interpret time "
+                "expressions in the user's language and map them to the language-neutral "
+                "fields below. If several sessions match, ask the user to choose one and "
+                "call again with its session_id."
             ),
         ),
         "x_search_terms": _(
@@ -38,6 +37,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "resume previous session",
                 "continue previous work",
                 "yesterday work",
+                "day before yesterday work",
+                "last week work",
                 "recent work",
                 "previous conversation",
             ],
@@ -47,6 +48,8 @@ TOOL_SPEC: dict[str, Any] = {
             "resume previous session",
             "continue previous work",
             "yesterday work",
+            "day before yesterday work",
+            "last week work",
             "recent work",
             "previous conversation",
         ],
@@ -59,10 +62,45 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.when.description",
                         default=(
-                            "Time selector. Use latest for the newest previous session, "
-                            "recent for a session used within about six hours, or yesterday "
-                            "for the user's local calendar day before today."
+                            "Compatibility time selector: latest = newest previous session; "
+                            "recent = about six hours; yesterday = previous local calendar day."
                         ),
+                    ),
+                },
+                "day_offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": _(
+                        "param.day_offset.description",
+                        default=(
+                            "Local calendar day offset: 0=today, 1=yesterday, 2=day before "
+                            "yesterday, 3=three days ago, and so on."
+                        ),
+                    ),
+                },
+                "week_offset": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": _(
+                        "param.week_offset.description",
+                        default=(
+                            "Local ISO-style week offset: 0=this Monday-Sunday week, "
+                            "1=last week, 2=two weeks ago, and so on."
+                        ),
+                    ),
+                },
+                "date_start": {
+                    "type": "string",
+                    "description": _(
+                        "param.date_start.description",
+                        default="Inclusive local start date in YYYY-MM-DD format.",
+                    ),
+                },
+                "date_end": {
+                    "type": "string",
+                    "description": _(
+                        "param.date_end.description",
+                        default="Inclusive local end date in YYYY-MM-DD format.",
                     ),
                 },
                 "topic": {
@@ -70,8 +108,8 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.topic.description",
                         default=(
-                            "Optional topic keywords from the user's request, excluding words "
-                            "that only mean resume, work, recent, or yesterday."
+                            "Optional meaningful topic keywords. Exclude words that only "
+                            "express resuming or the selected time period."
                         ),
                     ),
                 },
@@ -91,7 +129,7 @@ TOOL_SPEC: dict[str, Any] = {
                         "param.session_id.description",
                         default=(
                             "Exact candidate session_id to resume after the user chooses from "
-                            "an ambiguous result. When set, when/topic are not required."
+                            "an ambiguous result. Other time fields are then unnecessary."
                         ),
                     ),
                 },
@@ -196,6 +234,21 @@ def _queue_session(event_queue: Any, session_id: str) -> str:
     )
 
 
+def _int_arg(args: dict[str, Any], name: str) -> tuple[int | None, str | None]:
+    value = args.get(name)
+    if value is None or value == "":
+        return None, None
+    if isinstance(value, bool):
+        return None, f"invalid_{name}"
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        return None, f"invalid_{name}"
+    if parsed < 0:
+        return None, f"invalid_{name}"
+    return parsed, None
+
+
 def run_tool(args: dict[str, Any]) -> str:
     callbacks = get_callbacks()
     store = callbacks.session_store
@@ -222,12 +275,37 @@ def run_tool(args: dict[str, Any]) -> str:
         return _queue_session(event_queue, explicit_session_id)
 
     when = str(args.get("when") or "").strip().lower()
-    if when not in {"latest", "recent", "yesterday"}:
+    if when and when not in {"latest", "recent", "yesterday"}:
         return _result(
             ok=False,
             error="invalid_when",
             allowed=["latest", "recent", "yesterday"],
         )
+
+    day_offset, error = _int_arg(args, "day_offset")
+    if error:
+        return _result(ok=False, error=error)
+    week_offset, error = _int_arg(args, "week_offset")
+    if error:
+        return _result(ok=False, error=error)
+
+    date_start = str(args.get("date_start") or "").strip()
+    date_end = str(args.get("date_end") or "").strip()
+    if bool(date_start) != bool(date_end):
+        return _result(ok=False, error="incomplete_date_range")
+
+    selectors = sum(
+        (
+            bool(when),
+            day_offset is not None,
+            week_offset is not None,
+            bool(date_start and date_end),
+        )
+    )
+    if selectors == 0:
+        return _result(ok=False, error="missing_time_selector")
+    if selectors > 1:
+        return _result(ok=False, error="conflicting_time_selectors")
 
     topic = str(args.get("topic") or "").strip()
     explicit_project = str(args.get("project") or "").strip()
@@ -236,6 +314,10 @@ def run_tool(args: dict[str, Any]) -> str:
         when=when,
         topic=topic,
         project=explicit_project,
+        day_offset=day_offset,
+        week_offset=week_offset,
+        date_start=date_start,
+        date_end=date_end,
     )
 
     candidates = _candidates(
@@ -255,30 +337,38 @@ def run_tool(args: dict[str, Any]) -> str:
             project=None,
         )
 
+    selector_payload = {
+        "when": when,
+        "day_offset": day_offset,
+        "week_offset": week_offset,
+        "date_start": date_start,
+        "date_end": date_end,
+    }
     if not candidates:
         return _result(
             ok=False,
             error="no_matching_session",
-            when=when,
             topic=topic,
             project=explicit_project or inferred_project,
+            **selector_payload,
         )
 
-    # "latest" is explicitly deterministic. Relative windows can legitimately
-    # contain several different jobs, so do not silently choose one for the user.
-    if when != "latest" and len(candidates) > 1:
+    # Only "latest" is explicitly deterministic. Calendar/range selectors can
+    # legitimately contain several jobs, so never silently choose among them.
+    is_latest = when == "latest"
+    if not is_latest and len(candidates) > 1:
         visible = candidates[:8]
         return _result(
             ok=True,
             status="ambiguous",
             requires_user_choice=True,
-            when=when,
             topic=topic,
             candidate_count=len(candidates),
             candidates=[
                 _candidate_payload(candidate, index)
                 for index, candidate in enumerate(visible, start=1)
             ],
+            **selector_payload,
         )
 
     return _queue_session(event_queue, candidates[0].session_id)
