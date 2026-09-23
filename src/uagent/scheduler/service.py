@@ -80,6 +80,7 @@ class SchedulerService:
 
     def _fire_due_items(self) -> None:
         now = utc_now()
+        self._store.reclaim_expired_claims(now)
         due = self._store.claim_due_items(self._instance_id, now)
         for item, due_at in due:
             next_at: str | None = None
