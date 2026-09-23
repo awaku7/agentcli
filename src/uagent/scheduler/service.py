@@ -165,9 +165,7 @@ class SchedulerService:
             # dequeue acknowledgement. Preserve compatibility by treating
             # successful sink acceptance as the delivery boundary.
             try:
-                if not self._store.mark_event_delivered(
-                    event_id, self._instance_id
-                ):
+                if not self._store.mark_event_delivered(event_id, self._instance_id):
                     return
             except Exception:
                 return
