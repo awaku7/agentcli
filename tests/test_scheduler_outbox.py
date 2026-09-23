@@ -145,3 +145,31 @@ def test_explicit_orphan_reclaim_allows_redelivery_after_owner_restart(tmp_path)
     delivered = schedules.list_events("delivered")
     assert len(delivered) == 1
     assert delivered[0]["target_instance_id"] == "instance-b"
+
+
+def test_outbox_rows_are_not_written_when_schedule_claim_is_lost(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    _add_due_schedule(schedules, "outbox-4", "instance-a")
+
+    due = schedules.claim_due_items("instance-a", utc_now())
+    assert len(due) == 1
+    item, due_at = due[0]
+    event = {
+        "kind": "user",
+        "text": item.effective_prompt,
+        "schedule_id": item.id,
+        "schedule_type": item.type,
+        "schedule_at": due_at,
+        "run_id": "run-outbox-4",
+        "owner_instance_id": item.owner_instance_id,
+        "session_id": item.session_id,
+    }
+
+    assert not schedules.finalize_claim_with_events(
+        item.id,
+        "instance-b",
+        None,
+        [event],
+    )
+    assert schedules.list_events() == []
+    assert schedules.get_item(item.id) is not None
