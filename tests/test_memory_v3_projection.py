@@ -224,9 +224,14 @@ def test_project_membership_revocation_invalidates_active_projection(
     assert projected != messages
 
     store = MemoryStore(memory_path)
-    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).revoke_membership(
-        "root", "demo", "bob"
-    )
+    policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.revoke_membership("root", "demo", "bob")
+    assert policy.membership("bob", "demo") is None
+    assert not policy.can_access("bob", "demo", "viewer")
     store.close()
     with bind_turn_context(turn):
         assert apply_memory_projection(messages, snapshot, core) == messages
+        fresh_snapshot = prepare_memory_projection(messages, core)
+        assert fresh_snapshot is not None
+        assert fresh_snapshot.diagnostics["error"] == "MemoryAccessError"
+        assert apply_memory_projection(messages, fresh_snapshot, core) == messages
