@@ -89,14 +89,21 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 
 ## Commands to run before committing
 
+Choose checks according to the change. Documentation-only edits need Markdown
+formatting and `git diff --check`, not Python lint or pytest. During code iteration,
+run the affected tests; run the full suite once for the final code revision before
+submission, rather than repeating it for every intermediate edit. For CI-only
+changes, validate workflow syntax and changed routing behavior; the PR CI runs the
+Python checks. Prompt/skill Markdown and test fixtures are not documentation-only.
+
 - **Python syntax**: `python -m py_compile src/uagent/` (catches import/syntax errors).
 - **Format/lint**: `python -m ruff check src tests` and
   `python -m black --check src tests`.
 - **Locale compile**: `python scripts/compile_locales.py` (after editing .po files).
 - **Locale QC**: `python scripts/po_qc_summary.py` (check translation quality).
 - **Targeted tests**: `pytest -q tests/<affected_area>`.
-- **CI-equivalent test run**: after `pip install -r requirements.txt`, run
-  `python -m pytest -q .` before pushing.
+- **CI-equivalent test run**: for the final code revision, after
+  `pip install -r requirements.txt`, run `python -m pytest -q . --durations=30`.
 - **Tool catalogs**: `python scripts/tool_json_i18n_batch.py status` and validate
   each `src/uagent/tools/*_tool.json` with `scripts/i18n_validate.py`.
 - After changing tools, startup, or MCP behavior, run the affected path end-to-end.
@@ -152,13 +159,12 @@ See the unified guide at [`src/uagent/docs/DEVELOP_I18N.md`](./src/uagent/docs/D
 
 ## PR instructions
 
-- Run all checks above before submitting.
+- Run the applicable checks above before submitting.
 - If adding a new LLM provider, update: `provider_caps.py` (add to `ALL_PROVIDERS`), `setup_cli.py`, `util_providers.py`, `llm_round_helpers.py`, `runtime_banner.py`. `detect_provider()` and `env_validate.py` validation are centralised via `provider_caps.ALL_PROVIDERS`.
 - If adding a CLI option, ensure it works across all entry points (CLI/GUI/Web/A2A).
 - Update `DEVELOP.md` and any relevant docs under `src/uagent/docs/`.
 - For i18n changes, run `python scripts/compile_locales.py` and `python scripts/po_qc_summary.py`.
 - Test the affected flow end-to-end.
-
 
 ## Repository ontology
 
