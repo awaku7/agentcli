@@ -75,7 +75,10 @@ def positive_integer_setting(name: str, default: int) -> int:
 
 
 def _valid_redirect_uri(value: str) -> bool:
-    parsed = urlsplit(value)
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return False
     return (
         parsed.scheme in {"http", "https"}
         and bool(parsed.hostname)
@@ -86,7 +89,10 @@ def _valid_redirect_uri(value: str) -> bool:
 
 
 def _valid_oidc_issuer(value: str) -> bool:
-    parsed = urlsplit(value)
+    try:
+        parsed = urlsplit(value)
+    except ValueError:
+        return False
     return (
         parsed.scheme == "https"
         and bool(parsed.hostname)

@@ -101,6 +101,19 @@ def test_oidc_health_uses_runtime_https_issuer_boundary(monkeypatch):
     assert validate_authentication_configuration().configured is True
 
 
+def test_oidc_health_reports_malformed_bracketed_urls(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
+    monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://[broken")
+    monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://[broken")
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is False
+    assert "UAGENT_OIDC_ISSUER must be a valid HTTPS URL" in status.diagnostics
+    assert "UAGENT_OIDC_REDIRECT_URI must be an HTTP(S) URL" in status.diagnostics
+
+
 def test_oidc_health_rejects_invalid_session_limits(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
     monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")

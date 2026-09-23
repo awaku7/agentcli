@@ -209,3 +209,39 @@ def test_room_broadcast_closes_stale_authenticated_connection(monkeypatch):
     assert socket.sent == []
     assert socket.closed == [1008]
     assert socket not in room.active_connections
+
+
+def test_room_connect_falls_back_for_malformed_history(monkeypatch):
+    from uagent.web_impl.rooms import WebRoom
+
+    monkeypatch.setattr(
+        "uagent.runtime.auth_management.authentication_configuration_fingerprint",
+        lambda: "revision-1",
+    )
+
+    class Socket:
+        def __init__(self):
+            self.accepted = False
+            self.sent = []
+
+        async def accept(self):
+            self.accepted = True
+
+        async def send_json(self, data):
+            self.sent.append(data)
+
+    room = WebRoom("shared")
+    room.welcome_shown = True
+    room.messages = [{"role": "assistant", "content": "fallback"}]
+    room.history = ["malformed"]
+    socket = Socket()
+    connection = connection_identity.WebConnectionContext(
+        "shared",
+        IdentityContext("user-A", True, "test"),
+        configuration_fingerprint="revision-1",
+    )
+
+    asyncio.run(room.connect(socket, connection))
+
+    assert socket.accepted is True
+    assert socket.sent[0]["messages"] == room.messages

@@ -112,7 +112,7 @@ class WebRoom:
                                 }
                             )
                         )
-                except (IdentityConfigurationError, IdentityResolutionError):
+                except Exception:
                     msgs = self.messages
 
             _v = (env_get("UAGENT_WEB_VERBOSE") or "").strip().lower()
@@ -201,7 +201,7 @@ class WebRoom:
             if connection_context is not None:
                 try:
                     connection_context.validate_authentication_configuration()
-                except Exception:
+                except (IdentityConfigurationError, IdentityResolutionError):
                     try:
                         await connection.close(code=1008)
                     except Exception:
