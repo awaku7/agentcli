@@ -527,6 +527,7 @@ UAGENT_OAUTH_REDIRECT_URI=
 UAGENT_IDENTITY_MODE=trusted_proxy
 UAGENT_TRUSTED_PROXY_IDENTITY_HEADER=
 UAGENT_TRUSTED_PROXY_ISSUER_HEADER=
+UAGENT_TRUSTED_PROXY_CIDRS=
 ```
 
 #### Windows / AD
@@ -543,9 +544,21 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 
 ```env
 UAGENT_IDENTITY_MODE=token
+UAGENT_TOKEN_NAMESPACE=
+UAGENT_TOKEN_IDENTITIES=[]
 ```
 
 credential storage / verification mechanism は別 security component とする。
+
+`oauth`、`windows_ad`、`external` は、server startup 時に
+`register_enterprise_identity_verifier()` へ credential verifier を登録する。
+verifier は provider / Kerberos / gateway 側で検証済みの stable subject を
+`VerifiedEnterpriseIdentity` として返す。未登録 adapter、未検証文字列、直接受信した
+`DOMAIN\\username` は fail-closed とする。
+
+`trusted_proxy` は identity / issuer header に加えて接続元CIDRを必須とし、`0.0.0.0/0`
+および `::/0` を拒否する。reverse proxy は外部由来の同名headerを削除してから、検証済み
+headerを再付与する。
 
 ### 12.2 Startup validation
 

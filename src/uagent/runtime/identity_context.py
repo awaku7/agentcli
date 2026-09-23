@@ -167,17 +167,17 @@ def create_identity_resolver(mode: str | None = None) -> IdentityResolver:
     """Create the configured resolver without implicit local fallback.
 
     ``local`` resolves the process-local principal. ``oidc`` resolves a
-    server-side browser session cookie. Other modes remain fail-closed until
-    their adapters are implemented.
+    server-side browser session cookie. Enterprise modes delegate credential
+    validation to their selected adapter without fallback.
     """
     selected = resolve_identity_mode(mode)
     if selected == "local":
         return LocalIdentityResolver()
     if selected == "oidc":
         return OIDCIdentityResolver()
-    raise IdentityConfigurationError(
-        f"identity mode is not implemented in this build: {selected}"
-    )
+    from .enterprise_identity import enterprise_resolver
+
+    return enterprise_resolver(selected)
 
 
 def resolve_turn_context(
