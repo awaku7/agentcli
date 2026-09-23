@@ -44,6 +44,7 @@ from .runtime.context_plan_builder import build_context_plan, context_plan_match
 from .runtime.context_policy import ContextPolicy
 from .runtime.memory_projection import (
     apply_memory_projection,
+    memory_projection_access_is_current,
     prepare_memory_projection,
 )
 from .runtime.message_transform import MessageTransformPipeline
@@ -1425,6 +1426,20 @@ def _run_one_round(
     if judgment_mode:
         tr_cfg = None  # judgment prompt is English; skip translate
 
+    memory_snapshot = getattr(core, "memory_projection_snapshot", None)
+    if not judgment_mode and not memory_projection_access_is_current(
+        memory_snapshot, core
+    ):
+        core._last_round_reason = "memory_access_changed"
+        core._memory_projection_invalidated = True
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            "",
+        )
+
     call_messages = _build_call_messages(
         provider=provider,
         messages=messages,
@@ -1441,6 +1456,18 @@ def _run_one_round(
         ),
         core,
     )
+    if not judgment_mode and not memory_projection_access_is_current(
+        memory_snapshot, core
+    ):
+        core._last_round_reason = "memory_access_changed"
+        core._memory_projection_invalidated = True
+        return (
+            _RS_BREAK,
+            client,
+            gemini_cache_name,
+            empty_no_tool_rounds,
+            "",
+        )
 
     def _call_maybe_thread_fn(fn: Any) -> Any:
         return _call_maybe_thread(fn, use_llm_thread=use_llm_thread)
@@ -2793,6 +2820,12 @@ def run_llm_rounds(
 
     try:
         while True:
+            if not judgment_mode and not memory_projection_access_is_current(
+                getattr(core, "memory_projection_snapshot", None), core
+            ):
+                core._last_round_reason = "memory_access_changed"
+                core._memory_projection_invalidated = True
+                break
             round_count += 1
             core._last_round_reason = ""
             round_started = time.perf_counter()

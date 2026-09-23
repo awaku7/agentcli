@@ -9,8 +9,9 @@ with the current implementation.
 
 - [ ] Make project authorization server-controlled rather than trusting an arbitrary
   request `project_id`.
-- [ ] Re-check memory access generation before provider calls, streamed response
-  delivery, and tool-loop continuation.
+- [x] Re-check memory access generation before provider calls, streamed response
+  delivery, and tool-loop continuation; revoked output is removed from the active
+  Web room history and auto-pilot continuation is skipped.
 - [x] Expose the existing revision-bound read-grant store through the documented
   `/api/me/shared-memories` and grant-management APIs.
 - [ ] Add regression tests for project isolation and invalidation during an active
