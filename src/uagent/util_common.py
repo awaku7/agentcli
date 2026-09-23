@@ -260,6 +260,18 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
     )
     parser.add_argument(
+        "--scheduled-payload-id",
+        dest="scheduled_payload_id",
+        default=None,
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
+        "--scheduled-payload-dir",
+        dest="scheduled_payload_dir",
+        default=None,
+        help=argparse.SUPPRESS,
+    )
+    parser.add_argument(
         "--inject-message",
         "-M",
         dest="inject_message",
@@ -312,9 +324,24 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         help=_("Load a plugin from a directory (can be specified multiple times)."),
     )
     args, unknown = parser.parse_known_args(argv)
+    if args.scheduled_payload_id:
+        from .scheduler.os_payload import consume_scheduled_payload
+
+        if args.inject_message is not None or args.inject_message_auto is not None:
+            raise ValueError(
+                "scheduled payload cannot be combined with injected CLI text"
+            )
+        payload = consume_scheduled_payload(
+            args.scheduled_payload_id, args.scheduled_payload_dir
+        )
+        args.workdir = payload["workdir"] or args.workdir
+        args.inject_message = payload["on_timeout_prompt"] or payload["message"]
+        args.enable_tools = payload["enable_tools"]
+        args.non_interactive = True
     if args.inject_message_auto is not None:
         args.non_interactive = True
     if args.enable_tools:
+
         # Support comma-separated values in addition to repeated flags:
         # --enable-tool a,b --enable-tool c  ->  [a, b, c] (order preserved)
         flat: list[str] = []

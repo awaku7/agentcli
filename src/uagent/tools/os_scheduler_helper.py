@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import os
 import platform
+import re
+import shlex
 import subprocess
 import sys
 import types
@@ -9,12 +11,19 @@ import uuid
 from datetime import datetime
 from typing import Any
 
+from ..scheduler.os_payload import (
+    create_scheduled_payload,
+    delete_scheduled_payload,
+    scheduled_payload_directory,
+)
+
 from ..util_tools import strip_surrogates
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
 _JOB_PREFIX = "uag_timer_"
+_JOB_NAME_RE = re.compile(r"^uag_timer_([0-9a-f]{32})$")
 
 
 def detect_os() -> str:
@@ -24,32 +33,21 @@ def detect_os() -> str:
     return _("os_sched.unknown", default="unknown")
 
 
-def _sanitize_message(text: str) -> str:
-    return text.replace('"', "'")
+def _build_uag_argv(payload_id: str, payload_dir: str) -> list[str]:
+    """Build an argv containing no prompt, arguments, or credentials."""
+    return [
+        sys.executable,
+        "-m",
+        "uagent",
+        "--scheduled-payload-id",
+        payload_id,
+        "--scheduled-payload-dir",
+        payload_dir,
+    ]
 
 
-def _build_uag_command(
-    workdir: str | None,
-    message: str,
-    on_timeout_prompt: str = "",
-    tool_genre_mask: int = 0,
-    enable_tools: list[str] | None = None,
-) -> str:
-    python = sys.executable
-    cmd = f'"{python}" -m uagent'
-    payload = on_timeout_prompt or message
-    safe_msg = _sanitize_message(payload)
-    cmd += f' --inject-message "{safe_msg}"'
-    if workdir:
-        cmd += f' --workdir "{workdir}"'
-    if enable_tools:
-        for tname in enable_tools:
-            cmd += f' --enable-tool "{tname}"'
-    return cmd
-
-
-def _generate_job_name() -> str:
-    return _JOB_PREFIX + str(uuid.uuid4())
+def _generate_job_name(payload_id: str | None = None) -> str:
+    return _JOB_PREFIX + (payload_id or uuid.uuid4().hex)
 
 
 def create_os_schedule(
@@ -66,39 +64,72 @@ def create_os_schedule(
     Returns dict with keys: ok, job_name, message, raw_output
     """
     os_type = detect_os()
-    name = job_name or _generate_job_name()
-    uag_cmd = _build_uag_command(
-        workdir,
-        message,
-        on_timeout_prompt,
-        tool_genre_mask=tool_genre_mask,
-        enable_tools=enable_tools,
-    )
-
-    # Convert to local time for OS scheduler (schtasks / at use local TZ)
-    local_dt = at_dt.astimezone()
-
-    if os_type == "windows":
-        return _create_windows_schedule(name, uag_cmd, local_dt, workdir=workdir)
-    elif os_type in ("darwin", "linux"):
-        return _create_unix_schedule(name, uag_cmd, local_dt)
+    if job_name:
+        match = _JOB_NAME_RE.fullmatch(str(job_name))
+        if match is None:
+            return {
+                "ok": False,
+                "job_name": str(job_name),
+                "message": "Invalid OS scheduler job name",
+            }
+        payload_id = match.group(1)
     else:
-        return {"ok": False, "job_name": name, "message": f"Unsupported OS: {os_type}"}
+        payload_id = uuid.uuid4().hex
+    payload_id = create_scheduled_payload(
+        {
+            "message": message,
+            "on_timeout_prompt": on_timeout_prompt,
+            "workdir": os.path.abspath(workdir) if workdir else "",
+            "enable_tools": list(enable_tools or []),
+        },
+        payload_id=payload_id,
+    )
+    payload_dir = scheduled_payload_directory().resolve(strict=True)
+    name = _generate_job_name(payload_id)
+    argv = _build_uag_argv(payload_id, str(payload_dir))
+
+    # Convert to local time for OS scheduler (schtasks / at use local TZ).
+    local_dt = at_dt.astimezone()
+    try:
+        if os_type == "windows":
+            result = _create_windows_schedule(name, argv, local_dt)
+        elif os_type in ("darwin", "linux"):
+            result = _create_unix_schedule(name, argv, local_dt)
+        else:
+            result = {
+                "ok": False,
+                "job_name": name,
+                "message": f"Unsupported OS: {os_type}",
+            }
+    except Exception as exc:
+        delete_scheduled_payload(payload_id, payload_dir)
+        return {"ok": False, "job_name": name, "message": str(exc)}
+    if not result.get("ok"):
+        delete_scheduled_payload(payload_id, payload_dir)
+    result["payload_id"] = payload_id if result.get("ok") else ""
+    return result
 
 
 def delete_os_schedule(job_name: str) -> dict[str, Any]:
-    """Delete an OS-level scheduled task."""
+    """Delete an OS-level scheduled task and its unconsumed one-shot payload."""
     os_type = detect_os()
     if os_type == "windows":
-        return _delete_windows_schedule(job_name)
+        result = _delete_windows_schedule(job_name)
     elif os_type in ("darwin", "linux"):
-        return _delete_unix_schedule(job_name)
+        result = _delete_unix_schedule(job_name)
     else:
         return {
             "ok": False,
             "job_name": job_name,
             "message": f"Unsupported OS: {os_type}",
         }
+    if result.get("ok") and str(job_name).startswith(_JOB_PREFIX):
+        payload_id = str(job_name)[len(_JOB_PREFIX) :]
+        try:
+            delete_scheduled_payload(payload_id)
+        except ValueError:
+            pass
+    return result
 
 
 def list_os_schedules() -> list[dict[str, Any]]:
@@ -116,10 +147,9 @@ def list_os_schedules() -> list[dict[str, Any]]:
 # =====================================================================
 
 
-def _run_schtasks(args: str) -> types.SimpleNamespace:
-    full = f"schtasks {args}"
+def _run_schtasks(args: list[str]) -> types.SimpleNamespace:
     result = subprocess.run(
-        full, capture_output=True, text=False, shell=True, timeout=30
+        ["schtasks", *args], capture_output=True, text=False, shell=False, timeout=30
     )
     stdout = _decode_schtasks_output(result.stdout)
     stderr = _decode_schtasks_output(result.stderr)
@@ -138,38 +168,30 @@ def _decode_schtasks_output(data: bytes) -> str:
 
 
 def _create_windows_schedule(
-    name: str, cmd: str, at_dt: datetime, workdir: str | None = None
+    name: str, argv: list[str], at_dt: datetime
 ) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y/%m/%d")
-
-    # Write a batch file that: runs uag, pauses for user to see output, then self-deletes
-    bat_dir = os.path.join(os.path.expanduser("~"), ".uag", "scheduled")
-    os.makedirs(bat_dir, exist_ok=True)
-    bat_path = os.path.join(bat_dir, f"{name}.bat")
-    wd_display = workdir or "(default)"
-    log_path = os.path.join(bat_dir, f"{name}.log")
-    bat_lines = [
-        "@echo off",
-        "chcp 65001 > nul",
-        f"echo [uag] Timer firing: {name}",
-        f"echo [uag] Workdir: {wd_display}",
-        f"echo [uag] Log: {log_path}",
-        f'cd /d "{wd_display}"',
-        f'{cmd} > "{log_path}" 2>&1',
-        f'type "{log_path}"',
-        "echo.",
-        "echo [uag] Timer finished. Press any key to close...",
-        "pause > nul",
-        f'schtasks /delete /tn "{name}" /f > nul 2>&1',
-        f'del /f "{bat_path}" > nul 2>&1',
-        f'del /f "{log_path}" > nul 2>&1',
-    ]
-    with open(bat_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(bat_lines) + "\n")
-
+    # schtasks accepts one command string for /tr. list2cmdline applies Windows
+    # argv quoting; argv contains only the interpreter, fixed module/flag names,
+    # and a validated opaque payload ID (never the prompt or workdir).
+    command = subprocess.list2cmdline(argv)
     result = _run_schtasks(
-        f'/create /tn "{name}" /tr "{bat_path}" /sc once /st "{time_str}" /sd "{date_str}" /f'
+        [
+            "/create",
+            "/tn",
+            name,
+            "/tr",
+            command,
+            "/sc",
+            "once",
+            "/st",
+            time_str,
+            "/sd",
+            date_str,
+            "/f",
+            "/Z",
+        ]
     )
     return {
         "ok": result.returncode == 0,
@@ -180,7 +202,7 @@ def _create_windows_schedule(
 
 
 def _delete_windows_schedule(name: str) -> dict[str, Any]:
-    result = _run_schtasks(f'/delete /tn "{name}" /f')
+    result = _run_schtasks(["/delete", "/tn", name, "/f"])
     return {
         "ok": result.returncode == 0,
         "job_name": name,
@@ -190,7 +212,7 @@ def _delete_windows_schedule(name: str) -> dict[str, Any]:
 
 
 def _list_windows_schedules() -> list[dict[str, Any]]:
-    result = _run_schtasks("/query /fo csv /v")
+    result = _run_schtasks(["/query", "/fo", "csv", "/v"])
     if result.returncode != 0:
         return []
     jobs: list[dict[str, Any]] = []
@@ -225,7 +247,7 @@ def _calc_delta_seconds(at_dt: datetime) -> int:
     return max(1, int((at_dt - now).total_seconds()))
 
 
-def _try_systemd_run(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
+def _try_systemd_run(name: str, argv: list[str], at_dt: datetime) -> dict[str, Any]:
     if not _has_systemd():
         return {"ok": False, "job_name": name, "message": "systemd not available"}
     delta = _calc_delta_seconds(at_dt)
@@ -238,12 +260,9 @@ def _try_systemd_run(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
                 name,
                 "--on-active",
                 str(delta),
-                "--same-dir",
                 "--collect",
                 "--",
-                "sh",
-                "-c",
-                cmd,
+                *argv,
             ],
             capture_output=True,
             text=True,
@@ -315,13 +334,16 @@ def _is_at_available() -> bool:
         return False
 
 
-def _run_at(cmd: str, at_dt: datetime) -> dict[str, Any]:
+def _run_at(name: str, argv: list[str], at_dt: datetime) -> dict[str, Any]:
     time_str = at_dt.strftime("%H:%M")
     date_str = at_dt.strftime("%Y-%m-%d")
     try:
         proc = subprocess.run(
             ["at", f"{time_str} {date_str}"],
-            input=strip_surrogates(cmd) + "\n",
+            input=f"# {name}"
+            + chr(10)
+            + shlex.join(strip_surrogates(arg) for arg in argv)
+            + chr(10),
             capture_output=True,
             text=True,
             timeout=15,
@@ -348,18 +370,18 @@ def _run_at(cmd: str, at_dt: datetime) -> dict[str, Any]:
         return {"ok": False, "raw_output": "", "message": str(e)}
 
 
-def _create_unix_schedule(name: str, cmd: str, at_dt: datetime) -> dict[str, Any]:
-    # Linux: try systemd-run first
+def _create_unix_schedule(
+    name: str, argv: list[str], at_dt: datetime
+) -> dict[str, Any]:
+    # Linux: launch argv directly through systemd, never via ``sh -c``.
     if detect_os() == "linux":
-        result = _try_systemd_run(name, cmd, at_dt)
+        result = _try_systemd_run(name, argv, at_dt)
         if result.get("ok"):
             return result
-        # Fall through to at if systemd failed AND at is available
         if not _is_at_available():
             return result
-    # Fallback: at command
-    tagged_cmd = f"# {name}\n{cmd}"
-    result = _run_at(tagged_cmd, at_dt)
+    # at consumes a shell command; quote every argument using POSIX rules.
+    result = _run_at(name, argv, at_dt)
     result["job_name"] = name
     return result
 
