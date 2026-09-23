@@ -96,6 +96,30 @@
 - 仕様バージョン、実装能力、legacy fallbackを明示的に管理する。
 - MCPのstateless化とuag内部のA2Aタスク状態を混同しない。
 
+## P1: [GitLab MCP / OAuth連携](gitlab-mcp-oauth.md)
+
+- Status: planned
+- Priority: P1
+- Source: [`gitlab-mcp-oauth.md`](gitlab-mcp-oauth.md)
+
+### 対象
+
+- GitLab MCP `/api/v4/mcp`へのNative HTTP接続
+- OAuth 2.0 Dynamic Client Registration
+- pre-registered OAuth Application / `client_id`
+- PKCEと固定localhost callback
+- client registration永続化
+- OAuth bootstrapとMCP protocol detectionの順序整理
+- Proxy / enterprise CAを含む社内GitLab相互運用
+- `mcp-remote`を利用したstdio fallback
+
+### 前提
+
+- GitLab専用REST tool群ではなく汎用MCP OAuth機能として実装する。
+- GitLab側のユーザー権限を認可境界とし、UAGから迂回しない。
+- write操作は既存UAGの確認・承認ポリシーと統合する。
+- OAuthなしHTTP MCP、stdio、legacy MCPを壊さない。
+
 ## P1: [UCP / AP2の未対応機能](ucp-ap2.md)
 
 - Status: planned
@@ -170,4 +194,5 @@
 
 | 日付 | 内容 |
 |---|---|
+| 2026-09-23 | GitLab MCP / OAuth連携計画をP1へ追加 |
 | 2026-08-06 | 初版。既存ドキュメントの未実装・将来対応項目を集約 |
