@@ -30,6 +30,25 @@ def test_model_evidence_can_enable_or_disable_responses() -> None:
     assert snapshot.structured_output.state is CapabilityState.FALSE
 
 
+def test_tool_search_uses_llmcapa_evidence_and_fails_closed_when_unknown() -> None:
+    supported = CapabilityResolver(
+        feature_lookup=lambda feature, *_: feature == "tool_search"
+    ).resolve("openai", "custom-deployment", transport="responses")
+    unsupported = CapabilityResolver(
+        feature_lookup=lambda feature, *_: False if feature == "tool_search" else None
+    ).resolve("openai", "custom-deployment", transport="responses")
+    unknown = CapabilityResolver(feature_lookup=lambda *_: None).resolve(
+        "openai", "custom-deployment", transport="responses"
+    )
+
+    assert supported.tool_search.state is CapabilityState.TRUE_DOCUMENTED
+    assert supported.tool_search.is_native_allowed()
+    assert unsupported.tool_search.state is CapabilityState.FALSE
+    assert not unsupported.tool_search.is_native_allowed()
+    assert unknown.tool_search.state is CapabilityState.UNKNOWN
+    assert not unknown.tool_search.is_native_allowed()
+
+
 def test_unknown_provider_is_conservatively_disabled() -> None:
     snapshot = CapabilityResolver(feature_lookup=lambda *_: None).resolve("unknown")
 

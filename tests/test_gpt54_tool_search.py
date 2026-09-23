@@ -229,43 +229,81 @@ def _tool_spec(name: str) -> dict:
 
 
 def test_is_gpt54_tool_search_target() -> None:
+    from uagent.runtime.capability_resolver import CapabilityResolver
+
     old_gate_env = _set_gpt54_tool_search_env(None)
+    supported_routes = {
+        ("openai", "gpt-5.4"),
+        ("openai", "gpt-5.4-mini"),
+        ("openai", "gpt-5.4-codex"),
+        ("openai", "gpt-5.5"),
+    }
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, model, provider: (
+            (provider, model) in supported_routes
+            if feature == "tool_search"
+            else None
+        )
+    )
     try:
-        # default: native mode -> OpenAI/Azure GPT-5.4+ with Responses API is a target
+        # Positive, provider-scoped llmcapa evidence enables native search.
         assert _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.4", use_responses_api=True
+            provider="openai", depname="gpt-5.4", use_responses_api=True,
+            capability_resolver=resolver,
         )
         assert _is_gpt54_tool_search_target(
-            provider="azure", depname="gpt-5.4-mini", use_responses_api=True
+            provider="openai", depname="gpt-5.4-mini", use_responses_api=True,
+            capability_resolver=resolver,
         )
         assert _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.4-codex", use_responses_api=True
+            provider="openai", depname="gpt-5.4-codex", use_responses_api=True,
+            capability_resolver=resolver,
         )
         assert _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.5", use_responses_api=True
+            provider="openai", depname="gpt-5.5", use_responses_api=True,
+            capability_resolver=resolver,
+        )
+        # Capability evidence, not a GPT version pattern, is authoritative.
+        assert _is_gpt54_tool_search_target(
+            provider="openai", depname="custom-deployment", use_responses_api=True,
+            capability_resolver=CapabilityResolver(
+                feature_lookup=lambda feature, *_: feature == "tool_search"
+            ),
+        )
+        # A model name alone does not override missing provider-specific evidence.
+        assert not _is_gpt54_tool_search_target(
+            provider="azure", depname="gpt-5.4-mini", use_responses_api=True,
+            capability_resolver=resolver,
         )
         # Non-target providers (only openai/azure are supported)
         assert not _is_gpt54_tool_search_target(
-            provider="openrouter", depname="openai/gpt-5.4", use_responses_api=True
+            provider="openrouter", depname="openai/gpt-5.4", use_responses_api=True,
+            capability_resolver=resolver,
         )
         assert not _is_gpt54_tool_search_target(
-            provider="openrouter", depname="openai/gpt-5.4-pro", use_responses_api=True
+            provider="openrouter", depname="openai/gpt-5.4-pro", use_responses_api=True,
+            capability_resolver=resolver,
         )
-        # Older / non-matching models
+        # Explicitly unsupported and unknown models remain disabled.
         assert not _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.3", use_responses_api=True
-        )
-        assert not _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-4.1", use_responses_api=True
-        )
-        assert not _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5", use_responses_api=True
+            provider="openai", depname="gpt-5.3", use_responses_api=True,
+            capability_resolver=resolver,
         )
         assert not _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.4", use_responses_api=False
+            provider="openai", depname="gpt-4.1", use_responses_api=True,
+            capability_resolver=resolver,
         )
         assert not _is_gpt54_tool_search_target(
-            provider="openai", depname="gpt-5.4-nano", use_responses_api=True
+            provider="openai", depname="gpt-5", use_responses_api=True,
+            capability_resolver=resolver,
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4", use_responses_api=False,
+            capability_resolver=resolver,
+        )
+        assert not _is_gpt54_tool_search_target(
+            provider="openai", depname="gpt-5.4-nano", use_responses_api=True,
+            capability_resolver=resolver,
         )
     finally:
         _restore_gpt54_tool_search_env(old_gate_env)

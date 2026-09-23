@@ -1008,11 +1008,11 @@ class SubAgentRunner:
                     {"role": "user", "content": user_prompt},
                 ],
             )
-            # OpenAI reasoning models (GPT-5/o-series) reject temperature.
-            model_lower = str(model_name or "").lower()
-            _modern_openai_model = provider in ("openai", "azure") and (
-                model_lower.startswith("gpt-5")
-                or re.match(r"^o[1-4](?:[-.]|$)", model_lower)
+            # OpenAI reasoning models may reject temperature.
+            from ..llmcapa_util import openai_uses_max_completion_tokens
+
+            _modern_openai_model = openai_uses_max_completion_tokens(
+                model_name, provider
             )
             if not _modern_openai_model:
                 kwargs["temperature"] = 0.2

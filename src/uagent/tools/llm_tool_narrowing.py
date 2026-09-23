@@ -4,6 +4,7 @@ from typing import Any, Optional
 
 from ..env_utils import env_get
 from .. import tools
+from ..runtime.capability_resolver import CapabilityResolverPort
 from ..runtime.tool_discovery import (
     ToolDiscoveryDecision,
     ToolDiscoveryMode,
@@ -14,12 +15,12 @@ from ..runtime.tool_discovery import (
 
 
 def _get_gpt54_tool_search_mode() -> str:
-    """Return the GPT-5.4 tool search mode.
+    """Return the native tool-search mode.
 
     Reads UAGENT_GPT54_TOOL_SEARCH env:
       - "native" (default): Use OpenAI native tool_search (send all tools, let server narrow)
       - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
-      - "off": Disable any GPT-5.4 specific handling
+      - "off": Disable native tool-search handling
     """
     return get_tool_search_mode()
 
@@ -29,6 +30,7 @@ def resolve_tool_discovery(
     provider: str,
     depname: str,
     use_responses_api: bool,
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> ToolDiscoveryDecision:
     """Resolve the provider-facing tool discovery mode."""
 
@@ -37,6 +39,7 @@ def resolve_tool_discovery(
         depname=depname,
         use_responses_api=use_responses_api,
         configured_mode=_get_gpt54_tool_search_mode(),
+        capability_resolver=capability_resolver,
     )
 
 
@@ -45,6 +48,7 @@ def _is_gpt54_tool_search_target(
     provider: str,
     depname: str,
     use_responses_api: bool,
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> bool:
     """Compatibility predicate for callers that need GPT-5.4 discovery."""
 
@@ -52,6 +56,7 @@ def _is_gpt54_tool_search_target(
         provider=provider,
         depname=depname,
         use_responses_api=use_responses_api,
+        capability_resolver=capability_resolver,
     ).mode in {
         ToolDiscoveryMode.NATIVE_SEARCH,
         ToolDiscoveryMode.LEGACY_CATALOG,

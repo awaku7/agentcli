@@ -106,7 +106,9 @@ def test_environment_resolver_uses_capability_resolver_in_auto_mode(
 
     enabled = resolve_tool_discovery_from_environment(
         capability_resolver=CapabilityResolver(
-            feature_lookup=lambda feature, *_: feature == "responses_api"
+            feature_lookup=lambda feature, *_: (
+                feature in {"responses_api", "tool_search"}
+            )
         )
     )
     unknown = resolve_tool_discovery_from_environment(
@@ -180,6 +182,7 @@ def test_discovery_resolver_selects_native_search_for_known_target() -> None:
         depname="gpt-5.4",
         use_responses_api=True,
         configured_mode="native",
+        capability_resolver=_tool_search_resolver(),
     )
 
     assert decision.mode is ToolDiscoveryMode.NATIVE_SEARCH
@@ -197,6 +200,7 @@ def test_discovery_resolver_keeps_legacy_mode_on_catalog_path() -> None:
         depname="gpt-5.5",
         use_responses_api=True,
         configured_mode="legacy",
+        capability_resolver=_tool_search_resolver(),
     )
 
     assert decision.mode is ToolDiscoveryMode.LEGACY_CATALOG
@@ -217,7 +221,62 @@ def test_discovery_resolver_fails_closed_for_unknown_capability() -> None:
     )
 
     assert decision.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
-    assert decision.reason == "capability_unknown"
+    assert decision.reason == "tool_search_unavailable"
+
+
+def test_llmcapa_tool_search_flag_enables_openai_gpt54_mini() -> None:
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery,
+    )
+
+    decision = resolve_tool_discovery(
+        provider="openai",
+        depname="gpt-5.4-mini",
+        use_responses_api=True,
+        configured_mode="native",
+    )
+
+    assert decision.mode is ToolDiscoveryMode.NATIVE_SEARCH
+
+
+def _tool_search_resolver():
+    from uagent.runtime.capability_resolver import CapabilityResolver
+
+    return CapabilityResolver(
+        feature_lookup=lambda feature, *_: True if feature == "tool_search" else None
+    )
+
+
+def test_discovery_uses_llmcapa_capability_instead_of_model_name_heuristics() -> None:
+    from uagent.runtime.capability_resolver import CapabilityResolver
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery,
+    )
+
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, model, *_: (
+            True
+            if feature == "tool_search" and model == "custom-deployment"
+            else None
+        )
+    )
+    supported = resolve_tool_discovery(
+        provider="openai",
+        depname="custom-deployment",
+        use_responses_api=True,
+        capability_resolver=resolver,
+    )
+    unknown = resolve_tool_discovery(
+        provider="openai",
+        depname="future-model",
+        use_responses_api=True,
+        capability_resolver=resolver,
+    )
+
+    assert supported.mode is ToolDiscoveryMode.NATIVE_SEARCH
+    assert unknown.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
 
 
 def test_discovery_resolver_does_not_treat_gemini_as_native_search() -> None:
