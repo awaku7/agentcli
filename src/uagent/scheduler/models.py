@@ -58,6 +58,8 @@ class ScheduleItem:
     execution_mode: str = "llm"
     target_tool: str = ""
     target_args: dict[str, Any] = field(default_factory=dict)
+    owner_instance_id: str = ""
+    session_id: str = ""
     enabled: bool = True
     created_at: str = ""
     updated_at: str = ""
@@ -79,6 +81,8 @@ class ScheduleItem:
             execution_mode=str(raw.get("execution_mode") or "llm").strip().lower(),
             target_tool=str(raw.get("target_tool") or "").strip(),
             target_args=raw.get("target_args") or {},
+            owner_instance_id=str(raw.get("owner_instance_id") or "").strip(),
+            session_id=str(raw.get("session_id") or "").strip(),
             enabled=bool(raw.get("enabled", True)),
             created_at=str(raw.get("created_at") or "").strip(),
             updated_at=str(raw.get("updated_at") or "").strip(),
@@ -113,6 +117,8 @@ class ScheduleItem:
         if self.execution_mode not in {"llm", "direct"}:
             self.execution_mode = "llm"
         self.target_tool = str(self.target_tool or "").strip()
+        self.owner_instance_id = str(self.owner_instance_id or "").strip()
+        self.session_id = str(self.session_id or "").strip()
         if not isinstance(self.target_args, dict):
             self.target_args = {}
         if self.execution_mode == "direct" and not self.target_tool:
@@ -173,6 +179,8 @@ class ScheduleItem:
             "execution_mode": self.execution_mode,
             "target_tool": self.target_tool,
             "target_args": dict(self.target_args),
+            "owner_instance_id": self.owner_instance_id,
+            "session_id": self.session_id,
             "enabled": self.enabled,
             "created_at": self.created_at,
             "updated_at": self.updated_at,

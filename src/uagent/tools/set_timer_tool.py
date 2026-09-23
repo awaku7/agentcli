@@ -11,6 +11,7 @@ from ..scheduler import (
     SchedulerStore,
     format_iso_datetime,
     utc_now,
+    scheduler_instance_id,
 )
 from .i18n_helper import make_tool_translator
 from .os_scheduler_helper import (
@@ -243,6 +244,20 @@ def _run_create(args: dict[str, Any]) -> str:
     )
 
 
+def _current_session_id() -> str:
+    """Return the active conversation session without making it ownership."""
+    try:
+        from .. import core
+
+        return str(
+            getattr(core, "_session_store_active_id", "")
+            or getattr(core, "session_id", "")
+            or ""
+        ).strip()
+    except Exception:
+        return ""
+
+
 def _run_create_internal(
     seconds: int,
     message: str,
@@ -264,6 +279,8 @@ def _run_create_internal(
         execution_mode=execution_mode,
         target_tool=target_tool,
         target_args=dict(target_args or {}),
+        owner_instance_id=scheduler_instance_id(),
+        session_id=_current_session_id(),
         enabled=True,
     )
     SchedulerStore().add_item(schedule)

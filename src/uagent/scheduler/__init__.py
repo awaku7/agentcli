@@ -20,6 +20,7 @@ from .run_store import SchedulerRun, SchedulerRunStore, VALID_RUN_STATUSES
 from .worker import SchedulerWorker
 from .tool_guard import required_tools_guard
 from .direct import execute_direct_tool
+from .identity import scheduler_instance_id
 
 __all__ = [
     "SCHEDULE_TYPE_ONCE",
@@ -33,6 +34,7 @@ __all__ = [
     "SchedulerWorker",
     "required_tools_guard",
     "execute_direct_tool",
+    "scheduler_instance_id",
     "advance_periodic_at",
     "format_iso_datetime",
     "parse_iso_datetime",
