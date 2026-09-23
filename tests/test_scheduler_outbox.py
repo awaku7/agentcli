@@ -24,14 +24,31 @@ class _FailingSink:
         raise OSError("sink unavailable")
 
 
-def _add_due_schedule(store: SchedulerStore, schedule_id: str, owner: str) -> None:
+class _FailFirstSink:
+    def __init__(self) -> None:
+        self.calls = []
+
+    def put(self, payload) -> None:
+        self.calls.append(dict(payload))
+        if len(self.calls) == 1:
+            raise OSError("first event rejected")
+
+
+def _add_due_schedule(
+    store: SchedulerStore,
+    schedule_id: str,
+    owner: str,
+    *,
+    message: str = "",
+    prompt: str = "recover this scheduled run",
+) -> None:
     store.add_item(
         ScheduleItem(
             id=schedule_id,
             type=SCHEDULE_TYPE_ONCE,
             at=format_iso_datetime(utc_now() - timedelta(seconds=1)),
-            message="",
-            llm_prompt="recover this scheduled run",
+            message=message,
+            llm_prompt=prompt,
             owner_instance_id=owner,
         )
     )
@@ -86,6 +103,34 @@ def test_sink_failure_keeps_event_pending_until_redelivery(tmp_path):
     assert events.empty()
 
 
+def test_failed_notice_does_not_allow_execution_event_to_overtake_it(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    _add_due_schedule(
+        schedules,
+        "outbox-order",
+        "instance-a",
+        message="timer finished",
+        prompt="run after notice",
+    )
+
+    sink = _FailFirstSink()
+    SchedulerService(
+        sink,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-a",
+        poll_interval_s=0.1,
+    )._fire_due_items()
+
+    assert [event["kind"] for event in sink.calls] == ["schedule_notice"]
+    pending = schedules.list_events("pending")
+    assert [event["payload"]["kind"] for event in pending] == [
+        "schedule_notice",
+        "user",
+    ]
+
+
 def test_pending_event_is_not_dispatched_to_foreign_instance(tmp_path):
     schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
     runs = SchedulerRunStore(tmp_path / "runs.json")
@@ -128,7 +173,8 @@ def test_explicit_orphan_reclaim_allows_redelivery_after_owner_restart(tmp_path)
         poll_interval_s=0.1,
     )._fire_due_items()
 
-    assert schedules.reclaim_orphaned_events("instance-a", "instance-b") == 1
+    reclaimed = schedules.reclaim_orphaned_instance("instance-a", "instance-b")
+    assert reclaimed == {"schedules": 0, "events": 1}
 
     events = queue.Queue()
     SchedulerService(
@@ -145,6 +191,31 @@ def test_explicit_orphan_reclaim_allows_redelivery_after_owner_restart(tmp_path)
     delivered = schedules.list_events("delivered")
     assert len(delivered) == 1
     assert delivered[0]["target_instance_id"] == "instance-b"
+
+
+def test_explicit_orphan_reclaim_recovers_schedule_before_outbox_creation(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    _add_due_schedule(schedules, "outbox-pre-finalize", "instance-a")
+
+    due = schedules.claim_due_items("instance-a", utc_now())
+    assert len(due) == 1
+
+    reclaimed = schedules.reclaim_orphaned_instance("instance-a", "instance-b")
+    assert reclaimed == {"schedules": 1, "events": 0}
+
+    events = queue.Queue()
+    SchedulerService(
+        events,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-b",
+        poll_interval_s=0.1,
+    )._fire_due_items()
+
+    event = events.get_nowait()
+    assert event["schedule_id"] == "outbox-pre-finalize"
+    assert schedules.get_item("outbox-pre-finalize") is None
 
 
 def test_outbox_rows_are_not_written_when_schedule_claim_is_lost(tmp_path):
