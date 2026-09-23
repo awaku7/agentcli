@@ -245,3 +245,43 @@ def test_room_connect_falls_back_for_malformed_history(monkeypatch):
 
     assert socket.accepted is True
     assert socket.sent[0]["messages"] == room.messages
+
+
+def test_room_connect_revalidates_before_sending_history():
+    from uagent.web_impl.rooms import WebRoom
+
+    class RotatingContext:
+        def __init__(self):
+            self.calls = 0
+
+        def validate_authentication_configuration(self):
+            self.calls += 1
+            if self.calls > 1:
+                raise IdentityResolutionError("authentication configuration changed")
+
+    class Socket:
+        def __init__(self):
+            self.accepted = False
+            self.sent = []
+            self.closed = []
+
+        async def accept(self):
+            self.accepted = True
+
+        async def send_json(self, data):
+            self.sent.append(data)
+
+        async def close(self, code):
+            self.closed.append(code)
+
+    room = WebRoom("shared")
+    room.welcome_shown = True
+    socket = Socket()
+
+    with pytest.raises(IdentityResolutionError, match="configuration changed"):
+        asyncio.run(room.connect(socket, RotatingContext()))
+
+    assert socket.accepted is True
+    assert socket.sent == []
+    assert socket.closed == [1008]
+    assert socket not in room.active_connections

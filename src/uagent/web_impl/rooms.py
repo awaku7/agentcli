@@ -86,8 +86,7 @@ class WebRoom:
     async def connect(self, websocket: WebSocket, connection_context: Any = None):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
-            if connection_context is not None:
-                connection_context.validate_authentication_configuration()
+            await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
             self.active_connections.append(websocket)
             if connection_context is not None:
@@ -158,6 +157,7 @@ class WebRoom:
 
             # Bootstrap input history from persisted file
             input_history = _load_input_history()
+            await self._validate_connection_context(websocket, connection_context)
             await websocket.send_json(
                 {
                     "type": "init",
@@ -176,6 +176,9 @@ class WebRoom:
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
+                    await self._validate_connection_context(
+                        websocket, connection_context
+                    )
                     await websocket.send_json(
                         {
                             "type": "human_ask",
@@ -190,6 +193,21 @@ class WebRoom:
         finally:
             set_thread_lang(None)
 
+    async def _validate_connection_context(
+        self, websocket: WebSocket, connection_context: Any
+    ) -> None:
+        if connection_context is None:
+            return
+        try:
+            connection_context.validate_authentication_configuration()
+        except (IdentityConfigurationError, IdentityResolutionError):
+            self.disconnect(websocket)
+            try:
+                await websocket.close(code=1008)
+            except Exception:
+                pass
+            raise
+
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
@@ -200,13 +218,10 @@ class WebRoom:
             connection_context = self._connection_contexts.get(id(connection))
             if connection_context is not None:
                 try:
-                    connection_context.validate_authentication_configuration()
+                    await self._validate_connection_context(
+                        connection, connection_context
+                    )
                 except (IdentityConfigurationError, IdentityResolutionError):
-                    try:
-                        await connection.close(code=1008)
-                    except Exception:
-                        pass
-                    self.disconnect(connection)
                     continue
             try:
                 await connection.send_json(data)

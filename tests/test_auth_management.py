@@ -66,6 +66,16 @@ def test_configuration_fingerprint_changes_with_security_configuration(monkeypat
     assert authentication_configuration_fingerprint() != before
 
 
+def test_oidc_secret_fingerprint_preserves_quoted_inner_whitespace(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_OIDC_CLIENT_SECRET", "secret")
+    before = authentication_configuration_fingerprint()
+
+    monkeypatch.setenv("UAGENT_OIDC_CLIENT_SECRET", "' secret '")
+
+    assert authentication_configuration_fingerprint() != before
+
+
 def test_oauth_secret_and_redirect_changes_update_fingerprint(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oauth")
     monkeypatch.setenv("UAGENT_OAUTH_PROVIDER", "provider")

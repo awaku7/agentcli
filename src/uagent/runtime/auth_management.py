@@ -60,6 +60,13 @@ def _value(name: str) -> str:
     return str(env_get(name, "") or "").strip()
 
 
+def _fingerprint_value(name: str) -> str:
+    value = str(env_get(name, "") or "")
+    if name in {"UAGENT_OIDC_CLIENT_SECRET", "UAGENT_OAUTH_CLIENT_SECRET"}:
+        return value
+    return value.strip()
+
+
 def positive_integer_setting(name: str, default: int) -> int:
     """Read one positive integer setting with no fractional coercion."""
     raw = str(env_get(name, str(default)) or "").strip()
@@ -108,7 +115,9 @@ def authentication_configuration_fingerprint(mode: str | None = None) -> str:
     registered, generation = enterprise_identity_adapter_state(selected)
     payload = {
         "mode": selected,
-        "settings": {name: _value(name) for name in _MODE_SETTINGS[selected]},
+        "settings": {
+            name: _fingerprint_value(name) for name in _MODE_SETTINGS[selected]
+        },
         "adapter_registered": registered,
         "adapter_generation": (
             generation if selected in {"oauth", "windows_ad", "external"} else 0
