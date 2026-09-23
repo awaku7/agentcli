@@ -40,6 +40,14 @@ def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):
     )
     principal[0] = "alice"
     assert (
+        client.post("/api/project-context", json={"project_id": "demo"}).status_code
+        == 200
+    )
+    assert (
+        client.post("/api/project-context", json={"project_id": "other"}).status_code
+        == 403
+    )
+    assert (
         client.get("/api/me/memories", params={"project_id": "other"}).status_code
         == 403
     )

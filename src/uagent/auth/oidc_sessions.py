@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 import hashlib
 import secrets
 import threading
@@ -17,6 +17,7 @@ class _StoredSession:
     identity: IdentityContext
     expires_at: float
     configuration_fingerprint: str
+    project_id: str = ""
 
 
 class OIDCSessionStore:
@@ -54,6 +55,7 @@ class OIDCSessionStore:
         identity: IdentityContext,
         *,
         expected_configuration_fingerprint: str | None = None,
+        project_id: str = "",
     ) -> str:
         if not identity.authenticated:
             raise ValueError("only authenticated identities may create sessions")
@@ -96,6 +98,7 @@ class OIDCSessionStore:
                 identity=identity,
                 expires_at=now + ttl_seconds,
                 configuration_fingerprint=configuration_fingerprint,
+                project_id=str(project_id or "").strip(),
             )
         return token
 
@@ -120,6 +123,38 @@ class OIDCSessionStore:
                 self._sessions.pop(key, None)
                 return None
             return stored.identity
+
+    def project_id(self, token: str) -> str | None:
+        if not token:
+            return None
+        key = self._key(token)
+        with self._lock:
+            configuration_fingerprint = self._configuration_fingerprint()
+            self._prune(self._clock(), configuration_fingerprint)
+            stored = self._sessions.get(key)
+            if (
+                stored is None
+                or stored.configuration_fingerprint != configuration_fingerprint
+            ):
+                return None
+            return stored.project_id or None
+
+    def bind_project(self, token: str, project_id: str) -> bool:
+        project_id = str(project_id or "").strip()
+        if not token or not project_id:
+            raise ValueError("token and project_id are required")
+        key = self._key(token)
+        with self._lock:
+            configuration_fingerprint = self._configuration_fingerprint()
+            self._prune(self._clock(), configuration_fingerprint)
+            stored = self._sessions.get(key)
+            if (
+                stored is None
+                or stored.configuration_fingerprint != configuration_fingerprint
+            ):
+                return False
+            self._sessions[key] = replace(stored, project_id=project_id)
+            return True
 
     def revoke(self, token: str) -> None:
         if not token:

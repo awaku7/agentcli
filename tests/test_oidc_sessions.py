@@ -81,6 +81,15 @@ def test_active_count_reads_fingerprint_under_lock() -> None:
     assert lock_states == [True]
 
 
+def test_oidc_session_project_binding_is_server_side() -> None:
+    store = OIDCSessionStore(configuration_fingerprint=lambda: "stable")
+    token = store.create(IdentityContext("oidc:user", True, "oidc"))
+
+    assert store.project_id(token) is None
+    assert store.bind_project(token, "demo") is True
+    assert store.project_id(token) == "demo"
+
+
 def test_oidc_session_store_can_revoke_all_sessions() -> None:
     store = OIDCSessionStore(configuration_fingerprint=lambda: "stable")
     store.create(IdentityContext("oidc:user-a", True, "oidc"))
