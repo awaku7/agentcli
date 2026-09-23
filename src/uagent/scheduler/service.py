@@ -64,12 +64,6 @@ class SchedulerService:
     def delete_item(self, schedule_id: str) -> bool:
         return self._store.delete_item(schedule_id)
 
-    def _emit(self, payload: dict[str, Any]) -> None:
-        try:
-            self._sink.put(payload)
-        except Exception:
-            pass
-
     def _run(self) -> None:
         while not self._stop.is_set():
             try:
@@ -78,7 +72,38 @@ class SchedulerService:
                 pass
             self._stop.wait(self._poll_interval_s)
 
+    def _dispatch_pending_events(self) -> None:
+        claimed = self._store.claim_pending_events(self._instance_id, utc_now())
+        for event_id, payload in claimed:
+            try:
+                self._sink.put(payload)
+            except Exception as exc:
+                try:
+                    self._store.release_event(
+                        event_id,
+                        self._instance_id,
+                        error=str(exc),
+                        retry_delay=self._poll_interval_s,
+                    )
+                except Exception:
+                    pass
+                continue
+
+            # Marking delivery happens after sink acceptance. If this write
+            # fails, the lease eventually expires and the event is retried.
+            # That intentionally gives at-least-once delivery rather than a
+            # silent loss window.
+            try:
+                self._store.mark_event_delivered(event_id, self._instance_id)
+            except Exception:
+                pass
+
     def _fire_due_items(self) -> None:
+        # Retry previously persisted events before creating new work. This
+        # recovers transient sink failures and scheduler-thread restarts within
+        # the same process owner.
+        self._dispatch_pending_events()
+
         now = utc_now()
         self._store.reclaim_expired_claims(now)
         due = self._store.claim_due_items(self._instance_id, now)
@@ -107,26 +132,40 @@ class SchedulerService:
                         "session_id": item.session_id,
                     },
                 )
-                self._store.finalize_claim(item.id, self._instance_id, next_at)
+
+                base = {
+                    "schedule_id": item.id,
+                    "schedule_type": item.type,
+                    "schedule_at": due_at,
+                    "run_id": run.run_id,
+                    "owner_instance_id": item.owner_instance_id,
+                    "session_id": item.session_id,
+                }
+                events: list[dict[str, Any]] = []
+                notice = (item.message or "").strip()
+                prompt = item.effective_prompt
+                if notice:
+                    events.append({"kind": "schedule_notice", "text": notice, **base})
+                if item.execution_mode == "direct":
+                    events.append({"kind": "scheduled_direct", **base})
+                elif prompt:
+                    events.append({"kind": "user", "text": prompt, **base})
+
+                finalized = self._store.finalize_claim_with_events(
+                    item.id,
+                    self._instance_id,
+                    next_at,
+                    events,
+                )
+                if not finalized:
+                    raise RuntimeError("scheduler claim was lost before finalization")
             except Exception:
                 self._store.release_claim(item.id, self._instance_id, restore_at=due_at)
                 continue
-            base = {
-                "schedule_id": item.id,
-                "schedule_type": item.type,
-                "schedule_at": due_at,
-                "run_id": run.run_id,
-                "owner_instance_id": item.owner_instance_id,
-                "session_id": item.session_id,
-            }
-            notice = (item.message or "").strip()
-            prompt = item.effective_prompt
-            if notice:
-                self._emit({"kind": "schedule_notice", "text": notice, **base})
-            if item.execution_mode == "direct":
-                self._emit({"kind": "scheduled_direct", **base})
-            elif prompt:
-                self._emit({"kind": "user", "text": prompt, **base})
+
+        # New outbox rows are dispatched only after their schedule transition
+        # committed successfully.
+        self._dispatch_pending_events()
 
 
 def start_background_scheduler(
