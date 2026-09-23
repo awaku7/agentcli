@@ -307,7 +307,9 @@ class SessionStore:
                     project_path TEXT,
                     entry_point TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                    last_used_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+                    last_used_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    principal_id TEXT,
+                    room_id TEXT
                 );
                 CREATE TABLE IF NOT EXISTS messages (
                     message_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -452,6 +454,12 @@ class SessionStore:
                     "AND m.created_at < sessions.created_at"
                     ")"
                 )
+            if "principal_id" not in columns:
+                self._connection.execute(
+                    "ALTER TABLE sessions ADD COLUMN principal_id TEXT"
+                )
+            if "room_id" not in columns:
+                self._connection.execute("ALTER TABLE sessions ADD COLUMN room_id TEXT")
             self._connection.execute(
                 "CREATE INDEX IF NOT EXISTS idx_sessions_last_used "
                 "ON sessions(last_used_at DESC)"
@@ -519,6 +527,31 @@ class SessionStore:
             raise SessionStoreError(f"unknown session: {session_id}")
 
     @_db_locked
+    def bind_identity_context(
+        self, session_id: str, *, principal_id: str, room_id: str
+    ) -> None:
+        """Bind an existing session once and reject cross-principal reuse."""
+        self._require_session(session_id)
+        principal = str(principal_id or "").strip()
+        room = str(room_id or "").strip()
+        if not principal:
+            raise SessionStoreError("session principal_id is required")
+        row = self._execute(
+            "SELECT principal_id, room_id FROM sessions WHERE session_id = ?",
+            (session_id,),
+        ).fetchone()
+        existing_principal = str(row["principal_id"] or "")
+        existing_room = str(row["room_id"] or "")
+        if existing_principal and existing_principal != principal:
+            raise SessionStoreError("session principal mismatch")
+        if existing_room and existing_room != room:
+            raise SessionStoreError("session room mismatch")
+        self._execute(
+            "UPDATE sessions SET principal_id = ?, room_id = ? WHERE session_id = ?",
+            (principal, room, session_id),
+        )
+
+    @_db_locked
     def create_session(
         self,
         *,
@@ -542,7 +575,8 @@ class SessionStore:
     def get_session(self, session_id: str) -> dict[str, Any]:
         row = self._execute(
             "SELECT session_id, project, project_key, project_path, entry_point, "
-            "created_at, last_used_at FROM sessions WHERE session_id = ?",
+            "created_at, last_used_at, principal_id, room_id "
+            "FROM sessions WHERE session_id = ?",
             (session_id,),
         ).fetchone()
         if row is None:
@@ -704,6 +738,7 @@ class SessionStore:
         self,
         *,
         project: str | None = None,
+        principal_id: str | None = None,
         limit: int | None = None,
         exclude_session_id: str | None = None,
     ) -> list[dict[str, Any]]:
@@ -717,6 +752,9 @@ class SessionStore:
         if project is not None:
             clauses.append("s.project = ?")
             params.append(project)
+        if principal_id is not None:
+            clauses.append("s.principal_id = ?")
+            params.append(principal_id)
         if exclude_session_id is not None:
             clauses.append("s.session_id <> ?")
             params.append(exclude_session_id)
@@ -728,7 +766,7 @@ class SessionStore:
 
         rows = self._execute(
             "SELECT s.session_id, s.project, s.project_path, s.entry_point, "
-            "s.created_at, s.last_used_at, "
+            "s.created_at, s.last_used_at, s.principal_id, s.room_id, "
             "(SELECT COUNT(*) FROM messages m WHERE m.session_id = s.session_id) AS message_count, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id ASC LIMIT 1) AS first_message, "
             "(SELECT content FROM messages m WHERE m.session_id = s.session_id AND m.role = 'user' ORDER BY message_id DESC LIMIT 1) AS last_message, "

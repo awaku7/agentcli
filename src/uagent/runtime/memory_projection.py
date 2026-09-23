@@ -19,6 +19,7 @@ from ..profile_manager import (
 from .memory_forget import forgotten_memory_system_contents, memory_generation
 from .memory_query import build_memory_retrieval_query
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
+from .identity_context import get_current_turn_context
 
 _TRUE = {"1", "true", "yes", "on"}
 _FINGERPRINT_KEY = secrets.token_bytes(32)
@@ -103,6 +104,9 @@ def _projection_fingerprint(
     generation: int,
     guidance_budget_chars: Any,
     memory_budget_chars: Any,
+    principal_id: str = "",
+    project_id: str = "",
+    access_generation: int = 0,
 ) -> str:
     """Create an opaque process-local fingerprint without exposing text."""
     payload = {
@@ -110,6 +114,9 @@ def _projection_fingerprint(
         "generation": _nonnegative_int(generation),
         "guidance_budget_chars": _nonnegative_int(guidance_budget_chars),
         "memory_budget_chars": _nonnegative_int(memory_budget_chars),
+        "principal_id": principal_id,
+        "project_id": project_id,
+        "access_generation": _nonnegative_int(access_generation),
         "profile_content": profile_content,
         "evidence_content": evidence_content,
     }
@@ -139,6 +146,9 @@ class MemoryProjectionSnapshot:
     generation: int = 0
     evidence_content: str = ""
     projection_fingerprint: str = ""
+    principal_id: str = ""
+    project_id: str = ""
+    access_generation: int = 0
 
     def __post_init__(self) -> None:
         """Complete legacy constructors while keeping the snapshot immutable."""
@@ -172,6 +182,9 @@ class MemoryProjectionSnapshot:
                         "guidance_budget_chars", 0
                     ),
                     memory_budget_chars=self.diagnostics.get("memory_budget_chars", 0),
+                    principal_id=self.principal_id,
+                    project_id=self.project_id,
+                    access_generation=self.access_generation,
                 ),
             )
 
@@ -249,6 +262,80 @@ def _items_from_result(
     ]
 
 
+def _items_from_scoped_result(
+    result: MemoryShadowResult,
+    records: Sequence[dict[str, Any]],
+    principal_id: str,
+) -> list[MemoryProjectionItem]:
+    """Preserve owner/revision/grant provenance for authorized shared evidence."""
+    items: list[MemoryProjectionItem] = []
+    for candidate in result.candidates:
+        try:
+            index_text = str(candidate.reference).split("/", 3)[-1].split("?", 1)[0]
+            record = records[int(index_text)]
+        except (IndexError, TypeError, ValueError):
+            continue
+        owner_id = str(record.get("owner_id") or "")
+        shared = bool(record.get("shared_reference")) and owner_id != principal_id
+        scope = f"shared-from:{owner_id}" if shared else "personal"
+        memory_id = str(record.get("memory_id") or "unknown")
+        revision = str(record.get("revision") or "unknown")
+        reference = f"memory:{memory_id}@{revision}"
+        grant_id = str(record.get("read_grant_id") or "")
+        if shared and grant_id:
+            reference += f";grant:{grant_id}"
+        items.append(
+            MemoryProjectionItem(
+                scope=scope,
+                note=str(candidate.content),
+                reference=reference,
+            )
+        )
+    return items
+
+
+def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]], int]:
+    """Load only records authorized for this principal by the V3 store boundary."""
+    from ..tools import long_memory
+    from .memory_access import MemoryAccessContext, ScopedMemoryStore
+    from .memory_store import open_memory_store
+
+    if not long_memory.is_sqlite_backend():
+        raise RuntimeError("V3 multi-user projection requires SQLite memory")
+    private_principal = str(getattr(core, "memory_private_session_principal", "") or "")
+    context = MemoryAccessContext.from_turn(
+        turn,
+        private_session=private_principal == turn.principal_id,
+        readable_audiences=tuple(getattr(core, "memory_readable_audiences", ()) or ()),
+    )
+    store = open_memory_store(long_memory._sqlite_path())
+    try:
+        scoped = ScopedMemoryStore(store, context)
+        return scoped.records(), scoped.access_generation
+    finally:
+        store.close()
+
+
+def _current_access_generation() -> int | None:
+    """Read the V3 generation used to invalidate grants and scoped snapshots."""
+    try:
+        from ..tools import long_memory
+        from .memory_store import open_memory_store
+
+        if not long_memory.is_sqlite_backend():
+            return None
+        store = open_memory_store(long_memory._sqlite_path())
+        try:
+            row = store.db.execute(
+                "SELECT value FROM memory_metadata WHERE key = 'access_generation'"
+            ).fetchone()
+            return int(row["value"]) if row is not None else None
+        finally:
+            store.close()
+    except Exception:
+        return None
+
+
 def prepare_memory_projection(
     messages: Sequence[dict[str, Any]], core: Any
 ) -> MemoryProjectionSnapshot | None:
@@ -258,6 +345,11 @@ def prepare_memory_projection(
 
     owner = _memory_owner(core)
     project = _project_name(core)
+    turn = get_current_turn_context()
+    scoped_identity = turn is not None and turn.authn_kind != "local"
+    principal_id = turn.principal_id if scoped_identity else ""
+    if scoped_identity:
+        project = turn.project_id
     query_plan = build_memory_retrieval_query(messages, core, project=project)
     query = query_plan.text
     generation = memory_generation(core)
@@ -267,12 +359,18 @@ def prepare_memory_projection(
     max_candidates = _positive_int("UAGENT_MEMORY_PROJECTION_MAX_CANDIDATES", 20)
     personal_defaulted_owner = 0
     shared_defaulted_owner = 0
+    access_generation = 0
     try:
         from ..tools import long_memory, shared_memory
 
-        personal_records, personal_defaulted_owner = _records_with_default_owner(
-            long_memory.load_long_memory_records(), owner
-        )
+        if scoped_identity:
+            personal_records, access_generation = _prepare_scoped_records(core, turn)
+            owner_filter = ""
+            allow_legacy_unknown = False
+        else:
+            personal_records, personal_defaulted_owner = _records_with_default_owner(
+                long_memory.load_long_memory_records(), owner
+            )
         personal_result = shadow_retrieve_memories(
             personal_records,
             query=query,
@@ -283,7 +381,7 @@ def prepare_memory_projection(
             allow_legacy_unknown=allow_legacy_unknown,
         )
         shared_result: MemoryShadowResult | None = None
-        if shared_memory.is_enabled():
+        if not scoped_identity and shared_memory.is_enabled():
             shared_records, shared_defaulted_owner = _records_with_default_owner(
                 shared_memory.load_shared_memory_records(), owner
             )
@@ -311,13 +409,16 @@ def prepare_memory_projection(
                 "error": type(exc).__name__,
             },
             generation=generation,
+            principal_id=principal_id,
+            project_id=project,
+            access_generation=access_generation,
         )
 
     guidance_budget_chars = _positive_int("UAGENT_MEMORY_GUIDANCE_CHARS", 1_200)
     guidance = _GuidanceProjection("", 0, 0)
     try:
         if is_profiling_enabled():
-            profile = load_profile()
+            profile = load_profile(principal_id) if principal_id else load_profile()
             if isinstance(profile, dict):
                 guidance = _format_applicable_guidance(
                     profile,
@@ -326,7 +427,11 @@ def prepare_memory_projection(
     except Exception:
         guidance = _GuidanceProjection("", 0, 0)
 
-    items = _items_from_result("personal", personal_result)
+    items = (
+        _items_from_scoped_result(personal_result, personal_records, principal_id)
+        if scoped_identity
+        else _items_from_result("personal", personal_result)
+    )
     if shared_result is not None:
         items.extend(_items_from_result("shared", shared_result))
 
@@ -372,6 +477,9 @@ def prepare_memory_projection(
         generation=generation,
         guidance_budget_chars=guidance_budget_chars,
         memory_budget_chars=memory_budget_chars,
+        principal_id=principal_id,
+        project_id=project,
+        access_generation=access_generation,
     )
     diagnostics = {
         "enabled": True,
@@ -385,6 +493,9 @@ def prepare_memory_projection(
         "turn_id": turn_id,
         "source_revision": source_revision,
         "memory_generation": generation,
+        "principal_id": principal_id or owner_label,
+        "access_generation": access_generation,
+        "identity_bound": scoped_identity,
         "profile_present": bool(guidance.content),
         "guidance_present": bool(guidance.content),
         "guidance_items": guidance.included_items,
@@ -412,6 +523,9 @@ def prepare_memory_projection(
         generation=generation,
         evidence_content=projected_evidence,
         projection_fingerprint=projection_fingerprint,
+        principal_id=principal_id,
+        project_id=project,
+        access_generation=access_generation,
     )
 
 
@@ -463,6 +577,22 @@ def apply_memory_projection(
     stale_snapshot = snapshot is not None and int(
         snapshot.generation
     ) != memory_generation(core)
+    if snapshot is not None and snapshot.principal_id:
+        turn = get_current_turn_context()
+        stale_snapshot = (
+            stale_snapshot
+            or turn is None
+            or (
+                turn.principal_id != snapshot.principal_id
+                or turn.project_id != snapshot.project_id
+            )
+        )
+        current_access_generation = _current_access_generation()
+        stale_snapshot = (
+            stale_snapshot
+            or current_access_generation is None
+            or (current_access_generation != snapshot.access_generation)
+        )
     if snapshot is None and not forgotten_contents:
         return [dict(message) for message in call_messages]
 

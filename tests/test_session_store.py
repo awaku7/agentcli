@@ -128,6 +128,32 @@ def test_touch_session_preserves_created_at_and_updates_last_used_at(tmp_path):
     assert row["last_used_at"] != original_last_used
 
 
+def test_identity_binding_is_stable_and_listable_by_principal(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    alice = store.create_session(project="demo", entry_point="web")
+    bob = store.create_session(project="demo", entry_point="web")
+
+    store.bind_identity_context(
+        alice.session_id, principal_id="alice", room_id="room-a"
+    )
+    store.bind_identity_context(bob.session_id, principal_id="bob", room_id="room-b")
+
+    detail = store.get_session(alice.session_id)
+    assert detail["principal_id"] == "alice"
+    assert detail["room_id"] == "room-a"
+    assert [row["session_id"] for row in store.list_sessions(principal_id="alice")] == [
+        alice.session_id
+    ]
+    with pytest.raises(SessionStoreError, match="principal mismatch"):
+        store.bind_identity_context(
+            alice.session_id, principal_id="bob", room_id="room-a"
+        )
+    with pytest.raises(SessionStoreError, match="room mismatch"):
+        store.bind_identity_context(
+            alice.session_id, principal_id="alice", room_id="room-b"
+        )
+
+
 def test_list_sessions_orders_by_last_used_at(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     first = store.create_session(project="demo", entry_point="cli")
