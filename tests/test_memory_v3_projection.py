@@ -10,6 +10,7 @@ from uagent.runtime.memory_projection import (
     prepare_memory_projection,
 )
 from uagent.runtime.memory_store import MemoryStore
+from uagent.runtime.room_access import RoomAccessPolicy, RoomMemoryService
 
 
 def _access(principal_id: str) -> MemoryAccessContext:
@@ -99,3 +100,50 @@ def test_profiles_are_separate_and_paths_do_not_expose_principal_ids(
     assert "bob@example.test" not in bob_path
     assert load_profile("alice@example.test")["preferences"] == ["Alice"]
     assert load_profile("bob@example.test")["preferences"] == ["Bob"]
+
+
+def test_room_policy_feeds_projection_and_membership_revocation_invalidates_it(
+    tmp_path, monkeypatch
+) -> None:
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    store = MemoryStore(memory_path)
+    policy = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.set_membership("root", "room-x", "alice", "admin")
+    policy.set_membership("alice", "room-x", "bob", "member")
+    room_memory = RoomMemoryService(
+        store,
+        policy,
+        principal_id="alice",
+        project_id="demo",
+        room_id="room-x",
+    ).append("room deployment checklist")
+    store.close()
+    turn = TurnContext(
+        principal_id="bob",
+        room_id="room-x",
+        project_id="demo",
+        session_id="session-bob",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
+    messages = [{"role": "user", "content": "show deployment checklist"}]
+    core = SimpleNamespace()
+
+    with bind_turn_context(turn):
+        snapshot = prepare_memory_projection(messages, core)
+        projected = apply_memory_projection(messages, snapshot, core)
+    assert snapshot is not None
+    rendered = "\n".join(str(message.get("content", "")) for message in projected)
+    assert "[room:room-x] room deployment checklist" in rendered
+    assert f"memory:{room_memory['memory_id']}@1" in rendered
+
+    store = MemoryStore(memory_path)
+    policy = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.revoke_membership("alice", "room-x", "bob")
+    store.close()
+    with bind_turn_context(turn):
+        assert apply_memory_projection(messages, snapshot, core) == messages

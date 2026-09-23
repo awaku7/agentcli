@@ -221,6 +221,67 @@ class ScopedMemoryStore:
             )
             return self.get(memory_id)
 
+    def append_audience(
+        self, audience_type: str, audience_id: str, note: str
+    ) -> dict[str, Any]:
+        """Append to an audience already authorized in this trusted context."""
+        audience = (str(audience_type), str(audience_id))
+        if audience not in self.context.readable_audiences:
+            raise MemoryAccessError("memory audience is not authorized")
+        if not isinstance(note, str) or not note.strip():
+            raise ValueError("note must not be empty")
+        memory_id = uuid.uuid4().hex
+        now = time.time()
+        with _write(self._store):
+            self._store.db.execute(
+                "INSERT INTO memories(memory_id, created_at, updated_at, note, "
+                "owner, owner_id, project, audience_type, audience_id) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    memory_id,
+                    now,
+                    now,
+                    note,
+                    self.context.principal_id,
+                    self.context.principal_id,
+                    self.context.project_id,
+                    audience[0],
+                    audience[1],
+                ),
+            )
+            return self.get(memory_id)
+
+    def _audience_record(self, memory_id: str) -> dict[str, Any]:
+        record = self.get(memory_id)
+        if (
+            record is None
+            or (str(record.get("audience_type")), str(record.get("audience_id")))
+            not in self.context.readable_audiences
+        ):
+            raise MemoryAccessError("memory audience operation is not permitted")
+        return record
+
+    def update_audience(
+        self, memory_id: str, note: str, *, expected_revision: int
+    ) -> dict[str, Any]:
+        if not isinstance(note, str) or not note.strip():
+            raise ValueError("note must not be empty")
+        with _write(self._store):
+            self._check_revision(self._audience_record(memory_id), expected_revision)
+            self._store.db.execute(
+                "UPDATE memories SET note=?, revision=revision + 1, updated_at=? "
+                "WHERE memory_id=?",
+                (note, time.time(), memory_id),
+            )
+            return self.get(memory_id)
+
+    def forget_audience(self, memory_id: str, *, expected_revision: int) -> None:
+        with _write(self._store):
+            self._check_revision(self._audience_record(memory_id), expected_revision)
+            self._store.db.execute(
+                "DELETE FROM memories WHERE memory_id=?", (memory_id,)
+            )
+
     def _owned(self, memory_id: str) -> dict[str, Any]:
         self._require_private()
         row = self._store.db.execute(

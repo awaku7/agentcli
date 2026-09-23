@@ -14,12 +14,71 @@ from ..providers import util_providers as providers
 from .. import util_tools as tools_util
 from ..tools import long_memory as _long_memory_mod
 from .. import profile_manager as _profile_mod
+from ..runtime.identity_context import (
+    IdentityConfigurationError,
+    IdentityResolutionError,
+    create_identity_resolver,
+)
+from ..runtime.memory_access import (
+    MemoryAccessContext,
+    MemoryAccessError,
+    ScopedMemoryStore,
+)
+from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
+from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
 from .agent_worker import run_agent_worker
 from .app import app
 from .rooms import _handle_mode_command, web_manager
 
 # Tool genre state (initially all disabled; toggled via API)
 _genre_enabled: dict[str, bool] = {}
+
+
+def _request_identity(request: Request):
+    identity = create_identity_resolver().resolve(request)
+    if not identity.authenticated:
+        raise IdentityResolutionError("authenticated identity is required")
+    return identity
+
+
+def _project_id(value: str) -> str:
+    project = str(value or "").strip()
+    if not project:
+        raise ValueError("project_id is required")
+    return project
+
+
+def _memory_store():
+    if not _long_memory_mod.is_sqlite_backend():
+        raise RuntimeError("Memory V3 Web API requires SQLite memory")
+    return open_memory_store(_long_memory_mod._sqlite_path())
+
+
+def _memory_error(exc: Exception) -> JSONResponse:
+    if isinstance(exc, (IdentityConfigurationError, IdentityResolutionError)):
+        status = 401
+    elif isinstance(exc, MemoryAccessError):
+        status = 403
+    elif isinstance(exc, MemoryStoreConflictError):
+        status = 409
+    elif isinstance(exc, ValueError):
+        status = 400
+    else:
+        status = 500
+    return JSONResponse(status_code=status, content={"error": str(exc)})
+
+
+def _legacy_local_only(request: Request) -> JSONResponse | None:
+    try:
+        identity = _request_identity(request)
+    except Exception as exc:
+        return _memory_error(exc)
+    if identity.authn_kind != "local":
+        return JSONResponse(
+            status_code=403,
+            content={"error": "legacy memory API is available only in local mode"},
+        )
+    return None
 
 
 @app.get("/api/artifacts/cleanup/report")
@@ -171,9 +230,216 @@ async def set_tools_enabled(req: Request):
     }
 
 
+def _personal_store(identity, project_id: str):
+    store = _memory_store()
+    scoped = ScopedMemoryStore(
+        store,
+        MemoryAccessContext(
+            principal_id=identity.principal_id,
+            project_id=_project_id(project_id),
+            authenticated=True,
+            private_session=True,
+        ),
+    )
+    return store, scoped
+
+
+@app.get("/api/me/memories")
+async def get_my_memories(request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            return {"ok": True, "memories": scoped.records()}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.post("/api/me/memories")
+async def add_my_memory(request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        try:
+            return {"ok": True, "memory": scoped.append(str(body.get("note", "")))}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.put("/api/me/memories/{memory_id}")
+async def update_my_memory(memory_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        try:
+            memory = scoped.update(
+                memory_id,
+                str(body.get("note", "")),
+                expected_revision=int(body.get("expected_revision", 0)),
+            )
+            return {"ok": True, "memory": memory}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/me/memories/{memory_id}")
+async def delete_my_memory(memory_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        try:
+            scoped.forget(
+                memory_id, expected_revision=int(body.get("expected_revision", 0))
+            )
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+def _room_service(request: Request, room_id: str, project_id: str):
+    identity = _request_identity(request)
+    store = _memory_store()
+    policy = RoomAccessPolicy(store)
+    service = RoomMemoryService(
+        store,
+        policy,
+        principal_id=identity.principal_id,
+        project_id=_project_id(project_id),
+        room_id=room_id,
+    )
+    return identity, store, policy, service
+
+
+@app.get("/api/rooms/{room_id}/memories")
+async def get_room_memories(room_id: str, request: Request, project_id: str = ""):
+    try:
+        _, store, _, service = _room_service(request, room_id, project_id)
+        try:
+            return {"ok": True, "memories": service.records()}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.post("/api/rooms/{room_id}/memories")
+async def add_room_memory(room_id: str, request: Request):
+    try:
+        body = await request.json()
+        _, store, _, service = _room_service(
+            request, room_id, body.get("project_id", "")
+        )
+        try:
+            return {"ok": True, "memory": service.append(str(body.get("note", "")))}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.put("/api/rooms/{room_id}/memories/{memory_id}")
+async def update_room_memory(room_id: str, memory_id: str, request: Request):
+    try:
+        body = await request.json()
+        _, store, _, service = _room_service(
+            request, room_id, body.get("project_id", "")
+        )
+        try:
+            memory = service.update(
+                memory_id,
+                str(body.get("note", "")),
+                expected_revision=int(body.get("expected_revision", 0)),
+            )
+            return {"ok": True, "memory": memory}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/rooms/{room_id}/memories/{memory_id}")
+async def delete_room_memory(room_id: str, memory_id: str, request: Request):
+    try:
+        body = await request.json()
+        _, store, _, service = _room_service(
+            request, room_id, body.get("project_id", "")
+        )
+        try:
+            service.forget(
+                memory_id, expected_revision=int(body.get("expected_revision", 0))
+            )
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/rooms/{room_id}/members")
+async def get_room_members(room_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        store = _memory_store()
+        try:
+            members = RoomAccessPolicy(store).list_members(
+                identity.principal_id, room_id
+            )
+            return {"ok": True, "members": members}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.put("/api/rooms/{room_id}/members/{principal_id}")
+async def set_room_member(room_id: str, principal_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store = _memory_store()
+        try:
+            membership = RoomAccessPolicy(store).set_membership(
+                identity.principal_id, room_id, principal_id, body.get("role", "")
+            )
+            return {"ok": True, "membership": membership.__dict__}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/rooms/{room_id}/members/{principal_id}")
+async def delete_room_member(room_id: str, principal_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        store = _memory_store()
+        try:
+            RoomAccessPolicy(store).revoke_membership(
+                identity.principal_id, room_id, principal_id
+            )
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
 @app.get("/api/memories")
-async def get_memories():
+async def get_memories(request: Request):
     """Return all long-term memory entries as structured JSON."""
+    denied = _legacy_local_only(request)
+    if denied is not None:
+        return denied
     records = _long_memory_mod.load_long_memory_records()
     result = []
     for idx, rec in enumerate(records):
@@ -198,6 +464,9 @@ async def get_memories():
 @app.post("/api/memories")
 async def add_memory(req: Request):
     """Append a long-term memory entry."""
+    denied = _legacy_local_only(req)
+    if denied is not None:
+        return denied
     body = await req.json()
     note = str(body.get("note", "")).strip()
     if not note:
@@ -209,6 +478,9 @@ async def add_memory(req: Request):
 @app.put("/api/memories/{index}")
 async def update_memory(index: int, req: Request):
     """Update a long-term memory entry in-place (preserves order)."""
+    denied = _legacy_local_only(req)
+    if denied is not None:
+        return denied
     body = await req.json()
     new_note = str(body.get("note", "")).strip()
     if not new_note:
@@ -222,8 +494,11 @@ async def update_memory(index: int, req: Request):
 
 
 @app.delete("/api/memories/{index}")
-async def delete_memory(index: int):
+async def delete_memory(index: int, request: Request):
     """Delete a long-term memory entry."""
+    denied = _legacy_local_only(request)
+    if denied is not None:
+        return denied
     ok = _long_memory_mod.delete_long_memory_entry(index)
     if not ok:
         return JSONResponse(
@@ -233,15 +508,48 @@ async def delete_memory(index: int):
 
 
 @app.get("/api/profile")
-async def get_profile():
+async def get_profile(request: Request):
     """Return current profile data."""
+    denied = _legacy_local_only(request)
+    if denied is not None:
+        return denied
     profile = _profile_mod.load_profile()
     return {"ok": True, "profile": profile}
 
 
+@app.get("/api/me/profile")
+async def get_my_profile(request: Request):
+    try:
+        identity = _request_identity(request)
+        return {
+            "ok": True,
+            "profile": _profile_mod.load_profile(identity.principal_id),
+        }
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.put("/api/me/profile")
+async def update_my_profile(request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        current = _profile_mod.load_profile(identity.principal_id)
+        for key in ("environment", "preferences", "constraints"):
+            if key in body:
+                current[key] = body[key]
+        _profile_mod.save_profile(current, identity.principal_id)
+        return {"ok": True, "profile": current}
+    except Exception as exc:
+        return _memory_error(exc)
+
+
 @app.post("/api/profile/clear")
-async def clear_profile():
+async def clear_profile(request: Request):
     """Clear profile file."""
+    denied = _legacy_local_only(request)
+    if denied is not None:
+        return denied
     try:
         path = _profile_mod.get_profile_file_path()
         if os.path.exists(path):
@@ -252,8 +560,11 @@ async def clear_profile():
 
 
 @app.post("/api/profile/fromlog")
-async def profile_from_logs():
+async def profile_from_logs(request: Request):
     """Rebuild profile from past logs."""
+    denied = _legacy_local_only(request)
+    if denied is not None:
+        return denied
     from .. import core as _core_mod
 
     result = _profile_mod.profile_from_logs(_core_mod, max_log_files=100)
@@ -265,6 +576,9 @@ async def profile_from_logs():
 @app.put("/api/profile")
 async def update_profile(req: Request):
     """Update profile in-place. Body: {"environment": {...}, "preferences": [...], "constraints": [...]}"""
+    denied = _legacy_local_only(req)
+    if denied is not None:
+        return denied
     body = await req.json()
     current = _profile_mod.load_profile()
     # Merge: only update provided keys

@@ -105,6 +105,7 @@ def _projection_fingerprint(
     guidance_budget_chars: Any,
     memory_budget_chars: Any,
     principal_id: str = "",
+    room_id: str = "",
     project_id: str = "",
     access_generation: int = 0,
 ) -> str:
@@ -115,6 +116,7 @@ def _projection_fingerprint(
         "guidance_budget_chars": _nonnegative_int(guidance_budget_chars),
         "memory_budget_chars": _nonnegative_int(memory_budget_chars),
         "principal_id": principal_id,
+        "room_id": room_id,
         "project_id": project_id,
         "access_generation": _nonnegative_int(access_generation),
         "profile_content": profile_content,
@@ -147,6 +149,7 @@ class MemoryProjectionSnapshot:
     evidence_content: str = ""
     projection_fingerprint: str = ""
     principal_id: str = ""
+    room_id: str = ""
     project_id: str = ""
     access_generation: int = 0
 
@@ -183,6 +186,7 @@ class MemoryProjectionSnapshot:
                     ),
                     memory_budget_chars=self.diagnostics.get("memory_budget_chars", 0),
                     principal_id=self.principal_id,
+                    room_id=self.room_id,
                     project_id=self.project_id,
                     access_generation=self.access_generation,
                 ),
@@ -276,8 +280,12 @@ def _items_from_scoped_result(
         except (IndexError, TypeError, ValueError):
             continue
         owner_id = str(record.get("owner_id") or "")
+        audience_type = str(record.get("audience_type") or "")
         shared = bool(record.get("shared_reference")) and owner_id != principal_id
-        scope = f"shared-from:{owner_id}" if shared else "personal"
+        if audience_type == "room":
+            scope = f"room:{record.get('audience_id') or 'unknown'}"
+        else:
+            scope = f"shared-from:{owner_id}" if shared else "personal"
         memory_id = str(record.get("memory_id") or "unknown")
         revision = str(record.get("revision") or "unknown")
         reference = f"memory:{memory_id}@{revision}"
@@ -303,13 +311,20 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
     if not long_memory.is_sqlite_backend():
         raise RuntimeError("V3 multi-user projection requires SQLite memory")
     private_principal = str(getattr(core, "memory_private_session_principal", "") or "")
-    context = MemoryAccessContext.from_turn(
-        turn,
-        private_session=private_principal == turn.principal_id,
-        readable_audiences=tuple(getattr(core, "memory_readable_audiences", ()) or ()),
-    )
+    readable_audiences = tuple(getattr(core, "memory_readable_audiences", ()) or ())
     store = open_memory_store(long_memory._sqlite_path())
     try:
+        if turn.room_id:
+            from .room_access import RoomAccessPolicy
+
+            policy = RoomAccessPolicy(store)
+            if policy.can_read_room_memory(turn.principal_id, turn.room_id):
+                readable_audiences += (("room", turn.room_id),)
+        context = MemoryAccessContext.from_turn(
+            turn,
+            private_session=private_principal == turn.principal_id,
+            readable_audiences=readable_audiences,
+        )
         scoped = ScopedMemoryStore(store, context)
         return scoped.records(), scoped.access_generation
     finally:
@@ -410,6 +425,7 @@ def prepare_memory_projection(
             },
             generation=generation,
             principal_id=principal_id,
+            room_id=turn.room_id if scoped_identity else "",
             project_id=project,
             access_generation=access_generation,
         )
@@ -478,6 +494,7 @@ def prepare_memory_projection(
         guidance_budget_chars=guidance_budget_chars,
         memory_budget_chars=memory_budget_chars,
         principal_id=principal_id,
+        room_id=turn.room_id if scoped_identity else "",
         project_id=project,
         access_generation=access_generation,
     )
@@ -524,6 +541,7 @@ def prepare_memory_projection(
         evidence_content=projected_evidence,
         projection_fingerprint=projection_fingerprint,
         principal_id=principal_id,
+        room_id=turn.room_id if scoped_identity else "",
         project_id=project,
         access_generation=access_generation,
     )
@@ -584,6 +602,7 @@ def apply_memory_projection(
             or turn is None
             or (
                 turn.principal_id != snapshot.principal_id
+                or turn.room_id != snapshot.room_id
                 or turn.project_id != snapshot.project_id
             )
         )

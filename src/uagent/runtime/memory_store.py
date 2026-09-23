@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 
 
 class MemoryStoreConflictError(RuntimeError):
@@ -140,6 +140,20 @@ class MemoryStore:
             "ON memory_grants(grantee_principal_id, memory_id, status)"
         )
         self.db.execute(
+            "CREATE TABLE IF NOT EXISTS room_memberships ("
+            "room_id TEXT NOT NULL, principal_id TEXT NOT NULL, "
+            "role TEXT NOT NULL CHECK(role IN ('admin', 'editor', 'member')), "
+            "status TEXT NOT NULL DEFAULT 'active' "
+            "CHECK(status IN ('active', 'revoked')), "
+            "revision INTEGER NOT NULL DEFAULT 1, granted_by TEXT NOT NULL, "
+            "created_at REAL NOT NULL, updated_at REAL NOT NULL, "
+            "PRIMARY KEY(room_id, principal_id))"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_room_memberships_principal "
+            "ON room_memberships(principal_id, room_id, status)"
+        )
+        self.db.execute(
             "INSERT OR IGNORE INTO memory_metadata(key, value) "
             "VALUES ('access_generation', '0')"
         )
@@ -152,7 +166,7 @@ class MemoryStore:
             "revoked_at = CAST(strftime('%s', 'now') AS REAL) "
             "WHERE memory_id = OLD.memory_id AND status = 'active'; END"
         )
-        for table in ("memories", "memory_grants"):
+        for table in ("memories", "memory_grants", "room_memberships"):
             for operation in ("INSERT", "UPDATE", "DELETE"):
                 self.db.execute(
                     f"CREATE TRIGGER IF NOT EXISTS {table}_generation_{operation} "
