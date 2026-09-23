@@ -5,9 +5,9 @@ from typing import Any, Optional
 
 from .models import (
     SCHEDULE_TYPE_PERIODIC,
-    SCHEDULE_TYPE_ONCE,
     ScheduleItem,
     advance_periodic_at,
+    format_iso_datetime,
     utc_now,
 )
 from .store import SchedulerStore
@@ -80,46 +80,13 @@ class SchedulerService:
 
     def _fire_due_items(self) -> None:
         now = utc_now()
-        items = self._store.list_items()
-        kept: list[ScheduleItem] = []
-        changed = False
-        due: list[tuple[ScheduleItem, str]] = []
-
-        for item in items:
-            if item.owner_instance_id and item.owner_instance_id != self._instance_id:
-                kept.append(item)
-                continue
-            if not item.enabled:
-                kept.append(item)
-                continue
-            try:
-                if item.next_fire_at <= now:
-                    due.append((item, item.at))
-                    if item.type == SCHEDULE_TYPE_PERIODIC and item.interval_sec > 0:
-                        item.at = advance_periodic_at(
-                            item.at, item.interval_sec, now=now
-                        )
-                        item.touch()
-                        kept.append(item)
-                        changed = True
-                    elif item.type == SCHEDULE_TYPE_ONCE:
-                        changed = True
-                    else:
-                        changed = True
-                else:
-                    kept.append(item)
-            except Exception:
-                changed = True
-
-        if changed:
-            try:
-                self._store.save_items(kept)
-            except Exception:
-                pass
-
+        due = self._store.claim_due_items(self._instance_id, now)
         for item, due_at in due:
-            notice = (item.message or "").strip()
-            prompt = item.effective_prompt
+            next_at: str | None = None
+            if item.type == SCHEDULE_TYPE_PERIODIC and item.interval_sec > 0:
+                next_at = format_iso_datetime(
+                    advance_periodic_at(item.at, item.interval_sec, now=now)
+                )
             try:
                 run = self._run_store.create(
                     item.id,
@@ -139,27 +106,20 @@ class SchedulerService:
                         "session_id": item.session_id,
                     },
                 )
-                run_id = run.run_id
+                self._store.finalize_claim(item.id, self._instance_id, next_at)
             except Exception:
-                run_id = ""
-                # The due item was already removed/advanced above. Restore its
-                # due timestamp so a transient run-store failure does not drop
-                # the scheduled execution permanently.
-                try:
-                    item.at = due_at
-                    item.touch()
-                    self._store.add_item(item)
-                except Exception:
-                    pass
+                self._store.release_claim(item.id, self._instance_id, restore_at=due_at)
                 continue
             base = {
                 "schedule_id": item.id,
                 "schedule_type": item.type,
                 "schedule_at": due_at,
-                "run_id": run_id,
+                "run_id": run.run_id,
                 "owner_instance_id": item.owner_instance_id,
                 "session_id": item.session_id,
             }
+            notice = (item.message or "").strip()
+            prompt = item.effective_prompt
             if notice:
                 self._emit({"kind": "schedule_notice", "text": notice, **base})
             if item.execution_mode == "direct":
