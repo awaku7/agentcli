@@ -91,6 +91,7 @@ def test_sink_failure_keeps_event_pending_until_redelivery(tmp_path):
     )
     recovered._fire_due_items()
 
+    assert len(schedules.list_events("pending")) == 1
     event = events.get_nowait()
     assert event["run_id"] == run.run_id
     assert event["schedule_id"] == "outbox-1"
@@ -115,13 +116,15 @@ def test_failed_notice_does_not_allow_execution_event_to_overtake_it(tmp_path):
     )
 
     sink = _FailFirstSink()
-    SchedulerService(
+    service = SchedulerService(
         sink,
         store=schedules,
         run_store=runs,
         instance_id="instance-a",
         poll_interval_s=0.1,
-    )._fire_due_items()
+    )
+    service._fire_due_items()
+    service._fire_due_items()
 
     assert [event["kind"] for event in sink.calls] == ["schedule_notice"]
     pending = schedules.list_events("pending")
@@ -187,6 +190,8 @@ def test_explicit_orphan_reclaim_allows_redelivery_after_owner_restart(tmp_path)
 
     event = events.get_nowait()
     assert event["schedule_id"] == "outbox-3"
+    assert event["owner_instance_id"] == "instance-b"
+    assert event["reclaimed_from_instance_id"] == "instance-a"
     assert schedules.list_events("pending") == []
     delivered = schedules.list_events("delivered")
     assert len(delivered) == 1
@@ -215,6 +220,7 @@ def test_explicit_orphan_reclaim_recovers_schedule_before_outbox_creation(tmp_pa
 
     event = events.get_nowait()
     assert event["schedule_id"] == "outbox-pre-finalize"
+    assert event["owner_instance_id"] == "instance-b"
     assert schedules.get_item("outbox-pre-finalize") is None
 
 
