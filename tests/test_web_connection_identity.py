@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import pytest
 
 from uagent.runtime.identity_context import (
@@ -146,3 +147,65 @@ def test_web_connection_rejects_turn_after_authentication_config_change(
     revision[0] = "revision-2"
     with pytest.raises(IdentityResolutionError, match="configuration changed"):
         connection.make_turn(project_path=str(tmp_path), session_id="session-1")
+
+
+def test_web_connection_rejects_configuration_change_during_resolution(
+    tmp_path, monkeypatch
+):
+    from uagent.runtime.memory_store import MemoryStore
+
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    MemoryStore(memory_path).close()
+    revisions = iter(("revision-1", "revision-2"))
+    monkeypatch.setattr(
+        "uagent.runtime.auth_management.authentication_configuration_fingerprint",
+        lambda: next(revisions),
+    )
+    monkeypatch.setattr(
+        connection_identity,
+        "resolve_turn_context",
+        lambda **kwargs: (IdentityContext("local", True, "local"), None),
+    )
+
+    with pytest.raises(IdentityResolutionError, match="configuration changed"):
+        connection_identity.resolve_web_connection(object(), "shared")
+
+
+def test_room_broadcast_closes_stale_authenticated_connection(monkeypatch):
+    from uagent.web_impl.rooms import WebRoom
+
+    revision = ["revision-1"]
+    monkeypatch.setattr(
+        "uagent.runtime.auth_management.authentication_configuration_fingerprint",
+        lambda: revision[0],
+    )
+
+    class Socket:
+        def __init__(self):
+            self.sent = []
+            self.closed = []
+
+        async def send_json(self, data):
+            self.sent.append(data)
+
+        async def close(self, code):
+            self.closed.append(code)
+
+    room = WebRoom("shared")
+    socket = Socket()
+    connection = connection_identity.WebConnectionContext(
+        "shared",
+        IdentityContext("user-A", True, "test"),
+        configuration_fingerprint="revision-1",
+    )
+    room.active_connections.append(socket)
+    room._connection_contexts[id(socket)] = connection
+
+    revision[0] = "revision-2"
+    asyncio.run(room.broadcast({"type": "message"}))
+
+    assert socket.sent == []
+    assert socket.closed == [1008]
+    assert socket not in room.active_connections

@@ -15,6 +15,7 @@ from ..auth.oidc_transactions import OIDCTransactionStore
 from ..auth.oidc_verifier import discover_provider
 from ..env_utils import env_get
 from ..runtime.auth_management import (
+    authentication_configuration_fingerprint,
     positive_integer_setting,
     validate_authentication_configuration,
 )
@@ -120,6 +121,7 @@ async def oidc_callback(
             status_code=400, content={"error": "OIDC browser binding missing"}
         )
     try:
+        configuration_fingerprint = authentication_configuration_fingerprint()
         metadata, client_id, redirect_uri, client_secret = _oidc_config()
         async with httpx.AsyncClient(timeout=10.0, follow_redirects=False) as client:
             identity = await complete_authorization_callback(
@@ -133,7 +135,10 @@ async def oidc_callback(
                 redirect_uri=redirect_uri,
                 http_client=client,
             )
-        session_token = get_oidc_session_store().create(identity)
+        session_token = get_oidc_session_store().create(
+            identity,
+            expected_configuration_fingerprint=configuration_fingerprint,
+        )
         response = RedirectResponse("/", status_code=303)
         response.set_cookie(
             OIDC_SESSION_COOKIE,

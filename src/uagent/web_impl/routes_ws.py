@@ -50,7 +50,11 @@ async def websocket_endpoint(websocket: WebSocket):
         room.lang = ws_lang
     except Exception:
         pass
-    await room.connect(websocket)
+    try:
+        await room.connect(websocket, connection)
+    except (IdentityConfigurationError, IdentityResolutionError):
+        await websocket.close(code=1008)
+        return
     room.loop = asyncio.get_event_loop()
     # Ask AGENTS.md / init history immediately (no user message required).
     _bootstrap_room_on_connect(room)

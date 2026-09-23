@@ -13,6 +13,10 @@ from ..i18n import _, set_thread_lang
 from .. import core
 from ..env_utils import env_get
 from ..runtime import runtime_init as _runtime_init
+from ..runtime.identity_context import (
+    IdentityConfigurationError,
+    IdentityResolutionError,
+)
 from ..welcome import get_welcome_message
 from .. import util_tools as tools_util
 from .helpers import _enrich_message_attachments, _load_input_history
@@ -25,6 +29,7 @@ class WebRoom:
         self.lang: str = "en"
 
         self.active_connections: list[WebSocket] = []
+        self._connection_contexts: dict[int, Any] = {}
         self.messages: list[dict[str, Any]] = []  # UI display
         self.status: dict[str, Any] = {"busy": False, "label": "IDLE", "workdir": ""}
 
@@ -78,11 +83,15 @@ class WebRoom:
             % {"old": old, "new": resolved}
         )
 
-    async def connect(self, websocket: WebSocket):
+    async def connect(self, websocket: WebSocket, connection_context: Any = None):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
+            if connection_context is not None:
+                connection_context.validate_authentication_configuration()
             await websocket.accept()
             self.active_connections.append(websocket)
+            if connection_context is not None:
+                self._connection_contexts[id(websocket)] = connection_context
 
             msgs = self.messages
             if self.history:
@@ -103,7 +112,7 @@ class WebRoom:
                                 }
                             )
                         )
-                except Exception:
+                except (IdentityConfigurationError, IdentityResolutionError):
                     msgs = self.messages
 
             _v = (env_get("UAGENT_WEB_VERBOSE") or "").strip().lower()
@@ -184,13 +193,25 @@ class WebRoom:
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
+        self._connection_contexts.pop(id(websocket), None)
 
     async def broadcast(self, data: dict[str, Any]):
         for connection in list(self.active_connections):
+            connection_context = self._connection_contexts.get(id(connection))
+            if connection_context is not None:
+                try:
+                    connection_context.validate_authentication_configuration()
+                except Exception:
+                    try:
+                        await connection.close(code=1008)
+                    except Exception:
+                        pass
+                    self.disconnect(connection)
+                    continue
             try:
                 await connection.send_json(data)
             except Exception:
-                pass
+                self.disconnect(connection)
 
     def set_status(self, busy: bool, label: str = ""):
         workdir = self.base_dir

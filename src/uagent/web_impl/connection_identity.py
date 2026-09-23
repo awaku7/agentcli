@@ -47,6 +47,9 @@ class WebConnectionContext:
 
 def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionContext:
     """Resolve the selected identity mode before joining a room."""
+    from ..runtime.auth_management import authentication_configuration_fingerprint
+
+    configuration_fingerprint = authentication_configuration_fingerprint()
     identity, _ = resolve_turn_context(
         entry_point="web", room_id=room_id, request_context=websocket
     )
@@ -70,10 +73,11 @@ def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionCont
             raise IdentityResolutionError("room membership is required")
     finally:
         store.close()
-    from ..runtime.auth_management import authentication_configuration_fingerprint
+    if configuration_fingerprint != authentication_configuration_fingerprint():
+        raise IdentityResolutionError("authentication configuration changed")
 
     return WebConnectionContext(
         room_id=room_id,
         identity=identity,
-        configuration_fingerprint=authentication_configuration_fingerprint(),
+        configuration_fingerprint=configuration_fingerprint,
     )

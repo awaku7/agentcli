@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 
 from uagent.auth.oidc_sessions import OIDCSessionStore
-from uagent.runtime.identity_context import IdentityContext
+from uagent.runtime.identity_context import IdentityContext, IdentityResolutionError
 
 
 def test_oidc_session_is_opaque_single_store_token() -> None:
@@ -94,3 +94,18 @@ def test_new_sessions_use_rotated_ttl_and_capacity() -> None:
     assert store.resolve(token) is not None
     now[0] = 120.0
     assert store.resolve(token) is None
+
+
+def test_session_issuance_rejects_configuration_change_during_verification() -> None:
+    revision = ["revision-1"]
+    store = OIDCSessionStore(configuration_fingerprint=lambda: revision[0])
+    identity = IdentityContext("oidc:user", True, "oidc")
+
+    revision[0] = "revision-2"
+    with pytest.raises(IdentityResolutionError, match="configuration changed"):
+        store.create(
+            identity,
+            expected_configuration_fingerprint="revision-1",
+        )
+
+    assert store.active_count() == 0

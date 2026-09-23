@@ -9,7 +9,7 @@ import threading
 import time
 from typing import Callable
 
-from ..runtime.identity_context import IdentityContext
+from ..runtime.identity_context import IdentityContext, IdentityResolutionError
 
 
 @dataclass(frozen=True)
@@ -49,11 +49,21 @@ class OIDCSessionStore:
     def _key(token: str) -> str:
         return hashlib.sha256(token.encode("utf-8")).hexdigest()
 
-    def create(self, identity: IdentityContext) -> str:
+    def create(
+        self,
+        identity: IdentityContext,
+        *,
+        expected_configuration_fingerprint: str | None = None,
+    ) -> str:
         if not identity.authenticated:
             raise ValueError("only authenticated identities may create sessions")
         token = secrets.token_urlsafe(32)
         configuration_fingerprint = self._configuration_fingerprint()
+        if (
+            expected_configuration_fingerprint is not None
+            and configuration_fingerprint != expected_configuration_fingerprint
+        ):
+            raise IdentityResolutionError("authentication configuration changed")
         ttl_seconds = (
             self._ttl_seconds_provider()
             if self._ttl_seconds_provider is not None
