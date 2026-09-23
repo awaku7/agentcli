@@ -38,9 +38,9 @@ Implementation requirements:
 
 The current implementation now provides SQLite project memberships, role checks,
 configured single-project binding, project membership APIs, and regression coverage.
-The item remains open for workspace/session-bound HTTP ProjectContext and explicit
-room-to-project binding; until those are added, multi-project HTTP deployments must
-not rely on request-scoped project selection.
+The item remains open for workspace/session-bound HTTP ProjectContext in
+multi-project deployments. Room-to-project binding is now persisted and enforced at
+HTTP and Memory Projection boundaries.
 
 ## Current baseline
 

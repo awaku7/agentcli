@@ -68,6 +68,48 @@ class ProjectAccessPolicy:
         if not self.can_access(principal_id, project_id, role):
             raise MemoryAccessError("project access is not permitted")
 
+    def room_project(self, room_id: str) -> str | None:
+        row = self._store.db.execute(
+            "SELECT project_id FROM room_projects WHERE room_id = ?",
+            (room_id,),
+        ).fetchone()
+        return str(row["project_id"]) if row is not None else None
+
+    def require_room_binding(self, project_id: str, room_id: str) -> None:
+        bound_project = self.room_project(room_id)
+        if bound_project != project_id:
+            raise MemoryAccessError("room is not bound to this project")
+
+    def bind_room(self, actor_id: str, project_id: str, room_id: str) -> None:
+        project_id = str(project_id or "").strip()
+        room_id = str(room_id or "").strip()
+        if not project_id or not room_id:
+            raise ValueError("project_id and room_id are required")
+        if not self.can_access(actor_id, project_id, "admin"):
+            raise MemoryAccessError("room binding operation is not permitted")
+        now = time.time()
+        self._store.db.execute("BEGIN IMMEDIATE")
+        try:
+            self._store.db.execute(
+                "INSERT OR IGNORE INTO projects(project_id, status, created_at, updated_at) "
+                "VALUES (?, 'active', ?, ?)",
+                (project_id, now, now),
+            )
+            existing = self.room_project(room_id)
+            if existing is not None and existing != project_id:
+                raise MemoryAccessError("room is already bound to another project")
+            self._store.db.execute(
+                "INSERT INTO room_projects(room_id, project_id, revision, bound_by, "
+                "created_at, updated_at) VALUES (?, ?, 1, ?, ?, ?) "
+                "ON CONFLICT(room_id) DO UPDATE SET revision=room_projects.revision + 1, "
+                "bound_by=excluded.bound_by, updated_at=excluded.updated_at",
+                (room_id, project_id, actor_id, now, now),
+            )
+            self._store.db.commit()
+        except Exception:
+            self._store.db.rollback()
+            raise
+
     def list_members(self, actor_id: str, project_id: str) -> list[dict[str, Any]]:
         if not self.can_access(actor_id, project_id, "admin"):
             raise MemoryAccessError("project membership operation is not permitted")

@@ -160,6 +160,16 @@ class MemoryStore:
             "ON project_memberships(principal_id, project_id, status)"
         )
         self.db.execute(
+            "CREATE TABLE IF NOT EXISTS room_projects ("
+            "room_id TEXT PRIMARY KEY, project_id TEXT NOT NULL "
+            "REFERENCES projects(project_id), revision INTEGER NOT NULL DEFAULT 1, "
+            "bound_by TEXT NOT NULL, created_at REAL NOT NULL, updated_at REAL NOT NULL)"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_room_projects_project "
+            "ON room_projects(project_id, room_id)"
+        )
+        self.db.execute(
             "CREATE TABLE IF NOT EXISTS room_memberships ("
             "room_id TEXT NOT NULL, principal_id TEXT NOT NULL, "
             "role TEXT NOT NULL CHECK(role IN ('admin', 'editor', 'member')), "
@@ -191,6 +201,7 @@ class MemoryStore:
             "memory_grants",
             "projects",
             "project_memberships",
+            "room_projects",
             "room_memberships",
         ):
             for operation in ("INSERT", "UPDATE", "DELETE"):

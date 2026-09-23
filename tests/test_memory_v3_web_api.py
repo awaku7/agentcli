@@ -121,6 +121,7 @@ def test_v3_web_api_uses_server_identity_and_room_roles(tmp_path, monkeypatch):
         ).status_code
         == 200
     )
+    assert client.put("/api/projects/demo/rooms/room-x").status_code == 200
     assert (
         client.put(
             "/api/rooms/room-x/members/alice",
