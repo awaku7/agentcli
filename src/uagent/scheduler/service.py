@@ -73,8 +73,17 @@ class SchedulerService:
             self._stop.wait(self._poll_interval_s)
 
     def _dispatch_pending_events(self) -> None:
-        claimed = self._store.claim_pending_events(self._instance_id, utc_now())
-        for event_id, payload in claimed:
+        # Claim and deliver one event at a time so a failure on an earlier
+        # notice cannot let a later execution event overtake it.
+        for _ in range(100):
+            claimed = self._store.claim_pending_events(
+                self._instance_id,
+                utc_now(),
+                limit=1,
+            )
+            if not claimed:
+                return
+            event_id, payload = claimed[0]
             try:
                 self._sink.put(payload)
             except Exception as exc:
@@ -87,16 +96,19 @@ class SchedulerService:
                     )
                 except Exception:
                     pass
-                continue
+                return
 
             # Marking delivery happens after sink acceptance. If this write
             # fails, the lease eventually expires and the event is retried.
             # That intentionally gives at-least-once delivery rather than a
             # silent loss window.
             try:
-                self._store.mark_event_delivered(event_id, self._instance_id)
+                if not self._store.mark_event_delivered(
+                    event_id, self._instance_id
+                ):
+                    return
             except Exception:
-                pass
+                return
 
     def _fire_due_items(self) -> None:
         # Retry previously persisted events before creating new work. This
