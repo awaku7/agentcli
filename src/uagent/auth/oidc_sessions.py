@@ -137,8 +137,11 @@ class OIDCSessionStore:
             return count
 
     def active_count(self) -> int:
-        configuration_fingerprint = self._configuration_fingerprint()
         with self._lock:
+            # Read the revision under the same lock used for pruning so a
+            # session created under a newer revision cannot be removed using
+            # a stale pre-lock fingerprint.
+            configuration_fingerprint = self._configuration_fingerprint()
             self._prune(self._clock(), configuration_fingerprint)
             return len(self._sessions)
 

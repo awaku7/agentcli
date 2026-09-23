@@ -60,6 +60,22 @@ def test_session_resolution_uses_fingerprint_read_after_lock() -> None:
     assert store.resolve(token) == IdentityContext("oidc:user", True, "oidc")
 
 
+def test_active_count_reads_fingerprint_under_lock() -> None:
+    lock_states: list[bool] = []
+    store: OIDCSessionStore
+
+    def fingerprint() -> str:
+        lock_states.append(store._lock.locked())
+        return "stable"
+
+    store = OIDCSessionStore(configuration_fingerprint=fingerprint)
+    store.create(IdentityContext("oidc:user", True, "oidc"))
+    lock_states.clear()
+
+    assert store.active_count() == 1
+    assert lock_states == [True]
+
+
 def test_oidc_session_store_can_revoke_all_sessions() -> None:
     store = OIDCSessionStore(configuration_fingerprint=lambda: "stable")
     store.create(IdentityContext("oidc:user-a", True, "oidc"))
