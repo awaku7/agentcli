@@ -27,6 +27,7 @@ from ..runtime.memory_access import (
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
 from ..runtime.project_access import ProjectAccessPolicy
+from ..auth.oidc_sessions import get_oidc_session_store
 from ..env_utils import env_get
 from .agent_worker import run_agent_worker
 from .app import app
@@ -43,9 +44,12 @@ def _request_identity(request: Request):
     return identity
 
 
-def _project_id(value: str) -> str:
+def _project_id(value: str, request: Request | None = None) -> str:
     project = str(value or "").strip()
     bound = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+    if not bound and request is not None:
+        token = str(request.cookies.get("uag_oidc_session") or "").strip()
+        bound = get_oidc_session_store().project_id(token) or ""
     if not bound:
         raise MemoryAccessError("server project binding is required")
     if not project:
@@ -237,9 +241,11 @@ async def set_tools_enabled(req: Request):
     }
 
 
-def _personal_store(identity, project_id: str, *, role: str = "viewer"):
+def _personal_store(
+    identity, project_id: str, *, request: Request | None = None, role: str = "viewer"
+):
     store = _memory_store()
-    bound_project = _project_id(project_id)
+    bound_project = _project_id(project_id, request)
     ProjectAccessPolicy(store).require_access(
         identity.principal_id, bound_project, role
     )
@@ -258,7 +264,9 @@ def _personal_store(identity, project_id: str, *, role: str = "viewer"):
 @app.get("/api/me/memories")
 async def get_my_memories(request: Request, project_id: str = ""):
     try:
-        store, scoped = _personal_store(_request_identity(request), project_id)
+        store, scoped = _personal_store(
+            _request_identity(request), project_id, request=request
+        )
         try:
             memories = [
                 record
@@ -278,7 +286,10 @@ async def add_my_memory(request: Request):
         identity = _request_identity(request)
         body = await request.json()
         store, scoped = _personal_store(
-            identity, body.get("project_id", ""), role="editor"
+            identity,
+            body.get("project_id", ""),
+            request=request,
+            role="editor",
         )
         try:
             return {"ok": True, "memory": scoped.append(str(body.get("note", "")))}
@@ -294,7 +305,10 @@ async def update_my_memory(memory_id: str, request: Request):
         identity = _request_identity(request)
         body = await request.json()
         store, scoped = _personal_store(
-            identity, body.get("project_id", ""), role="editor"
+            identity,
+            body.get("project_id", ""),
+            request=request,
+            role="editor",
         )
         try:
             memory = scoped.update(
@@ -315,7 +329,10 @@ async def delete_my_memory(memory_id: str, request: Request):
         identity = _request_identity(request)
         body = await request.json()
         store, scoped = _personal_store(
-            identity, body.get("project_id", ""), role="editor"
+            identity,
+            body.get("project_id", ""),
+            request=request,
+            role="editor",
         )
         try:
             scoped.forget(
@@ -331,7 +348,9 @@ async def delete_my_memory(memory_id: str, request: Request):
 @app.get("/api/me/memories/{memory_id}/grants")
 async def list_memory_grants(memory_id: str, request: Request, project_id: str = ""):
     try:
-        store, scoped = _personal_store(_request_identity(request), project_id)
+        store, scoped = _personal_store(
+            _request_identity(request), project_id, request=request
+        )
         try:
             return {"ok": True, "grants": scoped.list_grants(memory_id)}
         finally:
@@ -346,7 +365,10 @@ async def share_memory(memory_id: str, request: Request):
         identity = _request_identity(request)
         body = await request.json()
         store, scoped = _personal_store(
-            identity, body.get("project_id", ""), role="editor"
+            identity,
+            body.get("project_id", ""),
+            request=request,
+            role="editor",
         )
         try:
             grant_id = scoped.share(
@@ -367,7 +389,10 @@ async def revoke_memory_grant(memory_id: str, grant_id: str, request: Request):
         identity = _request_identity(request)
         body = await request.json()
         store, scoped = _personal_store(
-            identity, body.get("project_id", ""), role="editor"
+            identity,
+            body.get("project_id", ""),
+            request=request,
+            role="editor",
         )
         try:
             scoped.revoke(memory_id, grant_id)
@@ -381,7 +406,9 @@ async def revoke_memory_grant(memory_id: str, grant_id: str, request: Request):
 @app.get("/api/me/shared-memories")
 async def get_shared_memories(request: Request, project_id: str = ""):
     try:
-        store, scoped = _personal_store(_request_identity(request), project_id)
+        store, scoped = _personal_store(
+            _request_identity(request), project_id, request=request
+        )
         try:
             memories = [
                 record for record in scoped.records() if record.get("shared_reference")
@@ -396,7 +423,9 @@ async def get_shared_memories(request: Request, project_id: str = ""):
 @app.get("/api/me/shared-memories/{memory_id}")
 async def get_shared_memory(memory_id: str, request: Request, project_id: str = ""):
     try:
-        store, scoped = _personal_store(_request_identity(request), project_id)
+        store, scoped = _personal_store(
+            _request_identity(request), project_id, request=request
+        )
         try:
             memory = scoped.get(memory_id)
             if not memory or not memory.get("shared_reference"):
@@ -410,11 +439,41 @@ async def get_shared_memory(memory_id: str, request: Request, project_id: str = 
         return _memory_error(exc)
 
 
+@app.post("/api/project-context")
+async def select_project_context(request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        project_id = str(body.get("project_id", "") or "").strip()
+        if not project_id:
+            raise ValueError("project_id is required")
+        store = _memory_store()
+        try:
+            ProjectAccessPolicy(store).require_access(
+                identity.principal_id, project_id, "viewer"
+            )
+        finally:
+            store.close()
+        configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+        if configured:
+            if configured != project_id:
+                raise MemoryAccessError("project is not bound to this server context")
+            return {"ok": True, "project_id": project_id}
+        token = str(request.cookies.get("uag_oidc_session") or "").strip()
+        if not token or not get_oidc_session_store().bind_project(token, project_id):
+            raise IdentityResolutionError(
+                "authenticated project session is unavailable"
+            )
+        return {"ok": True, "project_id": project_id}
+    except Exception as exc:
+        return _memory_error(exc)
+
+
 @app.put("/api/projects/{project_id}/rooms/{room_id}")
 async def bind_project_room(project_id: str, room_id: str, request: Request):
     try:
         identity = _request_identity(request)
-        bound_project = _project_id(project_id)
+        bound_project = _project_id(project_id, request)
         store = _memory_store()
         try:
             ProjectAccessPolicy(store).bind_room(
@@ -431,7 +490,7 @@ async def bind_project_room(project_id: str, room_id: str, request: Request):
 async def get_project_members(project_id: str, request: Request):
     try:
         identity = _request_identity(request)
-        bound_project = _project_id(project_id)
+        bound_project = _project_id(project_id, request)
         store = _memory_store()
         try:
             members = ProjectAccessPolicy(store).list_members(
@@ -448,7 +507,7 @@ async def get_project_members(project_id: str, request: Request):
 async def set_project_member(project_id: str, principal_id: str, request: Request):
     try:
         identity = _request_identity(request)
-        bound_project = _project_id(project_id)
+        bound_project = _project_id(project_id, request)
         body = await request.json()
         store = _memory_store()
         try:
@@ -469,7 +528,7 @@ async def set_project_member(project_id: str, principal_id: str, request: Reques
 async def delete_project_member(project_id: str, principal_id: str, request: Request):
     try:
         identity = _request_identity(request)
-        bound_project = _project_id(project_id)
+        bound_project = _project_id(project_id, request)
         store = _memory_store()
         try:
             ProjectAccessPolicy(store).revoke_membership(
@@ -487,7 +546,7 @@ def _room_service(
 ):
     identity = _request_identity(request)
     store = _memory_store()
-    bound_project = _project_id(project_id)
+    bound_project = _project_id(project_id, request)
     project_policy = ProjectAccessPolicy(store)
     project_policy.require_access(identity.principal_id, bound_project, role)
     project_policy.require_room_binding(bound_project, room_id)
@@ -573,7 +632,7 @@ async def get_room_members(room_id: str, request: Request, project_id: str = "")
         identity = _request_identity(request)
         store = _memory_store()
         try:
-            bound_project = _project_id(project_id)
+            bound_project = _project_id(project_id, request)
             project_policy = ProjectAccessPolicy(store)
             project_policy.require_access(identity.principal_id, bound_project, "admin")
             project_policy.require_room_binding(bound_project, room_id)
@@ -594,7 +653,7 @@ async def set_room_member(room_id: str, principal_id: str, request: Request):
         body = await request.json()
         store = _memory_store()
         try:
-            bound_project = _project_id(body.get("project_id", ""))
+            bound_project = _project_id(body.get("project_id", ""), request)
             project_policy = ProjectAccessPolicy(store)
             project_policy.require_access(identity.principal_id, bound_project, "admin")
             project_policy.require_room_binding(bound_project, room_id)
@@ -615,7 +674,7 @@ async def delete_room_member(room_id: str, principal_id: str, request: Request):
         body = await request.json()
         store = _memory_store()
         try:
-            bound_project = _project_id(body.get("project_id", ""))
+            bound_project = _project_id(body.get("project_id", ""), request)
             project_policy = ProjectAccessPolicy(store)
             project_policy.require_access(identity.principal_id, bound_project, "admin")
             project_policy.require_room_binding(bound_project, room_id)

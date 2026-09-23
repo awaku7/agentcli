@@ -38,9 +38,11 @@ Implementation requirements:
 
 The current implementation now provides SQLite project memberships, role checks,
 configured single-project binding, project membership APIs, and regression coverage.
-The item remains open for workspace/session-bound HTTP ProjectContext in
-multi-project deployments. Room-to-project binding is now persisted and enforced at
-HTTP and Memory Projection boundaries.
+HTTP ProjectContext is now server-bound for OIDC sessions through the
+`/api/project-context` selection endpoint; configured single-project deployments
+continue to use `UAGENT_MEMORY_PROJECT`. Room-to-project binding is persisted and
+enforced at HTTP and Memory Projection boundaries. Workspace-derived project
+selection for non-OIDC/multi-project deployments remains a follow-up.
 
 ## Current baseline
 
