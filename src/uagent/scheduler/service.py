@@ -12,6 +12,7 @@ from .models import (
 )
 from .store import SchedulerStore
 from .run_store import SchedulerRunStore
+from .identity import scheduler_instance_id
 
 _RUNTIME_LOCK = threading.RLock()
 _RUNTIME: Optional["SchedulerService"] = None
@@ -25,8 +26,10 @@ class SchedulerService:
         store: SchedulerStore | None = None,
         run_store: SchedulerRunStore | None = None,
         poll_interval_s: float = 0.5,
+        instance_id: str | None = None,
     ) -> None:
         self._sink = event_sink
+        self._instance_id = str(instance_id or scheduler_instance_id()).strip()
         self._store = store or SchedulerStore()
         self._run_store = run_store or SchedulerRunStore()
         self._poll_interval_s = max(0.1, float(poll_interval_s or 0.5))
@@ -83,6 +86,9 @@ class SchedulerService:
         due: list[tuple[ScheduleItem, str]] = []
 
         for item in items:
+            if item.owner_instance_id and item.owner_instance_id != self._instance_id:
+                kept.append(item)
+                continue
             if not item.enabled:
                 kept.append(item)
                 continue
@@ -129,6 +135,8 @@ class SchedulerService:
                         "execution_mode": item.execution_mode,
                         "target_tool": item.target_tool,
                         "target_args": dict(item.target_args),
+                        "owner_instance_id": item.owner_instance_id,
+                        "session_id": item.session_id,
                     },
                 )
                 run_id = run.run_id
@@ -149,6 +157,8 @@ class SchedulerService:
                 "schedule_type": item.type,
                 "schedule_at": due_at,
                 "run_id": run_id,
+                "owner_instance_id": item.owner_instance_id,
+                "session_id": item.session_id,
             }
             if notice:
                 self._emit({"kind": "schedule_notice", "text": notice, **base})

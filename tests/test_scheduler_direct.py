@@ -86,3 +86,41 @@ def test_direct_schedule_emits_direct_event_and_persists_target(tmp_path):
     assert run.metadata["execution_mode"] == "direct"
     assert run.metadata["target_tool"] == "calculator"
     assert run.metadata["target_args"] == {"expression": "2+2"}
+
+
+def test_scheduler_only_fires_items_owned_by_instance(tmp_path):
+    import queue
+    from datetime import timedelta
+
+    schedules = SchedulerStore(tmp_path / "schedules.json")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    schedules.add_item(
+        ScheduleItem(
+            id="owned-1",
+            type=SCHEDULE_TYPE_ONCE,
+            at=format_iso_datetime(utc_now() - timedelta(seconds=1)),
+            owner_instance_id="instance-a",
+            session_id="session-a",
+            llm_prompt="owned prompt",
+        )
+    )
+    foreign_events = queue.Queue()
+    SchedulerService(
+        foreign_events,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-b",
+    )._fire_due_items()
+    assert foreign_events.empty()
+    assert schedules.get_item("owned-1") is not None
+
+    own_events = queue.Queue()
+    SchedulerService(
+        own_events,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-a",
+    )._fire_due_items()
+    event = own_events.get_nowait()
+    assert event["session_id"] == "session-a"
+    assert event["owner_instance_id"] == "instance-a"
