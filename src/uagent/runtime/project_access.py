@@ -69,12 +69,19 @@ class ProjectAccessPolicy:
             raise MemoryAccessError("project access is not permitted")
 
     def sync_directory_policy(self, identity: Any) -> None:
-        """Apply trusted directory assignments without storing raw group claims."""
-        from .enterprise_identity import directory_group_policy_assignments
+        """Apply and reconcile trusted directory assignments.
 
-        assignments = directory_group_policy_assignments(identity)
-        if not assignments.project_ids and not assignments.room_roles:
+        Only rows still marked ``directory-policy`` are reconciled. Manual
+        memberships therefore survive both policy refreshes and group removal.
+        """
+        from .enterprise_identity import (
+            directory_group_policy_assignments,
+            directory_group_policy_is_configured,
+        )
+
+        if not directory_group_policy_is_configured():
             return
+        assignments = directory_group_policy_assignments(identity)
         project_ids = tuple(
             sorted(
                 {
@@ -90,23 +97,69 @@ class ProjectAccessPolicy:
             if str(room_id).strip()
             and str(role).strip().lower() in {"admin", "editor", "member"}
         )
+        valid_room_roles: dict[str, str] = {}
+        for room_id, room_role in room_roles:
+            project_row = self._store.db.execute(
+                "SELECT project_id FROM room_projects WHERE room_id = ?", (room_id,)
+            ).fetchone()
+            if (
+                project_row is not None
+                and str(project_row["project_id"]) in project_ids
+            ):
+                valid_room_roles[room_id] = room_role
+
         role = "admin" if assignments.administrator else "viewer"
         now = time.time()
         self._store.db.execute("BEGIN IMMEDIATE")
         try:
+            project_stale_sql = (
+                "UPDATE project_memberships SET status='revoked', "
+                "revision=revision + 1, updated_at=? "
+                "WHERE principal_id=? AND status='active' "
+                "AND granted_by='directory-policy'"
+            )
+            project_stale_params: tuple[Any, ...] = (now, identity.principal_id)
+            if project_ids:
+                placeholders = ",".join("?" for _ in project_ids)
+                project_stale_sql += f" AND project_id NOT IN ({placeholders})"
+                project_stale_params += project_ids
+            self._store.db.execute(project_stale_sql, project_stale_params)
+
+            room_stale_sql = (
+                "UPDATE room_memberships SET status='revoked', "
+                "revision=revision + 1, updated_at=? "
+                "WHERE principal_id=? AND status='active' "
+                "AND granted_by='directory-policy'"
+            )
+            room_stale_params: tuple[Any, ...] = (now, identity.principal_id)
+            if valid_room_roles:
+                placeholders = ",".join("?" for _ in valid_room_roles)
+                room_stale_sql += f" AND room_id NOT IN ({placeholders})"
+                room_stale_params += tuple(valid_room_roles)
+            self._store.db.execute(room_stale_sql, room_stale_params)
+
             for project_id in project_ids:
                 self._store.db.execute(
                     "INSERT OR IGNORE INTO projects(project_id, status, created_at, updated_at) "
                     "VALUES (?, 'active', ?, ?)",
                     (project_id, now, now),
                 )
-                existing = self.membership(identity.principal_id, project_id)
+                existing = self._store.db.execute(
+                    "SELECT role, granted_by FROM project_memberships "
+                    "WHERE project_id = ? AND principal_id = ? AND status = 'active'",
+                    (project_id, identity.principal_id),
+                ).fetchone()
+                if (
+                    existing is not None
+                    and existing["granted_by"] != "directory-policy"
+                ):
+                    continue
                 assigned_role = role
                 if (
                     existing is not None
-                    and _ROLE_RANK[existing.role] > _ROLE_RANK[assigned_role]
+                    and _ROLE_RANK[existing["role"]] > _ROLE_RANK[assigned_role]
                 ):
-                    assigned_role = existing.role
+                    assigned_role = existing["role"]
                 self._store.db.execute(
                     "INSERT INTO project_memberships(project_id, principal_id, role, status, "
                     "revision, granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "
@@ -115,13 +168,16 @@ class ProjectAccessPolicy:
                     "granted_by=excluded.granted_by, updated_at=excluded.updated_at",
                     (project_id, identity.principal_id, assigned_role, now, now),
                 )
-            for room_id, room_role in room_roles:
-                project_row = self._store.db.execute(
-                    "SELECT project_id FROM room_projects WHERE room_id = ?", (room_id,)
+
+            for room_id, room_role in valid_room_roles.items():
+                existing = self._store.db.execute(
+                    "SELECT granted_by FROM room_memberships "
+                    "WHERE room_id = ? AND principal_id = ? AND status = 'active'",
+                    (room_id, identity.principal_id),
                 ).fetchone()
                 if (
-                    project_row is None
-                    or str(project_row["project_id"]) not in project_ids
+                    existing is not None
+                    and existing["granted_by"] != "directory-policy"
                 ):
                     continue
                 self._store.db.execute(
