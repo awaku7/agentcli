@@ -424,29 +424,37 @@ class SchedulerStore:
             db.commit()
             return result.rowcount > 0
 
-    def reclaim_orphaned_events(
+    def reclaim_orphaned_instance(
         self, previous_instance_id: str, new_instance_id: str
-    ) -> int:
-        """Explicitly reassign pending events after the old owner is known dead.
+    ) -> dict[str, int]:
+        """Explicitly reassign scheduler state after the old owner is known dead.
 
         This is intentionally not automatic. The caller must revalidate the
-        persisted session/authentication boundary before moving an event to a
-        new process owner.
+        persisted session/authentication boundary before moving schedules or
+        pending events to a new process owner.
         """
         previous = str(previous_instance_id or "").strip()
         new = str(new_instance_id or "").strip()
         if not previous or not new or previous == new:
-            return 0
+            return {"schedules": 0, "events": 0}
         with _LOCK, self._connect() as db:
             db.execute("BEGIN IMMEDIATE")
-            result = db.execute(
+            schedule_result = db.execute(
+                "UPDATE schedules SET owner_instance_id=?, claim_owner='', "
+                "claim_until=0 WHERE enabled=1 AND owner_instance_id=?",
+                (new, previous),
+            )
+            event_result = db.execute(
                 "UPDATE scheduler_events SET target_instance_id=?, claim_owner='', "
                 "claim_until=0, available_at=0 "
                 "WHERE status='pending' AND target_instance_id=?",
                 (new, previous),
             )
             db.commit()
-            return max(0, int(result.rowcount))
+            return {
+                "schedules": max(0, int(schedule_result.rowcount)),
+                "events": max(0, int(event_result.rowcount)),
+            }
 
     def list_events(self, status: str = "") -> list[dict[str, Any]]:
         """Return scheduler outbox records for diagnostics and tests."""
