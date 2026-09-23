@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+import hashlib
 from functools import lru_cache
 from typing import Any
 
@@ -39,20 +40,23 @@ def _get_base_log_dir() -> str:
     return str(get_log_dir())
 
 
-def get_profile_file_path() -> str:
+def get_profile_file_path(principal_id: str = "") -> str:
     base_log_dir = _get_base_log_dir()
+    if principal_id:
+        digest = hashlib.sha256(principal_id.encode("utf-8")).hexdigest()
+        return os.path.join(base_log_dir, "profiles", f"{digest}.jsonl")
     return env_get("UAGENT_PROFILE_FILE") or os.path.join(
         base_log_dir, "scheck_profile.jsonl"
     )
 
 
-def load_profile() -> dict[str, Any]:
+def load_profile(principal_id: str = "") -> dict[str, Any]:
     """Load the latest profile from scheck_profile.jsonl.
 
     If the file is entirely corrupted (all lines fail to parse), auto-repair
     by overwriting it with the default profile.
     """
-    profile_file = get_profile_file_path()
+    profile_file = get_profile_file_path(principal_id)
     default_profile = {"environment": {}, "preferences": [], "constraints": []}
     if not os.path.exists(profile_file):
         return default_profile
@@ -100,9 +104,9 @@ def load_profile() -> dict[str, Any]:
     return default_profile
 
 
-def save_profile(profile: dict[str, Any]) -> None:
+def save_profile(profile: dict[str, Any], principal_id: str = "") -> None:
     """Write the latest compact profile snapshot to scheck_profile.jsonl."""
-    profile_file = get_profile_file_path()
+    profile_file = get_profile_file_path(principal_id)
     try:
         dirpath = os.path.dirname(profile_file)
         if dirpath:
@@ -632,6 +636,25 @@ def run_profiling_async(messages: list[dict[str, Any]], core: Any) -> None:
     if not messages:
         return
 
+    principal_id = ""
+    try:
+        from .runtime.identity_context import get_current_turn_context
+
+        turn = get_current_turn_context()
+        if turn is not None and turn.authn_kind != "local":
+            principal_id = turn.principal_id
+            messages = [
+                message
+                for message in messages
+                if isinstance(message, dict)
+                and message.get("role") == "user"
+                and message.get("actor_id") == principal_id
+            ]
+            if not messages:
+                return
+    except Exception:
+        return
+
     # Deep copy messages to avoid thread-safety issues with the main loop
     try:
         messages_copy = json.loads(json.dumps(messages))
@@ -639,7 +662,9 @@ def run_profiling_async(messages: list[dict[str, Any]], core: Any) -> None:
         return
 
     thread = threading.Thread(
-        target=_profile_worker, args=(messages_copy, core, messages), daemon=True
+        target=_profile_worker,
+        args=(messages_copy, core, messages, principal_id),
+        daemon=True,
     )
     thread.start()
 
@@ -648,6 +673,7 @@ def _profile_worker(
     messages: list[dict[str, Any]],
     core: Any,
     live_messages: list[dict[str, Any]] | None = None,
+    principal_id: str = "",
 ) -> None:
     """Background worker to analyze log, extract profile, and merge."""
     try:
@@ -708,7 +734,7 @@ def _profile_worker(
             return
 
         # 4) Smart Merge and Save
-        old_profile = load_profile()
+        old_profile = load_profile(principal_id)
         merged_profile = smart_merge_profiles(
             old_profile,
             new_profile,
@@ -716,10 +742,10 @@ def _profile_worker(
             client=client,
             model_name=model_name,
         )
-        save_profile(merged_profile)
+        save_profile(merged_profile, principal_id)
 
         # 5) Update in-memory messages with the new profile
-        if live_messages is not None:
+        if live_messages is not None and not principal_id:
             _update_profile_in_messages(merged_profile, live_messages)
 
     except Exception:
@@ -734,8 +760,13 @@ def profile_from_logs(
     """Synchronously analyze past logs, extract profile, merge, and save."""
     # 1) Gather messages from past logs
     from uagent.utils.paths import get_log_dir
+    from uagent.runtime.identity_context import get_current_turn_context
 
     log_dir = get_log_dir()
+    turn_context = get_current_turn_context()
+    principal_id = ""
+    if turn_context is not None and turn_context.authn_kind != "local":
+        principal_id = turn_context.principal_id
     sqlite_sources: list[tuple[str, list[dict[str, Any]]]] = []
     use_sqlite = (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
@@ -743,9 +774,17 @@ def profile_from_logs(
     )
     if use_sqlite:
         store = core.session_store
-        for row in reversed(store.list_sessions()):
+        list_kwargs = {"principal_id": principal_id} if principal_id else {}
+        for row in reversed(store.list_sessions(**list_kwargs)):
             session_id = str(row["session_id"])
             messages = store.list_messages(session_id)
+            if principal_id:
+                messages = [
+                    message
+                    for message in messages
+                    if message.get("role") != "user"
+                    or message.get("actor_id") == principal_id
+                ]
             if messages:
                 sqlite_sources.append((session_id, messages))
         if max_log_files is not None and max_log_files > 0:
@@ -753,6 +792,8 @@ def profile_from_logs(
         if not sqlite_sources:
             return None
     else:
+        if principal_id:
+            return None
         if not os.path.exists(log_dir):
             return None
         log_files = sorted(
@@ -905,5 +946,5 @@ def profile_from_logs(
         )
 
     # Save the final merged profile
-    save_profile(current_profile)
+    save_profile(current_profile, principal_id)
     return current_profile

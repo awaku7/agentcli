@@ -403,6 +403,20 @@ def run_agent_worker(
                     ) + "\n".join(attachment_lines)
                 user_msg = {"role": "user", "content": prompt_text}
 
+            if turn_context is not None:
+                user_msg["actor_id"] = turn_context.principal_id
+                session_store = getattr(core, "session_store", None)
+                bind_identity = getattr(session_store, "bind_identity_context", None)
+                if callable(bind_identity):
+                    bind_identity(
+                        str(
+                            getattr(core, "_session_store_active_id", "")
+                            or turn_context.session_id
+                        ),
+                        principal_id=turn_context.principal_id,
+                        room_id=turn_context.room_id,
+                    )
+
             if clean_attachments:
                 user_msg["attachments"] = clean_attachments
             core.log_message(user_msg)
