@@ -16,7 +16,7 @@ with the current implementation.
   `/api/me/shared-memories` and grant-management APIs.
 - [x] Add regression tests for project isolation and invalidation during an active
   turn; grant lifecycle coverage is now present in `tests/test_memory_v3_web_api.py`.
-- [ ] Reconcile the configuration examples and mark remaining admin/AD features as
+- [x] Reconcile the configuration examples and mark remaining admin/AD features as
   implemented or roadmap items.
 
 ## Project authorization decision
@@ -41,18 +41,25 @@ configured single-project binding, project membership APIs, and regression cover
 HTTP ProjectContext is now server-bound for OIDC sessions through the
 `/api/project-context` selection endpoint; configured single-project deployments
 continue to use `UAGENT_MEMORY_PROJECT`. Room-to-project binding is persisted and
-enforced at HTTP and Memory Projection boundaries. A trusted directory group policy adapter now maps verified groups to Project/Room
-roles without storing raw group claims. Deployments without a custom adapter may use
-`UAGENT_DIRECTORY_GROUP_POLICY` as strict JSON with this shape:
+enforced at HTTP and Memory Projection boundaries. A trusted directory group policy
+adapter maps verified groups to Project/Room roles without storing raw group claims.
+Deployments without a custom adapter may use `UAGENT_DIRECTORY_GROUP_POLICY` as
+strict JSON with this shape:
 
 ```json
 {"groups":{"engineering":{"projects":["demo"],"rooms":{"room-x":"editor"}}}}
 ```
 
 The JSON contains group identifiers and policy targets only; group claims are still
-obtained from the verified AD/Entra adapter.
-Workspace-derived project selection for non-OIDC/multi-project deployments remains a
-follow-up.
+obtained from the verified AD/Entra adapter. This environment adapter is a
+configuration/bootstrap adapter, not an AD/Entra directory client.
+
+Implemented administration surfaces include safe authentication status,
+configuration validation, session invalidation on security-sensitive changes, project
+membership APIs, room membership APIs, and the directory group policy contract.
+Remaining roadmap items are workspace-derived project selection for non-OIDC or
+multi-project deployments, and deployment-specific AD/Entra verifier integration
+(Entra OIDC claims or on-premises trusted proxy/IWA).
 
 ## Current baseline
 
