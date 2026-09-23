@@ -21,8 +21,6 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 本書は設計書であり、v3 機能が現在実装済みであることを意味しない。
 
-特定ユーザーへの共有設計を v0.7.13 / `8bec11d5cc16e1f87212033be775c651507458bb` を基準に追加した。以下の V3-4 以降の共有仕様は未実装である。
-
 ---
 
 ## 1. v0.7.12 の現在地
@@ -527,6 +525,7 @@ UAGENT_OAUTH_REDIRECT_URI=
 UAGENT_IDENTITY_MODE=trusted_proxy
 UAGENT_TRUSTED_PROXY_IDENTITY_HEADER=
 UAGENT_TRUSTED_PROXY_ISSUER_HEADER=
+UAGENT_TRUSTED_PROXY_CIDRS=
 ```
 
 #### Windows / AD
@@ -535,7 +534,21 @@ UAGENT_TRUSTED_PROXY_ISSUER_HEADER=
 UAGENT_IDENTITY_MODE=windows_ad
 UAGENT_AD_REALM=
 UAGENT_AD_PROVIDER_NAMESPACE=
+
+# Service token identities use SHA-256 digests, never raw tokens.
+UAGENT_TOKEN_NAMESPACE=
+UAGENT_TOKEN_IDENTITIES=[]
 ```
+
+`oauth`、`windows_ad`、`external` は、server startup 時に
+`register_enterprise_identity_verifier()` へ credential verifier を登録する。
+verifier は provider / Kerberos / gateway 側で検証済みの stable subject を
+`VerifiedEnterpriseIdentity` として返す。未登録 adapter、未検証文字列、直接受信した
+`DOMAIN\\username` は fail-closed とする。
+
+`trusted_proxy` は identity / issuer header に加えて接続元CIDRを必須とし、`0.0.0.0/0`
+および `::/0` を拒否する。reverse proxy は外部由来の同名headerを削除してから、検証済み
+headerを再付与する。
 
 具体的 Kerberos / Negotiate / SPN 等の設定は WindowsAD adapter 側へ閉じ込める。
 
@@ -686,7 +699,7 @@ memory.sqlite3
 
 ### 14.2 Store-level filtering
 
-権限のない別 user の Memory を一旦検索してから除外しない。
+別 user の Memory を一旦検索してから除外しない。
 
 Personal 概念 SQL:
 
@@ -703,38 +716,7 @@ WHERE audience_type = 'room'
   AND audience_id = :room_id
 ```
 
-access boundary は relevance ranking より前に適用する。上の SQL は本人向け・room 向けの個別条件であり、特定ユーザーへの共有は次の grant 条件を追加して評価する。
-
-### 14.3 特定ユーザーへの共有
-
-A が選んだ記憶を B が参考にできるようにする。所有者と閲覧者を分離し、共有後も `owner_id=A` と `audience=personal:A` を保持する。B 向けのコピーや所有権移転は行わない。
-
-| 範囲 | 閲覧条件 |
-|---|---|
-| Personal | 本人、または当該レコードへの有効な個別 read grant |
-| Room | RoomAccessPolicy が許可する参加者 |
-| Project | ProjectAccessPolicy が許可する参加者 |
-| Global | 明示的な global policy が許可する主体 |
-
-特定ユーザー共有は新しい単一 audience 値ではなく、同じ SQLite DB の `memory_grants` に保持する。1件の記憶を複数人へ共有でき、`personal:A` 全体への権限付与にはならない。初期対象は所有者が明確な Personal Memory の個別レコードとする。
-
-| 項目 | 意味 |
-|---|---|
-| grant_id | 共有許可の stable ID |
-| memory_id / memory_revision | 共有する記憶と、所有者が確認した版 |
-| grantee_principal_id | 閲覧を許可する認証済み principal |
-| permission | 初期実装は read のみ |
-| granted_by | サーバーで確認した所有者 principal |
-| status / revision | active / revoked と権限変更の版 |
-| created_at / revoked_at | 付与・取消日時 |
-
-所有者だけが付与・取消を行う。B は参照できるが、変更・削除・再共有・権限付与はできない。管理者の操作は別の明示的な管理権限と監査経路を使う。編集権限を追加する場合も read から推定せず、別権限として設計する。
-
-共有先は stable principal で確定し、表示名やメールの一致だけで決めない。API payload は共有先の指定に使えても、共有する側の所有権の証明には使わない。
-
-検索・ID取得・件数・export は同じアクセス条件を使う。Personal Memory は「本人」または「当該 memory_id / memory_revision に対する active な read grant」を store 内で判定した後、project / status / forget 条件を適用する。grant は project 境界を越える許可にはならない。別 project での参照は初期実装の対象外とする。
-
-記憶を更新した場合、以前の版への grant で新しい内容を自動公開しない。旧版も通常検索へ戻さず、所有者による新しい版の共有を必要とする。移行時は既存記憶へ grant を自動生成しない。
+access boundary は relevance ranking より前に適用する。
 
 ---
 
@@ -762,12 +744,10 @@ readable:
 - project:agentcli   # policy 許可時
 ```
 
-個別 grant はサーバーが store 内で評価する。`readable_audiences` に `personal:A` を追加して A の全記憶へアクセスを広げない。アクセス判定には grant / membership / policy の世代も含める。
-
 filtering order:
 
 ```text
-identity / membership / audience / per-record grant
+identity / membership / audience
             ↓
 project
             ↓
@@ -796,11 +776,7 @@ user-B turn
   +  allowed Project Memory
 ```
 
-共有されていない A Personal Memory は B turn に入らない。A が B に共有した個別記憶は、次の配信先制約を満たす B turn の参考情報にできる。
-
-### 16.1 参照権限と配信先
-
-B にだけ許可された記憶を、C もいる共有 room の応答・履歴・tool result に流さない。共有 room の通常応答に利用するには、その room の履歴を読める対象全体への共有許可を必要とする。初期実装では個別 grant による記憶は B 専用の非共有 session でのみ参照し、共有 room で使うには所有者の明示的な Room 共有と RoomAccessPolicy を必要とする。
+A Personal Memory は B turn に入らない。
 
 RoomAccessPolicy:
 
@@ -835,8 +811,6 @@ content=...
 
 Profile extraction は actor の Profile にのみ反映する。
 
-A から B へ共有された記憶は、A の情報という出典を保持した Retrieved Memory Evidence とする。A の好み・経験・指示を B の Profile / Applicable Guidance として自動学習しない。共有によって Profile 全体の閲覧権限を与えない。
-
 multi-user mode では principal-keyed ProfileStore を導入する。
 
 single-user compatibility では既存 profile file を利用できる。
@@ -870,14 +844,11 @@ room fingerprint
 project ID
 memory generation
 readable audience set fingerprint
-grant / membership / policy generation
 ```
 
 A snapshot を B turn へ再利用しない。
 
-retry / tool loop 中は、アクセス権限が変わっていない場合だけ同一 turn snapshot を再利用する。共有取消・forget・対象版の変更は frozen snapshot より優先し、影響する snapshot / cache を無効化する。
-
-各 provider 呼出し前と応答配信前にアクセス世代を再確認する。取消された記憶を含む実行中応答は配信せず、影響する tool continuation も止める。provider continuation に取消済み情報が残る場合、その continuation を破棄して許可済み context で作り直す。
+retry / tool loop 中は同一 turn snapshot を再利用する。
 
 認証 session refresh が発生しても同一 turn の principal identity が変化しないことを保証する。
 
@@ -922,14 +893,6 @@ Room Shared Memory は別 operation または明示 audience operation とし、
 update / forget は stable `memory_id` を主 API とする。
 
 Admin / migration operation は通常 user operation と分離する。
-
-### 21.1 個別共有と取消
-
-read grant は参考情報へのアクセス許可であり、B の Personal Memory への自動複製や再共有の許可ではない。共有元の memory_id / revision、所有者、利用した grant を出典として保持し、要約・派生 cache にも依存元を記録する。
-
-取消は grant の無効化とアクセス世代の更新を同じ transaction で確定する。以後の検索・取得・export・projection と派生 cache の再利用を拒否する。元記憶の forget は全 grant からの参照を止める。B への取消で A や別の有効な共有先の権限を失わせない。
-
-既に閲覧・export 済みの内容や provider へ送信済みの内容を、取消で遡って回収できるとは扱わない。保存済みの回答・要約を再び LLM に渡す場合は共有元への依存を検証し、失効した派生情報を除外する。取消後の利用禁止と、配信済み情報の回収限界を区別する。
 
 ---
 
@@ -990,20 +953,11 @@ raw subject / token / secret は通常 UI に返さない。
 
 ---
 
-### 22.5 特定ユーザー共有 API
-
-所有者向けに `/api/me/memories/{memory_id}/grants` で共有先の一覧・read grant 付与を、同配下の `/{grant_id}` で取消を提供する。受信側の一覧・参照は `/api/me/shared-memories` と `/api/me/shared-memories/{memory_id}` に分離する。
-
-全操作で認証済み principal と対象 memory / grant の関係をサーバーが検証する。通常の `/api/me/memories` の所有者向け更新・削除権限を、共有の read grant で通さない。共有先へ不要な他の受信者一覧や raw identity claim を返さない。
-
----
-
 ## 23. 管理機能
 
 ### 23.1 My Memory
 
 - Personal Memory list/search
-- 自分の記憶の共有先・対象版・取消、および共有された参考情報の一覧
 - add/update/forget
 - Profile
 - export
@@ -1120,7 +1074,7 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 
 ## 25. Security invariants
 
-1. user-B request から、B への有効な個別 grant がない user-A Personal Memory を取得できない。
+1. user-B request から user-A Personal Memory を取得できない。
 2. request payload の `owner=user-A` で境界を越えられない。
 3. room-X member でない principal は room-X Memory を取得できない。
 4. project mismatch record は候補にならない。
@@ -1140,10 +1094,6 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 18. Windows Integrated Authentication の未検証 username/header を principal として採用しない。
 19. resolver failure 時に別 authentication mode へ自動 fallback しない。
 20. 認証方式変更後に既存 session を無条件継続しない。
-21. 個別 read grant は所有権・編集・削除・再共有権限を与えない。
-22. 共有情報を受信者本人の Profile / Guidance に自動変換しない。
-23. 共有取消・forget 後に snapshot / cache / 派生情報からアクセスを復活させない。
-24. 個別共有を、権限のない参加者が読める room 応答・履歴に流さない。
 
 ---
 
@@ -1154,7 +1104,7 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 ### Identity isolation
 
 - A personal は A で recall。
-- 同一 query を B が実行しても、未共有の A personal は0件。
+- 同一 query を B が実行しても A personal は0件。
 - spoofed owner input は無効。
 
 ### Authentication mode selection
@@ -1183,20 +1133,8 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 ### Shared room
 
 - room-X memory は A/B member に見える。
-- 未共有の A personal は B に見えない。
+- A personal は B に見えない。
 - room-Y user には room-X memory が見えない。
-
-### Direct sharing
-
-- A の記憶 M1 だけを B へ共有すると、B は M1 を参照でき、A の未共有 M2 と C からの M1 取得は0件。
-- ID 直接取得・検索・件数・export で同じ判定を行う。
-- B は read grant で更新・削除・再共有できず、偽造した owner / grant payload でも越権できない。
-- B 向け取消後、A と別の有効な共有先は参照できるが、B の cache / retry / 派生要約からは復活しない。
-- 更新後の版は再共有まで B に見えず、forget 後は全共有先から見えない。
-- 共有した A の好みを B の Profile / Guidance として扱わない。
-- B 専用 session では参照できるが、個別 grant だけでは B/C 共有 room に入らない。
-- grant があっても project mismatch は候補にならない。
-- migration は自動で共有許可を作らない。
 
 ### WebSocket
 
@@ -1211,8 +1149,7 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 ### Frozen snapshot
 
 - A snapshot を B turn へ再利用しない。
-- 権限が不変の retry 中は同じ A snapshot。
-- retry / provider 呼出し / 応答配信と取消が競合しても、失効後の利用・配信を拒否する。
+- retry 中は同じ A snapshot。
 
 ### Legacy
 
@@ -1229,9 +1166,6 @@ snapshot_identity_mismatch_count
 unauthenticated_fallback_count
 auth_mode_fallback_count
 directory_role_violation_count
-unauthorized_shared_memory_use_count
-shared_memory_profile_attribution_error_count
-revoked_grant_reuse_count
 ```
 
 すべて 0 を gate とする。
@@ -1288,22 +1222,19 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 
 ### PR V3-4: Memory audience contract
 
-- audience_type / audience_id とレコード・版単位の memory_grants
-- read / edit / reshare の分離（初期 grant は read のみ）
+- audience_type / audience_id
 - schema migration
 - MemoryAccessContext
 - store-level pre-retrieval filter
 - legacy owner mapping
 
-完了条件: 未共有 Personal / room の分離、許可した個別共有の成功、取消・版変更・forget 後の拒否を store-level fixture で証明。
+完了条件: Personal / room isolation を store-level fixture で証明。
 
 ### PR V3-5: Projection / Profile / Session integration
 
 - principal-keyed ProfileStore
 - actor metadata
-- identity / grant generation-bound frozen snapshot
-- 共有元の出典保持、本人 Profile への誤学習防止、派生情報の権限継承
-- 個別共有の非共有 session 限定と応答配信先の検証
+- identity-bound frozen snapshot
 - episodic retrieval boundary
 - forget propagation
 
@@ -1316,10 +1247,9 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 - stable memory ID API
 - RoomAccessPolicy
 - Room Shared Memory
-- 個別 read grant の付与・取消・共有された参考情報の API
 - admin authorization boundary
 
-完了条件: browser から arbitrary principal の Personal Memory を操作できず、明示共有された記憶だけを受信者が閲覧できる。
+完了条件: browser から arbitrary principal の Personal Memory を操作できない。
 
 ### PR V3-7: Enterprise authentication adapters
 
@@ -1398,8 +1328,6 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 - AD group を Personal Memory owner として扱う
 - forged `X-User` 等の header を直接信用
 - authentication failure 時に別 resolver へ暗黙 fallback
-- read grant から edit / reshare を推定
-- 個別共有した参考情報を受信者の Personal Memory / Profile へ自動複製
 - shared room 会話を全参加者の Personal Profile に学習
 - 独自 username/password account DB を v3 Memory の前提にする
 - login system を MemoryStore に直接組み込む
