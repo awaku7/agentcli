@@ -50,7 +50,10 @@ _MODE_SETTINGS = {
         "UAGENT_TRUSTED_PROXY_ISSUER_HEADER",
         "UAGENT_TRUSTED_PROXY_CIDRS",
     ),
-    "windows_ad": ("UAGENT_WINDOWS_AD_REALM",),
+    "windows_ad": (
+        "UAGENT_AD_REALM",
+        "UAGENT_AD_PROVIDER_NAMESPACE",
+    ),
     "token": ("UAGENT_TOKEN_NAMESPACE", "UAGENT_TOKEN_IDENTITIES"),
     "external": ("UAGENT_EXTERNAL_PROVIDER",),
 }

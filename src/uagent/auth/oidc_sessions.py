@@ -58,10 +58,10 @@ class OIDCSessionStore:
         if not identity.authenticated:
             raise ValueError("only authenticated identities may create sessions")
         token = secrets.token_urlsafe(32)
-        configuration_fingerprint = self._configuration_fingerprint()
+        observed_configuration_fingerprint = self._configuration_fingerprint()
         if (
             expected_configuration_fingerprint is not None
-            and configuration_fingerprint != expected_configuration_fingerprint
+            and observed_configuration_fingerprint != expected_configuration_fingerprint
         ):
             raise IdentityResolutionError("authentication configuration changed")
         ttl_seconds = (
@@ -77,6 +77,17 @@ class OIDCSessionStore:
         if ttl_seconds <= 0 or max_sessions <= 0:
             raise ValueError("OIDC session limits must be positive")
         with self._lock:
+            # The configuration may rotate while waiting for the store lock.
+            # Always use the post-lock value for pruning and for the session
+            # being created; otherwise a valid session from the new revision
+            # could be pruned as stale or a new session could be bound to the
+            # old revision.
+            configuration_fingerprint = self._configuration_fingerprint()
+            if (
+                expected_configuration_fingerprint is not None
+                and configuration_fingerprint != expected_configuration_fingerprint
+            ):
+                raise IdentityResolutionError("authentication configuration changed")
             now = self._clock()
             self._prune(now, configuration_fingerprint)
             if len(self._sessions) >= max_sessions:
@@ -92,12 +103,23 @@ class OIDCSessionStore:
         if not token:
             return None
         key = self._key(token)
-        configuration_fingerprint = self._configuration_fingerprint()
+        # Take an optimistic snapshot before waiting, then take the
+        # authoritative snapshot while holding the store lock.  The latter
+        # prevents a rotation that happened while waiting from causing us to
+        # prune sessions using a stale fingerprint.
+        self._configuration_fingerprint()
         with self._lock:
+            configuration_fingerprint = self._configuration_fingerprint()
             now = self._clock()
             self._prune(now, configuration_fingerprint)
             stored = self._sessions.get(key)
             if stored is None:
+                return None
+            # Verify the entry against the same post-lock snapshot before
+            # returning its identity.  A mismatched entry must never be
+            # usable even if pruning is changed or extended later.
+            if stored.configuration_fingerprint != configuration_fingerprint:
+                self._sessions.pop(key, None)
                 return None
             return stored.identity
 

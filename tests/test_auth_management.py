@@ -92,6 +92,20 @@ def test_oauth_secret_and_redirect_changes_update_fingerprint(monkeypatch):
     assert authentication_configuration_fingerprint() != after_secret
 
 
+def test_windows_ad_documented_settings_update_fingerprint(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "windows_ad")
+    monkeypatch.delenv("UAGENT_AD_REALM", raising=False)
+    monkeypatch.delenv("UAGENT_AD_PROVIDER_NAMESPACE", raising=False)
+
+    before = authentication_configuration_fingerprint()
+    monkeypatch.setenv("UAGENT_AD_REALM", "CORP.EXAMPLE")
+    after_realm = authentication_configuration_fingerprint()
+    monkeypatch.setenv("UAGENT_AD_PROVIDER_NAMESPACE", "ad-provider")
+
+    assert after_realm != before
+    assert authentication_configuration_fingerprint() != after_realm
+
+
 def test_oidc_health_uses_runtime_https_issuer_boundary(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
