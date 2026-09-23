@@ -66,6 +66,41 @@ def test_configuration_fingerprint_changes_with_security_configuration(monkeypat
     assert authentication_configuration_fingerprint() != before
 
 
+def test_oauth_secret_and_redirect_changes_update_fingerprint(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oauth")
+    monkeypatch.setenv("UAGENT_OAUTH_PROVIDER", "provider")
+    monkeypatch.setenv("UAGENT_OAUTH_CLIENT_ID", "client")
+    monkeypatch.setenv("UAGENT_OAUTH_CLIENT_SECRET", "secret-a")
+    monkeypatch.setenv("UAGENT_OAUTH_REDIRECT_URI", "https://app.example/callback-a")
+    before = authentication_configuration_fingerprint()
+
+    monkeypatch.setenv("UAGENT_OAUTH_CLIENT_SECRET", "secret-b")
+    after_secret = authentication_configuration_fingerprint()
+    monkeypatch.setenv("UAGENT_OAUTH_REDIRECT_URI", "https://app.example/callback-b")
+
+    assert after_secret != before
+    assert authentication_configuration_fingerprint() != after_secret
+
+
+def test_oidc_health_uses_runtime_https_issuer_boundary(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
+    monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "http://127.0.0.1/callback")
+
+    for issuer in (
+        "http://issuer.example",
+        "https://user:password@issuer.example",
+        "https://issuer.example#fragment",
+    ):
+        monkeypatch.setenv("UAGENT_OIDC_ISSUER", issuer)
+        status = validate_authentication_configuration()
+        assert status.configured is False
+        assert "valid HTTPS URL" in " ".join(status.diagnostics)
+
+    monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
+    assert validate_authentication_configuration().configured is True
+
+
 def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "external")
     register_enterprise_identity_verifier("external", None)

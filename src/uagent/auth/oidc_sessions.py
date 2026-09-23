@@ -50,15 +50,16 @@ class OIDCSessionStore:
         if not identity.authenticated:
             raise ValueError("only authenticated identities may create sessions")
         token = secrets.token_urlsafe(32)
+        configuration_fingerprint = self._configuration_fingerprint()
         with self._lock:
             now = self._clock()
-            self._prune(now)
+            self._prune(now, configuration_fingerprint)
             if len(self._sessions) >= self._max_sessions:
                 raise RuntimeError("OIDC session capacity reached")
             self._sessions[self._key(token)] = _StoredSession(
                 identity=identity,
                 expires_at=now + self._ttl_seconds,
-                configuration_fingerprint=self._configuration_fingerprint(),
+                configuration_fingerprint=configuration_fingerprint,
             )
         return token
 
@@ -66,17 +67,12 @@ class OIDCSessionStore:
         if not token:
             return None
         key = self._key(token)
+        configuration_fingerprint = self._configuration_fingerprint()
         with self._lock:
             now = self._clock()
+            self._prune(now, configuration_fingerprint)
             stored = self._sessions.get(key)
             if stored is None:
-                self._prune(now)
-                return None
-            if now >= stored.expires_at:
-                del self._sessions[key]
-                return None
-            if stored.configuration_fingerprint != self._configuration_fingerprint():
-                del self._sessions[key]
                 return None
             return stored.identity
 
@@ -94,13 +90,17 @@ class OIDCSessionStore:
             return count
 
     def active_count(self) -> int:
+        configuration_fingerprint = self._configuration_fingerprint()
         with self._lock:
-            self._prune(self._clock())
+            self._prune(self._clock(), configuration_fingerprint)
             return len(self._sessions)
 
-    def _prune(self, now: float) -> None:
+    def _prune(self, now: float, configuration_fingerprint: str) -> None:
         for key, stored in list(self._sessions.items()):
-            if now >= stored.expires_at:
+            if (
+                now >= stored.expires_at
+                or stored.configuration_fingerprint != configuration_fingerprint
+            ):
                 del self._sessions[key]
 
 

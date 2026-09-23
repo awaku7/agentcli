@@ -59,6 +59,12 @@ async def websocket_endpoint(websocket: WebSocket):
         while True:
             data = await websocket.receive_text()
             payload = json.loads(data)
+            try:
+                connection.validate_authentication_configuration()
+            except (IdentityConfigurationError, IdentityResolutionError):
+                await websocket.close(code=1008)
+                room.disconnect(websocket)
+                return
 
             if payload.get("type") == "user_input":
                 user_text = payload.get("text")

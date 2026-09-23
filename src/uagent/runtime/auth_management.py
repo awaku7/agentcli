@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import hashlib
 import json
-from urllib.parse import urlparse
+from urllib.parse import urlsplit
 
 from ..env_utils import env_get
 from .enterprise_identity import (
@@ -38,7 +38,12 @@ _MODE_SETTINGS = {
         "UAGENT_OIDC_COOKIE_SECURE",
         "UAGENT_OIDC_SESSION_TTL",
     ),
-    "oauth": ("UAGENT_OAUTH_PROVIDER", "UAGENT_OAUTH_CLIENT_ID"),
+    "oauth": (
+        "UAGENT_OAUTH_PROVIDER",
+        "UAGENT_OAUTH_CLIENT_ID",
+        "UAGENT_OAUTH_CLIENT_SECRET",
+        "UAGENT_OAUTH_REDIRECT_URI",
+    ),
     "trusted_proxy": (
         "UAGENT_TRUSTED_PROXY_IDENTITY_HEADER",
         "UAGENT_TRUSTED_PROXY_ISSUER_HEADER",
@@ -52,6 +57,28 @@ _MODE_SETTINGS = {
 
 def _value(name: str) -> str:
     return str(env_get(name, "") or "").strip()
+
+
+def _valid_redirect_uri(value: str) -> bool:
+    parsed = urlsplit(value)
+    return (
+        parsed.scheme in {"http", "https"}
+        and bool(parsed.hostname)
+        and parsed.username is None
+        and parsed.password is None
+        and not parsed.fragment
+    )
+
+
+def _valid_oidc_issuer(value: str) -> bool:
+    parsed = urlsplit(value)
+    return (
+        parsed.scheme == "https"
+        and bool(parsed.hostname)
+        and parsed.username is None
+        and parsed.password is None
+        and not parsed.fragment
+    )
 
 
 def authentication_configuration_fingerprint(mode: str | None = None) -> str:
@@ -94,9 +121,9 @@ def validate_authentication_configuration(
         )
         issuer = _value("UAGENT_OIDC_ISSUER")
         redirect = _value("UAGENT_OIDC_REDIRECT_URI")
-        if issuer and urlparse(issuer).scheme not in {"http", "https"}:
-            diagnostics.append("UAGENT_OIDC_ISSUER must be an HTTP(S) URL")
-        if redirect and urlparse(redirect).scheme not in {"http", "https"}:
+        if issuer and not _valid_oidc_issuer(issuer):
+            diagnostics.append("UAGENT_OIDC_ISSUER must be a valid HTTPS URL")
+        if redirect and not _valid_redirect_uri(redirect):
             diagnostics.append("UAGENT_OIDC_REDIRECT_URI must be an HTTP(S) URL")
         provider = "oidc"
     elif selected == "trusted_proxy":

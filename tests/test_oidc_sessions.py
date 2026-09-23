@@ -56,3 +56,17 @@ def test_oidc_session_store_can_revoke_all_sessions() -> None:
 
     assert store.revoke_all() == 2
     assert store.active_count() == 0
+
+
+def test_stale_sessions_do_not_count_toward_capacity() -> None:
+    revision = ["revision-1"]
+    store = OIDCSessionStore(
+        max_sessions=1, configuration_fingerprint=lambda: revision[0]
+    )
+    store.create(IdentityContext("oidc:user-a", True, "oidc"))
+
+    revision[0] = "revision-2"
+    assert store.active_count() == 0
+    token = store.create(IdentityContext("oidc:user-b", True, "oidc"))
+
+    assert store.resolve(token) == IdentityContext("oidc:user-b", True, "oidc")

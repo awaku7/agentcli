@@ -83,6 +83,8 @@ def test_websocket_worker_uses_connection_identity_not_message_owner():
     assert source.count("connection.make_turn(") == 2
     assert source.count("identity_context=connection.identity") == 0
     assert source.count('"identity_context": connection.identity') == 2
+    validation = source.index("connection.validate_authentication_configuration()")
+    assert validation < source.index('payload.get("type") == "user_input"')
 
 
 def test_web_worker_rejects_identity_mismatch_before_side_effects(tmp_path):

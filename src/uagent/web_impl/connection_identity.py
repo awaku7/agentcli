@@ -21,7 +21,8 @@ class WebConnectionContext:
     identity: IdentityContext
     configuration_fingerprint: str = ""
 
-    def make_turn(self, *, project_path: str, session_id: str) -> TurnContext:
+    def validate_authentication_configuration(self) -> None:
+        """Reject every message from a connection bound to stale authentication."""
         if self.configuration_fingerprint:
             from ..runtime.auth_management import (
                 authentication_configuration_fingerprint,
@@ -32,6 +33,9 @@ class WebConnectionContext:
                 != authentication_configuration_fingerprint()
             ):
                 raise IdentityResolutionError("authentication configuration changed")
+
+    def make_turn(self, *, project_path: str, session_id: str) -> TurnContext:
+        self.validate_authentication_configuration()
         return TurnContext.from_identity(
             self.identity,
             room_id=self.room_id,
