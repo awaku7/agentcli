@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | 附加的插件搜索目录 |
 | `UAGENT_AUTO_SENTINEL` | 设置为 `1` 时，选择启用单LLM自动驾驶哨兵模式 |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | 连续调用新工具的最大次数（默认：`100`） |
-| `UAGENT_MAX_TOOL_ROUNDS` | 每次用户操作中每个工具的 LLM 轮次上限 （默认：`200`）|
+| `UAGENT_MAX_TOOL_ROUNDS` | 每次用户操作中每个工具的 LLM 轮次上限 （默认：`128`）|
 | `UAGENT_SHRINK_CNT` | 消息中的可选自动压缩阈值（`0`/未设置 = 禁用）|
 | `UAGENT_SHRINK_KEEP_LAST` | 压缩后保留的消息数量（默认：`20`） |
 | `UAGENT_LANG` | 界面语言（`ja`、`en` 等） |

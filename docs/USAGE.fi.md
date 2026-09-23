@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Lisähakemistot laajennusten etsimistä varten |
 | `UAGENT_AUTO_SENTINEL` | Ota käyttöön yksittäinen LLM-autopilotti-sentinel-tila, kun asetuksena on `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Peräkkäisten uusien työkalukutsujen enimmäismäärä (oletus: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Enimmäismäärä LLM/työkierrosta käyttäjätoimintoa kohti (oletus: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Enimmäismäärä LLM/työkierrosta käyttäjätoimintoa kohti (oletus: `128`) |
 | `UAGENT_SHRINK_CNT` | Valinnainen viestien automaattisen pienentämisen kynnysarvo (`0`/asetusta ei määritetty = pois käytöstä) |
 | `UAGENT_SHRINK_KEEP_LAST` | Tiivistämisen jälkeen säilytettävät viestit (oletus: `20`) |
 | `UAGENT_LANG` | Käyttöliittymän kieli (`ja`, `en` jne.) |

@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Direktori pencarian plugin tambahan |
 | `UAGENT_AUTO_SENTINEL` | Aktifkan mode pengawas autopilot tunggal LLM jika diatur ke `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Jumlah maksimum panggilan alat baru berturut-turut (default: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Batas maksimum putaran LLM/alat per operasi pengguna (default: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Batas maksimum putaran LLM/alat per operasi pengguna (default: `128`) |
 | `UAGENT_SHRINK_CNT` | Ambang batas pengecilan otomatis opsional dalam pesan (`0`/tidak diatur = dinonaktifkan) |
 | `UAGENT_SHRINK_KEEP_LAST` | Jumlah pesan yang akan disimpan setelah penyusutan (default: `20`) |
 | `UAGENT_LANG` | Bahasa antarmuka (`ja`, `en`, dll.) |
