@@ -281,7 +281,7 @@ class SchedulerStore:
     ) -> bool:
         """Finalize one schedule firing and persist its dispatch events atomically.
 
-        ``delivered`` means accepted by the in-process event sink, not that the
+        ``delivered`` means acknowledged by the event consumer, not that the
         scheduled run has completed. Event keys are deterministic per run and
         event position so a replay cannot create duplicate outbox rows.
         """
@@ -355,12 +355,14 @@ class SchedulerStore:
         with _LOCK, self._connect() as db:
             db.execute("BEGIN IMMEDIATE")
             rows = db.execute(
-                "SELECT * FROM scheduler_events WHERE status='pending' "
-                "AND available_at <= ? "
-                "AND (target_instance_id='' OR target_instance_id=?) "
-                "AND (claim_until <= ? OR claim_owner=?) "
-                "ORDER BY id LIMIT ?",
-                (now_ts, owner, now_ts, owner, batch_limit),
+                "SELECT e.* FROM scheduler_events e WHERE e.status='pending' "
+                "AND e.available_at <= ? "
+                "AND (e.target_instance_id='' OR e.target_instance_id=?) "
+                "AND e.claim_until <= ? "
+                "AND NOT EXISTS (SELECT 1 FROM scheduler_events p "
+                "WHERE p.run_id=e.run_id AND p.status='pending' AND p.id<e.id) "
+                "ORDER BY e.id LIMIT ?",
+                (now_ts, owner, now_ts, batch_limit),
             ).fetchall()
             claimed: list[tuple[int, dict[str, Any]]] = []
             for row in rows:
@@ -368,8 +370,8 @@ class SchedulerStore:
                     "UPDATE scheduler_events SET claim_owner=?, claim_until=? "
                     "WHERE id=? AND status='pending' "
                     "AND (target_instance_id='' OR target_instance_id=?) "
-                    "AND (claim_until <= ? OR claim_owner=?)",
-                    (owner, until, row["id"], owner, now_ts, owner),
+                    "AND claim_until <= ?",
+                    (owner, until, row["id"], owner, now_ts),
                 )
                 if result.rowcount <= 0:
                     continue
@@ -444,16 +446,38 @@ class SchedulerStore:
                 "claim_until=0 WHERE enabled=1 AND owner_instance_id=?",
                 (new, previous),
             )
-            event_result = db.execute(
-                "UPDATE scheduler_events SET target_instance_id=?, claim_owner='', "
-                "claim_until=0, available_at=0 "
-                "WHERE status='pending' AND target_instance_id=?",
-                (new, previous),
-            )
+            event_rows = db.execute(
+                "SELECT id,payload FROM scheduler_events "
+                "WHERE status='pending' AND target_instance_id=? ORDER BY id",
+                (previous,),
+            ).fetchall()
+            event_count = 0
+            for row in event_rows:
+                payload_text = row["payload"]
+                try:
+                    payload = json.loads(payload_text or "{}")
+                    if isinstance(payload, dict):
+                        payload["owner_instance_id"] = new
+                        payload["reclaimed_from_instance_id"] = previous
+                        payload_text = json.dumps(
+                            payload,
+                            ensure_ascii=False,
+                            separators=(",", ":"),
+                        )
+                except Exception:
+                    pass
+                result = db.execute(
+                    "UPDATE scheduler_events SET target_instance_id=?, payload=?, "
+                    "claim_owner='', claim_until=0, available_at=0 "
+                    "WHERE id=? AND status='pending' AND target_instance_id=?",
+                    (new, payload_text, row["id"], previous),
+                )
+                if result.rowcount > 0:
+                    event_count += 1
             db.commit()
             return {
                 "schedules": max(0, int(schedule_result.rowcount)),
-                "events": max(0, int(event_result.rowcount)),
+                "events": event_count,
             }
 
     def list_events(self, status: str = "") -> list[dict[str, Any]]:
