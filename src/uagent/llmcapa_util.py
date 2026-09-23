@@ -232,6 +232,29 @@ def supports_feature(
         return bool(val)
 
 
+def openai_uses_max_completion_tokens(
+    model_id: str | None = None, provider: str | None = None
+) -> bool:
+    """Whether an OpenAI-compatible chat endpoint needs the modern token key.
+
+    Prefer llmcapa's reasoning capability so newly catalogued reasoning models
+    do not depend on a hard-coded model-name prefix. Keep the existing prefix
+    check as a compatibility fallback when the catalog has no model evidence.
+    """
+    prov = normalize_provider(provider)
+    if prov not in {"openai", "azure"}:
+        return False
+
+    reasoning = supports_feature("reasoning", model_id, prov, default=None)
+    if reasoning is not None:
+        return reasoning
+
+    model = (model_id or "").strip().lower()
+    return model.startswith("gpt-5") or model.startswith(
+        ("o1", "o2", "o3", "o4")
+    )
+
+
 def _supports_structured_output_feature(
     feature: str,
     model_id: str | None = None,

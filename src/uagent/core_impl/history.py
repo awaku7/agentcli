@@ -670,11 +670,9 @@ def compress_history_with_llm(
                             "messages": summary_messages,
                             "temperature": 0.0,
                         }
-                        _summary_model = str(depname or "").lower()
-                        if provider in ("openai", "azure") and (
-                            _summary_model.startswith("gpt-5")
-                            or _summary_model.startswith(("o1", "o2", "o3", "o4"))
-                        ):
+                        from ..llmcapa_util import openai_uses_max_completion_tokens
+
+                        if openai_uses_max_completion_tokens(depname, provider):
                             _summary_kwargs["max_completion_tokens"] = _sum_max
                         else:
                             _summary_kwargs["max_tokens"] = _sum_max

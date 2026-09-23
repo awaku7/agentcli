@@ -73,31 +73,8 @@ class ToolDiscoveryDecision:
         return not self.uses_native_search
 
 
-def _gpt54_native_search_model(depname: str) -> bool:
-    """Return whether *depname* is a known GPT-5.4+ native-search family."""
-
-    model = (depname or "").strip().lower()
-    marker = "gpt-5."
-    idx = model.find(marker)
-    if idx < 0:
-        return False
-    tail = model[idx + len(marker) :]
-    digits: list[str] = []
-    for char in tail:
-        if char.isdigit():
-            digits.append(char)
-        else:
-            break
-    if not digits or tail[len("".join(digits)) :].startswith("-nano"):
-        return False
-    try:
-        return int("".join(digits)) >= 4
-    except ValueError:
-        return False
-
-
 def get_tool_search_mode(raw: str | None = None) -> str:
-    """Normalize the user-facing GPT-5.4 discovery mode setting."""
+    """Normalize the user-facing native tool-search mode setting."""
 
     if raw is None:
         try:
@@ -167,6 +144,7 @@ def resolve_tool_discovery_from_environment(
         depname=model_name,
         use_responses_api=bool(use_responses_api),
         configured_mode=get_tool_search_mode(),
+        capability_resolver=capability_resolver,
     )
 
 
@@ -192,12 +170,12 @@ def resolve_tool_discovery(
     depname: str,
     use_responses_api: bool,
     configured_mode: str = "native",
+    capability_resolver: CapabilityResolverPort | None = None,
 ) -> ToolDiscoveryDecision:
     """Resolve native search, legacy catalog, or selected schemas once.
 
-    Native search is deliberately fail-closed: it is available only for the
-    known OpenAI/Azure GPT-5.4+ Responses family. Unknown capability therefore
-    stays on the selected-schema path.
+    Native search is fail-closed and requires positive llmcapa ``tool_search``
+    evidence for an OpenAI/Azure Responses API model.
     """
 
     mode = (configured_mode or "native").strip().lower()
@@ -212,9 +190,20 @@ def resolve_tool_discovery(
         return ToolDiscoveryDecision(
             ToolDiscoveryMode.SELECTED_SCHEMAS, "provider_not_supported"
         )
-    if not _gpt54_native_search_model(depname):
+    try:
+        if capability_resolver is None:
+            from .capability_resolver import CapabilityResolver
+
+            capability_resolver = CapabilityResolver()
+        snapshot = capability_resolver.resolve(
+            provider_name, depname, transport="responses"
+        )
+        tool_search = getattr(snapshot, "tool_search", None)
+    except Exception:
+        tool_search = None
+    if tool_search is None or not tool_search.is_native_allowed():
         return ToolDiscoveryDecision(
-            ToolDiscoveryMode.SELECTED_SCHEMAS, "capability_unknown"
+            ToolDiscoveryMode.SELECTED_SCHEMAS, "tool_search_unavailable"
         )
     if mode in {"legacy", "old"}:
         return ToolDiscoveryDecision(ToolDiscoveryMode.LEGACY_CATALOG, "legacy_mode")

@@ -998,13 +998,10 @@ def _call_openai_azure_round(
                         _chat_token_limit = clamp_max_tokens(
                             int(max_tokens_env), depname, provider
                         )
-                        _model_lower = str(depname or "").lower()
-                        if provider == "inception" or (
-                            provider in ("openai", "azure")
-                            and (
-                                _model_lower.startswith("gpt-5")
-                                or _model_lower.startswith(("o1", "o2", "o3", "o4"))
-                            )
+                        from .llmcapa_util import openai_uses_max_completion_tokens
+
+                        if provider == "inception" or openai_uses_max_completion_tokens(
+                            depname, provider
                         ):
                             chat_kwargs["max_completion_tokens"] = _chat_token_limit
                         else:

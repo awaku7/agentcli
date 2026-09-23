@@ -30,6 +30,7 @@ from uagent.llmcapa_util import (
     supports_vision,
     supports_audio_input,
     supports_audio_output,
+    openai_uses_max_completion_tokens,
 )
 
 
@@ -38,6 +39,36 @@ def _clear_cache() -> None:
     clear_capability_cache()
     yield
     clear_capability_cache()
+
+
+def test_openai_token_parameter_uses_llmcapa_reasoning_evidence(monkeypatch) -> None:
+    import uagent.llmcapa_util as util
+
+    monkeypatch.setattr(
+        util,
+        "supports_feature",
+        lambda feature, model, provider, default=None: (
+            True if feature == "reasoning" and model == "gpt-6-luna" else default
+        ),
+    )
+
+    assert openai_uses_max_completion_tokens("gpt-6-luna", "openai")
+    assert not openai_uses_max_completion_tokens("gpt-6-luna", "openrouter")
+
+
+def test_openai_token_parameter_keeps_legacy_prefix_fallback(monkeypatch) -> None:
+    import uagent.llmcapa_util as util
+
+    monkeypatch.setattr(
+        util, "supports_feature", lambda *_args, default=None: default
+    )
+
+    assert openai_uses_max_completion_tokens("gpt-5-test", "openai")
+    assert not openai_uses_max_completion_tokens("custom-model", "openai")
+
+
+def test_installed_llmcapa_marks_gpt6_as_a_reasoning_model() -> None:
+    assert openai_uses_max_completion_tokens("gpt-6-luna", "openai")
 
 
 class TestProviderCandidates:

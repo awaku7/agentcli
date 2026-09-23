@@ -57,6 +57,7 @@ class ProviderCapabilitySnapshot:
     responses_continuation: CapabilityValue
     responses_compact: CapabilityValue
     structured_output: CapabilityValue
+    tool_search: CapabilityValue
 
 
 class CapabilityResolverPort(Protocol):
@@ -149,6 +150,13 @@ class CapabilityResolver:
                 spec.name,
                 normalized_model,
                 implemented=True,
+                source="llmcapa",
+            ),
+            tool_search=self._model_feature(
+                "tool_search",
+                spec.name,
+                normalized_model,
+                implemented=responses_implemented and responses.create,
                 source="llmcapa",
             ),
         )
