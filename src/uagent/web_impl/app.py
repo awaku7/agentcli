@@ -61,7 +61,11 @@ def _ensure_memory_store_tracking() -> None:
                 opened.append(store)
             return store
 
-        tracked_open_memory_store._uag_web_request_store_tracking = True  # type: ignore[attr-defined]
+        setattr(
+            tracked_open_memory_store,
+            "_uag_web_request_store_tracking",
+            True,
+        )
         routes_api.open_memory_store = tracked_open_memory_store
 
 
