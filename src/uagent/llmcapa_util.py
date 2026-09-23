@@ -250,9 +250,7 @@ def openai_uses_max_completion_tokens(
         return reasoning
 
     model = (model_id or "").strip().lower()
-    return model.startswith("gpt-5") or model.startswith(
-        ("o1", "o2", "o3", "o4")
-    )
+    return model.startswith("gpt-5") or model.startswith(("o1", "o2", "o3", "o4"))
 
 
 def _supports_structured_output_feature(

@@ -59,9 +59,7 @@ def test_openai_token_parameter_uses_llmcapa_reasoning_evidence(monkeypatch) -> 
 def test_openai_token_parameter_keeps_legacy_prefix_fallback(monkeypatch) -> None:
     import uagent.llmcapa_util as util
 
-    monkeypatch.setattr(
-        util, "supports_feature", lambda *_args, default=None: default
-    )
+    monkeypatch.setattr(util, "supports_feature", lambda *_args, default=None: default)
 
     assert openai_uses_max_completion_tokens("gpt-5-test", "openai")
     assert not openai_uses_max_completion_tokens("custom-model", "openai")

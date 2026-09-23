@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.7.14] - 2026-09-24
+
+### Added
+
+- Add SQLite-backed scheduler claims and leases, reclaim expired leases, and enable WAL mode for scheduler storage.
+- Scope internal timers to their scheduler instances.
+
+### Changed
+
+- Gate native tool search and token parameters based on `llmcapa` capabilities.
+- Raise the default LLM round cap to 128.
+- Honor explicitly selected skills.
+- Apply Black formatting to affected source modules and tests.
+
+### Fixed
+
+- Recount cached token totals when message insertion or replacement breaks the cached prefix.
+- Secure OS scheduler payload handling.
+- Skip documentation-only CI checks and remove duplicate pytest execution.
+
 ## [0.7.13] - 2026-09-23
 
 ### Added

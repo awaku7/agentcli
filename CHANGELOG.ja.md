@@ -1,5 +1,25 @@
 # 変更履歴
 
+## [0.7.14] - 2026-09-24
+
+### 追加
+
+- schedulerのSQLite claim/lease基盤を追加し、期限切れleaseの回収とWAL modeに対応。
+- 内部timerをscheduler instanceごとに分離。
+
+### 変更
+
+- `llmcapa` capabilityに基づきnative tool searchとtoken parameterの利用を制御。
+- LLMの既定round上限を128に変更。
+- 明示選択されたskillを優先するよう変更。
+- 対象source module/testにBlack formatterを適用。
+
+### 修正
+
+- messageの挿入/置換でcached prefixが崩れた場合にtoken数を再計算。
+- OS schedulerへのpayload渡しを安全化。
+- docs-only時のCI checksを省略し、重複したpytest実行を削除。
+
 ## [0.7.13] - 2026-09-23
 
 ### 追加

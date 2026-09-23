@@ -257,9 +257,7 @@ def test_discovery_uses_llmcapa_capability_instead_of_model_name_heuristics() ->
 
     resolver = CapabilityResolver(
         feature_lookup=lambda feature, model, *_: (
-            True
-            if feature == "tool_search" and model == "custom-deployment"
-            else None
+            True if feature == "tool_search" and model == "custom-deployment" else None
         )
     )
     supported = resolve_tool_discovery(
