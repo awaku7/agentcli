@@ -9,7 +9,6 @@ import threading
 import time
 from typing import Callable
 
-from ..env_utils import env_get
 from ..runtime.identity_context import IdentityContext
 
 
@@ -30,11 +29,15 @@ class OIDCSessionStore:
         max_sessions: int = 4096,
         clock: Callable[[], float] = time.monotonic,
         configuration_fingerprint: Callable[[], str] | None = None,
+        ttl_seconds_provider: Callable[[], float] | None = None,
+        max_sessions_provider: Callable[[], int] | None = None,
     ) -> None:
         if ttl_seconds <= 0 or max_sessions <= 0:
             raise ValueError("OIDC session limits must be positive")
         self._ttl_seconds = ttl_seconds
         self._max_sessions = max_sessions
+        self._ttl_seconds_provider = ttl_seconds_provider
+        self._max_sessions_provider = max_sessions_provider
         self._clock = clock
         self._configuration_fingerprint = (
             configuration_fingerprint or _authentication_configuration_fingerprint
@@ -51,14 +54,26 @@ class OIDCSessionStore:
             raise ValueError("only authenticated identities may create sessions")
         token = secrets.token_urlsafe(32)
         configuration_fingerprint = self._configuration_fingerprint()
+        ttl_seconds = (
+            self._ttl_seconds_provider()
+            if self._ttl_seconds_provider is not None
+            else self._ttl_seconds
+        )
+        max_sessions = (
+            self._max_sessions_provider()
+            if self._max_sessions_provider is not None
+            else self._max_sessions
+        )
+        if ttl_seconds <= 0 or max_sessions <= 0:
+            raise ValueError("OIDC session limits must be positive")
         with self._lock:
             now = self._clock()
             self._prune(now, configuration_fingerprint)
-            if len(self._sessions) >= self._max_sessions:
+            if len(self._sessions) >= max_sessions:
                 raise RuntimeError("OIDC session capacity reached")
             self._sessions[self._key(token)] = _StoredSession(
                 identity=identity,
-                expires_at=now + self._ttl_seconds,
+                expires_at=now + ttl_seconds,
                 configuration_fingerprint=configuration_fingerprint,
             )
         return token
@@ -110,6 +125,18 @@ def _authentication_configuration_fingerprint() -> str:
     return authentication_configuration_fingerprint()
 
 
+def _configured_session_ttl() -> int:
+    from ..runtime.auth_management import positive_integer_setting
+
+    return positive_integer_setting("UAGENT_OIDC_SESSION_TTL", 28800)
+
+
+def _configured_session_capacity() -> int:
+    from ..runtime.auth_management import positive_integer_setting
+
+    return positive_integer_setting("UAGENT_OIDC_SESSION_MAX", 4096)
+
+
 _DEFAULT_SESSION_STORE: OIDCSessionStore | None = None
 _DEFAULT_SESSION_LOCK = threading.Lock()
 
@@ -120,17 +147,9 @@ def get_oidc_session_store() -> OIDCSessionStore:
     if _DEFAULT_SESSION_STORE is None:
         with _DEFAULT_SESSION_LOCK:
             if _DEFAULT_SESSION_STORE is None:
-                try:
-                    ttl = float(env_get("UAGENT_OIDC_SESSION_TTL", "28800"))
-                except (TypeError, ValueError):
-                    ttl = 28800.0
-                try:
-                    capacity = int(env_get("UAGENT_OIDC_SESSION_MAX", "4096"))
-                except (TypeError, ValueError):
-                    capacity = 4096
                 _DEFAULT_SESSION_STORE = OIDCSessionStore(
-                    ttl_seconds=ttl,
-                    max_sessions=capacity,
+                    ttl_seconds_provider=_configured_session_ttl,
+                    max_sessions_provider=_configured_session_capacity,
                 )
     return _DEFAULT_SESSION_STORE
 

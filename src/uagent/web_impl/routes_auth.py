@@ -14,7 +14,10 @@ from ..auth.oidc_sessions import get_oidc_session_store
 from ..auth.oidc_transactions import OIDCTransactionStore
 from ..auth.oidc_verifier import discover_provider
 from ..env_utils import env_get
-from ..runtime.auth_management import validate_authentication_configuration
+from ..runtime.auth_management import (
+    positive_integer_setting,
+    validate_authentication_configuration,
+)
 from ..runtime.identity_context import (
     IdentityConfigurationError,
     IdentityResolutionError,
@@ -135,7 +138,7 @@ async def oidc_callback(
         response.set_cookie(
             OIDC_SESSION_COOKIE,
             session_token,
-            max_age=int(env_get("UAGENT_OIDC_SESSION_TTL", "28800") or 28800),
+            max_age=positive_integer_setting("UAGENT_OIDC_SESSION_TTL", 28800),
             httponly=True,
             secure=_cookie_secure(),
             samesite="lax",

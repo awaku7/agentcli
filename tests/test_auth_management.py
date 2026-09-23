@@ -101,6 +101,23 @@ def test_oidc_health_uses_runtime_https_issuer_boundary(monkeypatch):
     assert validate_authentication_configuration().configured is True
 
 
+def test_oidc_health_rejects_invalid_session_limits(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
+    monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
+    monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://app.example/callback")
+
+    for name in ("UAGENT_OIDC_SESSION_TTL", "UAGENT_OIDC_SESSION_MAX"):
+        for invalid in ("invalid", "1.5", "0", "-1"):
+            monkeypatch.setenv(name, invalid)
+            status = validate_authentication_configuration()
+            assert status.configured is False
+            assert f"{name} must be a positive integer" in status.diagnostics
+        monkeypatch.delenv(name, raising=False)
+
+    assert validate_authentication_configuration().configured is True
+
+
 def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "external")
     register_enterprise_identity_verifier("external", None)

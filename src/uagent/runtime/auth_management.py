@@ -37,6 +37,7 @@ _MODE_SETTINGS = {
         "UAGENT_OIDC_REDIRECT_URI",
         "UAGENT_OIDC_COOKIE_SECURE",
         "UAGENT_OIDC_SESSION_TTL",
+        "UAGENT_OIDC_SESSION_MAX",
     ),
     "oauth": (
         "UAGENT_OAUTH_PROVIDER",
@@ -57,6 +58,20 @@ _MODE_SETTINGS = {
 
 def _value(name: str) -> str:
     return str(env_get(name, "") or "").strip()
+
+
+def positive_integer_setting(name: str, default: int) -> int:
+    """Read one positive integer setting with no fractional coercion."""
+    raw = str(env_get(name, str(default)) or "").strip()
+    if not raw:
+        return default
+    try:
+        value = int(raw)
+    except ValueError as exc:
+        raise IdentityConfigurationError(f"{name} must be a positive integer") from exc
+    if value <= 0:
+        raise IdentityConfigurationError(f"{name} must be a positive integer")
+    return value
 
 
 def _valid_redirect_uri(value: str) -> bool:
@@ -125,6 +140,14 @@ def validate_authentication_configuration(
             diagnostics.append("UAGENT_OIDC_ISSUER must be a valid HTTPS URL")
         if redirect and not _valid_redirect_uri(redirect):
             diagnostics.append("UAGENT_OIDC_REDIRECT_URI must be an HTTP(S) URL")
+        for name, default in (
+            ("UAGENT_OIDC_SESSION_TTL", 28800),
+            ("UAGENT_OIDC_SESSION_MAX", 4096),
+        ):
+            try:
+                positive_integer_setting(name, default)
+            except IdentityConfigurationError as exc:
+                diagnostics.append(str(exc))
         provider = "oidc"
     elif selected == "trusted_proxy":
         provider = "trusted proxy"
@@ -157,5 +180,6 @@ def validate_authentication_configuration(
 __all__ = [
     "AuthenticationStatus",
     "authentication_configuration_fingerprint",
+    "positive_integer_setting",
     "validate_authentication_configuration",
 ]

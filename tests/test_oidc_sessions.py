@@ -70,3 +70,27 @@ def test_stale_sessions_do_not_count_toward_capacity() -> None:
     token = store.create(IdentityContext("oidc:user-b", True, "oidc"))
 
     assert store.resolve(token) == IdentityContext("oidc:user-b", True, "oidc")
+
+
+def test_new_sessions_use_rotated_ttl_and_capacity() -> None:
+    now = [100.0]
+    revision = ["revision-1"]
+    ttl = [10]
+    capacity = [1]
+    store = OIDCSessionStore(
+        clock=lambda: now[0],
+        configuration_fingerprint=lambda: revision[0],
+        ttl_seconds_provider=lambda: ttl[0],
+        max_sessions_provider=lambda: capacity[0],
+    )
+    store.create(IdentityContext("oidc:user-a", True, "oidc"))
+
+    revision[0] = "revision-2"
+    ttl[0] = 20
+    capacity[0] = 2
+    token = store.create(IdentityContext("oidc:user-b", True, "oidc"))
+
+    now[0] = 119.9
+    assert store.resolve(token) is not None
+    now[0] = 120.0
+    assert store.resolve(token) is None
