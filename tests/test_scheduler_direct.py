@@ -88,6 +88,14 @@ def test_direct_schedule_emits_direct_event_and_persists_target(tmp_path):
     assert run.metadata["target_args"] == {"expression": "2+2"}
 
 
+def test_scheduler_store_uses_wal_journal(tmp_path):
+    import sqlite3
+
+    store = SchedulerStore(tmp_path / "schedules.sqlite3")
+    with sqlite3.connect(store.path) as db:
+        assert db.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal"
+
+
 def test_scheduler_only_fires_items_owned_by_instance(tmp_path):
     import queue
     from datetime import timedelta

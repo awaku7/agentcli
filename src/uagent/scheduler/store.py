@@ -54,6 +54,13 @@ class SchedulerStore:
         db = sqlite3.connect(str(self.path), timeout=30.0)
         db.row_factory = sqlite3.Row
         db.execute("PRAGMA busy_timeout=30000")
+        try:
+            mode = str(db.execute("PRAGMA journal_mode=WAL").fetchone()[0]).lower()
+            if mode == "wal":
+                db.execute("PRAGMA synchronous=NORMAL")
+        except sqlite3.DatabaseError:
+            # Read-only or unsupported filesystems retain SQLite's safe default.
+            db.execute("PRAGMA journal_mode=DELETE")
         return db
 
     def _initialize(self) -> None:
