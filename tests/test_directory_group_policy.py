@@ -1,0 +1,46 @@
+from __future__ import annotations
+
+from uagent.runtime.enterprise_identity import (
+    GroupPolicyAssignments,
+    register_directory_group_policy_adapter,
+)
+from uagent.runtime.identity_context import IdentityContext
+from uagent.runtime.memory_store import MemoryStore
+from uagent.runtime.project_access import ProjectAccessPolicy
+
+
+class _DirectoryPolicy:
+    def map_groups(self, identity, groups):
+        assert identity.principal_id == "user"
+        assert groups == ("engineering",)
+        return GroupPolicyAssignments(
+            room_roles=(("room-x", "editor"),),
+            project_ids=("demo",),
+        )
+
+
+def test_directory_group_assignments_sync_without_storing_groups(tmp_path):
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.set_membership("root", "demo", "root", "admin")
+    policy.bind_room("root", "demo", "room-x")
+    identity = IdentityContext("user", True, "windows_ad", groups=("engineering",))
+    register_directory_group_policy_adapter(_DirectoryPolicy())
+    try:
+        policy.sync_directory_policy(identity)
+        assert policy.can_access("user", "demo", "viewer")
+        room_membership = store.db.execute(
+            "SELECT role, granted_by FROM room_memberships "
+            "WHERE room_id = 'room-x' AND principal_id = 'user'"
+        ).fetchone()
+        assert dict(room_membership) == {
+            "role": "editor",
+            "granted_by": "directory-policy",
+        }
+        stored_groups = store.db.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'table' AND name LIKE '%group%'"
+        ).fetchall()
+        assert stored_groups == []
+    finally:
+        register_directory_group_policy_adapter(None)
+        store.close()

@@ -45,6 +45,7 @@ class IdentityContext:
     issuer: str = ""
     subject: str = ""
     display_name: str = ""
+    groups: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         principal_id = str(self.principal_id or "").strip()
@@ -58,6 +59,15 @@ class IdentityContext:
         object.__setattr__(self, "issuer", str(self.issuer or "").strip())
         object.__setattr__(self, "subject", str(self.subject or "").strip())
         object.__setattr__(self, "display_name", str(self.display_name or "").strip())
+        object.__setattr__(
+            self,
+            "groups",
+            tuple(
+                sorted(
+                    {str(group).strip() for group in self.groups if str(group).strip()}
+                )
+            ),
+        )
 
 
 @dataclass(frozen=True)
@@ -71,6 +81,7 @@ class TurnContext:
     entry_point: str
     authenticated: bool
     authn_kind: str
+    groups: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         principal_id = str(self.principal_id or "").strip()
@@ -88,6 +99,15 @@ class TurnContext:
         object.__setattr__(self, "session_id", str(self.session_id or "").strip())
         object.__setattr__(self, "entry_point", entry_point)
         object.__setattr__(self, "authn_kind", authn_kind)
+        object.__setattr__(
+            self,
+            "groups",
+            tuple(
+                sorted(
+                    {str(group).strip() for group in self.groups if str(group).strip()}
+                )
+            ),
+        )
 
     @classmethod
     def from_identity(
@@ -107,6 +127,7 @@ class TurnContext:
             entry_point=entry_point,
             authenticated=identity.authenticated,
             authn_kind=identity.authn_kind,
+            groups=identity.groups,
         )
 
 

@@ -246,9 +246,9 @@ def _personal_store(
 ):
     store = _memory_store()
     bound_project = _project_id(project_id, request)
-    ProjectAccessPolicy(store).require_access(
-        identity.principal_id, bound_project, role
-    )
+    project_policy = ProjectAccessPolicy(store)
+    project_policy.sync_directory_policy(identity)
+    project_policy.require_access(identity.principal_id, bound_project, role)
     scoped = ScopedMemoryStore(
         store,
         MemoryAccessContext(
@@ -449,9 +449,9 @@ async def select_project_context(request: Request):
             raise ValueError("project_id is required")
         store = _memory_store()
         try:
-            ProjectAccessPolicy(store).require_access(
-                identity.principal_id, project_id, "viewer"
-            )
+            project_policy = ProjectAccessPolicy(store)
+            project_policy.sync_directory_policy(identity)
+            project_policy.require_access(identity.principal_id, project_id, "viewer")
         finally:
             store.close()
         configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
@@ -548,6 +548,7 @@ def _room_service(
     store = _memory_store()
     bound_project = _project_id(project_id, request)
     project_policy = ProjectAccessPolicy(store)
+    project_policy.sync_directory_policy(identity)
     project_policy.require_access(identity.principal_id, bound_project, role)
     project_policy.require_room_binding(bound_project, room_id)
     policy = RoomAccessPolicy(store)

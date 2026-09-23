@@ -41,8 +41,10 @@ configured single-project binding, project membership APIs, and regression cover
 HTTP ProjectContext is now server-bound for OIDC sessions through the
 `/api/project-context` selection endpoint; configured single-project deployments
 continue to use `UAGENT_MEMORY_PROJECT`. Room-to-project binding is persisted and
-enforced at HTTP and Memory Projection boundaries. Workspace-derived project
-selection for non-OIDC/multi-project deployments remains a follow-up.
+enforced at HTTP and Memory Projection boundaries. A trusted directory group policy
+adapter now maps verified groups to Project/Room roles without storing raw group claims.
+Workspace-derived project selection for non-OIDC/multi-project deployments remains a
+follow-up.
 
 ## Current baseline
 
