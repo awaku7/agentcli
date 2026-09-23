@@ -68,6 +68,75 @@ class ProjectAccessPolicy:
         if not self.can_access(principal_id, project_id, role):
             raise MemoryAccessError("project access is not permitted")
 
+    def sync_directory_policy(self, identity: Any) -> None:
+        """Apply trusted directory assignments without storing raw group claims."""
+        from .enterprise_identity import directory_group_policy_assignments
+
+        assignments = directory_group_policy_assignments(identity)
+        if not assignments.project_ids and not assignments.room_roles:
+            return
+        project_ids = tuple(
+            sorted(
+                {
+                    str(value).strip()
+                    for value in assignments.project_ids
+                    if str(value).strip()
+                }
+            )
+        )
+        room_roles = tuple(
+            (str(room_id).strip(), str(role).strip().lower())
+            for room_id, role in assignments.room_roles
+            if str(room_id).strip()
+            and str(role).strip().lower() in {"admin", "editor", "member"}
+        )
+        role = "admin" if assignments.administrator else "viewer"
+        now = time.time()
+        self._store.db.execute("BEGIN IMMEDIATE")
+        try:
+            for project_id in project_ids:
+                self._store.db.execute(
+                    "INSERT OR IGNORE INTO projects(project_id, status, created_at, updated_at) "
+                    "VALUES (?, 'active', ?, ?)",
+                    (project_id, now, now),
+                )
+                existing = self.membership(identity.principal_id, project_id)
+                assigned_role = role
+                if (
+                    existing is not None
+                    and _ROLE_RANK[existing.role] > _ROLE_RANK[assigned_role]
+                ):
+                    assigned_role = existing.role
+                self._store.db.execute(
+                    "INSERT INTO project_memberships(project_id, principal_id, role, status, "
+                    "revision, granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "
+                    "1, 'directory-policy', ?, ?) ON CONFLICT(project_id, principal_id) DO UPDATE SET "
+                    "role=excluded.role, status='active', revision=project_memberships.revision + 1, "
+                    "granted_by=excluded.granted_by, updated_at=excluded.updated_at",
+                    (project_id, identity.principal_id, assigned_role, now, now),
+                )
+            for room_id, room_role in room_roles:
+                project_row = self._store.db.execute(
+                    "SELECT project_id FROM room_projects WHERE room_id = ?", (room_id,)
+                ).fetchone()
+                if (
+                    project_row is None
+                    or str(project_row["project_id"]) not in project_ids
+                ):
+                    continue
+                self._store.db.execute(
+                    "INSERT INTO room_memberships(room_id, principal_id, role, status, "
+                    "granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "
+                    "'directory-policy', ?, ?) ON CONFLICT(room_id, principal_id) DO UPDATE SET "
+                    "role=excluded.role, status='active', revision=room_memberships.revision + 1, "
+                    "granted_by=excluded.granted_by, updated_at=excluded.updated_at",
+                    (room_id, identity.principal_id, room_role, now, now),
+                )
+            self._store.db.commit()
+        except Exception:
+            self._store.db.rollback()
+            raise
+
     def room_project(self, room_id: str) -> str | None:
         row = self._store.db.execute(
             "SELECT project_id FROM room_projects WHERE room_id = ?",

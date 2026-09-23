@@ -19,7 +19,7 @@ from ..profile_manager import (
 from .memory_forget import forgotten_memory_system_contents, memory_generation
 from .memory_query import build_memory_retrieval_query
 from .memory_retrieval import MemoryShadowResult, shadow_retrieve_memories
-from .identity_context import get_current_turn_context
+from .identity_context import IdentityContext, get_current_turn_context
 
 _TRUE = {"1", "true", "yes", "on"}
 _FINGERPRINT_KEY = secrets.token_bytes(32)
@@ -317,6 +317,14 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
         from .project_access import ProjectAccessPolicy
 
         project_policy = ProjectAccessPolicy(store)
+        project_policy.sync_directory_policy(
+            IdentityContext(
+                principal_id=turn.principal_id,
+                authenticated=turn.authenticated,
+                authn_kind=turn.authn_kind,
+                groups=turn.groups,
+            )
+        )
         project_policy.require_access(turn.principal_id, turn.project_id, "viewer")
         if turn.room_id:
             project_policy.require_room_binding(turn.project_id, turn.room_id)

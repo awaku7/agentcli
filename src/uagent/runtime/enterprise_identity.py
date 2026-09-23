@@ -121,6 +121,7 @@ class _VerifiedAdapterResolver(IdentityResolver):
             issuer=verified.namespace,
             subject=verified.subject,
             display_name=verified.display_name,
+            groups=verified.groups,
         )
 
 
@@ -271,6 +272,43 @@ class TokenIdentityResolver(IdentityResolver):
 _ADAPTER_VERIFIERS: dict[str, CredentialVerifier] = {}
 _ADAPTER_LOCK = threading.Lock()
 _ADAPTER_GENERATION = 0
+_GROUP_POLICY_ADAPTER: DirectoryGroupPolicyAdapter | None = None
+_GROUP_POLICY_GENERATION = 0
+
+
+def register_directory_group_policy_adapter(
+    adapter: DirectoryGroupPolicyAdapter | None,
+) -> None:
+    """Register one trusted directory-to-policy adapter at server startup."""
+    global _GROUP_POLICY_ADAPTER, _GROUP_POLICY_GENERATION
+    if adapter is not None and not callable(getattr(adapter, "map_groups", None)):
+        raise TypeError("group policy adapter must provide map_groups")
+    with _ADAPTER_LOCK:
+        _GROUP_POLICY_ADAPTER = adapter
+        _GROUP_POLICY_GENERATION += 1
+
+
+def directory_group_policy_assignments(
+    identity: IdentityContext,
+) -> GroupPolicyAssignments:
+    """Map verified groups to authorization-only assignments."""
+    with _ADAPTER_LOCK:
+        adapter = _GROUP_POLICY_ADAPTER
+    if adapter is None or not identity.groups:
+        return GroupPolicyAssignments()
+    try:
+        assignments = adapter.map_groups(identity, identity.groups)
+    except IdentityResolutionError:
+        raise
+    except Exception as exc:
+        raise IdentityResolutionError(
+            "directory group policy evaluation failed"
+        ) from exc
+    if not isinstance(assignments, GroupPolicyAssignments):
+        raise IdentityResolutionError(
+            "directory group policy returned an invalid result"
+        )
+    return assignments
 
 
 def register_enterprise_identity_verifier(
@@ -322,6 +360,7 @@ def enterprise_resolver(mode: str) -> IdentityResolver:
 __all__ = [
     "CredentialVerifier",
     "DirectoryGroupPolicyAdapter",
+    "directory_group_policy_assignments",
     "ExternalIdentityResolver",
     "GroupPolicyAssignments",
     "OAuthIdentityResolver",
@@ -332,5 +371,6 @@ __all__ = [
     "enterprise_resolver",
     "enterprise_identity_adapter_state",
     "opaque_principal_id",
+    "register_directory_group_policy_adapter",
     "register_enterprise_identity_verifier",
 ]
