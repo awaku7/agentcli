@@ -16,6 +16,9 @@ from .identity import scheduler_instance_id
 
 _RUNTIME_LOCK = threading.RLock()
 _RUNTIME: Optional["SchedulerService"] = None
+_DISPATCH_EVENT_ID = "_uag_scheduler_event_id"
+_DISPATCH_EVENT_OWNER = "_uag_scheduler_event_owner"
+_DISPATCH_LEASE_SECONDS = 300.0
 
 
 class SchedulerService:
@@ -35,6 +38,54 @@ class SchedulerService:
         self._poll_interval_s = max(0.1, float(poll_interval_s or 0.5))
         self._stop = threading.Event()
         self._thread: threading.Thread | None = None
+        self._sink_get_original = None
+        self._sink_get_wrapper = None
+        self._ack_on_dequeue = False
+        self._install_sink_ack_hook()
+
+    def _install_sink_ack_hook(self) -> None:
+        getter = getattr(self._sink, "get", None)
+        if not callable(getter):
+            return
+
+        def _get_with_scheduler_ack(*args, **kwargs):
+            event = getter(*args, **kwargs)
+            self._ack_dequeued_event(event)
+            return event
+
+        try:
+            setattr(self._sink, "get", _get_with_scheduler_ack)
+        except Exception:
+            return
+        self._sink_get_original = getter
+        self._sink_get_wrapper = _get_with_scheduler_ack
+        self._ack_on_dequeue = True
+
+    def _restore_sink_ack_hook(self) -> None:
+        wrapper = self._sink_get_wrapper
+        original = self._sink_get_original
+        if wrapper is None or original is None:
+            return
+        try:
+            if getattr(self._sink, "get", None) is wrapper:
+                setattr(self._sink, "get", original)
+        except Exception:
+            pass
+        self._sink_get_original = None
+        self._sink_get_wrapper = None
+        self._ack_on_dequeue = False
+
+    def _ack_dequeued_event(self, event: Any) -> None:
+        if not isinstance(event, dict):
+            return
+        event_id = event.pop(_DISPATCH_EVENT_ID, None)
+        owner = str(event.pop(_DISPATCH_EVENT_OWNER, "") or "").strip()
+        if event_id is None or not owner:
+            return
+        try:
+            self._store.mark_event_delivered(int(event_id), owner)
+        except Exception:
+            pass
 
     def is_running(self) -> bool:
         return bool(
@@ -54,6 +105,7 @@ class SchedulerService:
         if thread and thread.is_alive():
             thread.join(timeout=2.0)
         self._thread = None
+        self._restore_sink_ack_hook()
 
     def snapshot(self) -> list[ScheduleItem]:
         return self._store.list_items()
@@ -79,13 +131,18 @@ class SchedulerService:
             claimed = self._store.claim_pending_events(
                 self._instance_id,
                 utc_now(),
+                lease_seconds=_DISPATCH_LEASE_SECONDS,
                 limit=1,
             )
             if not claimed:
                 return
             event_id, payload = claimed[0]
+            delivery = dict(payload)
+            if self._ack_on_dequeue:
+                delivery[_DISPATCH_EVENT_ID] = event_id
+                delivery[_DISPATCH_EVENT_OWNER] = self._instance_id
             try:
-                self._sink.put(payload)
+                self._sink.put(delivery)
             except Exception as exc:
                 try:
                     self._store.release_event(
@@ -98,10 +155,15 @@ class SchedulerService:
                     pass
                 return
 
-            # Marking delivery happens after sink acceptance. If this write
-            # fails, the lease eventually expires and the event is retried.
-            # That intentionally gives at-least-once delivery rather than a
-            # silent loss window.
+            if self._ack_on_dequeue:
+                # The event remains leased until queue.get() acknowledges it.
+                # A process crash before dequeue therefore leaves durable state
+                # that can be explicitly reclaimed and re-dispatched.
+                continue
+
+            # Generic sinks that expose put() but not get() cannot provide a
+            # dequeue acknowledgement. Preserve compatibility by treating
+            # successful sink acceptance as the delivery boundary.
             try:
                 if not self._store.mark_event_delivered(
                     event_id, self._instance_id
