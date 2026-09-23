@@ -36,8 +36,11 @@ Implementation requirements:
   changes;
 - use AD/Entra groups only as a policy source, never as ownership keys.
 
-The current API still accepts a request `project_id`, so this item remains open until
-that input is constrained by the server-bound context and policy implementation.
+The current implementation now provides SQLite project memberships, role checks,
+configured single-project binding, project membership APIs, and regression coverage.
+The item remains open for workspace/session-bound HTTP ProjectContext and explicit
+room-to-project binding; until those are added, multi-project HTTP deployments must
+not rely on request-scoped project selection.
 
 ## Current baseline
 

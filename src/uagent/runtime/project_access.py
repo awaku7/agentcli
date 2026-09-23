@@ -1,0 +1,148 @@
+"""Server-side project membership and authorization policy."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+import time
+from typing import Any
+
+from ..env_utils import env_get
+from .memory_access import MemoryAccessError
+from .memory_store import MemoryStore
+
+PROJECT_ROLES = ("viewer", "editor", "admin")
+_ROLE_RANK = {role: index for index, role in enumerate(PROJECT_ROLES)}
+
+
+@dataclass(frozen=True)
+class ProjectMembership:
+    project_id: str
+    principal_id: str
+    role: str
+    revision: int
+
+
+def configured_admin_principals() -> frozenset[str]:
+    raw = str(env_get("UAGENT_ADMIN_PRINCIPALS", "") or "")
+    return frozenset(value.strip() for value in raw.split(",") if value.strip())
+
+
+class ProjectAccessPolicy:
+    """Authorize project-scoped operations before room/audience filtering."""
+
+    def __init__(
+        self, store: MemoryStore, *, admin_principals: frozenset[str] | None = None
+    ) -> None:
+        self._store = store
+        self._admins = admin_principals or configured_admin_principals()
+
+    def is_global_admin(self, principal_id: str) -> bool:
+        return bool(principal_id and principal_id in self._admins)
+
+    def membership(
+        self, principal_id: str, project_id: str
+    ) -> ProjectMembership | None:
+        row = self._store.db.execute(
+            "SELECT project_id, principal_id, role, revision "
+            "FROM project_memberships WHERE project_id = ? AND principal_id = ? "
+            "AND status = 'active'",
+            (project_id, principal_id),
+        ).fetchone()
+        return ProjectMembership(**dict(row)) if row is not None else None
+
+    def can_access(
+        self, principal_id: str, project_id: str, role: str = "viewer"
+    ) -> bool:
+        if role not in _ROLE_RANK:
+            raise ValueError("invalid project role")
+        if self.is_global_admin(principal_id):
+            return True
+        membership = self.membership(principal_id, project_id)
+        return (
+            membership is not None and _ROLE_RANK[membership.role] >= _ROLE_RANK[role]
+        )
+
+    def require_access(
+        self, principal_id: str, project_id: str, role: str = "viewer"
+    ) -> None:
+        if not self.can_access(principal_id, project_id, role):
+            raise MemoryAccessError("project access is not permitted")
+
+    def list_members(self, actor_id: str, project_id: str) -> list[dict[str, Any]]:
+        if not self.can_access(actor_id, project_id, "admin"):
+            raise MemoryAccessError("project membership operation is not permitted")
+        rows = self._store.db.execute(
+            "SELECT project_id, principal_id, role, status, revision, granted_by, "
+            "created_at, updated_at FROM project_memberships "
+            "WHERE project_id = ? AND status = 'active' ORDER BY principal_id",
+            (project_id,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+    def set_membership(
+        self, actor_id: str, project_id: str, principal_id: str, role: str
+    ) -> ProjectMembership:
+        project_id = str(project_id or "").strip()
+        principal_id = str(principal_id or "").strip()
+        role = str(role or "").strip().lower()
+        if not project_id or not principal_id or role not in PROJECT_ROLES:
+            raise ValueError("project_id, principal_id, and a valid role are required")
+        if not self.is_global_admin(actor_id) and not self.can_access(
+            actor_id, project_id, "admin"
+        ):
+            raise MemoryAccessError("project membership operation is not permitted")
+        now = time.time()
+        self._store.db.execute("BEGIN IMMEDIATE")
+        try:
+            self._store.db.execute(
+                "INSERT OR IGNORE INTO projects(project_id, status, created_at, updated_at) "
+                "VALUES (?, 'active', ?, ?)",
+                (project_id, now, now),
+            )
+            self._store.db.execute(
+                "INSERT INTO project_memberships(project_id, principal_id, role, status, "
+                "revision, granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "
+                "1, ?, ?, ?) ON CONFLICT(project_id, principal_id) DO UPDATE SET "
+                "role=excluded.role, status='active', revision=project_memberships.revision + 1, "
+                "granted_by=excluded.granted_by, updated_at=excluded.updated_at",
+                (project_id, principal_id, role, actor_id, now, now),
+            )
+            self._store.db.commit()
+        except Exception:
+            self._store.db.rollback()
+            raise
+        membership = self.membership(principal_id, project_id)
+        assert membership is not None
+        return membership
+
+    def revoke_membership(
+        self, actor_id: str, project_id: str, principal_id: str
+    ) -> None:
+        if not self.can_access(actor_id, project_id, "admin"):
+            raise MemoryAccessError("project membership operation is not permitted")
+        self._store.db.execute("BEGIN IMMEDIATE")
+        try:
+            target = self.membership(principal_id, project_id)
+            if target is None:
+                raise MemoryAccessError("project membership does not exist")
+            if target.role == "admin":
+                count = self._store.db.execute(
+                    "SELECT COUNT(*) FROM project_memberships WHERE project_id = ? "
+                    "AND role = 'admin' AND status = 'active'",
+                    (project_id,),
+                ).fetchone()[0]
+                if count <= 1:
+                    raise MemoryAccessError("cannot remove the last project admin")
+            self._store.db.execute(
+                "UPDATE project_memberships SET status='revoked', "
+                "revision=revision + 1, updated_at=? WHERE project_id=? "
+                "AND principal_id=? AND status='active'",
+                (time.time(), project_id, principal_id),
+            )
+            self._store.db.commit()
+        except Exception:
+            self._store.db.rollback()
+            raise
+
+
+__all__ = ["PROJECT_ROLES", "ProjectAccessPolicy", "ProjectMembership"]
