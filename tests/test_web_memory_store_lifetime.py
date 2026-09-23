@@ -43,18 +43,14 @@ def _track_opened_stores(monkeypatch):
 
 
 def test_denied_personal_memory_request_closes_store(tmp_path, monkeypatch):
-    monkeypatch.setattr(
-        routes_api, "create_identity_resolver", lambda: _Resolver("alice")
-    )
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: _Resolver("alice"))
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "demo")
     monkeypatch.delenv("UAGENT_ADMIN_PRINCIPALS", raising=False)
     opened = _track_opened_stores(monkeypatch)
 
-    response = TestClient(app).get(
-        "/api/me/memories", params={"project_id": "demo"}
-    )
+    response = TestClient(app).get("/api/me/memories", params={"project_id": "demo"})
 
     assert response.status_code == 403
     assert opened
@@ -62,9 +58,7 @@ def test_denied_personal_memory_request_closes_store(tmp_path, monkeypatch):
 
 
 def test_denied_room_memory_request_closes_store(tmp_path, monkeypatch):
-    monkeypatch.setattr(
-        routes_api, "create_identity_resolver", lambda: _Resolver("alice")
-    )
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: _Resolver("alice"))
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "demo")
