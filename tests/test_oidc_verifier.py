@@ -192,3 +192,38 @@ def test_get_json_stops_when_stream_exceeds_limit(monkeypatch):
     with pytest.raises(IdentityResolutionError, match="exceeds size limit"):
         oidc._get_json("https://identity.example/keys")
     assert len(chunks_read) == 2
+
+
+def test_verified_group_claims_are_carried_as_normalized_authorization_input(
+    signing_material, metadata
+):
+    private_key, jwks = signing_material
+    identity = verify(
+        signed_token(
+            private_key,
+            metadata,
+            groups=[" group-b ", "group-a", "group-b"],
+        ),
+        metadata,
+        jwks,
+    )
+    assert identity.groups == ("group-a", "group-b")
+    assert identity.principal_id.startswith("oidc:")
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"groups": "group-a"},
+        {"groups": ["group-a", 42]},
+        {"groups": [""]},
+        {"_claim_names": {"groups": "src"}},
+        {"hasgroups": True},
+    ],
+)
+def test_invalid_or_overage_group_claims_do_not_resolve(
+    signing_material, metadata, changes
+):
+    private_key, jwks = signing_material
+    with pytest.raises(IdentityResolutionError, match="group"):
+        verify(signed_token(private_key, metadata, **changes), metadata, jwks)

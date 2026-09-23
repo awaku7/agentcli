@@ -57,9 +57,13 @@ configuration/bootstrap adapter, not an AD/Entra directory client.
 Implemented administration surfaces include safe authentication status,
 configuration validation, session invalidation on security-sensitive changes, project
 membership APIs, room membership APIs, and the directory group policy contract.
+Entra OIDC group IDs are accepted only from verified signed claims and are carried
+as authorization input, never as ownership keys. OIDC group overage markers fail
+closed until a deployment-specific directory API adapter is configured.
+
 Remaining roadmap items are workspace-derived project selection for non-OIDC or
 multi-project deployments, and deployment-specific AD/Entra verifier integration
-(Entra OIDC claims or on-premises trusted proxy/IWA).
+(Entra OIDC claims overage resolution or on-premises trusted proxy/IWA).
 
 ## Current baseline
 
