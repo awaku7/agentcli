@@ -77,6 +77,24 @@ class SchedulerStore:
                 "claim_owner TEXT NOT NULL DEFAULT '', claim_until REAL NOT NULL DEFAULT 0"
                 ")"
             )
+            db.execute(
+                "CREATE TABLE IF NOT EXISTS scheduler_events ("
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "event_key TEXT NOT NULL UNIQUE, "
+                "schedule_id TEXT NOT NULL, run_id TEXT NOT NULL, "
+                "target_instance_id TEXT NOT NULL DEFAULT '', "
+                "payload TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'pending', "
+                "attempt_count INTEGER NOT NULL DEFAULT 0, "
+                "available_at REAL NOT NULL DEFAULT 0, "
+                "claim_owner TEXT NOT NULL DEFAULT '', claim_until REAL NOT NULL DEFAULT 0, "
+                "last_error TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL, "
+                "delivered_at TEXT NOT NULL DEFAULT ''"
+                ")"
+            )
+            db.execute(
+                "CREATE INDEX IF NOT EXISTS idx_scheduler_events_pending "
+                "ON scheduler_events(status, available_at, target_instance_id, id)"
+            )
             rows = getattr(self, "_legacy_rows", [])
             if rows:
                 self._replace_rows(db, [ScheduleItem.from_dict(row) for row in rows])
@@ -253,6 +271,221 @@ class SchedulerStore:
                 )
             db.commit()
             return result.rowcount > 0
+
+    def finalize_claim_with_events(
+        self,
+        schedule_id: str,
+        instance_id: str,
+        next_at: str | None,
+        events: list[dict[str, Any]],
+    ) -> bool:
+        """Finalize one schedule firing and persist its dispatch events atomically.
+
+        ``delivered`` means accepted by the in-process event sink, not that the
+        scheduled run has completed. Event keys are deterministic per run and
+        event position so a replay cannot create duplicate outbox rows.
+        """
+        owner = str(instance_id or "").strip()
+        normalized_events = [dict(event) for event in events]
+        created_at = format_iso_datetime(utc_now())
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            claimed = db.execute(
+                "SELECT 1 FROM schedules WHERE id=? AND claim_owner=?",
+                (schedule_id, owner),
+            ).fetchone()
+            if claimed is None:
+                db.rollback()
+                return False
+
+            for ordinal, payload in enumerate(normalized_events):
+                run_id = str(payload.get("run_id") or "").strip()
+                kind = str(payload.get("kind") or "").strip()
+                if not run_id or not kind:
+                    raise ValueError("scheduler event requires run_id and kind")
+                event_key = f"{run_id}:{ordinal}:{kind}"
+                target_instance_id = str(
+                    payload.get("owner_instance_id") or ""
+                ).strip()
+                db.execute(
+                    "INSERT OR IGNORE INTO scheduler_events ("
+                    "event_key,schedule_id,run_id,target_instance_id,payload,status,"
+                    "attempt_count,available_at,claim_owner,claim_until,last_error,"
+                    "created_at,delivered_at) VALUES (?,?,?,?,?,'pending',0,0,'',0,'',?,'')",
+                    (
+                        event_key,
+                        schedule_id,
+                        run_id,
+                        target_instance_id,
+                        json.dumps(payload, ensure_ascii=False, separators=(",", ":")),
+                        created_at,
+                    ),
+                )
+
+            if next_at is None:
+                result = db.execute(
+                    "DELETE FROM schedules WHERE id=? AND claim_owner=?",
+                    (schedule_id, owner),
+                )
+            else:
+                result = db.execute(
+                    "UPDATE schedules SET at=?, updated_at=?, claim_owner='', claim_until=0 "
+                    "WHERE id=? AND claim_owner=?",
+                    (next_at, created_at, schedule_id, owner),
+                )
+            if result.rowcount <= 0:
+                db.rollback()
+                return False
+            db.commit()
+            return True
+
+    def claim_pending_events(
+        self,
+        instance_id: str,
+        now: datetime | None = None,
+        *,
+        lease_seconds: float = 30.0,
+        limit: int = 100,
+    ) -> list[tuple[int, dict[str, Any]]]:
+        """Claim pending outbox events for this scheduler instance."""
+        owner = str(instance_id or "").strip()
+        now_ts = (now or utc_now()).timestamp()
+        until = now_ts + max(1.0, float(lease_seconds))
+        batch_limit = max(1, int(limit or 100))
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            rows = db.execute(
+                "SELECT * FROM scheduler_events WHERE status='pending' "
+                "AND available_at <= ? "
+                "AND (target_instance_id='' OR target_instance_id=?) "
+                "AND (claim_until <= ? OR claim_owner=?) "
+                "ORDER BY id LIMIT ?",
+                (now_ts, owner, now_ts, owner, batch_limit),
+            ).fetchall()
+            claimed: list[tuple[int, dict[str, Any]]] = []
+            for row in rows:
+                result = db.execute(
+                    "UPDATE scheduler_events SET claim_owner=?, claim_until=? "
+                    "WHERE id=? AND status='pending' "
+                    "AND (target_instance_id='' OR target_instance_id=?) "
+                    "AND (claim_until <= ? OR claim_owner=?)",
+                    (owner, until, row["id"], owner, now_ts, owner),
+                )
+                if result.rowcount <= 0:
+                    continue
+                try:
+                    payload = json.loads(row["payload"] or "{}")
+                    if not isinstance(payload, dict):
+                        raise ValueError("payload is not an object")
+                except Exception as exc:
+                    db.execute(
+                        "UPDATE scheduler_events SET status='invalid', claim_owner='', "
+                        "claim_until=0, last_error=? WHERE id=? AND claim_owner=?",
+                        (f"invalid payload: {exc}", row["id"], owner),
+                    )
+                    continue
+                claimed.append((int(row["id"]), payload))
+            db.commit()
+            return claimed
+
+    def mark_event_delivered(self, event_id: int, instance_id: str) -> bool:
+        owner = str(instance_id or "").strip()
+        delivered_at = format_iso_datetime(utc_now())
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            result = db.execute(
+                "UPDATE scheduler_events SET status='delivered', delivered_at=?, "
+                "claim_owner='', claim_until=0, last_error='' "
+                "WHERE id=? AND status='pending' AND claim_owner=?",
+                (delivered_at, int(event_id), owner),
+            )
+            db.commit()
+            return result.rowcount > 0
+
+    def release_event(
+        self,
+        event_id: int,
+        instance_id: str,
+        *,
+        error: str = "",
+        retry_delay: float = 0.0,
+    ) -> bool:
+        owner = str(instance_id or "").strip()
+        available_at = utc_now().timestamp() + max(0.0, float(retry_delay or 0.0))
+        last_error = str(error or "")[:2000]
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            result = db.execute(
+                "UPDATE scheduler_events SET attempt_count=attempt_count+1, "
+                "available_at=?, claim_owner='', claim_until=0, last_error=? "
+                "WHERE id=? AND status='pending' AND claim_owner=?",
+                (available_at, last_error, int(event_id), owner),
+            )
+            db.commit()
+            return result.rowcount > 0
+
+    def reclaim_orphaned_events(
+        self, previous_instance_id: str, new_instance_id: str
+    ) -> int:
+        """Explicitly reassign pending events after the old owner is known dead.
+
+        This is intentionally not automatic. The caller must revalidate the
+        persisted session/authentication boundary before moving an event to a
+        new process owner.
+        """
+        previous = str(previous_instance_id or "").strip()
+        new = str(new_instance_id or "").strip()
+        if not previous or not new or previous == new:
+            return 0
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            result = db.execute(
+                "UPDATE scheduler_events SET target_instance_id=?, claim_owner='', "
+                "claim_until=0, available_at=0 "
+                "WHERE status='pending' AND target_instance_id=?",
+                (new, previous),
+            )
+            db.commit()
+            return max(0, int(result.rowcount))
+
+    def list_events(self, status: str = "") -> list[dict[str, Any]]:
+        """Return scheduler outbox records for diagnostics and tests."""
+        normalized_status = str(status or "").strip().lower()
+        with _LOCK, self._connect() as db:
+            if normalized_status:
+                rows = db.execute(
+                    "SELECT * FROM scheduler_events WHERE status=? ORDER BY id",
+                    (normalized_status,),
+                ).fetchall()
+            else:
+                rows = db.execute(
+                    "SELECT * FROM scheduler_events ORDER BY id"
+                ).fetchall()
+        events: list[dict[str, Any]] = []
+        for row in rows:
+            try:
+                payload = json.loads(row["payload"] or "{}")
+            except Exception:
+                payload = {}
+            events.append(
+                {
+                    "id": int(row["id"]),
+                    "event_key": row["event_key"],
+                    "schedule_id": row["schedule_id"],
+                    "run_id": row["run_id"],
+                    "target_instance_id": row["target_instance_id"],
+                    "payload": payload,
+                    "status": row["status"],
+                    "attempt_count": int(row["attempt_count"]),
+                    "available_at": float(row["available_at"]),
+                    "claim_owner": row["claim_owner"],
+                    "claim_until": float(row["claim_until"]),
+                    "last_error": row["last_error"],
+                    "created_at": row["created_at"],
+                    "delivered_at": row["delivered_at"],
+                }
+            )
+        return events
 
     def release_claim(
         self, schedule_id: str, instance_id: str, *, restore_at: str = ""
