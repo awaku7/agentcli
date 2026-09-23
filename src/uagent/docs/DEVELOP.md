@@ -19,41 +19,63 @@ ______________________________________________________________________
 
 `spreadsheet_analyze` provides read-only analysis of `.xlsm` workbooks. It uses `openpyxl` for worksheet structure and `oletools` for embedded VBA extraction; macros are never executed. The tool reports sheets, formulas, merged ranges, VBA procedures/calls, and potentially risky operations, and can return JSON or Markdown. Localized tool strings live in `src/uagent/tools/spreadsheet_analyze_tool.json`.
 
-## Memory V3 store boundary (staged)
+## Memory V3 authenticated Web boundary (current)
 
-`runtime/memory_access.py` adds `MemoryAccessContext` and `ScopedMemoryStore`
-over the existing SQLite database. Contexts must come from authenticated,
+`runtime/memory_access.py` provides `MemoryAccessContext` and `ScopedMemoryStore`
+over the SQLite Memory database. Contexts must come from authenticated,
 server-controlled identity and audience policy; never deserialize tool/browser
-payloads into an authorized context. `private_session` defaults to false. Set it
-only after verifying that the output and persisted history are principal-private.
-Room/project audiences require an explicit policy decision, not merely a room ID.
+payloads into an authorized context. JSONL remains a local compatibility backend
+and must not be used as a multi-user authorization fallback.
+
+The V3 Web path is now connected beyond the original store-only stage. The current
+runtime includes:
+
+- immutable `IdentityContext` / `TurnContext` propagation and OIDC Web sessions;
+- Project membership plus server-bound ProjectContext and Room-to-Project binding;
+- Personal Memory, revision-bound read grants, received shared-memory references,
+  Room Memory, and Project/Room membership APIs;
+- principal-keyed Profile reads/writes and identity-bound Memory projection;
+- `access_generation`-bound projection invalidation and access re-checks around
+  provider/delivery/continuation paths;
+- legacy `/api/memories` and `/api/profile` restricted to trusted local mode.
 
 Schema V3 adds `owner_id`, audience columns, revision-bound read grants and an
 access generation counter. Existing V2 rows remain `legacy` and continue to work
 through the trusted local `MemoryStore` API. They are invisible to scoped reads
 until an administrator explicitly verifies and applies `map_legacy_owner` for a
-nonempty legacy owner and project. No grants are created by migration. JSONL
-does not implement V3 grants and must not be used as a multi-user fallback.
+nonempty legacy owner and project. No grants are created by migration.
 
-Scoped get/search/count/export use the same SQL access boundary. Personal
-writes derive ownership from the context; read recipients cannot update,
-forget or reshare. A grant permits only the confirmed record revision, within
-the same project and a private session. Returned shared references retain
+Scoped get/search/count/export use the same SQL access boundary. Personal writes
+derive ownership from the context; read recipients cannot update, forget or
+reshare. A grant permits only the confirmed record revision, within the same
+project and a principal-private session. Returned shared references retain
 `owner_id`, `memory_id`, `revision` and `read_grant_id`, with
 `shared_reference=true`; private source paths and unrelated source IDs are omitted.
 The receiver must treat these as attributed evidence, never personal guidance.
 
-Grant changes and all memory writes increment `access_generation` transactionally,
-including legacy writes. Updating a memory revokes old grants; forgetting it
-removes all grants. Reopening the store does not reset the generation. It is a
-store generation only: future adapters must also track membership/policy changes.
+Grant changes and Memory writes increment `access_generation` transactionally,
+including legacy writes. Updating a Personal Memory invalidates revision-bound
+old grants; forgetting it removes its grants. Project/Room policy changes also
+participate in the authorization checks used to build and reuse projections.
 
-This is the first V3-4 store implementation. It does not yet connect the legacy
-Web Memory API, tools, projection, Profile, response delivery or continuation
-invalidation to this boundary. Do not treat OIDC login alone or this store API
-as completion of multi-user Memory isolation. V3-5/V3-6 must wire these paths,
-recheck access at provider/delivery boundaries, and implement the sharing UI/API.
-Run `tests/test_memory_access.py` and the existing Memory suites for this layer.
+Web Memory stores are request-local resources. `web_impl/app.py` tracks stores
+opened through the Web API in a request-local `ContextVar` and closes them at the
+end of the HTTP request, including denied/error paths that fail before a helper can
+return the handle to its caller. Explicit route-level `finally: store.close()`
+blocks remain in place. See `WEB_MEMORY_RESOURCE_LIFETIME.md` and
+`tests/test_web_memory_store_lifetime.py`.
+
+Remaining V3 work is deployment/rollout work rather than the old V3-5/V3-6
+"not connected" state: non-OIDC multi-project server-derived ProjectContext,
+Entra group-overage directory lookup/freshness, durable OIDC sessions for
+multi-instance Web, deployment-specific enterprise identity adapters/validation,
+and the final multi-user rollout gate. See `docs/UAG_MEMORY_ARCHITECTURE_V3.md`,
+`docs/UAG_MEMORY_V3_SECURITY_HARDENING.md`, and `docs/WEB_IDENTITY_MEMORY.md`.
+
+Relevant regression suites include `tests/test_memory_access.py`,
+`tests/test_memory_v3_projection.py`, `tests/test_memory_v3_web_api.py`,
+`tests/test_room_access.py`, `tests/test_oidc_sessions.py`, and
+`tests/test_web_memory_store_lifetime.py`.
 
 ## 0. Runtime requirements
 
@@ -132,6 +154,8 @@ Documentation:
 - Tool development: `src/uagent/docs/DEVELOP_TOOL.md`
 - Host-side i18n: `src/uagent/docs/DEVELOP_I18N.md` (compile: `python scripts/compile_locales.py`, QC: `python scripts/po_qc_summary.py`)
 - Auto-pilot (`:auto` command): `src/uagent/docs/AUTO_REVIEW.md` (design & implementation record)
+- Web Memory resource lifetime: `src/uagent/docs/WEB_MEMORY_RESOURCE_LIFETIME.md`
+- User-facing Memory/Web identity: `docs/MEMORY.md`, `docs/WEB_IDENTITY_MEMORY.md`
 - User-facing `:auto` guide (en): `README_AUTO.md` (usage instructions)
 - User-facing `:auto` guide (ja): `docs/README_AUTO.ja.md` (usage instructions)
 
