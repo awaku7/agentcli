@@ -1,74 +1,124 @@
 # Memory v3 security hardening
 
-## Scope
+Current baseline: **uag v0.7.14 / `9d9b25aee5ec67dc7fb321ee61f45ee332a65115`**.
 
-This follow-up hardens the gaps found by comparing `docs/UAG_MEMORY_ARCHITECTURE_V3.md`
-with the current implementation.
+This document tracks security hardening discovered by comparing `docs/UAG_MEMORY_ARCHITECTURE_V3.md` with the implemented runtime. The release-level code review is recorded in [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md).
 
-## Work log
+## Implemented hardening
 
-- [x] Make project authorization server-controlled rather than trusting an arbitrary
-  request `project_id`.
-- [x] Re-check memory access generation before provider calls, streamed response
-  delivery, and tool-loop continuation; revoked output is removed from the active
-  Web room history and auto-pilot continuation is skipped.
-- [x] Expose the existing revision-bound read-grant store through the documented
-  `/api/me/shared-memories` and grant-management APIs.
-- [x] Add regression tests for project isolation and invalidation during an active
-  turn; grant lifecycle coverage is now present in `tests/test_memory_v3_web_api.py`.
-- [x] Reconcile the configuration examples and mark remaining admin/AD features as
-  implemented or roadmap items.
+- [x] Make project authorization server-controlled rather than trusting an arbitrary request `project_id`.
+- [x] Bind OIDC project selection to the server-side authenticated session.
+- [x] Re-check Memory access generation before provider calls, streamed response delivery and tool-loop continuation; stale/revoked projection state is rejected.
+- [x] Expose revision-bound Personal Memory read grants through `/api/me/shared-memories` and grant-management APIs.
+- [x] Isolate authenticated Profile storage by principal.
+- [x] Add project membership, room-to-project binding and Room membership/policy checks.
+- [x] Restrict legacy `/api/memories` and `/api/profile` to local identity mode.
+- [x] Add project-isolation and active-revocation regression coverage.
+- [x] Carry Entra group IDs only from verified OIDC claims and fail closed on malformed/overage claims.
+- [x] Add safe authentication status/configuration validation and invalidate stale OIDC/WebSocket identity after security-sensitive configuration changes.
 
 ## Project authorization decision
 
-The project boundary is now specified as **server-bound `ProjectContext` plus
-server-side project membership policy**. A client-supplied `project_id` is only a
-selector that must match the bound context; it is never an authorization grant.
+The project boundary is **server-bound `ProjectContext` plus server-side project membership policy**. A client-supplied `project_id` is only a selector that must match the bound context; it is never an authorization grant.
 
-Implementation requirements:
+Current implementation:
 
-- derive WebSocket projects from the authenticated workspace/`TurnContext`;
-- derive HTTP projects from the authenticated workspace or a configured single-project
-  deployment, failing closed when no binding exists;
-- add project memberships with `viewer` / `editor` / `admin` roles and generations;
-- require project membership before room membership, audience, or per-record grants;
-- bind rooms to exactly one project and invalidate snapshots/continuations on policy
-  changes;
-- use AD/Entra groups only as a policy source, never as ownership keys.
+- fixed single-project deployments can bind through `UAGENT_MEMORY_PROJECT`;
+- OIDC sessions can bind an authorized project through `/api/project-context`;
+- Project memberships use viewer/editor/admin-style role checks;
+- Room IDs are persisted as bindings to exactly one Project before Room Memory is used;
+- Project/Room membership and directory policy changes participate in access-generation invalidation;
+- directory groups are policy inputs, never Memory ownership keys.
 
-The current implementation now provides SQLite project memberships, role checks,
-configured single-project binding, project membership APIs, and regression coverage.
-HTTP ProjectContext is now server-bound for OIDC sessions through the
-`/api/project-context` selection endpoint; configured single-project deployments
-continue to use `UAGENT_MEMORY_PROJECT`. Room-to-project binding is persisted and
-enforced at HTTP and Memory Projection boundaries. A trusted directory group policy
-adapter maps verified groups to Project/Room roles without storing raw group claims.
-Deployments without a custom adapter may use `UAGENT_DIRECTORY_GROUP_POLICY` as
-strict JSON with this shape:
+Remaining project-context work:
+
+- non-OIDC multi-user / multi-project HTTP requests still need a trusted server-derived workspace/project binding;
+- browser-supplied `project_id` must remain a selector only in those future integrations as well.
+
+## Memory / sharing boundary
+
+SQLite V3 Memory stores:
+
+- `owner_id` and explicit audience information;
+- stable `memory_id` and revision;
+- revision-bound read grants;
+- transactional access-generation changes.
+
+A recipient read grant does not grant edit, delete or re-share permission. Updating a source Memory does not silently extend an old grant to a new revision. Forgetting a source removes its grants.
+
+Authenticated projection loads only records authorized for the current principal/project/room. Snapshots bind identity and access generation so an earlier snapshot is rejected when the relevant access state changes.
+
+Shared Personal Memory remains attributed evidence. It must not become the recipient's Personal Profile/Applicable Guidance automatically.
+
+## Authentication boundary
+
+OIDC Web authentication currently provides:
+
+- browser-bound Authorization Code + PKCE transactions;
+- provider discovery/JWKS and ID-token verification;
+- opaque server-side session cookie;
+- WebSocket identity inheritance;
+- safe `/api/auth/status` and administrator status output;
+- authentication configuration fingerprinting and session invalidation.
+
+OIDC sessions are intentionally process-local in v0.7.14. Process restart signs users out. Before multi-instance/HA rollout, define a durable session store that preserves expiration, revocation and configuration-fingerprint invalidation semantics.
+
+Enterprise identity modes (`oauth`, `trusted_proxy`, `windows_ad`, `token`, `external`) use explicit resolver/verifier contracts and do not silently fall back to `local`. Deployment-specific verification is still required where the core cannot establish the trust boundary itself.
+
+## Directory groups / Entra
+
+Verified group claims may be mapped to Project/Room roles. Deployments without a custom adapter may use `UAGENT_DIRECTORY_GROUP_POLICY` as configuration/bootstrap mapping, for example:
 
 ```json
 {"groups":{"engineering":{"projects":["demo"],"rooms":{"room-x":"editor"}}}}
 ```
 
-The JSON contains group identifiers and policy targets only; group claims are still
-obtained from the verified AD/Entra adapter. This environment adapter is a
-configuration/bootstrap adapter, not an AD/Entra directory client.
+This mapping is not an AD/Entra directory client.
 
-Implemented administration surfaces include safe authentication status,
-configuration validation, session invalidation on security-sensitive changes, project
-membership APIs, room membership APIs, and the directory group policy contract.
-Entra OIDC group IDs are accepted only from verified signed claims and are carried
-as authorization input, never as ownership keys. OIDC group overage markers fail
-closed until a deployment-specific directory API adapter is configured.
+Entra OIDC group-overage markers fail closed today. Production deployments that need overage support must add a trusted directory API adapter and define:
 
-Remaining roadmap items are workspace-derived project selection for non-OIDC or
-multi-project deployments, and deployment-specific AD/Entra verifier integration
-(Entra OIDC claims overage resolution or on-premises trusted proxy/IWA).
+- how the authenticated principal is correlated with the directory request;
+- membership cache lifetime/freshness;
+- revocation propagation;
+- failure behavior when directory access is unavailable.
 
-## Current baseline
+## Additional v0.7.14 review finding: Web Memory DB lifetime
 
-The main branch already provides identity/turn contexts, OIDC session binding,
-SQLite audience/grant primitives, room roles, basic Personal/Room APIs, and safe
-authentication status APIs. This document tracks the remaining hardening work; it
-is intentionally separate from the architecture design document so the design
-can remain stable while implementation proceeds.
+`web_impl/routes_api.py` creates a Memory store inside `_personal_store()` and `_room_service()` before every project/membership/binding check has completed. The caller closes the store only after the helper returns successfully. If a helper raises during project binding or authorization, it can exit before handing the store back to the caller for explicit close.
+
+This is a resource-lifetime hardening issue rather than an authorization bypass: the failing request is still denied, but repeated denied requests should not be allowed to accumulate SQLite connection resources.
+
+Follow-up requirement:
+
+- make the helper exception-safe or use an owning context manager/service object;
+- add regression coverage that exercises repeated denied Personal/Room requests and verifies the connection is closed.
+
+## Current rollout gates
+
+The following should remain zero/false in deterministic and deployment-specific validation:
+
+```text
+identity_leak_count
+audience_violation_count
+profile_leak_count
+snapshot_identity_mismatch_count
+unauthenticated_fallback_count
+auth_mode_fallback_count
+directory_role_violation_count
+unauthorized_shared_memory_use_count
+shared_memory_profile_attribution_error_count
+revoked_grant_reuse_count
+```
+
+Project isolation and active-revocation fixtures exist, but production rollout must also exercise the actual OIDC/directory/proxy environment used by the deployment.
+
+## Remaining hardening / rollout work
+
+1. Fix Web Memory store lifetime on authorization-failure paths.
+2. Add server-derived ProjectContext for non-OIDC multi-user/multi-project deployments.
+3. Add a trusted directory API adapter for Entra group overage and membership freshness/revocation.
+4. Decide and implement durable OIDC sessions before multi-instance/HA Web rollout.
+5. Validate Trusted Proxy / Windows IWA / OAuth / External adapters in their real trust boundaries.
+6. Run the complete V3 isolation/revocation/migration/single-user-regression gate before changing multi-user defaults.
+
+The existence of the APIs is not itself approval to make authenticated multi-user or shared-room Memory universally default-on.

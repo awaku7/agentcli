@@ -14,6 +14,43 @@
 - **P1**: 高優先
 - **P2**: 中長期
 
+## P0: Memory V3 rollout / security completion
+
+- Status: in-progress
+- Priority: P0
+- Source: [`docs/UAG_0_7_14_IMPLEMENTATION_REVIEW.md`](../UAG_0_7_14_IMPLEMENTATION_REVIEW.md)、[`docs/UAG_MEMORY_V3_SECURITY_HARDENING.md`](../UAG_MEMORY_V3_SECURITY_HARDENING.md)、[`docs/UAG_MEMORY_ARCHITECTURE_V3.md`](../UAG_MEMORY_ARCHITECTURE_V3.md)
+
+### v0.7.14までに実装済み
+
+- authenticated Identity / TurnContextとWebSocket identity binding
+- OIDC Authorization Code + PKCE、ID token検証、server-side session
+- Personal Memory audience / revision-bound read grant
+- identity-bound Memory Projectionとaccess-generation invalidation
+- principal-keyed Profile
+- Personal / shared / Room Memory API
+- Project membership、Room-to-Project binding、Room policy
+- verified Entra group claimのpolicy input
+- safe authentication status / configuration invalidation
+- legacy `/api/memories` / `/api/profile` のlocal-mode制限
+
+### 残作業
+
+1. Web Memory APIのauthorization failure経路でSQLite store lifetimeをexception-safeにする。
+1. non-OIDC multi-user / multi-project向けにserver-derived ProjectContextを追加する。
+1. Entra group overageとmembership freshness / revocationを扱うtrusted Directory API adapterを実装する。
+1. multi-instance / HAを行う前にdurable OIDC session設計を決める。
+1. Trusted Proxy / Windows IWA / OAuth / External adapterを実環境trust boundaryで検証する。
+1. identity / audience / profile / stale snapshot / revocation / migration / single-user regression gateを全deployment modeで確認する。
+
+### 受け入れ条件
+
+- browser/model payloadから任意owner/projectを指定して境界を越えられない。
+- 未共有Personal Memory、別Project、未所属RoomのMemoryがprojection/APIから取得できない。
+- grant / membership / policy取消後、stale snapshotやcontinuationから情報を再利用しない。
+- shared evidenceを受信者本人のProfile / Guidanceへ誤帰属しない。
+- identity resolver failure時に暗黙 `local` fallbackしない。
+- denied requestを繰り返してもSQLite connection resourceが残存しない。
+
 ## P0: [Responses API管理機能](responses-api-management.md)
 
 - Status: in-progress
@@ -45,6 +82,34 @@
 - staleなResponse IDで次の会話が停止しない。
 - APIキー、入力本文、秘密情報を状態へ保存しない。
 - OpenAI/Azure、非対応プロバイダ、異なるモデル、`:load`をテストする。
+
+## P1: Scheduler durable dispatch
+
+- Status: planned
+- Priority: P1
+- Source: [`docs/UAG_0_7_14_IMPLEMENTATION_REVIEW.md`](../UAG_0_7_14_IMPLEMENTATION_REVIEW.md)、[`docs/SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md`](../SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md)
+
+### 背景
+
+v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler instance ownershipが入ったため、複数processによる同一schedule選択の競合は大幅に改善された。
+
+一方、現行`SchedulerService`はrunをpersistしschedule claimをfinalizeした後にin-process sinkへeventを渡す。sink failureが発生すると、run/schedule stateだけが進み、execution eventが届かない可能性がある。claim leaseはschedule selection leaseであり、task execution全体のdurable leaseではない。
+
+### 対象
+
+- persisted outbox / pending-dispatch state
+- sink acceptance前後のstate transition
+- process crash後のre-dispatch
+- idempotency keyを使ったduplicate execution防止
+- dispatch / execution / retry / terminal stateの用語整理
+- multi-instance failure injection test
+
+### 受け入れ条件
+
+- schedule選択後、sink/process failureだけでjobがsilent lossしない。
+- crash recoveryでpending runを再dispatchできる。
+- 同一`idempotency_key`のrunを二重実行しない。
+- claim leaseとexecution guaranteeをドキュメント上で混同しない。
 
 ## P1: [Network Toolkitの運用品質向上](network-toolkit.md)
 
@@ -151,15 +216,11 @@
 ## P2: VS Code拡張の追加機能
 
 - Status: planned
-
 - Priority: P2
-
 - Source: [`docs/VSCODE.md`](../VSCODE.md)
 
 - `uag.autoFix` の実装可否を検討する。
-
 - 実装する場合は、編集前確認、差分表示、undo、権限境界を定義する。
-
 - 自動修正を既定で有効化せず、ユーザー確認を必須にする。
 
 ## P2: 開発基盤の改善
@@ -174,6 +235,7 @@
 - `*2idx` ツールの仕様・非目標の整理
 - MCP、Skills、APMの開発手順の統合
 - 実装済み機能と古い設計記録の分離
+- v0.7.14以前のMemory V3 staged-status記述を現行実装statusへ更新
 - ドキュメント内リンクの継続検査
 
 ## 完了・保留へ移す基準
@@ -194,5 +256,6 @@
 
 | 日付 | 内容 |
 |---|---|
+| 2026-09-24 | v0.7.14実装レビューを反映し、Memory V3 rollout/security completionをP0、Scheduler durable dispatchをP1へ追加 |
 | 2026-09-23 | GitLab MCP / OAuth連携計画をP1へ追加 |
 | 2026-08-06 | 初版。既存ドキュメントの未実装・将来対応項目を集約 |
