@@ -96,6 +96,35 @@ def test_scheduler_store_uses_wal_journal(tmp_path):
         assert db.execute("PRAGMA journal_mode").fetchone()[0].lower() == "wal"
 
 
+def test_scheduler_reclaims_expired_orphan_lease(tmp_path):
+    import sqlite3
+    from datetime import timedelta
+
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    schedules.add_item(
+        ScheduleItem(
+            id="orphan-1",
+            type=SCHEDULE_TYPE_ONCE,
+            at=format_iso_datetime(utc_now() - timedelta(seconds=1)),
+            owner_instance_id="instance-a",
+            llm_prompt="recover me",
+        )
+    )
+    with sqlite3.connect(schedules.path) as db:
+        db.execute(
+            "UPDATE schedules SET claim_owner=?, claim_until=? WHERE id=?",
+            ("dead-instance", utc_now().timestamp() - 1, "orphan-1"),
+        )
+    assert schedules.reclaim_expired_claims() == 1
+
+    events = queue.Queue()
+    SchedulerService(
+        events, store=schedules, run_store=runs, instance_id="instance-a"
+    )._fire_due_items()
+    assert events.get_nowait()["schedule_id"] == "orphan-1"
+
+
 def test_scheduler_only_fires_items_owned_by_instance(tmp_path):
     import queue
     from datetime import timedelta

@@ -196,6 +196,19 @@ class SchedulerStore:
             ).fetchone()
             return self._row_to_item(row) if row is not None else None
 
+    def reclaim_expired_claims(self, now: datetime | None = None) -> int:
+        """Clear leases left by a stopped scheduler process."""
+        now_ts = (now or utc_now()).timestamp()
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            result = db.execute(
+                "UPDATE schedules SET claim_owner='', claim_until=0 "
+                "WHERE claim_until > 0 AND claim_until <= ?",
+                (now_ts,),
+            )
+            db.commit()
+            return max(0, int(result.rowcount))
+
     def claim_due_items(
         self, instance_id: str, now: datetime, *, lease_seconds: float = 30.0
     ) -> list[tuple[ScheduleItem, str]]:
