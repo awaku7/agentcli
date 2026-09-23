@@ -155,3 +155,78 @@ def test_room_policy_feeds_projection_and_membership_revocation_invalidates_it(
     store.close()
     with bind_turn_context(turn):
         assert apply_memory_projection(messages, snapshot, core) == messages
+
+
+def test_project_membership_isolation_blocks_projection_for_unassigned_project(
+    tmp_path, monkeypatch
+):
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    store = MemoryStore(memory_path)
+    projects = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    projects.set_membership("root", "demo", "alice", "viewer")
+    projects.set_membership("root", "other", "bob", "editor")
+    other_access = MemoryAccessContext(
+        principal_id="bob",
+        project_id="other",
+        authenticated=True,
+        private_session=True,
+    )
+    ScopedMemoryStore(store, other_access).append("other project secret")
+    store.close()
+
+    messages = [{"role": "user", "content": "show project memory"}]
+    with bind_turn_context(
+        TurnContext(
+            principal_id="alice",
+            room_id="",
+            project_id="other",
+            session_id="session-alice",
+            entry_point="web",
+            authenticated=True,
+            authn_kind="oidc",
+        )
+    ):
+        snapshot = prepare_memory_projection(messages, SimpleNamespace())
+        projected = apply_memory_projection(messages, snapshot, SimpleNamespace())
+
+    assert snapshot is not None
+    assert snapshot.diagnostics["error"] == "MemoryAccessError"
+    assert projected == messages
+
+
+def test_project_membership_revocation_invalidates_active_projection(
+    tmp_path, monkeypatch
+):
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    store = MemoryStore(memory_path)
+    projects = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    projects.set_membership("root", "demo", "alice", "editor")
+    projects.set_membership("root", "demo", "bob", "viewer")
+    record = ScopedMemoryStore(store, _access("alice")).append("project evidence")
+    ScopedMemoryStore(store, _access("alice")).share(
+        record["memory_id"], "bob", expected_revision=1
+    )
+    store.close()
+
+    messages = [{"role": "user", "content": "show project evidence"}]
+    core = SimpleNamespace(memory_private_session_principal="bob")
+    turn = _turn("bob")
+    with bind_turn_context(turn):
+        snapshot = prepare_memory_projection(messages, core)
+        projected = apply_memory_projection(messages, snapshot, core)
+    assert snapshot is not None
+    assert projected != messages
+
+    store = MemoryStore(memory_path)
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).revoke_membership(
+        "root", "demo", "bob"
+    )
+    store.close()
+    with bind_turn_context(turn):
+        assert apply_memory_projection(messages, snapshot, core) == messages

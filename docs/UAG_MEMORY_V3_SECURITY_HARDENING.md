@@ -7,14 +7,14 @@ with the current implementation.
 
 ## Work log
 
-- [ ] Make project authorization server-controlled rather than trusting an arbitrary
+- [x] Make project authorization server-controlled rather than trusting an arbitrary
   request `project_id`.
 - [x] Re-check memory access generation before provider calls, streamed response
   delivery, and tool-loop continuation; revoked output is removed from the active
   Web room history and auto-pilot continuation is skipped.
 - [x] Expose the existing revision-bound read-grant store through the documented
   `/api/me/shared-memories` and grant-management APIs.
-- [ ] Add regression tests for project isolation and invalidation during an active
+- [x] Add regression tests for project isolation and invalidation during an active
   turn; grant lifecycle coverage is now present in `tests/test_memory_v3_web_api.py`.
 - [ ] Reconcile the configuration examples and mark remaining admin/AD features as
   implemented or roadmap items.
