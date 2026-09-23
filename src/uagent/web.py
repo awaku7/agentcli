@@ -47,6 +47,7 @@ from .web_impl.history import (
 )
 from .web_impl.agent_worker import run_agent_worker
 from .web_impl.routes_auth import (
+    admin_auth_status,
     auth_status,
     oidc_callback,
     oidc_login,
@@ -97,6 +98,7 @@ __all__ = [
     "_ensure_room_history_initialized",
     "_genre_enabled",
     "_handle_mode_command",
+    "admin_auth_status",
     "auth_status",
     "_lang_from_accept_language",
     "_load_input_history",

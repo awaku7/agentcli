@@ -19,8 +19,23 @@ class WebConnectionContext:
 
     room_id: str
     identity: IdentityContext
+    configuration_fingerprint: str = ""
+
+    def validate_authentication_configuration(self) -> None:
+        """Reject every message from a connection bound to stale authentication."""
+        if self.configuration_fingerprint:
+            from ..runtime.auth_management import (
+                authentication_configuration_fingerprint,
+            )
+
+            if (
+                self.configuration_fingerprint
+                != authentication_configuration_fingerprint()
+            ):
+                raise IdentityResolutionError("authentication configuration changed")
 
     def make_turn(self, *, project_path: str, session_id: str) -> TurnContext:
+        self.validate_authentication_configuration()
         return TurnContext.from_identity(
             self.identity,
             room_id=self.room_id,
@@ -32,6 +47,9 @@ class WebConnectionContext:
 
 def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionContext:
     """Resolve the selected identity mode before joining a room."""
+    from ..runtime.auth_management import authentication_configuration_fingerprint
+
+    configuration_fingerprint = authentication_configuration_fingerprint()
     identity, _ = resolve_turn_context(
         entry_point="web", room_id=room_id, request_context=websocket
     )
@@ -55,4 +73,11 @@ def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionCont
             raise IdentityResolutionError("room membership is required")
     finally:
         store.close()
-    return WebConnectionContext(room_id=room_id, identity=identity)
+    if configuration_fingerprint != authentication_configuration_fingerprint():
+        raise IdentityResolutionError("authentication configuration changed")
+
+    return WebConnectionContext(
+        room_id=room_id,
+        identity=identity,
+        configuration_fingerprint=configuration_fingerprint,
+    )

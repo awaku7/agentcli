@@ -13,6 +13,10 @@ from ..i18n import _, set_thread_lang
 from .. import core
 from ..env_utils import env_get
 from ..runtime import runtime_init as _runtime_init
+from ..runtime.identity_context import (
+    IdentityConfigurationError,
+    IdentityResolutionError,
+)
 from ..welcome import get_welcome_message
 from .. import util_tools as tools_util
 from .helpers import _enrich_message_attachments, _load_input_history
@@ -25,6 +29,7 @@ class WebRoom:
         self.lang: str = "en"
 
         self.active_connections: list[WebSocket] = []
+        self._connection_contexts: dict[int, Any] = {}
         self.messages: list[dict[str, Any]] = []  # UI display
         self.status: dict[str, Any] = {"busy": False, "label": "IDLE", "workdir": ""}
 
@@ -78,11 +83,14 @@ class WebRoom:
             % {"old": old, "new": resolved}
         )
 
-    async def connect(self, websocket: WebSocket):
+    async def connect(self, websocket: WebSocket, connection_context: Any = None):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
+            await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
             self.active_connections.append(websocket)
+            if connection_context is not None:
+                self._connection_contexts[id(websocket)] = connection_context
 
             msgs = self.messages
             if self.history:
@@ -149,6 +157,7 @@ class WebRoom:
 
             # Bootstrap input history from persisted file
             input_history = _load_input_history()
+            await self._validate_connection_context(websocket, connection_context)
             await websocket.send_json(
                 {
                     "type": "init",
@@ -167,6 +176,9 @@ class WebRoom:
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
+                    await self._validate_connection_context(
+                        websocket, connection_context
+                    )
                     await websocket.send_json(
                         {
                             "type": "human_ask",
@@ -181,16 +193,40 @@ class WebRoom:
         finally:
             set_thread_lang(None)
 
+    async def _validate_connection_context(
+        self, websocket: WebSocket, connection_context: Any
+    ) -> None:
+        if connection_context is None:
+            return
+        try:
+            connection_context.validate_authentication_configuration()
+        except (IdentityConfigurationError, IdentityResolutionError):
+            self.disconnect(websocket)
+            try:
+                await websocket.close(code=1008)
+            except Exception:
+                pass
+            raise
+
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
+        self._connection_contexts.pop(id(websocket), None)
 
     async def broadcast(self, data: dict[str, Any]):
         for connection in list(self.active_connections):
+            connection_context = self._connection_contexts.get(id(connection))
+            if connection_context is not None:
+                try:
+                    await self._validate_connection_context(
+                        connection, connection_context
+                    )
+                except (IdentityConfigurationError, IdentityResolutionError):
+                    continue
             try:
                 await connection.send_json(data)
             except Exception:
-                pass
+                self.disconnect(connection)
 
     def set_status(self, busy: bool, label: str = ""):
         workdir = self.base_dir
