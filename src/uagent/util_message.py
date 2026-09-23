@@ -157,6 +157,10 @@ def _format_skill_system_content(
     header = " ".join(header_parts)
     body_text = body.strip()
     exec_instructions = "\n\n" + _(
+        "[Skill selected by the user]\n"
+        "The user selected the exact skill identified in this message. Treat it as the active skill. "
+        "Do not substitute, load, or follow a different skill based on earlier skill listings, tool results, or conversation history. "
+        "Switch skills only if the user explicitly selects or requests a different skill.\n\n"
         "[Skill execution]\n"
         "This skill is intended to be run. Read the skill body carefully and follow the instructions.\n"
         "If the skill contains tasks, continue until they are complete.\n"
