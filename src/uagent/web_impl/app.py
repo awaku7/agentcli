@@ -43,8 +43,8 @@ def _ensure_memory_store_tracking() -> None:
     """Track MemoryStore instances opened by Web API routes for this request.
 
     routes_api imports ``open_memory_store`` directly, so install a lightweight
-    wrapper around that module-local reference.  The wrapper uses a ContextVar,
-    which keeps concurrently executing requests isolated.  Re-check on every
+    wrapper around that module-local reference. The wrapper uses a ContextVar,
+    which keeps concurrently executing requests isolated. Re-check on every
     request so tests or integrations that replace the factory are wrapped too.
     """
     from . import routes_api
@@ -68,7 +68,6 @@ def _ensure_memory_store_tracking() -> None:
 @app.middleware("http")
 async def _close_request_memory_stores(request: Request, call_next):
     """Always close MemoryStore handles created while serving one HTTP request."""
-    del request
     _ensure_memory_store_tracking()
     opened: list[Any] = []
     token = _request_memory_stores.set(opened)
