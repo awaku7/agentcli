@@ -224,6 +224,75 @@ def test_explicit_orphan_reclaim_recovers_schedule_before_outbox_creation(tmp_pa
     assert schedules.get_item("outbox-pre-finalize") is None
 
 
+def test_reclaim_after_run_creation_reuses_same_idempotent_run(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    _add_due_schedule(schedules, "outbox-run-created", "instance-a")
+
+    due = schedules.claim_due_items("instance-a", utc_now())
+    assert len(due) == 1
+    item, due_at = due[0]
+    original_run = runs.create(
+        item.id,
+        idempotency_key=f"{item.id}:{due_at}",
+        metadata={"llm_prompt": item.llm_prompt},
+    )
+
+    reclaimed = schedules.reclaim_orphaned_instance("instance-a", "instance-b")
+    assert reclaimed == {"schedules": 1, "events": 0}
+
+    events = queue.Queue()
+    SchedulerService(
+        events,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-b",
+        poll_interval_s=0.1,
+    )._fire_due_items()
+
+    event = events.get_nowait()
+    assert event["run_id"] == original_run.run_id
+    assert len(runs.list(schedule_id=item.id)) == 1
+
+
+def test_reclaim_redelivers_event_queued_but_not_dequeued_before_crash(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    _add_due_schedule(schedules, "outbox-before-dequeue", "instance-a")
+
+    abandoned_queue = queue.Queue()
+    SchedulerService(
+        abandoned_queue,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-a",
+        poll_interval_s=0.1,
+    )._fire_due_items()
+
+    assert abandoned_queue.qsize() == 1
+    pending = schedules.list_events("pending")
+    assert len(pending) == 1
+    assert pending[0]["claim_owner"] == "instance-a"
+
+    reclaimed = schedules.reclaim_orphaned_instance("instance-a", "instance-b")
+    assert reclaimed == {"schedules": 0, "events": 1}
+
+    recovered_queue = queue.Queue()
+    SchedulerService(
+        recovered_queue,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-b",
+        poll_interval_s=0.1,
+    )._fire_due_items()
+
+    event = recovered_queue.get_nowait()
+    assert event["schedule_id"] == "outbox-before-dequeue"
+    assert event["owner_instance_id"] == "instance-b"
+    assert event["reclaimed_from_instance_id"] == "instance-a"
+    assert schedules.list_events("pending") == []
+
+
 def test_outbox_rows_are_not_written_when_schedule_claim_is_lost(tmp_path):
     schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
     _add_due_schedule(schedules, "outbox-4", "instance-a")
