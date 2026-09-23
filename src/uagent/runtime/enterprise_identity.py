@@ -108,14 +108,21 @@ class EnvironmentDirectoryGroupPolicyAdapter:
             group_id = str(group or "").strip()
             if not group_id or not isinstance(value, Mapping):
                 raise IdentityConfigurationError("invalid directory group policy entry")
+            administrator_value = value.get("administrator", False)
+            if not isinstance(administrator_value, bool):
+                raise IdentityConfigurationError(
+                    "directory policy administrator must be a boolean"
+                )
             projects = value.get("projects", ())
             if not isinstance(projects, (list, tuple)):
                 raise IdentityConfigurationError(
                     "directory policy projects must be a list"
                 )
-            project_ids = tuple(
-                sorted({str(item).strip() for item in projects if str(item).strip()})
-            )
+            if any(not isinstance(item, str) or not item.strip() for item in projects):
+                raise IdentityConfigurationError(
+                    "directory policy project identifiers must be non-empty strings"
+                )
+            project_ids = tuple(sorted({item.strip() for item in projects}))
             rooms = value.get("rooms", {})
             if not isinstance(rooms, Mapping):
                 raise IdentityConfigurationError(
@@ -123,15 +130,19 @@ class EnvironmentDirectoryGroupPolicyAdapter:
                 )
             room_roles: list[tuple[str, str]] = []
             for room_id, role in rooms.items():
-                room_key = str(room_id or "").strip()
-                room_role = str(role or "").strip().lower()
+                if not isinstance(room_id, str) or not isinstance(role, str):
+                    raise IdentityConfigurationError(
+                        "directory policy room identifiers and roles must be strings"
+                    )
+                room_key = room_id.strip()
+                room_role = role.strip().lower()
                 if not room_key or room_role not in self._ROOM_ROLES:
                     raise IdentityConfigurationError(
                         "invalid directory room policy role"
                     )
                 room_roles.append((room_key, room_role))
             parsed[group_id] = (
-                bool(value.get("administrator", False)),
+                administrator_value,
                 project_ids,
                 tuple(sorted(room_roles)),
             )
@@ -402,6 +413,14 @@ def directory_group_policy_assignments(
     return assignments
 
 
+def directory_group_policy_is_configured() -> bool:
+    """Return whether group-policy evaluation has an authoritative source."""
+    with _ADAPTER_LOCK:
+        if _GROUP_POLICY_ADAPTER is not None:
+            return True
+    return bool(str(env_get("UAGENT_DIRECTORY_GROUP_POLICY", "") or "").strip())
+
+
 def register_enterprise_identity_verifier(
     mode: str, verifier: CredentialVerifier | None
 ) -> None:
@@ -452,6 +471,7 @@ __all__ = [
     "CredentialVerifier",
     "DirectoryGroupPolicyAdapter",
     "directory_group_policy_assignments",
+    "directory_group_policy_is_configured",
     "EnvironmentDirectoryGroupPolicyAdapter",
     "ExternalIdentityResolver",
     "GroupPolicyAssignments",
