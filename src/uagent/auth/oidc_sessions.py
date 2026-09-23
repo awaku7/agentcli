@@ -103,11 +103,9 @@ class OIDCSessionStore:
         if not token:
             return None
         key = self._key(token)
-        # Take an optimistic snapshot before waiting, then take the
-        # authoritative snapshot while holding the store lock.  The latter
-        # prevents a rotation that happened while waiting from causing us to
-        # prune sessions using a stale fingerprint.
-        self._configuration_fingerprint()
+        # Read the authoritative configuration revision while holding the
+        # store lock so a rotation during lock acquisition cannot make us
+        # prune with a stale fingerprint.
         with self._lock:
             configuration_fingerprint = self._configuration_fingerprint()
             now = self._clock()

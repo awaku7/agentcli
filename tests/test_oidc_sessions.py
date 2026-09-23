@@ -49,15 +49,20 @@ def test_oidc_sessions_are_invalidated_when_authentication_config_changes() -> N
     assert store.active_count() == 0
 
 
-def test_session_resolution_uses_fingerprint_read_after_lock() -> None:
-    revisions = iter(("revision-2", "revision-2"))
-    store = OIDCSessionStore(configuration_fingerprint=lambda: next(revisions))
-    token = store.create(IdentityContext("oidc:user", True, "oidc"))
+def test_session_resolution_reads_fingerprint_under_lock() -> None:
+    lock_states: list[bool] = []
+    store: OIDCSessionStore
 
-    # The first read observes an older value while waiting for the lock; the
-    # second read is the authoritative value used for pruning and validation.
-    revisions = iter(("revision-1", "revision-2"))
+    def fingerprint() -> str:
+        lock_states.append(store._lock.locked())
+        return "stable"
+
+    store = OIDCSessionStore(configuration_fingerprint=fingerprint)
+    token = store.create(IdentityContext("oidc:user", True, "oidc"))
+    lock_states.clear()
+
     assert store.resolve(token) == IdentityContext("oidc:user", True, "oidc")
+    assert lock_states == [True]
 
 
 def test_active_count_reads_fingerprint_under_lock() -> None:
