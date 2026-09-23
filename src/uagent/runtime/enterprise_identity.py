@@ -75,6 +75,93 @@ class DirectoryGroupPolicyAdapter(Protocol):
     ) -> GroupPolicyAssignments: ...
 
 
+class EnvironmentDirectoryGroupPolicyAdapter:
+    """Strict JSON mapping for verified AD/Entra group identifiers."""
+
+    _ROOM_ROLES = {"admin", "editor", "member"}
+
+    def __init__(self, raw: str | None = None) -> None:
+        text = str(
+            raw
+            if raw is not None
+            else env_get("UAGENT_DIRECTORY_GROUP_POLICY", "") or ""
+        ).strip()
+        if not text:
+            raise IdentityConfigurationError(
+                "directory group policy configuration is missing"
+            )
+        try:
+            document = json.loads(text)
+        except json.JSONDecodeError as exc:
+            raise IdentityConfigurationError(
+                "invalid directory group policy configuration"
+            ) from exc
+        groups = document.get("groups") if isinstance(document, Mapping) else None
+        if not isinstance(groups, Mapping):
+            raise IdentityConfigurationError(
+                "directory group policy groups must be an object"
+            )
+        parsed: dict[str, tuple[bool, tuple[str, ...], tuple[tuple[str, str], ...]]] = (
+            {}
+        )
+        for group, value in groups.items():
+            group_id = str(group or "").strip()
+            if not group_id or not isinstance(value, Mapping):
+                raise IdentityConfigurationError("invalid directory group policy entry")
+            projects = value.get("projects", ())
+            if not isinstance(projects, (list, tuple)):
+                raise IdentityConfigurationError(
+                    "directory policy projects must be a list"
+                )
+            project_ids = tuple(
+                sorted({str(item).strip() for item in projects if str(item).strip()})
+            )
+            rooms = value.get("rooms", {})
+            if not isinstance(rooms, Mapping):
+                raise IdentityConfigurationError(
+                    "directory policy rooms must be an object"
+                )
+            room_roles: list[tuple[str, str]] = []
+            for room_id, role in rooms.items():
+                room_key = str(room_id or "").strip()
+                room_role = str(role or "").strip().lower()
+                if not room_key or room_role not in self._ROOM_ROLES:
+                    raise IdentityConfigurationError(
+                        "invalid directory room policy role"
+                    )
+                room_roles.append((room_key, room_role))
+            parsed[group_id] = (
+                bool(value.get("administrator", False)),
+                project_ids,
+                tuple(sorted(room_roles)),
+            )
+        self._groups = parsed
+
+    def map_groups(
+        self, identity: IdentityContext, groups: tuple[str, ...]
+    ) -> GroupPolicyAssignments:
+        del identity
+        administrator = False
+        projects: set[str] = set()
+        rooms: dict[str, str] = {}
+        rank = {"member": 0, "editor": 1, "admin": 2}
+        for group in groups:
+            assignment = self._groups.get(group)
+            if assignment is None:
+                continue
+            group_admin, group_projects, group_rooms = assignment
+            administrator = administrator or group_admin
+            projects.update(group_projects)
+            for room_id, role in group_rooms:
+                if rank[role] >= rank.get(rooms.get(room_id, "member"), 0):
+                    rooms[room_id] = role
+        return GroupPolicyAssignments(
+            administrator=administrator,
+            project_ids=tuple(sorted(projects)),
+            room_roles=tuple(sorted(rooms.items())),
+        )
+
+
 def _headers(request_context: Any) -> dict[str, str]:
     source = getattr(request_context, "headers", None) or {}
     try:
@@ -294,6 +381,10 @@ def directory_group_policy_assignments(
     """Map verified groups to authorization-only assignments."""
     with _ADAPTER_LOCK:
         adapter = _GROUP_POLICY_ADAPTER
+    if adapter is None:
+        raw = str(env_get("UAGENT_DIRECTORY_GROUP_POLICY", "") or "").strip()
+        if raw:
+            adapter = EnvironmentDirectoryGroupPolicyAdapter(raw)
     if adapter is None or not identity.groups:
         return GroupPolicyAssignments()
     try:
@@ -361,6 +452,7 @@ __all__ = [
     "CredentialVerifier",
     "DirectoryGroupPolicyAdapter",
     "directory_group_policy_assignments",
+    "EnvironmentDirectoryGroupPolicyAdapter",
     "ExternalIdentityResolver",
     "GroupPolicyAssignments",
     "OAuthIdentityResolver",

@@ -19,6 +19,30 @@ class _DirectoryPolicy:
         )
 
 
+def test_environment_directory_group_policy_adapter(monkeypatch):
+    import json
+
+    from uagent.runtime.enterprise_identity import directory_group_policy_assignments
+
+    monkeypatch.setenv(
+        "UAGENT_DIRECTORY_GROUP_POLICY",
+        json.dumps(
+            {
+                "groups": {
+                    "engineering": {
+                        "projects": ["demo"],
+                        "rooms": {"room-x": "editor"},
+                    }
+                }
+            }
+        ),
+    )
+    identity = IdentityContext("user", True, "windows_ad", groups=("engineering",))
+    assignments = directory_group_policy_assignments(identity)
+    assert assignments.project_ids == ("demo",)
+    assert assignments.room_roles == (("room-x", "editor"),)
+
+
 def test_directory_group_assignments_sync_without_storing_groups(tmp_path):
     store = MemoryStore(tmp_path / "memory.sqlite3")
     policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
