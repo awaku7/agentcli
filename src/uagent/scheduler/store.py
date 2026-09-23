@@ -304,9 +304,7 @@ class SchedulerStore:
                 if not run_id or not kind:
                     raise ValueError("scheduler event requires run_id and kind")
                 event_key = f"{run_id}:{ordinal}:{kind}"
-                target_instance_id = str(
-                    payload.get("owner_instance_id") or ""
-                ).strip()
+                target_instance_id = str(payload.get("owner_instance_id") or "").strip()
                 db.execute(
                     "INSERT OR IGNORE INTO scheduler_events ("
                     "event_key,schedule_id,run_id,target_instance_id,payload,status,"
