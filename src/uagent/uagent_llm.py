@@ -2758,9 +2758,9 @@ def run_llm_rounds(
     # Keep the safety cap conservative, while allowing explicit override for
     # genuinely long workflows.
     try:
-        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "64")))
+        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "128")))
     except (TypeError, ValueError):
-        max_tool_rounds = 64
+        max_tool_rounds = 128
     round_count = 0
 
     empty_no_tool_rounds = 0

@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | További bővítménykeresési könyvtárak |
 | `UAGENT_AUTO_SENTINEL` | `1` értékre állítva bekapcsolja az egyetlen LLM-es autopilóta őrszolgálati módot |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | A legfeljebb egymást követő friss eszközhívások száma (alapértelmezett: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Felhasználónkénti műveletenkénti maximális LLM/eszköz-körök száma (alapértelmezett: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Felhasználónkénti műveletenkénti maximális LLM/eszköz-körök száma (alapértelmezett: `128`) |
 | `UAGENT_SHRINK_CNT` | Opcionális automatikus üzenet-összezsugorítási küszöbérték (`0`/beállítatlan = letiltva) |
 | `UAGENT_SHRINK_KEEP_LAST` | A zsugorítás után megőrzendő üzenetek száma (alapértelmezett: `20`) |
 | `UAGENT_LANG` | Felület nyelve (`ja`, `en` stb.) |

@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Ytterligare sökkataloger för plugin-program |
 | `UAGENT_AUTO_SENTINEL` | Välj att använda automatiskt sentinel-läge för enstaka LLM när inställt på `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximalt antal på varandra följande nya verktygsanrop (standard: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Maximalt antal LLM/verktygsrundor per användaroperation (standard: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Maximalt antal LLM/verktygsrundor per användaroperation (standard: `128`) |
 | `UAGENT_SHRINK_CNT` | Valfritt tröskelvärde för automatisk komprimering av meddelanden (`0`/ej inställt = inaktiverat) |
 | `UAGENT_SHRINK_KEEP_LAST` | Antal meddelanden som ska behållas efter komprimering (standard: `20`) |
 | `UAGENT_LANG` | Gränssnittsspråk (`ja`, `en`, etc.) |

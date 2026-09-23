@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Các thư mục tìm kiếm plugin bổ sung |
 | `UAGENT_AUTO_SENTINEL` | Chọn tham gia chế độ sentinel tự động điều khiển duy nhất khi đặt thành `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Số lần gọi công cụ mới liên tiếp tối đa (mặc định: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Số vòng LLM/công cụ tối đa cho mỗi thao tác của người dùng (mặc định: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Số vòng LLM/công cụ tối đa cho mỗi thao tác của người dùng (mặc định: `128`) |
 | `UAGENT_SHRINK_CNT` | Ngưỡng thu gọn tự động tùy chọn trong tin nhắn (`0`/chưa thiết lập = tắt) |
 | `UAGENT_SHRINK_KEEP_LAST` | Số tin nhắn cần giữ lại sau khi thu gọn (mặc định: `20`) |
 | `UAGENT_LANG` | Ngôn ngữ giao diện (`ja`, `en`, v.v.) |

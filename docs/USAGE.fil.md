@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Karagdagang direktoryo ng paghahanap ng plugin |
 | `UAGENT_AUTO_SENTINEL` | Sumali sa single-LLM auto-pilot sentinel mode kapag nakatakda sa `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Pinakamataas na magkakasunod na pagtawag sa bagong tool (default: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Pinakamataas na LLM/tool rounds kada operasyon ng gumagamit (default: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Pinakamataas na LLM/tool rounds kada operasyon ng gumagamit (default: `128`) |
 | `UAGENT_SHRINK_CNT` | Opsyonal na threshold para sa auto-shrink sa mga mensahe (`0`/hindi nakatakda = naka-disable) |
 | `UAGENT_SHRINK_KEEP_LAST` | Mga mensaheng panatilihin pagkatapos ng shrink (default: `20`) |
 | `UAGENT_LANG` | Wika ng interface (`ja`, `en`, atbp.) |

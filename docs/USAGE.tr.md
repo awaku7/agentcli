@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Ek eklenti arama dizinleri |
 | `UAGENT_AUTO_SENTINEL` | `1` olarak ayarlandığında tekli LLM otomatik pilot sentinel modunu etkinleştir |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maksimum ardışık yeni araç çağrısı sayısı (varsayılan: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Kullanıcı işlemi başına maksimum LLM/araç turu sayısı (varsayılan: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Kullanıcı işlemi başına maksimum LLM/araç turu sayısı (varsayılan: `128`) |
 | `UAGENT_SHRINK_CNT` | Mesajlarda isteğe bağlı otomatik küçültme eşiği (`0`/ayarlanmamış = devre dışı) |
 | `UAGENT_SHRINK_KEEP_LAST` | Küçültme işleminden sonra saklanacak mesaj sayısı (varsayılan: `20`) |
 | `UAGENT_LANG` | Arayüz dili (`ja`, `en`, vb.) |

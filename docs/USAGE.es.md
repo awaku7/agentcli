@@ -210,7 +210,7 @@ ______________________________________________________________________
 | `UAGENT_PLUGIN_DIRS` | Directorios adicionales de búsqueda de complementos |
 | `UAGENT_AUTO_SENTINEL` | Activa el modo centinela de piloto automático único de LLM cuando se establece en `1` |
 | `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Número máximo de llamadas consecutivas a herramientas nuevas (por defecto: `100`) |
-| `UAGENT_MAX_TOOL_ROUNDS` | Número máximo de rondas de LLM por herramienta por operación de usuario (por defecto: `200`) |
+| `UAGENT_MAX_TOOL_ROUNDS` | Número máximo de rondas de LLM por herramienta por operación de usuario (por defecto: `128`) |
 | `UAGENT_SHRINK_CNT` | Umbral opcional de reducción automática en los mensajes (`0`/sin configurar = desactivado) |
 | `UAGENT_SHRINK_KEEP_LAST` | Mensajes que se conservarán tras la reducción (por defecto: `20`) |
 | `UAGENT_LANG` | Idioma de la interfaz (`ja`, `en`, etc.) |
