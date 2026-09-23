@@ -14,6 +14,18 @@ from uagent.web_impl import connection_identity
 
 
 def test_same_room_connections_keep_distinct_principals(tmp_path, monkeypatch):
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.room_access import RoomAccessPolicy
+
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    store = MemoryStore(memory_path)
+    policy = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.set_membership("root", "shared", "user-A", "member")
+    policy.set_membership("root", "shared", "user-B", "member")
+    store.close()
+
     def resolve(*, request_context, **kwargs):
         del kwargs
         identity = IdentityContext(request_context, True, "test")
