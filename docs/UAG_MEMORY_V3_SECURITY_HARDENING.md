@@ -19,18 +19,25 @@ with the current implementation.
 - [ ] Reconcile the configuration examples and mark remaining admin/AD features as
   implemented or roadmap items.
 
-## Decision required before project hardening
+## Project authorization decision
 
-The current Web API accepts a project identifier because the architecture document does
-not yet define a project membership/policy source for HTTP requests. The next project
-hardening change must choose one of these explicit contracts before changing behavior:
+The project boundary is now specified as **server-bound `ProjectContext` plus
+server-side project membership policy**. A client-supplied `project_id` is only a
+selector that must match the bound context; it is never an authorization grant.
 
-1. derive the project only from a server-bound `TurnContext`/workspace, or
-2. add a server-side project policy (including the AD/Entra group mapping source).
+Implementation requirements:
 
-Until that decision is implemented, callers must not treat a client-supplied
-`project_id` as an authorization grant. The current hardening branch records this as
-an open security item rather than silently inventing a policy.
+- derive WebSocket projects from the authenticated workspace/`TurnContext`;
+- derive HTTP projects from the authenticated workspace or a configured single-project
+  deployment, failing closed when no binding exists;
+- add project memberships with `viewer` / `editor` / `admin` roles and generations;
+- require project membership before room membership, audience, or per-record grants;
+- bind rooms to exactly one project and invalidate snapshots/continuations on policy
+  changes;
+- use AD/Entra groups only as a policy source, never as ownership keys.
+
+The current API still accepts a request `project_id`, so this item remains open until
+that input is constrained by the server-bound context and policy implementation.
 
 ## Current baseline
 
