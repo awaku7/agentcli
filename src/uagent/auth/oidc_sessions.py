@@ -17,6 +17,7 @@ from ..runtime.identity_context import IdentityContext
 class _StoredSession:
     identity: IdentityContext
     expires_at: float
+    configuration_fingerprint: str
 
 
 class OIDCSessionStore:
@@ -28,12 +29,16 @@ class OIDCSessionStore:
         ttl_seconds: float = 8 * 60 * 60,
         max_sessions: int = 4096,
         clock: Callable[[], float] = time.monotonic,
+        configuration_fingerprint: Callable[[], str] | None = None,
     ) -> None:
         if ttl_seconds <= 0 or max_sessions <= 0:
             raise ValueError("OIDC session limits must be positive")
         self._ttl_seconds = ttl_seconds
         self._max_sessions = max_sessions
         self._clock = clock
+        self._configuration_fingerprint = (
+            configuration_fingerprint or _authentication_configuration_fingerprint
+        )
         self._lock = threading.Lock()
         self._sessions: dict[str, _StoredSession] = {}
 
@@ -53,6 +58,7 @@ class OIDCSessionStore:
             self._sessions[self._key(token)] = _StoredSession(
                 identity=identity,
                 expires_at=now + self._ttl_seconds,
+                configuration_fingerprint=self._configuration_fingerprint(),
             )
         return token
 
@@ -69,6 +75,9 @@ class OIDCSessionStore:
             if now >= stored.expires_at:
                 del self._sessions[key]
                 return None
+            if stored.configuration_fingerprint != self._configuration_fingerprint():
+                del self._sessions[key]
+                return None
             return stored.identity
 
     def revoke(self, token: str) -> None:
@@ -77,10 +86,28 @@ class OIDCSessionStore:
         with self._lock:
             self._sessions.pop(self._key(token), None)
 
+    def revoke_all(self) -> int:
+        """Invalidate all browser sessions and return the number removed."""
+        with self._lock:
+            count = len(self._sessions)
+            self._sessions.clear()
+            return count
+
+    def active_count(self) -> int:
+        with self._lock:
+            self._prune(self._clock())
+            return len(self._sessions)
+
     def _prune(self, now: float) -> None:
         for key, stored in list(self._sessions.items()):
             if now >= stored.expires_at:
                 del self._sessions[key]
+
+
+def _authentication_configuration_fingerprint() -> str:
+    from ..runtime.auth_management import authentication_configuration_fingerprint
+
+    return authentication_configuration_fingerprint()
 
 
 _DEFAULT_SESSION_STORE: OIDCSessionStore | None = None

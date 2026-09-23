@@ -14,12 +14,14 @@ from ..auth.oidc_sessions import get_oidc_session_store
 from ..auth.oidc_transactions import OIDCTransactionStore
 from ..auth.oidc_verifier import discover_provider
 from ..env_utils import env_get
+from ..runtime.auth_management import validate_authentication_configuration
 from ..runtime.identity_context import (
     IdentityConfigurationError,
     IdentityResolutionError,
     create_identity_resolver,
     resolve_identity_mode,
 )
+from ..runtime.room_access import configured_admin_principals
 from .app import app
 
 OIDC_BINDING_COOKIE = "uag_oidc_binding"
@@ -147,16 +149,36 @@ async def oidc_callback(
 
 @app.get("/api/auth/status")
 async def auth_status(request: Request):
-    """Return the current principal without exposing token material."""
+    """Return safe mode health and current sign-in state without secret material."""
+    report = validate_authentication_configuration().public_dict()
     try:
         identity = create_identity_resolver().resolve(request)
     except (IdentityConfigurationError, IdentityResolutionError):
-        return JSONResponse(status_code=401, content={"authenticated": False})
+        return {**report, "authenticated": False}
     return {
+        **report,
         "authenticated": bool(identity.authenticated),
-        "principal_id": identity.principal_id,
         "authn_kind": identity.authn_kind,
         "display_name": identity.display_name,
+    }
+
+
+@app.get("/api/admin/auth/status")
+async def admin_auth_status(request: Request):
+    """Return operational authentication health to configured administrators."""
+    try:
+        identity = create_identity_resolver().resolve(request)
+    except (IdentityConfigurationError, IdentityResolutionError):
+        return JSONResponse(
+            status_code=401, content={"error": "authentication required"}
+        )
+    if identity.principal_id not in configured_admin_principals():
+        return JSONResponse(
+            status_code=403, content={"error": "administrator required"}
+        )
+    return {
+        **validate_authentication_configuration().public_dict(),
+        "active_oidc_sessions": get_oidc_session_store().active_count(),
     }
 
 
@@ -171,4 +193,10 @@ async def oidc_logout(request: Request):
     return response
 
 
-__all__ = ["auth_status", "oidc_callback", "oidc_login", "oidc_logout"]
+__all__ = [
+    "admin_auth_status",
+    "auth_status",
+    "oidc_callback",
+    "oidc_login",
+    "oidc_logout",
+]

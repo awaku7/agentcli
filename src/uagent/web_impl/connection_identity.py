@@ -19,8 +19,19 @@ class WebConnectionContext:
 
     room_id: str
     identity: IdentityContext
+    configuration_fingerprint: str = ""
 
     def make_turn(self, *, project_path: str, session_id: str) -> TurnContext:
+        if self.configuration_fingerprint:
+            from ..runtime.auth_management import (
+                authentication_configuration_fingerprint,
+            )
+
+            if (
+                self.configuration_fingerprint
+                != authentication_configuration_fingerprint()
+            ):
+                raise IdentityResolutionError("authentication configuration changed")
         return TurnContext.from_identity(
             self.identity,
             room_id=self.room_id,
@@ -55,4 +66,10 @@ def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionCont
             raise IdentityResolutionError("room membership is required")
     finally:
         store.close()
-    return WebConnectionContext(room_id=room_id, identity=identity)
+    from ..runtime.auth_management import authentication_configuration_fingerprint
+
+    return WebConnectionContext(
+        room_id=room_id,
+        identity=identity,
+        configuration_fingerprint=authentication_configuration_fingerprint(),
+    )

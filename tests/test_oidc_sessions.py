@@ -36,3 +36,23 @@ def test_oidc_session_requires_authenticated_identity() -> None:
     store = OIDCSessionStore()
     with pytest.raises(ValueError, match="authenticated"):
         store.create(IdentityContext("anonymous", False, "oidc"))
+
+
+def test_oidc_sessions_are_invalidated_when_authentication_config_changes() -> None:
+    revision = ["revision-1"]
+    store = OIDCSessionStore(configuration_fingerprint=lambda: revision[0])
+    token = store.create(IdentityContext("oidc:user", True, "oidc"))
+
+    assert store.active_count() == 1
+    revision[0] = "revision-2"
+    assert store.resolve(token) is None
+    assert store.active_count() == 0
+
+
+def test_oidc_session_store_can_revoke_all_sessions() -> None:
+    store = OIDCSessionStore(configuration_fingerprint=lambda: "stable")
+    store.create(IdentityContext("oidc:user-a", True, "oidc"))
+    store.create(IdentityContext("oidc:user-b", True, "oidc"))
+
+    assert store.revoke_all() == 2
+    assert store.active_count() == 0

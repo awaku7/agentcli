@@ -125,3 +125,22 @@ def test_web_worker_directory_is_captured_with_turn():
     assert routes.count("project_path=worker_dir") == 2
     expected = "os.chdir(project_path if turn_context is not None else room.base_dir)"
     assert expected in worker
+
+
+def test_web_connection_rejects_turn_after_authentication_config_change(
+    tmp_path, monkeypatch
+):
+    revision = ["revision-1"]
+    monkeypatch.setattr(
+        "uagent.runtime.auth_management.authentication_configuration_fingerprint",
+        lambda: revision[0],
+    )
+    connection = connection_identity.WebConnectionContext(
+        "shared",
+        IdentityContext("user-A", True, "test"),
+        configuration_fingerprint="revision-1",
+    )
+
+    revision[0] = "revision-2"
+    with pytest.raises(IdentityResolutionError, match="configuration changed"):
+        connection.make_turn(project_path=str(tmp_path), session_id="session-1")

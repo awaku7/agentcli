@@ -7,6 +7,7 @@ import hashlib
 import hmac
 import ipaddress
 import json
+import threading
 from typing import Any, Mapping, Protocol
 
 from ..env_utils import env_get
@@ -268,6 +269,8 @@ class TokenIdentityResolver(IdentityResolver):
 
 
 _ADAPTER_VERIFIERS: dict[str, CredentialVerifier] = {}
+_ADAPTER_LOCK = threading.Lock()
+_ADAPTER_GENERATION = 0
 
 
 def register_enterprise_identity_verifier(
@@ -277,12 +280,22 @@ def register_enterprise_identity_verifier(
     selected = str(mode or "").strip().lower()
     if selected not in {"oauth", "windows_ad", "external"}:
         raise ValueError("mode does not use an enterprise verifier")
-    if verifier is None:
-        _ADAPTER_VERIFIERS.pop(selected, None)
-    elif callable(verifier):
-        _ADAPTER_VERIFIERS[selected] = verifier
-    else:
-        raise TypeError("verifier must be callable")
+    global _ADAPTER_GENERATION
+    with _ADAPTER_LOCK:
+        if verifier is None:
+            _ADAPTER_VERIFIERS.pop(selected, None)
+        elif callable(verifier):
+            _ADAPTER_VERIFIERS[selected] = verifier
+        else:
+            raise TypeError("verifier must be callable")
+        _ADAPTER_GENERATION += 1
+
+
+def enterprise_identity_adapter_state(mode: str) -> tuple[bool, int]:
+    """Return non-secret adapter state for validation and session binding."""
+    selected = str(mode or "").strip().lower()
+    with _ADAPTER_LOCK:
+        return selected in _ADAPTER_VERIFIERS, _ADAPTER_GENERATION
 
 
 def enterprise_resolver(mode: str) -> IdentityResolver:
@@ -317,6 +330,7 @@ __all__ = [
     "VerifiedEnterpriseIdentity",
     "WindowsADIdentityResolver",
     "enterprise_resolver",
+    "enterprise_identity_adapter_state",
     "opaque_principal_id",
     "register_enterprise_identity_verifier",
 ]

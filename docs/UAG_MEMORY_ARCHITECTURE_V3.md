@@ -1045,7 +1045,7 @@ Session count
 Last authentication error summary
 ```
 
-secret / token 自体は表示しない。
+secret / token 自体は表示しない。\n\n実装では一般向け `GET /api/auth/status` は mode、configuration health、認証済み状態、表示名だけを返す。`GET /api/admin/auth/status` は設定済み administrator に限定し、同じ安全な診断と process-local OIDC session count を返す。raw principal subject、token、client secret、token registry entry、設定 fingerprint は返さない。\n\nsecret は environment、secret store、deployment platform の credential mechanism から読み込み、repository、Memory store、通常の管理 UI state へ保存しない。設定 fingerprint は mode と security-sensitive setting を process 内で hash 化した失効判定専用値であり、API や log へ公開しない。
 
 選択可能な mode:
 
@@ -1353,7 +1353,7 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 - session invalidation on security-sensitive mode changes
 - secret handling boundary documentation
 
-完了条件: 選択中の認証方式と健全性を安全に管理できる。
+完了条件: 選択中の認証方式と健全性を安全に管理できる。\n\n実装時は authentication configuration fingerprint を OIDC session と WebConnectionContext に binding する。mode、provider、client、secret、trusted boundary、token registry、enterprise adapter registration の変更後は、旧 OIDC session を次回解決時に失効させ、接続済み WebSocket は次の turn 作成を拒否する。
 
 ### PR V3-9: Evaluation / rollout
 
