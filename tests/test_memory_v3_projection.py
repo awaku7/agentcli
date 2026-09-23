@@ -10,6 +10,7 @@ from uagent.runtime.memory_projection import (
     prepare_memory_projection,
 )
 from uagent.runtime.memory_store import MemoryStore
+from uagent.runtime.project_access import ProjectAccessPolicy
 from uagent.runtime.room_access import RoomAccessPolicy, RoomMemoryService
 
 
@@ -45,6 +46,9 @@ def test_identity_bound_projection_attributes_sharing_and_invalidates_revocation
 
     store = MemoryStore(memory_path)
     owner = ScopedMemoryStore(store, _access("alice"))
+    project_policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    project_policy.set_membership("root", "demo", "alice", "editor")
+    project_policy.set_membership("root", "demo", "bob", "viewer")
     record = owner.append("release checklist uses signed tags")
     grant_id = owner.share(record["memory_id"], "bob", expected_revision=1)
     store.close()
@@ -110,6 +114,9 @@ def test_room_policy_feeds_projection_and_membership_revocation_invalidates_it(
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
     monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
     store = MemoryStore(memory_path)
+    project_policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    project_policy.set_membership("root", "demo", "alice", "editor")
+    project_policy.set_membership("root", "demo", "bob", "viewer")
     policy = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
     policy.set_membership("root", "room-x", "alice", "admin")
     policy.set_membership("alice", "room-x", "bob", "member")

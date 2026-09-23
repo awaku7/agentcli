@@ -314,6 +314,11 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
     readable_audiences = tuple(getattr(core, "memory_readable_audiences", ()) or ())
     store = open_memory_store(long_memory._sqlite_path())
     try:
+        from .project_access import ProjectAccessPolicy
+
+        ProjectAccessPolicy(store).require_access(
+            turn.principal_id, turn.project_id, "viewer"
+        )
         if turn.room_id:
             from .room_access import RoomAccessPolicy
 
