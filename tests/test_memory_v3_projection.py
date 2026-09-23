@@ -117,6 +117,7 @@ def test_room_policy_feeds_projection_and_membership_revocation_invalidates_it(
     project_policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
     project_policy.set_membership("root", "demo", "alice", "editor")
     project_policy.set_membership("root", "demo", "bob", "viewer")
+    project_policy.bind_room("root", "demo", "room-x")
     policy = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
     policy.set_membership("root", "room-x", "alice", "admin")
     policy.set_membership("alice", "room-x", "bob", "member")

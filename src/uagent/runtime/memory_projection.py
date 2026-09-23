@@ -316,10 +316,10 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
     try:
         from .project_access import ProjectAccessPolicy
 
-        ProjectAccessPolicy(store).require_access(
-            turn.principal_id, turn.project_id, "viewer"
-        )
+        project_policy = ProjectAccessPolicy(store)
+        project_policy.require_access(turn.principal_id, turn.project_id, "viewer")
         if turn.room_id:
+            project_policy.require_room_binding(turn.project_id, turn.room_id)
             from .room_access import RoomAccessPolicy
 
             policy = RoomAccessPolicy(store)

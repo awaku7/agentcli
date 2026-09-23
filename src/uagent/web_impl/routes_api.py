@@ -410,6 +410,23 @@ async def get_shared_memory(memory_id: str, request: Request, project_id: str = 
         return _memory_error(exc)
 
 
+@app.put("/api/projects/{project_id}/rooms/{room_id}")
+async def bind_project_room(project_id: str, room_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        bound_project = _project_id(project_id)
+        store = _memory_store()
+        try:
+            ProjectAccessPolicy(store).bind_room(
+                identity.principal_id, bound_project, room_id
+            )
+            return {"ok": True, "project_id": bound_project, "room_id": room_id}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
 @app.get("/api/projects/{project_id}/members")
 async def get_project_members(project_id: str, request: Request):
     try:
@@ -471,9 +488,9 @@ def _room_service(
     identity = _request_identity(request)
     store = _memory_store()
     bound_project = _project_id(project_id)
-    ProjectAccessPolicy(store).require_access(
-        identity.principal_id, bound_project, role
-    )
+    project_policy = ProjectAccessPolicy(store)
+    project_policy.require_access(identity.principal_id, bound_project, role)
+    project_policy.require_room_binding(bound_project, room_id)
     policy = RoomAccessPolicy(store)
     service = RoomMemoryService(
         store,
@@ -557,9 +574,9 @@ async def get_room_members(room_id: str, request: Request, project_id: str = "")
         store = _memory_store()
         try:
             bound_project = _project_id(project_id)
-            ProjectAccessPolicy(store).require_access(
-                identity.principal_id, bound_project, "admin"
-            )
+            project_policy = ProjectAccessPolicy(store)
+            project_policy.require_access(identity.principal_id, bound_project, "admin")
+            project_policy.require_room_binding(bound_project, room_id)
             members = RoomAccessPolicy(store).list_members(
                 identity.principal_id, room_id
             )
@@ -578,9 +595,9 @@ async def set_room_member(room_id: str, principal_id: str, request: Request):
         store = _memory_store()
         try:
             bound_project = _project_id(body.get("project_id", ""))
-            ProjectAccessPolicy(store).require_access(
-                identity.principal_id, bound_project, "admin"
-            )
+            project_policy = ProjectAccessPolicy(store)
+            project_policy.require_access(identity.principal_id, bound_project, "admin")
+            project_policy.require_room_binding(bound_project, room_id)
             membership = RoomAccessPolicy(store).set_membership(
                 identity.principal_id, room_id, principal_id, body.get("role", "")
             )
@@ -599,9 +616,9 @@ async def delete_room_member(room_id: str, principal_id: str, request: Request):
         store = _memory_store()
         try:
             bound_project = _project_id(body.get("project_id", ""))
-            ProjectAccessPolicy(store).require_access(
-                identity.principal_id, bound_project, "admin"
-            )
+            project_policy = ProjectAccessPolicy(store)
+            project_policy.require_access(identity.principal_id, bound_project, "admin")
+            project_policy.require_room_binding(bound_project, room_id)
             RoomAccessPolicy(store).revoke_membership(
                 identity.principal_id, room_id, principal_id
             )
