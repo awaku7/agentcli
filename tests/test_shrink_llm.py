@@ -110,6 +110,25 @@ def test_history_summary_helpers_detect_and_strip():
     assert lmh._messages_have_history_summary(_make_dialog(1)) is False
 
 
+def test_token_count_cache_recounts_after_leading_system_insertion(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    monkeypatch.setattr(lmh, "_token_count_cache", {})
+    messages = [
+        {"role": "system", "content": "system"},
+        {"role": "user", "content": "hello"},
+    ]
+
+    lmh._count_messages_tokens(messages)
+    # Skill activation inserts at the end of the leading system-message block,
+    # not at the end of the whole conversation.
+    messages.insert(1, {"role": "system", "content": "[SKILL] " + ("x" * 120)})
+
+    actual = lmh._count_messages_tokens(messages)
+    expected = sum(len(message["content"]) for message in messages) // 3
+    assert actual == expected
+
+
 def test_compress_first_run_single_summary(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr("uagent.i18n.get_locale", lambda: "ja")
     msgs = _make_dialog(6)

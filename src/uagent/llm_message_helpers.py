@@ -86,8 +86,8 @@ def _init_gemini_cache(
 
 
 # Cache for incremental token counting
-# key = id(messages_list) -> (total_tokens, last_known_length)
-_token_count_cache: dict[int, tuple[int, int]] = {}
+# key = id(messages_list) -> (total_tokens, tuple of message identities)
+_token_count_cache: dict[int, tuple[int, tuple[int, ...]]] = {}
 
 
 def _count_messages_tokens_fallback(messages: list[dict[str, Any]]) -> int:
@@ -160,12 +160,14 @@ def _count_messages_tokens(
     ``llmcapa.count_messages_tokens`` with a resolved model id (provider
     aliases applied). Otherwise falls back to a character-based heuristic.
 
-    Cache is keyed by ``id(messages)`` and reset automatically when the
-    list shrinks (compression).
+    Cache is keyed by ``id(messages)``. Incremental counting is used only
+    when the cached message objects still form a prefix; insertions or
+    replacements elsewhere in the list trigger a full recount.
     """
     cache_key = id(messages)
-    cached_total, cached_len = _token_count_cache.get(cache_key, (0, 0))
+    cached_total, cached_ids = _token_count_cache.get(cache_key, (0, ()))
     current_len = len(messages)
+    current_ids = tuple(id(message) for message in messages)
 
     def _count_chunk(chunk: list[dict[str, Any]]) -> int:
         if depname:
@@ -179,8 +181,11 @@ def _count_messages_tokens(
                 pass
         return _count_messages_tokens_fallback(chunk)
 
-    # If compression happened (messages were replaced), reset cache
-    if current_len < cached_len:
+    # The old incremental cache assumed all changes were appends. Skills and
+    # other system messages can be inserted into the leading system block, so
+    # verify that the cached message objects are still a prefix first.
+    cached_len = len(cached_ids)
+    if current_len < cached_len or current_ids[:cached_len] != cached_ids:
         _token_count_cache.pop(cache_key, None)
         cached_total = 0
         cached_len = 0
@@ -190,12 +195,12 @@ def _count_messages_tokens(
         new_messages = messages[cached_len:]
         if new_messages:
             cached_total += _count_chunk(new_messages)
-        _token_count_cache[cache_key] = (cached_total, current_len)
+        _token_count_cache[cache_key] = (cached_total, current_ids)
         return cached_total
 
     # First call: full count
     total = _count_chunk(messages)
-    _token_count_cache[cache_key] = (total, current_len)
+    _token_count_cache[cache_key] = (total, current_ids)
     return total
 
 
