@@ -87,6 +87,30 @@ def fetch_jwks(metadata: OIDCProviderMetadata) -> dict:
     return jwks
 
 
+def _verified_group_claims(claims: dict) -> tuple[str, ...]:
+    """Extract signed directory group IDs without accepting overage markers."""
+    claim_names = claims.get("_claim_names")
+    if isinstance(claim_names, dict) and "groups" in claim_names:
+        raise IdentityResolutionError(
+            "OIDC group overage requires a configured directory API adapter"
+        )
+    if claims.get("hasgroups") is True and "groups" not in claims:
+        raise IdentityResolutionError(
+            "OIDC group overage requires a configured directory API adapter"
+        )
+    raw_groups = claims.get("groups", [])
+    if raw_groups is None:
+        raw_groups = []
+    if not isinstance(raw_groups, list):
+        raise IdentityResolutionError("invalid OIDC group claims")
+    groups: list[str] = []
+    for group in raw_groups:
+        if not isinstance(group, str) or not group.strip():
+            raise IdentityResolutionError("invalid OIDC group claims")
+        groups.append(group.strip())
+    return tuple(groups)
+
+
 def verify_id_token(
     token: str,
     *,
@@ -135,6 +159,7 @@ def verify_id_token(
             claims["nonce"], nonce
         ):
             raise IdentityResolutionError("OIDC nonce mismatch")
+        groups = _verified_group_claims(claims)
         principal_hash = hashlib.sha256(
             (metadata.issuer + "\0" + subject).encode("utf-8")
         ).hexdigest()
@@ -145,6 +170,7 @@ def verify_id_token(
             issuer=metadata.issuer,
             subject=subject,
             display_name=str(claims.get("name") or ""),
+            groups=groups,
         )
     except (jwt.PyJWTError, ValueError, TypeError, KeyError) as exc:
         raise IdentityResolutionError("OIDC ID token verification failed") from exc
