@@ -16,6 +16,69 @@ class _Resolver:
         return IdentityContext(self.principal[0], True, "oidc")
 
 
+def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):
+    principal = ["alice"]
+    resolver = _Resolver(principal)
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    client = TestClient(app)
+
+    created = client.post(
+        "/api/me/memories", json={"project_id": "demo", "note": "private note"}
+    )
+    assert created.status_code == 200
+    memory = created.json()["memory"]
+    memory_id = memory["memory_id"]
+    revision = memory["revision"]
+
+    granted = client.post(
+        f"/api/me/memories/{memory_id}/grants",
+        json={
+            "project_id": "demo",
+            "grantee_principal_id": "bob",
+            "expected_revision": revision,
+        },
+    )
+    assert granted.status_code == 200
+    grant_id = granted.json()["grant_id"]
+    assert (
+        client.get(
+            f"/api/me/memories/{memory_id}/grants", params={"project_id": "demo"}
+        ).json()["grants"][0]["grantee_principal_id"]
+        == "bob"
+    )
+
+    principal[0] = "bob"
+    assert (
+        client.get("/api/me/memories", params={"project_id": "demo"}).json()["memories"]
+        == []
+    )
+    shared = client.get("/api/me/shared-memories", params={"project_id": "demo"})
+    assert [item["note"] for item in shared.json()["memories"]] == ["private note"]
+    assert (
+        client.get(
+            f"/api/me/shared-memories/{memory_id}", params={"project_id": "demo"}
+        ).json()["memory"]["note"]
+        == "private note"
+    )
+
+    principal[0] = "alice"
+    revoked = client.request(
+        "DELETE",
+        f"/api/me/memories/{memory_id}/grants/{grant_id}",
+        json={"project_id": "demo"},
+    )
+    assert revoked.status_code == 200
+    principal[0] = "bob"
+    assert (
+        client.get("/api/me/shared-memories", params={"project_id": "demo"}).json()[
+            "memories"
+        ]
+        == []
+    )
+
+
 def test_v3_web_api_uses_server_identity_and_room_roles(tmp_path, monkeypatch):
     principal = ["admin"]
     resolver = _Resolver(principal)

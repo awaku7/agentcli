@@ -249,7 +249,12 @@ async def get_my_memories(request: Request, project_id: str = ""):
     try:
         store, scoped = _personal_store(_request_identity(request), project_id)
         try:
-            return {"ok": True, "memories": scoped.records()}
+            memories = [
+                record
+                for record in scoped.records()
+                if not record.get("shared_reference")
+            ]
+            return {"ok": True, "memories": memories}
         finally:
             store.close()
     except Exception as exc:
@@ -300,6 +305,84 @@ async def delete_my_memory(memory_id: str, request: Request):
                 memory_id, expected_revision=int(body.get("expected_revision", 0))
             )
             return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/me/memories/{memory_id}/grants")
+async def list_memory_grants(memory_id: str, request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            return {"ok": True, "grants": scoped.list_grants(memory_id)}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.post("/api/me/memories/{memory_id}/grants")
+async def share_memory(memory_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        try:
+            grant_id = scoped.share(
+                memory_id,
+                str(body.get("grantee_principal_id", "")),
+                expected_revision=int(body.get("expected_revision", 0)),
+            )
+            return {"ok": True, "grant_id": grant_id}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/me/memories/{memory_id}/grants/{grant_id}")
+async def revoke_memory_grant(memory_id: str, grant_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        try:
+            scoped.revoke(memory_id, grant_id)
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/me/shared-memories")
+async def get_shared_memories(request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            memories = [
+                record for record in scoped.records() if record.get("shared_reference")
+            ]
+            return {"ok": True, "memories": memories}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/me/shared-memories/{memory_id}")
+async def get_shared_memory(memory_id: str, request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            memory = scoped.get(memory_id)
+            if not memory or not memory.get("shared_reference"):
+                return JSONResponse(
+                    status_code=404, content={"error": "memory not found"}
+                )
+            return {"ok": True, "memory": memory}
         finally:
             store.close()
     except Exception as exc:

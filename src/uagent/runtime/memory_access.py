@@ -323,6 +323,18 @@ class ScopedMemoryStore:
                 "DELETE FROM memories WHERE memory_id = ?", (memory_id,)
             )
 
+    def list_grants(self, memory_id: str) -> list[dict[str, Any]]:
+        """Return active read grants for a memory owned by this principal."""
+        self._owned(memory_id)
+        rows = self._store.db.execute(
+            "SELECT grant_id, memory_id, memory_revision, "
+            "grantee_principal_id, permission, status, revision, created_at "
+            "FROM memory_grants WHERE memory_id = ? AND granted_by = ? "
+            "AND status = 'active' ORDER BY created_at, grant_id",
+            (memory_id, self.context.principal_id),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
     def share(
         self, memory_id: str, grantee_principal_id: str, *, expected_revision: int
     ) -> str:
