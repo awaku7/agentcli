@@ -2,7 +2,7 @@
 
 ## 0. 位置づけ
 
-対象は `awaku7/agentcli` v0.7.12、基準 commit `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。
+対象は `awaku7/agentcli`。当初の設計基準は v0.7.12 / `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。本書の実装状況は、PR #54〜#60 がマージされた `main` / `a0370680839a1a22f5b30a28e54c584276a24660` を基準に照合した。
 
 v2 で定義した次の原則を継承する。
 
@@ -19,13 +19,25 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 同時に、Memory のためだけに独自ログイン機構を持たず、Local / OIDC / OAuth / Trusted Proxy / Active Directory / API credential を共通の Identity contract へ正規化する。
 
-本書は設計書であり、v3 機能が現在実装済みであることを意味しない。
+本書は設計上の契約と実装状況を併記する。設計上の必須条件や完了条件は、全項目の実装・運用検証完了を意味しない。第1章は当初の V2 baseline、第27章は実装順序を残したものであり、現在の実装済み範囲と roadmap は以下および各章の実装状況を参照する。
 
-特定ユーザーへの共有設計を v0.7.13 / `8bec11d5cc16e1f87212033be775c651507458bb` を基準に追加した。以下の V3-4 以降の共有仕様は未実装である。
+特定ユーザーへの共有設計は v0.7.13 / `8bec11d5cc16e1f87212033be775c651507458bb` を基準に追加した。現在は SQLite audience / revision-bound read grant、Personal / Room / shared-memory API、identity-bound projection などが実装されており、V3-4以降を一括して未実装とは扱わない。
 
----
+### 0.1 実装状況（PR #60 時点）
 
-## 1. v0.7.12 の現在地
+| 領域 | 実装済み | 残る範囲 |
+|---|---|---|
+| HTTP ProjectContext（#54） | OIDC sessionへのproject選択・binding、membership検証、configured single-project、不一致拒否 | non-OIDC / multi-project向けworkspace-derived HTTP binding |
+| Directory group policy（#55、#56） | 検証済みgroupsのIdentityContext / TurnContext伝播、policy contract、環境設定adapter、Project / Roomへの同期 | deployment固有のdirectory接続・最新membership取得 |
+| Regression gates（#57、#59） | 未所属projectのprojection拒否、取消後の既存snapshot無効化・新規取得拒否 | V3-9全体の評価・実環境検証・default化判断 |
+| 管理境界（#58で整理） | safe authentication status、configuration validation、設定変更時のsession失効、Project / Room membership API | 設計上の管理UI全体・運用diagnosticsの完成 |
+| Entra OIDC（#60） | 署名検証済みgroup claims、malformed claims / overageのfail-closed | directory APIによるoverage解決、on-prem trusted proxy / IWA実環境integration |
+
+詳細なhardening履歴は [Memory v3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照する。environment-backed policy adapter は認証verifierやdirectory API clientの代替ではない。
+
+______________________________________________________________________
+
+## 1. v0.7.12 の設計開始時点（歴史的 baseline）
 
 ### 1.1 Memory
 
@@ -70,7 +82,7 @@ Profile も同様に principal boundary を持たない。
 
 既存 `/api/memories` も global long-memory store を直接扱うため、multi-user mode ではそのまま使用しない。
 
----
+______________________________________________________________________
 
 ## 2. v3 の基本モデル
 
@@ -94,7 +106,7 @@ principal_id != room_id != project_id != session_id
 
 同一人物は複数 room に参加でき、同一 room には複数人物が参加できるからである。
 
----
+______________________________________________________________________
 
 ## 3. Identity と Authentication を分離する
 
@@ -155,7 +167,7 @@ multi-user mode で identity 解決に失敗した場合:
 - anonymous user に既存 Personal Memory を見せない。
 - Personal Memory Projection は無効化または request rejection とする。
 
----
+______________________________________________________________________
 
 ## 4. IdentityContext
 
@@ -173,6 +185,7 @@ class IdentityContext:
     issuer: str = ""
     subject: str = ""
     display_name: str = ""
+    groups: tuple[str, ...] = ()  # verified authorization input only
 ```
 
 必須 invariant:
@@ -185,7 +198,7 @@ class IdentityContext:
 - identity 解決失敗時に `local` や別 user へ fallback しない。
 - raw credential を Memory / Profile / Session metadata に保存しない。
 
----
+______________________________________________________________________
 
 ## 5. IdentityResolver interface
 
@@ -232,7 +245,7 @@ def create_identity_resolver(mode: str) -> IdentityResolver:
     raise ValueError("unsupported identity mode")
 ```
 
----
+______________________________________________________________________
 
 ## 6. Local IdentityResolver
 
@@ -250,7 +263,7 @@ V2はlocal ownerの互換ラベルとしてOSログインIDを使用するが、
 
 既存 `UAGENT_MEMORY_OWNER` は local / legacy override として残せるが、multi-user Web の全 user 共通 owner には使わない。
 
----
+______________________________________________________________________
 
 ## 7. OIDC IdentityResolver
 
@@ -289,6 +302,17 @@ principal 生成前に少なくとも次を検証する。
 - provider configuration
 
 未検証 claim から principal を作らない。
+
+### 7.2.1 Entra OIDC verified group claims（実装済み、#60）
+
+`src/uagent/auth/oidc_verifier.py` は signature / issuer / audience / expiry / nonce / authorized party の検証後にだけ `groups` を取り出し、`IdentityContext.groups` へ渡す。空白除去・重複排除・sort後のtupleを `TurnContext.groups` に伝播する。principalの導出は引き続き `iss + sub` であり、groupはownership keyに含めない。
+
+- `groups` は非空文字列のlistを要求する。文字列単体、数値混在、空のgroup IDなどは identity resolution を拒否する。
+- claim欠落または `null` は空groupsとして扱う。
+- `_claim_names` に `groups` がある場合、または `hasgroups: true` かつ `groups` がない場合はoverageとして拒否する。不完全なgroup一覧で認可を続行しない。
+- 現実装にはoverage解決のdirectory API経路がない。`UAGENT_DIRECTORY_GROUP_POLICY` を設定してもこの拒否は解除されない。
+
+`tests/test_oidc_verifier.py` は署名付きclaimsの正規化とmalformed / overage拒否を検証する。directory側のgroup変更を即時取得する仕組みは別途必要であり、session内の検証済みidentityをlive directory照会と同一視しない。
 
 ### 7.3 Browser session
 
@@ -332,7 +356,7 @@ HTTP authenticated session / cookie
 
 同じ room に connection A / B がいても identity は connection 単位で保持する。
 
----
+______________________________________________________________________
 
 ## 8. Active Directory / Microsoft identity
 
@@ -430,7 +454,25 @@ Group membership を Personal Memory owner にしない。
 
 Group / role 情報は `RoomAccessPolicy` / `ProjectAccessPolicy` / Admin authorization へ渡す。
 
----
+#### 実装状況（#55、#56）
+
+`src/uagent/runtime/enterprise_identity.py` の `DirectoryGroupPolicyAdapter.map_groups(identity, groups)` は、trusted server startupで登録されたadapterから `GroupPolicyAssignments(administrator, room_roles, project_ids)` を返す。検証済みenterprise identityまたはOIDC由来のgroupsだけを入力とし、clientの自己申告groupを認可根拠にしない。
+
+custom adapter未登録時には `UAGENT_DIRECTORY_GROUP_POLICY` のstrict JSON mappingを利用できる。
+
+```json
+{"groups":{"engineering":{"administrator":false,"projects":["demo"],"rooms":{"room-x":"editor"}}}}
+```
+
+これはgroup IDからpolicyへのconfiguration / bootstrap adapterであり、AD / Entraへの接続やgroup取得は行わない。`administrator` はJSON booleanのみを受け付け、`"false"` のような文字列を拒否する。project IDは非空文字列のlist、room roleは `admin / editor / member` とする。
+
+`ProjectAccessPolicy.sync_directory_policy()` はproject-scoped Personal / Room APIとMemory Projectionの認可前にassignmentを同期する。project assignmentは通常 `viewer`、administrator assignmentでは `admin` となる。room assignmentは、そのroomがassignment内のprojectに既にbindされている場合だけ適用する。
+
+同期では `granted_by='directory-policy'` のmembershipだけをreconcileし、assignmentから外れたProject / Room membershipをrevokeする。手動membershipを上書き・取消しせず、既存の高いdirectory由来project roleも保持するため、すべてのrole downgradeをdirectoryへ完全追従する実装とは扱わない。SQLiteには導出したmembership / role / revisionを保存し、raw group claimsを保存しない。検証済みgroup IDはprocess内のIdentityContext / TurnContextに保持される。
+
+根拠は `src/uagent/runtime/project_access.py` と `tests/test_directory_group_policy.py`。on-prem ADのtrusted proxy / IWA verifier接続、directory APIによるgroup取得・overage解決はroadmapである。
+
+______________________________________________________________________
 
 ## 9. OAuth Identity Adapter
 
@@ -440,7 +482,7 @@ OAuth access token そのものを principal ID にせず、provider の user id
 
 GitHub user login 等はこの OAuth adapter 側で扱い、OIDC ID token 前提の処理へ混ぜない。
 
----
+______________________________________________________________________
 
 ## 10. Trusted Proxy IdentityResolver
 
@@ -466,7 +508,7 @@ UAG
 
 Active Directory / Windows Integrated Authentication を proxy 側で終端する場合もこの方式を利用できる。
 
----
+______________________________________________________________________
 
 ## 11. API / A2A IdentityResolver
 
@@ -482,7 +524,7 @@ principal_id
 
 service principal も同じ IdentityContext contract に正規化する。
 
----
+______________________________________________________________________
 
 ## 12. Authentication mode selection
 
@@ -601,7 +643,7 @@ internal legacy -> trusted proxy
 
 v3 初期実装では single selected mode を優先する。
 
----
+______________________________________________________________________
 
 ## 13. Connection / Room / Turn boundary
 
@@ -625,6 +667,7 @@ class TurnContext:
     entry_point: str
     authenticated: bool
     authn_kind: str
+    groups: tuple[str, ...] = ()
 ```
 
 `run_agent_worker()`、Memory Projection、tool execution、Profile extraction、Session persistence は同じ TurnContext を参照する。
@@ -641,7 +684,7 @@ core.memory_owner = current_web_user
 
 ThreadPool / tool worker / sub-agent へは context を明示伝播する。
 
----
+______________________________________________________________________
 
 ## 14. Memory owner と audience
 
@@ -749,7 +792,7 @@ A が選んだ記憶を B が参考にできるようにする。所有者と閲
 
 記憶を更新した場合、以前の版への grant で新しい内容を自動公開しない。旧版も通常検索へ戻さず、所有者による新しい版の共有を必要とする。移行時は既存記憶へ grant を自動生成しない。
 
----
+______________________________________________________________________
 
 ## 15. MemoryAccessContext
 
@@ -807,12 +850,14 @@ class ProjectContext:
     generation: int
 ```
 
+上記の `ProjectContext` は設計上の概念contractであり、同名dataclassが実装済みという意味ではない。現在のbindingはOIDC sessionの `project_id`、設定値、TurnContext、SQLite policyで保持する。
+
 必須ルール:
 
 - WebSocket の `TurnContext.project_id` は、認証済み connection の workspace path
   から server-side に導出する。user payload や query の `project_id` で上書きしない。
 - HTTP API は、認証済み session の選択済み workspace または単一Project deploymentの
-  `UAGENT_MEMORY_PROJECT` から ProjectContext を得る。binding がない場合は fail-closed
+  `UAGENT_MEMORY_PROJECT` から ProjectContext を得る。現在のOIDC HTTP経路では、workspace導出に代えてmembership検証済みのsession選択を使用する。binding がない場合は fail-closed
   とする。
 - 互換の `project_id` request parameter を残す場合も、server-bound ProjectContext と
   一致することだけを検証し、不一致は `403` とする。parameter 自体は認可根拠にならない。
@@ -829,6 +874,16 @@ class ProjectContext:
 - AD / Entra group は project membership を導出する policy source としてのみ扱い、
   group名・email・UPNを principal ownership key にしない。
 
+#### HTTP bindingの現在の実装（#54）
+
+`POST /api/project-context` はidentityを解決し、directory policy同期後に対象projectの `viewer` 以上のaccessを確認する。configured single-projectでは `UAGENT_MEMORY_PROJECT` と一致する選択だけを許可する。設定がない場合は、有効な `uag_oidc_session` cookieに対応するserver-side sessionへ選択済み `project_id` を保存する。
+
+後続HTTP APIの `_project_id()` はconfigured projectを優先し、なければOIDC sessionのbindingを使用する。requestのproject未指定はbindingを採用し、不一致またはbinding欠落は `403`。選択時のmembership確認だけでは以後のaccessを保証せず、各scoped operationでpolicyを確認する。
+
+実装箇所は `src/uagent/auth/oidc_sessions.py` と `src/uagent/web_impl/routes_api.py`。sessionのproject bindingも期限・authentication configuration fingerprintによる失効対象であり、process-local storeの再起動を越えて永続化しない。WebSocketのprojectは `src/uagent/web_impl/connection_identity.py` でserver側project pathからTurnContextへ導出する。HTTP sessionでの選択が接続済みWebSocketのworkspaceを自動変更する仕様ではない。
+
+Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-project向けに認証済みworkspaceからHTTP ProjectContextを導出する経路は未実装である。
+
 認可順序は次で固定する。
 
 ```text
@@ -841,7 +896,7 @@ identity
   → candidate generation / projection
 ```
 
----
+______________________________________________________________________
 
 ## 16. Shared Room
 
@@ -878,7 +933,7 @@ Personal -> Room Shared Memory の自動昇格は禁止する。
 
 AD / Entra group mapping を利用する場合も、group membership は RoomAccessPolicy の入力とする。
 
----
+______________________________________________________________________
 
 ## 17. Profile v3
 
@@ -902,7 +957,7 @@ multi-user mode では principal-keyed ProfileStore を導入する。
 
 single-user compatibility では既存 profile file を利用できる。
 
----
+______________________________________________________________________
 
 ## 18. Session / Episodic Memory
 
@@ -919,7 +974,7 @@ shared room message は `actor_id` を保持する。
 
 Episodic retrieval でも identity / audience filter を relevance より前に適用する。
 
----
+______________________________________________________________________
 
 ## 19. Frozen Projection Snapshot v3
 
@@ -942,7 +997,7 @@ retry / tool loop 中は、アクセス権限が変わっていない場合だ�
 
 認証 session refresh が発生しても同一 turn の principal identity が変化しないことを保証する。
 
----
+______________________________________________________________________
 
 ## 20. Context Projection order
 
@@ -962,7 +1017,7 @@ Current User Request
 
 projection content は durable user / assistant history として保存しない。
 
----
+______________________________________________________________________
 
 ## 21. Memory write / update / forget
 
@@ -992,7 +1047,7 @@ read grant は参考情報へのアクセス許可であり、B の Personal Mem
 
 既に閲覧・export 済みの内容や provider へ送信済みの内容を、取消で遡って回収できるとは扱わない。保存済みの回答・要約を再び LLM に渡す場合は共有元への依存を検証し、失効した派生情報を除外する。取消後の利用禁止と、配信済み情報の回収限界を区別する。
 
----
+______________________________________________________________________
 
 ## 22. Web API v3
 
@@ -1049,7 +1104,7 @@ GET /api/auth/status
 
 raw subject / token / secret は通常 UI に返さない。
 
----
+______________________________________________________________________
 
 ### 22.5 特定ユーザー共有 API
 
@@ -1057,7 +1112,7 @@ raw subject / token / secret は通常 UI に返さない。
 
 全操作で認証済み principal と対象 memory / grant の関係をサーバーが検証する。通常の `/api/me/memories` の所有者向け更新・削除権限を、共有の read grant で通さない。共有先へ不要な他の受信者一覧や raw identity claim を返さない。
 
----
+______________________________________________________________________
 
 ## 23. 管理機能
 
@@ -1140,7 +1195,7 @@ Directory の全 user / group を Memory DB へ同期することを必須にし
 
 Admin 全体検索は通常 user API と分離し、明示 authorization を要求する。
 
----
+______________________________________________________________________
 
 ## 24. Proposed configuration
 
@@ -1181,36 +1236,36 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 
 実際の secret は可能なら environment / secret store / deployment platform credential mechanism から供給し、repository や Memory store へ保存しない。
 
----
+______________________________________________________________________
 
 ## 25. Security invariants
 
 1. user-B request から、B への有効な個別 grant がない user-A Personal Memory を取得できない。
-2. request payload の `owner=user-A` で境界を越えられない。
-3. room-X member でない principal は room-X Memory を取得できない。
-4. project mismatch record は候補にならない。
-5. forgotten record は stale snapshot / retry / provider continuation から復活しない。
-6. Profile は principal 間で混ざらない。
-7. shared room の他 user 発言を自分の Personal Profile / Memory として自動学習しない。
-8. identity context は tool thread / sub-agent / retry で別 turn と混ざらない。
-9. unresolved identity を privileged `local` principal へ昇格しない。
-10. raw token / API key / password を principal ID として保存しない。
-11. email / UPN / `DOMAIN\\username` を stable ownership key にしない。
-12. OIDC claim は検証成功後のみ identity source に使う。
-13. WebSocket owner を query parameter / payload から決定しない。
-14. trusted proxy header は trusted transport boundary なしで使用しない。
-15. Admin API と user-facing API の authorization を分離する。
-16. identity mode 未設定・不正設定を暗黙 `local` として扱わない（multi-user entry point）。
-17. AD group membership を Personal Memory owner として扱わない。
-18. Windows Integrated Authentication の未検証 username/header を principal として採用しない。
-19. resolver failure 時に別 authentication mode へ自動 fallback しない。
-20. 認証方式変更後に既存 session を無条件継続しない。
-21. 個別 read grant は所有権・編集・削除・再共有権限を与えない。
-22. 共有情報を受信者本人の Profile / Guidance に自動変換しない。
-23. 共有取消・forget 後に snapshot / cache / 派生情報からアクセスを復活させない。
-24. 個別共有を、権限のない参加者が読める room 応答・履歴に流さない。
+1. request payload の `owner=user-A` で境界を越えられない。
+1. room-X member でない principal は room-X Memory を取得できない。
+1. project mismatch record は候補にならない。
+1. forgotten record は stale snapshot / retry / provider continuation から復活しない。
+1. Profile は principal 間で混ざらない。
+1. shared room の他 user 発言を自分の Personal Profile / Memory として自動学習しない。
+1. identity context は tool thread / sub-agent / retry で別 turn と混ざらない。
+1. unresolved identity を privileged `local` principal へ昇格しない。
+1. raw token / API key / password を principal ID として保存しない。
+1. email / UPN / `DOMAIN\\username` を stable ownership key にしない。
+1. OIDC claim は検証成功後のみ identity source に使う。
+1. WebSocket owner を query parameter / payload から決定しない。
+1. trusted proxy header は trusted transport boundary なしで使用しない。
+1. Admin API と user-facing API の authorization を分離する。
+1. identity mode 未設定・不正設定を暗黙 `local` として扱わない（multi-user entry point）。
+1. AD group membership を Personal Memory owner として扱わない。
+1. Windows Integrated Authentication の未検証 username/header を principal として採用しない。
+1. resolver failure 時に別 authentication mode へ自動 fallback しない。
+1. 認証方式変更後に既存 session を無条件継続しない。
+1. 個別 read grant は所有権・編集・削除・再共有権限を与えない。
+1. 共有情報を受信者本人の Profile / Guidance に自動変換しない。
+1. 共有取消・forget 後に snapshot / cache / 派生情報からアクセスを復活させない。
+1. 個別共有を、権限のない参加者が読める room 応答・履歴に流さない。
 
----
+______________________________________________________________________
 
 ## 26. Evaluation v3
 
@@ -1263,6 +1318,15 @@ UAGENT_AD_PROVIDER_NAMESPACE=
 - grant があっても project mismatch は候補にならない。
 - migration は自動で共有許可を作らない。
 
+### 実装済みのproject isolation / revocation gates（#57、#59）
+
+`tests/test_memory_v3_projection.py` に次の回帰テストがある。
+
+- `test_project_membership_isolation_blocks_projection_for_unassigned_project`: 未所属projectを指定したturnは `MemoryAccessError` となり、元messagesへ他projectのMemoryを追加しない。
+- `test_project_membership_revocation_invalidates_active_projection`: grantによるprojection成功を確認してからproject membershipを取消し、membership消失・viewer access拒否・既存snapshotの適用拒否を確認する。さらに新規snapshotも `MemoryAccessError` となり、元messagesを維持することを #59 で明示した。
+
+HTTP bindingは `tests/test_oidc_sessions.py` / `tests/test_memory_v3_web_api.py`、group同期・手動membership維持・不正boolean拒否は `tests/test_directory_group_policy.py`、signed groups / overage拒否は `tests/test_oidc_verifier.py` が補完する。これらのfixture実装は、本章の全metricの計測完了や実環境AD integrationの検証、multi-user default化の承認を意味しない。
+
 ### WebSocket
 
 - same room connection A/B で identity が混ざらない。
@@ -1301,7 +1365,7 @@ revoked_grant_reuse_count
 
 すべて 0 を gate とする。
 
----
+______________________________________________________________________
 
 ## 27. 実装順序
 
@@ -1328,7 +1392,7 @@ revoked_grant_reuse_count
 
 完了条件: 同じ room の2 connection に異なる principal を割り当てられる。
 
-V3-2 の接続境界実装では、WebSocket handshake 時に選択中の resolver で identity を確定し、接続ごとに保持する。user input と LLM 実行 command は接続から生成した immutable TurnContext を worker に渡す。未解決・未認証接続は room に参加させず、非 local mode の直接 worker 起動も拒否する。現段階では local resolver のみが利用可能で、異なる実ユーザーの認証は V3-3 以降で実装する。共有 room の UI 履歴と既存 Memory store のアクセス制御は V3-4 以降の対象である。
+V3-2 の接続境界実装では、WebSocket handshake 時に選択中の resolver で identity を確定し、接続ごとに保持する。user input と LLM 実行 command は接続から生成した immutable TurnContext を worker に渡す。未解決・未認証接続は room に参加させず、非 local mode の直接 worker 起動も拒否する。これはV3-2導入時の境界である。現在はV3-3のOIDCとenterprise resolver contract、後続のMemoryアクセス制御も実装されている。共有roomのUI履歴を含む最終的な完了判定は各isolation gateに従う。
 
 ### PR V3-3: OIDC authentication
 
@@ -1341,7 +1405,7 @@ V3-2 の接続境界実装では、WebSocket handshake 時に選択中の resolv
 
 完了条件: login session と WebSocket turn が stable principal で結ばれる。
 
-実装状況: browser binding、Authorization Code + PKCE callback、ID token検証、server-side opaque session、cookie経由のWebSocket identity resolverまで実装済み。永続session store、管理API、複数認証方式のhybrid化は未実装。
+実装状況: browser binding、Authorization Code + PKCE callback、ID token検証、server-side opaque session、cookie経由のWebSocket identity resolverまで実装済み。safe authentication status / configuration validation / 設定変更時のsession invalidationも実装済み。永続session store、管理UI全体、複数認証方式のhybrid化は未実装。
 
 V3-3 は認証境界ごとに分割する。最初に browser binding に紐付く一回限りの state / nonce / PKCE S256 transaction と期限・容量制限を実装する。次に検証済み discovery / JWKS / ID token（issuer、signature、audience、expiry、nonce）と Authorization Code callback を接続し、最後に server-side session / WebSocket cookie inheritance を確認する。transaction 単体ではログイン機能を有効にせず、`oidc` mode は検証経路が完成するまで fail-closed のままにする。
 
@@ -1386,6 +1450,8 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 
 完了条件: browser から arbitrary principal の Personal Memory を操作できず、明示共有された記憶だけを受信者が閲覧できる。
 
+V3-4〜V3-6の実装状況: SQLite audience / revision-bound read grant、scoped store、identity-bound projection、Room policy、Personal / Room / shared-memory / grant API、Project membershipとbindingが存在する。設計全体の完了宣言ではなく、第26章のgateとhardening文書を照合して判断する。
+
 ### PR V3-7: Enterprise authentication adapters
 
 - OAuthIdentityResolver
@@ -1397,6 +1463,8 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 
 完了条件: OIDC 以外の認証方式も Memory core を変えず接続できる。
 
+実装状況: trusted proxyのCIDR / header境界、token resolver、OAuth / Windows AD / externalのverifier登録contract、directory group policyとenvironment-backed adapter、Entra signed group claimsは実装済み。OAuth / Windows AD / externalはdeployment側の検証adapterが必要であり、未設定時にlocalへfallbackしない。on-prem trusted proxy / IWA実環境接続やdirectory API clientは未実装。
+
 ### PR V3-8: Authentication management
 
 - authentication mode status API
@@ -1407,7 +1475,7 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 
 完了条件: 選択中の認証方式と健全性を安全に管理できる。
 
-実装時は authentication configuration fingerprint を OIDC session と WebConnectionContext に binding する。mode、provider、client、secret、trusted boundary、token registry、enterprise adapter registration の変更後は、旧 OIDC session を次回解決時に失効させ、接続済み WebSocket は次の turn 作成を拒否する。
+実装済みの境界では authentication configuration fingerprint を OIDC session と WebConnectionContext に binding する。mode、provider、client、secret、trusted boundary、token registry、enterprise adapter registration の変更後は、旧 OIDC session を次回解決時に失効させ、接続済み WebSocket は次の turn 作成を拒否する。
 
 ### PR V3-9: Evaluation / rollout
 
@@ -1420,7 +1488,9 @@ V3-3 は認証境界ごとに分割する。最初に browser binding に紐付�
 
 完了条件: leak metrics 0、single-user regression なし。
 
----
+実装状況: deterministic fixtureとproject isolation / revocation regression gatesは追加済み（第26章）。V3-9全体のrollout完了とは扱わず、認証方式ごとの実環境検証とmulti-user default化判断を残す。
+
+______________________________________________________________________
 
 ## 28. Rollout
 
@@ -1450,7 +1520,14 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 
 認証方式ごとに同じ Memory isolation gate を通す。
 
----
+### 28.1 残るroadmap（PR #60 時点）
+
+- **Workspace-derived ProjectContext**: non-OIDC / multi-project deploymentのHTTP requestを認証済みworkspaceへbindする。既存のOIDC session selection / configured single-projectと認可契約を揃え、client指定projectだけでaccessを許可しない。
+- **Directory API adapter**: Entra group overageを信頼できるdirectory APIで解決し、group情報の鮮度・取消反映を扱う。現在のOIDC verifierには解決経路がなく、環境policy mappingのみではoverageを受け付けない。
+- **On-prem trusted proxy / IWA integration**: proxy側の認証・header除去、Kerberos / Negotiate verifier、stable directory identity / verified groupsの実環境接続を検証する。resolver / policy contractの存在とproduction integration完了を区別する。
+- **Evaluation / rollout**: 各deploymentでisolation / revocation gate、migration、single-user regressionを確認してからmulti-user / shared-roomのdefault化を判断する。既存V2 local defaultは維持する。
+
+______________________________________________________________________
 
 ## 29. 採らない設計
 
@@ -1471,7 +1548,7 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 - 独自 username/password account DB を v3 Memory の前提にする
 - login system を MemoryStore に直接組み込む
 
----
+______________________________________________________________________
 
 ## 30. 最終アーキテクチャ
 
