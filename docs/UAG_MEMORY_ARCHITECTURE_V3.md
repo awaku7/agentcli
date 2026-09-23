@@ -780,7 +780,7 @@ readable:
 filtering order:
 
 ```text
-identity / membership / audience / per-record grant
+identity / project membership / room membership / audience / per-record grant
             ↓
 project
             ↓
@@ -791,6 +791,54 @@ text candidate generation
 ranking / budget
             ↓
 projection
+```
+
+### 15.1 Project authorization boundary
+
+Project は caller が自由に作る scope ではなく、server-side policy により認可される
+resource とする。すべての Web / API operation は次の `ProjectContext` を server-side
+で解決し、client payload の `project_id` は access grant として扱わない。
+
+```python
+@dataclass(frozen=True)
+class ProjectContext:
+    project_id: str
+    source: str             # workspace | configured | policy
+    generation: int
+```
+
+必須ルール:
+
+- WebSocket の `TurnContext.project_id` は、認証済み connection の workspace path
+  から server-side に導出する。user payload や query の `project_id` で上書きしない。
+- HTTP API は、認証済み session の選択済み workspace または単一Project deploymentの
+  `UAGENT_MEMORY_PROJECT` から ProjectContext を得る。binding がない場合は fail-closed
+  とする。
+- 互換の `project_id` request parameter を残す場合も、server-bound ProjectContext と
+  一致することだけを検証し、不一致は `403` とする。parameter 自体は認可根拠にならない。
+- Project policy は `project_id + principal_id + role(viewer/editor/admin) + generation`
+  を持つ server-side membership とする。global administrator 以外は active membership
+  が必要である。
+- Room は必ず1つの Project に所属し、Room membership は Project membership の後に
+  評価する。room role は project role を拡張できるが、別Projectへの権限を与えない。
+- Personal / Room / shared grant / export / profile projection は、解決済み
+  ProjectContext の範囲を越えない。
+- Project membership、room membership、grant、policy の変更は generation を進め、
+  既存の snapshot、provider continuation、stream response を失効させる。
+- Project切替は新しい TurnContext を生成し、以前の snapshot や cache を再利用しない。
+- AD / Entra group は project membership を導出する policy source としてのみ扱い、
+  group名・email・UPNを principal ownership key にしない。
+
+認可順序は次で固定する。
+
+```text
+identity
+  → project membership
+  → room membership / role
+  → audience
+  → per-record grant
+  → status / forget
+  → candidate generation / projection
 ```
 
 ---

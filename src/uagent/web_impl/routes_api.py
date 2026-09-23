@@ -26,6 +26,8 @@ from ..runtime.memory_access import (
 )
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
+from ..runtime.project_access import ProjectAccessPolicy
+from ..env_utils import env_get
 from .agent_worker import run_agent_worker
 from .app import app
 from .rooms import _handle_mode_command, web_manager
@@ -43,9 +45,14 @@ def _request_identity(request: Request):
 
 def _project_id(value: str) -> str:
     project = str(value or "").strip()
+    bound = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+    if not bound:
+        raise MemoryAccessError("server project binding is required")
     if not project:
-        raise ValueError("project_id is required")
-    return project
+        project = bound
+    if project != bound:
+        raise MemoryAccessError("project is not bound to this server context")
+    return bound
 
 
 def _memory_store():
@@ -230,13 +237,17 @@ async def set_tools_enabled(req: Request):
     }
 
 
-def _personal_store(identity, project_id: str):
+def _personal_store(identity, project_id: str, *, role: str = "viewer"):
     store = _memory_store()
+    bound_project = _project_id(project_id)
+    ProjectAccessPolicy(store).require_access(
+        identity.principal_id, bound_project, role
+    )
     scoped = ScopedMemoryStore(
         store,
         MemoryAccessContext(
             principal_id=identity.principal_id,
-            project_id=_project_id(project_id),
+            project_id=bound_project,
             authenticated=True,
             private_session=True,
         ),
@@ -249,7 +260,12 @@ async def get_my_memories(request: Request, project_id: str = ""):
     try:
         store, scoped = _personal_store(_request_identity(request), project_id)
         try:
-            return {"ok": True, "memories": scoped.records()}
+            memories = [
+                record
+                for record in scoped.records()
+                if not record.get("shared_reference")
+            ]
+            return {"ok": True, "memories": memories}
         finally:
             store.close()
     except Exception as exc:
@@ -261,7 +277,9 @@ async def add_my_memory(request: Request):
     try:
         identity = _request_identity(request)
         body = await request.json()
-        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        store, scoped = _personal_store(
+            identity, body.get("project_id", ""), role="editor"
+        )
         try:
             return {"ok": True, "memory": scoped.append(str(body.get("note", "")))}
         finally:
@@ -275,7 +293,9 @@ async def update_my_memory(memory_id: str, request: Request):
     try:
         identity = _request_identity(request)
         body = await request.json()
-        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        store, scoped = _personal_store(
+            identity, body.get("project_id", ""), role="editor"
+        )
         try:
             memory = scoped.update(
                 memory_id,
@@ -294,7 +314,9 @@ async def delete_my_memory(memory_id: str, request: Request):
     try:
         identity = _request_identity(request)
         body = await request.json()
-        store, scoped = _personal_store(identity, body.get("project_id", ""))
+        store, scoped = _personal_store(
+            identity, body.get("project_id", ""), role="editor"
+        )
         try:
             scoped.forget(
                 memory_id, expected_revision=int(body.get("expected_revision", 0))
@@ -306,15 +328,158 @@ async def delete_my_memory(memory_id: str, request: Request):
         return _memory_error(exc)
 
 
-def _room_service(request: Request, room_id: str, project_id: str):
+@app.get("/api/me/memories/{memory_id}/grants")
+async def list_memory_grants(memory_id: str, request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            return {"ok": True, "grants": scoped.list_grants(memory_id)}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.post("/api/me/memories/{memory_id}/grants")
+async def share_memory(memory_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(
+            identity, body.get("project_id", ""), role="editor"
+        )
+        try:
+            grant_id = scoped.share(
+                memory_id,
+                str(body.get("grantee_principal_id", "")),
+                expected_revision=int(body.get("expected_revision", 0)),
+            )
+            return {"ok": True, "grant_id": grant_id}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/me/memories/{memory_id}/grants/{grant_id}")
+async def revoke_memory_grant(memory_id: str, grant_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        body = await request.json()
+        store, scoped = _personal_store(
+            identity, body.get("project_id", ""), role="editor"
+        )
+        try:
+            scoped.revoke(memory_id, grant_id)
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/me/shared-memories")
+async def get_shared_memories(request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            memories = [
+                record for record in scoped.records() if record.get("shared_reference")
+            ]
+            return {"ok": True, "memories": memories}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/me/shared-memories/{memory_id}")
+async def get_shared_memory(memory_id: str, request: Request, project_id: str = ""):
+    try:
+        store, scoped = _personal_store(_request_identity(request), project_id)
+        try:
+            memory = scoped.get(memory_id)
+            if not memory or not memory.get("shared_reference"):
+                return JSONResponse(
+                    status_code=404, content={"error": "memory not found"}
+                )
+            return {"ok": True, "memory": memory}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/projects/{project_id}/members")
+async def get_project_members(project_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        bound_project = _project_id(project_id)
+        store = _memory_store()
+        try:
+            members = ProjectAccessPolicy(store).list_members(
+                identity.principal_id, bound_project
+            )
+            return {"ok": True, "members": members}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.put("/api/projects/{project_id}/members/{principal_id}")
+async def set_project_member(project_id: str, principal_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        bound_project = _project_id(project_id)
+        body = await request.json()
+        store = _memory_store()
+        try:
+            membership = ProjectAccessPolicy(store).set_membership(
+                identity.principal_id,
+                bound_project,
+                principal_id,
+                body.get("role", ""),
+            )
+            return {"ok": True, "membership": membership.__dict__}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/projects/{project_id}/members/{principal_id}")
+async def delete_project_member(project_id: str, principal_id: str, request: Request):
+    try:
+        identity = _request_identity(request)
+        bound_project = _project_id(project_id)
+        store = _memory_store()
+        try:
+            ProjectAccessPolicy(store).revoke_membership(
+                identity.principal_id, bound_project, principal_id
+            )
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+def _room_service(
+    request: Request, room_id: str, project_id: str, *, role: str = "viewer"
+):
     identity = _request_identity(request)
     store = _memory_store()
+    bound_project = _project_id(project_id)
+    ProjectAccessPolicy(store).require_access(
+        identity.principal_id, bound_project, role
+    )
     policy = RoomAccessPolicy(store)
     service = RoomMemoryService(
         store,
         policy,
         principal_id=identity.principal_id,
-        project_id=_project_id(project_id),
+        project_id=bound_project,
         room_id=room_id,
     )
     return identity, store, policy, service
@@ -337,7 +502,7 @@ async def add_room_memory(room_id: str, request: Request):
     try:
         body = await request.json()
         _, store, _, service = _room_service(
-            request, room_id, body.get("project_id", "")
+            request, room_id, body.get("project_id", ""), role="editor"
         )
         try:
             return {"ok": True, "memory": service.append(str(body.get("note", "")))}
@@ -352,7 +517,7 @@ async def update_room_memory(room_id: str, memory_id: str, request: Request):
     try:
         body = await request.json()
         _, store, _, service = _room_service(
-            request, room_id, body.get("project_id", "")
+            request, room_id, body.get("project_id", ""), role="editor"
         )
         try:
             memory = service.update(
@@ -372,7 +537,7 @@ async def delete_room_memory(room_id: str, memory_id: str, request: Request):
     try:
         body = await request.json()
         _, store, _, service = _room_service(
-            request, room_id, body.get("project_id", "")
+            request, room_id, body.get("project_id", ""), role="editor"
         )
         try:
             service.forget(
@@ -386,11 +551,15 @@ async def delete_room_memory(room_id: str, memory_id: str, request: Request):
 
 
 @app.get("/api/rooms/{room_id}/members")
-async def get_room_members(room_id: str, request: Request):
+async def get_room_members(room_id: str, request: Request, project_id: str = ""):
     try:
         identity = _request_identity(request)
         store = _memory_store()
         try:
+            bound_project = _project_id(project_id)
+            ProjectAccessPolicy(store).require_access(
+                identity.principal_id, bound_project, "admin"
+            )
             members = RoomAccessPolicy(store).list_members(
                 identity.principal_id, room_id
             )
@@ -408,6 +577,10 @@ async def set_room_member(room_id: str, principal_id: str, request: Request):
         body = await request.json()
         store = _memory_store()
         try:
+            bound_project = _project_id(body.get("project_id", ""))
+            ProjectAccessPolicy(store).require_access(
+                identity.principal_id, bound_project, "admin"
+            )
             membership = RoomAccessPolicy(store).set_membership(
                 identity.principal_id, room_id, principal_id, body.get("role", "")
             )
@@ -422,8 +595,13 @@ async def set_room_member(room_id: str, principal_id: str, request: Request):
 async def delete_room_member(room_id: str, principal_id: str, request: Request):
     try:
         identity = _request_identity(request)
+        body = await request.json()
         store = _memory_store()
         try:
+            bound_project = _project_id(body.get("project_id", ""))
+            ProjectAccessPolicy(store).require_access(
+                identity.principal_id, bound_project, "admin"
+            )
             RoomAccessPolicy(store).revoke_membership(
                 identity.principal_id, room_id, principal_id
             )

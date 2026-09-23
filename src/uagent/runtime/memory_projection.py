@@ -314,6 +314,11 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
     readable_audiences = tuple(getattr(core, "memory_readable_audiences", ()) or ())
     store = open_memory_store(long_memory._sqlite_path())
     try:
+        from .project_access import ProjectAccessPolicy
+
+        ProjectAccessPolicy(store).require_access(
+            turn.principal_id, turn.project_id, "viewer"
+        )
         if turn.room_id:
             from .room_access import RoomAccessPolicy
 
@@ -351,6 +356,30 @@ def _current_access_generation() -> int | None:
         return None
 
 
+def memory_projection_access_is_current(
+    snapshot: MemoryProjectionSnapshot | None, core: Any
+) -> bool:
+    """Return whether a turn snapshot is still safe to send or continue."""
+    if snapshot is None:
+        return True
+    if int(snapshot.generation) != memory_generation(core):
+        return False
+    if snapshot.principal_id:
+        turn = get_current_turn_context()
+        if turn is None or (
+            turn.principal_id != snapshot.principal_id
+            or turn.room_id != snapshot.room_id
+            or turn.project_id != snapshot.project_id
+        ):
+            return False
+    current_access_generation = _current_access_generation()
+    if snapshot.principal_id and current_access_generation is None:
+        return False
+    return current_access_generation is None or (
+        current_access_generation == snapshot.access_generation
+    )
+
+
 def prepare_memory_projection(
     messages: Sequence[dict[str, Any]], core: Any
 ) -> MemoryProjectionSnapshot | None:
@@ -383,6 +412,7 @@ def prepare_memory_projection(
             owner_filter = ""
             allow_legacy_unknown = False
         else:
+            access_generation = _current_access_generation() or 0
             personal_records, personal_defaulted_owner = _records_with_default_owner(
                 long_memory.load_long_memory_records(), owner
             )
@@ -592,26 +622,7 @@ def apply_memory_projection(
     before an explicit forget is stripped and never re-applied.
     """
     forgotten_contents = forgotten_memory_system_contents(core)
-    stale_snapshot = snapshot is not None and int(
-        snapshot.generation
-    ) != memory_generation(core)
-    if snapshot is not None and snapshot.principal_id:
-        turn = get_current_turn_context()
-        stale_snapshot = (
-            stale_snapshot
-            or turn is None
-            or (
-                turn.principal_id != snapshot.principal_id
-                or turn.room_id != snapshot.room_id
-                or turn.project_id != snapshot.project_id
-            )
-        )
-        current_access_generation = _current_access_generation()
-        stale_snapshot = (
-            stale_snapshot
-            or current_access_generation is None
-            or (current_access_generation != snapshot.access_generation)
-        )
+    stale_snapshot = not memory_projection_access_is_current(snapshot, core)
     if snapshot is None and not forgotten_contents:
         return [dict(message) for message in call_messages]
 
@@ -661,5 +672,6 @@ __all__ = [
     "MemoryProjectionItem",
     "MemoryProjectionSnapshot",
     "apply_memory_projection",
+    "memory_projection_access_is_current",
     "prepare_memory_projection",
 ]

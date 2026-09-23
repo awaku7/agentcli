@@ -26,6 +26,7 @@ from ..runtime.identity_context import (
     resolve_identity_mode,
 )
 from ..runtime.round_outcome import project_round_outcome, round_outcome_event
+from ..runtime.memory_projection import memory_projection_access_is_current
 from ..image_session import build_image_session_message
 from ..llm_helpers import LLMWaitInterrupted
 from .helpers import _save_input_history
@@ -163,9 +164,34 @@ def run_agent_worker(
             "id": None,
             "active": False,
             "suppress_next_assistant_message": False,
+            "memory_invalidated": False,
         }
+        try:
+            core._memory_projection_invalidated = False
+        except Exception:
+            pass
 
         def _web_stream_send(payload: dict[str, Any]) -> None:
+            stream_types = {
+                "assistant_stream_start",
+                "assistant_stream_delta",
+                "assistant_stream_replace",
+                "assistant_stream_end",
+                "reasoning",
+            }
+            if payload.get("type") in stream_types:
+                snapshot = getattr(core, "memory_projection_snapshot", None)
+                if not memory_projection_access_is_current(snapshot, core):
+                    stream_state["memory_invalidated"] = True
+                    try:
+                        core._memory_projection_invalidated = True
+                        with core.interrupt_lock:
+                            core.interrupt_requested = True
+                    except Exception:
+                        pass
+                    return
+                if stream_state.get("memory_invalidated"):
+                    return
             try:
                 if room.loop:
                     asyncio.run_coroutine_threadsafe(room.broadcast(payload), room.loop)
@@ -515,24 +541,30 @@ def run_agent_worker(
                     try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                 )
                 _emit_round_outcome()
-                # Auto-pilot loop
-                if core.auto_pilot_active:
-                    _run_web_turn(
-                        tools_util._run_auto_pilot_loop,
-                        provider_name,
-                        client,
-                        depname,
-                        room.history,
-                        core=core,
-                        make_client_fn=providers.make_client,
-                        append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-                        try_open_images_from_text_fn=tools_util.try_open_images_from_text,
-                    )
-                _emit_round_outcome()
+                if getattr(core, "_memory_projection_invalidated", False):
+                    # Do not retain or display output produced from a revoked
+                    # projection, and do not enter an auto-pilot continuation.
+                    del room.history[_before_hist_len:]
+                else:
+                    # Auto-pilot loop
+                    if core.auto_pilot_active:
+                        _run_web_turn(
+                            tools_util._run_auto_pilot_loop,
+                            provider_name,
+                            client,
+                            depname,
+                            room.history,
+                            core=core,
+                            make_client_fn=providers.make_client,
+                            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                        )
+                    _emit_round_outcome()
             # Sync new assistant messages missed due to skip_log_when_web in _append_assistant_message.
-            for m in room.history[_before_hist_len:]:
-                if isinstance(m, dict) and m.get("role") == "assistant":
-                    room.add_message(dict(m))
+            if not getattr(core, "_memory_projection_invalidated", False):
+                for m in room.history[_before_hist_len:]:
+                    if isinstance(m, dict) and m.get("role") == "assistant":
+                        room.add_message(dict(m))
 
         except LLMWaitInterrupted:
             # Clean Stop during blocking LLM wait: no FATAL banner.
