@@ -232,7 +232,7 @@ def _run_create(args: dict[str, Any]) -> str:
                 "err.direct_os_persist",
                 default="[set_timer error] direct execution is not supported with os_persist=True",
             )
-        return _run_create_os(seconds, message, llm_prompt)
+        return _run_create_os(seconds, message, llm_prompt, required_tools)
     return _run_create_internal(
         seconds,
         message,
@@ -296,25 +296,20 @@ def _run_create_internal(
     )
 
 
-def _run_create_os(seconds: int, message: str, llm_prompt: str) -> str:
+def _run_create_os(
+    seconds: int,
+    message: str,
+    llm_prompt: str,
+    required_tools: list[str],
+) -> str:
     from ..env_utils import env_get
     import os as _os
 
     at_dt = utc_now() + timedelta(seconds=seconds)
     workdir = env_get("UAGENT_WORKDIR") or _os.getcwd()
-    # Collect loaded tool names from TOOL_SPECS
-    from .. import tools as _tools
-
-    tool_names = [
-        str(s.get("function", {}).get("name", ""))
-        for s in getattr(_tools, "TOOL_SPECS", [])
-        if s.get("function", {}).get("name")
-    ]
-    tool_names.sort()
-
     result = create_os_schedule(
         at_dt=at_dt,
-        enable_tools=tool_names,
+        enable_tools=required_tools,
         message=message,
         on_timeout_prompt=llm_prompt,
         workdir=workdir,
