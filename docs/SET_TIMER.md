@@ -36,6 +36,29 @@ and arbitrary-code tools are rejected as direct targets. `direct` cannot be
 combined with `os_persist=true`; OS-level jobs start a separate `uag` process
 and therefore use the normal injected-message path.
 
+## Delivery durability
+
+Internal timer events use a SQLite-backed outbox. The scheduler commits the
+schedule transition and its dispatch events together before handing an event to
+the in-process queue.
+
+For the normal CLI/GUI queue, an outbox event is acknowledged when the consumer
+dequeues it. If queue delivery fails, the event remains pending and is retried.
+If a process stops before dequeue, the pending event remains durable instead of
+being silently lost.
+
+Delivery is **at least once**. A rare retry can therefore produce the same
+scheduler event more than once. Scheduled tool and LLM execution still uses the
+persisted `run_id` / idempotency state to avoid executing the same run twice.
+The outbox `delivered` state means that the event reached the consumer; it does
+not mean that the scheduled run completed successfully.
+
+Internal timer state is bound to its scheduler instance. Another UAG process
+does not automatically consume that instance's pending timers or events.
+Recovery after a process restart is an explicit ownership-reclaim operation and
+must be performed only after the persisted session/authentication boundary has
+been revalidated.
+
 ## Listing and deletion
 
 Use `{"action":"list"}` to list internal and OS-level timers. Internal timers
