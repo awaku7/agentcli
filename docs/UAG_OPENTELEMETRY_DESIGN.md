@@ -2,241 +2,36 @@
 
 Status: Design only  
 Target: post-v0.7.16  
-Scope: observability architecture, OpenTelemetry integration boundary, automatic dependency installation, signal model, privacy, propagation, rollout  
+Scope: observability architecture, activation, automatic dependency installation, privacy, Web/OIDC boundaries, propagation, rollout  
 Non-goal: this document does not implement OpenTelemetry.
 
-Companion design for Web multi-user/OIDC security and trace isolation:
+Companion Web/OIDC design:
 
 - `docs/UAG_OPENTELEMETRY_WEB_IDENTITY.md`
 
-## 1. Purpose
-
-UAG already has provider-neutral runtime boundaries, structured event logging, lifecycle events, tool dispatch events, LLM round summaries, Context Runtime telemetry, Decision Log data, Sub-Agent execution, A2A, MCP, and Web/CLI/GUI entry points.
-
-The purpose of this design is to add OpenTelemetry (OTel) without making OpenTelemetry the internal contract of UAG.
-
-The central rule is:
+## 1. Core rule
 
 > UAG owns the observability model. OpenTelemetry is one projection/export backend of that model.
 
-A second product rule is:
+OpenTelemetry must not become UAG's internal runtime contract, identity system, authorization system, Decision Log store, or provider-specific coupling point.
 
-> When the user enables OpenTelemetry, UAG installs the required OpenTelemetry packages automatically through the existing UAG auto-install mechanism unless the user's auto-install policy forbids it.
+When OpenTelemetry is enabled, missing OTel Python packages are installed automatically through UAG's existing auto-install mechanism unless `UAGENT_AUTO_INSTALL` forbids it.
 
-Users should not normally need to run a separate `pip install` command merely to turn tracing on.
+## 2. Existing UAG boundaries to reuse
 
-For Web deployments, authentication and authorization remain authoritative outside OpenTelemetry. Browser trace context, span attributes, baggage, trace IDs, and exporter data never grant identity, room, project, ownership, or role permissions. Each Web user turn gets its own logical Agent trace; a shared room or long-lived WebSocket never becomes one cross-user trace.
+The implementation should instrument existing centralized boundaries rather than provider SDKs independently:
 
-## 2. Current UAG baseline
+- Agent lifecycle in `runtime/execution.py`;
+- provider-neutral LLM rounds in `runtime/round_orchestrator.py`;
+- centralized tool execution;
+- Context Runtime / Decision Log;
+- `IdentityContext` / `TurnContext`;
+- Web room/project authorization;
+- Sub-Agent, A2A, and MCP boundaries;
+- `_pip_auto.install_with_status()` for optional dependencies;
+- existing structured `log_event()` events and `correlation_id`.
 
-The current runtime already contains most information required for useful tracing.
-
-- `runtime/logging_setup.py`
-  - stable `event_code`
-  - `event_id`
-  - `correlation_id`
-  - `agent_id`, `session_id`, `task_id`, `tool_call_id`
-  - `provider`, `duration_ms`, `status`, `error_type`
-  - ContextVar-based event context propagation
-  - secret-field masking
-- `runtime/execution.py`
-  - shared Agent lifecycle events
-- `runtime/round_orchestrator.py`
-  - provider-neutral LLM round boundary
-  - duration
-  - event/tool-call counts
-  - estimated request tokens
-  - provider usage deltas
-  - projection/tool-schema sizes
-  - retry/recovery summary fields
-- `tools/__init__.py`
-  - centralized tool execution boundary
-  - tool completion/failure events
-- Context Runtime
-  - raw/active/saved context sizes
-  - token estimates
-  - per-section data
-  - explicit Context Decision Log
-- Web identity/runtime
-  - `IdentityContext` / `TurnContext`
-  - connection-bound authenticated identity
-  - room/private-room authorization
-  - project membership and role authorization
-  - OIDC server-side session validation
-- A2A/Sub-Agent/MCP
-  - distributed or nested execution boundaries that benefit from trace propagation
-- `_pip_auto.py`
-  - allowlisted first-use package installation
-  - `UAGENT_AUTO_INSTALL=allow|prompt|off`
-  - localized installation status
-  - version checking and repair/reinstall support through `install_with_status()`
-
-OpenTelemetry should therefore be added as an adapter around existing UAG boundaries and should reuse the existing auto-install policy instead of introducing a second dependency installer.
-
-## 3. Goals
-
-### 3.1 Primary goals
-
-1. Trace one UAG task across Agent, LLM, Tool, Context Runtime, Memory, Sub-Agent, A2A, MCP, and external calls.
-2. Preserve a provider-neutral trace model across OpenAI, Azure OpenAI, Anthropic, Gemini, xAI, OpenRouter, LM Studio, llama.cpp, and future providers.
-3. Export traces and metrics through OTLP to an OpenTelemetry Collector or compatible backend.
-4. Correlate existing UAG structured logs with OpenTelemetry `trace_id` / `span_id`.
-5. Keep Decision Log as a UAG-owned diagnostic/audit artifact rather than flattening it into span attributes.
-6. Keep telemetry opt-in and failure-isolated.
-7. Avoid capturing prompt, response, tool argument, tool result, memory body, and artifact body content by default.
-8. Follow OpenTelemetry GenAI semantic conventions where useful, while isolating semantic-convention mapping behind an adapter because the GenAI conventions are still evolving.
-9. Automatically install required OTel Python packages when OTel is enabled and packages are missing, subject to the existing UAG auto-install policy.
-10. Preserve normal UAG behavior if automatic installation is disabled or fails.
-11. Preserve Web multi-user identity, room/project authorization, private-room ownership, and OIDC session boundaries independently from telemetry.
-12. Prevent trace context from becoming a cross-user or cross-project authorization channel.
-
-### 3.2 Non-goals
-
-The first implementation must not:
-
-- replace `log_event()`
-- require an OpenTelemetry Collector for normal UAG operation
-- force OTel packages into the minimal/base installation
-- require ordinary users to manually install OTel packages before enabling the feature
-- bypass `UAGENT_AUTO_INSTALL`
-- alter LLM/provider behavior
-- alter retry policy
-- alter tool execution behavior
-- alter Context Runtime decisions
-- alter authentication or authorization semantics
-- use `trace_id`, `span_id`, baggage, or inbound `traceparent` as identity/authorization input
-- merge multiple users in a shared room into one long-lived Agent trace
-- send raw conversation content by default
-- export OIDC tokens, session cookies, raw subjects, principal IDs, or group membership by default
-- use OpenTelemetry as persistent Agent state
-- use spans as the canonical Decision Log store
-- couple UAG internals directly to one observability vendor
-- fail an Agent task merely because OTel packages cannot be installed or telemetry cannot be exported
-
-## 4. Design principles
-
-### 4.1 UAG model first, OTel projection second
-
-Application code should not spread direct calls such as:
-
-```python
-span.set_attribute("gen_ai.*", ...)
-```
-
-across the codebase.
-
-Instead:
-
-```text
-UAG Runtime
-   -> UAG Observability API
-      -> Structured Log backend
-      -> OpenTelemetry backend
-      -> future backend(s)
-```
-
-Only the OTel adapter knows detailed OTel semantic-convention mapping.
-
-### 4.2 Preserve existing correlation identity
-
-`correlation_id` and OpenTelemetry `trace_id` are related but are not the same concept.
-
-Do not replace `correlation_id` with `trace_id`.
-
-Structured events may contain both when an active span exists:
-
-```text
-correlation_id
-trace_id
-span_id
-```
-
-`correlation_id` remains available when OTel is disabled.
-
-### 4.3 Decision Log remains separate
-
-Telemetry mainly answers:
-
-> What happened, where, how long did it take, and how much resource was used?
-
-Decision Log mainly answers:
-
-> Why did UAG choose this context/action/plan?
-
-Recommended linkage:
-
-```text
-trace_id
-span_id
-decision_id
-plan_id
-projection_id
-```
-
-Detailed decision reasoning remains in UAG storage.
-
-### 4.4 Web identity and authorization are independent trust boundaries
-
-For Web execution:
-
-```text
-OIDC/authentication
-    -> IdentityContext
-    -> room/project authorization
-    -> TurnContext
-    -> Agent execution
-    -> OTel observation
-```
-
-OpenTelemetry observes the outcome only. It never creates or widens authorization.
-
-Each user turn is an independent logical Agent trace. Shared rooms and WebSocket connections are correlation containers, not Agent trace roots.
-
-Detailed requirements are normative in `docs/UAG_OPENTELEMETRY_WEB_IDENTITY.md`.
-
-### 4.5 Disabled means near-zero impact
-
-When OTel is disabled:
-
-- no OTel package installation is attempted
-- no network export is attempted
-- no OTel package is required
-- no trace-dependent logic changes execution
-- existing `log_event()` behavior continues
-
-### 4.6 Enabling OTel triggers dependency readiness
-
-When OTel is enabled, UAG performs a lazy readiness check before creating the OTel backend.
-
-Conceptually:
-
-```text
-UAGENT_OTEL_ENABLED=1
-        |
-        v
-ensure_otel_dependencies()
-        |
-        +-- already installed -> continue
-        |
-        +-- missing -> existing UAG auto-install policy
-                         |
-                         +-- allow  -> install automatically
-                         +-- prompt -> ask only when interactive
-                         +-- off    -> do not install
-        |
-        v
-initialize OTel backend or safely fall back to no-op
-```
-
-This check should run once per process, not once per user, room, span, or LLM call.
-
-### 4.7 Telemetry must never break the Agent
-
-Exporter failure, Collector failure, installation failure, queue overflow, invalid endpoint configuration, or serialization failure must not fail a user task.
-
-Observability failures may generate a local diagnostic event, but Agent execution remains authoritative.
-
-## 5. Architecture
+## 3. Architecture
 
 ```text
 Authentication / Authorization
@@ -245,43 +40,32 @@ Authentication / Authorization
          TurnContext
              |
              v
-                         UAG Runtime
-                             |
-                 +-----------+-----------+
-                 |                       |
-          Domain operations        Decision Log
-                 |                       |
-                 v                       v
-          UAG Observability API      UAG storage
-                 |
-        +--------+---------+
-        |                  |
-        v                  v
- Structured Event      OTel Adapter
-     backend                |
-                            +--------------------+
-                            |                    |
-                            v                    v
-                         Traces              Metrics
-                            |                    |
-                            +---------+----------+
-                                      |
-                                     OTLP
-                                      |
-                                      v
-                           OpenTelemetry Collector
+         UAG Runtime
+             |
+             v
+   UAG Observability API
+      |              |
+      v              v
+structured events   OTel adapter
+                       |
+                 Traces / Metrics
+                       |
+                      OTLP
+                       |
+                    Collector
 ```
 
-The Collector is recommended but not required by the internal design. UAG should use standard OTLP through the OTel SDK/exporter and avoid vendor-specific SDKs in core runtime code.
+The Collector is recommended but is not required for normal UAG operation.
 
-## 6. Proposed module boundary
+## 4. Internal module boundary
 
-A future implementation should introduce a small observability package, for example:
+Future implementation should introduce a small runtime-neutral package such as:
 
 ```text
 src/uagent/runtime/observability/
     __init__.py
     api.py
+    settings.py
     bootstrap.py
     dependencies.py
     noop.py
@@ -291,68 +75,71 @@ src/uagent/runtime/observability/
     privacy.py
 ```
 
-### `api.py`
+Important rules:
 
-Provider-neutral UAG observability contract.
+- runtime code calls UAG observability functions, not raw `span.set_attribute("gen_ai.*", ...)` throughout the tree;
+- semantic-convention-specific names stay in `semantic_mapping.py`;
+- disabled or unavailable OTel resolves to a no-op backend;
+- observability failure never changes Agent behavior.
 
-Conceptual operations:
+## 5. Activation and configuration
+
+### 5.1 Product-level activation
+
+UAG must provide an explicit product-level switch.
+
+For CLI, define:
 
 ```text
-start_agent_span
-start_llm_span
-start_tool_span
-start_context_span
-start_retrieval_span
-start_memory_span
-start_sub_agent_span
-record_event
-record_metric
-current_trace_ids
+--otel
+--no-otel
 ```
 
-### `bootstrap.py`
+The CLI value is tri-state: explicitly enabled, explicitly disabled, or unspecified.
 
-Selects no-op vs OTel backend and initializes it once.
+Resolution order:
 
-### `dependencies.py`
-
-Owns OTel package readiness and delegates installation to the existing `_pip_auto.install_with_status()` mechanism.
-
-It must not invoke pip directly.
-
-### `noop.py`
-
-No-op implementation used when disabled or unavailable.
-
-### `logging_backend.py`
-
-Bridge to existing structured events. The current `log_event()` API remains supported.
-
-### `otel_backend.py`
-
-OTel SDK integration, OTLP exporters, span creation, metrics, status/error recording, and context propagation.
-
-### `semantic_mapping.py`
-
-Single location that maps UAG domain concepts to OpenTelemetry GenAI semantic conventions and UAG custom attributes.
-
-### `privacy.py`
-
-Content-capture policy, identity/privacy redaction, cardinality policy, and safe attribute conversion.
-
-## 7. Automatic dependency installation
-
-### 7.1 Reuse UAG's existing installer
-
-OTel installation must use the existing UAG mechanism:
-
-```python
-from uagent._pip_auto import install_with_status
+```text
+explicit entry-point setting
+    > UAGENT_OTEL_ENABLED
+    > default OFF
 ```
 
-No new subprocess/pip wrapper should be introduced in the observability package.
+For CLI this means CLI flags override the environment variable, consistent with repository configuration conventions.
 
-The OTel packages must be added to `_pip_auto.py`'s allowlist.
+All entry points must use the same shared `ObservabilitySettings` resolver:
+
+- CLI: `--otel` / `--no-otel` override env;
+- GUI: explicit GUI/application setting, if exposed, overrides env;
+- Web: server/operator configuration overrides env; browser input cannot enable OTel;
+- A2A: server/process configuration overrides env; remote callers cannot enable OTel;
+- library/internal entry points: explicit programmatic setting may override env.
+
+Entry points must not independently invent different enablement semantics.
+
+### 5.2 Standard OTel configuration
+
+After UAG enables the OTel backend, prefer standard variables for exporter and sampler behavior:
+
+```text
+OTEL_SERVICE_NAME
+OTEL_EXPORTER_OTLP_ENDPOINT
+OTEL_EXPORTER_OTLP_PROTOCOL
+OTEL_TRACES_EXPORTER
+OTEL_METRICS_EXPORTER
+OTEL_RESOURCE_ATTRIBUTES
+```
+
+UAG-specific policy remains limited to UAG-specific concerns, for example:
+
+```text
+UAGENT_OTEL_ENABLED=0
+UAGENT_OTEL_CAPTURE_CONTENT=0
+```
+
+## 6. Automatic dependency installation
+
+OpenTelemetry packages remain outside the minimal/base installation.
 
 Initial package set:
 
@@ -362,217 +149,112 @@ opentelemetry-sdk
 opentelemetry-exporter-otlp
 ```
 
-Exact version constraints are selected at implementation time and should be validated as a compatible set.
+Exact compatible versions are selected at implementation time.
 
-### 7.2 Trigger
-
-Automatic installation occurs only when all of the following are true:
-
-1. `UAGENT_OTEL_ENABLED` is true.
-2. The OTel backend is being initialized.
-3. One or more required packages are missing or outside the supported version range.
-4. Existing `UAGENT_AUTO_INSTALL` policy permits installation.
-
-Merely importing UAG must not install OpenTelemetry.
-
-Merely setting unrelated `OTEL_*` variables must not install OpenTelemetry unless UAG's product-level OTel switch is enabled.
-
-### 7.3 Existing auto-install policy remains authoritative
-
-| `UAGENT_AUTO_INSTALL` | OTel dependency behavior |
-|---|---|
-| `allow` (default) | install missing required packages automatically |
-| `prompt` | ask before installation when interactive; non-interactive execution does not install |
-| `off` | never install automatically |
-
-UAG must not create an OTel-specific override that silently bypasses this policy.
-
-### 7.4 Failure behavior
-
-If dependencies remain unavailable:
+When effective OTel activation is ON:
 
 ```text
-OTel requested
-   -> dependency unavailable
-   -> local diagnostic event/warning
-   -> OTel backend disabled for this process
-   -> no-op backend
-   -> authentication/authorization/Agent execution continue normally
+initialize observability
+      |
+      v
+ensure OTel dependencies once per process
+      |
+      +-- present -> continue
+      |
+      +-- missing -> _pip_auto.install_with_status()
+                       |
+                       +-- allow  -> install
+                       +-- prompt -> ask only when interactive
+                       +-- off    -> do not install
+      |
+      +-- ready -> OTel backend
+      +-- unavailable -> warning/event + no-op backend
 ```
 
-Do not repeatedly retry installation per user/room/round.
+Rules:
 
-### 7.5 Preinstallation remains supported
+- importing UAG alone never installs OTel;
+- unrelated `OTEL_*` variables alone do not trigger installation;
+- installation is process-level, never per user/room/turn/span;
+- do not add a second pip wrapper;
+- OTel packages must be added to `_pip_auto.py`'s allowlist;
+- installation/exporter failures never fail the Agent task.
 
-An optional package extra may still be provided for offline/reproducible deployments, but automatic installation is normal UX.
+An optional `uag[otel]` packaging extra may still exist for reproducible/offline deployment, but ordinary enabled use should not require a manual pip command.
 
-## 8. Trace model
+## 7. Canonical trace model
 
-A typical non-Web/local task:
+A logical Agent task is the root application operation:
 
 ```text
 invoke_agent uag
-|
-+-- uag.context.build
-+-- chat <model>
-+-- execute_tool <tool>
-+-- chat <model>
+  +-- uag.context.build
+  +-- chat <model>
+  +-- execute_tool <tool>
+  +-- chat <model>
+  +-- invoke_agent <sub-agent>
 ```
 
-A Web turn:
+For Web, each authorized user turn/task gets its own logical Agent trace. A room or long-lived WebSocket is never a cross-user Agent trace root.
 
-```text
-web.message
-   -> authorization checks
-   -> invoke_agent uag
-      +-- uag.context.build
-      +-- chat <model>
-      +-- execute_tool <tool>
-```
+## 8. Operation mapping
 
-A WebSocket or room itself is not the logical Agent root.
+Recommended logical mapping:
 
-## 9. Mapping UAG operations to OpenTelemetry
+| UAG operation | OTel operation/span | Notes |
+|---|---|---|
+| Agent task | `invoke_agent` | one logical task/turn |
+| LLM round | `chat` / matching inference operation | provider-neutral UAG boundary |
+| Tool execution | `execute_tool` | logical tool operation |
+| Planner | `plan` | non-trivial planning only |
+| Retrieval | `retrieval` | local/remote as appropriate |
+| Memory search/create/update | matching GenAI memory operation | no memory body by default |
+| Context build | `uag.context.build` | UAG custom span |
+| Provider projection | `uag.provider.project` | internal span if useful |
+| Sub-Agent | `invoke_agent` | child/sibling according to execution |
+| A2A | agent + transport spans | W3C propagation only on trusted boundaries |
+| MCP | logical tool + transport spans | avoid duplicates |
 
-Recommended mapping:
+The canonical LLM trace is created at UAG's provider-neutral round boundary. Provider SDK auto-instrumentation may later be an optional nested diagnostic layer, not the canonical model.
 
-| UAG operation | OTel operation / span | Kind | Notes |
-|---|---|---|---|
-| Agent task | `invoke_agent` | INTERNAL | one logical task/turn |
-| Web turn boundary | server/internal span | SERVER/INTERNAL | after trusted connection identity; never room-wide |
-| OIDC login/callback | HTTP + UAG auth span/event | SERVER/INTERNAL | secrets excluded |
-| Authorization check | UAG authz span/event | INTERNAL | result only; policy remains authoritative |
-| Remote Agent call | `invoke_agent` | CLIENT | propagation required |
-| Planner/decomposition | `plan` | INTERNAL | avoid trivial spans |
-| LLM generation | `chat` or matching inference operation | CLIENT | logical call includes retries |
-| Tool execution | `execute_tool` | INTERNAL | logical tool operation |
-| Retrieval | `retrieval` | INTERNAL/CLIENT | local vs remote dependent |
-| Memory search | `search_memory` | INTERNAL/CLIENT | content excluded by default |
-| Context build | `uag.context.build` | INTERNAL | UAG custom span |
-| A2A transport | Agent plus protocol spans | CLIENT/SERVER | W3C propagation |
-| MCP | MCP conventions where applicable | CLIENT/SERVER | avoid duplicates |
+## 9. Tokens and Decision Log
 
-## 10. LLM span semantics
-
-Canonical tracing occurs at UAG's provider-neutral logical round boundary, not independently inside every provider SDK.
-
-Preserve the distinction between estimated and provider-reported tokens:
+Keep estimated and provider-reported token data distinct:
 
 ```text
 uag.tokens.estimate.*
 uag.tokens.reported.*
 ```
 
-Estimated values must never be presented as exact provider usage.
+Do not present estimates as exact provider usage.
 
-## 11. Tool tracing
-
-The centralized UAG tool runner is the primary instrumentation point.
-
-Raw tool arguments/results are not recorded by default.
-
-Existing tool trace output and structured events remain supported.
-
-## 12. Context Runtime tracing
-
-Recommended aggregate metadata:
+Decision Log remains separate from OTel. It may store linkage such as:
 
 ```text
-uag.context.raw.chars
-uag.context.active.chars
-uag.context.saved.chars
-uag.context.raw.tokens
-uag.context.active.tokens
-uag.context.saved.tokens
-uag.context.saved.ratio
-uag.context.candidate.count
-uag.context.keep.count
-uag.context.compact.count
-uag.context.exclude.count
-uag.context.retrieve_more.count
-uag.context.budget.mode
-```
-
-Detailed decisions remain in Decision Log/debug data.
-
-## 13. Decision Log correlation
-
-Decision Log records may store:
-
-```text
-decision_id
 correlation_id
 trace_id
 span_id
+decision_id
 plan_id
 projection_id
 ```
 
-The full decision body remains outside OTel by default.
+Detailed decision reasoning remains in UAG storage/debug artifacts.
 
-## 14. Web multi-user and OIDC rules
+## 10. Privacy and cardinality
 
-The companion design `UAG_OPENTELEMETRY_WEB_IDENTITY.md` is normative for Web deployments.
+Default is metadata only.
 
-Key rules:
+Do not export by default:
 
-1. One Web user turn -> one logical Agent trace.
-2. Shared room != shared trace.
-3. Long-lived WebSocket != Agent trace root.
-4. Browser-supplied `traceparent` is untrusted by default.
-5. Trace context is never identity or authorization input.
-6. OIDC code/token/session cookie/session token and raw claims are never exported.
-7. Raw `principal_id`, OIDC subject, display name, and groups are not exported by default.
-8. Room/project/owner identifiers are never metric dimensions.
-9. Private-room ownership and room/project roles remain server-side authorization data.
-10. Authorization is revalidated according to existing UAG policy even when trace context already exists.
-11. OTel auto-install is process-level and never per user/room.
-12. External trace backends are operator/admin surfaces by default; user-visible trace access requires UAG authorization mediation.
-13. An OIDC browser session may create many independent Agent traces; neither `trace_id` nor `correlation_id` becomes the OIDC session identifier.
+- system/user/assistant/reasoning bodies;
+- tool arguments/results;
+- memory/artifact/file bodies;
+- OAuth/OIDC tokens and cookies;
+- raw Authorization/Cookie headers;
+- raw principal IDs, OIDC subjects, display names, or groups.
 
-## 15. Sub-Agent and multi-agent tracing
-
-Local Sub-Agents are children of the invoking Agent span. Parallel Sub-Agents are siblings under the invoking operation.
-
-Identity/Turn Context and OTel Context must both propagate correctly, but neither substitutes for the other.
-
-## 16. A2A and distributed propagation
-
-A2A may propagate W3C Trace Context when enabled, but trace headers are observability metadata only and never authorization.
-
-## 17. MCP propagation
-
-Use standard MCP conventions where available and retain the logical UAG tool span above transport spans.
-
-## 18. Signals
-
-### 18.1 Traces
-
-Initial boundaries:
-
-- Web turn / Agent task
-- LLM logical round
-- Tool execution
-- Sub-Agent invocation
-- Context build
-- Retrieval/Memory
-- OIDC/authz operations where operationally useful
-
-### 18.2 Metrics
-
-Keep metrics low-cardinality.
-
-Safe auth-related dimensions may include:
-
-```text
-authn_kind
-operation
-outcome
-normalized role
-normalized error class
-```
-
-Never use:
+Never use the following as metric dimensions:
 
 ```text
 principal_id
@@ -580,204 +262,194 @@ subject
 room_id
 project_id
 session_id
-group name
 trace_id
+group name
 ```
 
-as metric dimensions.
+`UAGENT_OTEL_CAPTURE_CONTENT` is operator/server policy, not browser/message input.
 
-### 18.3 Logs
+## 11. Web/OIDC security boundary
 
-Existing UAG structured events remain the primary logging/audit format and may be enriched with active `trace_id` / `span_id`. Security/audit logging must remain useful even when OTel is disabled or sampled out.
+The companion document is normative.
 
-## 19. Privacy and content capture
+Critical rules:
 
-Default: metadata only.
+1. Authentication and authorization occur before Agent execution and remain authoritative outside OTel.
+2. Trace IDs, baggage, `traceparent`, and span attributes are never authorization inputs.
+3. Each user turn gets a separate logical Agent trace.
+4. Shared rooms never merge principals into one trace tree.
+5. OIDC session validity must be revalidated on every WebSocket turn before creating the turn's trusted execution context.
+6. Room/project/private-room authorization must still be revalidated using server-side policy.
+7. Browser-provided inbound trace context is rejected/detached by default from the first OTel-enabled Web release.
+8. Trusted proxy/internal inbound context may be supported later through explicit deployment policy.
+9. OIDC/session secrets and raw identity claims remain outside remote telemetry.
+10. External trace backends are operator/admin surfaces by default.
 
-In addition to prompt/tool/memory content, Web deployments must exclude by default:
+## 12. Inbound trace policy
+
+### 12.1 Phase-1 minimum requirement
+
+Untrusted browser `traceparent` / `tracestate` must be rejected or detached **before** a UAG Web turn/server span is parented from it.
+
+This requirement ships with initial Web tracing, not a later distributed-tracing phase.
+
+This is important even if ASGI/HTTP auto-instrumentation is enabled: UAG must not let arbitrary browser context cause server spans or Agent traces to join an attacker-selected trace.
+
+Default:
 
 ```text
-OIDC authorization code
-access/refresh/ID tokens
-session cookie/token
-PKCE verifier
-state
-nonce
-raw claims
-Authorization/Cookie headers
-principal_id
-subject
-display_name
-groups
+browser request / WebSocket message
+      -> discard untrusted inbound OTel parent
+      -> perform authentication/session revalidation
+      -> perform authorization
+      -> create fresh trusted UAG turn/Agent trace
 ```
 
-`UAGENT_OTEL_CAPTURE_CONTENT` is operator/server policy, not browser/user input.
+Later phases may add an explicit trusted-ingress policy for controlled reverse proxies or internal services.
 
-## 20. Cardinality and identity policy
+## 13. OIDC live-session requirement
 
-Raw room/project/principal identifiers are trace-only at most and omitted from remote telemetry by default.
+The current Web connection model may retain a resolved `IdentityContext` for a connection. That alone is not sufficient to guarantee that OIDC session expiry/revocation is observed on each later WebSocket turn.
 
-If cross-trace identity/scope correlation becomes operationally necessary, use server-keyed HMAC pseudonyms, disabled by default, never plain hashes and never metric labels.
+Therefore the OTel/Web implementation must not describe live-session revocation as already guaranteed by current connection identity caching.
 
-## 21. Error semantics
+Implementation requirement:
 
-Authentication denial, authorization denial, cancellation, timeout, LLM/tool errors, exporter errors, and dependency-install errors remain distinct.
+- retain or derive a server-side OIDC session revalidation handle/reference at connection acceptance;
+- never expose that handle to OTel;
+- before every WebSocket turn, revalidate the handle against the authoritative OIDC session store/configuration;
+- if expired/revoked/stale, deny the turn and do not create downstream Agent/LLM/Tool spans;
+- only after successful revalidation create the trusted `TurnContext` and Agent trace;
+- non-OIDC modes use their own appropriate revalidation semantics through the shared identity boundary.
 
-Observability failure cannot change authentication or authorization outcomes.
+This is an authentication hardening requirement discovered during design review, not an OTel authorization mechanism.
 
-## 22. Sampling
+## 14. Signals
 
-Standard OTel sampling applies to telemetry only. It does not affect security/audit checks or authorization decisions.
+Priority:
 
-## 23. Configuration
+1. traces;
+2. low-cardinality metrics;
+3. existing UAG structured logs with trace/span correlation;
+4. OTel Logs only later if justified.
 
-```text
-UAGENT_OTEL_ENABLED=0
-UAGENT_OTEL_CAPTURE_CONTENT=0
-UAGENT_AUTO_INSTALL=allow
-```
+Useful aggregate metrics include operation duration, token usage, retry/error counts, and Context Runtime compression/savings. Security/audit logs remain useful even when OTel is disabled or sampled out.
 
-Standard `OTEL_*` variables configure exporters/sampling after the UAG OTel backend is enabled.
+## 15. Rollout
 
-A multi-user process must not set one user/project/room as a process-level OTel Resource identity.
+### Phase 0 - design only
 
-## 24. Packaging
+- finalize core design;
+- finalize Web/OIDC companion design;
+- no runtime behavior change.
 
-OTel remains absent from minimal installation but is automatically installed on first enabled use when policy allows.
+### Phase 1 - safe core tracing
 
-Auto-install state is process-level; it must not depend on the authenticated Web user.
+- shared `ObservabilitySettings` including CLI `--otel` / `--no-otel` precedence;
+- automatic dependency readiness;
+- no-op and OTel backends;
+- Agent/LLM/Tool spans;
+- trace/log correlation;
+- Web per-turn root behavior;
+- **reject/detach untrusted browser inbound trace context**;
+- **OIDC live-session revalidation before every WebSocket turn**;
+- content and raw identity capture OFF.
 
-## 25. GenAI semantic-convention compatibility
+### Phase 2 - Context and metrics
 
-Semantic-convention-specific names remain isolated in `semantic_mapping.py`.
+- Context/Memory/Retrieval spans and aggregate metrics;
+- Decision Log linking;
+- auth/authz operational events/spans where useful.
 
-## 26. Provider-neutral instrumentation
+### Phase 3 - trusted distributed propagation
 
-Canonical UAG traces are created at UAG provider-neutral boundaries.
+- Sub-Agent/A2A/MCP propagation hardening;
+- explicit trusted reverse-proxy/internal ingress policy;
+- multi-instance validation;
+- duplicate-span policy with transport instrumentation.
 
-## 27. Integration with `log_event()`
+### Phase 4 - optional advanced diagnostics
 
-Existing event codes remain compatible. Active trace correlation may be added without making logs dependent on OTel.
+- controlled content capture;
+- optional pseudonymous scope correlation;
+- optional SDK nested instrumentation;
+- optional trace-query proxy with UAG authorization.
 
-## 28. Rollout phases
+## 16. Testing requirements
 
-### Phase 0
+Core tests:
 
-- finalize core design
-- finalize Web/OIDC companion design
-- no runtime behavior change
+- OTel disabled requires no OTel package;
+- enabling OTel auto-installs when policy allows;
+- `prompt`/`off` policy is honored;
+- CLI flags override env and all entry points resolve through shared settings;
+- exporter/install failure falls back safely;
+- Agent/LLM/Tool hierarchy is coherent;
+- estimated and reported tokens remain distinct;
+- secrets/content are excluded;
+- metrics avoid high-cardinality identity/scope fields.
 
-### Phase 1
+Web/OIDC tests:
 
-- automatic dependencies
-- Observability API/no-op/OTel backend
-- Agent/LLM/Tool spans
-- Web per-turn root behavior
-- trace/log correlation
-- content/identity capture OFF
+- user A and user B turns have separate root Agent traces;
+- shared room/WebSocket does not create a long-lived cross-user trace;
+- OIDC session expiry/revocation after connection acceptance denies the next turn;
+- authentication configuration change denies stale sessions;
+- room/project/private-room revocation still takes effect;
+- authorization denial creates no downstream Agent/LLM/Tool spans;
+- forged browser `traceparent` is detached/rejected in Phase 1;
+- trace context never changes authorization outcome;
+- no OIDC/session secrets or raw identity values are exported.
 
-### Phase 2
+## 17. Acceptance criteria
 
-- Context/Memory/Retrieval metrics
-- Decision Log linkage
-- auth/authz operational spans/events where justified
+The first implementation is acceptable only when all are true:
 
-### Phase 3
-
-- Sub-Agent/A2A/MCP distributed propagation
-- inbound trace trust policy hardening
-- multi-instance validation
-
-### Phase 4
-
-- advanced diagnostics
-- optional pseudonymous identity/scope correlation
-- optional user-visible trace proxy only with authorization design
-
-## 29. Testing strategy
-
-In addition to core OTel tests, Web tests must verify:
-
-- separate root Agent traces for different users/turns;
-- no room-wide long-lived trace;
-- no OIDC/session secrets in telemetry;
-- raw principal/subject/groups excluded by default;
-- room/project IDs absent from metric dimensions;
-- trace context cannot override access policy;
-- membership/role/session revocation still takes effect on existing WebSocket connections;
-- authorization denial produces no downstream LLM/tool spans;
-- untrusted browser `traceparent` does not join another user's trusted trace by default;
-- exporter/install failures do not change authentication/authorization behavior.
-
-## 30. Acceptance criteria
-
-The initial implementation is acceptable when:
-
-1. UAG runs unchanged with OTel disabled.
-2. Missing OTel packages auto-install when enabled and policy permits.
-3. `UAGENT_AUTO_INSTALL=prompt|off` is honored.
-4. OTel failures degrade to no-op without Agent failure.
-5. Each Web user turn has an isolated logical Agent trace.
-6. Shared rooms and WebSocket connections do not merge user traces.
-7. OTel trace context never acts as identity/authorization input.
-8. OIDC/session secrets are never exported.
-9. Raw principal IDs/subjects/groups are not exported by default.
-10. Room/project/owner identifiers are not metric dimensions.
-11. Existing room/project/private-room authorization remains authoritative and revalidated.
-12. External trace-backend access is not implicitly granted to room members.
-13. Provider paths share the same logical trace model.
-14. Existing structured events still work.
-15. Prompt/response/tool-result content is not exported by default.
+1. UAG behavior is unchanged with OTel disabled.
+2. CLI supports explicit enable/disable and CLI overrides environment fallback.
+3. CLI/GUI/Web/A2A share one activation resolver and equivalent semantics.
+4. Missing OTel dependencies auto-install when enabled and policy permits.
+5. `UAGENT_AUTO_INSTALL=prompt|off` is honored.
+6. OTel/exporter/install failures do not fail Agent tasks.
+7. Each Web user turn has an isolated logical Agent trace.
+8. An OIDC session expired/revoked after WebSocket acceptance is rejected on the next turn through server-side revalidation.
+9. Untrusted browser `traceparent` is rejected/detached from the initial Web tracing phase.
+10. Existing room/project/private-room authorization remains server-authoritative and revalidated.
+11. OTel trace context never acts as identity or authorization input.
+12. OIDC/session secrets and raw identity claims are not exported by default.
+13. Prompt/response/tool-result content is not exported by default.
+14. Room/project/principal identifiers are not metric dimensions.
+15. Existing structured events remain operational and trace-linkable.
 16. Decision Log remains independent and trace-linkable.
-17. Sub-Agent parentage is correct.
-18. Semantic-convention names are isolated in the adapter.
+17. Provider paths share the same logical trace model.
+18. Semantic-convention-specific names remain isolated in the adapter.
 
-## 31. Decisions made by this design
+## 18. Decisions fixed by this design
 
-- OpenTelemetry is opt-in.
-- Dependencies auto-install on first enabled use through existing UAG policy.
-- OTel is not UAG's canonical telemetry contract.
+- OpenTelemetry is opt-in and disabled by default.
+- CLI `--otel` / `--no-otel` overrides `UAGENT_OTEL_ENABLED`.
+- All entry points use shared activation semantics.
+- OTel dependencies auto-install through the existing UAG installer when enabled.
+- OTel is a projection backend, not UAG's canonical observability contract.
 - `correlation_id` remains distinct from `trace_id`.
 - Decision Log remains separate.
 - Canonical LLM tracing is provider-neutral.
-- Web traces are per turn/task, not per room/WebSocket.
-- Browser trace context is untrusted by default.
-- Authentication/authorization remain independent from telemetry.
-- Raw OIDC/session secrets and identity claims are excluded.
-- Shared-room access does not imply observability-backend access.
-- OTel auto-install is process-level, not user-level.
-- Standard `OTEL_*` configuration is preferred.
+- Web Agent traces are per turn/task, not per room/WebSocket.
+- OIDC live sessions must be revalidated per WebSocket turn.
+- Untrusted browser inbound trace context is detached/rejected in Phase 1.
+- Authentication/authorization remain independent of telemetry.
+- Raw OIDC/session secrets and identity claims are excluded by default.
+- Standard `OTEL_*` exporter/sampler configuration is preferred after UAG activation.
 - OTLP is the standard export path.
 
-## 32. Remaining design questions before implementation
+## 19. Remaining implementation-time choices
 
-1. Exact internal Observability API shape.
-2. Exact compatible OTel package versions.
-3. Exact validated GenAI semantic-convention revision.
-4. Whether metrics ship with initial traces.
-5. Exact trusted-ingress configuration for accepting browser/reverse-proxy inbound trace context.
-6. Whether pseudonymous principal/project/room correlation is needed in the first production deployment or remains off.
-7. Whether a later UAG trace-query proxy is needed for non-admin Web users.
+These do not change the architecture:
 
-## 33. Summary
-
-```text
-Web/OIDC authentication
-        |
-        v
-server-authoritative authorization
-        |
-        v
-TurnContext
-        |
-        v
-Agent task
-        |
-        v
-UAG Observability API
-        |
-        +-- structured events
-        +-- OTel adapter -> OTLP
-```
-
-OpenTelemetry observes the trusted UAG execution boundary. It does not define identity, ownership, room/project membership, or access. In multi-user Web mode, every turn remains isolated as its own logical trace, while OIDC/session secrets and raw identity information remain outside remote telemetry by default.
+1. exact internal Python Protocol/context-manager API;
+2. exact compatible OTel package versions;
+3. exact validated GenAI semantic-convention revision;
+4. concrete CLI parser placement for `--otel` / `--no-otel`;
+5. concrete representation of the server-side OIDC session revalidation handle;
+6. explicit trusted-ingress configuration shape for reverse proxies/internal clients;
+7. whether metrics ship in the same release as initial traces.
