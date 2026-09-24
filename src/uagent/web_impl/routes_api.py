@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import os
 import threading
+import time
 from uuid import uuid4
 
 from fastapi import Request
@@ -26,7 +28,7 @@ from ..runtime.memory_access import (
     ScopedMemoryStore,
 )
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
-from ..runtime.session_store import project_id_from_path
+from ..runtime.session_store import SessionStoreError, project_id_from_path
 from ..runtime.project_access import ProjectAccessPolicy, ProjectMemoryService
 from ..runtime.project_context import PROJECT_CONTEXT_COOKIE, ProjectContextStore
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
@@ -82,6 +84,67 @@ def _memory_store():
     if not _long_memory_mod.is_sqlite_backend():
         raise RuntimeError("Memory V3 Web API requires SQLite memory")
     return open_memory_store(_long_memory_mod._sqlite_path())
+
+
+def _cleanup_expired_private_rooms(*, now: float | None = None) -> list[str]:
+    """Expire idle private rooms without interrupting connected or running work."""
+    current = time.time() if now is None else now
+    ttl = web_manager.idle_ttl_seconds()
+    cutoff = current - ttl
+    active_room_ids = web_manager.active_room_ids()
+    store = _memory_store()
+    removed: list[str] = []
+    try:
+        policy = RoomAccessPolicy(store)
+        for active_room_id in active_room_ids:
+            policy.touch_private_room(active_room_id, now=current)
+        expired = policy.list_expired_private_rooms(cutoff=cutoff)
+        session_store = getattr(core, "session_store", None)
+
+        def delete_session(session_id: str) -> None:
+            if session_store is None:
+                return
+            try:
+                session_store.get_session(session_id)
+            except SessionStoreError as exc:
+                if str(exc).startswith("unknown session:"):
+                    return
+                raise
+            session_store.delete_session(session_id)
+
+        for record in expired:
+            room_id = record["room_id"]
+            if room_id in active_room_ids:
+                continue
+            try:
+                if policy.delete_private_room_if_expired(
+                    room_id,
+                    session_id=record["session_id"],
+                    cutoff=cutoff,
+                    before_delete=delete_session,
+                ):
+                    removed.append(room_id)
+                    web_manager.discard_expired_private_room_if_idle(room_id)
+            except Exception:
+                # A failed session deletion must leave the owner binding intact
+                # so the next maintenance pass can safely retry.
+                continue
+        return removed
+    finally:
+        store.close()
+
+
+async def _private_room_cleanup_loop() -> None:
+    while True:
+        try:
+            if _long_memory_mod.is_sqlite_backend():
+                await asyncio.to_thread(_cleanup_expired_private_rooms)
+            else:
+                web_manager.evict_idle_rooms()
+        except Exception:
+            print("[WARN] Private Web room cleanup failed; it will be retried.")
+        ttl = web_manager.idle_ttl_seconds()
+        await asyncio.sleep(min(max(ttl // 4, 30), 300))
 
 
 def _memory_error(exc: Exception) -> JSONResponse:
@@ -262,7 +325,8 @@ async def set_tools_enabled(req: Request):
 
 def _private_room_project(store, identity, room_id: str) -> str:
     room_id = str(room_id or "").strip()
-    if not room_id or not RoomAccessPolicy(store).is_private_room_for(
+    room_policy = RoomAccessPolicy(store)
+    if not room_id or not room_policy.is_private_room_for(
         identity.principal_id, room_id
     ):
         raise MemoryAccessError("private room access is not permitted")
@@ -271,6 +335,7 @@ def _private_room_project(store, identity, room_id: str) -> str:
     if not project_id:
         raise MemoryAccessError("private room has no project binding")
     project_policy.require_access(identity.principal_id, project_id, "viewer")
+    room_policy.touch_private_room(room_id)
     return project_id
 
 
@@ -447,6 +512,8 @@ async def create_my_private_room(request: Request):
         finally:
             store.close()
 
+        room = web_manager.get_room(room_id)
+        room.base_dir = room_base_dir
         room.session_id = session_id
         room.private_session = True
         room.project_id = project_id
@@ -853,6 +920,10 @@ def _room_service(
     project_policy.require_access(identity.principal_id, bound_project, role)
     project_policy.require_room_binding(bound_project, room_id)
     policy = RoomAccessPolicy(store)
+    if policy.private_room_owner(room_id) is not None:
+        if not policy.is_private_room_for(identity.principal_id, room_id):
+            raise MemoryAccessError("private room access is not permitted")
+        policy.touch_private_room(room_id)
     service = RoomMemoryService(
         store,
         policy,

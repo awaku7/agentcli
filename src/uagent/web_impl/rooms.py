@@ -6,6 +6,7 @@ import asyncio
 from datetime import datetime
 import os
 import threading
+import time
 from typing import Any, Optional
 
 from fastapi import WebSocket
@@ -13,6 +14,7 @@ from ..i18n import _, set_thread_lang
 from .. import core
 from ..env_utils import env_get
 from ..runtime import runtime_init as _runtime_init
+from ..runtime.room_access import private_room_idle_ttl_seconds
 from ..runtime.identity_context import (
     IdentityConfigurationError,
     IdentityResolutionError,
@@ -33,6 +35,9 @@ class WebRoom:
 
         self.active_connections: list[WebSocket] = []
         self._connection_contexts: dict[int, Any] = {}
+        self._lifecycle_lock = threading.Lock()
+        self._activity_lock = threading.Lock()
+        self.last_activity = time.monotonic()
         self.messages: list[dict[str, Any]] = []  # UI display
         self.status: dict[str, Any] = {"busy": False, "label": "IDLE", "workdir": ""}
 
@@ -55,6 +60,10 @@ class WebRoom:
 
         # event loop for run_coroutine_threadsafe
         self.loop: Optional[asyncio.AbstractEventLoop] = None
+
+    def touch(self) -> None:
+        with self._activity_lock:
+            self.last_activity = time.monotonic()
 
     def set_base_dir(self, path: str) -> None:
         """Change this room's base directory. Does NOT call os.chdir()."""
@@ -92,9 +101,11 @@ class WebRoom:
         try:
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
-            self.active_connections.append(websocket)
-            if connection_context is not None:
-                self._connection_contexts[id(websocket)] = connection_context
+            with self._lifecycle_lock:
+                self.active_connections.append(websocket)
+                if connection_context is not None:
+                    self._connection_contexts[id(websocket)] = connection_context
+            self.touch()
 
             msgs = self.messages
             if self.history:
@@ -215,7 +226,7 @@ class WebRoom:
                 connection_context, "validate_room_access", None
             )
             if callable(validate_room_access):
-                validate_room_access()
+                validate_room_access(touch_activity=False)
         except (IdentityConfigurationError, IdentityResolutionError):
             self.disconnect(websocket)
             try:
@@ -225,9 +236,11 @@ class WebRoom:
             raise
 
     def disconnect(self, websocket: WebSocket):
-        if websocket in self.active_connections:
-            self.active_connections.remove(websocket)
-        self._connection_contexts.pop(id(websocket), None)
+        with self._lifecycle_lock:
+            if websocket in self.active_connections:
+                self.active_connections.remove(websocket)
+            self._connection_contexts.pop(id(websocket), None)
+        self.touch()
 
     async def broadcast(self, data: dict[str, Any]):
         for connection in list(self.active_connections):
@@ -245,6 +258,7 @@ class WebRoom:
                 self.disconnect(connection)
 
     def set_status(self, busy: bool, label: str = ""):
+        self.touch()
         workdir = self.base_dir
         try:
             label = core.normalize_status_label(busy, label)
@@ -262,6 +276,7 @@ class WebRoom:
             )
 
     def add_message(self, msg: dict[str, Any]):
+        self.touch()
         display_msg = _enrich_message_attachments(msg)
         display_msg["role"] = msg.get("role")
         # Normalize content: list -> plain text for frontend
@@ -316,11 +331,94 @@ class WebManager:
             except Exception:
                 pass
 
-    def get_room(self, room_id: str) -> WebRoom:
+    def get_or_create_room(self, room_id: str) -> tuple[WebRoom, bool]:
         with self.rooms_lock:
             if room_id not in self.rooms:
                 self.rooms[room_id] = WebRoom(room_id)
-            return self.rooms[room_id]
+                created = True
+            else:
+                created = False
+            room = self.rooms[room_id]
+            room.touch()
+            return room, created
+
+    def get_room(self, room_id: str) -> WebRoom:
+        return self.get_or_create_room(room_id)[0]
+
+    def discard_if_idle(self, room_id: str, expected_room: WebRoom) -> bool:
+        """Remove a just-created room if its connection was denied."""
+        with self.rooms_lock:
+            if self.rooms.get(room_id) is not expected_room:
+                return False
+            if self._room_is_active(expected_room):
+                return False
+            self.rooms.pop(room_id, None)
+            return True
+
+    def discard_expired_private_room_if_idle(self, room_id: str) -> bool:
+        """Forget cached room state only after its durable private binding expired."""
+        with self.rooms_lock:
+            room = self.rooms.get(room_id)
+            if room is None or not room.private_session or self._room_is_active(room):
+                return False
+            self.rooms.pop(room_id, None)
+            return True
+
+    @staticmethod
+    def idle_ttl_seconds() -> int:
+        """Return the reconnect grace period before an idle room is evicted."""
+        return private_room_idle_ttl_seconds()
+
+    @staticmethod
+    def _room_is_active(room: WebRoom) -> bool:
+        # The worker lock covers agent execution, streaming and human_ask waits.
+        # Keep the explicit checks as defense in depth if worker/status contracts
+        # change independently in the future.
+        with room._lifecycle_lock:
+            connected = bool(room.active_connections)
+        return bool(
+            connected
+            or room.worker_lock.locked()
+            or room.status.get("busy")
+            or room.human_ask_pending
+        )
+
+    def evict_idle_rooms(
+        self,
+        *,
+        idle_ttl_seconds: int | None = None,
+        now: float | None = None,
+        private_only: bool = True,
+    ) -> list[str]:
+        """Drop disconnected idle private rooms after their reconnect grace period."""
+        ttl = max(
+            0,
+            int(
+                self.idle_ttl_seconds()
+                if idle_ttl_seconds is None
+                else idle_ttl_seconds
+            ),
+        )
+        current = time.monotonic() if now is None else now
+        evicted: list[str] = []
+        with self.rooms_lock:
+            for room_id, room in list(self.rooms.items()):
+                if private_only and not room.private_session:
+                    continue
+                if self._room_is_active(room):
+                    continue
+                with room._activity_lock:
+                    idle_for = current - room.last_activity
+                if idle_for >= ttl:
+                    self.rooms.pop(room_id, None)
+                    evicted.append(room_id)
+        return evicted
+
+    def active_room_ids(self) -> set[str]:
+        """Return rooms that must not be expired from persistent storage."""
+        with self.rooms_lock:
+            rooms = list(self.rooms.items())
+        return {room_id for room_id, room in rooms if self._room_is_active(room)}
 
 
 web_manager = WebManager()

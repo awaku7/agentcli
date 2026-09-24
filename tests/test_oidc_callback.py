@@ -12,21 +12,41 @@ import pytest
 
 from uagent.auth.oidc_callback import complete_authorization_callback
 from uagent.auth.oidc_transactions import OIDCTransactionStore
-from uagent.auth.oidc_verifier import OIDCProviderMetadata
-from uagent.runtime.identity_context import IdentityResolutionError
+from uagent.auth import oidc_verifier as oidc
+from uagent.auth.oidc_verifier import (
+    OIDCProviderMetadata,
+    resolve_entra_group_overage,
+)
+from uagent.runtime.identity_context import IdentityContext, IdentityResolutionError
 
 
 class FakeResponse:
-    def __init__(self, payload, *, status_code=200):
+    def __init__(self, payload, *, status_code=200, chunks=None):
         self.payload = payload
         self.status_code = status_code
+        self.chunks = chunks
+        self.chunks_yielded = 0
 
     def raise_for_status(self):
-        if self.status_code >= 400:
-            raise RuntimeError("token endpoint error")
+        if self.status_code >= 300:
+            raise RuntimeError("HTTP error")
 
     def json(self):
         return self.payload
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_value, traceback):
+        return False
+
+    async def aiter_bytes(self):
+        chunks = self.chunks
+        if chunks is None:
+            chunks = [json.dumps(self.payload).encode("utf-8")]
+        for chunk in chunks:
+            self.chunks_yielded += 1
+            yield chunk
 
 
 class FakeClient:
@@ -40,7 +60,8 @@ class FakeClient:
         self.requests.append((url, data, headers))
         return self.response
 
-    async def get(self, url, *, headers, follow_redirects, timeout):
+    def stream(self, method, url, *, headers, follow_redirects, timeout):
+        assert method == "GET"
         self.graph_requests.append((url, headers, follow_redirects, timeout))
         if not self.graph_responses:
             raise AssertionError("unexpected Graph request")
@@ -322,3 +343,38 @@ def test_entra_group_overage_rejects_untrusted_graph_pagination_url(
 
     assert len(client.graph_requests) == 1
     assert client.graph_requests[0][0].startswith("https://graph.microsoft.com/")
+
+
+@pytest.mark.parametrize(
+    ("chunks", "error"),
+    [
+        (
+            [b"x" * (oidc._GRAPH_MAX_RESPONSE_BYTES + 1), b"must not be read"],
+            "exceeds size limit",
+        ),
+        ([b'{"value":'], "invalid JSON"),
+    ],
+)
+def test_entra_graph_streaming_enforces_body_limit_and_json(chunks, error):
+    identity = IdentityContext(
+        "oidc:user-A",
+        True,
+        "oidc",
+        issuer="https://login.microsoftonline.com/tenant/v2.0",
+    )
+    response = FakeResponse({}, chunks=chunks)
+    client = FakeClient(FakeResponse({}))
+    client.graph_responses = [response]
+
+    with pytest.raises(IdentityResolutionError, match=error):
+        asyncio.run(
+            resolve_entra_group_overage(
+                identity,
+                "ephemeral-graph-token",
+                http_client=client,
+                configured_scopes="GroupMember.Read.All",
+            )
+        )
+
+    assert response.chunks_yielded == 1
+    assert client.graph_requests[0][2] is False
