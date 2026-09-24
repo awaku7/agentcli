@@ -159,12 +159,10 @@ class ProjectAccessPolicy:
                     and existing["granted_by"] != "directory-policy"
                 ):
                     continue
+                # Directory-policy rows reflect the current authoritative mapping.
+                # Manual rows have already returned above, so stale higher roles
+                # must not survive when the user's verified groups are downgraded.
                 assigned_role = role
-                if (
-                    existing is not None
-                    and _ROLE_RANK[existing["role"]] > _ROLE_RANK[assigned_role]
-                ):
-                    assigned_role = existing["role"]
                 self._store.db.execute(
                     "INSERT INTO project_memberships(project_id, principal_id, role, status, "
                     "revision, granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "

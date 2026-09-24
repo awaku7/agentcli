@@ -9,6 +9,7 @@ from typing import Any
 
 try:
     from fastapi import FastAPI, Request
+    from fastapi.responses import JSONResponse
     from fastapi.staticfiles import StaticFiles
     from fastapi.templating import Jinja2Templates
 except ImportError:
@@ -17,6 +18,7 @@ except ImportError:
     _install("uvicorn")
     _install("fastapi")
     from fastapi import FastAPI, Request
+    from fastapi.responses import JSONResponse
     from fastapi.staticfiles import StaticFiles
     from fastapi.templating import Jinja2Templates
 
@@ -37,6 +39,25 @@ _request_memory_stores: ContextVar[list[Any] | None] = ContextVar(
     "uag_web_request_memory_stores", default=None
 )
 _memory_store_tracking_lock = threading.Lock()
+
+_PROCESS_AUTH_READ_PATHS = frozenset(
+    {
+        "/api/tool-genres",
+        "/api/tools-enabled",
+    }
+)
+_PROCESS_ADMIN_PATHS = frozenset(
+    {
+        "/api/artifacts/cleanup",
+        "/api/artifacts/cleanup/report",
+    }
+)
+_PROCESS_ADMIN_WRITE_PATHS = frozenset(
+    {
+        "/api/tool-genres",
+        "/api/tools-enabled",
+    }
+)
 
 
 def _ensure_memory_store_tracking() -> None:
@@ -69,13 +90,85 @@ def _ensure_memory_store_tracking() -> None:
         routes_api.open_memory_store = tracked_open_memory_store
 
 
+def _management_api_requires_directory_sync(path: str) -> bool:
+    parts = [part for part in str(path or "").split("/") if part]
+    if len(parts) < 4 or parts[0] != "api":
+        return False
+    if parts[1] == "projects" and parts[3] in {"members", "rooms"}:
+        return True
+    return parts[1] == "rooms" and parts[3] == "members"
+
+
+def _request_identity(request: Request):
+    """Reuse the Web API identity helper so tests/integrations share one resolver."""
+    from . import routes_api
+
+    return routes_api._request_identity(request)
+
+
+def _process_api_guard(request: Request):
+    """Protect process-wide controls without changing local single-user behavior."""
+    path = request.url.path
+    method = request.method.upper()
+    requires_admin = path in _PROCESS_ADMIN_PATHS or (
+        method != "GET" and path in _PROCESS_ADMIN_WRITE_PATHS
+    )
+    requires_auth = requires_admin or path in _PROCESS_AUTH_READ_PATHS
+    if not requires_auth:
+        return None, None
+    try:
+        identity = _request_identity(request)
+    except Exception:
+        return None, JSONResponse(
+            status_code=401, content={"error": "authentication required"}
+        )
+    if requires_admin:
+        from ..runtime.room_access import configured_admin_principals
+
+        if identity.principal_id not in configured_admin_principals():
+            return identity, JSONResponse(
+                status_code=403, content={"error": "administrator required"}
+            )
+    return identity, None
+
+
+def _sync_management_directory_policy(request: Request, identity: Any | None) -> Any:
+    """Refresh directory-derived access before project/room administration."""
+    if not _management_api_requires_directory_sync(request.url.path):
+        return identity
+    if identity is None:
+        identity = _request_identity(request)
+    from ..runtime.enterprise_identity import directory_group_policy_is_configured
+
+    if not directory_group_policy_is_configured():
+        return identity
+    from . import routes_api
+    from ..runtime.project_access import ProjectAccessPolicy
+
+    store = routes_api._memory_store()
+    try:
+        ProjectAccessPolicy(store).sync_directory_policy(identity)
+    finally:
+        store.close()
+    return identity
+
+
 @app.middleware("http")
 async def _close_request_memory_stores(request: Request, call_next):
-    """Always close MemoryStore handles created while serving one HTTP request."""
+    """Authorize guarded Web controls and close MemoryStore handles per request."""
     _ensure_memory_store_tracking()
     opened: list[Any] = []
     token = _request_memory_stores.set(opened)
     try:
+        identity, denied = _process_api_guard(request)
+        if denied is not None:
+            return denied
+        try:
+            _sync_management_directory_policy(request, identity)
+        except Exception:
+            return JSONResponse(
+                status_code=403, content={"error": "authorization policy unavailable"}
+            )
         return await call_next(request)
     finally:
         try:
