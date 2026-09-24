@@ -91,7 +91,6 @@ def _cleanup_expired_private_rooms(*, now: float | None = None) -> list[str]:
     current = time.time() if now is None else now
     ttl = web_manager.idle_ttl_seconds()
     cutoff = current - ttl
-    web_manager.evict_idle_rooms(idle_ttl_seconds=ttl)
     active_room_ids = web_manager.active_room_ids()
     store = _memory_store()
     removed: list[str] = []
@@ -125,6 +124,7 @@ def _cleanup_expired_private_rooms(*, now: float | None = None) -> list[str]:
                     before_delete=delete_session,
                 ):
                     removed.append(room_id)
+                    web_manager.discard_expired_private_room_if_idle(room_id)
             except Exception:
                 # A failed session deletion must leave the owner binding intact
                 # so the next maintenance pass can safely retry.

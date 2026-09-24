@@ -136,7 +136,7 @@ Updates and deletes use the stable `memory_id` and an `expected_revision`. A sta
 
 ### Private Web session lifecycle
 
-`POST /api/me/private-room` creates an owner-bound private Web room only after server-side identity and project authorization succeed. Disconnected, idle private sessions have a 24-hour reconnect grace period by default. Set `UAGENT_WEB_ROOM_IDLE_TTL_SECONDS` to change it (accepted range: 60 seconds to 30 days). Activity refreshes the idle deadline. Active WebSockets and rooms with a running agent, streaming response, or pending `human_ask` are not evicted.
+`POST /api/me/private-room` creates an owner-bound private Web room only after server-side identity and project authorization succeed. Disconnected, idle private sessions have a 24-hour reconnect grace period by default. Set `UAGENT_WEB_ROOM_IDLE_TTL_SECONDS` to change it (accepted range: 60 seconds to 30 days). Activity refreshes the idle deadline. Active WebSockets and rooms with a running agent, streaming response, or pending `human_ask` are not evicted. On upgrade, legacy private rooms receive a fresh reconnect grace period rather than expiring based on their original creation time.
 
 After the idle period expires, UAG removes the private-room binding, its room-scoped Memory, and the associated Web session history. Personal Memory is not removed. A private room that has expired cannot be reconnected.
 

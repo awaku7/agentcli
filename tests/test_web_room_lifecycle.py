@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sqlite3
 import time
 
 import pytest
@@ -99,6 +100,61 @@ def test_expired_private_room_cleanup_removes_session_and_room_binding(
     with pytest.raises(SessionStoreError, match="unknown session"):
         sessions.get_session(session.session_id)
     sessions.close()
+
+
+def test_migrated_private_room_gets_a_fresh_reconnect_grace_period(tmp_path):
+    memory_path = tmp_path / "legacy-memory.sqlite3"
+    connection = sqlite3.connect(memory_path)
+    connection.execute(
+        "CREATE TABLE private_rooms ("
+        "room_id TEXT PRIMARY KEY, principal_id TEXT NOT NULL, "
+        "session_id TEXT NOT NULL DEFAULT '', created_at REAL NOT NULL)"
+    )
+    connection.execute(
+        "INSERT INTO private_rooms(room_id, principal_id, session_id, created_at) "
+        "VALUES ('legacy-room', 'alice', 'session-a', ?)",
+        (time.time() - 90 * 24 * 60 * 60,),
+    )
+    connection.commit()
+    connection.close()
+
+    before_upgrade = time.time()
+    memory = MemoryStore(memory_path)
+    row = memory.db.execute(
+        "SELECT last_activity_at FROM private_rooms WHERE room_id = 'legacy-room'"
+    ).fetchone()
+
+    assert row["last_activity_at"] >= before_upgrade
+    assert row["last_activity_at"] > time.time() - 60 * 60
+    memory.close()
+
+
+def test_persistent_private_room_touch_preserves_cached_room_state(
+    tmp_path, monkeypatch
+):
+    from uagent.web_impl import routes_api
+
+    memory_path = tmp_path / "memory.sqlite3"
+    memory = MemoryStore(memory_path)
+    RoomAccessPolicy(memory).create_private_room("alice", "private-room")
+    memory.close()
+
+    manager = WebManager()
+    room = manager.get_room("private-room")
+    room.private_session = True
+    room.last_activity = time.monotonic() - 3600
+    room.messages.append({"role": "assistant", "content": "keep this history"})
+    memory = MemoryStore(memory_path)
+    assert RoomAccessPolicy(memory).touch_private_room("private-room")
+    memory.close()
+    monkeypatch.setattr(routes_api, "web_manager", manager)
+    monkeypatch.setattr(routes_api, "_memory_store", lambda: MemoryStore(memory_path))
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_WEB_ROOM_IDLE_TTL_SECONDS", "60")
+
+    assert routes_api._cleanup_expired_private_rooms() == []
+    assert manager.rooms["private-room"] is room
+    assert room.messages == [{"role": "assistant", "content": "keep this history"}]
 
 
 def test_expired_private_room_rejects_reconnect_before_cleanup_runs(

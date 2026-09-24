@@ -354,6 +354,15 @@ class WebManager:
             self.rooms.pop(room_id, None)
             return True
 
+    def discard_expired_private_room_if_idle(self, room_id: str) -> bool:
+        """Forget cached room state only after its durable private binding expired."""
+        with self.rooms_lock:
+            room = self.rooms.get(room_id)
+            if room is None or not room.private_session or self._room_is_active(room):
+                return False
+            self.rooms.pop(room_id, None)
+            return True
+
     @staticmethod
     def idle_ttl_seconds() -> int:
         """Return the reconnect grace period before an idle room is evicted."""

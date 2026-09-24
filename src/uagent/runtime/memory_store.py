@@ -213,8 +213,9 @@ class MemoryStore:
                 "REAL NOT NULL DEFAULT 0"
             )
         self.db.execute(
-            "UPDATE private_rooms SET last_activity_at = created_at "
-            "WHERE last_activity_at = 0"
+            "UPDATE private_rooms SET last_activity_at = ? "
+            "WHERE last_activity_at = 0",
+            (time.time(),),
         )
         self.db.execute(
             "CREATE INDEX IF NOT EXISTS idx_private_rooms_principal "
