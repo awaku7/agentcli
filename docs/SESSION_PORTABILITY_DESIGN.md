@@ -1,6 +1,6 @@
 # UAG Session Portability Design
 
-Status: Proposed design only  
+Status: Proposed design only\
 Baseline: `main` / `6f848f2069cc9e9365d3a56d6dbb6419dbd1becc` (2026-09-24)
 
 ## 1. Purpose
@@ -57,28 +57,28 @@ verbatim.
 ### 3.1 Functional goals
 
 1. Export an idle or committed UAG session into a versioned portable package.
-2. Import that package into another UAG installation without requiring the original
+1. Import that package into another UAG installation without requiring the original
    SQLite database.
-3. Resume the imported work using the destination's currently selected provider/model.
-4. Allow CLI/Web/Desktop to share the same portable format.
-5. Preserve durable conversation and useful task provenance without requiring the same
+1. Resume the imported work using the destination's currently selected provider/model.
+1. Allow CLI/Web/Desktop to share the same portable format.
+1. Preserve durable conversation and useful task provenance without requiring the same
    absolute work directory.
-6. Make future remote `push` / `pull` or A2A exchange possible without changing the
+1. Make future remote `push` / `pull` or A2A exchange possible without changing the
    core format.
-7. Permit optional artifact transfer without making arbitrary local filesystem paths
+1. Permit optional artifact transfer without making arbitrary local filesystem paths
    portable authority.
 
 ### 3.2 Security goals
 
 1. Import never grants identity, Project, Room, Memory, tool, filesystem, or admin
    permission.
-2. Secrets and authentication credentials are never intentionally exported.
-3. Imported content cannot become current System/Safety/Policy instructions merely
+1. Secrets and authentication credentials are never intentionally exported.
+1. Imported content cannot become current System/Safety/Policy instructions merely
    because the source package labels it `system` or `developer`.
-4. Destination authorization is evaluated from current server-side state.
-5. A malformed or malicious package cannot escape the import directory, cause
+1. Destination authorization is evaluated from current server-side state.
+1. A malformed or malicious package cannot escape the import directory, cause
    unbounded decompression, or silently overwrite an existing session.
-6. Import and resume remain fail-closed when required destination authorization cannot
+1. Import and resume remain fail-closed when required destination authorization cannot
    be established.
 
 ## 4. Non-goals for v1
@@ -171,6 +171,7 @@ The exporter must not intentionally serialize:
 - active agent execution state;
 - locks, leases, queue ownership, timers tied to the source process;
 - arbitrary absolute local paths;
+- UAG runtime-control markers (for example `[CWD]` events carrying `path`, `prev`, or `resolved` values) that could alter destination workdir or execution state when a session is restored;
 - hidden provider caches;
 - unredacted command environment variables.
 
@@ -296,6 +297,18 @@ Each event has, at minimum:
 Optional normalized payload metadata may be included when it is known to be portable.
 Provider-only fields must be removed or placed in an optional namespaced extension.
 
+#### Runtime-control marker rule
+
+UAG runtime-control events are not portable conversation content. In particular, the
+exporter must structurally recognize and omit UAG-generated `[CWD]` system events that
+carry `path`, `prev`, or `resolved` fields; those absolute paths must not appear in the
+package. The importer must reject or neutralize such control events in package input,
+and imported history must never be passed to `_restore_session_workdir()` or any other
+routine that interprets runtime markers. Destination workdir comes only from the
+current destination configuration / authorized Project policy. A user message that
+merely contains the literal text `[CWD]` is not a control event and must not be
+rewritten solely because of that substring.
+
 #### System/developer role rule
 
 A package is untrusted input. Therefore a historical event with role `system`,
@@ -305,11 +318,11 @@ System/Safety/Policy layer.
 On resume:
 
 1. the destination generates its current System/Safety/Policy normally;
-2. current identity/Project/Room policy is resolved normally;
-3. current Memory/Profile projection is generated normally;
-4. imported privileged-role events are retained only as historical provenance where
+1. current identity/Project/Room policy is resolved normally;
+1. current Memory/Profile projection is generated normally;
+1. imported privileged-role events are retained only as historical provenance where
    useful, or omitted from active context according to policy;
-5. imported user/assistant/tool history is appended as historical conversation context.
+1. imported user/assistant/tool history is appended as historical conversation context.
 
 This prevents a crafted package from creating a policy-injection channel.
 
@@ -387,7 +400,7 @@ message/session updates for that turn have completed.
 If a session is actively executing, the default behavior should be one of:
 
 1. reject export with `session_busy`; or
-2. explicitly export only the last committed checkpoint when the caller requests that
+1. explicitly export only the last committed checkpoint when the caller requests that
    behavior.
 
 The exporter must not claim that an in-flight tool/sub-agent/provider operation was
@@ -626,11 +639,11 @@ transport and appropriate server-side protection.
 Rules:
 
 1. unknown major/schema version -> reject;
-2. unknown `required_features` -> reject;
-3. unknown `optional_features` -> ignore safely or preserve opaquely;
-4. extension paths are namespaced;
-5. extension content cannot override core authorization/security fields;
-6. a newer writer must not silently reinterpret an older package's privileged fields.
+1. unknown `required_features` -> reject;
+1. unknown `optional_features` -> ignore safely or preserve opaquely;
+1. extension paths are namespaced;
+1. extension content cannot override core authorization/security fields;
+1. a newer writer must not silently reinterpret an older package's privileged fields.
 
 Example future optional features:
 
@@ -652,11 +665,22 @@ package content digest
 source_session_id (provenance only)
 destination_session_id
 imported_at
+destination principal scope
+resolved destination Project/Room scope
 ```
 
-Default repeated import of the exact same package should be idempotent: return/identify
-the prior imported session rather than silently creating duplicates. An explicit
-`duplicate/copy` operation may create another destination session when requested.
+Default repeated import of the exact same package is idempotent only within the same
+destination authorization scope. The idempotency key includes the authenticated
+destination principal, resolved Project, authorized Room (or an explicit no-Room
+scope), and package content digest/package ID. Package-global identifiers alone must
+never select another principal's imported session.
+
+Before returning a prior destination session, the importer re-checks current principal
+ownership and current Project/Room membership. If the caller is not authorized, it fails
+closed without revealing whether a matching import exists. Imports in a different
+authorized Project/Room scope are independent destination sessions. An explicit
+duplicate/copy operation may create another session within the same scope when
+requested.
 
 The provenance record must not contain source credentials.
 
@@ -868,18 +892,23 @@ The later implementation must cover at least:
 - source Room ID does not join destination Room;
 - source Project ID without current membership fails mapping/resume;
 - unauthenticated multi-user import/resume fails closed;
+- identical-package imports by different destination principals or Project/Room scopes cannot return one another's sessions;
+- a repeated import in the same scope returns a prior session only after current ownership and Project/Room authorization are re-checked;
 - imported history is not auto-attributed to current Personal Profile/Memory.
 
 ### Policy injection
 
 - crafted imported `system`/`developer` event cannot replace current system policy;
-- unknown privileged role does not become trusted policy.
+- unknown privileged role does not become trusted policy;
+- a crafted `[CWD]` system event cannot change process/destination workdir during import or resume;
+- imported history is never sent through runtime workdir-marker restoration; literal user content is preserved without executing marker syntax.
 
 ### Secret boundary
 
 - common API key/token/password/cookie patterns are redacted/excluded;
 - OIDC/browser session data is absent;
-- provider continuation IDs are not restored.
+- provider continuation IDs are not restored;
+- persisted `[CWD]` runtime events and absolute `path` / `prev` / `resolved` values are absent from default exports.
 
 ### Archive safety
 
@@ -896,7 +925,9 @@ The later implementation must cover at least:
 ### Atomicity/idempotency
 
 - failed import leaves no partial destination session;
-- repeated identical import resolves idempotently;
+- repeated identical import resolves idempotently for the same destination principal and authorized Project/Room scope;
+- the same package imported by another principal or authorization scope creates an independent destination session and never returns another principal's session;
+- an idempotent hit re-checks current ownership and membership before returning the prior session;
 - explicit duplicate mode, if implemented, creates a distinct session.
 
 ### Memory/artifacts
@@ -917,18 +948,18 @@ The later implementation must cover at least:
 v1 is complete when all of the following are true:
 
 1. A completed/idle session can be exported and imported into a fresh UAG state store.
-2. The imported work can continue under a different supported provider/model.
-3. The destination session receives a new local session ID.
-4. No source credential/authentication session is required or restored.
-5. Current destination principal/Project policy is evaluated before resume.
-6. Possession of the package alone cannot grant Room/Project/Memory/admin access.
-7. Imported privileged-role history cannot override current System/Safety/Policy.
-8. Absolute source workspace paths are not required for successful import.
-9. Malicious archive paths/resource bombs are deterministically rejected.
-10. Optional artifacts are imported only through managed ArtifactManager storage.
-11. The importer is atomic and an identical package is idempotent by default.
-12. Existing local sessions and existing natural session-resume behavior remain
-    compatible.
+1. The imported work can continue under a different supported provider/model.
+1. The destination session receives a new local session ID.
+1. No source credential/authentication session is required or restored.
+1. Current destination principal/Project policy is evaluated before resume.
+1. Possession of the package alone cannot grant Room/Project/Memory/admin access.
+1. Imported privileged-role history cannot override current System/Safety/Policy.
+1. Absolute source workspace paths are not required for successful import, and crafted `[CWD]` runtime markers cannot change the destination workdir or survive as executable history.
+1. Malicious archive paths/resource bombs are deterministically rejected.
+1. Optional artifacts are imported only through managed ArtifactManager storage.
+1. The importer is atomic; an identical package is idempotent only within the same destination principal and authorized Project/Room scope, with authorization re-checked before returning a prior session.
+1. Existing local sessions and existing natural session-resume behavior remain
+   compatible.
 
 ## 27. Design decisions summary
 
