@@ -1,10 +1,13 @@
-# AUTO_REVIEW — :auto command review & refactoring (complete)
+# AUTO_REVIEW — `:auto` command: current implementation and history
 
-This document describes the `:auto` command implementation and the refactoring
-that was applied. It serves as both a design reference and an implementation record.
+This document summarizes the current `:auto` implementation and preserves the
+older refactoring proposal below as historical context. The implementation
+summary is authoritative; proposed changes and line numbers in the archived
+sections may no longer match the source tree.
 
-**Status: Complete.** All changes have been implemented, tested (ruff/mypy/black/py_compile),
-and merged into `src/uagent/uagent_llm.py` and `src/uagent/util_tools.py`.
+**Status:** The reviewer path and separate judgment context are implemented.
+Current code is split between `src/uagent/util_cmd_auto.py` and
+`src/uagent/uagent_llm.py`, with compatibility exports in `util_tools.py`.
 
 ______________________________________________________________________
 
@@ -14,54 +17,56 @@ ______________________________________________________________________
 
 | File | Symbol | Role |
 |---|---|---|
-| `util_tools.py` | `_handle_cmd_auto()` (L2342) | Parse `:auto <goal>` / `:auto off` |
-| `util_tools.py` | `_run_auto_pilot_loop()` (L2262) | Main auto-pilot round loop |
-| `util_tools.py` | `_ask_reviewer_judgment()` (L2219) | Meta query: judge completion |
-| `util_tools.py` | `_build_judgment_messages()` (L2187) | Build separate messages for judgment |
-| `util_tools.py` | `_get_followup_prompt()` (L2177) | Build continuation prompt |
-| `cli.py` | `main()` (L918) | Orchestrates first LLM round + auto-pilot loop |
-| `core.py` | `auto_pilot_*` globals | State flags and lock |
+| `util_cmd_auto.py` | `_handle_cmd_auto()` | Parse `:auto <goal>` / `:auto off` and initialize state |
+| `util_cmd_auto.py` | `_run_auto_pilot_loop()` | Run reviewer/follow-up iterations |
+| `util_cmd_auto.py` | `_ask_reviewer_judgment()` | Run an isolated reviewer query through `run_llm_rounds(judgment_mode=True)` |
+| `util_cmd_auto.py` | `_build_judgment_messages()` / `_get_followup_prompt()` | Build the reviewer context and continuation prompt |
+| `util_tools.py` | imports and dispatch | Preserve command-handler exports and route `:auto` |
+| `cli_impl/main.py`, `scheckgui_impl/worker.py`, `web_impl/agent_worker.py` | turn orchestration | Invoke the shared auto-pilot loop from CLI, GUI, and Web flows |
+| `uagent_llm.py` | `run_llm_rounds()` | Shared provider path; judgment mode suppresses tool execution and main-conversation side effects |
+| `core.py` | `auto_pilot_*` state | Auto-pilot flags, stop request, goal, and round limit |
 
 ### 1.2 Flow
 
 ```
 User: ":auto translate README to Japanese"
   │
-  ├─ stdin_loop thread → event_queue → main() thread
-  │
-  ├─ handle_command("auto ...") → _handle_cmd_auto()
-  │   └─ sets core.auto_pilot_active = True
-  │   └─ returns CommandResult(run_llm=True, prompt=goal)
-  │
-  ├─ main(): run_llm_rounds()  ──  Step A (first round, same context)
-  │
-  └─ main(): _run_auto_pilot_loop()
-       │
-       └─ while True:
-            ├─ [check] auto_pilot_exit_requested? → return
-            ├─ [check] round > max_rounds? → return
-            │
-            ├─ Step A: run_llm_rounds()  ──  main query (BLOCKING, same context)
-            │
-            └─ Step B: _ask_reviewer_judgment()
-                 └─ client.chat.completions.create() directly
-                      ├─ On success → parse COMPLETE / CONTINUE
-                      └─ On fallback → always CONTINUE
+  ├─ command handler sets auto-pilot state and returns the initial goal
+  ├─ turn handler runs the initial goal in the main conversation context
+  └─ shared auto-pilot loop:
+       ├─ check stop request / completion regex
+       ├─ Step B: reviewer judges the latest main-context work
+       │    ├─ normal mode: run_llm_rounds(judgment_mode=True) on a separate context
+       │    └─ sentinel mode: inspect the target model's completion marker
+       ├─ COMPLETE → finish; invalid/missing sentinel → stop safely
+       └─ CONTINUE → append a follow-up prompt and run the next main round
 ```
 
-### 1.3 Known problems
+The first reviewer judgment happens after the caller's initial goal execution.
+The default reviewer is the same provider; `UAGENT_AP_*` settings can configure
+a separate reviewer provider. `:auto` defaults to 10 follow-up rounds; an
+explicit infinite mode is also supported. The reviewer only stops the run on an
+explicit `COMPLETE` decision; failures and ambiguous responses continue
+conservatively. A configured completion regex can finish before another
+reviewer call.
 
-| # | Problem | Detail |
-|---|---|---|
-| P1 | F11 auto-pilot exit is not immediate | Flag is checked only at loop top; during `run_llm_rounds()` (Step A) the main thread is blocked, so F11 takes effect only after the current round finishes. |
-| P2 | LLM round cannot be interrupted mid-flight | `run_llm_rounds()` has no mechanism to abort on `auto_pilot_exit_requested`. The interrupt monitor (F12 → `interrupt_requested`) works but only injects a stop prompt, it doesn't exit the auto-pilot loop. |
-| P3 | Judgment bypasses `run_llm_rounds()` | `_ask_reviewer_judgment()` calls `client.chat.completions.create()` directly. This means it does NOT use the same code path as the main query — no Responses API, no provider-specific handling. |
-| P4 | Judgment fallback for non-OpenAI providers | Providers like Gemini/Claude raise `AttributeError`/`NotImplementedError` in `_ask_reviewer_judgment()`, which is caught and silently returns `"CONTINUE"`. Result: auto-pilot never terminates via judgment on those providers. |
-| P5 | Judgment shares main context | `_build_judgment_messages()` builds a separate message list for the reviewer, but the judgment itself is performed inline in `_run_auto_pilot_loop()`. Not truly separated. |
+### 1.3 Current stop and review behavior
+
+| Input / outcome | Current behavior |
+|---|---|
+| F12 | Interrupts the current response and, during auto-pilot, also requests that auto-pilot stop. The stop is handled by the loop; it is not a guarantee that an in-flight provider request aborts instantly. |
+| Reviewer judgment | Uses the shared `run_llm_rounds()` path (including Responses API handling), a separate message list, and no tool execution. |
+| Reviewer failure or ambiguous output | Treated as `CONTINUE`; only an explicit `COMPLETE` ends the reviewer path. |
+| Sentinel mode | Opt-in single-model completion markers replace the additional reviewer call; missing/invalid markers stop safely. |
+| Round limit | Defaults to 10 follow-up rounds; `--max-rounds INFINITE` / `--infinite` disables the auto-pilot limit. |
 
 ______________________________________________________________________
 
-## 2. Proposed refactoring
+## 2. Historical refactoring proposal (superseded)
+
+The following sections preserve the original proposal and implementation notes.
+They are not a list of outstanding work: use section 1 and the current source
+files above when determining actual behavior.
 
 ### 2.1 Goal
 
