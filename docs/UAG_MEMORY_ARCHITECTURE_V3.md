@@ -19,7 +19,7 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 同時に、Memory のためだけに独自ログイン機構を持たず、Local / OIDC / OAuth / Trusted Proxy / Active Directory / API credential を共通の Identity contract へ正規化する。
 
-本書は設計上の契約と実装状況を併記する。設計上の必須条件や完了条件は、全項目の実装・運用検証完了を意味しない。第1章は当初の V2 baseline、第27章は実装順序を残したものである。0.1 と 0.2 は過去のスナップショット、現行ソースの確認結果は 0.3、残る実装・運用上の課題は 28.1 を参照する。
+本書は設計上の契約と実装状況を併記する。設計上の必須条件や完了条件は、全項目の実装・運用検証完了を意味しない。第1章は当初の V2 baseline、第27章は実装順序を残したものである。0.1〜0.4は各時点の歴史的スナップショットであり、最新のmain（`6f848f20`）を対象にした現行ソース再照合は0.5、残る実装・運用上の課題は28.1を参照する。
 
 特定ユーザーへの共有設計は v0.7.13 / `8bec11d5cc16e1f87212033be775c651507458bb` を基準に追加した。現在は SQLite audience / revision-bound read grant、Personal / Room / shared-memory API、identity-bound projection などが実装されており、V3-4以降を一括して未実装とは扱わない。
 
@@ -58,7 +58,7 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 - `tests/test_directory_group_policy.py`（4件）
 - `tests/test_web_connection_identity.py`（12件）
 
-### 0.3 現行実装再照合（`0b5d7589`）
+### 0.3 Private Web session実装時点の再照合（歴史的スナップショット: `0b5d7589`）
 
 以下は `main` / `0b5d75894ba7263c14f7c2685ccb310a1f18e169`（`feat: add private Web sessions for personal memory`）までのソースと対象テストを確認した結果である。private Web sessionはこのcommitに含まれ、未commit作業ではない。記載はこのrevisionの実装状況を示すもので、production deployment、全認証方式での本番運用、または全providerのstreamingの検証完了を意味しない。
 
@@ -71,9 +71,9 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 このrevisionでは、対象テスト `test_memory_v3_projection.py` 8件、`test_memory_v3_web_api.py` 7件、`test_web_connection_identity.py` 12件、`test_room_access.py` 3件、`test_project_access.py` 2件が成功した（合計32件）。加えて `python -m pytest -q . --durations=30` による全テストスイートも成功した。これは当該revisionでのテスト結果であり、production deploymentや全providerのstreamingを保証するものではない。
 
-### 0.4 実装フォローアップ（未commit作業ツリー）
+### 0.4 実装フォローアップ（当時の作業ツリー・歴史的スナップショット）
 
-0.3の基準commit後に実施したrepository内の実装とテストを記録する。これは現在の未commit差分の状態であり、release済み機能やproduction deploymentの検証を意味しない。
+0.3の基準commit後に実施したrepository内の実装とテストを記録した、当時の作業ツリーのスナップショットである。ここに記した変更の一部は後続commitでmainへ取り込まれている。これは現行の未commit差分やproduction deploymentの検証を意味しない。現行状態は0.5を参照する。
 
 | 領域 | 今回追加・確認した実装 | 残る制約・未検証事項 |
 |---|---|---|
@@ -82,6 +82,20 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 | 回帰・静的検査 | ProjectContextのprincipal分離・切替・設定変更時失効、Graph paginationの安全性を回帰テストで確認。全pytest suite、Ruff、Black、Python compileを実行 | 本番AD/IWA、全provider streaming、deployment単位のrollout gateは別途検証が必要 |
 
 ______________________________________________________________________
+
+### 0.5 現行mainの再照合（`6f848f20`）
+
+以下は `main` / `6f848f2069cc9e9365d3a56d6dbb6419dbd1becc`（PR #75 merge後、v0.7.15系列）のソースを再確認した結果である。0.1〜0.4の当時の実装・テスト記録は歴史的snapshotとして保持し、現在の状態の根拠にはこの節と28.1を使う。open PRの変更はmainへ未反映のため、ここでは完了扱いしない。
+
+| 領域 | mainで確認した実装 | main時点の残課題 |
+|---|---|---|
+| Identity / project authorization | stable principal、server-side ProjectContext、membership照合、Room binding。PR #74でprocess-wide Web controlsをglobal adminへ制限し、Directory Policyを管理APIの認可直前に再同期 | OIDC sessionはprocess-local。非OIDCのProjectContextはmembership承認済みProjectの選択・cookie bindingまでで、workspaceから既定Projectを自動導出しない |
+| Directory roles / Entra | PR #74/#75によりmanual membershipはDirectory reconciliationから保護し、`granted_by='directory-policy'` のProject roleは現在のmappingへ追従（adminからviewerへのdowngradeを含む）。署名済みEntra overage markerは認可code交換時のGraph access tokenで解決し、tokenは永続化しない | Graph responseは `get()` でbody全体を受信後に1 MB上限を検査しており、受信メモリの上限にはならない。session中のgroup refresh / 即時revoke反映、Entra以外のDirectory APIは別課題 |
+| Web Memory resource lifetime | PR #72でdenied / exception pathsを含むrequest境界でMemoryStoreをclose | Private Web room/sessionのTTL・evictionおよびroom-scoped Memory/session historyの自動cleanupはこのmainにはまだない |
+| Private Web room | private-room発行、owner / project / session binding、private Personal Memory/Profile turnを実装 | `WebManager.rooms`、private-room DB bindingとsession historyは、idle TTLによるeviction/cleanupがなく蓄積し得る。現在のconnected/running/human_ask保護を含むlifecycleは別変更が必要 |
+| Revocation / rollout | Memory access generationによるsnapshot invalidation、Directory-derived role reconciliation、認可回帰テスト | 各deploymentのisolation / revocation / migration / single-user gateと認証方式別production検証を完了してからmulti-user defaultを判断する |
+
+この再照合はrepository sourceと対象tests、およびHEADのGitHub Actions結果（Python 3.11 / 3.13 / 3.14、quality、full tests success）を確認したものだが、production tenant・AD/IWA・全provider / deployment条件を保証するものではない。private-room cleanupとGraph streaming limitの後続PRはmainへ未mergeの間、この節では残課題である。
 
 ## 1. v0.7.12 の設計開始時点（歴史的 baseline）
 
@@ -349,16 +363,17 @@ principal 生成前に少なくとも次を検証する。
 
 未検証 claim から principal を作らない。
 
-### 7.2.1 Entra OIDC verified group claims（実装済み、#60）
+### 7.2.1 Entra OIDC verified group claims と overage（Graph解決を実装済み）
 
-`src/uagent/auth/oidc_verifier.py` は signature / issuer / audience / expiry / nonce / authorized party の検証後にだけ `groups` を取り出し、`IdentityContext.groups` へ渡す。空白除去・重複排除・sort後のtupleを `TurnContext.groups` に伝播する。principalの導出は引き続き `iss + sub` であり、groupはownership keyに含めない。
+`src/uagent/auth/oidc_verifier.py` は signature / issuer / audience / expiry / nonce / authorized party の検証後にだけ通常の `groups` claimを取り出し、`IdentityContext.groups` へ渡す。空白除去・重複排除・sort後のtupleを `TurnContext.groups` に伝播する。principalは引き続き `iss + sub` から導出し、groupはownership keyに含めない。
 
-- `groups` は非空文字列のlistを要求する。文字列単体、数値混在、空のgroup IDなどは identity resolution を拒否する。
-- claim欠落または `null` は空groupsとして扱う。
-- `_claim_names` に `groups` がある場合、または `hasgroups: true` かつ `groups` がない場合はoverageとして拒否する。不完全なgroup一覧で認可を続行しない。
-- 現実装にはoverage解決のdirectory API経路がない。`UAGENT_DIRECTORY_GROUP_POLICY` を設定してもこの拒否は解除されない。
+- `groups` は非空文字列のlistを要求する。文字列単体、数値混在、空group IDなどはidentity resolutionを拒否する。claim欠落または `null` は空groups。
+- `_claim_names` に `groups` がある場合、または `hasgroups: true` かつ `groups` がない場合は、callbackが署名済みoverage markerを認識する。
+- overageは同じAuthorization Code交換から一時取得したBearer access tokenを使い、`UAGENT_OIDC_GRAPH_SCOPE` に `GroupMember.Read.All` が設定されている場合に限ってMicrosoft Graphのtransitive group APIで解決する。Graph hostは検証済みEntra issuerのcloudに対応づけ、redirectを無効化し、nextLinkのHTTPS / host / port / pathを検査し、page・group数の上限を適用する。
+- access tokenはIdentityContext、Web session、Memory DBへ保存しない。scope / token / Graph / JSON / paginationの失敗はfail-closedであり、不完全なgroup一覧で認可を続けない。
+- main `6f848f20` 時点ではGraph response bodyを全受信後に1 MB上限と比較するため、その値は受信メモリの防御ではない。streaming中に上限を適用する変更は別途必要。
 
-`tests/test_oidc_verifier.py` は署名付きclaimsの正規化とmalformed / overage拒否を検証する。directory側のgroup変更を即時取得する仕組みは別途必要であり、session内の検証済みidentityをlive directory照会と同一視しない。
+`tests/test_oidc_verifier.py` と `tests/test_oidc_callback.py` はsigned claims、overage解決、pagination、malformed応答などを検証する。これはlogin時のgroups解決であり、session中のdirectory membership live refresh / 即時revoke反映とは異なる。
 
 ### 7.3 Browser session
 
@@ -516,7 +531,7 @@ custom adapter未登録時には `UAGENT_DIRECTORY_GROUP_POLICY` のstrict JSON 
 
 同期では `granted_by='directory-policy'` のmembershipだけをreconcileし、assignmentから外れたProject / Room membershipをrevokeする。手動membershipは上書き・取消しせず保護する。一方、directory-policy由来のProject roleは現在のauthoritative group mappingへ追従し、例えばadministrator assignmentを失ってviewer assignmentだけが残った場合は `admin` から `viewer` へ降格する。SQLiteには導出したmembership / role / revisionを保存し、raw group claimsを保存しない。検証済みgroup IDはprocess内のIdentityContext / TurnContextに保持される。
 
-根拠は `src/uagent/runtime/project_access.py` と `tests/test_directory_group_policy.py`。on-prem ADのtrusted proxy / IWA verifier接続、directory APIによるgroup取得・overage解決はroadmapである。
+根拠は `src/uagent/runtime/project_access.py`、`src/uagent/auth/oidc_verifier.py`、`src/uagent/auth/oidc_callback.py` と `tests/test_directory_group_policy.py` / `tests/test_oidc_callback.py`。Entra overageは設定済みGraph scopeとtenant consentの下で解決するが、Graph response上限はmain `6f848f20` 時点で全受信後の検査である。on-prem ADのtrusted proxy / IWA verifier接続、Entra以外のDirectory API、session中のmembership freshnessは引き続きroadmapである。
 
 ______________________________________________________________________
 
@@ -924,11 +939,11 @@ class ProjectContext:
 
 `POST /api/project-context` はidentityを解決し、directory policy同期後に対象projectの `viewer` 以上のaccessを確認する。configured single-projectでは `UAGENT_MEMORY_PROJECT` と一致する選択だけを許可する。設定がない場合は、有効な `uag_oidc_session` cookieに対応するserver-side sessionへ選択済み `project_id` を保存する。
 
-後続HTTP APIの `_project_id()` はconfigured projectを優先し、なければOIDC sessionのbindingを使用する。requestのproject未指定はbindingを採用し、不一致またはbinding欠落は `403`。選択時のmembership確認だけでは以後のaccessを保証せず、各scoped operationでpolicyを確認する。
+後続HTTP APIの `_project_id()` はconfigured projectを優先し、次にOIDC session binding、non-OIDCでは `ProjectContextStore` のopaque cookie bindingを解決する。non-OIDCのcontextはprincipal・authentication configuration fingerprint・期限に結び付いたserver-side SQLite recordで、browserにはtoken hashでなくopaque tokenを渡す。requestのproject未指定はbindingを採用し、不一致またはbinding欠落は `403`。選択時のmembership確認だけでは以後のaccessを保証せず、各scoped operationでpolicyを確認する。
 
 実装箇所は `src/uagent/auth/oidc_sessions.py` と `src/uagent/web_impl/routes_api.py`。sessionのproject bindingも期限・authentication configuration fingerprintによる失効対象であり、process-local storeの再起動を越えて永続化しない。WebSocketのprojectは `src/uagent/web_impl/connection_identity.py` でserver側project pathからTurnContextへ導出する。HTTP sessionでの選択が接続済みWebSocketのworkspaceを自動変更する仕様ではない。
 
-Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-project向けに認証済みworkspaceからHTTP ProjectContextを導出する経路は未実装である。
+Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-projectでは利用者がmembership確認済みprojectを選び、server-side ProjectContext cookieへbindできる。一方、認証済みworkspaceから既定projectを自動導出するdeployment mappingは未実装である。
 
 認可順序は次で固定する。
 
@@ -1528,7 +1543,7 @@ V3-4〜V3-6の実装状況: SQLite audience / revision-bound read grant、scoped
 
 完了条件: OIDC 以外の認証方式も Memory core を変えず接続できる。
 
-実装状況: trusted proxyのCIDR / header境界、token resolver、OAuth / Windows AD / externalのverifier登録contract、directory group policyとenvironment-backed adapter、Entra signed group claimsは実装済み。OAuth / Windows AD / externalはdeployment側の検証adapterが必要であり、未設定時にlocalへfallbackしない。on-prem trusted proxy / IWA実環境接続やdirectory API clientは未実装。
+実装状況: trusted proxyのCIDR / header境界、token resolver、OAuth / Windows AD / externalのverifier登録contract、directory group policyとenvironment-backed adapter、Entra signed group claimsとMicrosoft Graphによるlogin-time overage resolutionは実装済み。Graph経路にはissuer/cloud host allowlist・redirect無効化・pagination / group / body上限があるが、main `6f848f20` のbody上限は受信後検査である。OAuth / Windows AD / externalはdeployment側の検証adapterが必要であり、未設定時にlocalへfallbackしない。on-prem trusted proxy / IWA実環境接続、汎用Directory API adapter、session中のmembership freshnessは未実装。
 
 ### PR V3-8: Authentication management
 
@@ -1585,14 +1600,16 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 
 認証方式ごとに同じ Memory isolation gate を通す。
 
-### 28.1 残るroadmap（現行実装との照合）
+### 28.1 残るroadmap（main `6f848f20` 時点）
 
-以下は 0.4 の実装フォローアップ後も残る設計・運用課題である。PR #60 時点の歴史的な一覧をそのまま示すのではなく、現行作業ツリーで未完了の項目を記す。
+以下はmain `6f848f2069cc9e9365d3a56d6dbb6419dbd1becc` を対象にした課題であり、0.1〜0.4の古い残作業一覧ではない。後続PRの変更はmainへmergeされるまでは完了扱いしない。
 
-- **Workspace-derived ProjectContext（部分対応）**: non-OIDCでは、認可済みproject selectionをprincipal・認証設定・期限に結び付けたserver-side SQLite contextとして保持する。deployment workspaceから既定projectを自動導出するmappingは未実装であり、client選択の前提となるmembership確認は引き続き必須。
-- **Directory API / membership freshness（部分対応）**: Entra OIDCのgroup overageは、明示設定したGraph scopeとtenant consentの下でMicrosoft Graphから解決する。session中のgroup membership live refresh・即時取消反映と、Entra以外のDirectory API adapterは未実装。
-- **On-prem trusted proxy / IWA integration**: proxy側の認証・header除去、Kerberos / Negotiate verifier、stable directory identity / verified groupsの実環境接続を検証する。resolver / policy contractの存在とproduction integration完了を区別する。
-- **Evaluation / rollout**: repositoryのregression suiteは通過したが、各deploymentのisolation / revocation gate、migration、single-user regressionと認証方式別の実環境試験を実施し、multi-user / shared-roomのdefault化を判断する。既存V2 local defaultは維持する。
+- **Private Web room lifecycle**: mainではprivate roomとsessionを発行するが、WebManager room、private-room DB binding、room-scoped Memoryとsession historyをidle TTLでevict / cleanupする処理がない。active WebSocket、worker / streaming、human_ask、reconnectを保護するretention lifecycleを追加する。
+- **Graph response memory bound**: Graph APIはHTTPS / host / pagination等を制限するが、現mainはresponse bodyを全受信してから1 MB上限を検査する。streaming中に上限を適用し、oversized / malformed bodyをfail-closedにする。
+- **Workspace-derived ProjectContext（部分対応）**: non-OIDCでは、認可済みproject selectionをprincipal・authentication configuration・期限に結び付けたserver-side SQLite contextとして保持する。deployment workspaceから既定projectを自動導出するmappingは未実装で、選択時・各operationのmembership確認は必須。
+- **Directory membership freshness（部分対応）**: Entra OIDC group overageは明示設定したGraph scopeとtenant consentの下でlogin時に解決する。session中のgroup membership live refresh / 即時取消反映と、Entra以外のDirectory API adapterは未実装。
+- **OIDC session durability / enterprise integration**: multi-instance / HAの前にdurable session semanticsを定義する。Trusted Proxy / Windows IWA / OAuth / Externalはdeployment固有のverified adapterと実際のtrust boundaryで検証する。
+- **Evaluation / rollout**: regression suite、各deploymentのisolation / revocation gate、migration、single-user regression、認証方式別のproduction testを完了し、multi-user / shared-roomのdefault化を判断する。既存V2 local defaultは維持する。
 
 ______________________________________________________________________
 

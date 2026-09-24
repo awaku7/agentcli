@@ -80,9 +80,9 @@ ______________________________________________________________________
 Memory retrievalは既定でdeterministicかつtokenizer-freeです。概ね次の順で強いmatchを優先します。
 
 1. normalized exact / phrase match
-2. reliableなword boundaryがある場合のword-like token match
-3. 空白がword boundaryとして十分でないscript向けのcharacter n-gram fallback
-4. 弱いboilerplate matchを抑制するcandidate-relative ranking
+1. reliableなword boundaryがある場合のword-like token match
+1. 空白がword boundaryとして十分でないscript向けのcharacter n-gram fallback
+1. 弱いboilerplate matchを抑制するcandidate-relative ranking
 
 英語に加え、日本語・中国語・タイ語などscript-aware fallbackを利用する言語のregression coverageがあります。
 
@@ -91,10 +91,10 @@ Memory retrievalは既定でdeterministicかつtokenizer-freeです。概ね次�
 概念上の順序:
 
 1. Base System / Safety / Policy
-2. Applicable User Guidance
-3. authorized Memory Evidence
-4. working conversation context
-5. current user request
+1. Applicable User Guidance
+1. authorized Memory Evidence
+1. working conversation context
+1. current user request
 
 `UAGENT_MEMORY_PROJECTION=0` でturn projectionを無効化できます。`UAGENT_MEMORY_STRICT_SCOPE=0` はunknown-scope recordを許容するため、legacy互換性を意図的に評価する場合以外は推奨しません。
 
@@ -169,13 +169,13 @@ single-project deploymentでは次で固定できます。
 UAGENT_MEMORY_PROJECT=my-project
 ```
 
-OIDCのmulti-project sessionでは、既にauthorization済みのProjectを次から選択できます。
+OIDCまたは認証済みnon-OIDCのmulti-project sessionでは、既にauthorization済みのProjectを次から選択できます。
 
 ```text
 POST /api/project-context
 ```
 
-clientの `project_id` はselectorであり、server-bound contextとmembership policyに一致しなければなりません。
+選択したProjectContextはserver-sideに保存され、principal・authentication configuration・期限にbindされます。clientの `project_id` はselectorであり、server-bound contextと現在のmembership policyに一致しなければなりません。
 
 Project管理API:
 
@@ -231,9 +231,9 @@ ______________________________________________________________________
 
 ## 9. Directory group
 
-検証済みdirectory group claimをProject / Room policyへ利用できますが、groupはauthorization inputでありPersonal Memory ownership keyではありません。
+検証済みdirectory group claimとMicrosoft Graphで解決したEntra group-overage IDをProject / Room policyへ利用できますが、groupはauthorization inputでありPersonal Memory ownership keyではありません。
 
-Entra OIDCのgroup-overage markerは現在fail-closedです。`UAGENT_DIRECTORY_GROUP_POLICY` は検証済みgroup IDをProject / Room roleへmappingできますが、Directory clientではなく、overageそのものを解決しません。
+Entra OIDCのgroup overageは、`UAGENT_OIDC_GRAPH_SCOPE` に `GroupMember.Read.All` を設定しtenant consentを得た場合にlogin時のMicrosoft Graph照会で解決します。`UAGENT_DIRECTORY_GROUP_POLICY` は解決済みgroup IDをProject / Room roleへmappingするpolicy設定であり、Directory clientやsession中のmembership refreshではありません。
 
 ______________________________________________________________________
 
@@ -261,14 +261,15 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 12. v0.7.14時点の残る制約
+## 12. main `6f848f20` 時点の残る制約
 
-V3の主要boundaryは実装されていますが、すべてのdeploymentでproduction rolloutが完了したわけではありません。
+V3の主要authorization / Memory boundaryは実装されていますが、deployment rolloutは完了していません。
 
-- OIDC sessionはprocess-local。再起動でsign-outし、multi-instance / HAにはdurable session設計が必要。
-- non-OIDC multi-user / multi-project HTTP ProjectContextはdeployment integrationが必要。
-- Entra group overage / freshnessには信頼できるDirectory API adapterが必要。
-- Trusted Proxy / OAuth / Windows AD / External modeは、必要に応じてdeployment固有のverified adapter / trust boundaryを用意する。
-- multi-user / shared-roomのdefault rolloutは、V3のisolation / revocation evaluation gateを通してから判断する。
+- OIDC sessionはprocess-localです。再起動でsign-outし、multi-instance / HAにはdurable session設計が必要です。
+- non-OIDC userはmembership確認済みProjectをserver-side ProjectContextへ選択・bindingできます。信頼済みworkspaceから既定Projectを自動導出する機能はdeployment側の課題です。
+- Entra group overageは設定済みdelegated scopeとtenant consentの下でlogin時にMicrosoft Graphから解決します。session中のmembership refresh / revoke反映とEntra以外のDirectory APIは未対応です。現mainではGraph応答のサイズ確認は全body受信後です。
+- Private Web Roomは作成できますが、このmainにはroom、room限定Memory、関連session historyをidle TTLで自動evict / cleanupする機能がありません。
+- Trusted Proxy / OAuth / Windows AD / External modeは、deployment固有のverified adapter / trust boundaryを検証する必要があります。
+- multi-user / shared-roomのdefault rolloutはV3のisolation / revocation evaluation gateを通してから判断します。
 
-詳細は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、[Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md)、[v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) を参照してください。
+Web Memoryのrequest境界store cleanupは実装済みです。これはPrivate Room / sessionのretentionとは別です。詳細は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、[Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md)、[歴史的なv0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) を参照してください。

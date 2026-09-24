@@ -80,9 +80,9 @@ ______________________________________________________________________
 Memory retrieval is deterministic and tokenizer-free by default. It prefers:
 
 1. normalized exact/phrase matches;
-2. word-like token matching where reliable boundaries exist;
-3. script-aware character n-gram fallback where whitespace is not a dependable word boundary;
-4. candidate-relative ranking to suppress weak boilerplate matches.
+1. word-like token matching where reliable boundaries exist;
+1. script-aware character n-gram fallback where whitespace is not a dependable word boundary;
+1. candidate-relative ranking to suppress weak boilerplate matches.
 
 Regression coverage includes English and languages that benefit from script-aware fallback, including Japanese, Chinese and Thai.
 
@@ -91,10 +91,10 @@ Relevant Profile guidance and Memory evidence are projected into provider-facing
 The provider-facing order is conceptually:
 
 1. Base System / Safety / Policy
-2. Applicable User Guidance
-3. authorized Memory Evidence
-4. working conversation context
-5. current user request
+1. Applicable User Guidance
+1. authorized Memory Evidence
+1. working conversation context
+1. current user request
 
 `UAGENT_MEMORY_PROJECTION=0` disables the turn projection compatibility path. `UAGENT_MEMORY_STRICT_SCOPE=0` should be used only for intentional legacy evaluation because it relaxes unknown-scope filtering.
 
@@ -169,13 +169,13 @@ A fixed single-project deployment may set:
 UAGENT_MEMORY_PROJECT=my-project
 ```
 
-An OIDC multi-project session may select an already-authorized project through:
+An OIDC or authenticated non-OIDC multi-project session may select an already-authorized project through:
 
 ```text
 POST /api/project-context
 ```
 
-The client `project_id` acts only as a selector that must match the server-bound context and membership policy.
+The selected ProjectContext is stored server-side and bound to principal, authentication configuration and expiry. The client `project_id` acts only as a selector that must match the server-bound context and current membership policy.
 
 Project administration endpoints include:
 
@@ -231,9 +231,9 @@ ______________________________________________________________________
 
 ## 9. Directory groups
 
-Verified directory group claims may feed Project/Room policy, but groups are authorization inputs, never Personal Memory ownership keys.
+Verified directory group claims and Graph-resolved Entra group-overage IDs may feed Project/Room policy, but groups are authorization inputs, never Personal Memory ownership keys.
 
-Entra OIDC group-overage markers currently fail closed. `UAGENT_DIRECTORY_GROUP_POLICY` can map already verified group IDs to project/room roles, but it is not a directory client and does not resolve overage by itself.
+Entra OIDC group overage is resolved at login through Microsoft Graph when `UAGENT_OIDC_GRAPH_SCOPE` includes `GroupMember.Read.All` and tenant consent is granted. `UAGENT_DIRECTORY_GROUP_POLICY` maps resolved group IDs to project/room roles; it remains policy configuration, not a directory client or session-time membership refresh mechanism.
 
 ______________________________________________________________________
 
@@ -261,14 +261,15 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 12. Current v0.7.14 limitations
+## 12. Current limitations at main `6f848f20`
 
-The major V3 boundaries are implemented, but production rollout is not complete in every deployment shape:
+Core V3 authorization and Memory boundaries are implemented, but deployment rollout is not complete:
 
 - OIDC sessions are process-local; restart signs users out and multi-instance/HA needs a durable session design.
-- Non-OIDC multi-user/multi-project HTTP ProjectContext still needs deployment integration.
-- Entra group overage/freshness requires a trusted directory API adapter.
+- Non-OIDC users can select a membership-approved project through server-side ProjectContext. Automatic default-project derivation from a trusted deployment workspace remains deployment work.
+- Entra overage resolves at login through Microsoft Graph with the configured delegated scope and consent. Session-time membership refresh/revocation and non-Entra directory APIs remain future work; the current Graph size check runs after buffering.
+- Private Web rooms exist, but this main revision has no automatic idle TTL/eviction for rooms, room-scoped Memory, or associated session history.
 - Trusted Proxy/OAuth/Windows AD/External modes require deployment-specific verified adapters/trust boundaries where applicable.
 - Multi-user/shared-room default rollout should follow the V3 isolation/revocation evaluation gates.
 
-See [Web identity and Memory](WEB_IDENTITY_MEMORY.md), [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md), and [the v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) for details.
+The request-boundary Web Memory store cleanup is implemented; it is separate from private-room/session retention. See [Web identity and Memory](WEB_IDENTITY_MEMORY.md), [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md), and [the historical v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) for details.

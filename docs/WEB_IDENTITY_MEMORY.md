@@ -83,7 +83,7 @@ The admin status endpoint returns safe operational metadata such as the active O
 
 A `project_id` sent by a browser is only a selector. It does not grant access.
 
-For a fixed deployment, `UAGENT_MEMORY_PROJECT` is the server-side project binding. For OIDC sessions without a fixed project, select a project after authentication:
+For a fixed deployment, `UAGENT_MEMORY_PROJECT` is the server-side project binding. For OIDC sessions without a fixed project, or authenticated non-OIDC sessions using the ProjectContext cookie, select a project after authentication:
 
 ```http
 POST /api/project-context
@@ -233,15 +233,17 @@ UAGENT_MEMORY_STRICT_SCOPE=1
 
 Verified OIDC `groups` claims can feed project/room authorization policy. Group identifiers are authorization inputs, not Memory owners.
 
-If Entra emits a group-overage marker instead of a complete group list, the current verifier fails closed. A deployment-specific trusted directory API adapter is still required to resolve overage and define membership freshness/revocation behavior.
+When Entra emits a signed group-overage marker, UAG can resolve group IDs at login through Microsoft Graph if the authorization-code exchange returns a delegated access token and `UAGENT_OIDC_GRAPH_SCOPE` includes `GroupMember.Read.All` with tenant consent. The access token is used transiently and is not saved as session or Memory data. Graph calls are restricted to the cloud host matching the verified issuer, redirects are disabled, pagination URLs are validated, and page/group/body limits fail closed. This is login-time resolution, not live membership refresh or immediate revocation.
 
-`UAGENT_DIRECTORY_GROUP_POLICY` can map verified group identifiers to project/room roles, but it is a policy mapping, not an identity verifier or directory client.
+`UAGENT_DIRECTORY_GROUP_POLICY` can map verified group identifiers to project/room roles, but it is policy configuration, not an identity verifier or directory client. The main `6f848f20` implementation checks the response size after buffering; deployments should follow the later streaming-limit hardening before treating it as a receive-memory bound.
 
-## 10. Current limitations in v0.7.14
+## 10. Current limitations at main `6f848f20`
 
-- OIDC sessions are process-local. A process restart signs users out; multi-instance/HA deployments need a future durable session design.
-- OIDC project selection is server-session bound, but non-OIDC multi-user/multi-project deployments still need a server-derived ProjectContext integration.
-- Entra group overage resolution requires a deployment-specific directory API adapter.
+- OIDC sessions are process-local. A process restart signs users out; multi-instance/HA deployments need a durable session design.
+- Non-OIDC users can select a membership-approved Project through server-side ProjectContext. Automatic default-Project derivation from a trusted deployment workspace is not implemented.
+- Entra group overage is resolved at login through Microsoft Graph with the configured delegated scope and tenant consent. Session-time membership refresh/revocation remains out of scope; on this main revision the response-size check happens after the body is buffered.
+- Private Web rooms can be created, but this main revision has no automatic idle TTL/eviction for room objects, room-scoped Memory, or associated session history.
+- The Web Memory API closes request-scoped stores on denied and exceptional paths. This is separate from private-room retention.
 - Trusted Proxy, OAuth, Windows AD and External modes have resolver/verifier contracts, but production deployments must provide and validate their trusted integration path. They do not silently fall back to `local`.
 - Multi-user/shared-room default rollout should follow the isolation and revocation evaluation gates in the V3 architecture rather than being enabled merely because the APIs exist.
 
