@@ -1,3 +1,4 @@
+from uagent._pip_auto import _install_allowed
 from uagent.runtime.observability.dependencies import (
     OTEL_DEPENDENCIES,
     OTEL_VERSION,
@@ -13,6 +14,12 @@ def setup_function():
 
 def teardown_function():
     _reset_dependency_state_for_tests()
+
+
+def test_otel_packages_are_allowlisted_for_shared_auto_install():
+    assert _install_allowed("opentelemetry-api") is True
+    assert _install_allowed("opentelemetry-sdk") is True
+    assert _install_allowed("opentelemetry-exporter-otlp") is True
 
 
 def test_disabled_observability_never_invokes_installer():
