@@ -36,17 +36,15 @@
 - legacy `/api/memories` / `/api/profile` のlocal-mode制限
 - Web Memory APIのrequest境界cleanupとauthorization failure時のSQLite store回収
 
-### 残作業（main `6f848f20` の再照合）
+### 残作業（main `dd382cae` の再照合）
 
-1. Private Web Roomに安全なidle TTL / evictionを追加し、active WebSocket、worker / streaming、human_ask、reconnectを保護したうえで、期限切れのroom binding・room Memory・session historyをcleanupする。
-1. Microsoft Graphのresponse byte上限を、bodyを全bufferした後ではなくstreaming中に適用する。
 1. 必要なdeployment向けに、non-OIDC ProjectContextの既定値を認証済みworkspaceから自動導出するintegrationを追加する（membership検証は常に必須）。
 1. Entra groupのlogin後のfreshness/revocationと、Entra以外のtrusted Directory API adapterを設計する。
 1. multi-instance / HAを行う前にdurable OIDC session設計を決める。
 1. Trusted Proxy / Windows IWA / OAuth / External adapterを実環境trust boundaryで検証する。
 1. identity / audience / profile / stale snapshot / revocation / migration / single-user regression gateを全deployment modeで確認する。
 
-Web Memory API request-store cleanup、Entra overageのlogin-time Graph解決、non-OIDC ProjectContextの選択cookie、およびdirectory role downgradeは実装済みであり、再実装対象にしない。
+Web Memory API request-store cleanup、Entra overageのlogin-time Graph解決とstreaming中のresponse byte制限、non-OIDC ProjectContextの選択cookie、directory role downgrade、およびPrivate Web Roomのidle expiry / cleanupは実装済みであり、再実装対象にしない。
 
 ### 受け入れ条件
 

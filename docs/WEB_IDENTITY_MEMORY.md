@@ -241,14 +241,14 @@ Verified OIDC `groups` claims can feed project/room authorization policy. Group 
 
 When Entra emits a signed group-overage marker, UAG can resolve group IDs at login through Microsoft Graph if the authorization-code exchange returns a delegated access token and `UAGENT_OIDC_GRAPH_SCOPE` includes `GroupMember.Read.All` with tenant consent. The access token is used transiently and is not saved as session or Memory data. Graph calls are restricted to the cloud host matching the verified issuer, redirects are disabled, pagination URLs are validated, and page/group/body limits fail closed. This is login-time resolution, not live membership refresh or immediate revocation.
 
-`UAGENT_DIRECTORY_GROUP_POLICY` can map verified group identifiers to project/room roles, but it is policy configuration, not an identity verifier or directory client. The main `6f848f20` implementation checks the response size after buffering; deployments should follow the later streaming-limit hardening before treating it as a receive-memory bound.
+`UAGENT_DIRECTORY_GROUP_POLICY` can map verified group identifiers to project/room roles, but it is policy configuration, not an identity verifier or directory client. Graph response bytes are bounded while streaming; redirects are disabled and unsafe pagination URLs or size-limit violations fail closed.
 
-## 10. Current limitations at main `6f848f20`
+## 10. Current limitations at main `dd382cae`
 
 - OIDC sessions are process-local. A process restart signs users out; multi-instance/HA deployments need a durable session design.
 - Non-OIDC users can select a membership-approved Project through server-side ProjectContext. Automatic default-Project derivation from a trusted deployment workspace is not implemented.
-- Entra group overage is resolved at login through Microsoft Graph with the configured delegated scope and tenant consent. Session-time membership refresh/revocation remains out of scope; on this main revision the response-size check happens after the body is buffered.
-- Private Web rooms can be created, but this main revision has no automatic idle TTL/eviction for room objects, room-scoped Memory, or associated session history.
+- Entra group overage is resolved at login through Microsoft Graph with the configured delegated scope and tenant consent. Session-time membership refresh/revocation remains out of scope. Graph response bytes are bounded while streaming; redirects are disabled and unsafe pagination or size-limit violations fail closed.
+- Private Web rooms have configurable idle expiry. Active WebSockets, running agents/streams, and pending `human_ask` are protected; expiry removes the room binding, room-scoped Memory, and associated session history. Legacy rooms receive a fresh reconnect grace period during upgrade.
 - The Web Memory API closes request-scoped stores on denied and exceptional paths. This is separate from private-room retention.
 - Trusted Proxy, OAuth, Windows AD and External modes have resolver/verifier contracts, but production deployments must provide and validate their trusted integration path. They do not silently fall back to `local`.
 - Multi-user/shared-room default rollout should follow the isolation and revocation evaluation gates in the V3 architecture rather than being enabled merely because the APIs exist.

@@ -261,14 +261,14 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 12. main `6f848f20` 時点の残る制約
+## 12. main `dd382cae` 時点の残る制約
 
 V3の主要authorization / Memory boundaryは実装されていますが、deployment rolloutは完了していません。
 
 - OIDC sessionはprocess-localです。再起動でsign-outし、multi-instance / HAにはdurable session設計が必要です。
 - non-OIDC userはmembership確認済みProjectをserver-side ProjectContextへ選択・bindingできます。信頼済みworkspaceから既定Projectを自動導出する機能はdeployment側の課題です。
-- Entra group overageは設定済みdelegated scopeとtenant consentの下でlogin時にMicrosoft Graphから解決します。session中のmembership refresh / revoke反映とEntra以外のDirectory APIは未対応です。現mainではGraph応答のサイズ確認は全body受信後です。
-- Private Web Roomは作成できますが、このmainにはroom、room限定Memory、関連session historyをidle TTLで自動evict / cleanupする機能がありません。
+- Entra group overageは設定済みdelegated scopeとtenant consentの下でlogin時にMicrosoft Graphから解決します。session中のmembership refresh / revoke反映とEntra以外のDirectory APIは未対応です。Graph応答のbyte上限はstreaming中に適用され、redirectやunsafeなpagination、上限超過はfail-closedです。
+- Private Web Roomにはconfigurableなidle expiryがあり、active connection / runと`human_ask`待機中のroomはevictされません。期限切れではroom binding、room限定Memory、関連session historyをcleanupし、upgrade時の既存roomには再接続猶予を付与します。
 - Trusted Proxy / OAuth / Windows AD / External modeは、deployment固有のverified adapter / trust boundaryを検証する必要があります。
 - multi-user / shared-roomのdefault rolloutはV3のisolation / revocation evaluation gateを通してから判断します。
 

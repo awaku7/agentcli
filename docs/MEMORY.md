@@ -261,14 +261,14 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 12. Current limitations at main `6f848f20`
+## 12. Current limitations at main `dd382cae`
 
 Core V3 authorization and Memory boundaries are implemented, but deployment rollout is not complete:
 
 - OIDC sessions are process-local; restart signs users out and multi-instance/HA needs a durable session design.
 - Non-OIDC users can select a membership-approved project through server-side ProjectContext. Automatic default-project derivation from a trusted deployment workspace remains deployment work.
-- Entra overage resolves at login through Microsoft Graph with the configured delegated scope and consent. Session-time membership refresh/revocation and non-Entra directory APIs remain future work; the current Graph size check runs after buffering.
-- Private Web rooms exist, but this main revision has no automatic idle TTL/eviction for rooms, room-scoped Memory, or associated session history.
+- Entra overage resolves at login through Microsoft Graph with the configured delegated scope and consent. Session-time membership refresh/revocation and non-Entra directory APIs remain future work. Graph response bytes are bounded while streaming, redirects are disabled, and unsafe pagination or limit violations fail closed.
+- Private Web rooms now have configurable idle expiry, protect active connections/runs and pending `human_ask`, and clean expired room bindings, room-scoped Memory, and associated session history. Legacy rooms receive a fresh reconnect grace period during upgrade.
 - Trusted Proxy/OAuth/Windows AD/External modes require deployment-specific verified adapters/trust boundaries where applicable.
 - Multi-user/shared-room default rollout should follow the V3 isolation/revocation evaluation gates.
 
