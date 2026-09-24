@@ -4,6 +4,11 @@
 
 <h1 align="center">uag</h1>
 
+**セッションの持ち運び:** `uag session export <id> -o work.uag` で暗号化し、
+移行先で `uag session import work.uag`、`uag session resume <新しいID>` を実行します。
+平文モードはなく、認証情報や権限は移行しません。
+[Session Portability v1](SESSION_PORTABILITY.md) にWeb API・形式・制限を記載しています。
+
 <p align="center">
   <strong>Universal AI Gateway</strong><br>
   1つのローカルエージェント。あらゆるモデル。あらゆるツール。あなたの環境、あなたのルール。

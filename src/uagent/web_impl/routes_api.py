@@ -403,6 +403,7 @@ def _personal_store(
 async def create_my_private_room(request: Request):
     """Issue an opaque, owner-only room for private Web Memory/Profile turns."""
     session = None
+    room = None
     project_context_token = ""
     project_context_max_age = 0
     session_store = getattr(core, "session_store", None)
@@ -412,6 +413,18 @@ async def create_my_private_room(request: Request):
         body = json.loads(raw_body) if raw_body else {}
         if not isinstance(body, dict):
             raise ValueError("request body must be an object")
+        portable_payload = None
+        portable_id = body.get("portable_session_id")
+        if portable_id is not None:
+            from .routes_portability import require_session_owner
+            from ..runtime.session_portability import snapshot
+
+            if not isinstance(portable_id, str) or session_store is None:
+                raise ValueError("invalid portable session")
+            require_session_owner(session_store, portable_id, identity)
+            if session_store.get_portable_metadata(portable_id) is None:
+                raise ValueError("session was not imported from a portable package")
+            portable_payload = snapshot(session_store, portable_id)
         requested_project = str(body.get("project_id", "") or "").strip()
         configured_project = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
         oidc_token = str(request.cookies.get("uag_oidc_session") or "").strip()
@@ -425,9 +438,11 @@ async def create_my_private_room(request: Request):
         from ..runtime.runtime_workdir import get_startup_workdir
 
         startup_workdir = str(env_get("UAGENT_WORKDIR", "") or get_startup_workdir())
-        room_base_dir = os.getcwd()
-        if startup_workdir and os.path.isdir(startup_workdir):
-            room_base_dir = os.path.abspath(startup_workdir)
+        room_base_dir = (
+            os.path.abspath(startup_workdir)
+            if startup_workdir and os.path.isdir(startup_workdir)
+            else os.getcwd()
+        )
         if identity.authn_kind == "local":
             project_id = bound_project or project_id_from_path(room_base_dir)
         elif bound_project:
@@ -448,13 +463,20 @@ async def create_my_private_room(request: Request):
         finally:
             store.close()
 
+        room = web_manager.get_room(room_id)
+        room.base_dir = room_base_dir
         session_id = uuid4().hex
         if session_store is not None:
-            session = session_store.create_session(
-                project=project_id or room_base_dir,
-                entry_point="web",
-                project_path=room_base_dir,
-            )
+            if portable_payload is not None:
+                session = session_store.import_portable_payload(
+                    portable_payload, principal_id=identity.principal_id
+                )
+            else:
+                session = session_store.create_session(
+                    project=project_id or room.base_dir,
+                    entry_point="web",
+                    project_path=room.base_dir,
+                )
             session_id = session.session_id
             session_store.bind_identity_context(
                 session_id,
@@ -495,11 +517,15 @@ async def create_my_private_room(request: Request):
         room.session_id = session_id
         room.private_session = True
         room.project_id = project_id
+        if portable_payload is not None:
+            room.portable_history = list(portable_payload["conversation"])
+            room.messages.extend(room.portable_history)
         payload = {
             "ok": True,
             "room_id": room_id,
             "project_id": project_id,
             "private": True,
+            "session_id": session_id,
         }
         if project_context_token:
             response = JSONResponse(payload)
@@ -1243,6 +1269,10 @@ async def clear_profile(request: Request):
         return {"ok": True}
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})
+
+
+# Register scoped portable transfer routes after shared policy helpers exist.
+from . import routes_portability as _routes_portability  # noqa: F401
 
 
 @app.post("/api/profile/fromlog")

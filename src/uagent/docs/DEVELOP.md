@@ -1,5 +1,14 @@
 # DEVELOP (for developers)
 
+Session portability is implemented by `runtime/session_portability.py` (bounded
+encrypted format and canonical projection), atomic `SessionStore` imports,
+`session_cli.py` and `web_impl/routes_portability.py`. `cli_entry.py` dispatches
+`uag session` before interactive/provider initialization. Imported references are
+inert provenance, never authorization or execution state. See
+[the wire format and security invariants](../../../docs/SESSION_PORTABILITY.md).
+Run `tests/test_session_portability.py` and `tests/test_web_session_portability.py`
+when changing these boundaries; both are in the Python compatibility CI matrix.
+
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
 - Entry points:

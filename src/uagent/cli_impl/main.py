@@ -89,6 +89,12 @@ def main() -> int:
     depname = startup.depname
     messages = startup.messages
     session_store = startup.session_store
+    resume_id = getattr(core, "_portable_resume_id", None)
+    if resume_id:
+        del core._portable_resume_id
+        from ..session_cli import restore_imported_session
+
+        restore_imported_session(core, session_store, messages, resume_id)
     process_exit_code = 0
 
     def _run_cli_turn(fn, *args, **kwargs):

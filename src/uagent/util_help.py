@@ -212,7 +212,8 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             usage=(
                 ":sessions list | load [<index|session_id>] | search <query> | candidates | "
                 "approve <number> | delete <session_id> --yes | vacuum | "
-                "pdf <session_id> [output.pdf] | import <jsonl_path>"
+                "pdf <session_id> [output.pdf] | import <jsonl_path> | "
+                "export <id> <file.uag> | import-uag <file.uag> | resume <id>"
             ),
             detail=tr(
                 "Session persistence is opt-in via UAGENT_SESSION_STORE=1.\n"
@@ -222,7 +223,10 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
                 ":sessions delete <id> --yes  Delete one session.\n"
                 ":sessions vacuum           Reclaim unused SQLite pages.\n"
                 ":sessions pdf <id> [path]  Export a session with pdf_export.\n"
-                ":sessions import <path>    Import a legacy JSONL log."
+                ":sessions import <path>    Import a legacy JSONL log.\n"
+                ":sessions export <id> <file.uag>  Export an encrypted portable session.\n"
+                ":sessions import-uag <file.uag>  Import an encrypted portable session.\n"
+                ":sessions resume <id>      Continue an imported session."
             ),
         ),
         "tools": e(
