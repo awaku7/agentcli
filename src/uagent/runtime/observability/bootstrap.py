@@ -53,7 +53,10 @@ def initialize_observability(
             )
             return _RESULT
 
-        dependencies_ready = ensure_otel_dependencies(settings)
+        try:
+            dependencies_ready = ensure_otel_dependencies(settings)
+        except Exception:
+            dependencies_ready = False
         if not dependencies_ready:
             _RESULT = ObservabilityBootstrapResult(
                 settings=settings,
