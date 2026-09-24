@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | セッションストアを有効または無効にする； 組み込みモードでは `0` が強制される |
 | `UAGENT_PLUGIN_DIRS` | 追加のプラグイン検索ディレクトリ |
 | `UAGENT_AUTO_SENTINEL` | `1`に設定すると、シングルLLMオートパイロット・センチネルモードを有効にする |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | fresh tool callを含むLLMラウンドの連続上限（tool名・引数は不問、同一ラウンドの並列呼び出しは1回。デフォルト: `50`） |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | 同じtool名を使う連続ラウンドの上限（引数は異なっても可。複数toolのラウンドでリセット。デフォルト: `50`） |
 | `UAGENT_MAX_TOOL_ROUNDS` | ユーザー操作あたりの最大 LLM/ツール実行回数（デフォルト: `128`） |
 | `UAGENT_SHRINK_CNT` | メッセージ内のオプションの自動圧縮しきい値（`0`/未設定 = 無効） |
 | `UAGENT_SHRINK_KEEP_LAST` | 縮小後に保持するメッセージ数（デフォルト: `20`） |

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import deque
 import hashlib
 import json
 import os
@@ -176,10 +177,11 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
 # unload_tool(target) clears that target's tool_load counter so a later
 # intentional reload is not counted as a continuation of the prior streak.
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
-# Count consecutive LLM rounds containing fresh tool calls, independent of
-# tool names/arguments. Empty rounds reset this broader runaway guard.
+# Count adjacent rounds using one tool name, including rounds with new args.
+# Exact-argument repeats and short multi-tool cycles have narrower guards.
 _CONSECUTIVE_TOOL_CALL_COUNT = 0
 _CONSECUTIVE_TOOL_CALL_NAME = ""
+_TOOL_ROUND_HISTORY_SIZE = 12
 _MGMT_LOOP_THRESHOLD = 4
 # Same-args general tool loops (e.g. get_current_location xN) are also blocked.
 # Keep this close to the management threshold so runaway tool spam stops early.
@@ -387,9 +389,15 @@ def clear_general_tool_loop_streaks() -> None:
             _TOOL_CALL_FINGERPRINTS.pop(key, None)
 
 
-def clear_consecutive_tool_call_streak() -> None:
-    """Clear the consecutive tool-round counter."""
+def clear_consecutive_tool_call_streak(
+    streak: dict[str, Any] | None = None,
+) -> None:
+    """Clear a same-tool-name streak (or the legacy module-level counter)."""
     global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
+    if streak is not None:
+        streak.clear()
+        streak.update({"name": "", "count": 0})
+        return
     _CONSECUTIVE_TOOL_CALL_COUNT = 0
     _CONSECUTIVE_TOOL_CALL_NAME = ""
 
@@ -399,49 +407,57 @@ def check_consecutive_tool_calls(
     *,
     record: bool = True,
     threshold: int | None = None,
+    streak: dict[str, Any] | None = None,
 ) -> tuple[bool, str, int]:
-    """Detect too many consecutive LLM rounds that contain tool calls.
+    """Guard one tool name repeated across adjacent tool-bearing rounds.
 
-    One invocation represents one LLM tool round. Any fresh tool calls make
-    the round count once, regardless of tool names or arguments; parallel
-    calls in one round therefore do not consume the budget individually. An
-    empty round resets the streak. Identical-argument loops have a narrower,
-    separate guard.
+    Parallel calls to the same tool in one round count once. A mixed-tool
+    round resets this name-specific streak; repeated multi-tool cycles are
+    handled separately by ``check_repeating_tool_round_cycle``.
     """
-    global _CONSECUTIVE_TOOL_CALL_COUNT
+    global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
     raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "50")
     try:
         default_limit = max(1, int(raw_limit))
     except (TypeError, ValueError):
         default_limit = 50
     limit = default_limit if threshold is None else max(1, int(threshold))
-    if not tool_calls_list:
-        if record:
-            clear_consecutive_tool_call_streak()
-        return False, "", 0
 
     round_names: list[str] = []
-    for tool_call in tool_calls_list:
-        function = tool_call.get("function", {}) if isinstance(tool_call, dict) else {}
-        tool_name = (
-            str(function.get("name") or "").strip()
-            if isinstance(function, dict)
-            else ""
-        )
+    for tool_call in tool_calls_list or []:
+        if not isinstance(tool_call, dict):
+            continue
+        function = tool_call.get("function") or {}
+        if not isinstance(function, dict):
+            continue
+        tool_name = str(function.get("name") or "").strip()
         if tool_name and tool_name not in round_names:
             round_names.append(tool_name)
-    if not round_names:
-        if record:
-            clear_consecutive_tool_call_streak()
-        return False, "", 0
 
-    count = _CONSECUTIVE_TOOL_CALL_COUNT + 1
+    if len(round_names) != 1:
+        if record:
+            clear_consecutive_tool_call_streak(streak)
+        return False, _("consecutive tool calls"), 0
+
+    current_name = round_names[0]
+    previous_name = (
+        str(streak.get("name", ""))
+        if streak is not None
+        else _CONSECUTIVE_TOOL_CALL_NAME
+    )
+    previous_count = (
+        int(streak.get("count", 0))
+        if streak is not None
+        else _CONSECUTIVE_TOOL_CALL_COUNT
+    )
+    count = previous_count + 1 if current_name == previous_name else 1
     if record:
-        _CONSECUTIVE_TOOL_CALL_COUNT = count
-        _CONSECUTIVE_TOOL_CALL_NAME = (
-            round_names[0] if len(round_names) == 1 else _("consecutive tool calls")
-        )
-    return count >= limit, _("consecutive tool calls"), count
+        if streak is not None:
+            streak.update({"name": current_name, "count": count})
+        else:
+            _CONSECUTIVE_TOOL_CALL_COUNT = count
+            _CONSECUTIVE_TOOL_CALL_NAME = current_name
+    return count >= limit, current_name, count
 
 
 def _tool_calls_include_name(tool_calls_list: list[dict[str, Any]], name: str) -> bool:
@@ -582,6 +598,73 @@ def check_general_tool_loop(
     if blocked_count >= limit:
         return True, blocked_name, blocked_count
     return False, "", 0
+
+
+def check_repeating_tool_round_cycle(
+    tool_calls_list: list[dict[str, Any]],
+    *,
+    history: deque[tuple[tuple[str, str], ...]],
+    record: bool = True,
+    max_cycle_length: int = 4,
+    repeats: int = 3,
+) -> tuple[bool, tuple[tuple[str, ...], ...], int]:
+    """Detect a short, exact cycle of tool-call rounds repeated several times.
+
+    Each round is represented by sorted ``(tool name, args digest)`` pairs.
+    Arguments are hashed so raw values are not retained in the loop history or
+    emitted in diagnostics. The bounded history detects repeated cycles of 2-4
+    rounds after three repetitions; one-round repetition remains the job of the
+    exact-argument loop guard.
+    """
+    signature_items: list[tuple[str, str]] = []
+    for tool_call in tool_calls_list or []:
+        if not isinstance(tool_call, dict):
+            continue
+        function = tool_call.get("function") or {}
+        if not isinstance(function, dict):
+            continue
+        name = str(function.get("name") or "").strip()
+        if not name:
+            continue
+        args = _parse_mgmt_tool_args(function.get("arguments", "{}"))
+        fingerprint = _general_tool_fingerprint(name, args)
+        digest = hashlib.sha256(
+            fingerprint.encode("utf-8", errors="replace")
+        ).hexdigest()[:16]
+        signature_items.append((name, digest))
+
+    if not signature_items:
+        if record:
+            history.clear()
+        return False, (), 0
+
+    signature = tuple(sorted(signature_items))
+    history_snapshot = list(history)
+    if record:
+        history.append(signature)
+        history_snapshot = list(history)
+    else:
+        history_snapshot.append(signature)
+
+    repeat_count = max(2, int(repeats))
+    max_period = min(
+        max(2, int(max_cycle_length)), len(history_snapshot) // repeat_count
+    )
+    for period in range(2, max_period + 1):
+        repeated = history_snapshot[-period * repeat_count :]
+        blocks = [
+            tuple(repeated[offset : offset + period])
+            for offset in range(0, len(repeated), period)
+        ]
+        if len(blocks) == repeat_count and all(
+            block == blocks[0] for block in blocks[1:]
+        ):
+            cycle_names = tuple(
+                tuple(dict.fromkeys(name for name, _digest in round_signature))
+                for round_signature in blocks[0]
+            )
+            return True, cycle_names, period
+    return False, (), 0
 
 
 # --- Round status constants (internal) ---
@@ -1384,6 +1467,8 @@ def _run_one_round(
     gemini_cache_name: str | None,
     use_llm_thread: bool,
     judgment_mode: bool = False,
+    tool_round_history: deque[tuple[tuple[str, str], ...]] | None = None,
+    consecutive_tool_streak: dict[str, Any] | None = None,
 ) -> tuple[str, Any, str | None, int, str]:
     """Run a single LLM round.
 
@@ -1396,6 +1481,11 @@ def _run_one_round(
     When judgment_mode=True, tool execution is suppressed and side effects
     (log, outfile, image open) are skipped. Only the assistant text is returned.
     """
+    if tool_round_history is None:
+        tool_round_history = deque(maxlen=_TOOL_ROUND_HISTORY_SIZE)
+    if consecutive_tool_streak is None:
+        consecutive_tool_streak = {"name": "", "count": 0}
+
     # ── Preamble ──────────────────────────────────────────────────
 
     # --- Interrupt check: per-round ---
@@ -1825,6 +1915,10 @@ def _run_one_round(
             messages=messages,
             core=core,
         )
+        if not tool_calls_list:
+            if tool_round_history is not None:
+                tool_round_history.clear()
+            clear_consecutive_tool_call_streak(consecutive_tool_streak)
         if action == "continue":
             return (
                 _RS_CONTINUE,
@@ -2015,38 +2109,7 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
-        # Count all freshly executed calls, regardless of tool name or args.
-        # Cache-reuse replies ("Already called...") must not inflate the guard.
-        blocked, blocked_name, blocked_count = check_consecutive_tool_calls(
-            fresh_tool_calls
-        )
-        if blocked:
-            core._last_round_reason = "loop_guard"
-            _clear_responses_after_tool_loop(core)
-            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
-            _emit_tool_loop_block(
-                core=core,
-                tool_name=_CONSECUTIVE_TOOL_CALL_NAME or blocked_name,
-                count=blocked_count,
-                reason="consecutive_tool_calls",
-                round_count=round_count,
-                tool_calls_list=fresh_tool_calls,
-            )
-            _spinner_stop_quietly()
-            print(
-                _(
-                    "[WARN] %(n)d consecutive tool calls; aborting to prevent runaway execution."
-                )
-                % {"n": blocked_count}
-            )
-            return (
-                _RS_BREAK,
-                client,
-                gemini_cache_name,
-                empty_no_tool_rounds,
-                assistant_text,
-            )
-        # The narrower detector catches repeated calls with identical args.
+        # Exact tool+argument repeats are the narrowest loop signal.
         blocked, blocked_name, blocked_count = check_general_tool_loop(fresh_tool_calls)
         if blocked:
             core._last_round_reason = "loop_guard"
@@ -2073,6 +2136,79 @@ def _run_one_round(
                 empty_no_tool_rounds,
                 assistant_text,
             )
+
+        # Match short, exact cycles such as search_web -> read_file repeated
+        # three times. Only digests are retained; argument values are not logged.
+        cycle_blocked, cycle_names, cycle_length = check_repeating_tool_round_cycle(
+            fresh_tool_calls,
+            history=tool_round_history,
+        )
+        if cycle_blocked:
+            cycle_label = " -> ".join("+".join(names) for names in cycle_names)
+            cycle_display = json.dumps(cycle_label, ensure_ascii=False)
+            cycle_rounds = cycle_length * 3
+            core._last_round_reason = "loop_guard"
+            _clear_responses_after_tool_loop(core, reason="repeating_tool_cycle")
+            _debug_tool_loop("blocked", name=cycle_label, count=cycle_rounds)
+            _emit_tool_loop_block(
+                core=core,
+                tool_name=f"cycle:{cycle_label}",
+                count=cycle_rounds,
+                reason="repeating_tool_cycle",
+                round_count=round_count,
+                tool_calls_list=fresh_tool_calls,
+            )
+            _spinner_stop_quietly()
+            print(
+                _(
+                    "[WARN] Tool-call cycle %(cycle)s repeated 3 times across %(n)d rounds; aborting."
+                )
+                % {"cycle": cycle_display, "n": cycle_rounds}
+            )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+
+        # A per-tool-name streak is a secondary guard for varying arguments.
+        # Mixed-tool rounds reset it; the 128-round cap remains the final limit.
+        blocked, blocked_name, blocked_count = check_consecutive_tool_calls(
+            fresh_tool_calls
+        )
+        if blocked:
+            core._last_round_reason = "loop_guard"
+            _clear_responses_after_tool_loop(core)
+            _debug_tool_loop("blocked", name=blocked_name, count=blocked_count)
+            _emit_tool_loop_block(
+                core=core,
+                tool_name=blocked_name,
+                count=blocked_count,
+                reason="consecutive_tool_calls",
+                round_count=round_count,
+                tool_calls_list=fresh_tool_calls,
+            )
+            _spinner_stop_quietly()
+            print(
+                _(
+                    "[WARN] Tool '%(name)s' appeared in %(n)d consecutive rounds; aborting."
+                )
+                % {"name": blocked_name, "n": blocked_count}
+            )
+            return (
+                _RS_BREAK,
+                client,
+                gemini_cache_name,
+                empty_no_tool_rounds,
+                assistant_text,
+            )
+
+    elif not judgment_mode:
+        # A no-tool response breaks every consecutive-tool loop signal.
+        tool_round_history.clear()
+        clear_consecutive_tool_call_streak(consecutive_tool_streak)
 
     return (
         _RS_OK,
@@ -2754,6 +2890,19 @@ def run_llm_rounds(
     except (TypeError, ValueError):
         max_tool_rounds = 128
     round_count = 0
+    tool_round_history: deque[tuple[tuple[str, str], ...]] = deque(
+        maxlen=_TOOL_ROUND_HISTORY_SIZE
+    )
+    if preserve_tool_loop_state:
+        consecutive_tool_streak = getattr(core, "_consecutive_tool_streak", None)
+        if not isinstance(consecutive_tool_streak, dict):
+            consecutive_tool_streak = {"name": "", "count": 0}
+    else:
+        consecutive_tool_streak = {"name": "", "count": 0}
+    try:
+        core._consecutive_tool_streak = consecutive_tool_streak
+    except Exception:
+        pass
 
     empty_no_tool_rounds = 0
 
@@ -2872,6 +3021,8 @@ def run_llm_rounds(
                 gemini_cache_name=gemini_cache_name,
                 use_llm_thread=use_llm_thread,
                 judgment_mode=judgment_mode,
+                tool_round_history=tool_round_history,
+                consecutive_tool_streak=consecutive_tool_streak,
             )
 
             completion_regex = getattr(core, "auto_pilot_complete_regex", None)
