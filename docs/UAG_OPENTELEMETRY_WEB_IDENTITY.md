@@ -2,36 +2,33 @@
 
 Status: Design only  
 Parent design: `docs/UAG_OPENTELEMETRY_DESIGN.md`  
-Scope: Web multi-user execution, OIDC, room/project authorization, trace isolation, privacy, and observability access control  
+Scope: Web multi-user execution, OIDC, room/project authorization, live-session revalidation, trace isolation, privacy, observability access control  
 Non-goal: this document does not implement authentication or OpenTelemetry.
 
 ## 1. Purpose
 
-OpenTelemetry for UAG must work correctly in the Web deployment where multiple authenticated users can share one UAG process, rooms can be private or shared, rooms can be bound to projects, and browser identities can be established through OIDC.
+UAG Web can serve multiple authenticated users in one process. Rooms may be private or shared, rooms may be bound to projects, and browser identities may be established through OIDC.
 
-The observability design must preserve the existing UAG trust model:
+OpenTelemetry must preserve the trust ordering:
 
 ```text
-Authentication
-    -> IdentityContext
-    -> Web connection authorization
-    -> TurnContext
-    -> Room / Project authorization
-    -> Agent execution
-    -> Observability
+Authentication / session validation
+        -> IdentityContext
+        -> room/project authorization
+        -> TurnContext
+        -> Agent execution
+        -> Observability
 ```
 
-The ordering is intentional:
+> OpenTelemetry observes trusted execution. It never participates in identity or authorization.
 
-> OpenTelemetry observes an authorization decision; it never participates in authorization.
+Trace context, baggage, span attributes, trace IDs, correlation IDs, exporter metadata, and trace-backend data are never proof of identity, room membership, project membership, ownership, or role.
 
-Trace context, span attributes, correlation IDs, exporter configuration, and observability backend data are never accepted as proof of identity, room membership, project membership, ownership, or role.
-
-## 2. Existing identity and authorization model
+## 2. Existing identity model and one important gap
 
 UAG already separates identity from turn-local execution.
 
-`IdentityContext` contains normalized authenticated-principal information such as:
+`IdentityContext` carries authenticated-principal metadata such as:
 
 ```text
 principal_id
@@ -43,7 +40,7 @@ display_name
 groups
 ```
 
-`TurnContext` contains the immutable actor/workspace/session boundary for one turn:
+`TurnContext` carries the immutable actor/workspace/session boundary for one turn:
 
 ```text
 principal_id
@@ -58,86 +55,162 @@ private_session
 server_bound_project
 ```
 
-Web connections capture a trusted authenticated identity when the connection is accepted. Message payloads must not be allowed to replace that identity.
+Web connections bind an authenticated identity when the connection is accepted, and room/project policy is checked server-side.
 
-Room/project access is revalidated against server-side policy before protected operations and before delivery to room recipients. OpenTelemetry integration must preserve those boundaries rather than caching authorization state in trace metadata.
+However, a connection-bound `IdentityContext` alone is **not sufficient** to guarantee that an OIDC session that expires or is revoked after WebSocket acceptance is rejected on every later turn.
 
-## 3. Multi-user observability principles
+This design therefore adds a required implementation contract:
+
+> OIDC live-session validity must be revalidated on every WebSocket turn before a trusted `TurnContext` or Agent trace is created.
+
+This is an authentication requirement discovered during design review. It must not be described as behavior already guaranteed by the current connection identity cache.
+
+## 3. Multi-user trace isolation
 
 ### 3.1 One user turn, one logical Agent trace
 
-A long-lived Web process or shared room is not a single trace.
-
-Recommended model:
+A long-lived process, room, or WebSocket is not one Agent trace.
 
 ```text
 Web process
-  |
   +-- user A / turn 1 -> trace A1
   +-- user B / turn 1 -> trace B1
   +-- user A / turn 2 -> trace A2
-  +-- user C / turn 1 -> trace C1
 ```
 
-A shared room may contain turns from many principals. Those turns remain separate traces.
+Shared rooms may contain turns from many principals, but those turns remain separate logical Agent traces.
 
-Do not build this model:
-
-```text
-one room
-  -> one trace lasting hours/days
-      -> every user's turns
-```
-
-Reasons:
-
-- it mixes security principals in one trace tree;
-- it creates unbounded traces;
-- it makes retention and sampling difficult;
-- it creates accidental information disclosure between users;
-- it makes authorization changes during a room lifetime difficult to represent correctly.
+Do not build a room-wide trace lasting hours or days.
 
 ### 3.2 WebSocket handshake is not the Agent root
 
-A WebSocket connection may outlive many user turns.
+The transport connection may outlive many turns.
 
-The initial handshake/server span may be useful for transport diagnostics, but Agent task spans must be created per turn/message after current authorization is established.
+```text
+WebSocket connection
+  +-- turn 1: session revalidate -> authz -> Agent trace 1
+  +-- turn 2: session revalidate -> authz -> Agent trace 2
+  +-- turn 3: session revalidate -> authz -> Agent trace 3
+```
+
+Do not keep one active OTel span in a ContextVar for the entire connection and reuse it across turns.
+
+## 4. Per-turn OIDC live-session revalidation
+
+### 4.1 Required behavior
+
+For OIDC WebSocket connections, connection acceptance must retain enough **server-side revalidation state** to verify that the browser session is still valid later.
+
+The implementation may use an opaque session handle/reference or equivalent server-side binding. The exact representation is an implementation choice, but these semantics are mandatory:
+
+1. The raw OIDC/session secret is never exposed to OTel.
+2. Before every WebSocket turn, UAG revalidates the server-side session reference against the authoritative OIDC session store and current authentication configuration.
+3. If the session is expired, revoked, missing, or configuration-stale, the turn is denied.
+4. No trusted `TurnContext` is created from stale cached identity alone.
+5. No downstream Agent/LLM/Tool span is created for a denied stale session.
+6. Only after successful session revalidation does UAG continue with room/project/private-room authorization.
+7. Authorization is then rechecked using existing server-side policy.
+8. Only after both authentication/session and authorization checks succeed is the turn's Agent trace started.
 
 Conceptually:
 
 ```text
-WebSocket connection
-    |
-    +-- turn 1 authorization -> invoke_agent trace 1
-    +-- turn 2 authorization -> invoke_agent trace 2
-    +-- turn 3 authorization -> invoke_agent trace 3
+WebSocket message
+   -> revalidate OIDC server-side session
+      -> invalid -> deny / security event / stop
+      -> valid
+          -> current room/project/private-room authorization
+             -> denied -> stop
+             -> allowed
+                 -> create TurnContext
+                 -> create fresh Agent trace
 ```
 
-Do not keep one active OTel span in a ContextVar for the entire WebSocket lifetime and reuse it for every turn.
+### 4.2 Connection state
 
-### 3.3 Authorization is server-controlled
+A future implementation may extend `WebConnectionContext` or the Web auth binding with a non-exported server-side session-validation reference.
 
-The following are authoritative only when resolved by UAG's existing server-side identity/access components:
+That reference:
+
+- is authentication state, not observability state;
+- must never become a span attribute, metric label, baggage value, resource attribute, or trace correlation key;
+- must not be accepted from ordinary message JSON;
+- must not be replaced by `trace_id` or `correlation_id`.
+
+### 4.3 Other authentication modes
+
+OIDC specifically requires server-side session revalidation. Other identity modes may have different liveness semantics.
+
+A shared Web identity boundary should support authentication-mode-specific revalidation without teaching the OTel package how to authenticate users.
+
+OTel observes the result only.
+
+## 5. Authorization remains server-controlled
+
+The following are authoritative only when resolved by UAG's server-side identity/access components:
 
 ```text
 principal
+private-room owner
 room membership
-private-room ownership
+room role
 project membership
 project role
-room role
 room -> project binding
 directory/group policy
 server-bound project
+global administrator state
 ```
 
-An inbound `traceparent`, `tracestate`, baggage item, custom header, span attribute, browser field, or message JSON field must never grant or widen access.
+An inbound `traceparent`, `tracestate`, baggage item, custom header, span field, browser field, or message JSON field must never grant or widen access.
 
-## 4. OIDC authentication tracing
+Current delivery/broadcast authorization checks remain authoritative even if an earlier span recorded `allowed`.
 
-OIDC authentication is observability-relevant, but authentication telemetry must be deliberately minimal.
+## 6. Browser trace-context trust policy
 
-### 4.1 Suggested logical operations
+### 6.1 Default policy: reject/detach
+
+A browser can forge W3C `traceparent` and `tracestate`.
+
+Therefore the first OTel-enabled Web release must enforce:
+
+```text
+untrusted browser request / connection
+     -> reject or detach inbound OTel parent context
+     -> perform session revalidation and authorization
+     -> create a fresh trusted UAG turn/Agent trace
+```
+
+This is a **Phase-1 requirement**, not something deferred until later A2A/distributed tracing work.
+
+If ASGI/HTTP auto-instrumentation is used, UAG must ensure untrusted browser context is detached before an application/Agent trace can inherit that parent.
+
+### 6.2 Trusted ingress later
+
+A later deployment may explicitly trust trace propagation from controlled reverse proxies or internal services.
+
+Such trust must be opt-in and based on server/operator configuration, not arbitrary browser input.
+
+Trusted trace propagation is still observability metadata; it never supplies identity or authorization.
+
+### 6.3 Baggage restrictions
+
+Do not propagate sensitive UAG identity/access data in OTel baggage.
+
+Forbidden examples:
+
+```text
+principal_id
+subject
+email
+groups
+session token
+room membership
+project role
+OAuth/OIDC token
+```
+
+## 7. OIDC authentication tracing
 
 Possible internal spans/events:
 
@@ -145,16 +218,15 @@ Possible internal spans/events:
 uag.auth.oidc.login
 uag.auth.oidc.callback
 uag.auth.oidc.session.create
+uag.auth.oidc.session.revalidate
 uag.auth.oidc.logout
 ```
 
-Normal HTTP server spans may exist around these operations.
+The login/callback trace is separate from later Agent task traces. The fact that operations belong to the same browser session does not make them parent/child traces.
 
-The authentication flow is separate from the later Agent task trace. An OIDC callback must not become the permanent parent of future user-turn traces.
+## 8. Secret and identity privacy
 
-### 4.2 Never export OIDC secrets or bearer material
-
-The following must never be exported as span attributes, events, logs, metrics, baggage, or resource attributes:
+Never export as OTel span attributes, events, logs, metrics, baggage, or resource attributes:
 
 ```text
 authorization code
@@ -163,32 +235,28 @@ refresh token
 ID token
 session cookie
 server-side session token
-hash of the session token
+hash of session token
 client secret
 PKCE verifier
-state value
-nonce value
+state
+nonce
 raw Authorization header
 raw Cookie header
 raw token claims
 ```
 
-The current server-side OIDC session token is deliberately opaque. Its value and storage key are not observability identifiers.
-
-### 4.3 Identity fields
-
-Default remote telemetry must not include raw:
+Default remote telemetry also excludes raw:
 
 ```text
 principal_id
 OIDC subject
 display_name
-email-like identifiers
-group names
-group IDs
+email-like identifier
+group name
+group ID
 ```
 
-Safe low-cardinality identity metadata can include:
+Safe low-cardinality result metadata may include normalized values such as:
 
 ```text
 uag.auth.authenticated = true|false
@@ -200,39 +268,13 @@ uag.room.private = true|false
 uag.project.bound = true|false
 ```
 
-Role values are emitted only after server-side policy resolution.
+Role values are emitted only after server-side resolution.
 
-### 4.4 Optional pseudonymous identity correlation
+## 9. Room/project/owner isolation
 
-If operators later require trace correlation by principal, use a server-controlled pseudonymous identifier rather than raw `principal_id` or OIDC `subject`.
+Ownership and membership are authorization state.
 
-Recommended properties:
-
-- HMAC-based, not plain hash;
-- keyed by a server/workspace observability key;
-- stable only within the intended administrative domain;
-- trace-only by default, never a metric dimension;
-- rotatable;
-- not reversible without the server key;
-- disabled by default unless there is a demonstrated operational need.
-
-Conceptual field:
-
-```text
-uag.identity.pseudonymous_id
-```
-
-Do not derive pseudonyms from the OIDC session token.
-
-## 5. Room, project, owner, and role isolation
-
-### 5.1 Ownership remains authorization data
-
-Private-room owner and project/room membership are authorization state.
-
-OpenTelemetry may record the result of authorization, but should not normally export the raw owner principal ID.
-
-For example:
+Prefer result metadata such as:
 
 ```text
 uag.room.private = true
@@ -240,240 +282,81 @@ uag.authz.outcome = allowed
 uag.authz.role = admin
 ```
 
-is preferable to:
+over exporting an owner's raw identifier.
 
-```text
-uag.room.owner = alice@example.com
-```
+`room_id` and `project_id`:
 
-### 5.2 Room/project IDs are high-cardinality and potentially sensitive
+- are never metric dimensions;
+- are not process-level resource attributes in a multi-user server;
+- are omitted or pseudonymized in remote traces by default;
+- may remain in existing local UAG logs according to local logging policy.
 
-`room_id` and `project_id` may reveal names or workspace structure. Therefore:
+A shared-room member does not automatically gain access to the external trace backend.
 
-- never use them as metric dimensions;
-- do not put them in OTel resource attributes for a process serving multiple users/projects;
-- remote trace export should omit or pseudonymize them by default;
-- local structured logs may retain existing IDs according to UAG's local logging/privacy policy;
-- if a trace UI later needs room/project lookup, prefer a server-side mapping or pseudonymous scope ID.
+Direct Jaeger/Grafana/vendor access is operator/admin capability by default. If UAG later exposes traces to ordinary Web users, UAG must proxy the query and re-check current room/project authorization on every query.
 
-Possible trace-only pseudonyms:
+Possession of a trace ID is never authorization.
 
-```text
-uag.room.scope_id
-uag.project.scope_id
-```
+## 10. Optional pseudonymous correlation
 
-### 5.3 Shared room does not imply shared trace visibility
+If operators later need cross-trace principal/project/room correlation, use server-keyed HMAC pseudonyms rather than raw IDs or plain hashes.
 
-A user who can read a shared room does not automatically receive permission to query the external OTel backend for all traces involving that room.
+Requirements:
 
-Observability authorization is a separate control plane.
+- disabled by default;
+- trace-only by default;
+- never metric dimensions;
+- key rotation supported;
+- scoped to intended administrative domain;
+- never derived from OIDC session tokens.
 
-Default recommendation:
+## 11. OIDC session-store evolution
 
-> Direct Jaeger/Grafana/vendor trace access is an operator/admin capability, not an ordinary UAG room-member capability.
-
-If UAG later exposes trace views to normal Web users, UAG must proxy/query the backend and enforce current room/project authorization before displaying any trace metadata.
-
-Do not expose a trace URL containing a trace ID as an authorization mechanism.
-
-## 6. Authentication and authorization revalidation
-
-Web authorization can change while a connection is alive:
-
-- OIDC session expires or is revoked;
-- authentication configuration changes;
-- room membership is revoked;
-- project membership/role changes;
-- directory group policy changes;
-- room/project binding changes;
-- a private room expires;
-- global-admin configuration changes.
-
-Therefore:
-
-1. Observability context must not cache authorization as an authority.
-2. Each turn uses the current trusted `TurnContext` created after current access checks.
-3. Delivery/broadcast checks remain authoritative even if the producing span says `allowed`.
-4. A previously valid trace or span never acts as a capability for later work.
-5. Authorization revision/fingerprint data, if observed, is diagnostic only.
-
-A denied operation may record:
-
-```text
-uag.authz.outcome = denied
-error.type = authorization_denied
-```
-
-but should avoid including details that reveal membership structure to an unauthorized caller.
-
-## 7. Trace Context trust policy for Web
-
-### 7.1 Browser-supplied trace context is untrusted by default
-
-A public browser can forge W3C `traceparent`/`tracestate` headers. Accepting those blindly can make one user appear as a child of another tenant's trace or poison operator diagnostics.
-
-Default Web policy:
-
-```text
-untrusted browser request
-    -> do not trust arbitrary inbound parent trace
-    -> create new server/turn trace at UAG trust boundary
-```
-
-Trusted reverse proxies or controlled internal clients may be allowed to propagate inbound trace context through an explicit deployment policy.
-
-### 7.2 OIDC provider trace context is not user-task identity
-
-Even if an IdP or reverse proxy provides trace headers during OIDC redirects/callbacks, those headers are transport observability only.
-
-They must not:
-
-- identify the UAG user;
-- bind a later Agent turn;
-- select a room/project;
-- grant permissions;
-- be copied into the OIDC browser session as identity state.
-
-### 7.3 Baggage restrictions
-
-Do not propagate sensitive UAG identity or access state in OTel baggage.
-
-Forbidden baggage examples:
-
-```text
-principal_id
-subject
-email
-groups
-session token
-room membership
-project role
-OAuth/OIDC tokens
-```
-
-Baggage crosses process boundaries and is often forwarded farther than expected.
-
-## 8. OIDC session-store considerations
-
-The current OIDC session store is server-side and process-local. Observability must not depend on the implementation being process-local or durable.
+Current OIDC sessions may be process-local, but observability must not depend on that storage choice.
 
 Rules:
 
 - `trace_id` is not an OIDC session key;
-- OIDC session token is not a trace correlation ID;
-- an OIDC session may create many independent Agent traces;
-- telemetry export continues to work if session storage later becomes durable/shared;
-- authentication configuration fingerprint/revision is not a user identity;
-- session revocation invalidates access, not historical trace data.
+- `correlation_id` is not an OIDC session key;
+- one OIDC session may produce many independent Agent traces;
+- session storage may later become durable/shared without changing the trace model;
+- session revocation invalidates future access, not historical trace records.
 
-In a future multi-instance Web deployment, OTel naturally aggregates spans across instances using service/resource metadata while authentication-session replication remains a separate subsystem.
+For multi-instance UAG, OTel may aggregate service instances while authentication session replication remains a separate subsystem.
 
-Useful resource metadata can include standard fields such as:
+## 12. Multi-tenant / multi-project evolution
 
-```text
-service.name = uag
-service.instance.id = <instance>
-deployment.environment.name = <environment>
-```
+If a tenant/organization abstraction is added later:
 
-Do not encode a user/project/room as a service resource attribute when one UAG instance serves many users.
+- trusted server-side policy determines tenant scope;
+- unverified browser/JWT fields do not select telemetry routing;
+- raw tenant IDs are not metric dimensions by default;
+- a process serving multiple tenants does not set one tenant as a process-level resource;
+- per-tenant exporter routing, if implemented, fails closed rather than falling into another tenant backend.
 
-## 9. Multi-tenant / multi-project deployment
+## 13. Content capture
 
-UAG currently has explicit principal, room, project, and authorization boundaries. A future tenant/organization abstraction may sit above them.
+`UAGENT_OTEL_CAPTURE_CONTENT` is operator/deployment policy, not a browser/header/query/message option.
 
-Observability must remain compatible with that extension.
+Default remains OFF.
 
-If a `tenant_id` is introduced later:
+Even when enabled by an administrator, secret redaction occurs before OTel exporters receive data.
 
-- it must come from trusted server-side identity/project resolution;
-- it must not be inferred from unverified JWT/browser fields;
-- raw tenant IDs should not become metric dimensions by default;
-- a multi-tenant UAG process must not set one tenant ID as a process-level resource attribute;
-- per-tenant exporter routing, if added, must be selected by trusted server-side policy;
-- failure to resolve tenant routing must fail closed for telemetry routing, not reroute data to another tenant.
+Shared rooms require extra caution because a model call may contain context derived from multiple authorized sources.
 
-The same principle applies today to project/room routing.
+## 14. Metrics
 
-## 10. Trace export routing and data isolation
-
-Three deployment models are possible.
-
-### Model A: operator-wide backend
-
-```text
-all UAG Web users
-      -> UAG
-      -> one operator-controlled OTel backend
-```
-
-This is the simplest initial model. The backend is restricted to trusted operators/admins.
-
-### Model B: project/tenant-separated exporters
-
-```text
-trusted project/tenant context
-      -> exporter router
-         -> backend A
-         -> backend B
-```
-
-This may be useful for enterprise isolation but is not required for the first implementation.
-
-If implemented, routing must use server-authoritative context only and must never use arbitrary client baggage/headers.
-
-### Model C: user-visible observability through UAG
-
-```text
-browser
-  -> UAG authorization
-  -> UAG trace query proxy
-  -> OTel backend
-```
-
-If users can inspect traces, this is preferred over exposing the raw backend. UAG must re-check current room/project rights on every trace query.
-
-## 11. Content capture in multi-user Web
-
-`UAGENT_OTEL_CAPTURE_CONTENT` is an operator/deployment policy, not a per-message browser request.
-
-A normal Web user must not be able to enable content capture by sending a message/header/query parameter.
-
-For multi-user servers, the recommended default remains:
-
-```text
-UAGENT_OTEL_CAPTURE_CONTENT=0
-```
-
-Even when content capture is enabled by an administrator, UAG should continue to redact secrets before the OTel SDK/exporter receives data.
-
-Additional caution is required for shared rooms because one model call may contain context derived from multiple authorized sources.
-
-## 12. Authentication telemetry metrics
-
-Keep metrics low-cardinality.
-
-Possible metrics:
-
-```text
-uag.auth.operation.duration
-uag.auth.login.count
-uag.auth.failure.count
-uag.authz.decision.count
-uag.authz.denied.count
-```
-
-Safe dimensions may include:
+Authentication/authorization metrics may include low-cardinality dimensions such as:
 
 ```text
 authn_kind
 operation
 outcome
 normalized error class
+normalized role
 ```
 
-Do not use these metric dimensions:
+Never use:
 
 ```text
 principal_id
@@ -486,9 +369,11 @@ group name
 trace_id
 ```
 
-## 13. Structured event correlation
+as metric dimensions.
 
-Existing UAG structured security/auth events may be correlated to traces with:
+## 15. Structured events and audit
+
+Existing UAG security/auth events remain useful independently from OTel and may be correlated with active:
 
 ```text
 correlation_id
@@ -496,17 +381,17 @@ trace_id
 span_id
 ```
 
-when a span is active.
+Security/audit logging must not depend on OTel sampling.
 
-However, security events should remain useful even if tracing is disabled or sampled out. Audit/security logging must not depend on OTel sampling.
-
-Suggested event families for future implementation:
+Possible future event families:
 
 ```text
 auth.oidc.started
 auth.oidc.completed
 auth.oidc.failed
 auth.session.created
+auth.session.revalidated
+auth.session.revalidation_failed
 auth.session.revoked
 authz.room.allowed
 authz.room.denied
@@ -514,35 +399,45 @@ authz.project.allowed
 authz.project.denied
 ```
 
-Event payloads remain secret-minimized.
+Payloads remain secret-minimized.
 
-## 14. Web / OIDC trace hierarchy examples
+## 16. Trace hierarchy examples
 
-### 14.1 Successful shared-room turn
+### 16.1 Successful OIDC WebSocket turn
 
 ```text
 web.message
-  -> uag.authz.room
-  -> uag.authz.project
+  -> auth.session.revalidate [valid]
+  -> authz.room [allowed]
+  -> authz.project [allowed]
   -> invoke_agent uag
        -> uag.context.build
        -> chat <model>
        -> execute_tool <tool>
-       -> chat <model>
 ```
 
-The authorization spans may be omitted if overhead is not justified; in that case the Agent span can carry aggregate authorization outcome metadata derived from the already completed check.
+### 16.2 Session revoked after connection acceptance
 
-### 14.2 Authorization denied
+```text
+WebSocket connection accepted earlier
+
+# later turn
+web.message
+  -> auth.session.revalidate [revoked]
+  -> deny
+```
+
+No Agent/LLM/Tool span follows the denial.
+
+### 16.3 Authorization denied
 
 ```text
 web.message
-  -> uag.authz.room [denied]
+  -> auth.session.revalidate [valid]
+  -> authz.room [denied]
 ```
 
-No Agent/LLM/Tool span is created if execution never starts.
-
-### 14.3 OIDC login followed later by Agent work
+### 16.4 OIDC login followed later by Agent work
 
 ```text
 HTTP /auth/oidc/login
@@ -552,66 +447,48 @@ HTTP /auth/oidc/callback
   -> uag.auth.oidc.callback
   -> uag.auth.oidc.session.create
 
-# later, independent trace
+# later independent trace
 web.message
+  -> session revalidate
   -> authorization
   -> invoke_agent uag
 ```
 
-The login trace and later Agent trace are not parent/child solely because they belong to the same browser session.
+## 17. Failure behavior
 
-### 14.4 Private-room turn
-
-```text
-web.message
-  -> private-room owner/current-access check
-  -> invoke_agent uag
-       attributes:
-         uag.room.private=true
-         uag.authz.outcome=allowed
-```
-
-Do not export the owner's raw principal ID by default.
-
-## 15. Failure and privacy behavior
-
-Observability failure must not change authentication or authorization results.
-
-Examples:
+Observability failure never changes authentication/authorization results.
 
 ```text
 Collector unavailable
-    -> user remains authenticated/authorized normally
-    -> Agent continues
+    -> normal auth/session/authz still runs
+    -> Agent continues if authorized
 
-OTel package auto-install fails
+OTel auto-install fails
     -> OTel backend becomes no-op
-    -> OIDC login/room checks continue normally
+    -> normal auth/session/authz still runs
 
 Trace serialization fails
     -> do not weaken auth checks
-    -> do not retry user operation merely to obtain telemetry
+    -> do not retry the user operation merely for telemetry
 ```
 
-Conversely, authentication/authorization failure must not be converted into success because telemetry is unavailable.
+Conversely, telemetry unavailability never converts an authentication/authorization denial into success.
 
-## 16. Retention and deletion
+## 18. Retention
 
 External trace retention is independent from UAG room/session/Memory retention.
 
 Therefore:
 
-- expiring a private room does not automatically delete already exported traces;
-- revoking an OIDC session does not delete historical traces;
+- expiring a private room does not automatically delete exported traces;
+- revoking an OIDC session does not automatically delete historical traces;
 - deleting Memory does not automatically delete backend telemetry;
-- exported data should minimize direct personal identifiers so retention has lower privacy impact;
-- enterprise deployments should set backend retention according to organizational policy.
+- minimized direct identifiers reduce privacy impact;
+- enterprise deployments define backend retention separately.
 
-If UAG later supports user-visible trace export/delete operations, those require an explicit backend lifecycle design and authorization checks.
+## 19. Implementation boundaries
 
-## 17. Implementation boundary additions
-
-The parent OpenTelemetry design should treat these as required implementation boundaries:
+Relevant existing components include:
 
 ```text
 runtime/identity_context.py
@@ -623,92 +500,109 @@ runtime/room_access.py
 runtime/project_access.py
 ```
 
-Instrumentation should be shallow and non-invasive:
+Implementation rules:
 
-- observe completed identity resolution;
-- observe auth/authz outcomes;
-- never move authorization logic into the observability package;
-- never pass OTel context into policy APIs as a decision input;
-- never expose authentication secrets to OTel helpers.
+- authentication/session revalidation stays in auth/Web identity layers;
+- room/project authorization stays in access-policy layers;
+- observability helpers receive only safe outcomes/metadata;
+- OTel context is never passed into policy APIs as a decision input;
+- authentication secrets never enter OTel helper payloads.
 
-## 18. Testing additions
+## 20. Rollout requirements
 
-### 18.1 Multi-user isolation tests
+### Phase 1
+
+Initial Web tracing must include:
+
+- per-turn fresh Agent trace roots;
+- server-side OIDC session revalidation on every WebSocket turn;
+- rejection/detachment of untrusted browser inbound trace context;
+- current room/project/private-room authorization before Agent execution;
+- no raw identity/session/content export.
+
+### Later phases
+
+Later work may add:
+
+- trusted reverse-proxy/internal trace propagation;
+- multi-instance authentication-session storage;
+- tenant-aware exporter routing;
+- pseudonymous identity/scope correlation;
+- user-visible trace proxy guarded by UAG authorization.
+
+None of those later features may weaken Phase-1 isolation.
+
+## 21. Testing requirements
+
+### 21.1 Multi-user isolation
 
 Verify:
 
-- user A and user B turns create separate root Agent traces;
-- a shared room does not create one long-lived cross-user trace;
-- private-room owner ID is not exported;
-- raw principal/subject/group values are absent by default;
-- room/project IDs are absent from metrics;
-- authorization denial creates no downstream LLM/tool spans;
-- role changes/revocation take effect despite an existing WebSocket connection;
-- trace context cannot override room/project authorization.
+- user A and B turns create separate root Agent traces;
+- shared room does not produce a cross-user long-lived trace;
+- WebSocket connection span is not reused as Agent root for all turns;
+- authorization denial creates no downstream LLM/tool spans.
 
-### 18.2 OIDC privacy tests
+### 21.2 Live OIDC-session tests
 
-Verify absence of:
+Verify:
 
-```text
-code
-state
-nonce
-PKCE verifier
-ID/access/refresh token
-session cookie/session token
-Authorization header
-Cookie header
-raw claims
-```
+- accepted WebSocket + valid session -> turn allowed;
+- session expires after connection acceptance -> next turn denied;
+- session explicitly revoked after connection acceptance -> next turn denied;
+- authentication configuration fingerprint changes -> stale session denied;
+- cached `IdentityContext` alone cannot bypass revalidation;
+- session revalidation reference/value is absent from telemetry.
 
-from spans, events, metrics, baggage, and structured OTel export.
+### 21.3 Inbound trace spoofing
 
-### 18.3 Inbound trace spoofing tests
+Verify that forged browser `traceparent` / `tracestate`:
 
-Verify that an untrusted browser-provided `traceparent` cannot:
+- is detached/rejected in initial Web tracing;
+- cannot cause one user's Agent trace to join another trace;
+- cannot alter `correlation_id` semantics;
+- cannot select room/project scope;
+- cannot affect authorization.
 
-- become an authorization identity;
-- choose project/room scope;
-- cause a trace to be joined to another user's trusted trace by default;
-- alter UAG `correlation_id` semantics.
+### 21.4 Privacy
 
-### 18.4 Observability access tests
+Verify absence of codes, state, nonce, PKCE verifier, ID/access/refresh tokens, session cookie/token, Authorization/Cookie headers, raw claims, principal/subject/group values from remote OTel output by default.
 
-If user-visible trace querying is added later, verify every query against current room/project authorization and verify that possession of a trace ID alone grants no access.
+### 21.5 Revocation and policy
 
-## 19. Acceptance criteria
+Verify room/project/private-room membership and role changes still take effect on established connections independently from trace state.
 
-Web/OIDC OpenTelemetry integration is acceptable when:
+## 22. Acceptance criteria
+
+Web/OIDC OTel integration is acceptable only when:
 
 1. Each Web user turn has an isolated logical Agent trace.
-2. Shared rooms do not merge multiple principals into one long-lived trace.
-3. Authentication and authorization remain server-controlled and independent from trace context.
-4. Raw OIDC tokens/session tokens/cookies/claims are never exported.
-5. Raw principal IDs, OIDC subjects, display names, and groups are not exported by default.
-6. Room/project/owner identifiers are not metric dimensions.
-7. Authorization is revalidated according to current UAG policy even when a connection already has trace context.
-8. OIDC session revocation/configuration changes are not bypassed by existing traces.
-9. Browser-supplied trace context is untrusted by default.
-10. Normal users do not automatically gain direct access to an operator-wide trace backend.
-11. Observability failure cannot change authentication or authorization behavior.
-12. OTel dependency auto-install remains process-level and does not vary by user/room.
-13. Multi-instance telemetry does not depend on the current process-local OIDC session-store implementation.
-14. Future tenant-level routing can be added using trusted server-side scope without changing the core trace model.
+2. Shared rooms/WebSockets do not merge principals into one Agent trace.
+3. Authentication/authorization remain server-controlled and independent from trace context.
+4. Every OIDC WebSocket turn revalidates the authoritative server-side session before trusted turn creation.
+5. Session expiration/revocation/configuration change after connection acceptance denies the next turn.
+6. Raw OIDC/session secrets and raw claims are never exported.
+7. Raw principal IDs, subjects, display names, and groups are not exported by default.
+8. Room/project/owner identifiers are not metric dimensions.
+9. Browser-provided inbound trace context is rejected/detached by default in the initial OTel Web phase.
+10. Current room/project/private-room authorization is revalidated after session validation.
+11. Trace IDs/baggage/headers never grant access.
+12. Normal users do not automatically gain direct trace-backend access.
+13. OTel failure does not change authentication/authorization behavior.
+14. OTel dependency installation remains process-level and not user/room-specific.
+15. Future multi-instance/tenant features can be added without changing the per-turn trust model.
 
-## 20. Design decisions
+## 23. Fixed design decisions
 
-The following are explicit decisions:
-
-- Agent traces are per turn/task, not per WebSocket connection or room.
+- Agent traces are per turn/task, not per WebSocket or room.
+- OIDC session liveness is revalidated per WebSocket turn.
+- A cached `IdentityContext` is not sufficient evidence of live OIDC session validity.
 - Authentication traces are separate from later Agent traces.
 - OTel trace context is never an authorization credential.
-- Browser-provided trace context is untrusted by default.
+- Browser-provided inbound trace context is rejected/detached by default from Phase 1.
+- Trusted inbound propagation, if added, requires explicit operator configuration.
 - OIDC/session secrets and raw identity claims are excluded from telemetry.
-- Ownership is authorization state; owner identifiers are not exported by default.
+- Ownership is authorization state; raw owner IDs are not exported by default.
 - Shared-room membership does not imply trace-backend access.
-- External observability backends are operator/admin surfaces by default.
-- If user-visible trace access is added, UAG must enforce current room/project authorization on every query.
-- `UAGENT_OTEL_CAPTURE_CONTENT` is server/operator policy, not user-controlled input.
-- OTel auto-install is process-level and uses the existing `UAGENT_AUTO_INSTALL` policy.
-- The design remains compatible with future durable OIDC sessions and tenant-aware deployments.
+- `UAGENT_OTEL_CAPTURE_CONTENT` is operator policy, not user input.
+- OTel auto-install is process-level and uses existing `UAGENT_AUTO_INSTALL` policy.
