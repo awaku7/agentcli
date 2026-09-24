@@ -21,9 +21,7 @@ class ObservabilitySpan(Protocol):
     def set_attribute(self, key: str, value: Any) -> None:
         ...
 
-    def add_event(
-        self, name: str, attributes: Mapping[str, Any] | None = None
-    ) -> None:
+    def add_event(self, name: str, attributes: Mapping[str, Any] | None = None) -> None:
         ...
 
     def record_exception(self, exc: BaseException) -> None:
