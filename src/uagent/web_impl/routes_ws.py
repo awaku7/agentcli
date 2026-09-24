@@ -46,6 +46,10 @@ async def websocket_endpoint(websocket: WebSocket):
         await websocket.close(code=1008)
         return
     room = web_manager.get_room(room_id)
+    if connection.session_id:
+        room.session_id = connection.session_id
+    room.private_session = connection.private_session
+    room.project_id = connection.project_id
     try:
         room.lang = ws_lang
     except Exception:
@@ -65,6 +69,7 @@ async def websocket_endpoint(websocket: WebSocket):
             payload = json.loads(data)
             try:
                 connection.validate_authentication_configuration()
+                connection.validate_room_access()
             except (IdentityConfigurationError, IdentityResolutionError):
                 await websocket.close(code=1008)
                 room.disconnect(websocket)
@@ -85,7 +90,11 @@ async def websocket_endpoint(websocket: WebSocket):
                         "project_path": worker_dir,
                         "turn_context": connection.make_turn(
                             project_path=worker_dir,
-                            session_id=str(getattr(core, "session_id", "") or ""),
+                            session_id=str(
+                                getattr(room, "session_id", "")
+                                or getattr(core, "session_id", "")
+                                or ""
+                            ),
                         ),
                         "identity_context": connection.identity,
                     },
@@ -94,6 +103,26 @@ async def websocket_endpoint(websocket: WebSocket):
 
             elif payload.get("type") == "command":
                 cmd_text = str(payload.get("text") or "").strip()
+                command_name = (
+                    cmd_text.lstrip(":").strip().split(maxsplit=1)[0].lower()
+                    if cmd_text.lstrip(":").strip()
+                    else ""
+                )
+                if (
+                    room.private_session or connection.identity.authn_kind != "local"
+                ) and command_name in {
+                    "load",
+                    "cont",
+                    "logs",
+                    "sessions",
+                }:
+                    room.add_message(
+                        {
+                            "role": "assistant",
+                            "content": "Session history commands are disabled for authenticated Web rooms.",
+                        }
+                    )
+                    continue
                 if _handle_mode_command(cmd_text):
                     continue
                 # Route all other :commands through handle_command()
@@ -156,7 +185,11 @@ async def websocket_endpoint(websocket: WebSocket):
                             {
                                 "type": "init",
                                 "messages": loaded_display,
-                                "input_history": _load_input_history(),
+                                "input_history": (
+                                    []
+                                    if room.private_session
+                                    else _load_input_history()
+                                ),
                                 "status": room.status,
                                 "room_id": room.room_id,
                             }
@@ -175,7 +208,9 @@ async def websocket_endpoint(websocket: WebSocket):
                                 "turn_context": connection.make_turn(
                                     project_path=worker_dir,
                                     session_id=str(
-                                        getattr(core, "session_id", "") or ""
+                                        getattr(room, "session_id", "")
+                                        or getattr(core, "session_id", "")
+                                        or ""
                                     ),
                                 ),
                                 "identity_context": connection.identity,

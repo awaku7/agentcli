@@ -82,6 +82,8 @@ class TurnContext:
     authenticated: bool
     authn_kind: str
     groups: tuple[str, ...] = ()
+    private_session: bool = False
+    server_bound_project: bool = False
 
     def __post_init__(self) -> None:
         principal_id = str(self.principal_id or "").strip()
@@ -93,6 +95,10 @@ class TurnContext:
             raise IdentityResolutionError("turn entry_point is required")
         if not authn_kind:
             raise IdentityResolutionError("turn authn_kind is required")
+        if type(self.private_session) is not bool:
+            raise IdentityResolutionError("turn private_session must be a boolean")
+        if type(self.server_bound_project) is not bool:
+            raise IdentityResolutionError("turn server_bound_project must be a boolean")
         object.__setattr__(self, "principal_id", principal_id)
         object.__setattr__(self, "room_id", str(self.room_id or "").strip())
         object.__setattr__(self, "project_id", str(self.project_id or "").strip())
@@ -118,6 +124,8 @@ class TurnContext:
         project_id: str = "",
         session_id: str = "",
         entry_point: str,
+        private_session: bool = False,
+        server_bound_project: bool = False,
     ) -> "TurnContext":
         return cls(
             principal_id=identity.principal_id,
@@ -128,6 +136,8 @@ class TurnContext:
             authenticated=identity.authenticated,
             authn_kind=identity.authn_kind,
             groups=identity.groups,
+            private_session=private_session,
+            server_bound_project=server_bound_project,
         )
 
 

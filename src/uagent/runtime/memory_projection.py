@@ -107,6 +107,7 @@ def _projection_fingerprint(
     principal_id: str = "",
     room_id: str = "",
     project_id: str = "",
+    private_session: bool = False,
     access_generation: int = 0,
 ) -> str:
     """Create an opaque process-local fingerprint without exposing text."""
@@ -118,6 +119,7 @@ def _projection_fingerprint(
         "principal_id": principal_id,
         "room_id": room_id,
         "project_id": project_id,
+        "private_session": bool(private_session),
         "access_generation": _nonnegative_int(access_generation),
         "profile_content": profile_content,
         "evidence_content": evidence_content,
@@ -151,6 +153,7 @@ class MemoryProjectionSnapshot:
     principal_id: str = ""
     room_id: str = ""
     project_id: str = ""
+    private_session: bool = False
     access_generation: int = 0
 
     def __post_init__(self) -> None:
@@ -188,6 +191,7 @@ class MemoryProjectionSnapshot:
                     principal_id=self.principal_id,
                     room_id=self.room_id,
                     project_id=self.project_id,
+                    private_session=self.private_session,
                     access_generation=self.access_generation,
                 ),
             )
@@ -305,15 +309,14 @@ def _items_from_scoped_result(
 def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]], int]:
     """Load only records authorized for this principal by the V3 store boundary."""
     from ..tools import long_memory
-    from .memory_access import MemoryAccessContext, ScopedMemoryStore
+    from .memory_access import MemoryAccessContext, MemoryAccessError, ScopedMemoryStore
     from .memory_store import open_memory_store
 
     if not long_memory.is_sqlite_backend():
         raise RuntimeError("V3 multi-user projection requires SQLite memory")
-    private_principal = str(getattr(core, "memory_private_session_principal", "") or "")
-    # Personal records and individual grants may only enter a server-confirmed
-    # private turn. Room turns broadcast output and history to room members.
-    private_session = private_principal == turn.principal_id and not turn.room_id
+    # This flag is set only by the server-side room binding; client payloads
+    # cannot opt a shared room into personal-memory access.
+    private_session = bool(getattr(turn, "private_session", False))
     readable_audiences = [("project", turn.project_id)]
     store = open_memory_store(long_memory._sqlite_path())
     try:
@@ -329,11 +332,19 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
             )
         )
         project_policy.require_access(turn.principal_id, turn.project_id, "viewer")
+        if private_session and not turn.room_id:
+            raise MemoryAccessError(
+                "private Web memory requires a private room binding"
+            )
         if turn.room_id:
             project_policy.require_room_binding(turn.project_id, turn.room_id)
             from .room_access import RoomAccessPolicy
 
             policy = RoomAccessPolicy(store)
+            if private_session and not policy.is_private_room_for(
+                turn.principal_id, turn.room_id
+            ):
+                raise MemoryAccessError("private room audience is not authorized")
             if policy.can_read_room_memory(turn.principal_id, turn.room_id):
                 readable_audiences.append(("room", turn.room_id))
         context = MemoryAccessContext.from_turn(
@@ -381,6 +392,7 @@ def memory_projection_access_is_current(
             turn.principal_id != snapshot.principal_id
             or turn.room_id != snapshot.room_id
             or turn.project_id != snapshot.project_id
+            or bool(getattr(turn, "private_session", False)) != snapshot.private_session
         ):
             return False
     current_access_generation = _current_access_generation()
@@ -401,7 +413,10 @@ def prepare_memory_projection(
     owner = _memory_owner(core)
     project = _project_name(core)
     turn = get_current_turn_context()
-    scoped_identity = turn is not None and turn.authn_kind != "local"
+    private_session = bool(getattr(turn, "private_session", False)) if turn else False
+    scoped_identity = turn is not None and (
+        turn.authn_kind != "local" or bool(getattr(turn, "private_session", False))
+    )
     principal_id = turn.principal_id if scoped_identity else ""
     if scoped_identity:
         project = turn.project_id
@@ -468,19 +483,21 @@ def prepare_memory_projection(
             principal_id=principal_id,
             room_id=turn.room_id if scoped_identity else "",
             project_id=project,
+            private_session=private_session if scoped_identity else False,
             access_generation=access_generation,
         )
 
     guidance_budget_chars = _positive_int("UAGENT_MEMORY_GUIDANCE_CHARS", 1_200)
     guidance = _GuidanceProjection("", 0, 0)
     try:
-        private_profile_turn = not scoped_identity or (
-            not turn.room_id
-            and str(getattr(core, "memory_private_session_principal", "") or "")
-            == turn.principal_id
+        private_profile_turn = not scoped_identity or bool(
+            getattr(turn, "private_session", False)
         )
         if is_profiling_enabled() and private_profile_turn:
-            profile = load_profile(principal_id) if principal_id else load_profile()
+            profile_key = (
+                principal_id if principal_id and turn.authn_kind != "local" else ""
+            )
+            profile = load_profile(profile_key) if profile_key else load_profile()
             if isinstance(profile, dict):
                 guidance = _format_applicable_guidance(
                     profile,
@@ -542,6 +559,7 @@ def prepare_memory_projection(
         principal_id=principal_id,
         room_id=turn.room_id if scoped_identity else "",
         project_id=project,
+        private_session=private_session if scoped_identity else False,
         access_generation=access_generation,
     )
     diagnostics = {
@@ -589,6 +607,7 @@ def prepare_memory_projection(
         principal_id=principal_id,
         room_id=turn.room_id if scoped_identity else "",
         project_id=project,
+        private_session=private_session if scoped_identity else False,
         access_generation=access_generation,
     )
 

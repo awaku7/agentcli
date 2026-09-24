@@ -9,12 +9,38 @@ import shutil
 from typing import Any
 from uuid import uuid4
 
-from fastapi import File, Form, UploadFile
+from fastapi import File, Form, HTTPException, Request, UploadFile
+from ..runtime.identity_context import (
+    IdentityConfigurationError,
+    IdentityResolutionError,
+    create_identity_resolver,
+)
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from ..i18n import _
 from .. import util_tools as tools_util
 from .app import STATIC_DIR, app
 from .rooms import web_manager
+
+
+def _authorize_room_request(request: Request, room_id: str) -> None:
+    try:
+        identity = create_identity_resolver().resolve(request)
+    except (IdentityConfigurationError, IdentityResolutionError) as exc:
+        raise HTTPException(status_code=401, detail="authentication required") from exc
+    if not identity.authenticated:
+        raise HTTPException(status_code=401, detail="authentication required")
+    if not room_id:
+        if identity.authn_kind != "local":
+            raise HTTPException(status_code=403, detail="room context is required")
+        return
+    try:
+        from .connection_identity import require_room_access
+
+        require_room_access(identity, room_id)
+    except (IdentityResolutionError, PermissionError) as exc:
+        raise HTTPException(
+            status_code=403, detail="room access is not permitted"
+        ) from exc
 
 
 @app.get("/")
@@ -39,6 +65,7 @@ async def get_room(room_id: str):
 
 @app.post("/upload")
 async def upload_files(
+    request: Request,
     room: str = Form(""),
     files: list[UploadFile] = File(...),
 ):
@@ -46,6 +73,7 @@ async def upload_files(
         raw_room_id = (
             re.sub(r"[^A-Za-z0-9._-]+", "_", str(room or "").strip()) or "default"
         )
+        _authorize_room_request(request, raw_room_id)
         room_obj = web_manager.get_room(raw_room_id)
         base = os.path.abspath(room_obj.base_dir)
         upload_root = os.path.join(base, ".uagent_web_uploads", raw_room_id)
@@ -86,14 +114,17 @@ async def upload_files(
             saved.append(item)
 
         return {"ok": True, "files": saved}
+    except HTTPException:
+        raise
     except Exception as e:
         return {"ok": False, "error": repr(e)}
 
 
 @app.get("/local-file")
-async def get_local_file(path: str, room_id: str = ""):
+async def get_local_file(request: Request, path: str, room_id: str = ""):
     try:
         raw_room_id = re.sub(r"[^A-Za-z0-9._-]+", "_", str(room_id or "").strip())
+        _authorize_room_request(request, raw_room_id)
         if raw_room_id:
             room_obj = web_manager.get_room(raw_room_id)
             base_dir = os.path.abspath(room_obj.base_dir)

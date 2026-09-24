@@ -20,6 +20,9 @@ class WebConnectionContext:
     room_id: str
     identity: IdentityContext
     configuration_fingerprint: str = ""
+    project_id: str = ""
+    private_session: bool = False
+    session_id: str = ""
 
     def validate_authentication_configuration(self) -> None:
         """Reject every message from a connection bound to stale authentication."""
@@ -39,44 +42,65 @@ class WebConnectionContext:
         return TurnContext.from_identity(
             self.identity,
             room_id=self.room_id,
-            project_id=project_id_from_path(project_path),
-            session_id=session_id,
+            project_id=self.project_id or project_id_from_path(project_path),
+            session_id=self.session_id or session_id,
             entry_point="web",
+            private_session=self.private_session,
+            server_bound_project=bool(self.project_id),
         )
 
     def validate_room_access(self) -> None:
         """Re-check recipient authorization before delivering room broadcasts."""
-        from ..tools import long_memory
-        from ..runtime.memory_store import open_memory_store
-        from ..runtime.project_access import ProjectAccessPolicy
-        from ..runtime.room_access import RoomAccessPolicy
-
         try:
-            if not long_memory.is_sqlite_backend():
-                raise IdentityResolutionError("multi-user rooms require SQLite memory")
-            store = open_memory_store(long_memory._sqlite_path())
-            try:
-                room_policy = RoomAccessPolicy(store)
-                if (
-                    room_policy.membership(self.identity.principal_id, self.room_id)
-                    is None
-                ):
-                    raise IdentityResolutionError("room membership is no longer active")
-                project_policy = ProjectAccessPolicy(store)
-                project_id = project_policy.room_project(self.room_id)
-                if project_id:
-                    project_policy.sync_directory_policy(self.identity)
-                    project_policy.require_access(
-                        self.identity.principal_id, project_id, "viewer"
-                    )
-            finally:
-                store.close()
+            project_id, private_session = require_room_access(
+                self.identity, self.room_id
+            )
+            if private_session != self.private_session:
+                raise IdentityResolutionError("private room binding changed")
+            if self.project_id and project_id != self.project_id:
+                raise IdentityResolutionError("room project binding changed")
         except IdentityResolutionError:
             raise
         except Exception as exc:
             raise IdentityResolutionError(
                 "room or project access is unavailable"
             ) from exc
+
+
+def require_room_access(identity: IdentityContext, room_id: str) -> tuple[str, bool]:
+    """Authorize one recipient against the current room and project policies."""
+    from ..runtime.memory_store import open_memory_store
+    from ..runtime.project_access import ProjectAccessPolicy
+    from ..runtime.room_access import RoomAccessPolicy
+    from ..tools import long_memory
+
+    if not identity.authenticated:
+        raise IdentityResolutionError("authenticated identity is required")
+    if not long_memory.is_sqlite_backend():
+        raise IdentityResolutionError("multi-user rooms require SQLite memory")
+    store = open_memory_store(long_memory._sqlite_path())
+    try:
+        room_policy = RoomAccessPolicy(store)
+        private_owner = room_policy.private_room_owner(room_id)
+        private_session = private_owner is not None
+        if private_session:
+            if not room_policy.is_private_room_for(identity.principal_id, room_id):
+                raise IdentityResolutionError("private room audience is not authorized")
+        elif room_policy.membership(identity.principal_id, room_id) is None:
+            if identity.authn_kind == "local":
+                room_policy.set_membership(
+                    identity.principal_id, room_id, identity.principal_id, "admin"
+                )
+            else:
+                raise IdentityResolutionError("room membership is no longer active")
+        project_policy = ProjectAccessPolicy(store)
+        project_id = project_policy.room_project(room_id) or ""
+        if project_id:
+            project_policy.sync_directory_policy(identity)
+            project_policy.require_access(identity.principal_id, project_id, "viewer")
+        return project_id, private_session
+    finally:
+        store.close()
 
 
 def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionContext:
@@ -98,13 +122,25 @@ def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionCont
     store = open_memory_store(long_memory._sqlite_path())
     try:
         policy = RoomAccessPolicy(store)
-        membership = policy.membership(identity.principal_id, room_id)
-        if membership is None and identity.authn_kind == "local":
-            policy.set_membership(
-                identity.principal_id, room_id, identity.principal_id, "admin"
-            )
-        elif membership is None:
-            raise IdentityResolutionError("room membership is required")
+        private_owner = policy.private_room_owner(room_id)
+        private_session = private_owner is not None
+        if private_session:
+            if not policy.is_private_room_for(identity.principal_id, room_id):
+                raise IdentityResolutionError("private room access is not permitted")
+        else:
+            membership = policy.membership(identity.principal_id, room_id)
+            if membership is None and identity.authn_kind == "local":
+                policy.set_membership(
+                    identity.principal_id, room_id, identity.principal_id, "admin"
+                )
+            elif membership is None:
+                raise IdentityResolutionError("room membership is required")
+        private_session_id = (
+            policy.private_room_session_id(room_id) if private_session else ""
+        )
+        from ..runtime.project_access import ProjectAccessPolicy
+
+        project_id = ProjectAccessPolicy(store).room_project(room_id) or ""
     finally:
         store.close()
     if configuration_fingerprint != authentication_configuration_fingerprint():
@@ -114,6 +150,9 @@ def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionCont
         room_id=room_id,
         identity=identity,
         configuration_fingerprint=configuration_fingerprint,
+        project_id=project_id,
+        private_session=private_session,
+        session_id=private_session_id,
     )
     connection.validate_room_access()
     return connection

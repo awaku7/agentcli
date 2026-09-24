@@ -58,6 +58,19 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 - `tests/test_directory_group_policy.py`（4件）
 - `tests/test_web_connection_identity.py`（12件）
 
+### 0.3 Private Web session 実装（現在の未commit作業ツリー）
+
+0.2 の基準commit以降に作業ツリーで追加した private Web session の実装状況を記録する。これは未commit差分の確認であり、release済み機能や本番deploymentの検証を意味しない。
+
+| 領域 | 現在の作業ツリーで確認した実装 | 制約・未検証事項 |
+|---|---|---|
+| Private room発行 | `/api/me/private-room` がopaqueなroomとsessionを作り、principal・project・sessionをSQLite policyにbinding。選択projectはサーバー側membershipで検証 | local modeは単一principalのtrust boundary。一般の認証方式全てでの本番運用検証は未実施 |
+| Turn / room境界 | WebSocket接続ごとにidentityを解決し、room owner・project accessを検証。private roomはownerのみ、membership変更不可。TurnContextとworkerのsession storeをroom sessionへ結び付ける | providerへ送信済みの内容を後から回収するものではない |
+| Personal Memory / Profile | 認証済みWeb UIは `/api/me/*` を利用。Memory書込みはproject editor以上、private room ownerとproject bindingを再検証。Profileはprincipal単位（local modeは従来のlocal profile） | shared-room turnへのPersonal Memory / Profile projectionは禁止。UIからの個人データ管理API利用はturn projectionとは別の操作 |
+| Session history | authenticated log list / previewをprincipal単位にfilter。private / authenticated roomでは `:load`、`:cont`、`:logs`、`:sessions` を拒否し、private turnのinput historyを共有ファイルへ保存しない | SQLite session storeがない場合、非localのログ閲覧はfail-closedで拒否 |
+
+この作業ツリーでは、対象テスト `test_memory_v3_projection.py` 8件、`test_memory_v3_web_api.py` 7件、`test_web_connection_identity.py` 12件、`test_room_access.py` 3件、`test_project_access.py` 2件が成功した（合計32件）。加えて最終コードで `python -m pytest -q . --durations=30` が成功した。production deploymentおよび全providerのstreamingは未検証である。
+
 ______________________________________________________________________
 
 ## 1. v0.7.12 の設計開始時点（歴史的 baseline）

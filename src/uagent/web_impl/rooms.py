@@ -25,6 +25,9 @@ from .helpers import _enrich_message_attachments, _load_input_history
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
+        self.session_id: str = ""
+        self.private_session: bool = False
+        self.project_id: str = ""
         self.base_dir: str = os.getcwd()
         self.lang: str = "en"
 
@@ -156,7 +159,7 @@ class WebRoom:
                     pass
 
             # Bootstrap input history from persisted file
-            input_history = _load_input_history()
+            input_history = [] if self.private_session else _load_input_history()
             await self._validate_connection_context(websocket, connection_context)
             await websocket.send_json(
                 {
@@ -171,6 +174,13 @@ class WebRoom:
                     },
                     "web_verbose": web_verbose,
                     "room_id": self.room_id,
+                    "project_id": self.project_id,
+                    "private_session": self.private_session,
+                    "authn_kind": getattr(
+                        getattr(connection_context, "identity", None),
+                        "authn_kind",
+                        "local",
+                    ),
                 }
             )
             # Restore pending human_ask modal after reconnect.

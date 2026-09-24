@@ -9,6 +9,7 @@ import time
 from ..i18n import _, set_thread_lang
 from .. import core
 from ..runtime import runtime_init as _runtime_init
+from ..runtime.identity_context import resolve_identity_mode
 from .. import util_tools as tools_util
 from .io import _web_server_log
 from .rooms import WebRoom, _thread_ctx, web_manager
@@ -135,52 +136,54 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
         except Exception:
             pass
 
-        # Long-term memory insertion (align with CLI/GUI)
-        from ..tools import long_memory as personal_long_memory
-        from ..tools import shared_memory
+        if resolve_identity_mode() == "local" and not getattr(
+            room, "private_session", False
+        ):
+            # Legacy global Memory stores remain available only for the
+            # single-user local deployment. Authenticated Web rooms receive
+            # access-filtered turn-local projection in the LLM pipeline.
+            from ..tools import long_memory as personal_long_memory
+            from ..tools import shared_memory
 
-        print(_("[INFO] Loaded long-term memory."))
-        try:
-            room.add_message(
-                {
-                    "role": "assistant",
-                    "content": _("[INFO] Loaded long-term memory."),
-                }
-            )
-        except Exception:
-            pass
-        try:
-            before_len = len(room.history)
-            flags = _runtime_init.append_long_memory_system_messages(
-                core=core,
-                messages=room.history,
-                build_long_memory_system_message_fn=tools_util.build_long_memory_system_message,
-                personal_long_memory_mod=personal_long_memory,
-                shared_memory_mod=shared_memory,
-            )
-
-            if flags.get("shared_enabled"):
-                print(_("[INFO] Loaded shared long-term memory."))
-                try:
-                    room.add_message(
-                        {
-                            "role": "assistant",
-                            "content": _("[INFO] Loaded shared long-term memory."),
-                        }
-                    )
-                except Exception:
-                    pass
-
-            for m in room.history[before_len:]:
-                core.log_message(m)
-
-        except Exception as e:
-            print(
-                _(
-                    "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+            print(_("[INFO] Loaded long-term memory."))
+            try:
+                room.add_message(
+                    {
+                        "role": "assistant",
+                        "content": _("[INFO] Loaded long-term memory."),
+                    }
                 )
-                % {"err": e}
-            )
+            except Exception:
+                pass
+            try:
+                before_len = len(room.history)
+                flags = _runtime_init.append_long_memory_system_messages(
+                    core=core,
+                    messages=room.history,
+                    build_long_memory_system_message_fn=tools_util.build_long_memory_system_message,
+                    personal_long_memory_mod=personal_long_memory,
+                    shared_memory_mod=shared_memory,
+                )
+                if flags.get("shared_enabled"):
+                    print(_("[INFO] Loaded shared long-term memory."))
+                    try:
+                        room.add_message(
+                            {
+                                "role": "assistant",
+                                "content": _("[INFO] Loaded shared long-term memory."),
+                            }
+                        )
+                    except Exception:
+                        pass
+                for message in room.history[before_len:]:
+                    core.log_message(message)
+            except Exception as exc:
+                print(
+                    _(
+                        "[WARN] Exception occurred while loading shared long-term memory: %(err)s"
+                    )
+                    % {"err": exc}
+                )
 
         try:
             _web_server_log(

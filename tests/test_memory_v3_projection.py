@@ -23,7 +23,13 @@ def _access(principal_id: str) -> MemoryAccessContext:
     )
 
 
-def _turn(principal_id: str, *, room_id: str = "") -> TurnContext:
+def _turn(
+    principal_id: str,
+    *,
+    room_id: str = "",
+    private_session: bool = False,
+    authn_kind: str = "oidc",
+) -> TurnContext:
     return TurnContext(
         principal_id=principal_id,
         room_id=room_id,
@@ -31,7 +37,8 @@ def _turn(principal_id: str, *, room_id: str = "") -> TurnContext:
         session_id=f"session-{principal_id}",
         entry_point="web",
         authenticated=True,
-        authn_kind="oidc",
+        authn_kind=authn_kind,
+        private_session=private_session,
     )
 
 
@@ -51,6 +58,9 @@ def test_identity_bound_projection_attributes_sharing_and_invalidates_revocation
     project_policy.set_membership("root", "demo", "bob", "viewer")
     record = owner.append("release checklist uses signed tags")
     grant_id = owner.share(record["memory_id"], "bob", expected_revision=1)
+    RoomAccessPolicy(store).create_private_room(
+        "bob", "private-bob", project_id="demo", session_id="session-bob"
+    )
     store.close()
 
     save_profile(
@@ -61,10 +71,10 @@ def test_identity_bound_projection_attributes_sharing_and_invalidates_revocation
         {"environment": {}, "preferences": ["Bob preference"], "constraints": []},
         "bob",
     )
-    core = SimpleNamespace(memory_private_session_principal="bob")
+    core = SimpleNamespace()
     messages = [{"role": "user", "content": "show the release checklist"}]
 
-    with bind_turn_context(_turn("bob")):
+    with bind_turn_context(_turn("bob", room_id="private-bob", private_session=True)):
         snapshot = prepare_memory_projection(messages, core)
         projected = apply_memory_projection(messages, snapshot, core)
 
@@ -78,7 +88,7 @@ def test_identity_bound_projection_attributes_sharing_and_invalidates_revocation
     store = MemoryStore(memory_path)
     ScopedMemoryStore(store, _access("alice")).revoke(record["memory_id"], grant_id)
     store.close()
-    with bind_turn_context(_turn("bob")):
+    with bind_turn_context(_turn("bob", room_id="private-bob", private_session=True)):
         assert apply_memory_projection(messages, snapshot, core) == messages
     with bind_turn_context(_turn("charlie")):
         assert apply_memory_projection(messages, snapshot, core) == messages
@@ -288,11 +298,14 @@ def test_project_membership_revocation_invalidates_active_projection(
     ScopedMemoryStore(store, _access("alice")).share(
         record["memory_id"], "bob", expected_revision=1
     )
+    RoomAccessPolicy(store).create_private_room(
+        "bob", "private-bob", project_id="demo", session_id="session-bob"
+    )
     store.close()
 
     messages = [{"role": "user", "content": "show project evidence"}]
-    core = SimpleNamespace(memory_private_session_principal="bob")
-    turn = _turn("bob")
+    core = SimpleNamespace()
+    turn = _turn("bob", room_id="private-bob", private_session=True)
     with bind_turn_context(turn):
         snapshot = prepare_memory_projection(messages, core)
         projected = apply_memory_projection(messages, snapshot, core)
@@ -311,3 +324,50 @@ def test_project_membership_revocation_invalidates_active_projection(
         assert fresh_snapshot is not None
         assert fresh_snapshot.diagnostics["error"] == "MemoryAccessError"
         assert apply_memory_projection(messages, fresh_snapshot, core) == messages
+
+
+def test_local_private_room_uses_scoped_personal_memory_and_profile(
+    tmp_path, monkeypatch
+):
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    monkeypatch.setenv("UAGENT_LOG_DIR", str(tmp_path / "logs"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_ENABLE_PROFILING", "1")
+
+    store = MemoryStore(memory_path)
+    RoomAccessPolicy(store).create_private_room(
+        "local", "local-private", project_id="demo", session_id="private-session"
+    )
+    ScopedMemoryStore(store, _access("local")).append("local private memory fact")
+    store.close()
+    save_profile(
+        {
+            "environment": {},
+            "preferences": ["local private preference"],
+            "constraints": [],
+        }
+    )
+
+    messages = [{"role": "user", "content": "show private memory fact"}]
+    core = SimpleNamespace()
+    turn = _turn(
+        "local",
+        room_id="local-private",
+        private_session=True,
+        authn_kind="local",
+    )
+    with bind_turn_context(turn):
+        snapshot = prepare_memory_projection(messages, core)
+        projected = apply_memory_projection(messages, snapshot, core)
+
+    rendered = "\n".join(str(message.get("content", "")) for message in projected)
+    assert "local private memory fact" in rendered
+    assert "local private preference" in rendered
+
+    # A cached private projection must not survive a context that has lost the
+    # server-issued private-session capability, even if room/principal match.
+    unprivileged_turn = _turn("local", room_id="local-private", authn_kind="local")
+    with bind_turn_context(unprivileged_turn):
+        assert apply_memory_projection(messages, snapshot, core) == messages

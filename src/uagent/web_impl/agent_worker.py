@@ -66,8 +66,9 @@ def run_agent_worker(
             or turn_context.authn_kind != identity_context.authn_kind
         ):
             raise IdentityResolutionError("Web identity/turn mismatch")
-        if not project_path or turn_context.project_id != project_id_from_path(
-            project_path
+        if not project_path or (
+            not turn_context.server_bound_project
+            and turn_context.project_id != project_id_from_path(project_path)
         ):
             raise IdentityResolutionError("Web turn project mismatch")
 
@@ -118,6 +119,8 @@ def run_agent_worker(
     acquired_global = False
     _orig_cwd = os.getcwd()
     _orig_log_message = getattr(core, "log_message", None)
+    _orig_active_session_id = None
+    _had_active_session_id = False
 
     try:
         # Switch to this room's base_dir for the duration of the worker
@@ -130,6 +133,12 @@ def run_agent_worker(
         # appears BUSY while still queued on the lock.
         web_manager.global_worker_lock.acquire()
         acquired_global = True
+        _had_active_session_id = hasattr(core, "_session_store_active_id")
+        _orig_active_session_id = getattr(core, "_session_store_active_id", None)
+        if turn_context is not None and turn_context.private_session:
+            # A private Web room owns a separate durable session identity. The
+            # process-wide worker lock makes this compatibility binding safe.
+            core._session_store_active_id = turn_context.session_id
 
         with web_manager.active_room_lock:
             web_manager.active_room = room
@@ -480,7 +489,8 @@ def run_agent_worker(
             history_msg = dict(user_msg)
             history_msg.pop("attachments", None)
             room.history.append(history_msg)
-            _save_input_history(user_input)
+            if not room.private_session:
+                _save_input_history(user_input)
             room.image_session = build_image_session_message(room.history, depname)
 
             # Inject Generative UI instructions into the system prompt for Web mode
@@ -664,6 +674,19 @@ def run_agent_worker(
             os.chdir(_orig_cwd)
         except Exception:
             pass
+
+        if (
+            acquired_global
+            and turn_context is not None
+            and turn_context.private_session
+        ):
+            try:
+                if _had_active_session_id:
+                    core._session_store_active_id = _orig_active_session_id
+                elif hasattr(core, "_session_store_active_id"):
+                    delattr(core, "_session_store_active_id")
+            except Exception:
+                pass
 
         if acquired_global:
             try:

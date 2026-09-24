@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 from fastapi.testclient import TestClient
 
 from uagent.runtime.identity_context import IdentityContext
@@ -8,12 +9,13 @@ from uagent.web_impl import routes_api
 
 
 class _Resolver:
-    def __init__(self, principal: list[str]):
+    def __init__(self, principal: list[str], authn_kind: str = "oidc"):
         self.principal = principal
+        self.authn_kind = authn_kind
 
     def resolve(self, request):
         del request
-        return IdentityContext(self.principal[0], True, "oidc")
+        return IdentityContext(self.principal[0], True, self.authn_kind)
 
 
 def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):
@@ -160,6 +162,10 @@ def test_v3_web_api_uses_server_identity_and_room_roles(tmp_path, monkeypatch):
     mine = client.get("/api/me/memories", params={"project_id": "demo"})
     assert mine.status_code == 200
     assert mine.json()["memories"] == []
+    personal_write_denied = client.post(
+        "/api/me/memories", json={"project_id": "demo", "note": "viewer cannot write"}
+    )
+    assert personal_write_denied.status_code == 403
     shared = client.get("/api/rooms/room-x/memories", params={"project_id": "demo"})
     assert [item["note"] for item in shared.json()["memories"]] == ["room evidence"]
     denied = client.post(
@@ -227,3 +233,190 @@ def test_v3_project_memory_api_enforces_project_roles(tmp_path, monkeypatch):
     assert deleted.status_code == 200
     principal[0] = "bob"
     assert client.get("/api/projects/demo/memories").json()["memories"] == []
+
+
+def test_private_room_endpoint_issues_owner_bound_project_session(
+    tmp_path, monkeypatch
+):
+    principal = ["admin"]
+    resolver = _Resolver(principal)
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "demo")
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    client = TestClient(app)
+
+    assert (
+        client.put(
+            "/api/projects/demo/members/alice", json={"role": "editor"}
+        ).status_code
+        == 200
+    )
+    assert (
+        client.put(
+            "/api/projects/demo/members/bob", json={"role": "viewer"}
+        ).status_code
+        == 200
+    )
+    principal[0] = "alice"
+    response = client.post("/api/me/private-room")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["private"] is True
+    assert payload["project_id"] == "demo"
+    room_id = payload["room_id"]
+    blocked_history_command = client.post(
+        "/api/command", json={"room_id": room_id, "command": ":load 0"}
+    )
+    assert blocked_history_command.status_code == 403
+
+    from uagent.runtime.identity_context import IdentityResolutionError
+    from uagent.runtime.memory_access import MemoryAccessError
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.room_access import RoomAccessPolicy
+    from uagent.web_impl.connection_identity import require_room_access
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    policy = RoomAccessPolicy(store, admin_principals=frozenset({"admin"}))
+    assert policy.private_room_owner(room_id) == "alice"
+    assert policy.private_room_session_id(room_id)
+    assert policy.is_private_room_for("alice", room_id)
+    with pytest.raises(MemoryAccessError):
+        policy.set_membership("admin", room_id, "bob", "member")
+    store.close()
+
+    assert require_room_access(IdentityContext("alice", True, "oidc"), room_id) == (
+        "demo",
+        True,
+    )
+    with pytest.raises(IdentityResolutionError):
+        require_room_access(IdentityContext("bob", True, "oidc"), room_id)
+
+    personal = client.post(
+        "/api/me/memories",
+        json={"project_id": "demo", "room_id": room_id, "note": "alice private fact"},
+    )
+    assert personal.status_code == 200, personal.json()
+    alice_memory = personal.json()["memory"]["memory_id"]
+    own = client.get(
+        "/api/me/memories",
+        params={"project_id": "demo", "room_id": room_id},
+    )
+    assert [item["memory_id"] for item in own.json()["memories"]] == [alice_memory]
+
+    principal[0] = "bob"
+    denied = client.get(
+        "/api/me/memories",
+        params={"project_id": "demo", "room_id": room_id},
+    )
+    assert denied.status_code == 403
+
+
+def test_authenticated_logs_are_filtered_to_the_current_principal(
+    tmp_path, monkeypatch
+):
+    from uagent.runtime.session_store import SessionStore
+
+    principal = ["alice"]
+    resolver = _Resolver(principal)
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    alice = store.create_session(project="demo", entry_point="web")
+    bob = store.create_session(project="demo", entry_point="web")
+    store.bind_identity_context(
+        alice.session_id, principal_id="alice", room_id="private-a"
+    )
+    store.bind_identity_context(bob.session_id, principal_id="bob", room_id="private-b")
+    store.append_message(alice.session_id, "user", "Alice secret session")
+    store.append_message(bob.session_id, "user", "Bob private session")
+    monkeypatch.setattr(routes_api.core, "session_store", store, raising=False)
+    monkeypatch.setattr(routes_api.core, "session_id", "current", raising=False)
+    client = TestClient(app)
+
+    alice_logs = client.get("/api/logs").json()["logs"]
+    assert [row["path"] for row in alice_logs] == [alice.session_id]
+    assert (
+        client.get(
+            "/api/logs/preview-by-path", params={"path": bob.session_id}
+        ).status_code
+        == 404
+    )
+
+    principal[0] = "bob"
+    bob_logs = client.get("/api/logs").json()["logs"]
+    assert [row["path"] for row in bob_logs] == [bob.session_id]
+    assert (
+        client.get(
+            "/api/logs/preview-by-path", params={"path": alice.session_id}
+        ).status_code
+        == 404
+    )
+    store.close()
+
+
+def test_private_room_local_mode_binds_only_the_current_project(tmp_path, monkeypatch):
+    resolver = _Resolver(["local"], authn_kind="local")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "demo")
+    client = TestClient(app)
+
+    response = client.post("/api/me/private-room")
+    assert response.status_code == 200
+    room_id = response.json()["room_id"]
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+    from uagent.runtime.room_access import RoomAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    local_projects = ProjectAccessPolicy(store)
+    assert local_projects.can_access("local", "demo", "editor")
+    assert RoomAccessPolicy(store).is_private_room_for("local", room_id)
+    store.close()
+
+    created = client.post(
+        "/api/me/memories",
+        json={"project_id": "demo", "room_id": room_id, "note": "local private memory"},
+    )
+    assert created.status_code == 200, created.json()
+
+
+def test_private_room_non_oidc_project_selection_is_membership_checked(
+    tmp_path, monkeypatch
+):
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.delenv("UAGENT_MEMORY_PROJECT", raising=False)
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "demo", "alice", "viewer"
+    )
+    store.close()
+    client = TestClient(app)
+
+    projects = client.get("/api/me/projects")
+    assert projects.status_code == 200
+    assert projects.json()["projects"] == ["demo"]
+    missing_selection = client.post("/api/me/private-room")
+    assert missing_selection.status_code == 403
+
+    created = client.post("/api/me/private-room", json={"project_id": "demo"})
+    assert created.status_code == 200
+    assert created.json()["project_id"] == "demo"
+    assert created.json()["private"] is True
+
+    denied = client.post("/api/me/private-room", json={"project_id": "other"})
+    assert denied.status_code == 403

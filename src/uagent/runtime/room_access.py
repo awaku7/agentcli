@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import time
 from typing import Any
+from uuid import uuid4
 
 from ..env_utils import env_get
 from .memory_access import MemoryAccessContext, MemoryAccessError, ScopedMemoryStore
@@ -48,6 +49,95 @@ class RoomAccessPolicy:
             (room_id, principal_id),
         ).fetchone()
         return RoomMembership(**dict(row)) if row is not None else None
+
+    def private_room_owner(self, room_id: str) -> str | None:
+        row = self._store.db.execute(
+            "SELECT principal_id FROM private_rooms WHERE room_id = ?", (room_id,)
+        ).fetchone()
+        return str(row["principal_id"]) if row is not None else None
+
+    def private_room_session_id(self, room_id: str) -> str:
+        row = self._store.db.execute(
+            "SELECT session_id FROM private_rooms WHERE room_id = ?", (room_id,)
+        ).fetchone()
+        return str(row["session_id"] or "") if row is not None else ""
+
+    def is_private_room_for(self, principal_id: str, room_id: str) -> bool:
+        owner = self.private_room_owner(room_id)
+        if owner is None or owner != principal_id:
+            return False
+        rows = self._store.db.execute(
+            "SELECT principal_id FROM room_memberships "
+            "WHERE room_id = ? AND status = 'active'",
+            (room_id,),
+        ).fetchall()
+        return len(rows) == 1 and str(rows[0]["principal_id"]) == owner
+
+    def create_private_room(
+        self,
+        principal_id: str,
+        room_id: str,
+        *,
+        project_id: str = "",
+        session_id: str = "",
+    ) -> None:
+        """Create an opaque room whose only recipient is its authenticated owner."""
+        principal_id = str(principal_id or "").strip()
+        room_id = str(room_id or "").strip()
+        project_id = str(project_id or "").strip()
+        session_id = str(session_id or "").strip() or uuid4().hex
+        if not principal_id or not room_id:
+            raise ValueError("principal_id and room_id are required")
+        if self._store.db.in_transaction:
+            raise RuntimeError("private room creation requires its own transaction")
+        now = time.time()
+        self._store.db.execute("BEGIN IMMEDIATE")
+        try:
+            if project_id:
+                from .project_access import ProjectAccessPolicy
+
+                self._store.db.execute(
+                    "INSERT OR IGNORE INTO projects(project_id, status, created_at, updated_at) "
+                    "VALUES (?, 'active', ?, ?)",
+                    (project_id, now, now),
+                )
+                if principal_id == "local":
+                    # Local mode is a single-user trust boundary. Grant editor access
+                    # only to this workspace so private Memory CRUD works.
+                    self._store.db.execute(
+                        "INSERT INTO project_memberships("
+                        "project_id, principal_id, role, status, revision, granted_by, "
+                        "created_at, updated_at) VALUES (?, 'local', 'editor', 'active', "
+                        "1, 'local-private-session', ?, ?) "
+                        "ON CONFLICT(project_id, principal_id) DO UPDATE SET "
+                        "role=CASE WHEN project_memberships.role='admin' THEN 'admin' "
+                        "ELSE 'editor' END, status='active', "
+                        "revision=project_memberships.revision + 1, "
+                        "granted_by='local-private-session', updated_at=excluded.updated_at",
+                        (project_id, now, now),
+                    )
+                project_policy = ProjectAccessPolicy(self._store)
+                project_policy.require_access(principal_id, project_id, "viewer")
+                self._store.db.execute(
+                    "INSERT INTO room_projects(room_id, project_id, revision, bound_by, "
+                    "created_at, updated_at) VALUES (?, ?, 1, ?, ?, ?)",
+                    (room_id, project_id, principal_id, now, now),
+                )
+            self._store.db.execute(
+                "INSERT INTO private_rooms(room_id, principal_id, session_id, created_at) "
+                "VALUES (?, ?, ?, ?)",
+                (room_id, principal_id, session_id, now),
+            )
+            self._store.db.execute(
+                "INSERT INTO room_memberships(room_id, principal_id, role, status, "
+                "granted_by, created_at, updated_at) "
+                "VALUES (?, ?, 'admin', 'active', ?, ?, ?)",
+                (room_id, principal_id, principal_id, now, now),
+            )
+            self._store.db.commit()
+        except Exception:
+            self._store.db.rollback()
+            raise
 
     def can_join(self, principal_id: str, room_id: str) -> bool:
         return self.membership(principal_id, room_id) is not None
@@ -102,6 +192,11 @@ class RoomAccessPolicy:
         role = str(role or "").strip().lower()
         if not room_id or not principal_id or role not in ROOM_ROLES:
             raise ValueError("room_id, principal_id, and a valid role are required")
+        private_owner = self.private_room_owner(room_id)
+        if private_owner is not None and (
+            actor_id != private_owner or principal_id != private_owner
+        ):
+            raise MemoryAccessError("private room membership is immutable")
         if not self.can_manage_members(actor_id, room_id):
             raise MemoryAccessError("room membership operation is not permitted")
         now = time.time()
@@ -126,6 +221,8 @@ class RoomAccessPolicy:
         return membership
 
     def revoke_membership(self, actor_id: str, room_id: str, principal_id: str) -> None:
+        if self.private_room_owner(room_id) is not None:
+            raise MemoryAccessError("private room membership is immutable")
         if not self.can_manage_members(actor_id, room_id):
             raise MemoryAccessError("room membership operation is not permitted")
         self._store.db.execute("BEGIN IMMEDIATE")

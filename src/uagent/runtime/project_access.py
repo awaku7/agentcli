@@ -99,6 +99,11 @@ class ProjectAccessPolicy:
         )
         valid_room_roles: dict[str, str] = {}
         for room_id, room_role in room_roles:
+            private_row = self._store.db.execute(
+                "SELECT 1 FROM private_rooms WHERE room_id = ?", (room_id,)
+            ).fetchone()
+            if private_row is not None:
+                continue
             project_row = self._store.db.execute(
                 "SELECT project_id FROM room_projects WHERE room_id = ?", (room_id,)
             ).fetchone()

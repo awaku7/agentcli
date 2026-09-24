@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+from uuid import uuid4
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
@@ -25,6 +26,7 @@ from ..runtime.memory_access import (
     ScopedMemoryStore,
 )
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
+from ..runtime.session_store import project_id_from_path
 from ..runtime.project_access import ProjectAccessPolicy, ProjectMemoryService
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
 from ..auth.oidc_sessions import get_oidc_session_store
@@ -241,31 +243,176 @@ async def set_tools_enabled(req: Request):
     }
 
 
+def _private_room_project(store, identity, room_id: str) -> str:
+    room_id = str(room_id or "").strip()
+    if not room_id or not RoomAccessPolicy(store).is_private_room_for(
+        identity.principal_id, room_id
+    ):
+        raise MemoryAccessError("private room access is not permitted")
+    project_policy = ProjectAccessPolicy(store)
+    project_id = project_policy.room_project(room_id)
+    if not project_id:
+        raise MemoryAccessError("private room has no project binding")
+    project_policy.require_access(identity.principal_id, project_id, "viewer")
+    return project_id
+
+
+def _private_room_session_id(room_id: str) -> str:
+    store = _memory_store()
+    try:
+        return RoomAccessPolicy(store).private_room_session_id(room_id)
+    finally:
+        store.close()
+
+
 def _personal_store(
-    identity, project_id: str, *, request: Request | None = None, role: str = "viewer"
+    identity,
+    project_id: str,
+    *,
+    request: Request | None = None,
+    role: str = "viewer",
+    room_id: str = "",
 ):
     store = _memory_store()
-    bound_project = _project_id(project_id, request)
-    project_policy = ProjectAccessPolicy(store)
-    project_policy.sync_directory_policy(identity)
-    project_policy.require_access(identity.principal_id, bound_project, role)
-    scoped = ScopedMemoryStore(
-        store,
-        MemoryAccessContext(
-            principal_id=identity.principal_id,
-            project_id=bound_project,
-            authenticated=True,
-            private_session=True,
-        ),
-    )
-    return store, scoped
+    try:
+        project_policy = ProjectAccessPolicy(store)
+        project_policy.sync_directory_policy(identity)
+        supplied_project = str(project_id or "").strip()
+        private_project = (
+            _private_room_project(store, identity, room_id) if room_id else ""
+        )
+        if private_project and supplied_project and supplied_project != private_project:
+            raise MemoryAccessError("project does not match the private room binding")
+
+        configured_project = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+        token = (
+            str(request.cookies.get("uag_oidc_session") or "").strip()
+            if request
+            else ""
+        )
+        session_project = get_oidc_session_store().project_id(token) if token else ""
+        has_server_binding = bool(configured_project or session_project)
+        if has_server_binding:
+            bound_project = _project_id(supplied_project or private_project, request)
+        elif private_project:
+            bound_project = private_project
+        else:
+            bound_project = _project_id(supplied_project, request)
+        if private_project and bound_project != private_project:
+            raise MemoryAccessError("project does not match the private room binding")
+
+        project_policy.require_access(identity.principal_id, bound_project, role)
+        scoped = ScopedMemoryStore(
+            store,
+            MemoryAccessContext(
+                principal_id=identity.principal_id,
+                project_id=bound_project,
+                authenticated=True,
+                private_session=True,
+            ),
+        )
+        return store, scoped
+    except Exception:
+        store.close()
+        raise
+
+
+@app.post("/api/me/private-room")
+async def create_my_private_room(request: Request):
+    """Issue an opaque, owner-only room for private Web Memory/Profile turns."""
+    session = None
+    session_store = getattr(core, "session_store", None)
+    try:
+        identity = _request_identity(request)
+        raw_body = await request.body()
+        body = json.loads(raw_body) if raw_body else {}
+        if not isinstance(body, dict):
+            raise ValueError("request body must be an object")
+        requested_project = str(body.get("project_id", "") or "").strip()
+        configured_project = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+        oidc_token = str(request.cookies.get("uag_oidc_session") or "").strip()
+        oidc_project = (
+            get_oidc_session_store().project_id(oidc_token) if oidc_token else ""
+        )
+        bound_project = configured_project or oidc_project or ""
+
+        room_id = uuid4().hex
+        room = web_manager.get_room(room_id)
+        from ..runtime.runtime_workdir import get_startup_workdir
+
+        startup_workdir = str(env_get("UAGENT_WORKDIR", "") or get_startup_workdir())
+        if startup_workdir and os.path.isdir(startup_workdir):
+            room.base_dir = os.path.abspath(startup_workdir)
+        if identity.authn_kind == "local":
+            project_id = bound_project or project_id_from_path(room.base_dir)
+        elif bound_project:
+            if requested_project and requested_project != bound_project:
+                raise MemoryAccessError("project is not bound to this server context")
+            project_id = bound_project
+        else:
+            project_id = requested_project
+            if not project_id:
+                raise MemoryAccessError("server project binding is required")
+
+        store = _memory_store()
+        try:
+            policy = ProjectAccessPolicy(store)
+            if identity.authn_kind != "local":
+                policy.sync_directory_policy(identity)
+                policy.require_access(identity.principal_id, project_id, "viewer")
+        finally:
+            store.close()
+
+        session_id = uuid4().hex
+        if session_store is not None:
+            session = session_store.create_session(
+                project=project_id or room.base_dir,
+                entry_point="web",
+                project_path=room.base_dir,
+            )
+            session_id = session.session_id
+            session_store.bind_identity_context(
+                session_id,
+                principal_id=identity.principal_id,
+                room_id=room_id,
+            )
+
+        store = _memory_store()
+        try:
+            if identity.authn_kind != "local":
+                ProjectAccessPolicy(store).sync_directory_policy(identity)
+            RoomAccessPolicy(store).create_private_room(
+                identity.principal_id,
+                room_id,
+                project_id=project_id,
+                session_id=session_id,
+            )
+        finally:
+            store.close()
+
+        room.session_id = session_id
+        room.private_session = True
+        room.project_id = project_id
+        return {
+            "ok": True,
+            "room_id": room_id,
+            "project_id": project_id,
+            "private": True,
+        }
+    except Exception as exc:
+        if session is not None and session_store is not None:
+            try:
+                session_store.delete_session(session.session_id)
+            except Exception:
+                pass
+        return _memory_error(exc)
 
 
 @app.get("/api/me/memories")
-async def get_my_memories(request: Request, project_id: str = ""):
+async def get_my_memories(request: Request, project_id: str = "", room_id: str = ""):
     try:
         store, scoped = _personal_store(
-            _request_identity(request), project_id, request=request
+            _request_identity(request), project_id, request=request, room_id=room_id
         )
         try:
             memories = [
@@ -290,6 +437,7 @@ async def add_my_memory(request: Request):
             body.get("project_id", ""),
             request=request,
             role="editor",
+            room_id=str(body.get("room_id", "") or ""),
         )
         try:
             return {"ok": True, "memory": scoped.append(str(body.get("note", "")))}
@@ -309,6 +457,7 @@ async def update_my_memory(memory_id: str, request: Request):
             body.get("project_id", ""),
             request=request,
             role="editor",
+            room_id=str(body.get("room_id", "") or ""),
         )
         try:
             memory = scoped.update(
@@ -333,6 +482,7 @@ async def delete_my_memory(memory_id: str, request: Request):
             body.get("project_id", ""),
             request=request,
             role="editor",
+            room_id=str(body.get("room_id", "") or ""),
         )
         try:
             scoped.forget(
@@ -346,10 +496,12 @@ async def delete_my_memory(memory_id: str, request: Request):
 
 
 @app.get("/api/me/memories/{memory_id}/grants")
-async def list_memory_grants(memory_id: str, request: Request, project_id: str = ""):
+async def list_memory_grants(
+    memory_id: str, request: Request, project_id: str = "", room_id: str = ""
+):
     try:
         store, scoped = _personal_store(
-            _request_identity(request), project_id, request=request
+            _request_identity(request), project_id, request=request, room_id=room_id
         )
         try:
             return {"ok": True, "grants": scoped.list_grants(memory_id)}
@@ -369,6 +521,7 @@ async def share_memory(memory_id: str, request: Request):
             body.get("project_id", ""),
             request=request,
             role="editor",
+            room_id=str(body.get("room_id", "") or ""),
         )
         try:
             grant_id = scoped.share(
@@ -393,6 +546,7 @@ async def revoke_memory_grant(memory_id: str, grant_id: str, request: Request):
             body.get("project_id", ""),
             request=request,
             role="editor",
+            room_id=str(body.get("room_id", "") or ""),
         )
         try:
             scoped.revoke(memory_id, grant_id)
@@ -404,10 +558,12 @@ async def revoke_memory_grant(memory_id: str, grant_id: str, request: Request):
 
 
 @app.get("/api/me/shared-memories")
-async def get_shared_memories(request: Request, project_id: str = ""):
+async def get_shared_memories(
+    request: Request, project_id: str = "", room_id: str = ""
+):
     try:
         store, scoped = _personal_store(
-            _request_identity(request), project_id, request=request
+            _request_identity(request), project_id, request=request, room_id=room_id
         )
         try:
             memories = [
@@ -421,10 +577,12 @@ async def get_shared_memories(request: Request, project_id: str = ""):
 
 
 @app.get("/api/me/shared-memories/{memory_id}")
-async def get_shared_memory(memory_id: str, request: Request, project_id: str = ""):
+async def get_shared_memory(
+    memory_id: str, request: Request, project_id: str = "", room_id: str = ""
+):
     try:
         store, scoped = _personal_store(
-            _request_identity(request), project_id, request=request
+            _request_identity(request), project_id, request=request, room_id=room_id
         )
         try:
             memory = scoped.get(memory_id)
@@ -433,6 +591,45 @@ async def get_shared_memory(memory_id: str, request: Request, project_id: str = 
                     status_code=404, content={"error": "memory not found"}
                 )
             return {"ok": True, "memory": memory}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.get("/api/me/projects")
+async def get_my_projects(request: Request):
+    """List only projects available to the authenticated principal."""
+    try:
+        identity = _request_identity(request)
+        store = _memory_store()
+        try:
+            policy = ProjectAccessPolicy(store)
+            policy.sync_directory_policy(identity)
+            configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
+            token = str(request.cookies.get("uag_oidc_session") or "").strip()
+            bound = configured or get_oidc_session_store().project_id(token) or ""
+            if bound:
+                policy.require_access(identity.principal_id, bound, "viewer")
+                return {"ok": True, "projects": [bound], "bound_project": bound}
+            if policy.is_global_admin(identity.principal_id):
+                rows = store.db.execute(
+                    "SELECT project_id FROM projects WHERE status='active' "
+                    "ORDER BY project_id"
+                ).fetchall()
+            else:
+                rows = store.db.execute(
+                    "SELECT DISTINCT p.project_id FROM projects p "
+                    "JOIN project_memberships m ON m.project_id=p.project_id "
+                    "WHERE p.status='active' AND m.principal_id=? AND m.status='active' "
+                    "ORDER BY p.project_id",
+                    (identity.principal_id,),
+                ).fetchall()
+            return {
+                "ok": True,
+                "projects": [str(row["project_id"]) for row in rows],
+                "bound_project": "",
+            }
         finally:
             store.close()
     except Exception as exc:
@@ -854,10 +1051,13 @@ async def get_profile(request: Request):
 async def get_my_profile(request: Request):
     try:
         identity = _request_identity(request)
-        return {
-            "ok": True,
-            "profile": _profile_mod.load_profile(identity.principal_id),
-        }
+        profile_key = "" if identity.authn_kind == "local" else identity.principal_id
+        profile = (
+            _profile_mod.load_profile(profile_key)
+            if profile_key
+            else _profile_mod.load_profile()
+        )
+        return {"ok": True, "profile": profile}
     except Exception as exc:
         return _memory_error(exc)
 
@@ -867,11 +1067,15 @@ async def update_my_profile(request: Request):
     try:
         identity = _request_identity(request)
         body = await request.json()
-        current = _profile_mod.load_profile(identity.principal_id)
+        profile_key = "" if identity.authn_kind == "local" else identity.principal_id
+        current = _profile_mod.load_profile(profile_key)
         for key in ("environment", "preferences", "constraints"):
             if key in body:
                 current[key] = body[key]
-        _profile_mod.save_profile(current, identity.principal_id)
+        if profile_key:
+            _profile_mod.save_profile(current, profile_key)
+        else:
+            _profile_mod.save_profile(current)
         return {"ok": True, "profile": current}
     except Exception as exc:
         return _memory_error(exc)
@@ -960,15 +1164,26 @@ def _log_first_user_message(path: str, limit: int = 120) -> str:
 
 
 @app.get("/api/logs")
-async def get_logs(page: int = 1, per_page: int = 15):
-    """Return paginated JSONL logs or SQLite sessions."""
-    if (
+async def get_logs(request: Request, page: int = 1, per_page: int = 15):
+    """Return only sessions visible to the authenticated principal."""
+    try:
+        identity = _request_identity(request)
+    except Exception as exc:
+        return _memory_error(exc)
+
+    sqlite_sessions = (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
-    ):
+    )
+    if sqlite_sessions:
         store = core.session_store
         current_id = getattr(core, "session_id", None)
-        rows = [r for r in store.list_sessions() if r["session_id"] != current_id]
+        rows = store.list_sessions(
+            principal_id=(
+                None if identity.authn_kind == "local" else identity.principal_id
+            )
+        )
+        rows = [r for r in rows if r["session_id"] != current_id]
         items = []
         for row in rows:
             state = store.latest_response_state(row["session_id"])
@@ -1006,6 +1221,13 @@ async def get_logs(page: int = 1, per_page: int = 15):
             "total_pages": total_pages,
         }
 
+    if identity.authn_kind != "local":
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": "authenticated log access requires the SQLite session store"
+            },
+        )
     files = core.find_log_files(exclude_current=True)
     items = []
     for f in files:
@@ -1064,45 +1286,64 @@ async def get_logs(page: int = 1, per_page: int = 15):
 
 
 @app.get("/api/logs/preview-by-path")
-async def get_log_preview_by_path(path: str = ""):
-    """Return first/last messages of a log file by path."""
+async def get_log_preview_by_path(request: Request, path: str = ""):
+    """Return a preview only for a session visible to the current principal."""
+    try:
+        identity = _request_identity(request)
+    except Exception as exc:
+        return _memory_error(exc)
     if not path:
         return JSONResponse(status_code=400, content={"error": _("path is required")})
-    if (
+    sqlite_sessions = (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
-    ):
-        rows = [
-            r
-            for r in core.session_store.list_sessions()
-            if r["session_id"] != getattr(core, "session_id", None)
-        ]
+    )
+    if sqlite_sessions:
+        rows = core.session_store.list_sessions(
+            principal_id=(
+                None if identity.authn_kind == "local" else identity.principal_id
+            )
+        )
+        rows = [r for r in rows if r["session_id"] != getattr(core, "session_id", None)]
         matches = [i for i, row in enumerate(rows) if row["session_id"] == path]
         if not matches:
             return JSONResponse(status_code=404, content={"error": _("File not found")})
-        return await get_log_preview(matches[0])
+        return await get_log_preview(matches[0], request)
+    if identity.authn_kind != "local":
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": "authenticated log access requires the SQLite session store"
+            },
+        )
     files = core.find_log_files(exclude_current=True)
     norm = os.path.normpath(path)
     matches = [i for i, f in enumerate(files) if os.path.normpath(f) == norm]
     if not matches:
         return JSONResponse(status_code=404, content={"error": _("File not found")})
     idx = matches[0]
-    return await get_log_preview(idx)
+    return await get_log_preview(idx, request)
 
 
 @app.get("/api/logs/{index}/preview")
-async def get_log_preview(index: int):
-    """Return first/last messages of a JSONL log or SQLite session."""
-    if (
+async def get_log_preview(index: int, request: Request):
+    """Return a preview only for a session visible to the current principal."""
+    try:
+        identity = _request_identity(request)
+    except Exception as exc:
+        return _memory_error(exc)
+    sqlite_sessions = (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
         and getattr(core, "session_store", None) is not None
-    ):
+    )
+    if sqlite_sessions:
         store = core.session_store
-        rows = [
-            r
-            for r in store.list_sessions()
-            if r["session_id"] != getattr(core, "session_id", None)
-        ]
+        rows = store.list_sessions(
+            principal_id=(
+                None if identity.authn_kind == "local" else identity.principal_id
+            )
+        )
+        rows = [r for r in rows if r["session_id"] != getattr(core, "session_id", None)]
         if index < 0 or index >= len(rows):
             return JSONResponse(
                 status_code=404, content={"error": _("Index out of range")}
@@ -1130,6 +1371,13 @@ async def get_log_preview(index: int):
             "last_user": users[-1][:200] if users else "",
         }
 
+    if identity.authn_kind != "local":
+        return JSONResponse(
+            status_code=403,
+            content={
+                "error": "authenticated log access requires the SQLite session store"
+            },
+        )
     files = core.find_log_files(exclude_current=True)
     if index < 0 or index >= len(files):
         return JSONResponse(status_code=404, content={"error": _("Index out of range")})
@@ -1210,10 +1458,13 @@ async def get_log_preview(index: int):
 
 @app.post("/api/command")
 async def api_command(req: Request):
-    """Execute a :command via REST API. Body: {"room_id": "...", "command": ":cd /path"}"""
+    """Execute a room command for an authenticated room participant."""
     try:
+        identity = _request_identity(req)
         body = await req.json()
-    except Exception:
+    except Exception as exc:
+        if isinstance(exc, (IdentityConfigurationError, IdentityResolutionError)):
+            return _memory_error(exc)
         return JSONResponse(status_code=400, content={"error": _("Invalid JSON body")})
     room_id = str(body.get("room_id", "")).strip()
     cmd_line = str(body.get("command", "")).strip()
@@ -1222,7 +1473,28 @@ async def api_command(req: Request):
             status_code=400,
             content={"error": _("room_id and command are required")},
         )
+    from .connection_identity import require_room_access
+
+    try:
+        project_id, private_session = require_room_access(identity, room_id)
+    except Exception as exc:
+        return _memory_error(exc)
+    command_name = cmd_line.lstrip(":").strip().split(maxsplit=1)[0].lower()
+    if (private_session or identity.authn_kind != "local") and command_name in {
+        "load",
+        "cont",
+        "logs",
+        "sessions",
+    }:
+        return JSONResponse(
+            status_code=403,
+            content={"error": "session history commands are disabled for this room"},
+        )
     room = web_manager.get_room(room_id)
+    if private_session:
+        room.private_session = True
+        room.project_id = project_id
+        room.session_id = _private_room_session_id(room_id) or room.session_id
     if not cmd_line.startswith(":"):
         cmd_line = f":{cmd_line}"
     if _handle_mode_command(cmd_line):
@@ -1255,9 +1527,28 @@ async def api_command(req: Request):
             _sys.stdout = _old_stdout
         _output = _capture.getvalue().strip()
         if isinstance(_result, tools_util.CommandResult) and _result.run_llm:
+            from ..runtime.identity_context import TurnContext
+
+            worker_dir = room.base_dir
+            turn = TurnContext.from_identity(
+                identity,
+                room_id=room_id,
+                project_id=project_id or project_id_from_path(worker_dir),
+                session_id=(
+                    room.session_id or str(getattr(core, "session_id", "") or "")
+                ),
+                entry_point="web",
+                private_session=private_session,
+                server_bound_project=bool(project_id),
+            )
             threading.Thread(
                 target=run_agent_worker,
                 args=(room, _result.prompt, None),
+                kwargs={
+                    "project_path": worker_dir,
+                    "turn_context": turn,
+                    "identity_context": identity,
+                },
                 daemon=True,
             ).start()
             return {

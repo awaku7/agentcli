@@ -184,6 +184,23 @@ class MemoryStore:
             "ON room_memberships(principal_id, room_id, status)"
         )
         self.db.execute(
+            "CREATE TABLE IF NOT EXISTS private_rooms ("
+            "room_id TEXT PRIMARY KEY, principal_id TEXT NOT NULL, "
+            "session_id TEXT NOT NULL DEFAULT '', created_at REAL NOT NULL)"
+        )
+        private_room_columns = {
+            str(row["name"])
+            for row in self.db.execute("PRAGMA table_info(private_rooms)").fetchall()
+        }
+        if "session_id" not in private_room_columns:
+            self.db.execute(
+                "ALTER TABLE private_rooms ADD COLUMN session_id TEXT NOT NULL DEFAULT ''"
+            )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_private_rooms_principal "
+            "ON private_rooms(principal_id, room_id)"
+        )
+        self.db.execute(
             "INSERT OR IGNORE INTO memory_metadata(key, value) "
             "VALUES ('access_generation', '0')"
         )
@@ -203,6 +220,7 @@ class MemoryStore:
             "project_memberships",
             "room_projects",
             "room_memberships",
+            "private_rooms",
         ):
             for operation in ("INSERT", "UPDATE", "DELETE"):
                 self.db.execute(
