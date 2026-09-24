@@ -56,8 +56,6 @@ def test_consume_otel_cli_flags_preserves_other_arguments():
 
 
 def test_last_otel_cli_flag_wins():
-    enabled, remaining = consume_otel_cli_flags(
-        ["--otel", "input.txt", "--no-otel"]
-    )
+    enabled, remaining = consume_otel_cli_flags(["--otel", "input.txt", "--no-otel"])
     assert enabled is False
     assert remaining == ["input.txt"]
