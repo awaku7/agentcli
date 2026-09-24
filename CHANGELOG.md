@@ -1,4 +1,17 @@
 # Changelog
+## [0.7.15] - 2026-09-24
+
+### Added
+
+- Add durable scheduler outbox delivery with event acknowledgements, lease claims, and recovery of expired claims.
+- Renew leases for live queued work and bind scheduler events to their owning scheduler instance.
+- Add regression coverage for scheduler crash recovery and dequeue acknowledgement behavior.
+
+### Changed
+
+- Apply Black formatting to scheduler service and storage modules.
+- Clarify runtime initialization and durable internal timer delivery documentation.
+
 
 ## [0.7.14] - 2026-09-24
 

@@ -1,4 +1,17 @@
 # 変更履歴
+## [0.7.15] - 2026-09-24
+
+### 追加
+
+- イベントACK、lease claim、期限切れclaimの回収を備えたscheduler outboxの永続配送を追加。
+- 稼働中のキュー項目のlease更新と、scheduler instance単位でのイベント紐付けに対応。
+- schedulerのクラッシュ復旧とdequeue ACK動作の回帰テストを追加。
+
+### 変更
+
+- scheduler serviceおよびstorage moduleにBlack formatterを適用。
+- runtime初期化と永続化された内部timer配送のドキュメントを明確化。
+
 
 ## [0.7.14] - 2026-09-24
 
