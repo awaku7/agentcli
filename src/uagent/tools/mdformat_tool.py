@@ -169,6 +169,23 @@ def _validate_skill_file(filepath: str, *, strict: bool) -> dict[str, Any]:
         }
 
 
+def _process_diagnostic(proc: subprocess.CompletedProcess[str]) -> str:
+    """Return a bounded diagnostic without dropping meaningful continuation lines."""
+    output = "\n".join(
+        stream.strip() for stream in (proc.stderr, proc.stdout) if stream.strip()
+    )
+    if not output:
+        return _msg("result.fallback_detail", "formatting issue")
+
+    lines = [line.rstrip() for line in output.splitlines() if line.strip()]
+    detail = "\n".join(lines[:10])
+    if len(lines) > 10:
+        detail += f"\n... ({len(lines) - 10} more diagnostic lines)"
+    if len(detail) > 2_000:
+        detail = detail[:1_997].rstrip() + "..."
+    return detail
+
+
 def run_tool(args: dict[str, Any]) -> str:
     """Run mdformat, preserving YAML front matter when present."""
     frontmatter_ready = _ensure_mdformat()
@@ -280,14 +297,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     )
             else:
                 failed_count += 1
-                stderr_lines = [
-                    line for line in proc.stderr.splitlines() if line.strip()
-                ] or proc.stdout.splitlines()
-                detail = (
-                    stderr_lines[0].strip()
-                    if stderr_lines
-                    else _msg("result.fallback_detail", "formatting issue")
-                )
+                detail = _process_diagnostic(proc)
                 results.append(
                     _msg(
                         "result.fail",
