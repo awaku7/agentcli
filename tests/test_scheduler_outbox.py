@@ -163,6 +163,84 @@ def test_pending_event_is_not_dispatched_to_foreign_instance(tmp_path):
     assert pending[0]["target_instance_id"] == "instance-a"
 
 
+def test_unowned_schedule_binds_event_and_run_to_claiming_instance(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    _add_due_schedule(schedules, "outbox-unowned", "")
+
+    SchedulerService(
+        _FailingSink(),
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-a",
+        poll_interval_s=0.1,
+    )._fire_due_items()
+
+    pending = schedules.list_events("pending")
+    assert len(pending) == 1
+    assert pending[0]["target_instance_id"] == "instance-a"
+    assert pending[0]["payload"]["owner_instance_id"] == "instance-a"
+    run = runs.get(pending[0]["run_id"])
+    assert run is not None
+    assert run.metadata["owner_instance_id"] == "instance-a"
+
+    foreign_events = queue.Queue()
+    SchedulerService(
+        foreign_events,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-b",
+    )._fire_due_items()
+    assert foreign_events.empty()
+
+
+def test_finalization_binds_unowned_payload_to_claim_owner(tmp_path):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    _add_due_schedule(schedules, "outbox-unowned-direct", "")
+    assert schedules.claim_due_items("instance-a", utc_now())
+
+    assert schedules.finalize_claim_with_events(
+        "outbox-unowned-direct",
+        "instance-a",
+        None,
+        [{"kind": "user", "run_id": "unowned-run", "owner_instance_id": ""}],
+    )
+    pending = schedules.list_events("pending")
+    assert len(pending) == 1
+    assert pending[0]["target_instance_id"] == "instance-a"
+    assert pending[0]["payload"]["owner_instance_id"] == "instance-a"
+    assert schedules.claim_pending_events("instance-b", utc_now()) == []
+
+
+def test_live_queue_keeps_lease_after_original_expiry(tmp_path, monkeypatch):
+    schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
+    runs = SchedulerRunStore(tmp_path / "runs.json")
+    _add_due_schedule(schedules, "outbox-long-queue", "instance-a")
+    events = queue.Queue()
+    service = SchedulerService(
+        events,
+        store=schedules,
+        run_store=runs,
+        instance_id="instance-a",
+    )
+    service._fire_due_items()
+    original_claim_until = schedules.list_events("pending")[0]["claim_until"]
+
+    import uagent.scheduler.service as service_module
+
+    later = utc_now() + timedelta(seconds=301)
+    monkeypatch.setattr(service_module, "utc_now", lambda: later)
+    service._dispatch_pending_events()
+
+    assert events.qsize() == 1
+    pending = schedules.list_events("pending")
+    assert len(pending) == 1
+    assert pending[0]["claim_until"] > original_claim_until
+    assert pending[0]["claim_until"] > later.timestamp()
+    assert events.get_nowait()["schedule_id"] == "outbox-long-queue"
+    assert schedules.list_events("pending") == []
+
+
 def test_explicit_orphan_reclaim_allows_redelivery_after_owner_restart(tmp_path):
     schedules = SchedulerStore(tmp_path / "schedules.sqlite3")
     runs = SchedulerRunStore(tmp_path / "runs.json")

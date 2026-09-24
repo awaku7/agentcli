@@ -41,6 +41,8 @@ class SchedulerService:
         self._sink_get_original = None
         self._sink_get_wrapper = None
         self._ack_on_dequeue = False
+        self._queued_event_ids: set[int] = set()
+        self._queued_event_lock = threading.Lock()
         self._install_sink_ack_hook()
 
     def _install_sink_ack_hook(self) -> None:
@@ -82,10 +84,12 @@ class SchedulerService:
         owner = str(event.pop(_DISPATCH_EVENT_OWNER, "") or "").strip()
         if event_id is None or not owner:
             return
-        try:
-            self._store.mark_event_delivered(int(event_id), owner)
-        except Exception:
-            pass
+        with self._queued_event_lock:
+            try:
+                self._store.mark_event_delivered(int(event_id), owner)
+            except Exception:
+                pass
+            self._queued_event_ids.discard(int(event_id))
 
     def is_running(self) -> bool:
         return bool(
@@ -125,6 +129,18 @@ class SchedulerService:
             self._stop.wait(self._poll_interval_s)
 
     def _dispatch_pending_events(self) -> None:
+        # A live queue may hold events beyond the normal claim lease. Renew
+        # those claims before looking for events eligible for dispatch again.
+        with self._queued_event_lock:
+            for event_id in tuple(self._queued_event_ids):
+                if not self._store.renew_event_lease(
+                    event_id,
+                    self._instance_id,
+                    utc_now(),
+                    lease_seconds=_DISPATCH_LEASE_SECONDS,
+                ):
+                    self._queued_event_ids.discard(event_id)
+
         # Claim and deliver one event at a time so a failure on an earlier
         # notice cannot let a later execution event overtake it.
         for _ in range(100):
@@ -142,8 +158,15 @@ class SchedulerService:
                 delivery[_DISPATCH_EVENT_ID] = event_id
                 delivery[_DISPATCH_EVENT_OWNER] = self._instance_id
             try:
-                self._sink.put(delivery)
+                if self._ack_on_dequeue:
+                    with self._queued_event_lock:
+                        self._queued_event_ids.add(event_id)
+                        self._sink.put(delivery)
+                else:
+                    self._sink.put(delivery)
             except Exception as exc:
+                with self._queued_event_lock:
+                    self._queued_event_ids.discard(event_id)
                 try:
                     self._store.release_event(
                         event_id,
@@ -186,6 +209,7 @@ class SchedulerService:
                     advance_periodic_at(item.at, item.interval_sec, now=now)
                 )
             try:
+                event_owner = item.owner_instance_id or self._instance_id
                 run = self._run_store.create(
                     item.id,
                     idempotency_key=f"{item.id}:{due_at}",
@@ -200,7 +224,7 @@ class SchedulerService:
                         "execution_mode": item.execution_mode,
                         "target_tool": item.target_tool,
                         "target_args": dict(item.target_args),
-                        "owner_instance_id": item.owner_instance_id,
+                        "owner_instance_id": event_owner,
                         "session_id": item.session_id,
                     },
                 )
@@ -210,7 +234,7 @@ class SchedulerService:
                     "schedule_type": item.type,
                     "schedule_at": due_at,
                     "run_id": run.run_id,
-                    "owner_instance_id": item.owner_instance_id,
+                    "owner_instance_id": event_owner,
                     "session_id": item.session_id,
                 }
                 events: list[dict[str, Any]] = []

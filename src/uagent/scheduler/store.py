@@ -304,7 +304,10 @@ class SchedulerStore:
                 if not run_id or not kind:
                     raise ValueError("scheduler event requires run_id and kind")
                 event_key = f"{run_id}:{ordinal}:{kind}"
-                target_instance_id = str(payload.get("owner_instance_id") or "").strip()
+                target_instance_id = (
+                    str(payload.get("owner_instance_id") or "").strip() or owner
+                )
+                payload["owner_instance_id"] = target_instance_id
                 db.execute(
                     "INSERT OR IGNORE INTO scheduler_events ("
                     "event_key,schedule_id,run_id,target_instance_id,payload,status,"
@@ -398,6 +401,27 @@ class SchedulerStore:
                 "claim_owner='', claim_until=0, last_error='' "
                 "WHERE id=? AND status='pending' AND claim_owner=?",
                 (delivered_at, int(event_id), owner),
+            )
+            db.commit()
+            return result.rowcount > 0
+
+    def renew_event_lease(
+        self,
+        event_id: int,
+        instance_id: str,
+        now: datetime | None = None,
+        *,
+        lease_seconds: float = 30.0,
+    ) -> bool:
+        """Keep a queued, unacknowledged event owned by its live dispatcher."""
+        owner = str(instance_id or "").strip()
+        until = (now or utc_now()).timestamp() + max(1.0, float(lease_seconds))
+        with _LOCK, self._connect() as db:
+            db.execute("BEGIN IMMEDIATE")
+            result = db.execute(
+                "UPDATE scheduler_events SET claim_until=? "
+                "WHERE id=? AND status='pending' AND claim_owner=?",
+                (until, int(event_id), owner),
             )
             db.commit()
             return result.rowcount > 0

@@ -87,6 +87,7 @@ scheduleをclaimした後、`SchedulerService` は以下の順で処理する。
 outboxの配信保証は **at least once** とする。
 
 - sink acceptance後でもconsumer ACK前にprocessが停止した場合、eventはpending/leased状態として残る。
+- 生存中のdispatcherはqueue内でACK待ちのeventのleaseを更新する。長いLLM/tool処理でdequeueが遅れても同じeventを再投入しない。
 - ACK writeに失敗した場合もeventは再配信され得る。
 - 同一run内では先行pending eventがある間、後続eventをclaimしない。noticeよりexecution eventが先に流れることを防ぐ。
 - generic sinkが`put()`のみを提供しconsumer-side ACKを提供できない場合は、互換性のためsink acceptanceをdelivery境界とする。
@@ -104,6 +105,7 @@ notice等の非実行eventは再表示される可能性があるため、「eve
 ## instance isolationとreclaim
 
 pending outbox eventにも`target_instance_id`を保存する。
+owner未設定のscheduleをclaimした場合は、claimしたinstanceをrun metadata、event payload、`target_instance_id`に設定する。
 別instanceは通常、そのeventをclaimできない。
 
 process再起動では新しい`instance_id`が発行されるため、旧instanceのschedule/eventを自動的に新instanceへ移してはいけない。
