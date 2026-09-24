@@ -3,17 +3,19 @@
 Baseline: `v0.7.13...v0.7.14` (`9dff4735e9e861587d8db0700b08ccad667f7e08` -> `9d9b25aee5ec67dc7fb321ee61f45ee332a65115`).
 The release contains 75 commits, so this review treats v0.7.14 as a functional milestone rather than a small patch release.
 
+> Follow-up status (2026-09-24): the Web Memory request-lifetime issue identified below has been fixed, and Scheduler durable dispatch now has a SQLite outbox, consumer-dequeue acknowledgement, retry state, event ordering, and explicit orphan reclaim. Identity-bound scheduler reclaim and real multi-process crash-injection testing remain follow-up work.
+
 ## Summary
 
 The main architectural change is that Memory V3 is no longer only a design document. The current runtime contains real server-side identity, project, room, grant, profile and projection boundaries. Scheduler isolation also moved from an in-process model to a SQLite-backed cross-process claim/lease model. Model capability decisions continue moving toward `llmcapa` rather than provider/model-name hard-coding.
 
-The implementation is not yet the end state described by the V3 architecture. The important remaining boundaries are deployment-specific identity integration, non-OIDC/multi-project ProjectContext, durable authentication sessions, directory group overage resolution, end-to-end rollout validation, and a few reliability/resource-lifetime issues identified below.
+The implementation is not yet the end state described by the V3 architecture. The important remaining boundaries are deployment-specific identity integration, non-OIDC/multi-project ProjectContext, durable authentication sessions, directory group overage resolution, end-to-end rollout validation, and the remaining identity-bound scheduler recovery work identified below.
 
 Computer Use is an opt-in feature and is intentionally not part of this review's primary product positioning or rollout guidance.
 
 ## Implementation status
 
-| Area | Current status in v0.7.14 | Remaining work |
+| Area | Current status | Remaining work |
 |---|---|---|
 | Identity / TurnContext | Implemented | Continue regression coverage across every host and sub-agent path |
 | OIDC Web login | Implemented: Authorization Code + PKCE, discovery/JWKS verification, server-side opaque sessions, cookie-backed WebSocket identity | Session store is process-local; production persistence/HA policy remains |
@@ -27,7 +29,9 @@ Computer Use is an opt-in feature and is intentionally not part of this review's
 | Entra groups | Verified signed group claims are carried into authorization policy | Group overage needs a trusted directory API adapter |
 | Trusted Proxy / OAuth / Windows AD / External | Resolver/verifier contracts exist; token and trusted-proxy boundaries exist | Deployment-specific verification and real-environment integration remain |
 | Legacy `/api/memories` and `/api/profile` | Restricted to local identity mode | Keep clearly documented as compatibility APIs |
-| Scheduler instance isolation | Implemented: instance ownership, SQLite claims/leases, reclaim, WAL | Durable queue handoff semantics still need hardening |
+| Web Memory store lifetime | Request-boundary cleanup implemented for denied/exception paths | Keep resource-lifetime regression tests |
+| Scheduler instance isolation | Implemented: instance ownership, SQLite claims/leases, reclaim, WAL | Continue multi-process failure injection and identity-bound recovery |
+| Scheduler durable dispatch | Implemented core: SQLite outbox, atomic schedule/event commit, dequeue ACK, retry, ordering, explicit reclaim | Identity-bound reclaim service, real process-kill matrix, run-store cross-process strategy, retention |
 | OS scheduler payload | Hardened with opaque IDs, one-shot consumption, size/path/permission validation | Continue platform-specific validation, especially Windows ACL behavior |
 | Native tool search / token parameters | Gated using `llmcapa` capabilities | Keep capability catalog/version testing strong |
 | Explicit Skill selection | Fixed | Preserve explicit user selection over automatic narrowing |
@@ -78,46 +82,57 @@ Project isolation and active-revocation regression tests are present, but multi-
 - directory membership revocation;
 - single-user compatibility regression.
 
-## Code review findings that should become follow-up work
+## Code review findings and follow-up status
 
-### A. SQLite store lifetime on authorization failure
+### A. SQLite store lifetime on authorization failure — resolved
 
-`web_impl/routes_api.py` opens the Memory store inside `_personal_store()` and `_room_service()` before all project/membership/binding checks have completed. The caller closes the store only after the helper returns successfully. If `_project_id()`, directory-policy synchronization, project membership checks or room binding checks raise, the helper can exit without an explicit `store.close()`.
+The original review found that Web Memory helpers could open a Memory store and fail authorization before returning the handle to the route-level `finally` block.
 
-Recommended fix: make the helper itself exception-safe, or use a context manager/service object that owns the store lifetime. Add tests that repeatedly exercise denied requests and verify connections are closed.
+The Web request boundary now tracks opened Memory stores and closes them even when authorization fails before the helper returns. Denied Personal Memory and Room Memory paths have regression coverage. The developer documentation was also updated to describe the request-lifetime rule.
 
-### B. Scheduler queue handoff is not yet durable
+### B. Scheduler queue handoff — core durable dispatch implemented
 
-`SchedulerService._fire_due_items()` creates the run and finalizes/deletes the schedule before `_emit()` places the event on the sink. `_emit()` intentionally swallows sink exceptions. Therefore a queue failure can leave a persisted run and an advanced/deleted schedule without the execution event being delivered.
+The original v0.7.14 flow created a run and finalized/deleted the schedule before placing its event on the in-process sink. A sink failure could therefore leave persisted run/schedule state without an execution event.
 
-The SQLite claim/lease changes solve competing scheduler instances, but they do not by themselves provide durable delivery from the scheduler store into the execution queue.
+The follow-up implementation adds a SQLite `scheduler_events` outbox. Schedule finalization and outbox insertion are committed in the same transaction. Dispatch rows carry a target scheduler instance, retry/lease state, attempt count, last error, and deterministic event key.
 
-Recommended fix: use an outbox/dispatch state, or keep the claim/run pending until queue acceptance is confirmed. Recovery should be able to re-dispatch a persisted pending run without producing duplicate execution.
+For the normal CLI/GUI queue, an outbox event is acknowledged when the consumer dequeues it rather than when `put()` succeeds. A process failure before dequeue therefore leaves durable pending state that can be explicitly reclaimed and re-dispatched. Same-run event ordering prevents a later execution event from overtaking an earlier pending notice.
 
-### C. Lease semantics should be documented precisely
+Delivery is deliberately **at least once**. `SchedulerRun` remains the execution state machine, and the persisted run id/idempotency key is used to prevent the same run from being executed twice. Outbox `delivered` means that the event reached the consumer, not that the run completed.
 
-The new claim lease protects schedule selection across processes. It is not an execution lease for the full task duration because the schedule claim is finalized before the queued task executes. Documentation should avoid implying exactly-once execution solely from the claim table.
+Remaining work is identity-bound reclaim: before moving an orphaned schedule/event to a new process owner, the current session, principal, project, room, and authentication configuration must be revalidated. Real multi-process process-kill injection also remains.
 
-### D. Developer documentation lag
+### C. Lease semantics — clarified
 
-`src/uagent/docs/DEVELOP.md` still contains an older V3-4 statement saying Web API, projection, Profile, response delivery and continuation invalidation are not connected. That statement is stale in v0.7.14. The current source tree already connects most of those paths.
+Schedule claim lease, dispatch-event lease, queue delivery, and run execution are separate concepts:
 
-`docs/UAG_MEMORY_ARCHITECTURE_V3.md` also carries implementation-status text anchored to earlier PR/commit baselines. The architecture remains useful, but implementation status should point to this review/current release status rather than treating PR #60 as the latest checkpoint.
+- the schedule claim lease protects due-schedule selection;
+- the outbox lease protects dispatch of one pending event;
+- `delivered` records consumer acknowledgement;
+- `SchedulerRun` records queued/running/terminal execution state.
 
-## Documentation actions for v0.7.14
+None of these alone implies exactly-once event delivery. Documentation now states the at-least-once dispatch guarantee and the separate run-idempotency boundary.
 
-This review recommends the following documentation structure:
+### D. Developer documentation lag — resolved for the identified V3 status
+
+`src/uagent/docs/DEVELOP.md` was updated from the older staged V3 wording to the current authenticated Web Memory implementation. Current Memory, Web identity, scheduler and user-facing timer documentation now separate implemented behavior from remaining rollout work.
+
+`docs/UAG_MEMORY_ARCHITECTURE_V3.md` remains the architecture/invariants document; this review and the implementation roadmap carry the current implementation checkpoint.
+
+## Documentation structure
 
 1. Keep `UAG_MEMORY_ARCHITECTURE_V3.md` as the architecture/invariants document.
-2. Use this file as the release-level implementation review/status checkpoint.
-3. Update `MEMORY.md` to describe both local V2 compatibility and authenticated V3 Web behavior.
-4. Add a user-facing Web identity/Memory guide with OIDC setup, project binding, Personal/Room/shared Memory APIs, and current limitations.
-5. Keep Computer Use documented as an optional feature, but do not use it as the primary explanation of what changed in v0.7.14.
+2. Use this file as the v0.7.14 review plus post-release follow-up checkpoint.
+3. Use `MEMORY.md` / `MEMORY.ja.md` for current local/V3 Memory behavior.
+4. Use the Web identity/Memory guides for authenticated project, sharing, Profile and Room behavior.
+5. Use `SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md` for scheduler ownership, claim, outbox, delivery and reclaim invariants.
+6. Use `SET_TIMER.md` / `SET_TIMER.ja.md` for user-facing timer behavior and delivery guarantees.
+7. Keep Computer Use documented as an optional feature, but do not use it as the primary explanation of these changes.
 
 ## Recommended next implementation order
 
-1. Fix Memory Web API store lifetime on failed authorization paths.
-2. Make scheduler run dispatch durable across sink/process failures.
+1. Add identity-bound scheduler reclaim with session/principal/project/room/authentication revalidation.
+2. Add real multi-process scheduler crash-injection tests and decide the cross-process `SchedulerRunStore` strategy.
 3. Implement non-OIDC/multi-project server-derived ProjectContext.
 4. Add a directory API adapter for Entra group overage and revocation freshness.
 5. Decide durable OIDC session storage for multi-instance Web deployments.
