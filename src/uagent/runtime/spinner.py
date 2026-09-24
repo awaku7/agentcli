@@ -20,6 +20,7 @@ Safety-first design:
 
 from __future__ import annotations
 
+from contextlib import nullcontext
 import os
 import sys
 import threading
@@ -29,6 +30,7 @@ _FRAMES_BRAILLE = tuple("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
 _FRAMES_ASCII = tuple("|/-\\")
 
 _lock = threading.RLock()
+_lifecycle_lock = threading.RLock()
 _thread: threading.Thread | None = None
 _stop = threading.Event()
 _frame_index = 0
@@ -289,17 +291,23 @@ def _loop(interval: float, frames: tuple[str, ...]) -> None:
             from .. import core as _core
 
             with _core.print_lock:
-                if not _ok_to_draw():
+                if _stop.is_set() or not _ok_to_draw():
                     continue
-                frame = frames[_frame_index % n]
-                _frame_index += 1
-                label = _current_label()
-                text = frame + " [" + label + "] ..."
-                pad = max(0, _last_len - len(text))
-                _write_spinner_frame(text, pad)
-                _DREW = True
-                _last_len = len(text)
-                _last_label = label
+                # Synchronize state changes with stop(). The output lock keeps
+                # a frame from racing the final erase/done line; _lock keeps
+                # stop() from taking a stale snapshot of _DREW/_last_len.
+                with _lock:
+                    if _stop.is_set():
+                        continue
+                    frame = frames[_frame_index % n]
+                    _frame_index += 1
+                    label = _current_label()
+                    text = frame + " [" + label + "] ..."
+                    pad = max(0, _last_len - len(text))
+                    _write_spinner_frame(text, pad)
+                    _DREW = True
+                    _last_len = len(text)
+                    _last_label = label
         except Exception:
             continue
 
@@ -309,17 +317,21 @@ def start(interval: float = 0.08) -> None:
     global _thread, _started_at, _last_label
     if not spinner_enabled():
         return
-    with _lock:
-        if _thread is not None and _thread.is_alive():
-            return
-        _stop.clear()
-        _started_at = time.monotonic()
-        _last_label = _current_label()
-        frames = _frames()
-        _thread = threading.Thread(
-            target=_loop, args=(interval, frames), name="uagent-spinner", daemon=True
-        )
-        _thread.start()
+    with _lifecycle_lock:
+        with _lock:
+            if _thread is not None and _thread.is_alive():
+                return
+            _stop.clear()
+            _started_at = time.monotonic()
+            _last_label = _current_label()
+            frames = _frames()
+            _thread = threading.Thread(
+                target=_loop,
+                args=(interval, frames),
+                name="uagent-spinner",
+                daemon=True,
+            )
+            _thread.start()
 
 
 def _done_line_kept() -> bool:
@@ -410,64 +422,65 @@ def _write_done_line(label: str, elapsed: float | None) -> None:
 def stop(*, clear: bool = True, keep_last_line: bool | None = None) -> None:
     """Stop the spinner and erase its line. Always safe to call."""
     global _thread, _DREW, _last_len, _started_at, _last_label
-    with _lock:
-        th = _thread
-        _thread = None
-        _stop.set()
-        drew = _DREW
-        _DREW = False
-        last_len = _last_len
-        _last_len = 0
-    if th is not None:
-        try:
-            th.join(timeout=0.2)
-        except Exception:
-            pass
-    # Erase the drawn line, then leave one final line in scrollback
-    # (e.g. "OK done [LLM] in 3.2s") so the work stays visible after scroll.
-    # Never emit output when the spinner never drew (disabled path).
-    keep = keep_last_line
-    if keep is None:
-        try:
-            keep = _done_line_kept()
-        except Exception:
-            keep = True
-    label = ""
-    elapsed = None
-    try:
-        label = str(_last_label or "").strip()
-    except Exception:
-        label = ""
-    if not label:
-        try:
-            label = _current_label(default="")
-        except Exception:
-            label = ""
-    try:
-        if _started_at is not None:
-            elapsed = time.monotonic() - float(_started_at)
-    except Exception:
-        elapsed = None
-    try:
+    # Serialize start/stop transitions. Keep the worker reference until it is
+    # joined so a concurrent start cannot clear _stop and revive an old thread.
+    with _lifecycle_lock:
         with _lock:
-            _started_at = None
-            _last_label = ""
-    except Exception:
-        pass
-    if clear and drew:
+            th = _thread
+            _stop.set()
+        if th is not None:
+            try:
+                th.join(timeout=0.2)
+            except Exception:
+                pass
+
+        # Resolve the terminal lock only after asking the worker to stop. A
+        # worker already inside this lock may finish its frame; reading _DREW
+        # afterwards ensures that frame is erased and gets its final line.
         try:
             from .. import core as _core
 
-            with _core.print_lock:
-                width = max(int(last_len), 0)
-                if width <= 0:
-                    width = 40
-                sys.stderr.write("\r" + (" " * width) + "\r")
-                sys.stderr.flush()
-                if keep:
-                    _write_done_line(label, elapsed)
+            output_lock = _core.print_lock
         except Exception:
-            pass
+            output_lock = nullcontext()
+
+        with output_lock:
+            with _lock:
+                if _thread is th:
+                    _thread = None
+                drew = _DREW
+                _DREW = False
+                last_len = _last_len
+                _last_len = 0
+                label = str(_last_label or "").strip()
+                if not label:
+                    label = _current_label(default="")
+                elapsed = (
+                    time.monotonic() - float(_started_at)
+                    if _started_at is not None
+                    else None
+                )
+                _started_at = None
+                _last_label = ""
+
+            # Erase the drawn line, then leave one final line in scrollback
+            # (e.g. "OK done [LLM] in 3.2s") so the work stays visible after
+            # scroll. Never emit output when the spinner never drew.
+            keep = keep_last_line
+            if keep is None:
+                try:
+                    keep = _done_line_kept()
+                except Exception:
+                    keep = True
+            if clear and drew:
+                try:
+                    width = max(int(last_len), 0) or 40
+                    sys.stderr.write("\r" + (" " * width) + "\r")
+                    sys.stderr.flush()
+                    if keep:
+                        _write_done_line(label, elapsed)
+                except Exception:
+                    pass
 
 
 def notify_stream_started() -> None:

@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Activează sau dezactivează stocarea sesiunilor; Modul încorporat impune valoarea `0` |
 | `UAGENT_PLUGIN_DIRS` | Directoare suplimentare de căutare a pluginurilor |
 | `UAGENT_AUTO_SENTINEL` | Activează modul sentinelă automată single-LLM atunci când este setat la `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Numărul maxim de apeluri consecutive către instrumente noi (implicit: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Numărul maxim de apeluri consecutive către instrumente noi (implicit: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Numărul maxim de runde LLM/instrument per operațiune a utilizatorului (implicit: `128`) |
 | `UAGENT_SHRINK_CNT` | Prag opțional de reducere automată a dimensiunii mesajelor (`0`/nesetat = dezactivat) |
 | `UAGENT_SHRINK_KEEP_LAST` | Numărul de mesaje care se păstrează după reducere (implicit: `20`) |

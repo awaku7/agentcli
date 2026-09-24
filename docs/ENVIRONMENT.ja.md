@@ -407,7 +407,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_DEBUG_ENDPOINT`: `1` に設定すると、起動時にエンドポイントとモデル情報を出力します。
 - `UAGENT_PARALLEL_WORKERS`: 並列ツール実行のスレッド数（既定: `8`）。I/O バウンドなタスクが多い場合は増やしてください。
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: 指定されたラウンド数だけ使用されなかったツールを自動的にアンロードします（既定: `10`）。`0` に設定すると自動アンロードが無効になります。
-- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: 引数に関係なく、同じtoolを連続して呼び出せる最大回数（既定: `50`）。
+- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: fresh tool callを含むLLMラウンドの連続上限。tool名や引数が異なっても数え、同一ラウンド内の並列呼び出しは1回として数えます（既定: `50`）。
 - `UAGENT_MAX_TOOL_ROUNDS`: 1回のユーザー操作で許可するLLM/toolラウンドの最大数（既定: `128`）。
 - `UAGENT_FILE_GREP_TURN_LIMIT`: 1回のユーザー操作で実行できる`file_grep`の最大回数（既定: `8`）。超過後は`read_file`、indexのsection、`code_map`などへ切り替えるよう促します。
 - `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。

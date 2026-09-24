@@ -28,21 +28,34 @@ def setup_function() -> None:
     clear_consecutive_tool_call_streak()
 
 
-def test_consecutive_tool_calls_reset_when_tool_name_changes() -> None:
-    for i in range(3):
+def test_consecutive_tool_rounds_count_across_tool_names() -> None:
+    names = ("add_long_memory", "search_web", "read_file")
+    for index, tool_name in enumerate(names, start=1):
         blocked, name, count = check_consecutive_tool_calls(
-            [_tc("add_long_memory", note=f"note-{i}")], threshold=4
+            [_tc(tool_name, sample=index)], threshold=4
         )
         assert blocked is False
         assert name == "consecutive tool calls"
-        assert count == i + 1
+        assert count == index
 
     blocked, name, count = check_consecutive_tool_calls(
-        [_tc("search_web", q="different")], threshold=4
+        [_tc("list_dir", path=".")], threshold=4
     )
-    assert blocked is False
+    assert blocked is True
     assert name == "consecutive tool calls"
-    assert count == 1
+    assert count == 4
+
+
+def test_invalid_consecutive_limit_uses_documented_default(monkeypatch) -> None:
+    monkeypatch.setattr("uagent.uagent_llm.env_get", lambda *_args: "invalid")
+
+    for _ in range(49):
+        blocked, _, _ = check_consecutive_tool_calls([_tc("read_file")])
+        assert blocked is False
+
+    blocked, _, count = check_consecutive_tool_calls([_tc("search_web")])
+    assert blocked is True
+    assert count == 50
 
 
 def test_parallel_same_tool_calls_count_as_one_round() -> None:
@@ -71,7 +84,7 @@ def test_parallel_same_tool_calls_count_as_one_round() -> None:
     assert count == 3
 
 
-def test_mixed_tool_round_resets_consecutive_round_streak() -> None:
+def test_mixed_tool_round_counts_once_in_consecutive_streak() -> None:
     blocked, _, count = check_consecutive_tool_calls(
         [_tc("read_file", filename="one.py")], threshold=3
     )
@@ -87,13 +100,14 @@ def test_mixed_tool_round_resets_consecutive_round_streak() -> None:
     )
     assert blocked is False
     assert name == "consecutive tool calls"
-    assert count == 0
+    assert count == 2
 
-    blocked, _, count = check_consecutive_tool_calls(
-        [_tc("read_file", filename="three.py")], threshold=3
+    blocked, name, count = check_consecutive_tool_calls(
+        [_tc("search_web", q="different")], threshold=3
     )
-    assert blocked is False
-    assert count == 1
+    assert blocked is True
+    assert name == "consecutive tool calls"
+    assert count == 3
 
 
 def test_empty_round_resets_consecutive_tool_calls() -> None:
@@ -185,6 +199,34 @@ def test_different_fingerprint_resets_other_counters() -> None:
     assert blocked is True
     assert name == "get_current_location"
     assert count == _GENERAL_TOOL_LOOP_THRESHOLD
+
+
+def test_tool_round_limit_clears_incomplete_responses_continuation() -> None:
+    from types import SimpleNamespace
+
+    from uagent.uagent_llm import _clear_responses_after_tool_loop
+
+    reasons: list[str] = []
+    state = {
+        "previous_response_id": "resp_incomplete",
+        "active_response_id": "resp_incomplete",
+    }
+    core = SimpleNamespace(
+        responses_runtime=SimpleNamespace(
+            clear_continuation=lambda reason: reasons.append(reason)
+        ),
+        responses_state=state,
+        clear_responses_continuation=lambda: (
+            state.pop("previous_response_id", None),
+            state.pop("active_response_id", None),
+        ),
+    )
+
+    _clear_responses_after_tool_loop(core, reason="tool_round_limit")
+
+    assert reasons == ["tool_round_limit"]
+    assert "previous_response_id" not in state
+    assert "active_response_id" not in state
 
 
 def test_loop_guard_clears_incomplete_responses_continuation() -> None:

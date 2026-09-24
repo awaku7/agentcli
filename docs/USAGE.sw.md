@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Washa au zima hifadhi ya kikao; Hali ya kuingizwa inasababisha `0` |
 | `UAGENT_PLUGIN_DIRS` | Saraka za ziada za utafutaji za programu-jalizi |
 | `UAGENT_AUTO_SENTINEL` | Chagua hali ya sentineli ya kiotomatiki ya LLM-LLM wakati imewekwa kuwa `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Kikomo cha wito wa zana mpya mfululizo (kawaida: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Kikomo cha wito wa zana mpya mfululizo (kawaida: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Idadi kubwa zaidi ya raundi za LLM/zana kwa kila operesheni ya mtumiaji (kawaida: `128`) |
 | `UAGENT_SHRINK_CNT` | Kizingiti cha hiari cha kupunguza urefu wa ujumbe (`0`/haijawekwa = imezimwa) |
 | `UAGENT_SHRINK_KEEP_LAST` | Ujumbe wa kuhifadhi baada ya kupunguza urefu (kawaida: `20`) |

@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Ativar ou desativar o armazenamento de sessões; O modo incorporado força o valor `0` |
 | `UAGENT_PLUGIN_DIRS` | Diretórios adicionais de busca de plug-ins |
 | `UAGENT_AUTO_SENTINEL` | Ativa o modo sentinela de piloto automático único `LLM` quando definido como `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Número máximo de chamadas consecutivas de ferramentas novas (padrão: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Número máximo de chamadas consecutivas de ferramentas novas (padrão: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Número máximo de rodadas de `LLM`/ferramenta por operação do usuário (padrão: `128`) |
 | `UAGENT_SHRINK_CNT` | Limite opcional de redução automática nas mensagens (`0`/não definido = desativado) |
 | `UAGENT_SHRINK_KEEP_LAST` | Mensagens a serem mantidas após a redução (padrão: `20`) |

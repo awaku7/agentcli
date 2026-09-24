@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Włącz lub wyłącz magazyn sesji; tryb wbudowany wymusza wartość `0` |
 | `UAGENT_PLUGIN_DIRS` | Dodatkowe katalogi wyszukiwania wtyczek |
 | `UAGENT_AUTO_SENTINEL` | Włącz tryb strażnika autopilota pojedynczego LLM, gdy ustawiono na `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maksymalna liczba kolejnych wywołań nowych narzędzi (domyślnie: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maksymalna liczba kolejnych wywołań nowych narzędzi (domyślnie: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Maksymalna liczba rund LLM/narzędzie na operację użytkownika (domyślnie: `128`) |
 | `UAGENT_SHRINK_CNT` | Opcjonalny próg automatycznego zmniejszania rozmiaru wiadomości (`0`/brak ustawienia = wyłączone) |
 | `UAGENT_SHRINK_KEEP_LAST` | Liczba komunikatów do zachowania po skróceniu (domyślnie: `20`) |

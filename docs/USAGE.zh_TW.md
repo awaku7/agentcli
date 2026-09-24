@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | 啟用或停用工作階段儲存； 嵌入式模式強制設定為 `0` |
 | `UAGENT_PLUGIN_DIRS` | 額外的外掛程式搜尋目錄 |
 | `UAGENT_AUTO_SENTINEL` | 設定為 `1` 時，選擇啟用單一 LLM 自動駕駛哨兵模式 |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | 最大連續新工具呼叫次數（預設：`100`） |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | 最大連續新工具呼叫次數（預設：`50`） |
 | `UAGENT_MAX_TOOL_ROUNDS` | 每次使用者操作中，每個工具的 LLM 輪次上限（預設：`128`） |
 | `UAGENT_SHRINK_CNT` | 訊息中的可選自動壓縮閾值（`0`/未設定 = 停用） |
 | `UAGENT_SHRINK_KEEP_LAST` | 壓縮後保留的訊息數（預設值：`20`） |

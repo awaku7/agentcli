@@ -176,8 +176,8 @@ def _productive_age(stamp: object, *, now: int | None = None) -> int | None:
 # unload_tool(target) clears that target's tool_load counter so a later
 # intentional reload is not counted as a continuation of the prior streak.
 _TOOL_CALL_FINGERPRINTS: dict[str, int] = {}
-# Count freshly executed calls of the same tool across consecutive rounds.
-# This is a second, broader runaway guard than the same-args detector.
+# Count consecutive LLM rounds containing fresh tool calls, independent of
+# tool names/arguments. Empty rounds reset this broader runaway guard.
 _CONSECUTIVE_TOOL_CALL_COUNT = 0
 _CONSECUTIVE_TOOL_CALL_NAME = ""
 _MGMT_LOOP_THRESHOLD = 4
@@ -231,18 +231,20 @@ def _emit_tool_loop_block(
         pass
 
 
-def _clear_responses_after_tool_loop(core: Any) -> None:
+def _clear_responses_after_tool_loop(
+    core: Any, *, reason: str = "tool_loop_guard"
+) -> None:
     """Invalidate an incomplete Responses continuation before breaking.
 
-    The guard runs after tool execution but before the matching continuation
-    request is sent. Reusing that response id on the next user turn makes the
-    provider reject it as a stale/old ``previous_response_id``.
+    A loop guard or hard round limit may stop after tool execution but before
+    the matching continuation request is sent. Reusing that response id on the
+    next user turn makes the provider reject it as a stale ``previous_response_id``.
     """
     try:
         runtime = getattr(core, "responses_runtime", None)
         clear_runtime = getattr(runtime, "clear_continuation", None)
         if callable(clear_runtime):
-            clear_runtime("tool_loop_guard")
+            clear_runtime(reason)
     except Exception:
         pass
     try:
@@ -386,7 +388,7 @@ def clear_general_tool_loop_streaks() -> None:
 
 
 def clear_consecutive_tool_call_streak() -> None:
-    """Clear the consecutive same-tool call counter."""
+    """Clear the consecutive tool-round counter."""
     global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
     _CONSECUTIVE_TOOL_CALL_COUNT = 0
     _CONSECUTIVE_TOOL_CALL_NAME = ""
@@ -398,24 +400,20 @@ def check_consecutive_tool_calls(
     record: bool = True,
     threshold: int | None = None,
 ) -> tuple[bool, str, int]:
-    """Detect too many consecutive *rounds* using only the same tool.
+    """Detect too many consecutive LLM rounds that contain tool calls.
 
-    One invocation of this function represents one LLM tool round. Multiple
-    calls of the same tool in that round (for example parallel ``read_file``
-    calls for different files) count as a single round. A round containing
-    more than one tool name resets the streak. Arguments remain intentionally
-    ignored here; repeated identical arguments are handled by the general
-    tool-loop fingerprint guard.
+    One invocation represents one LLM tool round. Any fresh tool calls make
+    the round count once, regardless of tool names or arguments; parallel
+    calls in one round therefore do not consume the budget individually. An
+    empty round resets the streak. Identical-argument loops have a narrower,
+    separate guard.
     """
-    global _CONSECUTIVE_TOOL_CALL_COUNT, _CONSECUTIVE_TOOL_CALL_NAME
-    # Keep a model from using one discovery tool as a general-purpose reader
-    # across many consecutive rounds without penalizing legitimate parallel
-    # fan-out inside one round.
+    global _CONSECUTIVE_TOOL_CALL_COUNT
     raw_limit = env_get("UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT", "50")
     try:
         default_limit = max(1, int(raw_limit))
     except (TypeError, ValueError):
-        default_limit = 100
+        default_limit = 50
     limit = default_limit if threshold is None else max(1, int(threshold))
     if not tool_calls_list:
         if record:
@@ -425,31 +423,24 @@ def check_consecutive_tool_calls(
     round_names: list[str] = []
     for tool_call in tool_calls_list:
         function = tool_call.get("function", {}) if isinstance(tool_call, dict) else {}
-        current_name = (
-            str(function.get("name", "")).strip() if isinstance(function, dict) else ""
+        tool_name = (
+            str(function.get("name") or "").strip()
+            if isinstance(function, dict)
+            else ""
         )
-        if current_name and current_name not in round_names:
-            round_names.append(current_name)
-
+        if tool_name and tool_name not in round_names:
+            round_names.append(tool_name)
     if not round_names:
         if record:
             clear_consecutive_tool_call_streak()
         return False, "", 0
 
-    if len(round_names) != 1:
-        if record:
-            clear_consecutive_tool_call_streak()
-        return False, _("consecutive tool calls"), 0
-
-    current_name = round_names[0]
-    if current_name == _CONSECUTIVE_TOOL_CALL_NAME:
-        count = _CONSECUTIVE_TOOL_CALL_COUNT + 1
-    else:
-        count = 1
-
+    count = _CONSECUTIVE_TOOL_CALL_COUNT + 1
     if record:
-        _CONSECUTIVE_TOOL_CALL_NAME = current_name
         _CONSECUTIVE_TOOL_CALL_COUNT = count
+        _CONSECUTIVE_TOOL_CALL_NAME = (
+            round_names[0] if len(round_names) == 1 else _("consecutive tool calls")
+        )
     return count >= limit, _("consecutive tool calls"), count
 
 
@@ -1565,6 +1556,7 @@ def _run_one_round(
             except Exception:
                 pass
         core._last_round_reason = "max_tool_rounds"
+        _clear_responses_after_tool_loop(core, reason="tool_round_limit")
         _spinner_stop_quietly()
         print(
             _("[WARN] Tool rounds exceeded %(max)d; aborting.")
