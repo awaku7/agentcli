@@ -132,6 +132,12 @@ DELETE /api/me/memories/{memory_id}
 
 更新・削除ではstableな `memory_id` と `expected_revision` を使います。古いrevisionを指定した更新は、新しい内容を黙って上書きせず拒否されます。
 
+### Private Web Sessionのlifecycle
+
+`POST /api/me/private-room` は、server-sideのidentityとProject認可を確認した後に、owner専用のPrivate Web Roomを作成します。切断後のidle sessionは、既定で24時間の再接続猶予期間を持ちます。`UAGENT_WEB_ROOM_IDLE_TTL_SECONDS` で変更できます（設定可能範囲: 60秒〜30日）。利用があればidle期限が更新されます。WebSocket接続中、agent実行中（streamingを含む）、または`human_ask`待機中のroomはevictされません。
+
+idle期限を過ぎると、Private Roomのbinding、room限定Memory、および関連するWeb session履歴を削除します。Personal Memoryは削除しません。期限切れのPrivate Roomには再接続できません。
+
 ## 5. Personal Memoryを特定userへ共有する
 
 Personal Memoryは、確認済みrevisionに対するread-only grantとして共有できます。

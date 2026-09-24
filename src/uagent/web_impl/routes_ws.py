@@ -45,7 +45,7 @@ async def websocket_endpoint(websocket: WebSocket):
     except (IdentityConfigurationError, IdentityResolutionError):
         await websocket.close(code=1008)
         return
-    room = web_manager.get_room(room_id)
+    room, room_created = web_manager.get_or_create_room(room_id)
     if connection.session_id:
         room.session_id = connection.session_id
     room.private_session = connection.private_session
@@ -57,8 +57,15 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         await room.connect(websocket, connection)
     except (IdentityConfigurationError, IdentityResolutionError):
+        if room_created:
+            web_manager.discard_if_idle(room_id, room)
         await websocket.close(code=1008)
         return
+    except Exception:
+        room.disconnect(websocket)
+        if room_created:
+            web_manager.discard_if_idle(room_id, room)
+        raise
     room.loop = asyncio.get_event_loop()
     # Ask AGENTS.md / init history immediately (no user message required).
     _bootstrap_room_on_connect(room)
@@ -72,7 +79,6 @@ async def websocket_endpoint(websocket: WebSocket):
                 connection.validate_room_access()
             except (IdentityConfigurationError, IdentityResolutionError):
                 await websocket.close(code=1008)
-                room.disconnect(websocket)
                 return
 
             if payload.get("type") == "user_input":
@@ -327,4 +333,11 @@ async def websocket_endpoint(websocket: WebSocket):
                     pass
 
     except WebSocketDisconnect:
+        pass
+    finally:
         room.disconnect(websocket)
+        if connection.private_session:
+            try:
+                connection.validate_room_access(touch_activity=True)
+            except (IdentityConfigurationError, IdentityResolutionError):
+                pass

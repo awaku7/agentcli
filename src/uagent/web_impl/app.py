@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+from contextlib import asynccontextmanager
 from contextvars import ContextVar
 import os
 import threading
@@ -23,7 +25,23 @@ except ImportError:
     from fastapi.templating import Jinja2Templates
 
 
-app = FastAPI(title="uag Web")
+@asynccontextmanager
+async def _web_lifespan(_app):
+    """Start and stop maintenance tasks for the Web application."""
+    from .routes_api import _private_room_cleanup_loop
+
+    cleanup_task = asyncio.create_task(_private_room_cleanup_loop())
+    try:
+        yield
+    finally:
+        cleanup_task.cancel()
+        try:
+            await cleanup_task
+        except asyncio.CancelledError:
+            pass
+
+
+app = FastAPI(title="uag Web", lifespan=_web_lifespan)
 
 # web.py used to live directly under src/uagent; this module is one level
 # deeper (src/uagent/web_impl/), so step up one extra directory.
