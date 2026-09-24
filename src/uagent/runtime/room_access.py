@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 import time
-from typing import Any
+from typing import Any, Callable
 from uuid import uuid4
 
 from ..env_utils import env_get
@@ -12,6 +12,15 @@ from .memory_access import MemoryAccessContext, MemoryAccessError, ScopedMemoryS
 from .memory_store import MemoryStore
 
 ROOM_ROLES = ("admin", "editor", "member")
+
+
+def private_room_idle_ttl_seconds() -> int:
+    """Return the configured private-room idle retention, bounded to safe values."""
+    try:
+        configured = int(env_get("UAGENT_WEB_ROOM_IDLE_TTL_SECONDS", "86400"))
+    except (TypeError, ValueError):
+        configured = 86400
+    return min(max(configured, 60), 30 * 24 * 60 * 60)
 
 
 def configured_admin_principals() -> frozenset[str]:
@@ -62,16 +71,103 @@ class RoomAccessPolicy:
         ).fetchone()
         return str(row["session_id"] or "") if row is not None else ""
 
+    def touch_private_room(self, room_id: str, *, now: float | None = None) -> bool:
+        """Persist private-room use so idle retention follows reconnect activity."""
+        had_transaction = self._store.db.in_transaction
+        cursor = self._store.db.execute(
+            "UPDATE private_rooms SET last_activity_at = ? WHERE room_id = ?",
+            (time.time() if now is None else now, room_id),
+        )
+        if cursor.rowcount and not had_transaction and self._store.db.in_transaction:
+            self._store.db.commit()
+        return cursor.rowcount == 1
+
+    def list_expired_private_rooms(
+        self, *, cutoff: float, limit: int = 500
+    ) -> list[dict[str, str]]:
+        limit = min(max(int(limit), 1), 5000)
+        rows = self._store.db.execute(
+            "SELECT room_id, principal_id, session_id FROM private_rooms "
+            "WHERE last_activity_at <= ? ORDER BY last_activity_at LIMIT ?",
+            (cutoff, limit),
+        ).fetchall()
+        return [
+            {
+                "room_id": str(row["room_id"]),
+                "principal_id": str(row["principal_id"]),
+                "session_id": str(row["session_id"] or ""),
+            }
+            for row in rows
+        ]
+
+    def delete_private_room_if_expired(
+        self,
+        room_id: str,
+        *,
+        session_id: str,
+        cutoff: float,
+        before_delete: Callable[[str], None] | None = None,
+    ) -> bool:
+        """Delete an expired private room and its room-scoped data atomically."""
+        if self._store.db.in_transaction:
+            raise RuntimeError("private room cleanup requires its own transaction")
+        self._store.db.execute("BEGIN IMMEDIATE")
+        try:
+            row = self._store.db.execute(
+                "SELECT session_id FROM private_rooms "
+                "WHERE room_id = ? AND last_activity_at <= ?",
+                (room_id, cutoff),
+            ).fetchone()
+            if row is None or str(row["session_id"] or "") != session_id:
+                self._store.db.rollback()
+                return False
+            if before_delete is not None and session_id:
+                before_delete(session_id)
+            self._store.db.execute(
+                "DELETE FROM memory_grants WHERE memory_id IN "
+                "(SELECT memory_id FROM memories WHERE audience_type = 'room' "
+                "AND audience_id = ?)",
+                (room_id,),
+            )
+            self._store.db.execute(
+                "DELETE FROM memories WHERE audience_type = 'room' AND audience_id = ?",
+                (room_id,),
+            )
+            self._store.db.execute(
+                "DELETE FROM room_memberships WHERE room_id = ?", (room_id,)
+            )
+            self._store.db.execute(
+                "DELETE FROM room_projects WHERE room_id = ?", (room_id,)
+            )
+            self._store.db.execute(
+                "DELETE FROM private_rooms WHERE room_id = ?", (room_id,)
+            )
+            self._store.db.commit()
+            return True
+        except Exception:
+            self._store.db.rollback()
+            raise
+
     def is_private_room_for(self, principal_id: str, room_id: str) -> bool:
-        owner = self.private_room_owner(room_id)
-        if owner is None or owner != principal_id:
+        private_row = self._store.db.execute(
+            "SELECT principal_id, last_activity_at FROM private_rooms "
+            "WHERE room_id = ?",
+            (room_id,),
+        ).fetchone()
+        if private_row is None or str(private_row["principal_id"]) != principal_id:
+            return False
+        if (
+            float(private_row["last_activity_at"] or 0)
+            + private_room_idle_ttl_seconds()
+            <= time.time()
+        ):
             return False
         rows = self._store.db.execute(
             "SELECT principal_id FROM room_memberships "
             "WHERE room_id = ? AND status = 'active'",
             (room_id,),
         ).fetchall()
-        return len(rows) == 1 and str(rows[0]["principal_id"]) == owner
+        return len(rows) == 1 and str(rows[0]["principal_id"]) == principal_id
 
     def create_private_room(
         self,
@@ -124,9 +220,9 @@ class RoomAccessPolicy:
                     (room_id, project_id, principal_id, now, now),
                 )
             self._store.db.execute(
-                "INSERT INTO private_rooms(room_id, principal_id, session_id, created_at) "
-                "VALUES (?, ?, ?, ?)",
-                (room_id, principal_id, session_id, now),
+                "INSERT INTO private_rooms(room_id, principal_id, session_id, "
+                "created_at, last_activity_at) VALUES (?, ?, ?, ?, ?)",
+                (room_id, principal_id, session_id, now, now),
             )
             self._store.db.execute(
                 "INSERT INTO room_memberships(room_id, principal_id, role, status, "

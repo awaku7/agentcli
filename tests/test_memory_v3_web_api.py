@@ -454,3 +454,31 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
         client.get("/api/me/memories", params={"project_id": "second"}).status_code
         == 403
     )
+
+
+def test_denied_private_room_request_does_not_allocate_a_web_room(
+    tmp_path, monkeypatch
+):
+    principal = ["alice"]
+    resolver = _Resolver(principal)
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "demo")
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "root")
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "demo", "bob", "viewer"
+    )
+    store.close()
+
+    rooms_before = set(routes_api.web_manager.rooms)
+    response = TestClient(app).post("/api/me/private-room")
+
+    assert response.status_code == 403
+    assert set(routes_api.web_manager.rooms) == rooms_before
