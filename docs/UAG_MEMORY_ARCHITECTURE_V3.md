@@ -2,7 +2,7 @@
 
 ## 0. 位置づけ
 
-対象は `awaku7/agentcli`。当初の設計基準は v0.7.12 / `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。本書の実装状況は、最新確認済み `main` / `a674f35f703d580f6cf0d205da104b1bda503f9a` を基準に照合した。Memory関連はPR #54〜#60を含む `a0370680839a1a22f5b30a28e54c584276a24660` 時点と同一であり、その後のPR #61は別件のscheduler設計書追加である。
+対象は `awaku7/agentcli`。当初の設計基準は v0.7.12 / `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。過去の実装状況の照合基準は `main` / `a674f35f703d580f6cf0d205da104b1bda503f9a`（Memory関連はPR #54〜#60を含む `a0370680839a1a22f5b30a28e54c584276a24660` 時点）であり、これは当時のスナップショットである。その後のPR #61は別件のscheduler設計書追加だった。現行作業ツリーでの再照合結果は 0.2 を参照する。
 
 v2 で定義した次の原則を継承する。
 
@@ -23,7 +23,7 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 特定ユーザーへの共有設計は v0.7.13 / `8bec11d5cc16e1f87212033be775c651507458bb` を基準に追加した。現在は SQLite audience / revision-bound read grant、Personal / Room / shared-memory API、identity-bound projection などが実装されており、V3-4以降を一括して未実装とは扱わない。
 
-### 0.1 実装状況（PR #60 時点）
+### 0.1 実装状況（PR #60 時点・歴史的スナップショット）
 
 | 領域 | 実装済み | 残る範囲 |
 |---|---|---|
@@ -34,6 +34,28 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 | Entra OIDC（#60） | 署名検証済みgroup claims、malformed claims / overageのfail-closed | directory APIによるoverage解決、on-prem trusted proxy / IWA実環境integration |
 
 詳細なhardening履歴は [Memory v3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照する。environment-backed policy adapter は認証verifierやdirectory API clientの代替ではない。
+
+### 0.2 現行作業ツリーでの実装再照合
+
+以下は `main` / `1529a0d2a89f78a5068771196a8c25c0692d80e2`（v0.7.15）でソースを再確認した結果である。これはコードと対象テストの確認であり、production deployment、実環境のAD/IWA、全providerのstreaming、または全テストスイートの検証完了を意味しない。
+
+| 領域 | 現行ソースで確認した実装 | 未実装・運用上の境界 |
+|---|---|---|
+| Identity / authentication | `IdentityContext` / `TurnContext`、turn-local context伝播、明示mode選択、OIDC session resolver、`trusted_proxy` / `token` resolver | `oauth` / `windows_ad` / `external` は共通verifier adapterまでで、実際のcredential verifierはhost側で登録する必要がある。`local` は全利用者共通の単一principalであり、multi-user認証の代替ではない |
+| OIDC / Entra groups | OIDC検証後のgroups伝播、malformed claimsとoverageのfail-closed、環境設定によるgroup-to-policy mappingとProject / Room membership同期 | overageを解決するDirectory API、directory membershipのlive refresh、on-prem trusted proxy / IWAの実環境integration |
+| ProjectContext | configured single-projectとOIDC sessionへのproject binding、membership検証、不一致拒否、SQLiteのProject membershipとRoom-to-project binding | non-OIDC / multi-project deploymentで、認証済みworkspaceからHTTP ProjectContextを導出する経路 |
+| Personal / Room Memory・個別共有 | SQLite audience filtering、revision-bound read-only grant、Personal / Room / shared-memory API、grantの所有者検証とproject境界 | self-service参加フロー、管理UI / 運用diagnostics、deployment固有の運用手順は別途必要 |
+| Projection / revocation | scoped storeで候補化前に認可し、memory/grant/membership変更をaccess generationへ反映。LLM実行経路およびWeb stream経路にsnapshot有効性確認がある | 取消より前にproviderへ送信済み、または利用者へ配信済みの内容は回収できない。全provider・実運用条件の包括的保証は未検証 |
+| Profile | `/api/me/profile` はprincipal ID単位で読み書きし、旧 `/api/profile` 系はlocal modeに限定 | shared-room発言をPersonal Profileへ学習しない等の全評価項目は、別途regression / rollout gateで確認する |
+| rollout / evaluation | project membership取消によるsnapshot拒否などの回帰テストが存在する | V3-9全体の評価、実環境検証、authenticated multi-user / shared-roomのdefault化判断 |
+
+現行checkoutで次の対象テストを個別実行し、40件が成功した。これは全テストスイートの結果ではない。
+
+- `tests/test_memory_v3_projection.py`（5件）
+- `tests/test_memory_v3_web_api.py`（2件）
+- `tests/test_oidc_verifier.py`（18件）
+- `tests/test_oidc_sessions.py`（11件）
+- `tests/test_directory_group_policy.py`（4件）
 
 ______________________________________________________________________
 
