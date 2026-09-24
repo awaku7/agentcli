@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | 세션 저장소 활성화 또는 비활성화; 임베디드 모드에서는 `0`으로 강제 설정 |
 | `UAGENT_PLUGIN_DIRS` | 추가 플러그인 검색 디렉터리 |
 | `UAGENT_AUTO_SENTINEL` | `1`로 설정 시 단일 LLM 오토파일럿 센티넬 모드를 선택 |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | 최대 연속 신규 도구 호출 횟수 (기본값: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | 최대 연속 신규 도구 호출 횟수 (기본값: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | 사용자 작업당 최대 LLM/tool 라운드 수 (기본값: `128`) |
 | `UAGENT_SHRINK_CNT` | 메시지 내 선택적 자동 축소 임계값 (`0`/설정 없음 = 비활성화) |
 | `UAGENT_SHRINK_KEEP_LAST` | 축소 후 유지할 메시지 수 (기본값: `20`) |

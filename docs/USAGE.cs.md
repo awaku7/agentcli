@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Zapnout nebo vypnout úložiště relací; V zabudovaném režimu je vynucena hodnota `0` |
 | `UAGENT_PLUGIN_DIRS` | Další adresáře pro vyhledávání pluginů |
 | `UAGENT_AUTO_SENTINEL` | Při nastavení na `1` se zapne režim jediného automatického strážce LLM |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximální počet po sobě jdoucích nových volání nástrojů (výchozí: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximální počet po sobě jdoucích nových volání nástrojů (výchozí: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Maximální počet kol LLM/nástroje na jednu operaci uživatele (výchozí: `128`) |
 | `UAGENT_SHRINK_CNT` | Volitelná prahová hodnota pro automatické zmenšování zpráv (`0`/nenastaveno = zakázáno) |
 | `UAGENT_SHRINK_KEEP_LAST` | Počet zpráv, které se mají po zmenšení zachovat (výchozí: `20`) |

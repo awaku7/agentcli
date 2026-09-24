@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Ota istuntotallennus käyttöön tai poista se käytöstä; Sulautettu tila pakottaa arvon `0` |
 | `UAGENT_PLUGIN_DIRS` | Lisähakemistot laajennusten etsimistä varten |
 | `UAGENT_AUTO_SENTINEL` | Ota käyttöön yksittäinen LLM-autopilotti-sentinel-tila, kun asetuksena on `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Peräkkäisten uusien työkalukutsujen enimmäismäärä (oletus: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Peräkkäisten uusien työkalukutsujen enimmäismäärä (oletus: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Enimmäismäärä LLM/työkierrosta käyttäjätoimintoa kohti (oletus: `128`) |
 | `UAGENT_SHRINK_CNT` | Valinnainen viestien automaattisen pienentämisen kynnysarvo (`0`/asetusta ei määritetty = pois käytöstä) |
 | `UAGENT_SHRINK_KEEP_LAST` | Tiivistämisen jälkeen säilytettävät viestit (oletus: `20`) |

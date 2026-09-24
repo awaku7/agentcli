@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Sitzungsspeicher aktivieren oder deaktivieren; Im Embedded-Modus ist der Wert `0` erzwungen |
 | `UAGENT_PLUGIN_DIRS` | Zusätzliche Suchverzeichnisse für Plugins |
 | `UAGENT_AUTO_SENTINEL` | Aktiviert den Single-LLM-Autopilot-Sentinel-Modus, wenn auf `1` gesetzt |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximale Anzahl aufeinanderfolgender neuer Tool-Aufrufe (Standard: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximale Anzahl aufeinanderfolgender neuer Tool-Aufrufe (Standard: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Maximale Anzahl von LLM-/Tool-Runden pro Benutzeroperation (Standard: `128`) |
 | `UAGENT_SHRINK_CNT` | Optionaler Schwellenwert für die automatische Verkleinerung von Nachrichten (`0`/nicht gesetzt = deaktiviert) |
 | `UAGENT_SHRINK_KEEP_LAST` | Anzahl der nach der Verkleinerung beizubehaltenden Nachrichten (Standard: `20`) |

@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Schakel de sessieopslag in of uit; In de embedded-modus is `0` verplicht |
 | `UAGENT_PLUGIN_DIRS` | Extra zoekmappen voor plug-ins |
 | `UAGENT_AUTO_SENTINEL` | Schakel de single-LLM auto-pilot sentinel-modus in wanneer ingesteld op `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximaal aantal opeenvolgende aanroepen van nieuwe tools (standaard: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maximaal aantal opeenvolgende aanroepen van nieuwe tools (standaard: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Maximaal aantal LLM/tool-rondes per gebruikersbewerking (standaard: `128`) |
 | `UAGENT_SHRINK_CNT` | Optionele drempel voor automatisch verkleinen in berichten (`0`/niet ingesteld = uitgeschakeld) |
 | `UAGENT_SHRINK_KEEP_LAST` | Aantal berichten dat na het inkrimpen bewaard moet blijven (standaard: `20`) |

@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Aktifkan atau lumpuhkan stor sesi; Mod terbenam memaksa `0` |
 | `UAGENT_PLUGIN_DIRS` | Direktori carian pemalam tambahan |
 | `UAGENT_AUTO_SENTINEL` | Pilih untuk mod sentinel auto-pilot LLM tunggal apabila ditetapkan kepada `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Bilangan maksimum panggilan alat segar berturut-turut (lalai: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Bilangan maksimum panggilan alat segar berturut-turut (lalai: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Bilangan pusingan LLM/alat maksimum bagi setiap operasi pengguna (lalai: `128`) |
 | `UAGENT_SHRINK_CNT` | Ambang pengecutan automatik pilihan dalam mesej (`0`/tidak ditetapkan = dilumpuhkan) |
 | `UAGENT_SHRINK_KEEP_LAST` | Mesej untuk disimpan selepas penyusutan (lalai: `20`) |

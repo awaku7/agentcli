@@ -389,7 +389,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_PARALLEL_WORKERS`: Number of threads for parallel tool execution (default: `8`). Increase for more concurrency on I/O-bound tasks.
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: Automatically unload tools that haven't been used for this many LLM rounds (default: `10`). Set to `0` to disable auto-unload.
 - `UAGENT_AUTO_SENTINEL`: Set to `1` to use single-LLM auto-pilot sentinel mode. `<AUTO_CONTINUE>` continues and `<AUTO_COMPLETE>` finishes; capitalization, surrounding whitespace, and optional angle brackets are accepted. A missing or malformed marker still stops safely.
-- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: Maximum number of consecutive fresh tool calls across all tool names and arguments (default: `50`).
+- `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: Maximum consecutive LLM rounds containing fresh tool calls, regardless of tool name or arguments; parallel calls in one round count once (default: `50`).
 - `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `128`). Set higher only for workflows that require it.
 - `UAGENT_FILE_GREP_TURN_LIMIT`: Maximum actual `file_grep` executions per user turn (default: `8`). After the limit, the agent is directed to use `read_file`, an index section tool, or `code_map` instead.
 - `UAGENT_STARTUP_TIMING`: Set to `1` to print startup, stdin-loop, first-event, and first-LLM timing markers to stderr.

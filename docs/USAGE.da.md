@@ -209,7 +209,7 @@ ______________________________________________________________________
 | `UAGENT_SESSION_STORE` | Aktiver eller deaktiver sessionslageret; Indbygget tilstand tvinger `0` |
 | `UAGENT_PLUGIN_DIRS` | Yderligere søgemapper til plugins |
 | `UAGENT_AUTO_SENTINEL` | Vælg tilkobling af enkelt-LLM auto-pilot sentinel-tilstand, når indstillet til `1` |
-| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maksimalt antal på hinanden følgende nye værktøjsopkald (standard: `100`) |
+| `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT` | Maksimalt antal på hinanden følgende nye værktøjsopkald (standard: `50`) |
 | `UAGENT_MAX_TOOL_ROUNDS` | Maksimalt antal LLM/værktøjsrunder pr. brugerhandling (standard: `128`) |
 | `UAGENT_SHRINK_CNT` | Valgfri tærskel for automatisk komprimering af meddelelser (`0`/ikke indstillet = deaktiveret) |
 | `UAGENT_SHRINK_KEEP_LAST` | Beskeder, der skal bevares efter komprimering (standard: `20`) |
