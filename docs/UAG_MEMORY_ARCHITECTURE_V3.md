@@ -2,7 +2,7 @@
 
 ## 0. 位置づけ
 
-対象は `awaku7/agentcli`。当初の設計基準は v0.7.12 / `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。過去の実装状況の照合基準は `main` / `a674f35f703d580f6cf0d205da104b1bda503f9a`（Memory関連はPR #54〜#60を含む `a0370680839a1a22f5b30a28e54c584276a24660` 時点）であり、これは当時のスナップショットである。その後のPR #61は別件のscheduler設計書追加だった。現行作業ツリーでの再照合結果は 0.2 を参照する。
+対象は `awaku7/agentcli`。当初の設計基準は v0.7.12 / `4074cce99d2fe3a32b169b4095720821b0e1ad1e`。過去の実装状況の照合基準は `main` / `a674f35f703d580f6cf0d205da104b1bda503f9a`（Memory関連はPR #54〜#60を含む `a0370680839a1a22f5b30a28e54c584276a24660` 時点）であり、これは当時のスナップショットである。その後のPR #61は別件のscheduler設計書追加だった。現行実装の再照合結果は 0.3 を参照する。
 
 v2 で定義した次の原則を継承する。
 
@@ -19,7 +19,7 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 同時に、Memory のためだけに独自ログイン機構を持たず、Local / OIDC / OAuth / Trusted Proxy / Active Directory / API credential を共通の Identity contract へ正規化する。
 
-本書は設計上の契約と実装状況を併記する。設計上の必須条件や完了条件は、全項目の実装・運用検証完了を意味しない。第1章は当初の V2 baseline、第27章は実装順序を残したものであり、現在の実装済み範囲と roadmap は以下および各章の実装状況を参照する。
+本書は設計上の契約と実装状況を併記する。設計上の必須条件や完了条件は、全項目の実装・運用検証完了を意味しない。第1章は当初の V2 baseline、第27章は実装順序を残したものである。0.1 と 0.2 は過去のスナップショット、現行ソースの確認結果は 0.3、残る実装・運用上の課題は 28.1 を参照する。
 
 特定ユーザーへの共有設計は v0.7.13 / `8bec11d5cc16e1f87212033be775c651507458bb` を基準に追加した。現在は SQLite audience / revision-bound read grant、Personal / Room / shared-memory API、identity-bound projection などが実装されており、V3-4以降を一括して未実装とは扱わない。
 
@@ -35,11 +35,11 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 詳細なhardening履歴は [Memory v3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照する。environment-backed policy adapter は認証verifierやdirectory API clientの代替ではない。
 
-### 0.2 現行作業ツリーでの実装再照合
+### 0.2 v0.7.15 時点の実装再照合（歴史的スナップショット）
 
-以下は `main` / `1529a0d2a89f78a5068771196a8c25c0692d80e2`（v0.7.15）でソースを再確認した結果である。これはコードと対象テストの確認であり、production deployment、実環境のAD/IWA、全providerのstreaming、または全テストスイートの検証完了を意味しない。
+以下は `main` / `1529a0d2a89f78a5068771196a8c25c0692d80e2`（v0.7.15）でソースを再確認した結果である。後続の実装は 0.3 を参照する。これはコードと対象テストの確認であり、production deployment、実環境のAD/IWA、全providerのstreaming、または全テストスイートの検証完了を意味しない。
 
-| 領域 | 現行ソースで確認した実装 | 未実装・運用上の境界 |
+| 領域 | 当時のソースで確認した実装 | 未実装・運用上の境界 |
 |---|---|---|
 | Identity / authentication | `IdentityContext` / `TurnContext`、turn-local context伝播、明示mode選択、OIDC session resolver、`trusted_proxy` / `token` resolver | `oauth` / `windows_ad` / `external` は共通verifier adapterまでで、実際のcredential verifierはhost側で登録する必要がある。`local` は全利用者共通の単一principalであり、multi-user認証の代替ではない |
 | OIDC / Entra groups | OIDC検証後のgroups伝播、malformed claimsとoverageのfail-closed、環境設定によるgroup-to-policy mappingとProject / Room membership同期 | overageを解決するDirectory API、directory membershipのlive refresh、on-prem trusted proxy / IWAの実環境integration |
@@ -49,7 +49,7 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 | Profile | `/api/me/profile` はprincipal ID単位で読み書きし、旧 `/api/profile` 系はlocal modeに限定 | shared-room発言をPersonal Profileへ学習しない等の全評価項目は、別途regression / rollout gateで確認する |
 | rollout / evaluation | project membership取消によるsnapshot拒否などの回帰テストが存在する | V3-9全体の評価、実環境検証、authenticated multi-user / shared-roomのdefault化判断 |
 
-現行checkoutで次の対象テストを個別実行し、Project / Room Memory APIとProjection、接続先認可の回帰テストを含む55件が成功した。これは全テストスイートの結果ではない。
+当時のcheckoutで次の対象テストを個別実行し、Project / Room Memory APIとProjection、接続先認可の回帰テストを含む55件が成功した。これは全テストスイートの結果ではない。
 
 - `tests/test_memory_v3_projection.py`（7件）
 - `tests/test_memory_v3_web_api.py`（3件）
@@ -58,18 +58,18 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 - `tests/test_directory_group_policy.py`（4件）
 - `tests/test_web_connection_identity.py`（12件）
 
-### 0.3 Private Web session 実装（現在の未commit作業ツリー）
+### 0.3 現行実装再照合（`0b5d7589`）
 
-0.2 の基準commit以降に作業ツリーで追加した private Web session の実装状況を記録する。これは未commit差分の確認であり、release済み機能や本番deploymentの検証を意味しない。
+以下は `main` / `0b5d75894ba7263c14f7c2685ccb310a1f18e169`（`feat: add private Web sessions for personal memory`）までのソースと対象テストを確認した結果である。private Web sessionはこのcommitに含まれ、未commit作業ではない。記載はこのrevisionの実装状況を示すもので、production deployment、全認証方式での本番運用、または全providerのstreamingの検証完了を意味しない。
 
-| 領域 | 現在の作業ツリーで確認した実装 | 制約・未検証事項 |
+| 領域 | 現行ソースで確認した実装 | 制約・未検証事項 |
 |---|---|---|
 | Private room発行 | `/api/me/private-room` がopaqueなroomとsessionを作り、principal・project・sessionをSQLite policyにbinding。選択projectはサーバー側membershipで検証 | local modeは単一principalのtrust boundary。一般の認証方式全てでの本番運用検証は未実施 |
 | Turn / room境界 | WebSocket接続ごとにidentityを解決し、room owner・project accessを検証。private roomはownerのみ、membership変更不可。TurnContextとworkerのsession storeをroom sessionへ結び付ける | providerへ送信済みの内容を後から回収するものではない |
 | Personal Memory / Profile | 認証済みWeb UIは `/api/me/*` を利用。Memory書込みはproject editor以上、private room ownerとproject bindingを再検証。Profileはprincipal単位（local modeは従来のlocal profile） | shared-room turnへのPersonal Memory / Profile projectionは禁止。UIからの個人データ管理API利用はturn projectionとは別の操作 |
 | Session history | authenticated log list / previewをprincipal単位にfilter。private / authenticated roomでは `:load`、`:cont`、`:logs`、`:sessions` を拒否し、private turnのinput historyを共有ファイルへ保存しない | SQLite session storeがない場合、非localのログ閲覧はfail-closedで拒否 |
 
-この作業ツリーでは、対象テスト `test_memory_v3_projection.py` 8件、`test_memory_v3_web_api.py` 7件、`test_web_connection_identity.py` 12件、`test_room_access.py` 3件、`test_project_access.py` 2件が成功した（合計32件）。加えて最終コードで `python -m pytest -q . --durations=30` が成功した。production deploymentおよび全providerのstreamingは未検証である。
+このrevisionでは、対象テスト `test_memory_v3_projection.py` 8件、`test_memory_v3_web_api.py` 7件、`test_web_connection_identity.py` 12件、`test_room_access.py` 3件、`test_project_access.py` 2件が成功した（合計32件）。加えて `python -m pytest -q . --durations=30` による全テストスイートも成功した。これは当該revisionでのテスト結果であり、production deploymentや全providerのstreamingを保証するものではない。
 
 ______________________________________________________________________
 
@@ -1569,7 +1569,9 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 
 認証方式ごとに同じ Memory isolation gate を通す。
 
-### 28.1 残るroadmap（PR #60 時点）
+### 28.1 残るroadmap（現行実装との照合）
+
+以下は 0.3 の実装確認後も残る設計・運用課題である。PR #60 時点の歴史的な一覧をそのまま示すのではなく、現行revisionで未完了の項目を記す。
 
 - **Workspace-derived ProjectContext**: non-OIDC / multi-project deploymentのHTTP requestを認証済みworkspaceへbindする。既存のOIDC session selection / configured single-projectと認可契約を揃え、client指定projectだけでaccessを許可しない。
 - **Directory API adapter**: Entra group overageを信頼できるdirectory APIで解決し、group情報の鮮度・取消反映を扱う。現在のOIDC verifierには解決経路がなく、環境policy mappingのみではoverageを受け付けない。
