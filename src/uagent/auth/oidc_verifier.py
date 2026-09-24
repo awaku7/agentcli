@@ -10,6 +10,7 @@ from dataclasses import dataclass
 import hashlib
 import hmac
 import json
+from typing import Any
 from urllib.parse import urlsplit
 
 import httpx
@@ -87,14 +88,16 @@ def fetch_jwks(metadata: OIDCProviderMetadata) -> dict:
     return jwks
 
 
+def _has_group_overage(claims: dict) -> bool:
+    claim_names = claims.get("_claim_names")
+    return (isinstance(claim_names, dict) and "groups" in claim_names) or (
+        claims.get("hasgroups") is True and "groups" not in claims
+    )
+
+
 def _verified_group_claims(claims: dict) -> tuple[str, ...]:
     """Extract signed directory group IDs without accepting overage markers."""
-    claim_names = claims.get("_claim_names")
-    if isinstance(claim_names, dict) and "groups" in claim_names:
-        raise IdentityResolutionError(
-            "OIDC group overage requires a configured directory API adapter"
-        )
-    if claims.get("hasgroups") is True and "groups" not in claims:
+    if _has_group_overage(claims):
         raise IdentityResolutionError(
             "OIDC group overage requires a configured directory API adapter"
         )
@@ -111,15 +114,13 @@ def _verified_group_claims(claims: dict) -> tuple[str, ...]:
     return tuple(groups)
 
 
-def verify_id_token(
+def _verify_id_token(
     token: str,
-    *,
     metadata: OIDCProviderMetadata,
     jwks: dict,
     client_id: str,
     nonce: str,
-) -> IdentityContext:
-    """Verify signature and claims before deriving an opaque principal."""
+) -> tuple[IdentityContext, bool]:
     if not token or len(token) > 16_384 or not client_id or not nonce:
         raise IdentityResolutionError("incomplete OIDC token verification input")
     try:
@@ -159,11 +160,12 @@ def verify_id_token(
             claims["nonce"], nonce
         ):
             raise IdentityResolutionError("OIDC nonce mismatch")
-        groups = _verified_group_claims(claims)
+        group_overage = _has_group_overage(claims)
+        groups = () if group_overage else _verified_group_claims(claims)
         principal_hash = hashlib.sha256(
             (metadata.issuer + "\0" + subject).encode("utf-8")
         ).hexdigest()
-        return IdentityContext(
+        identity = IdentityContext(
             principal_id="oidc:" + principal_hash,
             authenticated=True,
             authn_kind="oidc",
@@ -172,5 +174,156 @@ def verify_id_token(
             display_name=str(claims.get("name") or ""),
             groups=groups,
         )
+        return identity, group_overage
     except (jwt.PyJWTError, ValueError, TypeError, KeyError) as exc:
         raise IdentityResolutionError("OIDC ID token verification failed") from exc
+
+
+def verify_id_token(
+    token: str,
+    *,
+    metadata: OIDCProviderMetadata,
+    jwks: dict,
+    client_id: str,
+    nonce: str,
+) -> IdentityContext:
+    """Verify signature and claims, failing closed on unresolved group overage."""
+    identity, group_overage = _verify_id_token(token, metadata, jwks, client_id, nonce)
+    if group_overage:
+        raise IdentityResolutionError(
+            "OIDC group overage requires a configured directory API adapter"
+        )
+    return identity
+
+
+def verify_id_token_with_overage(
+    token: str,
+    *,
+    metadata: OIDCProviderMetadata,
+    jwks: dict,
+    client_id: str,
+    nonce: str,
+) -> tuple[IdentityContext, bool]:
+    """Verify the token and separately report its signed overage marker."""
+    return _verify_id_token(token, metadata, jwks, client_id, nonce)
+
+
+_ENTRA_GRAPH_HOSTS = {
+    "login.microsoftonline.com": "graph.microsoft.com",
+    "login.microsoftonline.us": "graph.microsoft.us",
+    "login.chinacloudapi.cn": "microsoftgraph.chinacloudapi.cn",
+}
+_GRAPH_GROUPS_PATH = "/v1.0/me/transitiveMemberOf/microsoft.graph.group"
+_GRAPH_MAX_PAGES = 32
+_GRAPH_MAX_GROUPS = 10_000
+_GRAPH_MAX_RESPONSE_BYTES = 1_000_000
+
+
+def _is_trusted_graph_url(value: str, host: str) -> bool:
+    try:
+        parsed = urlsplit(value)
+        port = parsed.port
+    except ValueError:
+        return False
+    return (
+        parsed.scheme == "https"
+        and parsed.hostname == host
+        and port in {None, 443}
+        and parsed.username is None
+        and parsed.password is None
+        and parsed.path == _GRAPH_GROUPS_PATH
+        and not parsed.fragment
+    )
+
+
+async def resolve_entra_group_overage(
+    identity: IdentityContext,
+    access_token: str,
+    *,
+    http_client: Any,
+    configured_scopes: str,
+) -> tuple[str, ...]:
+    """Resolve signed Entra group overage from Graph without persisting tokens.
+
+    The access token must come from the same authorization-code exchange as the
+    verified ID token. Pagination URLs are restricted to the Graph host matching
+    that verified Entra issuer before the bearer token is sent.
+    """
+    issuer = urlsplit(identity.issuer)
+    graph_host = _ENTRA_GRAPH_HOSTS.get((issuer.hostname or "").lower())
+    if identity.authn_kind != "oidc" or issuer.scheme != "https" or graph_host is None:
+        raise IdentityResolutionError(
+            "group overage is supported only for configured Microsoft Entra issuers"
+        )
+    scopes = {part.strip().lower() for part in str(configured_scopes or "").split()}
+    if not any(
+        scope == "groupmember.read.all" or scope.endswith("/groupmember.read.all")
+        for scope in scopes
+    ):
+        raise IdentityResolutionError(
+            "Entra group overage requires UAGENT_OIDC_GRAPH_SCOPE with GroupMember.Read.All consent"
+        )
+    if (
+        not access_token
+        or len(access_token) > 65_536
+        or any(ord(char) < 33 for char in access_token)
+    ):
+        raise IdentityResolutionError(
+            "Entra group overage requires a valid Graph access token from the OIDC exchange"
+        )
+
+    url = f"https://{graph_host}{_GRAPH_GROUPS_PATH}?$select=id&$top=999"
+    headers = {"Authorization": f"Bearer {access_token}", "Accept": "application/json"}
+    groups: set[str] = set()
+    for _ in range(_GRAPH_MAX_PAGES):
+        if not _is_trusted_graph_url(url, graph_host):
+            raise IdentityResolutionError(
+                "Entra Graph returned an unsafe pagination URL"
+            )
+        try:
+            response = await http_client.get(
+                url,
+                headers=headers,
+                follow_redirects=False,
+                timeout=10.0,
+            )
+            response.raise_for_status()
+            content = getattr(response, "content", b"")
+            if content and len(content) > _GRAPH_MAX_RESPONSE_BYTES:
+                raise IdentityResolutionError("Entra Graph response exceeds size limit")
+            document = response.json()
+        except IdentityResolutionError:
+            raise
+        except Exception as exc:
+            raise IdentityResolutionError("Entra group lookup failed") from exc
+        if not isinstance(document, dict) or not isinstance(
+            document.get("value"), list
+        ):
+            raise IdentityResolutionError("Entra Graph returned an invalid group list")
+        for item in document["value"]:
+            if not isinstance(item, dict):
+                raise IdentityResolutionError("Entra Graph returned an invalid group")
+            group_id = item.get("id")
+            if (
+                not isinstance(group_id, str)
+                or not group_id.strip()
+                or len(group_id) > 256
+                or any(ord(char) < 32 for char in group_id)
+            ):
+                raise IdentityResolutionError(
+                    "Entra Graph returned an invalid group ID"
+                )
+            groups.add(group_id.strip())
+            if len(groups) > _GRAPH_MAX_GROUPS:
+                raise IdentityResolutionError("Entra group list exceeds size limit")
+        next_url = document.get("@odata.nextLink")
+        if not next_url:
+            return tuple(sorted(groups))
+        if not isinstance(next_url, str) or not _is_trusted_graph_url(
+            next_url, graph_host
+        ):
+            raise IdentityResolutionError(
+                "Entra Graph returned an unsafe pagination URL"
+            )
+        url = next_url
+    raise IdentityResolutionError("Entra group pagination exceeds page limit")

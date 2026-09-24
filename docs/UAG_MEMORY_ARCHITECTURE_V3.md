@@ -71,6 +71,16 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 
 このrevisionでは、対象テスト `test_memory_v3_projection.py` 8件、`test_memory_v3_web_api.py` 7件、`test_web_connection_identity.py` 12件、`test_room_access.py` 3件、`test_project_access.py` 2件が成功した（合計32件）。加えて `python -m pytest -q . --durations=30` による全テストスイートも成功した。これは当該revisionでのテスト結果であり、production deploymentや全providerのstreamingを保証するものではない。
 
+### 0.4 実装フォローアップ（未commit作業ツリー）
+
+0.3の基準commit後に実施したrepository内の実装とテストを記録する。これは現在の未commit差分の状態であり、release済み機能やproduction deploymentの検証を意味しない。
+
+| 領域 | 今回追加・確認した実装 | 残る制約・未検証事項 |
+|---|---|---|
+| Non-OIDC ProjectContext | 認証済み利用者が選んだProjectを、principal・認証設定・有効期限に結び付けたopaque cookieでserver-side SQLiteへ保存。token hashのみを保存し、APIごとにmembershipを再検証。private-room作成でも選択をbind | これは認可済みprojectのbrowser-context選択であり、deployment workspaceから既定Projectを自動導出するpolicyそのものではない |
+| Entra group overage | OIDC署名検証後、認可code交換時のBearer access tokenを一時利用し、Microsoft Graphのtransitive group APIでIDを解決。`UAGENT_OIDC_GRAPH_SCOPE`、Graph host allowlist、redirect無効化、pagination / response / group数の上限を適用。tokenはsessionやDBへ保存しない | Entra tenant側のAPI consent・実認証は未検証。login時のgroups再取得であり、session中のmembership live refresh / 即時取消反映ではない |
+| 回帰・静的検査 | ProjectContextのprincipal分離・切替・設定変更時失効、Graph paginationの安全性を回帰テストで確認。全pytest suite、Ruff、Black、Python compileを実行 | 本番AD/IWA、全provider streaming、deployment単位のrollout gateは別途検証が必要 |
+
 ______________________________________________________________________
 
 ## 1. v0.7.12 の設計開始時点（歴史的 baseline）
@@ -1267,6 +1277,12 @@ UAGENT_OIDC_ISSUER=
 UAGENT_OIDC_CLIENT_ID=
 UAGENT_OIDC_CLIENT_SECRET=
 UAGENT_OIDC_REDIRECT_URI=
+# Optional: request this delegated Microsoft Graph scope to resolve Entra group overage.
+# The Entra tenant must grant the required consent.
+UAGENT_OIDC_GRAPH_SCOPE=GroupMember.Read.All
+# Authenticated non-OIDC browser project-context lifetime/capacity
+UAGENT_PROJECT_CONTEXT_TTL=28800
+UAGENT_PROJECT_CONTEXT_MAX=4096
 
 # OAuth
 UAGENT_OAUTH_PROVIDER=
@@ -1571,12 +1587,12 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 
 ### 28.1 残るroadmap（現行実装との照合）
 
-以下は 0.3 の実装確認後も残る設計・運用課題である。PR #60 時点の歴史的な一覧をそのまま示すのではなく、現行revisionで未完了の項目を記す。
+以下は 0.4 の実装フォローアップ後も残る設計・運用課題である。PR #60 時点の歴史的な一覧をそのまま示すのではなく、現行作業ツリーで未完了の項目を記す。
 
-- **Workspace-derived ProjectContext**: non-OIDC / multi-project deploymentのHTTP requestを認証済みworkspaceへbindする。既存のOIDC session selection / configured single-projectと認可契約を揃え、client指定projectだけでaccessを許可しない。
-- **Directory API adapter**: Entra group overageを信頼できるdirectory APIで解決し、group情報の鮮度・取消反映を扱う。現在のOIDC verifierには解決経路がなく、環境policy mappingのみではoverageを受け付けない。
+- **Workspace-derived ProjectContext（部分対応）**: non-OIDCでは、認可済みproject selectionをprincipal・認証設定・期限に結び付けたserver-side SQLite contextとして保持する。deployment workspaceから既定projectを自動導出するmappingは未実装であり、client選択の前提となるmembership確認は引き続き必須。
+- **Directory API / membership freshness（部分対応）**: Entra OIDCのgroup overageは、明示設定したGraph scopeとtenant consentの下でMicrosoft Graphから解決する。session中のgroup membership live refresh・即時取消反映と、Entra以外のDirectory API adapterは未実装。
 - **On-prem trusted proxy / IWA integration**: proxy側の認証・header除去、Kerberos / Negotiate verifier、stable directory identity / verified groupsの実環境接続を検証する。resolver / policy contractの存在とproduction integration完了を区別する。
-- **Evaluation / rollout**: 各deploymentでisolation / revocation gate、migration、single-user regressionを確認してからmulti-user / shared-roomのdefault化を判断する。既存V2 local defaultは維持する。
+- **Evaluation / rollout**: repositoryのregression suiteは通過したが、各deploymentのisolation / revocation gate、migration、single-user regressionと認証方式別の実環境試験を実施し、multi-user / shared-roomのdefault化を判断する。既存V2 local defaultは維持する。
 
 ______________________________________________________________________
 

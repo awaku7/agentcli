@@ -7,17 +7,25 @@ IdentityContext. It deliberately does not create a Web session or cookie.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Any
 
 from .oidc_transactions import OIDCTransactionStore
-from .oidc_verifier import OIDCProviderMetadata, fetch_jwks, verify_id_token
+from .oidc_verifier import (
+    OIDCProviderMetadata,
+    fetch_jwks,
+    resolve_entra_group_overage,
+    verify_id_token_with_overage,
+)
+from ..env_utils import env_get
 from ..runtime.identity_context import IdentityContext, IdentityResolutionError
 
 
 @dataclass(frozen=True)
 class OIDCTokenResponse:
     id_token: str
+    access_token: str = ""
+    token_type: str = ""
 
 
 async def _exchange_code(
@@ -56,7 +64,23 @@ async def _exchange_code(
     id_token = payload.get("id_token")
     if not isinstance(id_token, str) or not id_token or len(id_token) > 16_384:
         raise IdentityResolutionError("OIDC token response missing ID token")
-    return OIDCTokenResponse(id_token=id_token)
+    access_token = payload.get("access_token", "")
+    token_type = payload.get("token_type", "")
+    if access_token is None:
+        access_token = ""
+    if token_type is None:
+        token_type = ""
+    if not isinstance(access_token, str) or len(access_token) > 65_536:
+        raise IdentityResolutionError("invalid OIDC access token response")
+    if not isinstance(token_type, str):
+        raise IdentityResolutionError("invalid OIDC token type")
+    if access_token and token_type.lower() != "bearer":
+        raise IdentityResolutionError("unsupported OIDC access token type")
+    return OIDCTokenResponse(
+        id_token=id_token,
+        access_token=access_token,
+        token_type=token_type,
+    )
 
 
 async def complete_authorization_callback(
@@ -87,13 +111,22 @@ async def complete_authorization_callback(
         http_client=http_client,
     )
     signing_keys = jwks if jwks is not None else fetch_jwks(metadata)
-    return verify_id_token(
+    identity, group_overage = verify_id_token_with_overage(
         token.id_token,
         metadata=metadata,
         jwks=signing_keys,
         client_id=client_id,
         nonce=transaction.nonce,
     )
+    if not group_overage:
+        return identity
+    groups = await resolve_entra_group_overage(
+        identity,
+        token.access_token,
+        http_client=http_client,
+        configured_scopes=str(env_get("UAGENT_OIDC_GRAPH_SCOPE", "") or ""),
+    )
+    return replace(identity, groups=groups)
 
 
 __all__ = ["OIDCTokenResponse", "complete_authorization_callback"]

@@ -28,6 +28,7 @@ from ..runtime.memory_access import (
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
 from ..runtime.session_store import project_id_from_path
 from ..runtime.project_access import ProjectAccessPolicy, ProjectMemoryService
+from ..runtime.project_context import PROJECT_CONTEXT_COOKIE, ProjectContextStore
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
 from ..auth.oidc_sessions import get_oidc_session_store
 from ..env_utils import env_get
@@ -46,12 +47,28 @@ def _request_identity(request: Request):
     return identity
 
 
+def _project_context_project(identity, request: Request, store=None) -> str:
+    token = str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "").strip()
+    if not token or identity.authn_kind in {"local", "oidc"}:
+        return ""
+    owned_store = store is None
+    active_store = store or _memory_store()
+    try:
+        return ProjectContextStore(active_store).resolve(token, identity) or ""
+    finally:
+        if owned_store:
+            active_store.close()
+
+
 def _project_id(value: str, request: Request | None = None) -> str:
     project = str(value or "").strip()
     bound = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
     if not bound and request is not None:
         token = str(request.cookies.get("uag_oidc_session") or "").strip()
         bound = get_oidc_session_store().project_id(token) or ""
+        if not bound:
+            identity = _request_identity(request)
+            bound = _project_context_project(identity, request)
     if not bound:
         raise MemoryAccessError("server project binding is required")
     if not project:
@@ -321,6 +338,8 @@ def _personal_store(
 async def create_my_private_room(request: Request):
     """Issue an opaque, owner-only room for private Web Memory/Profile turns."""
     session = None
+    project_context_token = ""
+    project_context_max_age = 0
     session_store = getattr(core, "session_store", None)
     try:
         identity = _request_identity(request)
@@ -334,7 +353,8 @@ async def create_my_private_room(request: Request):
         oidc_project = (
             get_oidc_session_store().project_id(oidc_token) if oidc_token else ""
         )
-        bound_project = configured_project or oidc_project or ""
+        project_context = _project_context_project(identity, request)
+        bound_project = configured_project or oidc_project or project_context or ""
 
         room_id = uuid4().hex
         room = web_manager.get_room(room_id)
@@ -380,7 +400,22 @@ async def create_my_private_room(request: Request):
         store = _memory_store()
         try:
             if identity.authn_kind != "local":
-                ProjectAccessPolicy(store).sync_directory_policy(identity)
+                policy = ProjectAccessPolicy(store)
+                policy.sync_directory_policy(identity)
+                policy.require_access(identity.principal_id, project_id, "viewer")
+                if (
+                    identity.authn_kind != "oidc"
+                    and not configured_project
+                    and not oidc_project
+                ):
+                    (
+                        project_context_token,
+                        project_context_max_age,
+                    ) = ProjectContextStore(store).bind(
+                        str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
+                        identity,
+                        project_id,
+                    )
             RoomAccessPolicy(store).create_private_room(
                 identity.principal_id,
                 room_id,
@@ -393,12 +428,26 @@ async def create_my_private_room(request: Request):
         room.session_id = session_id
         room.private_session = True
         room.project_id = project_id
-        return {
+        payload = {
             "ok": True,
             "room_id": room_id,
             "project_id": project_id,
             "private": True,
         }
+        if project_context_token:
+            response = JSONResponse(payload)
+            secure_cookie = str(env_get("UAGENT_OIDC_COOKIE_SECURE", "1") or "")
+            response.set_cookie(
+                PROJECT_CONTEXT_COOKIE,
+                project_context_token,
+                max_age=project_context_max_age,
+                httponly=True,
+                secure=secure_cookie.strip().lower() not in {"0", "false", "no", "off"},
+                samesite="lax",
+                path="/",
+            )
+            return response
+        return payload
     except Exception as exc:
         if session is not None and session_store is not None:
             try:
@@ -608,10 +657,17 @@ async def get_my_projects(request: Request):
             policy.sync_directory_policy(identity)
             configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
             token = str(request.cookies.get("uag_oidc_session") or "").strip()
-            bound = configured or get_oidc_session_store().project_id(token) or ""
+            oidc_bound = get_oidc_session_store().project_id(token) or ""
+            if configured:
+                policy.require_access(identity.principal_id, configured, "viewer")
+                return {
+                    "ok": True,
+                    "projects": [configured],
+                    "bound_project": configured,
+                }
+            bound = oidc_bound or _project_context_project(identity, request, store)
             if bound:
                 policy.require_access(identity.principal_id, bound, "viewer")
-                return {"ok": True, "projects": [bound], "bound_project": bound}
             if policy.is_global_admin(identity.principal_id):
                 rows = store.db.execute(
                     "SELECT project_id FROM projects WHERE status='active' "
@@ -628,7 +684,7 @@ async def get_my_projects(request: Request):
             return {
                 "ok": True,
                 "projects": [str(row["project_id"]) for row in rows],
-                "bound_project": "",
+                "bound_project": bound,
             }
         finally:
             store.close()
@@ -657,11 +713,33 @@ async def select_project_context(request: Request):
                 raise MemoryAccessError("project is not bound to this server context")
             return {"ok": True, "project_id": project_id}
         token = str(request.cookies.get("uag_oidc_session") or "").strip()
-        if not token or not get_oidc_session_store().bind_project(token, project_id):
+        if token and get_oidc_session_store().bind_project(token, project_id):
+            return {"ok": True, "project_id": project_id}
+        if identity.authn_kind == "oidc":
             raise IdentityResolutionError(
                 "authenticated project session is unavailable"
             )
-        return {"ok": True, "project_id": project_id}
+        context_store = _memory_store()
+        try:
+            context_token, ttl = ProjectContextStore(context_store).bind(
+                str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
+                identity,
+                project_id,
+            )
+        finally:
+            context_store.close()
+        response = JSONResponse({"ok": True, "project_id": project_id})
+        secure_cookie = str(env_get("UAGENT_OIDC_COOKIE_SECURE", "1") or "")
+        response.set_cookie(
+            PROJECT_CONTEXT_COOKIE,
+            context_token,
+            max_age=ttl,
+            httponly=True,
+            secure=secure_cookie.strip().lower() not in {"0", "false", "no", "off"},
+            samesite="lax",
+            path="/",
+        )
+        return response
     except Exception as exc:
         return _memory_error(exc)
 

@@ -169,3 +169,23 @@ def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch
         assert authentication_configuration_fingerprint() != before
     finally:
         register_enterprise_identity_verifier("external", None)
+
+
+def test_oidc_graph_scope_is_validated_and_revision_bound(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
+    monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
+    monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://app.example/callback")
+    monkeypatch.setenv("UAGENT_OIDC_GRAPH_SCOPE", "GroupMember.Read.All")
+    before = authentication_configuration_fingerprint()
+    assert validate_authentication_configuration().configured is True
+
+    monkeypatch.setenv("UAGENT_OIDC_GRAPH_SCOPE", "Directory.Read.All")
+    after = authentication_configuration_fingerprint()
+    assert after != before
+    assert validate_authentication_configuration().configured is True
+
+    monkeypatch.setenv("UAGENT_OIDC_GRAPH_SCOPE", "GroupMember.Read.All&other=value")
+    status = validate_authentication_configuration()
+    assert status.configured is False
+    assert "UAGENT_OIDC_GRAPH_SCOPE contains an invalid scope" in status.diagnostics

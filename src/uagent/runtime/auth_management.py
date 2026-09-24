@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 import hashlib
 import json
+import re
 from urllib.parse import urlsplit
 
 from ..env_utils import env_get
@@ -36,6 +37,7 @@ _MODE_SETTINGS = {
         "UAGENT_OIDC_CLIENT_SECRET",
         "UAGENT_OIDC_REDIRECT_URI",
         "UAGENT_OIDC_COOKIE_SECURE",
+        "UAGENT_OIDC_GRAPH_SCOPE",
         "UAGENT_OIDC_SESSION_TTL",
         "UAGENT_OIDC_SESSION_MAX",
     ),
@@ -158,6 +160,11 @@ def validate_authentication_configuration(
             diagnostics.append("UAGENT_OIDC_ISSUER must be a valid HTTPS URL")
         if redirect and not _valid_redirect_uri(redirect):
             diagnostics.append("UAGENT_OIDC_REDIRECT_URI must be an HTTP(S) URL")
+        extra_scopes = _value("UAGENT_OIDC_GRAPH_SCOPE").split()
+        if any(not re.fullmatch(r"[A-Za-z0-9._:/-]+", scope) for scope in extra_scopes):
+            diagnostics.append("UAGENT_OIDC_GRAPH_SCOPE contains an invalid scope")
+        if len(extra_scopes) != len(set(extra_scopes)):
+            diagnostics.append("UAGENT_OIDC_GRAPH_SCOPE contains duplicate scopes")
         for name, default in (
             ("UAGENT_OIDC_SESSION_TTL", 28800),
             ("UAGENT_OIDC_SESSION_MAX", 4096),

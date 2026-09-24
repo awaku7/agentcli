@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from urllib.parse import urlencode
+import re
 import secrets
+from urllib.parse import urlencode
 
 import httpx
 from fastapi import Request
@@ -37,6 +38,20 @@ _transactions = OIDCTransactionStore(ttl_seconds=_OIDC_TRANSACTION_TTL)
 def _cookie_secure() -> bool:
     value = str(env_get("UAGENT_OIDC_COOKIE_SECURE", "1") or "").strip().lower()
     return value not in {"0", "false", "no", "off"}
+
+
+def _oidc_scopes() -> str:
+    raw = str(env_get("UAGENT_OIDC_GRAPH_SCOPE", "") or "").strip()
+    extra = raw.split()
+    if any(not re.fullmatch(r"[A-Za-z0-9._:/-]+", scope) for scope in extra):
+        raise IdentityConfigurationError(
+            "UAGENT_OIDC_GRAPH_SCOPE contains an invalid scope"
+        )
+    if len(extra) != len(set(extra)):
+        raise IdentityConfigurationError(
+            "UAGENT_OIDC_GRAPH_SCOPE contains duplicate scopes"
+        )
+    return " ".join(dict.fromkeys(("openid", "profile", *extra)))
 
 
 def _oidc_config() -> tuple[object, str, str, str]:
@@ -86,7 +101,7 @@ async def oidc_login(request: Request):
                 "response_type": "code",
                 "client_id": client_id,
                 "redirect_uri": redirect_uri,
-                "scope": "openid profile",
+                "scope": _oidc_scopes(),
                 "state": transaction.state,
                 "nonce": transaction.nonce,
                 "code_challenge": transaction.code_challenge,

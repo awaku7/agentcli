@@ -396,20 +396,22 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
     monkeypatch.delenv("UAGENT_MEMORY_PROJECT", raising=False)
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
 
     from uagent.runtime.memory_store import MemoryStore
     from uagent.runtime.project_access import ProjectAccessPolicy
 
     store = MemoryStore(tmp_path / "memory.sqlite3")
-    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
-        "root", "demo", "alice", "viewer"
-    )
+    project_policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    project_policy.set_membership("root", "demo", "alice", "viewer")
+    project_policy.set_membership("root", "second", "alice", "viewer")
     store.close()
     client = TestClient(app)
 
     projects = client.get("/api/me/projects")
     assert projects.status_code == 200
-    assert projects.json()["projects"] == ["demo"]
+    assert projects.json()["projects"] == ["demo", "second"]
     missing_selection = client.post("/api/me/private-room")
     assert missing_selection.status_code == 403
 
@@ -420,3 +422,35 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
 
     denied = client.post("/api/me/private-room", json={"project_id": "other"})
     assert denied.status_code == 403
+
+    selected = client.post("/api/project-context", json={"project_id": "demo"})
+    assert selected.status_code == 200
+    assert "httponly" in selected.headers["set-cookie"].lower()
+    selected_projects = client.get("/api/me/projects").json()
+    assert selected_projects["projects"] == ["demo", "second"]
+    assert selected_projects["bound_project"] == "demo"
+    assert (
+        client.get("/api/me/memories", params={"project_id": "demo"}).status_code == 200
+    )
+    assert (
+        client.get("/api/me/memories", params={"project_id": "other"}).status_code
+        == 403
+    )
+
+    resolver.principal[0] = "mallory"
+    assert (
+        client.get("/api/me/memories", params={"project_id": "demo"}).status_code == 403
+    )
+    resolver.principal[0] = "alice"
+    assert client.get("/api/me/projects").json()["bound_project"] == "demo"
+    switched = client.post("/api/project-context", json={"project_id": "second"})
+    assert switched.status_code == 200
+    assert client.get("/api/me/projects").json()["bound_project"] == "second"
+    context_bound_room = client.post("/api/me/private-room")
+    assert context_bound_room.status_code == 200
+    assert context_bound_room.json()["project_id"] == "second"
+    monkeypatch.setenv("UAGENT_PROJECT_CONTEXT_TTL", "3600")
+    assert (
+        client.get("/api/me/memories", params={"project_id": "second"}).status_code
+        == 403
+    )

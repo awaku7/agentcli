@@ -8,7 +8,7 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-SCHEMA_VERSION = 4
+SCHEMA_VERSION = 5
 
 
 class MemoryStoreConflictError(RuntimeError):
@@ -158,6 +158,16 @@ class MemoryStore:
         self.db.execute(
             "CREATE INDEX IF NOT EXISTS idx_project_memberships_principal "
             "ON project_memberships(principal_id, project_id, status)"
+        )
+        self.db.execute(
+            "CREATE TABLE IF NOT EXISTS project_context_sessions ("
+            "token_hash TEXT PRIMARY KEY, principal_id TEXT NOT NULL, "
+            "project_id TEXT NOT NULL, configuration_fingerprint TEXT NOT NULL, "
+            "expires_at REAL NOT NULL, created_at REAL NOT NULL)"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_project_context_sessions_expiry "
+            "ON project_context_sessions(expires_at)"
         )
         self.db.execute(
             "CREATE TABLE IF NOT EXISTS room_projects ("
