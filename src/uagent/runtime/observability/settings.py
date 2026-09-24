@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
-from typing import Mapping
+from typing import Mapping, Sequence
 
 _TRUE_VALUES = {"1", "true", "yes", "on"}
 _FALSE_VALUES = {"0", "false", "no", "off"}
@@ -19,6 +19,28 @@ def _parse_bool(value: str | None, *, default: bool = False) -> bool:
     if normalized in _FALSE_VALUES:
         return False
     return default
+
+
+def consume_otel_cli_flags(arguments: Sequence[str]) -> tuple[bool | None, list[str]]:
+    """Consume ``--otel`` / ``--no-otel`` while preserving other arguments.
+
+    ``parse_startup_args`` intentionally accepts unknown values so an initial file
+    can remain positional. Keeping OTel flag extraction isolated here avoids
+    making the generic startup parser the source of observability policy.
+    The last explicit OTel flag wins, matching normal argparse behavior.
+    """
+
+    explicit_enabled: bool | None = None
+    remaining: list[str] = []
+    for argument in arguments:
+        if argument == "--otel":
+            explicit_enabled = True
+            continue
+        if argument == "--no-otel":
+            explicit_enabled = False
+            continue
+        remaining.append(argument)
+    return explicit_enabled, remaining
 
 
 @dataclass(frozen=True)
