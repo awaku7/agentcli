@@ -20,7 +20,7 @@
 - Priority: P0
 - Source: [`docs/UAG_0_7_14_IMPLEMENTATION_REVIEW.md`](../UAG_0_7_14_IMPLEMENTATION_REVIEW.md)、[`docs/UAG_MEMORY_V3_SECURITY_HARDENING.md`](../UAG_MEMORY_V3_SECURITY_HARDENING.md)、[`docs/UAG_MEMORY_ARCHITECTURE_V3.md`](../UAG_MEMORY_ARCHITECTURE_V3.md)
 
-### v0.7.14までに実装済み
+### 実装済み
 
 - authenticated Identity / TurnContextとWebSocket identity binding
 - OIDC Authorization Code + PKCE、ID token検証、server-side session
@@ -32,10 +32,10 @@
 - verified Entra group claimのpolicy input
 - safe authentication status / configuration invalidation
 - legacy `/api/memories` / `/api/profile` のlocal-mode制限
+- Web Memory APIのrequest境界cleanupとauthorization failure時のSQLite store回収
 
 ### 残作業
 
-1. Web Memory APIのauthorization failure経路でSQLite store lifetimeをexception-safeにする。
 1. non-OIDC multi-user / multi-project向けにserver-derived ProjectContextを追加する。
 1. Entra group overageとmembership freshness / revocationを扱うtrusted Directory API adapterを実装する。
 1. multi-instance / HAを行う前にdurable OIDC session設計を決める。
@@ -85,31 +85,50 @@
 
 ## P1: Scheduler durable dispatch
 
-- Status: planned
+- Status: in-progress
 - Priority: P1
 - Source: [`docs/UAG_0_7_14_IMPLEMENTATION_REVIEW.md`](../UAG_0_7_14_IMPLEMENTATION_REVIEW.md)、[`docs/SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md`](../SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md)
 
 ### 背景
 
-v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler instance ownershipが入ったため、複数processによる同一schedule選択の競合は大幅に改善された。
+v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler instance ownershipが入り、複数processによる同一schedule選択の競合は大幅に改善された。
 
-一方、現行`SchedulerService`はrunをpersistしschedule claimをfinalizeした後にin-process sinkへeventを渡す。sink failureが発生すると、run/schedule stateだけが進み、execution eventが届かない可能性がある。claim leaseはschedule selection leaseであり、task execution全体のdurable leaseではない。
+その後、schedule確定後にin-process sinkが失敗するとexecution eventだけが失われ得る問題に対し、SQLite-backed outboxを導入した。schedule stateとdispatch eventを同じtransactionで確定し、通常のCLI/GUI queueではconsumer dequeueまでoutboxをpending/leasedとして保持する。
 
-### 対象
+### 実装済み
 
-- persisted outbox / pending-dispatch state
-- sink acceptance前後のstate transition
-- process crash後のre-dispatch
-- idempotency keyを使ったduplicate execution防止
-- dispatch / execution / retry / terminal stateの用語整理
-- multi-instance failure injection test
+- SQLite `scheduler_events` outboxとpending / delivered / invalid状態
+- schedule finalizationとoutbox insertの同一transaction化
+- event claim lease、retry可能時刻、attempt count、last error
+- sink `put()` failure時のclaim解放と再配信
+- CLI/GUI `queue.Queue` のconsumer dequeue ACK
+- at-least-once deliveryと、`SchedulerRun` execution stateの分離
+- 同一run内の先行pending eventによる順序保証
+- `run_id` / `(schedule_id, due_at)` idempotencyによるrun再利用
+- 別scheduler instanceによるpending eventの自動取得防止
+- 旧instanceのschedule / pending eventを同一transactionで移す明示的orphan reclaim
+- reclaim時の旧owner監査情報 `reclaimed_from_instance_id`
+- sink failure、run作成後crash、outbox commit後/dequeue前crash、claim lossを模擬する回帰テスト
+- ユーザー向け`set_timer`文書の日英更新とdispatch / execution用語の整理
+
+### 残作業
+
+1. `session_id`、principal、project、room、authentication configuration fingerprintを再検証してからreclaimするidentity-bound reclaim serviceを追加する。
+1. 実processを複数起動し、schedule claim前／run作成後／outbox commit後／queue put後／consumer ACK前後でprocess killするfailure injection testを追加する。
+1. multi-process execution stateまで共有する場合に備え、JSON-backed `SchedulerRunStore` のSQLite統合またはcross-process-safe claim方式を決める。
+1. delivered / invalid outbox rowのretention・cleanup方針を決める。
+1. authenticated multi-user環境での自動orphan recoveryは、identity-bound reclaim完成まで有効化しない。
 
 ### 受け入れ条件
 
-- schedule選択後、sink/process failureだけでjobがsilent lossしない。
-- crash recoveryでpending runを再dispatchできる。
-- 同一`idempotency_key`のrunを二重実行しない。
-- claim leaseとexecution guaranteeをドキュメント上で混同しない。
+- schedule選択後、sink failureだけでjobがsilent lossしない。**実装済み**
+- schedule確定とdispatch event生成の間にtransaction gapがない。**実装済み**
+- consumer dequeue前にprocessが停止してもpending outboxが残る。**実装済み**
+- crash recoveryで同じidempotent runを再利用してeventを再dispatchできる。**回帰テスト済み**
+- 同一`idempotency_key`のrunを二重生成しない。**回帰テスト済み**
+- claim lease、dispatch delivery、run execution completionをドキュメント上で混同しない。**反映済み**
+- 別instanceへreclaimするときに現在のidentity / authorizationを必ず再検証する。**未完了**
+- 実process killを含むmulti-process failure injectionが通る。**未完了**
 
 ## P1: [Network Toolkitの運用品質向上](network-toolkit.md)
 
@@ -256,6 +275,8 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 | 日付 | 内容 |
 |---|---|
+| 2026-09-24 | Scheduler durable dispatchのSQLite outbox、dequeue ACK、明示orphan reclaim実装を反映 |
+| 2026-09-24 | Web Memory request cleanup実装を反映し、Memory V3残作業を更新 |
 | 2026-09-24 | v0.7.14実装レビューを反映し、Memory V3 rollout/security completionをP0、Scheduler durable dispatchをP1へ追加 |
 | 2026-09-23 | GitLab MCP / OAuth連携計画をP1へ追加 |
 | 2026-08-06 | 初版。既存ドキュメントの未実装・将来対応項目を集約 |

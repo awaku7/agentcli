@@ -36,6 +36,28 @@ LLMラウンドを実行せず、1つの明示的なツールをタイマーか�
 `direct` と `os_persist=true` の併用はできません。OSジョブは別プロセスで
 `uag`を起動するため、通常の注入メッセージ経路を使用します。
 
+## 配信の永続性
+
+内部タイマーのイベントはSQLite-backed outboxを使用します。
+Schedulerはscheduleの状態遷移とdispatch eventを同じtransactionで確定してから、
+in-process queueへイベントを渡します。
+
+通常のCLI/GUI queueでは、consumerがイベントをqueueから取り出した時点で
+outboxをACKします。queueへの配信に失敗した場合はeventをpendingのまま保持して
+再試行します。processがdequeue前に終了しても、pending eventは永続化されたまま残り、
+silent lossしません。
+
+配信保証は **at least once** です。そのため、ごくまれに同じscheduler eventが
+再配信される可能性があります。ただしscheduled tool / LLM実行は、永続化された
+`run_id` とidempotency状態を使って同じrunの二重実行を防ぎます。
+outboxの`delivered`は「consumerへeventが到達した」状態であり、scheduled runが
+成功完了したことを意味しません。
+
+内部タイマーの状態はscheduler instanceに束縛されます。別UAG processが、別instanceの
+pending timerやeventを自動的に消費することはありません。process再起動後の復旧は
+明示的なownership reclaimとして扱い、保存済みsession / authentication境界を
+再検証した後にだけ実施します。
+
 ## 一覧表示と削除
 
 `{"action":"list"}` で内部タイマーとOSタイマーを一覧表示します。
