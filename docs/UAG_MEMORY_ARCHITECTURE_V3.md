@@ -514,7 +514,7 @@ custom adapter未登録時には `UAGENT_DIRECTORY_GROUP_POLICY` のstrict JSON 
 
 `ProjectAccessPolicy.sync_directory_policy()` はproject-scoped Personal / Room APIとMemory Projectionの認可前にassignmentを同期する。project assignmentは通常 `viewer`、administrator assignmentでは `admin` となる。room assignmentは、そのroomがassignment内のprojectに既にbindされている場合だけ適用する。
 
-同期では `granted_by='directory-policy'` のmembershipだけをreconcileし、assignmentから外れたProject / Room membershipをrevokeする。手動membershipを上書き・取消しせず、既存の高いdirectory由来project roleも保持するため、すべてのrole downgradeをdirectoryへ完全追従する実装とは扱わない。SQLiteには導出したmembership / role / revisionを保存し、raw group claimsを保存しない。検証済みgroup IDはprocess内のIdentityContext / TurnContextに保持される。
+同期では `granted_by='directory-policy'` のmembershipだけをreconcileし、assignmentから外れたProject / Room membershipをrevokeする。手動membershipは上書き・取消しせず保護する。一方、directory-policy由来のProject roleは現在のauthoritative group mappingへ追従し、例えばadministrator assignmentを失ってviewer assignmentだけが残った場合は `admin` から `viewer` へ降格する。SQLiteには導出したmembership / role / revisionを保存し、raw group claimsを保存しない。検証済みgroup IDはprocess内のIdentityContext / TurnContextに保持される。
 
 根拠は `src/uagent/runtime/project_access.py` と `tests/test_directory_group_policy.py`。on-prem ADのtrusted proxy / IWA verifier接続、directory APIによるgroup取得・overage解決はroadmapである。
 
