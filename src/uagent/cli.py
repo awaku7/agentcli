@@ -12,11 +12,13 @@ import uagent.runtime.runtime_init  # noqa: F401
 
 from .cli_impl.startup import (
     INITIAL_FILE_ARG,
+    OBSERVABILITY_SETTINGS,
     OpenAI,
     UAGENT_EMBEDDED,
     UAGENT_ENABLE_TOOLS,
     UAGENT_INJECT_MESSAGE,
     UAGENT_NON_INTERACTIVE,
+    UAGENT_OTEL_ENABLED,
     UAGENT_REALTIME,
     UAGENT_TOOL_GENRE_MASK,
     _cli_workdir,
@@ -53,11 +55,13 @@ from .cli_impl.stdin_loop import stdin_loop
 
 __all__ = [
     "INITIAL_FILE_ARG",
+    "OBSERVABILITY_SETTINGS",
     "OpenAI",
     "UAGENT_EMBEDDED",
     "UAGENT_ENABLE_TOOLS",
     "UAGENT_INJECT_MESSAGE",
     "UAGENT_NON_INTERACTIVE",
+    "UAGENT_OTEL_ENABLED",
     "UAGENT_REALTIME",
     "UAGENT_TOOL_GENRE_MASK",
     "_CLI_SHUTDOWN",
