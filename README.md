@@ -4,6 +4,11 @@
 
 <h1 align="center">uag</h1>
 
+**Session portability:** use `uag session export <id> -o work.uag`,
+`uag session import work.uag`, then `uag session resume <new-id>` to continue an
+encrypted conversation on another installation. See [Session Portability v1](docs/SESSION_PORTABILITY.md)
+for passphrases, Web APIs, security boundaries and exclusions.
+
 <p align="center">
   <strong>Universal AI Gateway</strong><br>
   One local agent. Any model. Any tool. Your environment, your rules.

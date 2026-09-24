@@ -30,6 +30,20 @@ def bind_session(
         pass
 
 
+def clear_response_continuation_state(core: Any) -> None:
+    """Drop provider continuation IDs before switching to unrelated history."""
+    response_state = getattr(core, "responses_state", None)
+    if not isinstance(response_state, dict):
+        return
+    for key in (
+        "previous_response_id",
+        "active_response_id",
+        "_stale_rid_occurred",
+        "last_response_status",
+    ):
+        response_state.pop(key, None)
+
+
 def apply_persisted_state(core: Any, plan: SessionRestorePlan) -> None:
     """Apply tool, agent, and Responses continuation state to a host core."""
     if plan.agent_state is not None:
@@ -45,10 +59,12 @@ def apply_persisted_state(core: Any, plan: SessionRestorePlan) -> None:
     if hasattr(core, "tool_context"):
         core.tool_context.clear()
         core.tool_context.update(plan.tool_context)
+    response_state = getattr(core, "responses_state", None)
+    if isinstance(response_state, dict):
+        clear_response_continuation_state(core)
     state = plan.response_state
     if state is None:
         return
-    response_state = getattr(core, "responses_state", None)
     if isinstance(response_state, dict):
         response_state.update(
             {
@@ -60,4 +76,8 @@ def apply_persisted_state(core: Any, plan: SessionRestorePlan) -> None:
         )
 
 
-__all__ = ["apply_persisted_state", "bind_session"]
+__all__ = [
+    "apply_persisted_state",
+    "bind_session",
+    "clear_response_continuation_state",
+]

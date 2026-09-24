@@ -1156,6 +1156,40 @@ def _handle_cmd_sessions(
     command = parts[0].lower() if parts else ""
     store = getattr(core, "session_store", None)
     session_id = getattr(core, "session_id", None)
+    if command in {"export", "import-uag"}:
+        # Passphrases must never pass through chat, Web commands, tool args,
+        # command history or the model. Web has dedicated authenticated APIs.
+        if getattr(core, "_is_web", False):
+            print(_("Use the authenticated session transfer API in Web."))
+            return True
+        if store is None:
+            print(_("[sessions] Session store is not enabled."))
+            return True
+        import shlex
+        from .session_cli import read_passphrase
+        from .runtime.session_portability import export_file, import_file
+
+        try:
+            operands = [p.strip("\"'") for p in shlex.split(arg, posix=False)][1:]
+            if command == "export" and len(operands) == 2:
+                export_file(
+                    store, operands[0], operands[1], read_passphrase(confirm=True)
+                )
+                print(_("Encrypted session exported."))
+            elif command == "import-uag" and len(operands) == 1:
+                imported = import_file(store, operands[0], read_passphrase())
+                print(_("Imported session: %(id)s") % {"id": imported.session_id})
+            else:
+                print(
+                    _(
+                        "Usage: :sessions export <id> <file.uag> | :sessions import-uag <file.uag>"
+                    )
+                )
+        except Exception:
+            print(_("Session transfer failed; check the file and passphrase."))
+        return True
+    if command == "resume":
+        command = "load"
     if command == "prune":
         if store is None:
             print(_("[sessions] Session store is not enabled."))

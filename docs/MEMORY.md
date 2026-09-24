@@ -1,5 +1,10 @@
 # Memory and Profile
 
+Portable `.uag` packages retain only unresolved Memory reference IDs; they do not
+transfer Memory records, projections, grants, identity or ProjectContext tokens.
+Import/resume uses destination authentication and policy. See
+[Session Portability v1](SESSION_PORTABILITY.md).
+
 Status: **Current runtime reference for uag v0.7.14.**
 
 This document describes the Memory/Profile behavior users and integrators should expect today. Historical V2 design rationale lives in `UAG_MEMORY_ARCHITECTURE_V2.md`; authenticated multi-user architecture and security invariants live in `UAG_MEMORY_ARCHITECTURE_V3.md`.

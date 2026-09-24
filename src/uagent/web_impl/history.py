@@ -65,6 +65,8 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             pass
 
         room.history = tools_util.build_initial_messages(core=core)
+        room.history.extend(getattr(room, "portable_history", []))
+        room.portable_history = []
         room.history_initialized = True
 
         # Surface instruction-load result in the Web chat (print alone is console-only).
