@@ -80,9 +80,7 @@ class ObservabilitySettings:
                 env.get("UAGENT_OTEL_CAPTURE_CONTENT"), default=False
             )
             capture_content_source = (
-                "environment"
-                if "UAGENT_OTEL_CAPTURE_CONTENT" in env
-                else "default"
+                "environment" if "UAGENT_OTEL_CAPTURE_CONTENT" in env else "default"
             )
         else:
             capture_content = bool(explicit_capture_content)
