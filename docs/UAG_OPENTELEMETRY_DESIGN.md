@@ -528,6 +528,7 @@ Key rules:
 10. Authorization is revalidated according to existing UAG policy even when trace context already exists.
 11. OTel auto-install is process-level and never per user/room.
 12. External trace backends are operator/admin surfaces by default; user-visible trace access requires UAG authorization mediation.
+13. An OIDC browser session may create many independent Agent traces; neither `trace_id` nor `correlation_id` becomes the OIDC session identifier.
 
 ## 15. Sub-Agent and multi-agent tracing
 
