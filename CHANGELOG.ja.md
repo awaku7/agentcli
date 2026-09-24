@@ -1,4 +1,18 @@
 # 変更履歴
+
+## [0.7.16] - 2026-09-24
+
+### 追加
+
+- CLIとWeb APIから利用できる、暗号化UAG sessionのエクスポート/インポート機能v1を追加。
+- ツール呼び出しサイクルの反復を検知し、エージェントのループを停止する機能を追加。
+
+### 変更
+
+- 連続ツールラウンドに上限を設け、spinnerを安全に終了し、loop guard停止時に古いResponses API continuation IDを消去。
+- `llmcapa`を`0.5.42`に固定。
+- Auto-pilotの停止動作を明確化し、Memory V3の状態ドキュメントを現状に合わせて更新。
+
 ## [0.7.15] - 2026-09-24
 
 ### 追加
@@ -11,7 +25,6 @@
 
 - scheduler serviceおよびstorage moduleにBlack formatterを適用。
 - runtime初期化と永続化された内部timer配送のドキュメントを明確化。
-
 
 ## [0.7.14] - 2026-09-24
 

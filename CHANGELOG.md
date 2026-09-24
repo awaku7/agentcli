@@ -1,4 +1,18 @@
 # Changelog
+
+## [0.7.16] - 2026-09-24
+
+### Added
+
+- Add encrypted UAG session export/import portability v1 through the CLI and Web API.
+- Detect repeated tool-call cycles to stop runaway agent loops.
+
+### Changed
+
+- Bound consecutive tool rounds, finalize spinners safely, and clear stale Responses API continuation IDs when guards stop execution.
+- Pin `llmcapa` to version `0.5.42`.
+- Clarify Auto-pilot stop behavior and reconcile Memory V3 status documentation.
+
 ## [0.7.15] - 2026-09-24
 
 ### Added
@@ -11,7 +25,6 @@
 
 - Apply Black formatting to scheduler service and storage modules.
 - Clarify runtime initialization and durable internal timer delivery documentation.
-
 
 ## [0.7.14] - 2026-09-24
 
