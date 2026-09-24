@@ -84,9 +84,7 @@ def test_process_wide_web_controls_require_auth_and_admin(monkeypatch):
     resolver.authenticated = True
     assert client.get("/api/tools-enabled").status_code == 200
     assert client.get("/api/tool-genres").status_code == 200
-    assert (
-        client.post("/api/tools-enabled", json={"enabled": False}).status_code == 403
-    )
+    assert client.post("/api/tools-enabled", json={"enabled": False}).status_code == 403
     assert (
         client.post(
             "/api/tool-genres",
@@ -106,9 +104,7 @@ def test_process_wide_web_controls_require_auth_and_admin(monkeypatch):
 
     resolver.principal = "admin"
     assert client.get("/api/artifacts/cleanup/report").status_code == 200
-    assert (
-        client.post("/api/tools-enabled", json={"enabled": True}).status_code == 200
-    )
+    assert client.post("/api/tools-enabled", json={"enabled": True}).status_code == 200
     assert (
         client.post(
             "/api/tool-genres",
