@@ -2,7 +2,7 @@
 
 Status: Design only  
 Target: post-v0.7.16  
-Scope: observability architecture, OpenTelemetry integration boundary, signal model, privacy, propagation, rollout  
+Scope: observability architecture, OpenTelemetry integration boundary, automatic dependency installation, signal model, privacy, propagation, rollout  
 Non-goal: this document does not implement OpenTelemetry.
 
 ## 1. Purpose
@@ -15,11 +15,15 @@ The central rule is:
 
 > UAG owns the observability model. OpenTelemetry is one projection/export backend of that model.
 
-This keeps UAG stable when OpenTelemetry GenAI semantic conventions evolve and preserves the existing local structured logging and debugging experience.
+A second product rule is:
+
+> When the user enables OpenTelemetry, UAG installs the required OpenTelemetry packages automatically through the existing UAG auto-install mechanism unless the user's auto-install policy forbids it.
+
+Users should not normally need to run a separate `pip install` command merely to turn tracing on.
 
 ## 2. Current UAG baseline
 
-The current runtime already contains most of the information required for useful tracing.
+The current runtime already contains most information required for useful tracing.
 
 - `runtime/logging_setup.py`
   - stable `event_code`
@@ -38,7 +42,7 @@ The current runtime already contains most of the information required for useful
   - estimated request tokens
   - provider usage deltas
   - projection/tool-schema sizes
-  - retry/recovery related summary fields
+  - retry/recovery summary fields
 - `tools/__init__.py`
   - centralized tool execution boundary
   - tool completion/failure events
@@ -49,8 +53,13 @@ The current runtime already contains most of the information required for useful
   - explicit Context Decision Log
 - A2A/Sub-Agent/MCP
   - distributed or nested execution boundaries that benefit from trace propagation
+- `_pip_auto.py`
+  - allowlisted first-use package installation
+  - `UAGENT_AUTO_INSTALL=allow|prompt|off`
+  - localized installation status
+  - version checking and repair/reinstall support through `install_with_status()`
 
-OpenTelemetry should therefore be added as an adapter around these boundaries rather than by instrumenting provider SDKs independently.
+OpenTelemetry should therefore be added as an adapter around existing UAG boundaries and should reuse the existing auto-install policy instead of introducing a second dependency installer.
 
 ## 3. Goals
 
@@ -61,9 +70,11 @@ OpenTelemetry should therefore be added as an adapter around these boundaries ra
 3. Export traces and metrics through OTLP to an OpenTelemetry Collector or compatible backend.
 4. Correlate existing UAG structured logs with OpenTelemetry `trace_id` / `span_id`.
 5. Keep Decision Log as a UAG-owned diagnostic/audit artifact rather than flattening it into span attributes.
-6. Keep telemetry optional and failure-isolated.
+6. Keep telemetry opt-in and failure-isolated.
 7. Avoid capturing prompt, response, tool argument, tool result, memory body, and artifact body content by default.
-8. Follow OpenTelemetry GenAI semantic conventions where stable/useful, but isolate semantic-convention mapping behind an adapter because the GenAI conventions are still Development status.
+8. Follow OpenTelemetry GenAI semantic conventions where useful, while isolating semantic-convention mapping behind an adapter because the GenAI conventions are still evolving.
+9. Automatically install required OTel Python packages when OTel is enabled and packages are missing, subject to the existing UAG auto-install policy.
+10. Preserve normal UAG behavior if automatic installation is disabled or fails.
 
 ### 3.2 Non-goals
 
@@ -71,7 +82,9 @@ The first implementation must not:
 
 - replace `log_event()`
 - require an OpenTelemetry Collector for normal UAG operation
-- make OTel packages part of the minimal installation
+- force OTel packages into the minimal/base installation
+- require ordinary users to manually install OTel packages before enabling the feature
+- bypass `UAGENT_AUTO_INSTALL`
 - alter LLM/provider behavior
 - alter retry policy
 - alter tool execution behavior
@@ -80,6 +93,7 @@ The first implementation must not:
 - use OpenTelemetry as persistent Agent state
 - use spans as the canonical Decision Log store
 - couple UAG internals directly to one observability vendor
+- fail an Agent task merely because OTel packages cannot be installed or telemetry cannot be exported
 
 ## 4. Design principles
 
@@ -103,15 +117,15 @@ UAG Runtime
       -> future backend(s)
 ```
 
-The OTel adapter is the only layer that knows the detailed OTel semantic-convention mapping.
+Only the OTel adapter knows detailed OTel semantic-convention mapping.
 
 ### 4.2 Preserve existing correlation identity
 
-`correlation_id` and OpenTelemetry `trace_id` are related but not identical concepts.
+`correlation_id` and OpenTelemetry `trace_id` are related but are not the same concept.
 
 Do not replace `correlation_id` with `trace_id`.
 
-UAG structured events should eventually contain both when an active span exists:
+Structured events may contain both when an active span exists:
 
 ```text
 correlation_id
@@ -119,19 +133,17 @@ trace_id
 span_id
 ```
 
-`correlation_id` remains a UAG-level correlation key and can exist when OTel is disabled.
+`correlation_id` remains available when OTel is disabled.
 
-### 4.3 Decision Log is separate from telemetry
+### 4.3 Decision Log remains separate
 
-Telemetry answers mainly:
+Telemetry mainly answers:
 
 > What happened, where, how long did it take, and how much resource was used?
 
-Decision Log answers mainly:
+Decision Log mainly answers:
 
 > Why did UAG choose this context/action/plan?
-
-Decision details may contain high-cardinality or sensitive diagnostic data, so OpenTelemetry should carry only stable references and aggregates.
 
 Recommended linkage:
 
@@ -143,22 +155,49 @@ plan_id
 projection_id
 ```
 
-Detailed decision reasoning remains in the UAG Decision Log.
+Detailed decision reasoning remains in UAG storage.
 
-### 4.4 Disabled means near-zero behavioral impact
+### 4.4 Disabled means near-zero impact
 
-When OTel is disabled or unavailable:
+When OTel is disabled:
 
-- no network connection is attempted
+- no OTel package installation is attempted
+- no network export is attempted
 - no OTel package is required
 - no trace-dependent logic changes execution
-- the existing `log_event()` path continues to work
+- existing `log_event()` behavior continues
 
-### 4.5 Telemetry must never break the Agent
+### 4.5 Enabling OTel triggers dependency readiness
 
-Exporter failures, Collector failures, queue overflow, invalid endpoint configuration, or telemetry serialization errors must not fail a user task.
+When OTel is enabled, UAG performs a lazy readiness check before creating the OTel backend.
 
-Observability failures may generate a local diagnostic event, but execution remains authoritative.
+Conceptually:
+
+```text
+UAGENT_OTEL_ENABLED=1
+        |
+        v
+ensure_otel_dependencies()
+        |
+        +-- already installed -> continue
+        |
+        +-- missing -> existing UAG auto-install policy
+                         |
+                         +-- allow  -> install automatically
+                         +-- prompt -> ask only when interactive
+                         +-- off    -> do not install
+        |
+        v
+initialize OTel backend or safely fall back to no-op
+```
+
+This check should run once per process, not once per span or LLM call.
+
+### 4.6 Telemetry must never break the Agent
+
+Exporter failure, Collector failure, installation failure, queue overflow, invalid endpoint configuration, or serialization failure must not fail a user task.
+
+Observability failures may generate a local diagnostic event, but Agent execution remains authoritative.
 
 ## 5. Architecture
 
@@ -177,10 +216,10 @@ Observability failures may generate a local diagnostic event, but execution rema
         v                  v
  Structured Event      OTel Adapter
      backend                |
-        |                   +--------------------+
-        |                   |                    |
-        v                   v                    v
- local/debug logs        Traces              Metrics
+                            +--------------------+
+                            |                    |
+                            v                    v
+                         Traces              Metrics
                             |                    |
                             +---------+----------+
                                       |
@@ -194,24 +233,24 @@ Observability failures may generate a local diagnostic event, but execution rema
                     Jaeger          Grafana      Vendor backend
 ```
 
-The Collector is recommended but not required by the internal design. UAG should speak standard OTLP through the OTel SDK/exporter and avoid vendor-specific SDKs in core runtime code.
+The Collector is recommended but not required by the internal design. UAG should use standard OTLP through the OTel SDK/exporter and avoid vendor-specific SDKs in core runtime code.
 
 ## 6. Proposed module boundary
 
-A future implementation should introduce a small runtime-neutral observability package, for example:
+A future implementation should introduce a small observability package, for example:
 
 ```text
 src/uagent/runtime/observability/
     __init__.py
     api.py
+    bootstrap.py
+    dependencies.py
     noop.py
     logging_backend.py
     otel_backend.py
     semantic_mapping.py
     privacy.py
 ```
-
-Responsibilities:
 
 ### `api.py`
 
@@ -232,11 +271,19 @@ record_metric
 current_trace_ids
 ```
 
-This is an internal interface, not a public compatibility guarantee in the first phase.
+### `bootstrap.py`
+
+Selects no-op vs OTel backend and initializes it once.
+
+### `dependencies.py`
+
+Owns OTel package readiness and delegates installation to the existing `_pip_auto.install_with_status()` mechanism.
+
+It must not invoke pip directly.
 
 ### `noop.py`
 
-No-op implementation used when observability is disabled.
+No-op implementation used when disabled or unavailable.
 
 ### `logging_backend.py`
 
@@ -244,19 +291,106 @@ Bridge to existing structured events. The current `log_event()` API remains supp
 
 ### `otel_backend.py`
 
-Optional OTel SDK integration, OTLP exporters, span creation, metrics, status/error recording, and context propagation.
+OTel SDK integration, OTLP exporters, span creation, metrics, status/error recording, and context propagation.
 
 ### `semantic_mapping.py`
 
 Single location that maps UAG domain concepts to OpenTelemetry GenAI semantic conventions and UAG custom attributes.
 
-This file is intentionally isolated because OpenTelemetry GenAI semantic conventions are still Development status.
-
 ### `privacy.py`
 
 Content-capture policy, redaction, cardinality policy, and safe attribute conversion.
 
-## 7. Trace model
+## 7. Automatic dependency installation
+
+### 7.1 Reuse UAG's existing installer
+
+OTel installation must use the existing UAG mechanism:
+
+```python
+from uagent._pip_auto import install_with_status
+```
+
+No new subprocess/pip wrapper should be introduced in the observability package.
+
+The OTel packages must be added to `_pip_auto.py`'s allowlist.
+
+Initial package set:
+
+```text
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-exporter-otlp
+```
+
+Exact version constraints are selected at implementation time and should be validated as a compatible set.
+
+### 7.2 Trigger
+
+Automatic installation occurs only when all of the following are true:
+
+1. `UAGENT_OTEL_ENABLED` is true.
+2. The OTel backend is being initialized.
+3. One or more required packages are missing or outside the supported version range.
+4. Existing `UAGENT_AUTO_INSTALL` policy permits installation.
+
+Merely importing UAG must not install OpenTelemetry.
+
+Merely setting unrelated `OTEL_*` variables must not install OpenTelemetry unless UAG's product-level OTel switch is enabled.
+
+### 7.3 Existing auto-install policy remains authoritative
+
+Behavior:
+
+| `UAGENT_AUTO_INSTALL` | OTel dependency behavior |
+|---|---|
+| `allow` (default) | install missing required packages automatically |
+| `prompt` | ask before installation when interactive; non-interactive execution does not install |
+| `off` | never install automatically |
+
+UAG must not create an OTel-specific override that silently bypasses this policy.
+
+### 7.4 Failure behavior
+
+If dependencies remain unavailable after readiness checking:
+
+```text
+OTel requested
+   -> dependency unavailable
+   -> local diagnostic event/warning
+   -> OTel backend disabled for this process
+   -> no-op backend
+   -> Agent task continues
+```
+
+Suggested event codes:
+
+```text
+observability.otel.dependencies_missing
+observability.otel.install_failed
+observability.otel.disabled
+```
+
+Do not repeatedly retry installation on every Agent round. Cache the failed readiness result for the process unless an explicit future reload/doctor operation is invoked.
+
+### 7.5 Preinstallation remains supported
+
+Automatic installation is the normal UX, but reproducible/offline/enterprise environments may preinstall dependencies.
+
+An optional package extra may still be provided:
+
+```toml
+[project.optional-dependencies]
+otel = [
+    "opentelemetry-api...",
+    "opentelemetry-sdk...",
+    "opentelemetry-exporter-otlp...",
+]
+```
+
+This is for packaging/deployment convenience, not a prerequisite for normal interactive use.
+
+## 8. Trace model
 
 A typical UAG task should appear approximately as:
 
@@ -270,7 +404,7 @@ invoke_agent uag
 |   +-- uag.context.decide
 |
 +-- chat <model>
-|   +-- retry event(s), when applicable
+|   +-- retry event(s)
 |
 +-- execute_tool <tool>
 |
@@ -285,37 +419,31 @@ invoke_agent uag
 +-- chat <model>
 ```
 
-The root span represents one logical Agent task/execution, not the whole long-lived CLI/Web process.
+The root span represents one logical Agent task/execution, not a long-lived CLI/Web process.
 
-## 8. Mapping UAG operations to OpenTelemetry
-
-OpenTelemetry GenAI semantic conventions currently define operations including `chat`, `generate_content`, `invoke_agent`, `invoke_workflow`, `plan`, `retrieval`, `execute_tool`, `search_memory`, `create_memory`, `update_memory`, and related memory operations.
+## 9. Mapping UAG operations to OpenTelemetry
 
 Recommended mapping:
 
 | UAG operation | OTel operation / span | Kind | Notes |
 |---|---|---|---|
-| Agent task | `invoke_agent` | INTERNAL for local execution | root logical task span |
+| Agent task | `invoke_agent` | INTERNAL | root logical task span |
 | Remote Agent call | `invoke_agent` | CLIENT | propagation required |
-| Workflow/Auto-Pilot step group | `invoke_workflow` where appropriate | INTERNAL | only when it is truly a workflow boundary |
-| Planner/decomposition | `plan` | INTERNAL | avoid emitting for every trivial branch |
-| LLM generation | `chat` or provider-appropriate inference operation | CLIENT | logical call includes automatic retries |
-| Tool execution | `execute_tool` | INTERNAL | MCP transport may add nested client/server spans |
-| Retrieval | `retrieval` | INTERNAL/CLIENT | based on local vs remote implementation |
-| Memory search | `search_memory` | INTERNAL/CLIENT | do not emit memory body by default |
-| Memory create/update | OTel memory operations | INTERNAL/CLIENT | operation-specific |
+| Workflow/Auto-Pilot group | `invoke_workflow` where appropriate | INTERNAL | true workflow boundaries only |
+| Planner/decomposition | `plan` | INTERNAL | avoid trivial spans |
+| LLM generation | `chat` or matching inference operation | CLIENT | logical call includes automatic retries |
+| Tool execution | `execute_tool` | INTERNAL | logical tool operation |
+| Retrieval | `retrieval` | INTERNAL/CLIENT | local vs remote dependent |
+| Memory search | `search_memory` | INTERNAL/CLIENT | content excluded by default |
+| Memory create/update | OTel memory operation | INTERNAL/CLIENT | operation-specific |
 | Context build | `uag.context.build` | INTERNAL | UAG custom span |
-| Context scoring | `uag.context.score` | INTERNAL | emit only when useful, possibly sampled |
-| Context decision phase | `uag.context.decide` | INTERNAL | aggregate attributes only |
-| Provider projection | `uag.provider.project` | INTERNAL | useful for projection debugging |
-| A2A transport | protocol/client-server spans plus Agent span | CLIENT/SERVER | preserve W3C context |
-| MCP | MCP conventions when applicable | CLIENT/SERVER | avoid duplicate tool spans |
+| Context scoring | `uag.context.score` | INTERNAL | aggregated, not per candidate by default |
+| Context decision | `uag.context.decide` | INTERNAL | aggregates only |
+| Provider projection | `uag.provider.project` | INTERNAL | provider-neutral projection debugging |
+| A2A transport | Agent plus protocol spans | CLIENT/SERVER | W3C propagation |
+| MCP | MCP conventions where applicable | CLIENT/SERVER | avoid duplicate equivalent spans |
 
-### 8.1 Do not duplicate equivalent spans
-
-If MCP instrumentation reliably creates the transport span, UAG should still keep the logical `execute_tool` span when it represents UAG's tool operation, but it must not create two equivalent `execute_tool` spans for the same boundary.
-
-Logical operation and transport operation are different:
+Logical operations and transport operations may nest:
 
 ```text
 execute_tool remote_search
@@ -323,25 +451,19 @@ execute_tool remote_search
       -> MCP server request
 ```
 
-## 9. LLM span semantics
+## 10. LLM span semantics
 
-The LLM boundary should be the provider-neutral `RoundOrchestrator`/equivalent logical round, not a provider SDK-specific request whenever possible.
+Canonical tracing occurs at UAG's provider-neutral logical round boundary, not independently inside every provider SDK.
 
-Important rule:
+A logical LLM span covers automatic retries that belong to the same UAG operation.
 
-> A logical LLM span covers automatic retries that are part of the same UAG operation.
-
-Retries should normally be represented as span events/attributes/metrics inside the logical operation rather than unrelated top-level spans.
-
-Provider SDK auto-instrumentation may later be supported as an optional nested diagnostic layer, but UAG must not depend on it for the canonical trace.
-
-Recommended safe attributes include:
+Recommended safe metadata:
 
 ```text
 gen_ai.operation.name
 gen_ai.provider.name
 gen_ai.request.model
-gen_ai.response.model (when available)
+gen_ai.response.model
 error.type
 uag.round.status
 uag.round.event_count
@@ -353,20 +475,16 @@ uag.plan.id
 uag.projection.id
 ```
 
-Token usage should use standard OTel GenAI metrics/attributes when the mapping is applicable, while preserving UAG's distinction between estimated request tokens and provider-reported usage.
-
-Do not silently present estimated values as provider-reported exact values.
-
-Suggested distinction in UAG custom metadata:
+Preserve the distinction between estimated and provider-reported token counts:
 
 ```text
 uag.tokens.estimate.*
 uag.tokens.reported.*
 ```
 
-The OTel adapter may map reported values to the standard GenAI token usage signal.
+Estimated values must never be presented as exact provider usage.
 
-## 10. Tool tracing
+## 11. Tool tracing
 
 The centralized UAG tool runner is the primary instrumentation point.
 
@@ -376,13 +494,13 @@ Recommended span:
 execute_tool <tool-name>
 ```
 
-Recommended attributes:
+Recommended metadata:
 
 ```text
 gen_ai.operation.name = execute_tool
 gen_ai.tool.name
 uag.tool.call_id
-uag.tool.source        # builtin / plugin / skill / mcp / other
+uag.tool.source
 uag.tool.external_data
 error.type
 ```
@@ -391,9 +509,7 @@ Raw tool arguments and results are not recorded by default.
 
 Existing tool trace output and `tool.completed` / `tool.failed` structured events remain supported.
 
-## 11. Context Runtime tracing
-
-Context Runtime contains UAG-specific behavior not fully represented by standard GenAI conventions. It should therefore use a small UAG custom namespace rather than forcing every detail into `gen_ai.*`.
+## 12. Context Runtime tracing
 
 Recommended structure:
 
@@ -406,7 +522,7 @@ uag.context.build
    +-- uag.provider.project
 ```
 
-Recommended aggregate attributes/metrics:
+Recommended aggregate metadata:
 
 ```text
 uag.context.raw.chars
@@ -425,13 +541,11 @@ uag.context.section_count
 uag.context.budget.mode
 ```
 
-Do not attach every candidate, decision reason, raw memory value, or raw tool result to the span.
+Do not attach every candidate, decision reason, raw memory value, or raw tool result to spans.
 
-Detailed per-candidate information remains in the Decision Log/debug snapshot.
+## 13. Decision Log correlation
 
-## 12. Decision Log correlation
-
-Decision Log records should be able to store optional observability references:
+Decision Log records may store:
 
 ```text
 decision_id
@@ -442,7 +556,7 @@ plan_id
 projection_id
 ```
 
-Conversely, a context decision span may carry:
+A context decision span may carry stable references such as:
 
 ```text
 uag.decision.batch_id
@@ -450,13 +564,11 @@ uag.plan.id
 uag.projection.id
 ```
 
-but not the full decision body by default.
+The full decision body remains outside OTel by default.
 
-This provides bidirectional navigation without making one storage system depend on the other.
+## 14. Sub-Agent and multi-agent tracing
 
-## 13. Sub-Agent and multi-agent tracing
-
-Local Sub-Agents should normally be children of the invoking Agent span:
+Local Sub-Agents are children of the invoking Agent span:
 
 ```text
 invoke_agent uag
@@ -465,44 +577,38 @@ invoke_agent uag
       -> execute_tool ...
 ```
 
-Use ContextVar/context propagation so asynchronous/concurrent Sub-Agents retain the correct parent trace context.
+Use context propagation so asynchronous/concurrent Sub-Agents retain correct parents.
 
-Parallel Sub-Agents are sibling spans under the invoking operation, not a forced serial chain.
-
-Agent identity must not be encoded only in the span name. Use stable attributes such as the UAG agent/sub-agent identifier where safe.
+Parallel Sub-Agents are sibling spans under the invoking operation.
 
 Avoid user-entered arbitrary strings as metric labels.
 
-## 14. A2A and distributed propagation
+## 15. A2A and distributed propagation
 
-A2A should propagate standard W3C Trace Context (`traceparent` / `tracestate`) when OTel is enabled and the transport allows headers/metadata.
+A2A should propagate W3C Trace Context (`traceparent` / `tracestate`) when OTel is enabled and transport allows it.
 
 Rules:
 
-1. Accept valid inbound trace context at the A2A server boundary.
-2. Create a server/Agent span as appropriate.
+1. Accept valid inbound trace context at the server boundary.
+2. Create appropriate server/Agent spans.
 3. Propagate context on outbound A2A calls.
-4. Do not make trace headers part of the business-level signed task identity unless the A2A security protocol explicitly requires it.
-5. Never trust arbitrary trace metadata for authorization.
-6. Preserve UAG `task_id` / `correlation_id` independently of trace IDs.
+4. Do not make trace headers part of business-level signed task identity unless required by the protocol.
+5. Never use trace metadata for authorization.
+6. Preserve `task_id` / `correlation_id` independently.
 
-Cross-process trace propagation is observability metadata, not identity or access control.
+## 16. MCP propagation
 
-## 15. MCP propagation
+Use standard MCP conventions for transport/client-server spans when available and retain the UAG logical tool span above them.
 
-When MCP transport instrumentation is available, use standard MCP conventions for transport/client-server spans and maintain the UAG logical tool span above it.
+UAG should not require MCP servers to understand UAG-specific headers.
 
-UAG should not require an MCP server to understand UAG-specific headers.
+## 17. Signals
 
-If standard trace context can be propagated over the MCP transport, use it. Otherwise, the UAG-side trace remains valid up to the transport boundary.
-
-## 16. Signals
-
-### 16.1 Traces
+### 17.1 Traces
 
 Highest-priority signal.
 
-Initial useful boundaries:
+Initial boundaries:
 
 - Agent task
 - LLM logical round
@@ -511,11 +617,9 @@ Initial useful boundaries:
 - Context build
 - Retrieval/Memory
 
-### 16.2 Metrics
+### 17.2 Metrics
 
-Metrics should be low-cardinality and operationally useful.
-
-Candidate metrics:
+Candidate low-cardinality metrics:
 
 ```text
 uag.agent.operation.duration
@@ -531,31 +635,27 @@ uag.llm.error.count
 uag.tool.error.count
 ```
 
-Use standard OTel GenAI metrics such as client operation duration and token usage where their definitions match UAG data.
+Use standard OTel GenAI metrics where definitions match UAG data.
 
-Do not use `session_id`, `task_id`, `trace_id`, prompt text, arbitrary file names, URLs with user data, or memory IDs as metric dimensions.
+Do not use `session_id`, `task_id`, `trace_id`, prompt text, arbitrary filenames, arbitrary URLs, or memory IDs as metric dimensions.
 
-### 16.3 Logs
+### 17.3 Logs
 
-Existing UAG structured events remain the primary UAG logging format.
+Existing UAG structured events remain the primary logging format.
 
-When an active span exists, `log_event()` should be able to enrich the payload with:
+When an active span exists, `log_event()` may enrich payloads with:
 
 ```text
 trace_id
 span_id
-trace_flags (optional)
+trace_flags
 ```
 
-This allows log-to-trace correlation without requiring OTel Logs in the first phase.
+OTel Logs export is not required in the first phase.
 
-OTel Logs export may be added later after the trace model is stable.
+## 18. Privacy and content capture
 
-## 17. Privacy and content capture
-
-### 17.1 Default policy
-
-Default: metadata only.
+Default policy: metadata only.
 
 Do not record by default:
 
@@ -566,82 +666,69 @@ Do not record by default:
 - tool argument values
 - tool result bodies
 - Memory note bodies
-- artifact bodies
-- file contents
+- artifact/file bodies
 - OAuth tokens
 - API keys
 - credentials
 - raw authorization headers
 - browser/session tokens
 
-### 17.2 Content capture is explicit opt-in
-
-If future diagnostics require content capture, it must be controlled by an explicit UAG-level opt-in policy separate from ordinary `OTEL_*` exporter configuration.
-
-Proposed setting:
+Content capture requires an explicit UAG-level opt-in:
 
 ```text
-UAGENT_OTEL_CAPTURE_CONTENT=0   # default
+UAGENT_OTEL_CAPTURE_CONTENT=0
 ```
 
-Possible future values can be designed later; the first implementation should prefer a simple disabled/enabled policy with strict redaction rather than many partial modes.
+Existing secret masking/redaction remains authoritative and must run before exporters see data.
 
-### 17.3 Existing secret masking remains authoritative
+## 19. Cardinality policy
 
-OTel export must reuse or share the same secret-redaction policy as structured event logging instead of implementing an unrelated secret list.
+Trace-only/high-cardinality candidates may include:
 
-Redaction must occur before data reaches exporters.
+```text
+task_id
+tool_call_id
+plan_id
+projection_id
+decision_id
+```
 
-## 18. Cardinality policy
+Metric-safe candidates include:
 
-High-cardinality data is acceptable on individual traces when justified, but dangerous on metrics.
-
-### Trace-only candidates
-
-- `task_id`
-- `tool_call_id`
-- `plan_id`
-- `projection_id`
-- `decision_id`/batch reference
-- response IDs, when policy allows
-
-### Metric-safe candidates
-
-- normalized provider
-- normalized model family when needed
-- operation name
-- stable tool name from registered specs
-- terminal status/error class
+```text
+normalized provider
+normalized model family
+operation name
+stable registered tool name
+terminal status/error class
+```
 
 Avoid arbitrary user text and arbitrary URLs as metric attributes.
 
-## 19. Error semantics
+## 20. Error semantics
 
 UAG execution status remains authoritative.
 
 The OTel adapter should:
 
 - mark span status/error according to OTel guidance
-- set `error.type` to a stable exception/error class when available
-- record cancellation and timeout distinctly from successful completion
-- avoid attaching secret-bearing exception payloads
-- keep telemetry-export errors separate from task errors
+- set `error.type` to a stable class when available
+- represent cancellation and timeout distinctly
+- avoid secret-bearing exception payloads
+- keep dependency-install/export errors separate from task errors
 
-An exporter failure must not make a successful UAG task appear failed at the UAG lifecycle layer.
+An observability failure must not make a successful UAG task appear failed.
 
-## 20. Sampling
+## 21. Sampling
 
 Initial recommendation:
 
 - respect standard OTel SDK sampler configuration
-- do not create a UAG-specific sampling algorithm in the first phase
-- keep local structured events independent from remote trace sampling
+- do not create a UAG-specific sampling algorithm initially
+- keep local structured events independent of remote sampling
+- avoid per-candidate Context spans by default
 
-This allows operators to configure parent-based/ratio sampling through standard OTel settings.
-
-For expensive fine-grained spans such as per-candidate scoring, UAG may later add internal controls, but the initial design should avoid generating a span per Context candidate.
-
-## 21. Configuration
+## 22. Configuration
 
 Prefer standard OpenTelemetry environment variables wherever possible.
 
@@ -656,93 +743,95 @@ OTEL_METRICS_EXPORTER=otlp
 OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=dev
 ```
 
-UAG-specific settings should exist only for UAG-specific policy.
-
-Proposed settings:
+UAG-specific policy:
 
 ```text
 UAGENT_OTEL_ENABLED=0
 UAGENT_OTEL_CAPTURE_CONTENT=0
+UAGENT_AUTO_INSTALL=allow
 ```
 
-`UAGENT_OTEL_ENABLED` is an explicit product-level switch so installing OTel dependencies alone does not silently enable network export.
+Important behavior:
 
-The OTel SDK may still honor standard `OTEL_*` variables after UAG enables the backend.
+```text
+UAGENT_OTEL_ENABLED=0
+    -> no OTel install, no export
 
-Do not duplicate standard OTel endpoint/protocol/header/sampler variables with UAG-specific alternatives unless a concrete compatibility requirement appears.
+UAGENT_OTEL_ENABLED=1
+UAGENT_AUTO_INSTALL=allow
+    -> install missing OTel dependencies automatically
+    -> initialize backend
 
-## 22. Packaging
-
-OpenTelemetry remains optional.
-
-Future `pyproject.toml` shape:
-
-```toml
-[project.optional-dependencies]
-otel = [
-    "opentelemetry-api",
-    "opentelemetry-sdk",
-    "opentelemetry-exporter-otlp",
-]
+UAGENT_OTEL_ENABLED=1
+UAGENT_AUTO_INSTALL=off
+    -> do not install
+    -> warn/diagnose locally
+    -> use no-op backend
+    -> continue Agent execution
 ```
 
-Expected installation:
+The OTel SDK honors standard `OTEL_*` settings after UAG enables the backend.
+
+Do not duplicate standard endpoint/protocol/header/sampler settings with UAG-specific alternatives unless required for compatibility.
+
+## 23. Packaging
+
+OpenTelemetry remains absent from the minimal installation, but dependency installation is automatic on first enabled use.
+
+Normal UX:
 
 ```text
 pip install uag
+set UAGENT_OTEL_ENABLED=1
+uag ...
+
+# first OTel-enabled use:
+# UAG verifies/imports OTel packages
+# -> missing packages are automatically installed when policy=allow
+# -> tracing starts
 ```
 
-continues to work without OTel.
-
-Users who want OTel can install:
+Users do not normally need:
 
 ```text
 pip install "uag[otel]"
 ```
 
-Exact version constraints should be chosen at implementation time after compatibility testing with the then-current OTel Python packages.
+An optional extra may still exist for prebuilt images, offline deployment, locked environments, CI, or users who intentionally set `UAGENT_AUTO_INSTALL=off`:
 
-## 23. OpenTelemetry GenAI semantic-convention compatibility
+```toml
+[project.optional-dependencies]
+otel = [
+    "opentelemetry-api<validated-range>",
+    "opentelemetry-sdk<validated-range>",
+    "opentelemetry-exporter-otlp<validated-range>",
+]
+```
 
-As of this design, OpenTelemetry GenAI semantic conventions are still marked Development.
+The same validated constraints should be used by both the optional extra and `_pip_auto.install_with_status()` calls so manual/preinstalled and automatic paths do not drift.
+
+## 24. GenAI semantic-convention compatibility
+
+OpenTelemetry GenAI semantic conventions are still evolving.
 
 Therefore:
 
 1. UAG domain objects must not expose OTel attribute names as their internal API.
 2. `semantic_mapping.py` is the compatibility boundary.
 3. UAG custom attributes use the `uag.*` namespace.
-4. Standard `gen_ai.*` attributes are emitted only by the adapter when the mapping is sufficiently clear.
-5. Semantic-convention version changes should require adapter/test changes, not widespread runtime refactoring.
-6. UAG documentation should state which semantic-convention generation/version was validated by each release once implementation begins.
+4. Standard `gen_ai.*` attributes are emitted by the adapter only when mapping is clear.
+5. Convention changes require adapter/test changes, not widespread runtime refactoring.
+6. Releases should document the validated convention generation/revision after implementation begins.
 
-Reference:
+## 25. Provider-neutral instrumentation vs SDK auto-instrumentation
 
-- https://github.com/open-telemetry/semantic-conventions-genai
-- https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-spans.md
-- https://github.com/open-telemetry/semantic-conventions-genai/blob/main/docs/gen-ai/gen-ai-agent-spans.md
+Canonical UAG traces are created at UAG provider-neutral boundaries.
 
-## 24. Provider-neutral instrumentation vs SDK auto-instrumentation
+Provider SDK auto-instrumentation may later be an optional nested diagnostic layer, but it must not be required for canonical traces and duplicate spans must be avoided.
 
-Canonical UAG traces should be created at UAG provider-neutral boundaries.
+## 26. Integration with existing `log_event()`
 
-Why:
-
-```text
-OpenAI SDK auto instrumentation     -> provider-specific
-Anthropic instrumentation           -> provider-specific
-Gemini instrumentation              -> provider-specific
-LM Studio/local provider             -> may differ or be absent
-```
-
-UAG already has a shared logical round contract, so tracing there provides consistent semantics.
-
-Provider SDK auto-instrumentation may be enabled as an optional nested diagnostic feature in the future. It must not be required for standard UAG traces and duplicate spans must be avoided.
-
-## 25. Integration with existing `log_event()`
-
-Migration should be incremental.
-
-Initial direction:
+Migration is incremental:
 
 ```text
 existing caller
@@ -751,25 +840,28 @@ existing caller
         -> optional active trace correlation
 ```
 
-New logical operation boundaries can use the Observability API to create spans while continuing to emit current event codes.
+New logical operation boundaries use the Observability API while current event codes remain compatible.
 
-Long term, event emission may route through the shared observability layer internally, but public/runtime behavior of existing event codes should remain compatible.
+Do not rewrite all event call sites solely for OTel adoption.
 
-Do not perform a large rewrite of all event call sites solely for OTel adoption.
-
-## 26. Proposed rollout phases
+## 27. Rollout phases
 
 ### Phase 0: design and contracts
 
 - finalize this document
-- define internal Observability API
+- define Observability API
 - define privacy/cardinality policy
 - define semantic mapping table
+- define automatic dependency readiness contract
 - no runtime behavior change
 
-### Phase 1: optional core tracing
+### Phase 1: dependency/bootstrap + core tracing
 
-- optional `otel` dependency group
+- add OTel packages to `_pip_auto.py` allowlist
+- implement `dependencies.py` using `install_with_status()`
+- one-time lazy installation/readiness check when OTel is enabled
+- preserve `UAGENT_AUTO_INSTALL` behavior
+- optional `otel` package extra for preinstallation
 - no-op backend
 - OTel backend/bootstrap
 - Agent root span
@@ -783,7 +875,7 @@ Do not perform a large rewrite of all event call sites solely for OTel adoption.
 - context build span
 - retrieval/memory spans
 - context aggregate metrics
-- standard GenAI client duration/token metrics where applicable
+- standard GenAI duration/token metrics where applicable
 - Decision Log references
 
 ### Phase 3: distributed tracing
@@ -792,27 +884,29 @@ Do not perform a large rewrite of all event call sites solely for OTel adoption.
 - A2A W3C Trace Context propagation
 - MCP integration/duplicate-span policy
 
-### Phase 4: optional advanced diagnostics
+### Phase 4: advanced diagnostics
 
 - controlled content capture
 - provider SDK nested auto-instrumentation if useful
 - OTel Logs export if justified
 - dashboards/examples
+- optional `uag telemetry doctor`
 
-## 27. Suggested PR decomposition
-
-When implementation begins, keep changes reviewable.
+## 28. Suggested implementation PR decomposition
 
 ### PR 1: Observability abstraction
 
 - internal API
 - no-op backend
 - tests
-- no OTel dependency required yet
+- no runtime OTel use yet
 
-### PR 2: OTel trace backend
+### PR 2: automatic dependencies + OTel trace backend
 
-- optional dependencies
+- `_pip_auto.py` allowlist entries
+- dependency readiness helper
+- automatic first-use installation
+- optional package extra
 - bootstrap/configuration
 - Agent/LLM/Tool spans
 - log correlation
@@ -832,24 +926,38 @@ When implementation begins, keep changes reviewable.
 
 No implementation PR should combine OTel adoption with unrelated runtime refactoring.
 
-## 28. Testing strategy
+## 29. Testing strategy
 
-### 28.1 Unit tests
+### 29.1 Dependency readiness tests
 
 Verify:
 
-- no-op behavior when disabled
-- missing OTel packages do not break startup
-- IDs are added only when a span is active
+- OTel disabled -> no install attempt
+- packages already installed -> no pip attempt
+- OTel enabled + policy `allow` -> missing packages are auto-installed
+- OTel enabled + policy `prompt` -> existing prompt behavior is honored
+- `prompt` in non-interactive mode -> no install and safe no-op fallback
+- OTel enabled + policy `off` -> no install and safe no-op fallback
+- install failure -> Agent execution continues
+- failed readiness is not retried for every span/round
+- version mismatch uses the validated install constraint
+- OTel package names are explicitly allowlisted
+
+Mock installation calls in unit tests; do not mutate the test runner's environment unnecessarily.
+
+### 29.2 Observability unit tests
+
+Verify:
+
+- no-op behavior when disabled/unavailable
+- trace IDs appear only with active spans
 - secret/content redaction
 - semantic mapping
-- error/cancel/timeout status mapping
+- error/cancel/timeout mapping
 - estimated vs reported token distinction
 - high-cardinality fields are not metric dimensions
 
-### 28.2 In-memory OTel tests
-
-Use OTel in-memory exporters/readers in tests where possible.
+### 29.3 In-memory OTel tests
 
 Verify span hierarchy:
 
@@ -860,11 +968,11 @@ Agent
   -> LLM
 ```
 
-and parallel Sub-Agent parentage.
+and correct parallel Sub-Agent parentage.
 
-### 28.3 Integration tests
+### 29.4 Integration tests
 
-Optional CI/integration profile:
+Optional CI profile:
 
 ```text
 UAG -> OTLP -> Collector
@@ -872,10 +980,12 @@ UAG -> OTLP -> Collector
 
 Validate export without requiring a production backend.
 
-### 28.4 Failure isolation tests
+### 29.5 Failure isolation tests
 
 Simulate:
 
+- pip/install failure
+- OTel import failure after installation
 - unreachable Collector
 - exporter exception
 - queue overflow
@@ -884,56 +994,65 @@ Simulate:
 
 UAG task behavior must remain correct.
 
-## 29. Acceptance criteria for the first implementation
+## 30. Acceptance criteria for the first implementation
 
-The initial OTel implementation is acceptable when all of the following are true:
+The initial implementation is acceptable when all are true:
 
 1. UAG runs unchanged with OTel disabled and without OTel packages installed.
-2. Enabling OTel produces one coherent Agent trace containing LLM and Tool spans.
-3. OpenAI/Anthropic/Gemini/xAI/local-provider paths share the same UAG logical span model.
-4. Existing structured events still work.
-5. Structured events can include trace/span IDs when tracing is active.
-6. Prompt/response/tool-result content is not exported by default.
-7. Exporter failure cannot fail the Agent task.
-8. Token metrics do not confuse estimates with provider-reported usage.
-9. Metrics avoid high-cardinality identifiers.
-10. Decision Log remains independent and can reference a trace/span.
-11. Sub-Agent traces preserve correct parentage.
-12. Semantic-convention-specific names are isolated in the mapping adapter.
+2. Enabling OTel with default auto-install policy installs missing required OTel packages automatically.
+3. Users are not required to run `pip install "uag[otel]"` for normal OTel use.
+4. `UAGENT_AUTO_INSTALL=prompt|off` is honored exactly as for other UAG optional dependencies.
+5. Missing/failed OTel dependencies cause safe no-op fallback, not Agent failure.
+6. Dependency readiness is evaluated once per process rather than per span.
+7. Enabling OTel produces one coherent Agent trace containing LLM and Tool spans when dependencies/export are available.
+8. Provider paths share the same UAG logical span model.
+9. Existing structured events still work.
+10. Structured events can include trace/span IDs when tracing is active.
+11. Prompt/response/tool-result content is not exported by default.
+12. Exporter failure cannot fail the Agent task.
+13. Token metrics do not confuse estimates with provider-reported usage.
+14. Metrics avoid high-cardinality identifiers.
+15. Decision Log remains independent and can reference trace/span IDs.
+16. Sub-Agent traces preserve correct parentage.
+17. Semantic-convention-specific names are isolated in the mapping adapter.
 
-## 30. Decisions made by this design
+## 31. Decisions made by this design
 
 The following are design decisions, not open questions:
 
-- OpenTelemetry is optional.
+- OpenTelemetry is opt-in at the product level.
+- OTel packages are not required in the minimal UAG installation.
+- When OTel is enabled and dependencies are missing, UAG automatically installs them using the existing `_pip_auto.install_with_status()` mechanism.
+- `UAGENT_AUTO_INSTALL` remains authoritative; OTel does not bypass `allow|prompt|off` policy.
+- Auto-install is lazy and runs only when the OTel backend is actually requested.
+- Installation/readiness failure degrades to the no-op backend and never fails the Agent task.
+- An `otel` optional dependency extra may remain available for offline/reproducible/preinstalled deployments, but it is not the normal prerequisite.
 - OTel is not the canonical UAG internal telemetry contract.
 - Existing `log_event()` is preserved.
-- `correlation_id` is preserved independently from `trace_id`.
+- `correlation_id` remains independent from `trace_id`.
 - Decision Log remains separate from OTel trace storage.
 - Canonical LLM tracing occurs at UAG's provider-neutral logical round boundary.
 - Raw content capture is OFF by default.
-- Standard `OTEL_*` configuration is preferred over duplicating settings.
+- Standard `OTEL_*` configuration is preferred.
 - OTLP is the standard export path.
 - Collector-based deployment is recommended but not required.
-- GenAI semantic-convention usage is isolated behind an adapter because the specification is still Development.
-- A2A propagation uses standard trace context for observability only, never authorization.
+- GenAI semantic-convention usage is isolated behind an adapter.
+- A2A propagation uses trace context for observability only, never authorization.
 
-## 31. Remaining design questions before implementation
+## 32. Remaining design questions before implementation
 
-These items can be resolved immediately before implementation without changing the architecture:
+These can be resolved immediately before implementation without changing the architecture:
 
 1. Exact internal Python Protocol/context-manager API shape.
-2. Exact OTel Python package version constraints.
-3. Exact validated OpenTelemetry GenAI semantic-convention revision for the target UAG release.
+2. Exact mutually compatible OTel Python version constraints.
+3. Exact validated GenAI semantic-convention revision for the target release.
 4. Whether metrics ship in the same implementation release as traces or one release later.
-5. Whether `UAGENT_OTEL_ENABLED` also permits console/in-memory exporters for developer diagnostics, or only activates configured SDK exporters.
-6. Whether a small `uag telemetry doctor` command is useful later for endpoint/configuration validation.
+5. Whether `UAGENT_OTEL_ENABLED` also permits console/in-memory exporters for developer diagnostics.
+6. Whether `uag telemetry doctor` should explicitly clear/retry cached dependency readiness in a running diagnostic process.
 
-None of these questions require changing the main architectural decisions above.
+## 33. Summary
 
-## 32. Summary
-
-UAG is already structurally ready for OpenTelemetry because the important logical boundaries are centralized.
+UAG is already structurally ready for OpenTelemetry because its important logical boundaries are centralized.
 
 The recommended design is:
 
@@ -947,7 +1066,11 @@ UAG Observability API
    |                     |
 structured events    OpenTelemetry adapter
                          |
+                  dependency readiness
+                         |
+             existing UAG auto-installer
+                         |
                     OTLP / Collector
 ```
 
-Keep UAG's event model, lifecycle, Context telemetry, and Decision Log authoritative. Use OpenTelemetry to project operational traces and metrics into standard tooling. This provides portable observability without coupling UAG's runtime design to a still-evolving GenAI telemetry specification.
+Keep UAG's event model, lifecycle, Context telemetry, and Decision Log authoritative. Use OpenTelemetry as a standard projection/export layer. When users explicitly enable the feature, make dependency setup automatic through the same controlled mechanism UAG already uses for optional capabilities.
