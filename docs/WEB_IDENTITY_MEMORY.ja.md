@@ -83,7 +83,7 @@ GET /api/admin/auth/status
 
 ブラウザーが送信する `project_id` はselectorであり、それ自体はアクセス権限になりません。
 
-固定Project運用では `UAGENT_MEMORY_PROJECT` がserver-side bindingになります。固定していないOIDC sessionでは、認証後に次でProjectを選択します。
+固定Project運用では `UAGENT_MEMORY_PROJECT` がserver-side bindingになります。固定していないOIDC session、またはProjectContext cookieを使う認証済みnon-OIDC sessionでは、認証後に次でProjectを選択します。
 
 ```http
 POST /api/project-context
@@ -237,15 +237,17 @@ UAGENT_MEMORY_STRICT_SCOPE=1
 
 検証済みOIDC `groups` claimは、Project / Room authorization policyの入力にできます。group IDはauthorization inputであり、Personal Memoryのownerにはなりません。
 
-Entraが完全なgroup一覧ではなくgroup-overage markerを返した場合、現在のverifierはfail-closedで拒否します。overage解決とmembershipの鮮度・取消反映には、deployment固有の信頼できるDirectory API adapterが必要です。
+Entraが署名検証済みgroup-overage markerを返した場合、authorization-code交換でdelegated access tokenを取得し、`UAGENT_OIDC_GRAPH_SCOPE` に `GroupMember.Read.All` を設定してtenant consentを得ていれば、UAGはlogin時にMicrosoft Graphからgroup IDを解決します。access tokenは一時利用で、sessionやMemoryへ保存しません。Graph hostは検証済みissuerに対応するcloudへ限定し、redirectを無効化し、pagination URLを検証します。page / group / bodyの上限超過やlookup failureはfail-closedです。これはlogin時の解決であり、session中のmembership live refreshや即時revoke反映ではありません。
 
-`UAGENT_DIRECTORY_GROUP_POLICY` は、検証済みgroup IDをProject / Room roleへmappingできますが、identity verifierやDirectory clientの代替ではありません。
+`UAGENT_DIRECTORY_GROUP_POLICY` は、検証済みgroup IDをProject / Room roleへmappingするpolicy設定であり、identity verifierやDirectory clientの代替ではありません。Graph応答のbyte上限はstreaming中に適用され、redirectやunsafeなpagination URL、上限超過はfail-closedです。
 
-## 10. v0.7.14時点の制約
+## 10. main `68083fb3` 時点の制約
 
-- OIDC sessionはprocess-localです。process再起動で再ログインが必要です。multi-instance / HA運用には将来のdurable session設計が必要です。
-- OIDCのProject選択はserver-side sessionへbindされていますが、non-OIDCのmulti-user / multi-project運用にはserver-derived ProjectContextの追加integrationが必要です。
-- Entra group overageの解決にはdeployment固有のDirectory API adapterが必要です。
+- OIDC sessionはprocess-localです。process再起動で再ログインが必要です。multi-instance / HA運用にはdurable session設計が必要です。
+- non-OIDC userはmembership確認済みProjectをserver-side ProjectContextへ選択・bindingできます。信頼済みdeployment workspaceから既定Projectを自動導出する機能は未実装です。
+- Entra group overageは設定済みdelegated scopeとtenant consentの下でlogin時にMicrosoft Graphから解決します。session中のmembership refresh / revoke反映は対象外です。Graph応答のbyte上限はstreaming中に適用され、redirectやunsafeなpagination、上限超過はfail-closedです。
+- Private Web Roomにはconfigurableなidle expiryがあります。active WebSocket、agent実行 / streaming、`human_ask`待機中のroomは保護され、期限切れではroom binding、room限定Memory、関連session historyをcleanupします。upgrade時には既存roomへ新しい再接続猶予を付与します。
+- Web Memory APIはdenied / exception pathを含め、request単位のstoreをcloseします。これはPrivate Roomのretentionとは別です。
 - Trusted Proxy、OAuth、Windows AD、External modeにはresolver / verifier contractがありますが、本番deploymentでは信頼境界と検証adapterを用意して検証する必要があります。失敗時に暗黙で `local` へfallbackしません。
 - multi-user / shared-room Memoryのdefault化は、APIが存在するだけで決めず、V3 architectureのisolation / revocation gateを通した後に判断します。
 

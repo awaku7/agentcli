@@ -29,18 +29,22 @@
 - principal-keyed Profile
 - Personal / shared / Room Memory API
 - Project membership、Room-to-Project binding、Room policy
-- verified Entra group claimのpolicy input
+- verified Entra group claimのpolicy inputと、delegated Graph scopeによるlogin-time group overage解決
+- membership-approved project selectionをprincipal/configuration/expiryへ結び付けるnon-OIDC ProjectContext
+- directory-derived roleのauthoritative reconciliation（manual membership保護とadmin→viewer downgradeを含む）
 - safe authentication status / configuration invalidation
 - legacy `/api/memories` / `/api/profile` のlocal-mode制限
 - Web Memory APIのrequest境界cleanupとauthorization failure時のSQLite store回収
 
-### 残作業
+### 残作業（main `68083fb3` の再照合）
 
-1. non-OIDC multi-user / multi-project向けにserver-derived ProjectContextを追加する。
-1. Entra group overageとmembership freshness / revocationを扱うtrusted Directory API adapterを実装する。
+1. 必要なdeployment向けに、non-OIDC ProjectContextの既定値を認証済みworkspaceから自動導出するintegrationを追加する（membership検証は常に必須）。
+1. Entra groupのlogin後のfreshness/revocationと、Entra以外のtrusted Directory API adapterを設計する。
 1. multi-instance / HAを行う前にdurable OIDC session設計を決める。
 1. Trusted Proxy / Windows IWA / OAuth / External adapterを実環境trust boundaryで検証する。
 1. identity / audience / profile / stale snapshot / revocation / migration / single-user regression gateを全deployment modeで確認する。
+
+Web Memory API request-store cleanup、Entra overageのlogin-time Graph解決とstreaming中のresponse byte制限、non-OIDC ProjectContextの選択cookie、directory role downgrade、およびPrivate Web Roomのidle expiry / cleanupは実装済みであり、再実装対象にしない。
 
 ### 受け入れ条件
 
@@ -235,11 +239,15 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 ## P2: VS Code拡張の追加機能
 
 - Status: planned
+
 - Priority: P2
+
 - Source: [`docs/VSCODE.md`](../VSCODE.md)
 
 - `uag.autoFix` の実装可否を検討する。
+
 - 実装する場合は、編集前確認、差分表示、undo、権限境界を定義する。
+
 - 自動修正を既定で有効化せず、ユーザー確認を必須にする。
 
 ## P2: 開発基盤の改善

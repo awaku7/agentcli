@@ -3,6 +3,8 @@
 Baseline: `v0.7.13...v0.7.14` (`9dff4735e9e861587d8db0700b08ccad667f7e08` -> `9d9b25aee5ec67dc7fb321ee61f45ee332a65115`).
 The release contains 75 commits, so this review treats v0.7.14 as a functional milestone rather than a small patch release.
 
+This file is a historical review snapshot. Its implementation table and review-time remaining-work items are not a current status report; see [the current Memory V3 architecture](UAG_MEMORY_ARCHITECTURE_V3.md) and [current hardening status](UAG_MEMORY_V3_SECURITY_HARDENING.md).
+
 > Follow-up status (2026-09-24): the Web Memory request-lifetime issue identified below has been fixed, and Scheduler durable dispatch now has a SQLite outbox, consumer-dequeue acknowledgement, retry state, event ordering, and explicit orphan reclaim. Identity-bound scheduler reclaim and real multi-process crash-injection testing remain follow-up work.
 
 ## Summary
@@ -122,19 +124,19 @@ None of these alone implies exactly-once event delivery. Documentation now state
 ## Documentation structure
 
 1. Keep `UAG_MEMORY_ARCHITECTURE_V3.md` as the architecture/invariants document.
-2. Use this file as the v0.7.14 review plus post-release follow-up checkpoint.
-3. Use `MEMORY.md` / `MEMORY.ja.md` for current local/V3 Memory behavior.
-4. Use the Web identity/Memory guides for authenticated project, sharing, Profile and Room behavior.
-5. Use `SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md` for scheduler ownership, claim, outbox, delivery and reclaim invariants.
-6. Use `SET_TIMER.md` / `SET_TIMER.ja.md` for user-facing timer behavior and delivery guarantees.
-7. Keep Computer Use documented as an optional feature, but do not use it as the primary explanation of these changes.
+1. Use this file as the v0.7.14 review plus post-release follow-up checkpoint.
+1. Use `MEMORY.md` / `MEMORY.ja.md` for current local/V3 Memory behavior.
+1. Use the Web identity/Memory guides for authenticated project, sharing, Profile and Room behavior.
+1. Use `SCHEDULER_INSTANCE_ISOLATION_DESIGN.ja.md` for scheduler ownership, claim, outbox, delivery and reclaim invariants.
+1. Use `SET_TIMER.md` / `SET_TIMER.ja.md` for user-facing timer behavior and delivery guarantees.
+1. Keep Computer Use documented as an optional feature, but do not use it as the primary explanation of these changes.
 
 ## Recommended next implementation order
 
 1. Add identity-bound scheduler reclaim with session/principal/project/room/authentication revalidation.
-2. Add real multi-process scheduler crash-injection tests and decide the cross-process `SchedulerRunStore` strategy.
-3. Implement non-OIDC/multi-project server-derived ProjectContext.
-4. Add a directory API adapter for Entra group overage and revocation freshness.
-5. Decide durable OIDC session storage for multi-instance Web deployments.
-6. Run the full Memory V3 isolation/revocation evaluation matrix in real deployment modes.
-7. Only then revisit whether authenticated multi-user projection/shared-room Memory should become default outside explicitly configured deployments.
+1. Add real multi-process scheduler crash-injection tests and decide the cross-process `SchedulerRunStore` strategy.
+1. Implement non-OIDC/multi-project server-derived ProjectContext.
+1. Add a directory API adapter for Entra group overage and revocation freshness.
+1. Decide durable OIDC session storage for multi-instance Web deployments.
+1. Run the full Memory V3 isolation/revocation evaluation matrix in real deployment modes.
+1. Only then revisit whether authenticated multi-user projection/shared-room Memory should become default outside explicitly configured deployments.
