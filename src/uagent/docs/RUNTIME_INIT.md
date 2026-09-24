@@ -16,30 +16,36 @@ What it covers (shared across CLI/Web/GUI):
 - create the directory and `chdir`
 - build startup banner text
 - append personal long-term memory and shared memory as system messages
-- load `.env` and `.env.sec` from the current working directory at import time when `python-dotenv` is available
+- load `.env` and `.env.sec` from the current working directory during startup initialization when `python-dotenv` is available
 
 Design policy:
 
-- `runtime_init.py` does not print by itself; helpers return values and UI code decides how to display them.
-- Import-time environment loading is best-effort. `.env` is loaded first with `override=False`, then `.env.sec` is decrypted and loaded with `override=True`.
+- `runtime_init.py` is a compatibility/re-export layer and does not own most display behavior. Startup helpers can still print warnings and `.env.sec` sync messages to stderr, and may prompt during interactive CLI startup; UI code handles the startup banner and other presentation.
+- Startup environment loading is best-effort. For `UAGENT_*`, pre-existing process environment values have highest priority, followed by `.env.sec`, `.env`, and application defaults. For other variables, `.env` is loaded with `override=False`, then values from `.env.sec` override it.
 - If `.uagent.key` exists in the current working directory, it is used to decrypt `.env.sec`.
 - If the `.env.sec` sync prompt appears later and the user declines (`n` / `N`), the startup `UAGENT_*` snapshot is restored for the session and `.env.sec` is not updated.
 
 ______________________________________________________________________
 
-## 1. Import-time environment loading
+## 1. Startup environment loading
 
-`runtime_init.py` loads environment files from the current working directory as soon as it is imported.
+During startup initialization, the environment files in the current working directory are loaded via `reload_dotenv_custom()` before environment validation.
 
-Load order:
+`UAGENT_*` priority:
 
-1. `.env` if it exists (`override=False`)
-1. `.env.sec` if it exists (decrypt and then `override=True`)
+1. Process environment values present before dotenv loading (for example, values explicitly exported by the shell)
+1. Values from `.env.sec`
+1. Values from `.env`
+1. Application defaults
+
+The startup `UAGENT_*` snapshot is restored after dotenv loading, so `.env.sec` does not override explicitly pre-existing process values. When a key is present in both files, `.env.sec` takes precedence over `.env`.
 
 Notes:
 
 - `.env.sec` is decrypted via `uag_envsec.secret_core.decrypt_text`.
 - If `.uagent.key` exists in the current working directory, it is used as the key file.
+- `.env.sec` synchronization is checked during startup environment validation. On mismatch, an interactive CLI asks whether to update the file (`y`), apply `.env.sec` values to the current session (`s`), or leave it unchanged (`N`).
+- When input cannot be requested (for example, non-interactive startup), the current `UAGENT_*` snapshot is merged into `.env.sec` and written. If `.env.sec` is absent, non-interactive startup creates it from the snapshot.
 - If decryption fails, a warning is printed to stderr:
   - `[WARN] Failed to decrypt .env.sec: ...`
 
