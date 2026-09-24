@@ -1,5 +1,9 @@
 # MemoryとProfile
 
+暗号化された `.uag` に含まれるMemory参照は未解決のIDのみです。Memory本体・派生projection・
+権限・identity・ProjectContext tokenは移行しません。移行先の認証・認可に基づいて再開します。
+詳細は [Session Portability v1](SESSION_PORTABILITY.md) を参照してください。
+
 Status: **uag v0.7.14の現行runtime reference**
 
 この文書では、現在のuagでユーザーとintegratorが期待できるMemory / Profileの動作を説明します。V2の設計経緯は `UAG_MEMORY_ARCHITECTURE_V2.md`、認証付きmulti-userの設計とsecurity invariantは `UAG_MEMORY_ARCHITECTURE_V3.md` を参照してください。

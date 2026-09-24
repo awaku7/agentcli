@@ -20,6 +20,7 @@ dependencies = []
 
 [project.optional-dependencies]
 core = [
+    "cryptography>=44.0.2",
     "requests>=2.33.1",
     "httpx>=0.28.1",
     "urllib3>=2.6.3",
@@ -148,7 +149,7 @@ location-linux = ["dbus-next>=0.2.3; sys_platform == 'linux'"]
 
 [project.scripts]
 
-uag = "uagent.cli:main"
+uag = "uagent.cli_entry:main"
 uaga = "uagent.a2a.server:main"
 uag_setup = "uagent.setup_cli:main"
 uagw = "uagent.web:main"

@@ -319,6 +319,10 @@ class SessionStore:
                     payload_json TEXT,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS portable_sessions (
+                    session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    metadata_json TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS tool_calls (
                     call_id TEXT PRIMARY KEY,
                     session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -584,6 +588,59 @@ class SessionStore:
         return dict(row)
 
     @_db_locked
+    def get_portable_metadata(self, session_id: str) -> dict[str, Any] | None:
+        """Return inert provenance/references, never runtime authorization state."""
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT metadata_json FROM portable_sessions WHERE session_id = ?",
+            (session_id,),
+        ).fetchone()
+        return json.loads(row[0]) if row else None
+
+    @_db_locked
+    def import_portable_payload(
+        self, payload: dict[str, Any], *, principal_id: str = ""
+    ) -> Session:
+        """Atomically create a detached session; the caller supplies local identity.
+
+        Source IDs, project hints and refs are inert provenance. No Memory,
+        Room, path, provider state or authorization is restored from the package.
+        """
+        from .session_portability import validate_payload
+
+        payload = validate_payload(payload)
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            session = self.create_session(project=None, entry_point="portable-import")
+            if session.session_id == payload["session"]["source_session_id"]:
+                raise SessionStoreError("portable session ID collision")
+            if principal_id:
+                self.bind_identity_context(
+                    session.session_id, principal_id=principal_id, room_id=""
+                )
+            for message in payload["conversation"]:
+                self._append_message_unlocked(
+                    session.session_id, message["role"], message["content"]
+                )
+            self._execute(
+                "INSERT INTO portable_sessions(session_id, metadata_json) VALUES (?, ?)",
+                (
+                    session.session_id,
+                    _safe_json_dumps(
+                        {
+                            "session": payload["session"],
+                            "references": payload["references"],
+                        }
+                    ),
+                ),
+            )
+            self._connection.execute("COMMIT")
+            return session
+        except Exception:
+            self._connection.execute("ROLLBACK")
+            raise
+
+    @_db_locked
     def touch_session(self, session_id: str) -> None:
         """Mark a session as most recently used."""
         self._require_session(session_id)
@@ -673,6 +730,8 @@ class SessionStore:
         entry_point: str = "jsonl-import",
     ) -> Session:
         """Import one legacy JSONL log into a new SQLite session."""
+        if Path(path).suffix.lower() == ".uag":
+            raise SessionStoreError(".uag requires encrypted portable import")
         source = Path(path)
         if not source.is_file():
             raise FileNotFoundError(str(source))

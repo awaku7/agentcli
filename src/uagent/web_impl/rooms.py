@@ -39,6 +39,7 @@ class WebRoom:
         # history for LLM
         self.history: list[dict[str, Any]] = []
         self.history_initialized = False
+        self.portable_history: list[dict[str, Any]] = []
         self.image_session: Optional[dict[str, Any]] = None
 
         # human_ask sync (room-scoped)
