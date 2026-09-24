@@ -49,11 +49,11 @@ class WebConnectionContext:
             server_bound_project=bool(self.project_id),
         )
 
-    def validate_room_access(self) -> None:
+    def validate_room_access(self, *, touch_activity: bool = True) -> None:
         """Re-check recipient authorization before delivering room broadcasts."""
         try:
             project_id, private_session = require_room_access(
-                self.identity, self.room_id
+                self.identity, self.room_id, touch_activity=touch_activity
             )
             if private_session != self.private_session:
                 raise IdentityResolutionError("private room binding changed")
@@ -67,7 +67,9 @@ class WebConnectionContext:
             ) from exc
 
 
-def require_room_access(identity: IdentityContext, room_id: str) -> tuple[str, bool]:
+def require_room_access(
+    identity: IdentityContext, room_id: str, *, touch_activity: bool = True
+) -> tuple[str, bool]:
     """Authorize one recipient against the current room and project policies."""
     from ..runtime.memory_store import open_memory_store
     from ..runtime.project_access import ProjectAccessPolicy
@@ -98,6 +100,9 @@ def require_room_access(identity: IdentityContext, room_id: str) -> tuple[str, b
         if project_id:
             project_policy.sync_directory_policy(identity)
             project_policy.require_access(identity.principal_id, project_id, "viewer")
+        if private_session and touch_activity:
+            if not room_policy.touch_private_room(room_id):
+                raise IdentityResolutionError("private room is no longer available")
         return project_id, private_session
     finally:
         store.close()

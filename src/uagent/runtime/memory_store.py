@@ -196,7 +196,8 @@ class MemoryStore:
         self.db.execute(
             "CREATE TABLE IF NOT EXISTS private_rooms ("
             "room_id TEXT PRIMARY KEY, principal_id TEXT NOT NULL, "
-            "session_id TEXT NOT NULL DEFAULT '', created_at REAL NOT NULL)"
+            "session_id TEXT NOT NULL DEFAULT '', created_at REAL NOT NULL, "
+            "last_activity_at REAL NOT NULL DEFAULT 0)"
         )
         private_room_columns = {
             str(row["name"])
@@ -206,9 +207,23 @@ class MemoryStore:
             self.db.execute(
                 "ALTER TABLE private_rooms ADD COLUMN session_id TEXT NOT NULL DEFAULT ''"
             )
+        if "last_activity_at" not in private_room_columns:
+            self.db.execute(
+                "ALTER TABLE private_rooms ADD COLUMN last_activity_at "
+                "REAL NOT NULL DEFAULT 0"
+            )
+        self.db.execute(
+            "UPDATE private_rooms SET last_activity_at = ? "
+            "WHERE last_activity_at = 0",
+            (time.time(),),
+        )
         self.db.execute(
             "CREATE INDEX IF NOT EXISTS idx_private_rooms_principal "
             "ON private_rooms(principal_id, room_id)"
+        )
+        self.db.execute(
+            "CREATE INDEX IF NOT EXISTS idx_private_rooms_activity "
+            "ON private_rooms(last_activity_at)"
         )
         self.db.execute(
             "INSERT OR IGNORE INTO memory_metadata(key, value) "
@@ -233,9 +248,16 @@ class MemoryStore:
             "private_rooms",
         ):
             for operation in ("INSERT", "UPDATE", "DELETE"):
+                if table == "private_rooms" and operation == "UPDATE":
+                    self.db.execute(
+                        "DROP TRIGGER IF EXISTS private_rooms_generation_UPDATE"
+                    )
+                    trigger_operation = "UPDATE OF room_id, principal_id, session_id"
+                else:
+                    trigger_operation = operation
                 self.db.execute(
                     f"CREATE TRIGGER IF NOT EXISTS {table}_generation_{operation} "
-                    f"AFTER {operation} ON {table} BEGIN "
+                    f"AFTER {trigger_operation} ON {table} BEGIN "
                     "UPDATE memory_metadata SET value = "
                     "CAST(CAST(value AS INTEGER) + 1 AS TEXT) "
                     "WHERE key = 'access_generation'; END"
