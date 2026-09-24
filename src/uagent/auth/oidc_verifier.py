@@ -281,21 +281,29 @@ async def resolve_entra_group_overage(
                 "Entra Graph returned an unsafe pagination URL"
             )
         try:
-            response = await http_client.get(
+            async with http_client.stream(
+                "GET",
                 url,
                 headers=headers,
                 follow_redirects=False,
                 timeout=10.0,
-            )
-            response.raise_for_status()
-            content = getattr(response, "content", b"")
-            if content and len(content) > _GRAPH_MAX_RESPONSE_BYTES:
-                raise IdentityResolutionError("Entra Graph response exceeds size limit")
-            document = response.json()
+            ) as response:
+                response.raise_for_status()
+                content = bytearray()
+                async for chunk in response.aiter_bytes():
+                    if len(content) + len(chunk) > _GRAPH_MAX_RESPONSE_BYTES:
+                        raise IdentityResolutionError(
+                            "Entra Graph response exceeds size limit"
+                        )
+                    content.extend(chunk)
         except IdentityResolutionError:
             raise
         except Exception as exc:
             raise IdentityResolutionError("Entra group lookup failed") from exc
+        try:
+            document = json.loads(content)
+        except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+            raise IdentityResolutionError("Entra Graph returned invalid JSON") from exc
         if not isinstance(document, dict) or not isinstance(
             document.get("value"), list
         ):
