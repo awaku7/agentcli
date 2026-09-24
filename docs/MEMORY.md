@@ -266,7 +266,7 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## 12. Current limitations at main `dd382cae`
+## 12. Current limitations at main `68083fb3`
 
 Core V3 authorization and Memory boundaries are implemented, but deployment rollout is not complete:
 

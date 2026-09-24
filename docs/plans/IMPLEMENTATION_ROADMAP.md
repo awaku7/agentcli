@@ -36,7 +36,7 @@
 - legacy `/api/memories` / `/api/profile` のlocal-mode制限
 - Web Memory APIのrequest境界cleanupとauthorization failure時のSQLite store回収
 
-### 残作業（main `dd382cae` の再照合）
+### 残作業（main `68083fb3` の再照合）
 
 1. 必要なdeployment向けに、non-OIDC ProjectContextの既定値を認証済みworkspaceから自動導出するintegrationを追加する（membership検証は常に必須）。
 1. Entra groupのlogin後のfreshness/revocationと、Entra以外のtrusted Directory API adapterを設計する。

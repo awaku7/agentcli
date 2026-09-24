@@ -243,7 +243,7 @@ When Entra emits a signed group-overage marker, UAG can resolve group IDs at log
 
 `UAGENT_DIRECTORY_GROUP_POLICY` can map verified group identifiers to project/room roles, but it is policy configuration, not an identity verifier or directory client. Graph response bytes are bounded while streaming; redirects are disabled and unsafe pagination URLs or size-limit violations fail closed.
 
-## 10. Current limitations at main `dd382cae`
+## 10. Current limitations at main `68083fb3`
 
 - OIDC sessions are process-local. A process restart signs users out; multi-instance/HA deployments need a durable session design.
 - Non-OIDC users can select a membership-approved Project through server-side ProjectContext. Automatic default-Project derivation from a trusted deployment workspace is not implemented.

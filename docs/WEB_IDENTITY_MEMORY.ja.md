@@ -241,7 +241,7 @@ Entraが署名検証済みgroup-overage markerを返した場合、authorization
 
 `UAGENT_DIRECTORY_GROUP_POLICY` は、検証済みgroup IDをProject / Room roleへmappingするpolicy設定であり、identity verifierやDirectory clientの代替ではありません。Graph応答のbyte上限はstreaming中に適用され、redirectやunsafeなpagination URL、上限超過はfail-closedです。
 
-## 10. main `dd382cae` 時点の制約
+## 10. main `68083fb3` 時点の制約
 
 - OIDC sessionはprocess-localです。process再起動で再ログインが必要です。multi-instance / HA運用にはdurable session設計が必要です。
 - non-OIDC userはmembership確認済みProjectをserver-side ProjectContextへ選択・bindingできます。信頼済みdeployment workspaceから既定Projectを自動導出する機能は未実装です。
