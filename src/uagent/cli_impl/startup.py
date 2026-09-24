@@ -34,12 +34,22 @@ genai = None
 gemini_types = None
 gemini_errors = None
 
+from ..runtime.observability.settings import (
+    consume_otel_cli_flags,
+    resolve_observability_settings,
+)
 from ..util_tools import parse_startup_args as _parse_startup_args
 
 # Import scheck_core
 core = importlib.import_module(".core", package="uagent")
 
 _startup_args, _startup_unknown = _parse_startup_args()
+_otel_cli_override, _startup_unknown = consume_otel_cli_flags(_startup_unknown)
+OBSERVABILITY_SETTINGS = resolve_observability_settings(
+    explicit_enabled=_otel_cli_override
+)
+UAGENT_OTEL_ENABLED = OBSERVABILITY_SETTINGS.enabled
+
 _cli_workdir = _startup_args.get("workdir")
 _env_workdir = env_get("UAGENT_WORKDIR")
 
