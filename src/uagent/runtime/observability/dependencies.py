@@ -19,7 +19,7 @@ class OTelDependency:
 
 
 OTEL_DEPENDENCIES = (
-    OTelDependency("opentelemetry-api", "opentelemetry", f"=={OTEL_VERSION}"),
+    OTelDependency("opentelemetry-api", "opentelemetry.trace", f"=={OTEL_VERSION}"),
     OTelDependency("opentelemetry-sdk", "opentelemetry.sdk", f"=={OTEL_VERSION}"),
     OTelDependency(
         "opentelemetry-exporter-otlp",
