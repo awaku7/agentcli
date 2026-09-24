@@ -7,7 +7,7 @@ import time
 from typing import Any
 
 from ..env_utils import env_get
-from .memory_access import MemoryAccessError
+from .memory_access import MemoryAccessContext, MemoryAccessError, ScopedMemoryStore
 from .memory_store import MemoryStore
 
 PROJECT_ROLES = ("viewer", "editor", "admin")
@@ -312,4 +312,54 @@ class ProjectAccessPolicy:
             raise
 
 
-__all__ = ["PROJECT_ROLES", "ProjectAccessPolicy", "ProjectMembership"]
+class ProjectMemoryService:
+    """Apply project role checks to project-audience Memory operations."""
+
+    def __init__(
+        self,
+        store: MemoryStore,
+        policy: ProjectAccessPolicy,
+        *,
+        principal_id: str,
+        project_id: str,
+    ) -> None:
+        self.policy = policy
+        self.principal_id = principal_id
+        self.project_id = project_id
+        self.scoped = ScopedMemoryStore(
+            store,
+            MemoryAccessContext(
+                principal_id=principal_id,
+                project_id=project_id,
+                authenticated=True,
+                readable_audiences=(("project", project_id),),
+            ),
+        )
+
+    def records(self) -> list[dict[str, Any]]:
+        self.policy.require_access(self.principal_id, self.project_id, "viewer")
+        return self.scoped.records()
+
+    def append(self, note: str) -> dict[str, Any]:
+        self.policy.require_access(self.principal_id, self.project_id, "editor")
+        return self.scoped.append_audience("project", self.project_id, note)
+
+    def update(
+        self, memory_id: str, note: str, *, expected_revision: int
+    ) -> dict[str, Any]:
+        self.policy.require_access(self.principal_id, self.project_id, "editor")
+        return self.scoped.update_audience(
+            memory_id, note, expected_revision=expected_revision
+        )
+
+    def forget(self, memory_id: str, *, expected_revision: int) -> None:
+        self.policy.require_access(self.principal_id, self.project_id, "editor")
+        self.scoped.forget_audience(memory_id, expected_revision=expected_revision)
+
+
+__all__ = [
+    "PROJECT_ROLES",
+    "ProjectAccessPolicy",
+    "ProjectMembership",
+    "ProjectMemoryService",
+]

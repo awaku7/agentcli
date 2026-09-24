@@ -44,6 +44,40 @@ class WebConnectionContext:
             entry_point="web",
         )
 
+    def validate_room_access(self) -> None:
+        """Re-check recipient authorization before delivering room broadcasts."""
+        from ..tools import long_memory
+        from ..runtime.memory_store import open_memory_store
+        from ..runtime.project_access import ProjectAccessPolicy
+        from ..runtime.room_access import RoomAccessPolicy
+
+        try:
+            if not long_memory.is_sqlite_backend():
+                raise IdentityResolutionError("multi-user rooms require SQLite memory")
+            store = open_memory_store(long_memory._sqlite_path())
+            try:
+                room_policy = RoomAccessPolicy(store)
+                if (
+                    room_policy.membership(self.identity.principal_id, self.room_id)
+                    is None
+                ):
+                    raise IdentityResolutionError("room membership is no longer active")
+                project_policy = ProjectAccessPolicy(store)
+                project_id = project_policy.room_project(self.room_id)
+                if project_id:
+                    project_policy.sync_directory_policy(self.identity)
+                    project_policy.require_access(
+                        self.identity.principal_id, project_id, "viewer"
+                    )
+            finally:
+                store.close()
+        except IdentityResolutionError:
+            raise
+        except Exception as exc:
+            raise IdentityResolutionError(
+                "room or project access is unavailable"
+            ) from exc
+
 
 def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionContext:
     """Resolve the selected identity mode before joining a room."""
@@ -76,8 +110,10 @@ def resolve_web_connection(websocket: object, room_id: str) -> WebConnectionCont
     if configuration_fingerprint != authentication_configuration_fingerprint():
         raise IdentityResolutionError("authentication configuration changed")
 
-    return WebConnectionContext(
+    connection = WebConnectionContext(
         room_id=room_id,
         identity=identity,
         configuration_fingerprint=configuration_fingerprint,
     )
+    connection.validate_room_access()
+    return connection

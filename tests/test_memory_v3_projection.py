@@ -23,10 +23,10 @@ def _access(principal_id: str) -> MemoryAccessContext:
     )
 
 
-def _turn(principal_id: str) -> TurnContext:
+def _turn(principal_id: str, *, room_id: str = "") -> TurnContext:
     return TurnContext(
         principal_id=principal_id,
-        room_id="",
+        room_id=room_id,
         project_id="demo",
         session_id=f"session-{principal_id}",
         entry_point="web",
@@ -82,6 +82,50 @@ def test_identity_bound_projection_attributes_sharing_and_invalidates_revocation
         assert apply_memory_projection(messages, snapshot, core) == messages
     with bind_turn_context(_turn("charlie")):
         assert apply_memory_projection(messages, snapshot, core) == messages
+
+
+def test_shared_room_never_projects_principal_memory_or_profile(tmp_path, monkeypatch):
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    monkeypatch.setenv("UAGENT_LOG_DIR", str(tmp_path / "logs"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    monkeypatch.setenv("UAGENT_ENABLE_PROFILING", "1")
+    store = MemoryStore(memory_path)
+    projects = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    projects.set_membership("root", "demo", "bob", "viewer")
+    projects.bind_room("root", "demo", "room-x")
+    room_policy = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
+    room_policy.set_membership("root", "room-x", "bob", "editor")
+    ScopedMemoryStore(store, _access("bob")).append("bob private deployment checklist")
+    room_note = RoomMemoryService(
+        store,
+        room_policy,
+        principal_id="bob",
+        project_id="demo",
+        room_id="room-x",
+    ).append("shared room deployment checklist")
+    store.close()
+    save_profile(
+        {
+            "environment": {},
+            "preferences": ["bob private profile detail"],
+            "constraints": [],
+        },
+        "bob",
+    )
+
+    messages = [{"role": "user", "content": "show deployment checklist"}]
+    core = SimpleNamespace(memory_private_session_principal="bob")
+    with bind_turn_context(_turn("bob", room_id="room-x")):
+        snapshot = prepare_memory_projection(messages, core)
+        projected = apply_memory_projection(messages, snapshot, core)
+
+    rendered = "\n".join(str(message.get("content", "")) for message in projected)
+    assert "shared room deployment checklist" in rendered
+    assert "bob private deployment checklist" not in rendered
+    assert "bob private profile detail" not in rendered
+    assert f"memory:{room_note['memory_id']}@1" in rendered
 
 
 def test_profiles_are_separate_and_paths_do_not_expose_principal_ids(
@@ -195,6 +239,38 @@ def test_project_membership_isolation_blocks_projection_for_unassigned_project(
     assert snapshot is not None
     assert snapshot.diagnostics["error"] == "MemoryAccessError"
     assert projected == messages
+
+
+def test_project_audience_is_added_after_project_membership_check(
+    tmp_path, monkeypatch
+):
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    store = MemoryStore(memory_path)
+    projects = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    projects.set_membership("root", "demo", "alice", "viewer")
+    project_context = MemoryAccessContext(
+        principal_id="alice",
+        project_id="demo",
+        authenticated=True,
+        readable_audiences=(("project", "demo"),),
+    )
+    project_note = ScopedMemoryStore(store, project_context).append_audience(
+        "project", "demo", "signed release checklist"
+    )
+    store.close()
+
+    messages = [{"role": "user", "content": "show release checklist"}]
+    core = SimpleNamespace()
+    with bind_turn_context(_turn("alice")):
+        snapshot = prepare_memory_projection(messages, core)
+        projected = apply_memory_projection(messages, snapshot, core)
+
+    rendered = "\n".join(str(message.get("content", "")) for message in projected)
+    assert "[project:demo] signed release checklist" in rendered
+    assert f"memory:{project_note['memory_id']}@1" in rendered
 
 
 def test_project_membership_revocation_invalidates_active_projection(

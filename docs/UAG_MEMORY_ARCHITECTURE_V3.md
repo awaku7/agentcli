@@ -44,18 +44,19 @@ v3 の目的は、同一 UAG Web process を複数人が利用し、さらに同
 | Identity / authentication | `IdentityContext` / `TurnContext`、turn-local context伝播、明示mode選択、OIDC session resolver、`trusted_proxy` / `token` resolver | `oauth` / `windows_ad` / `external` は共通verifier adapterまでで、実際のcredential verifierはhost側で登録する必要がある。`local` は全利用者共通の単一principalであり、multi-user認証の代替ではない |
 | OIDC / Entra groups | OIDC検証後のgroups伝播、malformed claimsとoverageのfail-closed、環境設定によるgroup-to-policy mappingとProject / Room membership同期 | overageを解決するDirectory API、directory membershipのlive refresh、on-prem trusted proxy / IWAの実環境integration |
 | ProjectContext | configured single-projectとOIDC sessionへのproject binding、membership検証、不一致拒否、SQLiteのProject membershipとRoom-to-project binding | non-OIDC / multi-project deploymentで、認証済みworkspaceからHTTP ProjectContextを導出する経路 |
-| Personal / Room Memory・個別共有 | SQLite audience filtering、revision-bound read-only grant、Personal / Room / shared-memory API、grantの所有者検証とproject境界 | self-service参加フロー、管理UI / 運用diagnostics、deployment固有の運用手順は別途必要 |
-| Projection / revocation | scoped storeで候補化前に認可し、memory/grant/membership変更をaccess generationへ反映。LLM実行経路およびWeb stream経路にsnapshot有効性確認がある | 取消より前にproviderへ送信済み、または利用者へ配信済みの内容は回収できない。全provider・実運用条件の包括的保証は未検証 |
+| Personal / Room / Project Memory・個別共有 | SQLite audience filtering、revision-bound read-only grant、Personal / Room / Project / shared-memory API、Project membership確認後のProject audience projection、project-bound Roomの参加者認可とbroadcast前のmembership再確認 | shared-room外のPersonal Memory / Profileを使うprivate Web turnの発行・binding、self-service参加フロー、管理UI / 運用diagnostics、deployment固有の運用手順 |
+| Projection / revocation | scoped storeで候補化前に認可し、memory/grant/membership変更をaccess generationへ反映。LLM実行経路およびWeb stream経路にsnapshot有効性確認がある。shared-room turnではPersonal Memory / Profileをfail-closedで除外する | 取消より前にproviderへ送信済み、または利用者へ配信済みの内容は回収できない。全provider・実運用条件の包括的保証は未検証 |
 | Profile | `/api/me/profile` はprincipal ID単位で読み書きし、旧 `/api/profile` 系はlocal modeに限定 | shared-room発言をPersonal Profileへ学習しない等の全評価項目は、別途regression / rollout gateで確認する |
 | rollout / evaluation | project membership取消によるsnapshot拒否などの回帰テストが存在する | V3-9全体の評価、実環境検証、authenticated multi-user / shared-roomのdefault化判断 |
 
-現行checkoutで次の対象テストを個別実行し、40件が成功した。これは全テストスイートの結果ではない。
+現行checkoutで次の対象テストを個別実行し、Project / Room Memory APIとProjection、接続先認可の回帰テストを含む55件が成功した。これは全テストスイートの結果ではない。
 
-- `tests/test_memory_v3_projection.py`（5件）
-- `tests/test_memory_v3_web_api.py`（2件）
+- `tests/test_memory_v3_projection.py`（7件）
+- `tests/test_memory_v3_web_api.py`（3件）
 - `tests/test_oidc_verifier.py`（18件）
 - `tests/test_oidc_sessions.py`（11件）
 - `tests/test_directory_group_policy.py`（4件）
+- `tests/test_web_connection_identity.py`（12件）
 
 ______________________________________________________________________
 
@@ -1100,6 +1101,19 @@ DELETE /api/rooms/{room_id}/memories/{memory_id}
 ```
 
 全 operation で membership / permission を検証する。
+
+### 22.2.1 Project Memory
+
+Project membershipが確認されたprincipal向けに、Project audienceの記憶を管理する。
+
+```text
+GET    /api/projects/{project_id}/memories
+POST   /api/projects/{project_id}/memories
+PUT    /api/projects/{project_id}/memories/{memory_id}
+DELETE /api/projects/{project_id}/memories/{memory_id}
+```
+
+viewerは読み取り、editor / adminは追加・更新・削除を行える。pathのprojectはserver-bound ProjectContextと一致する必要があり、client指定だけではaccessを付与しない。
 
 ### 22.3 Profile
 

@@ -282,8 +282,8 @@ def _items_from_scoped_result(
         owner_id = str(record.get("owner_id") or "")
         audience_type = str(record.get("audience_type") or "")
         shared = bool(record.get("shared_reference")) and owner_id != principal_id
-        if audience_type == "room":
-            scope = f"room:{record.get('audience_id') or 'unknown'}"
+        if audience_type in {"room", "project"}:
+            scope = f"{audience_type}:{record.get('audience_id') or 'unknown'}"
         else:
             scope = f"shared-from:{owner_id}" if shared else "personal"
         memory_id = str(record.get("memory_id") or "unknown")
@@ -311,7 +311,10 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
     if not long_memory.is_sqlite_backend():
         raise RuntimeError("V3 multi-user projection requires SQLite memory")
     private_principal = str(getattr(core, "memory_private_session_principal", "") or "")
-    readable_audiences = tuple(getattr(core, "memory_readable_audiences", ()) or ())
+    # Personal records and individual grants may only enter a server-confirmed
+    # private turn. Room turns broadcast output and history to room members.
+    private_session = private_principal == turn.principal_id and not turn.room_id
+    readable_audiences = [("project", turn.project_id)]
     store = open_memory_store(long_memory._sqlite_path())
     try:
         from .project_access import ProjectAccessPolicy
@@ -332,11 +335,11 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
 
             policy = RoomAccessPolicy(store)
             if policy.can_read_room_memory(turn.principal_id, turn.room_id):
-                readable_audiences += (("room", turn.room_id),)
+                readable_audiences.append(("room", turn.room_id))
         context = MemoryAccessContext.from_turn(
             turn,
-            private_session=private_principal == turn.principal_id,
-            readable_audiences=readable_audiences,
+            private_session=private_session,
+            readable_audiences=tuple(readable_audiences),
         )
         scoped = ScopedMemoryStore(store, context)
         return scoped.records(), scoped.access_generation
@@ -471,7 +474,12 @@ def prepare_memory_projection(
     guidance_budget_chars = _positive_int("UAGENT_MEMORY_GUIDANCE_CHARS", 1_200)
     guidance = _GuidanceProjection("", 0, 0)
     try:
-        if is_profiling_enabled():
+        private_profile_turn = not scoped_identity or (
+            not turn.room_id
+            and str(getattr(core, "memory_private_session_principal", "") or "")
+            == turn.principal_id
+        )
+        if is_profiling_enabled() and private_profile_turn:
             profile = load_profile(principal_id) if principal_id else load_profile()
             if isinstance(profile, dict):
                 guidance = _format_applicable_guidance(

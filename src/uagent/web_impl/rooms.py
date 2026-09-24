@@ -200,6 +200,11 @@ class WebRoom:
             return
         try:
             connection_context.validate_authentication_configuration()
+            validate_room_access = getattr(
+                connection_context, "validate_room_access", None
+            )
+            if callable(validate_room_access):
+                validate_room_access()
         except (IdentityConfigurationError, IdentityResolutionError):
             self.disconnect(websocket)
             try:

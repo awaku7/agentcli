@@ -168,3 +168,62 @@ def test_v3_web_api_uses_server_identity_and_room_roles(tmp_path, monkeypatch):
     )
     assert denied.status_code == 403
     assert client.get("/api/memories").status_code == 403
+
+
+def test_v3_project_memory_api_enforces_project_roles(tmp_path, monkeypatch):
+    principal = ["admin"]
+    resolver = _Resolver(principal)
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "demo")
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
+    client = TestClient(app)
+
+    assert (
+        client.put(
+            "/api/projects/demo/members/alice", json={"role": "editor"}
+        ).status_code
+        == 200
+    )
+    assert (
+        client.put(
+            "/api/projects/demo/members/bob", json={"role": "viewer"}
+        ).status_code
+        == 200
+    )
+    assert (
+        client.post(
+            "/api/projects/other/memories", json={"note": "wrong project"}
+        ).status_code
+        == 403
+    )
+
+    principal[0] = "alice"
+    created = client.post(
+        "/api/projects/demo/memories", json={"note": "shared project guidance"}
+    )
+    assert created.status_code == 200
+    memory = created.json()["memory"]
+    assert memory["audience_type"] == "project"
+    assert memory["audience_id"] == "demo"
+
+    principal[0] = "bob"
+    listed = client.get("/api/projects/demo/memories")
+    assert [item["note"] for item in listed.json()["memories"]] == [
+        "shared project guidance"
+    ]
+    denied = client.post(
+        "/api/projects/demo/memories", json={"note": "viewer cannot write"}
+    )
+    assert denied.status_code == 403
+
+    principal[0] = "alice"
+    deleted = client.request(
+        "DELETE",
+        f"/api/projects/demo/memories/{memory['memory_id']}",
+        json={"expected_revision": memory["revision"]},
+    )
+    assert deleted.status_code == 200
+    principal[0] = "bob"
+    assert client.get("/api/projects/demo/memories").json()["memories"] == []

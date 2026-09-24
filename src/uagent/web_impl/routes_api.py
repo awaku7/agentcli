@@ -25,8 +25,8 @@ from ..runtime.memory_access import (
     ScopedMemoryStore,
 )
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
+from ..runtime.project_access import ProjectAccessPolicy, ProjectMemoryService
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
-from ..runtime.project_access import ProjectAccessPolicy
 from ..auth.oidc_sessions import get_oidc_session_store
 from ..env_utils import env_get
 from .agent_worker import run_agent_worker
@@ -560,6 +560,84 @@ def _room_service(
         room_id=room_id,
     )
     return identity, store, policy, service
+
+
+def _project_memory_service(request: Request, project_id: str):
+    identity = _request_identity(request)
+    store = _memory_store()
+    try:
+        bound_project = _project_id(project_id, request)
+        policy = ProjectAccessPolicy(store)
+        policy.sync_directory_policy(identity)
+        service = ProjectMemoryService(
+            store,
+            policy,
+            principal_id=identity.principal_id,
+            project_id=bound_project,
+        )
+        return store, service
+    except Exception:
+        store.close()
+        raise
+
+
+@app.get("/api/projects/{project_id}/memories")
+async def get_project_memories(project_id: str, request: Request):
+    try:
+        store, service = _project_memory_service(request, project_id)
+        try:
+            return {"ok": True, "memories": service.records()}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.post("/api/projects/{project_id}/memories")
+async def add_project_memory(project_id: str, request: Request):
+    try:
+        body = await request.json()
+        store, service = _project_memory_service(request, project_id)
+        try:
+            return {"ok": True, "memory": service.append(str(body.get("note", "")))}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.put("/api/projects/{project_id}/memories/{memory_id}")
+async def update_project_memory(project_id: str, memory_id: str, request: Request):
+    try:
+        body = await request.json()
+        store, service = _project_memory_service(request, project_id)
+        try:
+            memory = service.update(
+                memory_id,
+                str(body.get("note", "")),
+                expected_revision=int(body.get("expected_revision", 0)),
+            )
+            return {"ok": True, "memory": memory}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
+
+
+@app.delete("/api/projects/{project_id}/memories/{memory_id}")
+async def delete_project_memory(project_id: str, memory_id: str, request: Request):
+    try:
+        body = await request.json()
+        store, service = _project_memory_service(request, project_id)
+        try:
+            service.forget(
+                memory_id, expected_revision=int(body.get("expected_revision", 0))
+            )
+            return {"ok": True}
+        finally:
+            store.close()
+    except Exception as exc:
+        return _memory_error(exc)
 
 
 @app.get("/api/rooms/{room_id}/memories")

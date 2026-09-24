@@ -211,13 +211,23 @@ def test_room_broadcast_closes_stale_authenticated_connection(monkeypatch):
     assert socket not in room.active_connections
 
 
-def test_room_connect_falls_back_for_malformed_history(monkeypatch):
+def test_room_connect_falls_back_for_malformed_history(tmp_path, monkeypatch):
     from uagent.web_impl.rooms import WebRoom
 
     monkeypatch.setattr(
         "uagent.runtime.auth_management.authentication_configuration_fingerprint",
         lambda: "revision-1",
     )
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.room_access import RoomAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    RoomAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "shared", "user-A", "member"
+    )
+    store.close()
 
     class Socket:
         def __init__(self):
@@ -245,6 +255,49 @@ def test_room_connect_falls_back_for_malformed_history(monkeypatch):
 
     assert socket.accepted is True
     assert socket.sent[0]["messages"] == room.messages
+
+
+def test_project_bound_room_requires_project_access_for_every_recipient(
+    tmp_path, monkeypatch
+):
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+    from uagent.runtime.room_access import RoomAccessPolicy
+
+    memory_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(memory_path))
+    store = MemoryStore(memory_path)
+    projects = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    projects.bind_room("root", "demo", "shared")
+    rooms = RoomAccessPolicy(store, admin_principals=frozenset({"root"}))
+    rooms.set_membership("root", "shared", "user-A", "member")
+    store.close()
+
+    identity = IdentityContext("user-A", True, "oidc")
+    monkeypatch.setattr(
+        connection_identity,
+        "resolve_turn_context",
+        lambda **kwargs: (identity, None),
+    )
+    with pytest.raises(IdentityResolutionError):
+        connection_identity.resolve_web_connection(object(), "shared")
+
+    store = MemoryStore(memory_path)
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "demo", "user-A", "viewer"
+    )
+    store.close()
+    connection = connection_identity.resolve_web_connection(object(), "shared")
+    connection.validate_room_access()
+
+    store = MemoryStore(memory_path)
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).revoke_membership(
+        "root", "demo", "user-A"
+    )
+    store.close()
+    with pytest.raises(IdentityResolutionError):
+        connection.validate_room_access()
 
 
 def test_room_connect_revalidates_before_sending_history():
