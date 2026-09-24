@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+from collections import Counter
 import json
+import math
 import os
 import re
 import struct
@@ -112,12 +114,30 @@ def validate_payload(payload: Any) -> dict:
     return payload
 
 
+def _is_high_entropy_secret(value: str) -> bool:
+    """Avoid global replacement of short/common values that corrupt dialogue."""
+    if len(value) < 16 or any(char.isspace() for char in value):
+        return False
+    counts = Counter(value)
+    if len(counts) < 8:
+        return False
+    entropy = -sum(
+        (count / len(value)) * math.log2(count / len(value))
+        for count in counts.values()
+    )
+    return entropy >= 3.5
+
+
 def _known_secrets(value: Any, found: set[str], depth: int = 0) -> None:
     if depth > 32:
         return
     if isinstance(value, dict):
         for key, item in value.items():
-            if looks_like_secret_key(str(key)) and isinstance(item, str) and item:
+            if (
+                looks_like_secret_key(str(key))
+                and isinstance(item, str)
+                and _is_high_entropy_secret(item)
+            ):
                 found.add(item)
             _known_secrets(item, found, depth + 1)
     elif isinstance(value, list):
@@ -149,7 +169,14 @@ def snapshot(store, session_id: str) -> dict:
     metadata = store.get_session(session_id)
     messages = store.list_messages(session_id)
     secrets: set[str] = set()
-    _known_secrets(dict(os.environ), secrets)
+    # PWD/OLDPWD are ordinary workspace paths, not credentials, despite the
+    # generic secret-key matcher recognizing the substring "pwd".
+    environment = {
+        key: value
+        for key, value in os.environ.items()
+        if key.upper() not in {"PWD", "OLDPWD"}
+    }
+    _known_secrets(environment, secrets)
     _known_secrets(messages, secrets)
     # A secret supplied to a tool may be echoed later in plain conversation.
     _known_secrets(store.list_tool_calls(session_id), secrets)

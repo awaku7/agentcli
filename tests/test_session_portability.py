@@ -204,12 +204,12 @@ def test_credential_exclusion_and_inert_conversation(store, monkeypatch):
         session.session_id,
         "user",
         "ordinary task\nenvironment-value-123\nAuthorization: Basic abcdef\n-----BEGIN RSA PRIVATE KEY-----\nprivate-material\n-----END RSA PRIVATE KEY-----\nOAuth: oauth-value\npassword = 'spaces are secret'",
-        payload={"api_key": "hidden-key"},
+        payload={"api_key": "8d390fae27c15b460892c03a8914ef76"},
     )
     store.append_message(
         session.session_id,
         "assistant",
-        "hidden-key",
+        "8d390fae27c15b460892c03a8914ef76",
         payload={
             "provider_state": {"accessToken": "hidden-token"},
             "tool_calls": [{"id": "execute-me"}],
@@ -229,7 +229,7 @@ def test_credential_exclusion_and_inert_conversation(store, monkeypatch):
         "private-material",
         "oauth-value",
         "spaces are secret",
-        "hidden-key",
+        "8d390fae27c15b460892c03a8914ef76",
         "hidden-token",
         "execute-me",
         "private projection",
@@ -238,6 +238,36 @@ def test_credential_exclusion_and_inert_conversation(store, monkeypatch):
         assert secret not in raw
     assert all(set(m) == {"role", "content"} for m in exported["conversation"])
     assert exported["conversation"][-1]["role"] == "assistant"
+
+
+def test_pwd_environment_values_do_not_corrupt_exported_conversation(
+    store, monkeypatch
+):
+    cwd = "/workspace/AbCdefGHIJKLMN987654"
+    old_cwd = "/previous/Workspace/XyZ0123456789"
+    monkeypatch.setenv("PWD", cwd)
+    monkeypatch.setenv("OLDPWD", old_cwd)
+    session = store.create_session(project=None, entry_point="cli")
+    text = f"Working tree moved from {old_cwd} to {cwd}."
+    store.append_message(session.session_id, "user", text)
+
+    exported = p.snapshot(store, session.session_id)
+
+    assert exported["conversation"][0]["content"] == text
+
+
+def test_short_low_entropy_environment_secrets_do_not_globally_redact(
+    store, monkeypatch
+):
+    monkeypatch.setenv("DEMO_API_TOKEN", "abc")
+    monkeypatch.setenv("DEMO_PASSWORD", "aaaaaaaaaaaaaaaa")
+    session = store.create_session(project=None, entry_point="cli")
+    text = "The examples abc and aaaaaaaaaaaaaaaa are ordinary conversation text."
+    store.append_message(session.session_id, "user", text)
+
+    exported = p.snapshot(store, session.session_id)
+
+    assert exported["conversation"][0]["content"] == text
 
 
 def test_files_only_encrypted_no_overwrite(store, payload, tmp_path):
@@ -352,6 +382,50 @@ def test_cli_resume_cannot_rebind_web_identity(store, payload):
     with pytest.raises(ValueError, match="authorization"):
         restore_imported_session(core, store, messages, session.session_id)
     assert not messages and core.session_id == "unchanged"
+
+
+def test_interactive_portable_resume_clears_stale_responses_state(
+    store, payload, monkeypatch
+):
+    from uagent import util_cmd_session
+    from uagent.util_cmd_session import _handle_cmd_sessions
+
+    imported = store.import_portable_payload(payload)
+    monkeypatch.setattr(
+        util_cmd_session, "_restore_session_tools", lambda messages: None
+    )
+    core = SimpleNamespace(
+        session_store=store,
+        session_id="different-active-session",
+        responses_state={
+            "provider": "openai",
+            "model": "current-model",
+            "previous_response_id": "previous-session-response",
+            "active_response_id": "previous-active-response",
+            "_stale_rid_occurred": True,
+            "last_response_status": "completed",
+        },
+        SYSTEM_PROMPT="destination system policy",
+        log_message=lambda message: None,
+    )
+    messages = []
+
+    assert _handle_cmd_sessions(
+        f"resume {imported.session_id}",
+        messages_ref=messages,
+        core=core,
+        tr=lambda text: text,
+    )
+
+    assert core.responses_state == {
+        "provider": "openai",
+        "model": "current-model",
+    }
+    assert messages[0] == {
+        "role": "system",
+        "content": "destination system policy",
+    }
+    assert messages[1:] == payload["conversation"]
 
 
 @pytest.mark.parametrize(

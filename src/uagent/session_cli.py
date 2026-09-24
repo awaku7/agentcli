@@ -11,13 +11,14 @@ import warnings
 def restore_imported_session(core, store, messages: list, session_id: str) -> None:
     """Restore dialogue under freshly initialized local instructions/context."""
     from .runtime.session_portability import snapshot
-    from .runtime.session_restore import bind_session
+    from .runtime.session_restore import bind_session, clear_response_continuation_state
 
     if store is None or store.get_portable_metadata(session_id) is None:
         raise ValueError("portable session unavailable")
     if store.get_session(session_id).get("principal_id"):
         raise ValueError("identity-bound sessions require Web authorization")
     conversation = snapshot(store, session_id)["conversation"]
+    clear_response_continuation_state(core)
     messages.extend(conversation)
     bind_session(core=core, store=store, session_id=session_id)
 
