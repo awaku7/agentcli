@@ -1,0 +1,28 @@
+name: Black diagnostic
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  black-diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install Black
+        run: python -m pip install black==26.5.1
+
+      - name: Capture exact Black output
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m black src/uagent/runtime/observability/runtime.py
+          git diff -- src/uagent/runtime/observability/runtime.py
+          git diff --exit-code -- src/uagent/runtime/observability/runtime.py
