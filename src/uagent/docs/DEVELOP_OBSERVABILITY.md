@@ -73,18 +73,18 @@ invoke_agent uag
 ```
 
 - Agent spans are created at `runtime.execution.lifecycle_execution()`.
-- LLM spans are created at the provider-neutral `runtime.round_orchestrator` boundary, not inside individual provider SDK adapters.
+- LLM spans stay at provider-neutral logical round boundaries, never inside provider SDK adapters. Registry-backed rounds use `runtime.round_orchestrator`; compatibility providers use the two centralized fallback outcome boundaries (`runtime.legacy_round_registry` and `runtime.legacy_openai_round`) through the shared observability helper.
 - Tool spans use the centralized tool dispatch/lifecycle boundary. Confirmation-denied calls do not create execution spans.
 - Existing structured events remain independent and receive the active `trace_id` / `span_id` when a span is active.
 
-Estimated request tokens and provider-reported usage remain distinct:
+Estimated request tokens and provider-reported usage remain distinct on both registry and fallback LLM spans:
 
 ```text
 uag.tokens.estimate.*
 uag.tokens.reported.*
 ```
 
-Never report estimates as provider-exact usage.
+Never report estimates as provider-exact usage. Fallback providers attach reported deltas only when the provider has populated the existing authoritative legacy usage state; missing usage is omitted rather than invented.
 
 ## OTLP and standard OTel configuration
 
