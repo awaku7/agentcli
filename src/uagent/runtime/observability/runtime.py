@@ -94,9 +94,7 @@ def start_pending_tool_span() -> None:
     except Exception:
         return
     active_stack = _ACTIVE_TOOL_SPANS.get()
-    _ACTIVE_TOOL_SPANS.set(
-        (*active_stack, _ActiveToolSpan(manager=manager, span=span))
-    )
+    _ACTIVE_TOOL_SPANS.set((*active_stack, _ActiveToolSpan(manager=manager, span=span)))
 
 
 def abandon_active_tool_span() -> None:
