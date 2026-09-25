@@ -133,6 +133,20 @@ def mark_tool_running() -> None:
     if lifecycle is not None:
         _safe_transition(lifecycle, "resume")
 
+    # The centralized tool runner calls this from its ``finally`` block. If a
+    # BaseException such as KeyboardInterrupt/CancelledError is still active,
+    # no terminal tool.completed/tool.failed event will follow, so close the
+    # current tool span here instead of leaking its OTel context.
+    try:
+        import sys
+
+        if sys.exc_info()[0] is not None:
+            from .observability.runtime import abandon_active_tool_span
+
+            abandon_active_tool_span()
+    except Exception:
+        pass
+
 
 def _safe_transition(lifecycle: AgentLifecycle, method: str) -> None:
     try:
