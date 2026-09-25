@@ -9,7 +9,6 @@ _ALWAYS_BLOCKED_FRAGMENTS = (
     "cookie",
     "password",
     "secret",
-    "token",
     "client_secret",
     "principal_id",
     "subject",
@@ -34,9 +33,24 @@ _CONTENT_FRAGMENTS = (
 _MAX_STRING_LENGTH = 512
 
 
+def _contains_token_credential_key(normalized: str) -> bool:
+    """Block credential-style ``token`` keys without hiding token metrics.
+
+    Splitting common key separators means names such as ``access_token``,
+    ``auth.token`` and ``bearer-token`` are rejected while plural metric names
+    such as ``uag.tokens.reported.input`` and ``gen_ai.usage.input_tokens`` are
+    preserved.
+    """
+
+    canonical = normalized.replace("_", ".").replace("-", ".").replace("/", ".")
+    return "token" in {part for part in canonical.split(".") if part}
+
+
 def _blocked(key: str, *, capture_content: bool) -> bool:
     normalized = str(key or "").strip().lower()
     if any(fragment in normalized for fragment in _ALWAYS_BLOCKED_FRAGMENTS):
+        return True
+    if _contains_token_credential_key(normalized):
         return True
     if not capture_content and any(
         fragment in normalized for fragment in _CONTENT_FRAGMENTS
