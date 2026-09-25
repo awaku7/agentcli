@@ -26,12 +26,14 @@ class ObservabilitySpan(Protocol):
 
     def record_exception(self, exc: BaseException) -> None: ...
 
+    def set_status(self, status: str, description: str | None = None) -> None: ...
+
 
 class ObservabilityBackend(Protocol):
     """Provider-neutral backend contract.
 
     Runtime code depends on this protocol rather than OpenTelemetry classes.
-    Semantic-convention mapping stays inside the OTel adapter added later.
+    Semantic-convention mapping stays inside the OTel adapter.
     """
 
     @property
@@ -42,6 +44,7 @@ class ObservabilityBackend(Protocol):
         operation: str,
         *,
         attributes: Mapping[str, Any] | None = None,
+        root: bool = False,
     ) -> AbstractContextManager[ObservabilitySpan]: ...
 
     def record_event(
