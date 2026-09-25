@@ -68,3 +68,4 @@ def test_a2a_main_accepts_explicit_otel_argv(
     assert settings.enabled is expected
     assert settings.enabled_source == "explicit"
     assert uvicorn_calls == [(app, "127.0.0.1", 9876, False)]
+    _reset_observability_settings_for_tests()
