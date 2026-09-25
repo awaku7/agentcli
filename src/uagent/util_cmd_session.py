@@ -1166,18 +1166,30 @@ def _handle_cmd_sessions(
             print(_("[sessions] Session store is not enabled."))
             return True
         import shlex
-        from .session_cli import read_passphrase
+        from .session_cli import read_cli_passphrase, read_passphrase
         from .runtime.session_portability import export_file, import_file
 
         try:
             operands = [p.strip("\"'") for p in shlex.split(arg, posix=False)][1:]
             if command == "export" and len(operands) == 2:
                 export_file(
-                    store, operands[0], operands[1], read_passphrase(confirm=True)
+                    store,
+                    operands[0],
+                    operands[1],
+                    read_passphrase(
+                        confirm=True,
+                        prompt_fn=lambda prompt: read_cli_passphrase(core, prompt),
+                    ),
                 )
                 print(_("Encrypted session exported."))
             elif command == "import-uag" and len(operands) == 1:
-                imported = import_file(store, operands[0], read_passphrase())
+                imported = import_file(
+                    store,
+                    operands[0],
+                    read_passphrase(
+                        prompt_fn=lambda prompt: read_cli_passphrase(core, prompt)
+                    ),
+                )
                 print(_("Imported session: %(id)s") % {"id": imported.session_id})
             else:
                 print(

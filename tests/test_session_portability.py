@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import json
+import threading
 from types import SimpleNamespace
 
 import pytest
@@ -325,18 +326,75 @@ def test_interactive_portable_and_legacy_commands(
 
     source = store.import_portable_payload(payload)
     core = SimpleNamespace(session_store=store, session_id=source.session_id)
-    monkeypatch.setattr(session_cli, "read_passphrase", lambda **kwargs: "good")
+    prompts = []
+    monkeypatch.setattr(
+        session_cli,
+        "read_cli_passphrase",
+        lambda _core, prompt: prompts.append(prompt) or "good",
+    )
     path = tmp_path / "with spaces.uag"
     _handle_cmd_sessions(
         f'export {source.session_id} "{path}"', core=core, tr=lambda x: x
     )
+    assert prompts == ["Package passphrase: ", "Confirm passphrase: "]
     assert path.read_bytes().startswith(p.MAGIC)
     _handle_cmd_sessions(f'import-uag "{path}"', core=core, tr=lambda x: x)
+    assert prompts[-1] == "Package passphrase: "
     assert len(store.list_sessions()) == 2
     legacy = tmp_path / "legacy.jsonl"
     legacy.write_text('{"role":"user","content":"legacy dialogue"}\n', encoding="utf-8")
     _handle_cmd_sessions(f"import {legacy}", core=core, tr=lambda x: x)
     assert len(store.list_sessions()) == 3
+
+
+def test_cli_passphrase_uses_stdin_loop_reply_channel():
+    from uagent.session_cli import read_cli_passphrase
+
+    core = SimpleNamespace(
+        human_ask_lock=threading.RLock(),
+        human_ask_active=False,
+        human_ask_queue=None,
+        human_ask_lines=[],
+        human_ask_is_password=False,
+        human_ask_multiline_active=False,
+        human_ask_prompt="",
+    )
+
+    def simulated_stdin_loop_reply(busy, _label):
+        assert busy is False
+        assert core.human_ask_active is True
+        assert core.human_ask_is_password is True
+        assert core.human_ask_prompt == "Package passphrase: "
+        core.human_ask_queue.put("correct horse battery staple")
+
+    core.set_status = simulated_stdin_loop_reply
+    assert (
+        read_cli_passphrase(core, "Package passphrase: ")
+        == "correct horse battery staple"
+    )
+    assert core.human_ask_active is False
+    assert core.human_ask_queue is None
+    assert core.human_ask_prompt == ""
+
+
+def test_cli_passphrase_cancellation_clears_input_ownership():
+    from uagent.session_cli import read_cli_passphrase
+
+    core = SimpleNamespace(
+        human_ask_lock=threading.RLock(),
+        human_ask_active=False,
+        human_ask_queue=None,
+        human_ask_lines=[],
+        human_ask_is_password=False,
+        human_ask_multiline_active=False,
+        human_ask_prompt="",
+        set_status=lambda *_args: core.human_ask_queue.put(None),
+    )
+    with pytest.raises(ValueError, match="cancelled"):
+        read_cli_passphrase(core, "Package passphrase: ")
+    assert core.human_ask_active is False
+    assert core.human_ask_queue is None
+    assert core.human_ask_prompt == ""
 
 
 def test_web_command_never_prompts_for_passphrase(store, monkeypatch):

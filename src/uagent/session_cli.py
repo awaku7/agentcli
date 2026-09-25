@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import getpass
+import os
+import queue
 import sys
 import warnings
 
@@ -23,14 +25,74 @@ def restore_imported_session(core, store, messages: list, session_id: str) -> No
     bind_session(core=core, store=store, session_id=session_id)
 
 
-def read_passphrase(*, confirm: bool = False) -> str:
-    # Never silently fall back to echoed stdin (including a Web worker).
+def _getpass_no_echo(prompt: str) -> str:
     with warnings.catch_warnings():
         warnings.simplefilter("error", getpass.GetPassWarning)
-        value = getpass.getpass("Package passphrase: ")
-        if confirm and value != getpass.getpass("Confirm passphrase: "):
-            raise ValueError("passphrases do not match")
+        return getpass.getpass(prompt)
+
+
+def read_passphrase(*, confirm: bool = False, prompt_fn=None) -> str:
+    # Never silently fall back to echoed stdin (including a Web worker).
+    prompt_fn = prompt_fn or _getpass_no_echo
+    value = prompt_fn("Package passphrase: ")
+    if confirm and value != prompt_fn("Confirm passphrase: "):
+        raise ValueError("passphrases do not match")
     return value
+
+
+def read_cli_passphrase(core, prompt: str) -> str:
+    """Request a hidden passphrase through the CLI's single stdin owner.
+
+    The main command dispatcher must not call getpass directly: stdin_loop is
+    already reading the same terminal in another thread. Reuse its existing
+    password-reply channel so only that loop consumes terminal input.
+    """
+    lock = getattr(core, "human_ask_lock", None)
+    if lock is None:
+        raise RuntimeError("CLI password input is unavailable")
+
+    reply_queue = queue.Queue(maxsize=1)
+    with lock:
+        if getattr(core, "human_ask_active", False):
+            raise RuntimeError("another interactive input is already active")
+        core.human_ask_queue = reply_queue
+        core.human_ask_active = True
+        core.human_ask_is_password = True
+        core.human_ask_multiline_active = False
+        core.human_ask_prompt = prompt
+        lines = getattr(core, "human_ask_lines", None)
+        if lines is not None:
+            lines.clear()
+
+    try:
+        # Releasing BUSY lets stdin_loop relinquish its normal prompt and
+        # enter the secure human_ask password path.
+        set_status = getattr(core, "set_status", None)
+        if callable(set_status):
+            set_status(False, "")
+
+        try:
+            timeout = float(os.environ.get("UAGENT_HUMAN_ASK_TIMEOUT_SEC", "300"))
+        except (TypeError, ValueError):
+            timeout = 300.0
+        if timeout <= 0:
+            timeout = 300.0
+        try:
+            value = reply_queue.get(timeout=timeout)
+        except queue.Empty as exc:
+            raise TimeoutError("passphrase input timed out") from exc
+        if value is None:
+            raise ValueError("passphrase input cancelled")
+        return str(value)
+    finally:
+        with lock:
+            # Do not clear a newer request if ownership changed unexpectedly.
+            if getattr(core, "human_ask_queue", None) is reply_queue:
+                core.human_ask_active = False
+                core.human_ask_is_password = False
+                core.human_ask_multiline_active = False
+                core.human_ask_prompt = ""
+                core.human_ask_queue = None
 
 
 def main(argv: list[str] | None = None) -> int:

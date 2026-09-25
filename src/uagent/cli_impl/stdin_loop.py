@@ -48,6 +48,9 @@ def stdin_loop() -> None:
             with core.human_ask_lock:
                 is_reply = core.human_ask_active
                 is_password = is_reply and core.human_ask_is_password
+                password_prompt = (
+                    getattr(core, "human_ask_prompt", "") or "[PASSWORD] > "
+                )
 
             # Perform BUSY check only when not waiting for a reply.
             # However, even during BUSY, user input for an already displayed prompt is accepted.
@@ -64,15 +67,15 @@ def stdin_loop() -> None:
                     _flush_stdin_input_buffer()
 
                 line = _prompt_toolkit_input(
-                    "[PASSWORD] > ", is_password=True, reply=True
+                    password_prompt, is_password=True, reply=True
                 )
                 if line is None:
                     if os.name == "nt":
-                        line = _getpass_fallback("[PASSWORD] > ")
+                        line = _getpass_fallback(password_prompt)
                     elif sys.stdin.isatty() and sys.stdout.isatty():
-                        line = getpass.getpass("[PASSWORD] > ")
+                        line = getpass.getpass(password_prompt)
                     else:
-                        line = _getpass_fallback("[PASSWORD] > ")
+                        line = _getpass_fallback(password_prompt)
             else:
                 # When replying to a prompt (human_ask), flush any pending typeahead
                 # to prevent unintended immediate submission. Skip the flush right
@@ -435,7 +438,10 @@ def stdin_loop() -> None:
                     )
                     # Send an empty string or cancel to resume the tool side
                     if core.human_ask_queue:
-                        core.human_ask_queue.put("cancel")
+                        if core.human_ask_is_password and core.human_ask_prompt:
+                            core.human_ask_queue.put(None)
+                        else:
+                            core.human_ask_queue.put("cancel")
                     continue
 
             # Changed to immediately enter the shutdown sequence on Ctrl+C
