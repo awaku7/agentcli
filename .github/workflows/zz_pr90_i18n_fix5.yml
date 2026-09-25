@@ -1,0 +1,106 @@
+name: PR90 MCP i18n fix v5
+
+on:
+  push:
+    branches:
+      - feat/opentelemetry-mcp-config-optin
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/opentelemetry-mcp-config-optin
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Reuse deterministic patch from v4
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          workflow = Path('.github/workflows/zz_pr90_i18n_fix4.yml').read_text(encoding='utf-8')
+          lines = workflow.splitlines()
+          blocks = []
+          i = 0
+          while i < len(lines):
+              if lines[i].strip() == "python - <<'PY'":
+                  i += 1
+                  block = []
+                  while i < len(lines) and lines[i].strip() != 'PY':
+                      block.append(lines[i])
+                      i += 1
+                  blocks.append(textwrap.dedent('\n'.join(block)))
+              i += 1
+
+          assert len(blocks) >= 2, len(blocks)
+          exec(compile(blocks[0], '<pr90-v4-patch>', 'exec'), {'__name__': '__main__'})
+          exec(compile(blocks[1], '<pr90-v4-test>', 'exec'), {'__name__': '__main__'})
+          PY
+
+      - name: Format and verify targeted i18n
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e '.[core,providers,test]'
+          python -m pip install black==26.5.1 ruff
+          python -m black src/uagent/tools/mcp_servers_tool.py tests/test_observability_phase3_mcp_config.py
+          python -m black --check src/uagent/tools/mcp_servers_tool.py tests/test_observability_phase3_mcp_config.py
+          python -m ruff check src/uagent/tools/mcp_servers_tool.py tests/test_observability_phase3_mcp_config.py
+          python scripts/i18n_validate.py src/uagent/tools/mcp_servers_tool.json
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          data = json.loads(Path('src/uagent/tools/mcp_servers_tool.json').read_text(encoding='utf-8'))
+          keys = {
+              'warn.trusted_trace_boolean',
+              'warn.trusted_trace_non_http',
+              'err.trusted_trace_boolean_indexed',
+              'err.trusted_trace_boolean',
+          }
+          en = data['en']
+          langs = [
+              key for key, value in data.items()
+              if key != 'en' and isinstance(value, dict)
+              and re.fullmatch(r'[a-z]{2,3}(?:_[A-Za-z]{2})?', key)
+          ]
+          assert len(langs) == 37, len(langs)
+          for lang in langs:
+              for key in keys:
+                  value = data[lang].get(key)
+                  assert isinstance(value, str) and value.strip(), (lang, key)
+                  assert value.strip() != en[key].strip(), (lang, key)
+          print('targeted localized trust messages checked:', len(langs) * len(keys))
+          PY
+          python -m pytest -q tests/test_observability_phase3_mcp_config.py
+
+      - name: Commit fix and remove temporary workflows
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm \
+            .github/workflows/zz_pr90_i18n_fix.yml \
+            .github/workflows/zz_pr90_i18n_fix2.yml \
+            .github/workflows/zz_pr90_i18n_fix3.yml \
+            .github/workflows/zz_pr90_i18n_fix4.yml \
+            .github/workflows/zz_pr90_i18n_fix5.yml
+          git add \
+            src/uagent/tools/mcp_servers_tool.py \
+            src/uagent/tools/mcp_servers_tool.json \
+            tests/test_observability_phase3_mcp_config.py
+          git diff --cached --check
+          git commit -m 'fix: localize MCP trace trust validation'
+          git push origin HEAD:feat/opentelemetry-mcp-config-optin
