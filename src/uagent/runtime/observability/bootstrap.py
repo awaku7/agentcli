@@ -26,23 +26,34 @@ _LOCK = threading.Lock()
 _RESULT: ObservabilityBootstrapResult | None = None
 
 
+def _shutdown_backend(backend: ObservabilityBackend) -> None:
+    shutdown = getattr(backend, "shutdown", None)
+    if callable(shutdown):
+        try:
+            shutdown()
+        except Exception:
+            pass
+
+
 def initialize_observability(
     settings: ObservabilitySettings,
     *,
     backend_factory: BackendFactory | None = None,
 ) -> ObservabilityBootstrapResult:
-    """Initialize observability once per process.
+    """Initialize the process-level observability projection safely.
 
-    PR1 intentionally ships only the provider-neutral/no-op foundation. The
-    OpenTelemetry backend factory is supplied by the later adapter PR. Until
-    then, enabled settings can validate/install dependencies without changing
-    Agent execution behavior.
+    OTel dependencies and the concrete adapter are loaded only after product-level
+    activation resolves to enabled. Any dependency/adapter failure degrades to the
+    no-op backend and never changes Agent execution behavior.
     """
 
     global _RESULT
     with _LOCK:
-        if _RESULT is not None:
+        if _RESULT is not None and _RESULT.settings == settings:
             return _RESULT
+        if _RESULT is not None:
+            _shutdown_backend(_RESULT.backend)
+            _RESULT = None
 
         if not settings.enabled:
             _RESULT = ObservabilityBootstrapResult(
@@ -67,11 +78,18 @@ def initialize_observability(
             return _RESULT
 
         if backend_factory is None:
+            try:
+                from .otel_backend import create_otel_backend
+
+                backend_factory = create_otel_backend
+            except Exception:
+                backend_factory = None
+        if backend_factory is None:
             _RESULT = ObservabilityBootstrapResult(
                 settings=settings,
                 backend=NOOP_BACKEND,
                 dependencies_ready=True,
-                reason="backend_not_configured",
+                reason="backend_unavailable",
             )
             return _RESULT
 
@@ -107,4 +125,6 @@ def _reset_observability_state_for_tests() -> None:
 
     global _RESULT
     with _LOCK:
+        if _RESULT is not None:
+            _shutdown_backend(_RESULT.backend)
         _RESULT = None

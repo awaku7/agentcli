@@ -4,6 +4,7 @@ import asyncio
 from contextlib import contextmanager
 from contextvars import ContextVar
 from collections.abc import Callable, Iterator
+from typing import TYPE_CHECKING
 
 from .lifecycle import (
     AgentLifecycle,
@@ -12,11 +13,17 @@ from .lifecycle import (
 )
 from .logging_setup import log_event
 
+if TYPE_CHECKING:
+    from .identity_context import TurnContext
+
 _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
     "uagent_current_lifecycle", default=None
 )
 _CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = ContextVar(
     "uagent_current_lifecycle_callback", default=None
+)
+_CURRENT_AGENT_SPAN: ContextVar[object | None] = ContextVar(
+    "uagent_current_agent_span", default=None
 )
 _TOOL_RUNNER_ACTIVE: ContextVar[bool] = ContextVar(
     "uagent_tool_runner_active", default=False
@@ -49,61 +56,137 @@ _LIFECYCLE_EVENTS = {
 }
 
 
+def apply_turn_context_to_current_agent_span(turn_context: TurnContext) -> None:
+    """Enrich an already-open Agent span when a host resolves its turn later."""
+
+    observability_span = _CURRENT_AGENT_SPAN.get()
+    if observability_span is None:
+        return
+    try:
+        observability_span.set_attribute("uag.entry_point", turn_context.entry_point)
+        observability_span.set_attribute("uag.auth.kind", turn_context.authn_kind)
+    except Exception:
+        pass
+
+
 @contextmanager
 def lifecycle_execution(
     lifecycle: AgentLifecycle | None = None,
     *,
     cancel_exceptions: tuple[type[BaseException], ...] = (),
     on_transition: Callable[[LifecycleSnapshot], None] | None = None,
+    turn_context: TurnContext | None = None,
 ) -> Iterator[AgentLifecycle]:
     """Track one synchronous Agent execution with a shared lifecycle.
 
     The context manager deliberately treats cancellation-like exceptions as a
     cancelled execution and all other exceptions as failures. Invalid terminal
     transitions are ignored so a concurrent cancellation remains authoritative.
+
+    When observability is enabled, this is the canonical ``invoke_agent`` span
+    boundary. Web callers can pass their already-authorized ``TurnContext`` so
+    the span is detached as a fresh root before lower-level runtime bindings
+    are entered.
     """
+    from .identity_context import get_current_turn_context
+    from .observability.bootstrap import get_observability_backend
+
     current = lifecycle or AgentLifecycle()
-    lifecycle_token = _CURRENT_LIFECYCLE.set(current)
-    callback_token = _CURRENT_CALLBACK.set(on_transition)
-    if current.status.value == "CREATED":
-        _emit_lifecycle_events(current.snapshot())
-    _safe_transition(current, "start")
-    try:
+    effective_turn_context = turn_context or get_current_turn_context()
+    span_attributes = {"uag.agent.name": "uag"}
+    if effective_turn_context is not None:
+        span_attributes["uag.entry_point"] = effective_turn_context.entry_point
+        span_attributes["uag.auth.kind"] = effective_turn_context.authn_kind
+    backend = get_observability_backend()
+    is_web_root = bool(
+        effective_turn_context is not None
+        and effective_turn_context.entry_point == "web"
+    )
+
+    with backend.start_span(
+        "invoke_agent", attributes=span_attributes, root=is_web_root
+    ) as observability_span:
+        lifecycle_token = _CURRENT_LIFECYCLE.set(current)
+        callback_token = _CURRENT_CALLBACK.set(on_transition)
+        span_token = _CURRENT_AGENT_SPAN.set(observability_span)
+        if current.status.value == "CREATED":
+            _emit_lifecycle_events(current.snapshot())
+        _safe_transition(current, "start")
         try:
-            yield current
-        except (asyncio.CancelledError, KeyboardInterrupt, SystemExit):
-            _safe_transition(current, "cancel")
-            raise
-        except TimeoutError:
-            _safe_transition(current, "timeout")
-            raise
-        except BaseException as exc:
-            if cancel_exceptions and isinstance(exc, cancel_exceptions):
+            try:
+                yield current
+            except (asyncio.CancelledError, KeyboardInterrupt, SystemExit):
                 _safe_transition(current, "cancel")
+                raise
+            except TimeoutError:
+                _safe_transition(current, "timeout")
+                raise
+            except BaseException as exc:
+                if cancel_exceptions and isinstance(exc, cancel_exceptions):
+                    _safe_transition(current, "cancel")
+                else:
+                    _safe_transition(current, "fail")
+                raise
             else:
-                _safe_transition(current, "fail")
-            raise
-        else:
-            _safe_transition(current, "complete")
-    finally:
-        _CURRENT_CALLBACK.reset(callback_token)
-        _CURRENT_LIFECYCLE.reset(lifecycle_token)
+                _safe_transition(current, "complete")
+        finally:
+            lifecycle_status = current.status.value
+            observability_span.set_attribute(
+                "uag.agent.lifecycle_status", lifecycle_status.lower()
+            )
+            if lifecycle_status == "COMPLETED":
+                observability_span.set_status("ok")
+            elif lifecycle_status in {"FAILED", "TIMEOUT"}:
+                observability_span.set_status("error", lifecycle_status.lower())
+            elif lifecycle_status == "CANCELLED":
+                observability_span.set_status("unset", "cancelled")
+            _CURRENT_AGENT_SPAN.reset(span_token)
+            _CURRENT_CALLBACK.reset(callback_token)
+            _CURRENT_LIFECYCLE.reset(lifecycle_token)
 
 
 def current_lifecycle() -> AgentLifecycle | None:
     return _CURRENT_LIFECYCLE.get()
 
 
+def mark_current_lifecycle_failed() -> None:
+    """Fail the active lifecycle through the canonical event/callback boundary."""
+
+    lifecycle = current_lifecycle()
+    if lifecycle is not None:
+        _safe_transition(lifecycle, "fail")
+
+
 def mark_tool_waiting() -> None:
     lifecycle = current_lifecycle()
     if lifecycle is not None:
         _safe_transition(lifecycle, "waiting_for_tool")
+    try:
+        from .observability.runtime import start_pending_tool_span
+
+        start_pending_tool_span()
+    except Exception:
+        pass
 
 
 def mark_tool_running() -> None:
     lifecycle = current_lifecycle()
     if lifecycle is not None:
         _safe_transition(lifecycle, "resume")
+
+    # The centralized tool runner calls this from its ``finally`` block. If a
+    # BaseException such as KeyboardInterrupt/CancelledError is still active,
+    # no terminal tool.completed/tool.failed event will follow, so close the
+    # current tool span here instead of leaking its OTel context.
+    try:
+        import sys
+
+        if sys.exc_info()[0] is not None:
+            from .observability.runtime import abandon_active_tool_span
+
+            abandon_active_tool_span()
+    except Exception:
+        pass
 
 
 def _safe_transition(lifecycle: AgentLifecycle, method: str) -> None:

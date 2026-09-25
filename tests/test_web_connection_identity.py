@@ -88,7 +88,9 @@ def test_websocket_worker_uses_connection_identity_not_message_owner():
     assert validation < source.index('payload.get("type") == "user_input"')
 
 
-def test_web_worker_rejects_identity_mismatch_before_side_effects(tmp_path):
+def test_web_worker_rejects_identity_mismatch_before_side_effects(
+    tmp_path, monkeypatch
+):
     from types import SimpleNamespace
 
     from uagent.web_impl.agent_worker import run_agent_worker
@@ -96,6 +98,11 @@ def test_web_worker_rejects_identity_mismatch_before_side_effects(tmp_path):
     room = SimpleNamespace(room_id="shared")
     connection = connection_identity.WebConnectionContext(
         "shared", IdentityContext("user-A", True, "test")
+    )
+    monkeypatch.setattr(
+        connection_identity,
+        "require_room_access",
+        lambda identity, room_id, *, touch_activity=True: ("", False),
     )
     turn = connection.make_turn(project_path=str(tmp_path), session_id="session-1")
 
@@ -260,6 +267,7 @@ def test_room_connect_falls_back_for_malformed_history(tmp_path, monkeypatch):
 def test_project_bound_room_requires_project_access_for_every_recipient(
     tmp_path, monkeypatch
 ):
+    from uagent.auth.oidc_sessions import OIDCSessionStore
     from uagent.runtime.memory_store import MemoryStore
     from uagent.runtime.project_access import ProjectAccessPolicy
     from uagent.runtime.room_access import RoomAccessPolicy
@@ -275,20 +283,33 @@ def test_project_bound_room_requires_project_access_for_every_recipient(
     store.close()
 
     identity = IdentityContext("user-A", True, "oidc")
+    sessions = OIDCSessionStore()
+    oidc_session_token = sessions.create(identity)
+    monkeypatch.setattr(
+        "uagent.auth.oidc_sessions.get_oidc_session_store",
+        lambda: sessions,
+    )
     monkeypatch.setattr(
         connection_identity,
         "resolve_turn_context",
         lambda **kwargs: (identity, None),
     )
+
+    class Socket:
+        cookies = {
+            connection_identity.OIDCIdentityResolver.cookie_name: oidc_session_token
+        }
+
+    websocket = Socket()
     with pytest.raises(IdentityResolutionError):
-        connection_identity.resolve_web_connection(object(), "shared")
+        connection_identity.resolve_web_connection(websocket, "shared")
 
     store = MemoryStore(memory_path)
     ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
         "root", "demo", "user-A", "viewer"
     )
     store.close()
-    connection = connection_identity.resolve_web_connection(object(), "shared")
+    connection = connection_identity.resolve_web_connection(websocket, "shared")
     connection.validate_room_access()
 
     store = MemoryStore(memory_path)

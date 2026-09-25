@@ -82,10 +82,22 @@ def call_legacy_openai_compatible_round(
 def call_legacy_openai_compatible_outcome(
     **kwargs: Any,
 ) -> LegacyRoundOutcome:
-    """Wrap the OpenAI-compatible tuple for the shared legacy boundary."""
+    """Wrap the OpenAI-compatible tuple for the shared legacy boundary.
+
+    The underlying provider-call adapters own canonical fallback ``chat`` spans.
+    Keeping outcome normalization outside those spans prevents later host/tool
+    processing from extending provider latency or nesting tool spans under chat.
+    """
+
     result = call_legacy_openai_compatible_round(**kwargs)
     ok, client, assistant_text, reasoning_text, tool_calls, is_xai_grpc = result
     normalized_tool_calls = tuple(tool_calls or ())
+    summary = RoundSummary(
+        status="completed" if ok else "failed",
+        tool_call_count=len(normalized_tool_calls),
+        assistant_chars=len(str(assistant_text or "")),
+        reasoning_chars=len(str(reasoning_text or "")),
+    )
     return LegacyRoundOutcome(
         provider=str(kwargs.get("provider") or "").strip().lower(),
         status="ok" if ok else "return",
@@ -103,12 +115,7 @@ def call_legacy_openai_compatible_outcome(
             supports_tool_continuation=bool(tool_calls),
         ),
         flow="openai_compatible",
-        summary=RoundSummary(
-            status="completed" if ok else "failed",
-            tool_call_count=len(normalized_tool_calls),
-            assistant_chars=len(str(assistant_text or "")),
-            reasoning_chars=len(str(reasoning_text or "")),
-        ),
+        summary=summary,
     )
 
 

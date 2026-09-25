@@ -1,4 +1,4 @@
-"""UAG provider-neutral observability foundation."""
+"""UAG provider-neutral observability runtime."""
 
 from .api import ObservabilityBackend, ObservabilitySpan, TraceIds
 from .bootstrap import (
