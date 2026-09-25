@@ -70,8 +70,11 @@ class ToolCallbacks:
     read_file_max_bytes: int = 1_000_000
 
 
-_ACTIVE_SUB_AGENT: ContextVar[str | None] = ContextVar(
-    "uagent_active_sub_agent", default=None
+# Preserve the active Sub-Agent ContextVar across hot reloads. Tokens created
+# before ``system_reload`` must still reset against the same ContextVar instance.
+_ACTIVE_SUB_AGENT: ContextVar[str | None] = globals().get(
+    "_ACTIVE_SUB_AGENT",
+    ContextVar("uagent_active_sub_agent", default=None),
 )
 
 
