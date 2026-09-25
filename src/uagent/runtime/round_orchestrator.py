@@ -22,6 +22,8 @@ from .round_contracts import (
 from .round_runtime import StreamEventValidator
 from .stream_renderer import CollectingStreamRenderer
 from .logging_setup import log_event
+from .observability.api import ObservabilitySpan
+from .observability.bootstrap import get_observability_backend
 
 
 def _json_size(value: Any) -> int:
@@ -56,10 +58,33 @@ class RoundOrchestrator:
         session: Mapping[str, Any],
         cancellation: CancellationToken,
     ) -> OrchestratedRound:
+        backend = get_observability_backend()
+        with backend.start_span(
+            "chat", attributes={"uag.llm.provider": provider}
+        ) as observability_span:
+            return self._run_observed(
+                plan,
+                provider=provider,
+                session=session,
+                cancellation=cancellation,
+                observability_span=observability_span,
+            )
+
+    def _run_observed(
+        self,
+        plan: ContextPlan,
+        *,
+        provider: str,
+        session: Mapping[str, Any],
+        cancellation: CancellationToken,
+        observability_span: ObservabilitySpan,
+    ) -> OrchestratedRound:
         runtime = self._registry.resolve(provider)
         started = time.perf_counter()
         projection = runtime.project(plan, session)
         request = runtime.serialize(projection)
+        observability_span.set_attribute("uag.llm.provider", request.provider)
+        observability_span.set_attribute("uag.llm.model", request.model)
         validator = StreamEventValidator()
         events: list[StreamEvent] = []
         renderer = CollectingStreamRenderer()
@@ -142,6 +167,31 @@ class RoundOrchestrator:
             error=dict(terminal.data) if status == "failed" else None,
             recovery_hint=recovery_hint,
             summary=summary,
+        )
+        observability_span.set_attribute("uag.status", status)
+        observability_span.set_attribute("uag.duration_ms", summary.duration_ms)
+        observability_span.set_attribute(
+            "uag.tokens.estimate.input", summary.request_tokens
+        )
+        reported_names = {
+            "input_tokens_delta": "uag.tokens.reported.input",
+            "output_tokens_delta": "uag.tokens.reported.output",
+            "total_tokens_delta": "uag.tokens.reported.total",
+        }
+        for key, attribute_name in reported_names.items():
+            if key in usage_delta:
+                observability_span.set_attribute(attribute_name, usage_delta[key])
+        if status == "completed":
+            observability_span.set_status("ok")
+        elif status in {"failed", "timed_out", "interrupted"}:
+            error_type = str((result.error or {}).get("error_type") or status)
+            observability_span.set_status("error", error_type)
+        observability_span.add_event(
+            "llm.round.completed",
+            {
+                "uag.status": status,
+                "uag.tool_call_count": summary.tool_call_count,
+            },
         )
         log_event(
             "llm.round.completed",
