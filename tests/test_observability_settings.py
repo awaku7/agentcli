@@ -76,9 +76,7 @@ def test_process_flags_are_removed_before_launcher_parser():
 
     assert enabled is True
     assert argv == ["uagw", "--host", "127.0.0.1"]
-    settings = refresh_observability_settings(
-        environ={"UAGENT_OTEL_ENABLED": "0"}
-    )
+    settings = refresh_observability_settings(environ={"UAGENT_OTEL_ENABLED": "0"})
     assert settings.enabled is True
     assert settings.enabled_source == "explicit"
 
@@ -90,18 +88,14 @@ def test_launcher_without_otel_flag_does_not_clear_existing_override():
     second_argv = ["uaga", "--host", "0.0.0.0"]
     consume_process_otel_cli_flags(second_argv)
 
-    settings = refresh_observability_settings(
-        environ={"UAGENT_OTEL_ENABLED": "1"}
-    )
+    settings = refresh_observability_settings(environ={"UAGENT_OTEL_ENABLED": "1"})
     assert settings.enabled is False
     assert settings.enabled_source == "explicit"
 
 
 def test_refresh_uses_environment_loaded_after_entrypoint_parse():
     set_observability_entrypoint_override(None)
-    settings = refresh_observability_settings(
-        environ={"UAGENT_OTEL_ENABLED": "1"}
-    )
+    settings = refresh_observability_settings(environ={"UAGENT_OTEL_ENABLED": "1"})
 
     assert settings.enabled is True
     assert settings.enabled_source == "environment"
