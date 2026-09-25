@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 
+import pytest
+
 from uagent.runtime.observability.semantic_mapping import map_span
 from uagent.runtime.round_contracts import (
     ContextPlan,
@@ -15,6 +17,9 @@ from uagent.runtime.round_orchestrator import RoundOrchestrator
 
 
 class _Span:
+    def __init__(self) -> None:
+        self.status = []
+
     def set_attribute(self, key, value) -> None:
         return None
 
@@ -25,7 +30,7 @@ class _Span:
         return None
 
     def set_status(self, status, description=None) -> None:
-        return None
+        self.status.append((status, description))
 
 
 class _Backend:
@@ -33,11 +38,12 @@ class _Backend:
 
     def __init__(self) -> None:
         self.mapped = None
+        self.span = _Span()
 
     @contextmanager
     def start_span(self, operation, *, attributes=None, root=False):
         self.mapped = map_span(operation, attributes)
-        yield _Span()
+        yield self.span
 
     def record_event(self, name, attributes=None):
         return None
@@ -81,16 +87,20 @@ class _Cancellation:
         return False
 
 
+def _registry() -> ProviderRuntimeRegistry:
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _Runtime())
+    return registry
+
+
 def test_chat_span_is_mapped_after_model_is_resolved(monkeypatch) -> None:
     backend = _Backend()
     monkeypatch.setattr(
         "uagent.runtime.round_orchestrator.get_observability_backend",
         lambda: backend,
     )
-    registry = ProviderRuntimeRegistry()
-    registry.register("fake", _Runtime())
 
-    RoundOrchestrator(registry).run(
+    RoundOrchestrator(_registry()).run(
         ContextPlan("plan", ({"role": "user", "content": "hi"},)),
         provider="fake",
         session={},
@@ -101,3 +111,26 @@ def test_chat_span_is_mapped_after_model_is_resolved(monkeypatch) -> None:
     assert backend.mapped.name == "chat resolved-model"
     assert backend.mapped.attributes["gen_ai.request.model"] == "resolved-model"
     assert backend.mapped.attributes["gen_ai.provider.name"] == "fake"
+    assert backend.span.status[-1] == ("ok", None)
+
+
+def test_chat_span_is_not_marked_ok_before_response_sync_succeeds(monkeypatch) -> None:
+    backend = _Backend()
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: backend,
+    )
+
+    class FailingResponsesRuntime:
+        def sync_completed_response(self, response_id, *, tool_calls):
+            raise RuntimeError("duplicate tool call id")
+
+    with pytest.raises(RuntimeError, match="duplicate tool call id"):
+        RoundOrchestrator(_registry()).run(
+            ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+            provider="fake",
+            session={"responses_runtime": FailingResponsesRuntime()},
+            cancellation=_Cancellation(),
+        )
+
+    assert ("ok", None) not in backend.span.status
