@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Iterator
 from typing import Optional
 
 try:
@@ -12,6 +13,7 @@ except ImportError:
 
 from ..auth import CredentialKind, resolve_credential_secret
 from ..i18n import _
+from ..runtime.observability.bootstrap import get_observability_backend
 from .errors import A2AHttpError
 
 
@@ -22,13 +24,15 @@ def _norm(v: str) -> str:
 def require_bearer_auth(
     request: Request,
     authorization: Optional[str] = Header(default=None),
-) -> None:
-    """Bearer auth for A2A endpoints.
+) -> Iterator[None]:
+    """Bearer auth for A2A endpoints and trusted trace-context boundary.
 
     Token source:
       - UAGENT_A2A_TOKEN (required for authenticated endpoints)
 
     If UAGENT_A2A_TOKEN is empty, authenticated endpoints are disabled.
+    W3C trace context is considered only after bearer authentication succeeds;
+    it never supplies identity or authorization.
     """
 
     store = getattr(request.app.state, "credential_store", None)
@@ -68,3 +72,21 @@ def require_bearer_auth(
             code="PERMISSION_DENIED",
             message=_("Invalid bearer token."),
         )
+
+    carrier: dict[str, str] = {}
+    traceparent = _norm(request.headers.get("traceparent", ""))
+    tracestate = _norm(request.headers.get("tracestate", ""))
+    if traceparent:
+        carrier["traceparent"] = traceparent
+    if tracestate:
+        carrier["tracestate"] = tracestate
+
+    backend = get_observability_backend()
+    try:
+        manager = backend.attach_remote_context(carrier)
+    except Exception:
+        yield None
+        return
+
+    with manager:
+        yield None
