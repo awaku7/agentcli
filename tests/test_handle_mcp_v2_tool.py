@@ -357,13 +357,7 @@ def test_handle_mcp_v2_stdio_url_uses_stdio(monkeypatch: pytest.MonkeyPatch) -> 
     )
     monkeypatch.setattr(m, "get_callbacks", lambda: cb)
 
-    out = m.run_tool(
-        {
-            "url": "stdio://demo --flag",
-            "tool_name": "some_tool",
-            "tool_arguments": {"a": 1},
-        }
-    )
+    out = m.run_tool({"url": "stdio://mycmd --flag", "tool_name": "some_tool"})
     payload = json.loads(out)
     assert payload == {
         "ok": True,
@@ -371,30 +365,50 @@ def test_handle_mcp_v2_stdio_url_uses_stdio(monkeypatch: pytest.MonkeyPatch) -> 
     }
 
 
-def test_handle_mcp_v2_sanitizes_secret_args(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_finalize_output_wraps_plain_text_and_preserves_json() -> None:
     import uagent.tools.handle_mcp_v2_tool as m
-    from uagent.tools.context import ToolCallbacks
 
-    cb = ToolCallbacks(truncate_output=lambda tool, text, limit: text)
-    monkeypatch.setattr(m, "get_callbacks", lambda: cb)
+    plain = json.loads(m._finalize_output("not json"))
+    assert plain == {"ok": True, "result": {"text": "not json"}}
 
-    captured = {}
+    structured = json.loads(m._finalize_output('{"value": 1}'))
+    assert structured == {"ok": True, "result": {"value": 1}}
 
-    def fake_asyncio_run(coro):
-        try:
-            coro.close()
-        except Exception:
-            pass
-        return "OK"
+    error = json.loads(m._finalize_output('{"ok": false, "error": "bad"}'))
+    assert error == {"ok": False, "error": "bad"}
 
-    monkeypatch.setattr(m.asyncio, "run", fake_asyncio_run)
 
-    out = m.run_tool(
-        {
-            "url": "http://example.com",
-            "tool_name": "x",
-            "tool_arguments": {"api_key": "secret", "safe": "value"},
-        }
-    )
-    payload = json.loads(out)
-    assert payload["ok"] is True
+def test_run_tool_validation_errors_are_json() -> None:
+    from uagent.tools.handle_mcp_v2_tool import run_tool
+
+    payload = json.loads(run_tool({}))
+    assert payload["ok"] is False
+    assert payload["error"]["code"] == "TOOL_NAME_REQUIRED"
+
+
+def test_format_result_saves_returned_file_payload(
+    repo_tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    monkeypatch.setenv("UAGENT_DOWNLOAD_DIR", str(repo_tmp_path))
+
+    payload = {
+        "filename": "hello.txt",
+        "mime": "text/plain",
+        "data_base64": base64.b64encode(b"hello").decode("ascii"),
+    }
+
+    out = m._format_result(payload)
+    assert out.startswith("[Saved] ")
+    saved_path = out[len("[Saved] ") :].strip()
+    p = Path(saved_path)
+    assert p.exists()
+    assert p.read_bytes() == b"hello"
+
+
+def test_format_result_returns_server_side_saved_path() -> None:
+    import uagent.tools.handle_mcp_v2_tool as m
+
+    out = m._format_result({"saved_path": "/tmp/already_saved.bin"})
+    assert out == "[Saved] /tmp/already_saved.bin"
