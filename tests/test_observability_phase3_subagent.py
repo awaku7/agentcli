@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import sys
 from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any
@@ -88,6 +89,21 @@ def test_sub_agent_binding_opens_canonical_child_agent_span(monkeypatch) -> None
     ]
 
 
+def test_untrusted_sub_agent_name_is_collapsed_before_export(monkeypatch) -> None:
+    backend = _FakeBackend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+    raw_name = "secret-token-from-tool-argument"
+
+    token = tool_context.set_active_sub_agent(raw_name)
+    try:
+        assert tool_context.get_active_sub_agent() == raw_name
+    finally:
+        tool_context.reset_active_sub_agent(token)
+
+    assert backend.calls[0]["attributes"] == {"uag.agent.name": "custom"}
+    assert raw_name not in str(backend.calls[0])
+
+
 def test_nested_sub_agents_inherit_current_context(monkeypatch) -> None:
     backend = _FakeBackend()
     monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
@@ -145,18 +161,29 @@ def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> 
     assert tool_context.get_active_sub_agent() is None
 
 
-def test_sub_agent_token_survives_tools_context_reload(monkeypatch) -> None:
+def test_sub_agent_token_survives_real_tools_context_reimport(monkeypatch) -> None:
     backend = _FakeBackend()
     monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
 
-    active_context = tool_context._ACTIVE_SUB_AGENT
+    module_name = tool_context.__name__
+    package = sys.modules["uagent.tools"]
+    original_module = sys.modules[module_name]
+    original_package_context = getattr(package, "context", None)
     token = tool_context.set_active_sub_agent("planner")
+    reset_done = False
     try:
-        reloaded = importlib.reload(tool_context)
-        assert reloaded._ACTIVE_SUB_AGENT is active_context
+        sys.modules.pop(module_name, None)
+        reloaded = importlib.import_module(module_name)
+        assert reloaded is not original_module
         assert reloaded.get_active_sub_agent() == "planner"
+        reloaded.reset_active_sub_agent(token)
+        reset_done = True
+        assert reloaded.get_active_sub_agent() is None
     finally:
-        tool_context.reset_active_sub_agent(token)
+        if not reset_done:
+            tool_context.reset_active_sub_agent(token)
+        sys.modules[module_name] = original_module
+        if original_package_context is not None:
+            setattr(package, "context", original_package_context)
 
-    assert tool_context.get_active_sub_agent() is None
     assert backend.active.get() == "parent"
