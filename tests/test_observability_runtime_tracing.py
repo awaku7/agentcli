@@ -4,6 +4,8 @@ import json
 import logging
 from contextlib import contextmanager
 
+import pytest
+
 from uagent.runtime.identity_context import (
     IdentityContext,
     TurnContext,
@@ -12,7 +14,11 @@ from uagent.runtime.identity_context import (
 from uagent.runtime.logging_setup import log_event
 from uagent.runtime.observability.api import TraceIds
 from uagent.runtime.observability import runtime as observability_runtime
-from uagent.runtime.execution import lifecycle_execution, mark_tool_waiting
+from uagent.runtime.execution import (
+    lifecycle_execution,
+    mark_tool_running,
+    mark_tool_waiting,
+)
 
 
 class _Span:
@@ -115,6 +121,73 @@ def test_tool_dispatch_starts_execute_tool_span_only_when_runner_starts(
     )
     observability_runtime.after_structured_event("tool.completed")
     assert backend.spans[0]["span"].status[-1] == ("ok", None)
+
+
+def test_nested_tool_spans_close_inner_before_outer(monkeypatch) -> None:
+    backend = _Backend()
+    monkeypatch.setattr(
+        observability_runtime, "get_observability_backend", lambda: backend
+    )
+    observability_runtime._reset_runtime_observability_for_tests()
+
+    observability_runtime.before_structured_event(
+        "tool.dispatch", {"tool": "sub_agent", "side_effect": "write"}
+    )
+    mark_tool_waiting()
+    observability_runtime.before_structured_event(
+        "tool.dispatch", {"tool": "read_file", "side_effect": "read"}
+    )
+    mark_tool_waiting()
+
+    assert [record["attributes"]["uag.tool.name"] for record in backend.spans] == [
+        "sub_agent",
+        "read_file",
+    ]
+    assert len(backend.active) == 2
+
+    observability_runtime.before_structured_event(
+        "tool.completed", {"tool": "read_file"}
+    )
+    observability_runtime.after_structured_event("tool.completed")
+    assert len(backend.active) == 1
+    assert backend.spans[1]["span"].status[-1] == ("ok", None)
+
+    observability_runtime.before_structured_event(
+        "tool.completed", {"tool": "sub_agent"}
+    )
+    observability_runtime.after_structured_event("tool.completed")
+    assert backend.active == []
+    assert backend.spans[0]["span"].status[-1] == ("ok", None)
+
+
+def test_keyboard_interrupt_abandons_active_tool_span(monkeypatch) -> None:
+    backend = _Backend()
+    monkeypatch.setattr(
+        observability_runtime, "get_observability_backend", lambda: backend
+    )
+    observability_runtime._reset_runtime_observability_for_tests()
+
+    observability_runtime.before_structured_event(
+        "tool.dispatch", {"tool": "cmd_exec", "side_effect": "write"}
+    )
+    mark_tool_waiting()
+    assert len(backend.active) == 1
+
+    def interrupt_runner_cleanup() -> None:
+        try:
+            raise KeyboardInterrupt()
+        finally:
+            mark_tool_running()
+
+    with pytest.raises(KeyboardInterrupt):
+        interrupt_runner_cleanup()
+
+    assert backend.active == []
+    assert backend.spans[0]["span"].attributes["uag.status"] == "abandoned"
+    assert backend.spans[0]["span"].status[-1] == (
+        "error",
+        "tool span abandoned",
+    )
 
 
 def test_structured_event_includes_active_trace_ids(monkeypatch, caplog) -> None:
