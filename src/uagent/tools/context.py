@@ -11,9 +11,14 @@ This module acts as a common gateway for all tools under the tools/ directory.
 from __future__ import annotations
 
 import sys
-from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any, Callable, Optional
+
+from ..runtime.subagent_context import (
+    get_active_sub_agent_name,
+    reset_active_sub_agent_name,
+    set_active_sub_agent_name,
+)
 
 
 @dataclass
@@ -70,14 +75,6 @@ class ToolCallbacks:
     read_file_max_bytes: int = 1_000_000
 
 
-# Preserve the active Sub-Agent ContextVar across hot reloads. Tokens created
-# before ``system_reload`` must still reset against the same ContextVar instance.
-_ACTIVE_SUB_AGENT: ContextVar[str | None] = globals().get(
-    "_ACTIVE_SUB_AGENT",
-    ContextVar("uagent_active_sub_agent", default=None),
-)
-
-
 @dataclass
 class _ActiveSubAgentToken:
     context_token: Any
@@ -85,22 +82,31 @@ class _ActiveSubAgentToken:
     span: Any = None
 
 
-def set_active_sub_agent(name: str | None):
-    """Bind the active sub-agent and open its canonical child Agent span."""
+def set_active_sub_agent(
+    name: str | None,
+    *,
+    observability_name: str | None = None,
+):
+    """Bind the active sub-agent and optionally open its canonical child span.
+
+    ``observability_name`` must already be a bounded, trusted metadata value.
+    Arbitrary tool arguments are never used as remote span attributes by this
+    generic context helper.
+    """
 
     normalized = str(name) if name else None
-    context_token = _ACTIVE_SUB_AGENT.set(normalized)
+    context_token = set_active_sub_agent_name(normalized)
     span_manager = None
     span = None
 
-    if normalized:
+    if observability_name:
         try:
             from ..runtime.observability.bootstrap import get_observability_backend
 
             backend = get_observability_backend()
             span_manager = backend.start_span(
                 "invoke_agent",
-                attributes={"uag.agent.name": normalized},
+                attributes={"uag.agent.name": observability_name},
             )
             span = span_manager.__enter__()
         except Exception:
@@ -138,14 +144,14 @@ def reset_active_sub_agent(token: Any) -> None:
                 except Exception:
                     pass
         finally:
-            _ACTIVE_SUB_AGENT.reset(token.context_token)
+            reset_active_sub_agent_name(token.context_token)
         return
 
-    _ACTIVE_SUB_AGENT.reset(token)
+    reset_active_sub_agent_name(token)
 
 
 def get_active_sub_agent() -> str | None:
-    return _ACTIVE_SUB_AGENT.get()
+    return get_active_sub_agent_name()
 
 
 # Preserve injected host callbacks across hot-reloads.  ``system_reload`` reloads
