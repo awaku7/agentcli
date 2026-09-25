@@ -20,6 +20,13 @@ class OpenTelemetrySpan:
     def __init__(self, span: Any, *, capture_content: bool) -> None:
         self._span = span
         self._capture_content = capture_content
+        self._cancelled = False
+
+    @property
+    def cancelled(self) -> bool:
+        """Whether the runtime explicitly finalized this span as cancelled."""
+
+        return self._cancelled
 
     def set_attribute(self, key: str, value: Any) -> None:
         try:
@@ -59,6 +66,9 @@ class OpenTelemetrySpan:
             else:
                 code = StatusCode.UNSET
             self._span.set_status(Status(code, description=description))
+            self._cancelled = code == StatusCode.UNSET and str(
+                description or ""
+            ).strip().lower() in {"cancelled", "canceled"}
         except Exception:
             pass
 
@@ -116,8 +126,13 @@ class OpenTelemetryBackend:
         try:
             yield span
         except BaseException as exc:
-            span.record_exception(exc)
-            span.set_status("error", type(exc).__name__)
+            # The lifecycle boundary can classify arbitrary host-specific
+            # exceptions as cancellation before they unwind through this
+            # adapter. Preserve that explicit UNSET/cancelled terminal state
+            # instead of reclassifying the same cancellation as an error.
+            if not span.cancelled:
+                span.record_exception(exc)
+                span.set_status("error", type(exc).__name__)
             try:
                 manager.__exit__(type(exc), exc, exc.__traceback__)
             except Exception:
