@@ -44,7 +44,7 @@ def test_legacy_provider_outcome_wraps_without_changing_raw_result(monkeypatch) 
     assert outcome.capabilities.owns_tool_execution is True
     assert outcome.capabilities.host_rendered is True
     assert outcome.summary is not None
-    assert outcome.summary.status == "completed"
+    assert outcome.summary.status == "continue"
 
 
 def test_legacy_provider_return_action_preserves_failure_summary(monkeypatch) -> None:
@@ -62,6 +62,23 @@ def test_legacy_provider_return_action_preserves_failure_summary(monkeypatch) ->
     assert outcome.status == "return"
     assert outcome.summary is not None
     assert outcome.summary.status == "failed"
+
+
+def test_legacy_provider_break_action_preserves_interrupted_summary(monkeypatch) -> None:
+    raw_result = ("break", "client", "cache", 0, "partial answer")
+
+    monkeypatch.setitem(
+        legacy_round_registry._LEGACY_ROUND_HANDLERS,
+        "claude",
+        lambda **_kwargs: raw_result,
+    )
+
+    outcome = legacy_round_registry.run_legacy_provider_outcome(provider="claude")
+
+    assert outcome is not None
+    assert outcome.status == "break"
+    assert outcome.summary is not None
+    assert outcome.summary.status == "interrupted"
 
 
 def test_registry_returns_none_for_unregistered_provider() -> None:
