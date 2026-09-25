@@ -18,9 +18,7 @@ def teardown_function():
 
 def test_noop_backend_is_safe_and_has_no_trace_ids():
     assert NOOP_BACKEND.enabled is False
-    with NOOP_BACKEND.start_span(
-        "test", attributes={"value": 1}, root=True
-    ) as span:
+    with NOOP_BACKEND.start_span("test", attributes={"value": 1}, root=True) as span:
         span.set_attribute("later", 2)
         span.add_event("event", {"ok": True})
         span.record_exception(RuntimeError("ignored"))
@@ -60,9 +58,7 @@ def test_enabled_bootstrap_uses_factory_after_dependencies_are_ready(monkeypatch
         enabled = True
 
         def start_span(self, operation, *, attributes=None, root=False):
-            return NOOP_BACKEND.start_span(
-                operation, attributes=attributes, root=root
-            )
+            return NOOP_BACKEND.start_span(operation, attributes=attributes, root=root)
 
         def record_event(self, name, attributes=None):
             return None
@@ -89,9 +85,7 @@ def test_enabled_bootstrap_uses_default_otel_factory(monkeypatch):
         enabled = True
 
         def start_span(self, operation, *, attributes=None, root=False):
-            return NOOP_BACKEND.start_span(
-                operation, attributes=attributes, root=root
-            )
+            return NOOP_BACKEND.start_span(operation, attributes=attributes, root=root)
 
         def record_event(self, name, attributes=None):
             return None
@@ -119,9 +113,7 @@ def test_bootstrap_can_reconfigure_from_disabled_to_enabled(monkeypatch):
         enabled = True
 
         def start_span(self, operation, *, attributes=None, root=False):
-            return NOOP_BACKEND.start_span(
-                operation, attributes=attributes, root=root
-            )
+            return NOOP_BACKEND.start_span(operation, attributes=attributes, root=root)
 
         def record_event(self, name, attributes=None):
             return None
