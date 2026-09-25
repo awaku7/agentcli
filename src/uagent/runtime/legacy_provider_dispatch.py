@@ -15,7 +15,6 @@ from ..llm_round_helpers import (
     _call_together_round,
     _call_vercel_round,
     _call_zai_round,
-    _inception_registry_enabled,
 )
 from .legacy_gemini_adapter import _call_gemini_round
 from .legacy_claude_adapter import _call_claude_round
@@ -92,14 +91,11 @@ def call_legacy_claude_round(**kwargs: Any) -> Any:
 def call_legacy_openai_azure_round(**kwargs: Any) -> Any:
     """Dispatch OpenAI-compatible Chat/Responses rounds."""
     provider = str(kwargs.get("provider") or "").strip().lower()
-    if (
-        provider == "inception"
-        and bool(kwargs.get("stream_responses"))
-        and _inception_registry_enabled()
-    ):
-        # The Inception streaming compatibility path delegates this exact
-        # provider request to RoundOrchestrator, which owns its canonical chat
-        # span. Do not wrap that call in a second fallback chat span.
+    if provider == "inception" and bool(kwargs.get("stream_responses")):
+        # Inception streaming can use either RoundOrchestrator or the direct
+        # SDK fallback. The inner implementation owns tracing for each concrete
+        # request so an orchestrated request and a later replacement fallback
+        # are represented as separate, non-duplicated chat spans.
         return _call_openai_azure_round(**kwargs)
     return _call_with_fallback_chat_span(
         provider=provider,
