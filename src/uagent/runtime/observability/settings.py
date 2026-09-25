@@ -132,12 +132,12 @@ def consume_process_otel_cli_flags(argv: list[str] | None = None) -> bool | None
 
     target = sys.argv if argv is None else argv
     if not target:
-        set_observability_entrypoint_override(None)
         return None
 
     explicit_enabled, remaining = consume_otel_cli_flags(target[1:])
     target[:] = [target[0], *remaining]
-    set_observability_entrypoint_override(explicit_enabled)
+    if explicit_enabled is not None:
+        set_observability_entrypoint_override(explicit_enabled)
     return explicit_enabled
 
 
