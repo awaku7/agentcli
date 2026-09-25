@@ -35,7 +35,7 @@ if text.count(marker) != 1:
 text = text.split(marker, 1)[0].rstrip() + "\n"
 path.write_text(text, encoding="utf-8")
 
-# Narrow mcp_tools_list to its HTTP function; stdio has the same trailing signature.
+# Narrow ambiguous staging operations in the MCP management tools.
 path = Path(".github/scripts/pr90_patch_tools.py")
 text = path.read_text(encoding="utf-8")
 old = '''replace_once(
@@ -63,4 +63,39 @@ new = '''replace_once(
 '''
 if text.count(old) != 1:
     raise SystemExit(f"expected one tools-list staging block, got {text.count(old)}")
-path.write_text(text.replace(old, new), encoding="utf-8")
+text = text.replace(old, new)
+
+start_marker = "# List validation: malformed values and stdio/no-HTTP true are visible.\n"
+end_marker = "# Strict validation occurs after has_http/has_stdio are known.\n"
+start = text.find(start_marker)
+end = text.find(end_marker, start)
+if start < 0 or end < 0:
+    raise SystemExit("server-list staging markers missing")
+list_block = '''# List validation: malformed values and stdio/no-HTTP true are visible.
+replace_once(
+    "src/uagent/tools/mcp_servers_tool.py",
+    "        command = s.get(\\\"command\\\")\\n\\n"
+    "        if not isinstance(name, str) or not name.strip():\\n"
+    "            warnings.append(\\n",
+    "        command = s.get(\\\"command\\\")\\n"
+    "        trusted_trace = s.get(\\\"trusted_trace_propagation\\\", False)\\n"
+    "        if (\\n"
+    "            \\\"trusted_trace_propagation\\\" in s\\n"
+    "            and not isinstance(trusted_trace, bool)\\n"
+    "        ):\\n"
+    "            warnings.append(\\n"
+    "                f\\\"WARNING: mcp_servers[{idx}].trusted_trace_propagation must be boolean.\\\"\\n"
+    "            )\\n"
+    "        elif trusted_trace is True and not (\\n"
+    "            isinstance(url, str) and url.lower().startswith((\\\"http://\\\", \\\"https://\\\"))\\n"
+    "        ):\\n"
+    "            warnings.append(\\n"
+    "                f\\\"WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored for non-HTTP transports.\\\"\\n"
+    "            )\\n\\n"
+    "        if not isinstance(name, str) or not name.strip():\\n"
+    "            warnings.append(\\n",
+)
+
+'''
+text = text[:start] + list_block + text[end:]
+path.write_text(text, encoding="utf-8")
