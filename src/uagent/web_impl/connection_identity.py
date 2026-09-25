@@ -100,9 +100,7 @@ class WebConnectionContext:
     def validate_room_access(self, *, touch_activity: bool = True) -> None:
         """Re-check live identity and recipient authorization before delivery."""
         identity = self.revalidate_identity()
-        self._validate_room_access_for_identity(
-            identity, touch_activity=touch_activity
-        )
+        self._validate_room_access_for_identity(identity, touch_activity=touch_activity)
 
 
 def require_room_access(
