@@ -86,6 +86,32 @@ Relevant regression suites include `tests/test_memory_access.py`,
 `tests/test_room_access.py`, `tests/test_oidc_sessions.py`, and
 `tests/test_web_memory_store_lifetime.py`.
 
+## OpenTelemetry distributed propagation (Phase 3)
+
+Distributed trace propagation remains behind UAG's provider-neutral observability
+boundary. `runtime/observability/api.py` defines `inject_context()` for outbound
+carriers and `attach_remote_context()` for trusted inbound carriers. Backends must
+preserve the existing no-op/failure-isolation behavior when observability is
+disabled, unavailable, malformed, or fails internally.
+
+For A2A, only W3C `traceparent` and `tracestate` are propagated. Baggage is not
+propagated. Inbound trace context may be attached only after the existing A2A
+bearer authentication succeeds. Trace metadata is observability metadata only: it
+must never supply or influence identity, authentication, authorization, room or
+project scope, Memory scope, or session validity.
+
+Streaming A2A execution has an additional lifetime requirement. The already
+authenticated carrier must be explicitly reattached inside the `/message:stream`
+generator around streamed execution. Do not rely on FastAPI yield-dependency
+cleanup timing to keep the remote parent active during `StreamingResponse`
+iteration.
+
+Malformed or unavailable remote context must degrade to the existing local/no-op
+behavior without changing A2A responses or Agent execution. Relevant implementation
+lives in `runtime/observability/otel_backend.py`, `a2a/auth.py`, and `a2a/server.py`.
+Regression coverage is in `tests/test_observability_phase3_a2a.py`; the broader
+trust and rollout scope is documented in `docs/UAG_OPENTELEMETRY_PHASE3_SCOPE.md`.
+
 ## 0. Runtime requirements
 
 - Python: 3.11+
@@ -261,7 +287,7 @@ modified.
 ### 3.6 Tool levels and genres
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
-- **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"` (development), `"iot"`, `"exec"` (execution), `"external"`, `"media"`, `"file"`, `"index"`, `"dev"`, `"web"`, or `"utility"`. This must be specified at the top-level of `TOOL_SPEC`.
+- **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"`, `"iot"`, `"exec"`, `"external"`, `"media"`, `"file"`, `"index"`, `"dev"`, `"web"`, or `"utility"`. This must be specified at the top-level of `TOOL_SPEC`.
 - **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 512=index, 1024=dev, 2048=web, 4096=utility, 8191=all).
 - **`--tool-genre-mask` CLI argument**: All entry points (CLI/GUI/Web/A2A) accept `--tool-genre-mask <int>`. In normal mode, the bitmask is applied directly and the interactive genre prompt is skipped. In embedded mode, the mask is intentionally ignored to prevent a broad mask from re-registering unintended tools; a non-zero mask emits a warning and callers must use repeated `--enable-tool` options for explicit selection. When omitted, the behavior is unchanged (interactive prompt in TTY mode, no genre selection in non-interactive mode).
 
