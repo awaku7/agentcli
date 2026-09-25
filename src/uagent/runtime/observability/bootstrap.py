@@ -110,6 +110,14 @@ def initialize_observability(
             dependencies_ready=True,
             reason="enabled",
         )
+        try:
+            from .boundary_instrumentation import (
+                install_runtime_boundary_instrumentation,
+            )
+
+            install_runtime_boundary_instrumentation()
+        except Exception:
+            pass
         return _RESULT
 
 
