@@ -26,7 +26,10 @@ def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
     non-HTTP transports remain untrusted.
     """
 
-    if not isinstance(server, dict) or server.get("trusted_trace_propagation") is not True:
+    if (
+        not isinstance(server, dict)
+        or server.get("trusted_trace_propagation") is not True
+    ):
         return False
     url = server.get("url")
     return isinstance(url, str) and url.strip().lower().startswith(
