@@ -1,0 +1,182 @@
+name: PR91 trusted ingress hardening
+
+on:
+  push:
+    branches:
+      - feat/opentelemetry-trusted-ingress
+
+permissions:
+  contents: write
+
+jobs:
+  harden:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/opentelemetry-trusted-ingress
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Harden raw-peer and per-turn trace isolation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('src/uagent/runtime/observability/trusted_ingress.py')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              '_T = TypeVar("_T")\n',
+              '_T = TypeVar("_T")\n_RAW_SOCKET_PEER_SCOPE_KEY = "uagent.raw_socket_peer"\n\n\nclass RawSocketPeerCaptureMiddleware:\n'
+              '    """Capture the real ASGI socket peer before proxy-header rewriting."""\n\n'
+              '    def __init__(self, app: Any) -> None:\n'
+              '        self.app = app\n\n'
+              '    async def __call__(self, scope: dict[str, Any], receive: Any, send: Any) -> None:\n'
+              '        if scope.get("type") in {"http", "websocket"}:\n'
+              '            scope[_RAW_SOCKET_PEER_SCOPE_KEY] = scope.get("client")\n'
+              '        await self.app(scope, receive, send)\n\n\n'
+              'class SingleUseTrustedIngressCarrier:\n'
+              '    """Consume a handshake carrier at most once for Web turn isolation."""\n\n'
+              '    def __init__(self, carrier: Mapping[str, Any] | None) -> None:\n'
+              '        self._carrier = _normalize_carrier(carrier)\n\n'
+              '    def take(self) -> dict[str, str]:\n'
+              '        carrier = self._carrier\n'
+              '        self._carrier = {}\n'
+              '        return dict(carrier)\n',
+          )
+          old = '''    client = getattr(request, "client", None)\n    peer_host = str(getattr(client, "host", "") or "").strip()\n    if not peer_host:\n        return {}\n'''
+          new = '''    scope = getattr(request, "scope", None)\n    if not isinstance(scope, Mapping):\n        return {}\n    raw_peer = scope.get(_RAW_SOCKET_PEER_SCOPE_KEY)\n    if not isinstance(raw_peer, (tuple, list)) or not raw_peer:\n        return {}\n    peer_host = str(raw_peer[0] or "").strip()\n    if not peer_host:\n        return {}\n'''
+          if old not in s:
+              raise SystemExit('trusted_ingress peer block not found')
+          s = s.replace(old, new)
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('src/uagent/web_impl/routes_ws.py')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              'from ..runtime.observability.trusted_ingress import (\n    call_with_trusted_ingress,\n',
+              'from ..runtime.observability.trusted_ingress import (\n    SingleUseTrustedIngressCarrier,\n    call_with_trusted_ingress,\n',
+          )
+          s = s.replace(
+              '    trusted_trace_carrier = trusted_ingress_carrier_for_request(websocket)\n',
+              '    trusted_trace_carrier = SingleUseTrustedIngressCarrier(\n        trusted_ingress_carrier_for_request(websocket)\n    )\n',
+          )
+          s = s.replace(
+              '                        trusted_trace_carrier,\n                        run_agent_worker,\n',
+              '                        trusted_trace_carrier.take(),\n                        run_agent_worker,\n',
+          )
+          if s.count('trusted_trace_carrier.take()') != 2:
+              raise SystemExit('expected two single-use carrier call sites')
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('src/uagent/web_impl/init.py')
+          s = p.read_text(encoding='utf-8')
+          old = 'from .app import app\n'
+          new = (
+              'from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware\n\n'
+              'from ..runtime.observability.trusted_ingress import RawSocketPeerCaptureMiddleware\n'
+              'from .app import app\n'
+          )
+          if old not in s:
+              raise SystemExit('init import anchor not found')
+          s = s.replace(old, new, 1)
+          old = '    config = uvicorn.Config(app, host=bind_host, port=port, ws_max_size=10_000_000)\n'
+          new = (
+              '    forwarded_allow_ips = os.environ.get(\n'
+              '        "FORWARDED_ALLOW_IPS", "127.0.0.1,::1"\n'
+              '    )\n'
+              '    proxied_app = ProxyHeadersMiddleware(\n'
+              '        app, trusted_hosts=forwarded_allow_ips\n'
+              '    )\n'
+              '    server_app = RawSocketPeerCaptureMiddleware(proxied_app)\n'
+              '    config = uvicorn.Config(\n'
+              '        server_app,\n'
+              '        host=bind_host,\n'
+              '        port=port,\n'
+              '        ws_max_size=10_000_000,\n'
+              '        proxy_headers=False,\n'
+              '    )\n'
+          )
+          if old not in s:
+              raise SystemExit('uvicorn config anchor not found')
+          s = s.replace(old, new, 1)
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('tests/test_observability_phase3_trusted_ingress.py')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              'from uagent.runtime.observability.trusted_ingress import (\n    bind_trusted_ingress_carrier,\n',
+              'from uagent.runtime.observability.trusted_ingress import (\n    RawSocketPeerCaptureMiddleware,\n    SingleUseTrustedIngressCarrier,\n    bind_trusted_ingress_carrier,\n',
+          )
+          old = '''class _Request:\n    def __init__(self, host: str, headers: dict[str, str]) -> None:\n        self.client = _Client(host)\n        self.headers = headers\n'''
+          new = '''class _Request:\n    def __init__(\n        self,\n        host: str,\n        headers: dict[str, str],\n        *,\n        raw_host: str | None = None,\n    ) -> None:\n        self.client = _Client(host)\n        self.headers = headers\n        peer = raw_host if raw_host is not None else host\n        self.scope = {"uagent.raw_socket_peer": (peer, 12345)}\n'''
+          if old not in s:
+              raise SystemExit('test request block not found')
+          s = s.replace(old, new)
+          s = s.replace(
+              '    request = _Request(\n        "203.0.113.50",\n',
+              '    request = _Request(\n        "127.0.0.1",\n',
+              1,
+          )
+          s = s.replace(
+              '        },\n    )\n\n    assert trusted_ingress_carrier_for_request(request) == {}\n\n\ndef test_trusted_ingress_accepts_only_w3c_trace_context',
+              '        },\n        raw_host="203.0.113.50",\n    )\n\n    assert trusted_ingress_carrier_for_request(request) == {}\n\n\ndef test_trusted_ingress_accepts_only_w3c_trace_context',
+              1,
+          )
+          insert = '''\n\ndef test_raw_peer_capture_runs_before_proxy_rewrite() -> None:\n    seen: dict[str, object] = {}\n\n    async def inner(scope, receive, send) -> None:\n        seen["raw"] = scope.get("uagent.raw_socket_peer")\n        scope["client"] = ("198.51.100.42", 0)\n        seen["client"] = scope.get("client")\n\n    middleware = RawSocketPeerCaptureMiddleware(inner)\n\n    import asyncio\n\n    asyncio.run(\n        middleware(\n            {"type": "websocket", "client": ("127.0.0.1", 4321)},\n            None,\n            None,\n        )\n    )\n\n    assert seen == {\n        "raw": ("127.0.0.1", 4321),\n        "client": ("198.51.100.42", 0),\n    }\n\n\ndef test_handshake_carrier_is_consumed_once() -> None:\n    carrier = SingleUseTrustedIngressCarrier(\n        {"traceparent": _TRACEPARENT, "tracestate": _TRACESTATE}\n    )\n\n    assert carrier.take() == {\n        "traceparent": _TRACEPARENT,\n        "tracestate": _TRACESTATE,\n    }\n    assert carrier.take() == {}\n'''
+          anchor = '\n\ndef test_trusted_ingress_binding_is_scoped() -> None:\n'
+          if anchor not in s:
+              raise SystemExit('test insert anchor not found')
+          s = s.replace(anchor, insert + anchor, 1)
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('src/uagent/docs/DEVELOP_OBSERVABILITY.md')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              '- Web reverse-proxy propagation is OFF unless the actual socket peer matches `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The value accepts explicit IP/CIDR entries only; one malformed entry fails the whole trust policy closed.\n',
+              '- Web reverse-proxy propagation is OFF unless the raw socket peer captured before Uvicorn proxy-header rewriting matches `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The value accepts explicit IP/CIDR entries only; one malformed entry fails the whole trust policy closed.\n',
+          )
+          s = s.replace(
+              '- Reverse-proxy trust never uses `X-Forwarded-For`, `Forwarded`, query parameters, cookies, or message JSON. Once the socket peer is trusted, only `traceparent` and `tracestate` are copied into the worker\'s process-local context; baggage is never accepted.\n',
+              '- Reverse-proxy trust never uses `X-Forwarded-For`, `Forwarded`, query parameters, cookies, or message JSON. UAG captures the raw socket peer before applying the normal Uvicorn proxy-header transformation. Once that peer is trusted, only `traceparent` and `tracestate` are copied into the worker\'s process-local context; baggage is never accepted.\n'
+              '- A WebSocket handshake carrier is single-use: it may parent only the first Agent execution started by that connection. Later turns return to fresh Agent roots so one long-lived WebSocket does not collapse many user turns into one distributed trace.\n',
+          )
+          s = s.replace(
+              'A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching socket peer may supply the trusted W3C parent used by the worker\'s canonical Agent span.',
+              'A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching raw socket peer captured before proxy-header rewriting may supply the single-use trusted W3C parent for the first worker Agent span.',
+          )
+          p.write_text(s, encoding='utf-8')
+
+          p = Path('docs/UAG_OPENTELEMETRY_PHASE3_SCOPE.md')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              '- use the actual socket peer only, never a forwarded client-address header, to select trust;\n',
+              '- capture the raw socket peer before Uvicorn proxy-header rewriting and use only that value, never a forwarded client-address header, to select trust;\n',
+          )
+          s = s.replace(
+              '- copy only `traceparent` / `tracestate` into the worker thread\'s process-local observability context;\n',
+              '- copy only `traceparent` / `tracestate` into the worker thread\'s process-local observability context;\n'
+              '- consume a WebSocket handshake carrier at most once so later turns on the long-lived connection start fresh traces;\n',
+          )
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Format and targeted validation
+        shell: bash
+        run: |
+          python -m pip install -q black==26.5.1 ruff pytest
+          python -m black src/uagent/runtime/observability/trusted_ingress.py src/uagent/runtime/execution.py src/uagent/web_impl/routes_ws.py src/uagent/web_impl/init.py tests/test_observability_phase3_trusted_ingress.py
+          python -m black --check src/uagent/runtime/observability/trusted_ingress.py src/uagent/runtime/execution.py src/uagent/web_impl/routes_ws.py src/uagent/web_impl/init.py tests/test_observability_phase3_trusted_ingress.py
+          python -m ruff check src/uagent/runtime/observability/trusted_ingress.py src/uagent/runtime/execution.py src/uagent/web_impl/routes_ws.py src/uagent/web_impl/init.py tests/test_observability_phase3_trusted_ingress.py
+          python -m pip install -q -e ".[core,providers,test]"
+          python -m pytest -q tests/test_observability_phase3_trusted_ingress.py tests/test_observability_runtime_tracing.py tests/test_web_connection_identity.py
+      - name: Commit hardened implementation
+        shell: bash
+        run: |
+          git rm .github/workflows/zz_pr91_harden.yml
+          git config user.name "Hirofumi Ukawa"
+          git config user.email "35913787+awaku7@users.noreply.github.com"
+          git add docs/UAG_OPENTELEMETRY_PHASE3_SCOPE.md src/uagent/docs/DEVELOP_OBSERVABILITY.md src/uagent/runtime/execution.py src/uagent/runtime/observability/trusted_ingress.py src/uagent/web_impl/routes_ws.py src/uagent/web_impl/init.py tests/test_observability_phase3_trusted_ingress.py
+          git commit -m "fix: harden trusted Web trace ingress"
+          git push origin HEAD:feat/opentelemetry-trusted-ingress
