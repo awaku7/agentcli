@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import Iterator
+from collections.abc import AsyncIterator
 from typing import Optional
 
 try:
@@ -21,10 +21,10 @@ def _norm(v: str) -> str:
     return (v or "").strip()
 
 
-def require_bearer_auth(
+async def require_bearer_auth(
     request: Request,
     authorization: Optional[str] = Header(default=None),
-) -> Iterator[None]:
+) -> AsyncIterator[None]:
     """Bearer auth for A2A endpoints and trusted trace-context boundary.
 
     Token source:
