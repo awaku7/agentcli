@@ -38,6 +38,12 @@ def resolved_turn_context(
         request_context=request_context,
     )
     with bind_turn_context(turn, identity_context=identity):
+        try:
+            from .execution import apply_turn_context_to_current_agent_span
+
+            apply_turn_context_to_current_agent_span(turn)
+        except Exception:
+            pass
         yield turn
 
 
