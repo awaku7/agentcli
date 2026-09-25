@@ -4,6 +4,7 @@ import asyncio
 from contextlib import contextmanager
 from contextvars import ContextVar
 from collections.abc import Callable, Iterator
+from typing import TYPE_CHECKING
 
 from .lifecycle import (
     AgentLifecycle,
@@ -11,6 +12,9 @@ from .lifecycle import (
     LifecycleSnapshot,
 )
 from .logging_setup import log_event
+
+if TYPE_CHECKING:
+    from .identity_context import TurnContext
 
 _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
     "uagent_current_lifecycle", default=None
@@ -55,6 +59,7 @@ def lifecycle_execution(
     *,
     cancel_exceptions: tuple[type[BaseException], ...] = (),
     on_transition: Callable[[LifecycleSnapshot], None] | None = None,
+    turn_context: TurnContext | None = None,
 ) -> Iterator[AgentLifecycle]:
     """Track one synchronous Agent execution with a shared lifecycle.
 
@@ -63,20 +68,24 @@ def lifecycle_execution(
     transitions are ignored so a concurrent cancellation remains authoritative.
 
     When observability is enabled, this is the canonical ``invoke_agent`` span
-    boundary. Web turns deliberately start a fresh root span so untrusted browser
-    trace context can never parent an Agent trace.
+    boundary. Web callers can pass their already-authorized ``TurnContext`` so
+    the span is detached as a fresh root before lower-level runtime bindings
+    are entered.
     """
     from .identity_context import get_current_turn_context
     from .observability.bootstrap import get_observability_backend
 
     current = lifecycle or AgentLifecycle()
-    turn_context = get_current_turn_context()
+    effective_turn_context = turn_context or get_current_turn_context()
     span_attributes = {"uag.agent.name": "uag"}
-    if turn_context is not None:
-        span_attributes["uag.entry_point"] = turn_context.entry_point
-        span_attributes["uag.auth.kind"] = turn_context.authn_kind
+    if effective_turn_context is not None:
+        span_attributes["uag.entry_point"] = effective_turn_context.entry_point
+        span_attributes["uag.auth.kind"] = effective_turn_context.authn_kind
     backend = get_observability_backend()
-    is_web_root = bool(turn_context is not None and turn_context.entry_point == "web")
+    is_web_root = bool(
+        effective_turn_context is not None
+        and effective_turn_context.entry_point == "web"
+    )
 
     with backend.start_span(
         "invoke_agent", attributes=span_attributes, root=is_web_root
@@ -103,11 +112,17 @@ def lifecycle_execution(
                 raise
             else:
                 _safe_transition(current, "complete")
-                observability_span.set_status("ok")
         finally:
+            lifecycle_status = current.status.value
             observability_span.set_attribute(
-                "uag.agent.lifecycle_status", current.status.value.lower()
+                "uag.agent.lifecycle_status", lifecycle_status.lower()
             )
+            if lifecycle_status == "COMPLETED":
+                observability_span.set_status("ok")
+            elif lifecycle_status in {"FAILED", "TIMEOUT"}:
+                observability_span.set_status("error", lifecycle_status.lower())
+            elif lifecycle_status == "CANCELLED":
+                observability_span.set_status("unset", "cancelled")
             _CURRENT_CALLBACK.reset(callback_token)
             _CURRENT_LIFECYCLE.reset(lifecycle_token)
 
