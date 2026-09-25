@@ -26,5 +26,11 @@ new = '''replace_once(
 )
 '''
 if text.count(old) != 1:
-    raise SystemExit(f"expected one staging block, got {text.count(old)}")
-path.write_text(text.replace(old, new), encoding="utf-8")
+    raise SystemExit(f"expected one HTTP staging block, got {text.count(old)}")
+text = text.replace(old, new)
+
+marker = "\n# _call_tool submission also needs trust.\n"
+if text.count(marker) != 1:
+    raise SystemExit(f"expected redundant pool block marker once, got {text.count(marker)}")
+text = text.split(marker, 1)[0].rstrip() + "\n"
+path.write_text(text, encoding="utf-8")
