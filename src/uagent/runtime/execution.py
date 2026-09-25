@@ -149,6 +149,14 @@ def current_lifecycle() -> AgentLifecycle | None:
     return _CURRENT_LIFECYCLE.get()
 
 
+def mark_current_lifecycle_failed() -> None:
+    """Fail the active lifecycle through the canonical event/callback boundary."""
+
+    lifecycle = current_lifecycle()
+    if lifecycle is not None:
+        _safe_transition(lifecycle, "fail")
+
+
 def mark_tool_waiting() -> None:
     lifecycle = current_lifecycle()
     if lifecycle is not None:
