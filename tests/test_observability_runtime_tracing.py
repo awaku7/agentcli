@@ -4,7 +4,11 @@ import json
 import logging
 from contextlib import contextmanager
 
-from uagent.runtime.identity_context import IdentityContext, TurnContext, bind_turn_context
+from uagent.runtime.identity_context import (
+    IdentityContext,
+    TurnContext,
+    bind_turn_context,
+)
 from uagent.runtime.logging_setup import log_event
 from uagent.runtime.observability.api import TraceIds
 from uagent.runtime.observability import runtime as observability_runtime
@@ -89,7 +93,9 @@ def test_tool_dispatch_starts_execute_tool_span_only_when_runner_starts(
     monkeypatch,
 ) -> None:
     backend = _Backend()
-    monkeypatch.setattr(observability_runtime, "get_observability_backend", lambda: backend)
+    monkeypatch.setattr(
+        observability_runtime, "get_observability_backend", lambda: backend
+    )
     observability_runtime._reset_runtime_observability_for_tests()
 
     observability_runtime.before_structured_event(
