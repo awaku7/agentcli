@@ -61,33 +61,55 @@ def lifecycle_execution(
     The context manager deliberately treats cancellation-like exceptions as a
     cancelled execution and all other exceptions as failures. Invalid terminal
     transitions are ignored so a concurrent cancellation remains authoritative.
+
+    When observability is enabled, this is the canonical ``invoke_agent`` span
+    boundary. Web turns deliberately start a fresh root span so untrusted browser
+    trace context can never parent an Agent trace.
     """
+    from .identity_context import get_current_turn_context
+    from .observability.bootstrap import get_observability_backend
+
     current = lifecycle or AgentLifecycle()
-    lifecycle_token = _CURRENT_LIFECYCLE.set(current)
-    callback_token = _CURRENT_CALLBACK.set(on_transition)
-    if current.status.value == "CREATED":
-        _emit_lifecycle_events(current.snapshot())
-    _safe_transition(current, "start")
-    try:
+    turn_context = get_current_turn_context()
+    span_attributes = {"uag.agent.name": "uag"}
+    if turn_context is not None:
+        span_attributes["uag.entry_point"] = turn_context.entry_point
+        span_attributes["uag.auth.kind"] = turn_context.authn_kind
+    backend = get_observability_backend()
+    is_web_root = bool(turn_context is not None and turn_context.entry_point == "web")
+
+    with backend.start_span(
+        "invoke_agent", attributes=span_attributes, root=is_web_root
+    ) as observability_span:
+        lifecycle_token = _CURRENT_LIFECYCLE.set(current)
+        callback_token = _CURRENT_CALLBACK.set(on_transition)
+        if current.status.value == "CREATED":
+            _emit_lifecycle_events(current.snapshot())
+        _safe_transition(current, "start")
         try:
-            yield current
-        except (asyncio.CancelledError, KeyboardInterrupt, SystemExit):
-            _safe_transition(current, "cancel")
-            raise
-        except TimeoutError:
-            _safe_transition(current, "timeout")
-            raise
-        except BaseException as exc:
-            if cancel_exceptions and isinstance(exc, cancel_exceptions):
+            try:
+                yield current
+            except (asyncio.CancelledError, KeyboardInterrupt, SystemExit):
                 _safe_transition(current, "cancel")
+                raise
+            except TimeoutError:
+                _safe_transition(current, "timeout")
+                raise
+            except BaseException as exc:
+                if cancel_exceptions and isinstance(exc, cancel_exceptions):
+                    _safe_transition(current, "cancel")
+                else:
+                    _safe_transition(current, "fail")
+                raise
             else:
-                _safe_transition(current, "fail")
-            raise
-        else:
-            _safe_transition(current, "complete")
-    finally:
-        _CURRENT_CALLBACK.reset(callback_token)
-        _CURRENT_LIFECYCLE.reset(lifecycle_token)
+                _safe_transition(current, "complete")
+                observability_span.set_status("ok")
+        finally:
+            observability_span.set_attribute(
+                "uag.agent.lifecycle_status", current.status.value.lower()
+            )
+            _CURRENT_CALLBACK.reset(callback_token)
+            _CURRENT_LIFECYCLE.reset(lifecycle_token)
 
 
 def current_lifecycle() -> AgentLifecycle | None:
@@ -98,6 +120,12 @@ def mark_tool_waiting() -> None:
     lifecycle = current_lifecycle()
     if lifecycle is not None:
         _safe_transition(lifecycle, "waiting_for_tool")
+    try:
+        from .observability.runtime import start_pending_tool_span
+
+        start_pending_tool_span()
+    except Exception:
+        pass
 
 
 def mark_tool_running() -> None:
