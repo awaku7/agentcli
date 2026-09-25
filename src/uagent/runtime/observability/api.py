@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from contextlib import AbstractContextManager
 from dataclasses import dataclass
-from typing import Any, Mapping, Protocol
+from typing import Any, Mapping, MutableMapping, Protocol
 
 
 @dataclass(frozen=True)
@@ -64,5 +64,11 @@ class ObservabilityBackend(Protocol):
         value: int | float,
         attributes: Mapping[str, Any] | None = None,
     ) -> None: ...
+
+    def inject_context(self, carrier: MutableMapping[str, str]) -> None: ...
+
+    def attach_remote_context(
+        self, carrier: Mapping[str, str]
+    ) -> AbstractContextManager[None]: ...
 
     def current_trace_ids(self) -> TraceIds: ...

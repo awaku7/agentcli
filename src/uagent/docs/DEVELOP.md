@@ -86,6 +86,32 @@ Relevant regression suites include `tests/test_memory_access.py`,
 `tests/test_room_access.py`, `tests/test_oidc_sessions.py`, and
 `tests/test_web_memory_store_lifetime.py`.
 
+## OpenTelemetry distributed propagation (Phase 3)
+
+Distributed trace propagation remains behind UAG's provider-neutral observability
+boundary. `runtime/observability/api.py` defines `inject_context()` for outbound
+carriers and `attach_remote_context()` for trusted inbound carriers. Backends must
+preserve the existing no-op/failure-isolation behavior when observability is
+disabled, unavailable, malformed, or fails internally.
+
+For A2A, only W3C `traceparent` and `tracestate` are propagated. Baggage is not
+propagated. Inbound trace context may be attached only after the existing A2A
+bearer authentication succeeds. Trace metadata is observability metadata only: it
+must never supply or influence identity, authentication, authorization, room or
+project scope, Memory scope, or session validity.
+
+Streaming A2A execution has an additional lifetime requirement. The already
+authenticated carrier must be explicitly reattached inside the `/message:stream`
+generator around streamed execution. Do not rely on FastAPI yield-dependency
+cleanup timing to keep the remote parent active during `StreamingResponse`
+iteration.
+
+Malformed or unavailable remote context must degrade to the existing local/no-op
+behavior without changing A2A responses or Agent execution. Relevant implementation
+lives in `runtime/observability/otel_backend.py`, `a2a/auth.py`, and `a2a/server.py`.
+Regression coverage is in `tests/test_observability_phase3_a2a.py`; the broader
+trust and rollout scope is documented in `docs/UAG_OPENTELEMETRY_PHASE3_SCOPE.md`.
+
 ## 0. Runtime requirements
 
 - Python: 3.11+

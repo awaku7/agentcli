@@ -5,6 +5,7 @@ import os
 import argparse
 import asyncio
 import json
+from contextlib import nullcontext
 from contextvars import copy_context
 from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
@@ -38,6 +39,7 @@ from ..i18n import (
 from ..runtime.runtime_init import reload_dotenv_custom
 from ..runtime.runtime_env import validate_or_exit_startup_env
 from ..runtime.logging_setup import bind_event_context, log_event, reset_event_context
+from ..runtime.observability.bootstrap import get_observability_backend
 from .auth import require_bearer_auth
 from .engine import run_once
 from .errors import A2AHttpError, aip193_error
@@ -267,7 +269,7 @@ def build_app(
     @app.post("/message:stream")
     async def message_stream(
         req: SendMessageRequest,
-        _auth: Any = Depends(require_bearer_auth),
+        _auth: dict[str, str] = Depends(require_bearer_auth),
     ):
         # SSE stream: emit a few lifecycle events.
         user_text = str(req.message.content or "")
@@ -281,21 +283,27 @@ def build_app(
                     "utf-8"
                 )
 
-            yield _emit({"type": "task", "task": task_to_model(rec).model_dump()})
-            yield _emit({"type": "status", "id": task_id, "status": "IN_PROGRESS"})
+            try:
+                manager = get_observability_backend().attach_remote_context(_auth)
+            except Exception:
+                manager = nullcontext()
 
-            await _execute_task(task_id, user_text)
-            r = store.get(task_id)
-            if not r:
-                yield _emit(
-                    {
-                        "type": "error",
-                        "error": {"code": "INTERNAL", "message": "Task missing"},
-                    }
-                )
-                return
+            with manager:
+                yield _emit({"type": "task", "task": task_to_model(rec).model_dump()})
+                yield _emit({"type": "status", "id": task_id, "status": "IN_PROGRESS"})
 
-            yield _emit({"type": "task", "task": task_to_model(r).model_dump()})
+                await _execute_task(task_id, user_text)
+                r = store.get(task_id)
+                if not r:
+                    yield _emit(
+                        {
+                            "type": "error",
+                            "error": {"code": "INTERNAL", "message": "Task missing"},
+                        }
+                    )
+                    return
+
+                yield _emit({"type": "task", "task": task_to_model(r).model_dump()})
 
         return StreamingResponse(gen(), media_type="text/event-stream")
 
