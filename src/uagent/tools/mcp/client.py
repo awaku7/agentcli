@@ -239,6 +239,9 @@ class MCPClient:
             raise MCPTransportError(
                 "MCP_CONNECT_FAILED", "connect", {"error": str(exc)}
             ) from exc
+        except BaseException:
+            await self._stack.aclose()
+            raise
 
     async def _close_owned_http_client(self) -> None:
         client = self._http_client

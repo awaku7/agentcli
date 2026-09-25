@@ -158,3 +158,56 @@ def test_stateful_setup_failure_closes_owned_trace_http_client(monkeypatch) -> N
         assert client._http_client is None
 
     asyncio.run(scenario())
+
+
+def test_stateful_setup_cancellation_closes_owned_trace_http_client(
+    monkeypatch,
+) -> None:
+    class _OwnedClient:
+        def __init__(self) -> None:
+            self.closed = False
+
+        async def aclose(self) -> None:
+            self.closed = True
+
+    owned = _OwnedClient()
+
+    def fake_create(*args, **kwargs):
+        assert kwargs.get("trusted_trace_propagation") is True
+        return owned
+
+    class _CancelledTransport:
+        async def __aenter__(self):
+            raise asyncio.CancelledError()
+
+        async def __aexit__(self, exc_type, exc, tb):
+            return None
+
+    def fake_streamable_http_client(*args, **kwargs):
+        assert kwargs.get("http_client") is owned
+        return _CancelledTransport()
+
+    monkeypatch.setattr("uagent.tools.mcp.client.create_mcp_http_client", fake_create)
+    monkeypatch.setattr(
+        "uagent.tools.mcp.client.streamable_http_client",
+        fake_streamable_http_client,
+    )
+
+    from uagent.tools.mcp.client import MCPClient
+
+    async def scenario() -> None:
+        client = MCPClient(
+            url="https://mcp.example/mcp",
+            trusted_trace_propagation=True,
+            protocol_mode="legacy",
+        )
+        try:
+            await client.__aenter__()
+        except asyncio.CancelledError:
+            pass
+        else:
+            raise AssertionError("expected CancelledError")
+        assert owned.closed is True
+        assert client._http_client is None
+
+    asyncio.run(scenario())
