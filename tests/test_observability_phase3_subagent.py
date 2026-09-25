@@ -10,6 +10,7 @@ import pytest
 
 from uagent.runtime.observability import bootstrap
 from uagent.tools import context as tool_context
+from uagent.tools import sub_agent_tool
 
 
 @dataclass
@@ -141,6 +142,32 @@ def test_sub_agent_exception_is_forwarded_to_span_without_being_swallowed(
 
     assert backend.calls[0]["exc_type"] is ValueError
     assert backend.calls[0]["statuses"] == []
+
+
+def test_sub_agent_status_failure_restores_context_and_closes_span(monkeypatch) -> None:
+    backend = _FakeBackend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+
+    class _Callbacks:
+        def set_status(self, active: bool, message: str) -> None:
+            if active:
+                raise RuntimeError("status unavailable")
+
+    monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: _Callbacks())
+    reasoning_token = sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.set("parent")
+    try:
+        with pytest.raises(RuntimeError, match="status unavailable"):
+            sub_agent_tool.run_tool(
+                {"agent_name": "planner", "task": "do not execute"}
+            )
+
+        assert tool_context.get_active_sub_agent() is None
+        assert backend.active.get() == "parent"
+        assert sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.get() == "parent"
+    finally:
+        sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
+
+    assert backend.calls[0]["exc_type"] is RuntimeError
 
 
 def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> None:
