@@ -36,12 +36,27 @@ def call_legacy_grok_grpc_round(
             return None
     except Exception:
         return None
-    ok, new_client, assistant_text, tool_calls = _call_grok_round(
+
+    from .observability.runtime import fallback_chat_span
+
+    with fallback_chat_span(
         provider=provider,
-        client=client,
-        **kwargs,
-    )
-    return ok, new_client, assistant_text, "", tool_calls, True
+        model=str(kwargs.get("depname") or ""),
+        request_input=kwargs.get("call_messages") or (),
+        core=kwargs.get("core"),
+    ) as observability_span:
+        ok, new_client, assistant_text, tool_calls = _call_grok_round(
+            provider=provider,
+            client=client,
+            **kwargs,
+        )
+        if ok:
+            observability_span.set_attribute("uag.status", "completed")
+            observability_span.set_status("ok")
+        else:
+            observability_span.set_attribute("uag.status", "failed")
+            observability_span.set_status("error", "provider round failed")
+        return ok, new_client, assistant_text, "", tool_calls, True
 
 
 __all__ = [

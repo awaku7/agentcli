@@ -534,6 +534,7 @@ def run_agent_worker(
             with lifecycle_execution(
                 cancel_exceptions=(LLMWaitInterrupted,),
                 on_transition=_on_lifecycle,
+                turn_context=turn_context,
             ) as lifecycle:
                 try:
                     room.agent_lifecycle = lifecycle

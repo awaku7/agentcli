@@ -22,6 +22,8 @@ from .round_contracts import (
 from .round_runtime import StreamEventValidator
 from .stream_renderer import CollectingStreamRenderer
 from .logging_setup import log_event
+from .observability.api import ObservabilitySpan
+from .observability.bootstrap import get_observability_backend
 
 
 def _json_size(value: Any) -> int:
@@ -56,10 +58,61 @@ class RoundOrchestrator:
         session: Mapping[str, Any],
         cancellation: CancellationToken,
     ) -> OrchestratedRound:
-        runtime = self._registry.resolve(provider)
+        backend = get_observability_backend()
         started = time.perf_counter()
-        projection = runtime.project(plan, session)
-        request = runtime.serialize(projection)
+        try:
+            runtime = self._registry.resolve(provider)
+            projection = runtime.project(plan, session)
+            request = runtime.serialize(projection)
+        except BaseException as exc:
+            # A model may not be known until serialization succeeds. Preserve the
+            # model-aware canonical span on successful rounds while still recording
+            # preparation failures as a short error chat span.
+            try:
+                with backend.start_span(
+                    "chat",
+                    attributes={
+                        "uag.llm.provider": provider,
+                        "uag.llm.phase": "prepare",
+                    },
+                ) as preparation_span:
+                    preparation_span.set_attribute("uag.status", "failed")
+                    preparation_span.record_exception(exc)
+                    preparation_span.set_status("error", type(exc).__name__)
+            except Exception:
+                pass
+            raise
+
+        with backend.start_span(
+            "chat",
+            attributes={
+                "uag.llm.provider": request.provider,
+                "uag.llm.model": request.model,
+            },
+        ) as observability_span:
+            return self._run_observed(
+                plan,
+                runtime=runtime,
+                projection=projection,
+                request=request,
+                session=session,
+                cancellation=cancellation,
+                observability_span=observability_span,
+                started=started,
+            )
+
+    def _run_observed(
+        self,
+        plan: ContextPlan,
+        *,
+        runtime: Any,
+        projection: Any,
+        request: SerializedRequest,
+        session: Mapping[str, Any],
+        cancellation: CancellationToken,
+        observability_span: ObservabilitySpan,
+        started: float,
+    ) -> OrchestratedRound:
         validator = StreamEventValidator()
         events: list[StreamEvent] = []
         renderer = CollectingStreamRenderer()
@@ -143,13 +196,23 @@ class RoundOrchestrator:
             recovery_hint=recovery_hint,
             summary=summary,
         )
-        log_event(
-            "llm.round.completed",
-            provider=request.provider,
-            model=request.model,
-            **summary.to_dict(),
-            **usage_delta,
+        observability_span.set_attribute("uag.status", status)
+        observability_span.set_attribute("uag.duration_ms", summary.duration_ms)
+        observability_span.set_attribute(
+            "uag.tokens.estimate.input", summary.request_tokens
         )
+        reported_names = {
+            "input_tokens_delta": "uag.tokens.reported.input",
+            "output_tokens_delta": "uag.tokens.reported.output",
+            "total_tokens_delta": "uag.tokens.reported.total",
+        }
+        for key, attribute_name in reported_names.items():
+            if key in usage_delta:
+                observability_span.set_attribute(attribute_name, usage_delta[key])
+
+        # The provider response is not the end of the logical round. Responses
+        # continuation/session synchronization is part of the canonical boundary,
+        # so do not mark the span OK until this post-processing has succeeded.
         if continuation_update:
             responses_runtime = session.get("responses_runtime")
             sync_completed = getattr(responses_runtime, "sync_completed_response", None)
@@ -170,6 +233,26 @@ class RoundOrchestrator:
                 transition = getattr(responses_runtime, terminal_transition, None)
                 if callable(transition):
                     transition()
+
+        if status == "completed":
+            observability_span.set_status("ok")
+        elif status in {"failed", "timed_out", "interrupted"}:
+            error_type = str((result.error or {}).get("error_type") or status)
+            observability_span.set_status("error", error_type)
+        observability_span.add_event(
+            "llm.round.completed",
+            {
+                "uag.status": status,
+                "uag.tool_call_count": summary.tool_call_count,
+            },
+        )
+        log_event(
+            "llm.round.completed",
+            provider=request.provider,
+            model=request.model,
+            **summary.to_dict(),
+            **usage_delta,
+        )
         return OrchestratedRound(
             request=request,
             events=tuple(events),

@@ -137,12 +137,14 @@ def load_dotenv_custom() -> None:
 
 
 def reload_dotenv_custom() -> None:
-    """Reload dotenv files, then resolve process-level observability settings."""
+    """Reload dotenv files, resolve settings, then initialize observability."""
 
     load_dotenv_custom()
+    from .observability.bootstrap import initialize_observability
     from .observability.settings import refresh_observability_settings
 
-    refresh_observability_settings()
+    settings = refresh_observability_settings()
+    initialize_observability(settings)
 
 
 __all__ = [

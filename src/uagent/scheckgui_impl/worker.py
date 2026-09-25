@@ -15,7 +15,10 @@ from .. import core
 from .. import tools
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.execution import lifecycle_execution
-from ..runtime.turn_context_runtime import call_with_resolved_turn_context
+from ..runtime.turn_context_runtime import (
+    call_with_resolved_turn_context,
+    resolved_turn_context,
+)
 from ..scheduler import start_background_scheduler
 from ..util_tools import (
     append_result_to_outfile,
@@ -52,8 +55,16 @@ def _run_lifecycle(fn, *args, **kwargs):
         except Exception:
             pass
 
-    with lifecycle_execution(on_transition=_on_lifecycle):
-        return fn(*args, **kwargs)
+    with resolved_turn_context(
+        entry_point="gui",
+        project_path=os.getcwd(),
+        session_id=str(getattr(core, "session_id", "") or ""),
+    ) as turn_context:
+        with lifecycle_execution(
+            on_transition=_on_lifecycle,
+            turn_context=turn_context,
+        ):
+            return fn(*args, **kwargs)
 
 
 class ScheckWorker(QtCore.QObject):

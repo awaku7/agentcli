@@ -20,6 +20,9 @@ class NoOpSpan:
     def record_exception(self, exc: BaseException) -> None:
         return None
 
+    def set_status(self, status: str, description: str | None = None) -> None:
+        return None
+
 
 class NoOpObservabilityBackend:
     """Backend that keeps runtime instrumentation safe when OTel is off."""
@@ -34,11 +37,28 @@ class NoOpObservabilityBackend:
         operation: str,
         *,
         attributes: Mapping[str, Any] | None = None,
+        root: bool = False,
     ) -> Iterator[ObservabilitySpan]:
         yield NOOP_SPAN
 
     def record_event(
         self, name: str, attributes: Mapping[str, Any] | None = None
+    ) -> None:
+        return None
+
+    def record_counter(
+        self,
+        name: str,
+        value: int | float = 1,
+        attributes: Mapping[str, Any] | None = None,
+    ) -> None:
+        return None
+
+    def record_histogram(
+        self,
+        name: str,
+        value: int | float,
+        attributes: Mapping[str, Any] | None = None,
     ) -> None:
         return None
 

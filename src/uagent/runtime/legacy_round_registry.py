@@ -67,23 +67,58 @@ def run_legacy_provider_round(
     return handler(provider=provider, **kwargs)
 
 
+def _summary_status_for_action(action: str, *, interrupted: bool = False) -> str:
+    if interrupted:
+        return "interrupted"
+    normalized = (action or "").strip().lower()
+    if normalized == "return":
+        return "failed"
+    if normalized == "continue":
+        return "continue"
+    return "completed"
+
+
 def run_legacy_provider_outcome(
     *, provider: str, **kwargs: Any
 ) -> LegacyRoundOutcome | None:
-    """Wrap a legacy tuple without changing its compatibility payload."""
-    started = time.perf_counter()
-    result = run_legacy_provider_round(provider=provider, **kwargs)
-    if result is None:
+    """Wrap a legacy tuple without changing its compatibility payload.
+
+    Provider-call tracing is owned by ``legacy_provider_dispatch`` so handler
+    post-processing and tool execution stay outside the canonical ``chat`` span.
+    The legacy tuple reuses ``break`` for both normal completion and an explicit
+    user interrupt, so ``consume_legacy_interrupt`` supplies a separate marker
+    that preserves the distinction in the provider-neutral summary.
+    """
+
+    normalized_provider = (provider or "").strip().lower()
+    handler = _LEGACY_ROUND_HANDLERS.get(normalized_provider)
+    if handler is None:
         return None
+
+    core = kwargs.get("core")
+    if core is not None:
+        try:
+            setattr(core, "_last_legacy_round_interrupted", False)
+        except Exception:
+            pass
+
+    started = time.perf_counter()
+    result = handler(provider=provider, **kwargs)
     assistant_text = str(result[4] or "") if len(result) > 4 else ""
+    action = str(result[0] or "").strip().lower() if result else ""
+    interrupted = bool(
+        getattr(core, "_last_legacy_round_interrupted", False)
+        if core is not None
+        else False
+    )
     summary = RoundSummary(
-        status="completed",
+        status=_summary_status_for_action(action, interrupted=interrupted),
         duration_ms=(time.perf_counter() - started) * 1000.0,
         assistant_chars=len(assistant_text),
     )
     return LegacyRoundOutcome(
-        provider=(provider or "").strip().lower(),
-        status=str(result[0]),
+        provider=normalized_provider,
+        status=action,
         assistant_text=assistant_text,
         raw_result=result,
         client=result[1] if len(result) > 1 else None,
