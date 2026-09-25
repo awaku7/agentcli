@@ -46,6 +46,22 @@ class NoOpObservabilityBackend:
     ) -> None:
         return None
 
+    def record_counter(
+        self,
+        name: str,
+        value: int | float = 1,
+        attributes: Mapping[str, Any] | None = None,
+    ) -> None:
+        return None
+
+    def record_histogram(
+        self,
+        name: str,
+        value: int | float,
+        attributes: Mapping[str, Any] | None = None,
+    ) -> None:
+        return None
+
     def current_trace_ids(self) -> TraceIds:
         return TraceIds()
 
