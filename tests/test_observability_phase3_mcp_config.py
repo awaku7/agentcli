@@ -214,3 +214,28 @@ def test_session_pool_public_api_separates_and_threads_trust_boundary() -> None:
         assert [item["trusted_trace_propagation"] for item in created] == [False, True]
     finally:
         pool.close()
+
+
+def test_mcp_server_trust_messages_are_localized_for_shipped_catalog_blocks() -> None:
+    catalog_path = (
+        Path(__file__).resolve().parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "mcp_servers_tool.json"
+    )
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    keys = {
+        "warn.trusted_trace_boolean",
+        "warn.trusted_trace_non_http",
+        "err.trusted_trace_boolean_indexed",
+        "err.trusted_trace_boolean",
+    }
+    english = catalog["en"]
+    for lang, block in catalog.items():
+        if lang == "en" or not isinstance(block, dict):
+            continue
+        for key in keys:
+            assert key in block, (lang, key)
+            assert isinstance(block[key], str) and block[key].strip(), (lang, key)
+            assert block[key].strip() != english[key].strip(), (lang, key)

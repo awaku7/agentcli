@@ -354,13 +354,22 @@ def _validate_servers_for_list(servers: list[Any]) -> list[str]:
         trusted_trace = s.get("trusted_trace_propagation", False)
         if "trusted_trace_propagation" in s and not isinstance(trusted_trace, bool):
             warnings.append(
-                f"WARNING: mcp_servers[{idx}].trusted_trace_propagation must be boolean."
+                _(
+                    "warn.trusted_trace_boolean",
+                    default="WARNING: mcp_servers[{idx}].trusted_trace_propagation must be boolean.",
+                ).format(idx=idx)
             )
         elif trusted_trace is True and not (
             isinstance(url, str) and url.lower().startswith(("http://", "https://"))
         ):
             warnings.append(
-                f"WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored for non-HTTP transports."
+                _(
+                    "warn.trusted_trace_non_http",
+                    default=(
+                        "WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored "
+                        "for non-HTTP transports."
+                    ),
+                ).format(idx=idx)
             )
 
         if not isinstance(name, str) or not name.strip():
@@ -440,13 +449,22 @@ def _validate_servers_strict(servers: list[Any]) -> tuple[list[str], list[str]]:
         trusted_trace = s.get("trusted_trace_propagation", False)
         if "trusted_trace_propagation" in s and not isinstance(trusted_trace, bool):
             errors.append(
-                f"ERROR: mcp_servers[{idx}].trusted_trace_propagation must be boolean"
+                _(
+                    "err.trusted_trace_boolean_indexed",
+                    default="ERROR: mcp_servers[{idx}].trusted_trace_propagation must be boolean",
+                ).format(idx=idx)
             )
         elif trusted_trace is True and not (
             has_http and str(url).lower().startswith(("http://", "https://"))
         ):
             warnings.append(
-                f"WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored for non-HTTP transports."
+                _(
+                    "warn.trusted_trace_non_http",
+                    default=(
+                        "WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored "
+                        "for non-HTTP transports."
+                    ),
+                ).format(idx=idx)
             )
 
         if not has_http and not has_stdio:
@@ -494,7 +512,10 @@ def _run_action_init_template(
             {
                 "ok": False,
                 "action": action,
-                "error": "trusted_trace_propagation must be boolean",
+                "error": _(
+                    "err.trusted_trace_boolean",
+                    default="trusted_trace_propagation must be boolean",
+                ),
             },
             pretty=pretty,
         )
@@ -839,7 +860,10 @@ def _run_action_add(args: dict[str, Any], *, pretty: bool, config_path: str) -> 
             {
                 "ok": False,
                 "action": action,
-                "error": "trusted_trace_propagation must be boolean",
+                "error": _(
+                    "err.trusted_trace_boolean",
+                    default="trusted_trace_propagation must be boolean",
+                ),
             },
             pretty=pretty,
         )
