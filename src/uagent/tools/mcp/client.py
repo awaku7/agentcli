@@ -200,6 +200,7 @@ class MCPClient:
                         trusted_trace_propagation=self.trusted_trace_propagation,
                     )
                     self._owns_http_client = True
+                    self._stack.push_async_callback(self._close_owned_http_client)
                 read, write, get_session_id = await self._stack.enter_async_context(
                     streamable_http_client(endpoint, http_client=self._http_client)
                 )
@@ -239,14 +240,23 @@ class MCPClient:
                 "MCP_CONNECT_FAILED", "connect", {"error": str(exc)}
             ) from exc
 
+    async def _close_owned_http_client(self) -> None:
+        client = self._http_client
+        if not self._owns_http_client or client is None:
+            return
+        self._http_client = None
+        try:
+            await client.aclose()
+        except Exception:
+            # Cleanup must never replace the original MCP transport failure.
+            pass
+
     async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
         if self._stateless_client is not None:
             await self._stateless_client.__aexit__(exc_type, exc, tb)
             self._stateless_client = None
         await self._stack.aclose()
-        if self._owns_http_client and self._http_client is not None:
-            await self._http_client.aclose()
-            self._http_client = None
+        await self._close_owned_http_client()
 
     def _protocol_version(self) -> str | None:
         result = self.initialize_result
