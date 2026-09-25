@@ -1,0 +1,42 @@
+name: PR89 final Black
+
+on:
+  push:
+    branches:
+      - feat/opentelemetry-mcp-http-propagation
+
+permissions:
+  contents: write
+
+jobs:
+  black-and-test:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/opentelemetry-mcp-http-propagation
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install -e ".[core,providers,test]"
+          python -m pip install black==26.5.1
+      - name: Format with CI Black
+        run: |
+          python -m black src/uagent/tools/mcp/client.py tests/test_observability_phase3_mcp.py
+          python -m black --check src/uagent/tools/mcp/client.py tests/test_observability_phase3_mcp.py
+          git diff --check
+      - name: Run targeted MCP tests
+        run: python -m pytest -q tests/test_observability_phase3_mcp.py
+      - name: Commit Black result and remove temporary workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/pr89-black-final.yml
+          git add src/uagent/tools/mcp/client.py tests/test_observability_phase3_mcp.py
+          git diff --cached --check
+          git commit -m "style: format MCP observability cleanup"
+          git push origin HEAD:feat/opentelemetry-mcp-http-propagation
