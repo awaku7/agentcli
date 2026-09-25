@@ -83,29 +83,7 @@ jobs:
         run: python -m ruff check src tests
 
       - name: Black
-        shell: bash
-        run: |
-          python -m black \
-            src/uagent/runtime/observability/otel_backend.py \
-            src/uagent/web_impl/connection_identity.py \
-            tests/test_observability_core.py \
-            tests/test_observability_runtime_tracing.py \
-            tests/test_otel_backend_runtime.py \
-            tests/test_web_connection_identity.py
-          git diff -- \
-            src/uagent/runtime/observability/otel_backend.py \
-            src/uagent/web_impl/connection_identity.py \
-            tests/test_observability_core.py \
-            tests/test_observability_runtime_tracing.py \
-            tests/test_otel_backend_runtime.py \
-            tests/test_web_connection_identity.py
-          git diff --exit-code -- \
-            src/uagent/runtime/observability/otel_backend.py \
-            src/uagent/web_impl/connection_identity.py \
-            tests/test_observability_core.py \
-            tests/test_observability_runtime_tracing.py \
-            tests/test_otel_backend_runtime.py \
-            tests/test_web_connection_identity.py
+        run: python -m black --check src tests
 
       - name: I18N catalog status
         run: python scripts/tool_json_i18n_batch.py status
