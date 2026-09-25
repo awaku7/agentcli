@@ -18,135 +18,72 @@ jobs:
           ref: feat/opentelemetry-subagent-spans
           fetch-depth: 0
 
-      - name: Apply exact Codex review fix
+      - name: Apply review fix
         shell: bash
         run: |
-          cat > /tmp/pr88.patch <<'PATCH'
-          diff --git a/src/uagent/tools/sub_agent_tool.py b/src/uagent/tools/sub_agent_tool.py
-          index 607cf2f..d8ee546 100644
-          --- a/src/uagent/tools/sub_agent_tool.py
-          +++ b/src/uagent/tools/sub_agent_tool.py
-          @@ -1636,40 +1636,40 @@ def run_tool(args: Dict[str, Any]) -> str:
-               reasoning = args.get("reasoning")
-               reasoning_token = _SUB_AGENT_REASONING_OVERRIDE.set(reasoning)
-               sub_agent_token = set_active_sub_agent(agent_name)
-          -    current_file = args.get("current_file")
-          -    response_mode = args.get("response_mode")
-          -    response_schema = args.get("response_schema")
-          -    required_fields = args.get("required_fields")
-          -    strict_output = args.get("strict_output", False)
-          -    evidence_required = args.get("evidence_required", False)
-          -    evidence_min_items = args.get("evidence_min_items", 0)
-          -    permission_level = args.get("permission_level", "none")
-          -    cache_ttl = args.get("cache_ttl", 0)
-          -    store_key = args.get("store_key")
-          -    load_keys = args.get("load_keys")
-          -    parent_goal = args.get("parent_goal")
-          -    timeout = args.get("timeout", 120)
-          -    max_retries = args.get("max_retries", 2)
-          -    max_turns = args.get("max_turns", 3)
-          -
-          -    if cb and hasattr(cb, "set_status") and cb.set_status:
-          -        cb.set_status(True, f"Sub-Agent ({agent_name})")
-          -
-          -    # Fire SubagentStart hook
-               try:
-          -        from uagent.hooks_engine import (
-          -            get_default_registry_path,
-          -            load_hooks_registry,
-          -            fire_event,
-          -        )
-          +        current_file = args.get("current_file")
-          +        response_mode = args.get("response_mode")
-          +        response_schema = args.get("response_schema")
-          +        required_fields = args.get("required_fields")
-          +        strict_output = args.get("strict_output", False)
-          +        evidence_required = args.get("evidence_required", False)
-          +        evidence_min_items = args.get("evidence_min_items", 0)
-          +        permission_level = args.get("permission_level", "none")
-          +        cache_ttl = args.get("cache_ttl", 0)
-          +        store_key = args.get("store_key")
-          +        load_keys = args.get("load_keys")
-          +        parent_goal = args.get("parent_goal")
-          +        timeout = args.get("timeout", 120)
-          +        max_retries = args.get("max_retries", 2)
-          +        max_turns = args.get("max_turns", 3)
-           
-          -        _hooks = load_hooks_registry(get_default_registry_path())
-          -        if _hooks:
-          -            fire_event("SubagentStart", _hooks)
-          -    except Exception:
-          -        pass
-          +        if cb and hasattr(cb, "set_status") and cb.set_status:
-          +            cb.set_status(True, f"Sub-Agent ({agent_name})")
-          +
-          +        # Fire SubagentStart hook
-          +        try:
-          +            from uagent.hooks_engine import (
-          +                get_default_registry_path,
-          +                load_hooks_registry,
-          +                fire_event,
-          +            )
-          +
-          +            _hooks = load_hooks_registry(get_default_registry_path())
-          +            if _hooks:
-          +                fire_event("SubagentStart", _hooks)
-          +        except Exception:
-          +            pass
-           
-          -    try:
-               result = _runner.run(
-          diff --git a/tests/test_observability_phase3_subagent.py b/tests/test_observability_phase3_subagent.py
-          index b3086f3..4be05ae 100644
-          --- a/tests/test_observability_phase3_subagent.py
-          +++ b/tests/test_observability_phase3_subagent.py
-          @@ -10,6 +10,7 @@ import pytest
-           
-           from uagent.runtime.observability import bootstrap
-           from uagent.tools import context as tool_context
-          +from uagent.tools import sub_agent_tool
-           
-           
-           @dataclass
-          @@ -143,6 +144,32 @@ def test_sub_agent_exception_is_forwarded_to_span_without_being_swallowed(
-               assert backend.calls[0]["statuses"] == []
-           
-           
-          +def test_sub_agent_status_failure_restores_context_and_closes_span(monkeypatch) -> None:
-          +    backend = _FakeBackend()
-          +    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
-          +
-          +    class _Callbacks:
-          +        def set_status(self, active: bool, message: str) -> None:
-          +            if active:
-          +                raise RuntimeError("status unavailable")
-          +
-          +    monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: _Callbacks())
-          +    reasoning_token = sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.set("parent")
-          +    try:
-          +        with pytest.raises(RuntimeError, match="status unavailable"):
-          +            sub_agent_tool.run_tool(
-          +                {"agent_name": "planner", "task": "do not execute"}
-          +            )
-          +
-          +        assert tool_context.get_active_sub_agent() is None
-          +        assert backend.active.get() == "parent"
-          +        assert sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.get() == "parent"
-          +    finally:
-          +        sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
-          +
-          +    assert backend.calls[0]["exc_type"] is RuntimeError
-          +
-          +
-           def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> None:
-               class _BrokenBackend:
-                   def start_span(self, *args, **kwargs):
-          PATCH
+          python - <<'PY'
+          from pathlib import Path
 
-          git apply --check /tmp/pr88.patch
-          git apply /tmp/pr88.patch
+          src = Path("src/uagent/tools/sub_agent_tool.py")
+          lines = src.read_text(encoding="utf-8").splitlines(keepends=True)
+          token_line = '    sub_agent_token = set_active_sub_agent(agent_name)\n'
+          token_idx = lines.index(token_line)
+          setup_start = token_idx + 1
+          runner_try_idx = next(
+              i for i in range(setup_start, len(lines) - 1)
+              if lines[i] == '    try:\n' and lines[i + 1] == '        result = _runner.run(\n'
+          )
+          setup = lines[setup_start:runner_try_idx]
+          indented_setup = [("    " + line) if line.strip() else line for line in setup]
+          lines[setup_start:runner_try_idx + 1] = ['    try:\n'] + indented_setup
+          src.write_text("".join(lines), encoding="utf-8")
+
+          test = Path("tests/test_observability_phase3_subagent.py")
+          text = test.read_text(encoding="utf-8")
+          import_anchor = 'from uagent.tools import context as tool_context\n'
+          import_line = 'from uagent.tools import sub_agent_tool\n'
+          if import_line not in text:
+              text = text.replace(import_anchor, import_anchor + import_line, 1)
+
+          test_name = 'def test_sub_agent_status_failure_restores_context_and_closes_span('
+          if test_name not in text:
+              anchor = 'def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> None:\n'
+              addition = '''def test_sub_agent_status_failure_restores_context_and_closes_span(monkeypatch) -> None:
+    backend = _FakeBackend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+
+    class _Callbacks:
+        def set_status(self, active: bool, message: str) -> None:
+            if active:
+                raise RuntimeError("status unavailable")
+
+    monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: _Callbacks())
+    reasoning_token = sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.set("parent")
+    try:
+        with pytest.raises(RuntimeError, match="status unavailable"):
+            sub_agent_tool.run_tool(
+                {"agent_name": "planner", "task": "do not execute"}
+            )
+
+        assert tool_context.get_active_sub_agent() is None
+        assert backend.active.get() == "parent"
+        assert sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.get() == "parent"
+    finally:
+        sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
+
+    assert backend.calls[0]["exc_type"] is RuntimeError
+
+
+'''
+              if anchor not in text:
+                  raise SystemExit("test insertion anchor not found")
+              text = text.replace(anchor, addition + anchor, 1)
+          test.write_text(text, encoding="utf-8")
+          PY
+
           python -m py_compile src/uagent/tools/sub_agent_tool.py tests/test_observability_phase3_subagent.py
           git diff --check
+          git diff -- src/uagent/tools/sub_agent_tool.py tests/test_observability_phase3_subagent.py
 
       - name: Commit fix and remove temporary workflow
         shell: bash
