@@ -42,7 +42,8 @@ class OpenTelemetrySpan:
 
     def record_exception(self, exc: BaseException) -> None:
         try:
-            self._span.record_exception(exc)
+            exception_type = f"{type(exc).__module__}.{type(exc).__name__}"
+            self._span.add_event("exception", {"exception.type": exception_type})
         except Exception:
             pass
 
