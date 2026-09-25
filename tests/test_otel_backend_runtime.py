@@ -12,9 +12,7 @@ def test_otel_backend_preserves_hierarchy_and_can_force_fresh_root(monkeypatch) 
     monkeypatch.setenv("OTEL_TRACES_EXPORTER", "none")
     backend = create_otel_backend(ObservabilitySettings(enabled=True))
     try:
-        with backend.start_span(
-            "invoke_agent", attributes={"uag.agent.name": "uag"}
-        ):
+        with backend.start_span("invoke_agent", attributes={"uag.agent.name": "uag"}):
             parent = backend.current_trace_ids()
             assert parent.trace_id is not None
             assert parent.span_id is not None
