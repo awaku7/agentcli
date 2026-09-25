@@ -577,8 +577,29 @@ def main(argv: Optional[list[str]] = None) -> None:
             "and hides tool management tools (tool_catalog, tool_load, unload_tool)."
         ),
     )
+    parser.add_argument(
+        "--otel",
+        dest="otel_enabled",
+        action="store_true",
+        default=None,
+        help=_("Enable OpenTelemetry observability for this process."),
+    )
+    parser.add_argument(
+        "--no-otel",
+        dest="otel_enabled",
+        action="store_false",
+        default=None,
+        help=_("Disable OpenTelemetry observability for this process."),
+    )
 
     args = parser.parse_args(argv)
+
+    if getattr(args, "otel_enabled", None) is not None:
+        from ..runtime.observability.settings import (
+            set_observability_entrypoint_override,
+        )
+
+        set_observability_entrypoint_override(bool(args.otel_enabled))
 
     # Keep env in sync with runtime arguments (helps agent card URL calculation).
     try:
