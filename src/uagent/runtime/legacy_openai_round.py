@@ -114,8 +114,7 @@ def call_legacy_openai_compatible_outcome(
                 host_rendered=bool(
                     kwargs.get("stream_responses")
                     and (
-                        is_xai_grpc
-                        or str(kwargs.get("provider") or "") == "inception"
+                        is_xai_grpc or str(kwargs.get("provider") or "") == "inception"
                     )
                 ),
                 supports_tool_continuation=bool(tool_calls),
