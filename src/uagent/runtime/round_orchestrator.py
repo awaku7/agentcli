@@ -58,11 +58,31 @@ class RoundOrchestrator:
         session: Mapping[str, Any],
         cancellation: CancellationToken,
     ) -> OrchestratedRound:
-        runtime = self._registry.resolve(provider)
-        started = time.perf_counter()
-        projection = runtime.project(plan, session)
-        request = runtime.serialize(projection)
         backend = get_observability_backend()
+        started = time.perf_counter()
+        try:
+            runtime = self._registry.resolve(provider)
+            projection = runtime.project(plan, session)
+            request = runtime.serialize(projection)
+        except BaseException as exc:
+            # A model may not be known until serialization succeeds. Preserve the
+            # model-aware canonical span on successful rounds while still recording
+            # preparation failures as a short error chat span.
+            try:
+                with backend.start_span(
+                    "chat",
+                    attributes={
+                        "uag.llm.provider": provider,
+                        "uag.llm.phase": "prepare",
+                    },
+                ) as preparation_span:
+                    preparation_span.set_attribute("uag.status", "failed")
+                    preparation_span.record_exception(exc)
+                    preparation_span.set_status("error", type(exc).__name__)
+            except Exception:
+                pass
+            raise
+
         with backend.start_span(
             "chat",
             attributes={
