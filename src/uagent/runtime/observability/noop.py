@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Any, Iterator, Mapping
+from typing import Any, Iterator, Mapping, MutableMapping
 
 from .api import ObservabilitySpan, TraceIds
 
@@ -61,6 +61,13 @@ class NoOpObservabilityBackend:
         attributes: Mapping[str, Any] | None = None,
     ) -> None:
         return None
+
+    def inject_context(self, carrier: MutableMapping[str, str]) -> None:
+        return None
+
+    @contextmanager
+    def attach_remote_context(self, carrier: Mapping[str, str]) -> Iterator[None]:
+        yield None
 
     def current_trace_ids(self) -> TraceIds:
         return TraceIds()

@@ -17,6 +17,7 @@ from ..auth import (
     resolve_credential_secret,
 )
 from ..env_utils import env_get
+from ..runtime.observability.bootstrap import get_observability_backend
 
 
 def _norm(v: str) -> str:
@@ -58,7 +59,12 @@ class A2AClient:
     def _auth_headers(self) -> dict[str, str]:
         if not self.token:
             return {}
-        return {"Authorization": f"Bearer {self.token}"}
+        headers = {"Authorization": f"Bearer {self.token}"}
+        try:
+            get_observability_backend().inject_context(headers)
+        except Exception:
+            pass
+        return headers
 
     def get_agent_card(self) -> dict[str, Any]:
         r = self._client.get("/.well-known/agent-card.json")

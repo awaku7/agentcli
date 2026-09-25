@@ -114,6 +114,19 @@ Initial low-cardinality metrics include:
 
 Metric dimensions use an explicit allowlist. Raw identity/scope IDs, trace/span IDs, item/memory IDs, references, arbitrary user strings, file paths, URLs, and query/content text are never metric dimensions.
 
+## Phase-3 trusted propagation and local Sub-Agent spans
+
+Authenticated A2A propagation and local Sub-Agent child spans are Phase-3 runtime boundaries.
+
+- A2A propagates only W3C `traceparent` / `tracestate` across authenticated UAG-controlled hops. Baggage is not propagated, and trace metadata never affects authentication, authorization, identity, scope, or session validity.
+- Local Sub-Agent execution opens one canonical `invoke_agent <sub-agent>` child span at the existing `tools.context.set_active_sub_agent()` / `reset_active_sub_agent()` boundary.
+- Sub-Agent spans always inherit the current process-local context and never force a new root. `run_sub_agent_chain` therefore produces one logical Agent span per step, while parallel tool execution inherits ContextVars through the existing `submit_with_current_context()` path.
+- The Sub-Agent span exports only bounded agent metadata such as `uag.agent.name`. Task text, ContextPack bodies, run/task IDs, file scope, shared-store values, tool payloads, provider credentials, and model output are not span attributes.
+- Exceptions are forwarded to the active Agent span without replacing or swallowing the original exception. Observability creation/close failures remain best-effort and must not alter Sub-Agent results.
+- Active Sub-Agent tokens remain reset-compatible across hot reloads and with the older plain ContextVar-token form.
+
+Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`. A2A propagation coverage is in `tests/test_observability_phase3_a2a.py`.
+
 ## OTLP and standard OTel configuration
 
 After UAG product-level activation is enabled, exporter/sampler behavior uses standard OTel environment settings.
@@ -178,4 +191,4 @@ Web Agent spans always start as fresh OTel roots. This intentionally detaches th
 
 ## Later phases
 
-Trusted Sub-Agent/A2A/MCP distributed propagation remains a separate follow-up phase. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
+MCP HTTP propagation / stdio policy and explicit trusted reverse-proxy ingress remain Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.

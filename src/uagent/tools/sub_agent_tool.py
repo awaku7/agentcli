@@ -1636,40 +1636,40 @@ def run_tool(args: Dict[str, Any]) -> str:
     reasoning = args.get("reasoning")
     reasoning_token = _SUB_AGENT_REASONING_OVERRIDE.set(reasoning)
     sub_agent_token = set_active_sub_agent(agent_name)
-    current_file = args.get("current_file")
-    response_mode = args.get("response_mode")
-    response_schema = args.get("response_schema")
-    required_fields = args.get("required_fields")
-    strict_output = args.get("strict_output", False)
-    evidence_required = args.get("evidence_required", False)
-    evidence_min_items = args.get("evidence_min_items", 0)
-    permission_level = args.get("permission_level", "none")
-    cache_ttl = args.get("cache_ttl", 0)
-    store_key = args.get("store_key")
-    load_keys = args.get("load_keys")
-    parent_goal = args.get("parent_goal")
-    timeout = args.get("timeout", 120)
-    max_retries = args.get("max_retries", 2)
-    max_turns = args.get("max_turns", 3)
-
-    if cb and hasattr(cb, "set_status") and cb.set_status:
-        cb.set_status(True, f"Sub-Agent ({agent_name})")
-
-    # Fire SubagentStart hook
     try:
-        from uagent.hooks_engine import (
-            get_default_registry_path,
-            load_hooks_registry,
-            fire_event,
-        )
+        current_file = args.get("current_file")
+        response_mode = args.get("response_mode")
+        response_schema = args.get("response_schema")
+        required_fields = args.get("required_fields")
+        strict_output = args.get("strict_output", False)
+        evidence_required = args.get("evidence_required", False)
+        evidence_min_items = args.get("evidence_min_items", 0)
+        permission_level = args.get("permission_level", "none")
+        cache_ttl = args.get("cache_ttl", 0)
+        store_key = args.get("store_key")
+        load_keys = args.get("load_keys")
+        parent_goal = args.get("parent_goal")
+        timeout = args.get("timeout", 120)
+        max_retries = args.get("max_retries", 2)
+        max_turns = args.get("max_turns", 3)
 
-        _hooks = load_hooks_registry(get_default_registry_path())
-        if _hooks:
-            fire_event("SubagentStart", _hooks)
-    except Exception:
-        pass
+        if cb and hasattr(cb, "set_status") and cb.set_status:
+            cb.set_status(True, f"Sub-Agent ({agent_name})")
 
-    try:
+        # Fire SubagentStart hook
+        try:
+            from uagent.hooks_engine import (
+                get_default_registry_path,
+                load_hooks_registry,
+                fire_event,
+            )
+
+            _hooks = load_hooks_registry(get_default_registry_path())
+            if _hooks:
+                fire_event("SubagentStart", _hooks)
+        except Exception:
+            pass
+
         result = _runner.run(
             agent_name,
             task,
