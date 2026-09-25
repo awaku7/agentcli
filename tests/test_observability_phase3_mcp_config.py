@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import asyncio
 import json
 from pathlib import Path
 from typing import Any
@@ -164,7 +163,7 @@ def test_resources_resolver_only_marks_managed_http_as_trusted(
     assert "trusted_trace_propagation" not in direct
 
 
-def test_session_pool_separates_trust_boundary_and_passes_flag() -> None:
+def test_session_pool_public_api_separates_and_threads_trust_boundary() -> None:
     from uagent.tools.mcp.session_pool import MCPHTTPSessionPool
 
     created: list[dict[str, Any]] = []
@@ -182,22 +181,36 @@ def test_session_pool_separates_trust_boundary_and_passes_flag() -> None:
         async def list_tools(self):
             return {"tools": []}
 
+        async def call_tool(self, name: str, arguments: dict[str, Any]):
+            return {"name": name, "arguments": arguments}
+
     pool = MCPHTTPSessionPool()
     pool.set_client_factory(FakeClient)
-    assert pool._key("https://mcp.example/mcp", {}, "legacy", 1, False) != pool._key(
-        "https://mcp.example/mcp", {}, "legacy", 1, True
-    )
-
-    async def scenario() -> None:
-        entry = await pool._get_entry(
-            "trusted",
+    try:
+        untrusted_tools = pool.list_tools(
+            url="https://mcp.example/mcp",
+            headers={},
+            protocol_mode="legacy",
+            trusted_trace_propagation=False,
+        )
+        trusted_tools = pool.list_tools(
             url="https://mcp.example/mcp",
             headers={},
             protocol_mode="legacy",
             trusted_trace_propagation=True,
         )
-        assert entry is not None
-        await pool._close_all()
+        _tools, result = pool.call_tool(
+            url="https://mcp.example/mcp",
+            name="ping",
+            arguments={"value": 1},
+            headers={},
+            protocol_mode="legacy",
+            trusted_trace_propagation=True,
+        )
 
-    asyncio.run(scenario())
-    assert created[-1]["trusted_trace_propagation"] is True
+        assert untrusted_tools == {"tools": []}
+        assert trusted_tools == {"tools": []}
+        assert result == {"name": "ping", "arguments": {"value": 1}}
+        assert [item["trusted_trace_propagation"] for item in created] == [False, True]
+    finally:
+        pool.close()
