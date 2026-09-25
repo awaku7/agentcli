@@ -243,7 +243,8 @@ def run_once(
                 {"role": "assistant", "content": ""},
                 {
                     "code": "FAILED_PRECONDITION",
-                    "message": _("Unknown UAGENT_A2A_ENGINE: %(mode)s") % {"mode": mode},
+                    "message": _("Unknown UAGENT_A2A_ENGINE: %(mode)s")
+                    % {"mode": mode},
                 },
             )
 
