@@ -157,9 +157,7 @@ def test_sub_agent_status_failure_restores_context_and_closes_span(monkeypatch) 
     reasoning_token = sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.set("parent")
     try:
         with pytest.raises(RuntimeError, match="status unavailable"):
-            sub_agent_tool.run_tool(
-                {"agent_name": "planner", "task": "do not execute"}
-            )
+            sub_agent_tool.run_tool({"agent_name": "planner", "task": "do not execute"})
 
         assert tool_context.get_active_sub_agent() is None
         assert backend.active.get() == "parent"
