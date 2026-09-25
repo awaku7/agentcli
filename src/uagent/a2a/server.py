@@ -290,9 +290,7 @@ def build_app(
 
             with manager:
                 yield _emit({"type": "task", "task": task_to_model(rec).model_dump()})
-                yield _emit(
-                    {"type": "status", "id": task_id, "status": "IN_PROGRESS"}
-                )
+                yield _emit({"type": "status", "id": task_id, "status": "IN_PROGRESS"})
 
                 await _execute_task(task_id, user_text)
                 r = store.get(task_id)
