@@ -111,10 +111,38 @@ def test_registered_legacy_provider_emits_chat_span_and_token_metrics(
     }
     span = record["span"]
     assert span.attributes["uag.tokens.estimate.input"] > 0
-    assert span.attributes["uag.tokens.reported.input"] == 5
-    assert span.attributes["uag.tokens.reported.output"] == 3
-    assert span.attributes["uag.tokens.reported.total"] == 8
+    assert span.attributes["uag.tokens.reported.input"] == 15
+    assert span.attributes["uag.tokens.reported.output"] == 5
+    assert span.attributes["uag.tokens.reported.total"] == 20
     assert span.status[-1] == ("ok", None)
+
+
+def test_fallback_usage_uses_current_response_even_when_smaller(monkeypatch) -> None:
+    backend = _install_backend(monkeypatch)
+    core = SimpleNamespace(
+        _last_responses_usage={
+            "input_tokens": 100,
+            "output_tokens": 40,
+            "total_tokens": 140,
+        }
+    )
+
+    with observability_runtime.fallback_chat_span(
+        provider="openai",
+        model="gpt-test",
+        request_input=[{"role": "user", "content": "hello"}],
+        core=core,
+    ):
+        core._last_responses_usage = {
+            "input_tokens": 7,
+            "output_tokens": 4,
+            "total_tokens": 11,
+        }
+
+    span = backend.spans[0]["span"]
+    assert span.attributes["uag.tokens.reported.input"] == 7
+    assert span.attributes["uag.tokens.reported.output"] == 4
+    assert span.attributes["uag.tokens.reported.total"] == 11
 
 
 def test_registered_legacy_handler_postprocess_runs_after_chat_span(
@@ -265,3 +293,54 @@ def test_inception_inner_orchestrator_owns_single_chat_span_when_registry_off(
     assert len(backend.spans) == 1
     assert backend.spans[0]["operation"] == "chat"
     assert backend.spans[0]["attributes"] == {"owner": "inner"}
+
+
+def test_inception_direct_fallback_gets_its_own_chat_span(monkeypatch) -> None:
+    backend = _install_backend(monkeypatch)
+    core = SimpleNamespace(_last_responses_usage={})
+    monkeypatch.setenv("UAGENT_PROVIDER_REGISTRY_INCEPTION", "1")
+
+    def call_direct(fn, *args, **kwargs):
+        return fn(*args, **kwargs)
+
+    def fake_provider_call(**kwargs):
+        with backend.start_span("chat", attributes={"owner": "inner"}) as span:
+            span.set_status("error", "orchestrator failed")
+        fallback_result = kwargs["call_maybe_thread_fn"](lambda: "fallback-ok")
+        assert fallback_result == "fallback-ok"
+        return True, "client", "answer", "", []
+
+    monkeypatch.setattr(
+        legacy_provider_dispatch,
+        "_call_openai_azure_round",
+        fake_provider_call,
+    )
+
+    outcome = legacy_openai_round.call_legacy_openai_compatible_outcome(
+        provider="inception",
+        client=object(),
+        depname="mercury-test",
+        call_messages=[{"role": "user", "content": "hello"}],
+        core=core,
+        make_client_fn=object(),
+        call_maybe_thread_fn=call_direct,
+        use_responses_api=False,
+        stream_responses=True,
+        send_tools_this_round=False,
+        max_retries_429=0,
+        retry_base=0.0,
+        retry_cap=0.0,
+        messages=[],
+        responses_state={},
+        round_count=1,
+    )
+
+    assert outcome.status == "ok"
+    assert len(backend.spans) == 2
+    assert backend.spans[0]["attributes"] == {"owner": "inner"}
+    assert backend.spans[1]["operation"] == "chat"
+    assert backend.spans[1]["attributes"] == {
+        "uag.llm.provider": "inception",
+        "uag.llm.model": "mercury-test",
+    }
+    assert backend.spans[1]["span"].status[-1] == ("ok", None)
