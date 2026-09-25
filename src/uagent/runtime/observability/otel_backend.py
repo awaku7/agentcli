@@ -31,15 +31,11 @@ class OpenTelemetrySpan:
         except Exception:
             pass
 
-    def add_event(
-        self, name: str, attributes: Mapping[str, Any] | None = None
-    ) -> None:
+    def add_event(self, name: str, attributes: Mapping[str, Any] | None = None) -> None:
         try:
             self._span.add_event(
                 str(name),
-                sanitize_attributes(
-                    attributes, capture_content=self._capture_content
-                ),
+                sanitize_attributes(attributes, capture_content=self._capture_content),
             )
         except Exception:
             pass
@@ -209,13 +205,19 @@ def _build_trace_exporter() -> Any | None:
     if exporters == {"none"}:
         return None
     if "otlp" not in exporters:
-        raise ValueError("UAG Phase-1 tracing supports OTEL_TRACES_EXPORTER=otlp or none")
+        raise ValueError(
+            "UAG Phase-1 tracing supports OTEL_TRACES_EXPORTER=otlp or none"
+        )
 
     protocol = (
-        os.getenv("OTEL_EXPORTER_OTLP_TRACES_PROTOCOL")
-        or os.getenv("OTEL_EXPORTER_OTLP_PROTOCOL")
-        or "http/protobuf"
-    ).strip().lower()
+        (
+            os.getenv("OTEL_EXPORTER_OTLP_TRACES_PROTOCOL")
+            or os.getenv("OTEL_EXPORTER_OTLP_PROTOCOL")
+            or "http/protobuf"
+        )
+        .strip()
+        .lower()
+    )
     if protocol == "grpc":
         from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
             OTLPSpanExporter,
