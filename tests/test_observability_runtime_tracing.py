@@ -6,11 +6,7 @@ from contextlib import contextmanager
 
 import pytest
 
-from uagent.runtime.identity_context import (
-    IdentityContext,
-    TurnContext,
-    bind_turn_context,
-)
+from uagent.runtime.identity_context import IdentityContext, TurnContext
 from uagent.runtime.logging_setup import log_event
 from uagent.runtime.observability.api import TraceIds
 from uagent.runtime.observability import runtime as observability_runtime
@@ -72,7 +68,7 @@ class _Backend:
         return TraceIds("1" * 32, "2" * 16)
 
 
-def test_web_agent_execution_forces_fresh_root(monkeypatch) -> None:
+def test_web_agent_execution_forces_fresh_root_from_explicit_turn(monkeypatch) -> None:
     backend = _Backend()
     monkeypatch.setattr(
         "uagent.runtime.observability.bootstrap.get_observability_backend",
@@ -85,14 +81,36 @@ def test_web_agent_execution_forces_fresh_root(monkeypatch) -> None:
         entry_point="web",
     )
 
-    with bind_turn_context(turn, identity_context=identity):
-        with lifecycle_execution():
-            pass
+    with lifecycle_execution(turn_context=turn):
+        pass
 
     assert backend.spans[0]["operation"] == "invoke_agent"
     assert backend.spans[0]["root"] is True
     assert backend.spans[0]["attributes"]["uag.entry_point"] == "web"
+    assert backend.spans[0]["attributes"]["uag.auth.kind"] == "oidc"
     assert "principal_id" not in backend.spans[0]["attributes"]
+
+
+def test_agent_span_status_follows_terminal_lifecycle_state(monkeypatch) -> None:
+    backend = _Backend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+
+    with lifecycle_execution() as lifecycle:
+        lifecycle.fail()
+
+    failed_span = backend.spans[-1]["span"]
+    assert failed_span.attributes["uag.agent.lifecycle_status"] == "failed"
+    assert failed_span.status[-1] == ("error", "failed")
+
+    with lifecycle_execution() as lifecycle:
+        lifecycle.cancel()
+
+    cancelled_span = backend.spans[-1]["span"]
+    assert cancelled_span.attributes["uag.agent.lifecycle_status"] == "cancelled"
+    assert cancelled_span.status[-1] == ("unset", "cancelled")
 
 
 def test_tool_dispatch_starts_execute_tool_span_only_when_runner_starts(
