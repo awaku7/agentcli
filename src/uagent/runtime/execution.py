@@ -115,10 +115,11 @@ def lifecycle_execution(
         trusted_parent_attached = False
         if is_web_root and trusted_ingress_carrier:
             try:
-                observability_stack.enter_context(
-                    backend.attach_remote_context(trusted_ingress_carrier)
+                trusted_parent_attached = bool(
+                    observability_stack.enter_context(
+                        backend.attach_remote_context(trusted_ingress_carrier)
+                    )
                 )
-                trusted_parent_attached = True
             except Exception:
                 trusted_parent_attached = False
         observability_span = observability_stack.enter_context(
