@@ -75,6 +75,19 @@ class ToolCallbacks:
     read_file_max_bytes: int = 1_000_000
 
 
+_SAFE_OBSERVABILITY_SUB_AGENT_NAMES = frozenset(
+    {
+        "planner",
+        "reviewer",
+        "summarizer",
+        "patch_designer",
+        "error_analyst",
+        "translator",
+        "general",
+    }
+)
+
+
 @dataclass
 class _ActiveSubAgentToken:
     context_token: Any
@@ -82,22 +95,30 @@ class _ActiveSubAgentToken:
     span: Any = None
 
 
-def set_active_sub_agent(
-    name: str | None,
-    *,
-    observability_name: str | None = None,
-):
-    """Bind the active sub-agent and optionally open its canonical child span.
+def _observability_sub_agent_name(name: str | None) -> str | None:
+    """Return only bounded metadata for remote observability export."""
 
-    ``observability_name`` must already be a bounded, trusted metadata value.
-    Arbitrary tool arguments are never used as remote span attributes by this
-    generic context helper.
+    normalized = str(name or "").strip()
+    if not normalized:
+        return None
+    if normalized in _SAFE_OBSERVABILITY_SUB_AGENT_NAMES:
+        return normalized
+    return "custom"
+
+
+def set_active_sub_agent(name: str | None):
+    """Bind the active sub-agent and open its canonical child Agent span.
+
+    The process-local active name remains available to tool behavior, but the
+    exported span name is restricted to built-in role names or the fixed
+    ``custom`` bucket. Arbitrary tool arguments never become remote metadata.
     """
 
     normalized = str(name) if name else None
     context_token = set_active_sub_agent_name(normalized)
     span_manager = None
     span = None
+    observability_name = _observability_sub_agent_name(normalized)
 
     if observability_name:
         try:
