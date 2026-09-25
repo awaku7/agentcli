@@ -43,10 +43,11 @@ def fallback_chat_span(
     """Trace one legacy/OpenAI-compatible LLM call at its shared fallback boundary.
 
     Registry-backed rounds own their canonical span in ``RoundOrchestrator``.
-    The two compatibility paths use this helper so supported providers that are
-    not registry-backed still emit exactly one ``chat`` span. Provider usage is
-    attached when the legacy core exposes it; otherwise only the input estimate
-    is recorded and no precise usage is invented.
+    The compatibility paths use this helper so supported providers that are not
+    registry-backed still emit exactly one ``chat`` span. Responses usage stored
+    on the legacy core is a standalone per-response snapshot, not a cumulative
+    counter; when the provider replaces that snapshot, its values are therefore
+    exported directly rather than subtracted from the previous response.
     """
 
     backend = get_observability_backend()
@@ -55,9 +56,6 @@ def fallback_chat_span(
         "uag.llm.model": str(model or "").strip(),
     }
     usage_before_raw = getattr(core, "_last_responses_usage", None)
-    usage_before = (
-        dict(usage_before_raw) if isinstance(usage_before_raw, Mapping) else {}
-    )
     with backend.start_span("chat", attributes=attributes) as span:
         if backend.enabled:
             try:
@@ -78,24 +76,23 @@ def fallback_chat_span(
         finally:
             if backend.enabled:
                 try:
-                    from ..telemetry import reconcile_usage
-
                     usage_after_raw = getattr(core, "_last_responses_usage", None)
-                    usage_after = (
-                        dict(usage_after_raw)
-                        if isinstance(usage_after_raw, Mapping)
-                        else {}
-                    )
-                    if usage_after and usage_after != usage_before:
-                        usage_delta = reconcile_usage(usage_before, usage_after)
+                    if (
+                        isinstance(usage_after_raw, Mapping)
+                        and usage_after_raw
+                        and usage_after_raw is not usage_before_raw
+                    ):
                         reported_names = {
-                            "input_tokens_delta": "uag.tokens.reported.input",
-                            "output_tokens_delta": "uag.tokens.reported.output",
-                            "total_tokens_delta": "uag.tokens.reported.total",
+                            "input_tokens": "uag.tokens.reported.input",
+                            "output_tokens": "uag.tokens.reported.output",
+                            "total_tokens": "uag.tokens.reported.total",
                         }
                         for key, attribute_name in reported_names.items():
-                            if key in usage_delta:
-                                span.set_attribute(attribute_name, usage_delta[key])
+                            value = usage_after_raw.get(key)
+                            if isinstance(value, (int, float)) and not isinstance(
+                                value, bool
+                            ):
+                                span.set_attribute(attribute_name, max(0, int(value)))
                 except Exception:
                     pass
 
