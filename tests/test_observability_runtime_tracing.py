@@ -109,6 +109,44 @@ def test_non_web_agent_execution_projects_explicit_turn_metadata(monkeypatch) ->
     assert "principal_id" not in backend.spans[0]["attributes"]
 
 
+def test_late_resolved_turn_enriches_active_agent_span(
+    monkeypatch, tmp_path
+) -> None:
+    from uagent.runtime.turn_context_runtime import call_with_resolved_turn_context
+
+    backend = _Backend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+
+    with lifecycle_execution():
+        call_with_resolved_turn_context(
+            lambda: None,
+            entry_point="cli",
+            project_path=str(tmp_path),
+            session_id="session-cli",
+        )
+
+    assert backend.spans[0]["attributes"]["uag.entry_point"] == "cli"
+    assert backend.spans[0]["attributes"]["uag.auth.kind"] == "local"
+    assert "principal_id" not in backend.spans[0]["attributes"]
+
+
+def test_a2a_error_tuple_marks_active_lifecycle_failed(monkeypatch) -> None:
+    from uagent.a2a.engine import run_once
+
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.setenv("UAGENT_A2A_ENGINE", "unsupported-test-mode")
+
+    with lifecycle_execution() as lifecycle:
+        _message, error = run_once(user_text="hello", task_id="task-1")
+
+    assert error is not None
+    assert lifecycle.status.value == "FAILED"
+
+
 def test_agent_span_status_follows_terminal_lifecycle_state(monkeypatch) -> None:
     backend = _Backend()
     monkeypatch.setattr(
