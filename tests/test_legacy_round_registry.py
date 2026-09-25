@@ -64,7 +64,9 @@ def test_legacy_provider_return_action_preserves_failure_summary(monkeypatch) ->
     assert outcome.summary.status == "failed"
 
 
-def test_legacy_provider_break_action_preserves_interrupted_summary(monkeypatch) -> None:
+def test_legacy_provider_break_action_preserves_interrupted_summary(
+    monkeypatch,
+) -> None:
     raw_result = ("break", "client", "cache", 0, "partial answer")
 
     monkeypatch.setitem(
