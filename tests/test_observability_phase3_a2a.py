@@ -87,7 +87,10 @@ def test_a2a_auth_attaches_trace_context_only_after_authentication(monkeypatch) 
 
     async def consume() -> None:
         dependency = require_bearer_auth(request, authorization="Bearer secret")
-        assert await dependency.__anext__() is None
+        assert await dependency.__anext__() == {
+            "traceparent": "00-11111111111111111111111111111111-2222222222222222-01",
+            "tracestate": "vendor=value",
+        }
         with pytest.raises(StopAsyncIteration):
             await dependency.__anext__()
 
@@ -118,7 +121,7 @@ def test_a2a_auth_credential_lookup_runs_off_event_loop(monkeypatch) -> None:
 
     async def consume() -> None:
         dependency = require_bearer_auth(request, authorization="Bearer secret")
-        assert await dependency.__anext__() is None
+        assert await dependency.__anext__() == {}
         with pytest.raises(StopAsyncIteration):
             await dependency.__anext__()
 
@@ -147,6 +150,43 @@ def test_a2a_auth_rejects_before_trace_context_is_attached(monkeypatch) -> None:
         asyncio.run(consume_invalid())
     assert backend.attached == []
     assert backend.entered == 0
+
+
+def test_a2a_stream_reattaches_trusted_context_inside_generator(monkeypatch) -> None:
+    from fastapi.testclient import TestClient
+
+    from uagent.a2a.server import build_app
+
+    backend = _PropagationBackend()
+    monkeypatch.setattr(
+        "uagent.a2a.auth.resolve_credential_secret",
+        lambda *args, **kwargs: "secret",
+    )
+    monkeypatch.setattr("uagent.a2a.auth.get_observability_backend", lambda: backend)
+    monkeypatch.setattr("uagent.a2a.server.get_observability_backend", lambda: backend)
+
+    app = build_app(credential_store=SimpleNamespace())
+    response = TestClient(app).post(
+        "/message:stream",
+        json={
+            "message": {"role": "user", "content": "hello"},
+            "returnImmediately": False,
+        },
+        headers={
+            "Authorization": "Bearer secret",
+            "traceparent": "00-11111111111111111111111111111111-2222222222222222-01",
+            "tracestate": "vendor=value",
+        },
+    )
+
+    assert response.status_code == 200
+    trusted = {
+        "traceparent": "00-11111111111111111111111111111111-2222222222222222-01",
+        "tracestate": "vendor=value",
+    }
+    assert backend.attached.count(trusted) == 2
+    assert backend.entered == 2
+    assert backend.exited == 2
 
 
 def test_otel_backend_round_trips_w3c_trace_context_without_baggage() -> None:
@@ -193,5 +233,22 @@ def test_malformed_remote_context_does_not_replace_current_parent() -> None:
             with backend.attach_remote_context({"traceparent": "not-valid"}):
                 during = backend.current_trace_ids()
             assert during == before
+    finally:
+        backend.shutdown()
+
+
+def test_malformed_remote_context_preserves_endpoint_exception() -> None:
+    from opentelemetry.sdk.trace import TracerProvider
+
+    provider = TracerProvider()
+    backend = OpenTelemetryBackend(
+        tracer=provider.get_tracer("uag.test.phase3.invalid.exception"),
+        provider=provider,
+        settings=ObservabilitySettings(enabled=True),
+    )
+    try:
+        with pytest.raises(ValueError, match="endpoint failed"):
+            with backend.attach_remote_context({"traceparent": "not-valid"}):
+                raise ValueError("endpoint failed")
     finally:
         backend.shutdown()
