@@ -116,7 +116,7 @@ Metric dimensions use an explicit allowlist. Raw identity/scope IDs, trace/span 
 
 ## Phase-3 trusted propagation and local Sub-Agent spans
 
-Authenticated A2A propagation and local Sub-Agent child spans are Phase-3 runtime boundaries.
+Authenticated A2A propagation, local Sub-Agent child spans, and the trusted MCP HTTP propagation primitive are Phase-3 runtime boundaries.
 
 - A2A propagates only W3C `traceparent` / `tracestate` across authenticated UAG-controlled hops. Baggage is not propagated, and trace metadata never affects authentication, authorization, identity, scope, or session validity.
 - Local Sub-Agent execution opens one canonical `invoke_agent <sub-agent>` child span at the existing `tools.context.set_active_sub_agent()` / `reset_active_sub_agent()` boundary.
@@ -124,8 +124,11 @@ Authenticated A2A propagation and local Sub-Agent child spans are Phase-3 runtim
 - The Sub-Agent span exports only bounded agent metadata such as `uag.agent.name`. Task text, ContextPack bodies, run/task IDs, file scope, shared-store values, tool payloads, provider credentials, and model output are not span attributes.
 - Exceptions are forwarded to the active Agent span without replacing or swallowing the original exception. Observability creation/close failures remain best-effort and must not alter Sub-Agent results.
 - Active Sub-Agent tokens remain reset-compatible across hot reloads and with the older plain ContextVar-token form.
+- MCP HTTP trace propagation is OFF by default and requires the explicit `trusted_trace_propagation=True` transport flag. Only UAG-created HTTP clients install the request hook; caller-supplied `http_client` instances are not mutated.
+- Trusted MCP propagation removes any pre-existing `traceparent`, `tracestate`, and `baggage` request headers, then injects only the current UAG-owned W3C `traceparent` / `tracestate`. Authorization/OAuth headers are preserved and propagation failures are ignored.
+- MCP stdio does not serialize W3C trace headers; it remains related to the current execution only through process-local context and the existing outer `execute_tool` span.
 
-Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`. A2A propagation coverage is in `tests/test_observability_phase3_a2a.py`.
+Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, and `tests/test_observability_phase3_mcp.py`.
 
 ## OTLP and standard OTel configuration
 
@@ -191,4 +194,4 @@ Web Agent spans always start as fresh OTel roots. This intentionally detaches th
 
 ## Later phases
 
-MCP HTTP propagation / stdio policy and explicit trusted reverse-proxy ingress remain Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
+Wiring trusted MCP propagation into server-managed `mcp_servers.json` configuration and explicit trusted reverse-proxy ingress remain Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.

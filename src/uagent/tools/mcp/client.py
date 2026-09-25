@@ -70,6 +70,7 @@ class MCPClient:
         http_client: Any = None,
         authorization_provider: Any = None,
         http_config: MCPHTTPConfig | None = None,
+        trusted_trace_propagation: bool = False,
     ) -> None:
         self.url = url
         if self.url:
@@ -95,6 +96,7 @@ class MCPClient:
         self._owns_http_client = http_client is None
         self.authorization_provider = authorization_provider
         self.http_config = http_config
+        self.trusted_trace_propagation = bool(trusted_trace_propagation)
         self._stateless_client: StatelessHTTPClient | None = None
 
     async def __aenter__(self) -> "MCPClient":
@@ -109,6 +111,7 @@ class MCPClient:
                     http_client=self._http_client,
                     authorization_provider=self.authorization_provider,
                     http_config=self.http_config,
+                    trusted_trace_propagation=self.trusted_trace_propagation,
                 )
                 try:
                     await probe.__aenter__()
@@ -147,6 +150,7 @@ class MCPClient:
                     http_client=self._http_client,
                     authorization_provider=self.authorization_provider,
                     http_config=self.http_config,
+                    trusted_trace_propagation=self.trusted_trace_propagation,
                 )
                 await self._stateless_client.__aenter__()
                 self.url = self._stateless_client.url
@@ -179,7 +183,10 @@ class MCPClient:
                         self._http_client, self.authorization_provider
                     )
                 if (
-                    self.headers or self.authorization_provider or self.http_config
+                    self.headers
+                    or self.authorization_provider
+                    or self.http_config
+                    or self.trusted_trace_propagation
                 ) and self._http_client is None:
                     auth = (
                         MCPOAuthHTTPXAuth(self.authorization_provider)
@@ -190,6 +197,7 @@ class MCPClient:
                         self.http_config,
                         headers=self.headers,
                         auth=auth,
+                        trusted_trace_propagation=self.trusted_trace_propagation,
                     )
                     self._owns_http_client = True
                 read, write, get_session_id = await self._stack.enter_async_context(
