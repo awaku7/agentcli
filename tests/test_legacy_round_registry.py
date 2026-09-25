@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 from uagent.runtime import legacy_round_registry
 
 
@@ -64,10 +66,9 @@ def test_legacy_provider_return_action_preserves_failure_summary(monkeypatch) ->
     assert outcome.summary.status == "failed"
 
 
-def test_legacy_provider_break_action_preserves_interrupted_summary(
-    monkeypatch,
-) -> None:
-    raw_result = ("break", "client", "cache", 0, "partial answer")
+def test_legacy_provider_normal_break_is_completed(monkeypatch) -> None:
+    raw_result = ("break", "client", "cache", 0, "final answer")
+    core = SimpleNamespace()
 
     monkeypatch.setitem(
         legacy_round_registry._LEGACY_ROUND_HANDLERS,
@@ -75,7 +76,33 @@ def test_legacy_provider_break_action_preserves_interrupted_summary(
         lambda **_kwargs: raw_result,
     )
 
-    outcome = legacy_round_registry.run_legacy_provider_outcome(provider="claude")
+    outcome = legacy_round_registry.run_legacy_provider_outcome(
+        provider="claude", core=core
+    )
+
+    assert outcome is not None
+    assert outcome.status == "break"
+    assert outcome.summary is not None
+    assert outcome.summary.status == "completed"
+
+
+def test_legacy_provider_explicit_interrupt_is_interrupted(monkeypatch) -> None:
+    raw_result = ("break", "client", "cache", 0, "partial answer")
+    core = SimpleNamespace()
+
+    def fake_handler(**kwargs):
+        kwargs["core"]._last_legacy_round_interrupted = True
+        return raw_result
+
+    monkeypatch.setitem(
+        legacy_round_registry._LEGACY_ROUND_HANDLERS,
+        "claude",
+        fake_handler,
+    )
+
+    outcome = legacy_round_registry.run_legacy_provider_outcome(
+        provider="claude", core=core
+    )
 
     assert outcome is not None
     assert outcome.status == "break"
