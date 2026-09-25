@@ -27,6 +27,7 @@ class StatelessHTTPClient:
         http_client: Any = None,
         authorization_provider: Callable[[bool], Awaitable[str]] | None = None,
         http_config: MCPHTTPConfig | None = None,
+        trusted_trace_propagation: bool = False,
     ) -> None:
         self.url = url if url.endswith("/mcp") else url.rstrip("/") + "/mcp"
         self.headers = headers or {}
@@ -34,12 +35,16 @@ class StatelessHTTPClient:
         self.http_client = http_client
         self.authorization_provider = authorization_provider
         self.http_config = http_config
+        self.trusted_trace_propagation = bool(trusted_trace_propagation)
         self._owns_client = http_client is None
         self._ids = itertools.count(1)
 
     async def __aenter__(self) -> "StatelessHTTPClient":
         if self.http_client is None:
-            self.http_client = create_mcp_http_client(self.http_config)
+            self.http_client = create_mcp_http_client(
+                self.http_config,
+                trusted_trace_propagation=self.trusted_trace_propagation,
+            )
         return self
 
     async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
