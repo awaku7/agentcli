@@ -1,0 +1,46 @@
+name: PR89 cleanup fix
+
+on:
+  push:
+    branches:
+      - feat/opentelemetry-mcp-http-propagation
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/opentelemetry-mcp-http-propagation
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Apply reviewed fix
+        shell: bash
+        run: |
+          echo 'ZGlmZiAtLWdpdCBhL3NyYy91YWdlbnQvdG9vbHMvbWNwL2NsaWVudC5weSBiL3NyYy91YWdlbnQvdG9vbHMvbWNwL2NsaWVudC5weQotLS0gYS9zcmMvdWFnZW50L3Rvb2xzL21jcC9jbGllbnQucHkKKysrIGIvc3JjL3VhZ2VudC90b29scy9tY3AvY2xpZW50LnB5CkBAIC0xODcsNiArMTg3LDcgQEAgY2xhc3MgTUNQQ2xpZW50OgogICAgICAgICAgICAgICAgICAgICAgICAgdHJ1c3RlZF90cmFjZV9wcm9wYWdhdGlvbj1zZWxmLnRydXN0ZWRfdHJhY2VfcHJvcGFnYXRpb24sCiAgICAgICAgICAgICAgICAgICAgICkKICAgICAgICAgICAgICAgICAgICBzZWxmLl9vd25zX2h0dHBfY2xpZW50ID0gVHJ1ZQorICAgICAgICAgICAgICAgICAgICBzZWxmLl9zdGFjay5wdXNoX2FzeW5jX2NhbGxiYWNrKHNlbGYuX2Nsb3NlX293bmVkX2h0dHBfY2xpZW50KQogICAgICAgICAgICAgICAgIHJlYWQsIHdyaXRlLCBnZXRfc2Vzc2lvbl9pZCA9IGF3YWl0IHNlbGYuX3N0YWNrLmVudGVyX2FzeW5jX2NvbnRleHQoCiAgICAgICAgICAgICAgICAgICAgIHN0cmVhbWFibGVfaHR0cF9jbGllbnQoZW5kcG9pbnQsIGh0dHBfY2xpZW50PXNlbGYuX2h0dHBfY2xpZW50KQogICAgICAgICAgICAgICAgICkKQEAgLTIyNywxMyArMjI4LDI0IEBAIGNsYXNzIE1DUENsaWVudDoKICAgICAgICAgICAgICAgICAiTUNQX0NPTk5FQ1RfRkFJTEVEIiwgImNvbm5lY3QiLCB7ImVycm9yIjogc3RyKGV4Yyl9CiAgICAgICAgICAgICApIGZyb20gZXhjCiAKKyAgICBhc3luYyBkZWYgX2Nsb3NlX293bmVkX2h0dHBfY2xpZW50KHNlbGYpIC0+IE5vbmU6CisgICAgICAgIGNsaWVudCA9IHNlbGYuX2h0dHBfY2xpZW50CisgICAgICAgIGlmIG5vdCBzZWxmLl9vd25zX2h0dHBfY2xpZW50IG9yIGNsaWVudCBpcyBOb25lOgorICAgICAgICAgICAgcmV0dXJuCisgICAgICAgIHNlbGYuX2h0dHBfY2xpZW50ID0gTm9uZQorICAgICAgICB0cnk6CisgICAgICAgICAgICBhd2FpdCBjbGllbnQuYWNsb3NlKCkKKyAgICAgICAgZXhjZXB0IEV4Y2VwdGlvbjoKKyAgICAgICAgICAgICMgQ2xlYW51cCBtdXN0IG5ldmVyIHJlcGxhY2UgdGhlIG9yaWdpbmFsIE1DUCB0cmFuc3BvcnQgZmFpbHVyZS4KKyAgICAgICAgICAgIHBhc3MKKwogICAgIGFzeW5jIGRlZiBfX2FleGl0X18oc2VsZiwgZXhjX3R5cGU6IEFueSwgZXhjOiBBbnksIHRiOiBBbnkpIC0+IE5vbmU6CiAgICAgICAgaWYgc2VsZi5fc3RhdGVsZXNzX2NsaWVudCBpcyBub3QgTm9uZToKICAgICAgICAgICAgIGF3YWl0IHNlbGYuX3N0YXRlbGVzc19jbGllbnQuX19hZXhpdF9fKGV4Y190eXBlLCBleGMsIHRiKQogICAgICAgICAgICBzZWxmLl9zdGF0ZWxlc3NfY2xpZW50ID0gTm9uZQogICAgICAgIGF3YWl0IHNlbGYuX3N0YWNrLmFjbG9zZSgpCi0gICAgICAgIGlmIHNlbGYuX293bnNfaHR0cF9jbGllbnQgYW5kIHNlbGYuX2h0dHBfY2xpZW50IGlzIG5vdCBOb25lOgotICAgICAgICAgICAgYXdhaXQgc2VsZi5faHR0cF9jbGllbnQuYWNsb3NlKCkKLSAgICAgICAgICAgIHNlbGYuX2h0dHBfY2xpZW50ID0gTm9uZQorICAgICAgICBhd2FpdCBzZWxmLl9jbG9zZV9vd25lZF9odHRwX2NsaWVudCgpCiAKICAgICBkZWYgX3Byb3RvY29sX3ZlcnNpb24oc2VsZikgLT4gc3RyIHwgTm9uZToKICAgICAgICAgcmVzdWx0ID0gc2VsZi5pbml0aWFsaXplX3Jlc3VsdApkaWZmIC0tZ2l0IGEvdGVzdHMvdGVzdF9vYnNlcnZhYmlsaXR5X3BoYXNlM19tY3AucHkgYi90ZXN0cy90ZXN0X29ic2VydmFiaWxpdHlfcGhhc2UzX21jcC5weQotLS0gYS90ZXN0cy90ZXN0X29ic2VydmFiaWxpdHlfcGhhc2UzX21jcC5weQorKysgYi90ZXN0cy90ZXN0X29ic2VydmFiaWxpdHlfcGhhc2UzX21jcC5weQpAQCAtMTA2LDMgKzEwNiw1NyBAQCBkZWYgdGVzdF9zdGF0ZWxlc3NfdHJhbnNwb3J0X3VzZXNfdWFnX293bmVkX3RydXN0ZWRfaHR0cF9jbGllbnQoKSAtPiBOb25lOgogICAgICAgICAgICAgYXdhaXQgdHJhbnNwb3J0Ll9fYWV4aXRfXyhOb25lLCBOb25lLCBOb25lKQogCiAgICAgYXN5bmNpby5ydW4oc2NlbmFyaW8oKSkKKworZGVmIHRlc3Rfc3RhdGVmdWxfc2V0dXBfZmFpbHVyZV9jbG9zZXNfb3duZWRfdHJhY2VfaHR0cF9jbGllbnQobW9ua2V5cGF0Y2gpIC0+IE5vbmU6CisgICAgY2xhc3MgX093bmVkQ2xpZW50OgorICAgICAgICBkZWYgX19pbml0X18oc2VsZikgLT4gTm9uZToKKyAgICAgICAgICAgIHNlbGYuY2xvc2VkID0gRmFsc2UKKworICAgICAgICBhc3luYyBkZWYgYWNsb3NlKHNlbGYpIC0+IE5vbmU6CisgICAgICAgICAgICBzZWxmLmNsb3NlZCA9IFRydWUKKworICAgIG93bmVkID0gX093bmVkQ2xpZW50KCkKKworICAgIGRlZiBmYWtlX2NyZWF0ZSgqYXJncywgKiprd2FyZ3MpOgorICAgICAgICBhc3NlcnQga3dhcmdzLmdldCgidHJ1c3RlZF90cmFjZV9wcm9wYWdhdGlvbiIpIGlzIFRydWUKKyAgICAgICAgcmV0dXJuIG93bmVkCisKKyAgICBjbGFzcyBfRmFpbGluZ1RyYW5zcG9ydDoKKyAgICAgICAgYXN5bmMgZGVmIF9fYWVudGVyX18oc2VsZik6CisgICAgICAgICAgICByYWlzZSBSdW50aW1lRXJyb3IoInRyYW5zcG9ydCBzZXR1cCBmYWlsZWQiKQorCisgICAgICAgIGFzeW5jIGRlZiBfX2FleGl0X18oc2VsZiwgZXhjX3R5cGUsIGV4YywgdGIpOgorICAgICAgICAgICAgcmV0dXJuIE5vbmUKKworICAgIGRlZiBmYWtlX3N0cmVhbWFibGVfaHR0cF9jbGllbnQoKmFyZ3MsICoqa3dhcmdzKToKKyAgICAgICAgYXNzZXJ0IGt3YXJncy5nZXQoImh0dHBfY2xpZW50IikgaXMgb3duZWQKKyAgICAgICAgcmV0dXJuIF9GYWlsaW5nVHJhbnNwb3J0KCkKKworICAgIG1vbmtleXBhdGNoLnNldGF0dHIoInVhZ2VudC50b29scy5tY3AuY2xpZW50LmNyZWF0ZV9tY3BfaHR0cF9jbGllbnQiLCBmYWtlX2NyZWF0ZSkKKyAgICBtb25rZXlwYXRjaC5zZXRhdHRyKAorICAgICAgICAidWFnZW50LnRvb2xzLm1jcC5jbGllbnQuc3RyZWFtYWJsZV9odHRwX2NsaWVudCIsCisgICAgICAgIGZha2Vfc3RyZWFtYWJsZV9odHRwX2NsaWVudCwKKyAgICApCisKKyAgICBmcm9tIHVhZ2VudC50b29scy5tY3AuY2xpZW50IGltcG9ydCBNQ1BDbGllbnQKKyAgICBmcm9tIHVhZ2VudC50b29scy5tY3AuZXJyb3JzIGltcG9ydCBNQ1BUcmFuc3BvcnRFcnJvcgorCisgICAgYXN5bmMgZGVmIHNjZW5hcmlvKCkgLT4gTm9uZToKKyAgICAgICAgY2xpZW50ID0gTUNQQ2xpZW50KAorICAgICAgICAgICAgdXJsPSJodHRwczovL21jcC5leGFtcGxlL21jcCIsCisgICAgICAgICAgICB0cnVzdGVkX3RyYWNlX3Byb3BhZ2F0aW9uPVRydWUsCisgICAgICAgICAgICBwcm90b2NvbF9tb2RlPSJsZWdhY3kiLAorICAgICAgICApCisgICAgICAgIHRyeToKKyAgICAgICAgICAgIGF3YWl0IGNsaWVudC5fX2FlbnRlcl9fKCkKKyAgICAgICAgZXhjZXB0IE1DUFRyYW5zcG9ydEVycm9yOgorICAgICAgICAgICAgcGFzcworICAgICAgICBlbHNlOgorICAgICAgICAgICAgcmFpc2UgQXNzZXJ0aW9uRXJyb3IoImV4cGVjdGVkIE1DUFRyYW5zcG9ydEVycm9yIikKKyAgICAgICAgYXNzZXJ0IG93bmVkLmNsb3NlZCBpcyBUcnVlCisgICAgICAgIGFzc2VydCBjbGllbnQuX2h0dHBfY2xpZW50IGlzIE5vbmUKKworICAgIGFzeW5jaW8ucnVuKHNjZW5hcmlvKCkpCg==' | base64 -d > /tmp/pr89.patch
+          git apply --check /tmp/pr89.patch
+          git apply /tmp/pr89.patch
+      - name: Format and validate
+        shell: bash
+        run: |
+          python -m pip install -e ".[core,providers,test]"
+          python -m pip install black==26.5.1
+          python -m black src/uagent/tools/mcp/client.py tests/test_observability_phase3_mcp.py
+          python -m black --check src/uagent/tools/mcp/client.py tests/test_observability_phase3_mcp.py
+          python -m pytest -q tests/test_observability_phase3_mcp.py
+          git diff --check
+      - name: Commit fix and clean workflows
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/pr89-review-fix.yml .github/workflows/pr89-review-fix2.yml
+          git add src/uagent/tools/mcp/client.py tests/test_observability_phase3_mcp.py
+          git diff --cached --check
+          git commit -m "fix: close owned MCP HTTP client on setup failure"
+          git push origin HEAD:feat/opentelemetry-mcp-http-propagation
