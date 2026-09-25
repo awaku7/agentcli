@@ -19,8 +19,16 @@ from .mcp.session_pool import (
 )
 
 try:
-    from .mcp_servers_shared import get_default_mcp_config_path
+    from .mcp_servers_shared import (
+        get_default_mcp_config_path,
+        is_trusted_mcp_trace_propagation_enabled,
+    )
 except ImportError:
+
+    def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
+        return (
+            isinstance(server, dict) and server.get("trusted_trace_propagation") is True
+        )
 
     def get_default_mcp_config_path():
         import os
@@ -347,6 +355,7 @@ def _call_mcp_http_reused(
     argv: dict[str, Any],
     headers: dict[str, str],
     protocol_mode: str,
+    trusted_trace_propagation: bool = False,
 ) -> str:
     callbacks = get_callbacks()
     is_cancelled = getattr(callbacks, "is_cancelled", None)
@@ -357,6 +366,7 @@ def _call_mcp_http_reused(
         url=url,
         headers=headers,
         protocol_mode=protocol_mode,
+        trusted_trace_propagation=trusted_trace_propagation,
         is_cancelled=is_cancelled if callable(is_cancelled) else None,
         request_generation=(
             request_generation if callable(request_generation) else None
@@ -371,6 +381,7 @@ def _call_mcp_http_reused(
         arguments=argv,
         headers=headers,
         protocol_mode=protocol_mode,
+        trusted_trace_propagation=trusted_trace_propagation,
         is_cancelled=is_cancelled if callable(is_cancelled) else None,
         request_generation=(
             request_generation if callable(request_generation) else None
@@ -385,10 +396,18 @@ async def _call_mcp_http(
     argv: dict[str, Any],
     headers: dict[str, str] | None = None,
     protocol_mode: str = "auto",
+    trusted_trace_propagation: bool = False,
 ) -> str:
     if _mcp_session_reuse_enabled():
         try:
-            return _call_mcp_http_reused(url, name, argv, headers or {}, protocol_mode)
+            return _call_mcp_http_reused(
+                url,
+                name,
+                argv,
+                headers or {},
+                protocol_mode,
+                trusted_trace_propagation,
+            )
         except MCPSessionStale:
             return _error_out("MCP response arrived after cancellation", "MCP_STALE")
         except MCPSessionCancelled:
@@ -403,6 +422,7 @@ async def _call_mcp_http(
             url=url,
             headers=headers or {},
             protocol_mode=protocol_mode,
+            trusted_trace_propagation=trusted_trace_propagation,
         ) as client:
             try:
                 tools_result = await client.list_tools()
@@ -626,6 +646,7 @@ def run_tool(args: dict[str, Any]) -> str:
     cmd_args = []
     cmd_env = {}
     http_headers: dict[str, str] = {}
+    trusted_trace_propagation = False
 
     config_path = get_default_mcp_config_path()
     if server_name:
@@ -647,6 +668,9 @@ def run_tool(args: dict[str, Any]) -> str:
                             cmd_args = s.get("args", [])
                             cmd_env = s.get("env", {})
                             http_headers = _resolve_http_headers(s.get("headers"))
+                            trusted_trace_propagation = (
+                                is_trusted_mcp_trace_propagation_enabled(s)
+                            )
                             configured_mode = (
                                 str(s.get("protocol_mode") or "").strip().lower()
                             )
@@ -713,7 +737,14 @@ def run_tool(args: dict[str, Any]) -> str:
             )
         else:
             result_text = asyncio.run(
-                _call_mcp_http(url, name, argv, http_headers, protocol_mode)
+                _call_mcp_http(
+                    url,
+                    name,
+                    argv,
+                    http_headers,
+                    protocol_mode,
+                    trusted_trace_propagation,
+                )
             )
         trunc = getattr(cb, "truncate_output", None)
         if callable(trunc):

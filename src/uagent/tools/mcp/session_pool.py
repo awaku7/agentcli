@@ -155,6 +155,7 @@ class MCPHTTPSessionPool:
         headers: dict[str, str],
         protocol_mode: str,
         factory_id: int,
+        trusted_trace_propagation: bool = False,
     ) -> str:
         return json.dumps(
             {
@@ -162,6 +163,7 @@ class MCPHTTPSessionPool:
                 "headers": sorted((str(k), str(v)) for k, v in headers.items()),
                 "protocol_mode": str(protocol_mode),
                 "factory_id": factory_id,
+                "trusted_trace_propagation": bool(trusted_trace_propagation),
             },
             sort_keys=True,
             ensure_ascii=False,
@@ -174,6 +176,7 @@ class MCPHTTPSessionPool:
         url: str,
         headers: dict[str, str],
         protocol_mode: str,
+        trusted_trace_propagation: bool = False,
     ) -> _Entry:
         entry = self._entries.get(key)
         if entry is not None:
@@ -182,6 +185,7 @@ class MCPHTTPSessionPool:
             url=url,
             headers=headers,
             protocol_mode=protocol_mode,
+            trusted_trace_propagation=trusted_trace_propagation,
         )
         await client.__aenter__()
         try:
@@ -201,12 +205,14 @@ class MCPHTTPSessionPool:
         arguments: dict[str, Any],
         headers: dict[str, str],
         protocol_mode: str,
+        trusted_trace_propagation: bool = False,
     ) -> tuple[Any, Any]:
         entry = await self._get_entry(
             key,
             url=url,
             headers=headers,
             protocol_mode=protocol_mode,
+            trusted_trace_propagation=trusted_trace_propagation,
         )
         async with entry.lock:
             result = await entry.client.call_tool(name, arguments)
@@ -218,17 +224,25 @@ class MCPHTTPSessionPool:
         url: str,
         headers: dict[str, str],
         protocol_mode: str,
+        trusted_trace_propagation: bool = False,
         is_cancelled: Callable[[], bool] | None = None,
         request_generation: Callable[[], Any] | None = None,
     ) -> Any:
         """Return the cached tool list, initializing the session if needed."""
-        key = self._key(url, headers, protocol_mode, id(self._client_factory))
+        key = self._key(
+            url,
+            headers,
+            protocol_mode,
+            id(self._client_factory),
+            trusted_trace_propagation,
+        )
         future = self._submit(
             self._get_entry(
                 key,
                 url=url,
                 headers=headers,
                 protocol_mode=protocol_mode,
+                trusted_trace_propagation=trusted_trace_propagation,
             )
         )
         return self._wait_for_future(
@@ -246,11 +260,18 @@ class MCPHTTPSessionPool:
         arguments: dict[str, Any],
         headers: dict[str, str],
         protocol_mode: str,
+        trusted_trace_propagation: bool = False,
         is_cancelled: Callable[[], bool] | None = None,
         request_generation: Callable[[], Any] | None = None,
     ) -> tuple[Any, Any]:
         """Call an MCP tool, reusing the initialized HTTP session."""
-        key = self._key(url, headers, protocol_mode, id(self._client_factory))
+        key = self._key(
+            url,
+            headers,
+            protocol_mode,
+            id(self._client_factory),
+            trusted_trace_propagation,
+        )
         future = self._submit(
             self._call_tool(
                 key,
@@ -259,6 +280,7 @@ class MCPHTTPSessionPool:
                 arguments=arguments,
                 headers=headers,
                 protocol_mode=protocol_mode,
+                trusted_trace_propagation=trusted_trace_propagation,
             )
         )
         return self._wait_for_future(
