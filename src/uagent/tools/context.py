@@ -10,6 +10,7 @@ This module acts as a common gateway for all tools under the tools/ directory.
 
 from __future__ import annotations
 
+import sys
 from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any, Callable, Optional
@@ -74,11 +75,67 @@ _ACTIVE_SUB_AGENT: ContextVar[str | None] = ContextVar(
 )
 
 
+@dataclass
+class _ActiveSubAgentToken:
+    context_token: Any
+    span_manager: Any = None
+    span: Any = None
+
+
 def set_active_sub_agent(name: str | None):
-    return _ACTIVE_SUB_AGENT.set(str(name) if name else None)
+    """Bind the active sub-agent and open its canonical child Agent span."""
+
+    normalized = str(name) if name else None
+    context_token = _ACTIVE_SUB_AGENT.set(normalized)
+    span_manager = None
+    span = None
+
+    if normalized:
+        try:
+            from ..runtime.observability.bootstrap import get_observability_backend
+
+            backend = get_observability_backend()
+            span_manager = backend.start_span(
+                "invoke_agent",
+                attributes={"uag.agent.name": normalized},
+            )
+            span = span_manager.__enter__()
+        except Exception:
+            span_manager = None
+            span = None
+
+    return _ActiveSubAgentToken(
+        context_token=context_token,
+        span_manager=span_manager,
+        span=span,
+    )
 
 
 def reset_active_sub_agent(token: Any) -> None:
+    """Close the active sub-agent span and restore the prior context.
+
+    Observability is best-effort only. Any tracing failure is isolated from the
+    sub-agent result, and older plain ContextVar tokens remain accepted for
+    compatibility with callers across hot reloads.
+    """
+
+    if isinstance(token, _ActiveSubAgentToken):
+        try:
+            if token.span_manager is not None:
+                exc_type, exc, traceback = sys.exc_info()
+                if exc_type is None and token.span is not None:
+                    try:
+                        token.span.set_status("ok")
+                    except Exception:
+                        pass
+                try:
+                    token.span_manager.__exit__(exc_type, exc, traceback)
+                except Exception:
+                    pass
+        finally:
+            _ACTIVE_SUB_AGENT.reset(token.context_token)
+        return
+
     _ACTIVE_SUB_AGENT.reset(token)
 
 
