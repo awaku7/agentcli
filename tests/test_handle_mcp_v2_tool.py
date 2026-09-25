@@ -281,6 +281,7 @@ def test_handle_mcp_v2_rejects_response_from_old_generation(
             return "OLD_GENERATION"
 
     monkeypatch.setattr(m, "MCPClient", lambda **_kwargs: FakeClient())
+    monkeypatch.setenv("UAGENT_MCP_SESSION_REUSE", "0")
     monkeypatch.setattr(
         m,
         "get_callbacks",

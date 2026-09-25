@@ -80,7 +80,15 @@ from .web_impl.routes_api import (
     update_profile,
 )
 from .web_impl.routes_ws import websocket_endpoint
-from .web_impl.init import init_web, main
+from .web_impl.init import init_web, main as _web_main
+
+
+def main():
+    from .runtime.observability.settings import consume_process_otel_cli_flags
+
+    consume_process_otel_cli_flags()
+    return _web_main()
+
 
 __all__ = [
     "ANSI_ESCAPE",

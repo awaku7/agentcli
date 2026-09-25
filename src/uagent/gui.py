@@ -11,7 +11,15 @@ The launcher imports `uagent.gui.main`, so this module exposes the real GUI
 
 from __future__ import annotations
 
-from .scheckgui import main
+
+def main():
+    from .runtime.observability.settings import consume_process_otel_cli_flags
+
+    consume_process_otel_cli_flags()
+    from .scheckgui import main as gui_main
+
+    return gui_main()
+
 
 __all__ = ["main"]
 

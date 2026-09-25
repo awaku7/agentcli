@@ -27,6 +27,9 @@ _ALLOWED_PACKAGES = {
         "tqdm",
         "prompt-toolkit",
         "websockets",
+        "opentelemetry-api",
+        "opentelemetry-sdk",
+        "opentelemetry-exporter-otlp",
         # Web/server and protocol packages.
         "fastapi",
         "uvicorn",
