@@ -137,9 +137,12 @@ def load_dotenv_custom() -> None:
 
 
 def reload_dotenv_custom() -> None:
-    """Reload .env and .env.sec from the current CWD into the current process."""
+    """Reload dotenv files, then resolve process-level observability settings."""
 
     load_dotenv_custom()
+    from .observability.settings import refresh_observability_settings
+
+    refresh_observability_settings()
 
 
 __all__ = [
