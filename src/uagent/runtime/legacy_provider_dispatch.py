@@ -127,35 +127,35 @@ def call_legacy_deepseek_round(
     responses_state: dict[str, Any],
 ) -> Any:
     """Dispatch DeepSeek's Responses compatibility route or chat route."""
-    kwargs = {
-        "provider": provider,
+    common_kwargs = {
         "client": client,
         "depname": depname,
         "call_messages": call_messages,
         "core": core,
         "make_client_fn": make_client_fn,
         "call_maybe_thread_fn": call_maybe_thread_fn,
-        "stream_responses": stream_responses,
         "send_tools_this_round": send_tools_this_round,
         "max_retries_429": max_retries_429,
         "retry_base": retry_base,
         "retry_cap": retry_cap,
+        "provider": provider,
     }
     if use_responses_api and provider == "deepseek":
-        kwargs.update(
-            {
-                "use_responses_api": use_responses_api,
-                "messages": messages,
-                "responses_state": responses_state,
-            }
-        )
         caller = _call_openai_azure_round
+        call_kwargs = {
+            **common_kwargs,
+            "use_responses_api": use_responses_api,
+            "stream_responses": stream_responses,
+            "messages": messages,
+            "responses_state": responses_state,
+        }
     else:
         caller = _call_deepseek_round
+        call_kwargs = common_kwargs
     return _call_with_fallback_chat_span(
         provider=provider,
         caller=caller,
-        kwargs=kwargs,
+        kwargs=call_kwargs,
     )
 
 
