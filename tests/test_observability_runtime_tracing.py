@@ -136,6 +136,11 @@ def test_late_resolved_turn_enriches_active_agent_span(monkeypatch, tmp_path) ->
 def test_a2a_error_tuple_marks_active_lifecycle_failed(monkeypatch) -> None:
     from uagent.a2a.engine import run_once
 
+    events: list[str] = []
+    monkeypatch.setattr(
+        "uagent.runtime.execution.log_event",
+        lambda event_code, **_fields: events.append(event_code),
+    )
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     monkeypatch.setenv("UAGENT_A2A_ENGINE", "unsupported-test-mode")
 
@@ -144,6 +149,7 @@ def test_a2a_error_tuple_marks_active_lifecycle_failed(monkeypatch) -> None:
 
     assert error is not None
     assert lifecycle.status.value == "FAILED"
+    assert "agent.failed" in events
 
 
 def test_agent_span_status_follows_terminal_lifecycle_state(monkeypatch) -> None:
