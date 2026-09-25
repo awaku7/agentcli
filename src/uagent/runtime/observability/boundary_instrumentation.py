@@ -75,7 +75,13 @@ def _install_decision_log_boundary() -> None:
         return
 
     @wraps(original)
-    def observed(self: Any, session_id: str, decisions: list[dict[str, Any]], *args: Any, **kwargs: Any):
+    def observed(
+        self: Any,
+        session_id: str,
+        decisions: list[dict[str, Any]],
+        *args: Any,
+        **kwargs: Any,
+    ):
         result = original(self, session_id, decisions, *args, **kwargs)
         try:
             record_persisted_decision_batch(decisions)
