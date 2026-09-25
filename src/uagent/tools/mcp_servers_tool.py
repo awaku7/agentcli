@@ -160,6 +160,17 @@ TOOL_SPEC: dict[str, Any] = {
                     ),
                     "default": "auto",
                 },
+                "trusted_trace_propagation": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.trusted_trace_propagation.description",
+                        default=(
+                            "(add/init_template) Explicitly trust this managed HTTP MCP "
+                            "server for W3C trace propagation. Default: false."
+                        ),
+                    ),
+                    "default": False,
+                },
                 "set_default": {
                     "type": "boolean",
                     "description": _(
@@ -340,6 +351,17 @@ def _validate_servers_for_list(servers: list[Any]) -> list[str]:
         name = s.get("name")
         url = s.get("url")
         command = s.get("command")
+        trusted_trace = s.get("trusted_trace_propagation", False)
+        if "trusted_trace_propagation" in s and not isinstance(trusted_trace, bool):
+            warnings.append(
+                f"WARNING: mcp_servers[{idx}].trusted_trace_propagation must be boolean."
+            )
+        elif trusted_trace is True and not (
+            isinstance(url, str) and url.lower().startswith(("http://", "https://"))
+        ):
+            warnings.append(
+                f"WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored for non-HTTP transports."
+            )
 
         if not isinstance(name, str) or not name.strip():
             warnings.append(
@@ -415,6 +437,17 @@ def _validate_servers_strict(servers: list[Any]) -> tuple[list[str], list[str]]:
 
         has_http = isinstance(url, str) and url.strip()
         has_stdio = isinstance(command, str) and command.strip()
+        trusted_trace = s.get("trusted_trace_propagation", False)
+        if "trusted_trace_propagation" in s and not isinstance(trusted_trace, bool):
+            errors.append(
+                f"ERROR: mcp_servers[{idx}].trusted_trace_propagation must be boolean"
+            )
+        elif trusted_trace is True and not (
+            has_http and str(url).lower().startswith(("http://", "https://"))
+        ):
+            warnings.append(
+                f"WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored for non-HTTP transports."
+            )
 
         if not has_http and not has_stdio:
             errors.append(
@@ -455,6 +488,16 @@ def _run_action_init_template(
     default_transport = (
         str(args.get("transport", "streamable-http")).strip() or "streamable-http"
     )
+    trusted_trace_propagation = args.get("trusted_trace_propagation", False)
+    if not isinstance(trusted_trace_propagation, bool):
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "error": "trusted_trace_propagation must be boolean",
+            },
+            pretty=pretty,
+        )
 
     if os.path.exists(config_path):
         return _json_out(
@@ -473,6 +516,7 @@ def _run_action_init_template(
                 "name": default_name,
                 "url": default_url,
                 "transport": default_transport,
+                "trusted_trace_propagation": trusted_trace_propagation,
             }
         ]
     }
@@ -585,6 +629,7 @@ def _mcp_build_server_entry(
     name: str,
     transport: str,
     protocol_mode: str,
+    trusted_trace_propagation: bool,
     url: Any,
     command: Any,
     arg_list: list[Any],
@@ -594,6 +639,7 @@ def _mcp_build_server_entry(
         "name": name,
         "transport": transport,
         "protocol_mode": protocol_mode,
+        "trusted_trace_propagation": trusted_trace_propagation,
     }
     if url:
         new_entry["url"] = str(url)
@@ -787,6 +833,16 @@ def _run_action_add(args: dict[str, Any], *, pretty: bool, config_path: str) -> 
     env = args.get("env")
     transport = str(args.get("transport") or "streamable-http")
     protocol_mode = str(args.get("protocol_mode") or "auto").strip().lower()
+    trusted_trace_propagation = args.get("trusted_trace_propagation", False)
+    if not isinstance(trusted_trace_propagation, bool):
+        return _json_out(
+            {
+                "ok": False,
+                "action": action,
+                "error": "trusted_trace_propagation must be boolean",
+            },
+            pretty=pretty,
+        )
     if protocol_mode not in {"auto", "legacy", "stateless"}:
         return _json_out(
             {
@@ -827,6 +883,7 @@ def _run_action_add(args: dict[str, Any], *, pretty: bool, config_path: str) -> 
         name=name,
         transport=transport,
         protocol_mode=protocol_mode,
+        trusted_trace_propagation=trusted_trace_propagation,
         url=url,
         command=command,
         arg_list=normalized_args,

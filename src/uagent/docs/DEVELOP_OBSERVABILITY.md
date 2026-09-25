@@ -127,8 +127,10 @@ Authenticated A2A propagation, local Sub-Agent child spans, and the trusted MCP 
 - MCP HTTP trace propagation is OFF by default and requires the explicit `trusted_trace_propagation=True` transport flag. Only UAG-created HTTP clients install the request hook; caller-supplied `http_client` instances are not mutated.
 - Trusted MCP propagation removes any pre-existing `traceparent`, `tracestate`, and `baggage` request headers, then injects only the current UAG-owned W3C `traceparent` / `tracestate`. Authorization/OAuth headers are preserved and propagation failures are ignored.
 - MCP stdio does not serialize W3C trace headers; it remains related to the current execution only through process-local context and the existing outer `execute_tool` span.
+- Managed MCP configuration may opt an HTTP server into this trust boundary only with the exact JSON boolean `"trusted_trace_propagation": true`. Missing, false, string, or numeric values remain OFF. Direct `url` tool arguments cannot enable the trust flag.
+- The process-local MCP HTTP session pool includes the trust flag in its cache key, so trusted and untrusted sessions for the same URL/headers/protocol mode are never reused across the propagation boundary.
 
-Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, and `tests/test_observability_phase3_mcp.py`.
+Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, `tests/test_observability_phase3_mcp.py`, and `tests/test_observability_phase3_mcp_config.py`.
 
 ## OTLP and standard OTel configuration
 
@@ -194,4 +196,4 @@ Web Agent spans always start as fresh OTel roots. This intentionally detaches th
 
 ## Later phases
 
-Wiring trusted MCP propagation into server-managed `mcp_servers.json` configuration and explicit trusted reverse-proxy ingress remain Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
+Explicit trusted reverse-proxy ingress remains the Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.

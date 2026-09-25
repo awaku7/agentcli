@@ -8,7 +8,10 @@ from typing import Any
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
 from .mcp.client import MCPClient
-from .mcp_servers_shared import get_default_mcp_config_path
+from .mcp_servers_shared import (
+    get_default_mcp_config_path,
+    is_trusted_mcp_trace_propagation_enabled,
+)
 
 _ = make_tool_translator(__file__)
 
@@ -102,14 +105,22 @@ def _resolve(args: dict[str, Any]) -> tuple[dict[str, Any], str]:
             mode = str(
                 args.get("protocol_mode") or server.get("protocol_mode") or "auto"
             )
-            return {
-                "url": server.get("url") or None,
+            resolved_url = server.get("url") or None
+            connection = {
+                "url": resolved_url,
                 "command": server.get("command") or None,
                 "args": [str(item) for item in server.get("args", [])],
                 "env": {str(k): str(v) for k, v in (server.get("env") or {}).items()},
                 "headers": _headers(server.get("headers")),
                 "protocol_mode": mode,
-            }, server_name
+            }
+            if isinstance(resolved_url, str) and resolved_url.lower().startswith(
+                ("http://", "https://")
+            ):
+                connection["trusted_trace_propagation"] = (
+                    is_trusted_mcp_trace_propagation_enabled(server)
+                )
+            return connection, server_name
     raise ValueError(f"MCP server not found: {server_name}")
 
 

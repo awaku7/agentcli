@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import os
 import json
+from typing import Any
 
 
 def get_default_mcp_config_path() -> str:
@@ -15,6 +16,16 @@ def get_default_mcp_config_path() -> str:
     from uagent.utils.paths import get_mcp_servers_json_path
 
     return str(get_mcp_servers_json_path())
+
+
+def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
+    """Return whether a managed MCP server explicitly opts into trace propagation.
+
+    Only the JSON boolean ``true`` is accepted. String/integer truthy values do not
+    cross this trust boundary.
+    """
+
+    return isinstance(server, dict) and server.get("trusted_trace_propagation") is True
 
 
 def ensure_mcp_config_template() -> str:

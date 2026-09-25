@@ -461,6 +461,8 @@ Recommended development flow:
 If something fails, first check whether the server entry is reachable and whether the listed tools match the expected transport.
 Validate again after each config change.
 
+For a UAG-managed HTTP MCP server that is explicitly trusted for distributed tracing, set `"trusted_trace_propagation": true` in that server's `mcp_servers.json` entry. The default is false; only the JSON boolean `true` enables propagation, direct URL calls cannot enable it, and stdio ignores it.
+
 Recent smoke tests cover template creation and the basic add/list/validate/set_default/remove flow.
 
 `mcp_servers_validate_tool.py` is hardened so it can still return raw output when callback-based truncation is unavailable.
