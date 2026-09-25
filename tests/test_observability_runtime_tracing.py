@@ -91,6 +91,24 @@ def test_web_agent_execution_forces_fresh_root_from_explicit_turn(monkeypatch) -
     assert "principal_id" not in backend.spans[0]["attributes"]
 
 
+def test_non_web_agent_execution_projects_explicit_turn_metadata(monkeypatch) -> None:
+    backend = _Backend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    identity = IdentityContext("local", True, "local")
+    turn = TurnContext.from_identity(identity, entry_point="cli")
+
+    with lifecycle_execution(turn_context=turn):
+        pass
+
+    assert backend.spans[0]["root"] is False
+    assert backend.spans[0]["attributes"]["uag.entry_point"] == "cli"
+    assert backend.spans[0]["attributes"]["uag.auth.kind"] == "local"
+    assert "principal_id" not in backend.spans[0]["attributes"]
+
+
 def test_agent_span_status_follows_terminal_lifecycle_state(monkeypatch) -> None:
     backend = _Backend()
     monkeypatch.setattr(
