@@ -252,6 +252,7 @@ class OpenTelemetryBackend:
             return
 
         token = None
+        detach_context = None
         try:
             from opentelemetry import trace
             from opentelemetry.context import attach, detach
@@ -261,20 +262,19 @@ class OpenTelemetryBackend:
 
             extracted = TraceContextTextMapPropagator().extract(dict(carrier))
             span_context = trace.get_current_span(extracted).get_span_context()
-            if not span_context.is_valid or not span_context.is_remote:
-                yield None
-                return
-            token = attach(extracted)
+            if span_context.is_valid and span_context.is_remote:
+                token = attach(extracted)
+                detach_context = detach
         except Exception:
-            yield None
-            return
+            token = None
+            detach_context = None
 
         try:
             yield None
         finally:
-            if token is not None:
+            if token is not None and detach_context is not None:
                 try:
-                    detach(token)
+                    detach_context(token)
                 except Exception:
                     pass
 
