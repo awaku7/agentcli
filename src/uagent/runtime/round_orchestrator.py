@@ -58,33 +58,41 @@ class RoundOrchestrator:
         session: Mapping[str, Any],
         cancellation: CancellationToken,
     ) -> OrchestratedRound:
+        runtime = self._registry.resolve(provider)
+        started = time.perf_counter()
+        projection = runtime.project(plan, session)
+        request = runtime.serialize(projection)
         backend = get_observability_backend()
         with backend.start_span(
-            "chat", attributes={"uag.llm.provider": provider}
+            "chat",
+            attributes={
+                "uag.llm.provider": request.provider,
+                "uag.llm.model": request.model,
+            },
         ) as observability_span:
             return self._run_observed(
                 plan,
-                provider=provider,
+                runtime=runtime,
+                projection=projection,
+                request=request,
                 session=session,
                 cancellation=cancellation,
                 observability_span=observability_span,
+                started=started,
             )
 
     def _run_observed(
         self,
         plan: ContextPlan,
         *,
-        provider: str,
+        runtime: Any,
+        projection: Any,
+        request: SerializedRequest,
         session: Mapping[str, Any],
         cancellation: CancellationToken,
         observability_span: ObservabilitySpan,
+        started: float,
     ) -> OrchestratedRound:
-        runtime = self._registry.resolve(provider)
-        started = time.perf_counter()
-        projection = runtime.project(plan, session)
-        request = runtime.serialize(projection)
-        observability_span.set_attribute("uag.llm.provider", request.provider)
-        observability_span.set_attribute("uag.llm.model", request.model)
         validator = StreamEventValidator()
         events: list[StreamEvent] = []
         renderer = CollectingStreamRenderer()
