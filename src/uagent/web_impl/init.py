@@ -30,6 +30,9 @@ _install_web_dependency("fastapi", "fastapi")
 _install_web_dependency("uvicorn", "uvicorn")
 import uvicorn
 
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
+from ..runtime.observability.trusted_ingress import RawSocketPeerCaptureMiddleware
 from .app import app
 from .io import _web_server_log, web_human_ask, web_set_status
 from .rooms import _thread_ctx, web_manager
@@ -359,7 +362,16 @@ def main():
     except Exception:
         pass
 
-    config = uvicorn.Config(app, host=bind_host, port=port, ws_max_size=10_000_000)
+    forwarded_allow_ips = os.environ.get("FORWARDED_ALLOW_IPS", "127.0.0.1,::1")
+    proxied_app = ProxyHeadersMiddleware(app, trusted_hosts=forwarded_allow_ips)
+    server_app = RawSocketPeerCaptureMiddleware(proxied_app)
+    config = uvicorn.Config(
+        server_app,
+        host=bind_host,
+        port=port,
+        ws_max_size=10_000_000,
+        proxy_headers=False,
+    )
     server = uvicorn.Server(config)
     try:
         server.run()

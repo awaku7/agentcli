@@ -57,9 +57,10 @@ Default rules:
 - keep Web Agent spans as fresh roots by default;
 - configure trusted socket peers with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS` using explicit IP/CIDR entries;
 - fail the whole ingress trust policy closed if the allowlist is malformed;
-- use the actual socket peer only, never a forwarded client-address header, to select trust;
+- capture the raw socket peer before Uvicorn proxy-header rewriting and use only that value, never a forwarded client-address header, to select trust;
 - resolve the trusted trace carrier only after existing Web authentication/room access succeeds;
 - copy only `traceparent` / `tracestate` into the worker thread's process-local observability context;
+- consume a WebSocket handshake carrier at most once so later turns on the long-lived connection start fresh traces;
 - keep baggage, identity, session, room/project scope, and authorization state out of the carrier;
 - if trusted-parent attachment fails or the W3C context is malformed, continue normal Agent execution with a fresh root rather than failing the user turn.
 

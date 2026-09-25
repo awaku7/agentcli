@@ -30,9 +30,7 @@ class RawSocketPeerCaptureMiddleware:
     def __init__(self, app: Any) -> None:
         self.app = app
 
-    async def __call__(
-        self, scope: dict[str, Any], receive: Any, send: Any
-    ) -> None:
+    async def __call__(self, scope: dict[str, Any], receive: Any, send: Any) -> None:
         if scope.get("type") in {"http", "websocket"}:
             scope[_RAW_SOCKET_PEER_SCOPE_KEY] = scope.get("client")
         await self.app(scope, receive, send)
@@ -166,6 +164,10 @@ def call_with_trusted_ingress(
 ) -> _T:
     """Run one worker call with its server-approved ingress trace carrier."""
 
-    selected = carrier.take() if isinstance(carrier, SingleUseTrustedIngressCarrier) else carrier
+    selected = (
+        carrier.take()
+        if isinstance(carrier, SingleUseTrustedIngressCarrier)
+        else carrier
+    )
     with bind_trusted_ingress_carrier(selected):
         return func(*args, **kwargs)

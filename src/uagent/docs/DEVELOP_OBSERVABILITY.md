@@ -131,8 +131,9 @@ Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP HTTP pro
 - MCP stdio does not serialize W3C trace headers; it remains related to the current execution only through process-local context and the existing outer `execute_tool` span.
 - Managed MCP configuration may opt an HTTP server into this trust boundary only with the exact JSON boolean `"trusted_trace_propagation": true`. Missing, false, string, or numeric values remain OFF. Direct `url` tool arguments cannot enable the trust flag.
 - The process-local MCP HTTP session pool includes the trust flag in its cache key, so trusted and untrusted sessions for the same URL/headers/protocol mode are never reused across the propagation boundary.
-- Web reverse-proxy propagation is OFF unless the actual socket peer matches `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The value accepts explicit IP/CIDR entries only; one malformed entry fails the whole trust policy closed.
+- Web reverse-proxy propagation is OFF unless the raw socket peer captured before Uvicorn proxy-header rewriting matches `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The value accepts explicit IP/CIDR entries only; one malformed entry fails the whole trust policy closed.
 - Reverse-proxy trust never uses `X-Forwarded-For`, `Forwarded`, query parameters, cookies, or message JSON. Once the socket peer is trusted, only `traceparent` and `tracestate` are copied into the worker's process-local context; baggage is never accepted.
+- A WebSocket handshake carrier is single-use: it may parent only the first Agent execution started by that connection. Later turns return to fresh Agent roots, preserving one logical trace per user turn.
 - The Web connection is authenticated and authorized before UAG resolves the trusted trace carrier. Trace metadata remains completely outside authentication, room/project policy, session revalidation, and Memory authorization.
 - Operators enabling trusted proxy ingress must configure the proxy to strip or replace untrusted client trace headers before forwarding to UAG. A proxy that blindly preserves browser-supplied `traceparent` defeats the deployment trust assumption even though UAG correctly verifies the proxy peer.
 
@@ -198,7 +199,7 @@ For OIDC WebSocket connections:
 4. Room/project/private-room access is rechecked with the live identity.
 5. Only then may Agent execution begin.
 
-Web Agent spans start as fresh OTel roots by default, which detaches them from arbitrary browser-provided `traceparent` / `tracestate`. A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching socket peer may supply the trusted W3C parent used by the worker's canonical Agent span. `X-Forwarded-For` is never a trust input, baggage is ignored, and trace metadata never affects identity or authorization.
+Web Agent spans start as fresh OTel roots by default, which detaches them from arbitrary browser-provided `traceparent` / `tracestate`. A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching raw socket peer captured before proxy-header rewriting may supply the single-use trusted W3C parent for the first worker Agent span. `X-Forwarded-For` is never a trust input, baggage is ignored, and trace metadata never affects identity or authorization.
 
 ## Later phases
 

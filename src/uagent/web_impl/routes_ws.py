@@ -203,7 +203,9 @@ async def websocket_endpoint(websocket: WebSocket):
                                 "type": "init",
                                 "messages": loaded_display,
                                 "input_history": (
-                                    [] if room.private_session else _load_input_history()
+                                    []
+                                    if room.private_session
+                                    else _load_input_history()
                                 ),
                                 "status": room.status,
                                 "room_id": room.room_id,

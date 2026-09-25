@@ -154,9 +154,7 @@ def test_trusted_ingress_accepts_only_w3c_trace_context(monkeypatch) -> None:
 
 
 def test_trusted_ingress_bad_allowlist_fails_closed(monkeypatch) -> None:
-    monkeypatch.setenv(
-        "UAGENT_OTEL_TRUSTED_PROXY_CIDRS", "127.0.0.1/32,not-a-network"
-    )
+    monkeypatch.setenv("UAGENT_OTEL_TRUSTED_PROXY_CIDRS", "127.0.0.1/32,not-a-network")
     request = _Request("127.0.0.1", {"traceparent": _TRACEPARENT})
 
     assert trusted_ingress_carrier_for_request(request).take() == {}
