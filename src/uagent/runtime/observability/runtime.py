@@ -26,8 +26,8 @@ class _ActiveToolSpan:
 _PENDING_TOOL_SPAN: ContextVar[_PendingToolSpan | None] = ContextVar(
     "uagent_pending_tool_observability_span", default=None
 )
-_ACTIVE_TOOL_SPAN: ContextVar[_ActiveToolSpan | None] = ContextVar(
-    "uagent_active_tool_observability_span", default=None
+_ACTIVE_TOOL_SPANS: ContextVar[tuple[_ActiveToolSpan, ...]] = ContextVar(
+    "uagent_active_tool_observability_spans", default=()
 )
 
 
@@ -48,9 +48,10 @@ def before_structured_event(event_code: str, fields: Mapping[str, Any]) -> None:
         )
         return
 
-    active = _ACTIVE_TOOL_SPAN.get()
-    if active is None:
+    active_stack = _ACTIVE_TOOL_SPANS.get()
+    if not active_stack:
         return
+    active = active_stack[-1]
     if event_code == "tool.failed":
         active.failed = True
         active.span.set_attribute("uag.status", "error")
@@ -76,8 +77,6 @@ def after_structured_event(event_code: str) -> None:
 def start_pending_tool_span() -> None:
     """Start one logical execute_tool span at the centralized runner boundary."""
 
-    if _ACTIVE_TOOL_SPAN.get() is not None:
-        return
     pending = _PENDING_TOOL_SPAN.get()
     _PENDING_TOOL_SPAN.set(None)
     backend = get_observability_backend()
@@ -94,15 +93,19 @@ def start_pending_tool_span() -> None:
         span = manager.__enter__()
     except Exception:
         return
-    _ACTIVE_TOOL_SPAN.set(_ActiveToolSpan(manager=manager, span=span))
+    active_stack = _ACTIVE_TOOL_SPANS.get()
+    _ACTIVE_TOOL_SPANS.set(
+        (*active_stack, _ActiveToolSpan(manager=manager, span=span))
+    )
 
 
 def abandon_active_tool_span() -> None:
     """Best-effort cleanup for an unexpected runner path with no terminal event."""
 
-    active = _ACTIVE_TOOL_SPAN.get()
-    if active is None:
+    active_stack = _ACTIVE_TOOL_SPANS.get()
+    if not active_stack:
         return
+    active = active_stack[-1]
     active.failed = True
     active.span.set_attribute("uag.status", "abandoned")
     active.span.set_status("error", "tool span abandoned")
@@ -110,10 +113,11 @@ def abandon_active_tool_span() -> None:
 
 
 def _finish_active_tool_span() -> None:
-    active = _ACTIVE_TOOL_SPAN.get()
-    if active is None:
+    active_stack = _ACTIVE_TOOL_SPANS.get()
+    if not active_stack:
         return
-    _ACTIVE_TOOL_SPAN.set(None)
+    active = active_stack[-1]
+    _ACTIVE_TOOL_SPANS.set(active_stack[:-1])
     try:
         active.manager.__exit__(None, None, None)
     except Exception:
@@ -122,8 +126,7 @@ def _finish_active_tool_span() -> None:
 
 def _reset_runtime_observability_for_tests() -> None:
     _PENDING_TOOL_SPAN.set(None)
-    active = _ACTIVE_TOOL_SPAN.get()
-    if active is not None:
+    while _ACTIVE_TOOL_SPANS.get():
         _finish_active_tool_span()
 
 
