@@ -1,0 +1,249 @@
+name: PR89 MCP trace propagation patch
+
+on:
+  push:
+    branches:
+      - feat/opentelemetry-mcp-http-propagation
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/opentelemetry-mcp-http-propagation
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Apply transport wiring and tests
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_exact(path: str, old: str, new: str, count: int = 1) -> None:
+              p = Path(path)
+              text = p.read_text(encoding='utf-8')
+              actual = text.count(old)
+              if actual != count:
+                  raise SystemExit(f'{path}: expected {count} matches, found {actual}')
+              p.write_text(text.replace(old, new), encoding='utf-8')
+
+          replace_exact(
+              'src/uagent/tools/mcp/client.py',
+              '        authorization_provider: Any = None,\n        http_config: MCPHTTPConfig | None = None,\n    ) -> None:\n',
+              '        authorization_provider: Any = None,\n        http_config: MCPHTTPConfig | None = None,\n        trusted_trace_propagation: bool = False,\n    ) -> None:\n',
+          )
+          replace_exact(
+              'src/uagent/tools/mcp/client.py',
+              '        self.authorization_provider = authorization_provider\n        self.http_config = http_config\n        self._stateless_client: StatelessHTTPClient | None = None\n',
+              '        self.authorization_provider = authorization_provider\n        self.http_config = http_config\n        self.trusted_trace_propagation = bool(trusted_trace_propagation)\n        self._stateless_client: StatelessHTTPClient | None = None\n',
+          )
+          replace_exact(
+              'src/uagent/tools/mcp/client.py',
+              '                    authorization_provider=self.authorization_provider,\n                    http_config=self.http_config,\n                )\n',
+              '                    authorization_provider=self.authorization_provider,\n                    http_config=self.http_config,\n                    trusted_trace_propagation=self.trusted_trace_propagation,\n                )\n',
+              count=2,
+          )
+          replace_exact(
+              'src/uagent/tools/mcp/client.py',
+              '                if (\n                    self.headers or self.authorization_provider or self.http_config\n                ) and self._http_client is None:\n',
+              '                if (\n                    self.headers\n                    or self.authorization_provider\n                    or self.http_config\n                    or self.trusted_trace_propagation\n                ) and self._http_client is None:\n',
+          )
+          replace_exact(
+              'src/uagent/tools/mcp/client.py',
+              '                    self._http_client = create_mcp_http_client(\n                        self.http_config,\n                        headers=self.headers,\n                        auth=auth,\n                    )\n',
+              '                    self._http_client = create_mcp_http_client(\n                        self.http_config,\n                        headers=self.headers,\n                        auth=auth,\n                        trusted_trace_propagation=self.trusted_trace_propagation,\n                    )\n',
+          )
+
+          replace_exact(
+              'src/uagent/tools/mcp/stateless_transport.py',
+              '        authorization_provider: Callable[[bool], Awaitable[str]] | None = None,\n        http_config: MCPHTTPConfig | None = None,\n    ) -> None:\n',
+              '        authorization_provider: Callable[[bool], Awaitable[str]] | None = None,\n        http_config: MCPHTTPConfig | None = None,\n        trusted_trace_propagation: bool = False,\n    ) -> None:\n',
+          )
+          replace_exact(
+              'src/uagent/tools/mcp/stateless_transport.py',
+              '        self.authorization_provider = authorization_provider\n        self.http_config = http_config\n        self._owns_client = http_client is None\n',
+              '        self.authorization_provider = authorization_provider\n        self.http_config = http_config\n        self.trusted_trace_propagation = bool(trusted_trace_propagation)\n        self._owns_client = http_client is None\n',
+          )
+          replace_exact(
+              'src/uagent/tools/mcp/stateless_transport.py',
+              '        if self.http_client is None:\n            self.http_client = create_mcp_http_client(self.http_config)\n        return self\n',
+              '        if self.http_client is None:\n            self.http_client = create_mcp_http_client(\n                self.http_config,\n                trusted_trace_propagation=self.trusted_trace_propagation,\n            )\n        return self\n',
+          )
+
+          docs = Path('src/uagent/docs/DEVELOP_OBSERVABILITY.md')
+          text = docs.read_text(encoding='utf-8')
+          old = 'Authenticated A2A propagation and local Sub-Agent child spans are Phase-3 runtime boundaries.\n'
+          new = 'Authenticated A2A propagation, local Sub-Agent child spans, and the trusted MCP HTTP propagation primitive are Phase-3 runtime boundaries.\n'
+          if text.count(old) != 1:
+              raise SystemExit('DEVELOP_OBSERVABILITY.md: Phase-3 intro mismatch')
+          text = text.replace(old, new)
+          marker = '- Active Sub-Agent tokens remain reset-compatible across hot reloads and with the older plain ContextVar-token form.\n\nRegression coverage for this slice is in `tests/test_observability_phase3_subagent.py`. A2A propagation coverage is in `tests/test_observability_phase3_a2a.py`.\n'
+          replacement = '- Active Sub-Agent tokens remain reset-compatible across hot reloads and with the older plain ContextVar-token form.\n- MCP HTTP trace propagation is OFF by default and requires the explicit `trusted_trace_propagation=True` transport flag. Only UAG-created HTTP clients install the request hook; caller-supplied `http_client` instances are not mutated.\n- Trusted MCP propagation removes any pre-existing `traceparent`, `tracestate`, and `baggage` request headers, then injects only the current UAG-owned W3C `traceparent` / `tracestate`. Authorization/OAuth headers are preserved and propagation failures are ignored.\n- MCP stdio does not serialize W3C trace headers; it remains related to the current execution only through process-local context and the existing outer `execute_tool` span.\n\nRegression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, and `tests/test_observability_phase3_mcp.py`.\n'
+          if text.count(marker) != 1:
+              raise SystemExit('DEVELOP_OBSERVABILITY.md: Phase-3 regression marker mismatch')
+          text = text.replace(marker, replacement)
+          old_later = 'MCP HTTP propagation / stdio policy and explicit trusted reverse-proxy ingress remain Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.'
+          new_later = 'Wiring trusted MCP propagation into server-managed `mcp_servers.json` configuration and explicit trusted reverse-proxy ingress remain Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.'
+          if text.count(old_later) != 1:
+              raise SystemExit('DEVELOP_OBSERVABILITY.md: later-phases marker mismatch')
+          docs.write_text(text.replace(old_later, new_later), encoding='utf-8')
+          PY
+
+          cat > tests/test_observability_phase3_mcp.py <<'PYTEST'
+          from __future__ import annotations
+
+          import asyncio
+
+          import httpx
+
+          from uagent.tools.mcp.http_client import create_mcp_http_client
+          from uagent.tools.mcp.stateless_transport import StatelessHTTPClient
+
+
+          _TRACEPARENT = "00-11111111111111111111111111111111-2222222222222222-01"
+
+
+          class _PropagationBackend:
+              def __init__(self, *, fail: bool = False) -> None:
+                  self.fail = fail
+                  self.calls = 0
+
+              def inject_context(self, carrier: dict[str, str]) -> None:
+                  self.calls += 1
+                  if self.fail:
+                      raise RuntimeError("propagation unavailable")
+                  carrier["traceparent"] = _TRACEPARENT
+                  carrier["tracestate"] = "uag=test"
+                  carrier["baggage"] = "secret=must-not-propagate"
+
+
+          async def _run_request_hooks(client: httpx.AsyncClient, request: httpx.Request) -> None:
+              for hook in client.event_hooks.get("request", []):
+                  await hook(request)
+
+
+          def test_mcp_http_trace_propagation_is_opt_in() -> None:
+              client = create_mcp_http_client()
+              try:
+                  assert client.event_hooks.get("request", []) == []
+              finally:
+                  asyncio.run(client.aclose())
+
+
+          def test_trusted_mcp_http_injection_preserves_auth_and_omits_baggage(
+              monkeypatch,
+          ) -> None:
+              backend = _PropagationBackend()
+              monkeypatch.setattr(
+                  "uagent.runtime.observability.bootstrap.get_observability_backend",
+                  lambda: backend,
+              )
+              client = create_mcp_http_client(
+                  headers={
+                      "Authorization": "Bearer keep-me",
+                      "traceparent": "00-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-bbbbbbbbbbbbbbbb-01",
+                      "tracestate": "spoof=1",
+                      "baggage": "configured=secret",
+                  },
+                  trusted_trace_propagation=True,
+              )
+              request = httpx.Request(
+                  "POST", "https://mcp.example/mcp", headers=client.headers
+              )
+              try:
+                  asyncio.run(_run_request_hooks(client, request))
+                  assert backend.calls == 1
+                  assert request.headers["Authorization"] == "Bearer keep-me"
+                  assert request.headers["traceparent"] == _TRACEPARENT
+                  assert request.headers["tracestate"] == "uag=test"
+                  assert "baggage" not in request.headers
+              finally:
+                  asyncio.run(client.aclose())
+
+
+          def test_trusted_mcp_http_injection_failure_is_isolated(monkeypatch) -> None:
+              backend = _PropagationBackend(fail=True)
+              monkeypatch.setattr(
+                  "uagent.runtime.observability.bootstrap.get_observability_backend",
+                  lambda: backend,
+              )
+              client = create_mcp_http_client(
+                  headers={
+                      "Authorization": "Bearer keep-me",
+                      "traceparent": "00-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-bbbbbbbbbbbbbbbb-01",
+                      "tracestate": "spoof=1",
+                      "baggage": "configured=secret",
+                  },
+                  trusted_trace_propagation=True,
+              )
+              request = httpx.Request(
+                  "POST", "https://mcp.example/mcp", headers=client.headers
+              )
+              try:
+                  asyncio.run(_run_request_hooks(client, request))
+                  assert backend.calls == 1
+                  assert request.headers["Authorization"] == "Bearer keep-me"
+                  assert "traceparent" not in request.headers
+                  assert "tracestate" not in request.headers
+                  assert "baggage" not in request.headers
+              finally:
+                  asyncio.run(client.aclose())
+
+
+          def test_stateless_transport_uses_uag_owned_trusted_http_client() -> None:
+              async def scenario() -> None:
+                  transport = StatelessHTTPClient(
+                      "https://mcp.example/mcp", trusted_trace_propagation=True
+                  )
+                  await transport.__aenter__()
+                  try:
+                      assert transport.http_client is not None
+                      assert len(transport.http_client.event_hooks.get("request", [])) == 1
+                  finally:
+                      await transport.__aexit__(None, None, None)
+
+              asyncio.run(scenario())
+          PYTEST
+
+      - name: Format and validate changed Python
+        shell: bash
+        run: |
+          python -m pip install black==26.5.1
+          python -m black \
+            src/uagent/tools/mcp/http_client.py \
+            src/uagent/tools/mcp/client.py \
+            src/uagent/tools/mcp/stateless_transport.py \
+            tests/test_observability_phase3_mcp.py
+          python -m black --check \
+            src/uagent/tools/mcp/http_client.py \
+            src/uagent/tools/mcp/client.py \
+            src/uagent/tools/mcp/stateless_transport.py \
+            tests/test_observability_phase3_mcp.py
+          python -m py_compile \
+            src/uagent/tools/mcp/http_client.py \
+            src/uagent/tools/mcp/client.py \
+            src/uagent/tools/mcp/stateless_transport.py \
+            tests/test_observability_phase3_mcp.py
+          git diff --check
+      - name: Commit final slice and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/pr89-mcp-trace-patch.yml
+          git add \
+            src/uagent/tools/mcp/http_client.py \
+            src/uagent/tools/mcp/client.py \
+            src/uagent/tools/mcp/stateless_transport.py \
+            src/uagent/docs/DEVELOP_OBSERVABILITY.md \
+            tests/test_observability_phase3_mcp.py
+          git diff --cached --check
+          git commit -m "feat: add trusted MCP HTTP trace propagation"
+          git push origin HEAD:feat/opentelemetry-mcp-http-propagation
