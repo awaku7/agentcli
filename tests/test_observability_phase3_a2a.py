@@ -136,9 +136,7 @@ def test_a2a_auth_rejects_before_trace_context_is_attached(monkeypatch) -> None:
     )
     monkeypatch.setattr("uagent.a2a.auth.get_observability_backend", lambda: backend)
     request = _request(
-        {
-            "traceparent": "00-11111111111111111111111111111111-2222222222222222-01"
-        }
+        {"traceparent": "00-11111111111111111111111111111111-2222222222222222-01"}
     )
 
     async def consume_invalid() -> None:
