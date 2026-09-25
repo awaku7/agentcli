@@ -49,9 +49,7 @@ def _request(headers: dict[str, str]) -> SimpleNamespace:
 
 def test_a2a_client_injects_trace_context_only_with_bearer_token(monkeypatch) -> None:
     backend = _PropagationBackend()
-    monkeypatch.setattr(
-        "uagent.a2a.client.get_observability_backend", lambda: backend
-    )
+    monkeypatch.setattr("uagent.a2a.client.get_observability_backend", lambda: backend)
 
     client = A2AClient(base_url="http://a2a.example", token="secret")
     try:
@@ -78,9 +76,7 @@ def test_a2a_auth_attaches_trace_context_only_after_authentication(monkeypatch) 
         "uagent.a2a.auth.resolve_credential_secret",
         lambda *args, **kwargs: "secret",
     )
-    monkeypatch.setattr(
-        "uagent.a2a.auth.get_observability_backend", lambda: backend
-    )
+    monkeypatch.setattr("uagent.a2a.auth.get_observability_backend", lambda: backend)
     request = _request(
         {
             "traceparent": "00-11111111111111111111111111111111-2222222222222222-01",
@@ -117,9 +113,7 @@ def test_a2a_auth_credential_lookup_runs_off_event_loop(monkeypatch) -> None:
         return "secret"
 
     monkeypatch.setattr("uagent.a2a.auth.resolve_credential_secret", resolve)
-    monkeypatch.setattr(
-        "uagent.a2a.auth.get_observability_backend", lambda: backend
-    )
+    monkeypatch.setattr("uagent.a2a.auth.get_observability_backend", lambda: backend)
     request = _request({})
 
     async def consume() -> None:
@@ -140,9 +134,7 @@ def test_a2a_auth_rejects_before_trace_context_is_attached(monkeypatch) -> None:
         "uagent.a2a.auth.resolve_credential_secret",
         lambda *args, **kwargs: "secret",
     )
-    monkeypatch.setattr(
-        "uagent.a2a.auth.get_observability_backend", lambda: backend
-    )
+    monkeypatch.setattr("uagent.a2a.auth.get_observability_backend", lambda: backend)
     request = _request(
         {
             "traceparent": "00-11111111111111111111111111111111-2222222222222222-01"
