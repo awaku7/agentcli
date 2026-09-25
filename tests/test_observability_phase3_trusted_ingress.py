@@ -59,8 +59,11 @@ class _Span:
 class _Backend:
     enabled = True
 
-    def __init__(self, *, fail_attach: bool = False) -> None:
+    def __init__(
+        self, *, fail_attach: bool = False, attach_succeeds: bool = True
+    ) -> None:
         self.fail_attach = fail_attach
+        self.attach_succeeds = attach_succeeds
         self.attach_calls: list[dict[str, str]] = []
         self.start_calls: list[dict[str, object]] = []
         self.span = _Span()
@@ -70,7 +73,7 @@ class _Backend:
         self.attach_calls.append(dict(carrier))
         if self.fail_attach:
             raise RuntimeError("attach failed")
-        yield None
+        yield self.attach_succeeds
 
     @contextmanager
     def start_span(self, operation: str, *, attributes=None, root: bool = False):
@@ -255,6 +258,20 @@ def test_web_agent_span_stays_fresh_root_without_trusted_parent(monkeypatch) -> 
         pass
 
     assert backend.attach_calls == []
+    assert backend.start_calls[0]["root"] is True
+
+
+def test_unattachable_trusted_parent_stays_fresh_root(monkeypatch) -> None:
+    from uagent.runtime.observability import bootstrap
+
+    backend = _Backend(attach_succeeds=False)
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+
+    with bind_trusted_ingress_carrier({"traceparent": "not-valid"}):
+        with lifecycle_execution(turn_context=_web_turn()):
+            pass
+
+    assert backend.attach_calls == [{"traceparent": "not-valid"}]
     assert backend.start_calls[0]["root"] is True
 
 
