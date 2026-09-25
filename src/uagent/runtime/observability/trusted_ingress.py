@@ -93,7 +93,11 @@ def set_trusted_ingress_carrier(
     """Bind only the supported trusted trace-context fields in this context."""
 
     normalized = _normalize_carrier(carrier)
-    compact = tuple((key, normalized[key]) for key in ("traceparent", "tracestate") if key in normalized)
+    compact = tuple(
+        (key, normalized[key])
+        for key in ("traceparent", "tracestate")
+        if key in normalized
+    )
     return _TRUSTED_INGRESS_CARRIER.set(compact)
 
 
