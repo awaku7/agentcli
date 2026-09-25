@@ -59,6 +59,39 @@ def _call_with_fallback_chat_span(
         return result
 
 
+def _call_inception_streaming_round(**kwargs: Any) -> Any:
+    """Let each concrete Inception request own exactly one chat span.
+
+    The inner RoundOrchestrator already traces its provider request. If that
+    path fails and ``llm_round_helpers`` invokes its direct SDK fallback via
+    ``call_maybe_thread_fn``, the wrapper below creates a separate fallback
+    span for that replacement request. This avoids both duplicate spans on the
+    happy path and missing spans on the direct-fallback path.
+    """
+
+    call_maybe_thread_fn = kwargs.get("call_maybe_thread_fn")
+    if not callable(call_maybe_thread_fn):
+        return _call_openai_azure_round(**kwargs)
+
+    from .observability.runtime import fallback_chat_span
+
+    def traced_call_maybe_thread(fn, *args, **call_kwargs):
+        with fallback_chat_span(
+            provider="inception",
+            model=str(kwargs.get("depname") or ""),
+            request_input=kwargs.get("call_messages") or (),
+            core=kwargs.get("core"),
+        ) as observability_span:
+            result = call_maybe_thread_fn(fn, *args, **call_kwargs)
+            observability_span.set_attribute("uag.status", "completed")
+            observability_span.set_status("ok")
+            return result
+
+    inner_kwargs = dict(kwargs)
+    inner_kwargs["call_maybe_thread_fn"] = traced_call_maybe_thread
+    return _call_openai_azure_round(**inner_kwargs)
+
+
 def call_legacy_gemini_round(*, provider: str, **kwargs: Any) -> Any:
     """Dispatch Gemini-family rounds through the compatibility registry."""
     try:
@@ -92,11 +125,7 @@ def call_legacy_openai_azure_round(**kwargs: Any) -> Any:
     """Dispatch OpenAI-compatible Chat/Responses rounds."""
     provider = str(kwargs.get("provider") or "").strip().lower()
     if provider == "inception" and bool(kwargs.get("stream_responses")):
-        # Inception streaming can use either RoundOrchestrator or the direct
-        # SDK fallback. The inner implementation owns tracing for each concrete
-        # request so an orchestrated request and a later replacement fallback
-        # are represented as separate, non-duplicated chat spans.
-        return _call_openai_azure_round(**kwargs)
+        return _call_inception_streaming_round(**kwargs)
     return _call_with_fallback_chat_span(
         provider=provider,
         caller=_call_openai_azure_round,
