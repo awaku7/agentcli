@@ -18,10 +18,13 @@ def teardown_function():
 
 def test_noop_backend_is_safe_and_has_no_trace_ids():
     assert NOOP_BACKEND.enabled is False
-    with NOOP_BACKEND.start_span("test", attributes={"value": 1}) as span:
+    with NOOP_BACKEND.start_span(
+        "test", attributes={"value": 1}, root=True
+    ) as span:
         span.set_attribute("later", 2)
         span.add_event("event", {"ok": True})
         span.record_exception(RuntimeError("ignored"))
+        span.set_status("ok")
     assert NOOP_BACKEND.current_trace_ids() == TraceIds()
 
 
@@ -56,8 +59,10 @@ def test_enabled_bootstrap_uses_factory_after_dependencies_are_ready(monkeypatch
     class FakeBackend:
         enabled = True
 
-        def start_span(self, operation, *, attributes=None):
-            return NOOP_BACKEND.start_span(operation, attributes=attributes)
+        def start_span(self, operation, *, attributes=None, root=False):
+            return NOOP_BACKEND.start_span(
+                operation, attributes=attributes, root=root
+            )
 
         def record_event(self, name, attributes=None):
             return None
@@ -77,3 +82,62 @@ def test_enabled_bootstrap_uses_factory_after_dependencies_are_ready(monkeypatch
     assert result.backend is backend
     assert result.dependencies_ready is True
     assert result.reason == "enabled"
+
+
+def test_enabled_bootstrap_uses_default_otel_factory(monkeypatch):
+    class FakeBackend:
+        enabled = True
+
+        def start_span(self, operation, *, attributes=None, root=False):
+            return NOOP_BACKEND.start_span(
+                operation, attributes=attributes, root=root
+            )
+
+        def record_event(self, name, attributes=None):
+            return None
+
+        def current_trace_ids(self):
+            return TraceIds("trace", "span")
+
+    backend = FakeBackend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.ensure_otel_dependencies",
+        lambda _settings: True,
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.otel_backend.create_otel_backend",
+        lambda _settings: backend,
+    )
+
+    result = initialize_observability(ObservabilitySettings(enabled=True))
+    assert result.backend is backend
+    assert result.reason == "enabled"
+
+
+def test_bootstrap_can_reconfigure_from_disabled_to_enabled(monkeypatch):
+    class FakeBackend:
+        enabled = True
+
+        def start_span(self, operation, *, attributes=None, root=False):
+            return NOOP_BACKEND.start_span(
+                operation, attributes=attributes, root=root
+            )
+
+        def record_event(self, name, attributes=None):
+            return None
+
+        def current_trace_ids(self):
+            return TraceIds()
+
+    backend = FakeBackend()
+    disabled = initialize_observability(ObservabilitySettings(enabled=False))
+    assert disabled.backend is NOOP_BACKEND
+
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.ensure_otel_dependencies",
+        lambda _settings: True,
+    )
+    enabled = initialize_observability(
+        ObservabilitySettings(enabled=True), backend_factory=lambda _settings: backend
+    )
+    assert enabled.backend is backend
