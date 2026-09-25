@@ -67,53 +67,52 @@ def run_legacy_provider_round(
     return handler(provider=provider, **kwargs)
 
 
+def _summary_status_for_action(action: str) -> str:
+    normalized = (action or "").strip().lower()
+    if normalized == "return":
+        return "failed"
+    if normalized == "break":
+        return "interrupted"
+    if normalized == "continue":
+        return "continue"
+    return "completed"
+
+
 def run_legacy_provider_outcome(
     *, provider: str, **kwargs: Any
 ) -> LegacyRoundOutcome | None:
-    """Wrap a legacy tuple without changing its compatibility payload."""
+    """Wrap a legacy tuple without changing its compatibility payload.
+
+    Provider-call tracing is owned by ``legacy_provider_dispatch`` so handler
+    post-processing and tool execution stay outside the canonical ``chat`` span.
+    """
 
     normalized_provider = (provider or "").strip().lower()
     handler = _LEGACY_ROUND_HANDLERS.get(normalized_provider)
     if handler is None:
         return None
 
-    from .observability.runtime import fallback_chat_span
-
-    with fallback_chat_span(
-        provider=provider,
-        model=str(kwargs.get("depname") or ""),
-        request_input=kwargs.get("call_messages") or (),
-        core=kwargs.get("core"),
-    ) as observability_span:
-        started = time.perf_counter()
-        result = handler(provider=provider, **kwargs)
-        assistant_text = str(result[4] or "") if len(result) > 4 else ""
-        action = str(result[0] or "").strip().lower() if result else ""
-        summary_status = "failed" if action == "return" else "completed"
-        summary = RoundSummary(
-            status=summary_status,
-            duration_ms=(time.perf_counter() - started) * 1000.0,
-            assistant_chars=len(assistant_text),
-        )
-        outcome = LegacyRoundOutcome(
-            provider=normalized_provider,
-            status=action,
-            assistant_text=assistant_text,
-            raw_result=result,
-            client=result[1] if len(result) > 1 else None,
-            capabilities=RoundOutcomeCapabilities(
-                owns_tool_execution=True,
-                host_rendered=True,
-            ),
-            summary=summary,
-        )
-        observability_span.set_attribute("uag.status", summary.status)
-        observability_span.set_attribute("uag.duration_ms", summary.duration_ms)
-        if summary.status == "failed":
-            observability_span.set_status("error", "legacy provider round failed")
-        else:
-            observability_span.set_status("ok")
-        return outcome
+    started = time.perf_counter()
+    result = handler(provider=provider, **kwargs)
+    assistant_text = str(result[4] or "") if len(result) > 4 else ""
+    action = str(result[0] or "").strip().lower() if result else ""
+    summary = RoundSummary(
+        status=_summary_status_for_action(action),
+        duration_ms=(time.perf_counter() - started) * 1000.0,
+        assistant_chars=len(assistant_text),
+    )
+    return LegacyRoundOutcome(
+        provider=normalized_provider,
+        status=action,
+        assistant_text=assistant_text,
+        raw_result=result,
+        client=result[1] if len(result) > 1 else None,
+        capabilities=RoundOutcomeCapabilities(
+            owns_tool_execution=True,
+            host_rendered=True,
+        ),
+        summary=summary,
+    )
 
 
 __all__ = [
