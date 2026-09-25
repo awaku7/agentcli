@@ -109,9 +109,7 @@ def test_non_web_agent_execution_projects_explicit_turn_metadata(monkeypatch) ->
     assert "principal_id" not in backend.spans[0]["attributes"]
 
 
-def test_late_resolved_turn_enriches_active_agent_span(
-    monkeypatch, tmp_path
-) -> None:
+def test_late_resolved_turn_enriches_active_agent_span(monkeypatch, tmp_path) -> None:
     from uagent.runtime.turn_context_runtime import call_with_resolved_turn_context
 
     backend = _Backend()
