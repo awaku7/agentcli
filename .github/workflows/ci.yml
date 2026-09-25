@@ -83,7 +83,11 @@ jobs:
         run: python -m ruff check src tests
 
       - name: Black
-        run: python -m black --check src tests
+        shell: bash
+        run: |
+          python -m black src/uagent/a2a/engine.py tests/test_observability_runtime_tracing.py
+          git diff -- src/uagent/a2a/engine.py tests/test_observability_runtime_tracing.py
+          exit 1
 
       - name: I18N catalog status
         run: python scripts/tool_json_i18n_batch.py status
