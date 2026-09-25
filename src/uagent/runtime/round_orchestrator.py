@@ -189,25 +189,10 @@ class RoundOrchestrator:
         for key, attribute_name in reported_names.items():
             if key in usage_delta:
                 observability_span.set_attribute(attribute_name, usage_delta[key])
-        if status == "completed":
-            observability_span.set_status("ok")
-        elif status in {"failed", "timed_out", "interrupted"}:
-            error_type = str((result.error or {}).get("error_type") or status)
-            observability_span.set_status("error", error_type)
-        observability_span.add_event(
-            "llm.round.completed",
-            {
-                "uag.status": status,
-                "uag.tool_call_count": summary.tool_call_count,
-            },
-        )
-        log_event(
-            "llm.round.completed",
-            provider=request.provider,
-            model=request.model,
-            **summary.to_dict(),
-            **usage_delta,
-        )
+
+        # The provider response is not the end of the logical round. Responses
+        # continuation/session synchronization is part of the canonical boundary,
+        # so do not mark the span OK until this post-processing has succeeded.
         if continuation_update:
             responses_runtime = session.get("responses_runtime")
             sync_completed = getattr(responses_runtime, "sync_completed_response", None)
@@ -228,6 +213,26 @@ class RoundOrchestrator:
                 transition = getattr(responses_runtime, terminal_transition, None)
                 if callable(transition):
                     transition()
+
+        if status == "completed":
+            observability_span.set_status("ok")
+        elif status in {"failed", "timed_out", "interrupted"}:
+            error_type = str((result.error or {}).get("error_type") or status)
+            observability_span.set_status("error", error_type)
+        observability_span.add_event(
+            "llm.round.completed",
+            {
+                "uag.status": status,
+                "uag.tool_call_count": summary.tool_call_count,
+            },
+        )
+        log_event(
+            "llm.round.completed",
+            provider=request.provider,
+            model=request.model,
+            **summary.to_dict(),
+            **usage_delta,
+        )
         return OrchestratedRound(
             request=request,
             events=tuple(events),
