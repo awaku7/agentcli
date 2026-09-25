@@ -55,16 +55,18 @@ Important pieces are:
 - `settings.py`: activation and privacy policy resolution;
 - `bootstrap.py`: process-level lazy initialization and safe no-op fallback;
 - `dependencies.py`: `_pip_auto.install_with_status()` dependency readiness;
-- `otel_backend.py`: OTel SDK/OTLP projection backend;
+- `otel_backend.py`: OTel SDK/OTLP trace and metric projection backend;
 - `semantic_mapping.py`: the only location that maps UAG operations to OTel/GenAI semantic names;
 - `privacy.py`: remote attribute filtering;
-- `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries.
+- `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries;
+- `boundary_instrumentation.py`: best-effort wrappers around UAG-owned Memory and Decision Log persistence boundaries;
+- `decision_log.py`: metadata-only trace/span correlation for persisted Context decision batches.
 
-Runtime code must not depend directly on OTel SDK span classes or scatter `gen_ai.*` attributes throughout the codebase.
+Runtime code must not depend directly on OTel SDK span or meter classes or scatter `gen_ai.*` attributes throughout the codebase.
 
 ## Canonical Phase-1 spans
 
-UAG owns three canonical logical span families in this phase:
+UAG owns three canonical logical span families from Phase 1:
 
 ```text
 invoke_agent uag
@@ -86,32 +88,65 @@ uag.tokens.reported.*
 
 Never report estimates as provider-exact usage. Fallback providers attach reported deltas only when the provider has populated the existing authoritative legacy usage state; missing usage is omitted rather than invented.
 
+## Phase-2 Context, Memory, and Retrieval spans
+
+Phase 2 adds UAG-owned spans at existing centralized boundaries without changing selection, authorization, or provider behavior.
+
+- `uag.context.build` covers provider-neutral message/candidate Context construction.
+- `retrieval` with `uag.retrieval.kind=context` covers persisted Context retrieval.
+- `retrieval` with `uag.retrieval.kind=memory` covers Memory retrieval used by projection.
+- Decision Log persistence remains UAG-owned storage. After a batch is persisted, a metadata-only event records aggregate action counts and the active trace/span IDs when available.
+
+These spans export aggregate counts and sizes only. They must not export prompts, memory/profile text, retrieval queries, decision reasons, item IDs, memory IDs, references, owners, principals, rooms, projects, sessions, or turns.
+
+## Phase-2 metrics
+
+`ObservabilityBackend` exposes provider-neutral counter and histogram operations. The no-op backend accepts those calls without work, and runtime code never imports OTel meter types.
+
+Initial low-cardinality metrics include:
+
+- `uag.context.raw.chars`, `uag.context.active.chars`, `uag.context.saved.chars`;
+- `uag.context.raw.tokens`, `uag.context.active.tokens`, `uag.context.saved.tokens` when available;
+- `uag.context.saved.ratio`;
+- `uag.context.decisions` with only the bounded decision action dimension;
+- `uag.retrieval.records`, `uag.retrieval.candidates`;
+- `uag.memory.records`, `uag.memory.candidates`.
+
+Metric dimensions use an explicit allowlist. Raw identity/scope IDs, trace/span IDs, item/memory IDs, references, arbitrary user strings, file paths, URLs, and query/content text are never metric dimensions.
+
 ## OTLP and standard OTel configuration
 
 After UAG product-level activation is enabled, exporter/sampler behavior uses standard OTel environment settings.
 
-Supported trace exporter values in this phase:
+Supported trace exporter values:
 
 - `OTEL_TRACES_EXPORTER=otlp` (default when UAG OTel is enabled)
 - `OTEL_TRACES_EXPORTER=none`
+
+Supported metric exporter values:
+
+- `OTEL_METRICS_EXPORTER=otlp` (default when UAG OTel is enabled)
+- `OTEL_METRICS_EXPORTER=none`
+
+Trace and metric initialization are failure-isolated. In particular, `OTEL_METRICS_EXPORTER=none` leaves tracing operational, and a metrics exporter initialization/recording failure must not disable tracing or fail Agent execution.
 
 Supported OTLP protocols:
 
 - `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf` (default)
 - `OTEL_EXPORTER_OTLP_PROTOCOL=grpc`
-- signal-specific `OTEL_EXPORTER_OTLP_TRACES_PROTOCOL` overrides the generic protocol.
+- signal-specific `OTEL_EXPORTER_OTLP_TRACES_PROTOCOL` and `OTEL_EXPORTER_OTLP_METRICS_PROTOCOL` override the generic protocol.
 
-Normal OTel endpoint/header variables are passed through to the selected exporter, including `OTEL_EXPORTER_OTLP_ENDPOINT`, `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`, and the corresponding header variables.
+Normal OTel endpoint/header variables are passed through to the selected exporter, including `OTEL_EXPORTER_OTLP_ENDPOINT`, signal-specific endpoint variables, and the corresponding header variables.
 
 `OTEL_SERVICE_NAME` defaults to `uagent` when absent.
 
-Phase-1 sampler handling supports the common standard values `always_on`, `always_off`, `traceidratio`, `parentbased_always_on`, `parentbased_always_off`, and `parentbased_traceidratio`, with `OTEL_TRACES_SAMPLER_ARG` used for ratio sampling.
+Sampler handling supports the common standard values `always_on`, `always_off`, `traceidratio`, `parentbased_always_on`, `parentbased_always_off`, and `parentbased_traceidratio`, with `OTEL_TRACES_SAMPLER_ARG` used for ratio sampling.
 
 ## Dependency installation and failure isolation
 
 OpenTelemetry stays outside the minimal install. When effective UAG OTel activation is ON, readiness uses the existing `_pip_auto.install_with_status()` mechanism. `UAGENT_AUTO_INSTALL=allow|prompt|off` remains authoritative.
 
-Importing UAG by itself does not install OTel. Exporter/dependency/bootstrap failures fall back to the no-op backend and must never fail an Agent task.
+Importing UAG by itself does not install OTel. Exporter/dependency/bootstrap failures fall back to the no-op backend and must never fail an Agent task. Metrics failures are isolated from the already-initialized trace provider.
 
 ## Privacy and content capture
 
@@ -124,9 +159,10 @@ Never export raw values such as:
 - Authorization/Cookie values, access/refresh/ID/session tokens, client secrets;
 - `principal_id`, OIDC subject/display name/groups;
 - room/project/session identifiers by default;
-- prompt/response/reasoning/tool-result/memory/artifact/file bodies by default.
+- prompt/response/reasoning/tool-result/memory/artifact/file bodies by default;
+- Memory/retrieval queries, Decision Log reasons, item IDs, memory IDs, or references.
 
-## Web/OIDC Phase-1 boundary
+## Web/OIDC boundary
 
 OpenTelemetry observes authorized execution; it is not part of authentication or authorization.
 
@@ -142,4 +178,4 @@ Web Agent spans always start as fresh OTel roots. This intentionally detaches th
 
 ## Later phases
 
-Context/Memory/Retrieval spans, metrics, Decision Log linkage, and trusted Sub-Agent/A2A/MCP distributed propagation remain separate follow-up phases. Provider SDK auto-instrumentation, if added later, is diagnostic nesting only and never replaces UAG's canonical logical spans.
+Trusted Sub-Agent/A2A/MCP distributed propagation remains a separate follow-up phase. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.

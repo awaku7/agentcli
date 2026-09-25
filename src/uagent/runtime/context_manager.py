@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from typing import Any, Sequence
 
 from .active_context import (
@@ -16,6 +17,7 @@ from .context_retrieval import retrieve_candidates
 from .context_plan_builder import build_context_plan as _build_context_plan
 from .context_policy import ContextPolicy
 from .context_tools import ToolDefinitionSelection, select_tool_definitions
+from .observability.bootstrap import get_observability_backend
 from .round_contracts import ContextPlan
 from .round_identity import WorkspaceKeyProvider
 from .tool_result_manager import (
@@ -23,6 +25,75 @@ from .tool_result_manager import (
     ToolResultProjections,
     ToolResultRecord,
 )
+
+
+def _record_context_observability(
+    backend: Any,
+    span: Any,
+    active: ActiveContext,
+    *,
+    kind: str,
+    input_count: int,
+) -> None:
+    """Record aggregate-only Context telemetry; never affect runtime behavior."""
+
+    try:
+        report = active.report
+        span.set_attribute("uag.context.kind", kind)
+        span.set_attribute("uag.context.input_count", max(0, int(input_count)))
+        span.set_attribute("uag.context.raw_chars", report.raw_chars)
+        span.set_attribute("uag.context.active_chars", report.active_chars)
+        span.set_attribute("uag.context.saved_chars", report.saved_chars)
+        if report.raw_tokens is not None:
+            span.set_attribute("uag.context.raw_tokens", report.raw_tokens)
+        if report.active_tokens is not None:
+            span.set_attribute("uag.context.active_tokens", report.active_tokens)
+        if report.saved_tokens is not None:
+            span.set_attribute("uag.context.saved_tokens", report.saved_tokens)
+        if report.saved_ratio is not None:
+            span.set_attribute("uag.context.saved_ratio", report.saved_ratio)
+
+        metric_attributes = {"uag.context.kind": kind}
+        backend.record_histogram(
+            "uag.context.raw.chars", report.raw_chars, metric_attributes
+        )
+        backend.record_histogram(
+            "uag.context.active.chars", report.active_chars, metric_attributes
+        )
+        backend.record_histogram(
+            "uag.context.saved.chars", report.saved_chars, metric_attributes
+        )
+        if report.raw_tokens is not None:
+            backend.record_histogram(
+                "uag.context.raw.tokens", report.raw_tokens, metric_attributes
+            )
+        if report.active_tokens is not None:
+            backend.record_histogram(
+                "uag.context.active.tokens", report.active_tokens, metric_attributes
+            )
+        if report.saved_tokens is not None:
+            backend.record_histogram(
+                "uag.context.saved.tokens", report.saved_tokens, metric_attributes
+            )
+        if report.saved_ratio is not None:
+            backend.record_histogram(
+                "uag.context.saved.ratio", report.saved_ratio, metric_attributes
+            )
+
+        action_counts = Counter(decision.action for decision in active.decisions)
+        for action, count in action_counts.items():
+            normalized = str(action or "").upper()
+            span.set_attribute(
+                f"uag.context.decisions.{normalized.casefold()}", int(count)
+            )
+            backend.record_counter(
+                "uag.context.decisions",
+                int(count),
+                {"uag.context.decision.action": normalized},
+            )
+        span.set_status("ok")
+    except Exception:
+        pass
 
 
 class ContextManager:
@@ -145,9 +216,24 @@ class ContextManager:
         budget: ContextBudget | None = None,
     ) -> ActiveContext:
         """Build a provider-neutral context while preserving message order."""
-        active = self.active_context_builder.build_message_context(
-            messages, budget=budget or self.budget
-        )
+        backend = get_observability_backend()
+        with backend.start_span(
+            "uag.context.build",
+            attributes={
+                "uag.context.kind": "messages",
+                "uag.context.input_count": len(messages),
+            },
+        ) as span:
+            active = self.active_context_builder.build_message_context(
+                messages, budget=budget or self.budget
+            )
+            _record_context_observability(
+                backend,
+                span,
+                active,
+                kind="messages",
+                input_count=len(messages),
+            )
         self.last_active_context = active
         return active
 
@@ -178,18 +264,33 @@ class ContextManager:
         budget: ContextBudget | None = None,
     ) -> ActiveContext:
         """Run decisions and build the provider-neutral context for one call."""
-        active_budget = budget or self.budget
-        selected = (
-            list(decisions)
-            if decisions is not None
-            else self.decision_engine.decide(candidates, budget=active_budget)
-        )
-        active = self.active_context_builder.build_active_context(
-            task=task,
-            candidates=candidates,
-            decisions=selected,
-            budget=active_budget,
-        )
+        backend = get_observability_backend()
+        with backend.start_span(
+            "uag.context.build",
+            attributes={
+                "uag.context.kind": "candidates",
+                "uag.context.input_count": len(candidates),
+            },
+        ) as span:
+            active_budget = budget or self.budget
+            selected = (
+                list(decisions)
+                if decisions is not None
+                else self.decision_engine.decide(candidates, budget=active_budget)
+            )
+            active = self.active_context_builder.build_active_context(
+                task=task,
+                candidates=candidates,
+                decisions=selected,
+                budget=active_budget,
+            )
+            _record_context_observability(
+                backend,
+                span,
+                active,
+                kind="candidates",
+                input_count=len(candidates),
+            )
         self.last_active_context = active
         return active
 
@@ -234,10 +335,6 @@ class ContextManager:
             )
             if not self.decision_engine.needs_additional_retrieval(active.decisions):
                 return active
-            # Duplicate persisted IDs are removed by retrieval, so compare
-            # against the number of unique records before requesting another
-            # round. This keeps replayed tool results from causing pointless
-            # retrieval rounds.
             unique_record_ids = {
                 str(record.get("result_id") or record.get("item_id") or f"record-{i}")
                 for i, record in enumerate(records)

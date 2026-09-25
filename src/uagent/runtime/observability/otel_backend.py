@@ -13,6 +13,37 @@ from .privacy import sanitize_attributes
 from .semantic_mapping import map_span
 from .settings import ObservabilitySettings
 
+_METRIC_STRING_VALUES = {
+    "uag.context.kind": {"messages", "candidates"},
+    "uag.context.decision.action": {"KEEP", "COMPACT", "EXCLUDE", "RETRIEVE_MORE"},
+    "uag.retrieval.kind": {"context", "memory"},
+    "uag.memory.scope_mode": {"local", "scoped"},
+    "uag.status": {"ok", "error", "disabled"},
+}
+_METRIC_BOOLEAN_KEYS = {
+    "uag.memory.identity_bound",
+    "uag.memory.profile_present",
+    "uag.memory.guidance_present",
+    "uag.memory.shared_enabled",
+}
+
+
+def _sanitize_metric_attributes(
+    attributes: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    """Return a deliberately tiny low-cardinality metric attribute set."""
+
+    safe: dict[str, Any] = {}
+    for key, value in dict(attributes or {}).items():
+        name = str(key or "").strip()
+        if name in _METRIC_STRING_VALUES:
+            rendered = str(value or "").strip()
+            if rendered in _METRIC_STRING_VALUES[name]:
+                safe[name] = rendered
+        elif name in _METRIC_BOOLEAN_KEYS and isinstance(value, bool):
+            safe[name] = value
+    return safe
+
 
 class OpenTelemetrySpan:
     """Small adapter around an OpenTelemetry SDK span."""
@@ -74,7 +105,7 @@ class OpenTelemetrySpan:
 
 
 class OpenTelemetryBackend:
-    """Process-level OTel backend using a UAG-owned tracer provider."""
+    """Process-level OTel backend using UAG-owned trace and metric providers."""
 
     def __init__(
         self,
@@ -82,10 +113,16 @@ class OpenTelemetryBackend:
         tracer: Any,
         provider: Any,
         settings: ObservabilitySettings,
+        meter: Any | None = None,
+        meter_provider: Any | None = None,
     ) -> None:
         self._tracer = tracer
         self._provider = provider
         self._settings = settings
+        self._meter = meter
+        self._meter_provider = meter_provider
+        self._counter_instruments: dict[str, Any] = {}
+        self._histogram_instruments: dict[str, Any] = {}
         self._shutdown = False
 
     @property
@@ -126,10 +163,6 @@ class OpenTelemetryBackend:
         try:
             yield span
         except BaseException as exc:
-            # The lifecycle boundary can classify arbitrary host-specific
-            # exceptions as cancellation before they unwind through this
-            # adapter. Preserve that explicit UNSET/cancelled terminal state
-            # instead of reclassifying the same cancellation as an error.
             if not span.cancelled:
                 span.record_exception(exc)
                 span.set_status("error", type(exc).__name__)
@@ -163,6 +196,40 @@ class OpenTelemetryBackend:
         except Exception:
             pass
 
+    def record_counter(
+        self,
+        name: str,
+        value: int | float = 1,
+        attributes: Mapping[str, Any] | None = None,
+    ) -> None:
+        if self._meter is None or isinstance(value, bool):
+            return
+        try:
+            instrument = self._counter_instruments.get(name)
+            if instrument is None:
+                instrument = self._meter.create_counter(str(name))
+                self._counter_instruments[str(name)] = instrument
+            instrument.add(value, _sanitize_metric_attributes(attributes))
+        except Exception:
+            pass
+
+    def record_histogram(
+        self,
+        name: str,
+        value: int | float,
+        attributes: Mapping[str, Any] | None = None,
+    ) -> None:
+        if self._meter is None or isinstance(value, bool):
+            return
+        try:
+            instrument = self._histogram_instruments.get(name)
+            if instrument is None:
+                instrument = self._meter.create_histogram(str(name))
+                self._histogram_instruments[str(name)] = instrument
+            instrument.record(value, _sanitize_metric_attributes(attributes))
+        except Exception:
+            pass
+
     def current_trace_ids(self) -> TraceIds:
         try:
             from opentelemetry import trace
@@ -181,6 +248,11 @@ class OpenTelemetryBackend:
         if self._shutdown:
             return
         self._shutdown = True
+        try:
+            if self._meter_provider is not None:
+                self._meter_provider.shutdown()
+        except Exception:
+            pass
         try:
             self._provider.shutdown()
         except Exception:
@@ -249,26 +321,77 @@ def _build_trace_exporter() -> Any | None:
     raise ValueError(f"unsupported OTLP traces protocol: {protocol}")
 
 
+def _build_metric_exporter() -> Any | None:
+    configured = (os.getenv("OTEL_METRICS_EXPORTER") or "otlp").strip().lower()
+    exporters = {item.strip() for item in configured.split(",") if item.strip()}
+    if exporters == {"none"}:
+        return None
+    if "otlp" not in exporters:
+        raise ValueError("UAG metrics supports OTEL_METRICS_EXPORTER=otlp or none")
+
+    protocol = (
+        (
+            os.getenv("OTEL_EXPORTER_OTLP_METRICS_PROTOCOL")
+            or os.getenv("OTEL_EXPORTER_OTLP_PROTOCOL")
+            or "http/protobuf"
+        )
+        .strip()
+        .lower()
+    )
+    if protocol == "grpc":
+        from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
+            OTLPMetricExporter,
+        )
+
+        return OTLPMetricExporter()
+    if protocol == "http/protobuf":
+        from opentelemetry.exporter.otlp.proto.http.metric_exporter import (
+            OTLPMetricExporter,
+        )
+
+        return OTLPMetricExporter()
+    raise ValueError(f"unsupported OTLP metrics protocol: {protocol}")
+
+
 def create_otel_backend(settings: ObservabilitySettings) -> OpenTelemetryBackend:
-    """Create the supported OTel tracer provider/exporter projection."""
+    """Create the supported OTel trace projection and best-effort metrics."""
 
     from opentelemetry.sdk.resources import Resource
     from opentelemetry.sdk.trace import TracerProvider
     from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
     service_name = (os.getenv("OTEL_SERVICE_NAME") or "uagent").strip() or "uagent"
-    provider = TracerProvider(
-        resource=Resource.create({"service.name": service_name}),
-        sampler=_sampler_from_environment(),
-    )
+    resource = Resource.create({"service.name": service_name})
+    provider = TracerProvider(resource=resource, sampler=_sampler_from_environment())
     exporter = _build_trace_exporter()
     if exporter is not None:
         provider.add_span_processor(BatchSpanProcessor(exporter))
     tracer = provider.get_tracer("uagent.runtime.observability")
+
+    meter = None
+    meter_provider = None
+    try:
+        metric_exporter = _build_metric_exporter()
+        if metric_exporter is not None:
+            from opentelemetry.sdk.metrics import MeterProvider
+            from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
+
+            metric_reader = PeriodicExportingMetricReader(metric_exporter)
+            meter_provider = MeterProvider(
+                resource=resource,
+                metric_readers=[metric_reader],
+            )
+            meter = meter_provider.get_meter("uagent.runtime.observability")
+    except Exception:
+        meter = None
+        meter_provider = None
+
     backend = OpenTelemetryBackend(
         tracer=tracer,
         provider=provider,
         settings=settings,
+        meter=meter,
+        meter_provider=meter_provider,
     )
     atexit.register(backend.shutdown)
     return backend
