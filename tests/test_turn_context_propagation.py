@@ -35,6 +35,26 @@ def test_call_with_resolved_turn_context_binds_and_restores(
     assert get_current_turn_context() is None
 
 
+def test_resolved_turn_context_can_wrap_outer_lifecycle_boundary(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime.identity_context import get_current_turn_context
+    from uagent.runtime.turn_context_runtime import resolved_turn_context
+
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+
+    with resolved_turn_context(
+        entry_point="gui",
+        project_path=str(tmp_path),
+        session_id="session-outer",
+    ) as turn:
+        assert get_current_turn_context() is turn
+        assert turn.entry_point == "gui"
+        assert turn.session_id == "session-outer"
+
+    assert get_current_turn_context() is None
+
+
 def test_web_coordinates_remain_distinct(tmp_path, monkeypatch) -> None:
     from uagent.runtime.identity_context import get_current_turn_context
     from uagent.runtime.turn_context_runtime import call_with_resolved_turn_context
