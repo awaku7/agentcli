@@ -83,10 +83,7 @@ jobs:
         run: python -m ruff check src tests
 
       - name: Black
-        run: |
-          python -m black src/uagent/runtime/observability/settings.py tests/test_observability_settings.py
-          git diff -- src/uagent/runtime/observability/settings.py tests/test_observability_settings.py
-          git diff --exit-code src/uagent/runtime/observability/settings.py tests/test_observability_settings.py
+        run: python -m black --check src tests
 
       - name: I18N catalog status
         run: python scripts/tool_json_i18n_batch.py status
