@@ -10,9 +10,15 @@ This module acts as a common gateway for all tools under the tools/ directory.
 
 from __future__ import annotations
 
-from contextvars import ContextVar
+import sys
 from dataclasses import dataclass
 from typing import Any, Callable, Optional
+
+from ..runtime.subagent_context import (
+    get_active_sub_agent_name,
+    reset_active_sub_agent_name,
+    set_active_sub_agent_name,
+)
 
 
 @dataclass
@@ -69,21 +75,117 @@ class ToolCallbacks:
     read_file_max_bytes: int = 1_000_000
 
 
-_ACTIVE_SUB_AGENT: ContextVar[str | None] = ContextVar(
-    "uagent_active_sub_agent", default=None
+_SAFE_OBSERVABILITY_SUB_AGENT_NAMES = frozenset(
+    {
+        "planner",
+        "reviewer",
+        "summarizer",
+        "patch_designer",
+        "error_analyst",
+        "translator",
+        "general",
+    }
 )
 
 
+@dataclass
+class _ActiveSubAgentToken:
+    context_token: Any
+    span_manager: Any = None
+    span: Any = None
+
+
+def _observability_sub_agent_name(name: str | None) -> str | None:
+    """Return only bounded metadata for remote observability export."""
+
+    normalized = str(name or "").strip()
+    if not normalized:
+        return None
+    if normalized in _SAFE_OBSERVABILITY_SUB_AGENT_NAMES:
+        return normalized
+    return "custom"
+
+
+def _reset_active_sub_agent_context_token(token: Any) -> None:
+    """Reset stable runtime tokens and pre-Phase-3 legacy tokens."""
+
+    try:
+        reset_active_sub_agent_name(token)
+        return
+    except ValueError:
+        token_var = getattr(token, "var", None)
+        if token_var is None:
+            raise
+        token_var.reset(token)
+
+
 def set_active_sub_agent(name: str | None):
-    return _ACTIVE_SUB_AGENT.set(str(name) if name else None)
+    """Bind the active sub-agent and open its canonical child Agent span.
+
+    The process-local active name remains available to tool behavior, but the
+    exported span name is restricted to built-in role names or the fixed
+    ``custom`` bucket. Arbitrary tool arguments never become remote metadata.
+    """
+
+    normalized = str(name) if name else None
+    context_token = set_active_sub_agent_name(normalized)
+    span_manager = None
+    span = None
+    observability_name = _observability_sub_agent_name(normalized)
+
+    if observability_name:
+        try:
+            from ..runtime.observability.bootstrap import get_observability_backend
+
+            backend = get_observability_backend()
+            span_manager = backend.start_span(
+                "invoke_agent",
+                attributes={"uag.agent.name": observability_name},
+            )
+            span = span_manager.__enter__()
+        except Exception:
+            span_manager = None
+            span = None
+
+    return _ActiveSubAgentToken(
+        context_token=context_token,
+        span_manager=span_manager,
+        span=span,
+    )
 
 
 def reset_active_sub_agent(token: Any) -> None:
-    _ACTIVE_SUB_AGENT.reset(token)
+    """Close the active sub-agent span and restore the prior context.
+
+    Observability is best-effort only. Any tracing failure is isolated from the
+    sub-agent result, and older plain ContextVar tokens remain accepted for
+    compatibility with callers across hot reloads.
+    """
+
+    if hasattr(token, "context_token") and hasattr(token, "span_manager"):
+        try:
+            span_manager = getattr(token, "span_manager", None)
+            span = getattr(token, "span", None)
+            if span_manager is not None:
+                exc_type, exc, traceback = sys.exc_info()
+                if exc_type is None and span is not None:
+                    try:
+                        span.set_status("ok")
+                    except Exception:
+                        pass
+                try:
+                    span_manager.__exit__(exc_type, exc, traceback)
+                except Exception:
+                    pass
+        finally:
+            _reset_active_sub_agent_context_token(token.context_token)
+        return
+
+    _reset_active_sub_agent_context_token(token)
 
 
 def get_active_sub_agent() -> str | None:
-    return _ACTIVE_SUB_AGENT.get()
+    return get_active_sub_agent_name()
 
 
 # Preserve injected host callbacks across hot-reloads.  ``system_reload`` reloads
