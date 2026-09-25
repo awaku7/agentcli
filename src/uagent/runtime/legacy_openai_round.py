@@ -83,33 +83,52 @@ def call_legacy_openai_compatible_outcome(
     **kwargs: Any,
 ) -> LegacyRoundOutcome:
     """Wrap the OpenAI-compatible tuple for the shared legacy boundary."""
-    result = call_legacy_openai_compatible_round(**kwargs)
-    ok, client, assistant_text, reasoning_text, tool_calls, is_xai_grpc = result
-    normalized_tool_calls = tuple(tool_calls or ())
-    return LegacyRoundOutcome(
-        provider=str(kwargs.get("provider") or "").strip().lower(),
-        status="ok" if ok else "return",
-        assistant_text=str(assistant_text or ""),
-        raw_result=result,
-        client=client,
-        reasoning_text=str(reasoning_text or ""),
-        tool_calls=normalized_tool_calls,
-        is_xai_grpc=bool(is_xai_grpc),
-        capabilities=RoundOutcomeCapabilities(
-            host_rendered=bool(
-                kwargs.get("stream_responses")
-                and (is_xai_grpc or str(kwargs.get("provider") or "") == "inception")
-            ),
-            supports_tool_continuation=bool(tool_calls),
-        ),
-        flow="openai_compatible",
-        summary=RoundSummary(
+
+    from .observability.runtime import fallback_chat_span
+
+    with fallback_chat_span(
+        provider=str(kwargs.get("provider") or ""),
+        model=str(kwargs.get("depname") or ""),
+        request_input=kwargs.get("call_messages") or (),
+        core=kwargs.get("core"),
+    ) as observability_span:
+        result = call_legacy_openai_compatible_round(**kwargs)
+        ok, client, assistant_text, reasoning_text, tool_calls, is_xai_grpc = result
+        normalized_tool_calls = tuple(tool_calls or ())
+        summary = RoundSummary(
             status="completed" if ok else "failed",
             tool_call_count=len(normalized_tool_calls),
             assistant_chars=len(str(assistant_text or "")),
             reasoning_chars=len(str(reasoning_text or "")),
-        ),
-    )
+        )
+        outcome = LegacyRoundOutcome(
+            provider=str(kwargs.get("provider") or "").strip().lower(),
+            status="ok" if ok else "return",
+            assistant_text=str(assistant_text or ""),
+            raw_result=result,
+            client=client,
+            reasoning_text=str(reasoning_text or ""),
+            tool_calls=normalized_tool_calls,
+            is_xai_grpc=bool(is_xai_grpc),
+            capabilities=RoundOutcomeCapabilities(
+                host_rendered=bool(
+                    kwargs.get("stream_responses")
+                    and (
+                        is_xai_grpc
+                        or str(kwargs.get("provider") or "") == "inception"
+                    )
+                ),
+                supports_tool_continuation=bool(tool_calls),
+            ),
+            flow="openai_compatible",
+            summary=summary,
+        )
+        observability_span.set_attribute("uag.status", summary.status)
+        if ok:
+            observability_span.set_status("ok")
+        else:
+            observability_span.set_status("error", "provider round failed")
+        return outcome
 
 
 __all__ = [
