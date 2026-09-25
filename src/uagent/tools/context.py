@@ -106,6 +106,19 @@ def _observability_sub_agent_name(name: str | None) -> str | None:
     return "custom"
 
 
+def _reset_active_sub_agent_context_token(token: Any) -> None:
+    """Reset stable runtime tokens and pre-Phase-3 legacy tokens."""
+
+    try:
+        reset_active_sub_agent_name(token)
+        return
+    except ValueError:
+        token_var = getattr(token, "var", None)
+        if token_var is None:
+            raise
+        token_var.reset(token)
+
+
 def set_active_sub_agent(name: str | None):
     """Bind the active sub-agent and open its canonical child Agent span.
 
@@ -165,10 +178,10 @@ def reset_active_sub_agent(token: Any) -> None:
                 except Exception:
                     pass
         finally:
-            reset_active_sub_agent_name(token.context_token)
+            _reset_active_sub_agent_context_token(token.context_token)
         return
 
-    reset_active_sub_agent_name(token)
+    _reset_active_sub_agent_context_token(token)
 
 
 def get_active_sub_agent() -> str | None:
