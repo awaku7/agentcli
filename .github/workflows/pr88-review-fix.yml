@@ -21,69 +21,10 @@ jobs:
       - name: Apply review fix
         shell: bash
         run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          src = Path("src/uagent/tools/sub_agent_tool.py")
-          lines = src.read_text(encoding="utf-8").splitlines(keepends=True)
-          token_line = '    sub_agent_token = set_active_sub_agent(agent_name)\n'
-          token_idx = lines.index(token_line)
-          setup_start = token_idx + 1
-          runner_try_idx = next(
-              i for i in range(setup_start, len(lines) - 1)
-              if lines[i] == '    try:\n' and lines[i + 1] == '        result = _runner.run(\n'
-          )
-          setup = lines[setup_start:runner_try_idx]
-          indented_setup = [("    " + line) if line.strip() else line for line in setup]
-          lines[setup_start:runner_try_idx + 1] = ['    try:\n'] + indented_setup
-          src.write_text("".join(lines), encoding="utf-8")
-
-          test = Path("tests/test_observability_phase3_subagent.py")
-          text = test.read_text(encoding="utf-8")
-          import_anchor = 'from uagent.tools import context as tool_context\n'
-          import_line = 'from uagent.tools import sub_agent_tool\n'
-          if import_line not in text:
-              text = text.replace(import_anchor, import_anchor + import_line, 1)
-
-          test_name = 'def test_sub_agent_status_failure_restores_context_and_closes_span('
-          if test_name not in text:
-              anchor = 'def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> None:\n'
-              addition = '''def test_sub_agent_status_failure_restores_context_and_closes_span(monkeypatch) -> None:
-    backend = _FakeBackend()
-    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
-
-    class _Callbacks:
-        def set_status(self, active: bool, message: str) -> None:
-            if active:
-                raise RuntimeError("status unavailable")
-
-    monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: _Callbacks())
-    reasoning_token = sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.set("parent")
-    try:
-        with pytest.raises(RuntimeError, match="status unavailable"):
-            sub_agent_tool.run_tool(
-                {"agent_name": "planner", "task": "do not execute"}
-            )
-
-        assert tool_context.get_active_sub_agent() is None
-        assert backend.active.get() == "parent"
-        assert sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.get() == "parent"
-    finally:
-        sub_agent_tool._SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
-
-    assert backend.calls[0]["exc_type"] is RuntimeError
-
-
-'''
-              if anchor not in text:
-                  raise SystemExit("test insertion anchor not found")
-              text = text.replace(anchor, addition + anchor, 1)
-          test.write_text(text, encoding="utf-8")
-          PY
-
+          echo 'ZnJvbSBwYXRobGliIGltcG9ydCBQYXRoCgpzcmMgPSBQYXRoKCJzcmMvdWFnZW50L3Rvb2xzL3N1Yl9hZ2VudF90b29sLnB5IikKbGluZXMgPSBzcmMucmVhZF90ZXh0KGVuY29kaW5nPSJ1dGYtOCIpLnNwbGl0bGluZXMoa2VlcGVuZHM9VHJ1ZSkKdG9rZW5fbGluZSA9ICcgICAgc3ViX2FnZW50X3Rva2VuID0gc2V0X2FjdGl2ZV9zdWJfYWdlbnQoYWdlbnRfbmFtZSlcbicKdG9rZW5faWR4ID0gbGluZXMuaW5kZXgodG9rZW5fbGluZSkKc2V0dXBfc3RhcnQgPSB0b2tlbl9pZHggKyAxCnJ1bm5lcl90cnlfaWR4ID0gbmV4dCgKICAgIGkgZm9yIGkgaW4gcmFuZ2Uoc2V0dXBfc3RhcnQsIGxlbihsaW5lcykgLSAxKQogICAgaWYgbGluZXNbaV0gPT0gJyAgICB0cnk6XG4nIGFuZCBsaW5lc1tpICsgMV0gPT0gJyAgICAgICAgcmVzdWx0ID0gX3J1bm5lci5ydW4oXG4nCikKc2V0dXAgPSBsaW5lc1tzZXR1cF9zdGFydDpydW5uZXJfdHJ5X2lkeF0KaW5kZW50ZWRfc2V0dXAgPSBbKCIgICAgIiArIGxpbmUpIGlmIGxpbmUuc3RyaXAoKSBlbHNlIGxpbmUgZm9yIGxpbmUgaW4gc2V0dXBdCmxpbmVzW3NldHVwX3N0YXJ0OnJ1bm5lcl90cnlfaWR4ICsgMV0gPSBbJyAgICB0cnk6XG4nXSArIGluZGVudGVkX3NldHVwCnNyYy53cml0ZV90ZXh0KCIiLmpvaW4obGluZXMpLCBlbmNvZGluZz0idXRmLTgiKQoKdGVzdCA9IFBhdGgoInRlc3RzL3Rlc3Rfb2JzZXJ2YWJpbGl0eV9waGFzZTNfc3ViYWdlbnQucHkiKQp0ZXh0ID0gdGVzdC5yZWFkX3RleHQoZW5jb2Rpbmc9InV0Zi04IikKaW1wb3J0X2FuY2hvciA9ICdmcm9tIHVhZ2VudC50b29scyBpbXBvcnQgY29udGV4dCBhcyB0b29sX2NvbnRleHRcbicKaW1wb3J0X2xpbmUgPSAnZnJvbSB1YWdlbnQudG9vbHMgaW1wb3J0IHN1Yl9hZ2VudF90b29sXG4nCmlmIGltcG9ydF9saW5lIG5vdCBpbiB0ZXh0OgogICAgdGV4dCA9IHRleHQucmVwbGFjZShpbXBvcnRfYW5jaG9yLCBpbXBvcnRfYW5jaG9yICsgaW1wb3J0X2xpbmUsIDEpCgp0ZXN0X25hbWUgPSAnZGVmIHRlc3Rfc3ViX2FnZW50X3N0YXR1c19mYWlsdXJlX3Jlc3RvcmVzX2NvbnRleHRfYW5kX2Nsb3Nlc19zcGFuKCcKaWYgdGVzdF9uYW1lIG5vdCBpbiB0ZXh0OgogICAgYW5jaG9yID0gJ2RlZiB0ZXN0X29ic2VydmFiaWxpdHlfZmFpbHVyZV9kb2VzX25vdF9icmVha19zdWJfYWdlbnRfYmluZGluZyhtb25rZXlwYXRjaCkgLT4gTm9uZTpcbicKICAgIGFkZGl0aW9uID0gIiIiZGVmIHRlc3Rfc3ViX2FnZW50X3N0YXR1c19mYWlsdXJlX3Jlc3RvcmVzX2NvbnRleHRfYW5kX2Nsb3Nlc19zcGFuKG1vbmtleXBhdGNoKSAtPiBOb25lOgogICAgYmFja2VuZCA9IF9GYWtlQmFja2VuZCgpCiAgICBtb25rZXlwYXRjaC5zZXRhdHRyKGJvb3RzdHJhcCwgImdldF9vYnNlcnZhYmlsaXR5X2JhY2tlbmQiLCBsYW1iZGE6IGJhY2tlbmQpCgogICAgY2xhc3MgX0NhbGxiYWNrczoKICAgICAgICBkZWYgc2V0X3N0YXR1cyhzZWxmLCBhY3RpdmU6IGJvb2wsIG1lc3NhZ2U6IHN0cikgLT4gTm9uZToKICAgICAgICAgICAgaWYgYWN0aXZlOgogICAgICAgICAgICAgICAgcmFpc2UgUnVudGltZUVycm9yKCJzdGF0dXMgdW5hdmFpbGFibGUiKQoKICAgIG1vbmtleXBhdGNoLnNldGF0dHIoc3ViX2FnZW50X3Rvb2wsICJnZXRfY2FsbGJhY2tzIiwgbGFtYmRhOiBfQ2FsbGJhY2tzKCkpCiAgICByZWFzb25pbmdfdG9rZW4gPSBzdWJfYWdlbnRfdG9vbC5fU1VCX0FHRU5UX1JFQVNPTklOR19PVkVSUklERS5zZXQoInBhcmVudCIpCiAgICB0cnk6CiAgICAgICAgd2l0aCBweXRlc3QucmFpc2VzKFJ1bnRpbWVFcnJvciwgbWF0Y2g9InN0YXR1cyB1bmF2YWlsYWJsZSIpOgogICAgICAgICAgICBzdWJfYWdlbnRfdG9vbC5ydW5fdG9vbCgKICAgICAgICAgICAgICAgIHsiYWdlbnRfbmFtZSI6ICJwbGFubmVyIiwgInRhc2siOiAiZG8gbm90IGV4ZWN1dGUifQogICAgICAgICAgICApCgogICAgICAgIGFzc2VydCB0b29sX2NvbnRleHQuZ2V0X2FjdGl2ZV9zdWJfYWdlbnQoKSBpcyBOb25lCiAgICAgICAgYXNzZXJ0IGJhY2tlbmQuYWN0aXZlLmdldCgpID09ICJwYXJlbnQiCiAgICAgICAgYXNzZXJ0IHN1Yl9hZ2VudF90b29sLl9TVUJfQUdFTlRfUkVBU09OSU5HX09WRVJSSURFLmdldCgpID09ICJwYXJlbnQiCiAgICBmaW5hbGx5OgogICAgICAgIHN1Yl9hZ2VudF90b29sLl9TVUJfQUdFTlRfUkVBU09OSU5HX09WRVJSSURFLnJlc2V0KHJlYXNvbmluZ190b2tlbikKCiAgICBhc3NlcnQgYmFja2VuZC5jYWxsc1swXVsiZXhjX3R5cGUiXSBpcyBSdW50aW1lRXJyb3IKCgoiIiIKICAgIGlmIGFuY2hvciBub3QgaW4gdGV4dDoKICAgICAgICByYWlzZSBTeXN0ZW1FeGl0KCJ0ZXN0IGluc2VydGlvbiBhbmNob3Igbm90IGZvdW5kIikKICAgIHRleHQgPSB0ZXh0LnJlcGxhY2UoYW5jaG9yLCBhZGRpdGlvbiArIGFuY2hvciwgMSkKdGVzdC53cml0ZV90ZXh0KHRleHQsIGVuY29kaW5nPSJ1dGYtOCIpCg==' | base64 -d > /tmp/apply_pr88.py
+          python /tmp/apply_pr88.py
           python -m py_compile src/uagent/tools/sub_agent_tool.py tests/test_observability_phase3_subagent.py
           git diff --check
-          git diff -- src/uagent/tools/sub_agent_tool.py tests/test_observability_phase3_subagent.py
 
       - name: Commit fix and remove temporary workflow
         shell: bash
