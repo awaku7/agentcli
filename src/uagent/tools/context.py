@@ -119,17 +119,19 @@ def reset_active_sub_agent(token: Any) -> None:
     compatibility with callers across hot reloads.
     """
 
-    if isinstance(token, _ActiveSubAgentToken):
+    if hasattr(token, "context_token") and hasattr(token, "span_manager"):
         try:
-            if token.span_manager is not None:
+            span_manager = getattr(token, "span_manager", None)
+            span = getattr(token, "span", None)
+            if span_manager is not None:
                 exc_type, exc, traceback = sys.exc_info()
-                if exc_type is None and token.span is not None:
+                if exc_type is None and span is not None:
                     try:
-                        token.span.set_status("ok")
+                        span.set_status("ok")
                     except Exception:
                         pass
                 try:
-                    token.span_manager.__exit__(exc_type, exc, traceback)
+                    span_manager.__exit__(exc_type, exc, traceback)
                 except Exception:
                     pass
         finally:
