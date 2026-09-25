@@ -86,15 +86,16 @@ def fallback_chat_span(
                         if isinstance(usage_after_raw, Mapping)
                         else {}
                     )
-                    usage_delta = reconcile_usage(usage_before, usage_after)
-                    reported_names = {
-                        "input_tokens_delta": "uag.tokens.reported.input",
-                        "output_tokens_delta": "uag.tokens.reported.output",
-                        "total_tokens_delta": "uag.tokens.reported.total",
-                    }
-                    for key, attribute_name in reported_names.items():
-                        if key in usage_delta:
-                            span.set_attribute(attribute_name, usage_delta[key])
+                    if usage_after and usage_after != usage_before:
+                        usage_delta = reconcile_usage(usage_before, usage_after)
+                        reported_names = {
+                            "input_tokens_delta": "uag.tokens.reported.input",
+                            "output_tokens_delta": "uag.tokens.reported.output",
+                            "total_tokens_delta": "uag.tokens.reported.total",
+                        }
+                        for key, attribute_name in reported_names.items():
+                            if key in usage_delta:
+                                span.set_attribute(attribute_name, usage_delta[key])
                 except Exception:
                     pass
 
