@@ -25,7 +25,7 @@ def _norm(v: str) -> str:
 async def require_bearer_auth(
     request: Request,
     authorization: Optional[str] = Header(default=None),
-) -> AsyncIterator[None]:
+) -> AsyncIterator[dict[str, str]]:
     """Bearer auth for A2A endpoints and trusted trace-context boundary.
 
     Token source:
@@ -86,8 +86,8 @@ async def require_bearer_auth(
     try:
         manager = backend.attach_remote_context(carrier)
     except Exception:
-        yield None
+        yield carrier
         return
 
     with manager:
-        yield None
+        yield carrier
