@@ -38,7 +38,7 @@ class MCPHTTPConfig:
 async def _inject_trusted_trace_context(request: Any) -> None:
     """Inject only UAG-owned W3C trace context into one MCP HTTP request."""
     try:
-        for key in ("traceparent", "tracestate"):
+        for key in ("traceparent", "tracestate", "baggage"):
             if key in request.headers:
                 del request.headers[key]
 
