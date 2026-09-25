@@ -24,7 +24,9 @@ class _PropagationBackend:
 
     def inject_context(self, carrier: dict[str, str]) -> None:
         self.injected += 1
-        carrier["traceparent"] = "00-11111111111111111111111111111111-2222222222222222-01"
+        carrier["traceparent"] = (
+            "00-11111111111111111111111111111111-2222222222222222-01"
+        )
         carrier["tracestate"] = "vendor=value"
 
     @contextmanager
