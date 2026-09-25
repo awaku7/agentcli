@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import threading
 from contextlib import contextmanager
 from types import SimpleNamespace
 
@@ -104,6 +105,33 @@ def test_a2a_auth_attaches_trace_context_only_after_authentication(monkeypatch) 
     ]
     assert backend.entered == 1
     assert backend.exited == 1
+
+
+def test_a2a_auth_credential_lookup_runs_off_event_loop(monkeypatch) -> None:
+    backend = _PropagationBackend()
+    event_loop_thread = threading.get_ident()
+    lookup_threads: list[int] = []
+
+    def resolve(*args, **kwargs):
+        lookup_threads.append(threading.get_ident())
+        return "secret"
+
+    monkeypatch.setattr("uagent.a2a.auth.resolve_credential_secret", resolve)
+    monkeypatch.setattr(
+        "uagent.a2a.auth.get_observability_backend", lambda: backend
+    )
+    request = _request({})
+
+    async def consume() -> None:
+        dependency = require_bearer_auth(request, authorization="Bearer secret")
+        assert await dependency.__anext__() is None
+        with pytest.raises(StopAsyncIteration):
+            await dependency.__anext__()
+
+    asyncio.run(consume())
+
+    assert lookup_threads
+    assert all(thread_id != event_loop_thread for thread_id in lookup_threads)
 
 
 def test_a2a_auth_rejects_before_trace_context_is_attached(monkeypatch) -> None:
