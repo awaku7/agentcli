@@ -118,9 +118,10 @@ def _install_memory_projection_boundary() -> None:
     memory_projection.prepare_memory_projection = observed
 
     llm_module = sys.modules.get("uagent.uagent_llm")
-    if llm_module is not None and getattr(
-        llm_module, "prepare_memory_projection", None
-    ) is original:
+    if (
+        llm_module is not None
+        and getattr(llm_module, "prepare_memory_projection", None) is original
+    ):
         llm_module.prepare_memory_projection = observed
 
 
