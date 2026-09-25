@@ -127,9 +127,10 @@ def test_late_resolved_turn_enriches_active_agent_span(monkeypatch, tmp_path) ->
             session_id="session-cli",
         )
 
-    assert backend.spans[0]["attributes"]["uag.entry_point"] == "cli"
-    assert backend.spans[0]["attributes"]["uag.auth.kind"] == "local"
-    assert "principal_id" not in backend.spans[0]["attributes"]
+    span_attributes = backend.spans[0]["span"].attributes
+    assert span_attributes["uag.entry_point"] == "cli"
+    assert span_attributes["uag.auth.kind"] == "local"
+    assert "principal_id" not in span_attributes
 
 
 def test_a2a_error_tuple_marks_active_lifecycle_failed(monkeypatch) -> None:
