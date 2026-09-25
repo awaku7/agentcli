@@ -35,6 +35,8 @@ _COMMON_EVENT_FIELDS = (
     "provider",
     "duration_ms",
     "error_type",
+    "trace_id",
+    "span_id",
 )
 _EVENT_CATEGORY_FIELDS = {
     "agent": ("updated_at",),
@@ -146,27 +148,59 @@ def append_masked_message(log_file: str, message: dict[str, Any], mask_fn: Any) 
         pass
 
 
+def _active_trace_fields() -> dict[str, str]:
+    try:
+        from .observability.bootstrap import get_observability_backend
+
+        ids = get_observability_backend().current_trace_ids()
+        fields: dict[str, str] = {}
+        if ids.trace_id:
+            fields["trace_id"] = ids.trace_id
+        if ids.span_id:
+            fields["span_id"] = ids.span_id
+        return fields
+    except Exception:
+        return {}
+
+
 def log_event(event_code: str, **fields: Any) -> None:
-    """Emit a stable event code with secret fields removed."""
-    context = dict(_EVENT_CONTEXT.get())
-    context.setdefault("schema_version", _EVENT_SCHEMA_VERSION)
-    context.setdefault("event_id", str(uuid4()))
-    context.setdefault("correlation_id", str(uuid4()))
-    context.setdefault("timestamp", _now_iso())
-    context.setdefault("status", "event")
-    # Event codes and field names are machine-readable and must never be
-    # localized. Only human-facing consumers translate their own messages.
-    payload = {**context, **fields}
-    payload["schema_version"] = _EVENT_SCHEMA_VERSION
-    payload["event_code"] = event_code
-    for field_name in _COMMON_EVENT_FIELDS:
-        payload.setdefault(field_name, None)
-    payload["duration_ms"] = _normalize_duration(payload.get("duration_ms"))
-    category = event_code.split(".", 1)[0]
-    for field_name in _EVENT_CATEGORY_FIELDS.get(category, ()):
-        payload.setdefault(field_name, None)
-    _LOGGER.info(
-        json.dumps(
-            _safe_fields(payload), ensure_ascii=False, sort_keys=True, default=str
+    """Emit a stable event code with secret fields removed and trace linkage."""
+    try:
+        from .observability.runtime import before_structured_event
+
+        before_structured_event(event_code, fields)
+    except Exception:
+        pass
+
+    try:
+        context = dict(_EVENT_CONTEXT.get())
+        context.setdefault("schema_version", _EVENT_SCHEMA_VERSION)
+        context.setdefault("event_id", str(uuid4()))
+        context.setdefault("correlation_id", str(uuid4()))
+        context.setdefault("timestamp", _now_iso())
+        context.setdefault("status", "event")
+        for key, value in _active_trace_fields().items():
+            context.setdefault(key, value)
+        # Event codes and field names are machine-readable and must never be
+        # localized. Only human-facing consumers translate their own messages.
+        payload = {**context, **fields}
+        payload["schema_version"] = _EVENT_SCHEMA_VERSION
+        payload["event_code"] = event_code
+        for field_name in _COMMON_EVENT_FIELDS:
+            payload.setdefault(field_name, None)
+        payload["duration_ms"] = _normalize_duration(payload.get("duration_ms"))
+        category = event_code.split(".", 1)[0]
+        for field_name in _EVENT_CATEGORY_FIELDS.get(category, ()):
+            payload.setdefault(field_name, None)
+        _LOGGER.info(
+            json.dumps(
+                _safe_fields(payload), ensure_ascii=False, sort_keys=True, default=str
+            )
         )
-    )
+    finally:
+        try:
+            from .observability.runtime import after_structured_event
+
+            after_structured_event(event_code)
+        except Exception:
+            pass
