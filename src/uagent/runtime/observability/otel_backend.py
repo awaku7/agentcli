@@ -5,7 +5,7 @@ from __future__ import annotations
 import atexit
 import os
 from contextlib import contextmanager
-from typing import Any, Iterator, Mapping
+from typing import Any, Iterator, Mapping, MutableMapping
 
 from .api import ObservabilitySpan, TraceIds
 from .noop import NOOP_SPAN
@@ -229,6 +229,54 @@ class OpenTelemetryBackend:
             instrument.record(value, _sanitize_metric_attributes(attributes))
         except Exception:
             pass
+
+    def inject_context(self, carrier: MutableMapping[str, str]) -> None:
+        """Inject only W3C Trace Context into a trusted outbound carrier."""
+
+        try:
+            from opentelemetry.trace.propagation.tracecontext import (
+                TraceContextTextMapPropagator,
+            )
+
+            TraceContextTextMapPropagator().inject(carrier)
+        except Exception:
+            pass
+
+    @contextmanager
+    def attach_remote_context(self, carrier: Mapping[str, str]) -> Iterator[None]:
+        """Attach a valid trusted W3C remote parent for the context duration."""
+
+        traceparent = str(carrier.get("traceparent") or "").strip()
+        if not traceparent:
+            yield None
+            return
+
+        token = None
+        try:
+            from opentelemetry import trace
+            from opentelemetry.context import attach, detach
+            from opentelemetry.trace.propagation.tracecontext import (
+                TraceContextTextMapPropagator,
+            )
+
+            extracted = TraceContextTextMapPropagator().extract(dict(carrier))
+            span_context = trace.get_current_span(extracted).get_span_context()
+            if not span_context.is_valid or not span_context.is_remote:
+                yield None
+                return
+            token = attach(extracted)
+        except Exception:
+            yield None
+            return
+
+        try:
+            yield None
+        finally:
+            if token is not None:
+                try:
+                    detach(token)
+                except Exception:
+                    pass
 
     def current_trace_ids(self) -> TraceIds:
         try:
