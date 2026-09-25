@@ -161,6 +161,17 @@ def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> 
     assert tool_context.get_active_sub_agent() is None
 
 
+def test_legacy_plain_contextvar_token_can_be_reset() -> None:
+    legacy_context: ContextVar[str | None] = ContextVar(
+        "legacy_active_sub_agent", default=None
+    )
+    token = legacy_context.set("planner")
+
+    tool_context.reset_active_sub_agent(token)
+
+    assert legacy_context.get() is None
+
+
 def test_sub_agent_token_survives_real_tools_context_reimport(monkeypatch) -> None:
     backend = _FakeBackend()
     monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
