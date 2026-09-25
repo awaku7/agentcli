@@ -20,6 +20,10 @@ def consume_legacy_interrupt(
         if not _core_module.interrupt_requested:
             return False
         _core_module.interrupt_requested = False
+    try:
+        setattr(core, "_last_legacy_round_interrupted", True)
+    except Exception:
+        pass
     inject_stop_prompt_fn(messages, core)
     return True
 
