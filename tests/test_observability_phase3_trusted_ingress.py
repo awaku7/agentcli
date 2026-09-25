@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import asyncio
 from contextlib import contextmanager
 
 from uagent.runtime.execution import lifecycle_execution
 from uagent.runtime.identity_context import TurnContext
 from uagent.runtime.observability.api import TraceIds
 from uagent.runtime.observability.trusted_ingress import (
+    RawSocketPeerCaptureMiddleware,
+    SingleUseTrustedIngressCarrier,
     bind_trusted_ingress_carrier,
     call_with_trusted_ingress,
     get_trusted_ingress_carrier,
@@ -22,9 +25,17 @@ class _Client:
 
 
 class _Request:
-    def __init__(self, host: str, headers: dict[str, str]) -> None:
+    def __init__(
+        self,
+        host: str,
+        headers: dict[str, str],
+        *,
+        raw_host: str | None = None,
+    ) -> None:
         self.client = _Client(host)
         self.headers = headers
+        peer = raw_host if raw_host is not None else host
+        self.scope = {"uagent.raw_socket_peer": (peer, 12345)}
 
 
 class _Span:
@@ -104,35 +115,39 @@ def test_trusted_ingress_defaults_off(monkeypatch) -> None:
     monkeypatch.delenv("UAGENT_OTEL_TRUSTED_PROXY_CIDRS", raising=False)
     request = _Request("127.0.0.1", {"traceparent": _TRACEPARENT})
 
-    assert trusted_ingress_carrier_for_request(request) == {}
+    assert trusted_ingress_carrier_for_request(request).take() == {}
 
 
-def test_trusted_ingress_uses_socket_peer_not_forwarded_for(monkeypatch) -> None:
+def test_trusted_ingress_uses_raw_peer_not_forwarded_or_rewritten_client(
+    monkeypatch,
+) -> None:
     monkeypatch.setenv("UAGENT_OTEL_TRUSTED_PROXY_CIDRS", "127.0.0.1/32")
     request = _Request(
-        "203.0.113.50",
+        "127.0.0.1",
         {
             "traceparent": _TRACEPARENT,
             "x-forwarded-for": "127.0.0.1",
         },
+        raw_host="203.0.113.50",
     )
 
-    assert trusted_ingress_carrier_for_request(request) == {}
+    assert trusted_ingress_carrier_for_request(request).take() == {}
 
 
 def test_trusted_ingress_accepts_only_w3c_trace_context(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_OTEL_TRUSTED_PROXY_CIDRS", "127.0.0.0/8")
     request = _Request(
-        "127.0.0.1",
+        "198.51.100.9",
         {
             "traceparent": _TRACEPARENT,
             "tracestate": _TRACESTATE,
             "baggage": "principal_id=secret",
             "authorization": "Bearer secret",
         },
+        raw_host="127.0.0.1",
     )
 
-    assert trusted_ingress_carrier_for_request(request) == {
+    assert trusted_ingress_carrier_for_request(request).take() == {
         "traceparent": _TRACEPARENT,
         "tracestate": _TRACESTATE,
     }
@@ -144,7 +159,61 @@ def test_trusted_ingress_bad_allowlist_fails_closed(monkeypatch) -> None:
     )
     request = _Request("127.0.0.1", {"traceparent": _TRACEPARENT})
 
-    assert trusted_ingress_carrier_for_request(request) == {}
+    assert trusted_ingress_carrier_for_request(request).take() == {}
+
+
+def test_trusted_ingress_requires_raw_peer_capture(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_OTEL_TRUSTED_PROXY_CIDRS", "127.0.0.1/32")
+    request = _Request("127.0.0.1", {"traceparent": _TRACEPARENT})
+    request.scope = {}
+
+    assert trusted_ingress_carrier_for_request(request).take() == {}
+
+
+def test_raw_peer_capture_precedes_proxy_rewrite() -> None:
+    seen: dict[str, object] = {}
+
+    async def inner(scope, receive, send) -> None:
+        seen["raw"] = scope.get("uagent.raw_socket_peer")
+        scope["client"] = ("198.51.100.42", 0)
+        seen["client"] = scope.get("client")
+
+    middleware = RawSocketPeerCaptureMiddleware(inner)
+    asyncio.run(
+        middleware(
+            {"type": "websocket", "client": ("127.0.0.1", 4321)},
+            None,
+            None,
+        )
+    )
+
+    assert seen == {
+        "raw": ("127.0.0.1", 4321),
+        "client": ("198.51.100.42", 0),
+    }
+
+
+def test_handshake_carrier_is_consumed_once() -> None:
+    carrier = SingleUseTrustedIngressCarrier(
+        {"traceparent": _TRACEPARENT, "tracestate": _TRACESTATE}
+    )
+
+    assert carrier.take() == {
+        "traceparent": _TRACEPARENT,
+        "tracestate": _TRACESTATE,
+    }
+    assert carrier.take() == {}
+
+
+def test_single_use_carrier_is_consumed_by_worker_binding() -> None:
+    carrier = SingleUseTrustedIngressCarrier({"traceparent": _TRACEPARENT})
+
+    first = call_with_trusted_ingress(carrier, get_trusted_ingress_carrier)
+    second = call_with_trusted_ingress(carrier, get_trusted_ingress_carrier)
+
+    assert first == {"traceparent": _TRACEPARENT}
+    assert second == {}
+    assert get_trusted_ingress_carrier() == {}
 
 
 def test_trusted_ingress_binding_is_scoped() -> None:
