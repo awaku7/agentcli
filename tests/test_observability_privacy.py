@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
 from uagent.runtime.observability.privacy import sanitize_attributes
 from uagent.runtime.observability.semantic_mapping import map_span
 
@@ -30,6 +31,28 @@ def test_capture_content_never_allows_identity_or_secret_fields() -> None:
     )
 
     assert safe == {"uag.content": "operator-enabled content"}
+
+
+def test_exception_export_records_type_without_raw_message_or_stack() -> None:
+    class RawSpan:
+        def __init__(self) -> None:
+            self.events = []
+            self.raw_exception_calls = 0
+
+        def add_event(self, name, attributes=None) -> None:
+            self.events.append((name, dict(attributes or {})))
+
+        def record_exception(self, exc) -> None:
+            self.raw_exception_calls += 1
+
+    raw_span = RawSpan()
+    span = OpenTelemetrySpan(raw_span, capture_content=False)
+    span.record_exception(RuntimeError("Bearer super-secret response body"))
+
+    assert raw_span.raw_exception_calls == 0
+    assert raw_span.events == [
+        ("exception", {"exception.type": "builtins.RuntimeError"})
+    ]
 
 
 def test_semantic_mapping_isolated_from_runtime_operation_names() -> None:
