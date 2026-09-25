@@ -41,7 +41,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm .github/workflows/pr90-mcp-config-optin.yml .github/scripts/pr90_fix_patch_runtime.py .github/scripts/pr90_patch_runtime.py .github/scripts/pr90_patch_tools.py .github/scripts/pr90_patch_docs_tests.py
+          git rm -f .github/workflows/pr90-mcp-config-optin.yml .github/scripts/pr90_fix_patch_runtime.py .github/scripts/pr90_patch_runtime.py .github/scripts/pr90_patch_tools.py .github/scripts/pr90_patch_docs_tests.py
           git add src/uagent/tools/mcp_servers_shared.py src/uagent/tools/handle_mcp_v2_tool.py src/uagent/tools/mcp/session_pool.py src/uagent/tools/mcp_tools_list_tool.py src/uagent/tools/mcp_resources_tool.py src/uagent/tools/mcp_servers_tool.py src/uagent/tools/mcp_servers_tool.json src/uagent/docs/DEVELOP.md src/uagent/docs/DEVELOP_OBSERVABILITY.md tests/test_observability_phase3_mcp_config.py
           git diff --cached --check
           git commit -m "feat: wire managed MCP trace opt-in"
