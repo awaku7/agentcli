@@ -22,6 +22,9 @@ _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
 _CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = ContextVar(
     "uagent_current_lifecycle_callback", default=None
 )
+_CURRENT_AGENT_SPAN: ContextVar[object | None] = ContextVar(
+    "uagent_current_agent_span", default=None
+)
 _TOOL_RUNNER_ACTIVE: ContextVar[bool] = ContextVar(
     "uagent_tool_runner_active", default=False
 )
@@ -51,6 +54,19 @@ _LIFECYCLE_EVENTS = {
     "TIMEOUT": "agent.timeout",
     "PAUSED": "agent.paused",
 }
+
+
+def apply_turn_context_to_current_agent_span(turn_context: TurnContext) -> None:
+    """Enrich an already-open Agent span when a host resolves its turn later."""
+
+    observability_span = _CURRENT_AGENT_SPAN.get()
+    if observability_span is None:
+        return
+    try:
+        observability_span.set_attribute("uag.entry_point", turn_context.entry_point)
+        observability_span.set_attribute("uag.auth.kind", turn_context.authn_kind)
+    except Exception:
+        pass
 
 
 @contextmanager
@@ -92,6 +108,7 @@ def lifecycle_execution(
     ) as observability_span:
         lifecycle_token = _CURRENT_LIFECYCLE.set(current)
         callback_token = _CURRENT_CALLBACK.set(on_transition)
+        span_token = _CURRENT_AGENT_SPAN.set(observability_span)
         if current.status.value == "CREATED":
             _emit_lifecycle_events(current.snapshot())
         _safe_transition(current, "start")
@@ -123,6 +140,7 @@ def lifecycle_execution(
                 observability_span.set_status("error", lifecycle_status.lower())
             elif lifecycle_status == "CANCELLED":
                 observability_span.set_status("unset", "cancelled")
+            _CURRENT_AGENT_SPAN.reset(span_token)
             _CURRENT_CALLBACK.reset(callback_token)
             _CURRENT_LIFECYCLE.reset(lifecycle_token)
 
