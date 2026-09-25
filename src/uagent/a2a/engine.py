@@ -184,11 +184,9 @@ def _mark_current_lifecycle_failed_if_error(
     if error is None:
         return
     try:
-        from ..runtime.execution import current_lifecycle
+        from ..runtime.execution import mark_current_lifecycle_failed
 
-        lifecycle = current_lifecycle()
-        if lifecycle is not None:
-            lifecycle.fail()
+        mark_current_lifecycle_failed()
     except Exception:
         pass
 
