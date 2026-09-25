@@ -33,6 +33,25 @@ def test_capture_content_never_allows_identity_or_secret_fields() -> None:
     assert safe == {"uag.content": "operator-enabled content"}
 
 
+def test_token_usage_metrics_are_preserved_while_credentials_are_blocked() -> None:
+    safe = sanitize_attributes(
+        {
+            "uag.tokens.estimate.input": 123,
+            "uag.tokens.reported.input": 120,
+            "gen_ai.usage.input_tokens": 120,
+            "access_token": "secret",
+            "auth.token": "secret",
+            "bearer-token": "secret",
+        }
+    )
+
+    assert safe == {
+        "uag.tokens.estimate.input": 123,
+        "uag.tokens.reported.input": 120,
+        "gen_ai.usage.input_tokens": 120,
+    }
+
+
 def test_exception_export_records_type_without_raw_message_or_stack() -> None:
     class RawSpan:
         def __init__(self) -> None:
