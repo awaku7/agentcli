@@ -7,7 +7,10 @@ from typing import Any
 
 from ..env_utils import env_get
 from ..i18n import _
-from ..runtime.turn_context_runtime import call_with_resolved_turn_context
+from ..runtime.turn_context_runtime import (
+    call_with_resolved_turn_context,
+    resolved_turn_context,
+)
 
 
 def _norm(v: str) -> str:
@@ -175,53 +178,74 @@ def run_once_uag(
     return last_assistant, None
 
 
+def _mark_current_lifecycle_failed_if_error(
+    error: dict[str, Any] | None,
+) -> None:
+    if error is None:
+        return
+    try:
+        from ..runtime.execution import current_lifecycle
+
+        lifecycle = current_lifecycle()
+        if lifecycle is not None:
+            lifecycle.fail()
+    except Exception:
+        pass
+
+
 def run_once(
     *, user_text: str, task_id: str = ""
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
-    mode = _engine_mode()
+    with resolved_turn_context(
+        entry_point="a2a",
+        project_path=os.getcwd(),
+    ):
+        mode = _engine_mode()
 
-    if mode == "echo":
-        return (
-            {
-                "role": "assistant",
-                "content": _("ECHO: %(text)s", default=f"ECHO: {user_text}")
-                % {"text": user_text},
-            },
-            None,
-        )
-
-    if mode in ("uag", "uagent"):
-        try:
-            return run_once_uag(user_text=user_text, task_id=task_id)
-        except (SystemExit, ValueError, RuntimeError) as e:
-            return (
+        if mode == "echo":
+            result = (
+                {
+                    "role": "assistant",
+                    "content": _("ECHO: %(text)s", default=f"ECHO: {user_text}")
+                    % {"text": user_text},
+                },
+                None,
+            )
+        elif mode in ("uag", "uagent"):
+            try:
+                result = run_once_uag(user_text=user_text, task_id=task_id)
+            except (SystemExit, ValueError, RuntimeError) as e:
+                result = (
+                    {"role": "assistant", "content": ""},
+                    {
+                        "code": "FAILED_PRECONDITION",
+                        "message": _(
+                            "uagent initialization failed: %(err)s",
+                            default=f"uagent initialization failed: {e}",
+                        )
+                        % {"err": e},
+                    },
+                )
+            except Exception as e:
+                result = (
+                    {"role": "assistant", "content": ""},
+                    {
+                        "code": "INTERNAL",
+                        "message": _(
+                            "uagent execution failed: %(etype)s: %(err)s",
+                            default=f"uagent execution failed: {type(e).__name__}: {e}",
+                        )
+                        % {"etype": type(e).__name__, "err": e},
+                    },
+                )
+        else:
+            result = (
                 {"role": "assistant", "content": ""},
                 {
                     "code": "FAILED_PRECONDITION",
-                    "message": _(
-                        "uagent initialization failed: %(err)s",
-                        default=f"uagent initialization failed: {e}",
-                    )
-                    % {"err": e},
-                },
-            )
-        except Exception as e:
-            return (
-                {"role": "assistant", "content": ""},
-                {
-                    "code": "INTERNAL",
-                    "message": _(
-                        "uagent execution failed: %(etype)s: %(err)s",
-                        default=f"uagent execution failed: {type(e).__name__}: {e}",
-                    )
-                    % {"etype": type(e).__name__, "err": e},
+                    "message": _("Unknown UAGENT_A2A_ENGINE: %(mode)s") % {"mode": mode},
                 },
             )
 
-    return (
-        {"role": "assistant", "content": ""},
-        {
-            "code": "FAILED_PRECONDITION",
-            "message": _("Unknown UAGENT_A2A_ENGINE: %(mode)s") % {"mode": mode},
-        },
-    )
+        _mark_current_lifecycle_failed_if_error(result[1])
+        return result
