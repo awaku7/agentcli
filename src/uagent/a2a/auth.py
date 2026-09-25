@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from collections.abc import AsyncIterator
 from typing import Optional
 
@@ -31,20 +32,20 @@ async def require_bearer_auth(
       - UAGENT_A2A_TOKEN (required for authenticated endpoints)
 
     If UAGENT_A2A_TOKEN is empty, authenticated endpoints are disabled.
-    W3C trace context is considered only after bearer authentication succeeds;
-    it never supplies identity or authorization.
+    Credential lookup stays off the request event loop. W3C trace context is
+    considered only after bearer authentication succeeds and never supplies
+    identity or authorization.
     """
 
     store = getattr(request.app.state, "credential_store", None)
-    expected = _norm(
-        resolve_credential_secret(
-            "a2a/default",
-            kind=CredentialKind.A2A,
-            store=store,
-            env_names=("UAGENT_A2A_TOKEN",),
-        )
-        or ""
+    expected_secret = await asyncio.to_thread(
+        resolve_credential_secret,
+        "a2a/default",
+        kind=CredentialKind.A2A,
+        store=store,
+        env_names=("UAGENT_A2A_TOKEN",),
     )
+    expected = _norm(expected_secret or "")
     if not expected:
         raise A2AHttpError(
             status_code=503,
