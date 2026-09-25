@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
-from typing import Any, Mapping
+from typing import Any, Iterator, Mapping
 
 from .api import ObservabilitySpan
 from .bootstrap import get_observability_backend
@@ -29,6 +30,73 @@ _PENDING_TOOL_SPAN: ContextVar[_PendingToolSpan | None] = ContextVar(
 _ACTIVE_TOOL_SPANS: ContextVar[tuple[_ActiveToolSpan, ...]] = ContextVar(
     "uagent_active_tool_observability_spans", default=()
 )
+
+
+@contextmanager
+def fallback_chat_span(
+    *,
+    provider: str,
+    model: str,
+    request_input: Any,
+    core: Any,
+) -> Iterator[ObservabilitySpan]:
+    """Trace one legacy/OpenAI-compatible LLM call at its shared fallback boundary.
+
+    Registry-backed rounds own their canonical span in ``RoundOrchestrator``.
+    The two compatibility paths use this helper so supported providers that are
+    not registry-backed still emit exactly one ``chat`` span. Provider usage is
+    attached when the legacy core exposes it; otherwise only the input estimate
+    is recorded and no precise usage is invented.
+    """
+
+    backend = get_observability_backend()
+    attributes = {
+        "uag.llm.provider": str(provider or "").strip(),
+        "uag.llm.model": str(model or "").strip(),
+    }
+    usage_before_raw = getattr(core, "_last_responses_usage", None)
+    usage_before = (
+        dict(usage_before_raw) if isinstance(usage_before_raw, Mapping) else {}
+    )
+    with backend.start_span("chat", attributes=attributes) as span:
+        if backend.enabled:
+            try:
+                from ..context_tokens import estimate_tokens
+
+                span.set_attribute(
+                    "uag.tokens.estimate.input",
+                    estimate_tokens(
+                        request_input,
+                        provider=str(provider or ""),
+                        model=str(model or ""),
+                    ),
+                )
+            except Exception:
+                pass
+        try:
+            yield span
+        finally:
+            if backend.enabled:
+                try:
+                    from ..telemetry import reconcile_usage
+
+                    usage_after_raw = getattr(core, "_last_responses_usage", None)
+                    usage_after = (
+                        dict(usage_after_raw)
+                        if isinstance(usage_after_raw, Mapping)
+                        else {}
+                    )
+                    usage_delta = reconcile_usage(usage_before, usage_after)
+                    reported_names = {
+                        "input_tokens_delta": "uag.tokens.reported.input",
+                        "output_tokens_delta": "uag.tokens.reported.output",
+                        "total_tokens_delta": "uag.tokens.reported.total",
+                    }
+                    for key, attribute_name in reported_names.items():
+                        if key in usage_delta:
+                            span.set_attribute(attribute_name, usage_delta[key])
+                except Exception:
+                    pass
 
 
 def before_structured_event(event_code: str, fields: Mapping[str, Any]) -> None:
@@ -132,5 +200,6 @@ __all__ = [
     "abandon_active_tool_span",
     "after_structured_event",
     "before_structured_event",
+    "fallback_chat_span",
     "start_pending_tool_span",
 ]
