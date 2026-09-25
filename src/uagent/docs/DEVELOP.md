@@ -287,7 +287,7 @@ modified.
 ### 3.6 Tool levels and genres
 
 - **Tool Level (`tool_level`)**: Specified in `TOOL_SPEC` to control tool loading. `-1` is disabled, `0` is enabled, and `1` is conditional loading (disabled by default).
-- **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"`, `"iot"`, `"exec"`, `"external"`, `"media"`, `"file"`, `"index"`, `"dev"`, `"web"`, or `"utility"`. This must be specified at the top-level of `TOOL_SPEC`.
+- **Tool Genre (`tool_genre`)**: Categorizes tools into `"basic"`, `"comm"` (communication), `"office"` (Office suite), `"devel"` (development), `"iot"`, `"exec"` (execution), `"external"`, `"media"`, `"file"`, `"index"`, `"dev"`, `"web"`, or `"utility"`. This must be specified at the top-level of `TOOL_SPEC`.
 - **Startup Selection**: During interactive CLI startup, users are prompted to select which tool genres to enable using a bitmask (1=basic, 2=comm, 4=office, 8=devel, 16=iot, 32=exec, 64=external, 128=media, 256=file, 512=index, 1024=dev, 2048=web, 4096=utility, 8191=all).
 - **`--tool-genre-mask` CLI argument**: All entry points (CLI/GUI/Web/A2A) accept `--tool-genre-mask <int>`. In normal mode, the bitmask is applied directly and the interactive genre prompt is skipped. In embedded mode, the mask is intentionally ignored to prevent a broad mask from re-registering unintended tools; a non-zero mask emits a warning and callers must use repeated `--enable-tool` options for explicit selection. When omitted, the behavior is unchanged (interactive prompt in TTY mode, no genre selection in non-interactive mode).
 
