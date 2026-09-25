@@ -83,7 +83,11 @@ jobs:
         run: python -m ruff check src tests
 
       - name: Black
-        run: python -m black --check src tests
+        shell: bash
+        run: |
+          python -m black src/uagent/runtime/legacy_openai_round.py tests/test_legacy_round_registry.py
+          git diff -- src/uagent/runtime/legacy_openai_round.py tests/test_legacy_round_registry.py
+          exit 1
 
       - name: I18N catalog status
         run: python scripts/tool_json_i18n_batch.py status
