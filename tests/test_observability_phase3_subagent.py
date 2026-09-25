@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any
@@ -142,3 +143,20 @@ def test_observability_failure_does_not_break_sub_agent_binding(monkeypatch) -> 
         tool_context.reset_active_sub_agent(token)
 
     assert tool_context.get_active_sub_agent() is None
+
+
+def test_sub_agent_token_survives_tools_context_reload(monkeypatch) -> None:
+    backend = _FakeBackend()
+    monkeypatch.setattr(bootstrap, "get_observability_backend", lambda: backend)
+
+    active_context = tool_context._ACTIVE_SUB_AGENT
+    token = tool_context.set_active_sub_agent("planner")
+    try:
+        reloaded = importlib.reload(tool_context)
+        assert reloaded._ACTIVE_SUB_AGENT is active_context
+        assert reloaded.get_active_sub_agent() == "planner"
+    finally:
+        tool_context.reset_active_sub_agent(token)
+
+    assert tool_context.get_active_sub_agent() is None
+    assert backend.active.get() == "parent"
