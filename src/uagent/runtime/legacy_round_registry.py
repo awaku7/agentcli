@@ -88,14 +88,16 @@ def run_legacy_provider_outcome(
         started = time.perf_counter()
         result = handler(provider=provider, **kwargs)
         assistant_text = str(result[4] or "") if len(result) > 4 else ""
+        action = str(result[0] or "").strip().lower() if result else ""
+        summary_status = "failed" if action == "return" else "completed"
         summary = RoundSummary(
-            status="completed",
+            status=summary_status,
             duration_ms=(time.perf_counter() - started) * 1000.0,
             assistant_chars=len(assistant_text),
         )
         outcome = LegacyRoundOutcome(
             provider=normalized_provider,
-            status=str(result[0]),
+            status=action,
             assistant_text=assistant_text,
             raw_result=result,
             client=result[1] if len(result) > 1 else None,
@@ -105,8 +107,12 @@ def run_legacy_provider_outcome(
             ),
             summary=summary,
         )
-        observability_span.set_attribute("uag.status", outcome.status)
+        observability_span.set_attribute("uag.status", summary.status)
         observability_span.set_attribute("uag.duration_ms", summary.duration_ms)
+        if summary.status == "failed":
+            observability_span.set_status("error", "legacy provider round failed")
+        else:
+            observability_span.set_status("ok")
         return outcome
 
 
