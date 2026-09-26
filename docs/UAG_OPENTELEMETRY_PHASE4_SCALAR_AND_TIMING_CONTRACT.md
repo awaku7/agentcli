@@ -3,68 +3,106 @@
 Status: Normative Phase 4 companion  
 Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`  
 Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
-Traversal contract: `docs/UAG_OPENTELEMETRY_PHASE4_TRACE_NAME_AND_TRAVERSAL_CONTRACT.md`  
-Applies to: Phase 4A controlled-content scalar handling and Phase 4D ordinary-user trace projection
+Traversal/rendering contract: `docs/UAG_OPENTELEMETRY_PHASE4_TRACE_NAME_AND_TRAVERSAL_CONTRACT.md`  
+Applies to: Phase 4A controlled-content primitive scalars and Phase 4D ordinary-user trace timing projection
 
-This companion closes remaining scalar and timing implementation ambiguities found during Phase 4 review. Where the parent or companion documents say that primitive numeric values have a bounded representation, or list `start_time`, `end_time`, and `duration_ms` without exact scalar rules, the rules below are normative for the initial Phase 4 implementation.
+This document is the sole normative owner for primitive scalar admission and trace timing normalization. Container admission, mapping-key type, canonical content rendering, candidate limits, and span character accounting are owned by the traversal/rendering contract.
 
-## 1. Numeric content scalars are conversion-free bounded before rendering
+## 1. Primitive content scalars are conversion-free bounded before rendering
 
-A content scalar must not be converted to text, JSON, decimal, or another variable-size representation before a constant/bounded-cost type and range preflight succeeds.
+A content scalar must not be converted to text, JSON, decimal, bytes, or another variable-size representation before a constant/bounded-cost type and range preflight succeeds.
 
-### 1.1 Accepted primitive scalar forms
+### 1.1 Accepted exact built-in scalar forms
 
-After the existing provenance/master/category/type gates pass, the initial controlled-content implementation may process only these primitive scalar forms:
-
-- `null`;
-- boolean;
-- string, subject to the existing native-length `MAX_FIELD_CHARS` preflight;
-- integer in the signed 64-bit range `[-9223372036854775808, 9223372036854775807]`;
-- finite IEEE-754 binary64 floating-point values representable by the runtime's reviewed built-in float type.
-
-Arbitrary-precision integers outside the signed 64-bit range are omitted. The implementation must determine integer eligibility without decimal conversion, for example by sign plus `bit_length()` or an equivalent bounded-cost range comparison.
-
-`NaN`, positive/negative infinity, arbitrary-precision decimal types, rational/fraction types, custom numeric objects, symbolic numbers, and unreviewed numeric wrappers are omitted unless a later reviewed contract explicitly admits them.
-
-The same scalar rules apply to eligible mapping keys. A custom key object's `__str__`, formatter, serializer, iterator, or conversion hook must never be invoked merely for telemetry.
-
-### 1.2 Ordering requirement
-
-For an eligible scalar occurrence, the relevant order is:
+After provenance/master/category/structure gates pass, the initial controlled-content implementation may process only these exact built-in scalar forms:
 
 ```text
-trusted provenance/category/type gates
-  -> node/depth budget admission
+None
+bool
+str
+int
+float
+```
+
+Subclasses and custom protocol-compatible values are not admitted.
+
+Additional rules:
+
+- `bool` is classified before `int` and rendered as boolean;
+- strings are subject to the traversal contract's native-length and surrogate preflight;
+- integers must be in signed 64-bit range;
+- floats must be finite values of the reviewed built-in binary64 `float` type;
+- `NaN`, positive/negative infinity, `Decimal`, `Fraction`, arbitrary-precision decimal/rational values, symbolic values, numpy/custom numeric types, or other wrappers are omitted.
+
+Initial mapping keys are **not** governed by the numeric scalar rules: the traversal/rendering contract restricts mapping keys to exact built-in `str` only. Numeric/boolean/null/custom mapping keys fail closed before conversion.
+
+### 1.2 Signed 64-bit integer preflight
+
+The admitted integer range is exactly:
+
+```text
+-9223372036854775808 <= value <= 9223372036854775807
+```
+
+The implementation must determine eligibility without decimal conversion, for example using range comparison or sign plus `bit_length()`.
+
+An arbitrary-precision integer outside the range is omitted before:
+
+- `str()` / `repr()`;
+- JSON serialization;
+- decimal formatting;
+- UTF-8 rendering;
+- regex/secret scanning of a rendered value;
+- logging.
+
+### 1.3 Float preflight
+
+Only exact built-in finite `float` values are admitted. `math.isfinite()` or an equivalent bounded operation must succeed before rendering.
+
+The canonical renderer is defined by the traversal/rendering contract. If supported Python versions would produce different canonical text for an admitted float, the implementation must introduce an explicit stable float renderer before enabling Phase 4A rather than accepting version-dependent telemetry output.
+
+### 1.4 Ordering requirement
+
+For an eligible primitive scalar occurrence, the relevant order is:
+
+```text
+trusted root/child provenance and category gates
+  -> node/depth admission
+  -> exact built-in scalar type gate
   -> native scalar preflight
-       string -> native length <= effective MAX_FIELD_CHARS
-       int    -> signed 64-bit range check without decimal conversion
-       float  -> reviewed built-in binary64 and finite
-       bool/null -> accepted primitive form
-  -> value-level secret redaction/classification where applicable
-  -> bounded normalization/rendering
-  -> per-field/per-span character budgets
+       str   -> native length + surrogate rules
+       int   -> signed 64-bit range, conversion-free
+       float -> exact built-in finite binary64
+       bool/None -> accepted
+  -> bounded value-level secret handling where applicable
+  -> post-redaction field bound
+  -> canonical rendering
+  -> shared per-span ledger
   -> export
 ```
 
-No `str(value)`, `repr(value)`, JSON serialization, decimal formatting, UTF-8 encoding of a rendered number, regex pass over a rendered number, or provider/custom conversion is allowed before the numeric preflight succeeds.
+No generic conversion/serialization hook is allowed before the scalar preflight succeeds.
 
-An oversized/unsupported numeric scalar causes the whole controlled-content capture candidate to be omitted, consistent with the traversal contract's fail-closed overflow behavior. Normal Agent/model/tool execution is unaffected.
+### 1.5 Failure semantics
 
-### 1.3 Required regressions
+An unsupported or oversized primitive causes the whole controlled-content candidate to be omitted. It never causes tool/model/Agent failure and never logs the rejected value.
+
+### 1.6 Required regressions
 
 Tests must prove that:
 
-- signed 64-bit minimum and maximum integers may proceed subject to all other gates;
-- `-9223372036854775809` and `9223372036854775808` are omitted before decimal/string/JSON rendering;
-- an arbitrary-precision integer with millions of decimal digits is rejected using a conversion-free range/bit-length check and is never passed to `str()`, JSON serialization, or the secret redactor;
-- finite reviewed built-in floats may proceed, while `NaN` and infinities are omitted;
-- arbitrary precision decimal/fraction/custom numeric objects are omitted without invoking custom formatting/conversion hooks;
-- the same rules apply to mapping keys;
-- numeric preflight failure emits only normalized content-free diagnostics and never the rejected value.
+- signed 64-bit minimum and maximum may proceed subject to all other gates;
+- the first integer below/above those bounds is omitted before rendering;
+- a million-digit integer is rejected without `str()`, JSON rendering, secret scanning of rendered text, or logging;
+- exact built-in finite floats may proceed;
+- `NaN`, infinities, subclasses, Decimal/Fraction/custom numeric objects fail closed;
+- `bool` is rendered as boolean, not integer `0`/`1`;
+- numeric mapping keys are rejected without coercion;
+- primitive preflight failures emit only normalized content-free diagnostics.
 
 ## 2. `uag.trace_view.v1` timing fields use canonical numeric representations
 
-Ordinary-user trace timing fields must never copy arbitrary backend strings or vendor payloads. The proxy constructs timing fields from adapter-normalized typed values.
+Ordinary-user trace timing fields never copy arbitrary backend strings or vendor payloads. The proxy constructs timing fields only from adapter-normalized typed values.
 
 ### 2.1 Canonical output types
 
@@ -72,33 +110,33 @@ For `uag.trace_view.v1`:
 
 ```text
 start_time  : JSON integer, Unix epoch milliseconds
+aend_time   : not a field; the field name is end_time
 end_time    : JSON integer, Unix epoch milliseconds
-duration_ms : JSON integer, derived as end_time - start_time
+duration_ms : JSON integer, derived only as end_time - start_time
 ```
 
-All three fields are exact JSON integers, not strings and not floating-point values.
+All timing fields are exact JSON integers, never strings or floating-point values.
 
-`start_time` and `end_time` must be within the non-negative IEEE-754 exact-integer range:
+`start_time` and `end_time` must satisfy:
 
 ```text
 0 <= value <= 9007199254740991   # 2^53 - 1
+end_time >= start_time
 ```
 
-`end_time` must be greater than or equal to `start_time`.
-
-`duration_ms` is never copied from the backend. It is computed only after both canonical timestamps validate:
+`duration_ms` is never copied from backend data:
 
 ```text
 duration_ms = end_time - start_time
 ```
 
-Therefore `duration_ms` is also a non-negative integer no larger than `9007199254740991`.
+Therefore `duration_ms` is also a non-negative integer `<= 2^53 - 1`.
 
-### 2.2 Adapter normalization and raw timestamp preflight
+### 2.2 Adapter raw timestamp preflight
 
-A supported backend adapter may receive timestamps in backend-specific units or representations, but it must validate the raw typed value before any unit conversion, division, multiplication, decimal/string conversion, or serialization.
+A supported backend adapter must validate the raw typed timestamp before any unit conversion, division, multiplication, decimal/string conversion, serialization, or logging.
 
-For built-in integer timestamp inputs, the initial Phase 4D contract uses these exact conversion-free source ranges:
+For exact built-in integer timestamp inputs, initial accepted ranges are:
 
 ```text
 milliseconds:
@@ -113,59 +151,80 @@ nanoseconds:
   canonical_ms = raw_ns // 1000000
 ```
 
-These source maxima are exactly the largest non-negative integers that can still normalize to `2^53 - 1` milliseconds after floor division. The adapter must reject a raw integer outside the unit-specific range before performing the division.
+The raw range check itself must be conversion-free. A million-digit integer must be rejected before division or rendering.
 
-The raw-range decision itself must not render the integer. It must use a bounded-cost comparison, sign check plus `bit_length()`, or an equivalent conversion-free preflight. In particular, an arbitrary-precision integer with millions of digits must be rejected before `// 1000`, `// 1000000`, `str()`, `repr()`, JSON conversion, decimal formatting, logging, or regex/classifier work.
+Allowed initial normalization forms are:
 
-Allowed normalization rules are therefore:
+- exact built-in integer milliseconds after raw-range preflight;
+- exact built-in integer microseconds after raw-range preflight, then `// 1000`;
+- exact built-in integer nanoseconds after raw-range preflight, then `// 1000000`;
+- a backend-specific strict text parser only when that adapter defines a closed grammar and a small fixed input-length ceiling **before parsing**.
 
-- typed integer nanoseconds: raw-range preflight, then integer division by `1000000`;
-- typed integer microseconds: raw-range preflight, then integer division by `1000`;
-- typed integer milliseconds: raw-range preflight, then use directly;
-- another backend representation may be supported only by an adapter-specific strict parser with a bounded input length and a closed documented grammar.
+Booleans are not timestamps even though Python `bool` subclasses `int`.
 
-An arbitrary or enriched backend string is never copied into any timing field. A strict timestamp parser, if used for a specific backend, must bound the input before parsing and return only the canonical integer milliseconds value.
+### 2.3 Strict text parser requirements
 
-Unsupported types, booleans masquerading as integers, floats, `NaN`/infinity, negative timestamps, raw integers above the unit-specific maximum, malformed strings, parse failures, `end_time < start_time`, or arithmetic overflow make that span invalid for ordinary-user v1 projection. The invalid span is omitted rather than partially returned with timing text.
+If a specific backend requires textual timestamps, the adapter contract must define:
 
-When one or more otherwise authorized spans are omitted because timing normalization fails, the response must set `partial=true`. If no authorized valid span remains, existing fail-closed trace-query behavior applies and no backend payload is returned.
+- maximum raw input length before parsing;
+- exact accepted ASCII/Unicode grammar;
+- timezone/default behavior if applicable;
+- exact conversion to Unix epoch milliseconds;
+- rejection of trailing/leading junk;
+- no echoing of the raw input in errors or telemetry.
 
-### 2.3 Timing fields are not content channels
+A generic date parser that accepts arbitrary text is not permitted for ordinary-user v1 projection.
 
-The implementation must not:
+### 2.4 Invalid timing behavior
 
-- pass through backend `start_time`, `end_time`, or `duration` strings;
-- fall back to `str()`/`repr()` of malformed timing values;
-- copy vendor timing descriptions, timezone labels, URLs, request IDs, exception text, or arbitrary metadata into timing fields;
-- preserve raw backend duration when canonical start/end values disagree with it.
+The following make a span invalid for ordinary-user v1 projection:
 
-The canonical v1 timing representation is backend-independent. Equivalent spans from different supported backends project to the same integer-millisecond shape.
+- unsupported type;
+- boolean masquerading as integer;
+- negative timestamp;
+- raw value above the unit-specific maximum;
+- float/NaN/infinity timestamp;
+- malformed/overlong text;
+- parser failure;
+- `end_time < start_time`;
+- arithmetic inconsistency.
 
-### 2.4 Required regressions
+The invalid span is omitted. If at least one otherwise authorized valid span remains, response `partial=true`. If no authorized valid span remains, the trace-query fail-closed behavior applies and no backend payload is returned.
+
+### 2.5 Timing fields are not content channels
+
+The implementation must never:
+
+- pass through backend timing strings;
+- fall back to `str()`/`repr()` of malformed values;
+- copy vendor descriptions, timezone labels, URLs, request IDs, exception text, or arbitrary metadata into timing fields;
+- preserve raw backend duration when canonical start/end disagree.
+
+Equivalent safe spans from supported backends project to the same integer-millisecond shape.
+
+### 2.6 Required regressions
 
 Tests must prove that:
 
-- valid typed nanosecond/microsecond/millisecond timestamps normalize to integer Unix epoch milliseconds;
-- each unit-specific raw maximum is accepted and normalizes to at most `2^53 - 1` milliseconds;
-- the first integer above each unit-specific raw maximum is rejected before unit conversion;
-- an arbitrary-precision raw microsecond or nanosecond integer with millions of digits is rejected by the conversion-free preflight before integer division, rendering, serialization, or logging;
+- valid integer ns/us/ms timestamps normalize to integer Unix epoch milliseconds;
+- each unit-specific raw maximum is accepted;
+- the first integer above each raw maximum is rejected before conversion;
+- million-digit ns/us integers are rejected before division/rendering/logging;
 - sub-millisecond precision is discarded deterministically by integer division;
-- `duration_ms` equals canonical `end_time - start_time` and ignores any conflicting raw backend duration;
-- negative, out-of-range, floating, boolean, malformed, or unsupported timing values omit the span;
-- `end_time < start_time` omits the span;
-- a timing string containing a prompt fragment, URL, credential, exception, or other arbitrary text is never echoed in the response;
-- a backend-specific strict parser, if implemented, rejects overlong input before parsing and emits only integer milliseconds;
-- omission due to timing normalization sets `partial=true` when other authorized spans remain;
-- no malformed timing input affects normal Agent execution.
+- `duration_ms` equals canonical `end_time - start_time` and ignores raw backend duration;
+- negative, float, boolean, malformed, unsupported, or reversed timestamps omit the span;
+- arbitrary timing text is never echoed;
+- strict backend text parsers reject overlong input before parsing;
+- timing omission sets `partial=true` when other authorized spans remain;
+- timing failures never affect Agent execution.
 
 ## 3. Fixed Phase 4 decisions from this companion
 
-- Controlled-content integers are restricted to signed 64-bit values before rendering.
-- Arbitrary-precision integers are rejected using conversion-free range/bit-length checks.
-- Only finite reviewed built-in binary64 floats are admitted; arbitrary/custom numeric types fail closed.
-- Ordinary-user v1 timing fields are JSON integers in Unix epoch milliseconds.
-- Timing output is bounded to `0..2^53-1` for exact cross-language integer representation.
-- Raw millisecond/microsecond/nanosecond integers are checked against unit-specific maxima before any unit conversion.
-- Arbitrary-precision raw timestamps are rejected before integer division or rendering.
-- `duration_ms` is derived from normalized start/end timestamps and is never copied from backend data.
-- Malformed or unsupported timing values omit the span; arbitrary timing text is never forwarded.
+- Primitive scalar admission is exact-type and conversion-free before rendering.
+- Controlled-content integers are signed-64-bit only.
+- Only finite exact built-in binary64 floats are admitted.
+- Numeric/custom mapping keys are not admitted; mapping keys are string-only under the traversal contract.
+- Ordinary-user v1 timing fields are JSON integer Unix epoch milliseconds in `0..2^53-1`.
+- Raw ms/us/ns integers are range-checked before conversion.
+- `duration_ms` is derived from normalized start/end and never copied from backend data.
+- Malformed timing values omit the span; arbitrary timing text is never forwarded.
