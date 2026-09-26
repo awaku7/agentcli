@@ -375,8 +375,13 @@ A key is always blocked when `normalized` contains any of:
 authorization
 cookie
 password
+passwd
 secret
 client_secret
+api_key
+apikey
+access_key
+private_key
 principal_id
 subject
 display_name
@@ -393,7 +398,7 @@ Any blocked mapping key causes omission of the whole candidate; the raw key is n
 
 ### 3.9 Closed secret detector and mandatory handling
 
-The detector runs only on already-bounded exact strings. Its initial classes and actions are exact.
+The detector runs only on already-bounded exact strings. Its initial classes and actions are exact. Every scanner below is bounded by the already-established `MAX_FIELD_CHARS`; implementations MUST NOT use catastrophic-backtracking regexes, unbounded decoding, or generic conversion.
 
 #### A. Authorization-scheme token
 
@@ -413,19 +418,35 @@ A match replaces the entire scalar with `[REDACTED]`.
 
 #### B. Compact JWT-like token
 
-For this detector, the named `JWT_BOUNDARY` set is exactly:
+For this detector, a JWT segment character is exactly ASCII `[A-Za-z0-9_-]`.
 
-```text
-ASCII whitespace or  " ' = : ; , ( ) [ ] { } < > & ? #
-```
+A candidate three-segment JWT-like token is eligible only when:
 
-A candidate JWT-like token is bounded on the left by start-of-string or one `JWT_BOUNDARY` character and on the right by end-of-string or one `JWT_BOUNDARY` character. No other previously defined delimiter set is used for JWT boundary decisions.
+- its first segment begins at start-of-string or the immediately preceding character is neither a JWT segment character nor `.`;
+- it contains exactly three non-empty JWT segments separated by exactly two `.` characters;
+- after the third segment, the immediately following character is end-of-string or is neither a JWT segment character nor `.`.
 
-A right boundary MAY additionally be a single terminal period `.` immediately following the third segment **only** when that period is followed by end-of-string or one `JWT_BOUNDARY` character. That terminal period is sentence punctuation and is not part of the token. This exception MUST NOT make a fourth JWT-like segment valid: if the period after the third segment is followed by ASCII `[A-Za-z0-9_-]`, the three-segment prefix is not a match.
+This right-boundary rule therefore accepts ordinary terminal ASCII punctuation such as `!`, `?`, `,`, `;`, `:`, closing brackets, and quotes without enumerating them one by one.
 
-Within those boundaries, the token is JWT-like only if it consists of exactly three non-empty segments separated by two `.` characters and every segment contains only ASCII `[A-Za-z0-9_-]`. Each segment is limited by the already-established scalar bound. A match replaces the entire scalar with `[REDACTED]`.
+A single terminal period `.` immediately after the third segment is also sentence punctuation **only** when it is followed by end-of-string or by a character that is neither a JWT segment character nor `.`. The punctuation period is not part of the token. A period followed by `[A-Za-z0-9_-]` cannot terminate the match, so `aaa.bbb.ccc.ddd` and every other four-segment form MUST NOT be recognized by matching only the first three segments. A leading preceding `.` likewise prevents substring matching inside a longer dotted token.
 
-Thus `access_token=aaa.bbb.ccc`, `jwt:aaa.bbb.ccc`, and `jwt=aaa.bbb.ccc.` are recognized when `aaa.bbb.ccc` otherwise satisfies the JWT-like grammar, while `aaa.bbb.ccc.ddd` is not accepted as a three-segment token by matching only its prefix.
+A match replaces the entire scalar with `[REDACTED]`.
+
+The initial boundary corpus is normative:
+
+| Input shape | Result |
+|---|---|
+| `aaa.bbb.ccc` | match |
+| `jwt=aaa.bbb.ccc` | match |
+| `jwt:aaa.bbb.ccc!` | match |
+| `jwt=aaa.bbb.ccc?` | match |
+| `jwt=aaa.bbb.ccc,` | match |
+| `jwt=aaa.bbb.ccc)` | match |
+| `jwt=aaa.bbb.ccc.` | match; terminal period is punctuation |
+| `jwt=aaa.bbb.ccc. next` | match; terminal period is punctuation |
+| `aaa.bbb.ccc.ddd` | no three-segment prefix match |
+| `aaa.bbb.ccc.d` | no three-segment prefix match |
+| `.aaa.bbb.ccc` | no substring match starting after the leading period |
 
 #### C. PEM private key
 
@@ -458,7 +479,89 @@ Authority scanning starts **immediately after the matched `://`**. The authority
 
 The username substring before `:` MAY be empty; the password substring between `:` and `@` MUST be non-empty. Thus both `https://user:password@example.com/path` and `https://:password@example.com/path` match. `https://user:@example.com/path` does not satisfy this detector by itself because its password substring is empty. The two slashes in `://` are not treated as authority/path delimiters. A match omits the whole candidate.
 
-Known credential/secret wrapper objects never reach this detector; they are rejected earlier by exact type/provenance gates.
+#### E. Credential-labeled scalar assignment
+
+This class closes the direct-scalar case where a secret-bearing key and value are embedded in one string rather than represented as a mapping key.
+
+The scanner accepts an unquoted label or a label enclosed in one matching ASCII single/double quote. The label body is limited to `1..64` ASCII characters from `[A-Za-z0-9_.\-/]`. The label must begin at start-of-string or after a character outside that label alphabet. No Unicode normalization or generic case folding is performed.
+
+For classification only, ASCII-lowercase the bounded label and replace each `-`, `.`, or `/` with `_`. A label is credential-bearing when the resulting value is exactly one of:
+
+```text
+api_key
+apikey
+access_key
+access_key_id
+secret_key
+client_secret
+private_key
+access_token
+refresh_token
+id_token
+authorization
+password
+passwd
+cookie
+```
+
+or when it ends with one of these exact suffixes and has at least one non-separator ASCII alphanumeric character before the suffix:
+
+```text
+_api_key
+_access_key
+_secret_key
+_client_secret
+_private_key
+_access_token
+_refresh_token
+```
+
+This suffix rule intentionally covers repository-style `UAGENT_*_API_KEY` / `*_API_KEY` provider variables without maintaining a provider-name registry.
+
+After the label (and its closing quote, when quoted), allow at most 16 ASCII space/tab characters, then require exactly one assignment delimiter `=` or `:`, then at most 16 ASCII space/tab characters. An optional single/double quote may open the value. At least one value character must exist; when quoted, an immediately closing matching quote is empty and is not a match. The detector does not need to parse or copy the remainder because a recognized assignment replaces the **entire scalar** with `[REDACTED]`.
+
+Examples that MUST match include:
+
+```text
+api_key=sk-proj-example
+api-key: sk-example
+"api_key":"sk-example"
+OPENAI_API_KEY="sk-example"
+UAGENT_OPENAI_API_KEY=sk-example
+UAGENT_CLAUDE_API_KEY: example
+access_token=example
+client_secret : "example"
+```
+
+The following are explicit near-misses and do not match this class by themselves:
+
+```text
+api_key=
+api_key=""
+api_key_name=demo
+input_tokens=42
+monkey=value
+```
+
+Malformed quoting, overlong labels, scanner exceptions, or ambiguity around a credential-like assignment MUST fail closed by omitting the whole candidate rather than exporting the original string.
+
+#### F. High-confidence bare API-key prefix
+
+The assignment detector above is provider-neutral. As defense in depth, an otherwise unlabelled bounded token also matches when it begins at a token boundary and uses one of these exact high-confidence ASCII prefixes:
+
+```text
+sk-
+sk-ant-
+xai-
+gsk_
+AIza
+ghp_
+github_pat_
+```
+
+A valid bare-prefix token has total token length `20..512` and contains only ASCII `[A-Za-z0-9._-]`; start boundary is start-of-string or a preceding character outside `[A-Za-z0-9._-]`, and end boundary is end-of-string or a following character outside that set. This class is intentionally conservative and is supplemental to the repository-wide `*_API_KEY` assignment detector. A match replaces the entire scalar with `[REDACTED]`.
+
+Known credential/secret wrapper objects never reach these textual detectors; they are rejected earlier by exact type/provenance gates.
 
 If multiple detector classes match, omission takes precedence over replacement. A recognized match MUST NEVER pass through unchanged. Mapping-key secret recognition, detector exception, classifier ambiguity, or security-sensitive uncertainty omits the whole candidate. Rejected content is never logged.
 
@@ -646,13 +749,20 @@ No POST/PUT/PATCH alias, alternate route, query-string trace identifier, or body
 
 The feature gate is evaluated before trace-query authentication/trace-ID parsing/index/backend work. When effective core OTel is OFF or `trace_query_enabled` is not true, this route returns HTTP `404` with exactly `{"error":"not_found"}` and performs no trace-query auth lookup, trace-ID parsing, local-index lookup, or backend access.
 
-When the feature is enabled, the existing product authentication gate runs next. After successful authentication and **before** trace-ID parsing, local-index lookup, or backend work, request shape is validated without parsing content:
+When the feature is enabled, the existing product authentication gate runs next. Immediately after successful authentication, start the one shared five-second monotonic trace-query deadline **before** request-shape/body-presence validation. The deadline is never reset by framing checks, body probing, trace-ID parsing, local-index work, retries, pages, or projection.
 
-- any request containing one or more body octets is rejected;
-- any request with a non-empty raw query string is rejected;
-- the body/query values are never parsed, interpreted, logged, normalized, or reflected.
+Request shape is validated without parsing content:
 
-Either request-shape violation returns HTTP `400` with exactly `{"error":"invalid_request"}`. Section 6.1.1 defines the remaining externally observable outcomes.
+- a non-empty raw query string is rejected by checking presence/length only; it is never decoded, split, normalized, copied into diagnostics, or reflected;
+- route logic MUST NOT materialize a request body merely to decide whether it is empty;
+- validated request-framing metadata is checked first;
+- any `Transfer-Encoding` presence, multiple/conflicting `Content-Length` values, malformed/overlong `Content-Length`, or a validated positive `Content-Length` is rejected without reading body bytes;
+- the only accepted `Content-Length` spelling is one exact canonical ASCII decimal value whose native length is `1..20`; value `0` proves an empty body when framing is otherwise valid, while any value `> 0` is rejected;
+- if framing metadata is absent but the server adapter can already prove end-of-stream without reading payload bytes, the body is empty;
+- if framing cannot prove emptiness, the adapter may perform only a streaming **presence probe capped to at most one decoded body octet**, under the same shared deadline. EOF before one octet proves empty. Receiving one octet proves non-empty and is rejected. Timeout, framing uncertainty, stream error, or inability to enforce the one-octet cap fails closed as invalid request;
+- after a one-octet non-empty determination, the remainder MUST NOT be read, drained, buffered, decoded, logged, normalized, or reflected by trace-query route logic. An HTTP/framework adapter that cannot enforce this bounded presence check is unsupported for Phase 4D.
+
+Any request-shape violation or indeterminate/failed bounded body-presence check returns HTTP `400` with exactly `{"error":"invalid_request"}` before trace-ID parsing, local-index lookup, or backend work. Section 6.1.1 defines the remaining externally observable outcomes.
 
 ### 6.1 Authorization architecture and bounded local index
 
@@ -685,7 +795,7 @@ The 2000 owned-span ceiling includes these `(span_id, semantic_kind)` entries; i
 
 The index MUST enforce these ceilings when records are added; it MUST NOT accumulate an unbounded per-trace list and defer bounding until query time. If a trace would exceed any ceiling, mark its local authorization index non-queryable/overflowed for ordinary-user access; normal tracing/Agent execution continues.
 
-The aggregate five-second trace-query deadline begins **before local-index lookup**. Query code MUST use a bounded index API such as:
+The aggregate five-second trace-query deadline has already started immediately after successful product authentication as defined in section 6.0. Query code MUST carry that same deadline into local-index work and use a bounded index API such as:
 
 ```text
 lookup_segments(trace_id, max_segments=64, deadline=shared_deadline)
@@ -700,7 +810,7 @@ Current auth/session and room/project/private-room authorization are revalidated
 The enabled initial ordinary-user endpoint has one fixed observable policy so trace existence is not exposed through differing authorization/index failures. Responses are JSON and MUST contain no raw backend/index/error payload, trace-specific reason text, scope text, or rejected identifier beyond the successful v1 response itself.
 
 - **Unauthenticated request:** the existing UAG authentication layer rejects it before request-shape validation, trace-ID parsing, or local-index lookup using the product's standard authentication response. Phase 4 does not define a second authentication format.
-- **Authenticated request with one or more body octets or a non-empty raw query string:** return HTTP `400` with exactly `{"error":"invalid_request"}` and perform no body/query parsing, trace-ID parsing, local-index lookup, or backend work.
+- **Authenticated request with a non-empty raw query string, positive/malformed/conflicting body framing, one observed body octet, body-probe timeout/error, or body presence that cannot be determined within the bounded probe/deadline:** return HTTP `400` with exactly `{"error":"invalid_request"}` and perform no body/query parsing, trace-ID parsing, local-index lookup, or backend work. The route reads at most one decoded body octet and never drains/materializes the remainder.
 - **Syntactically invalid `trace_id`:** return HTTP `400` with exactly `{"error":"invalid_trace_id"}` and perform no local-index/backend lookup.
 - **Syntactically valid `trace_id`, but no complete authorized local view can be established before backend access:** return HTTP `404` with exactly `{"error":"trace_not_found"}` and perform no backend lookup. This single result covers nonexistent/local-index-missing traces, a complete lookup yielding zero currently authorized local segments, overflowed/non-queryable index state, malformed index state (including missing/malformed/unsupported semantic-kind association), local-index timeout/deadline expiry, incomplete index state, and equivalent authorization uncertainty. The endpoint MUST NOT use `403` or distinct bodies/statuses to distinguish those cases.
 - **Complete bounded local authorization succeeds with at least one authorized local segment, but backend retrieval/projection later fails or cannot produce a safe bounded partial result:** return HTTP `503` with exactly `{"error":"trace_query_unavailable"}` and no backend payload/details.
@@ -800,9 +910,9 @@ For an admitted exact string, normalize only by stripping surrounding ASCII spac
 
 ```text
 unset, unknown, ""          -> UNSET
-ok, success, completed      -> OK
-error, failed, failure      -> ERROR
-all other bounded strings   -> UNSET
+ok, success, completed       -> OK
+error, failed, failure       -> ERROR
+all other bounded strings    -> UNSET
 ```
 
 Missing/`None` status -> `UNSET`. No `str()` conversion, Unicode case-folding, numeric/enum coercion, vendor lookup table, status description, or exception text participates in normalization. A future additional raw status representation requires a reviewed contract revision.
@@ -880,12 +990,13 @@ Invalid or textual timing omits the span; raw timing text is never parsed, logge
 
 ### 6.9 Aggregate query resource ceilings
 
-The one monotonic query budget starts before local-index lookup and continues through backend retrieval/projection. It is never reset by local lookup, retry, or page.
+The one monotonic query budget starts immediately after successful product authentication, before request-shape/body-presence validation, and continues through local-index lookup, backend retrieval, and projection. It is never reset by body probing, local lookup, retry, or page.
 
 Exact backend/output ceilings are:
 
 ```text
-monotonic elapsed deadline:        5 seconds total, including local index work
+monotonic elapsed deadline:        5 seconds total, including request-shape and local-index work
+maximum decoded body probe:        1 octet, only when framing cannot prove emptiness
 maximum local segments read:       64
 maximum local owned span IDs read: 2000
 maximum decoded backend bytes:     8 MiB
@@ -944,12 +1055,14 @@ Implementation is incomplete until tests prove at least:
 - alias/cycle accounting is deterministic;
 - forbidden provenance wins through nested composites;
 - oversized/surrogate strings and huge integers fail before scanner/rendering;
-- every always-blocked key causes whole-candidate omission;
-- Authorization/Basic, compact JWT-like, PEM private key, and URI-userinfo detector boundaries/actions are exact;
+- every always-blocked key, including `api_key`/`apikey`/`access_key`/`private_key`, causes whole-candidate omission;
+- Authorization/Basic, compact JWT-like, PEM private key, URI-userinfo, credential-assignment, and bare-prefix detector boundaries/actions are exact;
 - `-----BEGIN ENCRYPTED PRIVATE KEY-----` and `-----BEGIN DSA PRIVATE KEY-----` each trigger mandatory whole-candidate omission;
-- `access_token=aaa.bbb.ccc`, `jwt:aaa.bbb.ccc`, and `jwt=aaa.bbb.ccc.` are recognized when the token body otherwise satisfies the JWT-like grammar;
-- `aaa.bbb.ccc.ddd` is not accepted by matching only its first three segments under the terminal-period rule;
+- JWT boundary corpus in section 3.9 is exact, including `!`, `?`, comma/closing punctuation, terminal `.`, and rejection of four-segment/prefix matches;
 - `https://user:password@example.com/path` and `https://:password@example.com/path` are detected, while empty-password `https://user:@example.com/path` does not satisfy the URI-userinfo detector by itself;
+- credential-assignment positives include `api_key=sk-proj-example`, `OPENAI_API_KEY="sk-example"`, `UAGENT_OPENAI_API_KEY=sk-example`, a Claude/Anthropic-style `*_API_KEY` assignment, `access_token=...`, and `client_secret: ...`;
+- credential-assignment near-misses include empty value, `api_key_name=demo`, `input_tokens=42`, and `monkey=value`;
+- high-confidence bare-prefix examples meeting the minimum token length are redacted and shorter/embedded near-misses do not trigger by prefix alone;
 - every recognized value secret is redacted/omitted according to section 3.9 and never passes unchanged;
 - mapping-key secret match omits candidate;
 - canonical rendering is stable across supported Python 3.11/3.13/3.14 conformance corpus;
@@ -983,7 +1096,12 @@ Implementation is incomplete until tests prove at least:
 - feature is independently default-OFF and requires its explicit activation control;
 - initial API is only `GET /api/observability/traces/{trace_id}` with no body/query trace identifier or method alias;
 - disabled/core-OTel-OFF requests return exact `404 {"error":"not_found"}` before trace-query auth, parsing, index, or backend work;
-- after successful product authentication, any body octet or non-empty raw query string returns exact `400 {"error":"invalid_request"}` before trace-ID parsing/index/backend work and the values are never parsed;
+- after successful product authentication, the shared five-second deadline starts before request-shape/body-presence validation;
+- non-empty raw query string returns exact `400 {"error":"invalid_request"}` without decoding/parsing;
+- validated positive `Content-Length`, any `Transfer-Encoding`, multiple/conflicting/malformed/overlong `Content-Length`, a one-byte body, body-probe timeout/error, or indeterminate presence returns exact `400 {"error":"invalid_request"}` before trace-ID parsing/index/backend work;
+- huge positive `Content-Length` is rejected from bounded framing metadata without body reads/materialization;
+- framing-proven empty body proceeds without reading; framing-indeterminate streamed body uses at most a one-decoded-octet presence probe under the shared deadline;
+- chunked/streamed non-empty bodies are rejected without draining/buffering the remainder, and adapters unable to cap the probe are unsupported;
 - invalid query trace ID returns the exact section 6.1.1 `400` response before local-index lookup;
 - nonexistent, zero-authorized, overflowed, malformed, timed-out, and incomplete local-index cases all collapse to the exact same pre-backend `404 {"error":"trace_not_found"}` response and never use a trace-specific `403`/detail;
 - backend/projection failure after successful complete authorization returns the exact fixed `503 {"error":"trace_query_unavailable"}` response with no backend payload;
@@ -991,7 +1109,7 @@ Implementation is incomplete until tests prove at least:
 - every owned span ID has exactly one immutable indexed semantic kind from the closed local vocabulary; the association is created atomically from trusted UAG-local ownership and counts under the same 2000-span ceiling;
 - missing/malformed/unsupported/conflicting indexed semantic kind makes the trace index non-queryable and uses the fixed pre-backend `404`; it is never silently mapped to UNKNOWN;
 - query projection obtains semantic kind only from the indexed span-ID association; backend span names/metadata cannot influence it;
-- the five-second budget starts before local-index lookup and is shared through backend work;
+- the five-second budget remains shared through local-index and backend work;
 - every projected backend record requires an explicit matching canonical trace ID;
 - missing/mismatched record trace ID cannot be rescued by span-ID membership;
 - invalid/duplicate span IDs fail closed;
