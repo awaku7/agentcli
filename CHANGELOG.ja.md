@@ -2,11 +2,19 @@
 
 ## [Unreleased]
 
+## [0.7.17] - 2026-09-27
+
 ### 変更
 
 - 1回のユーザー操作あたりのLLM/toolラウンド既定上限を128から512に引き上げ。
   `UAGENT_MAX_TOOL_ROUNDS`による明示的な上書きは引き続き利用可能。
 - `llmcapa`の固定バージョンを`0.5.44`に更新。
+- OIDC/エンタープライズIDおよびsession portabilityに関するREADME翻訳・利用ガイドを更新し、README翻訳一覧を簡潔化。
+
+### 修正
+
+- Providerへメッセージを送る前にWeb actor metadataを除去。
+- Markdownリンク表示時に末尾の句読点がURLへ含まれないよう修正。
 
 ## [0.7.16] - 2026-09-24
 

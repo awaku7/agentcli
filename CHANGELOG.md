@@ -2,11 +2,20 @@
 
 ## [Unreleased]
 
+## [0.7.17] - 2026-09-27
+
 ### Changed
 
 - Raise the default LLM/tool round limit per user operation from 128 to 512; explicit
   `UAGENT_MAX_TOOL_ROUNDS` overrides remain supported.
-- Update the pinned `llmcapa` dependency to `0.5.44`.
+- Pin the `llmcapa` dependency to `0.5.44`.
+- Update README translations and usage documentation for OIDC/enterprise identity and
+  session portability, and simplify the README translations index.
+
+### Fixed
+
+- Strip Web actor metadata before sending messages to providers.
+- Prevent trailing punctuation from being included in rendered Markdown link URLs.
 
 ## [0.7.16] - 2026-09-24
 
