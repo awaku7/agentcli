@@ -244,7 +244,7 @@ def test_busy_web_worker_does_not_consume_handshake_carrier(monkeypatch) -> None
 
     assert room.messages
     assert call_with_trusted_ingress(carrier, get_trusted_ingress_carrier) == {
-        "traceparent": _TRACEPARENT
+        "traceparent": _TRACEPARENT,
     }
     assert call_with_trusted_ingress(carrier, get_trusted_ingress_carrier) == {}
 
