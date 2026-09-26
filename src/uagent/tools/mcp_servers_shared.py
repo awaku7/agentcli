@@ -1,8 +1,9 @@
 # MCP configuration shared utilities
 from __future__ import annotations
 
-import os
 import json
+import os
+from typing import Any
 
 
 def get_default_mcp_config_path() -> str:
@@ -15,6 +16,25 @@ def get_default_mcp_config_path() -> str:
     from uagent.utils.paths import get_mcp_servers_json_path
 
     return str(get_mcp_servers_json_path())
+
+
+def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
+    """Return whether a managed HTTP MCP server explicitly opts into tracing.
+
+    Only the exact JSON boolean ``true`` combined with a managed ``http://`` or
+    ``https://`` URL crosses this trust boundary. String/integer truthy values and
+    non-HTTP transports remain untrusted.
+    """
+
+    if (
+        not isinstance(server, dict)
+        or server.get("trusted_trace_propagation") is not True
+    ):
+        return False
+    url = server.get("url")
+    return isinstance(url, str) and url.strip().lower().startswith(
+        ("http://", "https://")
+    )
 
 
 def ensure_mcp_config_template() -> str:

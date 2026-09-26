@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from contextvars import ContextVar
 from collections.abc import Callable, Iterator
 from typing import TYPE_CHECKING
@@ -84,9 +84,9 @@ def lifecycle_execution(
     transitions are ignored so a concurrent cancellation remains authoritative.
 
     When observability is enabled, this is the canonical ``invoke_agent`` span
-    boundary. Web callers can pass their already-authorized ``TurnContext`` so
-    the span is detached as a fresh root before lower-level runtime bindings
-    are entered.
+    boundary. Web callers pass their already-authorized ``TurnContext``. Web
+    turns stay detached as fresh roots unless the server previously bound an
+    explicitly trusted reverse-proxy trace carrier for this worker context.
     """
     from .identity_context import get_current_turn_context
     from .observability.bootstrap import get_observability_backend
@@ -102,10 +102,33 @@ def lifecycle_execution(
         effective_turn_context is not None
         and effective_turn_context.entry_point == "web"
     )
+    trusted_ingress_carrier: dict[str, str] = {}
+    if is_web_root:
+        try:
+            from .observability.trusted_ingress import get_trusted_ingress_carrier
 
-    with backend.start_span(
-        "invoke_agent", attributes=span_attributes, root=is_web_root
-    ) as observability_span:
+            trusted_ingress_carrier = get_trusted_ingress_carrier()
+        except Exception:
+            trusted_ingress_carrier = {}
+
+    with ExitStack() as observability_stack:
+        trusted_parent_attached = False
+        if is_web_root and trusted_ingress_carrier:
+            try:
+                trusted_parent_attached = bool(
+                    observability_stack.enter_context(
+                        backend.attach_remote_context(trusted_ingress_carrier)
+                    )
+                )
+            except Exception:
+                trusted_parent_attached = False
+        observability_span = observability_stack.enter_context(
+            backend.start_span(
+                "invoke_agent",
+                attributes=span_attributes,
+                root=is_web_root and not trusted_parent_attached,
+            )
+        )
         lifecycle_token = _CURRENT_LIFECYCLE.set(current)
         callback_token = _CURRENT_CALLBACK.set(on_transition)
         span_token = _CURRENT_AGENT_SPAN.set(observability_span)

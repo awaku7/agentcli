@@ -210,7 +210,8 @@ def test_otel_backend_round_trips_w3c_trace_context_without_baggage() -> None:
         assert "baggage" not in carrier
         assert set(carrier).issubset({"traceparent", "tracestate"})
 
-        with backend.attach_remote_context(carrier):
+        with backend.attach_remote_context(carrier) as attached:
+            assert attached is True
             remote_ids = backend.current_trace_ids()
         assert remote_ids.trace_id == local_ids.trace_id
         assert remote_ids.span_id == local_ids.span_id
@@ -230,7 +231,10 @@ def test_malformed_remote_context_does_not_replace_current_parent() -> None:
     try:
         with backend.start_span("invoke_agent"):
             before = backend.current_trace_ids()
-            with backend.attach_remote_context({"traceparent": "not-valid"}):
+            with backend.attach_remote_context(
+                {"traceparent": "not-valid"}
+            ) as attached:
+                assert attached is False
                 during = backend.current_trace_ids()
             assert during == before
     finally:

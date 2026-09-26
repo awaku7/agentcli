@@ -15,6 +15,10 @@ from ..runtime.identity_context import (
     IdentityConfigurationError,
     IdentityResolutionError,
 )
+from ..runtime.observability.trusted_ingress import (
+    call_with_trusted_ingress,
+    trusted_ingress_carrier_for_request,
+)
 from .. import util_tools as tools_util
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
@@ -45,6 +49,7 @@ async def websocket_endpoint(websocket: WebSocket):
     except (IdentityConfigurationError, IdentityResolutionError):
         await websocket.close(code=1008)
         return
+    trusted_trace_carrier = trusted_ingress_carrier_for_request(websocket)
     room, room_created = web_manager.get_or_create_room(room_id)
     if connection.session_id:
         room.session_id = connection.session_id
@@ -90,8 +95,14 @@ async def websocket_endpoint(websocket: WebSocket):
                     continue
                 worker_dir = room.base_dir
                 threading.Thread(
-                    target=run_agent_worker,
-                    args=(room, user_text, payload.get("attachments")),
+                    target=call_with_trusted_ingress,
+                    args=(
+                        trusted_trace_carrier,
+                        run_agent_worker,
+                        room,
+                        user_text,
+                        payload.get("attachments"),
+                    ),
                     kwargs={
                         "project_path": worker_dir,
                         "turn_context": connection.make_turn(
@@ -207,8 +218,14 @@ async def websocket_endpoint(websocket: WebSocket):
                     ):
                         worker_dir = room.base_dir
                         threading.Thread(
-                            target=run_agent_worker,
-                            args=(room, _result.prompt, None),
+                            target=call_with_trusted_ingress,
+                            args=(
+                                trusted_trace_carrier,
+                                run_agent_worker,
+                                room,
+                                _result.prompt,
+                                None,
+                            ),
                             kwargs={
                                 "project_path": worker_dir,
                                 "turn_context": connection.make_turn(

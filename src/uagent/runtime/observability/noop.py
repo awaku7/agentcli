@@ -66,8 +66,8 @@ class NoOpObservabilityBackend:
         return None
 
     @contextmanager
-    def attach_remote_context(self, carrier: Mapping[str, str]) -> Iterator[None]:
-        yield None
+    def attach_remote_context(self, carrier: Mapping[str, str]) -> Iterator[bool]:
+        yield False
 
     def current_trace_ids(self) -> TraceIds:
         return TraceIds()

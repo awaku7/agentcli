@@ -243,12 +243,12 @@ class OpenTelemetryBackend:
             pass
 
     @contextmanager
-    def attach_remote_context(self, carrier: Mapping[str, str]) -> Iterator[None]:
+    def attach_remote_context(self, carrier: Mapping[str, str]) -> Iterator[bool]:
         """Attach a valid trusted W3C remote parent for the context duration."""
 
         traceparent = str(carrier.get("traceparent") or "").strip()
         if not traceparent:
-            yield None
+            yield False
             return
 
         token = None
@@ -269,10 +269,11 @@ class OpenTelemetryBackend:
             token = None
             detach_context = None
 
+        attached = token is not None and detach_context is not None
         try:
-            yield None
+            yield attached
         finally:
-            if token is not None and detach_context is not None:
+            if attached:
                 try:
                     detach_context(token)
                 except Exception:

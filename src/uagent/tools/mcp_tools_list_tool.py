@@ -14,8 +14,16 @@ from typing import Any
 from .mcp.client import MCPClient
 
 try:
-    from .mcp_servers_shared import get_default_mcp_config_path
+    from .mcp_servers_shared import (
+        get_default_mcp_config_path,
+        is_trusted_mcp_trace_propagation_enabled,
+    )
 except ImportError:
+
+    def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
+        return (
+            isinstance(server, dict) and server.get("trusted_trace_propagation") is True
+        )
 
     def get_default_mcp_config_path():
         import os
@@ -160,9 +168,13 @@ async def _mcp_tools_list_http(
     url: str,
     headers: dict[str, str] | None = None,
     protocol_mode: str = "auto",
+    trusted_trace_propagation: bool = False,
 ) -> dict[str, Any]:
     async with MCPClient(
-        url=url, headers=headers or {}, protocol_mode=protocol_mode
+        url=url,
+        headers=headers or {},
+        protocol_mode=protocol_mode,
+        trusted_trace_propagation=trusted_trace_propagation,
     ) as client:
         tools_result = await client.list_tools()
         raw_tools = getattr(tools_result, "tools", []) or (
@@ -250,6 +262,7 @@ def run_tool(args: dict[str, Any]) -> str:
     cmd_args: list[str] = []
     cmd_env: dict[str, str] = {}
     http_headers: dict[str, str] = {}
+    trusted_trace_propagation = False
 
     if (not url) and server_name:
         try:
@@ -277,6 +290,9 @@ def run_tool(args: dict[str, Any]) -> str:
                                 else {}
                             )
                             http_headers = _resolve_http_headers(s.get("headers"))
+                            trusted_trace_propagation = (
+                                is_trusted_mcp_trace_propagation_enabled(s)
+                            )
                             if "protocol_mode" not in args:
                                 protocol_mode = (
                                     str(s.get("protocol_mode") or "auto")
@@ -320,7 +336,12 @@ def run_tool(args: dict[str, Any]) -> str:
         # 3) http
         else:
             result = asyncio.run(
-                _mcp_tools_list_http(str(url), http_headers, protocol_mode)
+                _mcp_tools_list_http(
+                    str(url),
+                    http_headers,
+                    protocol_mode,
+                    trusted_trace_propagation,
+                )
             )
 
         if pretty:

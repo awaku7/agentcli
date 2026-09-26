@@ -49,7 +49,12 @@
     "warn.name_duplicate": "WARNING: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "ERROR: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operation to perform. One of: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation must be boolean.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation is ignored for non-HTTP transports.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation must be boolean",
+    "err.trusted_trace_boolean": "trusted_trace_propagation must be boolean"
   },
   "ja": {
     "tool.description": "mcp_servers.json で MCP サーバー定義を管理します (list/add/remove/set_default/validate/init_template)。",
@@ -101,7 +106,12 @@
     "warn.name_duplicate": "WARNING: name={name!r} が重複しています（{count} 件）。",
     "err.name_duplicate": "ERROR: name={name!r} が重複しています（{count} 件）",
     "param.action.description": "実行する操作。list/add/remove/set_default/validate/init_template のいずれか。",
-    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy、stateless。"
+    "param.protocol_mode.description": "MCPプロトコルモード: auto、legacy、stateless。",
+    "param.trusted_trace_propagation.description": "(add/init_template) この管理対象HTTP MCPサーバーをW3Cトレース伝播先として明示的に信頼します。既定: false。",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation は真偽値である必要があります.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation は非HTTPトランスポートでは無視されます.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation は真偽値である必要があります",
+    "err.trusted_trace_boolean": "trusted_trace_propagation は真偽値である必要があります"
   },
   "es": {
     "tool.description": "Administra definiciones de servidores MCP almacenadas en mcp_servers.",
@@ -153,7 +163,12 @@
     "warn.name_duplicate": "ADVERTENCIA: name={name!r} está duplicado ({count} veces).",
     "err.name_duplicate": "ERROR: name={name!r} está duplicado ({count} veces)",
     "param.action.description": "Operación a realizar. Uno de: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation debe ser un valor booleano.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation se ignora para transportes que no son HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation debe ser un valor booleano",
+    "err.trusted_trace_boolean": "trusted_trace_propagation debe ser un valor booleano"
   },
   "fr": {
     "tool.description": "Gère les définitions de serveurs MCP stockées dans mcp_servers.",
@@ -205,7 +220,12 @@
     "warn.name_duplicate": "AVERTISSEMENT : name={name!r} est dupliqué ({count} fois).",
     "err.name_duplicate": "ERREUR : name={name!r} est dupliqué ({count} fois)",
     "param.action.description": "Opération à réaliser. L'un des éléments suivants : list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation doit être une valeur booléenne.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation est ignoré pour les transports non HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation doit être une valeur booléenne",
+    "err.trusted_trace_boolean": "trusted_trace_propagation doit être une valeur booléenne"
   },
   "ko": {
     "tool.description": "mcp_servers.json의 MCP 서버 정의 관리.",
@@ -257,7 +277,12 @@
     "warn.name_duplicate": "경고: name={name!r}이(가) 중복됩니다({count}회).",
     "err.name_duplicate": "오류: name={name!r}이(가) 중복됩니다({count}회)",
     "param.action.description": "수행할 작업입니다. 목록/추가/제거/set_default/validate/init_template 중 하나입니다.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation 값은 불리언이어야 합니다.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation 설정은 HTTP가 아닌 전송 방식에서는 무시됩니다.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation 값은 불리언이어야 합니다",
+    "err.trusted_trace_boolean": "trusted_trace_propagation 값은 불리언이어야 합니다"
   },
   "de": {
     "tool.description": "Verwalten Sie MCP-Serverdefinitionen in mcp_servers.",
@@ -309,7 +334,12 @@
     "warn.name_duplicate": "WARNUNG: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "FEHLER: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Durchzuführende Operation. Einer von: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation muss ein boolescher Wert sein.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation wird bei Nicht-HTTP-Transporten ignoriert.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation muss ein boolescher Wert sein",
+    "err.trusted_trace_boolean": "trusted_trace_propagation muss ein boolescher Wert sein"
   },
   "it": {
     "tool.description": "Gestisci le definizioni del server MCP in mcp_servers.",
@@ -361,7 +391,12 @@
     "warn.name_duplicate": "AVVISO: name={name!r} è duplicato ({count} volte).",
     "err.name_duplicate": "ERRORE: name={name!r} è duplicato ({count} volte)",
     "param.action.description": "Operazione da eseguire. Uno tra: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation deve essere un valore booleano.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation viene ignorato per i trasporti non HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation deve essere un valore booleano",
+    "err.trusted_trace_boolean": "trusted_trace_propagation deve essere un valore booleano"
   },
   "ru": {
     "tool.description": "Управление определениями MCP-серверов в mcp_servers.",
@@ -413,7 +448,12 @@
     "warn.name_duplicate": "ПРЕДУПРЕЖДЕНИЕ: name={name!r} повторяется ({count} раз).",
     "err.name_duplicate": "ОШИБКА: name={name!r} повторяется ({count} раз)",
     "param.action.description": "Операция, которую необходимо выполнить. Один из: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation должно иметь логическое значение.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation игнорируется для транспортов, отличных от HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation должно иметь логическое значение",
+    "err.trusted_trace_boolean": "trusted_trace_propagation должно иметь логическое значение"
   },
   "pt_BR": {
     "tool.description": "Gerencie as definições de servidores MCP em mcp_servers.",
@@ -465,7 +505,12 @@
     "warn.name_duplicate": "AVISO: name={name!r} está duplicado ({count} vezes).",
     "err.name_duplicate": "ERRO: name={name!r} está duplicado ({count} vezes)",
     "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation deve ser um valor booleano.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation é ignorado para transportes que não são HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation deve ser um valor booleano",
+    "err.trusted_trace_boolean": "trusted_trace_propagation deve ser um valor booleano"
   },
   "pt": {
     "tool.description": "Gerencie as definições do servidor MCP em mcp_servers.",
@@ -517,7 +562,12 @@
     "warn.name_duplicate": "AVISO: name={name!r} está duplicado ({count} vezes).",
     "err.name_duplicate": "ERRO: name={name!r} está duplicado ({count} vezes)",
     "param.action.description": "Operação a ser executada. Um de: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation deve ser um valor booleano.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation é ignorado para transportes que não são HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation deve ser um valor booleano",
+    "err.trusted_trace_boolean": "trusted_trace_propagation deve ser um valor booleano"
   },
   "id": {
     "tool.description": "Kelola definisi server MCP di mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -569,7 +619,12 @@
     "warn.name_duplicate": "PERINGATAN: name={name!r} duplikat ({count} kali).",
     "err.name_duplicate": "ERROR: name={name!r} duplikat ({count} kali).",
     "param.action.description": "Operasi untuk dilakukan. Salah satu dari: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation harus berupa nilai boolean.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation diabaikan untuk transport non-HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation harus berupa nilai boolean",
+    "err.trusted_trace_boolean": "trusted_trace_propagation harus berupa nilai boolean"
   },
   "vi": {
     "tool.description": "Quản lý các định nghĩa máy chủ MCP trong mcp_servers.",
@@ -621,7 +676,12 @@
     "warn.name_duplicate": "CẢNH BÁO: name={name!r} bị trùng lặp ({count} lần).",
     "err.name_duplicate": "LỖI: name={name!r} bị trùng lặp ({count} lần)",
     "param.action.description": "Thao tác để thực hiện. Một trong: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation phải là giá trị boolean.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation bị bỏ qua đối với transport không phải HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation phải là giá trị boolean",
+    "err.trusted_trace_boolean": "trusted_trace_propagation phải là giá trị boolean"
   },
   "pl": {
     "tool.description": "Zarządzaj definicjami serwerów MCP w pliku mcp_servers.",
@@ -673,7 +733,12 @@
     "warn.name_duplicate": "OSTRZEŻENIE: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "BŁĄD: nazwa={name!r} jest zduplikowana ({count} razy)",
     "param.action.description": "Operacja do wykonania. Jeden z: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation musi być wartością logiczną.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation jest ignorowane dla transportów innych niż HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation musi być wartością logiczną",
+    "err.trusted_trace_boolean": "trusted_trace_propagation musi być wartością logiczną"
   },
   "hi": {
     "tool.description": "mcp_servers.",
@@ -725,7 +790,12 @@
     "warn.name_duplicate": "चेतावनी: नाम={name!r} इमेरुडीवा ({count} मारा)।",
     "err.name_duplicate": "त्रुटि: नाम={name!r} इमेरुडीवा ({count} मारा)",
     "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन. इनमें से एक: सूची/जोड़ें/निकालें/सेट_डिफ़ॉल्ट/मान्य करें/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation बूलियन मान होना चाहिए.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation गैर-HTTP ट्रांसपोर्ट के लिए अनदेखा किया जाता है.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation बूलियन मान होना चाहिए",
+    "err.trusted_trace_boolean": "trusted_trace_propagation बूलियन मान होना चाहिए"
   },
   "ar": {
     "tool.description": "إدارة تعريفات خادم MCP في mcp_servers.json (list/add/remove/set_default/validate/init_template). إخراج JSON فقط.",
@@ -777,7 +847,12 @@
     "warn.name_duplicate": "تحذير: الاسم = {name!r} مكرر ({count} مرات).",
     "err.name_duplicate": "خطأ: الاسم = {name!r} مكرر ({count} مرات)",
     "param.action.description": "عملية لأداء. أحد: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation يجب أن تكون قيمة منطقية.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation يتم تجاهله في وسائل النقل غير HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation يجب أن تكون قيمة منطقية",
+    "err.trusted_trace_boolean": "trusted_trace_propagation يجب أن تكون قيمة منطقية"
   },
   "sv": {
     "tool.description": "Hantera MCP-serverdefinitioner i mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -829,7 +904,12 @@
     "warn.name_duplicate": "VARNING: name={name!r} är duplicerat ({count} gånger).",
     "err.name_duplicate": "FEL: name={name!r} är duplicerat ({count} gånger)",
     "param.action.description": "Operation att utföra. En av: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation måste vara ett booleskt värde.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation ignoreras för transport som inte använder HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation måste vara ett booleskt värde",
+    "err.trusted_trace_boolean": "trusted_trace_propagation måste vara ett booleskt värde"
   },
   "sw": {
     "tool.description": "Manage MCP server definitions stored in mcp_servers.",
@@ -881,7 +961,12 @@
     "warn.name_duplicate": "WARNING: name={name!r} is duplicated ({count} times).",
     "err.name_duplicate": "ERROR: name={name!r} is duplicated ({count} times)",
     "param.action.description": "Operesheni ya kufanya. Moja ya: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation lazima iwe thamani ya boolean.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation hupuuzwa kwa transport zisizo za HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation lazima iwe thamani ya boolean",
+    "err.trusted_trace_boolean": "trusted_trace_propagation lazima iwe thamani ya boolean"
   },
   "nb": {
     "tool.description": "Administrer MCP-serverdefinisjoner i mcp_servers.",
@@ -933,7 +1018,12 @@
     "warn.name_duplicate": "ADVARSEL: name={name!r} er duplisert ({count} ganger).",
     "err.name_duplicate": "FEIL: name={name!r} er duplisert ({count} ganger)",
     "param.action.description": "Operasjon å utføre. En av: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation må være en boolsk verdi.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation ignoreres for transport som ikke bruker HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation må være en boolsk verdi",
+    "err.trusted_trace_boolean": "trusted_trace_propagation må være en boolsk verdi"
   },
   "nl": {
     "tool.description": "Beheert MCP-serverdefinities die zijn opgeslagen in mcp_servers.",
@@ -985,7 +1075,12 @@
     "warn.name_duplicate": "WAARSCHUWING: naam={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "FOUT: name={name!r} is gedupliceerd ({count} keer)",
     "param.action.description": "Operatie uit te voeren. Een van: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation moet een booleaanse waarde zijn.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation wordt genegeerd voor niet-HTTP-transports.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation moet een booleaanse waarde zijn",
+    "err.trusted_trace_boolean": "trusted_trace_propagation moet een booleaanse waarde zijn"
   },
   "fi": {
     "tool.description": "Hallitsee mcp_servers.",
@@ -1037,7 +1132,12 @@
     "warn.name_duplicate": "VAROITUS: name={name!r} on duplikaatti ({count} kertaa).",
     "err.name_duplicate": "VIRHE: name={name!r} on duplikaatti ({count} kertaa)",
     "param.action.description": "Suoritettava toimenpide. Yksi seuraavista: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation on oltava totuusarvo.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation ohitetaan muissa kuin HTTP-siirtotavoissa.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation on oltava totuusarvo",
+    "err.trusted_trace_boolean": "trusted_trace_propagation on oltava totuusarvo"
   },
   "cs": {
     "tool.description": "Spravuje definice MCP serverů uložené v mcp_servers.",
@@ -1089,7 +1189,12 @@
     "warn.name_duplicate": "VAROVÁNÍ: name={name!r} je duplicitní ({count}×).",
     "err.name_duplicate": "CHYBA: name={name!r} je duplicitní ({count}×)",
     "param.action.description": "Operace k provedení. Jeden z: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation musí být logická hodnota.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation je ignorováno pro transporty jiné než HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation musí být logická hodnota",
+    "err.trusted_trace_boolean": "trusted_trace_propagation musí být logická hodnota"
   },
   "uk": {
     "tool.description": "Керує визначеннями MCP-серверів, збереженими в mcp_servers.",
@@ -1141,7 +1246,12 @@
     "warn.name_duplicate": "ПОПЕРЕДЖЕННЯ: name={name!r} дублюється ({count} разів).",
     "err.name_duplicate": "ПОМИЛКА: name={name!r} дублюється ({count} разів)",
     "param.action.description": "Операція для виконання. Один із: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation має бути логічним значенням.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation ігнорується для транспортів, відмінних від HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation має бути логічним значенням",
+    "err.trusted_trace_boolean": "trusted_trace_propagation має бути логічним значенням"
   },
   "tr": {
     "tool.description": "mcp_servers.",
@@ -1193,7 +1303,12 @@
     "warn.name_duplicate": "WARNING: name={name!r} kopyalanıyor ({count} kez).",
     "err.name_duplicate": "ERROR: name={name!r} kopyalanıyor ({count} kez)",
     "param.action.description": "Gerçekleştirilecek işlem. Şunlardan biri: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation boolean bir değer olmalıdır.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation HTTP dışı taşımalarda yok sayılır.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation boolean bir değer olmalıdır",
+    "err.trusted_trace_boolean": "trusted_trace_propagation boolean bir değer olmalıdır"
   },
   "th": {
     "tool.description": "จัดการนิยามเซิร์ฟเวอร์ MCP ที่บันทึกไว้ใน mcp_servers.",
@@ -1245,7 +1360,12 @@
     "warn.name_duplicate": "คำเตือน: name={name!r} ซ้ำ ({count} ครั้ง)",
     "err.name_duplicate": "ข้อผิดพลาด: name={name!r} ซ้ำ ({count} ครั้ง)",
     "param.action.description": "การดำเนินการที่จะดำเนินการ หนึ่งใน: รายการ/เพิ่ม/ลบ/set_default/validate/init_template",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation ต้องเป็นค่าบูลีน.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation จะถูกละเว้นสำหรับการขนส่งที่ไม่ใช่ HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation ต้องเป็นค่าบูลีน",
+    "err.trusted_trace_boolean": "trusted_trace_propagation ต้องเป็นค่าบูลีน"
   },
   "zh_CN": {
     "tool.description": "管理保存在 mcp_servers.json 中的 MCP 服务器定义（list/add/remove/set_default/validate/init_template）。仅输出 JSON。",
@@ -1297,7 +1417,12 @@
     "warn.name_duplicate": "警告：name={name!r} 重复（共 {count} 次）。",
     "err.name_duplicate": "错误：name={name!r} 重复（共 {count} 次）",
     "param.action.description": "要执行的操作。以下之一：列表/添加/删除/set_default/validate/init_template。",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation 必须是布尔值.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation 在非 HTTP 传输中会被忽略.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation 必须是布尔值",
+    "err.trusted_trace_boolean": "trusted_trace_propagation 必须是布尔值"
   },
   "zh_TW": {
     "tool.description": "管理儲存在 mcp_servers.json 中的 MCP 伺服器定義（list/add/remove/set_default/validate/init_template）。僅輸出 JSON。",
@@ -1349,7 +1474,12 @@
     "warn.name_duplicate": "警告：name={name!r} 重複（共 {count} 次）。",
     "err.name_duplicate": "錯誤：name={name!r} 重複（共 {count} 次）",
     "param.action.description": "要執行的操作。以下之一：清單/新增/刪除/set_default/validate/init_template。",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation 必須是布林值.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation 在非 HTTP 傳輸中會被忽略.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation 必須是布林值",
+    "err.trusted_trace_boolean": "trusted_trace_propagation 必須是布林值"
   },
   "bn": {
     "tool.description": "mcp_servers.",
@@ -1401,7 +1531,12 @@
     "warn.name_duplicate": "সতর্কতা: name={name!r} একাধিকবার আছে ({count} বার)।",
     "err.name_duplicate": "ত্রুটি: name={name!r} একাধিকবার আছে ({count} বার)",
     "param.action.description": "সঞ্চালনের জন্য অপারেশন। এর মধ্যে একটি: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation বুলিয়ান মান হতে হবে.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation নন-HTTP ট্রান্সপোর্টে উপেক্ষা করা হয়.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation বুলিয়ান মান হতে হবে",
+    "err.trusted_trace_boolean": "trusted_trace_propagation বুলিয়ান মান হতে হবে"
   },
   "fa": {
     "tool.description": "تعاریف سرور MCP ذخیره‌شده در mcp_servers.",
@@ -1453,7 +1588,12 @@
     "warn.name_duplicate": "هشدار: name={name!r} تکراری است ({count} بار).",
     "err.name_duplicate": "خطا: name={name!r} تکراری است ({count} بار)",
     "param.action.description": "عملیات برای انجام. یکی از: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation باید یک مقدار بولی باشد.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation برای انتقال‌های غیر HTTP نادیده گرفته می‌شود.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation باید یک مقدار بولی باشد",
+    "err.trusted_trace_boolean": "trusted_trace_propagation باید یک مقدار بولی باشد"
   },
   "mn": {
     "tool.description": "mcp_servers.",
@@ -1505,7 +1645,12 @@
     "warn.name_duplicate": "АНХААРУУЛГА: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "Алдаа: name={name!r} давхардсан байна ({count} удаа)",
     "param.action.description": "Гүйцэтгэх ажиллагаа. Үүний нэг нь: жагсаалт/нэмэх/арилгах/тогтоох_өгөгдмөл/баталгаажуулах/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation boolean утга байх ёстой.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation HTTP бус дамжуулалтад үл тоомсорлогдоно.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation boolean утга байх ёстой",
+    "err.trusted_trace_boolean": "trusted_trace_propagation boolean утга байх ёстой"
   },
   "mr": {
     "tool.description": "mcp_servers.",
@@ -1557,7 +1702,12 @@
     "warn.name_duplicate": "इशारा: name={name!r} डुप्लिकेट आहे ({count} वेळा).",
     "err.name_duplicate": "त्रुटी: name={name!r} डुप्लिकेट आहे ({count} वेळा)",
     "param.action.description": "करण्यासाठी ऑपरेशन. त्यापैकी एक: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation बूलियन मूल्य असणे आवश्यक आहे.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation HTTP नसलेल्या ट्रान्सपोर्टसाठी दुर्लक्षित केले जाते.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation बूलियन मूल्य असणे आवश्यक आहे",
+    "err.trusted_trace_boolean": "trusted_trace_propagation बूलियन मूल्य असणे आवश्यक आहे"
   },
   "el": {
     "tool.description": "Διαχειριστείτε τους ορισμούς διακομιστή MCP στο mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1609,7 +1759,12 @@
     "warn.name_duplicate": "ΠΡΟΕΙΔΟΠΟΙΗΣΗ: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "ΣΦΑΛΜΑ: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Λειτουργία για εκτέλεση. Ένα από τα: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation πρέπει να είναι λογική τιμή.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation αγνοείται για μεταφορές που δεν χρησιμοποιούν HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation πρέπει να είναι λογική τιμή",
+    "err.trusted_trace_boolean": "trusted_trace_propagation πρέπει να είναι λογική τιμή"
   },
   "he": {
     "tool.description": "נהל הגדרות שרת MCP ב-mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1661,7 +1816,12 @@
     "warn.name_duplicate": "אזהרה: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "שגיאה: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "פעולה לביצוע. אחד מ: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation חייב להיות ערך בוליאני.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation מתעלמים ממנו בתעבורה שאינה HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation חייב להיות ערך בוליאני",
+    "err.trusted_trace_boolean": "trusted_trace_propagation חייב להיות ערך בוליאני"
   },
   "hu": {
     "tool.description": "Az MCP-kiszolgáló definícióinak kezelése az mcp_servers.json fájlban (list/add/remove/set_default/validate/init_template).",
@@ -1713,7 +1873,12 @@
     "warn.name_duplicate": "FIGYELMEZTETÉS: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "HIBA: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Végrehajtandó művelet. Az egyik: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation logikai értéknek kell lennie.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation nem HTTP-alapú átviteleknél figyelmen kívül marad.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation logikai értéknek kell lennie",
+    "err.trusted_trace_boolean": "trusted_trace_propagation logikai értéknek kell lennie"
   },
   "ro": {
     "tool.description": "Gestionați definițiile serverului MCP în mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1765,7 +1930,12 @@
     "warn.name_duplicate": "AVERTISMENT: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "EROARE: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operație de efectuat. Unul dintre: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation trebuie să fie o valoare booleană.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation este ignorat pentru transporturile non-HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation trebuie să fie o valoare booleană",
+    "err.trusted_trace_boolean": "trusted_trace_propagation trebuie să fie o valoare booleană"
   },
   "fil": {
     "tool.description": "Pamahalaan ang MCP na mga kahulugan ng server sa mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1817,7 +1987,12 @@
     "warn.name_duplicate": "BABALA: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "ERROR: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operasyon upang maisagawa. Isa sa: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation dapat ay boolean na halaga.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation hindi pinapansin para sa mga transport na hindi HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation dapat ay boolean na halaga",
+    "err.trusted_trace_boolean": "trusted_trace_propagation dapat ay boolean na halaga"
   },
   "ms": {
     "tool.description": "Urus MCP takrifan pelayan dalam mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1869,7 +2044,12 @@
     "warn.name_duplicate": "AMARAN: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "RALAT: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operasi untuk melaksanakan. Salah satu daripada: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation mestilah nilai boolean.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation diabaikan untuk pengangkutan bukan HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation mestilah nilai boolean",
+    "err.trusted_trace_boolean": "trusted_trace_propagation mestilah nilai boolean"
   },
   "da": {
     "tool.description": "Administrer MCP-serverdefinitioner i mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1921,7 +2101,12 @@
     "warn.name_duplicate": "ADVARSEL: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "FEJL: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operation at udføre. En af: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation skal være en boolesk værdi.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation ignoreres for transporttyper, der ikke bruger HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation skal være en boolesk værdi",
+    "err.trusted_trace_boolean": "trusted_trace_propagation skal være en boolesk værdi"
   },
   "nn": {
     "tool.description": "Administrer MCP serverdefinisjoner i mcp_servers.json (list/add/remove/set_default/validate/init_template).",
@@ -1973,6 +2158,11 @@
     "warn.name_duplicate": "ADVARSEL: name={name!r} imerudiwa ({count} mara).",
     "err.name_duplicate": "FEIL: name={name!r} imerudiwa ({count} mara)",
     "param.action.description": "Operasjon å utføre. En av: list/add/remove/set_default/validate/init_template.",
-    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus."
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus.",
+    "param.trusted_trace_propagation.description": "(add/init_template) Explicitly trust this managed HTTP MCP server for W3C trace propagation. Default: false.",
+    "warn.trusted_trace_boolean": "WARNING: mcp_servers[{idx}].trusted_trace_propagation må vere ein boolsk verdi.",
+    "warn.trusted_trace_non_http": "WARNING: mcp_servers[{idx}].trusted_trace_propagation blir ignorert for transportar som ikkje bruker HTTP.",
+    "err.trusted_trace_boolean_indexed": "ERROR: mcp_servers[{idx}].trusted_trace_propagation må vere ein boolsk verdi",
+    "err.trusted_trace_boolean": "trusted_trace_propagation må vere ein boolsk verdi"
   }
 }

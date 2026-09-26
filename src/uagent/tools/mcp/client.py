@@ -70,6 +70,7 @@ class MCPClient:
         http_client: Any = None,
         authorization_provider: Any = None,
         http_config: MCPHTTPConfig | None = None,
+        trusted_trace_propagation: bool = False,
     ) -> None:
         self.url = url
         if self.url:
@@ -95,6 +96,7 @@ class MCPClient:
         self._owns_http_client = http_client is None
         self.authorization_provider = authorization_provider
         self.http_config = http_config
+        self.trusted_trace_propagation = bool(trusted_trace_propagation)
         self._stateless_client: StatelessHTTPClient | None = None
 
     async def __aenter__(self) -> "MCPClient":
@@ -109,6 +111,7 @@ class MCPClient:
                     http_client=self._http_client,
                     authorization_provider=self.authorization_provider,
                     http_config=self.http_config,
+                    trusted_trace_propagation=self.trusted_trace_propagation,
                 )
                 try:
                     await probe.__aenter__()
@@ -147,6 +150,7 @@ class MCPClient:
                     http_client=self._http_client,
                     authorization_provider=self.authorization_provider,
                     http_config=self.http_config,
+                    trusted_trace_propagation=self.trusted_trace_propagation,
                 )
                 await self._stateless_client.__aenter__()
                 self.url = self._stateless_client.url
@@ -179,7 +183,10 @@ class MCPClient:
                         self._http_client, self.authorization_provider
                     )
                 if (
-                    self.headers or self.authorization_provider or self.http_config
+                    self.headers
+                    or self.authorization_provider
+                    or self.http_config
+                    or self.trusted_trace_propagation
                 ) and self._http_client is None:
                     auth = (
                         MCPOAuthHTTPXAuth(self.authorization_provider)
@@ -190,8 +197,10 @@ class MCPClient:
                         self.http_config,
                         headers=self.headers,
                         auth=auth,
+                        trusted_trace_propagation=self.trusted_trace_propagation,
                     )
                     self._owns_http_client = True
+                    self._stack.push_async_callback(self._close_owned_http_client)
                 read, write, get_session_id = await self._stack.enter_async_context(
                     streamable_http_client(endpoint, http_client=self._http_client)
                 )
@@ -230,15 +239,27 @@ class MCPClient:
             raise MCPTransportError(
                 "MCP_CONNECT_FAILED", "connect", {"error": str(exc)}
             ) from exc
+        except BaseException:
+            await self._stack.aclose()
+            raise
+
+    async def _close_owned_http_client(self) -> None:
+        client = self._http_client
+        if not self._owns_http_client or client is None:
+            return
+        self._http_client = None
+        try:
+            await client.aclose()
+        except Exception:
+            # Cleanup must never replace the original MCP transport failure.
+            pass
 
     async def __aexit__(self, exc_type: Any, exc: Any, tb: Any) -> None:
         if self._stateless_client is not None:
             await self._stateless_client.__aexit__(exc_type, exc, tb)
             self._stateless_client = None
         await self._stack.aclose()
-        if self._owns_http_client and self._http_client is not None:
-            await self._http_client.aclose()
-            self._http_client = None
+        await self._close_owned_http_client()
 
     def _protocol_version(self) -> str | None:
         result = self.initialize_result
