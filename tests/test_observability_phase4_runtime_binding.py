@@ -6,7 +6,10 @@ from uagent.runtime.observability.content_capture import (
     make_text_candidate,
     prepare_content_event,
 )
-from uagent.runtime.observability.content_runtime import capture_logged_message
+from uagent.runtime.observability.content_runtime import (
+    bind_agent_content_capture,
+    capture_logged_message,
+)
 from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
 from uagent.runtime.observability.settings import ObservabilitySettings
 
@@ -16,6 +19,16 @@ def _settings(*categories: str) -> ObservabilitySettings:
         enabled=True,
         capture_content=True,
         capture_categories=frozenset(categories),
+        capture_max_field_chars=2048,
+        capture_max_span_chars=8192,
+    )
+
+
+def _disabled_settings() -> ObservabilitySettings:
+    return ObservabilitySettings(
+        enabled=True,
+        capture_content=False,
+        capture_categories=frozenset(),
         capture_max_field_chars=2048,
         capture_max_span_chars=8192,
     )
@@ -107,7 +120,7 @@ def test_otel_span_emits_only_trusted_prepared_content_event():
     assert disabled_raw.events == []
 
 
-def test_lifecycle_binding_emits_reviewed_text_to_agent_span(monkeypatch):
+def test_lifecycle_binding_consumes_pending_user_and_emits_assistant(monkeypatch):
     span = _DedicatedSpan()
     backend = _Backend(span)
     settings = _settings("user_input", "assistant_output")
@@ -121,8 +134,11 @@ def test_lifecycle_binding_emits_reviewed_text_to_agent_span(monkeypatch):
         lambda: settings,
     )
 
+    user_message = {"role": "user", "content": "hello"}
+    assert capture_logged_message(user_message) is True
+
     with lifecycle_execution():
-        assert capture_logged_message({"role": "user", "content": "hello"}) is True
+        assert capture_logged_message(user_message) is False
         assert (
             capture_logged_message({"role": "assistant", "content": "world"}) is True
         )
@@ -142,7 +158,35 @@ def test_lifecycle_binding_emits_reviewed_text_to_agent_span(monkeypatch):
     ]
 
 
-def test_lifecycle_binding_fails_closed_for_structured_or_internal_messages(monkeypatch):
+def test_disabled_nested_capture_scope_masks_enabled_parent():
+    outer_span = _DedicatedSpan()
+    inner_span = _DedicatedSpan()
+
+    with bind_agent_content_capture(
+        outer_span,
+        _settings("user_input", "assistant_output"),
+    ):
+        assert capture_logged_message({"role": "user", "content": "outer"}) is True
+        with bind_agent_content_capture(inner_span, _disabled_settings()):
+            assert (
+                capture_logged_message({"role": "assistant", "content": "inner"})
+                is False
+            )
+        assert (
+            capture_logged_message({"role": "assistant", "content": "outer reply"})
+            is True
+        )
+
+    assert inner_span.content_events == []
+    assert [event.attributes()["uag.content.value"] for event in outer_span.content_events] == [
+        "outer",
+        "outer reply",
+    ]
+
+
+def test_lifecycle_binding_fails_closed_for_structured_or_internal_messages(
+    monkeypatch,
+):
     span = _DedicatedSpan()
     backend = _Backend(span)
     settings = _settings("user_input", "assistant_output")
@@ -156,18 +200,27 @@ def test_lifecycle_binding_fails_closed_for_structured_or_internal_messages(monk
         lambda: settings,
     )
 
-    with lifecycle_execution():
-        assert (
-            capture_logged_message(
-                {"role": "user", "content": [{"type": "text", "text": "hello"}]}
-            )
-            is True
+    assert (
+        capture_logged_message(
+            {"role": "user", "content": [{"type": "text", "text": "hello"}]}
         )
+        is False
+    )
+
+    with lifecycle_execution():
         assert (
             capture_logged_message(
                 {"role": "assistant", "content": "hidden", "_uagent_internal": True}
             )
             is False
         )
+        assert (
+            capture_logged_message(
+                {"role": "assistant", "content": "hidden", "_uagent_ui_only": True}
+            )
+            is False
+        )
+        assert capture_logged_message({"role": "system", "content": "hidden"}) is False
+        assert capture_logged_message({"role": "tool", "content": "hidden"}) is False
 
     assert span.content_events == []
