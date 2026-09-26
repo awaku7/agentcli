@@ -137,7 +137,7 @@ Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP HTTP pro
 - The Web connection is authenticated and authorized before UAG resolves the trusted trace carrier. Trace metadata remains completely outside authentication, room/project policy, session revalidation, and Memory authorization.
 - Operators enabling trusted proxy ingress must configure the proxy to strip or replace untrusted client trace headers before forwarding to UAG. A proxy that blindly preserves browser-supplied `traceparent` defeats the deployment trust assumption even though UAG correctly verifies the proxy peer.
 
-Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, `tests/test_observability_phase3_mcp.py`, `tests/test_observability_phase3_mcp_config.py`, and `tests/test_observability_phase3_trusted_ingress.py`.
+Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, `tests/test_observability_phase3_mcp.py`, `tests/test_observability_phase3_mcp_config.py`, `tests/test_observability_phase3_trusted_ingress.py`, and `tests/test_observability_phase3_multi_instance.py`. The multi-instance regression uses independent OTel providers for an authenticated A -> B -> C A2A chain and verifies trace continuity, direct parentage, and exactly one canonical `invoke_agent` span per simulated UAG process.
 
 ## OTLP and standard OTel configuration
 

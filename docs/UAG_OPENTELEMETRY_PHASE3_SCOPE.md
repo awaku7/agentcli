@@ -1,5 +1,7 @@
 # OpenTelemetry Phase 3 Scope
 
+Status: Complete when the validation requirements in this document remain green on `main`.
+
 Phase 3 adds trusted distributed trace propagation without changing UAG authentication, authorization, tool, or model behavior.
 
 ## Goals
@@ -97,12 +99,16 @@ Required tests include:
 - authenticated trusted A2A hop continues a trace;
 - unauthenticated/untrusted A2A input cannot select the parent trace;
 - trace context does not change auth/authz outcomes;
+- a three-instance A2A chain using independent `TracerProvider` instances preserves one trace ID and direct parentage across both W3C hops;
+- each instance in that multi-instance chain exports exactly one canonical `invoke_agent` span for its logical Agent execution, so propagation does not introduce duplicate logical Agent spans;
 - Sub-Agent child spans inherit the active trace while sibling executions keep separate spans;
 - HTTP MCP injection preserves auth headers and omits sensitive content;
 - stdio MCP remains functional without serialized W3C headers;
 - duplicate logical spans are not introduced;
 - OTel disabled behavior is unchanged;
 - Python 3.11 / 3.13 / 3.14, Ruff, Black, and full pytest stay green.
+
+The cross-instance regression is `tests/test_observability_phase3_multi_instance.py`. It intentionally uses three independent OTel SDK `TracerProvider` objects to model separate UAG processes without relying on shared provider state. The A2A boundaries still use the real UAG W3C inject/attach helpers and authenticated A2A trust boundary.
 
 ## Out of scope
 
