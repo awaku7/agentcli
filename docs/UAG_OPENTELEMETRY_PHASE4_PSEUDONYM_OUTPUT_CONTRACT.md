@@ -38,7 +38,7 @@ Before UTF-8 encoding/HMAC work, `raw_identifier` must be an exact built-in stri
 no surrogate code points U+D800..U+DFFF
 ```
 
-After that bounded native-length check, UTF-8 encoding must be `1..1024` bytes. A value outside either bound emits no pseudonym for that identifier kind and produces only normalized content-free diagnostics.
+Native length is checked before scanning for surrogates. After that bounded native-length check, UTF-8 encoding must be `1..1024` bytes. A value outside either bound emits no pseudonym for that identifier kind and produces only normalized content-free diagnostics.
 
 No generic `str()`/`repr()` conversion of arbitrary identity objects is permitted in the pseudonym helper.
 
@@ -92,7 +92,7 @@ Public controls are:
 UAGENT_OTEL_CORRELATION_KEY_VERSION=<version>
 ```
 
-Precedence is inherited from the security contract:
+Precedence and source runtime-type rules are inherited from the security contract:
 
 ```text
 explicit CLI/application setting
@@ -106,7 +106,11 @@ The safe default is exactly:
 v1
 ```
 
-An explicit value is valid only when it matches exactly:
+For an explicit value, validation order is exact:
+
+1. require exact built-in `str` under the security contract;
+2. require native length `1..32` before regex/character scanning;
+3. require the entire string to match exactly:
 
 ```text
 ^[a-z0-9][a-z0-9._-]{0,31}$
@@ -114,7 +118,7 @@ An explicit value is valid only when it matches exactly:
 
 Thus the label is 1-32 lowercase ASCII characters, begins with letter/digit, and after the first character may contain only lowercase letters, digits, `.`, `_`, `-`.
 
-No whitespace, control characters, slash/backslash, quotes, colon, uppercase, or non-ASCII text is accepted.
+No whitespace, control characters, slash/backslash, quotes, colon, uppercase, or non-ASCII text is accepted. No regex or normalization is run on an overlength value.
 
 Validation rules:
 
@@ -195,6 +199,7 @@ Tests must prove that:
 - shorter/longer/base64/base64url/uppercase forms are rejected;
 - pseudonyms appear only on local canonical `invoke_agent` segment roots and are not repeated on `chat`, `execute_tool`, provider-SDK, or remote spans;
 - missing key version resolves to exact `v1`;
+- overlength key version rejects before regex/character scanning;
 - valid version lengths 1 and 32 pass; invalid/uppercase/whitespace/non-ASCII/33-char versions fail closed;
 - invalid explicit CLI version does not fall back to env or default;
 - request/provider/tool/peer/trace data cannot override the version;
@@ -211,6 +216,6 @@ Tests must prove that:
 - Initial pseudonym output is exactly the first 128 HMAC-SHA-256 bits as 32 lowercase hex characters.
 - Pseudonyms are attached only to each local canonical `invoke_agent` segment root.
 - The only initial pseudonym attributes are principal/room/project plus same-span `uag.correlation.key_version`.
-- Key-version default is `v1`; explicit labels match `^[a-z0-9][a-z0-9._-]{0,31}$`.
+- Key-version default is `v1`; explicit labels are exact built-in strings, length-checked before regex, then match `^[a-z0-9][a-z0-9._-]{0,31}$`.
 - Rotation changes key material and version label together.
 - Pseudonyms and version labels are diagnostics only and never become security identities.
