@@ -71,9 +71,8 @@ def _parse_ascii_integer(value: object) -> tuple[int | None, bool]:
         return 0, True
     if value[0] == "0":
         return None, False
-    for char in value:
-        if char < "0" or char > "9":
-            return None, False
+    if any(char < "0" or char > "9" for char in value):
+        return None, False
     return int(value), True
 
 
@@ -92,6 +91,7 @@ def _parse_csv(
         return frozenset(), False
     if value == "":
         return frozenset(), True
+
     tokens: list[str] = []
     for raw_token in value.split(","):
         token = _strip_ascii_space_tab(raw_token)
@@ -106,6 +106,7 @@ def _parse_provider_csv(value: object) -> frozenset[str]:
         return frozenset()
     if type(value) is not str or len(value) > 256 or value == "":
         return frozenset()
+
     selected: set[str] = set()
     for raw_token in value.split(","):
         token = _strip_ascii_space_tab(raw_token)
@@ -202,7 +203,6 @@ class ObservabilitySettings:
             env_name="UAGENT_OTEL_ENABLED",
             default=False,
         )
-
         capture_requested, capture_source = _resolve_bool_setting(
             explicit=explicit_capture_content,
             cli=cli.capture_content,
@@ -493,9 +493,7 @@ def set_observability_entrypoint_override(enabled: bool | None) -> None:
     """
 
     global _ENTRYPOINT_CLI_OVERRIDES
-    _ENTRYPOINT_CLI_OVERRIDES = replace(
-        _ENTRYPOINT_CLI_OVERRIDES, enabled=enabled
-    )
+    _ENTRYPOINT_CLI_OVERRIDES = replace(_ENTRYPOINT_CLI_OVERRIDES, enabled=enabled)
 
 
 def consume_process_otel_cli_flags(argv: list[str] | None = None) -> bool | None:
@@ -528,14 +526,24 @@ def _merge_cli_overrides(
     return ObservabilityCliOverrides(**values)
 
 
+def _without_enabled(
+    overrides: ObservabilityCliOverrides,
+) -> ObservabilityCliOverrides:
+    return replace(overrides, enabled=None)
+
+
 def refresh_observability_settings(
     *, environ: Mapping[str, str] | None = None
 ) -> ObservabilitySettings:
     """Resolve and publish process settings after dotenv loading."""
 
     global _CURRENT_SETTINGS
+
+    entrypoint_enabled = _ENTRYPOINT_CLI_OVERRIDES.enabled
+    explicit_enabled = entrypoint_enabled if type(entrypoint_enabled) is bool else None
     _CURRENT_SETTINGS = resolve_observability_settings(
-        cli_overrides=_ENTRYPOINT_CLI_OVERRIDES,
+        explicit_enabled=explicit_enabled,
+        cli_overrides=_without_enabled(_ENTRYPOINT_CLI_OVERRIDES),
         environ=environ,
     )
     return _CURRENT_SETTINGS
