@@ -241,9 +241,7 @@ def test_malformed_candidate_metadata_is_omitted_and_later_candidate_continues()
 def test_span_budget_is_deterministic_and_later_smaller_candidate_can_fit():
     policy = _policy("user_input", "assistant_output", field=64, span=7)
     buffer = ContentCaptureBuffer(policy)
-    buffer.admit(
-        make_text_candidate(category="assistant_output", value="b", ordinal=2)
-    )
+    buffer.admit(make_text_candidate(category="assistant_output", value="b", ordinal=2))
     buffer.admit(
         make_text_candidate(category="user_input", value="12345678", ordinal=1)
     )
@@ -417,9 +415,7 @@ def test_emit_requires_dedicated_content_carrier():
             self.events.append(event)
 
     buffer = ContentCaptureBuffer(_policy("user_input"))
-    buffer.admit(
-        make_text_candidate(category="user_input", value="hello", ordinal=1)
-    )
+    buffer.admit(make_text_candidate(category="user_input", value="hello", ordinal=1))
 
     generic = GenericOnlySpan()
     dedicated = DedicatedSpan()

@@ -374,10 +374,14 @@ def prepare_content_event(
         reviewed = _REVIEWED_ADAPTERS.get(meta.source_adapter_id)
         if reviewed != (meta.category, meta.root_provenance, meta.owner_kind):
             raise _OmitCandidate
-        if meta.source_adapter_id in {
-            "user_message.text.v1",
-            "assistant_message.visible_text.v1",
-        } and type(candidate.value) is not str:
+        if (
+            meta.source_adapter_id
+            in {
+                "user_message.text.v1",
+                "assistant_message.visible_text.v1",
+            }
+            and type(candidate.value) is not str
+        ):
             raise _OmitCandidate
         if type(meta.root) is not ProvenanceNode:
             raise _OmitCandidate
@@ -614,10 +618,7 @@ def _has_authorization_scheme(value: str) -> bool:
 
 def _is_jwt_segment_char(char: str) -> bool:
     return (
-        "A" <= char <= "Z"
-        or "a" <= char <= "z"
-        or "0" <= char <= "9"
-        or char in "_-"
+        "A" <= char <= "Z" or "a" <= char <= "z" or "0" <= char <= "9" or char in "_-"
     )
 
 
@@ -644,8 +645,7 @@ def _has_compact_jwt(value: str) -> bool:
                 continue
         parts = core.split(".")
         if len(parts) == 3 and all(
-            part and all(_is_jwt_segment_char(char) for char in part)
-            for part in parts
+            part and all(_is_jwt_segment_char(char) for char in part) for part in parts
         ):
             return True
     return False

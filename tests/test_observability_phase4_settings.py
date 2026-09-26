@@ -40,9 +40,7 @@ def test_capture_environment_resolves_closed_categories_and_bounds():
     )
 
     assert settings.capture_content is True
-    assert settings.capture_categories == frozenset(
-        {"user_input", "assistant_output"}
-    )
+    assert settings.capture_categories == frozenset({"user_input", "assistant_output"})
     assert settings.capture_max_field_chars == 4096
     assert settings.capture_max_span_chars == 12000
 
