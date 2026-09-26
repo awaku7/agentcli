@@ -6,7 +6,7 @@ Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`
 Traversal contract: `docs/UAG_OPENTELEMETRY_PHASE4_TRACE_NAME_AND_TRAVERSAL_CONTRACT.md`  
 Applies to: Phase 4A controlled-content scalar handling and Phase 4D ordinary-user trace projection
 
-This companion closes two remaining implementation ambiguities found during Phase 4 review. Where the parent or companion documents say that primitive numeric values have a bounded representation, or list `start_time`, `end_time`, and `duration_ms` without exact scalar rules, the rules below are normative for the initial Phase 4 implementation.
+This companion closes remaining scalar and timing implementation ambiguities found during Phase 4 review. Where the parent or companion documents say that primitive numeric values have a bounded representation, or list `start_time`, `end_time`, and `duration_ms` without exact scalar rules, the rules below are normative for the initial Phase 4 implementation.
 
 ## 1. Numeric content scalars are conversion-free bounded before rendering
 
@@ -94,20 +94,39 @@ duration_ms = end_time - start_time
 
 Therefore `duration_ms` is also a non-negative integer no larger than `9007199254740991`.
 
-### 2.2 Adapter normalization
+### 2.2 Adapter normalization and raw timestamp preflight
 
-A supported backend adapter may receive timestamps in backend-specific units or representations, but it must normalize them before trace-view projection.
+A supported backend adapter may receive timestamps in backend-specific units or representations, but it must validate the raw typed value before any unit conversion, division, multiplication, decimal/string conversion, or serialization.
 
-Allowed normalization rules:
+For built-in integer timestamp inputs, the initial Phase 4D contract uses these exact conversion-free source ranges:
 
-- typed integer nanoseconds: convert with integer division to Unix epoch milliseconds;
-- typed integer microseconds: convert with integer division to Unix epoch milliseconds;
-- typed integer milliseconds: validate directly;
+```text
+milliseconds:
+  0 <= raw_ms <= 9007199254740991
+
+microseconds:
+  0 <= raw_us <= 9007199254740991999
+  canonical_ms = raw_us // 1000
+
+nanoseconds:
+  0 <= raw_ns <= 9007199254740991999999
+  canonical_ms = raw_ns // 1000000
+```
+
+These source maxima are exactly the largest non-negative integers that can still normalize to `2^53 - 1` milliseconds after floor division. The adapter must reject a raw integer outside the unit-specific range before performing the division.
+
+The raw-range decision itself must not render the integer. It must use a bounded-cost comparison, sign check plus `bit_length()`, or an equivalent conversion-free preflight. In particular, an arbitrary-precision integer with millions of digits must be rejected before `// 1000`, `// 1000000`, `str()`, `repr()`, JSON conversion, decimal formatting, logging, or regex/classifier work.
+
+Allowed normalization rules are therefore:
+
+- typed integer nanoseconds: raw-range preflight, then integer division by `1000000`;
+- typed integer microseconds: raw-range preflight, then integer division by `1000`;
+- typed integer milliseconds: raw-range preflight, then use directly;
 - another backend representation may be supported only by an adapter-specific strict parser with a bounded input length and a closed documented grammar.
 
 An arbitrary or enriched backend string is never copied into any timing field. A strict timestamp parser, if used for a specific backend, must bound the input before parsing and return only the canonical integer milliseconds value.
 
-Unsupported types, booleans masquerading as integers, floats, `NaN`/infinity, negative timestamps, out-of-range integers, malformed strings, parse failures, `end_time < start_time`, or arithmetic overflow make that span invalid for ordinary-user v1 projection. The invalid span is omitted rather than partially returned with timing text.
+Unsupported types, booleans masquerading as integers, floats, `NaN`/infinity, negative timestamps, raw integers above the unit-specific maximum, malformed strings, parse failures, `end_time < start_time`, or arithmetic overflow make that span invalid for ordinary-user v1 projection. The invalid span is omitted rather than partially returned with timing text.
 
 When one or more otherwise authorized spans are omitted because timing normalization fails, the response must set `partial=true`. If no authorized valid span remains, existing fail-closed trace-query behavior applies and no backend payload is returned.
 
@@ -127,6 +146,9 @@ The canonical v1 timing representation is backend-independent. Equivalent spans 
 Tests must prove that:
 
 - valid typed nanosecond/microsecond/millisecond timestamps normalize to integer Unix epoch milliseconds;
+- each unit-specific raw maximum is accepted and normalizes to at most `2^53 - 1` milliseconds;
+- the first integer above each unit-specific raw maximum is rejected before unit conversion;
+- an arbitrary-precision raw microsecond or nanosecond integer with millions of digits is rejected by the conversion-free preflight before integer division, rendering, serialization, or logging;
 - sub-millisecond precision is discarded deterministically by integer division;
 - `duration_ms` equals canonical `end_time - start_time` and ignores any conflicting raw backend duration;
 - negative, out-of-range, floating, boolean, malformed, or unsupported timing values omit the span;
@@ -143,5 +165,7 @@ Tests must prove that:
 - Only finite reviewed built-in binary64 floats are admitted; arbitrary/custom numeric types fail closed.
 - Ordinary-user v1 timing fields are JSON integers in Unix epoch milliseconds.
 - Timing output is bounded to `0..2^53-1` for exact cross-language integer representation.
+- Raw millisecond/microsecond/nanosecond integers are checked against unit-specific maxima before any unit conversion.
+- Arbitrary-precision raw timestamps are rejected before integer division or rendering.
 - `duration_ms` is derived from normalized start/end timestamps and is never copied from backend data.
 - Malformed or unsupported timing values omit the span; arbitrary timing text is never forwarded.
