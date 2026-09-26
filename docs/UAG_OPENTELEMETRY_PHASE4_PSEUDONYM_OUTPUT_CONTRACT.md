@@ -2,14 +2,14 @@
 
 Status: Normative Phase 4 companion  
 Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`  
-Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
-Applies to: Phase 4B pseudonymous correlation output and correlation-key version labels
+Security/configuration contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
+Applies to: Phase 4B pseudonym construction, output representation, kind domain, raw-identifier bounds, and correlation-key version association
 
-This companion fixes the initial exported pseudonym representation so implementations cannot choose an arbitrarily short digest truncation while still claiming compliance. It also fixes the initial correlation-key version grammar and export association so rotation metadata remains bounded, low-cardinality, and unambiguous.
+This document is the sole normative owner for the initial pseudonym construction/output rules. The security contract owns deployment-scope and key-material validation; this contract consumes only already-validated values.
 
-## 1. Initial pseudonym representation is fixed
+## 1. Canonical HMAC input is exact
 
-The HMAC construction and canonical framed input remain defined by the parent scope:
+Initial Phase 4 pseudonymization uses HMAC-SHA-256 over this exact framed message:
 
 ```text
 magic = b"uag-otel-pseudo-v1"
@@ -18,7 +18,35 @@ message = magic || frame(deployment_scope) || frame(kind) || frame(raw_identifie
 digest = HMAC-SHA-256(correlation_key, message)
 ```
 
-For the initial Phase 4 implementation, the exported pseudonym is exactly:
+Rules:
+
+- `deployment_scope` is the exact validated value from the security contract;
+- `kind` is exactly one of the ASCII strings `principal`, `room`, or `project`;
+- `raw_identifier` is an authoritative UAG-local identifier string obtained from current trusted identity/scope state, never caller-supplied telemetry metadata;
+- components are UTF-8 encoded independently and prefixed with unsigned 32-bit big-endian byte lengths;
+- no delimiter-only concatenation is permitted;
+- no Unicode normalization, case folding, trimming, path normalization, or other rewrite is applied to `raw_identifier` unless that transformation is already normative for the authoritative identifier before the pseudonym helper receives it;
+- plain SHA hashes are not a substitute for HMAC;
+- raw identifiers never leave the helper/export boundary in clear text.
+
+### 1.1 Raw-identifier preflight is bounded
+
+Before UTF-8 encoding/HMAC work, `raw_identifier` must be an exact built-in string with:
+
+```text
+1..256 Unicode scalar values
+no surrogate code points U+D800..U+DFFF
+```
+
+After that bounded native-length check, UTF-8 encoding must be `1..1024` bytes. A value outside either bound emits no pseudonym for that identifier kind and produces only normalized content-free diagnostics.
+
+No generic `str()`/`repr()` conversion of arbitrary identity objects is permitted in the pseudonym helper.
+
+This bound is telemetry-only and never changes the authoritative UAG identity or authorization decision.
+
+## 2. Initial pseudonym representation is fixed
+
+The exported pseudonym is exactly:
 
 ```text
 pseudo128 = lowercase_hex(digest[0:16])
@@ -27,144 +55,152 @@ pseudo128 = lowercase_hex(digest[0:16])
 Therefore:
 
 - exactly the first 128 digest bits are exported;
-- the textual representation is exactly 32 lowercase hexadecimal characters;
-- no operator, browser, provider, tool, A2A/MCP peer, baggage value, or remote configuration may shorten the digest;
-- no implementation may use fewer than 128 digest bits;
-- the truncation length is not configurable in the initial Phase 4 release;
-- changing the representation or digest length requires an explicitly reviewed schema/version change.
+- output is exactly 32 lowercase hexadecimal ASCII characters;
+- shorter/longer truncation is not configurable in the initial release;
+- uppercase hex, base64, base64url, or implementation-specific encodings are not permitted;
+- changing digest length or representation requires an explicitly reviewed schema/version change.
 
-Using more than 128 bits is also deferred for the initial schema so equivalent deployments produce the same stable representation rather than implementation-specific output lengths.
+## 3. Exact trace attribute names
 
-## 2. Correlation-key version labels are bounded and low-cardinality
+The only initial pseudonym attributes are:
 
-The public controls are:
+```text
+uag.correlation.principal
+uag.correlation.room
+uag.correlation.project
+uag.correlation.key_version
+```
+
+Each principal/room/project value is exactly the 32-character `pseudo128` representation.
+
+No raw identifier, deployment scope, correlation key, full HMAC digest, or caller-supplied label is exported by this contract.
+
+## 4. Correlation-key version grammar is fixed
+
+Public controls are:
 
 ```text
 --otel-correlation-key-version <version>
 UAGENT_OTEL_CORRELATION_KEY_VERSION=<version>
 ```
 
-Configuration precedence remains the security-contract rule:
+Precedence is inherited from the security contract:
 
 ```text
 explicit CLI/application setting
-    > UAGENT_* environment setting
+    > environment setting
     > safe default
 ```
 
-The initial safe default is exactly:
+The safe default is exactly:
 
 ```text
 v1
 ```
 
-An explicitly configured version is valid only when it matches this ASCII grammar exactly:
+An explicit value is valid only when it matches exactly:
 
 ```text
 ^[a-z0-9][a-z0-9._-]{0,31}$
 ```
 
-Therefore the version label:
+Thus the label is 1-32 lowercase ASCII characters, begins with letter/digit, and after the first character may contain only lowercase letters, digits, `.`, `_`, `-`.
 
-- is 1 to 32 ASCII characters;
-- begins with a lowercase ASCII letter or digit;
-- after the first character may contain only lowercase ASCII letters, digits, `.`, `_`, or `-`;
-- is case-sensitive and lowercase-only;
-- contains no whitespace, control characters, path separators, quotes, non-ASCII text, or arbitrary free-form metadata;
-- is operator/server configuration only and cannot be supplied by a browser, tool, provider, A2A/MCP peer, baggage value, trace header, or request payload.
+No whitespace, control characters, slash/backslash, quotes, colon, uppercase, or non-ASCII text is accepted.
 
-Examples accepted by the initial contract include:
+Validation rules:
+
+- missing CLI/env value -> exact default `v1`;
+- explicit empty/invalid value -> pseudonym emission disabled; do not fall back to env/default;
+- label is process/server configuration only and cannot be supplied by browser/tool/provider/A2A/MCP/baggage/trace/request data;
+- label is never derived from key bytes and never contains key material;
+- key-version failure never disables core tracing or Agent/model/tool execution.
+
+## 5. Every pseudonym is paired with its key version
+
+Whenever a span emits one or more of:
 
 ```text
-v1
-v2
-2026q4
-blue-2
-key_03
-rotation.4
+uag.correlation.principal
+uag.correlation.room
+uag.correlation.project
 ```
 
-Examples rejected by the initial contract include empty values, values longer than 32 characters, `V2`, `v 2`, `/v2`, `v2/`, `v2:prod`, Unicode labels, or any other value outside the grammar.
-
-Validation and failure behavior:
-
-- a missing CLI and environment value uses the safe default `v1`;
-- an explicitly supplied empty or invalid value does **not** fall back to `v1`;
-- an invalid explicit version disables pseudonymous-correlation emission for that process and emits only a normalized secret-free diagnostic;
-- invalid version metadata never disables core metadata tracing and never affects Agent/model/tool behavior;
-- the version label is diagnostic metadata only and is never an authentication, authorization, routing, storage, Memory, credential-selection, or trace-query authorization input;
-- UAG never derives the label from secret key bytes and never places secret material in the label.
-
-### 2.1 Every emitted pseudonym carries its effective key version
-
-The exact trace attribute for the effective correlation-key version is:
+that same span MUST emit exactly one:
 
 ```text
 uag.correlation.key_version
 ```
 
-Association rules are normative:
+with the effective validated version label for the key generation that produced every pseudonym on the span.
 
-- whenever a span emits one or more pseudonym attributes (`uag.correlation.principal`, `uag.correlation.room`, or `uag.correlation.project`), that same span MUST also emit exactly one `uag.correlation.key_version` attribute;
-- the value of `uag.correlation.key_version` is the effective validated version label used with the correlation key that produced every pseudonym on that span;
-- all pseudonyms on one span must use the same effective correlation-key generation/version; mixing pseudonyms from different key versions on one span is forbidden;
-- `uag.correlation.key_version` is not emitted by itself when the span contains no pseudonym attribute;
-- the attribute is trace-only diagnostic metadata and remains forbidden from metrics, baggage, resource attributes, authorization, routing, storage keys, Memory identity, credential selection, and ordinary-user `uag.trace_view.v1` responses;
-- the version attribute is assigned from trusted process configuration, never copied from request/provider/backend data;
-- historical exported spans retain the version attribute that was paired with their historical pseudonym values.
+Rules:
 
-Rotation semantics:
+- all pseudonyms on one span use the same effective key material/version;
+- mixing key generations on one span is forbidden;
+- `uag.correlation.key_version` is not emitted alone on a span with no pseudonym;
+- historical spans retain their historical pseudonym/version pair;
+- version and pseudonyms are trace-only diagnostic metadata;
+- they are forbidden from metrics, baggage, resource attributes, authorization, routing, storage keys, Memory identity, credential selection, and ordinary-user `uag.trace_view.v1`.
 
-- one version label identifies one intentionally selected correlation-key generation within a deployment correlation domain;
-- when correlation key material is intentionally rotated, the configured version label must also change before new pseudonyms are emitted;
-- a version label remains stable while the corresponding key generation is active;
-- historical traces retain their historical version label and pseudonym;
-- reusing one version label for different correlation-key material is a configuration error and must fail closed when detectable by UAG-managed key metadata;
-- if the external credential store does not expose enough metadata to detect such reuse, operators are responsible for changing the version label together with the key; UAG must not guess or synthesize a replacement label.
+## 6. Rotation semantics
 
-The version label is not part of the HMAC message in the initial construction. Domain separation continues to come from the dedicated key, `deployment_scope`, and `kind`; the version is bounded diagnostic metadata for rotation/query interpretation.
+One version label identifies one intentionally selected correlation-key generation inside one deployment correlation domain.
 
-## 3. Collision and security semantics
+When key material is intentionally rotated:
 
-The 128-bit pseudonym remains a diagnostic correlation label only. It is not a security identity and must never be used for authentication, authorization, session selection, Memory access, routing, storage keys, credential selection, or trace-query authorization.
+- the configured version label must also change before new pseudonyms are emitted;
+- new spans use the new key/version;
+- historical traces are not rewritten;
+- reusing one version label with different key material is a configuration error and fails closed when detectable by UAG-managed metadata;
+- when an external credential store cannot expose enough metadata to detect reuse, operators must rotate the label together with the key; UAG does not invent a replacement label.
 
-A pseudonym collision must never merge or broaden an authorization decision because authorization is performed only from current UAG-owned identity/scope records.
+The key-version label is intentionally **not** part of the HMAC message in the initial construction. Domain separation is supplied by the dedicated key plus `deployment_scope` and `kind`; version is diagnostic rotation metadata.
 
-Raw identifiers remain local to UAG and the full HMAC digest need not be exported.
+## 7. Pseudonyms are never security identities
 
-## 4. Required regressions
+A pseudonym or key-version label must never be used to:
+
+- authenticate;
+- authorize room/project/private scope;
+- choose `TurnContext` or session;
+- read/write Memory;
+- restore Agent state;
+- select credentials;
+- route requests;
+- build storage keys;
+- authorize trace queries.
+
+Collision cannot merge authorization because authorization uses only current UAG-owned identity/scope records.
+
+## 8. Required regressions
 
 Tests must prove that:
 
-- every exported initial Phase 4 pseudonym is exactly 32 lowercase hex characters;
-- the output contains exactly the first 128 bits of the HMAC-SHA-256 digest;
-- a configuration or payload cannot request 1-bit, 8-bit, 64-bit, or any other shorter truncation;
-- equivalent key/scope/kind/raw-identifier inputs produce the same 128-bit pseudonym across replicas;
-- different `kind` or `deployment_scope` values remain domain-separated;
-- pseudonym collisions, whether synthetic in tests or theoretical in operation, cannot affect authorization because pseudonyms are never authorization inputs;
-- missing key-version configuration resolves to exactly `v1`;
-- valid boundary labels of length 1 and 32 are accepted when they satisfy the grammar;
-- empty, uppercase, whitespace-bearing, non-ASCII, path-like, punctuation-outside-the-allowlist, and 33-character labels fail closed to no pseudonym emission;
-- CLI key-version configuration overrides the environment fallback;
-- invalid explicit CLI configuration does not silently fall back to a valid environment value or `v1`;
-- key-version labels cannot be overridden by request, provider, tool, A2A/MCP, baggage, or trace data;
-- every span carrying any pseudonym also carries exactly one `uag.correlation.key_version` with the effective version that produced it;
-- a span with no pseudonym does not emit `uag.correlation.key_version` merely because pseudonymous correlation is configured;
-- one span cannot mix pseudonyms from multiple key versions;
-- `uag.correlation.key_version` never appears in metrics, baggage, resources, auth inputs, storage/routing keys, or ordinary-user `uag.trace_view.v1`;
-- rotation changes both key material and version label before new pseudonyms are emitted;
-- historical pseudonym/version pairs remain interpretable after rotation;
-- no key-version failure changes core tracing or Agent execution.
+- `kind` accepts only exact `principal|room|project`;
+- adversarial tuples that collide under naive concatenation differ under length-prefixed framing;
+- raw identifier is exact built-in string, <=256 scalar values and <=1024 UTF-8 bytes, with no surrogates;
+- oversized/custom raw identifiers are rejected before unbounded conversion/encoding work;
+- equivalent key/scope/kind/raw-id inputs yield the same pseudonym across replicas;
+- different kind or deployment scope domain-separates output;
+- every exported pseudonym is exactly 32 lowercase hex and equals the first 128 digest bits;
+- shorter/longer/base64/base64url/uppercase forms are rejected;
+- missing key version resolves to exact `v1`;
+- valid version lengths 1 and 32 pass; invalid/uppercase/whitespace/non-ASCII/33-char versions fail closed;
+- invalid explicit CLI version does not fall back to env or default;
+- request/provider/tool/peer/trace data cannot override the version;
+- every span with any pseudonym has exactly one matching `uag.correlation.key_version`;
+- a span without pseudonyms has no standalone key-version attribute;
+- one span cannot mix key versions;
+- rotation changes key and label before new emission;
+- no pseudonym/version attribute appears in metrics, baggage, resources, ordinary-user trace view, or authorization inputs;
+- no pseudonym failure affects normal Agent execution.
 
-## 5. Fixed Phase 4 decisions from this companion
+## 9. Fixed Phase 4 decisions from this contract
 
-- Initial exported pseudonyms use exactly 128 HMAC digest bits.
-- Encoding is exactly 32 lowercase hexadecimal characters.
-- Truncation length is not configurable in the initial release.
-- Fewer than 128 digest bits are forbidden.
-- The initial correlation-key version default is exactly `v1`.
-- Explicit key-version values must match `^[a-z0-9][a-z0-9._-]{0,31}$`.
-- Invalid explicit key-version configuration disables pseudonym emission rather than falling back silently.
-- Every emitted pseudonym is paired on the same span with exactly one `uag.correlation.key_version` attribute identifying its effective key generation.
-- Correlation-key rotation changes the version label along with the key generation.
-- Pseudonyms and version labels remain diagnostic-only and never become security identities.
+- HMAC input framing, kind vocabulary, and raw-identifier bounds are exact and closed.
+- Initial pseudonym output is exactly the first 128 HMAC-SHA-256 bits as 32 lowercase hex characters.
+- The only initial pseudonym attributes are principal/room/project plus same-span `uag.correlation.key_version`.
+- Key-version default is `v1`; explicit labels match `^[a-z0-9][a-z0-9._-]{0,31}$`.
+- Rotation changes key material and version label together.
+- Pseudonyms and version labels are diagnostics only and never become security identities.
