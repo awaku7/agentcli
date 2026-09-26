@@ -163,7 +163,7 @@ tool_result      -> matching local canonical execute_tool span
 
 Canonical `chat`, provider SDK child, internal, and remote spans MUST NOT carry `uag.content` events.
 
-`uag.content.ordinal` is a trusted integer `1..32` local to the owner span. At most 32 candidate records are admitted per owner span; candidate 33+ is omitted before inspecting its value.
+`uag.content.ordinal` is a trusted integer `1..32` local to the owner span. The trusted candidate allocator MUST assign each admitted candidate on an owner span a unique ordinal; ordinals MUST NOT be reused on that span across categories. A duplicate/reused ordinal makes that later candidate ineligible and it is omitted before inspecting its value. At most 32 candidate records are admitted per owner span; candidate 33+ is omitted before inspecting its value. These unique ordinals make the category-plus-ordinal ordering in section 3.10 total and deterministic.
 
 ### 3.2 Provenance and exact source/category pairs
 
@@ -295,7 +295,7 @@ The exact order is:
 
 ```text
 candidate record + trusted CaptureCandidateMeta
-  -> candidate-count admission
+  -> candidate-count/unique-ordinal admission
   -> exact root provenance/category pair gate
   -> root forbidden-provenance gate
   -> master capture gate
@@ -431,6 +431,7 @@ Presence of any exact ASCII header below is a match:
 
 ```text
 -----BEGIN PRIVATE KEY-----
+-----BEGIN ENCRYPTED PRIVATE KEY-----
 -----BEGIN RSA PRIVATE KEY-----
 -----BEGIN EC PRIVATE KEY-----
 -----BEGIN OPENSSH PRIVATE KEY-----
@@ -488,7 +489,7 @@ Each owner span has one shared ledger, starting at zero. Candidate order is cate
 user_input, assistant_output, tool_arguments, tool_result
 ```
 
-then trusted ordinal ascending. Candidate cost is exactly `len(uag.content.value)`. If it fits remaining `MAX_SPAN_CHARS`, emit it atomically and charge the ledger; otherwise omit the whole candidate with no ledger mutation. A later smaller candidate may still fit.
+then unique trusted ordinal ascending. Because section 3.1 requires ordinals to be unique across the owner span, no tie is possible. Candidate cost is exactly `len(uag.content.value)`. If it fits remaining `MAX_SPAN_CHARS`, emit it atomically and charge the ledger; otherwise omit the whole candidate with no ledger mutation. A later smaller candidate may still fit.
 
 ## 4. Phase 4B pseudonymous correlation
 
@@ -624,7 +625,23 @@ Provider diagnostic failure disables the optional child only and never changes t
 
 ## 6. Phase 4D ordinary-user trace query
 
-Phase 4D is active only when core OTel is ON **and** the resolved `trace_query_enabled` setting is true. The default is false. Merely enabling OTel or another Phase 4 feature MUST NOT expose the ordinary-user trace-query endpoint.
+Phase 4D is active only when core OTel is ON **and** the resolved `trace_query_enabled` setting is true. The default is false. Merely enabling OTel or another Phase 4 feature MUST NOT expose usable trace data through the ordinary-user trace-query route.
+
+### 6.0 HTTP route and feature-disabled behavior
+
+The initial ordinary-user trace-query API surface is exactly:
+
+```text
+method: GET
+path:   /api/observability/traces/{trace_id}
+input:  trace_id is one path parameter only
+body:   no request body is accepted or interpreted
+query:  no query parameter is part of v1
+```
+
+No POST/PUT/PATCH alias, alternate route, query-string trace identifier, or body-supplied trace identifier is part of the initial contract.
+
+The feature gate is evaluated before trace-query authentication/trace-ID parsing/index/backend work. When effective core OTel is OFF or `trace_query_enabled` is not true, this route returns HTTP `404` with exactly `{"error":"not_found"}` and performs no trace-query auth lookup, trace-ID parsing, local-index lookup, or backend access. Once the feature is enabled, section 6.1.1 defines the remaining externally observable outcomes.
 
 ### 6.1 Authorization architecture and bounded local index
 
@@ -654,7 +671,7 @@ Current auth/session and room/project/private-room authorization are revalidated
 
 #### 6.1.1 Externally observable ordinary-user API outcomes
 
-The initial ordinary-user endpoint has one fixed observable policy so trace existence is not exposed through differing authorization/index failures. Responses are JSON and MUST contain no raw backend/index/error payload, trace-specific reason text, scope text, or rejected identifier beyond the successful v1 response itself.
+The enabled initial ordinary-user endpoint has one fixed observable policy so trace existence is not exposed through differing authorization/index failures. Responses are JSON and MUST contain no raw backend/index/error payload, trace-specific reason text, scope text, or rejected identifier beyond the successful v1 response itself.
 
 - **Unauthenticated request:** the existing UAG authentication layer rejects it before trace-ID parsing or local-index lookup using the product's standard authentication response. Phase 4 does not define a second authentication format.
 - **Syntactically invalid `trace_id`:** return HTTP `400` with exactly `{"error":"invalid_trace_id"}` and perform no local-index/backend lookup.
@@ -733,7 +750,22 @@ UNKNOWN
 
 The safe class is derived only from trusted UAG-local semantic ownership, never backend `span.name`. Unknown/malformed class -> `UNKNOWN`.
 
-`status_code` is exactly `UNSET | OK | ERROR`; arbitrary status description/exception/backend text is never copied.
+#### 6.5.1 Status normalization
+
+The output `status_code` is exactly one of `UNSET | OK | ERROR`; arbitrary status description/exception/backend text is never copied.
+
+For initial v1, the backend adapter may supply status only as a missing value/`None` or an exact built-in `str`. Before normalization, a string MUST have native length `<= 16`; overlength or non-string/non-`None` values map to `UNSET` without conversion and do not by themselves omit the span or set `partial=true`.
+
+For an admitted exact string, normalize only by stripping surrounding ASCII space/tab and ASCII-lowercasing. Mapping is exactly:
+
+```text
+unset, unknown, ""          -> UNSET
+ok, success, completed      -> OK
+error, failed, failure      -> ERROR
+all other bounded strings   -> UNSET
+```
+
+Missing/`None` status -> `UNSET`. No `str()` conversion, Unicode case-folding, numeric/enum coercion, vendor lookup table, status description, or exception text participates in normalization. A future additional raw status representation requires a reviewed contract revision.
 
 V1 contains no generic attributes/events/links/resources/instrumentation attributes/logs/baggage/HTTP/provider metadata/captured content/pseudonyms/key versions/raw identity/auth/vendor extensions/exceptions.
 
@@ -835,7 +867,7 @@ Feature failure behavior:
 content policy/bound/redaction/render failure -> omit content; runtime continues
 pseudonym configuration/construction failure  -> omit pseudonym; tracing continues
 provider SDK diagnostic failure               -> disable optional child; model call continues
-trace query config/auth/index/backend failure  -> fixed bounded response per 6.1.1; no raw payload; Agent continues
+trace query config/auth/index/backend failure  -> fixed bounded response per 6.0/6.1.1; no raw payload; Agent continues
 ```
 
 ## 8. Required conformance tests
@@ -847,7 +879,7 @@ Implementation is incomplete until tests prove at least:
 - CLI > env > default precedence;
 - the complete section 2.1 resolver matrix has one and only one CLI/environment/programmatic name and the documented default for every Phase 4 setting;
 - all Phase 4A/4B/4D booleans default OFF;
-- Phase 4D endpoint remains unavailable unless `trace_query_enabled` resolves true;
+- Phase 4D route is exactly `GET /api/observability/traces/{trace_id}` and returns the exact disabled `404 {"error":"not_found"}` response before trace-query work when core OTel/trace query is OFF;
 - last positive/negative CLI boolean wins;
 - exact programmatic bool/int/string type gates reject subclasses/coercion;
 - env booleans accept only the defined normalized tokens and reject other whitespace/tokens;
@@ -862,6 +894,7 @@ Implementation is incomplete until tests prove at least:
 - mismatched pair is rejected before value inspection;
 - feature OFF remains metadata-only;
 - candidate 33 is omitted before value traversal;
+- candidate ordinals are unique across an owner span and a duplicate/reused ordinal is omitted before value traversal;
 - structured candidate without a reviewed provenance adapter fails closed;
 - provenance metadata/value shape mismatch fails before unmatched child body inspection;
 - file-write `content`, attachments, file/artifact reader bodies, Memory/retrieval bodies, reasoning, auth/session/credential bodies receive hard-denied provenance through reviewed adapters;
@@ -873,6 +906,7 @@ Implementation is incomplete until tests prove at least:
 - oversized/surrogate strings and huge integers fail before scanner/rendering;
 - every always-blocked key causes whole-candidate omission;
 - Authorization/Basic, compact JWT-like, PEM private key, and URI-userinfo detector boundaries/actions are exact;
+- `-----BEGIN ENCRYPTED PRIVATE KEY-----` triggers mandatory whole-candidate omission;
 - `access_token=aaa.bbb.ccc` and `jwt:aaa.bbb.ccc` are recognized by the named JWT boundary set when the token body otherwise satisfies the JWT-like grammar;
 - `https://user:password@example.com/path` is detected by authority scanning after `://`;
 - every recognized value secret is redacted/omitted according to section 3.9 and never passes unchanged;
@@ -906,6 +940,8 @@ Implementation is incomplete until tests prove at least:
 ### Trace query
 
 - feature is independently default-OFF and requires its explicit activation control;
+- initial API is only `GET /api/observability/traces/{trace_id}` with no body/query trace identifier or method alias;
+- disabled/core-OTel-OFF requests return exact `404 {"error":"not_found"}` before trace-query auth, parsing, index, or backend work;
 - invalid query trace ID returns the exact section 6.1.1 `400` response before local-index lookup;
 - nonexistent, zero-authorized, overflowed, malformed, timed-out, and incomplete local-index cases all collapse to the exact same pre-backend `404 {"error":"trace_not_found"}` response and never use a trace-specific `403`/detail;
 - backend/projection failure after successful complete authorization returns the exact fixed `503 {"error":"trace_query_unavailable"}` response with no backend payload;
@@ -916,6 +952,7 @@ Implementation is incomplete until tests prove at least:
 - invalid/duplicate span IDs fail closed;
 - current auth/authz is revalidated per local segment/span;
 - remote/unindexed/unauthorized spans are omitted after a complete bounded authorization lookup;
+- raw status normalization accepts only missing/`None` or bounded exact built-in strings and maps the closed token sets exactly; malformed/unsupported status maps to `UNSET` without pass-through;
 - textual timestamps are rejected in initial v1 without generic or adapter-specific parsing;
 - reversed timestamps are rejected at raw precision even when millisecond flooring would make them equal;
 - mixed ms/us/ns ordering uses the bounded exact common-domain comparison;
