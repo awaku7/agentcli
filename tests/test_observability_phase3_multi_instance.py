@@ -11,6 +11,7 @@ from uagent.a2a.auth import require_bearer_auth
 from uagent.a2a.client import A2AClient
 from uagent.runtime.execution import lifecycle_execution
 from uagent.runtime.observability import bootstrap as observability_bootstrap
+from uagent.runtime.observability.api import TraceIds
 from uagent.runtime.observability.otel_backend import OpenTelemetryBackend
 from uagent.runtime.observability.settings import ObservabilitySettings
 
@@ -55,16 +56,20 @@ def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
 
     try:
         monkeypatch.setattr(a2a_client, "get_observability_backend", lambda: backend_a)
+        monkeypatch.setattr(
+            observability_bootstrap,
+            "get_observability_backend",
+            lambda: backend_a,
+        )
         client_a = A2AClient(base_url="http://instance-b.example", token="secret")
         try:
-            with backend_a.start_span(
-                "invoke_agent", attributes={"uag.agent.name": "instance-a"}
-            ):
+            with lifecycle_execution():
                 ids_a = backend_a.current_trace_ids()
                 headers_ab = client_a._auth_headers()
         finally:
             client_a.close()
 
+        assert backend_a.current_trace_ids() == TraceIds()
         assert headers_ab["Authorization"] == "Bearer secret"
         assert headers_ab["traceparent"].startswith("00-")
         assert "baggage" not in headers_ab
@@ -103,6 +108,7 @@ def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
                 with pytest.raises(StopAsyncIteration):
                     await dependency_b.__anext__()
 
+            assert backend_b.current_trace_ids() == TraceIds()
             assert headers_bc["Authorization"] == "Bearer secret"
             assert headers_bc["traceparent"].startswith("00-")
             assert "baggage" not in headers_bc
@@ -128,6 +134,7 @@ def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
                 with pytest.raises(StopAsyncIteration):
                     await dependency_c.__anext__()
 
+            assert backend_c.current_trace_ids() == TraceIds()
             return ids_b, ids_c
 
         ids_b, ids_c = asyncio.run(run_remote_hops())
@@ -139,7 +146,7 @@ def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
         spans_b = list(exporter_b.get_finished_spans())
         spans_c = list(exporter_c.get_finished_spans())
 
-        assert [span.name for span in spans_a] == ["invoke_agent instance-a"]
+        assert [span.name for span in spans_a] == ["invoke_agent uag"]
         assert [span.name for span in spans_b] == ["invoke_agent uag"]
         assert [span.name for span in spans_c] == ["invoke_agent uag"]
 
