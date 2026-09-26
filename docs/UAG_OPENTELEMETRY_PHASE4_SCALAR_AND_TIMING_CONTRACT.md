@@ -110,7 +110,6 @@ For `uag.trace_view.v1`:
 
 ```text
 start_time  : JSON integer, Unix epoch milliseconds
-aend_time   : not a field; the field name is end_time
 end_time    : JSON integer, Unix epoch milliseconds
 duration_ms : JSON integer, derived only as end_time - start_time
 ```
