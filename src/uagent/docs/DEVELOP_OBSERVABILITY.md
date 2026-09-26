@@ -12,6 +12,7 @@ Supported process-level controls:
 - `--no-otel`: explicitly disable observability for the current process.
 - `UAGENT_OTEL_ENABLED`: environment fallback when no explicit entry-point override is supplied.
 - `UAGENT_OTEL_CAPTURE_CONTENT`: controls content capture policy. The default is OFF.
+- `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`: optional comma/semicolon-separated IP/CIDR allowlist for trusted Web reverse-proxy trace ingress. Missing or invalid configuration means OFF.
 
 Activation precedence is:
 
@@ -60,7 +61,8 @@ Important pieces are:
 - `privacy.py`: remote attribute filtering;
 - `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries;
 - `boundary_instrumentation.py`: best-effort wrappers around UAG-owned Memory and Decision Log persistence boundaries;
-- `decision_log.py`: metadata-only trace/span correlation for persisted Context decision batches.
+- `decision_log.py`: metadata-only trace/span correlation for persisted Context decision batches;
+- `trusted_ingress.py`: explicit reverse-proxy peer allowlist plus trace-context binding for Web worker threads.
 
 Runtime code must not depend directly on OTel SDK span or meter classes or scatter `gen_ai.*` attributes throughout the codebase.
 
@@ -116,7 +118,7 @@ Metric dimensions use an explicit allowlist. Raw identity/scope IDs, trace/span 
 
 ## Phase-3 trusted propagation and local Sub-Agent spans
 
-Authenticated A2A propagation, local Sub-Agent child spans, and the trusted MCP HTTP propagation primitive are Phase-3 runtime boundaries.
+Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP HTTP propagation, and explicitly trusted Web reverse-proxy ingress are Phase-3 runtime boundaries.
 
 - A2A propagates only W3C `traceparent` / `tracestate` across authenticated UAG-controlled hops. Baggage is not propagated, and trace metadata never affects authentication, authorization, identity, scope, or session validity.
 - Local Sub-Agent execution opens one canonical `invoke_agent <sub-agent>` child span at the existing `tools.context.set_active_sub_agent()` / `reset_active_sub_agent()` boundary.
@@ -129,8 +131,13 @@ Authenticated A2A propagation, local Sub-Agent child spans, and the trusted MCP 
 - MCP stdio does not serialize W3C trace headers; it remains related to the current execution only through process-local context and the existing outer `execute_tool` span.
 - Managed MCP configuration may opt an HTTP server into this trust boundary only with the exact JSON boolean `"trusted_trace_propagation": true`. Missing, false, string, or numeric values remain OFF. Direct `url` tool arguments cannot enable the trust flag.
 - The process-local MCP HTTP session pool includes the trust flag in its cache key, so trusted and untrusted sessions for the same URL/headers/protocol mode are never reused across the propagation boundary.
+- Web reverse-proxy propagation is OFF unless the raw socket peer captured before Uvicorn proxy-header rewriting matches `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The value accepts explicit IP/CIDR entries only; one malformed entry fails the whole trust policy closed.
+- Reverse-proxy trust never uses `X-Forwarded-For`, `Forwarded`, query parameters, cookies, or message JSON. Once the socket peer is trusted, only `traceparent` and `tracestate` are copied into the worker's process-local context; baggage is never accepted.
+- A WebSocket handshake carrier is single-use: it may parent only the first Agent execution started by that connection. Later turns return to fresh Agent roots, preserving one logical trace per user turn.
+- The Web connection is authenticated and authorized before UAG resolves the trusted trace carrier. Trace metadata remains completely outside authentication, room/project policy, session revalidation, and Memory authorization.
+- Operators enabling trusted proxy ingress must configure the proxy to strip or replace untrusted client trace headers before forwarding to UAG. A proxy that blindly preserves browser-supplied `traceparent` defeats the deployment trust assumption even though UAG correctly verifies the proxy peer.
 
-Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, `tests/test_observability_phase3_mcp.py`, and `tests/test_observability_phase3_mcp_config.py`.
+Regression coverage for this slice is in `tests/test_observability_phase3_subagent.py`, `tests/test_observability_phase3_a2a.py`, `tests/test_observability_phase3_mcp.py`, `tests/test_observability_phase3_mcp_config.py`, and `tests/test_observability_phase3_trusted_ingress.py`.
 
 ## OTLP and standard OTel configuration
 
@@ -192,8 +199,8 @@ For OIDC WebSocket connections:
 4. Room/project/private-room access is rechecked with the live identity.
 5. Only then may Agent execution begin.
 
-Web Agent spans always start as fresh OTel roots. This intentionally detaches them from any browser-provided `traceparent` / `tracestate`, including if transport auto-instrumentation is introduced around the application later. Trace context is never an identity or authorization input.
+Web Agent spans start as fresh OTel roots by default, which detaches them from arbitrary browser-provided `traceparent` / `tracestate`. A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching raw socket peer captured before proxy-header rewriting may supply the single-use trusted W3C parent for the first worker Agent span. `X-Forwarded-For` is never a trust input, baggage is ignored, and trace metadata never affects identity or authorization.
 
 ## Later phases
 
-Explicit trusted reverse-proxy ingress remains the Phase-3 follow-up work. Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
+Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
