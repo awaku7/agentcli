@@ -1,7 +1,7 @@
 # OpenTelemetry Phase 4 Normative Contract
 
-Status: Normative design contract  
-Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`  
+Status: Normative design contract\
+Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`\
 Prerequisite: OpenTelemetry Phase 3 complete
 
 This is the **single normative source of truth** for OpenTelemetry Phase 4. Other Phase 4 documents may summarize intent but MUST NOT restate exact grammars, limits, processing orders, field schemas, or failure behavior. If a summary conflicts with this file, this file wins and the summary is a documentation defect.
@@ -24,9 +24,9 @@ Phase 4 MUST preserve all Phase 1-3 guarantees:
 Phase 4 consists of four independent features, all OFF by default:
 
 1. Phase 4A controlled content capture;
-2. Phase 4B pseudonymous correlation;
-3. Phase 4C optional provider SDK diagnostics;
-4. Phase 4D authorization-aware trace query proxy.
+1. Phase 4B pseudonymous correlation;
+1. Phase 4C optional provider SDK diagnostics;
+1. Phase 4D authorization-aware trace query proxy.
 
 ## 2. Configuration contract
 
@@ -369,7 +369,11 @@ For every bounded string mapping key, classification form is:
 normalized = key.strip().lower()
 ```
 
-A key is always blocked when `normalized` contains any of:
+Also apply the shared credential-label classifier in section 3.9.E to the whole bounded key after stripping surrounding ASCII space/tab. Use the same ASCII lowercase, separator normalization, exact-label set, and suffix rules as scalar assignments. For mapping keys, apply this classifier up to `MAX_FIELD_CHARS`, rather than the assignment scanner's 64-character label limit. No delimiter or non-empty value is required: a recognized key omits the whole candidate even when its value is empty. This additional check does not replace or weaken the existing rules below; no key/value concatenation or JSON rendering is needed.
+
+Consequently `api_key`, `api-key`, `api.key`, `api/key`, `private-key`, and `UAGENT_OPENAI_API_KEY` are blocked as mapping keys even when the value has no recognizable secret prefix.
+
+A key is also always blocked when `normalized` contains any of:
 
 ```text
 authorization
@@ -485,7 +489,7 @@ This class closes the direct-scalar case where a secret-bearing key and value ar
 
 The scanner accepts an unquoted label or a label enclosed in one matching ASCII single/double quote. The label body is limited to `1..64` ASCII characters from `[A-Za-z0-9_.\-/]`. The label must begin at start-of-string or after a character outside that label alphabet. No Unicode normalization or generic case folding is performed.
 
-For classification only, ASCII-lowercase the bounded label and replace each `-`, `.`, or `/` with `_`. A label is credential-bearing when the resulting value is exactly one of:
+The following credential-label classifier is shared with section 3.8. For classification only, ASCII-lowercase the bounded label and replace each `-`, `.`, or `/` with `_`. A label is credential-bearing when the resulting value is exactly one of:
 
 ```text
 api_key
@@ -815,8 +819,29 @@ The enabled initial ordinary-user endpoint has one fixed observable policy so tr
 - **Syntactically valid `trace_id`, but no complete authorized local view can be established before backend access:** return HTTP `404` with exactly `{"error":"trace_not_found"}` and perform no backend lookup. This single result covers nonexistent/local-index-missing traces, a complete lookup yielding zero currently authorized local segments, overflowed/non-queryable index state, malformed index state (including missing/malformed/unsupported semantic-kind association), local-index timeout/deadline expiry, incomplete index state, and equivalent authorization uncertainty. The endpoint MUST NOT use `403` or distinct bodies/statuses to distinguish those cases.
 - **Complete bounded local authorization succeeds with at least one authorized local segment, but backend retrieval/projection later fails or cannot produce a safe bounded partial result:** return HTTP `503` with exactly `{"error":"trace_query_unavailable"}` and no backend payload/details.
 - **Successful projection:** return HTTP `200` with exactly the `uag.trace_view.v1` schema in section 6.5.
+- **Local index generation removed, replaced, or expired during retrieval/projection:** discard the result and return the fixed `404 {"error":"trace_not_found"}` per section 6.1.2, overriding the successful-projection or generic backend-failure outcome.
 
 When a complete bounded local lookup establishes at least one authorized local segment, other complete-but-unauthorized local/remote segments may be filtered during projection as specified below; that filtering may yield `partial=true`. Only uncertainty/incompleteness in the authorization index itself is collapsed to the fixed pre-backend `404` result.
+
+#### 6.1.2 Index lifetime and aggregate capacity
+
+Per-trace ceilings are supplemented by these non-configurable ceilings across the entire local authorization index, shared by all users, rooms, projects, and query workers using that index:
+
+```text
+MAX_INDEX_TRACES = 4096
+MAX_INDEX_SEGMENTS = 16384
+MAX_INDEX_OWNED_SPANS = 65536
+MAX_INDEX_ACCOUNTED_BYTES = 64 MiB
+INDEX_TTL = 24 hours from first local admission
+```
+
+The byte budget includes retained records, identifiers/scope strings, semantic-kind associations, secondary indexes, expiry/eviction bookkeeping, and retained non-queryable markers. An adapter MUST reserve a conservative upper bound on retained storage, including its representation overhead, before allocation; an adapter unable to enforce that budget is unsupported. No unbounded overflow queue, tombstone set, or auxiliary map is permitted. Count and byte reservations are atomic across concurrent writers. The per-trace ceilings still apply independently.
+
+The initial index is process-lifetime state. Restart starts with an empty index; backend data MUST NOT rebuild authorization records. First admission occurs only at creation of a trusted local segment root, never from a query, backend record, or late span-completion callback. The creation path issues a local admission handle identifying that record generation; subsequent writes require that still-live handle. A removed generation can never be revived by its handle. A newly created local segment using a previously seen trace ID may receive a new generation, but does not restore old span ownership or scopes.
+
+Use monotonic time for TTL. Reads, span updates, and additional segments do not extend a retained trace's original expiry. A lookup at or after expiry behaves as absent even if physical cleanup has not yet run. Before admission/update, remove expired records; if a proposed atomic write still exceeds any aggregate ceiling, evict whole traces in ascending `(first_admitted_monotonic_time, trace_id)` order until it fits. If the trace being updated is evicted, reject that update; do not recreate a partial record. If the write cannot fit even in an empty index, reject it. Admission, expiry, eviction, and handle invalidation must not alter Agent execution or normal tracing.
+
+Expiry, eviction, or explicit local deletion removes the entire trace record and its secondary entries and invalidates all associated admission handles. A query holds only a bounded snapshot under the existing query ceilings. Before returning a successful response it MUST recheck that its record generation remains live and unexpired; removal/replacement during the query discards the projection and returns the same fixed `404 {"error":"trace_not_found"}`. If absent at initial lookup, return that 404 without backend access. Never fall back to historical backend scope/ownership. Local index removal does not promise deletion from the external telemetry backend.
 
 ### 6.2 Query trace ID
 
@@ -1056,6 +1081,8 @@ Implementation is incomplete until tests prove at least:
 - forbidden provenance wins through nested composites;
 - oversized/surrogate strings and huge integers fail before scanner/rendering;
 - every always-blocked key, including `api_key`/`apikey`/`access_key`/`private_key`, causes whole-candidate omission;
+- mapping-key and scalar-assignment label classifiers agree for `api_key`, `api-key`, `api.key`, `api/key`, `private-key`, and provider `*_API_KEY` forms with opaque values lacking known prefixes; recognized mapping keys omit even empty values;
+- a provider-style mapping key longer than 64 characters but within `MAX_FIELD_CHARS` remains blocked by the shared suffix rule; `input_tokens` and `monkey` remain harmless absent another detector;
 - Authorization/Basic, compact JWT-like, PEM private key, URI-userinfo, credential-assignment, and bare-prefix detector boundaries/actions are exact;
 - `-----BEGIN ENCRYPTED PRIVATE KEY-----` and `-----BEGIN DSA PRIVATE KEY-----` each trigger mandatory whole-candidate omission;
 - JWT boundary corpus in section 3.9 is exact, including `!`, `?`, comma/closing punctuation, terminal `.`, and rejection of four-segment/prefix matches;
@@ -1106,6 +1133,11 @@ Implementation is incomplete until tests prove at least:
 - nonexistent, zero-authorized, overflowed, malformed, timed-out, and incomplete local-index cases all collapse to the exact same pre-backend `404 {"error":"trace_not_found"}` response and never use a trace-specific `403`/detail;
 - backend/projection failure after successful complete authorization returns the exact fixed `503 {"error":"trace_query_unavailable"}` response with no backend payload;
 - local index write/read ceilings prevent unbounded segment/span-ID materialization;
+- aggregate trace/segment/span/byte ceilings hold across many small traces, concurrent writers, and all secondary bookkeeping; no overflow queue bypasses accounting;
+- TTL expires exactly 24 hours after first admission and cannot be extended by reads, updates, or additional segments; restart begins empty;
+- expiry and capacity eviction remove whole traces in the defined order, release reservations, and invalidate admission handles; late callbacks cannot resurrect removed generations;
+- missing/expired/evicted/deleted records produce the fixed 404 without initial backend access; removal or replacement during a query discards its snapshot/projection and produces that same 404;
+- an oversized index write fails closed without affecting Agent execution, and backend data never reconstructs local authorization;
 - every owned span ID has exactly one immutable indexed semantic kind from the closed local vocabulary; the association is created atomically from trusted UAG-local ownership and counts under the same 2000-span ceiling;
 - missing/malformed/unsupported/conflicting indexed semantic kind makes the trace index non-queryable and uses the fixed pre-backend `404`; it is never silently mapped to UNKNOWN;
 - query projection obtains semantic kind only from the indexed span-ID association; backend span names/metadata cannot influence it;
