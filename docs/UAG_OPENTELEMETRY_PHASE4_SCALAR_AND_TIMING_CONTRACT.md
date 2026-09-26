@@ -161,20 +161,46 @@ Allowed initial normalization forms are:
 
 Booleans are not timestamps even though Python `bool` subclasses `int`.
 
-### 2.3 Strict text parser requirements
+### 2.3 Chronological validation occurs before precision loss
+
+After exact type and unit-specific raw-range preflight, but **before** floor-division to milliseconds, compare start and end at their original precision.
+
+If start/end use the same source unit, require:
+
+```text
+raw_end >= raw_start
+```
+
+before any `// 1000` or `// 1000000` operation.
+
+If a reviewed adapter can supply start/end in different integer units, compare them exactly using the bounded common nanosecond scale:
+
+```text
+ms -> raw * 1_000_000
+us -> raw * 1_000
+ns -> raw
+```
+
+The unit-specific raw maxima above guarantee each scaled comparison operand is bounded by `9007199254740991999999`, so this exact comparison is bounded and occurs only after range preflight. No float conversion is permitted.
+
+A pair whose raw chronological order is reversed is invalid even when both values would floor to the same canonical millisecond. Example: `start_us=1999`, `end_us=1001` is rejected rather than becoming a zero-duration span at millisecond precision.
+
+Only after this original-precision chronological check succeeds may each endpoint be independently converted to canonical integer milliseconds. The canonical `end_time >= start_time` condition remains as a post-normalization consistency check.
+
+### 2.4 Strict text parser requirements
 
 If a specific backend requires textual timestamps, the adapter contract must define:
 
 - maximum raw input length before parsing;
 - exact accepted ASCII/Unicode grammar;
 - timezone/default behavior if applicable;
-- exact conversion to Unix epoch milliseconds;
+- exact conversion to a bounded integer timestamp plus explicit source unit/precision sufficient for the original-precision chronological comparison;
 - rejection of trailing/leading junk;
 - no echoing of the raw input in errors or telemetry.
 
 A generic date parser that accepts arbitrary text is not permitted for ordinary-user v1 projection.
 
-### 2.4 Invalid timing behavior
+### 2.5 Invalid timing behavior
 
 The following make a span invalid for ordinary-user v1 projection:
 
@@ -185,12 +211,13 @@ The following make a span invalid for ordinary-user v1 projection:
 - float/NaN/infinity timestamp;
 - malformed/overlong text;
 - parser failure;
-- `end_time < start_time`;
+- raw/original-precision end preceding raw/original-precision start;
+- canonical `end_time < start_time`;
 - arithmetic inconsistency.
 
 The invalid span is omitted. If at least one otherwise authorized valid span remains, response `partial=true`. If no authorized valid span remains, the trace-query fail-closed behavior applies and no backend payload is returned.
 
-### 2.5 Timing fields are not content channels
+### 2.6 Timing fields are not content channels
 
 The implementation must never:
 
@@ -201,7 +228,7 @@ The implementation must never:
 
 Equivalent safe spans from supported backends project to the same integer-millisecond shape.
 
-### 2.6 Required regressions
+### 2.7 Required regressions
 
 Tests must prove that:
 
@@ -209,7 +236,10 @@ Tests must prove that:
 - each unit-specific raw maximum is accepted;
 - the first integer above each raw maximum is rejected before conversion;
 - million-digit ns/us integers are rejected before division/rendering/logging;
-- sub-millisecond precision is discarded deterministically by integer division;
+- chronological ordering is checked before precision loss;
+- same-millisecond reversed microsecond pair such as `1999 -> 1001` is rejected;
+- valid cross-unit start/end are compared on the exact bounded common nanosecond scale before floor division;
+- sub-millisecond precision is discarded deterministically only after ordering validation;
 - `duration_ms` equals canonical `end_time - start_time` and ignores raw backend duration;
 - negative, float, boolean, malformed, unsupported, or reversed timestamps omit the span;
 - arbitrary timing text is never echoed;
@@ -225,5 +255,6 @@ Tests must prove that:
 - Numeric/custom mapping keys are not admitted; mapping keys are string-only under the traversal contract.
 - Ordinary-user v1 timing fields are JSON integer Unix epoch milliseconds in `0..2^53-1`.
 - Raw ms/us/ns integers are range-checked before conversion.
+- Start/end chronological order is validated at original precision before millisecond truncation; cross-unit comparison uses a bounded exact common scale.
 - `duration_ms` is derived from normalized start/end and never copied from backend data.
 - Malformed timing values omit the span; arbitrary timing text is never forwarded.
