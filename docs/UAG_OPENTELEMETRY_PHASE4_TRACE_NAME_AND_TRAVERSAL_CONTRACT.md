@@ -241,8 +241,7 @@ Rules:
 - eligible scalar values may replace high-confidence secret matches with exactly `[REDACTED]`;
 - a mapping key matching a high-confidence credential/secret classifier also omits the whole candidate rather than rewriting the key;
 - secret-wrapper/security ambiguity/redactor exception causes whole-candidate omission;
-- rejected raw values/keys are never logged;
-- after redaction, every scalar must still satisfy the effective field bound in its final scalar representation; otherwise omit whole candidate.
+- rejected raw values/keys are never logged.
 
 The generic metadata sanitizer's operator content flag must not become a bypass for always-blocked identity/session/credential keys or excluded reasoning/system/developer sources. Controlled content reaches export only through this closed path.
 
@@ -283,7 +282,20 @@ Normative restrictions:
 
 Supported Python 3.11/3.13/3.14 must produce identical output for the reviewed float/escaping conformance corpus. If not, introduce an explicit stable renderer before enabling capture.
 
-### 6.3 Character definition
+### 6.3 Canonical scalar field representation
+
+`MAX_FIELD_CHARS` is checked a second time after privacy/redaction using the exact scalar token representation that the final exporter would place into `uag.content.value`:
+
+- a direct root string uses the unquoted post-redaction string;
+- a string used inside a list/tuple/dict value uses its compact-JSON string token, including surrounding quotes and all backslash/control escaping;
+- a dict key uses its compact-JSON key string token, including quotes/escaping but excluding the following `:` separator;
+- int/float/bool/null uses its compact-JSON scalar token.
+
+If that exact canonical scalar token exceeds effective `MAX_FIELD_CHARS`, omit the whole candidate. No scalar is truncated.
+
+This means a native string may pass the bounded preflight but still fail the post-redaction/rendered-field bound if JSON quoting/escaping expands it. The renderer may construct only this already-bounded scalar token; it must not serialize the whole candidate before per-field checks complete.
+
+### 6.4 Character definition
 
 Character budgets count Unicode code points in the exact final UAG string (`len(rendered_text)`), not UTF-8 bytes.
 
@@ -303,10 +315,10 @@ MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 
 Every scalar passes both:
 
-1. native preflight before privacy/secret handling; and
-2. post-redaction final-scalar bound before candidate rendering.
+1. native type/size preflight before privacy/secret handling; and
+2. the canonical scalar-token bound in section 6.3 after privacy/redaction.
 
-No field is truncated to fit.
+No field is truncated to fit. Per-field checks complete before whole-candidate rendering.
 
 ### 7.2 One shared per-span ledger
 
@@ -362,13 +374,13 @@ candidate record created
   -> bounded child traversal with child provenance
   -> recursive always-blocked mapping-key checks
   -> bounded value/key secret handling
-  -> post-redaction scalar field bound
-  -> exact canonical rendering
+  -> canonical per-scalar token rendering + field bound
+  -> exact whole-candidate canonical rendering
   -> shared per-span ledger
   -> emit whole event or omit whole candidate
 ```
 
-No content privacy/secret scan occurs before the structural/scalar work required to prove the scan is bounded.
+No content privacy/secret scan occurs before the structural/scalar work required to prove the scan is bounded. No whole-candidate serialization occurs before every scalar field passes its post-redaction canonical-token bound.
 
 ## 9. Required regressions
 
@@ -391,6 +403,8 @@ Tests must prove at least:
 - exact marker is `[REDACTED]`;
 - direct string output is unquoted post-redaction text;
 - structured output uses exact compact JSON semantics above;
+- string/control escaping can make a native field fail the post-redaction canonical-token field bound;
+- field counting for structured strings/keys includes JSON quotes and escapes exactly as section 6.3 defines;
 - control/quote/backslash/non-ASCII/numeric/boolean/null/list/tuple/dict renderings are fixed across supported Python versions;
 - candidate cost equals exact exported `uag.content.value` length;
 - candidates share one span ledger;
@@ -408,5 +422,6 @@ Tests must prove at least:
 - Structural/scalar bounds precede privacy/secret scanning.
 - Always-blocked privacy keys are recursively enforced before rendering structured content.
 - Exact redaction marker is `[REDACTED]`; blocked/secret mapping keys fail closed to whole-candidate omission.
+- `MAX_FIELD_CHARS` applies both before scanning and to the exact post-redaction canonical scalar token.
 - Canonical rendering is exact and shared by accounting/export.
 - `MAX_SPAN_CHARS` is one cumulative per-owner-span ledger with atomic whole-candidate emission.
