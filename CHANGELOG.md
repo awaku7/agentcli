@@ -6,6 +6,7 @@
 
 - Raise the default LLM/tool round limit per user operation from 128 to 512; explicit
   `UAGENT_MAX_TOOL_ROUNDS` overrides remain supported.
+- Update the pinned `llmcapa` dependency to `0.5.44`.
 
 ## [0.7.16] - 2026-09-24
 
