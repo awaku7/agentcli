@@ -7,11 +7,11 @@ Scalar/timing contract: `docs/UAG_OPENTELEMETRY_PHASE4_SCALAR_AND_TIMING_CONTRAC
 Pseudonym contract: `docs/UAG_OPENTELEMETRY_PHASE4_PSEUDONYM_OUTPUT_CONTRACT.md`  
 Applies to: Phase 4A-4D security, configuration, provenance, ordinary-user trace schema, and query bounds
 
-This document is the normative owner for Phase 4 configuration precedence/parsing, deployment-scope validation, field-level provenance, the ordinary-user `uag.trace_view.v1` field set and identifier/status semantics, and trace-query resource ceilings. It deliberately delegates content traversal/rendering, primitive scalar/timing normalization, and pseudonym representation/version association to the named topic contracts.
+This document is the normative owner for Phase 4 configuration precedence/parsing, correlation-key credential encoding, deployment-scope validation, field-level provenance, ordinary-user `uag.trace_view.v1` field/identifier/status semantics, and trace-query resource ceilings. Content traversal/rendering, primitive scalar/timing normalization, and pseudonym construction/output are delegated to their topic contracts.
 
 ## 1. Configuration precedence and CLI surface
 
-Phase 4 uses one precedence rule everywhere:
+Phase 4 uses one precedence rule:
 
 ```text
 explicit CLI/application setting
@@ -19,9 +19,9 @@ explicit CLI/application setting
     > safe default
 ```
 
-The core `--otel` / `--no-otel` result is authoritative. If effective core OTel is OFF, every Phase 4 feature is inactive regardless of subordinate settings.
+Effective core `--otel` / `--no-otel` is authoritative. If core OTel is OFF, every Phase 4 capability is inactive.
 
-The public Phase 4 CLI surface is:
+Public Phase 4 CLI:
 
 ```text
 --otel-capture-content
@@ -39,7 +39,7 @@ The public Phase 4 CLI surface is:
 --otel-provider-instrumentation <csv>
 ```
 
-Environment equivalents are:
+Environment equivalents:
 
 ```text
 UAGENT_OTEL_CAPTURE_CONTENT
@@ -55,15 +55,15 @@ UAGENT_OTEL_PROVIDER_INSTRUMENTATION
 
 Rules:
 
-- all entry points use the shared observability settings resolver;
-- when both positive/negative forms of one boolean are supplied, the last explicit CLI flag wins, matching core OTel behavior;
-- an invalid explicit higher-precedence value does not silently fall back to a lower-precedence valid value unless a topic contract explicitly says so;
-- browser/WebSocket/A2A/MCP/tool/provider/trace/baggage/header/query/cookie data cannot alter effective Phase 4 settings;
-- raw correlation key material is never accepted on CLI; only its credential-store name is configurable.
+- all entry points use the shared observability resolver;
+- positive/negative duplicate booleans use the last explicit CLI flag;
+- invalid explicit higher-precedence values do not silently fall back to lower-precedence values unless a topic contract explicitly says so;
+- browser/WebSocket/A2A/MCP/tool/provider/trace/baggage/header/query/cookie data cannot alter settings;
+- no CLI or environment variable accepts raw correlation key material.
 
-### 1.1 Controlled-content category parsing
+### 1.1 Controlled-content categories
 
-The closed category vocabulary is:
+Closed vocabulary:
 
 ```text
 user_input
@@ -72,58 +72,54 @@ tool_arguments
 tool_result
 ```
 
-For `--otel-capture-categories` / `UAGENT_OTEL_CAPTURE_CATEGORIES`:
+Parsing:
 
-- missing or empty means the empty set and therefore no content capture even if the master gate is ON;
-- a non-empty value is split on commas;
-- ASCII space/tab surrounding each token is removed;
-- tokens remain case-sensitive; no lowercasing or Unicode normalization occurs;
-- every non-empty token must exactly equal one closed category above;
-- duplicate valid tokens are deduplicated as a set;
-- an empty token or unknown token makes the category configuration invalid and disables controlled content capture as a whole for that process;
-- invalid categories never broaden capture and do not disable metadata-only tracing.
+- missing/empty -> empty set;
+- non-empty -> split on comma;
+- strip ASCII space/tab around each token only;
+- no case folding/Unicode normalization;
+- each non-empty token must exactly match the closed vocabulary;
+- duplicates deduplicate as a set;
+- empty or unknown token invalidates category configuration and disables controlled content capture for that process;
+- invalid categories never disable metadata-only tracing.
 
 ### 1.2 Controlled-content numeric bounds
 
-Initial bounds are:
-
 ```text
 MAX_FIELD_CHARS
-  default: 2048
-  valid:   64..16384
+  default 2048
+  valid   64..16384
 
 MAX_SPAN_CHARS
-  default: 8192
-  valid:   256..65536
+  default 8192
+  valid   256..65536
 ```
 
-The CLI and environment forms use the same values.
+Rules:
 
-Validation:
+- missing -> default;
+- non-integer/zero/negative/out-of-range -> invalid;
+- `MAX_SPAN_CHARS >= MAX_FIELD_CHARS` required;
+- any invalid bound disables controlled content capture for the process;
+- never substitute an unbounded fallback.
 
-- missing uses the default;
-- non-integer, zero, negative, below-minimum, or above-maximum is invalid;
-- effective `MAX_SPAN_CHARS` must be `>= MAX_FIELD_CHARS`;
-- any invalid bound disables controlled content capture for that process while core metadata tracing continues;
-- invalid values never become an unbounded fallback.
+Runtime candidate/structure/renderer/ledger limits are owned by the traversal contract.
 
-Runtime traversal, candidate count, canonical renderer, and cumulative span-ledger rules are owned by the traversal/rendering contract.
+### 1.3 Provider selectors
 
-### 1.3 Provider selector parsing
-
-Provider selectors are UAG logical provider IDs, not SDK package names. Initial examples use:
+Provider selectors are UAG logical IDs. Initial example:
 
 ```text
 openai,claude
 ```
 
-`claude` selects the Anthropic SDK path. `anthropic` is not an initial alias.
+`claude` is Anthropic SDK path; `anthropic` is not an alias.
 
-Parsing uses comma separation plus ASCII space/tab trimming around tokens, with no case folding or Unicode normalization. Missing/empty means OFF. A valid known token can be enabled independently; an unknown/malformed token enables nothing for that token and produces only a normalized diagnostic. Unknown tokens do not cause a valid sibling selector to instrument an unselected provider.
+Parsing uses comma separation plus surrounding ASCII space/tab trimming, no case folding/Unicode normalization. Missing/empty -> OFF. Unknown/malformed token enables nothing for that token and produces a normalized diagnostic; valid sibling selectors remain independently active.
 
-## 2. Stable deployment scope for pseudonymous correlation
+## 2. Stable deployment scope
 
-Pseudonymous correlation requires an explicit stable deployment scope resolved as:
+Resolution:
 
 ```text
 --otel-deployment-scope
@@ -131,63 +127,88 @@ Pseudonymous correlation requires an explicit stable deployment scope resolved a
     > no value
 ```
 
-There is no hostname, PID, random value, current directory, repository path, or machine-local fallback.
+No hostname/PID/random/CWD/repository/machine-local fallback.
 
-### 2.1 Exact validation and hashing semantics
+### 2.1 Exact validation and HMAC input semantics
 
-The configured scope is validated **without trimming or canonical rewrite**.
+Validate without trimming/canonical rewrite.
 
-Initial validation accepts exactly 1-128 Unicode scalar values and rejects:
+Accept exactly 1-128 Unicode scalar values and reject:
 
-- empty string;
-- leading or trailing Unicode whitespace;
-- any Unicode control character;
-- any Unicode surrogate code point;
-- more than 128 scalar values.
+- empty;
+- leading/trailing Unicode whitespace;
+- any Unicode control;
+- any surrogate `U+D800..U+DFFF`;
+- >128 scalar values.
 
-Internal non-control whitespace is permitted. No Unicode normalization, case folding, path normalization, delimiter rewrite, or other canonicalization occurs.
+Internal non-control whitespace is permitted. No Unicode/case/path normalization occurs.
 
-The exact validated string is the `deployment_scope` framed into the pseudonym HMAC input. Thus:
+The exact validated string is framed into HMAC. Thus `prod` is valid; ` prod` and `prod ` are invalid.
+
+The scope must be stable across intended replicas and distinct across deployments that must not correlate. It is never authorization/identity/routing/storage/Memory/credential state and is not exported raw by default.
+
+Missing/invalid scope disables pseudonym emission only.
+
+## 3. Correlation-key credential contract
+
+### 3.1 Credential name
+
+Effective credential name resolves by normal precedence, with safe default exactly:
 
 ```text
-prod    -> valid, hashes exactly as "prod"
-" prod" -> invalid
-"prod " -> invalid
+observability/correlation
 ```
 
-Requirements:
+An explicit credential name must be an exact string of 1-128 Unicode scalar values with:
 
-- the value is stable across replicas intentionally in the same correlation domain;
-- deployments that must not correlate use distinct scopes and/or keys;
-- request/turn data cannot override it;
-- it is never authorization, identity, routing, storage, Memory, or credential-selection state;
-- raw deployment scope is not exported as a trace attribute by default;
-- changing the scope intentionally breaks pseudonym correlation.
+- no leading/trailing Unicode whitespace;
+- no control characters;
+- no surrogates.
 
-Missing/invalid scope while pseudonymous correlation is enabled disables pseudonym emission only; core tracing continues.
+The exact validated name is passed to the existing credential store; it is not trimmed/canonicalized for lookup. Invalid explicit name disables pseudonym emission and does not fall back to the default.
 
-## 3. Correlation key configuration boundary
+### 3.2 Credential kind/purpose metadata
 
-The correlation key is server-held observability secret material resolved by credential name. It must:
+Initial correlation-key credential must be stored as:
 
-- be dedicated to observability pseudonymization;
-- be generated from a cryptographically secure RNG with at least 256 bits of key material;
-- be at least 32 bytes after trusted credential decoding;
-- not be an arbitrary human passphrase;
-- not equal/alias any known OIDC/OAuth/A2A/session/provider/MCP/token-signing/authentication key;
-- never be logged/exported or accepted from browser/tool/provider/peer data.
+```text
+CredentialKind.OTHER
+metadata["purpose"] = "observability_pseudonym_v1"
+metadata["key_version"] = <effective validated correlation-key version>
+```
 
-Malformed, undersized, or known-reused key material disables pseudonym emission without disabling core tracing.
+The configured key version must exactly equal credential metadata `key_version`. Missing/mismatched purpose/version metadata disables pseudonym emission.
 
-Exact HMAC framing, kind vocabulary, output representation, key-version grammar, and `uag.correlation.key_version` association are owned by the pseudonym contract.
+This purpose/version binding is server-side validation metadata only and is never exported as raw credential metadata.
+
+### 3.3 Secret encoding
+
+The credential `secret` is exactly the unpadded base64url encoding of 32 raw key bytes.
+
+Canonical form:
+
+```text
+43 ASCII characters from [A-Za-z0-9_-]
+no '=' padding
+base64url-decode -> exactly 32 bytes
+re-encode(decoded) -> exactly the original 43-character string
+```
+
+Any non-canonical, wrong-length, decode-failing, or non-32-byte secret disables pseudonym emission. Arbitrary passphrases are not accepted.
+
+The raw 32-byte key must be generated with a cryptographically secure RNG. Entropy origin cannot be proven solely from the bytes, so CSPRNG generation is a provisioning requirement; UAG's own generator, if provided, must use an OS cryptographic RNG.
+
+No raw key environment fallback is supported.
+
+### 3.4 Purpose isolation/reuse
+
+Correlation key material must not equal/alias any authentication/token-signing/provider/A2A/MCP/OIDC/OAuth/session key known to UAG. Where UAG can compare known material or managed metadata, detected reuse disables pseudonym emission. The dedicated purpose/key-version metadata never weakens this requirement.
+
+Exact HMAC framing, kind vocabulary, raw-ID bounds, pseudonym output, and exported `uag.correlation.key_version` association are owned by the pseudonym contract.
 
 ## 4. Field-level provenance for controlled content
 
-Operation-level provenance is insufficient. Body-capable composites require trusted field/node provenance before content eligibility.
-
-### 4.1 Closed trusted provenance classes
-
-Initial classes are:
+### 4.1 Closed provenance vocabulary
 
 ```text
 user_message
@@ -207,7 +228,7 @@ developer_instruction
 security_sensitive_unknown
 ```
 
-The hard-denied classes are exactly:
+Hard-denied classes:
 
 ```text
 authentication
@@ -223,100 +244,94 @@ developer_instruction
 security_sensitive_unknown
 ```
 
-Hard denial overrides semantic category selection recursively.
-
-A tool/provider payload cannot self-assert provenance through its own keys/values. Only trusted UAG code assigns provenance.
+Hard denial overrides category selection recursively. Payload data cannot self-assert provenance; trusted UAG code assigns it.
 
 ### 4.2 Field-level body classification
 
-Examples requiring explicit field/node classification include:
+Examples:
 
 ```text
-create/write file tool:
-  path                       -> ordinary safe metadata when separately captured
-  content                    -> file (forbidden)
+file write:
+  path -> separately constructed safe metadata if needed
+  content -> file (forbidden)
 
-message attachment:
-  filename/content-type      -> safe metadata only if explicitly reconstructed
-  inline text/data/base64    -> file/artifact (forbidden)
+attachment:
+  filename/type -> safe only if explicitly reconstructed
+  data/base64/body -> file/artifact (forbidden)
 
-artifact helper:
-  id/name/type metadata      -> safe metadata only if explicitly reconstructed
-  body/bytes/text            -> artifact (forbidden)
+artifact:
+  id/name/type -> safe only if explicitly reconstructed
+  body/bytes/text -> artifact (forbidden)
 
-Memory/retrieval composite:
-  safe count/type/status     -> safe derived metadata only if explicitly reconstructed
-  record/query/body/result   -> memory/retrieval (forbidden)
+Memory/retrieval:
+  derived count/type/status -> safe only if explicitly reconstructed
+  record/query/body/result -> memory/retrieval (forbidden)
 ```
 
-An outer `tool_argument`, `ordinary_tool_result`, or `user_message` tag never makes forbidden descendants eligible.
+Outer `tool_argument`, `ordinary_tool_result`, or `user_message` never makes forbidden descendants eligible.
 
 ### 4.3 Unannotated body-capable composites fail closed
 
-Rules:
+- known body fields require trusted provenance;
+- unannotated child of a body-capable composite is omitted;
+- unknown attachment/provider/tool composite is omitted absent reviewed field adapter;
+- data URLs/base64/bytes/buffers/file-like/body wrappers are forbidden absent safe metadata extractor;
+- safe extractor creates new bounded scalar metadata, never relabels opaque bodies.
 
-- known body-bearing fields require explicit trusted provenance;
-- an unannotated child of a body-capable composite is omitted;
-- unknown attachment/provider/tool composite shapes are omitted unless a reviewed adapter classifies fields individually;
-- data URLs, base64 blobs, bytes/buffers, file-like values, attachment payloads, body wrappers, and opaque binary structures are forbidden unless a reviewed extractor creates new bounded safe metadata;
-- safe metadata extraction constructs new scalars and never relabels an opaque body object as safe.
+### 4.4 Source exclusion before content redaction
 
-### 4.4 Source exclusion before redaction
+Drop before generic secret handling:
 
-The following are dropped before generic content secret handling:
-
-- OIDC/OAuth/login/callback/session objects;
-- credential-store/provider credential resolution outputs;
-- Authorization/Cookie/header credential structures;
-- A2A bearer structures;
-- MCP OAuth/token structures;
-- Memory/retrieval records or queries;
-- file/artifact body-bearing representations;
+- OIDC/OAuth/login/callback/session structures;
+- credential/provider secret resolution;
+- Authorization/Cookie credential containers;
+- A2A bearer/MCP token structures;
+- Memory/retrieval records/queries;
+- file/artifact bodies;
 - reasoning/thinking/analysis fields;
-- system/developer instruction stores;
-- security-sensitive structures that UAG cannot safely classify.
+- system/developer stores;
+- unclassifiable security-sensitive structures.
 
-This typed-source exclusion is the primary guarantee for security material. Redaction is defense in depth for otherwise eligible bounded natural-language/tool values.
+## 5. Secret handling boundary
 
-## 5. Secret handling requirements
+Secret scanning occurs only after the traversal/scalar contracts prove work is bounded.
 
-Secret scanning occurs only after the traversal/rendering contract proves structural/scalar work is bounded.
+Reviewed high-confidence classes include:
 
-At minimum the reviewed redactor must identify high-confidence forms including:
-
-- `Bearer ...` / `Basic ...` Authorization-scheme values independent of containing key name;
+- `Bearer ...` / `Basic ...` values independent of key name;
 - compact JWT-like forms;
-- PEM private-key blocks/comparable private-key encodings;
+- PEM private-key blocks/comparable key encodings;
 - recognized credential-bearing URI userinfo;
-- known UAG/provider secret wrapper types before string conversion;
-- values tagged by trusted UAG code as credential-bearing.
+- known secret wrapper types before conversion;
+- trusted credential-bearing tags.
 
-The exact replacement marker, mapping-key behavior, post-redaction bounds, canonical renderer, and shared span ledger are owned by the traversal/rendering contract.
+Recursive always-blocked mapping-key rules, exact replacement marker, mapping-key failure behavior, post-redaction field checks, renderer, and span ledger are owned by the traversal contract.
 
-Redactor exceptions or security ambiguity omit the whole candidate, emit only normalized content-free diagnostics, and never fail the user operation.
+Redactor exception/security ambiguity omits the candidate and never fails user execution.
 
-## 6. Ordinary-user `uag.trace_view.v1` is a closed metadata-only schema
+## 6. Ordinary-user `uag.trace_view.v1` is closed metadata-only
 
 The proxy constructs v1 field-by-field and never forwards arbitrary backend JSON.
 
 ### 6.1 Exact top-level schema
 
 ```text
-schema_version : exact string "uag.trace_view.v1"
-trace_id       : exact canonical W3C trace-id string
+schema_version : exact "uag.trace_view.v1"
+trace_id       : canonical W3C trace-id string
 partial        : JSON boolean
-spans          : JSON array, at most 500 returned spans
+spans          : JSON array, maximum 500 returned spans
 ```
 
-No other top-level field exists in v1.
+No other top-level field exists.
 
-`trace_id` must match:
+`trace_id` grammar:
 
 ```text
 ^[0-9a-f]{32}$
+not all zeros
 ```
 
-and must not be all zeros. Ordinary-user query input that fails this grammar is rejected before local-index/backend lookup. No trimming, case folding, prefix stripping, or arbitrary string conversion occurs. The response `trace_id` comes from the validated query/local authorization record; arbitrary backend trace-id text is never echoed.
+Invalid ordinary-user input is rejected before local-index/backend lookup. No trim/case-fold/prefix stripping. Response trace ID comes from validated query/local state, never arbitrary backend text.
 
 ### 6.2 Exact span schema
 
@@ -324,7 +339,7 @@ Every returned span contains exactly:
 
 ```text
 span_id
-parent_span_id    # optional; only when returned parent is also authorized and present
+parent_span_id    # optional only when returned parent is present
 parent_omitted
 name
 start_time
@@ -333,44 +348,52 @@ duration_ms
 status_code
 ```
 
-Types/grammars:
+Types:
 
 ```text
 span_id:
-  exact lowercase hex string matching ^[0-9a-f]{16}$, not all zeros
+  ^[0-9a-f]{16}$ and not all zeros
 
-parent_span_id:
-  when present, same grammar as span_id
+parent_span_id when present:
+  same grammar as span_id
 
 parent_omitted:
   JSON boolean
 
 name:
-  one of AGENT | LLM | TOOL | PROVIDER_SDK | INTERNAL | UNKNOWN
-  mapping owned by the traversal/rendering contract
+  AGENT | LLM | TOOL | PROVIDER_SDK | INTERNAL | UNKNOWN
+  safe mapping owned by traversal contract
 
-start_time, end_time, duration_ms:
-  JSON integers with exact normalization/bounds owned by the scalar/timing contract
+start_time/end_time/duration_ms:
+  JSON integers under scalar/timing contract
 
 status_code:
-  one of UNSET | OK | ERROR
+  UNSET | OK | ERROR
 ```
 
-Backend span IDs are validated by exact bounded grammar before inclusion. Invalid span ID or invalid timing omits that span rather than copying arbitrary text.
+Invalid span ID/timing omits that span rather than echoing arbitrary text.
 
-### 6.3 Parent semantics
+### 6.3 Duplicate/mismatched backend identity is fail closed
 
-For a returned span:
+Within one bounded backend result:
 
-- no parent exists: omit `parent_span_id`, set `parent_omitted=false`;
-- parent exists and is authorized/valid/returned: include validated `parent_span_id`, set `parent_omitted=false`;
-- parent is known to exist but is not returned because of authorization filtering, local-index filtering, invalid projection, or bounded truncation: omit `parent_span_id`, set `parent_omitted=true`.
+- if a backend record explicitly carries a trace ID, it must exactly equal the canonical requested trace ID or that record is dropped;
+- after span-ID validation, if the same `span_id` occurs in more than one fetched record, **all records with that duplicated ID are omitted** and `partial=true`;
+- duplicate IDs are never resolved by trusting resource attributes, service names, arrival order, or remote metadata;
+- returned `spans[]` therefore has unique span IDs.
 
-An unauthorized/unreturned parent ID is never exposed.
+This prevents ambiguous remote records from impersonating a locally indexed span ID.
 
-### 6.4 Status mapping
+### 6.4 Parent semantics
 
-`status_code` is mapped into exactly:
+- no parent: omit `parent_span_id`, `parent_omitted=false`;
+- returned authorized valid parent: include validated parent ID, `parent_omitted=false`;
+- parent known to exist but filtered/invalid/truncated/not returned: omit ID, `parent_omitted=true`;
+- malformed raw parent ID is never echoed; the child may be returned with `parent_omitted=true` if the child itself is otherwise valid/authorized.
+
+### 6.5 Status mapping
+
+Closed values:
 
 ```text
 UNSET
@@ -378,9 +401,9 @@ OK
 ERROR
 ```
 
-Unknown/malformed backend status -> `UNSET`. Backend/provider status descriptions, exception text, URLs, request details, or free-form status text are never copied.
+Unknown/malformed backend status -> `UNSET`. Never copy status description/exception/URL/request text.
 
-### 6.5 Fields explicitly absent from v1
+### 6.6 Explicitly absent
 
 V1 contains no:
 
@@ -389,165 +412,153 @@ status_description
 attributes
 events
 links
-resource attributes
-instrumentation scope
+resource/instrumentation attributes
 logs
 baggage
-HTTP metadata/headers
-provider request/response metadata
+HTTP/provider request metadata
 captured content
 pseudonyms/key-version attributes
-raw identity/authorization fields
-backend/vendor extensions
+raw identity/auth fields
+vendor extensions
 exception messages/stacks
 ```
 
-Unknown top-level/span/nested backend structures are dropped. A future field requires an explicitly reviewed new schema version; v1 does not grow implicitly.
+Unknown structures are dropped. Future fields require a reviewed new schema version.
 
-### 6.6 `partial` semantics
+### 6.7 `partial` semantics
 
-`partial=true` whenever UAG knowingly returns less than the safely available trace view because of one or more of:
+`partial=true` when UAG knowingly omits safely relevant data because of:
 
-- backend byte/page/span/deadline truncation;
-- 500-span output ceiling;
-- authorization or local-ownership filtering;
-- invalid span identifier/timing/name ownership projection;
-- an omitted known parent;
-- another supported fail-closed projection omission.
+- backend deadline/byte/page/span truncation;
+- 500-span output limit;
+- authorization/local-ownership filtering;
+- duplicate/mismatched/invalid span projection;
+- invalid timing/ID;
+- omitted known parent;
+- other supported fail-closed projection omission.
 
-`partial=false` only when UAG has no known omission within the bounded data it was able to retrieve/project. The boolean does not expose omitted IDs or content.
+`partial=false` only when no known omission exists within bounded retrieved data.
 
-## 7. Local trace authorization remains independent of telemetry
+## 7. Local trace authorization is independent of telemetry
 
-Possession of trace ID, span ID, pseudonym, key version, baggage, backend attributes, resource attributes, service names, links, or provider metadata never authorizes access.
+Trace/span IDs, pseudonyms, key versions, baggage, backend/resource attributes, service names, links, and provider metadata never authorize.
 
-When an authorized local Agent trace/segment starts, UAG records local state sufficient to bind local spans/segments to current UAG authorization scope. A practical record may contain:
+When an authorized local Agent segment starts, UAG records local trusted state sufficient to bind local spans to current scope, for example:
 
 ```text
 trace_id
 local_segment_id
 local_root_span_id
-owned_span_ids / safe local membership mapping
+owned_span_ids / safe local membership map
 service_instance_id
 created_at
 entry_point
 room_id
 project_id
-principal_id when required for private scope
+principal_id when private scope requires it
 private_scope
 ```
 
-This index is UAG-local state, not exported OTel state. It contains no prompt/response/tool/Memory bodies or backend credentials.
+The index is local UAG state, not exported telemetry, and stores no prompts/responses/tool/Memory bodies or backend credentials.
 
-Ordinary-user authorization is evaluated per local segment/span using current UAG auth/authz. Cross-instance authorization-index federation is deferred.
+Provider-SDK child spans are eligible for ordinary-user v1 only if their IDs are registered as locally owned under the active selected-call guard; otherwise they are unindexed and omitted.
 
-## 8. Trace-query authorization flow
+Current authorization is evaluated per local segment/span. Cross-instance authorization-index federation is deferred.
 
-For a non-admin query:
+## 8. Ordinary-user query flow
 
 ```text
 validate canonical trace_id
-  -> authenticate/revalidate current session
+  -> authenticate/revalidate session
   -> find local authorization records
   -> none? deny
-  -> re-run current authorization for each local segment
+  -> re-run current authz per local segment
   -> bounded backend query
-  -> validate/classify each fetched span against trusted local membership
-  -> drop non-local/unindexed/unauthorized spans
-  -> project each authorized span through closed v1 schema
+  -> validate IDs / duplicate conditions
+  -> classify against trusted local membership
+  -> drop non-local/unindexed/unauthorized
+  -> closed v1 projection
   -> no authorized valid spans remain? deny/not-found under API contract
-  -> return bounded v1 response
+  -> return bounded response
 ```
 
-Current policy wins over historical access. Authorization for one segment never authorizes another segment sharing the trace ID.
+Historical access/trace possession is insufficient; current policy wins.
 
 ## 9. Trace-query resource limits
 
-A backend adapter is supported for ordinary-user Phase 4D only if it can enforce bounded retrieval without first materializing an unbounded response.
+Supported ordinary-user adapter must enforce bounds without first materializing an unbounded response.
 
-Initial aggregate per-query limits are exactly:
+Exact aggregate per-query limits:
 
 ```text
-elapsed deadline:                 5 seconds
-maximum decoded backend bytes:    8 MiB
-maximum backend spans fetched:    2000
-maximum spans per backend page:   500
-maximum backend pages:            4
+monotonic elapsed deadline:        5 seconds
+maximum decoded backend bytes:     8 MiB
+maximum backend spans fetched:     2000
+maximum spans per backend page:    500
+maximum backend pages:             4
 maximum authorized spans returned: 500
 ```
 
 Rules:
 
-- the five-second deadline is one monotonic elapsed budget from query start and is not reset by retries/pages;
-- retries and pagination share every aggregate ceiling;
-- backend-side pagination/limits are used where available;
-- decoded-byte accounting is enforced while application response bytes are made available after transport/content decoding, not after full-body materialization;
-- adapters should additionally bound compressed/wire reads where the client permits, but a wire-byte cap never substitutes for the decoded 8 MiB cap;
-- stop retrieval when any deadline/byte/span/page ceiling is reached;
-- authorization/filtering operates only on already-bounded fetched data;
-- returned spans are ordered by normalized `(start_time, span_id)` before the 500-output ceiling;
-- safe truncation yields `partial=true`;
-- if a safe bounded partial result cannot be established, fail closed with a bounded server error and no backend payload;
-- truncation never relaxes authorization or exposes omitted parent IDs;
+- one monotonic five-second budget starts at query start and is not reset by retry/page;
+- retries/pages share all ceilings;
+- use backend pagination/limits where available;
+- enforce decoded byte count while application bytes become available after content decoding, not after full-body load;
+- additionally bound compressed/wire reads where possible; wire cap never substitutes for decoded cap;
+- stop when any bound is reached;
+- authorize/filter only bounded fetched data;
+- order returned spans by normalized `(start_time, span_id)` before output cap;
+- safe truncation -> `partial=true`;
+- inability to establish safe bounded partial result -> bounded server error, no backend payload;
+- truncation never relaxes auth or exposes omitted IDs;
 - backend failure never changes Agent execution.
 
 ## 10. Required regressions
 
-### Configuration
+### Configuration/credentials
 
-- every new CLI option overrides its environment fallback;
-- `--no-otel` suppresses all Phase 4 behavior;
-- missing capture bounds resolve to 2048/8192;
-- invalid/inconsistent bounds disable controlled content capture only;
-- missing/empty categories capture nothing;
-- category tokens trim only surrounding ASCII space/tab and otherwise require exact closed names;
-- unknown/empty category token disables capture rather than being ignored;
-- provider `claude` selects Anthropic path, `anthropic` is not an alias, and unknown provider tokens do not activate unselected calls;
-- raw correlation key material has no CLI option.
+- CLI overrides env and `--no-otel` suppresses all Phase 4;
+- capture bound/category invalidity fails closed exactly as specified;
+- provider selector behavior isolates valid/unknown tokens;
+- default correlation credential name is exactly `observability/correlation`;
+- leading/trailing whitespace/control/surrogate/oversize credential names fail closed;
+- correlation credential must be `CredentialKind.OTHER` with exact purpose and matching key-version metadata;
+- canonical 43-char unpadded base64url decodes to exactly 32 key bytes;
+- padded/noncanonical/wrong-length/passphrase secrets fail closed;
+- no raw key env/CLI input exists.
 
-### Deployment scope
+### Deployment/provenance
 
-- `prod` is valid and framed exactly as configured;
-- leading/trailing whitespace, controls, surrogates, empty, or >128-scalar scopes are invalid rather than normalized;
-- same key/scope across intended replicas is stable;
-- different scopes domain-separate pseudonyms;
-- no hostname/PID/random fallback exists.
+- exact deployment-scope validation/hashing behavior is consistent across replicas;
+- forbidden body/auth/Memory/retrieval/file/artifact/reasoning sources never become eligible through nesting;
+- unannotated body-capable children fail closed.
 
-### Provenance
+### Trace schema/identity
 
-- file-writing `content`, attachment data/base64, artifact body, Memory/retrieval body, auth/session/credential structures remain excluded under otherwise allowed categories;
-- unannotated body-capable children fail closed;
-- safe derived metadata requires trusted reconstruction.
-
-### Trace view
-
-- invalid/uppercase/zero/overlong trace IDs are rejected before lookup;
-- invalid/uppercase/zero span IDs are omitted rather than echoed;
-- top-level and span schema contain no undeclared fields;
-- name is only the closed span-class enum;
-- timing is only normalized integer milliseconds/duration;
-- status is only `UNSET|OK|ERROR`;
-- parent ID is present only for a returned authorized parent;
-- omitted parents expose only `parent_omitted=true`;
-- content/pseudonyms/events/attributes/resources/links/logs/exception text never appear;
-- every known filtering/truncation/projection omission sets `partial=true`.
+- invalid/uppercase/zero/overlong trace ID rejected before lookup;
+- invalid/uppercase/zero span ID omitted;
+- explicit backend trace-ID mismatch record omitted;
+- duplicate span IDs omit all duplicates and set partial;
+- returned IDs are unique and canonical;
+- name/timing/status remain closed typed fields;
+- unauthorized/missing/malformed parent ID never leaks;
+- undeclared backend fields/content/pseudonyms/events/attrs never appear;
+- known filtering/truncation/projection omissions set partial.
 
 ### Query bounds
 
-- more than 8 MiB decoded content is stopped during reading;
-- no more than 2000 spans/four pages/500 per page are fetched;
-- one monotonic five-second budget covers retries/pages;
-- at most 500 authorized spans are returned;
-- output ordering is deterministic after ID/timing normalization;
-- unsupported unbounded adapters return no raw payload.
+- decoded byte/page/span/deadline/output ceilings are enforced across retries;
+- output ordering is deterministic after normalization;
+- unsupported unbounded adapter returns no raw payload.
 
-## 11. Fixed Phase 4 decisions from this contract
+## 11. Fixed Phase 4 decisions
 
-- Phase 4 uses explicit CLI/application > environment > safe-default precedence.
-- Controlled-content categories and numeric bounds have deterministic fail-closed parsing.
-- Deployment scope is not trimmed/normalized; surrounding whitespace is invalid.
-- Body-capable content uses trusted field/node provenance and hard-denied provenance overrides categories.
-- Secret scanning happens only after bounded traversal/scalar preflight as defined by the traversal contract.
-- Ordinary-user `uag.trace_view.v1` is a closed metadata-only schema with canonical trace/span ID grammars, closed name/status vocabularies, canonical timing types, and no generic nested backend containers.
-- Ordinary-user trace authorization comes only from current UAG-local auth/authz records, never telemetry.
-- Trace backend retrieval is bounded by one aggregate deadline/byte/span/page budget before output.
+- Configuration and correlation credential parsing are explicit/fail-closed.
+- Correlation key secret is canonical unpadded base64url of exactly 32 bytes with dedicated purpose/version metadata.
+- Deployment scope is exact, untrimmed, and bounded.
+- Field/node provenance hard denial overrides content categories.
+- Privacy/secret scanning runs only after bounded traversal/scalar preflight.
+- Ordinary-user v1 has canonical trace/span IDs, unique returned span IDs, closed name/status/timing types, and no arbitrary nested backend data.
+- Authorization derives only from current UAG-local state.
+- Backend retrieval uses one aggregate bounded query budget.
