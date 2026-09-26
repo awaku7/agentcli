@@ -30,7 +30,7 @@ Phase 4 consists of four independent features, all OFF by default:
 
 ## 2. Configuration contract
 
-### 2.1 Precedence and activation controls
+### 2.1 Precedence and complete shared-resolver surface
 
 For every Phase 4 setting:
 
@@ -46,37 +46,24 @@ Effective core `--no-otel` is authoritative. When core OTel is OFF, every Phase 
 
 Browser/WebSocket/A2A/MCP/tool/provider/query/header/cookie/baggage/trace content MUST NOT alter process settings.
 
-Public boolean activation controls are exactly:
+The shared observability settings resolver exposes **exactly** the following Phase 4 public settings. `None` in a programmatic field means "not explicitly supplied at this precedence level"; it does not itself override an environment value.
 
-```text
-Phase 4A:
-  --otel-capture-content
-  --no-otel-capture-content
-  UAGENT_OTEL_CAPTURE_CONTENT
+| Setting | CLI | Environment | Programmatic/application field | Effective safe default |
+|---|---|---|---|---|
+| controlled-content activation | `--otel-capture-content` / `--no-otel-capture-content` | `UAGENT_OTEL_CAPTURE_CONTENT` | `capture_content: bool | None` | `false` |
+| controlled-content categories | `--otel-capture-categories <csv>` | `UAGENT_OTEL_CAPTURE_CATEGORIES` | `capture_categories: str | None` | empty set |
+| per-field content bound | `--otel-capture-max-field-chars <n>` | `UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS` | `capture_max_field_chars: int | None` | `2048` |
+| per-span content bound | `--otel-capture-max-span-chars <n>` | `UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS` | `capture_max_span_chars: int | None` | `8192` |
+| pseudonymous-correlation activation | `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation` | `UAGENT_OTEL_PSEUDONYMOUS_CORRELATION` | `pseudonymous_correlation: bool | None` | `false` |
+| deployment scope | `--otel-deployment-scope <scope>` | `UAGENT_OTEL_DEPLOYMENT_SCOPE` | `deployment_scope: str | None` | absent; pseudonym emission disabled |
+| correlation credential name | `--otel-correlation-key-name <name>` | `UAGENT_OTEL_CORRELATION_KEY_NAME` | `correlation_key_name: str | None` | `observability/correlation` |
+| correlation key version | `--otel-correlation-key-version <version>` | `UAGENT_OTEL_CORRELATION_KEY_VERSION` | `correlation_key_version: str | None` | `v1` |
+| provider SDK selector | `--otel-provider-instrumentation <csv>` | `UAGENT_OTEL_PROVIDER_INSTRUMENTATION` | `provider_instrumentation: str | None` | empty / OFF |
+| ordinary-user trace-query activation | `--otel-trace-query` / `--no-otel-trace-query` | `UAGENT_OTEL_TRACE_QUERY_ENABLED` | `trace_query_enabled: bool | None` | `false` |
 
-Phase 4B:
-  --otel-pseudonymous-correlation
-  --no-otel-pseudonymous-correlation
-  UAGENT_OTEL_PSEUDONYMOUS_CORRELATION
+No alternate CLI spelling, environment alias, or second programmatic field is part of the initial contract. CLI/GUI/Web/A2A entry points that expose Phase 4 settings MUST feed these same resolver fields rather than implementing independent parsing or precedence.
 
-Phase 4D:
-  --otel-trace-query
-  --no-otel-trace-query
-  UAGENT_OTEL_TRACE_QUERY_ENABLED
-```
-
-Phase 4C is OFF unless the provider selector contains at least one valid selected provider. There is no independent implicit enable.
-
-Programmatic/application equivalents are explicit fields in the shared observability settings resolver:
-
-```text
-capture_content: bool | None
-pseudonymous_correlation: bool | None
-trace_query_enabled: bool | None
-provider_instrumentation: str | None
-```
-
-All safe defaults are OFF/empty.
+Phase 4C is OFF unless the resolved provider selector contains at least one valid selected provider. There is no independent implicit enable.
 
 ### 2.2 Boolean parsing
 
@@ -147,7 +134,7 @@ claude
 
 `claude` selects the Anthropic SDK path; `anthropic` is not an alias. Missing/empty -> OFF. Unknown/empty token enables nothing for that token and emits only normalized content-free diagnostics; valid sibling tokens remain independently active.
 
-All other programmatic string settings in this contract (deployment scope, credential name, key version) MUST be exact built-in `str` or `None`; no generic `str()` conversion is allowed.
+All other programmatic string settings in this contract (deployment scope, credential name, key version) MUST be exact built-in `str` or `None`; no generic `str()` conversion is allowed. Their CLI/environment forms are also exact strings and are validated by the topic-specific bounds/grammars in section 4 before any normalization or use.
 
 ## 3. Phase 4A controlled content
 
@@ -426,7 +413,17 @@ A match replaces the entire scalar with `[REDACTED]`.
 
 #### B. Compact JWT-like token
 
-A token bounded by start/end or the delimiter set above is JWT-like only if it consists of exactly three non-empty segments separated by two `.` characters, and every segment contains only ASCII `[A-Za-z0-9_-]`. Each segment is limited by the already-established scalar bound. A match replaces the entire scalar with `[REDACTED]`.
+For this detector, the named `JWT_BOUNDARY` set is exactly:
+
+```text
+ASCII whitespace or  " ' = : ; , ( ) [ ] { } < > & ? #
+```
+
+A candidate JWT-like token is bounded on the left by start-of-string or one `JWT_BOUNDARY` character and on the right by end-of-string or one `JWT_BOUNDARY` character. No other previously defined delimiter set is used for JWT boundary decisions.
+
+Within those boundaries, the token is JWT-like only if it consists of exactly three non-empty segments separated by two `.` characters and every segment contains only ASCII `[A-Za-z0-9_-]`. Each segment is limited by the already-established scalar bound. A match replaces the entire scalar with `[REDACTED]`.
+
+Thus both `access_token=aaa.bbb.ccc` and `jwt:aaa.bbb.ccc` are recognized when `aaa.bbb.ccc` otherwise satisfies the JWT-like grammar.
 
 #### C. PEM private key
 
@@ -503,13 +500,13 @@ It is stable across intended replicas and distinct across deployments that must 
 
 ### 4.2 Correlation credential
 
-Default credential name is exactly:
+The effective requested credential name is the resolved `correlation_key_name` setting. Its safe default is exactly:
 
 ```text
 observability/correlation
 ```
 
-Explicit credential name MUST be exact built-in `str`, 1..128 Unicode scalar values, with no leading/trailing Unicode whitespace, controls, or surrogates. Invalid explicit name disables pseudonym emission without fallback.
+An explicit credential name MUST be exact built-in `str`, 1..128 Unicode scalar values, with no leading/trailing Unicode whitespace, controls, or surrogates. Invalid explicit name disables pseudonym emission without fallback.
 
 A custom `CredentialStore` result is accepted only when runtime shape validation passes **before** any field comparison, decoding, custom equality, or conversion:
 
@@ -521,6 +518,8 @@ type(credential.secret) is str
 type(credential.metadata) is dict
 len(credential.metadata) <= 16
 ```
+
+After those exact runtime-type gates, `credential.name` MUST itself satisfy the same bounded name validation as the effective requested credential name: native length `1..128`, no leading/trailing Unicode whitespace, controls, or surrogates, with no normalization. It MUST then equal the effective requested credential name exactly, code point for code point. Any mismatch rejects the credential. This returned-name validation/equality check occurs before metadata lookup, secret decoding, HMAC construction, or any use of the returned secret.
 
 Before any metadata lookup/comparison, every existing metadata key/value pair MUST satisfy `type(x) is str`, key native length `<= 64`, value native length `<= 128`, and contain no surrogates. An invalid pair rejects the credential. Only after that bounded validation may the implementation read `purpose` and `key_version` from a safe copied built-in dict.
 
@@ -649,9 +648,21 @@ The aggregate five-second trace-query deadline begins **before local-index looku
 lookup_segments(trace_id, max_segments=64, deadline=shared_deadline)
 ```
 
-and MUST NOT call an unbounded `get_all`/materialize-all path. Across all returned local segments, at most 2000 owned span IDs may be materialized/scanned. An overflowed, timed-out, malformed, or otherwise incomplete local authorization index causes a bounded deny/not-found/server-error according to the API contract **before backend query**; authorization uncertainty is never converted into `partial` access.
+and MUST NOT call an unbounded `get_all`/materialize-all path. Across all returned local segments, at most 2000 owned span IDs may be materialized/scanned. Authorization uncertainty is never converted into `partial` access.
 
 Current auth/session and room/project/private-room authorization are revalidated per local segment/span on every query. A local segment never authorizes remote/unindexed segments in the same distributed trace. Cross-instance authorization-index federation is deferred.
+
+#### 6.1.1 Externally observable ordinary-user API outcomes
+
+The initial ordinary-user endpoint has one fixed observable policy so trace existence is not exposed through differing authorization/index failures. Responses are JSON and MUST contain no raw backend/index/error payload, trace-specific reason text, scope text, or rejected identifier beyond the successful v1 response itself.
+
+- **Unauthenticated request:** the existing UAG authentication layer rejects it before trace-ID parsing or local-index lookup using the product's standard authentication response. Phase 4 does not define a second authentication format.
+- **Syntactically invalid `trace_id`:** return HTTP `400` with exactly `{"error":"invalid_trace_id"}` and perform no local-index/backend lookup.
+- **Syntactically valid `trace_id`, but no complete authorized local view can be established before backend access:** return HTTP `404` with exactly `{"error":"trace_not_found"}` and perform no backend lookup. This single result covers nonexistent/local-index-missing traces, a complete lookup yielding zero currently authorized local segments, overflowed/non-queryable index state, malformed index state, local-index timeout/deadline expiry, incomplete index state, and equivalent authorization uncertainty. The endpoint MUST NOT use `403` or distinct bodies/statuses to distinguish those cases.
+- **Complete bounded local authorization succeeds with at least one authorized local segment, but backend retrieval/projection later fails or cannot produce a safe bounded partial result:** return HTTP `503` with exactly `{"error":"trace_query_unavailable"}` and no backend payload/details.
+- **Successful projection:** return HTTP `200` with exactly the `uag.trace_view.v1` schema in section 6.5.
+
+When a complete bounded local lookup establishes at least one authorized local segment, other complete-but-unauthorized local/remote segments may be filtered during projection as specified below; that filtering may yield `partial=true`. Only uncertainty/incompleteness in the authorization index itself is collapsed to the fixed pre-backend `404` result.
 
 ### 6.2 Query trace ID
 
@@ -749,6 +760,8 @@ Canonical start/end range:
 0..9007199254740991
 ```
 
+The initial ordinary-user v1 supports **only** exact built-in integer backend timestamps whose reviewed adapter supplies one of the closed unit tags `ms`, `us`, or `ns`. Textual timestamp input of every form is unsupported in the initial contract; there is no ISO-8601/RFC-3339/general date parser and no adapter-specific textual exception. A backend record exposing only textual timestamps cannot project that span into v1; the span is omitted under the normal bounded `partial=true` rules. Adding any textual timestamp grammar requires a later reviewed contract revision.
+
 Supported exact built-in integer raw units and preflight maxima:
 
 ```text
@@ -785,15 +798,13 @@ ns -> raw // 1000000
 
 and `duration_ms` is derived from canonical endpoints. Backend duration is never copied.
 
-Backend-specific textual timestamps are allowed only under a separately reviewed adapter parser with a fixed small raw length ceiling and exact grammar checked before parsing. Generic date parsing is forbidden.
-
-Invalid timing omits the span; raw timing text is never echoed.
+Invalid or textual timing omits the span; raw timing text is never parsed, logged, or echoed.
 
 ### 6.8 Partial semantics
 
-`partial=true` whenever UAG knowingly omits safely relevant backend data due to backend/query limits, authorization/local ownership filtering after a complete bounded authorization lookup, trace-ID mismatch/missing record binding, invalid/duplicate IDs, invalid timing, parent omission, output truncation, or another supported fail-closed projection omission.
+`partial=true` whenever UAG knowingly omits safely relevant backend data due to backend/query limits, authorization/local ownership filtering after a complete bounded authorization lookup, trace-ID mismatch/missing record binding, invalid/duplicate IDs, invalid/unsupported timing, parent omission, output truncation, or another supported fail-closed projection omission.
 
-`partial=false` only when no known omission exists within bounded retrieved data. Local authorization-index uncertainty/overflow is a query denial/error, not a partial authorization result.
+`partial=false` only when no known omission exists within bounded retrieved data. Local authorization-index uncertainty/overflow is the fixed pre-backend `404` result from section 6.1.1, not a partial authorization result.
 
 ### 6.9 Aggregate query resource ceilings
 
@@ -812,7 +823,7 @@ maximum backend pages:             4
 maximum authorized spans returned: 500
 ```
 
-Adapters enforce decoded bytes while reading, not after an unbounded full-body materialization. Backend limits/pagination are used where available. Stop on any ceiling. Order authorized valid spans by `(start_time, span_id)` before the output cap. Safe backend/output truncation sets `partial=true`; if a safe bounded partial cannot be established, return a bounded server error with no backend payload.
+Adapters enforce decoded bytes while reading, not after an unbounded full-body materialization. Backend limits/pagination are used where available. Stop on any ceiling. Order authorized valid spans by `(start_time, span_id)` before the output cap. Safe backend/output truncation sets `partial=true`; if a safe bounded partial cannot be established after authorization succeeds, return the fixed HTTP `503` response from section 6.1.1 with no backend payload.
 
 ## 7. Failure and diagnostics
 
@@ -824,7 +835,7 @@ Feature failure behavior:
 content policy/bound/redaction/render failure -> omit content; runtime continues
 pseudonym configuration/construction failure  -> omit pseudonym; tracing continues
 provider SDK diagnostic failure               -> disable optional child; model call continues
-trace query config/auth/index/backend failure  -> bounded deny/error/no raw payload; Agent continues
+trace query config/auth/index/backend failure  -> fixed bounded response per 6.1.1; no raw payload; Agent continues
 ```
 
 ## 8. Required conformance tests
@@ -834,6 +845,7 @@ Implementation is incomplete until tests prove at least:
 ### Configuration
 
 - CLI > env > default precedence;
+- the complete section 2.1 resolver matrix has one and only one CLI/environment/programmatic name and the documented default for every Phase 4 setting;
 - all Phase 4A/4B/4D booleans default OFF;
 - Phase 4D endpoint remains unavailable unless `trace_query_enabled` resolves true;
 - last positive/negative CLI boolean wins;
@@ -841,6 +853,7 @@ Implementation is incomplete until tests prove at least:
 - env booleans accept only the defined normalized tokens and reject other whitespace/tokens;
 - numeric CLI/env grammar rejects signs, whitespace, Unicode digits, leading zeros, overlength, and out-of-range values;
 - category/provider CSV parsing follows exact ASCII trim/no-normalization rules;
+- each deployment-scope/correlation-key/provider selector CLI/environment control resolves into the exact shared field named in section 2.1;
 - `--no-otel` suppresses all Phase 4 behavior.
 
 ### Content
@@ -860,6 +873,7 @@ Implementation is incomplete until tests prove at least:
 - oversized/surrogate strings and huge integers fail before scanner/rendering;
 - every always-blocked key causes whole-candidate omission;
 - Authorization/Basic, compact JWT-like, PEM private key, and URI-userinfo detector boundaries/actions are exact;
+- `access_token=aaa.bbb.ccc` and `jwt:aaa.bbb.ccc` are recognized by the named JWT boundary set when the token body otherwise satisfies the JWT-like grammar;
 - `https://user:password@example.com/path` is detected by authority scanning after `://`;
 - every recognized value secret is redacted/omitted according to section 3.9 and never passes unchanged;
 - mapping-key secret match omits candidate;
@@ -870,6 +884,7 @@ Implementation is incomplete until tests prove at least:
 ### Pseudonyms
 
 - custom credential store output is rejected unless `type(credential) is Credential` and every required nested runtime type/size gate passes;
+- returned `credential.name` is bounded/validated and must exactly equal the effective requested credential name before metadata lookup or secret decode;
 - oversized/malformed metadata is rejected before unbounded iteration/custom comparison;
 - canonical 43-char base64url secret decodes to 32 bytes; malformed/passphrase values fail closed;
 - key version grammar/default/rotation behavior;
@@ -891,15 +906,17 @@ Implementation is incomplete until tests prove at least:
 ### Trace query
 
 - feature is independently default-OFF and requires its explicit activation control;
-- invalid query trace ID fails before local-index lookup;
+- invalid query trace ID returns the exact section 6.1.1 `400` response before local-index lookup;
+- nonexistent, zero-authorized, overflowed, malformed, timed-out, and incomplete local-index cases all collapse to the exact same pre-backend `404 {"error":"trace_not_found"}` response and never use a trace-specific `403`/detail;
+- backend/projection failure after successful complete authorization returns the exact fixed `503 {"error":"trace_query_unavailable"}` response with no backend payload;
 - local index write/read ceilings prevent unbounded segment/span-ID materialization;
 - the five-second budget starts before local-index lookup and is shared through backend work;
-- local index overflow/incompleteness denies/errors before backend query rather than granting partial authorization;
 - every projected backend record requires an explicit matching canonical trace ID;
 - missing/mismatched record trace ID cannot be rescued by span-ID membership;
 - invalid/duplicate span IDs fail closed;
 - current auth/authz is revalidated per local segment/span;
-- remote/unindexed/unauthorized spans are omitted;
+- remote/unindexed/unauthorized spans are omitted after a complete bounded authorization lookup;
+- textual timestamps are rejected in initial v1 without generic or adapter-specific parsing;
 - reversed timestamps are rejected at raw precision even when millisecond flooring would make them equal;
 - mixed ms/us/ns ordering uses the bounded exact common-domain comparison;
 - v1 exposes only the closed fields/vocabularies;
@@ -921,5 +938,6 @@ The following require a later reviewed contract revision:
 - cross-instance authorization-index federation;
 - pseudonyms as security/storage identity;
 - generic global HTTP/provider auto-instrumentation;
+- textual timestamp parsing/projection;
 - direct ordinary-user raw trace-backend access;
 - telemetry-driven authorization decisions.
