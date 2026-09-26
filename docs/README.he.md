@@ -93,14 +93,11 @@ flowchart LR
 השתמשו במודלים מתארחים או מקומיים דרך ממשק כלים אחיד. החליפו ספקים באמצעות
 `UAGENT_PROVIDER`—בלי שינויי קוד, הגירה או תהליך עבודה נפרד.
 
-### 🖥 Computer Use ואוטומציית דפדפן
+### 🔐 OIDC וזהות ארגונית
 
-Computer Use אופציונלי משלב סביבת ריצה של דפדפן Playwright עם אינטראקציה בשולחן העבודה. בצעו אוטומציה של
-ניווט, טפסים, תהליכים מרובי-עמודים, הורדות, צילומי מסך וחילוץ DOM. Browser
-Inspector מתעד מעברים ומצב עמוד לצורכי ניפוי שגיאות וביקורת.
+ממשק המשתמש של ה-Web כולל כניסה באמצעות OIDC עם Authorization Code + PKCE, אסימוני זיהוי מאומתים, סשנים בצד השרת, ובקרות גישה לפרויקטים/חדרים. טענות קבוצת Microsoft Entra ID מאומתות יכולות להזין מדיניות גישה מבוססת ספרייה כאשר מוגדרות. פריסות Windows Active Directory, OAuth ו-trusted-proxy יכולות להשתלב דרך מתאמי זהות מאומתים מפורשים; Windows AD דורש מאמת Kerberos/Negotiate ספציפי לפריסה ואינו מופעל כברירת מחדל.
 
-ראו [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+עיין ב-[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ו-[Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ ביצוע מקבילי של כלים
 
 פעולות בלתי תלויות לקריאה בלבד פועלות במקביל כאשר הדבר בטוח. חיפושי web, בדיקת קבצים,

@@ -92,14 +92,11 @@ tools, interfaces और policies को साथ मिलकर काम क
 एकसमान tool interface के माध्यम से hosted या local models का उपयोग करें।
 `UAGENT_PROVIDER` से providers बदलें—न code changes, न migration और न अलग workflow।
 
-### 🖥 Computer Use और browser automation
+### 🔐 OIDC और एंटरप्राइज पहचान
 
-Opt-in Computer Use, Playwright browser runtime को desktop interaction के साथ जोड़ता है।
-navigation, forms, multi-page flows, downloads, screenshots और DOM extraction को automate करें। Browser
-Inspector debugging और auditing के लिए transitions तथा page state रिकॉर्ड करता है।
+वेब UI में Authorization Code + PKCE का उपयोग करके OIDC साइन-इन, सत्यापित ID टोकन, सर्वर-साइड सत्र, और प्रोजेक्ट/रूम एक्सेस नियंत्रण शामिल हैं। सत्यापित Microsoft Entra ID समूह दावे कॉन्फ़िगर किए जाने पर डायरेक्टरी-आधारित एक्सेस नीति को फीड कर सकते हैं। Windows Active Directory, OAuth, और trusted-proxy डिप्लॉयमेंट्स स्पष्ट सत्यापित पहचान एडाप्टर के माध्यम से एकीकृत हो सकते हैं; Windows AD को डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate वेरीफायर की आवश्यकता होती है और यह डिफ़ॉल्ट रूप से सक्षम नहीं है।
 
-[Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) देखें।
-
+देखें [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) और [Enterprise Policy](ENTERPRISE_POLICY.md)।
 ### ⚡ Parallel tool execution
 
 सुरक्षित होने पर स्वतंत्र read-only operations concurrent रूप से चलती हैं। Web searches, file inspection,

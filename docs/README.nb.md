@@ -93,14 +93,11 @@ verktøy, grensesnitt og policyer til å fungere sammen.
 Bruk vertsbaserte eller lokale modeller gjennom ett konsekvent verktøygrensesnitt. Bytt leverandør med
 `UAGENT_PROVIDER`—uten kodeendringer, migrering eller separat arbeidsflyt.
 
-### 🖥 Computer Use og nettleserautomatisering
+### 🔐 OIDC og bedriftsidentitet
 
-Computer Use, når det aktiveres, kombinerer en Playwright-nettleserkjøretid med skrivebordsinteraksjon. Automatiser
-navigering, skjemaer, flersidige arbeidsflyter, nedlastinger, skjermbilder og DOM-uttrekking. Browser
-Inspector registrerer overganger og sidetilstand for feilsøking og revisjon.
+Webgrensesnittet inkluderer OIDC-pålogging med Authorization Code + PKCE, verifiserte ID-tokener, server-side økter og tilgangskontroller for prosjekt/rom. Verifiserte Microsoft Entra ID-gruppekrav kan gi tilgangspolicy basert på katalog når det er konfigurert. Windows Active Directory, OAuth og trusted-proxy-distribusjoner kan integreres gjennom eksplisitte verifiserte identitetsadaptere; Windows AD krever en distribusjonsspesifikk Kerberos/Negotiate-verifiserer og er ikke aktivert som standard.
 
-Se [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Se [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) og [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Parallell kjøring av verktøy
 
 Uavhengige skrivebeskyttede operasjoner kjører samtidig når det er trygt. Nettsøk, filinspeksjon,

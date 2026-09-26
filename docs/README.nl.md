@@ -93,14 +93,11 @@ tools, interfaces en beleidsregels samenwerken.
 Gebruik gehoste of lokale modellen via één consistente toolinterface. Wissel van provider met
 `UAGENT_PROVIDER`—zonder codewijzigingen, migratie of afzonderlijke workflow.
 
-### 🖥 Computer Use en browserautomatisering
+### 🔐 OIDC en bedrijfsidentiteit
 
-Opt-in Computer Use combineert een Playwright-browserruntime met desktopinteractie. Automatiseer
-navigatie, formulieren, flows met meerdere pagina's, downloads, schermafbeeldingen en DOM-extractie. De Browser
-Inspector registreert overgangen en paginastatus voor foutopsporing en auditing.
+De web-UI bevat OIDC-aanmelding met Authorization Code + PKCE, geverifieerde ID-tokens, server-side sessies en toegangscontroles voor projecten/ruimtes. Geverifieerde Microsoft Entra ID-groepclaims kunnen, wanneer geconfigureerd, toegangsbeleid op basis van directory ondersteunen. Windows Active Directory-, OAuth- en trusted-proxy-implementaties kunnen worden geïntegreerd via expliciete geverifieerde identiteitsadapters; Windows AD vereist een implementatiespecifieke Kerberos/Negotiate-verifier en is standaard niet ingeschakeld.
 
-Zie [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Zie [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) en [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Parallelle uitvoering van tools
 
 Onafhankelijke alleen-lezenbewerkingen worden, wanneer dat veilig is, gelijktijdig uitgevoerd. Webzoekopdrachten, bestandsinspectie,

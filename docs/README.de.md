@@ -93,14 +93,11 @@ Tools, Schnittstellen und Richtlinien zusammenarbeiten.
 Nutze gehostete oder lokale Modelle über eine einheitliche Tool-Schnittstelle. Wechsle Anbieter mit
 `UAGENT_PROVIDER`—ohne Codeänderungen, Migration oder separaten Workflow.
 
-### 🖥 Computer Use und Browser-Automatisierung
+### 🔐 OIDC und Unternehmensidentität
 
-Das optionale Computer Use kombiniert eine Playwright-Browser-Laufzeit mit Desktop-Interaktion. Automatisiere
-Navigation, Formulare, mehrseitige Abläufe, Downloads, Screenshots und DOM-Extraktion. Der Browser-
-Inspector zeichnet Übergänge und Seitenstatus zur Fehleranalyse und Prüfung auf.
+Die Web-Oberfläche beinhaltet die OIDC-Anmeldung mittels Authorization Code + PKCE, verifizierten ID-Tokens, serverseitigen Sitzungen und Zugriffssteuerungen für Projekte/Räume. Verifizierte Microsoft Entra ID-Gruppenansprüche können bei Konfiguration Richtlinien für den zugrundeliegenden Verzeichniszugriff speisen. Windows Active Directory-, OAuth- und trusted-proxy-Bereitstellungen können über explizit verifizierte Identitätsadapter integriert werden; Windows AD benötigt einen bereitstellungsspezifischen Kerberos/Negotiate-Verifizierer und ist standardmäßig nicht aktiviert.
 
-Siehe [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Siehe [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) und [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Parallele Tool-Ausführung
 
 Unabhängige schreibgeschützte Vorgänge werden, sofern sicher, gleichzeitig ausgeführt. Websuchen, Dateiprüfung,

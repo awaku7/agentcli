@@ -93,14 +93,11 @@ az eszközök, a felületek és a szabályzatok együttműködjenek.
 Használj hosztolt vagy helyi modelleket egyetlen egységes eszközfelületen keresztül. Válts szolgáltatót a
 `UAGENT_PROVIDER` használatával — nincs szükség kódmódosításra, migrációra vagy külön munkafolyamatra.
 
-### 🖥 Computer Use és böngészőautomatizálás
+### 🔐 OIDC és vállalati identitás
 
-A választható Computer Use egy Playwright böngésző-futtatókörnyezetet asztali interakcióval egyesít. Automatizáld
-a navigációt, az űrlapokat, a többoldalas folyamatokat, a letöltéseket, a képernyőképek készítését és a DOM kinyerését. A Browser
-Inspector rögzíti az átmeneteket és az oldal állapotát a hibakereséshez és az auditáláshoz.
+A Web UI tartalmazza az OIDC bejelentkezést Authorization Code + PKCE használatával, ellenőrzött ID tokeneket, szerveroldali munkameneteket és projekt/szoba hozzáférés-vezérlést. Az ellenőrzött Microsoft Entra ID csoportigények konfigurálás esetén táplálhatják a könyvtár-alapú hozzáférési szabályzatot. A Windows Active Directory, OAuth és trusted-proxy telepítések explicit, telepítés-specifikus ellenőrzött adaptereken keresztül integrálhatók; a Windows AD telepítés-specifikus Kerberos/Negotiate ellenőrzőt igényel, és alapértelmezés szerint nincs engedélyezve.
 
-Lásd: [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Lásd: [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) és [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Párhuzamos eszköz-végrehajtás
 
 A független, csak olvasási műveletek biztonságos esetben párhuzamosan futnak. A webes keresések, a fájlvizsgálat,

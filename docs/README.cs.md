@@ -93,14 +93,11 @@ nástrojům, rozhraním a zásadám spolupracovat.
 Používejte hostované nebo lokální modely prostřednictvím jednotného rozhraní nástrojů. Přepínejte poskytovatele pomocí
 `UAGENT_PROVIDER` — bez změn kódu, migrace nebo odděleného pracovního postupu.
 
-### 🖥 Computer Use a automatizace prohlížeče
+### 🔐 OIDC a podniková identita
 
-Volitelná funkce Computer Use kombinuje běhové prostředí prohlížeče Playwright s interakcí s desktopem. Automatizujte
-navigaci, formuláře, vícestránkové postupy, stahování, snímky obrazovky a extrakci DOM. Browser
-Inspector zaznamenává přechody a stav stránky pro ladění a auditování.
+Webové uživatelské rozhraní zahrnuje přihlášení pomocí OIDC s Authorization Code + PKCE, ověřené ID tokeny, serverové relace a přístupová oprávnění k projektům/místnostem. Ověřené skupinové nároky Microsoft Entra ID mohou při konfiguraci sloužit jako základ pro přístupovou politiku založenou na adresáři. Nasazení Windows Active Directory, OAuth a trusted-proxy lze integrovat pomocí explicitně ověřených adaptérů identity; Windows AD vyžaduje nasazení specifický ověřovač Kerberos/Negotiate a není ve výchozím nastavení povolen.
 
-Viz [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Viz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) a [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Paralelní provádění nástrojů
 
 Nezávislé operace pouze pro čtení běží při bezpečném provádění souběžně. Webová vyhledávání, kontrola souborů,

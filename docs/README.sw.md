@@ -93,14 +93,11 @@ zana, miingiliano, na sera kufanya kazi pamoja.
 Tumia miundo ya mbali au ya ndani kupitia kiolesura kimoja thabiti cha zana. Badilisha watoa huduma kwa
 `UAGENT_PROVIDER`—bila mabadiliko ya msimbo, uhamishaji, au mtiririko tofauti wa kazi.
 
-### 🖥 Matumizi ya kompyuta na uendeshaji wa kivinjari
+### 🔐 OIDC na utambulisho wa shirika
 
-Computer Use ya kujichagulia huunganisha mazingira ya kivinjari ya Playwright na mwingiliano wa eneo-kazi. Otomatisha
-urambazaji, fomu, mtiririko wa kurasa nyingi, upakuaji, picha za skrini, na utoaji wa DOM. Browser
-Inspector hurekodi mabadiliko na hali ya ukurasa kwa utatuzi wa hitilafu na ukaguzi.
+UI ya Wavuti inajumuisha kuingia kwa OIDC kwa kutumia Authorization Code + PKCE, tokeni za ID zilizothibitishwa, vikao vya upande wa seva, na udhibiti wa upatikanaji wa mradi/chumba. Dhamana za vikundi zilizothibitishwa za Microsoft Entra ID zinaweza kuingiza sera za upatikanaji zinazotegemea saraka wakati zimewekwa. Usambazaji wa Windows Active Directory, OAuth, na trusted-proxy unaweza kuunganishwa kupitia adapta za utambulisho zilizothibitishwa za kipekee; Windows AD inahitaji kithibitishaji cha Kerberos/Negotiate maalum kwa kila deployment, na hali hii haijawezeshwa kwa chaguo-msingi.
 
-Tazama [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Tazama [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) na [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Utekelezaji sambamba wa zana
 
 Operesheni huru za kusoma pekee huendeshwa kwa wakati mmoja inapokuwa salama. Utafutaji wa wavuti, ukaguzi wa faili,

@@ -93,14 +93,11 @@ instrumentele, interfețele și politicile să funcționeze împreună.
 Folosește modele găzduite sau locale printr-o interfață consecventă pentru instrumente. Schimbă furnizorii cu
 `UAGENT_PROVIDER` — fără modificări de cod, migrare sau flux de lucru separat.
 
-### 🖥 Computer Use și automatizarea browserului
+### 🔐 OIDC și identitate enterprise
 
-Computer Use, activat opțional, combină un runtime de browser Playwright cu interacțiunea desktop. Automatizează
-navigarea, formularele, fluxurile cu mai multe pagini, descărcările, capturile de ecran și extragerea DOM. Browser
-Inspector înregistrează tranzițiile și starea paginii pentru depanare și audit.
+Interfața web include autentificare OIDC folosind Authorization Code + PKCE, tokenuri ID verificate, sesiuni server-side și controale de acces pentru proiecte/camere. Afirmările de grup Microsoft Entra ID verificate pot alimenta politica de acces bazată pe director atunci când sunt configurate. Implementările Windows Active Directory, OAuth și trusted-proxy pot fi integrate prin adaptoare de identitate verificate explicit; Windows AD necesită un verificator Kerberos/Negotiate specific implementării și nu este activat implicit.
 
-Vezi [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Consultați [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) și [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Execuția paralelă a instrumentelor
 
 Operațiunile independente, doar pentru citire, rulează simultan atunci când este sigur. Căutările web, inspectarea fișierelor,

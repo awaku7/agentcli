@@ -93,13 +93,11 @@ flowchart LR
 एका सुसंगत tool interface मधून hosted किंवा local models वापरा. `UAGENT_PROVIDER` वापरून providers बदला—कोडमध्ये बदल,
 migration किंवा वेगळा workflow आवश्यक नाही.
 
-### 🖥 Computer Use आणि browser automation
+### 🔐 OIDC आणि एंटरप्राइझ ओळख
 
-पर्यायी Computer Use मध्ये Playwright browser runtime आणि desktop interaction एकत्र येतात. Navigation, forms, multi-page flows,
-downloads, screenshots आणि DOM extraction स्वयंचलित करा. Debugging आणि auditing साठी Browser Inspector transitions आणि page state नोंदवतो.
+वेब UI मध्ये Authorization Code + PKCE वापरून OIDC साइन-इन, पडताळणी केलेले ID टोकन्स, सर्व्हर-साइड सत्रे, आणि प्रोजेक्ट/रूम प्रवेश नियंत्रणांचा समावेश आहे. कॉन्फिगर केल्यावर पडताळणी केलेले Microsoft Entra ID ग्रुप क्लेम्स डायरेक्टरी-आधारित प्रवेश धोरणाला पुरवू शकतात. Windows Active Directory, OAuth, आणि trusted-proxy डिप्लॉयमेंट्स स्पष्टपणे पडताळणी केलेल्या ओळख अडॅप्टरद्वारे एकत्रित होऊ शकतात; Windows AD साठी डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate पडताळणी करणारा आवश्यक आहे आणि तो डीफॉल्टने सक्षम नाही.
 
-[Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md) पहा.
-
+[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) आणि [Enterprise Policy](ENTERPRISE_POLICY.md) पहा.
 ### ⚡ समांतर tool execution
 
 सुरक्षित असल्यास स्वतंत्र, केवळ-वाचन प्रक्रिया एकाच वेळी चालतात. Web searches, file inspection, repository analysis आणि तत्सम कामे

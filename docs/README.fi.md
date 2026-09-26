@@ -93,14 +93,11 @@ työkalut, käyttöliittymät ja käytännöt toimimaan yhdessä.
 Käytä isännöityjä tai paikallisia malleja yhdenmukaisen työkalukäyttöliittymän kautta. Vaihda palveluntarjoajaa
 muuttamalla asetusta `UAGENT_PROVIDER` — koodia, siirtoa tai erillistä työnkulkua ei tarvita.
 
-### 🖥 Computer Use ja selainten automaatio
+### 🔐 OIDC ja yritystunnistus
 
-Valinnaisesti käyttöön otettava Computer Use yhdistää Playwright-selainajon työpöytävuorovaikutukseen. Automatisoi
-navigointi, lomakkeet, monisivuiset työnkulut, lataukset, kuvakaappaukset ja DOM-poiminta. Browser
-Inspector tallentaa siirtymät ja sivun tilan vianmääritystä ja auditointia varten.
+Verkkokäyttöliittymä sisältää OIDC-kirjautumisen Authorization Code + PKCE -menetelmällä, varmennetut ID-tokenit, palvelinpuolen istunnot sekä projektien/huoneiden käyttöoikeuksien hallinnan. Varmennetut Microsoft Entra ID -ryhmäväitteet voivat syöttää hakemistopohjaista käyttöoikeuspolitiikkaa, kun ne on määritetty. Windows Active Directory-, OAuth- ja trusted-proxy-järjestelmät voidaan integroida eksplisiittisten varmennettujen tunnistusadapterien kautta; Windows AD vaatii käyttöönottoon räätälöidyn Kerberos/Negotiate-varmentimen eikä ole oletuksena käytössä.
 
-Katso [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Katso [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ja [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Rinnakkainen työkalujen suoritus
 
 Toisistaan riippumattomat vain luku -operaatiot suoritetaan turvallisissa tilanteissa samanaikaisesti. Verkkohaut, tiedostojen tarkastelu,

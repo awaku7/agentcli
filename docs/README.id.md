@@ -93,14 +93,11 @@ alat, antarmuka, dan kebijakan bekerja bersama.
 Gunakan model hosted atau lokal melalui satu antarmuka alat yang konsisten. Ganti provider dengan
 `UAGENT_PROVIDER`—tanpa perubahan kode, migrasi, atau alur kerja terpisah.
 
-### 🖥 Computer Use dan otomatisasi browser
+### 🔐 OIDC dan identitas perusahaan
 
-Computer Use yang diaktifkan secara opsional menggabungkan runtime browser Playwright dengan interaksi desktop. Otomatiskan
-navigasi, formulir, alur multi-halaman, unduhan, tangkapan layar, dan ekstraksi DOM. Browser
-Inspector merekam transisi dan status halaman untuk debugging dan audit.
+Web UI mencakup sign-in OIDC menggunakan Authorization Code + PKCE, token ID yang terverifikasi, sesi sisi server, dan kontrol akses proyek/ruang. Klaim grup Microsoft Entra ID yang terverifikasi dapat mendukung kebijakan akses berbasis direktori saat dikonfigurasi. Deployment Windows Active Directory, OAuth, dan trusted-proxy dapat terintegrasi melalui adapter identitas terverifikasi yang eksplisit; Windows AD memerlukan verifier Kerberos/Negotiate spesifik deployment dan tidak diaktifkan secara default.
 
-Lihat [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Eksekusi alat secara paralel
 
 Operasi baca-saja yang independen berjalan secara bersamaan jika aman. Pencarian web, pemeriksaan file,

@@ -93,14 +93,11 @@ tool, interface, at patakaran.
 Gamitin ang hosted o lokal na mga modelo sa pamamagitan ng iisang pare-parehong interface ng tool. Magpalit ng provider gamit ang
 `UAGENT_PROVIDER`—walang pagbabago sa code, migration, o hiwalay na workflow.
 
-### 🖥 Computer Use at automation ng browser
+### 🔐 OIDC at enterprise identity
 
-Pinagsasama ng opt-in na Computer Use ang Playwright browser runtime at pakikipag-ugnayan sa desktop. I-automate ang
-nabigasyon, mga form, multi-page flow, download, screenshot, at pagkuha mula sa DOM. Itinatala ng Browser
-Inspector ang mga transition at estado ng page para sa pag-debug at pag-audit.
+Kasama sa Web UI ang OIDC sign-in gamit ang Authorization Code + PKCE, mga na-verify na ID token, mga session sa server-side, at mga kontrol sa access ng proyekto/room. Ang mga na-verify na Microsoft Entra ID group claims ay maaaring magbigay ng directory-backed access policy kapag naka-configure. Maaaring mag-integrate ang Windows Active Directory, OAuth, at trusted-proxy deployments sa pamamagitan ng mga explicit na verified identity adapters; nangangailangan ang Windows AD ng deployment-specific na Kerberos/Negotiate verifier at hindi ito naka-enable bilang default.
 
-Tingnan ang [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Tingnan ang [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) at [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Parallel na pagpapatakbo ng tool
 
 Sabay-sabay na tumatakbo ang magkakahiwalay na read-only operation kapag ligtas ito. Maaaring makumpleto nang parallel ang mga web search, inspeksyon ng file,

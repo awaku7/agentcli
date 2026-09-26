@@ -4,8 +4,10 @@
 
 All 37 localized README files now include the current DeepL/Google translation
 provider options, the 38-locale tool-definition coverage, and the latest
-`set_timer` scheduling capabilities. Technical names, provider identifiers, and
-links remain unchanged across translations.
+`set_timer` scheduling capabilities. The overview also covers built-in OIDC
+sign-in, Entra ID group policy, and the deployment-specific requirements for
+Windows AD identity. Technical names, provider identifiers, and links remain
+unchanged across translations.
 
 ### East Asian
 

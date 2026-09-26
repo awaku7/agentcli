@@ -93,14 +93,11 @@ công cụ, giao diện và chính sách phối hợp với nhau.
 Sử dụng các mô hình lưu trữ hoặc cục bộ thông qua một giao diện công cụ nhất quán. Chuyển đổi provider bằng
 `UAGENT_PROVIDER`—không cần thay đổi code, di chuyển hay quy trình riêng biệt.
 
-### 🖥 Computer Use và tự động hóa trình duyệt
+### 🔐 OIDC và nhận dạng doanh nghiệp
 
-Computer Use tùy chọn kết hợp runtime trình duyệt Playwright với tương tác trên máy tính. Tự động hóa
-điều hướng, biểu mẫu, quy trình nhiều trang, tải xuống, ảnh chụp màn hình và trích xuất DOM. Browser
-Inspector ghi lại các chuyển đổi và trạng thái trang để gỡ lỗi và kiểm toán.
+Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
 
-Xem [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Xem [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) và [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Thực thi công cụ song song
 
 Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,

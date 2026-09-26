@@ -98,14 +98,11 @@ flowchart LR
 ホスト型またはローカルのモデルを、統一されたツールインターフェースで利用できます。
 `UAGENT_PROVIDER`でプロバイダーを切り替えられ、コード変更、移行、別ワークフローは必要ありません。
 
-### 🖥 Computer Useとブラウザー自動化
+### 🔐 OIDCとエンタープライズID
 
-オプトイン方式のComputer Useは、Playwrightのブラウザーランタイムとデスクトップ操作を組み合わせます。
-ナビゲーション、フォーム、複数ページのフロー、ダウンロード、スクリーンショット、DOM抽出を自動化できます。
-Browser Inspectorは、デバッグと監査のために遷移とページ状態を記録します。
+Web UIは、Authorization Code + PKCEを使ったOIDCサインイン、検証済みIDトークン、サーバー側セッション、プロジェクト/ルームのアクセス制御に対応します。検証済みのMicrosoft Entra IDグループクレームは、設定に応じてディレクトリ連携のアクセスポリシーに利用できます。Windows Active Directory、OAuth、trusted-proxyは明示的な検証済みIDアダプターを介して連携できます。Windows ADにはデプロイ固有のKerberos/Negotiate検証器が必要で、既定では有効ではありません。
 
-[Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md)を参照してください。
-
+[Web Identity and Memory](WEB_IDENTITY_MEMORY.md)および[Enterprise Policy](ENTERPRISE_POLICY.md)を参照してください。
 ### ⚡ 並列ツール実行
 
 独立した読み取り専用操作は、安全な場合に並行して実行されます。Web検索、ファイル検査、リポジトリ分析などの

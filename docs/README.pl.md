@@ -93,14 +93,11 @@ narzędziom, interfejsom i politykom współpracować.
 Korzystaj z modeli hostowanych lub lokalnych przez jeden spójny interfejs narzędzi. Przełączaj dostawców za pomocą
 `UAGENT_PROVIDER` — bez zmian w kodzie, migracji ani oddzielnego przepływu pracy.
 
-### 🖥 Computer Use i automatyzacja przeglądarki
+### 🔐 OIDC i tożsamość przedsiębiorstwa
 
-Opcjonalna funkcja Computer Use łączy runtime przeglądarki Playwright z interakcją z pulpitem. Automatyzuj
-nawigację, formularze, przepływy wielostronicowe, pobieranie, zrzuty ekranu i ekstrakcję DOM. Browser
-Inspector rejestruje przejścia i stan stron na potrzeby debugowania oraz audytu.
+Interfejs webowy zawiera logowanie OIDC przy użyciu Authorization Code + PKCE, zweryfikowane tokeny ID, sesje po stronie serwera oraz kontrolę dostępu do projektów/pokoi. Zweryfikowane roszczenia grup Microsoft Entra ID mogą zasilać politykę dostępu opartą na katalogu, jeśli są skonfigurowane. Wdrożenia Windows Active Directory, OAuth i trusted-proxy mogą integrować się za pomocą jawnych, zweryfikowanych adapterów tożsamości; Windows AD wymaga wdrożeniowego weryfikatora Kerberos/Negotiate i nie jest domyślnie włączony.
 
-Zobacz [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Zobacz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) oraz [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Równoległe wykonywanie narzędzi
 
 Niezależne operacje tylko do odczytu działają współbieżnie, gdy jest to bezpieczne. Wyszukiwanie w sieci, inspekcja plików,

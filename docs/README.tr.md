@@ -90,12 +90,11 @@ flowchart LR
 
 Barındırılan veya yerel modelleri tek ve tutarlı bir araç arayüzü üzerinden kullanın. `UAGENT_PROVIDER` ile sağlayıcıları değiştirin—kod değişikliği, geçiş veya ayrı bir iş akışı gerekmez.
 
-### 🖥 Computer Use ve tarayıcı otomasyonu
+### 🔐 OIDC ve kurumsal kimlik
 
-İsteğe bağlı Computer Use, bir Playwright tarayıcı çalışma zamanını masaüstü etkileşimiyle birleştirir. Gezinmeyi, formları, çok sayfalı akışları, indirmeleri, ekran görüntülerini ve DOM çıkarımını otomatikleştirin. Browser Inspector, hata ayıklama ve denetim için geçişleri ve sayfa durumunu kaydeder.
+Web UI, Authorization Code + PKCE kullanarak OIDC oturum açmayı, doğrulanmış ID tokenlarını, sunucu tarafı oturumları ve proje/oda erişim kontrollerini içerir. Doğrulanmış Microsoft Entra ID grup talepleri, yapılandırıldığında dizin destekli erişim politikasına besleme yapabilir. Windows Active Directory, OAuth ve trusted-proxy dağıtımları, açıkça doğrulanmış kimlik adaptörleri aracılığıyla entegre olabilir; Windows AD, dağıtıma özgü bir Kerberos/Negotiate doğrulayıcısı gerektirir ve varsayılan olarak etkin değildir.
 
-Bkz. [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Bkz. [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ve [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Paralel araç çalıştırma
 
 Bağımsız, yalnızca okuma yapan işlemler güvenli olduğunda eşzamanlı yürütülür. Web aramaları, dosya inceleme, depo analizi ve benzer iş yükleri yapılandırılabilir bir worker havuzuyla (`UAGENT_PARALLEL_WORKERS`) paralel olarak tamamlanabilir. Yazma işlemleri serileştirilir veya onay gerektirir.

@@ -93,14 +93,11 @@ alat, antara muka dan dasar berfungsi bersama.
 Gunakan model hos atau tempatan melalui satu antara muka alat yang konsisten. Tukar penyedia dengan
 `UAGENT_PROVIDER`—tanpa perubahan kod, migrasi atau aliran kerja berasingan.
 
-### 🖥 Computer Use dan automasi pelayar
+### 🔐 OIDC dan identiti perusahaan
 
-Computer Use pilihan pengguna menggabungkan masa jalan pelayar Playwright dengan interaksi desktop. Automatikkan
-navigasi, borang, aliran berbilang halaman, muat turun, tangkapan skrin dan pengekstrakan DOM. Browser
-Inspector merekod peralihan dan keadaan halaman untuk penyahpepijatan serta pengauditan.
+UI Web merangkumi log masuk OIDC menggunakan Authorization Code + PKCE, token ID yang disahkan, sesi sisi pelayan, dan kawalan akses projek/bilik. Tuntutan kumpulan Microsoft Entra ID yang disahkan boleh menyokong dasar akses berasaskan direktori apabila dikonfigurasikan. Penempatan Windows Active Directory, OAuth, dan trusted-proxy boleh diintegrasikan melalui penyesuai identiti yang disahkan secara eksplisit; Windows AD memerlukan pengesah Kerberos/Negotiate khusus penempatan dan tidak diaktifkan secara lalai.
 
-Lihat [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Pelaksanaan alat selari
 
 Operasi baca sahaja yang bebas berjalan serentak apabila selamat. Carian web, pemeriksaan fail,

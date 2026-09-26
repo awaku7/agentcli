@@ -93,14 +93,11 @@ flowchart LR
 일관된 하나의 도구 인터페이스로 호스팅 모델이나 로컬 모델을 사용하세요. 코드 변경,
 마이그레이션, 별도 워크플로 없이 `UAGENT_PROVIDER`로 프로바이더를 전환할 수 있습니다.
 
-### 🖥 Computer Use 및 브라우저 자동화
+### 🔐 OIDC 및 엔터프라이즈 아이덴티티
 
-선택적으로 활성화하는 Computer Use는 Playwright 브라우저 런타임과 데스크톱 상호작용을 결합합니다.
-탐색, 양식, 다중 페이지 흐름, 다운로드, 스크린샷, DOM 추출을 자동화할 수 있습니다. Browser
-Inspector는 디버깅과 감사에 필요한 전환 및 페이지 상태를 기록합니다.
+웹 UI에는 Authorization Code + PKCE를 사용하는 OIDC 로그인, 검증된 ID 토큰, 서버 측 세션, 프로젝트/룸 접근 제어가 포함되어 있습니다. 구성된 경우 검증된 Microsoft Entra ID 그룹 클레임이 디렉터리 기반 접근 정책에 활용될 수 있습니다. Windows Active Directory, OAuth 및 trusted-proxy 배포는 명시적인 검증된 아이덴티티 어댑터를 통해 통합할 수 있으며, Windows AD는 배포별 Kerberos/Negotiate 검증기가 필요하며 기본적으로 활성화되어 있지 않습니다.
 
-[Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md)를 참조하세요.
-
+[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 및 [Enterprise Policy](ENTERPRISE_POLICY.md)를 참조하세요.
 ### ⚡ 병렬 도구 실행
 
 안전한 경우 독립적인 읽기 전용 작업을 동시에 실행합니다. 웹 검색, 파일 검사,

@@ -93,14 +93,11 @@ flowchart LR
 透過一致的工具介面使用託管或本機模型。使用 `UAGENT_PROVIDER` 切換提供者，
 無需變更程式碼、進行遷移或建立另一套工作流程。
 
-### 🖥 Computer Use 與瀏覽器自動化
+### 🔐 OIDC 與企業身份
 
-選擇性啟用的 Computer Use 將 Playwright 瀏覽器執行環境與桌面互動結合。自動化
-導覽、表單、多頁流程、下載、螢幕截圖及 DOM 擷取。Browser Inspector 會記錄轉換與頁面狀態，
-以便進行除錯與稽核。
+Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登入、已驗證的 ID 令牌、伺服器端會話以及專案/房間存取控制。配置後，已驗證的 Microsoft Entra ID 群組聲明可用於目錄支援的存取政策。Windows Active Directory、OAuth 和 trusted-proxy 部署可透過明確的已驗證身份適配器整合；Windows AD 需要特定部署的 Kerberos/Negotiate 驗證器，且預設未啟用。
 
-請參閱 [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md)。
-
+參見 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 和 [Enterprise Policy](ENTERPRISE_POLICY.md)。
 ### ⚡ 平行工具執行
 
 在安全的情況下，獨立的唯讀操作會並行執行。網頁搜尋、檔案檢查、

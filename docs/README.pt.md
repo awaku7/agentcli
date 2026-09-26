@@ -93,14 +93,11 @@ ferramentas, interfaces e políticas funcionem em conjunto.
 Utilize modelos alojados ou locais através de uma interface de ferramentas consistente. Troque de fornecedor com
 `UAGENT_PROVIDER` — sem alterações de código, migração ou fluxo de trabalho separado.
 
-### 🖥 Computer Use e automação de browsers
+### 🔐 OIDC e identidade empresarial
 
-O Computer Use, quando ativado, combina um runtime de browser Playwright com interação com o desktop. Automatize
-navegação, formulários, fluxos com várias páginas, transferências, capturas de ecrã e extração do DOM. O Browser
-Inspector regista transições e o estado das páginas para depuração e auditoria.
+A interface web inclui início de sessão OIDC usando Authorization Code + PKCE, tokens de ID verificados, sessões no lado do servidor e controlos de acesso a projetos/salas. As declarações de grupo Microsoft Entra ID verificadas podem alimentar políticas de acesso baseadas em diretórios quando configuradas. Implementações de Windows Active Directory, OAuth e trusted-proxy podem ser integradas através de adaptadores de identidade explicitamente verificados; o Windows AD requer um verificador Kerberos/Negotiate específico da implementação e não está ativado por predefinição.
 
-Consulte [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
-
+Consulte [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) e [Enterprise Policy](ENTERPRISE_POLICY.md).
 ### ⚡ Execução paralela de ferramentas
 
 Operações independentes e só de leitura são executadas em simultâneo quando é seguro. Pesquisas na web, inspeção de ficheiros,
