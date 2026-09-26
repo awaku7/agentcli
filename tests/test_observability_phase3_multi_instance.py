@@ -54,9 +54,7 @@ def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
     )
 
     try:
-        monkeypatch.setattr(
-            a2a_client, "get_observability_backend", lambda: backend_a
-        )
+        monkeypatch.setattr(a2a_client, "get_observability_backend", lambda: backend_a)
         client_a = A2AClient(base_url="http://instance-b.example", token="secret")
         try:
             with backend_a.start_span(
