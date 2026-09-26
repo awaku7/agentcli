@@ -161,15 +161,25 @@ spans[]:
   start_time
   end_time
   duration_ms
-  status_code           # closed normalized enum
-  status_description    # optional, bounded, sanitizer-approved normalized text
+  status_code           # closed UAG-owned normalized enum
 ```
 
 No other span member is returned in v1.
 
+`status_code` is mapped by UAG from backend/provider status into a closed product-owned vocabulary. The initial vocabulary is limited to:
+
+```text
+UNSET
+OK
+ERROR
+```
+
+Unknown or malformed backend status values map to `UNSET`. Arbitrary backend/provider status text, exception text, URLs, request details, or descriptions are never copied into the ordinary-user response.
+
 In particular, v1 excludes:
 
 ```text
+status_description
 attributes
 events
 links
@@ -183,12 +193,12 @@ prompt/response/tool content
 identity/scope pseudonyms
 raw identity/authorization fields
 backend/vendor extensions
-exception messages/stacks unless represented by the normalized status fields above
+exception messages/stacks
 ```
 
 Unknown top-level, span-level, or nested backend structures are dropped. The proxy constructs the response object field-by-field and never forwards or recursively serializes backend JSON.
 
-If later requirements need safe attributes or events, introduce `uag.trace_view.v2` (or an explicitly versioned extension) with an enumerated list of permitted attribute keys, event names, and event-attribute keys plus privacy tests. `v1` does not grow implicitly.
+If later requirements need descriptive status text, safe attributes, or events, introduce `uag.trace_view.v2` (or an explicitly versioned extension) with a closed UAG-owned message table and/or enumerated permitted attribute keys, event names, and event-attribute keys plus privacy tests. `v1` does not grow implicitly.
 
 ## 5. Additional acceptance tests
 
@@ -218,8 +228,10 @@ The implementation is not complete until these cases are covered:
 
 ### Trace view
 
-- `uag.trace_view.v1` contains no `attributes` or `events` keys;
-- backend attributes/events/resources/links/vendor extensions are not copied even when present;
+- `uag.trace_view.v1` contains no `attributes`, `events`, or `status_description` keys;
+- `status_code` is one of the closed UAG-owned values `UNSET`, `OK`, or `ERROR`;
+- unknown/malformed backend status values map to `UNSET` without copying backend text;
+- backend status descriptions, exception text, attributes/events/resources/links/vendor extensions are not copied even when present;
 - schema output is identical in shape across supported backends for equivalent safe metadata;
 - unknown backend fields do not appear in the response.
 
@@ -231,4 +243,5 @@ The implementation is not complete until these cases are covered:
 - Content provenance is field/node-level for body-capable composites.
 - Unannotated body-capable composite fields fail closed.
 - File/artifact/Memory/retrieval/authentication bodies cannot become eligible merely by being nested inside allowed `user_input`, `tool_arguments`, or `tool_result` values.
-- Ordinary-user `uag.trace_view.v1` is strictly metadata-only and has no generic `attributes` or `events` containers.
+- Ordinary-user `uag.trace_view.v1` is strictly metadata-only and has no generic `attributes`, `events`, or free-form status-description fields.
+- Ordinary-user v1 `status_code` is a closed UAG-owned enum and never includes copied backend/provider text.
