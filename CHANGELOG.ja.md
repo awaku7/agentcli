@@ -10,7 +10,7 @@
 ### 変更
 
 - 連続ツールラウンドに上限を設け、spinnerを安全に終了し、loop guard停止時に古いResponses API continuation IDを消去。
-- `llmcapa`を`0.5.42`に固定。
+- `llmcapa`を`0.5.43`に固定。
 - Auto-pilotの停止動作を明確化し、Memory V3の状態ドキュメントを現状に合わせて更新。
 
 ## [0.7.15] - 2026-09-24

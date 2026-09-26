@@ -10,7 +10,7 @@
 ### Changed
 
 - Bound consecutive tool rounds, finalize spinners safely, and clear stale Responses API continuation IDs when guards stop execution.
-- Pin `llmcapa` to version `0.5.42`.
+- Pin `llmcapa` to version `0.5.43`.
 - Clarify Auto-pilot stop behavior and reconcile Memory V3 status documentation.
 
 ## [0.7.15] - 2026-09-24
