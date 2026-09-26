@@ -44,9 +44,12 @@ def _backend(name: str):
 def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
     monkeypatch,
 ) -> None:
+    from opentelemetry.context import Context, attach, detach
+
     backend_a, exporter_a = _backend("uag.test.phase3.instance-a")
     backend_b, exporter_b = _backend("uag.test.phase3.instance-b")
     backend_c, exporter_c = _backend("uag.test.phase3.instance-c")
+    empty_context_token = attach(Context())
 
     monkeypatch.setattr(
         a2a_auth,
@@ -162,6 +165,9 @@ def test_a2a_three_instance_trace_chain_preserves_parentage_without_duplicates(
         assert span_b.parent.span_id == span_a.context.span_id
         assert span_c.parent.span_id == span_b.context.span_id
     finally:
-        backend_a.shutdown()
-        backend_b.shutdown()
-        backend_c.shutdown()
+        try:
+            detach(empty_context_token)
+        finally:
+            backend_a.shutdown()
+            backend_b.shutdown()
+            backend_c.shutdown()
