@@ -171,6 +171,8 @@ The implementation contract is:
 - startup validation rejects malformed, undersized, or known-reused key material and disables pseudonymous correlation without disabling core tracing;
 - raw key material is never exported, logged, placed in environment-derived telemetry, or accepted from browser input.
 
+The initial exported pseudonym representation is fixed by `docs/UAG_OPENTELEMETRY_PHASE4_PSEUDONYM_OUTPUT_CONTRACT.md`: exactly the first 128 bits of the HMAC-SHA-256 digest, encoded as exactly 32 lowercase hexadecimal characters. The truncation length and encoding are not configurable in the initial Phase 4 implementation.
+
 ### 5.3 Provider SDK diagnostics
 
 Suggested control uses UAG logical provider IDs:
@@ -417,7 +419,7 @@ Requirements:
 - raw identifiers are not normalized in a way that could merge distinct authoritative identifiers unless that normalization is already normative for the identifier source;
 - tests include adversarial tuples that would collide under simple concatenation but must differ under framing.
 
-The exported pseudonym may use a fixed truncated digest representation, for example 128 bits encoded as lowercase hex or base64url, provided the truncation is fixed and documented.
+For the initial Phase 4 implementation, the exported pseudonym is exactly `lowercase_hex(digest[0:16])`: the first 128 digest bits encoded as exactly 32 lowercase hexadecimal characters. Shorter truncation, base64/base64url, uppercase hex, or operator-configurable representation is not permitted. The normative representation contract is `docs/UAG_OPENTELEMETRY_PHASE4_PSEUDONYM_OUTPUT_CONTRACT.md`; changing the representation later requires an explicitly reviewed schema/version change.
 
 ### 7.4 Domain separation and scope
 
@@ -818,6 +820,8 @@ Verify:
 - different kinds produce different pseudonyms;
 - different deployment scopes produce different pseudonyms;
 - adversarial component tuples that collide under naive concatenation differ under length-prefixed framing;
+- exported pseudonyms equal the first 128 digest bits and are exactly 32 lowercase hexadecimal characters;
+- shorter truncation, uppercase hex, base64, or base64url output is rejected by conformance tests;
 - key rotation changes pseudonyms;
 - raw identifier and key never appear in exported spans/events;
 - pseudonyms are absent from metrics, baggage, and resource attributes;
@@ -893,7 +897,7 @@ Phase 4 implementation is acceptable only when all applicable conditions are tru
 7. Reasoning/system/developer content remains excluded.
 8. Content is bounded by finite validated defaults/ranges and never enters metrics, baggage, resources, auth decisions, or storage/routing keys.
 9. Pseudonymous correlation requires a dedicated CSPRNG-generated key with at least 256 bits of entropy and purpose isolation from security credentials.
-10. Pseudonym HMAC input uses canonical unambiguous length-prefixed framing.
+10. Pseudonym HMAC input uses canonical unambiguous length-prefixed framing, and the initial exported representation is fixed to the first 128 digest bits as exactly 32 lowercase hexadecimal characters.
 11. Pseudonyms are trace-only diagnostics and never security identities or query authorization inputs.
 12. Provider SDK instrumentation is selected-call scoped and uses UAG logical provider IDs.
 13. Provider SDK diagnostics remain nested beneath UAG canonical spans and introduce no duplicate logical LLM spans.
