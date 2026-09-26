@@ -139,9 +139,7 @@ def test_lifecycle_binding_consumes_pending_user_and_emits_assistant(monkeypatch
 
     with lifecycle_execution():
         assert capture_logged_message(user_message) is False
-        assert (
-            capture_logged_message({"role": "assistant", "content": "world"}) is True
-        )
+        assert capture_logged_message({"role": "assistant", "content": "world"}) is True
         assert span.content_events == []
 
     assert [event.attributes() for event in span.content_events] == [
