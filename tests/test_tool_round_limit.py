@@ -74,3 +74,17 @@ def test_round_limit_clears_responses_continuation_before_break(monkeypatch) -> 
     assert clear_reasons == ["tool_round_limit"]
     assert "previous_response_id" not in response_state
     assert "active_response_id" not in response_state
+
+
+def test_tool_round_limit_defaults_to_512(monkeypatch) -> None:
+    import uagent.uagent_llm as llm
+
+    monkeypatch.setattr(llm, "env_get", lambda _name, default=None: default)
+    assert llm._resolve_max_tool_rounds() == 512
+
+
+def test_tool_round_limit_override_remains_supported(monkeypatch) -> None:
+    import uagent.uagent_llm as llm
+
+    monkeypatch.setattr(llm, "env_get", lambda _name, _default=None: "700")
+    assert llm._resolve_max_tool_rounds() == 700

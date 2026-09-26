@@ -2660,6 +2660,19 @@ def _refresh_context_tool_specs(messages: list[dict[str, Any]], core: Any) -> No
         core.context_tool_specs = None
 
 
+_DEFAULT_MAX_TOOL_ROUNDS = 512
+
+
+def _resolve_max_tool_rounds() -> int:
+    try:
+        return max(
+            1,
+            int(env_get("UAGENT_MAX_TOOL_ROUNDS", str(_DEFAULT_MAX_TOOL_ROUNDS))),
+        )
+    except (TypeError, ValueError):
+        return _DEFAULT_MAX_TOOL_ROUNDS
+
+
 @_observed_llm_rounds
 def run_llm_rounds(
     provider: str,
@@ -2883,12 +2896,9 @@ def run_llm_rounds(
         return "ブラウザーを開きました。"
 
     # A runaway model can otherwise spend a very long time issuing tool calls.
-    # Keep the safety cap conservative, while allowing explicit override for
-    # genuinely long workflows.
-    try:
-        max_tool_rounds = max(1, int(env_get("UAGENT_MAX_TOOL_ROUNDS", "128")))
-    except (TypeError, ValueError):
-        max_tool_rounds = 128
+    # Keep a high but finite final backstop so long tool-heavy workflows can
+    # complete without leaving runaway loops unbounded.
+    max_tool_rounds = _resolve_max_tool_rounds()
     round_count = 0
     tool_round_history: deque[tuple[tuple[str, str], ...]] = deque(
         maxlen=_TOOL_ROUND_HISTORY_SIZE

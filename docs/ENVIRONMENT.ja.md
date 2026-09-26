@@ -409,7 +409,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_AUTO_UNLOAD_ROUNDS`: 指定されたラウンド数だけ使用されなかったツールを自動的にアンロードします（既定: `10`）。`0` に設定すると自動アンロードが無効になります。
 - `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: 隣接するLLMラウンドが同じtool名だけを使う場合の上限です。引数は問いません。tool名が混在するラウンドでリセットされます（既定: `50`）。
 - より具体的なloop guardとして、同一tool+引数の反復4回、management targetの反復4回、または2〜4ラウンドの正確なtool呼び出しcycleが3回繰り返された場合にも停止します。cycle履歴は1回の`run_llm_rounds`内に限定し、引数は短いhashのみ保持します。
-- `UAGENT_MAX_TOOL_ROUNDS`: 1回のユーザー操作で許可するLLM/toolラウンドの最大数（既定: `128`）。異なる・反復しない作業の最終安全上限です。
+- `UAGENT_MAX_TOOL_ROUNDS`: 1回のユーザー操作で許可するLLM/toolラウンドの最大数（既定: `512`）。異なる・反復しない作業の最終安全上限です。
 - `UAGENT_FILE_GREP_TURN_LIMIT`: 1回のユーザー操作で実行できる`file_grep`の最大回数（既定: `8`）。超過後は`read_file`、indexのsection、`code_map`などへ切り替えるよう促します。
 - `UAGENT_STARTUP_TIMING`: `1` に設定すると、起動、stdin loop、最初のevent、最初のLLMの計測値をstderrへ出力します。
 - `UAGENT_SHOW_ROUND_STATUS`: `1` に設定すると、各LLM roundの機械可読な`[ROUND]`行をstderrへ出力します。公開statusは`completed`、`continue`、`failed`、`cancelled`、`interrupted`です。

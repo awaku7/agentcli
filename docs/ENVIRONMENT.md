@@ -391,7 +391,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_AUTO_SENTINEL`: Set to `1` to use single-LLM auto-pilot sentinel mode. `<AUTO_CONTINUE>` continues and `<AUTO_COMPLETE>` finishes; capitalization, surrounding whitespace, and optional angle brackets are accepted. A missing or malformed marker still stops safely.
 - `UAGENT_CONSECUTIVE_TOOL_CALL_LIMIT`: Maximum adjacent rounds containing only one tool name, regardless of arguments; a mixed-tool round resets the streak (default: `50`).
 - More specific loop guards stop the same tool+argument fingerprint after 4 repeats, a repeated management target after 4 repeats, or an exact 2-4-round tool-call cycle after 3 repetitions. Cycle history is scoped to one `run_llm_rounds` invocation and stores only short argument digests.
-- `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `128`), as the final backstop for varied or non-repeating work. Set higher only for workflows that require it.
+- `UAGENT_MAX_TOOL_ROUNDS`: Maximum LLM/tool rounds per user operation (default: `512`), as the final backstop for varied or non-repeating work. Set higher only for workflows that require it.
 - `UAGENT_FILE_GREP_TURN_LIMIT`: Maximum actual `file_grep` executions per user turn (default: `8`). After the limit, the agent is directed to use `read_file`, an index section tool, or `code_map` instead.
 - `UAGENT_STARTUP_TIMING`: Set to `1` to print startup, stdin-loop, first-event, and first-LLM timing markers to stderr.
 - `UAGENT_SHOW_ROUND_STATUS`: Set to `1` to print machine-readable `[ROUND]` status lines to stderr for each LLM round. Public statuses are `completed`, `continue`, `failed`, `cancelled`, or `interrupted`.
