@@ -760,7 +760,7 @@ internal      -> INTERNAL
 any other, missing, malformed, or unsupported trusted semantic kind -> UNKNOWN
 ```
 
-Only trusted UAG-local semantic ownership may supply this semantic kind. Backend `span.name`, provider/model/tool/agent names, URLs, request text, exception text, and vendor/resource/instrumentation fields never participate in this mapping. The `internal` input kind is a UAG-owned static semantic kind only; arbitrary backend/provider text cannot create it. No adapter may remap one admitted trusted kind to another output class.
+Only trusted UAG-local semantic ownership may supply this semantic kind. Backend `span.name`, provider/model/tool/agent names, URLs, request text, exception text, and vendor/resource/instrumentation fields never participate in this mapping. The `internal` input kind is a UAG-owned static semantic kind only; arbitrary backend/provider text cannot create it. An absent or unrecognized trusted semantic kind is projected as `UNKNOWN`; no adapter may remap one admitted trusted kind to another output class.
 
 #### 6.5.1 Status normalization
 
