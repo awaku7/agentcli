@@ -6,7 +6,7 @@ Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`
 Scalar/timing contract: `docs/UAG_OPENTELEMETRY_PHASE4_SCALAR_AND_TIMING_CONTRACT.md`  
 Applies to: Phase 4A content ownership/traversal/rendering and Phase 4D safe span-name projection
 
-This document is the sole normative owner for safe span-name projection, the initial controlled-content carrier and canonical-span ownership, content candidate admission, structured traversal, redaction marker behavior, canonical rendering, and cumulative per-span content accounting.
+This document is the sole normative owner for safe span-name projection, the initial controlled-content carrier and canonical-span ownership, content candidate admission, structured traversal, recursive privacy-key handling, redaction marker behavior, canonical rendering, and cumulative per-span content accounting.
 
 ## 1. Ordinary-user span names use a closed vocabulary
 
@@ -63,11 +63,11 @@ Initial rules:
 - provider-SDK child spans do not carry `uag.content` events;
 - internal spans do not carry `uag.content` events;
 - user/tool/provider payload data cannot choose the owner span, event name, attribute names, category, or ordinal;
-- `uag.content.ordinal` is a trusted positive integer creation ordinal local to the owner span;
+- `uag.content.ordinal` is a trusted integer in `1..32` local to the owner span;
 - `uag.content.value` is the only content-bearing field and is the exact canonical rendered string from this contract;
 - ordinary-user `uag.trace_view.v1` never exposes events.
 
-Provider/model-native prompt/response capture is therefore not a second content path. Initial content capture is only the UAG-owned Agent-turn/tool-operation surface above.
+Provider/model-native prompt/response capture is not a second content path. Initial content capture is only the UAG-owned Agent-turn/tool-operation surface above.
 
 ## 3. Fixed traversal and candidate limits
 
@@ -172,11 +172,11 @@ For each child occurrence:
 3. exact supported type/shape gate;
 4. width/cycle gate if container;
 5. native scalar preflight if scalar;
-6. recurse or proceed to bounded secret handling.
+6. recurse or proceed to bounded privacy/secret handling.
 
 Forbidden/security-opaque child provenance is handled without scanning its body.
 
-## 4. Scalar preflight precedes secret scanning
+## 4. Scalar preflight precedes privacy/secret scanning
 
 For exact built-in strings:
 
@@ -190,7 +190,43 @@ Mapping keys pass the same bounded-string preflight.
 
 Int/float/bool/null rules are owned by the scalar/timing contract.
 
-## 5. Secret handling is deterministic
+## 5. Recursive privacy-key and secret handling is deterministic
+
+Structured content must preserve the existing always-blocked observability privacy boundary **inside** `uag.content.value`; checking only the outer event key is insufficient.
+
+### 5.1 Always-blocked mapping keys
+
+For every bounded string mapping key, compute a privacy-match form only for classification:
+
+```text
+normalized = key.strip().lower()
+```
+
+A key is always blocked if `normalized` contains any of:
+
+```text
+authorization
+cookie
+password
+secret
+client_secret
+principal_id
+subject
+display_name
+email
+group
+room_id
+project_id
+session_id
+```
+
+Credential-style token keys are also blocked by replacing `_`, `-`, and `/` with `.`, splitting on `.`, and treating an exact segment `token` as blocked. This mirrors the existing metadata privacy rule while avoiding accidental blocking of plural usage names such as `input_tokens`/`tokens` solely because they contain the substring `token`.
+
+If any mapping key is blocked by this always-blocked rule, omit the **whole content candidate**. Do not merely serialize the remaining fields, because partial structured output can create misleading context and the blocked key may identify the structure itself.
+
+The raw key is never logged in the failure diagnostic.
+
+### 5.2 Value-level secret handling
 
 The initial replacement marker for a high-confidence secret in an eligible scalar **value** is exactly:
 
@@ -203,10 +239,12 @@ It is not configurable.
 Rules:
 
 - eligible scalar values may replace high-confidence secret matches with exactly `[REDACTED]`;
-- a mapping key matching a high-confidence credential/secret pattern causes whole-candidate omission rather than key rewriting;
+- a mapping key matching a high-confidence credential/secret classifier also omits the whole candidate rather than rewriting the key;
 - secret-wrapper/security ambiguity/redactor exception causes whole-candidate omission;
-- rejected raw values are never logged;
+- rejected raw values/keys are never logged;
 - after redaction, every scalar must still satisfy the effective field bound in its final scalar representation; otherwise omit whole candidate.
+
+The generic metadata sanitizer's operator content flag must not become a bypass for always-blocked identity/session/credential keys or excluded reasoning/system/developer sources. Controlled content reaches export only through this closed path.
 
 ## 6. Canonical renderer is exact
 
@@ -265,7 +303,7 @@ MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 
 Every scalar passes both:
 
-1. native preflight before secret handling; and
+1. native preflight before privacy/secret handling; and
 2. post-redaction final-scalar bound before candidate rendering.
 
 No field is truncated to fit.
@@ -322,14 +360,15 @@ candidate record created
   -> node/depth/width/cycle checks
   -> primitive scalar preflight
   -> bounded child traversal with child provenance
-  -> bounded secret handling
+  -> recursive always-blocked mapping-key checks
+  -> bounded value/key secret handling
   -> post-redaction scalar field bound
   -> exact canonical rendering
   -> shared per-span ledger
   -> emit whole event or omit whole candidate
 ```
 
-No content secret scan occurs before the structural/scalar work required to prove the scan is bounded.
+No content privacy/secret scan occurs before the structural/scalar work required to prove the scan is bounded.
 
 ## 9. Required regressions
 
@@ -345,7 +384,9 @@ Tests must prove at least:
 - width 64 passes, 65 fails;
 - node 256 passes, 257 fails;
 - aliases count per occurrence; active cycles fail;
-- oversized/surrogate strings fail before secret/render work;
+- oversized/surrogate strings fail before privacy/secret/render work;
+- mapping keys containing each always-blocked fragment cause whole-candidate omission;
+- credential-style exact `token` key segments are blocked while plural token-usage names are not blocked solely by substring;
 - secret-bearing mapping key fails whole candidate;
 - exact marker is `[REDACTED]`;
 - direct string output is unquoted post-redaction text;
@@ -364,7 +405,8 @@ Tests must prove at least:
 - Candidate count is capped at 32 per owner span.
 - Containers are exact built-in dict/list/tuple and mapping keys are exact built-in strings only.
 - Traversal limits are depth 8, width 64, and 256 visited node occurrences per candidate.
-- Structural/scalar bounds precede secret scanning.
-- Exact redaction marker is `[REDACTED]`; secret-bearing mapping keys fail closed.
+- Structural/scalar bounds precede privacy/secret scanning.
+- Always-blocked privacy keys are recursively enforced before rendering structured content.
+- Exact redaction marker is `[REDACTED]`; blocked/secret mapping keys fail closed to whole-candidate omission.
 - Canonical rendering is exact and shared by accounting/export.
 - `MAX_SPAN_CHARS` is one cumulative per-owner-span ledger with atomic whole-candidate emission.
