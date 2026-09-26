@@ -6,7 +6,6 @@ import json
 import math
 import re
 from dataclasses import dataclass
-from typing import Any
 
 from .settings import ObservabilitySettings
 
@@ -250,13 +249,35 @@ class ContentCaptureBuffer:
         if not self._policy.enabled:
             return ()
 
-        ordered = sorted(
-            self._admitted,
-            key=lambda candidate: (
-                _CATEGORY_ORDER.get(candidate.meta.category, len(_CATEGORY_ORDER)),
-                candidate.ordinal,
-            ),
-        )
+        orderable: list[tuple[int, int, CaptureCandidate]] = []
+        for candidate in self._admitted:
+            try:
+                meta = candidate.meta
+                if type(meta) is not CaptureCandidateMeta:
+                    continue
+                category = meta.category
+                ordinal = candidate.ordinal
+                if type(category) is not str:
+                    continue
+                if type(ordinal) is not int or not 1 <= ordinal <= 32:
+                    continue
+                orderable.append(
+                    (
+                        _CATEGORY_ORDER.get(category, len(_CATEGORY_ORDER)),
+                        ordinal,
+                        candidate,
+                    )
+                )
+            except Exception:
+                continue
+
+        ordered = [
+            candidate
+            for _, _, candidate in sorted(
+                orderable,
+                key=lambda item: (item[0], item[1]),
+            )
+        ]
         used_chars = 0
         events: list[PreparedContentEvent] = []
         for candidate in ordered:
@@ -549,17 +570,19 @@ def _detect_secret(value: str) -> str | None:
     """Return ``redact``, ``omit``, or ``None`` for one bounded exact string."""
 
     try:
-        if _has_authorization_scheme(value):
-            return "redact"
-        if _has_compact_jwt(value):
-            return "redact"
         if any(header in value for header in _PEM_HEADERS):
             return "omit"
         if _has_credential_uri(value):
             return "omit"
         assignment = _credential_assignment_action(value)
-        if assignment is not None:
-            return assignment
+        if assignment == "omit":
+            return "omit"
+        if _has_authorization_scheme(value):
+            return "redact"
+        if _has_compact_jwt(value):
+            return "redact"
+        if assignment == "redact":
+            return "redact"
         if _has_bare_api_key(value):
             return "redact"
         return None

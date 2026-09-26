@@ -151,6 +151,18 @@ def test_uri_passwords_and_private_keys_omit_whole_candidate(value):
     assert event is None
 
 
+def test_omit_class_secret_detector_takes_precedence_over_redaction():
+    event = prepare_content_event(
+        make_text_candidate(
+            category="user_input",
+            value="Bearer abc -----BEGIN PRIVATE KEY-----",
+            ordinal=1,
+        ),
+        _policy("user_input"),
+    )
+    assert event is None
+
+
 @pytest.mark.parametrize(
     "value",
     [
@@ -209,6 +221,21 @@ def test_duplicate_ordinal_and_candidate_33_are_rejected_before_value_inspection
         ).meta,
     )
     assert buffer.admit(candidate_33) is False
+
+
+def test_malformed_candidate_metadata_is_omitted_and_later_candidate_continues():
+    buffer = ContentCaptureBuffer(_policy("user_input"))
+    malformed = CaptureCandidate(ordinal=1, value="hidden", meta=None)
+    valid = make_text_candidate(
+        category="user_input",
+        value="visible",
+        ordinal=2,
+    )
+
+    assert buffer.admit(malformed) is True
+    assert buffer.admit(valid) is True
+    events = buffer.prepared_events()
+    assert [(event.ordinal, event.value) for event in events] == [(2, "visible")]
 
 
 def test_span_budget_is_deterministic_and_later_smaller_candidate_can_fit():
