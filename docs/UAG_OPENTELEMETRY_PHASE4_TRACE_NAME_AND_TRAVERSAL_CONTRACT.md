@@ -5,7 +5,7 @@ Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`
 Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
 Applies to: Phase 4A content traversal and Phase 4D ordinary-user trace projection
 
-This document closes remaining implementation ambiguities from Phase 4 review. Where the parent scope or security contract uses the phrases `canonical/supported span name`, `cap recursion depth`, or `cap collection item counts`, the rules below are normative for the initial Phase 4 implementation.
+This document closes remaining implementation ambiguities from Phase 4 review. Where the parent scope or security contract uses the phrases `canonical/supported span name`, `cap recursion depth`, `cap collection item counts`, or `cap total captured characters per span`, the rules below are normative for the initial Phase 4 implementation.
 
 ## 1. Ordinary-user span names use a closed UAG-owned vocabulary
 
@@ -148,7 +148,7 @@ For initial Phase 4A:
 - because `MAX_FIELD_CHARS` is itself bounded to at most 16384, the redactor never scans an arbitrarily large string;
 - strings above the effective field limit cause whole-candidate omission; they are not truncated before scanning;
 - byte arrays, byte buffers, file-like values, data URLs classified as body content, and other opaque binary/body scalars remain excluded by provenance/type policy and are not decoded or scanned as text;
-- primitive numeric/boolean/null scalars have bounded representation and may proceed only after normal provenance/category gates;
+- primitive numeric/boolean/null scalars have bounded representation and may proceed only after normal provenance/category gates and the scalar/numeric preflight contract;
 - mapping keys are subject to the same bounded-scalar preflight before any normalization or secret scanning.
 
 The implementation must use a size operation that does not require copying, decoding, regex-scanning, or rendering the whole scalar. No generic `str(value)`, JSON serialization, UTF-8 re-encoding of an oversized string, or regex/classifier pass is permitted before this preflight succeeds.
@@ -178,7 +178,9 @@ candidate + trusted root metadata
        -> if child container: collection-width/cycle checks before descent
        -> recurse with the same rules
   -> after a scalar passes preflight: value-level secret redaction
-  -> existing per-field/per-span character budgets
+  -> canonical safe candidate rendering
+  -> per-field character budget
+  -> shared per-span content ledger check
   -> final key/privacy filter
   -> export
 ```
@@ -187,15 +189,66 @@ Structural checks may inspect only bounded container metadata needed to apply th
 
 No overflow condition may truncate into an apparently valid partial content value. Overflow omits the whole content candidate and leaves normal Agent/model/tool execution unaffected.
 
-### 2.7 Existing character budgets remain cumulative
+### 2.7 Character budgets are cumulative across the entire span
 
-These traversal limits are additional to the existing content character limits:
+The existing character limits remain:
 
 ```text
 MAX_FIELD_CHARS default 2048, valid 64..16384
 MAX_SPAN_CHARS  default 8192, valid 256..65536
 MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 ```
+
+`MAX_SPAN_CHARS` is enforced by one shared UAG-owned ledger per canonical span. It is **not** reset per attribute, event, category, tool argument, tool result, message, or capture candidate.
+
+The ledger starts at zero when the canonical span is created. Every content-capture candidate is first fully processed through provenance checks, structural/scalar bounds, redaction, and canonical safe rendering without mutating the span ledger. The candidate is then charged atomically against the remaining span budget.
+
+For budget purposes, candidate character cost is the number of Unicode code points in the exact final canonical content representation that UAG would export for that candidate after redaction and safe rendering. This cost:
+
+- includes scalar text actually exported;
+- includes fixed redaction markers such as `[REDACTED]` exactly as rendered;
+- includes user/tool-derived structured mapping keys that remain in the rendered content;
+- includes canonical structural punctuation, separators, quoting, and escape sequences that are part of the final rendered content representation;
+- excludes the OTel/UAG attribute or event **name** used to carry the already-rendered candidate because that carrier name is fixed metadata rather than captured content;
+- excludes content candidates that are omitted before export.
+
+The exact same canonical rendering function must be used both to determine the charged character count and to produce the exported candidate. Implementations must not estimate from pre-redaction input length or maintain separate incompatible counting/serialization paths.
+
+Candidate ordering for a canonical span is deterministic. Initial Phase 4 uses this semantic category order:
+
+```text
+user_input
+assistant_output
+tool_arguments
+tool_result
+```
+
+Within one category, candidates are processed in the trusted UAG-local creation ordinal assigned when the canonical span records the candidate. The ordinal is process-local metadata and cannot be supplied or changed by browser/tool/provider payload content. Structured contents inside one candidate retain the deterministic traversal order defined above.
+
+For each candidate in that order:
+
+```text
+candidate_cost = len(final_canonical_rendered_content)
+remaining = MAX_SPAN_CHARS - span_content_chars_used
+
+if candidate_cost <= remaining:
+    export whole candidate
+    span_content_chars_used += candidate_cost
+else:
+    omit whole candidate
+    ledger unchanged
+```
+
+Rules:
+
+- no candidate is truncated to fit the remaining span budget;
+- a candidate that does not fit is omitted in full;
+- omission of one oversized/late candidate does not retroactively remove earlier accepted candidates;
+- an omitted candidate consumes zero ledger characters;
+- later candidates may still be considered if they fit the unchanged remaining budget;
+- redaction and safe rendering happen before the ledger decision, so the ledger charges what is actually exported rather than sensitive pre-redaction text;
+- the ledger counts only controlled captured content, not normal metadata-only span attributes already permitted by the Phase 1-3 privacy contract;
+- ledger state is local telemetry state and must not affect Agent/model/tool behavior.
 
 Passing traversal limits does not bypass character limits, provenance restrictions, category selection, scalar preflight, or redaction.
 
@@ -219,8 +272,15 @@ Tests must include:
 - a scalar exactly at the effective `MAX_FIELD_CHARS` limit may proceed to redaction;
 - a wide/deep value cannot trigger unbounded provenance or redaction traversal;
 - a generator/custom iterator/file-like object is not consumed and is omitted;
+- multiple eligible candidates on one span share one cumulative `MAX_SPAN_CHARS` ledger rather than each receiving a fresh budget;
+- final rendered scalar text, surviving structured keys, structure/escaping, and `[REDACTED]` markers contribute exactly their rendered character counts;
+- fixed OTel/UAG carrier attribute/event names do not consume the content ledger;
+- a candidate whose cost exactly equals the remaining span budget is exported and exhausts the ledger;
+- a candidate exceeding the remaining span budget by one character is omitted whole and does not mutate the ledger;
+- a later smaller candidate may still fit after an earlier candidate is omitted for insufficient remaining budget;
+- category ordering and trusted creation ordinal make accepted/omitted candidate selection deterministic;
 - overflow produces only a normalized, content-free diagnostic and never logs the rejected value;
-- traversal overflow never affects normal Agent/model/tool execution.
+- traversal or character-budget overflow never affects normal Agent/model/tool execution.
 
 ## 3. Fixed Phase 4 decisions from this companion
 
@@ -233,4 +293,5 @@ Tests must include:
 - Raw scalar size is checked before value-level secret scanning; oversized strings are omitted rather than scanned or truncated.
 - Traversal limits are fixed and non-configurable in the initial Phase 4 implementation.
 - Exceeding any traversal limit omits the whole capture candidate; partial prefix capture is forbidden.
+- `MAX_SPAN_CHARS` is one cumulative per-span ledger charged from the exact post-redaction canonical content representation; candidates are accepted or omitted atomically in deterministic order.
 - Unreviewed/streaming/opaque iterables are not consumed for telemetry.
