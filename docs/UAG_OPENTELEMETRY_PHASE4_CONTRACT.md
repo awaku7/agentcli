@@ -433,6 +433,7 @@ Presence of any exact ASCII header below is a match:
 -----BEGIN PRIVATE KEY-----
 -----BEGIN ENCRYPTED PRIVATE KEY-----
 -----BEGIN RSA PRIVATE KEY-----
+-----BEGIN DSA PRIVATE KEY-----
 -----BEGIN EC PRIVATE KEY-----
 -----BEGIN OPENSSH PRIVATE KEY-----
 ```
@@ -748,7 +749,18 @@ INTERNAL
 UNKNOWN
 ```
 
-The safe class is derived only from trusted UAG-local semantic ownership, never backend `span.name`. Unknown/malformed class -> `UNKNOWN`.
+The trusted semantic-kind mapping is exhaustive and exact:
+
+```text
+invoke_agent  -> AGENT
+chat          -> LLM
+execute_tool  -> TOOL
+provider_sdk  -> PROVIDER_SDK
+internal      -> INTERNAL
+any other, missing, malformed, or unsupported trusted semantic kind -> UNKNOWN
+```
+
+Only trusted UAG-local semantic ownership may supply this semantic kind. Backend `span.name`, provider/model/tool/agent names, URLs, request text, exception text, and vendor/resource/instrumentation fields never participate in this mapping. The `internal` input kind is a UAG-owned static semantic kind only; arbitrary backend/provider text cannot create it. No adapter may remap one admitted trusted kind to another output class.
 
 #### 6.5.1 Status normalization
 
@@ -906,7 +918,7 @@ Implementation is incomplete until tests prove at least:
 - oversized/surrogate strings and huge integers fail before scanner/rendering;
 - every always-blocked key causes whole-candidate omission;
 - Authorization/Basic, compact JWT-like, PEM private key, and URI-userinfo detector boundaries/actions are exact;
-- `-----BEGIN ENCRYPTED PRIVATE KEY-----` triggers mandatory whole-candidate omission;
+- `-----BEGIN ENCRYPTED PRIVATE KEY-----` and `-----BEGIN DSA PRIVATE KEY-----` each trigger mandatory whole-candidate omission;
 - `access_token=aaa.bbb.ccc` and `jwt:aaa.bbb.ccc` are recognized by the named JWT boundary set when the token body otherwise satisfies the JWT-like grammar;
 - `https://user:password@example.com/path` is detected by authority scanning after `://`;
 - every recognized value secret is redacted/omitted according to section 3.9 and never passes unchanged;
@@ -952,6 +964,7 @@ Implementation is incomplete until tests prove at least:
 - invalid/duplicate span IDs fail closed;
 - current auth/authz is revalidated per local segment/span;
 - remote/unindexed/unauthorized spans are omitted after a complete bounded authorization lookup;
+- trusted semantic-kind mapping is exact and exhaustive: `invoke_agent -> AGENT`, `chat -> LLM`, `execute_tool -> TOOL`, `provider_sdk -> PROVIDER_SDK`, `internal -> INTERNAL`, and every other/missing/malformed kind -> `UNKNOWN`;
 - raw status normalization accepts only missing/`None` or bounded exact built-in strings and maps the closed token sets exactly; malformed/unsupported status maps to `UNSET` without pass-through;
 - textual timestamps are rejected in initial v1 without generic or adapter-specific parsing;
 - reversed timestamps are rejected at raw precision even when millisecond flooring would make them equal;
