@@ -30,7 +30,7 @@ Phase 4 consists of four independent features, all OFF by default:
 
 ## 2. Configuration contract
 
-### 2.1 Precedence
+### 2.1 Precedence and activation controls
 
 For every Phase 4 setting:
 
@@ -46,20 +46,43 @@ Effective core `--no-otel` is authoritative. When core OTel is OFF, every Phase 
 
 Browser/WebSocket/A2A/MCP/tool/provider/query/header/cookie/baggage/trace content MUST NOT alter process settings.
 
-### 2.2 Boolean parsing
-
-Boolean CLI controls are flag-only:
+Public boolean activation controls are exactly:
 
 ```text
---otel-capture-content
---no-otel-capture-content
---otel-pseudonymous-correlation
---no-otel-pseudonymous-correlation
+Phase 4A:
+  --otel-capture-content
+  --no-otel-capture-content
+  UAGENT_OTEL_CAPTURE_CONTENT
+
+Phase 4B:
+  --otel-pseudonymous-correlation
+  --no-otel-pseudonymous-correlation
+  UAGENT_OTEL_PSEUDONYMOUS_CORRELATION
+
+Phase 4D:
+  --otel-trace-query
+  --no-otel-trace-query
+  UAGENT_OTEL_TRACE_QUERY_ENABLED
 ```
 
-They accept no string argument. When both forms occur, the last explicit CLI flag wins.
+Phase 4C is OFF unless the provider selector contains at least one valid selected provider. There is no independent implicit enable.
 
-Programmatic/application boolean inputs MUST be exact built-in `bool` or `None`. `int`, `str`, subclasses, and objects with truthiness hooks are invalid; implementations MUST NOT call `bool(value)` to coerce them.
+Programmatic/application equivalents are explicit fields in the shared observability settings resolver:
+
+```text
+capture_content: bool | None
+pseudonymous_correlation: bool | None
+trace_query_enabled: bool | None
+provider_instrumentation: str | None
+```
+
+All safe defaults are OFF/empty.
+
+### 2.2 Boolean parsing
+
+Boolean CLI controls are presence-only flags and accept no string argument. When positive and negative forms both occur, the last explicit CLI flag wins.
+
+Programmatic/application boolean inputs MUST satisfy `type(value) is bool` or be `None`. `int`, `str`, subclasses, and objects with truthiness hooks are invalid; implementations MUST NOT call `bool(value)` to coerce them.
 
 Environment boolean values MUST be exact built-in strings. Before normalization, raw native length MUST be `<= 16`. Normalize by stripping surrounding ASCII space/tab only and ASCII-lowercasing. The accepted normalized values are exactly:
 
@@ -68,7 +91,7 @@ true:  1, true, yes, on
 false: 0, false, no, off
 ```
 
-No other whitespace, Unicode case folding, numeric spelling, or token is accepted. Invalid explicit environment boolean disables the affected Phase 4 feature; it does not silently become a safe-default value while claiming the environment source was accepted.
+No other whitespace, Unicode case folding, numeric spelling, or token is accepted. An invalid explicit environment boolean disables the affected Phase 4 feature; it does not silently become a safe-default value while claiming the environment source was accepted.
 
 ### 2.3 Integer parsing
 
@@ -86,7 +109,7 @@ Rules:
 - no sign, surrounding/internal whitespace, Unicode digits, decimal point, exponent, plus sign, or leading zero except the single value `0`;
 - parse only after the lexical checks pass.
 
-Programmatic integer controls MUST be exact built-in `int`, not `bool`, with no coercion.
+Programmatic integer controls MUST satisfy `type(value) is int`, not `bool`, with no coercion.
 
 Controlled-content limits are exactly:
 
@@ -98,9 +121,11 @@ MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 
 Missing values use the defaults. Any invalid bound disables controlled content capture for the process while metadata-only tracing continues.
 
-### 2.4 CSV settings
+### 2.4 CSV and string settings
 
-CSV environment/CLI values MUST be exact built-in strings with native length `<= 256` before splitting. Split on ASCII comma and strip surrounding ASCII space/tab from each token only. Do not Unicode-normalize or case-fold.
+CLI/environment CSV values MUST be exact built-in strings with native length `<= 256` before splitting. Programmatic CSV values MUST also be exact built-in `str` or `None`; list/set/tuple/custom iterable input is invalid and is never joined/coerced.
+
+Split on ASCII comma and strip surrounding ASCII space/tab from each token only. Do not Unicode-normalize or case-fold.
 
 Controlled-content categories form a closed set:
 
@@ -121,6 +146,8 @@ claude
 ```
 
 `claude` selects the Anthropic SDK path; `anthropic` is not an alias. Missing/empty -> OFF. Unknown/empty token enables nothing for that token and emits only normalized content-free diagnostics; valid sibling tokens remain independently active.
+
+All other programmatic string settings in this contract (deployment scope, credential name, key version) MUST be exact built-in `str` or `None`; no generic `str()` conversion is allowed.
 
 ## 3. Phase 4A controlled content
 
@@ -151,7 +178,7 @@ Canonical `chat`, provider SDK child, internal, and remote spans MUST NOT carry 
 
 `uag.content.ordinal` is a trusted integer `1..32` local to the owner span. At most 32 candidate records are admitted per owner span; candidate 33+ is omitted before inspecting its value.
 
-### 3.2 Provenance
+### 3.2 Provenance and exact source/category pairs
 
 Closed provenance vocabulary:
 
@@ -173,6 +200,17 @@ developer_instruction
 security_sensitive_unknown
 ```
 
+The **only** allowed root provenance/category pairs are:
+
+```text
+user_message         -> user_input
+assistant_message    -> assistant_output
+tool_argument        -> tool_arguments
+ordinary_tool_result -> tool_result
+```
+
+Every other root pairing fails closed before value traversal, even when the category itself is enabled. Payload data cannot choose or relabel either side of the pair.
+
 Hard-denied provenance is exactly:
 
 ```text
@@ -189,11 +227,70 @@ developer_instruction
 security_sensitive_unknown
 ```
 
-Hard denial overrides category selection recursively. Payload data cannot self-assert provenance.
+Hard denial overrides category selection recursively.
 
-Body-bearing fields require trusted node/field provenance. File-write content, attachment inline data/base64/body, artifact bodies, Memory/retrieval query/body/result, auth/session/credential structures, reasoning, and system/developer stores remain forbidden even inside an otherwise allowed user/tool composite. Unknown or unannotated body-capable composites fail closed.
+### 3.3 Trusted child-provenance representation
 
-### 3.3 Exact supported runtime values
+Plain `dict`/`list`/`tuple` payload values NEVER carry trusted provenance by themselves. Structured capture requires a separate UAG-owned metadata tree created by a reviewed source adapter before telemetry traversal.
+
+The conceptual immutable metadata shape is:
+
+```text
+CaptureCandidateMeta
+  category: one closed category
+  root_provenance: one closed provenance
+  owner_kind: invoke_agent | execute_tool
+  source_adapter_id: trusted static adapter identifier
+  root: ProvenanceNode
+
+ProvenanceNode
+  provenance: one closed provenance
+  children:
+    scalar -> none
+    list/tuple -> ordered child nodes, exactly one per value element
+    dict -> ordered entries, exactly one (key_node, value_node) pair per dict pair
+```
+
+Rules:
+
+- metadata contains provenance/shape correspondence only, never copied body text;
+- metadata is created from trusted UAG operation/tool schema state, never from payload-provided labels;
+- list/tuple child metadata aligns by exact index;
+- dict entry metadata aligns by built-in insertion-order pair index, key node first then value node;
+- child-count/shape mismatch, missing node, extra node, unknown adapter, or adapter/schema revision mismatch omits the whole candidate before that unmatched child is inspected;
+- child provenance is read from the metadata node; it is NEVER inherited implicitly from an allowed root;
+- a structured candidate without a reviewed adapter is ineligible.
+
+The initial reviewed adapter rules are:
+
+```text
+user_message adapter:
+  textual user message body -> user_message
+  attachment/data-url/base64/file/artifact body -> file or artifact (hard denied)
+  unknown body-bearing part -> security_sensitive_unknown
+
+assistant_message adapter:
+  visible assistant output -> assistant_message
+  reasoning/thinking/analysis -> reasoning (hard denied)
+  unknown hidden/body-bearing part -> security_sensitive_unknown
+
+tool_argument adapter:
+  each tool/schema revision requires a static reviewed field map
+  file-write body/content field -> file (hard denied)
+  credential/auth/session field -> corresponding hard-denied provenance
+  unknown body-bearing field -> security_sensitive_unknown
+
+tool_result adapter:
+  each tool/schema revision requires a static reviewed field map
+  returned file/artifact body -> file/artifact (hard denied)
+  Memory/retrieval query/body/result -> memory/retrieval (hard denied)
+  auth/session/credential body -> corresponding hard-denied provenance
+  unknown body-bearing field -> security_sensitive_unknown
+```
+
+There is no generic "ordinary tool field inherits tool_argument/tool_result" rule. A tool lacking a static reviewed adapter may still execute normally but its structured arguments/results are not captured.
+
+### 3.4 Exact supported runtime values
 
 Only exact built-in values are accepted:
 
@@ -205,22 +302,23 @@ mapping keys: str only
 
 Subclasses and protocol-compatible custom Mapping/Sequence/iterator/generator/stream/file-like/numeric values are rejected without coercion. Bytes, bytearray, memoryview, data/body wrappers, Decimal, Fraction, numpy/custom numerics, and custom mapping keys are rejected.
 
-### 3.4 Processing order
+### 3.5 Processing order
 
 The exact order is:
 
 ```text
-candidate record
+candidate record + trusted CaptureCandidateMeta
   -> candidate-count admission
+  -> exact root provenance/category pair gate
   -> root forbidden-provenance gate
   -> master capture gate
   -> category allowlist gate
-  -> source/category gate
+  -> source-adapter/metadata-shape gate
   -> canonical owner/carrier gate
-  -> exact type/shape gate
+  -> exact value type/shape gate
   -> node/depth/width/cycle checks
   -> primitive scalar preflight
-  -> bounded child traversal with child provenance
+  -> bounded child traversal with aligned child provenance metadata
   -> recursive blocked-key checks
   -> closed secret detector
   -> post-redaction scalar-token bound
@@ -231,7 +329,7 @@ candidate record
 
 No container enumeration, secret scan, generic conversion, serialization, or custom hook may run before the preceding gates prove the work bounded.
 
-### 3.5 Structural limits
+### 3.6 Structural limits
 
 Initial hard limits are non-configurable:
 
@@ -255,7 +353,9 @@ Node accounting is occurrence-based:
 
 Traversal order is list/tuple index order and dict insertion order, key then value. An active-ancestor container identity set detects cycles; encountering an active ancestor fails the whole candidate. The 257th occurrence fails the whole candidate.
 
-### 3.6 Primitive preflight
+The metadata tree is subject to the same depth/width/node ceilings and is validated incrementally; implementations MUST NOT materialize an unbounded provenance tree as part of telemetry capture.
+
+### 3.7 Primitive preflight
 
 Strings:
 
@@ -274,7 +374,7 @@ Range checking is conversion-free; arbitrary-precision integers outside the rang
 
 Floats MUST be exact built-in finite binary64 values. NaN/infinity/custom numerics are rejected. `bool` is classified before `int`.
 
-### 3.7 Recursive always-blocked keys
+### 3.8 Recursive always-blocked keys
 
 For every bounded string mapping key, classification form is:
 
@@ -304,27 +404,66 @@ For token-style keys, replace `_`, `-`, `/` with `.`, split on `.`, and block an
 
 Any blocked mapping key causes omission of the whole candidate; the raw key is never logged.
 
-### 3.8 Closed secret detector and mandatory handling
+### 3.9 Closed secret detector and mandatory handling
 
-The initial value-level detector recognizes exactly these high-confidence classes on already-bounded strings:
+The detector runs only on already-bounded exact strings. Its initial classes and actions are exact.
 
-1. ASCII case-insensitive `Bearer` or `Basic` authorization scheme followed by one or more ASCII space/tab characters and a non-empty non-whitespace credential token;
-2. compact JWT-like text with exactly three non-empty base64url-like segments separated by `.`;
-3. PEM private-key blocks whose bounded string contains a `-----BEGIN ... PRIVATE KEY-----` header from the reviewed RSA/EC/OPENSSH/PRIVATE KEY forms;
-4. credential-bearing URI userinfo in a syntactically bounded `scheme://userinfo@host` form.
+#### A. Authorization-scheme token
+
+Scan left-to-right for ASCII-case-insensitive `bearer` or `basic` at a token boundary. A valid left boundary is start-of-string or one of:
+
+```text
+ASCII whitespace or  " ' = : ; , ( [ {
+```
+
+The scheme MUST be followed by one or more ASCII space/tab characters and then at least one credential character. Credential scanning stops at ASCII whitespace or one of:
+
+```text
+" ' < > [ ] { } ( ) , ;
+```
+
+A match replaces the entire scalar with `[REDACTED]`.
+
+#### B. Compact JWT-like token
+
+A token bounded by start/end or the delimiter set above is JWT-like only if it consists of exactly three non-empty segments separated by two `.` characters, and every segment contains only ASCII `[A-Za-z0-9_-]`. Each segment is limited by the already-established scalar bound. A match replaces the entire scalar with `[REDACTED]`.
+
+#### C. PEM private key
+
+Presence of any exact ASCII header below is a match:
+
+```text
+-----BEGIN PRIVATE KEY-----
+-----BEGIN RSA PRIVATE KEY-----
+-----BEGIN EC PRIVATE KEY-----
+-----BEGIN OPENSSH PRIVATE KEY-----
+```
+
+A match omits the whole candidate.
+
+#### D. Credential-bearing URI userinfo
+
+Recognize an ASCII URI scheme using:
+
+```text
+[A-Za-z][A-Za-z0-9+.-]{0,31}://
+```
+
+Authority scanning starts **immediately after the matched `://`**. The authority remainder ends at the first `/`, `?`, `#`, or string end. Within that authority remainder, a credential-bearing userinfo match exists only when:
+
+- an `@` occurs before the authority end;
+- before that `@`, a `:` occurs;
+- at least one character exists before the `:` and at least one character exists between `:` and `@`.
+
+Thus `https://user:password@example.com/path` matches, while the two slashes in `://` are not treated as authority/path delimiters. A match omits the whole candidate.
 
 Known credential/secret wrapper objects never reach this detector; they are rejected earlier by exact type/provenance gates.
 
-For every recognized secret match, the implementation MUST do exactly one of:
-
-- replace the **entire scalar value** with the exact string `[REDACTED]`; or
-- omit the whole content candidate.
-
-A recognized match MUST NEVER pass through unchanged. Mapping-key secret recognition always omits the whole candidate. Redactor exception, classifier ambiguity, or security-sensitive uncertainty omits the whole candidate. Rejected content is never logged.
+If multiple detector classes match, omission takes precedence over replacement. A recognized match MUST NEVER pass through unchanged. Mapping-key secret recognition, detector exception, classifier ambiguity, or security-sensitive uncertainty omits the whole candidate. Rejected content is never logged.
 
 The replacement marker `[REDACTED]` is fixed and non-configurable.
 
-### 3.9 Canonical rendering and budgets
+### 3.10 Canonical rendering and budgets
 
 Direct root string -> exact post-redaction string, unquoted.
 
@@ -372,22 +511,29 @@ observability/correlation
 
 Explicit credential name MUST be exact built-in `str`, 1..128 Unicode scalar values, with no leading/trailing Unicode whitespace, controls, or surrogates. Invalid explicit name disables pseudonym emission without fallback.
 
-Credential runtime values MUST pass exact-type checks **before** comparison, length checks, equality, decoding, or conversion:
+A custom `CredentialStore` result is accepted only when runtime shape validation passes **before** any field comparison, decoding, custom equality, or conversion:
 
-- credential `secret`: exact built-in `str`;
-- credential `metadata`: exact built-in `dict`;
-- `metadata["purpose"]`: exact built-in `str`;
-- `metadata["key_version"]`: exact built-in `str`;
-- credential kind MUST equal `CredentialKind.OTHER` without custom coercion.
+```text
+type(credential) is Credential
+type(credential.kind) is CredentialKind
+type(credential.name) is str
+type(credential.secret) is str
+type(credential.metadata) is dict
+len(credential.metadata) <= 16
+```
 
-Required metadata:
+Before any metadata lookup/comparison, every existing metadata key/value pair MUST satisfy `type(x) is str`, key native length `<= 64`, value native length `<= 128`, and contain no surrogates. An invalid pair rejects the credential. Only after that bounded validation may the implementation read `purpose` and `key_version` from a safe copied built-in dict.
+
+The credential kind MUST be exactly `CredentialKind.OTHER`.
+
+Required metadata values are exact built-in strings:
 
 ```text
 metadata["purpose"] = "observability_pseudonym_v1"
 metadata["key_version"] = <effective validated key version>
 ```
 
-Any missing/wrong type/mismatch disables pseudonym emission.
+Missing/wrong-type/mismatched purpose or version disables pseudonym emission.
 
 `secret` is canonical unpadded base64url of exactly 32 raw bytes:
 
@@ -479,11 +625,31 @@ Provider diagnostic failure disables the optional child only and never changes t
 
 ## 6. Phase 4D ordinary-user trace query
 
-### 6.1 Authorization architecture
+Phase 4D is active only when core OTel is ON **and** the resolved `trace_query_enabled` setting is true. The default is false. Merely enabling OTel or another Phase 4 feature MUST NOT expose the ordinary-user trace-query endpoint.
+
+### 6.1 Authorization architecture and bounded local index
 
 Ordinary users never receive raw backend API credentials/responses. Initial lookup accepts canonical trace ID only; pseudonym discovery is deferred.
 
-UAG keeps a local authorization/ownership index independent from telemetry, containing bounded trusted state such as trace ID, local segment/root span IDs, owned span IDs, current room/project/private-scope ownership, service instance, and creation metadata. It contains no prompt/response/tool/Memory bodies or backend credentials.
+UAG keeps a local authorization/ownership index independent from telemetry. It contains no prompt/response/tool/Memory bodies or backend credentials.
+
+Initial local-index hard ceilings per trace are:
+
+```text
+MAX_LOCAL_SEGMENTS_PER_TRACE = 64
+MAX_LOCAL_OWNED_SPAN_IDS_PER_TRACE = 2000
+MAX_LOCAL_SCOPE_TEXT_CHARS = 256 per stored room/project/principal/service/entry-point text field
+```
+
+Every stored trace/span ID uses the canonical fixed-length ID grammar defined below. The index MUST enforce these ceilings when records are added; it MUST NOT accumulate an unbounded per-trace list and defer bounding until query time. If a trace would exceed any ceiling, mark its local authorization index non-queryable/overflowed for ordinary-user access; normal tracing/Agent execution continues.
+
+The aggregate five-second trace-query deadline begins **before local-index lookup**. Query code MUST use a bounded index API such as:
+
+```text
+lookup_segments(trace_id, max_segments=64, deadline=shared_deadline)
+```
+
+and MUST NOT call an unbounded `get_all`/materialize-all path. Across all returned local segments, at most 2000 owned span IDs may be materialized/scanned. An overflowed, timed-out, malformed, or otherwise incomplete local authorization index causes a bounded deny/not-found/server-error according to the API contract **before backend query**; authorization uncertainty is never converted into `partial` access.
 
 Current auth/session and room/project/private-room authorization are revalidated per local segment/span on every query. A local segment never authorizes remote/unindexed segments in the same distributed trace. Cross-instance authorization-index federation is deferred.
 
@@ -503,7 +669,7 @@ Invalid input is rejected before local-index/backend lookup. No trim/case-fold/p
 
 Every backend span record considered for projection MUST carry an explicit canonical trace ID. The record trace ID MUST be exact built-in `str`, length 32, lowercase hex, nonzero, and exactly equal the validated requested trace ID **before** span membership lookup.
 
-A record with missing, malformed, mismatched, or non-string trace ID is omitted and sets `partial=true` when safely relevant bounded data remains. A 64-bit `span_id` match alone is never sufficient. No adapter may infer association from arrival in a query response unless the adapter first materializes an equally trusted explicit query-bound trace-ID field as part of its reviewed adapter contract; the initial implementation requires the explicit canonical field.
+A record with missing, malformed, mismatched, or non-string trace ID is omitted and sets `partial=true` when safely relevant bounded data remains. A 64-bit `span_id` match alone is never sufficient. Service/resource fields, arrival order, or the fact that a record arrived from a trace-specific backend endpoint never rescue a missing/mismatched record trace ID. An adapter that cannot provide the per-record canonical trace ID is unsupported for initial ordinary-user projection.
 
 ### 6.4 Span IDs and duplicates
 
@@ -607,7 +773,17 @@ The products are bounded (< 2^74) by the preceding maxima. Require:
 end_raw * end_factor >= start_raw * start_factor
 ```
 
-before `//` conversion to milliseconds. Only then compute canonical milliseconds and `duration_ms`. Thus reversed values that collapse to the same millisecond are rejected.
+before `//` conversion to milliseconds. Thus reversed values that collapse to the same millisecond are rejected.
+
+Only after chronology passes are endpoints converted:
+
+```text
+ms -> raw
+us -> raw // 1000
+ns -> raw // 1000000
+```
+
+and `duration_ms` is derived from canonical endpoints. Backend duration is never copied.
 
 Backend-specific textual timestamps are allowed only under a separately reviewed adapter parser with a fixed small raw length ceiling and exact grammar checked before parsing. Generic date parsing is forbidden.
 
@@ -615,16 +791,20 @@ Invalid timing omits the span; raw timing text is never echoed.
 
 ### 6.8 Partial semantics
 
-`partial=true` whenever UAG knowingly omits safely relevant data due to backend/query limits, authorization/local ownership filtering, trace-ID mismatch/missing record binding, invalid/duplicate IDs, invalid timing, parent omission, output truncation, or another supported fail-closed projection omission.
+`partial=true` whenever UAG knowingly omits safely relevant backend data due to backend/query limits, authorization/local ownership filtering after a complete bounded authorization lookup, trace-ID mismatch/missing record binding, invalid/duplicate IDs, invalid timing, parent omission, output truncation, or another supported fail-closed projection omission.
 
-`partial=false` only when no known omission exists within bounded retrieved data.
+`partial=false` only when no known omission exists within bounded retrieved data. Local authorization-index uncertainty/overflow is a query denial/error, not a partial authorization result.
 
-### 6.9 Query resource ceilings
+### 6.9 Aggregate query resource ceilings
 
-Aggregate per-query limits are exactly:
+The one monotonic query budget starts before local-index lookup and continues through backend retrieval/projection. It is never reset by local lookup, retry, or page.
+
+Exact backend/output ceilings are:
 
 ```text
-monotonic elapsed deadline:        5 seconds
+monotonic elapsed deadline:        5 seconds total, including local index work
+maximum local segments read:       64
+maximum local owned span IDs read: 2000
 maximum decoded backend bytes:     8 MiB
 maximum backend spans fetched:     2000
 maximum spans per backend page:    500
@@ -632,7 +812,7 @@ maximum backend pages:             4
 maximum authorized spans returned: 500
 ```
 
-Retries/pages share all ceilings. Adapters enforce decoded bytes while reading, not after an unbounded full-body materialization. Backend limits/pagination are used where available. Stop on any ceiling. Order authorized valid spans by `(start_time, span_id)` before the output cap. Safe truncation sets `partial=true`; if a safe bounded partial cannot be established, return a bounded server error with no backend payload.
+Adapters enforce decoded bytes while reading, not after an unbounded full-body materialization. Backend limits/pagination are used where available. Stop on any ceiling. Order authorized valid spans by `(start_time, span_id)` before the output cap. Safe backend/output truncation sets `partial=true`; if a safe bounded partial cannot be established, return a bounded server error with no backend payload.
 
 ## 7. Failure and diagnostics
 
@@ -644,7 +824,7 @@ Feature failure behavior:
 content policy/bound/redaction/render failure -> omit content; runtime continues
 pseudonym configuration/construction failure  -> omit pseudonym; tracing continues
 provider SDK diagnostic failure               -> disable optional child; model call continues
-trace backend/query/projection failure         -> bounded query error/no raw payload; Agent continues
+trace query config/auth/index/backend failure  -> bounded deny/error/no raw payload; Agent continues
 ```
 
 ## 8. Required conformance tests
@@ -654,8 +834,10 @@ Implementation is incomplete until tests prove at least:
 ### Configuration
 
 - CLI > env > default precedence;
+- all Phase 4A/4B/4D booleans default OFF;
+- Phase 4D endpoint remains unavailable unless `trace_query_enabled` resolves true;
 - last positive/negative CLI boolean wins;
-- exact programmatic bool/int type gates reject subclasses/coercion;
+- exact programmatic bool/int/string type gates reject subclasses/coercion;
 - env booleans accept only the defined normalized tokens and reject other whitespace/tokens;
 - numeric CLI/env grammar rejects signs, whitespace, Unicode digits, leading zeros, overlength, and out-of-range values;
 - category/provider CSV parsing follows exact ASCII trim/no-normalization rules;
@@ -663,16 +845,23 @@ Implementation is incomplete until tests prove at least:
 
 ### Content
 
+- exact root pair table permits only the four documented provenance/category combinations;
+- mismatched pair is rejected before value inspection;
 - feature OFF remains metadata-only;
 - candidate 33 is omitted before value traversal;
-- exact types only; custom containers/numerics/keys fail closed;
-- depth 8/9, width 64/65, node 256/257 boundaries;
+- structured candidate without a reviewed provenance adapter fails closed;
+- provenance metadata/value shape mismatch fails before unmatched child body inspection;
+- file-write `content`, attachments, file/artifact reader bodies, Memory/retrieval bodies, reasoning, auth/session/credential bodies receive hard-denied provenance through reviewed adapters;
+- tools without a reviewed adapter execute but do not export structured content;
+- exact runtime types only; custom containers/numerics/keys fail closed;
+- depth 8/9, width 64/65, node 256/257 boundaries apply to value and metadata traversal;
 - alias/cycle accounting is deterministic;
 - forbidden provenance wins through nested composites;
 - oversized/surrogate strings and huge integers fail before scanner/rendering;
 - every always-blocked key causes whole-candidate omission;
-- each of the four closed secret classes is recognized on bounded values;
-- every recognized value secret becomes whole-scalar `[REDACTED]` or whole-candidate omission and never passes unchanged;
+- Authorization/Basic, compact JWT-like, PEM private key, and URI-userinfo detector boundaries/actions are exact;
+- `https://user:password@example.com/path` is detected by authority scanning after `://`;
+- every recognized value secret is redacted/omitted according to section 3.9 and never passes unchanged;
 - mapping-key secret match omits candidate;
 - canonical rendering is stable across supported Python 3.11/3.13/3.14 conformance corpus;
 - exact field/span budgets and shared ledger behavior;
@@ -680,7 +869,8 @@ Implementation is incomplete until tests prove at least:
 
 ### Pseudonyms
 
-- exact credential runtime types are required before comparison/decode;
+- custom credential store output is rejected unless `type(credential) is Credential` and every required nested runtime type/size gate passes;
+- oversized/malformed metadata is rejected before unbounded iteration/custom comparison;
 - canonical 43-char base64url secret decodes to 32 bytes; malformed/passphrase values fail closed;
 - key version grammar/default/rotation behavior;
 - deployment/raw-ID bounds and framing are exact;
@@ -700,7 +890,11 @@ Implementation is incomplete until tests prove at least:
 
 ### Trace query
 
-- invalid query trace ID fails before lookup;
+- feature is independently default-OFF and requires its explicit activation control;
+- invalid query trace ID fails before local-index lookup;
+- local index write/read ceilings prevent unbounded segment/span-ID materialization;
+- the five-second budget starts before local-index lookup and is shared through backend work;
+- local index overflow/incompleteness denies/errors before backend query rather than granting partial authorization;
 - every projected backend record requires an explicit matching canonical trace ID;
 - missing/mismatched record trace ID cannot be rescued by span-ID membership;
 - invalid/duplicate span IDs fail closed;
@@ -720,6 +914,7 @@ The following require a later reviewed contract revision:
 
 - reasoning/chain-of-thought/system/developer instruction capture;
 - Memory/retrieval/file/artifact/auth/session/credential body capture;
+- generic structured capture for tools without a reviewed provenance adapter;
 - provider-native prompt/response export or richer SDK events/attributes/links;
 - ordinary-user captured-content viewing;
 - ordinary-user pseudonym-based trace discovery;
