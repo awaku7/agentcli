@@ -73,17 +73,17 @@ pseudonymous correlation
 Their source grammars are:
 
 - CLI: presence-only flags `--otel-capture-content` / `--no-otel-capture-content` and `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation`; no `=<value>` or following value token is accepted; last explicit positive/negative flag wins;
-- environment: value must first be an exact built-in `str`; apply Python `str.strip()` followed by `str.lower()` and accept only `1`, `true`, `yes`, `on` as true or `0`, `false`, `no`, `off` as false; every other present value is invalid and resolves the affected feature to OFF without fallback;
+- environment: value must first be an exact built-in `str`; native length must be `1..16` before normalization; then apply Python `str.strip()` followed by `str.lower()` and accept only `1`, `true`, `yes`, `on` as true or `0`, `false`, `no`, `off` as false; every other present value is invalid and resolves the affected feature to OFF without fallback;
 - application/programmatic: value must be exact built-in `bool`; `int`/string/custom truthy objects are invalid; no `bool(value)` coercion is permitted.
 
 Numeric Phase 4 settings initially are exactly the two controlled-content bounds. Source grammars are:
 
-- CLI/environment raw value must be exact built-in `str` and match canonical ASCII decimal `0|[1-9][0-9]*`; no sign, whitespace, separator, exponent, leading zero on a multi-digit value, or Unicode digit is accepted;
+- CLI/environment raw value must be exact built-in `str` with native length `1..5` before character scanning/parsing and the entire value must match canonical ASCII decimal `0|[1-9][0-9]*`; no sign, whitespace, separator, exponent, leading zero on a multi-digit value, or Unicode digit is accepted;
 - application/programmatic value must be exact built-in `int`, with `bool` explicitly rejected;
-- parse only after the lexical/type gate, then apply the ranges in section 1.3;
+- parse only after the native-length and lexical/type gates, then apply the ranges in section 1.3;
 - launcher/GUI/Web/A2A code must not use a more permissive parser and then pass a normalized value as if it were the original explicit setting.
 
-String and CSV settings use exact built-in `str` values only. CLI arguments are passed as their raw token strings to the shared resolver; environment values must already be exact built-in strings; programmatic callers may not pass bytes/custom string-like objects. Topic sections below define each string/CSV grammar.
+String and CSV settings use exact built-in `str` values only. CLI arguments are passed as their raw token strings to the shared resolver; environment values must already be exact built-in strings; programmatic callers may not pass bytes/custom string-like objects. Topic sections below define each string/CSV grammar and native-length ceiling before splitting, regex, Unicode-property scanning, or encoding.
 
 ### 1.2 Controlled-content category parsing
 
@@ -97,7 +97,8 @@ tool_result
 ```
 
 - missing/empty -> empty set;
-- non-empty -> split on comma;
+- non-empty raw string must have native length `<=128` before splitting;
+- split on comma;
 - strip only surrounding ASCII space/tab from each token;
 - no case folding/Unicode normalization;
 - every non-empty token must exactly match the closed vocabulary;
@@ -131,7 +132,7 @@ claude
 Parsing:
 
 - missing/empty -> OFF;
-- value is exact built-in `str` under section 1.1;
+- value is exact built-in `str` under section 1.1 and native length must be `<=64` before splitting;
 - split on comma;
 - strip only surrounding ASCII space/tab;
 - no case folding/Unicode normalization;
@@ -152,7 +153,7 @@ Resolution:
 
 No hostname/PID/random/CWD/repository/machine-local fallback.
 
-Validation occurs without trimming/canonical rewrite. The effective value must be an exact built-in string containing 1-128 Unicode scalar values and no:
+Validation occurs without trimming/canonical rewrite. The effective value must first satisfy `type(value) is str` and native length `1..128`; only then scan its characters. It must contain no:
 
 - leading/trailing Unicode whitespace;
 - Unicode control character;
@@ -174,27 +175,28 @@ Safe default:
 observability/correlation
 ```
 
-An explicit effective credential name must be an exact built-in string containing 1-128 Unicode scalar values with no leading/trailing Unicode whitespace, controls, or surrogates. No generic conversion or canonicalization occurs before lookup.
+An explicit effective credential name must first satisfy `type(value) is str` and native length `1..128`; only then scan characters for leading/trailing Unicode whitespace, controls, or surrogates. No generic conversion or canonicalization occurs before lookup.
 
 Invalid explicit name disables pseudonym emission and does not fall back to the default.
 
 ### 3.2 Credential runtime type and metadata contract
 
-Before any equality, length, alphabet, decoding, or conversion operation:
+A custom `CredentialStore` return is treated as untrusted runtime shape until these exact gates pass. Before any field equality, length, alphabet, decoding, mapping lookup, or conversion operation:
 
-- the resolved credential object must expose the reviewed `CredentialKind` value without invoking a custom conversion hook;
-- `credential.secret` must satisfy `type(secret) is str`;
-- `credential.metadata` must satisfy `type(metadata) is dict`;
-- `metadata["purpose"]` and `metadata["key_version"]` must both exist and each satisfy `type(value) is str`;
-- required metadata keys are looked up only by the literal built-in string keys `purpose` and `key_version`;
-- bytes, string subclasses, custom mappings, proxy values, custom equality objects, or coercible wrappers fail closed before comparison/decoding.
+- `type(credential) is Credential`;
+- `type(credential.name) is str`, native length `1..128`, and it exactly equals the already validated requested credential name;
+- `type(credential.kind) is CredentialKind`, then it must equal `CredentialKind.OTHER`;
+- `type(credential.secret) is str`;
+- `type(credential.metadata) is dict` and `len(metadata) <= 16` before iteration;
+- iterate the exact dict without lookups first: every metadata key and value must satisfy `type(x) is str`; every key must have native length `1..64`; every value native length `0..128`; otherwise fail closed;
+- only after that full exact-type/length preflight may UAG copy the bounded exact-string pairs into a new plain dict and look up the literal keys `purpose` and `key_version`;
+- bytes, subclasses, custom mappings, proxy values, custom equality objects, or coercible wrappers fail closed before comparison/decoding.
 
-Initial correlation credential must then satisfy:
+The preflighted safe metadata snapshot must then satisfy:
 
 ```text
-CredentialKind.OTHER
-metadata["purpose"] = "observability_pseudonym_v1"
-metadata["key_version"] = <effective validated key version>
+purpose = "observability_pseudonym_v1"
+key_version = <effective validated key version>
 ```
 
 Configured key version must exactly equal metadata `key_version`. Missing/mismatched purpose or version disables pseudonym emission. Raw credential metadata is not exported.
@@ -505,16 +507,17 @@ Rules:
 ### Configuration/credentials
 
 - CLI overrides env; `--no-otel` suppresses all Phase 4;
-- environment booleans accept exactly the documented normalized token set and reject every other present value without fallback;
+- environment booleans reject raw strings longer than 16 before normalization, accept exactly the documented normalized token set, and reject every other present value without fallback;
 - programmatic booleans require exact built-in `bool`; `0/1`, strings, and custom truthy objects fail closed;
-- CLI/environment numeric strings accept only canonical ASCII decimal grammar; signs, surrounding whitespace, leading-zero multi-digit forms, Unicode digits, decimal/exponent forms fail closed;
+- CLI/environment numeric strings reject raw length >5 before parsing and otherwise accept only canonical ASCII decimal grammar; signs, surrounding whitespace, leading-zero multi-digit forms, Unicode digits, decimal/exponent forms fail closed;
 - programmatic numeric values require exact built-in `int`; `bool`/float/string/custom numeric wrappers fail closed;
+- category/provider CSV raw-length ceilings apply before split/token work;
 - category/bound invalidity fails closed;
 - initial provider selector set is exactly `openai|claude`; `anthropic`/unknown values never instrument an unselected path;
 - default correlation credential name exactly `observability/correlation`;
-- invalid credential names fail closed;
-- credential secret, metadata mapping, purpose, and key-version values pass exact runtime type gates before comparison/length/decode;
-- bytes/string subclasses/custom mappings/custom equality wrappers fail closed before credential comparison/decoding;
+- invalid credential names fail closed after native-length-first validation;
+- custom store returns require exact `Credential`, exact `CredentialKind`, exact built-in string fields, and exact bounded dict metadata before any lookup/equality/decode;
+- metadata with non-string/custom keys or values fails before lookup/equality hooks;
 - credential kind/purpose/version metadata is exact;
 - canonical 43-char unpadded base64url decodes to exactly 32 bytes;
 - padded/noncanonical/wrong-length/passphrase secrets fail closed before expensive decode work;
@@ -522,7 +525,7 @@ Rules:
 
 ### Deployment/provenance/secrets
 
-- deployment-scope exact validation/hashing is replica-stable;
+- deployment-scope native-length/type validation precedes Unicode-property scanning and hashing and is replica-stable;
 - forbidden body/auth/Memory/retrieval/file/artifact/reasoning sources remain excluded through nesting;
 - unannotated body-capable children fail closed;
 - each initial recognized secret class follows the mandatory redact-or-omit action and no recognized secret passes unchanged.
@@ -548,11 +551,11 @@ Rules:
 
 ## 11. Fixed Phase 4 decisions
 
-- Configuration parsing has source-specific exact runtime types and lexical grammars; invalid explicit higher-precedence settings fail closed without fallback.
+- Configuration parsing has native-length-first, source-specific exact runtime types and lexical grammars; invalid explicit higher-precedence settings fail closed without fallback.
 - Initial provider diagnostics are selectable only for `openai` and `claude`.
-- Correlation credential secret/metadata values require exact built-in runtime types before comparison or decoding.
+- Correlation credentials require exact `Credential`/`CredentialKind`, exact built-in runtime string fields, and bounded exact dict metadata before comparison or decoding.
 - Correlation key is canonical unpadded base64url of exactly 32 bytes with dedicated purpose/version metadata.
-- Deployment scope is exact/untrimmed/bounded.
+- Deployment scope is exact/untrimmed/bounded with native length checked before character classification.
 - Field/node provenance hard denial overrides content categories.
 - Privacy/secret scanning runs only after bounded traversal/scalar preflight, and recognized initial secret forms must redact or omit.
 - Ordinary-user v1 requires a matching canonical trace ID on every projected backend record before span membership lookup, performs fixed-length canonical trace/span-ID validation, has unique returned span IDs, closed name/status/timing types, and no arbitrary backend structures.
