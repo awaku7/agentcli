@@ -5,7 +5,7 @@ Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`
 Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
 Applies to: Phase 4A content traversal and Phase 4D ordinary-user trace projection
 
-This document closes two remaining implementation ambiguities from Phase 4 review. Where the parent scope or security contract uses the phrases `canonical/supported span name`, `cap recursion depth`, or `cap collection item counts`, the rules below are normative for the initial Phase 4 implementation.
+This document closes remaining implementation ambiguities from Phase 4 review. Where the parent scope or security contract uses the phrases `canonical/supported span name`, `cap recursion depth`, or `cap collection item counts`, the rules below are normative for the initial Phase 4 implementation.
 
 ## 1. Ordinary-user span names use a closed UAG-owned vocabulary
 
@@ -50,7 +50,7 @@ Tests must prove that:
 
 ## 2. Structured content traversal has fixed hard limits
 
-Character ceilings alone are insufficient because provenance/redaction traversal occurs before final rendering. Initial Phase 4A therefore uses fixed traversal limits that are enforced while walking structured content.
+Character ceilings alone are insufficient because provenance/redaction traversal can otherwise do substantial work before final rendering. Initial Phase 4A therefore uses fixed traversal limits that are enforced while walking structured content.
 
 The initial constants are:
 
@@ -64,7 +64,30 @@ These are hard maxima and defaults for the initial implementation. They are not 
 
 A future change may add configurability only through a separately reviewed configuration contract that preserves equal-or-lower safe maxima unless the privacy/security design is explicitly revised.
 
-### 2.1 Depth definition
+### 2.1 Root eligibility remains provenance-first
+
+The parent Phase 4 eligibility order remains normative. The implementation must reject obviously ineligible roots before structural traversal.
+
+For each capture candidate, evaluate these root gates first using trusted UAG-local metadata only:
+
+```text
+root trusted provenance is forbidden?
+  -> yes: omit without traversing the value
+content master gate enabled?
+  -> no: omit without traversing the value
+semantic category explicitly allowed?
+  -> no: omit without traversing the value
+root source/category combination allowed?
+  -> no: omit without traversing the value
+otherwise
+  -> begin bounded structural traversal
+```
+
+No container enumeration, scalar normalization, secret scanning, string conversion, or serialization occurs before those root gates pass.
+
+For eligible structured roots, the traversal limits below are then enforced incrementally before descending into each child. Trusted child provenance is checked before any child value normalization or redaction. A forbidden or security-opaque child is handled according to the parent provenance contract without scanning its body.
+
+### 2.2 Depth definition
 
 Depth is counted from the capture candidate root:
 
@@ -78,48 +101,93 @@ No node deeper than depth 8 may be visited for capture purposes.
 
 Before descending into a child that would exceed the depth limit, the entire capture candidate is rejected and omitted. The implementation must not partially serialize the prefix of an over-deep value.
 
-### 2.2 Collection width definition
+### 2.3 Collection width definition
 
-Each mapping, list, tuple, or other explicitly reviewed finite structured container may contain at most 64 immediate children for capture traversal.
+Each mapping, list, tuple, or other explicitly reviewed finite structured container may contain at most 64 immediate logical children.
+
+For sequences, one element is one logical child. For mappings, one key/value pair is one logical child for the 64-item width limit, even though key and value occurrences are counted separately for the total-node budget defined below.
 
 If a container contains more than 64 entries/elements, the entire capture candidate is rejected and omitted. The implementation must not capture only the first 64 items because doing so can produce misleading or security-sensitive partial structures.
 
 Opaque/custom iterators, generators, file-like objects, streaming values, and unreviewed container types are not traversed. They fail closed to omission rather than being consumed to discover their size.
 
-### 2.3 Total node budget
+### 2.4 Total node budget and deterministic accounting
 
-At most 256 nodes, including the root, may be examined for one capture candidate.
+At most 256 node occurrences, including the root, may be examined for one capture candidate.
 
-The node counter increments before provenance inspection, redaction, string conversion, or child traversal for each visited scalar/container node.
+Node accounting is occurrence-based, not object-identity-based:
 
-If visiting the next node would exceed 256, the entire capture candidate is rejected and omitted.
+- the root scalar/container counts as one node;
+- each sequence element occurrence counts as one node when visited;
+- each mapping key occurrence counts as one node;
+- each mapping value occurrence counts as one node;
+- therefore a mapping with `N` scalar key/value pairs consumes `1 + 2N` node occurrences for that mapping and its direct children, before descendants of container values are counted;
+- if the same Python/runtime object is referenced in multiple positions, every occurrence counts again;
+- aliases are never deduplicated for budget purposes.
+
+Traversal order for conformance tests is deterministic:
+
+- sequences are visited in index order;
+- mappings are visited in their stable runtime iteration/insertion order;
+- for each mapping entry, visit the key occurrence first, then the value occurrence;
+- only reviewed bounded scalar key types are accepted; opaque/custom key objects cause whole-candidate omission rather than arbitrary conversion.
+
+Cycle handling is separate from alias accounting. The walker maintains an active-ancestor identity set for traversed containers. Encountering a container that is already on the active ancestor path is a cycle and causes whole-candidate omission. A previously completed container referenced again later is not a cycle, but its new occurrence is counted and traversed again subject to all limits.
+
+The node counter increments before any value-level secret scan, string conversion, normalization, or child descent for that occurrence. If visiting the next occurrence would exceed 256, the entire capture candidate is rejected and omitted.
 
 The total-node budget is independent of the per-container 64-item limit and depth-8 limit; all limits must pass.
 
-### 2.4 Enforcement order
+### 2.5 Raw scalar preflight before redaction
 
-Resource bounds are checked during traversal, before unbounded normalization or serialization:
+Secret scanning itself must be bounded. An eligible scalar is therefore size-checked before invoking the value-level redactor.
+
+For initial Phase 4A:
+
+- strings are accepted for redaction only when their native character length is less than or equal to the effective `MAX_FIELD_CHARS` value;
+- because `MAX_FIELD_CHARS` is itself bounded to at most 16384, the redactor never scans an arbitrarily large string;
+- strings above the effective field limit cause whole-candidate omission; they are not truncated before scanning;
+- byte arrays, byte buffers, file-like values, data URLs classified as body content, and other opaque binary/body scalars remain excluded by provenance/type policy and are not decoded or scanned as text;
+- primitive numeric/boolean/null scalars have bounded representation and may proceed only after normal provenance/category gates;
+- mapping keys are subject to the same bounded-scalar preflight before any normalization or secret scanning.
+
+The implementation must use a size operation that does not require copying, decoding, regex-scanning, or rendering the whole scalar. No generic `str(value)`, JSON serialization, UTF-8 re-encoding of an oversized string, or regex/classifier pass is permitted before this preflight succeeds.
+
+### 2.6 Enforcement order
+
+The combined normative order is:
 
 ```text
-candidate
-  -> supported finite structure?
+candidate + trusted root metadata
+  -> root forbidden-provenance gate
+  -> content master gate
+  -> semantic-category gate
+  -> root source/category gate
+  -> supported finite root shape?
      -> no: omit
-  -> node budget available?
-     -> no: omit whole candidate
-  -> depth within limit?
-     -> no: omit whole candidate
-  -> collection width within limit?
-     -> no: omit whole candidate
-  -> trusted field/node provenance gate
-  -> category eligibility
-  -> value-level secret redaction
+  -> root node budget/depth checks
+  -> if root scalar: raw scalar-size preflight
+  -> if root container: collection-width check
+  -> for each child in deterministic order:
+       -> next occurrence fits node/depth budget?
+          -> no: omit whole candidate
+       -> trusted child provenance gate
+       -> supported child shape/type?
+          -> no: omit according to provenance/type contract
+       -> if child scalar: raw scalar-size preflight
+       -> if child container: collection-width/cycle checks before descent
+       -> recurse with the same rules
+  -> after a scalar passes preflight: value-level secret redaction
   -> existing per-field/per-span character budgets
+  -> final key/privacy filter
   -> export
 ```
 
+Structural checks may inspect only bounded container metadata needed to apply these limits; they must not consume opaque iterators or inspect forbidden child bodies.
+
 No overflow condition may truncate into an apparently valid partial content value. Overflow omits the whole content candidate and leaves normal Agent/model/tool execution unaffected.
 
-### 2.5 Existing character budgets remain cumulative
+### 2.7 Existing character budgets remain cumulative
 
 These traversal limits are additional to the existing content character limits:
 
@@ -129,18 +197,26 @@ MAX_SPAN_CHARS  default 8192, valid 256..65536
 MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 ```
 
-Passing traversal limits does not bypass character limits, provenance restrictions, category selection, or redaction.
+Passing traversal limits does not bypass character limits, provenance restrictions, category selection, scalar preflight, or redaction.
 
 ### Required regressions
 
 Tests must include:
 
+- a forbidden-provenance root is rejected without enumerating/traversing its value;
+- content master OFF or category not selected rejects the root without traversal;
 - depth exactly 8 succeeds when every other gate succeeds;
 - depth 9 omits the whole candidate;
-- a collection with exactly 64 children succeeds subject to other gates;
-- a collection with 65 children omits the whole candidate;
-- exactly 256 visited nodes succeeds subject to other gates;
-- the 257th node causes whole-candidate omission;
+- a sequence with exactly 64 children succeeds subject to other gates;
+- a sequence with 65 children omits the whole candidate;
+- a mapping with exactly 64 pairs is width-valid and counts root + 64 keys + 64 values before descendants;
+- mapping key-before-value and sequence index-order accounting are deterministic;
+- repeated aliases count per occurrence rather than once per object identity;
+- an active-path cycle omits the whole candidate;
+- exactly 256 visited occurrences succeeds subject to other gates;
+- the 257th occurrence causes whole-candidate omission;
+- an oversized string is omitted before the redactor/classifier is invoked;
+- a scalar exactly at the effective `MAX_FIELD_CHARS` limit may proceed to redaction;
 - a wide/deep value cannot trigger unbounded provenance or redaction traversal;
 - a generator/custom iterator/file-like object is not consumed and is omitted;
 - overflow produces only a normalized, content-free diagnostic and never logs the rejected value;
@@ -151,7 +227,10 @@ Tests must include:
 - Ordinary-user `uag.trace_view.v1.name` is a closed UAG-owned enum, not a copied/sanitized backend span name.
 - Backend/provider span names are ignored for ordinary-user v1 projection.
 - Unknown span classes map to `UNKNOWN` rather than arbitrary text.
-- Structured content traversal is bounded by depth 8, 64 immediate children per collection, and 256 visited nodes per candidate.
+- Root provenance/master/category eligibility gates execute before structural traversal.
+- Structured content traversal is bounded by depth 8, 64 immediate logical children per collection, and 256 visited node occurrences per candidate.
+- Mapping keys and values count as separate node occurrences; aliases count per occurrence; active-path cycles fail closed.
+- Raw scalar size is checked before value-level secret scanning; oversized strings are omitted rather than scanned or truncated.
 - Traversal limits are fixed and non-configurable in the initial Phase 4 implementation.
 - Exceeding any traversal limit omits the whole capture candidate; partial prefix capture is forbidden.
 - Unreviewed/streaming/opaque iterables are not consumed for telemetry.
