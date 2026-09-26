@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 from contextlib import contextmanager
+from threading import Lock
 
 from uagent.runtime.execution import lifecycle_execution
 from uagent.runtime.identity_context import TurnContext
@@ -215,6 +216,37 @@ def test_single_use_carrier_is_consumed_by_worker_binding() -> None:
     assert first == {"traceparent": _TRACEPARENT}
     assert second == {}
     assert get_trusted_ingress_carrier() == {}
+
+
+def test_busy_web_worker_does_not_consume_handshake_carrier(monkeypatch) -> None:
+    from uagent.web_impl import agent_worker
+
+    class _BusyRoom:
+        def __init__(self) -> None:
+            self.room_id = "room"
+            self.lang = "en"
+            self.worker_lock = Lock()
+            self.messages: list[dict[str, object]] = []
+
+        def add_message(self, message: dict[str, object]) -> None:
+            self.messages.append(message)
+
+    room = _BusyRoom()
+    carrier = SingleUseTrustedIngressCarrier({"traceparent": _TRACEPARENT})
+    monkeypatch.setattr(agent_worker, "resolve_identity_mode", lambda: "local")
+    monkeypatch.setattr(agent_worker, "log_event", lambda *args, **kwargs: None)
+
+    room.worker_lock.acquire()
+    try:
+        call_with_trusted_ingress(carrier, agent_worker.run_agent_worker, room, "hello")
+    finally:
+        room.worker_lock.release()
+
+    assert room.messages
+    assert call_with_trusted_ingress(carrier, get_trusted_ingress_carrier) == {
+        "traceparent": _TRACEPARENT
+    }
+    assert call_with_trusted_ingress(carrier, get_trusted_ingress_carrier) == {}
 
 
 def test_trusted_ingress_binding_is_scoped() -> None:
