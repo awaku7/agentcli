@@ -74,17 +74,51 @@ export function ansiToHtml(text) {
   return result;
 }
 
+function linkAnchor(href, label) {
+  return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline break-all">${label}</a>`;
+}
+
 export function linkifyHtml(escapedHtml) {
   const urlRe = /\b(https?:\/\/[^\s<>"']+|www\.[^\s<>"']+)/gi;
   return escapedHtml.replace(urlRe, (m) => {
-    const href = m.indexOf('www.') === 0 ? 'https://' + m : m;
-    return `<a href="${href}" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 underline break-all">${m}</a>`;
+    let url = m;
+    let trailing = '';
+    while (/[.,!?;:]$/.test(url)) {
+      trailing = url.slice(-1) + trailing;
+      url = url.slice(0, -1);
+    }
+    while (url.endsWith(')')) {
+      const openCount = (url.match(/\(/g) || []).length;
+      const closeCount = (url.match(/\)/g) || []).length;
+      if (closeCount <= openCount) break;
+      trailing = ')' + trailing;
+      url = url.slice(0, -1);
+    }
+    const href = url.indexOf('www.') === 0 ? 'https://' + url : url;
+    return `${linkAnchor(href, url)}${trailing}`;
   });
+}
+
+function formatInlineText(text) {
+  const markdownLinkRe = /\[([^\]\r\n]+)\]\(((?:https?:\/\/|www\.)(?:[^()\s<>"']|\([^()\s<>"']*\))*)\)/gi;
+  let result = '';
+  let lastIndex = 0;
+  let match;
+
+  while ((match = markdownLinkRe.exec(text)) !== null) {
+    result += linkifyHtml(ansiToHtml(text.slice(lastIndex, match.index)));
+    const url = match[2];
+    const href = url.indexOf('www.') === 0 ? 'https://' + url : url;
+    result += linkAnchor(escapeHtml(href), ansiToHtml(match[1]));
+    lastIndex = markdownLinkRe.lastIndex;
+  }
+
+  return result + linkifyHtml(ansiToHtml(text.slice(lastIndex)));
 }
 
 export function formatMessageBody(body) {
   if (!body) return '';
-  if (body.indexOf('```') < 0) return linkifyHtml(ansiToHtml(body));
+  if (body.indexOf('```') < 0) return formatInlineText(body);
   const parts = body.split(/(```(?:\w+)?[\s\S]*?```)/);
   let result = '';
   for (const part of parts) {
@@ -99,10 +133,10 @@ export function formatMessageBody(body) {
         result += `<pre class="p-3 text-xs font-mono overflow-auto max-h-[250px] whitespace-pre" style="background:#0f172a;color:#e2e8f0;">${escapeHtml(code.trim())}</pre>`;
         result += '</details>';
       } else {
-        result += linkifyHtml(ansiToHtml(part));
+        result += formatInlineText(part);
       }
     } else {
-      result += linkifyHtml(ansiToHtml(part));
+      result += formatInlineText(part);
     }
   }
   return result;
