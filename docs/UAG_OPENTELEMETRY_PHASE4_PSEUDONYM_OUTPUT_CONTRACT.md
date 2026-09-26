@@ -5,7 +5,7 @@ Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`
 Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
 Applies to: Phase 4B pseudonymous correlation output and correlation-key version labels
 
-This companion fixes the initial exported pseudonym representation so implementations cannot choose an arbitrarily short digest truncation while still claiming compliance. It also fixes the initial correlation-key version grammar so rotation metadata remains bounded and low-cardinality.
+This companion fixes the initial exported pseudonym representation so implementations cannot choose an arbitrarily short digest truncation while still claiming compliance. It also fixes the initial correlation-key version grammar and export association so rotation metadata remains bounded, low-cardinality, and unambiguous.
 
 ## 1. Initial pseudonym representation is fixed
 
@@ -95,6 +95,24 @@ Validation and failure behavior:
 - the version label is diagnostic metadata only and is never an authentication, authorization, routing, storage, Memory, credential-selection, or trace-query authorization input;
 - UAG never derives the label from secret key bytes and never places secret material in the label.
 
+### 2.1 Every emitted pseudonym carries its effective key version
+
+The exact trace attribute for the effective correlation-key version is:
+
+```text
+uag.correlation.key_version
+```
+
+Association rules are normative:
+
+- whenever a span emits one or more pseudonym attributes (`uag.correlation.principal`, `uag.correlation.room`, or `uag.correlation.project`), that same span MUST also emit exactly one `uag.correlation.key_version` attribute;
+- the value of `uag.correlation.key_version` is the effective validated version label used with the correlation key that produced every pseudonym on that span;
+- all pseudonyms on one span must use the same effective correlation-key generation/version; mixing pseudonyms from different key versions on one span is forbidden;
+- `uag.correlation.key_version` is not emitted by itself when the span contains no pseudonym attribute;
+- the attribute is trace-only diagnostic metadata and remains forbidden from metrics, baggage, resource attributes, authorization, routing, storage keys, Memory identity, credential selection, and ordinary-user `uag.trace_view.v1` responses;
+- the version attribute is assigned from trusted process configuration, never copied from request/provider/backend data;
+- historical exported spans retain the version attribute that was paired with their historical pseudonym values.
+
 Rotation semantics:
 
 - one version label identifies one intentionally selected correlation-key generation within a deployment correlation domain;
@@ -130,7 +148,12 @@ Tests must prove that:
 - CLI key-version configuration overrides the environment fallback;
 - invalid explicit CLI configuration does not silently fall back to a valid environment value or `v1`;
 - key-version labels cannot be overridden by request, provider, tool, A2A/MCP, baggage, or trace data;
+- every span carrying any pseudonym also carries exactly one `uag.correlation.key_version` with the effective version that produced it;
+- a span with no pseudonym does not emit `uag.correlation.key_version` merely because pseudonymous correlation is configured;
+- one span cannot mix pseudonyms from multiple key versions;
+- `uag.correlation.key_version` never appears in metrics, baggage, resources, auth inputs, storage/routing keys, or ordinary-user `uag.trace_view.v1`;
 - rotation changes both key material and version label before new pseudonyms are emitted;
+- historical pseudonym/version pairs remain interpretable after rotation;
 - no key-version failure changes core tracing or Agent execution.
 
 ## 5. Fixed Phase 4 decisions from this companion
@@ -142,5 +165,6 @@ Tests must prove that:
 - The initial correlation-key version default is exactly `v1`.
 - Explicit key-version values must match `^[a-z0-9][a-z0-9._-]{0,31}$`.
 - Invalid explicit key-version configuration disables pseudonym emission rather than falling back silently.
+- Every emitted pseudonym is paired on the same span with exactly one `uag.correlation.key_version` attribute identifying its effective key generation.
 - Correlation-key rotation changes the version label along with the key generation.
 - Pseudonyms and version labels remain diagnostic-only and never become security identities.
