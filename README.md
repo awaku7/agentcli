@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identity & policy<br/>OIDC · Entra groups · AD adapters · Confirmation]
 
     U --> I
     I --> G
@@ -93,13 +93,16 @@ tools, interfaces, and policies work together.
 Use hosted or local models through one consistent tool interface. Switch providers with
 `UAGENT_PROVIDER`—no code changes, migration, or separate workflow.
 
-### 🖥 Computer Use and browser automation
+### 🔐 OIDC and enterprise identity
 
-Opt-in Computer Use combines a Playwright browser runtime with desktop interaction. Automate
-navigation, forms, multi-page flows, downloads, screenshots, and DOM extraction. The Browser
-Inspector records transitions and page state for debugging and auditing.
+The Web UI includes OIDC sign-in using Authorization Code + PKCE, verified ID tokens, server-side
+sessions, and project/room access controls. Verified Microsoft Entra ID group claims can feed
+directory-backed access policy when configured. Windows Active Directory, OAuth, and trusted-proxy
+deployments can integrate through explicit verified identity adapters; Windows AD requires a
+deployment-specific Kerberos/Negotiate verifier and is not enabled by default.
 
-See [Computer Use](https://github.com/awaku7/agentcli/blob/main/docs/COMPUTER_USE_IMPLEMENTATION.md).
+See [Web Identity and Memory](docs/WEB_IDENTITY_MEMORY.md) and
+[Enterprise Policy](docs/ENTERPRISE_POLICY.md).
 
 ### ⚡ Parallel tool execution
 
