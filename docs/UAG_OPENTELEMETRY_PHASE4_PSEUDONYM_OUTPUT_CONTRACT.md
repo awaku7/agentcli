@@ -3,7 +3,7 @@
 Status: Normative Phase 4 companion  
 Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`  
 Security/configuration contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
-Applies to: Phase 4B pseudonym construction, output representation, kind domain, raw-identifier bounds, and correlation-key version association
+Applies to: Phase 4B pseudonym construction, output representation, attachment scope, kind domain, raw-identifier bounds, and correlation-key version association
 
 This document is the sole normative owner for the initial pseudonym construction/output rules. The security contract owns deployment-scope and key-material validation; this contract consumes only already-validated values.
 
@@ -42,7 +42,7 @@ After that bounded native-length check, UTF-8 encoding must be `1..1024` bytes. 
 
 No generic `str()`/`repr()` conversion of arbitrary identity objects is permitted in the pseudonym helper.
 
-This bound is telemetry-only and never changes the authoritative UAG identity or authorization decision.
+This bound is telemetry-only and never changes authoritative UAG identity or authorization.
 
 ## 2. Initial pseudonym representation is fixed
 
@@ -60,7 +60,7 @@ Therefore:
 - uppercase hex, base64, base64url, or implementation-specific encodings are not permitted;
 - changing digest length or representation requires an explicitly reviewed schema/version change.
 
-## 3. Exact trace attribute names
+## 3. Exact trace attribute names and attachment scope
 
 The only initial pseudonym attributes are:
 
@@ -72,6 +72,14 @@ uag.correlation.key_version
 ```
 
 Each principal/room/project value is exactly the 32-character `pseudo128` representation.
+
+Initial attachment scope is also fixed:
+
+- pseudonym attributes are emitted only on the locally owned canonical `invoke_agent` span that represents the local Agent-turn/segment root;
+- applicable principal/room/project pseudonyms for that local authorization scope are attached to that one span;
+- canonical `chat`, canonical `execute_tool`, provider-SDK child, and unrelated internal spans do not repeat pseudonym attributes in the initial release;
+- each independent UAG service/instance participating in a distributed trace may attach its own local-scope pseudonyms to its own locally owned canonical `invoke_agent` segment root;
+- remote spans never cause UAG to copy or trust their pseudonym attributes.
 
 No raw identifier, deployment scope, correlation key, full HMAC digest, or caller-supplied label is exported by this contract.
 
@@ -118,7 +126,7 @@ Validation rules:
 
 ## 5. Every pseudonym is paired with its key version
 
-Whenever a span emits one or more of:
+Whenever a canonical local `invoke_agent` span emits one or more of:
 
 ```text
 uag.correlation.principal
@@ -185,6 +193,7 @@ Tests must prove that:
 - different kind or deployment scope domain-separates output;
 - every exported pseudonym is exactly 32 lowercase hex and equals the first 128 digest bits;
 - shorter/longer/base64/base64url/uppercase forms are rejected;
+- pseudonyms appear only on local canonical `invoke_agent` segment roots and are not repeated on `chat`, `execute_tool`, provider-SDK, or remote spans;
 - missing key version resolves to exact `v1`;
 - valid version lengths 1 and 32 pass; invalid/uppercase/whitespace/non-ASCII/33-char versions fail closed;
 - invalid explicit CLI version does not fall back to env or default;
@@ -198,8 +207,9 @@ Tests must prove that:
 
 ## 9. Fixed Phase 4 decisions from this contract
 
-- HMAC input framing, kind vocabulary, and raw-identifier bounds are exact and closed.
+- HMAC input framing, kind vocabulary, raw-identifier bounds, and attachment scope are exact and closed.
 - Initial pseudonym output is exactly the first 128 HMAC-SHA-256 bits as 32 lowercase hex characters.
+- Pseudonyms are attached only to each local canonical `invoke_agent` segment root.
 - The only initial pseudonym attributes are principal/room/project plus same-span `uag.correlation.key_version`.
 - Key-version default is `v1`; explicit labels match `^[a-z0-9][a-z0-9._-]{0,31}$`.
 - Rotation changes key material and version label together.
