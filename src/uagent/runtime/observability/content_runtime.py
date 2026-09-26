@@ -19,7 +19,7 @@ from .settings import ObservabilitySettings
 class _AgentContentCaptureState:
     buffer: ContentCaptureBuffer
     next_ordinal: int = 1
-    seen_message_ids: set[int] = field(default_factory=set)
+    seen_messages: list[dict[str, object]] = field(default_factory=list)
 
 
 _DISABLED = object()
@@ -48,15 +48,17 @@ def _eligible_envelope(message: object) -> tuple[str, str] | None:
         return None
 
 
-def _admit_message(state: _AgentContentCaptureState, message: dict[str, object]) -> bool:
+def _admit_message(
+    state: _AgentContentCaptureState,
+    message: dict[str, object],
+) -> bool:
     envelope = _eligible_envelope(message)
     if envelope is None:
         return False
     role, content = envelope
-    message_id = id(message)
-    if message_id in state.seen_message_ids or state.next_ordinal > 32:
+    if any(message is seen for seen in state.seen_messages) or state.next_ordinal > 32:
         return False
-    state.seen_message_ids.add(message_id)
+    state.seen_messages.append(message)
     ordinal = state.next_ordinal
     state.next_ordinal += 1
     category = "user_input" if role == "user" else "assistant_output"
@@ -85,35 +87,33 @@ def bind_agent_content_capture(
     """
 
     pending = _PENDING_USER_MESSAGE.get()
-    pending_token = _PENDING_USER_MESSAGE.set(None)
+    _PENDING_USER_MESSAGE.set(None)
+
     try:
-        try:
-            policy = ContentCapturePolicy.from_settings(settings)
-        except Exception:
-            policy = None
+        policy = ContentCapturePolicy.from_settings(settings)
+    except Exception:
+        policy = None
 
-        if policy is None or not policy.enabled:
-            token = _CURRENT_AGENT_CONTENT.set(_DISABLED)
-            try:
-                yield
-            finally:
-                _CURRENT_AGENT_CONTENT.reset(token)
-            return
-
-        state = _AgentContentCaptureState(ContentCaptureBuffer(policy))
-        token = _CURRENT_AGENT_CONTENT.set(state)
+    if policy is None or not policy.enabled:
+        token = _CURRENT_AGENT_CONTENT.set(_DISABLED)
         try:
-            if pending is not None:
-                _admit_message(state, pending)
             yield
         finally:
-            try:
-                state.buffer.emit_to(span)
-            except Exception:
-                pass
             _CURRENT_AGENT_CONTENT.reset(token)
+        return
+
+    state = _AgentContentCaptureState(ContentCaptureBuffer(policy))
+    token = _CURRENT_AGENT_CONTENT.set(state)
+    try:
+        if pending is not None:
+            _admit_message(state, pending)
+        yield
     finally:
-        _PENDING_USER_MESSAGE.reset(pending_token)
+        try:
+            state.buffer.emit_to(span)
+        except Exception:
+            pass
+        _CURRENT_AGENT_CONTENT.reset(token)
 
 
 def capture_logged_message(message: object) -> bool:
