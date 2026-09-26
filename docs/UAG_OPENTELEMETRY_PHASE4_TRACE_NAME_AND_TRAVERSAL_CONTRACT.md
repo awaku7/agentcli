@@ -4,15 +4,15 @@ Status: Normative Phase 4 companion
 Parent scope: `docs/UAG_OPENTELEMETRY_PHASE4_SCOPE.md`  
 Security contract: `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`  
 Scalar/timing contract: `docs/UAG_OPENTELEMETRY_PHASE4_SCALAR_AND_TIMING_CONTRACT.md`  
-Applies to: Phase 4A content traversal/rendering and Phase 4D ordinary-user trace-name projection
+Applies to: Phase 4A content ownership/traversal/rendering and Phase 4D safe span-name projection
 
-This document is the sole normative owner for the initial Phase 4 rules covering safe span-name projection, controlled-content structure traversal, content candidate admission, canonical content rendering, and cumulative per-span content accounting. Parent or sibling documents may summarize these rules but must not define a conflicting order, limit, renderer, or vocabulary.
+This document is the sole normative owner for safe span-name projection, the initial controlled-content carrier and canonical-span ownership, content candidate admission, structured traversal, redaction marker behavior, canonical rendering, and cumulative per-span content accounting.
 
-## 1. Ordinary-user span names use a closed UAG-owned vocabulary
+## 1. Ordinary-user span names use a closed vocabulary
 
-The `name` field in `uag.trace_view.v1` must never copy or sanitize an arbitrary backend, provider-SDK, model, tool, agent, URL, request, exception, or vendor span name.
+`uag.trace_view.v1.name` never copies/sanitizes arbitrary backend/provider/model/tool/agent/URL/request/exception/vendor span names.
 
-The initial closed vocabulary is exactly:
+The initial vocabulary is exactly:
 
 ```text
 AGENT
@@ -23,67 +23,55 @@ INTERNAL
 UNKNOWN
 ```
 
-Mapping is performed only from trusted UAG-local semantic ownership established before backend export/query projection:
+Trusted local semantic ownership maps as follows:
 
-- UAG canonical `invoke_agent ...` logical operation -> `AGENT`;
-- UAG canonical `chat ...` logical operation -> `LLM`;
-- UAG canonical `execute_tool ...` logical operation -> `TOOL`;
-- a locally owned, selected-call-scoped provider instrumentation child that passed the Phase 4C guard -> `PROVIDER_SDK`;
-- a reviewed UAG-local diagnostic/internal span class with no user/provider-derived name component -> `INTERNAL`;
-- any other authorized local span whose safe class cannot be proven -> `UNKNOWN`.
+- canonical `invoke_agent ...` -> `AGENT`;
+- canonical `chat ...` -> `LLM`;
+- canonical `execute_tool ...` -> `TOOL`;
+- locally owned selected-call provider diagnostic child -> `PROVIDER_SDK`;
+- reviewed UAG-local internal diagnostic class with no user/provider-derived name component -> `INTERNAL`;
+- other authorized local span without provable safe class -> `UNKNOWN`.
 
-The projection must not derive the enum by parsing or pattern-matching backend `span.name`. Trusted local span-ownership metadata supplies the safe class. Backend span-name text is ignored for ordinary-user v1.
+Do not derive the enum by parsing backend `span.name`. Unknown/malformed local class -> `UNKNOWN`; there is no backend-name fallback.
 
-Unknown or malformed local class values map to `UNKNOWN`; there is no bounded/sanitized backend-name fallback.
+## 2. Initial controlled-content carrier and owner spans are closed
 
-### Required regressions
-
-Tests must prove that:
-
-- `invoke_agent secret-user-name` projects only `AGENT`;
-- `chat https://example.invalid/private?q=secret` projects only `LLM` when the trusted local class is LLM;
-- `execute_tool tool-name-containing-user-data` projects only `TOOL`;
-- provider instrumentor names containing URLs, model names, request IDs, prompt fragments, or exception text project only `PROVIDER_SDK` when the span is a trusted selected-call child;
-- arbitrary/unknown backend names project `UNKNOWN` or are omitted by ownership policy, never copied;
-- no model/tool/agent/endpoint/request/vendor text is recoverable from v1 `name`.
-
-## 2. Initial controlled-content carrier is closed
-
-Initial Phase 4A controlled content is emitted only through a UAG-owned span event:
+Initial Phase 4A controlled content is emitted only as this UAG-owned span event:
 
 ```text
 event name: uag.content
 attributes:
-  uag.content.category  # closed semantic category
-  uag.content.value     # final canonical rendered content string
-  uag.content.ordinal   # trusted positive integer creation ordinal
+  uag.content.category
+  uag.content.value
+  uag.content.ordinal
 ```
 
-No other event attributes are permitted on `uag.content` in the initial release.
+No other attribute is permitted on this event initially.
 
-The category vocabulary is exactly:
+Category vocabulary and canonical owner span are exactly:
 
 ```text
-user_input
-assistant_output
-tool_arguments
-tool_result
+user_input       -> local canonical invoke_agent span
+assistant_output -> local canonical invoke_agent span
+tool_arguments   -> the matching local canonical execute_tool span
+tool_result      -> the matching local canonical execute_tool span
 ```
 
-Rules:
+Initial rules:
 
-- `uag.content.category` is selected by trusted UAG code, never copied from payload data;
-- `uag.content.ordinal` is assigned by trusted UAG-local instrumentation when the candidate is created;
-- `uag.content.value` is the only content-bearing field and contains the exact final representation defined in this contract;
-- content is never exported by inventing arbitrary attribute/event keys from user/tool/provider data;
-- provider SDK child spans never emit `uag.content` directly in the initial Phase 4 release; SDK-native prompt/response capture remains disabled and UAG-owned canonical spans remain the only content-capture surface;
-- ordinary-user `uag.trace_view.v1` does not expose events, so `uag.content` never appears in that response schema.
+- `chat` spans do not carry `uag.content` events;
+- provider-SDK child spans do not carry `uag.content` events;
+- internal spans do not carry `uag.content` events;
+- user/tool/provider payload data cannot choose the owner span, event name, attribute names, category, or ordinal;
+- `uag.content.ordinal` is a trusted positive integer creation ordinal local to the owner span;
+- `uag.content.value` is the only content-bearing field and is the exact canonical rendered string from this contract;
+- ordinary-user `uag.trace_view.v1` never exposes events.
 
-The normal generic metadata sanitizer must not gain a broad `capture_content=True` bypass. Controlled content reaches the `uag.content` carrier only after every gate in this contract succeeds.
+Provider/model-native prompt/response capture is therefore not a second content path. Initial content capture is only the UAG-owned Agent-turn/tool-operation surface above.
 
-## 3. Structured content traversal has fixed hard limits
+## 3. Fixed traversal and candidate limits
 
-The initial constants are exactly:
+Initial constants are exactly:
 
 ```text
 MAX_CAPTURE_DEPTH = 8
@@ -92,124 +80,117 @@ MAX_CAPTURE_NODES = 256
 MAX_CAPTURE_CANDIDATES_PER_SPAN = 32
 ```
 
-These are fixed hard maxima in the initial release and are not configurable through CLI, environment, browser/tool/provider payloads, baggage, A2A/MCP input, or remote configuration.
-
-A future change may add configurability only through a separately reviewed contract with equal-or-lower safe maxima unless the privacy/security design is explicitly revised.
+They are non-configurable in the initial release.
 
 ### 3.1 Candidate admission and root gates
 
-A canonical span may record at most 32 controlled-content candidate records. Candidate ordinal is assigned at creation and is monotonically increasing within that span. A 33rd or later candidate is dropped before inspecting/traversing its value and emits only a normalized content-free diagnostic.
+An owner canonical span records at most 32 candidate records. The 33rd/later candidate is omitted before inspecting its value.
 
-For an admitted candidate, evaluate these root gates using trusted UAG-local metadata before any value traversal:
+For each admitted candidate, trusted metadata gates execute before value work:
 
 ```text
-trusted root provenance forbidden?
-  -> yes: omit without traversing the value
-content master gate enabled?
-  -> no: omit without traversing the value
-semantic category explicitly allowed?
-  -> no: omit without traversing the value
-root source/category combination allowed?
-  -> no: omit without traversing the value
-carrier/owner is the approved UAG canonical span/event surface?
-  -> no: omit without traversing the value
-otherwise
-  -> begin bounded traversal
+root provenance forbidden? -> omit
+master gate OFF? -> omit
+category not selected? -> omit
+source/category not allowed? -> omit
+wrong canonical owner/carrier? -> omit
+otherwise -> bounded value traversal
 ```
 
-No container enumeration, scalar normalization, secret scanning, string conversion, serialization, or provider/custom hook runs before those root gates pass.
+No container enumeration, secret scan, normalization, conversion, serialization, or custom hook runs before these gates pass.
 
-### 3.2 Initial supported runtime shapes are closed
+### 3.2 Supported initial runtime shapes are exact
 
-The initial traversal accepts only exact built-in forms, not subclasses or protocol-compatible custom objects:
+Only exact built-in forms are accepted:
 
 ```text
 containers: dict, list, tuple
 scalars:    str, int, float, bool, None
+mapping keys: exact built-in str only
 ```
 
-`bool` is treated as boolean rather than integer. Numeric rules are further restricted by the scalar/timing contract.
+Subclasses and protocol-compatible custom values are not accepted.
 
-Initial mapping keys must be exact built-in `str` values. Numeric, boolean, null, bytes, tuple, custom, symbolic, or other mapping-key types cause whole-candidate omission. This avoids implementation-specific key coercion and custom conversion hooks.
+Reject without traversal/coercion:
 
-`dict` subclasses, list/tuple subclasses, custom `Mapping`/`Sequence` objects, generators, iterators, streams, file-like objects, byte arrays/buffers, body-wrapper objects, and other unreviewed shapes are not traversed or consumed for telemetry.
+- dict/list/tuple subclasses;
+- custom Mapping/Sequence/iterator/generator/stream/file-like objects;
+- bytes/bytearray/memoryview/body wrappers;
+- numeric/boolean/null/custom mapping keys;
+- arbitrary conversion hooks.
 
-### 3.3 Depth definition
+Numeric scalar rules are further restricted by the scalar/timing contract.
 
-Depth is counted from the capture-candidate root:
+### 3.3 Depth and width
+
+Depth:
 
 ```text
-root scalar/container = depth 0
-child of root         = depth 1
-...
+root = 0
+child = parent + 1
+maximum visited depth = 8
 ```
 
-No node deeper than depth 8 may be visited. Before descending to depth 9, omit the entire candidate. Never export a partial structural prefix.
+Attempting to descend to depth 9 omits the whole candidate.
 
-### 3.4 Collection width definition
+Width:
 
-Each accepted `dict`, `list`, or `tuple` may contain at most 64 immediate logical children:
+- list/tuple: maximum 64 immediate elements;
+- dict: maximum 64 key/value pairs.
 
-- list/tuple: one element = one logical child;
-- dict: one key/value pair = one logical child for the width limit.
+A 65th immediate element/pair omits the whole candidate. Never keep a prefix only.
 
-A container with 65 or more entries/elements causes whole-candidate omission. Do not consume an opaque iterator to discover size and do not keep only the first 64 items.
+### 3.4 Total node accounting
 
-### 3.5 Total-node budget and deterministic accounting
-
-At most 256 node occurrences, including the root, may be examined for one candidate.
+At most 256 node occurrences including root may be examined.
 
 Accounting is occurrence-based:
 
-- root counts as one;
-- each list/tuple element occurrence counts as one;
-- each dict key occurrence counts as one;
-- each dict value occurrence counts as one;
-- a dict with `N` scalar pairs therefore consumes `1 + 2N` occurrences before descendants;
-- repeated aliases count again at every occurrence;
-- object identity never reduces the budget.
+- root = 1;
+- every list/tuple element occurrence = 1;
+- every dict key occurrence = 1;
+- every dict value occurrence = 1;
+- aliases count again on every occurrence;
+- object identity never reduces the count.
 
-Traversal order is deterministic:
+Traversal order:
 
-- list/tuple: index order;
-- dict: built-in insertion order;
-- each dict entry: key occurrence first, then value occurrence.
+- list/tuple index order;
+- dict built-in insertion order;
+- dict entry key first, then value.
 
-The walker maintains an active-ancestor identity set for containers. Encountering a container already on the active ancestor path is a cycle and causes whole-candidate omission. A completed container referenced again later is an alias, not a cycle, and is traversed/counts again.
+Maintain an active-ancestor container identity set. Encountering an active ancestor is a cycle -> omit whole candidate. A completed container referenced later is an alias and is traversed/counted again.
 
-The node counter increments before secret scanning, normalization, rendering, or child descent. The 257th occurrence causes whole-candidate omission.
+The node counter increments before secret scan, normalization, rendering, or child descent. The 257th occurrence omits the whole candidate.
 
-### 3.6 Child provenance is checked before child value work
+### 3.5 Child order
 
-For an eligible container, each child occurrence is handled in this order:
+For each child occurrence:
 
 1. node/depth admission;
 2. trusted child provenance gate;
-3. exact supported type/shape check;
-4. width/cycle check if a container;
-5. native scalar preflight if a scalar;
-6. recurse or continue to bounded redaction.
+3. exact supported type/shape gate;
+4. width/cycle gate if container;
+5. native scalar preflight if scalar;
+6. recurse or proceed to bounded secret handling.
 
-Forbidden or security-opaque child provenance is handled according to the parent/security provenance contract without scanning the child body.
+Forbidden/security-opaque child provenance is handled without scanning its body.
 
-## 4. Scalar preflight happens before redaction
+## 4. Scalar preflight precedes secret scanning
 
-Secret scanning is allowed only on already-bounded scalar values.
+For exact built-in strings:
 
-For strings:
+- native length must be `<= effective MAX_FIELD_CHARS` before scanning;
+- oversize string -> omit whole candidate, no truncation/scan;
+- any surrogate `U+D800..U+DFFF` -> omit;
+- no Unicode normalization/case folding;
+- no UTF-8 encoding, JSON rendering, regex/classifier work, or generic conversion before native bound succeeds.
 
-- exact built-in `str` only;
-- native character length must be `<= effective MAX_FIELD_CHARS` before scanning;
-- strings above that limit omit the whole candidate without redaction or truncation;
-- a string containing any Unicode surrogate code point `U+D800..U+DFFF` is rejected before rendering/export;
-- no Unicode normalization or case folding is applied to content;
-- no UTF-8 re-encoding, regex/classifier scan, JSON rendering, or generic `str()` conversion occurs before the native-length preflight.
+Mapping keys pass the same bounded-string preflight.
 
-Numeric/boolean/null preflight is owned by `UAG_OPENTELEMETRY_PHASE4_SCALAR_AND_TIMING_CONTRACT.md`.
+Int/float/bool/null rules are owned by the scalar/timing contract.
 
-Mapping keys pass the same bounded-string preflight before secret classification.
-
-## 5. Redaction semantics are deterministic
+## 5. Secret handling is deterministic
 
 The initial replacement marker for a high-confidence secret in an eligible scalar **value** is exactly:
 
@@ -221,23 +202,23 @@ It is not configurable.
 
 Rules:
 
-- value-level matches may replace the sensitive matched value/text with exactly `[REDACTED]` according to the reviewed redactor;
-- a mapping key that itself matches a high-confidence secret/credential pattern causes whole-candidate omission rather than key rewriting, preventing post-redaction key collisions or ambiguous maps;
-- a redactor exception, security ambiguity, or secret-wrapper value that cannot be safely reduced causes whole-candidate omission;
+- eligible scalar values may replace high-confidence secret matches with exactly `[REDACTED]`;
+- a mapping key matching a high-confidence credential/secret pattern causes whole-candidate omission rather than key rewriting;
+- secret-wrapper/security ambiguity/redactor exception causes whole-candidate omission;
 - rejected raw values are never logged;
-- after redaction, every scalar is rechecked against the effective field bound using the exact final scalar representation; if redaction/escaping would exceed the field limit, omit the whole candidate.
+- after redaction, every scalar must still satisfy the effective field bound in its final scalar representation; otherwise omit whole candidate.
 
-## 6. Canonical content renderer is exact
+## 6. Canonical renderer is exact
 
-All accepted candidates are rendered to one final string before the span ledger decision. That exact string is both counted and exported as `uag.content.value`.
+A candidate is rendered to one final string. That exact string is both counted and exported as `uag.content.value`.
 
-### 6.1 Direct string candidate
+### 6.1 Direct string
 
-A direct string candidate renders as its exact post-redaction string, with no added quote characters and no Unicode normalization.
+Direct string candidate -> exact post-redaction string, no added quotes and no Unicode normalization.
 
-### 6.2 Non-string primitive and structured candidate
+### 6.2 Non-string primitive and structured value
 
-A non-string primitive or structured candidate renders as compact JSON text with semantics equivalent to Python standard-library:
+Render as compact JSON text with semantics equivalent to:
 
 ```python
 json.dumps(
@@ -249,33 +230,30 @@ json.dumps(
 )
 ```
 
-with these additional normative restrictions:
+Normative restrictions:
 
-- no `default=` conversion hook is permitted;
-- tuple renders as a JSON array;
-- dict keys are exact built-in strings only;
-- dict order is the original built-in insertion order; keys are not re-sorted;
-- accepted integers are signed-64-bit only;
-- accepted floats are finite reviewed built-in binary64 values only;
-- `NaN` and infinities are impossible at this stage;
-- non-ASCII characters remain literal because `ensure_ascii=False`;
-- JSON quoting/backslash/C0-control escaping follows the standard JSON encoder;
-- surrogate-containing strings have already failed preflight;
-- no trailing newline or insignificant whitespace is emitted.
+- no `default=` hook;
+- tuple renders as JSON array;
+- dict keys are exact built-in strings;
+- dict order remains built-in insertion order;
+- admitted ints are signed-64-bit only;
+- admitted floats are exact built-in finite binary64 only;
+- non-ASCII characters remain literal;
+- JSON quotes/backslash/C0-control escaping is standard;
+- surrogate-containing strings have already failed;
+- no trailing newline/insignificant whitespace.
 
-For supported Python 3.11/3.13/3.14, conformance tests must prove identical output for the reviewed scalar/escaping corpus. If a future runtime would render an admitted float differently, UAG must introduce an explicit stable float renderer rather than silently changing budget/export bytes.
+Supported Python 3.11/3.13/3.14 must produce identical output for the reviewed float/escaping conformance corpus. If not, introduce an explicit stable renderer before enabling capture.
 
 ### 6.3 Character definition
 
-`MAX_FIELD_CHARS` and `MAX_SPAN_CHARS` count Unicode code points in the final Python/UAG string representation, i.e. the result of `len(rendered_text)`, not UTF-8 bytes.
+Character budgets count Unicode code points in the exact final UAG string (`len(rendered_text)`), not UTF-8 bytes.
 
-For structured JSON, escape characters that appear in the final string count individually. Example: a newline inside a nested JSON string is rendered as two characters `\` and `n`, and both count.
+For structured JSON, escape characters present in final text count individually. The counting and export path must use the exact same rendered string; estimate-only alternate serializers are forbidden.
 
-The exact same rendered string is used for accounting and export; separate estimate and export serializers are forbidden.
+## 7. Field and span budgets
 
-## 7. Per-field and cumulative per-span budgets
-
-The configured limits remain:
+Configuration validation is owned by the security contract:
 
 ```text
 MAX_FIELD_CHARS default 2048, valid 64..16384
@@ -283,25 +261,28 @@ MAX_SPAN_CHARS  default 8192, valid 256..65536
 MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 ```
 
-The security contract owns configuration validation. This contract owns runtime accounting.
+### 7.1 Field bound
 
-### 7.1 Field budget
+Every scalar passes both:
 
-Every scalar must satisfy the native preflight before redaction and the post-redaction final-scalar bound before candidate rendering. A field is never truncated to fit.
+1. native preflight before secret handling; and
+2. post-redaction final-scalar bound before candidate rendering.
 
-### 7.2 Shared span ledger
+No field is truncated to fit.
 
-`MAX_SPAN_CHARS` is one shared UAG-owned ledger per canonical span. It is not reset per event, category, candidate, argument, result, or message.
+### 7.2 One shared per-span ledger
 
-The ledger starts at zero. A candidate is fully bounded, redacted, and canonically rendered without mutating the ledger. Candidate cost is:
+Each canonical owner span has one content ledger starting at zero.
+
+A candidate is fully bounded/redacted/rendered without mutating the ledger. Cost is exactly:
 
 ```text
-candidate_cost = len(final_uag.content.value)
+candidate_cost = len(final uag.content.value)
 ```
 
-Only `uag.content.value` counts toward the content ledger. Fixed event name and safe carrier metadata (`uag.content.category`, `uag.content.ordinal`) do not count.
+Only `uag.content.value` counts. Fixed event/category/ordinal metadata does not.
 
-Candidate processing order is deterministic:
+Candidate processing order is:
 
 ```text
 user_input
@@ -310,99 +291,80 @@ tool_arguments
 tool_result
 ```
 
-Within one category, process candidates by trusted creation ordinal ascending.
+Within a category, trusted creation ordinal ascending.
 
 For each candidate:
 
 ```text
-remaining = MAX_SPAN_CHARS - span_content_chars_used
+remaining = MAX_SPAN_CHARS - used
 
 if candidate_cost <= remaining:
     emit whole uag.content event
-    span_content_chars_used += candidate_cost
+    used += candidate_cost
 else:
     omit whole candidate
-    ledger unchanged
+    used unchanged
 ```
 
-Rules:
-
-- no partial/truncated content event is emitted;
-- a candidate that fails to fit consumes zero ledger characters;
-- earlier accepted candidates remain accepted;
-- later smaller candidates may still fit after an oversized candidate is omitted;
-- metadata-only Phase 1-3 attributes do not consume this controlled-content ledger;
-- ledger state is telemetry-only and never affects Agent/model/tool behavior.
+No partial candidate is emitted. A later smaller candidate may still fit after an oversized candidate is omitted. Normal metadata attributes do not consume this controlled-content ledger.
 
 ## 8. Combined normative execution order
 
-The exact initial execution order is:
-
 ```text
-trusted candidate record created
-  -> per-span candidate-count admission (<= 32)
-  -> root forbidden-provenance gate
-  -> content master gate
-  -> semantic-category gate
-  -> root source/category gate
-  -> approved canonical-span/uag.content carrier gate
-  -> exact supported root shape/type gate
-  -> root node/depth admission
-  -> root width/cycle check if container
-  -> native scalar preflight if scalar
-  -> bounded deterministic traversal
-       -> child node/depth admission
-       -> child provenance gate
-       -> exact child type/shape gate
-       -> child width/cycle check if container
-       -> child scalar preflight if scalar
-  -> value/key secret handling
+candidate record created
+  -> candidate-count admission
+  -> root forbidden-provenance
+  -> master gate
+  -> category gate
+  -> source/category gate
+  -> exact canonical owner/uag.content carrier gate
+  -> exact supported type/shape
+  -> node/depth/width/cycle checks
+  -> primitive scalar preflight
+  -> bounded child traversal with child provenance
+  -> bounded secret handling
   -> post-redaction scalar field bound
   -> exact canonical rendering
-  -> shared per-span ledger check
-  -> emit whole uag.content event or omit whole candidate
+  -> shared per-span ledger
+  -> emit whole event or omit whole candidate
 ```
 
-No secret redaction/classification of content values occurs before the structural/scalar work needed to prove that scanning is bounded.
+No content secret scan occurs before the structural/scalar work required to prove the scan is bounded.
 
 ## 9. Required regressions
 
-Tests must include at least:
+Tests must prove at least:
 
-- forbidden provenance, master OFF, and unselected category reject roots without traversing values;
-- the 33rd candidate on one canonical span is omitted before value traversal;
-- exact built-in container/scalar types are accepted subject to all gates while subclasses/custom protocols fail closed;
-- dict keys must be exact built-in strings; numeric/custom keys omit the candidate without conversion;
-- depth exactly 8 succeeds; depth 9 omits whole candidate;
-- 64-item container succeeds; 65-item container omits whole candidate;
-- a 64-pair dict is width-valid and node-counts root + 64 keys + 64 values before descendants;
-- repeated aliases count per occurrence; active-path cycles omit whole candidate;
-- exactly 256 occurrences succeeds; the 257th omits whole candidate;
-- oversized strings are omitted before secret scanning;
-- string exactly at `MAX_FIELD_CHARS` may proceed;
-- surrogate-containing strings fail before rendering;
-- secret-bearing mapping keys omit whole candidate;
-- the replacement marker is exactly `[REDACTED]`;
+- backend/provider arbitrary span names never reach ordinary-user v1 `name`;
+- category-owner mapping is exact: user/assistant only on `invoke_agent`, tool args/result only on matching `execute_tool`;
+- no `uag.content` on `chat`, provider-SDK, internal, or remote spans;
+- 33rd candidate omitted before value traversal;
+- exact built-in shapes accepted subject to gates; subclasses/custom protocols fail closed;
+- mapping keys string-only with no coercion;
+- depth 8 passes, depth 9 fails;
+- width 64 passes, 65 fails;
+- node 256 passes, 257 fails;
+- aliases count per occurrence; active cycles fail;
+- oversized/surrogate strings fail before secret/render work;
+- secret-bearing mapping key fails whole candidate;
+- exact marker is `[REDACTED]`;
 - direct string output is unquoted post-redaction text;
-- structured output uses compact JSON with `ensure_ascii=False`, no spaces/newlines, insertion-order dict keys, and no custom conversion hooks;
-- quotes, backslashes, control characters, non-ASCII text, integers, finite floats, booleans, nulls, lists, tuples, and dicts have fixed expected renderings across supported Python versions;
-- accounting uses the exact exported `uag.content.value` string;
-- multiple candidates share one cumulative span ledger;
-- a candidate exactly filling the remaining span budget is emitted;
-- a candidate exceeding remaining budget by one character is omitted whole without ledger mutation;
-- later smaller candidate can still fit;
-- provider SDK child spans emit no `uag.content` event;
-- no overflow/redaction failure logs rejected content or changes runtime behavior.
+- structured output uses exact compact JSON semantics above;
+- control/quote/backslash/non-ASCII/numeric/boolean/null/list/tuple/dict renderings are fixed across supported Python versions;
+- candidate cost equals exact exported `uag.content.value` length;
+- candidates share one span ledger;
+- exact remaining-budget candidate passes; +1 character fails whole candidate without ledger mutation;
+- later smaller candidate can fit;
+- failures never log rejected content or alter runtime execution.
 
-## 10. Fixed Phase 4 decisions from this companion
+## 10. Fixed Phase 4 decisions
 
-- Ordinary-user `uag.trace_view.v1.name` is a closed UAG-owned enum.
-- Initial content uses only the closed `uag.content` event schema.
-- Controlled-content candidate count is capped at 32 per canonical span.
-- Initial accepted containers are exact built-in `dict`, `list`, and `tuple`; initial dict keys are exact built-in strings only.
-- Traversal is bounded by depth 8, width 64, and 256 visited node occurrences per candidate.
-- Structural/scalar bounds are proved before value-level secret scanning.
-- The exact redaction marker is `[REDACTED]`; secret-bearing mapping keys fail closed.
-- Canonical content rendering is explicitly defined and the exact rendered string is used for both counting and export.
-- `MAX_SPAN_CHARS` is one cumulative per-span ledger; candidates are emitted or omitted atomically in deterministic order.
-- Opaque/streaming/custom iterables and conversion hooks are never consumed for telemetry.
+- V1 `name` is a closed UAG-owned enum.
+- Initial content carrier, category names, and canonical owner spans are closed.
+- Candidate count is capped at 32 per owner span.
+- Containers are exact built-in dict/list/tuple and mapping keys are exact built-in strings only.
+- Traversal limits are depth 8, width 64, and 256 visited node occurrences per candidate.
+- Structural/scalar bounds precede secret scanning.
+- Exact redaction marker is `[REDACTED]`; secret-bearing mapping keys fail closed.
+- Canonical rendering is exact and shared by accounting/export.
+- `MAX_SPAN_CHARS` is one cumulative per-owner-span ledger with atomic whole-candidate emission.
