@@ -530,6 +530,28 @@ def _build_auto_shrink_projection(
     return projected_cache, projected
 
 
+def _strip_local_message_metadata(
+    messages: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Remove local-only fields before messages are sent to provider APIs.
+
+    ``actor_id`` is retained in Web conversation history for local ownership and
+    profiling, but it is not part of the OpenAI message schema (including the
+    Responses API input format).
+    """
+    sanitized: list[dict[str, Any]] = []
+    for message in messages:
+        if not isinstance(message, dict):
+            continue
+        if "actor_id" not in message:
+            sanitized.append(message)
+            continue
+        provider_message = dict(message)
+        provider_message.pop("actor_id", None)
+        sanitized.append(provider_message)
+    return sanitized
+
+
 def _build_call_messages(
     *,
     provider: str,
@@ -613,11 +635,11 @@ def _build_call_messages(
         if pending_tool_block_start is not None:
             del call_messages[pending_tool_block_start:]
 
-        return call_messages
+        return _strip_local_message_metadata(call_messages)
 
     call_messages = core.sanitize_messages_for_tools(messages)
 
     image_session_msg = build_image_session_message(call_messages, depname)
     if image_session_msg is not None:
         call_messages = [image_session_msg] + call_messages
-    return call_messages
+    return _strip_local_message_metadata(call_messages)

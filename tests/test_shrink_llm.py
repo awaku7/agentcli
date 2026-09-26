@@ -84,6 +84,28 @@ def _make_dialog(n_user: int = 6) -> list[dict[str, Any]]:
     return msgs
 
 
+@pytest.mark.parametrize("provider", ("openai", "gemini"))
+def test_provider_call_messages_drop_local_actor_id_without_mutating_history(
+    monkeypatch: pytest.MonkeyPatch, provider: str
+):
+    history = [{"role": "user", "content": "hello", "actor_id": "user-a"}]
+    monkeypatch.setattr(lmh, "build_image_session_message", lambda *_args: None)
+    test_core = SimpleNamespace(
+        sanitize_messages_for_tools=lambda messages: list(messages)
+    )
+
+    call_messages = lmh._build_call_messages(
+        provider=provider,
+        messages=history,
+        core=test_core,
+        depname="test-model",
+        gemini_cache_name=None,
+    )
+
+    assert call_messages == [{"role": "user", "content": "hello"}]
+    assert history[0]["actor_id"] == "user-a"
+
+
 @pytest.fixture(autouse=True)
 def _isolate_env(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("UAGENT_PROVIDER", "openai")
