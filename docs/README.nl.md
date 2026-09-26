@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identiteit en beleid<br/>OIDC · Entra-groepen · AD-adapters · Bevestiging]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Gebruik gehoste of lokale modellen via één consistente toolinterface. Wissel v
 De web-UI bevat OIDC-aanmelding met Authorization Code + PKCE, geverifieerde ID-tokens, server-side sessies en toegangscontroles voor projecten/ruimtes. Geverifieerde Microsoft Entra ID-groepclaims kunnen, wanneer geconfigureerd, toegangsbeleid op basis van directory ondersteunen. Windows Active Directory-, OAuth- en trusted-proxy-implementaties kunnen worden geïntegreerd via expliciete geverifieerde identiteitsadapters; Windows AD vereist een implementatiespecifieke Kerberos/Negotiate-verifier en is standaard niet ingeschakeld.
 
 Zie [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) en [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Parallelle uitvoering van tools
 
 Onafhankelijke alleen-lezenbewerkingen worden, wanneer dat veilig is, gelijktijdig uitgevoerd. Webzoekopdrachten, bestandsinspectie,
@@ -329,6 +330,8 @@ cloudreferenties of een MQTT/OPC UA-server. De betreffende tool meldt wat er ont
 
 Hervat eerdere gesprekken met `:load <index>`. Toolresultaten kunnen worden gecachet en providers kunnen worden gewijzigd
 zonder de applicatie opnieuw op te bouwen.
+
+Gebruik versleutelde sessie-export/-import om een gesprek tussen installaties te verplaatsen: `uag session export <id> -o work.uag`, `uag session import work.uag` en daarna `uag session resume <new-id>`. Zie [Session Portability v1](SESSION_PORTABILITY.md) voor wachtwoordzinnen, Web-API's, beveiligingsgrenzen en uitzonderingen.
 
 Session Store-instellingen:
 

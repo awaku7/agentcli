@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Pagkakakilanlan at patakaran<br/>OIDC · mga pangkat ng Entra · mga adapter ng AD · kumpirmasyon]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Gamitin ang hosted o lokal na mga modelo sa pamamagitan ng iisang pare-parehong 
 Kasama sa Web UI ang OIDC sign-in gamit ang Authorization Code + PKCE, mga na-verify na ID token, mga session sa server-side, at mga kontrol sa access ng proyekto/room. Ang mga na-verify na Microsoft Entra ID group claims ay maaaring magbigay ng directory-backed access policy kapag naka-configure. Maaaring mag-integrate ang Windows Active Directory, OAuth, at trusted-proxy deployments sa pamamagitan ng mga explicit na verified identity adapters; nangangailangan ang Windows AD ng deployment-specific na Kerberos/Negotiate verifier at hindi ito naka-enable bilang default.
 
 Tingnan ang [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) at [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Parallel na pagpapatakbo ng tool
 
 Sabay-sabay na tumatakbo ang magkakahiwalay na read-only operation kapag ligtas ito. Maaaring makumpleto nang parallel ang mga web search, inspeksyon ng file,
@@ -329,6 +330,8 @@ cloud credential, o MQTT/OPC UA server. Iniuulat ng kaugnay na tool ang nawawala
 
 Ipagpatuloy ang mga nakaraang pag-uusap gamit ang `:load <index>`. Maaaring i-cache ang mga resulta ng tool, at maaaring magpalit ng provider
 nang hindi muling binubuo ang application.
+
+Para ilipat ang isang pag-uusap sa pagitan ng mga installation, gamitin ang naka-encrypt na pag-export/pag-import ng session: `uag session export <id> -o work.uag`, `uag session import work.uag` at pagkatapos `uag session resume <new-id>`. Tingnan ang [Session Portability v1](SESSION_PORTABILITY.md) para sa mga passphrase, Web API, mga hangganan ng seguridad, at mga hindi kasama.
 
 Mga setting ng Session Store:
 

@@ -61,7 +61,7 @@ flowchart LR
     X[الأنظمة المتصلة<br/>MCP · A2A · Cloud · Communication]
     D[طبقة IoT<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[ذكاء الشفرة<br/>code_map · idx tools · Git · Tests]
-    S[الأمان والسياسات<br/>التأكيد · بيانات الاعتماد · التدقيق]
+    S[الهوية والسياسات<br/>OIDC · مجموعات Entra · موائمات AD · تأكيد]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 تتضمن واجهة الويب تسجيل الدخول باستخدام OIDC عبر Authorization Code + PKCE، رموز تعريف الهوية المُحققة، جلسات على جانب الخادم، وضوابط وصول للمشاريع/الغرف. يمكن لمطالبات مجموعات Microsoft Entra ID المُحققة أن تغذي سياسة الوصول المدعومة بالدليل عند التكوين. يمكن لتوزيعات Windows Active Directory وOAuth وtrusted-proxy التكامل من خلال محولات هوية مُحققة ومحددة النشر؛ يتطلب Windows AD محقق Kerberos/Negotiate محدد النشر ولا يتم تمكينه بشكل افتراضي.
 
 راجع [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) و[Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ تنفيذ الأدوات بالتوازي
 
 تعمل العمليات المستقلة للقراءة فقط بالتزامن عندما يكون ذلك آمنًا. ويمكن لعمليات البحث على الويب وفحص
@@ -328,6 +329,8 @@ python -m pip install PySide6 ewmh dbus-next
 
 استأنف المحادثات السابقة باستخدام `:load <index>`. ويمكن تخزين نتائج الأدوات مؤقتًا، كما يمكن تغيير المزوّدين
 من دون إعادة بناء التطبيق.
+
+لنقل محادثة بين عمليات التثبيت، استخدم تصدير/استيراد الجلسة المشفّر: `uag session export <id> -o work.uag`, `uag session import work.uag`، ثم `uag session resume <new-id>`. راجع [Session Portability v1](SESSION_PORTABILITY.md) لمعرفة عبارات المرور وواجهات Web APIs وحدود الأمان والاستثناءات.
 
 إعدادات مخزن الجلسات:
 

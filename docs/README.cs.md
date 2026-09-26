@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identita a zásady<br/>OIDC · skupiny Entra · adaptéry AD · potvrzení]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Používejte hostované nebo lokální modely prostřednictvím jednotného rozh
 Webové uživatelské rozhraní zahrnuje přihlášení pomocí OIDC s Authorization Code + PKCE, ověřené ID tokeny, serverové relace a přístupová oprávnění k projektům/místnostem. Ověřené skupinové nároky Microsoft Entra ID mohou při konfiguraci sloužit jako základ pro přístupovou politiku založenou na adresáři. Nasazení Windows Active Directory, OAuth a trusted-proxy lze integrovat pomocí explicitně ověřených adaptérů identity; Windows AD vyžaduje nasazení specifický ověřovač Kerberos/Negotiate a není ve výchozím nastavení povolen.
 
 Viz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) a [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Paralelní provádění nástrojů
 
 Nezávislé operace pouze pro čtení běží při bezpečném provádění souběžně. Webová vyhledávání, kontrola souborů,
@@ -329,6 +330,8 @@ cloudové přihlašovací údaje nebo server MQTT/OPC UA. Příslušný nástroj
 
 Předchozí konverzace obnovíte pomocí `:load <index>`. Výsledky nástrojů lze ukládat do mezipaměti a poskytovatele lze měnit
 bez opětovného sestavení aplikace.
+
+Chcete-li přesunout konverzaci mezi instalacemi, použijte šifrovaný export/import relace: `uag session export <id> -o work.uag`, `uag session import work.uag` a poté `uag session resume <new-id>`. Informace o přístupových frázích, Web API, bezpečnostních hranicích a výjimkách najdete v dokumentu [Session Portability v1](SESSION_PORTABILITY.md).
 
 Nastavení Session Store:
 

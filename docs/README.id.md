@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identitas dan kebijakan<br/>OIDC · grup Entra · adaptor AD · konfirmasi]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Gunakan model hosted atau lokal melalui satu antarmuka alat yang konsisten. Gant
 Web UI mencakup sign-in OIDC menggunakan Authorization Code + PKCE, token ID yang terverifikasi, sesi sisi server, dan kontrol akses proyek/ruang. Klaim grup Microsoft Entra ID yang terverifikasi dapat mendukung kebijakan akses berbasis direktori saat dikonfigurasi. Deployment Windows Active Directory, OAuth, dan trusted-proxy dapat terintegrasi melalui adapter identitas terverifikasi yang eksplisit; Windows AD memerlukan verifier Kerberos/Negotiate spesifik deployment dan tidak diaktifkan secara default.
 
 Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Eksekusi alat secara paralel
 
 Operasi baca-saja yang independen berjalan secara bersamaan jika aman. Pencarian web, pemeriksaan file,
@@ -329,6 +330,8 @@ kredensial cloud, atau server MQTT/OPC UA. Alat terkait akan melaporkan hal yang
 
 Lanjutkan percakapan sebelumnya dengan `:load <index>`. Hasil alat dapat di-cache, dan provider dapat diganti
 tanpa membangun ulang aplikasi.
+
+Untuk memindahkan percakapan antarinstalasi, gunakan ekspor/impor sesi terenkripsi: `uag session export <id> -o work.uag`, `uag session import work.uag` lalu `uag session resume <new-id>`. Lihat [Session Portability v1](SESSION_PORTABILITY.md) untuk frasa sandi, Web API, batas keamanan, dan pengecualian.
 
 Pengaturan Session Store:
 

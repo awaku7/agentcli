@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identiti & dasar<br/>OIDC · kumpulan Entra · penyesuai AD · Pengesahan]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Gunakan model hos atau tempatan melalui satu antara muka alat yang konsisten. Tu
 UI Web merangkumi log masuk OIDC menggunakan Authorization Code + PKCE, token ID yang disahkan, sesi sisi pelayan, dan kawalan akses projek/bilik. Tuntutan kumpulan Microsoft Entra ID yang disahkan boleh menyokong dasar akses berasaskan direktori apabila dikonfigurasikan. Penempatan Windows Active Directory, OAuth, dan trusted-proxy boleh diintegrasikan melalui penyesuai identiti yang disahkan secara eksplisit; Windows AD memerlukan pengesah Kerberos/Negotiate khusus penempatan dan tidak diaktifkan secara lalai.
 
 Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Pelaksanaan alat selari
 
 Operasi baca sahaja yang bebas berjalan serentak apabila selamat. Carian web, pemeriksaan fail,
@@ -329,6 +330,8 @@ kelayakan awan atau pelayan MQTT/OPC UA. Alat berkaitan melaporkan perkara yang 
 
 Sambung semula perbualan terdahulu dengan `:load <index>`. Hasil alat boleh dicache dan penyedia boleh ditukar
 tanpa membina semula aplikasi.
+
+Untuk memindahkan perbualan antara pemasangan, gunakan eksport/import sesi yang disulitkan: `uag session export <id> -o work.uag`, `uag session import work.uag` kemudian `uag session resume <new-id>`. Lihat [Session Portability v1](SESSION_PORTABILITY.md) untuk frasa laluan, API Web, sempadan keselamatan dan pengecualian.
 
 Tetapan Session Store:
 

@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Ταυτότητα και πολιτική<br/>OIDC · ομάδες Entra · προσαρμογείς AD · επιβεβαίωση]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 Το Web UI περιλαμβάνει σύνδεση OIDC χρησιμοποιώντας Authorization Code + PKCE, επαληθευμένα ID tokens, συνεδρίες διακομιστή και ελέγχους πρόσβασης σε έργα/δωμάτια. Οι επαληθευμένες απαιτήσεις ομάδων Microsoft Entra ID μπορούν να τροφοδοτήσουν πολιτικές πρόσβασης που βασίζονται σε κατάλογο όταν έχουν ρυθμιστεί. Οι αναπτύξεις Windows Active Directory, OAuth και trusted-proxy μπορούν να ενσωματωθούν μέσω ρητά επαληθευμένων προσαρμογέων ταυτότητας· το Windows AD απαιτεί έναν επαληθευτή Kerberos/Negotiate ειδικό για την ανάπτυξη και δεν είναι ενεργοποιημένο από προεπιλογή.
 
 Δείτε [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) και [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Παράλληλη εκτέλεση εργαλείων
 
 Οι ανεξάρτητες λειτουργίες μόνο για ανάγνωση εκτελούνται ταυτόχρονα όταν αυτό είναι ασφαλές. Αναζητήσεις στον ιστό, επιθεώρηση αρχείων,
@@ -329,6 +330,8 @@ python -m pip install PySide6 ewmh dbus-next
 
 Συνεχίστε προηγούμενες συνομιλίες με `:load <index>`. Τα αποτελέσματα εργαλείων μπορούν να αποθηκεύονται προσωρινά και οι πάροχοι μπορούν να αλλάζουν
 χωρίς ανακατασκευή της εφαρμογής.
+
+Για να μεταφέρετε μια συνομιλία μεταξύ εγκαταστάσεων, χρησιμοποιήστε την κρυπτογραφημένη εξαγωγή/εισαγωγή συνεδρίας: `uag session export <id> -o work.uag`, `uag session import work.uag` και στη συνέχεια `uag session resume <new-id>`. Για φράσεις πρόσβασης, Web APIs, όρια ασφαλείας και εξαιρέσεις, δείτε το [Session Portability v1](SESSION_PORTABILITY.md).
 
 Ρυθμίσεις Session Store:
 

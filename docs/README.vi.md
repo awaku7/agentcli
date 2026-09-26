@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Danh tính và chính sách<br/>OIDC · nhóm Entra · bộ chuyển đổi AD · xác nhận]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Sử dụng các mô hình lưu trữ hoặc cục bộ thông qua một giao di
 Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PKCE, token ID đã được xác minh, phiên phía máy chủ và kiểm soát truy cập dự án/phòng. Các yêu cầu nhóm Microsoft Entra ID đã được xác minh có thể cung cấp chính sách truy cập dựa trên thư mục khi được cấu hình. Các triển khai Windows Active Directory, OAuth và trusted-proxy có thể tích hợp thông qua bộ điều hợp nhận dạng đã được xác minh rõ ràng; Windows AD yêu cầu bộ xác minh Kerberos/Negotiate riêng cho triển khai và không được bật theo mặc định.
 
 Xem [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) và [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Thực thi công cụ song song
 
 Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,
@@ -329,6 +330,8 @@ thông tin xác thực đám mây hoặc máy chủ MQTT/OPC UA. Công cụ liê
 
 Tiếp tục các cuộc hội thoại trước bằng `:load <index>`. Kết quả công cụ có thể được lưu vào bộ nhớ đệm và provider có thể được thay đổi
 mà không cần xây dựng lại ứng dụng.
+
+Để chuyển một cuộc hội thoại giữa các bản cài đặt, hãy dùng tính năng xuất/nhập phiên được mã hóa: `uag session export <id> -o work.uag`, `uag session import work.uag` rồi `uag session resume <new-id>`. Xem [Session Portability v1](SESSION_PORTABILITY.md) để biết về cụm mật khẩu, API web, ranh giới bảo mật và các nội dung bị loại trừ.
 
 Cài đặt Session Store:
 

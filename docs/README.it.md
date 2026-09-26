@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identità e criteri<br/>OIDC · gruppi Entra · adattatori AD · conferma]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Usa modelli hosted o locali tramite un'unica interfaccia coerente per gli strume
 L'interfaccia Web include l'accesso OIDC utilizzando Authorization Code + PKCE, token ID verificati, sessioni lato server e controlli di accesso a progetti/stanze. Le rivendicazioni di gruppo Microsoft Entra ID verificate possono alimentare la policy di accesso basata su directory quando configurate. Le distribuzioni Windows Active Directory, OAuth e trusted-proxy possono integrarsi tramite adattatori di identità verificati espliciti; Windows AD richiede un verificatore Kerberos/Negotiate specifico per la distribuzione e non è abilitato di default.
 
 Vedi [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) e [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Esecuzione parallela degli strumenti
 
 Le operazioni indipendenti in sola lettura vengono eseguite contemporaneamente quando è sicuro farlo. Ricerche web, ispezione dei file,
@@ -329,6 +330,8 @@ credenziali cloud o un server MQTT/OPC UA. Lo strumento interessato segnala ciò
 
 Riprendi le conversazioni precedenti con `:load <index>`. I risultati degli strumenti possono essere memorizzati nella cache e i provider possono essere cambiati
 senza ricostruire l'applicazione.
+
+Per spostare una conversazione tra installazioni, usa l’esportazione/importazione di sessioni crittografate: `uag session export <id> -o work.uag`, `uag session import work.uag` quindi `uag session resume <new-id>`. Consulta [Session Portability v1](SESSION_PORTABILITY.md) per passphrase, API Web, confini di sicurezza ed esclusioni.
 
 Impostazioni del Session Store:
 

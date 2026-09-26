@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[هویت و سیاست‌ها<br/>OIDC · گروه‌های Entra · آداپتورهای AD · تأیید]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 رابط کاربری وب شامل ورود OIDC با استفاده از Authorization Code + PKCE، توکن‌های شناسه تأیید شده، نشست‌های سمت سرور و کنترل‌های دسترسی به پروژه/اتاق است. ادعاهای گروهی تأیید شده Microsoft Entra ID می‌توانند هنگام پیکربندی، سیاست دسترسی مبتنی بر دایرکتوری را تأمین کنند. استقرارهای Windows Active Directory، OAuth و trusted-proxy می‌توانند از طریق آداپتورهای هویت تأیید شده و مشخص برای استقرار ادغام شوند؛ Windows AD به یک تأییدکننده Kerberos/Negotiate مشخص برای استقرار نیاز دارد و به طور پیش‌فرض فعال نیست.
 
 مراجعه کنید به [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) و [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ اجرای موازی ابزارها
 
 عملیات مستقلِ فقط‌خواندنی، هر زمان که ایمن باشد، هم‌زمان اجرا می‌شوند. جست‌وجوهای وب، بررسی فایل‌ها،
@@ -327,6 +328,8 @@ python -m pip install PySide6 ewmh dbus-next
 
 گفت‌وگوهای قبلی را با `:load <index>` ادامه دهید. نتایج ابزار را می‌توان ذخیره کرد و ارائه‌دهندگان را می‌توان
 بدون بازسازی برنامه تغییر داد.
+
+برای انتقال یک گفتگو بین نصب‌ها، از خروجی/ورودی رمزگذاری‌شدهٔ نشست استفاده کنید: `uag session export <id> -o work.uag`, `uag session import work.uag`، سپس `uag session resume <new-id>`. برای عبارت‌های عبور، Web APIها، مرزهای امنیتی و موارد مستثنا، [Session Portability v1](SESSION_PORTABILITY.md) را ببینید.
 
 تنظیمات مخزن جلسه:
 

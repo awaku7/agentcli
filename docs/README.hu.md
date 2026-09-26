@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identitás és szabályzat<br/>OIDC · Entra-csoportok · AD-adapterek · megerősítés]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Használj hosztolt vagy helyi modelleket egyetlen egységes eszközfelületen ke
 A Web UI tartalmazza az OIDC bejelentkezést Authorization Code + PKCE használatával, ellenőrzött ID tokeneket, szerveroldali munkameneteket és projekt/szoba hozzáférés-vezérlést. Az ellenőrzött Microsoft Entra ID csoportigények konfigurálás esetén táplálhatják a könyvtár-alapú hozzáférési szabályzatot. A Windows Active Directory, OAuth és trusted-proxy telepítések explicit, telepítés-specifikus ellenőrzött adaptereken keresztül integrálhatók; a Windows AD telepítés-specifikus Kerberos/Negotiate ellenőrzőt igényel, és alapértelmezés szerint nincs engedélyezve.
 
 Lásd: [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) és [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Párhuzamos eszköz-végrehajtás
 
 A független, csak olvasási műveletek biztonságos esetben párhuzamosan futnak. A webes keresések, a fájlvizsgálat,
@@ -329,6 +330,8 @@ felhőhitelesítő adatok vagy MQTT-/OPC UA-szerver. Az érintett eszköz futtat
 
 Folytasd a korábbi beszélgetéseket a `:load <index>` paranccsal. Az eszközeredmények gyorsítótárazhatók, a szolgáltatók pedig módosíthatók
 az alkalmazás újraépítése nélkül.
+
+Ha egy beszélgetést telepítések között szeretne áthelyezni, használja a titkosított munkamenet-exportálást/-importálást: `uag session export <id> -o work.uag`, `uag session import work.uag` majd `uag session resume <new-id>`. A jelmondatokról, a Web API-król, a biztonsági határokról és a kizárásokról a [Session Portability v1](SESSION_PORTABILITY.md) dokumentumban olvashat.
 
 A munkamenettároló beállításai:
 

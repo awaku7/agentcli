@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identiteetti ja käytännöt<br/>OIDC · Entra-ryhmät · AD-sovittimet · vahvistus]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ muuttamalla asetusta `UAGENT_PROVIDER` — koodia, siirtoa tai erillistä työnk
 Verkkokäyttöliittymä sisältää OIDC-kirjautumisen Authorization Code + PKCE -menetelmällä, varmennetut ID-tokenit, palvelinpuolen istunnot sekä projektien/huoneiden käyttöoikeuksien hallinnan. Varmennetut Microsoft Entra ID -ryhmäväitteet voivat syöttää hakemistopohjaista käyttöoikeuspolitiikkaa, kun ne on määritetty. Windows Active Directory-, OAuth- ja trusted-proxy-järjestelmät voidaan integroida eksplisiittisten varmennettujen tunnistusadapterien kautta; Windows AD vaatii käyttöönottoon räätälöidyn Kerberos/Negotiate-varmentimen eikä ole oletuksena käytössä.
 
 Katso [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ja [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Rinnakkainen työkalujen suoritus
 
 Toisistaan riippumattomat vain luku -operaatiot suoritetaan turvallisissa tilanteissa samanaikaisesti. Verkkohaut, tiedostojen tarkastelu,
@@ -329,6 +330,8 @@ pilvitunnistetietoja tai MQTT/OPC UA -palvelimen. Asiaankuuluva työkalu ilmoitt
 
 Jatka aiempia keskusteluja komennolla `:load <index>`. Työkalutuloksia voidaan tallentaa välimuistiin ja palveluntarjoajia voidaan vaihtaa
 sovellusta uudelleen rakentamatta.
+
+Voit siirtää keskustelun asennusten välillä käyttämällä salattua istunnon vientiä/tuontia: `uag session export <id> -o work.uag`, `uag session import work.uag` ja sitten `uag session resume <new-id>`. Salalauseista, Web API -rajapinnoista, tietoturvarajoista ja poissulkemisista kerrotaan ohjeessa [Session Portability v1](SESSION_PORTABILITY.md).
 
 Session Storen asetukset:
 

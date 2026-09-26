@@ -60,7 +60,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[身份与策略<br/>OIDC · Entra 组 · AD 适配器 · 确认]
 
     U --> I
     I --> G
@@ -95,6 +95,7 @@ flowchart LR
 Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登录、已验证的 ID 令牌、服务器端会话以及项目/房间访问控制。配置后，已验证的 Microsoft Entra ID 组声明可用于目录支持的访问策略。Windows Active Directory、OAuth 和 trusted-proxy 部署可通过明确的已验证身份适配器集成；Windows AD 需要特定部署的 Kerberos/Negotiate 验证器，且默认未启用。
 
 参见 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 和 [Enterprise Policy](ENTERPRISE_POLICY.md)。
+
 ### ⚡ 并行工具执行
 
 在安全的情况下，独立的只读操作会并发运行。Web 搜索、文件检查、仓库分析及类似工作负载可以通过可配置的工作池（`UAGENT_PARALLEL_WORKERS`）并行完成。写入操作仍会串行执行，或需要确认。
@@ -313,6 +314,8 @@ python -m pip install PySide6 ewmh dbus-next
 ### 会话连续性
 
 使用 `:load <index>` 恢复之前的对话。工具结果可以缓存，也可以更换提供商而无需重新构建应用程序。
+
+要在不同安装之间迁移对话，请使用加密的会话导出/导入功能：`uag session export <id> -o work.uag`, `uag session import work.uag`，然后`uag session resume <new-id>`。有关口令短语、Web API、安全边界和排除项，请参阅 [Session Portability v1](SESSION_PORTABILITY.md)。
 
 Session Store 设置：
 

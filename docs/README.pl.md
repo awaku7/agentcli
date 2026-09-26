@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Tożsamość i zasady<br/>OIDC · grupy Entra · adaptery AD · potwierdzenie]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Korzystaj z modeli hostowanych lub lokalnych przez jeden spójny interfejs narz�
 Interfejs webowy zawiera logowanie OIDC przy użyciu Authorization Code + PKCE, zweryfikowane tokeny ID, sesje po stronie serwera oraz kontrolę dostępu do projektów/pokoi. Zweryfikowane roszczenia grup Microsoft Entra ID mogą zasilać politykę dostępu opartą na katalogu, jeśli są skonfigurowane. Wdrożenia Windows Active Directory, OAuth i trusted-proxy mogą integrować się za pomocą jawnych, zweryfikowanych adapterów tożsamości; Windows AD wymaga wdrożeniowego weryfikatora Kerberos/Negotiate i nie jest domyślnie włączony.
 
 Zobacz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) oraz [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Równoległe wykonywanie narzędzi
 
 Niezależne operacje tylko do odczytu działają współbieżnie, gdy jest to bezpieczne. Wyszukiwanie w sieci, inspekcja plików,
@@ -329,6 +330,8 @@ dane uwierzytelniające chmury lub serwer MQTT/OPC UA. Odpowiednie narzędzie zg
 
 Wznawiaj poprzednie rozmowy za pomocą `:load <index>`. Wyniki narzędzi mogą być buforowane, a dostawców można zmieniać
 bez ponownego budowania aplikacji.
+
+Aby przenieść rozmowę między instalacjami, użyj szyfrowanego eksportu/importu sesji: `uag session export <id> -o work.uag`, `uag session import work.uag` a następnie `uag session resume <new-id>`. Zobacz [Session Portability v1](SESSION_PORTABILITY.md), aby poznać informacje o frazach hasła, interfejsach Web API, granicach bezpieczeństwa i wyłączeniach.
 
 Ustawienia Session Store:
 

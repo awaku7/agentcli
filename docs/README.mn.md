@@ -62,7 +62,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Таних тэмдэг ба бодлого<br/>OIDC · Entra бүлгүүд · AD адаптерууд · баталгаажуулалт]
 
     U --> I
     I --> G
@@ -99,6 +99,7 @@ provider-ээ сольж болно — кодын өөрчлөлт, шилжи�
 Веб UI нь Authorization Code + PKCE ашиглан OIDC нэвтрэлт, баталгаажсан ID токенууд, сервер талын сессүүд, төслийн/өрөөний хандалтын хяналтыг агуулдаг. Microsoft Entra ID бүлгийн баталгаажсан нэхэмжлэлүүд тохируулсан үед лавлах дэмжлэгтэй хандалтын бодлогыг хангаж чадна. Windows Active Directory, OAuth, trusted-proxy суулгалтууд нь тодорхой баталгаажсан таних адаптеруудыг ашиглан интеграцчилж болно; Windows AD нь суулгалт тусгай Kerberos/Negotiate баталгаажуулагч шаарддаг бөгөөд анхдагчаар идэвхжээгүй байдаг.
 
 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) болон [Enterprise Policy](ENTERPRISE_POLICY.md)-г үзнэ үү.
+
 ### ⚡ Хэрэгслийн зэрэгцээ гүйцэтгэл
 
 Аюулгүй үед хамааралгүй, зөвхөн унших үйлдлүүд зэрэгцэн ажиллана. Вэб хайлт, файл шалгалт,
@@ -330,6 +331,8 @@ python -m pip install PySide6 ewmh dbus-next
 
 `:load <index>` ашиглан өмнөх харилцан яриаг үргэлжлүүлнэ. Хэрэгслийн үр дүнг cache хийж болох бөгөөд
 application-ийг дахин бүтээлгүйгээр provider-ийг сольж болно.
+
+Суулгацуудын хооронд харилцан яриаг зөөхийн тулд шифрлэгдсэн сесс экспортлох/импортлох үйлдлийг ашиглана уу: `uag session export <id> -o work.uag`, `uag session import work.uag` дараа нь `uag session resume <new-id>`. Нууц үг хэллэг, Web API, аюулгүй байдлын хил хязгаар болон хасалтуудын талаар [Session Portability v1](SESSION_PORTABILITY.md)-ээс үзнэ үү.
 
 Session Store тохиргоо:
 

@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[아이덴티티 및 정책<br/>OIDC · Entra 그룹 · AD 어댑터 · 확인]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 웹 UI에는 Authorization Code + PKCE를 사용하는 OIDC 로그인, 검증된 ID 토큰, 서버 측 세션, 프로젝트/룸 접근 제어가 포함되어 있습니다. 구성된 경우 검증된 Microsoft Entra ID 그룹 클레임이 디렉터리 기반 접근 정책에 활용될 수 있습니다. Windows Active Directory, OAuth 및 trusted-proxy 배포는 명시적인 검증된 아이덴티티 어댑터를 통해 통합할 수 있으며, Windows AD는 배포별 Kerberos/Negotiate 검증기가 필요하며 기본적으로 활성화되어 있지 않습니다.
 
 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 및 [Enterprise Policy](ENTERPRISE_POLICY.md)를 참조하세요.
+
 ### ⚡ 병렬 도구 실행
 
 안전한 경우 독립적인 읽기 전용 작업을 동시에 실행합니다. 웹 검색, 파일 검사,
@@ -326,6 +327,8 @@ MQTT/OPC UA 서버와 같은 추가 시스템 요구 사항이 있습니다. 관
 ### 세션 연속성
 
 `:load <index>`로 이전 대화를 재개하세요. 도구 결과를 캐시할 수 있으며 애플리케이션을 다시 빌드하지 않고도 프로바이더를 변경할 수 있습니다.
+
+설치 환경 간에 대화를 옮기려면 암호화된 세션 내보내기/가져오기를 사용하세요: `uag session export <id> -o work.uag`, `uag session import work.uag`그런 다음 `uag session resume <new-id>`. 암호 문구, Web API, 보안 경계 및 제외 항목은 [Session Portability v1](SESSION_PORTABILITY.md)을 참조하세요.
 
 Session Store 설정:
 

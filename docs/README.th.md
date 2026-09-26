@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[อัตลักษณ์และนโยบาย<br/>OIDC · กลุ่ม Entra · อะแดปเตอร์ AD · การยืนยัน]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 เว็บ UI มีการเข้าสู่ระบบ OIDC โดยใช้ Authorization Code + PKCE, โทเค็น ID ที่ได้รับการยืนยัน, เซสชันฝั่งเซิร์ฟเวอร์ และการควบคุมการเข้าถึงโปรเจกต์/ห้อง การอ้างสิทธิ์กลุ่ม Microsoft Entra ID ที่ได้รับการยืนยันสามารถนำมาใช้กับนโยบายการเข้าถึงที่อิงกับไดเรกทอรีได้เมื่อมีการกำหนดค่า การติดตั้ง Windows Active Directory, OAuth และ trusted-proxy สามารถรวมเข้าด้วยกันผ่านอะแดปเตอร์ตัวตนที่ได้รับการยืนยันอย่างชัดเจน; Windows AD ต้องการตัวตรวจสอบ Kerberos/Negotiate เฉพาะสำหรับการติดตั้งและไม่ได้เปิดใช้งานโดยค่าเริ่มต้น
 
 ดูที่ [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) และ [Enterprise Policy](ENTERPRISE_POLICY.md)
+
 ### ⚡ การทำงานของเครื่องมือแบบขนาน
 
 การดำเนินการแบบอ่านอย่างเดียวที่เป็นอิสระต่อกันจะทำงานพร้อมกันเมื่อปลอดภัย การค้นหาเว็บ การตรวจสอบไฟล์
@@ -329,6 +330,8 @@ cloud credentials หรือเซิร์ฟเวอร์ MQTT/OPC UA เ�
 
 กลับไปสนทนาต่อจากครั้งก่อนด้วย `:load <index>` ผลลัพธ์เครื่องมือสามารถแคชได้ และสามารถเปลี่ยน provider ได้
 โดยไม่ต้องสร้างแอปพลิเคชันใหม่
+
+หากต้องการย้ายบทสนทนาระหว่างการติดตั้ง ให้ใช้การส่งออก/นำเข้าเซสชันแบบเข้ารหัส: `uag session export <id> -o work.uag`, `uag session import work.uag` จากนั้น `uag session resume <new-id>` ดู [Session Portability v1](SESSION_PORTABILITY.md) สำหรับวลีรหัสผ่าน, Web API, ขอบเขตด้านความปลอดภัย และสิ่งที่ไม่รวมอยู่
 
 การตั้งค่า Session Store:
 

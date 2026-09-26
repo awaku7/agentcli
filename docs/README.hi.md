@@ -60,7 +60,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[पहचान और नीति<br/>OIDC · Entra समूह · AD अडैप्टर · पुष्टि]
 
     U --> I
     I --> G
@@ -97,6 +97,7 @@ tools, interfaces और policies को साथ मिलकर काम क
 वेब UI में Authorization Code + PKCE का उपयोग करके OIDC साइन-इन, सत्यापित ID टोकन, सर्वर-साइड सत्र, और प्रोजेक्ट/रूम एक्सेस नियंत्रण शामिल हैं। सत्यापित Microsoft Entra ID समूह दावे कॉन्फ़िगर किए जाने पर डायरेक्टरी-आधारित एक्सेस नीति को फीड कर सकते हैं। Windows Active Directory, OAuth, और trusted-proxy डिप्लॉयमेंट्स स्पष्ट सत्यापित पहचान एडाप्टर के माध्यम से एकीकृत हो सकते हैं; Windows AD को डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate वेरीफायर की आवश्यकता होती है और यह डिफ़ॉल्ट रूप से सक्षम नहीं है।
 
 देखें [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) और [Enterprise Policy](ENTERPRISE_POLICY.md)।
+
 ### ⚡ Parallel tool execution
 
 सुरक्षित होने पर स्वतंत्र read-only operations concurrent रूप से चलती हैं। Web searches, file inspection,
@@ -327,6 +328,8 @@ cloud credentials या MQTT/OPC UA server। संबंधित tool run �
 
 `:load <index>` से पिछली conversations resume करें। Tool results cache किए जा सकते हैं और application को rebuild किए बिना
 providers बदले जा सकते हैं।
+
+किसी बातचीत को एक इंस्टॉलेशन से दूसरे में ले जाने के लिए, एन्क्रिप्टेड सेशन एक्सपोर्ट/इंपोर्ट का उपयोग करें: `uag session export <id> -o work.uag`, `uag session import work.uag` और फिर `uag session resume <new-id>`। पासफ़्रेज़, Web API, सुरक्षा सीमाओं और अपवर्जनों के बारे में जानने के लिए [Session Portability v1](SESSION_PORTABILITY.md) देखें।
 
 Session Store सेटिंग्स:
 

@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[身分與政策<br/>OIDC · Entra 群組 · AD 配接器 · 確認]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登入、已驗證的 ID 令牌、伺服器端會話以及專案/房間存取控制。配置後，已驗證的 Microsoft Entra ID 群組聲明可用於目錄支援的存取政策。Windows Active Directory、OAuth 和 trusted-proxy 部署可透過明確的已驗證身份適配器整合；Windows AD 需要特定部署的 Kerberos/Negotiate 驗證器，且預設未啟用。
 
 參見 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 和 [Enterprise Policy](ENTERPRISE_POLICY.md)。
+
 ### ⚡ 平行工具執行
 
 在安全的情況下，獨立的唯讀操作會並行執行。網頁搜尋、檔案檢查、
@@ -325,6 +326,8 @@ python -m pip install PySide6 ewmh dbus-next
 ### 工作階段延續
 
 使用 `:load <index>` 繼續先前的對話。工具結果可快取，且無需重建應用程式即可變更提供者。
+
+若要在不同安裝之間移轉對話，請使用加密的工作階段匯出／匯入功能：`uag session export <id> -o work.uag`, `uag session import work.uag`，然後`uag session resume <new-id>`。關於通關密語、Web API、安全界線及排除項目，請參閱 [Session Portability v1](SESSION_PORTABILITY.md)。
 
 Session Store 設定：
 

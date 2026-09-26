@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identitet og politik<br/>OIDC · Entra-grupper · AD-adaptere · bekræftelse]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Brug hostede eller lokale modeller gennem én ensartet værktøjsgrænseflade. S
 Web UI inkluderer OIDC-login ved brug af Authorization Code + PKCE, verificerede ID-tokens, server-side sessioner og adgangskontrol til projekter/rum. Verificerede Microsoft Entra ID-gruppekrav kan bruges til mappebaseret adgangspolitik, når det er konfigureret. Windows Active Directory, OAuth og trusted-proxy-implementeringer kan integreres via eksplicit verificerede identitetsadaptere; Windows AD kræver en implementeringsspecifik Kerberos/Negotiate-verifikator og er ikke aktiveret som standard.
 
 Se [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) og [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Parallel værktøjsudførelse
 
 Uafhængige skrivebeskyttede operationer kører samtidigt, når det er sikkert. Websøgninger, filinspektion,
@@ -329,6 +330,8 @@ cloud-legitimationsoplysninger eller en MQTT/OPC UA-server. Det relevante værkt
 
 Genoptag tidligere samtaler med `:load <index>`. Værktøjsresultater kan caches, og udbydere kan ændres
 uden at genopbygge applikationen.
+
+Brug krypteret eksport/import af sessioner for at flytte en samtale mellem installationer: `uag session export <id> -o work.uag`, `uag session import work.uag` og derefter `uag session resume <new-id>`. Se [Session Portability v1](SESSION_PORTABILITY.md) for adgangsfraser, Web API'er, sikkerhedsgrænser og undtagelser.
 
 Indstillinger for Session Store:
 

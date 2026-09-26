@@ -60,7 +60,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Kimlik ve politika<br/>OIDC · Entra grupları · AD bağdaştırıcıları · onay]
 
     U --> I
     I --> G
@@ -95,6 +95,7 @@ Barındırılan veya yerel modelleri tek ve tutarlı bir araç arayüzü üzerin
 Web UI, Authorization Code + PKCE kullanarak OIDC oturum açmayı, doğrulanmış ID tokenlarını, sunucu tarafı oturumları ve proje/oda erişim kontrollerini içerir. Doğrulanmış Microsoft Entra ID grup talepleri, yapılandırıldığında dizin destekli erişim politikasına besleme yapabilir. Windows Active Directory, OAuth ve trusted-proxy dağıtımları, açıkça doğrulanmış kimlik adaptörleri aracılığıyla entegre olabilir; Windows AD, dağıtıma özgü bir Kerberos/Negotiate doğrulayıcısı gerektirir ve varsayılan olarak etkin değildir.
 
 Bkz. [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ve [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Paralel araç çalıştırma
 
 Bağımsız, yalnızca okuma yapan işlemler güvenli olduğunda eşzamanlı yürütülür. Web aramaları, dosya inceleme, depo analizi ve benzer iş yükleri yapılandırılabilir bir worker havuzuyla (`UAGENT_PARALLEL_WORKERS`) paralel olarak tamamlanabilir. Yazma işlemleri serileştirilir veya onay gerektirir.
@@ -312,6 +313,8 @@ Bazı entegrasyonların tarayıcı ikili dosyaları, Bluetooth izinleri, bulut k
 ### Oturum sürekliliği
 
 `:load <index>` ile önceki konuşmaları sürdürün. Araç sonuçları önbelleğe alınabilir ve uygulamayı yeniden oluşturmadan sağlayıcılar değiştirilebilir.
+
+Bir konuşmayı kurulumlar arasında taşımak için şifrelenmiş oturum dışa aktarma/içe aktarma özelliğini kullanın: `uag session export <id> -o work.uag`, `uag session import work.uag` ardından `uag session resume <new-id>`. Parolalar, Web API'leri, güvenlik sınırları ve kapsam dışı bırakılanlar için [Session Portability v1](SESSION_PORTABILITY.md) belgesine bakın.
 
 Session Store ayarları:
 

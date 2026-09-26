@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Ідентичність і політика<br/>OIDC · групи Entra · адаптери AD · підтвердження]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 Веб-інтерфейс включає вхід через OIDC з використанням Authorization Code + PKCE, перевірені ID-токени, серверні сесії та контроль доступу до проєктів/кімнат. Перевірені групові твердження Microsoft Entra ID можуть використовуватися для політики доступу на основі каталогу при налаштуванні. Розгортання Windows Active Directory, OAuth і trusted-proxy можуть інтегруватися через явні перевірені адаптери ідентичності; Windows AD потребує специфічного для розгортання перевіряча Kerberos/Negotiate і за замовчуванням не увімкнений.
 
 Див. [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) та [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Паралельне виконання інструментів
 
 Незалежні операції лише для читання виконуються одночасно, якщо це безпечно. Вебпошук, перевірка файлів,
@@ -329,6 +330,8 @@ python -m pip install PySide6 ewmh dbus-next
 
 Відновлюйте попередні розмови за допомогою `:load <index>`. Результати інструментів можна кешувати, а провайдерів можна змінювати
 без повторної збірки застосунку.
+
+Щоб перенести розмову між інсталяціями, скористайтеся зашифрованим експортом/імпортом сеансу: `uag session export <id> -o work.uag`, `uag session import work.uag` а потім `uag session resume <new-id>`. Про парольні фрази, веб-API, межі безпеки та винятки див. [Session Portability v1](SESSION_PORTABILITY.md).
 
 Налаштування Session Store:
 

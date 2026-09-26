@@ -4,11 +4,6 @@
 
 <h1 align="center">uag</h1>
 
-**セッションの持ち運び:** `uag session export <id> -o work.uag` で暗号化し、
-移行先で `uag session import work.uag`、`uag session resume <新しいID>` を実行します。
-平文モードはなく、認証情報や権限は移行しません。
-[Session Portability v1](SESSION_PORTABILITY.md) にWeb API・形式・制限を記載しています。
-
 <p align="center">
   <strong>Universal AI Gateway</strong><br>
   1つのローカルエージェント。あらゆるモデル。あらゆるツール。あなたの環境、あなたのルール。
@@ -66,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[アイデンティティとポリシー<br/>OIDC · Entra グループ · AD アダプター · 確認]
 
     U --> I
     I --> G
@@ -103,6 +98,7 @@ flowchart LR
 Web UIは、Authorization Code + PKCEを使ったOIDCサインイン、検証済みIDトークン、サーバー側セッション、プロジェクト/ルームのアクセス制御に対応します。検証済みのMicrosoft Entra IDグループクレームは、設定に応じてディレクトリ連携のアクセスポリシーに利用できます。Windows Active Directory、OAuth、trusted-proxyは明示的な検証済みIDアダプターを介して連携できます。Windows ADにはデプロイ固有のKerberos/Negotiate検証器が必要で、既定では有効ではありません。
 
 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md)および[Enterprise Policy](ENTERPRISE_POLICY.md)を参照してください。
+
 ### ⚡ 並列ツール実行
 
 独立した読み取り専用操作は、安全な場合に並行して実行されます。Web検索、ファイル検査、リポジトリ分析などの
@@ -328,6 +324,8 @@ python -m pip install PySide6 ewmh dbus-next
 ### セッションの継続
 
 `:load <index>`で以前の会話を再開できます。ツール結果はキャッシュでき、アプリケーションを再構築せずにプロバイダーを変更できます。
+
+インストール間で会話を移動するには、暗号化されたセッションのエクスポート／インポートを使用します: `uag session export <id> -o work.uag`, `uag session import work.uag`、続けて`uag session resume <new-id>`。[Session Portability v1](SESSION_PORTABILITY.md) で、パスフレーズ、Web API、セキュリティ境界、対象外項目を確認してください。
 
 セッションストアを有効にすると、従来のJSONLログを残したまま、SQLiteにも構造化して保存できます。
 

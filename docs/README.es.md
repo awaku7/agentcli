@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identidad y políticas<br/>OIDC · grupos de Entra · adaptadores de AD · confirmación]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Usa modelos alojados o locales mediante una interfaz de herramientas coherente. 
 La interfaz web incluye inicio de sesión OIDC usando Authorization Code + PKCE, tokens de ID verificados, sesiones del lado del servidor y controles de acceso a proyectos/salas. Las reclamaciones de grupo verificadas de Microsoft Entra ID pueden alimentar políticas de acceso respaldadas por directorios cuando están configuradas. Las implementaciones de Windows Active Directory, OAuth y trusted-proxy pueden integrarse mediante adaptadores de identidad verificados explícitamente; Windows AD requiere un verificador Kerberos/Negotiate específico para la implementación y no está habilitado por defecto.
 
 Consulte [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) y [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Ejecución paralela de herramientas
 
 Las operaciones independientes de solo lectura se ejecutan simultáneamente cuando es seguro. Las búsquedas web, la inspección de archivos,
@@ -329,6 +330,8 @@ credenciales en la nube o un servidor MQTT/OPC UA. La herramienta correspondient
 
 Reanuda conversaciones anteriores con `:load <index>`. Los resultados de las herramientas pueden almacenarse en caché y los proveedores pueden cambiarse
 sin reconstruir la aplicación.
+
+Para mover una conversación entre instalaciones, usa la exportación/importación cifrada de sesiones: `uag session export <id> -o work.uag`, `uag session import work.uag` y luego `uag session resume <new-id>`. Consulta [Session Portability v1](SESSION_PORTABILITY.md) para obtener información sobre frases de contraseña, Web APIs, límites de seguridad y exclusiones.
 
 Configuración del almacén de sesiones:
 

@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[পরিচয় ও নীতি<br/>OIDC · Entra গ্রুপ · AD অ্যাডাপ্টার · নিশ্চিতকরণ]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 ওয়েব UI-তে Authorization Code + PKCE ব্যবহার করে OIDC সাইন-ইন, যাচাইকৃত ID টোকেন, সার্ভার-সাইড সেশন এবং প্রকল্প/রুম অ্যাক্সেস নিয়ন্ত্রণ অন্তর্ভুক্ত রয়েছে। কনফিগার করা হলে যাচাইকৃত Microsoft Entra ID গ্রুপ দাবি ডিরেক্টরি-ব্যাকড অ্যাক্সেস নীতিতে ব্যবহার করা যেতে পারে। Windows Active Directory, OAuth, এবং trusted-proxy ডিপ্লয়মেন্টগুলি স্পষ্টভাবে যাচাইকৃত পরিচয় অ্যাডাপ্টারের মাধ্যমে ইন্টিগ্রেট করা যায়; Windows AD একটি ডিপ্লয়মেন্ট-নির্দিষ্ট Kerberos/Negotiate ভেরিফায়ার প্রয়োজন এবং ডিফল্টভাবে সক্রিয় নয়।
 
 দেখুন [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) এবং [Enterprise Policy](ENTERPRISE_POLICY.md)।
+
 ### ⚡ সমান্তরাল টুল সম্পাদন
 
 নিরাপদ হলে স্বাধীন, শুধু-পাঠযোগ্য কাজগুলো একসঙ্গে চলে। ওয়েব অনুসন্ধান, ফাইল পরিদর্শন, রিপোজিটরি বিশ্লেষণ
@@ -329,6 +330,8 @@ cloud credential অথবা MQTT/OPC UA server। চালানোর সম
 
 `:load <index>` দিয়ে আগের conversation পুনরায় চালু করুন। Tool result cache করা যায় এবং application পুনর্নির্মাণ
 না করেই provider বদলানো যায়।
+
+একটি ইনস্টলেশন থেকে অন্যটিতে কথোপকথন সরাতে এনক্রিপ্ট করা সেশন এক্সপোর্ট/ইমপোর্ট ব্যবহার করুন: `uag session export <id> -o work.uag`, `uag session import work.uag`, এরপর `uag session resume <new-id>`। পাসফ্রেজ, Web API, নিরাপত্তার সীমা এবং বাদ পড়া বিষয়গুলোর জন্য [Session Portability v1](SESSION_PORTABILITY.md) দেখুন।
 
 সেশন স্টোর সেটিংস:
 

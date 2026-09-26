@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identitet och policy<br/>OIDC · Entra-grupper · AD-adaptrar · bekräftelse]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Använd värdbaserade eller lokala modeller genom ett enhetligt verktygsgränssn
 Webbgränssnittet inkluderar OIDC-inloggning med Authorization Code + PKCE, verifierade ID-token, serversessioner och åtkomstkontroller för projekt/rum. Verifierade Microsoft Entra ID-gruppanspråk kan användas för katalogbaserad åtkomstpolicy när det är konfigurerat. Distributioner av Windows Active Directory, OAuth och trusted-proxy kan integreras via explicita verifierade identitetsadaptrar; Windows AD kräver en distributionsspecifik Kerberos/Negotiate-verifierare och är inte aktiverat som standard.
 
 Se [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) och [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Parallell verktygskörning
 
 Oberoende skrivskyddade åtgärder körs samtidigt när det är säkert. Webbsökningar, filinspektion,
@@ -329,6 +330,8 @@ molnuppgifter eller en MQTT/OPC UA-server. Det berörda verktyget rapporterar va
 
 Återuppta tidigare konversationer med `:load <index>`. Verktygsresultat kan cachelagras och leverantörer kan bytas
 utan att programmet behöver byggas om.
+
+Använd krypterad export/import av sessioner för att flytta en konversation mellan installationer: `uag session export <id> -o work.uag`, `uag session import work.uag` och sedan `uag session resume <new-id>`. Se [Session Portability v1](SESSION_PORTABILITY.md) för lösenfraser, webb-API:er, säkerhetsgränser och undantag.
 
 Inställningar för Session Store:
 

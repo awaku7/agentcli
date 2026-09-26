@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Identitate și politici<br/>OIDC · grupuri Entra · adaptoare AD · confirmare]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Folosește modele găzduite sau locale printr-o interfață consecventă pentru 
 Interfața web include autentificare OIDC folosind Authorization Code + PKCE, tokenuri ID verificate, sesiuni server-side și controale de acces pentru proiecte/camere. Afirmările de grup Microsoft Entra ID verificate pot alimenta politica de acces bazată pe director atunci când sunt configurate. Implementările Windows Active Directory, OAuth și trusted-proxy pot fi integrate prin adaptoare de identitate verificate explicit; Windows AD necesită un verificator Kerberos/Negotiate specific implementării și nu este activat implicit.
 
 Consultați [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) și [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Execuția paralelă a instrumentelor
 
 Operațiunile independente, doar pentru citire, rulează simultan atunci când este sigur. Căutările web, inspectarea fișierelor,
@@ -329,6 +330,8 @@ acreditări cloud sau un server MQTT/OPC UA. Instrumentul relevant raportează c
 
 Reia conversațiile anterioare cu `:load <index>`. Rezultatele instrumentelor pot fi păstrate în cache, iar furnizorii pot fi schimbați
 fără a reconstrui aplicația.
+
+Pentru a muta o conversație între instalări, folosește exportul/importul criptat al sesiunii: `uag session export <id> -o work.uag`, `uag session import work.uag` apoi `uag session resume <new-id>`. Consultă [Session Portability v1](SESSION_PORTABILITY.md) pentru fraze de acces, API-uri Web, limite de securitate și excluderi.
 
 Setări Session Store:
 

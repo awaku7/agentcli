@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[Utambulisho na sera<br/>OIDC · Vikundi vya Entra · Adapta za AD · Uthibitisho]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ Tumia miundo ya mbali au ya ndani kupitia kiolesura kimoja thabiti cha zana. Bad
 UI ya Wavuti inajumuisha kuingia kwa OIDC kwa kutumia Authorization Code + PKCE, tokeni za ID zilizothibitishwa, vikao vya upande wa seva, na udhibiti wa upatikanaji wa mradi/chumba. Dhamana za vikundi zilizothibitishwa za Microsoft Entra ID zinaweza kuingiza sera za upatikanaji zinazotegemea saraka wakati zimewekwa. Usambazaji wa Windows Active Directory, OAuth, na trusted-proxy unaweza kuunganishwa kupitia adapta za utambulisho zilizothibitishwa za kipekee; Windows AD inahitaji kithibitishaji cha Kerberos/Negotiate maalum kwa kila deployment, na hali hii haijawezeshwa kwa chaguo-msingi.
 
 Tazama [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) na [Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ Utekelezaji sambamba wa zana
 
 Operesheni huru za kusoma pekee huendeshwa kwa wakati mmoja inapokuwa salama. Utafutaji wa wavuti, ukaguzi wa faili,
@@ -329,6 +330,8 @@ vitambulisho vya wingu, au seva ya MQTT/OPC UA. Zana husika huripoti kinachokose
 
 Endeleza mazungumzo yaliyotangulia kwa `:load <index>`. Matokeo ya zana yanaweza kuhifadhiwa, na watoa huduma wanaweza kubadilishwa
 bila kujenga upya programu.
+
+Ili kuhamisha mazungumzo kati ya usakinishaji, tumia uhamishaji/uingizaji wa kipindi uliosimbwa kwa njia fiche: `uag session export <id> -o work.uag`, `uag session import work.uag` kisha `uag session resume <new-id>`. Tazama [Session Portability v1](SESSION_PORTABILITY.md) kwa vifungu vya siri, API za Wavuti, mipaka ya usalama na mambo yasiyojumuishwa.
 
 Mipangilio ya Session Store:
 

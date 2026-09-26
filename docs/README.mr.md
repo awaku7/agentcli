@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[ओळख आणि धोरण<br/>OIDC · Entra गट · AD अडॅप्टर · पुष्टीकरण]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ migration किंवा वेगळा workflow आवश्यक नाह�
 वेब UI मध्ये Authorization Code + PKCE वापरून OIDC साइन-इन, पडताळणी केलेले ID टोकन्स, सर्व्हर-साइड सत्रे, आणि प्रोजेक्ट/रूम प्रवेश नियंत्रणांचा समावेश आहे. कॉन्फिगर केल्यावर पडताळणी केलेले Microsoft Entra ID ग्रुप क्लेम्स डायरेक्टरी-आधारित प्रवेश धोरणाला पुरवू शकतात. Windows Active Directory, OAuth, आणि trusted-proxy डिप्लॉयमेंट्स स्पष्टपणे पडताळणी केलेल्या ओळख अडॅप्टरद्वारे एकत्रित होऊ शकतात; Windows AD साठी डिप्लॉयमेंट-विशिष्ट Kerberos/Negotiate पडताळणी करणारा आवश्यक आहे आणि तो डीफॉल्टने सक्षम नाही.
 
 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) आणि [Enterprise Policy](ENTERPRISE_POLICY.md) पहा.
+
 ### ⚡ समांतर tool execution
 
 सुरक्षित असल्यास स्वतंत्र, केवळ-वाचन प्रक्रिया एकाच वेळी चालतात. Web searches, file inspection, repository analysis आणि तत्सम कामे
@@ -322,6 +323,8 @@ python -m pip install PySide6 ewmh dbus-next
 ### Session continuity
 
 `:load <index>` ने आधीचे conversations पुन्हा सुरू करा. Tool results cache करता येतात आणि application rebuild न करता providers बदलता येतात.
+
+एका इंस्टॉलेशनमधून दुसऱ्यामध्ये संभाषण हलवण्यासाठी, एन्क्रिप्ट केलेले सेशन एक्सपोर्ट/इम्पोर्ट वापरा: `uag session export <id> -o work.uag`, `uag session import work.uag` आणि नंतर `uag session resume <new-id>`. पासफ्रेज, Web API, सुरक्षा सीमा आणि वगळलेल्या बाबींसाठी [Session Portability v1](SESSION_PORTABILITY.md) पहा.
 
 Session Store सेटिंग्ज:
 

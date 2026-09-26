@@ -61,7 +61,7 @@ flowchart LR
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]
     D[IoT layer<br/>SwitchBot · Matter · BACnet · OPC UA]
     R[Code intelligence<br/>code_map · idx tools · Git · Tests]
-    S[Safety & policy<br/>Confirmation · Credentials · Audit]
+    S[זהות ומדיניות<br/>OIDC · קבוצות Entra · מתאמי AD · אישור]
 
     U --> I
     I --> G
@@ -98,6 +98,7 @@ flowchart LR
 ממשק המשתמש של ה-Web כולל כניסה באמצעות OIDC עם Authorization Code + PKCE, אסימוני זיהוי מאומתים, סשנים בצד השרת, ובקרות גישה לפרויקטים/חדרים. טענות קבוצת Microsoft Entra ID מאומתות יכולות להזין מדיניות גישה מבוססת ספרייה כאשר מוגדרות. פריסות Windows Active Directory, OAuth ו-trusted-proxy יכולות להשתלב דרך מתאמי זהות מאומתים מפורשים; Windows AD דורש מאמת Kerberos/Negotiate ספציפי לפריסה ואינו מופעל כברירת מחדל.
 
 עיין ב-[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ו-[Enterprise Policy](ENTERPRISE_POLICY.md).
+
 ### ⚡ ביצוע מקבילי של כלים
 
 פעולות בלתי תלויות לקריאה בלבד פועלות במקביל כאשר הדבר בטוח. חיפושי web, בדיקת קבצים,
@@ -328,6 +329,8 @@ python -m pip install PySide6 ewmh dbus-next
 
 המשיכו שיחות קודמות באמצעות `:load <index>`. ניתן לשמור תוצאות כלים במטמון ולהחליף ספקים
 בלי לבנות מחדש את היישום.
+
+כדי להעביר שיחה בין התקנות, השתמשו בייצוא/ייבוא מוצפן של הפעלה: `uag session export <id> -o work.uag`, `uag session import work.uag` ולאחר מכן `uag session resume <new-id>`. מידע על ביטויי סיסמה, ממשקי Web API, גבולות אבטחה והחרגות מופיע ב-[Session Portability v1](SESSION_PORTABILITY.md).
 
 הגדרות Session Store:
 
