@@ -18,7 +18,7 @@ from ...env_utils import env_get
 
 _TRUSTED_PROXY_CIDRS_ENV = "UAGENT_OTEL_TRUSTED_PROXY_CIDRS"
 _RAW_SOCKET_PEER_SCOPE_KEY = "uagent.raw_socket_peer"
-_TRUSTED_INGRESS_CARRIER: ContextVar[tuple[tuple[str, str], ...]] = ContextVar(
+_TRUSTED_INGRESS_CARRIER: ContextVar[object] = ContextVar(
     "uagent_trusted_ingress_carrier", default=()
 )
 _T = TypeVar("_T")
@@ -124,10 +124,12 @@ def trusted_ingress_carrier_for_request(
 
 
 def set_trusted_ingress_carrier(
-    carrier: Mapping[str, Any] | None,
-) -> Token[tuple[tuple[str, str], ...]]:
-    """Bind only the supported trusted trace-context fields in this context."""
+    carrier: Mapping[str, Any] | SingleUseTrustedIngressCarrier | None,
+) -> Token[object]:
+    """Bind trusted trace context without prematurely consuming handshake state."""
 
+    if isinstance(carrier, SingleUseTrustedIngressCarrier):
+        return _TRUSTED_INGRESS_CARRIER.set(carrier)
     normalized = _normalize_carrier(carrier)
     compact = tuple(
         (key, normalized[key])
@@ -137,17 +139,24 @@ def set_trusted_ingress_carrier(
     return _TRUSTED_INGRESS_CARRIER.set(compact)
 
 
-def reset_trusted_ingress_carrier(token: Token[tuple[tuple[str, str], ...]]) -> None:
+def reset_trusted_ingress_carrier(token: Token[object]) -> None:
     _TRUSTED_INGRESS_CARRIER.reset(token)
 
 
 def get_trusted_ingress_carrier() -> dict[str, str]:
-    return dict(_TRUSTED_INGRESS_CARRIER.get())
+    """Resolve trusted trace context when canonical Agent execution actually starts."""
+
+    bound = _TRUSTED_INGRESS_CARRIER.get()
+    if isinstance(bound, SingleUseTrustedIngressCarrier):
+        return bound.take()
+    if isinstance(bound, tuple):
+        return dict(bound)
+    return {}
 
 
 @contextmanager
 def bind_trusted_ingress_carrier(
-    carrier: Mapping[str, Any] | None,
+    carrier: Mapping[str, Any] | SingleUseTrustedIngressCarrier | None,
 ) -> Iterator[None]:
     token = set_trusted_ingress_carrier(carrier)
     try:
@@ -162,12 +171,12 @@ def call_with_trusted_ingress(
     *args: Any,
     **kwargs: Any,
 ) -> _T:
-    """Run one worker call with its server-approved ingress trace carrier."""
+    """Run a worker with trusted ingress available for its accepted Agent turn.
 
-    selected = (
-        carrier.take()
-        if isinstance(carrier, SingleUseTrustedIngressCarrier)
-        else carrier
-    )
-    with bind_trusted_ingress_carrier(selected):
+    A single-use handshake carrier is bound lazily and is consumed only when
+    ``lifecycle_execution()`` asks for it. A worker that returns before entering
+    the canonical Agent span therefore leaves the carrier available for retry.
+    """
+
+    with bind_trusted_ingress_carrier(carrier):
         return func(*args, **kwargs)
