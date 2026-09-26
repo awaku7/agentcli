@@ -58,6 +58,46 @@ Rules:
 - The correlation **key value** is never accepted as a CLI argument. Only the credential-store key name may be configured.
 - Browser input, WebSocket messages, A2A payloads, tool calls, trace baggage, headers, or provider responses cannot alter effective Phase 4 configuration.
 
+### 1.1 Concrete controlled-content bounds
+
+The initial Phase 4 controlled-content limits are fixed as follows:
+
+```text
+UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS
+  default: 2048
+  minimum: 64
+  maximum: 16384
+
+UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS
+  default: 8192
+  minimum: 256
+  maximum: 65536
+```
+
+The same ranges apply to the corresponding CLI options.
+
+Validation rules:
+
+- a missing value uses the documented default;
+- a non-integer, zero, negative, below-minimum, or above-maximum value is invalid;
+- the effective span limit must be greater than or equal to the effective field limit;
+- any invalid bound disables controlled content capture as a whole for that process, even if the master gate and categories are otherwise enabled;
+- invalid bounds never fall back silently to an effectively unbounded value;
+- disabling capture because of invalid bounds emits only a normalized secret-free diagnostic and does not disable core metadata tracing.
+
+These are safety ceilings, not targets. A later schema may lower them without weakening this contract; raising a ceiling requires explicit design review.
+
+### 1.2 Provider selector vocabulary
+
+Provider instrumentation selectors use UAG logical provider IDs, not SDK package names. The initial example is therefore:
+
+```text
+--otel-provider-instrumentation openai,claude
+UAGENT_OTEL_PROVIDER_INSTRUMENTATION=openai,claude
+```
+
+`claude` is the logical UAG provider ID for the Anthropic SDK path. `anthropic` is not an alias in the initial Phase 4 contract. Unknown names fail closed to no instrumentation for that selector and produce only a normalized diagnostic.
+
 ## 2. Stable deployment scope for pseudonymous correlation
 
 Pseudonymous correlation requires an explicit, stable deployment scope.
@@ -143,7 +183,7 @@ All body content above must remain absent from exported telemetry.
 
 ## 4. Ordinary-user trace view v1 is metadata-only
 
-The initial ordinary-user schema `uag.trace_view.v1` is intentionally narrower than the draft example in the parent scope.
+The initial ordinary-user schema `uag.trace_view.v1` is metadata-only.
 
 For v1, the proxy MUST NOT return general `attributes` or `events` containers. They are deferred until a separately reviewed schema enumerates every allowed nested key and event.
 
@@ -200,7 +240,37 @@ Unknown top-level, span-level, or nested backend structures are dropped. The pro
 
 If later requirements need descriptive status text, safe attributes, or events, introduce `uag.trace_view.v2` (or an explicitly versioned extension) with a closed UAG-owned message table and/or enumerated permitted attribute keys, event names, and event-attribute keys plus privacy tests. `v1` does not grow implicitly.
 
-## 5. Additional acceptance tests
+## 5. Trace-query resource limits
+
+Ordinary-user trace queries are bounded before and after authorization filtering. A backend adapter is supported only if it can enforce these limits without first materializing an unbounded response.
+
+Initial Phase 4D limits are:
+
+```text
+backend deadline:             5 seconds
+maximum decoded backend bytes: 8 MiB
+maximum backend spans fetched: 2000
+maximum spans per backend page: 500
+maximum backend pages:           4
+maximum authorized spans returned: 500
+```
+
+Requirements:
+
+- adapters use backend-side pagination/limits where available;
+- HTTP/stream readers enforce the decoded byte ceiling while reading, not after loading the entire body;
+- reaching the byte, span, page, or deadline limit stops further backend retrieval;
+- a backend integration that cannot enforce a bounded read is unsupported for ordinary-user Phase 4D queries;
+- authorization/filtering is applied only to bounded fetched data;
+- returned authorized spans are deterministically ordered by `(start_time, span_id)` before the output-span ceiling is applied;
+- when a safe prefix/subset can be returned after any fetch/output ceiling is reached, `partial=true` is mandatory;
+- if an adapter cannot determine a safe bounded partial result after a limit is hit, the query fails with a bounded server error and returns no backend payload;
+- truncation never relaxes segment authorization and never exposes omitted parent/span identifiers;
+- backend limit failures do not affect Agent execution.
+
+The proxy must not retry in a way that can exceed the same per-query aggregate ceilings.
+
+## 6. Additional acceptance tests
 
 The implementation is not complete until these cases are covered:
 
@@ -208,8 +278,10 @@ The implementation is not complete until these cases are covered:
 
 - each new CLI Phase 4 option overrides its environment fallback;
 - effective `--no-otel` suppresses all Phase 4 behavior regardless of subordinate flags;
-- invalid Phase 4 CLI/env values fail closed for only the affected feature;
-- no CLI option accepts raw correlation key material.
+- absent capture bounds use exactly 2048 field chars and 8192 span chars;
+- `0`, negative, non-integer, below-minimum, above-maximum, or span-smaller-than-field bounds disable controlled content capture without affecting core tracing;
+- no CLI option accepts raw correlation key material;
+- provider selectors use logical IDs and `claude` selects the Anthropic SDK path while `anthropic` remains unknown unless a future reviewed alias is added.
 
 ### Deployment scope
 
@@ -235,13 +307,26 @@ The implementation is not complete until these cases are covered:
 - schema output is identical in shape across supported backends for equivalent safe metadata;
 - unknown backend fields do not appear in the response.
 
-## 6. Fixed Phase 4 decisions from this contract
+### Trace-query bounds
+
+- an oversized backend response is stopped before exceeding the 8 MiB decoded-byte ceiling;
+- more than 2000 backend spans or four pages are not fetched;
+- a backend call cannot run beyond the five-second adapter deadline;
+- at most 500 authorized spans are returned;
+- deterministic truncation sets `partial=true`;
+- an adapter unable to produce a safe bounded partial result returns no raw/backend payload;
+- pagination/retry behavior cannot exceed aggregate per-query limits.
+
+## 7. Fixed Phase 4 decisions from this contract
 
 - Phase 4 has a CLI surface with explicit-setting > environment > default precedence.
 - Raw correlation keys are credential-store values, never CLI values.
+- Controlled content capture uses explicit finite ranges and invalid bounds disable capture rather than broadening it.
+- Provider instrumentation selectors use UAG logical provider IDs; the Anthropic path is selected as `claude`.
 - Pseudonymization requires a non-empty stable deployment scope; absence disables pseudonym emission.
 - Content provenance is field/node-level for body-capable composites.
 - Unannotated body-capable composite fields fail closed.
 - File/artifact/Memory/retrieval/authentication bodies cannot become eligible merely by being nested inside allowed `user_input`, `tool_arguments`, or `tool_result` values.
 - Ordinary-user `uag.trace_view.v1` is strictly metadata-only and has no generic `attributes`, `events`, or free-form status-description fields.
 - Ordinary-user v1 `status_code` is a closed UAG-owned enum and never includes copied backend/provider text.
+- Ordinary-user trace-backend retrieval is bounded before authorization filtering and cannot materialize an unbounded backend response.
