@@ -226,9 +226,9 @@ If any mapping key is blocked by this always-blocked rule, omit the **whole cont
 
 The raw key is never logged in the failure diagnostic.
 
-### 5.2 Value-level secret handling
+### 5.2 Closed initial value-secret contract
 
-The initial replacement marker for a high-confidence secret in an eligible scalar **value** is exactly:
+The exact replacement marker is:
 
 ```text
 [REDACTED]
@@ -236,12 +236,24 @@ The initial replacement marker for a high-confidence secret in an eligible scala
 
 It is not configurable.
 
-Rules:
+After bounded scalar preflight, the initial conformance-required textual detectors are exactly these four classes; there is no implementation-defined pass-through for a recognized match:
 
-- eligible scalar values may replace high-confidence secret matches with exactly `[REDACTED]`;
-- a mapping key matching a high-confidence credential/secret classifier also omits the whole candidate rather than rewriting the key;
-- secret-wrapper/security ambiguity/redactor exception causes whole-candidate omission;
-- rejected raw values/keys are never logged.
+1. **Authorization-scheme credential** — an ASCII case-insensitive `Bearer` or `Basic` scheme token followed by one or more ASCII SP/HTAB characters and a non-empty contiguous non-whitespace credential token. Every such recognized credential match is replaced with exactly `[REDACTED]`.
+2. **Compact JWT-like token** — three non-empty base64url-alphabet segments (`[A-Za-z0-9_-]+`) separated by exactly two `.` characters and bounded by non-base64url characters or string boundaries. Every such recognized token match is replaced with exactly `[REDACTED]`.
+3. **PEM private-key marker** — any literal begin marker for `PRIVATE KEY`, `RSA PRIVATE KEY`, `EC PRIVATE KEY`, `DSA PRIVATE KEY`, or `OPENSSH PRIVATE KEY`. A candidate containing one of these markers is omitted whole; UAG does not scan for the corresponding end marker.
+4. **Credential-bearing URI userinfo** — a URI with an ASCII scheme matching `[A-Za-z][A-Za-z0-9+.-]{0,31}://` and non-empty userinfo containing `:` before `@` and before the first `/`, `?`, or `#`. A candidate containing this form is omitted whole.
+
+Trusted secret-wrapper/security-sensitive tagged values are not textual classifier inputs: their provenance/type gate omits the candidate before this detector runs.
+
+Normative actions:
+
+- every recognized Authorization/JWT match is replaced, left-to-right and non-overlapping, before canonical rendering;
+- every recognized PEM/credential-URI form omits the whole candidate;
+- a recognized match is **never** exported unchanged;
+- a mapping key matching any textual secret detector omits the whole candidate rather than rewriting the key;
+- redactor/detector exception, ambiguity, or inability to complete bounded scanning omits the whole candidate;
+- additional future high-confidence textual detectors require a reviewed contract change; an implementation may conservatively omit an ambiguous candidate, but may not silently export it by treating ambiguity as “no match”;
+- rejected raw values/keys and matched secret text are never logged.
 
 The generic metadata sanitizer's operator content flag must not become a bypass for always-blocked identity/session/credential keys or excluded reasoning/system/developer sources. Controlled content reaches export only through this closed path.
 
@@ -373,7 +385,7 @@ candidate record created
   -> primitive scalar preflight
   -> bounded child traversal with child provenance
   -> recursive always-blocked mapping-key checks
-  -> bounded value/key secret handling
+  -> bounded closed value/key secret handling
   -> canonical per-scalar token rendering + field bound
   -> exact whole-candidate canonical rendering
   -> shared per-span ledger
@@ -399,7 +411,10 @@ Tests must prove at least:
 - oversized/surrogate strings fail before privacy/secret/render work;
 - mapping keys containing each always-blocked fragment cause whole-candidate omission;
 - credential-style exact `token` key segments are blocked while plural token-usage names are not blocked solely by substring;
+- Authorization/Basic/Bearer and compact JWT-like recognized matches are always replaced with `[REDACTED]`, never exported unchanged;
+- PEM private-key and credential-bearing URI userinfo detections omit the whole candidate;
 - secret-bearing mapping key fails whole candidate;
+- detector exception/ambiguity omits whole candidate;
 - exact marker is `[REDACTED]`;
 - direct string output is unquoted post-redaction text;
 - structured output uses exact compact JSON semantics above;
@@ -421,6 +436,7 @@ Tests must prove at least:
 - Traversal limits are depth 8, width 64, and 256 visited node occurrences per candidate.
 - Structural/scalar bounds precede privacy/secret scanning.
 - Always-blocked privacy keys are recursively enforced before rendering structured content.
+- Initial textual secret detection is closed and every recognized match must redact or omit; recognized secrets never pass through unchanged.
 - Exact redaction marker is `[REDACTED]`; blocked/secret mapping keys fail closed to whole-candidate omission.
 - `MAX_FIELD_CHARS` applies both before scanning and to the exact post-redaction canonical scalar token.
 - Canonical rendering is exact and shared by accounting/export.
