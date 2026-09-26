@@ -141,14 +141,14 @@ A2A bearer tokens
 
 A later design change is required before any excluded class can be captured.
 
-Suggested bounded controls:
+Bounded controls are fixed by `docs/UAG_OPENTELEMETRY_PHASE4_SECURITY_CONTRACT.md`:
 
 ```text
-UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS=2048
-UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS=8192
+UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS=2048   # valid 64..16384
+UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS=8192    # valid 256..65536
 ```
 
-Invalid values fail closed to conservative defaults.
+Missing values use those defaults. Invalid/non-integer/zero/negative/out-of-range values, or a span limit smaller than the field limit, disable controlled content capture for that process while leaving core metadata tracing unchanged.
 
 ### 5.2 Pseudonymous correlation
 
@@ -173,13 +173,13 @@ The implementation contract is:
 
 ### 5.3 Provider SDK diagnostics
 
-Suggested control:
+Suggested control uses UAG logical provider IDs:
 
 ```text
-UAGENT_OTEL_PROVIDER_INSTRUMENTATION=openai,anthropic
+UAGENT_OTEL_PROVIDER_INSTRUMENTATION=openai,claude
 ```
 
-Missing/empty means OFF. Unknown providers are ignored with a normalized diagnostic event and do not fail startup.
+`claude` selects the Anthropic SDK path. `anthropic` is not an initial alias. Missing/empty means OFF. Unknown provider IDs are ignored with a normalized diagnostic event and do not fail startup.
 
 SDK instrumentation is permitted only for explicitly supported/version-tested provider paths and only when it can be scoped to the selected UAG call.
 
@@ -584,7 +584,7 @@ browser asks for trace_id
    -> find local authorization records for that trace
    -> no current local records? deny
    -> re-run current room/project/private-room authorization for each local segment
-   -> server queries configured trace backend
+   -> server queries configured trace backend under the Phase 4D bounded-read contract
    -> classify each returned span against trusted local segment membership
    -> unindexed/non-local/unauthorized span? drop
    -> authorized local span
@@ -622,14 +622,12 @@ Tests must cover a multi-instance trace in which different segments have differe
 
 The proxy must never pass through arbitrary backend trace JSON.
 
-Ordinary-user responses use a versioned UAG schema, initially `uag.trace_view.v1`, constructed field-by-field from an explicit allowlist.
-
-Initial allowed response fields may include only:
+Ordinary-user responses use the complete `uag.trace_view.v1` metadata-only schema below; no draft extensions are implied:
 
 ```text
-schema_version
+schema_version = "uag.trace_view.v1"
 trace_id
-partial                     # true when spans were filtered/omitted
+partial
 spans[]:
   span_id                   # only for an authorized local span
   parent_span_id            # only when the parent is also authorized and returned
@@ -638,31 +636,30 @@ spans[]:
   start_time
   end_time
   duration_ms
-  status_code               # normalized
-  status_description        # bounded, sanitized, optional
-  attributes                # explicit low-cardinality attribute allowlist only
-  events                    # explicit event-name + attribute allowlist only
+  status_code               # closed UAG-owned enum: UNSET | OK | ERROR
 ```
 
-The following backend structures are dropped by default unless a later schema revision explicitly allows individual safe fields:
+No `status_description`, `attributes`, or `events` container exists in v1. Unknown or malformed backend status maps to `UNSET`; arbitrary backend/provider status text is never copied.
+
+The following backend structures are dropped in v1:
 
 ```text
-unknown span attributes
+status descriptions
+all span attributes
 raw resource attributes
 raw instrumentation-scope attributes
+all events
 links
-arbitrary event payloads
 logs
 backend/vendor extension fields
 HTTP headers
 request/response bodies
 identity attributes
 security/authentication attributes
+exception messages/stacks
 ```
 
-Unknown fields and unknown nested structures are dropped, not recursively returned.
-
-`service.name` or similar resource metadata may be included only if UAG defines a fixed safe allowlist and does not trust it for authorization.
+Unknown fields and unknown nested structures are dropped, not recursively returned. If safe attributes/events/descriptive status are needed later, they require an explicitly versioned schema revision with closed reviewed allowlists.
 
 ### 9.7 Content in trace-query responses
 
@@ -688,18 +685,29 @@ For ordinary users, missing local authorization metadata fails closed.
 
 UAG does not fall back to trusting pseudonymous labels, span names, baggage, remote resource attributes, remote service names, trace links, or caller-supplied scope fields.
 
-### 9.10 Backend abstraction
+### 9.10 Backend abstraction and bounded reads
 
-The query proxy should use a small provider-neutral interface such as:
+The query proxy uses a provider-neutral adapter such as:
 
 ```text
 TraceQueryBackend
-  get_trace(trace_id)
+  get_trace(trace_id, limits)
 ```
 
-Backend-specific Jaeger/Grafana/vendor code stays behind adapters.
+Backend-specific Jaeger/Grafana/vendor code stays behind adapters. Backend credentials remain server-side. Query failure never changes normal Agent execution.
 
-Backend credentials remain server-side. Query failure never changes normal Agent execution.
+The initial ordinary-user bounded-read contract is normative:
+
+```text
+backend deadline:               5 seconds
+maximum decoded backend bytes:  8 MiB
+maximum backend spans fetched:   2000
+maximum spans per backend page:   500
+maximum backend pages:               4
+maximum authorized spans returned:  500
+```
+
+Adapters must enforce byte/deadline/page/span ceilings while retrieving data rather than first materializing an unbounded response. Reaching a safe truncation boundary produces `partial=true`; if a safe bounded partial result cannot be established, the query fails closed with no backend payload. Retries and pagination share the same aggregate per-query ceilings. Returned authorized spans are deterministically ordered by `(start_time, span_id)` before applying the output limit.
 
 ## 10. Retention and deletion
 
@@ -746,7 +754,7 @@ SDK instrumentor import/version/scoping mismatch
   -> disable nested provider instrumentation
   -> continue canonical UAG chat tracing
 
-trace backend unavailable
+trace backend unavailable or bounded-read contract cannot be satisfied
   -> trace query returns bounded server error
   -> Agent execution remains unaffected
 ```
@@ -794,7 +802,7 @@ Verify:
 - opaque security-sensitive structures fail closed;
 - always-blocked identity/auth/session keys remain blocked;
 - reasoning remains excluded;
-- length/depth/item caps are enforced;
+- exact capture-bound defaults/ranges and invalid-bound disablement are enforced;
 - malformed/unserializable/redactor-failure values do not fail runtime execution;
 - content never becomes metric dimensions, baggage, resources, auth inputs, or storage keys.
 
@@ -824,6 +832,7 @@ Verify:
 - an unselected provider that shares the same SDK/client class emits no SDK diagnostic span;
 - calls outside an active canonical UAG `chat` guard emit no SDK diagnostic span;
 - selected and unselected OpenAI-compatible providers remain isolated;
+- logical selector `claude` selects the Anthropic SDK path and unknown `anthropic` does not silently alias it;
 - no duplicate canonical LLM span appears;
 - SDK content capture cannot bypass UAG provenance/category/redaction policy;
 - unsupported globally emitting instrumentors fail closed to disabled;
@@ -843,18 +852,20 @@ Verify:
 - an omitted parent/linked span does not leak its span ID;
 - pseudonyms and remote span/resource attributes cannot grant access;
 - backend credentials never reach the client;
-- backend failure does not affect Agent execution.
+- backend failure does not affect Agent execution;
+- oversized traces respect byte/span/page/deadline/output ceilings and deterministic partial behavior.
 
 ### 14.5 Trace response schema
 
 Verify:
 
 - ordinary-user responses declare `uag.trace_view.v1`;
-- only explicitly allowlisted top-level/span/event/attribute fields are copied;
-- unknown backend fields are dropped;
-- unknown nested structures are dropped rather than recursively serialized;
-- resource attributes, links, arbitrary events, logs, headers, identities, and vendor extensions are absent by default;
-- filtered distributed traces are marked partial;
+- the complete span shape contains only the explicitly listed metadata fields;
+- `status_description`, `attributes`, and `events` are absent;
+- status is restricted to `UNSET`, `OK`, or `ERROR`, with malformed/unknown backend values mapping to `UNSET`;
+- unknown backend fields and nested structures are dropped;
+- resource attributes, links, arbitrary events, logs, headers, identities, exception text, and vendor extensions are absent;
+- filtered or safely truncated distributed traces are marked partial;
 - parent identifiers are included only when the parent is authorized and returned;
 - captured prompt/response/tool content is absent from the initial ordinary-user schema even when capture exists in the backend.
 
@@ -880,20 +891,21 @@ Phase 4 implementation is acceptable only when all applicable conditions are tru
 5. Authentication/session/credential/security-opaque typed values are excluded before generic content redaction.
 6. Mandatory value-level secret redaction operates on values as well as keys and fails closed for uncertain security-sensitive structures.
 7. Reasoning/system/developer content remains excluded.
-8. Content is bounded and never enters metrics, baggage, resources, auth decisions, or storage/routing keys.
+8. Content is bounded by finite validated defaults/ranges and never enters metrics, baggage, resources, auth decisions, or storage/routing keys.
 9. Pseudonymous correlation requires a dedicated CSPRNG-generated key with at least 256 bits of entropy and purpose isolation from security credentials.
 10. Pseudonym HMAC input uses canonical unambiguous length-prefixed framing.
 11. Pseudonyms are trace-only diagnostics and never security identities or query authorization inputs.
-12. Provider SDK instrumentation is selected-call scoped and inert for unselected calls sharing the same SDK package.
+12. Provider SDK instrumentation is selected-call scoped and uses UAG logical provider IDs.
 13. Provider SDK diagnostics remain nested beneath UAG canonical spans and introduce no duplicate logical LLM spans.
 14. Provider instrumentors cannot bypass UAG content policy.
 15. Ordinary-user trace queries revalidate current UAG auth/authz and authorize/filter every returned local segment/span.
 16. Authorization for one distributed-trace segment never authorizes another segment solely because it shares a trace ID.
 17. Unindexed/remote spans fail closed to omission for ordinary users.
-18. Ordinary-user trace responses use a versioned explicit field allowlist and drop unknown backend structures.
+18. Ordinary-user trace responses use the closed metadata-only `uag.trace_view.v1` field set and drop unknown backend structures.
 19. Initial ordinary-user trace responses are metadata-only even if captured content exists in the backend.
-20. Missing/failed privacy, correlation, instrumentation, query, or backend components never broaden access and never fail Agent execution.
-21. Existing Phase 1-3 privacy, trust, propagation, authorization, and canonical-span behavior remains unchanged.
+20. Ordinary-user backend retrieval is bounded before authorization filtering by explicit deadline/byte/span/page limits and output truncation is deterministic.
+21. Missing/failed privacy, correlation, instrumentation, query, or backend components never broaden access and never fail Agent execution.
+22. Existing Phase 1-3 privacy, trust, propagation, authorization, and canonical-span behavior remains unchanged.
 
 ## 16. Explicitly deferred work
 
