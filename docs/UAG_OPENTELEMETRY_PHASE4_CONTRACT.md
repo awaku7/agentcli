@@ -421,9 +421,11 @@ ASCII whitespace or  " ' = : ; , ( ) [ ] { } < > & ? #
 
 A candidate JWT-like token is bounded on the left by start-of-string or one `JWT_BOUNDARY` character and on the right by end-of-string or one `JWT_BOUNDARY` character. No other previously defined delimiter set is used for JWT boundary decisions.
 
+A right boundary MAY additionally be a single terminal period `.` immediately following the third segment **only** when that period is followed by end-of-string or one `JWT_BOUNDARY` character. That terminal period is sentence punctuation and is not part of the token. This exception MUST NOT make a fourth JWT-like segment valid: if the period after the third segment is followed by ASCII `[A-Za-z0-9_-]`, the three-segment prefix is not a match.
+
 Within those boundaries, the token is JWT-like only if it consists of exactly three non-empty segments separated by two `.` characters and every segment contains only ASCII `[A-Za-z0-9_-]`. Each segment is limited by the already-established scalar bound. A match replaces the entire scalar with `[REDACTED]`.
 
-Thus both `access_token=aaa.bbb.ccc` and `jwt:aaa.bbb.ccc` are recognized when `aaa.bbb.ccc` otherwise satisfies the JWT-like grammar.
+Thus `access_token=aaa.bbb.ccc`, `jwt:aaa.bbb.ccc`, and `jwt=aaa.bbb.ccc.` are recognized when `aaa.bbb.ccc` otherwise satisfies the JWT-like grammar, while `aaa.bbb.ccc.ddd` is not accepted as a three-segment token by matching only its prefix.
 
 #### C. PEM private key
 
@@ -452,9 +454,9 @@ Authority scanning starts **immediately after the matched `://`**. The authority
 
 - an `@` occurs before the authority end;
 - before that `@`, a `:` occurs;
-- at least one character exists before the `:` and at least one character exists between `:` and `@`.
+- at least one character exists between `:` and `@`.
 
-Thus `https://user:password@example.com/path` matches, while the two slashes in `://` are not treated as authority/path delimiters. A match omits the whole candidate.
+The username substring before `:` MAY be empty; the password substring between `:` and `@` MUST be non-empty. Thus both `https://user:password@example.com/path` and `https://:password@example.com/path` match. `https://user:@example.com/path` does not satisfy this detector by itself because its password substring is empty. The two slashes in `://` are not treated as authority/path delimiters. A match omits the whole candidate.
 
 Known credential/secret wrapper objects never reach this detector; they are rejected earlier by exact type/provenance gates.
 
@@ -642,7 +644,15 @@ query:  no query parameter is part of v1
 
 No POST/PUT/PATCH alias, alternate route, query-string trace identifier, or body-supplied trace identifier is part of the initial contract.
 
-The feature gate is evaluated before trace-query authentication/trace-ID parsing/index/backend work. When effective core OTel is OFF or `trace_query_enabled` is not true, this route returns HTTP `404` with exactly `{"error":"not_found"}` and performs no trace-query auth lookup, trace-ID parsing, local-index lookup, or backend access. Once the feature is enabled, section 6.1.1 defines the remaining externally observable outcomes.
+The feature gate is evaluated before trace-query authentication/trace-ID parsing/index/backend work. When effective core OTel is OFF or `trace_query_enabled` is not true, this route returns HTTP `404` with exactly `{"error":"not_found"}` and performs no trace-query auth lookup, trace-ID parsing, local-index lookup, or backend access.
+
+When the feature is enabled, the existing product authentication gate runs next. After successful authentication and **before** trace-ID parsing, local-index lookup, or backend work, request shape is validated without parsing content:
+
+- any request containing one or more body octets is rejected;
+- any request with a non-empty raw query string is rejected;
+- the body/query values are never parsed, interpreted, logged, normalized, or reflected.
+
+Either request-shape violation returns HTTP `400` with exactly `{"error":"invalid_request"}`. Section 6.1.1 defines the remaining externally observable outcomes.
 
 ### 6.1 Authorization architecture and bounded local index
 
@@ -658,7 +668,22 @@ MAX_LOCAL_OWNED_SPAN_IDS_PER_TRACE = 2000
 MAX_LOCAL_SCOPE_TEXT_CHARS = 256 per stored room/project/principal/service/entry-point text field
 ```
 
-Every stored trace/span ID uses the canonical fixed-length ID grammar defined below. The index MUST enforce these ceilings when records are added; it MUST NOT accumulate an unbounded per-trace list and defer bounding until query time. If a trace would exceed any ceiling, mark its local authorization index non-queryable/overflowed for ordinary-user access; normal tracing/Agent execution continues.
+Every stored trace/span ID uses the canonical fixed-length ID grammar defined below. Every owned span-ID entry MUST atomically retain an immutable trusted semantic kind alongside that span ID. The stored kind vocabulary is exactly:
+
+```text
+invoke_agent
+chat
+execute_tool
+provider_sdk
+internal
+unknown
+```
+
+The `(span_id, semantic_kind)` association is created from trusted UAG-local semantic ownership when the span ID is registered/completed and MUST NOT be derived later from backend `span.name`, provider/model/tool text, URLs, resource metadata, or other telemetry. Once stored, the semantic kind for that owned span ID is immutable. An explicit locally classified `unknown` is valid and later maps to output `UNKNOWN`; a missing, malformed, unsupported, or multiply-associated semantic kind makes the local index malformed/non-queryable for ordinary-user access and therefore uses the fixed pre-backend `404` behavior in section 6.1.1. Missing kind metadata MUST NOT silently become `UNKNOWN`.
+
+The 2000 owned-span ceiling includes these `(span_id, semantic_kind)` entries; implementations MUST NOT maintain an additional unbounded semantic-kind map outside the same bounded index.
+
+The index MUST enforce these ceilings when records are added; it MUST NOT accumulate an unbounded per-trace list and defer bounding until query time. If a trace would exceed any ceiling, mark its local authorization index non-queryable/overflowed for ordinary-user access; normal tracing/Agent execution continues.
 
 The aggregate five-second trace-query deadline begins **before local-index lookup**. Query code MUST use a bounded index API such as:
 
@@ -666,7 +691,7 @@ The aggregate five-second trace-query deadline begins **before local-index looku
 lookup_segments(trace_id, max_segments=64, deadline=shared_deadline)
 ```
 
-and MUST NOT call an unbounded `get_all`/materialize-all path. Across all returned local segments, at most 2000 owned span IDs may be materialized/scanned. Authorization uncertainty is never converted into `partial` access.
+and MUST NOT call an unbounded `get_all`/materialize-all path. Across all returned local segments, at most 2000 owned span IDs and their semantic-kind associations may be materialized/scanned. Authorization uncertainty is never converted into `partial` access.
 
 Current auth/session and room/project/private-room authorization are revalidated per local segment/span on every query. A local segment never authorizes remote/unindexed segments in the same distributed trace. Cross-instance authorization-index federation is deferred.
 
@@ -674,9 +699,10 @@ Current auth/session and room/project/private-room authorization are revalidated
 
 The enabled initial ordinary-user endpoint has one fixed observable policy so trace existence is not exposed through differing authorization/index failures. Responses are JSON and MUST contain no raw backend/index/error payload, trace-specific reason text, scope text, or rejected identifier beyond the successful v1 response itself.
 
-- **Unauthenticated request:** the existing UAG authentication layer rejects it before trace-ID parsing or local-index lookup using the product's standard authentication response. Phase 4 does not define a second authentication format.
+- **Unauthenticated request:** the existing UAG authentication layer rejects it before request-shape validation, trace-ID parsing, or local-index lookup using the product's standard authentication response. Phase 4 does not define a second authentication format.
+- **Authenticated request with one or more body octets or a non-empty raw query string:** return HTTP `400` with exactly `{"error":"invalid_request"}` and perform no body/query parsing, trace-ID parsing, local-index lookup, or backend work.
 - **Syntactically invalid `trace_id`:** return HTTP `400` with exactly `{"error":"invalid_trace_id"}` and perform no local-index/backend lookup.
-- **Syntactically valid `trace_id`, but no complete authorized local view can be established before backend access:** return HTTP `404` with exactly `{"error":"trace_not_found"}` and perform no backend lookup. This single result covers nonexistent/local-index-missing traces, a complete lookup yielding zero currently authorized local segments, overflowed/non-queryable index state, malformed index state, local-index timeout/deadline expiry, incomplete index state, and equivalent authorization uncertainty. The endpoint MUST NOT use `403` or distinct bodies/statuses to distinguish those cases.
+- **Syntactically valid `trace_id`, but no complete authorized local view can be established before backend access:** return HTTP `404` with exactly `{"error":"trace_not_found"}` and perform no backend lookup. This single result covers nonexistent/local-index-missing traces, a complete lookup yielding zero currently authorized local segments, overflowed/non-queryable index state, malformed index state (including missing/malformed/unsupported semantic-kind association), local-index timeout/deadline expiry, incomplete index state, and equivalent authorization uncertainty. The endpoint MUST NOT use `403` or distinct bodies/statuses to distinguish those cases.
 - **Complete bounded local authorization succeeds with at least one authorized local segment, but backend retrieval/projection later fails or cannot produce a safe bounded partial result:** return HTTP `503` with exactly `{"error":"trace_query_unavailable"}` and no backend payload/details.
 - **Successful projection:** return HTTP `200` with exactly the `uag.trace_view.v1` schema in section 6.5.
 
@@ -749,18 +775,20 @@ INTERNAL
 UNKNOWN
 ```
 
-The trusted semantic-kind mapping is exhaustive and exact:
+Query projection MUST obtain the semantic kind **only** from the bounded local index's immutable `(span_id, semantic_kind)` association after canonical span-ID membership succeeds. Backend `span.name`, provider/model/tool/agent names, URLs, request text, exception text, and vendor/resource/instrumentation fields never participate in this mapping.
+
+The trusted indexed semantic-kind mapping is exhaustive and exact:
 
 ```text
-invoke_agent  -> AGENT
-chat          -> LLM
-execute_tool  -> TOOL
-provider_sdk  -> PROVIDER_SDK
-internal      -> INTERNAL
-any other, missing, malformed, or unsupported trusted semantic kind -> UNKNOWN
+invoke_agent -> AGENT
+chat         -> LLM
+execute_tool -> TOOL
+provider_sdk -> PROVIDER_SDK
+internal     -> INTERNAL
+unknown      -> UNKNOWN
 ```
 
-Only trusted UAG-local semantic ownership may supply this semantic kind. Backend `span.name`, provider/model/tool/agent names, URLs, request text, exception text, and vendor/resource/instrumentation fields never participate in this mapping. The `internal` input kind is a UAG-owned static semantic kind only; arbitrary backend/provider text cannot create it. An absent or unrecognized trusted semantic kind is projected as `UNKNOWN`; no adapter may remap one admitted trusted kind to another output class.
+The `internal` and `unknown` input kinds are UAG-owned static classifications only; arbitrary backend/provider text cannot create them. A missing, malformed, unsupported, or conflicting indexed semantic kind is not projected as `UNKNOWN`: it makes the local authorization index malformed/non-queryable and therefore produces the fixed pre-backend `404` outcome from section 6.1.1. No adapter may remap one admitted trusted kind to another output class.
 
 #### 6.5.1 Status normalization
 
@@ -848,7 +876,7 @@ Invalid or textual timing omits the span; raw timing text is never parsed, logge
 
 `partial=true` whenever UAG knowingly omits safely relevant backend data due to backend/query limits, authorization/local ownership filtering after a complete bounded authorization lookup, trace-ID mismatch/missing record binding, invalid/duplicate IDs, invalid/unsupported timing, parent omission, output truncation, or another supported fail-closed projection omission.
 
-`partial=false` only when no known omission exists within bounded retrieved data. Local authorization-index uncertainty/overflow is the fixed pre-backend `404` result from section 6.1.1, not a partial authorization result.
+`partial=false` only when no known omission exists within bounded retrieved data. Local authorization-index uncertainty/overflow/malformed state is the fixed pre-backend `404` result from section 6.1.1, not a partial authorization result.
 
 ### 6.9 Aggregate query resource ceilings
 
@@ -919,8 +947,9 @@ Implementation is incomplete until tests prove at least:
 - every always-blocked key causes whole-candidate omission;
 - Authorization/Basic, compact JWT-like, PEM private key, and URI-userinfo detector boundaries/actions are exact;
 - `-----BEGIN ENCRYPTED PRIVATE KEY-----` and `-----BEGIN DSA PRIVATE KEY-----` each trigger mandatory whole-candidate omission;
-- `access_token=aaa.bbb.ccc` and `jwt:aaa.bbb.ccc` are recognized by the named JWT boundary set when the token body otherwise satisfies the JWT-like grammar;
-- `https://user:password@example.com/path` is detected by authority scanning after `://`;
+- `access_token=aaa.bbb.ccc`, `jwt:aaa.bbb.ccc`, and `jwt=aaa.bbb.ccc.` are recognized when the token body otherwise satisfies the JWT-like grammar;
+- `aaa.bbb.ccc.ddd` is not accepted by matching only its first three segments under the terminal-period rule;
+- `https://user:password@example.com/path` and `https://:password@example.com/path` are detected, while empty-password `https://user:@example.com/path` does not satisfy the URI-userinfo detector by itself;
 - every recognized value secret is redacted/omitted according to section 3.9 and never passes unchanged;
 - mapping-key secret match omits candidate;
 - canonical rendering is stable across supported Python 3.11/3.13/3.14 conformance corpus;
@@ -954,17 +983,21 @@ Implementation is incomplete until tests prove at least:
 - feature is independently default-OFF and requires its explicit activation control;
 - initial API is only `GET /api/observability/traces/{trace_id}` with no body/query trace identifier or method alias;
 - disabled/core-OTel-OFF requests return exact `404 {"error":"not_found"}` before trace-query auth, parsing, index, or backend work;
+- after successful product authentication, any body octet or non-empty raw query string returns exact `400 {"error":"invalid_request"}` before trace-ID parsing/index/backend work and the values are never parsed;
 - invalid query trace ID returns the exact section 6.1.1 `400` response before local-index lookup;
 - nonexistent, zero-authorized, overflowed, malformed, timed-out, and incomplete local-index cases all collapse to the exact same pre-backend `404 {"error":"trace_not_found"}` response and never use a trace-specific `403`/detail;
 - backend/projection failure after successful complete authorization returns the exact fixed `503 {"error":"trace_query_unavailable"}` response with no backend payload;
 - local index write/read ceilings prevent unbounded segment/span-ID materialization;
+- every owned span ID has exactly one immutable indexed semantic kind from the closed local vocabulary; the association is created atomically from trusted UAG-local ownership and counts under the same 2000-span ceiling;
+- missing/malformed/unsupported/conflicting indexed semantic kind makes the trace index non-queryable and uses the fixed pre-backend `404`; it is never silently mapped to UNKNOWN;
+- query projection obtains semantic kind only from the indexed span-ID association; backend span names/metadata cannot influence it;
 - the five-second budget starts before local-index lookup and is shared through backend work;
 - every projected backend record requires an explicit matching canonical trace ID;
 - missing/mismatched record trace ID cannot be rescued by span-ID membership;
 - invalid/duplicate span IDs fail closed;
 - current auth/authz is revalidated per local segment/span;
 - remote/unindexed/unauthorized spans are omitted after a complete bounded authorization lookup;
-- trusted semantic-kind mapping is exact and exhaustive: `invoke_agent -> AGENT`, `chat -> LLM`, `execute_tool -> TOOL`, `provider_sdk -> PROVIDER_SDK`, `internal -> INTERNAL`, and every other/missing/malformed kind -> `UNKNOWN`;
+- trusted indexed semantic-kind mapping is exact: `invoke_agent -> AGENT`, `chat -> LLM`, `execute_tool -> TOOL`, `provider_sdk -> PROVIDER_SDK`, `internal -> INTERNAL`, `unknown -> UNKNOWN`;
 - raw status normalization accepts only missing/`None` or bounded exact built-in strings and maps the closed token sets exactly; malformed/unsupported status maps to `UNSET` without pass-through;
 - textual timestamps are rejected in initial v1 without generic or adapter-specific parsing;
 - reversed timestamps are rejected at raw precision even when millisecond flooring would make them equal;
