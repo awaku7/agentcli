@@ -112,17 +112,35 @@ The scope is resolved from:
 
 There is no hostname, PID, random process value, current working directory, repository path, or machine-local implicit fallback.
 
+### 2.1 Exact validation and hashing semantics
+
+The configured value is validated **without trimming or other canonical rewrite**. Initial validation accepts exactly 1-128 UTF-8 characters and rejects:
+
+- an empty value;
+- any leading or trailing Unicode whitespace;
+- control characters;
+- values longer than 128 characters.
+
+Internal whitespace is permitted when it is not leading/trailing whitespace or a control character. No Unicode normalization, case folding, path normalization, delimiter rewriting, or other canonicalization is performed.
+
+The exact validated configured string is the `deployment_scope` value framed into the HMAC input. Therefore:
+
+```text
+prod     -> valid, hashes as "prod"
+" prod"  -> invalid
+"prod "  -> invalid
+```
+
+This avoids two ambiguous outcomes: implementations must neither silently collapse distinct configured values by trimming nor hash surrounding whitespace that validation appeared to ignore.
+
 Requirements:
 
-- the value is non-empty after trimming;
 - the value is stable across replicas that are intentionally part of the same correlation domain;
 - production, staging, development, test, customer, or tenant deployments that must not correlate use distinct deployment-scope values and/or distinct correlation keys;
 - callers cannot supply or override it per request/turn;
 - it is not used as authorization, identity, storage, or routing state;
 - it is not exported as a raw trace attribute by default;
 - changing it intentionally breaks pseudonym correlation.
-
-Initial validation accepts 1-128 UTF-8 characters after trimming and rejects control characters. Implementations may later narrow the syntax, but must not silently rewrite two distinct configured values into one scope.
 
 If pseudonymous correlation is enabled but deployment scope is missing or invalid, pseudonym emission is disabled and a secret-free normalized diagnostic is produced. Core tracing continues unchanged.
 
@@ -287,9 +305,12 @@ The implementation is not complete until these cases are covered:
 
 - missing scope while pseudonymization is requested emits no pseudonym;
 - empty/invalid scope emits no pseudonym;
+- exact `prod` is valid and is framed exactly as configured;
+- ` prod `, leading-whitespace, or trailing-whitespace variants are invalid rather than trimmed or hashed with whitespace;
 - the same key + same stable deployment scope across replicas produces stable pseudonyms;
 - different deployment scopes produce different pseudonyms;
-- no process-random/hostname fallback silently substitutes for a missing scope.
+- no process-random/hostname fallback silently substitutes for a missing scope;
+- no Unicode/case/path normalization silently rewrites a valid scope before hashing.
 
 ### Field provenance
 
@@ -323,7 +344,7 @@ The implementation is not complete until these cases are covered:
 - Raw correlation keys are credential-store values, never CLI values.
 - Controlled content capture uses explicit finite ranges and invalid bounds disable capture rather than broadening it.
 - Provider instrumentation selectors use UAG logical provider IDs; the Anthropic path is selected as `claude`.
-- Pseudonymization requires a non-empty stable deployment scope; absence disables pseudonym emission.
+- Pseudonymization requires a non-empty stable deployment scope; surrounding whitespace is rejected and the exact validated value is framed into the HMAC.
 - Content provenance is field/node-level for body-capable composites.
 - Unannotated body-capable composite fields fail closed.
 - File/artifact/Memory/retrieval/authentication bodies cannot become eligible merely by being nested inside allowed `user_input`, `tool_arguments`, or `tool_result` values.
