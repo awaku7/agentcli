@@ -78,6 +78,34 @@ class OpenTelemetrySpan:
         except Exception:
             pass
 
+    def add_content_event(self, event: object) -> bool:
+        """Emit only a trusted, already-sanitized Phase 4A content carrier."""
+
+        if not self._capture_content:
+            return False
+        try:
+            from .content_capture import CONTENT_EVENT_NAME, PreparedContentEvent
+
+            if type(event) is not PreparedContentEvent or not event.is_trusted():
+                return False
+            attributes = event.attributes()
+            if set(attributes) != {
+                "uag.content.category",
+                "uag.content.value",
+                "uag.content.ordinal",
+            }:
+                return False
+            if type(attributes["uag.content.category"]) is not str:
+                return False
+            if type(attributes["uag.content.value"]) is not str:
+                return False
+            if type(attributes["uag.content.ordinal"]) is not int:
+                return False
+            self._span.add_event(CONTENT_EVENT_NAME, attributes)
+            return True
+        except Exception:
+            return False
+
     def record_exception(self, exc: BaseException) -> None:
         try:
             exception_type = f"{type(exc).__module__}.{type(exc).__name__}"
