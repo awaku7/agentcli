@@ -59,7 +59,33 @@ Rules:
 - browser/WebSocket/A2A/MCP/tool/provider/trace/baggage/header/query/cookie data cannot alter settings;
 - no CLI/environment setting accepts raw correlation-key material.
 
-### 1.1 Controlled-content category parsing
+### 1.1 Exact source-specific scalar parsers
+
+Phase 4 settings are parsed before precedence fallback is considered. A higher-precedence value that is present but invalid fails closed for the affected feature and does not fall back to a lower-precedence source.
+
+Boolean settings initially are exactly:
+
+```text
+capture content
+pseudonymous correlation
+```
+
+Their source grammars are:
+
+- CLI: presence-only flags `--otel-capture-content` / `--no-otel-capture-content` and `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation`; no `=<value>` or following value token is accepted; last explicit positive/negative flag wins;
+- environment: value must first be an exact built-in `str`; apply Python `str.strip()` followed by `str.lower()` and accept only `1`, `true`, `yes`, `on` as true or `0`, `false`, `no`, `off` as false; every other present value is invalid and resolves the affected feature to OFF without fallback;
+- application/programmatic: value must be exact built-in `bool`; `int`/string/custom truthy objects are invalid; no `bool(value)` coercion is permitted.
+
+Numeric Phase 4 settings initially are exactly the two controlled-content bounds. Source grammars are:
+
+- CLI/environment raw value must be exact built-in `str` and match canonical ASCII decimal `0|[1-9][0-9]*`; no sign, whitespace, separator, exponent, leading zero on a multi-digit value, or Unicode digit is accepted;
+- application/programmatic value must be exact built-in `int`, with `bool` explicitly rejected;
+- parse only after the lexical/type gate, then apply the ranges in section 1.3;
+- launcher/GUI/Web/A2A code must not use a more permissive parser and then pass a normalized value as if it were the original explicit setting.
+
+String and CSV settings use exact built-in `str` values only. CLI arguments are passed as their raw token strings to the shared resolver; environment values must already be exact built-in strings; programmatic callers may not pass bytes/custom string-like objects. Topic sections below define each string/CSV grammar.
+
+### 1.2 Controlled-content category parsing
 
 Closed vocabulary:
 
@@ -79,7 +105,7 @@ tool_result
 - empty/unknown token invalidates the category configuration and disables controlled content capture for the process;
 - metadata-only tracing continues.
 
-### 1.2 Controlled-content numeric bounds
+### 1.3 Controlled-content numeric bounds
 
 ```text
 MAX_FIELD_CHARS default 2048, valid 64..16384
@@ -87,11 +113,11 @@ MAX_SPAN_CHARS  default 8192, valid 256..65536
 MAX_SPAN_CHARS >= MAX_FIELD_CHARS
 ```
 
-Missing -> default. Non-integer/zero/negative/out-of-range/inconsistent values disable controlled content capture; never substitute an unbounded fallback.
+Missing -> default. Present values must first satisfy section 1.1's exact source grammar. Zero/negative/out-of-range/inconsistent values disable controlled content capture; never substitute an unbounded fallback.
 
 Runtime candidate/structure/renderer/ledger limits are owned by the traversal contract.
 
-### 1.3 Provider selector parsing
+### 1.4 Provider selector parsing
 
 Initial Phase 4C supported logical provider selector set is exactly:
 
@@ -105,6 +131,7 @@ claude
 Parsing:
 
 - missing/empty -> OFF;
+- value is exact built-in `str` under section 1.1;
 - split on comma;
 - strip only surrounding ASCII space/tab;
 - no case folding/Unicode normalization;
@@ -151,9 +178,18 @@ An explicit effective credential name must be an exact built-in string containin
 
 Invalid explicit name disables pseudonym emission and does not fall back to the default.
 
-### 3.2 Credential kind/purpose metadata
+### 3.2 Credential runtime type and metadata contract
 
-Initial correlation credential must be:
+Before any equality, length, alphabet, decoding, or conversion operation:
+
+- the resolved credential object must expose the reviewed `CredentialKind` value without invoking a custom conversion hook;
+- `credential.secret` must satisfy `type(secret) is str`;
+- `credential.metadata` must satisfy `type(metadata) is dict`;
+- `metadata["purpose"]` and `metadata["key_version"]` must both exist and each satisfy `type(value) is str`;
+- required metadata keys are looked up only by the literal built-in string keys `purpose` and `key_version`;
+- bytes, string subclasses, custom mappings, proxy values, custom equality objects, or coercible wrappers fail closed before comparison/decoding.
+
+Initial correlation credential must then satisfy:
 
 ```text
 CredentialKind.OTHER
@@ -175,7 +211,7 @@ base64url decode -> exactly 32 bytes
 canonical re-encode -> exact original 43-character string
 ```
 
-Native length/alphabet are checked before decoding. Wrong length/alphabet/noncanonical/decode failure/non-32-byte secret disables pseudonym emission. Arbitrary passphrases are not accepted.
+The exact built-in-string gate from section 3.2 occurs first. Native length/alphabet are checked before decoding. Wrong length/alphabet/noncanonical/decode failure/non-32-byte secret disables pseudonym emission. Arbitrary passphrases are not accepted.
 
 The 32 raw bytes are provisioned from a cryptographic RNG. UAG's own generator, if provided, uses an OS CSPRNG. No raw key environment/CLI fallback exists.
 
@@ -271,7 +307,9 @@ Drop before generic content secret handling:
 
 Secret/privacy scanning occurs only after traversal/scalar contracts establish bounded work.
 
-Reviewed high-confidence forms include Bearer/Basic values, compact JWT-like strings, PEM/private-key encodings, recognized credential-bearing URI userinfo, known secret wrappers, and trusted credential-bearing tags.
+The initial textual high-confidence detection set is closed and is owned by section 5.2 of the traversal/rendering contract: Authorization-scheme credentials, compact JWT-like tokens, fixed PEM private-key begin markers, and credential-bearing URI userinfo. Trusted secret wrappers/tags are excluded by typed provenance before textual scanning.
+
+For every recognized match the implementation must perform the exact traversal-contract action: redact every recognized Authorization/JWT match with `[REDACTED]`, or omit the whole candidate for PEM/credential-URI/key/security-ambiguity cases. A recognized secret is never exported unchanged. “Best effort,” “may redact,” or implementation-defined pass-through is non-conformant.
 
 Recursive always-blocked mapping-key behavior, exact replacement marker, post-redaction field checks, renderer, and span ledger belong to the traversal contract.
 
@@ -338,15 +376,22 @@ status_code: UNSET | OK | ERROR
 
 Invalid span ID/timing omits that span rather than echoing raw text.
 
-### 6.3 Backend trace-id matching and duplicate span IDs
+### 6.3 Every projected backend record is bound to the requested trace
 
-For each fetched backend record:
+For the initial ordinary-user v1 adapter, **every** fetched record considered for projection must explicitly carry a trace ID. Absence is not accepted as an implicit query binding.
 
-- if it explicitly carries a trace ID, that value must be an exact built-in string with native length 32 and exact canonical lower-hex/nonzero form before comparison;
-- canonical backend trace ID must exactly equal requested canonical trace ID or record is dropped;
-- after span-ID validation, if one `span_id` appears in more than one fetched record, omit **all** records with that duplicate ID and set `partial=true`;
-- never resolve duplicates by resource attributes, service names, arrival order, provider metadata, or remote text;
-- returned spans therefore have unique canonical IDs.
+For each fetched backend record, before span-ID membership lookup or timing/status projection:
+
+- raw record trace ID must satisfy `type(value) is str`;
+- native length must be exactly 32 before any regex/classifier work;
+- characters must be lowercase ASCII `[0-9a-f]` and value must be nonzero;
+- canonical record trace ID must exactly equal the requested canonical trace ID;
+- missing, malformed, zero, or mismatched trace ID drops the record and sets `partial=true` when otherwise safely relevant data is returned;
+- no record lacking this explicit matching trace ID may be rescued by span-ID collision, service/resource attributes, arrival order, or backend query context.
+
+A future adapter that cannot expose a per-record trace ID is unsupported for ordinary-user v1 until a separately reviewed contract defines an equally trusted query-bound association. Initial v1 has no such exception.
+
+After trace-ID validation, if one canonical `span_id` appears in more than one fetched record, omit **all** records with that duplicate ID and set `partial=true`; never resolve duplicates by resource attributes, service names, arrival order, provider metadata, or remote text. Returned spans therefore have unique canonical IDs.
 
 ### 6.4 Parent semantics
 
@@ -375,7 +420,7 @@ Unknown structures are dropped. Future fields require a reviewed new schema vers
 
 ### 6.7 `partial` semantics
 
-`partial=true` whenever UAG knowingly omits safely relevant data because of backend limits, output limit, auth/local-ownership filtering, duplicate/mismatched/invalid records, invalid timing/ID, omitted known parent, or another supported fail-closed projection omission.
+`partial=true` whenever UAG knowingly omits safely relevant data because of backend limits, output limit, auth/local-ownership filtering, duplicate/mismatched/missing/invalid records, invalid timing/ID, omitted known parent, or another supported fail-closed projection omission.
 
 `partial=false` only when no known omission exists within bounded retrieved data.
 
@@ -414,7 +459,8 @@ fixed-length/canonical trace_id validation
   -> none? deny
   -> current authz per local segment
   -> bounded backend query
-  -> fixed-length/canonical ID + duplicate validation
+  -> require matching canonical trace ID on every record
+  -> fixed-length/canonical span-ID + duplicate validation
   -> trusted local membership classification
   -> drop non-local/unindexed/unauthorized
   -> closed v1 projection
@@ -459,26 +505,34 @@ Rules:
 ### Configuration/credentials
 
 - CLI overrides env; `--no-otel` suppresses all Phase 4;
+- environment booleans accept exactly the documented normalized token set and reject every other present value without fallback;
+- programmatic booleans require exact built-in `bool`; `0/1`, strings, and custom truthy objects fail closed;
+- CLI/environment numeric strings accept only canonical ASCII decimal grammar; signs, surrounding whitespace, leading-zero multi-digit forms, Unicode digits, decimal/exponent forms fail closed;
+- programmatic numeric values require exact built-in `int`; `bool`/float/string/custom numeric wrappers fail closed;
 - category/bound invalidity fails closed;
 - initial provider selector set is exactly `openai|claude`; `anthropic`/unknown values never instrument an unselected path;
 - default correlation credential name exactly `observability/correlation`;
 - invalid credential names fail closed;
+- credential secret, metadata mapping, purpose, and key-version values pass exact runtime type gates before comparison/length/decode;
+- bytes/string subclasses/custom mappings/custom equality wrappers fail closed before credential comparison/decoding;
 - credential kind/purpose/version metadata is exact;
 - canonical 43-char unpadded base64url decodes to exactly 32 bytes;
 - padded/noncanonical/wrong-length/passphrase secrets fail closed before expensive decode work;
 - no raw key env/CLI input.
 
-### Deployment/provenance
+### Deployment/provenance/secrets
 
 - deployment-scope exact validation/hashing is replica-stable;
 - forbidden body/auth/Memory/retrieval/file/artifact/reasoning sources remain excluded through nesting;
-- unannotated body-capable children fail closed.
+- unannotated body-capable children fail closed;
+- each initial recognized secret class follows the mandatory redact-or-omit action and no recognized secret passes unchanged.
 
 ### Trace schema/identity
 
 - giant/non-string/31/33-char/uppercase/zero trace IDs reject before lookup and without conversion;
 - giant/non-string/15/17-char/uppercase/zero span IDs omit before membership lookup/projection;
-- explicit backend trace-ID mismatch record omitted;
+- every projected backend record requires an explicit canonical trace ID matching the requested trace;
+- missing/malformed/explicit backend trace-ID mismatch records are omitted before span membership lookup;
 - duplicate span IDs omit all duplicates and set partial;
 - returned IDs are unique/canonical;
 - name/timing/status remain closed typed fields;
@@ -494,12 +548,13 @@ Rules:
 
 ## 11. Fixed Phase 4 decisions
 
-- Configuration and correlation credentials are explicit/fail-closed.
+- Configuration parsing has source-specific exact runtime types and lexical grammars; invalid explicit higher-precedence settings fail closed without fallback.
 - Initial provider diagnostics are selectable only for `openai` and `claude`.
+- Correlation credential secret/metadata values require exact built-in runtime types before comparison or decoding.
 - Correlation key is canonical unpadded base64url of exactly 32 bytes with dedicated purpose/version metadata.
 - Deployment scope is exact/untrimmed/bounded.
 - Field/node provenance hard denial overrides content categories.
-- Privacy/secret scanning runs only after bounded traversal/scalar preflight.
-- Ordinary-user v1 performs fixed-length canonical trace/span-ID validation before comparison/lookup, has unique returned span IDs, closed name/status/timing types, and no arbitrary backend structures.
+- Privacy/secret scanning runs only after bounded traversal/scalar preflight, and recognized initial secret forms must redact or omit.
+- Ordinary-user v1 requires a matching canonical trace ID on every projected backend record before span membership lookup, performs fixed-length canonical trace/span-ID validation, has unique returned span IDs, closed name/status/timing types, and no arbitrary backend structures.
 - Authorization derives only from current UAG-local state.
 - Backend retrieval uses one aggregate bounded query budget.
