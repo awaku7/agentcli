@@ -92,6 +92,8 @@ def capture_logged_message(message: object) -> bool:
         message_id = id(message)
         if message_id in state.seen_message_ids:
             return False
+        if state.next_ordinal > 32:
+            return False
         state.seen_message_ids.add(message_id)
 
         ordinal = state.next_ordinal
@@ -121,7 +123,7 @@ def capture_latest_user_message(messages: object) -> bool:
 
 
 def capture_appended_messages(messages: object, start_index: int) -> int:
-    """Capture reviewed envelopes appended during one LLM execution."""
+    """Capture reviewed assistant envelopes appended during one LLM execution."""
 
     if type(messages) is not list or type(start_index) is not int:
         return 0
@@ -131,7 +133,10 @@ def capture_appended_messages(messages: object, start_index: int) -> int:
     captured = 0
     try:
         for index in range(start_index, len(messages)):
-            if capture_logged_message(messages[index]):
+            message = messages[index]
+            if type(message) is not dict or message.get("role") != "assistant":
+                continue
+            if capture_logged_message(message):
                 captured += 1
     except Exception:
         return captured
