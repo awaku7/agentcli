@@ -219,6 +219,30 @@ def test_disabled_nested_capture_scope_masks_enabled_parent():
     ]
 
 
+def test_attachment_envelopes_are_never_capture_eligible():
+    span = _DedicatedSpan()
+    user_with_attachment = {
+        "role": "user",
+        "content": "[Attached File] report.txt\n[File Path] C:/private/report.txt",
+        "attachments": [{"name": "report.txt"}],
+    }
+    assistant_with_attachment = {
+        "role": "assistant",
+        "content": "attachment reply",
+        "attachments": [{"name": "result.txt"}],
+    }
+
+    assert capture_logged_message(user_with_attachment) is False
+    with bind_agent_content_capture(
+        span,
+        _settings("user_input", "assistant_output"),
+    ):
+        assert capture_logged_message(user_with_attachment) is False
+        assert capture_logged_message(assistant_with_attachment) is False
+
+    assert span.content_events == []
+
+
 def test_lifecycle_binding_fails_closed_for_structured_or_internal_messages(
     monkeypatch,
 ):

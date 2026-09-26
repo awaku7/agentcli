@@ -39,6 +39,8 @@ def _eligible_envelope(message: object) -> tuple[str, str] | None:
     try:
         if message.get("_uagent_internal") or message.get("_uagent_ui_only"):
             return None
+        if "attachments" in message:
+            return None
         role = message.get("role")
         content = message.get("content")
         if role not in {"user", "assistant"} or type(content) is not str:

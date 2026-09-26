@@ -99,4 +99,34 @@ def test_gemini_round_synthesizes_catalog_call_for_thought_only_response(
     assert appended[0]["tool_calls_list"][0]["function"]["name"] == "tool_catalog"
 
 
+def test_web_gemini_captures_appended_assistant_before_return(monkeypatch) -> None:
+    core = _Core()
+    core._is_web = True
+    kwargs = _kwargs(core)
+    messages = kwargs["messages"]
+    captured: list[dict[str, object]] = []
+
+    def append_assistant_message(**payload):
+        message = {"role": "assistant", "content": payload["assistant_text"]}
+        payload["messages"].append(message)
+
+    kwargs["append_assistant_message_fn"] = append_assistant_message
+    monkeypatch.setattr(
+        legacy_gemini_round,
+        "call_legacy_gemini_round",
+        lambda **_kwargs: (True, "new-client", "answer", [], {"parts": []}),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    result = legacy_gemini_round.run_legacy_gemini_round(**kwargs)
+
+    assert result == ("break", "new-client", "cache-name", 0, "answer!")
+    assert isinstance(messages, list)
+    assert captured == [messages[-1]]
+    assert captured[0]["content"] == "answer!"
+
+
 __all__ = []
