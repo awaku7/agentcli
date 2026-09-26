@@ -158,6 +158,41 @@ def test_lifecycle_binding_consumes_pending_user_and_emits_assistant(monkeypatch
     ]
 
 
+def test_pending_user_is_consumed_once(monkeypatch):
+    first_span = _DedicatedSpan()
+    second_span = _DedicatedSpan()
+    spans = iter((first_span, second_span))
+    backend = _Backend(first_span)
+    settings = _settings("user_input")
+
+    @contextmanager
+    def start_span(operation, *, attributes=None, root=False):
+        yield next(spans)
+
+    backend.start_span = start_span
+
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.settings.get_observability_settings",
+        lambda: settings,
+    )
+
+    assert capture_logged_message({"role": "user", "content": "hello"}) is True
+
+    with lifecycle_execution():
+        pass
+    with lifecycle_execution():
+        pass
+
+    assert [
+        event.attributes()["uag.content.value"] for event in first_span.content_events
+    ] == ["hello"]
+    assert second_span.content_events == []
+
+
 def test_disabled_nested_capture_scope_masks_enabled_parent():
     outer_span = _DedicatedSpan()
     inner_span = _DedicatedSpan()
@@ -178,7 +213,9 @@ def test_disabled_nested_capture_scope_masks_enabled_parent():
         )
 
     assert inner_span.content_events == []
-    assert [event.attributes()["uag.content.value"] for event in outer_span.content_events] == [
+    assert [
+        event.attributes()["uag.content.value"] for event in outer_span.content_events
+    ] == [
         "outer",
         "outer reply",
     ]
