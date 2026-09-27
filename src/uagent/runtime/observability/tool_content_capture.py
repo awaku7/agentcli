@@ -16,6 +16,45 @@ from .content_capture import (
 )
 
 
+_INVALID_SCHEMA = object()
+
+
+def _schema_fingerprint(value: object) -> object:
+    """Normalize JSON-schema metadata while ignoring localized descriptions only."""
+
+    if type(value) is dict:
+        items: list[tuple[str, object]] = []
+        for key in sorted(value):
+            if type(key) is not str:
+                return _INVALID_SCHEMA
+            if key == "description":
+                continue
+            child = _schema_fingerprint(value[key])
+            if child is _INVALID_SCHEMA:
+                return _INVALID_SCHEMA
+            items.append((key, child))
+        return ("dict", tuple(items))
+    if type(value) is list:
+        children: list[object] = []
+        for item in value:
+            child = _schema_fingerprint(item)
+            if child is _INVALID_SCHEMA:
+                return _INVALID_SCHEMA
+            children.append(child)
+        return ("list", tuple(children))
+    if value is None:
+        return ("none",)
+    if type(value) is str:
+        return ("str", value)
+    if type(value) is bool:
+        return ("bool", value)
+    if type(value) is int:
+        return ("int", value)
+    if type(value) is float:
+        return ("float", value)
+    return _INVALID_SCHEMA
+
+
 @dataclass(frozen=True)
 class _ReviewedToolAdapter:
     module_name: str
@@ -24,6 +63,7 @@ class _ReviewedToolAdapter:
     argument_keys: tuple[str, ...]
     argument_types: tuple[str, ...]
     required_keys: tuple[str, ...]
+    parameter_schema_fingerprint: object
     result_type: type
 
 
@@ -35,6 +75,13 @@ _REVIEWED_TOOL_ADAPTERS: dict[str, _ReviewedToolAdapter] = {
         argument_keys=(),
         argument_types=(),
         required_keys=(),
+        parameter_schema_fingerprint=_schema_fingerprint(
+            {
+                "type": "object",
+                "properties": {},
+                "required": [],
+            }
+        ),
         result_type=str,
     ),
     "calculator": _ReviewedToolAdapter(
@@ -44,6 +91,13 @@ _REVIEWED_TOOL_ADAPTERS: dict[str, _ReviewedToolAdapter] = {
         argument_keys=("expression",),
         argument_types=("string",),
         required_keys=("expression",),
+        parameter_schema_fingerprint=_schema_fingerprint(
+            {
+                "type": "object",
+                "properties": {"expression": {"type": "string"}},
+                "required": ["expression"],
+            }
+        ),
         result_type=str,
     ),
 }
@@ -132,7 +186,11 @@ def is_reviewed_tool_runner(tool_name: str, runner: object) -> bool:
         return False
     try:
         module = import_module(adapter.module_name)
-        return runner is getattr(module, "run_tool", None)
+        reviewed_runner = getattr(module, "run_tool", None)
+        return (
+            runner is reviewed_runner
+            and getattr(reviewed_runner, "__module__", None) == adapter.module_name
+        )
     except Exception:
         return False
 
@@ -150,6 +208,8 @@ def _schema_matches(tool_name: str, adapter: _ReviewedToolAdapter) -> bool:
             return False
         parameters = function.get("parameters")
         if type(parameters) is not dict or parameters.get("type") != "object":
+            return False
+        if _schema_fingerprint(parameters) != adapter.parameter_schema_fingerprint:
             return False
         properties = parameters.get("properties")
         required = parameters.get("required")
