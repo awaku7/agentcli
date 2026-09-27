@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import threading
 from contextlib import ExitStack, contextmanager
 from contextvars import ContextVar
 from collections.abc import Callable, Iterator
@@ -16,6 +17,27 @@ from .logging_setup import log_event
 if TYPE_CHECKING:
     from .identity_context import TurnContext
 
+
+class _AgentCorrelationState:
+    """One synchronized terminal correlation-attempt state per Agent span."""
+
+    __slots__ = ("span", "_finalized", "_lock")
+
+    def __init__(self, span: object) -> None:
+        self.span = span
+        self._finalized = False
+        self._lock = threading.Lock()
+
+    def claim(self, span: object) -> bool:
+        if span is not self.span:
+            return False
+        with self._lock:
+            if self._finalized:
+                return False
+            self._finalized = True
+            return True
+
+
 _CURRENT_LIFECYCLE: ContextVar[AgentLifecycle | None] = ContextVar(
     "uagent_current_lifecycle", default=None
 )
@@ -25,8 +47,8 @@ _CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = Cont
 _CURRENT_AGENT_SPAN: ContextVar[object | None] = ContextVar(
     "uagent_current_agent_span", default=None
 )
-_CURRENT_AGENT_CORRELATION_FINALIZED: ContextVar[bool] = ContextVar(
-    "uagent_current_agent_correlation_finalized", default=False
+_CURRENT_AGENT_CORRELATION_STATE: ContextVar[_AgentCorrelationState | None] = (
+    ContextVar("uagent_current_agent_correlation_state", default=None)
 )
 _TOOL_RUNNER_ACTIVE: ContextVar[bool] = ContextVar(
     "uagent_tool_runner_active", default=False
@@ -90,8 +112,8 @@ def apply_turn_context_to_current_agent_span(turn_context: TurnContext) -> None:
         observability_span.set_attribute("uag.auth.kind", turn_context.authn_kind)
     except Exception:
         pass
-    if not _CURRENT_AGENT_CORRELATION_FINALIZED.get():
-        _CURRENT_AGENT_CORRELATION_FINALIZED.set(True)
+    correlation_state = _CURRENT_AGENT_CORRELATION_STATE.get()
+    if correlation_state is not None and correlation_state.claim(observability_span):
         _attach_turn_correlation(observability_span, turn_context)
 
 
@@ -155,8 +177,10 @@ def lifecycle_execution(
                 root=is_web_root and not trusted_parent_attached,
             )
         )
-        correlation_finalized = effective_turn_context is not None
-        if correlation_finalized:
+        correlation_state = _AgentCorrelationState(observability_span)
+        if effective_turn_context is not None and correlation_state.claim(
+            observability_span
+        ):
             _attach_turn_correlation(
                 observability_span,
                 effective_turn_context,
@@ -176,9 +200,7 @@ def lifecycle_execution(
         lifecycle_token = _CURRENT_LIFECYCLE.set(current)
         callback_token = _CURRENT_CALLBACK.set(on_transition)
         span_token = _CURRENT_AGENT_SPAN.set(observability_span)
-        correlation_token = _CURRENT_AGENT_CORRELATION_FINALIZED.set(
-            correlation_finalized
-        )
+        correlation_token = _CURRENT_AGENT_CORRELATION_STATE.set(correlation_state)
         if current.status.value == "CREATED":
             _emit_lifecycle_events(current.snapshot())
         _safe_transition(current, "start")
@@ -210,7 +232,7 @@ def lifecycle_execution(
                 observability_span.set_status("error", lifecycle_status.lower())
             elif lifecycle_status == "CANCELLED":
                 observability_span.set_status("unset", "cancelled")
-            _CURRENT_AGENT_CORRELATION_FINALIZED.reset(correlation_token)
+            _CURRENT_AGENT_CORRELATION_STATE.reset(correlation_token)
             _CURRENT_AGENT_SPAN.reset(span_token)
             _CURRENT_CALLBACK.reset(callback_token)
             _CURRENT_LIFECYCLE.reset(lifecycle_token)
