@@ -207,14 +207,15 @@ def _install_tool_content_boundary() -> None:
 
 
 def install_runtime_boundary_instrumentation() -> None:
-    """Install UAG-owned boundary wrappers once; failures never affect runtime."""
+    """Install or restore UAG-owned boundary wrappers without affecting runtime."""
 
     global _INSTALLED
-    if _INSTALLED:
-        return
     try:
-        _install_memory_projection_boundary()
-        _install_decision_log_boundary()
+        if not _INSTALLED:
+            _install_memory_projection_boundary()
+            _install_decision_log_boundary()
+        # ``uagent.tools`` can be reloaded independently. Always verify/restore
+        # the tool boundary even after the one-time boundaries were installed.
         _install_tool_content_boundary()
     except Exception:
         return
