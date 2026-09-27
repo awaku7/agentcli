@@ -47,11 +47,7 @@ def _valid_key_version(value: object) -> bool:
     if not ("a" <= first <= "z" or "0" <= first <= "9"):
         return False
     for char in value[1:]:
-        if not (
-            "a" <= char <= "z"
-            or "0" <= char <= "9"
-            or char in {".", "_", "-"}
-        ):
+        if not ("a" <= char <= "z" or "0" <= char <= "9" or char in {".", "_", "-"}):
             return False
     return True
 
