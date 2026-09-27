@@ -152,7 +152,7 @@ def _install_decision_log_boundary() -> None:
 
 
 def _wrap_tool_content_runner(tool_name: str, runner: Any) -> Any:
-    """Capture only reviewed args/results while the canonical tool span is active."""
+    """Capture reviewed args/results while the canonical tool span is active."""
 
     @wraps(runner)
     def observed(args: Any):
@@ -191,6 +191,14 @@ def _install_tool_content_boundary() -> None:
         *,
         tool_call_id: str,
     ):
+        try:
+            from .tool_content_capture import is_reviewed_tool_runner
+
+            if not is_reviewed_tool_runner(name, runner):
+                return original(name, runner, args, tool_call_id=tool_call_id)
+        except Exception:
+            return original(name, runner, args, tool_call_id=tool_call_id)
+
         wrapped_runner = _wrap_tool_content_runner(name, runner)
         return original(name, wrapped_runner, args, tool_call_id=tool_call_id)
 
