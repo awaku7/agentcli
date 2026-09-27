@@ -28,17 +28,13 @@ class _Span:
 
 def test_explicit_discard_suppresses_buffered_and_later_content() -> None:
     span = _Span()
+    before = {"role": "assistant", "content": "before"}
+    after = {"role": "assistant", "content": "after"}
 
     with bind_agent_content_capture(span, _settings()):
-        assert (
-            capture_logged_message({"role": "assistant", "content": "before"})
-            is True
-        )
+        assert capture_logged_message(before) is True
         assert discard_agent_content_capture() is True
-        assert (
-            capture_logged_message({"role": "assistant", "content": "after"})
-            is False
-        )
+        assert capture_logged_message(after) is False
 
     assert span.content_events == []
 
@@ -47,14 +43,12 @@ def test_web_memory_projection_invalidation_discards_buffered_content(
     monkeypatch,
 ) -> None:
     span = _Span()
+    message = {"role": "assistant", "content": "memory-derived"}
     monkeypatch.setattr(core, "_is_web", True, raising=False)
     monkeypatch.setattr(core, "_memory_projection_invalidated", False, raising=False)
 
     with bind_agent_content_capture(span, _settings()):
-        assert (
-            capture_logged_message({"role": "assistant", "content": "memory-derived"})
-            is True
-        )
+        assert capture_logged_message(message) is True
         core._memory_projection_invalidated = True
 
     assert span.content_events == []
@@ -62,15 +56,12 @@ def test_web_memory_projection_invalidation_discards_buffered_content(
 
 def test_non_web_memory_flag_does_not_discard_agent_content(monkeypatch) -> None:
     span = _Span()
+    message = {"role": "assistant", "content": "cli reply"}
     monkeypatch.setattr(core, "_is_web", False, raising=False)
     monkeypatch.setattr(core, "_memory_projection_invalidated", True, raising=False)
 
     with bind_agent_content_capture(span, _settings()):
-        assert (
-            capture_logged_message({"role": "assistant", "content": "cli reply"})
-            is True
-        )
+        assert capture_logged_message(message) is True
 
-    assert [event.attributes()["uag.content.value"] for event in span.content_events] == [
-        "cli reply"
-    ]
+    values = [event.attributes()["uag.content.value"] for event in span.content_events]
+    assert values == ["cli reply"]
