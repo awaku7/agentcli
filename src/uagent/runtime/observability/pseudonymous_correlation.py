@@ -231,7 +231,11 @@ def build_correlation_attributes(
     deployment_scope, key_name, key_version = validated
 
     try:
-        store = credential_store or get_default_credential_store()
+        store = (
+            credential_store
+            if credential_store is not None
+            else get_default_credential_store()
+        )
         key = _load_correlation_key(
             store=store,
             name=key_name,
