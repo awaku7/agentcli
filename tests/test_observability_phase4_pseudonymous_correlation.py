@@ -310,8 +310,7 @@ def test_phase4b_key_version_is_published_before_any_partial_pseudonym() -> None
     pseudonym_keys = {
         key
         for key in raw_span.attributes
-        if key.startswith("uag.correlation.")
-        and key != "uag.correlation.key_version"
+        if key.startswith("uag.correlation.") and key != "uag.correlation.key_version"
     }
     assert pseudonym_keys
     assert all(raw_span.attributes[key] for key in pseudonym_keys)
