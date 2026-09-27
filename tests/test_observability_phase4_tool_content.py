@@ -15,6 +15,7 @@ from uagent.runtime.observability.content_capture import ContentCapturePolicy
 from uagent.runtime.observability.settings import ObservabilitySettings
 from uagent.runtime.observability.tool_content_capture import (
     ToolContentCaptureBuffer,
+    is_reviewed_tool_runner,
     make_tool_candidate,
 )
 
@@ -98,6 +99,14 @@ def test_reviewed_calculator_adapter_emits_arguments_then_result() -> None:
     assert [event.ordinal for event in events] == [1, 2]
     assert events[0].value == '{"expression":"1+2"}'
     assert events[1].value == "[calculator]\nExpression: 1+2\nResult: 3"
+
+
+def test_tool_adapter_requires_reviewed_builtin_runner() -> None:
+    from uagent.tools.calculator_tool import run_tool as calculator_runner
+
+    assert is_reviewed_tool_runner("calculator", calculator_runner) is True
+    assert is_reviewed_tool_runner("calculator", lambda _args: "foreign") is False
+    assert is_reviewed_tool_runner("read_file", calculator_runner) is False
 
 
 def test_tool_adapter_rejects_unknown_or_mismatched_shape_after_admission() -> None:
