@@ -15,7 +15,6 @@ from .content_capture import (
     ProvenanceNode,
 )
 
-
 _INVALID_SCHEMA = object()
 
 
