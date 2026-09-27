@@ -144,6 +144,7 @@ def run_legacy_gemini_round(
             "gemini_content_dump": content_dump,
             "skip_log_when_web": True,
         },
+        judgment_mode=judgment_mode,
     )
 
     empty_result, empty_no_tool_rounds = resolve_legacy_empty_round(

@@ -129,6 +129,18 @@ def lifecycle_execution(
                 root=is_web_root and not trusted_parent_attached,
             )
         )
+        try:
+            from .observability.content_runtime import bind_agent_content_capture
+            from .observability.settings import get_observability_settings
+
+            observability_stack.enter_context(
+                bind_agent_content_capture(
+                    observability_span,
+                    get_observability_settings(),
+                )
+            )
+        except Exception:
+            pass
         lifecycle_token = _CURRENT_LIFECYCLE.set(current)
         callback_token = _CURRENT_CALLBACK.set(on_transition)
         span_token = _CURRENT_AGENT_SPAN.set(observability_span)

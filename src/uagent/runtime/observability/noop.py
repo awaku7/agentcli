@@ -17,6 +17,9 @@ class NoOpSpan:
     def add_event(self, name: str, attributes: Mapping[str, Any] | None = None) -> None:
         return None
 
+    def add_content_event(self, event: object) -> bool:
+        return False
+
     def record_exception(self, exc: BaseException) -> None:
         return None
 

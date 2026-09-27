@@ -138,6 +138,13 @@ def append_masked_message(log_file: str, message: dict[str, Any], mask_fn: Any) 
     import os
 
     try:
+        from .observability.content_runtime import capture_logged_message
+
+        capture_logged_message(message)
+    except Exception:
+        pass
+
+    try:
         masked = sanitize_message_for_history(mask_fn(message))
         directory = os.path.dirname(log_file)
         if directory:

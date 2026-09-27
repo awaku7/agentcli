@@ -1550,6 +1550,12 @@ def attach_opt_in_session_store(
     )
 
     def log_message(message: dict[str, Any]) -> None:
+        try:
+            from .observability.content_runtime import capture_logged_message
+
+            capture_logged_message(message)
+        except Exception:
+            pass
         if jsonl_enabled:
             original_log_message(message)
         if getattr(core, "_session_store_write_disabled", False):

@@ -88,6 +88,36 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
             )
 
 
+def _call_cli_startup_turn(
+    fn: Any,
+    *args: Any,
+    project_path: str,
+    session_id: str,
+    **kwargs: Any,
+) -> Any:
+    """Run one startup-triggered LLM turn under the canonical Agent lifecycle."""
+    from .runtime.execution import lifecycle_execution
+    from .runtime.turn_context_runtime import call_with_resolved_turn_context
+
+    with lifecycle_execution():
+        return call_with_resolved_turn_context(
+            fn,
+            *args,
+            entry_point="cli",
+            project_path=project_path,
+            session_id=session_id,
+            **kwargs,
+        )
+
+
+def _log_startup_file_message(core: Any, message: dict[str, Any]) -> None:
+    """Log a file-derived startup prompt without making it capture-eligible."""
+
+    envelope = dict(message)
+    envelope["attachments"] = True
+    core.log_message(envelope)
+
+
 def run_cli_startup(
     *,
     core,
@@ -154,7 +184,6 @@ def run_cli_startup(
     from . import util_tools as tools_util
     from .env_utils import env_get
     from .runtime.runtime_memory import append_long_memory_system_messages
-    from .runtime.turn_context_runtime import call_with_resolved_turn_context
     from .runtime.runtime_init import (
         apply_workdir,
         build_startup_banner,
@@ -418,10 +447,9 @@ def run_cli_startup(
     _flush_startup_pager_and_continue()
 
     def _run_cli_startup_turn(fn, *args, **kwargs):
-        return call_with_resolved_turn_context(
+        return _call_cli_startup_turn(
             fn,
             *args,
-            entry_point="cli",
             project_path=os.getcwd(),
             session_id=str(session_id or ""),
             **kwargs,
@@ -459,7 +487,7 @@ def run_cli_startup(
                 + file_text,
             }
             messages.append(initial_file_msg)
-            core.log_message(initial_file_msg)
+            _log_startup_file_message(core, initial_file_msg)
             _run_cli_startup_turn(
                 llm_util.run_llm_rounds,
                 provider,

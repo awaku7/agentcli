@@ -85,3 +85,26 @@ def test_sqlite_backend_can_disable_jsonl_callback(monkeypatch, tmp_path):
     assert store is not None
     assert store.list_messages(session_id)[0]["response_id"] == "resp_1"
     store.close()
+
+
+def test_sqlite_backend_routes_messages_to_content_capture(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
+    captured = []
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+    core = SimpleNamespace(log_message=lambda message: None)
+
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="cli"
+    )
+    message = {"role": "user", "content": "hello"}
+    core.log_message(message)
+
+    assert captured == [message]
+    assert store is not None
+    assert store.list_messages(session_id)[0]["content"] == "hello"
+    store.close()

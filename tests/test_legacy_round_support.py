@@ -3,8 +3,11 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from uagent import core
-from uagent.runtime.legacy_round_support import consume_legacy_interrupt
-from uagent.runtime.legacy_round_support import translate_and_append_legacy_assistant
+from uagent.runtime.legacy_round_support import (
+    append_legacy_reasoning_assistant,
+    consume_legacy_interrupt,
+    translate_and_append_legacy_assistant,
+)
 
 
 def test_consume_legacy_interrupt_injects_once(monkeypatch) -> None:
@@ -73,3 +76,132 @@ def test_translate_and_append_legacy_assistant_shares_policy() -> None:
             "assistant_text": "raw!",
         }
     ]
+
+
+def test_translate_and_append_legacy_assistant_captures_web_append(monkeypatch) -> None:
+    messages: list[dict[str, object]] = []
+    captured: list[dict[str, object]] = []
+    core_obj = SimpleNamespace(_is_web=True)
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    def append_assistant_message(**payload) -> None:
+        payload["messages"].append(
+            {"role": "assistant", "content": payload["assistant_text"]}
+        )
+
+    translated = translate_and_append_legacy_assistant(
+        assistant_text="raw",
+        tr_cfg="cfg",
+        use_responses_api=False,
+        stream_responses=False,
+        translate_assistant_fn=lambda **payload: payload["assistant_text"] + "!",
+        should_keep_assistant_message_fn=lambda *_args: True,
+        append_assistant_message_fn=append_assistant_message,
+        append_kwargs={
+            "messages": messages,
+            "core": core_obj,
+            "tool_calls_list": [],
+        },
+    )
+
+    assert translated == "raw!"
+    assert captured == [messages[-1]]
+
+
+def test_append_legacy_reasoning_assistant_captures_web_when_logging_skipped(
+    monkeypatch,
+) -> None:
+    messages: list[dict[str, object]] = []
+    captured: list[dict[str, object]] = []
+    logged: list[dict[str, object]] = []
+    core_obj = SimpleNamespace(_is_web=True, log_message=logged.append)
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    message = append_legacy_reasoning_assistant(
+        messages=messages,
+        core=core_obj,
+        assistant_text="answer",
+        tool_calls_list=[],
+        reasoning_content="thought",
+        build_assistant_message_fn=lambda **payload: {
+            "role": "assistant",
+            "content": payload["assistant_text"],
+            "reasoning_content": payload["reasoning_content"],
+        },
+        streaming_enabled=True,
+        judgment_mode=False,
+        log_message=False,
+    )
+
+    assert captured == [message]
+    assert logged == []
+
+
+def test_append_legacy_reasoning_assistant_captures_non_web_when_logging_disabled(
+    monkeypatch,
+) -> None:
+    messages: list[dict[str, object]] = []
+    captured: list[dict[str, object]] = []
+    logged: list[dict[str, object]] = []
+    core_obj = SimpleNamespace(_is_web=False, log_message=logged.append)
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    message = append_legacy_reasoning_assistant(
+        messages=messages,
+        core=core_obj,
+        assistant_text="gateway answer",
+        tool_calls_list=[],
+        reasoning_content="thought",
+        build_assistant_message_fn=lambda **payload: {
+            "role": "assistant",
+            "content": payload["assistant_text"],
+            "reasoning_content": payload["reasoning_content"],
+        },
+        streaming_enabled=True,
+        judgment_mode=False,
+        log_message=False,
+    )
+
+    assert captured == [message]
+    assert logged == []
+
+
+def test_append_legacy_reasoning_assistant_excludes_judgment_mode_direct_capture(
+    monkeypatch,
+) -> None:
+    messages: list[dict[str, object]] = []
+    captured: list[dict[str, object]] = []
+    logged: list[dict[str, object]] = []
+    core_obj = SimpleNamespace(_is_web=False, log_message=logged.append)
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    append_legacy_reasoning_assistant(
+        messages=messages,
+        core=core_obj,
+        assistant_text="judgment",
+        tool_calls_list=[],
+        reasoning_content="thought",
+        build_assistant_message_fn=lambda **payload: {
+            "role": "assistant",
+            "content": payload["assistant_text"],
+            "reasoning_content": payload["reasoning_content"],
+        },
+        streaming_enabled=True,
+        judgment_mode=True,
+        log_message=False,
+    )
+
+    assert captured == []
+    assert logged == []

@@ -98,6 +98,7 @@ def run_legacy_claude_round(
             "core": core,
             "tool_calls_list": tool_calls_list,
         },
+        judgment_mode=judgment_mode,
     )
 
     empty_result, empty_no_tool_rounds = resolve_legacy_empty_round(
