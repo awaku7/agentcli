@@ -320,9 +320,7 @@ def _json_scalar_tokens_fit(value: object, max_field_chars: int) -> bool:
             )
             return len(token) <= max_field_chars
         if value_type is list:
-            return all(
-                _json_scalar_tokens_fit(item, max_field_chars) for item in value
-            )
+            return all(_json_scalar_tokens_fit(item, max_field_chars) for item in value)
         if value_type is dict:
             for key, item in value.items():
                 if type(key) is not str:
