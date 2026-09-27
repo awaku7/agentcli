@@ -34,6 +34,7 @@ def run_once_uag(
     from .. import util_providers as providers
     from .. import util_tools as tools_util
     from ..util_tools import build_initial_messages, image_file_to_data_url
+    from ..runtime.observability.content_runtime import capture_trusted_user_message
     from ..runtime.session_store import (
         attach_opt_in_session_store,
         detach_opt_in_session_store,
@@ -58,6 +59,10 @@ def run_once_uag(
     messages = build_initial_messages(core=core)
     user_msg: dict[str, Any] = {"role": "user", "content": user_text}
     messages.append(user_msg)
+    try:
+        capture_trusted_user_message(user_msg)
+    except Exception:
+        pass
     try:
         core.log_message(user_msg)
     except Exception:
