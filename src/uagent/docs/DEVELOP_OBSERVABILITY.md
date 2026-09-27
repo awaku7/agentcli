@@ -202,6 +202,34 @@ Phase 4B is separately opt-in and remains diagnostics-only. Core OTel and `UAGEN
 
 The runtime reads the configured credential from `CredentialStore`. It does **not** create, overwrite, or auto-provision a missing credential. Missing credentials, store failures, wrong credential type/name/kind, malformed metadata, wrong purpose/version, or non-canonical key material fail closed and emit no correlation attributes. The normative Phase 4 contract still requires any separately UAG-provisioned correlation key to use an OS CSPRNG.
 
+The generic `:credential set observability/correlation other` command is **not sufficient** for Phase 4B because it does not populate the required correlation metadata. Provision the credential from a trusted operator process with an OS CSPRNG and the exact configured credential name/version. For example:
+
+```python
+import base64
+import secrets
+
+from uagent.auth import Credential, CredentialKind, get_default_credential_store
+
+key_name = "observability/correlation"
+key_version = "v1"
+raw_key = secrets.token_bytes(32)
+encoded_key = base64.urlsafe_b64encode(raw_key).decode("ascii").rstrip("=")
+
+get_default_credential_store().set(
+    Credential(
+        name=key_name,
+        kind=CredentialKind.OTHER,
+        secret=encoded_key,
+        metadata={
+            "purpose": "observability_pseudonym_v1",
+            "key_version": key_version,
+        },
+    )
+)
+```
+
+Do not print, log, trace, or otherwise expose `raw_key` or `encoded_key`. The `key_name` and `key_version` values must match the effective Phase 4B configuration. Key rotation is an operator action: provision a new independently generated 32-byte key together with a new version label, update the configured version to that label, and never rely on the runtime to create or rotate correlation keys.
+
 Accepted key material is canonical unpadded base64url representing exactly 32 raw bytes. The pseudonym construction is the normative `uag-otel-pseudo-v1` length-framed HMAC-SHA-256 construction; UAG exports only the first 128 digest bits as 32 lowercase hexadecimal characters.
 
 Only these correlation attributes may be attached, and only to the canonical locally owned `invoke_agent` span:
