@@ -97,6 +97,20 @@ def _stop_running_backgrounds() -> list[str]:
     return stopped
 
 
+def _restore_runtime_boundaries() -> None:
+    """Restore best-effort host instrumentation removed by a tools reload."""
+
+    try:
+        from ..runtime.observability.boundary_instrumentation import (
+            install_runtime_boundary_instrumentation,
+        )
+
+        install_runtime_boundary_instrumentation()
+    except Exception:
+        # System reload must remain usable when observability is unavailable.
+        pass
+
+
 def run_tool(args: dict[str, Any]) -> str:
     # Stop running background services (pybitchat, echonet, bacnet, switchbot)
     # BEFORE reload so old threads exit on their own stop event and module
@@ -128,6 +142,7 @@ def run_tool(args: dict[str, Any]) -> str:
         new_mod._DYNAMIC_COMMANDS.clear()
         new_mod._load_plugins()
         new_mod._INITIALIZED = True
+        _restore_runtime_boundaries()
         msg = "System reload successful. All tools were reloaded with the latest code."
         if stopped:
             msg += " Stopped before reload: " + ", ".join(sorted(stopped)) + "."
