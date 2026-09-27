@@ -23,6 +23,21 @@ def _engine_mode() -> str:
     return _norm(env_get("UAGENT_A2A_ENGINE", "uag")) or "uag"
 
 
+def _capture_trusted_a2a_user_message(message: object) -> bool:
+    """Capture only A2A inputs whose original request content was exact text."""
+
+    try:
+        from .models import current_a2a_input_content_is_exact_text
+
+        if not current_a2a_input_content_is_exact_text():
+            return False
+        from ..runtime.observability.content_runtime import capture_trusted_user_message
+
+        return bool(capture_trusted_user_message(message))
+    except Exception:
+        return False
+
+
 def run_once_uag(
     *, user_text: str, task_id: str = ""
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
@@ -34,7 +49,6 @@ def run_once_uag(
     from .. import util_providers as providers
     from .. import util_tools as tools_util
     from ..util_tools import build_initial_messages, image_file_to_data_url
-    from ..runtime.observability.content_runtime import capture_trusted_user_message
     from ..runtime.session_store import (
         attach_opt_in_session_store,
         detach_opt_in_session_store,
@@ -59,10 +73,7 @@ def run_once_uag(
     messages = build_initial_messages(core=core)
     user_msg: dict[str, Any] = {"role": "user", "content": user_text}
     messages.append(user_msg)
-    try:
-        capture_trusted_user_message(user_msg)
-    except Exception:
-        pass
+    _capture_trusted_a2a_user_message(user_msg)
     try:
         core.log_message(user_msg)
     except Exception:
