@@ -118,42 +118,32 @@ def bind_agent_content_capture(
         _CURRENT_AGENT_CONTENT.reset(token)
 
 
-def discard_pending_user_message(message: object | None = None) -> bool:
-    """Discard the staged pre-lifecycle user envelope, optionally by identity.
-
-    Hosts call this when a submitted user turn is aborted before entering the
-    owning Agent lifecycle. Supplying ``message`` makes the discard fail closed
-    unless it is the exact object currently staged.
-    """
-
-    try:
-        pending = _PENDING_USER_MESSAGE.get()
-        if pending is None:
-            return False
-        if message is not None and pending is not message:
-            return False
-        _PENDING_USER_MESSAGE.set(None)
-        return True
-    except Exception:
-        return False
-
-
 def capture_logged_message(message: object) -> bool:
     """Capture one reviewed plain-text user/assistant logging envelope.
 
-    Before an Agent span is active, only the latest eligible user envelope is
-    retained for one subsequent Agent lifecycle. Once the Agent span is active,
-    only assistant output is accepted from the logging boundary; user input must
-    come from the pre-lifecycle staged envelope. This prevents tool-generated or
-    other synthetic in-span user messages from being exported as operator input.
-    A disabled nested scope suppresses both capture and pending-user staging.
+    Before an Agent span is active, only the latest eligible user submission is
+    retained for one subsequent Agent lifecycle. A later user submission that is
+    ineligible (for example attachment-bearing or multimodal) clears any older
+    staged user envelope instead of letting stale content leak into its lifecycle.
+
+    Once the Agent span is active, only assistant output is accepted from the
+    logging boundary; user input must come from the pre-lifecycle staged envelope.
+    This prevents tool-generated or other synthetic in-span user messages from
+    being exported as operator input. A disabled nested scope suppresses capture.
     """
 
+    state = _CURRENT_AGENT_CONTENT.get()
     envelope = _eligible_envelope(message)
     if envelope is None:
+        if state is None and type(message) is dict:
+            try:
+                if message.get("role") == "user":
+                    _PENDING_USER_MESSAGE.set(None)
+            except Exception:
+                pass
         return False
+
     role, _content = envelope
-    state = _CURRENT_AGENT_CONTENT.get()
 
     if state is _DISABLED:
         return False
@@ -171,8 +161,4 @@ def capture_logged_message(message: object) -> bool:
         return False
 
 
-__all__ = [
-    "bind_agent_content_capture",
-    "capture_logged_message",
-    "discard_pending_user_message",
-]
+__all__ = ["bind_agent_content_capture", "capture_logged_message"]
