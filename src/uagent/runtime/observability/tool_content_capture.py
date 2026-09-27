@@ -80,7 +80,7 @@ _REVIEWED_TOOL_ADAPTERS: dict[str, _ReviewedToolAdapter] = {
                 "type": "object",
                 "properties": {},
                 "required": [],
-            }
+            },
         ),
         result_type=str,
     ),
@@ -96,7 +96,7 @@ _REVIEWED_TOOL_ADAPTERS: dict[str, _ReviewedToolAdapter] = {
                 "type": "object",
                 "properties": {"expression": {"type": "string"}},
                 "required": ["expression"],
-            }
+            },
         ),
         result_type=str,
     ),
