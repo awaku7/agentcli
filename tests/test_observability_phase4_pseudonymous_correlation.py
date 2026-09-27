@@ -74,14 +74,16 @@ class _Backend:
 
 
 class _RawSpan:
-    def __init__(self, *, fail_bulk: bool = False) -> None:
+    def __init__(self, *, fail_on_call: int | None = None) -> None:
         self.attributes: dict[str, object] = {}
-        self.fail_bulk = fail_bulk
+        self.fail_on_call = fail_on_call
+        self.calls = 0
 
-    def set_attributes(self, attributes) -> None:
-        if self.fail_bulk:
-            raise RuntimeError("bulk attribute write rejected")
-        self.attributes.update(attributes)
+    def set_attribute(self, key, value) -> None:
+        self.calls += 1
+        if self.calls == self.fail_on_call:
+            raise RuntimeError("attribute write rejected")
+        self.attributes[key] = value
 
 
 def _settings(**overrides) -> ObservabilitySettings:
@@ -292,8 +294,31 @@ def test_phase4b_metadata_reads_only_validated_snapshot(monkeypatch) -> None:
     assert snapshots[0]["purpose"] == "observability_pseudonym_v1"
 
 
-def test_phase4b_atomic_bulk_failure_leaves_no_correlation_attributes() -> None:
-    raw_span = _RawSpan(fail_bulk=True)
+def test_phase4b_key_version_is_published_before_any_partial_pseudonym() -> None:
+    raw_span = _RawSpan(fail_on_call=3)
+    span = OpenTelemetrySpan(raw_span, capture_content=False)
+
+    attached = attach_pseudonymous_correlation(
+        span,
+        _turn(),
+        _settings(),
+        credential_store=_Store(_credential()),
+    )
+
+    assert attached is False
+    assert raw_span.attributes["uag.correlation.key_version"] == "v1"
+    pseudonym_keys = {
+        key
+        for key in raw_span.attributes
+        if key.startswith("uag.correlation.")
+        and key != "uag.correlation.key_version"
+    }
+    assert pseudonym_keys
+    assert all(raw_span.attributes[key] for key in pseudonym_keys)
+
+
+def test_phase4b_key_version_failure_leaves_no_pseudonyms() -> None:
+    raw_span = _RawSpan(fail_on_call=1)
     span = OpenTelemetrySpan(raw_span, capture_content=False)
 
     attached = attach_pseudonymous_correlation(
