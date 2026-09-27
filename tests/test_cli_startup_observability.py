@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 
-from uagent.cli_startup import _call_cli_startup_turn
+from uagent.cli_startup import _call_cli_startup_turn, _log_startup_file_message
+from uagent.runtime.observability.content_runtime import capture_logged_message
 
 
 def test_cli_startup_turn_enters_lifecycle_before_resolved_context(
@@ -52,3 +53,25 @@ def test_cli_startup_turn_enters_lifecycle_before_resolved_context(
         ("fn", "ok"),
         "lifecycle-exit",
     ]
+
+
+def test_startup_file_logging_marks_only_the_log_envelope() -> None:
+    logged = []
+
+    class Core:
+        @staticmethod
+        def log_message(message):
+            logged.append(message)
+
+    provider_message = {
+        "role": "user",
+        "content": "Startup file provided: C:/private/notes.txt\n\nsecret body",
+    }
+    original = dict(provider_message)
+
+    _log_startup_file_message(Core(), provider_message)
+
+    assert provider_message == original
+    assert logged[0] is not provider_message
+    assert logged[0]["attachments"] is True
+    assert capture_logged_message(logged[0]) is False
