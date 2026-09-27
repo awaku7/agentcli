@@ -118,6 +118,25 @@ def bind_agent_content_capture(
         _CURRENT_AGENT_CONTENT.reset(token)
 
 
+def capture_trusted_user_message(message: object) -> bool:
+    """Capture a host-reviewed real user envelope inside the owning Agent span.
+
+    This is intentionally narrower than ``capture_logged_message``: it works only
+    while an enabled Agent capture scope is active, and only for an eligible
+    plain-text ``user`` envelope. Hosts must call it only at a reviewed operator
+    input boundary such as A2A request dispatch. Arbitrary in-span user-role logs
+    remain rejected by ``capture_logged_message``.
+    """
+
+    state = _CURRENT_AGENT_CONTENT.get()
+    if not isinstance(state, _AgentContentCaptureState):
+        return False
+    envelope = _eligible_envelope(message)
+    if envelope is None or envelope[0] != "user":
+        return False
+    return _admit_message(state, message)  # type: ignore[arg-type]
+
+
 def capture_logged_message(message: object) -> bool:
     """Capture one reviewed plain-text user/assistant logging envelope.
 
@@ -161,4 +180,8 @@ def capture_logged_message(message: object) -> bool:
         return False
 
 
-__all__ = ["bind_agent_content_capture", "capture_logged_message"]
+__all__ = [
+    "bind_agent_content_capture",
+    "capture_logged_message",
+    "capture_trusted_user_message",
+]
