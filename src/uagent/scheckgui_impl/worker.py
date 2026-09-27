@@ -67,6 +67,18 @@ def _run_lifecycle(fn, *args, **kwargs):
             return fn(*args, **kwargs)
 
 
+def _log_gui_user_message(
+    message: dict[str, Any], *, attachment_derived: bool = False
+) -> None:
+    """Log a GUI user envelope without exposing attachment-derived text to capture."""
+    if not attachment_derived:
+        core.log_message(message)
+        return
+    envelope = dict(message)
+    envelope["attachments"] = True
+    core.log_message(envelope)
+
+
 class ScheckWorker(QtCore.QObject):
     """Worker that runs the LLM loop."""
 
@@ -150,15 +162,12 @@ class ScheckWorker(QtCore.QObject):
             except Exception:
                 pass
             start_background_scheduler(core.event_queue)
-            # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
             set_llm_event_queue(core.event_queue)
             try:
                 self.tools.start_tools_warmup()
             except Exception:
                 pass
 
-            # Load and activate enabled plugins (MCP / agents / hooks)
-            # Same surface as CLI/Web: one-line "[plugins] N enabled: ..."
             try:
                 set_thread_lang(detect_lang())
             except Exception:
@@ -170,7 +179,6 @@ class ScheckWorker(QtCore.QObject):
                     activate=True
                 )
                 if _plugins_status:
-                    # stdout redirected to GUI log (same path as memory [INFO])
                     print(_plugins_status, flush=True)
             except Exception as e:
                 try:
@@ -181,7 +189,6 @@ class ScheckWorker(QtCore.QObject):
                 except Exception:
                     pass
 
-            # Provider/client/model are decided by util_make_client.
             try:
                 self._provider, self._client, self._depname = util_make_client(core)
             except Exception as e:
@@ -202,7 +209,6 @@ class ScheckWorker(QtCore.QObject):
                     print("[INFO] " + _("OpenRouter fallback models enabled."))
 
             self.messages = build_initial_messages(core=core)
-            # Bootstrap input history from past user messages
             history_entries = []
             for msg in self.messages:
                 if msg.get("role") != "user":
@@ -218,7 +224,6 @@ class ScheckWorker(QtCore.QObject):
             prev_finish_skill = cb.finish_skill
             cb.finish_skill = make_finish_skill_handler(self.messages, core)
 
-            # Long-term memory
             from ..tools import long_memory as personal_long_memory
             from ..tools import shared_memory
 
@@ -363,7 +368,6 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
-                            # Auto-pilot loop (first call)
                             if core.auto_pilot_active:
                                 _run_lifecycle(
                                     self._run_gui_turn,
@@ -393,6 +397,9 @@ class ScheckWorker(QtCore.QObject):
                         if kind != "timer" and is_chat_mode() == "on":
                             continue
                         files = list(ev.get("files", []) or [])
+                        attachment_derived = bool(
+                            files or ev.get("images") or ev.get("videos")
+                        )
 
                         if files:
                             file_lines = [
@@ -408,7 +415,6 @@ class ScheckWorker(QtCore.QObject):
                                 else:
                                     text = "\n".join(file_lines)
 
-                        # UserPromptSubmit: stdin JSON + optional block
                         try:
                             from ..hooks_engine import (
                                 fire_user_prompt_submit,
@@ -471,7 +477,9 @@ class ScheckWorker(QtCore.QObject):
                                 use_responses_api=use_responses_api,
                             )
                             self.messages.append(m)
-                            core.log_message(m)
+                            _log_gui_user_message(
+                                m, attachment_derived=attachment_derived
+                            )
 
                             _run_scheduled_lifecycle(
                                 ev,
@@ -486,7 +494,6 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
-                            # Auto-pilot loop (native multimodal path)
                             if core.auto_pilot_active:
                                 _run_lifecycle(
                                     self._run_gui_turn,
@@ -500,14 +507,12 @@ class ScheckWorker(QtCore.QObject):
                                     append_result_to_outfile_fn=append_result_to_outfile,
                                     try_open_images_from_text_fn=lambda _: None,
                                 )
-                            # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                             if ev.get("src") == "bitchat":
                                 _reply = extract_last_assistant_text(self.messages)
                                 if _reply:
                                     reply_to_mesh(_reply)
                             continue
 
-                        # Fallback: analyze_image tool -> text injection
                         for p in ev.get("images", []):
                             if os.path.isfile(p):
                                 core.set_status(True, "analyze_image")
@@ -531,7 +536,9 @@ class ScheckWorker(QtCore.QObject):
                         if text.strip():
                             m = {"role": "user", "content": text.strip()}
                             self.messages.append(m)
-                            core.log_message(m)
+                            _log_gui_user_message(
+                                m, attachment_derived=attachment_derived
+                            )
                             self.image_session = build_image_session_message(
                                 self.messages, self._depname
                             )
@@ -548,7 +555,6 @@ class ScheckWorker(QtCore.QObject):
                                 append_result_to_outfile_fn=append_result_to_outfile,
                                 try_open_images_from_text_fn=lambda _: None,
                             )
-                            # Auto-pilot loop (fallback path)
                             if core.auto_pilot_active:
                                 _run_lifecycle(
                                     self._run_gui_turn,
@@ -562,7 +568,6 @@ class ScheckWorker(QtCore.QObject):
                                     append_result_to_outfile_fn=append_result_to_outfile,
                                     try_open_images_from_text_fn=lambda _: None,
                                 )
-                            # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                             if ev.get("src") == "bitchat":
                                 _reply = extract_last_assistant_text(self.messages)
                                 if _reply:
