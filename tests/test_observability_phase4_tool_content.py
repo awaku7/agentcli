@@ -114,6 +114,17 @@ def test_tool_adapter_rejects_unknown_or_mismatched_shape_after_admission() -> N
     assert buffer.admit(candidate) is True
     assert buffer.prepared_events() == ()
 
+    typed_buffer = ToolContentCaptureBuffer(policy)
+    wrong_type = make_tool_candidate(
+        tool_name="calculator",
+        category="tool_arguments",
+        value={"expression": 3},
+        ordinal=1,
+    )
+    assert wrong_type is not None
+    assert typed_buffer.admit(wrong_type) is True
+    assert typed_buffer.prepared_events() == ()
+
     assert (
         make_tool_candidate(
             tool_name="read_file",
