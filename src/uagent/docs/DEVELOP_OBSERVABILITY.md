@@ -179,12 +179,22 @@ Observability configuration is server/process controlled. Browser payloads, A2A 
 
 `UAGENT_OTEL_CAPTURE_CONTENT` defaults to OFF. The OTel adapter applies a metadata allow/filter boundary before exporter submission. Authentication/session secrets and raw identity/scope fields remain excluded even when content capture is enabled.
 
+Phase 4A controlled content capture is runtime-bound and fail-closed:
+
+- reviewed plain-text `user_input` and `assistant_output` may be emitted only on the canonical `invoke_agent` span;
+- reviewed `tool_arguments` and ordinary `tool_result` content may be emitted only on the canonical `execute_tool` span;
+- the initial reviewed tool adapters are the built-in `calculator` and `get_current_time` tools only;
+- tool capture requires the active runner to be the exact reviewed built-in `run_tool` implementation and its current `TOOL_SPEC` parameter schema to match the reviewed schema fingerprint;
+- same-name external/plugin replacements, unsupported tools, schema drift, malformed values, disabled categories, and unreviewed provenance are omitted rather than generalized into capture;
+- argument/result candidates are inspected only after bounded candidate admission, and rendered content is subject to per-field and per-span limits;
+- package hot-reload paths restore the runtime tool-content boundary best-effort so observability does not change tool execution semantics.
+
 Never export raw values such as:
 
 - Authorization/Cookie values, access/refresh/ID/session tokens, client secrets;
 - `principal_id`, OIDC subject/display name/groups;
 - room/project/session identifiers by default;
-- prompt/response/reasoning/tool-result/memory/artifact/file bodies by default;
+- prompt/response/reasoning/tool-result/memory/artifact/file bodies by default, except the explicitly enabled and reviewed Phase 4A content categories above;
 - Memory/retrieval queries, Decision Log reasons, item IDs, memory IDs, or references.
 
 ## Web/OIDC boundary
@@ -203,4 +213,4 @@ Web Agent spans start as fresh OTel roots by default, which detaches them from a
 
 ## Later phases
 
-Provider SDK auto-instrumentation, controlled content capture, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
+Provider SDK auto-instrumentation, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
