@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
 from importlib import import_module
 
@@ -304,6 +305,60 @@ def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
         return False
 
 
+def _json_scalar_tokens_fit(value: object, max_field_chars: int) -> bool:
+    """Bound every scalar exactly as it appears inside rendered JSON."""
+
+    try:
+        value_type = type(value)
+        if value_type in {str, bool, int, float} or value is None:
+            token = json.dumps(
+                value,
+                ensure_ascii=False,
+                allow_nan=False,
+                separators=(",", ":"),
+                sort_keys=False,
+            )
+            return len(token) <= max_field_chars
+        if value_type is list:
+            return all(
+                _json_scalar_tokens_fit(item, max_field_chars) for item in value
+            )
+        if value_type is dict:
+            for key, item in value.items():
+                if type(key) is not str:
+                    return False
+                key_token = json.dumps(
+                    key,
+                    ensure_ascii=False,
+                    allow_nan=False,
+                    separators=(",", ":"),
+                    sort_keys=False,
+                )
+                if len(key_token) > max_field_chars:
+                    return False
+                if not _json_scalar_tokens_fit(item, max_field_chars):
+                    return False
+            return True
+        return False
+    except Exception:
+        return False
+
+
+def _argument_event_respects_rendered_field_limit(
+    event: PreparedContentEvent,
+    max_field_chars: int,
+) -> bool:
+    """Validate the sanitized argument JSON after escaping/serialization."""
+
+    try:
+        value = json.loads(event.value)
+    except Exception:
+        return False
+    if type(value) is not dict:
+        return False
+    return _json_scalar_tokens_fit(value, max_field_chars)
+
+
 def _candidate_order_key(candidate: CaptureCandidate) -> tuple[int, int] | None:
     try:
         meta = candidate.meta
@@ -376,6 +431,13 @@ class ToolContentCaptureBuffer:
                 continue
             event = _content.prepare_content_event(candidate, self._policy)
             if event is None:
+                continue
+            if meta.category == "tool_arguments" and not (
+                _argument_event_respects_rendered_field_limit(
+                    event,
+                    self._policy.max_field_chars,
+                )
+            ):
                 continue
             cost = len(event.value)
             if used_chars + cost > self._policy.max_span_chars:
