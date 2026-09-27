@@ -171,9 +171,9 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 | `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
-| `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
-| `--port` | A2A only | Port number (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
-| `--reload` | A2A only | Enable hot reload (overridable by `UAGENT_A2A_RELOAD`). | `util_tools.py:parse_startup_args()`, `a2a/server.py`
+| `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
+| `--port` | A2A only | Bind port (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
+| `--reload` | A2A only | Enable hot reload (overridable by `UAGENT_A2A_RELOAD`). | `a2a/server.py`
 
 ______________________________________________________________________
 
