@@ -110,6 +110,14 @@ def _call_cli_startup_turn(
         )
 
 
+def _log_startup_file_message(core: Any, message: dict[str, Any]) -> None:
+    """Log a file-derived startup prompt without making it capture-eligible."""
+
+    envelope = dict(message)
+    envelope["attachments"] = True
+    core.log_message(envelope)
+
+
 def run_cli_startup(
     *,
     core,
@@ -479,7 +487,7 @@ def run_cli_startup(
                 + file_text,
             }
             messages.append(initial_file_msg)
-            core.log_message(initial_file_msg)
+            _log_startup_file_message(core, initial_file_msg)
             _run_cli_startup_turn(
                 llm_util.run_llm_rounds,
                 provider,
