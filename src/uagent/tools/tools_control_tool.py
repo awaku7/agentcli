@@ -394,6 +394,15 @@ def handle_cmd_tools_reload(arg: str, **kw: Any) -> Any:
 
         mod = sys.modules.get("uagent.tools") or __import__("uagent.tools")
         importlib.reload(mod)
+        print(
+            _(
+                "msg.tools.reloaded",
+                default="[tools] System reloaded successfully. All tools updated with latest code.",
+            )
+        )
+    except Exception as e:
+        print(f"[tools error] Reload failed: {type(e).__name__}: {e}")
+    finally:
         try:
             from ..runtime.observability.boundary_instrumentation import (
                 install_runtime_boundary_instrumentation,
@@ -403,14 +412,6 @@ def handle_cmd_tools_reload(arg: str, **kw: Any) -> Any:
         except Exception:
             # Tool reload must remain usable when observability is unavailable.
             pass
-        print(
-            _(
-                "msg.tools.reloaded",
-                default="[tools] System reloaded successfully. All tools updated with latest code.",
-            )
-        )
-    except Exception as e:
-        print(f"[tools error] Reload failed: {type(e).__name__}: {e}")
     return CommandResult()
 
 
