@@ -130,3 +130,23 @@ def test_oversized_tool_argument_mapping_is_rejected() -> None:
     assert candidate is not None
     assert buffer.admit(candidate) is True
     assert buffer.prepared_events() == ()
+
+
+def test_escaped_tool_argument_scalar_respects_field_limit() -> None:
+    policy = ContentCapturePolicy(
+        enabled=True,
+        categories=frozenset({"tool_arguments"}),
+        max_field_chars=64,
+        max_span_chars=256,
+    )
+    buffer = ToolContentCaptureBuffer(policy)
+    candidate = make_tool_candidate(
+        tool_name="calculator",
+        category="tool_arguments",
+        value={"expression": "\n" * 64},
+        ordinal=1,
+    )
+
+    assert candidate is not None
+    assert buffer.admit(candidate) is True
+    assert buffer.prepared_events() == ()
