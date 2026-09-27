@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 from contextlib import contextmanager
+from contextvars import copy_context
 
 from uagent.auth.credential_store import Credential, CredentialKind
 from uagent.runtime.execution import (
@@ -10,7 +11,9 @@ from uagent.runtime.execution import (
 )
 from uagent.runtime.identity_context import IdentityContext, TurnContext
 from uagent.runtime.observability import pseudonymous_correlation as correlation
+from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
 from uagent.runtime.observability.pseudonymous_correlation import (
+    attach_pseudonymous_correlation,
     build_correlation_attributes,
     make_pseudonym,
 )
@@ -70,6 +73,17 @@ class _Backend:
         yield False
 
 
+class _RawSpan:
+    def __init__(self, *, fail_bulk: bool = False) -> None:
+        self.attributes: dict[str, object] = {}
+        self.fail_bulk = fail_bulk
+
+    def set_attributes(self, attributes) -> None:
+        if self.fail_bulk:
+            raise RuntimeError("bulk attribute write rejected")
+        self.attributes.update(attributes)
+
+
 def _settings(**overrides) -> ObservabilitySettings:
     values = {
         "enabled": True,
@@ -94,6 +108,18 @@ def _credential(key: bytes = bytes(range(32)), **overrides) -> Credential:
     }
     values.update(overrides)
     return Credential(**values)
+
+
+def _turn() -> TurnContext:
+    return TurnContext(
+        principal_id="user-123",
+        room_id="room-1",
+        project_id="project-1",
+        session_id="session-secret",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
 
 
 def test_phase4b_hmac_vector_is_stable() -> None:
@@ -134,15 +160,7 @@ def test_phase4b_hmac_is_domain_separated() -> None:
 
 
 def test_phase4b_builds_only_closed_attributes() -> None:
-    turn = TurnContext(
-        principal_id="user-123",
-        room_id="room-1",
-        project_id="project-1",
-        session_id="session-secret",
-        entry_point="web",
-        authenticated=True,
-        authn_kind="oidc",
-    )
+    turn = _turn()
 
     attributes = build_correlation_attributes(
         turn,
@@ -186,15 +204,7 @@ def test_phase4b_missing_key_fails_closed_without_runtime_provisioning() -> None
 
 
 def test_phase4b_invalid_settings_and_credentials_fail_closed() -> None:
-    turn = TurnContext(
-        principal_id="user-123",
-        room_id="room-1",
-        project_id="project-1",
-        session_id="",
-        entry_point="web",
-        authenticated=True,
-        authn_kind="oidc",
-    )
+    turn = _turn()
 
     for settings in (
         _settings(enabled=False),
@@ -235,15 +245,7 @@ def test_phase4b_invalid_settings_and_credentials_fail_closed() -> None:
 
 
 def test_phase4b_rejects_returned_name_before_metadata_contents(monkeypatch) -> None:
-    turn = TurnContext(
-        principal_id="user-123",
-        room_id="room-1",
-        project_id="project-1",
-        session_id="",
-        entry_point="web",
-        authenticated=True,
-        authn_kind="oidc",
-    )
+    turn = _turn()
     calls: list[object] = []
 
     def validate_contents(metadata):
@@ -260,6 +262,74 @@ def test_phase4b_rejects_returned_name_before_metadata_contents(monkeypatch) -> 
 
     assert attributes == {}
     assert calls == []
+
+
+def test_phase4b_metadata_reads_only_validated_snapshot(monkeypatch) -> None:
+    turn = _turn()
+    source_metadata = {
+        "purpose": "observability_pseudonym_v1",
+        "key_version": "v1",
+    }
+    credential = _credential(metadata=source_metadata)
+    original_validator = correlation._valid_metadata_contents
+    snapshots: list[dict[object, object]] = []
+
+    def validate_snapshot(metadata):
+        snapshots.append(metadata)
+        source_metadata["purpose"] = "mutated-after-snapshot"
+        return original_validator(metadata)
+
+    monkeypatch.setattr(correlation, "_valid_metadata_contents", validate_snapshot)
+
+    attributes = build_correlation_attributes(
+        turn,
+        _settings(),
+        credential_store=_Store(credential),
+    )
+
+    assert attributes["uag.correlation.key_version"] == "v1"
+    assert snapshots and snapshots[0] is not source_metadata
+    assert snapshots[0]["purpose"] == "observability_pseudonym_v1"
+
+
+def test_phase4b_atomic_bulk_failure_leaves_no_correlation_attributes() -> None:
+    raw_span = _RawSpan(fail_bulk=True)
+    span = OpenTelemetrySpan(raw_span, capture_content=False)
+
+    attached = attach_pseudonymous_correlation(
+        span,
+        _turn(),
+        _settings(),
+        credential_store=_Store(_credential()),
+    )
+
+    assert attached is False
+    assert raw_span.attributes == {}
+
+
+def test_phase4b_unsupported_span_never_uses_partial_single_attribute_writes() -> None:
+    class PartialOnlySpan:
+        def __init__(self) -> None:
+            self.attributes = {}
+            self.calls = 0
+
+        def set_attribute(self, key, value) -> None:
+            self.calls += 1
+            self.attributes[key] = value
+            raise RuntimeError("partial write")
+
+    span = PartialOnlySpan()
+
+    attached = attach_pseudonymous_correlation(
+        span,
+        _turn(),
+        _settings(),
+        credential_store=_Store(_credential()),
+    )
+
+    assert attached is False
+    assert span.calls == 0
+    assert span.attributes == {}
 
 
 def test_phase4b_attaches_once_to_canonical_agent_span(monkeypatch) -> None:
@@ -311,7 +381,33 @@ def test_phase4b_late_turn_resolution_attempt_is_terminal(monkeypatch) -> None:
     assert calls == [turn]
 
 
-def test_phase4b_partial_attachment_failure_is_not_retried(monkeypatch) -> None:
+def test_phase4b_copied_contexts_share_terminal_span_state(monkeypatch) -> None:
+    backend = _Backend()
+    turn = TurnContext.from_identity(
+        IdentityContext("local", True, "local"),
+        entry_point="cli",
+    )
+    calls: list[TurnContext] = []
+
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.execution._attach_turn_correlation",
+        lambda _span, bound_turn: calls.append(bound_turn) or False,
+    )
+
+    with lifecycle_execution():
+        first_context = copy_context()
+        second_context = copy_context()
+        first_context.run(apply_turn_context_to_current_agent_span, turn)
+        second_context.run(apply_turn_context_to_current_agent_span, turn)
+
+    assert calls == [turn]
+
+
+def test_phase4b_failed_first_attempt_is_not_retried(monkeypatch) -> None:
     backend = _Backend()
     turn = TurnContext.from_identity(
         IdentityContext("user-123", True, "oidc"),
@@ -325,15 +421,9 @@ def test_phase4b_partial_attachment_failure_is_not_retried(monkeypatch) -> None:
         "uagent.runtime.observability.bootstrap.get_observability_backend",
         lambda: backend,
     )
-
-    def partial_failure(span, bound_turn):
-        calls.append(bound_turn)
-        span.set_attribute("uag.correlation.principal", "partial-generation")
-        return False
-
     monkeypatch.setattr(
         "uagent.runtime.execution._attach_turn_correlation",
-        partial_failure,
+        lambda _span, bound_turn: calls.append(bound_turn) or False,
     )
 
     with lifecycle_execution():
@@ -341,6 +431,6 @@ def test_phase4b_partial_attachment_failure_is_not_retried(monkeypatch) -> None:
         apply_turn_context_to_current_agent_span(turn)
 
     assert calls == [turn]
-    assert backend.spans[0].attributes["uag.correlation.principal"] == (
-        "partial-generation"
-    )
+    assert not {
+        key for key in backend.spans[0].attributes if key.startswith("uag.correlation.")
+    }
