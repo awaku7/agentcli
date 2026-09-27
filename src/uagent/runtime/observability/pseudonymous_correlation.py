@@ -256,10 +256,10 @@ def build_correlation_attributes(
     return attributes
 
 
-def _set_correlation_attributes_atomically(
+def _set_correlation_attributes_consistently(
     span: object, attributes: dict[str, str]
 ) -> bool:
-    """Commit one closed correlation set through the supported bulk span API."""
+    """Write one generation so no exported pseudonym can lack its key version."""
 
     try:
         from .otel_backend import OpenTelemetrySpan
@@ -269,14 +269,30 @@ def _set_correlation_attributes_atomically(
         safe = sanitize_attributes(attributes, capture_content=False)
         if safe != attributes:
             return False
-        raw_span = span._span
-        set_attributes = getattr(raw_span, "set_attributes", None)
-        if not callable(set_attributes):
+        key_version = safe.get("uag.correlation.key_version")
+        if type(key_version) is not str:
             return False
-        # The supported OTel SDK is pinned. Its bulk setter validates the whole
-        # mapping first and applies it while holding the SDK span lock, avoiding
-        # the observable partial writes possible with repeated set_attribute().
-        set_attributes(safe)
+        pseudonyms = {
+            key: value
+            for key, value in safe.items()
+            if key != "uag.correlation.key_version"
+        }
+        if not pseudonyms:
+            return False
+
+        raw_span = span._span
+        set_attribute = getattr(raw_span, "set_attribute", None)
+        if not callable(set_attribute):
+            return False
+
+        # OTel does not guarantee that set_attributes() is an atomic multi-key
+        # transaction. Publish the generation marker first. If a later write
+        # fails, any already-exportable pseudonym still has the matching
+        # key_version, and the span-owned terminal state prevents another
+        # generation from being attempted on this span.
+        set_attribute("uag.correlation.key_version", key_version)
+        for key, value in pseudonyms.items():
+            set_attribute(key, value)
         return True
     except Exception:
         return False
@@ -298,7 +314,7 @@ def attach_pseudonymous_correlation(
     )
     if not attributes:
         return False
-    return _set_correlation_attributes_atomically(span, attributes)
+    return _set_correlation_attributes_consistently(span, attributes)
 
 
 __all__ = [
