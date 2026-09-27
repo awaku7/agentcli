@@ -39,7 +39,9 @@ def test_in_span_synthetic_user_is_not_captured_as_operator_input() -> None:
         assert capture_logged_message(synthetic_user) is False
         assert capture_logged_message({"role": "assistant", "content": "reply"}) is True
 
-    assert [event.attributes()["uag.content.value"] for event in span.content_events] == [
+    assert [
+        event.attributes()["uag.content.value"] for event in span.content_events
+    ] == [
         "real prompt",
         "reply",
     ]
