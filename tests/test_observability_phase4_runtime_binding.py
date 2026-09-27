@@ -194,12 +194,14 @@ def test_pending_user_is_consumed_once(monkeypatch):
 def test_disabled_nested_capture_scope_masks_enabled_parent():
     outer_span = _DedicatedSpan()
     inner_span = _DedicatedSpan()
+    outer_user = {"role": "user", "content": "outer"}
 
+    assert capture_logged_message(outer_user) is True
     with bind_agent_content_capture(
         outer_span,
         _settings("user_input", "assistant_output"),
     ):
-        assert capture_logged_message({"role": "user", "content": "outer"}) is True
+        assert capture_logged_message(outer_user) is False
         with bind_agent_content_capture(inner_span, _disabled_settings()):
             assert (
                 capture_logged_message({"role": "assistant", "content": "inner"})
