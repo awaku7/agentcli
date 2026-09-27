@@ -62,6 +62,36 @@ def test_system_reload_restores_tool_content_boundary(monkeypatch) -> None:
     assert restored == [True]
 
 
+def test_system_reload_restores_tool_content_boundary_after_failure(
+    monkeypatch,
+) -> None:
+    restored: list[bool] = []
+
+    def fail_load_plugins() -> None:
+        raise RuntimeError("plugin reload failed")
+
+    fake_package = SimpleNamespace(
+        _INITIALIZED=True,
+        _DYNAMIC_COMMANDS={"stale": object()},
+        _load_plugins=fail_load_plugins,
+    )
+
+    monkeypatch.setattr(system_reload_tool, "__package__", "fake.tools")
+    monkeypatch.setitem(system_reload_tool.sys.modules, "fake.tools", fake_package)
+    monkeypatch.setattr(system_reload_tool.importlib, "reload", lambda module: module)
+    monkeypatch.setattr(system_reload_tool, "_stop_running_backgrounds", lambda: [])
+    monkeypatch.setattr(
+        system_reload_tool,
+        "_restore_runtime_boundaries",
+        lambda: restored.append(True),
+    )
+
+    result = system_reload_tool.run_tool({})
+
+    assert result == "Error during system reload: plugin reload failed"
+    assert restored == [True]
+
+
 def test_disabled_tool_argument_category_skips_shape_inspection(
     monkeypatch,
 ) -> None:
