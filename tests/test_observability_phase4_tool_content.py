@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
+from types import SimpleNamespace
 
 import pytest
 
 from uagent.runtime.execution import mark_tool_waiting
 from uagent.runtime.observability import runtime as observability_runtime
+from uagent.runtime.observability import tool_content_capture
 from uagent.runtime.observability.boundary_instrumentation import (
     _wrap_tool_content_runner,
 )
@@ -121,6 +123,40 @@ def test_tool_adapter_rejects_unknown_or_mismatched_shape_after_admission() -> N
         )
         is None
     )
+
+
+def test_tool_adapter_rejects_schema_revision_mismatch(monkeypatch) -> None:
+    changed_module = SimpleNamespace(
+        TOOL_SPEC={
+            "type": "function",
+            "function": {
+                "name": "calculator",
+                "parameters": {
+                    "type": "object",
+                    "properties": {"expression": {"type": "number"}},
+                    "required": ["expression"],
+                },
+            },
+        }
+    )
+    monkeypatch.setattr(
+        tool_content_capture,
+        "import_module",
+        lambda _module_name: changed_module,
+    )
+
+    policy = ContentCapturePolicy.from_settings(_tool_settings())
+    buffer = ToolContentCaptureBuffer(policy)
+    candidate = make_tool_candidate(
+        tool_name="calculator",
+        category="tool_arguments",
+        value={"expression": "1+2"},
+        ordinal=1,
+    )
+
+    assert candidate is not None
+    assert buffer.admit(candidate) is True
+    assert buffer.prepared_events() == ()
 
 
 def test_tool_content_is_emitted_on_matching_execute_tool_span(monkeypatch) -> None:
