@@ -141,3 +141,67 @@ def test_append_legacy_reasoning_assistant_captures_web_when_logging_skipped(
 
     assert captured == [message]
     assert logged == []
+
+
+def test_append_legacy_reasoning_assistant_captures_non_web_when_logging_disabled(
+    monkeypatch,
+) -> None:
+    messages: list[dict[str, object]] = []
+    captured: list[dict[str, object]] = []
+    logged: list[dict[str, object]] = []
+    core_obj = SimpleNamespace(_is_web=False, log_message=logged.append)
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    message = append_legacy_reasoning_assistant(
+        messages=messages,
+        core=core_obj,
+        assistant_text="gateway answer",
+        tool_calls_list=[],
+        reasoning_content="thought",
+        build_assistant_message_fn=lambda **payload: {
+            "role": "assistant",
+            "content": payload["assistant_text"],
+            "reasoning_content": payload["reasoning_content"],
+        },
+        streaming_enabled=True,
+        judgment_mode=False,
+        log_message=False,
+    )
+
+    assert captured == [message]
+    assert logged == []
+
+
+def test_append_legacy_reasoning_assistant_excludes_judgment_mode_direct_capture(
+    monkeypatch,
+) -> None:
+    messages: list[dict[str, object]] = []
+    captured: list[dict[str, object]] = []
+    logged: list[dict[str, object]] = []
+    core_obj = SimpleNamespace(_is_web=False, log_message=logged.append)
+    monkeypatch.setattr(
+        "uagent.runtime.observability.content_runtime.capture_logged_message",
+        lambda message: captured.append(message) or True,
+    )
+
+    append_legacy_reasoning_assistant(
+        messages=messages,
+        core=core_obj,
+        assistant_text="judgment",
+        tool_calls_list=[],
+        reasoning_content="thought",
+        build_assistant_message_fn=lambda **payload: {
+            "role": "assistant",
+            "content": payload["assistant_text"],
+            "reasoning_content": payload["reasoning_content"],
+        },
+        streaming_enabled=True,
+        judgment_mode=True,
+        log_message=False,
+    )
+
+    assert captured == []
+    assert logged == []
