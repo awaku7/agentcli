@@ -14,6 +14,7 @@ from ...auth.credential_store import (
     get_default_credential_store,
 )
 from ..identity_context import TurnContext
+from .privacy import sanitize_attributes
 from .settings import ObservabilitySettings
 
 _PURPOSE = "observability_pseudonym_v1"
@@ -118,7 +119,8 @@ def _validate_credential(
         return None
     if type(credential.secret) is not str:
         return None
-    if not _valid_metadata_shape(credential.metadata):
+    metadata_source = credential.metadata
+    if not _valid_metadata_shape(metadata_source):
         return None
     if not _valid_bounded_text(credential.name, max_chars=128):
         return None
@@ -126,10 +128,15 @@ def _validate_credential(
         return None
     if credential.kind is not CredentialKind.OTHER:
         return None
-    if not _valid_metadata_contents(credential.metadata):
-        return None
 
-    metadata = credential.metadata
+    try:
+        metadata = metadata_source.copy()
+    except Exception:
+        return None
+    if not _valid_metadata_shape(metadata):
+        return None
+    if not _valid_metadata_contents(metadata):
+        return None
     if metadata.get("purpose") != _PURPOSE:
         return None
     if metadata.get("key_version") != key_version:
@@ -249,6 +256,32 @@ def build_correlation_attributes(
     return attributes
 
 
+def _set_correlation_attributes_atomically(
+    span: object, attributes: dict[str, str]
+) -> bool:
+    """Commit one closed correlation set through the supported bulk span API."""
+
+    try:
+        from .otel_backend import OpenTelemetrySpan
+
+        if type(span) is not OpenTelemetrySpan:
+            return False
+        safe = sanitize_attributes(attributes, capture_content=False)
+        if safe != attributes:
+            return False
+        raw_span = span._span
+        set_attributes = getattr(raw_span, "set_attributes", None)
+        if not callable(set_attributes):
+            return False
+        # The supported OTel SDK is pinned. Its bulk setter validates the whole
+        # mapping first and applies it while holding the SDK span lock, avoiding
+        # the observable partial writes possible with repeated set_attribute().
+        set_attributes(safe)
+        return True
+    except Exception:
+        return False
+
+
 def attach_pseudonymous_correlation(
     span: object,
     turn_context: TurnContext,
@@ -265,12 +298,7 @@ def attach_pseudonymous_correlation(
     )
     if not attributes:
         return False
-    try:
-        for key, value in attributes.items():
-            span.set_attribute(key, value)  # type: ignore[attr-defined]
-    except Exception:
-        return False
-    return True
+    return _set_correlation_attributes_atomically(span, attributes)
 
 
 __all__ = [
