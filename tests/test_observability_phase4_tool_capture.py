@@ -1,4 +1,7 @@
-from uagent.runtime.execution import reset_tool_runner_active, set_tool_runner_active
+from uagent.runtime.execution import (
+    reset_tool_runner_active,
+    set_tool_runner_active,
+)
 from uagent.runtime.observability.content_runtime import (
     bind_agent_content_capture,
     capture_logged_message,
@@ -45,6 +48,6 @@ def test_tool_runner_assistant_log_is_not_agent_output():
             is True
         )
 
-    assert [event.attributes()["uag.content.value"] for event in span.content_events] == [
-        "model reply"
-    ]
+    assert [
+        event.attributes()["uag.content.value"] for event in span.content_events
+    ] == ["model reply"]
