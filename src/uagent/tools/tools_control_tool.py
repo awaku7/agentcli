@@ -402,6 +402,16 @@ def handle_cmd_tools_reload(arg: str, **kw: Any) -> Any:
         )
     except Exception as e:
         print(f"[tools error] Reload failed: {type(e).__name__}: {e}")
+    finally:
+        try:
+            from ..runtime.observability.boundary_instrumentation import (
+                install_runtime_boundary_instrumentation,
+            )
+
+            install_runtime_boundary_instrumentation()
+        except Exception:
+            # Tool reload must remain usable when observability is unavailable.
+            pass
     return CommandResult()
 
 

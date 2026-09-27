@@ -21,6 +21,9 @@ class _PendingToolSpan:
 class _ActiveToolSpan:
     manager: Any
     span: ObservabilitySpan
+    tool_name: str = ""
+    content_buffer: Any = None
+    next_content_ordinal: int = 1
     failed: bool = False
 
 
@@ -140,6 +143,20 @@ def after_structured_event(event_code: str) -> None:
     _finish_active_tool_span()
 
 
+def _new_tool_content_buffer() -> Any:
+    try:
+        from .content_capture import ContentCapturePolicy
+        from .settings import get_observability_settings
+        from .tool_content_capture import ToolContentCaptureBuffer
+
+        policy = ContentCapturePolicy.from_settings(get_observability_settings())
+        if not policy.enabled:
+            return None
+        return ToolContentCaptureBuffer(policy)
+    except Exception:
+        return None
+
+
 def start_pending_tool_span() -> None:
     """Start one logical execute_tool span at the centralized runner boundary."""
 
@@ -149,7 +166,9 @@ def start_pending_tool_span() -> None:
     if not backend.enabled:
         return
     attributes: dict[str, Any] = {}
+    tool_name = ""
     if pending is not None:
+        tool_name = pending.name
         if pending.name:
             attributes["uag.tool.name"] = pending.name
         if pending.side_effect:
@@ -160,7 +179,74 @@ def start_pending_tool_span() -> None:
     except Exception:
         return
     active_stack = _ACTIVE_TOOL_SPANS.get()
-    _ACTIVE_TOOL_SPANS.set((*active_stack, _ActiveToolSpan(manager=manager, span=span)))
+    _ACTIVE_TOOL_SPANS.set(
+        (
+            *active_stack,
+            _ActiveToolSpan(
+                manager=manager,
+                span=span,
+                tool_name=tool_name,
+                content_buffer=_new_tool_content_buffer(),
+            ),
+        )
+    )
+
+
+def _capture_trusted_tool_content(
+    *,
+    tool_name: str,
+    category: str,
+    value: object,
+) -> bool:
+    active_stack = _ACTIVE_TOOL_SPANS.get()
+    if not active_stack:
+        return False
+    active = active_stack[-1]
+    if (
+        type(tool_name) is not str
+        or not active.tool_name
+        or active.tool_name != tool_name
+        or active.content_buffer is None
+        or active.next_content_ordinal > 32
+    ):
+        return False
+    try:
+        from .tool_content_capture import make_tool_candidate
+
+        candidate = make_tool_candidate(
+            tool_name=tool_name,
+            category=category,
+            value=value,
+            ordinal=active.next_content_ordinal,
+        )
+        if candidate is None:
+            return False
+        if not active.content_buffer.admit(candidate):
+            return False
+        active.next_content_ordinal += 1
+        return True
+    except Exception:
+        return False
+
+
+def capture_trusted_tool_arguments(tool_name: str, args: object) -> bool:
+    """Submit reviewed tool arguments to the owning ``execute_tool`` span."""
+
+    return _capture_trusted_tool_content(
+        tool_name=tool_name,
+        category="tool_arguments",
+        value=args,
+    )
+
+
+def capture_trusted_tool_result(tool_name: str, result: object) -> bool:
+    """Submit a reviewed successful tool result to the owning tool span."""
+
+    return _capture_trusted_tool_content(
+        tool_name=tool_name,
+        category="tool_result",
+        value=result,
+    )
 
 
 def abandon_active_tool_span() -> None:
@@ -183,6 +269,11 @@ def _finish_active_tool_span() -> None:
     active = active_stack[-1]
     _ACTIVE_TOOL_SPANS.set(active_stack[:-1])
     try:
+        if active.content_buffer is not None:
+            active.content_buffer.emit_to(active.span)
+    except Exception:
+        pass
+    try:
         active.manager.__exit__(None, None, None)
     except Exception:
         pass
@@ -198,6 +289,8 @@ __all__ = [
     "abandon_active_tool_span",
     "after_structured_event",
     "before_structured_event",
+    "capture_trusted_tool_arguments",
+    "capture_trusted_tool_result",
     "fallback_chat_span",
     "start_pending_tool_span",
 ]

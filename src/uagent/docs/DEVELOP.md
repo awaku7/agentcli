@@ -112,6 +112,26 @@ lives in `runtime/observability/otel_backend.py`, `a2a/auth.py`, and `a2a/server
 Regression coverage is in `tests/test_observability_phase3_a2a.py`; the broader
 trust and rollout scope is documented in `docs/UAG_OPENTELEMETRY_PHASE3_SCOPE.md`.
 
+## OpenTelemetry controlled content capture (Phase 4A)
+
+Phase 4A controlled-content capture is default-OFF and remains inside UAG's
+provider-neutral observability boundary. Reviewed `user_input` and
+`assistant_output` content is owned by the canonical `invoke_agent` span; reviewed
+`tool_arguments` and ordinary `tool_result` content is owned only by the matching
+canonical `execute_tool` span.
+
+The initial reviewed tool adapters are the built-in `calculator` and
+`get_current_time` implementations only. Tool-content capture requires the active
+runner to be the exact reviewed built-in `run_tool` implementation and the current
+`TOOL_SPEC` parameter schema to match the reviewed schema fingerprint. Same-name
+plugin replacements, schema drift, malformed values, unsupported tools, and
+unreviewed provenance fail closed and emit no controlled content.
+
+Tool-package reload paths restore the tool-content instrumentation best-effort,
+including failure paths, so observability never changes tool execution semantics.
+See [DEVELOP_OBSERVABILITY.md](DEVELOP_OBSERVABILITY.md) for the detailed Phase 4A
+ownership, provenance, limits, and reload-safety contract.
+
 ## 0. Runtime requirements
 
 - Python: 3.11+
