@@ -153,7 +153,12 @@ def test_tool_adapter_rejects_schema_revision_mismatch(monkeypatch) -> None:
                 "name": "calculator",
                 "parameters": {
                     "type": "object",
-                    "properties": {"expression": {"type": "number"}},
+                    "properties": {
+                        "expression": {
+                            "type": "string",
+                            "enum": ["1+2"],
+                        }
+                    },
                     "required": ["expression"],
                 },
             },
