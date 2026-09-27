@@ -9,6 +9,7 @@ from uagent.runtime.execution import (
     lifecycle_execution,
 )
 from uagent.runtime.identity_context import IdentityContext, TurnContext
+from uagent.runtime.observability import pseudonymous_correlation as correlation
 from uagent.runtime.observability.pseudonymous_correlation import (
     build_correlation_attributes,
     make_pseudonym,
@@ -233,6 +234,34 @@ def test_phase4b_invalid_settings_and_credentials_fail_closed() -> None:
         )
 
 
+def test_phase4b_rejects_returned_name_before_metadata_contents(monkeypatch) -> None:
+    turn = TurnContext(
+        principal_id="user-123",
+        room_id="room-1",
+        project_id="project-1",
+        session_id="",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
+    calls: list[object] = []
+
+    def validate_contents(metadata):
+        calls.append(metadata)
+        return False
+
+    monkeypatch.setattr(correlation, "_valid_metadata_contents", validate_contents)
+
+    attributes = build_correlation_attributes(
+        turn,
+        _settings(),
+        credential_store=_Store(_credential(name="other")),
+    )
+
+    assert attributes == {}
+    assert calls == []
+
+
 def test_phase4b_attaches_once_to_canonical_agent_span(monkeypatch) -> None:
     backend = _Backend()
     turn = TurnContext.from_identity(
@@ -249,7 +278,7 @@ def test_phase4b_attaches_once_to_canonical_agent_span(monkeypatch) -> None:
     )
     monkeypatch.setattr(
         "uagent.runtime.execution._attach_turn_correlation",
-        lambda _span, bound_turn: calls.append(bound_turn) or True,
+        lambda _span, bound_turn: calls.append(bound_turn) or False,
     )
 
     with lifecycle_execution(turn_context=turn):
@@ -258,7 +287,7 @@ def test_phase4b_attaches_once_to_canonical_agent_span(monkeypatch) -> None:
     assert calls == [turn]
 
 
-def test_phase4b_late_turn_resolution_attaches_once(monkeypatch) -> None:
+def test_phase4b_late_turn_resolution_attempt_is_terminal(monkeypatch) -> None:
     backend = _Backend()
     turn = TurnContext.from_identity(
         IdentityContext("local", True, "local"),
@@ -272,7 +301,7 @@ def test_phase4b_late_turn_resolution_attaches_once(monkeypatch) -> None:
     )
     monkeypatch.setattr(
         "uagent.runtime.execution._attach_turn_correlation",
-        lambda _span, bound_turn: calls.append(bound_turn) or True,
+        lambda _span, bound_turn: calls.append(bound_turn) or False,
     )
 
     with lifecycle_execution():
@@ -280,3 +309,38 @@ def test_phase4b_late_turn_resolution_attaches_once(monkeypatch) -> None:
         apply_turn_context_to_current_agent_span(turn)
 
     assert calls == [turn]
+
+
+def test_phase4b_partial_attachment_failure_is_not_retried(monkeypatch) -> None:
+    backend = _Backend()
+    turn = TurnContext.from_identity(
+        IdentityContext("user-123", True, "oidc"),
+        room_id="room-1",
+        project_id="project-1",
+        entry_point="web",
+    )
+    calls: list[TurnContext] = []
+
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+
+    def partial_failure(span, bound_turn):
+        calls.append(bound_turn)
+        span.set_attribute("uag.correlation.principal", "partial-generation")
+        return False
+
+    monkeypatch.setattr(
+        "uagent.runtime.execution._attach_turn_correlation",
+        partial_failure,
+    )
+
+    with lifecycle_execution():
+        apply_turn_context_to_current_agent_span(turn)
+        apply_turn_context_to_current_agent_span(turn)
+
+    assert calls == [turn]
+    assert backend.spans[0].attributes["uag.correlation.principal"] == (
+        "partial-generation"
+    )
