@@ -28,6 +28,25 @@ def consume_legacy_interrupt(
     return True
 
 
+def _capture_legacy_web_messages(
+    *,
+    core: Any,
+    messages: list[dict[str, Any]],
+    start_index: int,
+    judgment_mode: bool,
+) -> None:
+    """Submit newly appended Web assistant envelopes while the Agent span owns them."""
+    if judgment_mode or not bool(getattr(core, "_is_web", False)):
+        return
+    try:
+        from .observability.content_runtime import capture_logged_message
+
+        for message in messages[start_index:]:
+            capture_logged_message(message)
+    except Exception:
+        pass
+
+
 def translate_and_append_legacy_assistant(
     *,
     assistant_text: str,
@@ -38,6 +57,7 @@ def translate_and_append_legacy_assistant(
     should_keep_assistant_message_fn: Callable[..., bool],
     append_assistant_message_fn: Callable[..., Any],
     append_kwargs: dict[str, Any],
+    judgment_mode: bool = False,
 ) -> str:
     """Apply shared translation and assistant-message retention policy."""
     translated = translate_assistant_fn(
@@ -49,10 +69,19 @@ def translate_and_append_legacy_assistant(
     if should_keep_assistant_message_fn(
         translated, append_kwargs.get("tool_calls_list", ())
     ):
+        messages = append_kwargs.get("messages")
+        message_count_before = len(messages) if isinstance(messages, list) else 0
         append_assistant_message_fn(
             **append_kwargs,
             assistant_text=translated,
         )
+        if isinstance(messages, list):
+            _capture_legacy_web_messages(
+                core=append_kwargs.get("core"),
+                messages=messages,
+                start_index=message_count_before,
+                judgment_mode=judgment_mode,
+            )
     return translated
 
 
@@ -75,6 +104,12 @@ def append_legacy_reasoning_assistant(
         reasoning_content=reasoning_content,
     )
     messages.append(message)
+    _capture_legacy_web_messages(
+        core=core,
+        messages=messages,
+        start_index=len(messages) - 1,
+        judgment_mode=judgment_mode,
+    )
     if (
         log_message
         and not (bool(getattr(core, "_is_web", False)) and streaming_enabled)

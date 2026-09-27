@@ -129,7 +129,6 @@ def run_legacy_gemini_round(
                 }
             ]
 
-    message_count_before = len(messages)
     assistant_text = translate_and_append_legacy_assistant(
         assistant_text=assistant_text,
         tr_cfg=tr_cfg,
@@ -145,16 +144,8 @@ def run_legacy_gemini_round(
             "gemini_content_dump": content_dump,
             "skip_log_when_web": True,
         },
+        judgment_mode=judgment_mode,
     )
-
-    if bool(getattr(core, "_is_web", False)) and not judgment_mode:
-        try:
-            from .observability.content_runtime import capture_logged_message
-
-            for message in messages[message_count_before:]:
-                capture_logged_message(message)
-        except Exception:
-            pass
 
     empty_result, empty_no_tool_rounds = resolve_legacy_empty_round(
         handle_empty_no_tool_fn=handle_empty_no_tool_fn,
