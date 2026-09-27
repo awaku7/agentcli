@@ -175,6 +175,25 @@ def _adapter_for_candidate(
         return None
 
 
+def _matches_schema_scalar(value: object, schema_type: str) -> bool:
+    value_type = type(value)
+    if schema_type == "string":
+        return value_type is str
+    if schema_type == "integer":
+        return value_type is int
+    if schema_type == "number":
+        return value_type in {int, float}
+    if schema_type == "boolean":
+        return value_type is bool
+    if schema_type == "object":
+        return value_type is dict
+    if schema_type == "array":
+        return value_type is list
+    if schema_type == "null":
+        return value is None
+    return False
+
+
 def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
     """Validate adapter/schema/value shape only after candidate admission."""
 
@@ -192,7 +211,15 @@ def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
             keys = tuple(value.keys())
             if any(type(key) is not str for key in keys):
                 return False
-            return keys == adapter.argument_keys
+            if keys != adapter.argument_keys:
+                return False
+            return all(
+                _matches_schema_scalar(value[key], schema_type)
+                for key, schema_type in zip(
+                    adapter.argument_keys,
+                    adapter.argument_types,
+                )
+            )
         return type(candidate.value) is adapter.result_type
     except Exception:
         return False
