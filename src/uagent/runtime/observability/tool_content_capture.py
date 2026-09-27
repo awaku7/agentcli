@@ -11,6 +11,7 @@ from .content_capture import (
     CaptureCandidateMeta,
     ContentCapturePolicy,
     MAX_CAPTURE_CANDIDATES_PER_SPAN,
+    MAX_COLLECTION_ITEMS,
     PreparedContentEvent,
     ProvenanceNode,
 )
@@ -282,6 +283,10 @@ def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
             value = candidate.value
             if type(value) is not dict:
                 return False
+            if len(value) > MAX_COLLECTION_ITEMS:
+                return False
+            if len(value) != len(adapter.argument_keys):
+                return False
             keys = tuple(value.keys())
             if any(type(key) is not str for key in keys):
                 return False
@@ -359,6 +364,14 @@ class ToolContentCaptureBuffer:
         used_chars = 0
         events: list[PreparedContentEvent] = []
         for candidate in ordered:
+            try:
+                meta = candidate.meta
+                if type(meta) is not CaptureCandidateMeta:
+                    continue
+                if meta.category not in self._policy.categories:
+                    continue
+            except Exception:
+                continue
             if not _matches_reviewed_shape(candidate):
                 continue
             event = _content.prepare_content_event(candidate, self._policy)
