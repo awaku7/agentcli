@@ -9,6 +9,7 @@ from uagent.runtime.observability.content_capture import (
 from uagent.runtime.observability.content_runtime import (
     bind_agent_content_capture,
     capture_logged_message,
+    capture_trusted_user_message,
 )
 from uagent.runtime.observability.otel_backend import OpenTelemetrySpan
 from uagent.runtime.observability.settings import ObservabilitySettings
@@ -243,6 +244,37 @@ def test_attachment_envelopes_are_never_capture_eligible():
         assert capture_logged_message(assistant_with_attachment) is False
 
     assert span.content_events == []
+
+
+def test_trusted_a2a_user_boundary_preserves_real_input_only():
+    span = _DedicatedSpan()
+    trusted_user = {"role": "user", "content": "a2a operator request"}
+    synthetic_user = {"role": "user", "content": "tool-generated next action"}
+
+    with bind_agent_content_capture(
+        span,
+        _settings("user_input", "assistant_output"),
+    ):
+        assert capture_trusted_user_message(trusted_user) is True
+        assert capture_logged_message(trusted_user) is False
+        assert capture_logged_message(synthetic_user) is False
+        assert (
+            capture_logged_message({"role": "assistant", "content": "a2a reply"})
+            is True
+        )
+
+    assert [event.attributes() for event in span.content_events] == [
+        {
+            "uag.content.category": "user_input",
+            "uag.content.value": "a2a operator request",
+            "uag.content.ordinal": 1,
+        },
+        {
+            "uag.content.category": "assistant_output",
+            "uag.content.value": "a2a reply",
+            "uag.content.ordinal": 2,
+        },
+    ]
 
 
 def test_lifecycle_binding_fails_closed_for_structured_or_internal_messages(
