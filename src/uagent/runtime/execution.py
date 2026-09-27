@@ -25,6 +25,9 @@ _CURRENT_CALLBACK: ContextVar[Callable[[LifecycleSnapshot], None] | None] = Cont
 _CURRENT_AGENT_SPAN: ContextVar[object | None] = ContextVar(
     "uagent_current_agent_span", default=None
 )
+_CURRENT_AGENT_CORRELATION_ATTACHED: ContextVar[bool] = ContextVar(
+    "uagent_current_agent_correlation_attached", default=False
+)
 _TOOL_RUNNER_ACTIVE: ContextVar[bool] = ContextVar(
     "uagent_tool_runner_active", default=False
 )
@@ -56,6 +59,26 @@ _LIFECYCLE_EVENTS = {
 }
 
 
+def _attach_turn_correlation(
+    observability_span: object, turn_context: TurnContext
+) -> bool:
+    try:
+        from .observability.pseudonymous_correlation import (
+            attach_pseudonymous_correlation,
+        )
+        from .observability.settings import get_observability_settings
+
+        return bool(
+            attach_pseudonymous_correlation(
+                observability_span,
+                turn_context,
+                get_observability_settings(),
+            )
+        )
+    except Exception:
+        return False
+
+
 def apply_turn_context_to_current_agent_span(turn_context: TurnContext) -> None:
     """Enrich an already-open Agent span when a host resolves its turn later."""
 
@@ -67,6 +90,9 @@ def apply_turn_context_to_current_agent_span(turn_context: TurnContext) -> None:
         observability_span.set_attribute("uag.auth.kind", turn_context.authn_kind)
     except Exception:
         pass
+    if not _CURRENT_AGENT_CORRELATION_ATTACHED.get():
+        if _attach_turn_correlation(observability_span, turn_context):
+            _CURRENT_AGENT_CORRELATION_ATTACHED.set(True)
 
 
 @contextmanager
@@ -129,6 +155,12 @@ def lifecycle_execution(
                 root=is_web_root and not trusted_parent_attached,
             )
         )
+        correlation_attached = False
+        if effective_turn_context is not None:
+            correlation_attached = _attach_turn_correlation(
+                observability_span,
+                effective_turn_context,
+            )
         try:
             from .observability.content_runtime import bind_agent_content_capture
             from .observability.settings import get_observability_settings
@@ -144,6 +176,9 @@ def lifecycle_execution(
         lifecycle_token = _CURRENT_LIFECYCLE.set(current)
         callback_token = _CURRENT_CALLBACK.set(on_transition)
         span_token = _CURRENT_AGENT_SPAN.set(observability_span)
+        correlation_token = _CURRENT_AGENT_CORRELATION_ATTACHED.set(
+            correlation_attached
+        )
         if current.status.value == "CREATED":
             _emit_lifecycle_events(current.snapshot())
         _safe_transition(current, "start")
@@ -175,6 +210,7 @@ def lifecycle_execution(
                 observability_span.set_status("error", lifecycle_status.lower())
             elif lifecycle_status == "CANCELLED":
                 observability_span.set_status("unset", "cancelled")
+            _CURRENT_AGENT_CORRELATION_ATTACHED.reset(correlation_token)
             _CURRENT_AGENT_SPAN.reset(span_token)
             _CURRENT_CALLBACK.reset(callback_token)
             _CURRENT_LIFECYCLE.reset(lifecycle_token)
