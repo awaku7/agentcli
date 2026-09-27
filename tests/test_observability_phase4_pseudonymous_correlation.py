@@ -22,11 +22,8 @@ class _Store:
         self.set_calls: list[Credential] = []
 
     def get(self, name: str):
-        if isinstance(self.credential, Credential) and self.credential.name == name:
-            return self.credential
-        if self.credential is not None and not isinstance(self.credential, Credential):
-            return self.credential
-        return None
+        del name
+        return self.credential
 
     def set(self, credential: Credential, *, name: str | None = None) -> None:
         assert name is None or name == credential.name
