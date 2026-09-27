@@ -107,6 +107,31 @@ def test_phase4b_hmac_vector_is_stable() -> None:
     )
 
 
+def test_phase4b_hmac_is_domain_separated() -> None:
+    key = bytes(range(32))
+    principal = make_pseudonym(
+        key,
+        deployment_scope="prod-jp",
+        kind="principal",
+        raw_identifier="shared-id",
+    )
+    room = make_pseudonym(
+        key,
+        deployment_scope="prod-jp",
+        kind="room",
+        raw_identifier="shared-id",
+    )
+    other_deployment = make_pseudonym(
+        key,
+        deployment_scope="prod-us",
+        kind="principal",
+        raw_identifier="shared-id",
+    )
+
+    assert principal is not None
+    assert len({principal, room, other_deployment}) == 3
+
+
 def test_phase4b_builds_only_closed_attributes() -> None:
     turn = TurnContext(
         principal_id="user-123",
@@ -137,7 +162,7 @@ def test_phase4b_builds_only_closed_attributes() -> None:
     assert "session-secret" not in attributes.values()
 
 
-def test_phase4b_missing_key_is_provisioned_with_exact_metadata() -> None:
+def test_phase4b_missing_key_fails_closed_without_runtime_provisioning() -> None:
     store = _Store()
     turn = TurnContext(
         principal_id="local",
@@ -155,19 +180,8 @@ def test_phase4b_missing_key_is_provisioned_with_exact_metadata() -> None:
         credential_store=store,
     )
 
-    assert set(attributes) == {
-        "uag.correlation.principal",
-        "uag.correlation.key_version",
-    }
-    assert len(store.set_calls) == 1
-    provisioned = store.set_calls[0]
-    assert provisioned.kind is CredentialKind.OTHER
-    assert provisioned.metadata == {
-        "purpose": "observability_pseudonym_v1",
-        "key_version": "v1",
-    }
-    assert len(provisioned.secret) == 43
-    assert "=" not in provisioned.secret
+    assert attributes == {}
+    assert store.set_calls == []
 
 
 def test_phase4b_invalid_settings_and_credentials_fail_closed() -> None:
