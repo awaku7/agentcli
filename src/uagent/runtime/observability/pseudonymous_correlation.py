@@ -72,9 +72,11 @@ def _validate_runtime_settings(
     )
 
 
-def _valid_metadata(metadata: object) -> bool:
-    if type(metadata) is not dict or len(metadata) > 16:
-        return False
+def _valid_metadata_shape(metadata: object) -> bool:
+    return type(metadata) is dict and len(metadata) <= 16
+
+
+def _valid_metadata_contents(metadata: dict[object, object]) -> bool:
     for key, value in metadata.items():
         if type(key) is not str or type(value) is not str:
             return False
@@ -116,7 +118,7 @@ def _validate_credential(
         return None
     if type(credential.secret) is not str:
         return None
-    if not _valid_metadata(credential.metadata):
+    if not _valid_metadata_shape(credential.metadata):
         return None
     if not _valid_bounded_text(credential.name, max_chars=128):
         return None
@@ -124,8 +126,10 @@ def _validate_credential(
         return None
     if credential.kind is not CredentialKind.OTHER:
         return None
+    if not _valid_metadata_contents(credential.metadata):
+        return None
 
-    metadata = dict(credential.metadata)
+    metadata = credential.metadata
     if metadata.get("purpose") != _PURPOSE:
         return None
     if metadata.get("key_version") != key_version:
