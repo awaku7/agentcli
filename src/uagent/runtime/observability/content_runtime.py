@@ -75,6 +75,15 @@ def _admit_message(
         return False
 
 
+def _tool_runner_active() -> bool:
+    try:
+        from ..execution import tool_runner_active
+
+        return bool(tool_runner_active())
+    except Exception:
+        return False
+
+
 @contextmanager
 def bind_agent_content_capture(
     span: object,
@@ -147,8 +156,9 @@ def capture_logged_message(message: object) -> bool:
 
     Once the Agent span is active, only assistant output is accepted from the
     logging boundary; user input must come from the pre-lifecycle staged envelope.
-    This prevents tool-generated or other synthetic in-span user messages from
-    being exported as operator input. A disabled nested scope suppresses capture.
+    Tool-runner-owned assistant logs are also excluded because tool result/content
+    capture is outside this Phase 4A slice. A disabled nested scope suppresses
+    capture.
     """
 
     state = _CURRENT_AGENT_CONTENT.get()
@@ -167,7 +177,7 @@ def capture_logged_message(message: object) -> bool:
     if state is _DISABLED:
         return False
     if isinstance(state, _AgentContentCaptureState):
-        if role != "assistant":
+        if role != "assistant" or _tool_runner_active():
             return False
         return _admit_message(state, message)  # type: ignore[arg-type]
 
