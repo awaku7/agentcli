@@ -122,6 +122,21 @@ def make_tool_candidate(
     return CaptureCandidate(ordinal=ordinal, value=value, meta=meta)
 
 
+def is_reviewed_tool_runner(tool_name: str, runner: object) -> bool:
+    """Require the currently dispatched runner to be the reviewed built-in function."""
+
+    if type(tool_name) is not str:
+        return False
+    adapter = _REVIEWED_TOOL_ADAPTERS.get(tool_name)
+    if adapter is None:
+        return False
+    try:
+        module = import_module(adapter.module_name)
+        return runner is getattr(module, "run_tool", None)
+    except Exception:
+        return False
+
+
 def _schema_matches(tool_name: str, adapter: _ReviewedToolAdapter) -> bool:
     """Fail closed when the current static tool schema no longer matches review."""
 
@@ -320,5 +335,6 @@ class ToolContentCaptureBuffer:
 
 __all__ = [
     "ToolContentCaptureBuffer",
+    "is_reviewed_tool_runner",
     "make_tool_candidate",
 ]
