@@ -151,6 +151,53 @@ def _install_decision_log_boundary() -> None:
     SessionStore.record_context_decisions = observed
 
 
+def _wrap_tool_content_runner(tool_name: str, runner: Any) -> Any:
+    """Capture only reviewed args/results while the canonical tool span is active."""
+
+    @wraps(runner)
+    def observed(args: Any):
+        try:
+            from .runtime import capture_trusted_tool_arguments
+
+            capture_trusted_tool_arguments(tool_name, args)
+        except Exception:
+            pass
+
+        result = runner(args)
+
+        try:
+            from .runtime import capture_trusted_tool_result
+
+            capture_trusted_tool_result(tool_name, result)
+        except Exception:
+            pass
+        return result
+
+    return observed
+
+
+def _install_tool_content_boundary() -> None:
+    from ... import tools
+
+    original = tools._call_tool_runner
+    if getattr(original, "_uag_observability_content_wrapped", False):
+        return
+
+    @wraps(original)
+    def observed(
+        name: str,
+        runner: Any,
+        args: dict[str, Any],
+        *,
+        tool_call_id: str,
+    ):
+        wrapped_runner = _wrap_tool_content_runner(name, runner)
+        return original(name, wrapped_runner, args, tool_call_id=tool_call_id)
+
+    observed._uag_observability_content_wrapped = True  # type: ignore[attr-defined]
+    tools._call_tool_runner = observed
+
+
 def install_runtime_boundary_instrumentation() -> None:
     """Install UAG-owned boundary wrappers once; failures never affect runtime."""
 
@@ -160,6 +207,7 @@ def install_runtime_boundary_instrumentation() -> None:
     try:
         _install_memory_projection_boundary()
         _install_decision_log_boundary()
+        _install_tool_content_boundary()
     except Exception:
         return
     _INSTALLED = True
