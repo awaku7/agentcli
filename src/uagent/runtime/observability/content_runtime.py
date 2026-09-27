@@ -20,6 +20,7 @@ class _AgentContentCaptureState:
     buffer: ContentCaptureBuffer
     next_ordinal: int = 1
     seen_messages: list[dict[str, object]] = field(default_factory=list)
+    invalidated: bool = False
 
 
 _DISABLED = object()
@@ -54,6 +55,8 @@ def _admit_message(
     state: _AgentContentCaptureState,
     message: dict[str, object],
 ) -> bool:
+    if state.invalidated:
+        return False
     envelope = _eligible_envelope(message)
     if envelope is None:
         return False
@@ -80,6 +83,20 @@ def _tool_runner_active() -> bool:
         from ..execution import tool_runner_active
 
         return bool(tool_runner_active())
+    except Exception:
+        return False
+
+
+def _web_memory_projection_invalidated() -> bool:
+    """Return whether the active Web turn revoked its memory projection."""
+
+    try:
+        from ... import core
+
+        return bool(
+            getattr(core, "_is_web", False)
+            and getattr(core, "_memory_projection_invalidated", False)
+        )
     except Exception:
         return False
 
@@ -121,10 +138,29 @@ def bind_agent_content_capture(
         yield
     finally:
         try:
-            state.buffer.emit_to(span)
+            if _web_memory_projection_invalidated():
+                state.invalidated = True
+            if not state.invalidated:
+                state.buffer.emit_to(span)
         except Exception:
             pass
         _CURRENT_AGENT_CONTENT.reset(token)
+
+
+def discard_agent_content_capture() -> bool:
+    """Invalidate the current Agent content buffer so nothing is emitted.
+
+    Hosts should use this when output produced inside the owning Agent span becomes
+    invalid to retain or expose, for example after a Web memory projection is
+    revoked during a multi-round turn. Once invalidated, the scope rejects any
+    later candidates and emits no previously buffered content at span exit.
+    """
+
+    state = _CURRENT_AGENT_CONTENT.get()
+    if not isinstance(state, _AgentContentCaptureState):
+        return False
+    state.invalidated = True
+    return True
 
 
 def capture_trusted_user_message(message: object) -> bool:
@@ -177,7 +213,7 @@ def capture_logged_message(message: object) -> bool:
     if state is _DISABLED:
         return False
     if isinstance(state, _AgentContentCaptureState):
-        if role != "assistant" or _tool_runner_active():
+        if state.invalidated or role != "assistant" or _tool_runner_active():
             return False
         return _admit_message(state, message)  # type: ignore[arg-type]
 
@@ -194,4 +230,5 @@ __all__ = [
     "bind_agent_content_capture",
     "capture_logged_message",
     "capture_trusted_user_message",
+    "discard_agent_content_capture",
 ]
