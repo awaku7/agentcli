@@ -145,6 +145,22 @@ def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
         return False
 
 
+def _candidate_order_key(candidate: CaptureCandidate) -> tuple[int, int] | None:
+    try:
+        meta = candidate.meta
+        if type(meta) is not CaptureCandidateMeta:
+            return None
+        order = {"tool_arguments": 0, "tool_result": 1}
+        category_order = order.get(meta.category)
+        if category_order is None:
+            return None
+        if type(candidate.ordinal) is not int:
+            return None
+        return category_order, candidate.ordinal
+    except Exception:
+        return None
+
+
 class ToolContentCaptureBuffer:
     """Per-``execute_tool`` buffer with reviewed-adapter shape validation.
 
@@ -179,14 +195,13 @@ class ToolContentCaptureBuffer:
         if not self._policy.enabled:
             return ()
 
-        order = {"tool_arguments": 0, "tool_result": 1}
-        ordered = sorted(
-            self._admitted,
-            key=lambda candidate: (
-                order.get(candidate.meta.category, len(order)),
-                candidate.ordinal,
-            ),
-        )
+        orderable: list[tuple[tuple[int, int], CaptureCandidate]] = []
+        for candidate in self._admitted:
+            key = _candidate_order_key(candidate)
+            if key is not None:
+                orderable.append((key, candidate))
+        ordered = [candidate for _key, candidate in sorted(orderable)]
+
         used_chars = 0
         events: list[PreparedContentEvent] = []
         for candidate in ordered:
@@ -208,7 +223,11 @@ class ToolContentCaptureBuffer:
             add_content_event = getattr(span, "add_content_event")
         except Exception:
             return 0
-        for event in self.prepared_events():
+        try:
+            events = self.prepared_events()
+        except Exception:
+            return 0
+        for event in events:
             try:
                 accepted = add_content_event(event)
             except Exception:
