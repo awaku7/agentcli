@@ -28,15 +28,14 @@ def consume_legacy_interrupt(
     return True
 
 
-def _capture_legacy_web_messages(
+def _capture_legacy_assistant_messages(
     *,
-    core: Any,
     messages: list[dict[str, Any]],
     start_index: int,
     judgment_mode: bool,
 ) -> None:
-    """Submit newly appended Web assistant envelopes while the Agent span owns them."""
-    if judgment_mode or not bool(getattr(core, "_is_web", False)):
+    """Submit newly appended legacy assistant envelopes while the Agent span owns them."""
+    if judgment_mode:
         return
     try:
         from .observability.content_runtime import capture_logged_message
@@ -75,9 +74,9 @@ def translate_and_append_legacy_assistant(
             **append_kwargs,
             assistant_text=translated,
         )
-        if isinstance(messages, list):
-            _capture_legacy_web_messages(
-                core=append_kwargs.get("core"),
+        core = append_kwargs.get("core")
+        if isinstance(messages, list) and bool(getattr(core, "_is_web", False)):
+            _capture_legacy_assistant_messages(
                 messages=messages,
                 start_index=message_count_before,
                 judgment_mode=judgment_mode,
@@ -104,17 +103,18 @@ def append_legacy_reasoning_assistant(
         reasoning_content=reasoning_content,
     )
     messages.append(message)
-    _capture_legacy_web_messages(
-        core=core,
-        messages=messages,
-        start_index=len(messages) - 1,
-        judgment_mode=judgment_mode,
-    )
-    if (
+    should_log_message = (
         log_message
         and not (bool(getattr(core, "_is_web", False)) and streaming_enabled)
         and not judgment_mode
-    ):
+    )
+    if not should_log_message:
+        _capture_legacy_assistant_messages(
+            messages=messages,
+            start_index=len(messages) - 1,
+            judgment_mode=judgment_mode,
+        )
+    if should_log_message:
         core.log_message(message)
     return message
 
