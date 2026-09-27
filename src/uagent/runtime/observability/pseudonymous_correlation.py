@@ -5,7 +5,6 @@ from __future__ import annotations
 import base64
 import hashlib
 import hmac
-import secrets
 import struct
 
 from ...auth.credential_store import (
@@ -138,17 +137,6 @@ def _validate_credential(
     return _decode_key_secret(credential.secret)
 
 
-def _provision_credential(name: str, key_version: str) -> Credential:
-    raw = secrets.token_bytes(32)
-    secret = base64.urlsafe_b64encode(raw).decode("ascii").rstrip("=")
-    return Credential(
-        name=name,
-        kind=CredentialKind.OTHER,
-        secret=secret,
-        metadata={"purpose": _PURPOSE, "key_version": key_version},
-    )
-
-
 def _load_correlation_key(
     *,
     store: CredentialStore,
@@ -159,13 +147,8 @@ def _load_correlation_key(
         credential = store.get(name)
     except Exception:
         return None
-
     if credential is None:
-        try:
-            store.set(_provision_credential(name, key_version))
-            credential = store.get(name)
-        except Exception:
-            return None
+        return None
     return _validate_credential(
         credential,
         requested_name=name,
