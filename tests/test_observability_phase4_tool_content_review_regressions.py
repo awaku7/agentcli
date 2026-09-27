@@ -19,7 +19,9 @@ def _policy(*categories: str) -> ContentCapturePolicy:
     )
 
 
-def test_tool_content_boundary_is_restored_after_runner_replacement(monkeypatch) -> None:
+def test_tool_content_boundary_is_restored_after_runner_replacement(
+    monkeypatch,
+) -> None:
     def replacement(name, runner, args, *, tool_call_id):
         return runner(args)
 
@@ -33,7 +35,9 @@ def test_tool_content_boundary_is_restored_after_runner_replacement(monkeypatch)
     assert getattr(restored, "_uag_observability_content_wrapped", False) is True
 
 
-def test_disabled_tool_argument_category_skips_shape_inspection(monkeypatch) -> None:
+def test_disabled_tool_argument_category_skips_shape_inspection(
+    monkeypatch,
+) -> None:
     buffer = ToolContentCaptureBuffer(_policy("tool_result"))
     candidate = make_tool_candidate(
         tool_name="calculator",
