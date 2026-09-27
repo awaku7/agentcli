@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 from types import SimpleNamespace
 
 from uagent import tools
@@ -10,7 +11,7 @@ from uagent.runtime.observability.tool_content_capture import (
     ToolContentCaptureBuffer,
     make_tool_candidate,
 )
-from uagent.tools import system_reload_tool
+from uagent.tools import system_reload_tool, tools_control_tool
 
 
 def _policy(*categories: str) -> ContentCapturePolicy:
@@ -90,6 +91,22 @@ def test_system_reload_restores_tool_content_boundary_after_failure(
 
     assert result == "Error during system reload: plugin reload failed"
     assert restored == [True]
+
+
+def test_tools_reload_restores_tool_content_boundary_after_failure(monkeypatch) -> None:
+    def replacement(name, runner, args, *, tool_call_id):
+        return runner(args)
+
+    def fail_reload(_module):
+        monkeypatch.setattr(tools, "_call_tool_runner", replacement)
+        raise RuntimeError("reload failed")
+
+    monkeypatch.setattr(importlib, "reload", fail_reload)
+    tools_control_tool.handle_cmd_tools_reload("")
+
+    restored = tools._call_tool_runner
+    assert restored is not replacement
+    assert getattr(restored, "_uag_observability_content_wrapped", False) is True
 
 
 def test_disabled_tool_argument_category_skips_shape_inspection(
