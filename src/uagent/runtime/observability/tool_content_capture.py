@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from importlib import import_module
 
 from . import content_capture as _content
 from .content_capture import (
@@ -17,23 +18,32 @@ from .content_capture import (
 
 @dataclass(frozen=True)
 class _ReviewedToolAdapter:
+    module_name: str
     argument_adapter_id: str
     result_adapter_id: str
     argument_keys: tuple[str, ...]
+    argument_types: tuple[str, ...]
+    required_keys: tuple[str, ...]
     result_type: type
 
 
 _REVIEWED_TOOL_ADAPTERS: dict[str, _ReviewedToolAdapter] = {
     "get_current_time": _ReviewedToolAdapter(
+        module_name="uagent.tools.get_current_time_tool",
         argument_adapter_id="tool.get_current_time.arguments.v1",
         result_adapter_id="tool.get_current_time.result.v1",
         argument_keys=(),
+        argument_types=(),
+        required_keys=(),
         result_type=str,
     ),
     "calculator": _ReviewedToolAdapter(
+        module_name="uagent.tools.calculator_tool",
         argument_adapter_id="tool.calculator.arguments.v1",
         result_adapter_id="tool.calculator.result.v1",
         argument_keys=("expression",),
+        argument_types=("string",),
+        required_keys=("expression",),
         result_type=str,
     ),
 }
@@ -112,25 +122,68 @@ def make_tool_candidate(
     return CaptureCandidate(ordinal=ordinal, value=value, meta=meta)
 
 
-def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
-    """Validate adapter-specific shape only after candidate admission."""
+def _schema_matches(tool_name: str, adapter: _ReviewedToolAdapter) -> bool:
+    """Fail closed when the current static tool schema no longer matches review."""
 
+    try:
+        module = import_module(adapter.module_name)
+        spec = getattr(module, "TOOL_SPEC", None)
+        if type(spec) is not dict:
+            return False
+        function = spec.get("function")
+        if type(function) is not dict or function.get("name") != tool_name:
+            return False
+        parameters = function.get("parameters")
+        if type(parameters) is not dict or parameters.get("type") != "object":
+            return False
+        properties = parameters.get("properties")
+        required = parameters.get("required")
+        if type(properties) is not dict or type(required) is not list:
+            return False
+        if tuple(properties.keys()) != adapter.argument_keys:
+            return False
+        if tuple(required) != adapter.required_keys:
+            return False
+        actual_types: list[str] = []
+        for key in adapter.argument_keys:
+            definition = properties.get(key)
+            if type(definition) is not dict:
+                return False
+            value_type = definition.get("type")
+            if type(value_type) is not str:
+                return False
+            actual_types.append(value_type)
+        return tuple(actual_types) == adapter.argument_types
+    except Exception:
+        return False
+
+
+def _adapter_for_candidate(
+    candidate: CaptureCandidate,
+) -> tuple[str, _ReviewedToolAdapter, str] | None:
     try:
         meta = candidate.meta
         if type(meta) is not CaptureCandidateMeta:
-            return False
-        adapter = None
-        direction = ""
-        for reviewed in _REVIEWED_TOOL_ADAPTERS.values():
+            return None
+        for tool_name, reviewed in _REVIEWED_TOOL_ADAPTERS.items():
             if meta.source_adapter_id == reviewed.argument_adapter_id:
-                adapter = reviewed
-                direction = "arguments"
-                break
+                return tool_name, reviewed, "arguments"
             if meta.source_adapter_id == reviewed.result_adapter_id:
-                adapter = reviewed
-                direction = "result"
-                break
-        if adapter is None:
+                return tool_name, reviewed, "result"
+        return None
+    except Exception:
+        return None
+
+
+def _matches_reviewed_shape(candidate: CaptureCandidate) -> bool:
+    """Validate adapter/schema/value shape only after candidate admission."""
+
+    try:
+        matched = _adapter_for_candidate(candidate)
+        if matched is None:
+            return False
+        tool_name, adapter, direction = matched
+        if not _schema_matches(tool_name, adapter):
             return False
         if direction == "arguments":
             value = candidate.value
@@ -166,8 +219,8 @@ class ToolContentCaptureBuffer:
 
     Candidate count and ordinal admission occur before adapter-specific value
     inspection. Unsupported tools never create a candidate. A reviewed adapter
-    must match its exact static field shape before the shared Phase 4A policy is
-    allowed to inspect/render the value.
+    must match its static schema revision and exact value shape before the shared
+    Phase 4A policy is allowed to inspect/render the value.
     """
 
     def __init__(self, policy: ContentCapturePolicy) -> None:
