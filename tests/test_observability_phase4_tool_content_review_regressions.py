@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 from uagent import tools
 from uagent.runtime.observability import boundary_instrumentation
 from uagent.runtime.observability import tool_content_capture
@@ -8,6 +10,7 @@ from uagent.runtime.observability.tool_content_capture import (
     ToolContentCaptureBuffer,
     make_tool_candidate,
 )
+from uagent.tools import system_reload_tool
 
 
 def _policy(*categories: str) -> ContentCapturePolicy:
@@ -33,6 +36,30 @@ def test_tool_content_boundary_is_restored_after_runner_replacement(
     restored = tools._call_tool_runner
     assert restored is not replacement
     assert getattr(restored, "_uag_observability_content_wrapped", False) is True
+
+
+def test_system_reload_restores_tool_content_boundary(monkeypatch) -> None:
+    restored: list[bool] = []
+    fake_package = SimpleNamespace(
+        _INITIALIZED=True,
+        _DYNAMIC_COMMANDS={"stale": object()},
+        _load_plugins=lambda: None,
+    )
+
+    monkeypatch.setattr(system_reload_tool, "__package__", "fake.tools")
+    monkeypatch.setitem(system_reload_tool.sys.modules, "fake.tools", fake_package)
+    monkeypatch.setattr(system_reload_tool.importlib, "reload", lambda module: module)
+    monkeypatch.setattr(system_reload_tool, "_stop_running_backgrounds", lambda: [])
+    monkeypatch.setattr(
+        system_reload_tool,
+        "_restore_runtime_boundaries",
+        lambda: restored.append(True),
+    )
+
+    result = system_reload_tool.run_tool({})
+
+    assert result.startswith("System reload successful.")
+    assert restored == [True]
 
 
 def test_disabled_tool_argument_category_skips_shape_inspection(
