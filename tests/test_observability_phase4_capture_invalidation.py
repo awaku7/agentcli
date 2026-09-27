@@ -30,9 +30,15 @@ def test_explicit_discard_suppresses_buffered_and_later_content() -> None:
     span = _Span()
 
     with bind_agent_content_capture(span, _settings()):
-        assert capture_logged_message({"role": "assistant", "content": "before"}) is True
+        assert (
+            capture_logged_message({"role": "assistant", "content": "before"})
+            is True
+        )
         assert discard_agent_content_capture() is True
-        assert capture_logged_message({"role": "assistant", "content": "after"}) is False
+        assert (
+            capture_logged_message({"role": "assistant", "content": "after"})
+            is False
+        )
 
     assert span.content_events == []
 
@@ -60,7 +66,10 @@ def test_non_web_memory_flag_does_not_discard_agent_content(monkeypatch) -> None
     monkeypatch.setattr(core, "_memory_projection_invalidated", True, raising=False)
 
     with bind_agent_content_capture(span, _settings()):
-        assert capture_logged_message({"role": "assistant", "content": "cli reply"}) is True
+        assert (
+            capture_logged_message({"role": "assistant", "content": "cli reply"})
+            is True
+        )
 
     assert [event.attributes()["uag.content.value"] for event in span.content_events] == [
         "cli reply"
