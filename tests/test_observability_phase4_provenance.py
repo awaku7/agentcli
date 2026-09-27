@@ -3,7 +3,6 @@ from __future__ import annotations
 from uagent.runtime.observability.content_runtime import (
     bind_agent_content_capture,
     capture_logged_message,
-    discard_pending_user_message,
 )
 from uagent.runtime.observability.settings import ObservabilitySettings
 
@@ -46,7 +45,7 @@ def test_in_span_synthetic_user_is_not_captured_as_operator_input() -> None:
     ]
 
 
-def test_discard_blocked_pending_user_prevents_later_span_leak() -> None:
+def test_rejected_next_user_submission_clears_blocked_pending_prompt() -> None:
     span = _Span()
     blocked = {"role": "user", "content": "blocked prompt"}
     later_attachment = {
@@ -56,7 +55,6 @@ def test_discard_blocked_pending_user_prevents_later_span_leak() -> None:
     }
 
     assert capture_logged_message(blocked) is True
-    assert discard_pending_user_message(blocked) is True
     assert capture_logged_message(later_attachment) is False
 
     with bind_agent_content_capture(span, _settings("user_input")):
@@ -65,17 +63,18 @@ def test_discard_blocked_pending_user_prevents_later_span_leak() -> None:
     assert span.content_events == []
 
 
-def test_discard_pending_user_is_identity_scoped() -> None:
-    pending = {"role": "user", "content": "keep me"}
-    other = {"role": "user", "content": "other"}
+def test_structured_next_user_submission_clears_older_pending_prompt() -> None:
     span = _Span()
+    blocked = {"role": "user", "content": "blocked prompt"}
+    later_multimodal = {
+        "role": "user",
+        "content": [{"type": "text", "text": "new prompt"}],
+    }
 
-    assert capture_logged_message(pending) is True
-    assert discard_pending_user_message(other) is False
+    assert capture_logged_message(blocked) is True
+    assert capture_logged_message(later_multimodal) is False
 
     with bind_agent_content_capture(span, _settings("user_input")):
         pass
 
-    assert [event.attributes()["uag.content.value"] for event in span.content_events] == [
-        "keep me"
-    ]
+    assert span.content_events == []
