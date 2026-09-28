@@ -11,6 +11,7 @@ from .tools.context import get_callbacks
 from .image_session import build_image_session_message
 from .i18n import _
 from .providers.llm_gemini import _message_content_text, _sanitize_gemini_parameters
+from .providers.responses_manager import is_server_side_compaction_enabled
 
 try:
     from google.genai import types as gemini_types
@@ -344,6 +345,17 @@ def _maybe_auto_shrink_messages(
         shrink_cnt = 0
 
     shrink_max_tokens = _get_shrink_max_tokens(depname)
+
+    # Responses providers with server-side compaction already compact the
+    # active request at this threshold. Avoid making a second, local summary
+    # projection for that same request. Providers/transports without this
+    # capability continue to use the local auto-shrink path.
+    if is_server_side_compaction_enabled(
+        provider,
+        use_responses_api=use_responses_api,
+        compact_threshold=shrink_max_tokens,
+    ):
+        return gemini_cache_name
 
     # Count non-system messages (same rule as core.shrink_messages)
     # History-summary system messages are excluded: they are rolling context,
