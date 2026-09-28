@@ -8,8 +8,9 @@ from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any, Iterator, Mapping
 
-from .api import ObservabilitySpan
+from .api import ObservabilityBackend, ObservabilitySpan
 from .bootstrap import get_observability_backend
+from .noop import NOOP_SPAN
 
 
 @dataclass(frozen=True)
@@ -46,18 +47,52 @@ class _ProviderSdkDiagnostic:
 
 
 class _ProviderSdkDiagnosticState:
-    """One terminal provider-diagnostic claim shared by one canonical chat span."""
+    """One active provider-diagnostic claim owned by one canonical chat span."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        *,
+        backend: ObservabilityBackend,
+        providers: frozenset[str],
+    ) -> None:
+        self._backend = backend
+        self._providers = providers
         self._lock = threading.Lock()
+        self._active = True
         self._claimed = False
 
-    def claim(self) -> bool:
+    def start(self, provider: str) -> tuple[Any, ObservabilitySpan] | None:
+        """Claim and start the one child while the owning chat scope is active."""
+
+        manager: Any = None
         with self._lock:
-            if self._claimed:
-                return False
+            if (
+                not self._active
+                or self._claimed
+                or provider not in self._providers
+            ):
+                return None
             self._claimed = True
-            return True
+            try:
+                manager = self._backend.start_span(
+                    "provider_sdk",
+                    attributes={"uag.provider.id": provider},
+                )
+                span = manager.__enter__()
+            except Exception:
+                if manager is not None:
+                    try:
+                        manager.__exit__(None, None, None)
+                    except Exception:
+                        pass
+                return None
+            return manager, span
+
+    def close(self) -> None:
+        """Prevent copied contexts from creating a child after chat-scope exit."""
+
+        with self._lock:
+            self._active = False
 
 
 _PROVIDER_DIAGNOSTIC_PROVIDERS = frozenset({"openai", "claude"})
@@ -73,13 +108,46 @@ _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE: ContextVar[
 
 
 @contextmanager
-def canonical_chat_diagnostic_scope() -> Iterator[None]:
-    """Bind one shared Phase 4C diagnostic claim to a canonical ``chat`` span."""
+def canonical_chat_diagnostic_scope(
+    span: ObservabilitySpan,
+    backend: ObservabilityBackend,
+) -> Iterator[None]:
+    """Bind Phase 4C state only to a successfully created canonical ``chat``."""
 
-    token = _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.set(_ProviderSdkDiagnosticState())
+    if span is NOOP_SPAN:
+        yield
+        return
+
+    try:
+        from .settings import get_observability_settings
+
+        if not backend.enabled:
+            yield
+            return
+        settings = get_observability_settings()
+        raw_providers = settings.provider_instrumentation
+        if type(raw_providers) is not frozenset:
+            yield
+            return
+        providers = frozenset(
+            provider
+            for provider in raw_providers
+            if type(provider) is str and provider in _PROVIDER_DIAGNOSTIC_PROVIDERS
+        )
+    except Exception:
+        yield
+        return
+
+    if not providers:
+        yield
+        return
+
+    state = _ProviderSdkDiagnosticState(backend=backend, providers=providers)
+    token = _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.set(state)
     try:
         yield
     finally:
+        state.close()
         _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.reset(token)
 
 
@@ -87,10 +155,10 @@ def canonical_chat_diagnostic_scope() -> Iterator[None]:
 def provider_sdk_diagnostic_span(provider: object) -> Iterator[_ProviderSdkDiagnostic]:
     """Trace one selected provider SDK call as a closed metadata-only child span.
 
-    The child is fail-closed unless a canonical ``chat`` scope is active. The
-    shared scope allows exactly one terminal child-creation attempt, including
-    across copied ContextVars, so one canonical chat cannot gain duplicate
-    provider children.
+    The child is fail-closed unless a live canonical ``chat`` scope owns it. The
+    shared state binds the exact parent backend and permits one terminal child-start
+    attempt, including across copied ContextVars, so one canonical chat cannot gain
+    duplicate or late provider children.
     """
 
     diagnostic = _ProviderSdkDiagnostic()
@@ -98,38 +166,16 @@ def provider_sdk_diagnostic_span(provider: object) -> Iterator[_ProviderSdkDiagn
         yield diagnostic
         return
 
-    try:
-        from .settings import get_observability_settings
-
-        settings = get_observability_settings()
-        backend = get_observability_backend()
-        if not backend.enabled or provider not in settings.provider_instrumentation:
-            yield diagnostic
-            return
-    except Exception:
-        yield diagnostic
-        return
-
     state = _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.get()
-    if state is None or not state.claim():
+    if state is None:
         yield diagnostic
         return
 
-    manager: Any = None
-    try:
-        manager = backend.start_span(
-            "provider_sdk",
-            attributes={"uag.provider.id": provider},
-        )
-        diagnostic.span = manager.__enter__()
-    except Exception:
-        if manager is not None:
-            try:
-                manager.__exit__(None, None, None)
-            except Exception:
-                pass
+    started = state.start(provider)
+    if started is None:
         yield diagnostic
         return
+    manager, diagnostic.span = started
 
     try:
         try:
@@ -172,7 +218,7 @@ def fallback_chat_span(
     }
     usage_before_raw = getattr(core, "_last_responses_usage", None)
     with backend.start_span("chat", attributes=attributes) as span:
-        with canonical_chat_diagnostic_scope():
+        with canonical_chat_diagnostic_scope(span, backend):
             if backend.enabled:
                 try:
                     from ..context_tokens import estimate_tokens
