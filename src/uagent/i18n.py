@@ -445,6 +445,10 @@ def _preserve_command_syntax(msgid: str, translated: str) -> str:
     if len(source_lines) != len(translated_lines):
         return translated
 
+    newline_match = re.search(r"\r\n|\r|\n", translated)
+    newline = newline_match.group(0) if newline_match is not None else "\n"
+    has_trailing_newline = translated.endswith(("\n", "\r"))
+
     restored: list[str] = []
     for source_line, translated_line in zip(source_lines, translated_lines):
         source_match = _COMMAND_NAME_RE.search(source_line)
@@ -494,7 +498,7 @@ def _preserve_command_syntax(msgid: str, translated: str) -> str:
             + translated_line[translated_prefix_end:]
         )
 
-    return "\n".join(restored)
+    return newline.join(restored) + (newline if has_trailing_newline else "")
 
 
 def _(msgid: str, default: str | None = None, **kwargs: object) -> str:
