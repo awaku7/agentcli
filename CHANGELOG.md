@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.18] - 2026-09-28
+
+### Added
+
+- Add an authorization-aware OpenTelemetry trace-query projection backed by
+  bounded backend paging.
+
+### Changed
+
+- Size history-summary chunks from the model context window and avoid local
+  auto-shrink when the server handles compaction.
+
+### Fixed
+
+- Keep trace retrieval and authorization off the event loop, bound worker waits
+  by the shared deadline, and prioritize ownership invalidation over timeout
+  responses.
+
 ## [0.7.17] - 2026-09-27
 
 ### Changed

@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [0.7.18] - 2026-09-28
+
+### 追加
+
+- backend pagingに上限を設けた、認可対応のOpenTelemetry trace-query projectionを
+  追加。
+
+### 変更
+
+- modelのcontext windowに応じてhistory summary chunkのサイズを決定し、サーバーが
+  compactを処理する場合はローカルのauto-shrinkを停止。
+
+### 修正
+
+- trace retrievalと認可処理をevent loop外で実行し、共有deadlineでworker待機を制限。
+  timeoutより所有権無効化を優先して応答。
+
 ## [0.7.17] - 2026-09-27
 
 ### 変更
