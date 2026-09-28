@@ -17,8 +17,9 @@ Supported process-level controls:
 - `UAGENT_OTEL_DEPLOYMENT_SCOPE`: required valid deployment scope before Phase 4B can emit pseudonyms.
 - `UAGENT_OTEL_CORRELATION_KEY_NAME`: correlation credential name; default `observability/correlation`.
 - `UAGENT_OTEL_CORRELATION_KEY_VERSION`: correlation key version label; default `v1`.
+- `UAGENT_OTEL_PROVIDER_INSTRUMENTATION`: comma-separated Phase 4C provider selector. The default is empty/OFF; the closed tokens are `openai` and `claude`.
 
-Equivalent launcher controls are `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation`, `--otel-deployment-scope`, `--otel-correlation-key-name`, and `--otel-correlation-key-version`.
+Equivalent launcher controls are `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation`, `--otel-deployment-scope`, `--otel-correlation-key-name`, `--otel-correlation-key-version`, and `--otel-provider-instrumentation`.
 
 Activation precedence is:
 
@@ -63,9 +64,9 @@ Important pieces are:
 - `bootstrap.py`: process-level lazy initialization and safe no-op fallback;
 - `dependencies.py`: `_pip_auto.install_with_status()` dependency readiness;
 - `otel_backend.py`: OTel SDK/OTLP trace and metric projection backend;
-- `semantic_mapping.py`: the only location that maps UAG operations to OTel/GenAI semantic names;
+- `semantic_mapping.py`: the only location that maps UAG operations to OTel/GenAI semantic names, including the closed Phase 4C `provider_sdk` projection;
 - `privacy.py`: remote attribute filtering;
-- `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries;
+- `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries, including the call-scoped Phase 4C provider diagnostic helper;
 - `boundary_instrumentation.py`: best-effort wrappers around UAG-owned Memory and Decision Log persistence boundaries;
 - `decision_log.py`: metadata-only trace/span correlation for persisted Context decision batches;
 - `trusted_ingress.py`: explicit reverse-proxy peer allowlist plus trace-context binding for Web worker threads;
@@ -85,6 +86,7 @@ invoke_agent uag
 
 - Agent spans are created at `runtime.execution.lifecycle_execution()`.
 - LLM spans stay at provider-neutral logical round boundaries, never inside provider SDK adapters. Registry-backed rounds use `runtime.round_orchestrator`; compatibility providers use the two centralized fallback outcome boundaries (`runtime.legacy_round_registry` and `runtime.legacy_openai_round`) through the shared observability helper.
+- Phase 4C does not create another logical LLM span. When separately enabled for `openai` or `claude`, UAG may add at most one metadata-only `provider_sdk` child beneath the already-active canonical `chat` span.
 - Tool spans use the centralized tool dispatch/lifecycle boundary. Confirmation-denied calls do not create execution spans.
 - Existing structured events remain independent and receive the active `trace_id` / `span_id` when a span is active.
 
@@ -245,6 +247,26 @@ uag.correlation.key_version
 
 Pseudonyms and version labels are observability metadata only. They are never authentication, authorization, routing, storage keys, Memory identity, credential selection, metric dimensions, baggage, resources, or ordinary-user trace-view fields. Raw principal/room/project identifiers and raw correlation key material are never exported by Phase 4B.
 
+## Phase 4C provider SDK diagnostics
+
+Phase 4C is separately opt-in and remains metadata-only. It is active only when core OTel is enabled and the resolved provider selector contains the exact logical provider ID being called. The selector vocabulary is closed to `openai` and `claude`; `claude` denotes the Anthropic SDK path and `anthropic` is not an alias.
+
+For a selected provider call UAG creates at most one UAG-controlled child beneath the active canonical `chat` span:
+
+```text
+span name: provider_sdk
+attribute: uag.provider.id = openai | claude
+status: UNSET | OK | ERROR
+```
+
+The child contains no other attribute, event, link, or status description. Model names, URLs, request/response IDs, prompt/response/reasoning/tool bodies, headers, credentials, exception text/stacks, resource/instrumentation attributes, and vendor metadata are not exported. `semantic_mapping.py` closes the exported attribute set even if a caller accidentally supplies additional metadata.
+
+Instrumentation is call-scoped at UAG-owned provider boundaries. Registry-backed OpenAI wraps only `ProviderRuntime.run()` beneath its canonical `chat`; legacy OpenAI and Claude wrap only their normalized provider call. UAG does not enable generic global provider or HTTP auto-instrumentation, and retries/streaming inside one logical round remain inside the one child rather than creating duplicate logical LLM spans.
+
+Provider exceptions mark only the child status and are deliberately not forwarded through the child context manager as exception payloads. The original exception still propagates to the existing canonical `chat` boundary. Diagnostic setup, status, and close failures are best-effort and never alter provider requests, responses, retries, tools, or Agent execution.
+
+See `DEVELOP_OBSERVABILITY_PHASE4C.md` for the focused implementation/operator notes and `tests/test_observability_phase4_provider_sdk.py` for regression coverage.
+
 Never export raw values such as:
 
 - Authorization/Cookie values, access/refresh/ID/session tokens, client secrets;
@@ -269,4 +291,4 @@ Web Agent spans start as fresh OTel roots by default, which detaches them from a
 
 ## Later phases
 
-Provider SDK auto-instrumentation and user-visible trace query UI/proxy remain later work.
+The ordinary-user trace query UI/proxy remains later work. Generic global provider/HTTP auto-instrumentation is not part of Phase 4C and remains unsupported unless a future reviewed contract explicitly adds it.

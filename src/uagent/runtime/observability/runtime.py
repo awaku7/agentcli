@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
+import threading
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import Any, Iterator, Mapping
 
-from .api import ObservabilitySpan
+from .api import ObservabilityBackend, ObservabilitySpan
 from .bootstrap import get_observability_backend
+from .noop import NOOP_SPAN
 
 
 @dataclass(frozen=True)
@@ -27,12 +29,159 @@ class _ActiveToolSpan:
     failed: bool = False
 
 
+@dataclass
+class _ProviderSdkDiagnostic:
+    span: ObservabilitySpan | None = None
+    status_set: bool = False
+
+    def set_status(self, status: str) -> None:
+        if status not in {"unset", "ok", "error"}:
+            return
+        self.status_set = True
+        if self.span is None:
+            return
+        try:
+            self.span.set_status(status)
+        except Exception:
+            pass
+
+
+class _ProviderSdkDiagnosticState:
+    """One active provider-diagnostic claim owned by one canonical chat span."""
+
+    def __init__(
+        self,
+        *,
+        backend: ObservabilityBackend,
+        provider: str,
+    ) -> None:
+        self._backend = backend
+        self._provider = provider
+        self._lock = threading.Lock()
+        self._active = True
+        self._claimed = False
+
+    def start(self, provider: str) -> tuple[Any, ObservabilitySpan] | None:
+        """Claim and start the one child while the owning chat scope is active."""
+
+        manager: Any = None
+        with self._lock:
+            if not self._active or self._claimed or provider != self._provider:
+                return None
+            self._claimed = True
+            try:
+                manager = self._backend.start_span(
+                    "provider_sdk",
+                    attributes={"uag.provider.id": provider},
+                )
+                span = manager.__enter__()
+            except Exception:
+                if manager is not None:
+                    try:
+                        manager.__exit__(None, None, None)
+                    except Exception:
+                        pass
+                return None
+            return manager, span
+
+    def close(self) -> None:
+        """Prevent copied contexts from creating a child after chat-scope exit."""
+
+        with self._lock:
+            self._active = False
+
+
+_PROVIDER_DIAGNOSTIC_PROVIDERS = frozenset({"openai", "claude"})
 _PENDING_TOOL_SPAN: ContextVar[_PendingToolSpan | None] = ContextVar(
     "uagent_pending_tool_observability_span", default=None
 )
 _ACTIVE_TOOL_SPANS: ContextVar[tuple[_ActiveToolSpan, ...]] = ContextVar(
     "uagent_active_tool_observability_spans", default=()
 )
+_ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE: ContextVar[
+    _ProviderSdkDiagnosticState | None
+] = ContextVar("uagent_active_provider_sdk_diagnostic_state", default=None)
+
+
+@contextmanager
+def canonical_chat_diagnostic_scope(
+    span: ObservabilitySpan,
+    backend: ObservabilityBackend,
+    provider: object,
+) -> Iterator[None]:
+    """Bind Phase 4C state only to a successfully created canonical ``chat``."""
+
+    if span is NOOP_SPAN:
+        yield
+        return
+    if type(provider) is not str or provider not in _PROVIDER_DIAGNOSTIC_PROVIDERS:
+        yield
+        return
+
+    try:
+        from .settings import get_observability_settings
+
+        if not backend.enabled:
+            yield
+            return
+        settings = get_observability_settings()
+        raw_providers = settings.provider_instrumentation
+        if type(raw_providers) is not frozenset or provider not in raw_providers:
+            yield
+            return
+    except Exception:
+        yield
+        return
+
+    state = _ProviderSdkDiagnosticState(backend=backend, provider=provider)
+    token = _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.set(state)
+    try:
+        yield
+    finally:
+        state.close()
+        _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.reset(token)
+
+
+@contextmanager
+def provider_sdk_diagnostic_span(provider: object) -> Iterator[_ProviderSdkDiagnostic]:
+    """Trace one selected provider SDK call as a closed metadata-only child span.
+
+    The child is fail-closed unless a live canonical ``chat`` scope owns the same
+    logical provider. The shared state binds the exact parent backend and permits
+    one terminal child-start attempt, including across copied ContextVars, so one
+    canonical chat cannot gain duplicate, cross-provider, or late provider children.
+    """
+
+    diagnostic = _ProviderSdkDiagnostic()
+    if type(provider) is not str or provider not in _PROVIDER_DIAGNOSTIC_PROVIDERS:
+        yield diagnostic
+        return
+
+    state = _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.get()
+    if state is None:
+        yield diagnostic
+        return
+
+    started = state.start(provider)
+    if started is None:
+        yield diagnostic
+        return
+    manager, diagnostic.span = started
+
+    try:
+        try:
+            yield diagnostic
+        except BaseException:
+            diagnostic.set_status("error")
+            raise
+        else:
+            if not diagnostic.status_set:
+                diagnostic.set_status("ok")
+    finally:
+        try:
+            manager.__exit__(None, None, None)
+        except Exception:
+            pass
 
 
 @contextmanager
@@ -60,44 +209,47 @@ def fallback_chat_span(
     }
     usage_before_raw = getattr(core, "_last_responses_usage", None)
     with backend.start_span("chat", attributes=attributes) as span:
-        if backend.enabled:
-            try:
-                from ..context_tokens import estimate_tokens
-
-                span.set_attribute(
-                    "uag.tokens.estimate.input",
-                    estimate_tokens(
-                        request_input,
-                        provider=str(provider or ""),
-                        model=str(model or ""),
-                    ),
-                )
-            except Exception:
-                pass
-        try:
-            yield span
-        finally:
+        with canonical_chat_diagnostic_scope(span, backend, provider):
             if backend.enabled:
                 try:
-                    usage_after_raw = getattr(core, "_last_responses_usage", None)
-                    if (
-                        isinstance(usage_after_raw, Mapping)
-                        and usage_after_raw
-                        and usage_after_raw is not usage_before_raw
-                    ):
-                        reported_names = {
-                            "input_tokens": "uag.tokens.reported.input",
-                            "output_tokens": "uag.tokens.reported.output",
-                            "total_tokens": "uag.tokens.reported.total",
-                        }
-                        for key, attribute_name in reported_names.items():
-                            value = usage_after_raw.get(key)
-                            if isinstance(value, (int, float)) and not isinstance(
-                                value, bool
-                            ):
-                                span.set_attribute(attribute_name, max(0, int(value)))
+                    from ..context_tokens import estimate_tokens
+
+                    span.set_attribute(
+                        "uag.tokens.estimate.input",
+                        estimate_tokens(
+                            request_input,
+                            provider=str(provider or ""),
+                            model=str(model or ""),
+                        ),
+                    )
                 except Exception:
                     pass
+            try:
+                yield span
+            finally:
+                if backend.enabled:
+                    try:
+                        usage_after_raw = getattr(core, "_last_responses_usage", None)
+                        if (
+                            isinstance(usage_after_raw, Mapping)
+                            and usage_after_raw
+                            and usage_after_raw is not usage_before_raw
+                        ):
+                            reported_names = {
+                                "input_tokens": "uag.tokens.reported.input",
+                                "output_tokens": "uag.tokens.reported.output",
+                                "total_tokens": "uag.tokens.reported.total",
+                            }
+                            for key, attribute_name in reported_names.items():
+                                value = usage_after_raw.get(key)
+                                if isinstance(value, (int, float)) and not isinstance(
+                                    value, bool
+                                ):
+                                    span.set_attribute(
+                                        attribute_name, max(0, int(value))
+                                    )
+                    except Exception:
+                        pass
 
 
 def before_structured_event(event_code: str, fields: Mapping[str, Any]) -> None:
@@ -281,6 +433,7 @@ def _finish_active_tool_span() -> None:
 
 def _reset_runtime_observability_for_tests() -> None:
     _PENDING_TOOL_SPAN.set(None)
+    _ACTIVE_PROVIDER_SDK_DIAGNOSTIC_STATE.set(None)
     while _ACTIVE_TOOL_SPANS.get():
         _finish_active_tool_span()
 
@@ -289,8 +442,10 @@ __all__ = [
     "abandon_active_tool_span",
     "after_structured_event",
     "before_structured_event",
+    "canonical_chat_diagnostic_scope",
     "capture_trusted_tool_arguments",
     "capture_trusted_tool_result",
     "fallback_chat_span",
+    "provider_sdk_diagnostic_span",
     "start_pending_tool_span",
 ]
