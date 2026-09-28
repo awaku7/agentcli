@@ -13,6 +13,12 @@ Supported process-level controls:
 - `UAGENT_OTEL_ENABLED`: environment fallback when no explicit entry-point override is supplied.
 - `UAGENT_OTEL_CAPTURE_CONTENT`: controls content capture policy. The default is OFF.
 - `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`: optional comma/semicolon-separated IP/CIDR allowlist for trusted Web reverse-proxy trace ingress. Missing or invalid configuration means OFF.
+- `UAGENT_OTEL_PSEUDONYMOUS_CORRELATION`: enables Phase 4B pseudonymous correlation. The default is OFF and core OTel must also be enabled.
+- `UAGENT_OTEL_DEPLOYMENT_SCOPE`: required valid deployment scope before Phase 4B can emit pseudonyms.
+- `UAGENT_OTEL_CORRELATION_KEY_NAME`: correlation credential name; default `observability/correlation`.
+- `UAGENT_OTEL_CORRELATION_KEY_VERSION`: correlation key version label; default `v1`.
+
+Equivalent launcher controls are `--otel-pseudonymous-correlation` / `--no-otel-pseudonymous-correlation`, `--otel-deployment-scope`, `--otel-correlation-key-name`, and `--otel-correlation-key-version`.
 
 Activation precedence is:
 
@@ -62,7 +68,8 @@ Important pieces are:
 - `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries;
 - `boundary_instrumentation.py`: best-effort wrappers around UAG-owned Memory and Decision Log persistence boundaries;
 - `decision_log.py`: metadata-only trace/span correlation for persisted Context decision batches;
-- `trusted_ingress.py`: explicit reverse-proxy peer allowlist plus trace-context binding for Web worker threads.
+- `trusted_ingress.py`: explicit reverse-proxy peer allowlist plus trace-context binding for Web worker threads;
+- `pseudonymous_correlation.py`: Phase 4B credential validation, normative HMAC pseudonym construction, and closed Agent-span attachment.
 
 Runtime code must not depend directly on OTel SDK span or meter classes or scatter `gen_ai.*` attributes throughout the codebase.
 
@@ -189,6 +196,55 @@ Phase 4A controlled content capture is runtime-bound and fail-closed:
 - argument/result candidates are inspected only after bounded candidate admission, and rendered content is subject to per-field and per-span limits;
 - package hot-reload paths restore the runtime tool-content boundary best-effort so observability does not change tool execution semantics.
 
+## Phase 4B pseudonymous correlation
+
+Phase 4B is separately opt-in and remains diagnostics-only. Core OTel and `UAGENT_OTEL_PSEUDONYMOUS_CORRELATION` must both be enabled, and `deployment_scope`, correlation credential name, and key version must pass the strict runtime validation before any pseudonym can be emitted.
+
+The runtime reads the configured credential from `CredentialStore`. It does **not** create, overwrite, or auto-provision a missing credential. Missing credentials, store failures, wrong credential type/name/kind, malformed metadata, wrong purpose/version, or non-canonical key material fail closed and emit no correlation attributes. The normative Phase 4 contract still requires any separately UAG-provisioned correlation key to use an OS CSPRNG.
+
+The generic `:credential set observability/correlation other` command is **not sufficient** for Phase 4B because it does not populate the required correlation metadata. Provision the credential from a trusted operator process with an OS CSPRNG and the exact configured credential name/version. For example:
+
+```python
+import base64
+import secrets
+
+from uagent.auth import Credential, CredentialKind, get_default_credential_store
+
+key_name = "observability/correlation"
+key_version = "v1"
+raw_key = secrets.token_bytes(32)
+encoded_key = base64.urlsafe_b64encode(raw_key).decode("ascii").rstrip("=")
+
+get_default_credential_store().set(
+    Credential(
+        name=key_name,
+        kind=CredentialKind.OTHER,
+        secret=encoded_key,
+        metadata={
+            "purpose": "observability_pseudonym_v1",
+            "key_version": key_version,
+        },
+    )
+)
+```
+
+Do not print, log, trace, or otherwise expose `raw_key` or `encoded_key`. The `key_name` and `key_version` values must match the effective Phase 4B configuration. Key rotation is an operator action: provision a new independently generated 32-byte key together with a new version label, update the configured version to that label, and never rely on the runtime to create or rotate correlation keys.
+
+Accepted key material is canonical unpadded base64url representing exactly 32 raw bytes. The pseudonym construction is the normative `uag-otel-pseudo-v1` length-framed HMAC-SHA-256 construction; UAG exports only the first 128 digest bits as 32 lowercase hexadecimal characters.
+
+Only these correlation attributes may be attached, and only to the canonical locally owned `invoke_agent` span:
+
+```text
+uag.correlation.principal
+uag.correlation.room
+uag.correlation.project
+uag.correlation.key_version
+```
+
+`uag.correlation.key_version` is emitted only with at least one pseudonym. Late-resolved `TurnContext` values attach through the same canonical Agent span, and attachment is idempotent so a span cannot mix key generations. `chat`, `execute_tool`, provider-SDK, internal, and remote spans do not repeat the correlation attributes.
+
+Pseudonyms and version labels are observability metadata only. They are never authentication, authorization, routing, storage keys, Memory identity, credential selection, metric dimensions, baggage, resources, or ordinary-user trace-view fields. Raw principal/room/project identifiers and raw correlation key material are never exported by Phase 4B.
+
 Never export raw values such as:
 
 - Authorization/Cookie values, access/refresh/ID/session tokens, client secrets;
@@ -213,4 +269,4 @@ Web Agent spans start as fresh OTel roots by default, which detaches them from a
 
 ## Later phases
 
-Provider SDK auto-instrumentation, pseudonymous identity correlation, and user-visible trace query UI/proxy remain later work.
+Provider SDK auto-instrumentation and user-visible trace query UI/proxy remain later work.
