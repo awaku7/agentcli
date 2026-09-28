@@ -118,6 +118,12 @@ def initialize_observability(
             install_runtime_boundary_instrumentation()
         except Exception:
             pass
+        try:
+            from .trace_ownership_runtime import install_trace_ownership_span_binding
+
+            install_trace_ownership_span_binding()
+        except Exception:
+            pass
         return _RESULT
 
 

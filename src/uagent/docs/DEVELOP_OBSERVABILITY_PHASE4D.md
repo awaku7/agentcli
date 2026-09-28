@@ -55,21 +55,58 @@ caller's existing shared monotonic deadline. It rechecks the deadline while
 materializing segments. `generation_is_live()` is the final liveness hook that a
 later HTTP/query slice uses before returning a successful projection.
 
-This slice does **not** expose `/api/observability/traces/{trace_id}`, perform
-backend retrieval, or alter current authentication/authorization behavior. The
-trace-query feature therefore remains inaccessible to ordinary users until the
-later route/query slices are merged.
+## Slice 4D-2: trusted runtime ownership binding
 
-Regression coverage is in
-`tests/test_observability_phase4_trace_ownership_index.py`, including exact ID and
-type gates, immutable semantic ownership, the 64/65 segment boundary, 2000/2001
-owned-span boundary, TTL/generation invalidation, aggregate trace and byte
-capacity eviction, and shared-deadline snapshot failure.
+The second slice adds `runtime/observability/trace_ownership_runtime.py` and binds
+the local index to canonical runtime span creation without changing Agent/model/tool
+behavior.
+
+A canonical `lifecycle_execution()` masks any parent ownership binding before its
+`invoke_agent` span is created. Immediately after that root span exists, 4D-2 may
+admit it using only the already-resolved `TurnContext`, the active canonical
+trace/span IDs, and the local OTel `service.name`. The resulting generation handle
+is bound only for that Agent-span lifetime. A `TurnContext` supplied later through
+`apply_turn_context_to_current_agent_span()` never backfills ownership.
+
+The UAG-owned OTel span factory is wrapped once during observability bootstrap.
+While a live admitted generation is bound, each new local child is registered from
+the trusted UAG operation passed at creation time:
+
+```text
+invoke_agent  -> invoke_agent
+chat          -> chat
+execute_tool  -> execute_tool
+provider_sdk  -> provider_sdk
+other UAG-owned operations -> internal
+```
+
+The classifier uses the local operation before OTel semantic mapping. It never
+reconstructs semantic kind from exported `span.name`, attributes, resource data,
+provider/model/tool text, URLs, or backend query results. Nested canonical Agent
+executions mask the parent binding, admit a second local segment, and restore the
+parent binding when they exit.
+
+Runtime binding is active only when both core observability and
+`trace_query_enabled` are true. Replacing the active backend or resolved settings
+starts a new process-local ownership epoch, so stale bindings cannot write into a
+new index generation. Missing/mismatched child trace/span IDs fail closed and make
+the current generation non-queryable on a best-effort basis; tracing and Agent
+execution continue normally.
+
+Regression coverage is split between
+`tests/test_observability_phase4_trace_ownership_index.py` and
+`tests/test_observability_phase4_trace_ownership_runtime.py`. The runtime tests
+cover root scope capture, the closed semantic-kind mapping, nested local segments,
+feature-disabled behavior, and rejection of late TurnContext backfill.
+
+These slices still do **not** expose
+`/api/observability/traces/{trace_id}`, perform backend retrieval/projection, or
+alter current Web authentication/authorization behavior. The trace-query feature
+therefore remains inaccessible to ordinary users until the later route/query
+slices are merged.
 
 ## Planned later slices
 
-- **4D-2**: bind trusted local segment/span ownership to canonical runtime span
-  creation/completion without changing Agent behavior.
 - **4D-3**: add the exact authenticated GET route, request framing/body-presence
   checks, one shared five-second deadline, and per-query authorization revalidation.
 - **4D-4**: add reviewed bounded backend adapters and the closed
