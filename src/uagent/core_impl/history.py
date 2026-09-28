@@ -14,6 +14,108 @@ from ..runtime.spinner import stop_quietly as _stop_spinner_quietly
 from .logs import log_message
 
 
+def _estimate_history_summary_tokens(
+    messages: list[dict[str, Any]],
+    depname: str,
+    provider: str,
+    *,
+    client: Any = None,
+    use_responses_api: bool = False,
+    allow_provider_counter: bool = False,
+) -> int:
+    """Estimate the tokens in the exact text-message shape sent to the summarizer.
+
+    Prefer a model-aware local tokenizer, then an available exact Responses
+    count endpoint, and finally a conservative UTF-8 estimate.
+    """
+    try:
+        from ..llmcapa_util import count_messages_tokens
+
+        count = count_messages_tokens(messages, depname, provider or None)
+        if count is not None:
+            return max(0, int(count))
+    except Exception:
+        pass
+
+    # Some stateful Responses providers expose an exact token-count endpoint.
+    # Use it only for finalized chunks, never for every candidate message while
+    # packing, so token budgeting does not add one network round trip per item.
+    if allow_provider_counter and use_responses_api and client is not None:
+        try:
+            from ..providers.responses_manager import ResponsesManager
+
+            instructions = str(messages[0].get("content") or "") if messages else None
+            input_items = [
+                {
+                    "role": str(message.get("role") or "user"),
+                    "content": [
+                        {
+                            "type": "input_text",
+                            "text": str(message.get("content") or ""),
+                        }
+                    ],
+                }
+                for message in messages[1:]
+            ]
+            result = ResponsesManager(
+                client, provider=provider, model=depname
+            ).count_input_tokens(
+                input=input_items,
+                instructions=instructions,
+                model=depname,
+            )
+            if isinstance(result, dict):
+                count = result.get("input_tokens")
+            else:
+                count = getattr(result, "input_tokens", None)
+            if count is not None:
+                return max(0, int(count))
+        except Exception:
+            pass
+
+    try:
+        serialized = json.dumps(messages, ensure_ascii=False, separators=(",", ":"))
+    except Exception:
+        serialized = str(messages)
+    byte_count = len(serialized.encode("utf-8", errors="replace"))
+    # Two UTF-8 bytes per token is a cautious cross-language estimate. Include
+    # framing overhead for each system/user message.
+    return max(1, (byte_count + 1) // 2 + len(messages) * 8)
+
+
+def _history_summary_chunk_token_budget(
+    depname: str, provider: str
+) -> int | None:
+    """Use the model context window, or an explicit user-specified budget."""
+    raw = (env_get("UAGENT_SHRINK_CHUNK_TOKENS", "") or "").strip()
+    configured_budget: int | None = None
+    try:
+        configured_budget = int(raw) if raw else None
+    except Exception:
+        configured_budget = None
+    if configured_budget is not None and configured_budget <= 0:
+        configured_budget = None
+
+    # The provider context length is the only implicit token ceiling. Any
+    # additional headroom must be explicitly configured rather than guessed.
+    try:
+        from ..llmcapa_util import get_context_window
+
+        context_window = get_context_window(depname, provider or None)
+        if context_window and context_window > 0:
+            context_budget = max(1, int(context_window * 0.5) - 2048)
+            if configured_budget is not None:
+                return min(configured_budget, context_budget)
+            return context_budget
+    except Exception:
+        pass
+
+    # Without model metadata there is no implicit token budget. Keep using the
+    # existing message-count ceiling and context-length retry path unless the
+    # user supplies an explicit token budget.
+    return configured_budget
+
+
 def normalize_message_from_log(obj: dict[str, Any]) -> Optional[dict[str, Any]]:
     """
     Normalize a single line dict from past logs into a minimal message dict
@@ -415,9 +517,9 @@ def compress_history_with_llm(
     emit_log: bool = True,
 ) -> list[dict[str, Any]]:
     """
-    Launch another LLM context to summarize old user/assistant/tool messages
-    step-by-step in chunks of around 20 messages, compressing them into a single system message.
-    If a context length error occurs, retry by halving the chunk size.
+    Summarize old user/assistant/tool messages in rolling, token-budgeted chunks
+    and compress them into a single system message.
+    On context-length errors, retry with smaller token and message-count budgets.
     """
     try:
         from ..profile_manager import run_profiling_async
@@ -467,6 +569,7 @@ def compress_history_with_llm(
     old_part = others[:tail_start]
     tail_part = others[tail_start:]
 
+    # Message count is a secondary ceiling; token budget is the primary limit.
     chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
     try:
         initial_chunk_size = int(chunk_size_raw) if chunk_size_raw else 100
@@ -477,7 +580,8 @@ def compress_history_with_llm(
 
     # Single-shot mode: send all old messages in one LLM call (UAGENT_SHRINK_SINGLE_SHOT=1)
     single_shot_raw = (env_get("UAGENT_SHRINK_SINGLE_SHOT", "") or "").strip().lower()
-    if single_shot_raw in ("1", "true", "yes", "on"):
+    single_shot_requested = single_shot_raw in ("1", "true", "yes", "on")
+    if single_shot_requested:
         if len(old_part) > 0:
             initial_chunk_size = len(old_part)
 
@@ -504,6 +608,8 @@ def compress_history_with_llm(
         provider = util_providers.detect_provider()
     except Exception:
         provider = (env_get("UAGENT_PROVIDER") or "").strip().lower() or "openai"
+    initial_chunk_token_budget = _history_summary_chunk_token_budget(depname, provider)
+
     translator = globals().get("_")
     try:
         from ..i18n import get_locale
@@ -737,79 +843,145 @@ def compress_history_with_llm(
                 )
                 return None, e
 
-    def _compress_once(
-        current_chunk_size: int,
-    ) -> tuple[list[dict[str, Any]] | None, Exception | None]:
-        if current_chunk_size <= 0:
-            current_chunk_size = 1
+    def _build_summary_messages(
+        rolling_summary: str, chunk: list[dict[str, Any]]
+    ) -> list[dict[str, Any]] | None:
+        lines = [
+            rendered
+            for m in chunk
+            if (rendered := _message_to_text(m)[0]) is not None
+        ]
+        if not lines:
+            return None
+        chunk_text = "\n\n".join(lines)
 
-        chunks = [
-            old_part[i : i + current_chunk_size]
-            for i in range(0, len(old_part), current_chunk_size)
+        if not rolling_summary:
+            summary_system_prompt = (
+                _t(
+                    "- Write the summary in the same language as the user messages; "
+                    "prefer the active UI locale (%(locale)s).\n"
+                )
+                % {"locale": active_locale}
+                + _t(
+                    "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
+                )
+                + _t("- Output should be directly usable as a system message.")
+            )
+            summary_user_content = (
+                _t("Conversation chunk:\n")
+                + f"{chunk_text}\n\n"
+                + _t("Write a concise summary of this chunk.")
+            )
+        else:
+            summary_system_prompt = (
+                _t("- You are updating an existing conversation summary.\n")
+                + _t("- Preserve important facts from the previous summary.\n")
+                + _t(
+                    "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
+                )
+                + _t("- Keep the result concise and suitable for a system message.")
+            )
+            summary_user_content = (
+                _t("Previous summary:\n")
+                + f"{rolling_summary}\n\n"
+                + _t("New chunk:\n")
+                + f"{chunk_text}\n\n"
+                + _t("Update the summary while keeping the prior context intact.")
+            )
+
+        return [
+            {"role": "system", "content": summary_system_prompt},
+            {"role": "user", "content": summary_user_content},
         ]
 
-        total_chunks = len(chunks)
-        chunk_index = 0
-        # Seed rolling summary from any prior compressions so we merge instead
-        # of stacking multiple "Summary of the conversation so far" system msgs.
-        rolling_summary = "\n\n".join(prior_summary_bodies).strip()
-        for chunk in chunks:
-            lines = [
-                rendered
-                for m in chunk
-                if (rendered := _message_to_text(m)[0]) is not None
-            ]
+    oversized_single_chunk = False
 
-            if not lines:
+    def _compress_once(
+        current_chunk_size: int,
+        current_token_budget: int | None,
+        force_single_shot: bool,
+    ) -> tuple[list[dict[str, Any]] | None, Exception | None]:
+        nonlocal oversized_single_chunk
+        oversized_single_chunk = False
+        current_chunk_size = max(1, current_chunk_size)
+        rolling_summary = "\n\n".join(prior_summary_bodies).strip()
+        cursor = 0
+        chunk_index = 0
+
+        while cursor < len(old_part):
+            if force_single_shot:
+                chunk = old_part[cursor:]
+                cursor = len(old_part)
+            else:
+                chunk = []
+                while cursor < len(old_part) and len(chunk) < current_chunk_size:
+                    candidate = chunk + [old_part[cursor]]
+                    prompt = _build_summary_messages(rolling_summary, candidate)
+                    candidate_tokens = (
+                        _estimate_history_summary_tokens(prompt, depname, provider)
+                        if prompt is not None and current_token_budget is not None
+                        else 0
+                    )
+                    if (
+                        chunk
+                        and current_token_budget is not None
+                        and candidate_tokens > current_token_budget
+                    ):
+                        break
+                    if (
+                        not chunk
+                        and current_token_budget is not None
+                        and candidate_tokens > current_token_budget
+                    ):
+                        # A single indivisible message may exceed the target.
+                        # Try it once; if the provider rejects it, leave the
+                        # source history unchanged rather than retrying it
+                        # repeatedly with smaller budgets.
+                        oversized_single_chunk = True
+                    chunk.append(old_part[cursor])
+                    cursor += 1
+
+            summary_messages = _build_summary_messages(rolling_summary, chunk)
+            if summary_messages is None:
                 continue
 
-            chunk_text = "\n\n".join(lines)
-
-            if not rolling_summary:
-                summary_system_prompt = (
-                    _t(
-                        "- Write the summary in the same language as the user messages; "
-                        "prefer the active UI locale (%(locale)s).\n"
+            if not force_single_shot and current_token_budget is not None:
+                measured_tokens = _estimate_history_summary_tokens(
+                    summary_messages,
+                    depname,
+                    provider,
+                    client=client,
+                    use_responses_api=use_responses_api,
+                    allow_provider_counter=True,
+                )
+                while measured_tokens > current_token_budget and len(chunk) > 1:
+                    split_at = max(1, len(chunk) // 2)
+                    deferred = chunk[split_at:]
+                    cursor -= len(deferred)
+                    chunk = chunk[:split_at]
+                    summary_messages = _build_summary_messages(rolling_summary, chunk)
+                    if summary_messages is None:
+                        chunk = []
+                        break
+                    measured_tokens = _estimate_history_summary_tokens(
+                        summary_messages,
+                        depname,
+                        provider,
+                        client=client,
+                        use_responses_api=use_responses_api,
+                        allow_provider_counter=True,
                     )
-                    % {"locale": active_locale}
-                    + _t(
-                        "- Keep the summary concise but include key decisions, constraints, and pending items.\n"
-                    )
-                    + _t("- Output should be directly usable as a system message.")
-                )
-                summary_user_content = (
-                    _t("Conversation chunk:\n")
-                    + f"{chunk_text}\n\n"
-                    + _t("Write a concise summary of this chunk.")
-                )
-            else:
-                summary_system_prompt = (
-                    _t("- You are updating an existing conversation summary.\n")
-                    + _t("- Preserve important facts from the previous summary.\n")
-                    + _t(
-                        "- Merge in the new chunk without losing constraints, decisions, or pending items.\n"
-                    )
-                    + _t("- Keep the result concise and suitable for a system message.")
-                )
-                summary_user_content = (
-                    _t("Previous summary:\n")
-                    + f"{rolling_summary}\n\n"
-                    + _t("New chunk:\n")
-                    + f"{chunk_text}\n\n"
-                    + _t("Update the summary while keeping the prior context intact.")
-                )
-
-            summary_messages = [
-                {"role": "system", "content": summary_system_prompt},
-                {"role": "user", "content": summary_user_content},
-            ]
+                if summary_messages is None:
+                    continue
+                if measured_tokens > current_token_budget and len(chunk) == 1:
+                    oversized_single_chunk = True
 
             chunk_index += 1
-            if emit_log and total_chunks > 1:
+            if emit_log and (chunk_index > 1 or cursor < len(old_part)):
                 _stop_spinner_quietly()
                 print(
-                    _t("[shrink_llm] Summarizing chunk %(i)d/%(n)d...")
-                    % {"i": chunk_index, "n": total_chunks},
+                    _t("[shrink_llm] Summarizing chunk %(i)d...")
+                    % {"i": chunk_index},
                     file=sys.stderr,
                 )
 
@@ -819,6 +991,7 @@ def compress_history_with_llm(
             if summary_content is None:
                 return None, RuntimeError("history compression returned no summary")
 
+            oversized_single_chunk = False
             rolling_summary = summary_content.strip()
 
         if not rolling_summary:
@@ -852,8 +1025,12 @@ def compress_history_with_llm(
         return new_messages, None
 
     current_chunk_size = initial_chunk_size
+    current_token_budget = initial_chunk_token_budget
+    force_single_shot = single_shot_requested
     while True:
-        compressed_messages, error = _compress_once(current_chunk_size)
+        compressed_messages, error = _compress_once(
+            current_chunk_size, current_token_budget, force_single_shot
+        )
         if error is None:
             return (
                 compressed_messages
@@ -862,7 +1039,7 @@ def compress_history_with_llm(
             )
 
         if _is_context_length_exceeded(error):
-            if current_chunk_size <= 1:
+            if oversized_single_chunk or current_chunk_size <= 1:
                 _stop_spinner_quietly()
                 print(
                     _(
@@ -873,11 +1050,20 @@ def compress_history_with_llm(
                 return list(messages)
 
             next_chunk_size = max(1, current_chunk_size // 2)
-            if next_chunk_size == current_chunk_size:
+            next_token_budget = (
+                max(1, current_token_budget // 2)
+                if current_token_budget is not None
+                else None
+            )
+            if (
+                next_chunk_size == current_chunk_size
+                and next_token_budget == current_token_budget
+                and not force_single_shot
+            ):
                 _stop_spinner_quietly()
                 print(
                     _(
-                        "[WARN] history compression could not reduce the chunk size; history was left unchanged."
+                        "[WARN] history compression could not reduce the chunk budget; history was left unchanged."
                     ),
                     file=sys.stderr,
                 )
@@ -886,12 +1072,21 @@ def compress_history_with_llm(
             _stop_spinner_quietly()
             print(
                 _(
-                    "[WARN] history compression context length exceeded; retrying with chunk_size=%(chunk_size)d"
+                    "[WARN] history compression context length exceeded; retrying with chunk_tokens=%(chunk_tokens)s and max_messages=%(max_messages)d"
                 )
-                % {"chunk_size": next_chunk_size},
+                % {
+                    "chunk_tokens": (
+                        str(next_token_budget)
+                        if next_token_budget is not None
+                        else "model-default"
+                    ),
+                    "max_messages": next_chunk_size,
+                },
                 file=sys.stderr,
             )
             current_chunk_size = next_chunk_size
+            current_token_budget = next_token_budget
+            force_single_shot = False
             continue
 
         _stop_spinner_quietly()

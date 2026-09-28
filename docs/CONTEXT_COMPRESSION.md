@@ -95,9 +95,13 @@ When automatic compression uses the LLM, older user, assistant, and tool message
 Long histories can be summarized in chunks. The relevant controls are:
 
 ```text
+# Optional token budget when no model context window is available, or an explicit upper bound.
+UAGENT_SHRINK_CHUNK_TOKENS=12000
 UAGENT_SHRINK_CHUNK_SIZE=100
 UAGENT_SHRINK_SINGLE_SHOT=1
 ```
+
+When known, the model context window sets the token budget to 50% of the window minus 2,048 tokens; a positive `UAGENT_SHRINK_CHUNK_TOKENS` value can lower that budget. If the model context window is unknown and no token budget is configured, token-based splitting is omitted and the existing message-count limit plus context-length retries are used. The model-aware local tokenizer is preferred; when unavailable, an exact Responses token-count endpoint is used for finalized chunks where supported, with a conservative UTF-8 estimate as the fallback. `UAGENT_SHRINK_CHUNK_SIZE` remains a maximum message-count guard.
 
 The summary is folded forward rather than creating an unbounded sequence of summary messages. This is an LLM-assisted operation and can require additional provider requests.
 

@@ -178,6 +178,123 @@ def test_compress_first_run_single_summary(monkeypatch: pytest.MonkeyPatch):
     assert len(others) == 4
 
 
+def test_summary_chunk_token_budget_is_clamped_by_context_window(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    from uagent.core_impl.history import _history_summary_chunk_token_budget
+
+    monkeypatch.setenv("UAGENT_SHRINK_CHUNK_TOKENS", "20000")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_context_window", lambda *_args: 16384
+    )
+    assert _history_summary_chunk_token_budget("gpt-test", "openai") == 6144
+
+
+def test_summary_chunk_token_budget_scales_from_known_context_window(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    from uagent.core_impl.history import _history_summary_chunk_token_budget
+
+    monkeypatch.delenv("UAGENT_SHRINK_CHUNK_TOKENS", raising=False)
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_context_window", lambda *_args: 131072
+    )
+    assert _history_summary_chunk_token_budget("gpt-test", "openai") == 63488
+
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_context_window", lambda *_args: 1050000
+    )
+    assert _history_summary_chunk_token_budget("gpt-6-luna", "openai") == 522952
+
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.get_context_window", lambda *_args: None
+    )
+    assert _history_summary_chunk_token_budget("unknown-model", "openai") is None
+    monkeypatch.setenv("UAGENT_SHRINK_CHUNK_TOKENS", "12000")
+    assert _history_summary_chunk_token_budget("unknown-model", "openai") == 12000
+
+
+def test_summary_token_estimator_uses_responses_count_endpoint_as_fallback(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    from uagent.core_impl.history import _estimate_history_summary_tokens
+
+    class InputTokenCounter:
+        def __init__(self):
+            self.calls = []
+
+        def count(self, **kwargs):
+            self.calls.append(kwargs)
+            return SimpleNamespace(input_tokens=73)
+
+    counter = InputTokenCounter()
+    client = SimpleNamespace(responses=SimpleNamespace(input_tokens=counter))
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.count_messages_tokens", lambda *_args: None
+    )
+    messages = [
+        {"role": "system", "content": "summary rules"},
+        {"role": "user", "content": "conversation chunk"},
+    ]
+
+    count = _estimate_history_summary_tokens(
+        messages,
+        "gpt-test",
+        "openai",
+        client=client,
+        use_responses_api=True,
+        allow_provider_counter=True,
+    )
+
+    assert count == 73
+    assert counter.calls[0]["instructions"] == "summary rules"
+    assert counter.calls[0]["input"][0]["content"][0]["text"] == "conversation chunk"
+
+
+def test_compress_chunks_by_estimated_tokens_and_includes_rolling_summary(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    def _fake_estimate(prompt_messages, _depname, _provider, **_kwargs):
+        text = prompt_messages[1]["content"]
+        dialogue_lines = [
+            line
+            for line in text.splitlines()
+            if line.startswith(("User: ", "Assistant: ", "Tool: "))
+        ]
+        prior_summary_overhead = 30 if "ROLLING_" in text else 0
+        return len(dialogue_lines) * 50 + prior_summary_overhead
+
+    monkeypatch.setattr(
+        "uagent.core_impl.history._history_summary_chunk_token_budget",
+        lambda *_args: 110,
+    )
+    monkeypatch.setattr(
+        "uagent.core_impl.history._estimate_history_summary_tokens",
+        _fake_estimate,
+    )
+    monkeypatch.setenv("UAGENT_SHRINK_CHUNK_SIZE", "50")
+
+    client = _FakeClient(["ROLLING_1", "ROLLING_2", "ROLLING_3"])
+    out = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=_make_dialog(2),
+        keep_last=0,
+        emit_log=False,
+    )
+
+    calls = client.chat.completions.calls
+    assert len(calls) == 3
+    first_chunk = calls[0]["messages"][1]["content"]
+    second_chunk = calls[1]["messages"][1]["content"]
+    third_chunk = calls[2]["messages"][1]["content"]
+    assert "user-0" in first_chunk and "assistant-0" in first_chunk
+    assert "user-1" in second_chunk and "assistant-1" not in second_chunk
+    assert "ROLLING_1" in second_chunk
+    assert "assistant-1" in third_chunk and "ROLLING_2" in third_chunk
+    assert lmh._is_history_summary_message(out[1])
+
+
 def test_compress_emit_log_false_is_quiet(capsys):
     client = _FakeClient(["QUIET_SUMMARY"])
     core.compress_history_with_llm(
