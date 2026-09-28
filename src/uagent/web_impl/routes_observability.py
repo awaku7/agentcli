@@ -484,6 +484,21 @@ async def get_observability_trace(trace_id: str, request: Request):
     if local_view is None:
         return _json_error(404, "trace_not_found")
 
+    # Revalidate ownership immediately before any backend adapter access. A stale
+    # epoch/backend/index or removed generation must never reach the backend.
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+    if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not state.index.generation_is_live(
+        trace_id=trace_id,
+        generation=snapshot.generation,
+        deadline=deadline,
+    ):
+        return _json_error(404, "trace_not_found")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+
     adapter = get_trace_query_backend_adapter(state.backend)
     projection = None
     if adapter is not None:
