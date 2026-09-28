@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+import sys
 import time
 from dataclasses import dataclass
 
@@ -102,6 +104,26 @@ def _deadline_alive(deadline: float) -> bool:
     except Exception:
         return False
     return type(now) in {int, float} and not isinstance(now, bool) and now < deadline
+
+
+def _generation_is_live_for_result(
+    state: _TraceQueryIndexState,
+    *,
+    trace_id: str,
+    generation: int,
+) -> bool:
+    """Classify ownership invalidation without letting request timeout mask it.
+
+    This check is local-only and does not extend backend or authorization work.
+    The route still rejects an otherwise-live generation with 503 once the shared
+    request deadline has expired.
+    """
+
+    return state.index.generation_is_live(
+        trace_id=trace_id,
+        generation=generation,
+        deadline=sys.float_info.max,
+    )
 
 
 def _ascii_header_name_is(value: object, expected: bytes) -> bool:
@@ -500,9 +522,21 @@ async def get_observability_trace(trace_id: str, request: Request):
         return _json_error(503, "trace_query_unavailable")
 
     adapter = get_trace_query_backend_adapter(state.backend)
+    if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not state.index.generation_is_live(
+        trace_id=trace_id,
+        generation=snapshot.generation,
+        deadline=deadline,
+    ):
+        return _json_error(404, "trace_not_found")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+
     projection = None
     if adapter is not None:
-        projection = project_trace_view(
+        projection = await asyncio.to_thread(
+            project_trace_view,
             adapter,
             trace_id=trace_id,
             authorized_span_kinds=local_view.span_kinds,
@@ -510,8 +544,14 @@ async def get_observability_trace(trace_id: str, request: Request):
             deadline=deadline,
         )
 
-    # Generation replacement/removal always wins over backend success/failure.
+    # Ownership invalidation has precedence over backend success/failure/timeout.
     if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not _generation_is_live_for_result(
+        state,
+        trace_id=trace_id,
+        generation=snapshot.generation,
+    ):
         return _json_error(404, "trace_not_found")
     if not _deadline_alive(deadline):
         return _json_error(503, "trace_query_unavailable")
@@ -523,19 +563,29 @@ async def get_observability_trace(trace_id: str, request: Request):
             request=request,
             deadline=deadline,
         )
+        if not _query_index_state_is_current(state):
+            return _json_error(404, "trace_not_found")
+        if not _generation_is_live_for_result(
+            state,
+            trace_id=trace_id,
+            generation=snapshot.generation,
+        ):
+            return _json_error(404, "trace_not_found")
         if not _deadline_alive(deadline):
             return _json_error(503, "trace_query_unavailable")
         if final_local_view is None or final_local_view != local_view:
             return _json_error(404, "trace_not_found")
-        if not _query_index_state_is_current(state):
-            return _json_error(404, "trace_not_found")
 
-    if not state.index.generation_is_live(
+    if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not _generation_is_live_for_result(
+        state,
         trace_id=trace_id,
         generation=snapshot.generation,
-        deadline=deadline,
     ):
         return _json_error(404, "trace_not_found")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
 
     if projection is None:
         return _json_error(503, "trace_query_unavailable")
