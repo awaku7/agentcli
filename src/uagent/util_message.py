@@ -207,9 +207,7 @@ def _clear_skill_messages(messages_ref: list[dict[str, Any]]) -> int:
     return before - len(messages_ref)
 
 
-def _has_active_skill_path(
-    messages_ref: list[dict[str, Any]], skill_dir: str
-) -> bool:
+def _has_active_skill_path(messages_ref: list[dict[str, Any]], skill_dir: str) -> bool:
     """Return whether this skill directory is already present in the history."""
     try:
         target_path = os.path.normcase(os.path.realpath(os.path.abspath(skill_dir)))
