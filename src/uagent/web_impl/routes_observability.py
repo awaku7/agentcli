@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
+import sys
 import time
 from dataclasses import dataclass
 
@@ -22,6 +24,10 @@ from ..runtime.observability.trace_ownership_index import (
     TraceOwnershipSnapshot,
 )
 from ..runtime.observability.trace_ownership_runtime import _runtime_state
+from ..runtime.observability.trace_query_projection import (
+    get_trace_query_backend_adapter,
+    project_trace_view,
+)
 from ..runtime.project_access import ProjectAccessPolicy
 from ..runtime.room_access import RoomAccessPolicy
 from .app import app
@@ -45,6 +51,13 @@ _HEX = frozenset("0123456789abcdef")
 class _TraceQueryIndexState:
     index: TraceOwnershipIndex
     epoch: int
+    backend: object | None = None
+
+
+@dataclass(frozen=True)
+class _AuthorizedLocalView:
+    span_kinds: tuple[tuple[str, str], ...]
+    partial: bool
 
 
 def _json_error(status_code: int, code: str) -> JSONResponse:
@@ -70,7 +83,7 @@ def _query_index_state() -> _TraceQueryIndexState | None:
         return None
     if not active:
         return None
-    return _TraceQueryIndexState(index=index, epoch=epoch)
+    return _TraceQueryIndexState(backend=backend, index=index, epoch=epoch)
 
 
 def _query_index_state_is_current(state: object) -> bool:
@@ -79,6 +92,7 @@ def _query_index_state_is_current(state: object) -> bool:
     current = _query_index_state()
     return bool(
         current is not None
+        and current.backend is state.backend
         and current.index is state.index
         and current.epoch == state.epoch
     )
@@ -90,6 +104,39 @@ def _deadline_alive(deadline: float) -> bool:
     except Exception:
         return False
     return type(now) in {int, float} and not isinstance(now, bool) and now < deadline
+
+
+def _generation_is_live_for_result(
+    state: _TraceQueryIndexState,
+    *,
+    trace_id: str,
+    generation: int,
+) -> bool:
+    """Classify ownership invalidation without letting request timeout mask it.
+
+    This check is local-only and does not extend backend or authorization work.
+    The route still rejects an otherwise-live generation with 503 once the shared
+    request deadline has expired.
+    """
+
+    return state.index.generation_is_live(
+        trace_id=trace_id,
+        generation=generation,
+        deadline=sys.float_info.max,
+    )
+
+
+async def _run_query_worker(function, *args, deadline: float, **kwargs):
+    """Bound queueing and synchronous work by the original request budget."""
+
+    def run():
+        # A queued worker must not start new work after its request timed out.
+        if not _deadline_alive(deadline):
+            return None
+        return function(*args, deadline=deadline, **kwargs)
+
+    async with asyncio.timeout(max(0.0, deadline - time.monotonic())):
+        return await asyncio.to_thread(run)
 
 
 def _ascii_header_name_is(value: object, expected: bytes) -> bool:
@@ -319,19 +366,20 @@ def _segment_is_authorized(
     return not segment.server_bound_project
 
 
-def _has_complete_authorized_local_view(
+def _authorized_local_view(
     snapshot: TraceOwnershipSnapshot,
     *,
     identity: IdentityContext,
     request: Request,
     deadline: float,
-) -> bool:
+) -> _AuthorizedLocalView | None:
     if type(identity) is not IdentityContext or not identity.authenticated:
-        return False
+        return None
 
     needs_store = any(
         segment.room_id or segment.project_id for segment in snapshot.segments
     )
+    has_project_scope = any(segment.project_id for segment in snapshot.segments)
     store = None
     room_policy = None
     project_policy = None
@@ -343,24 +391,23 @@ def _has_complete_authorized_local_view(
             project_policy = ProjectAccessPolicy(store)
 
         authorized_segments = 0
-        total_authorized_spans = 0
+        filtered_segments = 0
+        authorized_span_kinds: list[tuple[str, str]] = []
         for segment in snapshot.segments:
             if not _deadline_alive(deadline):
-                return False
+                return None
             current_identity = _revalidate_query_identity(
                 request,
                 initial_identity=identity,
             )
             if current_identity is None:
-                return False
-            if project_policy is not None and any(
-                candidate.project_id for candidate in snapshot.segments
-            ):
+                return None
+            if project_policy is not None and has_project_scope:
                 if current_identity != synced_identity:
                     project_policy.sync_directory_policy(current_identity)
                     synced_identity = current_identity
                     if not _deadline_alive(deadline):
-                        return False
+                        return None
 
             segment_authorized = _segment_is_authorized(
                 segment,
@@ -370,25 +417,27 @@ def _has_complete_authorized_local_view(
                 project_policy=project_policy,
             )
             if not _deadline_alive(deadline):
-                return False
+                return None
 
             if segment_authorized:
                 authorized_segments += 1
+            else:
+                filtered_segments += 1
 
-            for _owned in segment.owned_spans:
+            for owned in segment.owned_spans:
                 if not _deadline_alive(deadline):
-                    return False
+                    return None
                 span_identity = _revalidate_query_identity(
                     request,
                     initial_identity=identity,
                 )
                 if span_identity is None:
-                    return False
+                    return None
                 if project_policy is not None and span_identity != synced_identity:
                     project_policy.sync_directory_policy(span_identity)
                     synced_identity = span_identity
                     if not _deadline_alive(deadline):
-                        return False
+                        return None
                 span_authorized = _segment_is_authorized(
                     segment,
                     identity=span_identity,
@@ -397,19 +446,24 @@ def _has_complete_authorized_local_view(
                     project_policy=project_policy,
                 )
                 if not _deadline_alive(deadline):
-                    return False
+                    return None
                 # A scope decision that changes while this bounded lookup is in
                 # flight cannot be treated as a complete authorization view.
                 if span_authorized != segment_authorized:
-                    return False
+                    return None
                 if span_authorized:
-                    total_authorized_spans += 1
-                    if total_authorized_spans > MAX_LOCAL_OWNED_SPAN_IDS_PER_TRACE:
-                        return False
+                    authorized_span_kinds.append((owned.span_id, owned.semantic_kind))
+                    if len(authorized_span_kinds) > MAX_LOCAL_OWNED_SPAN_IDS_PER_TRACE:
+                        return None
 
-        return authorized_segments > 0 and total_authorized_spans > 0
+        if authorized_segments <= 0 or not authorized_span_kinds:
+            return None
+        return _AuthorizedLocalView(
+            span_kinds=tuple(authorized_span_kinds),
+            partial=filtered_segments > 0,
+        )
     except Exception:
-        return False
+        return None
     finally:
         if store is not None:
             try:
@@ -420,7 +474,7 @@ def _has_complete_authorized_local_view(
 
 @app.get("/api/observability/traces/{trace_id}")
 async def get_observability_trace(trace_id: str, request: Request):
-    """Authorize one bounded local trace view; backend projection arrives in 4D-4."""
+    """Return one bounded authorization-aware ordinary-user trace projection."""
 
     if not _feature_enabled():
         return _json_error(404, "not_found")
@@ -456,17 +510,31 @@ async def get_observability_trace(trace_id: str, request: Request):
         return _json_error(404, "trace_not_found")
     assert snapshot is not None
 
-    if not _has_complete_authorized_local_view(
-        snapshot,
-        identity=identity,
-        request=request,
-        deadline=deadline,
+    authorization_timed_out = False
+    try:
+        local_view = await _run_query_worker(
+            _authorized_local_view,
+            snapshot,
+            identity=identity,
+            request=request,
+            deadline=deadline,
+        )
+    except TimeoutError:
+        local_view = None
+        authorization_timed_out = True
+    if not _query_index_state_is_current(state) or not _generation_is_live_for_result(
+        state, trace_id=trace_id, generation=snapshot.generation
     ):
         return _json_error(404, "trace_not_found")
+    if authorization_timed_out or not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+    if local_view is None:
+        return _json_error(404, "trace_not_found")
 
-    # 4D-4 adds bounded backend retrieval/projection. Until then, a completely
-    # authorized local view intentionally reaches the contract's fixed backend
-    # unavailable outcome rather than exposing local index data.
+    # Revalidate ownership immediately before any backend adapter access. A stale
+    # epoch/backend/index or removed generation must never reach the backend.
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
     if not _query_index_state_is_current(state):
         return _json_error(404, "trace_not_found")
     if not state.index.generation_is_live(
@@ -475,7 +543,100 @@ async def get_observability_trace(trace_id: str, request: Request):
         deadline=deadline,
     ):
         return _json_error(404, "trace_not_found")
-    return _json_error(503, "trace_query_unavailable")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+
+    adapter = get_trace_query_backend_adapter(state.backend)
+    if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not state.index.generation_is_live(
+        trace_id=trace_id,
+        generation=snapshot.generation,
+        deadline=deadline,
+    ):
+        return _json_error(404, "trace_not_found")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+
+    projection = None
+    if adapter is not None:
+
+        def retrieve(*, deadline):
+            # Ownership can change while this work is queued in the executor.
+            if not _query_index_state_is_current(state):
+                return None
+            if not state.index.generation_is_live(
+                trace_id=trace_id,
+                generation=snapshot.generation,
+                deadline=deadline,
+            ):
+                return None
+            return project_trace_view(
+                adapter,
+                trace_id=trace_id,
+                authorized_span_kinds=local_view.span_kinds,
+                initial_partial=local_view.partial,
+                deadline=deadline,
+            )
+
+        try:
+            projection = await _run_query_worker(retrieve, deadline=deadline)
+        except TimeoutError:
+            # Classify ownership before returning the fixed timeout response.
+            pass
+
+    # Ownership invalidation has precedence over backend success/failure/timeout.
+    if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not _generation_is_live_for_result(
+        state,
+        trace_id=trace_id,
+        generation=snapshot.generation,
+    ):
+        return _json_error(404, "trace_not_found")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+
+    if projection is not None:
+        authorization_timed_out = False
+        try:
+            final_local_view = await _run_query_worker(
+                _authorized_local_view,
+                snapshot,
+                identity=identity,
+                request=request,
+                deadline=deadline,
+            )
+        except TimeoutError:
+            final_local_view = None
+            authorization_timed_out = True
+        if not _query_index_state_is_current(state):
+            return _json_error(404, "trace_not_found")
+        if not _generation_is_live_for_result(
+            state,
+            trace_id=trace_id,
+            generation=snapshot.generation,
+        ):
+            return _json_error(404, "trace_not_found")
+        if authorization_timed_out or not _deadline_alive(deadline):
+            return _json_error(503, "trace_query_unavailable")
+        if final_local_view is None or final_local_view != local_view:
+            return _json_error(404, "trace_not_found")
+
+    if not _query_index_state_is_current(state):
+        return _json_error(404, "trace_not_found")
+    if not _generation_is_live_for_result(
+        state,
+        trace_id=trace_id,
+        generation=snapshot.generation,
+    ):
+        return _json_error(404, "trace_not_found")
+    if not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
+
+    if projection is None:
+        return _json_error(503, "trace_query_unavailable")
+    return JSONResponse(status_code=200, content=projection.as_json())
 
 
 __all__ = ["get_observability_trace"]

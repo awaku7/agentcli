@@ -113,7 +113,18 @@ GET /api/observability/traces/{trace_id}
 The route preserves the normative processing order. The Phase 4D feature gate is
 checked before authentication. After successful existing product authentication,
 one five-second monotonic deadline is created and reused by request-shape checks,
-local-index lookup, authorization revalidation, and the final generation check.
+local-index lookup, authorization revalidation, backend work, projection, and the
+final generation check.
+
+Initial and final local authorization, including their synchronous policy-store
+access, run in worker threads alongside backend projection/paging. Each await is
+bounded on the event loop by the remaining original five-second budget, including
+executor queue time. Timeout discards the worker result and returns fixed 503,
+unless ownership epoch/generation invalidation requires fixed 404 first. Python
+cannot interrupt an already-running synchronous adapter or policy query; that
+worker may finish later, but its result is never published. Queued work checks the
+deadline before starting, and backend work rechecks ownership after queueing and
+before calling the adapter.
 
 The v1 route accepts no query string or request body. It examines raw ASGI framing
 metadata without decoding query/body content. `Transfer-Encoding`, multiple or
@@ -141,21 +152,73 @@ backend. Before leaving the authorization slice, the route also verifies that th
 same ownership epoch is still authoritative and that the snapshot generation is
 still live.
 
-Slice 4D-3 intentionally performs no backend retrieval and exposes no local index
-data. Therefore a request that passes complete local authorization currently ends
-with the contract's fixed `503 {"error":"trace_query_unavailable"}` result. Slice
-4D-4 replaces that terminal placeholder with reviewed bounded backend retrieval
-and projection.
+## Slice 4D-4: bounded backend adapter and closed projection
+
+The fourth slice adds
+`runtime/observability/trace_query_projection.py`. The module defines the only
+trusted application-integration surface for backend reads and performs all
+ordinary-user projection independently from backend/vendor metadata.
+
+Phase 4's public configuration contract intentionally contains no backend query
+URL, backend query credential, vendor selector, or alternate trace-query setting.
+Therefore UAG does not reinterpret an OTLP export endpoint as a query API and does
+not accept request-controlled backend configuration. A trusted application
+integration may bind one reviewed adapter to the exact active observability
+backend instance with `install_trace_query_backend_adapter()`. Replacing the
+observability backend makes the previous binding unusable by identity. With no
+adapter bound, a fully authorized trace continues to return the fixed
+`503 {"error":"trace_query_unavailable"}` result.
+
+A reviewed adapter receives only the validated trace ID, an opaque bounded cursor,
+remaining page/span/decoded-byte ceilings, and the already-started monotonic
+query deadline. It must enforce decoded-byte limits while reading rather than
+materializing an unbounded raw response. Adapter output is the closed
+`TraceBackendPage` / `TraceBackendSpanRecord` representation; raw backend payload,
+attributes, events, links, resource data, provider metadata, exception text, and
+credentials are never passed to the Web response layer.
+
+The retrieval loop enforces the contract ceilings:
+
+```text
+decoded backend bytes     8 MiB
+backend spans             2000
+spans per page            500
+backend pages             4
+authorized spans returned 500
+```
+
+Projection requires every considered record to carry the exact requested canonical
+trace ID before span-ID membership lookup. Canonical duplicate span IDs are all
+omitted. Only span IDs present in the currently authorized local view can project,
+and their output names come exclusively from the immutable local semantic-kind
+association:
+
+```text
+invoke_agent  -> AGENT
+chat          -> LLM
+execute_tool  -> TOOL
+provider_sdk  -> PROVIDER_SDK
+internal      -> INTERNAL
+unknown       -> UNKNOWN
+```
+
+Status normalization accepts only the contract's bounded exact built-in strings.
+Timing accepts only exact integer `ms`, `us`, or `ns` values, validates chronology
+at original precision, converts to integer epoch milliseconds, and derives
+`duration_ms`; textual timestamps are never parsed. Parent IDs are emitted only
+when the canonical parent also survives authorization, validation, and output
+truncation. Otherwise the ID is omitted and `parent_omitted=true`.
+
+The route returns only the closed `uag.trace_view.v1` schema. Known safe omissions
+set `partial=true`, including backend truncation, unauthorized/unindexed records,
+trace-ID mismatch, invalid or duplicate span IDs, invalid timing, missing expected
+owned records, parent omission, and the 500-span output cap. Adapter/projection
+failure after successful authorization returns the fixed 503 with no backend
+payload. Ownership epoch/generation replacement still overrides a backend result
+with the fixed 404 before a successful response is returned.
 
 Regression coverage is in
-`tests/test_observability_phase4_trace_query_route.py`, including feature-disabled
-ordering, raw query/body-framing rejection, trace-ID validation, local-index
-absence, principal isolation, live authentication revalidation, room-membership
-revocation, and generation removal during a query.
-
-## Planned later slices
-
-- **4D-4**: add reviewed bounded backend adapters and the closed
-  `uag.trace_view.v1` projection with byte/page/span/output ceilings, parent/status
-  normalization, partial-result rules, and the final generation recheck before a
-  successful response.
+`tests/test_observability_phase4_trace_query_projection.py` in addition to the
+4D-1/4D-2/4D-3 suites. Coverage includes closed schema/semantic mapping,
+duplicate handling, trace binding, exact timing/status rules, byte/page/output
+ceilings, adapter/backend identity binding, and a successful Web-route projection.

@@ -175,6 +175,16 @@ the model request, retry behavior, response, tool execution, or Agent result. Se
 normative `docs/UAG_OPENTELEMETRY_PHASE4_CONTRACT.md` for the closed Phase 4C
 contract and regression expectations.
 
+## OpenTelemetry trace queries (Phase 4D)
+
+Trace queries run synchronous backend retrieval and both local authorization
+passes in worker threads. Event-loop timeouts bound worker queueing and execution
+to one shared five-second request deadline. Ownership invalidation takes
+precedence over timeout responses, and ownership is rechecked before backend
+access, including after worker queueing. See
+[DEVELOP_OBSERVABILITY_PHASE4D.md](DEVELOP_OBSERVABILITY_PHASE4D.md) for the
+projection and late-worker-result contract.
+
 ## 0. Runtime requirements
 
 - Python: 3.11+
