@@ -94,7 +94,7 @@ class RoundOrchestrator:
                 "uag.llm.model": request.model,
             },
         ) as observability_span:
-            with canonical_chat_diagnostic_scope():
+            with canonical_chat_diagnostic_scope(observability_span, backend):
                 return self._run_observed(
                     plan,
                     runtime=runtime,
