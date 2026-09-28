@@ -259,9 +259,11 @@ def build_correlation_attributes(
 def _set_correlation_attributes_consistently(
     span: object, attributes: dict[str, str]
 ) -> bool:
-    """Write one generation so no exported pseudonym can lack its key version."""
+    """Publish one complete generation or leave correlation entirely absent."""
 
     try:
+        from opentelemetry.attributes import BoundedAttributes
+
         from .otel_backend import OpenTelemetrySpan
 
         if type(span) is not OpenTelemetrySpan:
@@ -281,18 +283,36 @@ def _set_correlation_attributes_consistently(
             return False
 
         raw_span = span._span
-        set_attribute = getattr(raw_span, "set_attribute", None)
-        if not callable(set_attribute):
-            return False
+        with raw_span._lock:
+            if raw_span._end_time is not None:
+                return False
+            current = raw_span._attributes
+            if type(current) is not BoundedAttributes:
+                return False
 
-        # OTel does not guarantee that set_attributes() is an atomic multi-key
-        # transaction. Publish the generation marker first. If a later write
-        # fails, any already-exportable pseudonym still has the matching
-        # key_version, and the span-owned terminal state prevents another
-        # generation from being attempted on this span.
-        set_attribute("uag.correlation.key_version", key_version)
-        for key, value in pseudonyms.items():
-            set_attribute(key, value)
+            existing = dict(current)
+            if any(key.startswith("uag.correlation.") for key in existing):
+                return False
+
+            merged = dict(existing)
+            merged.update(safe)
+            if current.maxlen is not None and len(merged) > current.maxlen:
+                return False
+            if current.max_value_len is not None and any(
+                len(value) > current.max_value_len for value in safe.values()
+            ):
+                return False
+
+            candidate = BoundedAttributes(
+                maxlen=current.maxlen,
+                attributes=merged,
+                immutable=False,
+                max_value_len=current.max_value_len,
+            )
+            if dict(candidate) != merged:
+                return False
+            candidate.dropped = current.dropped
+            raw_span._attributes = candidate
         return True
     except Exception:
         return False
