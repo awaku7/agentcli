@@ -83,9 +83,7 @@ def _estimate_history_summary_tokens(
     return max(1, (byte_count + 1) // 2 + len(messages) * 8)
 
 
-def _history_summary_chunk_token_budget(
-    depname: str, provider: str
-) -> int | None:
+def _history_summary_chunk_token_budget(depname: str, provider: str) -> int | None:
     """Use the model context window, or an explicit user-specified budget."""
     raw = (env_get("UAGENT_SHRINK_CHUNK_TOKENS", "") or "").strip()
     configured_budget: int | None = None
@@ -847,9 +845,7 @@ def compress_history_with_llm(
         rolling_summary: str, chunk: list[dict[str, Any]]
     ) -> list[dict[str, Any]] | None:
         lines = [
-            rendered
-            for m in chunk
-            if (rendered := _message_to_text(m)[0]) is not None
+            rendered for m in chunk if (rendered := _message_to_text(m)[0]) is not None
         ]
         if not lines:
             return None
@@ -980,8 +976,7 @@ def compress_history_with_llm(
             if emit_log and (chunk_index > 1 or cursor < len(old_part)):
                 _stop_spinner_quietly()
                 print(
-                    _t("[shrink_llm] Summarizing chunk %(i)d...")
-                    % {"i": chunk_index},
+                    _t("[shrink_llm] Summarizing chunk %(i)d...") % {"i": chunk_index},
                     file=sys.stderr,
                 )
 

@@ -184,9 +184,7 @@ def test_summary_chunk_token_budget_is_clamped_by_context_window(
     from uagent.core_impl.history import _history_summary_chunk_token_budget
 
     monkeypatch.setenv("UAGENT_SHRINK_CHUNK_TOKENS", "20000")
-    monkeypatch.setattr(
-        "uagent.llmcapa_util.get_context_window", lambda *_args: 16384
-    )
+    monkeypatch.setattr("uagent.llmcapa_util.get_context_window", lambda *_args: 16384)
     assert _history_summary_chunk_token_budget("gpt-test", "openai") == 6144
 
 
@@ -196,9 +194,7 @@ def test_summary_chunk_token_budget_scales_from_known_context_window(
     from uagent.core_impl.history import _history_summary_chunk_token_budget
 
     monkeypatch.delenv("UAGENT_SHRINK_CHUNK_TOKENS", raising=False)
-    monkeypatch.setattr(
-        "uagent.llmcapa_util.get_context_window", lambda *_args: 131072
-    )
+    monkeypatch.setattr("uagent.llmcapa_util.get_context_window", lambda *_args: 131072)
     assert _history_summary_chunk_token_budget("gpt-test", "openai") == 63488
 
     monkeypatch.setattr(
@@ -206,9 +202,7 @@ def test_summary_chunk_token_budget_scales_from_known_context_window(
     )
     assert _history_summary_chunk_token_budget("gpt-6-luna", "openai") == 522952
 
-    monkeypatch.setattr(
-        "uagent.llmcapa_util.get_context_window", lambda *_args: None
-    )
+    monkeypatch.setattr("uagent.llmcapa_util.get_context_window", lambda *_args: None)
     assert _history_summary_chunk_token_budget("unknown-model", "openai") is None
     monkeypatch.setenv("UAGENT_SHRINK_CHUNK_TOKENS", "12000")
     assert _history_summary_chunk_token_budget("unknown-model", "openai") == 12000
