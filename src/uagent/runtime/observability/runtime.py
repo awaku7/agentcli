@@ -27,12 +27,89 @@ class _ActiveToolSpan:
     failed: bool = False
 
 
+@dataclass
+class _ProviderSdkDiagnostic:
+    span: ObservabilitySpan | None = None
+    status_set: bool = False
+
+    def set_status(self, status: str) -> None:
+        if status not in {"unset", "ok", "error"}:
+            return
+        self.status_set = True
+        if self.span is None:
+            return
+        try:
+            self.span.set_status(status)
+        except Exception:
+            pass
+
+
+_PROVIDER_DIAGNOSTIC_PROVIDERS = frozenset({"openai", "claude"})
 _PENDING_TOOL_SPAN: ContextVar[_PendingToolSpan | None] = ContextVar(
     "uagent_pending_tool_observability_span", default=None
 )
 _ACTIVE_TOOL_SPANS: ContextVar[tuple[_ActiveToolSpan, ...]] = ContextVar(
     "uagent_active_tool_observability_spans", default=()
 )
+
+
+@contextmanager
+def provider_sdk_diagnostic_span(provider: object) -> Iterator[_ProviderSdkDiagnostic]:
+    """Trace one selected provider SDK call as a closed metadata-only child span.
+
+    This helper is invoked only inside an already-active canonical ``chat`` span.
+    It deliberately controls the backend context manager manually so provider-call
+    exceptions mark only the child status and are never copied into child exception
+    events, descriptions, or vendor metadata.
+    """
+
+    diagnostic = _ProviderSdkDiagnostic()
+    if type(provider) is not str or provider not in _PROVIDER_DIAGNOSTIC_PROVIDERS:
+        yield diagnostic
+        return
+
+    try:
+        from .settings import get_observability_settings
+
+        settings = get_observability_settings()
+        backend = get_observability_backend()
+        if not backend.enabled or provider not in settings.provider_instrumentation:
+            yield diagnostic
+            return
+    except Exception:
+        yield diagnostic
+        return
+
+    manager: Any = None
+    try:
+        manager = backend.start_span(
+            "provider_sdk",
+            attributes={"uag.provider.id": provider},
+        )
+        diagnostic.span = manager.__enter__()
+    except Exception:
+        if manager is not None:
+            try:
+                manager.__exit__(None, None, None)
+            except Exception:
+                pass
+        yield diagnostic
+        return
+
+    try:
+        try:
+            yield diagnostic
+        except BaseException:
+            diagnostic.set_status("error")
+            raise
+        else:
+            if not diagnostic.status_set:
+                diagnostic.set_status("ok")
+    finally:
+        try:
+            manager.__exit__(None, None, None)
+        except Exception:
+            pass
 
 
 @contextmanager
@@ -292,5 +369,6 @@ __all__ = [
     "capture_trusted_tool_arguments",
     "capture_trusted_tool_result",
     "fallback_chat_span",
+    "provider_sdk_diagnostic_span",
     "start_pending_tool_span",
 ]
