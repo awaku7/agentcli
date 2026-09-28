@@ -51,7 +51,9 @@ def test_managed_trace_optin_requires_json_boolean_true(repo_tmp_path: Path) -> 
         )
     )
     assert rejected["ok"] is False
-    assert "must be boolean" in rejected["error"]
+    assert rejected["error"]
+    persisted_servers = json.loads(path.read_text(encoding="utf-8"))["mcp_servers"]
+    assert [server["name"] for server in persisted_servers] == ["trusted"]
 
 
 def test_handle_mcp_v2_managed_optin_and_direct_url_stays_off(
