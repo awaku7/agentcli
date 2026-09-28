@@ -163,6 +163,15 @@ def lifecycle_execution(
             trusted_ingress_carrier = {}
 
     with ExitStack() as observability_stack:
+        try:
+            from .observability.trace_ownership_runtime import (
+                masked_trace_ownership_scope,
+            )
+
+            observability_stack.enter_context(masked_trace_ownership_scope())
+        except Exception:
+            pass
+
         trusted_parent_attached = False
         if is_web_root and trusted_ingress_carrier:
             try:
@@ -180,6 +189,23 @@ def lifecycle_execution(
                 root=is_web_root and not trusted_parent_attached,
             )
         )
+        try:
+            from .observability.trace_ownership_runtime import (
+                admit_current_segment,
+                bound_trace_ownership_scope,
+            )
+
+            ownership_binding = admit_current_segment(
+                backend,
+                effective_turn_context,
+                observability_span,
+            )
+            observability_stack.enter_context(
+                bound_trace_ownership_scope(ownership_binding)
+            )
+        except Exception:
+            pass
+
         correlation_state = _AgentCorrelationState(observability_span)
         if effective_turn_context is not None and correlation_state.claim(
             observability_span
