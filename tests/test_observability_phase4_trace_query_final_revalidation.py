@@ -127,13 +127,13 @@ def _configure_route(monkeypatch, *, backend, state) -> None:
     monkeypatch.setattr(
         routes_observability,
         "_request_identity",
-        lambda request: IdentityContext("alice", True, "oidc"),
+        lambda _request: IdentityContext("alice", True, "oidc"),
     )
     monkeypatch.setattr(routes_observability, "_query_index_state", lambda: state)
 
 
 def test_trace_query_revalidates_session_after_backend_retrieval(monkeypatch) -> None:
-    backend, index, state = _make_state()
+    backend, _, state = _make_state()
     revoked = {"value": False}
     install_trace_query_backend_adapter(
         backend=backend,
