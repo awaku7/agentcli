@@ -206,6 +206,5 @@ def test_active_skill_path_detects_already_loaded_skill(repo_tmp_path: Path) -> 
 
     assert _has_active_skill_path(messages, str(skill_dir)) is True
     assert (
-        _has_active_skill_path(messages, str(repo_tmp_path / "another-skill"))
-        is False
+        _has_active_skill_path(messages, str(repo_tmp_path / "another-skill")) is False
     )
