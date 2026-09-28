@@ -34,6 +34,7 @@ class ResponsesCapabilities:
     count_input_tokens: bool = False
     compact: bool = False
     previous_response_id: bool = False
+    server_side_compaction: bool = False
 
 
 # Keep management operations conservative unless the provider documents them.
@@ -72,6 +73,7 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         list_input_items=True,
         count_input_tokens=True,
         compact=True,
+        server_side_compaction=True,
         previous_response_id=True,
     ),
     "azure": ResponsesCapabilities(
@@ -83,6 +85,7 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         list_input_items=True,
         count_input_tokens=True,
         compact=True,
+        server_side_compaction=True,
         previous_response_id=True,
     ),
     "openrouter": ResponsesCapabilities(create=True, streaming=True),
@@ -105,6 +108,20 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
 def get_responses_capabilities(provider: str) -> ResponsesCapabilities:
     """Return conservative Responses capabilities for a provider."""
     return _CAPABILITIES.get((provider or "").strip().lower(), ResponsesCapabilities())
+
+
+def is_server_side_compaction_enabled(
+    provider: str,
+    *,
+    use_responses_api: bool,
+    compact_threshold: int,
+) -> bool:
+    """Whether this request will actually delegate compaction to the server."""
+    return bool(
+        use_responses_api
+        and compact_threshold > 0
+        and get_responses_capabilities(provider).server_side_compaction
+    )
 
 
 def cancel_active_response(core: Any) -> bool:

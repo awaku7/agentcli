@@ -434,6 +434,73 @@ def test_auto_shrink_first_time_by_cnt(monkeypatch: pytest.MonkeyPatch):
     assert called["n"] == 1
 
 
+def test_local_auto_shrink_skips_when_responses_server_compaction_is_active(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    msgs = _make_dialog(5)
+    original = [dict(message) for message in msgs]
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "100000")
+
+    called = {"n": 0}
+
+    def _fake_compress(**kwargs):
+        called["n"] += 1
+        return list(kwargs["messages"])
+
+    projected_cache, projected = lmh._build_auto_shrink_projection(
+        provider="openai",
+        client=object(),
+        depname="gpt-test",
+        messages=msgs,
+        core=SimpleNamespace(compress_history_with_llm=_fake_compress),
+        cache_mgr=SimpleNamespace(clear_cache=lambda _client: None),
+        gemini_cache_name=None,
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=True,
+    )
+
+    assert called["n"] == 0
+    assert projected_cache is None
+    assert projected == original
+    assert msgs == original
+
+
+def test_local_auto_shrink_remains_for_responses_provider_without_server_compaction(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    msgs = _make_dialog(5)
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+
+    called = {"n": 0}
+
+    def _fake_compress(**kwargs):
+        called["n"] += 1
+        return [
+            {"role": "system", "content": "SYSTEM_PROMPT"},
+            {"role": "user", "content": "tail"},
+        ]
+
+    projected_cache, projected = lmh._build_auto_shrink_projection(
+        provider="deepseek",
+        client=object(),
+        depname="deepseek-test",
+        messages=msgs,
+        core=SimpleNamespace(compress_history_with_llm=_fake_compress),
+        cache_mgr=SimpleNamespace(clear_cache=lambda _client: None),
+        gemini_cache_name=None,
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=True,
+    )
+
+    assert called["n"] == 1
+    assert projected_cache is None
+    assert projected != msgs
+
+
 def test_manual_cmd_shrink_llm_uses_compress(monkeypatch: pytest.MonkeyPatch):
     from uagent import util_tools as ut
 

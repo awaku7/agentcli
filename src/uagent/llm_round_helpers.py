@@ -63,7 +63,10 @@ from .runtime.inception_stream_compat import (
 )
 from .runtime.stream_host import build_stream_callbacks
 from .providers.provider_caps import temperature_env_name
-from .providers.responses_manager import get_responses_capabilities
+from .providers.responses_manager import (
+    get_responses_capabilities,
+    is_server_side_compaction_enabled,
+)
 from .providers.responses_runtime import (
     _responses_session_generation,
 )
@@ -578,13 +581,22 @@ def _call_openai_azure_round(
                 if _prev_rid is not None:
                     resp_kwargs["previous_response_id"] = _prev_rid
 
-                # Server-side compaction (Responses API)
-                # Uses the same threshold as local auto-shrink to trigger compaction
-                # at the same point where local context would be compressed.
                 _compact_threshold = _get_shrink_max_tokens(depname)
-                resp_kwargs["context_management"] = [
-                    {"type": "compaction", "compact_threshold": _compact_threshold}
-                ]
+                if is_server_side_compaction_enabled(
+                    provider,
+                    use_responses_api=use_responses_api,
+                    compact_threshold=_compact_threshold,
+                ):
+                    # Keep request capability gating and local auto-shrink
+                    # gating in sync: if this request delegates compaction to
+                    # the server, do not also send a locally compressed
+                    # projection.
+                    resp_kwargs["context_management"] = [
+                        {
+                            "type": "compaction",
+                            "compact_threshold": _compact_threshold,
+                        }
+                    ]
 
                 # Optional Responses API knobs via env (OpenAI SDK >= 2.x)
                 # - UAGENT_REASONING: auto|minimal|low|medium|high|xhigh|off (unset/off => do not send)
