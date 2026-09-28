@@ -38,6 +38,12 @@ OpenAI and Claude paths open the child only around their normalized provider cal
 Retries or streaming inside one logical round remain inside that single child, so
 one canonical `chat` span cannot acquire duplicate provider diagnostic children.
 
+Each canonical `chat` boundary creates one shared, one-shot diagnostic state. The
+provider helper fails closed when that state is absent, and the first child-creation
+attempt consumes the claim even if span creation itself fails. Copied execution
+contexts share the same locked state object, so parallel or duplicated calls cannot
+create a second provider child for the same canonical `chat` span.
+
 Provider-call exceptions mark the child `ERROR` but are deliberately not passed
 through the child span context manager as exception payloads. The exception still
 propagates normally to the existing canonical `chat` boundary, preserving Agent
