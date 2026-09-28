@@ -24,7 +24,10 @@ from .stream_renderer import CollectingStreamRenderer
 from .logging_setup import log_event
 from .observability.api import ObservabilitySpan
 from .observability.bootstrap import get_observability_backend
-from .observability.runtime import provider_sdk_diagnostic_span
+from .observability.runtime import (
+    canonical_chat_diagnostic_scope,
+    provider_sdk_diagnostic_span,
+)
 
 
 def _json_size(value: Any) -> int:
@@ -91,16 +94,17 @@ class RoundOrchestrator:
                 "uag.llm.model": request.model,
             },
         ) as observability_span:
-            return self._run_observed(
-                plan,
-                runtime=runtime,
-                projection=projection,
-                request=request,
-                session=session,
-                cancellation=cancellation,
-                observability_span=observability_span,
-                started=started,
-            )
+            with canonical_chat_diagnostic_scope():
+                return self._run_observed(
+                    plan,
+                    runtime=runtime,
+                    projection=projection,
+                    request=request,
+                    session=session,
+                    cancellation=cancellation,
+                    observability_span=observability_span,
+                    started=started,
+                )
 
     def _run_observed(
         self,
