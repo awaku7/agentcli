@@ -141,7 +141,10 @@ def lifecycle_execution(
 
     current = lifecycle or AgentLifecycle()
     effective_turn_context = turn_context or get_current_turn_context()
-    span_attributes = {"uag.agent.name": "uag"}
+    span_attributes = {
+        "uag.agent.name": "uag",
+        "uag.agent.lifecycle_status": current.status.value.lower(),
+    }
     if effective_turn_context is not None:
         span_attributes["uag.entry_point"] = effective_turn_context.entry_point
         span_attributes["uag.auth.kind"] = effective_turn_context.authn_kind
