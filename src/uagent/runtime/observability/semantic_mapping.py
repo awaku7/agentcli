@@ -50,6 +50,12 @@ def map_span(
             f"execute_tool {tool_name}" if tool_name else "execute_tool", mapped
         )
 
+    if op == "provider_sdk":
+        provider_id = attrs.get("uag.provider.id")
+        if type(provider_id) is str and provider_id in {"openai", "claude"}:
+            return MappedSpan("provider_sdk", {"uag.provider.id": provider_id})
+        return MappedSpan("provider_sdk", {})
+
     return MappedSpan(op, mapped)
 
 
