@@ -126,6 +126,19 @@ def _generation_is_live_for_result(
     )
 
 
+async def _run_query_worker(function, *args, deadline: float, **kwargs):
+    """Bound queueing and synchronous work by the original request budget."""
+
+    def run():
+        # A queued worker must not start new work after its request timed out.
+        if not _deadline_alive(deadline):
+            return None
+        return function(*args, deadline=deadline, **kwargs)
+
+    async with asyncio.timeout(max(0.0, deadline - time.monotonic())):
+        return await asyncio.to_thread(run)
+
+
 def _ascii_header_name_is(value: object, expected: bytes) -> bool:
     """Compare one ASGI header name case-insensitively without allocating a copy."""
 
@@ -497,12 +510,24 @@ async def get_observability_trace(trace_id: str, request: Request):
         return _json_error(404, "trace_not_found")
     assert snapshot is not None
 
-    local_view = _authorized_local_view(
-        snapshot,
-        identity=identity,
-        request=request,
-        deadline=deadline,
-    )
+    authorization_timed_out = False
+    try:
+        local_view = await _run_query_worker(
+            _authorized_local_view,
+            snapshot,
+            identity=identity,
+            request=request,
+            deadline=deadline,
+        )
+    except TimeoutError:
+        local_view = None
+        authorization_timed_out = True
+    if not _query_index_state_is_current(state) or not _generation_is_live_for_result(
+        state, trace_id=trace_id, generation=snapshot.generation
+    ):
+        return _json_error(404, "trace_not_found")
+    if authorization_timed_out or not _deadline_alive(deadline):
+        return _json_error(503, "trace_query_unavailable")
     if local_view is None:
         return _json_error(404, "trace_not_found")
 
@@ -535,14 +560,30 @@ async def get_observability_trace(trace_id: str, request: Request):
 
     projection = None
     if adapter is not None:
-        projection = await asyncio.to_thread(
-            project_trace_view,
-            adapter,
-            trace_id=trace_id,
-            authorized_span_kinds=local_view.span_kinds,
-            initial_partial=local_view.partial,
-            deadline=deadline,
-        )
+
+        def retrieve(*, deadline):
+            # Ownership can change while this work is queued in the executor.
+            if not _query_index_state_is_current(state):
+                return None
+            if not state.index.generation_is_live(
+                trace_id=trace_id,
+                generation=snapshot.generation,
+                deadline=deadline,
+            ):
+                return None
+            return project_trace_view(
+                adapter,
+                trace_id=trace_id,
+                authorized_span_kinds=local_view.span_kinds,
+                initial_partial=local_view.partial,
+                deadline=deadline,
+            )
+
+        try:
+            projection = await _run_query_worker(retrieve, deadline=deadline)
+        except TimeoutError:
+            # Classify ownership before returning the fixed timeout response.
+            pass
 
     # Ownership invalidation has precedence over backend success/failure/timeout.
     if not _query_index_state_is_current(state):
@@ -557,12 +598,18 @@ async def get_observability_trace(trace_id: str, request: Request):
         return _json_error(503, "trace_query_unavailable")
 
     if projection is not None:
-        final_local_view = _authorized_local_view(
-            snapshot,
-            identity=identity,
-            request=request,
-            deadline=deadline,
-        )
+        authorization_timed_out = False
+        try:
+            final_local_view = await _run_query_worker(
+                _authorized_local_view,
+                snapshot,
+                identity=identity,
+                request=request,
+                deadline=deadline,
+            )
+        except TimeoutError:
+            final_local_view = None
+            authorization_timed_out = True
         if not _query_index_state_is_current(state):
             return _json_error(404, "trace_not_found")
         if not _generation_is_live_for_result(
@@ -571,7 +618,7 @@ async def get_observability_trace(trace_id: str, request: Request):
             generation=snapshot.generation,
         ):
             return _json_error(404, "trace_not_found")
-        if not _deadline_alive(deadline):
+        if authorization_timed_out or not _deadline_alive(deadline):
             return _json_error(503, "trace_query_unavailable")
         if final_local_view is None or final_local_view != local_view:
             return _json_error(404, "trace_not_found")

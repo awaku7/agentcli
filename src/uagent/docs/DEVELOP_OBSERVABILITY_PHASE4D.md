@@ -116,6 +116,16 @@ one five-second monotonic deadline is created and reused by request-shape checks
 local-index lookup, authorization revalidation, backend work, projection, and the
 final generation check.
 
+Initial and final local authorization, including their synchronous policy-store
+access, run in worker threads alongside backend projection/paging. Each await is
+bounded on the event loop by the remaining original five-second budget, including
+executor queue time. Timeout discards the worker result and returns fixed 503,
+unless ownership epoch/generation invalidation requires fixed 404 first. Python
+cannot interrupt an already-running synchronous adapter or policy query; that
+worker may finish later, but its result is never published. Queued work checks the
+deadline before starting, and backend work rechecks ownership after queueing and
+before calling the adapter.
+
 The v1 route accepts no query string or request body. It examines raw ASGI framing
 metadata without decoding query/body content. `Transfer-Encoding`, multiple or
 malformed `Content-Length` values, and any positive content length fail with the

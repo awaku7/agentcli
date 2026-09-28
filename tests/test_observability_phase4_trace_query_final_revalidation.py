@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import asyncio
+import json
 import threading
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 from fastapi.testclient import TestClient
+from starlette.requests import Request
 
 from uagent.runtime.identity_context import IdentityContext, IdentityResolutionError
 from uagent.runtime.observability.settings import ObservabilitySettings
@@ -280,9 +284,16 @@ def test_trace_query_backend_projection_runs_off_event_loop(monkeypatch) -> None
 
     original_authorized_local_view = routes_observability._authorized_local_view
     route_thread = {"value": None}
+    authorization_threads = []
+
+    def record_event_loop():
+        route_thread["value"] = threading.get_ident()
+        return True
+
+    monkeypatch.setattr(routes_observability, "_feature_enabled", record_event_loop)
 
     def record_route_thread(*args, **kwargs):
-        route_thread["value"] = threading.get_ident()
+        authorization_threads.append(threading.get_ident())
         return original_authorized_local_view(*args, **kwargs)
 
     monkeypatch.setattr(
@@ -297,6 +308,8 @@ def test_trace_query_backend_projection_runs_off_event_loop(monkeypatch) -> None
     assert route_thread["value"] is not None
     assert adapter.thread_id is not None
     assert adapter.thread_id != route_thread["value"]
+    assert len(authorization_threads) == 2
+    assert all(thread != route_thread["value"] for thread in authorization_threads)
 
 
 def test_trace_query_generation_removal_beats_backend_timeout(monkeypatch) -> None:
@@ -318,6 +331,187 @@ def test_trace_query_generation_removal_beats_backend_timeout(monkeypatch) -> No
     assert finished["value"] is True
     assert response.status_code == 404
     assert response.json() == {"error": "trace_not_found"}
+
+
+def _request():
+    return Request(
+        {"type": "http", "http_version": "1.1", "headers": [], "query_string": b""}
+    )
+
+
+@pytest.mark.parametrize("phase", ["initial", "backend", "final"])
+@pytest.mark.parametrize("invalidation", [None, "generation", "epoch"])
+def test_stalled_worker_obeys_deadline_and_ownership_precedence(
+    monkeypatch, phase, invalidation
+) -> None:
+    backend, index, state = _make_state()
+    _configure_route(monkeypatch, backend=backend, state=state)
+    monkeypatch.setattr(routes_observability, "_TRACE_QUERY_DEADLINE_SECONDS", 0.25)
+    entered = threading.Event()
+    release = threading.Event()
+    calls = []
+    deadlines = []
+    original = routes_observability._authorized_local_view
+
+    def stall():
+        if invalidation == "generation":
+            assert index.delete_trace(TRACE_ID)
+        elif invalidation == "epoch":
+            monkeypatch.setattr(
+                routes_observability,
+                "_query_index_state",
+                lambda: routes_observability._TraceQueryIndexState(
+                    index=index, epoch=state.epoch + 1, backend=backend
+                ),
+            )
+        entered.set()
+        assert release.wait(3)
+
+    def authorize(*args, **kwargs):
+        calls.append("authorization")
+        deadlines.append(kwargs["deadline"])
+        if (phase == "initial" and len(calls) == 1) or (
+            phase == "final" and len(calls) == 3
+        ):
+            stall()
+        return original(*args, **kwargs)
+
+    class Adapter:
+        def fetch_trace_page(self, *, trace_id, deadline, **kwargs):
+            calls.append("backend")
+            deadlines.append(deadline)
+            if phase == "backend":
+                stall()
+            return _valid_page(trace_id)
+
+    monkeypatch.setattr(routes_observability, "_authorized_local_view", authorize)
+    install_trace_query_backend_adapter(backend=backend, adapter=Adapter())
+
+    async def scenario():
+        task = asyncio.create_task(
+            routes_observability.get_observability_trace(TRACE_ID, _request())
+        )
+        try:
+            # This coroutine must keep progressing while synchronous work stalls.
+            async with asyncio.timeout(1):
+                while not entered.is_set():
+                    await asyncio.sleep(0.001)
+                response = await task
+            assert not release.is_set()
+            expected = 404 if invalidation else 503
+            assert response.status_code == expected
+            assert json.loads(response.body) == {
+                "error": (
+                    "trace_not_found" if invalidation else "trace_query_unavailable"
+                )
+            }
+        finally:
+            release.set()
+            if not task.done():
+                task.cancel()
+            await asyncio.gather(task, return_exceptions=True)
+
+    asyncio.run(scenario())
+    assert len(set(deadlines)) == 1
+    assert (
+        calls
+        == {
+            "initial": ["authorization"],
+            "backend": ["authorization", "backend"],
+            "final": ["authorization", "backend", "authorization"],
+        }[phase]
+    )
+
+
+@pytest.mark.parametrize("queued_pass", [1, 2, 3])
+def test_executor_queue_wait_uses_shared_deadline(monkeypatch, queued_pass) -> None:
+    backend, _, state = _make_state()
+    _configure_route(monkeypatch, backend=backend, state=state)
+    monkeypatch.setattr(routes_observability, "_TRACE_QUERY_DEADLINE_SECONDS", 0.25)
+    adapter = _CountingAdapter()
+    install_trace_query_backend_adapter(backend=backend, adapter=adapter)
+    release = threading.Event()
+    entered = threading.Event()
+    work_calls = []
+    original_to_thread = asyncio.to_thread
+
+    def occupy_executor():
+        entered.set()
+        assert release.wait(3)
+
+    async def scenario():
+        loop = asyncio.get_running_loop()
+        executor = ThreadPoolExecutor(max_workers=1)
+        loop.set_default_executor(executor)
+        passes = 0
+
+        async def queue_worker(function, *args, **kwargs):
+            nonlocal passes
+            passes += 1
+            if passes == queued_pass:
+                executor.submit(occupy_executor)
+                while not entered.is_set():
+                    await asyncio.sleep(0.001)
+
+            def record_work():
+                work_calls.append(passes)
+                return function(*args, **kwargs)
+
+            return await original_to_thread(record_work)
+
+        monkeypatch.setattr(asyncio, "to_thread", queue_worker)
+        try:
+            response = await asyncio.wait_for(
+                routes_observability.get_observability_trace(TRACE_ID, _request()), 1
+            )
+            assert entered.is_set()
+            assert not release.is_set()
+            assert response.status_code == 503
+            assert json.loads(response.body) == {"error": "trace_query_unavailable"}
+        finally:
+            release.set()
+
+    asyncio.run(scenario())
+    # Cancelled queued work must never contact the adapter later.
+    assert len(work_calls) == queued_pass - 1
+    assert adapter.calls == (1 if queued_pass == 3 else 0)
+
+
+@pytest.mark.parametrize("invalidation", ["generation", "epoch"])
+def test_ownership_change_while_backend_is_queued_prevents_fetch(
+    monkeypatch, invalidation
+) -> None:
+    backend, index, state = _make_state()
+    _configure_route(monkeypatch, backend=backend, state=state)
+    adapter = _CountingAdapter()
+    install_trace_query_backend_adapter(backend=backend, adapter=adapter)
+    original_to_thread = asyncio.to_thread
+    passes = 0
+
+    async def invalidate_before_worker_starts(function, *args, **kwargs):
+        nonlocal passes
+        passes += 1
+        if passes == 2:
+            if invalidation == "generation":
+                assert index.delete_trace(TRACE_ID)
+            else:
+                monkeypatch.setattr(
+                    routes_observability,
+                    "_query_index_state",
+                    lambda: routes_observability._TraceQueryIndexState(
+                        index=index, epoch=state.epoch + 1, backend=backend
+                    ),
+                )
+        return await original_to_thread(function, *args, **kwargs)
+
+    monkeypatch.setattr(asyncio, "to_thread", invalidate_before_worker_starts)
+    response = asyncio.run(
+        routes_observability.get_observability_trace(TRACE_ID, _request())
+    )
+    assert passes == 2
+    assert adapter.calls == 0
+    assert response.status_code == 404
+    assert json.loads(response.body) == {"error": "trace_not_found"}
 
 
 def test_trace_query_generation_removal_after_final_auth_beats_timeout(
