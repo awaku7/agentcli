@@ -79,6 +79,7 @@ from .web_impl.routes_api import (
     update_memory,
     update_profile,
 )
+from .web_impl.routes_observability import get_observability_trace
 from .web_impl.routes_ws import websocket_endpoint
 from .web_impl.init import init_web, main as _web_main
 
@@ -127,6 +128,7 @@ __all__ = [
     "get_log_preview_by_path",
     "get_logs",
     "get_memories",
+    "get_observability_trace",
     "get_profile",
     "get_room",
     "get_root",

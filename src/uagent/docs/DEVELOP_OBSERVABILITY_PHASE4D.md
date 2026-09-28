@@ -52,8 +52,8 @@ a stale handle cannot recreate it. Reads and updates never extend the original
 
 `lookup_segments()` returns only a bounded immutable snapshot and requires the
 caller's existing shared monotonic deadline. It rechecks the deadline while
-materializing segments. `generation_is_live()` is the final liveness hook that a
-later HTTP/query slice uses before returning a successful projection.
+materializing segments. `generation_is_live()` is the final liveness hook used by
+the route/projection slices before returning data.
 
 ## Slice 4D-2: trusted runtime ownership binding
 
@@ -89,26 +89,73 @@ parent binding when they exit.
 Runtime binding is active only when both core observability and
 `trace_query_enabled` are true. Replacing the active backend or resolved settings
 starts a new process-local ownership epoch, so stale bindings cannot write into a
-new index generation. Missing/mismatched child trace/span IDs fail closed and make
-the current generation non-queryable on a best-effort basis; tracing and Agent
-execution continue normally.
+new index generation. Backend authority is rechecked while serializing an epoch
+replacement so a retired backend cannot race a newer authoritative backend and
+replace its ownership index. Missing/mismatched child trace/span IDs fail closed
+and make the current generation non-queryable on a best-effort basis; tracing and
+Agent execution continue normally.
 
 Regression coverage is split between
 `tests/test_observability_phase4_trace_ownership_index.py` and
 `tests/test_observability_phase4_trace_ownership_runtime.py`. The runtime tests
 cover root scope capture, the closed semantic-kind mapping, nested local segments,
-feature-disabled behavior, and rejection of late TurnContext backfill.
+feature-disabled behavior, rejection of late TurnContext backfill, exact-local
+span proof, and backend-replacement races.
 
-These slices still do **not** expose
-`/api/observability/traces/{trace_id}`, perform backend retrieval/projection, or
-alter current Web authentication/authorization behavior. The trace-query feature
-therefore remains inaccessible to ordinary users until the later route/query
-slices are merged.
+## Slice 4D-3: authenticated bounded Web route
+
+The third slice adds exactly:
+
+```text
+GET /api/observability/traces/{trace_id}
+```
+
+The route preserves the normative processing order. The Phase 4D feature gate is
+checked before authentication. After successful existing product authentication,
+one five-second monotonic deadline is created and reused by request-shape checks,
+local-index lookup, authorization revalidation, and the final generation check.
+
+The v1 route accepts no query string or request body. It examines raw ASGI framing
+metadata without decoding query/body content. `Transfer-Encoding`, multiple or
+malformed `Content-Length` values, and any positive content length fail with the
+fixed `invalid_request` result before trace-ID/index work. `Content-Length: 0` is
+accepted. For HTTP/1.0 and HTTP/1.1, absence of both framing headers proves an empty
+request body. ASGI provides no receive API that can cap an HTTP/2/3 presence probe
+to one decoded octet, so an unframed HTTP/2/3 request fails closed unless
+`Content-Length: 0` already proves emptiness; route logic never drains or
+materializes a request body.
+
+After canonical trace-ID validation, the route consumes only the bounded local
+ownership snapshot. It validates the closed semantic-kind/index shape and
+revalidates current product identity, project membership, room membership,
+private-room ownership, and room-to-project binding for every local segment and
+again for every indexed owned span. Every authorized segment must still belong to
+the authenticated principal recorded at admission; membership in the same shared
+room or project never grants access to another principal's turn trace. Current
+session or authorization revocation during a query fails closed instead of
+returning a mixed-time authorization view.
+
+A missing, expired, malformed, incomplete, timed-out, or zero-authorized local view
+returns the single fixed `trace_not_found` result and never accesses a telemetry
+backend. Before leaving the authorization slice, the route also verifies that the
+same ownership epoch is still authoritative and that the snapshot generation is
+still live.
+
+Slice 4D-3 intentionally performs no backend retrieval and exposes no local index
+data. Therefore a request that passes complete local authorization currently ends
+with the contract's fixed `503 {"error":"trace_query_unavailable"}` result. Slice
+4D-4 replaces that terminal placeholder with reviewed bounded backend retrieval
+and projection.
+
+Regression coverage is in
+`tests/test_observability_phase4_trace_query_route.py`, including feature-disabled
+ordering, raw query/body-framing rejection, trace-ID validation, local-index
+absence, principal isolation, live authentication revalidation, room-membership
+revocation, and generation removal during a query.
 
 ## Planned later slices
 
-- **4D-3**: add the exact authenticated GET route, request framing/body-presence
-  checks, one shared five-second deadline, and per-query authorization revalidation.
 - **4D-4**: add reviewed bounded backend adapters and the closed
-  `uag.trace_view.v1` projection with byte/page/span/output ceilings and final
-  generation recheck.
+  `uag.trace_view.v1` projection with byte/page/span/output ceilings, parent/status
+  normalization, partial-result rules, and the final generation recheck before a
+  successful response.
