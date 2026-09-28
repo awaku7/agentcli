@@ -111,9 +111,7 @@ class _Runtime:
             {"stream_mode": "delta"},
         )
         data = (
-            {"response_id": "resp"}
-            if self.terminal_type == "ResponseCompleted"
-            else {}
+            {"response_id": "resp"} if self.terminal_type == "ResponseCompleted" else {}
         )
         yield StreamEvent(self.terminal_type, request.identifiers, 1, 0.0, data)
 
