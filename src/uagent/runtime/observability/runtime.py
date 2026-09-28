@@ -54,9 +54,7 @@ _ACTIVE_TOOL_SPANS: ContextVar[tuple[_ActiveToolSpan, ...]] = ContextVar(
 
 
 @contextmanager
-def provider_sdk_diagnostic_span(
-    provider: object,
-) -> Iterator[_ProviderSdkDiagnostic]:
+def provider_sdk_diagnostic_span(provider: object) -> Iterator[_ProviderSdkDiagnostic]:
     """Trace one selected provider SDK call as a closed metadata-only child span.
 
     This helper is invoked only inside an already-active canonical ``chat`` span.
@@ -75,10 +73,7 @@ def provider_sdk_diagnostic_span(
 
         settings = get_observability_settings()
         backend = get_observability_backend()
-        if (
-            not backend.enabled
-            or provider not in settings.provider_instrumentation
-        ):
+        if not backend.enabled or provider not in settings.provider_instrumentation:
             yield diagnostic
             return
     except Exception:
