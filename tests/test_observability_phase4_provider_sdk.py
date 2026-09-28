@@ -104,9 +104,17 @@ class _Runtime:
 
     def run(self, request, cancellation):
         yield StreamEvent(
-            "ResponseStarted", request.identifiers, 0, 0.0, {"stream_mode": "delta"}
+            "ResponseStarted",
+            request.identifiers,
+            0,
+            0.0,
+            {"stream_mode": "delta"},
         )
-        data = {"response_id": "resp"} if self.terminal_type == "ResponseCompleted" else {}
+        data = (
+            {"response_id": "resp"}
+            if self.terminal_type == "ResponseCompleted"
+            else {}
+        )
         yield StreamEvent(self.terminal_type, request.identifiers, 1, 0.0, data)
 
 
@@ -117,7 +125,11 @@ def _settings(*providers: str) -> ObservabilitySettings:
     )
 
 
-def _install_runtime(monkeypatch, backend: _Backend, settings: ObservabilitySettings) -> None:
+def _install_runtime(
+    monkeypatch,
+    backend: _Backend,
+    settings: ObservabilitySettings,
+) -> None:
     monkeypatch.setattr(
         "uagent.runtime.observability.runtime.get_observability_backend",
         lambda: backend,
@@ -157,7 +169,9 @@ def test_phase4c_registry_openai_emits_one_closed_child_span(monkeypatch) -> Non
     assert record["span"].exceptions == []
 
 
-def test_phase4c_registry_failure_sets_error_without_exception_payload(monkeypatch) -> None:
+def test_phase4c_registry_failure_sets_error_without_exception_payload(
+    monkeypatch,
+) -> None:
     backend = _Backend()
     _install_runtime(monkeypatch, backend, _settings("openai"))
     monkeypatch.setattr(
