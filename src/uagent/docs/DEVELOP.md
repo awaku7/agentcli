@@ -154,6 +154,27 @@ selection, metrics, baggage, resources, or ordinary-user trace views. See
 [DEVELOP_OBSERVABILITY.md](DEVELOP_OBSERVABILITY.md) for the detailed validation,
 HMAC framing, attachment, and security contract.
 
+## OpenTelemetry provider SDK diagnostics (Phase 4C)
+
+Phase 4C is separately opt-in and metadata-only. The resolved
+`--otel-provider-instrumentation` / `UAGENT_OTEL_PROVIDER_INSTRUMENTATION` selector
+accepts only the exact logical provider IDs `openai` and `claude`; the default is
+empty/OFF. For a selected provider call, UAG creates at most one UAG-controlled
+`provider_sdk` child under the active canonical `chat` span.
+
+The provider child exports only `uag.provider.id` and status `UNSET | OK | ERROR`.
+It never exports model names, URLs, request/response IDs, content, headers,
+credentials, exception text or stacks, resource/instrumentation attributes, or
+vendor metadata. The implementation is scoped to existing UAG provider-call
+boundaries and does not enable generic global provider/HTTP auto-instrumentation,
+so the canonical `chat` remains the one logical LLM operation.
+
+Provider diagnostic creation/status/close failures are best-effort and never alter
+the model request, retry behavior, response, tool execution, or Agent result. See
+[DEVELOP_OBSERVABILITY_PHASE4C.md](DEVELOP_OBSERVABILITY_PHASE4C.md) and the
+normative `docs/UAG_OPENTELEMETRY_PHASE4_CONTRACT.md` for the closed Phase 4C
+contract and regression expectations.
+
 ## 0. Runtime requirements
 
 - Python: 3.11+
