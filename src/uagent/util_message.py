@@ -207,6 +207,44 @@ def _clear_skill_messages(messages_ref: list[dict[str, Any]]) -> int:
     return before - len(messages_ref)
 
 
+def _has_active_skill_path(
+    messages_ref: list[dict[str, Any]], skill_dir: str
+) -> bool:
+    """Return whether this skill directory is already present in the history."""
+    try:
+        target_path = os.path.normcase(os.path.realpath(os.path.abspath(skill_dir)))
+    except (OSError, TypeError, ValueError):
+        return False
+
+    prefix = _skills_marker_prefix()
+    for message in messages_ref or []:
+        if not isinstance(message, dict) or message.get("role") != "system":
+            continue
+        content = message.get("content")
+        if not isinstance(content, str) or not content.startswith(prefix):
+            continue
+
+        header = content.splitlines()[0]
+        fields = header[len(prefix) :]
+        _, separator, active_path = fields.partition(" path=")
+        if not separator:
+            continue
+        # The serialized header places these optional fields after the path.
+        for field_marker in (" skill_md=", " allowed-tools="):
+            active_path = active_path.split(field_marker, 1)[0]
+        if not active_path:
+            continue
+        try:
+            active_path = os.path.normcase(
+                os.path.realpath(os.path.abspath(active_path))
+            )
+        except (OSError, TypeError, ValueError):
+            continue
+        if active_path == target_path:
+            return True
+    return False
+
+
 def insert_tools_system_message(
     messages: list[dict[str, Any]],
     *,

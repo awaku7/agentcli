@@ -29,6 +29,7 @@ from .util_message import (
     _extract_last_cwd_from_messages,
     _format_cwd_system_content,
     _format_skill_system_content,
+    _has_active_skill_path,
     _insert_cwd_system_message,
     _read_session_metadata,
     _read_raw_log_messages,
@@ -612,6 +613,10 @@ def _handle_cmd_skills(
         skill_dir = skill.get("path")
         if not isinstance(skill_dir, str) or not skill_dir.strip():
             print(_("[skills] Selected skill has no path."))
+            return CommandResult()
+
+        if _has_active_skill_path(messages_ref, skill_dir):
+            print(_("[skills] Already active: %(name)s") % {"name": name})
             return CommandResult()
 
         confirm_msg = _(

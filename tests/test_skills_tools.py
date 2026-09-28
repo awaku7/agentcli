@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -186,3 +187,25 @@ def test_skills_list_accepts_skill_directory_as_root(repo_tmp_path: Path) -> Non
     obj = _loads(out)
     assert len(obj) == 1
     assert obj[0]["name"] == "direct-skill"
+
+
+def test_active_skill_path_detects_already_loaded_skill(repo_tmp_path: Path) -> None:
+    from uagent.util_message import _has_active_skill_path
+
+    skill_dir = repo_tmp_path / "already-loaded"
+    active_path = os.path.abspath(skill_dir)
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                f"[SKILL] name=already-loaded path={active_path} "
+                f"skill_md={active_path}/SKILL.md\n\n# Skill"
+            ),
+        }
+    ]
+
+    assert _has_active_skill_path(messages, str(skill_dir)) is True
+    assert (
+        _has_active_skill_path(messages, str(repo_tmp_path / "another-skill"))
+        is False
+    )
