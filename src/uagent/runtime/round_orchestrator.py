@@ -123,7 +123,10 @@ class RoundOrchestrator:
                 validator.accept(event)
                 events.append(event)
                 renderer.on_event(event)
-                if event.type.startswith("Response") and event.type != "ResponseStarted":
+                if (
+                    event.type.startswith("Response")
+                    and event.type != "ResponseStarted"
+                ):
                     terminal = event
             validator.require_terminal()
             assert terminal is not None
