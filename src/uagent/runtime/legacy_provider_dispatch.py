@@ -40,7 +40,10 @@ def _call_with_fallback_chat_span(
 ) -> Any:
     """Trace exactly one compatibility provider call, excluding post-processing."""
 
-    from .observability.runtime import fallback_chat_span
+    from .observability.runtime import (
+        fallback_chat_span,
+        provider_sdk_diagnostic_span,
+    )
 
     with fallback_chat_span(
         provider=provider,
@@ -48,7 +51,10 @@ def _call_with_fallback_chat_span(
         request_input=kwargs.get("call_messages") or (),
         core=kwargs.get("core"),
     ) as observability_span:
-        result = caller(**kwargs)
+        with provider_sdk_diagnostic_span(provider) as provider_diagnostic:
+            result = caller(**kwargs)
+            if isinstance(result, tuple) and result and isinstance(result[0], bool):
+                provider_diagnostic.set_status("ok" if result[0] else "error")
         if isinstance(result, tuple) and result and isinstance(result[0], bool):
             if result[0]:
                 observability_span.set_attribute("uag.status", "completed")

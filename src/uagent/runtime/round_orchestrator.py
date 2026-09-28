@@ -24,6 +24,10 @@ from .stream_renderer import CollectingStreamRenderer
 from .logging_setup import log_event
 from .observability.api import ObservabilitySpan
 from .observability.bootstrap import get_observability_backend
+from .observability.runtime import (
+    canonical_chat_diagnostic_scope,
+    provider_sdk_diagnostic_span,
+)
 
 
 def _json_size(value: Any) -> int:
@@ -90,16 +94,17 @@ class RoundOrchestrator:
                 "uag.llm.model": request.model,
             },
         ) as observability_span:
-            return self._run_observed(
-                plan,
-                runtime=runtime,
-                projection=projection,
-                request=request,
-                session=session,
-                cancellation=cancellation,
-                observability_span=observability_span,
-                started=started,
-            )
+            with canonical_chat_diagnostic_scope():
+                return self._run_observed(
+                    plan,
+                    runtime=runtime,
+                    projection=projection,
+                    request=request,
+                    session=session,
+                    cancellation=cancellation,
+                    observability_span=observability_span,
+                    started=started,
+                )
 
     def _run_observed(
         self,
@@ -117,14 +122,25 @@ class RoundOrchestrator:
         events: list[StreamEvent] = []
         renderer = CollectingStreamRenderer()
         terminal: StreamEvent | None = None
-        for event in runtime.run(request, cancellation):
-            validator.accept(event)
-            events.append(event)
-            renderer.on_event(event)
-            if event.type.startswith("Response") and event.type != "ResponseStarted":
-                terminal = event
-        validator.require_terminal()
-        assert terminal is not None
+        with provider_sdk_diagnostic_span(request.provider) as provider_diagnostic:
+            for event in runtime.run(request, cancellation):
+                validator.accept(event)
+                events.append(event)
+                renderer.on_event(event)
+                if (
+                    event.type.startswith("Response")
+                    and event.type != "ResponseStarted"
+                ):
+                    terminal = event
+            validator.require_terminal()
+            assert terminal is not None
+            if terminal.type == "ResponseCompleted":
+                provider_diagnostic.set_status("ok")
+            elif terminal.type == "ResponseCancelled":
+                provider_diagnostic.set_status("unset")
+            else:
+                provider_diagnostic.set_status("error")
+
         rendered = renderer.result()
         status_by_event = {
             "ResponseCompleted": "completed",
