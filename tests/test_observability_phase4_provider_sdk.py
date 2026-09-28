@@ -6,6 +6,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from uagent.runtime.observability.noop import NOOP_SPAN
 from uagent.runtime.observability.semantic_mapping import map_span
 from uagent.runtime.observability.settings import ObservabilitySettings
 from uagent.runtime.round_contracts import (
@@ -72,6 +73,29 @@ class _Backend:
 
     def current_trace_ids(self):
         return None
+
+
+class _ChatFailureBackend(_Backend):
+    @contextmanager
+    def start_span(self, operation, *, attributes=None, root=False):
+        if operation == "chat":
+            self.records.append(
+                {
+                    "operation": operation,
+                    "attributes": dict(attributes or {}),
+                    "parent": self._stack[-1]["operation"] if self._stack else None,
+                    "root": root,
+                    "span": NOOP_SPAN,
+                }
+            )
+            yield NOOP_SPAN
+            return
+        with super().start_span(
+            operation,
+            attributes=attributes,
+            root=root,
+        ) as span:
+            yield span
 
 
 class _Cancellation:
@@ -195,6 +219,29 @@ def test_phase4c_registry_failure_sets_error_without_exception_payload(
     assert record["span"].exceptions == []
 
 
+def test_phase4c_failed_canonical_chat_cannot_export_root_provider_child(
+    monkeypatch,
+) -> None:
+    backend = _ChatFailureBackend()
+    _install_runtime(monkeypatch, backend, _settings("openai"))
+    monkeypatch.setattr(
+        "uagent.runtime.round_orchestrator.get_observability_backend",
+        lambda: backend,
+    )
+
+    registry = ProviderRuntimeRegistry()
+    registry.register("openai", _Runtime())
+    result = RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hello"},)),
+        provider="openai",
+        session={},
+        cancellation=_Cancellation(),
+    )
+
+    assert result.result.status == "completed"
+    assert [record["operation"] for record in backend.records] == ["chat"]
+
+
 def test_phase4c_selected_provider_without_canonical_scope_emits_no_child(
     monkeypatch,
 ) -> None:
@@ -219,8 +266,8 @@ def test_phase4c_unselected_provider_emits_no_child(monkeypatch) -> None:
     backend = _Backend()
     _install_runtime(monkeypatch, backend, _settings("claude"))
 
-    with backend.start_span("chat"):
-        with canonical_chat_diagnostic_scope():
+    with backend.start_span("chat") as chat_span:
+        with canonical_chat_diagnostic_scope(chat_span, backend):
             with provider_sdk_diagnostic_span("openai"):
                 pass
 
@@ -237,8 +284,8 @@ def test_phase4c_provider_exception_is_not_copied_to_child(monkeypatch) -> None:
     _install_runtime(monkeypatch, backend, _settings("openai"))
 
     with pytest.raises(RuntimeError, match="secret provider failure"):
-        with backend.start_span("chat"):
-            with canonical_chat_diagnostic_scope():
+        with backend.start_span("chat") as chat_span:
+            with canonical_chat_diagnostic_scope(chat_span, backend):
                 with provider_sdk_diagnostic_span("openai"):
                     raise RuntimeError("secret provider failure")
 
@@ -263,8 +310,8 @@ def test_phase4c_copied_contexts_share_one_terminal_child_claim(monkeypatch) -> 
         with provider_sdk_diagnostic_span("openai"):
             pass
 
-    with backend.start_span("chat"):
-        with canonical_chat_diagnostic_scope():
+    with backend.start_span("chat") as chat_span:
+        with canonical_chat_diagnostic_scope(chat_span, backend):
             first = copy_context()
             second = copy_context()
             first.run(attach)
@@ -275,6 +322,60 @@ def test_phase4c_copied_contexts_share_one_terminal_child_claim(monkeypatch) -> 
     ]
     assert len(provider_records) == 1
     assert provider_records[0]["parent"] == "chat"
+
+
+def test_phase4c_copied_context_cannot_create_child_after_scope_exit(
+    monkeypatch,
+) -> None:
+    from uagent.runtime.observability.runtime import (
+        canonical_chat_diagnostic_scope,
+        provider_sdk_diagnostic_span,
+    )
+
+    backend = _Backend()
+    _install_runtime(monkeypatch, backend, _settings("openai"))
+
+    def attach() -> None:
+        with provider_sdk_diagnostic_span("openai"):
+            pass
+
+    with backend.start_span("chat") as chat_span:
+        with canonical_chat_diagnostic_scope(chat_span, backend):
+            late_context = copy_context()
+
+    late_context.run(attach)
+
+    assert [record["operation"] for record in backend.records] == ["chat"]
+
+
+def test_phase4c_child_uses_backend_owned_by_canonical_chat_scope(monkeypatch) -> None:
+    from uagent.runtime.observability.runtime import (
+        canonical_chat_diagnostic_scope,
+        provider_sdk_diagnostic_span,
+    )
+
+    parent_backend = _Backend()
+    other_backend = _Backend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.settings.get_observability_settings",
+        lambda: _settings("openai"),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.runtime.get_observability_backend",
+        lambda: other_backend,
+    )
+
+    with parent_backend.start_span("chat") as chat_span:
+        with canonical_chat_diagnostic_scope(chat_span, parent_backend):
+            with provider_sdk_diagnostic_span("openai"):
+                pass
+
+    assert [record["operation"] for record in parent_backend.records] == [
+        "chat",
+        "provider_sdk",
+    ]
+    assert parent_backend.records[1]["parent"] == "chat"
+    assert other_backend.records == []
 
 
 def test_phase4c_legacy_claude_false_result_marks_child_error(monkeypatch) -> None:
