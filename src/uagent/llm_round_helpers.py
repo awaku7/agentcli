@@ -259,7 +259,12 @@ def _resolve_round_runtime_flags(
 
             use_responses_api = responses_endpoint_available(core)
         else:
-            use_responses_api = True
+            try:
+                from .llmcapa_util import provider_allows_responses_api
+
+                use_responses_api = provider_allows_responses_api(provider, depname)
+            except Exception:
+                use_responses_api = True
     elif responses_env in ("0", "false", "no", "off"):
         use_responses_api = False
     else:

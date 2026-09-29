@@ -226,7 +226,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             ),
         )
 
-    elif provider in {"ollama", "lmstudio"}:
+    elif provider in {"ollama", "lmstudio", "foundry-local"}:
         # Local OpenAI-compatible endpoints do not require an API key. The
         # provider client supplies a dummy value when one is not configured.
         pass

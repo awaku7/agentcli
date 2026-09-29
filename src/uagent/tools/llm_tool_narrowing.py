@@ -82,6 +82,7 @@ _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "moonshot": ("UAGENT_MOONSHOT_DEPNAME", "kimi-k2"),
     "mimo": ("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro"),
     "lmstudio": ("UAGENT_LMSTUDIO_DEPNAME", "local-model"),
+    "foundry-local": ("UAGENT_FOUNDRY_LOCAL_DEPNAME", ""),
     "minimax": ("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3"),
     "hf": ("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b"),
     "sakana": ("UAGENT_SAKANA_DEPNAME", "fugu"),
@@ -107,7 +108,12 @@ def _soft_use_responses_api(*, provider: str, depname: str) -> bool:
     """Mirror round-flag Responses resolution without requiring a live client."""
     raw = (env_get("UAGENT_RESPONSES") or "").strip().lower()
     if raw in ("1", "true", "yes", "on"):
-        return True
+        try:
+            from ..llmcapa_util import provider_allows_responses_api
+
+            return provider_allows_responses_api(provider, depname)
+        except Exception:
+            return True
     if raw in ("0", "false", "no", "off"):
         return False
     from ..runtime.capability_resolver import responses_api_auto_enabled

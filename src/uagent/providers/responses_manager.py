@@ -101,6 +101,7 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         streaming=True,
         previous_response_id=True,
     ),
+    "foundry-local": ResponsesCapabilities(create=True, streaming=True),
     "sakana": ResponsesCapabilities(create=True, streaming=True),
 }
 

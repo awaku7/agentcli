@@ -399,6 +399,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro") or "mimo-v2.5-pro"
     if provider == "lmstudio":
         return env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"
+    if provider == "foundry-local":
+        return env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "") or ""
     if provider == "minimax":
         return env_get("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3") or "MiniMax-M3"
     if provider == "hf":
@@ -901,6 +903,13 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         from .llm_lmstudio import make_lmstudio_client
 
         return provider, make_lmstudio_client(core), model_name
+
+    if provider == "foundry-local":
+        from .llm_foundry_local import make_foundry_local_client
+
+        if not model_name:
+            raise ValueError("UAGENT_FOUNDRY_LOCAL_DEPNAME is required")
+        return provider, make_foundry_local_client(core), model_name
 
     if provider == "minimax":
         from openai import OpenAI  # lazy

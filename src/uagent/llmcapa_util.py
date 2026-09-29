@@ -46,6 +46,7 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "moonshot": ("moonshot", "moonshotai"),
     "mimo": ("xiaomi", "mimo"),
     "lmstudio": ("lmstudio", "ollama"),
+    "foundry-local": ("foundry-local", "foundry_local", "foundrylocal"),
     "minimax": ("minimax",),
     "hf": ("huggingface", "hf"),
     "sakana": ("sakana",),
@@ -106,7 +107,12 @@ def current_model(provider: str | None = None) -> str:
     """Best-effort current deployment/model name from env."""
     prov = normalize_provider(provider) or current_provider()
     if prov:
-        specific = (env_get(f"UAGENT_{prov.upper()}_DEPNAME") or "").strip()
+        env_key = (
+            "UAGENT_FOUNDRY_LOCAL_DEPNAME"
+            if prov == "foundry-local"
+            else f"UAGENT_{prov.upper()}_DEPNAME"
+        )
+        specific = (env_get(env_key) or "").strip()
         if specific:
             return specific
     return (env_get("UAGENT_DEPNAME") or "").strip()

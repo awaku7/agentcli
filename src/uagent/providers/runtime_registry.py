@@ -32,6 +32,7 @@ _SUPPORTED = frozenset(
         "bedrock",
         "ollama",
         "lmstudio",
+        "foundry-local",
         "meta",
         "pfn",
         "grok",

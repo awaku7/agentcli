@@ -30,6 +30,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "moonshot",
         "mimo",
         "lmstudio",
+        "foundry-local",
         "minimax",
         "hf",
         "sakana",
@@ -53,6 +54,7 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "ollama",
         "alibaba",
         "lmstudio",
+        "foundry-local",
         "sakana",
         "deepseek",
     }
@@ -128,7 +130,7 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 
 # Providers that support Fill-in-the-Middle (FIM) code completion.
 LOCAL_ENDPOINT_PROVIDERS: frozenset[str] = frozenset(
-    {"ollama", "llama_cpp", "lmstudio"}
+    {"ollama", "llama_cpp", "lmstudio", "foundry-local"}
 )
 
 CLOUD_CREDENTIAL_PROVIDERS: frozenset[str] = frozenset({"bedrock", "vertexai"})
