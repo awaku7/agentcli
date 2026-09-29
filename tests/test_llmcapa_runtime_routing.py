@@ -10,7 +10,9 @@ def _core() -> SimpleNamespace:
     return SimpleNamespace(set_status=lambda *args: None)
 
 
-def test_explicit_responses_request_respects_model_false_capability(monkeypatch) -> None:
+def test_explicit_responses_request_respects_model_false_capability(
+    monkeypatch,
+) -> None:
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
     monkeypatch.setenv("UAGENT_STREAMING", "0")
     resolver = CapabilityResolver(
@@ -26,7 +28,9 @@ def test_explicit_responses_request_respects_model_false_capability(monkeypatch)
     ) == (False, False)
 
 
-def test_explicit_responses_request_allows_positive_model_capability(monkeypatch) -> None:
+def test_explicit_responses_request_allows_positive_model_capability(
+    monkeypatch,
+) -> None:
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
     monkeypatch.setenv("UAGENT_STREAMING", "0")
     resolver = CapabilityResolver(
@@ -64,7 +68,9 @@ def test_streaming_false_model_capability_disables_streaming_for_any_provider(
     ) == (False, False)
 
 
-def test_tool_discovery_respects_explicit_responses_false_capability(monkeypatch) -> None:
+def test_tool_discovery_respects_explicit_responses_false_capability(
+    monkeypatch,
+) -> None:
     from uagent.runtime.tool_discovery import (
         ToolDiscoveryMode,
         resolve_tool_discovery_from_environment,
