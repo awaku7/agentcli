@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import pytest
 
 from uagent.llm_round_helpers import _resolve_round_runtime_flags
-from uagent.runtime.capability_resolver import CapabilityResolver
+from uagent.runtime.capability_resolver import CapabilityResolver, CapabilityState
 
 
 def _core() -> SimpleNamespace:
@@ -86,3 +86,30 @@ def test_tool_discovery_respects_explicit_responses_false_capability(monkeypatch
 
     assert decision.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
     assert decision.reason == "responses_api_disabled"
+
+
+def test_core_model_capabilities_are_narrowed_by_llmcapa() -> None:
+    model_values = {
+        "streaming": False,
+        "function_calling": False,
+        "vision": False,
+    }
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: model_values.get(feature)
+    )
+
+    snapshot = resolver.resolve("openai", "example-model")
+
+    assert snapshot.streaming.state is CapabilityState.FALSE
+    assert snapshot.tools.state is CapabilityState.FALSE
+    assert snapshot.vision.state is CapabilityState.FALSE
+
+
+def test_provider_implementation_remains_outer_capability_gate() -> None:
+    resolver = CapabilityResolver(feature_lookup=lambda *_: True)
+
+    snapshot = resolver.resolve("unknown-provider", "example-model")
+
+    assert snapshot.streaming.state is CapabilityState.FALSE
+    assert snapshot.tools.state is CapabilityState.FALSE
+    assert snapshot.vision.state is CapabilityState.FALSE
