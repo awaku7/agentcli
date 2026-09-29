@@ -52,8 +52,71 @@ def test_make_client_uses_openai_compatible_endpoint(monkeypatch) -> None:
 
     client, model = llm_foundry_local.make_foundry_local_client(object(), "phi-4-mini")
 
-    assert isinstance(client, FakeOpenAI)
+    assert isinstance(client._inner, FakeOpenAI)
     assert model == "phi-4-mini"
     assert created["base_url"] == "http://localhost:5272/v1"
     assert created["api_key"] == "dummy"
     assert created["http_client"] == "httpx-client"
+
+
+def test_client_boundary_drops_tools_without_positive_llmcapa_evidence(
+    monkeypatch,
+) -> None:
+    sent: dict[str, object] = {}
+
+    class FakeCompletions:
+        def create(self, **kwargs):
+            sent.update(kwargs)
+            return "ok"
+
+    inner = SimpleNamespace(
+        chat=SimpleNamespace(completions=FakeCompletions()),
+    )
+    client = llm_foundry_local._FoundryLocalClientProxy(inner)
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.supports_feature",
+        lambda feature, model, provider, default=None: None,
+    )
+
+    result = client.chat.completions.create(
+        model="phi-4-mini",
+        messages=[{"role": "user", "content": "hello"}],
+        tools=[{"type": "function"}],
+        tool_choice="auto",
+    )
+
+    assert result == "ok"
+    assert "tools" not in sent
+    assert "tool_choice" not in sent
+
+
+def test_client_boundary_preserves_tools_with_positive_llmcapa_evidence(
+    monkeypatch,
+) -> None:
+    sent: dict[str, object] = {}
+
+    class FakeCompletions:
+        def create(self, **kwargs):
+            sent.update(kwargs)
+            return "ok"
+
+    inner = SimpleNamespace(
+        chat=SimpleNamespace(completions=FakeCompletions()),
+    )
+    client = llm_foundry_local._FoundryLocalClientProxy(inner)
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.supports_feature",
+        lambda feature, model, provider, default=None: True,
+    )
+
+    tools = [{"type": "function"}]
+    result = client.chat.completions.create(
+        model="future-tool-model",
+        messages=[{"role": "user", "content": "hello"}],
+        tools=tools,
+        tool_choice="auto",
+    )
+
+    assert result == "ok"
+    assert sent["tools"] == tools
+    assert sent["tool_choice"] == "auto"
