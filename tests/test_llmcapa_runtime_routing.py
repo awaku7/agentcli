@@ -78,9 +78,7 @@ def test_tool_discovery_respects_explicit_responses_false_capability(monkeypatch
         feature_lookup=lambda feature, *_: False if feature == "responses_api" else None
     )
 
-    decision = resolve_tool_discovery_from_environment(
-        capability_resolver=resolver,
-    )
+    decision = resolve_tool_discovery_from_environment(capability_resolver=resolver)
 
     assert decision.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
     assert decision.reason == "responses_api_disabled"
