@@ -43,8 +43,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
     }
 )
 
-# Providers for which UAG has an OpenAI Responses transport.
-# llmcapa narrows whether a provider/model actually exposes /v1/responses.
+# Providers that support the OpenAI Responses API (/v1/responses).
 RESPONSES_PROVIDERS: frozenset[str] = frozenset(
     {
         "openai",
@@ -55,7 +54,6 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "ollama",
         "alibaba",
         "lmstudio",
-        "foundry_local",
         "sakana",
         "deepseek",
     }
@@ -129,7 +127,7 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 }
 
 
-# Providers that support Fill-in-the-Middle (FIM) code completion.
+# Providers backed by a locally configured endpoint rather than a cloud API key.
 LOCAL_ENDPOINT_PROVIDERS: frozenset[str] = frozenset(
     {"ollama", "llama_cpp", "lmstudio", "foundry_local"}
 )
