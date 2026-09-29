@@ -137,7 +137,10 @@ class OpenAICompatibleRuntime:
             model=self._model,
         )
         tool_specs = plan.tool_specs
-        if self._provider == "foundry_local" and not self.capabilities.tools.is_native_allowed():
+        if (
+            self._provider == "foundry_local"
+            and not self.capabilities.tools.is_native_allowed()
+        ):
             tool_specs = ()
         options = dict(self._options)
         if self._transport == "responses":
