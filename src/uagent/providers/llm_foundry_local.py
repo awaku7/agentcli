@@ -1,8 +1,7 @@
 """Microsoft Foundry Local OpenAI-compatible client for UAG.
 
-UAG does not start, download, load, or probe Foundry Local models here.
-The caller supplies the already-running loopback endpoint. Capability
-routing remains offline and is resolved through llmcapa.
+UAG connects to an already-running loopback endpoint. It does not start the
+service, download/load models, or use the Foundry Local SDK here.
 """
 
 from __future__ import annotations
@@ -13,65 +12,6 @@ from urllib.parse import urlsplit, urlunsplit
 
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
-
-
-class _FoundryLocalChatCompletionsProxy:
-    """Enforce Foundry Local function-calling capability at the send boundary."""
-
-    def __init__(self, inner: Any) -> None:
-        self._inner = inner
-
-    def create(self, *args: Any, **kwargs: Any) -> Any:
-        model_name = str(kwargs.get("model") or "").strip()
-        try:
-            from ..llmcapa_util import supports_feature
-
-            tools_allowed = (
-                supports_feature(
-                    "function_calling",
-                    model_name or None,
-                    "foundry_local",
-                    default=None,
-                )
-                is True
-            )
-        except Exception:
-            tools_allowed = False
-
-        if not tools_allowed and ("tools" in kwargs or "tool_choice" in kwargs):
-            kwargs = dict(kwargs)
-            kwargs.pop("tools", None)
-            kwargs.pop("tool_choice", None)
-        return self._inner.create(*args, **kwargs)
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._inner, name)
-
-
-class _FoundryLocalChatProxy:
-    def __init__(self, inner: Any) -> None:
-        self._inner = inner
-
-    @property
-    def completions(self) -> _FoundryLocalChatCompletionsProxy:
-        return _FoundryLocalChatCompletionsProxy(self._inner.completions)
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._inner, name)
-
-
-class _FoundryLocalClientProxy:
-    """Transparent OpenAI client proxy with Foundry-specific safety gates."""
-
-    def __init__(self, inner: Any) -> None:
-        self._inner = inner
-
-    @property
-    def chat(self) -> _FoundryLocalChatProxy:
-        return _FoundryLocalChatProxy(self._inner.chat)
-
-    def __getattr__(self, name: str) -> Any:
-        return getattr(self._inner, name)
 
 
 def normalize_foundry_local_base_url(value: str) -> str:
@@ -102,7 +42,7 @@ def normalize_foundry_local_base_url(value: str) -> str:
 
 
 def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
-    """Create an OpenAI-compatible client for an existing Foundry Local service."""
+    """Create a standard OpenAI client for an existing Foundry Local endpoint."""
     getter = getattr(core, "get_env", None)
 
     def get(name: str, default: str = "") -> str:
@@ -138,7 +78,7 @@ def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
     except TypeError:
         client = OpenAI(api_key=api_key, base_url=base_url)
 
-    return _FoundryLocalClientProxy(client), model_name
+    return client, model_name
 
 
 __all__ = ["make_foundry_local_client", "normalize_foundry_local_base_url"]
