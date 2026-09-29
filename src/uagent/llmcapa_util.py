@@ -610,8 +610,17 @@ def supports_responses_api(
     *,
     default: bool | None = None,
 ) -> bool | None:
-    """Model-level Responses API support, or ``default`` when unknown."""
-    return supports_feature("responses_api", model_id, provider, default=default)
+    """Model-level Responses API support, conservative for Foundry Local."""
+    prov = normalize_provider(provider)
+    value = supports_feature(
+        "responses_api",
+        model_id,
+        prov,
+        default=None if prov == "foundry_local" else default,
+    )
+    if prov == "foundry_local" and value is None:
+        return False
+    return value
 
 
 def supports_fim(
