@@ -87,3 +87,34 @@ def test_foundry_local_startup_banner_shows_normalized_base_url(monkeypatch) -> 
     banner = build_startup_banner(core=core, workdir=".", workdir_source="test")
     assert "base_url = http://localhost:5272/v1" in banner
     assert "base_url = http://localhost:5272/v1/" not in banner
+
+
+def test_foundry_local_feature_lookup_is_provider_scoped(monkeypatch) -> None:
+    import uagent.llmcapa_util as util
+
+    seen: dict[str, object] = {}
+
+    def fake_get_capability(model, provider, *, scoped_only=False):
+        seen["model"] = model
+        seen["provider"] = provider
+        seen["scoped_only"] = scoped_only
+        return None
+
+    monkeypatch.setattr(util, "get_capability", fake_get_capability)
+    assert (
+        util.supports_feature(
+            "function_calling", "shared-model-name", "foundry_local", default=None
+        )
+        is None
+    )
+    assert seen == {
+        "model": "shared-model-name",
+        "provider": "foundry_local",
+        "scoped_only": True,
+    }
+
+
+def test_foundry_local_strict_candidate_uses_catalog_provider_name() -> None:
+    import uagent.llmcapa_util as util
+
+    assert util._STRICT_PROVIDER_CANDIDATES["foundry_local"] == ("foundry-local",)
