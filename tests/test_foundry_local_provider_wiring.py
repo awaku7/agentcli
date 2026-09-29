@@ -122,6 +122,37 @@ def test_foundry_local_startup_banner_shows_normalized_base_url(monkeypatch) -> 
     assert "base_url = http://localhost:5272/v1/" not in banner
 
 
+def test_foundry_local_banner_uses_effective_default_model_for_responses_gate(
+    monkeypatch,
+) -> None:
+    import uagent.llmcapa_util as util
+    from uagent.runtime.runtime_banner import build_startup_banner
+
+    seen: dict[str, str] = {}
+
+    def fake_allows(provider, model_id=None):
+        seen["provider"] = provider
+        seen["model_id"] = model_id
+        return False
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "foundry_local")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_FOUNDRY_LOCAL_BASE_URL", "http://localhost:5272/v1")
+    monkeypatch.delenv("UAGENT_FOUNDRY_LOCAL_DEPNAME", raising=False)
+    monkeypatch.delenv("UAGENT_DEPNAME", raising=False)
+    monkeypatch.setattr(util, "provider_allows_responses_api", fake_allows)
+
+    banner = build_startup_banner(
+        core=SimpleNamespace(normalize_url=lambda value: value.rstrip("/")),
+        workdir=".",
+        workdir_source="test",
+    )
+
+    assert seen == {"provider": "foundry_local", "model_id": "phi-4-mini"}
+    assert "ChatCompletions" in banner
+    assert "Responses (UAGENT_RESPONSES is enabled)" not in banner
+
+
 def test_foundry_local_feature_lookup_is_provider_scoped(monkeypatch) -> None:
     import uagent.llmcapa_util as util
 

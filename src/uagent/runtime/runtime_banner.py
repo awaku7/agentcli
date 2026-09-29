@@ -568,6 +568,10 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
         )
 
         _banner_model = current_model(provider)
+        if provider == "foundry_local" and not _banner_model:
+            _banner_model = (
+                env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini") or "phi-4-mini"
+            )
         if provider == "lmstudio":
             from ..providers.llm_lmstudio import responses_endpoint_available
 
