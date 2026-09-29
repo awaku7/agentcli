@@ -1,0 +1,88 @@
+name: Temporary Foundry Local banner and docs fixes v2
+
+on:
+  push:
+    branches: [feature/foundry-local-openai-compat]
+    paths: [.github/workflows/temp-fix-foundry-docs-banner-v2.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Patch and validate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+
+          def rep(path, old, new):
+              p = Path(path); s = p.read_text(encoding='utf-8')
+              if old not in s: raise SystemExit(f'anchor not found: {path}: {old[:60]}')
+              p.write_text(s.replace(old, new, 1), encoding='utf-8')
+
+          rep('src/uagent/runtime/runtime_banner.py',
+              '    elif provider == "lmstudio":\n',
+              '    elif provider == "foundry_local":\n'
+              '        lines.append(\n'
+              '            _("[INFO] base_url = %(base_url)s")\n'
+              '            % {\n'
+              '                "base_url": _normalize_url(\n'
+              '                    core, env_get("UAGENT_FOUNDRY_LOCAL_BASE_URL", "(not set)")\n'
+              '                )\n'
+              '            }\n'
+              '        )\n'
+              '    elif provider == "lmstudio":\n')
+
+          p = Path('tests/test_foundry_local_provider_wiring.py')
+          s = p.read_text(encoding='utf-8')
+          s += '''\n\ndef test_foundry_local_startup_banner_shows_base_url(monkeypatch) -> None:\n    from uagent.runtime.runtime_banner import build_startup_banner\n\n    monkeypatch.setenv("UAGENT_PROVIDER", "foundry_local")\n    monkeypatch.setenv("UAGENT_FOUNDRY_LOCAL_BASE_URL", "http://localhost:5272/v1")\n    core = SimpleNamespace(normalize_url=lambda value: value.rstrip("/"))\n    banner = build_startup_banner(core=core, workdir=".", workdir_source="test")\n    assert "base_url = http://localhost:5272/v1" in banner\n'''
+          p.write_text(s, encoding='utf-8')
+
+          rep('README.md',
+              '- **Provider freedom** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek, and more.',
+              '- **Provider freedom** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, LM Studio, Microsoft Foundry Local, Grok, DeepSeek, and more.')
+
+          rep('docs/ENVIRONMENT.md', '#### DeepL translation\n', '''#### Microsoft Foundry Local\n\nWith `UAGENT_PROVIDER=foundry_local`, set `UAGENT_FOUNDRY_LOCAL_BASE_URL` to the already-running loopback OpenAI-compatible `/v1` endpoint (for example `http://localhost:5272/v1`). `UAGENT_FOUNDRY_LOCAL_DEPNAME` is optional (default `phi-4-mini`) and `UAGENT_FOUNDRY_LOCAL_API_KEY` is optional. UAG does not start Foundry Local, load/download models, probe localhost, or refresh the catalog at runtime. Model/API capabilities are resolved from `llmcapa`; Responses is selected only when `llmcapa` reports `supports_responses_api=true`.\n\n#### DeepL translation\n''')
+          rep('docs/ENVIRONMENT.ja.md', '#### MiniMax\n', '''#### Microsoft Foundry Local\n\n`UAGENT_PROVIDER=foundry_local` では、起動済みのループバック OpenAI 互換 `/v1` エンドポイント（例: `http://localhost:5272/v1`）を `UAGENT_FOUNDRY_LOCAL_BASE_URL` に指定します。`UAGENT_FOUNDRY_LOCAL_DEPNAME` は省略可（既定 `phi-4-mini`）、`UAGENT_FOUNDRY_LOCAL_API_KEY` も省略可です。UAG は Foundry Local の起動、モデルのダウンロード/ロード、localhost 探索、runtime でのカタログ更新を行いません。モデル/API能力は `llmcapa` で判定し、Responses は `supports_responses_api=true` の場合だけ選択します。\n\n#### MiniMax\n''')
+
+          rep('src/uagent/docs/RUNTIME_INIT.md',
+              '`openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama` / `deepseek` / `zai` / `alibaba` / `moonshot`: `base_url`',
+              '`openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama` / `deepseek` / `zai` / `alibaba` / `moonshot` / `foundry_local`: `base_url`')
+          rep('src/uagent/docs/RUNTIME_INIT.md',
+              '- `core.normalize_url()` is used when available; otherwise URLs are trimmed conservatively.\n',
+              '- `core.normalize_url()` is used when available; otherwise URLs are trimmed conservatively.\n- `foundry_local` displays the configured loopback base URL. UAG does not discover/start the service; Responses selection is narrowed by the selected model’s `llmcapa` `responses_api` capability, including an explicit `UAGENT_RESPONSES=1`.\n')
+
+          rep('src/uagent/docs/RUNTIME_INIT.ja.md',
+              'openai / openrouter / grok / nvidia / bedrock / ollama / deepseek / zai / alibaba / moonshot: `base_url`',
+              'openai / openrouter / grok / nvidia / bedrock / ollama / deepseek / zai / alibaba / moonshot / foundry_local: `base_url`')
+          rep('src/uagent/docs/RUNTIME_INIT.ja.md',
+              '- `core.normalize_url()` が使える場合はそれを使い、使えない場合は保守的に URL を整形します。\n',
+              '- `core.normalize_url()` が使える場合はそれを使い、使えない場合は保守的に URL を整形します。\n- `foundry_local` は設定済みのループバック base URL を表示します。UAG はサービスを探索/起動せず、Responses は `UAGENT_RESPONSES=1` の明示指定時も選択モデルの `llmcapa` `responses_api` 能力で絞り込みます。\n')
+
+          rep('src/uagent/docs/DEVELOP.md',
+              'The startup banner (workdir/provider/base_url/api_version/Responses mode, etc.) is generated by:\n',
+              'For local OpenAI-compatible integrations such as `foundry_local`, UAG owns the transport while `llmcapa` is the model/API capability source of truth; avoid runtime discovery or SDK-owned service startup unless explicitly required.\n\nThe startup banner (workdir/provider/base_url/api_version/Responses mode, etc.) is generated by:\n')
+          rep('src/uagent/docs/DEVELOP.ja.md',
+              '起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。\n',
+              '`foundry_local` のようなローカル OpenAI 互換統合では transport は UAG、モデル/API能力の正本は `llmcapa` とし、明示的に必要でない限り runtime 探索や SDK によるサービス起動を追加しません。\n\n起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。\n')
+          PY
+
+          python -m pip install -e . black ruff pytest
+          python -m black src/uagent/runtime/runtime_banner.py tests/test_foundry_local_provider_wiring.py
+          python -m ruff check src/uagent/runtime/runtime_banner.py tests/test_foundry_local_provider_wiring.py
+          pytest -q tests/test_foundry_local_provider.py tests/test_foundry_local_provider_wiring.py tests/test_provider_runtime_registry.py
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm .github/workflows/temp-fix-foundry-docs-banner-v2.yml
+          git add -A
+          git commit -m "docs: finish Foundry Local provider integration"
+          git push origin HEAD:feature/foundry-local-openai-compat
