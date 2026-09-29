@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-import pytest
-
 from uagent.llm_round_helpers import _resolve_round_runtime_flags
 from uagent.runtime.capability_resolver import CapabilityResolver, CapabilityState
 
