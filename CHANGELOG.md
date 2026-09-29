@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Raise the minimum `llmcapa` version to `0.5.46` and allow later releases.
+
 ## [0.7.18] - 2026-09-28
 
 ### Added
