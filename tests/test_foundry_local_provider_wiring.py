@@ -16,7 +16,7 @@ def test_foundry_local_is_registered_as_local_chat_provider() -> None:
     assert spec.auth_requirement == "local_endpoint"
     assert spec.supports_streaming is True
     assert "chat" in spec.capabilities
-    assert "responses" not in spec.capabilities
+    assert "responses" in spec.capabilities
     assert supports_provider_runtime("foundry_local") is True
 
 
