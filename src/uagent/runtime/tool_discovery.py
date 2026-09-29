@@ -178,8 +178,8 @@ def resolve_tool_discovery(
 ) -> ToolDiscoveryDecision:
     """Resolve native search, legacy catalog, or selected schemas once.
 
-    Native search is fail-closed and requires positive llmcapa ``tool_search``
-    evidence for an OpenAI/Azure Responses API model.
+    Native search is fail-closed and requires a Responses route plus positive
+    llmcapa ``tool_search`` evidence for the selected provider/model.
     """
 
     mode = (configured_mode or "native").strip().lower()
@@ -190,10 +190,6 @@ def resolve_tool_discovery(
             ToolDiscoveryMode.SELECTED_SCHEMAS, "responses_api_disabled"
         )
     provider_name = (provider or "").strip().lower()
-    if provider_name not in {"openai", "azure"}:
-        return ToolDiscoveryDecision(
-            ToolDiscoveryMode.SELECTED_SCHEMAS, "provider_not_supported"
-        )
     try:
         if capability_resolver is None:
             from .capability_resolver import CapabilityResolver
