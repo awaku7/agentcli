@@ -2,9 +2,16 @@
 
 ## [Unreleased]
 
+## [0.7.19] - 2026-09-29
+
+### Added
+
+- Add Foundry Local progress-phase reporting, including status-only detection of inline `<think>` boundaries.
+- Add opt-in `UAGENT_DEBUG_OPENAI_RUNTIME=1` diagnostics for Foundry Local requests and responses without logging prompt, response, or tool-argument contents.
+
 ### Changed
 
-- Raise the minimum `llmcapa` version to `0.5.46` and allow later releases.
+- Raise the minimum `llmcapa` version to `0.5.47` and allow later releases.
 
 ## [0.7.18] - 2026-09-28
 
