@@ -128,15 +128,18 @@ def resolve_tool_discovery_from_environment(
     if use_responses_api is None:
         raw_responses = (env_get("UAGENT_RESPONSES") or "").strip().lower()
         if raw_responses in {"1", "true", "yes", "on"}:
-            try:
-                from ..llmcapa_util import supports_responses_api
+            if provider_name == "foundry_local":
+                try:
+                    from ..llmcapa_util import supports_responses_api
 
-                catalog_responses = supports_responses_api(
-                    model_name or None, provider_name, default=None
-                )
-            except Exception:
-                catalog_responses = None
-            use_responses_api = catalog_responses is not False
+                    catalog_responses = supports_responses_api(
+                        model_name or None, provider_name, default=None
+                    )
+                except Exception:
+                    catalog_responses = None
+                use_responses_api = catalog_responses is True
+            else:
+                use_responses_api = True
         elif raw_responses in {"0", "false", "no", "off"}:
             use_responses_api = False
         else:
