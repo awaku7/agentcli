@@ -153,9 +153,9 @@ def _foundry_local_request_diagnostics(request: Any) -> None:
                 "model": payload.get("model"),
                 "transport": transport,
                 "streaming": bool(payload.get("stream")),
-                "message_count": len(messages)
-                if isinstance(messages, (list, tuple))
-                else 0,
+                "message_count": (
+                    len(messages) if isinstance(messages, (list, tuple)) else 0
+                ),
                 "tool_count": len(tools) if isinstance(tools, (list, tuple)) else 0,
                 "tool_names": _tool_names(tools),
                 "last_user_chars": len(last_user_text),
