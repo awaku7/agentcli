@@ -254,17 +254,7 @@ def _resolve_round_runtime_flags(
         responses_env = "1"
 
     if responses_env in ("1", "true"):
-        if provider == "foundry_local":
-            try:
-                from .llmcapa_util import supports_responses_api
-
-                catalog_responses = supports_responses_api(
-                    depname or None, provider, default=None
-                )
-            except Exception:
-                catalog_responses = None
-            use_responses_api = catalog_responses is True
-        elif provider == "lmstudio":
+        if provider == "lmstudio":
             from .providers.llm_lmstudio import responses_endpoint_available
 
             use_responses_api = responses_endpoint_available(core)
@@ -456,18 +446,6 @@ def _call_openai_azure_round(
     # Only fall back to env var if the caller didn't set it.
     if send_tools_this_round is None:
         send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
-    if provider == "foundry_local" and send_tools_this_round:
-        try:
-            from .llmcapa_util import supports_feature
-
-            send_tools_this_round = (
-                supports_feature(
-                    "function_calling", depname or None, provider, default=None
-                )
-                is True
-            )
-        except Exception:
-            send_tools_this_round = False
 
     # Track whether thinking/reasoning has been disabled due to model rejection
     _thinking_disabled = False

@@ -64,7 +64,6 @@ _STRICT_PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "openai": ("openai",),
     "azure": ("azure-openai", "azure-foundry"),
     "openrouter": ("openrouter",),
-    "foundry_local": ("foundry-local",),
 }
 
 
@@ -192,8 +191,7 @@ def get_capability(
     """Resolve a llmcapa Capability or return None.
 
     When ``use_env_defaults`` is True, missing model/provider are filled from
-    UAGENT_PROVIDER / UAGENT_*_DEPNAME. Foundry Local lookups are always
-    provider-scoped so an identically named cloud model cannot leak metadata.
+    UAGENT_PROVIDER / UAGENT_*_DEPNAME.
     """
     prov = normalize_provider(provider)
     mid = (model_id or "").strip()
@@ -204,8 +202,6 @@ def get_capability(
             mid = current_model(prov)
     if not mid:
         return None
-    if prov == "foundry_local":
-        scoped_only = True
     return _get_capability_cached(mid, prov, scoped_only)
 
 
@@ -222,12 +218,7 @@ def supports_feature(
     default: bool | None = None,
 ) -> bool | None:
     """Return whether the model supports ``feature``, or ``default`` if unknown."""
-    prov = normalize_provider(provider)
-    cap = get_capability(
-        model_id,
-        prov,
-        scoped_only=prov == "foundry_local",
-    )
+    cap = get_capability(model_id, provider)
     if cap is None:
         return default
     try:
@@ -307,7 +298,6 @@ def structured_output_provenance(
     try:
         cap = get_capability(model_id, provider, scoped_only=True)
     except TypeError:
-        # Compatibility with test doubles and older integrations.
         cap = get_capability(model_id, provider)
     if cap is None:
         return None
@@ -614,17 +604,8 @@ def supports_responses_api(
     *,
     default: bool | None = None,
 ) -> bool | None:
-    """Model-level Responses API support, conservative for Foundry Local."""
-    prov = normalize_provider(provider)
-    value = supports_feature(
-        "responses_api",
-        model_id,
-        prov,
-        default=None if prov == "foundry_local" else default,
-    )
-    if prov == "foundry_local" and value is None:
-        return False
-    return value
+    """Model-level Responses API support, or ``default`` when unknown."""
+    return supports_feature("responses_api", model_id, provider, default=default)
 
 
 def supports_fim(

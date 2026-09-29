@@ -126,17 +126,7 @@ class CapabilityResolver:
             model=normalized_model,
             transport=(transport or "chat_completions").strip().lower(),
             streaming=self._static(spec.supports_streaming, "provider_registry"),
-            tools=(
-                self._model_feature(
-                    "function_calling",
-                    spec.name,
-                    normalized_model,
-                    implemented=spec.supports_tools,
-                    source="llmcapa",
-                )
-                if spec.name == "foundry_local"
-                else self._static(spec.supports_tools, "provider_registry")
-            ),
+            tools=self._static(spec.supports_tools, "provider_registry"),
             vision=self._static(spec.supports_vision, "provider_registry"),
             responses_create=self._model_feature(
                 "responses_api",
