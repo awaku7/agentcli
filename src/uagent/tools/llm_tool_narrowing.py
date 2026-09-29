@@ -18,7 +18,7 @@ def _get_gpt54_tool_search_mode() -> str:
     """Return the native tool-search mode.
 
     Reads UAGENT_GPT54_TOOL_SEARCH env:
-      - "native" (default): Use OpenAI native tool_search (send all tools, let server narrow)
+      - "native" (default): Use provider-native tool_search when capabilities allow it
       - "legacy": Use old tool_catalog-based narrowing (send only relevant tools)
       - "off": Disable native tool-search handling
     """
@@ -50,7 +50,7 @@ def _is_gpt54_tool_search_target(
     use_responses_api: bool,
     capability_resolver: CapabilityResolverPort | None = None,
 ) -> bool:
-    """Compatibility predicate for callers that need GPT-5.4 discovery."""
+    """Compatibility predicate for callers that need native tool discovery."""
 
     return resolve_tool_discovery(
         provider=provider,
@@ -63,52 +63,27 @@ def _is_gpt54_tool_search_target(
     }
 
 
-_PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
-    "openai": ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano"),
-    "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
-    "bedrock": ("UAGENT_BEDROCK_DEPNAME", "gpt-5.4-nano"),
-    "openrouter": ("UAGENT_OPENROUTER_DEPNAME", "gpt-5.4-nano"),
-    "inception": ("UAGENT_INCEPTION_DEPNAME", "mercury-2.5"),
-    "grok": ("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning"),
-    "gemini": ("UAGENT_GEMINI_DEPNAME", "gemini-3.8-flash"),
-    "vertexai": ("UAGENT_VERTEXAI_DEPNAME", "gemini-3.8-flash"),
-    "claude": ("UAGENT_CLAUDE_DEPNAME", "claude-sonnet-4.5"),
-    "ollama": ("UAGENT_OLLAMA_DEPNAME", "llama3.1"),
-    "llama_cpp": ("UAGENT_LLAMA_CPP_DEPNAME", "local-model"),
-    "nvidia": ("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b"),
-    "deepseek": ("UAGENT_DEEPSEEK_DEPNAME", "deepseek-flash"),
-    "zai": ("UAGENT_ZAI_DEPNAME", "glm-5.2"),
-    "alibaba": ("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus"),
-    "moonshot": ("UAGENT_MOONSHOT_DEPNAME", "kimi-k2"),
-    "mimo": ("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro"),
-    "lmstudio": ("UAGENT_LMSTUDIO_DEPNAME", "local-model"),
-    "foundry_local": ("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini"),
-    "minimax": ("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3"),
-    "hf": ("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b"),
-    "sakana": ("UAGENT_SAKANA_DEPNAME", "fugu"),
-    "novita": ("UAGENT_NOVITA_DEPNAME", "tensent/hy3"),
-    "sakura": ("UAGENT_SAKURA_DEPNAME", "llm"),
-    "pfn": ("UAGENT_PFN_DEPNAME", "plamo-3.0-prime"),
-}
-
-
 def _soft_provider_depname_from_env() -> tuple[str, str]:
-    """Resolve provider/depname from env without exiting when unset."""
+    """Resolve provider/model through the shared environment helper."""
     provider = (env_get("UAGENT_PROVIDER") or "").strip().lower()
     if not provider:
         return "", ""
-    key, default = _PROVIDER_DEPNAME_ENV.get(
-        provider, ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano")
-    )
-    depname = (env_get(key, default) or default or "").strip()
-    return provider, depname
+    try:
+        from ..llmcapa_util import current_model
+
+        depname = current_model(provider)
+    except Exception:
+        depname = ""
+    return provider, (depname or "").strip()
 
 
 def _soft_use_responses_api(*, provider: str, depname: str) -> bool:
     """Mirror round-flag Responses resolution without requiring a live client."""
     raw = (env_get("UAGENT_RESPONSES") or "").strip().lower()
     if raw in ("1", "true", "yes", "on"):
-        return True
+        from ..runtime.capability_resolver import responses_api_explicit_enabled
+
+        return responses_api_explicit_enabled(provider, depname)
     if raw in ("0", "false", "no", "off"):
         return False
     from ..runtime.capability_resolver import responses_api_auto_enabled
@@ -122,11 +97,11 @@ def should_emit_catalog_steering(
     depname: str | None = None,
     use_responses_api: bool | None = None,
 ) -> bool:
-    """Return False when native GPT-5.4 tool_search is active.
+    """Return False when native tool_search is active.
 
     Under native tool_search the server narrows tools; catalog-before-answer
     steering in system / tools-system prompts must not be emitted.
-    Keep steering for nano / legacy / off / non-target providers.
+    Keep steering for legacy / off / unsupported routes.
 
     Also returns False in embedded mode: tool management tools (tool_catalog,
     tool_load, unload_tool) do not exist there, so steering the model to call
@@ -167,7 +142,7 @@ def should_emit_catalog_steering(
 def _select_tool_specs_legacy(
     call_messages: list[dict[str, Any]],
 ) -> Optional[list[dict[str, Any]]]:
-    """Narrow tool surface for GPT-5.4 (Responses API) using tool_catalog.
+    """Narrow tool surface for Responses API using tool_catalog.
 
     Legacy mode: only relevant tools (+ tool_catalog/tool_load/unload_tool/human_ask)
     are sent.  If tool_catalog has zero hits, or user text is empty, fail open
@@ -263,13 +238,13 @@ def _select_tool_specs_legacy(
                     if isinstance(txt, str) and txt.strip():
                         parts.append(txt.strip())
             if parts:
-                text = "\\n".join(parts).strip()
+                text = "\n".join(parts).strip()
         if text and not _is_low_info_user_text(text):
             user_texts.append(text)
         if len(user_texts) >= 5:
             break
 
-    latest_user_text = "\\n".join(reversed(user_texts)).strip()
+    latest_user_text = "\n".join(reversed(user_texts)).strip()
     if not latest_user_text:
         if env_get("UAGENT_DEBUG_TOOLS") == "1":
             try:
