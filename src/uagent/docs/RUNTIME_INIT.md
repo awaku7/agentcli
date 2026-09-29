@@ -98,7 +98,7 @@ Representative output:
 - `[INFO] provider = ...`
 - provider-specific lines:
   - `azure`: `base_url` + `api_version`
-  - `openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama` / `deepseek` / `zai` / `alibaba` / `moonshot` / `foundry_local`: `base_url`
+  - `openai` / `openrouter` / `grok` / `nvidia` / `bedrock` / `ollama` / `deepseek` / `zai` / `alibaba` / `moonshot`: `base_url`
   - `vertexai`: `project` + `location`
 - If `UAGENT_RESPONSES=1` is set and the selected provider is not one of `azure`, `openai`, `bedrock`, `openrouter`, `ollama`, `alibaba`, or `lmstudio` (excluding `gemini`, `claude`, and `vertexai`), a warning is appended:
   - `[WARN] UAGENT_RESPONSES=1 is set, but provider '...' does not support Responses API. Falling back to ChatCompletions.`
@@ -112,7 +112,6 @@ Notes:
 
 - Secrets such as API keys are never printed.
 - `core.normalize_url()` is used when available; otherwise URLs are trimmed conservatively.
-- `foundry_local` displays the configured loopback base URL. UAG does not discover/start the service; Responses selection is narrowed by the selected model’s `llmcapa` `responses_api` capability, including an explicit `UAGENT_RESPONSES=1`.
 - `build_startup_banner()` does **not** print the Responses/ChatCompletions mode line itself. CLI/Web/GUI may print that separately after the banner.
 
 ______________________________________________________________________

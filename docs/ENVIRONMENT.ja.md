@@ -354,10 +354,6 @@ Azureツール（`azure_api`）:
 
 Azureのサービスプリンシパル情報が揃っていない場合は、`az login` によるAzure CLI認証を使用します。書き込みAPIは `confirm_write=true` を明示した場合のみ実行されます。
 
-#### Microsoft Foundry Local
-
-`UAGENT_PROVIDER=foundry_local` では、起動済みのループバック OpenAI 互換 `/v1` エンドポイント（例: `http://localhost:5272/v1`）を `UAGENT_FOUNDRY_LOCAL_BASE_URL` に指定します。`UAGENT_FOUNDRY_LOCAL_DEPNAME` は省略可（既定 `phi-4-mini`）、`UAGENT_FOUNDRY_LOCAL_API_KEY` も省略可です。UAG は Foundry Local の起動、モデルのダウンロード/ロード、localhost 探索、runtime でのカタログ更新を行いません。モデル/API能力は `llmcapa` で判定し、Responses は `supports_responses_api=true` の場合だけ選択します。
-
 #### MiniMax
 
 `UAGENT_PROVIDER=minimax` の場合に必要：

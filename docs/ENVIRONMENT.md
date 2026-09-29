@@ -287,10 +287,6 @@ The LM Studio SDK transport does not use `UAGENT_RESPONSES` or `previous_respons
 
 > \* **Note on AWS Bedrock**: The current `uag` implementation expects an OpenAI-compatible endpoint for Bedrock.
 
-#### Microsoft Foundry Local
-
-With `UAGENT_PROVIDER=foundry_local`, set `UAGENT_FOUNDRY_LOCAL_BASE_URL` to the already-running loopback OpenAI-compatible `/v1` endpoint (for example `http://localhost:5272/v1`). `UAGENT_FOUNDRY_LOCAL_DEPNAME` is optional (default `phi-4-mini`) and `UAGENT_FOUNDRY_LOCAL_API_KEY` is optional. UAG does not start Foundry Local, load/download models, probe localhost, or refresh the catalog at runtime. Model/API capabilities are resolved from `llmcapa`; Responses is selected only when `llmcapa` reports `supports_responses_api=true`.
-
 #### DeepL translation
 
 Used by `translate_text` when `provider=deepl`, or automatically when `provider=auto` and a DeepL key is configured. The `deepl` Python package is installed on demand or can be installed through the `tools` optional dependency.
