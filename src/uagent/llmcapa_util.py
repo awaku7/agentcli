@@ -64,6 +64,7 @@ _STRICT_PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "openai": ("openai",),
     "azure": ("azure-openai", "azure-foundry"),
     "openrouter": ("openrouter",),
+    "foundry_local": ("foundry-local",),
 }
 
 
@@ -218,7 +219,12 @@ def supports_feature(
     default: bool | None = None,
 ) -> bool | None:
     """Return whether the model supports ``feature``, or ``default`` if unknown."""
-    cap = get_capability(model_id, provider)
+    prov = normalize_provider(provider)
+    cap = get_capability(
+        model_id,
+        prov,
+        scoped_only=prov == "foundry_local",
+    )
     if cap is None:
         return default
     try:
