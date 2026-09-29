@@ -71,9 +71,7 @@ def test_foundry_local_responses_unknown_fails_closed(monkeypatch) -> None:
     )
 
     assert (
-        util.supports_responses_api(
-            "phi-4-mini", "foundry_local", default=True
-        )
+        util.supports_responses_api("phi-4-mini", "foundry_local", default=True)
         is False
     )
 
