@@ -10,6 +10,71 @@ import pytest
 from uagent.providers import llm_foundry_local
 
 
+@pytest.mark.parametrize(
+    ("event_type", "expected"),
+    [
+        ("ResponseStarted", "LLM:Foundry:inference"),
+        ("ReasoningDelta", "LLM:Foundry:reasoning"),
+        ("TextDelta", "LLM:Foundry:streaming"),
+        ("ToolCallDelta", "LLM:Foundry:tool-call"),
+        ("ResponseCompleted", None),
+    ],
+)
+def test_foundry_local_progress_labels(event_type, expected) -> None:
+    assert llm_foundry_local.foundry_local_progress_label(event_type) == expected
+
+
+def test_foundry_local_progress_updates_core_status() -> None:
+    seen = []
+    core = SimpleNamespace(set_status=lambda busy, label: seen.append((busy, label)))
+
+    llm_foundry_local.update_foundry_local_progress(core, "ResponseStarted")
+    llm_foundry_local.update_foundry_local_progress(core, "TextDelta")
+    llm_foundry_local.update_foundry_local_progress(core, "ResponseCompleted")
+
+    assert seen == [
+        (True, "LLM:Foundry:inference"),
+        (True, "LLM:Foundry:streaming"),
+    ]
+
+
+def test_foundry_local_progress_observer_tracks_inline_think_across_chunks() -> None:
+    seen = []
+    core = SimpleNamespace(set_status=lambda busy, label: seen.append((busy, label)))
+    observer = llm_foundry_local.FoundryLocalProgressObserver(core)
+
+    observer(SimpleNamespace(type="ResponseStarted", data={}))
+    observer(SimpleNamespace(type="TextDelta", data={"text": "<th"}))
+    observer(SimpleNamespace(type="TextDelta", data={"text": "ink>private</thi"}))
+    observer(SimpleNamespace(type="TextDelta", data={"text": "nk>answer"}))
+
+    assert seen == [
+        (True, "LLM:Foundry:inference"),
+        (True, "LLM:Foundry:reasoning"),
+        (True, "LLM:Foundry:streaming"),
+    ]
+
+
+def test_foundry_local_debug_logs_only_allowlisted_metadata(
+    monkeypatch, capsys
+) -> None:
+    monkeypatch.setenv("UAGENT_DEBUG_OPENAI_RUNTIME", "1")
+
+    llm_foundry_local.debug_foundry_local_runtime(
+        "request",
+        model="phi-4-mini-instruct-openvino-gpu",
+        tool_count=1,
+        tool_names=["get_weather_wttr"],
+        messages=[{"content": "do not log this prompt"}],
+    )
+
+    output = capsys.readouterr().err
+    assert "provider='foundry_local'" in output
+    assert "tool_count=1" in output
+    assert "get_weather_wttr" in output
+    assert "do not log this prompt" not in output
+
+
 def test_normalize_foundry_local_base_url_is_loopback_only() -> None:
     assert (
         llm_foundry_local.normalize_foundry_local_base_url("http://localhost:5272")

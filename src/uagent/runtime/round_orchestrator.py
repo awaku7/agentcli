@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import time
 from dataclasses import dataclass
-from typing import Any, Mapping
+from typing import Any, Callable, Mapping
 
 from .context_tokens import estimate_tokens
 from .telemetry import reconcile_usage
@@ -61,6 +61,7 @@ class RoundOrchestrator:
         provider: str,
         session: Mapping[str, Any],
         cancellation: CancellationToken,
+        on_event: Callable[[StreamEvent], None] | None = None,
     ) -> OrchestratedRound:
         backend = get_observability_backend()
         started = time.perf_counter()
@@ -108,6 +109,7 @@ class RoundOrchestrator:
                     cancellation=cancellation,
                     observability_span=observability_span,
                     started=started,
+                    on_event=on_event,
                 )
 
     def _run_observed(
@@ -121,6 +123,7 @@ class RoundOrchestrator:
         cancellation: CancellationToken,
         observability_span: ObservabilitySpan,
         started: float,
+        on_event: Callable[[StreamEvent], None] | None,
     ) -> OrchestratedRound:
         validator = StreamEventValidator()
         events: list[StreamEvent] = []
@@ -129,6 +132,13 @@ class RoundOrchestrator:
         with provider_sdk_diagnostic_span(request.provider) as provider_diagnostic:
             for event in runtime.run(request, cancellation):
                 validator.accept(event)
+                if on_event is not None:
+                    try:
+                        on_event(event)
+                    except Exception:
+                        # A host-side progress observer must not break an LLM
+                        # round or change the provider's stream contract.
+                        pass
                 events.append(event)
                 renderer.on_event(event)
                 if (

@@ -283,6 +283,10 @@ ______________________________________________________________________
 1. LLM rounds run via `uagent_llm.run_llm_rounds()`:
    - If the assistant returns tool calls, tools are executed and results are appended.
    - Retry/backoff behavior for rate limits is implemented in `llm_errors.py`.
+   - Foundry Local progress labels are mapped in its provider module and delivered
+     through the optional `RoundOrchestrator` event observer. These labels report
+     observable inference/output/tool-call phases. Inline `<think>` boundaries,
+     when emitted by a model, change the status only; the observer does not expose its text.
 
 ______________________________________________________________________
 

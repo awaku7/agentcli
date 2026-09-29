@@ -1251,6 +1251,11 @@ def _try_registry_simple_chat_round(
             transport_selection=transport_selection,
             options=options,
         )
+        foundry_progress_observer: Any = None
+        if provider.strip().lower() == "foundry_local":
+            from .providers.llm_foundry_local import FoundryLocalProgressObserver
+
+            foundry_progress_observer = FoundryLocalProgressObserver(core)
         cancellation = getattr(core, "cancellation_token", None)
         if cancellation is None:
             cancellation = type(
@@ -1269,6 +1274,7 @@ def _try_registry_simple_chat_round(
                     "recovery_hint": getattr(core, "last_recovery_update", None),
                 },
                 cancellation=cancellation,
+                on_event=foundry_progress_observer,
             )
             .result
         )
@@ -1326,6 +1332,7 @@ def _try_registry_simple_chat_round(
                             ),
                         },
                         cancellation=cancellation,
+                        on_event=foundry_progress_observer,
                     )
                     .result
                 )
@@ -1386,6 +1393,7 @@ def _try_registry_simple_chat_round(
                                 "recovery_hint": recovery_hint,
                             },
                             cancellation=cancellation,
+                            on_event=foundry_progress_observer,
                         )
                         .result
                     )

@@ -423,6 +423,7 @@ Optional parameters passed directly to the LLM API.
 - `UAGENT_OPENAI_FAST_MODE`: Set to `1`/`true`/`yes`/`on` to request OpenAI Fast mode (`service_tier=fast`). OpenAI only; ignored by Azure and other providers.
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_REASONING_EFFORT`: Reasoning effort level for Grok / xAI models (`none`, `low`, `medium`, `high`).
+- `UAGENT_DEBUG_OPENAI_RUNTIME`: Set to `1` to log OpenAI-compatible runtime metadata. For Foundry Local this includes request tool names/count and response finish/tool-call counts, but never prompt, response, or tool-argument contents.
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 
 ### 5. Built-in Web Search

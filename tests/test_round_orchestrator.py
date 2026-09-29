@@ -87,6 +87,7 @@ def test_orchestrator_runs_three_stage_contract() -> None:
     registry = ProviderRuntimeRegistry()
     responses_runtime = _ResponsesRuntime()
     registry.register("fake", _Runtime())
+    observed_events = []
 
     round_ = RoundOrchestrator(registry).run(
         ContextPlan("plan", ({"role": "user", "content": "hi"},)),
@@ -96,6 +97,7 @@ def test_orchestrator_runs_three_stage_contract() -> None:
             "recovery_hint": {"strategy": "bounded_rollback"},
         },
         cancellation=_Cancellation(),
+        on_event=observed_events.append,
     )
 
     assert round_.result.status == "completed"
@@ -111,6 +113,29 @@ def test_orchestrator_runs_three_stage_contract() -> None:
         "TextDelta",
         "ResponseCompleted",
     ]
+    assert [event.type for event in observed_events] == [
+        "ResponseStarted",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+
+
+def test_orchestrator_progress_observer_errors_do_not_fail_round() -> None:
+    registry = ProviderRuntimeRegistry()
+    registry.register("fake", _Runtime())
+
+    def broken_observer(_event) -> None:
+        raise RuntimeError("display failed")
+
+    result = RoundOrchestrator(registry).run(
+        ContextPlan("plan", ({"role": "user", "content": "hi"},)),
+        provider="fake",
+        session={},
+        cancellation=_Cancellation(),
+        on_event=broken_observer,
+    )
+
+    assert result.result.status == "completed"
 
 
 def test_orchestrator_emits_projection_and_request_telemetry(monkeypatch) -> None:

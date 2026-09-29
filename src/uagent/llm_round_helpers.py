@@ -384,6 +384,13 @@ def _call_openai_azure_round(
     # Final boundary guard: the SDK serializes the complete request after
     # prompt() has returned. Remove any surrogate that escaped the UI layer.
     call_messages = _normalize_surrogates(call_messages)
+    if provider.strip().lower() == "foundry_local":
+        # The compatibility fallback does not expose live stream events to the
+        # Foundry observer, so at least distinguish an in-flight local request
+        # from the generic UAGENT_REASONING label.
+        from .providers.llm_foundry_local import update_foundry_local_progress
+
+        update_foundry_local_progress(core, "ResponseStarted")
     legacy_usage_before = (
         dict(getattr(core, "_last_responses_usage", {}) or {})
         if core is not None
@@ -1079,6 +1086,30 @@ def _call_openai_azure_round(
 
                     apply_lmstudio_transport(chat_kwargs, responses=False)
 
+                if provider == "foundry_local":
+                    from .providers.llm_foundry_local import debug_foundry_local_runtime
+
+                    _foundry_specs = chat_kwargs.get("tools") or ()
+                    _foundry_tool_names = []
+                    for _spec in _foundry_specs:
+                        if not isinstance(_spec, dict):
+                            continue
+                        _function = _spec.get("function") or {}
+                        _name = (
+                            _function.get("name") if isinstance(_function, dict) else ""
+                        )
+                        if isinstance(_name, str) and _name:
+                            _foundry_tool_names.append(_name)
+                    debug_foundry_local_runtime(
+                        "request",
+                        model=depname,
+                        transport="chat_completions",
+                        streaming=False,
+                        message_count=len(chat_kwargs.get("messages") or ()),
+                        tool_count=len(_foundry_specs),
+                        tool_names=_foundry_tool_names,
+                    )
+
                 if provider == "inception" and stream_responses:
                     # Inception exposes streaming on Chat Completions rather
                     # than the Responses API. Reuse the OpenAI-compatible
@@ -1549,6 +1580,16 @@ def _call_openai_azure_round(
                     reasoning_content,
                     provider=provider.capitalize(),
                     core=core,
+                )
+            if provider == "foundry_local":
+                from .providers.llm_foundry_local import debug_foundry_local_runtime
+
+                debug_foundry_local_runtime(
+                    "response",
+                    model=depname,
+                    finish_reason=getattr(choice, "finish_reason", None),
+                    tool_call_count=len(tool_calls_list),
+                    assistant_chars=len(assistant_text),
                 )
 
     except Exception as e:
