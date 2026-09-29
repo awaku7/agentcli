@@ -85,6 +85,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("moonshot", "Moonshot AI"),
     ("mimo", "Xiaomi MiMo"),
     ("lmstudio", "LM Studio"),
+    ("foundry_local", "Microsoft Foundry Local"),
     ("minimax", "MiniMax"),
     ("hf", "HuggingFace"),
     ("sakana", "Sakana AI (Fugu)"),
@@ -373,6 +374,25 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_LMSTUDIO_DEPNAME",
             False,
             _("LM Studio model name (optional, default: local-model)"),
+        ),
+    ],
+    "foundry_local": [
+        (
+            "UAGENT_FOUNDRY_LOCAL_BASE_URL",
+            True,
+            _(
+                "Foundry Local base URL (required, loopback OpenAI-compatible /v1 endpoint)"
+            ),
+        ),
+        (
+            "UAGENT_FOUNDRY_LOCAL_API_KEY",
+            False,
+            _("Foundry Local API key (optional, default: dummy)"),
+        ),
+        (
+            "UAGENT_FOUNDRY_LOCAL_DEPNAME",
+            False,
+            _("Foundry Local model name (optional, default: phi-4-mini)"),
         ),
     ],
     "minimax": [

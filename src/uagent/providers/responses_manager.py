@@ -63,6 +63,8 @@ class ResponsesCapabilities:
 #                      /compatible-mode/v1/responses
 #   - sakana         : the Responses API is supported, but previous_response_id
 #                      support is not confirmed by vendor documentation
+#   - foundry_local  : UAG has the generic OpenAI-compatible create/streaming
+#                      transport; model-level availability is decided by llmcapa
 _CAPABILITIES: dict[str, ResponsesCapabilities] = {
     "openai": ResponsesCapabilities(
         create=True,
@@ -101,6 +103,7 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         streaming=True,
         previous_response_id=True,
     ),
+    "foundry_local": ResponsesCapabilities(create=True, streaming=True),
     "sakana": ResponsesCapabilities(create=True, streaming=True),
 }
 

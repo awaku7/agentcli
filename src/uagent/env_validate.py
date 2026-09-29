@@ -226,6 +226,14 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
             ),
         )
 
+    elif provider == "foundry_local":
+        missing += _require(
+            ["UAGENT_FOUNDRY_LOCAL_BASE_URL"],
+            reason=_(
+                "Foundry Local OpenAI-compatible loopback base URL (for example http://localhost:<port>/v1).",
+                default="Foundry Local OpenAI-compatible loopback base URL (for example http://localhost:<port>/v1).",
+            ),
+        )
     elif provider in {"ollama", "lmstudio"}:
         # Local OpenAI-compatible endpoints do not require an API key. The
         # provider client supplies a dummy value when one is not configured.

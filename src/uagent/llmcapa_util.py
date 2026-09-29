@@ -46,6 +46,7 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     "moonshot": ("moonshot", "moonshotai"),
     "mimo": ("xiaomi", "mimo"),
     "lmstudio": ("lmstudio", "ollama"),
+    "foundry_local": ("foundry-local",),
     "minimax": ("minimax",),
     "hf": ("huggingface", "hf"),
     "sakana": ("sakana",),

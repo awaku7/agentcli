@@ -30,6 +30,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "moonshot",
         "mimo",
         "lmstudio",
+        "foundry_local",
         "minimax",
         "hf",
         "sakana",
@@ -42,7 +43,8 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
     }
 )
 
-# Providers that support the OpenAI Responses API (/v1/responses).
+# Providers for which UAG has an OpenAI-compatible Responses transport.
+# Model-level availability is resolved separately through llmcapa.
 RESPONSES_PROVIDERS: frozenset[str] = frozenset(
     {
         "openai",
@@ -53,6 +55,7 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "ollama",
         "alibaba",
         "lmstudio",
+        "foundry_local",
         "sakana",
         "deepseek",
     }
@@ -126,9 +129,9 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 }
 
 
-# Providers that support Fill-in-the-Middle (FIM) code completion.
+# Providers backed by a locally configured endpoint rather than a cloud API key.
 LOCAL_ENDPOINT_PROVIDERS: frozenset[str] = frozenset(
-    {"ollama", "llama_cpp", "lmstudio"}
+    {"ollama", "llama_cpp", "lmstudio", "foundry_local"}
 )
 
 CLOUD_CREDENTIAL_PROVIDERS: frozenset[str] = frozenset({"bedrock", "vertexai"})

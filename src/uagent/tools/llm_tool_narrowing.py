@@ -82,6 +82,7 @@ _PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
     "moonshot": ("UAGENT_MOONSHOT_DEPNAME", "kimi-k2"),
     "mimo": ("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro"),
     "lmstudio": ("UAGENT_LMSTUDIO_DEPNAME", "local-model"),
+    "foundry_local": ("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini"),
     "minimax": ("UAGENT_MINIMAX_DEPNAME", "MiniMax-M3"),
     "hf": ("UAGENT_HF_DEPNAME", "openai/gpt-oss-120b"),
     "sakana": ("UAGENT_SAKANA_DEPNAME", "fugu"),

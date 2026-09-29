@@ -32,7 +32,7 @@ uag is a local-first AI agent that connects the model you prefer to the tools yo
 It gives you a single, extensible runtime for files, browsers, codebases, communication, cloud APIs,
 IoT devices, MCP servers, and multi-agent workflows.
 
-- **Provider freedom** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, Grok, DeepSeek, and more.
+- **Provider freedom** — OpenAI, Anthropic, Gemini, Azure, Bedrock, Ollama, llama.cpp, LM Studio, Microsoft Foundry Local, Grok, DeepSeek, and more.
 - **Local-first execution** — your agent runtime and tool execution stay on your machine; only the API calls you choose leave it.
 - **One tool layer** — the same tools work from the CLI, desktop GUI, web UI, VS Code, and A2A.
 - **Parallel by design** — independent read-only operations can run concurrently.
