@@ -254,7 +254,17 @@ def _resolve_round_runtime_flags(
         responses_env = "1"
 
     if responses_env in ("1", "true"):
-        if provider == "lmstudio":
+        try:
+            from .llmcapa_util import supports_responses_api
+
+            catalog_responses = supports_responses_api(
+                depname or None, provider, default=None
+            )
+        except Exception:
+            catalog_responses = None
+        if catalog_responses is False:
+            use_responses_api = False
+        elif provider == "lmstudio":
             from .providers.llm_lmstudio import responses_endpoint_available
 
             use_responses_api = responses_endpoint_available(core)

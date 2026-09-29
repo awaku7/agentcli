@@ -101,6 +101,8 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         streaming=True,
         previous_response_id=True,
     ),
+    # Transport implementation only; llmcapa decides whether the selected model/provider exposes it.
+    "foundry_local": ResponsesCapabilities(create=True, streaming=True),
     "sakana": ResponsesCapabilities(create=True, streaming=True),
 }
 
