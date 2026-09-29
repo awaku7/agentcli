@@ -13,14 +13,8 @@ UAGENT_FOUNDRY_LOCAL_API_KEY=...          # 省略可
 
 base URL は loopback（`localhost`、`127.0.0.1`、`::1` など）である必要があります。UAG はこの統合で Foundry Local の起動、モデルのダウンロード/ロード、localhost 探索、Foundry Local SDK の利用を行いません。
 
-モデル能力の情報は llmcapa を次の組み合わせで直接検索します。
+llmcapa では UAG の provider 名 `foundry_local` を `foundry-local` に対応付け、それ以外は他の provider と共通の既存 llmcapa 検索処理をそのまま使います。
 
-```python
-llmcapa.get(model_name, provider="foundry-local")
-```
-
-モデル名は `/` を含めてそのまま使用します。この検索で見つからない場合、末尾だけの再検索、prefix 検索、provider 無指定検索、別 provider へのフォールバックは行いません。
-
-UAG は既存の OpenAI 互換 Chat Completions / Responses transport を利用します。どのモデル依存機能を使えるかは、上記の exact な llmcapa Capability で判断します。特に Responses は `UAGENT_RESPONSES=1` が指定されていても `responses_api=True` が必要で、function calling / tools も明示的な対応情報がある場合だけ使用します。false または unknown の場合は推測で有効化しません。
+UAG は既存の OpenAI 互換 transport と capability 処理を使います。Foundry 専用の Responses、tools、モデル検索、capability routing のルールは追加しません。
 
 Foundry SDK の直接利用が必要になった場合は、後で別機能として追加できます。

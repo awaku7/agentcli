@@ -13,14 +13,8 @@ UAGENT_FOUNDRY_LOCAL_API_KEY=...          # optional
 
 The base URL must be loopback (`localhost`, `127.0.0.1`, `::1`, etc.). UAG does not start Foundry Local, download or load models, probe localhost, or use the Foundry Local SDK in this integration.
 
-Model capability metadata comes from llmcapa using the exact pair:
+For llmcapa, UAG maps provider name `foundry_local` to `foundry-local` and otherwise uses the existing llmcapa lookup behavior shared with other providers.
 
-```python
-llmcapa.get(model_name, provider="foundry-local")
-```
-
-The original model name is preserved exactly, including `/`. If that lookup misses, UAG does not retry a bare suffix, prefix search, unscoped lookup, or a different llmcapa provider.
-
-UAG provides its existing OpenAI-compatible Chat Completions and Responses transports. The exact llmcapa Capability decides which model-dependent features may be used. In particular, Responses requires `responses_api=True`, including when `UAGENT_RESPONSES=1` is set, and function calling/tools require positive function-calling evidence. False or unknown capability evidence keeps those features disabled rather than guessing.
+UAG uses the existing OpenAI-compatible transports and capability handling. No Foundry-specific Responses, tools, model-search, or capability-routing rules are added.
 
 Direct Foundry SDK integration can be added separately later if needed.
