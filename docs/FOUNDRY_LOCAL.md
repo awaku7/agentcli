@@ -1,6 +1,6 @@
 # Microsoft Foundry Local
 
-UAG treats Foundry Local as a normal local OpenAI-compatible Chat Completions endpoint.
+UAG treats Foundry Local as a normal local OpenAI-compatible endpoint.
 
 Configure:
 
@@ -19,4 +19,8 @@ Model capability metadata comes from llmcapa using the exact pair:
 llmcapa.get(model_name, provider="foundry-local")
 ```
 
-UAG does not fall back to a different llmcapa provider when that lookup misses. Foundry Local is currently routed through the existing OpenAI-compatible Chat Completions transport; direct Foundry SDK integration can be added separately later if needed.
+The original model name is preserved exactly, including `/`. If that lookup misses, UAG does not retry a bare suffix, prefix search, unscoped lookup, or a different llmcapa provider.
+
+UAG provides its existing OpenAI-compatible Chat Completions and Responses transports. The exact llmcapa Capability decides which model-dependent features may be used. In particular, Responses requires `responses_api=True`, including when `UAGENT_RESPONSES=1` is set, and function calling/tools require positive function-calling evidence. False or unknown capability evidence keeps those features disabled rather than guessing.
+
+Direct Foundry SDK integration can be added separately later if needed.
