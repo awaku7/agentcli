@@ -61,3 +61,18 @@ def test_explicit_responses_setting_cannot_override_llmcapa_false(monkeypatch) -
         depname="phi-4-mini",
     )
     assert use_responses is False
+
+
+def test_explicit_responses_setting_follows_llmcapa_true(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setattr(
+        "uagent.llmcapa_util.supports_responses_api",
+        lambda model, provider, default=None: True,
+    )
+    use_responses, _streaming = _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=SimpleNamespace(),
+        provider="foundry_local",
+        depname="future-responses-model",
+    )
+    assert use_responses is True
