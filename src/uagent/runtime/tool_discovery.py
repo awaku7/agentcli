@@ -91,12 +91,6 @@ def get_tool_search_mode(raw: str | None = None) -> str:
     return "native"
 
 
-_PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
-    "openai": ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano"),
-    "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
-}
-
-
 def resolve_tool_discovery_from_environment(
     *,
     provider: str | None = None,
@@ -120,8 +114,12 @@ def resolve_tool_discovery_from_environment(
 
     provider_name = (provider or env_get("UAGENT_PROVIDER") or "").strip().lower()
     if depname is None:
-        env_name, default = _PROVIDER_DEPNAME_ENV.get(provider_name, ("", ""))
-        depname = (env_get(env_name, default) if env_name else default) or default
+        try:
+            from ..llmcapa_util import current_model
+
+            depname = current_model(provider_name)
+        except Exception:
+            depname = ""
     model_name = (depname or "").strip()
 
     if use_responses_api is None:
