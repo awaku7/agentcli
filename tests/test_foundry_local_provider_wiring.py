@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 from types import SimpleNamespace
 
 from uagent.llmcapa_util import provider_candidates
@@ -176,6 +177,37 @@ def test_foundry_local_feature_lookup_is_provider_scoped(monkeypatch) -> None:
         "provider": "foundry_local",
         "scoped_only": True,
     }
+
+
+def test_foundry_local_metadata_lookup_does_not_fall_back_to_cloud_row(
+    monkeypatch,
+) -> None:
+    import uagent.llmcapa_util as util
+
+    cloud_capability = SimpleNamespace(
+        provider="microsoft",
+        model_id="shared-model-name",
+        context_window=131072,
+        max_output_tokens=8192,
+    )
+
+    def fake_get(model, provider=None):
+        assert model == "shared-model-name"
+        if provider == "foundry-local":
+            return None
+        if provider is None:
+            return cloud_capability
+        return None
+
+    monkeypatch.setitem(sys.modules, "llmcapa", SimpleNamespace(get=fake_get))
+    util.clear_capability_cache()
+    try:
+        assert util.get_context_window_details(
+            "shared-model-name", "foundry_local"
+        ) == (None, "unavailable")
+        assert util.get_max_output_tokens("shared-model-name", "foundry_local") is None
+    finally:
+        util.clear_capability_cache()
 
 
 def test_foundry_local_strict_candidate_uses_catalog_provider_name() -> None:
