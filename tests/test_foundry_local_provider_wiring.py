@@ -24,9 +24,7 @@ def test_foundry_local_is_registered_as_local_openai_compatible_provider() -> No
 
 
 def test_foundry_local_maps_to_static_llmcapa_provider_name() -> None:
-    candidates = provider_candidates("foundry_local")
-    assert candidates[0] == "foundry_local"
-    assert "foundry-local" in candidates
+    assert provider_candidates("foundry_local") == ["foundry_local", "foundry-local"]
 
 
 def test_foundry_local_tool_support_requires_positive_model_evidence() -> None:
