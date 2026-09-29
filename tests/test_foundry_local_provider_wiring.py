@@ -76,7 +76,9 @@ def test_foundry_local_responses_unknown_fails_closed(monkeypatch) -> None:
     )
 
 
-def test_explicit_responses_setting_cannot_override_foundry_unknown(monkeypatch) -> None:
+def test_explicit_responses_setting_cannot_override_foundry_unknown(
+    monkeypatch,
+) -> None:
     import uagent.llmcapa_util as util
 
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
