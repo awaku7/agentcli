@@ -61,6 +61,41 @@ def test_explicit_responses_setting_cannot_override_llmcapa_false(monkeypatch) -
     assert use_responses is False
 
 
+def test_foundry_local_responses_unknown_fails_closed(monkeypatch) -> None:
+    import uagent.llmcapa_util as util
+
+    monkeypatch.setattr(
+        util,
+        "supports_feature",
+        lambda feature, model, provider, default=None: None,
+    )
+
+    assert (
+        util.supports_responses_api(
+            "phi-4-mini", "foundry_local", default=True
+        )
+        is False
+    )
+
+
+def test_explicit_responses_setting_cannot_override_foundry_unknown(monkeypatch) -> None:
+    import uagent.llmcapa_util as util
+
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setattr(
+        util,
+        "supports_feature",
+        lambda feature, model, provider, default=None: None,
+    )
+    use_responses, _streaming = _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=SimpleNamespace(),
+        provider="foundry_local",
+        depname="phi-4-mini",
+    )
+    assert use_responses is False
+
+
 def test_explicit_responses_setting_follows_llmcapa_true(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_RESPONSES", "1")
     monkeypatch.setattr(
