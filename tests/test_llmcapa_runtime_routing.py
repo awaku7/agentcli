@@ -88,6 +88,26 @@ def test_tool_discovery_respects_explicit_responses_false_capability(monkeypatch
     assert decision.reason == "responses_api_disabled"
 
 
+def test_tool_search_is_authorized_by_capabilities_not_provider_name() -> None:
+    from uagent.runtime.tool_discovery import ToolDiscoveryMode, resolve_tool_discovery
+
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: (
+            True if feature in {"responses_api", "tool_search"} else None
+        )
+    )
+
+    decision = resolve_tool_discovery(
+        provider="openrouter",
+        depname="future-tool-search-model",
+        use_responses_api=True,
+        configured_mode="native",
+        capability_resolver=resolver,
+    )
+
+    assert decision.mode is ToolDiscoveryMode.NATIVE_SEARCH
+
+
 def test_core_model_capabilities_are_narrowed_by_llmcapa() -> None:
     model_values = {
         "streaming": False,
