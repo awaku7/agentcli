@@ -43,7 +43,8 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
     }
 )
 
-# Providers that support the OpenAI Responses API (/v1/responses).
+# Providers for which UAG has an OpenAI-compatible Responses transport.
+# Model-level availability is resolved separately through llmcapa.
 RESPONSES_PROVIDERS: frozenset[str] = frozenset(
     {
         "openai",
@@ -54,6 +55,7 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "ollama",
         "alibaba",
         "lmstudio",
+        "foundry_local",
         "sakana",
         "deepseek",
     }
