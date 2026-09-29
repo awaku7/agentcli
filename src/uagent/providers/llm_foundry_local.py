@@ -11,6 +11,7 @@ import ipaddress
 from typing import Any
 from urllib.parse import urlsplit, urlunsplit
 
+from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 
 
@@ -115,7 +116,14 @@ def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
     base_url = normalize_foundry_local_base_url(
         get("UAGENT_FOUNDRY_LOCAL_BASE_URL", "")
     )
-    api_key = get("UAGENT_FOUNDRY_LOCAL_API_KEY", "").strip() or "dummy"
+    api_key = (
+        get_provider_api_key(
+            "foundry_local",
+            store=getattr(core, "credential_store", None),
+            env_getter=getter if callable(getter) else None,
+        )
+        or "dummy"
+    )
 
     from openai import OpenAI
 
