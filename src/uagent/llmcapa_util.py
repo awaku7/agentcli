@@ -192,7 +192,8 @@ def get_capability(
     """Resolve a llmcapa Capability or return None.
 
     When ``use_env_defaults`` is True, missing model/provider are filled from
-    UAGENT_PROVIDER / UAGENT_*_DEPNAME.
+    UAGENT_PROVIDER / UAGENT_*_DEPNAME. Foundry Local lookups are always
+    provider-scoped so an identically named cloud model cannot leak metadata.
     """
     prov = normalize_provider(provider)
     mid = (model_id or "").strip()
@@ -203,6 +204,8 @@ def get_capability(
             mid = current_model(prov)
     if not mid:
         return None
+    if prov == "foundry_local":
+        scoped_only = True
     return _get_capability_cached(mid, prov, scoped_only)
 
 
