@@ -304,6 +304,7 @@ def structured_output_provenance(
     try:
         cap = get_capability(model_id, provider, scoped_only=True)
     except TypeError:
+        # Compatibility with test doubles and older integrations.
         cap = get_capability(model_id, provider)
     if cap is None:
         return None
