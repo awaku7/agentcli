@@ -1,0 +1,319 @@
+name: temp-foundry-local-openai-compatible
+on:
+  push:
+    branches: [feature/foundry-local-openai-compatible]
+permissions:
+  contents: write
+jobs:
+  patch-and-test:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Apply minimal Foundry Local implementation
+        shell: python
+        run: |
+          from pathlib import Path
+
+          def replace(path, old, new, count=1):
+              p = Path(path)
+              text = p.read_text(encoding='utf-8')
+              actual = text.count(old)
+              if actual != count:
+                  raise SystemExit(f'{path}: expected {count} matches, found {actual}: {old[:80]!r}')
+              p.write_text(text.replace(old, new, count), encoding='utf-8')
+
+          # Provider implementation registry: generic OpenAI-compatible runtime is available;
+          # llmcapa decides whether a specific model may use Responses.
+          replace(
+              'src/uagent/providers/provider_caps.py',
+              '        "lmstudio",\n        "minimax",',
+              '        "lmstudio",\n        "foundry-local",\n        "minimax",',
+          )
+          replace(
+              'src/uagent/providers/provider_caps.py',
+              '        "lmstudio",\n        "sakana",',
+              '        "lmstudio",\n        "foundry-local",\n        "sakana",',
+          )
+          replace(
+              'src/uagent/providers/provider_caps.py',
+              '{"ollama", "llama_cpp", "lmstudio"}',
+              '{"ollama", "llama_cpp", "lmstudio", "foundry-local"}',
+          )
+          replace(
+              'src/uagent/providers/runtime_registry.py',
+              '        "lmstudio",\n        "meta",',
+              '        "lmstudio",\n        "foundry-local",\n        "meta",',
+          )
+
+          # llmcapa provider/model mapping.  Avoid constructing an env var with a hyphen.
+          replace(
+              'src/uagent/llmcapa_util.py',
+              '    "lmstudio": ("lmstudio", "ollama"),\n',
+              '    "lmstudio": ("lmstudio", "ollama"),\n    "foundry-local": ("foundry-local", "foundry_local", "foundrylocal"),\n',
+          )
+          replace(
+              'src/uagent/llmcapa_util.py',
+              '    if prov:\n        specific = (env_get(f"UAGENT_{prov.upper()}_DEPNAME") or "").strip()\n',
+              '    if prov:\n        env_key = (\n            "UAGENT_FOUNDRY_LOCAL_DEPNAME"\n            if prov == "foundry-local"\n            else f"UAGENT_{prov.upper()}_DEPNAME"\n        )\n        specific = (env_get(env_key) or "").strip()\n',
+          )
+
+          # Model/client wiring.
+          replace(
+              'src/uagent/providers/util_providers.py',
+              '    if provider == "lmstudio":\n        return env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"\n',
+              '    if provider == "lmstudio":\n        return env_get("UAGENT_LMSTUDIO_DEPNAME", "local-model") or "local-model"\n    if provider == "foundry-local":\n        return env_get("UAGENT_FOUNDRY_LOCAL_DEPNAME", "") or ""\n',
+          )
+          replace(
+              'src/uagent/providers/util_providers.py',
+              '    if provider == "lmstudio":\n        from .llm_lmstudio import make_lmstudio_client\n\n        return provider, make_lmstudio_client(core), model_name\n',
+              '    if provider == "lmstudio":\n        from .llm_lmstudio import make_lmstudio_client\n\n        return provider, make_lmstudio_client(core), model_name\n\n    if provider == "foundry-local":\n        from .llm_foundry_local import make_foundry_local_client\n\n        if not model_name:\n            raise ValueError("UAGENT_FOUNDRY_LOCAL_DEPNAME is required")\n        return provider, make_foundry_local_client(core), model_name\n',
+          )
+          replace(
+              'src/uagent/env_validate.py',
+              '    elif provider in {"ollama", "lmstudio"}:',
+              '    elif provider in {"ollama", "lmstudio", "foundry-local"}:',
+          )
+
+          # Setup wizard.
+          replace(
+              'src/uagent/setup_cli.py',
+              '    ("lmstudio", "LM Studio"),\n',
+              '    ("lmstudio", "LM Studio"),\n    ("foundry-local", "Microsoft Foundry Local"),\n',
+          )
+          replace(
+              'src/uagent/setup_cli.py',
+              '    "minimax": [\n',
+              '    "foundry-local": [\n        (\n            "UAGENT_FOUNDRY_LOCAL_BASE_URL",\n            True,\n            _("Foundry Local base URL from `foundry server status` (e.g. http://localhost:<PORT>/v1)"),\n        ),\n        (\n            "UAGENT_FOUNDRY_LOCAL_DEPNAME",\n            True,\n            _("Foundry Local loaded model ID"),\n        ),\n    ],\n    "minimax": [\n',
+          )
+
+          # Keep soft tool-discovery env resolution aligned.
+          replace(
+              'src/uagent/tools/llm_tool_narrowing.py',
+              '    "lmstudio": ("UAGENT_LMSTUDIO_DEPNAME", "local-model"),\n',
+              '    "lmstudio": ("UAGENT_LMSTUDIO_DEPNAME", "local-model"),\n    "foundry-local": ("UAGENT_FOUNDRY_LOCAL_DEPNAME", ""),\n',
+          )
+
+          # The generic Responses implementation exists, but current service support is
+          # model/provider metadata.  llmcapa can therefore turn it on later without
+          # another provider-specific transport patch.
+          replace(
+              'src/uagent/providers/responses_manager.py',
+              '    "sakana": ResponsesCapabilities(create=True, streaming=True),\n',
+              '    "foundry-local": ResponsesCapabilities(create=True, streaming=True),\n    "sakana": ResponsesCapabilities(create=True, streaming=True),\n',
+          )
+
+          # Explicit UAGENT_RESPONSES=1 must still respect an explicit llmcapa=false.
+          replace(
+              'src/uagent/llm_round_helpers.py',
+              '        else:\n            use_responses_api = True\n    elif responses_env in ("0", "false", "no", "off"):',
+              '        else:\n            try:\n                from .llmcapa_util import provider_allows_responses_api\n\n                use_responses_api = provider_allows_responses_api(provider, depname)\n            except Exception:\n                use_responses_api = True\n    elif responses_env in ("0", "false", "no", "off"):',
+          )
+          replace(
+              'src/uagent/tools/llm_tool_narrowing.py',
+              '    if raw in ("1", "true", "yes", "on"):\n        return True\n',
+              '    if raw in ("1", "true", "yes", "on"):\n        try:\n            from ..llmcapa_util import provider_allows_responses_api\n\n            return provider_allows_responses_api(provider, depname)\n        except Exception:\n            return True\n',
+          )
+
+          Path('src/uagent/providers/llm_foundry_local.py').write_text('''\
+          """Microsoft Foundry Local OpenAI-compatible transport."""
+
+          from __future__ import annotations
+
+          import ipaddress
+          from typing import Any
+          from urllib.parse import urlsplit, urlunsplit
+
+          from ..env_utils import env_get
+
+
+          def normalize_foundry_local_base_url(value: str) -> str:
+              """Normalize a loopback Foundry Local endpoint to an OpenAI ``/v1`` URL."""
+              raw = str(value or "").strip()
+              if not raw:
+                  raise ValueError(
+                      "UAGENT_FOUNDRY_LOCAL_BASE_URL is required; "
+                      "use `foundry server status` to obtain the local URL"
+                  )
+              parsed = urlsplit(raw)
+              if parsed.scheme not in {"http", "https"}:
+                  raise ValueError("Foundry Local base URL scheme must be http or https")
+              if parsed.username is not None or parsed.password is not None:
+                  raise ValueError("Foundry Local base URL must not contain credentials")
+              host = parsed.hostname
+              if not host:
+                  raise ValueError("Foundry Local base URL must include a host")
+              if host.lower() != "localhost":
+                  try:
+                      address = ipaddress.ip_address(host)
+                  except ValueError as exc:
+                      raise ValueError(
+                          "Foundry Local base URL host must be loopback"
+                      ) from exc
+                  if not address.is_loopback:
+                      raise ValueError("Foundry Local base URL host must be loopback")
+              if parsed.query or parsed.fragment:
+                  raise ValueError(
+                      "Foundry Local base URL must not contain query or fragment"
+                  )
+              path = parsed.path.rstrip("/")
+              if path not in {"", "/v1"}:
+                  raise ValueError("Foundry Local base URL path must be empty or /v1")
+              return urlunsplit((parsed.scheme, parsed.netloc, "/v1", "", ""))
+
+
+          def make_foundry_local_client(core: Any) -> Any:
+              """Create an OpenAI client for an already-running Foundry Local server."""
+              getter = getattr(core, "get_env", None)
+              if callable(getter):
+                  try:
+                      configured = str(getter("UAGENT_FOUNDRY_LOCAL_BASE_URL") or "")
+                  except (KeyError, ValueError):
+                      configured = ""
+              else:
+                  configured = str(env_get("UAGENT_FOUNDRY_LOCAL_BASE_URL", "") or "")
+
+              base_url = normalize_foundry_local_base_url(configured)
+              from openai import OpenAI
+
+              try:
+                  from .util_providers import make_httpx_client
+
+                  return OpenAI(
+                      api_key="none",
+                      base_url=base_url,
+                      http_client=make_httpx_client(),
+                  )
+              except TypeError:
+                  return OpenAI(api_key="none", base_url=base_url)
+
+
+          __all__ = ["make_foundry_local_client", "normalize_foundry_local_base_url"]
+          '''.replace('          ', ''), encoding='utf-8')
+
+          Path('tests/test_foundry_local_openai_compatible.py').write_text('''\
+          from __future__ import annotations
+
+          import pytest
+
+          from uagent.llmcapa_util import current_model, provider_candidates
+          from uagent.providers.llm_foundry_local import (
+              make_foundry_local_client,
+              normalize_foundry_local_base_url,
+          )
+          from uagent.providers.provider_caps import DEFAULT_PROVIDER_REGISTRY
+          from uagent.providers.runtime_registry import supports_provider_runtime
+          from uagent.providers.util_providers import get_model_name
+
+
+          def test_foundry_local_url_is_loopback_and_normalized() -> None:
+              assert (
+                  normalize_foundry_local_base_url("http://localhost:5272")
+                  == "http://localhost:5272/v1"
+              )
+              assert (
+                  normalize_foundry_local_base_url("http://127.0.0.1:5272/v1/")
+                  == "http://127.0.0.1:5272/v1"
+              )
+              with pytest.raises(ValueError):
+                  normalize_foundry_local_base_url("https://example.com/v1")
+
+
+          def test_foundry_local_provider_wiring(monkeypatch) -> None:
+              spec = DEFAULT_PROVIDER_REGISTRY.resolve("foundry-local")
+              assert spec.auth_requirement == "local_endpoint"
+              assert "responses" in spec.capabilities
+              assert supports_provider_runtime("foundry-local") is True
+              assert provider_candidates("foundry-local")[:2] == [
+                  "foundry-local",
+                  "foundry_local",
+              ]
+              monkeypatch.setenv("UAGENT_PROVIDER", "foundry-local")
+              monkeypatch.setenv("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-local")
+              assert get_model_name() == "phi-local"
+              assert current_model("foundry-local") == "phi-local"
+
+
+          def test_foundry_local_client_uses_openai_compatible_endpoint(monkeypatch) -> None:
+              class Core:
+                  @staticmethod
+                  def get_env(name: str):
+                      if name == "UAGENT_FOUNDRY_LOCAL_BASE_URL":
+                          return "http://localhost:5272"
+                      return ""
+
+              client = make_foundry_local_client(Core())
+              try:
+                  assert str(client.base_url).rstrip("/") == "http://localhost:5272/v1"
+              finally:
+                  client.close()
+
+
+          def test_foundry_local_responses_is_decided_by_llmcapa(monkeypatch) -> None:
+              import uagent.llmcapa_util as llmcapa_util
+
+              monkeypatch.setattr(
+                  llmcapa_util,
+                  "supports_responses_api",
+                  lambda *_args, **_kwargs: False,
+              )
+              assert (
+                  llmcapa_util.provider_allows_responses_api(
+                      "foundry-local", "phi-local"
+                  )
+                  is False
+              )
+              monkeypatch.setattr(
+                  llmcapa_util,
+                  "supports_responses_api",
+                  lambda *_args, **_kwargs: True,
+              )
+              assert (
+                  llmcapa_util.provider_allows_responses_api(
+                      "foundry-local", "phi-local"
+                  )
+                  is True
+              )
+
+
+          def test_explicit_responses_respects_llmcapa_false(monkeypatch) -> None:
+              import uagent.llmcapa_util as llmcapa_util
+              from uagent.llm_round_helpers import _resolve_round_runtime_flags
+
+              monkeypatch.setenv("UAGENT_RESPONSES", "1")
+              monkeypatch.setattr(
+                  llmcapa_util,
+                  "provider_allows_responses_api",
+                  lambda *_args, **_kwargs: False,
+              )
+              use_responses, _streaming = _resolve_round_runtime_flags(
+                  tr_cfg=None,
+                  core=object(),
+                  provider="foundry-local",
+                  depname="phi-local",
+              )
+              assert use_responses is False
+          '''.replace('          ', ''), encoding='utf-8')
+      - name: Install focused test dependencies
+        run: python -m pip install -e . openai httpx pytest black ruff
+      - name: Format
+        run: python -m black src/uagent/providers/llm_foundry_local.py src/uagent/providers/provider_caps.py src/uagent/providers/runtime_registry.py src/uagent/providers/util_providers.py src/uagent/llmcapa_util.py src/uagent/env_validate.py src/uagent/setup_cli.py src/uagent/providers/responses_manager.py src/uagent/llm_round_helpers.py src/uagent/tools/llm_tool_narrowing.py tests/test_foundry_local_openai_compatible.py
+      - name: Ruff
+        run: python -m ruff check src/uagent/providers/llm_foundry_local.py src/uagent/providers/provider_caps.py src/uagent/providers/runtime_registry.py src/uagent/providers/util_providers.py src/uagent/llmcapa_util.py src/uagent/env_validate.py src/uagent/setup_cli.py src/uagent/providers/responses_manager.py src/uagent/llm_round_helpers.py src/uagent/tools/llm_tool_narrowing.py tests/test_foundry_local_openai_compatible.py
+      - name: Focused tests
+        run: python -m pytest -q tests/test_foundry_local_openai_compatible.py tests/test_provider_runtime_registry.py tests/test_capability_resolver.py
+      - name: Compile
+        run: python -m compileall -q src/uagent
+      - name: Commit implementation and remove temporary workflow
+        run: |
+          git config user.name "awaku7"
+          git config user.email "hirofumi@ukawa.biz"
+          git rm .github/workflows/temp-foundry-local-openai-compatible.yml
+          git add src tests
+          git commit -m "feat: add Foundry Local OpenAI-compatible provider"
+          git push
