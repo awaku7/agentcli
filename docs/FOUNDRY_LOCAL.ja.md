@@ -1,6 +1,6 @@
 # Microsoft Foundry Local
 
-UAG では Foundry Local を、通常のローカル OpenAI 互換 Chat Completions エンドポイントとして扱います。
+UAG では Foundry Local を、通常のローカル OpenAI 互換エンドポイントとして扱います。
 
 設定例:
 
@@ -19,4 +19,8 @@ base URL は loopback（`localhost`、`127.0.0.1`、`::1` など）である必�
 llmcapa.get(model_name, provider="foundry-local")
 ```
 
-この検索で見つからない場合、別の llmcapa プロバイダにはフォールバックしません。現在の Foundry Local は既存の OpenAI 互換 Chat Completions transport を利用します。Foundry SDK 直接対応が必要になった場合は、後で別途追加できます。
+モデル名は `/` を含めてそのまま使用します。この検索で見つからない場合、末尾だけの再検索、prefix 検索、provider 無指定検索、別 provider へのフォールバックは行いません。
+
+UAG は既存の OpenAI 互換 Chat Completions / Responses transport を利用します。どのモデル依存機能を使えるかは、上記の exact な llmcapa Capability で判断します。特に Responses は `UAGENT_RESPONSES=1` が指定されていても `responses_api=True` が必要で、function calling / tools も明示的な対応情報がある場合だけ使用します。false または unknown の場合は推測で有効化しません。
+
+Foundry SDK の直接利用が必要になった場合は、後で別機能として追加できます。
