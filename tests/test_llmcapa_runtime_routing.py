@@ -64,3 +64,25 @@ def test_streaming_false_model_capability_disables_streaming_for_any_provider(
         depname="phi-4-mini",
         capability_resolver=resolver,
     ) == (False, False)
+
+
+def test_tool_discovery_respects_explicit_responses_false_capability(monkeypatch) -> None:
+    from uagent.runtime.tool_discovery import (
+        ToolDiscoveryMode,
+        resolve_tool_discovery_from_environment,
+    )
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "foundry_local")
+    monkeypatch.setenv("UAGENT_FOUNDRY_LOCAL_DEPNAME", "phi-4-mini")
+    monkeypatch.setenv("UAGENT_RESPONSES", "1")
+    monkeypatch.setenv("UAGENT_GPT54_TOOL_SEARCH", "native")
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: False if feature == "responses_api" else None
+    )
+
+    decision = resolve_tool_discovery_from_environment(
+        capability_resolver=resolver,
+    )
+
+    assert decision.mode is ToolDiscoveryMode.SELECTED_SCHEMAS
+    assert decision.reason == "responses_api_disabled"
