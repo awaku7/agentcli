@@ -14,6 +14,65 @@ from urllib.parse import urlsplit, urlunsplit
 from ..env_utils import env_get
 
 
+class _FoundryLocalChatCompletionsProxy:
+    """Enforce Foundry Local function-calling capability at the send boundary."""
+
+    def __init__(self, inner: Any) -> None:
+        self._inner = inner
+
+    def create(self, *args: Any, **kwargs: Any) -> Any:
+        model_name = str(kwargs.get("model") or "").strip()
+        try:
+            from ..llmcapa_util import supports_feature
+
+            tools_allowed = (
+                supports_feature(
+                    "function_calling",
+                    model_name or None,
+                    "foundry_local",
+                    default=None,
+                )
+                is True
+            )
+        except Exception:
+            tools_allowed = False
+
+        if not tools_allowed and ("tools" in kwargs or "tool_choice" in kwargs):
+            kwargs = dict(kwargs)
+            kwargs.pop("tools", None)
+            kwargs.pop("tool_choice", None)
+        return self._inner.create(*args, **kwargs)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._inner, name)
+
+
+class _FoundryLocalChatProxy:
+    def __init__(self, inner: Any) -> None:
+        self._inner = inner
+
+    @property
+    def completions(self) -> _FoundryLocalChatCompletionsProxy:
+        return _FoundryLocalChatCompletionsProxy(self._inner.completions)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._inner, name)
+
+
+class _FoundryLocalClientProxy:
+    """Transparent OpenAI client proxy with Foundry-specific safety gates."""
+
+    def __init__(self, inner: Any) -> None:
+        self._inner = inner
+
+    @property
+    def chat(self) -> _FoundryLocalChatProxy:
+        return _FoundryLocalChatProxy(self._inner.chat)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._inner, name)
+
+
 def normalize_foundry_local_base_url(value: str) -> str:
     """Return a loopback-only OpenAI base URL ending in ``/v1``."""
     if not isinstance(value, str) or not value.strip():
@@ -63,16 +122,15 @@ def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
     try:
         from .util_providers import make_httpx_client
 
-        return (
-            OpenAI(
-                api_key=api_key,
-                base_url=base_url,
-                http_client=make_httpx_client(),
-            ),
-            model_name,
+        client = OpenAI(
+            api_key=api_key,
+            base_url=base_url,
+            http_client=make_httpx_client(),
         )
     except TypeError:
-        return OpenAI(api_key=api_key, base_url=base_url), model_name
+        client = OpenAI(api_key=api_key, base_url=base_url)
+
+    return _FoundryLocalClientProxy(client), model_name
 
 
 __all__ = ["make_foundry_local_client", "normalize_foundry_local_base_url"]
