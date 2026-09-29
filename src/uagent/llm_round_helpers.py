@@ -456,6 +456,18 @@ def _call_openai_azure_round(
     # Only fall back to env var if the caller didn't set it.
     if send_tools_this_round is None:
         send_tools_this_round = _env_default_on("UAGENT_USE_TOOL")
+    if provider == "foundry_local" and send_tools_this_round:
+        try:
+            from .llmcapa_util import supports_feature
+
+            send_tools_this_round = (
+                supports_feature(
+                    "function_calling", depname or None, provider, default=None
+                )
+                is True
+            )
+        except Exception:
+            send_tools_this_round = False
 
     # Track whether thinking/reasoning has been disabled due to model rejection
     _thinking_disabled = False
