@@ -76,3 +76,13 @@ def test_explicit_responses_setting_follows_llmcapa_true(monkeypatch) -> None:
         depname="future-responses-model",
     )
     assert use_responses is True
+
+
+def test_foundry_local_startup_banner_shows_base_url(monkeypatch) -> None:
+    from uagent.runtime.runtime_banner import build_startup_banner
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "foundry_local")
+    monkeypatch.setenv("UAGENT_FOUNDRY_LOCAL_BASE_URL", "http://localhost:5272/v1")
+    core = SimpleNamespace(normalize_url=lambda value: value.rstrip("/"))
+    banner = build_startup_banner(core=core, workdir=".", workdir_source="test")
+    assert "base_url = http://localhost:5272/v1" in banner

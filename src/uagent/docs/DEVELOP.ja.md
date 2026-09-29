@@ -195,6 +195,8 @@ workdir は次の優先順位で決定されます。
 
 ### 4.2 起動バナー
 
+`foundry_local` のようなローカル OpenAI 互換統合では transport は UAG、モデル/API能力の正本は `llmcapa` とし、明示的に必要でない限り runtime 探索や SDK によるサービス起動を追加しません。
+
 起動時INFO（workdir/provider/base_url/api_version/Responses等）は以下で生成されます。
 
 - `runtime.runtime_init.build_startup_banner()`（`src/uagent/runtime/runtime_banner.py` が実装）

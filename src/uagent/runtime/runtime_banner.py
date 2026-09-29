@@ -425,6 +425,15 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "foundry_local":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core, env_get("UAGENT_FOUNDRY_LOCAL_BASE_URL", "(not set)")
+                )
+            }
+        )
     elif provider == "lmstudio":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

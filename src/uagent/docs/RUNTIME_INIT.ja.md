@@ -97,7 +97,7 @@ ______________________________________________________________________
 - `[INFO] provider = ...`
 - provider 別の情報:
   - azure: `base_url` + `api_version`
-  - openai / openrouter / grok / nvidia / bedrock / ollama / deepseek / zai / alibaba / moonshot: `base_url`
+  - openai / openrouter / grok / nvidia / bedrock / ollama / deepseek / zai / alibaba / moonshot / foundry_local: `base_url`
   - vertexai: `project` + `location`
 - `UAGENT_RESPONSES=1` が有効で、Responses API 対応プロバイダ（`openai` / `azure` / `bedrock` / `openrouter` / `ollama` / `alibaba` / `lmstudio`）以外のプロバイダ（`gemini` / `claude` / `vertexai` を除く）だった場合は warning を出します。
   - `[WARN] UAGENT_RESPONSES=1 is set, but provider '...' does not support Responses API. Falling back to ChatCompletions.`
@@ -111,6 +111,7 @@ API:
 
 - API キーなどの機密情報は出力しません。
 - `core.normalize_url()` が使える場合はそれを使い、使えない場合は保守的に URL を整形します。
+- `foundry_local` は設定済みのループバック base URL を表示します。UAG はサービスを探索/起動せず、Responses は `UAGENT_RESPONSES=1` の明示指定時も選択モデルの `llmcapa` `responses_api` 能力で絞り込みます。
 - `build_startup_banner()` 自体は Responses / ChatCompletions のモード行を出しません。CLI / Web / GUI 側が必要に応じて別途表示します。
 
 ______________________________________________________________________
