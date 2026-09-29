@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Callable, Protocol
 
-from ..llmcapa_util import supports_feature
+from ..llmcapa_util import provider_allows_responses_api, supports_feature
 from ..providers.provider_caps import DEFAULT_PROVIDER_REGISTRY, ProviderRegistry
 from ..providers.responses_manager import get_responses_capabilities
 
@@ -125,9 +125,27 @@ class CapabilityResolver:
             provider=spec.name,
             model=normalized_model,
             transport=(transport or "chat_completions").strip().lower(),
-            streaming=self._static(spec.supports_streaming, "provider_registry"),
-            tools=self._static(spec.supports_tools, "provider_registry"),
-            vision=self._static(spec.supports_vision, "provider_registry"),
+            streaming=self._model_feature(
+                "streaming",
+                spec.name,
+                normalized_model,
+                implemented=spec.supports_streaming,
+                source="provider_registry",
+            ),
+            tools=self._model_feature(
+                "function_calling",
+                spec.name,
+                normalized_model,
+                implemented=spec.supports_tools,
+                source="provider_registry",
+            ),
+            vision=self._model_feature(
+                "vision",
+                spec.name,
+                normalized_model,
+                implemented=spec.supports_vision,
+                source="provider_registry",
+            ),
             responses_create=self._model_feature(
                 "responses_api",
                 spec.name,
@@ -162,6 +180,17 @@ class CapabilityResolver:
         )
 
 
+def _resolver_or_none(
+    resolver: CapabilityResolverPort | None,
+) -> CapabilityResolverPort | None:
+    if resolver is not None:
+        return resolver
+    try:
+        return CapabilityResolver()
+    except Exception:
+        return None
+
+
 def responses_api_auto_enabled(
     provider: str,
     model: str = "",
@@ -170,17 +199,14 @@ def responses_api_auto_enabled(
 ) -> bool:
     """Return whether automatic routing may select the Responses API.
 
-    Explicit user configuration is handled by the caller.  This function is
-    deliberately conservative: missing catalog evidence and resolver failures
-    are not permission to select a native provider surface.
+    Automatic selection is deliberately conservative: missing catalog evidence
+    and resolver failures are not permission to select a native provider
+    surface.
     """
 
-    capability_resolver = resolver
+    capability_resolver = _resolver_or_none(resolver)
     if capability_resolver is None:
-        try:
-            capability_resolver = CapabilityResolver()
-        except Exception:
-            return False
+        return False
 
     try:
         snapshot = capability_resolver.resolve(
@@ -191,6 +217,75 @@ def responses_api_auto_enabled(
     except Exception:
         return False
     return snapshot.responses_create.is_native_allowed()
+
+
+def responses_api_explicit_enabled(
+    provider: str,
+    model: str = "",
+    *,
+    resolver: CapabilityResolverPort | None = None,
+) -> bool:
+    """Return whether an explicit Responses request may use that transport.
+
+    Explicit opt-in preserves the historical fail-open behavior when model
+    evidence is unknown, but an explicit llmcapa/provider implementation
+    ``False`` is authoritative.  This keeps user intent compatible while
+    preventing requests from being sent to a transport known not to exist for
+    the selected provider/model.
+    """
+
+    capability_resolver = _resolver_or_none(resolver)
+    if capability_resolver is not None:
+        try:
+            snapshot = capability_resolver.resolve(
+                provider,
+                model or "",
+                transport="responses",
+            )
+            if snapshot.responses_create.state is CapabilityState.FALSE:
+                return False
+            if snapshot.responses_create.is_native_allowed():
+                return True
+        except Exception:
+            pass
+
+    # UNKNOWN/resolver failure: retain the legacy explicit-opt-in behavior,
+    # while still respecting provider implementation support and any llmcapa
+    # false value available through the shared compatibility helper.
+    try:
+        return provider_allows_responses_api(provider, model)
+    except Exception:
+        return False
+
+
+def streaming_requested_enabled(
+    provider: str,
+    model: str = "",
+    *,
+    requested: bool,
+    transport: str = "chat_completions",
+    resolver: CapabilityResolverPort | None = None,
+) -> bool:
+    """Narrow a requested streaming mode using provider/model capability data.
+
+    Unknown model evidence preserves the requested setting for compatibility;
+    an explicit model/provider ``False`` disables streaming.
+    """
+
+    if not requested:
+        return False
+    capability_resolver = _resolver_or_none(resolver)
+    if capability_resolver is None:
+        return True
+    try:
+        snapshot = capability_resolver.resolve(
+            provider,
+            model or "",
+            transport=transport,
+        )
+    except Exception:
+        return True
+    return snapshot.streaming.state is not CapabilityState.FALSE
 
 
 def structured_output_native_enabled(
