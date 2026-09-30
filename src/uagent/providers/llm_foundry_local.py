@@ -449,18 +449,48 @@ def _tool_load_selected_tool(result: Mapping[str, Any]) -> str:
     return ""
 
 
+def _relevant_foundry_local_tool_names(messages: Any) -> set[str] | None:
+    """Return catalog-ranked concrete tools for the latest user request.
+
+    ``None`` means the local catalog could not be consulted. An empty set means
+    the catalog found no concrete tool related to the request, so forcing a
+    management-tool round would only add latency and can change normal chat.
+    """
+
+    query = _content_text(_last_user_content(messages)).strip()
+    if not query:
+        return set()
+    try:
+        from .. import tools as tool_registry
+
+        rows = tool_registry.get_tool_catalog(query=query, max_results=12)
+    except Exception:
+        return None
+
+    names: set[str] = set()
+    for row in rows or []:
+        if not isinstance(row, Mapping):
+            continue
+        name = str(row.get("name") or "").strip()
+        if name and name not in _MANAGEMENT_TOOL_NAMES:
+            names.add(name)
+    return names
+
+
 def resolve_foundry_local_tool_choice(messages: Any, tools: Any) -> Any:
     """Choose a deterministic tool policy for Foundry Local ChatCompletions.
 
     Some Foundry Local model/runtime combinations expose function calling but do
     not reliably implement ``tool_choice=auto``. UAG therefore uses a bounded
-    deterministic sequence:
+    deterministic sequence only when the local tool catalog finds a concrete
+    capability related to the current user request:
 
-    - first tool-bearing round: force ``tool_catalog``;
-    - after ``tool_catalog``: force the selected/auto-loaded concrete tool;
+    - relevant tool already exposed: force it when the match is unambiguous;
+    - relevant tool not exposed yet: force ``tool_catalog`` to load/select it;
+    - no relevant concrete tool: disable tools and let the model answer normally;
     - after a concrete tool result: disable tools for the final answer.
 
-    If UAG cannot make a safe deterministic choice, ``auto`` is preserved as a
+    If the local catalog cannot make a safe decision, ``auto`` is preserved as a
     best-effort fallback instead of guessing a tool.
     """
 
@@ -471,11 +501,20 @@ def resolve_foundry_local_tool_choice(messages: Any, tools: Any) -> Any:
 
     last_tool = _latest_tool_message_after_user(messages)
     if last_tool is None:
+        relevant = _relevant_foundry_local_tool_names(messages)
+        if relevant is None:
+            return "auto"
+        if not relevant:
+            return "none"
+        matching = [
+            name
+            for name in available
+            if name in relevant and name not in _MANAGEMENT_TOOL_NAMES
+        ]
+        if len(matching) == 1:
+            return _forced_tool_choice(matching[0])
         if "tool_catalog" in available_set:
             return _forced_tool_choice("tool_catalog")
-        concrete = [name for name in available if name not in _MANAGEMENT_TOOL_NAMES]
-        if len(concrete) == 1:
-            return _forced_tool_choice(concrete[0])
         return "auto"
 
     tool_name = str(last_tool.get("name") or "").strip()
@@ -494,7 +533,8 @@ def resolve_foundry_local_tool_choice(messages: Any, tools: Any) -> Any:
         return "none"
 
     if tool_name == "unload_tool":
-        if "tool_catalog" in available_set:
+        relevant = _relevant_foundry_local_tool_names(messages)
+        if relevant and "tool_catalog" in available_set:
             return _forced_tool_choice("tool_catalog")
         return "none"
 
