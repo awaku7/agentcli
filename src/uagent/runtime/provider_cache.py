@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
+from ..providers.responses_manager import get_responses_capabilities
+
 CacheAction = Literal["REUSE", "REBUILD", "REANCHOR", "BYPASS", "NONE"]
 
 
@@ -52,7 +54,7 @@ def plan_provider_cache(
         return ProviderCachePlan(
             name, model, "REANCHOR", True, "reapply cache_control breakpoints"
         )
-    if name in {"openai", "azure"} and previous_response_id:
+    if previous_response_id and get_responses_capabilities(name).previous_response_id:
         return ProviderCachePlan(
             name, model, "BYPASS", True, "previous response chain no longer matches"
         )
