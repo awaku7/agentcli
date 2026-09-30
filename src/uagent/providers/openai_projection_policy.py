@@ -110,7 +110,7 @@ def build_openai_projection(
         except ValueError:
             pass
 
-    top_p = (env_get("UAGENT_TOP_P") or "").strip()
+    top_p = (env_get("UAGENT_TOP_P", "") or "").strip()
     if not use_responses_api and top_p:
         try:
             options["top_p"] = float(top_p)
