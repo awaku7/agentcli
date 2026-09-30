@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### 修正
+
+- Foundry Local のreasoning-aware runtimeとlegacy OpenAI fallbackの両方で推論出力を共通形式に正規化し、未対応の `reasoning_effort` を除外。その他のリクエスト設定は維持。
+
 ## [0.7.19] - 2026-09-29
 
 ### 追加

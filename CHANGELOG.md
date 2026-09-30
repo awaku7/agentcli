@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Normalize Foundry Local reasoning output across the reasoning-aware runtime and legacy OpenAI fallback, while filtering unsupported `reasoning_effort` and preserving unrelated request options.
+
 ## [0.7.19] - 2026-09-29
 
 ### Added
