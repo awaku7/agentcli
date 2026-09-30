@@ -89,3 +89,34 @@ def test_explicit_responses_flag_preserves_unknown_compatibility(monkeypatch) ->
         depname="unknown-model",
         capability_resolver=_FailingResolver(),
     ) == (False, False)
+
+
+def test_streaming_false_capability_disables_streaming_for_any_provider(
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES", "0")
+    monkeypatch.setenv("UAGENT_STREAMING", "1")
+    resolver = CapabilityResolver(
+        feature_lookup=lambda feature, *_: False if feature == "streaming" else None
+    )
+
+    assert _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=_core(),
+        provider="openai",
+        depname="example-model",
+        capability_resolver=resolver,
+    ) == (False, False)
+
+
+def test_unknown_streaming_capability_preserves_requested_setting(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_RESPONSES", "0")
+    monkeypatch.setenv("UAGENT_STREAMING", "1")
+
+    assert _resolve_round_runtime_flags(
+        tr_cfg=None,
+        core=_core(),
+        provider="openai",
+        depname="unknown-model",
+        capability_resolver=_FailingResolver(),
+    ) == (False, True)
