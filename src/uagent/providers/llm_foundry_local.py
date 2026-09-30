@@ -533,8 +533,7 @@ def resolve_foundry_local_tool_choice(messages: Any, tools: Any) -> Any:
         return "none"
 
     if tool_name == "unload_tool":
-        relevant = _relevant_foundry_local_tool_names(messages)
-        if relevant and "tool_catalog" in available_set:
+        if "tool_catalog" in available_set:
             return _forced_tool_choice("tool_catalog")
         return "none"
 
