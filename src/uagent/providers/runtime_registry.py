@@ -14,6 +14,7 @@ from ..runtime.round_contracts import (
     RoundIdentifiers,
     RoundTransportSelection,
 )
+from .foundry_local_runtime import FoundryLocalRuntime
 from .grok_runtime import GrokGrpcProviderRuntime
 from .inception_runtime import InceptionProviderRuntime
 from .openai_compatible_runtime import OpenAICompatibleRuntime
@@ -53,6 +54,14 @@ def supports_provider_runtime(provider: str) -> bool:
         transport = (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").strip().lower()
         return transport != "sdk" and provider_key in _SUPPORTED
     return provider_key in _SUPPORTED
+
+
+def _foundry_local_options(options: Mapping[str, Any] | None) -> dict[str, Any]:
+    """Remove request options unsupported by Foundry Local Chat Completions."""
+
+    normalized = dict(options or {})
+    normalized.pop("reasoning_effort", None)
+    return normalized
 
 
 def build_provider_runtime_registry(
@@ -111,6 +120,17 @@ def build_provider_runtime_registry(
             transport=transport,
             streaming=streaming,
             options=options,
+            capability_resolver=capability_resolver,
+        )
+    elif provider_key == "foundry_local":
+        runtime = FoundryLocalRuntime(
+            client=client,
+            provider=provider_key,
+            model=model,
+            identifiers=identifiers,
+            transport=transport,
+            streaming=streaming,
+            options=_foundry_local_options(options),
             capability_resolver=capability_resolver,
         )
     else:
