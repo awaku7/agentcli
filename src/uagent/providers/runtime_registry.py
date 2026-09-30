@@ -56,6 +56,14 @@ def supports_provider_runtime(provider: str) -> bool:
     return provider_key in _SUPPORTED
 
 
+def _foundry_local_options(options: Mapping[str, Any] | None) -> dict[str, Any]:
+    """Remove request options unsupported by Foundry Local Chat Completions."""
+
+    normalized = dict(options or {})
+    normalized.pop("reasoning_effort", None)
+    return normalized
+
+
 def build_provider_runtime_registry(
     *,
     provider: str,
@@ -122,7 +130,7 @@ def build_provider_runtime_registry(
             identifiers=identifiers,
             transport=transport,
             streaming=streaming,
-            options=options,
+            options=_foundry_local_options(options),
             capability_resolver=capability_resolver,
         )
     else:
