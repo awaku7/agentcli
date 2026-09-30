@@ -253,13 +253,19 @@ def _resolve_round_runtime_flags(
     if provider == "meta":
         responses_env = "1"
 
+    from .runtime.capability_resolver import responses_api_explicit_enabled
+
     if responses_env in ("1", "true"):
         if provider == "lmstudio":
             from .providers.llm_lmstudio import responses_endpoint_available
 
             use_responses_api = responses_endpoint_available(core)
         else:
-            use_responses_api = True
+            use_responses_api = responses_api_explicit_enabled(
+                provider,
+                depname,
+                resolver=capability_resolver,
+            )
     elif responses_env in ("0", "false", "no", "off"):
         use_responses_api = False
     else:
@@ -277,25 +283,16 @@ def _resolve_round_runtime_flags(
                 capability_resolver=capability_resolver,
             )
 
-    # Mercury exposes Chat Completions only; do not let an explicit global
-    # UAGENT_RESPONSES=1 route this provider to an unsupported client surface.
-    if provider == "inception":
-        use_responses_api = False
-
     stream_responses = _env_default_true("UAGENT_STREAMING", default=True)
-    if provider == "inception":
-        # Use the model catalog when available; Mercury models currently
-        # advertise Chat Completions streaming through llmcapa.
-        try:
-            from .llmcapa_util import supports_feature
+    from .runtime.capability_resolver import streaming_requested_enabled
 
-            if (
-                supports_feature("streaming", depname or None, provider, default=True)
-                is False
-            ):
-                stream_responses = False
-        except Exception:
-            pass
+    stream_responses = streaming_requested_enabled(
+        provider,
+        depname,
+        requested=stream_responses,
+        transport="responses" if use_responses_api else "chat_completions",
+        resolver=capability_resolver,
+    )
 
     # If translation is enabled, disable streaming to avoid mismatched partial outputs.
     # (We translate per-call, not per-delta.)

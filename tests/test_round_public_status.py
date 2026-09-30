@@ -40,3 +40,41 @@ def test_noninteractive_exit_code_maps_public_status():
         )
         == 130
     )
+
+
+def test_startup_responses_continuation_uses_provider_capability():
+    from uagent.cli_impl.main import _reset_startup_responses_continuation
+
+    for provider in ("openai", "azure", "lmstudio", "meta"):
+        core = SimpleNamespace(
+            responses_state={
+                "previous_response_id": "resp_old",
+                "active_response_id": "resp_active",
+                "keep": "value",
+            }
+        )
+
+        _reset_startup_responses_continuation(core, provider, "model-a")
+
+        assert core.responses_state == {
+            "provider": provider,
+            "model": "model-a",
+            "keep": "value",
+        }
+
+
+def test_startup_responses_continuation_leaves_stateless_provider_untouched():
+    from uagent.cli_impl.main import _reset_startup_responses_continuation
+
+    for provider in ("openrouter", "foundry_local"):
+        original = {
+            "provider": "old-provider",
+            "model": "old-model",
+            "previous_response_id": "resp_old",
+            "active_response_id": "resp_active",
+        }
+        core = SimpleNamespace(responses_state=dict(original))
+
+        _reset_startup_responses_continuation(core, provider, "model-a")
+
+        assert core.responses_state == original

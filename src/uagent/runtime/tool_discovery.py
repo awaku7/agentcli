@@ -91,12 +91,6 @@ def get_tool_search_mode(raw: str | None = None) -> str:
     return "native"
 
 
-_PROVIDER_DEPNAME_ENV: dict[str, tuple[str, str]] = {
-    "openai": ("UAGENT_OPENAI_DEPNAME", "gpt-5.4-nano"),
-    "azure": ("UAGENT_AZURE_DEPNAME", "gpt-5.4-nano"),
-}
-
-
 def resolve_tool_discovery_from_environment(
     *,
     provider: str | None = None,
@@ -120,14 +114,24 @@ def resolve_tool_discovery_from_environment(
 
     provider_name = (provider or env_get("UAGENT_PROVIDER") or "").strip().lower()
     if depname is None:
-        env_name, default = _PROVIDER_DEPNAME_ENV.get(provider_name, ("", ""))
-        depname = (env_get(env_name, default) if env_name else default) or default
+        try:
+            from ..llmcapa_util import current_model
+
+            depname = current_model(provider_name)
+        except Exception:
+            depname = ""
     model_name = (depname or "").strip()
 
     if use_responses_api is None:
         raw_responses = (env_get("UAGENT_RESPONSES") or "").strip().lower()
         if raw_responses in {"1", "true", "yes", "on"}:
-            use_responses_api = True
+            from .capability_resolver import responses_api_explicit_enabled
+
+            use_responses_api = responses_api_explicit_enabled(
+                provider_name,
+                model_name,
+                resolver=capability_resolver,
+            )
         elif raw_responses in {"0", "false", "no", "off"}:
             use_responses_api = False
         else:
@@ -174,8 +178,8 @@ def resolve_tool_discovery(
 ) -> ToolDiscoveryDecision:
     """Resolve native search, legacy catalog, or selected schemas once.
 
-    Native search is fail-closed and requires positive llmcapa ``tool_search``
-    evidence for an OpenAI/Azure Responses API model.
+    Native search is fail-closed and requires a Responses route plus positive
+    llmcapa ``tool_search`` evidence for the selected provider/model.
     """
 
     mode = (configured_mode or "native").strip().lower()
@@ -186,10 +190,6 @@ def resolve_tool_discovery(
             ToolDiscoveryMode.SELECTED_SCHEMAS, "responses_api_disabled"
         )
     provider_name = (provider or "").strip().lower()
-    if provider_name not in {"openai", "azure"}:
-        return ToolDiscoveryDecision(
-            ToolDiscoveryMode.SELECTED_SCHEMAS, "provider_not_supported"
-        )
     try:
         if capability_resolver is None:
             from .capability_resolver import CapabilityResolver

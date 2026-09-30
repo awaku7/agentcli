@@ -29,6 +29,27 @@ def test_provider_cache_plan_maps_projection_changes_to_provider_actions():
     )
 
 
+def test_provider_cache_plan_uses_responses_continuation_capability():
+    assert (
+        plan_provider_cache(
+            provider="lmstudio",
+            model="local-model",
+            projection_changed=True,
+            previous_response_id=True,
+        ).action
+        == "BYPASS"
+    )
+    assert (
+        plan_provider_cache(
+            provider="openrouter",
+            model="some-model",
+            projection_changed=True,
+            previous_response_id=True,
+        ).action
+        == "NONE"
+    )
+
+
 def test_provider_cache_plan_reuses_unchanged_projection():
     plan = plan_provider_cache(
         provider="claude",

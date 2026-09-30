@@ -56,6 +56,23 @@ def _exit_code_for_round_outcome(core: Any) -> int:
     return 0
 
 
+def _reset_startup_responses_continuation(
+    core: Any, provider: str, depname: str
+) -> None:
+    """Drop stale Responses continuation state when the provider supports it."""
+    from ..providers.responses_manager import get_responses_capabilities
+
+    if not get_responses_capabilities(provider).previous_response_id:
+        return
+    state = getattr(core, "responses_state", None)
+    if not isinstance(state, dict):
+        return
+    state["provider"] = provider
+    state["model"] = depname
+    state.pop("previous_response_id", None)
+    state.pop("active_response_id", None)
+
+
 def main() -> int:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
@@ -133,11 +150,7 @@ def main() -> int:
 
     # Do not automatically resume a saved Responses chain at startup.
     # Explicit :load selects a log and may restore its validated latest ID.
-    if provider in ("openai", "azure"):
-        core.responses_state["provider"] = provider
-        core.responses_state["model"] = depname
-        core.responses_state.pop("previous_response_id", None)
-        core.responses_state.pop("active_response_id", None)
+    _reset_startup_responses_continuation(core, provider, depname)
 
     start_background_scheduler(core.event_queue)
     # Allow pybitchat chat_mode="llm" to inject peer messages into the LLM.
