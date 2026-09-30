@@ -14,7 +14,8 @@ def normalize_status_label(busy: bool, label: str = "") -> str:
     # observer. Keep those phases internal and expose the same provider-neutral
     # LLM status used by other providers. Provider diagnostics remain available
     # through UAGENT_DEBUG_FOUNDRY_LOCAL.
-    if isinstance(label, str) and label.startswith(_FOUNDRY_LOCAL_STATUS_PREFIX):
+    is_foundry_local_status = label.startswith(_FOUNDRY_LOCAL_STATUS_PREFIX)
+    if is_foundry_local_status:
         label = "LLM"
 
     if busy and label == "LLM":
