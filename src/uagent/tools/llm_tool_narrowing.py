@@ -238,13 +238,13 @@ def _select_tool_specs_legacy(
                     if isinstance(txt, str) and txt.strip():
                         parts.append(txt.strip())
             if parts:
-                text = "\n".join(parts).strip()
+                text = "\\n".join(parts).strip()
         if text and not _is_low_info_user_text(text):
             user_texts.append(text)
         if len(user_texts) >= 5:
             break
 
-    latest_user_text = "\n".join(reversed(user_texts)).strip()
+    latest_user_text = "\\n".join(reversed(user_texts)).strip()
     if not latest_user_text:
         if env_get("UAGENT_DEBUG_TOOLS") == "1":
             try:
