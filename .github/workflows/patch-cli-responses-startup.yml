@@ -1,0 +1,80 @@
+name: Apply CLI Responses startup capability patch
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  apply-patch:
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.head_ref == 'fix/llmcapa-capability-routing'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Apply narrow startup capability patch
+        shell: python
+        run: |
+          from pathlib import Path
+
+          path = Path("src/uagent/cli_impl/main.py")
+          text = path.read_text(encoding="utf-8")
+
+          helper_name = "def _reset_startup_responses_continuation("
+          if helper_name not in text:
+              marker = "\n\ndef main() -> int:\n"
+              helper = '''\n\ndef _reset_startup_responses_continuation(\n    core: Any, provider: str, depname: str\n) -> None:\n    \"\"\"Drop stale Responses continuation state when the provider supports it.\"\"\"\n    from ..providers.responses_manager import get_responses_capabilities\n\n    if not get_responses_capabilities(provider).previous_response_id:\n        return\n    state = getattr(core, \"responses_state\", None)\n    if not isinstance(state, dict):\n        return\n    state[\"provider\"] = provider\n    state[\"model\"] = depname\n    state.pop(\"previous_response_id\", None)\n    state.pop(\"active_response_id\", None)\n'''
+              if marker not in text:
+                  raise RuntimeError("main() insertion marker not found")
+              text = text.replace(marker, helper + marker, 1)
+
+          old = '''    if provider in (\"openai\", \"azure\"):\n        core.responses_state[\"provider\"] = provider\n        core.responses_state[\"model\"] = depname\n        core.responses_state.pop(\"previous_response_id\", None)\n        core.responses_state.pop(\"active_response_id\", None)\n'''
+          new = '''    _reset_startup_responses_continuation(core, provider, depname)\n'''
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif new not in text:
+              raise RuntimeError("startup continuation block not found")
+          path.write_text(text, encoding="utf-8")
+
+          test_path = Path("tests/test_round_public_status.py")
+          tests = test_path.read_text(encoding="utf-8")
+          marker = "def test_startup_responses_continuation_uses_provider_capability():"
+          if marker not in tests:
+              tests = tests.rstrip() + '''\n\n\ndef test_startup_responses_continuation_uses_provider_capability():\n    from uagent.cli_impl.main import _reset_startup_responses_continuation\n\n    for provider in (\"openai\", \"azure\", \"lmstudio\", \"meta\"):\n        core = SimpleNamespace(\n            responses_state={\n                \"previous_response_id\": \"resp_old\",\n                \"active_response_id\": \"resp_active\",\n                \"keep\": \"value\",\n            }\n        )\n\n        _reset_startup_responses_continuation(core, provider, \"model-a\")\n\n        assert core.responses_state == {\n            \"provider\": provider,\n            \"model\": \"model-a\",\n            \"keep\": \"value\",\n        }\n\n\ndef test_startup_responses_continuation_leaves_stateless_provider_untouched():\n    from uagent.cli_impl.main import _reset_startup_responses_continuation\n\n    for provider in (\"openrouter\", \"foundry_local\"):\n        original = {\n            \"provider\": \"old-provider\",\n            \"model\": \"old-model\",\n            \"previous_response_id\": \"resp_old\",\n            \"active_response_id\": \"resp_active\",\n        }\n        core = SimpleNamespace(responses_state=dict(original))\n\n        _reset_startup_responses_continuation(core, provider, \"model-a\")\n\n        assert core.responses_state == original\n'''
+              test_path.write_text(tests, encoding="utf-8")
+
+      - name: Format and verify focused tests
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[core,providers,test]"
+          python -m pip install black ruff
+          python -m black src/uagent/cli_impl/main.py tests/test_round_public_status.py
+          python -m ruff check src/uagent/cli_impl/main.py tests/test_round_public_status.py
+          python -m pytest -q tests/test_round_public_status.py tests/test_provider_cache.py
+
+      - name: Commit patch
+        env:
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/uagent/cli_impl/main.py tests/test_round_public_status.py
+          if git diff --cached --quiet; then
+            echo "Patch already applied."
+            exit 0
+          fi
+          git commit -m "refactor: gate startup responses continuation by capability"
+          git push origin "HEAD:${BRANCH}"
