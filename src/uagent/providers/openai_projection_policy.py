@@ -1,9 +1,9 @@
 """Provider projection policy for OpenAI-compatible registry requests.
 
 This module owns translation from UAGENT request policy to the native request
-fields consumed by the OpenAI/Azure runtime adapter.  It deliberately does
-not call an SDK or mutate messages; transport-specific serialization remains
-inside the provider runtime.
+fields consumed by the OpenAI/Azure runtime adapter.  It deliberately does not
+call an SDK or mutate messages; transport-specific serialization remains inside
+the provider runtime.
 """
 
 from __future__ import annotations
@@ -48,6 +48,7 @@ def build_openai_projection(
     network side effects and never changes ``messages``.
     """
     use_responses_api = (transport or "").strip().lower() == "responses"
+    provider_key = (provider or "").strip().lower()
     options: dict[str, Any] = {}
     reasoning = (env_get("UAGENT_REASONING", "") or "").strip().lower()
     auto_user_text = ""
@@ -62,7 +63,11 @@ def build_openai_projection(
     if effort_used:
         if use_responses_api:
             options["reasoning"] = {"effort": effort_used}
-        else:
+        elif provider_key != "foundry_local":
+            # Foundry Local's REST Chat Completions surface does not document
+            # reasoning_effort. Reasoning-capable local models expose their
+            # reasoning in the response instead, so let the model/runtime own
+            # that behavior rather than sending an unsupported request field.
             options["reasoning_effort"] = effort_used
 
     response_format = native_structured_output_request_for_runtime(
@@ -105,7 +110,7 @@ def build_openai_projection(
         except ValueError:
             pass
 
-    top_p = (env_get("UAGENT_TOP_P", "") or "").strip()
+    top_p = (env_get("UAGENT_TOP_P") or "").strip()
     if not use_responses_api and top_p:
         try:
             options["top_p"] = float(top_p)
@@ -124,7 +129,7 @@ def build_openai_projection(
 
     if send_tools:
         options["tool_choice"] = "auto"
-        if not use_responses_api:
+        if not use_responses_api and provider_key != "foundry_local":
             options["reasoning_effort"] = "none"
 
     return OpenAIProjection(
