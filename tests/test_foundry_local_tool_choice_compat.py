@@ -30,7 +30,7 @@ def test_foundry_local_initial_round_forces_catalog_and_narrows_tools(
     monkeypatch.setattr(
         tool_registry,
         "get_tool_catalog",
-        lambda **_kwargs: [{"name": "fetch_url", "score": 10}],
+        lambda **_kwargs: [{"name": "search_web", "score": 10}],
     )
     kwargs = {
         "model": "phi-4-mini",
@@ -72,7 +72,7 @@ def test_foundry_local_initial_round_forces_relevant_loaded_tool(monkeypatch) ->
     monkeypatch.setattr(
         tool_registry,
         "get_tool_catalog",
-        lambda **_kwargs: [{"name": "fetch_url", "score": 10}],
+        lambda **_kwargs: [{"name": "search_web", "score": 10}],
     )
     kwargs = {
         "messages": [{"role": "user", "content": "今日の天気"}],
@@ -80,15 +80,15 @@ def test_foundry_local_initial_round_forces_relevant_loaded_tool(monkeypatch) ->
             _spec("tool_catalog"),
             _spec("tool_load"),
             _spec("unload_tool"),
-            _spec("fetch_url"),
+            _spec("search_web"),
         ],
         "tool_choice": "auto",
     }
 
     effective = llm_foundry_local.apply_foundry_local_chat_compat(kwargs)
 
-    assert _forced_name(effective["tool_choice"]) == "fetch_url"
-    assert [spec["function"]["name"] for spec in effective["tools"]] == ["fetch_url"]
+    assert _forced_name(effective["tool_choice"]) == "search_web"
+    assert [spec["function"]["name"] for spec in effective["tools"]] == ["search_web"]
 
 
 def test_foundry_local_catalog_lookup_failure_preserves_auto(monkeypatch) -> None:
@@ -214,7 +214,7 @@ def test_foundry_local_client_proxy_rewrites_auto_and_hides_duplicate_marker(
     monkeypatch.setattr(
         tool_registry,
         "get_tool_catalog",
-        lambda **_kwargs: [{"name": "fetch_url", "score": 10}],
+        lambda **_kwargs: [{"name": "search_web", "score": 10}],
     )
     seen = {}
 
