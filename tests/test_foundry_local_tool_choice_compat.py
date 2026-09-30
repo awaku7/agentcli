@@ -34,9 +34,7 @@ def test_foundry_local_initial_round_forces_catalog_and_narrows_tools() -> None:
     effective = llm_foundry_local.apply_foundry_local_chat_compat(kwargs)
 
     assert _forced_name(effective["tool_choice"]) == "tool_catalog"
-    assert [spec["function"]["name"] for spec in effective["tools"]] == [
-        "tool_catalog"
-    ]
+    assert [spec["function"]["name"] for spec in effective["tools"]] == ["tool_catalog"]
 
 
 def test_foundry_local_catalog_result_forces_auto_loaded_tool() -> None:
@@ -154,9 +152,7 @@ def test_foundry_local_client_proxy_rewrites_auto_and_hides_duplicate_marker() -
             )
             return SimpleNamespace(choices=[SimpleNamespace(message=message)])
 
-    client = SimpleNamespace(
-        chat=SimpleNamespace(completions=FakeCompletions()),
-    )
+    client = SimpleNamespace(chat=SimpleNamespace(completions=FakeCompletions()))
     llm_foundry_local._install_foundry_local_chat_compat(client)
 
     response = client.chat.completions.create(
