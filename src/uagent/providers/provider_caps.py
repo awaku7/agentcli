@@ -129,6 +129,24 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 }
 
 
+# Structured-output model support belongs to llmcapa. This mapping only records
+# wire formats that UAG has an explicit adapter for, so provider names do not
+# leak into the shared structured-output orchestration code.
+_STRUCTURED_OUTPUT_WIRE_FORMATS: dict[str, frozenset[str]] = {
+    provider: frozenset({"chat_completions", "responses"})
+    for provider in ("openai", "azure", "openrouter", "deepseek")
+}
+
+
+def supports_structured_output_wire(provider: str, transport: str) -> bool:
+    """Return whether UAG implements native structured output on this wire."""
+    name = (provider or "").strip().lower()
+    normalized_transport = (transport or "").strip().lower()
+    return normalized_transport in _STRUCTURED_OUTPUT_WIRE_FORMATS.get(
+        name, frozenset()
+    )
+
+
 # Providers backed by a locally configured endpoint rather than a cloud API key.
 LOCAL_ENDPOINT_PROVIDERS: frozenset[str] = frozenset(
     {"ollama", "llama_cpp", "lmstudio", "foundry_local"}

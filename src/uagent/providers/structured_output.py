@@ -6,6 +6,7 @@ import json
 from typing import Any
 
 from ..env_utils import env_get
+from .provider_caps import supports_structured_output_wire
 
 _TRUE = {"1", "true", "yes", "on", "enable", "enabled"}
 _FALSE = {"0", "false", "no", "off", "disable", "disabled"}
@@ -88,10 +89,9 @@ def apply_openai_chat_structured_output(
     model_id: str = "",
 ) -> None:
     """Apply OpenAI Chat Completions Structured Output when requested."""
-    if (
-        provider not in {"openai", "azure", "openrouter", "deepseek"}
-        or "response_format" in chat_kwargs
-    ):
+    if not supports_structured_output_wire(provider, "chat_completions"):
+        return
+    if "response_format" in chat_kwargs:
         return
     response_format = native_structured_output_request(
         messages,
@@ -110,7 +110,7 @@ def apply_openai_responses_structured_output(
     model_id: str = "",
 ) -> None:
     """Apply OpenAI Responses API ``text.format`` when requested."""
-    if provider not in {"openai", "azure", "openrouter", "deepseek"}:
+    if not supports_structured_output_wire(provider, "responses"):
         return
     response_format = native_structured_output_request(
         messages,
