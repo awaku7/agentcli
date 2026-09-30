@@ -15,6 +15,38 @@ from .round_contracts import RoundSummary
 RoundDispatchResult = tuple[bool, Any, str, str, list[dict[str, Any]], bool]
 
 
+def _normalize_foundry_local_reasoning(
+    provider: str,
+    assistant_text: str,
+    reasoning_content: str,
+) -> tuple[str, str]:
+    """Split inline Foundry ``<think>`` blocks on the legacy fallback path.
+
+    Foundry Local normally uses ``FoundryLocalRuntime`` through the provider
+    registry, where inline reasoning is normalized to ``ReasoningDelta``.
+    Some rounds still fall back to the legacy OpenAI-compatible caller (for
+    example while tool context is not yet available). Keep both paths
+    consistent by applying the same complete-response parser here.
+
+    If the provider already supplied an explicit reasoning field, keep it and
+    only remove the duplicate inline think block from visible assistant text.
+    """
+
+    if (provider or "").strip().lower() != "foundry_local":
+        return assistant_text, reasoning_content
+    if not isinstance(assistant_text, str) or "<think>" not in assistant_text:
+        return assistant_text, reasoning_content
+
+    from ..providers.foundry_local_runtime import FoundryLocalRuntime
+
+    inline_reasoning, visible_text = FoundryLocalRuntime._split_think_text(
+        assistant_text
+    )
+    if inline_reasoning and not reasoning_content:
+        reasoning_content = inline_reasoning
+    return visible_text, reasoning_content
+
+
 def call_legacy_openai_compatible_round(
     *,
     provider: str,
@@ -75,6 +107,11 @@ def call_legacy_openai_compatible_round(
             responses_state=responses_state,
             round_count=round_count,
         )
+    )
+    assistant_text, reasoning_content = _normalize_foundry_local_reasoning(
+        provider,
+        assistant_text,
+        reasoning_content,
     )
     return ok, client, assistant_text, reasoning_content, tool_calls_list, False
 
