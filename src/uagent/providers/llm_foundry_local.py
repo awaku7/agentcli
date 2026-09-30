@@ -17,6 +17,7 @@ from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 
 _TRUE_VALUES = {"1", "true", "yes", "on"}
+_MANAGEMENT_TOOL_NAMES = frozenset({"tool_catalog", "tool_load", "unload_tool"})
 
 _FOUNDRY_LOCAL_PROGRESS_LABELS = {
     "ResponseStarted": "LLM:Foundry:inference",
@@ -97,20 +98,20 @@ def _last_user_content(messages: Any) -> Any:
     return None
 
 
+def _tool_name(spec: Any) -> str:
+    if not isinstance(spec, Mapping):
+        return ""
+    name = spec.get("name")
+    function = spec.get("function")
+    if not name and isinstance(function, Mapping):
+        name = function.get("name")
+    return str(name or "").strip()
+
+
 def _tool_names(tools: Any) -> list[str]:
-    names: list[str] = []
     if not isinstance(tools, (list, tuple)):
-        return names
-    for spec in tools:
-        if not isinstance(spec, Mapping):
-            continue
-        name = spec.get("name")
-        function = spec.get("function")
-        if not name and isinstance(function, Mapping):
-            name = function.get("name")
-        if isinstance(name, str) and name:
-            names.append(name)
-    return names
+        return []
+    return [name for name in (_tool_name(spec) for spec in tools) if name]
 
 
 def _request_payload(request: Any) -> tuple[bytes, dict[str, Any] | None]:
@@ -128,6 +129,19 @@ def _request_payload(request: Any) -> tuple[bytes, dict[str, Any] | None]:
     except (UnicodeDecodeError, json.JSONDecodeError, TypeError, ValueError):
         parsed = None
     return raw_bytes, parsed if isinstance(parsed, dict) else None
+
+
+def _render_tool_choice(value: Any) -> str:
+    if isinstance(value, str):
+        return value
+    if isinstance(value, Mapping):
+        function = value.get("function")
+        if isinstance(function, Mapping):
+            name = str(function.get("name") or "").strip()
+            if name:
+                return f"function:{name}"
+        return str(value.get("type") or "object")
+    return ""
 
 
 def _foundry_local_request_diagnostics(request: Any) -> None:
@@ -158,6 +172,7 @@ def _foundry_local_request_diagnostics(request: Any) -> None:
                 ),
                 "tool_count": len(tools) if isinstance(tools, (list, tuple)) else 0,
                 "tool_names": _tool_names(tools),
+                "tool_choice": _render_tool_choice(payload.get("tool_choice")),
                 "last_user_chars": len(last_user_text),
                 "last_user_sha256": _sha256_bytes(
                     last_user_text.encode("utf-8", errors="replace")
@@ -228,17 +243,14 @@ def _foundry_local_response_diagnostics(response: Any) -> None:
 
 
 def foundry_local_progress_label(event_type: str) -> str | None:
-    """Map normalized runtime events to safe Foundry progress labels.
+    """Map normalized runtime events to safe Foundry progress labels."""
 
-    The label describes observable request phases only. It deliberately does
-    not expose model reasoning text or infer an effort level the server did not
-    report.
-    """
     return _FOUNDRY_LOCAL_PROGRESS_LABELS.get(str(event_type or ""))
 
 
 def update_foundry_local_progress(core: Any, event_type: str) -> None:
     """Update the host status line for an observable Foundry stream event."""
+
     label = foundry_local_progress_label(event_type)
     set_status = getattr(core, "set_status", None)
     if label is None or not callable(set_status):
@@ -246,7 +258,6 @@ def update_foundry_local_progress(core: Any, event_type: str) -> None:
     try:
         set_status(True, label)
     except Exception:
-        # Status display is best-effort and must never fail the model request.
         pass
 
 
@@ -262,6 +273,7 @@ def debug_foundry_local_runtime(event: str, **fields: Any) -> None:
         "message_count",
         "tool_count",
         "tool_names",
+        "tool_choice",
         "finish_reason",
         "tool_call_count",
         "assistant_chars",
@@ -287,12 +299,7 @@ def debug_foundry_local_runtime(event: str, **fields: Any) -> None:
 
 
 class FoundryLocalProgressObserver:
-    """Report observable progress and hash visible streamed response text.
-
-    The observer reads only tag boundaries to switch the status label. It does
-    not render or store the reasoning text itself. When diagnostics are enabled,
-    it also emits a SHA-256 digest of visible TextDelta content at completion.
-    """
+    """Report observable progress and hash visible streamed response text."""
 
     _THINK_START = "<think>"
     _THINK_END = "</think>"
@@ -378,8 +385,264 @@ class FoundryLocalProgressObserver:
             return
 
 
+def _forced_tool_choice(name: str) -> dict[str, Any]:
+    return {"type": "function", "function": {"name": name}}
+
+
+def _latest_tool_message_after_user(messages: Any) -> Mapping[str, Any] | None:
+    if not isinstance(messages, (list, tuple)):
+        return None
+    for message in reversed(messages):
+        if not isinstance(message, Mapping):
+            continue
+        role = str(message.get("role") or "").strip().lower()
+        if role == "user":
+            return None
+        if role == "tool":
+            return message
+    return None
+
+
+def _decode_tool_result(content: Any) -> dict[str, Any] | None:
+    if isinstance(content, Mapping):
+        return dict(content)
+    if not isinstance(content, str):
+        return None
+    text = content.strip()
+    begin = "---BEGIN_UAGENT_EXTERNAL_CONTENT---"
+    end = "---END_UAGENT_EXTERNAL_CONTENT---"
+    if text.startswith(begin) and text.endswith(end):
+        text = text[len(begin) : -len(end)].strip()
+    try:
+        parsed = json.loads(text)
+    except (TypeError, ValueError, json.JSONDecodeError):
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def _catalog_selected_tool(result: Mapping[str, Any]) -> str:
+    auto_loaded = result.get("auto_loaded")
+    if isinstance(auto_loaded, str) and auto_loaded.strip():
+        return auto_loaded.strip()
+    rows = result.get("tools")
+    if isinstance(rows, list):
+        for row in rows:
+            if not isinstance(row, Mapping):
+                continue
+            name = str(row.get("name") or "").strip()
+            if name and name not in _MANAGEMENT_TOOL_NAMES:
+                return name
+    return ""
+
+
+def _tool_load_selected_tool(result: Mapping[str, Any]) -> str:
+    name = result.get("name")
+    if isinstance(name, str) and name.strip():
+        return name.strip()
+    loaded = result.get("loaded")
+    if isinstance(loaded, str) and loaded.strip():
+        return loaded.strip()
+    if isinstance(loaded, list):
+        names = [str(item).strip() for item in loaded if str(item).strip()]
+        if len(names) == 1:
+            return names[0]
+    return ""
+
+
+def _relevant_foundry_local_tool_names(messages: Any) -> set[str] | None:
+    """Return catalog-ranked concrete tools for the latest user request.
+
+    ``None`` means the local catalog could not be consulted. An empty set means
+    the catalog found no concrete tool related to the request, so forcing a
+    management-tool round would only add latency and can change normal chat.
+    """
+
+    query = _content_text(_last_user_content(messages)).strip()
+    if not query:
+        return set()
+    try:
+        from .. import tools as tool_registry
+
+        rows = tool_registry.get_tool_catalog(query=query, max_results=12)
+    except Exception:
+        return None
+
+    names: set[str] = set()
+    for row in rows or []:
+        if not isinstance(row, Mapping):
+            continue
+        name = str(row.get("name") or "").strip()
+        if name and name not in _MANAGEMENT_TOOL_NAMES:
+            names.add(name)
+    return names
+
+
+def resolve_foundry_local_tool_choice(messages: Any, tools: Any) -> Any:
+    """Choose a deterministic tool policy for Foundry Local ChatCompletions.
+
+    Some Foundry Local model/runtime combinations expose function calling but do
+    not reliably implement ``tool_choice=auto``. UAG therefore uses a bounded
+    deterministic sequence only when the local tool catalog finds a concrete
+    capability related to the current user request:
+
+    - relevant tool already exposed: force it when the match is unambiguous;
+    - relevant tool not exposed yet: force ``tool_catalog`` to load/select it;
+    - no relevant concrete tool: disable tools and let the model answer normally;
+    - after a concrete tool result: disable tools for the final answer.
+
+    If the local catalog cannot make a safe decision, ``auto`` is preserved as a
+    best-effort fallback instead of guessing a tool.
+    """
+
+    available = _tool_names(tools)
+    available_set = set(available)
+    if not available:
+        return None
+
+    last_tool = _latest_tool_message_after_user(messages)
+    if last_tool is None:
+        relevant = _relevant_foundry_local_tool_names(messages)
+        if relevant is None:
+            return "auto"
+        if not relevant:
+            return "none"
+        matching = [
+            name
+            for name in available
+            if name in relevant and name not in _MANAGEMENT_TOOL_NAMES
+        ]
+        if len(matching) == 1:
+            return _forced_tool_choice(matching[0])
+        if "tool_catalog" in available_set:
+            return _forced_tool_choice("tool_catalog")
+        return "auto"
+
+    tool_name = str(last_tool.get("name") or "").strip()
+    result = _decode_tool_result(last_tool.get("content"))
+
+    if tool_name == "tool_catalog":
+        candidate = _catalog_selected_tool(result or {})
+        if candidate and candidate in available_set:
+            return _forced_tool_choice(candidate)
+        return "none"
+
+    if tool_name == "tool_load":
+        candidate = _tool_load_selected_tool(result or {})
+        if candidate and candidate in available_set:
+            return _forced_tool_choice(candidate)
+        return "none"
+
+    if tool_name == "unload_tool":
+        if "tool_catalog" in available_set:
+            return _forced_tool_choice("tool_catalog")
+        return "none"
+
+    return "none"
+
+
+def apply_foundry_local_chat_compat(kwargs: dict[str, Any]) -> dict[str, Any]:
+    """Return ChatCompletions kwargs with Foundry Local tool-choice workarounds."""
+
+    out = dict(kwargs)
+    tools = out.get("tools")
+    if not isinstance(tools, (list, tuple)) or not tools:
+        return out
+
+    requested = out.get("tool_choice", "auto")
+    if requested not in (None, "auto"):
+        return out
+
+    choice = resolve_foundry_local_tool_choice(out.get("messages"), tools)
+    if choice is None:
+        return out
+
+    if choice == "none":
+        out.pop("tools", None)
+        out.pop("tool_choice", None)
+        out.pop("parallel_tool_calls", None)
+        return out
+
+    out["tool_choice"] = choice
+    if isinstance(choice, Mapping):
+        function = choice.get("function")
+        forced_name = (
+            str(function.get("name") or "").strip()
+            if isinstance(function, Mapping)
+            else ""
+        )
+        if forced_name:
+            matching = [spec for spec in tools if _tool_name(spec) == forced_name]
+            if matching:
+                out["tools"] = matching
+    return out
+
+
+def _suppress_duplicate_tool_call_text(response: Any) -> Any:
+    """Blank Foundry's textual tool marker when structured tool_calls exist."""
+
+    try:
+        choices = getattr(response, "choices", None)
+        if not choices:
+            return response
+        message = getattr(choices[0], "message", None)
+        if message is None:
+            return response
+        tool_calls = getattr(message, "tool_calls", None) or []
+        content = getattr(message, "content", None)
+        if (
+            tool_calls
+            and isinstance(content, str)
+            and "<|tool_call|>" in content
+            and "<|/tool_call|>" in content
+        ):
+            message.content = ""
+    except Exception:
+        pass
+    return response
+
+
+class _FoundryLocalCompletionsCompat:
+    def __init__(self, inner: Any) -> None:
+        self._inner = inner
+
+    def create(self, *args: Any, **kwargs: Any) -> Any:
+        effective = apply_foundry_local_chat_compat(kwargs)
+        response = self._inner.create(*args, **effective)
+        if not effective.get("stream"):
+            _suppress_duplicate_tool_call_text(response)
+        return response
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._inner, name)
+
+
+class _FoundryLocalChatCompat:
+    def __init__(self, inner: Any) -> None:
+        self._inner = inner
+        self.completions = _FoundryLocalCompletionsCompat(inner.completions)
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._inner, name)
+
+
+def _install_foundry_local_chat_compat(client: Any) -> Any:
+    """Install the compatibility wrapper without changing the OpenAI client type."""
+
+    try:
+        chat = getattr(client, "chat", None)
+        if chat is None or getattr(chat, "completions", None) is None:
+            return client
+        if isinstance(chat, _FoundryLocalChatCompat):
+            return client
+        client.chat = _FoundryLocalChatCompat(chat)
+    except Exception:
+        pass
+    return client
+
+
 def normalize_foundry_local_base_url(value: str) -> str:
     """Return a loopback-only OpenAI base URL ending in ``/v1``."""
+
     if not isinstance(value, str) or not value.strip():
         raise ValueError("UAGENT_FOUNDRY_LOCAL_BASE_URL is required")
     parsed = urlsplit(value.strip())
@@ -407,6 +670,7 @@ def normalize_foundry_local_base_url(value: str) -> str:
 
 def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
     """Create a standard OpenAI client for an existing Foundry Local endpoint."""
+
     getter = getattr(core, "get_env", None)
 
     def get(name: str, default: str = "") -> str:
@@ -447,15 +711,17 @@ def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
     except TypeError:
         client = OpenAI(api_key=api_key, base_url=base_url)
 
-    return client, model_name
+    return _install_foundry_local_chat_compat(client), model_name
 
 
 __all__ = [
     "FoundryLocalProgressObserver",
+    "apply_foundry_local_chat_compat",
     "debug_foundry_local_runtime",
     "foundry_local_debug_enabled",
     "foundry_local_progress_label",
     "make_foundry_local_client",
     "normalize_foundry_local_base_url",
+    "resolve_foundry_local_tool_choice",
     "update_foundry_local_progress",
 ]
