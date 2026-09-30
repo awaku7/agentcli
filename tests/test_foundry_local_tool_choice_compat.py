@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+from uagent import tools as tool_registry
 from uagent.providers import llm_foundry_local
 
 
@@ -23,7 +24,14 @@ def _forced_name(choice) -> str:
     return str(function.get("name") or "")
 
 
-def test_foundry_local_initial_round_forces_catalog_and_narrows_tools() -> None:
+def test_foundry_local_initial_round_forces_catalog_and_narrows_tools(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        tool_registry,
+        "get_tool_catalog",
+        lambda **_kwargs: [{"name": "fetch_url", "score": 10}],
+    )
     kwargs = {
         "model": "phi-4-mini",
         "messages": [{"role": "user", "content": "今日の天気"}],
@@ -35,6 +43,62 @@ def test_foundry_local_initial_round_forces_catalog_and_narrows_tools() -> None:
 
     assert _forced_name(effective["tool_choice"]) == "tool_catalog"
     assert [spec["function"]["name"] for spec in effective["tools"]] == ["tool_catalog"]
+
+
+def test_foundry_local_unrelated_prompt_disables_tools(monkeypatch) -> None:
+    monkeypatch.setattr(tool_registry, "get_tool_catalog", lambda **_kwargs: [])
+    kwargs = {
+        "messages": [{"role": "user", "content": "こんにちは"}],
+        "tools": [_spec("tool_catalog"), _spec("tool_load"), _spec("unload_tool")],
+        "tool_choice": "auto",
+        "parallel_tool_calls": True,
+    }
+
+    effective = llm_foundry_local.apply_foundry_local_chat_compat(kwargs)
+
+    assert "tools" not in effective
+    assert "tool_choice" not in effective
+    assert "parallel_tool_calls" not in effective
+
+
+def test_foundry_local_initial_round_forces_relevant_loaded_tool(monkeypatch) -> None:
+    monkeypatch.setattr(
+        tool_registry,
+        "get_tool_catalog",
+        lambda **_kwargs: [{"name": "fetch_url", "score": 10}],
+    )
+    kwargs = {
+        "messages": [{"role": "user", "content": "今日の天気"}],
+        "tools": [
+            _spec("tool_catalog"),
+            _spec("tool_load"),
+            _spec("unload_tool"),
+            _spec("fetch_url"),
+        ],
+        "tool_choice": "auto",
+    }
+
+    effective = llm_foundry_local.apply_foundry_local_chat_compat(kwargs)
+
+    assert _forced_name(effective["tool_choice"]) == "fetch_url"
+    assert [spec["function"]["name"] for spec in effective["tools"]] == ["fetch_url"]
+
+
+def test_foundry_local_catalog_lookup_failure_preserves_auto(monkeypatch) -> None:
+    def fail_catalog(**_kwargs):
+        raise RuntimeError("catalog unavailable")
+
+    monkeypatch.setattr(tool_registry, "get_tool_catalog", fail_catalog)
+    kwargs = {
+        "messages": [{"role": "user", "content": "今日の天気"}],
+        "tools": [_spec("tool_catalog"), _spec("tool_load")],
+        "tool_choice": "auto",
+    }
+
+    effective = llm_foundry_local.apply_foundry_local_chat_compat(kwargs)
+
+    assert effective["tool_choice"] == "auto"
+    assert len(effective["tools"]) == 2
 
 
 def test_foundry_local_catalog_result_forces_auto_loaded_tool() -> None:
@@ -137,7 +201,14 @@ def test_foundry_local_explicit_tool_choice_is_preserved() -> None:
     assert len(effective["tools"]) == 2
 
 
-def test_foundry_local_client_proxy_rewrites_auto_and_hides_duplicate_marker() -> None:
+def test_foundry_local_client_proxy_rewrites_auto_and_hides_duplicate_marker(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        tool_registry,
+        "get_tool_catalog",
+        lambda **_kwargs: [{"name": "fetch_url", "score": 10}],
+    )
     seen = {}
 
     class FakeCompletions:
