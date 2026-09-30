@@ -18,6 +18,41 @@ from ..env_utils import env_get
 
 _TRUE_VALUES = {"1", "true", "yes", "on"}
 _MANAGEMENT_TOOL_NAMES = frozenset({"tool_catalog", "tool_load", "unload_tool"})
+_CATALOG_FALLBACK_TOOL_NAMES = frozenset({"search_web", "fetch_url"})
+_LIVE_WEB_QUERY_HINTS = (
+    "天気",
+    "予報",
+    "ニュース",
+    "最新",
+    "株価",
+    "為替",
+    "相場",
+    "運行",
+    "遅延",
+    "営業時間",
+    "空席",
+    "予約",
+    "検索",
+    "調べて",
+    "調べる",
+    "weather",
+    "forecast",
+    "news",
+    "latest",
+    "current price",
+    "stock price",
+    "exchange rate",
+    "traffic",
+    "delay",
+    "open now",
+    "availability",
+    "reservation",
+    "search the web",
+    "web search",
+    "search online",
+    "look up",
+    "internet",
+)
 
 _FOUNDRY_LOCAL_PROGRESS_LABELS = {
     "ResponseStarted": "LLM:Foundry:inference",
@@ -449,12 +484,29 @@ def _tool_load_selected_tool(result: Mapping[str, Any]) -> str:
     return ""
 
 
+def _query_needs_catalog_fallback(query: str) -> str:
+    """Return the generic fallback tool justified by an explicit lookup intent."""
+
+    text = (query or "").strip().lower()
+    if not text:
+        return ""
+    if "://" in text:
+        return "fetch_url"
+    if any(hint in text for hint in _LIVE_WEB_QUERY_HINTS):
+        return "search_web"
+    return ""
+
+
 def _relevant_foundry_local_tool_names(messages: Any) -> set[str] | None:
     """Return catalog-ranked concrete tools for the latest user request.
 
     ``None`` means the local catalog could not be consulted. An empty set means
     the catalog found no concrete tool related to the request, so forcing a
     management-tool round would only add latency and can change normal chat.
+
+    ``get_tool_catalog`` always appends ``search_web`` and ``fetch_url`` as
+    discovery fallbacks. Those rows are not evidence of tool intent by
+    themselves, so they are only retained for explicit live/web/URL requests.
     """
 
     query = _content_text(_last_user_content(messages)).strip()
@@ -474,7 +526,15 @@ def _relevant_foundry_local_tool_names(messages: Any) -> set[str] | None:
         name = str(row.get("name") or "").strip()
         if name and name not in _MANAGEMENT_TOOL_NAMES:
             names.add(name)
-    return names
+
+    specific = names - _CATALOG_FALLBACK_TOOL_NAMES
+    if specific:
+        return specific
+
+    fallback = _query_needs_catalog_fallback(query)
+    if fallback and fallback in names:
+        return {fallback}
+    return set()
 
 
 def resolve_foundry_local_tool_choice(messages: Any, tools: Any) -> Any:
@@ -601,13 +661,114 @@ def _suppress_duplicate_tool_call_text(response: Any) -> Any:
     return response
 
 
+def _exception_status_code(exception: Exception) -> int | None:
+    status = getattr(exception, "status_code", None) or getattr(exception, "status", None)
+    if status is None:
+        response = getattr(exception, "response", None)
+        status = getattr(response, "status_code", None) or getattr(response, "status", None)
+    try:
+        return int(status) if status is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _is_foundry_local_server_error(exception: Exception) -> bool:
+    status = _exception_status_code(exception)
+    if status is not None:
+        return 500 <= status <= 599
+    text = f"{type(exception).__name__}: {exception}".lower()
+    return any(
+        marker in text
+        for marker in (
+            "internal server error",
+            "http 500",
+            "error code: 500",
+            "bad gateway",
+            "service unavailable",
+            "gateway timeout",
+        )
+    )
+
+
+def _required_followup_fallback(kwargs: Mapping[str, Any]) -> dict[str, Any] | None:
+    """Use ``required`` for a single concrete tool after management-tool output."""
+
+    last_tool = _latest_tool_message_after_user(kwargs.get("messages"))
+    if last_tool is None:
+        return None
+    last_name = str(last_tool.get("name") or "").strip()
+    if last_name not in {"tool_catalog", "tool_load"}:
+        return None
+
+    choice = kwargs.get("tool_choice")
+    if not isinstance(choice, Mapping):
+        return None
+    function = choice.get("function")
+    forced_name = (
+        str(function.get("name") or "").strip()
+        if isinstance(function, Mapping)
+        else ""
+    )
+    if not forced_name or forced_name in _MANAGEMENT_TOOL_NAMES:
+        return None
+
+    tools = kwargs.get("tools")
+    if not isinstance(tools, (list, tuple)) or len(tools) != 1:
+        return None
+    if _tool_name(tools[0]) != forced_name:
+        return None
+
+    out = dict(kwargs)
+    out["tool_choice"] = "required"
+    return out
+
+
+class FoundryLocalServerError(RuntimeError):
+    """Sanitized local-runtime 5xx error that must not enter generic 429 retry."""
+
+
+def _raise_foundry_local_server_error(exception: Exception, *, phase: str) -> None:
+    status = _exception_status_code(exception)
+    print(
+        f"[FOUNDRY_LOCAL_SERVER_ERROR] status={status!r} phase={phase}",
+        file=sys.stderr,
+        flush=True,
+    )
+    raise FoundryLocalServerError(
+        f"Foundry Local request failed during {phase}"
+    ) from exception
+
+
 class _FoundryLocalCompletionsCompat:
     def __init__(self, inner: Any) -> None:
         self._inner = inner
 
     def create(self, *args: Any, **kwargs: Any) -> Any:
         effective = apply_foundry_local_chat_compat(kwargs)
-        response = self._inner.create(*args, **effective)
+        try:
+            response = self._inner.create(*args, **effective)
+        except Exception as exception:
+            if not _is_foundry_local_server_error(exception):
+                raise
+            fallback = _required_followup_fallback(effective)
+            if fallback is None:
+                _raise_foundry_local_server_error(exception, phase="chat completion")
+            debug_foundry_local_runtime(
+                "tool_followup_fallback",
+                route="chat_completions",
+                status_code=_exception_status_code(exception),
+                error_class=type(exception).__name__,
+                tool_choice="required",
+            )
+            try:
+                response = self._inner.create(*args, **fallback)
+            except Exception as fallback_exception:
+                if _is_foundry_local_server_error(fallback_exception):
+                    _raise_foundry_local_server_error(
+                        fallback_exception,
+                        phase="tool follow-up",
+                    )
+                raise
         if not effective.get("stream"):
             _suppress_duplicate_tool_call_text(response)
         return response
@@ -716,6 +877,7 @@ def make_foundry_local_client(core: Any, model_name: str) -> tuple[Any, str]:
 
 __all__ = [
     "FoundryLocalProgressObserver",
+    "FoundryLocalServerError",
     "apply_foundry_local_chat_compat",
     "debug_foundry_local_runtime",
     "foundry_local_debug_enabled",
