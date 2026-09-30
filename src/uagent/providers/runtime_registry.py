@@ -14,6 +14,7 @@ from ..runtime.round_contracts import (
     RoundIdentifiers,
     RoundTransportSelection,
 )
+from .foundry_local_runtime import FoundryLocalRuntime
 from .grok_runtime import GrokGrpcProviderRuntime
 from .inception_runtime import InceptionProviderRuntime
 from .openai_compatible_runtime import OpenAICompatibleRuntime
@@ -104,6 +105,17 @@ def build_provider_runtime_registry(
         )
     elif provider_key == "pfn":
         runtime = PfnProviderRuntime(
+            client=client,
+            provider=provider_key,
+            model=model,
+            identifiers=identifiers,
+            transport=transport,
+            streaming=streaming,
+            options=options,
+            capability_resolver=capability_resolver,
+        )
+    elif provider_key == "foundry_local":
+        runtime = FoundryLocalRuntime(
             client=client,
             provider=provider_key,
             model=model,
