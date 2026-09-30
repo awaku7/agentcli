@@ -116,9 +116,7 @@ def test_foundry_local_live_query_keeps_search_fallback(monkeypatch) -> None:
     effective = llm_foundry_local.apply_foundry_local_chat_compat(kwargs)
 
     assert _forced_name(effective["tool_choice"]) == "tool_catalog"
-    assert [spec["function"]["name"] for spec in effective["tools"]] == [
-        "tool_catalog"
-    ]
+    assert [spec["function"]["name"] for spec in effective["tools"]] == ["tool_catalog"]
 
 
 def test_foundry_local_tool_followup_500_retries_once_with_required() -> None:

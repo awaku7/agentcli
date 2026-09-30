@@ -662,10 +662,14 @@ def _suppress_duplicate_tool_call_text(response: Any) -> Any:
 
 
 def _exception_status_code(exception: Exception) -> int | None:
-    status = getattr(exception, "status_code", None) or getattr(exception, "status", None)
+    status = getattr(exception, "status_code", None) or getattr(
+        exception, "status", None
+    )
     if status is None:
         response = getattr(exception, "response", None)
-        status = getattr(response, "status_code", None) or getattr(response, "status", None)
+        status = getattr(response, "status_code", None) or getattr(
+            response, "status", None
+        )
     try:
         return int(status) if status is not None else None
     except (TypeError, ValueError):
@@ -705,9 +709,7 @@ def _required_followup_fallback(kwargs: Mapping[str, Any]) -> dict[str, Any] | N
         return None
     function = choice.get("function")
     forced_name = (
-        str(function.get("name") or "").strip()
-        if isinstance(function, Mapping)
-        else ""
+        str(function.get("name") or "").strip() if isinstance(function, Mapping) else ""
     )
     if not forced_name or forced_name in _MANAGEMENT_TOOL_NAMES:
         return None
