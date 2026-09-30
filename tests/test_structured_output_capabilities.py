@@ -133,6 +133,36 @@ def test_chat_and_responses_adapters_use_schema_only_when_supported(monkeypatch)
     assert responses["text"]["format"]["type"] == "json_schema"
 
 
+def test_structured_output_wire_gate_preserves_provider_specific_adapters(monkeypatch):
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: True)
+    monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: True)
+    msgs = messages({"type": "object"})
+
+    for provider in ("openai", "azure", "openrouter", "deepseek"):
+        chat = {"model": "m"}
+        responses = {"model": "m"}
+        apply_openai_chat_structured_output(
+            chat, provider=provider, messages=msgs, model_id="m"
+        )
+        apply_openai_responses_structured_output(
+            responses, provider=provider, messages=msgs, model_id="m"
+        )
+        assert chat["response_format"]["type"] == "json_schema"
+        assert responses["text"]["format"]["type"] == "json_schema"
+
+    for provider in ("llama_cpp", "lmstudio", "foundry_local"):
+        chat = {"model": "m"}
+        responses = {"model": "m"}
+        apply_openai_chat_structured_output(
+            chat, provider=provider, messages=msgs, model_id="m"
+        )
+        apply_openai_responses_structured_output(
+            responses, provider=provider, messages=msgs, model_id="m"
+        )
+        assert "response_format" not in chat
+        assert "text" not in responses
+
+
 def test_tool_messages_do_not_bypass_unknown_model_fallback(monkeypatch):
     monkeypatch.setattr("uagent.llmcapa_util.supports_json_mode", lambda *_: None)
     monkeypatch.setattr("uagent.llmcapa_util.supports_json_schema", lambda *_: None)
