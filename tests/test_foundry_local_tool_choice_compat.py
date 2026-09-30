@@ -46,7 +46,14 @@ def test_foundry_local_initial_round_forces_catalog_and_narrows_tools(
 
 
 def test_foundry_local_unrelated_prompt_disables_tools(monkeypatch) -> None:
-    monkeypatch.setattr(tool_registry, "get_tool_catalog", lambda **_kwargs: [])
+    monkeypatch.setattr(
+        tool_registry,
+        "get_tool_catalog",
+        lambda **_kwargs: [
+            {"name": "tool_catalog", "score": 10},
+            {"name": "tool_load", "score": 5},
+        ],
+    )
     kwargs = {
         "messages": [{"role": "user", "content": "こんにちは"}],
         "tools": [_spec("tool_catalog"), _spec("tool_load"), _spec("unload_tool")],
