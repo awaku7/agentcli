@@ -2,9 +2,20 @@
 
 ## [Unreleased]
 
+## [0.7.21] - 2026-10-01
+
+### 追加
+
+- 共通のcomputer-use runtimeを通じて、Anthropicのネイティブcomputer toolsetとMeta Muse Sparkのcomputer-useに対応。
+
+### 変更
+
+- computer-useのprovider対応状況、実装状況、および今後の機能計画をドキュメントに反映。
+
 ### 修正
 
-- Foundry Local のreasoning-aware runtimeとlegacy OpenAI fallbackの両方で推論出力を共通形式に正規化し、未対応の `reasoning_effort` を除外。その他のリクエスト設定は維持。
+- reasoning-aware runtimeとlegacy OpenAI fallbackの両方でFoundry Localの推論出力を正規化し、未対応の `reasoning_effort` を除外。その他のリクエスト設定は維持。
+- skillからLLMへ処理を引き継ぐ間もCLIを実行中状態に保ち、spinnerの完了表示を正しい位置に表示。
 
 ## [0.7.19] - 2026-09-29
 

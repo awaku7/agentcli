@@ -172,7 +172,9 @@ class BrowserRuntime:
                 x, y = action.coordinate or (None, None)
                 if x is None or y is None:
                     raise ValueError("double_click requires coordinate")
-                self._with_modifiers(action.keys, lambda: self.page.mouse.dblclick(x, y))
+                self._with_modifiers(
+                    action.keys, lambda: self.page.mouse.dblclick(x, y)
+                )
                 self._last_mouse_position = (x, y)
             elif action.action == "triple_click":
                 x, y = action.coordinate or (None, None)
@@ -235,6 +237,7 @@ class BrowserRuntime:
                 chord = "+".join(self._normalize_key(key) for key in key_sequence)
                 self.page.keyboard.press(chord)
             elif action.action == "scroll":
+
                 def scroll_at_pointer() -> None:
                     if action.coordinate is not None:
                         self.page.mouse.move(*action.coordinate)

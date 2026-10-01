@@ -55,7 +55,9 @@ class OpenAIComputerAdapter:
         if action_name == "drag":
             path = payload.get("path")
             if not isinstance(path, (list, tuple)) or len(path) < 2:
-                raise ValueError("OpenAI drag action requires a path with at least two points")
+                raise ValueError(
+                    "OpenAI drag action requires a path with at least two points"
+                )
 
     def build_tool(self, capability: Any) -> dict[str, Any]:
         if not getattr(capability, "supported", False) or not getattr(

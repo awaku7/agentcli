@@ -2,9 +2,20 @@
 
 ## [Unreleased]
 
+## [0.7.21] - 2026-10-01
+
+### Added
+
+- Add native Anthropic computer toolset integration and Meta Muse Spark computer-use support through the shared computer-use runtime.
+
+### Changed
+
+- Document computer-use provider support, implementation status, and planned remaining features.
+
 ### Fixed
 
 - Normalize Foundry Local reasoning output across the reasoning-aware runtime and legacy OpenAI fallback, while filtering unsupported `reasoning_effort` and preserving unrelated request options.
+- Keep the CLI busy while a skill hands off work to the LLM, and display spinner completion output in the correct position.
 
 ## [0.7.19] - 2026-09-29
 

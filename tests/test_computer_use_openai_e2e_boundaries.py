@@ -136,7 +136,6 @@ def test_openai_responses_local_computer_result_is_not_native():
     assert "computer_screenshot" not in result
 
 
-
 def test_openai_native_computer_output_fails_when_screenshot_is_unavailable():
     import pytest
 
