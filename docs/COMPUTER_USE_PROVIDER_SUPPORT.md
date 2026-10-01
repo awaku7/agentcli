@@ -17,40 +17,39 @@ llmcapa がモデルの Computer Use capability を正規情報源として扱�
 
 ### llmcapa の確認結果
 
-この環境にインストールされた llmcapa では、次のモデルレコードに `computer_use` 情報がなかった。したがって、現状の capability lookup はこれらを Computer Use 対応として認識しない。
+llmcapa 0.5.51 では、公式仕様に基づく provider-specific な Computer Use capability が登録されている。agentcli はこの PR から `llmcapa>=0.5.51` を最低バージョンとし、agentcli 内に別のモデル対応表を追加しない。
 
-- Meta: `muse-spark-1.3`、`muse-spark-1.2`（モデルレコードあり、`computer_use` なし）。`muse-spark-1.0` はレコードを解決できなかった。
-- Claude: `claude-sonnet-4-5`、`claude-sonnet-4-6`、`claude-sonnet-5`、`claude-sonnet-5-5`（モデルレコードあり、`computer_use` なし）。
+今回の対象では次を確認済み。
 
-これはカタログの状態であって、各提供元 API の実際のモデル機能を否定する根拠ではない。提供元の公式仕様を capability データへ反映する必要がある。
+- Anthropic: `claude-sonnet-4-6` は旧 `computer_20251124`、`claude-sonnet-5` / `claude-sonnet-5-5` は新 `computer_toolset_20260801` として登録される。
+- Meta: `muse-spark-1.1` と `muse-spark-1.3` は Meta Responses の native `computer` tool として登録される。`muse-spark-1.2` は公式根拠がないため native Computer Use を推測しない。
+- Computer Use の置換互換性は provider、API type、tool/schema family、beta header、environment、action を考慮する。同じ `responses` / `computer` という名前だけで OpenAI と Meta を互換扱いしない。
+
+llmcapa の capability 登録はモデルが提供元 API で対応することを示す。agentcli 側の provider Adapter / transport 実装が未完成の場合、その capability があるだけで実行可能とは扱わない。
 
 ### 提供元のプロトコル差
 
 | 提供元／モデル | 公式 Computer Use 方式 | agentcli の現状 |
 |---|---|---|
-| Claude Sonnet 4.6 | 旧 `computer_20251124`。Anthropic のベータヘッダーが必要 | `AnthropicComputerAdapter` は旧形式の tool 登録、ヘッダー、`tool_use` 入力を処理する実装とテストを持つ。ただし llmcapa レコードがないため Sonnet capability から有効化できない。 |
-| Claude Sonnet 5／5.5 | 新 `computer_toolset_20260801`。member tool ごとの `tool_use` と `tool_result` を返す方式 | 未対応。現 Adapter の単一 `computer` tool／旧形式の action payload とは異なる。 |
-| Meta Muse Spark | Meta Responses API の native `computer` tool。`computer_call` は actions をまとめて返し、`computer_call_output` で画面を返す | Meta Responses transport はあるが、native Computer Use の有効化・safety-check処理は未対応。 |
+| Claude Sonnet 4.6 | 旧 `computer_20251124`。Anthropic のベータヘッダーが必要 | llmcapa 0.5.51 で capability 登録済み。`AnthropicComputerAdapter` は旧形式の tool 登録、ヘッダー、`tool_use` 入力を処理する実装とテストを持つが、実 API の request/response 境界確認は残る。 |
+| Claude Sonnet 5／5.5 | 新 `computer_toolset_20260801`。member tool ごとの `tool_use` と `tool_result` を返す方式 | llmcapa 0.5.51 で capability 登録済み。現 Adapter の単一 `computer` tool／旧形式の action payload とは異なり、新 toolset 用 Adapter は未対応。 |
+| Meta Muse Spark 1.1／1.3 | Meta Responses API の native `computer` tool。`computer_call` は actions をまとめて返し、`computer_call_output` で画面を返す | llmcapa 0.5.51 で capability 登録済み。Meta Responses transport はあるが、native Computer Use の有効化・safety-check処理は未対応。 |
 
 ## 必要な変更
 
-### 1. llmcapa capability データを追加・更新
+### 1. llmcapa capability データと最低依存バージョン — 完了
 
-llmcapa 側で、提供元の公式モデル／API情報に基づき、対象モデルの `computer_use` capability を登録する。agentcli 内に別のモデル対応表を作って llmcapa と二重管理しない。
+llmcapa 0.5.51 で provider-specific Computer Use capability が整備されたため、agentcli 側は次の方針に固定する。
 
-capability には少なくとも次の情報が必要。
-
-- 対応モデルIDとprovider
-- `supported`, `native`, tool type／toolset version
-- 対応アクションと対象環境
-- 必要なベータヘッダー（旧Anthropic形式の場合）
-- provider／model／API surface ごとの互換条件
-
-llmcapa に新しい capability schema が必要なら、llmcapa と agentcli の依存バージョンおよび fixtures を合わせて更新する。
+- `llmcapa>=0.5.51` を core 依存とする。
+- 対応モデル、provider、API type、tool type／toolset version、beta header、environment、action は llmcapa を正規情報源とする。
+- agentcli 内にモデル名ベースの第二の対応表を作らない。
+- 実 llmcapa カタログを使う回帰テストで、Anthropic の旧／新 Computer Use と Meta Muse Spark の provider-specific capability が取得できることを確認する。
+- llmcapa が capability を持たないモデルは従来どおり fail-closed とし、近似モデルや provider 名から Computer Use 対応を推測しない。
 
 ### 2. Sonnet の Anthropic 対応をバージョン別に完成させる
 
-- Sonnet 4.6 は旧 `computer_20251124` 経路を使用できるよう、llmcapa 登録後に実 API の request/response 形を確認する。
+- Sonnet 4.6 は旧 `computer_20251124` 経路を使用できるよう、実 API の request/response 形を確認する。
 - Sonnet 5／5.5 は `computer_toolset_20260801` 用の Adapter を追加する。member tool 名、`toolset_name: "computer"`、tool_useごとの結果形式を旧 Adapter と混同しない。
 - 新 toolset は screenshot／zoom に画像結果を返し、その他の member tool はテキスト結果を返す。member toolごとに対応する tool_result を返し、batch順序と失敗後の処理を公式仕様どおりにする。
 - toolset に zoom など未実装操作が含まれる場合、toolset configs で無効化するか Runtime に実装し、モデルへ宣言した操作と実行可能操作を一致させる。
@@ -70,7 +69,7 @@ llmcapa に新しい capability schema が必要なら、llmcapa と agentcli �
 
 ## テスト・受け入れ条件
 
-1. llmcapa fixtureで、対象Meta／SonnetモデルのComputer Use capability lookupが期待するversion/tool typeを返す。未登録モデルは従来どおり拒否する。
+1. llmcapa 0.5.51 の実カタログで、Anthropic旧形式、Anthropic新toolset、Meta Responses の Computer Use capability lookupが期待する provider／API／tool typeを返す。未登録モデルは従来どおり拒否する。
 1. providerごとに、送信するtool schema／toolset、beta header、応答action parsing、tool result schemaを単体テストする。
 1. Metaの複数action batchについて、順序実行、途中失敗時の挙動、最終状態のスクリーンショット1枚、同一call_idへの単一 output を確認する。
 1. Meta safety checkの未承認／承認／一部承認をテストし、承認前の実行がないこと、および承認内容だけを応答へ反映することを確認する。
