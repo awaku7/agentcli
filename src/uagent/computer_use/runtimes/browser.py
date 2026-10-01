@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from typing import Any
 from urllib.parse import urlparse
 
@@ -14,6 +15,7 @@ class BrowserRuntime:
 
     def __init__(self, page: Any):
         self.page = page
+        self._last_mouse_position: tuple[int, int] | None = None
 
     def screenshot(self) -> Screenshot:
         # Bound screenshot capture so a stalled renderer cannot leave the
@@ -118,16 +120,45 @@ class BrowserRuntime:
                     }[action.action]
                 )
                 self.page.mouse.click(x, y, button=button)
+                self._last_mouse_position = (x, y)
             elif action.action == "double_click":
                 x, y = action.coordinate or (None, None)
                 if x is None or y is None:
                     raise ValueError("double_click requires coordinate")
                 self.page.mouse.dblclick(x, y)
+                self._last_mouse_position = (x, y)
+            elif action.action == "triple_click":
+                x, y = action.coordinate or (None, None)
+                if x is None or y is None:
+                    raise ValueError("triple_click requires coordinate")
+                self.page.mouse.click(x, y, click_count=3)
+                self._last_mouse_position = (x, y)
             elif action.action == "move":
                 x, y = action.coordinate or (None, None)
                 if x is None or y is None:
                     raise ValueError("move requires coordinate")
                 self.page.mouse.move(x, y)
+                self._last_mouse_position = (x, y)
+            elif action.action == "drag":
+                if action.region is not None:
+                    start_x, start_y, end_x, end_y = action.region
+                elif (
+                    action.coordinate is not None
+                    and self._last_mouse_position is not None
+                ):
+                    start_x, start_y = self._last_mouse_position
+                    end_x, end_y = action.coordinate
+                else:
+                    raise ValueError(
+                        "drag requires a region or a prior mouse position and target coordinate"
+                    )
+                self.page.mouse.move(start_x, start_y)
+                self.page.mouse.down()
+                try:
+                    self.page.mouse.move(end_x, end_y)
+                finally:
+                    self.page.mouse.up()
+                self._last_mouse_position = (end_x, end_y)
             elif action.action == "type":
                 self._ensure_editable_focus()
                 text = action.text or ""
@@ -142,6 +173,24 @@ class BrowserRuntime:
                 self.page.keyboard.press(action.key or "")
             elif action.action == "scroll":
                 self.page.mouse.wheel(action.scroll_x or 0, action.scroll_y or 0)
+            elif action.action == "wait":
+                try:
+                    seconds = max(0.0, min(float(action.text or "1"), 60.0))
+                except ValueError as exc:
+                    raise ValueError("wait text must be a number of seconds") from exc
+                wait_for_timeout = getattr(self.page, "wait_for_timeout", None)
+                if callable(wait_for_timeout):
+                    wait_for_timeout(int(seconds * 1000))
+                else:
+                    time.sleep(seconds)
+            elif action.action == "zoom":
+                direction = (action.text or "in").strip().lower()
+                key = (
+                    "Control+Minus"
+                    if direction in {"out", "-", "minus", "decrease"}
+                    else "Control+Equal"
+                )
+                self.page.keyboard.press(key)
             else:
                 raise ValueError(f"browser action is not supported: {action.action}")
         except Exception as exc:

@@ -65,6 +65,74 @@ def test_confirmation_callback_is_forwarded():
     assert result["success"] is True
 
 
+def test_confirmation_is_not_carried_over_to_a_new_handler():
+    core = Core()
+    # Simulate an approval left on a reused core by an earlier handler.
+    core.computer_use_session_confirmed = True
+    confirmations = []
+    core.computer_use_confirmation = (
+        lambda action: confirmations.append(action) or False
+    )
+    runtime = MockComputerRuntime()
+
+    from uagent.computer_use.integration import install_computer_use_handler
+
+    handler = install_computer_use_handler(
+        core=core,
+        provider="custom",
+        model="test",
+        policy=policy(require_confirmation=True),
+        runtime=runtime,
+    )
+    result = json.loads(
+        handler(
+            tool_call={"id": "a2"},
+            action={"action": "screenshot"},
+            messages=[],
+            core=core,
+        )
+    )
+
+    assert result["success"] is False
+    assert len(confirmations) == 1
+    assert runtime.executed == []
+
+
+def test_navigation_domain_allowlist_checks_destination_before_execution():
+    core = Core()
+
+    class BrowserMockRuntime(MockComputerRuntime):
+        def current_domain(self):
+            # The current page is allowed; the requested destination is not.
+            return "example.com"
+
+    runtime = BrowserMockRuntime()
+    from uagent.computer_use.integration import install_computer_use_handler
+
+    handler = install_computer_use_handler(
+        core=core,
+        provider="custom",
+        model="test",
+        policy=policy(
+            allowed_actions=frozenset({"navigate"}),
+            allowed_domains=frozenset({"example.com"}),
+        ),
+        runtime=runtime,
+    )
+    result = json.loads(
+        handler(
+            tool_call={"id": "a3"},
+            action={"action": "navigate", "text": "https://evil.example/path"},
+            messages=[],
+            core=core,
+        )
+    )
+
+    assert result["success"] is False
+    assert "evil.example" in result["error"]
+    assert runtime.executed == []
+
+
 def test_action_limit_is_enforced_before_runtime():
     core = Core()
 

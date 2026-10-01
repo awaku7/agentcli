@@ -7,14 +7,21 @@ class FakeMouse:
     def __init__(self):
         self.calls = []
 
-    def click(self, x, y, button="left"):
-        self.calls.append(("click", x, y, button))
+    def click(self, x, y, button="left", click_count=1):
+        call = ("click", x, y, button)
+        self.calls.append(call if click_count == 1 else call + (click_count,))
 
     def move(self, x, y):
         self.calls.append(("move", x, y))
 
     def wheel(self, dx, dy):
         self.calls.append(("wheel", dx, dy))
+
+    def down(self):
+        self.calls.append(("down",))
+
+    def up(self):
+        self.calls.append(("up",))
 
 
 class FakeKeyboard:
@@ -32,9 +39,13 @@ class FakePage:
     def __init__(self):
         self.mouse = FakeMouse()
         self.keyboard = FakeKeyboard()
+        self.waits = []
 
     def screenshot(self):
         return b"browser-png"
+
+    def wait_for_timeout(self, milliseconds):
+        self.waits.append(milliseconds)
 
 
 def test_browser_runtime_translates_actions_without_dom_dependency():
@@ -60,6 +71,34 @@ def test_browser_runtime_returns_screenshot():
 
     assert result.screenshot.data == b"browser-png"
     assert result.screenshot.media_type == "image/png"
+
+
+def test_browser_runtime_supports_all_shared_input_actions():
+    page = FakePage()
+    runtime = BrowserRuntime(page)
+
+    triple = runtime.execute(
+        ComputerAction(action_id="b3", action="triple_click", coordinate=(1, 2))
+    )
+    dragged = runtime.execute(
+        ComputerAction(action_id="b4", action="drag", region=(1, 2, 3, 4))
+    )
+    waited = runtime.execute(ComputerAction(action_id="b5", action="wait", text="0.25"))
+    zoomed = runtime.execute(ComputerAction(action_id="b6", action="zoom", text="in"))
+
+    assert triple.success is True
+    assert dragged.success is True
+    assert waited.success is True
+    assert zoomed.success is True
+    assert ("click", 1, 2, "left", 3) in page.mouse.calls
+    assert page.mouse.calls[-4:] == [
+        ("move", 1, 2),
+        ("down",),
+        ("move", 3, 4),
+        ("up",),
+    ]
+    assert page.waits == [250]
+    assert page.keyboard.calls == [("press", "Control+Equal")]
 
 
 def test_desktop_runtime_delegates_to_backend():

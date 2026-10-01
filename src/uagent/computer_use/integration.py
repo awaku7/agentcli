@@ -7,6 +7,7 @@ import json
 import time
 from threading import Lock
 from typing import Any
+from urllib.parse import urlparse
 
 from .actions import normalize_action
 from .audit import InMemoryAuditSink
@@ -159,11 +160,7 @@ def install_computer_use_handler(
 
         def confirm_once(candidate: Any) -> bool:
             nonlocal call_confirmed
-            if (
-                call_confirmed
-                or state["confirmed"]
-                or bool(getattr(core, "computer_use_session_confirmed", False))
-            ):
+            if call_confirmed or state["confirmed"]:
                 return True
             if not callable(confirmation):
                 return False
@@ -171,7 +168,6 @@ def install_computer_use_handler(
             if allowed:
                 call_confirmed = True
                 state["confirmed"] = True
-                setattr(core, "computer_use_session_confirmed", True)
             return allowed
 
         for index, item in enumerate(items):
@@ -259,9 +255,17 @@ def install_computer_use_handler(
                     )
                     break
             domain = None
-            current_domain = getattr(selected_runtime, "current_domain", None)
-            if callable(current_domain):
-                domain = current_domain()
+            if normalized.action == "navigate":
+                # Authorize the destination before navigation, not the current
+                # page (which may be about:blank or an allowed origin).
+                try:
+                    domain = urlparse(str(normalized.text or "")).hostname
+                except Exception:
+                    domain = None
+            else:
+                current_domain = getattr(selected_runtime, "current_domain", None)
+                if callable(current_domain):
+                    domain = current_domain()
             result = execute_action(
                 normalized,
                 policy=policy,

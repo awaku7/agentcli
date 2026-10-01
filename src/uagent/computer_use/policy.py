@@ -53,18 +53,28 @@ class ComputerUsePolicy:
                 reason=_("action is not allowed: %(action)s")
                 % {"action": action.action},
             )
-        # Domain allowlists apply to browser navigation only. Desktop actions
-        # (mouse/keyboard/screenshot) have no URL domain and must not be
-        # rejected merely because ``domain`` is None.
-        if (
-            requested_environment != "desktop"
-            and self.allowed_domains
-            and domain not in self.allowed_domains
-        ):
-            return PolicyDecision(
-                False,
-                reason=_("domain is not allowed: %(domain)s") % {"domain": domain},
-            )
+        # Domain allowlists apply to navigation targets and, when known, the
+        # current browser origin. Desktop input actions have no URL domain and
+        # remain usable when ``domain`` is None.
+        if self.allowed_domains:
+            normalized_domain = str(domain or "").strip().lower().rstrip(".")
+            allowed_domains = {
+                str(item).strip().lower().rstrip(".") for item in self.allowed_domains
+            }
+            if action.action == "navigate":
+                domain_blocked = (
+                    not normalized_domain or normalized_domain not in allowed_domains
+                )
+            else:
+                domain_blocked = bool(normalized_domain) and (
+                    normalized_domain not in allowed_domains
+                )
+            if domain_blocked:
+                return PolicyDecision(
+                    False,
+                    reason=_("domain is not allowed: %(domain)s")
+                    % {"domain": normalized_domain or "<unknown>"},
+                )
         if self.require_confirmation:
             return PolicyDecision(
                 False,
