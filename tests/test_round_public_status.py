@@ -1,7 +1,28 @@
 from types import SimpleNamespace
 
-from uagent.cli_impl.main import _exit_code_for_round_outcome
+from uagent.cli_impl.main import (
+    _exit_code_for_round_outcome,
+    _set_status_for_command_result,
+)
 from uagent.uagent_llm import _public_round_status
+
+
+def test_run_llm_command_transitions_directly_to_busy_status():
+    calls = []
+    core = SimpleNamespace(set_status=lambda busy, label: calls.append((busy, label)))
+    should_run_llm = _set_status_for_command_result(core, SimpleNamespace(run_llm=True))
+    assert should_run_llm is True
+    assert calls == [(True, "LLM")]
+
+
+def test_non_llm_command_returns_to_idle_status():
+    calls = []
+    core = SimpleNamespace(set_status=lambda busy, label: calls.append((busy, label)))
+    should_run_llm = _set_status_for_command_result(
+        core, SimpleNamespace(run_llm=False)
+    )
+    assert should_run_llm is False
+    assert calls == [(False, "")]
 
 
 def test_public_round_status_marks_final_assistant_break_completed():

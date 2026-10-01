@@ -73,6 +73,22 @@ def _reset_startup_responses_continuation(
     state.pop("active_response_id", None)
 
 
+def _set_status_for_command_result(core: Any, result: Any) -> bool:
+    """Keep the CLI busy when a command immediately hands off to an LLM round.
+
+    Clearing BUSY between an interactive command (such as ``:skills`` after
+    human confirmation) and its follow-up round lets ``stdin_loop`` redraw a
+    normal prompt. The prompt watcher then races the spinner while abandoning
+    that prompt. Transition directly to the LLM status instead.
+    """
+    run_llm = bool(getattr(result, "run_llm", False))
+    if run_llm:
+        core.set_status(True, "LLM")
+    else:
+        core.set_status(False, "")
+    return run_llm
+
+
 def main() -> int:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
@@ -284,8 +300,7 @@ def main() -> int:
                 if not result:
                     running = False
                     break
-                core.set_status(False, "")
-                if getattr(result, "run_llm", False):
+                if _set_status_for_command_result(core, result):
                     prompt = getattr(result, "prompt", None) or "Run the loaded skill."
                     user_msg = {"role": "user", "content": prompt}
                     messages.append(user_msg)
