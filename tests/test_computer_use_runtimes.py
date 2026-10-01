@@ -34,6 +34,12 @@ class FakeKeyboard:
     def press(self, key):
         self.calls.append(("press", key))
 
+    def down(self, key):
+        self.calls.append(("down", key))
+
+    def up(self, key):
+        self.calls.append(("up", key))
+
 
 class FakePage:
     def __init__(self):
@@ -99,6 +105,72 @@ def test_browser_runtime_supports_all_shared_input_actions():
     ]
     assert page.waits == [250]
     assert page.keyboard.calls == [("press", "Control+Equal")]
+
+
+def test_browser_runtime_maps_openai_modifier_keys_scroll_and_drag_path():
+    page = FakePage()
+    runtime = BrowserRuntime(page)
+
+    click = runtime.execute(
+        ComputerAction(
+            action_id="openai:0",
+            action="click",
+            coordinate=(5, 6),
+            keys=("CTRL",),
+        )
+    )
+    keypress = runtime.execute(
+        ComputerAction(action_id="openai:1", action="keypress", keys=("CTRL", "A"))
+    )
+    scroll = runtime.execute(
+        ComputerAction(
+            action_id="openai:2",
+            action="scroll",
+            coordinate=(7, 8),
+            scroll_y=120,
+        )
+    )
+    drag = runtime.execute(
+        ComputerAction(
+            action_id="openai:3",
+            action="drag",
+            path=((1, 2), (3, 4), (5, 6)),
+        )
+    )
+
+    assert all(result.success for result in (click, keypress, scroll, drag))
+    assert page.keyboard.calls[:3] == [
+        ("down", "Control"),
+        ("up", "Control"),
+        ("press", "Control+A"),
+    ]
+    assert ("move", 7, 8) in page.mouse.calls
+    assert ("wheel", 0, 120) in page.mouse.calls
+    assert page.mouse.calls[-5:] == [
+        ("move", 1, 2),
+        ("down",),
+        ("move", 3, 4),
+        ("move", 5, 6),
+        ("up",),
+    ]
+
+
+def test_browser_runtime_uses_macos_history_shortcut(monkeypatch):
+    import uagent.computer_use.runtimes.browser as browser_module
+
+    monkeypatch.setattr(browser_module.sys, "platform", "darwin")
+    page = FakePage()
+    result = BrowserRuntime(page).execute(
+        ComputerAction(
+            action_id="openai:back",
+            action="click",
+            coordinate=(1, 2),
+            button="back",
+        )
+    )
+
+    assert result.success is True
+    assert page.keyboard.calls == [("press", "Meta+ArrowLeft")]
 
 
 def test_desktop_runtime_delegates_to_backend():

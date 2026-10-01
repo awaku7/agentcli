@@ -72,9 +72,14 @@ def _responses_tool_output(
             "output": as_str(content),
         }
     screenshot = next(
-        (item for item in candidates if item.get("screenshot_data")), None
+        (
+            item
+            for item in reversed(candidates)
+            if isinstance(item, dict) and item.get("screenshot_data")
+        ),
+        None,
     )
-    output = {"type": "computer_screenshot", "image_url": None}
+    output = {"type": "computer_screenshot", "detail": "original"}
     if screenshot:
         output["image_url"] = (
             f"data:{screenshot.get('screenshot_media_type', 'image/png')};base64,"
@@ -93,6 +98,10 @@ def _responses_tool_output(
                 )
         except Exception:
             pass
+    if not output.get("image_url"):
+        raise RuntimeError(
+            "OpenAI Computer Use requires a screenshot, but none could be captured"
+        )
     if (os.environ.get("UAGENT_DEBUG_COMPUTER") or "").strip().lower() in {
         "1",
         "true",

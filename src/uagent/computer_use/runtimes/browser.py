@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sys
 import time
 from typing import Any
 from urllib.parse import urlparse
@@ -55,6 +56,39 @@ class BrowserRuntime:
         )
         if candidates.count() == 1:
             candidates.first.focus()
+
+    @staticmethod
+    def _normalize_key(key: str) -> str:
+        aliases = {
+            "CTRL": "Control",
+            "CONTROL": "Control",
+            "CMD": "Meta",
+            "COMMAND": "Meta",
+            "META": "Meta",
+            "OPTION": "Alt",
+            "ALT": "Alt",
+            "ESC": "Escape",
+            "RETURN": "Enter",
+            "SPACE": "Space",
+            "BACKSPACE": "Backspace",
+            "ARROWLEFT": "ArrowLeft",
+            "ARROWRIGHT": "ArrowRight",
+            "ARROWUP": "ArrowUp",
+            "ARROWDOWN": "ArrowDown",
+        }
+        return aliases.get(key.upper(), key)
+
+    def _with_modifiers(self, keys: tuple[str, ...], callback: Any) -> Any:
+        modifiers = [self._normalize_key(key) for key in keys]
+        pressed: list[str] = []
+        try:
+            for key in modifiers:
+                self.page.keyboard.down(key)
+                pressed.append(key)
+            return callback()
+        finally:
+            for key in reversed(pressed):
+                self.page.keyboard.up(key)
 
     def execute(self, action: ComputerAction) -> ComputerActionResult:
         try:
@@ -119,13 +153,26 @@ class BrowserRuntime:
                         "middle_click": "middle",
                     }[action.action]
                 )
-                self.page.mouse.click(x, y, button=button)
+                if button in {"back", "forward"}:
+                    direction = "Left" if button == "back" else "Right"
+                    modifier = "Meta" if sys.platform == "darwin" else "Alt"
+                    shortcut = f"{modifier}+Arrow{direction}"
+                    self._with_modifiers(
+                        action.keys, lambda: self.page.keyboard.press(shortcut)
+                    )
+                else:
+                    if button == "wheel":
+                        button = "middle"
+                    self._with_modifiers(
+                        action.keys,
+                        lambda: self.page.mouse.click(x, y, button=button),
+                    )
                 self._last_mouse_position = (x, y)
             elif action.action == "double_click":
                 x, y = action.coordinate or (None, None)
                 if x is None or y is None:
                     raise ValueError("double_click requires coordinate")
-                self.page.mouse.dblclick(x, y)
+                self._with_modifiers(action.keys, lambda: self.page.mouse.dblclick(x, y))
                 self._last_mouse_position = (x, y)
             elif action.action == "triple_click":
                 x, y = action.coordinate or (None, None)
@@ -137,42 +184,63 @@ class BrowserRuntime:
                 x, y = action.coordinate or (None, None)
                 if x is None or y is None:
                     raise ValueError("move requires coordinate")
-                self.page.mouse.move(x, y)
+                self._with_modifiers(action.keys, lambda: self.page.mouse.move(x, y))
                 self._last_mouse_position = (x, y)
             elif action.action == "drag":
-                if action.region is not None:
-                    start_x, start_y, end_x, end_y = action.region
+                if action.path:
+                    points = action.path
+                    if len(points) < 2:
+                        raise ValueError("drag path requires at least two points")
+                elif action.region is not None:
+                    x1, y1, x2, y2 = action.region
+                    points = ((x1, y1), (x2, y2))
                 elif (
                     action.coordinate is not None
                     and self._last_mouse_position is not None
                 ):
-                    start_x, start_y = self._last_mouse_position
-                    end_x, end_y = action.coordinate
+                    points = (self._last_mouse_position, action.coordinate)
                 else:
-                    raise ValueError(
-                        "drag requires a region or a prior mouse position and target coordinate"
-                    )
-                self.page.mouse.move(start_x, start_y)
-                self.page.mouse.down()
-                try:
-                    self.page.mouse.move(end_x, end_y)
-                finally:
-                    self.page.mouse.up()
-                self._last_mouse_position = (end_x, end_y)
+                    raise ValueError("drag requires a path with at least two points")
+
+                def drag_path() -> None:
+                    self.page.mouse.move(*points[0])
+                    self.page.mouse.down()
+                    try:
+                        for point in points[1:]:
+                            self.page.mouse.move(*point)
+                    finally:
+                        self.page.mouse.up()
+
+                self._with_modifiers(action.keys, drag_path)
+                self._last_mouse_position = points[-1]
             elif action.action == "type":
-                self._ensure_editable_focus()
                 text = action.text or ""
-                editable = self.page.locator(
-                    'input:not([type=checkbox]):not([type=radio]):visible, textarea:visible, [contenteditable="true"]:visible'
-                )
-                if editable.count() == 1:
-                    editable.first.fill(text)
-                else:
+                if action.provider == "openai":
+                    # CUA type inserts at the current caret/focus; filling the
+                    # only detected input would unexpectedly replace its value.
                     self.page.keyboard.type(text)
+                else:
+                    self._ensure_editable_focus()
+                    editable = self.page.locator(
+                        'input:not([type=checkbox]):not([type=radio]):visible, textarea:visible, [contenteditable="true"]:visible'
+                    )
+                    if editable.count() == 1:
+                        editable.first.fill(text)
+                    else:
+                        self.page.keyboard.type(text)
             elif action.action == "keypress":
-                self.page.keyboard.press(action.key or "")
+                key_sequence = action.keys or ((action.key,) if action.key else ())
+                if not key_sequence:
+                    raise ValueError("keypress requires at least one key")
+                chord = "+".join(self._normalize_key(key) for key in key_sequence)
+                self.page.keyboard.press(chord)
             elif action.action == "scroll":
-                self.page.mouse.wheel(action.scroll_x or 0, action.scroll_y or 0)
+                def scroll_at_pointer() -> None:
+                    if action.coordinate is not None:
+                        self.page.mouse.move(*action.coordinate)
+                    self.page.mouse.wheel(action.scroll_x or 0, action.scroll_y or 0)
+
+                self._with_modifiers(action.keys, scroll_at_pointer)
             elif action.action == "wait":
                 try:
                     seconds = max(0.0, min(float(action.text or "1"), 60.0))

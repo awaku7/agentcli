@@ -68,6 +68,51 @@ def test_open_url_normalizes_to_navigate():
     assert action.text == "https://example.com"
 
 
+def test_openai_native_computer_output_uses_original_screenshot_detail():
+    from uagent.providers.llm_openai_responses import _responses_tool_output
+
+    content = json.dumps(
+        {
+            "success": True,
+            "screenshot_data": "ZmFrZQ==",
+            "screenshot_media_type": "image/png",
+        }
+    )
+    core = SimpleNamespace(computer_use_native_active=True)
+
+    result = _responses_tool_output("call-native", content, "computer", core)
+
+    assert result["type"] == "computer_call_output"
+    assert result["output"]["type"] == "computer_screenshot"
+    assert result["output"]["detail"] == "original"
+    assert result["output"]["image_url"] == "data:image/png;base64,ZmFrZQ=="
+
+
+def test_openai_native_computer_output_uses_last_screenshot_in_action_batch():
+    from uagent.providers.llm_openai_responses import _responses_tool_output
+
+    content = json.dumps(
+        {
+            "success": True,
+            "results": [
+                {
+                    "screenshot_data": "aW50ZXJtZWRpYXRl",
+                    "screenshot_media_type": "image/png",
+                },
+                {
+                    "screenshot_data": "ZmluYWw=",
+                    "screenshot_media_type": "image/png",
+                },
+            ],
+        }
+    )
+    core = SimpleNamespace(computer_use_native_active=True)
+
+    result = _responses_tool_output("call-batch", content, "computer", core)
+
+    assert result["output"]["image_url"] == "data:image/png;base64,ZmluYWw="
+
+
 def test_openai_responses_local_computer_result_is_not_native():
     from uagent.providers.llm_openai_responses import _responses_tool_output
 
@@ -89,3 +134,23 @@ def test_openai_responses_local_computer_result_is_not_native():
     assert result["type"] == "function_call_output"
     assert result["call_id"] == "call-1"
     assert "computer_screenshot" not in result
+
+
+
+def test_openai_native_computer_output_fails_when_screenshot_is_unavailable():
+    import pytest
+
+    from uagent.providers.llm_openai_responses import _responses_tool_output
+
+    class BrokenRuntime:
+        def screenshot(self):
+            raise RuntimeError("capture failed")
+
+    content = json.dumps({"success": False, "screenshot_data": None})
+    core = SimpleNamespace(
+        computer_use_native_active=True,
+        computer_use_runtime=BrokenRuntime(),
+    )
+
+    with pytest.raises(RuntimeError, match="requires a screenshot"):
+        _responses_tool_output("call-no-shot", content, "computer", core)

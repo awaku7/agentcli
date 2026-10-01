@@ -16,8 +16,46 @@ def _get(value: Any, name: str, default: Any = None) -> Any:
     return getattr(value, name, default)
 
 
+OPENAI_COMPUTER_ACTIONS = frozenset(
+    {
+        "click",
+        "double_click",
+        "scroll",
+        "type",
+        "wait",
+        "keypress",
+        "drag",
+        "move",
+        "screenshot",
+    }
+)
+
+
 class OpenAIComputerAdapter:
     provider = "openai"
+
+    @staticmethod
+    def _validate_action_payload(payload: dict[str, Any], action_name: str) -> None:
+        if action_name in {"click", "double_click", "move", "scroll"}:
+            if "x" not in payload or "y" not in payload:
+                raise ValueError(f"OpenAI {action_name} action requires x and y")
+        if action_name == "click" and payload.get("button") not in {
+            None,
+            "left",
+            "right",
+            "wheel",
+            "back",
+            "forward",
+        }:
+            raise ValueError("OpenAI click action has an unsupported button")
+        if action_name == "type" and "text" not in payload:
+            raise ValueError("OpenAI type action requires text")
+        if action_name == "keypress" and not payload.get("keys"):
+            raise ValueError("OpenAI keypress action requires keys")
+        if action_name == "drag":
+            path = payload.get("path")
+            if not isinstance(path, (list, tuple)) or len(path) < 2:
+                raise ValueError("OpenAI drag action requires a path with at least two points")
 
     def build_tool(self, capability: Any) -> dict[str, Any]:
         if not getattr(capability, "supported", False) or not getattr(
@@ -43,6 +81,14 @@ class OpenAIComputerAdapter:
                 raise ValueError("OpenAI computer_call has no call_id")
             for index, payload in enumerate(_get(item, "actions", []) or []):
                 action_payload = dict(payload)
+                action_name = str(
+                    action_payload.get("type") or action_payload.get("action") or ""
+                )
+                if action_name not in OPENAI_COMPUTER_ACTIONS:
+                    raise ValueError(
+                        f"unsupported OpenAI Computer Use action: {action_name or '<empty>'}"
+                    )
+                self._validate_action_payload(action_payload, action_name)
                 action_id = f"{call_id}:{index}"
                 actions.append(
                     normalize_action(
@@ -61,20 +107,19 @@ class OpenAIComputerAdapter:
         if result.action_id != action.action_id:
             raise ValueError("tool result action_id does not match action")
         call_id = action.action_id.rsplit(":", 1)[0]
-        output: dict[str, Any]
-        if result.screenshot is not None:
-            screenshot = result.screenshot
-            output = {
-                "type": "computer_screenshot",
-                "image_url": (
-                    "data:"
-                    + screenshot.media_type
-                    + ";base64,"
-                    + base64.b64encode(screenshot.data).decode("ascii")
-                ),
-            }
-        else:
-            output = {"type": "computer_screenshot", "image_url": None}
+        if result.screenshot is None:
+            raise ValueError("OpenAI computer_call_output requires a screenshot")
+        screenshot = result.screenshot
+        output: dict[str, Any] = {
+            "type": "computer_screenshot",
+            "image_url": (
+                "data:"
+                + screenshot.media_type
+                + ";base64,"
+                + base64.b64encode(screenshot.data).decode("ascii")
+            ),
+            "detail": "original",
+        }
         return {
             "type": "computer_call_output",
             "call_id": call_id,

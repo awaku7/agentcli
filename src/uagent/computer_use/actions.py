@@ -57,6 +57,11 @@ class ComputerAction:
     scroll_x: int | None = None
     scroll_y: int | None = None
     region: tuple[int, int, int, int] | None = None
+    # OpenAI Computer Use sends modifier keys on pointer actions and key chords
+    # as a list. Keep these separate from ``key`` for older adapters.
+    keys: tuple[str, ...] = ()
+    # OpenAI drag actions provide an ordered path of {x, y} points.
+    path: tuple[tuple[int, int], ...] = ()
 
 
 def _coordinate(value: Any) -> tuple[int, int] | None:
@@ -73,6 +78,35 @@ def _region(value: Any) -> tuple[int, int, int, int] | None:
     if not isinstance(value, (list, tuple)) or len(value) != 4:
         raise ValueError("computer action region must contain four numbers")
     return int(value[0]), int(value[1]), int(value[2]), int(value[3])
+
+
+def _keys(value: Any) -> tuple[str, ...]:
+    if value is None:
+        return ()
+    values = value if isinstance(value, (list, tuple)) else [value]
+    return tuple(str(item) for item in values if str(item))
+
+
+def _path(value: Any) -> tuple[tuple[int, int], ...]:
+    if value is None:
+        return ()
+    if not isinstance(value, (list, tuple)):
+        raise ValueError("computer action path must be a list of points")
+    points: list[tuple[int, int]] = []
+    for point in value:
+        if isinstance(point, dict):
+            if "x" not in point or "y" not in point:
+                raise ValueError("computer action path points require x and y")
+            points.append((int(point["x"]), int(point["y"])))
+        elif isinstance(point, (list, tuple)) and len(point) == 2:
+            points.append((int(point[0]), int(point[1])))
+        elif hasattr(point, "x") and hasattr(point, "y"):
+            # The OpenAI Python SDK exposes drag path points as typed model
+            # objects; dict(payload) only shallowly converts their parent.
+            points.append((int(point.x), int(point.y)))
+        else:
+            raise ValueError("computer action path points must contain x and y")
+    return tuple(points)
 
 
 def normalize_action(
@@ -101,9 +135,11 @@ def normalize_action(
         provider=str(provider or ""),
         coordinate=_coordinate(coordinate),
         text=payload.get("text"),
-        key=payload.get("key") or payload.get("keys"),
+        key=(str(payload.get("key")) if payload.get("key") is not None else None),
         button=payload.get("button"),
         scroll_x=payload.get("scroll_x"),
         scroll_y=payload.get("scroll_y"),
         region=_region(payload.get("region")),
+        keys=_keys(payload.get("keys")),
+        path=_path(payload.get("path")),
     )

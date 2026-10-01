@@ -243,6 +243,46 @@ def _create_desktop_runtime() -> EntrypointRuntimeManager:
             pyautogui.hotkey(*(aliases.get(part, part) for part in parts))
 
         @staticmethod
+        def _scroll_units(pixels: int | None) -> int:
+            value = int(pixels or 0)
+            if not value:
+                return 0
+            units = round(abs(value) / 100)
+            return (1 if value > 0 else -1) * max(1, units)
+
+        @staticmethod
+        def _normalize_hotkey(key: str) -> str:
+            aliases = {
+                "control": "ctrl",
+                "ctl": "ctrl",
+                "return": "enter",
+                "escape": "esc",
+                "space": "space",
+                "arrowleft": "left",
+                "arrowright": "right",
+                "arrowup": "up",
+                "arrowdown": "down",
+            }
+            normalized = str(key).strip().lower()
+            if normalized in {"meta", "cmd", "command", "super"}:
+                return "command" if sys.platform == "darwin" else "win"
+            if normalized in {"alt", "option"}:
+                return "alt"
+            return aliases.get(normalized, normalized)
+
+        def _with_modifiers(self, keys: tuple[str, ...], callback: Any) -> Any:
+            modifiers = [self._normalize_hotkey(key) for key in keys]
+            pressed: list[str] = []
+            try:
+                for key in modifiers:
+                    pyautogui.keyDown(key)
+                    pressed.append(key)
+                return callback()
+            finally:
+                for key in reversed(pressed):
+                    pyautogui.keyUp(key)
+
+        @staticmethod
         def _set_clipboard_text(text: str) -> None:
             if os.name == "nt":
                 import ctypes
@@ -342,11 +382,25 @@ def _create_desktop_runtime() -> EntrypointRuntimeManager:
                 self._focus_browser_window()
             x, y = action.coordinate or (None, None)
             if action.action == "click":
-                pyautogui.click(x=x, y=y)
+                button = action.button or "left"
+                if button in {"back", "forward"}:
+                    direction = "left" if button == "back" else "right"
+                    modifier = "command" if sys.platform == "darwin" else "alt"
+                    shortcut = f"{modifier}+{direction}"
+                    self._with_modifiers(
+                        action.keys, lambda: pyautogui.hotkey(*shortcut.split("+"))
+                    )
+                else:
+                    if button == "wheel":
+                        button = "middle"
+                    self._with_modifiers(
+                        action.keys,
+                        lambda: pyautogui.click(x=x, y=y, button=button),
+                    )
             elif action.action == "middle_click":
                 pyautogui.click(x=x, y=y, button="middle")
             elif action.action == "double_click":
-                pyautogui.doubleClick(x=x, y=y)
+                self._with_modifiers(action.keys, lambda: pyautogui.doubleClick(x=x, y=y))
             elif action.action == "triple_click":
                 pyautogui.click(x=x, y=y, clicks=3, interval=0.1)
             elif action.action == "right_click":
@@ -354,24 +408,45 @@ def _create_desktop_runtime() -> EntrypointRuntimeManager:
             elif action.action == "type":
                 self._type_text(action.text or "")
             elif action.action == "keypress":
-                self._keypress(action.key or "")
+                key_sequence = action.keys or ((action.key,) if action.key else ())
+                chord = "+".join(self._normalize_hotkey(key) for key in key_sequence)
+                self._keypress(chord)
             elif action.action == "move":
-                self._move_cursor(x, y)
+                self._with_modifiers(action.keys, lambda: self._move_cursor(x, y))
             elif action.action == "scroll":
-                if action.scroll_y:
-                    pyautogui.scroll(int(action.scroll_y), x=x, y=y)
-                if action.scroll_x:
-                    pyautogui.hscroll(int(action.scroll_x), x=x, y=y)
+                def scroll_at_pointer() -> None:
+                    vertical_units = self._scroll_units(-(action.scroll_y or 0))
+                    horizontal_units = self._scroll_units(action.scroll_x)
+                    if vertical_units:
+                        pyautogui.scroll(vertical_units, x=x, y=y)
+                    if horizontal_units:
+                        pyautogui.hscroll(horizontal_units, x=x, y=y)
+
+                self._with_modifiers(action.keys, scroll_at_pointer)
             elif action.action == "drag":
-                if action.region is not None:
-                    start_x, start_y, end_x, end_y = action.region
+                if action.path:
+                    points = action.path
+                    if len(points) < 2:
+                        raise ValueError("drag path requires at least two points")
+                elif action.region is not None:
+                    x1, y1, x2, y2 = action.region
+                    points = ((x1, y1), (x2, y2))
                 elif x is not None and y is not None:
-                    start_x, start_y = pyautogui.position()
-                    end_x, end_y = x, y
+                    position = pyautogui.position()
+                    points = ((position.x, position.y), (x, y))
                 else:
-                    raise ValueError("drag requires coordinate or region")
-                pyautogui.moveTo(start_x, start_y, duration=0)
-                pyautogui.dragTo(end_x, end_y, duration=0.2, button="left")
+                    raise ValueError("drag requires a path with at least two points")
+
+                def drag_path() -> None:
+                    pyautogui.moveTo(*points[0], duration=0)
+                    pyautogui.mouseDown(button="left")
+                    try:
+                        for point in points[1:]:
+                            pyautogui.moveTo(*point, duration=0.2)
+                    finally:
+                        pyautogui.mouseUp(button="left")
+
+                self._with_modifiers(action.keys, drag_path)
             elif action.action == "wait":
                 try:
                     seconds = max(0.0, min(float(action.text or "1"), 60.0))
