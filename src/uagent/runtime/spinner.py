@@ -497,11 +497,13 @@ def stop_quietly(*, clear: bool = True) -> None:
 
     The spinner draws on the same stderr line via CR rewrite.
     Call this before any print so the text does not stick to the spinner
-    frame like "⠧ [LLM:auto] ...[INFO] ...". Always safe: no-op when
+    frame like "⠧ [LLM:auto] ...[INFO] ...". Unlike a normal stop, this does
+    not leave an ``OK done`` line behind, since callers are about to write
+    other output at the current cursor position. Always safe: no-op when
     disabled or never drew.
     """
     try:
-        stop(clear=clear)
+        stop(clear=clear, keep_last_line=False)
     except Exception:
         pass
 

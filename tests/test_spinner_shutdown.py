@@ -5,6 +5,19 @@ from threading import Event, Thread
 from uagent.runtime import spinner
 
 
+def test_stop_quietly_does_not_leave_done_line(monkeypatch) -> None:
+    calls: list[dict[str, object]] = []
+
+    def record_stop(**kwargs: object) -> None:
+        calls.append(kwargs)
+
+    monkeypatch.setattr(spinner, "stop", record_stop)
+
+    spinner.stop_quietly(clear=False)
+
+    assert calls == [{"clear": False, "keep_last_line": False}]
+
+
 def test_stop_clears_frame_drawn_while_shutdown_is_requested(monkeypatch) -> None:
     frame_started = Event()
     release_frame = Event()
