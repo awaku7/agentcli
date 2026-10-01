@@ -7,8 +7,11 @@ Design proposal for an opt-in decision-model layer in UAG.
 The first supported provider keys are intended to be:
 
 - `none`
-- `jev`
+- `typesafe`
 - `laya`
+
+`typesafe` represents the TypeSafe decision API. Jev is treated as a model selected
+through the TypeSafe provider rather than as a provider key itself.
 
 This layer is separate from the existing LLM provider layer. It is not an LLM
 provider and must not be added to `provider_caps.ALL_PROVIDERS`.
@@ -23,8 +26,8 @@ alongside the normal LLM flow.
 The design must:
 
 1. Preserve current UAG behavior by default.
-2. Require explicit opt-in before Jev or Laya is initialized or called.
-3. Treat Jev and Laya as interchangeable implementations behind a UAG-owned
+2. Require explicit opt-in before TypeSafe or Laya is initialized or called.
+3. Treat TypeSafe and Laya as interchangeable implementations behind a UAG-owned
    interface.
 4. Keep provider-specific schemas out of the UAG core.
 5. Avoid coupling the decision-provider layer to the LLM-provider registry.
@@ -39,9 +42,9 @@ The design must:
 The first implementation does not:
 
 - replace UAG's LLM provider selection,
-- make Jev or Laya mandatory dependencies,
-- automatically download or initialize a decision model when no provider is
-  selected,
+- make TypeSafe or Laya mandatory dependencies,
+- automatically initialize or call a decision provider when none is selected,
+- automatically download or initialize a Laya model when Laya is not selected,
 - automatically trust a provider's confidence value as a universal risk score,
 - automatically route all UAG decisions through the selected decision provider,
 - change existing behavior when the decision provider is `none`,
@@ -64,11 +67,12 @@ flow runs unchanged.
 
 When the effective provider is `none`, UAG must not:
 
-- import Jev or Laya runtime packages,
-- initialize Jev or Laya clients/models,
+- import or initialize TypeSafe-specific decision code,
+- import or initialize Laya runtime packages/models,
 - download decision-model assets,
-- probe decision-model endpoints,
+- probe TypeSafe or Laya endpoints,
 - add decision-model startup latency,
+- validate provider-specific credentials that are not active,
 - alter prompts, tool selection, routing, or agent behavior.
 
 This is a strict backward-compatibility requirement.
@@ -82,7 +86,7 @@ Proposed CLI option:
 
 ```bash
 uag --decision-provider none
-uag --decision-provider jev
+uag --decision-provider typesafe
 uag --decision-provider laya
 ```
 
@@ -90,7 +94,7 @@ Proposed environment variable:
 
 ```text
 UAGENT_DECISION_PROVIDER=none
-UAGENT_DECISION_PROVIDER=jev
+UAGENT_DECISION_PROVIDER=typesafe
 UAGENT_DECISION_PROVIDER=laya
 ```
 
@@ -105,27 +109,44 @@ Precedence:
 The resolved value should be stored in shared runtime configuration so CLI, GUI,
 Web, and A2A use the same semantics.
 
-Provider-specific options should use a provider namespace rather than leaking
-into generic UAG settings. Exact option names should be added only when the
-adapter implementation needs them.
+Provider-specific settings use the namespace:
 
-Examples:
+```text
+UAGENT_DECISION_<PROVIDER>_<SETTING>
+```
+
+### TypeSafe / Jev
+
+Jev is a model selected through the TypeSafe provider. The provider key is
+`typesafe`; the model is selected through `DEPNAME`.
+
+```text
+UAGENT_DECISION_PROVIDER=typesafe
+UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest
+UAGENT_DECISION_TYPESAFE_BASE_URL=...
+UAGENT_DECISION_TYPESAFE_API_KEY=...
+```
+
+The adapter maps `UAGENT_DECISION_TYPESAFE_DEPNAME` to the model identifier sent
+to TypeSafe.
+
+### Laya
+
+Laya is normally used as a local decision model/checkpoint.
 
 ```text
 UAGENT_DECISION_PROVIDER=laya
-UAGENT_LAYA_MODEL=auto
-UAGENT_LAYA_DEVICE=auto
+UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual
+UAGENT_DECISION_LAYA_DEVICE=auto
 ```
 
-and, if Jev needs a remote endpoint:
-
-```text
-UAGENT_DECISION_PROVIDER=jev
-UAGENT_JEV_ENDPOINT=...
-UAGENT_JEV_API_KEY=...
-```
+Additional Laya-specific settings can follow the same namespace if required.
 
 Secrets continue to follow the existing `.env.sec` handling.
+
+Provider-specific settings are ignored when their provider is not selected. For
+example, `UAGENT_DECISION_TYPESAFE_API_KEY` must not be required or validated
+when `UAGENT_DECISION_PROVIDER=none` or `laya`.
 
 ## Architecture
 
@@ -139,13 +160,13 @@ layer.
               |                           |
         LLM Provider                Decision Provider
               |                           |
-    OpenAI / Claude / ...          none / jev / laya
+    OpenAI / Claude / ...       none / typesafe / laya
                                           |
                                  UAG Decision API
 ```
 
 The UAG core must depend on UAG-owned request/result types. Provider adapters are
-responsible for translating those types to Jev- or Laya-specific APIs.
+responsible for translating those types to TypeSafe- or Laya-specific APIs.
 
 Suggested package layout:
 
@@ -156,7 +177,7 @@ src/uagent/decision/
     models.py
     registry.py
     none.py
-    jev.py
+    typesafe.py
     laya.py
 ```
 
@@ -165,11 +186,9 @@ namespace today.
 
 ## Common UAG decision model
 
-Provider-specific concepts such as Laya's native typed question names must not
-become the UAG public abstraction.
+Provider-specific concepts must not become the UAG public abstraction.
 
-A UAG-owned request model should describe generic decision questions, for
-example:
+A UAG-owned request model should describe generic decision questions, for example:
 
 ```python
 DecisionQuestion(
@@ -214,7 +233,7 @@ The common result should retain enough provenance for logging and evaluation:
 ```python
 DecisionResult(
     provider="laya",
-    model="...",
+    model="laya-multilingual",
     answers={
         "needs_tools": DecisionAnswer(
             value=True,
@@ -227,8 +246,8 @@ DecisionResult(
 )
 ```
 
-The exact implementation may use dataclasses or the project's existing data
-model conventions, but the provider boundary must remain explicit.
+For TypeSafe the same result shape is used, with `provider="typesafe"` and the
+selected Jev model recorded in `model`.
 
 ## Provider interface
 
@@ -277,29 +296,34 @@ However, the implementation must not insert a new decision stage into every
 request merely to produce that object. The default path should remain as close
 as possible to the current code path.
 
-## Jev adapter
+## TypeSafe adapter
 
-The Jev adapter owns all Jev-specific details:
+The TypeSafe adapter owns all TypeSafe-specific details:
 
-- dependency/client import,
-- client or endpoint construction,
+- API/client initialization,
+- base URL handling,
+- API-key handling,
+- `DEPNAME` to model-id mapping,
 - request translation,
 - response translation,
 - provider-specific errors,
 - provider-specific raw metadata.
 
-The core must not depend on Jev response schemas.
+Jev is not exposed as a provider key. It is a model selected through
+`UAGENT_DECISION_TYPESAFE_DEPNAME`.
 
-Jev should only be imported and initialized after the resolved provider is
-`jev`.
+The core must not depend on TypeSafe response schemas.
+
+TypeSafe must only be initialized or contacted after the resolved provider is
+`typesafe`.
 
 ## Laya adapter
 
 The Laya adapter owns all Laya-specific details:
 
 - lazy package import,
-- checkpoint/model selection,
-- device selection,
+- checkpoint/model selection through `UAGENT_DECISION_LAYA_DEPNAME`,
+- device selection through `UAGENT_DECISION_LAYA_DEVICE`,
 - mapping UAG `boolean` / `choice` / `score` questions to Laya-native typed
   decisions,
 - result conversion,
@@ -313,21 +337,20 @@ The adapter must not expose Laya-specific question types as the UAG core API.
 
 ## Dependency policy
 
-Jev and Laya must remain optional.
+Decision providers must remain optional.
 
-They should not be imported by module import side effects on the default path and
-should not become unconditional core dependencies.
+Provider-specific packages must not be imported by module import side effects on
+the default path and must not become unconditional core dependencies.
 
-If UAG's existing optional-dependency auto-install mechanism is reused, the
-installer may run only after the user explicitly selected the corresponding
-decision provider.
+If UAG's existing optional-dependency auto-install mechanism is reused for Laya,
+the installer may run only after the user explicitly selected `laya`.
 
 The important behavior is:
 
 ```text
-provider=none  -> no Jev/Laya dependency work
-provider=jev   -> Jev dependency path may run
-provider=laya  -> Laya dependency path may run
+provider=none      -> no TypeSafe/Laya decision-provider work
+provider=typesafe  -> TypeSafe configuration/client path may run
+provider=laya      -> Laya dependency/model path may run
 ```
 
 A failed optional-provider initialization must produce a clear startup/runtime
@@ -375,7 +398,7 @@ answer.
 ## Confidence semantics
 
 `confidence` is provider-reported or provider-derived metadata. It is not a
-universal probability scale across Jev and Laya.
+universal probability scale across TypeSafe/Jev and Laya.
 
 Therefore UAG must not initially implement logic such as:
 
@@ -408,7 +431,7 @@ A future configuration could look like:
 
 ```text
 UAGENT_DECISION_PROVIDER=laya
-UAGENT_DECISION_SHADOW_PROVIDER=jev
+UAGENT_DECISION_SHADOW_PROVIDER=typesafe
 ```
 
 Semantics:
@@ -435,7 +458,7 @@ These concerns should remain separate:
 llmcapa
     -> What can this LLM/provider/model do?
 
-Decision provider (Jev/Laya)
+Decision provider (TypeSafe/Laya)
     -> What decision should UAG make for this input/question?
 ```
 
@@ -455,8 +478,15 @@ providers, for example:
 ```text
 [INFO] LLM provider      = openai
 [INFO] LLM model         = ...
+[INFO] Decision provider = typesafe
+[INFO] Decision model    = jev-latest
+```
+
+or:
+
+```text
 [INFO] Decision provider = laya
-[INFO] Decision model    = ...
+[INFO] Decision model    = laya-multilingual
 ```
 
 Secrets and endpoint credentials must never be printed.
@@ -486,9 +516,9 @@ Raw user input should not be duplicated into telemetry by default.
 A decision provider may be local or remote. The adapter must make that boundary
 clear.
 
-For a remote provider such as a network-backed Jev deployment, UAG must treat the
-state sent for decision as externally transmitted data and apply the same secret
-and privacy discipline used for other remote services.
+For TypeSafe, UAG must treat the state sent for decision as externally
+transmitted data and apply the same secret and privacy discipline used for other
+remote services.
 
 For local Laya execution, UAG should not imply that data leaves the machine
 unless the selected adapter/checkpoint source actually causes a network action.
@@ -503,18 +533,23 @@ Model download behavior should be documented separately from inference behavior.
 - Add UAG-owned request/result types.
 - Add registry/factory and `none` behavior.
 - Add tests proving the default path remains unchanged.
-- Do not add Jev or Laya dependencies yet.
+- Do not add TypeSafe or Laya dependencies yet.
 
-### PR 2: Jev adapter
+### PR 2: TypeSafe adapter
 
-- Add Jev optional dependency handling.
+- Add TypeSafe configuration handling.
+- Use `UAGENT_DECISION_TYPESAFE_DEPNAME` for Jev model selection.
+- Use `UAGENT_DECISION_TYPESAFE_BASE_URL` and
+  `UAGENT_DECISION_TYPESAFE_API_KEY` for connection/authentication.
 - Implement request/result translation.
-- Add adapter unit tests with mocked Jev boundaries.
-- Document Jev-specific configuration.
+- Add adapter unit tests with mocked TypeSafe boundaries.
+- Document TypeSafe/Jev-specific configuration.
 
 ### PR 3: Laya adapter
 
 - Add Laya optional dependency handling.
+- Use `UAGENT_DECISION_LAYA_DEPNAME` for checkpoint/model selection.
+- Use `UAGENT_DECISION_LAYA_DEVICE` for device selection.
 - Implement typed-question mapping.
 - Add adapter unit tests without requiring model download in the normal test
   suite.
@@ -539,20 +574,26 @@ At minimum, implementation should verify:
 
 1. No option and no environment variable resolve to `none`.
 2. `--decision-provider` overrides the environment variable.
-3. `none` does not import Jev or Laya modules.
-4. `none` does not change existing LLM/tool behavior.
-5. Selecting `jev` initializes only Jev.
-6. Selecting `laya` initializes only Laya.
-7. Missing optional dependencies produce an actionable error only when selected.
-8. Provider failures never become implicit negative decisions.
-9. Common result serialization does not leak provider-specific objects.
-10. CLI, GUI, Web, and A2A resolve the same shared setting.
-11. Startup output never exposes credentials.
-12. Adapter tests do not require network/model downloads in the normal CI path.
+3. `none` does not initialize TypeSafe or import Laya.
+4. `none` does not validate inactive provider-specific credentials.
+5. `none` does not change existing LLM/tool behavior.
+6. Selecting `typesafe` initializes only the TypeSafe decision path.
+7. Selecting `laya` initializes only the Laya decision path.
+8. TypeSafe model selection uses `UAGENT_DECISION_TYPESAFE_DEPNAME`.
+9. Laya model selection uses `UAGENT_DECISION_LAYA_DEPNAME`.
+10. Missing credentials/dependencies produce an actionable error only when their
+    provider is selected.
+11. Provider failures never become implicit negative decisions.
+12. Common result serialization does not leak provider-specific objects.
+13. CLI, GUI, Web, and A2A resolve the same shared setting.
+14. Startup output never exposes credentials.
+15. Adapter tests do not require network/model downloads in the normal CI path.
 
 ## Acceptance criteria
 
 The architecture is considered correctly integrated when a stock UAG invocation
 without new configuration behaves exactly as before, while an explicitly
-selected Jev or Laya provider can be initialized through the common decision API
-without altering the existing LLM-provider registry.
+selected `typesafe` or `laya` provider can be initialized through the common
+decision API without altering the existing LLM-provider registry.
+
+For TypeSafe, Jev remains a model selected by `DEPNAME`, not a provider key.
