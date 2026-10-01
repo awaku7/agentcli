@@ -155,22 +155,27 @@ def test_browser_runtime_maps_openai_modifier_keys_scroll_and_drag_path():
     ]
 
 
-def test_browser_runtime_uses_macos_history_shortcut(monkeypatch):
+def test_browser_runtime_uses_platform_history_shortcuts(monkeypatch):
     import uagent.computer_use.runtimes.browser as browser_module
 
-    monkeypatch.setattr(browser_module.sys, "platform", "darwin")
-    page = FakePage()
-    result = BrowserRuntime(page).execute(
-        ComputerAction(
-            action_id="openai:back",
-            action="click",
-            coordinate=(1, 2),
-            button="back",
+    for platform, expected_key in (
+        ("darwin", "Meta+ArrowLeft"),
+        ("win32", "Alt+ArrowLeft"),
+        ("linux", "Alt+ArrowLeft"),
+    ):
+        monkeypatch.setattr(browser_module.sys, "platform", platform)
+        page = FakePage()
+        result = BrowserRuntime(page).execute(
+            ComputerAction(
+                action_id=f"{platform}:back",
+                action="click",
+                coordinate=(1, 2),
+                button="back",
+            )
         )
-    )
 
-    assert result.success is True
-    assert page.keyboard.calls == [("press", "Meta+ArrowLeft")]
+        assert result.success is True
+        assert page.keyboard.calls == [("press", expected_key)]
 
 
 def test_desktop_runtime_delegates_to_backend():
