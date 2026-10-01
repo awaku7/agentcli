@@ -1,10 +1,10 @@
-# Computer Use プロバイダー対応に必要な変更
+# Computer Use プロバイダー対応の実装状況
 
 ## 目的
 
-llmcapa がモデルの Computer Use capability を正規情報源として扱う設計を維持しながら、Anthropic Sonnet と Meta Muse Spark の公式 Computer Use API を agentcli から利用できるようにするための実装計画。
+llmcapa をモデルの Computer Use capability の正規情報源として維持しながら、Anthropic Sonnet と Meta Muse Spark の公式 Computer Use API を agentcli で扱う実装状況と未検証事項を記録する。
 
-この文書は実装状況も記録する。完了として明記されていない機能は未実装または未検証として扱う。
+完了として明記されていない機能は未実装または未検証として扱う。
 
 ## 現状
 
@@ -35,7 +35,7 @@ llmcapa の capability 登録はモデルが提供元 API で対応すること�
 | Claude Sonnet 5／5.5 | 新 `computer_toolset_20260801`。member tool ごとの `tool_use` と `tool_result` を返す方式 | toolset 登録、member 入力の正規化、toolset marker 付き結果、順序実行・失敗後停止を実装し、単体テスト済み。未対応 member は toolset configs で無効化する。実 API E2E は未実施。 |
 | Meta Muse Spark 1.1／1.3 | Meta Responses API の native `computer` tool。`computer_call` は actions をまとめて返し、`computer_call_output` で画面を返す | provider/API/tool family を検証する adapter、初回 screenshot、逐次 batch 実行、最終 screenshot、human safety approval、acknowledgement／receipt の受け渡しを実装し、単体テスト済み。stateless replay は明示的に無効。実 API E2E は未実施。 |
 
-## 必要な変更
+## 実装状況
 
 ### 1. llmcapa capability データと最低依存バージョン — 完了
 
@@ -47,7 +47,7 @@ llmcapa 0.5.51 で provider-specific Computer Use capability が整備された�
 - 実 llmcapa カタログを使う回帰テストで、Anthropic の旧／新 Computer Use と Meta Muse Spark の provider-specific capability が取得できることを確認する。
 - llmcapa が capability を持たないモデルは従来どおり fail-closed とし、近似モデルや provider 名から Computer Use 対応を推測しない。
 
-### 2. Sonnet の Anthropic 対応をバージョン別に完成させる — Sonnet 5／5.5 実装済み
+### 2. Sonnet の Anthropic 対応 — Sonnet 5／5.5 実装済み、Sonnet 4.6 API 未検証
 
 - Sonnet 4.6 は旧 `computer_20251124` 経路を保持する。実 API の request/response 境界確認は未実施。
 - Sonnet 5／5.5 は `computer_toolset_20260801`、member tool 名、`toolset_name: "computer"`、tool_use ごとの結果形式を旧 Adapter と分離して実装した。
