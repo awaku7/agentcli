@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 
 from uagent.computer_use import ComputerUsePolicy, configure_computer_use
+from uagent.computer_use.results import ComputerActionResult, Screenshot
 from uagent.computer_use.runtimes.mock import MockComputerRuntime
 
 
@@ -175,3 +176,62 @@ def test_action_limit_is_enforced_before_runtime():
     assert second["success"] is False
     assert "max_actions" in second["error"]
     assert runtime.count == 1
+
+
+def test_anthropic_toolset_batch_stops_after_first_failed_action():
+    class FailOnceRuntime:
+        def __init__(self):
+            self.calls = 0
+
+        def execute(self, action):
+            self.calls += 1
+            return ComputerActionResult(
+                action_id=action.action_id,
+                success=False,
+                error="input device unavailable",
+            )
+
+        def screenshot(self):
+            return Screenshot(data=b"png")
+
+    from uagent.computer_use.integration import install_computer_use_handler
+
+    core = Core()
+    runtime = FailOnceRuntime()
+    handler = install_computer_use_handler(
+        core=core,
+        provider="claude",
+        model="sonnet-test",
+        policy=policy(allowed_actions=frozenset({"click"})),
+        runtime=runtime,
+    )
+    metadata = {
+        "computer_toolset_name": "computer",
+        "computer_batch_id": "resp-1",
+        "computer_batch_size": 2,
+    }
+
+    first = json.loads(
+        handler(
+            tool_call={"id": "toolu-1", **metadata},
+            action={"action": "left_click", "x": 10, "y": 20},
+            messages=[],
+            core=core,
+        )
+    )
+    second = json.loads(
+        handler(
+            tool_call={"id": "toolu-2", **metadata},
+            action={"action": "left_click", "x": 30, "y": 40},
+            messages=[],
+            core=core,
+        )
+    )
+
+    assert first["success"] is False
+    assert second["success"] is False
+    assert (
+        second["error"]
+        == "Not executed: an earlier computer action in this turn failed."
+    )
+    assert runtime.calls == 1

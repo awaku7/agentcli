@@ -398,22 +398,34 @@ def _create_desktop_runtime() -> EntrypointRuntimeManager:
                         lambda: pyautogui.click(x=x, y=y, button=button),
                     )
             elif action.action == "middle_click":
-                pyautogui.click(x=x, y=y, button="middle")
+                self._with_modifiers(
+                    action.keys,
+                    lambda: pyautogui.click(x=x, y=y, button="middle"),
+                )
             elif action.action == "double_click":
-                self._with_modifiers(action.keys, lambda: pyautogui.doubleClick(x=x, y=y))
+                self._with_modifiers(
+                    action.keys, lambda: pyautogui.doubleClick(x=x, y=y)
+                )
             elif action.action == "triple_click":
-                pyautogui.click(x=x, y=y, clicks=3, interval=0.1)
+                self._with_modifiers(
+                    action.keys,
+                    lambda: pyautogui.click(x=x, y=y, clicks=3, interval=0.1),
+                )
             elif action.action == "right_click":
-                pyautogui.rightClick(x=x, y=y)
+                self._with_modifiers(
+                    action.keys, lambda: pyautogui.rightClick(x=x, y=y)
+                )
             elif action.action == "type":
                 self._type_text(action.text or "")
             elif action.action == "keypress":
                 key_sequence = action.keys or ((action.key,) if action.key else ())
                 chord = "+".join(self._normalize_hotkey(key) for key in key_sequence)
-                self._keypress(chord)
+                for _ in range(max(1, min(100, int(action.repeat)))):
+                    self._keypress(chord)
             elif action.action == "move":
                 self._with_modifiers(action.keys, lambda: self._move_cursor(x, y))
             elif action.action == "scroll":
+
                 def scroll_at_pointer() -> None:
                     vertical_units = self._scroll_units(-(action.scroll_y or 0))
                     horizontal_units = self._scroll_units(action.scroll_x)

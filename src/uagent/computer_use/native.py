@@ -62,7 +62,7 @@ def local_computer_tool_spec() -> dict[str, Any]:
 
 
 def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool:
-    """Populate native tool metadata when no local runtime is bound."""
+    """Prepare provider-native metadata subject to local Runtime safety."""
     for name in (
         "computer_use_native_tool",
         "computer_use_native_headers",
@@ -74,9 +74,12 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
         except Exception:
             pass
 
-    # A local runtime must use the local function handler. Native provider
-    # tools bypass DesktopRuntime and are executed by the provider host.
-    if getattr(core, "computer_use_runtime", None) is not None:
+    runtime_bound = getattr(core, "computer_use_runtime", None) is not None
+    # The Anthropic client toolset is a protocol declaration; its calls still
+    # execute through agentcli's guarded local handler. Other provider-native
+    # tools bypass the local Runtime and remain disabled when one is bound.
+    anthropic_toolset_candidate = provider in {"claude", "anthropic"}
+    if runtime_bound and not anthropic_toolset_candidate:
         core.computer_use_native_diagnostic = (
             "native Computer Use disabled because a local runtime is bound"
         )
@@ -101,6 +104,11 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
         if not getattr(capability, "native", False):
             return False
         if provider in {"claude", "anthropic"}:
+            if runtime_bound and getattr(capability, "tool_type", None) != (
+                "computer_toolset_20260801"
+            ):
+                core.computer_use_native_diagnostic = "legacy Anthropic native Computer Use disabled because a local runtime is bound"
+                return False
             from .adapters.anthropic import AnthropicComputerAdapter
 
             width = int(getattr(core, "computer_use_width", 1280))

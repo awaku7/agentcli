@@ -810,6 +810,15 @@ def _execute_tool_calls(
             "name": name,
             "content": tool_result,
         }
+        for _metadata_key in (
+            "computer_toolset_name",
+            "computer_member_tool",
+            "computer_batch_id",
+            "computer_batch_index",
+            "computer_batch_size",
+        ):
+            if tc.get(_metadata_key) is not None:
+                tool_msg[_metadata_key] = tc[_metadata_key]
         # Mirror accepted output into the continuation state machine. The
         # provider still receives the legacy tool message below; this merely
         # enforces correlation while migration is in progress.

@@ -320,10 +320,32 @@ def claude_chat_with_tools(
                     t_input = json.loads(t_args)
                 except Exception:
                     t_input = {}
-
-                new_content_blocks.append(
-                    {"type": "tool_use", "id": t_id, "name": t_name, "input": t_input}
-                )
+                member = tc.get("computer_member_tool")
+                if tc.get("computer_toolset_name") == "computer" and member:
+                    original_member_input = tc.get("computer_member_input")
+                    if isinstance(original_member_input, dict):
+                        t_input = dict(original_member_input)
+                    elif isinstance(t_input, dict):
+                        t_input = dict(t_input)
+                        t_input.pop("action", None)
+                    new_content_blocks.append(
+                        {
+                            "type": "tool_use",
+                            "id": t_id,
+                            "name": str(member),
+                            "toolset_name": "computer",
+                            "input": t_input,
+                        }
+                    )
+                else:
+                    new_content_blocks.append(
+                        {
+                            "type": "tool_use",
+                            "id": t_id,
+                            "name": t_name,
+                            "input": t_input,
+                        }
+                    )
 
         elif role == "tool":
             new_role = "user"
@@ -350,13 +372,82 @@ def claude_chat_with_tools(
                         )
             except Exception:
                 pass
-            new_content_blocks.append(
-                {
-                    "type": "tool_result",
-                    "tool_use_id": m.get("tool_call_id"),
-                    "content": result_content,
-                }
-            )
+            member = m.get("computer_member_tool")
+            if m.get("computer_toolset_name") == "computer" and member:
+                try:
+                    result_json = (
+                        json.loads(content) if isinstance(content, str) else {}
+                    )
+                except Exception:
+                    result_json = {}
+                if not isinstance(result_json, dict):
+                    result_json = {}
+                screenshot_data = result_json.get("screenshot_data")
+                succeeded = bool(result_json.get("success"))
+                result_error = str(result_json.get("error") or "Computer action failed")
+                result_blocks: list[dict[str, Any]] = []
+                if not succeeded:
+                    result_blocks.append({"type": "text", "text": result_error})
+                elif member == "screenshot":
+                    if screenshot_data:
+                        result_blocks.append(
+                            {
+                                "type": "image",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": result_json.get(
+                                        "screenshot_media_type", "image/png"
+                                    ),
+                                    "data": screenshot_data,
+                                },
+                            }
+                        )
+                    else:
+                        succeeded = False
+                        result_blocks.append(
+                            {
+                                "type": "text",
+                                "text": "Error: failed to capture screenshot.",
+                            }
+                        )
+                else:
+                    result_blocks.append({"type": "text", "text": "OK"})
+                    is_last_batch_member = (
+                        m.get("computer_batch_index") is not None
+                        and m.get("computer_batch_size") is not None
+                        and int(m["computer_batch_index"]) + 1
+                        == int(m["computer_batch_size"])
+                    )
+                    if is_last_batch_member and screenshot_data:
+                        result_blocks.append(
+                            {
+                                "type": "image",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": result_json.get(
+                                        "screenshot_media_type", "image/png"
+                                    ),
+                                    "data": screenshot_data,
+                                },
+                            }
+                        )
+                new_content_blocks.append(
+                    {
+                        "type": "tool_result",
+                        "tool_use_id": m.get("tool_call_id"),
+                        "toolset_name": "computer",
+                        "content": result_blocks,
+                        "is_error": not succeeded,
+                    }
+                )
+            else:
+                new_content_blocks.append(
+                    {
+                        "type": "tool_result",
+                        "tool_use_id": m.get("tool_call_id"),
+                        "content": result_content,
+                    }
+                )
 
         if new_role:
             if anthropic_messages and anthropic_messages[-1]["role"] == new_role:
@@ -369,6 +460,7 @@ def claude_chat_with_tools(
                 )
 
     anthropic_tools = []
+    native_tool = None
     if send_tools:
         context_tool_specs = getattr(core, "context_tool_specs", None)
         _tool_specs_iter = list(
@@ -376,7 +468,20 @@ def claude_chat_with_tools(
             if context_tool_specs is not None
             else (tools.get_tool_specs() or [])
         )
-        if core is not None and getattr(core, "computer_use_runtime", None) is not None:
+        native_tool = (
+            getattr(core, "computer_use_native_tool", None)
+            if core is not None
+            else None
+        )
+        native_toolset_active = (
+            isinstance(native_tool, dict)
+            and native_tool.get("type") == "computer_toolset_20260801"
+        )
+        if (
+            core is not None
+            and getattr(core, "computer_use_runtime", None) is not None
+            and not native_toolset_active
+        ):
             from ..computer_use.native import local_computer_tool_spec
 
             if not any(
@@ -387,11 +492,14 @@ def claude_chat_with_tools(
                 _tool_specs_iter.append(local_computer_tool_spec())
     else:
         _tool_specs_iter = []
-    native_tool = (
-        getattr(core, "computer_use_native_tool", None) if core is not None else None
-    )
     if (
-        getattr(core, "computer_use_runtime", None) is None
+        (
+            getattr(core, "computer_use_runtime", None) is None
+            or (
+                isinstance(native_tool, dict)
+                and native_tool.get("type") == "computer_toolset_20260801"
+            )
+        )
         and native_tool
         and isinstance(native_tool, dict)
     ):
@@ -688,6 +796,16 @@ def claude_chat_with_tools(
     tool_calls_list: list[dict[str, Any]] = []
     thinking_text = ""
     _thinking_blocks = 0
+    _computer_tool_uses = [
+        block
+        for block in (getattr(response, "content", None) or [])
+        if getattr(block, "type", None) == "tool_use"
+        and getattr(block, "toolset_name", None) == "computer"
+    ]
+    _batch_id = str(getattr(response, "id", None) or f"claude:{id(response)}")
+    _batch_positions = {
+        id(block): index for index, block in enumerate(_computer_tool_uses)
+    }
 
     for block in response.content:
         if block.type == "text":
@@ -711,16 +829,45 @@ def claude_chat_with_tools(
             if (env_get("UAGENT_DEBUG") or "").strip():
                 print("\n[Claude Thinking] (redacted_thinking block)\n")
         elif block.type == "tool_use":
-            tool_calls_list.append(
-                {
-                    "id": block.id,
-                    "type": "function",
-                    "function": {
-                        "name": block.name,
-                        "arguments": json.dumps(block.input),
-                    },
+            input_payload = block.input if isinstance(block.input, dict) else {}
+            tool_call = {
+                "id": block.id,
+                "type": "function",
+                "function": {
+                    "name": block.name,
+                    "arguments": json.dumps(input_payload),
+                },
+            }
+            if getattr(block, "toolset_name", None) == "computer":
+                from ..computer_use.adapters.anthropic import (
+                    ANTHROPIC_COMPUTER_MEMBERS,
+                    AnthropicComputerAdapter,
+                )
+
+                member = str(block.name or "")
+                if member not in ANTHROPIC_COMPUTER_MEMBERS:
+                    raise ValueError(
+                        f"unsupported Anthropic computer toolset member: {member or '<empty>'}"
+                    )
+                normalized_input = AnthropicComputerAdapter._normalize_member_input(
+                    member, input_payload
+                )
+                tool_call["function"] = {
+                    "name": "computer",
+                    "arguments": json.dumps(normalized_input),
                 }
-            )
+                batch_index = _batch_positions[id(block)]
+                tool_call.update(
+                    {
+                        "computer_toolset_name": "computer",
+                        "computer_member_tool": member,
+                        "computer_member_input": dict(input_payload),
+                        "computer_batch_id": _batch_id,
+                        "computer_batch_index": batch_index,
+                        "computer_batch_size": len(_computer_tool_uses),
+                    }
+                )
+            tool_calls_list.append(tool_call)
 
     # 思考プロセスが検出された場合、assistant_text の先頭に埋め込むことで
     # 上位モジュールや会話履歴に思考プロセスを正しく伝播させる

@@ -62,6 +62,8 @@ class ComputerAction:
     keys: tuple[str, ...] = ()
     # OpenAI drag actions provide an ordered path of {x, y} points.
     path: tuple[tuple[int, int], ...] = ()
+    # Anthropic's computer toolset key member supports repeated key presses.
+    repeat: int = 1
 
 
 def _coordinate(value: Any) -> tuple[int, int] | None:
@@ -142,4 +144,5 @@ def normalize_action(
         region=_region(payload.get("region")),
         keys=_keys(payload.get("keys")),
         path=_path(payload.get("path")),
+        repeat=max(1, min(100, int(payload.get("repeat", 1)))),
     )

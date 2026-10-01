@@ -144,6 +144,7 @@ def install_computer_use_handler(
         "turns": set(),
         "started": time.monotonic(),
         "confirmed": False,
+        "failed_batches": set(),
     }
     lock = Lock()
 
@@ -151,6 +152,22 @@ def install_computer_use_handler(
         nonlocal selected_runtime
         del messages
         action_id = str(tool_call.get("id") or "computer")
+        batch_id = str(tool_call.get("computer_batch_id") or "")
+        if (
+            batch_id
+            and batch_id in state["failed_batches"]
+            and tool_call.get("computer_toolset_name") == "computer"
+        ):
+            from .adapters.anthropic import ANTHROPIC_NOT_EXECUTED
+
+            return json.dumps(
+                {
+                    "success": False,
+                    "action_id": action_id,
+                    "error": ANTHROPIC_NOT_EXECUTED,
+                },
+                ensure_ascii=False,
+            )
         items = action.get("actions") if isinstance(action, dict) else None
         if not isinstance(items, list):
             items = [action]
@@ -309,6 +326,14 @@ def install_computer_use_handler(
                     ),
                 }
             )
+            if batch_id and not result.success:
+                state["failed_batches"].add(batch_id)
+        if (
+            batch_id
+            and outputs
+            and any(not output.get("success", False) for output in outputs)
+        ):
+            state["failed_batches"].add(batch_id)
         if len(outputs) == 1:
             return json.dumps(outputs[0], ensure_ascii=False)
         return json.dumps(
