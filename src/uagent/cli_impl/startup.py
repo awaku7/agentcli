@@ -10,6 +10,7 @@ from __future__ import annotations
 import importlib
 import os
 
+from ..decision import apply_decision_provider_cli_override
 from ..env_utils import env_get
 from ..i18n import detect_lang, set_thread_lang
 
@@ -41,6 +42,7 @@ from ..util_tools import parse_startup_args as _parse_startup_args
 core = importlib.import_module(".core", package="uagent")
 
 _startup_args, _startup_unknown = _parse_startup_args()
+apply_decision_provider_cli_override(_startup_args.get("decision_provider"))
 _observability_argv = ["uag", *_startup_unknown]
 consume_process_otel_cli_flags(_observability_argv)
 _startup_unknown = _observability_argv[1:]

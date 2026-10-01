@@ -9,6 +9,10 @@ import sys
 from typing import Any
 
 from .. import core
+from ..decision import (
+    add_decision_provider_argument,
+    apply_decision_provider_cli_override,
+)
 from ..env_utils import env_get
 from .. import tools
 from .. import util_tools as tools_util
@@ -177,6 +181,7 @@ def main():
     from ..i18n import _
 
     parser = argparse.ArgumentParser(prog="uagw", add_help=False)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--tool-genre-mask",
         type=int,
@@ -238,6 +243,7 @@ def main():
         ),
     )
     web_args, _web_unknown = parser.parse_known_args()
+    apply_decision_provider_cli_override(getattr(web_args, "decision_provider", None))
     if getattr(web_args, "embedded", False):
         os.environ["UAGENT_SESSION_STORE"] = "0"
         os.environ["UAGENT_EMBEDDED"] = "1"

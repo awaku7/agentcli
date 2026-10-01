@@ -28,6 +28,10 @@ except ImportError:
     from fastapi import Depends, FastAPI, Request
     from fastapi.responses import JSONResponse, StreamingResponse
 
+from ..decision import (
+    add_decision_provider_argument,
+    apply_decision_provider_cli_override,
+)
 from ..env_utils import env_get
 from ..auth import CredentialStore, get_default_credential_store
 from ..i18n import (
@@ -525,6 +529,7 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(prog="uaga", add_help=True)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--host",
         default=(env_get("UAGENT_A2A_HOST", "0.0.0.0") or "0.0.0.0"),
@@ -601,6 +606,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     )
 
     args = parser.parse_args(argv)
+    apply_decision_provider_cli_override(getattr(args, "decision_provider", None))
 
     if getattr(args, "otel_enabled", None) is not None:
         from ..runtime.observability.settings import (

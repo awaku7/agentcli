@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from . import tools
+from .decision.settings import add_decision_provider_argument
 from .env_utils import env_get
 from .i18n import _
 from .tools.context import ToolCallbacks
@@ -208,6 +209,7 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         realtime = True
         argv.pop(0)
     parser = argparse.ArgumentParser(add_help=False)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--workdir",
         "-C",

@@ -9,6 +9,10 @@ from pathlib import Path
 
 from PySide6 import QtCore, QtGui, QtWidgets
 
+from ..decision import (
+    add_decision_provider_argument,
+    apply_decision_provider_cli_override,
+)
 from ..i18n import _, detect_lang
 from .. import core
 from ..runtime import runtime_init as _runtime_init
@@ -52,6 +56,7 @@ def main():
     ensure_mcp_config_template()
 
     parser = argparse.ArgumentParser(add_help=False)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--workdir",
         "-C",
@@ -107,6 +112,7 @@ def main():
         ),
     )
     args, unknown = parser.parse_known_args()
+    apply_decision_provider_cli_override(getattr(args, "decision_provider", None))
     if getattr(args, "embedded", False):
         os.environ["UAGENT_SESSION_STORE"] = "0"
         os.environ["UAGENT_EMBEDDED"] = "1"
