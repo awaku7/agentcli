@@ -76,10 +76,11 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
 
     runtime_bound = getattr(core, "computer_use_runtime", None) is not None
     # The Anthropic client toolset is a protocol declaration; its calls still
-    # execute through agentcli's guarded local handler. Other provider-native
-    # tools bypass the local Runtime and remain disabled when one is bound.
-    anthropic_toolset_candidate = provider in {"claude", "anthropic"}
-    if runtime_bound and not anthropic_toolset_candidate:
+    # execute through agentcli's guarded local handler. Meta uses the same
+    # boundary around Responses computer_call batches. Other native tools
+    # remain disabled when a local Runtime is already bound.
+    guarded_native_candidate = provider in {"claude", "anthropic", "meta"}
+    if runtime_bound and not guarded_native_candidate:
         core.computer_use_native_diagnostic = (
             "native Computer Use disabled because a local runtime is bound"
         )
@@ -95,6 +96,7 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
         "azure-foundry",
         "gemini",
         "vertexai",
+        "meta",
     }:
         return False
     try:
@@ -130,6 +132,11 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
             core.computer_use_native_tool = OpenAIComputerAdapter().build_tool(
                 capability
             )
+            core.computer_use_native_headers = []
+        elif provider == "meta":
+            from .adapters.meta import MetaComputerAdapter
+
+            core.computer_use_native_tool = MetaComputerAdapter().build_tool(capability)
             core.computer_use_native_headers = []
         else:
             from .adapters.gemini import GeminiComputerAdapter

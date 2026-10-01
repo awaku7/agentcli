@@ -3,6 +3,7 @@
 from .actions import ComputerAction, normalize_action
 from .adapters.anthropic import AnthropicComputerAdapter
 from .adapters.openai import OpenAIComputerAdapter
+from .adapters.meta import MetaComputerAdapter
 from .adapters.gemini import GeminiComputerAdapter
 from .adapters.custom import CustomComputerAdapter
 from .audit import AuditEvent, InMemoryAuditSink
@@ -25,6 +26,7 @@ __all__ = [
     "CustomComputerAdapter",
     "GeminiComputerAdapter",
     "AnthropicComputerAdapter",
+    "MetaComputerAdapter",
     "AuditEvent",
     "ComputerActionResult",
     "ComputerRuntime",

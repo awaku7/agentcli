@@ -63,6 +63,7 @@ def create_runtime_from_env(
             "azure-foundry",
             "gemini",
             "vertexai",
+            "meta",
         }
         and environment_name == "browser"
     )

@@ -822,6 +822,7 @@ def _call_openai_azure_round(
                         lambda: parse_responses_response(
                             _create_responses_with_effort_fallback(),
                             core=core,
+                            provider=provider,
                         )
                     )
                     (
@@ -886,6 +887,7 @@ def _call_openai_azure_round(
                             ) = parse_responses_response(
                                 resp,
                                 core=core,
+                                provider=provider,
                             )
                             if core is not None:
                                 try:

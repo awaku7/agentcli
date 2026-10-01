@@ -42,6 +42,7 @@ def _register_runtime_manager(core: Any, manager: Any) -> Any:
                     "azure-foundry",
                     "gemini",
                     "vertexai",
+                    "meta",
                 }
                 and environment == "browser"
             )
@@ -101,6 +102,44 @@ def _host_confirmation_callback(core: Any | None = None):
         return None
 
 
+def _host_safety_check_confirmation(core: Any | None = None):
+    """Return a fail-closed human confirmation callback for Meta checks."""
+    try:
+        from .. import tools
+        from ..i18n import _
+
+        def confirm(check: dict[str, Any]) -> bool:
+            prompt = _(
+                "Meta Computer Use requires review of safety check %(code)s: %(message)s.\n"
+                "Review and approve this check? Enter y/yes to approve, or c to deny."
+            ) % {
+                "code": str(check.get("code") or "unknown"),
+                "message": str(check.get("message") or ""),
+            }
+            result = tools.run_tool(
+                "human_ask", {"message": prompt, "is_password": False}
+            )
+            if core is not None:
+                try:
+                    with core.interrupt_lock:
+                        core.interrupt_requested = False
+                    core.computer_use_confirmation_just_completed = True
+                except Exception:
+                    pass
+            if isinstance(result, dict):
+                reply = result.get("user_reply", "")
+            else:
+                try:
+                    reply = json.loads(str(result)).get("user_reply", "")
+                except Exception:
+                    reply = ""
+            return str(reply or "").strip().lower() in {"y", "yes", "allow"}
+
+        return confirm
+    except Exception:
+        return None
+
+
 def make_unavailable_computer_use_handler(*, reason: str):
     """Return a safe handler that reports an unavailable Runtime."""
 
@@ -139,6 +178,11 @@ def install_computer_use_handler(
     confirmation = getattr(core, "computer_use_confirmation", None)
     if confirmation is None:
         confirmation = _host_confirmation_callback(core)
+    safety_check_confirmation = getattr(
+        core, "computer_use_safety_check_confirmation", None
+    )
+    if provider.lower() == "meta" and safety_check_confirmation is None:
+        safety_check_confirmation = _host_safety_check_confirmation(core)
     state = {
         "actions": 0,
         "turns": set(),
@@ -171,6 +215,57 @@ def install_computer_use_handler(
         items = action.get("actions") if isinstance(action, dict) else None
         if not isinstance(items, list):
             items = [action]
+        acknowledged_safety_checks: list[dict[str, Any]] = []
+        replay_receipt = None
+        if provider.lower() == "meta":
+            replay_receipt = action.get("meta_safety_replay_receipt")
+            pending_checks = action.get("pending_safety_checks", [])
+            if not isinstance(pending_checks, list):
+                return json.dumps(
+                    {
+                        "success": False,
+                        "action_id": action_id,
+                        "error": "Meta pending_safety_checks must be a list",
+                        "acknowledged_safety_checks": [],
+                        "meta_safety_replay_receipt": replay_receipt,
+                    },
+                    ensure_ascii=False,
+                )
+            checks_valid = all(
+                isinstance(check, dict)
+                and all(key in check for key in ("id", "code", "message"))
+                for check in pending_checks
+            )
+            if not checks_valid:
+                return json.dumps(
+                    {
+                        "success": False,
+                        "action_id": action_id,
+                        "error": "Meta safety checks must include id, code, and message",
+                        "acknowledged_safety_checks": [],
+                        "meta_safety_replay_receipt": replay_receipt,
+                    },
+                    ensure_ascii=False,
+                )
+            for check in pending_checks:
+                try:
+                    approved = (
+                        callable(safety_check_confirmation)
+                        and safety_check_confirmation(check) is True
+                    )
+                except Exception:
+                    approved = False
+                if not approved:
+                    result: dict[str, Any] = {
+                        "success": False,
+                        "action_id": action_id,
+                        "error": "Meta Computer Use safety check was not approved",
+                        "acknowledged_safety_checks": acknowledged_safety_checks,
+                    }
+                    if replay_receipt is not None:
+                        result["meta_safety_replay_receipt"] = replay_receipt
+                    return json.dumps(result, ensure_ascii=False)
+                acknowledged_safety_checks.append(dict(check))
         turn_id = str(getattr(core, "computer_use_turn_id", "") or "")
         outputs = []
         call_confirmed = False
@@ -328,6 +423,10 @@ def install_computer_use_handler(
             )
             if batch_id and not result.success:
                 state["failed_batches"].add(batch_id)
+            if provider.lower() == "meta" and not result.success:
+                # Meta batches are a single computer_call. Stop at the first
+                # failed action, then return the final visible screen once.
+                break
         if (
             batch_id
             and outputs
@@ -335,16 +434,19 @@ def install_computer_use_handler(
         ):
             state["failed_batches"].add(batch_id)
         if len(outputs) == 1:
-            return json.dumps(outputs[0], ensure_ascii=False)
-        return json.dumps(
-            {
+            response_payload = dict(outputs[0])
+        else:
+            response_payload = {
                 "success": bool(outputs)
                 and all(x.get("success", False) for x in outputs),
                 "action_id": action_id,
                 "results": outputs,
-            },
-            ensure_ascii=False,
-        )
+            }
+        if provider.lower() == "meta":
+            response_payload["acknowledged_safety_checks"] = acknowledged_safety_checks
+            if replay_receipt is not None:
+                response_payload["meta_safety_replay_receipt"] = replay_receipt
+        return json.dumps(response_payload, ensure_ascii=False)
 
     core.computer_use_handler = handle
     return handle

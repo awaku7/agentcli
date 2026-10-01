@@ -862,7 +862,7 @@ def merge_tool_buf(
 
 
 def parse_responses_response(
-    resp: Any, *, core: Any = None
+    resp: Any, *, core: Any = None, provider: str = "openai"
 ) -> tuple[str, str, list[dict[str, Any]], Optional[str], list[dict[str, Any]]]:
     """Parse a Responses API response and preserve output items for replay."""
 
@@ -925,27 +925,41 @@ def parse_responses_response(
                         if text:
                             reasoning_content += text
 
-            elif getattr(item, "type", None) == "computer_call":
-                cid = (
-                    getattr(item, "call_id", None)
-                    or getattr(item, "id", None)
-                    or f"computer_{int(time.time() * 1000)}"
-                )
+            elif item_type == "computer_call":
+                if (provider or "").strip().lower() == "meta":
+                    from ..computer_use.adapters.meta import MetaComputerAdapter
+
+                    if item_dict is None:
+                        raise ValueError("Meta computer_call could not be decoded")
+                    meta_call = MetaComputerAdapter().parse_call(item_dict)
+                    call_args: dict[str, Any] = {
+                        "actions": list(meta_call.raw_actions),
+                        "pending_safety_checks": list(meta_call.pending_safety_checks),
+                    }
+                    if meta_call.meta_safety_replay_receipt is not None:
+                        call_args["meta_safety_replay_receipt"] = (
+                            meta_call.meta_safety_replay_receipt
+                        )
+                    cid = meta_call.call_id
+                else:
+                    cid = (
+                        getattr(item, "call_id", None)
+                        or getattr(item, "id", None)
+                        or f"computer_{int(time.time() * 1000)}"
+                    )
+                    call_args = {
+                        "actions": [
+                            responses_item_to_dict(a) or {}
+                            for a in (getattr(item, "actions", None) or [])
+                        ]
+                    }
                 tool_calls_list.append(
                     {
                         "id": cid,
                         "type": "function",
                         "function": {
                             "name": "computer",
-                            "arguments": json.dumps(
-                                {
-                                    "actions": [
-                                        responses_item_to_dict(a) or {}
-                                        for a in (getattr(item, "actions", None) or [])
-                                    ]
-                                },
-                                ensure_ascii=False,
-                            ),
+                            "arguments": json.dumps(call_args, ensure_ascii=False),
                         },
                     }
                 )
@@ -1325,6 +1339,25 @@ def parse_responses_stream(
                     info = extract_web_search_call_info(item)
                     if info:
                         emit_web_search_event(core, "update", **info)
+                if (
+                    provider.strip().lower() == "meta"
+                    and isinstance(item_dict, dict)
+                    and item_dict.get("type") == "computer_call"
+                ):
+                    from ..computer_use.adapters.meta import MetaComputerAdapter
+
+                    meta_call = MetaComputerAdapter().parse_call(item_dict)
+                    cid_candidate = meta_call.call_id
+                    iid_candidate = as_str(item_dict.get("id") or "") or None
+                    fn_name = "computer"
+                    final_args = {
+                        "actions": list(meta_call.raw_actions),
+                        "pending_safety_checks": list(meta_call.pending_safety_checks),
+                    }
+                    if meta_call.meta_safety_replay_receipt is not None:
+                        final_args["meta_safety_replay_receipt"] = (
+                            meta_call.meta_safety_replay_receipt
+                        )
                 if item and getattr(item, "type", None) == "function_call":
                     cid = getattr(item, "call_id", None) or getattr(item, "id", None)
                     if cid:

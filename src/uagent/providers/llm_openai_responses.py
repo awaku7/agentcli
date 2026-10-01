@@ -45,7 +45,11 @@ _WEB_SEARCH_RULES: str = _("""[Web search rules]
 
 
 def _responses_tool_output(
-    call_id: str, content: Any, tool_name: str, core: Any = None
+    call_id: str,
+    content: Any,
+    tool_name: str,
+    core: Any = None,
+    provider: str = "openai",
 ) -> dict[str, Any]:
     """Convert a normalized tool result to a Responses input item."""
     # A local runtime exposes ``computer`` as a normal function tool. Native
@@ -62,9 +66,18 @@ def _responses_tool_output(
     has_screenshot = any(
         isinstance(item, dict) and item.get("screenshot_data") for item in candidates
     )
-    is_native_computer = (
-        tool_name in {"computer", "computer_use_preview"} and native_active
-    ) or (not tool_name and native_active)
+    provider_name = (provider or "").strip().lower()
+    native_provider = (
+        str(getattr(core, "computer_use_native_provider", "") or "").strip().lower()
+    )
+    if provider_name == "meta":
+        is_native_computer = (
+            native_active and native_provider == "meta" and tool_name == "computer"
+        )
+    else:
+        is_native_computer = (
+            tool_name in {"computer", "computer_use_preview"} and native_active
+        ) or (not tool_name and native_active)
     if not is_native_computer:
         return {
             "type": "function_call_output",
@@ -79,7 +92,9 @@ def _responses_tool_output(
         ),
         None,
     )
-    output = {"type": "computer_screenshot", "detail": "original"}
+    output = {"type": "computer_screenshot"}
+    if provider_name != "meta":
+        output["detail"] = "original"
     if screenshot:
         output["image_url"] = (
             f"data:{screenshot.get('screenshot_media_type', 'image/png')};base64,"
@@ -100,8 +115,26 @@ def _responses_tool_output(
             pass
     if not output.get("image_url"):
         raise RuntimeError(
-            "OpenAI Computer Use requires a screenshot, but none could be captured"
+            f"{provider_name.title() or 'OpenAI'} Computer Use requires a screenshot, "
+            "but none could be captured"
         )
+    if provider_name == "meta":
+        try:
+            image_header, encoded_image = str(output["image_url"]).split(",", 1)
+            media_type = image_header.removeprefix("data:").removesuffix(";base64")
+            image_bytes = base64.b64decode(encoded_image, validate=True)
+        except Exception as exc:
+            raise RuntimeError(
+                "Meta Computer Use screenshot data URL is invalid"
+            ) from exc
+        if media_type not in {"image/png", "image/jpeg"}:
+            raise RuntimeError(
+                f"Meta Computer Use does not support screenshot media type: {media_type}"
+            )
+        if not image_bytes or len(image_bytes) > 25 * 1024 * 1024:
+            raise RuntimeError(
+                "Meta Computer Use screenshot is empty or exceeds 25 MiB"
+            )
     if (os.environ.get("UAGENT_DEBUG_COMPUTER") or "").strip().lower() in {
         "1",
         "true",
@@ -119,6 +152,17 @@ def _responses_tool_output(
             f"image_url_len={len(str(image_url or ''))}",
             file=sys.stderr,
             flush=True,
+        )
+    if provider_name == "meta":
+        from ..computer_use.adapters.meta import MetaComputerAdapter
+
+        if not isinstance(payload, dict):
+            payload = {}
+        return MetaComputerAdapter().build_tool_result(
+            call_id=call_id,
+            image_url=str(output["image_url"]),
+            acknowledged_safety_checks=payload.get("acknowledged_safety_checks", []),
+            meta_safety_replay_receipt=payload.get("meta_safety_replay_receipt"),
         )
     return {"type": "computer_call_output", "call_id": call_id, "output": output}
 
@@ -188,7 +232,7 @@ def build_responses_request(
                         output = as_str(tm.get("content", ""))
                         input_msgs.append(
                             _responses_tool_output(
-                                call_id, output, tm.get("name", ""), core
+                                call_id, output, tm.get("name", ""), core, provider
                             )
                         )
             elif role == "user":
@@ -454,6 +498,21 @@ def build_responses_request(
                     or {"type": "object", "properties": {}},
                 }
             )
+        native_tool = (
+            getattr(core, "computer_use_native_tool", None)
+            if core is not None
+            else None
+        )
+        native_provider = (
+            str(getattr(core, "computer_use_native_provider", "") or "").strip().lower()
+        )
+        meta_native_candidate = (
+            provider == "meta"
+            and native_provider == "meta"
+            and isinstance(native_tool, dict)
+            and native_tool.get("type") == "computer"
+        )
+        meta_native_added = False
         native_active = bool(
             getattr(core, "computer_use_native_active", False)
             if core is not None
@@ -463,6 +522,7 @@ def build_responses_request(
             core is not None
             and getattr(core, "computer_use_runtime", None) is not None
             and not native_active
+            and not meta_native_candidate
         ):
             from ..computer_use.native import local_computer_tool_spec
 
@@ -473,23 +533,107 @@ def build_responses_request(
             ):
                 local = local_computer_tool_spec()["function"]
                 flat_tools.append({"type": "function", **local})
-        native_tool = (
-            getattr(core, "computer_use_native_tool", None)
-            if core is not None
-            else None
-        )
         if (
-            (getattr(core, "computer_use_runtime", None) is None or native_active)
+            (
+                getattr(core, "computer_use_runtime", None) is None
+                or native_active
+                or meta_native_candidate
+            )
             and provider
-            in {"openai", "azure", "azure-openai", "azure_foundry", "azure-foundry"}
+            in {
+                "openai",
+                "azure",
+                "azure-openai",
+                "azure_foundry",
+                "azure-foundry",
+                "meta",
+            }
             and isinstance(native_tool, dict)
             and native_tool.get("type") in {"computer", "computer_use_preview"}
+            and (provider != "meta" or meta_native_candidate)
         ):
             flat_tools.append(dict(native_tool))
             try:
                 core.computer_use_native_active = True
             except Exception:
                 pass
+            meta_native_added = provider == "meta"
         req_tools = flat_tools
+
+        if meta_native_added and previous_response_id is None:
+            if any(
+                isinstance(message, dict)
+                and (
+                    (
+                        message.get("role") == "tool"
+                        and message.get("name") == "computer"
+                    )
+                    or (
+                        message.get("role") == "assistant"
+                        and any(
+                            isinstance(call, dict)
+                            and isinstance(call.get("function"), dict)
+                            and call["function"].get("name") == "computer"
+                            for call in (message.get("tool_calls") or [])
+                        )
+                    )
+                )
+                for message in call_messages
+            ):
+                raise RuntimeError(
+                    "Meta native Computer Use continuation requires previous_response_id; "
+                    "stateless replay is disabled"
+                )
+            initial_screen_attached = False
+            for user_item in reversed(input_msgs):
+                if not isinstance(user_item, dict) or user_item.get("role") != "user":
+                    continue
+                content_items = user_item.get("content")
+                if not isinstance(content_items, list):
+                    content_items = normalize_content_items(content_items, role="user")
+                    user_item["content"] = content_items
+                has_user_image = any(
+                    isinstance(item, dict)
+                    and item.get("type") in {"input_image", "image_url"}
+                    for item in content_items
+                )
+                if has_user_image:
+                    initial_screen_attached = True
+                else:
+                    runtime = getattr(core, "computer_use_runtime", None)
+                    try:
+                        screenshot = (
+                            runtime.screenshot() if runtime is not None else None
+                        )
+                    except Exception as exc:
+                        raise RuntimeError(
+                            "Meta Computer Use could not capture its initial screenshot"
+                        ) from exc
+                    if screenshot is None:
+                        raise RuntimeError(
+                            "Meta Computer Use requires an initial screenshot and a local Runtime"
+                        )
+                    image_bytes = bytes(screenshot.data)
+                    if not image_bytes or len(image_bytes) > 25 * 1024 * 1024:
+                        raise RuntimeError(
+                            "Meta Computer Use initial screenshot is empty or exceeds 25 MiB"
+                        )
+                    media_type = str(screenshot.media_type or "")
+                    if media_type not in {"image/png", "image/jpeg"}:
+                        raise RuntimeError(
+                            f"Meta Computer Use does not support screenshot media type: {media_type}"
+                        )
+                    image_url = f"data:{media_type};base64," + base64.b64encode(
+                        image_bytes
+                    ).decode("ascii")
+                    content_items.append(
+                        {"type": "input_image", "image_url": image_url}
+                    )
+                    initial_screen_attached = True
+                break
+            if not initial_screen_attached:
+                raise RuntimeError(
+                    "Meta Computer Use requires a user turn and initial screenshot"
+                )
 
     return instructions_str, input_msgs, req_tools
