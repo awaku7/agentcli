@@ -269,7 +269,6 @@ def test_laya_order_guard_records_both_decision_attempts(monkeypatch):
     assert all(item["additional_call"] is True for item in recorded)
 
 
-
 def test_sentinel_records_no_additional_judgment_call(monkeypatch):
     judgments = []
     outcomes = []
