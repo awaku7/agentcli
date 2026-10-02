@@ -173,6 +173,18 @@ If required provider variables are missing, `uag` will automatically launch the 
 uag_setup
 ```
 
+The wizard also configures the optional Auto Pilot Decision Provider:
+
+- `none` (default): keep the existing LLM reviewer;
+- `typesafe`: configure TypeSafe/Jev model, endpoint, and API key;
+- `laya`: configure the local Laya model/device.
+
+When Laya is explicitly selected, setup prepares the optional
+`laya>=0.3.23,<0.4` runtime through UAG's existing automatic-install policy.
+If it is still missing at first use, the Laya adapter retries the same lazy
+installation path. `UAGENT_AUTO_INSTALL=allow|prompt|off` remains authoritative.
+No Laya package/model work occurs when the Decision Provider is `none`.
+
 (Repository development) Run the interactive wizard (numbered selection + back `b`) to generate/update shell-specific variants under `samples/` with the intended encoding/newlines:
 
 ```bat

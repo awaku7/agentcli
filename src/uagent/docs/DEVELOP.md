@@ -201,7 +201,7 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
 | `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
-| `--decision-provider <none|typesafe|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. PR1 resolves configuration only; provider adapters are loaded lazily by the decision registry. | `decision/settings.py` and entry-point parsers |
+| `--decision-provider <none|typesafe|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. Provider adapters are loaded lazily by the decision registry; `uag_setup` can configure the same setting. | `decision/settings.py`, `setup_cli.py`, and entry-point parsers |
 | `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
 | `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
 | `--port` | A2A only | Bind port (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
@@ -845,3 +845,17 @@ code_mapの `format="mermaid"` で生成した現在のプロジェクト構造�
   - `UAGENT_LANG=en python -m pytest -q`
   - `UAGENT_LANG=ja python -m pytest -q`
 - `tests/__init__.py` is present so Matter tests can import shared fixtures reliably.
+
+
+## Decision Provider setup and Laya dependency readiness
+
+`uag_setup` exposes `none`, `typesafe`, and `laya` as a separate Decision
+Provider selection from the main LLM provider. TypeSafe/Jev settings are written
+under `UAGENT_DECISION_TYPESAFE_*`; Laya model/device settings are written under
+`UAGENT_DECISION_LAYA_*`.
+
+Laya stays optional. Both setup-time readiness and first-use recovery call the
+shared `_pip_auto.install_with_status()` path for `laya>=0.3.23,<0.4`, so
+`UAGENT_AUTO_INSTALL=allow|prompt|off` is authoritative. The default
+`UAGENT_DECISION_PROVIDER=none` path performs no Laya import, installation,
+Router construction, or model download.

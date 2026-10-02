@@ -385,6 +385,102 @@ def test_laya_missing_optional_dependency_is_actionable():
         )
 
 
+def test_laya_missing_runtime_auto_installs_then_retries_import():
+    installs = []
+    imports = []
+
+    class Router:
+        def __init__(self, **_kwargs):
+            pass
+
+        def predict(self, state, questions, *, model=None):
+            return {
+                "answers": {
+                    "route": {
+                        "type": "choice",
+                        "choice": "COMPLETE",
+                        "probabilities": {
+                            "COMPLETE": 0.9,
+                            "CONTINUE": 0.1,
+                        },
+                        "confidence": 0.6,
+                        "answer_confidence": 0.9,
+                    }
+                },
+                "routing": {"model": "multilingual"},
+            }
+
+    installed = False
+
+    def loader(name):
+        imports.append(name)
+        if not installed:
+            raise ModuleNotFoundError(name=name)
+        return types.SimpleNamespace(Router=Router)
+
+    def installer():
+        nonlocal installed
+        installs.append(True)
+        installed = True
+        return True
+
+    provider = LayaDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+        module_loader=loader,
+        runtime_installer=installer,
+    )
+
+    result = provider.decide(
+        DecisionRequest(
+            state="state",
+            questions=(
+                DecisionQuestion(
+                    id="route",
+                    kind="choice",
+                    instruction="Choose.",
+                    choices=("COMPLETE", "CONTINUE"),
+                ),
+            ),
+        )
+    )
+
+    assert installs == [True]
+    assert imports == ["laya", "laya"]
+    assert result.answers["route"].value == "COMPLETE"
+
+
+def test_laya_failed_auto_install_remains_unavailable():
+    installs = []
+
+    def missing(name):
+        raise ModuleNotFoundError(name=name)
+
+    provider = LayaDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+        module_loader=missing,
+        runtime_installer=lambda: installs.append(True) or False,
+    )
+
+    with pytest.raises(LayaDecisionUnavailableError, match="automatic installation"):
+        provider.decide(
+            DecisionRequest(
+                state="state",
+                questions=(
+                    DecisionQuestion(
+                        id="route",
+                        kind="choice",
+                        instruction="Choose.",
+                        choices=("A", "B"),
+                    ),
+                ),
+            )
+        )
+
+    assert installs == [True]
+
+
 def test_laya_provider_failure_is_not_a_decision():
     provider = LayaDecisionProvider(
         settings=_settings(),

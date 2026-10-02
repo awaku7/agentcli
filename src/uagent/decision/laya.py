@@ -31,6 +31,22 @@ class LayaDecisionUnavailableError(LayaDecisionError):
     """Raised when the optional Laya runtime cannot be loaded."""
 
 
+def _install_laya_runtime() -> bool:
+    """Install the optional Laya runtime using UAG's shared install policy."""
+
+    try:
+        from .._pip_auto import install_with_status
+
+        return install_with_status(
+            "laya",
+            "laya",
+            display_name="laya",
+            version_spec=">=0.3.23,<0.4",
+        )
+    except Exception:
+        return False
+
+
 @dataclass(frozen=True)
 class LayaDecisionConfig:
     """Resolved Laya-specific configuration."""
@@ -272,6 +288,7 @@ class LayaDecisionProvider:
         environ: Mapping[str, str] | None = None,
         router: Any = None,
         module_loader: Callable[[str], Any] | None = None,
+        runtime_installer: Callable[[], bool] | None = None,
     ) -> None:
         if settings.provider != "laya":
             raise LayaDecisionConfigurationError(
@@ -283,6 +300,10 @@ class LayaDecisionProvider:
         self._router = router
         self._owns_router = router is None
         self._module_loader = module_loader or importlib.import_module
+        self._runtime_installer = runtime_installer or _install_laya_runtime
+        self._auto_install_runtime = (
+            module_loader is None or runtime_installer is not None
+        )
         self._closed = False
 
     @property
@@ -304,11 +325,21 @@ class LayaDecisionProvider:
         try:
             module = self._module_loader("laya")
         except ModuleNotFoundError as exc:
-            raise LayaDecisionUnavailableError(
-                "Laya is selected as the Decision Provider but the optional "
-                "runtime is not installed. Install 'uag[decision-laya]' or "
-                "'laya>=0.3.23,<0.4'."
-            ) from exc
+            if self._auto_install_runtime and self._runtime_installer():
+                try:
+                    module = self._module_loader("laya")
+                except Exception as retry_exc:
+                    raise LayaDecisionUnavailableError(
+                        "Laya runtime installation completed but import still failed: "
+                        f"{type(retry_exc).__name__}."
+                    ) from retry_exc
+            else:
+                raise LayaDecisionUnavailableError(
+                    "Laya is selected as the Decision Provider but the optional "
+                    "runtime is not installed and automatic installation was not "
+                    "available. Install 'uag[decision-laya]' or "
+                    "'laya>=0.3.23,<0.4'."
+                ) from exc
         except Exception as exc:
             raise LayaDecisionUnavailableError(
                 f"Failed to import the Laya runtime: {type(exc).__name__}."

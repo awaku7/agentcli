@@ -379,11 +379,18 @@ UAGENT_DECISION_LAYA_DEVICE=auto
 Router device unset. Explicit values such as `cpu`, `cuda`, `mps`, or `xpu`
 are forwarded as configured.
 
-Install the optional runtime with:
+The optional runtime remains available for explicit pre-installation:
 
 ```bash
 pip install "uag[decision-laya]"
 ```
+
+When `laya` is explicitly selected, UAG now also reuses
+`_pip_auto.install_with_status()` to prepare `laya>=0.3.23,<0.4`. The
+installer obeys `UAGENT_AUTO_INSTALL=allow|prompt|off`. The setup wizard uses
+the same dependency path after a Laya configuration is confirmed, and the
+adapter retries lazily on the first real decision if the runtime is still
+missing. None of these installation paths run for `provider=none`.
 
 The adapter maps UAG `boolean / choice / score` to Laya
 `noul / choice / score`. It uses Laya's `answer_confidence` as diagnostic
@@ -401,8 +408,10 @@ Decision providers must remain optional.
 Provider-specific packages must not be imported by module import side effects on
 the default path and must not become unconditional core dependencies.
 
-If UAG's existing optional-dependency auto-install mechanism is reused for Laya,
-the installer may run only after the user explicitly selected `laya`.
+UAG's existing optional-dependency auto-install mechanism is now reused for
+Laya. The installer runs only after the user explicitly selects `laya`, either
+from setup or in the first real Laya decision path, and always respects the
+shared auto-install policy.
 
 The important behavior is:
 
@@ -659,3 +668,16 @@ selected `typesafe` or `laya` provider can be initialized through the common
 decision API without altering the existing LLM-provider registry.
 
 For TypeSafe, Jev remains a model selected by `DEPNAME`, not a provider key.
+
+
+### Setup and dependency readiness — implemented
+
+- `uag_setup` configures `none / typesafe / laya` and emits the matching
+  `UAGENT_DECISION_*` variables.
+- Existing Decision Provider values from `.env`, `.env.sec`, or process
+  environment are used as wizard defaults.
+- Selecting Laya triggers optional runtime readiness through the shared
+  `UAGENT_AUTO_INSTALL` policy after setup completes.
+- First real Laya use retries lazy runtime installation if necessary.
+- TypeSafe/Jev requires no additional Decision Provider SDK because the adapter
+  uses the existing `httpx` core dependency.

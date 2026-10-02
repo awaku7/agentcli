@@ -592,10 +592,26 @@ REALTIME_PROVIDERS: list[tuple[str, str]] = [
     ("bedrock", "Amazon Bedrock Nova Sonic"),
 ]
 
+DECISION_PROVIDERS: list[tuple[str, str]] = [
+    ("none", "Disabled (use the existing LLM reviewer)"),
+    ("typesafe", "TypeSafe / Jev"),
+    ("laya", "Laya (local decision model)"),
+]
+
+_DECISION_KEYS = (
+    "UAGENT_DECISION_PROVIDER",
+    "UAGENT_DECISION_TYPESAFE_DEPNAME",
+    "UAGENT_DECISION_TYPESAFE_BASE_URL",
+    "UAGENT_DECISION_TYPESAFE_API_KEY",
+    "UAGENT_DECISION_LAYA_DEPNAME",
+    "UAGENT_DECISION_LAYA_DEVICE",
+)
+
 
 @dataclass
 class _WizardState:
     provider: str = "openai"
+    decision_provider: str = "none"
 
     # Responses
     responses_enabled: bool = False
@@ -626,6 +642,7 @@ class _WizardState:
     embedding_values: dict[str, str] | None = None
     audio_values: dict[str, str] | None = None
     realtime_values: dict[str, str] | None = None
+    decision_values: dict[str, str] | None = None
 
 
 def _q_sh(value: str) -> str:
@@ -1090,6 +1107,115 @@ def _ask_provider_audio_values(
     return "ok", vals
 
 
+def _ask_decision_provider(st: _WizardState, *, allow_back: bool = True) -> str:
+    options = [f"{provider} ({label})" for provider, label in DECISION_PROVIDERS]
+    default_index = 1
+    if st.decision_provider in {provider for provider, _label in DECISION_PROVIDERS}:
+        default_index = next(
+            index + 1
+            for index, (provider, _label) in enumerate(DECISION_PROVIDERS)
+            if provider == st.decision_provider
+        )
+
+    choice = _menu_choice(
+        _("Select Decision Provider"),
+        options,
+        default_index=default_index,
+        allow_back=allow_back,
+    )
+    if choice in {"__quit__", "__back__"}:
+        return choice
+
+    provider = DECISION_PROVIDERS[int(choice) - 1][0]
+    st.decision_provider = provider
+    current = dict(st.decision_values or {})
+    values: dict[str, str] = {}
+
+    if provider == "typesafe":
+        specs = [
+            (
+                "UAGENT_DECISION_TYPESAFE_DEPNAME",
+                False,
+                _("TypeSafe/Jev model name"),
+                "jev-latest",
+            ),
+            (
+                "UAGENT_DECISION_TYPESAFE_BASE_URL",
+                False,
+                _("TypeSafe base URL"),
+                "https://api.typesafe.ai",
+            ),
+            (
+                "UAGENT_DECISION_TYPESAFE_API_KEY",
+                True,
+                _("TypeSafe API key"),
+                "",
+            ),
+        ]
+    elif provider == "laya":
+        specs = [
+            (
+                "UAGENT_DECISION_LAYA_DEPNAME",
+                False,
+                _("Laya model name"),
+                "laya-multilingual",
+            ),
+            (
+                "UAGENT_DECISION_LAYA_DEVICE",
+                False,
+                _("Laya device (auto/cpu/cuda/mps/xpu)"),
+                "auto",
+            ),
+        ]
+    else:
+        st.decision_values = {}
+        return "ok"
+
+    for key, required, label, fallback in specs:
+        status, value = _ask_text(
+            label,
+            default=current.get(key, "") or fallback,
+            required=required,
+            allow_back=allow_back,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        values[key] = value or fallback
+
+    st.decision_values = values
+    return "ok"
+
+
+def _install_selected_decision_runtime(st: _WizardState) -> bool:
+    if st.decision_provider != "laya":
+        return True
+
+    configured_policy = str(
+        (st.values or {}).get("UAGENT_AUTO_INSTALL", "") or ""
+    ).strip()
+    previous_policy = os.environ.get("UAGENT_AUTO_INSTALL")
+    if configured_policy:
+        os.environ["UAGENT_AUTO_INSTALL"] = configured_policy
+
+    try:
+        from ._pip_auto import install_with_status
+
+        return install_with_status(
+            "laya",
+            "laya",
+            display_name="laya",
+            version_spec=">=0.3.23,<0.4",
+        )
+    except Exception:
+        return False
+    finally:
+        if configured_policy:
+            if previous_policy is None:
+                os.environ.pop("UAGENT_AUTO_INSTALL", None)
+            else:
+                os.environ["UAGENT_AUTO_INSTALL"] = previous_policy
+
+
 def _ask_realtime_values(st: _WizardState, *, allow_back: bool = True) -> str:
     yn = _menu_choice(
         _("Configure Realtime voice settings?"),
@@ -1456,6 +1582,11 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
 
     section(_("Optional runtime"))
     out.append(f"UAGENT_STREAMING={'1' if st.streaming_enabled else '0'}")
+    auto_install_policy = str(values.get("UAGENT_AUTO_INSTALL", "") or "").strip()
+    if auto_install_policy:
+        out.append(f"UAGENT_AUTO_INSTALL={auto_install_policy}")
+    else:
+        out.append("# UAGENT_AUTO_INSTALL=allow")
 
     if st.workdir_enabled:
         out.append(f"UAGENT_WORKDIR={st.workdir.strip()}")
@@ -1466,6 +1597,50 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append(f"UAGENT_LANG={st.lang.strip()}")
     else:
         out.append("# UAGENT_LANG=ja")
+    out.append("")
+
+    section(_("Optional Decision Provider"))
+    out.append(f"UAGENT_DECISION_PROVIDER={st.decision_provider}")
+    decision_values = st.decision_values or {}
+    if st.decision_provider == "typesafe":
+        out.append(
+            "UAGENT_DECISION_TYPESAFE_DEPNAME="
+            + (decision_values.get("UAGENT_DECISION_TYPESAFE_DEPNAME") or "jev-latest")
+        )
+        out.append(
+            "UAGENT_DECISION_TYPESAFE_BASE_URL="
+            + (
+                decision_values.get("UAGENT_DECISION_TYPESAFE_BASE_URL")
+                or "https://api.typesafe.ai"
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_TYPESAFE_API_KEY="
+            + decision_values.get("UAGENT_DECISION_TYPESAFE_API_KEY", "")
+        )
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+        out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
+    elif st.decision_provider == "laya":
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
+        out.append("# UAGENT_DECISION_TYPESAFE_API_KEY=")
+        out.append(
+            "UAGENT_DECISION_LAYA_DEPNAME="
+            + (
+                decision_values.get("UAGENT_DECISION_LAYA_DEPNAME")
+                or "laya-multilingual"
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_LAYA_DEVICE="
+            + (decision_values.get("UAGENT_DECISION_LAYA_DEVICE") or "auto")
+        )
+    else:
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
+        out.append("# UAGENT_DECISION_TYPESAFE_API_KEY=")
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+        out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
     out.append("")
 
     section(_("Optional Realtime voice settings"))
@@ -1706,6 +1881,20 @@ def main() -> int:
     if detected_provider:
         st.provider = detected_provider
 
+    detected_decision_provider = (
+        defaults.get("UAGENT_DECISION_PROVIDER", "none").strip().lower() or "none"
+    )
+    if detected_decision_provider not in {
+        provider for provider, _label in DECISION_PROVIDERS
+    }:
+        detected_decision_provider = "none"
+    st.decision_provider = detected_decision_provider
+    st.decision_values = {
+        key: defaults.get(key, "")
+        for key in _DECISION_KEYS
+        if key != "UAGENT_DECISION_PROVIDER" and defaults.get(key, "")
+    }
+
     stage = 0
     provider_fields: list[tuple[str, bool, str]] = []
     field_index = 0
@@ -1875,12 +2064,19 @@ def main() -> int:
             continue
 
         if stage == 4:
-            status = _ask_optional_extras(st)
+            status = _ask_decision_provider(st)
             if status == "__quit__":
                 print(_("Cancelled."))
                 return 1
             if status == "__back__":
                 stage = 3
+                continue
+
+            status = _ask_optional_extras(st)
+            if status == "__quit__":
+                print(_("Cancelled."))
+                return 1
+            if status == "__back__":
                 continue
             stage = 5
             continue
@@ -1930,6 +2126,13 @@ def main() -> int:
             )
             if st.lang_enabled:
                 print("  UAGENT_LANG=%(value)s" % {"value": st.lang})
+            print(
+                "  UAGENT_DECISION_PROVIDER=%(value)s" % {"value": st.decision_provider}
+            )
+            for key, value in sorted((st.decision_values or {}).items()):
+                if value:
+                    shown = "********" if key.endswith("_API_KEY") else value
+                    print("  %(key)s=%(value)s" % {"key": key, "value": shown})
             print(
                 _("  Optional extras enabled: %(state)s")
                 % {"state": _("yes") if st.extra_enabled else _("no")}
@@ -2049,6 +2252,17 @@ def main() -> int:
         print(_("- env.ps1 : utf-8-sig, CRLF"))
     if "bat" in outputs:
         print(_("- env.bat : cp932, CRLF"))
+
+    if st.decision_provider == "laya":
+        if _install_selected_decision_runtime(st):
+            print(_("Laya decision runtime is ready."))
+        else:
+            print(
+                _(
+                    "Warning: Laya runtime is not installed. "
+                    "Auto Pilot will fall back to the LLM reviewer if Laya remains unavailable."
+                )
+            )
 
     return 0
 

@@ -94,6 +94,7 @@ _ALLOWED_PACKAGES = {
         "bitchat-protocol",
         "zai-sdk",
         "together",
+        "laya",
         "sounddevice",
         # Packages used by tool-level lazy installers.
         "PySide6",
@@ -292,42 +293,17 @@ def install_with_status(
             return True
         try:
             from importlib.metadata import version as _pkg_version
-
-            installed = _pkg_version(package_name)
-            # Parse version_spec like ">=0.5.0"
-            spec = version_spec.strip()
-            if spec.startswith(">="):
-                from packaging.version import Version
-
-                return Version(installed) >= Version(spec[2:])
-            elif spec.startswith(">"):
-                from packaging.version import Version
-
-                return Version(installed) > Version(spec[1:])
-            elif spec.startswith("=="):
-                from packaging.version import Version
-
-                return Version(installed) == Version(spec[2:])
-            elif spec.startswith("<="):
-                from packaging.version import Version
-
-                return Version(installed) <= Version(spec[2:])
-            elif spec.startswith("<"):
-                from packaging.version import Version
-
-                return Version(installed) < Version(spec[1:])
-            elif spec.startswith("~="):
-                from packaging.version import Version
-
-                return Version(installed) == Version(spec[2:])
-            elif spec.startswith("!="):
-                from packaging.version import Version
-
-                return Version(installed) != Version(spec[2:])
-            # Fallback: treat as minimum (">=X")
+            from packaging.specifiers import InvalidSpecifier, SpecifierSet
             from packaging.version import Version
 
-            return Version(installed) >= Version(spec)
+            installed = Version(_pkg_version(package_name))
+            spec = version_spec.strip()
+            try:
+                return installed in SpecifierSet(spec)
+            except InvalidSpecifier:
+                # Backward-compatible fallback for callers that pass a bare
+                # version string instead of a PEP 440 specifier.
+                return installed >= Version(spec)
         except Exception:
             return True  # version check failed, assume OK
 
