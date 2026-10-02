@@ -109,9 +109,7 @@ def test_laya_windows_preload_warns_and_keeps_fallback_available():
     warnings = []
 
     def fail(_name):
-        raise OSError(
-            "[WinError 1114] DLL initialization failed while loading c10.dll"
-        )
+        raise OSError("[WinError 1114] DLL initialization failed while loading c10.dll")
 
     loaded = preload_laya_torch_on_windows(
         DecisionSettings(provider="laya", source="env"),
