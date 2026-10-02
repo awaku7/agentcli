@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.7.22] - 2026-10-02
+
+### 追加
+
+- 共通のdecision model、registry、settingsを備えた設定可能なdecision provider基盤を追加し、Laya、OpenRouter、type-safe providerに対応。
+- Auto-pilotのdecision observabilityと、判定結果の一貫性チェックを追加。
+
+### 変更
+
+- Auto-pilotのセットアップとコマンドを拡張し、decision providerの設定・利用に対応。decision providerの設計とWindowsでのLayaセットアップをドキュメント化。
+
+### 修正
+
+- WindowsのLaya sessionで、CLIのnative tool起動前にPyTorchをpreloadするよう修正。
+
 ## [0.7.21] - 2026-10-01
 
 ### 追加

@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.7.22] - 2026-10-02
+
+### Added
+
+- Add a configurable decision-provider framework with shared decision models, registry and settings, including Laya, OpenRouter, and type-safe providers.
+- Add Auto-pilot decision observability and consistency checks for decision outcomes.
+
+### Changed
+
+- Extend Auto-pilot setup and command flows to configure and use decision providers; document the decision-provider architecture and Windows Laya setup.
+
+### Fixed
+
+- Preload PyTorch for Laya on Windows before CLI native-tool startup, including Laya sessions.
+
 ## [0.7.21] - 2026-10-01
 
 ### Added
