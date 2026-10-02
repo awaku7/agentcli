@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 from typing import Any
 
 from .decision import (
@@ -15,6 +16,10 @@ from .decision import (
 )
 from .env_utils import env_get
 from .i18n import _, get_locale
+from .runtime.observability.auto_pilot import (
+    record_auto_pilot_judgment,
+    record_auto_pilot_run_finished,
+)
 from .util_common import CommandResult, append_result_to_outfile
 from .util_image import try_open_images_from_text
 from .utils.secret_mask import _mask_inline_secrets, mask_message
@@ -267,6 +272,7 @@ def _ask_auto_pilot_decision(
         metadata={"site": "auto_pilot_review"},
     )
 
+    started = time.perf_counter()
     try:
         result = decision_provider.decide(request)
         answer = result.answers.get(question_id)
@@ -276,6 +282,17 @@ def _ask_auto_pilot_decision(
         if judgment not in {"COMPLETE", "CONTINUE"}:
             raise ValueError(f"invalid auto-pilot judgment: {answer.value!r}")
     except Exception as exc:
+        latency_ms = (time.perf_counter() - started) * 1000.0
+        record_auto_pilot_judgment(
+            source="decision_provider",
+            round_number=getattr(core, "auto_pilot_round", 0),
+            fallback=False,
+            provider=str(getattr(decision_provider, "name", "") or ""),
+            model=str(getattr(decision_provider, "model", "") or ""),
+            latency_ms=latency_ms,
+            error_type=type(exc).__name__,
+            additional_call=True,
+        )
         print(
             "[AUTO:judge:decision] "
             f"provider={getattr(decision_provider, 'name', 'unknown')} "
@@ -286,6 +303,17 @@ def _ask_auto_pilot_decision(
 
     model = str(result.model or getattr(decision_provider, "model", "") or "")
     confidence = answer.confidence
+    record_auto_pilot_judgment(
+        source="decision_provider",
+        round_number=getattr(core, "auto_pilot_round", 0),
+        answer=judgment,
+        fallback=False,
+        provider=str(result.provider or ""),
+        model=model,
+        confidence=confidence,
+        latency_ms=result.latency_ms,
+        additional_call=True,
+    )
     confidence_text = "none" if confidence is None else f"{float(confidence):.4f}"
     print(
         "[AUTO:judge:decision] "
@@ -392,6 +420,7 @@ def _ask_reviewer_judgment(
     core: Any,
     *,
     make_client_fn: Any,
+    fallback: bool = False,
 ) -> tuple[str, str]:
     """Ask the LLM as a reviewer whether the goal is achieved.
 
@@ -407,6 +436,8 @@ def _ask_reviewer_judgment(
 
     import warnings
 
+    started = time.perf_counter()
+    error_type = ""
     try:
         result_text = llm_util.run_llm_rounds(
             provider=provider,
@@ -422,9 +453,10 @@ def _ask_reviewer_judgment(
             preserve_tool_loop_state=True,
         )
     except Exception as e:
+        error_type = type(e).__name__
         warnings.warn(
             _("[AUTO] Judgment call failed: %(etype)s: %(error)s")
-            % {"etype": type(e).__name__, "error": e}
+            % {"etype": error_type, "error": e}
         )
         raw = "CONTINUE"
     else:
@@ -444,6 +476,19 @@ def _ask_reviewer_judgment(
                     feedback = parts[1].strip().lstrip(":")
                     break
         feedback = feedback.strip().strip(" -\n").strip("\"'")
+
+    latency_ms = (time.perf_counter() - started) * 1000.0
+    record_auto_pilot_judgment(
+        source="llm_reviewer",
+        round_number=getattr(core, "auto_pilot_round", 0),
+        answer=judgment,
+        fallback=fallback,
+        provider=provider,
+        model=depname,
+        latency_ms=latency_ms,
+        error_type=error_type,
+        additional_call=True,
+    )
 
     print(_("\n[AUTO:judge] %(judgment)s") % {"judgment": judgment})
     if feedback:
@@ -503,11 +548,33 @@ def _run_auto_pilot_loop(
     decision_provider = None
     decision_provider_initialized = False
     decision_provider_choice_checked = False
+    last_judgment_source = ""
+    run_outcome_recorded = False
+
+    def record_run_outcome(
+        reason: str,
+        *,
+        judgment_source: str = "",
+        max_rounds_reached: bool = False,
+        rounds: int | None = None,
+    ) -> None:
+        nonlocal run_outcome_recorded
+        if run_outcome_recorded:
+            return
+        run_outcome_recorded = True
+        record_auto_pilot_run_finished(
+            reason=reason,
+            rounds=(getattr(core, "auto_pilot_round", 0) if rounds is None else rounds),
+            judgment_source=judgment_source,
+            max_rounds_reached=max_rounds_reached,
+        )
+
     try:
         while True:
             # The flag can be cleared by the GUI stop button or another
             # controller.  Do not require a keyboard event in that case.
             if not core.auto_pilot_active:
+                record_run_outcome("stopped", judgment_source=last_judgment_source)
                 print(_("[AUTO] Stopped."))
                 return
 
@@ -517,6 +584,10 @@ def _run_auto_pilot_loop(
                 if core.auto_pilot_exit_requested:
                     core.auto_pilot_exit_requested = False
                     core.auto_pilot_active = False
+                    record_run_outcome(
+                        "user_exit",
+                        judgment_source=last_judgment_source,
+                    )
                     print(_("[AUTO] Exited by user (F11)."))
                     return
 
@@ -533,6 +604,7 @@ def _run_auto_pilot_loop(
                         '[COMPLETE] {"reason":"regex","source":"auto"}',
                         flush=True,
                     )
+                record_run_outcome("completion_regex")
                 print(_("[AUTO] Completion regex matched."))
                 return
 
@@ -540,13 +612,40 @@ def _run_auto_pilot_loop(
             # Sentinel mode is an opt-in single-LLM path: the target model's
             # exact final marker replaces the extra reviewer LLM call.
             if _sentinel_mode_enabled():
+                sentinel_started = time.perf_counter()
                 judgment = _sentinel_judgment(messages)
+                sentinel_latency_ms = (time.perf_counter() - sentinel_started) * 1000.0
                 feedback = ""
+                last_judgment_source = "sentinel"
                 if judgment is None:
+                    record_auto_pilot_judgment(
+                        source="sentinel",
+                        round_number=getattr(core, "auto_pilot_round", 0),
+                        fallback=False,
+                        provider=provider,
+                        model=depname,
+                        latency_ms=sentinel_latency_ms,
+                        error_type="InvalidSentinel",
+                        additional_call=False,
+                    )
+                    record_run_outcome(
+                        "sentinel_invalid",
+                        judgment_source=last_judgment_source,
+                    )
                     print(
                         _("[AUTO] Missing or invalid auto sentinel; stopping safely.")
                     )
                     return
+                record_auto_pilot_judgment(
+                    source="sentinel",
+                    round_number=getattr(core, "auto_pilot_round", 0),
+                    answer=judgment,
+                    fallback=False,
+                    provider=provider,
+                    model=depname,
+                    latency_ms=sentinel_latency_ms,
+                    additional_call=False,
+                )
                 print(_("\n[AUTO:sentinel] %(judgment)s") % {"judgment": judgment})
             else:
                 decision_result = None
@@ -557,6 +656,14 @@ def _run_auto_pilot_loop(
                         try:
                             decision_provider = create_decision_provider(settings)
                         except Exception as exc:
+                            record_auto_pilot_judgment(
+                                source="decision_provider",
+                                round_number=getattr(core, "auto_pilot_round", 0),
+                                fallback=False,
+                                provider=settings.provider,
+                                error_type=type(exc).__name__,
+                                additional_call=False,
+                            )
                             print(
                                 "[AUTO:judge:decision] "
                                 f"provider={settings.provider} "
@@ -575,6 +682,17 @@ def _run_auto_pilot_loop(
                             decision_provider
                         )
                         if supports_choice is False:
+                            record_auto_pilot_judgment(
+                                source="decision_provider",
+                                round_number=getattr(core, "auto_pilot_round", 0),
+                                fallback=False,
+                                provider=settings.provider,
+                                model=str(
+                                    getattr(decision_provider, "model", "") or ""
+                                ),
+                                error_type="UnsupportedChoice",
+                                additional_call=False,
+                            )
                             print(
                                 "[AUTO:judge:decision] "
                                 f"provider={settings.provider} model="
@@ -599,6 +717,7 @@ def _run_auto_pilot_loop(
                 if decision_result is None:
                     # On the first iteration this judges the initial goal execution.
                     # On subsequent iterations this judges the followup from Step A.
+                    last_judgment_source = "llm_reviewer"
                     judgment, feedback = _ask_reviewer_judgment(
                         _judge_provider,
                         _judge_client,
@@ -606,8 +725,10 @@ def _run_auto_pilot_loop(
                         messages,
                         core,
                         make_client_fn=make_client_fn,
+                        fallback=settings.enabled,
                     )
                 else:
+                    last_judgment_source = "decision_provider"
                     judgment, feedback = decision_result
 
             if judgment == "COMPLETE":
@@ -616,6 +737,10 @@ def _run_auto_pilot_loop(
                     "status": "completed",
                     "reason": "reviewer",
                 }
+                record_run_outcome(
+                    "complete",
+                    judgment_source=last_judgment_source,
+                )
                 print(_("[AUTO] Review/analysis completed."))
                 return
 
@@ -628,6 +753,12 @@ def _run_auto_pilot_loop(
                     "status": "failed",
                     "reason": "max_rounds",
                 }
+                record_run_outcome(
+                    "max_rounds",
+                    judgment_source=last_judgment_source,
+                    max_rounds_reached=True,
+                    rounds=max_rounds,
+                )
                 print(
                     _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
                     % {"max": max_rounds}
@@ -677,6 +808,11 @@ def _run_auto_pilot_loop(
             core.set_status(True, "AUTO")
 
     finally:
+        if not run_outcome_recorded:
+            record_run_outcome(
+                "aborted",
+                judgment_source=last_judgment_source,
+            )
         if decision_provider is not None:
             try:
                 decision_provider.close()

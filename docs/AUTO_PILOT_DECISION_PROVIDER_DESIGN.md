@@ -602,8 +602,12 @@ more expensive than the decision itself.
 
 ## Observability
 
-The first implementation should make the source of the auto-pilot judgment
-obvious.
+The Auto Pilot integration now records the source of each judgment across all
+three runtime strategies: `llm_reviewer`, `decision_provider`, and
+`sentinel`. The observability implementation is metadata-only and lives in
+`uagent.runtime.observability.auto_pilot`.
+
+The runtime also keeps the human-readable decision output obvious.
 
 Suggested human-readable output:
 
@@ -617,21 +621,29 @@ and on fallback:
 [AUTO:judge:decision] provider=laya failed; falling back to LLM reviewer
 ```
 
-Structured telemetry/log fields should include, where available:
+Structured events include, where available:
 
 ```text
-decision.site = auto_pilot_review
-decision.provider
-decision.model
-decision.answer
-decision.confidence
-decision.latency_ms
-decision.fallback
-decision.error_type
-auto_pilot.round
+uag.decision.site = auto_pilot_review
+uag.auto.judgment.source
+uag.auto.judgment.provider
+uag.auto.judgment.model
+uag.auto.judgment.answer
+uag.auto.judgment.confidence
+uag.auto.judgment.latency_ms
+uag.auto.judgment.fallback
+uag.auto.judgment.error_type
+uag.auto.judgment.round
 ```
 
-Raw prompt/state content should not be emitted into telemetry by default.
+The corresponding counters/histograms distinguish attempts, successful
+judgments, failures, latency, run outcomes, follow-up rounds, and max-round
+exhaustion. A failed Decision Provider attempt and its authoritative LLM
+fallback are separate observations. Sentinel records
+`additional_call=false`.
+
+Raw goal/prompt/state, conversation/tool bodies, and reviewer response text are
+not emitted.
 
 ## Evaluation and rollout
 

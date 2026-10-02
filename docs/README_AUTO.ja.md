@@ -62,6 +62,25 @@ Decision Provider有効時にはフォールバックLLMレビューア設定と
 Decision Providerへ渡す会話・ツール結果は件数と文字数を制限し、secret maskingを
 適用します。confidenceは診断ログ用途のみで、完了判定の閾値には使用しません。
 
+### 3方式の比較用Observability
+
+OpenTelemetryを有効にすると、Auto Pilotは次の3方式を同じメタデータ形式で記録します。
+
+- `llm_reviewer`: 従来の追加LLMレビューア呼び出し
+- `decision_provider`: TypeSafe/JevまたはLaya
+- `sentinel`: メインLLM自身の `AUTO_COMPLETE / AUTO_CONTINUE`。追加判定呼び出しなし
+
+`uag.auto.judgment` イベントには、判定方式、`COMPLETE / CONTINUE`、round、
+fallback有無、provider/model、latency、利用可能な場合のconfidenceを記録します。
+Decision Provider失敗と、その後に実際に採用されたLLM fallback判定は別attemptとして
+記録されます。goal、prompt、会話本文、tool本文、レビューア応答本文はTelemetryへ
+出力しません。
+
+比較用metricは `uag.auto.judgment.attempts`、`uag.auto.judgments`、
+`uag.auto.judgment.failures`、`uag.auto.judgment.latency_ms`、
+`uag.auto.runs`、`uag.auto.followup_rounds` です。
+`uag.auto.run.finished` では終了理由とmax-round到達有無も記録します。
+
 ______________________________________________________________________
 
 ## 止め方
