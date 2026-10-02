@@ -301,13 +301,7 @@ class _FakeDecisionProvider:
 
 
 class _FakeSequenceDecisionProvider(_FakeDecisionProvider):
-    def __init__(
-        self,
-        values,
-        *,
-        name="laya",
-        model="laya-multilingual",
-    ):
+    def __init__(self, values, *, name="laya", model="laya-multilingual"):
         super().__init__(value=values[0])
         self.values = list(values)
         self.name = name
