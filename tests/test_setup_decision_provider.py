@@ -1,3 +1,5 @@
+import os
+
 from uagent import setup_cli
 
 
@@ -75,6 +77,51 @@ def test_setup_env_emits_laya_decision_settings():
     assert "UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual" in text
     assert "UAGENT_DECISION_LAYA_DEVICE=cuda" in text
     assert "# UAGENT_DECISION_TYPESAFE_API_KEY=" in text
+
+
+def test_setup_preserves_auto_install_policy_in_generated_env():
+    st = _state("none")
+    st.values = {"UAGENT_AUTO_INSTALL": "off"}
+
+    text = "\n".join(setup_cli._env_lines_from_state(st))
+
+    assert "UAGENT_AUTO_INSTALL=off" in text
+
+
+def test_setup_laya_runtime_uses_configured_auto_install_policy(monkeypatch):
+    attempts = []
+    st = _state("laya")
+    st.values = {"UAGENT_AUTO_INSTALL": "off"}
+    monkeypatch.setenv("UAGENT_AUTO_INSTALL", "allow")
+
+    from uagent import _pip_auto
+
+    def fake_install(package, module, **kwargs):
+        attempts.append(
+            (
+                package,
+                module,
+                kwargs,
+                os.environ.get("UAGENT_AUTO_INSTALL"),
+            )
+        )
+        return False
+
+    monkeypatch.setattr(_pip_auto, "install_with_status", fake_install)
+
+    assert not setup_cli._ensure_decision_provider_runtime(st)
+    assert attempts == [
+        (
+            "laya",
+            "laya",
+            {
+                "display_name": "Laya Decision Provider",
+                "version_spec": ">=0.3.23,<0.4",
+            },
+            "off",
+        )
+    ]
+    assert os.environ["UAGENT_AUTO_INSTALL"] == "allow"
 
 
 def test_setup_installs_laya_runtime_with_shared_policy(monkeypatch):
