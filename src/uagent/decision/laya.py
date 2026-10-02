@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 import os
+import sys
 import time
 from collections.abc import Mapping
 from dataclasses import dataclass
@@ -38,6 +39,44 @@ def _exception_summary(exc: BaseException) -> str:
     if detail:
         return f"{type(exc).__name__}: {detail}"
     return type(exc).__name__
+
+
+def preload_laya_torch_on_windows(
+    settings: DecisionSettings,
+    *,
+    platform_name: str | None = None,
+    module_loader: Callable[[str], Any] | None = None,
+    warning_writer: Callable[[str], None] | None = None,
+) -> bool:
+    """Preload PyTorch before other native DLLs when Windows Laya is selected.
+
+    Some Windows PyTorch builds can fail with WinError 1114 when torch is
+    imported only after another native runtime has initialized. Laya imports
+    torch lazily, so explicitly selected Laya sessions preload torch during
+    startup while keeping every other Decision Provider fully lazy.
+    """
+
+    platform_key = sys.platform if platform_name is None else str(platform_name)
+    if settings.provider != "laya" or platform_key != "win32":
+        return False
+
+    loader = module_loader or importlib.import_module
+    try:
+        loader("torch")
+    except Exception as exc:
+        writer = warning_writer
+        if writer is None:
+
+            def writer(message: str) -> None:
+                print(message, file=sys.stderr, flush=True)
+
+        writer(
+            "[WARN] Laya Decision Provider could not preload PyTorch on Windows: "
+            f"{_exception_summary(exc)}. "
+            "Laya will retry lazily and fall back to the LLM reviewer if needed."
+        )
+        return False
+    return True
 
 
 @dataclass(frozen=True)

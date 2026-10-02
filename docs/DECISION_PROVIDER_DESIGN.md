@@ -395,6 +395,23 @@ UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual
 UAGENT_DECISION_LAYA_DEVICE=auto
 ```
 
+### Windows PyTorch preload
+
+On Windows CLI sessions, explicitly selecting `laya` preloads the installed
+`torch` module after Decision Provider configuration is resolved and before
+normal tool execution begins. This is a narrow compatibility guard for Windows
+PyTorch builds that can fail with `WinError 1114` when PyTorch native DLLs are
+initialized only after another native runtime has already loaded.
+
+This does **not** preload the Laya Router or checkpoint. Model construction and
+model asset loading remain lazy. The preload is skipped entirely for
+`none`, `typesafe`, `openrouter`, and non-Windows CLI sessions, so those
+paths do not acquire a PyTorch startup dependency.
+
+If the early PyTorch import fails, UAG emits a warning and continues. The normal
+Laya adapter remains lazy, and an eventual Laya initialization failure still
+falls back to the existing LLM reviewer.
+
 `auto` is translated to Laya's native automatic device selection by leaving the
 Router device unset. Explicit values such as `cpu`, `cuda`, `mps`, or `xpu`
 are forwarded as configured.

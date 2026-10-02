@@ -183,6 +183,7 @@ def run_cli_startup(
     from . import uagent_llm as llm_util
     from .providers import util_providers as providers
     from . import util_tools as tools_util
+    from .decision.laya import preload_laya_torch_on_windows
     from .decision.settings import configure_decision_settings
     from .env_utils import env_get
     from .runtime.runtime_memory import append_long_memory_system_messages
@@ -313,7 +314,10 @@ def run_cli_startup(
                         pass
                     raise
 
-            configure_decision_settings(cli_provider=decision_provider)
+            decision_settings = configure_decision_settings(
+                cli_provider=decision_provider
+            )
+            preload_laya_torch_on_windows(decision_settings)
             _startup_timing_mark("env")
 
             banner = build_startup_banner(
