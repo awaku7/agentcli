@@ -300,6 +300,28 @@ class _FakeDecisionProvider:
         self.closed = True
 
 
+class _FakeSequenceDecisionProvider(_FakeDecisionProvider):
+    def __init__(
+        self,
+        values,
+        *,
+        name="laya",
+        model="laya-multilingual",
+    ):
+        super().__init__(value=values[0])
+        self.values = list(values)
+        self.name = name
+        self.model = model
+
+    def decide(self, request):
+        index = len(self.requests)
+        if index >= len(self.values):
+            raise AssertionError("unexpected extra decision call")
+        self.value = self.values[index]
+        return super().decide(request)
+
+
+
 def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
     messages = []
     for index in range(8):
@@ -357,6 +379,45 @@ def test_auto_pilot_decision_uses_typed_choice_and_empty_feedback(judgment) -> N
     assert question.id == "auto_pilot_goal_status"
     assert question.kind.value == "choice"
     assert question.choices == ("COMPLETE", "CONTINUE")
+
+
+def test_laya_auto_pilot_decision_requires_order_consistency(capsys) -> None:
+    provider = _FakeSequenceDecisionProvider(["COMPLETE", "COMPLETE"])
+
+    result = _ask_auto_pilot_decision(
+        [{"role": "assistant", "content": "work result"}],
+        _loop_core(),
+        decision_provider=provider,
+    )
+
+    assert result == ("COMPLETE", "")
+    assert len(provider.requests) == 2
+    first_question = provider.requests[0].questions[0]
+    second_question = provider.requests[1].questions[0]
+    assert first_question.choices == ("COMPLETE", "CONTINUE")
+    assert second_question.choices == ("CONTINUE", "COMPLETE")
+    assert tuple(first_question.metadata["criteria"]) == ("COMPLETE", "CONTINUE")
+    assert tuple(second_question.metadata["criteria"]) == ("CONTINUE", "COMPLETE")
+    output = capsys.readouterr().out
+    assert "order_guard=consistent" in output
+
+
+def test_laya_auto_pilot_decision_order_disagreement_requests_fallback(capsys) -> None:
+    provider = _FakeSequenceDecisionProvider(["CONTINUE", "COMPLETE"])
+
+    result = _ask_auto_pilot_decision(
+        [{"role": "assistant", "content": "work result"}],
+        _loop_core(),
+        decision_provider=provider,
+    )
+
+    assert result is None
+    assert len(provider.requests) == 2
+    output = capsys.readouterr().out
+    assert "order_guard=inconsistent" in output
+    assert "first=CONTINUE reversed=COMPLETE" in output
+    assert "falling back to LLM reviewer" in output
+
 
 
 def test_auto_pilot_decision_failure_requests_legacy_fallback(capsys) -> None:
