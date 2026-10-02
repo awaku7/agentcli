@@ -412,7 +412,6 @@ def test_laya_auto_pilot_decision_order_disagreement_requests_fallback(capsys) -
     assert "falling back to LLM reviewer" in output
 
 
-
 def test_auto_pilot_decision_failure_requests_legacy_fallback(capsys) -> None:
     provider = _FakeDecisionProvider(
         error=RuntimeError("download failed token: secret-value\nsecond line")
