@@ -397,6 +397,26 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_SAKURA_DEPNAME`（省略可、既定: `llm`）。
 - `UAGENT_SAKURA_TEMPERATURE`（省略可）: モデルの Temperature 設定。
 
+### Decision Provider
+
+専用のDecision Provider層は明示的なopt-inで、既定値は `none` です。
+
+- `UAGENT_DECISION_PROVIDER`: `none` / `typesafe` / `openrouter` / `laya`
+- TypeSafe/Jev:
+  - `UAGENT_DECISION_TYPESAFE_DEPNAME`（既定: `jev-latest`）
+  - `UAGENT_DECISION_TYPESAFE_BASE_URL`（既定: `https://api.typesafe.ai`）
+  - `UAGENT_DECISION_TYPESAFE_API_KEY`
+- OpenRouter Decisions/Jev:
+  - `UAGENT_DECISION_OPENROUTER_DEPNAME`（既定: `~typesafe/jev-latest`）
+  - `UAGENT_DECISION_OPENROUTER_BASE_URL`（既定: `https://openrouter.ai/api`）
+  - `UAGENT_DECISION_OPENROUTER_API_KEY`（`UAGENT_OPENROUTER_API_KEY` または `OPENROUTER_API_KEY` があれば省略可）
+- Laya:
+  - `UAGENT_DECISION_LAYA_DEPNAME`（既定: `laya-multilingual`）
+  - `UAGENT_DECISION_LAYA_DEVICE`（既定: `auto`）
+
+OpenRouterのDecision Providerは通常のchat completionsではなく、
+Decisions API（`/api/alpha/decisions`）を使用します。
+
 ### 3. エージェントの基本動作
 
 - `UAGENT_LANG`: ホスト UI の言語（例: `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`）。

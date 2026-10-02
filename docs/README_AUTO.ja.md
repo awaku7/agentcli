@@ -51,13 +51,16 @@ Round 3: ... (以下繰り返し)
 既定値は `UAGENT_DECISION_PROVIDER=none` で、従来どおりLLMレビューアを
 使用します。
 
-`UAGENT_DECISION_PROVIDER=typesafe` または `laya` を明示的に選択すると、
+`UAGENT_DECISION_PROVIDER=typesafe`、`openrouter`、または `laya` を明示的に選択すると、
 Step BではまずDecision Providerに型付きの `COMPLETE / CONTINUE` 判定を
 依頼します。completion regexとsentinel modeはDecision Providerより先に評価されます。
 
 Decision Providerの初期化失敗、`choice` 非対応、判定時エラー、不正な応答は
 従来のLLMレビューアへフォールバックします。そのため `UAGENT_AP_*` は、
 Decision Provider有効時にはフォールバックLLMレビューア設定として機能します。
+
+`uag_setup` では `none` / `typesafe` / `openrouter` / `laya` を選択できます。
+OpenRouterでは専用キーが未指定なら既存の `UAGENT_OPENROUTER_API_KEY` を再利用できます。
 
 Decision Providerへ渡す会話・ツール結果は件数と文字数を制限し、secret maskingを
 適用します。confidenceは診断ログ用途のみで、完了判定の閾値には使用しません。
@@ -67,7 +70,7 @@ Decision Providerへ渡す会話・ツール結果は件数と文字数を制限
 OpenTelemetryを有効にすると、Auto Pilotは次の3方式を同じメタデータ形式で記録します。
 
 - `llm_reviewer`: 従来の追加LLMレビューア呼び出し
-- `decision_provider`: TypeSafe/JevまたはLaya
+- `decision_provider`: TypeSafe/Jev、OpenRouter Decisions/Jev、またはLaya
 - `sentinel`: メインLLM自身の `AUTO_COMPLETE / AUTO_CONTINUE`。追加判定呼び出しなし
 
 `uag.auto.judgment` イベントには、判定方式、`COMPLETE / CONTINUE`、round、

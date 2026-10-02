@@ -21,6 +21,7 @@ _ALLOWED_PACKAGES = {
         "keyring",
         "openrouter",
         "llmcapa",
+        "laya",
         "python-dotenv",
         "pyyaml",
         "certifi",
@@ -180,17 +181,32 @@ def _confirm_install(label: str) -> bool:
     return answer.strip().lower() in {"y", "yes"}
 
 
-def _may_install(label: str) -> bool:
+def _may_install(package_name: str, *, display_name: str | None = None) -> bool:
+    label = display_name or package_name
     policy = _install_policy()
     if policy == "off":
         _policy_message(label, policy)
         return False
-    if not _install_allowed(label):
+    if not _install_allowed(package_name):
         _policy_message(label, "not-allowlisted")
         return False
     if policy == "prompt":
         return _confirm_install(label)
     return True
+
+
+def _version_satisfies(installed: str, version_spec: str) -> bool:
+    """Return whether an installed version satisfies a pip-style specifier."""
+
+    from packaging.specifiers import SpecifierSet
+    from packaging.version import Version
+
+    spec = version_spec.strip()
+    if not spec:
+        return True
+    if spec[0].isdigit():
+        spec = f">={spec}"
+    return Version(installed) in SpecifierSet(spec)
 
 
 def auto_install(package_name: str, module_name: str | None = None) -> bool:
@@ -252,9 +268,9 @@ def install_with_status(
         display_name: Human-readable name for messages (defaults to package_name).
         verify_submodule: If set, additionally import this submodule (e.g. "PySide6.QtCore")
                           to verify C extension DLLs actually load. Default None.
-        version_spec: Minimum version requirement (e.g. ">=0.5.0"). If set, the installed
-                      version is checked via importlib.metadata and reinstall is triggered
-                      if it does not satisfy the requirement.
+        version_spec: PEP 440 version requirement (e.g. ">=0.5.0,<1"). If set, the
+                      installed version is checked via importlib.metadata and reinstall
+                      is triggered if it does not satisfy the requirement.
 
     Returns:
         True if all imports succeed after the attempt, False otherwise.
@@ -294,40 +310,7 @@ def install_with_status(
             from importlib.metadata import version as _pkg_version
 
             installed = _pkg_version(package_name)
-            # Parse version_spec like ">=0.5.0"
-            spec = version_spec.strip()
-            if spec.startswith(">="):
-                from packaging.version import Version
-
-                return Version(installed) >= Version(spec[2:])
-            elif spec.startswith(">"):
-                from packaging.version import Version
-
-                return Version(installed) > Version(spec[1:])
-            elif spec.startswith("=="):
-                from packaging.version import Version
-
-                return Version(installed) == Version(spec[2:])
-            elif spec.startswith("<="):
-                from packaging.version import Version
-
-                return Version(installed) <= Version(spec[2:])
-            elif spec.startswith("<"):
-                from packaging.version import Version
-
-                return Version(installed) < Version(spec[1:])
-            elif spec.startswith("~="):
-                from packaging.version import Version
-
-                return Version(installed) == Version(spec[2:])
-            elif spec.startswith("!="):
-                from packaging.version import Version
-
-                return Version(installed) != Version(spec[2:])
-            # Fallback: treat as minimum (">=X")
-            from packaging.version import Version
-
-            return Version(installed) >= Version(spec)
+            return _version_satisfies(installed, version_spec)
         except Exception:
             return True  # version check failed, assume OK
 
@@ -353,7 +336,7 @@ def install_with_status(
     if _verify():
         return _ensure_pytest_companion()
 
-    if not _may_install(label):
+    if not _may_install(package_name, display_name=label):
         return False
 
     # Try installing

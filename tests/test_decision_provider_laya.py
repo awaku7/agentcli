@@ -385,6 +385,79 @@ def test_laya_missing_optional_dependency_is_actionable():
         )
 
 
+def test_laya_missing_runtime_uses_shared_auto_installer(monkeypatch):
+    attempts = []
+    calls = []
+
+    import importlib
+
+    original_import_module = importlib.import_module
+
+    def fake_import_module(name):
+        calls.append(name)
+        if name == "laya" and calls.count("laya") == 1:
+            raise ModuleNotFoundError(name=name)
+        if name == "laya":
+            return types.SimpleNamespace(
+                Router=lambda **_kwargs: FakeRouter(
+                    {
+                        "answers": {
+                            "route": {
+                                "type": "choice",
+                                "choice": "A",
+                                "probabilities": {"A": 0.8, "B": 0.2},
+                                "confidence": 0.4,
+                                "answer_confidence": 0.8,
+                            }
+                        },
+                        "routing": {"model": "multilingual"},
+                    }
+                )
+            )
+        return original_import_module(name)
+
+    monkeypatch.setattr(importlib, "import_module", fake_import_module)
+
+    from uagent import _pip_auto
+
+    monkeypatch.setattr(
+        _pip_auto,
+        "install_with_status",
+        lambda package, module, **kwargs: attempts.append((package, module, kwargs))
+        or True,
+    )
+
+    provider = LayaDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+    )
+    result = provider.decide(
+        DecisionRequest(
+            state="state",
+            questions=(
+                DecisionQuestion(
+                    id="route",
+                    kind="choice",
+                    instruction="Choose.",
+                    choices=("A", "B"),
+                ),
+            ),
+        )
+    )
+
+    assert result.answers["route"].value == "A"
+    assert attempts == [
+        (
+            "laya",
+            "laya",
+            {
+                "display_name": "Laya Decision Provider",
+                "version_spec": ">=0.3.23,<0.4",
+            },
+        )
+    ]
+
+
 def test_laya_provider_failure_is_not_a_decision():
     provider = LayaDecisionProvider(
         settings=_settings(),

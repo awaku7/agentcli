@@ -304,11 +304,39 @@ class LayaDecisionProvider:
         try:
             module = self._module_loader("laya")
         except ModuleNotFoundError as exc:
-            raise LayaDecisionUnavailableError(
-                "Laya is selected as the Decision Provider but the optional "
-                "runtime is not installed. Install 'uag[decision-laya]' or "
-                "'laya>=0.3.23,<0.4'."
-            ) from exc
+            if self._module_loader is importlib.import_module:
+                try:
+                    from .._pip_auto import install_with_status
+
+                    installed = install_with_status(
+                        "laya",
+                        "laya",
+                        display_name="Laya Decision Provider",
+                        version_spec=">=0.3.23,<0.4",
+                    )
+                except Exception:
+                    installed = False
+                if installed:
+                    try:
+                        module = self._module_loader("laya")
+                    except Exception as retry_exc:
+                        raise LayaDecisionUnavailableError(
+                            "Laya was installed but the runtime could not be loaded: "
+                            f"{type(retry_exc).__name__}."
+                        ) from retry_exc
+                else:
+                    raise LayaDecisionUnavailableError(
+                        "Laya is selected as the Decision Provider but the optional "
+                        "runtime is not installed. Automatic installation was "
+                        "unavailable or declined. Install 'uag[decision-laya]' or "
+                        "'laya>=0.3.23,<0.4'."
+                    ) from exc
+            else:
+                raise LayaDecisionUnavailableError(
+                    "Laya is selected as the Decision Provider but the optional "
+                    "runtime is not installed. Install 'uag[decision-laya]' or "
+                    "'laya>=0.3.23,<0.4'."
+                ) from exc
         except Exception as exc:
             raise LayaDecisionUnavailableError(
                 f"Failed to import the Laya runtime: {type(exc).__name__}."

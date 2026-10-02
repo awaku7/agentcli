@@ -100,6 +100,11 @@ def test_none_factory_does_not_import_any_adapter(monkeypatch):
             "uagent.decision.typesafe",
             "TypeSafeDecisionProvider",
         ),
+        (
+            "openrouter",
+            "uagent.decision.openrouter",
+            "OpenRouterDecisionProvider",
+        ),
         ("laya", "uagent.decision.laya", "LayaDecisionProvider"),
     ],
 )
