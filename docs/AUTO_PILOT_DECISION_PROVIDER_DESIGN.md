@@ -2,13 +2,14 @@
 
 ## Status
 
-Design proposal for using UAG's opt-in Decision Provider layer as the completion
-reviewer for `:auto` / auto-pilot.
+Implemented design for using UAG's opt-in Decision Provider layer as the
+completion reviewer for `:auto` / auto-pilot.
 
 This document is intentionally narrower than the general Decision Provider
-architecture. It defines the first concrete runtime decision site: replacing the
-extra LLM reviewer used by auto-pilot with a typed decision model when a Decision
-Provider is explicitly enabled.
+architecture. The first concrete runtime decision site is now implemented:
+when a Decision Provider is explicitly enabled, auto-pilot uses a typed
+`COMPLETE` / `CONTINUE` decision before falling back to the existing LLM
+reviewer on provider failure or invalid output.
 
 The general Decision Provider architecture is proposed separately in
 `docs/DECISION_PROVIDER_DESIGN.md` (PR #120 at the time this document was
@@ -117,7 +118,7 @@ _sentinel_judgment()
 _completion_regex_matches()
 ```
 
-The current normal path is:
+The implemented normal path is:
 
 ```text
 initial goal
@@ -125,6 +126,9 @@ initial goal
     -> _run_auto_pilot_loop()
          -> completion regex check
          -> sentinel judgment, if enabled
+         -> Decision Provider, if explicitly enabled
+              -> valid COMPLETE / CONTINUE: use result
+              -> unavailable / invalid / error: LLM reviewer fallback
          -> otherwise _ask_reviewer_judgment()
               -> run_llm_rounds(judgment_mode=True)
          -> COMPLETE: stop
@@ -133,7 +137,7 @@ initial goal
          -> repeat
 ```
 
-The existing reviewer can use the main LLM provider or a separately configured
+The fallback reviewer can use the main LLM provider or a separately configured
 reviewer provider through `UAGENT_AP_*` environment variables.
 
 Current reviewer failures are conservative: only an explicit `COMPLETE` stops

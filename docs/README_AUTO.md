@@ -60,6 +60,23 @@ Each round has two steps:
 
 The initial user goal is executed once by the normal generation path before `_run_auto_pilot_loop()` starts. The first operation inside the loop is the reviewer judgment for that initial result; no follow-up LLM round is run if the reviewer returns `COMPLETE`.
 
+### Optional Decision Provider reviewer
+
+The default remains `UAGENT_DECISION_PROVIDER=none`, which preserves the existing
+LLM reviewer exactly.
+
+When `UAGENT_DECISION_PROVIDER=typesafe` or `laya` is explicitly selected,
+Step B first asks that Decision Provider a typed `COMPLETE` / `CONTINUE`
+question. Completion regex and sentinel mode still take precedence. If the
+Decision Provider cannot initialize, lacks `choice` capability, raises during
+the decision, or returns an invalid answer, auto-pilot falls back to the existing
+LLM reviewer. `UAGENT_AP_*` therefore remains useful as the fallback reviewer
+configuration.
+
+Decision Provider state is bounded to the recent conversation/tool summaries
+and secret-masked before use. Provider confidence is diagnostic only; no
+confidence threshold controls auto-pilot completion.
+
 A reviewer result is interpreted as follows:
 
 - `CONTINUE` takes precedence over `COMPLETE` when both words appear.

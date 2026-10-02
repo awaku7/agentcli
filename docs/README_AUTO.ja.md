@@ -46,6 +46,22 @@ Round 3: ... (以下繰り返し)
 | **Step A** (メインクエリ) | 目標達成に向けて LLM に続きを実行させる |
 | **Step B** (レビューア判定) | 別コンテキストで LLM に「COMPLETE or CONTINUE?」と判定させる |
 
+### Decision Providerをレビューアに使う（任意）
+
+既定値は `UAGENT_DECISION_PROVIDER=none` で、従来どおりLLMレビューアを
+使用します。
+
+`UAGENT_DECISION_PROVIDER=typesafe` または `laya` を明示的に選択すると、
+Step BではまずDecision Providerに型付きの `COMPLETE / CONTINUE` 判定を
+依頼します。completion regexとsentinel modeはDecision Providerより先に評価されます。
+
+Decision Providerの初期化失敗、`choice` 非対応、判定時エラー、不正な応答は
+従来のLLMレビューアへフォールバックします。そのため `UAGENT_AP_*` は、
+Decision Provider有効時にはフォールバックLLMレビューア設定として機能します。
+
+Decision Providerへ渡す会話・ツール結果は件数と文字数を制限し、secret maskingを
+適用します。confidenceは診断ログ用途のみで、完了判定の閾値には使用しません。
+
 ______________________________________________________________________
 
 ## 止め方

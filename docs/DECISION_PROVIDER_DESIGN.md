@@ -614,12 +614,15 @@ Model download behavior should be documented separately from inference behavior.
   suite.
 - Document model/device/checkpoint behavior.
 
-### PR 4: first decision site and evaluation logging
+### PR 4: first decision site and evaluation logging — implemented
 
-- Select one low-risk policy decision.
+- Use auto-pilot completion review as the first policy decision.
 - Preserve the existing UAG decision as fallback.
-- Record provider result, latency, agreement, and fallback behavior.
+- Record provider result, latency, confidence diagnostics, and fallback behavior.
 - Do not use raw confidence as an automatic execution threshold.
+- Agreement measurement against the legacy LLM reviewer is deferred to an
+  explicit shadow/evaluation mode so the normal Decision Provider path does not
+  pay for the reviewer call it is intended to replace.
 
 ### Later PRs
 

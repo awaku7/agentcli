@@ -1,8 +1,15 @@
 from __future__ import annotations
 
+import threading
 from types import SimpleNamespace
 
+import pytest
+
+from uagent.decision import DecisionAnswer, DecisionResult, DecisionSettings
+from uagent import util_cmd_auto
 from uagent.util_cmd_auto import (
+    _ask_auto_pilot_decision,
+    _build_auto_pilot_decision_state,
     _build_judgment_messages,
     _handle_cmd_auto,
     _parse_auto_goal_options,
@@ -242,3 +249,333 @@ def test_reviewer_prompt_uses_configured_feedback_language(monkeypatch) -> None:
 
     assert "requested review language: ja" in system
     assert "Keep COMPLETE/CONTINUE unchanged" in system
+
+
+def _loop_core(*, max_rounds=10) -> SimpleNamespace:
+    return SimpleNamespace(
+        auto_pilot_active=True,
+        auto_pilot_exit_requested=False,
+        auto_pilot_exit_lock=threading.Lock(),
+        auto_pilot_complete_regex=None,
+        auto_pilot_goal="finish the task",
+        auto_pilot_max_rounds=max_rounds,
+        auto_pilot_round=0,
+        interrupt_lock=threading.Lock(),
+        interrupt_requested=False,
+        _last_completion_reason=None,
+        _last_round_outcome=None,
+        set_status=lambda *_args, **_kwargs: None,
+        log_message=lambda *_args, **_kwargs: None,
+    )
+
+
+class _FakeDecisionProvider:
+    name = "typesafe"
+    model = "jev-latest"
+
+    def __init__(self, *, value="COMPLETE", error=None):
+        self.value = value
+        self.error = error
+        self.requests = []
+        self.closed = False
+
+    def decide(self, request):
+        self.requests.append(request)
+        if self.error is not None:
+            raise self.error
+        return DecisionResult(
+            provider=self.name,
+            model=self.model,
+            answers={
+                "auto_pilot_goal_status": DecisionAnswer(
+                    value=self.value,
+                    confidence=0.8,
+                    calibrated=True,
+                )
+            },
+            latency_ms=2.5,
+        )
+
+    def close(self):
+        self.closed = True
+
+
+def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
+    messages = []
+    for index in range(8):
+        messages.append(
+            {
+                "role": "assistant" if index % 2 else "user",
+                "content": f"message {index} token: secret-{index} " + ("x" * 700),
+            }
+        )
+    for index in range(5):
+        messages.append(
+            {
+                "role": "tool",
+                "name": f"tool-{index}",
+                "tool_call_id": f"call-{index}",
+                "content": (
+                    '{"ok": true, "result": {"text": '
+                    f'"tool result {index} token: tool-secret-{index}"}}'
+                ),
+            }
+        )
+    core = _loop_core()
+    core.auto_pilot_goal = "goal token: goal-secret"
+
+    state = _build_auto_pilot_decision_state(messages, core)
+
+    assert len(state["recent_conversation"]) == 6
+    assert len(state["recent_tool_results"]) == 4
+    assert all(len(item["content"]) <= 500 for item in state["recent_conversation"])
+    assert all(len(item["summary"]) <= 400 for item in state["recent_tool_results"])
+    serialized = str(state)
+    assert "goal-secret" not in serialized
+    assert "tool-secret" not in serialized
+    assert "secret-" not in serialized
+    assert "********" in serialized
+
+
+@pytest.mark.parametrize("judgment", ["COMPLETE", "CONTINUE"])
+def test_auto_pilot_decision_uses_typed_choice_and_empty_feedback(judgment) -> None:
+    provider = _FakeDecisionProvider(value=judgment)
+    core = _loop_core()
+
+    result = _ask_auto_pilot_decision(
+        [{"role": "assistant", "content": "work result"}],
+        core,
+        decision_provider=provider,
+    )
+
+    assert result == (judgment, "")
+    assert len(provider.requests) == 1
+    request = provider.requests[0]
+    assert request.metadata["site"] == "auto_pilot_review"
+    assert len(request.questions) == 1
+    question = request.questions[0]
+    assert question.id == "auto_pilot_goal_status"
+    assert question.kind.value == "choice"
+    assert question.choices == ("COMPLETE", "CONTINUE")
+
+
+def test_auto_pilot_decision_failure_requests_legacy_fallback() -> None:
+    provider = _FakeDecisionProvider(error=RuntimeError("offline"))
+
+    result = _ask_auto_pilot_decision(
+        [],
+        _loop_core(),
+        decision_provider=provider,
+    )
+
+    assert result is None
+
+
+def test_auto_loop_none_uses_legacy_reviewer_without_factory(monkeypatch) -> None:
+    core = _loop_core()
+    reviewer_calls = []
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="none", source="default"),
+    )
+
+    def fail_factory(*_args, **_kwargs):
+        raise AssertionError("decision provider factory must not run for none")
+
+    monkeypatch.setattr(util_cmd_auto, "create_decision_provider", fail_factory)
+
+    def reviewer(*_args, **_kwargs):
+        reviewer_calls.append(True)
+        return "COMPLETE", ""
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", reviewer)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "done"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert reviewer_calls == [True]
+    assert core.auto_pilot_active is False
+
+
+def test_auto_loop_decision_complete_skips_legacy_reviewer(monkeypatch) -> None:
+    core = _loop_core()
+    decision_provider = _FakeDecisionProvider(value="COMPLETE")
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="typesafe", source="env"),
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "create_decision_provider",
+        lambda _settings: decision_provider,
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "_decision_provider_supports_choice",
+        lambda _provider: True,
+    )
+
+    def fail_reviewer(*_args, **_kwargs):
+        raise AssertionError("legacy reviewer must not run on valid decision")
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", fail_reviewer)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "done"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert len(decision_provider.requests) == 1
+    assert decision_provider.closed is True
+    assert core.auto_pilot_active is False
+
+
+def test_auto_loop_decision_failure_falls_back_to_legacy_reviewer(monkeypatch) -> None:
+    core = _loop_core()
+    decision_provider = _FakeDecisionProvider(error=RuntimeError("offline"))
+    reviewer_calls = []
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="typesafe", source="env"),
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "create_decision_provider",
+        lambda _settings: decision_provider,
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "_decision_provider_supports_choice",
+        lambda _provider: True,
+    )
+
+    def reviewer(*_args, **_kwargs):
+        reviewer_calls.append(True)
+        return "COMPLETE", ""
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", reviewer)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "done"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert reviewer_calls == [True]
+    assert decision_provider.closed is True
+
+
+def test_auto_loop_unsupported_choice_falls_back_without_deciding(monkeypatch) -> None:
+    core = _loop_core()
+    decision_provider = _FakeDecisionProvider()
+    reviewer_calls = []
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="typesafe", source="env"),
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "create_decision_provider",
+        lambda _settings: decision_provider,
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "_decision_provider_supports_choice",
+        lambda _provider: False,
+    )
+
+    def reviewer(*_args, **_kwargs):
+        reviewer_calls.append(True)
+        return "COMPLETE", ""
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", reviewer)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "done"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert decision_provider.requests == []
+    assert decision_provider.closed is True
+    assert reviewer_calls == [True]
+
+
+def test_auto_loop_sentinel_precedes_decision_provider(monkeypatch) -> None:
+    core = _loop_core()
+    monkeypatch.setattr(util_cmd_auto, "_sentinel_mode_enabled", lambda: True)
+
+    def fail_settings():
+        raise AssertionError("decision settings must not be read in sentinel mode")
+
+    monkeypatch.setattr(util_cmd_auto, "get_decision_settings", fail_settings)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "<AUTO_COMPLETE>"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert core.auto_pilot_active is False
+
+
+def test_auto_loop_completion_regex_precedes_decision_provider(monkeypatch) -> None:
+    core = _loop_core()
+    core.auto_pilot_complete_regex = r"DONE$"
+
+    def fail_settings():
+        raise AssertionError(
+            "decision settings must not be read after regex completion"
+        )
+
+    monkeypatch.setattr(util_cmd_auto, "get_decision_settings", fail_settings)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "DONE"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert core.auto_pilot_active is False
