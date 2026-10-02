@@ -315,7 +315,6 @@ class _FakeSequenceDecisionProvider(_FakeDecisionProvider):
         return super().decide(request)
 
 
-
 def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
     messages = []
     for index in range(8):
