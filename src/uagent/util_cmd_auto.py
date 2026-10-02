@@ -401,6 +401,7 @@ def _ask_auto_pilot_decision(
     )
     return judgment, ""
 
+
 def _review_language() -> str:
     configured = (env_get("UAGENT_AUTO_REVIEW_LANGUAGE", "") or "").strip()
     if configured:
