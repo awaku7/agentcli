@@ -359,8 +359,10 @@ def test_auto_pilot_decision_uses_typed_choice_and_empty_feedback(judgment) -> N
     assert question.choices == ("COMPLETE", "CONTINUE")
 
 
-def test_auto_pilot_decision_failure_requests_legacy_fallback() -> None:
-    provider = _FakeDecisionProvider(error=RuntimeError("offline"))
+def test_auto_pilot_decision_failure_requests_legacy_fallback(capsys) -> None:
+    provider = _FakeDecisionProvider(
+        error=RuntimeError("download failed token: secret-value\nsecond line")
+    )
 
     result = _ask_auto_pilot_decision(
         [],
@@ -369,6 +371,12 @@ def test_auto_pilot_decision_failure_requests_legacy_fallback() -> None:
     )
 
     assert result is None
+    output = capsys.readouterr().out
+    assert "failed=RuntimeError" in output
+    assert "download failed" in output
+    assert "second line" in output
+    assert "secret-value" not in output
+    assert "********" in output
 
 
 def test_auto_loop_none_uses_legacy_reviewer_without_factory(monkeypatch) -> None:

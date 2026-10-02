@@ -465,7 +465,10 @@ def test_laya_provider_failure_is_not_a_decision():
         router=FakeRouter(error=RuntimeError("boom")),
     )
 
-    with pytest.raises(LayaDecisionError, match="RuntimeError"):
+    with pytest.raises(
+        LayaDecisionError,
+        match=r"Laya decision request failed: RuntimeError: boom",
+    ):
         provider.decide(
             DecisionRequest(
                 state="state",

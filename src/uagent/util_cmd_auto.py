@@ -210,6 +210,15 @@ def _build_auto_pilot_decision_state(
     }
 
 
+def _decision_failure_detail(exc: BaseException) -> str:
+    """Return a bounded, secret-masked one-line provider failure detail."""
+
+    detail = " ".join(str(exc).split())
+    if not detail:
+        return ""
+    return _mask_inline_secrets(detail)[:300]
+
+
 def _decision_provider_supports_choice(decision_provider: Any) -> bool | None:
     model = str(getattr(decision_provider, "model", "") or "").strip()
     provider = str(getattr(decision_provider, "name", "") or "").strip()
@@ -293,10 +302,13 @@ def _ask_auto_pilot_decision(
             error_type=type(exc).__name__,
             additional_call=True,
         )
+        detail = _decision_failure_detail(exc)
+        detail_text = f" detail={detail!r}" if detail else ""
         print(
             "[AUTO:judge:decision] "
             f"provider={getattr(decision_provider, 'name', 'unknown')} "
-            f"failed={type(exc).__name__}; falling back to LLM reviewer",
+            f"failed={type(exc).__name__}{detail_text}; "
+            "falling back to LLM reviewer",
             flush=True,
         )
         return None
@@ -664,10 +676,12 @@ def _run_auto_pilot_loop(
                                 error_type=type(exc).__name__,
                                 additional_call=False,
                             )
+                            detail = _decision_failure_detail(exc)
+                            detail_text = f" detail={detail!r}" if detail else ""
                             print(
                                 "[AUTO:judge:decision] "
                                 f"provider={settings.provider} "
-                                f"init_failed={type(exc).__name__}; "
+                                f"init_failed={type(exc).__name__}{detail_text}; "
                                 "falling back to LLM reviewer",
                                 flush=True,
                             )
