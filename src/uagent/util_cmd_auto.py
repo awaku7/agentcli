@@ -252,12 +252,8 @@ def _ask_auto_pilot_decision(
 ) -> tuple[str, str] | None:
     question_id = "auto_pilot_goal_status"
     criteria = {
-        "COMPLETE": (
-            "The required work is fully finished and no material work remains."
-        ),
-        "CONTINUE": (
-            "Additional material work remains, or completion is uncertain."
-        ),
+        "COMPLETE": "The required work is fully finished and no material work remains.",
+        "CONTINUE": "Additional material work remains, or completion is uncertain.",
     }
 
     def build_request(choices: tuple[str, str]) -> DecisionRequest:
@@ -282,9 +278,7 @@ def _ask_auto_pilot_decision(
             metadata={"site": "auto_pilot_review"},
         )
 
-    def decide_once(
-        request: DecisionRequest,
-    ) -> tuple[Any, Any, str] | None:
+    def decide_once(request: DecisionRequest) -> tuple[Any, Any, str] | None:
         started = time.perf_counter()
         try:
             result = decision_provider.decide(request)
@@ -342,9 +336,7 @@ def _ask_auto_pilot_decision(
     if provider_name != "laya":
         model = str(result.model or getattr(decision_provider, "model", "") or "")
         confidence = answer.confidence
-        confidence_text = (
-            "none" if confidence is None else f"{float(confidence):.4f}"
-        )
+        confidence_text = "none" if confidence is None else f"{float(confidence):.4f}"
         print(
             "[AUTO:judge:decision] "
             f"provider={result.provider} model={model} judgment={judgment} "
