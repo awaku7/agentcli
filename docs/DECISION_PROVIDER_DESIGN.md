@@ -4,10 +4,11 @@
 
 Design and staged implementation for an opt-in decision-model layer in UAG.
 
-PR 1 common infrastructure is implemented: shared settings, provider-neutral
-request/result types, a lazy registry/factory, and common CLI/GUI/Web/A2A
-configuration. TypeSafe and Laya adapters remain separate follow-up stages, and
-no decision site is activated by this infrastructure alone.
+PR 1 common infrastructure and PR 2 TypeSafe/Jev adapter are implemented:
+shared settings, provider-neutral request/result types, a lazy registry/factory,
+common CLI/GUI/Web/A2A configuration, and the TypeSafe System One HTTP adapter.
+The Laya adapter and runtime decision sites remain follow-up stages; no decision
+site is activated by the TypeSafe adapter alone.
 
 The first supported provider keys are intended to be:
 
@@ -322,6 +323,29 @@ The core must not depend on TypeSafe response schemas.
 TypeSafe must only be initialized or contacted after the resolved provider is
 `typesafe`.
 
+The implemented adapter uses the existing `httpx` dependency and calls
+`POST /v1/systemone` directly. It defaults to:
+
+```text
+UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest
+UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai
+```
+
+`UAGENT_DECISION_TYPESAFE_API_KEY` is required only when the TypeSafe adapter
+is actually created. The common question mapping is:
+
+```text
+boolean -> noul
+choice  -> choice
+score   -> score
+```
+
+TypeSafe response schemas are validated at the adapter boundary and translated
+back into UAG-owned `DecisionAnswer` values. Provider-specific probabilities,
+score legends, and the Noul true-probability are retained as answer metadata.
+The raw provider response remains excluded from normal `DecisionResult.to_dict()`
+serialization unless explicitly requested.
+
 ## Laya adapter
 
 The Laya adapter owns all Laya-specific details:
@@ -540,7 +564,7 @@ Model download behavior should be documented separately from inference behavior.
 - Add tests proving the default path remains unchanged.
 - Do not add TypeSafe or Laya dependencies yet.
 
-### PR 2: TypeSafe adapter
+### PR 2: TypeSafe adapter — implemented
 
 - Add TypeSafe configuration handling.
 - Use `UAGENT_DECISION_TYPESAFE_DEPNAME` for Jev model selection.
