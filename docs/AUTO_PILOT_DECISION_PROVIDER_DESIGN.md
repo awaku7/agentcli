@@ -462,6 +462,31 @@ A later calibrated policy may choose to require stronger evidence before
 accepting `COMPLETE`, but that must be based on measured UAG data rather than a
 hard-coded universal threshold.
 
+### Laya order-consistency guard
+
+Laya currently has known sensitivity to the order of options in some
+`choice` decisions. Auto-pilot therefore treats a Laya completion judgment as
+authoritative only when the same semantic answer is returned with both option
+orders:
+
+```text
+(COMPLETE, CONTINUE)
+(CONTINUE, COMPLETE)
+```
+
+The state, instruction, and criteria text are unchanged; only the option order
+is reversed. When both Laya calls return the same semantic answer, that answer
+is used. When they disagree, or either call fails, UAG falls back to the
+existing LLM reviewer.
+
+This guard is intentionally scoped to the Laya auto-pilot decision site.
+TypeSafe/Jev and OpenRouter/Jev keep the single-call path. Laya confidence
+remains diagnostic only; the guard compares answers rather than applying an
+unvalidated confidence threshold. Each Laya inference is recorded as its own
+metadata-only decision attempt, so the added call and its latency remain
+observable without recording prompt or response content.
+
+
 ## Safety and authority boundaries
 
 The auto-pilot Decision Provider decides only whether the current goal appears
