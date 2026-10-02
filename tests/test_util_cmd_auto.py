@@ -569,6 +569,52 @@ def test_auto_loop_decision_failure_falls_back_to_legacy_reviewer(monkeypatch) -
     assert decision_provider.closed is True
 
 
+def test_auto_loop_laya_order_inconsistency_falls_back_and_closes(
+    monkeypatch,
+) -> None:
+    core = _loop_core()
+    decision_provider = _SequencedLayaDecisionProvider(["CONTINUE", "COMPLETE"])
+    reviewer_calls = []
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="laya", source="env"),
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "create_decision_provider",
+        lambda _settings: decision_provider,
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "_decision_provider_supports_choice",
+        lambda _provider: True,
+    )
+
+    def reviewer(*_args, **_kwargs):
+        reviewer_calls.append(True)
+        return "COMPLETE", ""
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", reviewer)
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "done"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert len(decision_provider.requests) == 2
+    assert reviewer_calls == [True]
+    assert decision_provider.closed is True
+    assert core.auto_pilot_active is False
+
+
 def test_auto_loop_unsupported_choice_falls_back_without_deciding(monkeypatch) -> None:
     core = _loop_core()
     decision_provider = _FakeDecisionProvider()
