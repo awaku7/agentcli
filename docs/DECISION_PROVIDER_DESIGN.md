@@ -4,11 +4,11 @@
 
 Design and staged implementation for an opt-in decision-model layer in UAG.
 
-PR 1 common infrastructure and PR 2 TypeSafe/Jev adapter are implemented:
-shared settings, provider-neutral request/result types, a lazy registry/factory,
-common CLI/GUI/Web/A2A configuration, and the TypeSafe System One HTTP adapter.
-The Laya adapter and runtime decision sites remain follow-up stages; no decision
-site is activated by the TypeSafe adapter alone.
+PR 1 common infrastructure, PR 2 TypeSafe/Jev adapter, and PR 3 Laya adapter
+are implemented: shared settings, provider-neutral request/result types, a lazy
+registry/factory, common CLI/GUI/Web/A2A configuration, the TypeSafe System One
+HTTP adapter, and the local Laya adapter. Runtime decision sites remain a
+follow-up stage; no decision site is activated by the adapters alone.
 
 The first supported provider keys are intended to be:
 
@@ -362,6 +362,36 @@ The Laya adapter owns all Laya-specific details:
 Laya should only be imported, initialized, and allowed to load/download a model
 after the resolved provider is `laya`.
 
+The implemented adapter goes further and defers importing the optional `laya`
+runtime and constructing `laya.Router` until the first actual `decide()` call.
+Router construction uses `preload=False` and `max_loaded=1`; therefore no
+checkpoint is loaded or downloaded merely because UAG starts or because the Laya
+provider object is created.
+
+The defaults are:
+
+```text
+UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual
+UAGENT_DECISION_LAYA_DEVICE=auto
+```
+
+`auto` is translated to Laya's native automatic device selection by leaving the
+Router device unset. Explicit values such as `cpu`, `cuda`, `mps`, or `xpu`
+are forwarded as configured.
+
+Install the optional runtime with:
+
+```bash
+pip install "uag[decision-laya]"
+```
+
+The adapter maps UAG `boolean / choice / score` to Laya
+`noul / choice / score`. It uses Laya's `answer_confidence` as diagnostic
+confidence metadata but records `calibrated=False` in the common result. UAG
+does not use that value as a universal execution threshold. The entropy-style
+Laya `confidence`, probabilities, action probability, score legend, and Noul
+true-probability are retained as provider metadata where present.
+
 The adapter must not expose Laya-specific question types as the UAG core API.
 
 ## Dependency policy
@@ -574,7 +604,7 @@ Model download behavior should be documented separately from inference behavior.
 - Add adapter unit tests with mocked TypeSafe boundaries.
 - Document TypeSafe/Jev-specific configuration.
 
-### PR 3: Laya adapter
+### PR 3: Laya adapter — implemented
 
 - Add Laya optional dependency handling.
 - Use `UAGENT_DECISION_LAYA_DEPNAME` for checkpoint/model selection.
