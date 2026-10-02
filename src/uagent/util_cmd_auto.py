@@ -7,6 +7,12 @@ import os
 import re
 from typing import Any
 
+from .decision import (
+    DecisionQuestion,
+    DecisionRequest,
+    create_decision_provider,
+    get_decision_settings,
+)
 from .env_utils import env_get
 from .i18n import _, get_locale
 from .util_common import CommandResult, append_result_to_outfile
@@ -98,7 +104,7 @@ def _get_followup_prompt(goal: str, feedback: str = "") -> str:
     return prompt
 
 
-def _tool_result_summary_for_judgment(message: dict[str, Any]) -> str:
+def _tool_result_for_judgment(message: dict[str, Any]) -> dict[str, str]:
     name = str(message.get("name") or "tool")
     call_id = str(message.get("tool_call_id") or "")
     raw_content = message.get("content", "")
@@ -135,9 +141,159 @@ def _tool_result_summary_for_judgment(message: dict[str, Any]) -> str:
                 )
             else:
                 summary = str(result)
-    summary = _mask_inline_secrets(" ".join(summary.split()))[:400]
-    call_suffix = f" call_id={call_id}" if call_id else ""
-    return f"[TOOL-RESULT] tool={name} status={status}{call_suffix} summary={summary}"
+    return {
+        "tool": _mask_inline_secrets(name)[:100],
+        "call_id": _mask_inline_secrets(call_id)[:100],
+        "status": status,
+        "summary": _mask_inline_secrets(" ".join(summary.split()))[:400],
+    }
+
+
+def _tool_result_summary_for_judgment(message: dict[str, Any]) -> str:
+    item = _tool_result_for_judgment(message)
+    call_suffix = f" call_id={item['call_id']}" if item["call_id"] else ""
+    return (
+        f"[TOOL-RESULT] tool={item['tool']} status={item['status']}"
+        f"{call_suffix} summary={item['summary']}"
+    )
+
+
+def _decision_text_content(content: Any) -> str:
+    if isinstance(content, list):
+        content = " ".join(
+            str(item.get("text", "")) if isinstance(item, dict) else str(item)
+            for item in content
+        )
+    return _mask_inline_secrets(" ".join(str(content or "").split()))[:500]
+
+
+def _build_auto_pilot_decision_state(
+    messages: list[dict[str, Any]],
+    core: Any,
+) -> dict[str, Any]:
+    recent_conversation: list[dict[str, str]] = []
+    for message in reversed(messages):
+        if not isinstance(message, dict):
+            continue
+        role = message.get("role")
+        if role not in ("user", "assistant"):
+            continue
+        content = _decision_text_content(message.get("content", ""))
+        if not content:
+            continue
+        recent_conversation.append({"role": str(role), "content": content})
+        if len(recent_conversation) >= 6:
+            break
+    recent_conversation.reverse()
+
+    recent_tool_results: list[dict[str, str]] = []
+    for message in reversed(messages):
+        if not isinstance(message, dict) or message.get("role") != "tool":
+            continue
+        recent_tool_results.append(_tool_result_for_judgment(message))
+        if len(recent_tool_results) >= 4:
+            break
+    recent_tool_results.reverse()
+
+    max_rounds = getattr(core, "auto_pilot_max_rounds", None)
+    return {
+        "goal": _mask_inline_secrets(str(core.auto_pilot_goal or ""))[:2000],
+        "round": int(getattr(core, "auto_pilot_round", 0) or 0),
+        "max_rounds": max_rounds,
+        "recent_conversation": recent_conversation,
+        "recent_tool_results": recent_tool_results,
+    }
+
+
+def _decision_provider_supports_choice(decision_provider: Any) -> bool | None:
+    model = str(getattr(decision_provider, "model", "") or "").strip()
+    provider = str(getattr(decision_provider, "name", "") or "").strip()
+    if not model or not provider:
+        return None
+    try:
+        import llmcapa
+
+        capability = llmcapa.get(model, provider=provider)
+    except Exception:
+        return None
+    if capability is None:
+        return None
+    try:
+        if capability.supports("decision_output") is False:
+            return False
+    except Exception:
+        pass
+    decision = getattr(capability, "decision", None)
+    kinds = getattr(decision, "question_kinds", None)
+    if kinds is None:
+        return None
+    return "choice" in set(kinds)
+
+
+def _ask_auto_pilot_decision(
+    messages: list[dict[str, Any]],
+    core: Any,
+    *,
+    decision_provider: Any,
+) -> tuple[str, str] | None:
+    question_id = "auto_pilot_goal_status"
+    request = DecisionRequest(
+        state=_build_auto_pilot_decision_state(messages, core),
+        questions=(
+            DecisionQuestion(
+                id=question_id,
+                kind="choice",
+                instruction=(
+                    "Determine whether the auto-pilot goal is fully complete. "
+                    "Choose COMPLETE only when the required work is finished and no "
+                    "material work remains. Choose CONTINUE when additional work is "
+                    "required or completion is uncertain."
+                ),
+                choices=("COMPLETE", "CONTINUE"),
+                metadata={
+                    "criteria": {
+                        "COMPLETE": (
+                            "The required work is fully finished and no material "
+                            "work remains."
+                        ),
+                        "CONTINUE": (
+                            "Additional material work remains, or completion is "
+                            "uncertain."
+                        ),
+                    }
+                },
+            ),
+        ),
+        metadata={"site": "auto_pilot_review"},
+    )
+
+    try:
+        result = decision_provider.decide(request)
+        answer = result.answers.get(question_id)
+        if answer is None:
+            raise ValueError("missing auto_pilot_goal_status answer")
+        judgment = str(answer.value or "").strip().upper()
+        if judgment not in {"COMPLETE", "CONTINUE"}:
+            raise ValueError(f"invalid auto-pilot judgment: {answer.value!r}")
+    except Exception as exc:
+        print(
+            "[AUTO:judge:decision] "
+            f"provider={getattr(decision_provider, 'name', 'unknown')} "
+            f"failed={type(exc).__name__}; falling back to LLM reviewer",
+            flush=True,
+        )
+        return None
+
+    model = str(result.model or getattr(decision_provider, "model", "") or "")
+    confidence = answer.confidence
+    confidence_text = "none" if confidence is None else f"{float(confidence):.4f}"
+    print(
+        "[AUTO:judge:decision] "
+        f"provider={result.provider} model={model} judgment={judgment} "
+        f"confidence={confidence_text} latency_ms={result.latency_ms:.1f}",
+        flush=True,
+    )
+    return judgment, ""
 
 
 def _review_language() -> str:
@@ -344,6 +500,9 @@ def _run_auto_pilot_loop(
                     os.environ.pop(_std_key, None)
 
     feedback = ""
+    decision_provider = None
+    decision_provider_initialized = False
+    decision_provider_choice_checked = False
     try:
         while True:
             # The flag can be cleared by the GUI stop button or another
@@ -390,16 +549,66 @@ def _run_auto_pilot_loop(
                     return
                 print(_("\n[AUTO:sentinel] %(judgment)s") % {"judgment": judgment})
             else:
-                # On the first iteration this judges the initial goal execution.
-                # On subsequent iterations this judges the followup from Step A.
-                judgment, feedback = _ask_reviewer_judgment(
-                    _judge_provider,
-                    _judge_client,
-                    _judge_depname,
-                    messages,
-                    core,
-                    make_client_fn=make_client_fn,
-                )
+                decision_result = None
+                settings = get_decision_settings()
+                if settings.enabled:
+                    if not decision_provider_initialized:
+                        decision_provider_initialized = True
+                        try:
+                            decision_provider = create_decision_provider(settings)
+                        except Exception as exc:
+                            print(
+                                "[AUTO:judge:decision] "
+                                f"provider={settings.provider} "
+                                f"init_failed={type(exc).__name__}; "
+                                "falling back to LLM reviewer",
+                                flush=True,
+                            )
+                            decision_provider = None
+
+                    if (
+                        decision_provider is not None
+                        and not decision_provider_choice_checked
+                    ):
+                        decision_provider_choice_checked = True
+                        supports_choice = _decision_provider_supports_choice(
+                            decision_provider
+                        )
+                        if supports_choice is False:
+                            print(
+                                "[AUTO:judge:decision] "
+                                f"provider={settings.provider} model="
+                                f"{getattr(decision_provider, 'model', '')} "
+                                "does_not_support=choice; "
+                                "falling back to LLM reviewer",
+                                flush=True,
+                            )
+                            try:
+                                decision_provider.close()
+                            except Exception:
+                                pass
+                            decision_provider = None
+
+                    if decision_provider is not None:
+                        decision_result = _ask_auto_pilot_decision(
+                            messages,
+                            core,
+                            decision_provider=decision_provider,
+                        )
+
+                if decision_result is None:
+                    # On the first iteration this judges the initial goal execution.
+                    # On subsequent iterations this judges the followup from Step A.
+                    judgment, feedback = _ask_reviewer_judgment(
+                        _judge_provider,
+                        _judge_client,
+                        _judge_depname,
+                        messages,
+                        core,
+                        make_client_fn=make_client_fn,
+                    )
+                else:
+                    judgment, feedback = decision_result
 
             if judgment == "COMPLETE":
                 core.auto_pilot_active = False
@@ -468,6 +677,11 @@ def _run_auto_pilot_loop(
             core.set_status(True, "AUTO")
 
     finally:
+        if decision_provider is not None:
+            try:
+                decision_provider.close()
+            except Exception:
+                pass
         # Never leave auto mode latched after completion or an exception.
         core.auto_pilot_active = False
 

@@ -237,8 +237,13 @@ Key modules:
   - **`:auto <goal> [--max-rounds N]`** — Automated multi-round execution.
     - Runs the goal through iterative LLM rounds. Each round consists of a
       continuation query (Step A) followed by a reviewer judgment (Step B).
-    - Judgment uses the same provider/code path as the main query via
+    - With `UAGENT_DECISION_PROVIDER=none`, judgment uses the same
+      provider/code path as the main query via
       `run_llm_rounds(judgment_mode=True)`, including Responses API support.
+    - With `typesafe` or `laya`, auto-pilot first requests a typed
+      `COMPLETE / CONTINUE` Decision Provider judgment. Provider failure or
+      invalid output falls back to the existing LLM reviewer; confidence is
+      logged only and is not used as a threshold.
     - **Exit mechanisms:**
       - Press F11 to stop auto-pilot at the next safe checkpoint; F12 interrupts the current LLM response.
       - Reviewer returns `COMPLETE` → auto-pilot stops.

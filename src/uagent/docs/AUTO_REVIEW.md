@@ -5,9 +5,12 @@ older refactoring proposal below as historical context. The implementation
 summary is authoritative; proposed changes and line numbers in the archived
 sections may no longer match the source tree.
 
-**Status:** The reviewer path and separate judgment context are implemented.
-Current code is split between `src/uagent/util_cmd_auto.py` and
-`src/uagent/uagent_llm.py`, with compatibility exports in `util_tools.py`.
+**Status:** The reviewer path, separate judgment context, and opt-in Decision
+Provider completion review are implemented. Current code is split between
+`src/uagent/util_cmd_auto.py` and `src/uagent/uagent_llm.py`, with
+compatibility exports in `util_tools.py`. With Decision Provider `none`,
+behavior remains the existing LLM reviewer path. TypeSafe/Jev or Laya may be
+selected explicitly; provider failures fall back to the LLM reviewer.
 
 ______________________________________________________________________
 
