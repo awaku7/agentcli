@@ -230,6 +230,46 @@ def test_decision_provider_records_success_and_failure(monkeypatch):
     assert recorded[-1]["error_type"] == "RuntimeError"
 
 
+def test_laya_order_guard_records_both_decision_attempts(monkeypatch):
+    recorded = []
+
+    class LayaProvider(_DecisionProvider):
+        name = "laya"
+        model = "laya-multilingual"
+
+        def __init__(self):
+            super().__init__(value="COMPLETE")
+            self.calls = []
+
+        def decide(self, request):
+            self.calls.append(request.questions[0].choices)
+            return super().decide(request)
+
+    provider = LayaProvider()
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "record_auto_pilot_judgment",
+        lambda **kwargs: recorded.append(kwargs),
+    )
+
+    result = util_cmd_auto._ask_auto_pilot_decision(
+        [],
+        _loop_core(),
+        decision_provider=provider,
+    )
+
+    assert result == ("COMPLETE", "")
+    assert provider.calls == [
+        ("COMPLETE", "CONTINUE"),
+        ("CONTINUE", "COMPLETE"),
+    ]
+    assert len(recorded) == 2
+    assert [item["answer"] for item in recorded] == ["COMPLETE", "COMPLETE"]
+    assert all(item["provider"] == "laya" for item in recorded)
+    assert all(item["additional_call"] is True for item in recorded)
+
+
+
 def test_sentinel_records_no_additional_judgment_call(monkeypatch):
     judgments = []
     outcomes = []
