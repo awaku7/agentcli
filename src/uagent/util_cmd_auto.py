@@ -275,10 +275,7 @@ def _ask_auto_pilot_decision(
                     ),
                     choices=choices,
                     metadata={
-                        "criteria": {
-                            choice: criteria[choice]
-                            for choice in choices
-                        }
+                        "criteria": {choice: criteria[choice] for choice in choices}
                     },
                 ),
             ),
