@@ -251,90 +251,143 @@ def _ask_auto_pilot_decision(
     decision_provider: Any,
 ) -> tuple[str, str] | None:
     question_id = "auto_pilot_goal_status"
-    request = DecisionRequest(
-        state=_build_auto_pilot_decision_state(messages, core),
-        questions=(
-            DecisionQuestion(
-                id=question_id,
-                kind="choice",
-                instruction=(
-                    "Determine whether the auto-pilot goal is fully complete. "
-                    "Choose COMPLETE only when the required work is finished and no "
-                    "material work remains. Choose CONTINUE when additional work is "
-                    "required or completion is uncertain."
-                ),
-                choices=("COMPLETE", "CONTINUE"),
-                metadata={
-                    "criteria": {
-                        "COMPLETE": (
-                            "The required work is fully finished and no material "
-                            "work remains."
-                        ),
-                        "CONTINUE": (
-                            "Additional material work remains, or completion is "
-                            "uncertain."
-                        ),
-                    }
-                },
-            ),
+    criteria = {
+        "COMPLETE": (
+            "The required work is fully finished and no material work remains."
         ),
-        metadata={"site": "auto_pilot_review"},
-    )
+        "CONTINUE": (
+            "Additional material work remains, or completion is uncertain."
+        ),
+    }
 
-    started = time.perf_counter()
-    try:
-        result = decision_provider.decide(request)
-        answer = result.answers.get(question_id)
-        if answer is None:
-            raise ValueError("missing auto_pilot_goal_status answer")
-        judgment = str(answer.value or "").strip().upper()
-        if judgment not in {"COMPLETE", "CONTINUE"}:
-            raise ValueError(f"invalid auto-pilot judgment: {answer.value!r}")
-    except Exception as exc:
-        latency_ms = (time.perf_counter() - started) * 1000.0
+    def build_request(choices: tuple[str, str]) -> DecisionRequest:
+        return DecisionRequest(
+            state=_build_auto_pilot_decision_state(messages, core),
+            questions=(
+                DecisionQuestion(
+                    id=question_id,
+                    kind="choice",
+                    instruction=(
+                        "Determine whether the auto-pilot goal is fully complete. "
+                        "Choose COMPLETE only when the required work is finished and no "
+                        "material work remains. Choose CONTINUE when additional work is "
+                        "required or completion is uncertain."
+                    ),
+                    choices=choices,
+                    metadata={
+                        "criteria": {
+                            choice: criteria[choice]
+                            for choice in choices
+                        }
+                    },
+                ),
+            ),
+            metadata={"site": "auto_pilot_review"},
+        )
+
+    def decide_once(
+        request: DecisionRequest,
+    ) -> tuple[Any, Any, str] | None:
+        started = time.perf_counter()
+        try:
+            result = decision_provider.decide(request)
+            answer = result.answers.get(question_id)
+            if answer is None:
+                raise ValueError("missing auto_pilot_goal_status answer")
+            judgment = str(answer.value or "").strip().upper()
+            if judgment not in {"COMPLETE", "CONTINUE"}:
+                raise ValueError(f"invalid auto-pilot judgment: {answer.value!r}")
+        except Exception as exc:
+            latency_ms = (time.perf_counter() - started) * 1000.0
+            record_auto_pilot_judgment(
+                source="decision_provider",
+                round_number=getattr(core, "auto_pilot_round", 0),
+                fallback=False,
+                provider=str(getattr(decision_provider, "name", "") or ""),
+                model=str(getattr(decision_provider, "model", "") or ""),
+                latency_ms=latency_ms,
+                error_type=type(exc).__name__,
+                additional_call=True,
+            )
+            detail = _decision_failure_detail(exc)
+            detail_text = f" detail={detail!r}" if detail else ""
+            print(
+                "[AUTO:judge:decision] "
+                f"provider={getattr(decision_provider, 'name', 'unknown')} "
+                f"failed={type(exc).__name__}{detail_text}; "
+                "falling back to LLM reviewer",
+                flush=True,
+            )
+            return None
+
+        model = str(result.model or getattr(decision_provider, "model", "") or "")
         record_auto_pilot_judgment(
             source="decision_provider",
             round_number=getattr(core, "auto_pilot_round", 0),
+            answer=judgment,
             fallback=False,
-            provider=str(getattr(decision_provider, "name", "") or ""),
-            model=str(getattr(decision_provider, "model", "") or ""),
-            latency_ms=latency_ms,
-            error_type=type(exc).__name__,
+            provider=str(result.provider or ""),
+            model=model,
+            confidence=answer.confidence,
+            latency_ms=result.latency_ms,
             additional_call=True,
         )
-        detail = _decision_failure_detail(exc)
-        detail_text = f" detail={detail!r}" if detail else ""
+        return result, answer, judgment
+
+    first = decide_once(build_request(("COMPLETE", "CONTINUE")))
+    if first is None:
+        return None
+    result, answer, judgment = first
+
+    provider_name = str(
+        result.provider or getattr(decision_provider, "name", "") or ""
+    ).strip().lower()
+    if provider_name != "laya":
+        model = str(result.model or getattr(decision_provider, "model", "") or "")
+        confidence = answer.confidence
+        confidence_text = (
+            "none" if confidence is None else f"{float(confidence):.4f}"
+        )
         print(
             "[AUTO:judge:decision] "
-            f"provider={getattr(decision_provider, 'name', 'unknown')} "
-            f"failed={type(exc).__name__}{detail_text}; "
+            f"provider={result.provider} model={model} judgment={judgment} "
+            f"confidence={confidence_text} latency_ms={result.latency_ms:.1f}",
+            flush=True,
+        )
+        return judgment, ""
+
+    reversed_result = decide_once(build_request(("CONTINUE", "COMPLETE")))
+    if reversed_result is None:
+        return None
+    second_result, second_answer, second_judgment = reversed_result
+    model = str(result.model or getattr(decision_provider, "model", "") or "")
+
+    if second_judgment != judgment:
+        print(
+            "[AUTO:judge:decision] "
+            f"provider=laya model={model} order_guard=inconsistent "
+            f"first={judgment} reversed={second_judgment}; "
             "falling back to LLM reviewer",
             flush=True,
         )
         return None
 
-    model = str(result.model or getattr(decision_provider, "model", "") or "")
-    confidence = answer.confidence
-    record_auto_pilot_judgment(
-        source="decision_provider",
-        round_number=getattr(core, "auto_pilot_round", 0),
-        answer=judgment,
-        fallback=False,
-        provider=str(result.provider or ""),
-        model=model,
-        confidence=confidence,
-        latency_ms=result.latency_ms,
-        additional_call=True,
-    )
-    confidence_text = "none" if confidence is None else f"{float(confidence):.4f}"
+    confidences = [
+        float(item)
+        for item in (answer.confidence, second_answer.confidence)
+        if item is not None
+    ]
+    confidence = min(confidences) if confidences else None
+    confidence_text = "none" if confidence is None else f"{confidence:.4f}"
+    latency_ms = float(result.latency_ms) + float(second_result.latency_ms)
     print(
         "[AUTO:judge:decision] "
-        f"provider={result.provider} model={model} judgment={judgment} "
-        f"confidence={confidence_text} latency_ms={result.latency_ms:.1f}",
+        f"provider=laya model={model} judgment={judgment} "
+        f"confidence={confidence_text} latency_ms={latency_ms:.1f} "
+        "order_guard=consistent",
         flush=True,
     )
     return judgment, ""
-
 
 def _review_language() -> str:
     configured = (env_get("UAGENT_AUTO_REVIEW_LANGUAGE", "") or "").strip()
