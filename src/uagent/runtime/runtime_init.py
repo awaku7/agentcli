@@ -140,6 +140,9 @@ def reload_dotenv_custom() -> None:
     """Reload dotenv files, resolve settings, then initialize observability."""
 
     load_dotenv_custom()
+    from ..decision import configure_decision_settings
+
+    configure_decision_settings()
     from .observability.bootstrap import initialize_observability
     from .observability.settings import refresh_observability_settings
 

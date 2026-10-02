@@ -129,6 +129,7 @@ def run_cli_startup(
     inject_message: str | None = None,
     inject_message_auto: str | None = None,
     complete_regex: str | None = None,
+    decision_provider: str | None = None,
     enable_tools: list[str] | None = None,
 ) -> CliStartupState:
     import io
@@ -182,6 +183,7 @@ def run_cli_startup(
     from . import uagent_llm as llm_util
     from .providers import util_providers as providers
     from . import util_tools as tools_util
+    from .decision.settings import configure_decision_settings
     from .env_utils import env_get
     from .runtime.runtime_memory import append_long_memory_system_messages
     from .runtime.runtime_init import (
@@ -292,6 +294,7 @@ def run_cli_startup(
                     raise
 
                 reload_dotenv_custom()
+                configure_decision_settings(cli_provider=decision_provider)
                 try:
                     validate_or_exit_startup_env(context="cli")
                 except SystemExit:
@@ -310,6 +313,7 @@ def run_cli_startup(
                         pass
                     raise
 
+            configure_decision_settings(cli_provider=decision_provider)
             _startup_timing_mark("env")
 
             banner = build_startup_banner(

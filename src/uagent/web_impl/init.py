@@ -9,6 +9,10 @@ import sys
 from typing import Any
 
 from .. import core
+from ..decision.settings import (
+    add_decision_provider_argument,
+    configure_decision_settings,
+)
 from ..env_utils import env_get
 from .. import tools
 from .. import util_tools as tools_util
@@ -177,6 +181,7 @@ def main():
     from ..i18n import _
 
     parser = argparse.ArgumentParser(prog="uagw", add_help=False)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--tool-genre-mask",
         type=int,
@@ -279,6 +284,9 @@ def main():
             print("[WARN] Session store unavailable: " + str(exc), file=sys.stderr)
         if getattr(web_args, "computer_use", None) is not None:
             os.environ["UAGENT_COMPUTER_USE"] = "1" if web_args.computer_use else "0"
+        configure_decision_settings(
+            cli_provider=getattr(web_args, "decision_provider", None)
+        )
         # Fail-fast env validation (aggregate missing vars)
         _runtime_init.validate_or_exit_startup_env(context="web")
         banner = _runtime_init.build_startup_banner(

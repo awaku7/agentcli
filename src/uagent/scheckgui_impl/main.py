@@ -9,6 +9,10 @@ from pathlib import Path
 
 from PySide6 import QtCore, QtGui, QtWidgets
 
+from ..decision.settings import (
+    add_decision_provider_argument,
+    configure_decision_settings,
+)
 from ..i18n import _, detect_lang
 from .. import core
 from ..runtime import runtime_init as _runtime_init
@@ -52,6 +56,7 @@ def main():
     ensure_mcp_config_template()
 
     parser = argparse.ArgumentParser(add_help=False)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--workdir",
         "-C",
@@ -130,6 +135,7 @@ def main():
     if getattr(args, "computer_use", None) is not None:
         os.environ["UAGENT_COMPUTER_USE"] = "1" if args.computer_use else "0"
 
+    configure_decision_settings(cli_provider=getattr(args, "decision_provider", None))
     _runtime_init.validate_or_exit_startup_env(context="gui")
 
     _mask = getattr(args, "tool_genre_mask", None)

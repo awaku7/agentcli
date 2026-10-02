@@ -33,6 +33,7 @@ from .history import _append_prompt_history_entry, _bootstrap_prompt_history
 from .startup import (
     INITIAL_FILE_ARG,
     UAGENT_COMPLETE_REGEX,
+    UAGENT_DECISION_PROVIDER,
     UAGENT_ENABLE_TOOLS,
     UAGENT_INJECT_MESSAGE,
     UAGENT_INJECT_MESSAGE_AUTO,
@@ -114,6 +115,7 @@ def main() -> int:
         inject_message=UAGENT_INJECT_MESSAGE,
         inject_message_auto=UAGENT_INJECT_MESSAGE_AUTO,
         complete_regex=UAGENT_COMPLETE_REGEX,
+        decision_provider=UAGENT_DECISION_PROVIDER,
         enable_tools=UAGENT_ENABLE_TOOLS,
     )
 
