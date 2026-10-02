@@ -330,9 +330,11 @@ def _ask_auto_pilot_decision(
         return None
     result, answer, judgment = first
 
-    provider_name = str(
-        result.provider or getattr(decision_provider, "name", "") or ""
-    ).strip().lower()
+    provider_name = (
+        str(result.provider or getattr(decision_provider, "name", "") or "")
+        .strip()
+        .lower()
+    )
     if provider_name != "laya":
         model = str(result.model or getattr(decision_provider, "model", "") or "")
         confidence = answer.confidence
