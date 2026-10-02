@@ -378,6 +378,26 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_SAKURA_DEPNAME` (optional, default: `llm`).
 - `UAGENT_SAKURA_TEMPERATURE` (optional): Temperature setting for the model.
 
+### Decision Provider
+
+The dedicated decision layer is opt-in and defaults to `none`.
+
+- `UAGENT_DECISION_PROVIDER`: `none`, `typesafe`, `openrouter`, or `laya`.
+- TypeSafe/Jev:
+  - `UAGENT_DECISION_TYPESAFE_DEPNAME` (default: `jev-latest`)
+  - `UAGENT_DECISION_TYPESAFE_BASE_URL` (default: `https://api.typesafe.ai`)
+  - `UAGENT_DECISION_TYPESAFE_API_KEY`
+- OpenRouter Decisions/Jev:
+  - `UAGENT_DECISION_OPENROUTER_DEPNAME` (default: `~typesafe/jev-latest`)
+  - `UAGENT_DECISION_OPENROUTER_BASE_URL` (default: `https://openrouter.ai/api`)
+  - `UAGENT_DECISION_OPENROUTER_API_KEY` (optional when `UAGENT_OPENROUTER_API_KEY` or `OPENROUTER_API_KEY` is set)
+- Laya:
+  - `UAGENT_DECISION_LAYA_DEPNAME` (default: `laya-multilingual`)
+  - `UAGENT_DECISION_LAYA_DEVICE` (default: `auto`)
+
+OpenRouter decision requests use its Decisions API (`/api/alpha/decisions`),
+not the normal chat-completions endpoint.
+
 ### 3. Basic Agent Behavior
 
 - `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).

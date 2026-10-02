@@ -583,6 +583,75 @@ AUDIO_PROVIDERS: list[tuple[str, str]] = [
     ("vertexai", "Vertex AI"),
 ]
 
+DECISION_PROVIDERS: list[tuple[str, str]] = [
+    ("none", "None (use the existing LLM reviewer)"),
+    ("typesafe", "TypeSafe / Jev"),
+    ("openrouter", "OpenRouter Decisions / Jev"),
+    ("laya", "Laya (local decision model)"),
+]
+
+DECISION_PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str, str]]] = {
+    "none": [],
+    "typesafe": [
+        (
+            "UAGENT_DECISION_TYPESAFE_DEPNAME",
+            False,
+            _("TypeSafe / Jev model name"),
+            "jev-latest",
+        ),
+        (
+            "UAGENT_DECISION_TYPESAFE_BASE_URL",
+            False,
+            _("TypeSafe base URL"),
+            "https://api.typesafe.ai",
+        ),
+        (
+            "UAGENT_DECISION_TYPESAFE_API_KEY",
+            True,
+            _("TypeSafe API key"),
+            "",
+        ),
+    ],
+    "openrouter": [
+        (
+            "UAGENT_DECISION_OPENROUTER_DEPNAME",
+            False,
+            _("OpenRouter decision model name"),
+            "~typesafe/jev-latest",
+        ),
+        (
+            "UAGENT_DECISION_OPENROUTER_BASE_URL",
+            False,
+            _("OpenRouter Decisions API base URL"),
+            "https://openrouter.ai/api",
+        ),
+        (
+            "UAGENT_DECISION_OPENROUTER_API_KEY",
+            False,
+            _(
+                "OpenRouter decision API key "
+                "(optional if UAGENT_OPENROUTER_API_KEY is set)"
+            ),
+            "",
+        ),
+    ],
+    "laya": [
+        (
+            "UAGENT_DECISION_LAYA_DEPNAME",
+            False,
+            _("Laya model name"),
+            "laya-multilingual",
+        ),
+        (
+            "UAGENT_DECISION_LAYA_DEVICE",
+            False,
+            _("Laya device (auto/cpu/cuda/mps/xpu)"),
+            "auto",
+        ),
+    ],
+}
+
+
 REALTIME_PROVIDERS: list[tuple[str, str]] = [
     ("openai", "OpenAI Realtime"),
     ("azure", "Azure OpenAI GPT Realtime"),
@@ -596,6 +665,8 @@ REALTIME_PROVIDERS: list[tuple[str, str]] = [
 @dataclass
 class _WizardState:
     provider: str = "openai"
+    decision_provider: str = "none"
+    decision_values: dict[str, str] | None = None
 
     # Responses
     responses_enabled: bool = False
@@ -798,6 +869,76 @@ def _ask_lang(default: str, allow_back: bool = True) -> tuple[str, str]:
     if status in {"__quit__", "__back__"}:
         return status, ""
     return "ok", val
+
+
+def _ask_decision_provider(
+    st: _WizardState,
+    *,
+    allow_back: bool = True,
+) -> str:
+    current = st.decision_provider
+    default_index = 1
+    for index, (provider, _label) in enumerate(DECISION_PROVIDERS, 1):
+        if provider == current:
+            default_index = index
+            break
+
+    choice = _menu_choice(
+        _("Select Decision Provider"),
+        [f"{provider} ({label})" for provider, label in DECISION_PROVIDERS],
+        default_index=default_index,
+        allow_back=allow_back,
+    )
+    if choice in {"__quit__", "__back__"}:
+        return choice
+
+    provider = DECISION_PROVIDERS[int(choice) - 1][0]
+    values = dict(st.decision_values or {})
+    fields = DECISION_PROVIDER_FIELDS[provider]
+    for key, required, label, default_value in fields:
+        status, value = _ask_text(
+            label,
+            default=values.get(key, default_value),
+            required=required,
+            allow_back=allow_back,
+        )
+        if status in {"__quit__", "__back__"}:
+            return status
+        values[key] = value
+
+    st.decision_provider = provider
+    st.decision_values = values
+    return "ok"
+
+
+def _ensure_decision_provider_runtime(st: _WizardState) -> bool:
+    if st.decision_provider != "laya":
+        return True
+
+    configured_policy = str(
+        (st.values or {}).get("UAGENT_AUTO_INSTALL", "") or ""
+    ).strip()
+    previous_policy = os.environ.get("UAGENT_AUTO_INSTALL")
+    if configured_policy:
+        os.environ["UAGENT_AUTO_INSTALL"] = configured_policy
+
+    try:
+        from ._pip_auto import install_with_status
+
+        return install_with_status(
+            "laya",
+            "laya",
+            display_name="Laya Decision Provider",
+            version_spec=">=0.3.23,<0.4",
+        )
+    except Exception:
+        return False
+    finally:
+        if configured_policy:
+            if previous_policy is None:
+                os.environ.pop("UAGENT_AUTO_INSTALL", None)
+            else:
+                os.environ["UAGENT_AUTO_INSTALL"] = previous_policy
 
 
 def _ask_outputs(allow_back: bool = True) -> tuple[str, set[str]]:
@@ -1454,8 +1595,88 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# (not supported by selected provider)")
     out.append("")
 
+    section(_("Decision Provider"))
+    out.append(f"UAGENT_DECISION_PROVIDER={st.decision_provider}")
+    decision_values = st.decision_values or {}
+    if st.decision_provider == "typesafe":
+        out.append(
+            "UAGENT_DECISION_TYPESAFE_DEPNAME="
+            + decision_values.get("UAGENT_DECISION_TYPESAFE_DEPNAME", "jev-latest")
+        )
+        out.append(
+            "UAGENT_DECISION_TYPESAFE_BASE_URL="
+            + decision_values.get(
+                "UAGENT_DECISION_TYPESAFE_BASE_URL",
+                "https://api.typesafe.ai",
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_TYPESAFE_API_KEY="
+            + decision_values.get("UAGENT_DECISION_TYPESAFE_API_KEY", "")
+        )
+        out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
+        out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
+        out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+        out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
+    elif st.decision_provider == "openrouter":
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
+        out.append("# UAGENT_DECISION_TYPESAFE_API_KEY=")
+        out.append(
+            "UAGENT_DECISION_OPENROUTER_DEPNAME="
+            + decision_values.get(
+                "UAGENT_DECISION_OPENROUTER_DEPNAME",
+                "~typesafe/jev-latest",
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_OPENROUTER_BASE_URL="
+            + decision_values.get(
+                "UAGENT_DECISION_OPENROUTER_BASE_URL",
+                "https://openrouter.ai/api",
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_OPENROUTER_API_KEY="
+            + decision_values.get("UAGENT_DECISION_OPENROUTER_API_KEY", "")
+        )
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+        out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
+    elif st.decision_provider == "laya":
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
+        out.append("# UAGENT_DECISION_TYPESAFE_API_KEY=")
+        out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
+        out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
+        out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append(
+            "UAGENT_DECISION_LAYA_DEPNAME="
+            + decision_values.get(
+                "UAGENT_DECISION_LAYA_DEPNAME",
+                "laya-multilingual",
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_LAYA_DEVICE="
+            + decision_values.get("UAGENT_DECISION_LAYA_DEVICE", "auto")
+        )
+    else:
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
+        out.append("# UAGENT_DECISION_TYPESAFE_API_KEY=")
+        out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
+        out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
+        out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+        out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
+    out.append("")
+
     section(_("Optional runtime"))
     out.append(f"UAGENT_STREAMING={'1' if st.streaming_enabled else '0'}")
+    auto_install_policy = str(values.get("UAGENT_AUTO_INSTALL", "") or "").strip()
+    if auto_install_policy:
+        out.append(f"UAGENT_AUTO_INSTALL={auto_install_policy}")
 
     if st.workdir_enabled:
         out.append(f"UAGENT_WORKDIR={st.workdir.strip()}")
@@ -1705,6 +1926,18 @@ def main() -> int:
     st = _WizardState(values=dict(defaults))
     if detected_provider:
         st.provider = detected_provider
+    detected_decision_provider = defaults.get(
+        "UAGENT_DECISION_PROVIDER", "none"
+    ).lower()
+    if detected_decision_provider in {p for p, _label in DECISION_PROVIDERS}:
+        st.decision_provider = detected_decision_provider
+    st.decision_values = {
+        key: value
+        for key, value in defaults.items()
+        if key.startswith("UAGENT_DECISION_TYPESAFE_")
+        or key.startswith("UAGENT_DECISION_OPENROUTER_")
+        or key.startswith("UAGENT_DECISION_LAYA_")
+    }
 
     stage = 0
     provider_fields: list[tuple[str, bool, str]] = []
@@ -1810,6 +2043,17 @@ def main() -> int:
             continue
 
         if stage == 3:
+            status = _ask_decision_provider(st, allow_back=True)
+            if status == "__quit__":
+                print(_("Cancelled."))
+                return 1
+            if status == "__back__":
+                stage = 2
+                continue
+            stage = 4
+            continue
+
+        if stage == 4:
             w = _menu_choice(
                 _("Set optional runtime UAGENT_WORKDIR?"),
                 [_("No"), _("Yes")],
@@ -1820,7 +2064,7 @@ def main() -> int:
                 print(_("Cancelled."))
                 return 1
             if w == "__back__":
-                stage = 2
+                stage = 3
                 continue
             st.workdir_enabled = w == "2"
             if st.workdir_enabled:
@@ -1871,37 +2115,41 @@ def main() -> int:
                 continue
             st.streaming_enabled = streaming == "2"
 
-            stage = 4
-            continue
-
-        if stage == 4:
-            status = _ask_optional_extras(st)
-            if status == "__quit__":
-                print(_("Cancelled."))
-                return 1
-            if status == "__back__":
-                stage = 3
-                continue
             stage = 5
             continue
 
         if stage == 5:
-            status, out_sel = _ask_outputs(allow_back=True)
+            status = _ask_optional_extras(st)
             if status == "__quit__":
                 print(_("Cancelled."))
                 return 1
             if status == "__back__":
                 stage = 4
                 continue
-            outputs = out_sel
-
             stage = 6
             continue
 
         if stage == 6:
+            status, out_sel = _ask_outputs(allow_back=True)
+            if status == "__quit__":
+                print(_("Cancelled."))
+                return 1
+            if status == "__back__":
+                stage = 5
+                continue
+            outputs = out_sel
+
+            stage = 7
+            continue
+
+        if stage == 7:
             print()
             print(_("Summary"))
             print(_("  Provider: %(provider)s") % {"provider": st.provider})
+            print(
+                _("  Decision Provider: %(provider)s")
+                % {"provider": st.decision_provider}
+            )
             for key, req, label in PROVIDER_FIELDS[st.provider]:
                 print(
                     "  %(key)s=%(value)s"
@@ -1977,8 +2225,16 @@ def main() -> int:
                 print(_("Cancelled."))
                 return 1
             if action == "2":
-                stage = 5
+                stage = 6
                 continue
+
+            if not _ensure_decision_provider_runtime(st):
+                print(
+                    _(
+                        "Warning: Laya runtime could not be installed during setup. "
+                        "UAG will retry on first use according to UAGENT_AUTO_INSTALL."
+                    )
+                )
             break
 
     out_dir = Path.cwd().resolve()

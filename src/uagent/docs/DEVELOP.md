@@ -230,6 +230,7 @@ Key modules:
   - `models.py` and `base.py` define provider-neutral typed decision requests/results and the common protocol.
   - `registry.py` lazily imports only an explicitly selected adapter; `none` returns no active provider and performs no adapter import/initialization.
   - `typesafe.py` implements the opt-in TypeSafe/Jev System One adapter using `httpx`. It maps UAG `boolean/choice/score` to TypeSafe `noul/choice/score` and reads `UAGENT_DECISION_TYPESAFE_DEPNAME`, `UAGENT_DECISION_TYPESAFE_BASE_URL`, and `UAGENT_DECISION_TYPESAFE_API_KEY` only on the TypeSafe path.
+  - `openrouter.py` implements OpenRouter's Decisions API path using `httpx`. It defaults to `~typesafe/jev-latest`, calls `/api/alpha/decisions`, and can reuse the normal OpenRouter API key.
   - `laya.py` implements the opt-in local Laya adapter. The optional `laya` package and `Router` are loaded only on the first `decide()`; `UAGENT_DECISION_LAYA_DEPNAME` defaults to `laya-multilingual`, `UAGENT_DECISION_LAYA_DEVICE` defaults to `auto`, and the optional runtime is installable with `pip install "uag[decision-laya]"`.
 - Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel/etc.): `src/uagent/providers/util_providers.py`
   - To add a new provider, modify: `provider_caps.py` (add to `ALL_PROVIDERS`), `setup_cli.py` (PROVIDERS list / PROVIDER_FIELDS), `util_providers.py` (get_model_name/make_client), `llm_round_helpers.py` (temperature setting), `runtime/runtime_banner.py` (banner display). The `detect_provider()` and `env_validate.py` validation are now centralised via `provider_caps.ALL_PROVIDERS`.
@@ -237,10 +238,16 @@ Key modules:
   - **`:auto <goal> [--max-rounds N]`** — Automated multi-round execution.
     - Runs the goal through iterative LLM rounds. Each round consists of a
       continuation query (Step A) followed by a reviewer judgment (Step B).
+    - `uag_setup` can configure `none`, `typesafe`, `openrouter`, or `laya` and writes the
+      provider-specific Decision Provider settings to the generated environment.
+    - When Laya is selected, `uag_setup` attempts to install the optional `laya`
+      runtime through the shared `UAGENT_AUTO_INSTALL=allow|prompt|off` policy.
+      Model loading remains lazy until first inference; first use retries runtime
+      installation if setup could not complete it.
     - With `UAGENT_DECISION_PROVIDER=none`, judgment uses the same
       provider/code path as the main query via
       `run_llm_rounds(judgment_mode=True)`, including Responses API support.
-    - With `typesafe` or `laya`, auto-pilot first requests a typed
+    - With `typesafe`, `openrouter`, or `laya`, auto-pilot first requests a typed
       `COMPLETE / CONTINUE` Decision Provider judgment. Provider failure or
       invalid output falls back to the existing LLM reviewer; confidence is
       logged only and is not used as a threshold.

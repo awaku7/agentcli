@@ -10,14 +10,16 @@ registry/factory, common CLI/GUI/Web/A2A configuration, the TypeSafe System One
 HTTP adapter, and the local Laya adapter. Runtime decision sites remain a
 follow-up stage; no decision site is activated by the adapters alone.
 
-The first supported provider keys are intended to be:
+The supported provider keys are:
 
 - `none`
 - `typesafe`
+- `openrouter`
 - `laya`
 
-`typesafe` represents the TypeSafe decision API. Jev is treated as a model selected
-through the TypeSafe provider rather than as a provider key itself.
+`typesafe` represents the direct TypeSafe decision API. `openrouter` represents
+OpenRouter's Decisions API. Jev is treated as a model selected through either
+provider rather than as a provider key itself.
 
 This layer is separate from the existing LLM provider layer. It is not an LLM
 provider and must not be added to `provider_caps.ALL_PROVIDERS`.
@@ -32,9 +34,9 @@ alongside the normal LLM flow.
 The design must:
 
 1. Preserve current UAG behavior by default.
-2. Require explicit opt-in before TypeSafe or Laya is initialized or called.
-3. Treat TypeSafe and Laya as interchangeable implementations behind a UAG-owned
-   interface.
+2. Require explicit opt-in before TypeSafe, OpenRouter Decisions, or Laya is initialized or called.
+3. Treat TypeSafe, OpenRouter Decisions, and Laya as interchangeable
+   implementations behind a UAG-owned interface.
 4. Keep provider-specific schemas out of the UAG core.
 5. Avoid coupling the decision-provider layer to the LLM-provider registry.
 6. Work consistently across CLI, GUI, Web, and A2A entry points.
@@ -48,7 +50,7 @@ The design must:
 The first implementation does not:
 
 - replace UAG's LLM provider selection,
-- make TypeSafe or Laya mandatory dependencies,
+- make TypeSafe, OpenRouter Decisions, or Laya mandatory dependencies,
 - automatically initialize or call a decision provider when none is selected,
 - automatically download or initialize a Laya model when Laya is not selected,
 - automatically trust a provider's confidence value as a universal risk score,
@@ -73,10 +75,10 @@ flow runs unchanged.
 
 When the effective provider is `none`, UAG must not:
 
-- import or initialize TypeSafe-specific decision code,
+- import or initialize TypeSafe- or OpenRouter-specific decision code,
 - import or initialize Laya runtime packages/models,
 - download decision-model assets,
-- probe TypeSafe or Laya endpoints,
+- probe TypeSafe, OpenRouter, or Laya endpoints,
 - add decision-model startup latency,
 - validate provider-specific credentials that are not active,
 - alter prompts, tool selection, routing, or agent behavior.
@@ -93,6 +95,7 @@ Proposed CLI option:
 ```bash
 uag --decision-provider none
 uag --decision-provider typesafe
+uag --decision-provider openrouter
 uag --decision-provider laya
 ```
 
@@ -101,6 +104,7 @@ Proposed environment variable:
 ```text
 UAGENT_DECISION_PROVIDER=none
 UAGENT_DECISION_PROVIDER=typesafe
+UAGENT_DECISION_PROVIDER=openrouter
 UAGENT_DECISION_PROVIDER=laya
 ```
 
@@ -136,6 +140,21 @@ UAGENT_DECISION_TYPESAFE_API_KEY=...
 The adapter maps `UAGENT_DECISION_TYPESAFE_DEPNAME` to the model identifier sent
 to TypeSafe.
 
+### OpenRouter Decisions / Jev
+
+OpenRouter exposes Jev through its Decisions API.
+
+```text
+UAGENT_DECISION_PROVIDER=openrouter
+UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest
+UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api
+UAGENT_DECISION_OPENROUTER_API_KEY=...
+```
+
+The dedicated key is optional when `UAGENT_OPENROUTER_API_KEY` or
+`OPENROUTER_API_KEY` is already available. The adapter calls
+`/alpha/decisions`, not the normal chat-completions endpoint.
+
 ### Laya
 
 Laya is normally used as a local decision model/checkpoint.
@@ -166,13 +185,13 @@ layer.
               |                           |
         LLM Provider                Decision Provider
               |                           |
-    OpenAI / Claude / ...       none / typesafe / laya
+    OpenAI / Claude / ...       none / typesafe / openrouter / laya
                                           |
                                  UAG Decision API
 ```
 
-The UAG core must depend on UAG-owned request/result types. Provider adapters are
-responsible for translating those types to TypeSafe- or Laya-specific APIs.
+The UAG core must depend on UAG-owned request/result types. Provider adapters are responsible for translating those types to TypeSafe,
+OpenRouter Decisions, or Laya-specific APIs.
 
 Suggested package layout:
 
@@ -183,8 +202,9 @@ src/uagent/decision/
     models.py
     registry.py
     settings.py
-    typesafe.py   # added with the TypeSafe adapter stage
-    laya.py       # added with the Laya adapter stage
+    typesafe.py    # direct TypeSafe adapter
+    openrouter.py  # OpenRouter Decisions adapter
+    laya.py        # local Laya adapter
 ```
 
 This deliberately does not use `src/uagent/providers/`, which is the LLM provider

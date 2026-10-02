@@ -65,13 +65,20 @@ The initial user goal is executed once by the normal generation path before `_ru
 The default remains `UAGENT_DECISION_PROVIDER=none`, which preserves the existing
 LLM reviewer exactly.
 
-When `UAGENT_DECISION_PROVIDER=typesafe` or `laya` is explicitly selected,
+When `UAGENT_DECISION_PROVIDER=typesafe`, `openrouter`, or `laya` is explicitly selected,
 Step B first asks that Decision Provider a typed `COMPLETE` / `CONTINUE`
 question. Completion regex and sentinel mode still take precedence. If the
 Decision Provider cannot initialize, lacks `choice` capability, raises during
 the decision, or returns an invalid answer, auto-pilot falls back to the existing
 LLM reviewer. `UAGENT_AP_*` therefore remains useful as the fallback reviewer
 configuration.
+
+`uag_setup` can configure `none`, `typesafe`, `openrouter`, or `laya` and emits the
+matching `UAGENT_DECISION_*` settings. When Laya is selected, setup also tries
+to install the optional `laya` runtime through the shared
+`UAGENT_AUTO_INSTALL=allow|prompt|off` policy. The model itself is still loaded
+only on first inference. If the runtime remains unavailable, UAG retries on
+first use before falling back to the LLM reviewer.
 
 Decision Provider state is bounded to the recent conversation/tool summaries
 and secret-masked before use. Provider confidence is diagnostic only; no
@@ -83,7 +90,7 @@ When OpenTelemetry is enabled, Auto Pilot records metadata-only observability fo
 the three judgment strategies:
 
 - `llm_reviewer`: the existing extra LLM reviewer call;
-- `decision_provider`: TypeSafe/Jev or Laya;
+- `decision_provider`: TypeSafe/Jev, OpenRouter Decisions/Jev, or Laya;
 - `sentinel`: the main LLM's `AUTO_COMPLETE / AUTO_CONTINUE` marker, with no
   extra judgment call.
 

@@ -10,6 +10,7 @@ from .settings import DecisionSettings, get_decision_settings
 
 _ADAPTERS: dict[str, tuple[str, str]] = {
     "typesafe": ("uagent.decision.typesafe", "TypeSafeDecisionProvider"),
+    "openrouter": ("uagent.decision.openrouter", "OpenRouterDecisionProvider"),
     "laya": ("uagent.decision.laya", "LayaDecisionProvider"),
 }
 
