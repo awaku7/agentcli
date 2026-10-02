@@ -201,6 +201,7 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
 | `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
+| `--decision-provider <none|typesafe|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. PR1 resolves configuration only; provider adapters are loaded lazily by the decision registry. | `decision/settings.py` and entry-point parsers |
 | `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
 | `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
 | `--port` | A2A only | Bind port (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
@@ -224,6 +225,10 @@ Key modules:
     - `src/uagent/llm_round_helpers.py`
     - `src/uagent/llm_flow_helpers.py`
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
+- Decision-provider core: `src/uagent/decision/`
+  - `settings.py` resolves `--decision-provider` > `UAGENT_DECISION_PROVIDER` > `none` consistently across CLI/GUI/Web/A2A.
+  - `models.py` and `base.py` define provider-neutral typed decision requests/results and the common protocol.
+  - `registry.py` lazily imports only an explicitly selected adapter; `none` returns no active provider and performs no adapter import/initialization.
 - Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel/etc.): `src/uagent/providers/util_providers.py`
   - To add a new provider, modify: `provider_caps.py` (add to `ALL_PROVIDERS`), `setup_cli.py` (PROVIDERS list / PROVIDER_FIELDS), `util_providers.py` (get_model_name/make_client), `llm_round_helpers.py` (temperature setting), `runtime/runtime_banner.py` (banner display). The `detect_provider()` and `env_validate.py` validation are now centralised via `provider_caps.ALL_PROVIDERS`.
 - Common helpers (commands, callbacks injection, messages building, etc.): `src/uagent/util_tools.py`

@@ -28,6 +28,10 @@ except ImportError:
     from fastapi import Depends, FastAPI, Request
     from fastapi.responses import JSONResponse, StreamingResponse
 
+from ..decision.settings import (
+    add_decision_provider_argument,
+    configure_decision_settings,
+)
 from ..env_utils import env_get
 from ..auth import CredentialStore, get_default_credential_store
 from ..i18n import (
@@ -525,6 +529,7 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(prog="uaga", add_help=True)
+    add_decision_provider_argument(parser)
     parser.add_argument(
         "--host",
         default=(env_get("UAGENT_A2A_HOST", "0.0.0.0") or "0.0.0.0"),
@@ -625,6 +630,7 @@ def main(argv: Optional[list[str]] = None) -> None:
     reload_dotenv_custom()
     if getattr(args, "computer_use", None) is not None:
         os.environ["UAGENT_COMPUTER_USE"] = "1" if args.computer_use else "0"
+    configure_decision_settings(cli_provider=getattr(args, "decision_provider", None))
     validate_or_exit_startup_env(context="a2a")
 
     # Tool genre selection (same dialog as CLI startup)

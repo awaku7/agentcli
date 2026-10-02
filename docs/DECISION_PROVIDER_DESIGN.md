@@ -2,7 +2,12 @@
 
 ## Status
 
-Design proposal for an opt-in decision-model layer in UAG.
+Design and staged implementation for an opt-in decision-model layer in UAG.
+
+PR 1 common infrastructure is implemented: shared settings, provider-neutral
+request/result types, a lazy registry/factory, and common CLI/GUI/Web/A2A
+configuration. TypeSafe and Laya adapters remain separate follow-up stages, and
+no decision site is activated by this infrastructure alone.
 
 The first supported provider keys are intended to be:
 
@@ -176,9 +181,9 @@ src/uagent/decision/
     base.py
     models.py
     registry.py
-    none.py
-    typesafe.py
-    laya.py
+    settings.py
+    typesafe.py   # added with the TypeSafe adapter stage
+    laya.py       # added with the Laya adapter stage
 ```
 
 This deliberately does not use `src/uagent/providers/`, which is the LLM provider
@@ -526,7 +531,7 @@ Model download behavior should be documented separately from inference behavior.
 
 ## Implementation sequence
 
-### PR 1: common opt-in infrastructure
+### PR 1: common opt-in infrastructure — implemented
 
 - Add shared decision-provider configuration.
 - Default to `none`.
