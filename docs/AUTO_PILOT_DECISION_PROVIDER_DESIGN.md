@@ -11,9 +11,9 @@ when a Decision Provider is explicitly enabled, auto-pilot uses a typed
 `COMPLETE` / `CONTINUE` decision before falling back to the existing LLM
 reviewer on provider failure or invalid output.
 
-The general Decision Provider architecture is proposed separately in
-`docs/DECISION_PROVIDER_DESIGN.md` (PR #120 at the time this document was
-written).
+The general Decision Provider architecture is documented separately in
+`docs/DECISION_PROVIDER_DESIGN.md` (introduced by PR #120 and updated as the
+implementation evolved).
 
 ## Why auto-pilot is the first decision site
 
@@ -45,9 +45,9 @@ main LLM work
 With a Decision Provider
 
 main LLM work
-    -> Laya / TypeSafe-Jev decision
+    -> Laya / TypeSafe-Jev / OpenRouter-Jev decision
     -> main LLM work
-    -> Laya / TypeSafe-Jev decision
+    -> Laya / TypeSafe-Jev / OpenRouter-Jev decision
     -> ...
 ```
 
@@ -736,9 +736,10 @@ The implementation PR should cover at least the following cases.
 ### Provider-specific behavior
 
 21. TypeSafe/Jev adapter can answer the common `choice` request.
-22. Laya adapter can answer the same common `choice` request.
-23. Laya remains an optional/lazy dependency.
-24. Laya confidence is observable but does not become an implicit completion
+22. OpenRouter Decisions/Jev adapter can answer the same common `choice` request.
+23. Laya adapter can answer the same common `choice` request.
+24. Laya remains an optional/lazy dependency.
+25. Laya confidence is observable but does not become an implicit completion
     threshold.
 
 ## Implementation sequence
