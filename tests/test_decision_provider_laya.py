@@ -16,6 +16,7 @@ from uagent.decision.laya import (
     LayaDecisionError,
     LayaDecisionProvider,
     LayaDecisionUnavailableError,
+    preload_laya_torch_on_windows,
 )
 
 
@@ -60,6 +61,71 @@ def test_laya_config_defaults():
 
     assert config.model == "laya-multilingual"
     assert config.device == "auto"
+
+
+def test_laya_windows_preload_imports_torch_only_when_selected():
+    imports = []
+    warnings = []
+
+    loaded = preload_laya_torch_on_windows(
+        DecisionSettings(provider="laya", source="env"),
+        platform_name="win32",
+        module_loader=lambda name: imports.append(name) or object(),
+        warning_writer=warnings.append,
+    )
+
+    assert loaded is True
+    assert imports == ["torch"]
+    assert warnings == []
+
+
+def test_laya_windows_preload_skips_other_providers():
+    imports = []
+
+    loaded = preload_laya_torch_on_windows(
+        DecisionSettings(provider="typesafe", source="env"),
+        platform_name="win32",
+        module_loader=lambda name: imports.append(name) or object(),
+    )
+
+    assert loaded is False
+    assert imports == []
+
+
+def test_laya_windows_preload_skips_non_windows():
+    imports = []
+
+    loaded = preload_laya_torch_on_windows(
+        DecisionSettings(provider="laya", source="env"),
+        platform_name="linux",
+        module_loader=lambda name: imports.append(name) or object(),
+    )
+
+    assert loaded is False
+    assert imports == []
+
+
+def test_laya_windows_preload_warns_and_keeps_fallback_available():
+    warnings = []
+
+    def fail(_name):
+        raise OSError(
+            "[WinError 1114] DLL initialization failed while loading c10.dll"
+        )
+
+    loaded = preload_laya_torch_on_windows(
+        DecisionSettings(provider="laya", source="env"),
+        platform_name="win32",
+        module_loader=fail,
+        warning_writer=warnings.append,
+    )
+
+    assert loaded is False
+    assert len(warnings) == 1
+    assert "could not preload PyTorch on Windows" in warnings[0]
+    assert "OSError" in warnings[0]
+    assert "WinError 1114" in warnings[0]
+    assert "fall back to the LLM reviewer" in warnings[0]
 
 
 def test_laya_runtime_import_is_deferred_until_first_decide():
