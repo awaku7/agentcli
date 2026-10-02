@@ -300,6 +300,35 @@ class _FakeDecisionProvider:
         self.closed = True
 
 
+class _SequencedLayaDecisionProvider:
+    name = "laya"
+    model = "laya-multilingual"
+
+    def __init__(self, values):
+        self.values = list(values)
+        self.requests = []
+        self.closed = False
+
+    def decide(self, request):
+        self.requests.append(request)
+        value = self.values[len(self.requests) - 1]
+        return DecisionResult(
+            provider=self.name,
+            model=self.model,
+            answers={
+                "auto_pilot_goal_status": DecisionAnswer(
+                    value=value,
+                    confidence=0.7,
+                    calibrated=False,
+                )
+            },
+            latency_ms=2.0,
+        )
+
+    def close(self):
+        self.closed = True
+
+
 def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
     messages = []
     for index in range(8):
@@ -357,6 +386,48 @@ def test_auto_pilot_decision_uses_typed_choice_and_empty_feedback(judgment) -> N
     assert question.id == "auto_pilot_goal_status"
     assert question.kind.value == "choice"
     assert question.choices == ("COMPLETE", "CONTINUE")
+
+
+def test_laya_auto_pilot_decision_requires_order_consistency(capsys) -> None:
+    provider = _SequencedLayaDecisionProvider(["COMPLETE", "COMPLETE"])
+    core = _loop_core()
+
+    result = _ask_auto_pilot_decision(
+        [{"role": "assistant", "content": "work result"}],
+        core,
+        decision_provider=provider,
+    )
+
+    assert result == ("COMPLETE", "")
+    assert len(provider.requests) == 2
+    primary = provider.requests[0].questions[0]
+    reversed_question = provider.requests[1].questions[0]
+    assert primary.choices == ("COMPLETE", "CONTINUE")
+    assert reversed_question.choices == ("CONTINUE", "COMPLETE")
+    assert list(primary.metadata["criteria"]) == ["COMPLETE", "CONTINUE"]
+    assert list(reversed_question.metadata["criteria"]) == ["CONTINUE", "COMPLETE"]
+    output = capsys.readouterr().out
+    assert "order_consistent=true" in output
+
+
+def test_laya_auto_pilot_order_inconsistency_requests_legacy_fallback(
+    capsys,
+) -> None:
+    provider = _SequencedLayaDecisionProvider(["CONTINUE", "COMPLETE"])
+
+    result = _ask_auto_pilot_decision(
+        [],
+        _loop_core(),
+        decision_provider=provider,
+    )
+
+    assert result is None
+    assert len(provider.requests) == 2
+    output = capsys.readouterr().out
+    assert "order_inconsistent" in output
+    assert "primary=CONTINUE" in output
+    assert "reversed=COMPLETE" in output
+    assert "falling back to LLM reviewer" in output
 
 
 def test_auto_pilot_decision_failure_requests_legacy_fallback(capsys) -> None:
