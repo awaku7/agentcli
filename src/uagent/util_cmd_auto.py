@@ -347,6 +347,39 @@ def _ask_auto_pilot_decision(
         )
         return judgment, ""
 
+    reversed_result = decide_once(build_request(("CONTINUE", "COMPLETE")))
+    if reversed_result is None:
+        return None
+    second_result, second_answer, second_judgment = reversed_result
+    model = str(result.model or getattr(decision_provider, "model", "") or "")
+
+    if second_judgment != judgment:
+        print(
+            "[AUTO:judge:decision] "
+            f"provider=laya model={model} order_guard=inconsistent "
+            f"first={judgment} reversed={second_judgment}; "
+            "falling back to LLM reviewer",
+            flush=True,
+        )
+        return None
+
+    confidences = [
+        float(item)
+        for item in (answer.confidence, second_answer.confidence)
+        if item is not None
+    ]
+    confidence = min(confidences) if confidences else None
+    confidence_text = "none" if confidence is None else f"{confidence:.4f}"
+    latency_ms = float(result.latency_ms) + float(second_result.latency_ms)
+    print(
+        "[AUTO:judge:decision] "
+        f"provider=laya model={model} judgment={judgment} "
+        f"confidence={confidence_text} latency_ms={latency_ms:.1f} "
+        "order_guard=consistent",
+        flush=True,
+    )
+    return judgment, ""
+
 
 def _review_language() -> str:
     configured = (env_get("UAGENT_AUTO_REVIEW_LANGUAGE", "") or "").strip()
