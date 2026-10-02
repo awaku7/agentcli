@@ -915,6 +915,13 @@ def _ensure_decision_provider_runtime(st: _WizardState) -> bool:
     if st.decision_provider != "laya":
         return True
 
+    configured_policy = str(
+        (st.values or {}).get("UAGENT_AUTO_INSTALL", "") or ""
+    ).strip()
+    previous_policy = os.environ.get("UAGENT_AUTO_INSTALL")
+    if configured_policy:
+        os.environ["UAGENT_AUTO_INSTALL"] = configured_policy
+
     try:
         from ._pip_auto import install_with_status
 
@@ -926,6 +933,12 @@ def _ensure_decision_provider_runtime(st: _WizardState) -> bool:
         )
     except Exception:
         return False
+    finally:
+        if configured_policy:
+            if previous_policy is None:
+                os.environ.pop("UAGENT_AUTO_INSTALL", None)
+            else:
+                os.environ["UAGENT_AUTO_INSTALL"] = previous_policy
 
 
 def _ask_outputs(allow_back: bool = True) -> tuple[str, set[str]]:
@@ -1661,6 +1674,9 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
 
     section(_("Optional runtime"))
     out.append(f"UAGENT_STREAMING={'1' if st.streaming_enabled else '0'}")
+    auto_install_policy = str(values.get("UAGENT_AUTO_INSTALL", "") or "").strip()
+    if auto_install_policy:
+        out.append(f"UAGENT_AUTO_INSTALL={auto_install_policy}")
 
     if st.workdir_enabled:
         out.append(f"UAGENT_WORKDIR={st.workdir.strip()}")
