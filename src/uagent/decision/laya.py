@@ -31,6 +31,15 @@ class LayaDecisionUnavailableError(LayaDecisionError):
     """Raised when the optional Laya runtime cannot be loaded."""
 
 
+def _exception_summary(exc: BaseException) -> str:
+    """Keep the original provider error useful without losing its exception type."""
+
+    detail = str(exc).strip()
+    if detail:
+        return f"{type(exc).__name__}: {detail}"
+    return type(exc).__name__
+
+
 @dataclass(frozen=True)
 class LayaDecisionConfig:
     """Resolved Laya-specific configuration."""
@@ -322,7 +331,7 @@ class LayaDecisionProvider:
                     except Exception as retry_exc:
                         raise LayaDecisionUnavailableError(
                             "Laya was installed but the runtime could not be loaded: "
-                            f"{type(retry_exc).__name__}."
+                            f"{_exception_summary(retry_exc)}"
                         ) from retry_exc
                 else:
                     raise LayaDecisionUnavailableError(
@@ -339,7 +348,7 @@ class LayaDecisionProvider:
                 ) from exc
         except Exception as exc:
             raise LayaDecisionUnavailableError(
-                f"Failed to import the Laya runtime: {type(exc).__name__}."
+                f"Failed to import the Laya runtime: {_exception_summary(exc)}"
             ) from exc
 
         router_class = getattr(module, "Router", None)
@@ -357,7 +366,7 @@ class LayaDecisionProvider:
             )
         except Exception as exc:
             raise LayaDecisionUnavailableError(
-                f"Failed to initialize the Laya Router: {type(exc).__name__}."
+                f"Failed to initialize the Laya Router: {_exception_summary(exc)}"
             ) from exc
         return self._router
 
@@ -391,7 +400,7 @@ class LayaDecisionProvider:
             if isinstance(exc, LayaDecisionError):
                 raise
             raise LayaDecisionError(
-                f"Laya decision request failed: {type(exc).__name__}."
+                f"Laya decision request failed: {_exception_summary(exc)}"
             ) from exc
 
         if not isinstance(data, Mapping):
