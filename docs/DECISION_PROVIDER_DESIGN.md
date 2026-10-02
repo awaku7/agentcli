@@ -4,11 +4,11 @@
 
 Design and staged implementation for an opt-in decision-model layer in UAG.
 
-PR 1 common infrastructure, PR 2 TypeSafe/Jev adapter, and PR 3 Laya adapter
-are implemented: shared settings, provider-neutral request/result types, a lazy
-registry/factory, common CLI/GUI/Web/A2A configuration, the TypeSafe System One
-HTTP adapter, and the local Laya adapter. Runtime decision sites remain a
-follow-up stage; no decision site is activated by the adapters alone.
+PR 1 common infrastructure, PR 2 TypeSafe/Jev adapter, PR 3 Laya adapter,
+PR 4 auto-pilot integration/observability, and the post-PR4 setup/OpenRouter
+integration are implemented. The first runtime decision site is active in
+auto-pilot completion review when a Decision Provider is explicitly selected.
+`none` remains the default and preserves the legacy LLM reviewer path.
 
 The supported provider keys are:
 
@@ -427,9 +427,10 @@ the installer may run only after the user explicitly selected `laya`.
 The important behavior is:
 
 ```text
-provider=none      -> no TypeSafe/Laya decision-provider work
-provider=typesafe  -> TypeSafe configuration/client path may run
-provider=laya      -> Laya dependency/model path may run
+provider=none        -> no TypeSafe/OpenRouter/Laya decision-provider work
+provider=typesafe    -> TypeSafe configuration/client path may run
+provider=openrouter  -> OpenRouter Decisions configuration/client path may run
+provider=laya        -> Laya dependency/model path may run
 ```
 
 A failed optional-provider initialization must produce a clear startup/runtime
@@ -438,11 +439,12 @@ the user to another dedicated decision provider.
 
 ## Runtime placement
 
-The initial integration should introduce the capability without immediately
-changing agent policy.
+The first runtime integration is implemented in auto-pilot completion review.
+When explicitly enabled, the selected Decision Provider answers the bounded
+`COMPLETE` / `CONTINUE` judgment and falls back to the legacy LLM reviewer on
+failure or invalid output.
 
-Recommended first runtime use is an explicit decision service callable from the
-orchestration layer. Candidate decisions include:
+Additional candidate decisions include:
 
 - `difficulty`
 - `needs_tools`
@@ -537,7 +539,7 @@ These concerns should remain separate:
 llmcapa
     -> What can this LLM/provider/model do?
 
-Decision provider (TypeSafe/Laya)
+Decision provider (TypeSafe/OpenRouter/Laya)
     -> What decision should UAG make for this input/question?
 ```
 
@@ -572,8 +574,9 @@ Secrets and endpoint credentials must never be printed.
 
 ## Observability
 
-Decision-provider calls should eventually emit structured telemetry compatible
-with the existing UAG observability direction.
+Auto-pilot Decision Provider calls now emit metadata-only structured telemetry
+through the existing UAG observability layer. Future decision sites should use
+the same provider-neutral telemetry direction.
 
 Useful fields include:
 
@@ -595,9 +598,9 @@ Raw user input should not be duplicated into telemetry by default.
 A decision provider may be local or remote. The adapter must make that boundary
 clear.
 
-For TypeSafe, UAG must treat the state sent for decision as externally
-transmitted data and apply the same secret and privacy discipline used for other
-remote services.
+For TypeSafe and OpenRouter Decisions, UAG must treat the state sent for
+decision as externally transmitted data and apply the same secret and privacy
+discipline used for other remote services.
 
 For local Laya execution, UAG should not imply that data leaves the machine
 unless the selected adapter/checkpoint source actually causes a network action.
@@ -644,6 +647,14 @@ Model download behavior should be documented separately from inference behavior.
   explicit shadow/evaluation mode so the normal Decision Provider path does not
   pay for the reviewer call it is intended to replace.
 
+### Post-PR4 setup and OpenRouter integration — implemented (#129)
+
+- Add OpenRouter Decisions/Jev as an opt-in Decision Provider.
+- Add `uag_setup` configuration for `none / typesafe / openrouter / laya`.
+- Reuse existing OpenRouter API keys when a dedicated decision key is absent.
+- Keep Laya optional and lazy, with setup/first-use installation honoring
+  `UAGENT_AUTO_INSTALL=allow|prompt|off`.
+
 ### Later PRs
 
 - Add additional decision sites based on measured value.
@@ -660,22 +671,24 @@ At minimum, implementation should verify:
 4. `none` does not validate inactive provider-specific credentials.
 5. `none` does not change existing LLM/tool behavior.
 6. Selecting `typesafe` initializes only the TypeSafe decision path.
-7. Selecting `laya` initializes only the Laya decision path.
-8. TypeSafe model selection uses `UAGENT_DECISION_TYPESAFE_DEPNAME`.
-9. Laya model selection uses `UAGENT_DECISION_LAYA_DEPNAME`.
-10. Missing credentials/dependencies produce an actionable error only when their
+7. Selecting `openrouter` initializes only the OpenRouter Decisions path.
+8. Selecting `laya` initializes only the Laya decision path.
+9. TypeSafe model selection uses `UAGENT_DECISION_TYPESAFE_DEPNAME`.
+10. OpenRouter model selection uses `UAGENT_DECISION_OPENROUTER_DEPNAME`.
+11. Laya model selection uses `UAGENT_DECISION_LAYA_DEPNAME`.
+12. Missing credentials/dependencies produce an actionable error only when their
     provider is selected.
-11. Provider failures never become implicit negative decisions.
-12. Common result serialization does not leak provider-specific objects.
-13. CLI, GUI, Web, and A2A resolve the same shared setting.
-14. Startup output never exposes credentials.
-15. Adapter tests do not require network/model downloads in the normal CI path.
+13. Provider failures never become implicit negative decisions.
+14. Common result serialization does not leak provider-specific objects.
+15. CLI, GUI, Web, and A2A resolve the same shared setting.
+16. Startup output never exposes credentials.
+17. Adapter tests do not require network/model downloads in the normal CI path.
 
 ## Acceptance criteria
 
 The architecture is considered correctly integrated when a stock UAG invocation
-without new configuration behaves exactly as before, while an explicitly
-selected `typesafe` or `laya` provider can be initialized through the common
-decision API without altering the existing LLM-provider registry.
+without new configuration behaves exactly as before, while an explicitly selected `typesafe`, `openrouter`, or `laya` provider can
+be initialized through the common decision API without altering the existing
+LLM-provider registry.
 
 For TypeSafe, Jev remains a model selected by `DEPNAME`, not a provider key.
