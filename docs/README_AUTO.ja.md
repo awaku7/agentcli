@@ -65,6 +65,12 @@ OpenRouterでは専用キーが未指定なら既存の `UAGENT_OPENROUTER_API_K
 Decision Providerへ渡す会話・ツール結果は件数と文字数を制限し、secret maskingを
 適用します。confidenceは診断ログ用途のみで、完了判定の閾値には使用しません。
 
+Layaにはbinary choiceの順序依存を検出する追加ガードがあります。同じ意味の判定を
+`COMPLETE / CONTINUE` と、選択肢を逆順にした `CONTINUE / COMPLETE` の2回実行し、
+両方が同じ意味の答えを返した場合だけLaya判定を採用します。結果が食い違った場合は
+従来のLLMレビューアへフォールバックします。TypeSafe/JevとOpenRouter Decisionsは
+従来どおり1回判定です。
+
 ### 3方式の比較用Observability
 
 OpenTelemetryを有効にすると、Auto Pilotは次の3方式を同じメタデータ形式で記録します。
