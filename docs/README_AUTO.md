@@ -77,6 +77,28 @@ Decision Provider state is bounded to the recent conversation/tool summaries
 and secret-masked before use. Provider confidence is diagnostic only; no
 confidence threshold controls auto-pilot completion.
 
+### Comparing the three judgment strategies
+
+When OpenTelemetry is enabled, Auto Pilot records metadata-only observability for
+the three judgment strategies:
+
+- `llm_reviewer`: the existing extra LLM reviewer call;
+- `decision_provider`: TypeSafe/Jev or Laya;
+- `sentinel`: the main LLM's `AUTO_COMPLETE / AUTO_CONTINUE` marker, with no
+  extra judgment call.
+
+The `uag.auto.judgment` event records the judgment source, answer, round,
+fallback state, provider/model, latency, and confidence when available. Failed
+Decision Provider attempts are recorded separately from the authoritative
+fallback LLM judgment. No goal, prompt, conversation body, tool body, or reviewer
+response text is exported.
+
+Metrics include `uag.auto.judgment.attempts`, `uag.auto.judgments`,
+`uag.auto.judgment.failures`, `uag.auto.judgment.latency_ms`,
+`uag.auto.runs`, and `uag.auto.followup_rounds`. The terminal
+`uag.auto.run.finished` event also records the reason and whether the
+max-round limit was reached.
+
 A reviewer result is interpreted as follows:
 
 - `CONTINUE` takes precedence over `COMPLETE` when both words appear.

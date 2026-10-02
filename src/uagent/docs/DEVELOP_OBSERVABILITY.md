@@ -69,6 +69,7 @@ Important pieces are:
 - `runtime.py`: lifecycle/event bridge used by centralized runtime boundaries, including the call-scoped Phase 4C provider diagnostic helper;
 - `boundary_instrumentation.py`: best-effort wrappers around UAG-owned Memory and Decision Log persistence boundaries;
 - `decision_log.py`: metadata-only trace/span correlation for persisted Context decision batches;
+- `auto_pilot.py`: metadata-only events and metrics for Auto Pilot judgment strategy comparison;
 - `trusted_ingress.py`: explicit reverse-proxy peer allowlist plus trace-context binding for Web worker threads;
 - `pseudonymous_correlation.py`: Phase 4B credential validation, normative HMAC pseudonym construction, and closed Agent-span attachment.
 
