@@ -86,6 +86,13 @@ confidence threshold controls auto-pilot completion.
 
 Laya uses an additional order-consistency guard for the binary choice. UAG asks
 the same semantic question twice, once as `COMPLETE / CONTINUE` and once with
+the choice order reversed. The Laya result is used only when both calls select
+the same semantic answer. An order-dependent disagreement falls back to the
+existing LLM reviewer. TypeSafe/Jev and OpenRouter Decisions remain single-call
+reviewers.
+
+Laya uses an additional order-consistency guard for the binary choice. UAG asks
+the same semantic question twice, once as `COMPLETE / CONTINUE` and once with
 the choice order reversed. The Laya result is authoritative only when both calls
 select the same semantic answer. An order-dependent disagreement falls back to
 the existing LLM reviewer. TypeSafe/Jev and OpenRouter Decisions remain
