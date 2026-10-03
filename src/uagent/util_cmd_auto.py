@@ -827,7 +827,10 @@ def _run_auto_pilot_loop(
                     )
                     decision_provider = None
 
-            if decision_provider is not None and not decision_provider_questions_checked:
+            if (
+                decision_provider is not None
+                and not decision_provider_questions_checked
+            ):
                 decision_provider_questions_checked = True
                 supports_questions = _decision_provider_supports_questions(
                     decision_provider
