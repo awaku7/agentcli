@@ -555,11 +555,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                 step_result["attempts"] = attempts
                 step_result["reviews"] = reviews
 
-            if (
-                status == "completed"
-                and reviewed_step
-                and step.get("store_key")
-            ):
+            if status == "completed" and reviewed_step and step.get("store_key"):
                 sub_agent_tool.publish_shared_result(
                     str(step["store_key"]),
                     final_raw,
