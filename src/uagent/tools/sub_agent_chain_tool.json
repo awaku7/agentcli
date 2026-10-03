@@ -37,7 +37,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "bn": {
     "tool.description": "একটি শৃঙ্খলে সাব-এজেন্টগুলির একটি ক্রম সঞ্চালন করুন। প্রতিটি ধাপের ফলাফল শেয়ার করা প্রসঙ্গ স্টোরের মাধ্যমে পরবর্তী ধাপে স্বয়ংক্রিয়ভাবে উপলব্ধ।",
@@ -77,7 +78,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "cs": {
     "tool.description": "Proveďte sekvenci dílčích agentů v řetězci. Výsledek každého kroku je automaticky dostupný pro následující kroky prostřednictvím sdíleného kontextového úložiště.",
@@ -117,7 +119,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "de": {
     "tool.description": "Führen Sie eine Folge von Subagenten in einer Kette aus. Das Ergebnis jedes Schritts steht nachfolgenden Schritten automatisch über den gemeinsamen Kontextspeicher zur Verfügung.",
@@ -157,7 +160,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "el": {
     "tool.description": "Εκτελέστε μια ακολουθία υπο-παραγόντων σε μια αλυσίδα. Το αποτέλεσμα κάθε βήματος είναι αυτόματα διαθέσιμο για τα επόμενα βήματα μέσω του κοινόχρηστου χώρου αποθήκευσης περιβάλλοντος.",
@@ -197,7 +201,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "en": {
     "tool.description": "Execute a sequence of sub-agents in a chain. Each step's result is automatically available to subsequent steps via the shared context store.",
@@ -237,7 +242,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "es": {
     "tool.description": "Ejecutar una secuencia de subagentes en una cadena. El resultado de cada paso está disponible automáticamente para los pasos siguientes a través del almacén de contexto compartido.",
@@ -277,7 +283,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "fa": {
     "tool.description": "دنباله ای از عوامل فرعی را در یک زنجیره اجرا کنید. نتیجه هر مرحله به طور خودکار برای مراحل بعدی از طریق ذخیره‌سازی زمینه مشترک در دسترس است.",
@@ -317,7 +324,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "fi": {
     "tool.description": "Suorita aliagenttien sarja ketjussa. Kunkin vaiheen tulos on automaattisesti seuraavien vaiheiden käytettävissä jaetun kontekstivaraston kautta.",
@@ -357,7 +365,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "fr": {
     "tool.description": "Exécuter une séquence de sous-agents dans une chaîne. Le résultat de chaque étape est automatiquement disponible pour les étapes suivantes via le magasin de contexte partagé.",
@@ -397,7 +406,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "he": {
     "tool.description": "בצע רצף של סוכני משנה בשרשרת. התוצאה של כל שלב זמינה אוטומטית לשלבים הבאים דרך מאגר ההקשר המשותף.",
@@ -437,7 +447,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "hi": {
     "tool.description": "एक श्रृंखला में उप-एजेंटों का अनुक्रम निष्पादित करें। प्रत्येक चरण का परिणाम साझा संदर्भ स्टोर के माध्यम से बाद के चरणों के लिए स्वचालित रूप से उपलब्ध होता है।",
@@ -477,7 +488,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "hu": {
     "tool.description": "Alágensek sorozatának végrehajtása egy láncban. Minden egyes lépés eredménye automatikusan elérhető a következő lépések számára a megosztott környezettárolón keresztül.",
@@ -517,7 +529,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "id": {
     "tool.description": "Jalankan urutan sub-agen dalam sebuah rantai. Hasil setiap langkah secara otomatis tersedia untuk langkah berikutnya melalui penyimpanan konteks bersama.",
@@ -557,7 +570,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "it": {
     "tool.description": "Esegui una sequenza di sub-agenti in una catena. Il risultato di ogni passaggio è automaticamente disponibile per i passaggi successivi tramite l'archivio contesto condiviso.",
@@ -597,7 +611,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "ja": {
     "tool.description": "チェーン内の一連のサブエージェントを実行します。各ステップの結果は、共有コンテキスト ストアを介して後続のステップで自動的に利用可能になります。",
@@ -637,7 +652,8 @@
     "param.step.review.max_retries.description": "初回実行後に reviewer が要求できる worker 再実行の最大回数。既定値は2です。",
     "param.step.review.permission_level.description": "reviewer の権限レベル。既定値は none です。",
     "param.step.review.max_tool_turns.description": "reviewer の1回の自律ラウンド内でのLLM/ツールターン最大数。既定値は3です。",
-    "param.step.review.max_agent_rounds.description": "reviewer の自律作業ラウンド最大数。既定値は3です。"
+    "param.step.review.max_agent_rounds.description": "reviewer の自律作業ラウンド最大数。既定値は3です。",
+    "param.step.parallel_group.description": "任意の並列グループ名。同じ非空名を持つ連続stepは同時実行されます。"
   },
   "ko": {
     "tool.description": "체인에서 일련의 하위 에이전트를 실행합니다. 각 단계의 결과는 공유 컨텍스트 저장소를 통해 후속 단계에서 자동으로 사용할 수 있습니다.",
@@ -677,7 +693,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "mn": {
     "tool.description": "Гинжин дэх дэд агентуудын дарааллыг гүйцэтгэнэ. Алхам бүрийн үр дүн нь хуваалцсан контекст дэлгүүрээр дамжуулан дараагийн алхмуудад автоматаар боломжтой болно.",
@@ -717,7 +734,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "mr": {
     "tool.description": "साखळीत उप-एजंट्सचा क्रम कार्यान्वित करा. प्रत्येक चरणाचा परिणाम शेअर केलेल्या संदर्भ स्टोअरद्वारे पुढील चरणांसाठी आपोआप उपलब्ध होतो.",
@@ -757,7 +775,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "nb": {
     "tool.description": "Utfør en sekvens av sub-agenter i en kjede. Resultatet av hvert trinn er automatisk tilgjengelig for påfølgende trinn via det delte kontekstlageret.",
@@ -797,7 +816,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "nl": {
     "tool.description": "Voer een reeks subagenten in een keten uit. Het resultaat van elke stap is automatisch beschikbaar voor volgende stappen via de gedeelde contextopslag.",
@@ -837,7 +857,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "pl": {
     "tool.description": "Wykonaj sekwencję podagentów w łańcuchu. Wynik każdego kroku jest automatycznie dostępny dla kolejnych kroków za pośrednictwem udostępnionego magazynu kontekstu.",
@@ -877,7 +898,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "pt": {
     "tool.description": "Execute uma sequência de subagentes em uma cadeia. O resultado de cada etapa fica automaticamente disponível para as etapas subsequentes por meio do armazenamento de contexto compartilhado.",
@@ -917,7 +939,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "pt_BR": {
     "tool.description": "Execute uma sequência de subagentes em uma cadeia. O resultado de cada etapa fica automaticamente disponível para as etapas subsequentes por meio do armazenamento de contexto compartilhado.",
@@ -957,7 +980,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "ro": {
     "tool.description": "Executați o secvență de sub-agenți într-un lanț. Rezultatul fiecărui pas este disponibil automat pentru pașii următori prin intermediul magazinului de context partajat.",
@@ -997,7 +1021,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "ru": {
     "tool.description": "Выполнить последовательность субагентов в цепочке. Результат каждого шага автоматически доступен для последующих шагов через хранилище общего контекста.",
@@ -1037,7 +1062,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "sv": {
     "tool.description": "Utför en sekvens av subagenter i en kedja. Resultatet av varje steg är automatiskt tillgängligt för efterföljande steg via det delade sammanhangsarkivet.",
@@ -1077,7 +1103,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "sw": {
     "tool.description": "Tekeleza mlolongo wa mawakala wadogo katika mlolongo. Kila matokeo ya hatua yanapatikana kiotomatiki kwa hatua zinazofuata kupitia hifadhi ya muktadha iliyoshirikiwa.",
@@ -1117,7 +1144,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "th": {
     "tool.description": "ดำเนินการลำดับของตัวแทนย่อยในห่วงโซ่ ผลลัพธ์ของแต่ละขั้นตอนจะพร้อมใช้งานโดยอัตโนมัติสำหรับขั้นตอนต่อๆ ไปผ่านทางที่เก็บบริบทที่ใช้ร่วมกัน",
@@ -1157,7 +1185,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "tr": {
     "tool.description": "Bir zincirdeki bir dizi alt aracıyı yürütün. Her adımın sonucu, paylaşılan içerik deposu aracılığıyla sonraki adımlara otomatik olarak sunulur.",
@@ -1197,7 +1226,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "uk": {
     "tool.description": "Виконайте послідовність підагентів у ланцюжку. Результат кожного кроку автоматично доступний для наступних кроків через спільне сховище контексту.",
@@ -1237,7 +1267,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "vi": {
     "tool.description": "Thực hiện một chuỗi các tác nhân phụ trong một chuỗi. Kết quả của mỗi bước sẽ tự động có sẵn cho các bước tiếp theo thông qua kho ngữ cảnh được chia sẻ.",
@@ -1277,7 +1308,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "zh_CN": {
     "tool.description": "执行链中的一系列子代理。每个步骤的结果可通过共享上下文存储自动供后续步骤使用。",
@@ -1317,7 +1349,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "zh_TW": {
     "tool.description": "執行鏈中的一系列子代理程式。每個步驟的結果可透過共享上下文儲存自動供後續步驟使用。",
@@ -1357,7 +1390,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "fil": {
     "tool.description": "Magsagawa ng sequence ng mga sub-agents sa isang chain. Ang resulta ng bawat hakbang ay awtomatikong magagamit sa mga kasunod na hakbang sa pamamagitan ng nakabahaging tindahan ng konteksto.",
@@ -1397,7 +1431,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "ms": {
     "tool.description": "Laksanakan urutan sub-ejen dalam rantaian. Hasil setiap langkah tersedia secara automatik untuk langkah seterusnya melalui gedung konteks kongsi.",
@@ -1437,7 +1472,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "da": {
     "tool.description": "Udfør en sekvens af sub-agenter i en kæde. Hvert trins resultat er automatisk tilgængeligt for efterfølgende trin via det delte kontekstlager.",
@@ -1477,7 +1513,8 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   },
   "nn": {
     "tool.description": "Utfør en sekvens av sub-agenter i en kjede. Resultatet av hvert trinn er automatisk tilgjengeleg for påfølgende trinn via det delte kontekstlageret.",
@@ -1517,6 +1554,7 @@
     "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
     "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
     "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
-    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3.",
+    "param.step.parallel_group.description": "Optional parallel group name. Consecutive steps with the same non-empty group run concurrently."
   }
 }

@@ -58,6 +58,10 @@ _SUB_AGENT_TOOL_WHITELIST: Dict[str, List[str]] = {
 _DEFAULT_CACHE_DIR = get_state_dir() / "subagent_cache"
 _SUB_AGENT_LOG_DIR = get_state_dir() / "subagent_logs"
 _SUB_AGENT_ROLES_DIR = get_state_dir() / "subagent_roles"
+_SUB_AGENT_CALL_CHAIN: ContextVar[tuple[str, ...]] = ContextVar(
+    "uag_sub_agent_call_chain",
+    default=(),
+)
 
 # ---------------------------------------------------------------------------
 # Enums / Data classes
@@ -493,7 +497,6 @@ class SubAgentRunner:
         self.specs.update(ext_specs)
         self._shared_store: Dict[str, Any] = {}
         self._store_lock = Lock()
-        self._call_chain: List[str] = []
         self._total_usage: Dict[str, int] = {
             "prompt_tokens": 0,
             "completion_tokens": 0,
@@ -1207,7 +1210,8 @@ class SubAgentRunner:
                 self._write_log(agent_name, task, cached, "cache_hit")
                 return cached
 
-        if agent_name in self._call_chain:
+        call_chain = _SUB_AGENT_CALL_CHAIN.get()
+        if agent_name in call_chain:
             result = json.dumps(
                 {
                     "status": "error",
@@ -1218,7 +1222,7 @@ class SubAgentRunner:
             self._write_log(agent_name, task, result, "error")
             return result
 
-        self._call_chain.append(agent_name)
+        call_chain_token = _SUB_AGENT_CALL_CHAIN.set(call_chain + (agent_name,))
         try:
             result, llm_usage, total_retries = self._run_llm(
                 agent_name=agent_name,
@@ -1249,7 +1253,7 @@ class SubAgentRunner:
             )
             return result
         finally:
-            self._call_chain.pop()
+            _SUB_AGENT_CALL_CHAIN.reset(call_chain_token)
 
     def _run_llm(
         self,
@@ -1293,16 +1297,18 @@ class SubAgentRunner:
             or env_get("UAGENT_SUB_AGENT_DEPNAME")
             or ""
         ).strip()
-        sub_api_key = (
+        explicit_sub_api_key = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
             or env_get("UAGENT_SUB_AGENT_API_KEY")
-            or (get_provider_api_key(sub_provider) if sub_provider else "")
             or ""
         ).strip()
 
         try:
             if sub_provider:
                 with _SUB_AGENT_ENV_LOCK:
+                    sub_api_key = (
+                        explicit_sub_api_key or get_provider_api_key(sub_provider) or ""
+                    ).strip()
                     orig_provider = os.environ.get("UAGENT_PROVIDER")
                     os.environ["UAGENT_PROVIDER"] = sub_provider
                     orig_depname = None
@@ -1334,7 +1340,8 @@ class SubAgentRunner:
                             else:
                                 os.environ.pop(key_key, None)
             else:
-                provider, client, model_name = make_client(cb)
+                with _SUB_AGENT_ENV_LOCK:
+                    provider, client, model_name = make_client(cb)
         except Exception as exc:
             return (
                 json.dumps(

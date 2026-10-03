@@ -141,24 +141,26 @@ def init_web():
                             "cancelled": True,
                         }
                     )
-                # Keep room busy while waiting for human input so Stop stays available
-                # and reconnect clients see WAIT instead of a false IDLE.
-                try:
-                    room.set_status(True, "WAIT")
-                    if web_manager.original_set_status:
-                        # core.status_busy stays True for interrupt path.
-                        web_manager.original_set_status(True, "WAIT")
-                except Exception:
-                    pass
-                try:
-                    return web_human_ask(room, args)
-                finally:
+                # Keep the room-level confirmation slot and WAIT/LLM status
+                # transition serialized together. web_human_ask() uses the same
+                # RLock, so the nested acquisition is intentional.
+                with room.human_ask_lock:
                     try:
-                        room.set_status(True, "LLM")
+                        room.set_status(True, "WAIT")
                         if web_manager.original_set_status:
-                            web_manager.original_set_status(True, "LLM")
+                            # core.status_busy stays True for interrupt path.
+                            web_manager.original_set_status(True, "WAIT")
                     except Exception:
                         pass
+                    try:
+                        return web_human_ask(room, args)
+                    finally:
+                        try:
+                            room.set_status(True, "LLM")
+                            if web_manager.original_set_status:
+                                web_manager.original_set_status(True, "LLM")
+                        except Exception:
+                            pass
             return original_run_tool(name, args)
         finally:
             if room is not None and prev_room is None:

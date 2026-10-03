@@ -48,6 +48,9 @@ class WebRoom:
         self.image_session: Optional[dict[str, Any]] = None
 
         # human_ask sync (room-scoped)
+        # Web UI has one confirmation slot/modal per room, so concurrent asks
+        # must be serialized within the room while different rooms stay parallel.
+        self.human_ask_lock = threading.RLock()
         self.human_ask_sync_event = threading.Event()
         self.human_ask_result = ""
         self.human_ask_is_password = False

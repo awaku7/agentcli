@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Add bounded Sub-Agent chain parallel groups via `parallel_group`: consecutive independent steps run concurrently, preserve input-order results, defer shared-store publication to the group barrier, reject sibling store dependencies/duplicate keys, and keep failure publication atomic when `stop_on_error=true`.
 - Add optional Sub-Agent chain review gates: a reviewer returns `approve` or `retry`, retry feedback is fed back into the worker, and exhausted review retries block the chain step so `stop_on_error` is honored.
 - Keep reviewed worker candidates private until approval before publishing `store_key`; pass worker source context into the reviewer, distinguish review rounds for duplicate-call fingerprints, and explicitly block oversized review candidates instead of truncating or partially reviewing them.
 - Make Sub-Agents goal-driven autonomous loops: separate `max_tool_turns` from `max_agent_rounds`, judge each work round with regex/sentinel/Decision Provider/LLM fallback, carry reviewer feedback forward, and include bounded real Tool evidence in completion decisions.
