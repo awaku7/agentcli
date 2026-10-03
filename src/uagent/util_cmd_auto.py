@@ -793,6 +793,18 @@ def _run_auto_pilot_loop(
                             core,
                             decision_provider=decision_provider,
                         )
+                        if decision_result is None:
+                            print(
+                                "[AUTO:judge:decision] "
+                                f"provider={settings.provider} disabled_for_run=true; "
+                                "using LLM reviewer for remaining rounds",
+                                flush=True,
+                            )
+                            try:
+                                decision_provider.close()
+                            except Exception:
+                                pass
+                            decision_provider = None
 
                 if decision_result is None:
                     # On the first iteration this judges the initial goal execution.
