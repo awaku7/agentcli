@@ -569,7 +569,7 @@ def test_typesafe_http_error_detail_is_bounded_and_secret_masked():
         environ=_environ(),
         client=FakeClient(
             FakeResponse(
-                {"detail": "invalid model token: secret-value"},
+                {"detail": "Invalid API key secret-key"},
                 status_code=422,
             )
         ),
@@ -592,6 +592,6 @@ def test_typesafe_http_error_detail_is_bounded_and_secret_masked():
 
     message = str(exc_info.value)
     assert "HTTP 422" in message
-    assert "invalid model" in message
-    assert "secret-value" not in message
+    assert "Invalid API key" in message
+    assert "secret-key" not in message
     assert "********" in message
