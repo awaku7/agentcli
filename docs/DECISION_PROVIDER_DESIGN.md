@@ -495,8 +495,21 @@ answer.
 
 ## Confidence semantics
 
-`confidence` is provider-reported or provider-derived metadata. It is not a
-universal probability scale across TypeSafe/Jev and Laya.
+The common `DecisionAnswer.confidence` is normalized per answer kind where a
+direct answer probability exists:
+
+- TypeSafe/OpenRouter `boolean`: probability of the selected boolean answer.
+- TypeSafe/OpenRouter `choice`: calibrated probability of the selected choice.
+  Jev's separate distribution-concentration `confidence` is retained as
+  `metadata.provider_confidence`.
+- TypeSafe/OpenRouter `score`: the provider's distribution-concentration
+  confidence is retained for diagnostics and the common answer is marked
+  `calibrated=False`.
+- Laya retains its native `answer_confidence` in the common confidence field
+  and remains `calibrated=False`.
+
+Confidence values therefore still must not be treated as a universal execution
+threshold across providers or answer kinds.
 
 Therefore UAG must not initially implement logic such as:
 
@@ -709,3 +722,18 @@ be initialized through the common decision API without altering the existing
 LLM-provider registry.
 
 For TypeSafe, Jev remains a model selected by `DEPNAME`, not a provider key.
+
+
+## Live contract smoke tests
+
+The unit suite uses mocked provider responses so normal CI never requires
+external credentials. To validate the current remote API contracts explicitly,
+run:
+
+```bash
+UAGENT_DECISION_LIVE_TEST=1 pytest -q tests/test_decision_provider_live.py
+```
+
+The TypeSafe test requires a configured TypeSafe key. The OpenRouter test accepts
+the dedicated Decision Provider key or the normal OpenRouter credential. These
+tests are opt-in by design and are skipped in normal CI.
