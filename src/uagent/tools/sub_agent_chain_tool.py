@@ -527,108 +527,6 @@ def _run_review_gate(
     )
 
 
-def _execute_step(
-    *,
-    run_sub_agent: Any,
-    step: Dict[str, Any],
-    step_number: int,
-) -> tuple[Dict[str, Any], str, str]:
-    step_result: Dict[str, Any] = {
-        "step": step_number,
-        "agent_name": step["agent_name"],
-    }
-    group_name = step.get("parallel_group")
-    if group_name:
-        step_result["parallel_group"] = group_name
-
-    try:
-        raw = run_sub_agent(_build_step_args(step, include_store_key=False))
-        final_raw, reviews, attempts, status, review_error = _run_review_gate(
-            run_sub_agent=run_sub_agent,
-            step=step,
-            initial_raw=raw,
-        )
-        step_result["result"] = final_raw
-        step_result["status"] = status
-        if reviews:
-            step_result["attempts"] = attempts
-            step_result["reviews"] = reviews
-
-        if status in ("error", "blocked"):
-            _, obj = _decode_result(final_raw)
-            err_msg = review_error
-            if not err_msg and obj:
-                err_msg = str(obj.get("message", "Unknown error") or "Unknown error")
-            if not err_msg:
-                err_msg = "Unknown error"
-            step_result["error"] = err_msg
-
-        return step_result, final_raw, status
-    except Exception as exc:
-        step_result["status"] = "error"
-        step_result["error"] = str(exc)
-        return step_result, "", "error"
-
-
-def _validate_parallel_group(
-    steps: List[Dict[str, Any]],
-    *,
-    group_name: str,
-) -> str:
-    store_keys = [
-        str(step["store_key"])
-        for step in steps
-        if step.get("store_key")
-    ]
-    if len(store_keys) != len(set(store_keys)):
-        return (
-            f"Parallel group {group_name!r} declares duplicate store_key values. "
-            "Parallel outputs require unique store keys."
-        )
-
-    produced_keys = set(store_keys)
-    for step in steps:
-        dependencies = {
-            str(key)
-            for key in (step.get("load_keys") or [])
-            if key is not None
-        }
-        sibling_dependencies = dependencies & produced_keys
-        if sibling_dependencies:
-            keys = ", ".join(sorted(sibling_dependencies))
-            return (
-                f"Parallel group {group_name!r} has an intra-group dependency "
-                f"through load_keys: {keys}. Parallel members may only depend "
-                "on results committed before the group starts."
-            )
-    return ""
-
-
-def _publish_completed_result(
-    *,
-    sub_agent_tool: Any,
-    step: Dict[str, Any],
-    final_raw: str,
-    status: str,
-) -> None:
-    if status == "completed" and step.get("store_key"):
-        sub_agent_tool.publish_shared_result(str(step["store_key"]), final_raw)
-
-
-def _parallel_batch_end(
-    chain: List[Dict[str, Any]],
-    start: int,
-) -> int:
-    group_name = chain[start].get("parallel_group")
-    if not group_name:
-        return start + 1
-
-    end = start + 1
-    while end < len(chain) and chain[end].get("parallel_group") == group_name:
-        end += 1
-    return end
-
-
 def _step_store_key(step: Dict[str, Any]) -> str:
     value = step.get("store_key")
     return str(value) if value else ""
@@ -842,19 +740,23 @@ def run_tool(args: Dict[str, Any]) -> str:
                     )
 
         first_error: Dict[str, Any] | None = None
+        pending_publications: List[tuple[str, str]] = []
         for item in group_results:
             if item is None:
                 continue
             step_result, publish_later = item
             results.append(step_result)
             if publish_later is not None:
-                key, value = publish_later
-                sub_agent_tool.publish_shared_result(key, value)
+                pending_publications.append(publish_later)
             if (
                 first_error is None
                 and step_result["status"] in ("error", "blocked")
             ):
                 first_error = step_result
+
+        if first_error is None or not stop_on_error:
+            for key, value in pending_publications:
+                sub_agent_tool.publish_shared_result(key, value)
 
         if stop_on_error and first_error is not None:
             chain_error = (
