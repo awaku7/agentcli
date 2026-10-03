@@ -62,7 +62,7 @@ class _LayaProvider:
                 "goal_status": DecisionAnswer(
                     value,
                     confidence=0.7,
-                )
+                ),
             },
             latency_ms=2.0,
         )
@@ -88,7 +88,7 @@ def test_goal_completion_state_isolated_history_needs_no_auto_markers():
                 "source": "assistant",
                 "status": "reported",
                 "summary": "A complete",
-            }
+            },
         ],
     }
 
