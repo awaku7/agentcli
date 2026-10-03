@@ -180,7 +180,12 @@ jobs:
             tests/test_round_integration_regressions.py \
             tests/test_round_orchestrator.py \
             tests/test_stream_renderer.py \
-            tests/test_tool_discovery.py
+            tests/test_tool_discovery.py \
+            tests/test_util_cmd_auto.py \
+            tests/test_decision_provider_typesafe.py \
+            tests/test_decision_provider_openrouter.py \
+            tests/test_decision_provider_laya.py \
+            tests/test_auto_pilot_observability.py
 
   nightly-full-tests:
     # Scheduled/manual runs preserve the former four-version full-suite

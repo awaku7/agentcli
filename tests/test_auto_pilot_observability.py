@@ -41,11 +41,14 @@ class _DecisionProvider:
             provider=self.name,
             model=self.model,
             answers={
-                "auto_pilot_goal_status": DecisionAnswer(
-                    value=self.value,
+                "goal_satisfied": DecisionAnswer(
+                    value=self.value == "COMPLETE", confidence=0.82
+                ),
+                "material_work_remaining": DecisionAnswer(
+                    value=self.value != "COMPLETE",
                     confidence=0.82,
                     calibrated=True,
-                )
+                ),
             },
             latency_ms=3.5,
         )

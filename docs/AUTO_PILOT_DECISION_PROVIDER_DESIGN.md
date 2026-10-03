@@ -271,72 +271,47 @@ This preserves backward compatibility while avoiding a new fallback subsystem.
 
 ## Decision request
 
-Auto-pilot review needs only one typed decision question.
+TypeSafe/Jev and OpenRouter/Jev receive one `DecisionRequest` with two atomic
+`boolean` questions, translated by their adapters to native `noul` questions:
 
-Conceptually:
+- `goal_satisfied`: does the latest answer and evidence fulfill every explicit
+  request, including requested actions?
+- `material_work_remaining`: is a concrete requested requirement or action still
+  missing? Optional improvements and qualified measurement estimates do not count.
 
-```python
-DecisionQuestion(
-    id="auto_pilot_goal_status",
-    kind="choice",
-    instruction=(
-        "Determine whether the auto-pilot goal is fully complete. "
-        "Choose COMPLETE only when the required work is finished and no "
-        "material work remains. Choose CONTINUE when additional work is "
-        "required or completion is uncertain."
-    ),
-    choices=("COMPLETE", "CONTINUE"),
-)
-```
+UAG returns `COMPLETE` only for `goal_satisfied=True` and
+`material_work_remaining=False`. All other valid combinations return `CONTINUE`.
+Missing answers or non-boolean values trigger the existing LLM reviewer fallback.
+The logged confidence is the minimum available confidence of the two answers,
+a diagnostic value rather than a calibrated joint probability.
 
-The decision is deliberately binary because that matches the current auto-pilot
-state transition.
-
-A provider used for this site must support Decision Provider `choice` semantics.
-`llmcapa` can be used to validate that the configured decision model exposes
-`decision_output` and includes `choice` in its supported question kinds.
-
-If the selected model does not support the required decision shape, UAG should
-warn and use the existing LLM reviewer rather than failing auto-pilot startup.
+Laya retains its `auto_pilot_goal_status` COMPLETE/CONTINUE `choice` question
+and the reversed-choice order consistency guard. The `none` path is unchanged.
+`llmcapa` checks `decision_output` and the required question kind: `boolean`
+(or native `noul`) for Jev adapters, `choice` for Laya. Unknown capabilities
+allow the provider attempt; explicitly unsupported capabilities use fallback.
 
 ## Decision state
 
-The Decision Provider must not receive an unbounded raw transcript.
-
-The state should be derived from the same bounded information the current
-reviewer uses, with a structured representation where practical.
-
-Recommended state shape:
+All Decision Providers receive the same masked, bounded structure:
 
 ```python
 {
     "goal": "...",
-    "round": 2,
-    "max_rounds": 10,
-    "recent_conversation": [
-        {"role": "user", "content": "..."},
-        {"role": "assistant", "content": "..."},
-    ],
-    "recent_tool_results": [
-        {
-            "tool": "...",
-            "status": "success|failed",
-            "summary": "...",
-        }
+    "latest_answer": "...",
+    "evidence": [
+        {"tool": "...", "status": "success|failed", "summary": "..."},
     ],
 }
 ```
 
-Recommended bounds should initially mirror the existing reviewer behavior:
-
-- at most 6 recent user/assistant messages,
-- bounded per-message text,
-- at most 4 recent tool results,
-- bounded tool-result summaries,
-- existing secret masking before state construction.
-
-The implementation should reuse or refactor the existing masking and summarizing
-logic instead of maintaining a second incompatible reviewer-history policy.
+The goal is bounded to 2,000 characters, the latest assistant answer to 12,000,
+and evidence to four recent tool results with 400-character summaries. Failed
+results remain evidence so a failed action is not hidden. The latest assistant
+message is used even when its content is empty, rather than reusing an older
+answer. Raw transcripts, round/max-round counts and tool call IDs are excluded:
+execution budgets are host concerns and do not establish task incompleteness.
+The existing LLM fallback retains its own reviewer history policy.
 
 ## Result mapping
 
@@ -709,7 +684,7 @@ The implementation PR should cover at least the following cases.
 
 7. Decision Provider raises -> existing LLM reviewer is called.
 8. Decision Provider returns malformed answer -> existing LLM reviewer is called.
-9. Configured decision model lacks `choice` capability -> existing LLM reviewer
+9. Configured decision model lacks the required question capability -> existing LLM reviewer
    is called with a warning.
 10. Decision Provider fails and fallback LLM reviewer also fails -> preserve
     current conservative `CONTINUE` semantics.
@@ -735,9 +710,9 @@ The implementation PR should cover at least the following cases.
 
 ### Provider-specific behavior
 
-21. TypeSafe/Jev adapter can answer the common `choice` request.
-22. OpenRouter Decisions/Jev adapter can answer the same common `choice` request.
-23. Laya adapter can answer the same common `choice` request.
+21. TypeSafe/Jev adapter can answer the atomic `boolean` request.
+22. OpenRouter Decisions/Jev adapter can answer the same atomic `boolean` request.
+23. Laya adapter can answer the existing `choice` request.
 24. Laya remains an optional/lazy dependency.
 25. Laya confidence is observable but does not become an implicit completion
     threshold.
