@@ -603,6 +603,28 @@ and on fallback:
 [AUTO:judge:decision] provider=laya failed; falling back to LLM reviewer
 ```
 
+### Reported weather validation (2026-10-03)
+
+A user-provided CLI log after the atomic Jev review and localized startup banner
+changes showed the configured alias and the provider-returned model separately:
+
+```text
+[INFO] 判定プロバイダー = openrouter; モデル = ~typesafe/jev-latest
+[AUTO:judge:decision] provider=openrouter model=typesafe/jev-1.13-20260917 judgment=COMPLETE confidence=0.7100 latency_ms=1531.3
+```
+
+The goal requested today's weather and the weather on the same date last year.
+The main model (`openai / gpt-6-luna`) answered both dates before the first review;
+Jev returned a completion decision and no follow-up work round ran. This validates
+that the reported weather case no longer incurs an unnecessary continuation at
+host round zero with a ten-round limit. It is one observed case, not proof that
+all future weather goals complete correctly. The round limit remains host-side
+and does not enter decision state. The logged confidence is diagnostic, not a
+threshold; the observed latency is not a benchmark.
+
+See the user-facing example in [the Auto Pilot guide](README_AUTO.md#observed-first-review-completion-2026-10-03)
+and [its Japanese version](README_AUTO.ja.md#初回判定で完了した動作確認例2026-10-03).
+
 Structured events include, where available:
 
 ```text
