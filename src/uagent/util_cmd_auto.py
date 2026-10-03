@@ -271,6 +271,9 @@ def _build_auto_pilot_decision_request(
 def _record_goal_completion_attempts(
     attempts: tuple[Any, ...],
     core: Any,
+    *,
+    provider_name: str,
+    provider_model: str,
 ) -> None:
     for attempt in attempts:
         result = attempt.result
@@ -279,8 +282,8 @@ def _record_goal_completion_attempts(
             round_number=getattr(core, "auto_pilot_round", 0),
             answer=attempt.judgment,
             fallback=False,
-            provider=str(result.provider or ""),
-            model=str(result.model or ""),
+            provider=str(result.provider or provider_name),
+            model=str(result.model or provider_model),
             confidence=attempt.answer.confidence,
             latency_ms=result.latency_ms,
             additional_call=True,
@@ -306,7 +309,12 @@ def _ask_auto_pilot_decision(
             choice_subject="auto-pilot goal",
         )
     except GoalCompletionError as exc:
-        _record_goal_completion_attempts(exc.attempts, core)
+        _record_goal_completion_attempts(
+            exc.attempts,
+            core,
+            provider_name=provider_name,
+            provider_model=provider_model,
+        )
 
         if exc.reason == "order_inconsistent" and len(exc.attempts) >= 2:
             primary = exc.attempts[0]
@@ -346,7 +354,12 @@ def _ask_auto_pilot_decision(
             )
         return None
 
-    _record_goal_completion_attempts(evaluation.attempts, core)
+    _record_goal_completion_attempts(
+        evaluation.attempts,
+        core,
+        provider_name=provider_name,
+        provider_model=provider_model,
+    )
 
     confidence_text = (
         "none"
