@@ -516,3 +516,78 @@ def test_typesafe_choice_requires_probabilities():
                 ),
             )
         )
+
+
+def test_typesafe_choice_common_confidence_uses_selected_probability():
+    provider = TypeSafeDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+        client=FakeClient(
+            FakeResponse(
+                {
+                    "model": "jev-latest",
+                    "answers": {
+                        "route": {
+                            "type": "choice",
+                            "choice": "A",
+                            "confidence": 0.55,
+                            "probabilities": {"A": 0.8, "B": 0.2},
+                        }
+                    },
+                }
+            )
+        ),
+    )
+
+    result = provider.decide(
+        DecisionRequest(
+            state="state",
+            questions=(
+                DecisionQuestion(
+                    id="route",
+                    kind="choice",
+                    instruction="Choose.",
+                    choices=("A", "B"),
+                ),
+            ),
+        )
+    )
+
+    answer = result.answers["route"]
+    assert answer.confidence == pytest.approx(0.8)
+    assert answer.calibrated is True
+    assert answer.metadata["provider_confidence"] == pytest.approx(0.55)
+
+
+def test_typesafe_http_error_detail_is_bounded_and_secret_masked():
+    provider = TypeSafeDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+        client=FakeClient(
+            FakeResponse(
+                {"detail": "invalid model token: secret-value"},
+                status_code=422,
+            )
+        ),
+    )
+
+    with pytest.raises(TypeSafeDecisionError) as exc_info:
+        provider.decide(
+            DecisionRequest(
+                state="state",
+                questions=(
+                    DecisionQuestion(
+                        id="route",
+                        kind="choice",
+                        instruction="Choose.",
+                        choices=("A", "B"),
+                    ),
+                ),
+            )
+        )
+
+    message = str(exc_info.value)
+    assert "HTTP 422" in message
+    assert "invalid model" in message
+    assert "secret-value" not in message
+    assert "********" in message
