@@ -503,11 +503,10 @@ class SubAgentRunner:
 
     def publish_shared_result(self, store_key: str, result: str) -> None:
         """Publish an already-approved result to the shared Sub-Agent store."""
-        key = str(store_key or "").strip()
-        if not key:
+        if not store_key:
             return
         with self._store_lock:
-            self._shared_store[key] = result
+            self._shared_store[store_key] = result
 
     # ------------------------------------------------------------------
     # Dynamic role generation
