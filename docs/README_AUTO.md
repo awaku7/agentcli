@@ -66,9 +66,12 @@ The default remains `UAGENT_DECISION_PROVIDER=none`, which preserves the existin
 LLM reviewer exactly.
 
 When `UAGENT_DECISION_PROVIDER=typesafe`, `openrouter`, or `laya` is explicitly selected,
-Step B first asks that Decision Provider a typed `COMPLETE` / `CONTINUE`
-question. Completion regex and sentinel mode still take precedence. If the
-Decision Provider cannot initialize, lacks `choice` capability, raises during
+Step B first asks that Decision Provider for a typed completion review.
+TypeSafe/Jev and OpenRouter/Jev use two boolean/noul questions in one request:
+`goal_satisfied` and `material_work_remaining`. UAG returns `COMPLETE` only for
+true/false. Laya retains its `COMPLETE` / `CONTINUE` choice. Completion regex and
+sentinel mode still take precedence. If the
+Decision Provider cannot initialize, lacks the required question capability, raises during
 the decision, or returns an invalid answer, auto-pilot falls back to the existing
 LLM reviewer. `UAGENT_AP_*` therefore remains useful as the fallback reviewer
 configuration.
@@ -91,12 +94,29 @@ the same semantic answer. An order-dependent disagreement falls back to the
 existing LLM reviewer. TypeSafe/Jev and OpenRouter Decisions remain single-call
 reviewers.
 
-Laya uses an additional order-consistency guard for the binary choice. UAG asks
-the same semantic question twice, once as `COMPLETE / CONTINUE` and once with
-the choice order reversed. The Laya result is authoritative only when both calls
-select the same semantic answer. An order-dependent disagreement falls back to
-the existing LLM reviewer. TypeSafe/Jev and OpenRouter Decisions remain
-single-call reviewers.
+### Observed first-review completion (2026-10-03)
+
+A user-reported CLI run with main model `openai / gpt-6-luna` and OpenRouter/Jev
+answered both today's weather and the weather on the same date last year, then
+completed on the first decision review:
+
+```text
+[INFO] Decision Provider = openrouter; model = ~typesafe/jev-latest
+agentcli> :auto 今日の天気と去年の今日の天気を調べる
+[AUTO] Started. Goal: 今日の天気と去年の今日の天気を調べる
+[AUTO] Max rounds: 10
+[Answer includes weather for 2026-10-03 and 2025-10-03.]
+[AUTO:judge:decision] provider=openrouter model=typesafe/jev-1.13-20260917 judgment=COMPLETE confidence=0.7100 latency_ms=1531.3
+[AUTO] Review/analysis completed.
+```
+
+The answer placeholder above summarizes the weather response; the decision log
+is copied from the reported run. No follow-up work round was needed. A limit of
+10 is a maximum, not a requirement to run 10 rounds; it is not sent in decision
+state. The startup banner shows the configured model alias, while the decision
+log shows the model returned by the provider. Both the label and banner format
+are localized in all 38 shipped languages. Confidence and latency are observed
+diagnostics for this one run, not a completion threshold or a performance guarantee.
 
 ### Comparing the three judgment strategies
 

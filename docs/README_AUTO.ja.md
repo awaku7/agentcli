@@ -52,10 +52,12 @@ Round 3: ... (以下繰り返し)
 使用します。
 
 `UAGENT_DECISION_PROVIDER=typesafe`、`openrouter`、または `laya` を明示的に選択すると、
-Step BではまずDecision Providerに型付きの `COMPLETE / CONTINUE` 判定を
-依頼します。completion regexとsentinel modeはDecision Providerより先に評価されます。
+Step BではまずDecision Providerに型付きの完了判定を依頼します。
+TypeSafe/JevとOpenRouter/Jevは、1回のリクエストで `goal_satisfied` と
+`material_work_remaining` の2つのboolean/noul質問を使います。UAGはそれぞれ
+true/falseの場合だけ `COMPLETE` とします。Layaは従来のchoice判定を維持します。completion regexとsentinel modeはDecision Providerより先に評価されます。
 
-Decision Providerの初期化失敗、`choice` 非対応、判定時エラー、不正な応答は
+Decision Providerの初期化失敗、必要な質問形式への非対応、判定時エラー、不正な応答は
 従来のLLMレビューアへフォールバックします。そのため `UAGENT_AP_*` は、
 Decision Provider有効時にはフォールバックLLMレビューア設定として機能します。
 
@@ -70,6 +72,29 @@ Layaにはbinary choiceの順序依存を検出する追加ガードがありま
 両方が同じ意味の答えを返した場合だけLaya判定を採用します。結果が食い違った場合は
 従来のLLMレビューアへフォールバックします。TypeSafe/JevとOpenRouter Decisionsは
 従来どおり1回判定です。
+
+### 初回判定で完了した動作確認例（2026-10-03）
+
+メインモデルを `openai / gpt-6-luna`、判定プロバイダーをOpenRouter/Jevにした
+CLI実行で、今日と去年の同じ日の天気を回答後、初回の判定で完了したことを
+ユーザー提供ログで確認しました。
+
+```text
+[INFO] 判定プロバイダー = openrouter; モデル = ~typesafe/jev-latest
+agentcli> :auto 今日の天気と去年の今日の天気を調べる
+[AUTO] 開始しました。目的: 今日の天気と去年の今日の天気を調べる
+[AUTO] 最大ラウンド数: 10
+［2026-10-03と2025-10-03の天気を回答］
+[AUTO:judge:decision] provider=openrouter model=typesafe/jev-1.13-20260917 judgment=COMPLETE confidence=0.7100 latency_ms=1531.3
+[AUTO] レビュー/分析が完了しました。
+```
+
+上の回答部分は実際の天気回答を要約したものです。判定ログは実行ログの値です。
+追加の作業ラウンドは発生していません。最大ラウンド数の10は上限であり、
+10回の実行を要求する値ではありません。この上限はDecision Providerのstateに
+渡しません。起動バナーには設定したモデルの別名、判定ログにはプロバイダーが
+返した実際のモデル名を表示します。バナーのラベル・書式は全38言語に対応しています。
+confidenceとlatencyはこの1回の観測値であり、完了判定の閾値や性能保証ではありません。
 
 ### 3方式の比較用Observability
 
