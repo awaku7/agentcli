@@ -56,9 +56,10 @@ def test_parallel_group_runs_concurrently_and_preserves_input_order(monkeypatch)
     result = json.loads(raw)
     assert result["status"] == "completed"
     assert [step["step"] for step in result["steps"]] == [1, 2]
-    assert [
-        json.loads(step["result"])["summary"] for step in result["steps"]
-    ] == ["first", "second"]
+    assert [json.loads(step["result"])["summary"] for step in result["steps"]] == [
+        "first",
+        "second",
+    ]
     assert [step["parallel_group"] for step in result["steps"]] == [
         "research",
         "research",
@@ -402,4 +403,3 @@ def test_parallel_group_does_not_start_queued_steps_after_failure(monkeypatch):
     assert result["status"] == "error"
     assert calls == ["blocked"]
     assert result["total_steps"] == 1
-
