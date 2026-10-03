@@ -2,6 +2,26 @@
 
 ## [Unreleased]
 
+## [0.7.23] - 2026-10-03
+
+### 追加
+
+- Computer Useの操作に、範囲を指定できる承認選択肢を追加。
+- 設定済みDecision Providerとモデルを起動バナーに表示（無効時は`none`）。adapterを初期化せずに表示し、ラベルを全38言語に翻訳。
+
+### 変更
+
+- パスの名前変更時に確認プロンプトが重複して表示されないよう修正。
+- Auto-pilotの各ラウンドで、初期goalがある場合は古い実行結果を除外しつつ、直前までのassistant結果を累積した完了判定の根拠として保持。
+- Auto-pilotのTypeSafe/JevおよびOpenRouter/Jevで、boolean/nullによる完了判定を一括で行うよう変更。判定状態からラウンド予算、call ID、無関係な会話履歴を除き、Layaの選択肢・順序の整合性とLLM fallbackは維持。
+- リモートDecision ProviderでUAG共通のHTTP・credential処理を再利用し、安全なHTTPエラー情報を保持。APIキー値の完全一致を秘匿し、失敗したproviderをそのAuto-pilot実行中は無効化。
+- Jevの選択肢confidenceを校正し、共通の`DecisionAnswer.confidence`には選択肢の確率を設定。分布集中度のconfidenceはprovider metadataとして保持。
+
+### テスト
+
+- 0ラウンド目でのweather回答、boolean結果の組み合わせ、不正回答時のfallback、provider別capability判定をカバー。
+- `UAGENT_DECISION_LIVE_TEST=1`で有効化するTypeSafe/JevおよびOpenRouter Decisions/Jevのlive smoke testを追加。
+
 ## [0.7.22] - 2026-10-02
 
 ### 追加

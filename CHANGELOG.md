@@ -2,23 +2,26 @@
 
 ## [Unreleased]
 
+## [0.7.23] - 2026-10-03
+
 ### Added
 
+- Add scoped approval choices for Computer Use actions.
 - Show the configured Decision Provider and model in the startup banner, including `none` when disabled, without initializing an adapter; translate the label in all 38 shipped languages.
 
 ### Changed
 
+- Avoid duplicate confirmation prompts when renaming paths.
 - Preserve bounded prior assistant results as cumulative Auto-pilot completion evidence across rounds, excluding older runs when the initial goal message is present.
 
-- Use atomic boolean/noul completion review for Auto-pilot TypeSafe/Jev and OpenRouter/Jev; remove round budgets, call IDs and unrelated conversation from decision state while preserving Laya choice/order consistency and LLM fallback.
+- Use atomic boolean/null completion review for Auto-pilot TypeSafe/Jev and OpenRouter/Jev; remove round budgets, call IDs and unrelated conversation from decision state while preserving Laya choice/order consistency and LLM fallback.
 
-- Harden remote Decision Providers by reusing UAG HTTP/credential handling, preserving safe HTTP error detail, and disabling a failed provider for the remainder of the current Auto-pilot run.
+- Harden remote Decision Providers by reusing UAG HTTP/credential handling, preserving safe HTTP error detail, redacting exact API-key values, and disabling a failed provider for the remainder of the current Auto-pilot run.
 - Normalize Jev choice confidence so the common `DecisionAnswer.confidence` is the calibrated probability of the selected choice while retaining Jev's distribution-concentration confidence as provider metadata.
 
 ### Tests
 
 - Cover completed weather answers at round zero, boolean result combinations, invalid-answer fallback and provider-specific capability checks.
-
 - Add opt-in live smoke coverage for TypeSafe/Jev and OpenRouter Decisions/Jev with `UAGENT_DECISION_LIVE_TEST=1`.
 
 ## [0.7.22] - 2026-10-02
