@@ -26,6 +26,11 @@ _PROVIDER_ENV_NAMES: dict[str, tuple[str, ...]] = {
     "zai": ("UAGENT_ZAI_API_KEY",),
     "nvidia": ("UAGENT_NVIDIA_API_KEY",),
     "openrouter": ("UAGENT_OPENROUTER_API_KEY", "OPENROUTER_API_KEY"),
+    "typesafe": (
+        "UAGENT_DECISION_TYPESAFE_API_KEY",
+        "UAGENT_TYPESAFE_API_KEY",
+        "TYPESAFE_API_KEY",
+    ),
     "anthropic": ("UAGENT_CLAUDE_API_KEY", "ANTHROPIC_API_KEY"),
     "claude": ("UAGENT_CLAUDE_API_KEY", "ANTHROPIC_API_KEY"),
     # Ollama is local and the key is optional; keep the explicit name for
