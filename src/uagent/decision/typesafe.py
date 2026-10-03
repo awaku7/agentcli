@@ -86,7 +86,11 @@ def _system_one_url(base_url: str) -> str:
     return normalized + "/v1/systemone"
 
 
-def _safe_response_error_detail(response: Any) -> str:
+def _safe_response_error_detail(
+    response: Any,
+    *,
+    secrets: tuple[str, ...] = (),
+) -> str:
     value: Any = ""
     try:
         payload = response.json()
@@ -112,6 +116,9 @@ def _safe_response_error_detail(response: Any) -> str:
     detail = " ".join(str(value or "").split())
     if not detail:
         return ""
+    for secret in secrets:
+        if secret:
+            detail = detail.replace(secret, "********")
     return _mask_inline_secrets(detail)[:300]
 
 
@@ -400,7 +407,10 @@ class TypeSafeDecisionProvider:
 
         status_code = int(getattr(response, "status_code", 0) or 0)
         if not 200 <= status_code < 300:
-            detail = _safe_response_error_detail(response)
+            detail = _safe_response_error_detail(
+                response,
+                secrets=(self._config.api_key,),
+            )
             suffix = f": {detail}" if detail else "."
             raise TypeSafeDecisionError(
                 f"TypeSafe decision request failed with HTTP {status_code}{suffix}"
