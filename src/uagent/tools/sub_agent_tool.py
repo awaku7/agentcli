@@ -1535,6 +1535,7 @@ class SubAgentRunner:
             judge.close()
 
         raw_output = strip_sentinel(latest_raw) if completion_sentinel else latest_raw
+        executed_agent_rounds = 1 + int(outcome.followup_rounds)
 
         self._accumulate_usage(total_usage)
         llm_usage = self._usage_with_cost(
@@ -1547,7 +1548,7 @@ class SubAgentRunner:
         if outcome.reason not in successful_outcomes:
             blocked_result = self._wrap_incomplete(
                 reason=outcome.reason,
-                agent_rounds=agent_round,
+                agent_rounds=executed_agent_rounds,
                 partial_result=raw_output,
             )
             if cb and getattr(cb, "log_message", None):
@@ -1558,7 +1559,7 @@ class SubAgentRunner:
                             "content": (
                                 f"[Sub-Agent: {agent_name}] Processing stopped "
                                 f"before completion. reason={outcome.reason} "
-                                f"rounds={agent_round}\n"
+                                f"rounds={executed_agent_rounds}\n"
                                 f"Partial result:\n{raw_output}"
                             ),
                         }
@@ -1574,7 +1575,7 @@ class SubAgentRunner:
                         "role": "assistant",
                         "content": (
                             f"[Sub-Agent: {agent_name}] Processing completed. "
-                            f"reason={outcome.reason} rounds={agent_round}\n"
+                            f"reason={outcome.reason} rounds={executed_agent_rounds}\n"
                             f"Result:\n{raw_output}"
                         ),
                     }
