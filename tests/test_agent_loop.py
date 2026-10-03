@@ -151,3 +151,28 @@ def test_agent_loop_honors_explicit_exit_before_completion_checks():
     assert outcome.followup_rounds == 0
     assert calls == []
     assert state["round"] == 0
+
+
+def test_agent_loop_supports_judgment_terminal_reason():
+    state, advance = _counter()
+    calls = []
+
+    outcome = run_agent_loop(
+        is_active=lambda: True,
+        consume_exit_request=lambda: False,
+        deterministic_completion=lambda: None,
+        judge=lambda: AgentLoopJudgment(
+            False,
+            source="sentinel",
+            terminal_reason="sentinel_invalid",
+        ),
+        advance_round=advance,
+        get_max_rounds=lambda: 10,
+        run_followup=lambda *args: calls.append(("followup", args)),
+    )
+
+    assert outcome.reason == "sentinel_invalid"
+    assert outcome.judgment_source == "sentinel"
+    assert outcome.followup_rounds == 0
+    assert calls == []
+    assert state["round"] == 0
