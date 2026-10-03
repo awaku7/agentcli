@@ -5,6 +5,7 @@
 ### Changed
 
 - Make Sub-Agents goal-driven autonomous loops: separate `max_tool_turns` from `max_agent_rounds`, judge each work round with regex/sentinel/Decision Provider/LLM fallback, carry reviewer feedback forward, and include bounded real Tool evidence in completion decisions.
+- Propagate non-completion Sub-Agent loop outcomes such as `max_rounds` and `sentinel_invalid` as `status: blocked`, preserving the partial result so chained execution can honor `stop_on_error`.
 - Extract the goal-driven Auto-pilot control flow into a reusable AgentLoop runtime so Sub-Agents can adopt the same judge/continue/complete semantics without duplicating provider or UI policy.
 - Extract typed goal-completion evaluation into a reusable Decision Provider API, including atomic Jev booleans and Laya reversed-choice consistency checks, while keeping Auto-pilot fallback and observability policy unchanged.
 
