@@ -200,6 +200,62 @@ TOOL_SPEC: Dict[str, Any] = {
                                     default="Optional completion regex checked before other completion judges.",
                                 ),
                             },
+                            "review": {
+                                "type": "object",
+                                "properties": {
+                                    "agent_name": {
+                                        "type": "string",
+                                        "description": _(
+                                            "param.step.review.agent_name.description",
+                                            default="Reviewer sub-agent name. Default reviewer.",
+                                        ),
+                                    },
+                                    "task": {
+                                        "type": "string",
+                                        "description": _(
+                                            "param.step.review.task.description",
+                                            default="Optional extra review instruction applied to the worker result.",
+                                        ),
+                                    },
+                                    "max_retries": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "description": _(
+                                            "param.step.review.max_retries.description",
+                                            default="Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+                                        ),
+                                    },
+                                    "permission_level": {
+                                        "type": "string",
+                                        "enum": ["none", "read_only", "propose_only"],
+                                        "description": _(
+                                            "param.step.review.permission_level.description",
+                                            default="Permission level for the reviewer. Default none.",
+                                        ),
+                                    },
+                                    "max_tool_turns": {
+                                        "type": "integer",
+                                        "minimum": 2,
+                                        "description": _(
+                                            "param.step.review.max_tool_turns.description",
+                                            default="Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+                                        ),
+                                    },
+                                    "max_agent_rounds": {
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "description": _(
+                                            "param.step.review.max_agent_rounds.description",
+                                            default="Maximum autonomous reviewer work rounds. Default 3.",
+                                        ),
+                                    },
+                                },
+                                "additionalProperties": False,
+                                "description": _(
+                                    "param.step.review.description",
+                                    default="Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+                                ),
+                            },
                         },
                         "required": ["agent_name", "task"],
                         "additionalProperties": False,
@@ -224,6 +280,209 @@ TOOL_SPEC: Dict[str, Any] = {
 }
 
 
+def _build_step_args(
+    step: Dict[str, Any],
+    *,
+    task_override: str | None = None,
+) -> Dict[str, Any]:
+    return {
+        "agent_name": step["agent_name"],
+        "task": task_override if task_override is not None else step["task"],
+        "current_file": step.get("current_file"),
+        "response_mode": step.get("response_mode"),
+        "response_schema": step.get("response_schema"),
+        "required_fields": step.get("required_fields"),
+        "strict_output": step.get("strict_output", False),
+        "evidence_required": step.get("evidence_required", False),
+        "evidence_min_items": step.get("evidence_min_items", 0),
+        "permission_level": step.get("permission_level", "none"),
+        "parent_goal": step.get("parent_goal"),
+        "cache_ttl": step.get("cache_ttl", 0),
+        "store_key": step.get("store_key"),
+        "load_keys": step.get("load_keys"),
+        "timeout": step.get("timeout", 120),
+        "max_retries": step.get("max_retries", 2),
+        "max_tool_turns": step.get("max_tool_turns", 3),
+        "max_agent_rounds": step.get("max_agent_rounds", 3),
+        "completion_sentinel": step.get("completion_sentinel"),
+        "completion_regex": step.get("completion_regex"),
+    }
+
+
+def _decode_result(raw: str) -> tuple[str, Dict[str, Any] | None]:
+    try:
+        obj = json.loads(raw)
+    except json.JSONDecodeError:
+        return "completed", None
+    if not isinstance(obj, dict):
+        return "completed", None
+    return str(obj.get("status", "completed")), obj
+
+
+def _build_review_task(
+    *,
+    worker_task: str,
+    candidate: str,
+    review_task: str,
+) -> str:
+    extra = str(review_task or "").strip()
+    prompt = (
+        "Review whether the candidate result fully satisfies the worker task. "
+        "Return only JSON with status, verdict, and feedback. "
+        'verdict must be "approve" when no material work remains, or "retry" '
+        "when the worker should run again. feedback must state the concrete "
+        "remaining work when verdict is retry.\n\n"
+        f"[Worker task]\n{worker_task}\n\n"
+        f"[Candidate result]\n{candidate[:16000]}"
+    )
+    if extra:
+        prompt += f"\n\n[Additional review instruction]\n{extra}"
+    return prompt
+
+
+def _build_retry_task(
+    *,
+    original_task: str,
+    feedback: str,
+    attempt: int,
+) -> str:
+    return (
+        f"{original_task}\n\n"
+        f"[Review feedback before retry {attempt}]\n{feedback}\n\n"
+        "Revise the result to address every material review issue. Re-check the "
+        "original task and do not merely describe the feedback."
+    )
+
+
+def _run_review_gate(
+    *,
+    run_sub_agent: Any,
+    step: Dict[str, Any],
+    initial_raw: str,
+) -> tuple[str, List[Dict[str, Any]], int, str, str]:
+    review = step.get("review")
+    if not isinstance(review, dict):
+        status, _ = _decode_result(initial_raw)
+        return initial_raw, [], 1, status, ""
+
+    max_retries = max(0, int(review.get("max_retries", 2) or 0))
+    reviewer_agent = str(review.get("agent_name") or "reviewer")
+    original_task = str(step["task"])
+    candidate_raw = initial_raw
+    reviews: List[Dict[str, Any]] = []
+    worker_attempts = 1
+
+    for review_round in range(max_retries + 1):
+        candidate_status, candidate_obj = _decode_result(candidate_raw)
+        if candidate_status in ("error", "blocked"):
+            message = ""
+            if candidate_obj:
+                message = str(candidate_obj.get("message", "") or "")
+            return candidate_raw, reviews, worker_attempts, candidate_status, message
+
+        review_args: Dict[str, Any] = {
+            "agent_name": reviewer_agent,
+            "task": _build_review_task(
+                worker_task=original_task,
+                candidate=candidate_raw,
+                review_task=str(review.get("task") or ""),
+            ),
+            "response_mode": "json",
+            "response_schema": {
+                "type": "object",
+                "properties": {
+                    "status": {"type": "string"},
+                    "verdict": {
+                        "type": "string",
+                        "enum": ["approve", "retry"],
+                    },
+                    "feedback": {"type": "string"},
+                },
+                "required": ["status", "verdict", "feedback"],
+            },
+            "required_fields": ["status", "verdict", "feedback"],
+            "strict_output": True,
+            "permission_level": review.get("permission_level", "none"),
+            "parent_goal": step.get("parent_goal"),
+            "timeout": step.get("timeout", 120),
+            "max_retries": step.get("max_retries", 2),
+            "max_tool_turns": review.get("max_tool_turns", 3),
+            "max_agent_rounds": review.get("max_agent_rounds", 3),
+        }
+
+        review_raw = run_sub_agent(review_args)
+        review_status, review_obj = _decode_result(review_raw)
+        review_record: Dict[str, Any] = {
+            "round": review_round + 1,
+            "agent_name": reviewer_agent,
+            "result": review_raw,
+            "status": review_status,
+        }
+        reviews.append(review_record)
+
+        if review_status in ("error", "blocked") or review_obj is None:
+            message = (
+                str(review_obj.get("message", "") or "")
+                if review_obj
+                else "Reviewer did not return a JSON object."
+            )
+            return (
+                candidate_raw,
+                reviews,
+                worker_attempts,
+                "blocked",
+                f"Review gate failed: {message}",
+            )
+
+        verdict = str(review_obj.get("verdict", "") or "").strip().lower()
+        feedback = str(review_obj.get("feedback", "") or "").strip()
+        review_record["verdict"] = verdict
+        review_record["feedback"] = feedback
+
+        if verdict == "approve":
+            return candidate_raw, reviews, worker_attempts, "completed", ""
+
+        if verdict != "retry":
+            return (
+                candidate_raw,
+                reviews,
+                worker_attempts,
+                "blocked",
+                f"Review gate returned invalid verdict: {verdict or '<empty>'}",
+            )
+
+        if review_round >= max_retries:
+            return (
+                candidate_raw,
+                reviews,
+                worker_attempts,
+                "blocked",
+                (
+                    "Review gate exhausted worker retries before approval. "
+                    f"Last feedback: {feedback or 'material work remains'}"
+                ),
+            )
+
+        worker_attempts += 1
+        retry_args = _build_step_args(
+            step,
+            task_override=_build_retry_task(
+                original_task=original_task,
+                feedback=feedback or "Material work remains.",
+                attempt=worker_attempts,
+            ),
+        )
+        candidate_raw = run_sub_agent(retry_args)
+
+    return (
+        candidate_raw,
+        reviews,
+        worker_attempts,
+        "blocked",
+        "Review gate stopped without an approval verdict.",
+    )
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     from .sub_agent_tool import run_tool as run_sub_agent
 
@@ -234,50 +493,35 @@ def run_tool(args: Dict[str, Any]) -> str:
     chain_error: str = ""
 
     for i, step in enumerate(chain):
-        step_args: Dict[str, Any] = {
-            "agent_name": step["agent_name"],
-            "task": step["task"],
-            "current_file": step.get("current_file"),
-            "response_mode": step.get("response_mode"),
-            "response_schema": step.get("response_schema"),
-            "required_fields": step.get("required_fields"),
-            "strict_output": step.get("strict_output", False),
-            "evidence_required": step.get("evidence_required", False),
-            "evidence_min_items": step.get("evidence_min_items", 0),
-            "permission_level": step.get("permission_level", "none"),
-            "parent_goal": step.get("parent_goal"),
-            "cache_ttl": step.get("cache_ttl", 0),
-            "store_key": step.get("store_key"),
-            "load_keys": step.get("load_keys"),
-            "timeout": step.get("timeout", 120),
-            "max_retries": step.get("max_retries", 2),
-            "max_tool_turns": step.get("max_tool_turns", 3),
-            "max_agent_rounds": step.get("max_agent_rounds", 3),
-            "completion_sentinel": step.get("completion_sentinel"),
-            "completion_regex": step.get("completion_regex"),
-        }
-
         step_result: Dict[str, Any] = {"step": i + 1, "agent_name": step["agent_name"]}
         try:
-            raw = run_sub_agent(step_args)
-            step_result["result"] = raw
-            try:
-                obj = json.loads(raw)
-                if isinstance(obj, dict):
-                    status = obj.get("status", "completed")
-                    step_result["status"] = status
-                    if status in ("error", "blocked"):
-                        err_msg = obj.get("message", "Unknown error")
-                        step_result["error"] = err_msg
-                        if stop_on_error:
-                            chain_error = f"Chain stopped at step {i + 1} ({step['agent_name']}): {err_msg}"
-                            results.append(step_result)
-                            break
-                else:
-                    step_result["status"] = "completed"
-            except json.JSONDecodeError:
-                step_result["status"] = "completed"
-                step_result["result"] = raw
+            raw = run_sub_agent(_build_step_args(step))
+            final_raw, reviews, attempts, status, review_error = _run_review_gate(
+                run_sub_agent=run_sub_agent,
+                step=step,
+                initial_raw=raw,
+            )
+            step_result["result"] = final_raw
+            step_result["status"] = status
+            if reviews:
+                step_result["attempts"] = attempts
+                step_result["reviews"] = reviews
+
+            if status in ("error", "blocked"):
+                _, obj = _decode_result(final_raw)
+                err_msg = review_error
+                if not err_msg and obj:
+                    err_msg = str(obj.get("message", "Unknown error") or "Unknown error")
+                if not err_msg:
+                    err_msg = "Unknown error"
+                step_result["error"] = err_msg
+                if stop_on_error:
+                    chain_error = (
+                        f"Chain stopped at step {i + 1} "
+                        f"({step['agent_name']}): {err_msg}"
+                    )
+                    results.append(step_result)
+                    break
         except Exception as exc:
             step_result["status"] = "error"
             step_result["error"] = str(exc)
