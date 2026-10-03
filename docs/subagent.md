@@ -28,6 +28,7 @@
 - 循環 Sub-Agent call guard
 - `run_sub_agent_chain` による順次オーケストレーション
 - chain step 単位の `review` gate（approve / retry）と reviewer feedback による worker 再実行
+- 連続stepの `parallel_group` による独立Sub-Agentの並列実行
 - `parallel_group` による独立stepの並列実行（連続する同名groupをbarrier単位で実行）
 
 終了判定の優先順位は Auto-pilot と同じ考え方を使う:
@@ -304,11 +305,9 @@ run_tool(args)
 - 親エージェントの会話履歴から直近のエラー（例外発生時のログ）を自動スキャンして ContextPack に注入するオプション
 - `auto_context` 引数（bool, デフォルト false）で有効化
 
-### 3-10. 並列実行【低】
+### 3-10. 並列実行【実装済み】
 
-**問題**: x_parallel_safe=True だが、複数サブエージェントを並列起動する機構がない。
-
-**対応方針**: Phase 4 で対応。thread pool を使った並列実行ラッパーを提供。
+`run_sub_agent_chain` の連続stepに `parallel_group` を指定すると、独立したSub-AgentをThreadPoolで並列実行する。group内依存と重複`store_key`は拒否し、shared storeへのpublishはbarrier後に入力順で行う。
 
 ### 3-11. サブエージェントの入れ子呼び出し【中】
 
@@ -374,7 +373,6 @@ run_tool(args)
 | # | 機能 | 変更箇所 | 推定工数 |
 |---|------|---------|---------|
 | 9 | コンテキスト自動収集 | auto_context オプション追加 | 中 |
-| 10 | 並列実行 | ThreadPoolExecutor ラッパー | 中 |
 | 11 | 入れ子呼び出し制御 | SubAgentRunner に max_nesting_depth + 循環検出追加 | 中 |
 | 12 | i18n 対応 | system_prompt の多言語化 + locale フィールド追加 | 中 |
 
