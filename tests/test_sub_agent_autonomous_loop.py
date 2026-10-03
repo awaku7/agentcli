@@ -51,17 +51,25 @@ def test_sub_agent_continues_agent_round_from_llm_review(monkeypatch):
         response_mode,
     ):
         if system_prompt.startswith("You are a conservative completion reviewer"):
-            return next(reviews), 0, {
-                "prompt_tokens": 1,
-                "completion_tokens": 1,
-                "total_tokens": 2,
-            }
+            return (
+                next(reviews),
+                0,
+                {
+                    "prompt_tokens": 1,
+                    "completion_tokens": 1,
+                    "total_tokens": 2,
+                },
+            )
         work_prompts.append(user_prompt)
-        return next(work_outputs), 0, {
-            "prompt_tokens": 2,
-            "completion_tokens": 2,
-            "total_tokens": 4,
-        }
+        return (
+            next(work_outputs),
+            0,
+            {
+                "prompt_tokens": 2,
+                "completion_tokens": 2,
+                "total_tokens": 4,
+            },
+        )
 
     monkeypatch.setattr(runner, "_call_with_retry", fake_call)
 
@@ -207,13 +215,18 @@ def test_sub_agent_tool_turn_budget_is_separate_from_agent_rounds(monkeypatch):
 
     def fake_multi_turn(**kwargs):
         tool_turn_budgets.append(kwargs["max_turns"])
-        return "tool-backed answer", 0, {}, [
-            {
-                "tool": "read_file",
-                "status": "success",
-                "summary": "observed",
-            }
-        ]
+        return (
+            "tool-backed answer",
+            0,
+            {},
+            [
+                {
+                    "tool": "read_file",
+                    "status": "success",
+                    "summary": "observed",
+                }
+            ],
+        )
 
     def fake_call(
         provider,
