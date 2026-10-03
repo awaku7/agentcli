@@ -261,7 +261,6 @@ def test_sub_agent_tool_turn_budget_is_separate_from_agent_rounds(monkeypatch):
     assert tool_turn_budgets == [7]
 
 
-
 def test_sub_agent_invalid_sentinel_is_reported_as_blocked(monkeypatch):
     _disable_decision_provider(monkeypatch)
     runner = sub_agent_tool.SubAgentRunner()
