@@ -183,7 +183,10 @@ class OpenRouterDecisionProvider:
 
         status_code = int(getattr(response, "status_code", 0) or 0)
         if not 200 <= status_code < 300:
-            detail = _safe_response_error_detail(response)
+            detail = _safe_response_error_detail(
+                response,
+                secrets=(self._config.api_key,),
+            )
             suffix = f": {detail}" if detail else "."
             raise OpenRouterDecisionError(
                 f"OpenRouter decision request failed with HTTP {status_code}{suffix}"
