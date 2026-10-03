@@ -69,3 +69,15 @@ def test_optional_local_provider_ignores_strict_missing_env_getter() -> None:
         raise ValueError(f"Environment variable {name} is not set.")
 
     assert get_provider_credential("lmstudio", env_getter=strict_getter) is None
+
+
+def test_typesafe_decision_credential_uses_decision_environment_name(
+    monkeypatch,
+) -> None:
+    monkeypatch.setenv("UAGENT_DECISION_TYPESAFE_API_KEY", "decision-key")
+
+    credential = get_provider_credential("typesafe")
+
+    assert credential is not None
+    assert credential.name == "provider/typesafe"
+    assert credential.secret == "decision-key"

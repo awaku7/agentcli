@@ -704,3 +704,54 @@ def test_auto_loop_completion_regex_precedes_decision_provider(monkeypatch) -> N
     )
 
     assert core.auto_pilot_active is False
+
+
+def test_auto_loop_disables_failed_decision_provider_for_remaining_rounds(monkeypatch):
+    from uagent import uagent_llm
+
+    core = _loop_core(max_rounds=3)
+    decision_provider = _FakeDecisionProvider(error=RuntimeError("offline"))
+    reviewer_answers = iter([("CONTINUE", ""), ("COMPLETE", "")])
+    reviewer_calls = []
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="typesafe", source="env"),
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "create_decision_provider",
+        lambda _settings: decision_provider,
+    )
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "_decision_provider_supports_choice",
+        lambda _provider: True,
+    )
+
+    def reviewer(*_args, **_kwargs):
+        reviewer_calls.append(True)
+        return next(reviewer_answers)
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", reviewer)
+    monkeypatch.setattr(
+        uagent_llm,
+        "run_llm_rounds",
+        lambda *_args, **_kwargs: "",
+    )
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "initial"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert len(decision_provider.requests) == 1
+    assert reviewer_calls == [True, True]
+    assert decision_provider.closed is True

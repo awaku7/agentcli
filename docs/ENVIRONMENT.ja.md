@@ -402,6 +402,7 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 専用のDecision Provider層は明示的なopt-inで、既定値は `none` です。
 
 - `UAGENT_DECISION_PROVIDER`: `none` / `typesafe` / `openrouter` / `laya`
+- `UAGENT_DECISION_LIVE_TEST`: TypeSafe/OpenRouter Decision Provider の実API smoke testを意図的に実行するときだけ `1` を設定します。通常CIでは未設定です。
 - TypeSafe/Jev:
   - `UAGENT_DECISION_TYPESAFE_DEPNAME`（既定: `jev-latest`）
   - `UAGENT_DECISION_TYPESAFE_BASE_URL`（既定: `https://api.typesafe.ai`）

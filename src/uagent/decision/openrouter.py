@@ -10,10 +10,14 @@ from typing import Any
 
 import httpx
 
+from ..auth.credential_store import get_default_credential_store
+from ..auth.provider_credentials import get_provider_api_key
+from ..providers.util_providers import make_httpx_client
 from .models import DecisionAnswer, DecisionRequest, DecisionResult
 from .settings import DecisionSettings
 from .typesafe import (
     TypeSafeDecisionError,
+    _safe_response_error_detail,
     _translate_answer,
     _translate_question,
 )
@@ -54,17 +58,22 @@ class OpenRouterDecisionConfig:
             ).strip()
             or "https://openrouter.ai/api"
         )
-        api_key = str(
-            env.get("UAGENT_DECISION_OPENROUTER_API_KEY")
-            or env.get("UAGENT_OPENROUTER_API_KEY")
-            or env.get("OPENROUTER_API_KEY")
-            or ""
-        ).strip()
+        api_key = str(env.get("UAGENT_DECISION_OPENROUTER_API_KEY") or "").strip()
+        if not api_key:
+            store = None
+            if environ is None:
+                try:
+                    store = get_default_credential_store()
+                except Exception:
+                    store = None
+            api_key = str(
+                get_provider_api_key("openrouter", store=store, environ=env) or ""
+            ).strip()
         if not api_key:
             raise OpenRouterDecisionConfigurationError(
                 "OpenRouter Decision Provider requires "
-                "UAGENT_DECISION_OPENROUTER_API_KEY, UAGENT_OPENROUTER_API_KEY, "
-                "or OPENROUTER_API_KEY."
+                "UAGENT_DECISION_OPENROUTER_API_KEY, a stored OpenRouter credential, "
+                "UAGENT_OPENROUTER_API_KEY, or OPENROUTER_API_KEY."
             )
         return cls(model=model, base_url=base_url.rstrip("/"), api_key=api_key)
 
@@ -118,7 +127,10 @@ class OpenRouterDecisionProvider:
         self._settings = settings
         self._config = OpenRouterDecisionConfig.from_environment(environ)
         self._owns_client = client is None
-        self._client = client if client is not None else httpx.Client(timeout=30.0)
+        if client is not None:
+            self._client = client
+        else:
+            self._client = make_httpx_client() or httpx.Client(timeout=30.0)
         self._closed = False
 
     @property
@@ -171,8 +183,13 @@ class OpenRouterDecisionProvider:
 
         status_code = int(getattr(response, "status_code", 0) or 0)
         if not 200 <= status_code < 300:
+            detail = _safe_response_error_detail(
+                response,
+                secrets=(self._config.api_key,),
+            )
+            suffix = f": {detail}" if detail else "."
             raise OpenRouterDecisionError(
-                f"OpenRouter decision request failed with HTTP {status_code}."
+                f"OpenRouter decision request failed with HTTP {status_code}{suffix}"
             )
 
         try:

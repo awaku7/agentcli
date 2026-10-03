@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 import time
 from collections.abc import Mapping
@@ -10,6 +11,10 @@ from typing import Any
 
 import httpx
 
+from ..auth.credential_store import get_default_credential_store
+from ..auth.provider_credentials import get_provider_api_key
+from ..providers.util_providers import make_httpx_client
+from ..utils.secret_mask import _mask_inline_secrets
 from .models import (
     DecisionAnswer,
     DecisionKind,
@@ -55,6 +60,16 @@ class TypeSafeDecisionConfig:
         )
         api_key = str(env.get("UAGENT_DECISION_TYPESAFE_API_KEY") or "").strip()
         if not api_key:
+            store = None
+            if environ is None:
+                try:
+                    store = get_default_credential_store()
+                except Exception:
+                    store = None
+            api_key = str(
+                get_provider_api_key("typesafe", store=store, environ=env) or ""
+            ).strip()
+        if not api_key:
             raise TypeSafeDecisionConfigurationError(
                 "UAGENT_DECISION_TYPESAFE_API_KEY is required when "
                 "UAGENT_DECISION_PROVIDER=typesafe."
@@ -64,9 +79,47 @@ class TypeSafeDecisionConfig:
 
 def _system_one_url(base_url: str) -> str:
     normalized = str(base_url or "").rstrip("/")
+    if normalized.endswith("/v1/systemone"):
+        return normalized
     if normalized.endswith("/v1"):
         return normalized + "/systemone"
     return normalized + "/v1/systemone"
+
+
+def _safe_response_error_detail(
+    response: Any,
+    *,
+    secrets: tuple[str, ...] = (),
+) -> str:
+    value: Any = ""
+    try:
+        payload = response.json()
+    except Exception:
+        payload = None
+    if isinstance(payload, Mapping):
+        value = (
+            payload.get("detail")
+            or payload.get("message")
+            or payload.get("error")
+            or ""
+        )
+        if isinstance(value, (Mapping, list)):
+            try:
+                value = json.dumps(value, ensure_ascii=False)
+            except Exception:
+                value = str(value)
+    if not value:
+        try:
+            value = getattr(response, "text", "") or ""
+        except Exception:
+            value = ""
+    detail = " ".join(str(value or "").split())
+    if not detail:
+        return ""
+    for secret in secrets:
+        if secret:
+            detail = detail.replace(secret, "********")
+    return _mask_inline_secrets(detail)[:300]
 
 
 def _question_wire_type(kind: DecisionKind) -> str:
@@ -208,23 +261,35 @@ def _translate_answer(
                 "probabilities."
             )
         try:
-            confidence = float(payload["confidence"])
+            provider_confidence = float(payload["confidence"])
         except (KeyError, TypeError, ValueError) as exc:
             raise TypeSafeDecisionError(
                 f"TypeSafe choice answer for '{question.id}' is missing a valid "
                 "confidence."
             ) from exc
-        if not 0.0 <= confidence <= 1.0:
+        if not 0.0 <= provider_confidence <= 1.0:
             raise TypeSafeDecisionError(
                 f"TypeSafe choice confidence for '{question.id}' is outside [0, 1]."
             )
+        try:
+            answer_probability = float(probabilities[str(value)])
+        except (KeyError, TypeError, ValueError) as exc:
+            raise TypeSafeDecisionError(
+                f"TypeSafe choice answer for '{question.id}' is missing the "
+                "selected choice probability."
+            ) from exc
+        if not 0.0 <= answer_probability <= 1.0:
+            raise TypeSafeDecisionError(
+                f"TypeSafe choice probability for '{question.id}' is outside [0, 1]."
+            )
         return DecisionAnswer(
             value=value,
-            confidence=confidence,
+            confidence=answer_probability,
             calibrated=True,
             metadata={
                 "type": "choice",
-                "probabilities": probabilities,
+                "probabilities": dict(probabilities),
+                "provider_confidence": provider_confidence,
             },
         )
 
@@ -256,11 +321,12 @@ def _translate_answer(
     return DecisionAnswer(
         value=score,
         confidence=confidence,
-        calibrated=True,
+        calibrated=False,
         metadata={
             "type": "score",
             "probabilities": dict(probabilities),
             "legend": dict(legend),
+            "provider_confidence": confidence,
         },
     )
 
@@ -283,7 +349,10 @@ class TypeSafeDecisionProvider:
         self._settings = settings
         self._config = TypeSafeDecisionConfig.from_environment(environ)
         self._owns_client = client is None
-        self._client = client if client is not None else httpx.Client(timeout=30.0)
+        if client is not None:
+            self._client = client
+        else:
+            self._client = make_httpx_client() or httpx.Client(timeout=30.0)
         self._closed = False
 
     @property
@@ -338,8 +407,13 @@ class TypeSafeDecisionProvider:
 
         status_code = int(getattr(response, "status_code", 0) or 0)
         if not 200 <= status_code < 300:
+            detail = _safe_response_error_detail(
+                response,
+                secrets=(self._config.api_key,),
+            )
+            suffix = f": {detail}" if detail else "."
             raise TypeSafeDecisionError(
-                f"TypeSafe decision request failed with HTTP {status_code}."
+                f"TypeSafe decision request failed with HTTP {status_code}{suffix}"
             )
 
         try:
