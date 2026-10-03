@@ -319,3 +319,76 @@ def test_injected_client_is_not_closed():
     provider.close()
 
     assert client.closed is False
+
+
+def test_openrouter_choice_common_confidence_uses_selected_probability():
+    provider = OpenRouterDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+        client=FakeClient(
+            FakeResponse(
+                {
+                    "model": "typesafe/jev-1.13",
+                    "answers": {
+                        "route": {
+                            "type": "choice",
+                            "choice": "A",
+                            "confidence": 0.52,
+                            "probabilities": {"A": 0.79, "B": 0.21},
+                        }
+                    },
+                }
+            )
+        ),
+    )
+
+    result = provider.decide(
+        DecisionRequest(
+            state="state",
+            questions=(
+                DecisionQuestion(
+                    id="route",
+                    kind="choice",
+                    instruction="Choose.",
+                    choices=("A", "B"),
+                ),
+            ),
+        )
+    )
+
+    answer = result.answers["route"]
+    assert answer.confidence == pytest.approx(0.79)
+    assert answer.metadata["provider_confidence"] == pytest.approx(0.52)
+
+
+def test_openrouter_http_error_detail_is_secret_masked():
+    provider = OpenRouterDecisionProvider(
+        settings=_settings(),
+        environ=_environ(),
+        client=FakeClient(
+            FakeResponse(
+                {"error": {"message": "bad token: secret-value"}},
+                status_code=401,
+            )
+        ),
+    )
+
+    with pytest.raises(OpenRouterDecisionError) as exc_info:
+        provider.decide(
+            DecisionRequest(
+                state="state",
+                questions=(
+                    DecisionQuestion(
+                        id="route",
+                        kind="choice",
+                        instruction="Choose.",
+                        choices=("A", "B"),
+                    ),
+                ),
+            )
+        )
+
+    message = str(exc_info.value)
+    assert "HTTP 401" in message
+    assert "secret-value" not in message
+    assert "********" in message
