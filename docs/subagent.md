@@ -27,6 +27,7 @@
 - 外部 JSON role 定義
 - 循環 Sub-Agent call guard
 - `run_sub_agent_chain` による順次オーケストレーション
+- chain step 単位の `review` gate（approve / retry）と reviewer feedback による worker 再実行
 
 終了判定の優先順位は Auto-pilot と同じ考え方を使う:
 
@@ -78,6 +79,35 @@ Goal Completion Judge
           ↓
 最大 max_agent_rounds
 ```
+
+chain の review gate:
+
+```text
+worker
+  ↓
+reviewer
+  ├─ approve → 次のchain step
+  └─ retry + feedback
+        ↓
+      worker再実行
+        ↓
+      reviewer再評価
+        ↓
+      最大 review.max_retries
+```
+
+reviewer 自身も通常の `run_sub_agent` として実行されるため、Goal Completion Judge、
+`max_tool_turns`、`max_agent_rounds` を使用する。retry 上限まで承認されなかった場合は
+そのchain stepを `blocked` とし、`stop_on_error=true` ならchainを停止する。
+
+review付きstepで `store_key` が指定されている場合、worker候補はreview中はshared storeへ
+公開しない。reviewerが `approve` した最終候補だけをcommitするため、rejectされた候補が
+後続stepから参照されることはない。
+
+reviewerにはworkerと同じ `current_file` / `load_keys` を渡し、元資料や共有contextと照合できるようにする。
+review round番号をreview taskへ含め、同一候補が再提出された場合でもduplicate guardに誤検出されないようにする。
+review対象が上限サイズを超える場合は無表示で切り捨てたり分割reviewしたりせず、そのstepを明示的に `blocked` とする。
+長大成果物の分割・要約・全体整合性reviewは別設計で扱う。
 
 ## 1. アーキテクチャ（現状）
 

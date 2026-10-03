@@ -265,6 +265,7 @@ Key modules:
     - Shared control loop: `src/uagent/runtime/agent_loop.py` owns provider-agnostic judge/continue/complete and round-limit flow; Auto-pilot supplies its own judgment, follow-up execution, UI, and observability callbacks.
     - Shared completion judge: `src/uagent/decision/goal_completion.py` owns typed goal-completion requests/results for Decision Providers. Auto-pilot supplies its bounded state, telemetry, and LLM fallback policy; Sub-Agents can reuse the same evaluator.
     - Sub-Agent autonomy: `src/uagent/runtime/sub_agent_autonomy.py` mirrors Auto-pilot completion precedence (regex -> optional sentinel -> Decision Provider -> LLM fallback) and `run_sub_agent` separates `max_tool_turns` from `max_agent_rounds`.
+    - Sub-Agent chain review gates: `run_sub_agent_chain` can attach a reviewer to any worker step; `retry` feeds concrete reviewer feedback back into the worker until approval or the review retry budget is exhausted.
 - Startup initialization: `src/uagent/runtime/runtime_init.py` (compatibility re-export)
   - `src/uagent/runtime/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
   - `src/uagent/runtime/runtime_banner.py`: `build_startup_banner()`

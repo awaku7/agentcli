@@ -30,7 +30,14 @@
     "param.step.max_tool_turns.description": "الحد الأقصى للتفاعلات متعددة المنعطفات لهذه الخطوة. 3 = موصى به. الافتراضي 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "bn": {
     "tool.description": "একটি শৃঙ্খলে সাব-এজেন্টগুলির একটি ক্রম সঞ্চালন করুন। প্রতিটি ধাপের ফলাফল শেয়ার করা প্রসঙ্গ স্টোরের মাধ্যমে পরবর্তী ধাপে স্বয়ংক্রিয়ভাবে উপলব্ধ।",
@@ -63,7 +70,14 @@
     "param.step.max_tool_turns.description": "এই ধাপের জন্য সর্বাধিক মাল্টি-টার্ন ইন্টারঅ্যাকশন। 3 = প্রস্তাবিত। ডিফল্ট 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "cs": {
     "tool.description": "Proveďte sekvenci dílčích agentů v řetězci. Výsledek každého kroku je automaticky dostupný pro následující kroky prostřednictvím sdíleného kontextového úložiště.",
@@ -96,7 +110,14 @@
     "param.step.max_tool_turns.description": "Maximální počet víceotáčkových interakcí pro tento krok. 3 = doporučeno. Výchozí 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "de": {
     "tool.description": "Führen Sie eine Folge von Subagenten in einer Kette aus. Das Ergebnis jedes Schritts steht nachfolgenden Schritten automatisch über den gemeinsamen Kontextspeicher zur Verfügung.",
@@ -129,7 +150,14 @@
     "param.step.max_tool_turns.description": "Maximale Multiturn-Interaktionen für diesen Schritt. 3 = empfohlen. Standard 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "el": {
     "tool.description": "Εκτελέστε μια ακολουθία υπο-παραγόντων σε μια αλυσίδα. Το αποτέλεσμα κάθε βήματος είναι αυτόματα διαθέσιμο για τα επόμενα βήματα μέσω του κοινόχρηστου χώρου αποθήκευσης περιβάλλοντος.",
@@ -162,7 +190,14 @@
     "param.step.max_tool_turns.description": "Μέγιστος αριθμός αλληλεπιδράσεων πολλαπλών στροφών για αυτό το βήμα. 3 = συνιστάται. Προεπιλογή 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "en": {
     "tool.description": "Execute a sequence of sub-agents in a chain. Each step's result is automatically available to subsequent steps via the shared context store.",
@@ -195,7 +230,14 @@
     "param.step.max_tool_turns.description": "Maximum LLM/tool turns inside one autonomous round. Default 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "es": {
     "tool.description": "Ejecutar una secuencia de subagentes en una cadena. El resultado de cada paso está disponible automáticamente para los pasos siguientes a través del almacén de contexto compartido.",
@@ -228,7 +270,14 @@
     "param.step.max_tool_turns.description": "Máximo de interacciones de varios turnos para este paso. 3 = recomendado. Predeterminado 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "fa": {
     "tool.description": "دنباله ای از عوامل فرعی را در یک زنجیره اجرا کنید. نتیجه هر مرحله به طور خودکار برای مراحل بعدی از طریق ذخیره‌سازی زمینه مشترک در دسترس است.",
@@ -261,7 +310,14 @@
     "param.step.max_tool_turns.description": "حداکثر تعامل چند دور برای این مرحله. 3 = توصیه می شود. پیش فرض 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "fi": {
     "tool.description": "Suorita aliagenttien sarja ketjussa. Kunkin vaiheen tulos on automaattisesti seuraavien vaiheiden käytettävissä jaetun kontekstivaraston kautta.",
@@ -294,7 +350,14 @@
     "param.step.max_tool_turns.description": "Enimmäisvuorovaikutus tässä vaiheessa. 3 = suositeltava. Oletus 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "fr": {
     "tool.description": "Exécuter une séquence de sous-agents dans une chaîne. Le résultat de chaque étape est automatiquement disponible pour les étapes suivantes via le magasin de contexte partagé.",
@@ -327,7 +390,14 @@
     "param.step.max_tool_turns.description": "Interactions multi-tours maximales pour cette étape. 3 = recommandé. Par défaut 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "he": {
     "tool.description": "בצע רצף של סוכני משנה בשרשרת. התוצאה של כל שלב זמינה אוטומטית לשלבים הבאים דרך מאגר ההקשר המשותף.",
@@ -360,7 +430,14 @@
     "param.step.max_tool_turns.description": "מקסימום אינטראקציות מרובה פניות עבור שלב זה. 3 = מומלץ. ברירת מחדל 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "hi": {
     "tool.description": "एक श्रृंखला में उप-एजेंटों का अनुक्रम निष्पादित करें। प्रत्येक चरण का परिणाम साझा संदर्भ स्टोर के माध्यम से बाद के चरणों के लिए स्वचालित रूप से उपलब्ध होता है।",
@@ -393,7 +470,14 @@
     "param.step.max_tool_turns.description": "इस चरण के लिए अधिकतम मल्टी-टर्न इंटरैक्शन। 3 = अनुशंसित. डिफ़ॉल्ट 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "hu": {
     "tool.description": "Alágensek sorozatának végrehajtása egy láncban. Minden egyes lépés eredménye automatikusan elérhető a következő lépések számára a megosztott környezettárolón keresztül.",
@@ -426,7 +510,14 @@
     "param.step.max_tool_turns.description": "Maximális többfordulós interakció ehhez a lépéshez. 3 = ajánlott. Alapértelmezett 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "id": {
     "tool.description": "Jalankan urutan sub-agen dalam sebuah rantai. Hasil setiap langkah secara otomatis tersedia untuk langkah berikutnya melalui penyimpanan konteks bersama.",
@@ -459,7 +550,14 @@
     "param.step.max_tool_turns.description": "Interaksi multi-putaran maksimal untuk langkah ini. 3 = direkomendasikan. Bawaan 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "it": {
     "tool.description": "Esegui una sequenza di sub-agenti in una catena. Il risultato di ogni passaggio è automaticamente disponibile per i passaggi successivi tramite l'archivio contesto condiviso.",
@@ -492,7 +590,14 @@
     "param.step.max_tool_turns.description": "Numero massimo di interazioni a più turni per questo passaggio. 3 = consigliato. Predefinito 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "ja": {
     "tool.description": "チェーン内の一連のサブエージェントを実行します。各ステップの結果は、共有コンテキスト ストアを介して後続のステップで自動的に利用可能になります。",
@@ -525,7 +630,14 @@
     "param.step.max_tool_turns.description": "1回の自律ラウンド内でのLLM/ツールターンの最大数。既定値は3です。",
     "param.step.max_agent_rounds.description": "初回を含む自律作業ラウンドの最大数。既定値は3です。",
     "param.step.completion_sentinel.description": "このステップの完了判定にセンチネル方式を使用します。",
-    "param.step.completion_regex.description": "他の完了判定より先に確認する任意の完了正規表現です。"
+    "param.step.completion_regex.description": "他の完了判定より先に確認する任意の完了正規表現です。",
+    "param.step.review.description": "任意のレビューゲートです。reviewer が approve または retry を返し、retry の場合はレビュー指摘を反映して worker を再実行します。",
+    "param.step.review.agent_name.description": "レビューに使うSub-Agent名。既定値は reviewer です。",
+    "param.step.review.task.description": "worker の結果に対して追加する任意のレビュー指示です。",
+    "param.step.review.max_retries.description": "初回実行後に reviewer が要求できる worker 再実行の最大回数。既定値は2です。",
+    "param.step.review.permission_level.description": "reviewer の権限レベル。既定値は none です。",
+    "param.step.review.max_tool_turns.description": "reviewer の1回の自律ラウンド内でのLLM/ツールターン最大数。既定値は3です。",
+    "param.step.review.max_agent_rounds.description": "reviewer の自律作業ラウンド最大数。既定値は3です。"
   },
   "ko": {
     "tool.description": "체인에서 일련의 하위 에이전트를 실행합니다. 각 단계의 결과는 공유 컨텍스트 저장소를 통해 후속 단계에서 자동으로 사용할 수 있습니다.",
@@ -558,7 +670,14 @@
     "param.step.max_tool_turns.description": "이 단계의 최대 다중 회전 상호 작용. 3 = 권장됩니다. 기본값 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "mn": {
     "tool.description": "Гинжин дэх дэд агентуудын дарааллыг гүйцэтгэнэ. Алхам бүрийн үр дүн нь хуваалцсан контекст дэлгүүрээр дамжуулан дараагийн алхмуудад автоматаар боломжтой болно.",
@@ -591,7 +710,14 @@
     "param.step.max_tool_turns.description": "Энэ алхамын хамгийн их олон эргэлтийн харилцан үйлчлэл. 3 = санал болгож байна. Өгөгдмөл 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "mr": {
     "tool.description": "साखळीत उप-एजंट्सचा क्रम कार्यान्वित करा. प्रत्येक चरणाचा परिणाम शेअर केलेल्या संदर्भ स्टोअरद्वारे पुढील चरणांसाठी आपोआप उपलब्ध होतो.",
@@ -624,7 +750,14 @@
     "param.step.max_tool_turns.description": "या चरणासाठी कमाल बहु-वळण संवाद. 3 = शिफारस केलेले. डीफॉल्ट 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "nb": {
     "tool.description": "Utfør en sekvens av sub-agenter i en kjede. Resultatet av hvert trinn er automatisk tilgjengelig for påfølgende trinn via det delte kontekstlageret.",
@@ -657,7 +790,14 @@
     "param.step.max_tool_turns.description": "Maks interaksjoner med flere svinger for dette trinnet. 3 = anbefalt. Standard 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "nl": {
     "tool.description": "Voer een reeks subagenten in een keten uit. Het resultaat van elke stap is automatisch beschikbaar voor volgende stappen via de gedeelde contextopslag.",
@@ -690,7 +830,14 @@
     "param.step.max_tool_turns.description": "Max. multi-turn-interacties voor deze stap. 3 = aanbevolen. Standaard 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "pl": {
     "tool.description": "Wykonaj sekwencję podagentów w łańcuchu. Wynik każdego kroku jest automatycznie dostępny dla kolejnych kroków za pośrednictwem udostępnionego magazynu kontekstu.",
@@ -723,7 +870,14 @@
     "param.step.max_tool_turns.description": "Maksymalna liczba interakcji wieloobrotowych w tym kroku. 3 = zalecane. Domyślny 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "pt": {
     "tool.description": "Execute uma sequência de subagentes em uma cadeia. O resultado de cada etapa fica automaticamente disponível para as etapas subsequentes por meio do armazenamento de contexto compartilhado.",
@@ -756,7 +910,14 @@
     "param.step.max_tool_turns.description": "Máximo de interações multivoltas para esta etapa. 3 = recomendado. Padrão 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "pt_BR": {
     "tool.description": "Execute uma sequência de subagentes em uma cadeia. O resultado de cada etapa fica automaticamente disponível para as etapas subsequentes por meio do armazenamento de contexto compartilhado.",
@@ -789,7 +950,14 @@
     "param.step.max_tool_turns.description": "Máximo de interações multivoltas para esta etapa. 3 = recomendado. Padrão 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "ro": {
     "tool.description": "Executați o secvență de sub-agenți într-un lanț. Rezultatul fiecărui pas este disponibil automat pentru pașii următori prin intermediul magazinului de context partajat.",
@@ -822,7 +990,14 @@
     "param.step.max_tool_turns.description": "Max interacțiuni cu mai multe ture pentru acest pas. 3 = recomandat. Implicit 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "ru": {
     "tool.description": "Выполнить последовательность субагентов в цепочке. Результат каждого шага автоматически доступен для последующих шагов через хранилище общего контекста.",
@@ -855,7 +1030,14 @@
     "param.step.max_tool_turns.description": "Максимальное количество многоходовых взаимодействий для этого шага. 3 = рекомендуется. По умолчанию 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "sv": {
     "tool.description": "Utför en sekvens av subagenter i en kedja. Resultatet av varje steg är automatiskt tillgängligt för efterföljande steg via det delade sammanhangsarkivet.",
@@ -888,7 +1070,14 @@
     "param.step.max_tool_turns.description": "Max interaktioner med flera svängar för detta steg. 3 = rekommenderas. Standard 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "sw": {
     "tool.description": "Tekeleza mlolongo wa mawakala wadogo katika mlolongo. Kila matokeo ya hatua yanapatikana kiotomatiki kwa hatua zinazofuata kupitia hifadhi ya muktadha iliyoshirikiwa.",
@@ -921,7 +1110,14 @@
     "param.step.max_tool_turns.description": "Uingiliano wa juu wa zamu nyingi kwa hatua hii. 3 = inapendekezwa. Chaguomsingi 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "th": {
     "tool.description": "ดำเนินการลำดับของตัวแทนย่อยในห่วงโซ่ ผลลัพธ์ของแต่ละขั้นตอนจะพร้อมใช้งานโดยอัตโนมัติสำหรับขั้นตอนต่อๆ ไปผ่านทางที่เก็บบริบทที่ใช้ร่วมกัน",
@@ -954,7 +1150,14 @@
     "param.step.max_tool_turns.description": "การโต้ตอบหลายเทิร์นสูงสุดสำหรับขั้นตอนนี้ 3 = แนะนำ ค่าเริ่มต้น 3",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "tr": {
     "tool.description": "Bir zincirdeki bir dizi alt aracıyı yürütün. Her adımın sonucu, paylaşılan içerik deposu aracılığıyla sonraki adımlara otomatik olarak sunulur.",
@@ -987,7 +1190,14 @@
     "param.step.max_tool_turns.description": "Bu adım için maksimum çok dönüşlü etkileşimler. 3 = önerilir. Varsayılan 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "uk": {
     "tool.description": "Виконайте послідовність підагентів у ланцюжку. Результат кожного кроку автоматично доступний для наступних кроків через спільне сховище контексту.",
@@ -1020,7 +1230,14 @@
     "param.step.max_tool_turns.description": "Максимальна багатоповоротна взаємодія для цього кроку. 3 = рекомендовано. За замовчуванням 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "vi": {
     "tool.description": "Thực hiện một chuỗi các tác nhân phụ trong một chuỗi. Kết quả của mỗi bước sẽ tự động có sẵn cho các bước tiếp theo thông qua kho ngữ cảnh được chia sẻ.",
@@ -1053,7 +1270,14 @@
     "param.step.max_tool_turns.description": "Tương tác nhiều lượt tối đa cho bước này. 3 = được khuyến nghị. Mặc định 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "zh_CN": {
     "tool.description": "执行链中的一系列子代理。每个步骤的结果可通过共享上下文存储自动供后续步骤使用。",
@@ -1086,7 +1310,14 @@
     "param.step.max_tool_turns.description": "此步骤的最大多轮交互。 3 = 推荐。默认 3。",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "zh_TW": {
     "tool.description": "執行鏈中的一系列子代理程式。每個步驟的結果可透過共享上下文儲存自動供後續步驟使用。",
@@ -1119,7 +1350,14 @@
     "param.step.max_tool_turns.description": "此步驟的最大多輪互動。 3 = 推薦。預設 3。",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "fil": {
     "tool.description": "Magsagawa ng sequence ng mga sub-agents sa isang chain. Ang resulta ng bawat hakbang ay awtomatikong magagamit sa mga kasunod na hakbang sa pamamagitan ng nakabahaging tindahan ng konteksto.",
@@ -1152,7 +1390,14 @@
     "param.step.max_tool_turns.description": "Max multi-turn na pakikipag-ugnayan para sa hakbang na ito. 3 = inirerekomenda. Default 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "ms": {
     "tool.description": "Laksanakan urutan sub-ejen dalam rantaian. Hasil setiap langkah tersedia secara automatik untuk langkah seterusnya melalui gedung konteks kongsi.",
@@ -1185,7 +1430,14 @@
     "param.step.max_tool_turns.description": "Interaksi berbilang pusingan maksimum untuk langkah ini. 3 = disyorkan. Lalai 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "da": {
     "tool.description": "Udfør en sekvens af sub-agenter i en kæde. Hvert trins resultat er automatisk tilgængeligt for efterfølgende trin via det delte kontekstlager.",
@@ -1218,7 +1470,14 @@
     "param.step.max_tool_turns.description": "Maks. multi-turn interaktioner for dette trin. 3 = anbefales. Standard 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   },
   "nn": {
     "tool.description": "Utfør en sekvens av sub-agenter i en kjede. Resultatet av hvert trinn er automatisk tilgjengeleg for påfølgende trinn via det delte kontekstlageret.",
@@ -1251,6 +1510,13 @@
     "param.step.max_tool_turns.description": "Maks interaksjoner med flere svinger for dette trinnet. 3 = anbefalt. Standard 3.",
     "param.step.max_agent_rounds.description": "Maximum autonomous work rounds including the initial round. Default 3.",
     "param.step.completion_sentinel.description": "Use sentinel-based completion judgment for this step.",
-    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges."
+    "param.step.completion_regex.description": "Optional completion regex checked before other completion judges.",
+    "param.step.review.description": "Optional review gate. The reviewer returns approve or retry; retry re-runs the worker with review feedback.",
+    "param.step.review.agent_name.description": "Reviewer sub-agent name. Default reviewer.",
+    "param.step.review.task.description": "Optional extra review instruction applied to the worker result.",
+    "param.step.review.max_retries.description": "Maximum worker retries requested by the reviewer after the initial attempt. Default 2.",
+    "param.step.review.permission_level.description": "Permission level for the reviewer. Default none.",
+    "param.step.review.max_tool_turns.description": "Maximum LLM/tool turns inside one reviewer autonomous round. Default 3.",
+    "param.step.review.max_agent_rounds.description": "Maximum autonomous reviewer work rounds. Default 3."
   }
 }

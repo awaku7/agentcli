@@ -501,6 +501,13 @@ class SubAgentRunner:
         }
         self._usage_lock = Lock()
 
+    def publish_shared_result(self, store_key: str, result: str) -> None:
+        """Publish an already-approved result to the shared Sub-Agent store."""
+        if not store_key:
+            return
+        with self._store_lock:
+            self._shared_store[store_key] = result
+
     # ------------------------------------------------------------------
     # Dynamic role generation
     # ------------------------------------------------------------------
@@ -1888,6 +1895,11 @@ class SubAgentRunner:
 # ---------------------------------------------------------------------------
 
 _runner = SubAgentRunner()
+
+
+def publish_shared_result(store_key: str, result: str) -> None:
+    """Publish an approved result to the shared Sub-Agent context store."""
+    _runner.publish_shared_result(store_key, result)
 
 
 def run_tool(args: Dict[str, Any]) -> str:
