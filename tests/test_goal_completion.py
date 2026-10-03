@@ -101,10 +101,7 @@ def test_goal_completion_state_masks_and_bounds_tool_evidence():
                 "role": "tool",
                 "name": "demo",
                 "tool_call_id": "call-secret",
-                "content": (
-                    '{"ok": true, "result": '
-                    '{"text": "token: secret-value"}}'
-                ),
+                "content": '{"ok": true, "result": ' '{"text": "token: secret-value"}}',
             },
             {"role": "assistant", "content": "done"},
         ],
