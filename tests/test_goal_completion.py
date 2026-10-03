@@ -142,15 +142,8 @@ def test_goal_completion_request_supports_custom_site_and_question_id():
         (False, True, "CONTINUE"),
     ],
 )
-def test_atomic_goal_completion_normalizes_two_booleans(
-    satisfied,
-    remaining,
-    expected,
-):
-    provider = _AtomicProvider(
-        satisfied=satisfied,
-        remaining=remaining,
-    )
+def test_atomic_goal_completion_normalizes_two_booleans(satisfied, remaining, expected):
+    provider = _AtomicProvider(satisfied=satisfied, remaining=remaining)
     attempts = []
 
     result = ask_goal_completion_decision(
@@ -224,9 +217,7 @@ def test_laya_order_inconsistency_requests_fallback():
 
 
 def test_provider_failure_is_secret_masked():
-    provider = _AtomicProvider(
-        error=RuntimeError("network failed token: secret-value")
-    )
+    provider = _AtomicProvider(error=RuntimeError("network failed token: secret-value"))
     logs = []
 
     result = ask_goal_completion_decision(
