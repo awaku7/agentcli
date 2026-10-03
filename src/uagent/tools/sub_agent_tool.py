@@ -26,6 +26,19 @@ from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from ..providers.util_providers import make_client
 from ..utils.paths import get_state_dir
+from ..utils.secret_mask import _mask_inline_secrets
+from ..runtime.agent_loop import run_agent_loop
+from ..runtime.sub_agent_autonomy import (
+    SUB_AGENT_SENTINEL_INSTRUCTION,
+    SubAgentCompletionJudge,
+    SubAgentJudgeEvent,
+    build_followup_prompt,
+    build_llm_review_prompt,
+    build_sub_agent_completion_state,
+    completion_regex_matches,
+    parse_reviewer_judgment,
+    strip_sentinel,
+)
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -343,12 +356,34 @@ TOOL_SPEC: Dict[str, Any] = {
                         default="Maximum number of retries on JSON parse or provider errors. Default 2.",
                     ),
                 },
-                "max_turns": {
+                "max_tool_turns": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "description": _(
+                        "param.max_tool_turns.description",
+                        default="Maximum LLM/tool turns inside one autonomous Sub-Agent round. Default 3.",
+                    ),
+                },
+                "max_agent_rounds": {
                     "type": "integer",
                     "minimum": 1,
                     "description": _(
-                        "param.max_turns.description",
-                        default="Maximum number of multi-turn interactions for tool use. 3 = recommended. The sub-agent can use tools across multiple rounds before producing the final answer.",
+                        "param.max_agent_rounds.description",
+                        default="Maximum autonomous work rounds including the initial round. Each round is completion-judged before another round is started. Default 3.",
+                    ),
+                },
+                "completion_sentinel": {
+                    "type": "boolean",
+                    "description": _(
+                        "param.completion_sentinel.description",
+                        default="Use the Sub-Agent completion sentinel as the exclusive completion judge for each agent round. Default false; UAGENT_SUB_AGENT_SENTINEL can also enable it.",
+                    ),
+                },
+                "completion_regex": {
+                    "type": "string",
+                    "description": _(
+                        "param.completion_regex.description",
+                        default="Optional regular expression checked against the latest Sub-Agent output before sentinel/Decision Provider/LLM judgment.",
                     ),
                 },
             },
@@ -1061,7 +1096,10 @@ class SubAgentRunner:
         parent_goal: Optional[str] = None,
         timeout: int = 120,
         max_retries: int = 2,
-        max_turns: int = 3,
+        max_tool_turns: int = 3,
+        max_agent_rounds: int = 3,
+        completion_sentinel: bool = False,
+        completion_regex: str = "",
     ) -> str:
         spec = self.specs.get(agent_name)
         if not spec:
@@ -1159,7 +1197,10 @@ class SubAgentRunner:
                 store_key=store_key,
                 timeout=timeout,
                 max_retries=max_retries,
-                max_turns=max_turns,
+                max_tool_turns=max_tool_turns,
+                max_agent_rounds=max_agent_rounds,
+                completion_sentinel=completion_sentinel,
+                completion_regex=completion_regex,
             )
             status = self._infer_status(result)
             self._write_log(
@@ -1188,7 +1229,10 @@ class SubAgentRunner:
         store_key: Optional[str],
         timeout: int,
         max_retries: int,
-        max_turns: int = 3,
+        max_tool_turns: int = 3,
+        max_agent_rounds: int = 3,
+        completion_sentinel: bool = False,
+        completion_regex: str = "",
     ) -> tuple[str, Dict[str, int], int]:
         cb = get_callbacks()
         agent_upper = agent_name.upper()
@@ -1269,17 +1313,17 @@ class SubAgentRunner:
         if required_fields is None and spec.default_required_fields:
             required_fields = list(spec.default_required_fields)
 
-        # --- Build system prompt ---
         base_prompt = spec.system_prompt
         if permission_level != "none":
             base_prompt += self._build_tool_list_prompt(permission_level)
-
-        if max_turns > 1 and permission_level != "none":
             base_prompt += (
-                f"\n\nYou can continue the conversation for up to {max_turns} turns."
-                "After gathering information with tools, output only the final answer without tool calls in the final turn."
-                "Each turn appends the previous output and tool results to the conversation history."
+                f"\n\nWithin each autonomous work round, you can use tools for up to "
+                f"{max(2, int(max_tool_turns))} LLM/tool turns. After gathering "
+                "evidence, produce a final answer for that round."
             )
+
+        if completion_sentinel:
+            base_prompt += SUB_AGENT_SENTINEL_INSTRUCTION
 
         if response_mode == "json":
             system_prompt = self._build_structured_prompt(
@@ -1294,53 +1338,177 @@ class SubAgentRunner:
         else:
             system_prompt = base_prompt
 
-        user_prompt = self._build_user_prompt(task.task, pack, task.scope_files)
+        initial_prompt = self._build_user_prompt(task.task, pack, task.scope_files)
 
         if cb and getattr(cb, "log_message", None):
             try:
                 cb.log_message(
                     {
                         "role": "assistant",
-                        "content": f"[Sub-Agent: {agent_name}] Processing started...\nTask: {task.task}",
+                        "content": (
+                            f"[Sub-Agent: {agent_name}] Autonomous processing started...\n"
+                            f"Task: {task.task}"
+                        ),
                     }
                 )
             except Exception:
                 pass
 
-        # --- Multi-turn or single-turn ---
-        if permission_level != "none":
-            raw_output, total_retries, llm_usage = self._run_llm_multi_turn(
-                cb=cb,
-                provider=provider,
-                client=client,
-                model_name=model_name,
-                system_prompt=system_prompt,
-                user_prompt=user_prompt,
-                timeout=timeout,
-                max_retries=max_retries,
-                response_mode=response_mode or "",
-                permission_level=permission_level,
-                max_turns=max(2, max_turns),
-                agent_spec=spec,
-                agent_name=agent_name,
-            )
-        else:
-            raw_output, total_retries, llm_usage = self._call_with_retry(
-                provider=provider,
-                client=client,
-                model_name=model_name,
-                system_prompt=system_prompt,
-                user_prompt=user_prompt,
-                timeout=timeout,
-                max_retries=max_retries,
-                response_mode=response_mode or "",
-            )
-            if permission_level != "none":
-                raw_output = self._parse_and_execute_tools(raw_output, permission_level)
+        total_retries = 0
+        total_usage: Dict[str, int] = {
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0,
+        }
 
-        self._accumulate_usage(llm_usage)
+        def add_usage(usage: Dict[str, int]) -> None:
+            for key in total_usage:
+                total_usage[key] += int(usage.get(key, 0) or 0)
+
+        work_response_mode = "" if completion_sentinel else (response_mode or "")
+
+        def execute_work_round(
+            prompt: str,
+        ) -> tuple[str, list[dict[str, str]]]:
+            nonlocal total_retries
+            if permission_level != "none":
+                raw, retries, usage, tool_evidence = self._run_llm_multi_turn(
+                    cb=cb,
+                    provider=provider,
+                    client=client,
+                    model_name=model_name,
+                    system_prompt=system_prompt,
+                    user_prompt=prompt,
+                    timeout=timeout,
+                    max_retries=max_retries,
+                    response_mode=work_response_mode,
+                    permission_level=permission_level,
+                    max_turns=max(2, int(max_tool_turns)),
+                    agent_spec=spec,
+                    agent_name=agent_name,
+                )
+            else:
+                raw, retries, usage = self._call_with_retry(
+                    provider=provider,
+                    client=client,
+                    model_name=model_name,
+                    system_prompt=system_prompt,
+                    user_prompt=prompt,
+                    timeout=timeout,
+                    max_retries=max_retries,
+                    response_mode=work_response_mode,
+                )
+                tool_evidence = []
+            total_retries += retries
+            add_usage(usage)
+            return raw, tool_evidence
+
+        latest_raw, latest_tool_evidence = execute_work_round(initial_prompt)
+        prior_outputs: list[str] = []
+        agent_round = 1
+
+        def review_with_llm(state: dict[str, Any]) -> tuple[str, str]:
+            nonlocal total_retries
+            review_system, review_prompt = build_llm_review_prompt(state)
+            raw, retries, usage = self._call_with_retry(
+                provider=provider,
+                client=client,
+                model_name=model_name,
+                system_prompt=review_system,
+                user_prompt=review_prompt,
+                timeout=timeout,
+                max_retries=max_retries,
+                response_mode="",
+            )
+            total_retries += retries
+            add_usage(usage)
+            return parse_reviewer_judgment(raw)
+
+        def record_judge_event(event: SubAgentJudgeEvent) -> None:
+            parts = [f"[SUBAGENT:judge] source={event.source}"]
+            if event.provider:
+                parts.append(f"provider={event.provider}")
+            if event.model:
+                parts.append(f"model={event.model}")
+            if event.judgment:
+                parts.append(f"judgment={event.judgment}")
+            if event.detail:
+                parts.append(
+                    "detail="
+                    + _mask_inline_secrets(" ".join(str(event.detail).split()))[:300]
+                )
+            message = " ".join(parts)
+            print(message, flush=True)
+            if cb and getattr(cb, "log_message", None):
+                try:
+                    cb.log_message({"role": "assistant", "content": message})
+                except Exception:
+                    pass
+
+        judge = SubAgentCompletionJudge(
+            reviewer=review_with_llm,
+            sentinel_enabled=completion_sentinel,
+            event_callback=record_judge_event,
+        )
+
+        def deterministic_completion() -> str | None:
+            if completion_regex_matches(latest_raw, completion_regex):
+                return "completion_regex"
+            return None
+
+        def judge_once():
+            state = build_sub_agent_completion_state(
+                task.task,
+                latest_raw,
+                prior_answers=prior_outputs,
+                tool_evidence=latest_tool_evidence,
+            )
+            return judge.judge(state, raw_output=latest_raw)
+
+        def advance_round() -> int:
+            nonlocal agent_round
+            agent_round += 1
+            return agent_round
+
+        def run_followup(
+            feedback: str,
+            round_number: int,
+            max_rounds: int | None,
+        ) -> None:
+            nonlocal latest_raw
+            nonlocal latest_tool_evidence
+            prior_outputs.append(latest_raw)
+            followup = build_followup_prompt(task.task, latest_raw, feedback)
+            followup += "\n\n[Original context]\n" + initial_prompt
+            if cb and getattr(cb, "set_status", None):
+                cb.set_status(
+                    True,
+                    f"Sub-Agent ({agent_name}) round {round_number}/{max_rounds}",
+                )
+            latest_raw, latest_tool_evidence = execute_work_round(followup)
+
+        try:
+            outcome = run_agent_loop(
+                is_active=lambda: True,
+                consume_exit_request=lambda: False,
+                deterministic_completion=deterministic_completion,
+                judge=judge_once,
+                advance_round=advance_round,
+                get_max_rounds=lambda: max(1, int(max_agent_rounds)),
+                run_followup=run_followup,
+            )
+        finally:
+            judge.close()
+
+        raw_output = (
+            strip_sentinel(latest_raw) if completion_sentinel else latest_raw
+        )
+
+        self._accumulate_usage(total_usage)
         llm_usage = self._usage_with_cost(
-            llm_usage, provider=provider, model_name=model_name
+            total_usage,
+            provider=provider,
+            model_name=model_name,
         )
 
         if cb and getattr(cb, "log_message", None):
@@ -1348,13 +1516,16 @@ class SubAgentRunner:
                 cb.log_message(
                     {
                         "role": "assistant",
-                        "content": f"[Sub-Agent: {agent_name}] Processing completed.\nResult:\n{raw_output}",
+                        "content": (
+                            f"[Sub-Agent: {agent_name}] Processing completed. "
+                            f"reason={outcome.reason} rounds={agent_round}\n"
+                            f"Result:\n{raw_output}"
+                        ),
                     }
                 )
             except Exception:
                 pass
 
-        # --- Validate output ---
         if response_mode == "json":
             try:
                 result_obj = json.loads(raw_output)
@@ -1651,7 +1822,19 @@ def run_tool(args: Dict[str, Any]) -> str:
         parent_goal = args.get("parent_goal")
         timeout = args.get("timeout", 120)
         max_retries = args.get("max_retries", 2)
-        max_turns = args.get("max_turns", 3)
+        max_tool_turns = args.get("max_tool_turns", 3)
+        max_agent_rounds = args.get("max_agent_rounds", 3)
+        sentinel_arg = args.get("completion_sentinel")
+        if sentinel_arg is None:
+            completion_sentinel = (
+                str(env_get("UAGENT_SUB_AGENT_SENTINEL", "0") or "0")
+                .strip()
+                .lower()
+                in {"1", "true", "yes", "on"}
+            )
+        else:
+            completion_sentinel = bool(sentinel_arg)
+        completion_regex = str(args.get("completion_regex") or "")
 
         if cb and hasattr(cb, "set_status") and cb.set_status:
             cb.set_status(True, f"Sub-Agent ({agent_name})")
@@ -1689,7 +1872,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             parent_goal=parent_goal,
             timeout=timeout,
             max_retries=max_retries,
-            max_turns=max_turns,
+            max_tool_turns=max_tool_turns,
+            max_agent_rounds=max_agent_rounds,
+            completion_sentinel=completion_sentinel,
+            completion_regex=completion_regex,
         )
     finally:
         reset_active_sub_agent(sub_agent_token)
