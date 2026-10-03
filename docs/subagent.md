@@ -5,6 +5,61 @@
 このドキュメントは `run_sub_agent` ツールの設計・実装状況・拡張計画を記録する。
 現状の実装完了機能に加え、不足している仕組みとその優先実装計画を記載する。
 
+## 0. 現在の実装状況（2026-10-03、ここを正とする）
+
+初期設計時のロードマップから実装は大きく進んでいる。以下を現在の実装状態として扱い、
+後続の「不足機能」「Phase 1〜4」節は実装経緯を残すための履歴として読むこと。
+
+現在の `run_sub_agent` は次を実装済み:
+
+- planner / reviewer / summarizer / patch_designer / error_analyst / translator / general
+- provider/model/reasoning のサブエージェント単位上書き
+- `permission_level != none` 時の native tool calling / compatibility tool calling
+- tool 利用時の multi-turn 実行（現在の `max_turns` 既定 3）
+- JSON retry、provider retry、timeout
+- result cache、duplicate guard
+- `store_key` / `load_keys` による shared context
+- token/cost tracking と永続ログ
+- 外部 JSON role 定義
+- 循環 Sub-Agent call guard
+- `run_sub_agent_chain` による順次オーケストレーション
+
+ただし現在の multi-turn は本質的には **tool-use loop** であり、
+「目標が未達なら tool call がなくても自己評価して次ラウンドへ進む」
+autonomous agent loop ではない。
+
+2026-10-03 から次の共通基盤への移行を開始した:
+
+```text
+src/uagent/runtime/agent_loop.py
+    provider非依存の judge -> continue -> complete 制御
+
+src/uagent/decision/goal_completion.py
+    Decision Provider を使う汎用 Goal Completion Judge
+    - TypeSafe/OpenRouter(Jev): atomic boolean
+    - Laya: choice + reversed-choice consistency
+```
+
+目標アーキテクチャ:
+
+```text
+Sub-Agent initial work
+    -> tool loop (必要なら複数回)
+    -> Goal Completion Judge
+         COMPLETE -> return
+         CONTINUE -> feedback
+                       -> next agent round
+    -> max_agent_rounds まで反復
+```
+
+このため、今後は現在の `max_turns` を一つの意味で使い続けず、
+
+- `max_tool_turns`: 1 agent round 内の tool-use 上限
+- `max_agent_rounds`: goal judge による自律改善 round 上限
+
+へ分離する。Auto-pilot と Sub-Agent は同じ `AgentLoop` /
+Goal Completion Judge を使い、UI、権限、context、fallback policy のみ各 runtime が所有する。
+
 ## 1. アーキテクチャ（現状）
 
 ```
