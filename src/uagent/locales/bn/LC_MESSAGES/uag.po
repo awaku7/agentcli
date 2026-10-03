@@ -5241,3 +5241,7 @@ msgstr "ব্যক্তিগত মেমরি ডাটাবেস vacuum
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
 msgstr "[mem-vacuum] ব্যক্তিগত মেমরি ডাটাবেস vacuum করতে ব্যর্থ হয়েছে।"
+
+#: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
+msgid "Decision Provider"
+msgstr "সিদ্ধান্ত প্রদানকারী"

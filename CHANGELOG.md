@@ -4,7 +4,7 @@
 
 ### Added
 
-- Show the configured Decision Provider and model in the startup banner, including `none` when disabled, without initializing an adapter.
+- Show the configured Decision Provider and model in the startup banner, including `none` when disabled, without initializing an adapter; translate the label in all 38 shipped languages.
 
 ### Changed
 
