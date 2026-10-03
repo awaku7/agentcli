@@ -5065,3 +5065,7 @@ msgstr "개인 메모리 데이터베이스 vacuum이 완료되었습니다."
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
 msgstr "[mem-vacuum] 개인 메모리 데이터베이스를 vacuum하지 못했습니다."
+
+#: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
+msgid "Decision Provider"
+msgstr "판정 제공자"

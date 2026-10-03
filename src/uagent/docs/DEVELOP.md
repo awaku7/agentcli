@@ -860,3 +860,11 @@ Its masked state excludes execution budgets and call IDs and contains goal,
 latest answer and bounded tool/prior-assistant evidence for cumulative completion.
 Laya's choice/order guard and LLM fallback
 remain unchanged. See `docs/AUTO_PILOT_DECISION_PROVIDER_DESIGN.md`.
+
+
+The shared startup banner displays the resolved Decision Provider and model
+immediately after the workdir line. It honors the already resolved CLI/environment
+provider selection and provider-specific `UAGENT_DECISION_*_DEPNAME` overrides;
+blank model values use the adapter defaults. Disabled review displays `none` with
+model `-`. Rendering this line does not initialize adapters, require credentials,
+connect to remote APIs, or load Laya models.

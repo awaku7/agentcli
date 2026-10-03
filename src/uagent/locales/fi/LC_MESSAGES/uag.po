@@ -5277,3 +5277,7 @@ msgstr "Henkilökohtaisen muistin tietokannan vacuum valmistui."
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
 msgstr "[mem-vacuum] Henkilökohtaisen muistin tietokannan vacuumin suorittaminen epäonnistui."
+
+#: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
+msgid "Decision Provider"
+msgstr "Päätöksentekopalvelun tarjoaja"
