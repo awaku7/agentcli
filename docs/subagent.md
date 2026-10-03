@@ -45,6 +45,10 @@ LLM reviewer fallback
 Decision Provider が run 中に失敗した場合、その provider はその Sub-Agent run の残りでは
 無効化し、LLM reviewer を使用する。これは Auto-pilot の run-local circuit breaker と同じ方針。
 
+`max_rounds`、`sentinel_invalid` など COMPLETE ではない終了理由は成功結果として返さず、
+`status: "blocked"` と `reason`、`partial_result` を返す。
+これにより `run_sub_agent_chain(stop_on_error=true)` も未完了ステップで確実に停止する。
+
 共通基盤:
 
 ```text
