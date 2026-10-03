@@ -28,6 +28,7 @@
 - 循環 Sub-Agent call guard
 - `run_sub_agent_chain` による順次オーケストレーション
 - chain step 単位の `review` gate（approve / retry）と reviewer feedback による worker 再実行
+- `parallel_group` による独立stepの並列実行（連続する同名groupをbarrier単位で実行）
 
 終了判定の優先順位は Auto-pilot と同じ考え方を使う:
 
@@ -108,6 +109,26 @@ reviewerにはworkerと同じ `current_file` / `load_keys` を渡し、元資料
 review round番号をreview taskへ含め、同一候補が再提出された場合でもduplicate guardに誤検出されないようにする。
 review対象が上限サイズを超える場合は無表示で切り捨てたり分割reviewしたりせず、そのstepを明示的に `blocked` とする。
 長大成果物の分割・要約・全体整合性reviewは別設計で扱う。
+
+chain の parallel group:
+
+```text
+step A (parallel_group=research) ┐
+step B (parallel_group=research) ├─ concurrently
+step C (parallel_group=research) ┘
+                                ↓ barrier
+step D                          → sequential continuation
+```
+
+`parallel_group` は連続する同名stepだけを1つの並列batchとして扱う。結果の並びは入力順を維持する。
+group内のworker/reviewerは通常の `run_sub_agent` を使い、ContextVarを明示伝搬して実行する。
+循環call chainもContextVar化しているため、同じagent roleを使う兄弟stepを循環呼び出しと誤判定しない。
+
+group内の `store_key` はworker実行中には公開せず、barrier到達後にcommitする。
+同一group内で兄弟の `store_key` を `load_keys` から参照する依存は拒否し、duplicate `store_key` も拒否する。
+`stop_on_error=true` では開始済み兄弟は完了まで回収するが、1つでも `error` / `blocked` があればgroupの
+shared-store publicationを行わずchainを停止する。`stop_on_error=false` では成功memberだけを入力順でpublishして継続する。
+現在のworker上限はgroupあたり8。
 
 ## 1. アーキテクチャ（現状）
 
