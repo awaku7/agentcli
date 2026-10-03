@@ -84,6 +84,10 @@ def test_typesafe_config_defaults_and_secret_is_not_repr():
         ("https://api.typesafe.ai", "https://api.typesafe.ai/v1/systemone"),
         ("https://api.typesafe.ai/", "https://api.typesafe.ai/v1/systemone"),
         ("https://example.test/v1", "https://example.test/v1/systemone"),
+        (
+            "https://example.test/v1/systemone",
+            "https://example.test/v1/systemone",
+        ),
     ],
 )
 def test_system_one_url(base_url, expected):
