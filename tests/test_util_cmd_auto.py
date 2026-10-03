@@ -929,3 +929,48 @@ def test_sentinel_goal_boundary_excludes_previous_run_evidence():
         {"role": "assistant", "content": "current result"},
     ]
     assert _build_auto_pilot_decision_state(messages, core)["evidence"] == []
+
+
+def test_auto_loop_max_rounds_does_not_run_extra_followup(monkeypatch) -> None:
+    from uagent import uagent_llm
+
+    core = _loop_core(max_rounds=1)
+    reviewer_calls = []
+    followup_calls = []
+
+    monkeypatch.setattr(
+        util_cmd_auto,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="none", source="default"),
+    )
+
+    def reviewer(*_args, **_kwargs):
+        reviewer_calls.append(True)
+        return "CONTINUE", "more work remains"
+
+    monkeypatch.setattr(util_cmd_auto, "_ask_reviewer_judgment", reviewer)
+    monkeypatch.setattr(
+        uagent_llm,
+        "run_llm_rounds",
+        lambda *_args, **_kwargs: followup_calls.append(True) or "",
+    )
+
+    util_cmd_auto._run_auto_pilot_loop(
+        "openai",
+        object(),
+        "model",
+        [{"role": "assistant", "content": "initial"}],
+        core,
+        lambda _core: ("openai", object(), "model"),
+        lambda *_args, **_kwargs: None,
+        lambda *_args, **_kwargs: None,
+    )
+
+    assert reviewer_calls == [True, True]
+    assert followup_calls == [True]
+    assert core.auto_pilot_round == 2
+    assert core._last_round_outcome == {
+        "status": "failed",
+        "reason": "max_rounds",
+    }
+    assert core.auto_pilot_active is False
