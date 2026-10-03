@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Extract Decision Provider goal-completion evidence and judgment into a reusable runtime helper for future Sub-Agent autonomous loops while preserving Auto-pilot compatibility wrappers and fallback behavior.
 - Extract the goal-driven Auto-pilot control flow into a reusable AgentLoop runtime so Sub-Agents can adopt the same judge/continue/complete semantics without duplicating provider or UI policy.
 
 ## [0.7.23] - 2026-10-03
