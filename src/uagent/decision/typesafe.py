@@ -79,6 +79,8 @@ class TypeSafeDecisionConfig:
 
 def _system_one_url(base_url: str) -> str:
     normalized = str(base_url or "").rstrip("/")
+    if normalized.endswith("/v1/systemone"):
+        return normalized
     if normalized.endswith("/v1"):
         return normalized + "/systemone"
     return normalized + "/v1/systemone"
