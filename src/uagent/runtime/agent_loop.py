@@ -22,6 +22,7 @@ class AgentLoopJudgment:
     complete: bool
     feedback: str = ""
     source: str = ""
+    terminal_reason: str = ""
 
 
 @dataclass(frozen=True)
@@ -88,6 +89,12 @@ def run_agent_loop(
 
         judgment = judge()
         last_judgment_source = str(judgment.source or "")
+        if judgment.terminal_reason:
+            return AgentLoopOutcome(
+                reason=str(judgment.terminal_reason),
+                followup_rounds=followup_rounds,
+                judgment_source=last_judgment_source,
+            )
         if judgment.complete:
             return AgentLoopOutcome(
                 reason="complete",
