@@ -737,3 +737,14 @@ UAGENT_DECISION_LIVE_TEST=1 pytest -q tests/test_decision_provider_live.py
 The TypeSafe test requires a configured TypeSafe key. The OpenRouter test accepts
 the dedicated Decision Provider key or the normal OpenRouter credential. These
 tests are opt-in by design and are skipped in normal CI.
+
+
+### Auto-pilot atomic completion review
+
+TypeSafe/Jev and OpenRouter/Jev use two boolean questions in one request:
+`goal_satisfied` and `material_work_remaining`. Their adapters translate boolean
+questions to `noul`. UAG completes only when the first is true and the second is
+false. Laya retains choice review with its order consistency guard. Decision
+state contains only masked goal, latest assistant answer, and bounded tool
+evidence; round budgets and call IDs are excluded. See
+`AUTO_PILOT_DECISION_PROVIDER_DESIGN.md` for limits and fallback semantics.

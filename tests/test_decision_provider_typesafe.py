@@ -595,3 +595,31 @@ def test_typesafe_http_error_detail_is_bounded_and_secret_masked():
     assert "Invalid API key" in message
     assert "secret-key" not in message
     assert "********" in message
+
+
+def test_auto_completion_sends_two_noul_questions_in_one_call():
+    from uagent.util_cmd_auto import _build_auto_pilot_decision_request
+
+    client = FakeClient(
+        FakeResponse(
+            {
+                "answers": {
+                    "goal_satisfied": {"type": "noul", "noul": 0.9},
+                    "material_work_remaining": {"type": "noul", "noul": 0.1},
+                }
+            }
+        )
+    )
+    provider = TypeSafeDecisionProvider(
+        settings=_settings(), environ=_environ(), client=client
+    )
+    request = _build_auto_pilot_decision_request(
+        {"goal": "weather", "latest_answer": "sunny", "evidence": []}, atomic=True
+    )
+    result = provider.decide(request)
+    assert len(client.calls) == 1
+    questions = client.calls[0]["json"]["questions"]
+    assert set(questions) == {"goal_satisfied", "material_work_remaining"}
+    assert all(question["type"] == "noul" for question in questions.values())
+    assert result.answers["goal_satisfied"].value is True
+    assert result.answers["material_work_remaining"].value is False

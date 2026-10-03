@@ -852,3 +852,11 @@ code_mapの `format="mermaid"` で生成した現在のプロジェクト構造�
   - `UAGENT_LANG=en python -m pytest -q`
   - `UAGENT_LANG=ja python -m pytest -q`
 - `tests/__init__.py` is present so Matter tests can import shared fixtures reliably.
+
+
+Auto-pilot Jev review sends `goal_satisfied` and `material_work_remaining` boolean
+questions together (native `noul`), deriving COMPLETE only from true/false.
+Its masked state excludes execution budgets and call IDs and contains goal,
+latest answer and bounded tool/prior-assistant evidence for cumulative completion.
+Laya's choice/order guard and LLM fallback
+remain unchanged. See `docs/AUTO_PILOT_DECISION_PROVIDER_DESIGN.md`.

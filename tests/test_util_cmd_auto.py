@@ -287,11 +287,14 @@ class _FakeDecisionProvider:
             provider=self.name,
             model=self.model,
             answers={
-                "auto_pilot_goal_status": DecisionAnswer(
-                    value=self.value,
+                "goal_satisfied": DecisionAnswer(
+                    value=self.value == "COMPLETE", confidence=0.8
+                ),
+                "material_work_remaining": DecisionAnswer(
+                    value=self.value != "COMPLETE",
                     confidence=0.8,
                     calibrated=True,
-                )
+                ),
             },
             latency_ms=2.5,
         )
@@ -355,10 +358,17 @@ def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
 
     state = _build_auto_pilot_decision_state(messages, core)
 
-    assert len(state["recent_conversation"]) == 6
-    assert len(state["recent_tool_results"]) == 4
-    assert all(len(item["content"]) <= 500 for item in state["recent_conversation"])
-    assert all(len(item["summary"]) <= 400 for item in state["recent_tool_results"])
+    assert set(state) == {"goal", "latest_answer", "evidence"}
+    tools = [item for item in state["evidence"] if "tool" in item]
+    prior_results = [
+        item for item in state["evidence"] if item.get("source") == "assistant"
+    ]
+    assert len(tools) == 4
+    assert len(prior_results) == 3
+    assert len(state["latest_answer"]) <= 12000
+    assert all(len(item["summary"]) <= 400 for item in tools)
+    assert all(len(item["summary"]) <= 2000 for item in prior_results)
+    assert all("call_id" not in item for item in state["evidence"])
     serialized = str(state)
     assert "goal-secret" not in serialized
     assert "tool-secret" not in serialized
@@ -367,7 +377,7 @@ def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
 
 
 @pytest.mark.parametrize("judgment", ["COMPLETE", "CONTINUE"])
-def test_auto_pilot_decision_uses_typed_choice_and_empty_feedback(judgment) -> None:
+def test_auto_pilot_decision_uses_atomic_booleans_and_empty_feedback(judgment) -> None:
     provider = _FakeDecisionProvider(value=judgment)
     core = _loop_core()
 
@@ -381,11 +391,12 @@ def test_auto_pilot_decision_uses_typed_choice_and_empty_feedback(judgment) -> N
     assert len(provider.requests) == 1
     request = provider.requests[0]
     assert request.metadata["site"] == "auto_pilot_review"
-    assert len(request.questions) == 1
-    question = request.questions[0]
-    assert question.id == "auto_pilot_goal_status"
-    assert question.kind.value == "choice"
-    assert question.choices == ("COMPLETE", "CONTINUE")
+    assert [question.id for question in request.questions] == [
+        "goal_satisfied",
+        "material_work_remaining",
+    ]
+    assert all(question.kind.value == "boolean" for question in request.questions)
+    assert all(not question.choices for question in request.questions)
 
 
 def test_laya_auto_pilot_decision_requires_order_consistency(capsys) -> None:
@@ -502,7 +513,7 @@ def test_auto_loop_decision_complete_skips_legacy_reviewer(monkeypatch) -> None:
     )
     monkeypatch.setattr(
         util_cmd_auto,
-        "_decision_provider_supports_choice",
+        "_decision_provider_supports_questions",
         lambda _provider: True,
     )
 
@@ -544,7 +555,7 @@ def test_auto_loop_decision_failure_falls_back_to_legacy_reviewer(monkeypatch) -
     )
     monkeypatch.setattr(
         util_cmd_auto,
-        "_decision_provider_supports_choice",
+        "_decision_provider_supports_questions",
         lambda _provider: True,
     )
 
@@ -588,7 +599,7 @@ def test_auto_loop_laya_order_inconsistency_falls_back_and_closes(
     )
     monkeypatch.setattr(
         util_cmd_auto,
-        "_decision_provider_supports_choice",
+        "_decision_provider_supports_questions",
         lambda _provider: True,
     )
 
@@ -632,7 +643,7 @@ def test_auto_loop_unsupported_choice_falls_back_without_deciding(monkeypatch) -
     )
     monkeypatch.setattr(
         util_cmd_auto,
-        "_decision_provider_supports_choice",
+        "_decision_provider_supports_questions",
         lambda _provider: False,
     )
 
@@ -726,7 +737,7 @@ def test_auto_loop_disables_failed_decision_provider_for_remaining_rounds(monkey
     )
     monkeypatch.setattr(
         util_cmd_auto,
-        "_decision_provider_supports_choice",
+        "_decision_provider_supports_questions",
         lambda _provider: True,
     )
 
@@ -755,3 +766,166 @@ def test_auto_loop_disables_failed_decision_provider_for_remaining_rounds(monkey
     assert len(decision_provider.requests) == 1
     assert reviewer_calls == [True, True]
     assert decision_provider.closed is True
+
+
+@pytest.mark.parametrize("provider_name", ["typesafe", "openrouter"])
+def test_weather_answer_completion_ignores_round_budget(provider_name):
+    provider = _FakeDecisionProvider()
+    provider.name = provider_name
+    core = _loop_core()
+    core.auto_pilot_goal = "Find today's weather and last year's weather on this date"
+    answer = "Today: sunny, 24.5 C. Last year: rain, 25.3/18.7 C, 2.3 mm (estimate)."
+    messages = [
+        {"role": "user", "content": "irrelevant old conversation"},
+        {
+            "role": "tool",
+            "name": "weather",
+            "tool_call_id": "call-123",
+            "content": '{"ok": true, "data": "today sunny; last year rain"}',
+        },
+        {"role": "assistant", "content": answer},
+    ]
+    assert _ask_auto_pilot_decision(messages, core, decision_provider=provider) == (
+        "COMPLETE",
+        "",
+    )
+    state = provider.requests[0].state
+    assert state["latest_answer"] == answer
+    assert set(state) == {"goal", "latest_answer", "evidence"}
+    assert "call-123" not in str(state)
+    core.auto_pilot_round = 9
+    core.auto_pilot_max_rounds = None
+    assert util_cmd_auto._build_auto_pilot_decision_state(messages, core) == state
+
+
+@pytest.mark.parametrize(
+    "satisfied,remaining,expected",
+    [
+        (True, False, "COMPLETE"),
+        (True, True, "CONTINUE"),
+        (False, False, "CONTINUE"),
+        (False, True, "CONTINUE"),
+        ("true", False, None),
+        (True, None, None),
+    ],
+)
+def test_atomic_completion_requires_valid_consistent_booleans(
+    satisfied, remaining, expected
+):
+    provider = _FakeDecisionProvider()
+    provider.decide = lambda request: DecisionResult(
+        provider="typesafe",
+        model="jev-latest",
+        answers={
+            "goal_satisfied": DecisionAnswer(satisfied),
+            "material_work_remaining": DecisionAnswer(remaining),
+        },
+    )
+    result = _ask_auto_pilot_decision([], _loop_core(), decision_provider=provider)
+    assert result == ((expected, "") if expected else None)
+
+
+@pytest.mark.parametrize(
+    "name,kinds,expected",
+    [
+        ("typesafe", ["boolean"], True),
+        ("openrouter", ["noul"], True),
+        ("typesafe", ["choice"], False),
+        ("laya", ["choice"], True),
+        ("laya", ["boolean"], False),
+    ],
+)
+def test_decision_capability_checks_required_question_kind(
+    monkeypatch, name, kinds, expected
+):
+    import sys
+
+    capability = SimpleNamespace(
+        supports=lambda _: True, decision=SimpleNamespace(question_kinds=kinds)
+    )
+    monkeypatch.setitem(
+        sys.modules, "llmcapa", SimpleNamespace(get=lambda *a, **kw: capability)
+    )
+    provider = SimpleNamespace(name=name, model="test")
+    assert util_cmd_auto._decision_provider_supports_questions(provider) is expected
+
+
+@pytest.mark.parametrize("name", ["typesafe", "openrouter", "laya"])
+def test_multi_round_completion_preserves_prior_results(name):
+    core = _loop_core()
+    core.auto_pilot_goal = "Complete A and B"
+    messages = [
+        {"role": "assistant", "content": "Unrelated old result"},
+        {"role": "user", "content": core.auto_pilot_goal},
+        {"role": "assistant", "content": "A is complete"},
+        {"role": "user", "content": "Continue. Goal: Complete A and B"},
+        {"role": "assistant", "content": "B is complete"},
+    ]
+    requests = []
+
+    def decide(request):
+        requests.append(request)
+        state = request.state
+        assert state["latest_answer"] == "B is complete"
+        assert state["evidence"] == [
+            {"source": "assistant", "status": "reported", "summary": "A is complete"}
+        ]
+        if name == "laya":
+            answers = {"auto_pilot_goal_status": DecisionAnswer("COMPLETE")}
+        else:
+            answers = {
+                "goal_satisfied": DecisionAnswer(True),
+                "material_work_remaining": DecisionAnswer(False),
+            }
+        return DecisionResult(provider=name, model="test", answers=answers)
+
+    provider = SimpleNamespace(name=name, model="test", decide=decide)
+    assert _ask_auto_pilot_decision(messages, core, decision_provider=provider) == (
+        "COMPLETE",
+        "",
+    )
+    assert len(requests) == (2 if name == "laya" else 1)
+
+
+def test_prior_result_evidence_is_bounded_masked_and_skips_tool_calls():
+    core = _loop_core()
+    messages = [{"role": "user", "content": core.auto_pilot_goal}]
+    for index in range(8):
+        messages.append(
+            {
+                "role": "assistant",
+                "content": f"result {index} token: hidden-value " + "x" * 3000,
+            }
+        )
+    messages.extend(
+        [
+            {
+                "role": "assistant",
+                "content": "tool planning",
+                "tool_calls": [{"id": "call-x"}],
+            },
+            {"role": "assistant", "content": None},
+        ]
+    )
+    state = _build_auto_pilot_decision_state(messages, core)
+    assert state["latest_answer"] == ""
+    assert len(state["evidence"]) == 4
+    assert all(len(item["summary"]) <= 2000 for item in state["evidence"])
+    assert "hidden-value" not in str(state)
+    assert "call-x" not in str(state)
+    assert "tool planning" not in str(state)
+    assert state["evidence"][0]["summary"].startswith("result 4")
+    assert state["evidence"][-1]["summary"].startswith("result 7")
+
+
+def test_sentinel_goal_boundary_excludes_previous_run_evidence():
+    core = _loop_core()
+    messages = [
+        {"role": "assistant", "content": "old run completed"},
+        {
+            "role": "user",
+            "content": core.auto_pilot_goal + util_cmd_auto._SENTINEL_INSTRUCTION,
+        },
+        {"role": "assistant", "content": "current result"},
+    ]
+    assert _build_auto_pilot_decision_state(messages, core)["evidence"] == []
