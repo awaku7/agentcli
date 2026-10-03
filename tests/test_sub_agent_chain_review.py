@@ -396,4 +396,3 @@ def test_reviewer_receives_worker_source_context(monkeypatch):
     assert len(reviewer_args) == 1
     assert reviewer_args[0]["current_file"] == "sample.txt"
     assert reviewer_args[0]["load_keys"] == ["prior_context"]
-
