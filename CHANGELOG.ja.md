@@ -5,6 +5,7 @@
 ### 変更
 
 - Sub-Agent chain に任意の review gate を追加。reviewer が `approve` / `retry` を返し、`retry` の指摘をworkerへ渡して再実行する。再試行上限まで承認されない場合はstepを `blocked` とし、`stop_on_error` を適用する。
+- review付きworkerの候補は承認前に`store_key`へ公開せず、`approve`後の最終結果だけを保存。長い候補は無表示で切り捨てずsegment分割して全体をreviewする。
 
 ## [0.7.23] - 2026-10-03
 
