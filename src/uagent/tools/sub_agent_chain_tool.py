@@ -170,12 +170,34 @@ TOOL_SPEC: Dict[str, Any] = {
                                     default="Max retries for this step. Default 2.",
                                 ),
                             },
-                            "max_turns": {
+                            "max_tool_turns": {
+                                "type": "integer",
+                                "minimum": 2,
+                                "description": _(
+                                    "param.step.max_tool_turns.description",
+                                    default="Maximum LLM/tool turns inside one autonomous round. Default 3.",
+                                ),
+                            },
+                            "max_agent_rounds": {
                                 "type": "integer",
                                 "minimum": 1,
                                 "description": _(
-                                    "param.step.max_turns.description",
-                                    default="Max multi-turn interactions for this step. 3 = recommended. Default 3.",
+                                    "param.step.max_agent_rounds.description",
+                                    default="Maximum autonomous work rounds including the initial round. Default 3.",
+                                ),
+                            },
+                            "completion_sentinel": {
+                                "type": "boolean",
+                                "description": _(
+                                    "param.step.completion_sentinel.description",
+                                    default="Use sentinel-based completion judgment for this step.",
+                                ),
+                            },
+                            "completion_regex": {
+                                "type": "string",
+                                "description": _(
+                                    "param.step.completion_regex.description",
+                                    default="Optional completion regex checked before other completion judges.",
                                 ),
                             },
                         },
@@ -229,7 +251,10 @@ def run_tool(args: Dict[str, Any]) -> str:
             "load_keys": step.get("load_keys"),
             "timeout": step.get("timeout", 120),
             "max_retries": step.get("max_retries", 2),
-            "max_turns": step.get("max_turns", 3),
+            "max_tool_turns": step.get("max_tool_turns", 3),
+            "max_agent_rounds": step.get("max_agent_rounds", 3),
+            "completion_sentinel": step.get("completion_sentinel"),
+            "completion_regex": step.get("completion_regex"),
         }
 
         step_result: Dict[str, Any] = {"step": i + 1, "agent_name": step["agent_name"]}

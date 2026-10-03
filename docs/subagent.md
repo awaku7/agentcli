@@ -5,17 +5,21 @@
 このドキュメントは `run_sub_agent` ツールの設計・実装状況・拡張計画を記録する。
 現状の実装完了機能に加え、不足している仕組みとその優先実装計画を記載する。
 
-## 0. 現在の実装状況（2026-10-03、ここを正とする）
+## 0. 現在の実装状況（2026-10-04、ここを正とする）
 
-初期設計時のロードマップから実装は大きく進んでいる。以下を現在の実装状態として扱い、
-後続の「不足機能」「Phase 1〜4」節は実装経緯を残すための履歴として読むこと。
+`run_sub_agent` は現在、単なる tool-use loop ではなく **Goal-driven autonomous loop**
+として動作する。
 
-現在の `run_sub_agent` は次を実装済み:
+実装済み:
 
 - planner / reviewer / summarizer / patch_designer / error_analyst / translator / general
 - provider/model/reasoning のサブエージェント単位上書き
-- `permission_level != none` 時の native tool calling / compatibility tool calling
-- tool 利用時の multi-turn 実行（現在の `max_turns` 既定 3）
+- native tool calling / compatibility tool calling
+- `max_tool_turns`: 1 Agent Round 内の LLM/tool turn 上限（既定 3）
+- `max_agent_rounds`: initial round を含む自律 work round 上限（既定 3）
+- 各 Agent Round 後の Goal Completion Judge
+- bounded な prior assistant results + 実 Tool result evidence を完了判定へ供給
+- CONTINUE feedback を次 Agent Round の prompt へ反映
 - JSON retry、provider retry、timeout
 - result cache、duplicate guard
 - `store_key` / `load_keys` による shared context
@@ -24,41 +28,56 @@
 - 循環 Sub-Agent call guard
 - `run_sub_agent_chain` による順次オーケストレーション
 
-ただし現在の multi-turn は本質的には **tool-use loop** であり、
-「目標が未達なら tool call がなくても自己評価して次ラウンドへ進む」
-autonomous agent loop ではない。
+終了判定の優先順位は Auto-pilot と同じ考え方を使う:
 
-2026-10-03 から次の共通基盤への移行を開始した:
+```text
+completion_regex（指定時）
+    ↓
+completion_sentinel（有効時・この経路を排他的に使用）
+    ↓
+Decision Provider
+    ├─ TypeSafe/OpenRouter (Jev): atomic boolean
+    └─ Laya: reversed-choice consistency
+    ↓ provider失敗/非対応
+LLM reviewer fallback
+```
+
+Decision Provider が run 中に失敗した場合、その provider はその Sub-Agent run の残りでは
+無効化し、LLM reviewer を使用する。これは Auto-pilot の run-local circuit breaker と同じ方針。
+
+`max_rounds`、`sentinel_invalid` など COMPLETE ではない終了理由は成功結果として返さず、
+`status: "blocked"` と `reason`、`partial_result` を返す。
+これにより `run_sub_agent_chain(stop_on_error=true)` も未完了ステップで確実に停止する。
+
+共通基盤:
 
 ```text
 src/uagent/runtime/agent_loop.py
-    provider非依存の judge -> continue -> complete 制御
+    judge -> continue -> complete と round-limit 制御
 
 src/uagent/decision/goal_completion.py
-    Decision Provider を使う汎用 Goal Completion Judge
-    - TypeSafe/OpenRouter(Jev): atomic boolean
-    - Laya: choice + reversed-choice consistency
+    Decision Provider の typed Goal Completion contract
+
+src/uagent/runtime/sub_agent_autonomy.py
+    Sub-Agent の regex / sentinel / Decision Provider / LLM fallback policy
 ```
 
-目標アーキテクチャ:
+実行構造:
 
 ```text
-Sub-Agent initial work
-    -> tool loop (必要なら複数回)
-    -> Goal Completion Judge
-         COMPLETE -> return
-         CONTINUE -> feedback
-                       -> next agent round
-    -> max_agent_rounds まで反復
+Sub-Agent work round
+    ├─ LLM
+    ├─ Tool loop (最大 max_tool_turns)
+    └─ final result
+          ↓
+Goal Completion Judge
+    ├─ COMPLETE → return
+    └─ CONTINUE + feedback
+          ↓
+次の Agent Round
+          ↓
+最大 max_agent_rounds
 ```
-
-このため、今後は現在の `max_turns` を一つの意味で使い続けず、
-
-- `max_tool_turns`: 1 agent round 内の tool-use 上限
-- `max_agent_rounds`: goal judge による自律改善 round 上限
-
-へ分離する。Auto-pilot と Sub-Agent は同じ `AgentLoop` /
-Goal Completion Judge を使い、UI、権限、context、fallback policy のみ各 runtime が所有する。
 
 ## 1. アーキテクチャ（現状）
 
