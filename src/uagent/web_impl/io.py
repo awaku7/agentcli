@@ -17,6 +17,11 @@ from .rooms import WebRoom, _thread_ctx, web_manager
 
 
 def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
+    with room.human_ask_lock:
+        return _web_human_ask_unlocked(room, args)
+
+
+def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
     message = args.get("message", "")
     is_password = bool(args.get("is_password", False))
     allow_empty = bool(args.get("allow_empty", False))
