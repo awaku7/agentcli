@@ -4,7 +4,6 @@
 
 ### 変更
 
-- Sub-Agent chain に bounded parallel group を追加。同じ `parallel_group` の連続stepを並列実行し、結果順序を維持、`store_key` はgroup終了後に公開し、group内依存は拒否する。
 - `parallel_group` によるSub-Agent chainの並列実行を追加。同じ非空名の連続した独立stepを同時実行し、結果順序を維持、shared storeはgroup barrier後にcommitする。兄弟step間のstore依存とduplicate keyを拒否し、`stop_on_error=true` の失敗groupはpublicationをatomicに中止する。
 - Sub-Agent chain に任意の review gate を追加。reviewer が `approve` / `retry` を返し、`retry` の指摘をworkerへ渡して再実行する。再試行上限まで承認されない場合はstepを `blocked` とし、`stop_on_error` を適用する。
 - review付きworkerの候補は承認前に`store_key`へ公開せず、`approve`後の最終結果だけを保存。reviewerへworkerのsource contextを渡し、review roundをduplicate判定から区別する。長大なreview候補は切り捨て・部分reviewせず明示的に`blocked`とする。
