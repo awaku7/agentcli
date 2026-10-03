@@ -99,6 +99,146 @@ def test_confirmation_is_not_carried_over_to_a_new_handler():
     assert runtime.executed == []
 
 
+def test_yes_confirmation_applies_to_one_computer_use_call_only():
+    from uagent.computer_use.integration import install_computer_use_handler
+
+    core = Core()
+    confirmations = []
+    core.computer_use_confirmation = lambda action: confirmations.append(action) or True
+    runtime = MockComputerRuntime()
+    handler = install_computer_use_handler(
+        core=core,
+        provider="custom",
+        model="test",
+        policy=policy(require_confirmation=True, max_actions=5),
+        runtime=runtime,
+    )
+
+    results = [
+        json.loads(
+            handler(
+                tool_call={"id": action_id},
+                action={"action": "screenshot"},
+                messages=[],
+                core=core,
+            )
+        )
+        for action_id in ("once-1", "once-2")
+    ]
+
+    assert all(result["success"] for result in results)
+    assert len(confirmations) == 2
+
+
+def test_yes_confirmation_covers_one_action_batch():
+    from uagent.computer_use.integration import install_computer_use_handler
+
+    core = Core()
+    confirmations = []
+    core.computer_use_confirmation = lambda action: confirmations.append(action) or True
+    runtime = MockComputerRuntime()
+    handler = install_computer_use_handler(
+        core=core,
+        provider="custom",
+        model="test",
+        policy=policy(require_confirmation=True, max_actions=5),
+        runtime=runtime,
+    )
+
+    result = json.loads(
+        handler(
+            tool_call={"id": "batch-once"},
+            action={
+                "actions": [
+                    {"action": "screenshot"},
+                    {"action": "screenshot"},
+                ]
+            },
+            messages=[],
+            core=core,
+        )
+    )
+
+    assert result["success"] is True
+    assert len(result["results"]) == 2
+    assert len(confirmations) == 1
+    assert len(runtime.executed) == 2
+
+
+def test_all_confirmation_persists_for_handler_but_not_a_new_one():
+    from uagent.computer_use.integration import install_computer_use_handler
+
+    core = Core()
+    confirmations = []
+    core.computer_use_confirmation = (
+        lambda action: confirmations.append(action) or "all"
+    )
+    runtime = MockComputerRuntime()
+
+    def make_handler():
+        return install_computer_use_handler(
+            core=core,
+            provider="custom",
+            model="test",
+            policy=policy(require_confirmation=True, max_actions=5),
+            runtime=runtime,
+        )
+
+    handler = make_handler()
+    first = json.loads(
+        handler(
+            tool_call={"id": "all-1"},
+            action={"action": "screenshot"},
+            messages=[],
+            core=core,
+        )
+    )
+    second = json.loads(
+        handler(
+            tool_call={"id": "all-2"},
+            action={"action": "screenshot"},
+            messages=[],
+            core=core,
+        )
+    )
+    assert first["success"] is True
+    assert second["success"] is True
+    assert len(confirmations) == 1
+
+    new_handler = make_handler()
+    third = json.loads(
+        new_handler(
+            tool_call={"id": "all-3"},
+            action={"action": "screenshot"},
+            messages=[],
+            core=core,
+        )
+    )
+    assert third["success"] is True
+    assert len(confirmations) == 2
+
+
+def test_host_confirmation_callback_offers_and_accepts_all(monkeypatch):
+    from uagent import tools
+    from uagent.computer_use.actions import ComputerAction
+    from uagent.computer_use.integration import _host_confirmation_callback
+
+    prompts = []
+
+    def fake_run_tool(name, args):
+        assert name == "human_ask"
+        prompts.append(args["message"])
+        return json.dumps({"user_reply": "all"})
+
+    monkeypatch.setattr(tools, "run_tool", fake_run_tool)
+    confirm = _host_confirmation_callback()
+
+    result = confirm(ComputerAction(action_id="host-1", action="click"))
+
+    assert result == "all"
+    assert "all to allow future Computer Use requests" in prompts[0]
+
+
 def test_navigation_domain_allowlist_checks_destination_before_execution():
     core = Core()
 

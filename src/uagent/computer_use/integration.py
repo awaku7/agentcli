@@ -62,7 +62,7 @@ def _host_confirmation_callback(core: Any | None = None):
         from .. import tools
         from ..i18n import _
 
-        def confirm(action: Any) -> bool:
+        def confirm(action: Any) -> bool | str:
             # Use the shared human_ask route so CLI, GUI, and Web entry points
             # all display a confirmation prompt. The generic default tool
             # callback silently returns False and provides no visible prompt.
@@ -75,7 +75,10 @@ def _host_confirmation_callback(core: Any | None = None):
                 prompt += _(" with key '%(key)s'") % {"key": action.key}
             if action.text:
                 prompt += _(" (text length %(length)d)") % {"length": len(action.text)}
-            prompt += _(".\nAllow this action? Enter y/yes to allow, or c to deny.")
+            prompt += _(
+                ".\nAllow this Computer Use request? Enter y/yes for this request only, "
+                "all to allow future Computer Use requests for this run, or c to deny."
+            )
             result = tools.run_tool(
                 "human_ask", {"message": prompt, "is_password": False}
             )
@@ -95,7 +98,10 @@ def _host_confirmation_callback(core: Any | None = None):
                     reply = json.loads(str(result)).get("user_reply", "")
                 except Exception:
                     reply = ""
-            return str(reply or "").strip().lower() in {"y", "yes", "allow"}
+            normalized_reply = str(reply or "").strip().lower()
+            if normalized_reply in {"all", "a"}:
+                return "all"
+            return normalized_reply in {"y", "yes", "allow", "once"}
 
         return confirm
     except Exception:
@@ -276,10 +282,22 @@ def install_computer_use_handler(
                 return True
             if not callable(confirmation):
                 return False
-            allowed = bool(confirmation(candidate))
+            decision = confirmation(candidate)
+            if isinstance(decision, str):
+                normalized_decision = decision.strip().lower()
+                if normalized_decision in {"all", "a"}:
+                    # Persist only an explicit "all" decision, scoped to this
+                    # installed handler (the active Computer Use run).
+                    state["confirmed"] = True
+                    call_confirmed = True
+                    return True
+                allowed = normalized_decision in {"y", "yes", "allow", "once"}
+            else:
+                # Existing injected bool callbacks remain compatible. A True
+                # result approves this provider call/batch only.
+                allowed = bool(decision)
             if allowed:
                 call_confirmed = True
-                state["confirmed"] = True
             return allowed
 
         for index, item in enumerate(items):
