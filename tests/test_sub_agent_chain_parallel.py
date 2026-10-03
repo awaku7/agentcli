@@ -238,8 +238,6 @@ def test_parallel_group_finishes_started_siblings_before_stop_on_error(monkeypat
     assert "must not run" not in calls
 
 
-
-
 def test_parallel_group_continues_and_publishes_successes_when_configured(monkeypatch):
     published = []
 
