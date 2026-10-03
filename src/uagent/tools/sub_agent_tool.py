@@ -1307,9 +1307,7 @@ class SubAgentRunner:
             if sub_provider:
                 with _SUB_AGENT_ENV_LOCK:
                     sub_api_key = (
-                        explicit_sub_api_key
-                        or get_provider_api_key(sub_provider)
-                        or ""
+                        explicit_sub_api_key or get_provider_api_key(sub_provider) or ""
                     ).strip()
                     orig_provider = os.environ.get("UAGENT_PROVIDER")
                     os.environ["UAGENT_PROVIDER"] = sub_provider
