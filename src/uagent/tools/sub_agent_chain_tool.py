@@ -505,6 +505,7 @@ def _run_review_gate(
         "Review gate stopped without an approval verdict.",
     )
 
+
 def run_tool(args: Dict[str, Any]) -> str:
     from . import sub_agent_tool
 
