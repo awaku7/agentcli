@@ -35,11 +35,6 @@ def test_review_gate_approves_first_worker_attempt(monkeypatch):
         return _worker_result("candidate-v1")
 
     monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
-    monkeypatch.setattr(
-        sub_agent_tool,
-        "publish_shared_result",
-        lambda key, result: published.append((key, result)),
-    )
 
     raw = sub_agent_chain_tool.run_tool(
         {
@@ -82,6 +77,11 @@ def test_review_gate_retries_worker_with_feedback_then_approves(monkeypatch):
         return _worker_result(f"candidate-v{worker_count}")
 
     monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "publish_shared_result",
+        lambda key, result: published.append((key, result)),
+    )
 
     raw = sub_agent_chain_tool.run_tool(
         {
