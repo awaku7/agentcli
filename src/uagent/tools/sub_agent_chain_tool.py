@@ -10,6 +10,8 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+_REVIEW_SEGMENT_CHARS = 12000
+
 BUSY_LABEL = True
 
 TOOL_SPEC: Dict[str, Any] = {
@@ -284,6 +286,7 @@ def _build_step_args(
     step: Dict[str, Any],
     *,
     task_override: str | None = None,
+    include_store_key: bool = True,
 ) -> Dict[str, Any]:
     return {
         "agent_name": step["agent_name"],
@@ -298,7 +301,7 @@ def _build_step_args(
         "permission_level": step.get("permission_level", "none"),
         "parent_goal": step.get("parent_goal"),
         "cache_ttl": step.get("cache_ttl", 0),
-        "store_key": step.get("store_key"),
+        "store_key": step.get("store_key") if include_store_key else None,
         "load_keys": step.get("load_keys"),
         "timeout": step.get("timeout", 120),
         "max_retries": step.get("max_retries", 2),
@@ -319,21 +322,45 @@ def _decode_result(raw: str) -> tuple[str, Dict[str, Any] | None]:
     return str(obj.get("status", "completed")), obj
 
 
+def _split_candidate_for_review(candidate: str) -> List[str]:
+    text = str(candidate or "")
+    if not text:
+        return [""]
+    return [
+        text[start : start + _REVIEW_SEGMENT_CHARS]
+        for start in range(0, len(text), _REVIEW_SEGMENT_CHARS)
+    ]
+
+
 def _build_review_task(
     *,
     worker_task: str,
-    candidate: str,
+    candidate_segment: str,
+    segment_index: int,
+    segment_count: int,
     review_task: str,
 ) -> str:
     extra = str(review_task or "").strip()
+    if segment_count == 1:
+        coverage = "The candidate below is the complete worker result."
+    else:
+        coverage = (
+            f"The candidate is split into {segment_count} review segments. "
+            f"This is segment {segment_index} of {segment_count}. Review this "
+            "segment for concrete defects, contradictions, unsafe content, or "
+            "evidence that the worker task is not satisfied. Do not infer that "
+            "content is missing merely because it may be in another segment."
+        )
     prompt = (
-        "Review whether the candidate result fully satisfies the worker task. "
+        "Review whether the worker result satisfies the worker task. "
         "Return only JSON with status, verdict, and feedback. "
-        'verdict must be "approve" when no material work remains, or "retry" '
-        "when the worker should run again. feedback must state the concrete "
-        "remaining work when verdict is retry.\n\n"
+        'verdict must be "approve" when this review segment has no material '
+        'issue, or "retry" when the worker should run again. feedback must '
+        "state the concrete remaining work when verdict is retry.\n\n"
         f"[Worker task]\n{worker_task}\n\n"
-        f"[Candidate result]\n{candidate[:16000]}"
+        f"[Review coverage]\n{coverage}\n\n"
+        f"[Candidate segment {segment_index}/{segment_count}]\n"
+        f"{candidate_segment}"
     )
     if extra:
         prompt += f"\n\n[Additional review instruction]\n{extra}"
@@ -380,77 +407,93 @@ def _run_review_gate(
                 message = str(candidate_obj.get("message", "") or "")
             return candidate_raw, reviews, worker_attempts, candidate_status, message
 
-        review_args: Dict[str, Any] = {
-            "agent_name": reviewer_agent,
-            "task": _build_review_task(
-                worker_task=original_task,
-                candidate=candidate_raw,
-                review_task=str(review.get("task") or ""),
-            ),
-            "response_mode": "json",
-            "response_schema": {
-                "type": "object",
-                "properties": {
-                    "status": {"type": "string"},
-                    "verdict": {
-                        "type": "string",
-                        "enum": ["approve", "retry"],
+        segments = _split_candidate_for_review(candidate_raw)
+        retry_feedback: List[str] = []
+
+        for segment_index, candidate_segment in enumerate(segments, start=1):
+            review_args: Dict[str, Any] = {
+                "agent_name": reviewer_agent,
+                "task": _build_review_task(
+                    worker_task=original_task,
+                    candidate_segment=candidate_segment,
+                    segment_index=segment_index,
+                    segment_count=len(segments),
+                    review_task=str(review.get("task") or ""),
+                ),
+                "response_mode": "json",
+                "response_schema": {
+                    "type": "object",
+                    "properties": {
+                        "status": {"type": "string"},
+                        "verdict": {
+                            "type": "string",
+                            "enum": ["approve", "retry"],
+                        },
+                        "feedback": {"type": "string"},
                     },
-                    "feedback": {"type": "string"},
+                    "required": ["status", "verdict", "feedback"],
                 },
-                "required": ["status", "verdict", "feedback"],
-            },
-            "required_fields": ["status", "verdict", "feedback"],
-            "strict_output": True,
-            "permission_level": review.get("permission_level", "none"),
-            "parent_goal": step.get("parent_goal"),
-            "timeout": step.get("timeout", 120),
-            "max_retries": step.get("max_retries", 2),
-            "max_tool_turns": review.get("max_tool_turns", 3),
-            "max_agent_rounds": review.get("max_agent_rounds", 3),
-        }
+                "required_fields": ["status", "verdict", "feedback"],
+                "strict_output": True,
+                "permission_level": review.get("permission_level", "none"),
+                "parent_goal": step.get("parent_goal"),
+                "timeout": step.get("timeout", 120),
+                "max_retries": step.get("max_retries", 2),
+                "max_tool_turns": review.get("max_tool_turns", 3),
+                "max_agent_rounds": review.get("max_agent_rounds", 3),
+            }
 
-        review_raw = run_sub_agent(review_args)
-        review_status, review_obj = _decode_result(review_raw)
-        review_record: Dict[str, Any] = {
-            "round": review_round + 1,
-            "agent_name": reviewer_agent,
-            "result": review_raw,
-            "status": review_status,
-        }
-        reviews.append(review_record)
+            review_raw = run_sub_agent(review_args)
+            review_status, review_obj = _decode_result(review_raw)
+            review_record: Dict[str, Any] = {
+                "round": review_round + 1,
+                "segment": segment_index,
+                "segments": len(segments),
+                "agent_name": reviewer_agent,
+                "result": review_raw,
+                "status": review_status,
+            }
+            reviews.append(review_record)
 
-        if review_status in ("error", "blocked") or review_obj is None:
-            message = (
-                str(review_obj.get("message", "") or "")
-                if review_obj
-                else "Reviewer did not return a JSON object."
-            )
-            return (
-                candidate_raw,
-                reviews,
-                worker_attempts,
-                "blocked",
-                f"Review gate failed: {message}",
-            )
+            if review_status in ("error", "blocked") or review_obj is None:
+                message = (
+                    str(review_obj.get("message", "") or "")
+                    if review_obj
+                    else "Reviewer did not return a JSON object."
+                )
+                return (
+                    candidate_raw,
+                    reviews,
+                    worker_attempts,
+                    "blocked",
+                    f"Review gate failed: {message}",
+                )
 
-        verdict = str(review_obj.get("verdict", "") or "").strip().lower()
-        feedback = str(review_obj.get("feedback", "") or "").strip()
-        review_record["verdict"] = verdict
-        review_record["feedback"] = feedback
+            verdict = str(review_obj.get("verdict", "") or "").strip().lower()
+            feedback = str(review_obj.get("feedback", "") or "").strip()
+            review_record["verdict"] = verdict
+            review_record["feedback"] = feedback
 
-        if verdict == "approve":
+            if verdict == "retry":
+                retry_feedback.append(
+                    f"Segment {segment_index}/{len(segments)}: "
+                    f"{feedback or 'Material work remains.'}"
+                )
+                continue
+
+            if verdict != "approve":
+                return (
+                    candidate_raw,
+                    reviews,
+                    worker_attempts,
+                    "blocked",
+                    f"Review gate returned invalid verdict: {verdict or '<empty>'}",
+                )
+
+        if not retry_feedback:
             return candidate_raw, reviews, worker_attempts, "completed", ""
 
-        if verdict != "retry":
-            return (
-                candidate_raw,
-                reviews,
-                worker_attempts,
-                "blocked",
-                f"Review gate returned invalid verdict: {verdict or '<empty>'}",
-            )
-
+        feedback = "\n".join(retry_feedback)
         if review_round >= max_retries:
             return (
                 candidate_raw,
@@ -459,7 +502,7 @@ def _run_review_gate(
                 "blocked",
                 (
                     "Review gate exhausted worker retries before approval. "
-                    f"Last feedback: {feedback or 'material work remains'}"
+                    f"Last feedback: {feedback}"
                 ),
             )
 
@@ -468,9 +511,10 @@ def _run_review_gate(
             step,
             task_override=_build_retry_task(
                 original_task=original_task,
-                feedback=feedback or "Material work remains.",
+                feedback=feedback,
                 attempt=worker_attempts,
             ),
+            include_store_key=False,
         )
         candidate_raw = run_sub_agent(retry_args)
 
@@ -484,8 +528,9 @@ def _run_review_gate(
 
 
 def run_tool(args: Dict[str, Any]) -> str:
-    from .sub_agent_tool import run_tool as run_sub_agent
+    from . import sub_agent_tool
 
+    run_sub_agent = sub_agent_tool.run_tool
     chain: List[Dict[str, Any]] = args["chain"]
     stop_on_error: bool = args.get("stop_on_error", True)
 
@@ -495,7 +540,10 @@ def run_tool(args: Dict[str, Any]) -> str:
     for i, step in enumerate(chain):
         step_result: Dict[str, Any] = {"step": i + 1, "agent_name": step["agent_name"]}
         try:
-            raw = run_sub_agent(_build_step_args(step))
+            reviewed_step = isinstance(step.get("review"), dict)
+            raw = run_sub_agent(
+                _build_step_args(step, include_store_key=not reviewed_step)
+            )
             final_raw, reviews, attempts, status, review_error = _run_review_gate(
                 run_sub_agent=run_sub_agent,
                 step=step,
@@ -506,6 +554,16 @@ def run_tool(args: Dict[str, Any]) -> str:
             if reviews:
                 step_result["attempts"] = attempts
                 step_result["reviews"] = reviews
+
+            if (
+                status == "completed"
+                and reviewed_step
+                and step.get("store_key")
+            ):
+                sub_agent_tool.publish_shared_result(
+                    str(step["store_key"]),
+                    final_raw,
+                )
 
             if status in ("error", "blocked"):
                 _, obj = _decode_result(final_raw)
