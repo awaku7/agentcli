@@ -296,6 +296,7 @@ def test_parallel_group_continues_and_publishes_successes_when_configured(monkey
         ("successful_result", _worker_result("successful"))
     ]
 
+
 def test_sub_agent_call_chain_is_context_local_across_parallel_workers(monkeypatch):
     runner = sub_agent_tool.SubAgentRunner()
     barrier = threading.Barrier(2)
