@@ -539,7 +539,6 @@ def _validate_parallel_group(
         )
 
     for index, step in enumerate(group_steps):
-        own_key = store_keys[index]
         sibling_keys = {
             key
             for sibling_index, key in enumerate(store_keys)
@@ -554,9 +553,6 @@ def _validate_parallel_group(
                 f"{', '.join(overlap)}. Parallel members may only load context "
                 "published before the group starts."
             )
-        if own_key and own_key in requested:
-            continue
-
     return ""
 
 
