@@ -177,21 +177,48 @@ def _build_auto_pilot_decision_state(
     messages: list[dict[str, Any]],
     core: Any,
 ) -> dict[str, Any]:
-    latest_answer = ""
-    for message in reversed(messages):
-        if isinstance(message, dict) and message.get("role") == "assistant":
-            latest_answer = _decision_text_content(message.get("content", ""))
+    goal = _decision_text_content(core.auto_pilot_goal)
+    # An initial goal message marks the current run; continuation prompts do not.
+    # If history was compacted and the marker is absent, retain bounded results.
+    run_messages = messages
+    for index in range(len(messages) - 1, -1, -1):
+        message = messages[index]
+        if not isinstance(message, dict) or message.get("role") != "user":
+            continue
+        content = _decision_text_content(message.get("content", ""))
+        if goal and (
+            content == goal or content.startswith(goal + " Auto-pilot protocol:")
+        ):
+            run_messages = messages[index + 1 :]
             break
 
+    latest_answer = ""
+    latest_seen = False
+    tool_count = 0
+    assistant_count = 0
     evidence = []
-    for message in reversed(messages):
-        if not isinstance(message, dict) or message.get("role") != "tool":
+    for message in reversed(run_messages):
+        if not isinstance(message, dict):
             continue
-        item = _tool_result_for_judgment(message)
-        item.pop("call_id")
-        evidence.append(item)
-        if len(evidence) >= 4:
-            break
+        if message.get("role") == "assistant":
+            content = _decision_text_content(message.get("content", ""))
+            if not latest_seen:
+                latest_answer = content
+                latest_seen = True
+            elif content and not message.get("tool_calls") and assistant_count < 4:
+                evidence.append(
+                    {
+                        "source": "assistant",
+                        "status": "reported",
+                        "summary": content[:2000],
+                    }
+                )
+                assistant_count += 1
+        elif message.get("role") == "tool" and tool_count < 4:
+            item = _tool_result_for_judgment(message)
+            item.pop("call_id")
+            evidence.append(item)
+            tool_count += 1
     evidence.reverse()
     return {
         "goal": _mask_inline_secrets(str(core.auto_pilot_goal or ""))[:2000],
@@ -260,8 +287,8 @@ def _build_auto_pilot_decision_request(
                     id="goal_satisfied",
                     kind="boolean",
                     instruction=(
-                        "Does latest_answer, supported by evidence, answer every item "
-                        "explicitly requested in goal and satisfy any requested actions? "
+                        "Do latest_answer and evidence, including prior assistant results, "
+                        "together fulfill every explicit item and action requested in goal? "
                         "Return true when all requested items are fulfilled; false when "
                         "a requested item is materially missing. Measurement uncertainty "
                         "or qualified estimates alone do not mean the task is incomplete. "

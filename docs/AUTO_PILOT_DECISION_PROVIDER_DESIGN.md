@@ -274,7 +274,7 @@ This preserves backward compatibility while avoiding a new fallback subsystem.
 TypeSafe/Jev and OpenRouter/Jev receive one `DecisionRequest` with two atomic
 `boolean` questions, translated by their adapters to native `noul` questions:
 
-- `goal_satisfied`: does the latest answer and evidence fulfill every explicit
+- `goal_satisfied`: do the latest answer and cumulative evidence fulfill every explicit
   request, including requested actions?
 - `material_work_remaining`: is a concrete requested requirement or action still
   missing? Optional improvements and qualified measurement estimates do not count.
@@ -301,12 +301,19 @@ All Decision Providers receive the same masked, bounded structure:
     "latest_answer": "...",
     "evidence": [
         {"tool": "...", "status": "success|failed", "summary": "..."},
+        {"source": "assistant", "status": "reported", "summary": "..."},
     ],
 }
 ```
 
 The goal is bounded to 2,000 characters, the latest assistant answer to 12,000,
-and evidence to four recent tool results with 400-character summaries. Failed
+and evidence to four recent tool results with 400-character summaries plus four
+prior assistant results with 2,000-character summaries. Earlier assistant results
+carry cumulative completion evidence when each round reports different goal
+items. They are reported claims, not verified tool outcomes. Tool-call assistant
+messages are excluded from prior-result evidence. The initial goal user message
+marks the current run, excluding older unrelated results; if compaction removed
+that marker, the same count and text bounds still apply. Failed
 results remain evidence so a failed action is not hidden. The latest assistant
 message is used even when its content is empty, rather than reusing an older
 answer. Raw transcripts, round/max-round counts and tool call IDs are excluded:

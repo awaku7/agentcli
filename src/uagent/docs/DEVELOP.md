@@ -857,5 +857,6 @@ code_mapの `format="mermaid"` で生成した現在のプロジェクト構造�
 Auto-pilot Jev review sends `goal_satisfied` and `material_work_remaining` boolean
 questions together (native `noul`), deriving COMPLETE only from true/false.
 Its masked state excludes execution budgets and call IDs and contains goal,
-latest answer and bounded evidence. Laya's choice/order guard and LLM fallback
+latest answer and bounded tool/prior-assistant evidence for cumulative completion.
+Laya's choice/order guard and LLM fallback
 remain unchanged. See `docs/AUTO_PILOT_DECISION_PROVIDER_DESIGN.md`.

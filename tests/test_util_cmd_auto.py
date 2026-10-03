@@ -359,9 +359,15 @@ def test_auto_pilot_decision_state_is_bounded_and_masked() -> None:
     state = _build_auto_pilot_decision_state(messages, core)
 
     assert set(state) == {"goal", "latest_answer", "evidence"}
-    assert len(state["evidence"]) == 4
+    tools = [item for item in state["evidence"] if "tool" in item]
+    prior_results = [
+        item for item in state["evidence"] if item.get("source") == "assistant"
+    ]
+    assert len(tools) == 4
+    assert len(prior_results) == 3
     assert len(state["latest_answer"]) <= 12000
-    assert all(len(item["summary"]) <= 400 for item in state["evidence"])
+    assert all(len(item["summary"]) <= 400 for item in tools)
+    assert all(len(item["summary"]) <= 2000 for item in prior_results)
     assert all("call_id" not in item for item in state["evidence"])
     serialized = str(state)
     assert "goal-secret" not in serialized
@@ -842,3 +848,84 @@ def test_decision_capability_checks_required_question_kind(
     )
     provider = SimpleNamespace(name=name, model="test")
     assert util_cmd_auto._decision_provider_supports_questions(provider) is expected
+
+
+@pytest.mark.parametrize("name", ["typesafe", "openrouter", "laya"])
+def test_multi_round_completion_preserves_prior_results(name):
+    core = _loop_core()
+    core.auto_pilot_goal = "Complete A and B"
+    messages = [
+        {"role": "assistant", "content": "Unrelated old result"},
+        {"role": "user", "content": core.auto_pilot_goal},
+        {"role": "assistant", "content": "A is complete"},
+        {"role": "user", "content": "Continue. Goal: Complete A and B"},
+        {"role": "assistant", "content": "B is complete"},
+    ]
+    requests = []
+
+    def decide(request):
+        requests.append(request)
+        state = request.state
+        assert state["latest_answer"] == "B is complete"
+        assert state["evidence"] == [
+            {"source": "assistant", "status": "reported", "summary": "A is complete"}
+        ]
+        if name == "laya":
+            answers = {"auto_pilot_goal_status": DecisionAnswer("COMPLETE")}
+        else:
+            answers = {
+                "goal_satisfied": DecisionAnswer(True),
+                "material_work_remaining": DecisionAnswer(False),
+            }
+        return DecisionResult(provider=name, model="test", answers=answers)
+
+    provider = SimpleNamespace(name=name, model="test", decide=decide)
+    assert _ask_auto_pilot_decision(messages, core, decision_provider=provider) == (
+        "COMPLETE",
+        "",
+    )
+    assert len(requests) == (2 if name == "laya" else 1)
+
+
+def test_prior_result_evidence_is_bounded_masked_and_skips_tool_calls():
+    core = _loop_core()
+    messages = [{"role": "user", "content": core.auto_pilot_goal}]
+    for index in range(8):
+        messages.append(
+            {
+                "role": "assistant",
+                "content": f"result {index} token: hidden-value " + "x" * 3000,
+            }
+        )
+    messages.extend(
+        [
+            {
+                "role": "assistant",
+                "content": "tool planning",
+                "tool_calls": [{"id": "call-x"}],
+            },
+            {"role": "assistant", "content": None},
+        ]
+    )
+    state = _build_auto_pilot_decision_state(messages, core)
+    assert state["latest_answer"] == ""
+    assert len(state["evidence"]) == 4
+    assert all(len(item["summary"]) <= 2000 for item in state["evidence"])
+    assert "hidden-value" not in str(state)
+    assert "call-x" not in str(state)
+    assert "tool planning" not in str(state)
+    assert state["evidence"][0]["summary"].startswith("result 4")
+    assert state["evidence"][-1]["summary"].startswith("result 7")
+
+
+def test_sentinel_goal_boundary_excludes_previous_run_evidence():
+    core = _loop_core()
+    messages = [
+        {"role": "assistant", "content": "old run completed"},
+        {
+            "role": "user",
+            "content": core.auto_pilot_goal + util_cmd_auto._SENTINEL_INSTRUCTION,
+        },
+        {"role": "assistant", "content": "current result"},
+    ]
+    assert _build_auto_pilot_decision_state(messages, core)["evidence"] == []

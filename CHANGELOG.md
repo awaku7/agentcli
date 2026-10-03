@@ -4,6 +4,8 @@
 
 ### Changed
 
+- Preserve bounded prior assistant results as cumulative Auto-pilot completion evidence across rounds, excluding older runs when the initial goal message is present.
+
 - Use atomic boolean/noul completion review for Auto-pilot TypeSafe/Jev and OpenRouter/Jev; remove round budgets, call IDs and unrelated conversation from decision state while preserving Laya choice/order consistency and LLM fallback.
 
 - Harden remote Decision Providers by reusing UAG HTTP/credential handling, preserving safe HTTP error detail, and disabling a failed provider for the remainder of the current Auto-pilot run.
