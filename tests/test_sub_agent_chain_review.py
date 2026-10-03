@@ -298,15 +298,13 @@ def test_reviewed_store_key_is_not_published_when_gate_blocks(monkeypatch):
     assert published == []
 
 
-def test_review_gate_segments_long_candidate_and_covers_suffix(monkeypatch):
-    reviewer_tasks = []
-    candidate = "A" * sub_agent_chain_tool._REVIEW_SEGMENT_CHARS + "SUFFIX_DEFECT"
+def test_review_gate_blocks_oversized_candidate_without_review(monkeypatch):
+    reviewer_calls = []
+    candidate = "A" * (sub_agent_chain_tool._MAX_REVIEW_CANDIDATE_CHARS + 1)
 
     def fake_run(args):
         if args["agent_name"] == "reviewer":
-            reviewer_tasks.append(args["task"])
-            if "SUFFIX_DEFECT" in args["task"]:
-                return _review_result("retry", "suffix defect found")
+            reviewer_calls.append(args)
             return _review_result("approve")
         return candidate
 
@@ -329,8 +327,73 @@ def test_review_gate_segments_long_candidate_and_covers_suffix(monkeypatch):
     step = result["steps"][0]
     assert result["status"] == "error"
     assert step["status"] == "blocked"
+    assert "exceeds the supported review size" in step["error"]
+    assert reviewer_calls == []
+
+
+def test_review_round_changes_reviewer_task_fingerprint(monkeypatch):
+    reviewer_tasks = []
+    worker_calls = 0
+
+    def fake_run(args):
+        nonlocal worker_calls
+        if args["agent_name"] == "reviewer":
+            reviewer_tasks.append(args["task"])
+            return _review_result("retry", "still incomplete")
+        worker_calls += 1
+        return _worker_result("same candidate")
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "produce result",
+                    "review": {"max_retries": 1},
+                }
+            ]
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "error"
+    assert worker_calls == 2
     assert len(reviewer_tasks) == 2
-    assert "segment 1 of 2" in reviewer_tasks[0]
-    assert "segment 2 of 2" in reviewer_tasks[1]
-    assert "SUFFIX_DEFECT" in reviewer_tasks[1]
-    assert [review["segment"] for review in step["reviews"]] == [1, 2]
+    assert reviewer_tasks[0] != reviewer_tasks[1]
+    assert "[Review round]\n1" in reviewer_tasks[0]
+    assert "[Review round]\n2" in reviewer_tasks[1]
+
+
+def test_reviewer_receives_worker_source_context(monkeypatch):
+    reviewer_args = []
+
+    def fake_run(args):
+        if args["agent_name"] == "reviewer":
+            reviewer_args.append(args)
+            return _review_result("approve")
+        return _worker_result("candidate")
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "summarize source",
+                    "current_file": "sample.txt",
+                    "load_keys": ["prior_context"],
+                    "review": {},
+                }
+            ]
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "completed"
+    assert len(reviewer_args) == 1
+    assert reviewer_args[0]["current_file"] == "sample.txt"
+    assert reviewer_args[0]["load_keys"] == ["prior_context"]
+
