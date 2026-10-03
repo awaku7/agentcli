@@ -396,3 +396,8 @@ def test_reviewer_receives_worker_source_context(monkeypatch):
     assert len(reviewer_args) == 1
     assert reviewer_args[0]["current_file"] == "sample.txt"
     assert reviewer_args[0]["load_keys"] == ["prior_context"]
+
+def test_publish_shared_result_preserves_store_key_exactly():
+    runner = sub_agent_tool.SubAgentRunner()
+    runner.publish_shared_result(" reviewed_result ", "candidate")
+    assert runner._shared_store[" reviewed_result "] == "candidate"
