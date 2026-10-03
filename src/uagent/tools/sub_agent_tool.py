@@ -1297,16 +1297,20 @@ class SubAgentRunner:
             or env_get("UAGENT_SUB_AGENT_DEPNAME")
             or ""
         ).strip()
-        sub_api_key = (
+        explicit_sub_api_key = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
             or env_get("UAGENT_SUB_AGENT_API_KEY")
-            or (get_provider_api_key(sub_provider) if sub_provider else "")
             or ""
         ).strip()
 
         try:
             if sub_provider:
                 with _SUB_AGENT_ENV_LOCK:
+                    sub_api_key = (
+                        explicit_sub_api_key
+                        or get_provider_api_key(sub_provider)
+                        or ""
+                    ).strip()
                     orig_provider = os.environ.get("UAGENT_PROVIDER")
                     os.environ["UAGENT_PROVIDER"] = sub_provider
                     orig_depname = None
