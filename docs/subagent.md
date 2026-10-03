@@ -100,6 +100,13 @@ reviewer 自身も通常の `run_sub_agent` として実行されるため、Goa
 `max_tool_turns`、`max_agent_rounds` を使用する。retry 上限まで承認されなかった場合は
 そのchain stepを `blocked` とし、`stop_on_error=true` ならchainを停止する。
 
+review付きstepで `store_key` が指定されている場合、worker候補はreview中はshared storeへ
+公開しない。reviewerが `approve` した最終候補だけをcommitするため、rejectされた候補が
+後続stepから参照されることはない。
+
+長いworker結果は無表示で切り捨てず、一定長のreview segmentへ分割して全文を順次確認する。
+各segmentのreview結果を集約し、1つでも `retry` があればそのfeedbackをworker再実行へ渡す。
+
 ## 1. アーキテクチャ（現状）
 
 ```
