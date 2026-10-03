@@ -205,22 +205,13 @@ def _parse_attempt(
 ) -> GoalCompletionAttempt:
     if atomic:
         answers = [result.answers.get(question.id) for question in request.questions]
-        if any(
-            answer is None or type(answer.value) is not bool
-            for answer in answers
-        ):
+        if any(answer is None or type(answer.value) is not bool for answer in answers):
             raise ValueError("missing or invalid goal-completion boolean answer")
 
         satisfied, remaining = answers
-        judgment = (
-            "COMPLETE"
-            if satisfied.value and not remaining.value
-            else "CONTINUE"
-        )
+        judgment = "COMPLETE" if satisfied.value and not remaining.value else "CONTINUE"
         confidence_values = [
-            answer.confidence
-            for answer in answers
-            if answer.confidence is not None
+            answer.confidence for answer in answers if answer.confidence is not None
         ]
         answer = DecisionAnswer(
             judgment,
