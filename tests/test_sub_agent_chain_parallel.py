@@ -250,9 +250,7 @@ def test_parallel_group_continues_and_publishes_successes_when_configured(monkey
                 }
             )
         if args["task"] == "after":
-            assert published == [
-                ("successful_result", _worker_result("successful"))
-            ]
+            assert published == [("successful_result", _worker_result("successful"))]
         return _worker_result(args["task"])
 
     monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
@@ -292,9 +290,7 @@ def test_parallel_group_continues_and_publishes_successes_when_configured(monkey
         "completed",
         "completed",
     ]
-    assert published == [
-        ("successful_result", _worker_result("successful"))
-    ]
+    assert published == [("successful_result", _worker_result("successful"))]
 
 
 def test_sub_agent_call_chain_is_context_local_across_parallel_workers(monkeypatch):
