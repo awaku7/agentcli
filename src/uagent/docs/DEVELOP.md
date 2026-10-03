@@ -263,6 +263,7 @@ Key modules:
     - State flags: `core.auto_pilot_active`, `core.auto_pilot_exit_requested`,
       `core.auto_pilot_round`, `core.auto_pilot_max_rounds`, `core.auto_pilot_goal`.
     - Shared control loop: `src/uagent/runtime/agent_loop.py` owns provider-agnostic judge/continue/complete and round-limit flow; Auto-pilot supplies its own judgment, follow-up execution, UI, and observability callbacks.
+    - Shared completion judge: `src/uagent/runtime/goal_completion.py` builds bounded/masked evidence and normalizes Decision Provider COMPLETE/CONTINUE judgments for Auto-pilot and future Sub-Agent reuse.
 - Startup initialization: `src/uagent/runtime/runtime_init.py` (compatibility re-export)
   - `src/uagent/runtime/runtime_workdir.py`: `decide_workdir()` / `apply_workdir()`
   - `src/uagent/runtime/runtime_banner.py`: `build_startup_banner()`
