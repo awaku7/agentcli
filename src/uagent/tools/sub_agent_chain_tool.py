@@ -213,16 +213,6 @@ TOOL_SPEC: Dict[str, Any] = {
                                     default="Optional completion regex checked before other completion judges.",
                                 ),
                             },
-                            "parallel_group": {
-                                "type": "string",
-                                "description": _(
-                                    "param.step.parallel_group.description",
-                                    default=(
-                                        "Optional name for a consecutive parallel group. "
-                                        "Consecutive steps with the same non-empty name run concurrently."
-                                    ),
-                                ),
-                            },
                             "review": {
                                 "type": "object",
                                 "properties": {
