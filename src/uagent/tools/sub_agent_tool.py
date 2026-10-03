@@ -1338,7 +1338,8 @@ class SubAgentRunner:
                             else:
                                 os.environ.pop(key_key, None)
             else:
-                provider, client, model_name = make_client(cb)
+                with _SUB_AGENT_ENV_LOCK:
+                    provider, client, model_name = make_client(cb)
         except Exception as exc:
             return (
                 json.dumps(
