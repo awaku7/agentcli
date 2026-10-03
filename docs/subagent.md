@@ -104,8 +104,10 @@ review付きstepで `store_key` が指定されている場合、worker候補は
 公開しない。reviewerが `approve` した最終候補だけをcommitするため、rejectされた候補が
 後続stepから参照されることはない。
 
-長いworker結果は無表示で切り捨てず、一定長のreview segmentへ分割して全文を順次確認する。
-各segmentのreview結果を集約し、1つでも `retry` があればそのfeedbackをworker再実行へ渡す。
+reviewerにはworkerと同じ `current_file` / `load_keys` を渡し、元資料や共有contextと照合できるようにする。
+review round番号をreview taskへ含め、同一候補が再提出された場合でもduplicate guardに誤検出されないようにする。
+review対象が上限サイズを超える場合は無表示で切り捨てたり分割reviewしたりせず、そのstepを明示的に `blocked` とする。
+長大成果物の分割・要約・全体整合性reviewは別設計で扱う。
 
 ## 1. アーキテクチャ（現状）
 
