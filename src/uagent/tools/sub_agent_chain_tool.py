@@ -687,9 +687,9 @@ def run_tool(args: Dict[str, Any]) -> str:
             continue
 
         max_workers = min(_MAX_PARALLEL_GROUP_WORKERS, len(group_steps))
-        group_results: List[
-            tuple[Dict[str, Any], tuple[str, str] | None] | None
-        ] = [None] * len(group_steps)
+        group_results: List[tuple[Dict[str, Any], tuple[str, str] | None] | None] = [
+            None
+        ] * len(group_steps)
 
         with ThreadPoolExecutor(
             max_workers=max_workers,
@@ -761,10 +761,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             results.append(step_result)
             if publish_later is not None:
                 pending_publications.append(publish_later)
-            if (
-                first_error is None
-                and step_result["status"] in ("error", "blocked")
-            ):
+            if first_error is None and step_result["status"] in ("error", "blocked"):
                 first_error = step_result
 
         if first_error is None or not stop_on_error:
