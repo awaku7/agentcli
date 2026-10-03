@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
-import pytest
 
 from uagent.decision import DecisionAnswer, DecisionResult, DecisionSettings
 from uagent.runtime import sub_agent_autonomy as autonomy
