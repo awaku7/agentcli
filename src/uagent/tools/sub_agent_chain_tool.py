@@ -4,7 +4,7 @@ Run a chain that executes multiple sub-agents sequentially and passes results be
 
 from __future__ import annotations
 import json
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from typing import Any, Dict, List
 
 from ..runtime.identity_context import submit_with_current_context
@@ -695,8 +695,12 @@ def run_tool(args: Dict[str, Any]) -> str:
             max_workers=max_workers,
             thread_name_prefix="sub_agent_group",
         ) as executor:
-            futures = []
-            for offset, group_step in enumerate(group_steps):
+            active = {}
+            next_offset = 0
+            failure_seen = False
+
+            def submit_group_step(offset: int) -> None:
+                group_step = group_steps[offset]
                 future = submit_with_current_context(
                     executor,
                     _run_chain_step,
@@ -706,22 +710,47 @@ def run_tool(args: Dict[str, Any]) -> str:
                     step_number=index + offset + 1,
                     defer_store_publish=True,
                 )
-                futures.append((offset, group_step, future))
+                active[future] = (offset, group_step)
 
-            for offset, group_step, future in futures:
-                try:
-                    group_results[offset] = future.result()
-                except Exception as exc:
-                    group_results[offset] = (
-                        {
-                            "step": index + offset + 1,
-                            "agent_name": group_step["agent_name"],
-                            "parallel_group": group_name,
-                            "status": "error",
-                            "error": str(exc),
-                        },
-                        None,
-                    )
+            while next_offset < len(group_steps) and len(active) < max_workers:
+                submit_group_step(next_offset)
+                next_offset += 1
+
+            while active:
+                done, _ = wait(active, return_when=FIRST_COMPLETED)
+                for future in done:
+                    offset, group_step = active.pop(future)
+                    try:
+                        group_results[offset] = future.result()
+                    except Exception as exc:
+                        group_results[offset] = (
+                            {
+                                "step": index + offset + 1,
+                                "agent_name": group_step["agent_name"],
+                                "parallel_group": group_name,
+                                "status": "error",
+                                "error": str(exc),
+                            },
+                            None,
+                        )
+
+                    item = group_results[offset]
+                    if (
+                        stop_on_error
+                        and item is not None
+                        and item[0]["status"] in ("error", "blocked")
+                    ):
+                        failure_seen = True
+
+                if failure_seen:
+                    for future in list(active):
+                        if future.cancel():
+                            active.pop(future)
+                    continue
+
+                while next_offset < len(group_steps) and len(active) < max_workers:
+                    submit_group_step(next_offset)
+                    next_offset += 1
 
         first_error: Dict[str, Any] | None = None
         pending_publications: List[tuple[str, str]] = []
