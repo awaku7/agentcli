@@ -35,6 +35,11 @@ def test_review_gate_approves_first_worker_attempt(monkeypatch):
         return _worker_result("candidate-v1")
 
     monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "publish_shared_result",
+        lambda key, result: published.append((key, result)),
+    )
 
     raw = sub_agent_chain_tool.run_tool(
         {
@@ -60,6 +65,7 @@ def test_review_gate_approves_first_worker_attempt(monkeypatch):
 
 def test_review_gate_retries_worker_with_feedback_then_approves(monkeypatch):
     calls = []
+    published = []
     worker_count = 0
     review_count = 0
 
@@ -83,6 +89,7 @@ def test_review_gate_retries_worker_with_feedback_then_approves(monkeypatch):
                 {
                     "agent_name": "general",
                     "task": "produce and validate result",
+                    "store_key": "reviewed_result",
                     "review": {
                         "agent_name": "reviewer",
                         "max_retries": 2,
@@ -105,9 +112,11 @@ def test_review_gate_retries_worker_with_feedback_then_approves(monkeypatch):
 
     worker_calls = [call for call in calls if call["agent_name"] == "general"]
     assert len(worker_calls) == 2
+    assert all(call.get("store_key") is None for call in worker_calls)
     assert worker_calls[0]["task"] == "produce and validate result"
     assert "Add validation evidence." in worker_calls[1]["task"]
     assert "produce and validate result" in worker_calls[1]["task"]
+    assert published == [("reviewed_result", _worker_result("candidate-v2"))]
 
 
 def test_review_gate_retry_exhaustion_blocks_chain(monkeypatch):
