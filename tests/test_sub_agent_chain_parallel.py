@@ -326,3 +326,35 @@ def test_sub_agent_call_chain_is_context_local_across_parallel_workers(monkeypat
 
     decoded = [json.loads(result) for result in results]
     assert [item["status"] for item in decoded] == ["completed", "completed"]
+
+
+def test_default_sub_agent_client_creation_uses_environment_lock(monkeypatch):
+    class CountingLock:
+        def __init__(self):
+            self._lock = threading.Lock()
+            self.entries = 0
+
+        def __enter__(self):
+            self._lock.acquire()
+            self.entries += 1
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            self._lock.release()
+
+    runner = sub_agent_tool.SubAgentRunner()
+    lock = CountingLock()
+
+    monkeypatch.setattr(sub_agent_tool, "_SUB_AGENT_ENV_LOCK", lock)
+    monkeypatch.setattr(runner, "_write_log", lambda *args, **kwargs: None)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "make_client",
+        lambda cb: (_ for _ in ()).throw(RuntimeError("stop after client setup")),
+    )
+
+    result = json.loads(runner.run("general", "default provider task"))
+
+    assert result["status"] == "error"
+    assert "Failed to create client" in result["message"]
+    assert lock.entries == 2
