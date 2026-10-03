@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Extract the goal-driven Auto-pilot control flow into a reusable AgentLoop runtime so Sub-Agents can adopt the same judge/continue/complete semantics without duplicating provider or UI policy.
+
 ## [0.7.23] - 2026-10-03
 
 ### Added
