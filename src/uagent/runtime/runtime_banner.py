@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from ..decision.settings import get_decision_settings
 from ..env_utils import env_get
 from ..image_defaults import default_image_model
 from ..i18n import _
@@ -291,6 +292,20 @@ def _startup_optional_model_infos() -> list[tuple[str, str, str]]:
     return infos
 
 
+def _decision_model_info() -> tuple[str, str]:
+    """Describe resolved configuration without creating a decision adapter."""
+    provider = get_decision_settings().provider
+    default_models = {
+        "typesafe": "jev-latest",
+        "openrouter": "~typesafe/jev-latest",
+        "laya": "laya-multilingual",
+    }
+    if provider == "none":
+        return provider, "-"
+    model = _env(f"UAGENT_DECISION_{provider.upper()}_DEPNAME")
+    return provider, model or default_models[provider]
+
+
 def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str:
     """Build startup info lines as a single text block."""
 
@@ -299,6 +314,16 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
     lines.append(
         _("[INFO] workdir = %(workdir)s (source: %(source)s)")
         % {"workdir": workdir, "source": workdir_source}
+    )
+
+    decision_provider, decision_model = _decision_model_info()
+    lines.append(
+        _("[INFO] %(label)s = %(provider)s; model = %(model)s")
+        % {
+            "label": _("Decision Provider"),
+            "provider": decision_provider,
+            "model": decision_model,
+        }
     )
 
     provider = (env_get("UAGENT_PROVIDER", "(unknown)") or "(unknown)").lower()

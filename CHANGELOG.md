@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Show the configured Decision Provider and model in the startup banner, including `none` when disabled, without initializing an adapter.
+
 ### Changed
 
 - Preserve bounded prior assistant results as cumulative Auto-pilot completion evidence across rounds, excluding older runs when the initial goal message is present.
