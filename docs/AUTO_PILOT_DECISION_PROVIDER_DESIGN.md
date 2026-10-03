@@ -112,6 +112,18 @@ The provider-agnostic autonomous control flow is shared through:
 src/uagent/runtime/agent_loop.py
 ```
 
+The Decision Provider completion-judgment primitives are shared through:
+
+```text
+src/uagent/runtime/goal_completion.py
+```
+
+This module owns bounded and secret-masked completion evidence, typed completion
+questions, capability checks, atomic boolean normalization for TypeSafe/OpenRouter,
+and Laya reversed-choice consistency checking. Auto-pilot keeps compatibility
+wrappers for its existing helper names and supplies Auto-pilot-specific metadata,
+observability, logging, provider lifecycle, and the legacy LLM fallback.
+
 `run_agent_loop()` deliberately does not know about providers, message formats,
 Decision Providers, tools, CLI/Web state, or observability. The caller supplies
 callbacks for deterministic completion, completion judgment, round advancement,
