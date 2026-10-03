@@ -5,6 +5,7 @@
 ### Changed
 
 - Extract the goal-driven Auto-pilot control flow into a reusable AgentLoop runtime so Sub-Agents can adopt the same judge/continue/complete semantics without duplicating provider or UI policy.
+- Extract typed goal-completion evaluation into a reusable Decision Provider API, including atomic Jev booleans and Laya reversed-choice consistency checks, while keeping Auto-pilot fallback and observability policy unchanged.
 
 ## [0.7.23] - 2026-10-03
 
