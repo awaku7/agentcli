@@ -100,11 +100,24 @@ is measured.
 
 ## Current implementation
 
-The current implementation lives primarily in:
+The current Auto-pilot policy implementation lives primarily in:
 
 ```text
 src/uagent/util_cmd_auto.py
 ```
+
+The provider-agnostic autonomous control flow is shared through:
+
+```text
+src/uagent/runtime/agent_loop.py
+```
+
+`run_agent_loop()` deliberately does not know about providers, message formats,
+Decision Providers, tools, CLI/Web state, or observability. The caller supplies
+callbacks for deterministic completion, completion judgment, round advancement,
+and follow-up work. This keeps Auto-pilot behavior unchanged while making the
+same judge/continue/complete contract reusable by Sub-Agents. Sub-Agent adoption
+is a separate follow-up so the extraction can be validated independently.
 
 Important symbols are:
 
