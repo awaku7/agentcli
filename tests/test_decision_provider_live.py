@@ -4,6 +4,8 @@ import os
 
 import pytest
 
+from uagent.auth.credential_store import get_default_credential_store
+from uagent.auth.provider_credentials import get_provider_api_key
 from uagent.decision import (
     DecisionQuestion,
     DecisionRequest,
@@ -50,24 +52,20 @@ def _live_request() -> DecisionRequest:
 )
 @pytest.mark.parametrize("provider_name", ["typesafe", "openrouter"])
 def test_live_remote_decision_provider_choice_contract(provider_name):
-    if provider_name == "typesafe":
-        has_key = any(
-            (os.getenv(name) or "").strip()
-            for name in (
-                "UAGENT_DECISION_TYPESAFE_API_KEY",
-                "UAGENT_TYPESAFE_API_KEY",
-                "TYPESAFE_API_KEY",
-            )
-        )
-    else:
-        has_key = any(
-            (os.getenv(name) or "").strip()
-            for name in (
-                "UAGENT_DECISION_OPENROUTER_API_KEY",
-                "UAGENT_OPENROUTER_API_KEY",
-                "OPENROUTER_API_KEY",
-            )
-        )
+    try:
+        store = get_default_credential_store()
+    except Exception:
+        store = None
+
+    dedicated_name = (
+        "UAGENT_DECISION_TYPESAFE_API_KEY"
+        if provider_name == "typesafe"
+        else "UAGENT_DECISION_OPENROUTER_API_KEY"
+    )
+    has_key = bool(
+        (os.getenv(dedicated_name) or "").strip()
+        or get_provider_api_key(provider_name, store=store)
+    )
     if not has_key:
         pytest.skip(f"{provider_name} API key is not configured")
 
