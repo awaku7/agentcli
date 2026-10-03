@@ -28,7 +28,6 @@ from ..decision.goal_completion import (
 from ..runtime.agent_loop import AgentLoopJudgment
 from ..utils.secret_mask import _mask_inline_secrets, mask_message
 
-
 SUB_AGENT_SENTINEL_INSTRUCTION = (
     "\n\nSub-Agent completion protocol: finish your response with exactly one "
     "line: <SUB_AGENT_CONTINUE> if material work remains, or "
@@ -88,9 +87,7 @@ def strip_sentinel(text: str) -> str:
 def parse_reviewer_judgment(raw: str) -> tuple[str, str]:
     text = str(raw or "")
     upper = text.upper()
-    if re.search(r"\bCONTINUE\b", upper) or re.search(
-        r"\bNOT\s+COMPLETE\b", upper
-    ):
+    if re.search(r"\bCONTINUE\b", upper) or re.search(r"\bNOT\s+COMPLETE\b", upper):
         judgment = "CONTINUE"
     elif re.search(r"\bCOMPLETE\b", upper):
         return "COMPLETE", ""
