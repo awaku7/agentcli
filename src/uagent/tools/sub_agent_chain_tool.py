@@ -574,9 +574,7 @@ def _run_chain_step(
 
     reviewed_step = isinstance(step.get("review"), dict)
     include_store_key = not reviewed_step and not defer_store_publish
-    raw = run_sub_agent(
-        _build_step_args(step, include_store_key=include_store_key)
-    )
+    raw = run_sub_agent(_build_step_args(step, include_store_key=include_store_key))
     final_raw, reviews, attempts, status, review_error = _run_review_gate(
         run_sub_agent=run_sub_agent,
         step=step,
