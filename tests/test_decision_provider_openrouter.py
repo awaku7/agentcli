@@ -367,7 +367,7 @@ def test_openrouter_http_error_detail_is_secret_masked():
         environ=_environ(),
         client=FakeClient(
             FakeResponse(
-                {"error": {"message": "bad token: secret-value"}},
+                {"error": {"message": "Invalid API key secret-key"}},
                 status_code=401,
             )
         ),
@@ -390,5 +390,5 @@ def test_openrouter_http_error_detail_is_secret_masked():
 
     message = str(exc_info.value)
     assert "HTTP 401" in message
-    assert "secret-value" not in message
+    assert "secret-key" not in message
     assert "********" in message
