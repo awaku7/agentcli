@@ -357,53 +357,69 @@ def test_default_sub_agent_client_creation_uses_environment_lock(monkeypatch):
     assert lock.entries == 2
 
 
-def test_provider_api_key_resolution_happens_inside_environment_lock(monkeypatch):
-    class TrackingLock:
+def test_parallel_provider_credentials_do_not_leak_between_workers(monkeypatch):
+    class ContendedLock:
         def __init__(self):
             self._lock = threading.Lock()
-            self.depth = 0
+            self._meta_lock = threading.Lock()
+            self.waiter_entered = threading.Event()
 
         def __enter__(self):
+            with self._meta_lock:
+                if self._lock.locked():
+                    self.waiter_entered.set()
             self._lock.acquire()
-            self.depth += 1
             return self
 
         def __exit__(self, exc_type, exc, tb):
-            self.depth -= 1
             self._lock.release()
 
     runner = sub_agent_tool.SubAgentRunner()
-    lock = TrackingLock()
+    lock = ContendedLock()
+    planner_in_client = threading.Event()
+    observed_api_keys = []
 
     monkeypatch.setattr(sub_agent_tool, "_SUB_AGENT_ENV_LOCK", lock)
     monkeypatch.setattr(runner, "_write_log", lambda *args, **kwargs: None)
+    monkeypatch.setenv("UAGENT_OPENAI_API_KEY", "KEY_B")
+    monkeypatch.setenv("UAGENT_SUB_AGENT_PLANNER_API_KEY", "KEY_A")
+    monkeypatch.delenv("UAGENT_SUB_AGENT_REVIEWER_API_KEY", raising=False)
+    monkeypatch.delenv("UAGENT_SUB_AGENT_API_KEY", raising=False)
 
-    def fake_get_provider_api_key(provider):
-        assert provider == "openai"
-        assert lock.depth == 1
-        return "provider-key"
+    def fake_make_client(cb):
+        api_key = os.environ.get("UAGENT_OPENAI_API_KEY")
+        observed_api_keys.append(api_key)
+        if api_key == "KEY_A":
+            planner_in_client.set()
+            assert lock.waiter_entered.wait(timeout=5)
+        raise RuntimeError("stop after client setup")
 
-    monkeypatch.setattr(
-        sub_agent_tool,
-        "get_provider_api_key",
-        fake_get_provider_api_key,
-    )
-    monkeypatch.setattr(
-        sub_agent_tool,
-        "make_client",
-        lambda cb: (_ for _ in ()).throw(RuntimeError("stop after client setup")),
-    )
+    monkeypatch.setattr(sub_agent_tool, "make_client", fake_make_client)
 
-    result = json.loads(
-        runner.run(
-            "general",
-            "credential lock task",
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        planner = submit_with_current_context(
+            executor,
+            runner.run,
+            "planner",
+            "planner credential task",
             provider="openai",
         )
-    )
+        assert planner_in_client.wait(timeout=5)
 
-    assert result["status"] == "error"
-    assert "Failed to create client" in result["message"]
+        reviewer = submit_with_current_context(
+            executor,
+            runner.run,
+            "reviewer",
+            "reviewer credential task",
+            provider="openai",
+        )
+
+        planner_result = json.loads(planner.result(timeout=10))
+        reviewer_result = json.loads(reviewer.result(timeout=10))
+
+    assert planner_result["status"] == "error"
+    assert reviewer_result["status"] == "error"
+    assert observed_api_keys == ["KEY_A", "KEY_B"]
 
 
 def test_parallel_group_does_not_start_queued_steps_after_failure(monkeypatch):
