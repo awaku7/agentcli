@@ -354,3 +354,61 @@ def test_default_sub_agent_client_creation_uses_environment_lock(monkeypatch):
     assert result["status"] == "error"
     assert "Failed to create client" in result["message"]
     assert lock.entries == 2
+
+
+def test_parallel_group_does_not_start_queued_steps_after_failure(monkeypatch):
+    monkeypatch.setattr(sub_agent_chain_tool, "_MAX_PARALLEL_GROUP_WORKERS", 2)
+
+    calls = []
+    barrier = threading.Barrier(2)
+
+    def fake_run(args):
+        task = args["task"]
+        calls.append(task)
+        if task in {"blocked", "sibling"}:
+            barrier.wait(timeout=5)
+        if task == "blocked":
+            return json.dumps(
+                {
+                    "status": "blocked",
+                    "message": "worker incomplete",
+                }
+            )
+        return _worker_result(task)
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "blocked",
+                    "parallel_group": "wide",
+                },
+                {
+                    "agent_name": "general",
+                    "task": "sibling",
+                    "parallel_group": "wide",
+                },
+                {
+                    "agent_name": "general",
+                    "task": "queued-1",
+                    "parallel_group": "wide",
+                },
+                {
+                    "agent_name": "general",
+                    "task": "queued-2",
+                    "parallel_group": "wide",
+                },
+            ],
+            "stop_on_error": True,
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "error"
+    assert set(calls) == {"blocked", "sibling"}
+    assert "queued-1" not in calls
+    assert "queued-2" not in calls
+    assert result["total_steps"] == 2
