@@ -931,6 +931,40 @@ class SubAgentRunner:
     def _wrap_error(self, message: str) -> str:
         return json.dumps({"status": "error", "message": message}, ensure_ascii=False)
 
+    def _wrap_incomplete(
+        self,
+        *,
+        reason: str,
+        agent_rounds: int,
+        partial_result: str,
+    ) -> str:
+        messages = {
+            "max_rounds": "Sub-Agent reached max_agent_rounds before completion.",
+            "sentinel_invalid": (
+                "Sub-Agent completion sentinel was missing or invalid."
+            ),
+            "stopped": "Sub-Agent stopped before completion.",
+            "user_exit": "Sub-Agent was stopped by the user before completion.",
+        }
+        partial: Any = partial_result
+        try:
+            partial = json.loads(partial_result)
+        except Exception:
+            pass
+        return json.dumps(
+            {
+                "status": "blocked",
+                "reason": reason,
+                "message": messages.get(
+                    reason,
+                    f"Sub-Agent stopped before completion: {reason}",
+                ),
+                "agent_rounds": int(agent_rounds),
+                "partial_result": partial,
+            },
+            ensure_ascii=False,
+        )
+
     def _load_current_file_snippets(
         self,
         current_file: Optional[str],
@@ -1508,6 +1542,30 @@ class SubAgentRunner:
             provider=provider,
             model_name=model_name,
         )
+
+        successful_outcomes = {"complete", "completion_regex"}
+        if outcome.reason not in successful_outcomes:
+            blocked_result = self._wrap_incomplete(
+                reason=outcome.reason,
+                agent_rounds=agent_round,
+                partial_result=raw_output,
+            )
+            if cb and getattr(cb, "log_message", None):
+                try:
+                    cb.log_message(
+                        {
+                            "role": "assistant",
+                            "content": (
+                                f"[Sub-Agent: {agent_name}] Processing stopped "
+                                f"before completion. reason={outcome.reason} "
+                                f"rounds={agent_round}\n"
+                                f"Partial result:\n{raw_output}"
+                            ),
+                        }
+                    )
+                except Exception:
+                    pass
+            return blocked_result, llm_usage, total_retries
 
         if cb and getattr(cb, "log_message", None):
             try:
