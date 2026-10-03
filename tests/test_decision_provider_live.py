@@ -11,7 +11,6 @@ from uagent.decision import (
     create_decision_provider,
 )
 
-
 _LIVE_ENABLED = (os.getenv("UAGENT_DECISION_LIVE_TEST") or "").strip().lower() in {
     "1",
     "true",
