@@ -213,3 +213,116 @@ def test_chain_without_review_keeps_single_worker_execution(monkeypatch):
     assert "attempts" not in step
     assert "reviews" not in step
     assert len(calls) == 1
+
+
+
+def test_reviewed_store_key_is_published_only_after_approval(monkeypatch):
+    worker_args = []
+    published = []
+    candidate = _worker_result("approved candidate")
+
+    def fake_run(args):
+        if args["agent_name"] == "reviewer":
+            return _review_result("approve")
+        worker_args.append(args)
+        return candidate
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "publish_shared_result",
+        lambda key, result: published.append((key, result)),
+    )
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "produce result",
+                    "store_key": "approved_result",
+                    "review": {},
+                }
+            ]
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "completed"
+    assert worker_args[0].get("store_key") is None
+    assert published == [("approved_result", candidate)]
+
+
+def test_reviewed_store_key_is_not_published_when_gate_blocks(monkeypatch):
+    worker_args = []
+    published = []
+
+    def fake_run(args):
+        if args["agent_name"] == "reviewer":
+            return _review_result("retry", "still incomplete")
+        worker_args.append(args)
+        return _worker_result("rejected candidate")
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "publish_shared_result",
+        lambda key, result: published.append((key, result)),
+    )
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "produce result",
+                    "store_key": "must_not_publish",
+                    "review": {"max_retries": 0},
+                }
+            ]
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "error"
+    assert result["steps"][0]["status"] == "blocked"
+    assert worker_args[0].get("store_key") is None
+    assert published == []
+
+
+def test_review_gate_segments_long_candidate_and_covers_suffix(monkeypatch):
+    reviewer_tasks = []
+    candidate = "A" * sub_agent_chain_tool._REVIEW_SEGMENT_CHARS + "SUFFIX_DEFECT"
+
+    def fake_run(args):
+        if args["agent_name"] == "reviewer":
+            reviewer_tasks.append(args["task"])
+            if "SUFFIX_DEFECT" in args["task"]:
+                return _review_result("retry", "suffix defect found")
+            return _review_result("approve")
+        return candidate
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "produce a complete long result",
+                    "response_mode": "text",
+                    "review": {"max_retries": 0},
+                }
+            ]
+        }
+    )
+
+    result = json.loads(raw)
+    step = result["steps"][0]
+    assert result["status"] == "error"
+    assert step["status"] == "blocked"
+    assert len(reviewer_tasks) == 2
+    assert "segment 1 of 2" in reviewer_tasks[0]
+    assert "segment 2 of 2" in reviewer_tasks[1]
+    assert "SUFFIX_DEFECT" in reviewer_tasks[1]
+    assert [review["segment"] for review in step["reviews"]] == [1, 2]
