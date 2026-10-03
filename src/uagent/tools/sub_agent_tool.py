@@ -1576,8 +1576,8 @@ class SubAgentRunner:
         max_turns: int,
         agent_spec: Optional[AgentSpec] = None,
         agent_name: str = "",
-    ) -> tuple[str, int, Dict[str, int]]:
-        """Run a multi-turn LLM process, handling native tool calls."""
+    ) -> tuple[str, int, Dict[str, int], list[dict[str, str]]]:
+        """Run one autonomous work round, including its bounded tool-use loop."""
 
         native_tools = permission_level != "none" and provider not in (
             "gemini",
@@ -1616,7 +1616,25 @@ class SubAgentRunner:
             "completion_tokens": 0,
             "total_tokens": 0,
         }
+        tool_evidence: list[dict[str, str]] = []
         last_raw = ""
+
+        def add_tool_evidence(
+            *,
+            tool_name: str,
+            result: Any,
+            status: str = "observed",
+        ) -> None:
+            summary = _mask_inline_secrets(
+                " ".join(str(result or "").split())
+            )[:400]
+            tool_evidence.append(
+                {
+                    "tool": _mask_inline_secrets(str(tool_name or "tool"))[:100],
+                    "status": status,
+                    "summary": summary,
+                }
+            )
 
         for turn in range(max_turns):
             is_last = turn == max_turns - 1
@@ -1626,13 +1644,15 @@ class SubAgentRunner:
                     cb.log_message(
                         {
                             "role": "assistant",
-                            "content": f"[Sub-Agent] Turn {turn + 1}/{max_turns} - Reflect the tool result and proceed to the next turn.",
+                            "content": (
+                                f"[Sub-Agent] Tool turn {turn + 1}/{max_turns} - "
+                                "reflect on tool evidence and continue."
+                            ),
                         }
                     )
                 except Exception:
                     pass
 
-            # Skip JSON validation before the final turn (intermediate output may contain tool calls)
             current_response_mode = response_mode if is_last else ""
 
             if use_responses_tools:
@@ -1669,15 +1689,17 @@ class SubAgentRunner:
                     current_response_mode,
                 )
                 native_calls = []
+
             total_retries += retries
-            for k in total_usage:
-                total_usage[k] += usage.get(k, 0)
+            for key in total_usage:
+                total_usage[key] += int(usage.get(key, 0) or 0)
 
             last_raw = raw
 
-            # Final turn: return as-is
+            # On the final budgeted turn there is no remaining LLM turn in which
+            # to reflect on new tool results, so return the model's answer as-is.
             if is_last:
-                return raw, total_retries, total_usage
+                return raw, total_retries, total_usage, tool_evidence
 
             if native_tools and native_calls:
                 from . import run_tool
@@ -1690,21 +1712,31 @@ class SubAgentRunner:
                     }
                 )
                 for call in native_calls:
-                    fn = call.get("function", {})
+                    fn_data = call.get("function", {})
                     try:
-                        args = json.loads(fn.get("arguments") or "{}")
+                        args = json.loads(fn_data.get("arguments") or "{}")
                     except (TypeError, json.JSONDecodeError):
                         args = {}
-                    tool_name = str(fn.get("name") or "")
+                    tool_name = str(fn_data.get("name") or "")
                     args = self._annotate_human_ask(tool_name, args, agent_name)
                     cb = get_callbacks()
                     if cb and getattr(cb, "set_status", None):
                         cb.set_status(True, f"sub-agent:{agent_name}:tool:{tool_name}")
                     try:
                         result = run_tool(tool_name, args)
+                        status = "success"
+                    except Exception as exc:
+                        result = f"[tool:{tool_name} error: {exc}]"
+                        status = "failed"
                     finally:
                         if cb and getattr(cb, "set_status", None):
                             cb.set_status(True, f"Sub-Agent ({agent_name})")
+
+                    add_tool_evidence(
+                        tool_name=tool_name,
+                        result=result,
+                        status=status,
+                    )
                     conversation_messages.append(
                         {
                             "role": "tool",
@@ -1717,20 +1749,25 @@ class SubAgentRunner:
                 )
                 continue
 
-            # Append to conversation history
-            conversation += f"\n\n[Your Response Turn {turn + 1}]:\n{raw}\n"
+            conversation += f"\n\n[Your Response Tool Turn {turn + 1}]:\n{raw}\n"
 
-            # Parse and execute tool calls
             tool_results = self._execute_tool_calls(raw, permission_level, agent_name)
             if tool_results:
-                for tr in tool_results:
-                    conversation += f"\n{tr}\n"
-                continue  # the next turn
+                for tool_result in tool_results:
+                    match = re.match(r"\[tool:([^\]\s]+)", str(tool_result))
+                    tool_name = match.group(1) if match else "tool"
+                    status = "failed" if " error:" in str(tool_result) else "success"
+                    add_tool_evidence(
+                        tool_name=tool_name,
+                        result=tool_result,
+                        status=status,
+                    )
+                    conversation += f"\n{tool_result}\n"
+                continue
 
-            # No tool calls: this is the final answer
-            return raw, total_retries, total_usage
+            return raw, total_retries, total_usage, tool_evidence
 
-        return last_raw, total_retries, total_usage
+        return last_raw, total_retries, total_usage, tool_evidence
 
     def _call_with_retry(
         self,
