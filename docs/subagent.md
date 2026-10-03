@@ -27,6 +27,7 @@
 - 外部 JSON role 定義
 - 循環 Sub-Agent call guard
 - `run_sub_agent_chain` による順次オーケストレーション
+- chain step 単位の `review` gate（approve / retry）と reviewer feedback による worker 再実行
 
 終了判定の優先順位は Auto-pilot と同じ考え方を使う:
 
@@ -78,6 +79,26 @@ Goal Completion Judge
           ↓
 最大 max_agent_rounds
 ```
+
+chain の review gate:
+
+```text
+worker
+  ↓
+reviewer
+  ├─ approve → 次のchain step
+  └─ retry + feedback
+        ↓
+      worker再実行
+        ↓
+      reviewer再評価
+        ↓
+      最大 review.max_retries
+```
+
+reviewer 自身も通常の `run_sub_agent` として実行されるため、Goal Completion Judge、
+`max_tool_turns`、`max_agent_rounds` を使用する。retry 上限まで承認されなかった場合は
+そのchain stepを `blocked` とし、`stop_on_error=true` ならchainを停止する。
 
 ## 1. アーキテクチャ（現状）
 
