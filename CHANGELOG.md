@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Add optional Sub-Agent chain review gates: a reviewer returns `approve` or `retry`, retry feedback is fed back into the worker, and exhausted review retries block the chain step so `stop_on_error` is honored.
 - Make Sub-Agents goal-driven autonomous loops: separate `max_tool_turns` from `max_agent_rounds`, judge each work round with regex/sentinel/Decision Provider/LLM fallback, carry reviewer feedback forward, and include bounded real Tool evidence in completion decisions.
 - Propagate non-completion Sub-Agent loop outcomes such as `max_rounds` and `sentinel_invalid` as `status: blocked`, preserving the partial result so chained execution can honor `stop_on_error`.
 - Extract the goal-driven Auto-pilot control flow into a reusable AgentLoop runtime so Sub-Agents can adopt the same judge/continue/complete semantics without duplicating provider or UI policy.
