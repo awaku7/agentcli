@@ -4,7 +4,7 @@ import json
 
 from uagent.decision import DecisionSettings
 from uagent.runtime import sub_agent_autonomy
-from uagent.tools import sub_agent_tool
+from uagent.tools import sub_agent_chain_tool, sub_agent_tool
 
 
 def _general_json(summary: str) -> str:
@@ -124,7 +124,12 @@ def test_sub_agent_max_agent_rounds_limits_total_work_rounds(monkeypatch):
         max_agent_rounds=2,
     )
 
-    assert json.loads(result)["summary"] == "round-2"
+    obj = json.loads(result)
+    assert obj["status"] == "blocked"
+    assert obj["reason"] == "max_rounds"
+    assert obj["agent_rounds"] == 2
+    assert obj["partial_result"]["status"] == "completed"
+    assert obj["partial_result"]["summary"] == "round-2"
     assert work_count == 2
     assert review_count == 2
 
@@ -254,3 +259,72 @@ def test_sub_agent_tool_turn_budget_is_separate_from_agent_rounds(monkeypatch):
 
     assert result == "tool-backed answer"
     assert tool_turn_budgets == [7]
+
+
+
+def test_sub_agent_invalid_sentinel_is_reported_as_blocked(monkeypatch):
+    _disable_decision_provider(monkeypatch)
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "make_client",
+        lambda _cb: ("openai", object(), "test-model"),
+    )
+
+    monkeypatch.setattr(
+        runner,
+        "_call_with_retry",
+        lambda *args, **kwargs: ("finished without marker", 0, {}),
+    )
+
+    result = runner.run(
+        "general",
+        "finish",
+        response_mode="text",
+        completion_sentinel=True,
+        max_agent_rounds=3,
+    )
+
+    obj = json.loads(result)
+    assert obj["status"] == "blocked"
+    assert obj["reason"] == "sentinel_invalid"
+    assert obj["agent_rounds"] == 1
+    assert obj["partial_result"] == "finished without marker"
+
+
+def test_sub_agent_chain_stops_on_incomplete_sub_agent(monkeypatch):
+    calls = []
+
+    def fake_sub_agent(args):
+        calls.append(args["task"])
+        if len(calls) == 1:
+            return json.dumps(
+                {
+                    "status": "blocked",
+                    "reason": "max_rounds",
+                    "message": "Sub-Agent reached max_agent_rounds before completion.",
+                    "partial_result": {
+                        "status": "completed",
+                        "summary": "still incomplete",
+                    },
+                }
+            )
+        return _general_json("should not run")
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_sub_agent)
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {"agent_name": "general", "task": "first"},
+                {"agent_name": "general", "task": "second"},
+            ],
+            "stop_on_error": True,
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "error"
+    assert result["total_steps"] == 1
+    assert result["steps"][0]["status"] == "blocked"
+    assert calls == ["first"]
