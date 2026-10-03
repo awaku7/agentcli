@@ -1500,9 +1500,7 @@ class SubAgentRunner:
         finally:
             judge.close()
 
-        raw_output = (
-            strip_sentinel(latest_raw) if completion_sentinel else latest_raw
-        )
+        raw_output = strip_sentinel(latest_raw) if completion_sentinel else latest_raw
 
         self._accumulate_usage(total_usage)
         llm_usage = self._usage_with_cost(
@@ -1625,9 +1623,7 @@ class SubAgentRunner:
             result: Any,
             status: str = "observed",
         ) -> None:
-            summary = _mask_inline_secrets(
-                " ".join(str(result or "").split())
-            )[:400]
+            summary = _mask_inline_secrets(" ".join(str(result or "").split()))[:400]
             tool_evidence.append(
                 {
                     "tool": _mask_inline_secrets(str(tool_name or "tool"))[:100],
@@ -1863,12 +1859,9 @@ def run_tool(args: Dict[str, Any]) -> str:
         max_agent_rounds = args.get("max_agent_rounds", 3)
         sentinel_arg = args.get("completion_sentinel")
         if sentinel_arg is None:
-            completion_sentinel = (
-                str(env_get("UAGENT_SUB_AGENT_SENTINEL", "0") or "0")
-                .strip()
-                .lower()
-                in {"1", "true", "yes", "on"}
-            )
+            completion_sentinel = str(
+                env_get("UAGENT_SUB_AGENT_SENTINEL", "0") or "0"
+            ).strip().lower() in {"1", "true", "yes", "on"}
         else:
             completion_sentinel = bool(sentinel_arg)
         completion_regex = str(args.get("completion_regex") or "")
