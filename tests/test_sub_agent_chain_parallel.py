@@ -181,6 +181,7 @@ def test_parallel_group_rejects_duplicate_store_keys(monkeypatch):
 
 def test_parallel_group_finishes_started_siblings_before_stop_on_error(monkeypatch):
     calls = []
+    published = []
     barrier = threading.Barrier(2)
 
     def fake_run(args):
@@ -197,6 +198,11 @@ def test_parallel_group_finishes_started_siblings_before_stop_on_error(monkeypat
         return _worker_result(args["task"])
 
     monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "publish_shared_result",
+        lambda key, result: published.append((key, result)),
+    )
 
     raw = sub_agent_chain_tool.run_tool(
         {
@@ -210,6 +216,7 @@ def test_parallel_group_finishes_started_siblings_before_stop_on_error(monkeypat
                     "agent_name": "general",
                     "task": "successful",
                     "parallel_group": "pair",
+                    "store_key": "successful_result",
                 },
                 {
                     "agent_name": "general",
@@ -227,8 +234,69 @@ def test_parallel_group_finishes_started_siblings_before_stop_on_error(monkeypat
         "blocked",
         "completed",
     ]
+    assert published == []
     assert "must not run" not in calls
 
+
+
+
+def test_parallel_group_continues_and_publishes_successes_when_configured(monkeypatch):
+    published = []
+
+    def fake_run(args):
+        if args["task"] == "blocked":
+            return json.dumps(
+                {
+                    "status": "blocked",
+                    "message": "worker incomplete",
+                }
+            )
+        if args["task"] == "after":
+            assert published == [
+                ("successful_result", _worker_result("successful"))
+            ]
+        return _worker_result(args["task"])
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_run)
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "publish_shared_result",
+        lambda key, result: published.append((key, result)),
+    )
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "blocked",
+                    "parallel_group": "pair",
+                },
+                {
+                    "agent_name": "general",
+                    "task": "successful",
+                    "parallel_group": "pair",
+                    "store_key": "successful_result",
+                },
+                {
+                    "agent_name": "general",
+                    "task": "after",
+                },
+            ],
+            "stop_on_error": False,
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "completed"
+    assert [step["status"] for step in result["steps"]] == [
+        "blocked",
+        "completed",
+        "completed",
+    ]
+    assert published == [
+        ("successful_result", _worker_result("successful"))
+    ]
 
 def test_sub_agent_call_chain_is_context_local_across_parallel_workers(monkeypatch):
     runner = sub_agent_tool.SubAgentRunner()
