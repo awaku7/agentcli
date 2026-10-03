@@ -234,7 +234,14 @@ def test_git_ops_rejects_shell_metachar_in_args() -> None:
 def test_rename_path_wraps_errors_from_safe_layer(monkeypatch) -> None:
     from uagent.tools.rename_path_tool import run_tool
 
-    def _boom(*, src: str, dst: str, overwrite: bool, mkdirs: bool) -> None:
+    def _boom(
+        *,
+        src: str,
+        dst: str,
+        overwrite: bool,
+        mkdirs: bool,
+        confirmation_already_granted: bool,
+    ) -> None:
         raise FileExistsError("already exists")
 
     monkeypatch.setattr("uagent.tools.rename_path_tool.safe_rename_path", _boom)
@@ -244,3 +251,68 @@ def test_rename_path_wraps_errors_from_safe_layer(monkeypatch) -> None:
     )
     assert out.startswith("[rename_path error]")
     assert "already exists" in out
+
+
+def test_rename_path_forwards_only_dispatcher_confirmation(monkeypatch) -> None:
+    from uagent.tools.rename_path_tool import run_tool
+    from uagent.tools.tool_policy import (
+        CONFIRMATION_GRANTED_ARG,
+        CONFIRMATION_GRANTED_TOKEN,
+    )
+
+    received: list[bool] = []
+
+    def _capture(
+        *,
+        src: str,
+        dst: str,
+        overwrite: bool,
+        mkdirs: bool,
+        confirmation_already_granted: bool,
+    ) -> None:
+        received.append(confirmation_already_granted)
+
+    monkeypatch.setattr("uagent.tools.rename_path_tool.safe_rename_path", _capture)
+
+    common_args = {"src": "a.txt", "dst": "b.txt"}
+    assert run_tool(
+        {**common_args, CONFIRMATION_GRANTED_ARG: CONFIRMATION_GRANTED_TOKEN}
+    ).startswith("[OK]")
+    assert run_tool({**common_args, CONFIRMATION_GRANTED_ARG: True}).startswith("[OK]")
+
+    assert received == [True, False]
+
+
+def test_rename_path_approved_by_dispatcher_skips_safe_layer_prompt(
+    monkeypatch, tmp_path: Path
+) -> None:
+    from uagent.tools.rename_path_tool import run_tool
+    from uagent.tools.tool_policy import (
+        CONFIRMATION_GRANTED_ARG,
+        CONFIRMATION_GRANTED_TOKEN,
+    )
+
+    source = tmp_path / "source.txt"
+    destination = tmp_path / "destination.txt"
+    source.write_text("source", encoding="utf-8")
+    destination.write_text("old destination", encoding="utf-8")
+
+    def _unexpected_prompt(*_args, **_kwargs) -> bool:
+        raise AssertionError("safe layer requested a duplicate confirmation")
+
+    monkeypatch.setattr(
+        "uagent.tools.safe_file_ops._ask_user_confirm_rename", _unexpected_prompt
+    )
+
+    result = run_tool(
+        {
+            "src": str(source),
+            "dst": str(destination),
+            "overwrite": True,
+            CONFIRMATION_GRANTED_ARG: CONFIRMATION_GRANTED_TOKEN,
+        }
+    )
+
+    assert result.startswith("[OK]")
+    assert destination.read_text(encoding="utf-8") == "source"
+    assert not source.exists()

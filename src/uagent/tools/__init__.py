@@ -2111,6 +2111,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         args = resolve_tool_args(args)
     except ValueError as exc:
         return f"[tool argument error] name={name!r} err={exc}"
+    # Never trust an approval marker supplied by the model or caller. It is
+    # added below only after the common confirmation callback approves.
+    if name == "rename_path":
+        from .tool_policy import CONFIRMATION_GRANTED_ARG
+
+        args = dict(args)
+        args.pop(CONFIRMATION_GRANTED_ARG, None)
     runner = _RUNNERS.get(name)
     if runner is None:
         # Lazy-load fallback: try to import and register the module on demand.
@@ -2225,6 +2232,13 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                     tool_call_id=tool_call_id,
                 )
                 return "[tool policy] confirmation denied"
+            if name == "rename_path":
+                from .tool_policy import (
+                    CONFIRMATION_GRANTED_ARG,
+                    CONFIRMATION_GRANTED_TOKEN,
+                )
+
+                args[CONFIRMATION_GRANTED_ARG] = CONFIRMATION_GRANTED_TOKEN
         except Exception as exc:
             return f"[tool policy] confirmation failed: {type(exc).__name__}"
 

@@ -13,6 +13,10 @@ _ = make_tool_translator(__file__)
 from typing import Any
 
 from .safe_file_ops import safe_rename_path
+from .tool_policy import (
+    CONFIRMATION_GRANTED_ARG,
+    CONFIRMATION_GRANTED_TOKEN,
+)
 
 BUSY_LABEL = True
 STATUS_LABEL = "tool:rename_path"
@@ -103,6 +107,12 @@ def run_tool(args: dict[str, Any]) -> str:
 
     overwrite = overwrite_raw
     mkdirs = mkdirs_raw
+    # The common dispatcher confirms every rename_path call. Forward that
+    # approval so safe_rename_path does not prompt a second time for risky
+    # paths or overwrites. Direct runner calls keep the safe layer's own check.
+    confirmation_already_granted = (
+        args.pop(CONFIRMATION_GRANTED_ARG, None) is CONFIRMATION_GRANTED_TOKEN
+    )
 
     try:
         safe_rename_path(
@@ -110,6 +120,7 @@ def run_tool(args: dict[str, Any]) -> str:
             dst=dst,
             overwrite=overwrite,
             mkdirs=mkdirs,
+            confirmation_already_granted=confirmation_already_granted,
         )
     except Exception as e:
         return f"[rename_path error] {type(e).__name__}: {e}"

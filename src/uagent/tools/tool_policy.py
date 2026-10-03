@@ -72,6 +72,13 @@ _DESTRUCTIVE = {
     "binary_edit",
 }
 
+# Private dispatcher-to-runner signal: the common tool policy has already
+# obtained user approval, so a tool with a secondary safety check can avoid
+# asking the same question again. This is stripped from model-supplied args at
+# the dispatch boundary and only set after a successful confirmation callback.
+CONFIRMATION_GRANTED_ARG = "_uagent_policy_confirmation_granted"
+CONFIRMATION_GRANTED_TOKEN = object()
+
 # Tool names explicitly approved with "all" are scoped to this process/session.
 _ALLOW_ALL_TOOLS: set[str] = set()
 _ALLOW_ALL_LOCK = threading.RLock()

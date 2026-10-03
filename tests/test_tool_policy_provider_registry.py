@@ -95,3 +95,43 @@ def test_default_confirmation_uses_human_ask(monkeypatch) -> None:
     assert not default_confirmation_callback(
         "delete_file", {}, policy_for("delete_file")
     )
+
+
+def test_rename_dispatch_confirmation_suppresses_inner_duplicate(monkeypatch) -> None:
+    from uagent import tools
+    from uagent.runtime.policy_engine import PolicyDecision, UnifiedPolicy
+
+    seen: dict[str, object] = {}
+
+    class _AllowPolicy:
+        def decide(self, _name: str, _args: dict) -> PolicyDecision:
+            return PolicyDecision.ALLOW
+
+    def _runner(args: dict) -> str:
+        seen.update(args)
+        return "runner called"
+
+    monkeypatch.setattr(tools, "_ensure_loaded", lambda: None)
+    monkeypatch.setitem(tools._RUNNERS, "rename_path", _runner)
+    monkeypatch.setattr(tools, "_emit_tool_trace", lambda *_args: None)
+    monkeypatch.setattr(
+        UnifiedPolicy,
+        "from_environment",
+        classmethod(lambda cls: _AllowPolicy()),
+    )
+    monkeypatch.setattr(tools, "_CONFIRMATION_CALLBACK", lambda *_args: True)
+
+    result = tools.run_tool(
+        "rename_path",
+        {
+            "src": "source.txt",
+            "dst": "destination.txt",
+            # A caller-supplied value must not be treated as approval.
+            "_uagent_policy_confirmation_granted": False,
+        },
+    )
+
+    assert result == "runner called"
+    from uagent.tools.tool_policy import CONFIRMATION_GRANTED_TOKEN
+
+    assert seen["_uagent_policy_confirmation_granted"] is CONFIRMATION_GRANTED_TOKEN
