@@ -383,6 +383,7 @@ Required if `UAGENT_PROVIDER=sakura`:
 The dedicated decision layer is opt-in and defaults to `none`.
 
 - `UAGENT_DECISION_PROVIDER`: `none`, `typesafe`, `openrouter`, or `laya`.
+- `UAGENT_DECISION_LIVE_TEST`: set to `1` only when intentionally running the opt-in live TypeSafe/OpenRouter Decision Provider smoke tests; normal CI leaves it unset.
 - TypeSafe/Jev:
   - `UAGENT_DECISION_TYPESAFE_DEPNAME` (default: `jev-latest`)
   - `UAGENT_DECISION_TYPESAFE_BASE_URL` (default: `https://api.typesafe.ai`)
