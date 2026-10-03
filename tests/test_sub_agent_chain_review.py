@@ -224,7 +224,6 @@ def test_chain_without_review_keeps_single_worker_execution(monkeypatch):
     assert len(calls) == 1
 
 
-
 def test_reviewed_store_key_is_published_only_after_approval(monkeypatch):
     worker_args = []
     published = []
