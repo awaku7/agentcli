@@ -202,9 +202,10 @@ src/uagent/decision/
     models.py
     registry.py
     settings.py
-    typesafe.py    # direct TypeSafe adapter
-    openrouter.py  # OpenRouter Decisions adapter
-    laya.py        # local Laya adapter
+    goal_completion.py  # reusable COMPLETE/CONTINUE evaluator
+    typesafe.py         # direct TypeSafe adapter
+    openrouter.py       # OpenRouter Decisions adapter
+    laya.py             # local Laya adapter
 ```
 
 This deliberately does not use `src/uagent/providers/`, which is the LLM provider
