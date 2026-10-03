@@ -1322,9 +1322,6 @@ class SubAgentRunner:
                 "evidence, produce a final answer for that round."
             )
 
-        if completion_sentinel:
-            base_prompt += SUB_AGENT_SENTINEL_INSTRUCTION
-
         if response_mode == "json":
             system_prompt = self._build_structured_prompt(
                 base_prompt,
@@ -1337,6 +1334,9 @@ class SubAgentRunner:
             )
         else:
             system_prompt = base_prompt
+
+        if completion_sentinel:
+            system_prompt += SUB_AGENT_SENTINEL_INSTRUCTION
 
         initial_prompt = self._build_user_prompt(task.task, pack, task.scope_files)
 
