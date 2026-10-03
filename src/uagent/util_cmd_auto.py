@@ -21,6 +21,7 @@ from .runtime.observability.auto_pilot import (
     record_auto_pilot_judgment,
     record_auto_pilot_run_finished,
 )
+from .runtime.agent_loop import AgentLoopJudgment, run_agent_loop
 from .util_common import CommandResult, append_result_to_outfile
 from .util_image import try_open_images_from_text
 from .utils.secret_mask import _mask_inline_secrets, mask_message
@@ -670,15 +671,12 @@ def _run_auto_pilot_loop(
     append_result_to_outfile_fn: Any,
     try_open_images_from_text_fn: Any,
 ) -> None:
-    """Auto-pilot main loop.
+    """Auto-pilot main loop backed by the reusable goal-driven agent loop.
 
-    Step B (judgment) is performed FIRST to check the initial goal execution
-    done by the caller. If COMPLETE, the loop exits immediately -- no extra round.
-    Only if CONTINUE does Step A (followup refinement) run.
-
-    1 round = 2 LLM calls:
-      Step B: Reviewer judgment (evaluates previous work / initial goal)
-      Step A: Main query (continuation of review/analysis if not yet done)
+    The caller has already executed the initial goal once. Completion judgment
+    therefore runs before the first follow-up round. Auto-pilot keeps ownership
+    of provider setup, sentinel/regex policy, message history, UI state, and
+    observability; runtime.agent_loop owns only the reusable control flow.
     """
     # Lazy import to avoid circular imports at module level
     from . import uagent_llm as llm_util
@@ -708,7 +706,6 @@ def _run_auto_pilot_loop(
                 else:
                     os.environ.pop(_std_key, None)
 
-    feedback = ""
     decision_provider = None
     decision_provider_initialized = False
     decision_provider_questions_checked = False
@@ -733,258 +730,291 @@ def _run_auto_pilot_loop(
             max_rounds_reached=max_rounds_reached,
         )
 
-    try:
-        while True:
-            # The flag can be cleared by the GUI stop button or another
-            # controller.  Do not require a keyboard event in that case.
-            if not core.auto_pilot_active:
-                record_run_outcome("stopped", judgment_source=last_judgment_source)
-                print(_("[AUTO] Stopped."))
-                return
+    def consume_exit_request() -> bool:
+        with core.auto_pilot_exit_lock:
+            if not core.auto_pilot_exit_requested:
+                return False
+            core.auto_pilot_exit_requested = False
+            core.auto_pilot_active = False
+            return True
 
-            # F11 requests an auto-pilot stop; F12 is reserved for stopping
-            # the current LLM response.
-            with core.auto_pilot_exit_lock:
-                if core.auto_pilot_exit_requested:
-                    core.auto_pilot_exit_requested = False
-                    core.auto_pilot_active = False
-                    record_run_outcome(
-                        "user_exit",
-                        judgment_source=last_judgment_source,
-                    )
-                    print(_("[AUTO] Exited by user (F11)."))
-                    return
+    def deterministic_completion() -> str | None:
+        if not _completion_regex_matches(
+            messages, getattr(core, "auto_pilot_complete_regex", None)
+        ):
+            return None
 
-            # Check the deterministic completion path before spending another
-            # reviewer LLM call. This is useful for batch runs whose final
-            # answer contains a known marker.
-            if _completion_regex_matches(
-                messages, getattr(core, "auto_pilot_complete_regex", None)
-            ):
-                core.auto_pilot_active = False
-                if not getattr(core, "_last_completion_reason", None):
-                    core._last_completion_reason = "regex"
-                    print(
-                        '[COMPLETE] {"reason":"regex","source":"auto"}',
-                        flush=True,
-                    )
-                record_run_outcome("completion_regex")
-                print(_("[AUTO] Completion regex matched."))
-                return
+        core.auto_pilot_active = False
+        if not getattr(core, "_last_completion_reason", None):
+            core._last_completion_reason = "regex"
+            print(
+                '[COMPLETE] {"reason":"regex","source":"auto"}',
+                flush=True,
+            )
+        return "completion_regex"
 
-            # === Step B first: Reviewer judgment ===
-            # Sentinel mode is an opt-in single-LLM path: the target model's
-            # exact final marker replaces the extra reviewer LLM call.
-            if _sentinel_mode_enabled():
-                sentinel_started = time.perf_counter()
-                judgment = _sentinel_judgment(messages)
-                sentinel_latency_ms = (time.perf_counter() - sentinel_started) * 1000.0
-                feedback = ""
-                last_judgment_source = "sentinel"
-                if judgment is None:
-                    record_auto_pilot_judgment(
-                        source="sentinel",
-                        round_number=getattr(core, "auto_pilot_round", 0),
-                        fallback=False,
-                        provider=provider,
-                        model=depname,
-                        latency_ms=sentinel_latency_ms,
-                        error_type="InvalidSentinel",
-                        additional_call=False,
-                    )
-                    record_run_outcome(
-                        "sentinel_invalid",
-                        judgment_source=last_judgment_source,
-                    )
-                    print(
-                        _("[AUTO] Missing or invalid auto sentinel; stopping safely.")
-                    )
-                    return
+    def judge_once() -> AgentLoopJudgment:
+        nonlocal decision_provider
+        nonlocal decision_provider_initialized
+        nonlocal decision_provider_questions_checked
+        nonlocal last_judgment_source
+
+        # Sentinel mode is an opt-in single-LLM path: the target model's exact
+        # final marker replaces the extra reviewer LLM call.
+        if _sentinel_mode_enabled():
+            sentinel_started = time.perf_counter()
+            judgment = _sentinel_judgment(messages)
+            sentinel_latency_ms = (time.perf_counter() - sentinel_started) * 1000.0
+            last_judgment_source = "sentinel"
+            if judgment is None:
                 record_auto_pilot_judgment(
                     source="sentinel",
                     round_number=getattr(core, "auto_pilot_round", 0),
-                    answer=judgment,
                     fallback=False,
                     provider=provider,
                     model=depname,
                     latency_ms=sentinel_latency_ms,
+                    error_type="InvalidSentinel",
                     additional_call=False,
                 )
-                print(_("\n[AUTO:sentinel] %(judgment)s") % {"judgment": judgment})
-            else:
-                decision_result = None
-                settings = get_decision_settings()
-                if settings.enabled:
-                    if not decision_provider_initialized:
-                        decision_provider_initialized = True
-                        try:
-                            decision_provider = create_decision_provider(settings)
-                        except Exception as exc:
-                            record_auto_pilot_judgment(
-                                source="decision_provider",
-                                round_number=getattr(core, "auto_pilot_round", 0),
-                                fallback=False,
-                                provider=settings.provider,
-                                error_type=type(exc).__name__,
-                                additional_call=False,
-                            )
-                            detail = _decision_failure_detail(exc)
-                            detail_text = f" detail={detail!r}" if detail else ""
-                            print(
-                                "[AUTO:judge:decision] "
-                                f"provider={settings.provider} "
-                                f"init_failed={type(exc).__name__}{detail_text}; "
-                                "falling back to LLM reviewer",
-                                flush=True,
-                            )
-                            decision_provider = None
-
-                    if (
-                        decision_provider is not None
-                        and not decision_provider_questions_checked
-                    ):
-                        decision_provider_questions_checked = True
-                        supports_questions = _decision_provider_supports_questions(
-                            decision_provider
-                        )
-                        if supports_questions is False:
-                            record_auto_pilot_judgment(
-                                source="decision_provider",
-                                round_number=getattr(core, "auto_pilot_round", 0),
-                                fallback=False,
-                                provider=settings.provider,
-                                model=str(
-                                    getattr(decision_provider, "model", "") or ""
-                                ),
-                                error_type="UnsupportedDecisionQuestions",
-                                additional_call=False,
-                            )
-                            print(
-                                "[AUTO:judge:decision] "
-                                f"provider={settings.provider} model="
-                                f"{getattr(decision_provider, 'model', '')} "
-                                "does_not_support=required_questions; "
-                                "falling back to LLM reviewer",
-                                flush=True,
-                            )
-                            try:
-                                decision_provider.close()
-                            except Exception:
-                                pass
-                            decision_provider = None
-
-                    if decision_provider is not None:
-                        decision_result = _ask_auto_pilot_decision(
-                            messages,
-                            core,
-                            decision_provider=decision_provider,
-                        )
-                        if decision_result is None:
-                            print(
-                                "[AUTO:judge:decision] "
-                                f"provider={settings.provider} disabled_for_run=true; "
-                                "using LLM reviewer for remaining rounds",
-                                flush=True,
-                            )
-                            try:
-                                decision_provider.close()
-                            except Exception:
-                                pass
-                            decision_provider = None
-
-                if decision_result is None:
-                    # On the first iteration this judges the initial goal execution.
-                    # On subsequent iterations this judges the followup from Step A.
-                    last_judgment_source = "llm_reviewer"
-                    judgment, feedback = _ask_reviewer_judgment(
-                        _judge_provider,
-                        _judge_client,
-                        _judge_depname,
-                        messages,
-                        core,
-                        make_client_fn=make_client_fn,
-                        fallback=settings.enabled,
-                    )
-                else:
-                    last_judgment_source = "decision_provider"
-                    judgment, feedback = decision_result
-
-            if judgment == "COMPLETE":
-                core.auto_pilot_active = False
-                core._last_round_outcome = {
-                    "status": "completed",
-                    "reason": "reviewer",
-                }
-                record_run_outcome(
-                    "complete",
-                    judgment_source=last_judgment_source,
-                )
-                print(_("[AUTO] Review/analysis completed."))
-                return
-
-            # 2. Max rounds check (after judgment to count actual followup rounds)
-            core.auto_pilot_round += 1
-            max_rounds = core.auto_pilot_max_rounds
-            if max_rounds is not None and core.auto_pilot_round > max_rounds:
-                core.auto_pilot_active = False
-                core._last_round_outcome = {
-                    "status": "failed",
-                    "reason": "max_rounds",
-                }
-                record_run_outcome(
-                    "max_rounds",
-                    judgment_source=last_judgment_source,
-                    max_rounds_reached=True,
-                    rounds=max_rounds,
-                )
-                print(
-                    _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
-                    % {"max": max_rounds}
-                )
-                return
-
-            # === Step A: Main query (refinement followup) ===
-            next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
-            if _sentinel_mode_enabled():
-                next_prompt = _with_sentinel_instruction(next_prompt)
-
-            core.set_status(True, "AUTO")
-            if core.auto_pilot_max_rounds is None:
-                print(
-                    _("[AUTO] Round %(round)d/INFINITE")
-                    % {"round": core.auto_pilot_round}
-                )
-            else:
-                print(
-                    _("[AUTO] Round %(round)d/%(max)d")
-                    % {
-                        "round": core.auto_pilot_round,
-                        "max": core.auto_pilot_max_rounds,
-                    }
+                print(_("[AUTO] Missing or invalid auto sentinel; stopping safely."))
+                return AgentLoopJudgment(
+                    complete=False,
+                    source="sentinel",
+                    terminal_reason="sentinel_invalid",
                 )
 
-            user_msg = {"role": "user", "content": next_prompt}
-            messages.append(user_msg)
-            core.log_message(user_msg)
-
-            # Reset interrupt flag for each round
-            with core.interrupt_lock:
-                core.interrupt_requested = False
-
-            llm_util.run_llm_rounds(
-                provider,
-                client,
-                depname,
-                messages,
-                core=core,
-                make_client_fn=make_client_fn,
-                append_result_to_outfile_fn=append_result_to_outfile_fn,
-                try_open_images_from_text_fn=try_open_images_from_text_fn,
-                preserve_tool_loop_state=True,
+            record_auto_pilot_judgment(
+                source="sentinel",
+                round_number=getattr(core, "auto_pilot_round", 0),
+                answer=judgment,
+                fallback=False,
+                provider=provider,
+                model=depname,
+                latency_ms=sentinel_latency_ms,
+                additional_call=False,
+            )
+            print(_("\n[AUTO:sentinel] %(judgment)s") % {"judgment": judgment})
+            return AgentLoopJudgment(
+                complete=judgment == "COMPLETE",
+                source="sentinel",
             )
 
-            core.set_status(True, "AUTO")
+        decision_result = None
+        settings = get_decision_settings()
+        if settings.enabled:
+            if not decision_provider_initialized:
+                decision_provider_initialized = True
+                try:
+                    decision_provider = create_decision_provider(settings)
+                except Exception as exc:
+                    record_auto_pilot_judgment(
+                        source="decision_provider",
+                        round_number=getattr(core, "auto_pilot_round", 0),
+                        fallback=False,
+                        provider=settings.provider,
+                        error_type=type(exc).__name__,
+                        additional_call=False,
+                    )
+                    detail = _decision_failure_detail(exc)
+                    detail_text = f" detail={detail!r}" if detail else ""
+                    print(
+                        "[AUTO:judge:decision] "
+                        f"provider={settings.provider} "
+                        f"init_failed={type(exc).__name__}{detail_text}; "
+                        "falling back to LLM reviewer",
+                        flush=True,
+                    )
+                    decision_provider = None
 
+            if decision_provider is not None and not decision_provider_questions_checked:
+                decision_provider_questions_checked = True
+                supports_questions = _decision_provider_supports_questions(
+                    decision_provider
+                )
+                if supports_questions is False:
+                    record_auto_pilot_judgment(
+                        source="decision_provider",
+                        round_number=getattr(core, "auto_pilot_round", 0),
+                        fallback=False,
+                        provider=settings.provider,
+                        model=str(getattr(decision_provider, "model", "") or ""),
+                        error_type="UnsupportedDecisionQuestions",
+                        additional_call=False,
+                    )
+                    print(
+                        "[AUTO:judge:decision] "
+                        f"provider={settings.provider} model="
+                        f"{getattr(decision_provider, 'model', '')} "
+                        "does_not_support=required_questions; "
+                        "falling back to LLM reviewer",
+                        flush=True,
+                    )
+                    try:
+                        decision_provider.close()
+                    except Exception:
+                        pass
+                    decision_provider = None
+
+            if decision_provider is not None:
+                decision_result = _ask_auto_pilot_decision(
+                    messages,
+                    core,
+                    decision_provider=decision_provider,
+                )
+                if decision_result is None:
+                    print(
+                        "[AUTO:judge:decision] "
+                        f"provider={settings.provider} disabled_for_run=true; "
+                        "using LLM reviewer for remaining rounds",
+                        flush=True,
+                    )
+                    try:
+                        decision_provider.close()
+                    except Exception:
+                        pass
+                    decision_provider = None
+
+        if decision_result is None:
+            # On the first iteration this judges the initial goal execution.
+            # On subsequent iterations this judges the previous follow-up.
+            last_judgment_source = "llm_reviewer"
+            judgment, feedback = _ask_reviewer_judgment(
+                _judge_provider,
+                _judge_client,
+                _judge_depname,
+                messages,
+                core,
+                make_client_fn=make_client_fn,
+                fallback=settings.enabled,
+            )
+        else:
+            last_judgment_source = "decision_provider"
+            judgment, feedback = decision_result
+
+        return AgentLoopJudgment(
+            complete=judgment == "COMPLETE",
+            feedback=feedback,
+            source=last_judgment_source,
+        )
+
+    def advance_round() -> int:
+        core.auto_pilot_round += 1
+        return core.auto_pilot_round
+
+    def run_followup(
+        feedback: str,
+        round_number: int,
+        max_rounds: int | None,
+    ) -> None:
+        next_prompt = _get_followup_prompt(core.auto_pilot_goal, feedback)
+        if _sentinel_mode_enabled():
+            next_prompt = _with_sentinel_instruction(next_prompt)
+
+        core.set_status(True, "AUTO")
+        if max_rounds is None:
+            print(_("[AUTO] Round %(round)d/INFINITE") % {"round": round_number})
+        else:
+            print(
+                _("[AUTO] Round %(round)d/%(max)d")
+                % {
+                    "round": round_number,
+                    "max": max_rounds,
+                }
+            )
+
+        user_msg = {"role": "user", "content": next_prompt}
+        messages.append(user_msg)
+        core.log_message(user_msg)
+
+        with core.interrupt_lock:
+            core.interrupt_requested = False
+
+        llm_util.run_llm_rounds(
+            provider,
+            client,
+            depname,
+            messages,
+            core=core,
+            make_client_fn=make_client_fn,
+            append_result_to_outfile_fn=append_result_to_outfile_fn,
+            try_open_images_from_text_fn=try_open_images_from_text_fn,
+            preserve_tool_loop_state=True,
+        )
+
+        core.set_status(True, "AUTO")
+
+    try:
+        outcome = run_agent_loop(
+            is_active=lambda: bool(core.auto_pilot_active),
+            consume_exit_request=consume_exit_request,
+            deterministic_completion=deterministic_completion,
+            judge=judge_once,
+            advance_round=advance_round,
+            get_max_rounds=lambda: core.auto_pilot_max_rounds,
+            run_followup=run_followup,
+        )
+        last_judgment_source = outcome.judgment_source or last_judgment_source
+
+        if outcome.reason == "stopped":
+            record_run_outcome("stopped", judgment_source=last_judgment_source)
+            print(_("[AUTO] Stopped."))
+            return
+
+        if outcome.reason == "user_exit":
+            record_run_outcome("user_exit", judgment_source=last_judgment_source)
+            print(_("[AUTO] Exited by user (F11)."))
+            return
+
+        if outcome.reason == "completion_regex":
+            record_run_outcome("completion_regex")
+            print(_("[AUTO] Completion regex matched."))
+            return
+
+        if outcome.reason == "sentinel_invalid":
+            record_run_outcome(
+                "sentinel_invalid",
+                judgment_source=last_judgment_source,
+            )
+            return
+
+        if outcome.reason == "complete":
+            core.auto_pilot_active = False
+            core._last_round_outcome = {
+                "status": "completed",
+                "reason": "reviewer",
+            }
+            record_run_outcome(
+                "complete",
+                judgment_source=last_judgment_source,
+            )
+            print(_("[AUTO] Review/analysis completed."))
+            return
+
+        if outcome.reason == "max_rounds":
+            core.auto_pilot_active = False
+            core._last_round_outcome = {
+                "status": "failed",
+                "reason": "max_rounds",
+            }
+            record_run_outcome(
+                "max_rounds",
+                judgment_source=last_judgment_source,
+                max_rounds_reached=True,
+                rounds=outcome.followup_rounds,
+            )
+            print(
+                _("[AUTO] Max rounds (%(max)d) reached. Stopping.")
+                % {"max": outcome.followup_rounds}
+            )
+            return
+
+        record_run_outcome(
+            outcome.reason,
+            judgment_source=last_judgment_source,
+            max_rounds_reached=outcome.max_rounds_reached,
+            rounds=outcome.followup_rounds,
+        )
     finally:
         if not run_outcome_recorded:
             record_run_outcome(
