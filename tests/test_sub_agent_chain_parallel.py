@@ -357,6 +357,55 @@ def test_default_sub_agent_client_creation_uses_environment_lock(monkeypatch):
     assert lock.entries == 2
 
 
+def test_provider_api_key_resolution_happens_inside_environment_lock(monkeypatch):
+    class TrackingLock:
+        def __init__(self):
+            self._lock = threading.Lock()
+            self.depth = 0
+
+        def __enter__(self):
+            self._lock.acquire()
+            self.depth += 1
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            self.depth -= 1
+            self._lock.release()
+
+    runner = sub_agent_tool.SubAgentRunner()
+    lock = TrackingLock()
+
+    monkeypatch.setattr(sub_agent_tool, "_SUB_AGENT_ENV_LOCK", lock)
+    monkeypatch.setattr(runner, "_write_log", lambda *args, **kwargs: None)
+
+    def fake_get_provider_api_key(provider):
+        assert provider == "openai"
+        assert lock.depth == 1
+        return "provider-key"
+
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "get_provider_api_key",
+        fake_get_provider_api_key,
+    )
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "make_client",
+        lambda cb: (_ for _ in ()).throw(RuntimeError("stop after client setup")),
+    )
+
+    result = json.loads(
+        runner.run(
+            "general",
+            "credential lock task",
+            provider="openai",
+        )
+    )
+
+    assert result["status"] == "error"
+    assert "Failed to create client" in result["message"]
+
+
 def test_parallel_group_does_not_start_queued_steps_after_failure(monkeypatch):
     monkeypatch.setattr(sub_agent_chain_tool, "_MAX_PARALLEL_GROUP_WORKERS", 1)
 
