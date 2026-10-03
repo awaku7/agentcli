@@ -28,7 +28,6 @@
 - 循環 Sub-Agent call guard
 - `run_sub_agent_chain` による順次オーケストレーション
 - chain step 単位の `review` gate（approve / retry）と reviewer feedback による worker 再実行
-- 連続stepの `parallel_group` による独立Sub-Agentの並列実行
 - `parallel_group` による独立stepの並列実行（連続する同名groupをbarrier単位で実行）
 
 終了判定の優先順位は Auto-pilot と同じ考え方を使う:
