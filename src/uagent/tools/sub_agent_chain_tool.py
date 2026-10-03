@@ -511,7 +511,9 @@ def run_tool(args: Dict[str, Any]) -> str:
                 _, obj = _decode_result(final_raw)
                 err_msg = review_error
                 if not err_msg and obj:
-                    err_msg = str(obj.get("message", "Unknown error") or "Unknown error")
+                    err_msg = str(
+                        obj.get("message", "Unknown error") or "Unknown error"
+                    )
                 if not err_msg:
                     err_msg = "Unknown error"
                 step_result["error"] = err_msg
