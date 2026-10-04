@@ -1,4 +1,4 @@
-"""Trusted entry-point gate for CLI-only Sub-Agent Job orchestration tools."""
+"""Trusted entry-point gate for integrated Sub-Agent Job hosts."""
 
 from __future__ import annotations
 
@@ -31,4 +31,45 @@ def get_cli_job_runtime_context() -> tuple[Any, Any] | None:
     return manager, owner
 
 
-__all__ = ["get_cli_job_runtime_context"]
+def get_job_runtime_context() -> tuple[Any, Any] | None:
+    """Return an owner-bound manager only for a foreground integrated host turn."""
+    turn = get_current_turn_context()
+    if turn is None or current_sub_agent_job_mode() == "background":
+        return None
+    if get_active_sub_agent_name():
+        return None
+    if turn.entry_point == "cli":
+        return get_cli_job_runtime_context()
+    if turn.entry_point == "web":
+        if not turn.authenticated:
+            return None
+        try:
+            from ..web_impl.sub_agent_jobs import get_web_job_runtime_context
+
+            return get_web_job_runtime_context(turn)
+        except Exception:
+            return None
+    if turn.entry_point == "gui":
+        if not turn.authenticated:
+            return None
+        try:
+            from .. import core
+
+            manager = getattr(core, "_sub_agent_job_manager", None)
+            owner = getattr(core, "_sub_agent_job_owner", None)
+        except Exception:
+            return None
+        if (
+            manager is None
+            or owner is None
+            or getattr(owner, "entry_point", None) != "gui"
+        ):
+            return None
+        turn_session_id = str(getattr(turn, "session_id", "") or "")
+        if turn_session_id and turn_session_id != getattr(owner, "session_id", None):
+            return None
+        return manager, owner
+    return None
+
+
+__all__ = ["get_cli_job_runtime_context", "get_job_runtime_context"]

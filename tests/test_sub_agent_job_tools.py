@@ -83,8 +83,8 @@ def test_direct_job_tool_dispatch_fails_closed_outside_cli(monkeypatch):
     )
     assert result == {
         "status": "blocked",
-        "reason": "cli_foreground_main_only",
-        "message": "Sub-Agent Job orchestration is available only to the foreground CLI Main Agent.",
+        "reason": "foreground_main_agent_only",
+        "message": "Sub-Agent Job orchestration is available only to an integrated foreground Main Agent.",
     }
 
 

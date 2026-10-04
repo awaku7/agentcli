@@ -1059,6 +1059,12 @@ class SubAgentJobManager:
             "completed_at": job.completed_at,
             "elapsed_sec": elapsed,
             "reason": job.reason,
+            "owner": {
+                "entry_point": job.owner.entry_point,
+                "session_id": job.owner.session_id,
+                "room_id": job.owner.room_id,
+                "a2a_task_id": job.owner.a2a_task_id,
+            },
         }
 
     def _dispatch_notice(self, notice: dict[str, Any] | None) -> None:

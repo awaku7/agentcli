@@ -500,3 +500,4 @@ class SubAgentRunner:
 - `tests/test_sub_agent_translator.py`: 単体テスト
 - `src/uagent/docs/DEVELOP_TOOL.md`: ツールプラグインの作成方法
 - `src/uagent/docs/DEVELOP_I18N.md`: 国際化対応ガイド
+- `docs/plans/sub-agent-job-runtime-v1.md`: background Job runtime、host ownership、CLI/Web/GUI integration 設計

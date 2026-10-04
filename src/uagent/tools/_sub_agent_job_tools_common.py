@@ -1,15 +1,15 @@
-"""Trusted runtime helpers shared by the CLI-only Sub-Agent Job tools."""
+"""Trusted runtime helpers shared by integrated Sub-Agent Job tools."""
 
 from __future__ import annotations
 
 import json
 from typing import Any
 
-from ..runtime.sub_agent_job_access import get_cli_job_runtime_context
+from ..runtime.sub_agent_job_access import get_job_runtime_context
 
 
 def get_job_runtime() -> tuple[Any, Any] | None:
-    return get_cli_job_runtime_context()
+    return get_job_runtime_context()
 
 
 def blocked(reason: str, message: str = "") -> str:

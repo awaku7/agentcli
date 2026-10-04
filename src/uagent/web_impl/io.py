@@ -22,20 +22,35 @@ from .rooms import (
 
 
 def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
-    with room.human_ask_lock:
+    cancel_event = args.get("_cancel_event")
+    if cancel_event is None:
+        with room.human_ask_lock:
+            return _web_human_ask_unlocked(room, args)
+    while not room.human_ask_lock.acquire(timeout=0.1):
+        if cancel_event.is_set():
+            return json.dumps(
+                {"user_reply": "", "display_reply": "", "cancelled": True},
+                ensure_ascii=False,
+            )
+    try:
         return _web_human_ask_unlocked(room, args)
+    finally:
+        room.human_ask_lock.release()
 
 
 def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
     message = args.get("message", "")
     is_password = bool(args.get("is_password", False))
     allow_empty = bool(args.get("allow_empty", False))
+    job_cancel_event = args.get("_cancel_event")
+    job_id = str(args.get("_job_id") or "")
 
     # Fresh event per ask so a stale set() cannot complete immediately.
     sync_event = threading.Event()
     room.human_ask_sync_event = sync_event
     room.human_ask_is_password = is_password
     room.human_ask_message = str(message or "")
+    room.human_ask_job_id = job_id
     room.human_ask_result = None  # None = no answer yet
     room.human_ask_cancelled = False
     room.human_ask_pending = True
@@ -150,7 +165,12 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
                 break
             try:
                 with core.interrupt_lock:
-                    if core.interrupt_requested:
+                    if job_cancel_event is not None and job_cancel_event.is_set():
+                        cancelled = True
+                        room.human_ask_cancelled = True
+                        room.human_ask_result = ""
+                        break
+                    if job_cancel_event is None and core.interrupt_requested:
                         cancelled = True
                         room.human_ask_cancelled = True
                         room.human_ask_result = ""
@@ -175,6 +195,18 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
                 break
     finally:
         room.human_ask_pending = False
+        room.human_ask_job_id = ""
+        if job_id and job_cancel_event is not None and job_cancel_event.is_set():
+            try:
+                if room.loop:
+                    asyncio.run_coroutine_threadsafe(
+                        room.broadcast(
+                            {"type": "human_ask_cancelled", "job_id": job_id}
+                        ),
+                        room.loop,
+                    )
+            except Exception:
+                pass
 
     if getattr(room, "human_ask_cancelled", False):
         cancelled = True

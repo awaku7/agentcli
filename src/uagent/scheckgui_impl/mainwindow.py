@@ -678,6 +678,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self._auto_stop_btn.clicked.connect(self._on_auto_stop)
         self.statusBar().addPermanentWidget(self._auto_stop_btn)
 
+        self._jobs_btn = QtWidgets.QPushButton(_("Jobs"))
+        self._jobs_btn.setFixedHeight(22)
+        self._jobs_btn.setToolTip(_("View and manage background Sub-Agent Jobs"))
+        self._jobs_btn.clicked.connect(self._show_sub_agent_jobs)
+        self.statusBar().addPermanentWidget(self._jobs_btn)
+        self._job_confirmation_dialogs: dict[str, tuple[Any, Any]] = {}
+
         self._monitor_timer = QtCore.QTimer(self)
         self._monitor_timer.timeout.connect(self._update_ui_from_log)
         self._monitor_timer.start(200)
@@ -691,6 +698,13 @@ class MainWindow(QtWidgets.QMainWindow):
         self._worker.sig_finished.connect(self._thread.quit)
         self._worker.sig_history_bootstrap.connect(self._on_history_bootstrap)
         self._worker.sig_image_event.connect(self._on_image_event)
+        self._worker.sig_job_notice.connect(self._on_sub_agent_job_notice)
+        self._worker.sig_job_confirmation_request.connect(
+            self._on_job_confirmation_request
+        )
+        self._worker.sig_job_confirmation_cancel.connect(
+            self._on_job_confirmation_cancel
+        )
         self._worker.sig_inception_diffusion.connect(self._on_inception_diffusion)
         self._thread.started.connect(self._worker.run)
         self._thread.start()
@@ -1745,6 +1759,131 @@ class MainWindow(QtWidgets.QMainWindow):
         print("\n[AUTO] " + _("Stop requested by user (GUI stop button)."))
         self._auto_stop_btn.hide()
 
+    @QtCore.Slot(dict)
+    def _on_sub_agent_job_notice(self, notice: dict[str, Any]) -> None:
+        manager = getattr(core, "_sub_agent_job_manager", None)
+        owner = getattr(core, "_sub_agent_job_owner", None)
+        active = 0
+        if manager is not None and owner is not None:
+            try:
+                active = manager.running_count(owner=owner)
+            except Exception:
+                pass
+        self._jobs_btn.setText(_("Jobs") + (f" ({active})" if active else ""))
+        event = str(notice.get("event") or "")
+        if event in {"started", "finished"}:
+            job_id = str(notice.get("job_id") or "")
+            state = str(notice.get("state") or event)
+            role = str(notice.get("agent_name") or "Sub-Agent")
+            self.statusBar().showMessage(f"[Job {job_id}] {role}: {state}", 5000)
+
+    @QtCore.Slot(object)
+    def _on_job_confirmation_request(self, request: Any) -> None:
+        if request.completed.is_set():
+            return
+        job_id = str(request.job_id)
+        dialog = QtWidgets.QInputDialog(self)
+        dialog.setWindowTitle(
+            _("Background Job confirmation") + f" — {job_id} ({request.agent_name})"
+        )
+        dialog.setLabelText(str(request.message))
+        dialog.setInputMode(QtWidgets.QInputDialog.TextInput)
+        if request.is_password:
+            dialog.setTextEchoMode(QtWidgets.QLineEdit.Password)
+        dialog.setWindowModality(QtCore.Qt.NonModal)
+        dialog.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
+
+        def finished(result: int) -> None:
+            try:
+                response = (
+                    dialog.textValue() if result == QtWidgets.QDialog.Accepted else ""
+                )
+                request.respond(response)
+            finally:
+                self._job_confirmation_dialogs.pop(job_id, None)
+
+        dialog.finished.connect(finished)
+        self._job_confirmation_dialogs[job_id] = (dialog, request)
+        dialog.open()
+
+    @QtCore.Slot(str)
+    def _on_job_confirmation_cancel(self, job_id: str) -> None:
+        pending = self._job_confirmation_dialogs.get(str(job_id))
+        if pending is not None:
+            dialog, request = pending
+            request.cancel()
+            dialog.reject()
+
+    def _show_sub_agent_jobs(self) -> None:
+        manager = getattr(core, "_sub_agent_job_manager", None)
+        owner = getattr(core, "_sub_agent_job_owner", None)
+        if manager is None or owner is None:
+            QtWidgets.QMessageBox.information(
+                self, _("Background Jobs"), _("Job runtime is not available yet.")
+            )
+            return
+
+        dialog = QtWidgets.QDialog(self)
+        dialog.setWindowTitle(_("Background Sub-Agent Jobs"))
+        dialog.resize(720, 360)
+        layout = QtWidgets.QVBoxLayout(dialog)
+        jobs_list = QtWidgets.QListWidget(dialog)
+        layout.addWidget(jobs_list)
+        buttons = QtWidgets.QHBoxLayout()
+        refresh_button = QtWidgets.QPushButton(_("Refresh"), dialog)
+        details_button = QtWidgets.QPushButton(_("Details"), dialog)
+        cancel_button = QtWidgets.QPushButton(_("Cancel selected"), dialog)
+        close_button = QtWidgets.QPushButton(_("Close"), dialog)
+        for button in (refresh_button, details_button, cancel_button, close_button):
+            buttons.addWidget(button)
+        layout.addLayout(buttons)
+
+        def refresh() -> None:
+            jobs_list.clear()
+            try:
+                jobs = manager.summary(owner=owner)
+            except Exception:
+                jobs = []
+            for job in jobs:
+                label = (
+                    f"{job.get('state', 'unknown'):12} "
+                    f"{job.get('agent_name', 'Sub-Agent'):18} "
+                    f"{job.get('job_id', '')}"
+                )
+                item = QtWidgets.QListWidgetItem(label)
+                item.setData(QtCore.Qt.UserRole, job.get("job_id"))
+                jobs_list.addItem(item)
+            active = manager.running_count(owner=owner)
+            self._jobs_btn.setText(_("Jobs") + (f" ({active})" if active else ""))
+
+        def selected_job_id() -> str:
+            item = jobs_list.currentItem()
+            return str(item.data(QtCore.Qt.UserRole) or "") if item else ""
+
+        def show_details() -> None:
+            job_id = selected_job_id()
+            if not job_id:
+                return
+            details = manager.get(owner=owner, job_id=job_id)
+            QtWidgets.QMessageBox.information(
+                dialog,
+                _("Job details"),
+                json.dumps(details, ensure_ascii=False, indent=2),
+            )
+
+        def cancel_selected() -> None:
+            job_id = selected_job_id()
+            if job_id:
+                manager.cancel(owner=owner, job_id=job_id, reason="cancelled from GUI")
+                refresh()
+
+        refresh_button.clicked.connect(refresh)
+        details_button.clicked.connect(show_details)
+        cancel_button.clicked.connect(cancel_selected)
+        close_button.clicked.connect(dialog.accept)
+        refresh()
+        dialog.exec()
+
     def _on_send(self):
         with core.human_ask_lock:
             active, q, is_password = (
@@ -1927,10 +2066,18 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def closeEvent(self, event):
         self._worker.stop()
+        for job_id in list(self._job_confirmation_dialogs):
+            self._on_job_confirmation_cancel(job_id)
         try:
             stop_background_scheduler()
         except Exception:
             pass
         self._thread.quit()
         self._thread.wait(2000)
+        try:
+            from .sub_agent_jobs import shutdown_gui_job_runtime
+
+            shutdown_gui_job_runtime(core)
+        except Exception:
+            pass
         super().closeEvent(event)

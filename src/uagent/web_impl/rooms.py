@@ -57,6 +57,7 @@ class WebRoom:
         self.human_ask_is_password = False
         self.human_ask_pending = False
         self.human_ask_message = ""
+        self.human_ask_job_id = ""
         self.human_ask_cancelled = False
 
         # per-room worker serialization (avoid history/tool collisions)
@@ -135,6 +136,16 @@ class WebRoom:
 
             _v = (env_get("UAGENT_WEB_VERBOSE") or "").strip().lower()
             web_verbose = _v in ("1", "true", "yes", "on")
+            background_jobs = []
+            try:
+                from .sub_agent_jobs import web_job_owner
+
+                manager = getattr(web_manager, "sub_agent_job_manager", None)
+                owner = web_job_owner(self, self.session_id or str(core.session_id))
+                if manager is not None and owner is not None:
+                    background_jobs = manager.summary(owner=owner)
+            except Exception:
+                background_jobs = []
 
             # Per-room startup/welcome message (shown once per room)
             # Show it in the chat pane as an assistant message.
@@ -192,6 +203,7 @@ class WebRoom:
                     "room_id": self.room_id,
                     "project_id": self.project_id,
                     "private_session": self.private_session,
+                    "background_jobs": background_jobs,
                     "authn_kind": getattr(
                         getattr(connection_context, "identity", None),
                         "authn_kind",
@@ -212,6 +224,7 @@ class WebRoom:
                             "is_password": bool(
                                 getattr(self, "human_ask_is_password", False)
                             ),
+                            "job_id": str(getattr(self, "human_ask_job_id", "") or ""),
                         }
                     )
                 except Exception:
@@ -319,6 +332,7 @@ class WebManager:
 
         self.original_log_message = None
         self.original_set_status = None
+        self.sub_agent_job_manager = None
 
     def broadcast_all(self, data: dict[str, Any]) -> None:
         # Best-effort broadcast to all active rooms
@@ -373,18 +387,32 @@ class WebManager:
         """Return the reconnect grace period before an idle room is evicted."""
         return private_room_idle_ttl_seconds()
 
-    @staticmethod
-    def _room_is_active(room: WebRoom) -> bool:
+    def _room_is_active(self, room: WebRoom) -> bool:
         # The worker lock covers agent execution, streaming and human_ask waits.
         # Keep the explicit checks as defense in depth if worker/status contracts
         # change independently in the future.
         with room._lifecycle_lock:
             connected = bool(room.active_connections)
+        active_jobs = False
+        try:
+            manager = getattr(self, "sub_agent_job_manager", None)
+            if manager is not None:
+                from ..runtime.sub_agent_jobs import SubAgentJobOwner
+
+                owner = SubAgentJobOwner(
+                    entry_point="web",
+                    session_id=str(getattr(room, "session_id", "") or core.session_id),
+                    room_id=str(room.room_id),
+                )
+                active_jobs = manager.running_count(owner=owner) > 0
+        except Exception:
+            active_jobs = False
         return bool(
             connected
             or room.worker_lock.locked()
             or room.status.get("busy")
             or room.human_ask_pending
+            or active_jobs
         )
 
     def evict_idle_rooms(

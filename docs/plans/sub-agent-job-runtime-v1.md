@@ -2,7 +2,7 @@
 
 - Status: in progress
 - Priority: P1
-- Progress: PR 1 Runtime core, PR 2 CLI lifecycle/control, and PR 3 CLI Main Agent Job tools are implemented in the working tree. PR 4 Web/GUI integration and PR 5 A2A lifecycle integration remain pending.
+- Progress: PR 1 Runtime core, PR 2 CLI lifecycle/control, and PR 3 CLI Main Agent Job tools are implemented in the working tree. PR 4 Web/GUI integration is implemented in the working tree; PR 5 A2A lifecycle integration remains pending.
 - Source: `docs/subagent.md`, merged PR #144（parallel groups）, Auto-pilot / Sub-Agent autonomy 実装
 - Updated: 2026-10-04
 

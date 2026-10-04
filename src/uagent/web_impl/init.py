@@ -45,15 +45,17 @@ from .rooms import _thread_ctx, get_context_web_room, web_manager
 def init_web():
     print(get_welcome_message())
 
+    from .sub_agent_jobs import initialize_web_job_runtime
+
     # Web process: suppress CLI [STATE] console output for the whole lifetime.
     # Must be set before any set_status() call (including first BUSY).
     try:
         setattr(core, "_is_web", True)
     except Exception:
         pass
+    initialize_web_job_runtime()
 
     web_manager.original_set_status = core.set_status
-    web_manager.original_log_message = core.log_message
 
     def _web_image_event(event: dict[str, Any]) -> None:
         room = getattr(_thread_ctx, "room", None)

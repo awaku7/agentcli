@@ -44,7 +44,7 @@ TOOL_SPEC: dict[str, Any] = {
 def run_tool(args: dict[str, Any]) -> str:
     runtime = get_job_runtime()
     if runtime is None:
-        return blocked("cli_foreground_main_only")
+        return blocked("foreground_main_agent_only")
     manager, owner = runtime
     job_id = str(args.get("job_id") or "").strip()
     if not job_id:

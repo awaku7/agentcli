@@ -140,7 +140,7 @@ TOOL_SPEC: dict[str, Any] = {
 def run_tool(args: dict[str, Any]) -> str:
     runtime = get_job_runtime()
     if runtime is None:
-        return blocked("cli_foreground_main_only")
+        return blocked("foreground_main_agent_only")
     manager, owner = runtime
 
     agent_name = str(args.get("agent_name") or "").strip()

@@ -39,6 +39,12 @@ async def _web_lifespan(_app):
             await cleanup_task
         except asyncio.CancelledError:
             pass
+        try:
+            from .sub_agent_jobs import shutdown_web_job_runtime
+
+            await asyncio.to_thread(shutdown_web_job_runtime)
+        except Exception:
+            pass
 
 
 app = FastAPI(title="uag Web", lifespan=_web_lifespan)

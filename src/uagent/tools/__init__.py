@@ -152,11 +152,11 @@ _SUB_AGENT_JOB_TOOL_NAMES = frozenset(
 
 
 def _sub_agent_job_tools_visible() -> bool:
-    """Expose Job orchestration only to the foreground CLI Main Agent."""
+    """Expose Job orchestration only to an integrated foreground Main Agent."""
     try:
-        from ..runtime.sub_agent_job_access import get_cli_job_runtime_context
+        from ..runtime.sub_agent_job_access import get_job_runtime_context
 
-        return get_cli_job_runtime_context() is not None
+        return get_job_runtime_context() is not None
     except Exception:
         return False
 
@@ -2146,8 +2146,8 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         return json.dumps(
             {
                 "status": "blocked",
-                "reason": "cli_foreground_main_only",
-                "message": "Sub-Agent Job orchestration is available only to the foreground CLI Main Agent.",
+                "reason": "foreground_main_agent_only",
+                "message": "Sub-Agent Job orchestration is available only to an integrated foreground Main Agent.",
             },
             ensure_ascii=False,
         )

@@ -85,6 +85,9 @@ class ScheckWorker(QtCore.QObject):
     sig_finished = QtCore.Signal()
     sig_history_bootstrap = QtCore.Signal(list)
     sig_image_event = QtCore.Signal(dict)
+    sig_job_notice = QtCore.Signal(dict)
+    sig_job_confirmation_request = QtCore.Signal(object)
+    sig_job_confirmation_cancel = QtCore.Signal(str)
     sig_inception_diffusion = QtCore.Signal(object)
 
     def __init__(self, cfg: GuiConfig):
@@ -99,6 +102,12 @@ class ScheckWorker(QtCore.QObject):
         self._depname = ""
 
     def _run_gui_turn(self, fn, *args, **kwargs):
+        try:
+            from .sub_agent_jobs import refresh_gui_job_owner
+
+            refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
+        except Exception:
+            pass
         return call_with_resolved_turn_context(
             fn,
             *args,
@@ -153,6 +162,9 @@ class ScheckWorker(QtCore.QObject):
         prev_finish_skill = None
         try:
             self._init_callbacks()
+            from .sub_agent_jobs import initialize_gui_job_runtime
+
+            initialize_gui_job_runtime(core, self)
             try:
                 setattr(
                     core,
