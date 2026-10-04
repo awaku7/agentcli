@@ -50,3 +50,4 @@
 - [`mcp-2026-07-28.md`](mcp-2026-07-28.md): MCP 2026-07-28仕様対応
 - [`mcp-current-implementation.md`](mcp-current-implementation.md): MCP現行実装棚卸し
 - [`gitlab-mcp-oauth.md`](gitlab-mcp-oauth.md): GitLab MCPを主要ユースケースとした汎用MCP OAuth DCR / pre-registered client設計
+- [`sub-agent-job-runtime-v1.md`](sub-agent-job-runtime-v1.md): Main AgentをブロックしないSub-Agent Job Runtime V1とCLI Foreground/Background表示設計
