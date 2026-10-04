@@ -2,11 +2,27 @@
 
 ## [Unreleased]
 
+## [0.7.24] - 2026-10-04
+
+### 追加
+
+- CLIにバックグラウンドSub-Agent job用ツールを追加し、Web/GUIへのjob lifecycle統合とA2A taskへのjob紐付けに対応。
+- `parallel_group` によるSub-Agent chainの並列実行を追加。同じ非空名の連続した独立stepを同時実行し、結果順序を維持、shared storeはgroup barrier後にcommitする。兄弟step間のstore依存とduplicate keyを拒否し、`stop_on_error=true` の失敗groupはpublicationをatomicに中止する。
+- Sub-Agent chainに任意のreview gateを追加。reviewerが`approve` / `retry`を返し、`retry`の指摘をworkerへ渡して再実行する。再試行上限まで承認されない場合はstepを`blocked`とし、`stop_on_error`を適用する。
+
 ### 変更
 
-- `parallel_group` によるSub-Agent chainの並列実行を追加。同じ非空名の連続した独立stepを同時実行し、結果順序を維持、shared storeはgroup barrier後にcommitする。兄弟step間のstore依存とduplicate keyを拒否し、`stop_on_error=true` の失敗groupはpublicationをatomicに中止する。
-- Sub-Agent chain に任意の review gate を追加。reviewer が `approve` / `retry` を返し、`retry` の指摘をworkerへ渡して再実行する。再試行上限まで承認されない場合はstepを `blocked` とし、`stop_on_error` を適用する。
 - review付きworkerの候補は承認前に`store_key`へ公開せず、`approve`後の最終結果だけを保存。reviewerへworkerのsource contextを渡し、review roundをduplicate判定から区別する。長大なreview候補は切り捨て・部分reviewせず明示的に`blocked`とする。
+- Sub-Agentをgoal駆動の自律loopに変更。`max_tool_turns`と`max_agent_rounds`を分離し、regex/sentinel/Decision Provider/LLM fallbackで各roundを判定。reviewerの指摘と上限付きの実Tool実行結果を完了判定へ引き継ぐ。
+- `max_rounds`や`sentinel_invalid`など、未完了のSub-Agent loop結果を`status: blocked`として伝播し、partial resultを保持。これによりchain実行で`stop_on_error`を適用可能にする。
+- goal駆動Auto-pilotの制御処理を再利用可能なAgentLoop runtimeとして抽出し、provider/UI方針の重複なしにSub-Agentでも同じjudge/continue/complete semanticsを利用可能にする。
+- typed goal-completion評価を再利用可能なDecision Provider APIとして抽出。atomic Jev booleanとLayaの逆転選択肢整合性チェックに対応し、Auto-pilotのfallbackとobservability方針は維持。
+- Sub-Agentのpermission levelを確実に適用し、provider別Computer Use capability対応のため`llmcapa`最低バージョンを`0.5.54`へ引き上げ。
+
+### 修正
+
+- shared contextのサイズ超過エラーの意味を維持し、Auto-pilotのsentinel完了判定用evidenceを現在のrun内に限定。
+- Sub-Agent judgeの出力前にCLI spinnerをクリアするよう修正。
 
 ## [0.7.23] - 2026-10-03
 

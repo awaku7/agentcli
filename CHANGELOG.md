@@ -2,15 +2,27 @@
 
 ## [Unreleased]
 
-### Changed
+## [0.7.24] - 2026-10-04
 
+### Added
+
+- Add CLI tools for background Sub-Agent jobs, integrate job lifecycle support into Web and GUI hosts, and bind background jobs to A2A tasks.
 - Add bounded Sub-Agent chain parallel groups via `parallel_group`: consecutive independent steps run concurrently, preserve input-order results, defer shared-store publication to the group barrier, reject sibling store dependencies/duplicate keys, and keep failure publication atomic when `stop_on_error=true`.
 - Add optional Sub-Agent chain review gates: a reviewer returns `approve` or `retry`, retry feedback is fed back into the worker, and exhausted review retries block the chain step so `stop_on_error` is honored.
+
+### Changed
+
 - Keep reviewed worker candidates private until approval before publishing `store_key`; pass worker source context into the reviewer, distinguish review rounds for duplicate-call fingerprints, and explicitly block oversized review candidates instead of truncating or partially reviewing them.
 - Make Sub-Agents goal-driven autonomous loops: separate `max_tool_turns` from `max_agent_rounds`, judge each work round with regex/sentinel/Decision Provider/LLM fallback, carry reviewer feedback forward, and include bounded real Tool evidence in completion decisions.
 - Propagate non-completion Sub-Agent loop outcomes such as `max_rounds` and `sentinel_invalid` as `status: blocked`, preserving the partial result so chained execution can honor `stop_on_error`.
 - Extract the goal-driven Auto-pilot control flow into a reusable AgentLoop runtime so Sub-Agents can adopt the same judge/continue/complete semantics without duplicating provider or UI policy.
 - Extract typed goal-completion evaluation into a reusable Decision Provider API, including atomic Jev booleans and Laya reversed-choice consistency checks, while keeping Auto-pilot fallback and observability policy unchanged.
+- Enforce Sub-Agent permission levels and raise the minimum `llmcapa` version to `0.5.54` for provider-specific Computer Use capability support.
+
+### Fixed
+
+- Preserve shared-context size-error semantics and isolate Auto-pilot sentinel completion evidence to the current run.
+- Clear the CLI spinner before displaying Sub-Agent judge output.
 
 ## [0.7.23] - 2026-10-03
 
@@ -22,11 +34,13 @@
 ### Changed
 
 - Avoid duplicate confirmation prompts when renaming paths.
+
 - Preserve bounded prior assistant results as cumulative Auto-pilot completion evidence across rounds, excluding older runs when the initial goal message is present.
 
 - Use atomic boolean/null completion review for Auto-pilot TypeSafe/Jev and OpenRouter/Jev; remove round budgets, call IDs and unrelated conversation from decision state while preserving Laya choice/order consistency and LLM fallback.
 
 - Harden remote Decision Providers by reusing UAG HTTP/credential handling, preserving safe HTTP error detail, redacting exact API-key values, and disabling a failed provider for the remainder of the current Auto-pilot run.
+
 - Normalize Jev choice confidence so the common `DecisionAnswer.confidence` is the calibrated probability of the selected choice while retaining Jev's distribution-concentration confidence as provider metadata.
 
 ### Tests
