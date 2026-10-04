@@ -2769,7 +2769,7 @@ def run_llm_rounds(
                         "",
                     )
                     tool_selection = core.context_manager.optimize_tool_definitions(
-                        _TOOL_SPECS or _tools.get_tool_specs(),
+                        _tools.get_tool_specs(),
                         task=task_text,
                     )
                     core.context_tool_specs = tool_selection.specs

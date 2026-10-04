@@ -1,0 +1,30 @@
+{
+  "en": {
+    "tool.description": "Start a Sub-Agent in the background and return its Job ID immediately. Use the Job tools to inspect, message, wait for, or cancel it.",
+    "x_search_terms": ["spawn_sub_agent", "background subagent", "start job", "delegate job"],
+    "param.agent_name.description": "Built-in Sub-Agent role, such as planner or reviewer.",
+    "param.task.description": "The work instruction for the Sub-Agent.",
+    "param.provider.description": "Optional provider override.",
+    "param.model.description": "Optional model override.",
+    "param.reasoning.description": "Optional reasoning-effort override.",
+    "param.permission_level.description": "Background V1 only permits none until each tool has passed the background safety audit.",
+    "param.timeout.description": "Absolute end-to-end Job deadline in seconds, including queue time.",
+    "param.parent_goal.description": "Optional parent goal for the Sub-Agent context.",
+    "param.store_key.description": "Optional owner-scoped key for the approved Job result.",
+    "param.load_keys.description": "Optional owner-scoped shared-result keys to load into context."
+  },
+  "ja": {
+    "tool.description": "バックグラウンドでサブエージェントを起動し、Job IDをすぐに返します。Jobツールで状態確認、追加指示、待機、キャンセルができます。",
+    "x_search_terms": ["spawn_sub_agent", "バックグラウンドサブエージェント", "ジョブ開始", "作業委任"],
+    "param.agent_name.description": "planner や reviewer などの組み込みサブエージェント役割。",
+    "param.task.description": "サブエージェントへの作業指示。",
+    "param.provider.description": "任意のプロバイダー上書き。",
+    "param.model.description": "任意のモデル上書き。",
+    "param.reasoning.description": "任意の推論レベル上書き。",
+    "param.permission_level.description": "バックグラウンド V1 では、安全性監査が完了するまで none のみ許可されます。",
+    "param.timeout.description": "キュー待ち時間を含む Job 全体の絶対期限（秒）。",
+    "param.parent_goal.description": "サブエージェントのコンテキストに渡す任意の親目標。",
+    "param.store_key.description": "承認済み Job 結果を保存する、owner スコープの任意キー。",
+    "param.load_keys.description": "コンテキストへ読み込む owner スコープの共有結果キー。"
+  }
+}

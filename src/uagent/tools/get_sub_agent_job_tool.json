@@ -1,0 +1,12 @@
+{
+  "en": {
+    "tool.description": "Get the current state and result of a background Sub-Agent Job without waiting.",
+    "x_search_terms": ["get_sub_agent_job", "job status", "subagent status"],
+    "param.job_id.description": "Job ID returned by spawn_sub_agent."
+  },
+  "ja": {
+    "tool.description": "待機せずに、バックグラウンドサブエージェント Job の現在の状態と結果を取得します。",
+    "x_search_terms": ["get_sub_agent_job", "ジョブ状態", "サブエージェント状態確認"],
+    "param.job_id.description": "spawn_sub_agent が返した Job ID。"
+  }
+}

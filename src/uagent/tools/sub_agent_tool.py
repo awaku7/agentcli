@@ -730,6 +730,28 @@ class SubAgentRunner:
             out["message"] = prefix + message
         return out
 
+    @staticmethod
+    def _check_job_active() -> None:
+        """Cooperatively enforce cancellation and absolute deadlines."""
+        job_context = get_current_sub_agent_job()
+        if job_context is not None:
+            job_context.raise_if_cancelled()
+
+    @staticmethod
+    def _job_call_timeout(timeout: int | float) -> float:
+        """Clamp one provider request to the background Job's remaining deadline."""
+        job_context = get_current_sub_agent_job()
+        normal_timeout = float(timeout)
+        if job_context is None:
+            return normal_timeout
+        job_context.raise_if_cancelled()
+        remaining = job_context.remaining
+        if remaining is None:
+            return normal_timeout
+        if remaining <= 0:
+            job_context.raise_if_cancelled()
+        return min(normal_timeout, remaining) if normal_timeout > 0 else remaining
+
     def _execute_tool_calls(
         self, text: str, permission_level: str, agent_name: str = ""
     ) -> List[str]:
@@ -741,6 +763,7 @@ class SubAgentRunner:
         seen_signatures: set[str] = set()
         results: List[str] = []
         for match in re.finditer(pattern, text):
+            self._check_job_active()
             tool_name = match.group(1)
             args_str = match.group(2)
             sig = f"{tool_name}({args_str.strip()})"
@@ -777,6 +800,7 @@ class SubAgentRunner:
                     finally:
                         if cb and getattr(cb, "set_status", None):
                             cb.set_status(True, f"Sub-Agent ({agent_name})")
+                    self._check_job_active()
                     results.append(f"[tool:{tool_name}]\n{result}")
                 else:
                     results.append(f"[tool:{tool_name} error: runner not found]")
@@ -1181,7 +1205,9 @@ class SubAgentRunner:
         max_agent_rounds: int = 3,
         completion_sentinel: bool = False,
         completion_regex: str = "",
+        shared_context: Optional[Dict[str, Any]] = None,
     ) -> str:
+        self._check_job_active()
         spec = self.specs.get(agent_name)
         if not spec:
             result = json.dumps(
@@ -1211,6 +1237,7 @@ class SubAgentRunner:
                 "Reliable return in JSON format",
             ],
             relevant_snippets=self._load_current_file_snippets(current_file),
+            shared_context=dict(shared_context or {}),
         )
 
         if load_keys:
@@ -1550,6 +1577,7 @@ class SubAgentRunner:
             return None
 
         def judge_once():
+            self._check_job_active()
             state = build_sub_agent_completion_state(
                 task.task,
                 latest_raw,
@@ -1570,6 +1598,7 @@ class SubAgentRunner:
         ) -> None:
             nonlocal latest_raw
             nonlocal latest_tool_evidence
+            self._check_job_active()
             prior_outputs.append(latest_raw)
             followup = build_followup_prompt(task.task, latest_raw, feedback)
             followup += "\n\n[Original context]\n" + initial_prompt
@@ -1580,6 +1609,19 @@ class SubAgentRunner:
                 )
             latest_raw, latest_tool_evidence = execute_work_round(followup)
 
+        def take_job_inbox_request() -> str | None:
+            job_context = get_current_sub_agent_job()
+            if job_context is None:
+                return None
+            self._check_job_active()
+            messages = job_context.drain_messages()
+            if not messages:
+                return None
+            return "\n".join(
+                f"Main Agent instruction (message {item['sequence']}): {item['message']}"
+                for item in messages
+            )
+
         try:
             outcome = run_agent_loop(
                 is_active=lambda: True,
@@ -1589,6 +1631,7 @@ class SubAgentRunner:
                 advance_round=advance_round,
                 get_max_rounds=lambda: max(1, int(max_agent_rounds)),
                 run_followup=run_followup,
+                take_followup_request=take_job_inbox_request,
             )
         finally:
             judge.close()
@@ -1751,6 +1794,7 @@ class SubAgentRunner:
             )
 
         for turn in range(max_turns):
+            self._check_job_active()
             is_last = turn == max_turns - 1
 
             if cb and getattr(cb, "log_message", None) and not is_last:
@@ -1776,7 +1820,7 @@ class SubAgentRunner:
                     system_prompt,
                     conversation_messages,
                     tool_specs,
-                    timeout,
+                    self._job_call_timeout(timeout),
                     provider,
                 )
                 retries = 0
@@ -1787,7 +1831,7 @@ class SubAgentRunner:
                     system_prompt,
                     conversation_messages,
                     tool_specs,
-                    timeout,
+                    self._job_call_timeout(timeout),
                     provider,
                 )
                 retries = 0
@@ -1798,7 +1842,7 @@ class SubAgentRunner:
                     model_name,
                     system_prompt,
                     conversation,
-                    timeout,
+                    self._job_call_timeout(timeout),
                     max_retries,
                     current_response_mode,
                 )
@@ -1894,8 +1938,6 @@ class SubAgentRunner:
         max_retries: int,
         response_mode: str,
     ) -> tuple[str, int, Dict[str, int]]:
-        import time
-
         last_error = ""
         total_retries = 0
         total_usage: Dict[str, int] = {
@@ -1905,13 +1947,14 @@ class SubAgentRunner:
         }
         for attempt in range(max_retries + 1):
             try:
+                self._check_job_active()
                 raw, usage = self._call_llm_single_round(
                     provider,
                     client,
                     model_name,
                     system_prompt,
                     user_prompt,
-                    timeout,
+                    self._job_call_timeout(timeout),
                 )
                 for k in total_usage:
                     total_usage[k] += usage.get(k, 0)
@@ -1923,14 +1966,14 @@ class SubAgentRunner:
                             total_retries += 1
                             last_error = f"Invalid JSON on attempt {attempt + 1}"
                             system_prompt += "\n\n[The previous output was not valid JSON. Output valid JSON only.]"
-                            time.sleep(1)
+                            self._wait_for_retry(1)
                             continue
                 return raw, total_retries, total_usage
             except Exception as exc:
                 last_error = str(exc)
                 if attempt < max_retries:
                     total_retries += 1
-                    time.sleep(2**attempt)
+                    self._wait_for_retry(2**attempt)
                     continue
                 break
         return (
@@ -1940,6 +1983,20 @@ class SubAgentRunner:
             total_retries,
             total_usage,
         )
+
+    @staticmethod
+    def _wait_for_retry(seconds: float) -> None:
+        job_context = get_current_sub_agent_job()
+        if job_context is None:
+            import time
+
+            time.sleep(seconds)
+            return
+        job_context.raise_if_cancelled()
+        remaining = job_context.remaining
+        delay = seconds if remaining is None else min(seconds, remaining)
+        job_context.cancel_event.wait(max(0.0, delay))
+        job_context.raise_if_cancelled()
 
 
 # ---------------------------------------------------------------------------
@@ -1988,6 +2045,7 @@ def run_tool(args: Dict[str, Any]) -> str:
         else:
             completion_sentinel = bool(sentinel_arg)
         completion_regex = str(args.get("completion_regex") or "")
+        shared_context = args.get("_shared_context")
 
         _set_sub_agent_status(cb, agent_name, entering=True)
 
@@ -2028,6 +2086,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             max_agent_rounds=max_agent_rounds,
             completion_sentinel=completion_sentinel,
             completion_regex=completion_regex,
+            shared_context=shared_context,
         )
     finally:
         reset_active_sub_agent(sub_agent_token)

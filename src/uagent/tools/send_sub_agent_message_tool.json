@@ -1,0 +1,14 @@
+{
+  "en": {
+    "tool.description": "Send additional instructions to a running Sub-Agent Job. They are delivered at a safe round boundary, not injected into an active provider call.",
+    "x_search_terms": ["send_sub_agent_message", "message subagent", "job inbox"],
+    "param.job_id.description": "Job ID returned by spawn_sub_agent.",
+    "param.message.description": "Additional instruction for the Sub-Agent."
+  },
+  "ja": {
+    "tool.description": "実行中のサブエージェント Job に追加指示を送信します。指示は安全なラウンド境界で取り込まれ、実行中のプロバイダー呼び出しには割り込みません。",
+    "x_search_terms": ["send_sub_agent_message", "サブエージェントへ指示", "ジョブ受信箱"],
+    "param.job_id.description": "spawn_sub_agent が返した Job ID。",
+    "param.message.description": "サブエージェントへの追加指示。"
+  }
+}

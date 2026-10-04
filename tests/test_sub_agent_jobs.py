@@ -443,6 +443,136 @@ def test_completed_results_expire_by_ttl():
         manager.shutdown()
 
 
+def test_accepted_inbox_message_is_delivered_before_job_completion():
+    manager = _manager()
+    first_started = threading.Event()
+    release_first = threading.Event()
+    calls = []
+    try:
+
+        def worker(ctx):
+            calls.append(ctx.job_id)
+            if len(calls) == 1:
+                first_started.set()
+                assert release_first.wait(2)
+                return "initial-result"
+            messages = ctx.drain_messages()
+            return json.dumps({"delivered": messages})
+
+        accepted = manager.spawn(
+            owner=_owner(), agent_name="planner", task="work", worker=worker
+        )
+        assert first_started.wait(1)
+        delivered = manager.send_message(
+            owner=_owner(), job_id=accepted["job_id"], message="Use evidence B"
+        )
+        assert delivered["status"] == "accepted"
+        release_first.set()
+        result = manager.wait(owner=_owner(), job_id=accepted["job_id"], timeout=2)
+        assert result["state"] == "completed"
+        assert len(calls) == 2
+        assert json.loads(result["result"])["delivered"] == [
+            {"sequence": delivered["sequence"], "message": "Use evidence B"}
+        ]
+        assert manager.send_message(
+            owner=_owner(), job_id=accepted["job_id"], message="too late"
+        ) == {"status": "rejected", "reason": "job_not_running"}
+    finally:
+        release_first.set()
+        manager.shutdown()
+
+
+def test_store_key_is_published_only_after_success_and_is_owner_scoped():
+    manager = _manager()
+    try:
+        accepted = manager.spawn(
+            owner=_owner(),
+            agent_name="planner",
+            task="publish",
+            worker=lambda _ctx: "approved output",
+            store_key="plan",
+        )
+        result = manager.wait(owner=_owner(), job_id=accepted["job_id"], timeout=2)
+        assert result["state"] == "completed"
+        assert manager.load_shared_results(owner=_owner(), keys=["plan"]) == (
+            {"plan": "approved output"},
+            [],
+        )
+        assert manager.load_shared_results(
+            owner=_owner("session-2"), keys=["plan"]
+        ) == (
+            {},
+            ["plan"],
+        )
+    finally:
+        manager.shutdown()
+
+
+def test_shared_store_key_is_reserved_until_completion_and_conflicts():
+    manager = _manager()
+    try:
+        started = threading.Event()
+        release = threading.Event()
+        first = manager.spawn(
+            owner=_owner(),
+            agent_name="planner",
+            task="reserve",
+            worker=lambda _ctx: (started.set(), release.wait(2), "done")[-1],
+            store_key="same-key",
+        )
+        assert started.wait(1)
+        duplicate = manager.spawn(
+            owner=_owner(),
+            agent_name="reviewer",
+            task="duplicate key",
+            worker=lambda _ctx: "unused",
+            store_key="same-key",
+        )
+        assert duplicate == {"status": "rejected", "reason": "store_key_conflict"}
+        release.set()
+        assert (
+            manager.wait(owner=_owner(), job_id=first["job_id"], timeout=2)["state"]
+            == "completed"
+        )
+        assert manager.load_shared_results(owner=_owner(), keys=["same-key"])[0] == {
+            "same-key": "done"
+        }
+    finally:
+        release.set()
+        manager.shutdown()
+
+
+def test_job_message_inbox_has_a_total_byte_limit():
+    manager = _manager(inbox_limit=10, inbox_max_bytes=8, message_max_bytes=8)
+    started = threading.Event()
+    release = threading.Event()
+    try:
+        accepted = manager.spawn(
+            owner=_owner(),
+            agent_name="planner",
+            task="work",
+            worker=lambda _ctx: (started.set(), release.wait(2), "done")[-1],
+        )
+        assert started.wait(1)
+        assert (
+            manager.send_message(
+                owner=_owner(), job_id=accepted["job_id"], message="123456"
+            )["status"]
+            == "accepted"
+        )
+        assert manager.send_message(
+            owner=_owner(), job_id=accepted["job_id"], message="789"
+        ) == {"status": "rejected", "reason": "inbox_full"}
+        release.set()
+        assert (
+            manager.wait(owner=_owner(), job_id=accepted["job_id"], timeout=2)["state"]
+            == "completed"
+        )
+    finally:
+        release.set()
+        manager.shutdown()
+
+
 def test_worker_status_is_normalized_and_secrets_are_masked():
     manager = _manager()
     try:
@@ -468,5 +598,56 @@ def test_worker_status_is_normalized_and_secrets_are_masked():
         secret_result = manager.wait(owner=_owner(), job_id=secret["job_id"], timeout=2)
         assert "super-secret-value" not in secret_result["result"]
         assert "********" in secret_result["result"]
+    finally:
+        manager.shutdown()
+
+
+def test_failed_store_job_releases_reservation_without_publishing():
+    manager = _manager()
+    try:
+        failed = manager.spawn(
+            owner=_owner(),
+            agent_name="planner",
+            task="fail",
+            worker=lambda _ctx: (_ for _ in ()).throw(RuntimeError("failure")),
+            store_key="retry-key",
+        )
+        failed_result = manager.wait(owner=_owner(), job_id=failed["job_id"], timeout=2)
+        assert failed_result["state"] == "failed"
+        assert manager.load_shared_results(owner=_owner(), keys=["retry-key"]) == (
+            {},
+            ["retry-key"],
+        )
+        retry = manager.spawn(
+            owner=_owner(),
+            agent_name="planner",
+            task="retry",
+            worker=lambda _ctx: "approved",
+            store_key="retry-key",
+        )
+        assert retry["status"] == "accepted"
+        assert (
+            manager.wait(owner=_owner(), job_id=retry["job_id"], timeout=2)["state"]
+            == "completed"
+        )
+    finally:
+        manager.shutdown()
+
+
+def test_subagent_provider_timeout_is_clamped_to_job_deadline():
+    from uagent.tools.sub_agent_tool import SubAgentRunner
+
+    manager = _manager()
+    try:
+        accepted = manager.spawn(
+            owner=_owner(),
+            agent_name="planner",
+            task="deadline clamp",
+            timeout=0.5,
+            worker=lambda _ctx: str(SubAgentRunner._job_call_timeout(60)),
+        )
+        result = manager.wait(owner=_owner(), job_id=accepted["job_id"], timeout=2)
+        assert result["state"] == "completed"
+        assert 0 < float(result["result"]) <= 0.5
     finally:
         manager.shutdown()

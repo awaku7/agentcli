@@ -140,6 +140,40 @@ _EMBEDDED_EXCLUDED_TOOL_GROUPS: tuple[frozenset[str], ...] = (
     frozenset({"tool_catalog", "tool_load", "unload_tool"}),
 )
 
+_SUB_AGENT_JOB_TOOL_NAMES = frozenset(
+    {
+        "spawn_sub_agent",
+        "get_sub_agent_job",
+        "wait_sub_agent_job",
+        "send_sub_agent_message",
+        "cancel_sub_agent_job",
+    }
+)
+
+
+def _sub_agent_job_tools_visible() -> bool:
+    """Expose Job orchestration only to the foreground CLI Main Agent."""
+    try:
+        from ..runtime.sub_agent_job_access import get_cli_job_runtime_context
+
+        return get_cli_job_runtime_context() is not None
+    except Exception:
+        return False
+
+
+def _filter_sub_agent_job_tools(
+    specs: list[dict[str, Any]], *, allowed: bool | None = None
+) -> list[dict[str, Any]]:
+    visible = _sub_agent_job_tools_visible() if allowed is None else allowed
+    if visible:
+        return specs
+    return [
+        spec
+        for spec in specs
+        if str((spec.get("function") or {}).get("name") or "")
+        not in _SUB_AGENT_JOB_TOOL_NAMES
+    ]
+
 
 def _embedded_management_tool_allowed(tool_name: str) -> bool:
     """Return True when a management tool may be used in embedded mode.
@@ -1264,7 +1298,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
             register(
                 [
                     spec.get("function", {}).get("name")
-                    for spec in TOOL_SPECS
+                    for spec in _filter_sub_agent_job_tools(TOOL_SPECS)
                     if isinstance(spec, dict) and isinstance(spec.get("function"), dict)
                 ]
             )
@@ -1278,7 +1312,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
         and _ANALYZE_IMAGE_HIDDEN == hide_analyze_image
         and _TOOL_SPECS_CACHE_EMBEDDED == _embedded_now
     ):
-        return _TOOL_SPECS_CACHE
+        return _filter_sub_agent_job_tools(_TOOL_SPECS_CACHE)
 
     # Embedded mode hides management tools unless explicitly loaded. Native
     # tool_search filtering belongs to the delivery layer, not this catalog
@@ -1365,7 +1399,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
     _TOOL_SPECS_DIRTY = False
     _TOOL_SPECS_CACHE_EMBEDDED = _embedded_now
     _ANALYZE_IMAGE_HIDDEN = hide_analyze_image
-    return clean_specs
+    return _filter_sub_agent_job_tools(clean_specs)
 
 
 def _expand_catalog_token(token: str) -> list[str]:
@@ -1769,6 +1803,8 @@ def get_tool_catalog(
                 }
             )
 
+    if not _sub_agent_job_tools_visible():
+        rows = [row for row in rows if row.get("name") not in _SUB_AGENT_JOB_TOOL_NAMES]
     rows.sort(key=lambda x: (-int(x.get("score", 0)), str(x.get("name", ""))))
 
     out: list[dict[str, Any]] = []
@@ -2106,6 +2142,15 @@ def _record_policy_audit(
 def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
     _ensure_loaded()
+    if name in _SUB_AGENT_JOB_TOOL_NAMES and not _sub_agent_job_tools_visible():
+        return json.dumps(
+            {
+                "status": "blocked",
+                "reason": "cli_foreground_main_only",
+                "message": "Sub-Agent Job orchestration is available only to the foreground CLI Main Agent.",
+            },
+            ensure_ascii=False,
+        )
     # Resolve @A{0}..@A{9} path aliases at the common dispatch boundary.
     try:
         args = resolve_tool_args(args)

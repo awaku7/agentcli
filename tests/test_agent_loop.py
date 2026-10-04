@@ -176,3 +176,31 @@ def test_agent_loop_supports_judgment_terminal_reason():
     assert outcome.followup_rounds == 0
     assert calls == []
     assert state["round"] == 0
+
+
+def test_agent_loop_consumes_external_instruction_before_completion_judging():
+    _, advance = _counter()
+    calls = []
+    requests = iter(["inspect evidence C", None])
+    judgments = iter([AgentLoopJudgment(True, source="reviewer")])
+
+    outcome = run_agent_loop(
+        is_active=lambda: True,
+        consume_exit_request=lambda: False,
+        deterministic_completion=lambda: calls.append("deterministic") or None,
+        judge=lambda: calls.append("judge") or next(judgments),
+        advance_round=advance,
+        get_max_rounds=lambda: 3,
+        run_followup=lambda feedback, round_number, maximum: calls.append(
+            ("followup", feedback, round_number, maximum)
+        ),
+        take_followup_request=lambda: next(requests),
+    )
+
+    assert outcome.reason == "complete"
+    assert outcome.followup_rounds == 1
+    assert calls == [
+        ("followup", "inspect evidence C", 1, 3),
+        "deterministic",
+        "judge",
+    ]

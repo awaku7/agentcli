@@ -108,6 +108,8 @@ class SubAgentJobExecutionContext:
         Callable[["SubAgentJobExecutionContext", str, bool], str] | None
     )
     waiting_sink: Callable[[bool], None]
+    initial_messages: deque[dict[str, Any]]
+    message_sink: Callable[[], list[dict[str, Any]]]
 
     @property
     def effective_deadline_at(self) -> float | None:
@@ -149,6 +151,11 @@ class SubAgentJobExecutionContext:
 
     def set_waiting_for_user(self, waiting: bool) -> None:
         self.waiting_sink(bool(waiting))
+
+    def drain_messages(self) -> list[dict[str, Any]]:
+        messages = list(self.initial_messages)
+        self.initial_messages.clear()
+        return messages + self.message_sink()
 
 
 class _ShutdownDeadline:
@@ -197,10 +204,22 @@ class SubAgentJobSettings:
     log_max_bytes: int = 1_048_576
     result_max_bytes: int = 1_048_576
     task_max_bytes: int = 65_536
+    inbox_limit: int = 100
+    inbox_max_bytes: int = 65_536
+    message_max_bytes: int = 16_384
+    message_round_limit: int = 16
+    shared_store_limit: int = 100
+    shared_store_max_bytes: int = 16_777_216
     shutdown_timeout_sec: float = 5.0
 
     def __post_init__(self) -> None:
-        for name in ("workers", "owner_limit", "completed_limit", "event_limit"):
+        for name in (
+            "workers",
+            "owner_limit",
+            "completed_limit",
+            "event_limit",
+            "shared_store_limit",
+        ):
             if getattr(self, name) < 1:
                 raise ValueError(f"{name} must be at least 1")
         if self.queue_limit < 0:
@@ -209,7 +228,16 @@ class SubAgentJobSettings:
             value = float(getattr(self, name))
             if not math.isfinite(value) or value < 0:
                 raise ValueError(f"{name} must be finite and non-negative")
-        for name in ("log_max_bytes", "result_max_bytes", "task_max_bytes"):
+        for name in (
+            "log_max_bytes",
+            "result_max_bytes",
+            "task_max_bytes",
+            "inbox_limit",
+            "inbox_max_bytes",
+            "message_max_bytes",
+            "message_round_limit",
+            "shared_store_max_bytes",
+        ):
             if getattr(self, name) < 1:
                 raise ValueError(f"{name} must be at least 1")
 
@@ -246,6 +274,22 @@ class SubAgentJobSettings:
             ),
             task_max_bytes=max(
                 1, integer("UAGENT_SUB_AGENT_JOB_TASK_MAX_BYTES", 65_536)
+            ),
+            inbox_limit=max(1, integer("UAGENT_SUB_AGENT_JOB_INBOX_LIMIT", 100)),
+            inbox_max_bytes=max(
+                1, integer("UAGENT_SUB_AGENT_JOB_INBOX_MAX_BYTES", 65_536)
+            ),
+            message_max_bytes=max(
+                1, integer("UAGENT_SUB_AGENT_JOB_MESSAGE_MAX_BYTES", 16_384)
+            ),
+            message_round_limit=max(
+                1, integer("UAGENT_SUB_AGENT_JOB_MESSAGE_ROUND_LIMIT", 16)
+            ),
+            shared_store_limit=max(
+                1, integer("UAGENT_SUB_AGENT_JOB_SHARED_STORE_LIMIT", 100)
+            ),
+            shared_store_max_bytes=max(
+                1, integer("UAGENT_SUB_AGENT_JOB_SHARED_STORE_MAX_BYTES", 16_777_216)
             ),
             shutdown_timeout_sec=seconds("UAGENT_SUB_AGENT_JOB_SHUTDOWN_TIMEOUT", 5),
         )
@@ -286,6 +330,11 @@ class _SubAgentJob:
     events: deque[_JobEvent] = field(default_factory=deque)
     event_bytes: int = 0
     next_event_sequence: int = 1
+    inbox: deque[dict[str, Any]] = field(default_factory=deque)
+    inbox_bytes: int = 0
+    next_message_sequence: int = 1
+    continuation_count: int = 0
+    store_key: str | None = None
 
 
 class SubAgentJobManager:
@@ -312,6 +361,9 @@ class SubAgentJobManager:
         self._active_worker_jobs: set[str] = set()
         self._active_worker_owners: dict[str, SubAgentJobOwner] = {}
         self._paused_owners: set[SubAgentJobOwner] = set()
+        self._shared_store: dict[SubAgentJobOwner, OrderedDict[str, str]] = {}
+        self._shared_store_bytes: dict[SubAgentJobOwner, int] = {}
+        self._store_reservations: dict[tuple[SubAgentJobOwner, str], str] = {}
         self._maintenance_thread = threading.Thread(
             target=self._maintenance_loop,
             name="uagent-sub-agent-job-maintenance",
@@ -336,6 +388,7 @@ class SubAgentJobManager:
         worker: Callable[[SubAgentJobExecutionContext], Any],
         job_root: str | os.PathLike[str] | None = None,
         timeout: float | None = None,
+        store_key: str | None = None,
     ) -> dict[str, Any]:
         """Admit a job, returning immediately or a structured rejection."""
         if not isinstance(owner, SubAgentJobOwner):
@@ -355,6 +408,12 @@ class SubAgentJobManager:
             > self.settings.task_max_bytes
         ):
             return {"status": "rejected", "reason": "task_too_large"}
+        normalized_store_key = str(store_key or "").strip() or None
+        if (
+            normalized_store_key
+            and len(normalized_store_key.encode("utf-8", errors="replace")) > 256
+        ):
+            return {"status": "rejected", "reason": "store_key_too_large"}
         try:
             resolved_job_root = Path(job_root if job_root is not None else os.getcwd())
             resolved_job_root = resolved_job_root.expanduser().resolve(strict=False)
@@ -370,6 +429,14 @@ class SubAgentJobManager:
                 return {"status": "rejected", "reason": "shutting_down"}
             if owner in self._paused_owners:
                 return {"status": "rejected", "reason": "owner_transition"}
+            if normalized_store_key:
+                owner_store = self._shared_store.get(owner, {})
+                reservation_key = (owner, normalized_store_key)
+                if (
+                    normalized_store_key in owner_store
+                    or reservation_key in self._store_reservations
+                ):
+                    return {"status": "rejected", "reason": "store_key_conflict"}
             owner_jobs = [
                 job
                 for job in self._jobs.values()
@@ -393,9 +460,12 @@ class SubAgentJobManager:
                 created_monotonic=now,
                 created_at=created_at,
                 deadline_at=deadline_at,
+                store_key=normalized_store_key,
             )
             self._jobs[job_id] = job
             self._queue.append(job_id)
+            if normalized_store_key:
+                self._store_reservations[(owner, normalized_store_key)] = job_id
             self._append_event_locked(job, "accepted", "Job accepted")
             self._condition.notify_all()
         return {"status": "accepted", "job_id": job_id, "agent_name": agent_name}
@@ -418,6 +488,83 @@ class SubAgentJobManager:
                 return False
             self._append_event_locked(job, kind, message)
             return True
+
+    def send_message(
+        self, *, owner: SubAgentJobOwner, job_id: str, message: str
+    ) -> dict[str, Any]:
+        text = str(message or "")
+        if not text.strip():
+            return {"status": "rejected", "reason": "empty_message"}
+        message_bytes = len(text.encode("utf-8", errors="replace"))
+        if message_bytes > self.settings.message_max_bytes:
+            return {"status": "rejected", "reason": "message_too_large"}
+        with self._condition:
+            job = self._authorized_job_locked(owner, job_id)
+            if job is None:
+                return _not_found()
+            if job.state not in {
+                SubAgentJobState.RUNNING,
+                SubAgentJobState.WAITING_FOR_USER,
+            }:
+                return {"status": "rejected", "reason": "job_not_running"}
+            if job.continuation_count >= self.settings.message_round_limit:
+                return {"status": "rejected", "reason": "message_round_limit"}
+            if len(job.inbox) >= self.settings.inbox_limit:
+                return {"status": "rejected", "reason": "inbox_full"}
+            if job.inbox_bytes + message_bytes > self.settings.inbox_max_bytes:
+                return {"status": "rejected", "reason": "inbox_full"}
+            sequence = job.next_message_sequence
+            job.next_message_sequence += 1
+            job.inbox.append({"sequence": sequence, "message": text})
+            job.inbox_bytes += message_bytes
+            self._append_event_locked(
+                job,
+                "message_accepted",
+                f"Main Agent message accepted (sequence {sequence})",
+            )
+            self._condition.notify_all()
+            return {"status": "accepted", "job_id": job_id, "sequence": sequence}
+
+    def _drain_messages(self, job_id: str) -> list[dict[str, Any]]:
+        with self._condition:
+            job = self._jobs.get(job_id)
+            if job is None or job.state.terminal:
+                return []
+            messages = list(job.inbox)
+            job.inbox.clear()
+            if messages:
+                job.inbox_bytes = max(
+                    0,
+                    job.inbox_bytes
+                    - sum(
+                        len(item["message"].encode("utf-8", errors="replace"))
+                        for item in messages
+                    ),
+                )
+                job.continuation_count += 1
+                self._append_event_locked(
+                    job,
+                    "message_delivered",
+                    f"Delivered {len(messages)} Main Agent message(s) to the worker",
+                )
+            return messages
+
+    def load_shared_results(
+        self, *, owner: SubAgentJobOwner, keys: list[str]
+    ) -> tuple[dict[str, str], list[str]]:
+        """Load only completed shared results belonging to one immutable owner."""
+        with self._condition:
+            store = self._shared_store.get(owner, OrderedDict())
+            found: dict[str, str] = {}
+            missing: list[str] = []
+            for key in keys:
+                normalized = str(key or "").strip()
+                if not normalized or normalized not in store:
+                    missing.append(normalized)
+                    continue
+                found[normalized] = store[normalized]
+                store.move_to_end(normalized)
+            return found, missing
 
     def _set_waiting_for_user(self, job_id: str, waiting: bool) -> None:
         with self._condition:
@@ -692,45 +839,97 @@ class SubAgentJobManager:
                     self._condition.notify_all()
 
     def _execute_job(self, job: _SubAgentJob) -> None:
-        execution = SubAgentJobExecutionContext(
-            job_id=job.job_id,
-            agent_name=job.agent_name,
-            owner=job.owner,
-            job_root=job.job_root,
-            cancel_event=job.cancel_event,
-            deadline_at=job.deadline_at,
-            shutdown_deadline=job.shutdown_deadline,
-            event_sink=lambda kind, message: self.record_event(
-                owner=job.owner, job_id=job.job_id, kind=kind, message=message
-            ),
-            confirmation_handler=self._confirmation_handler,
-            waiting_sink=lambda waiting: self._set_waiting_for_user(
-                job.job_id, waiting
-            ),
-        )
+        while True:
+            with self._condition:
+                if job.state.terminal:
+                    return
+                if job.cancel_event.is_set():
+                    terminal = (
+                        SubAgentJobState.TIMED_OUT
+                        if job.deadline_at is not None
+                        and time.monotonic() >= job.deadline_at
+                        else SubAgentJobState.CANCELLED
+                    )
+                    job.reason = (
+                        "deadline exceeded"
+                        if terminal == SubAgentJobState.TIMED_OUT
+                        else "cancelled"
+                    )
+                    self._finish_locked(job, terminal)
+                    self._append_event_locked(job, terminal.value, job.reason)
+                    notice = self._notice_locked(job, "finished")
+                    self._condition.notify_all()
+                    initial_messages: list[dict[str, Any]] = []
+                    already_terminal = True
+                else:
+                    initial_messages = list(job.inbox)
+                    job.inbox.clear()
+                    job.inbox_bytes = 0
+                    if initial_messages:
+                        self._append_event_locked(
+                            job,
+                            "message_delivered",
+                            f"Worker received {len(initial_messages)} Main Agent message(s)",
+                        )
+                    already_terminal = False
+                    execution = SubAgentJobExecutionContext(
+                        job_id=job.job_id,
+                        agent_name=job.agent_name,
+                        owner=job.owner,
+                        job_root=job.job_root,
+                        cancel_event=job.cancel_event,
+                        deadline_at=job.deadline_at,
+                        shutdown_deadline=job.shutdown_deadline,
+                        event_sink=lambda kind, message: self.record_event(
+                            owner=job.owner,
+                            job_id=job.job_id,
+                            kind=kind,
+                            message=message,
+                        ),
+                        confirmation_handler=self._confirmation_handler,
+                        waiting_sink=lambda waiting: self._set_waiting_for_user(
+                            job.job_id, waiting
+                        ),
+                        message_sink=lambda: self._drain_messages(job.job_id),
+                        initial_messages=deque(initial_messages),
+                    )
 
-        def invoke() -> Any:
-            id_token = CURRENT_SUB_AGENT_JOB_ID.set(job.job_id)
-            mode_token = CURRENT_SUB_AGENT_JOB_MODE.set("background")
-            root_token = CURRENT_SUB_AGENT_JOB_ROOT.set(str(job.job_root))
-            execution_token = _CURRENT_SUB_AGENT_JOB_EXECUTION.set(execution)
+            if already_terminal:
+                self._dispatch_notice(notice)
+                return
+
+            def invoke() -> Any:
+                id_token = CURRENT_SUB_AGENT_JOB_ID.set(job.job_id)
+                mode_token = CURRENT_SUB_AGENT_JOB_MODE.set("background")
+                root_token = CURRENT_SUB_AGENT_JOB_ROOT.set(str(job.job_root))
+                execution_token = _CURRENT_SUB_AGENT_JOB_EXECUTION.set(execution)
+                try:
+                    execution.raise_if_cancelled()
+                    return job.worker(execution)
+                finally:
+                    _CURRENT_SUB_AGENT_JOB_EXECUTION.reset(execution_token)
+                    CURRENT_SUB_AGENT_JOB_ROOT.reset(root_token)
+                    CURRENT_SUB_AGENT_JOB_MODE.reset(mode_token)
+                    CURRENT_SUB_AGENT_JOB_ID.reset(id_token)
+
             try:
-                execution.raise_if_cancelled()
-                return job.worker(execution)
-            finally:
-                _CURRENT_SUB_AGENT_JOB_EXECUTION.reset(execution_token)
-                CURRENT_SUB_AGENT_JOB_ROOT.reset(root_token)
-                CURRENT_SUB_AGENT_JOB_MODE.reset(mode_token)
-                CURRENT_SUB_AGENT_JOB_ID.reset(id_token)
+                raw_result = job.context.run(invoke)
+                result_text = (
+                    raw_result
+                    if isinstance(raw_result, str)
+                    else json.dumps(raw_result, ensure_ascii=False, default=str)
+                )
+                inferred_state = _infer_terminal_state(result_text)
+            except SubAgentJobDeadlineExceeded as exc:
+                self._finish_from_exception(job, SubAgentJobState.TIMED_OUT, exc)
+                return
+            except SubAgentJobCancelled as exc:
+                self._finish_from_exception(job, SubAgentJobState.CANCELLED, exc)
+                return
+            except BaseException as exc:  # Keep a worker failure from killing the pool.
+                self._finish_from_exception(job, SubAgentJobState.FAILED, exc)
+                return
 
-        try:
-            raw_result = job.context.run(invoke)
-            result_text = (
-                raw_result
-                if isinstance(raw_result, str)
-                else json.dumps(raw_result, ensure_ascii=False, default=str)
-            )
-            inferred_state = _infer_terminal_state(result_text)
             with self._condition:
                 if job.state.terminal:
                     return
@@ -747,23 +946,53 @@ class SubAgentJobManager:
                         else "cancelled"
                     )
                     self._finish_locked(job, terminal)
+                    self._append_event_locked(job, terminal.value, job.reason)
+                    should_continue = False
+                elif job.inbox:
+                    if job.continuation_count >= self.settings.message_round_limit:
+                        job.reason = "Main Agent message round limit reached"
+                        job.result = json.dumps(
+                            {"status": "blocked", "reason": "message_round_limit"},
+                            ensure_ascii=False,
+                        )
+                        self._finish_locked(job, SubAgentJobState.BLOCKED)
+                        self._append_event_locked(
+                            job, "blocked", "Main Agent message round limit reached"
+                        )
+                        should_continue = False
+                    else:
+                        job.continuation_count += 1
+                        self._append_event_locked(
+                            job,
+                            "message_continue",
+                            f"Continuing for Main Agent messages (round {job.continuation_count})",
+                        )
+                        should_continue = True
                 else:
                     job.result, was_truncated = _bounded_result(
                         _mask_inline_secrets(result_text),
                         self.settings.result_max_bytes,
                     )
                     job.truncated = job.truncated or was_truncated
+                    if inferred_state == SubAgentJobState.COMPLETED and job.store_key:
+                        store_error = self._publish_shared_result_locked(
+                            job, _mask_inline_secrets(result_text)
+                        )
+                        if store_error:
+                            job.reason = store_error
+                            inferred_state = SubAgentJobState.BLOCKED
                     self._finish_locked(job, inferred_state)
-                notice = self._notice_locked(job, "finished")
-                self._append_event_locked(job, job.state.value, "Job finished")
+                    self._append_event_locked(job, job.state.value, "Job finished")
+                    should_continue = False
                 self._condition.notify_all()
+                notice = (
+                    None if should_continue else self._notice_locked(job, "finished")
+                )
+
+            if should_continue:
+                continue
             self._dispatch_notice(notice)
-        except SubAgentJobDeadlineExceeded as exc:
-            self._finish_from_exception(job, SubAgentJobState.TIMED_OUT, exc)
-        except SubAgentJobCancelled as exc:
-            self._finish_from_exception(job, SubAgentJobState.CANCELLED, exc)
-        except BaseException as exc:  # Keep a worker failure from killing the pool.
-            self._finish_from_exception(job, SubAgentJobState.FAILED, exc)
+            return
 
     def _finish_from_exception(
         self, job: _SubAgentJob, state: SubAgentJobState, exc: BaseException
@@ -884,6 +1113,35 @@ class SubAgentJobManager:
             job.event_bytes -= len(dropped.message.encode("utf-8"))
             job.truncated = True
 
+    def _release_store_reservation_locked(self, job: _SubAgentJob) -> None:
+        if job.store_key:
+            self._store_reservations.pop((job.owner, job.store_key), None)
+
+    def _publish_shared_result_locked(
+        self, job: _SubAgentJob, result: str
+    ) -> str | None:
+        if not job.store_key:
+            return None
+        encoded_size = len(result.encode("utf-8", errors="replace"))
+        if encoded_size > self.settings.shared_store_max_bytes:
+            return "shared_store_result_too_large"
+        store = self._shared_store.setdefault(job.owner, OrderedDict())
+        if job.store_key in store:
+            return "store_key_conflict"
+        total_bytes = self._shared_store_bytes.get(job.owner, 0)
+        while store and (
+            len(store) >= self.settings.shared_store_limit
+            or total_bytes + encoded_size > self.settings.shared_store_max_bytes
+        ):
+            _old_key, old_value = store.popitem(last=False)
+            total_bytes -= len(old_value.encode("utf-8", errors="replace"))
+        if total_bytes + encoded_size > self.settings.shared_store_max_bytes:
+            return "shared_store_full"
+        store[job.store_key] = result
+        self._shared_store_bytes[job.owner] = total_bytes + encoded_size
+        self._release_store_reservation_locked(job)
+        return None
+
     def _finish_locked(self, job: _SubAgentJob, state: SubAgentJobState) -> None:
         if job.state.terminal:
             return
@@ -891,6 +1149,7 @@ class SubAgentJobManager:
         job.completed_monotonic = time.monotonic()
         job.completed_at = _utc_now()
         self._jobs.move_to_end(job.job_id)
+        self._release_store_reservation_locked(job)
         self._evict_completed_locked(job.completed_monotonic)
 
     def _remove_queued_locked(self, job_id: str) -> None:

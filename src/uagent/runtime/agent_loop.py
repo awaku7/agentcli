@@ -44,6 +44,7 @@ def run_agent_loop(
     advance_round: Callable[[], int],
     get_max_rounds: Callable[[], Optional[int]],
     run_followup: Callable[[str, int, Optional[int]], None],
+    take_followup_request: Optional[Callable[[], Optional[str]]] = None,
 ) -> AgentLoopOutcome:
     """Run a goal-driven autonomous loop until one terminal condition is met.
 
@@ -78,6 +79,23 @@ def run_agent_loop(
                 followup_rounds=followup_rounds,
                 judgment_source=last_judgment_source,
             )
+
+        # External instructions (for example a background Job inbox message)
+        # take precedence over completion judging and force another work round.
+        followup_request = take_followup_request() if take_followup_request else None
+        if followup_request:
+            round_number = int(advance_round())
+            max_rounds = get_max_rounds()
+            if max_rounds is not None and round_number > max_rounds:
+                return AgentLoopOutcome(
+                    reason="max_rounds",
+                    followup_rounds=followup_rounds,
+                    judgment_source=last_judgment_source,
+                    max_rounds_reached=True,
+                )
+            run_followup(str(followup_request), round_number, max_rounds)
+            followup_rounds += 1
+            continue
 
         deterministic_reason = deterministic_completion()
         if deterministic_reason:
