@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import asyncio
-from types import SimpleNamespace
-
 import pytest
 
 from uagent.runtime.auth_management import authentication_configuration_fingerprint
