@@ -109,6 +109,14 @@ def sub_agent_status_lease(cb: Any, label: str):
         _set_sub_agent_status(cb, label, entering=False)
 
 
+def _print_sub_agent_judge_event(message: str) -> None:
+    """Clear the CLI spinner before printing a synchronous judge event."""
+    from ..runtime.spinner import stop_quietly
+
+    stop_quietly()
+    print(message, flush=True)
+
+
 # ---------------------------------------------------------------------------
 # Enums / Data classes
 # ---------------------------------------------------------------------------
@@ -1718,7 +1726,7 @@ class SubAgentRunner:
             if background_job is not None:
                 background_job.log("judge", message)
             else:
-                print(message, flush=True)
+                _print_sub_agent_judge_event(message)
             if background_job is None and cb and getattr(cb, "log_message", None):
                 try:
                     cb.log_message({"role": "assistant", "content": message})
