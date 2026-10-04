@@ -17,7 +17,7 @@ llmcapa をモデルの Computer Use capability の正規情報源として維�
 
 ### llmcapa の確認結果
 
-llmcapa 0.5.51 では、公式仕様に基づく provider-specific な Computer Use capability が登録されている。agentcli はこの PR から `llmcapa>=0.5.51` を最低バージョンとし、agentcli 内に別のモデル対応表を追加しない。
+llmcapa 0.5.51 では、公式仕様に基づく provider-specific な Computer Use capability が登録されている。現在の開発PCで使用中の llmcapa は 0.5.54 のため、agentcli の最低依存バージョンを `llmcapa>=0.5.54` とし、agentcli 内に別のモデル対応表を追加しない。
 
 今回の対象では次を確認済み。
 
@@ -41,7 +41,7 @@ llmcapa の capability 登録はモデルが提供元 API で対応すること�
 
 llmcapa 0.5.51 で provider-specific Computer Use capability が整備されたため、agentcli 側は次の方針に固定する。
 
-- `llmcapa>=0.5.51` を core 依存とする。
+- `llmcapa>=0.5.54` を core 依存とする（開発PCで使用中の 0.5.54 以上）。
 - 対応モデル、provider、API type、tool type／toolset version、beta header、environment、action は llmcapa を正規情報源とする。
 - agentcli 内にモデル名ベースの第二の対応表を作らない。
 - 実 llmcapa カタログを使う回帰テストで、Anthropic の旧／新 Computer Use と Meta Muse Spark の provider-specific capability が取得できることを確認する。
