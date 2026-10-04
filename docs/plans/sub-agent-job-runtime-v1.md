@@ -30,35 +30,42 @@ Main Agent
 ## 設計原則
 
 1. **Foreground と Background を分離する**
+
    - `core.status_busy` は Foreground の対話ターンだけを表す。
    - Background Sub-Agent Job は `core.status_busy` を保持しない。
    - Main Agent が終了すれば、Background Job が走っていても CLI は通常入力可能になる。
 
-2. **既存同期 API を維持する**
+1. **既存同期 API を維持する**
+
    - `run_sub_agent` / `run_sub_agent_chain` は従来どおり完了まで待つ。
    - 将来的には同期 API を内部的に `spawn + wait` へ収束できる設計にする。
 
-3. **Job は明示的に join する**
+1. **Job は明示的に join する**
+
    - Background Job の結果を Main の会話履歴へ勝手に注入しない。
    - `wait/get_result` した時点で Main が結果を取得する。
    - 完了通知は UI 表示であり、Main のプロンプトコンテキストとは分離する。
 
-4. **危険操作は Background でも確認を省略しない**
+1. **危険操作は Background でも確認を省略しない**
+
    - `human_ask` は Job ID と役割名を表示する。
    - 複数 Job の確認要求はホスト単位で直列化する。
    - non-interactive では確認が必要な操作を blocked とする。
 
-5. **出力を Main のストリームと混ぜない**
+1. **出力を Main のストリームと混ぜない**
+
    - Background Job の逐次ログ、tool trace、judge trace は Job Log へ格納する。
    - CLI へ標準表示するのは lifecycle の短い通知だけとする。
 
-6. **Job を owner 単位で隔離する**
+1. **Job を owner 単位で隔離する**
+
    - Job は `job_id` だけでは取得・操作できない。
    - spawn 時に entry point と session/room/task identity を owner として固定する。
    - get/wait/send/cancel は現在の runtime context と owner が一致する場合だけ許可する。
    - owner integration が未実装の entry point には Job tools を露出しない。
 
-7. **実行数・queue・保持数を bounded にする**
+1. **実行数・queue・保持数を bounded にする**
+
    - worker 数だけでなく queued job 数、owner 単位の job 数、完了結果保持数にも上限を設ける。
    - 上限超過は structured rejection を返し、provider call を予約しない。
 
@@ -196,12 +203,12 @@ accepted message には単調増加の sequence を付与し、Job state と inb
 Agent loop の順序を固定する。
 
 1. LLM/tool round 完了
-2. cancellation/deadline check
-3. inbox を sequence 順に atomically drain
-4. inbox が1件以上あれば次 round の user instruction として注入し、completion judge を実行せず continue
-5. inbox が空なら completion judge
-6. COMPLETE 判定後、COMPLETED へ遷移する直前に同じ lock で inbox generation を再確認
-7. 新着 message があれば completion を取り消して次 round へ進む
+1. cancellation/deadline check
+1. inbox を sequence 順に atomically drain
+1. inbox が1件以上あれば次 round の user instruction として注入し、completion judge を実行せず continue
+1. inbox が空なら completion judge
+1. COMPLETE 判定後、COMPLETED へ遷移する直前に同じ lock で inbox generation を再確認
+1. 新着 message があれば completion を取り消して次 round へ進む
 
 これにより `send_sub_agent_message` が accepted を返した message が完了直前に未読のまま失われる race を防ぐ。
 COMPLETED/CANCELLED/FAILED/TIMED_OUT Job への send は rejected とする。
@@ -644,12 +651,12 @@ Job Runtime へ transition hook を必ず通す。
 V1 では Job の owner transfer は行わない。切替手順は次のとおり。
 
 1. current session の新規 spawn を停止
-2. current session owner の QUEUED/RUNNING/WAITING_FOR_USER Job を cancel
-3. 対象 confirmation request を purge/wake
-4. bounded timeout まで terminal state を待つ
-5. 全Jobが terminal になった場合だけ `bind_session()` を実行
-6. timeout 後も非terminal Job が残る場合は **session切替を中止**し、current sessionを維持して Job ID を表示する
-7. abort path では current owner の spawn admission を atomically reopen する
+1. current session owner の QUEUED/RUNNING/WAITING_FOR_USER Job を cancel
+1. 対象 confirmation request を purge/wake
+1. bounded timeout まで terminal state を待つ
+1. 全Jobが terminal になった場合だけ `bind_session()` を実行
+1. timeout 後も非terminal Job が残る場合は **session切替を中止**し、current sessionを維持して Job ID を表示する
+1. abort path では current owner の spawn admission を atomically reopen する
 
 これにより session rebind 後に旧owner Jobが操作不能になる状態を作らない。
 portable/session resume tool など session切替を間接的に起動する経路も同じ transition hook を使用する。
@@ -707,11 +714,11 @@ executor worker は interpreter 終了時に join されるため、長い provi
 初期CLI実装では manager-owned の daemon worker threads と bounded queue を使い、次の protocol を実行する。
 
 1. 新規 spawn を停止する
-2. QUEUED Job を CANCELLED にして queue から除去する
-3. RUNNING Job に cancellation token を通知する
-4. Job/provider/tool に remaining shutdown deadline を伝播する
-5. grace period まで worker completion を待つ
-6. deadline 到達後は manager shutdown を完了し、未終了 Job を `orphaned_on_shutdown` として記録する
+1. QUEUED Job を CANCELLED にして queue から除去する
+1. RUNNING Job に cancellation token を通知する
+1. Job/provider/tool に remaining shutdown deadline を伝播する
+1. grace period まで worker completion を待つ
+1. deadline 到達後は manager shutdown を完了し、未終了 Job を `orphaned_on_shutdown` として記録する
 
 daemon worker は「何もしなくてもよい」という意味ではなく、CLI process の終了が worker join によって
 無期限に阻害されないための最後の境界である。通常経路では必ず cancel + bounded join を行う。
@@ -906,48 +913,48 @@ run_sub_agent
 最低限:
 
 1. spawn latency test
-2. Main continuation while Job RUNNING
-3. foreground `status_busy` independence
-4. idle prompt with active bg count
-5. foreground spinner ownership
-6. completion notice + prompt redraw
-7. two concurrent Jobs
-8. worker queue saturation
-9. cancel one of multiple Jobs
-10. wait timeout
-11. wait interrupt without Job cancel
-12. result retrieval
-13. history isolation
-14. identity ContextVar propagation
-15. Web room/locale propagation
-16. confirmation serialization
-17. dangerous operation confirmation
-18. non-interactive blocked confirmation
-19. tool trace routing to Job Log
-20. shutdown cancellation
-21. global queue saturation rejection
-22. per-owner quota rejection
-23. completed-result TTL/retention eviction
-24. cross-owner get/wait/send/cancel denial
-25. unsupported Web/A2A tool exposure
-26. Web room cross-access denial（Web integration PR）
-27. A2A task cancel propagation（A2A integration PR）
-28. shutdown remaining-deadline propagation
-29. background provider/tool eligibility audit
-30. immutable job_root while Main changes cwd
-31. background change_workdir rejection
-32. two concurrent same-role Jobs do not trip circular-call detection
-33. non-interactive background confirmation fail-closed
-34. queued confirmation cancellation wakes worker immediately
-35. displayed confirmation cancellation releases stdin ownership
-36. owner-scoped shared-store read/write isolation
-37. accepted inbox message delivered before completion
-38. message arriving during completion transition forces another round
-39. completed Job rejects send
-40. session load cancels old-owner Jobs before bind
-41. session switch aborts if old-owner Job remains nonterminal
-42. per-job event/log/result byte limits and truncation metadata
-43. Black / Ruff / full-tests / Python compatibility
+1. Main continuation while Job RUNNING
+1. foreground `status_busy` independence
+1. idle prompt with active bg count
+1. foreground spinner ownership
+1. completion notice + prompt redraw
+1. two concurrent Jobs
+1. worker queue saturation
+1. cancel one of multiple Jobs
+1. wait timeout
+1. wait interrupt without Job cancel
+1. result retrieval
+1. history isolation
+1. identity ContextVar propagation
+1. Web room/locale propagation
+1. confirmation serialization
+1. dangerous operation confirmation
+1. non-interactive blocked confirmation
+1. tool trace routing to Job Log
+1. shutdown cancellation
+1. global queue saturation rejection
+1. per-owner quota rejection
+1. completed-result TTL/retention eviction
+1. cross-owner get/wait/send/cancel denial
+1. unsupported Web/A2A tool exposure
+1. Web room cross-access denial（Web integration PR）
+1. A2A task cancel propagation（A2A integration PR）
+1. shutdown remaining-deadline propagation
+1. background provider/tool eligibility audit
+1. immutable job_root while Main changes cwd
+1. background change_workdir rejection
+1. two concurrent same-role Jobs do not trip circular-call detection
+1. non-interactive background confirmation fail-closed
+1. queued confirmation cancellation wakes worker immediately
+1. displayed confirmation cancellation releases stdin ownership
+1. owner-scoped shared-store read/write isolation
+1. accepted inbox message delivered before completion
+1. message arriving during completion transition forces another round
+1. completed Job rejects send
+1. session load cancels old-owner Jobs before bind
+1. session switch aborts if old-owner Job remains nonterminal
+1. per-job event/log/result byte limits and truncation metadata
+1. Black / Ruff / full-tests / Python compatibility
 
 ## リスク
 
