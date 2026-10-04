@@ -116,9 +116,6 @@ def test_websocket_origin_policy_updates_authentication_fingerprint(monkeypatch)
     monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
     before = authentication_configuration_fingerprint()
 
-    monkeypatch.setenv(
-        "UAGENT_WEB_ALLOWED_ORIGINS",
-        "https://uag.example",
-    )
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
 
     assert authentication_configuration_fingerprint() != before
