@@ -24,14 +24,17 @@ def test_local_websocket_origin_defaults_are_loopback_only(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
 
-    assert validate_websocket_origin(_Request("http://localhost:8000")) == (
-        "http://localhost:8000"
+    assert (
+        validate_websocket_origin(_Request("http://localhost:8000"))
+        == "http://localhost:8000"
     )
-    assert validate_websocket_origin(_Request("http://127.0.0.1:8000")) == (
-        "http://127.0.0.1:8000"
+    assert (
+        validate_websocket_origin(_Request("http://127.0.0.1:8000"))
+        == "http://127.0.0.1:8000"
     )
-    assert validate_websocket_origin(_Request("http://[::1]:8000")) == (
-        "http://[::1]:8000"
+    assert (
+        validate_websocket_origin(_Request("http://[::1]:8000"))
+        == "http://[::1]:8000"
     )
 
     with pytest.raises(IdentityResolutionError, match="not allowed"):
@@ -59,9 +62,10 @@ def test_explicit_websocket_origin_allowlist_is_exact(monkeypatch):
     assert validate_websocket_origin(_Request("https://uag.corp.example")) == (
         "https://uag.corp.example"
     )
-    assert validate_websocket_origin(
-        _Request("https://admin.corp.example:8443")
-    ) == "https://admin.corp.example:8443"
+    assert (
+        validate_websocket_origin(_Request("https://admin.corp.example:8443"))
+        == "https://admin.corp.example:8443"
+    )
 
     with pytest.raises(IdentityResolutionError, match="not allowed"):
         validate_websocket_origin(_Request("https://evil.example"))
