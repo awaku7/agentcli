@@ -152,6 +152,7 @@ def init_tools_callbacks(core: Any) -> None:
             else None
         ),
         human_ask_lock=getattr(core, "human_ask_lock", None),
+        human_ask_serial_lock=getattr(core, "human_ask_serial_lock", None),
         human_ask_active_ref=(lambda: getattr(core, "human_ask_active", False)),
         human_ask_set_active=(
             (lambda v: setattr(core, "human_ask_active", bool(v)))
