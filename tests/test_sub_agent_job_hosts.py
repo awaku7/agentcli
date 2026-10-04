@@ -299,3 +299,19 @@ def test_web_job_runtime_lifecycle_creates_and_stops_manager():
     finally:
         shutdown_web_job_runtime()
     assert web_manager.sub_agent_job_manager is None
+
+
+def test_a2a_job_runtime_is_scoped_to_the_bound_task():
+    from uagent.runtime.sub_agent_job_access import bind_a2a_job_runtime_context
+
+    manager = object()
+    owner = SubAgentJobOwner(
+        entry_point="a2a", session_id="task-a", a2a_task_id="task-a"
+    )
+    cancel_event = threading.Event()
+    with bind_turn_context(_turn("a2a", "session-store-id")):
+        assert get_job_runtime_context() is None
+        with bind_a2a_job_runtime_context(manager, owner, cancel_event):
+            assert get_job_runtime_context() == (manager, owner)
+            cancel_event.set()
+            assert get_job_runtime_context() is None

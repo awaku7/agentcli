@@ -4,6 +4,7 @@ import os
 
 import argparse
 import asyncio
+from dataclasses import replace
 import json
 from contextlib import nullcontext
 from contextvars import copy_context
@@ -62,6 +63,12 @@ from .task_store import (
 )
 from ..runtime.execution import lifecycle_execution
 from ..runtime.lifecycle import InvalidLifecycleTransition
+from ..runtime.sub_agent_job_access import bind_a2a_job_runtime_context
+from ..runtime.sub_agent_jobs import (
+    SubAgentJobManager,
+    SubAgentJobOwner,
+    SubAgentJobSettings,
+)
 
 
 def _bool_env(name: str, default: bool = False) -> bool:
@@ -116,6 +123,99 @@ def build_app(
     # app construction free of the large tools package makes unit tests and
     # embedders deterministic and avoids unrelated plugin warmup work.
     sem = asyncio.Semaphore(int(env_get("UAGENT_A2A_CONCURRENCY", "1") or "1"))
+    job_manager: SubAgentJobManager | None = None
+
+    def _get_job_manager() -> SubAgentJobManager:
+        nonlocal job_manager
+        if job_manager is None or getattr(job_manager, "_closed", False):
+            settings = SubAgentJobSettings.from_env()
+            # Preserve child results until an A2A parent has joined its Jobs;
+            # keep individual output and total shared context bounded.
+            result_ttl_sec = (
+                0
+                if settings.result_ttl_sec == 0
+                else max(settings.result_ttl_sec, 172_800)
+            )
+            settings = replace(
+                settings,
+                result_ttl_sec=result_ttl_sec,
+                result_max_bytes=min(settings.result_max_bytes, 65_536),
+                shared_store_max_bytes=min(settings.shared_store_max_bytes, 1_048_576),
+            )
+            job_manager = SubAgentJobManager(settings)
+            app.state.sub_agent_job_manager = job_manager
+        return job_manager
+
+    def _task_job_owner(task_id: str) -> SubAgentJobOwner:
+        task = str(task_id or "").strip()
+        return SubAgentJobOwner(entry_point="a2a", session_id=task, a2a_task_id=task)
+
+    async def _wait_for_owned_jobs(
+        task_id: str, runtime: TaskRuntime | None
+    ) -> tuple[list[dict[str, Any]], bool]:
+        manager = _get_job_manager()
+        owner = _task_job_owner(task_id)
+        terminal = {"completed", "blocked", "failed", "cancelled", "timed_out"}
+        while True:
+            if runtime and runtime.cancel_event and runtime.cancel_event.is_set():
+                manager.pause_owner(owner)
+                manager.cancel_all(owner=owner, reason="parent A2A task cancelled")
+                raise asyncio.CancelledError
+            jobs = manager.summary(owner=owner)
+            if not any(str(item.get("state")) not in terminal for item in jobs):
+                break
+            await asyncio.sleep(0.05)
+
+        truncated = len(jobs) > 32
+        reports: list[dict[str, Any]] = []
+        for item in jobs[-32:]:
+            job_id = str(item.get("job_id") or "")
+            detail = manager.get(owner=owner, job_id=job_id) if job_id else item
+            report = {
+                "job_id": job_id,
+                "agent_name": item.get("agent_name"),
+                "state": detail.get("state", item.get("state")),
+            }
+            for key in ("result", "error", "reason", "truncated"):
+                if key in detail:
+                    report[key] = detail[key]
+            reports.append(report)
+        return reports, truncated
+
+    async def _shutdown_job_manager() -> None:
+        for record in store.list(limit=500):
+            if record.status not in (
+                TaskStatus.IN_PROGRESS.value,
+                TaskStatus.CANCEL_REQUESTED.value,
+            ):
+                continue
+            owner = _task_job_owner(record.id)
+            if job_manager is not None:
+                job_manager.pause_owner(owner)
+                job_manager.cancel_all(owner=owner, reason="A2A server shutdown")
+            runtime = store.runtime(record.id)
+            if runtime is not None:
+                if runtime.cancel_event:
+                    runtime.cancel_event.set()
+                if runtime.asyncio_task and not runtime.asyncio_task.done():
+                    runtime.asyncio_task.cancel()
+                _lifecycle_transition(runtime, "cancel")
+            requested = store.transition(
+                record.id,
+                TaskStatus.IN_PROGRESS.value,
+                TaskStatus.CANCEL_REQUESTED.value,
+            )
+            if (
+                requested is not None
+                or record.status == TaskStatus.CANCEL_REQUESTED.value
+            ):
+                store.transition(
+                    record.id,
+                    TaskStatus.CANCEL_REQUESTED.value,
+                    TaskStatus.CANCELLED.value,
+                )
+        if job_manager is not None:
+            await asyncio.to_thread(job_manager.shutdown)
 
     @app.exception_handler(A2AHttpError)
     async def _handle_a2a_http_error(_req: Request, exc: A2AHttpError):
@@ -171,6 +271,8 @@ def build_app(
 
     async def _execute_task(task_id: str, user_text: str) -> None:
         runtime = store.runtime(task_id)
+        manager = _get_job_manager()
+        owner = _task_job_owner(task_id)
         event_token = bind_event_context(task_id=task_id, correlation_id=task_id)
         locale_token = set_contextvar_locale(
             runtime.locale if runtime else detect_lang()
@@ -178,6 +280,8 @@ def build_app(
         try:
             async with sem:
                 if runtime and runtime.cancel_event and runtime.cancel_event.is_set():
+                    manager.pause_owner(owner)
+                    manager.cancel_all(owner=owner, reason="parent A2A task cancelled")
                     _lifecycle_transition(runtime, "cancel")
                     store.transition(
                         task_id,
@@ -188,11 +292,27 @@ def build_app(
                 _lifecycle_transition(runtime, "start")
                 try:
                     with lifecycle_execution(runtime.lifecycle):
-                        ctx = copy_context()
+                        with bind_a2a_job_runtime_context(
+                            manager,
+                            owner,
+                            runtime.cancel_event if runtime else None,
+                        ):
+                            ctx = copy_context()
                         assistant_msg, err = await asyncio.to_thread(
                             ctx.run, run_once, user_text=user_text, task_id=task_id
                         )
+                    if err is None:
+                        child_jobs, jobs_truncated = await _wait_for_owned_jobs(
+                            task_id, runtime
+                        )
+                        if child_jobs and isinstance(assistant_msg, dict):
+                            assistant_msg = dict(assistant_msg)
+                            assistant_msg["background_jobs"] = child_jobs
+                            if jobs_truncated:
+                                assistant_msg["background_jobs_truncated"] = True
                 except asyncio.CancelledError:
+                    manager.pause_owner(owner)
+                    manager.cancel_all(owner=owner, reason="parent A2A task cancelled")
                     _lifecycle_transition(runtime, "cancel")
                     store.transition(
                         task_id,
@@ -204,6 +324,8 @@ def build_app(
                     )
                     raise
                 except Exception as exc:
+                    manager.pause_owner(owner)
+                    manager.cancel_all(owner=owner, reason="parent A2A task failed")
                     _lifecycle_transition(runtime, "fail")
                     store.transition(
                         task_id,
@@ -213,6 +335,8 @@ def build_app(
                     )
                     return
                 if err:
+                    manager.pause_owner(owner)
+                    manager.cancel_all(owner=owner, reason="parent A2A task failed")
                     _lifecycle_transition(runtime, "fail")
                     store.transition(
                         task_id,
@@ -273,6 +397,7 @@ def build_app(
     @app.post("/message:stream")
     async def message_stream(
         req: SendMessageRequest,
+        request: Request,
         _auth: dict[str, str] = Depends(require_bearer_auth),
     ):
         # SSE stream: emit a few lifecycle events.
@@ -280,6 +405,15 @@ def build_app(
         task_id = str(uuid4())
         rec = TaskRecord(id=task_id, input_message=req.message.model_dump())
         store.create(rec)
+        runtime = TaskRuntime(
+            cancel_event=asyncio.Event(),
+            locale=(
+                request.headers.get("accept-language", "").split(",")[0]
+                or detect_lang()
+            ),
+        )
+        store.register_runtime(task_id, runtime)
+        runtime.asyncio_task = asyncio.create_task(_execute_task(task_id, user_text))
 
         async def gen() -> AsyncIterator[bytes]:
             def _emit(obj: dict[str, Any]) -> bytes:
@@ -296,7 +430,7 @@ def build_app(
                 yield _emit({"type": "task", "task": task_to_model(rec).model_dump()})
                 yield _emit({"type": "status", "id": task_id, "status": "IN_PROGRESS"})
 
-                await _execute_task(task_id, user_text)
+                await runtime.asyncio_task
                 r = store.get(task_id)
                 if not r:
                     yield _emit(
@@ -476,12 +610,20 @@ def build_app(
             TaskStatus.IN_PROGRESS.value,
             TaskStatus.CANCEL_REQUESTED.value,
         )
-        if requested is not None and runtime:
-            _lifecycle_transition(runtime, "cancel")
-            if runtime.cancel_event:
-                runtime.cancel_event.set()
-            if runtime.asyncio_task and not runtime.asyncio_task.done():
-                runtime.asyncio_task.cancel()
+        if requested is not None:
+            if job_manager is not None:
+                owner = _task_job_owner(task_id)
+                job_manager.pause_owner(owner)
+                job_manager.cancel_all(
+                    owner=owner,
+                    reason="parent A2A task cancelled",
+                )
+            if runtime:
+                _lifecycle_transition(runtime, "cancel")
+                if runtime.cancel_event:
+                    runtime.cancel_event.set()
+                if runtime.asyncio_task and not runtime.asyncio_task.done():
+                    runtime.asyncio_task.cancel()
             store.transition(
                 task_id,
                 TaskStatus.CANCEL_REQUESTED.value,
@@ -521,6 +663,7 @@ def build_app(
 
         return StreamingResponse(gen(), media_type="text/event-stream")
 
+    app.add_event_handler("shutdown", _shutdown_job_manager)
     return app
 
 

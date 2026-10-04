@@ -1,8 +1,8 @@
 # Sub-Agent Job Runtime V1 設計
 
-- Status: in progress
+- Status: implemented (V1)
 - Priority: P1
-- Progress: PR 1 Runtime core, PR 2 CLI lifecycle/control, and PR 3 CLI Main Agent Job tools are implemented in the working tree. PR 4 Web/GUI integration is implemented in the working tree; PR 5 A2A lifecycle integration remains pending.
+- Progress: PR 1 Runtime core, PR 2 CLI lifecycle/control, PR 3 CLI Main Agent tools, PR 4 Web/GUI integration, and PR 5 A2A task lifecycle/result retrieval are implemented; targeted regressions pass.
 - Source: `docs/subagent.md`, merged PR #144（parallel groups）, Auto-pilot / Sub-Agent autonomy 実装
 - Updated: 2026-10-04
 
@@ -848,12 +848,12 @@ run_sub_agent
 
 ### PR 5: A2A lifecycle integration
 
-- A2A task ownership
-- task → Job association
-- `tasks/{id}:cancel` → owned Jobs cancellation
-- task completion時の background Job policy
-- result retrieval policy
-- integration 完了後に A2A exposure を有効化
+- A2A Task owner は `entry_point="a2a"` と `task_id` を immutable owner として使う。
+- A2A Task の Main Agent 実行 context にだけ task-owned Job manager を bind し、ほかの task からの cross-access を拒否する。
+- `tasks/{id}:cancel` はその task owner の QUEUED/RUNNING/WAITING_FOR_USER Jobs をすべてキャンセルする。
+- Main Agent が返答した後も、子 Job が terminal になるまでは親 Task を `IN_PROGRESS` のままにする。親 Task の cancel/failure/shutdown は残った子 Job を cancel する。
+- 成功時は `outputMessage.background_jobs` に最大32件の terminal result/error/reason を付ける。超過時は `background_jobs_truncated=true` を付ける。子 Job の結果は assistant 文面へ勝手に混ぜない。
+- 上記の ownership、cancel、completion、result retrieval policy の integration 完了後に A2A exposure を有効化する。
 
 ## 受け入れ条件
 
