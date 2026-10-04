@@ -13,6 +13,7 @@ from .i18n_helper import make_tool_translator
 _ = make_tool_translator(__file__)
 
 BUSY_LABEL = False  # human_ask disables Busy (handled specially by tools/__init__.py)
+_HUMAN_ASK_SERIAL_LOCK = threading.RLock()
 
 TOOL_SPEC: dict[str, Any] = {
     "type": "function",
@@ -70,7 +71,7 @@ TOOL_SPEC: dict[str, Any] = {
 }
 
 
-def run_tool(args: dict[str, Any]) -> str:
+def _run_tool_unserialized(args: dict[str, Any]) -> str:
     """human_ask does not read from stdin directly.
 
     It delegates handling to the host's stdin_loop thread (in scheck.py) and receives the
@@ -384,3 +385,9 @@ def run_tool(args: dict[str, Any]) -> str:
             cb.human_ask_set_password(False)
             cb.human_ask_set_queue(None)
             cb.human_ask_set_multiline_active(False)
+
+
+def run_tool(args: dict[str, Any]) -> str:
+    """Serialize CLI/GUI human_ask calls across concurrent workers."""
+    with _HUMAN_ASK_SERIAL_LOCK:
+        return _run_tool_unserialized(args)

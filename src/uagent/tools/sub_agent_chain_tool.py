@@ -4,13 +4,17 @@ Run a chain that executes multiple sub-agents sequentially and passes results be
 
 from __future__ import annotations
 import json
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from typing import Any, Dict, List
+
+from ..runtime.identity_context import submit_with_current_context
 
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
 _MAX_REVIEW_CANDIDATE_CHARS = 12000
+_MAX_PARALLEL_GROUP_WORKERS = 8
 
 BUSY_LABEL = True
 
@@ -57,6 +61,13 @@ TOOL_SPEC: Dict[str, Any] = {
                                 "description": _(
                                     "param.step.agent_name.description",
                                     default="Sub-agent name to execute for this step.",
+                                ),
+                            },
+                            "parallel_group": {
+                                "type": "string",
+                                "description": _(
+                                    "param.step.parallel_group.description",
+                                    default="Optional group name. Consecutive steps with the same non-empty group run concurrently.",
                                 ),
                             },
                             "task": {
@@ -506,6 +517,93 @@ def _run_review_gate(
     )
 
 
+def _step_store_key(step: Dict[str, Any]) -> str:
+    value = step.get("store_key")
+    return str(value) if value else ""
+
+
+def _parallel_group_name(step: Dict[str, Any]) -> str:
+    return str(step.get("parallel_group") or "").strip()
+
+
+def _validate_parallel_group(
+    group_name: str,
+    group_steps: List[Dict[str, Any]],
+) -> str:
+    store_keys = [_step_store_key(step) for step in group_steps]
+    non_empty_keys = [key for key in store_keys if key]
+    if len(non_empty_keys) != len(set(non_empty_keys)):
+        return (
+            f"Parallel group '{group_name}' contains duplicate store_key values. "
+            "Parallel members must publish to distinct keys."
+        )
+
+    for index, step in enumerate(group_steps):
+        sibling_keys = {
+            key
+            for sibling_index, key in enumerate(store_keys)
+            if sibling_index != index and key
+        }
+        requested = {str(key) for key in (step.get("load_keys") or [])}
+        overlap = sorted(sibling_keys & requested)
+        if overlap:
+            return (
+                f"Parallel group '{group_name}' has an intra-group dependency: "
+                f"step {index + 1} loads sibling store_key(s) "
+                f"{', '.join(overlap)}. Parallel members may only load context "
+                "published before the group starts."
+            )
+    return ""
+
+
+def _run_chain_step(
+    *,
+    run_sub_agent: Any,
+    publish_shared_result: Any,
+    step: Dict[str, Any],
+    step_number: int,
+    defer_store_publish: bool,
+) -> tuple[Dict[str, Any], tuple[str, str] | None]:
+    step_result: Dict[str, Any] = {
+        "step": step_number,
+        "agent_name": step["agent_name"],
+    }
+    group_name = _parallel_group_name(step)
+    if group_name:
+        step_result["parallel_group"] = group_name
+
+    reviewed_step = isinstance(step.get("review"), dict)
+    include_store_key = not reviewed_step and not defer_store_publish
+    raw = run_sub_agent(_build_step_args(step, include_store_key=include_store_key))
+    final_raw, reviews, attempts, status, review_error = _run_review_gate(
+        run_sub_agent=run_sub_agent,
+        step=step,
+        initial_raw=raw,
+    )
+    step_result["result"] = final_raw
+    step_result["status"] = status
+    if reviews:
+        step_result["attempts"] = attempts
+        step_result["reviews"] = reviews
+
+    publish_later: tuple[str, str] | None = None
+    store_key = _step_store_key(step)
+    if status == "completed" and store_key:
+        if defer_store_publish:
+            publish_later = (store_key, final_raw)
+        elif reviewed_step:
+            publish_shared_result(store_key, final_raw)
+
+    if status in ("error", "blocked"):
+        _, obj = _decode_result(final_raw)
+        err_msg = review_error
+        if not err_msg and obj:
+            err_msg = str(obj.get("message", "Unknown error") or "Unknown error")
+        step_result["error"] = err_msg or "Unknown error"
+
+    return step_result, publish_later
+
+
 def run_tool(args: Dict[str, Any]) -> str:
     from . import sub_agent_tool
 
@@ -514,60 +612,175 @@ def run_tool(args: Dict[str, Any]) -> str:
     stop_on_error: bool = args.get("stop_on_error", True)
 
     results: List[Dict[str, Any]] = []
-    chain_error: str = ""
+    chain_error = ""
+    index = 0
 
-    for i, step in enumerate(chain):
-        step_result: Dict[str, Any] = {"step": i + 1, "agent_name": step["agent_name"]}
-        try:
-            reviewed_step = isinstance(step.get("review"), dict)
-            raw = run_sub_agent(
-                _build_step_args(step, include_store_key=not reviewed_step)
-            )
-            final_raw, reviews, attempts, status, review_error = _run_review_gate(
-                run_sub_agent=run_sub_agent,
-                step=step,
-                initial_raw=raw,
-            )
-            step_result["result"] = final_raw
-            step_result["status"] = status
-            if reviews:
-                step_result["attempts"] = attempts
-                step_result["reviews"] = reviews
+    while index < len(chain):
+        step = chain[index]
+        group_name = _parallel_group_name(step)
 
-            if status == "completed" and reviewed_step and step.get("store_key"):
-                sub_agent_tool.publish_shared_result(
-                    str(step["store_key"]),
-                    final_raw,
+        if not group_name:
+            try:
+                step_result, _ = _run_chain_step(
+                    run_sub_agent=run_sub_agent,
+                    publish_shared_result=sub_agent_tool.publish_shared_result,
+                    step=step,
+                    step_number=index + 1,
+                    defer_store_publish=False,
                 )
+            except Exception as exc:
+                step_result = {
+                    "step": index + 1,
+                    "agent_name": step["agent_name"],
+                    "status": "error",
+                    "error": str(exc),
+                }
 
-            if status in ("error", "blocked"):
-                _, obj = _decode_result(final_raw)
-                err_msg = review_error
-                if not err_msg and obj:
-                    err_msg = str(
-                        obj.get("message", "Unknown error") or "Unknown error"
-                    )
-                if not err_msg:
-                    err_msg = "Unknown error"
-                step_result["error"] = err_msg
-                if stop_on_error:
-                    chain_error = (
-                        f"Chain stopped at step {i + 1} "
-                        f"({step['agent_name']}): {err_msg}"
-                    )
-                    results.append(step_result)
-                    break
-        except Exception as exc:
-            step_result["status"] = "error"
-            step_result["error"] = str(exc)
-            if stop_on_error:
+            results.append(step_result)
+            if stop_on_error and step_result["status"] in ("error", "blocked"):
                 chain_error = (
-                    f"Chain stopped at step {i + 1} ({step['agent_name']}): {exc}"
+                    f"Chain stopped at step {index + 1} "
+                    f"({step['agent_name']}): {step_result['error']}"
                 )
-                results.append(step_result)
                 break
+            index += 1
+            continue
 
-        results.append(step_result)
+        group_end = index + 1
+        while (
+            group_end < len(chain)
+            and _parallel_group_name(chain[group_end]) == group_name
+        ):
+            group_end += 1
+        group_steps = chain[index:group_end]
+
+        validation_error = _validate_parallel_group(group_name, group_steps)
+        if validation_error:
+            chain_error = validation_error
+            break
+
+        if len(group_steps) == 1:
+            try:
+                step_result, _ = _run_chain_step(
+                    run_sub_agent=run_sub_agent,
+                    publish_shared_result=sub_agent_tool.publish_shared_result,
+                    step=group_steps[0],
+                    step_number=index + 1,
+                    defer_store_publish=False,
+                )
+            except Exception as exc:
+                step_result = {
+                    "step": index + 1,
+                    "agent_name": group_steps[0]["agent_name"],
+                    "parallel_group": group_name,
+                    "status": "error",
+                    "error": str(exc),
+                }
+            results.append(step_result)
+            if stop_on_error and step_result["status"] in ("error", "blocked"):
+                chain_error = (
+                    f"Chain stopped at step {index + 1} "
+                    f"({group_steps[0]['agent_name']}): {step_result['error']}"
+                )
+                break
+            index = group_end
+            continue
+
+        max_workers = min(_MAX_PARALLEL_GROUP_WORKERS, len(group_steps))
+        group_results: List[tuple[Dict[str, Any], tuple[str, str] | None] | None] = [
+            None
+        ] * len(group_steps)
+
+        with sub_agent_tool.sub_agent_status_lease(
+            sub_agent_tool.get_callbacks(),
+            f"group:{group_name}",
+        ):
+            with ThreadPoolExecutor(
+                max_workers=max_workers,
+                thread_name_prefix="sub_agent_group",
+            ) as executor:
+                active = {}
+                next_offset = 0
+                failure_seen = False
+
+                def submit_group_step(offset: int) -> None:
+                    group_step = group_steps[offset]
+                    future = submit_with_current_context(
+                        executor,
+                        _run_chain_step,
+                        run_sub_agent=run_sub_agent,
+                        publish_shared_result=sub_agent_tool.publish_shared_result,
+                        step=group_step,
+                        step_number=index + offset + 1,
+                        defer_store_publish=True,
+                    )
+                    active[future] = (offset, group_step)
+
+                while next_offset < len(group_steps) and len(active) < max_workers:
+                    submit_group_step(next_offset)
+                    next_offset += 1
+
+                while active:
+                    done, _ = wait(active, return_when=FIRST_COMPLETED)
+                    for future in done:
+                        offset, group_step = active.pop(future)
+                        try:
+                            group_results[offset] = future.result()
+                        except Exception as exc:
+                            group_results[offset] = (
+                                {
+                                    "step": index + offset + 1,
+                                    "agent_name": group_step["agent_name"],
+                                    "parallel_group": group_name,
+                                    "status": "error",
+                                    "error": str(exc),
+                                },
+                                None,
+                            )
+
+                        item = group_results[offset]
+                        if (
+                            stop_on_error
+                            and item is not None
+                            and item[0]["status"] in ("error", "blocked")
+                        ):
+                            failure_seen = True
+
+                    if failure_seen:
+                        for future in list(active):
+                            if future.cancel():
+                                active.pop(future)
+                        continue
+
+                    while next_offset < len(group_steps) and len(active) < max_workers:
+                        submit_group_step(next_offset)
+                        next_offset += 1
+
+        first_error: Dict[str, Any] | None = None
+        pending_publications: List[tuple[str, str]] = []
+        for item in group_results:
+            if item is None:
+                continue
+            step_result, publish_later = item
+            results.append(step_result)
+            if publish_later is not None:
+                pending_publications.append(publish_later)
+            if first_error is None and step_result["status"] in ("error", "blocked"):
+                first_error = step_result
+
+        if first_error is None or not stop_on_error:
+            for key, value in pending_publications:
+                sub_agent_tool.publish_shared_result(key, value)
+
+        if stop_on_error and first_error is not None:
+            chain_error = (
+                f"Chain stopped after parallel group '{group_name}' at step "
+                f"{first_error['step']} ({first_error['agent_name']}): "
+                f"{first_error['error']}"
+            )
+            break
+
+        index = group_end
 
     output: Dict[str, Any] = {
         "status": "error" if chain_error else "completed",

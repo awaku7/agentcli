@@ -39,7 +39,7 @@ from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from ..runtime.observability.trusted_ingress import RawSocketPeerCaptureMiddleware
 from .app import app
 from .io import _web_server_log, web_human_ask, web_set_status
-from .rooms import _thread_ctx, web_manager
+from .rooms import _thread_ctx, get_context_web_room, web_manager
 
 
 def init_web():
@@ -115,7 +115,7 @@ def init_web():
     original_run_tool = tools.run_tool
 
     def _resolve_web_room():
-        room = getattr(_thread_ctx, "room", None)
+        room = get_context_web_room() or getattr(_thread_ctx, "room", None)
         if room is not None:
             return room
         try:
@@ -141,24 +141,26 @@ def init_web():
                             "cancelled": True,
                         }
                     )
-                # Keep room busy while waiting for human input so Stop stays available
-                # and reconnect clients see WAIT instead of a false IDLE.
-                try:
-                    room.set_status(True, "WAIT")
-                    if web_manager.original_set_status:
-                        # core.status_busy stays True for interrupt path.
-                        web_manager.original_set_status(True, "WAIT")
-                except Exception:
-                    pass
-                try:
-                    return web_human_ask(room, args)
-                finally:
+                # Keep the room-level confirmation slot and WAIT/LLM status
+                # transition serialized together. web_human_ask() uses the same
+                # RLock, so the nested acquisition is intentional.
+                with room.human_ask_lock:
                     try:
-                        room.set_status(True, "LLM")
+                        room.set_status(True, "WAIT")
                         if web_manager.original_set_status:
-                            web_manager.original_set_status(True, "LLM")
+                            # core.status_busy stays True for interrupt path.
+                            web_manager.original_set_status(True, "WAIT")
                     except Exception:
                         pass
+                    try:
+                        return web_human_ask(room, args)
+                    finally:
+                        try:
+                            room.set_status(True, "LLM")
+                            if web_manager.original_set_status:
+                                web_manager.original_set_status(True, "LLM")
+                        except Exception:
+                            pass
             return original_run_tool(name, args)
         finally:
             if room is not None and prev_room is None:

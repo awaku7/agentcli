@@ -13,6 +13,7 @@ import re
 from pathlib import Path
 from dataclasses import dataclass, field
 from enum import Enum
+from contextlib import contextmanager
 from contextvars import ContextVar
 from threading import Lock
 from typing import Any, Dict, List, Optional
@@ -58,6 +59,40 @@ _SUB_AGENT_TOOL_WHITELIST: Dict[str, List[str]] = {
 _DEFAULT_CACHE_DIR = get_state_dir() / "subagent_cache"
 _SUB_AGENT_LOG_DIR = get_state_dir() / "subagent_logs"
 _SUB_AGENT_ROLES_DIR = get_state_dir() / "subagent_roles"
+_SUB_AGENT_CALL_CHAIN: ContextVar[tuple[str, ...]] = ContextVar(
+    "uag_sub_agent_call_chain",
+    default=(),
+)
+_SUB_AGENT_STATUS_LOCK = Lock()
+_SUB_AGENT_ACTIVE_RUNS = 0
+
+
+def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
+    """Keep the host busy until the last concurrently running Sub-Agent exits."""
+    if not cb or not hasattr(cb, "set_status") or not cb.set_status:
+        return
+
+    global _SUB_AGENT_ACTIVE_RUNS
+    with _SUB_AGENT_STATUS_LOCK:
+        if entering:
+            _SUB_AGENT_ACTIVE_RUNS += 1
+            cb.set_status(True, f"Sub-Agent ({agent_name})")
+            return
+
+        _SUB_AGENT_ACTIVE_RUNS = max(0, _SUB_AGENT_ACTIVE_RUNS - 1)
+        if _SUB_AGENT_ACTIVE_RUNS == 0:
+            cb.set_status(False, "")
+
+
+@contextmanager
+def sub_agent_status_lease(cb: Any, label: str):
+    """Hold host BUSY across orchestration gaps between Sub-Agent calls."""
+    _set_sub_agent_status(cb, label, entering=True)
+    try:
+        yield
+    finally:
+        _set_sub_agent_status(cb, label, entering=False)
+
 
 # ---------------------------------------------------------------------------
 # Enums / Data classes
@@ -493,7 +528,6 @@ class SubAgentRunner:
         self.specs.update(ext_specs)
         self._shared_store: Dict[str, Any] = {}
         self._store_lock = Lock()
-        self._call_chain: List[str] = []
         self._total_usage: Dict[str, int] = {
             "prompt_tokens": 0,
             "completion_tokens": 0,
@@ -1207,7 +1241,8 @@ class SubAgentRunner:
                 self._write_log(agent_name, task, cached, "cache_hit")
                 return cached
 
-        if agent_name in self._call_chain:
+        call_chain = _SUB_AGENT_CALL_CHAIN.get()
+        if agent_name in call_chain:
             result = json.dumps(
                 {
                     "status": "error",
@@ -1218,7 +1253,7 @@ class SubAgentRunner:
             self._write_log(agent_name, task, result, "error")
             return result
 
-        self._call_chain.append(agent_name)
+        call_chain_token = _SUB_AGENT_CALL_CHAIN.set(call_chain + (agent_name,))
         try:
             result, llm_usage, total_retries = self._run_llm(
                 agent_name=agent_name,
@@ -1249,7 +1284,7 @@ class SubAgentRunner:
             )
             return result
         finally:
-            self._call_chain.pop()
+            _SUB_AGENT_CALL_CHAIN.reset(call_chain_token)
 
     def _run_llm(
         self,
@@ -1293,16 +1328,18 @@ class SubAgentRunner:
             or env_get("UAGENT_SUB_AGENT_DEPNAME")
             or ""
         ).strip()
-        sub_api_key = (
+        explicit_sub_api_key = (
             env_get(f"UAGENT_SUB_AGENT_{agent_upper}_API_KEY")
             or env_get("UAGENT_SUB_AGENT_API_KEY")
-            or (get_provider_api_key(sub_provider) if sub_provider else "")
             or ""
         ).strip()
 
         try:
             if sub_provider:
                 with _SUB_AGENT_ENV_LOCK:
+                    sub_api_key = (
+                        explicit_sub_api_key or get_provider_api_key(sub_provider) or ""
+                    ).strip()
                     orig_provider = os.environ.get("UAGENT_PROVIDER")
                     os.environ["UAGENT_PROVIDER"] = sub_provider
                     orig_depname = None
@@ -1334,7 +1371,8 @@ class SubAgentRunner:
                             else:
                                 os.environ.pop(key_key, None)
             else:
-                provider, client, model_name = make_client(cb)
+                with _SUB_AGENT_ENV_LOCK:
+                    provider, client, model_name = make_client(cb)
         except Exception as exc:
             return (
                 json.dumps(
@@ -1937,8 +1975,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             completion_sentinel = bool(sentinel_arg)
         completion_regex = str(args.get("completion_regex") or "")
 
-        if cb and hasattr(cb, "set_status") and cb.set_status:
-            cb.set_status(True, f"Sub-Agent ({agent_name})")
+        _set_sub_agent_status(cb, agent_name, entering=True)
 
         # Fire SubagentStart hook
         try:
@@ -1981,9 +2018,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     finally:
         reset_active_sub_agent(sub_agent_token)
         _SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
-        if cb and hasattr(cb, "set_status") and cb.set_status:
-            cb.set_status(False, "")
-            cb.set_status(False, "")
+        _set_sub_agent_status(cb, agent_name, entering=False)
 
     # Fire SubagentStop hook
     try:

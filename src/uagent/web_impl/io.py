@@ -13,10 +13,20 @@ from .. import core
 from ..env_utils import env_get
 from ..gui_ansi import ansi_to_html, wrap_pre
 from .helpers import ANSI_ESCAPE, _strip_state_markers
-from .rooms import WebRoom, _thread_ctx, web_manager
+from .rooms import (
+    WebRoom,
+    _thread_ctx,
+    get_context_web_room,
+    web_manager,
+)
 
 
 def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
+    with room.human_ask_lock:
+        return _web_human_ask_unlocked(room, args)
+
+
+def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
     message = args.get("message", "")
     is_password = bool(args.get("is_password", False))
     allow_empty = bool(args.get("allow_empty", False))
@@ -198,7 +208,7 @@ def web_set_status(busy: bool, label: str = ""):
     # parallel tool threads still update the correct room status.
     room = None
     try:
-        room = getattr(_thread_ctx, "room", None)
+        room = get_context_web_room() or getattr(_thread_ctx, "room", None)
     except Exception:
         room = None
     if room is None:
@@ -286,7 +296,7 @@ class WebStdout:
                 if not clean_line.strip():
                     continue
 
-                room = getattr(_thread_ctx, "room", None)
+                room = get_context_web_room() or getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
                         room.broadcast(
@@ -317,7 +327,7 @@ class WebStdout:
                 except Exception:
                     pass
 
-                room = getattr(_thread_ctx, "room", None)
+                room = get_context_web_room() or getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
                         room.broadcast(
@@ -355,7 +365,7 @@ class WebStderr(WebStdout):
                 if not clean_line.strip():
                     continue
 
-                room = getattr(_thread_ctx, "room", None)
+                room = get_context_web_room() or getattr(_thread_ctx, "room", None)
                 if clean_line.strip() and room and room.loop:
                     asyncio.run_coroutine_threadsafe(
                         room.broadcast(

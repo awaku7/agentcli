@@ -8,7 +8,12 @@ import time
 import traceback
 from typing import Any, Optional
 
-from ..i18n import _, set_thread_lang
+from ..i18n import (
+    _,
+    reset_contextvar_locale,
+    set_contextvar_locale,
+    set_thread_lang,
+)
 from .. import core
 from ..env_utils import env_get
 from .. import util_tools as tools_util
@@ -32,7 +37,13 @@ from ..llm_helpers import LLMWaitInterrupted
 from .helpers import _save_input_history
 from .history import _ensure_room_history_initialized
 from .io import _web_server_log
-from .rooms import WebRoom, _thread_ctx, web_manager
+from .rooms import (
+    WebRoom,
+    _thread_ctx,
+    reset_context_web_room,
+    set_context_web_room,
+    web_manager,
+)
 
 
 def run_agent_worker(
@@ -115,6 +126,9 @@ def run_agent_worker(
             pass
         _thread_ctx.room = None
         return
+
+    room_context_token = set_context_web_room(room)
+    locale_context_token = set_contextvar_locale(getattr(room, "lang", "en"))
 
     acquired_global = False
     _orig_cwd = os.getcwd()
@@ -700,6 +714,14 @@ def run_agent_worker(
         except Exception:
             pass
 
+        try:
+            reset_contextvar_locale(locale_context_token)
+        except Exception:
+            pass
+        try:
+            reset_context_web_room(room_context_token)
+        except Exception:
+            pass
         try:
             set_thread_lang(None)
         except Exception:
