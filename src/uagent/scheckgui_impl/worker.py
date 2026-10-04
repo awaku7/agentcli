@@ -123,7 +123,6 @@ class ScheckWorker(QtCore.QObject):
             get_env=core.get_env,
             truncate_output=core.truncate_output,
             human_ask_lock=core.human_ask_lock,
-            human_ask_serial_lock=core.human_ask_serial_lock,
             human_ask_active_ref=(lambda: core.human_ask_active),
             human_ask_set_active=(lambda v: setattr(core, "human_ask_active", bool(v))),
             human_ask_queue_ref=(lambda: core.human_ask_queue),
