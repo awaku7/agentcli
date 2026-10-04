@@ -12,23 +12,21 @@ uagはADのユーザー名・パスワードを直接受け取る独自ログイ
 
 ## 1. 推奨構成
 
-推奨構成は次です。
+推奨production構成は、**Windows認証を終端するproxy hostとuag backend hostを分離**します。
 
 ```text
 Domain joined browser / Windows client
         |
         | HTTPS
         v
-IIS + Windows Authentication
-        |
-        | authenticated WindowsIdentity
-        v
-small auth bridge / reverse proxy
+uag-proxy01.corp.example (10.30.40.10)
+IIS + Windows Authentication + auth bridge
         |
         | X-Verified-Subject: <SID or other stable subject>
         | X-Verified-Issuer: corp-ad
+        | TCP 8000 allowed only from 10.30.40.10
         v
-uag Web (127.0.0.1:8000)
+uag-app01.corp.example (10.30.40.20:8000)
         |
         v
 TrustedProxyIdentityResolver
@@ -42,9 +40,12 @@ opaque principal_id
 - browserが `X-Verified-Subject` を自由に指定できてはいけません。
 - proxyは外部入力のidentity headerを削除し、**Windows認証後に自分で再付与**します。
 - uagはproxyの接続元CIDRを検証します。
-- uag自身はインターネット/LANへ直接bindせず、同一ホスト構成では `127.0.0.1` にbindするのが最も単純です。
+- uag backendはprivate backend networkだけにbindし、Windows Firewall / network ACLでproxy hostのIPだけを許可します。
+- **loopback (`127.0.0.1`) をproductionのidentity trust boundaryにしません。** 同一ホストの全プロセスがloopbackへ接続できるため、uagのローカル実行機能を使える非admin userがidentity headerを偽装できる可能性があります。
 - `DOMAIN\username`、UPN、email、display nameはrename可能なので、Memory ownerのstable keyとして直接使いません。
 - 本ガイドではWindows SIDをstable subjectとして利用します。組織のforest migration等でSID変更が問題になる場合は、認証ブリッジ側でobjectGUID等のimmutable IDを採用してください。
+
+開発・単一利用者の検証では同一ホストloopback構成も可能ですが、**untrusted multi-user productionのbaselineにはしません**。同一ホストで本番化する場合は、process-authenticated IPC等、別の信頼境界を実装してから利用してください。
 
 ---
 
@@ -71,7 +72,7 @@ opaque principal_id
 - `trusted_proxy` headerからAD groupを直接取り込むbuilt-in機能
 - on-prem AD group membershipのlive refresh
 
-したがって、現時点の実運用では **Windows認証をIIS/bridgeで終端して `trusted_proxy` へ渡す方式**を推奨します。
+したがって、現時点の実運用では **Windows認証を別ホストのIIS/bridgeで終端し、firewallで到達元をそのproxy hostに限定したうえで `trusted_proxy` へ渡す方式**を推奨します。
 
 ---
 
@@ -82,8 +83,8 @@ opaque principal_id
 ```text
 AD DNS domain        : corp.example
 uag公開URL           : https://uag.corp.example/
-IIS / auth bridge    : uag-web01.corp.example
-uag backend          : http://127.0.0.1:8000/
+IIS / auth bridge    : uag-proxy01.corp.example / 10.30.40.10
+uag backend          : uag-app01.corp.example / 10.30.40.20:8000
 identity issuer      : corp-ad
 identity header      : X-Verified-Subject
 issuer header        : X-Verified-Issuer
@@ -91,14 +92,15 @@ issuer header        : X-Verified-Issuer
 
 必要なもの:
 
-1. AD参加済みWindows Server
+1. AD参加済みWindows Server（IIS / auth bridge用）
 2. IIS
 3. IIS Windows Authentication role service
-4. HTTPS証明書
-5. ASP.NET Core Hosting Bundle
-6. .NET SDK（bridgeをbuildする場合）
-7. uag
-8. YARP (`Yarp.ReverseProxy`) を使った小さな認証bridge
+4. IIS WebSocket Protocol role service
+5. HTTPS証明書
+6. ASP.NET Core Hosting Bundle
+7. .NET SDK（bridgeをbuildする場合）
+8. 別ホストのuag backend
+9. YARP (`Yarp.ReverseProxy`) を使った小さな認証bridge
 
 IIS Windows AuthenticationはIISの標準機能です。Windows Authenticationを利用する場合、IIS側でAnonymous Authenticationを無効にし、Windows Authenticationを有効にします。
 
@@ -109,19 +111,21 @@ Microsoft reference:
 
 ---
 
-## 4. uagをloopbackだけで起動する
+## 4. uag backendを専用hostで起動する
 
-uag側はLANへ直接公開しません。
+uag backendはpublic/LAN一般へ公開せず、proxyと通信するprivate backend interfaceだけにbindします。
+
+例ではuag hostを `10.30.40.20`、proxy hostを `10.30.40.10` とします。
 
 `.env` 例:
 
 ```env
-UAGENT_WEB_HOST=127.0.0.1
+UAGENT_WEB_HOST=10.30.40.20
 
 UAGENT_IDENTITY_MODE=trusted_proxy
 UAGENT_TRUSTED_PROXY_IDENTITY_HEADER=X-Verified-Subject
 UAGENT_TRUSTED_PROXY_ISSUER_HEADER=X-Verified-Issuer
-UAGENT_TRUSTED_PROXY_CIDRS=127.0.0.1/32,::1/128
+UAGENT_TRUSTED_PROXY_CIDRS=10.30.40.10/32
 
 UAGENT_MEMORY_BACKEND=sqlite
 UAGENT_MEMORY_PROJECT=agentcli
@@ -135,19 +139,21 @@ uag Webのportは現行実装では `8000` です。
 uagw
 ```
 
-確認:
+backend確認はproxy hostからのみ行います。
 
 ```text
-http://127.0.0.1:8000/
+http://10.30.40.20:8000/
 ```
 
-ただし、productionではこのbackend URLを利用者へ公開しないでください。
+productionではこのbackend URLを利用者へ公開しないでください。
 
-### Firewall
+### Firewall / network boundary
 
-同一ホスト構成では、`127.0.0.1:8000` のみでlistenするため、通常は外部から直接接続できません。
+uag host側でTCP/8000への到達元を `10.30.40.10` のみに限定します。Windows Firewallやnetwork ACLの両方を利用できる場合は両方で制限してください。
 
-別ホストのproxyを利用する場合は、uagのbind addressとWindows Firewallをproxyホストだけに制限し、`UAGENT_TRUSTED_PROXY_CIDRS` もproxy subnetだけに限定してください。
+uag host自身や一般client subnetからTCP/8000へ接続しても、`TrustedProxyIdentityResolver` のsource CIDRを満たさない構成にします。
+
+identity headerはbackend networkを通るため、proxy-uag間はisolated networkを使い、必要に応じてIPsec等のauthenticated/encrypted transportを追加してください。
 
 `0.0.0.0/0` および `::/0` はuag側でtrusted proxy CIDRとして拒否されます。
 
@@ -162,6 +168,8 @@ Web Server (IIS)
   Web Server
     Security
       Windows Authentication
+    Application Development
+      WebSocket Protocol
 ```
 
 対象site/applicationのIIS Managerで:
@@ -343,7 +351,7 @@ Microsoft reference:
       "uag": {
         "Destinations": {
           "backend": {
-            "Address": "http://127.0.0.1:8000/"
+            "Address": "http://10.30.40.20:8000/"
           }
         }
       }
@@ -416,13 +424,15 @@ uag WebはUvicornのproxy header middlewareを持ち、trusted sourceからの `
 
 をuag backendへ渡しません。
 
-この構成ではuagから見た接続元はbridgeのsocket peer（同一ホストならloopback）のままなので:
+この構成ではuagから見た接続元はbridge host `10.30.40.10` のsocket peerのままなので:
 
 ```env
-UAGENT_TRUSTED_PROXY_CIDRS=127.0.0.1/32,::1/128
+UAGENT_TRUSTED_PROXY_CIDRS=10.30.40.10/32
 ```
 
 をtrust boundaryとして使えます。
+
+同一hostのloopbackは、他のlocal processも同じsource boundaryを満たすためproduction trust boundaryには使いません。
 
 別のreverse proxy製品を利用する場合も、identity trust boundaryにforwarded client addressを混ぜないよう注意してください。
 
@@ -552,9 +562,11 @@ X-Verified-Groups: ...
 現行で利用できる方法:
 
 1. Project / Room membershipをuag側で手動管理する
-2. trusted startup codeからcustom `DirectoryGroupPolicyAdapter` を登録する
-3. direct `windows_ad` verifier側で検証済みgroupsを `VerifiedEnterpriseIdentity.groups` に入れる
+2. direct `windows_ad` verifier等、**identity resolver自身が検証済みgroupsを `VerifiedEnterpriseIdentity.groups` に入れる経路**を使う
+3. verified groups propagationを追加実装してから `DirectoryGroupPolicyAdapter` / `UAGENT_DIRECTORY_GROUP_POLICY` を利用する
 4. 将来のon-prem Directory API adapter実装を待つ
+
+custom `DirectoryGroupPolicyAdapter` を登録するだけでは不十分です。現行 `directory_group_policy_assignments()` は `identity.groups` が空の場合にadapterを呼ばず空assignmentを返すため、`trusted_proxy` のままではAD問い合わせを起動するhookにはなりません。
 
 AD group同期をproduction requirementにする場合は、別PRで**verified groups propagation**または**on-prem directory adapter**を実装してから有効にしてください。
 
@@ -663,13 +675,15 @@ status APIはraw SID、token、secretを返さない設計です。
 
 ### 15.3 bypass確認
 
-次のURLを別端末から直接開けてはいけません。
+次のbackend URLはproxy host以外から利用できてはいけません。
 
 ```text
-http://uag-web01:8000/
+http://10.30.40.20:8000/
 ```
 
-同一ホスト上でも、browserが直接 `http://127.0.0.1:8000/` を使う運用にしないでください。
+一般clientからはWindows Firewall / network ACLで拒否されることを確認します。
+
+さらにuag host自身からidentity headerを付けてbackendへ直接requestしても、sourceがproxy IPではないため `request did not arrive through a trusted proxy` で拒否されることを確認してください。
 
 ### 15.4 spoofing確認
 
@@ -718,9 +732,10 @@ Project membershipを削除した後:
 
 確認:
 
-- uag backendが `127.0.0.1:8000` にbindしているか
-- bridge destinationが `http://127.0.0.1:8000/` か
-- `UAGENT_TRUSTED_PROXY_CIDRS=127.0.0.1/32,::1/128` か
+- uag backendがprivate backend IP（例: `10.30.40.20:8000`）にbindしているか
+- bridge destinationがそのbackend URL（例: `http://10.30.40.20:8000/`）か
+- `UAGENT_TRUSTED_PROXY_CIDRS=10.30.40.10/32` のようにproxy hostだけを許可しているか
+- Windows Firewall / network ACLがproxy hostだけを許可しているか
 - `X-Forwarded-For` / `Forwarded` がbackendへ残っていないか
 
 ### `trusted proxy identity headers are missing`
@@ -764,10 +779,14 @@ uag側はIIS/bridgeが検証済みWindows identityを返した後のprincipal no
 
 本番化前に最低限確認してください。
 
-- [ ] uag backendは直接LAN公開していない
+- [ ] IIS/auth bridgeとuag backendを別host / 別trust boundaryへ分離している
+- [ ] uag backend TCP/8000はproxy hostからだけ到達可能
+- [ ] loopbackをmulti-user productionのidentity trust boundaryにしていない
 - [ ] HTTPSを使用
+- [ ] proxy-uag間をisolated networkまたはauthenticated transportで保護
 - [ ] IIS Anonymous AuthenticationはDisabled
 - [ ] IIS Windows AuthenticationはEnabled
+- [ ] IIS WebSocket Protocol role serviceはEnabled
 - [ ] identity headerはclient入力を削除してからserver-sideで再付与
 - [ ] forwarded client-address headersをidentity trust boundaryに使わない
 - [ ] `UAGENT_TRUSTED_PROXY_CIDRS` は必要最小限
