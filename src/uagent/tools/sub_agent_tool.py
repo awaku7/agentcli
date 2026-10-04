@@ -13,6 +13,7 @@ import re
 from pathlib import Path
 from dataclasses import dataclass, field
 from enum import Enum
+from contextlib import contextmanager
 from contextvars import ContextVar
 from threading import Lock
 from typing import Any, Dict, List, Optional
@@ -81,6 +82,16 @@ def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
         _SUB_AGENT_ACTIVE_RUNS = max(0, _SUB_AGENT_ACTIVE_RUNS - 1)
         if _SUB_AGENT_ACTIVE_RUNS == 0:
             cb.set_status(False, "")
+
+
+@contextmanager
+def sub_agent_status_lease(cb: Any, label: str):
+    """Hold host BUSY across orchestration gaps between Sub-Agent calls."""
+    _set_sub_agent_status(cb, label, entering=True)
+    try:
+        yield
+    finally:
+        _set_sub_agent_status(cb, label, entering=False)
 
 
 # ---------------------------------------------------------------------------
