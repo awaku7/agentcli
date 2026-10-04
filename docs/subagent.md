@@ -15,6 +15,9 @@
 - planner / reviewer / summarizer / patch_designer / error_analyst / translator / general
 - provider/model/reasoning のサブエージェント単位上書き
 - native tool calling / compatibility tool calling
+- `PermissionLevel` の fail-closed enforcement: `none` はツール実行なし、`read_only` は許可されたローカル読取ツールのみ
+- `propose_only` は読取ツールと `create_file` 提案のみ。提案は結果として返し、ファイルを作成・上書きしない
+- native / compatibility の両経路で同じ実行時権限検査を適用し、実際の引数に応じた side-effect policy も再検査
 - `max_tool_turns`: 1 Agent Round 内の LLM/tool turn 上限（既定 3）
 - `max_agent_rounds`: initial round を含む自律 work round 上限（既定 3）
 - 各 Agent Round 後の Goal Completion Judge
@@ -130,7 +133,22 @@ group内の `store_key` はworker実行中には公開せず、barrier到達後�
 shared-store publicationを行わずchainを停止する。`stop_on_error=false` では成功memberだけを入力順でpublishして継続する。
 現在のworker上限はgroupあたり8。
 
-## 1. アーキテクチャ（現状）
+現行の権限境界では、Sub-Agent は一般の tool runner を直接呼び出さず、共通 dispatcher を経由する。
+未知の permission level、許可リスト外のツール、権限ポリシーを判定できない操作は拒否する。
+`read_only` の許可リストはローカルのファイル読取・解析に限定し、環境変数・共有メモリ・任意ネットワークアクセス等は含めない。
+
+検証状況: permission gate の単体テストおよびリポジトリ全体の pytest を実行する。
+対話型プロバイダを使った実環境の CLI / Web / GUI 手動 smoke test は別途必要。
+
+> **履歴資料について:** 以下のセクション1以降は旧バージョンの設計・実装計画を保存した資料であり、現行の未実装項目一覧ではない。
+> 古い記述とこの節の状態が異なる場合は、本節の実装状況を優先する。未完了タスクは上記の「現在の残作業」を参照。
+
+### 現在の残作業
+
+- 実際のプロバイダ設定を使う CLI / Web / GUI の対話型 smoke test と、ホスト固有の確認ダイアログ経路の手動確認。
+- これ以外の設計項目は、必要性が再確認されるまで新規実装タスクとして扱わない。
+
+## 1. アーキテクチャ（旧設計メモ）
 
 ```
 run_tool(args)
@@ -147,7 +165,7 @@ run_tool(args)
 - スレッドセーフ：`_SUB_AGENT_ENV_LOCK` で環境変数操作を保護
 - サブエージェントはツール実行不可（PermissionLevel.NONE 固定）
 
-## 2. 実装済み機能（v0.5.43 時点）
+## 2. 実装済み機能（v0.5.43 時点・旧記録）
 
 | 機能 | 状態 | 詳細 |
 |------|------|------|
@@ -164,7 +182,7 @@ run_tool(args)
 | UI通知(cb.log_message) | 完了 | サブエージェント開始時・完了時に結果をログ出力 |
 | テスト | 完了 | tests/test_sub_agent_translator.py（単体テスト） |
 
-## 3. 不足機能の分析と対応方針
+## 3. 不足機能の分析と対応方針（旧ロードマップ）
 
 現状のサブエージェントは「話すだけで何も実行できない」存在に留まっている。
 以下、不足している仕組みを重要度順に整理する。

@@ -54,12 +54,21 @@ BUSY_LABEL = True
 # Constants
 # ---------------------------------------------------------------------------
 
-# An empty list allows all tools; the sub-agent must obtain user confirmation through human_ask.
-_SUB_AGENT_TOOL_WHITELIST: Dict[str, List[str]] = {
-    "none": [],
-    "read_only": [],  # Empty means all tools are allowed
-    "propose_only": [],  # Empty means all tools are allowed (treated the same as read_only)
-}
+# Keep Sub-Agent read access deliberately narrower than the full tool catalog.
+# In particular, do not expose environment/memory secrets or arbitrary network
+# access merely because those tools are classified as read-only globally.
+_SUB_AGENT_READ_ONLY_TOOLS = frozenset(
+    {
+        "code_map",
+        "file_exists",
+        "file_grep",
+        "file_hash",
+        "file_type",
+        "read_file",
+        "search_files",
+    }
+)
+_SUB_AGENT_PROPOSAL_TOOLS = frozenset({"create_file"})
 _DEFAULT_CACHE_DIR = get_state_dir() / "subagent_cache"
 _SUB_AGENT_LOG_DIR = get_state_dir() / "subagent_logs"
 _SUB_AGENT_ROLES_DIR = get_state_dir() / "subagent_roles"
@@ -348,7 +357,7 @@ TOOL_SPEC: Dict[str, Any] = {
                     "enum": ["none", "read_only", "propose_only"],
                     "description": _(
                         "param.permission_level.description",
-                        default="Execution permission level for the sub-agent. 'read_only' allows file reads, 'propose_only' allows reads + new file creation.",
+                        default="Sub-agent tool access. 'read_only' permits a limited local-read allowlist; 'propose_only' also returns a create_file proposal without creating or overwriting a file.",
                     ),
                 },
                 "cache_ttl": {
@@ -703,16 +712,170 @@ class SubAgentRunner:
     # PermissionLevel support (shared)
     # ------------------------------------------------------------------
 
-    def _build_tool_list_prompt(self, permission_level: str) -> str:
-        if permission_level == "none":
-            return ""
-        # Empty list means all tools are allowed
-        return (
-            "\n\n[Available tools]\n"
-            "All tools are available.\n"
-            "Use a tool with {tool_name}(arg1=value, arg2=value).\n"
-            "For dangerous operations, obtain confirmation through human_ask first."
+    @staticmethod
+    def _normalize_permission_level(permission_level: Any) -> str:
+        if isinstance(permission_level, PermissionLevel):
+            return permission_level.value
+        try:
+            return PermissionLevel(
+                str(permission_level or "none").strip().lower()
+            ).value
+        except ValueError:
+            # Unknown values fail closed; they must never widen tool access.
+            return PermissionLevel.NONE.value
+
+    @staticmethod
+    def _permission_visible_tool_names(
+        permission_level: str, spec: Optional[AgentSpec] = None
+    ) -> set[str]:
+        level = SubAgentRunner._normalize_permission_level(permission_level)
+        if level == PermissionLevel.NONE.value:
+            return set()
+
+        names = set(_SUB_AGENT_READ_ONLY_TOOLS)
+        if level == PermissionLevel.PROPOSE_ONLY.value:
+            names.update(_SUB_AGENT_PROPOSAL_TOOLS)
+        role_allowlist = (
+            {str(name) for name in (spec.allowed_tools or []) if name}
+            if spec
+            else set()
         )
+        if role_allowlist:
+            names.intersection_update(role_allowlist)
+        return names
+
+    def _tool_permission_decision(
+        self,
+        tool_name: str,
+        args: Dict[str, Any],
+        permission_level: str,
+        spec: Optional[AgentSpec] = None,
+    ) -> tuple[str, str]:
+        """Return (allow|proposal|deny, explanation), failing closed."""
+        level = self._normalize_permission_level(permission_level)
+        if level == PermissionLevel.NONE.value:
+            return "deny", "tool execution is disabled"
+
+        role_allowlist = (
+            {str(name) for name in (spec.allowed_tools or []) if name}
+            if spec
+            else set()
+        )
+        if role_allowlist and tool_name not in role_allowlist:
+            return "deny", "tool is not in this role's allowlist"
+
+        try:
+            from .tool_policy import SideEffect, policy_for
+
+            policy = policy_for(tool_name, args)
+        except Exception:
+            return "deny", "tool policy could not be determined"
+
+        if (
+            tool_name in _SUB_AGENT_READ_ONLY_TOOLS
+            and policy.side_effect is SideEffect.READ_ONLY
+        ):
+            return "allow", "read-only tool"
+
+        if (
+            level == PermissionLevel.PROPOSE_ONLY.value
+            and tool_name in _SUB_AGENT_PROPOSAL_TOOLS
+        ):
+            if bool(args.get("overwrite", False)):
+                return "deny", "file-overwrite proposals are not permitted"
+            if not str(args.get("filename") or "").strip():
+                return "deny", "a proposed new file requires a filename"
+            if "content" not in args:
+                return "deny", "a proposed new file requires content"
+            # Proposal mode records intent for the Sub-Agent only. It never
+            # invokes create_file or writes to the filesystem.
+            return "proposal", "new-file proposal; not executed"
+
+        return "deny", f"{level} does not permit this tool operation"
+
+    def _build_tool_list_prompt(
+        self, permission_level: str, spec: Optional[AgentSpec] = None
+    ) -> str:
+        names = self._permission_visible_tool_names(permission_level, spec)
+        if not names:
+            return ""
+        listed = ", ".join(f"`{name}`" for name in sorted(names))
+        prompt = (
+            "\n\n[Available tools]\n"
+            f"Only these tools may be used: {listed}.\n"
+            'Request a tool with {tool_name}(arg1="value", arg2=123). '
+            "All other tools and side effects are denied."
+        )
+        if (
+            self._normalize_permission_level(permission_level)
+            == PermissionLevel.PROPOSE_ONLY.value
+            and "create_file" in names
+        ):
+            prompt += (
+                " A `create_file` call is only a proposal returned to you; it is "
+                "not executed and does not create or overwrite a file."
+            )
+        return prompt
+
+    def _run_permissioned_tool(
+        self,
+        tool_name: str,
+        args: Dict[str, Any],
+        permission_level: str,
+        agent_name: str = "",
+        spec: Optional[AgentSpec] = None,
+    ) -> tuple[str, str]:
+        decision, reason = self._tool_permission_decision(
+            tool_name, args, permission_level, spec
+        )
+        if decision == "deny":
+            return (
+                json.dumps(
+                    {
+                        "status": "blocked",
+                        "reason": "permission_denied",
+                        "message": reason,
+                    },
+                    ensure_ascii=False,
+                ),
+                "blocked",
+            )
+        if decision == "proposal":
+            return (
+                json.dumps(
+                    {
+                        "status": "proposed",
+                        "executed": False,
+                        "tool": tool_name,
+                        "message": reason,
+                        "arguments": args,
+                    },
+                    ensure_ascii=False,
+                    default=str,
+                ),
+                "proposed",
+            )
+
+        from . import run_tool
+
+        cb = get_callbacks()
+        if cb and getattr(cb, "set_status", None):
+            cb.set_status(True, f"sub-agent:{agent_name}:tool:{tool_name}")
+        try:
+            result = run_tool(tool_name, args)
+        finally:
+            if cb and getattr(cb, "set_status", None):
+                cb.set_status(True, f"Sub-Agent ({agent_name})")
+        self._check_job_active()
+        result_text = str(result)
+        if (
+            result_text.startswith("[tool error]")
+            or result_text.startswith("[tool policy]")
+            or result_text.startswith("[tool runtime error]")
+            or '"status":"blocked"' in result_text
+        ):
+            return result_text, "failed"
+        return result_text, "success"
 
     def _annotate_human_ask(
         self, tool_name: str, args: Dict[str, Any], agent_name: str
@@ -753,12 +916,18 @@ class SubAgentRunner:
         return min(normal_timeout, remaining) if normal_timeout > 0 else remaining
 
     def _execute_tool_calls(
-        self, text: str, permission_level: str, agent_name: str = ""
+        self,
+        text: str,
+        permission_level: str,
+        agent_name: str = "",
+        spec: Optional[AgentSpec] = None,
     ) -> List[str]:
         """Parse tool call patterns and execute them, returning list of result strings."""
-        if permission_level == "none":
+        if (
+            self._normalize_permission_level(permission_level)
+            == PermissionLevel.NONE.value
+        ):
             return []
-        # Empty list means all tools are allowed
         pattern = r"(\w+)\s*\(\s*([^)]*)\s*\)"
         seen_signatures: set[str] = set()
         results: List[str] = []
@@ -787,49 +956,39 @@ class SubAgentRunner:
                 elif arg_match.group(5) is not None:
                     args[key] = None
             try:
-                from . import _RUNNERS as tool_runners
-
-                args = self._annotate_human_ask(tool_name, args, agent_name)
-                runner = tool_runners.get(tool_name)
-                if runner:
-                    cb = get_callbacks()
-                    if cb and getattr(cb, "set_status", None):
-                        cb.set_status(True, f"sub-agent:{agent_name}:tool:{tool_name}")
-                    try:
-                        result = runner(args)
-                    finally:
-                        if cb and getattr(cb, "set_status", None):
-                            cb.set_status(True, f"Sub-Agent ({agent_name})")
-                    self._check_job_active()
-                    results.append(f"[tool:{tool_name}]\n{result}")
-                else:
-                    results.append(f"[tool:{tool_name} error: runner not found]")
+                result, status = self._run_permissioned_tool(
+                    tool_name, args, permission_level, agent_name, spec
+                )
+                results.append(f"[tool:{tool_name} {status}]\n{result}")
             except Exception as exc:
                 results.append(f"[tool:{tool_name} error: {exc}]")
         return results
 
     def _parse_and_execute_tools(
-        self, text: str, permission_level: str, agent_name: str = ""
+        self,
+        text: str,
+        permission_level: str,
+        agent_name: str = "",
+        spec: Optional[AgentSpec] = None,
     ) -> str:
         """Compatibility execution for providers without native tool calls."""
-        results = self._execute_tool_calls(text, permission_level, agent_name)
+        results = self._execute_tool_calls(text, permission_level, agent_name, spec)
         if results:
             return text + "\n\n---\nTool execution result:\n" + "\n\n".join(results)
         return text
 
-    def _native_tool_specs(self, spec: AgentSpec) -> list[dict[str, Any]]:
+    def _native_tool_specs(
+        self, spec: AgentSpec, permission_level: str
+    ) -> list[dict[str, Any]]:
         """Return the live function schemas used by the parent tool loop."""
         from . import get_tool_specs
 
         specs = get_tool_specs()
-        allowed = {str(n) for n in (spec.allowed_tools or []) if n}
-        if not allowed:
-            return specs
-        management = {"tool_catalog", "tool_load", "unload_tool"}
+        allowed = self._permission_visible_tool_names(permission_level, spec)
         return [
             item
             for item in specs
-            if str(item.get("function", {}).get("name", "")) in allowed | management
+            if str(item.get("function", {}).get("name", "")) in allowed
         ]
 
     def _call_responses_with_tools(
@@ -1208,6 +1367,7 @@ class SubAgentRunner:
         shared_context: Optional[Dict[str, Any]] = None,
     ) -> str:
         self._check_job_active()
+        permission_level = self._normalize_permission_level(permission_level)
         spec = self.specs.get(agent_name)
         if not spec:
             result = json.dumps(
@@ -1427,7 +1587,7 @@ class SubAgentRunner:
 
         base_prompt = spec.system_prompt
         if permission_level != "none":
-            base_prompt += self._build_tool_list_prompt(permission_level)
+            base_prompt += self._build_tool_list_prompt(permission_level, spec)
             base_prompt += (
                 f"\n\nWithin each autonomous work round, you can use tools for up to "
                 f"{max(2, int(max_tool_turns))} LLM/tool turns. After gathering "
@@ -1738,14 +1898,21 @@ class SubAgentRunner:
     ) -> tuple[str, int, Dict[str, int], list[dict[str, str]]]:
         """Run one autonomous work round, including its bounded tool-use loop."""
 
-        native_tools = permission_level != "none" and provider not in (
-            "gemini",
-            "vertexai",
-            "claude",
-            "grok",
+        permission_level = self._normalize_permission_level(permission_level)
+        native_tools = (
+            permission_level != PermissionLevel.NONE.value
+            and provider
+            not in (
+                "gemini",
+                "vertexai",
+                "claude",
+                "grok",
+            )
         )
         tool_specs = (
-            self._native_tool_specs(agent_spec) if native_tools and agent_spec else []
+            self._native_tool_specs(agent_spec, permission_level)
+            if native_tools and agent_spec
+            else []
         )
         reasoning_mode = (
             str(
@@ -1860,8 +2027,6 @@ class SubAgentRunner:
                 return raw, total_retries, total_usage, tool_evidence
 
             if native_tools and native_calls:
-                from . import run_tool
-
                 conversation_messages.append(
                     {
                         "role": "assistant",
@@ -1876,19 +2041,17 @@ class SubAgentRunner:
                     except (TypeError, json.JSONDecodeError):
                         args = {}
                     tool_name = str(fn_data.get("name") or "")
-                    args = self._annotate_human_ask(tool_name, args, agent_name)
-                    cb = get_callbacks()
-                    if cb and getattr(cb, "set_status", None):
-                        cb.set_status(True, f"sub-agent:{agent_name}:tool:{tool_name}")
                     try:
-                        result = run_tool(tool_name, args)
-                        status = "success"
+                        result, status = self._run_permissioned_tool(
+                            tool_name,
+                            args,
+                            permission_level,
+                            agent_name,
+                            agent_spec,
+                        )
                     except Exception as exc:
                         result = f"[tool:{tool_name} error: {exc}]"
                         status = "failed"
-                    finally:
-                        if cb and getattr(cb, "set_status", None):
-                            cb.set_status(True, f"Sub-Agent ({agent_name})")
 
                     add_tool_evidence(
                         tool_name=tool_name,
@@ -1903,18 +2066,29 @@ class SubAgentRunner:
                         }
                     )
                 tool_specs = (
-                    self._native_tool_specs(agent_spec) if agent_spec else tool_specs
+                    self._native_tool_specs(agent_spec, permission_level)
+                    if agent_spec
+                    else tool_specs
                 )
                 continue
 
             conversation += f"\n\n[Your Response Tool Turn {turn + 1}]:\n{raw}\n"
 
-            tool_results = self._execute_tool_calls(raw, permission_level, agent_name)
+            tool_results = self._execute_tool_calls(
+                raw, permission_level, agent_name, agent_spec
+            )
             if tool_results:
                 for tool_result in tool_results:
                     match = re.match(r"\[tool:([^\]\s]+)", str(tool_result))
                     tool_name = match.group(1) if match else "tool"
-                    status = "failed" if " error:" in str(tool_result) else "success"
+                    if " blocked]" in str(tool_result):
+                        status = "blocked"
+                    elif " proposal]" in str(tool_result):
+                        status = "proposed"
+                    elif " error:" in str(tool_result):
+                        status = "failed"
+                    else:
+                        status = "success"
                     add_tool_evidence(
                         tool_name=tool_name,
                         result=tool_result,

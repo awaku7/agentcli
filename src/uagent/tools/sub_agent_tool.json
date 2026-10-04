@@ -240,7 +240,7 @@
       "code patch",
       "debug"
     ],
-    "param.permission_level.description": "Execution permission level for the sub-agent. 'read_only' allows file reads, 'propose_only' allows reads + new file creation.",
+    "param.permission_level.description": "Sub-agent tool access. 'read_only' permits a limited local-read allowlist; 'propose_only' also returns a create_file proposal without creating or overwriting a file.",
     "param.cache_ttl.description": "Cache TTL in seconds. 0 = no cache. Default 0.",
     "param.store_key.description": "Key to store this sub-agent's result in the shared context store for use by subsequent sub-agents.",
     "param.load_keys.description": "List of keys to load from the shared context store. The corresponding values are injected into the sub-agent's ContextPack.",
@@ -656,7 +656,7 @@
       "コードパッチ",
       "デバッグ"
     ],
-    "param.permission_level.description": "サブエージェントの実行権限レベル。 「read_only」はファイルの読み取りを許可し、「propose_only」は読み取りと新しいファイルの作成を許可します。",
+    "param.permission_level.description": "サブエージェントのツール権限。'read_only' は限定されたローカル読取ツールのみを許可し、'propose_only' は create_file の提案を返しますが、ファイルの作成・上書きは実行しません。",
     "param.cache_ttl.description": "TTLを数秒でキャッシュします。 0 = キャッシュなし。デフォルトは 0。",
     "param.store_key.description": "後続のサブエージェントが使用できるように、このサブエージェントの結果を共有コンテキスト ストアに保存するためのキー。",
     "param.load_keys.description": "共有コンテキスト ストアからロードするキーのリスト。対応する値がサブエージェントの ContextPack に挿入されます。",
