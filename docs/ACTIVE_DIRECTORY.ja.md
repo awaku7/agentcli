@@ -390,11 +390,12 @@ Binding   : https / 443 / uag.corp.example
 Physical  : C:\uag\UagAdBridge
 ```
 
-Authentication:
+Authentication / role service:
 
 ```text
 Anonymous Authentication : Disabled
 Windows Authentication   : Enabled
+WebSocket Protocol        : Installed
 ```
 
 TLS証明書を設定します。
@@ -656,6 +657,8 @@ https://uag.corp.example/
 - credential promptなしでWindows SSOする
 - Anonymous userとして通らない
 - 401 loopにならない
+- Web UIでmessage送信ができる
+- browser developer tools等で `/ws` のWebSocket upgradeが成功する（通常HTTP 101）
 
 ### 15.2 uag authentication status
 
