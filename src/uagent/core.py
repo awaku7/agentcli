@@ -47,7 +47,6 @@ ENABLE_LOG_TOPIC_GUESS = env_get("UAGENT_LOG_TOPICS", "1") != "0"
 event_queue: "queue.Queue[dict[str, Any]]" = queue.Queue()
 IS_GUI = env_get("UAGENT_GUI_MODE") == "1"
 human_ask_lock = threading.RLock()
-human_ask_serial_lock = threading.RLock()
 human_ask_active = False
 human_ask_queue = None  # type: ignore[assignment]
 human_ask_lines: list[str] = []
