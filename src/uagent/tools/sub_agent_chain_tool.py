@@ -691,66 +691,72 @@ def run_tool(args: Dict[str, Any]) -> str:
             None
         ] * len(group_steps)
 
-        with ThreadPoolExecutor(
-            max_workers=max_workers,
-            thread_name_prefix="sub_agent_group",
-        ) as executor:
-            active = {}
-            next_offset = 0
-            failure_seen = False
+        with sub_agent_tool.sub_agent_status_lease(
+            sub_agent_tool.get_callbacks(),
+            f"group:{group_name}",
+        ):
+            with ThreadPoolExecutor(
+                max_workers=max_workers,
+                thread_name_prefix="sub_agent_group",
+            ) as executor:
+                active = {}
+                next_offset = 0
+                failure_seen = False
 
-            def submit_group_step(offset: int) -> None:
-                group_step = group_steps[offset]
-                future = submit_with_current_context(
-                    executor,
-                    _run_chain_step,
-                    run_sub_agent=run_sub_agent,
-                    publish_shared_result=sub_agent_tool.publish_shared_result,
-                    step=group_step,
-                    step_number=index + offset + 1,
-                    defer_store_publish=True,
-                )
-                active[future] = (offset, group_step)
-
-            while next_offset < len(group_steps) and len(active) < max_workers:
-                submit_group_step(next_offset)
-                next_offset += 1
-
-            while active:
-                done, _ = wait(active, return_when=FIRST_COMPLETED)
-                for future in done:
-                    offset, group_step = active.pop(future)
-                    try:
-                        group_results[offset] = future.result()
-                    except Exception as exc:
-                        group_results[offset] = (
-                            {
-                                "step": index + offset + 1,
-                                "agent_name": group_step["agent_name"],
-                                "parallel_group": group_name,
-                                "status": "error",
-                                "error": str(exc),
-                            },
-                            None,
-                        )
-
-                    item = group_results[offset]
-                    if (
-                        stop_on_error
-                        and item is not None
-                        and item[0]["status"] in ("error", "blocked")
-                    ):
-                        failure_seen = True
-
-                if failure_seen:
-                    for future in list(active):
-                        if future.cancel():
-                            active.pop(future)
-                    continue
+                def submit_group_step(offset: int) -> None:
+                    group_step = group_steps[offset]
+                    future = submit_with_current_context(
+                        executor,
+                        _run_chain_step,
+                        run_sub_agent=run_sub_agent,
+                        publish_shared_result=sub_agent_tool.publish_shared_result,
+                        step=group_step,
+                        step_number=index + offset + 1,
+                        defer_store_publish=True,
+                    )
+                    active[future] = (offset, group_step)
 
                 while next_offset < len(group_steps) and len(active) < max_workers:
                     submit_group_step(next_offset)
                     next_offset += 1
+
+                while active:
+                    done, _ = wait(active, return_when=FIRST_COMPLETED)
+                    for future in done:
+                        offset, group_step = active.pop(future)
+                        try:
+                            group_results[offset] = future.result()
+                        except Exception as exc:
+                            group_results[offset] = (
+                                {
+                                    "step": index + offset + 1,
+                                    "agent_name": group_step["agent_name"],
+                                    "parallel_group": group_name,
+                                    "status": "error",
+                                    "error": str(exc),
+                                },
+                                None,
+                            )
+
+                        item = group_results[offset]
+                        if (
+                            stop_on_error
+                            and item is not None
+                            and item[0]["status"] in ("error", "blocked")
+                        ):
+                            failure_seen = True
+
+                    if failure_seen:
+                        for future in list(active):
+                            if future.cancel():
+                                active.pop(future)
+                        continue
+
+                    while (
+                        next_offset < len(group_steps) and len(active) < max_workers
+                    ):
+                        submit_group_step(next_offset)
+                        next_offset += 1
 
         first_error: Dict[str, Any] | None = None
         pending_publications: List[tuple[str, str]] = []
