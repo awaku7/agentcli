@@ -213,10 +213,11 @@ def _prompt_toolkit_input(
     # stdin_loop cannot notice the state change until prompt() returns, while
     # the tool is waiting for the same stdin. Watch the shared state and
     # terminate the normal prompt as soon as a tool round takes ownership.
-    # Reply prompts must not be interrupted: they own stdin while active.
+    # Background Job reply prompts own stdin only while their request is live.
     stop_watching = threading.Event()
     watcher: threading.Thread | None = None
-    if not reply:
+    reply_job_id = getattr(core, "human_ask_job_id", None) if reply else None
+    if not reply or reply_job_id:
         prompt_app = getattr(session, "app", None)
 
         def _interrupt_when_busy() -> None:
@@ -227,10 +228,18 @@ def _prompt_toolkit_input(
                         _exit_prompt_application(app)
                         return
                     with core.human_ask_lock:
-                        interrupted = bool(core.human_ask_active)
-                    interrupted = interrupted or bool(
-                        getattr(core, "status_busy", False)
-                    )
+                        if reply_job_id:
+                            interrupted = bool(
+                                not core.human_ask_active
+                                or getattr(core, "human_ask_job_id", None)
+                                != reply_job_id
+                            )
+                        else:
+                            interrupted = bool(core.human_ask_active)
+                    if not reply_job_id:
+                        interrupted = interrupted or bool(
+                            getattr(core, "status_busy", False)
+                        )
                     if not interrupted:
                         continue
                     app = prompt_app
@@ -257,9 +266,8 @@ def _prompt_toolkit_input(
                 )
         else:
             result = session.prompt(prompt, is_password=is_password, key_bindings=kb)
-        if result is None and not reply:
-            # The state watcher intentionally exits the normal prompt when a
-            # tool takes stdin.  That Application must not be reused.
+        if result is None and (not reply or reply_job_id):
+            # Recreate applications exited because input ownership changed.
             _reset_prompt_sessions()
         elif result is not None and not is_password:
             result = tools_util.strip_surrogates(result)

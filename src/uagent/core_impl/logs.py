@@ -13,7 +13,31 @@ from .. import core as _core
 
 
 def log_message(message: dict[str, Any]) -> None:
-    """Compatibility shim for runtime.logging_setup."""
+    """Route background agent logs to their private bounded Job log."""
+    background = False
+    try:
+        from ..runtime.sub_agent_jobs import (
+            current_sub_agent_job_mode,
+            get_current_sub_agent_job,
+        )
+
+        background = current_sub_agent_job_mode() == "background"
+        if background:
+            job = get_current_sub_agent_job()
+            if job is not None:
+                try:
+                    job.log(
+                        "agent_log",
+                        json.dumps(
+                            _mask_message(message), ensure_ascii=False, default=str
+                        ),
+                    )
+                except Exception:
+                    pass
+    except Exception:
+        pass
+    if background:
+        return
     from ..runtime.logging_setup import append_masked_message
 
     append_masked_message(_core.LOG_FILE, message, _mask_message)

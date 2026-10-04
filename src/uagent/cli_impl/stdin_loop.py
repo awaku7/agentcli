@@ -48,9 +48,11 @@ def stdin_loop() -> None:
             with core.human_ask_lock:
                 is_reply = core.human_ask_active
                 is_password = is_reply and core.human_ask_is_password
+                reply_job_id = getattr(core, "human_ask_job_id", None)
                 password_prompt = (
                     getattr(core, "human_ask_prompt", "") or "[PASSWORD] > "
                 )
+                reply_prompt = getattr(core, "human_ask_prompt", "") or "[REPLY] > "
 
             # Perform BUSY check only when not waiting for a reply.
             # However, even during BUSY, user input for an already displayed prompt is accepted.
@@ -70,7 +72,20 @@ def stdin_loop() -> None:
                     password_prompt, is_password=True, reply=True
                 )
                 if line is None:
-                    if os.name == "nt":
+                    with core.human_ask_lock:
+                        reply_cancelled = bool(
+                            reply_job_id
+                            and (
+                                not core.human_ask_active
+                                or getattr(core, "human_ask_job_id", None)
+                                != reply_job_id
+                            )
+                        )
+                    if reply_cancelled:
+                        continue
+                    if reply_job_id:
+                        line = "cancel"
+                    elif os.name == "nt":
                         line = _getpass_fallback(password_prompt)
                     elif sys.stdin.isatty() and sys.stdout.isatty():
                         line = getpass.getpass(password_prompt)
@@ -144,22 +159,36 @@ def stdin_loop() -> None:
                 # Read input
                 core.input_prompt_active = True
                 if is_reply:
-                    line = _prompt_toolkit_input("[REPLY] > ", reply=True)
+                    line = _prompt_toolkit_input(reply_prompt, reply=True)
                     if line is None:
-                        # readline() does not render a prompt by itself.
-                        try:
-                            reply_out = (
-                                sys.stderr
-                                if getattr(sys.stderr, "isatty", lambda: False)()
-                                else sys.stdout
+                        with core.human_ask_lock:
+                            reply_cancelled = bool(
+                                reply_job_id
+                                and (
+                                    not core.human_ask_active
+                                    or getattr(core, "human_ask_job_id", None)
+                                    != reply_job_id
+                                )
                             )
-                            reply_out.write("[REPLY] > ")
-                            reply_out.flush()
-                        except Exception:
-                            print("[REPLY] > ", end="", flush=True)
-                        line = sys.stdin.readline()
-                        if line == "":
-                            raise EOFError
+                        if reply_cancelled:
+                            continue
+                        if reply_job_id:
+                            line = "cancel"
+                        else:
+                            # readline() does not render a prompt by itself.
+                            try:
+                                reply_out = (
+                                    sys.stderr
+                                    if getattr(sys.stderr, "isatty", lambda: False)()
+                                    else sys.stdout
+                                )
+                                reply_out.write(reply_prompt)
+                                reply_out.flush()
+                            except Exception:
+                                print(reply_prompt, end="", flush=True)
+                            line = sys.stdin.readline()
+                            if line == "":
+                                raise EOFError
                 else:
                     line = None
 
@@ -224,6 +253,7 @@ def stdin_loop() -> None:
                             # before writing [STATE].
                             try:
                                 core._prompt_line_open = True
+                                core._cli_prompt_toolkit_active = True
                             except Exception:
                                 pass
                             try:
@@ -236,6 +266,7 @@ def stdin_loop() -> None:
                                 prompt_watcher.join(timeout=0.2)
                                 try:
                                     core._prompt_line_open = False
+                                    core._cli_prompt_toolkit_active = False
                                 except Exception:
                                     pass
                             if line is not None:
@@ -438,7 +469,9 @@ def stdin_loop() -> None:
                     )
                     # Send an empty string or cancel to resume the tool side
                     if core.human_ask_queue:
-                        if core.human_ask_is_password and core.human_ask_prompt:
+                        if getattr(core, "human_ask_job_id", None):
+                            core.human_ask_queue.put("cancel")
+                        elif core.human_ask_is_password and core.human_ask_prompt:
                             core.human_ask_queue.put(None)
                         else:
                             core.human_ask_queue.put("cancel")
@@ -476,8 +509,14 @@ def stdin_loop() -> None:
                 handled_human_ask = True
                 is_ha_multiline = core.human_ask_multiline_active
                 is_ha_password = core.human_ask_is_password
+                is_job_confirmation = bool(getattr(core, "human_ask_job_id", None))
 
         if handled_human_ask:
+
+            def _set_reply_status(label: str) -> None:
+                if not is_job_confirmation:
+                    core.set_status(True, label)
+
             # Normalize CRLF/CR in the fallback line-by-line path as well as
             # in the prompt_toolkit editor. This keeps human_ask replies
             # consistent when a terminal paste supplies carriage returns.
@@ -485,24 +524,29 @@ def stdin_loop() -> None:
             should_wait_completion = False
             if not is_ha_multiline:
                 # Do not treat 'f' as a command to switch to multiline mode when entering a password
-                if line == "f" and not is_ha_password and _can_use_textarea():
+                if (
+                    line == "f"
+                    and not is_ha_password
+                    and not is_job_confirmation
+                    and _can_use_textarea()
+                ):
                     text = _multiline_editor()
                     if text is None:
-                        core.set_status(True, "replying_cancel")
+                        _set_reply_status("replying_cancel")
                         with core.human_ask_lock:
                             if core.human_ask_queue:
                                 core.human_ask_queue.put("cancel")
                         print("[REPLY] " + _("Cancelled."))
                         should_wait_completion = True
                     else:
-                        core.set_status(True, "replying_multi")
+                        _set_reply_status("replying_multi")
                         with core.human_ask_lock:
                             if core.human_ask_queue:
                                 core.human_ask_queue.put(text)
                         print("[REPLY] " + _("Received multiline reply."))
                         should_wait_completion = True
 
-                elif line == "f" and not is_ha_password:
+                elif line == "f" and not is_ha_password and not is_job_confirmation:
                     # Keep `f` usable when prompt_toolkit is not installed.
                     with core.human_ask_lock:
                         core.human_ask_lines.clear()
@@ -513,7 +557,7 @@ def stdin_loop() -> None:
                     )
 
                 else:
-                    core.set_status(True, "replying")
+                    _set_reply_status("replying")
                     with core.human_ask_lock:
                         if core.human_ask_queue:
                             core.human_ask_queue.put(line)
@@ -533,7 +577,7 @@ def stdin_loop() -> None:
             else:
                 # Treat a single line of c / cancel as an interruption even in multiline mode
                 if line.strip().lower() in ("c", "cancel"):
-                    core.set_status(True, "replying_cancel")
+                    _set_reply_status("replying_cancel")
                     with core.human_ask_lock:
                         core.human_ask_lines.clear()
                         core.human_ask_multiline_active = False
@@ -549,7 +593,7 @@ def stdin_loop() -> None:
                             core.human_ask_multiline_active = False
                             if core.human_ask_queue:
                                 core.human_ask_queue.put(text)
-                        core.set_status(True, "replying_multi")
+                        _set_reply_status("replying_multi")
                         print("[REPLY] " + _("Received multiline reply."))
                     else:
                         with core.human_ask_lock:

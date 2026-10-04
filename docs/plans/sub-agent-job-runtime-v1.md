@@ -1,7 +1,8 @@
 # Sub-Agent Job Runtime V1 設計
 
-- Status: planned
+- Status: in progress
 - Priority: P1
+- Progress: PR 1 Runtime core and PR 2 CLI lifecycle/control are implemented in the working tree. Job tools remain unregistered until PR 3; PR 3–5 are pending.
 - Source: `docs/subagent.md`, merged PR #144（parallel groups）, Auto-pilot / Sub-Agent autonomy 実装
 - Updated: 2026-10-04
 

@@ -89,6 +89,50 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
 
     is_password = bool(args.get("is_password", False))
 
+    # Background Jobs use the owner-aware CLI broker. Never fall through to
+    # the legacy process-global human_ask path, which cannot safely attribute
+    # a reply or cancel an individual Job.
+    from ..runtime.sub_agent_jobs import (
+        SubAgentConfirmationUnavailable,
+        current_sub_agent_job_mode,
+        get_current_sub_agent_job,
+    )
+
+    if current_sub_agent_job_mode() == "background":
+        job = get_current_sub_agent_job()
+        if job is not None:
+            job.raise_if_cancelled()
+            try:
+                user_reply = job.ask_user(message, is_password=is_password)
+            except SubAgentConfirmationUnavailable as exc:
+                blocked_message = f"Background Job {job.job_id} blocked: {exc}"
+                return json.dumps(
+                    {
+                        "tool": "human_ask",
+                        "status": "blocked",
+                        "message": message,
+                        "user_reply": "",
+                        "display_reply": blocked_message,
+                        "cancelled": True,
+                        "blocked": True,
+                    },
+                    ensure_ascii=False,
+                )
+            cancelled = user_reply.strip().lower() in {"c", "cancel"}
+            return json.dumps(
+                {
+                    "tool": "human_ask",
+                    "status": "cancelled" if cancelled else "completed",
+                    "message": message,
+                    "user_reply": user_reply,
+                    "display_reply": (
+                        "[SECRET]" if is_password and not cancelled else user_reply
+                    ),
+                    "cancelled": cancelled,
+                },
+                ensure_ascii=False,
+            )
+
     def _error_result(error_message: str) -> str:
         """Return JSON when the host did not initialize human_ask callbacks."""
         return json.dumps(
@@ -389,5 +433,16 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
 
 def run_tool(args: dict[str, Any]) -> str:
     """Serialize CLI/GUI human_ask calls across concurrent workers."""
+    background = False
+    try:
+        from ..runtime.sub_agent_jobs import current_sub_agent_job_mode
+
+        background = current_sub_agent_job_mode() == "background"
+    except Exception:
+        pass
+    if background:
+        # The Job-aware broker owns FIFO serialization; do not let the legacy
+        # process-wide lock reorder queued confirmation requests.
+        return _run_tool_unserialized(args)
     with _HUMAN_ASK_SERIAL_LOCK:
         return _run_tool_unserialized(args)

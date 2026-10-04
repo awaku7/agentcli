@@ -29,6 +29,10 @@ from ..providers.util_providers import make_client
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import _mask_inline_secrets
 from ..runtime.agent_loop import run_agent_loop
+from ..runtime.sub_agent_jobs import (
+    current_sub_agent_job_mode,
+    get_current_sub_agent_job,
+)
 from ..runtime.sub_agent_autonomy import (
     SUB_AGENT_SENTINEL_INSTRUCTION,
     SubAgentCompletionJudge,
@@ -69,6 +73,8 @@ _SUB_AGENT_ACTIVE_RUNS = 0
 
 def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
     """Keep the host busy until the last concurrently running Sub-Agent exits."""
+    if current_sub_agent_job_mode() == "background":
+        return
     if not cb or not hasattr(cb, "set_status") or not cb.set_status:
         return
 
@@ -1517,8 +1523,16 @@ class SubAgentRunner:
                     + _mask_inline_secrets(" ".join(str(event.detail).split()))[:300]
                 )
             message = " ".join(parts)
-            print(message, flush=True)
-            if cb and getattr(cb, "log_message", None):
+            background_job = (
+                get_current_sub_agent_job()
+                if current_sub_agent_job_mode() == "background"
+                else None
+            )
+            if background_job is not None:
+                background_job.log("judge", message)
+            else:
+                print(message, flush=True)
+            if background_job is None and cb and getattr(cb, "log_message", None):
                 try:
                     cb.log_message({"role": "assistant", "content": message})
                 except Exception:

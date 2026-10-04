@@ -90,14 +90,24 @@ class SubAgentJobDeadlineExceeded(TimeoutError):
     """Raised by a cooperative worker after its absolute job deadline."""
 
 
+class SubAgentConfirmationUnavailable(RuntimeError):
+    """Raised when a background Job cannot safely obtain human confirmation."""
+
+
 @dataclass(frozen=True)
 class SubAgentJobExecutionContext:
     job_id: str
+    agent_name: str
     owner: SubAgentJobOwner
     job_root: Path
     cancel_event: threading.Event
     deadline_at: float | None
     shutdown_deadline: "_ShutdownDeadline"
+    event_sink: Callable[[str, str], None]
+    confirmation_handler: (
+        Callable[["SubAgentJobExecutionContext", str, bool], str] | None
+    )
+    waiting_sink: Callable[[bool], None]
 
     @property
     def effective_deadline_at(self) -> float | None:
@@ -124,6 +134,21 @@ class SubAgentJobExecutionContext:
             raise SubAgentJobDeadlineExceeded(
                 f"Sub-Agent job {self.job_id} deadline exceeded"
             )
+
+    def log(self, kind: str, message: str) -> None:
+        """Append a bounded, secret-masked event to this Job's private log."""
+        self.event_sink(str(kind), str(message))
+
+    def ask_user(self, message: str, *, is_password: bool = False) -> str:
+        self.raise_if_cancelled()
+        if self.confirmation_handler is None:
+            raise SubAgentConfirmationUnavailable(
+                "No Job-aware confirmation broker is configured"
+            )
+        return self.confirmation_handler(self, str(message), bool(is_password))
+
+    def set_waiting_for_user(self, waiting: bool) -> None:
+        self.waiting_sink(bool(waiting))
 
 
 class _ShutdownDeadline:
@@ -266,8 +291,18 @@ class _SubAgentJob:
 class SubAgentJobManager:
     """Own a bounded queue and fixed daemon workers for Sub-Agent jobs."""
 
-    def __init__(self, settings: SubAgentJobSettings | None = None) -> None:
+    def __init__(
+        self,
+        settings: SubAgentJobSettings | None = None,
+        *,
+        notice_callback: Callable[[dict[str, Any]], None] | None = None,
+        confirmation_handler: (
+            Callable[[SubAgentJobExecutionContext, str, bool], str] | None
+        ) = None,
+    ) -> None:
         self.settings = settings or SubAgentJobSettings.from_env()
+        self._notice_callback = notice_callback
+        self._confirmation_handler = confirmation_handler
         self._condition = threading.Condition(threading.RLock())
         self._jobs: OrderedDict[str, _SubAgentJob] = OrderedDict()
         self._queue: deque[str] = deque()
@@ -275,6 +310,8 @@ class SubAgentJobManager:
         self._closed = False
         self._workers: list[threading.Thread] = []
         self._active_worker_jobs: set[str] = set()
+        self._active_worker_owners: dict[str, SubAgentJobOwner] = {}
+        self._paused_owners: set[SubAgentJobOwner] = set()
         self._maintenance_thread = threading.Thread(
             target=self._maintenance_loop,
             name="uagent-sub-agent-job-maintenance",
@@ -331,6 +368,8 @@ class SubAgentJobManager:
             self._evict_completed_locked(time.monotonic())
             if self._closing:
                 return {"status": "rejected", "reason": "shutting_down"}
+            if owner in self._paused_owners:
+                return {"status": "rejected", "reason": "owner_transition"}
             owner_jobs = [
                 job
                 for job in self._jobs.values()
@@ -369,6 +408,33 @@ class SubAgentJobManager:
                 return _not_found()
             return self._snapshot_locked(job)
 
+    def record_event(
+        self, *, owner: SubAgentJobOwner, job_id: str, kind: str, message: str
+    ) -> bool:
+        """Append an event to the authorized, non-terminal Job's bounded log."""
+        with self._condition:
+            job = self._authorized_job_locked(owner, job_id)
+            if job is None or job.state.terminal:
+                return False
+            self._append_event_locked(job, kind, message)
+            return True
+
+    def _set_waiting_for_user(self, job_id: str, waiting: bool) -> None:
+        with self._condition:
+            job = self._jobs.get(job_id)
+            if job is None or job.state.terminal:
+                return
+            if waiting and job.state == SubAgentJobState.RUNNING:
+                job.state = SubAgentJobState.WAITING_FOR_USER
+            elif not waiting and job.state == SubAgentJobState.WAITING_FOR_USER:
+                job.state = SubAgentJobState.RUNNING
+            else:
+                return
+            self._append_event_locked(
+                job, "waiting_for_user" if waiting else "resumed", "User confirmation"
+            )
+            self._condition.notify_all()
+
     def wait(
         self,
         *,
@@ -400,6 +466,7 @@ class SubAgentJobManager:
     def cancel(
         self, *, owner: SubAgentJobOwner, job_id: str, reason: str = "cancelled"
     ) -> dict[str, Any]:
+        notice = None
         with self._condition:
             self._evict_completed_locked(time.monotonic())
             job = self._authorized_job_locked(owner, job_id)
@@ -410,7 +477,7 @@ class SubAgentJobManager:
                 snapshot["cancel_noop"] = True
                 return snapshot
             job.cancel_event.set()
-            job.reason = _bounded_text(reason, 1024)
+            job.reason = _bounded_text(_mask_inline_secrets(reason), 1024)
             if job.state == SubAgentJobState.QUEUED:
                 self._remove_queued_locked(job_id)
                 self._finish_locked(job, SubAgentJobState.CANCELLED)
@@ -418,8 +485,11 @@ class SubAgentJobManager:
                 job.state = SubAgentJobState.CANCELLED
                 self._finish_locked(job, SubAgentJobState.CANCELLED)
             self._append_event_locked(job, "cancelled", job.reason)
+            notice = self._notice_locked(job, "finished")
             self._condition.notify_all()
-            return self._snapshot_locked(job)
+            snapshot = self._snapshot_locked(job)
+        self._dispatch_notice(notice)
+        return snapshot
 
     def get_events(
         self, *, owner: SubAgentJobOwner, job_id: str, after: int = 0
@@ -458,6 +528,41 @@ class SubAgentJobManager:
                 for job in self._jobs.values()
             )
 
+    def pause_owner(self, owner: SubAgentJobOwner) -> None:
+        """Atomically prevent new admissions for one lifecycle owner."""
+        with self._condition:
+            self._paused_owners.add(owner)
+            self._condition.notify_all()
+
+    def resume_owner(self, owner: SubAgentJobOwner) -> None:
+        with self._condition:
+            self._paused_owners.discard(owner)
+            self._condition.notify_all()
+
+    def wait_owner_workers(
+        self, owner: SubAgentJobOwner, timeout: float | None = None
+    ) -> bool:
+        """Wait until callbacks owned by ``owner`` have actually exited."""
+        deadline = None if timeout is None else time.monotonic() + max(0.0, timeout)
+        with self._condition:
+            while owner in self._active_worker_owners.values():
+                if deadline is None:
+                    self._condition.wait()
+                    continue
+                remaining = deadline - time.monotonic()
+                if remaining <= 0:
+                    return False
+                self._condition.wait(remaining)
+            return True
+
+    def active_job_ids(self, owner: SubAgentJobOwner) -> list[str]:
+        with self._condition:
+            return [
+                job_id
+                for job_id, job_owner in self._active_worker_owners.items()
+                if job_owner == owner
+            ]
+
     def summary(self, *, owner: SubAgentJobOwner) -> list[dict[str, Any]]:
         with self._condition:
             self._evict_completed_locked(time.monotonic())
@@ -477,18 +582,22 @@ class SubAgentJobManager:
         self, *, owner: SubAgentJobOwner | None = None, reason: str = "shutdown"
     ) -> int:
         cancelled = 0
+        notices: list[dict[str, Any]] = []
         with self._condition:
             for job in tuple(self._jobs.values()):
                 if job.state.terminal or (owner is not None and job.owner != owner):
                     continue
                 job.cancel_event.set()
-                job.reason = _bounded_text(reason, 1024)
+                job.reason = _bounded_text(_mask_inline_secrets(reason), 1024)
                 if job.state == SubAgentJobState.QUEUED:
                     self._remove_queued_locked(job.job_id)
                 self._finish_locked(job, SubAgentJobState.CANCELLED)
                 self._append_event_locked(job, "cancelled", job.reason)
+                notices.append(self._notice_locked(job, "finished"))
                 cancelled += 1
             self._condition.notify_all()
+        for notice in notices:
+            self._dispatch_notice(notice)
         return cancelled
 
     def shutdown(self, timeout: float | None = None) -> list[str]:
@@ -532,6 +641,7 @@ class SubAgentJobManager:
 
     def _worker_loop(self) -> None:
         while True:
+            notice: dict[str, Any] | None = None
             with self._condition:
                 job: _SubAgentJob | None = None
                 while job is None:
@@ -555,17 +665,22 @@ class SubAgentJobManager:
                             self._append_event_locked(
                                 candidate, "timed_out", candidate.reason
                             )
+                            notice = self._notice_locked(candidate, "finished")
                             self._condition.notify_all()
-                            continue
+                            break
                         job = candidate
                         job.state = SubAgentJobState.RUNNING
                         job.started_monotonic = time.monotonic()
                         job.started_at = _utc_now()
                         self._active_worker_jobs.add(job.job_id)
+                        self._active_worker_owners[job.job_id] = job.owner
                         self._append_event_locked(job, "started", "Job started")
+                        notice = self._notice_locked(job, "started")
                         self._condition.notify_all()
                         break
                     self._condition.wait()
+            if notice is not None:
+                self._dispatch_notice(notice)
             if job is None:
                 continue
             try:
@@ -573,16 +688,25 @@ class SubAgentJobManager:
             finally:
                 with self._condition:
                     self._active_worker_jobs.discard(job.job_id)
+                    self._active_worker_owners.pop(job.job_id, None)
                     self._condition.notify_all()
 
     def _execute_job(self, job: _SubAgentJob) -> None:
         execution = SubAgentJobExecutionContext(
             job_id=job.job_id,
+            agent_name=job.agent_name,
             owner=job.owner,
             job_root=job.job_root,
             cancel_event=job.cancel_event,
             deadline_at=job.deadline_at,
             shutdown_deadline=job.shutdown_deadline,
+            event_sink=lambda kind, message: self.record_event(
+                owner=job.owner, job_id=job.job_id, kind=kind, message=message
+            ),
+            confirmation_handler=self._confirmation_handler,
+            waiting_sink=lambda waiting: self._set_waiting_for_user(
+                job.job_id, waiting
+            ),
         )
 
         def invoke() -> Any:
@@ -630,8 +754,10 @@ class SubAgentJobManager:
                     )
                     job.truncated = job.truncated or was_truncated
                     self._finish_locked(job, inferred_state)
+                notice = self._notice_locked(job, "finished")
                 self._append_event_locked(job, job.state.value, "Job finished")
                 self._condition.notify_all()
+            self._dispatch_notice(notice)
         except SubAgentJobDeadlineExceeded as exc:
             self._finish_from_exception(job, SubAgentJobState.TIMED_OUT, exc)
         except SubAgentJobCancelled as exc:
@@ -652,10 +778,13 @@ class SubAgentJobManager:
             job.truncated = job.truncated or was_truncated
             self._finish_locked(job, state)
             self._append_event_locked(job, state.value, job.error or "Job failed")
+            notice = self._notice_locked(job, "finished")
             self._condition.notify_all()
+        self._dispatch_notice(notice)
 
     def _maintenance_loop(self) -> None:
         while True:
+            notices: list[dict[str, Any]] = []
             with self._condition:
                 if self._closing:
                     return
@@ -672,8 +801,11 @@ class SubAgentJobManager:
                         self._remove_queued_locked(job.job_id)
                     self._finish_locked(job, SubAgentJobState.TIMED_OUT)
                     self._append_event_locked(job, "timed_out", job.reason)
+                    notices.append(self._notice_locked(job, "finished"))
                 self._condition.notify_all()
                 self._condition.wait(0.05)
+            for notice in notices:
+                self._dispatch_notice(notice)
 
     def _authorized_job_locked(
         self, owner: SubAgentJobOwner, job_id: str
@@ -682,6 +814,32 @@ class SubAgentJobManager:
         if job is None or job.owner != owner:
             return None
         return job
+
+    def _notice_locked(self, job: _SubAgentJob, event: str) -> dict[str, Any]:
+        elapsed = None
+        if job.started_monotonic is not None:
+            ended = job.completed_monotonic or time.monotonic()
+            elapsed = max(0.0, ended - job.started_monotonic)
+        return {
+            "event": event,
+            "job_id": job.job_id,
+            "agent_name": job.agent_name,
+            "state": job.state.value,
+            "created_at": job.created_at,
+            "started_at": job.started_at,
+            "completed_at": job.completed_at,
+            "elapsed_sec": elapsed,
+            "reason": job.reason,
+        }
+
+    def _dispatch_notice(self, notice: dict[str, Any] | None) -> None:
+        callback = self._notice_callback
+        if callback is None or notice is None:
+            return
+        try:
+            callback(dict(notice))
+        except Exception:
+            pass
 
     def _snapshot_locked(self, job: _SubAgentJob) -> dict[str, Any]:
         result: dict[str, Any] = {
@@ -809,6 +967,7 @@ __all__ = [
     "CURRENT_SUB_AGENT_JOB_MODE",
     "CURRENT_SUB_AGENT_JOB_ROOT",
     "SubAgentJobCancelled",
+    "SubAgentConfirmationUnavailable",
     "SubAgentJobDeadlineExceeded",
     "SubAgentJobExecutionContext",
     "SubAgentJobManager",

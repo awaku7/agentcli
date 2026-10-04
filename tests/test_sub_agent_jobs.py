@@ -30,8 +30,11 @@ def _manager(**overrides) -> SubAgentJobManager:
         "result_max_bytes": 4096,
         "shutdown_timeout_sec": 0.2,
     }
+    notice_callback = overrides.pop("notice_callback", None)
     values.update(overrides)
-    return SubAgentJobManager(SubAgentJobSettings(**values))
+    return SubAgentJobManager(
+        SubAgentJobSettings(**values), notice_callback=notice_callback
+    )
 
 
 def test_spawn_returns_before_worker_finishes_and_context_is_propagated():
@@ -393,6 +396,29 @@ def test_oversized_task_is_rejected_before_queue_admission():
         )
         assert result == {"status": "rejected", "reason": "task_too_large"}
         assert manager.running_count(owner=_owner()) == 0
+    finally:
+        manager.shutdown()
+
+
+def test_job_log_sink_and_lifecycle_notices_are_bounded_and_private():
+    notices = []
+    manager = _manager(notice_callback=notices.append)
+    try:
+
+        def worker(ctx):
+            ctx.log("tool_trace", '{"api_key":"hidden-key"}')
+            return "done"
+
+        accepted = manager.spawn(
+            owner=_owner(), agent_name="worker", task="logging", worker=worker
+        )
+        result = manager.wait(owner=_owner(), job_id=accepted["job_id"], timeout=2)
+        assert result["state"] == "completed"
+        events = manager.get_events(owner=_owner(), job_id=accepted["job_id"])["events"]
+        logged = next(event for event in events if event["kind"] == "tool_trace")
+        assert "hidden-key" not in logged["message"]
+        assert {event["event"] for event in notices} == {"started", "finished"}
+        assert all(event["job_id"] == accepted["job_id"] for event in notices)
     finally:
         manager.shutdown()
 

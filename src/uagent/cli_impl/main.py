@@ -45,6 +45,16 @@ from .startup import (
 )
 from .state import _CLI_SHUTDOWN
 from .stdin_loop import stdin_loop
+from .sub_agent_jobs import (
+    CLIJobConfirmationBroker,
+    cli_confirmation_supported,
+    current_cli_job_owner,
+    display_job_notice,
+    handle_cli_job_command,
+    is_cli_session_transition_command,
+    prepare_cli_session_transition,
+)
+from ..runtime.sub_agent_jobs import SubAgentJobManager
 
 
 def _exit_code_for_round_outcome(core: Any) -> int:
@@ -162,6 +172,24 @@ def main() -> int:
 
     if startup.should_exit:
         return _noninteractive_exit_code()
+
+    fallback_session_id = str(getattr(startup, "session_id", "") or "")
+    job_owner = current_cli_job_owner(core, fallback_session_id)
+
+    def _enqueue_sub_agent_job_notice(notice: dict[str, Any]) -> None:
+        # Keep background output out of the Main stream.  The foreground CLI
+        # loop owns the eventual display and prompt redraw.
+        core.event_queue.put({"kind": "sub_agent_job_notice", "notice": notice})
+
+    confirmation_broker = CLIJobConfirmationBroker(
+        core, enabled=cli_confirmation_supported(enabled=not UAGENT_NON_INTERACTIVE)
+    )
+    job_manager = SubAgentJobManager(
+        notice_callback=_enqueue_sub_agent_job_notice,
+        confirmation_handler=confirmation_broker.ask,
+    )
+    core._sub_agent_job_manager = job_manager
+    core._sub_agent_job_owner = job_owner
 
     # Computer Use backends are created lazily by the action handler.
     # Merely enabling the capability must not open a browser or desktop session.
@@ -298,7 +326,41 @@ def main() -> int:
 
             if kind == "command":
                 line = ev.get("text", "")
-                result = handle_command(line, messages, client, depname, core=core)
+                if handle_cli_job_command(line, manager=job_manager, owner=job_owner):
+                    continue
+                session_transition = is_cli_session_transition_command(line)
+                old_owner = job_owner
+                if session_transition:
+                    try:
+                        switch_timeout = max(
+                            0.0,
+                            float(
+                                os.environ.get(
+                                    "UAGENT_SUB_AGENT_JOB_SESSION_SWITCH_TIMEOUT", "5"
+                                )
+                            ),
+                        )
+                    except (TypeError, ValueError):
+                        switch_timeout = 5.0
+                    prepared, lingering = prepare_cli_session_transition(
+                        job_manager, old_owner, timeout=switch_timeout
+                    )
+                    if not prepared:
+                        print(
+                            "Session switch cancelled; Sub-Agent workers are still running: "
+                            + ", ".join(lingering)
+                        )
+                        continue
+                try:
+                    result = handle_command(line, messages, client, depname, core=core)
+                finally:
+                    if session_transition:
+                        new_owner = current_cli_job_owner(core, fallback_session_id)
+                        if new_owner.session_id == old_owner.session_id:
+                            job_manager.resume_owner(old_owner)
+                        else:
+                            job_owner = new_owner
+                            core._sub_agent_job_owner = job_owner
                 if not result:
                     running = False
                     break
@@ -400,6 +462,11 @@ def main() -> int:
                     if UAGENT_INJECT_MESSAGE_AUTO:
                         running = False
                         break
+                continue
+
+            if kind == "sub_agent_job_notice":
+                notice = ev.get("notice") or {}
+                display_job_notice(core, notice)
                 continue
 
             if kind == "schedule_notice":
@@ -623,6 +690,19 @@ def main() -> int:
             t.join(timeout=1.0)
         except Exception:
             pass
+        try:
+            job_manager.shutdown()
+        except Exception:
+            pass
+        try:
+            confirmation_broker.shutdown()
+        except Exception:
+            pass
+        for attr in ("_sub_agent_job_manager", "_sub_agent_job_owner"):
+            try:
+                delattr(core, attr)
+            except Exception:
+                pass
         try:
             stop_background_scheduler()
         except Exception:

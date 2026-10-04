@@ -34,6 +34,17 @@ def set_status(busy: bool, label: str = "") -> None:
     Update the Busy/Idle state and draw the status line if there are changes.
     """
 
+    # Background Sub-Agent jobs are not the foreground CLI turn.  In
+    # particular, they must not suppress input, take spinner ownership, or
+    # change the F12 interrupt target.
+    try:
+        from ..runtime.sub_agent_jobs import current_sub_agent_job_mode
+
+        if current_sub_agent_job_mode() == "background":
+            return
+    except Exception:
+        pass
+
     # Tool implementations historically clear their own status in finally
     # blocks. During a centralized tool call, suppress that transient IDLE
     # transition so the input prompt cannot appear before the LLM resumes.
@@ -149,7 +160,21 @@ def get_prompt() -> str:
     base = os.path.basename(cwd.rstrip(os.sep)) or cwd
     with _core.status_lock:
         _lr = _core.last_reasoning_label
-    return format_prompt(busy=busy, label=label, cwd_name=base, reasoning_label=_lr)
+    background_jobs = 0
+    manager = getattr(_core, "_sub_agent_job_manager", None)
+    owner = getattr(_core, "_sub_agent_job_owner", None)
+    if manager is not None and owner is not None:
+        try:
+            background_jobs = manager.running_count(owner=owner)
+        except Exception:
+            background_jobs = 0
+    return format_prompt(
+        busy=busy,
+        label=label,
+        cwd_name=base,
+        reasoning_label=_lr,
+        background_jobs=background_jobs,
+    )
 
 
 def get_env(name: str) -> str:
