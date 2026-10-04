@@ -36,7 +36,7 @@ def namespace_shared_context(values: dict[str, str]) -> dict[str, str]:
         total += len(key.encode("utf-8", errors="replace"))
         total += len(content.encode("utf-8", errors="replace"))
         if total > 64 * 1024:
-            raise ValueError("shared_context_too_large")
+            raise ValueError
         bounded[str(key)] = content
     return bounded
 

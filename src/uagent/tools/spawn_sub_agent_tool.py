@@ -166,8 +166,8 @@ def run_tool(args: dict[str, Any]) -> str:
         )
     try:
         shared_context = namespace_shared_context(shared_context)
-    except ValueError as exc:
-        return blocked(str(exc))
+    except ValueError:
+        return blocked("shared_context_too_large")
 
     options = {
         "agent_name": agent_name,
