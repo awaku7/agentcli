@@ -421,6 +421,8 @@ ______________________________________________________________________
 
 ## 8. Active Directory / Microsoft identity
 
+オンプレミスAD + IIS Windows Authentication + `trusted_proxy` の具体的な構築手順は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md) を参照する。
+
 UAG v3 は Active Directory 系を1つの専用 DB や独自 password login として実装しない。
 
 環境に応じて次のいずれかへ接続する。
