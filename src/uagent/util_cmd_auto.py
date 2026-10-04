@@ -189,7 +189,9 @@ def _build_auto_pilot_decision_state(
             continue
         content = _decision_text_content(message.get("content", ""))
         if goal and (
-            content == goal or content.startswith(goal + " Auto-pilot protocol:")
+            content == goal
+            or content.startswith(goal + " Auto-pilot protocol:")
+            or content.startswith(goal + _SENTINEL_INSTRUCTION)
         ):
             run_messages = messages[index + 1 :]
             break
