@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from contextvars import ContextVar
 from datetime import datetime
 import os
 import threading
@@ -476,3 +477,20 @@ def _handle_mode_command(text: str) -> bool:
 
 
 _thread_ctx = threading.local()
+_web_room_context: ContextVar[Any | None] = ContextVar(
+    "uagent_web_room",
+    default=None,
+)
+
+
+def set_context_web_room(room: WebRoom | None):
+    return _web_room_context.set(room)
+
+
+def reset_context_web_room(token) -> None:
+    _web_room_context.reset(token)
+
+
+def get_context_web_room() -> WebRoom | None:
+    room = _web_room_context.get()
+    return room if isinstance(room, WebRoom) else None
