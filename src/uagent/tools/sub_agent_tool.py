@@ -82,6 +82,7 @@ def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
         if _SUB_AGENT_ACTIVE_RUNS == 0:
             cb.set_status(False, "")
 
+
 # ---------------------------------------------------------------------------
 # Enums / Data classes
 # ---------------------------------------------------------------------------
