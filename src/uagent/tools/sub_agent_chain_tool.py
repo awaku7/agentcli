@@ -752,9 +752,7 @@ def run_tool(args: Dict[str, Any]) -> str:
                                 active.pop(future)
                         continue
 
-                    while (
-                        next_offset < len(group_steps) and len(active) < max_workers
-                    ):
+                    while next_offset < len(group_steps) and len(active) < max_workers:
                         submit_group_step(next_offset)
                         next_offset += 1
 
