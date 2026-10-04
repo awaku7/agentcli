@@ -6,7 +6,7 @@ import argparse
 import asyncio
 from dataclasses import replace
 import json
-from contextlib import nullcontext
+from contextlib import asynccontextmanager, nullcontext
 from contextvars import copy_context
 from typing import Any, AsyncIterator, Optional
 from uuid import uuid4
@@ -106,7 +106,17 @@ def _build_task_store() -> InMemoryTaskStore | SQLiteTaskStore:
 def build_app(
     *, credential_store: CredentialStore | None = None, recover_tasks: bool = False
 ) -> FastAPI:
-    app = FastAPI(title=_("uagent A2A"))
+    shutdown_callback: Any = None
+
+    @asynccontextmanager
+    async def _lifespan(_app: FastAPI):
+        try:
+            yield
+        finally:
+            if shutdown_callback is not None:
+                await shutdown_callback()
+
+    app = FastAPI(title=_("uagent A2A"), lifespan=_lifespan)
     app.state.credential_store = credential_store or get_default_credential_store()
 
     store = _build_task_store()
@@ -663,7 +673,7 @@ def build_app(
 
         return StreamingResponse(gen(), media_type="text/event-stream")
 
-    app.add_event_handler("shutdown", _shutdown_job_manager)
+    shutdown_callback = _shutdown_job_manager
     return app
 
 
