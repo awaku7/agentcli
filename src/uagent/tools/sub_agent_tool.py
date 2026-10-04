@@ -62,6 +62,25 @@ _SUB_AGENT_CALL_CHAIN: ContextVar[tuple[str, ...]] = ContextVar(
     "uag_sub_agent_call_chain",
     default=(),
 )
+_SUB_AGENT_STATUS_LOCK = Lock()
+_SUB_AGENT_ACTIVE_RUNS = 0
+
+
+def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
+    """Keep the host busy until the last concurrently running Sub-Agent exits."""
+    if not cb or not hasattr(cb, "set_status") or not cb.set_status:
+        return
+
+    global _SUB_AGENT_ACTIVE_RUNS
+    with _SUB_AGENT_STATUS_LOCK:
+        if entering:
+            _SUB_AGENT_ACTIVE_RUNS += 1
+            cb.set_status(True, f"Sub-Agent ({agent_name})")
+            return
+
+        _SUB_AGENT_ACTIVE_RUNS = max(0, _SUB_AGENT_ACTIVE_RUNS - 1)
+        if _SUB_AGENT_ACTIVE_RUNS == 0:
+            cb.set_status(False, "")
 
 # ---------------------------------------------------------------------------
 # Enums / Data classes
@@ -1944,8 +1963,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             completion_sentinel = bool(sentinel_arg)
         completion_regex = str(args.get("completion_regex") or "")
 
-        if cb and hasattr(cb, "set_status") and cb.set_status:
-            cb.set_status(True, f"Sub-Agent ({agent_name})")
+        _set_sub_agent_status(cb, agent_name, entering=True)
 
         # Fire SubagentStart hook
         try:
@@ -1988,9 +2006,7 @@ def run_tool(args: Dict[str, Any]) -> str:
     finally:
         reset_active_sub_agent(sub_agent_token)
         _SUB_AGENT_REASONING_OVERRIDE.reset(reasoning_token)
-        if cb and hasattr(cb, "set_status") and cb.set_status:
-            cb.set_status(False, "")
-            cb.set_status(False, "")
+        _set_sub_agent_status(cb, agent_name, entering=False)
 
     # Fire SubagentStop hook
     try:
