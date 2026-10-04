@@ -19,6 +19,7 @@ from ..runtime.observability.trusted_ingress import (
     call_with_trusted_ingress,
     trusted_ingress_carrier_for_request,
 )
+from ..runtime.web_origin_policy import validate_websocket_origin
 from .. import util_tools as tools_util
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
@@ -36,6 +37,12 @@ from .rooms import (
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+    try:
+        validate_websocket_origin(websocket)
+    except (IdentityConfigurationError, IdentityResolutionError):
+        await websocket.close(code=1008)
+        return
+
     room_id = websocket.query_params.get("room")
     ws_lang = (websocket.query_params.get("lang") or "").lower().strip()
     if ws_lang not in ("ja", "en", "ar"):
