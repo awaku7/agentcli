@@ -33,6 +33,10 @@ UAGENT_OIDC_COOKIE_SECURE=1
 # server-side sessionの有効時間（秒）。既定値: 28800
 UAGENT_OIDC_SESSION_TTL=28800
 
+# WebSocket handshakeで許可するbrowser Originをexact指定する
+# non-local identity modeでは必須。wildcardは使用できない
+UAGENT_WEB_ALLOWED_ORIGINS=https://uag.example.com
+
 # Memory V3のmulti-user APIはSQLite Memoryを使用する
 UAGENT_MEMORY_BACKEND=sqlite
 ```
