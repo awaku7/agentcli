@@ -513,3 +513,45 @@ def test_parallel_sub_agents_keep_status_busy_until_last_worker_finishes(monkeyp
         assert json.loads(second.result(timeout=10))["status"] == "completed"
 
     assert [event for event in status_events if event[0] is False] == [(False, "")]
+
+
+def test_parallel_group_holds_busy_lease_between_worker_batches(monkeypatch):
+    status_events = []
+    status_lock = threading.Lock()
+
+    class Callbacks:
+        def set_status(self, busy, label=""):
+            with status_lock:
+                status_events.append((busy, label))
+
+    def fake_runner_run(agent_name, task, **kwargs):
+        return _worker_result(task)
+
+    monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: Callbacks())
+    monkeypatch.setattr(sub_agent_tool._runner, "run", fake_runner_run)
+    monkeypatch.setattr(sub_agent_chain_tool, "_MAX_PARALLEL_GROUP_WORKERS", 1)
+    with sub_agent_tool._SUB_AGENT_STATUS_LOCK:
+        sub_agent_tool._SUB_AGENT_ACTIVE_RUNS = 0
+
+    raw = sub_agent_chain_tool.run_tool(
+        {
+            "chain": [
+                {
+                    "agent_name": "general",
+                    "task": "first",
+                    "parallel_group": "batched",
+                },
+                {
+                    "agent_name": "general",
+                    "task": "second",
+                    "parallel_group": "batched",
+                },
+            ]
+        }
+    )
+
+    result = json.loads(raw)
+    assert result["status"] == "completed"
+    false_events = [event for event in status_events if event[0] is False]
+    assert false_events == [(False, "")]
+    assert status_events[-1] == (False, "")
