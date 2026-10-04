@@ -15,7 +15,6 @@ from .enterprise_identity import (
     enterprise_identity_adapter_state,
 )
 from .identity_context import IdentityConfigurationError, resolve_identity_mode
-from .web_origin_policy import configured_websocket_origins
 
 
 @dataclass(frozen=True)
@@ -193,11 +192,6 @@ def validate_authentication_configuration(
         registered, _ = enterprise_identity_adapter_state(selected)
         if not registered:
             diagnostics.append(f"{selected} verifier is not configured")
-
-    try:
-        configured_websocket_origins(selected)
-    except IdentityConfigurationError as exc:
-        diagnostics.append(str(exc))
 
     configured = not diagnostics
     return AuthenticationStatus(
