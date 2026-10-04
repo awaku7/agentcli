@@ -426,6 +426,8 @@ uag WebはUvicornのproxy header middlewareを持ち、trusted sourceからの `
 
 をuag backendへ渡しません。
 
+一方、browserがWebSocket handshakeで送る `Origin` headerは削除しません。uag自身が `UAGENT_WEB_ALLOWED_ORIGINS` とexact比較し、許可されていないOrigin、`Origin: null`、Origin欠落をhandshake前に拒否します。Windows Integrated Authenticationではbrowser credentialがcross-site WebSocketにも付与され得るため、Host検証だけでは不十分です。
+
 この構成ではuagから見た接続元はbridge host `10.30.40.10` のsocket peerのままなので:
 
 ```env
@@ -689,7 +691,7 @@ http://10.30.40.20:8000/
 
 さらにuag host自身からidentity headerを付けてbackendへ直接requestしても、sourceがproxy IPではないため `request did not arrive through a trusted proxy` で拒否されることを確認してください。
 
-### 15.4 spoofing確認
+### 15.4 spoofing / Origin確認
 
 clientから任意の:
 
@@ -701,6 +703,14 @@ Forwarded
 ```
 
 を送っても、bridgeが削除してserver-sideの値へ置き換えることを確認します。
+
+別originのWeb pageから:
+
+```text
+wss://uag.corp.example/ws?room=<room>
+```
+
+を開こうとしても接続できず、`https://uag.corp.example` からのWeb UIだけが接続できることを確認します。`UAGENT_WEB_ALLOWED_ORIGINS` はscheme・host・portを含むexact originで、wildcardは使用しません。
 
 ### 15.5 別ユーザー確認
 
@@ -793,6 +803,8 @@ uag側はIIS/bridgeが検証済みWindows identityを返した後のprincipal no
 - [ ] IIS WebSocket Protocol role serviceはEnabled
 - [ ] identity headerはclient入力を削除してからserver-sideで再付与
 - [ ] forwarded client-address headersをidentity trust boundaryに使わない
+- [ ] `UAGENT_WEB_ALLOWED_ORIGINS` に公開Web URLをexact指定
+- [ ] cross-site / `Origin: null` / Origin欠落のWebSocketが拒否される
 - [ ] `UAGENT_TRUSTED_PROXY_CIDRS` は必要最小限
 - [ ] `0.0.0.0/0` / `::/0` をtrustしない
 - [ ] username / UPN / emailではなくstable subjectを使用
