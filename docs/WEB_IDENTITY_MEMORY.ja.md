@@ -2,7 +2,7 @@
 
 このガイドでは、uag v0.7.14で利用できる認証付きマルチユーザーWebの動作を説明します。対象は、ユーザー識別、Project / Roomのアクセス制御、Personal Memory、共有Memory、Profileの分離です。
 
-内部設計とsecurity invariantは [UAG Memory Architecture V3](UAG_MEMORY_ARCHITECTURE_V3.md)、実装状況のレビューは [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) を参照してください。
+内部設計とsecurity invariantは [UAG Memory Architecture V3](UAG_MEMORY_ARCHITECTURE_V3.md)、オンプレミスActive Directory / IIS Windows認証を使う場合は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md)、実装状況のレビューは [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) を参照してください。
 
 ## 1. 利用形態を選ぶ
 
