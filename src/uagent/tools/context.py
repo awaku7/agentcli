@@ -44,6 +44,7 @@ class ToolCallbacks:
 
     # Shared state for human_ask (synchronized with stdin_loop)
     human_ask_lock: Any = None
+    human_ask_serial_lock: Any = None
     human_ask_active_ref: Optional[Callable[[], bool]] = None
     human_ask_set_active: Optional[Callable[[bool], None]] = None
     human_ask_queue_ref: Optional[Callable[[], Any]] = None
