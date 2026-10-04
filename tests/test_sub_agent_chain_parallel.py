@@ -469,3 +469,47 @@ def test_parallel_group_does_not_start_queued_steps_after_failure(monkeypatch):
     assert result["status"] == "error"
     assert calls == ["blocked"]
     assert result["total_steps"] == 1
+
+
+def test_parallel_sub_agents_keep_status_busy_until_last_worker_finishes(monkeypatch):
+    both_started = threading.Barrier(2)
+    release_second = threading.Event()
+    false_status_seen = threading.Event()
+    status_events = []
+    status_lock = threading.Lock()
+
+    class Callbacks:
+        def set_status(self, busy, label=""):
+            with status_lock:
+                status_events.append((busy, label))
+            if not busy:
+                false_status_seen.set()
+
+    def fake_runner_run(agent_name, task, **kwargs):
+        both_started.wait(timeout=5)
+        if task == "second":
+            assert release_second.wait(timeout=5)
+        return _worker_result(task)
+
+    monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: Callbacks())
+    monkeypatch.setattr(sub_agent_tool._runner, "run", fake_runner_run)
+    with sub_agent_tool._SUB_AGENT_STATUS_LOCK:
+        sub_agent_tool._SUB_AGENT_ACTIVE_RUNS = 0
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        first = executor.submit(
+            sub_agent_tool.run_tool,
+            {"agent_name": "general", "task": "first"},
+        )
+        second = executor.submit(
+            sub_agent_tool.run_tool,
+            {"agent_name": "general", "task": "second"},
+        )
+
+        assert json.loads(first.result(timeout=10))["status"] == "completed"
+        assert not false_status_seen.is_set()
+
+        release_second.set()
+        assert json.loads(second.result(timeout=10))["status"] == "completed"
+
+    assert [event for event in status_events if event[0] is False] == [(False, "")]
