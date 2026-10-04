@@ -39,7 +39,7 @@ from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 from ..runtime.observability.trusted_ingress import RawSocketPeerCaptureMiddleware
 from .app import app
 from .io import _web_server_log, web_human_ask, web_set_status
-from .rooms import _thread_ctx, web_manager
+from .rooms import _thread_ctx, get_context_web_room, web_manager
 
 
 def init_web():
@@ -115,7 +115,7 @@ def init_web():
     original_run_tool = tools.run_tool
 
     def _resolve_web_room():
-        room = getattr(_thread_ctx, "room", None)
+        room = get_context_web_room() or getattr(_thread_ctx, "room", None)
         if room is not None:
             return room
         try:
