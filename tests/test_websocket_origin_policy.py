@@ -59,8 +59,9 @@ def test_explicit_websocket_origin_allowlist_is_exact(monkeypatch):
         "https://uag.corp.example,https://admin.corp.example:8443/",
     )
 
-    assert validate_websocket_origin(_Request("https://uag.corp.example")) == (
-        "https://uag.corp.example"
+    assert (
+        validate_websocket_origin(_Request("https://uag.corp.example"))
+        == "https://uag.corp.example"
     )
     assert (
         validate_websocket_origin(_Request("https://admin.corp.example:8443"))
