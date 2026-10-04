@@ -4,7 +4,18 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 
 from uagent.web_impl import io
-from uagent.web_impl.rooms import WebRoom
+from uagent.i18n import (
+    get_contextvar_locale,
+    reset_contextvar_locale,
+    set_contextvar_locale,
+)
+from uagent.runtime.identity_context import submit_with_current_context
+from uagent.web_impl.rooms import (
+    WebRoom,
+    get_context_web_room,
+    reset_context_web_room,
+    set_context_web_room,
+)
 
 
 def test_web_human_ask_serializes_requests_within_one_room(monkeypatch):
@@ -62,3 +73,23 @@ def test_web_human_ask_keeps_different_rooms_parallel(monkeypatch):
 
         assert first.result(timeout=5) == "room-a:first"
         assert second.result(timeout=5) == "room-b:second"
+
+
+def test_parallel_context_propagates_web_room_and_locale():
+    room = WebRoom("room-a")
+    room.lang = "ja"
+    room_token = set_context_web_room(room)
+    locale_token = set_contextvar_locale(room.lang)
+    try:
+        with ThreadPoolExecutor(max_workers=1) as executor:
+            future = submit_with_current_context(
+                executor,
+                lambda: (
+                    get_context_web_room().room_id,
+                    get_contextvar_locale(),
+                ),
+            )
+            assert future.result(timeout=5) == ("room-a", "ja")
+    finally:
+        reset_contextvar_locale(locale_token)
+        reset_context_web_room(room_token)
