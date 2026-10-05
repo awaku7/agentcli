@@ -404,7 +404,7 @@ not the normal chat-completions endpoint.
 - `UAGENT_LANG`: Host UI language (e.g., `en`, `ja`, `zh_CN`, `zh_TW`, `ko`, `th`, `es`, `fr`, `de`, `it`, `pt_BR`, `ru`).
 - `UAGENT_WORKDIR`: Default working directory for agent operations.
 - `UAGENT_WEB_HOST`: Web server bind address (default: `127.0.0.1`). Set to `0.0.0.0` to allow external access.
-- `UAGENT_WEB_ALLOWED_ORIGINS`: Comma-separated exact browser origins allowed to open `/ws` (for example `https://uag.example.com`). Non-local identity modes require this setting for WebSocket access. Wildcards are not accepted. Local mode defaults only to `http://localhost:8000`, `http://127.0.0.1:8000`, and `http://[::1]:8000`.
+- `UAGENT_WEB_ALLOWED_ORIGINS`: Comma-separated exact browser origins allowed to open `/ws` (for example `https://uag.example.com`). Non-local identity modes require this setting for WebSocket access. Wildcards are not accepted. Local mode defaults only to `http://localhost:8000`, `http://127.0.0.1:8000`, `http://[::1]:8000`, and the Vite development origin `http://localhost:5173`.
 - `UAGENT_STREAMING`: Enable/disable streaming LLM responses (`1`: Enabled(default), `0`: Disabled).
 - `UAGENT_VERBOSITY`: Output verbosity level (`off`, `low`, `medium`, `high`).
 - `UAGENT_DEBUG_ENDPOINT`: Set to `1` to output endpoint and model info at startup.
