@@ -21,7 +21,7 @@ def _write_catalog(path: Path, data: dict[str, object]) -> None:
     )
 
 
-def test_status_defaults_to_all_non_english_locales_and_finds_missing_blocks(
+def test_status_defaults_to_all_non_english_locales_without_adding_blocks(
     tmp_path: Path, capsys
 ) -> None:
     tools_dir = tmp_path / "tools"
@@ -44,6 +44,31 @@ def test_status_defaults_to_all_non_english_locales_and_finds_missing_blocks(
     assert rc == 0
     assert "tools_scanned: 1" in output
     assert f"languages_scanned: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
+    assert "missing_units: 0" in output
+
+
+def test_status_add_lang_reports_missing_locale_blocks(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"en": {"tool.description": "Hello"}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--add-lang",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    output = capsys.readouterr().out
+    assert rc == 0
     assert f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
 
 
