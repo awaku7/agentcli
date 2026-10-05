@@ -85,7 +85,7 @@
     "tool.description": "통제된 방식으로 Python 코드를 실행하세요. 계산, 데이터 처리 또는 짧은 스크립트 실행에 이 도구를 사용하십시오. 이 도구를 사용하기 전에 `tool_catalog`를 통해 다른 적합한 도구를 검색하세요."
   },
   "de": {
-    "param.code.description": "Python-Code.",
+    "param.code.description": "Auszuführender Python-Code.",
     "x_search_terms": [
       "Python Exec",
       "Python ausführen",
@@ -306,7 +306,7 @@
     "tool.description": "Kjør Python-koden på en kontrollert måte. Bruk dette verktøyet til beregninger, databehandling eller kjøring av korte skript. Søk etter andre passende verktøy via `tool_catalog` før du bruker dette verktøyet."
   },
   "nl": {
-    "param.code.description": "Python-code.",
+    "param.code.description": "Uit te voeren Python-code.",
     "x_search_terms": [
       "python-exec",
       "python uitvoeren",
@@ -578,7 +578,7 @@
     "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument."
   },
   "fil": {
-    "param.code.description": "Python code.",
+    "param.code.description": "Python code na ipapatakbo.",
     "x_search_terms": [
       "python exec",
       "magpatakbo ng python",

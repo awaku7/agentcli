@@ -179,7 +179,7 @@
       "aufgabenwarteschlange"
     ],
     "param.action.description": "Aktion: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch-ID.",
+    "param.batch_id.description": "Kennung des Batches.",
     "param.task_description.description": "Kurze Beschreibung der Batch-Aufgabe.",
     "param.instructions.description": "Detaillierte Anweisungen für die Batch-Aufgabe.",
     "param.message.description": "Protokollnachricht zum Anhängen.",
@@ -188,7 +188,7 @@
     "param.current_target.description": "Index der aktuellen Zielgruppe.",
     "param.file.description": "Zieldatei für complete_file/skip_file/error_file.",
     "param.reason.description": "Grund für skip_file/error_file oder eine kurze Abschlussnotiz.",
-    "param.status.description": "Batch-Status.",
+    "param.status.description": "Status des Batches.",
     "param.remaining_files.description": "Dateien der aktuellen Zielgruppe.",
     "err.batch_exists": "",
     "err.exception": "",
@@ -773,7 +773,7 @@
       "uppgiftskö"
     ],
     "param.action.description": "Åtgärd: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch-ID.",
+    "param.batch_id.description": "ID för batchen.",
     "param.task_description.description": "Kort sammanfattning av batchuppgiften.",
     "param.instructions.description": "Detaljerade instruktioner för batchuppgiften.",
     "param.message.description": "Loggmeddelande att lägga till.",
@@ -839,7 +839,7 @@
       "oppgavekø"
     ],
     "param.action.description": "Handling: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch-ID.",
+    "param.batch_id.description": "ID for batchen.",
     "param.task_description.description": "Kort oppsummering av batch-oppgaven.",
     "param.instructions.description": "Detaljerte instruksjoner for batch-oppgaven.",
     "param.message.description": "Loggmelding som skal legges til.",
@@ -872,7 +872,7 @@
       "takenwachtrij"
     ],
     "param.action.description": "Actie: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch-ID.",
+    "param.batch_id.description": "ID van de batch.",
     "param.task_description.description": "Korte samenvatting van de batchtaak.",
     "param.instructions.description": "Gedetailleerde instructies voor de batchtaak.",
     "param.message.description": "Logbericht om toe te voegen.",
@@ -1037,7 +1037,7 @@
       "คิวงาน"
     ],
     "param.action.description": "การดำเนินการ: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch ID",
+    "param.batch_id.description": "รหัสแบตช์.",
     "param.task_description.description": "สรุปสั้น ๆ ของงานแบตช์",
     "param.instructions.description": "คำแนะนำโดยละเอียดสำหรับงานแบตช์",
     "param.message.description": "ข้อความบันทึกที่จะเพิ่ม",
@@ -1136,7 +1136,7 @@
       "pila ng gawain"
     ],
     "param.action.description": "Aksyon: init/load/status/kasalukuyan/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
+    "param.batch_id.description": "ID ng batch.",
     "param.task_description.description": "Maikling paglalarawan ng batch na gawain.",
     "param.instructions.description": "Mga detalyadong tagubilin para sa gawain ng batch.",
     "param.message.description": "Mag-log ng mensahe upang idagdag.",
@@ -1202,7 +1202,7 @@
       "opgavekø"
     ],
     "param.action.description": "Handling: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
+    "param.batch_id.description": "ID for batchen.",
     "param.task_description.description": "Kort beskrivelse af batchopgaven.",
     "param.instructions.description": "Detaljerede instruktioner til batchopgaven.",
     "param.message.description": "Logmeddelelse, der skal tilføjes.",
@@ -1211,7 +1211,7 @@
     "param.current_target.description": "Indeks over den aktuelle målgruppe.",
     "param.file.description": "Målfil for complete_file/skip_file/error_file. Hvis den udelades, bruges den aktuelle fil.",
     "param.reason.description": "Årsag til skip_file/error_file, eller en kort note til færdiggørelse.",
-    "param.status.description": "Batch status.",
+    "param.status.description": "Status for batchen.",
     "param.remaining_files.description": "Filer i den aktuelle målgruppe. Foretrækker mål.",
     "err.batch_exists": "",
     "err.exception": "",
@@ -1235,7 +1235,7 @@
       "oppgavekø"
     ],
     "param.action.description": "Handling: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch-ID.",
+    "param.batch_id.description": "ID for batchen.",
     "param.task_description.description": "Kort beskrivelse av batchoppgaven.",
     "param.instructions.description": "Detaljerte instruksjoner for batchoppgaven.",
     "param.message.description": "Loggmelding som skal legges til.",
