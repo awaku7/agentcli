@@ -40,12 +40,18 @@ The V3 Web path is now connected beyond the original store-only stage. The curre
 runtime includes:
 
 - browser-facing WebSocket handshakes enforce an exact Origin allowlist before
-  identity resolution or room access. Non-local identity modes require
-  `UAGENT_WEB_ALLOWED_ORIGINS`; malformed, opaque, control-character, wildcard,
-  and non-allowlisted origins fail closed. Origin normalization must not collapse
+  identity resolution or room access. State-changing HTTP methods
+  (`POST` / `PUT` / `PATCH` / `DELETE`) pass through the same Origin boundary
+  before route handling. Non-local identity modes require
+  `UAGENT_WEB_ALLOWED_ORIGINS` and reject missing Origin on HTTP mutations;
+  local mode keeps missing-Origin compatibility for non-browser clients, but any
+  supplied Origin must still match exactly. Malformed, opaque, control-character,
+  wildcard, non-ASCII, browser-noncanonical numeric, scoped IPv6, and
+  non-allowlisted origins fail closed. Origin normalization must not collapse
   distinct hosts such as trailing-dot and non-trailing-dot forms. Keep
-  `tests/test_websocket_origin_policy.py` in the regression set when changing
-  Web authentication or WebSocket connection setup;
+  `tests/test_websocket_origin_policy.py` and
+  `tests/test_web_authorization_hardening.py` in the regression set when changing
+  Web authentication, WebSocket connection setup, or HTTP mutation routing;
 - immutable `IdentityContext` / `TurnContext` propagation and OIDC Web sessions;
 - Project membership plus server-bound ProjectContext and Room-to-Project binding;
 - Personal Memory, revision-bound read grants, received shared-memory references,
