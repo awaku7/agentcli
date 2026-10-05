@@ -51,6 +51,50 @@ DEFAULT_TOOLS_DIR = ROOT / "src" / "uagent" / "tools"
 DEFAULT_TOOL_DIRS = (DEFAULT_TOOLS_DIR, ROOT / "src" / "uagent" / "tools_rust")
 DEFAULT_TMP_DIR = ROOT / "tmp" / "tool_json_i18n"
 
+SUPPORTED_TOOL_LOCALES = (
+    "ar",
+    "bn",
+    "cs",
+    "da",
+    "de",
+    "el",
+    "en",
+    "es",
+    "fa",
+    "fi",
+    "fil",
+    "fr",
+    "he",
+    "hi",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "ko",
+    "mn",
+    "mr",
+    "ms",
+    "nb",
+    "nl",
+    "nn",
+    "pl",
+    "pt",
+    "pt_BR",
+    "ro",
+    "ru",
+    "sv",
+    "sw",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh_CN",
+    "zh_TW",
+)
+SUPPORTED_TARGET_LOCALES = tuple(
+    lang for lang in SUPPORTED_TOOL_LOCALES if lang != "en"
+)
+
 LANG_KEY_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Za-z]{2})?$")
 # Match both {name} and %(name)s style placeholders for QC.
 PLACEHOLDER_RE = re.compile(
@@ -637,10 +681,18 @@ def cmd_status(args: argparse.Namespace) -> int:
         only_existing_lang=not args.add_lang,
     )
     by: dict[tuple[str, str], int] = {}
+    by_lang: dict[str, int] = {}
     for u in units:
         by[(u.tool, u.lang)] = by.get((u.tool, u.lang), 0) + 1
+        by_lang[u.lang] = by_lang.get(u.lang, 0) + 1
     print(f"tools_scanned: {len(files)}")
+    print(f"languages_scanned: {len(langs)}")
     print(f"missing_units: {len(units)}")
+    print(f"affected_tool_language_pairs: {len(by)}")
+    if by_lang:
+        print("missing_by_language:")
+        for lang, n in sorted(by_lang.items()):
+            print(f"  {lang:8s} {n}")
     for (tool, lang), n in sorted(by.items()):
         print(f"  {tool:40s} {lang:8s} {n}")
     return 0
@@ -747,7 +799,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--langs",
         required=False,
         default="",
-        help="Comma-separated target langs (e.g. ja,de,fr). Required except status can use all gaps.",
+        help=(
+            "Comma-separated target langs (e.g. ja,de,fr). "
+            "Required except status, which defaults to all 37 non-English locales."
+        ),
     )
     p.add_argument(
         "--tools",
@@ -817,15 +872,11 @@ def main(argv: list[str] | None = None) -> int:
     args.keys_set = _parse_tools(args.keys)
     args.langs_list = _parse_langs(args.langs)
 
-    if args.command != "status" and not args.langs_list:
-        # For status without langs: scan common gaps against all non-en blocks present?
-        # Require explicit langs for mutating commands.
-        if args.command == "status":
-            # default: report ja only as a quick pulse, else user should pass --langs
-            args.langs_list = ["ja"]
-        else:
-            print("error: --langs is required", file=sys.stderr)
-            return 2
+    if args.command == "status" and not args.langs_list:
+        args.langs_list = list(SUPPORTED_TARGET_LOCALES)
+    elif not args.langs_list:
+        print("error: --langs is required", file=sys.stderr)
+        return 2
 
     Path(args.tmp_dir).mkdir(parents=True, exist_ok=True)
 
