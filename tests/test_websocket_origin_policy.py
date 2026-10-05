@@ -189,6 +189,10 @@ def test_request_origin_rejects_control_characters_before_trimming(monkeypatch):
         "https://-bad.example",
         "https://bad-.example",
         "https://[v1.evil.com]",
+        "http://127.1:8000",
+        "http://2130706433:8000",
+        "http://0x7f000001:8000",
+        "http://0177.0.0.1:8000",
     ],
 )
 def test_configured_origin_rejects_invalid_hostnames(monkeypatch, origin):
