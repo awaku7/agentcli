@@ -592,9 +592,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 "list is currently supported for ISO images only; "
                 "use info for CHD metadata"
             )
-        return _json(
-            _chd_action(action, path, output_raw, overwrite, timeout_seconds)
-        )
+        return _json(_chd_action(action, path, output_raw, overwrite, timeout_seconds))
     except subprocess.TimeoutExpired as exc:
         return _json(
             {
