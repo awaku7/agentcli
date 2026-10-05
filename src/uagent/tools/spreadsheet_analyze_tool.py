@@ -32,6 +32,13 @@ TOOL_SPEC: dict[str, Any] = {
                 "vba analysis",
             ],
         ),
+        "x_search_terms_en": [
+            "spreadsheet analysis",
+            "xlsx analysis",
+            "xlsm analysis",
+            "formula dependencies",
+            "vba analysis",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -29,6 +29,11 @@ TOOL_SPEC: dict[str, Any] = {
             "x_search_terms",
             default=["mcp resources", "mcp resource", "read mcp resource"],
         ),
+        "x_search_terms_en": [
+            "mcp resources",
+            "mcp resource",
+            "read mcp resource",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

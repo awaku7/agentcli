@@ -54,6 +54,14 @@ TOOL_SPEC: dict[str, Any] = {
             "x_search_terms",
             default=["markdown", "format", "lint", "mdformat", "md", "style"],
         ),
+        "x_search_terms_en": [
+            "markdown",
+            "format",
+            "lint",
+            "mdformat",
+            "md",
+            "style",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

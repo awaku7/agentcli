@@ -34,6 +34,12 @@ TOOL_SPEC: dict[str, Any] = {
                 "analyze xlsm",
             ],
         ),
+        "x_search_terms_en": [
+            "xlsm analysis",
+            "excel macro analysis",
+            "vba analysis",
+            "analyze xlsm",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

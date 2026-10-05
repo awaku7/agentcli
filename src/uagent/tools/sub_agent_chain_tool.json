@@ -1414,12 +1414,12 @@
     "param.step.timeout.description": "LLM timeout para sa hakbang na ito. Default 120.",
     "param.step.max_retries.description": "Sinusubukang muli ng Max para sa hakbang na ito. Default 2.",
     "x_search_terms": [
-      "chain",
-      "sequence",
+      "kadena",
+      "pagkakasunod-sunod",
       "pipeline",
-      "orchestrate",
-      "multi-step",
-      "workflow"
+      "orkestrasyon",
+      "maramihang hakbang",
+      "daloy ng trabaho"
     ],
     "param.step.max_tool_turns.description": "Max multi-turn na pakikipag-ugnayan para sa hakbang na ito. 3 = inirerekomenda. Default 3.",
     "param.step.max_agent_rounds.description": "Pinakamataas na bilang ng autonomous work rounds, kasama ang unang round. Default: 3.",
