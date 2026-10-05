@@ -249,7 +249,12 @@ TOOL_SPEC = {
 #    #   overwrite=False,
 #    # )
 #    # Efficient batch (recommended for many keys/langs):
+#    # python scripts/tool_json_i18n_batch.py status
+#    #   -> scans all 37 shipped non-English locales that each tool already has
+#    #      and reports empty/missing/same-as-English values.
 #    # python scripts/tool_json_i18n_batch.py status --langs ja,es,de
+#    # python scripts/tool_json_i18n_batch.py status --add-lang
+#    #   -> also treats absent locale blocks as missing.
 #    # python scripts/tool_json_i18n_batch.py run --tools my_tool --langs es --apply
 #    # Artifacts land in tmp/tool_json_i18n/<lang>/ (gitignored).
 # 4. Validate syntax
@@ -266,7 +271,7 @@ python scripts/i18n_tools_check.py
 | Script | Purpose |
 |--------|---------|
 | `scripts/i18n_tools_check.py` | Validate all `*_tool.json` files for missing keys, broken placeholders, etc. |
-| `scripts/tool_json_i18n_batch.py` | Extract missing values to `tmp/`, batch-translate via `translate_text`, merge back. |
+| `scripts/tool_json_i18n_batch.py` | Report missing/same-as-English values, extract them to `tmp/`, batch-translate via `translate_text`, and merge back. `status` without `--langs` scans all 37 shipped non-English locale codes for language blocks already present. |
 
 ### Note about return values
 
