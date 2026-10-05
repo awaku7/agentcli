@@ -129,7 +129,7 @@
     "param.args.description": "An MCP weiterzugebende Werkzeugargumente.",
     "err.tool_name_required": "Fehler: Werkzeugname ist erforderlich.",
     "err.stdio_url_invalid": "Fehler: Ungültige stdio-URL",
-    "param.protocol_mode.description": "MCP-Protokollmodus: auto, legacy (zustandsbehaftetes SDK) oder stateless HTTP. Verwenden Sie stateless für zustandslose Server; verwenden Sie auto oder legacy für Streamable-HTTP-Server, die eine Sitzung erfordern."
+    "param.protocol_mode.description": "MCP-Protokollmodus: auto, legacy (zustandsbehaftetes SDK) oder stateless HTTP. Verwenden Sie stateless für zustandslose Server; verwenden Sie auto oder legacy für Streamable HTTP-Server, die eine Sitzung erfordern."
   },
   "it": {
     "param.server_name.description": "Nome del server definito in mcp_servers.json. Se specificato, ha priorità su url.",
