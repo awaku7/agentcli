@@ -50,6 +50,22 @@ def test_non_local_websocket_origin_requires_explicit_allowlist(monkeypatch):
         validate_websocket_origin(_Request("https://uag.corp.example"))
 
 
+def test_ip_literal_origins_use_browser_canonical_serialization(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv(
+        "UAGENT_WEB_ALLOWED_ORIGINS",
+        "http://[2001:0db8::1]:8000",
+    )
+
+    assert configured_websocket_origins() == frozenset(
+        {"http://[2001:db8::1]:8000"}
+    )
+    assert (
+        validate_websocket_origin(_Request("http://[2001:db8::1]:8000"))
+        == "http://[2001:db8::1]:8000"
+    )
+
+
 def test_trailing_dot_origin_is_not_collapsed(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setenv(
