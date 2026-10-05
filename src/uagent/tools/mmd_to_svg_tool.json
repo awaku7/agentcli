@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert a Mermaid Markdown (.mmd) file to an SVG diagram locally. Japanese and other supported scripts are handled when suitable fonts are available.",
-    "x_search_terms": [
-      "mmd to svg",
-      "Mermaid Markdown to SVG",
-      "Mermaid file converter",
-      "Mermaid SVG",
-      "convert .mmd"
-    ],
-    "param.mmd.description": "Path to the input Mermaid Markdown (.mmd) file.",
-    "param.output_path.description": "Output SVG path. It must end in .svg.",
-    "param.theme.description": "Mermaid theme.",
-    "param.include_base64.description": "Include base64 SVG data for remote clients. Default: true.",
-    "error.mmd_required": "mmd is required",
-    "error.output_required": "output_path is required",
-    "error.input_not_found": "Mermaid Markdown file was not found: %(path)s",
-    "error.input_extension": "The input file must have a .mmd or .mermaid extension.",
-    "error.output_extension": "output_path must end in .svg."
-  },
   "ja": {
     "tool.description": "Mermaid Markdown (.mmd) ファイルをローカルで SVG 図に変換します。適切なフォントが利用可能な場合、日本語およびその他のサポートされているスクリプトが処理されます。",
     "x_search_terms": [

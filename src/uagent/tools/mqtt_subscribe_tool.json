@@ -1,28 +1,4 @@
 {
-  "en": {
-    "tool.description": "Subscribe to an MQTT topic. Messages are automatically forwarded to the LLM via SchedulerStore.",
-    "param.host.description": "MQTT broker hostname or IP.",
-    "param.port.description": "MQTT broker port.",
-    "param.topic.description": "MQTT topic to subscribe to (wildcards supported).",
-    "param.qos.description": "QoS level (0, 1, 2).",
-    "param.label.description": "Human-readable label for this subscription.",
-    "param.on_message_prompt.description": "Optional LLM prompt when a message arrives.",
-    "param.username.description": "MQTT username (optional).",
-    "param.password.description": "MQTT password (optional).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.subscribed": "MQTT subscribed: {label} [{topic}] @ {host}",
-    "param.use_tls.description": "Enable TLS/SSL (MQTTS). Default port becomes 8883.",
-    "param.insecure.description": "Skip TLS certificate verification (insecure).",
-    "x_search_terms": [
-      "mqtt subscribe",
-      "mqtt_subscribe",
-      "mqtt",
-      "MQTT",
-      "topic",
-      "messages",
-      "automatically"
-    ]
-  },
   "ar": {
     "tool.description": "اشترك في موضوع MQTT. تتم إعادة توجيه الرسائل تلقائيًا إلى LLM عبر جدولة Storer.",
     "param.host.description": "اسم مضيف وسيط MQTT أو IP.",

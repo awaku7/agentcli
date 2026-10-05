@@ -1,31 +1,4 @@
 {
-  "en": {
-    "tool.description": "Poll Modbus registers repeatedly and detect changes. Returns a summary of all detected changes.",
-    "param.ip.description": "Target device IPv4 address.",
-    "param.port.description": "Modbus TCP port.",
-    "param.unit.description": "Modbus unit ID.",
-    "param.type.description": "Register type to monitor.",
-    "param.address.description": "Starting register address.",
-    "param.count.description": "Number of registers to monitor.",
-    "param.interval.description": "Polling interval in seconds (minimum 2).",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "Modbus monitor: {count} change(s) in {ms} ms.",
-    "msg.no_changes": "No changes detected.",
-    "err.ip_required": "ip is required.",
-    "x_search_terms": [
-      "modbus monitor",
-      "modbus_monitor",
-      "modbus",
-      "MODBUS",
-      "registers",
-      "repeatedly",
-      "detect",
-      "changes",
-      "returns"
-    ],
-    "param.timeout.description": "Timeout per read (seconds)."
-  },
   "ar": {
     "tool.description": "يسجل استطلاع Modbus بشكل متكرر ويكشف عن التغييرات. إرجاع ملخص لجميع التغييرات المكتشفة.",
     "param.ip.description": "عنوان IPv4 للجهاز المستهدف.",

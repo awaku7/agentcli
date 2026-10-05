@@ -1,14 +1,4 @@
 {
-  "en": {
-    "tool.description": "Check network tool dependencies, external commands, and privilege state.",
-    "x_search_terms": [
-      "network capabilities",
-      "preflight",
-      "nmap installed",
-      "tshark installed",
-      "privilege check"
-    ]
-  },
   "ar": {
     "tool.description": "تحقق من تبعيات أدوات الشبكة والأوامر الخارجية وحالة الامتياز.",
     "x_search_terms": [

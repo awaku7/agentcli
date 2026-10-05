@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse a Makefile into a numbered index of targets, variables, includes, conditionals, and define blocks, or return one selected section. Use mode='index' first for a table of contents, then mode='section' with the section number to read only the required block.",
-    "param.path.description": "Path to the Makefile.",
-    "param.mode.description": "\"index\" returns a numbered table of contents; \"section\" returns one selected block.",
-    "param.section.description": "1-based section number, used only when mode='section'.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.read_error": "Error reading file: {e}",
-    "err.file_not_found": "Error: File not found: {path}",
-    "msg.no_entries": "No Makefile definitions found.",
-    "err.invalid_mode": "Error: mode must be 'index' or 'section'.",
-    "err.invalid_section": "Error: section must be between 1 and {count}.",
-    "err.parse_error": "Error parsing Makefile: {e}",
-    "x_search_terms": [
-      "read Makefile",
-      "Makefile index",
-      "make target list",
-      "makefile parser",
-      "GNU Make targets",
-      "Makefile sections",
-      "mk2idx"
-    ]
-  },
   "ar": {
     "tool.description": "قم بتحليل Makefile في فهرس مرقّم للأهداف، والمتغيرات، والتضمينات، والشروط، وكتل define، أو قم بإرجاع قسم واحد محدد. استخدم mode='index' أولاً لجدول المحتويات، ثم mode='section' مع رقم القسم لقراءة الكتلة المطلوبة فقط.",
     "param.path.description": "المسار إلى Makefile.",

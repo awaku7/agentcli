@@ -1,17 +1,4 @@
 {
-  "en": {
-    "tool.description": "Discover TCP ports using a low-privilege Python socket backend.",
-    "param.mode.description": "Discovery mode.",
-    "param.target.description": "Single host or IP address.",
-    "param.ports.description": "TCP ports to check.",
-    "param.timeout.description": "Connection timeout in seconds.",
-    "x_search_terms": [
-      "network discovery",
-      "port scan",
-      "tcp scan",
-      "open port"
-    ]
-  },
   "ar": {
     "tool.description": "اكتشف منافذ TCP باستخدام واجهة مقبس Python الخلفية ذات الامتيازات المنخفضة.",
     "param.mode.description": "وضع الاكتشاف.",

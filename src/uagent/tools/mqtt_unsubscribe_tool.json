@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Cancel an MQTT subscription by subscription_id, or list active subscriptions.",
-    "param.action.description": "Action: 'unsubscribe' or 'list'.",
-    "param.subscription_id.description": "Subscription ID to cancel.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.no_subscriptions": "No active MQTT subscriptions.",
-    "msg.header": "Active MQTT subscriptions ({count}):",
-    "msg.unsubscribed": "MQTT subscription {id} cancelled.",
-    "err.id_required": "subscription_id is required.",
-    "x_search_terms": [
-      "mqtt unsubscribe",
-      "mqtt_unsubscribe",
-      "mqtt",
-      "MQTT",
-      "cancel",
-      "subscription",
-      "subscription_id"
-    ]
-  },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك MQTT بواسطة Subscription_id، أو قم بإدراج الاشتراكات النشطة.",
     "param.action.description": "الإجراء: \"إلغاء الاشتراك\" أو \"القائمة\".",

@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert supported Mermaid flowcharts into editable Excel shapes without pywin32, including connectors, labels, styles, subgraphs, and automatic sizing.",
-    "x_search_terms": [
-      "mermaid",
-      "excel",
-      "xlsx",
-      "shapes",
-      "flowchart",
-      "subgraph",
-      "connectors",
-      "diagram"
-    ],
-    "param.mermaid.description": "Mermaid source text.",
-    "param.source_path.description": "Optional Mermaid file path.",
-    "param.output_path.description": "Output .xlsx path.",
-    "error.source_required": "mermaid or source_path is required",
-    "error.output_required": "output_path is required",
-    "error.output_extension": "output_path must end with .xlsx"
-  },
   "ja": {
     "tool.description": "対応しているMermaidフローチャートを、コネクタ・ラベル・スタイル・サブグラフ・自動サイズ調整付きの編集可能なExcel図形へ、pywin32なしで変換します。",
     "x_search_terms": [
