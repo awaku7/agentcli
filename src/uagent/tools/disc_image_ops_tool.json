@@ -1,0 +1,44 @@
+{
+  "en": {
+    "tool.description": "Inspect, list, verify, extract, or convert ISO and CHD disc images. ISO operations use pycdlib; CHD operations use xverter. Optional Python dependencies are auto-installed according to UAGENT_AUTO_INSTALL.",
+    "x_search_terms": [
+      "iso",
+      "chd",
+      "disc image",
+      "disk image",
+      "iso extract",
+      "iso list",
+      "chd verify",
+      "chd convert",
+      "rom image"
+    ],
+    "param.action.description": "Operation to perform.",
+    "param.path.description": "Input ISO or CHD path under the current workdir.",
+    "param.output.description": "Destination path for extract/convert. Convert supports ISO to CHD or CHD to ISO through xverter; extract uses a directory.",
+    "param.path_type.description": "ISO filename namespace to use. auto prefers UDF, Rock Ridge, then Joliet.",
+    "param.deep.description": "For ISO verify, read every file byte. CHD verify always uses xverter integrity verification.",
+    "param.overwrite.description": "Allow replacing existing output files or extracting into a non-empty directory.",
+    "param.timeout_seconds.description": "Maximum time for CHD info/verify/convert operations."
+  },
+  "ja": {
+    "tool.description": "ISO/CHD ディスクイメージの情報取得、一覧、検証、展開、変換を行います。ISO は pycdlib、CHD は xverter を使用し、未導入の Python 依存は UAGENT_AUTO_INSTALL ポリシーに従って自動インストールします。",
+    "x_search_terms": [
+      "ISO",
+      "CHD",
+      "ディスクイメージ",
+      "ISO展開",
+      "ISO一覧",
+      "CHD検証",
+      "CHD変換",
+      "ROMイメージ",
+      "ゲームイメージ"
+    ],
+    "param.action.description": "実行する操作。",
+    "param.path.description": "現在の workdir 配下にある入力 ISO/CHD のパス。",
+    "param.output.description": "展開・変換の出力先。変換は xverter による ISO→CHD または CHD→ISO、展開はディレクトリを指定します。",
+    "param.path_type.description": "ISO のファイル名名前空間。auto は UDF、Rock Ridge、Joliet の順に優先します。",
+    "param.deep.description": "ISO の verify では全ファイル内容まで読み取ります。CHD verify は常に xverter の整合性検証を使用します。",
+    "param.overwrite.description": "既存出力の置換、または空でないディレクトリへの展開を許可します。",
+    "param.timeout_seconds.description": "CHD の情報取得・検証・変換に許可する最大実行時間。"
+  }
+}
