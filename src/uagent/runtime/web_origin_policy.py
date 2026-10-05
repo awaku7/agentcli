@@ -79,7 +79,7 @@ def _normalize_origin(value: str) -> str:
             raise ValueError("bracketed origin host must be an IP literal")
         dns_host = host[:-1] if host.endswith(".") else host
         final_label = dns_host.rsplit(".", 1)[-1]
-        if re.fullmatch(r"(?:0x[0-9a-f]+|[0-9]+)", final_label):
+        if re.fullmatch(r"(?:0x[0-9a-f]*|[0-9]+)", final_label):
             raise ValueError("numeric-suffix origin host is invalid")
         if not dns_host or dns_host.endswith(".") or len(host) > 254:
             raise ValueError("origin host is invalid")
