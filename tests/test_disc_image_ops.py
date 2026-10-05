@@ -145,7 +145,6 @@ def test_iso_to_chd_convert_uses_xverter(repo_tmp_path: Path, monkeypatch) -> No
     assert Path(seen[0][3]) != out_path
 
 
-
 def test_chd_convert_rejects_source_output_alias(
     repo_tmp_path: Path, monkeypatch
 ) -> None:
