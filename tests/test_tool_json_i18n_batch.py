@@ -100,13 +100,11 @@ def test_status_reports_english_matches_as_review_candidates(
     assert f"languages_scanned: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
     assert "missing_units: 0" in output
     assert (
-        f"same_as_english_candidates: {len(batch.SUPPORTED_TARGET_LOCALES)}"
-        in output
+        f"same_as_english_candidates: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
     )
     assert f"review_candidates: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
     assert (
-        f"affected_tool_language_pairs: {len(batch.SUPPORTED_TARGET_LOCALES)}"
-        in output
+        f"affected_tool_language_pairs: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
     )
     assert "same_as_english_by_language:" in output
     assert "ja       1" in output
