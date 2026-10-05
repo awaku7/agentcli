@@ -76,6 +76,7 @@ tools = [
     "paho-mqtt",
     "pillow",
     "playwright",
+    "pycdlib>=1.21.0",
     "prophet",
     "psutil",
     "pymodbus",
@@ -92,6 +93,7 @@ tools = [
     "statsforecast",
     "striprtf",
     "upnpy",
+    "xverter>=1.5.0",
 ]
 sbom = [
     "cyclonedx-python-lib>=8.0.0",
@@ -132,6 +134,7 @@ test = [
     "pygments",
     "pdfplumber",
     "pint",
+    "pycdlib>=1.21.0",
     "pandas",
     "openpyxl",
     "python-pptx",

@@ -61,6 +61,8 @@ _ALLOWED_PACKAGES = {
         "beautifulsoup4",
         "python-magic",
         "python-magic-bin",
+        "pycdlib",
+        "xverter",
         "CairoSVG",
         # Computer/network/automation packages.
         "playwright",
