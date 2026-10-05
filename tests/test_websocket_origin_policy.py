@@ -158,7 +158,9 @@ def test_configured_origin_rejects_control_characters(monkeypatch, origin):
         "https://a.example,https://b.example\r",
     ],
 )
-def test_configured_origin_rejects_controls_before_segment_trimming(monkeypatch, origin):
+def test_configured_origin_rejects_controls_before_segment_trimming(
+    monkeypatch, origin
+):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setattr(
         web_origin_policy,
