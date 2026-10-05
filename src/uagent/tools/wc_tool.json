@@ -156,10 +156,10 @@
     ]
   },
   "pl": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Rozmiar bufora odczytu w bajtach; większe wartości przyspieszają przetwarzanie dużych plików.",
+    "param.paths.description": "Pliki do zliczenia.",
+    "param.return.description": "Format wyjściowy.",
+    "tool.description": "Szybko i tylko do odczytu zlicza w plikach wiersze, słowa, bajty i znaki.",
     "x_search_terms": [
       "wc",
       "liczba słów",
@@ -195,10 +195,10 @@
     ]
   },
   "sv": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Läsbuffertens storlek i byte; större värden är snabbare för stora filer.",
+    "param.paths.description": "Filer som ska räknas.",
+    "param.return.description": "Utdataformat.",
+    "tool.description": "Snabb skrivskyddad räkning av rader, ord, byte och tecken i filer.",
     "x_search_terms": [
       "wc",
       "ord count",
@@ -208,10 +208,10 @@
     ]
   },
   "sw": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Ukubwa wa bafa ya kusoma kwa baiti; thamani kubwa huwa haraka zaidi kwa faili kubwa.",
+    "param.paths.description": "Faili za kuhesabu.",
+    "param.return.description": "Muundo wa matokeo.",
+    "tool.description": "Hesabu ya haraka ya kusoma pekee ya mistari, maneno, baiti na herufi katika faili.",
     "x_search_terms": [
       "wc",
       "hesabu ya maneno",
@@ -221,10 +221,10 @@
     ]
   },
   "nb": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Størrelse på lesebuffer i byte; større verdier er raskere for store filer.",
+    "param.paths.description": "Filer som skal telles.",
+    "param.return.description": "Utdataformat.",
+    "tool.description": "Rask, skrivebeskyttet telling av linjer, ord, byte og tegn i filer.",
     "x_search_terms": [
       "wc",
       "ordtelling",
@@ -234,10 +234,10 @@
     ]
   },
   "nl": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Grootte van de leesbuffer in bytes; grotere waarden zijn sneller voor grote bestanden.",
+    "param.paths.description": "Bestanden om te tellen.",
+    "param.return.description": "Uitvoerformaat.",
+    "tool.description": "Snelle alleen-lezen telling van regels, woorden, bytes en tekens in bestanden.",
     "x_search_terms": [
       "wc",
       "aantal woorden",
@@ -247,10 +247,10 @@
     ]
   },
   "fi": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Lukupuskurin koko tavuina; suuremmat arvot nopeuttavat suurten tiedostojen käsittelyä.",
+    "param.paths.description": "Laskettavat tiedostot.",
+    "param.return.description": "Tulostusmuoto.",
+    "tool.description": "Nopea vain lukuun perustuva rivien, sanojen, tavujen ja merkkien laskenta tiedostoista.",
     "x_search_terms": [
       "wc",
       "sanojen määrä",
@@ -260,10 +260,10 @@
     ]
   },
   "cs": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Velikost čtecí vyrovnávací paměti v bajtech; větší hodnoty jsou rychlejší pro velké soubory.",
+    "param.paths.description": "Soubory, které se mají spočítat.",
+    "param.return.description": "Výstupní formát.",
+    "tool.description": "Rychlé počítání řádků, slov, bajtů a znaků v souborech pouze pro čtení.",
     "x_search_terms": [
       "wc",
       "počet slov",
@@ -273,10 +273,10 @@
     ]
   },
   "uk": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Розмір буфера читання в байтах; більші значення пришвидшують роботу з великими файлами.",
+    "param.paths.description": "Файли для підрахунку.",
+    "param.return.description": "Формат виводу.",
+    "tool.description": "Швидкий підрахунок рядків, слів, байтів і символів у файлах у режимі лише читання.",
     "x_search_terms": [
       "wc",
       "кількість слів",
@@ -286,10 +286,10 @@
     ]
   },
   "tr": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Bayt cinsinden okuma arabelleği boyutu; daha büyük değerler büyük dosyalarda daha hızlıdır.",
+    "param.paths.description": "Sayılacak dosyalar.",
+    "param.return.description": "Çıktı biçimi.",
+    "tool.description": "Dosyalardaki satır, sözcük, bayt ve karakterleri hızlı ve salt okunur biçimde sayar.",
     "x_search_terms": [
       "wc",
       "kelime sayısı",
@@ -299,10 +299,10 @@
     ]
   },
   "th": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "ขนาดบัฟเฟอร์สำหรับอ่านเป็นไบต์; ค่าที่มากขึ้นจะเร็วขึ้นสำหรับไฟล์ขนาดใหญ่",
+    "param.paths.description": "ไฟล์ที่ต้องการนับ",
+    "param.return.description": "รูปแบบผลลัพธ์",
+    "tool.description": "นับจำนวนบรรทัด คำ ไบต์ และอักขระในไฟล์อย่างรวดเร็วแบบอ่านอย่างเดียว",
     "x_search_terms": [
       "wc",
       "จำนวนคำ",
@@ -338,10 +338,10 @@
     ]
   },
   "bn": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "বাইটে রিড বাফারের আকার; বড় ফাইলের ক্ষেত্রে বড় মান দ্রুততর।",
+    "param.paths.description": "গণনা করার ফাইলসমূহ।",
+    "param.return.description": "আউটপুট ফরম্যাট।",
+    "tool.description": "ফাইলে লাইন, শব্দ, বাইট ও অক্ষরের দ্রুত read-only গণনা।",
     "x_search_terms": [
       "wc",
       "শব্দ গণনা",
@@ -351,10 +351,10 @@
     ]
   },
   "fa": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "اندازهٔ بافر خواندن بر حسب بایت؛ مقادیر بزرگ‌تر برای فایل‌های بزرگ سریع‌تر هستند.",
+    "param.paths.description": "فایل‌هایی که باید شمارش شوند.",
+    "param.return.description": "قالب خروجی.",
+    "tool.description": "شمارش سریع و فقط‌خواندنی خطوط، واژه‌ها، بایت‌ها و نویسه‌ها در فایل‌ها.",
     "x_search_terms": [
       "wc",
       "تعداد کلمات",
@@ -364,10 +364,10 @@
     ]
   },
   "mn": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Унших буферийн хэмжээг байтаар заана; том утга нь том файлд илүү хурдан.",
+    "param.paths.description": "Тоолох файлууд.",
+    "param.return.description": "Гаралтын формат.",
+    "tool.description": "Файл дахь мөр, үг, байт, тэмдэгтийн тоог хурдан бөгөөд зөвхөн унших горимоор тоолно.",
     "x_search_terms": [
       "wc",
       "үгний тоо",
@@ -377,10 +377,10 @@
     ]
   },
   "mr": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "वाचन बफरचा आकार बाइट्समध्ये; मोठ्या फाइल्ससाठी मोठी मूल्ये अधिक वेगवान असतात.",
+    "param.paths.description": "मोजायच्या फाइल्स.",
+    "param.return.description": "आउटपुट स्वरूप.",
+    "tool.description": "फाइलमधील ओळी, शब्द, बाइट्स आणि अक्षरे जलद व केवळ-वाचन पद्धतीने मोजते.",
     "x_search_terms": [
       "wc",
       "शब्द संख्या",
@@ -390,10 +390,10 @@
     ]
   },
   "el": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Μέγεθος buffer ανάγνωσης σε byte· μεγαλύτερες τιμές είναι ταχύτερες για μεγάλα αρχεία.",
+    "param.paths.description": "Αρχεία προς καταμέτρηση.",
+    "param.return.description": "Μορφή εξόδου.",
+    "tool.description": "Γρήγορη καταμέτρηση μόνο για ανάγνωση γραμμών, λέξεων, byte και χαρακτήρων σε αρχεία.",
     "x_search_terms": [
       "wc",
       " πλήθος λέξεων",
@@ -403,10 +403,10 @@
     ]
   },
   "he": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "גודל מאגר הקריאה בבתים; ערכים גדולים יותר מהירים יותר עבור קבצים גדולים.",
+    "param.paths.description": "קבצים לספירה.",
+    "param.return.description": "פורמט הפלט.",
+    "tool.description": "ספירה מהירה לקריאה בלבד של שורות, מילים, בתים ותווים בקבצים.",
     "x_search_terms": [
       "wc",
       "ספירת מילים",
@@ -416,10 +416,10 @@
     ]
   },
   "hu": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Az olvasási puffer mérete bájtban; nagy fájloknál a nagyobb értékek gyorsabbak.",
+    "param.paths.description": "A megszámlálandó fájlok.",
+    "param.return.description": "Kimeneti formátum.",
+    "tool.description": "Sorok, szavak, bájtok és karakterek gyors, csak olvasási számlálása fájlokban.",
     "x_search_terms": [
       "wc",
       "szószám",
@@ -429,10 +429,10 @@
     ]
   },
   "ro": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Dimensiunea bufferului de citire în octeți; valorile mai mari sunt mai rapide pentru fișiere mari.",
+    "param.paths.description": "Fișierele de numărat.",
+    "param.return.description": "Formatul ieșirii.",
+    "tool.description": "Numărare rapidă, doar în citire, a liniilor, cuvintelor, octeților și caracterelor din fișiere.",
     "x_search_terms": [
       "wc",
       "număr de cuvinte",
@@ -442,10 +442,10 @@
     ]
   },
   "fil": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Laki ng read buffer sa bytes; mas mabilis ang mas malalaking value para sa malalaking file.",
+    "param.paths.description": "Mga file na bibilangin.",
+    "param.return.description": "Format ng output.",
+    "tool.description": "Mabilis at read-only na pagbibilang ng mga linya, salita, byte, at character sa mga file.",
     "x_search_terms": [
       "wc",
       "bilang ng salita",
@@ -455,10 +455,10 @@
     ]
   },
   "ms": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Saiz penimbal bacaan dalam bait; nilai yang lebih besar lebih pantas untuk fail besar.",
+    "param.paths.description": "Fail untuk dikira.",
+    "param.return.description": "Format output.",
+    "tool.description": "Kiraan pantas baca sahaja bagi baris, perkataan, bait dan aksara dalam fail.",
     "x_search_terms": [
       "wc",
       "bilangan perkataan",
@@ -468,10 +468,10 @@
     ]
   },
   "da": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
+    "param.chunk_size.description": "Størrelse på læsebuffer i byte; større værdier er hurtigere for store filer.",
+    "param.paths.description": "Filer, der skal tælles.",
+    "param.return.description": "Outputformat.",
+    "tool.description": "Hurtig skrivebeskyttet optælling af linjer, ord, byte og tegn i filer.",
     "x_search_terms": [
       "wc",
       "ord count",
