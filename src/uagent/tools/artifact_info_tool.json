@@ -1,6 +1,6 @@
 {
   "ar": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "أعِد البيانات الوصفية لعنصر Artifact مملوك للجلسة ومحفوظ مسبقًا، دون قراءة حمولته.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -12,7 +12,7 @@
     "error.not_active_session": "لا ينتمي artifact إلى الجلسة النشطة"
   },
   "bn": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "আগে সংরক্ষিত সেশন-মালিকানাধীন Artifact-এর পেলোড না পড়ে তার মেটাডেটা ফেরত দিন।",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -24,7 +24,7 @@
     "error.not_active_session": "artifact সক্রিয় সেশনের অন্তর্গত নয়"
   },
   "cs": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Vrátí metadata dříve uloženého artefaktu vlastněného relací, aniž by četl jeho datový obsah.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -36,7 +36,7 @@
     "error.not_active_session": "artefakt nepatří k aktivní relaci"
   },
   "da": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Returnér metadata for et tidligere gemt sessions-ejet artifact uden at læse dets payload.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -48,7 +48,7 @@
     "error.not_active_session": "artefaktet hører ikke til den aktive session"
   },
   "de": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Gibt Metadaten für ein zuvor gespeichertes, sitzungseigenes Artefakt zurück, ohne dessen Nutzdaten zu lesen.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -60,7 +60,7 @@
     "error.not_active_session": "artifact gehört nicht zur aktiven Sitzung"
   },
   "el": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Επιστρέφει μεταδεδομένα για ένα προηγουμένως αποθηκευμένο artifact που ανήκει στη συνεδρία, χωρίς να διαβάζει το ωφέλιμο φορτίο του.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -84,7 +84,7 @@
     "error.not_active_session": "artifact does not belong to the active session"
   },
   "es": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Devuelve los metadatos de un artifact previamente almacenado y propiedad de la sesión sin leer su contenido.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -96,7 +96,7 @@
     "error.not_active_session": "El artefacto no pertenece a la sesión activa"
   },
   "fa": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "فرادادهٔ یک Artifact متعلق به نشست که قبلاً ذخیره شده است را بدون خواندن محتوای آن برمی‌گرداند.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -108,7 +108,7 @@
     "error.not_active_session": "آرتفکت به جلسه فعال تعلق ندارد."
   },
   "fi": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Palauttaa aiemmin tallennetun, istunnon omistaman artifactin metatiedot lukematta sen hyötykuormaa.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -120,7 +120,7 @@
     "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon"
   },
   "fil": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Ibalik ang metadata ng dati nang nakaimbak na Artifact na pag-aari ng session nang hindi binabasa ang payload nito.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -132,7 +132,7 @@
     "error.not_active_session": "Ang artifact ay hindi kabilang sa aktibong sesyon"
   },
   "fr": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Renvoie les métadonnées d’un artifact précédemment stocké et appartenant à la session, sans lire sa charge utile.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -144,7 +144,7 @@
     "error.not_active_session": "L'artefact n'appartient pas à la session active"
   },
   "he": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "מחזיר מטא-נתונים של Artifact שנשמר בעבר ושייך להפעלה, בלי לקרוא את המטען שלו.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -156,7 +156,7 @@
     "error.not_active_session": "הארטפקט אינו שייך למפגש הפעיל"
   },
   "hi": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "पहले से संग्रहीत, सत्र-स्वामित्व वाले Artifact का मेटाडेटा उसके पेलोड को पढ़े बिना लौटाएँ।",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -168,7 +168,7 @@
     "error.not_active_session": "artifact सक्रिय सत्र का हिस्सा नहीं है"
   },
   "hu": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Visszaadja egy korábban eltárolt, munkamenet-tulajdonú artifact metaadatait a payload beolvasása nélkül.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -180,7 +180,7 @@
     "error.not_active_session": "az artifact nem tartozik az aktív munkamenethez"
   },
   "id": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Mengembalikan metadata Artifact milik sesi yang sebelumnya disimpan tanpa membaca payload-nya.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -192,7 +192,7 @@
     "error.not_active_session": "artefak tidak termasuk dalam sesi aktif"
   },
   "it": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Restituisce i metadati di un artifact appartenente alla sessione e salvato in precedenza, senza leggerne il payload.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -216,7 +216,7 @@
     "error.not_active_session": "現在のセッションに属するArtifactではありません。"
   },
   "ko": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "이전에 저장된 세션 소유 Artifact의 페이로드를 읽지 않고 메타데이터를 반환합니다.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -228,7 +228,7 @@
     "error.not_active_session": "artifact는 활성 세션에 속하지 않습니다."
   },
   "mn": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Өмнө хадгалсан, сесс эзэмшдэг Artifact-ийн payload-ыг уншихгүйгээр мета өгөгдлийг буцаана.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -240,7 +240,7 @@
     "error.not_active_session": "artifact нь идэвхтэй сессэд харьяалагдахгүй"
   },
   "mr": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "पूर्वी साठवलेल्या, सत्र-मालकीच्या Artifact चे payload न वाचता त्याचे मेटाडेटा परत करा.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -252,7 +252,7 @@
     "error.not_active_session": "artifact सक्रिय सत्राशी संबंधित नाही"
   },
   "ms": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Kembalikan metadata Artifact milik sesi yang telah disimpan sebelum ini tanpa membaca payloadnya.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -264,7 +264,7 @@
     "error.not_active_session": "artifak tidak tergolong kepada sesi aktif"
   },
   "nb": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Returnerer metadata for en tidligere lagret, økteid artifact uten å lese payloaden.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -276,7 +276,7 @@
     "error.not_active_session": "artefaktet tilhører ikke den aktive økten"
   },
   "nl": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Retourneert metadata voor een eerder opgeslagen artifact dat eigendom is van de sessie, zonder de payload te lezen.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -288,7 +288,7 @@
     "error.not_active_session": "het artefact behoort niet tot de actieve sessie"
   },
   "nn": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Returnerer metadata for ein tidlegare lagra, økteigd artifact utan å lese payloaden.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -300,7 +300,7 @@
     "error.not_active_session": "artefakt høyrer ikkje til den aktive økta"
   },
   "pl": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Zwraca metadane wcześniej zapisanego artefaktu należącego do sesji bez odczytywania jego ładunku.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -312,7 +312,7 @@
     "error.not_active_session": "artefakt nie należy do aktywnej sesji"
   },
   "pt": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Devolve os metadados de um artifact pertencente à sessão e guardado anteriormente, sem ler o respetivo payload.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -324,7 +324,7 @@
     "error.not_active_session": "O artefacto não pertence à sessão ativa"
   },
   "pt_BR": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Retorna os metadados de um Artifact pertencente à sessão e armazenado anteriormente, sem ler seu payload.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -336,7 +336,7 @@
     "error.not_active_session": "o artefato não pertence à sessão ativa"
   },
   "ro": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Returnează metadatele unui artifact deținut de sesiune și salvat anterior, fără a-i citi conținutul.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -348,7 +348,7 @@
     "error.not_active_session": "artefactul nu aparține sesiunii active"
   },
   "ru": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Возвращает метаданные ранее сохранённого артефакта, принадлежащего сеансу, не считывая его содержимое.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -360,7 +360,7 @@
     "error.not_active_session": "артефакт не принадлежит активной сессии"
   },
   "sv": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Returnerar metadata för ett tidigare sparat, sessionsägt artifact utan att läsa dess payload.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -372,7 +372,7 @@
     "error.not_active_session": "artefakten tillhör inte den aktiva sessionen"
   },
   "sw": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Rudisha metadata ya Artifact inayomilikiwa na kipindi na iliyohifadhiwa awali bila kusoma payload yake.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -384,7 +384,7 @@
     "error.not_active_session": "artifact haihusiani na kikao kinachoendelea"
   },
   "th": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "ส่งคืนเมทาดาทาของ Artifact ที่เป็นของเซสชันและบันทึกไว้ก่อนหน้านี้ โดยไม่อ่าน payload",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -396,7 +396,7 @@
     "error.not_active_session": "artifact ไม่เป็นส่วนหนึ่งของเซสชันที่กำลังทำงานอยู่"
   },
   "tr": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Daha önce kaydedilmiş, oturuma ait bir Artifact'ın yükünü okumadan meta verilerini döndürür.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -408,7 +408,7 @@
     "error.not_active_session": "artifact, etkin oturuma ait değildir"
   },
   "uk": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Повертає метадані раніше збереженого артефакту, що належить сеансу, не зчитуючи його вміст.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -420,7 +420,7 @@
     "error.not_active_session": "артефакт не належить до активної сесії"
   },
   "vi": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "Trả về siêu dữ liệu của Artifact thuộc phiên đã được lưu trước đó mà không đọc payload của nó.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -432,7 +432,7 @@
     "error.not_active_session": "tài liệu không thuộc phiên làm việc hiện tại"
   },
   "zh_CN": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "返回先前保存且归当前会话所有的 Artifact 元数据，而不读取其载荷。",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -444,7 +444,7 @@
     "error.not_active_session": "artifact 不属于当前会话"
   },
   "zh_TW": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
+    "tool.description": "傳回先前儲存且屬於目前工作階段的 Artifact 中繼資料，而不讀取其承載內容。",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
