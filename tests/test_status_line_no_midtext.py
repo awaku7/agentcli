@@ -192,3 +192,39 @@ def test_print_status_line_color_opt_out(monkeypatch):
     err = stderr.getvalue()
     assert err == "[STATE] IDLE" + chr(10)
     assert chr(27) not in err
+
+
+def test_print_status_line_starts_spinner_outside_print_lock(monkeypatch):
+    """Regression: spinner.start() must not run while print_lock is held.
+
+    spinner.start() takes the spinner _lifecycle_lock, while spinner.stop()
+    (reached from the [TOOL] trace path) takes _lifecycle_lock and then
+    print_lock. Starting the spinner while holding print_lock inverts that
+    order, so a concurrent tool trace deadlocks the round.
+    """
+    import io
+    import sys
+
+    from uagent.runtime import spinner
+
+    monkeypatch.setattr(sys, "stderr", io.StringIO())
+    monkeypatch.setattr(core, "IS_GUI", False)
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.setattr(core, "human_ask_active", False)
+    monkeypatch.setattr(core, "_stream_line_open", False)
+    monkeypatch.setattr(core, "_prompt_line_open", False)
+    monkeypatch.setattr(core, "status_busy", True)
+    monkeypatch.setattr(core, "status_label", "tool:parallel")
+    monkeypatch.setattr(spinner, "spinner_enabled", lambda: True)
+
+    held: list[bool] = []
+
+    def probe_start(interval: float = 0.08) -> None:
+        held.append(bool(core.print_lock._is_owned()))
+
+    monkeypatch.setattr(spinner, "start", probe_start)
+
+    core.print_status_line()
+
+    assert held, "spinner.start() was not called for a busy status"
+    assert held == [False] * len(held)

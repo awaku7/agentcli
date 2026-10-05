@@ -139,6 +139,7 @@ def print_status_line() -> None:
     deadline = time.time() + 0.25
     nl = chr(10)
     while True:
+        _start_spinner_after_lock = False
         with _core.print_lock:
             line_open = _core._stream_line_open
             prompt_open = _core._prompt_line_open
@@ -207,16 +208,25 @@ def print_status_line() -> None:
                         )
 
                         if _spinner_enabled():
-                            _sync_spinner_to_status(True)
-                            return
+                            # Defer spinner.start() until print_lock is
+                            # released: start() takes _lifecycle_lock only,
+                            # while stop() (reached from the [TOOL] trace
+                            # path) takes _lifecycle_lock -> print_lock.
+                            # Calling start() while holding print_lock
+                            # inverts that order and deadlocks both threads.
+                            _start_spinner_after_lock = True
                     except Exception:
                         pass
-                use_color = want_color
-                _write_status_line(
-                    f"[STATE] {state}{label_part}",
-                    busy=busy,
-                    use_color=use_color,
-                    label=label,
-                )
-                return
+                if not _start_spinner_after_lock:
+                    use_color = want_color
+                    _write_status_line(
+                        f"[STATE] {state}{label_part}",
+                        busy=busy,
+                        use_color=use_color,
+                        label=label,
+                    )
+                    return
+        if _start_spinner_after_lock:
+            _sync_spinner_to_status(True)
+            return
         time.sleep(0.005)
