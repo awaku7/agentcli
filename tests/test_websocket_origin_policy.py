@@ -48,6 +48,28 @@ def test_non_local_websocket_origin_requires_explicit_allowlist(monkeypatch):
         validate_websocket_origin(_Request("https://uag.corp.example"))
 
 
+def test_trailing_dot_origin_is_not_collapsed(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv(
+        "UAGENT_WEB_ALLOWED_ORIGINS",
+        "https://uag.example.,https://plain.example",
+    )
+
+    assert (
+        validate_websocket_origin(_Request("https://uag.example."))
+        == "https://uag.example."
+    )
+    with pytest.raises(IdentityResolutionError, match="not allowed"):
+        validate_websocket_origin(_Request("https://uag.example"))
+
+    assert (
+        validate_websocket_origin(_Request("https://plain.example"))
+        == "https://plain.example"
+    )
+    with pytest.raises(IdentityResolutionError, match="not allowed"):
+        validate_websocket_origin(_Request("https://plain.example."))
+
+
 def test_explicit_websocket_origin_allowlist_is_exact(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setenv(
