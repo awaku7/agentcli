@@ -8,7 +8,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "استبدل ملف الوجهة إذا كان موجودًا بالفعل (الافتراضي: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -26,7 +26,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "গন্তব্য ফাইলটি আগে থেকেই থাকলে সেটি ওভাররাইট করুন (ডিফল্ট: false)।",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -44,7 +44,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Přepsat cílový soubor, pokud již existuje (výchozí: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -62,7 +62,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Overskriv destinationsfilen, hvis den allerede findes (standard: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -80,7 +80,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Zieldatei überschreiben, wenn sie bereits vorhanden ist (Standard: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -98,7 +98,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Αντικατάσταση του αρχείου προορισμού αν υπάρχει ήδη (προεπιλογή: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -134,7 +134,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Sobrescribe el archivo de destino si ya existe (valor predeterminado: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -152,7 +152,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "اگر فایل مقصد از قبل وجود دارد، آن را بازنویسی کنید (پیش‌فرض: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -170,7 +170,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Korvaa kohdetiedosto, jos se on jo olemassa (oletus: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -188,7 +188,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "I-overwrite ang patutunguhang file kung umiiral na ito (default: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -206,7 +206,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Écrase le fichier de destination s’il existe déjà (valeur par défaut : false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -224,7 +224,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "החלף את קובץ היעד אם הוא כבר קיים (ברירת מחדל: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -242,7 +242,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "यदि गंतव्य फ़ाइल पहले से मौजूद है तो उसे ओवरराइट करें (डिफ़ॉल्ट: false)।",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -260,7 +260,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "A célfájl felülírása, ha már létezik (alapértelmezés: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -278,7 +278,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Timpa file tujuan jika sudah ada (default: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -296,7 +296,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Sovrascrive il file di destinazione se esiste già (predefinito: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -332,7 +332,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "대상 파일이 이미 있으면 덮어씁니다(기본값: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -350,7 +350,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Хэрэв очих файл аль хэдийн байвал дарж бичнэ (өгөгдмөл: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -368,7 +368,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "गंतव्य फाइल आधीपासून अस्तित्वात असल्यास ती ओव्हरराइट करा (डीफॉल्ट: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -386,7 +386,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Tulis ganti fail destinasi jika sudah wujud (lalai: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -404,7 +404,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Overskriv målfilen hvis den allerede finnes (standard: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -422,7 +422,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Overschrijf het doelbestand als het al bestaat (standaard: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -440,7 +440,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Overskriv målfila dersom ho allereie finst (standard: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -458,7 +458,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Nadpisz plik docelowy, jeśli już istnieje (domyślnie: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -476,7 +476,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Substitui o ficheiro de destino se já existir (predefinição: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -494,7 +494,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Sobrescreve o arquivo de destino se ele já existir (padrão: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -512,7 +512,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Suprascrie fișierul de destinație dacă există deja (implicit: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -530,7 +530,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Перезаписать файл назначения, если он уже существует (по умолчанию: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -548,7 +548,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Skriv över målfilen om den redan finns (standard: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -566,7 +566,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Andika juu ya faili lengwa ikiwa tayari lipo (chaguo-msingi: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -584,7 +584,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "เขียนทับไฟล์ปลายทางหากมีอยู่แล้ว (ค่าเริ่มต้น: false)",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -602,7 +602,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Hedef dosya zaten varsa üzerine yaz (varsayılan: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -620,7 +620,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Перезаписати файл призначення, якщо він уже існує (типово: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -638,7 +638,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "Ghi đè tệp đích nếu tệp đã tồn tại (mặc định: false).",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -656,7 +656,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "如果目标文件已存在，则覆盖该文件（默认值：false）。",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
@@ -674,7 +674,7 @@
       "copy binary artifact"
     ],
     "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
+    "param.overwrite.description": "如果目標檔案已存在，則覆寫該檔案（預設值：false）。",
     "error.invalid_overwrite": "overwrite must be a boolean",
     "error.destination_exists": "destination already exists; set overwrite to true to replace it",
     "error.destination_directory": "output_path must name a file, not a directory",
