@@ -185,8 +185,8 @@
     "tool.description": "रिपॉजिटरी को संशोधित किए बिना Git परिवर्तनों, जोखिम भरी फ़ाइलों और संभावित रहस्यों की समीक्षा करें। चरणबद्ध परिवर्तनों के बजाय चरणबद्ध परिवर्तनों की समीक्षा करें। समीक्षा में अनट्रैक की गई फ़ाइलों को शामिल करें। गुप्त मूल्यों को वापस किए बिना संभावित रहस्यों के लिए परिवर्तित पाठ फ़ाइलों को स्कैन करें। निरीक्षण करने के लिए परिवर्तित फ़ाइलों की अधिकतम संख्या। गुप्त मूल्यों को वापस किए बिना संभावित रहस्यों और जोखिम भरी कॉन्फ़िगरेशन फ़ाइलों के लिए रिपॉजिटरी फ़ाइलों को स्कैन करें। स्कैन करने के लिए निर्देशिका, वर्तमान के सापेक्ष वर्कडिर.",
     "param.staged.description": "निरीक्षण के लिए फाइलों की अधिकतम संख्या.",
     "param.include_untracked.description": "छिपी हुई फ़ाइलें और निर्देशिकाएं शामिल करें.",
-    "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
-    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "param.scan_secrets.description": "गुप्त मान लौटाए बिना बदली गई टेक्स्ट फ़ाइलों में संभावित गुप्त जानकारी के लिए स्कैन करें।",
+    "param.max_files.description": "जाँच की जाने वाली बदली गई फ़ाइलों की अधिकतम संख्या।",
     "x_search_terms": [
       "गिट समीक्षा",
       "गिट अंतर समीक्षा",
@@ -368,7 +368,7 @@
     "param.staged.description": "পর্যায়ভুক্ত পরিবর্তনের পরিবর্তে পর্যায়ক্রমে পরিবর্তনগুলি পর্যালোচনা করুন।",
     "param.include_untracked.description": "ট্র্যাক না করা ফাইলগুলি পর্যালোচনায় অন্তর্ভুক্ত করুন।",
     "param.scan_secrets.description": "গোপন মান ফিরিয়ে না এনে সম্ভাব্য গোপনীয়তার জন্য পরিবর্তিত পাঠ্য ফাইলগুলি স্ক্যান করুন। গোপন মান ফিরিয়ে না দিয়ে কনফিগারেশন ফাইল।",
-    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "param.max_files.description": "পরীক্ষা করার জন্য পরিবর্তিত ফাইলের সর্বাধিক সংখ্যা।",
     "x_search_terms": [
       "git পর্যালোচনা",
       "git diff পর্যালোচনা",
@@ -382,7 +382,7 @@
     "param.staged.description": "تغییرات مرحله‌ای را به جای تغییرات بدون مرحله بازبینی کنید.",
     "param.include_untracked.description": "فایل‌های ردیابی نشده را در بازبینی قرار دهید. مقادیر.",
     "param.scan_secrets.description": "دایرکتوری برای اسکن، نسبت به workdir فعلی.",
-    "param.max_files.description": "Maximum number of changed files to inspect.",
+    "param.max_files.description": "حداکثر تعداد فایل‌های تغییر‌یافته برای بررسی.",
     "x_search_terms": [
       "بررسی git",
       " بررسی تفاوت git",
@@ -482,11 +482,11 @@
     "param.scan_secrets.description": "I-scan ang mga binagong text file para sa mga malamang na lihim nang hindi ibinabalik ang mga lihim na halaga.",
     "param.max_files.description": "Maximum na bilang ng mga binagong file upang siyasatin.",
     "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
+      "pagsusuri ng git",
+      "pagsusuri ng git diff",
+      "mga binagong file",
+      "pag-scan ng lihim",
+      "pagsusuri ng code"
     ]
   },
   "ms": {
