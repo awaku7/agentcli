@@ -197,6 +197,7 @@ def test_request_origin_rejects_control_characters_before_trimming(monkeypatch):
         "http://1.2.3.4.5:8000",
         "https://uag.0x7f",
         "https://uag.0x",
+        "https://faß.example",
         "http://[fe80::1%25eth0]:8000",
     ],
 )
