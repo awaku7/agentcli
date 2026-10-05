@@ -67,7 +67,9 @@ BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 # ``default=`` string rather than from the msgid key stored in the PO catalog.
 # Keep this explicit so ordinary msgid placeholder mismatches remain strict.
 KEYED_DEFAULT_PLACEHOLDER_KEYS = frozenset({"auto.review_judgment_system_prompt"})
-ADVISORY_FINDING_KINDS = frozenset({"coverage_missing", "key_extra"})
+ADVISORY_FINDING_KINDS = frozenset(
+    {"coverage_missing", "key_extra", "structure_extra"}
+)
 # Search terms are locale-specific keyword sets. Their item count does not need
 # to match English because runtime English fallback lives in x_search_terms_en.
 VARIABLE_LENGTH_ARRAY_KEYS = frozenset({"x_search_terms"})
@@ -314,7 +316,7 @@ def _static_eval(node: ast.AST, constants: dict[str, Any]) -> Any:
     return None
 
 
-def _english_source(path: Path) -> dict[str, Any]:
+def _english_source_info(path: Path) -> tuple[dict[str, Any], set[str]]:
     py_path = path.with_suffix(".py")
     if not py_path.is_file():
         raise ValueError(f"missing Python source for i18n catalog: {py_path}")
@@ -345,6 +347,7 @@ def _english_source(path: Path) -> dict[str, Any]:
                 constants[name] = value
 
     source: dict[str, Any] = {}
+    dynamic_keys: set[str] = set()
     calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
     calls.sort(
         key=lambda node: (getattr(node, "lineno", 0), getattr(node, "col_offset", 0))
@@ -364,29 +367,48 @@ def _english_source(path: Path) -> dict[str, Any]:
         value = _static_eval(default_node, constants)
         if isinstance(value, (str, list, dict)):
             source.setdefault(key_node.value, value)
+        else:
+            dynamic_keys.add(key_node.value)
+    return source, dynamic_keys
+
+
+def _english_source(path: Path) -> dict[str, Any]:
+    source, _dynamic_keys = _english_source_info(path)
     return source
 
 
 def _reference_structure(
     source: dict[str, Any],
     translation_blocks: dict[str, dict[str, Any]],
+    dynamic_keys: set[str],
 ) -> dict[str, tuple[str, list[str]]]:
     """Build structure from Python defaults plus locale consensus for dynamic defaults."""
     reference = _walk_structure(source)
-    votes: dict[str, dict[tuple[str, tuple[str, ...]], int]] = {}
-    for block in translation_blocks.values():
-        for path, (kind, placeholders) in _walk_structure(block).items():
-            signature = (kind, tuple(placeholders))
-            bucket = votes.setdefault(path, {})
-            bucket[signature] = bucket.get(signature, 0) + 1
-    for path, bucket in votes.items():
-        if path in reference:
+    for key in sorted(dynamic_keys - set(source)):
+        candidates: dict[
+            tuple[tuple[str, str, tuple[str, ...]], ...],
+            tuple[int, dict[str, tuple[str, list[str]]]],
+        ] = {}
+        for block in translation_blocks.values():
+            if key not in block:
+                continue
+            structure = _walk_structure({key: block[key]})
+            signature = tuple(
+                sorted(
+                    (path, kind, tuple(placeholders))
+                    for path, (kind, placeholders) in structure.items()
+                )
+            )
+            count, _existing = candidates.get(signature, (0, structure))
+            candidates[signature] = (count + 1, structure)
+        if not candidates:
             continue
-        (kind, placeholders), _count = max(
-            bucket.items(),
-            key=lambda item: (item[1], item[0][0], item[0][1]),
+        _signature, (_count, chosen) = max(
+            candidates.items(),
+            key=lambda item: (item[1][0], item[0]),
         )
-        reference[path] = (kind, list(placeholders))
+        for path, shape in chosen.items():
+            reference.setdefault(path, shape)
     return reference
 
 def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
@@ -417,7 +439,8 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
         if "en" in blocks:
             findings.append(Finding("tool_json", "english_block_present", str(path)))
         try:
-            reference = _reference_structure(_english_source(path), translation_blocks)
+            source, dynamic_keys = _english_source_info(path)
+            reference = _reference_structure(source, translation_blocks, dynamic_keys)
         except ValueError as exc:
             findings.append(
                 Finding(

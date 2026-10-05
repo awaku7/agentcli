@@ -217,3 +217,40 @@ def test_tool_audit_uses_locale_consensus_for_dynamic_default(tmp_path: Path) ->
         finding.locale == "de" and finding.kind == "structure_missing"
         for finding in findings
     )
+
+
+def test_dynamic_consensus_ignores_keys_not_referenced_by_python(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.py").write_text(
+        '_("message", default=f"Hello {runtime_value}")\n',
+        encoding="utf-8",
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"message": "こんにちは", "orphan": "x"},
+                "de": {},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+    de_missing = next(
+        finding
+        for finding in findings
+        if finding.locale == "de" and finding.kind == "structure_missing"
+    )
+
+    assert "message" in de_missing.detail["paths"]
+    assert "orphan" not in de_missing.detail["paths"]
+    assert any(
+        finding.locale == "ja" and finding.kind == "structure_extra"
+        for finding in findings
+    )
+
+
+def test_tool_structure_extra_is_advisory() -> None:
+    assert "structure_extra" in audit_module.ADVISORY_FINDING_KINDS
