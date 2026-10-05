@@ -646,7 +646,7 @@
     "err.not_found": "fișierul nu a fost găsit"
   },
   "fil": {
-    "tool.description": "Tukuyin ang isa o higit pang file sa pamamagitan ng pagsuri sa nilalaman gamit ang libmagic (python-magic o Windows python-magic-bin), magic bytes, at mga heuristic ng pangalan ng file. Ibinabalik ang natukoy na MIME type, paglalarawan ng format, pagtatantya ng MIME batay sa extension, encoding, at laki ng file. Read-only.",
+    "tool.description": "Tukuyin ang isa o higit pang file sa pamamagitan ng pagsusuri sa nilalaman gamit ang libmagic (python-magic o Windows python-magic-bin), magic bytes, at mga heuristic sa pangalan ng file. Ibinabalik nito ang natukoy na uri ng MIME, paglalarawan ng format, pagtataya ng MIME batay sa extension, encoding, at laki ng file. Para sa pagbasa lamang.",
     "x_search_terms": [
       "uri ng file",
       "tuklasin ang uri",
