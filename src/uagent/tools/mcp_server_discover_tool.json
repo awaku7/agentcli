@@ -33,9 +33,9 @@
     "err.endpoint_required": "Error: se requiere un endpoint MCP.",
     "err.request": "Error: el descubrimiento MCP falló: %(error)s",
     "x_search_terms": [
-      "mcp descubrir",
-      "descubrimiento de servidor mcp",
-      "capacidades de mcp"
+      "descubrimiento MCP",
+      "descubrimiento de servidor MCP",
+      "capacidades MCP"
     ]
   },
   "fr": {
@@ -46,9 +46,9 @@
     "err.endpoint_required": "Erreur : un point de terminaison MCP est requis.",
     "err.request": "Erreur : échec de la découverte MCP : %(error)s",
     "x_search_terms": [
-      "découverte mcp",
-      "découverte du serveur mcp",
-      "capacités mcp"
+      "découverte MCP",
+      "découverte de serveur MCP",
+      "capacités MCP"
     ]
   },
   "de": {
@@ -59,9 +59,9 @@
     "err.endpoint_required": "Fehler: Ein MCP-Endpunkt ist erforderlich.",
     "err.request": "Fehler: MCP-Erkennung fehlgeschlagen: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server Discovery",
-      "mcp-Funktionen"
+      "MCP-Erkennung",
+      "MCP-Server-Erkennung",
+      "MCP-Fähigkeiten"
     ]
   },
   "it": {
@@ -72,9 +72,9 @@
     "err.endpoint_required": "Errore: è richiesto un endpoint MCP.",
     "err.request": "Errore: rilevamento MCP non riuscito: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "funzionalità mcp"
+      "rilevamento MCP",
+      "rilevamento server MCP",
+      "capacità MCP"
     ]
   },
   "pt": {
@@ -85,9 +85,9 @@
     "err.endpoint_required": "Erro: é necessário um endpoint MCP.",
     "err.request": "Erro: falha na descoberta MCP: %(error)s",
     "x_search_terms": [
-      "MCP Discover",
-      "MCP Server Discovery",
-      "Capacidades MCP"
+      "descoberta MCP",
+      "descoberta de servidor MCP",
+      "capacidades MCP"
     ]
   },
   "pt_BR": {
@@ -98,9 +98,9 @@
     "err.endpoint_required": "Erro: é necessário um endpoint MCP.",
     "err.request": "Erro: falha na descoberta MCP: %(error)s",
     "x_search_terms": [
-      "MCP Discover",
-      "MCP Server Discovery",
-      "Capacidades MCP"
+      "descoberta MCP",
+      "descoberta de servidor MCP",
+      "capacidades MCP"
     ]
   },
   "ru": {
@@ -111,9 +111,9 @@
     "err.endpoint_required": "Ошибка: требуется конечная точка MCP.",
     "err.request": "Ошибка: обнаружение MCP завершилось сбоем: %(error)s",
     "x_search_terms": [
-      "mcp Discover",
-      "Обнаружение сервера mcp",
-      "Возможности mcp"
+      "обнаружение MCP",
+      "обнаружение сервера MCP",
+      "возможности MCP"
     ]
   },
   "zh_CN": {
@@ -124,9 +124,9 @@
     "err.endpoint_required": "错误：需要 MCP 端点。",
     "err.request": "错误：MCP 发现失败：%(error)s",
     "x_search_terms": [
-      "mcp 发现",
-      "mcp 服务器发现",
-      "mcp 功能"
+      "MCP 发现",
+      "MCP 服务器发现",
+      "MCP 功能"
     ]
   },
   "zh_TW": {
@@ -137,9 +137,9 @@
     "err.endpoint_required": "錯誤：需要 MCP 端點。",
     "err.request": "錯誤：MCP 探索失敗：%(error)s",
     "x_search_terms": [
-      "mcp 發現",
-      "mcp 伺服器發現",
-      "mcp 功能"
+      "MCP 探索",
+      "MCP 伺服器探索",
+      "MCP 功能"
     ]
   },
   "ko": {
@@ -150,9 +150,9 @@
     "err.endpoint_required": "오류: MCP 엔드포인트가 필요합니다.",
     "err.request": "오류: MCP 검색 실패: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp 서버 discovery",
-      "mcp 기능"
+      "MCP 검색",
+      "MCP 서버 검색",
+      "MCP 기능"
     ]
   },
   "ar": {
@@ -163,9 +163,9 @@
     "err.endpoint_required": "خطأ: يلزم تحديد نقطة نهاية MCP.",
     "err.request": "خطأ: فشل اكتشاف MCP: %(error)s",
     "x_search_terms": [
-      "اكتشاف mcp",
-      "اكتشاف خادم mcp",
-      "قدرات mcp"
+      "اكتشاف MCP",
+      "اكتشاف خادم MCP",
+      "قدرات MCP"
     ]
   },
   "bn": {
@@ -176,9 +176,9 @@
     "err.endpoint_required": "ত্রুটি: MCP endpoint প্রয়োজন।",
     "err.request": "ত্রুটি: MCP discovery ব্যর্থ হয়েছে: %(error)s",
     "x_search_terms": [
-      "mcp আবিষ্কার",
-      "mcp সার্ভার আবিষ্কার",
-      "mcp ক্ষমতা"
+      "MCP আবিষ্কার",
+      "MCP সার্ভার আবিষ্কার",
+      "MCP সক্ষমতা"
     ]
   },
   "cs": {
@@ -189,9 +189,9 @@
     "err.endpoint_required": "Chyba: je vyžadován koncový bod MCP.",
     "err.request": "Chyba: zjišťování MCP selhalo: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "možnosti mcp"
+      "zjišťování MCP",
+      "zjišťování serveru MCP",
+      "schopnosti MCP"
     ]
   },
   "el": {
@@ -202,9 +202,9 @@
     "err.endpoint_required": "Σφάλμα: απαιτείται τελικό σημείο MCP.",
     "err.request": "Σφάλμα: η ανακάλυψη MCP απέτυχε: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp detection server",
-      "mcp δυνατότητες"
+      "ανακάλυψη MCP",
+      "ανακάλυψη διακομιστή MCP",
+      "δυνατότητες MCP"
     ]
   },
   "fa": {
@@ -215,9 +215,9 @@
     "err.endpoint_required": "خطا: نقطهٔ پایانی MCP الزامی است.",
     "err.request": "خطا: کشف MCP ناموفق بود: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp اکتشاف سرور",
-      "قابلیت‌های mcp"
+      "کشف MCP",
+      "کشف سرور MCP",
+      "قابلیت‌های MCP"
     ]
   },
   "fi": {
@@ -228,9 +228,9 @@
     "err.endpoint_required": "Virhe: MCP-päätepiste vaaditaan.",
     "err.request": "Virhe: MCP-tunnistus epäonnistui: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp-ominaisuudet"
+      "MCP-tunnistus",
+      "MCP-palvelimen tunnistus",
+      "MCP-ominaisuudet"
     ]
   },
   "he": {
@@ -241,9 +241,9 @@
     "err.endpoint_required": "שגיאה: נדרשת נקודת קצה MCP.",
     "err.request": "שגיאה: גילוי MCP נכשל: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "יכולות mcp"
+      "גילוי MCP",
+      "גילוי שרת MCP",
+      "יכולות MCP"
     ]
   },
   "hi": {
@@ -254,9 +254,9 @@
     "err.endpoint_required": "त्रुटि: MCP endpoint आवश्यक है।",
     "err.request": "त्रुटि: MCP discovery विफल हुआ: %(error)s",
     "x_search_terms": [
-      "एमसीपी डिस्कवर",
-      "एमसीपी सर्वर डिस्कवरी",
-      "एमसीपी क्षमताएं"
+      "MCP खोज",
+      "MCP सर्वर खोज",
+      "MCP क्षमताएँ"
     ]
   },
   "hu": {
@@ -267,9 +267,9 @@
     "err.endpoint_required": "Hiba: MCP-végpont szükséges.",
     "err.request": "Hiba: az MCP-felderítés sikertelen: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp képességek"
+      "MCP-felderítés",
+      "MCP-kiszolgáló felderítése",
+      "MCP-képességek"
     ]
   },
   "id": {
@@ -280,9 +280,9 @@
     "err.endpoint_required": "Kesalahan: endpoint MCP diperlukan.",
     "err.request": "Kesalahan: penemuan MCP gagal: %(error)s",
     "x_search_terms": [
-      "kemampuan mcp discover",
-      "mcp server Discovery",
-      "mcp"
+      "penemuan MCP",
+      "penemuan server MCP",
+      "kemampuan MCP"
     ]
   },
   "mn": {
@@ -293,9 +293,9 @@
     "err.endpoint_required": "Алдаа: MCP endpoint шаардлагатай.",
     "err.request": "Алдаа: MCP илрүүлэлт амжилтгүй боллоо: %(error)s",
     "x_search_terms": [
-      "mcp Discover",
-      "mcp сервер илрүүлэх",
-      "mcp боломжууд"
+      "MCP илрүүлэлт",
+      "MCP сервер илрүүлэлт",
+      "MCP боломжууд"
     ]
   },
   "mr": {
@@ -306,9 +306,9 @@
     "err.endpoint_required": "त्रुटी: MCP endpoint आवश्यक आहे.",
     "err.request": "त्रुटी: MCP discovery अयशस्वी: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp सर्व्हर शोध",
-      "mcp क्षमता"
+      "MCP शोध",
+      "MCP सर्व्हर शोध",
+      "MCP क्षमता"
     ]
   },
   "nb": {
@@ -319,9 +319,9 @@
     "err.endpoint_required": "Feil: MCP-endepunkt kreves.",
     "err.request": "Feil: MCP-oppdagelse mislyktes: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp-funksjoner"
+      "MCP-oppdagelse",
+      "MCP-serveroppdagelse",
+      "MCP-funksjoner"
     ]
   },
   "nl": {
@@ -332,7 +332,7 @@
     "err.endpoint_required": "Fout: een MCP-eindpunt is vereist.",
     "err.request": "Fout: MCP-detectie mislukt: %(error)s",
     "x_search_terms": [
-      "MCP Discover",
+      "MCP-detectie",
       "MCP-serverdetectie",
       "MCP-mogelijkheden"
     ]
@@ -345,9 +345,9 @@
     "err.endpoint_required": "Feil: MCP-endepunkt er nødvendig.",
     "err.request": "Feil: MCP-oppdaging mislukkast: %(error)s",
     "x_search_terms": [
-      "mcp-oppdaging",
-      "mcp-tenaroppdaging",
-      "mcp-funksjonar"
+      "MCP-oppdaging",
+      "MCP-tenaroppdaging",
+      "MCP-funksjonar"
     ]
   },
   "pl": {
@@ -358,9 +358,9 @@
     "err.endpoint_required": "Błąd: wymagany jest punkt końcowy MCP.",
     "err.request": "Błąd: wykrywanie MCP nie powiodło się: %(error)s",
     "x_search_terms": [
-      "możliwości mcp Discover",
-      "mcp odkrywania serwera",
-      "mcp"
+      "wykrywanie MCP",
+      "wykrywanie serwera MCP",
+      "możliwości MCP"
     ]
   },
   "ro": {
@@ -371,9 +371,9 @@
     "err.endpoint_required": "Eroare: este necesar un endpoint MCP.",
     "err.request": "Eroare: descoperirea MCP a eșuat: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "capacități mcp"
+      "descoperire MCP",
+      "descoperire server MCP",
+      "capabilități MCP"
     ]
   },
   "sv": {
@@ -384,9 +384,9 @@
     "err.endpoint_required": "Fel: MCP-slutpunkt krävs.",
     "err.request": "Fel: MCP-identifiering misslyckades: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp-funktioner"
+      "MCP-upptäckt",
+      "MCP-serverupptäckt",
+      "MCP-funktioner"
     ]
   },
   "sw": {
@@ -397,9 +397,9 @@
     "err.endpoint_required": "Hitilafu: endpoint ya MCP inahitajika.",
     "err.request": "Hitilafu: ugunduzi wa MCP umeshindwa: %(error)s",
     "x_search_terms": [
-      "mcp gundua",
-      "ugunduzi wa seva ya mcp",
-      "mcp uwezo"
+      "ugunduzi wa MCP",
+      "ugunduzi wa seva ya MCP",
+      "uwezo wa MCP"
     ]
   },
   "th": {
@@ -410,9 +410,9 @@
     "err.endpoint_required": "ข้อผิดพลาด: ต้องระบุ endpoint MCP",
     "err.request": "ข้อผิดพลาด: การค้นหา MCP ล้มเหลว: %(error)s",
     "x_search_terms": [
-      "ความสามารถ mcp ค้นพบ",
-      "mcp การค้นพบเซิร์ฟเวอร์",
-      "mcp"
+      "การค้นหา MCP",
+      "การค้นหาเซิร์ฟเวอร์ MCP",
+      "ความสามารถ MCP"
     ]
   },
   "tr": {
@@ -423,9 +423,9 @@
     "err.endpoint_required": "Hata: MCP uç noktası gereklidir.",
     "err.request": "Hata: MCP keşfi başarısız oldu: %(error)s",
     "x_search_terms": [
-      "mcp keşfet",
-      "mcp sunucu keşfi",
-      "mcp yetenekleri"
+      "MCP keşfi",
+      "MCP sunucu keşfi",
+      "MCP yetenekleri"
     ]
   },
   "uk": {
@@ -436,9 +436,9 @@
     "err.endpoint_required": "Помилка: потрібна кінцева точка MCP.",
     "err.request": "Помилка: виявлення MCP завершилося невдало: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "можливості mcp"
+      "виявлення MCP",
+      "виявлення сервера MCP",
+      "можливості MCP"
     ]
   },
   "vi": {
@@ -449,9 +449,9 @@
     "err.endpoint_required": "Lỗi: cần endpoint MCP.",
     "err.request": "Lỗi: khám phá MCP thất bại: %(error)s",
     "x_search_terms": [
-      "khám phá mcp",
-      "khám phá máy chủ mcp",
-      "khả năng mcp"
+      "khám phá MCP",
+      "khám phá máy chủ MCP",
+      "khả năng MCP"
     ]
   },
   "da": {
@@ -462,9 +462,9 @@
     "err.endpoint_required": "Fejl: MCP-endepunkt kræves.",
     "err.request": "Fejl: MCP-opdagelse mislykkedes: %(error)s",
     "x_search_terms": [
-      "mcp discovery",
-      "mcp server discovery",
-      "mcp-funktioner"
+      "MCP-opdagelse",
+      "MCP-serveropdagelse",
+      "MCP-funktioner"
     ]
   },
   "fil": {
@@ -475,9 +475,9 @@
     "err.endpoint_required": "Error: kailangan ang MCP endpoint.",
     "err.request": "Error: nabigo ang MCP discovery: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp na kakayahan"
+      "pagtuklas ng MCP",
+      "pagtuklas ng MCP server",
+      "mga kakayahan ng MCP"
     ]
   },
   "ms": {
@@ -488,9 +488,9 @@
     "err.endpoint_required": "Ralat: endpoint MCP diperlukan.",
     "err.request": "Ralat: penemuan MCP gagal: %(error)s",
     "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "keupayaan mcp"
+      "penemuan MCP",
+      "penemuan pelayan MCP",
+      "keupayaan MCP"
     ]
   }
 }
