@@ -86,7 +86,8 @@ def test_tool_audit_allows_locale_specific_search_term_counts(
 
     assert not any(
         finding.locale == "ja"
-        and finding.kind in {"structure_missing", "structure_extra", "value_type_mismatch"}
+        and finding.kind
+        in {"structure_missing", "structure_extra", "value_type_mismatch"}
         for finding in findings
     )
 
