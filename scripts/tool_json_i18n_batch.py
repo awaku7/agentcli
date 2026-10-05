@@ -692,10 +692,7 @@ def cmd_status(args: argparse.Namespace) -> int:
             only_missing=True,
             only_existing_lang=not args.add_lang,
         )
-        missing_ids = {
-            (u.source_path, u.lang, u.key)
-            for u in missing_units
-        }
+        missing_ids = {(u.source_path, u.lang, u.key) for u in missing_units}
         same_as_en_units = [
             u
             for u in review_units
@@ -717,7 +714,7 @@ def cmd_status(args: argparse.Namespace) -> int:
 
     print(f"tools_scanned: {len(files)}")
     print(f"supported_locales: {len(SUPPORTED_TOOL_LOCALES)}")
-    print(f"source_language: en")
+    print("source_language: en")
     print(f"languages_scanned: {len(langs)}")
     print(f"missing_units: {len(missing_units)}")
     print(f"same_as_english_candidates: {len(same_as_en_units)}")
