@@ -68,6 +68,8 @@ def _normalize_origin(value: str) -> str:
     host = parsed.hostname.casefold()
     if not host:
         raise ValueError("origin host is required")
+    if "%" in host:
+        raise ValueError("scoped IPv6 origin host is invalid")
     authority = parsed.netloc.rsplit("@", 1)[-1]
     bracketed_host = authority.startswith("[")
     try:
