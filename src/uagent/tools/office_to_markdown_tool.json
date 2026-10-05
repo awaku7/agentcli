@@ -956,7 +956,7 @@
       "فلوچارت Mermaid"
     ],
     "param.input_path.description": "Input.pptx, .xlsx/.xlsm یا مسیر .docx. PPTX، شامل یادداشت‌های بلندگو باشد.",
-    "param.overwrite.description": "اجازه جایگزینی فایل خروجی موجود. استفاده از .pptx، .xlsx/.xlsm، یا .docx",
+    "param.overwrite.description": "اجازه جایگزینی فایل خروجی موجود.",
     "err.exstruct_load": "exstruct بارگیری نشد: {error}",
     "err.exstruct_required": "exstruct برای تبدیل اکسل مورد نیاز است",
     "err.exstruct_extract": "نمی‌توان با __PH کتاب کار را استخراج کرد: {error}",
