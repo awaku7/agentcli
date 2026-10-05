@@ -197,10 +197,11 @@ def validate_authentication_configuration(
         if not registered:
             diagnostics.append(f"{selected} verifier is not configured")
 
-    try:
-        configured_websocket_origins(selected)
-    except IdentityConfigurationError as exc:
-        diagnostics.append(str(exc))
+    if selected != "token":
+        try:
+            configured_websocket_origins(selected)
+        except IdentityConfigurationError as exc:
+            diagnostics.append(str(exc))
 
     configured = not diagnostics
     return AuthenticationStatus(
