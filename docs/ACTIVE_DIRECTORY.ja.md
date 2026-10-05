@@ -626,6 +626,7 @@ UAGENT_OIDC_CLIENT_ID=<client-id>
 UAGENT_OIDC_CLIENT_SECRET=<client-secret-if-required>
 UAGENT_OIDC_REDIRECT_URI=https://uag.corp.example/auth/oidc/callback
 UAGENT_OIDC_COOKIE_SECURE=1
+UAGENT_WEB_ALLOWED_ORIGINS=https://uag.corp.example
 UAGENT_MEMORY_BACKEND=sqlite
 ```
 
