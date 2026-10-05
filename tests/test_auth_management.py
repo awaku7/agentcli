@@ -34,6 +34,7 @@ def test_token_validation_does_not_expose_identity_configuration(monkeypatch):
     credential = "raw-token"
     subject = "private-service-account"
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "token")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_TOKEN_NAMESPACE", "services")
     monkeypatch.setenv(
         "UAGENT_TOKEN_IDENTITIES",
@@ -108,6 +109,7 @@ def test_windows_ad_documented_settings_update_fingerprint(monkeypatch):
 
 def test_oidc_health_uses_runtime_https_issuer_boundary(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
     monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "http://127.0.0.1/callback")
 
@@ -140,6 +142,7 @@ def test_oidc_health_reports_malformed_bracketed_urls(monkeypatch):
 
 def test_oidc_health_rejects_invalid_session_limits(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
     monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://app.example/callback")
@@ -157,6 +160,7 @@ def test_oidc_health_rejects_invalid_session_limits(monkeypatch):
 
 def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "external")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     register_enterprise_identity_verifier("external", None)
     before = authentication_configuration_fingerprint()
     assert validate_authentication_configuration().configured is False
@@ -173,6 +177,7 @@ def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch
 
 def test_oidc_graph_scope_is_validated_and_revision_bound(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
     monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://app.example/callback")
