@@ -46,9 +46,7 @@ def test_iso_info_list_verify_extract(repo_tmp_path: Path) -> None:
 
     out_dir = repo_tmp_path / "out"
     extracted = json.loads(
-        disc.run_tool(
-            {"action": "extract", "path": iso_rel, "output": _rel(out_dir)}
-        )
+        disc.run_tool({"action": "extract", "path": iso_rel, "output": _rel(out_dir)})
     )
     assert extracted["ok"] is True
     assert extracted["extracted_count"] == 1
@@ -139,6 +137,4 @@ def test_iso_to_chd_convert_uses_xverter(repo_tmp_path: Path, monkeypatch) -> No
 
     assert result["ok"] is True
     assert result["output"] == str(out_path.resolve())
-    assert seen == [
-        ["convert", str(iso_path.resolve()), "-o", str(out_path.resolve())]
-    ]
+    assert seen == [["convert", str(iso_path.resolve()), "-o", str(out_path.resolve())]]
