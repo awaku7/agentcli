@@ -64,6 +64,20 @@ def test_ip_literal_origins_use_browser_canonical_serialization(monkeypatch):
     )
 
 
+def test_mapped_ipv6_origin_uses_browser_serialization(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv(
+        "UAGENT_WEB_ALLOWED_ORIGINS",
+        "https://[::ffff:127.0.0.1]",
+    )
+
+    assert configured_websocket_origins() == frozenset({"https://[::ffff:7f00:1]"})
+    assert (
+        validate_websocket_origin(_Request("https://[::ffff:7f00:1]"))
+        == "https://[::ffff:7f00:1]"
+    )
+
+
 def test_trailing_dot_origin_is_not_collapsed(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setenv(
