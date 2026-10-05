@@ -34,7 +34,7 @@ def test_token_validation_does_not_expose_identity_configuration(monkeypatch):
     credential = "raw-token"
     subject = "private-service-account"
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "token")
-    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
     monkeypatch.setenv("UAGENT_TOKEN_NAMESPACE", "services")
     monkeypatch.setenv(
         "UAGENT_TOKEN_IDENTITIES",
