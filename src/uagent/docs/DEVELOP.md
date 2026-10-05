@@ -711,7 +711,7 @@ flowchart TD
     subgraph Tools["ツール (200+)"]
         direction TB
         GENRE_BASIC["basic<br/>browser, fetch_url, search_web<br/>human_ask, calculator, db_query"]
-        GENRE_FILE["file<br/>create/read/delete/replace_in_file<br/>search_files, file_grep, zip_ops"]
+        GENRE_FILE["file<br/>create/read/delete/replace_in_file<br/>search_files, file_grep, zip_ops, disc_image_ops"]
         GENRE_EXEC["exec<br/>cmd_exec, python_exec<br/>bash_exec, pwsh_exec"]
         GENRE_DEVEL["devel<br/>code_map, lint_format, python_compile<br/>git_ops, run_tests, index系 (26形式)"]
         GENRE_EXTERNAL["external<br/>bluesky, discord, gmail<br/>teams_webhook, mcp_servers"]
@@ -795,11 +795,18 @@ get_workdir, add/get_long_memory, add/get_shared_memory, tool_catalog, generate_
 
 **file**
 create_file, read_file, replace_in_file, delete_file, search_files, file_grep,
-file_hash, file_exists, list_dir, rename_path, binary_edit, zip_ops
+file_hash, file_exists, list_dir, rename_path, binary_edit, zip_ops, disc_image_ops
 
 **exec**
 cmd_exec, cmd_exec_json, python_exec, python_compile, bash_exec, pwsh_exec,
 spawn_process
+
+`disc_image_ops` uses `pycdlib>=1.21.0` for general ISO9660/Joliet/Rock Ridge/UDF
+inspection and extraction, and `xverter>=1.5.0` for CHD info/verify/conversion.
+Both dependencies are lazy-installed through the shared
+`UAGENT_AUTO_INSTALL=allow|prompt|off` policy when absent. ISO-to-CHD and
+CHD-to-ISO conversion follows xverter's supported image formats; unsupported CHD
+shapes fail explicitly rather than silently falling back to an unrelated converter.
 
 **devel**
 code_map, lint_format, run_tests, git_ops, system_reload
