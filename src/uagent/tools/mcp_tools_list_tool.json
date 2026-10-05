@@ -662,7 +662,7 @@
       "mga endpoint ng mcp"
     ],
     "param.url.description": "MCP URL ng endpoint ng server. Kung aalisin, maaaring gumamit ng naka-configure na server.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, o stateless."
+    "param.protocol_mode.description": "Mode ng protocol ng MCP: auto, legacy, o stateless."
   },
   "ms": {
     "param.pretty.description": "Sama ada untuk mencetak cantik JSON output.",
