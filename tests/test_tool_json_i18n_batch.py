@@ -140,6 +140,43 @@ def test_status_explicit_langs_still_limit_scope(tmp_path: Path, capsys) -> None
     assert "review_candidates: 1" in output
 
 
+
+
+def test_status_ignores_empty_english_source_values(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    catalog: dict[str, object] = {
+        "en": {
+            "empty": "",
+            "nonempty": "Hello",
+        },
+        "ja": {
+            "empty": "",
+            "nonempty": "こんにちは",
+        },
+    }
+    _write_catalog(tools_dir / "sample_tool.json", catalog)
+
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "ja",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    output = capsys.readouterr().out
+    assert rc == 0
+    assert "missing_units: 0" in output
+    assert "same_as_english_candidates: 0" in output
+    assert "review_candidates: 0" in output
+
+
 def test_mutating_commands_still_require_langs(tmp_path: Path, capsys) -> None:
     rc = batch.main(
         [
