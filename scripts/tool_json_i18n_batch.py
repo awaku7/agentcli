@@ -681,11 +681,18 @@ def cmd_status(args: argparse.Namespace) -> int:
         only_existing_lang=not args.add_lang,
     )
     by: dict[tuple[str, str], int] = {}
+    by_lang: dict[str, int] = {}
     for u in units:
         by[(u.tool, u.lang)] = by.get((u.tool, u.lang), 0) + 1
+        by_lang[u.lang] = by_lang.get(u.lang, 0) + 1
     print(f"tools_scanned: {len(files)}")
     print(f"languages_scanned: {len(langs)}")
     print(f"missing_units: {len(units)}")
+    print(f"affected_tool_language_pairs: {len(by)}")
+    if by_lang:
+        print("missing_by_language:")
+        for lang, n in sorted(by_lang.items()):
+            print(f"  {lang:8s} {n}")
     for (tool, lang), n in sorted(by.items()):
         print(f"  {tool:40s} {lang:8s} {n}")
     return 0
