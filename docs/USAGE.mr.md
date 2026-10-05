@@ -257,6 +257,7 @@ uagw
 किंवा
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 
