@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import ipaddress
+import os
 import re
 from urllib.parse import urlsplit
 
-from ..env_utils import env_get
+from ..env_utils import strip_outer_quotes
 from .identity_context import (
     IdentityConfigurationError,
     IdentityResolutionError,
@@ -22,9 +23,17 @@ _DEFAULT_LOCAL_ORIGINS = frozenset(
 )
 
 
+def _contains_ascii_control(value: str) -> bool:
+    return any(ord(char) < 0x20 or ord(char) == 0x7F for char in value)
+
+
+def _raw_allowed_origins_setting() -> str:
+    return str(os.environ.get("UAGENT_WEB_ALLOWED_ORIGINS", "") or "")
+
+
 def _normalize_origin(value: str) -> str:
     raw = str(value or "")
-    if any(ord(char) < 0x20 or ord(char) == 0x7F for char in raw):
+    if _contains_ascii_control(raw):
         raise ValueError("origin contains control characters")
     text = raw.strip()
     if not text or text.casefold() == "null":
@@ -75,10 +84,19 @@ def _normalize_origin(value: str) -> str:
 def configured_websocket_origins(mode: str | None = None) -> frozenset[str]:
     """Return the exact trusted browser origins for WebSocket handshakes."""
 
-    raw = str(env_get("UAGENT_WEB_ALLOWED_ORIGINS", "") or "").strip()
+    raw_setting = _raw_allowed_origins_setting()
+    if _contains_ascii_control(raw_setting):
+        raise IdentityConfigurationError(
+            "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin"
+        )
+    raw = strip_outer_quotes(raw_setting)
     if raw:
         origins: set[str] = set()
         for value in raw.split(","):
+            if _contains_ascii_control(value):
+                raise IdentityConfigurationError(
+                    "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin"
+                )
             candidate = value.strip()
             if not candidate:
                 continue
@@ -110,7 +128,7 @@ def validate_websocket_origin(
 
     headers = getattr(request_context, "headers", None)
     try:
-        origin = str((headers or {}).get("origin") or "").strip()
+        origin = str((headers or {}).get("origin") or "")
     except (AttributeError, TypeError, ValueError) as exc:
         raise IdentityResolutionError("WebSocket Origin is unavailable") from exc
     if not origin:
