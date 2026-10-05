@@ -1,17 +1,4 @@
 {
-  "en": {
-    "tool.description": "Show Matter cache statistics: hit ratio, entry count, TTL.",
-    "x_search_terms": [
-      "matter cache status",
-      "matter_cache_status",
-      "matter",
-      "MATTER",
-      "statistics",
-      "ratio",
-      "entry",
-      "count"
-    ]
-  },
   "ar": {
     "tool.description": "عرض إحصائيات ذاكرة التخزين المؤقت للمادة: نسبة الدخول، عدد الإدخالات، TTL.",
     "x_search_terms": [

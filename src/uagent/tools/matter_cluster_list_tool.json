@@ -79,26 +79,6 @@
       "cluster"
     ]
   },
-  "en": {
-    "tool.description": "List Matter clusters for a device.",
-    "param.dev.description": "Device ID (required).",
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "x_search_terms": [
-      "matter cluster list",
-      "matter_cluster_list",
-      "matter",
-      "MATTER",
-      "cluster",
-      "clusters"
-    ]
-  },
   "es": {
     "tool.description": "Enumere los grupos de materia para un dispositivo.",
     "param.dev.description": "ID del dispositivo (obligatorio).",

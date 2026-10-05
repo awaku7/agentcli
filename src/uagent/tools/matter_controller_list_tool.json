@@ -67,23 +67,6 @@
       "Rückkehr"
     ]
   },
-  "en": {
-    "param.fmt.description": "Format: json or text.",
-    "err.config_missing": "Matter controller configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter controller configuration could not be parsed: {err}",
-    "err.not_found": "Matter controller not found: {controller_id}",
-    "param.ctrl.description": "Controller ID (omit for all).",
-    "tool.description": "List Matter controller-managed devices and return a JSON or text summary.",
-    "x_search_terms": [
-      "matter controller list",
-      "matter_controller_list",
-      "matter",
-      "MATTER",
-      "controller-managed",
-      "devices",
-      "return"
-    ]
-  },
   "es": {
     "param.fmt.description": "Formato: json o texto.",
     "err.config_missing": "No se encontró el archivo de configuración del controlador de materia. Establezca {env_json} o {env_file}.",

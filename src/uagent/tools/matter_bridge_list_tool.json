@@ -67,23 +67,6 @@
       "return"
     ]
   },
-  "en": {
-    "param.fmt.description": "Format: json or text.",
-    "err.config_missing": "Matter bridge configuration file was not found. Set {env_json} or {env_file}.",
-    "err.invalid_config": "Matter bridge configuration could not be parsed: {err}",
-    "err.not_found": "Matter bridge not found: {bridge_id}",
-    "param.bridge.description": "Bridge ID (omit for all).",
-    "tool.description": "List Matter bridge-managed devices and return a JSON or text summary.",
-    "x_search_terms": [
-      "matter bridge list",
-      "matter_bridge_list",
-      "matter",
-      "MATTER",
-      "bridge-managed",
-      "devices",
-      "return"
-    ]
-  },
   "es": {
     "param.fmt.description": "Formato: json o texto.",
     "err.config_missing": "No se encontró el archivo de configuración del puente de materia. Establezca {env_json} o {env_file}.",

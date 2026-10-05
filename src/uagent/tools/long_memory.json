@@ -1,9 +1,4 @@
 {
-  "en": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
-  },
   "ar": {
     "err.load": "[خطأ في الذاكرة الطويلة] {err_type}: {err}",
     "msg.no_memory": "(لا توجد ذاكرة طويلة المدى بعد)",

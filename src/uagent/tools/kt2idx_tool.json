@@ -1,32 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse a Kotlin (.kt) file into classes, interfaces, objects, functions, and properties and return a numbered index or a specific definition section. Use this when you need to read a large .kt file: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the definition you need.",
-    "x_search_terms": [
-      "kotlin",
-      "kotlin code",
-      "kotlin analysis",
-      "code index",
-      "kotlin source",
-      "kotlin parser",
-      "kotlin function",
-      "kotlin class",
-      "kotlin file",
-      "kotlin module"
-    ],
-    "param.path.description": "Path to the Kotlin (.kt) file.",
-    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.parse_error": "Error parsing file: {e}",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Section {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
-    "msg.no_entries": "(no definitions found)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal definitions: {total}\nTo retrieve a definition, call kt2idx with mode='section' and the section number.",
-    "param.mode.description": "\"index\" returns a numbered table of contents. \"section\" returns a specific definition by number.",
-    "msg.brace_imbalance": "brace imbalance: {open} open vs {close} close"
-  },
   "ja": {
     "tool.description": "Kotlin (.kt) ファイルをクラス、インターフェイス、オブジェクト、関数、プロパティに解析し、番号付きインデックスまたは特定の定義セクションを返します。大きな .kt ファイルを読み取る必要がある場合は、これを使用します。まず、mode='index' を指定して呼び出して目次を取得し、次に mode='section' とセクション番号を指定して呼び出して、必要な定義のみを取得します。",
     "x_search_terms": [
