@@ -1,6 +1,6 @@
 {
   "ar": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "صدّر Artifact مملوكًا للجلسة ومحفوظًا مسبقًا إلى ملف داخل workdir دون إرجاع بيانات base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -18,7 +18,7 @@
     "error.not_active_session": "لا ينتمي artifact إلى الجلسة النشطة"
   },
   "bn": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "আগে সংরক্ষিত সেশন-মালিকানাধীন Artifact-কে base64 ডেটা না ফিরিয়ে workdir-এর ভেতরের একটি ফাইলে এক্সপোর্ট করুন।",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -36,7 +36,7 @@
     "error.not_active_session": "artifact সক্রিয় সেশনের অন্তর্গত নয়"
   },
   "cs": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exportuje dříve uložený Artifact vlastněný relací do souboru uvnitř workdir bez vracení dat base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -54,7 +54,7 @@
     "error.not_active_session": "artefakt nepatří k aktivní relaci"
   },
   "da": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Eksportér et tidligere gemt sessions-ejet Artifact til en fil i workdir uden at returnere base64-data.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -72,7 +72,7 @@
     "error.not_active_session": "artefaktet hører ikke til den aktive session"
   },
   "de": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exportiert ein zuvor gespeichertes, sitzungseigenes Artifact in eine Datei innerhalb von workdir, ohne base64-Daten zurückzugeben.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -90,7 +90,7 @@
     "error.not_active_session": "artifact gehört nicht zur aktiven Sitzung"
   },
   "el": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Εξάγει ένα προηγουμένως αποθηκευμένο Artifact που ανήκει στη συνεδρία σε αρχείο μέσα στο workdir, χωρίς να επιστρέφει δεδομένα base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -126,7 +126,7 @@
     "error.not_active_session": "artifact does not belong to the active session"
   },
   "es": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exporta un Artifact previamente almacenado y propiedad de la sesión a un archivo dentro de workdir sin devolver datos base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -144,7 +144,7 @@
     "error.not_active_session": "El artefacto no pertenece a la sesión activa"
   },
   "fa": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "یک Artifact متعلق به نشست که قبلاً ذخیره شده است را بدون بازگرداندن داده‌های base64 به فایلی داخل workdir صادر می‌کند.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -162,7 +162,7 @@
     "error.not_active_session": "آرتفکت به جلسه فعال تعلق ندارد."
   },
   "fi": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Vie aiemmin tallennetun, istunnon omistaman Artifact-objektin workdir-hakemiston sisällä olevaan tiedostoon palauttamatta base64-dataa.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -180,7 +180,7 @@
     "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon"
   },
   "fil": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "I-export ang dati nang nakaimbak na Artifact na pag-aari ng session sa isang file sa loob ng workdir nang hindi nagbabalik ng base64 data.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -198,7 +198,7 @@
     "error.not_active_session": "Ang artifact ay hindi kabilang sa aktibong sesyon"
   },
   "fr": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exporte un Artifact précédemment stocké et appartenant à la session vers un fichier dans workdir sans renvoyer de données base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -216,7 +216,7 @@
     "error.not_active_session": "L'artefact n'appartient pas à la session active"
   },
   "he": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "מייצא Artifact שנשמר בעבר ושייך להפעלה לקובץ בתוך workdir, בלי להחזיר נתוני base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -234,7 +234,7 @@
     "error.not_active_session": "הארטפקט אינו שייך למפגש הפעיל"
   },
   "hi": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "पहले से संग्रहीत, सत्र-स्वामित्व वाले Artifact को base64 डेटा लौटाए बिना workdir के भीतर की फ़ाइल में निर्यात करें।",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -252,7 +252,7 @@
     "error.not_active_session": "artifact सक्रिय सत्र का हिस्सा नहीं है"
   },
   "hu": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Egy korábban eltárolt, munkamenet-tulajdonú Artifactot exportál a workdir területén lévő fájlba base64-adatok visszaadása nélkül.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -270,7 +270,7 @@
     "error.not_active_session": "az artifact nem tartozik az aktív munkamenethez"
   },
   "id": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Mengekspor Artifact milik sesi yang sebelumnya disimpan ke file di dalam workdir tanpa mengembalikan data base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -288,7 +288,7 @@
     "error.not_active_session": "artefak tidak termasuk dalam sesi aktif"
   },
   "it": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Esporta un Artifact appartenente alla sessione e salvato in precedenza in un file all'interno di workdir senza restituire dati base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -324,7 +324,7 @@
     "error.not_active_session": "現在のセッションに属するArtifactではありません。"
   },
   "ko": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "이전에 저장된 세션 소유 Artifact를 base64 데이터를 반환하지 않고 workdir 내부의 파일로 내보냅니다.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -342,7 +342,7 @@
     "error.not_active_session": "artifact는 활성 세션에 속하지 않습니다."
   },
   "mn": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Өмнө хадгалсан, сесс эзэмшдэг Artifact-ийг base64 өгөгдөл буцаахгүйгээр workdir доторх файл руу экспортолно.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -360,7 +360,7 @@
     "error.not_active_session": "artifact нь идэвхтэй сессэд харьяалагдахгүй"
   },
   "mr": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "पूर्वी साठवलेला, सत्र-मालकीचा Artifact base64 डेटा परत न करता workdir मधील फाइलमध्ये निर्यात करा.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -378,7 +378,7 @@
     "error.not_active_session": "artifact सक्रिय सत्राशी संबंधित नाही"
   },
   "ms": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Eksport Artifact milik sesi yang telah disimpan sebelum ini ke fail dalam workdir tanpa mengembalikan data base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -396,7 +396,7 @@
     "error.not_active_session": "artifak tidak tergolong kepada sesi aktif"
   },
   "nb": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Eksporterer et tidligere lagret Artifact som eies av økten, til en fil i workdir uten å returnere base64-data.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -414,7 +414,7 @@
     "error.not_active_session": "artefaktet tilhører ikke den aktive økten"
   },
   "nl": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exporteert een eerder opgeslagen Artifact dat eigendom is van de sessie naar een bestand binnen workdir zonder base64-gegevens terug te geven.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -432,7 +432,7 @@
     "error.not_active_session": "het artefact behoort niet tot de actieve sessie"
   },
   "nn": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Eksporterer eit tidlegare lagra Artifact som er eigd av økta, til ei fil i workdir utan å returnere base64-data.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -450,7 +450,7 @@
     "error.not_active_session": "artefakt høyrer ikkje til den aktive økta"
   },
   "pl": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Eksportuje wcześniej zapisany Artifact należący do sesji do pliku w obrębie workdir bez zwracania danych base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -468,7 +468,7 @@
     "error.not_active_session": "artefakt nie należy do aktywnej sesji"
   },
   "pt": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exporta um Artifact pertencente à sessão e guardado anteriormente para um ficheiro dentro de workdir sem devolver dados base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -486,7 +486,7 @@
     "error.not_active_session": "O artefacto não pertence à sessão ativa"
   },
   "pt_BR": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exporta um Artifact pertencente à sessão e armazenado anteriormente para um arquivo dentro de workdir sem retornar dados base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -504,7 +504,7 @@
     "error.not_active_session": "o artefato não pertence à sessão ativa"
   },
   "ro": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exportă un Artifact deținut de sesiune și salvat anterior într-un fișier din workdir fără a returna date base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -522,7 +522,7 @@
     "error.not_active_session": "artefactul nu aparține sesiunii active"
   },
   "ru": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Экспортирует ранее сохранённый Artifact, принадлежащий сеансу, в файл внутри workdir без возврата данных base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -540,7 +540,7 @@
     "error.not_active_session": "артефакт не принадлежит активной сессии"
   },
   "sv": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Exporterar ett tidigare sparat, sessionsägt Artifact till en fil i workdir utan att returnera base64-data.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -558,7 +558,7 @@
     "error.not_active_session": "artefakten tillhör inte den aktiva sessionen"
   },
   "sw": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Hamisha Artifact inayomilikiwa na kipindi na iliyohifadhiwa awali kwenda kwenye faili ndani ya workdir bila kurudisha data ya base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -576,7 +576,7 @@
     "error.not_active_session": "artifact haihusiani na kikao kinachoendelea"
   },
   "th": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "ส่งออก Artifact ที่เป็นของเซสชันและบันทึกไว้ก่อนหน้านี้ไปยังไฟล์ภายใน workdir โดยไม่ส่งคืนข้อมูล base64",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -594,7 +594,7 @@
     "error.not_active_session": "artifact ไม่เป็นส่วนหนึ่งของเซสชันที่กำลังทำงานอยู่"
   },
   "tr": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Daha önce kaydedilmiş, oturuma ait bir Artifact'ı base64 verisi döndürmeden workdir içindeki bir dosyaya dışa aktarır.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -612,7 +612,7 @@
     "error.not_active_session": "artifact, etkin oturuma ait değildir"
   },
   "uk": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Експортує раніше збережений Artifact, що належить сеансу, у файл всередині workdir без повернення даних base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -630,7 +630,7 @@
     "error.not_active_session": "артефакт не належить до активної сесії"
   },
   "vi": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "Xuất Artifact thuộc phiên đã được lưu trước đó ra một tệp bên trong workdir mà không trả về dữ liệu base64.",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -648,7 +648,7 @@
     "error.not_active_session": "tài liệu không thuộc phiên làm việc hiện tại"
   },
   "zh_CN": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "将先前保存且归当前会话所有的 Artifact 导出到 workdir 内的文件，而不返回 base64 数据。",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
@@ -666,7 +666,7 @@
     "error.not_active_session": "artifact 不属于当前会话"
   },
   "zh_TW": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
+    "tool.description": "將先前儲存且屬於目前工作階段的 Artifact 匯出到 workdir 內的檔案，而不傳回 base64 資料。",
     "x_search_terms": [
       "artifact_export",
       "export artifact",
