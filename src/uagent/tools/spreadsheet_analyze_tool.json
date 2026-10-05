@@ -729,11 +729,11 @@
     "err.input_path_required": "input_path נדרש",
     "err.file_not_found": "הקובץ לא נמצא: {path}",
     "err.extension": "הקלט חייב להיות קובץ .xlsx או .xlsm.",
-    "err.input_output_same": "output_path לא חייב להיות קובץ הקלט",
+    "err.input_output_same": "output_path לא יכול להיות קובץ הקלט",
     "err.output_exists": "קובץ הפלט כבר קיים: {path}; הגדר את overwrite=true להחליף אותו",
     "param.password.description": "סיסמה אופציונלית לחוברת עבודה מוצפנת.",
     "err.input_required": "input_path נדרש",
-    "err.same_output": "output_path לא חייב להיות קובץ הקלט"
+    "err.same_output": "output_path לא יכול להיות קובץ הקלט"
   },
   "hu": {
     "tool.description": "Makrók futtatása nélkül elemzi az XLSX/XLSM munkalapokat, képleteket, függőségeket és a beágyazott VBA-t.",
