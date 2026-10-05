@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import ipaddress
+import re
 from urllib.parse import urlsplit
 
 from ..env_utils import env_get
@@ -45,6 +47,20 @@ def _normalize_origin(value: str) -> str:
     host = parsed.hostname.casefold().rstrip(".")
     if not host:
         raise ValueError("origin host is required")
+    try:
+        ipaddress.ip_address(host)
+    except ValueError:
+        if len(host) > 253:
+            raise ValueError("origin host is invalid")
+        labels = host.split(".")
+        if any(
+            not re.fullmatch(
+                r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?",
+                label,
+            )
+            for label in labels
+        ):
+            raise ValueError("origin host is invalid")
     authority = f"[{host}]" if ":" in host else host
     if port is not None and not (
         (scheme == "http" and port == 80) or (scheme == "https" and port == 443)
