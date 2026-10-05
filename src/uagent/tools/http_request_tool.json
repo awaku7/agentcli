@@ -68,7 +68,7 @@
       "HTTP ক্লায়েন্ট",
       "পোস্টম্যান"
     ],
-    "param.method.description": "HTTP method।",
+    "param.method.description": "HTTP পদ্ধতি।",
     "param.url.description": "HTTP বা HTTPS URL।",
     "param.query.description": "Query-string parameter।",
     "param.headers.description": "অতিরিক্ত HTTP header।",
@@ -908,7 +908,7 @@
       "HTTP ไคลเอนต์",
       "Postman"
     ],
-    "param.method.description": "HTTP method",
+    "param.method.description": "เมธอด HTTP",
     "param.url.description": "HTTP หรือ HTTPS URL.",
     "param.query.description": "Query-string parameter.",
     "param.headers.description": "ส่วนหัว HTTP เพิ่มเติม.",
