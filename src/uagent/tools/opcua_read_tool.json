@@ -1,20 +1,4 @@
 {
-  "en": {
-    "tool.description": "Read node value(s) from an OPC UA server. Returns the current value and metadata.",
-    "param.url.description": "OPC UA server URL.",
-    "param.node_ids.description": "Node ID(s) to read. Single: 'i=85' or 'ns=2;s=Temp'. Multiple: comma-separated.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "OPC UA read: {count} value(s) in {ms} ms.",
-    "x_search_terms": [
-      "opcua read",
-      "opcua_read",
-      "opcua",
-      "OPCUA",
-      "value(s",
-      "server"
-    ],
-    "param.timeout.description": "Connection timeout."
-  },
   "ar": {
     "tool.description": "قراءة قيمة (قيم) العقدة من خادم OPC UA. إرجاع القيمة الحالية وبيانات التعريف.",
     "param.url.description": "عنوان URL لخادم OPC UA.",

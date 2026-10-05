@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert a conversation log file (JSONL) to PDF using Playwright.",
-    "param.log_path.description": "Path to the JSONL log file to convert.",
-    "param.output_path.description": "Output path for the PDF file. Defaults to log_path with .pdf extension.",
-    "x_search_terms": [
-      "pdf export",
-      "pdf_export",
-      "pdf",
-      "PDF",
-      "export",
-      "convert",
-      "conversation",
-      "jsonl"
-    ]
-  },
   "ar": {
     "tool.description": "قم بتحويل ملف سجل المحادثة (JSONL) إلى PDF باستخدام Playwright.",
     "param.log_path.description": "المسار إلى ملف سجل JSONL للتحويل.",

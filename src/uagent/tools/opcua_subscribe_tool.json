@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Subscribe to data changes on an OPC UA server node. When the value changes, the LLM is automatically notified.",
-    "param.url.description": "OPC UA server URL.",
-    "param.node_id.description": "Node ID to monitor (e.g. 'i=85' or 'ns=2;s=Temperature').",
-    "param.label.description": "Human-readable label (e.g. 'ボイラー温度').",
-    "param.on_change_prompt.description": "Optional prompt for LLM when value changes.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.subscribed": "OPC UA subscription active: id={id}, {label}",
-    "err.url_required": "url is required.",
-    "err.node_id_required": "node_id is required.",
-    "x_search_terms": [
-      "opcua subscribe",
-      "opcua_subscribe",
-      "opcua",
-      "OPCUA",
-      "changes"
-    ],
-    "param.timeout.description": "Connection timeout."
-  },
   "ar": {
     "tool.description": "اشترك في تغييرات البيانات على عقدة خادم OPC UA. عندما تتغير القيمة، يتم إخطار LLM تلقائيًا.",
     "param.url.description": "عنوان URL لخادم OPC UA.",

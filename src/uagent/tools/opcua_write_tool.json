@@ -1,22 +1,4 @@
 {
-  "en": {
-    "tool.description": "Write a value to an OPC UA server node.",
-    "param.url.description": "OPC UA server URL.",
-    "param.node_id.description": "Target node ID (e.g. 'i=85' or 'ns=2;s=Setpoint').",
-    "param.value.description": "Value to write. Use type hint for non-string types.",
-    "param.type.description": "Data type hint for the value: string, int, float, bool.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "OPC UA write: {node} = {val}",
-    "x_search_terms": [
-      "opcua write",
-      "opcua_write",
-      "opcua",
-      "OPCUA",
-      "value",
-      "server"
-    ],
-    "param.timeout.description": "Connection timeout."
-  },
   "ar": {
     "tool.description": "اكتب قيمة إلى عقدة خادم OPC UA.",
     "param.url.description": "عنوان URL لخادم OPC UA.",

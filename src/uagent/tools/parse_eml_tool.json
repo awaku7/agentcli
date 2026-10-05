@@ -44,15 +44,6 @@
     "err.file_not_found": "Το αρχείο δεν βρέθηκε: {path}",
     "err.invalid_extension": "Αναμενόμενο αρχείο .eml, έλαβε: {ext}"
   },
-  "en": {
-    "tool.description": "Parse a .eml email file and extract headers (From/To/Subject/Date) and body text.",
-    "x_search_terms": "[\"eml\", \"email\", \"mail\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",
-    "param.path.description": "Path to the .eml file.",
-    "param.max_body_length.description": "Max characters for body extraction (default: 5000, 0 = unlimited).",
-    "err.path_missing": "path is required.",
-    "err.file_not_found": "File not found: {path}",
-    "err.invalid_extension": "Expected .eml file, got: {ext}"
-  },
   "es": {
     "tool.description": "Analice un archivo de correo electrónico .eml y extraiga los encabezados (De/A/Asunto/Fecha) y el texto del cuerpo.",
     "x_search_terms": "[\"eml\", \"correo electrónico\", \"correo\", \"outlook\", \"メールファイル\", \"parse email\", \"eml parser\", \"archivo eml\", \"fichier eml\"]",

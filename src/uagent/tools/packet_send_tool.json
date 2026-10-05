@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "Send bounded TCP or UDP data; dry-run is enabled by default.",
-    "param.action.description": "Send action.",
-    "param.target.description": "Target host or IP address.",
-    "param.port.description": "Target port.",
-    "param.payload.description": "Text payload to send.",
-    "param.count.description": "Number of sends.",
-    "param.interval.description": "Interval between sends in seconds.",
-    "param.dry_run.description": "Do not send data; return the planned operation.",
-    "param.send_confirmed.description": "Set only after human_ask explicitly confirms the send operation.",
-    "x_search_terms": [
-      "packet send",
-      "udp send",
-      "tcp send",
-      "network test"
-    ]
-  },
   "ar": {
     "tool.description": "إرسال بيانات TCP أو UDP المحددة؛ يتم تمكين التشغيل الجاف بشكل افتراضي.",
     "param.action.description": "إرسال الإجراء.",
