@@ -273,7 +273,7 @@ def collect_units(
             assert isinstance(block, dict)
             for key, en_val in en.items():
                 text = _value_to_text(en_val)
-                if text is None:
+                if text is None or not text.strip():
                     continue
                 cur = block.get(key)
                 if only_missing and not _is_missing_or_stale(
