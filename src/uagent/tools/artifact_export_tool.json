@@ -3,9 +3,9 @@
     "tool.description": "صدّر Artifact مملوكًا للجلسة ومحفوظًا مسبقًا إلى ملف داخل workdir دون إرجاع بيانات base64.",
     "x_search_terms": [
       "artifact_export",
-      "تصدير عنصر ناتج",
-      "حفظ عنصر ناتج",
-      "نسخ عنصر ناتج ثنائي"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "مسار الوجهة بالنسبة إلى workdir الحالي. يجب أن تكون المسارات المطلقة أيضًا داخل workdir.",
     "param.overwrite.description": "استبدل ملف الوجهة إذا كان موجودًا بالفعل (الافتراضي: false).",
@@ -21,9 +21,9 @@
     "tool.description": "আগে সংরক্ষিত সেশন-মালিকানাধীন Artifact-কে base64 ডেটা না ফিরিয়ে workdir-এর ভেতরের একটি ফাইলে এক্সপোর্ট করুন।",
     "x_search_terms": [
       "artifact_export",
-      "আর্টিফ্যাক্ট রপ্তানি",
-      "আর্টিফ্যাক্ট সংরক্ষণ",
-      "বাইনারি আর্টিফ্যাক্ট কপি"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "বর্তমান workdir-এর তুলনায় গন্তব্য পাথ। অ্যাবসোলিউট পাথও workdir-এর ভেতরে হতে হবে।",
     "param.overwrite.description": "গন্তব্য ফাইলটি আগে থেকেই থাকলে সেটি ওভাররাইট করুন (ডিফল্ট: false)।",
@@ -39,9 +39,9 @@
     "tool.description": "Exportuje dříve uložený Artifact vlastněný relací do souboru uvnitř workdir bez vracení dat base64.",
     "x_search_terms": [
       "artifact_export",
-      "export artefaktu",
-      "uložit artefakt",
-      "kopírovat binární artefakt"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Cílová cesta relativní k aktuálnímu workdir. Absolutní cesty musí být stále uvnitř workdir.",
     "param.overwrite.description": "Přepsat cílový soubor, pokud již existuje (výchozí: false).",
@@ -57,9 +57,9 @@
     "tool.description": "Eksportér et tidligere gemt sessions-ejet Artifact til en fil i workdir uden at returnere base64-data.",
     "x_search_terms": [
       "artifact_export",
-      "eksportér artefakt",
-      "gem artefakt",
-      "kopiér binært artefakt"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Destinationssti relativ til den aktuelle workdir. Absolutte stier skal stadig være inde i workdir.",
     "param.overwrite.description": "Overskriv destinationsfilen, hvis den allerede findes (standard: false).",
@@ -75,9 +75,9 @@
     "tool.description": "Exportiert ein zuvor gespeichertes, sitzungseigenes Artifact in eine Datei innerhalb von workdir, ohne base64-Daten zurückzugeben.",
     "x_search_terms": [
       "artifact_export",
-      "Artefakt exportieren",
-      "Artefakt speichern",
-      "binäres Artefakt kopieren"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Zielpfad relativ zum aktuellen workdir. Absolute Pfade müssen sich ebenfalls innerhalb des workdir befinden.",
     "param.overwrite.description": "Zieldatei überschreiben, wenn sie bereits vorhanden ist (Standard: false).",
@@ -93,9 +93,9 @@
     "tool.description": "Εξάγει ένα προηγουμένως αποθηκευμένο Artifact που ανήκει στη συνεδρία σε αρχείο μέσα στο workdir, χωρίς να επιστρέφει δεδομένα base64.",
     "x_search_terms": [
       "artifact_export",
-      "εξαγωγή τεχνουργήματος",
-      "αποθήκευση τεχνουργήματος",
-      "αντιγραφή δυαδικού τεχνουργήματος"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Διαδρομή προορισμού σχετική με το τρέχον workdir. Οι απόλυτες διαδρομές πρέπει επίσης να βρίσκονται μέσα στο workdir.",
     "param.overwrite.description": "Αντικατάσταση του αρχείου προορισμού αν υπάρχει ήδη (προεπιλογή: false).",
@@ -129,9 +129,9 @@
     "tool.description": "Exporta un Artifact previamente almacenado y propiedad de la sesión a un archivo dentro de workdir sin devolver datos base64.",
     "x_search_terms": [
       "artifact_export",
-      "exportar artefacto",
-      "guardar artefacto",
-      "copiar artefacto binario"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Ruta de destino relativa al workdir actual. Las rutas absolutas también deben estar dentro del workdir.",
     "param.overwrite.description": "Sobrescribe el archivo de destino si ya existe (valor predeterminado: false).",
@@ -147,9 +147,9 @@
     "tool.description": "یک Artifact متعلق به نشست که قبلاً ذخیره شده است را بدون بازگرداندن داده‌های base64 به فایلی داخل workdir صادر می‌کند.",
     "x_search_terms": [
       "artifact_export",
-      "خروجی گرفتن از آرتیفکت",
-      "ذخیره آرتیفکت",
-      "کپی آرتیفکت دودویی"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "مسیر مقصد نسبت به workdir فعلی. مسیرهای مطلق نیز باید داخل workdir باشند.",
     "param.overwrite.description": "اگر فایل مقصد از قبل وجود دارد، آن را بازنویسی کنید (پیش‌فرض: false).",
@@ -165,9 +165,9 @@
     "tool.description": "Vie aiemmin tallennetun, istunnon omistaman Artifact-objektin workdir-hakemiston sisällä olevaan tiedostoon palauttamatta base64-dataa.",
     "x_search_terms": [
       "artifact_export",
-      "vie artefakti",
-      "tallenna artefakti",
-      "kopioi binääriartefakti"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Kohdepolku suhteessa nykyiseen workdir-hakemistoon. Absoluuttisten polkujen on myös oltava workdir-hakemiston sisällä.",
     "param.overwrite.description": "Korvaa kohdetiedosto, jos se on jo olemassa (oletus: false).",
@@ -183,9 +183,9 @@
     "tool.description": "I-export ang dati nang nakaimbak na Artifact na pag-aari ng session sa isang file sa loob ng workdir nang hindi nagbabalik ng base64 data.",
     "x_search_terms": [
       "artifact_export",
-      "i-export ang artifact",
-      "i-save ang artifact",
-      "kopyahin ang binary artifact"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Destination path na relative sa kasalukuyang workdir. Ang mga absolute path ay dapat nasa loob pa rin ng workdir.",
     "param.overwrite.description": "I-overwrite ang patutunguhang file kung umiiral na ito (default: false).",
@@ -201,9 +201,9 @@
     "tool.description": "Exporte un Artifact précédemment stocké et appartenant à la session vers un fichier dans workdir sans renvoyer de données base64.",
     "x_search_terms": [
       "artifact_export",
-      "exporter l’artefact",
-      "enregistrer l’artefact",
-      "copier l’artefact binaire"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Chemin de destination relatif au workdir actuel. Les chemins absolus doivent également rester à l’intérieur du workdir.",
     "param.overwrite.description": "Écrase le fichier de destination s’il existe déjà (valeur par défaut : false).",
@@ -219,9 +219,9 @@
     "tool.description": "מייצא Artifact שנשמר בעבר ושייך להפעלה לקובץ בתוך workdir, בלי להחזיר נתוני base64.",
     "x_search_terms": [
       "artifact_export",
-      "ייצוא ארטיפקט",
-      "שמירת ארטיפקט",
-      "העתקת ארטיפקט בינארי"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "נתיב יעד ביחס ל-workdir הנוכחי. גם נתיבים מוחלטים חייבים להיות בתוך workdir.",
     "param.overwrite.description": "החלף את קובץ היעד אם הוא כבר קיים (ברירת מחדל: false).",
@@ -237,9 +237,9 @@
     "tool.description": "पहले से संग्रहीत, सत्र-स्वामित्व वाले Artifact को base64 डेटा लौटाए बिना workdir के भीतर की फ़ाइल में निर्यात करें।",
     "x_search_terms": [
       "artifact_export",
-      "आर्टिफैक्ट निर्यात करें",
-      "आर्टिफैक्ट सहेजें",
-      "बाइनरी आर्टिफैक्ट कॉपी करें"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "वर्तमान workdir के सापेक्ष गंतव्य पथ। निरपेक्ष पथ भी workdir के भीतर होने चाहिए।",
     "param.overwrite.description": "यदि गंतव्य फ़ाइल पहले से मौजूद है तो उसे ओवरराइट करें (डिफ़ॉल्ट: false)।",
@@ -255,9 +255,9 @@
     "tool.description": "Egy korábban eltárolt, munkamenet-tulajdonú Artifactot exportál a workdir területén lévő fájlba base64-adatok visszaadása nélkül.",
     "x_search_terms": [
       "artifact_export",
-      "artefaktum exportálása",
-      "artefaktum mentése",
-      "bináris artefaktum másolása"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "A cél elérési útja az aktuális workdir könyvtárhoz képest. Az abszolút elérési utaknak is a workdir területén belül kell maradniuk.",
     "param.overwrite.description": "A célfájl felülírása, ha már létezik (alapértelmezés: false).",
@@ -273,9 +273,9 @@
     "tool.description": "Mengekspor Artifact milik sesi yang sebelumnya disimpan ke file di dalam workdir tanpa mengembalikan data base64.",
     "x_search_terms": [
       "artifact_export",
-      "ekspor artefak",
-      "simpan artefak",
-      "salin artefak biner"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Path tujuan relatif terhadap workdir saat ini. Path absolut juga harus tetap berada di dalam workdir.",
     "param.overwrite.description": "Timpa file tujuan jika sudah ada (default: false).",
@@ -291,9 +291,9 @@
     "tool.description": "Esporta un Artifact appartenente alla sessione e salvato in precedenza in un file all'interno di workdir senza restituire dati base64.",
     "x_search_terms": [
       "artifact_export",
-      "esporta artefatto",
-      "salva artefatto",
-      "copia artefatto binario"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Percorso di destinazione relativo al workdir corrente. Anche i percorsi assoluti devono rimanere all’interno del workdir.",
     "param.overwrite.description": "Sovrascrive il file di destinazione se esiste già (predefinito: false).",
@@ -327,9 +327,9 @@
     "tool.description": "이전에 저장된 세션 소유 Artifact를 base64 데이터를 반환하지 않고 workdir 내부의 파일로 내보냅니다.",
     "x_search_terms": [
       "artifact_export",
-      "아티팩트 내보내기",
-      "아티팩트 저장",
-      "바이너리 아티팩트 복사"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "현재 workdir 기준의 대상 경로입니다. 절대 경로도 workdir 내부에 있어야 합니다.",
     "param.overwrite.description": "대상 파일이 이미 있으면 덮어씁니다(기본값: false).",
@@ -345,9 +345,9 @@
     "tool.description": "Өмнө хадгалсан, сесс эзэмшдэг Artifact-ийг base64 өгөгдөл буцаахгүйгээр workdir доторх файл руу экспортолно.",
     "x_search_terms": [
       "artifact_export",
-      "артефакт экспортлох",
-      "артефакт хадгалах",
-      "бинар артефакт хуулах"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Одоогийн workdir-тэй харьцуулсан очих зам. Абсолют замууд мөн workdir дотор байх ёстой.",
     "param.overwrite.description": "Хэрэв очих файл аль хэдийн байвал дарж бичнэ (өгөгдмөл: false).",
@@ -363,9 +363,9 @@
     "tool.description": "पूर्वी साठवलेला, सत्र-मालकीचा Artifact base64 डेटा परत न करता workdir मधील फाइलमध्ये निर्यात करा.",
     "x_search_terms": [
       "artifact_export",
-      "आर्टिफॅक्ट निर्यात करा",
-      "आर्टिफॅक्ट जतन करा",
-      "बायनरी आर्टिफॅक्ट कॉपी करा"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "सध्याच्या workdir च्या संदर्भातील गंतव्य पथ. निरपेक्ष पथदेखील workdir च्या आतच असले पाहिजेत.",
     "param.overwrite.description": "गंतव्य फाइल आधीपासून अस्तित्वात असल्यास ती ओव्हरराइट करा (डीफॉल्ट: false).",
@@ -381,9 +381,9 @@
     "tool.description": "Eksport Artifact milik sesi yang telah disimpan sebelum ini ke fail dalam workdir tanpa mengembalikan data base64.",
     "x_search_terms": [
       "artifact_export",
-      "eksport artifak",
-      "simpan artifak",
-      "salin artifak binari"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Laluan destinasi relatif kepada workdir semasa. Laluan mutlak juga mesti berada dalam workdir.",
     "param.overwrite.description": "Tulis ganti fail destinasi jika sudah wujud (lalai: false).",
@@ -399,9 +399,9 @@
     "tool.description": "Eksporterer et tidligere lagret Artifact som eies av økten, til en fil i workdir uten å returnere base64-data.",
     "x_search_terms": [
       "artifact_export",
-      "eksporter artefakt",
-      "lagre artefakt",
-      "kopier binært artefakt"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Målsti relativ til gjeldende workdir. Absolutte stier må også ligge innenfor workdir.",
     "param.overwrite.description": "Overskriv målfilen hvis den allerede finnes (standard: false).",
@@ -417,9 +417,9 @@
     "tool.description": "Exporteert een eerder opgeslagen Artifact dat eigendom is van de sessie naar een bestand binnen workdir zonder base64-gegevens terug te geven.",
     "x_search_terms": [
       "artifact_export",
-      "artefact exporteren",
-      "artefact opslaan",
-      "binair artefact kopiëren"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Doelpad relatief aan de huidige workdir. Absolute paden moeten ook binnen de workdir blijven.",
     "param.overwrite.description": "Overschrijf het doelbestand als het al bestaat (standaard: false).",
@@ -435,9 +435,9 @@
     "tool.description": "Eksporterer eit tidlegare lagra Artifact som er eigd av økta, til ei fil i workdir utan å returnere base64-data.",
     "x_search_terms": [
       "artifact_export",
-      "eksporter artefakt",
-      "lagre artefakt",
-      "kopier binært artefakt"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Målsti relativ til gjeldande workdir. Absolutte stiar må òg liggje innanfor workdir.",
     "param.overwrite.description": "Overskriv målfila dersom ho allereie finst (standard: false).",
@@ -453,9 +453,9 @@
     "tool.description": "Eksportuje wcześniej zapisany Artifact należący do sesji do pliku w obrębie workdir bez zwracania danych base64.",
     "x_search_terms": [
       "artifact_export",
-      "eksportuj artefakt",
-      "zapisz artefakt",
-      "skopiuj artefakt binarny"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Ścieżka docelowa względem bieżącego workdir. Ścieżki bezwzględne również muszą znajdować się wewnątrz workdir.",
     "param.overwrite.description": "Nadpisz plik docelowy, jeśli już istnieje (domyślnie: false).",
@@ -471,9 +471,9 @@
     "tool.description": "Exporta um Artifact pertencente à sessão e guardado anteriormente para um ficheiro dentro de workdir sem devolver dados base64.",
     "x_search_terms": [
       "artifact_export",
-      "exportar artefacto",
-      "guardar artefacto",
-      "copiar artefacto binário"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Caminho de destino relativo ao workdir atual. Os caminhos absolutos também têm de ficar dentro do workdir.",
     "param.overwrite.description": "Substitui o ficheiro de destino se já existir (predefinição: false).",
@@ -489,9 +489,9 @@
     "tool.description": "Exporta um Artifact pertencente à sessão e armazenado anteriormente para um arquivo dentro de workdir sem retornar dados base64.",
     "x_search_terms": [
       "artifact_export",
-      "exportar artefato",
-      "salvar artefato",
-      "copiar artefato binário"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Caminho de destino relativo ao workdir atual. Caminhos absolutos também devem permanecer dentro do workdir.",
     "param.overwrite.description": "Sobrescreve o arquivo de destino se ele já existir (padrão: false).",
@@ -507,9 +507,9 @@
     "tool.description": "Exportă un Artifact deținut de sesiune și salvat anterior într-un fișier din workdir fără a returna date base64.",
     "x_search_terms": [
       "artifact_export",
-      "exportă artefactul",
-      "salvează artefactul",
-      "copiază artefactul binar"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Calea de destinație relativă la workdir curent. Căile absolute trebuie să rămână tot în interiorul workdir.",
     "param.overwrite.description": "Suprascrie fișierul de destinație dacă există deja (implicit: false).",
@@ -525,9 +525,9 @@
     "tool.description": "Экспортирует ранее сохранённый Artifact, принадлежащий сеансу, в файл внутри workdir без возврата данных base64.",
     "x_search_terms": [
       "artifact_export",
-      "экспортировать артефакт",
-      "сохранить артефакт",
-      "копировать бинарный артефакт"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Путь назначения относительно текущего workdir. Абсолютные пути также должны находиться внутри workdir.",
     "param.overwrite.description": "Перезаписать файл назначения, если он уже существует (по умолчанию: false).",
@@ -543,9 +543,9 @@
     "tool.description": "Exporterar ett tidigare sparat, sessionsägt Artifact till en fil i workdir utan att returnera base64-data.",
     "x_search_terms": [
       "artifact_export",
-      "exportera artefakt",
-      "spara artefakt",
-      "kopiera binär artefakt"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Målsökväg relativ till aktuell workdir. Absoluta sökvägar måste också ligga inom workdir.",
     "param.overwrite.description": "Skriv över målfilen om den redan finns (standard: false).",
@@ -561,9 +561,9 @@
     "tool.description": "Hamisha Artifact inayomilikiwa na kipindi na iliyohifadhiwa awali kwenda kwenye faili ndani ya workdir bila kurudisha data ya base64.",
     "x_search_terms": [
       "artifact_export",
-      "hamisha artefakti",
-      "hifadhi artefakti",
-      "nakili artefakti ya binary"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Njia lengwa inayohusiana na workdir ya sasa. Njia kamili pia lazima ziwe ndani ya workdir.",
     "param.overwrite.description": "Andika juu ya faili lengwa ikiwa tayari lipo (chaguo-msingi: false).",
@@ -579,9 +579,9 @@
     "tool.description": "ส่งออก Artifact ที่เป็นของเซสชันและบันทึกไว้ก่อนหน้านี้ไปยังไฟล์ภายใน workdir โดยไม่ส่งคืนข้อมูล base64",
     "x_search_terms": [
       "artifact_export",
-      "ส่งออกอาร์ติแฟกต์",
-      "บันทึกอาร์ติแฟกต์",
-      "คัดลอกอาร์ติแฟกต์ไบนารี"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "พาธปลายทางแบบสัมพัทธ์กับ workdir ปัจจุบัน พาธแบบ absolute ก็ต้องอยู่ภายใน workdir เช่นกัน",
     "param.overwrite.description": "เขียนทับไฟล์ปลายทางหากมีอยู่แล้ว (ค่าเริ่มต้น: false)",
@@ -597,9 +597,9 @@
     "tool.description": "Daha önce kaydedilmiş, oturuma ait bir Artifact'ı base64 verisi döndürmeden workdir içindeki bir dosyaya dışa aktarır.",
     "x_search_terms": [
       "artifact_export",
-      "artefaktı dışa aktar",
-      "artefaktı kaydet",
-      "ikili artefaktı kopyala"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Geçerli workdir konumuna göre hedef yol. Mutlak yollar da workdir içinde olmalıdır.",
     "param.overwrite.description": "Hedef dosya zaten varsa üzerine yaz (varsayılan: false).",
@@ -615,9 +615,9 @@
     "tool.description": "Експортує раніше збережений Artifact, що належить сеансу, у файл всередині workdir без повернення даних base64.",
     "x_search_terms": [
       "artifact_export",
-      "експортувати артефакт",
-      "зберегти артефакт",
-      "копіювати бінарний артефакт"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Шлях призначення відносно поточного workdir. Абсолютні шляхи також мають залишатися всередині workdir.",
     "param.overwrite.description": "Перезаписати файл призначення, якщо він уже існує (типово: false).",
@@ -633,9 +633,9 @@
     "tool.description": "Xuất Artifact thuộc phiên đã được lưu trước đó ra một tệp bên trong workdir mà không trả về dữ liệu base64.",
     "x_search_terms": [
       "artifact_export",
-      "xuất artifact",
-      "lưu artifact",
-      "sao chép artifact nhị phân"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "Đường dẫn đích tương đối so với workdir hiện tại. Đường dẫn tuyệt đối cũng phải nằm bên trong workdir.",
     "param.overwrite.description": "Ghi đè tệp đích nếu tệp đã tồn tại (mặc định: false).",
@@ -651,9 +651,9 @@
     "tool.description": "将先前保存且归当前会话所有的 Artifact 导出到 workdir 内的文件，而不返回 base64 数据。",
     "x_search_terms": [
       "artifact_export",
-      "导出制品",
-      "保存制品",
-      "复制二进制制品"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "相对于当前 workdir 的目标路径。绝对路径也必须位于 workdir 内。",
     "param.overwrite.description": "如果目标文件已存在，则覆盖该文件（默认值：false）。",
@@ -669,9 +669,9 @@
     "tool.description": "將先前儲存且屬於目前工作階段的 Artifact 匯出到 workdir 內的檔案，而不傳回 base64 資料。",
     "x_search_terms": [
       "artifact_export",
-      "匯出產出物",
-      "儲存產出物",
-      "複製二進位產出物"
+      "export artifact",
+      "save artifact",
+      "copy binary artifact"
     ],
     "param.output_path.description": "相對於目前 workdir 的目標路徑。絕對路徑也必須位於 workdir 內。",
     "param.overwrite.description": "如果目標檔案已存在，則覆寫該檔案（預設值：false）。",
