@@ -1,39 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "audio transcribe",
-      "speech to text",
-      "stt",
-      "transcription",
-      "audio to text",
-      "transcribe",
-      "speech recognition",
-      "voice to text",
-      "audio recognition",
-      "speech transcription"
-    ],
-    "param.path.description": "Path to the input audio file. Required unless url is set (Grok/xAI).",
-    "param.prompt.description": "Optional context prompt to improve transcription quality. Ignored by Grok/xAI batch STT.",
-    "err.unsupported_provider": "Unsupported provider for audio transcription: {provider!r}",
-    "err.openai_import": "Failed to import openai package: {err}",
-    "err.path_empty": "path is required",
-    "err.file_not_found": "audio file not found: {path}",
-    "err.invalid_output_format": "Invalid output_format: {output_format}",
-    "err.transcribe_failed": "Audio transcription failed: {err}",
-    "ok.transcribed": "Transcription completed",
-    "warn.empty_transcript": "[WARN] empty transcript",
-    "param.fmt.description": "How much detail to return in the JSON response: text or json.",
-    "param.language.description": "Optional language hint (e.g. 'ja', 'en'). If omitted, the current display language is used.",
-    "param.model.description": "Transcription model name. If omitted, the provider default or configured deployment name is used. Grok/xAI default: grok-stt-batch.",
-    "tool.description": "Transcribe an audio file to text. Useful for meetings, interviews, and voice notes.",
-    "param.url.description": "Remote audio URL for Grok/xAI STT (alternative to path). Ignored by other providers.",
-    "param.diarize.description": "Grok/xAI only: enable speaker diarization when true.",
-    "param.keyterm.description": "Grok/xAI only: bias terms (max 100, each <= 50 chars). A single string is also accepted.",
-    "param.filler_words.description": "Grok/xAI only: keep filler words (um/uh) when true.",
-    "param.itn_format.description": "Grok/xAI only: enable inverse text normalization (numbers/dates as digits) when true.",
-    "err.path_or_url_required": "path or url is required for Grok/xAI STT",
-    "err.grok_file_too_large": "audio file exceeds Grok STT limit of {max_mb} MB (got {size_mb:.1f} MB)"
-  },
   "ja": {
     "x_search_terms": [
       "音声文字起こし",

@@ -71,18 +71,6 @@
     "error.invalid_artifact_id": "Το artifact_id πρέπει να είναι έγκυρο αναγνωριστικό αντικειμένου ή αναφορά artifact://",
     "error.not_active_session": "Το αντικείμενο δεν ανήκει στην ενεργή συνεδρία"
   },
-  "en": {
-    "tool.description": "Return metadata for a previously stored session-owned artifact without reading its payload.",
-    "x_search_terms": [
-      "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
-    ],
-    "param.artifact_id.description": "Artifact ID or artifact:// reference from an earlier tool result.",
-    "error.invalid_artifact_id": "artifact_id must be a valid artifact ID or artifact:// reference",
-    "error.not_active_session": "artifact does not belong to the active session"
-  },
   "es": {
     "tool.description": "Devuelve los metadatos de un artifact previamente almacenado y propiedad de la sesión sin leer su contenido.",
     "x_search_terms": [

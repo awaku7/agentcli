@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "AWS tool covering all boto3 services. It can list services, list operations, and call AWS APIs. Read-only operations work by default; write operations require confirm_write=true.",
-    "x_search_terms": [
-      "aws",
-      "amazon web services",
-      "boto3",
-      "cloud",
-      "aws_api"
-    ],
-    "param.action": "Action: list_services, list_operations, or call.",
-    "param.service": "AWS service name, for example ec2 or s3.",
-    "param.operation": "A boto3 client operation, for example DescribeInstances or StartInstances.",
-    "param.parameters": "JSON object containing the operation parameters.",
-    "param.region": "Optional AWS region; otherwise use the configured default.",
-    "param.include_write": "For list_operations, include write-capable operations.",
-    "param.confirm_write": "Required true to execute a non-read-only AWS operation. This explicitly confirms the write."
-  },
   "ar": {
     "tool.description": "أداة AWS تغطي جميع خدمات boto3. يمكنه سرد الخدمات وقائمة العمليات واستدعاء واجهات برمجة تطبيقات AWS. تعمل عمليات القراءة فقط بشكل افتراضي؛ تتطلب عمليات الكتابة تأكيد_الكتابة = صحيح.",
     "x_search_terms": [

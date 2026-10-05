@@ -1,28 +1,4 @@
 {
-  "en": {
-    "tool.description": "Write a value to a BACnet property on a device. Returns the result as JSON or text.",
-    "param.ip.description": "Target device IPv4 address.",
-    "param.device_instance.description": "BACnet device instance number (alternative to ip). Used if ip is not provided.",
-    "param.object_type.description": "BACnet object type (e.g. 'analogOutput', 'binaryOutput', 'analogValue').",
-    "param.object_instance.description": "BACnet object instance number.",
-    "param.property_name.description": "Property name to write (default: 'presentValue').",
-    "param.value.description": "Value to write. For analog types use a number string (e.g. '25.0'), for binary types use 'active' or 'inactive', for multi-state use the state number as string.",
-    "param.priority.description": "Optional BACnet write priority (1-16). Lower number = higher priority. Default is device-specific.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "BACnet write: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
-    "err.bac0_install": "BAC0 library could not be installed.",
-    "err.invalid_object_type": "Invalid object_type. Valid: {types}.",
-    "err.value_required": "A value is required for write operation.",
-    "err.ip_or_device_required": "Either ip or device_instance is required.",
-    "x_search_terms": [
-      "bacnet write",
-      "bacnet_write",
-      "bacnet",
-      "BACNET",
-      "value"
-    ],
-    "param.timeout.description": "Timeout in seconds."
-  },
   "ar": {
     "tool.description": "اكتب قيمة لخاصية BACnet على الجهاز. إرجاع النتيجة بتنسيق JSON أو نص.",
     "param.ip.description": "عنوان IPv4 للجهاز المستهدف.",

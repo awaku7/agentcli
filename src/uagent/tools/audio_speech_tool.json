@@ -1,38 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "audio speech",
-      "speech synthesis",
-      "text to speech",
-      "tts",
-      "audio generate",
-      "speak text",
-      "voice",
-      "voice synthesis",
-      "audio create",
-      "speech generate",
-      "grok tts",
-      "xai tts"
-    ],
-    "param.text.description": "Text to synthesize into speech.",
-    "param.output_path.description": "Path where the generated audio file will be saved.",
-    "param.voice.description": "Voice id/name. OpenAI default: alloy. Grok/xAI default: eve.",
-    "param.response_format.description": "Audio file codec. OpenAI: mp3/opus/aac/flac/wav/pcm. Grok/xAI: mp3/wav/pcm/mulaw/alaw.",
-    "param.speed.description": "Playback speed multiplier (e.g. 1.0). Grok/xAI range: 0.7-1.5.",
-    "param.instructions.description": "Optional instructions for the speech style.",
-    "err.unsupported_provider": "Unsupported provider for audio speech: {provider!r}",
-    "err.openai_import": "Failed to import openai package: {err}",
-    "err.text_empty": "text is required",
-    "err.output_path_empty": "output_path is required",
-    "err.speech_failed": "Audio speech generation failed: {err}",
-    "ok.saved": "Audio file saved",
-    "param.model.description": "Speech model name. If omitted, the provider default or configured deployment name is used.",
-    "tool.description": "Convert text to speech, save the audio as a file, and return the saved path.",
-    "param.language.description": "BCP-47 language tag for Grok/xAI TTS (e.g. en, ja, auto). Ignored by other providers.",
-    "err.grok_text_too_long": "text exceeds Grok TTS limit of {max} characters (got {n})",
-    "err.grok_unsupported_format": "Grok/xAI TTS does not support codec {fmt!r}. Use one of: mp3, wav, pcm, mulaw, alaw.",
-    "err.openai_unsupported_format": "OpenAI/Azure TTS does not support codec {fmt!r}. Use one of: mp3, opus, aac, flac, wav, pcm."
-  },
   "ja": {
     "x_search_terms": [
       "オーディオスピーチ",

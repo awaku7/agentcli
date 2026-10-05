@@ -1,24 +1,4 @@
 {
-  "en": {
-    "tool.description": "Read a bounded portion of a previously stored tool-result artifact.",
-    "x_search_terms": [
-      "artifact_read",
-      "artifact",
-      "tool result artifact",
-      "artifact reference",
-      "read artifact"
-    ],
-    "param.artifact_id.description": "Artifact ID or artifact:// reference from an earlier tool result.",
-    "param.start_line.description": "1-based line number to start reading from.",
-    "param.max_lines.description": "Maximum number of lines to return.",
-    "param.max_chars.description": "Maximum number of UTF-8 characters to return.",
-    "error.invalid_artifact_id": "artifact_id must be a valid artifact ID or artifact:// reference",
-    "error.positive_integers": "start_line, max_lines, and max_chars must be positive integers",
-    "error.max_lines": "max_lines must be at most {limit}",
-    "error.max_chars": "max_chars must be at most {limit}",
-    "error.not_active_session": "artifact does not belong to the active session",
-    "error.binary_artifact": "artifact is binary; use artifact_info or artifact_export instead of artifact_read"
-  },
   "ja": {
     "tool.description": "以前保存した Tool Result Artifact の一部を、範囲を制限して読み取ります。",
     "x_search_terms": [

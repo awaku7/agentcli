@@ -1,25 +1,4 @@
 {
-  "en": {
-    "tool.description": "Read a BACnet property from a device. Returns the current value and metadata as JSON or text.",
-    "param.ip.description": "Target device IPv4 address.",
-    "param.device_instance.description": "BACnet device instance number (alternative to ip). Used if ip is not provided.",
-    "param.object_type.description": "BACnet object type (e.g. 'analogInput', 'binaryOutput', 'analogValue').",
-    "param.object_instance.description": "BACnet object instance number.",
-    "param.property_name.description": "Property name to read (default: 'presentValue'). Common: presentValue, description, units, statusFlags, objectName.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "BACnet read: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
-    "err.bac0_install": "BAC0 library could not be installed.",
-    "err.invalid_object_type": "Invalid object_type. Valid: {types}.",
-    "err.ip_or_device_required": "Either ip or device_instance is required.",
-    "x_search_terms": [
-      "bacnet read",
-      "bacnet_read",
-      "bacnet",
-      "BACNET",
-      "returns"
-    ],
-    "param.timeout.description": "Timeout in seconds."
-  },
   "ar": {
     "tool.description": "قراءة خاصية BACnet من الجهاز. تقوم بإرجاع القيمة الحالية والبيانات التعريفية بتنسيق JSON أو نص.",
     "param.ip.description": "عنوان IPv4 للجهاز المستهدف.",

@@ -1,24 +1,4 @@
 {
-  "en": {
-    "tool.description": "Cancel a BACnet COV subscription by task_id, or list active subscriptions.",
-    "param.action.description": "Action: 'unsubscribe' (default) to cancel by task_id, or 'list' to show active subscriptions.",
-    "param.task_id.description": "COV task_id to unsubscribe (required for action=unsubscribe).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.no_subscriptions": "No active COV subscriptions.",
-    "msg.subscriptions_header": "Active COV subscriptions ({count}):",
-    "msg.unsubscribed": "COV subscription task_id={task_id} cancelled.",
-    "err.task_id_required": "task_id is required for action=unsubscribe.",
-    "x_search_terms": [
-      "bacnet cov unsubscribe",
-      "bacnet_cov_unsubscribe",
-      "bacnet",
-      "BACNET",
-      "cov",
-      "cancel",
-      "subscription",
-      "task_id"
-    ]
-  },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك BACnet COV بواسطة Task_id، أو قم بإدراج الاشتراكات النشطة.",
     "param.action.description": "الإجراء: \"إلغاء الاشتراك\" (افتراضي) للإلغاء بواسطة Task_id، أو \"قائمة\" لإظهار الاشتراكات النشطة.",
