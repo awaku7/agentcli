@@ -252,8 +252,8 @@ TOOL_SPEC = {
 #    # python scripts/tool_json_i18n_batch.py status
 #    #   -> uses the shipped 38-locale set (English source + 37 targets),
 #    #      scanning target blocks already present in each tool.
-#    #      True missing/empty values and same-as-English review candidates
-#    #      are reported separately.
+#    #      True missing target values and same-as-English review candidates
+#    #      are reported separately. Empty English source values are ignored.
 #    # python scripts/tool_json_i18n_batch.py status --langs ja,es,de
 #    # python scripts/tool_json_i18n_batch.py status --add-lang
 #    #   -> also treats absent locale blocks as missing.
