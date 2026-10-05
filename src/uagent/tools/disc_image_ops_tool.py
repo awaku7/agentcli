@@ -394,15 +394,12 @@ def _iso_verify(path: str, path_type: str, deep: bool) -> dict[str, Any]:
             for item in entries:
                 if item["type"] != "file":
                     continue
-                fp = iso.open_file_from_iso(**{path_key: item["path"]})
-                try:
+                with iso.open_file_from_iso(**{path_key: item["path"]}) as fp:
                     while True:
                         chunk = fp.read(1024 * 1024)
                         if not chunk:
                             break
                         bytes_read += len(chunk)
-                finally:
-                    fp.close()
         return {
             "ok": True,
             "format": "iso",
