@@ -56,7 +56,7 @@
     "param.parse_json.description": "تحليل استجابة JSON إلى response_json عندما يكون ذلك ممكنًا."
   },
   "bn": {
-    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
+    "tool.description": "REST বা HTTP API-তে HTTP অনুরোধ পাঠায় এবং status, headers ও response body ফেরত দেয়। JSON, form ও text request body সমর্থন করে। GET/HEAD/OPTIONS অনুরোধ read-only; write method ডিফল্টভাবে serial থাকে।",
     "x_search_terms": [
       "http অনুরোধ",
       "বাকী API",
@@ -68,20 +68,20 @@
       "HTTP ক্লায়েন্ট",
       "পোস্টম্যান"
     ],
-    "param.method.description": "HTTP method.",
-    "param.url.description": "HTTP or HTTPS URL.",
-    "param.query.description": "Query-string parameters.",
-    "param.headers.description": "Additional HTTP headers.",
-    "param.body.description": "Request body. Objects and arrays are JSON-encoded; strings are sent as text.",
+    "param.method.description": "HTTP method।",
+    "param.url.description": "HTTP বা HTTPS URL।",
+    "param.query.description": "Query-string parameter।",
+    "param.headers.description": "অতিরিক্ত HTTP header।",
+    "param.body.description": "Request body। Object ও array JSON-encoded হয়; string text হিসেবে পাঠানো হয়।",
     "param.body_text.description": "Raw request body বডির উপর প্রাধান্য দেয়। HTTP Basic-উত্তর পাসওয়ার্ড। response_json যখন সম্ভব।",
-    "param.content_type.description": "Content-Type for a supplied body.",
-    "param.bearer_token.description": "Optional Bearer token.",
-    "param.username.description": "Optional HTTP Basic-auth username.",
-    "param.password.description": "Optional HTTP Basic-auth password.",
-    "param.timeout.description": "Request timeout in seconds.",
-    "param.max_bytes.description": "Maximum response size in bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse a JSON response into response_json when possible."
+    "param.content_type.description": "প্রদত্ত body-এর Content-Type।",
+    "param.bearer_token.description": "ঐচ্ছিক Bearer token।",
+    "param.username.description": "ঐচ্ছিক HTTP Basic-auth username।",
+    "param.password.description": "ঐচ্ছিক HTTP Basic-auth password।",
+    "param.timeout.description": "অনুরোধের timeout সেকেন্ডে।",
+    "param.max_bytes.description": "Response-এর সর্বোচ্চ আকার bytes-এ।",
+    "param.ssl.description": "TLS certificate যাচাই করুন।",
+    "param.parse_json.description": "সম্ভব হলে JSON response-কে response_json হিসেবে parse করুন।"
   },
   "cs": {
     "tool.description": "Odeslat požadavek HTTP na REST nebo HTTP API a vrátit stav, záhlaví a tělo odpovědi. Podporuje JSON, formuláře a textové požadavky. Požadavky GET/HEAD/OPTIONS jsou pouze pro čtení; metody zápisu zůstávají ve výchozím nastavení sériové.",
@@ -99,7 +99,7 @@
     "param.method.description": "HTTP metoda.",
     "param.url.description": "HTTP nebo HTTPS URL.",
     "param.query.description": "Parametry řetězce dotazu.",
-    "param.headers.description": "Additional HTTP headers.",
+    "param.headers.description": "Další HTTP hlavičky.",
     "param.body.description": "Tělo požadavku. Objekty a pole jsou kódována JSON; řetězce jsou odesílány jako text.",
     "param.body_text.description": "Nezpracované tělo požadavku. Má přednost před tělem.",
     "param.content_type.description": "Content-Type pro dodané tělo.",
@@ -108,7 +108,7 @@
     "param.password.description": "Volitelné HTTP Basic-heslo pro ověření.",
     "param.timeout.description": "Časový limit požadavku v sekundách.",
     "param.max_bytes.description": "Maximální velikost odpovědi v bajtech.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Ověřit certifikáty TLS.",
     "param.parse_json.description": "Pokud je to možné, analyzujte odpověď JSON do response_json."
   },
   "da": {
@@ -124,19 +124,19 @@
       "API",
       "API"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP-metode.",
     "param.url.description": "HTTP eller HTTPS URL.",
     "param.query.description": "Forespørgselsstrengparametre.",
-    "param.headers.description": "Additional HTTP headers.",
+    "param.headers.description": "Yderligere HTTP-headere.",
     "param.body.description": "Forespørgselstekst. Objekter og arrays er JSON-kodede; strenge sendes som tekst.",
     "param.body_text.description": "Rå anmodningstekst. Har forrang over body.",
-    "param.content_type.description": "Content-Type for a supplied body.",
+    "param.content_type.description": "Content-Type for den angivne body.",
     "param.bearer_token.description": "Valgfrit Bearer token.",
     "param.username.description": "Valgfri HTTPauth Basic username.",
     "param.password.description": "Valgfri HTTP Basic-auth-adgangskode.",
     "param.timeout.description": "Anmod om timeout i sekunder.",
     "param.max_bytes.description": "Maksimal svarstørrelse i bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Kontrollér TLS-certifikater.",
     "param.parse_json.description": "Parse et JSON-svar i response_json, når det er muligt."
   },
   "de": {
@@ -152,15 +152,15 @@
       "HTTP Kunde",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP-Methode.",
     "param.url.description": "HTTP oder HTTPS URL.",
     "param.query.description": "Query-String-Parameter.",
     "param.headers.description": "Zusätzliche HTTP-Header.",
     "param.body.description": "Anforderungstext. Objekte und Arrays sind JSON-kodiert; Zeichenfolgen werden als Text gesendet.",
     "param.body_text.description": "Roher Anforderungstext. Hat Vorrang vor body.",
     "param.content_type.description": "Content-Type für einen bereitgestellten body.",
-    "param.bearer_token.description": "Optional Bearer token.",
-    "param.username.description": "Optional HTTP Basic-auth username.",
+    "param.bearer_token.description": "Optionales Bearer-Token.",
+    "param.username.description": "Optionaler HTTP Basic-auth-Benutzername.",
     "param.password.description": "Optional HTTP Basic-auth-Passwort.",
     "param.timeout.description": "Anfrage-Timeout in Sekunden.",
     "param.max_bytes.description": "Maximale Antwortgröße in Bytes.",
@@ -182,7 +182,7 @@
     ],
     "param.method.description": "HTTP μέθοδος.",
     "param.url.description": "HTTP ή HTTPS URL.",
-    "param.query.description": "Query-string parameters.",
+    "param.query.description": "Παράμετροι Query-string.",
     "param.headers.description": "Πρόσθετες HTTP κεφαλίδες.",
     "param.body.description": "Σώμα αιτήματος. Τα αντικείμενα και οι πίνακες είναι κωδικοποιημένα με JSON. Οι συμβολοσειρές αποστέλλονται ως κείμενο.",
     "param.body_text.description": "Ακατέργαστο σώμα αιτήματος. Έχει προτεραιότητα έναντι του σώματος.",
@@ -192,7 +192,7 @@
     "param.password.description": "Προαιρετικό HTTP Basic-auth password.",
     "param.timeout.description": "Αίτημα λήξης χρόνου σε δευτερόλεπτα.",
     "param.max_bytes.description": "Μέγιστο μέγεθος απόκρισης σε byte.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Επαληθεύστε τα πιστοποιητικά TLS.",
     "param.parse_json.description": "Αναλύστε μια απάντηση JSON σε response_json όταν είναι δυνατόν."
   },
   "es": {
@@ -237,19 +237,19 @@
       "پستچی"
     ],
     "param.method.description": "HTTP متد. URL.",
-    "param.url.description": "HTTP or HTTPS URL.",
+    "param.url.description": "URL با HTTP یا HTTPS.",
     "param.query.description": "پارامترهای query-string.",
     "param.headers.description": "HTTP سرصفحه اضافی. اشیاء و آرایه ها با JSON کدگذاری می شوند. رشته ها به عنوان متن ارسال می شوند.",
-    "param.body.description": "Request body. Objects and arrays are JSON-encoded; strings are sent as text.",
+    "param.body.description": "بدنهٔ درخواست. Object و array با JSON کدگذاری می‌شوند؛ string به‌صورت text ارسال می‌شود.",
     "param.body_text.description": "بدنه درخواست خام. بر بدنه ارجحیت دارد.",
     "param.content_type.description": "Content-Type برای بدنه ارائه شده. نام کاربری.",
-    "param.bearer_token.description": "Optional Bearer token.",
-    "param.username.description": "Optional HTTP Basic-auth username.",
+    "param.bearer_token.description": "Bearer token اختیاری.",
+    "param.username.description": "نام کاربری اختیاری HTTP Basic-auth.",
     "param.password.description": "HTTP Basic-گذرواژه تأیید اختیاری.",
     "param.timeout.description": "درخواست زمان در ثانیه. گواهینامه‌ها. DELETE API، HTTP مشتری، Postman",
-    "param.max_bytes.description": "Maximum response size in bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse a JSON response into response_json when possible."
+    "param.max_bytes.description": "حداکثر اندازهٔ response بر حسب bytes.",
+    "param.ssl.description": "گواهی‌های TLS را بررسی کنید.",
+    "param.parse_json.description": "در صورت امکان response نوع JSON را در response_json parse کنید."
   },
   "fi": {
     "tool.description": "Lähetä HTTP-pyyntö numeroon REST tai HTTP API ja palauta tila, otsikot ja vastauksen teksti. Tukee JSON-, lomake- ja tekstipyyntötekstejä. GET/HEAD/OPTIONS pyynnöt ovat vain luku -tilassa; kirjoitusmenetelmät pysyvät oletusarvoisesti sarjamuotoisina.",
@@ -267,7 +267,7 @@
     "param.method.description": "HTTP-menetelmä.",
     "param.url.description": "HTTP tai HTTPS URL.",
     "param.query.description": "Kysely-merkkijonoparametrit.",
-    "param.headers.description": "Additional HTTP headers.",
+    "param.headers.description": "HTTP-lisäotsakkeet.",
     "param.body.description": "Pyynnön runko. Objektit ja taulukot ovat JSON-koodattuja; merkkijonot lähetetään tekstinä.",
     "param.body_text.description": "Raw-pyynnön runko. Ensisijainen tekstiin nähden.",
     "param.content_type.description": "Content-Type toimitetussa rungossa.",
@@ -276,7 +276,7 @@
     "param.password.description": "Valinnainen HTTP Basic-auth-salasana.",
     "param.timeout.description": "Pyydä aikakatkaisua sekunneissa.",
     "param.max_bytes.description": "||||||||||||||||||PH_1|Vertaa| sertifikaatit.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Tarkista TLS-varmenteet.",
     "param.parse_json.description": "Järjestele JSON-vastaus kohteeseen response_json, kun mahdollista."
   },
   "fil": {
@@ -348,9 +348,9 @@
       "PUT",
       "PUT"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "שיטת HTTP.",
     "param.url.description": "HTTP או HTTPSparameter URL.",
-    "param.query.description": "Query-string parameters.",
+    "param.query.description": "פרמטרים של Query-string.",
     "param.headers.description": "תוספת של HTTP כותרות.",
     "param.body.description": "גוף הבקשה. אובייקטים ומערכים מקודדים JSON; מחרוזות נשלחות כטקסט.",
     "param.body_text.description": "גוף הבקשה הגולמי. יש עדיפות על גוף.",
@@ -360,11 +360,11 @@
     "param.password.description": "אופציונלי HTTP Basic-auth password.",
     "param.timeout.description": "בקש פסק זמן תוך שניות.",
     "param.max_bytes.description": "גודל תגובה מקסימלי ב-bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "אמת אישורי TLS.",
     "param.parse_json.description": "נתח תגובה JSON ל-response_json כשאפשר."
   },
   "hi": {
-    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
+    "tool.description": "REST या HTTP API को HTTP अनुरोध भेजता है और status, headers तथा response body लौटाता है। JSON, form और text request body समर्थित हैं। GET/HEAD/OPTIONS अनुरोध read-only हैं; write method डिफ़ॉल्ट रूप से serial रहते हैं।",
     "x_search_terms": [
       "http अनुरोध",
       "REST API",
@@ -382,14 +382,14 @@
     "param.headers.description": "अतिरिक्त HTTP हेडर.",
     "param.body.description": "अनुरोध मुख्य भाग। ऑब्जेक्ट और सरणियाँ JSON-एन्कोडेड हैं; स्ट्रिंग्स को text.",
     "param.body_text.description": "Raw request body के रूप में भेजा जाता है। बॉडी पर प्राथमिकता लेता है। HTTP Basic-auth पासवर्ड। जब संभव हो तो response_json में प्रतिक्रिया दें।",
-    "param.content_type.description": "Content-Type for a supplied body.",
-    "param.bearer_token.description": "Optional Bearer token.",
-    "param.username.description": "Optional HTTP Basic-auth username.",
-    "param.password.description": "Optional HTTP Basic-auth password.",
-    "param.timeout.description": "Request timeout in seconds.",
-    "param.max_bytes.description": "Maximum response size in bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse a JSON response into response_json when possible."
+    "param.content_type.description": "दिए गए body का Content-Type।",
+    "param.bearer_token.description": "वैकल्पिक Bearer token।",
+    "param.username.description": "वैकल्पिक HTTP Basic-auth username।",
+    "param.password.description": "वैकल्पिक HTTP Basic-auth password।",
+    "param.timeout.description": "अनुरोध timeout सेकंड में।",
+    "param.max_bytes.description": "Response का अधिकतम आकार bytes में।",
+    "param.ssl.description": "TLS certificate सत्यापित करें।",
+    "param.parse_json.description": "संभव होने पर JSON response को response_json में parse करें।"
   },
   "hu": {
     "tool.description": "Küldjön egy HTTP kérést egy REST vagy HTTP API címre, és adja vissza az állapotot, a fejléceket és a válasz törzsét. Támogatja a JSON, űrlap- és szöveges kérések törzseit. A GET/HEAD/OPTIONS kérések csak olvashatók; az írási metódusok alapértelmezés szerint soros maradnak.",
@@ -556,11 +556,11 @@
     "param.password.description": "Нэмэлт HTTP Basic-autth нууц үг.",
     "param.timeout.description": "Хүсэлтийн хугацаа секундээр.",
     "param.max_bytes.description": "Байт дахь хариултын дээд хэмжээ.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "TLS гэрчилгээг шалгана.",
     "param.parse_json.description": "Боломжтой бол JSON хариултыг response_json болгон задлан шинжилнэ үү."
   },
   "mr": {
-    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
+    "tool.description": "REST किंवा HTTP API कडे HTTP विनंती पाठवते आणि status, headers व response body परत करते. JSON, form आणि text request body समर्थित आहेत. GET/HEAD/OPTIONS विनंत्या read-only आहेत; write method डीफॉल्टने serial राहतात.",
     "x_search_terms": [
       "http विनंती",
       "बाकी API",
@@ -573,19 +573,19 @@
       "पोस्टमन"
     ],
     "param.method.description": "HTTP method.",
-    "param.url.description": "HTTP or HTTPS URL.",
-    "param.query.description": "Query-string parameters.",
+    "param.url.description": "HTTP किंवा HTTPS URL.",
+    "param.query.description": "Query-string parameter.",
     "param.headers.description": "अतिरिक्त HTTP शीर्षलेख.",
     "param.body.description": "विनंती मुख्य भाग. ऑब्जेक्ट्स आणि ॲरे JSON-एनकोड केलेले आहेत; स्ट्रिंग मजकूर म्हणून पाठवल्या जातात.",
     "param.body_text.description": "Raw request body. बॉडी.",
     "param.content_type.description": "Content-Type पुरवलेल्या शरीरासाठी. HTTP Basic-auth पासवर्ड.",
-    "param.bearer_token.description": "Optional Bearer token.",
-    "param.username.description": "Optional HTTP Basic-auth username.",
-    "param.password.description": "Optional HTTP Basic-auth password.",
+    "param.bearer_token.description": "ऐच्छिक Bearer token.",
+    "param.username.description": "ऐच्छिक HTTP Basic-auth username.",
+    "param.password.description": "ऐच्छिक HTTP Basic-auth password.",
     "param.timeout.description": "विनंत्या कालबाह्य सेकंदात.",
     "param.max_bytes.description": "बाइट्समध्ये कमाल प्रतिसाद आकार.",
     "param.ssl.description": "TLS प्रमाणपत्रांची पडताळणी करा.",
-    "param.parse_json.description": "Parse a JSON response into response_json when possible."
+    "param.parse_json.description": "शक्य असल्यास JSON response चे response_json मध्ये parse करा."
   },
   "ms": {
     "tool.description": "Hantar permintaan HTTP ke REST atau HTTP API dan kembalikan status, pengepala dan badan respons. Menyokong JSON, borang dan badan permintaan teks. Permintaan GET/HEAD/OPTIONS adalah baca sahaja; kaedah tulis kekal bersiri secara lalai.",
@@ -628,10 +628,10 @@
       "API",
       "API"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP-metode.",
     "param.url.description": "HTTP eller HTTPS URL.",
-    "param.query.description": "Query-string parameters.",
-    "param.headers.description": "Additional HTTP headers.",
+    "param.query.description": "Query-string-parametere.",
+    "param.headers.description": "Ekstra HTTP-headere.",
     "param.body.description": "Forespørselstekst. Objekter og matriser er JSON-kodet; strenger sendes som tekst.",
     "param.body_text.description": "Rå forespørselstekst. Har forrang over body.",
     "param.content_type.description": "Content-Type for en levert body.",
@@ -640,7 +640,7 @@
     "param.password.description": "Valgfritt HTTP Basic-authort passord.",
     "param.timeout.description": "Be om tidsavbrudd på sekunder.",
     "param.max_bytes.description": "Maksimal svarstørrelse i bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Bekreft TLS-sertifikater.",
     "param.parse_json.description": "Parse et JSON-svar til response_json når det er mulig."
   },
   "nl": {
@@ -656,7 +656,7 @@
       "HTTP klant",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP-methode.",
     "param.url.description": "HTTP of HTTPS URL.",
     "param.query.description": "Querystringparameters.",
     "param.headers.description": "Extra HTTP headers.",
@@ -700,7 +700,7 @@
     "param.parse_json.description": "Analyser eit JSON-svar til response_json når det er mogleg."
   },
   "pl": {
-    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
+    "tool.description": "Wysyła żądanie HTTP do interfejsu REST lub HTTP API i zwraca status, headers oraz response body. Obsługuje body żądań JSON, form i text. Żądania GET/HEAD/OPTIONS są read-only; metody zapisu domyślnie pozostają wykonywane serial.",
     "x_search_terms": [
       "HTTP żądanie",
       "REST API",
@@ -740,7 +740,7 @@
       "HTTP cliente",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "Método HTTP.",
     "param.url.description": "HTTP ou HTTPS URL.",
     "param.query.description": "Query-string parâmetros.",
     "param.headers.description": "Cabeçalhos HTTP adicionais.",
@@ -768,7 +768,7 @@
       "HTTP cliente",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "Método HTTP.",
     "param.url.description": "HTTP ou HTTPS URL.",
     "param.query.description": "Parâmetros de string de consulta.",
     "param.headers.description": "Cabeçalhos HTTP adicionais.",
@@ -808,7 +808,7 @@
     "param.password.description": "Opțional HTTP Basic-auth password.",
     "param.timeout.description": "Solicitare timeout în secunde.",
     "param.max_bytes.description": "Dimensiunea maximă a răspunsului în octeți.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Verifică certificatele TLS.",
     "param.parse_json.description": "Analizați un răspuns JSON în response_json atunci când este posibil."
   },
   "ru": {
@@ -852,19 +852,19 @@
       "API",
       "API"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP-metod.",
     "param.url.description": "HTTP eller HTTPS URL.",
     "param.query.description": "Frågesträngsparametrar.",
-    "param.headers.description": "Additional HTTP headers.",
+    "param.headers.description": "Ytterligare HTTP-rubriker.",
     "param.body.description": "Begäran. Objekt och arrayer är JSON-kodade; strängar skickas som text.",
     "param.body_text.description": "Raw request body. Har företräde framför body.",
-    "param.content_type.description": "Content-Type for a supplied body.",
+    "param.content_type.description": "Content-Type för angiven body.",
     "param.bearer_token.description": "Valfritt Bearer token.",
     "param.username.description": "Valfritt HTTPauth Basic username.",
     "param.password.description": "Valfritt HTTP Basic-auth lösenord.",
     "param.timeout.description": "Begär timeout på sekunder.",
     "param.max_bytes.description": "Maximal svarsstorlek i bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
+    "param.ssl.description": "Verifiera TLS-certifikat.",
     "param.parse_json.description": "Parse ett JSON-svar till response_json när det är möjligt."
   },
   "sw": {
@@ -882,18 +882,18 @@
     ],
     "param.method.description": "HTTP mbinu.",
     "param.url.description": "HTTP au __Query-param URL.|| .Query-PH_7 URL. vigezo.",
-    "param.query.description": "Query-string parameters.",
+    "param.query.description": "Vigezo vya Query-string.",
     "param.headers.description": "Vichwa HTTP vya ziada.",
     "param.body.description": "Mwili wa ombi. Vitu na safu zimesimbwa JSON; mifuatano hutumwa kama maandishi.",
     "param.body_text.description": "Mwili wa ombi ghafi. Hutanguliza mwili.",
     "param.content_type.description": "Content-Type kwa shirika linalotolewa.",
     "param.bearer_token.description": "Hiari Bearer tokeni.",
     "param.username.description": "Hiari HTTP HTTP __password-audescript. HTTP Basic-password kwenye response_json inapowezekana.",
-    "param.password.description": "Optional HTTP Basic-auth password.",
-    "param.timeout.description": "Request timeout in seconds.",
-    "param.max_bytes.description": "Maximum response size in bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse a JSON response into response_json when possible."
+    "param.password.description": "Nenosiri la hiari la HTTP Basic-auth.",
+    "param.timeout.description": "Timeout ya ombi kwa sekunde.",
+    "param.max_bytes.description": "Ukubwa wa juu wa response kwa bytes.",
+    "param.ssl.description": "Thibitisha vyeti vya TLS.",
+    "param.parse_json.description": "Ikiwezekana, parse response ya JSON kuwa response_json."
   },
   "th": {
     "tool.description": "ส่งคำขอ HTTP ไปยัง REST หรือ HTTP API และส่งคืนสถานะ ส่วนหัว และเนื้อหาการตอบกลับ",
@@ -908,7 +908,7 @@
       "HTTP ไคลเอนต์",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP method",
     "param.url.description": "HTTP หรือ HTTPS URL.",
     "param.query.description": "Query-string parameter.",
     "param.headers.description": "ส่วนหัว HTTP เพิ่มเติม.",
@@ -936,7 +936,7 @@
       "HTTP istemcisi",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP yöntemi.",
     "param.url.description": "HTTP veya HTTPS URL.",
     "param.query.description": "Sorgu dizisi parametreleri.",
     "param.headers.description": "Ek HTTP başlıkları.",
@@ -964,7 +964,7 @@
       "HTTP клієнт",
       "Postman"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "Метод HTTP.",
     "param.url.description": "HTTP або HTTPS URL.",
     "param.query.description": "Параметри рядка запиту.",
     "param.headers.description": "Додатково HTTP headers.",
