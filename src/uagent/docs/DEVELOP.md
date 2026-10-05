@@ -39,6 +39,13 @@ and must not be used as a multi-user authorization fallback.
 The V3 Web path is now connected beyond the original store-only stage. The current
 runtime includes:
 
+- browser-facing WebSocket handshakes enforce an exact Origin allowlist before
+  identity resolution or room access. Non-local identity modes require
+  `UAGENT_WEB_ALLOWED_ORIGINS`; malformed, opaque, control-character, wildcard,
+  and non-allowlisted origins fail closed. Origin normalization must not collapse
+  distinct hosts such as trailing-dot and non-trailing-dot forms. Keep
+  `tests/test_websocket_origin_policy.py` in the regression set when changing
+  Web authentication or WebSocket connection setup;
 - immutable `IdentityContext` / `TurnContext` propagation and OIDC Web sessions;
 - Project membership plus server-bound ProjectContext and Room-to-Project binding;
 - Personal Memory, revision-bound read grants, received shared-memory references,
