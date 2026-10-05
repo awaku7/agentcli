@@ -189,3 +189,45 @@ def test_oidc_graph_scope_is_validated_and_revision_bound(monkeypatch):
     status = validate_authentication_configuration()
     assert status.configured is False
     assert "UAGENT_OIDC_GRAPH_SCOPE contains an invalid scope" in status.diagnostics
+
+
+def test_non_local_auth_health_requires_websocket_origin_allowlist(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_IDENTITY_HEADER", "X-Verified-Subject")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_ISSUER_HEADER", "X-Verified-Issuer")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_CIDRS", "10.0.0.10/32")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is False
+    assert (
+        "UAGENT_WEB_ALLOWED_ORIGINS is required for non-local WebSocket access"
+        in status.diagnostics
+    )
+
+
+def test_auth_health_rejects_malformed_websocket_origin_allowlist(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_IDENTITY_HEADER", "X-Verified-Subject")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_ISSUER_HEADER", "X-Verified-Issuer")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_CIDRS", "10.0.0.10/32")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example/path")
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is False
+    assert (
+        "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin"
+        in status.diagnostics
+    )
+
+
+def test_local_auth_health_uses_safe_default_websocket_origins(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is True
+    assert status.diagnostics == ()
