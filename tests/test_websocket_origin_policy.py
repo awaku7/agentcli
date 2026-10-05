@@ -57,9 +57,7 @@ def test_ip_literal_origins_use_browser_canonical_serialization(monkeypatch):
         "http://[2001:0db8::1]:8000",
     )
 
-    assert configured_websocket_origins() == frozenset(
-        {"http://[2001:db8::1]:8000"}
-    )
+    assert configured_websocket_origins() == frozenset({"http://[2001:db8::1]:8000"})
     assert (
         validate_websocket_origin(_Request("http://[2001:db8::1]:8000"))
         == "http://[2001:db8::1]:8000"
@@ -160,9 +158,7 @@ def test_configured_origin_rejects_control_characters(monkeypatch, origin):
         "https://a.example,https://b.example\r",
     ],
 )
-def test_configured_origin_rejects_controls_before_segment_trimming(
-    monkeypatch, origin
-):
+def test_configured_origin_rejects_controls_before_segment_trimming(monkeypatch, origin):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setattr(
         web_origin_policy,
