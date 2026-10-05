@@ -304,7 +304,7 @@
     "err.not_found": "filen hittades inte"
   },
   "sw": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Tambua faili moja au zaidi kwa kukagua maudhui yake kwa libmagic (python-magic au Windows python-magic-bin), magic bytes, na heuristiki za jina la faili. Hurejesha aina ya MIME iliyotambuliwa, maelezo ya umbizo, makadirio ya MIME kulingana na kiendelezi, usimbaji, na ukubwa wa faili. Kusoma pekee.",
     "x_search_terms": [
       "aina ya faili",
       "gundua aina",
@@ -323,7 +323,7 @@
     "err.not_found": "faili haipatikani"
   },
   "nb": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Identifiser én eller flere filer ved å inspisere innholdet med libmagic (python-magic eller Windows python-magic-bin), magic bytes og heuristikk for filnavn. Returnerer oppdaget MIME-type, formatbeskrivelse, MIME-gjetning basert på filendelse, koding og filstørrelse. Skrivebeskyttet.",
     "x_search_terms": [
       "filtype",
       "deteksjonstype",
@@ -494,7 +494,7 @@
     "err.not_found": "找不到檔案"
   },
   "bn": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "libmagic (python-magic বা Windows python-magic-bin), magic bytes এবং ফাইলনাম হিউরিস্টিক ব্যবহার করে এক বা একাধিক ফাইলের বিষয়বস্তু পরীক্ষা করে সেগুলো শনাক্ত করুন। শনাক্ত MIME ধরন, ফরম্যাটের বিবরণ, এক্সটেনশন-ভিত্তিক MIME অনুমান, এনকোডিং এবং ফাইলের আকার ফেরত দেয়। শুধুমাত্র পঠনযোগ্য।",
     "x_search_terms": [
       "ফাইল টাইপ",
       "ডিটেক্ট টাইপ",
@@ -532,7 +532,7 @@
     "err.not_found": "فایل یافت نشد"
   },
   "mn": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Нэг буюу хэд хэдэн файлын агуулгыг libmagic (python-magic эсвэл Windows python-magic-bin), magic bytes болон файлын нэрийн эвристикээр шалгаж танина. Илрүүлсэн MIME төрөл, форматын тайлбар, өргөтгөлд суурилсан MIME таамаг, кодчилол болон файлын хэмжээг буцаана. Зөвхөн унших.",
     "x_search_terms": [
       "файлын төрөл",
       "илрүүлэх төрөл",
@@ -551,7 +551,7 @@
     "err.not_found": "файл олдсонгүй"
   },
   "mr": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "libmagic (python-magic किंवा Windows python-magic-bin), magic bytes आणि फाइलनाव ह्युरिस्टिक्स वापरून एक किंवा अधिक फाइल्सची सामग्री तपासून त्यांची ओळख करा. शोधलेला MIME प्रकार, स्वरूपाचे वर्णन, विस्तारावर आधारित MIME अंदाज, एन्कोडिंग आणि फाइलचा आकार परत करते. केवळ-वाचन.",
     "x_search_terms": [
       "फाईल प्रकार",
       "डिटेक्ट प्रकार",
@@ -608,7 +608,7 @@
     "err.not_found": "הקובץ לא נמצא"
   },
   "hu": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Egy vagy több fájl azonosítása a tartalmuk vizsgálatával libmagic (python-magic vagy Windows python-magic-bin), magic byte-ok és fájlnév-heurisztikák segítségével. Visszaadja az észlelt MIME-típust, a formátum leírását, a kiterjesztés alapján becsült MIME-típust, a kódolást és a fájlméretet. Csak olvasható.",
     "x_search_terms": [
       "fájltípus",
       "észlelés típus",
@@ -646,7 +646,7 @@
     "err.not_found": "fișierul nu a fost găsit"
   },
   "fil": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Tukuyin ang isa o higit pang file sa pamamagitan ng pagsusuri sa nilalaman gamit ang libmagic (python-magic o Windows python-magic-bin), magic bytes, at mga heuristic sa pangalan ng file. Ibinabalik nito ang natukoy na uri ng MIME, paglalarawan ng format, pagtataya ng MIME batay sa extension, encoding, at laki ng file. Para sa pagbasa lamang.",
     "x_search_terms": [
       "uri ng file",
       "tuklasin ang uri",
@@ -665,7 +665,7 @@
     "err.not_found": "hindi nahanap ang file"
   },
   "ms": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
+    "tool.description": "Kenal pasti satu atau lebih fail dengan memeriksa kandungannya menggunakan libmagic (python-magic atau Windows python-magic-bin), magic bytes dan heuristik nama fail. Mengembalikan jenis MIME yang dikesan, penerangan format, anggaran MIME berdasarkan sambungan, pengekodan dan saiz fail. Baca sahaja.",
     "x_search_terms": [
       "jenis fail",
       "kesan jenis",

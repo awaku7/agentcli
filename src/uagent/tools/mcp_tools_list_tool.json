@@ -54,7 +54,7 @@
       "puntos finales de mcp"
     ],
     "param.url.description": "URL del punto final del servidor MCP. Si se omite, se puede utilizar un servidor configurado.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Modo de protocolo MCP: auto, legacy o stateless."
   },
   "fr": {
     "param.pretty.description": "Indique s'il faut formater la sortie JSON.",
@@ -73,7 +73,7 @@
       "points de terminaison mcp"
     ],
     "param.url.description": "URL du point de terminaison du serveur MCP. En cas d'omission, un serveur configuré peut être utilisé.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Mode du protocole MCP : auto, legacy ou stateless."
   },
   "ko": {
     "param.pretty.description": "JSON 출력을 예쁘게 표시할지 여부입니다.",
@@ -92,7 +92,7 @@
       "mcp 끝점"
     ],
     "param.url.description": "MCP 서버 엔드포인트 URL. 생략할 경우 구성된 서버를 사용할 수 있습니다.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP 프로토콜 모드: auto, legacy 또는 stateless."
   },
   "de": {
     "param.pretty.description": "Ob die JSON-Ausgabe hübsch formatiert werden soll.",
@@ -111,7 +111,7 @@
       "mcp-endpunkte"
     ],
     "param.url.description": "MCP-Server-Endpunkt-URL. Wenn es weggelassen wird, kann ein konfigurierter Server verwendet werden.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-Protokollmodus: auto, legacy oder stateless."
   },
   "it": {
     "param.pretty.description": "Indica se formattare in modo leggibile l'output JSON.",
@@ -130,7 +130,7 @@
       "endpoint mcp"
     ],
     "param.url.description": "URL dell'endpoint del server MCP. Se omesso, è possibile utilizzare un server configurato.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Modalità protocollo MCP: auto, legacy o stateless."
   },
   "ru": {
     "param.pretty.description": "Нужно ли форматировать JSON-вывод.",
@@ -149,7 +149,7 @@
       "конечные точки mcp"
     ],
     "param.url.description": "URL-адрес конечной точки сервера MCP. Если этот параметр опущен, можно использовать настроенный сервер.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Режим протокола MCP: auto, legacy или stateless."
   },
   "pt_BR": {
     "param.pretty.description": "Se deve formatar a saída JSON.",
@@ -168,7 +168,7 @@
       "pontos finais mcp"
     ],
     "param.url.description": "URL do terminal do servidor MCP. Se omitido, um servidor configurado poderá ser usado.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Modo de protocolo MCP: auto, legacy ou stateless."
   },
   "pt": {
     "param.pretty.description": "Se true, formate a saída JSON.",
@@ -187,7 +187,7 @@
       "pontos de extremidade mcp"
     ],
     "param.url.description": "URL do terminal do servidor MCP. Se omitido, um servidor configurado poderá ser usado.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Modo de protocolo MCP: auto, legacy ou stateless."
   },
   "id": {
     "param.pretty.description": "Apakah keluaran JSON akan diformat rapi.",
@@ -206,7 +206,7 @@
       "titik akhir mcp"
     ],
     "param.url.description": "URL titik akhir server MCP. Jika dihilangkan, server yang dikonfigurasi dapat digunakan.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Mode protokol MCP: auto, legacy, atau stateless."
   },
   "vi": {
     "param.pretty.description": "Có in đầu ra JSON đẹp hay không.",
@@ -225,7 +225,7 @@
       "điểm cuối mcp"
     ],
     "param.url.description": "URL điểm cuối của máy chủ MCP. Nếu bị bỏ qua, máy chủ đã được cấu hình có thể được sử dụng.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Chế độ giao thức MCP: auto, legacy hoặc stateless."
   },
   "pl": {
     "param.pretty.description": "Określa, czy ładnie wydrukować dane wyjściowe JSON.",
@@ -244,7 +244,7 @@
       "punkty końcowe mcp"
     ],
     "param.url.description": "Adres URL punktu końcowego serwera MCP. Jeśli zostanie pominięty, może zostać użyty skonfigurowany serwer.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Tryb protokołu MCP: auto, legacy lub stateless."
   },
   "hi": {
     "param.pretty.description": "क्या JSON आउटपुट को प्री-प्रिंट करना है।",
@@ -263,7 +263,7 @@
       "एमसीपी एंडपॉइंट"
     ],
     "param.url.description": "एमसीपी सर्वर एंडपॉइंट यूआरएल। यदि छोड़ दिया जाए, तो एक कॉन्फ़िगर सर्वर का उपयोग किया जा सकता है।",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP प्रोटोकॉल मोड: auto, legacy या stateless।"
   },
   "ar": {
     "param.pretty.description": "ما إذا كان سيتم طباعة مخرجات JSON بشكل جميل.",
@@ -282,7 +282,7 @@
       "نقاط نهاية mcp"
     ],
     "param.url.description": "عنوان URL لنقطة نهاية خادم MCP. إذا تم حذفه، فيمكن استخدام خادم تم تكوينه.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "وضع بروتوكول MCP: auto أو legacy أو stateless."
   },
   "sv": {
     "param.pretty.description": "Om JSON-utdata ska formateras snyggt.",
@@ -301,7 +301,7 @@
       "mcp-slutpunkter"
     ],
     "param.url.description": "MCP-serverns slutpunkts-URL. Om den utelämnas kan en konfigurerad server användas.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokolläge: auto, legacy eller stateless."
   },
   "sw": {
     "param.pretty.description": "Iwapo itachapisha vizuri matokeo ya JSON.",
@@ -320,7 +320,7 @@
       "mwisho wa mcp"
     ],
     "param.url.description": "URL ya mwisho ya seva ya MCP. Ikiwa imeachwa, seva iliyosanidiwa inaweza kutumika.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Hali ya itifaki ya MCP: auto, legacy, au stateless."
   },
   "nb": {
     "param.pretty.description": "Om JSON-utdata skal formateres pent.",
@@ -339,7 +339,7 @@
       "mcp-endepunkter"
     ],
     "param.url.description": "MCP-serverendepunkt-URL. Hvis utelatt, kan en konfigurert server brukes.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller stateless."
   },
   "nl": {
     "param.pretty.description": "Of JSON-uitvoer netjes geformatteerd wordt.",
@@ -358,7 +358,7 @@
       "mcp-eindpunten"
     ],
     "param.url.description": "Eindpunt-URL van MCP-server. Indien dit wordt weggelaten, kan een geconfigureerde server worden gebruikt.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protocolmodus: auto, legacy of stateless."
   },
   "fi": {
     "param.pretty.description": "Muotoillaanko JSON-tulos siististi.",
@@ -377,7 +377,7 @@
       "mcp-päätepisteet"
     ],
     "param.url.description": "MCP-palvelimen päätepisteen URL-osoite. Jos se jätetään pois, voidaan käyttää määritettyä palvelinta.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokollitila: auto, legacy tai stateless."
   },
   "cs": {
     "param.pretty.description": "Zda se má JSON výstup formátovat přehledně.",
@@ -396,7 +396,7 @@
       "koncové body mcp"
     ],
     "param.url.description": "Adresa URL koncového bodu serveru MCP. Pokud je vynechán, lze použít nakonfigurovaný server.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Režim protokolu MCP: auto, legacy nebo stateless."
   },
   "uk": {
     "param.pretty.description": "Чи потрібно гарно форматувати JSON-вивід.",
@@ -415,7 +415,7 @@
       "кінцеві точки mcp"
     ],
     "param.url.description": "URL-адреса кінцевої точки сервера MCP. Якщо опущено, можна використовувати налаштований сервер.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Режим протоколу MCP: auto, legacy або stateless."
   },
   "tr": {
     "param.pretty.description": "JSON çıktısının güzel yazdırılıp yazdırılmayacağı.",
@@ -434,7 +434,7 @@
       "mcp uç noktaları"
     ],
     "param.url.description": "MCP sunucusu uç noktası URL'si. Atlanırsa yapılandırılmış bir sunucu kullanılabilir.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP protokol modu: auto, legacy veya stateless."
   },
   "th": {
     "param.pretty.description": "จะจัดรูปแบบเอาต์พุต JSON ให้อ่านง่ายหรือไม่",
@@ -453,7 +453,7 @@
       "จุดสิ้นสุด mcp"
     ],
     "param.url.description": "URL ปลายทางของเซิร์ฟเวอร์ MCP หากละเว้น อาจใช้เซิร์ฟเวอร์ที่กำหนดค่าไว้ได้",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "โหมดโปรโตคอล MCP: auto, legacy หรือ stateless"
   },
   "zh_CN": {
     "param.pretty.description": "是否格式化 JSON 输出。",
@@ -472,7 +472,7 @@
       "mcp 端点"
     ],
     "param.url.description": "MCP 服务器端点 URL。如果省略，则可以使用已配置的服务器。",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP 协议模式：auto、legacy 或 stateless。"
   },
   "zh_TW": {
     "param.pretty.description": "是否格式化 JSON 輸出。",
@@ -491,7 +491,7 @@
       "mcp 端點"
     ],
     "param.url.description": "MCP 伺服器端點 URL。如果省略，則可以使用已設定的伺服器。",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP 通訊協定模式：auto、legacy 或 stateless。"
   },
   "bn": {
     "param.pretty.description": "JSON আউটপুট সুন্দরভাবে ফরম্যাট করবেন কি না।",
@@ -510,7 +510,7 @@
       "mcp এন্ডপয়েন্ট"
     ],
     "param.url.description": "MCP সার্ভার এন্ডপয়েন্ট URL। বাদ দেওয়া হলে, একটি কনফিগার করা সার্ভার ব্যবহার করা হতে পারে।",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP প্রোটোকল মোড: auto, legacy অথবা stateless।"
   },
   "fa": {
     "param.pretty.description": "آیا خروجی JSON به‌صورت خوانا/زیبا چاپ شود.",
@@ -529,7 +529,7 @@
       "نقاط پایانی mcp"
     ],
     "param.url.description": "URL نقطه پایانی سرور MCP. اگر حذف شود، ممکن است از یک سرور پیکربندی شده استفاده شود.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "حالت پروتکل MCP: auto، legacy یا stateless."
   },
   "mn": {
     "param.pretty.description": "JSON гаралтыг гоёор хэвлэх эсэх.",
@@ -548,7 +548,7 @@
       "mcp төгсгөлийн цэгүүд"
     ],
     "param.url.description": "MCP серверийн төгсгөлийн URL. Хэрэв орхигдуулсан бол тохируулсан серверийг ашиглаж болно.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP протоколын горим: auto, legacy эсвэл stateless."
   },
   "mr": {
     "param.pretty.description": "JSON output सुंदररीत्या format करायचा का.",
@@ -567,7 +567,7 @@
       "mcp एंडपॉइंट"
     ],
     "param.url.description": "MCP सर्व्हर एंडपॉइंट URL. वगळल्यास, कॉन्फिगर केलेला सर्व्हर वापरला जाऊ शकतो.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP प्रोटोकॉल मोड: auto, legacy किंवा stateless."
   },
   "el": {
     "param.pretty.description": "Είτε θα εκτυπωθεί όμορφη εκτύπωση JSON.",
@@ -586,7 +586,7 @@
       "τελικά σημεία mcp"
     ],
     "param.url.description": "URL τελικού σημείου διακομιστή MCP. Εάν παραλειφθεί, μπορεί να χρησιμοποιηθεί ένας διαμορφωμένος διακομιστής.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Λειτουργία πρωτοκόλλου MCP: auto, legacy ή stateless."
   },
   "he": {
     "param.pretty.description": "האם להדפיס פלט JSON יפה.",
@@ -605,7 +605,7 @@
       "mcp נקודות קצה"
     ],
     "param.url.description": "כתובת URL של שרת MCP. אם מושמט, ניתן להשתמש בשרת מוגדר.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "מצב פרוטוקול MCP: auto, legacy או stateless."
   },
   "hu": {
     "param.pretty.description": "Szépen nyomtatja-e a JSON-kimenetet.",
@@ -624,7 +624,7 @@
       "mcp-végpontok"
     ],
     "param.url.description": "MCP-kiszolgáló végpont URL-je. Ha kihagyja, egy konfigurált szerver használható.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokollmód: auto, legacy vagy stateless."
   },
   "ro": {
     "param.pretty.description": "Dacă se imprimă destul de ieșire JSON.",
@@ -643,7 +643,7 @@
       "puncte finale mcp"
     ],
     "param.url.description": "Adresa URL a punctului final al serverului MCP. Dacă este omis, poate fi utilizat un server configurat.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Mod protocol MCP: auto, legacy sau stateless."
   },
   "fil": {
     "param.pretty.description": "Kung pretty-print JSON output.",
@@ -662,7 +662,7 @@
       "mga endpoint ng mcp"
     ],
     "param.url.description": "MCP URL ng endpoint ng server. Kung aalisin, maaaring gumamit ng naka-configure na server.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Mode ng protocol ng MCP: auto, legacy, o stateless."
   },
   "ms": {
     "param.pretty.description": "Sama ada untuk mencetak cantik JSON output.",
@@ -681,7 +681,7 @@
       "titik akhir mcp"
     ],
     "param.url.description": "MCP URL titik akhir pelayan. Jika ditinggalkan, pelayan yang dikonfigurasikan boleh digunakan.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "Mod protokol MCP: auto, legacy atau stateless."
   },
   "da": {
     "param.pretty.description": "Om JSON output skal udskrives.",
@@ -700,7 +700,7 @@
       "mcp-endepunkter"
     ],
     "param.url.description": "MCP serverslutpunkts-URL. Hvis den udelades, kan en konfigureret server bruges.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
+    "param.protocol_mode.description": "MCP-protokoltilstand: auto, legacy eller stateless."
   },
   "nn": {
     "param.pretty.description": "Hvorvidt du skal skrive ut JSON utskrifter.",
@@ -719,6 +719,6 @@
       "mcp-endepunkter"
     ],
     "param.url.description": "MCP serverendepunkt-URL. Hvis utelatt, kan en konfigurert server vert brukt.",
-    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller tilstandlaus."
+    "param.protocol_mode.description": "MCP-protokollmodus: auto, legacy eller stateless."
   }
 }

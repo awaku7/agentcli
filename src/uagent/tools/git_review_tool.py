@@ -24,13 +24,16 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Review Git changes, risky files, and possible secrets without modifying the repository.",
         ),
-        "x_search_terms": [
-            "git review",
-            "git diff review",
-            "変更レビュー",
-            "秘密情報検出",
-            "code review",
-        ],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "git review",
+                "git diff review",
+                "changed files",
+                "secret scan",
+                "code review",
+            ],
+        ),
         "x_search_terms_en": [
             "git review",
             "git diff review",

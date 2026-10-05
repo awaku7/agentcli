@@ -74,7 +74,7 @@
       "git tirar",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Si se permiten operaciones peligrosas (valor predeterminado: false). Ejemplo: push --force, reset --hard.",
     "tool.description": "Ejecute comandos Git con restricciones de seguridad. Algunas operaciones o caracteres especiales en los argumentos pueden estar restringidos por motivos de seguridad."
   },
   "fr": {
@@ -100,7 +100,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Indique s’il faut autoriser les opérations dangereuses (valeur par défaut : false). Exemple : push --force, reset --hard.",
     "tool.description": "Exécutez les commandes Git avec des restrictions axées sur la sécurité. Certaines opérations ou caractères spéciaux dans les arguments peuvent être restreints pour des raisons de sécurité."
   },
   "ko": {
@@ -126,7 +126,7 @@
       "자식 당겨",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "위험한 작업을 허용할지 여부입니다(기본값 false). 예: push --force, reset --hard.",
     "tool.description": "안전 우선 제한 사항을 적용하여 Git 명령을 실행하세요. 인수의 일부 작업이나 특수 문자는 보안을 위해 제한될 수 있습니다."
   },
   "de": {
@@ -152,7 +152,7 @@
       "Git Pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Ob gefährliche Operationen erlaubt werden sollen (Standard: false). Beispiel: push --force, reset --hard.",
     "tool.description": "Führen Sie Git-Befehle mit Sicherheitseinschränkungen aus. Einige Vorgänge oder Sonderzeichen in Argumenten können aus Sicherheitsgründen eingeschränkt sein."
   },
   "it": {
@@ -178,7 +178,7 @@
       "tira, tira",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Indica se consentire operazioni pericolose (valore predefinito: false). Esempio: push --force, reset --hard.",
     "tool.description": "Esegui comandi Git con restrizioni che mettono la sicurezza al primo posto. Alcune operazioni o caratteri speciali negli argomenti potrebbero essere limitati per motivi di sicurezza."
   },
   "ru": {
@@ -204,7 +204,7 @@
       "мерзавец тянуть",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Разрешать ли опасные операции (по умолчанию false). Пример: push --force, reset --hard.",
     "tool.description": "Выполняйте команды Git с ограничениями безопасности. Некоторые операции или специальные символы в аргументах могут быть ограничены в целях безопасности."
   },
   "pt_BR": {
@@ -230,7 +230,7 @@
       "puxar",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Se deve permitir operações perigosas (padrão: false). Exemplo: push --force, reset --hard.",
     "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
   },
   "pt": {
@@ -256,7 +256,7 @@
       "puxar",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Se deve permitir operações perigosas (predefinição: false). Exemplo: push --force, reset --hard.",
     "tool.description": "Execute comandos do Git com restrições de segurança. Algumas operações ou caracteres especiais em argumentos podem ser restritos por questões de segurança."
   },
   "id": {
@@ -282,7 +282,7 @@
       "git tarik",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Apakah operasi berbahaya diizinkan (default false). Contoh: push --force, reset --hard.",
     "tool.description": "Jalankan perintah Git dengan batasan yang mengutamakan keselamatan. Beberapa operasi atau karakter khusus dalam argumen mungkin dibatasi demi keamanan."
   },
   "vi": {
@@ -308,7 +308,7 @@
       "kéo git",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Có cho phép các thao tác nguy hiểm hay không (mặc định false). Ví dụ: push --force, reset --hard.",
     "tool.description": "Chạy các lệnh Git với các hạn chế ưu tiên an toàn. Một số thao tác hoặc ký tự đặc biệt trong các đối số có thể bị hạn chế vì lý do bảo mật."
   },
   "pl": {
@@ -334,7 +334,7 @@
       "git, pociągnij",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Czy zezwalać na niebezpieczne operacje (domyślnie false). Przykład: push --force, reset --hard.",
     "tool.description": "Uruchamiaj polecenia Git z ograniczeniami związanymi przede wszystkim z bezpieczeństwem. Niektóre operacje lub znaki specjalne w argumentach mogą być ograniczone ze względów bezpieczeństwa."
   },
   "hi": {
@@ -360,7 +360,7 @@
       "git पुल",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "क्या खतरनाक ऑपरेशन की अनुमति देनी है (डिफ़ॉल्ट false)। उदाहरण: push --force, reset --hard।",
     "tool.description": "सुरक्षा-प्रथम प्रतिबंधों के साथ Git कमांड चलाएँ। कुछ ऑपरेशन या विशेष वर्ण अवरुद्ध हो सकते हैं. यदि कोई आदेश अस्वीकार कर दिया जाता है तो उपयोगकर्ता से परामर्श लें।"
   },
   "ar": {
@@ -386,7 +386,7 @@
       "بوابة سحب",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "ما إذا كان يُسمح بالعمليات الخطرة (القيمة الافتراضية false). مثال: push --force، reset --hard.",
     "tool.description": "قم بتشغيل أوامر Git مع قيود السلامة أولاً. قد يتم تقييد بعض العمليات أو الأحرف الخاصة في الوسائط لأسباب تتعلق بالأمان."
   },
   "sv": {
@@ -412,7 +412,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Om farliga åtgärder ska tillåtas (standard false). Exempel: push --force, reset --hard.",
     "tool.description": "Kör Git-kommandon med säkerhetsbegränsningar. Vissa operationer eller specialtecken i argument kan vara begränsade av säkerhetsskäl."
   },
   "sw": {
@@ -438,7 +438,7 @@
       "git kuvuta",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Iwapo kuruhusu operesheni hatari (chaguo-msingi false). Mfano: push --force, reset --hard.",
     "tool.description": "Endesha amri za Git kwa vizuizi vya usalama kwanza. Baadhi ya shughuli au vibambo maalum katika mabishano vinaweza kuzuiwa kwa usalama."
   },
   "nb": {
@@ -464,7 +464,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Om farlige operasjoner skal tillates (standard false). Eksempel: push --force, reset --hard.",
     "tool.description": "Kjør Git-kommandoer med sikkerhetsbegrensninger. Noen operasjoner eller spesialtegn i argumenter kan være begrenset for sikkerheten."
   },
   "nl": {
@@ -490,7 +490,7 @@
       "git trekken",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Of gevaarlijke bewerkingen mogen worden toegestaan (standaard false). Voorbeeld: push --force, reset --hard.",
     "tool.description": "Voer Git-opdrachten uit met beperkingen waarbij de veiligheid voorop staat. Sommige bewerkingen of speciale tekens in argumenten kunnen om veiligheidsredenen beperkt zijn."
   },
   "fi": {
@@ -516,7 +516,7 @@
       "git vedä",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Sallitaanko vaaralliset toiminnot (oletus false). Esimerkki: push --force, reset --hard.",
     "tool.description": "Suorita Git-komentoja turvallisuuden ensisijaisina rajoituksin. Joitakin argumenttien toimintoja tai erikoismerkkejä voidaan rajoittaa turvallisuuden vuoksi."
   },
   "cs": {
@@ -542,7 +542,7 @@
       "git vytáhnout",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Zda povolit nebezpečné operace (výchozí false). Příklad: push --force, reset --hard.",
     "tool.description": "Spouštějte příkazy Git s omezeními na prvním místě. Některé operace nebo speciální znaky v argumentech mohou být z bezpečnostních důvodů omezeny."
   },
   "uk": {
@@ -568,7 +568,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Чи дозволяти небезпечні операції (типово false). Приклад: push --force, reset --hard.",
     "tool.description": "Виконуйте команди Git з обмеженнями безпеки. Деякі операції або спеціальні символи в аргументах можуть бути обмежені з міркувань безпеки."
   },
   "tr": {
@@ -594,7 +594,7 @@
       "git çekme",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Tehlikeli işlemlere izin verilip verilmeyeceği (varsayılan false). Örnek: push --force, reset --hard.",
     "tool.description": "Git komutlarını önce güvenlik kısıtlamalarıyla çalıştırın. Bağımsız değişkenlerdeki bazı işlemler veya özel karakterler güvenlik nedeniyle kısıtlanabilir."
   },
   "th": {
@@ -620,7 +620,7 @@
       "คอมไพล์ดึง",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "อนุญาตการดำเนินการที่อันตรายหรือไม่ (ค่าเริ่มต้น false) ตัวอย่าง: push --force, reset --hard",
     "tool.description": "เรียกใช้คำสั่ง Git โดยมีข้อจำกัดด้านความปลอดภัยเป็นอันดับแรก การดำเนินการบางอย่างหรืออักขระพิเศษในอาร์กิวเมนต์อาจถูกจำกัดเพื่อความปลอดภัย"
   },
   "zh_CN": {
@@ -646,7 +646,7 @@
       "git拉取",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "是否允许危险操作（默认值为 false）。示例：push --force、reset --hard。",
     "tool.description": "在安全第一的限制下运行 Git 命令。为了安全起见，参数中的某些操作或特殊字符可能受到限制。"
   },
   "zh_TW": {
@@ -672,7 +672,7 @@
       "git拉取",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "是否允許危險操作（預設值為 false）。範例：push --force、reset --hard。",
     "tool.description": "在安全第一的限制下執行 Git 指令。為了安全起見，參數中的某些操作或特殊字元可能受到限制。 "
   },
   "bn": {
@@ -698,7 +698,7 @@
       "git টান",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "বিপজ্জনক অপারেশন অনুমোদন করা হবে কি না (ডিফল্ট false)। উদাহরণ: push --force, reset --hard।",
     "tool.description": "নিরাপত্তা-প্রথম বিধিনিষেধ সহ গিট কমান্ড চালান। আর্গুমেন্টে কিছু অপারেশন বা বিশেষ অক্ষর নিরাপত্তার জন্য সীমাবদ্ধ হতে পারে।"
   },
   "fa": {
@@ -724,7 +724,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "این‌که عملیات خطرناک مجاز باشند یا نه (پیش‌فرض false). مثال: push --force، reset --hard.",
     "tool.description": "فرمان‌های Git را با محدودیت‌های ایمنی اجرا کنید. برخی از عملیات یا نویسه‌های خاص در آرگومان‌ها ممکن است برای امنیت محدود شده باشند."
   },
   "mn": {
@@ -750,7 +750,7 @@
       "git татах",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Аюултай үйлдлүүдийг зөвшөөрөх эсэх (өгөгдмөл false). Жишээ: push --force, reset --hard.",
     "tool.description": "Git командуудыг аюулгүй байдлын нэгдүгээрт хязгаарлалттайгаар ажиллуул. Аюулгүй байдлын үүднээс зарим үйлдэл эсвэл аргумент дахь тусгай тэмдэгтүүдийг хязгаарласан байж магадгүй."
   },
   "mr": {
@@ -776,7 +776,7 @@
       "git पुल",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "धोकादायक ऑपरेशन्सना परवानगी द्यायची की नाही (डीफॉल्ट false). उदाहरण: push --force, reset --hard.",
     "tool.description": "सुरक्षा-प्रथम निर्बंधांसह Git कमांड चालवा. सुरक्षेसाठी आर्ग्युमेंटमधील काही ऑपरेशन्स किंवा विशेष वर्ण प्रतिबंधित केले जाऊ शकतात."
   },
   "el": {
@@ -802,7 +802,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Αν θα επιτρέπονται επικίνδυνες λειτουργίες (προεπιλογή false). Παράδειγμα: push --force, reset --hard.",
     "tool.description": "Εκτέλεση εντολών Git με περιορισμούς πρώτα από την ασφάλεια. Ορισμένες λειτουργίες ή ειδικοί χαρακτήρες σε ορίσματα ενδέχεται να περιορίζονται για λόγους ασφάλειας."
   },
   "he": {
@@ -828,7 +828,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "האם לאפשר פעולות מסוכנות (ברירת המחדל false). לדוגמה: push --force, reset --hard.",
     "tool.description": "הפעל פקודות Git עם הגבלות של Safety-first. פעולות מסוימות או תווים מיוחדים בארגומנטים עשויים להיות מוגבלים מטעמי אבטחה."
   },
   "hu": {
@@ -854,7 +854,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Engedélyezze-e a veszélyes műveleteket (alapértelmezés: false). Példa: push --force, reset --hard.",
     "tool.description": "Futtassa a Git-parancsokat a biztonság előtti korlátozásokkal. Egyes műveletek vagy speciális karakterek az argumentumokban a biztonság kedvéért korlátozva lehetnek."
   },
   "ro": {
@@ -880,7 +880,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Dacă sunt permise operațiuni periculoase (implicit false). Exemplu: push --force, reset --hard.",
     "tool.description": "Rulați comenzile Git cu restricții de siguranță. Unele operațiuni sau caractere speciale din argumente pot fi restricționate din motive de securitate."
   },
   "fil": {
@@ -906,7 +906,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Kung papayagan ang mga mapanganib na operasyon (default false). Halimbawa: push --force, reset --hard.",
     "tool.description": "Patakbuhin ang mga utos ng Git na may mga paghihigpit sa kaligtasan. Ang ilang mga operasyon o mga espesyal na character sa mga argumento ay maaaring paghigpitan para sa seguridad."
   },
   "ms": {
@@ -932,7 +932,7 @@
       "git tarik",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Sama ada hendak membenarkan operasi berbahaya (lalai false). Contoh: push --force, reset --hard.",
     "tool.description": "Jalankan arahan Git dengan sekatan mengutamakan keselamatan. Sesetengah operasi atau aksara khas dalam hujah mungkin dihadkan untuk keselamatan."
   },
   "da": {
@@ -958,7 +958,7 @@
       "git pull",
       "vcs"
     ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
+    "param.allow_danger.description": "Om farlige handlinger skal tillades (standard false). Eksempel: push --force, reset --hard.",
     "tool.description": "Kør Git-kommandoer med sikkerheds-først-begrænsninger. Nogle operationer eller specialtegn i argumenter kan være begrænset af sikkerhedsmæssige årsager."
   },
   "nn": {
