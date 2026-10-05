@@ -578,7 +578,7 @@
     "tool.description": "Executați codul Python într-un mod controlat. Utilizați acest instrument pentru calcule, procesarea datelor sau rularea de scripturi scurte. Căutați alte instrumente adecvate prin `tool_catalog` înainte de a utiliza acest instrument."
   },
   "fil": {
-    "param.code.description": "Python code.",
+    "param.code.description": "Python code na ipapatakbo.",
     "x_search_terms": [
       "python exec",
       "magpatakbo ng python",
