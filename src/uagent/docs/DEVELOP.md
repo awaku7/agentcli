@@ -582,7 +582,7 @@ ______________________________________________________________________
 Common checks during development:
 
 - Python syntax: `python -m py_compile src/uagent/` (or use the repository's validation tools)
-- Format/lint: `ruff format src/` and `ruff check src/` (`black src/` as fallback)
+- Format/lint: install `.[quality]`; Black is the canonical formatter (`python -m black src tests`) and Ruff is the lint gate (`python -m ruff check src tests`). Use the pinned versions from `pyproject.toml`, then verify with `python -m black --check src tests`.
 - Type check: `mypy src/uagent` (config in `pyproject.toml` `[tool.mypy]`; `python_version` = project minimum `3.11`. Recent numpy ships `.pyi` with 3.12-only `type` statements, so `typings/numpy` + `mypy_path` shadow them and `follow_imports = skip` is set for `numpy*`.)
 - Locale compile: `python scripts/compile_locales.py`
 - Locale QC: `python scripts/po_qc_summary.py`
