@@ -250,8 +250,10 @@ TOOL_SPEC = {
 #    # )
 #    # Efficient batch (recommended for many keys/langs):
 #    # python scripts/tool_json_i18n_batch.py status
-#    #   -> scans all 37 shipped non-English locales that each tool already has
-#    #      and reports empty/missing/same-as-English values.
+#    #   -> uses the shipped 38-locale set (English source + 37 targets),
+#    #      scanning target blocks already present in each tool.
+#    #      True missing target values and same-as-English review candidates
+#    #      are reported separately. Empty English source values are ignored.
 #    # python scripts/tool_json_i18n_batch.py status --langs ja,es,de
 #    # python scripts/tool_json_i18n_batch.py status --add-lang
 #    #   -> also treats absent locale blocks as missing.
@@ -271,7 +273,7 @@ python scripts/i18n_tools_check.py
 | Script | Purpose |
 |--------|---------|
 | `scripts/i18n_tools_check.py` | Validate all `*_tool.json` files for missing keys, broken placeholders, etc. |
-| `scripts/tool_json_i18n_batch.py` | Report missing/same-as-English values, extract them to `tmp/`, batch-translate via `translate_text`, and merge back. `status` without `--langs` scans all 37 shipped non-English locale codes for language blocks already present. |
+| `scripts/tool_json_i18n_batch.py` | Report true missing/empty values separately from same-as-English review candidates, extract translation units to `tmp/`, batch-translate via `translate_text`, and merge back. `status` without `--langs` uses the shipped 38-locale set (English source + 37 targets) and scans language blocks already present in each tool. |
 
 ### Note about return values
 

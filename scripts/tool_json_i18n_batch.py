@@ -273,7 +273,7 @@ def collect_units(
             assert isinstance(block, dict)
             for key, en_val in en.items():
                 text = _value_to_text(en_val)
-                if text is None:
+                if text is None or not text.strip():
                     continue
                 cur = block.get(key)
                 if only_missing and not _is_missing_or_stale(
@@ -672,29 +672,70 @@ def _tool_files(args: argparse.Namespace) -> list[Path]:
 def cmd_status(args: argparse.Namespace) -> int:
     files = _tool_files(args)
     langs = args.langs_list
-    units = collect_units(
+
+    missing_units = collect_units(
         files,
         langs,
         force=False,
-        skip_same_as_en=args.skip_same_as_en,
+        skip_same_as_en=False,
         only_missing=True,
         only_existing_lang=not args.add_lang,
     )
-    by: dict[tuple[str, str], int] = {}
-    by_lang: dict[str, int] = {}
-    for u in units:
-        by[(u.tool, u.lang)] = by.get((u.tool, u.lang), 0) + 1
-        by_lang[u.lang] = by_lang.get(u.lang, 0) + 1
+
+    same_as_en_units: list[Unit] = []
+    if args.skip_same_as_en:
+        review_units = collect_units(
+            files,
+            langs,
+            force=False,
+            skip_same_as_en=True,
+            only_missing=True,
+            only_existing_lang=not args.add_lang,
+        )
+        missing_ids = {(u.source_path, u.lang, u.key) for u in missing_units}
+        same_as_en_units = [
+            u
+            for u in review_units
+            if (u.source_path, u.lang, u.key) not in missing_ids
+        ]
+
+    review_units = missing_units + same_as_en_units
+
+    by_pair: dict[tuple[str, str], int] = {}
+    missing_by_lang: dict[str, int] = {}
+    same_by_lang: dict[str, int] = {}
+
+    for u in review_units:
+        by_pair[(u.tool, u.lang)] = by_pair.get((u.tool, u.lang), 0) + 1
+    for u in missing_units:
+        missing_by_lang[u.lang] = missing_by_lang.get(u.lang, 0) + 1
+    for u in same_as_en_units:
+        same_by_lang[u.lang] = same_by_lang.get(u.lang, 0) + 1
+
     print(f"tools_scanned: {len(files)}")
+    print(f"supported_locales: {len(SUPPORTED_TOOL_LOCALES)}")
+    print("source_language: en")
     print(f"languages_scanned: {len(langs)}")
-    print(f"missing_units: {len(units)}")
-    print(f"affected_tool_language_pairs: {len(by)}")
-    if by_lang:
+    print(f"missing_units: {len(missing_units)}")
+    print(f"same_as_english_candidates: {len(same_as_en_units)}")
+    print(f"review_candidates: {len(review_units)}")
+    print(f"affected_tool_language_pairs: {len(by_pair)}")
+
+    if missing_by_lang:
         print("missing_by_language:")
-        for lang, n in sorted(by_lang.items()):
+        for lang, n in sorted(missing_by_lang.items()):
             print(f"  {lang:8s} {n}")
-    for (tool, lang), n in sorted(by.items()):
-        print(f"  {tool:40s} {lang:8s} {n}")
+
+    if same_by_lang:
+        print("same_as_english_by_language:")
+        for lang, n in sorted(same_by_lang.items()):
+            print(f"  {lang:8s} {n}")
+
+    if by_pair:
+        print("review_candidates_by_tool_language:")
+        for (tool, lang), n in sorted(by_pair.items()):
+            print(f"  {tool:40s} {lang:8s} {n}")
+
     return 0
 
 
