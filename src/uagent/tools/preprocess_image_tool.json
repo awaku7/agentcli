@@ -1,33 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "preprocess image",
-      "image preprocess",
-      "image processing",
-      "image prepare",
-      "image transform",
-      "preprocess",
-      "image normalize",
-      "resize image",
-      "image enhancement",
-      "image ops"
-    ],
-    "param.mode.description": "Preprocess mode.",
-    "param.grayscale.description": "Convert the image to grayscale.",
-    "param.denoise.description": "Apply denoising / smoothing.",
-    "param.binarize.description": "Apply binarization / thresholding.",
-    "param.edge_enhance.description": "Enhance edges / outlines.",
-    "param.deskew.description": "Attempt to correct small image skew (lightweight heuristic).",
-    "param.resize.description": "Optional resize target, e.g. 2x or 1600x1200. Leave empty to keep original size.",
-    "param.contrast.description": "Optional contrast factor. 1.0 keeps original; >1.0 increases contrast.",
-    "param.output_dir.description": "Directory to save processed images. Defaults to outputs/image_preprocess if omitted.",
-    "err.image_path_empty": "[preprocess_image] image_path is required",
-    "err.image_not_found": "[preprocess_image] image file not found: {path}",
-    "ok.generated": "[OK] generated: {path}",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to preprocess.",
-    "tool.description": "Apply image preprocessing such as grayscale, denoise, binarization, and edge enhancement, then save the result as a PNG."
-  },
   "ja": {
     "x_search_terms": [
       "画像の前処理",

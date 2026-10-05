@@ -1,27 +1,4 @@
 {
-  "en": {
-    "err.timeout": "[pwsh_exec timeout] did not finish within %(seconds)s seconds",
-    "param.command.description": "PowerShell command string passed to -Command.",
-    "param.shell.description": "PowerShell executable to use: 'pwsh' (PowerShell 7+) or 'powershell' (Windows PowerShell). If omitted, auto-select.",
-    "tool.description": "Last resort: run a PowerShell command. Use only when no more appropriate tool (MCP, etc.) is available.",
-    "x_search_terms": [
-      "powershell",
-      "pwsh",
-      "power shell",
-      "shell command",
-      "script execution",
-      "windows powershell",
-      "command",
-      "execute powershell",
-      "run script",
-      "ps command"
-    ],
-    "err.command_required": "[pwsh_exec error] 'command' is required",
-    "err.blocked": "[pwsh_exec blocked] %(reason)s",
-    "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
-    "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec error] PowerShell executable not found: %(shell)s"
-  },
   "ja": {
     "err.timeout": "[pwsh_exec timeout] %(seconds)s秒以内に終了しませんでした",
     "param.command.description": "-Command に渡す PowerShell コマンド文字列。",

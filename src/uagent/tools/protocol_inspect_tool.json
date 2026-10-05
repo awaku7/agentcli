@@ -1,18 +1,4 @@
 {
-  "en": {
-    "tool.description": "Inspect selected protocol fields from a local pcap without returning payloads.",
-    "param.pcap_path.description": "Input pcap file path.",
-    "param.backend.description": "Inspection backend: scapy, auto, or tshark.",
-    "param.display_filter.description": "Optional Wireshark/tshark display filter.",
-    "param.fields.description": "Allowed protocol fields to return.",
-    "param.limit.description": "Maximum number of packets to return.",
-    "x_search_terms": [
-      "protocol inspection",
-      "packet fields",
-      "pcap fields",
-      "header analysis"
-    ]
-  },
   "ar": {
     "tool.description": "افحص حقول البروتوكول المحددة من PCAP المحلي دون إرجاع الحمولات.",
     "param.pcap_path.description": "إدخال مسار ملف PCAP",

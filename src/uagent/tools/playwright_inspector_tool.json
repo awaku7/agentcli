@@ -1,26 +1,4 @@
 {
-  "en": {
-    "err.child_failed": "[playwright_inspector error] Child process failed:\n{stderr}",
-    "out.ok": "Capture complete: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html created.\n{stdout}",
-    "param.prefix.description": "Prefix of file name to save (default: debug_capture)",
-    "param.url.description": "First URL to open (default: about:blank)",
-    "tool.description": "Launch Playwright Inspector to capture browser operations. Opens the specified URL and saves the page state (HTML and image) after the user clicks the target element.",
-    "x_search_terms": [
-      "playwright inspector",
-      "browser inspector",
-      "page inspector",
-      "inspect element",
-      "capture click",
-      "playwright debug",
-      "selector pick",
-      "element inspector",
-      "browser debug",
-      "ui inspector"
-    ],
-    "ui.captured": "--- CAPTURED: {html}, {png}, {flow}, {snapshots}/ ---",
-    "ui.resume_prompt": "After the operation, press Resume (▷) in the Inspector.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
-  },
   "ja": {
     "err.child_failed": "[playwright_inspector error] 子プロセスが失敗しました:\n{stderr}",
     "out.ok": "キャプチャ完了: {prefix}.html, {prefix}.png, {prefix}.flow.jsonl, {prefix}_snapshots/, pages/, index.jsonl, latest.html を作成しました。\n{stdout}",
