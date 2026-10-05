@@ -120,6 +120,42 @@ def test_process_wide_web_controls_require_auth_and_admin(monkeypatch):
     assert cleanup_calls == [True]
 
 
+def test_http_mutations_require_allowed_origin_outside_local(monkeypatch):
+    resolver = _Resolver("admin", authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv(
+        "UAGENT_WEB_ALLOWED_ORIGINS",
+        "https://uag.corp.example",
+    )
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
+    monkeypatch.setattr(routes_api.core, "tools_enabled", True, raising=False)
+    client = TestClient(app)
+
+    missing = client.post("/api/tools-enabled", json={"enabled": False})
+    assert missing.status_code == 403
+    assert routes_api.core.tools_enabled is True
+
+    cross_site = client.post(
+        "/api/tools-enabled",
+        content='{"enabled": false}',
+        headers={
+            "Content-Type": "text/plain",
+            "Origin": "https://evil.example",
+        },
+    )
+    assert cross_site.status_code == 403
+    assert routes_api.core.tools_enabled is True
+
+    allowed = client.post(
+        "/api/tools-enabled",
+        json={"enabled": False},
+        headers={"Origin": "https://uag.corp.example"},
+    )
+    assert allowed.status_code == 200
+    assert routes_api.core.tools_enabled is False
+
+
 def test_directory_policy_downgrades_admin_to_viewer(tmp_path, monkeypatch):
     register_directory_group_policy_adapter(None)
     monkeypatch.setenv("UAGENT_DIRECTORY_GROUP_POLICY", _directory_policy())
