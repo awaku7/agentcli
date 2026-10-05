@@ -1,37 +1,4 @@
 {
-  "en": {
-    "err.dir_not_found": "Error: Directory not found: {root_path}",
-    "err.query_required": "Error: query is required.",
-    "out.db": "DB: {db_path}",
-    "out.hits_summary": "vector_hits: {v} / graph_hits: {g} / merged: {m}",
-    "out.no_docs": "No relevant documents found.",
-    "out.query": "Search query: {query}",
-    "out.result_content": "Content: {snippet}",
-    "out.results_title": "\n[Results]",
-    "out.target_dir": "Target directory: {root_path}",
-    "param.chunk_size.description": "Chunk size.",
-    "param.file_pattern.description": "Target pattern (comma-separated glob).",
-    "param.hops.description": "Number of hops for graph traversal.",
-    "param.overlap.description": "Chunk overlap.",
-    "param.query.description": "Search query (required).",
-    "param.root_path.description": "Directory to search.",
-    "param.top_k_graph.description": "Number of items retrieved by graph search.",
-    "param.top_k_vector.description": "Top vector search results.",
-    "tool.description": "Search local files using GraphRAG (Graph + Vector hybrid). Supported: py/md/txt/pdf/pptx/xlsx.",
-    "x_search_terms": [
-      "graph_rag_search",
-      "graph rag search",
-      "graphRAG",
-      "graphrag",
-      "graph search",
-      "vector search",
-      "hybrid search",
-      "knowledge graph",
-      "entity relation",
-      "local file search"
-    ],
-    "warn.indexing_title": "\n[WARN] Indexing warnings (de-duplicated, top 50):"
-  },
   "ja": {
     "err.dir_not_found": "エラー: ディレクトリが見つかりません: {root_path}",
     "err.query_required": "エラー: query は必須です。",

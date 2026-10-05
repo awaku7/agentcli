@@ -1,7 +1,4 @@
 {
-  "en": {
-    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
-  },
   "ar": {
     "err.file_too_large": "الملف كبير جدًا: {size} > {max_bytes} بايت"
   },

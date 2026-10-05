@@ -1,26 +1,4 @@
 {
-  "en": {
-    "param.server_name.description": "Server name defined in mcp_servers.json. If specified, it takes priority over url.",
-    "param.tool_name.description": "The name of the tool to execute.",
-    "param.url.description": "MCP server endpoint URL (http://... or stdio://command...).",
-    "tool.description": "Call a tool from an MCP server. Provide tool arguments as a dictionary in args.",
-    "x_search_terms": [
-      "mcp",
-      "mcp tool",
-      "mcp call",
-      "mcp execute",
-      "mcp invoke",
-      "mcp server call",
-      "tool call",
-      "mcp function",
-      "mcp request",
-      "model context protocol"
-    ],
-    "param.args.description": "Tool arguments to pass through to the MCP tool. Provide either a JSON object (recommended) or a JSON string.",
-    "err.tool_name_required": "Error: tool_name is required.",
-    "err.stdio_url_invalid": "Error: Invalid stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), or stateless HTTP. Use stateless for stateless servers; use auto or legacy for session-required Streamable HTTP servers."
-  },
   "ja": {
     "param.server_name.description": "mcp_servers.json に定義されたサーバー名。指定時は url より優先されます。",
     "param.tool_name.description": "実行するツール名。",

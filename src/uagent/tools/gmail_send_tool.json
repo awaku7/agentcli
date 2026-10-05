@@ -94,25 +94,6 @@
     "err.smtp_error": "Σφάλμα SMTP: {detail}",
     "msg.sent": "Το email στάλθηκε σε {count} παραλήπτες."
   },
-  "en": {
-    "tool.description": "Send an email via Gmail SMTP using App Password. Requires UAGENT_GMAIL_ADDRESS and UAGENT_GMAIL_APP_PASSWORD environment variables.",
-    "x_search_terms": "[\"gmail\", \"send email\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
-    "param.to.description": "Recipient email address(es). Comma-separated for multiple.",
-    "param.subject.description": "Email subject.",
-    "param.body.description": "Email body text (plain text).",
-    "param.cc.description": "CC recipient email address(es). Comma-separated.",
-    "param.bcc.description": "BCC recipient email address(es). Comma-separated.",
-    "param.html.description": "If true, body is treated as HTML. Default: false.",
-    "err.to_missing": "'to' field is required.",
-    "err.subject_missing": "'subject' field is required.",
-    "err.credentials_missing": "UAGENT_GMAIL_ADDRESS and UAGENT_GMAIL_APP_PASSWORD must be set in environment variables.",
-    "err.no_recipients": "No valid recipients specified.",
-    "err.auth_failed": "SMTP authentication failed. Check UAGENT_GMAIL_ADDRESS and UAGENT_GMAIL_APP_PASSWORD.",
-    "err.recipients_refused": "Recipient(s) refused: {detail}",
-    "err.server_disconnected": "SMTP server disconnected unexpectedly.",
-    "err.smtp_error": "SMTP error: {detail}",
-    "msg.sent": "Email sent to {count} recipient(s)."
-  },
   "es": {
     "tool.description": "Envíe un correo electrónico a través de Gmail SMTP utilizando la contraseña de la aplicación. ",
     "x_search_terms": "[\"gmail\", \"enviar correo electrónico\", \"mail\", \"メール送信\", \"enviar correo\", \"envoyer email\", \"이메일 보내기\"]",
