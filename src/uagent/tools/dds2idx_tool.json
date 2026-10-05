@@ -1,32 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "read dds file",
-      "physical file dds",
-      "display file dspf",
-      "logical file lf",
-      "printer file prtf",
-      "DDS source",
-      "record format",
-      "DDS field",
-      "IBM i DDS",
-      "PF LF DSPF"
-    ],
-    "param.path.description": "Path to the DDS (PF/LF/DSPF/PRTF) source file.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.read_error": "Error reading file: {e}",
-    "err.parse_error": "Error parsing file: {e}",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Section {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
-    "msg.no_entries": "(no definitions found)",
-    "msg.index_output": "Index for: {path}{type_hint}\n---\n{toc}\n---\nTotal definitions: {total}\nTo retrieve a definition, call dds2idx with mode='section' and the section number.",
-    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers. \"section\" returns a specific definition by number.",
-    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
-    "tool.description": "Parse an IBM i DDS source (PF/LF/DSPF/PRTF; .pf/.lf/.dspf/.prtf/.dds) into records, fields, keys, and file-level keywords, and return a numbered index or a specific definition section. Use this when you need to read a large DDS file: first call with mode='index', then mode='section'."
-  },
   "ja": {
     "x_search_terms": [
       "DDSを読む",

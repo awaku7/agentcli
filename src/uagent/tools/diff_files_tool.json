@@ -1,37 +1,4 @@
 {
-  "en": {
-    "tool.description": "Compare files or text content and return structured diff output. Supports unified, summary, and json_diff modes.",
-    "x_search_terms": [
-      "diff files",
-      "file diff",
-      "compare files",
-      "difference",
-      "unified diff",
-      "diff",
-      "ファイル比較",
-      "差分"
-    ],
-    "param.path1.description": "First file path (required unless path2 is specified).",
-    "param.path2.description": "Second file path. Omit to compare path1 against 'text'.",
-    "param.text.description": "Text content to compare against path1 (used when path2 is omitted).",
-    "param.mode.description": "Output format: unified (default), summary (stats only), json_diff (structured hunk data).",
-    "param.context_lines.description": "Number of context lines (default: 3).",
-    "param.ignore_whitespace.description": "Ignore whitespace-only differences.",
-    "param.encoding.description": "File encoding (default: utf-8).",
-    "param.max_diff_lines.description": "Max diff output lines for unified/json_diff mode (default: 400, 0=unlimited).",
-    "param.path1_label.description": "Custom label for path1 in unified diff header.",
-    "param.path2_label.description": "Custom label for path2 in unified diff header.",
-    "err.file_too_large": "File too large: %(size)s bytes (max %(max_bytes)s)",
-    "err.invalid_mode": "Invalid mode: %(mode)s. Must be one of: %(valid)s",
-    "err.path_required": "At least one of path1 or path2 must be specified.",
-    "err.path2_and_text": "path2 and text cannot be specified together. Use path1+path2 for file comparison, or path1+text to compare file against string.",
-    "label.text_input": "<text>",
-    "label.empty": "<empty>",
-    "summary.changed": "%(added)s line(s) added, %(removed)s line(s) removed in %(hunks)s hunk(s)",
-    "summary.identical": "Files are identical.",
-    "msg.diff_truncated": "\n[diff truncated: max %(max)s lines or %(max_chars)s chars reached]",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in diff output instead of normalizing to LF. Required for patch compatibility with CRLF files."
-  },
   "ja": {
     "tool.description": "ファイルまたはテキスト コンテンツを比較し、構造化された diff 出力を返します。統合モード、要約モード、および json_diff モードをサポートします。",
     "x_search_terms": [

@@ -1,36 +1,4 @@
 {
-  "en": {
-    "tool.description": "Inspect, list, verify, extract, or convert ISO and CHD disc images. ISO operations use pycdlib; CHD operations use xverter. Optional Python dependencies are auto-installed according to UAGENT_AUTO_INSTALL.",
-    "x_search_terms": [
-      "iso",
-      "chd",
-      "disc image",
-      "disk image",
-      "iso extract",
-      "iso list",
-      "chd verify",
-      "chd convert",
-      "rom image"
-    ],
-    "param.action.description": "Operation to perform.",
-    "param.path.description": "Input ISO or CHD path under the current workdir.",
-    "param.output.description": "Destination path for extract/convert. Convert supports ISO to CHD or CHD to ISO through xverter; extract uses a directory.",
-    "param.path_type.description": "ISO filename namespace to use. auto prefers UDF, Rock Ridge, then Joliet.",
-    "param.deep.description": "For ISO verify, read every file byte. CHD verify always uses xverter integrity verification.",
-    "param.overwrite.description": "Allow replacing existing output files or extracting into a non-empty directory.",
-    "param.timeout_seconds.description": "Maximum time for CHD info/verify/convert operations.",
-    "confirm.extract_overwrite": "disc_image_ops may overwrite files under: %(path)s",
-    "confirm.file_overwrite": "disc_image_ops may overwrite: %(path)s",
-    "err.backend_failed": "The disc image backend operation failed.",
-    "err.timeout": "Disc image operation timed out after %(seconds)s seconds.",
-    "err.permission": "The disc image operation was not permitted.",
-    "err.output_exists": "The output already exists.",
-    "err.output_type": "A file output was required, but a directory was specified.",
-    "err.not_found": "A required input file or dependency was not found.",
-    "err.invalid": "A disc image option, path, or format is invalid.",
-    "err.dependency": "A required disc image dependency is unavailable.",
-    "err.operation_failed": "The disc image operation failed."
-  },
   "ja": {
     "tool.description": "ISO/CHD ディスクイメージの情報取得、一覧、検証、展開、変換を行います。ISO は pycdlib、CHD は xverter を使用し、未導入の Python 依存は UAGENT_AUTO_INSTALL ポリシーに従って自動インストールします。",
     "x_search_terms": [

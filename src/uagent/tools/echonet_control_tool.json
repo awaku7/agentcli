@@ -107,33 +107,6 @@
       "basic"
     ]
   },
-  "en": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.action.description": "Action: on/off/open/close/set_value/lock/unlock.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.unsupported_device": "Error: Device class '{target}' is not supported yet.",
-    "err.unsupported_action_for_device": "Error: action '{action}' is not supported for {kind} yet.",
-    "err.invalid_value_range": "The value field must be between 0 and 100.",
-    "err.value_required": "The value field is required for set_value.",
-    "err.unknown_action": "Error: Unknown action '{action}'.",
-    "msg.summary": "ECHONET Lite control completed: {action} on {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "param.eoj.description": "Optional target EOJ (e.g. '013001'). If omitted, the node profile object is used.",
-    "param.obj.description": "Optional object code to narrow the queried object (e.g. '0130').",
-    "param.value.description": "Optional numeric value for set_value/open/close actions. Range: 0-100.",
-    "tool.description": "Execute basic ECHONET Lite control on a node and return a JSON or text result.",
-    "x_search_terms": [
-      "echonet control",
-      "echonet_control",
-      "echonet",
-      "ECHONET",
-      "execute",
-      "basic"
-    ]
-  },
   "es": {
     "param.ip.description": "Dirección IPv4 del nodo de destino.",
     "param.action.description": "Acción: activar/desactivar/abrir/cerrar/establecer valor/bloquear/desbloquear.",
