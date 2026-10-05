@@ -42,10 +42,12 @@ runtime includes:
 - browser-facing WebSocket handshakes enforce an exact Origin allowlist before
   identity resolution or room access. State-changing HTTP methods
   (`POST` / `PUT` / `PATCH` / `DELETE`) pass through the same Origin boundary
-  before route handling. Non-local identity modes require
-  `UAGENT_WEB_ALLOWED_ORIGINS` and reject missing Origin on HTTP mutations;
-  local mode keeps missing-Origin compatibility for non-browser clients, but any
-  supplied Origin must still match exactly. Malformed, opaque, control-character,
+  before route handling. Browser/cookie/integrated-auth modes require
+  `UAGENT_WEB_ALLOWED_ORIGINS` and reject missing Origin on HTTP mutations.
+  Bearer-only `token` mode is exempt because its Authorization credential is not
+  ambient browser state; local mode keeps missing-Origin compatibility for
+  non-browser clients, but any supplied Origin must still match exactly.
+  Malformed, opaque, control-character,
   wildcard, non-ASCII, browser-noncanonical numeric, scoped IPv6, and
   non-allowlisted origins fail closed. Origin normalization must not collapse
   distinct hosts such as trailing-dot and non-trailing-dot forms. Keep
