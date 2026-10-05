@@ -1136,7 +1136,7 @@
       "pila ng gawain"
     ],
     "param.action.description": "Aksyon: init/load/status/kasalukuyan/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
+    "param.batch_id.description": "ID ng batch.",
     "param.task_description.description": "Maikling paglalarawan ng batch na gawain.",
     "param.instructions.description": "Mga detalyadong tagubilin para sa gawain ng batch.",
     "param.message.description": "Mag-log ng mensahe upang idagdag.",
@@ -1202,7 +1202,7 @@
       "opgavekø"
     ],
     "param.action.description": "Handling: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
+    "param.batch_id.description": "Batch-id.",
     "param.task_description.description": "Kort beskrivelse af batchopgaven.",
     "param.instructions.description": "Detaljerede instruktioner til batchopgaven.",
     "param.message.description": "Logmeddelelse, der skal tilføjes.",
@@ -1211,7 +1211,7 @@
     "param.current_target.description": "Indeks over den aktuelle målgruppe.",
     "param.file.description": "Målfil for complete_file/skip_file/error_file. Hvis den udelades, bruges den aktuelle fil.",
     "param.reason.description": "Årsag til skip_file/error_file, eller en kort note til færdiggørelse.",
-    "param.status.description": "Batch status.",
+    "param.status.description": "Batchstatus.",
     "param.remaining_files.description": "Filer i den aktuelle målgruppe. Foretrækker mål.",
     "err.batch_exists": "",
     "err.exception": "",
