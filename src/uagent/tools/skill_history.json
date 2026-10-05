@@ -1,9 +1,4 @@
 {
-  "en": {
-    "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
-    "skill.ok": "{message}"
-  },
   "ar": {
     "skill.prefix": "[المهارة]",
     "skill.clear_log": "{message} (تم مسح {removed} من رسائل المهارات)",

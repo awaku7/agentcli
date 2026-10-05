@@ -1,27 +1,4 @@
 {
-  "en": {
-    "error.args_must_be_dict": "args must be a dict",
-    "error.duckduckgo_failed_after_retries": "DuckDuckGo request failed after retries: {error}",
-    "error.missing_query_parameter": "missing 'query' parameter",
-    "error.run_tool_error": "run_tool error: {error}",
-    "param.query.description": "Search query.",
-    "tool.description": "Search the web via StartPage (default, Google-quality), DuckDuckGo, Brave Search, or Yahoo Japan HTML interface. Returns title/link/snippet.",
-    "x_search_terms": [
-      "web search",
-      "duckduckgo",
-      "search internet",
-      "buscar en la web",
-      "recherche web",
-      "google",
-      "browse"
-    ],
-    "param.limit.description": "Maximum number of results to return (default: 5).",
-    "error.brave_failed_after_retries": "Brave Search request failed after retries: {error}",
-    "error.brave_429_with_api_hint": "Brave Search rate limited (429). Set environment variable UAGENT_BRAVE_API_KEY with a Brave Search API key (free tier available at https://brave.com/search/api/) to use the API instead of HTML scraping.",
-    "param.engine.description": "Search engine: 'startpage' (default), 'duckduckgo', 'brave', 'yahoo_jp', or 'yahoo'.",
-    "error.yahoo_failed": "Yahoo Japan search request failed: {error}",
-    "error.startpage_failed": "StartPage search request failed: {error}"
-  },
   "ja": {
     "error.args_must_be_dict": "argsはdictである必要があります",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo へのリクエストがリトライ後も失敗しました: {error}",

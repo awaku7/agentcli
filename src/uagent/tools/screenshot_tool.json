@@ -1,31 +1,4 @@
 {
-  "en": {
-    "err.capture_fail": "[screenshot error] Failed to take screenshot: {err}",
-    "err.close_fail": "[screenshot] Saved to {path} but failed to close window: {err}",
-    "err.pyautogui_missing": "[screenshot error] pyautogui module is not installed.",
-    "err.pygetwindow_missing": "[screenshot error] pygetwindow module is not installed (required for window targeting).",
-    "err.window_not_found": "[screenshot error] No window found matching title: '{title}'",
-    "out.ok": "[screenshot] Saved to {path}",
-    "out.ok_closed": "[screenshot] Saved to {path} and closed window",
-    "param.delay.description": "Wait time before capture in seconds. Default is 1 second.",
-    "param.file_path.description": "Path for the saved file (recommended: . png).",
-    "tool.description": "Captures a screenshot of the entire desktop or a specific window.",
-    "x_search_terms": [
-      "screenshot",
-      "screen capture",
-      "capture screen",
-      "screen grab",
-      "screenshot tool",
-      "screen snapshot",
-      "display capture",
-      "print screen",
-      "screen image",
-      "capture display"
-    ],
-    "next_action.analyze_screenshot": "Please analyze this screenshot.",
-    "param.close.description": "Whether to close the window after capture. Only effective if window_title is specified.",
-    "param.title.description": "Target window title (partial match). If specified, the window is activated and only that region is captured."
-  },
   "ja": {
     "err.capture_fail": "[screenshot error] スクリーンショットの撮影に失敗しました: {err}",
     "err.close_fail": "[screenshot] {path} に保存しましたが、ウィンドウの終了に失敗しました: {err}",
