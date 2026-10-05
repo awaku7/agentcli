@@ -178,6 +178,8 @@ def validate_http_mutation_origin(
     except (AttributeError, TypeError, ValueError) as exc:
         raise IdentityResolutionError("HTTP Origin is unavailable") from exc
     selected = resolve_identity_mode(mode)
+    if selected == "token":
+        return ""
     if not origin:
         if selected == "local":
             return ""
