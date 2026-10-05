@@ -1,22 +1,4 @@
 {
-  "en": {
-    "confirm.change_workdir": "Change workdir to: {path}?\nEnter y to proceed, or c to cancel.",
-    "param.confirm.description": "Whether to ask for user confirmation.",
-    "param.new_dir.description": "The new directory path to switch to.",
-    "tool.description": "Change the current working directory after user confirmation.",
-    "x_search_terms": [
-      "change dir",
-      "change directory",
-      "workdir",
-      "working directory",
-      "cd",
-      "set workdir",
-      "change folder",
-      "switch directory",
-      "set directory",
-      "change path"
-    ]
-  },
   "ja": {
     "confirm.change_workdir": "作業ディレクトリを変更: {path}?\nyで続行、cでキャンセル。",
     "param.confirm.description": "ユーザー確認を求めるかどうか。",

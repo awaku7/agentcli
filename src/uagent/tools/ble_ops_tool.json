@@ -1,31 +1,4 @@
 {
-  "en": {
-    "tool.description": "Perform Bluetooth Low Energy (BLE) operations: scan for devices, read, or write GATT characteristics. Use MAC addresses on Windows/Linux, and UUIDs on macOS.",
-    "param.action.description": "The operation to perform. scan: discover nearby devices, read: read characteristic, write: write characteristic",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.address.description": "Target device MAC address (Windows/Linux) or UUID (macOS)",
-    "param.data_hex.description": "Hexadecimal string of data to write (e.g., '010203'). Required only when action='write'",
-    "err.bleak_missing": "Error: 'bleak' library is not installed. Please install it using:\npip install bleak",
-    "err.missing_read_params": "Error: 'address' and 'char_uuid' are required.",
-    "err.missing_write_params": "Error: 'address', 'char_uuid', and 'data_hex' are required.",
-    "err.unknown_action": "Error: Unknown action '{action}'.",
-    "err.linux_permission": "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Try one of the following:\n1. Add your user to the bluetooth group (recommended):\n   sudo usermod -aG bluetooth $USER\n   (Requires restart or re-login)\n2. Grant permissions directly to the Python binary:\n   sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
-    "err.macos_permission": "Error during BLE operation: {err_msg}\n\n[macOS Permission Guide]\nBluetooth access might have been denied by macOS security restrictions.\nPlease open 'System Settings > Privacy & Security > Bluetooth' and ensure your terminal, VS Code, or Python process is allowed to access Bluetooth.",
-    "err.operation_failed": "Error during BLE operation: {err_msg}",
-    "param.uuid.description": "Char UUID.",
-    "param.scan_mode.description": "Scan mode: ble (BLE only) or all (BLE + Classic).",
-    "err.pyside6_missing": "Error: 'PySide6' library is not installed. Please install it using:\npip install PySide6",
-    "x_search_terms": [
-      "ble ops",
-      "ble_ops",
-      "ble",
-      "BLE",
-      "perform",
-      "bluetooth",
-      "energy",
-      "operations"
-    ]
-  },
   "ja": {
     "param.action.description": "実行する操作。scan: 周辺デバイス探索, read: キャラクタリスティック読み取り, write: 書き込み",
     "param.timeout.description": "スキャンや接続のタイムアウト秒数",

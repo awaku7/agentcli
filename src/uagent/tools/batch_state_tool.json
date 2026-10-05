@@ -1,37 +1,4 @@
 {
-  "en": {
-    "tool.description": "Manage batch state for multi-file tasks in the SQLite store ~/.uag/batches/task_history.sqlite3.",
-    "x_search_terms": [
-      "batch_state",
-      "batch state",
-      "batch manager",
-      "batch progress",
-      "process files",
-      "file queue",
-      "next file",
-      "batch overview",
-      "continue batch",
-      "task queue"
-    ],
-    "param.action.description": "Action: init/load/status/current/complete_file/...",
-    "param.batch_id.description": "Batch ID.",
-    "param.task_description.description": "Short description of the batch task.",
-    "param.instructions.description": "Detailed instructions for the batch task.",
-    "param.conversation_id.description": "Conversation log ID used to resume this task safely.",
-    "param.message.description": "Log message to append.",
-    "param.overwrite.description": "If true, init overwrites an existing task in SQLite.",
-    "err.invalid_patch": "[batch_state error] patch must be an object",
-    "param.current_target.description": "Index of the current target group.",
-    "param.file.description": "Target file for complete_file/skip_file/error_file. If omitted, current file is used.",
-    "param.reason.description": "Reason for skip_file/error_file, or a short note for completion.",
-    "param.status.description": "Batch status.",
-    "param.remaining_files.description": "Files in the current target group. Prefer targets.",
-    "err.batch_exists": "",
-    "err.exception": "",
-    "err.unknown_action": "",
-    "param.patch.description": "Partial update to merge into the batch state. Prefer patch.targets and patch.current_target.",
-    "param.targets.description": "Target groups. Each entry contains dir, files (dir-relative), and index."
-  },
   "ja": {
     "tool.description": "複数ファイルの作業状態をSQLite（~/.uag/batches/task_history.sqlite3）で管理します。",
     "x_search_terms": [

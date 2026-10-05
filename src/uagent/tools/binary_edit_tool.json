@@ -1,31 +1,4 @@
 {
-  "en": {
-    "param.data_hex.description": "Hex string of bytes to write/insert (e.g. 'DEADBEEF' or 'DE AD BE EF').",
-    "param.delete_len.description": "Number of bytes to delete (splice delete).",
-    "param.dry_run.description": "If true, do not modify the file; only report what would change.",
-    "param.mode.description": "Edit mode.",
-    "param.occurrence.description": "Occurrence (1-based; 0 = all).",
-    "param.offset.description": "Byte offset (0-based). Required for write/splice.",
-    "param.patch_json.description": "JSON string patch (apply_patch mode).",
-    "param.path.description": "Target file path.",
-    "param.replace_hex.description": "Hex string to replace with (replace mode). Must be same length as search_hex unless allow_resize=true (not supported).",
-    "param.search_hex.description": "Hex string to search for (replace mode).",
-    "param.splice_op.description": "Splice operation (splice mode).",
-    "tool.description": "Edit a local file as raw bytes: offset write, search/replace, insert/delete (splice), JSON patch.",
-    "x_search_terms": [
-      "binary edit",
-      "hex edit",
-      "binary file",
-      "edit binary",
-      "hex editor",
-      "binary modify",
-      "binary patch",
-      "binary data",
-      "file hex",
-      "binary editor"
-    ],
-    "param.maxb.description": "Reject files larger than this size (bytes)."
-  },
   "ja": {
     "param.data_hex.description": "書き込み/挿入するバイト列の16進文字列（例: 'DEADBEEF' または 'DE AD BE EF'）。",
     "param.delete_len.description": "削除するバイト数（splice の delete）。",

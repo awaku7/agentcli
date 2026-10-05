@@ -1,22 +1,4 @@
 {
-  "en": {
-    "param.expression.description": "The mathematical expression to evaluate (e. g.",
-    "tool.description": "Calculates a mathematical expression and returns the result. Use this for complex calculations or when precision is required.",
-    "x_search_terms": [
-      "calculator",
-      "calculate",
-      "math",
-      "expression",
-      "formula",
-      "compute",
-      "arithmetic",
-      "evaluate",
-      "solve",
-      "numeric"
-    ],
-    "err.expression_missing": "[calculator]\\\nError: No expression provided.",
-    "err.eval": ""
-  },
   "ja": {
     "param.expression.description": "評価する数式（例: '123*(45+67)'）。",
     "tool.description": "数式を計算して結果を返します。複雑な計算や精度が必要な場合に使用します。",
