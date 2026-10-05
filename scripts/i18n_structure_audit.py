@@ -68,7 +68,7 @@ BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 # Keep this explicit so ordinary msgid placeholder mismatches remain strict.
 KEYED_DEFAULT_PLACEHOLDER_KEYS = frozenset({"auto.review_judgment_system_prompt"})
 ADVISORY_FINDING_KINDS = frozenset(
-    {"coverage_missing", "key_extra", "structure_extra"}
+    {"coverage_missing", "key_extra", "structure_extra", "translation_missing"}
 )
 # Search terms are locale-specific keyword sets. Their item count does not need
 # to match English because runtime English fallback lives in x_search_terms_en.
@@ -316,10 +316,9 @@ def _static_eval(node: ast.AST, constants: dict[str, Any]) -> Any:
     return None
 
 
-def _english_source_info(path: Path) -> tuple[dict[str, Any], set[str]]:
-    py_path = path.with_suffix(".py")
-    if not py_path.is_file():
-        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+def _extract_english_source_info(
+    py_path: Path,
+) -> tuple[dict[str, Any], set[str]]:
     try:
         tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
     except (OSError, UnicodeDecodeError, SyntaxError) as exc:
@@ -372,10 +371,70 @@ def _english_source_info(path: Path) -> tuple[dict[str, Any], set[str]]:
     return source, dynamic_keys
 
 
+def _delegated_source_files(path: Path) -> list[Path]:
+    """Find modules that explicitly bind the default translator to this facade."""
+    primary = path.with_suffix(".py")
+    target_name = primary.name
+    delegated: list[Path] = []
+    for candidate in sorted(path.parent.rglob("*.py")):
+        if candidate == primary:
+            continue
+        try:
+            text = candidate.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        if "make_tool_translator" not in text or target_name not in text:
+            continue
+        try:
+            tree = ast.parse(text, filename=str(candidate))
+        except SyntaxError:
+            continue
+        for statement in ast.walk(tree):
+            if not isinstance(statement, ast.Assign) or len(statement.targets) != 1:
+                continue
+            target = statement.targets[0]
+            value = statement.value
+            if not isinstance(target, ast.Name) or target.id != "_":
+                continue
+            if not isinstance(value, ast.Call):
+                continue
+            if not isinstance(value.func, ast.Name):
+                continue
+            if value.func.id != "make_tool_translator":
+                continue
+            explicit_targets = {
+                Path(node.value).name
+                for node in ast.walk(value)
+                if isinstance(node, ast.Constant)
+                and isinstance(node.value, str)
+                and node.value.endswith(".py")
+            }
+            if target_name in explicit_targets:
+                delegated.append(candidate)
+                break
+    return delegated
+
+
+def _english_source_info(path: Path) -> tuple[dict[str, Any], set[str]]:
+    py_path = path.with_suffix(".py")
+    if not py_path.is_file():
+        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+
+    source, dynamic_keys = _extract_english_source_info(py_path)
+    if source or dynamic_keys:
+        return source, dynamic_keys
+
+    for delegated in _delegated_source_files(path):
+        delegated_source, delegated_dynamic = _extract_english_source_info(delegated)
+        for key, value in delegated_source.items():
+            source.setdefault(key, value)
+        dynamic_keys.update(delegated_dynamic)
+    return source, dynamic_keys
+
+
 def _english_source(path: Path) -> dict[str, Any]:
     source, _dynamic_keys = _english_source_info(path)
     return source
-
 
 def _reference_structure(
     source: dict[str, Any],
@@ -465,14 +524,33 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
             current = _walk_structure(block)
             missing = sorted(set(reference) - set(current))
             extra = sorted(set(current) - set(reference))
-            if missing:
+            translation_missing = [
+                item
+                for item in missing
+                if item
+                and item.split(".", 1)[0].split("[", 1)[0] not in block
+            ]
+            structure_missing = [
+                item for item in missing if item not in translation_missing
+            ]
+            if translation_missing:
+                findings.append(
+                    Finding(
+                        "tool_json",
+                        "translation_missing",
+                        str(path),
+                        locale,
+                        detail={"paths": translation_missing},
+                    )
+                )
+            if structure_missing:
                 findings.append(
                     Finding(
                         "tool_json",
                         "structure_missing",
                         str(path),
                         locale,
-                        detail={"paths": missing},
+                        detail={"paths": structure_missing},
                     )
                 )
             if extra:
@@ -553,7 +631,7 @@ def main(argv: Iterable[str] | None = None) -> int:
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Exit non-zero for non-advisory key, placeholder, or JSON structure findings; coverage and extra keys are advisory.",
+        help="Exit non-zero for non-advisory key, placeholder, or JSON structure findings; coverage, missing translation keys, and extra keys are advisory.",
     )
     args = parser.parse_args(argv)
     payload = audit(args.locales_root, args.tools_root)

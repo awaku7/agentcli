@@ -214,7 +214,7 @@ def test_tool_audit_uses_locale_consensus_for_dynamic_default(tmp_path: Path) ->
     findings = audit_module.audit_tool_catalogs(tools)
 
     assert any(
-        finding.locale == "de" and finding.kind == "structure_missing"
+        finding.locale == "de" and finding.kind == "translation_missing"
         for finding in findings
     )
 
@@ -256,3 +256,63 @@ def test_dynamic_consensus_ignores_keys_not_referenced_by_python(
 
 def test_tool_structure_extra_is_advisory() -> None:
     assert "structure_extra" in audit_module.ADVISORY_FINDING_KINDS
+
+
+def test_missing_top_level_translation_uses_python_fallback(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"message": "Hello", "other": "Other"},
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps({"ja": {"message": "こんにちは"}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.locale == "ja" and finding.kind == "translation_missing"
+        for finding in findings
+    )
+    assert not any(
+        finding.locale == "ja" and finding.kind == "structure_missing"
+        for finding in findings
+    )
+    assert "translation_missing" in audit_module.ADVISORY_FINDING_KINDS
+
+
+def test_audit_follows_delegated_catalog_binding(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "sample_tool.py").write_text(
+        "from .sample_impl import runner\n",
+        encoding="utf-8",
+    )
+    impl_dir = tools / "sample_impl"
+    impl_dir.mkdir()
+    (impl_dir / "runner.py").write_text(
+        "from pathlib import Path\n"
+        "_ = make_tool_translator(\n"
+        '    Path(__file__).resolve().parent.parent / "sample_tool.py"\n'
+        ")\n"
+        '_(\"tool.description\", default=\"Hello\")\n',
+        encoding="utf-8",
+    )
+    (tools / "sample_tool.json").write_text(
+        json.dumps(
+            {"ja": {"tool.description": "こんにちは"}},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.locale == "ja"
+        and finding.kind
+        in {"structure_extra", "structure_missing", "translation_missing"}
+        for finding in findings
+    )

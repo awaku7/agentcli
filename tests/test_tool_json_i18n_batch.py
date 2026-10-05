@@ -305,3 +305,26 @@ def test_english_cannot_be_used_as_json_target(tmp_path: Path, capsys) -> None:
     captured = capsys.readouterr()
     assert rc == 2
     assert "cannot be a JSON target locale" in captured.err
+
+
+def test_english_source_follows_delegated_catalog_binding(tmp_path: Path) -> None:
+    tools_dir = tmp_path / "tools"
+    tools_dir.mkdir()
+    (tools_dir / "sample_tool.py").write_text(
+        "from .sample_impl import runner\n",
+        encoding="utf-8",
+    )
+    impl_dir = tools_dir / "sample_impl"
+    impl_dir.mkdir()
+    (impl_dir / "runner.py").write_text(
+        "from pathlib import Path\n"
+        "_ = make_tool_translator(\n"
+        '    Path(__file__).resolve().parent.parent / "sample_tool.py"\n'
+        ")\n"
+        '_(\"tool.description\", default=\"Hello\")\n',
+        encoding="utf-8",
+    )
+
+    source = batch._english_source(tools_dir / "sample_tool.json")
+
+    assert source == {"tool.description": "Hello"}

@@ -186,11 +186,12 @@ def make_tool_translator(tool_py_file: str):
         data = _load_tool_dict(json_path)
 
         text = None
-        loc_map = data.get(loc)
-        if isinstance(loc_map, dict):
-            v = loc_map.get(key)
-            if isinstance(v, (str, list, dict)) and v:
-                text = _unescape_value(v)
+        if loc != "en":
+            loc_map = data.get(loc)
+            if isinstance(loc_map, dict):
+                v = loc_map.get(key)
+                if isinstance(v, (str, list, dict)) and v:
+                    text = _unescape_value(v)
 
         if text is None:
             text = default

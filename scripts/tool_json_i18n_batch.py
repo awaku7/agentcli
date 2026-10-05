@@ -227,11 +227,7 @@ def _static_eval(node: ast.AST, constants: dict[str, Any]) -> Any:
     return None
 
 
-def _english_source(path: Path) -> dict[str, Any]:
-    """Extract statically knowable English defaults from matching Python source."""
-    py_path = path.with_suffix(".py")
-    if not py_path.is_file():
-        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+def _extract_english_source(py_path: Path) -> dict[str, Any]:
     try:
         tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
     except (OSError, UnicodeDecodeError, SyntaxError) as exc:
@@ -278,6 +274,66 @@ def _english_source(path: Path) -> dict[str, Any]:
         value = _static_eval(default_node, constants)
         if isinstance(value, (str, list, dict)):
             source.setdefault(key_node.value, value)
+    return source
+
+
+def _delegated_source_files(path: Path) -> list[Path]:
+    """Find modules that explicitly bind the default translator to this facade."""
+    primary = path.with_suffix(".py")
+    target_name = primary.name
+    delegated: list[Path] = []
+    for candidate in sorted(path.parent.rglob("*.py")):
+        if candidate == primary:
+            continue
+        try:
+            text = candidate.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        if "make_tool_translator" not in text or target_name not in text:
+            continue
+        try:
+            tree = ast.parse(text, filename=str(candidate))
+        except SyntaxError:
+            continue
+        for statement in ast.walk(tree):
+            if not isinstance(statement, ast.Assign) or len(statement.targets) != 1:
+                continue
+            target = statement.targets[0]
+            value = statement.value
+            if not isinstance(target, ast.Name) or target.id != "_":
+                continue
+            if not isinstance(value, ast.Call):
+                continue
+            if not isinstance(value.func, ast.Name):
+                continue
+            if value.func.id != "make_tool_translator":
+                continue
+            explicit_targets = {
+                Path(node.value).name
+                for node in ast.walk(value)
+                if isinstance(node, ast.Constant)
+                and isinstance(node.value, str)
+                and node.value.endswith(".py")
+            }
+            if target_name in explicit_targets:
+                delegated.append(candidate)
+                break
+    return delegated
+
+
+def _english_source(path: Path) -> dict[str, Any]:
+    """Extract Python English defaults, following facade-bound implementations."""
+    py_path = path.with_suffix(".py")
+    if not py_path.is_file():
+        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+
+    source = _extract_english_source(py_path)
+    if source:
+        return source
+
+    for delegated in _delegated_source_files(path):
+        for key, value in _extract_english_source(delegated).items():
+            source.setdefault(key, value)
     return source
 
 def _value_to_text(v: Any) -> str | None:
