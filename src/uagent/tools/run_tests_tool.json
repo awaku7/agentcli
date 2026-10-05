@@ -1,33 +1,4 @@
 {
-  "en": {
-    "error.cwd_not_allowed": "cwd not allowed: {error}",
-    "error.dangerous_cwd_rejected": "dangerous cwd rejected: {cwd}",
-    "error.framework_auto_detect_failed": "framework auto-detect failed",
-    "error.invalid_framework": "invalid framework: {framework}",
-    "error.invalid_report": "invalid report: {report}",
-    "error.shell_metacharacters_not_allowed": "shell metacharacters are not allowed in arguments: {arg}",
-    "error.unsupported_framework": "unsupported framework: {framework}",
-    "param.cwd.description": "Working directory to run in (must be within workdir). If null, current directory.",
-    "param.framework.description": "Test framework type.",
-    "param.pythonpath.description": "Additional PYTHONPATH (e.g. 'src'). If provided, it is prefixed to the test command.",
-    "param.report.description": "Output format.",
-    "param.target.description": "Target (pytest path, unittest start directory, npm script, etc.). If null, defaults are used.",
-    "param.timeout_sec.description": "Maximum test execution time in seconds.",
-    "tool.description": "Run tests (auto-detect pytest/unittest/npm). Reject shell metacharacters in extra_args.",
-    "x_search_terms": [
-      "run tests",
-      "test",
-      "pytest",
-      "unittest",
-      "test runner",
-      "execute tests",
-      "test execution",
-      "run unittest",
-      "test suite",
-      "testing"
-    ],
-    "param.xargs.description": "Additional arguments array. Reject if shell metacharacters are present."
-  },
   "ja": {
     "error.cwd_not_allowed": "cwd は許可されていません: {error}",
     "error.dangerous_cwd_rejected": "危険な cwd を拒否しました: {cwd}",

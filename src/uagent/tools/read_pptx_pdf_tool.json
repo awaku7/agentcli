@@ -1,26 +1,4 @@
 {
-  "en": {
-    "param.page_index.description": "1-based page number (PDF page or PPTX slide index). If omitted, returns concatenated text for all pages.",
-    "param.path.description": "Path to a PDF / PPTX / JSON file.",
-    "tool.description": "Read PDF/PPTX (or their common JSON schema) and return extracted text by page. You can set path to .",
-    "x_search_terms": [
-      "read pptx",
-      "read pdf",
-      "pptx",
-      "pdf",
-      "powerpoint",
-      "presentation",
-      "document reader",
-      "pdf read",
-      "pptx read",
-      "slide"
-    ],
-    "param.password.description": "Password (prompts if needed).",
-    "prompt.password": "Enter the password for this file:\n{path}",
-    "err.path_required": "[read_pptx_pdf error] path is required",
-    "err.page_index_int": "[read_pptx_pdf error] page_index must be an integer",
-    "param.maxc.description": "Maximum number of characters to return. If omitted, truncates at 8000 characters."
-  },
   "ja": {
     "param.page_index.description": "1始まりのページ番号（PDFページ / PPTXスライド番号）。省略時は全ページを連結して返します。",
     "param.path.description": "PDF / PPTX / JSON ファイルのパス。",

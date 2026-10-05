@@ -1,16 +1,4 @@
 {
-  "en": {
-    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "err.blocked_cancelled": "user cancelled",
-    "err.blocked_rejected": "user rejected",
-    "err.callbacks_unavailable": "human_ask callbacks not available",
-    "err.confirm_failed": "confirmation failed",
-    "err.confirm_timeout": "confirmation timeout",
-    "ui.confirm.footer": "=== /confirm ===\n",
-    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Human confirmation request ==="
-  },
   "ar": {
     "confirm.risky_command": "تم اكتشاف محتوى أمر يحتمل أن يكون خطيرًا.\nأمر: {command}\nاكتب y للمتابعة، أو c للإلغاء.",
     "confirm.shell_metachar": "تم اكتشاف مشغلي الصدفة (الأنابيب/إعادة التوجيه/التسلسل).\nأمر: {command}\nاكتب y للمتابعة، أو c للإلغاء.",
