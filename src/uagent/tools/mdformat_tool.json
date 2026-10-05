@@ -35,7 +35,7 @@
   "ja": {
     "tool.description": "mdformat を使用して Markdown ファイルの形式を確認します。フォーマットの修正が必要なファイルを報告します。オプションで自動修正。",
     "x_search_terms": [
-      "マークダウン",
+      "Markdown",
       "フォーマット",
       "lint",
       "mdformat",
@@ -68,9 +68,9 @@
   "ar": {
     "tool.description": "تحقق من تنسيق ملف Markdown باستخدام mdformat. تقارير الملفات التي تحتاج إلى إصلاحات التنسيق. اختياريا الإصلاح التلقائي.",
     "x_search_terms": [
-      "تخفيض السعر",
+      "Markdown",
       "تنسيق",
-      "لينت",
+      "lint",
       "mdformat",
       "md",
       "نمط"
@@ -101,7 +101,7 @@
   "bn": {
     "tool.description": "mdformat এর সাথে Markdown ফাইল ফরম্যাটিং চেক করুন। ফাইলগুলি রিপোর্ট করে যেগুলির ফর্ম্যাটিং সংশোধনের প্রয়োজন৷ ঐচ্ছিকভাবে অটো-ফিক্স।",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "ফরম্যাট",
       "lint",
       "mdformat",
@@ -134,8 +134,8 @@
   "cs": {
     "tool.description": "Zkontrolujte formátování souboru Markdown pomocí mdformat. Hlásí soubory, které vyžadují opravy formátování. Volitelně automatická oprava.",
     "x_search_terms": [
-      "markdown",
-      "formát",
+      "Markdown",
+      "formátování",
       "lint",
       "mdformat",
       "md",
@@ -167,7 +167,7 @@
   "de": {
     "tool.description": "Überprüfen Sie die Markdown-Dateiformatierung mit mdformat. Meldet Dateien, die Formatierungskorrekturen benötigen. Optional automatische Korrektur.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "Formatierung",
       "lint",
       "mdformat",
@@ -200,7 +200,7 @@
   "el": {
     "tool.description": "Ελέγξτε τη μορφοποίηση αρχείου Markdown με mdformat. Αναφέρει αρχεία που χρειάζονται επιδιορθώσεις μορφοποίησης. Προαιρετικά αυτόματη επιδιόρθωση.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "μορφοποίηση",
       "lint",
       "mdformat",
@@ -233,10 +233,10 @@
   "es": {
     "tool.description": "Verifique el formato del archivo Markdown con mdformat. Informa archivos que necesitan correcciones de formato. Opcionalmente reparación automática.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formato",
       "lint",
-      "mdformato",
+      "mdformat",
       "md",
       "estilo"
     ],
@@ -266,8 +266,8 @@
   "fa": {
     "tool.description": "قالب بندی فایل Markdown را با mdformat بررسی کنید. فایل هایی را گزارش می کند که نیاز به اصلاح فرمت دارند. به صورت اختیاری رفع خودکار.",
     "x_search_terms": [
-      "نشانه گذاری",
-      "قالب",
+      "Markdown",
+      "قالب‌بندی",
       "lint",
       "mdformat",
       "md",
@@ -299,7 +299,7 @@
   "fi": {
     "tool.description": "Tarkista Markdown-tiedoston muotoilu mdformatilla. Raportoi tiedostot, jotka tarvitsevat muotoilukorjauksia. Valinnaisesti automaattinen korjaus.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "muotoilu",
       "lint",
       "mdformat",
@@ -332,7 +332,7 @@
   "fr": {
     "tool.description": "Vérifiez le formatage du fichier Markdown avec mdformat. Signale les fichiers qui nécessitent des correctifs de formatage. En option, correction automatique.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formatage",
       "lint",
       "mdformat",
@@ -365,7 +365,7 @@
   "he": {
     "tool.description": "סמן את עיצוב הקובץ Markdown עם mdformat. מדווח על קבצים שזקוקים לתיקוני עיצוב. אופציונלי תיקון אוטומטי.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "עיצוב",
       "lint",
       "mdformat",
@@ -398,12 +398,12 @@
   "hi": {
     "tool.description": "एमडीफॉर्मेट के साथ मार्कडाउन फ़ाइल फ़ॉर्मेटिंग की जाँच करें। उन फ़ाइलों की रिपोर्ट करता है जिन्हें फ़ॉर्मेटिंग सुधार की आवश्यकता होती है। वैकल्पिक रूप से स्वतः ठीक करें.",
     "x_search_terms": [
-      "मार्कडाउन",
-      "फॉर्मेट",
-      "लिंट",
-      "एमडीफॉर्मेट",
-      "एमडी",
-      "स्टाइल"
+      "Markdown",
+      "फ़ॉर्मैटिंग",
+      "lint",
+      "mdformat",
+      "md",
+      "शैली"
     ],
     "param.path.description": "जांचने के लिए ग्लोब पैटर्न या फ़ाइल पथ (जैसे 'docs/**/*.md' या 'README.md')।",
     "param.fix.description": "यदि सत्य है, तो केवल जाँच करने के बजाय फ़ॉर्मेटिंग समस्याओं को स्वतः ठीक करें।",
@@ -431,7 +431,7 @@
   "hu": {
     "tool.description": "Ellenőrizze a Markdown fájl formázását az mdformat segítségével. A formázási javításokat igénylő fájlokat jelenti. Opcionálisan automatikus javítás.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formázás",
       "lint",
       "mdformat",
@@ -464,12 +464,12 @@
   "id": {
     "tool.description": "Periksa pemformatan file Markdown dengan mdformat. Melaporkan file yang memerlukan perbaikan format. Opsional, perbaiki otomatis.",
     "x_search_terms": [
-      "penurunan harga",
-      "format",
+      "Markdown",
+      "pemformatan",
       "lint",
       "mdformat",
       "md",
-      "style"
+      "gaya"
     ],
     "param.path.description": "Pola gumpalan atau jalur file yang akan diperiksa (misalnya 'docs/**/*.md' atau 'README.md').",
     "param.fix.description": "Jika benar, perbaiki masalah pemformatan secara otomatis, bukan hanya memeriksa.",
@@ -497,7 +497,7 @@
   "it": {
     "tool.description": "Controlla la formattazione del file Markdown con mdformat. Segnala i file che necessitano di correzioni di formattazione. Facoltativamente correzione automatica.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formattazione",
       "lint",
       "mdformat",
@@ -530,7 +530,7 @@
   "ko": {
     "tool.description": "mdformat으로 마크다운 파일 형식을 확인하세요. 형식 수정이 필요한 파일을 보고합니다. 선택적으로 자동 수정.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "서식",
       "lint",
       "mdformat",
@@ -563,7 +563,7 @@
   "mn": {
     "tool.description": "Markdown файлын форматыг mdformat ашиглан шалгана уу. Форматыг засах шаардлагатай файлуудыг мэдээлдэг. Сонголтоор автоматаар засах боломжтой.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "форматлалт",
       "lint",
       "mdformat",
@@ -596,7 +596,7 @@
   "mr": {
     "tool.description": "mdformat सह मार्कडाउन फाइल फॉरमॅटिंग तपासा. स्वरूपण निराकरणे आवश्यक असलेल्या फाइल्सचा अहवाल देते. वैकल्पिकरित्या स्वयं-निराकरण.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "स्वरूपन",
       "lint",
       "mdformat",
@@ -629,8 +629,8 @@
   "nb": {
     "tool.description": "Sjekk Markdown-filformatering med mdformat. Rapporterer filer som trenger formateringsfikser. Eventuelt autofiks.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "Markdown",
+      "formatering",
       "lint",
       "mdformat",
       "md",
@@ -662,7 +662,7 @@
   "nl": {
     "tool.description": "Controleer de Markdown-bestandsopmaak met mdformat. Rapporteert bestanden waarvoor opmaakcorrecties nodig zijn. Optioneel autofix.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "opmaak",
       "lint",
       "mdformat",
@@ -695,12 +695,12 @@
   "pl": {
     "tool.description": "Sprawdź formatowanie pliku Markdown za pomocą mdformat. Raportuje pliki wymagające poprawek formatowania. Opcjonalnie automatyczna naprawa.",
     "x_search_terms": [
-      "przecena",
-      "format",
+      "Markdown",
+      "formatowanie",
       "lint",
       "mdformat",
       "md",
-      "style"
+      "styl"
     ],
     "param.path.description": "Wzór globu lub ścieżka pliku do sprawdzenia (np. „docs/**/*.md” lub „README.md”).",
     "param.fix.description": "Jeśli to prawda, rozwiąż problemy z formatowaniem automatycznie, zamiast tylko je sprawdzać.",
@@ -728,7 +728,7 @@
   "pt": {
     "tool.description": "Verifique a formatação do arquivo Markdown com mdformat. Relata arquivos que precisam de correções de formatação. Opcionalmente, correção automática.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formatação",
       "lint",
       "mdformat",
@@ -761,7 +761,7 @@
   "pt_BR": {
     "tool.description": "Verifique a formatação do arquivo Markdown com mdformat. Relata arquivos que precisam de correções de formatação. Opcionalmente, correção automática.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formatação",
       "lint",
       "mdformat",
@@ -794,7 +794,7 @@
   "ro": {
     "tool.description": "Verificați formatarea fișierului Markdown cu mdformat. Raportează fișierele care necesită remedieri de formatare. Opțional, remediere automată.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "formatare",
       "lint",
       "mdformat",
@@ -827,12 +827,12 @@
   "ru": {
     "tool.description": "Проверьте форматирование файла Markdown с помощью mdformat. Сообщает о файлах, требующих исправления форматирования. Опционально автоисправление.",
     "x_search_terms": [
-      "уценка",
-      "формат",
+      "Markdown",
+      "форматирование",
       "lint",
       "mdformat",
       "md",
-      "style"
+      "стиль"
     ],
     "param.path.description": "Шаблон шаблона или путь к файлу для проверки (например, «docs/**/*.md» или «README.md»).",
     "param.fix.description": "Если это правда, проблемы с форматированием автоматически исправляются, а не просто проверяются.",
@@ -860,8 +860,8 @@
   "sv": {
     "tool.description": "Kontrollera Markdown-filformatering med mdformat. Rapporterar filer som behöver formateringsfixar. Valfritt autofix.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "Markdown",
+      "formatering",
       "lint",
       "mdformat",
       "md",
@@ -893,8 +893,8 @@
   "sw": {
     "tool.description": "Angalia umbizo la faili la Markdown na mdformat. Huripoti faili zinazohitaji marekebisho ya umbizo. Hiari kurekebisha kiotomatiki.",
     "x_search_terms": [
-      "alama chini",
-      "umbizo",
+      "Markdown",
+      "uumbizaji",
       "lint",
       "mdformat",
       "md",
@@ -926,8 +926,8 @@
   "th": {
     "tool.description": "ตรวจสอบการจัดรูปแบบไฟล์ Markdown ด้วย mdformat รายงานไฟล์ที่ต้องการแก้ไขการจัดรูปแบบ เลือกแก้ไขอัตโนมัติได้",
     "x_search_terms": [
-      "มาร์กดาวน์",
-      "รูปแบบ",
+      "Markdown",
+      "การจัดรูปแบบ",
       "lint",
       "mdformat",
       "md",
@@ -959,7 +959,7 @@
   "tr": {
     "tool.description": "Markdown dosya formatını mdformat ile kontrol edin. Biçimlendirme düzeltmeleri gerektiren dosyaları bildirir. İsteğe bağlı olarak otomatik düzeltme.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "biçimlendirme",
       "lint",
       "mdformat",
@@ -992,7 +992,7 @@
   "uk": {
     "tool.description": "Перевірте форматування файлу Markdown за допомогою mdformat. Повідомляє про файли, які потребують виправлення форматування. За бажанням автовиправлення.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "форматування",
       "lint",
       "mdformat",
@@ -1025,8 +1025,8 @@
   "vi": {
     "tool.description": "Kiểm tra định dạng tệp Markdown bằng mdformat. Báo cáo các tập tin cần sửa định dạng. Tùy chọn tự động sửa lỗi.",
     "x_search_terms": [
-      "kiểu markdown",
-      "format",
+      "Markdown",
+      "định dạng",
       "lint",
       "mdformat",
       "md",
@@ -1058,7 +1058,7 @@
   "zh_CN": {
     "tool.description": "使用 mdformat 检查 Markdown 文件格式。报告需要格式修复的文件。可选择自动修复。",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "格式化",
       "lint",
       "mdformat",
@@ -1091,7 +1091,7 @@
   "zh_TW": {
     "tool.description": "使用 mdformat 檢查 Markdown 文件格式。報告需要格式修復的文件。可選擇自動修復。",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "格式化",
       "lint",
       "mdformat",
@@ -1124,7 +1124,7 @@
   "fil": {
     "tool.description": "Suriin ang Markdown file formatting gamit ang mdformat. Nag-uulat ng mga file na nangangailangan ng mga pag-aayos sa pag-format. Opsyonal na auto-fix.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "pag-format",
       "lint",
       "mdformat",
@@ -1157,7 +1157,7 @@
   "ms": {
     "tool.description": "Semak pemformatan fail Markdown dengan mdformat. Melaporkan fail yang memerlukan pembetulan pemformatan. Secara pilihan, pembetulan automatik.",
     "x_search_terms": [
-      "markdown",
+      "Markdown",
       "pemformatan",
       "lint",
       "mdformat",
@@ -1190,8 +1190,8 @@
   "da": {
     "tool.description": "Tjek Markdown-filformatering med mdformat. Rapporterer filer, der har brug for formateringsrettelser. Eventuelt autofix.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "Markdown",
+      "formatering",
       "lint",
       "mdformat",
       "md",
@@ -1223,8 +1223,8 @@
   "nn": {
     "tool.description": "Sjekk Markdown-filformatering med mdformat. Rapporterer filer som trenger formateringsfikser. Eventuelt autofiks.",
     "x_search_terms": [
-      "markdown",
-      "format",
+      "Markdown",
+      "formatering",
       "lint",
       "mdformat",
       "md",
