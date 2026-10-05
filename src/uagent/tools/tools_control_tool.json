@@ -400,7 +400,7 @@
     "tool.description": "Nuken työkalu työkalujen valvontarekisteröintiin."
   },
   "cs": {
-    "cmd.help.tools_list": "  :tools list [query]               Vypíše načtené nástroje, volitelně filtrované podle názvu/popi­su",
+    "cmd.help.tools_list": "  :tools list [query]               Vypíše načtené nástroje, volitelně filtrované podle názvu/popisu",
     "cmd.help.tools_load": "  :tools load <name>",
     "msg.tools.usage_load": "Použití: :tools load <tool_name>",
     "msg.tools.loaded_single": "[tools] Načten nástroj: {name}",
