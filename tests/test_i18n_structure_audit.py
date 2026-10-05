@@ -25,10 +25,7 @@ def _write_po(path: Path, entries: dict[str, str]) -> None:
 
 def _write_tool_source(path: Path, defaults: dict[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    lines = [
-        f"_({key!r}, default={value!r})"
-        for key, value in defaults.items()
-    ]
+    lines = [f"_({key!r}, default={value!r})" for key, value in defaults.items()]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -59,9 +56,7 @@ def test_tool_audit_detects_nested_structure_and_placeholders(tmp_path: Path) ->
         {"nested": {"message": "Hello {name}"}},
     )
     (tools / "example_tool.json").write_text(
-        json.dumps(
-            {"ja": {"nested": {"message": "こんにちは {user}"}, "extra": "x"}}
-        ),
+        json.dumps({"ja": {"nested": {"message": "こんにちは {user}"}, "extra": "x"}}),
         encoding="utf-8",
     )
     findings = audit_module.audit_tool_catalogs(tools)

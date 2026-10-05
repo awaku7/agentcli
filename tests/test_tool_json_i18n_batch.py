@@ -23,10 +23,7 @@ def _write_catalog(path: Path, data: dict[str, object]) -> None:
 
 def _write_source(path: Path, defaults: dict[str, object]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    lines = [
-        f"_({key!r}, default={value!r})"
-        for key, value in defaults.items()
-    ]
+    lines = [f"_({key!r}, default={value!r})" for key, value in defaults.items()]
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
