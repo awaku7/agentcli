@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import ipaddress
 import os
 import re
@@ -30,6 +31,13 @@ def _contains_ascii_control(value: str) -> bool:
 
 def _raw_allowed_origins_setting() -> str:
     return str(os.environ.get("UAGENT_WEB_ALLOWED_ORIGINS", "") or "")
+
+
+def websocket_origin_configuration_revision() -> str:
+    """Return a non-secret revision for the exact raw Origin policy setting."""
+
+    raw = _raw_allowed_origins_setting().encode("utf-8", errors="surrogatepass")
+    return hashlib.sha256(raw).hexdigest()
 
 
 def _normalize_origin(value: str) -> str:
@@ -147,4 +155,5 @@ def validate_websocket_origin(
 __all__ = [
     "configured_websocket_origins",
     "validate_websocket_origin",
+    "websocket_origin_configuration_revision",
 ]
