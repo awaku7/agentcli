@@ -605,6 +605,11 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
     structural_findings = [
         item for item in findings if item.kind not in ADVISORY_FINDING_KINDS
     ]
+    strict_findings_by_kind: dict[str, int] = {}
+    for item in structural_findings:
+        strict_findings_by_kind[item.kind] = (
+            strict_findings_by_kind.get(item.kind, 0) + 1
+        )
     return {
         "shipped_locales": list(SHIPPED_LOCALES),
         "host_gettext": {"findings": [asdict(item) for item in host_findings]},
@@ -614,6 +619,7 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
             "tool_json_findings": len(tool_findings),
             "coverage_findings": len(coverage_findings),
             "structural_findings": len(structural_findings),
+            "strict_findings_by_kind": dict(sorted(strict_findings_by_kind.items())),
             "total_findings": len(findings),
         },
     }
