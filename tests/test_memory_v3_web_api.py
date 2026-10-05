@@ -397,6 +397,7 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
     monkeypatch.delenv("UAGENT_MEMORY_PROJECT", raising=False)
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
 
     from uagent.runtime.memory_store import MemoryStore
@@ -407,7 +408,7 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
     project_policy.set_membership("root", "demo", "alice", "viewer")
     project_policy.set_membership("root", "second", "alice", "viewer")
     store.close()
-    client = TestClient(app)
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
 
     projects = client.get("/api/me/projects")
     assert projects.status_code == 200
