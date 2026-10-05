@@ -265,7 +265,6 @@ def test_chd_convert_success_replaces_existing_destination_atomically(
     assert not seen_output[0].exists()
 
 
-
 def test_i18n_catalog_has_all_38_locales_and_matching_keys() -> None:
     catalog_path = (
         Path(__file__).parents[1]
