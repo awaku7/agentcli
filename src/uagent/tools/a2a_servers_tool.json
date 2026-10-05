@@ -1,33 +1,4 @@
 {
-  "en": {
-    "err.config_not_found": "Config not found. Run action=init first.",
-    "err.exception": "Exception",
-    "err.missing_name": "Missing 'name'.",
-    "err.missing_name_or_base_url": "Missing 'name' or 'base_url'.",
-    "err.not_found": "Not found.",
-    "err.unknown_action": "Unknown action.",
-    "param.action.description": "Action: init/list/add/remove/set_default/get/resolve",
-    "param.base_url.description": "Server base URL (e.g. http://127.0.0.1:8765).",
-    "param.force.description": "(init) Overwrite existing config.",
-    "param.interval_ms.description": "Polling interval in milliseconds.",
-    "param.name.description": "Profile name (or a2a://name for get/resolve).",
-    "param.set_default.description": "(add) Set as default profile.",
-    "param.timeout_s.description": "Profile timeout in seconds.",
-    "param.token.description": "Bearer token.",
-    "tool.description": "Manage A2A server profiles. Use only when no local tool can substitute.",
-    "x_search_terms": [
-      "a2a_servers",
-      "a2a servers",
-      "server profile",
-      "server profiles",
-      "profile manager",
-      "manage profiles",
-      "profile list",
-      "server list",
-      "profile settings",
-      "a2a profile"
-    ]
-  },
   "ja": {
     "err.config_not_found": "設定ファイルが見つかりません。action=init を先に実行してください。",
     "err.exception": "例外",

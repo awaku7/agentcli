@@ -1,10 +1,4 @@
 {
-  "en": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
-    "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
-    "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
-  },
   "ar": {
     "log.load_fail.external": "[الأدوات] فشل تحميل البرنامج الإضافي الخارجي {entry_path}: {err}",
     "log.load_fail.internal": "[الأدوات] فشل تحميل المكون الإضافي الداخلي {mod_name}: {err}",

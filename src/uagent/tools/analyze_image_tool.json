@@ -1,21 +1,4 @@
 {
-  "en": {
-    "param.prompt.description": "What you want to know about the image.",
-    "tool.description": "Load an image and have AI (Vision) describe it. Useful for screenshots, charts, and tables.",
-    "x_search_terms": [
-      "analyze image",
-      "image analysis",
-      "image recognition",
-      "vision",
-      "image understanding",
-      "image describe",
-      "image content",
-      "image ai",
-      "visual analysis",
-      "image detection"
-    ],
-    "param.img.description": "Path to the image file to analyze."
-  },
   "ja": {
     "param.prompt.description": "画像について知りたい内容。",
     "tool.description": "画像を読み込み、AI（Vision）で内容を説明します。スクリーンショットやグラフ、表の解析に便利です。",

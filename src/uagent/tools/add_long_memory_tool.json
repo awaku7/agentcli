@@ -1,21 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "add memory",
-      "long term memory",
-      "save memory",
-      "store memory",
-      "memory add",
-      "agent memory",
-      "remember",
-      "persist memory",
-      "save info",
-      "memory store"
-    ],
-    "err.note_empty": "[add_long_memory error] note is empty",
-    "param.note.description": "Write exactly one concise note (Japanese preferred) that should be reusable in future conversations.",
-    "tool.description": "Save a single long-term memory note about the user/environment that may be useful in future conversations."
-  },
   "ja": {
     "x_search_terms": [
       "メモリの追加",
