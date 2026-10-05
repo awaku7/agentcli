@@ -219,7 +219,9 @@ def test_tool_audit_uses_locale_consensus_for_dynamic_default(tmp_path: Path) ->
     )
 
 
-def test_dynamic_consensus_ignores_keys_not_referenced_by_python(tmp_path: Path) -> None:
+def test_dynamic_consensus_ignores_keys_not_referenced_by_python(
+    tmp_path: Path,
+) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
     (tools / "example_tool.py").write_text(
