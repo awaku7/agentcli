@@ -1,22 +1,4 @@
 {
-  "en": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "The skill directory (must contain SKILL.md).",
-    "tool.description": "Loads the SKILL.md for an Agent Skill and returns its YAML frontmatter and Markdown body.",
-    "x_search_terms": [
-      "skill load",
-      "load skill",
-      "activate skill",
-      "enable skill",
-      "skill activation",
-      "load agent skill",
-      "skill enable",
-      "use skill",
-      "skill import",
-      "activate agent skill"
-    ]
-  },
   "ja": {
     "err.invalid_args": "[ツールエラー] 引数が不正です",
     "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",

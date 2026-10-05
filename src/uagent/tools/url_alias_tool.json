@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Register, list, or delete URL aliases @B{0} through @B{9}.",
-    "param.action.description": "Operation to perform.",
-    "param.slot.description": "Alias number; 0 produces @A{0}, 9 produces @A{9}.",
-    "param.path.description": "Base URL to assign to the alias.",
-    "param.overwrite.description": "Allow replacing an existing alias.",
-    "err.slot": "slot must be an integer from 0 to 9",
-    "err.path": "path must be an existing directory",
-    "err.path_required": "path is required",
-    "err.exists": "alias already registered: {alias}",
-    "err.not_registered": "alias not registered: {alias}",
-    "err.action": "action must be set, list, or delete",
-    "result.deleted": "deleted",
-    "err.url": "url must be an absolute http(s) URL"
-  },
   "ja": {
     "tool.description": "URLエイリアス @B{0} ～ @B{9} を登録、一覧表示、削除します。",
     "param.action.description": "実行する操作。",

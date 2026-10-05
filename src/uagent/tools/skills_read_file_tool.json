@@ -1,26 +1,4 @@
 {
-  "en": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.max_bytes_positive": "[tool error] max_bytes must be a positive integer",
-    "err.relative_path_required": "[tool error] relative_path must be a non-empty string",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.relative_path.description": "Path relative to skill root (e.g. references/REFERENCE.md)",
-    "param.skill_dir.description": "Skill directory.",
-    "tool.description": "Safely reads a file under a skill directory using a relative path. Path traversal is blocked.",
-    "x_search_terms": [
-      "skill read",
-      "read skill file",
-      "skill file",
-      "skill content",
-      "skill source",
-      "view skill",
-      "open skill",
-      "skill script",
-      "skill code",
-      "read reference"
-    ],
-    "param.maxb.description": "Maximum number of bytes to read (default: 5000000)"
-  },
   "ja": {
     "err.invalid_args": "[ツールエラー] 引数が不正です",
     "err.max_bytes_positive": "[ツールエラー] max_bytes は正の整数である必要があります",

@@ -1,16 +1,4 @@
 {
-  "en": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
-    "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
-    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
-  },
   "ar": {
     "err.image_not_found": "ملف الصورة غير موجود: {path}",
     "err.image_too_large": "ملف الصورة كبير جدًا: {size} بايت (الحد={max_bytes})",

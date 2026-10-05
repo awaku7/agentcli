@@ -1,22 +1,4 @@
 {
-  "en": {
-    "param.command.description": "Command line to execute.",
-    "x_search_terms": [
-      "spawn process",
-      "launch process",
-      "start process",
-      "run process",
-      "execute process",
-      "process launch",
-      "process start",
-      "run external",
-      "external process",
-      "process exec"
-    ],
-    "err.command_empty": "[spawn_process error] command is empty",
-    "err.windows_start_missing_target": "[spawn_process error] Windows 'start' command has no URL or executable path.\\\nExample: start \\\"\\\" https://www.google.com",
-    "tool.description": "Asynchronously start an external GUI or browser process. Avoid repeated spawns for the same request."
-  },
   "ja": {
     "param.command.description": "実行するコマンドライン。",
     "x_search_terms": [

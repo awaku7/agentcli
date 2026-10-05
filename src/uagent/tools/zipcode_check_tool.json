@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Look up Japanese addresses by zipcode, or list cities in a prefecture. Uses the jpzip public dataset (no API key required).",
-    "x_search_terms": [
-      "zipcode",
-      "postal code",
-      "zip code",
-      "japan zipcode",
-      "japanese zip",
-      "postcode",
-      "address lookup",
-      "japan address"
-    ],
-    "param.zipcode.description": "7-digit Japanese zipcode to look up (e.g. '1000001'). Hyphens are ignored.",
-    "param.prefecture.description": "Japanese prefecture name to list cities in (e.g. '東京都', 'Kanagawa'). Kanji, kana, or romaji accepted."
-  },
   "ja": {
     "tool.description": "郵便番号から日本の住所を検索するか、都道府県内の都市をリストします。 jpzip パブリック データセットを使用します (API キーは必要ありません)。",
     "x_search_terms": [

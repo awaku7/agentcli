@@ -1,23 +1,4 @@
 {
-  "en": {
-    "err.invalid_args": "[tool error] invalid args",
-    "err.skill_dir_required": "[tool error] skill_dir must be a non-empty string",
-    "param.skill_dir.description": "The skill directory (must contain SKILL.md).",
-    "param.strict.description": "Should warnings also be treated as a failure? (default: false)",
-    "tool.description": "Validates a skill directory (SKILL.md) according to the Agent Skills spec and returns errors and warnings.",
-    "x_search_terms": [
-      "skill validate",
-      "validate skill",
-      "check skill",
-      "skill test",
-      "skill verify",
-      "skill check",
-      "validation",
-      "skill review",
-      "test skill",
-      "skill analysis"
-    ]
-  },
   "ja": {
     "err.invalid_args": "[ツールエラー] 引数が不正です",
     "err.skill_dir_required": "[ツールエラー] skill_dir は空でない文字列である必要があります",

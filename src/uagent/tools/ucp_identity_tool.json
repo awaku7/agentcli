@@ -41,13 +41,6 @@
     "param.redirect_uri.description": "Ανακατεύθυνση URI για επανάκληση OAuth (απαιτείται για λειτουργία='σύνδεσμος').",
     "param.link_id.description": "Αναγνωριστικό συνδέσμου από προηγούμενη προσπάθεια σύνδεσης (απαιτείται για λειτουργία='κατάσταση')."
   },
-  "en": {
-    "tool.description": "Manage user identity linking via UCP. Use mode='link' to get an OAuth authorization URL for the user to authenticate in their browser, or mode='status' to check the current linking status.",
-    "param.mode.description": "'link' to get OAuth URL, 'status' to check linking status.",
-    "param.business_url.description": "Base URL of the business.",
-    "param.redirect_uri.description": "Redirect URI for OAuth callback (required for mode='link').",
-    "param.link_id.description": "Link ID from a previous link attempt (required for mode='status')."
-  },
   "es": {
     "tool.description": "Gestionar la vinculación de identidades de usuarios a través de UCP. Utilice mode='link' para obtener una URL de autorización de OAuth para que el usuario se autentique en su navegador, o mode='status' para comprobar el estado actual del enlace.",
     "param.mode.description": "'enlace' para obtener la URL de OAuth, 'estado' para verificar el estado del enlace.",

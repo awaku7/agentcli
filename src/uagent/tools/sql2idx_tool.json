@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse file into sections and return a numbered index or specific section for sql2idx.",
-    "x_search_terms": [
-      "read sql file",
-      "sql index",
-      "sql parser",
-      "section splitter"
-    ],
-    "param.path.description": "Path to the file.",
-    "param.mode.description": "\"index\" returns a numbered table of contents. \"section\" returns a specific section.",
-    "param.section.description": "Section number to retrieve (1-indexed).",
-    "err.path_required": "Error: 'path' is required.",
-    "err.read_error": "Error reading file: {e}",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.parse_error": "Error parsing file: {e}",
-    "msg.no_entries": "(no sections found)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call with mode='section' and section=N.",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Section {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'."
-  },
   "ja": {
     "tool.description": "SQL ファイルをセクション分割し、番号付きインデックスまたは特定のセクションを返します。",
     "x_search_terms": [

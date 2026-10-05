@@ -1,13 +1,11 @@
 {
-  "en": {
-    "tool.description": "Wait for a background Sub-Agent Job to finish. This is a foreground wait and can be interrupted without cancelling the Job.",
-    "x_search_terms": ["wait_sub_agent_job", "join subagent", "wait for job"],
-    "param.job_id.description": "Job ID returned by spawn_sub_agent.",
-    "param.timeout.description": "Maximum seconds to wait. The Job continues running if this wait times out."
-  },
   "ja": {
     "tool.description": "バックグラウンドサブエージェント Job の完了を待ちます。これはフォアグラウンド待機で、Jobをキャンセルせずに中断できます。",
-    "x_search_terms": ["wait_sub_agent_job", "サブエージェント待機", "ジョブ完了待ち"],
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "サブエージェント待機",
+      "ジョブ完了待ち"
+    ],
     "param.job_id.description": "spawn_sub_agent が返した Job ID。",
     "param.timeout.description": "待機する最大秒数。この時間を超えても Job は実行を続けます。"
   }

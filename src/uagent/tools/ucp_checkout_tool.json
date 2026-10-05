@@ -89,21 +89,6 @@
     "param.buyer.description": "Πληροφορίες αγοραστή (προαιρετικό). Πεδία: email, name_name, last_name.",
     "param.extensions.description": "Επεκτάσεις για συγκεκριμένο προμηθευτή (προαιρετικό). Ζεύγη κλειδιού-τιμής για δυνατότητες com.vendor.*."
   },
-  "en": {
-    "tool.description": "Manage a UCP checkout session. mode='create' — start a new checkout.\nmode='get' — fetch current checkout status.\nmode='update' — modify checkout fields.\nmode='complete' — finalize the order. If the business returns requires_escalation with a continue_url, the user MUST open that URL in a browser to complete payment. After the user pays in the browser, use mode='poll' to wait for completion.\nmode='poll' — poll checkout status until completed or timeout. Use after the user completes payment via continue_url.",
-    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
-    "param.business_url.description": "Base URL of the business.",
-    "param.checkout_id.description": "Checkout session ID (required for get/update/complete/poll).",
-    "param.cart_id.description": "Cart ID to create checkout from (optional, alternative to line_items).",
-    "param.line_items.description": "Line items for direct checkout (alternative to cart_id).",
-    "param.ap2_token.description": "AP2 payment token for autonomous completion (mode='complete' only).",
-    "param.currency.description": "ISO 4217 currency code. Optional.",
-    "param.poll_timeout.description": "Max seconds to poll (mode='poll' only, default 120).",
-    "param.poll_interval.description": "Seconds between poll attempts (mode='poll' only, default 3).",
-    "param.shipping_address.description": "Shipping address for fulfillment (optional). Fields: street_address, address_locality, address_region, postal_code, address_country.",
-    "param.buyer.description": "Buyer information (optional). Fields: email, first_name, last_name.",
-    "param.extensions.description": "Vendor-specific extensions (optional). Key-value pairs for com.vendor.* capabilities."
-  },
   "es": {
     "tool.description": "Administrar una sesión de pago UCP. mode='create' - iniciar un nuevo pago.\nmode='get' - obtener el estado de pago actual.\nmode='update' - modificar los campos de pago.\nmode='complete' - finalizar el pedido. Si la empresa devuelve require_escalation con continue_url, el usuario DEBE abrir esa URL en un navegador para completar el pago. Después de que el usuario pague en el navegador, use mode='poll' para esperar a que se complete. \nmode='poll': estado de pago de la encuesta hasta que se complete o se agote el tiempo de espera. Úselo después de que el usuario complete el pago a través de continue_url.",
     "param.mode.description": "'crear' / 'obtener' / 'actualizar' / 'completar' / 'encuesta'.",

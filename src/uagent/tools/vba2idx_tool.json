@@ -1,18 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse VBA source definitions into a numbered index or return one selected definition section.",
-    "x_search_terms": [
-      "vba2idx",
-      "VBA",
-      "macro",
-      "Sub",
-      "Function",
-      "Property"
-    ],
-    "param.path": "Path to a VBA source file.",
-    "param.mode": "index for a numbered index, section for one definition.",
-    "param.section": "1-based section number when mode is section."
-  },
   "ja": {
     "tool.description": "VBA ソース定義を番号付きインデックスに解析するか、選択した 1 つの定義セクションを返します。",
     "x_search_terms": [

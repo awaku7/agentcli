@@ -1,13 +1,4 @@
 {
-  "en": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (chat): {provider!r}",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
-    "err.missing_env.azure": "Missing required env vars for azure image analysis. "
-  },
   "ar": {
     "err.image_not_found": "لم يتم العثور على ملف الصورة: {path}",
     "err.image_too_large": "ملف الصورة كبير جدًا: {size} بايت (الحد={max_bytes})",

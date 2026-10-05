@@ -1,23 +1,4 @@
 {
-  "en": {
-    "param.include_invalid.description": "Whether to include skills that failed parsing or validation (default: true).",
-    "param.root_dir.description": "Root directory for skill search. Uses UAGENT_SKILLS_DIRS (os.",
-    "param.strict.description": "Whether to treat validation warnings as errors (default: false).",
-    "tool.description": "Returns a list of skills under the specified root (reads frontmatter only) based on Agent Skills spec (SKILL. md).",
-    "x_search_terms": [
-      "skill list",
-      "list skills",
-      "skills",
-      "available skills",
-      "skill catalog",
-      "show skills",
-      "skills directory",
-      "installed skills",
-      "agent skills",
-      "skill overview"
-    ],
-    "param.recur.description": "Search recursively (default: true)"
-  },
   "ja": {
     "param.include_invalid.description": "SKILL.mdの解析/検証に失敗しても一覧へ含めるか（既定:true）。falseの場合、失敗スキルは除外します。",
     "param.root_dir.description": "スキル探索ルート。UAGENT_SKILLS_DIRSを使用。",

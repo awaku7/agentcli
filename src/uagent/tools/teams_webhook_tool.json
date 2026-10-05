@@ -1,29 +1,4 @@
 {
-  "en": {
-    "tool.description": "Post a message or webhook-supported JSON payload to a Microsoft Teams Incoming Webhook URL stored in an environment variable.",
-    "x_search_terms": [
-      "teams",
-      "microsoft teams",
-      "webhook",
-      "teams webhook",
-      "teams message",
-      "send teams",
-      "teams notification",
-      "webhook send",
-      "teams channel",
-      "teams alert"
-    ],
-    "param.message.description": "Message text to post to Teams. Used as plain text unless card fields are provided.",
-    "param.title.description": "Card title for webhook-supported payloads.",
-    "param.summary.description": "Card summary for webhook-supported payloads.",
-    "param.image_url.description": "Image URL for webhook-supported payloads.",
-    "param.theme_color.description": "Card theme color as a hex string without #.",
-    "param.payload_json.description": "Raw webhook payload as JSON string or object. If provided, it is sent as-is.",
-    "param.webhook_env.description": "Environment variable name that stores the Teams webhook URL.",
-    "param.timeout_s.description": "Timeout.",
-    "err.missing_message": "Missing 'message'.",
-    "err.exception": "Exception"
-  },
   "ja": {
     "tool.description": "環境変数に保存された Microsoft Teams の Incoming Webhook URL へ、メッセージまたは webhook で利用できる JSON ペイロードを送信します。",
     "x_search_terms": [

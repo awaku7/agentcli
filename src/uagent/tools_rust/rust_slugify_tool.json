@@ -1,15 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert text to a URL-friendly slug (e.g. 'Hello World' -> 'hello-world').",
-    "x_search_terms": [
-      "slugify",
-      "slug",
-      "url slug",
-      "text to slug"
-    ],
-    "tool.text": "Text to convert to a slug",
-    "tool.separator": "Word separator (default: '-')"
-  },
   "ar": {
     "tool.description": "تحويل النص إلى رابط ثابت متوافق مع عنوان URL (على سبيل المثال، \"Hello World\" -> \"hello-world\").",
     "x_search_terms": [

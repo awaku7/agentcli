@@ -1,27 +1,4 @@
 {
-  "en": {
-    "tool.description": "Analyze XLSX/XLSM worksheets, formulas, dependencies, and embedded VBA without executing macros.",
-    "x_search_terms": [
-      "spreadsheet analysis",
-      "XLSX analysis",
-      "XLSM analysis",
-      "formula dependencies",
-      "VBA analysis"
-    ],
-    "param.input_path.description": "Path to an .xlsx or .xlsm file.",
-    "param.output_path.description": "Optional JSON or Markdown output path.",
-    "param.output_format.description": "Output format.",
-    "param.include_source.description": "Include extracted VBA source for XLSM files.",
-    "param.overwrite.description": "Allow replacing an existing output file.",
-    "err.input_path_required": "input_path is required",
-    "err.file_not_found": "file not found: {path}",
-    "err.extension": "input must be an .xlsx or .xlsm file",
-    "err.input_output_same": "output_path must not be the input file",
-    "err.output_exists": "output file already exists: {path}; set overwrite=true to replace it",
-    "param.password.description": "Optional password for an encrypted workbook.",
-    "err.input_required": "input_path is required",
-    "err.same_output": "output_path must not be the input file"
-  },
   "ja": {
     "tool.description": "スプレッドシートのシート、数式、依存関係、埋め込みVBAをマクロを実行せず解析します。",
     "x_search_terms": [

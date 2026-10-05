@@ -1,32 +1,4 @@
 {
-  "en": {
-    "param.mx.description": "SSDP MX header value (1-5 seconds) used by M-SEARCH.",
-    "param.wait_timeout.description": "Client-side wait time in seconds for SSDP responses.",
-    "param.interface.description": "Optional local interface IPv4 address or interface name to bind to.",
-    "param.retry.description": "How many SSDP discovery rounds to send before returning.",
-    "param.limit.description": "Maximum number of devices to return.",
-    "param.search_target.description": "SSDP search target (ST), for example 'ssdp:all' or 'upnp:rootdevice'.",
-    "err.invalid_interface": "Error: Could not resolve interface '{interface}' to a local IPv4 address.",
-    "msg.summary": "UPnP discovery completed: {count} device(s) found in {elapsed_ms} ms.",
-    "msg.no_devices": "No UPnP devices were found.",
-    "param.fmt.description": "Format: json or text.",
-    "param.filter_name.description": "Optional case-insensitive substring filter for friendly_name.",
-    "param.filter_manufacturer.description": "Optional case-insensitive substring filter for manufacturer.",
-    "param.filter_model.description": "Optional case-insensitive substring filter for model_name.",
-    "param.filter_type.description": "Optional case-insensitive substring filter for device_type.",
-    "tool.description": "Discover UPnP/SSDP devices on the local network and return a JSON or text list. Supports filtering by name, manufacturer, model, or device type.",
-    "x_search_terms": [
-      "upnp scan",
-      "upnp_scan",
-      "upnp",
-      "UPNP",
-      "discover",
-      "upnp/ssdp",
-      "devices",
-      "local",
-      "network"
-    ]
-  },
   "ja": {
     "param.mx.description": "M-SEARCH で使用する SSDP の MX ヘッダー値（1〜5秒）。",
     "param.wait_timeout.description": "SSDP 応答を待つクライアント側の待機時間（秒）。",

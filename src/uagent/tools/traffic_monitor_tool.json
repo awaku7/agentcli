@@ -1,16 +1,4 @@
 {
-  "en": {
-    "tool.description": "Extract metadata-only traffic events from a pcap using Zeek.",
-    "param.pcap_path.description": "Input pcap file path.",
-    "param.output_dir.description": "Directory for Zeek output logs.",
-    "param.limit.description": "Maximum number of events to return.",
-    "x_search_terms": [
-      "Zeek",
-      "traffic monitor",
-      "conn.log",
-      "network events"
-    ]
-  },
   "ar": {
     "tool.description": "قم باستخراج أحداث حركة البيانات الوصفية فقط من PCAP باستخدام Zeek.",
     "param.pcap_path.description": "إدخال مسار ملف PCAP",
