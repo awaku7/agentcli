@@ -55,6 +55,20 @@ def test_token_validation_does_not_expose_identity_configuration(monkeypatch):
     assert subject not in json.dumps(status.public_dict())
 
 
+def test_origin_policy_fingerprint_preserves_raw_validity_changes(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    before = authentication_configuration_fingerprint()
+
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "\thttps://uag.example")
+    after = authentication_configuration_fingerprint()
+    status = validate_authentication_configuration()
+
+    assert after != before
+    assert status.configured is False
+    assert "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin" in status.diagnostics
+
+
 def test_configuration_fingerprint_changes_with_security_configuration(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
     monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
