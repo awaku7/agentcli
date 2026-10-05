@@ -56,15 +56,16 @@ def _normalize_origin(value: str) -> str:
         raise ValueError("origin must contain only scheme, host, and optional port")
 
     scheme = parsed.scheme.casefold()
-    host = parsed.hostname.casefold().rstrip(".")
+    host = parsed.hostname.casefold()
     if not host:
         raise ValueError("origin host is required")
     try:
         ipaddress.ip_address(host)
     except ValueError:
-        if len(host) > 253:
+        dns_host = host[:-1] if host.endswith(".") else host
+        if not dns_host or dns_host.endswith(".") or len(host) > 254:
             raise ValueError("origin host is invalid")
-        labels = host.split(".")
+        labels = dns_host.split(".")
         if any(
             not re.fullmatch(
                 r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?",
