@@ -57,7 +57,9 @@ def test_ip_literal_origins_use_browser_canonical_serialization(monkeypatch):
         "http://[2001:0db8::1]:8000",
     )
 
-    assert configured_websocket_origins() == frozenset({"http://[2001:db8::1]:8000"})
+    assert configured_websocket_origins() == frozenset(
+        {"http://[2001:db8::1]:8000"}
+    )
     assert (
         validate_websocket_origin(_Request("http://[2001:db8::1]:8000"))
         == "http://[2001:db8::1]:8000"
