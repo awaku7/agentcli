@@ -68,9 +68,13 @@ def _normalize_origin(value: str) -> str:
     host = parsed.hostname.casefold()
     if not host:
         raise ValueError("origin host is required")
+    authority = parsed.netloc.rsplit("@", 1)[-1]
+    bracketed_host = authority.startswith("[")
     try:
         parsed_ip = ipaddress.ip_address(host)
     except ValueError:
+        if bracketed_host:
+            raise ValueError("bracketed origin host must be an IP literal")
         dns_host = host[:-1] if host.endswith(".") else host
         if not dns_host or dns_host.endswith(".") or len(host) > 254:
             raise ValueError("origin host is invalid")
