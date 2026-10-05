@@ -287,3 +287,21 @@ def test_status_reads_named_python_default(tmp_path: Path, capsys) -> None:
     output = capsys.readouterr().out
     assert rc == 0
     assert "review_candidates: 0" in output
+
+
+def test_english_cannot_be_used_as_json_target(tmp_path: Path, capsys) -> None:
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "en",
+            "--tools-dir",
+            str(tmp_path / "tools"),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 2
+    assert "cannot be a JSON target locale" in captured.err

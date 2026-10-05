@@ -1035,6 +1035,13 @@ def main(argv: list[str] | None = None) -> int:
     args.keys_set = _parse_tools(args.keys)
     args.langs_list = _parse_langs(args.langs)
 
+    if "en" in args.langs_list:
+        print(
+            "error: en is the Python source language and cannot be a JSON target locale",
+            file=sys.stderr,
+        )
+        return 2
+
     if args.command == "status" and not args.langs_list:
         args.langs_list = list(SUPPORTED_TARGET_LOCALES)
     elif not args.langs_list:
