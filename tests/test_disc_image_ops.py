@@ -138,3 +138,124 @@ def test_iso_to_chd_convert_uses_xverter(repo_tmp_path: Path, monkeypatch) -> No
     assert result["ok"] is True
     assert result["output"] == str(out_path.resolve())
     assert seen == [["convert", str(iso_path.resolve()), "-o", str(out_path.resolve())]]
+
+
+
+def test_chd_convert_rejects_source_output_alias(
+    repo_tmp_path: Path, monkeypatch
+) -> None:
+    chd_path = repo_tmp_path / "same.chd"
+    original = b"MComprHD" + b"source-data"
+    chd_path.write_bytes(original)
+
+    called = False
+
+    def fake_run(argv: list[str], timeout_seconds: int) -> dict[str, object]:
+        nonlocal called
+        called = True
+        return {"ok": True, "backend": "xverter", "returncode": 0}
+
+    monkeypatch.setattr(disc, "_run_xverter", fake_run)
+    monkeypatch.setattr(disc, "_confirm_overwrite", lambda message: True)
+
+    result = json.loads(
+        disc.run_tool(
+            {
+                "action": "convert",
+                "path": _rel(chd_path),
+                "output": _rel(chd_path),
+                "overwrite": True,
+            }
+        )
+    )
+
+    assert result["ok"] is False
+    assert "different files" in result["error"]
+    assert called is False
+    assert chd_path.read_bytes() == original
+
+
+def test_chd_convert_failure_preserves_existing_destination(
+    repo_tmp_path: Path, monkeypatch
+) -> None:
+    chd_path = repo_tmp_path / "source.chd"
+    chd_path.write_bytes(b"MComprHD" + b"source-data")
+    out_path = repo_tmp_path / "existing.iso"
+    out_path.write_bytes(b"keep-me")
+
+    seen_output: list[Path] = []
+
+    def fake_run(argv: list[str], timeout_seconds: int) -> dict[str, object]:
+        temp_path = Path(argv[-1])
+        seen_output.append(temp_path)
+        temp_path.write_bytes(b"partial-output")
+        return {
+            "ok": False,
+            "backend": "xverter",
+            "returncode": 1,
+            "stdout": "",
+            "stderr": "conversion failed",
+        }
+
+    monkeypatch.setattr(disc, "_run_xverter", fake_run)
+    monkeypatch.setattr(disc, "_confirm_overwrite", lambda message: True)
+
+    result = json.loads(
+        disc.run_tool(
+            {
+                "action": "convert",
+                "path": _rel(chd_path),
+                "output": _rel(out_path),
+                "overwrite": True,
+            }
+        )
+    )
+
+    assert result["ok"] is False
+    assert out_path.read_bytes() == b"keep-me"
+    assert len(seen_output) == 1
+    assert seen_output[0] != out_path
+    assert not seen_output[0].exists()
+
+
+def test_chd_convert_success_replaces_existing_destination_atomically(
+    repo_tmp_path: Path, monkeypatch
+) -> None:
+    chd_path = repo_tmp_path / "source.chd"
+    chd_path.write_bytes(b"MComprHD" + b"source-data")
+    out_path = repo_tmp_path / "existing.iso"
+    out_path.write_bytes(b"old-output")
+
+    seen_output: list[Path] = []
+
+    def fake_run(argv: list[str], timeout_seconds: int) -> dict[str, object]:
+        temp_path = Path(argv[-1])
+        seen_output.append(temp_path)
+        temp_path.write_bytes(b"new-output")
+        return {
+            "ok": True,
+            "backend": "xverter",
+            "returncode": 0,
+            "stdout": "converted",
+            "stderr": "",
+        }
+
+    monkeypatch.setattr(disc, "_run_xverter", fake_run)
+    monkeypatch.setattr(disc, "_confirm_overwrite", lambda message: True)
+
+    result = json.loads(
+        disc.run_tool(
+            {
+                "action": "convert",
+                "path": _rel(chd_path),
+                "output": _rel(out_path),
+                "overwrite": True,
+            }
+        )
+    )
+
+    assert result["ok"] is True
+    assert out_path.read_bytes() == b"new-output"
+    assert len(seen_output) == 1
+    assert seen_output[0] != out_path
+    assert not seen_output[0].exists()
