@@ -287,7 +287,11 @@ def _prepare_extract_dir(path: str, overwrite: bool) -> str:
                 "extract output directory is not empty; set overwrite=true to continue"
             )
         if not _confirm_overwrite(
-            f"disc_image_ops may overwrite files under: {target}"
+            _(
+                "confirm.extract_overwrite",
+                default="disc_image_ops may overwrite files under: %(path)s",
+                path=target,
+            )
         ):
             raise PermissionError("overwrite was not confirmed")
     target.mkdir(parents=True, exist_ok=True)
@@ -325,7 +329,13 @@ def _prepare_output_file(
             raise FileExistsError(
                 "output already exists; set overwrite=true to replace it"
             )
-        if not _confirm_overwrite(f"disc_image_ops may overwrite: {target}"):
+        if not _confirm_overwrite(
+            _(
+                "confirm.file_overwrite",
+                default="disc_image_ops may overwrite: %(path)s",
+                path=target,
+            )
+        ):
             raise PermissionError("overwrite was not confirmed")
     return str(target)
 
@@ -553,13 +563,19 @@ def _run_xverter(argv: list[str], timeout_seconds: int) -> dict[str, Any]:
         env=env,
         check=False,
     )
-    return {
+    result = {
         "ok": proc.returncode == 0,
         "backend": "xverter",
         "returncode": proc.returncode,
         "stdout": proc.stdout or "",
         "stderr": proc.stderr or "",
     }
+    if not result["ok"]:
+        result["error"] = _(
+            "err.backend_failed",
+            default="The disc image backend operation failed.",
+        )
+    return result
 
 
 def _chd_action(
@@ -653,13 +669,54 @@ def run_tool(args: dict[str, Any]) -> str:
             {
                 "ok": False,
                 "timeout": True,
-                "error": f"disc image operation timed out after {exc.timeout} seconds",
+                "error": _(
+                    "err.timeout",
+                    default="Disc image operation timed out after %(seconds)s seconds.",
+                    seconds=exc.timeout,
+                ),
+                "error_type": type(exc).__name__,
             }
         )
     except Exception as exc:
+        if isinstance(exc, PermissionError):
+            message = _(
+                "err.permission",
+                default="The disc image operation was not permitted.",
+            )
+        elif isinstance(exc, FileExistsError):
+            message = _(
+                "err.output_exists",
+                default="The output already exists.",
+            )
+        elif isinstance(exc, IsADirectoryError):
+            message = _(
+                "err.output_type",
+                default="A file output was required, but a directory was specified.",
+            )
+        elif isinstance(exc, FileNotFoundError):
+            message = _(
+                "err.not_found",
+                default="A required input file or dependency was not found.",
+            )
+        elif isinstance(exc, ValueError):
+            message = _(
+                "err.invalid",
+                default="A disc image option, path, or format is invalid.",
+            )
+        elif isinstance(exc, RuntimeError):
+            message = _(
+                "err.dependency",
+                default="A required disc image dependency is unavailable.",
+            )
+        else:
+            message = _(
+                "err.operation_failed",
+                default="The disc image operation failed.",
+            )
         return _json(
             {
                 "ok": False,
-                "error": f"{type(exc).__name__}: {exc}",
+                "error": message,
+                "error_type": type(exc).__name__,
             }
         )
