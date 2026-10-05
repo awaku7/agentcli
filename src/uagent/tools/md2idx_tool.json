@@ -88,7 +88,7 @@
     "param.section.description": "要检索的节号（仅当 mode='section' 时使用）。从索引输出中获取数字。",
     "tool.description": "将 Markdown 文件拆分为标题级部分并返回编号索引或特定部分。当您需要阅读大型 Markdown 文档时，请使用此方法：首先使用 mode='index' 调用以获取目录，然后使用 mode='section' 和节号调用以仅检索您需要的内容。与读取整个文件相比，这可以节省令牌。",
     "meta.document_type": "文档类型：{value}",
-    "meta.frontmatter": "Front matter：{value}",
+    "meta.frontmatter": "前置元数据：{value}",
     "meta.skill_validation": "Agent Skills 验证：{value}",
     "meta.skill_details": "Agent Skills 详情：{value}"
   },
@@ -119,7 +119,7 @@
     "param.section.description": "要檢索的節號（僅當 mode='section' 時使用）。從索引輸出中取得數字。",
     "tool.description": "將 Markdown 檔案拆分為標題級部分並傳回編號索引或特定部分。當您需要閱讀大型 Markdown 文件時，請使用此方法：首先使用 mode='index' 呼叫以取得目錄，然後使用 mode='section' 和節號呼叫以僅擷取您需要的內容。與讀取整個文件相比，這可以節省令牌。",
     "meta.document_type": "文件類型：{value}",
-    "meta.frontmatter": "Front matter：{value}",
+    "meta.frontmatter": "前置中繼資料：{value}",
     "meta.skill_validation": "Agent Skills 驗證：{value}",
     "meta.skill_details": "Agent Skills 詳細資訊：{value}"
   },
@@ -150,7 +150,7 @@
     "param.section.description": "검색할 섹션 번호(mode='section'인 경우에만 사용됨). 인덱스 출력에서 ​​숫자를 가져옵니다.",
     "tool.description": "Markdown 파일을 제목 수준 섹션으로 분할하고 번호가 매겨진 색인이나 특정 섹션을 반환합니다. 대규모 마크다운 문서를 읽어야 할 때 이 방법을 사용하세요. 먼저 mode='index'로 호출하여 목차를 가져온 다음 mode='section'과 섹션 번호로 호출하여 필요한 콘텐츠만 검색하세요. 이렇게 하면 전체 파일을 읽는 것에 비해 토큰이 절약됩니다.",
     "meta.document_type": "문서 유형: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "프런트 매터: {value}",
     "meta.skill_validation": "Agent Skills 검증: {value}",
     "meta.skill_details": "Agent Skills 세부 정보: {value}"
   },
@@ -181,7 +181,7 @@
     "param.section.description": "Numéro de section à récupérer (utilisé uniquement lorsque mode='section'). Obtenez le numéro de la sortie d’index.",
     "tool.description": "Divisez un fichier Markdown en sections au niveau du titre et renvoyez un index numéroté ou une section spécifique. Utilisez-le lorsque vous avez besoin de lire un document Markdown volumineux : appelez d'abord avec mode='index' pour obtenir la table des matières, puis appelez avec mode='section' et le numéro de section pour récupérer uniquement le contenu dont vous avez besoin. Cela permet d'économiser des jetons par rapport à la lecture de l'intégralité du fichier.",
     "meta.document_type": "Type de document : {value}",
-    "meta.frontmatter": "Front matter : {value}",
+    "meta.frontmatter": "Métadonnées d’en-tête : {value}",
     "meta.skill_validation": "Validation Agent Skills : {value}",
     "meta.skill_details": "Détails Agent Skills : {value}"
   },
@@ -212,7 +212,7 @@
     "param.section.description": "Nummer des abzurufenden Abschnitts (wird nur verwendet, wenn mode='section'). Rufen Sie die Nummer aus der Indexausgabe ab.",
     "tool.description": "Teilen Sie eine Markdown-Datei in Abschnitte auf Überschriftenebene auf und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt zurück. Verwenden Sie dies, wenn Sie ein großes Markdown-Dokument lesen müssen: Rufen Sie zuerst mit mode='index' auf, um das Inhaltsverzeichnis abzurufen, und rufen Sie dann mit mode='section' und der Abschnittsnummer auf, um nur den Inhalt abzurufen, den Sie benötigen. Dies spart Token im Vergleich zum Lesen der gesamten Datei.",
     "meta.document_type": "Dokumenttyp: {value}",
-    "meta.frontmatter": "Front Matter: {value}",
+    "meta.frontmatter": "Front-Matter: {value}",
     "meta.skill_validation": "Agent Skills-Validierung: {value}",
     "meta.skill_details": "Agent Skills-Details: {value}"
   },
@@ -243,7 +243,7 @@
     "param.section.description": "Número de sección a recuperar (usado solo cuando modo='sección'). Obtenga el número de la salida del índice.",
     "tool.description": "Divida un archivo Markdown en secciones a nivel de encabezado y devuelva un índice numerado o una sección específica. Utilice esto cuando necesite leer un documento de Markdown grande: primero llame con mode='index' para obtener la tabla de contenido, luego llame con mode='section' y el número de sección para recuperar solo el contenido que necesita. Esto ahorra tokens en comparación con leer el archivo completo.",
     "meta.document_type": "Tipo de documento: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadatos de cabecera: {value}",
     "meta.skill_validation": "Validación de Agent Skills: {value}",
     "meta.skill_details": "Detalles de Agent Skills: {value}"
   },
@@ -274,7 +274,7 @@
     "param.section.description": "Numero di sezione da recuperare (utilizzato solo quando mode='section'). Ottieni il numero dall'output dell'indice.",
     "tool.description": "Dividi un file Markdown in sezioni a livello di intestazione e restituisci un indice numerato o una sezione specifica. Utilizzalo quando devi leggere un documento Markdown di grandi dimensioni: chiama prima con mode='index' per ottenere il sommario, quindi chiama con mode='section' e il numero di sezione per recuperare solo il contenuto che ti serve. Ciò consente di risparmiare token rispetto alla lettura dell'intero file.",
     "meta.document_type": "Tipo di documento: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadati iniziali: {value}",
     "meta.skill_validation": "Convalida Agent Skills: {value}",
     "meta.skill_details": "Dettagli Agent Skills: {value}"
   },
@@ -305,7 +305,7 @@
     "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
     "tool.description": "Divida um arquivo Markdown em seções de nível de título e retorne um índice numerado ou uma seção específica. Use isto quando precisar ler um documento Markdown grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas o conteúdo que você precisa. Isso economiza tokens em comparação com a leitura do arquivo inteiro.",
     "meta.document_type": "Tipo de documento: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadados de cabeçalho: {value}",
     "meta.skill_validation": "Validação do Agent Skills: {value}",
     "meta.skill_details": "Detalhes do Agent Skills: {value}"
   },
@@ -336,7 +336,7 @@
     "param.section.description": "Número da seção a ser recuperada (usado somente quando mode='section'). Obtenha o número da saída do índice.",
     "tool.description": "Divida um arquivo Markdown em seções de nível de título e retorne um índice numerado ou uma seção específica. Use isto quando precisar ler um documento Markdown grande: primeiro chame com mode='index' para obter o índice, depois chame com mode='section' e o número da seção para recuperar apenas o conteúdo que você precisa. Isso economiza tokens em comparação com a leitura do arquivo inteiro.",
     "meta.document_type": "Tipo de documento: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadados de cabeçalho: {value}",
     "meta.skill_validation": "Validação do Agent Skills: {value}",
     "meta.skill_details": "Detalhes do Agent Skills: {value}"
   },
@@ -367,7 +367,7 @@
     "param.section.description": "Номер раздела, который требуется получить (используется только в том случае, если mode='section'). Получите число из вывода индекса.",
     "tool.description": "Разделите файл Markdown на разделы уровня заголовка и верните пронумерованный индекс или конкретный раздел. Используйте это, когда вам нужно прочитать большой документ Markdown: сначала вызовите с mode='index', чтобы получить оглавление, затем вызовите с mode='section' и номером раздела, чтобы получить только тот контент, который вам нужен. Это экономит токены по сравнению с чтением всего файла.",
     "meta.document_type": "Тип документа: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Вводные метаданные: {value}",
     "meta.skill_validation": "Проверка Agent Skills: {value}",
     "meta.skill_details": "Сведения Agent Skills: {value}"
   },
@@ -398,7 +398,7 @@
     "param.section.description": "Nomor bagian yang akan diambil (hanya digunakan ketika mode='bagian'). Dapatkan nomor dari output indeks.",
     "tool.description": "Pisahkan file Markdown menjadi beberapa bagian tingkat judul dan kembalikan indeks bernomor atau bagian tertentu. Gunakan ini ketika Anda perlu membaca dokumen Markdown berukuran besar: panggilan pertama dengan mode='index' untuk mendapatkan daftar isi, lalu panggil dengan mode='section' dan nomor bagian untuk mengambil konten yang Anda perlukan saja. Ini menghemat token dibandingkan dengan membaca seluruh file.",
     "meta.document_type": "Jenis dokumen: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadata awal: {value}",
     "meta.skill_validation": "Validasi Agent Skills: {value}",
     "meta.skill_details": "Detail Agent Skills: {value}"
   },
@@ -429,7 +429,7 @@
     "param.section.description": "Số phần cần truy xuất (chỉ được sử dụng khi mode='section'). Lấy số từ đầu ra chỉ mục.",
     "tool.description": "Chia tệp Markdown thành các phần cấp tiêu đề và trả về chỉ mục được đánh số hoặc một phần cụ thể. Sử dụng tính năng này khi bạn cần đọc một tài liệu Markdown lớn: trước tiên hãy gọi với mode='index' để lấy mục lục, sau đó gọi với mode='section' và số phần để chỉ truy xuất nội dung bạn cần. Điều này tiết kiệm mã thông báo so với việc đọc toàn bộ tệp.",
     "meta.document_type": "Loại tài liệu: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Siêu dữ liệu đầu tài liệu: {value}",
     "meta.skill_validation": "Xác thực Agent Skills: {value}",
     "meta.skill_details": "Chi tiết Agent Skills: {value}"
   },
@@ -460,7 +460,7 @@
     "param.section.description": "Numer sekcji do pobrania (używany tylko wtedy, gdy tryb = „sekcja”). Pobierz liczbę z wyniku indeksu.",
     "tool.description": "Podziel plik Markdown na sekcje na poziomie nagłówków i zwróć numerowany indeks lub określoną sekcję. Użyj tego, gdy chcesz przeczytać duży dokument Markdown: najpierw wywołaj mode='index', aby uzyskać spis treści, następnie wywołaj mode='section' i numer sekcji, aby pobrać tylko potrzebną treść. Oszczędza to tokeny w porównaniu do odczytu całego pliku.",
     "meta.document_type": "Typ dokumentu: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadane nagłówkowe: {value}",
     "meta.skill_validation": "Walidacja Agent Skills: {value}",
     "meta.skill_details": "Szczegóły Agent Skills: {value}"
   },
@@ -491,7 +491,7 @@
     "param.section.description": "पुनः प्राप्त करने के लिए अनुभाग संख्या (केवल तभी उपयोग की जाती है जब mode='section')। इंडेक्स आउटपुट से नंबर प्राप्त करें।",
     "tool.description": "मार्कडाउन फ़ाइल को शीर्षक-स्तरीय अनुभागों में विभाजित करें और एक क्रमांकित सूचकांक या एक विशिष्ट अनुभाग लौटाएँ। जब आपको एक बड़े मार्कडाउन दस्तावेज़ को पढ़ने की आवश्यकता हो तो इसका उपयोग करें: सामग्री की तालिका प्राप्त करने के लिए पहले mode='index' के साथ कॉल करें, फिर केवल वही सामग्री प्राप्त करने के लिए mode='section' और अनुभाग संख्या के साथ कॉल करें जिसकी आपको आवश्यकता है। यह संपूर्ण फ़ाइल को पढ़ने की तुलना में टोकन बचाता है।",
     "meta.document_type": "दस्तावेज़ प्रकार: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "प्रारंभिक मेटाडेटा: {value}",
     "meta.skill_validation": "Agent Skills सत्यापन: {value}",
     "meta.skill_details": "Agent Skills विवरण: {value}"
   },
@@ -522,7 +522,7 @@
     "param.section.description": "رقم القسم المطلوب استرداده (يُستخدم فقط عندما يكون الوضع='القسم'). الحصول على الرقم من إخراج الفهرس.",
     "tool.description": "قم بتقسيم ملف Markdown إلى أقسام على مستوى العنوان وإرجاع فهرس مرقّم أو قسم محدد. استخدم هذا عندما تحتاج إلى قراءة مستند Markdown كبير: اتصل أولاً بـ mode='index' للحصول على جدول المحتويات، ثم اتصل بـ mode='section' ورقم القسم لاسترداد المحتوى الذي تحتاجه فقط. يؤدي هذا إلى حفظ الرموز المميزة مقارنة بقراءة الملف بأكمله.",
     "meta.document_type": "نوع المستند: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "البيانات الوصفية التمهيدية: {value}",
     "meta.skill_validation": "التحقق من Agent Skills: {value}",
     "meta.skill_details": "تفاصيل Agent Skills: {value}"
   },
@@ -553,7 +553,7 @@
     "param.section.description": "Sektionsnummer att hämta (används endast när mode='sektion'). Få numret från indexutgången.",
     "tool.description": "Dela upp en Markdown-fil i avsnitt på rubriknivå och returnera ett numrerat index eller ett specifikt avsnitt. Använd detta när du behöver läsa ett stort Markdown-dokument: ring först med mode='index' för att få innehållsförteckningen, ring sedan med mode='section' och sektionsnumret för att bara hämta det innehåll du behöver. Detta sparar tokens jämfört med att läsa hela filen.",
     "meta.document_type": "Dokumenttyp: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Inledande metadata: {value}",
     "meta.skill_validation": "Validering av Agent Skills: {value}",
     "meta.skill_details": "Detaljer för Agent Skills: {value}"
   },
@@ -584,7 +584,7 @@
     "param.section.description": "Nambari ya sehemu ya kurejesha (inatumika tu wakati mode='sehemu'). Pata nambari kutoka kwa matokeo ya faharisi.",
     "tool.description": "Gawanya faili ya Markdown katika sehemu za kiwango cha kichwa na urudishe faharasa yenye nambari au sehemu mahususi. Tumia hii unapohitaji kusoma hati kubwa ya Markdown: kwanza piga simu kwa mode='index' ili kupata jedwali la yaliyomo, kisha piga simu na mode='section' na nambari ya sehemu ili kupata tu maudhui unayohitaji. Hii huokoa tokeni ikilinganishwa na kusoma faili nzima.",
     "meta.document_type": "Aina ya hati: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadata ya mwanzo: {value}",
     "meta.skill_validation": "Uthibitishaji wa Agent Skills: {value}",
     "meta.skill_details": "Maelezo ya Agent Skills: {value}"
   },
@@ -615,7 +615,7 @@
     "param.section.description": "Seksjonsnummer å hente (brukes bare når modus='seksjon'). Få tallet fra indeksutgangen.",
     "tool.description": "Del en Markdown-fil i seksjoner på overskriftsnivå og returner en nummerert indeks eller en spesifikk seksjon. Bruk dette når du trenger å lese et stort Markdown-dokument: ring først med mode='index' for å få innholdsfortegnelsen, ring deretter med mode='section' og seksjonsnummeret for å hente kun innholdet du trenger. Dette sparer tokens sammenlignet med å lese hele filen.",
     "meta.document_type": "Dokumenttype: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Innledende metadata: {value}",
     "meta.skill_validation": "Validering av Agent Skills: {value}",
     "meta.skill_details": "Detaljer for Agent Skills: {value}"
   },
@@ -646,7 +646,7 @@
     "param.section.description": "Op te halen sectienummer (alleen gebruikt wanneer mode='sectie'). Haal het nummer op uit de indexuitvoer.",
     "tool.description": "Splits een Markdown-bestand in secties op kopniveau en retourneer een genummerde index of een specifieke sectie. Gebruik dit wanneer u een groot Markdown-document moet lezen: roep eerst met mode='index' aan om de inhoudsopgave op te halen, roep vervolgens aan met mode='section' en het sectienummer om alleen de inhoud op te halen die u nodig heeft. Dit bespaart tokens in vergelijking met het lezen van het hele bestand.",
     "meta.document_type": "Documenttype: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadata aan het begin: {value}",
     "meta.skill_validation": "Validatie van Agent Skills: {value}",
     "meta.skill_details": "Details van Agent Skills: {value}"
   },
@@ -677,7 +677,7 @@
     "param.section.description": "Haettavan osan numero (käytetään vain, kun mode='osio'). Hanki numero indeksitulosteesta.",
     "tool.description": "Jaa Markdown-tiedosto otsikkotason osiin ja palauta numeroitu hakemisto tai tietty osio. Käytä tätä, kun sinun on luettava suuri Markdown-asiakirja: soita ensin mode='index' saadaksesi sisällysluettelon, sitten soita mode='section' ja osion numerolla hakeaksesi vain tarvitsemasi sisällön. Tämä säästää tunnuksia verrattuna koko tiedoston lukemiseen.",
     "meta.document_type": "Asiakirjan tyyppi: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Alkupään metatiedot: {value}",
     "meta.skill_validation": "Agent Skills -validointi: {value}",
     "meta.skill_details": "Agent Skills -tiedot: {value}"
   },
@@ -708,7 +708,7 @@
     "param.section.description": "Číslo sekce k načtení (používá se pouze při mode='section'). Získejte číslo z výstupu indexu.",
     "tool.description": "Rozdělte soubor Markdown do oddílů na úrovni nadpisu a vraťte očíslovaný rejstřík nebo konkrétní oddíl. Použijte to, když potřebujete přečíst velký dokument Markdown: nejprve zavolejte s mode='index', abyste získali obsah, pak zavolejte s mode='section' a číslem sekce, abyste získali pouze obsah, který potřebujete. To šetří tokeny ve srovnání s čtením celého souboru.",
     "meta.document_type": "Typ dokumentu: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Úvodní metadata: {value}",
     "meta.skill_validation": "Ověření Agent Skills: {value}",
     "meta.skill_details": "Podrobnosti Agent Skills: {value}"
   },
@@ -739,7 +739,7 @@
     "param.section.description": "Номер розділу для отримання (використовується лише тоді, коли mode='section'). Отримайте число з виведення індексу.",
     "tool.description": "Розділіть файл Markdown на розділи рівня заголовків і поверніть нумерований індекс або певний розділ. Використовуйте це, коли вам потрібно прочитати великий документ Markdown: спочатку викликайте mode='index', щоб отримати зміст, потім викликайте mode='section' і номер розділу, щоб отримати лише потрібний вміст. Це зберігає токени порівняно з читанням усього файлу.",
     "meta.document_type": "Тип документа: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Вступні метадані: {value}",
     "meta.skill_validation": "Перевірка Agent Skills: {value}",
     "meta.skill_details": "Відомості Agent Skills: {value}"
   },
@@ -770,7 +770,7 @@
     "param.section.description": "Alınacak bölüm numarası (yalnızca mode='bölüm' olduğunda kullanılır). Dizin çıktısından numarayı alın.",
     "tool.description": "Markdown dosyasını başlık düzeyi bölümlere ayırın ve numaralandırılmış bir dizin veya belirli bir bölüm döndürün. Büyük bir Markdown belgesini okumanız gerektiğinde bunu kullanın: önce içindekiler tablosunu almak için mode='index' ile çağrı yapın, ardından yalnızca ihtiyacınız olan içeriği almak için mode='section' ve bölüm numarasıyla çağrı yapın. Bu, dosyanın tamamını okumaya kıyasla belirteçlerden tasarruf sağlar.",
     "meta.document_type": "Belge türü: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Ön meta veriler: {value}",
     "meta.skill_validation": "Agent Skills doğrulaması: {value}",
     "meta.skill_details": "Agent Skills ayrıntıları: {value}"
   },
@@ -801,7 +801,7 @@
     "param.section.description": "หมายเลขส่วนที่จะดึงข้อมูล (ใช้เฉพาะเมื่อ mode='section') รับตัวเลขจากเอาต์พุตดัชนี",
     "tool.description": "แยกไฟล์ Markdown ออกเป็นส่วนระดับส่วนหัวและส่งกลับดัชนีที่มีตัวเลขหรือส่วนเฉพาะ ใช้สิ่งนี้เมื่อคุณต้องการอ่านเอกสาร Markdown ขนาดใหญ่: ขั้นแรกให้โทรด้วย mode='index' เพื่อรับสารบัญ จากนั้นโทรด้วย mode='section' และหมายเลขส่วนเพื่อดึงเฉพาะเนื้อหาที่คุณต้องการ วิธีนี้จะช่วยประหยัดโทเค็นเมื่อเทียบกับการอ่านไฟล์ทั้งหมด",
     "meta.document_type": "ประเภทเอกสาร: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "เมทาดาทาส่วนต้น: {value}",
     "meta.skill_validation": "การตรวจสอบ Agent Skills: {value}",
     "meta.skill_details": "รายละเอียด Agent Skills: {value}"
   },
@@ -832,7 +832,7 @@
     "param.section.description": "পুনরুদ্ধার করার জন্য বিভাগ নম্বর (শুধুমাত্র যখন মোড = 'বিভাগ' ব্যবহার করা হয়)। সূচক আউটপুট থেকে নম্বর পান।",
     "tool.description": "একটি মার্কডাউন ফাইলকে শিরোনাম-স্তরের বিভাগে বিভক্ত করুন এবং একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট বিভাগ ফেরত দিন। যখন আপনার একটি বড় মার্কডাউন নথি পড়ার প্রয়োজন হয় তখন এটি ব্যবহার করুন: বিষয়বস্তুর সারণী পেতে প্রথমে mode='index' দিয়ে কল করুন, তারপর mode='section' দিয়ে কল করুন এবং শুধুমাত্র আপনার প্রয়োজনীয় বিষয়বস্তু পুনরুদ্ধার করতে বিভাগ নম্বর দিয়ে কল করুন। এটি সম্পূর্ণ ফাইল পড়ার তুলনায় টোকেন সংরক্ষণ করে।",
     "meta.document_type": "ডকুমেন্টের ধরন: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "প্রারম্ভিক মেটাডেটা: {value}",
     "meta.skill_validation": "Agent Skills যাচাইকরণ: {value}",
     "meta.skill_details": "Agent Skills বিস্তারিত: {value}"
   },
@@ -863,7 +863,7 @@
     "param.section.description": "شماره بخش برای بازیابی (فقط زمانی که mode='section' استفاده می شود). عدد را از خروجی شاخص دریافت کنید.",
     "tool.description": "یک فایل Markdown را به بخش‌های سطح عنوان تقسیم کنید و یک فهرست شماره‌دار یا یک بخش خاص را برگردانید. هنگامی که نیاز به خواندن یک سند بزرگ Markdown دارید از این استفاده کنید: ابتدا با mode='index' تماس بگیرید تا فهرست مطالب را دریافت کنید، سپس با mode='section' و شماره بخش تماس بگیرید تا فقط محتوای مورد نیاز خود را بازیابی کنید. این توکن ها را در مقایسه با خواندن کل فایل ذخیره می کند.",
     "meta.document_type": "نوع سند: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "فرادادهٔ آغازین: {value}",
     "meta.skill_validation": "اعتبارسنجی Agent Skills: {value}",
     "meta.skill_details": "جزئیات Agent Skills: {value}"
   },
@@ -894,7 +894,7 @@
     "param.section.description": "Татаж авах хэсгийн дугаар (зөвхөн mode='section' үед хэрэглэнэ). Индекс гаралтаас дугаарыг авна уу.",
     "tool.description": "Markdown файлыг гарчгийн түвшний хэсгүүдэд хувааж, дугаарласан индекс эсвэл тодорхой хэсгийг буцаана уу. Томоохон Markdown баримтыг унших шаардлагатай үед үүнийг ашиглана уу: эхлээд агуулгын хүснэгтийг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон хэсгийн дугаарыг залгаж зөвхөн хэрэгтэй контентоо аваарай. Энэ нь файлыг бүхэлд нь уншихтай харьцуулахад жетоныг хэмнэдэг.",
     "meta.document_type": "Баримт бичгийн төрөл: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Эхний мета өгөгдөл: {value}",
     "meta.skill_validation": "Agent Skills шалгалт: {value}",
     "meta.skill_details": "Agent Skills дэлгэрэнгүй: {value}"
   },
@@ -925,7 +925,7 @@
     "param.section.description": "पुनर्प्राप्त करण्यासाठी विभाग क्रमांक (केवळ मोड='विभाग' तेव्हाच वापरला जातो). इंडेक्स आउटपुटमधून नंबर मिळवा.",
     "tool.description": "मार्कडाउन फाइल हेडिंग-स्तरीय विभागांमध्ये विभाजित करा आणि क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा. जेव्हा तुम्हाला मोठा मार्कडाउन दस्तऐवज वाचण्याची आवश्यकता असेल तेव्हा याचा वापर करा: सामग्रीची सारणी मिळवण्यासाठी प्रथम मोड='इंडेक्स' सह कॉल करा, नंतर मोड='विभाग' आणि तुम्हाला आवश्यक असलेली सामग्री पुनर्प्राप्त करण्यासाठी विभाग क्रमांकासह कॉल करा. संपूर्ण फाइल वाचण्याच्या तुलनेत हे टोकन वाचवते.",
     "meta.document_type": "दस्तऐवज प्रकार: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "प्रारंभिक मेटाडेटा: {value}",
     "meta.skill_validation": "Agent Skills पडताळणी: {value}",
     "meta.skill_details": "Agent Skills तपशील: {value}"
   },
@@ -956,7 +956,7 @@
     "param.section.description": "Αριθμός ενότητας για ανάκτηση (χρησιμοποιείται μόνο όταν mode='section'). Λάβετε τον αριθμό από την έξοδο ευρετηρίου.",
     "tool.description": "Διαχωρίστε ένα αρχείο Markdown σε ενότητες σε επίπεδο επικεφαλίδας και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα. Χρησιμοποιήστε το όταν χρειάζεται να διαβάσετε ένα μεγάλο έγγραφο Markdown: πρώτα καλέστε με mode='index' για να λάβετε τον πίνακα περιεχομένων, μετά καλέστε με mode='section' και τον αριθμό ενότητας για να ανακτήσετε μόνο το περιεχόμενο που χρειάζεστε. Αυτό εξοικονομεί διακριτικά σε σύγκριση με την ανάγνωση ολόκληρου του αρχείου.",
     "meta.document_type": "Τύπος εγγράφου: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Μεταδεδομένα αρχής: {value}",
     "meta.skill_validation": "Επικύρωση Agent Skills: {value}",
     "meta.skill_details": "Λεπτομέρειες Agent Skills: {value}"
   },
@@ -987,7 +987,7 @@
     "param.section.description": "מספר סעיף לאחזור (משמש רק כאשר mode='section'). קבל את המספר מפלט האינדקס.",
     "tool.description": "חלקו קובץ Markdown למקטעים ברמת הכותרת והחזרו אינדקס ממוספר או קטע ספציפי. השתמש בזה כאשר אתה צריך לקרוא מסמך Markdown גדול: תחילה התקשר עם mode='index' כדי לקבל את תוכן העניינים, ואז התקשר עם mode='section' ומספר המדור כדי לאחזר רק את התוכן שאתה צריך. זה חוסך אסימונים בהשוואה לקריאת הקובץ כולו.",
     "meta.document_type": "סוג מסמך: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "מטא-נתונים מקדימים: {value}",
     "meta.skill_validation": "אימות Agent Skills: {value}",
     "meta.skill_details": "פרטי Agent Skills: {value}"
   },
@@ -1018,7 +1018,7 @@
     "param.section.description": "A lekérendő szakasz száma (csak akkor használatos, ha mode='szakasz'). Szerezze le a számot az indexkimenetből.",
     "tool.description": "Osszon fel egy Markdown fájlt címsor szintű szakaszokra, és adja vissza a számozott indexet vagy egy adott szakaszt. Használja ezt, ha egy nagy Markdown dokumentumot kell olvasnia: először hívja a mode='index' paramétert a tartalomjegyzék eléréséhez, majd hívja a mode='section' és a szakaszszámot, hogy csak a szükséges tartalmat kérje le. Ez a tokeneket menti a teljes fájl elolvasásához képest.",
     "meta.document_type": "Dokumentumtípus: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Kezdő metaadatok: {value}",
     "meta.skill_validation": "Agent Skills ellenőrzése: {value}",
     "meta.skill_details": "Agent Skills részletei: {value}"
   },
@@ -1049,7 +1049,7 @@
     "param.section.description": "Numărul secțiunii de preluat (utilizat numai când mode='section'). Obțineți numărul din rezultatul indexului.",
     "tool.description": "Împărțiți un fișier Markdown în secțiuni la nivel de titlu și returnați un index numerotat sau o secțiune specifică. Utilizați acest lucru atunci când trebuie să citiți un document Markdown mare: mai întâi apelați cu mode='index' pentru a obține cuprinsul, apoi apelați cu mode='section' și numărul secțiunii pentru a prelua numai conținutul de care aveți nevoie. Acest lucru economisește jetoane în comparație cu citirea întregului fișier.",
     "meta.document_type": "Tip document: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadate de început: {value}",
     "meta.skill_validation": "Validare Agent Skills: {value}",
     "meta.skill_details": "Detalii Agent Skills: {value}"
   },
@@ -1080,7 +1080,7 @@
     "param.section.description": "Numero ng seksyon na kukunin (ginagamit lamang kapag ang mode='section'). Kunin ang numero mula sa index output.",
     "tool.description": "Hatiin ang isang Markdown file sa mga seksyon sa antas ng heading at ibalik ang isang may bilang na index o isang partikular na seksyon. Gamitin ito kapag kailangan mong magbasa ng malaking Markdown na dokumento: tumawag muna gamit ang mode='index' upang makuha ang talaan ng mga nilalaman, pagkatapos ay tumawag gamit ang mode='section' at ang numero ng seksyon upang makuha lamang ang nilalamang kailangan mo. Nagse-save ito ng mga token kumpara sa pagbabasa ng buong file.",
     "meta.document_type": "Uri ng dokumento: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Paunang metadata: {value}",
     "meta.skill_validation": "Pag-validate ng Agent Skills: {value}",
     "meta.skill_details": "Mga detalye ng Agent Skills: {value}"
   },
@@ -1111,7 +1111,7 @@
     "param.section.description": "Nombor bahagian untuk diambil (hanya digunakan apabila mod='section'). Dapatkan nombor daripada output indeks.",
     "tool.description": "Pisahkan fail Markdown kepada bahagian peringkat tajuk dan kembalikan indeks bernombor atau bahagian tertentu. Gunakan ini apabila anda perlu membaca dokumen Markdown yang besar: mula-mula panggil dengan mod='index' untuk mendapatkan jadual kandungan, kemudian panggil dengan mod='section' dan nombor bahagian untuk mendapatkan semula kandungan yang anda perlukan sahaja. Ini menjimatkan token berbanding membaca keseluruhan fail.",
     "meta.document_type": "Jenis dokumen: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Metadata awal: {value}",
     "meta.skill_validation": "Pengesahan Agent Skills: {value}",
     "meta.skill_details": "Butiran Agent Skills: {value}"
   },
@@ -1142,7 +1142,7 @@
     "param.section.description": "Sektionsnummer at hente (bruges kun når mode='sektion'). Få tallet fra indeksoutput.",
     "tool.description": "Opdel en Markdown-fil i sektioner på overskriftsniveau og returner et nummereret indeks eller en specifik sektion. Brug dette, når du skal læse et stort Markdown-dokument: ring først med mode='index' for at få indholdsfortegnelsen, ring derefter med mode='section' og sektionsnummeret for kun at hente det indhold, du har brug for. Dette sparer tokens sammenlignet med at læse hele filen.",
     "meta.document_type": "Dokumenttype: {value}",
-    "meta.frontmatter": "Front matter: {value}",
+    "meta.frontmatter": "Indledende metadata: {value}",
     "meta.skill_validation": "Validering af Agent Skills: {value}",
     "meta.skill_details": "Detaljer om Agent Skills: {value}"
   },
