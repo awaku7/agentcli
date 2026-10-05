@@ -130,6 +130,10 @@ Web 伺服器的綁定位址（預設：`127.0.0.1`，可透過 `UAGENT_WEB_HOST
 
 預設情況下，Web 伺服器僅監聽 localhost（`127.0.0.1`）。若要讓網路上的其他機器能夠存取，請使用 `--host 0.0.0.0`。
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 或
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

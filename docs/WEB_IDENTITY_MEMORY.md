@@ -33,6 +33,10 @@ UAGENT_OIDC_COOKIE_SECURE=1
 # Server-side session lifetime in seconds. Default: 28800
 UAGENT_OIDC_SESSION_TTL=28800
 
+# Exact browser Origin allowlist for WebSocket handshakes.
+# Required for non-local identity modes; wildcards are not accepted.
+UAGENT_WEB_ALLOWED_ORIGINS=https://uag.example.com
+
 # Memory V3 multi-user APIs require SQLite Memory.
 UAGENT_MEMORY_BACKEND=sqlite
 ```

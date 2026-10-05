@@ -15,6 +15,10 @@ from .enterprise_identity import (
     enterprise_identity_adapter_state,
 )
 from .identity_context import IdentityConfigurationError, resolve_identity_mode
+from .web_origin_policy import (
+    configured_websocket_origins,
+    websocket_origin_configuration_revision,
+)
 
 
 @dataclass(frozen=True)
@@ -123,6 +127,7 @@ def authentication_configuration_fingerprint(mode: str | None = None) -> str:
         "settings": {
             name: _fingerprint_value(name) for name in _MODE_SETTINGS[selected]
         },
+        "web_allowed_origins_revision": websocket_origin_configuration_revision(),
         "adapter_registered": registered,
         "adapter_generation": (
             generation if selected in {"oauth", "windows_ad", "external"} else 0
@@ -191,6 +196,12 @@ def validate_authentication_configuration(
         registered, _ = enterprise_identity_adapter_state(selected)
         if not registered:
             diagnostics.append(f"{selected} verifier is not configured")
+
+    if selected != "token":
+        try:
+            configured_websocket_origins(selected)
+        except IdentityConfigurationError as exc:
+            diagnostics.append(str(exc))
 
     configured = not diagnostics
     return AuthenticationStatus(

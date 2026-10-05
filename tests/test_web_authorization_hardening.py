@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 
 from fastapi.testclient import TestClient
@@ -118,6 +119,71 @@ def test_process_wide_web_controls_require_auth_and_admin(monkeypatch):
     )
     assert response.status_code == 200
     assert cleanup_calls == [True]
+
+
+def test_http_mutations_require_allowed_origin_outside_local(monkeypatch):
+    resolver = _Resolver("admin", authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv(
+        "UAGENT_WEB_ALLOWED_ORIGINS",
+        "https://uag.corp.example",
+    )
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", "admin")
+    monkeypatch.setattr(routes_api.core, "tools_enabled", True, raising=False)
+    client = TestClient(app)
+
+    missing = client.post("/api/tools-enabled", json={"enabled": False})
+    assert missing.status_code == 403
+    assert routes_api.core.tools_enabled is True
+
+    cross_site = client.post(
+        "/api/tools-enabled",
+        content='{"enabled": false}',
+        headers={
+            "Content-Type": "text/plain",
+            "Origin": "https://evil.example",
+        },
+    )
+    assert cross_site.status_code == 403
+    assert routes_api.core.tools_enabled is True
+
+    allowed = client.post(
+        "/api/tools-enabled",
+        json={"enabled": False},
+        headers={"Origin": "https://uag.corp.example"},
+    )
+    assert allowed.status_code == 200
+    assert routes_api.core.tools_enabled is False
+
+
+def test_token_mode_mutation_allows_bearer_without_origin(monkeypatch):
+    credential = "service-token"
+    namespace = "services"
+    subject = "automation"
+    digest = hashlib.sha256(credential.encode()).hexdigest()
+    principal = (
+        "token:" + hashlib.sha256((namespace + "\0" + subject).encode()).hexdigest()
+    )
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "token")
+    monkeypatch.setenv("UAGENT_TOKEN_NAMESPACE", namespace)
+    monkeypatch.setenv(
+        "UAGENT_TOKEN_IDENTITIES",
+        json.dumps([{"token_sha256": digest, "subject": subject}]),
+    )
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", principal)
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+    monkeypatch.setattr(routes_api.core, "tools_enabled", True, raising=False)
+    client = TestClient(app)
+
+    response = client.post(
+        "/api/tools-enabled",
+        json={"enabled": False},
+        headers={"Authorization": f"Bearer {credential}"},
+    )
+
+    assert response.status_code == 200
+    assert routes_api.core.tools_enabled is False
 
 
 def test_directory_policy_downgrades_admin_to_viewer(tmp_path, monkeypatch):

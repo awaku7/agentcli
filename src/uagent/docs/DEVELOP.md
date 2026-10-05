@@ -39,6 +39,21 @@ and must not be used as a multi-user authorization fallback.
 The V3 Web path is now connected beyond the original store-only stage. The current
 runtime includes:
 
+- browser-facing WebSocket handshakes enforce an exact Origin allowlist before
+  identity resolution or room access. State-changing HTTP methods
+  (`POST` / `PUT` / `PATCH` / `DELETE`) pass through the same Origin boundary
+  before route handling. Browser/cookie/integrated-auth modes require
+  `UAGENT_WEB_ALLOWED_ORIGINS` and reject missing Origin on HTTP mutations.
+  Bearer-only `token` mode is exempt because its Authorization credential is not
+  ambient browser state; local mode keeps missing-Origin compatibility for
+  non-browser clients, but any supplied Origin must still match exactly.
+  Malformed, opaque, control-character,
+  wildcard, non-ASCII, browser-noncanonical numeric, scoped IPv6, and
+  non-allowlisted origins fail closed. Origin normalization must not collapse
+  distinct hosts such as trailing-dot and non-trailing-dot forms. Keep
+  `tests/test_websocket_origin_policy.py` and
+  `tests/test_web_authorization_hardening.py` in the regression set when changing
+  Web authentication, WebSocket connection setup, or HTTP mutation routing;
 - immutable `IdentityContext` / `TurnContext` propagation and OIDC Web sessions;
 - Project membership plus server-bound ProjectContext and Room-to-Project binding;
 - Personal Memory, revision-bound read grants, received shared-memory references,
@@ -575,7 +590,7 @@ ______________________________________________________________________
 Common checks during development:
 
 - Python syntax: `python -m py_compile src/uagent/` (or use the repository's validation tools)
-- Format/lint: `ruff format src/` and `ruff check src/` (`black src/` as fallback)
+- Format/lint: install `.[quality]`; Black is the canonical formatter (`python -m black src tests`) and Ruff is the lint gate (`python -m ruff check src tests`). Use the pinned versions from `pyproject.toml`, then verify with `python -m black --check src tests`.
 - Type check: `mypy src/uagent` (config in `pyproject.toml` `[tool.mypy]`; `python_version` = project minimum `3.11`. Recent numpy ships `.pyi` with 3.12-only `type` statements, so `typings/numpy` + `mypy_path` shadow them and `follow_imports = skip` is set for `numpy*`.)
 - Locale compile: `python scripts/compile_locales.py`
 - Locale QC: `python scripts/po_qc_summary.py`

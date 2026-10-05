@@ -130,6 +130,10 @@ Web 服务器的绑定地址（默认：`127.0.0.1`，可通过 `UAGENT_WEB_HOST
 
 默认情况下，Web 服务器仅监听本地主机（`127.0.0.1`）。若要使其对网络上的其他机器可见，请使用 `--host 0.0.0.0`。
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 或
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

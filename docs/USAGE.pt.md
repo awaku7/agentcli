@@ -130,6 +130,10 @@ Endereço de ligação para o servidor Web (padrão: `127.0.0.1`, substituível 
 
 Por predefinição, o servidor Web escuta apenas no localhost (`127.0.0.1`). Para o tornar acessível a partir de outras máquinas na rede, utilize `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 ou
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

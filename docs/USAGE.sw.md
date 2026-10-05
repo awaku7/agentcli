@@ -130,6 +130,10 @@ Anwani ya kuunganishia seva ya wavuti (chaguo-msingi: `127.0.0.1`, inaweza kubad
 
 Kwa chaguo-msingi, seva ya wavuti husikiliza kwenye localhost pekee (`127.0.0.1`). Ili iweze kupatikana kutoka kwa mashine zingine kwenye mtandao, tumia `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 au
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

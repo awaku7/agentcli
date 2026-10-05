@@ -130,6 +130,10 @@ Bind address for the Web server (default: `127.0.0.1`, overridable by `UAGENT_WE
 
 By default, the Web server listens on localhost only (`127.0.0.1`). To make it accessible from other machines on the network, use `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 or
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

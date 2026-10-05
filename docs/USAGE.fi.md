@@ -130,6 +130,10 @@ Verkkopalvelimen sidontaosoite (oletus: `127.0.0.1`, voidaan ohittaa `UAGENT_WEB
 
 Oletusarvoisesti verkkopalvelin kuuntelee vain localhostia (`127.0.0.1`). Jotta se olisi käytettävissä myös verkon muilta koneilta, käytä `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 tai
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

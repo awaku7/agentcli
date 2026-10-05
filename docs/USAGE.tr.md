@@ -130,6 +130,10 @@ Web sunucusunun bağlanma adresi (varsayılan: `127.0.0.1`, `UAGENT_WEB_HOST` il
 
 Varsayılan olarak, web sunucusu yalnızca localhost'ta (`127.0.0.1`) dinleme yapar. Ağdaki diğer makinelerden erişilebilir hale getirmek için `--host 0.0.0.0` kullanın.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 veya
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

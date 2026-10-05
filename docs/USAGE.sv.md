@@ -130,6 +130,10 @@ Bindningsadress för webbservern (standard: `127.0.0.1`, kan åsidosättas av `U
 
 Som standard lyssnar webbservern endast på localhost (`127.0.0.1`). För att göra den tillgänglig från andra datorer i nätverket, använd `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 eller
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

@@ -130,6 +130,27 @@ def _request_identity(request: Request):
     return routes_api._request_identity(request)
 
 
+def _http_mutation_origin_guard(request: Request) -> JSONResponse | None:
+    """Reject cross-site state-changing HTTP requests before route handling."""
+
+    if request.method.upper() not in {"POST", "PUT", "PATCH", "DELETE"}:
+        return None
+    from ..runtime.identity_context import (
+        IdentityConfigurationError,
+        IdentityResolutionError,
+    )
+    from ..runtime.web_origin_policy import validate_http_mutation_origin
+
+    try:
+        validate_http_mutation_origin(request)
+    except (IdentityConfigurationError, IdentityResolutionError):
+        return JSONResponse(
+            status_code=403,
+            content={"error": "request Origin is not allowed"},
+        )
+    return None
+
+
 def _process_api_guard(request: Request):
     """Protect process-wide controls without changing local single-user behavior."""
     path = request.url.path
@@ -184,6 +205,9 @@ async def _close_request_memory_stores(request: Request, call_next):
     opened: list[Any] = []
     token = _request_memory_stores.set(opened)
     try:
+        origin_denied = _http_mutation_origin_guard(request)
+        if origin_denied is not None:
+            return origin_denied
         identity, denied = _process_api_guard(request)
         if denied is not None:
             return denied

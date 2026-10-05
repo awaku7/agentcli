@@ -130,6 +130,10 @@ Bindadres voor de webserver (standaard: `127.0.0.1`, kan worden overschreven doo
 
 Standaard luistert de webserver alleen op localhost (`127.0.0.1`). Om de webserver toegankelijk te maken vanaf andere computers in het netwerk, gebruik je `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 of
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

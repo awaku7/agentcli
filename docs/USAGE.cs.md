@@ -130,6 +130,10 @@ Adresa, na kterou se webový server připojuje (výchozí: `127.0.0.1`, lze pře
 
 Ve výchozím nastavení webový server naslouchá pouze na localhostu (`127.0.0.1`). Chcete-li jej zpřístupnit z jiných počítačů v síti, použijte `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 nebo
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

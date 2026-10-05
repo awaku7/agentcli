@@ -34,6 +34,7 @@ def test_token_validation_does_not_expose_identity_configuration(monkeypatch):
     credential = "raw-token"
     subject = "private-service-account"
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "token")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
     monkeypatch.setenv("UAGENT_TOKEN_NAMESPACE", "services")
     monkeypatch.setenv(
         "UAGENT_TOKEN_IDENTITIES",
@@ -52,6 +53,20 @@ def test_token_validation_does_not_expose_identity_configuration(monkeypatch):
     assert status.configured is True
     assert credential not in json.dumps(status.public_dict())
     assert subject not in json.dumps(status.public_dict())
+
+
+def test_origin_policy_fingerprint_preserves_raw_validity_changes(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    before = authentication_configuration_fingerprint()
+
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "\thttps://uag.example")
+    after = authentication_configuration_fingerprint()
+    status = validate_authentication_configuration()
+
+    assert after != before
+    assert status.configured is False
+    assert "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin" in status.diagnostics
 
 
 def test_configuration_fingerprint_changes_with_security_configuration(monkeypatch):
@@ -108,6 +123,7 @@ def test_windows_ad_documented_settings_update_fingerprint(monkeypatch):
 
 def test_oidc_health_uses_runtime_https_issuer_boundary(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
     monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "http://127.0.0.1/callback")
 
@@ -140,6 +156,7 @@ def test_oidc_health_reports_malformed_bracketed_urls(monkeypatch):
 
 def test_oidc_health_rejects_invalid_session_limits(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
     monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://app.example/callback")
@@ -157,6 +174,7 @@ def test_oidc_health_rejects_invalid_session_limits(monkeypatch):
 
 def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "external")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     register_enterprise_identity_verifier("external", None)
     before = authentication_configuration_fingerprint()
     assert validate_authentication_configuration().configured is False
@@ -173,6 +191,7 @@ def test_enterprise_adapter_registration_updates_health_and_revision(monkeypatch
 
 def test_oidc_graph_scope_is_validated_and_revision_bound(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "oidc")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_ISSUER", "https://issuer.example")
     monkeypatch.setenv("UAGENT_OIDC_CLIENT_ID", "client")
     monkeypatch.setenv("UAGENT_OIDC_REDIRECT_URI", "https://app.example/callback")
@@ -189,3 +208,42 @@ def test_oidc_graph_scope_is_validated_and_revision_bound(monkeypatch):
     status = validate_authentication_configuration()
     assert status.configured is False
     assert "UAGENT_OIDC_GRAPH_SCOPE contains an invalid scope" in status.diagnostics
+
+
+def test_non_local_auth_health_requires_websocket_origin_allowlist(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_IDENTITY_HEADER", "X-Verified-Subject")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_ISSUER_HEADER", "X-Verified-Issuer")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_CIDRS", "10.0.0.10/32")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is False
+    assert (
+        "UAGENT_WEB_ALLOWED_ORIGINS is required for non-local WebSocket access"
+        in status.diagnostics
+    )
+
+
+def test_auth_health_rejects_malformed_websocket_origin_allowlist(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_IDENTITY_HEADER", "X-Verified-Subject")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_ISSUER_HEADER", "X-Verified-Issuer")
+    monkeypatch.setenv("UAGENT_TRUSTED_PROXY_CIDRS", "10.0.0.10/32")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example/path")
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is False
+    assert "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin" in status.diagnostics
+
+
+def test_local_auth_health_uses_safe_default_websocket_origins(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+
+    status = validate_authentication_configuration()
+
+    assert status.configured is True
+    assert status.diagnostics == ()

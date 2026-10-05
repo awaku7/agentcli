@@ -421,6 +421,8 @@ ______________________________________________________________________
 
 ## 8. Active Directory / Microsoft identity
 
+オンプレミスAD + IIS Windows Authentication + `trusted_proxy` の具体的な構築手順は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md) を参照する。
+
 UAG v3 は Active Directory 系を1つの専用 DB や独自 password login として実装しない。
 
 環境に応じて次のいずれかへ接続する。
@@ -631,6 +633,7 @@ UAGENT_IDENTITY_MODE=trusted_proxy
 UAGENT_TRUSTED_PROXY_IDENTITY_HEADER=
 UAGENT_TRUSTED_PROXY_ISSUER_HEADER=
 UAGENT_TRUSTED_PROXY_CIDRS=
+UAGENT_WEB_ALLOWED_ORIGINS=https://uag.example.com
 ```
 
 #### Windows / AD
@@ -652,6 +655,11 @@ UAGENT_TOKEN_IDENTITIES=[]
 ```
 
 credential storage / verification mechanism は別 security component とする。
+`token` mode の HTTP API は `Authorization: Bearer ...` を request ごとに明示する
+non-ambient credential 境界であり、browser cookie / IWA 向けの CSRF Origin 必須条件は
+適用しない。したがって token-only API client は `UAGENT_WEB_ALLOWED_ORIGINS` を
+設定せずに state-changing HTTP API を利用できる。一方、browser WebSocket を token
+mode で利用する場合は、その接続経路に必要な Origin policy を別途明示する。
 
 `oauth`、`windows_ad`、`external` は、server startup 時に
 `register_enterprise_identity_verifier()` へ credential verifier を登録する。

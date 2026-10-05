@@ -130,6 +130,10 @@ ______________________________________________________________________
 
 기본적으로 웹 서버는 localhost(`127.0.0.1`)에서만 연결을 수신 대기합니다. 네트워크상의 다른 컴퓨터에서도 접근할 수 있게 하려면 `--host 0.0.0.0`을 사용하십시오.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 또는
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

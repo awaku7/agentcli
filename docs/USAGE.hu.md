@@ -130,6 +130,10 @@ A webszerver kötési címe (alapértelmezett: `127.0.0.1`, felülírható a `UA
 
 Alapértelmezés szerint a webszerver csak a localhost-on (`127.0.0.1`) figyel. Ha a hálózat más gépeiről is elérhetővé szeretné tenni, használja a `--host 0.0.0.0` parancsot.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 vagy
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

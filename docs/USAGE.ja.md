@@ -130,6 +130,10 @@ Webサーバーのバインド先アドレス（デフォルト: `127.0.0.1`、`
 
 デフォルトでは、Web サーバーはローカルホスト (`127.0.0.1`) でのみリスニングします。ネットワーク上の他のマシンからアクセスできるようにするには、`--host 0.0.0.0` を使用してください。
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 または
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

@@ -130,6 +130,10 @@ Bindingsadresse for webserveren (standard: `127.0.0.1`, kan overskrives af `UAGE
 
 Som standard lytter webserveren kun på localhost (`127.0.0.1`). For at gøre den tilgængelig fra andre maskiner på netværket skal du bruge `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 eller
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 

@@ -130,6 +130,10 @@ Mengikat alamat untuk pelayan Web (lalai: `127.0.0.1`, boleh diatasi oleh `UAGEN
 
 Secara lalai, pelayan Web mendengar pada localhost sahaja (`127.0.0.1`). Untuk membolehkannya diakses dari mesin lain di rangkaian, gunakan `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
@@ -241,12 +245,14 @@ uag --tool-genre-mask 1
 
 ```
 set UAGENT_WEB_HOST=0.0.0.0
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw
 ```
 
 atau
 
 ```
+set UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
 uagw --host 0.0.0.0
 ```
 
