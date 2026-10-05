@@ -264,7 +264,7 @@
     "error.not_active_session": "artifak tidak tergolong kepada sesi aktif"
   },
   "nb": {
-    "tool.description": "Returnerer metadata for en tidligere lagret, økteid artifact uten å lese payloaden.",
+    "tool.description": "Returnerer metadata for en tidligere lagret Artifact som eies av økten, uten å lese payloaden.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
@@ -288,7 +288,7 @@
     "error.not_active_session": "het artefact behoort niet tot de actieve sessie"
   },
   "nn": {
-    "tool.description": "Returnerer metadata for ein tidlegare lagra, økteigd artifact utan å lese payloaden.",
+    "tool.description": "Returnerer metadata for ein tidlegare lagra Artifact som er eigd av økta, utan å lese payloaden.",
     "x_search_terms": [
       "artifact_info",
       "artifact metadata",
