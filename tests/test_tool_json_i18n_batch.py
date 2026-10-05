@@ -173,6 +173,60 @@ def test_status_ignores_empty_english_source_values(tmp_path: Path, capsys) -> N
     assert "review_candidates: 0" in output
 
 
+def test_status_allows_locale_specific_search_term_counts(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {
+            "en": {
+                "x_search_terms": [
+                    "current location",
+                    "gps coordinates",
+                    "geolocation",
+                ]
+            },
+            "ja": {"x_search_terms": ["現在地", "位置情報"]},
+        },
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "ja",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    output = capsys.readouterr().out
+    assert rc == 0
+    assert "missing_units: 0" in output
+    assert "same_as_english_candidates: 0" in output
+    assert "review_candidates: 0" in output
+
+
+def test_non_search_term_lists_still_require_matching_length() -> None:
+    assert batch._is_missing_or_stale(
+        ["one", "two"],
+        ["一"],
+        key="choices",
+        force=False,
+        skip_same_as_en=False,
+    )
+    assert not batch._is_missing_or_stale(
+        ["current location", "gps coordinates"],
+        ["現在地"],
+        key="x_search_terms",
+        force=False,
+        skip_same_as_en=False,
+    )
+
+
 def test_mutating_commands_still_require_langs(tmp_path: Path, capsys) -> None:
     rc = batch.main(
         [
