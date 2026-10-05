@@ -678,7 +678,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         force=False,
         skip_same_as_en=args.skip_same_as_en,
         only_missing=True,
-        only_existing_lang=False,
+        only_existing_lang=not args.add_lang,
     )
     by: dict[tuple[str, str], int] = {}
     for u in units:
