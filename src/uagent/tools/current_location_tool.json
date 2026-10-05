@@ -1,37 +1,4 @@
 {
-  "en": {
-    "tool.description": "Get your current location (latitude, longitude) using the best available location provider. Returns coordinates with accuracy and source information.",
-    "err.generic": "Error: Location query failed: {err}",
-    "acc.high": "High precision",
-    "acc.medium": "Medium precision",
-    "acc.low": "Low precision",
-    "acc.very_low": "Very low precision",
-    "src.unknown": "Unknown",
-    "src.cellular": "Cellular",
-    "src.satellite": "GPS/Satellite",
-    "src.wifi": "WiFi positioning",
-    "src.ip": "IP geolocation",
-    "src.nmea": "NMEA/GPS",
-    "src.obfuscated": "Obfuscated",
-    "output.header": "## Current Location",
-    "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
-    "output.accuracy": "- **Accuracy**: {acc}",
-    "output.source": "- **Source**: {src}",
-    "output.timestamp": "- **Timestamp**: {ts}",
-    "x_search_terms": [
-      "gps",
-      "geoip",
-      "location",
-      "current location",
-      "geolocation",
-      "position",
-      "current location",
-      "gps coordinates",
-      "latitude longitude",
-      "current location",
-      "gps sensor"
-    ]
-  },
   "ja": {
     "tool.description": "利用可能な最適な位置情報プロバイダーから現在地（緯度・経度）を取得します。精度と取得元の情報を含む座標を返します。",
     "err.generic": "エラー：位置情報の取得に失敗しました：{err}",

@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "Run project coverage using a detected language tool and return execution and coverage data when available.",
-    "param.language.description": "Coverage adapter to use.",
-    "param.test_target.description": "Optional safe test target, such as a test directory.",
-    "param.timeout.description": "Maximum execution time in seconds.",
-    "param.dry_run.description": "Only report the detected adapter and command without running tests.",
-    "param.auto_install.description": "Automatically install missing Python coverage dependencies with pip.",
-    "error.coverage_install_failed": "coverage is required and could not be installed",
-    "error.pytest_install_failed": "pytest is required and could not be installed",
-    "error.c8_install_failed": "c8 is required and could not be installed",
-    "error.cargo_llvm_cov_install_failed": "cargo-llvm-cov is required and could not be installed",
-    "error.command_not_found": "required command not found for %(language)s: %(command)s",
-    "error.simplecov_result_missing": "SimpleCov result not found; enable SimpleCov in the test command",
-    "error.swift_coverage_unavailable": "Swift tests completed; use llvm-cov export to collect coverage data",
-    "x_search_terms": [
-      "coverage",
-      "test coverage",
-      "line coverage",
-      "branch coverage",
-      "lcov"
-    ]
-  },
   "ja": {
     "tool.description": "検出した言語用ツールでプロジェクトのカバレッジを実行し、正規化した結果を返します。",
     "param.language.description": "使用するカバレッジアダプターです。",

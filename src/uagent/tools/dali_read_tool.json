@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "Read status and level from a DALI lighting device. Queries the specified address for current state.",
-    "param.address.description": "DALI device address (0-63).",
-    "param.driver.description": "DALI driver type.",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "DALI read: addr={addr} level={level} status={status}",
-    "x_search_terms": [
-      "dali read",
-      "dali_read",
-      "dali",
-      "DALI",
-      "level",
-      "lighting"
-    ]
-  },
   "ar": {
     "tool.description": "قراءة الحالة والمستوى من جهاز الإضاءة DALI. يستعلم عن العنوان المحدد للحالة الحالية.",
     "param.address.description": "عنوان جهاز دالي (0-63).",

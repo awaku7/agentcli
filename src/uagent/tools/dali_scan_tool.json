@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Scan DALI bus for connected lighting devices (addresses 0-63). Queries each address for status and actual level.",
-    "param.driver.description": "DALI driver type. 'auto' tries Tridonic USB, then daliserver.",
-    "param.host.description": "daliserver host (required for driver=daliserver).",
-    "param.port.description": "daliserver TCP port (default: 55825).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "DALI scan: {count} device(s) found in {ms} ms.",
-    "msg.no_devices": "No DALI devices were found.",
-    "x_search_terms": [
-      "dali scan",
-      "dali_scan",
-      "dali",
-      "DALI",
-      "connected",
-      "lighting",
-      "devices",
-      "addresses"
-    ]
-  },
   "ar": {
     "tool.description": "مسح ناقل DALI بحثًا عن أجهزة الإضاءة المتصلة (العناوين 0-63). يستعلم كل عنوان عن الحالة والمستوى الفعلي.",
     "param.driver.description": "دالي نوع السائق. 'تلقائي' يحاول Tridonic USB، ثم dalserver.",

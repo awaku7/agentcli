@@ -1,25 +1,4 @@
 {
-  "en": {
-    "tool.description": "Control a DALI lighting device. Supports on/off and dimming (0-254).",
-    "param.address.description": "DALI device address (0-63), or -1 for broadcast.",
-    "param.action.description": "Action: on, off, or dim.",
-    "param.level.description": "Dim level (0-254). Required for action=dim.",
-    "param.group.description": "Optional group address (0-15) instead of single address.",
-    "param.driver.description": "DALI driver type.",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "DALI {action}: addr={addr} level={level}",
-    "x_search_terms": [
-      "dali write",
-      "dali_write",
-      "dali",
-      "DALI",
-      "lighting",
-      "supports",
-      "on/off"
-    ]
-  },
   "ar": {
     "tool.description": "التحكم بجهاز الإضاءة DALI. يدعم التشغيل/الإيقاف والتعتيم (0-254).",
     "param.address.description": "عنوان جهاز DALI (0-63)، أو -1 للبث.",
