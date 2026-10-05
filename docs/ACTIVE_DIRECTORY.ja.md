@@ -426,7 +426,7 @@ uag WebはUvicornのproxy header middlewareを持ち、trusted sourceからの `
 
 をuag backendへ渡しません。
 
-一方、browserがWebSocket handshakeで送る `Origin` headerは削除しません。uag自身が `UAGENT_WEB_ALLOWED_ORIGINS` とexact比較し、許可されていないOrigin、`Origin: null`、Origin欠落をhandshake前に拒否します。Windows Integrated Authenticationではbrowser credentialがcross-site WebSocketにも付与され得るため、Host検証だけでは不十分です。
+一方、browserが送る `Origin` headerは削除しません。uag自身が `UAGENT_WEB_ALLOWED_ORIGINS` とexact比較し、WebSocket handshakeでは許可されていないOrigin、`Origin: null`、Origin欠落を接続前に拒否します。さらに `POST` / `PUT` / `PATCH` / `DELETE` のHTTP mutationも同じOrigin policyで保護し、`trusted_proxy` / OIDC等のnon-local identity modeではOrigin欠落も拒否します。local modeではCLI等の非browser互換のためOrigin欠落だけを許可しますが、Origin headerが存在する場合は同じexact allowlistに一致しなければ拒否します。Windows Integrated Authenticationではbrowser credentialがcross-site requestにも付与され得るため、Host検証やCORSだけでは不十分です。
 
 この構成ではuagから見た接続元はbridge host `10.30.40.10` のsocket peerのままなので:
 
