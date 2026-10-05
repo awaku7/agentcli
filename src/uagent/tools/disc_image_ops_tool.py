@@ -342,9 +342,7 @@ def _prepare_output_file(
 
 def _temporary_output_path(target: str) -> Path:
     dest = Path(target)
-    return dest.with_name(
-        f".{dest.stem}.{uuid.uuid4().hex}.tmp{dest.suffix}"
-    )
+    return dest.with_name(f".{dest.stem}.{uuid.uuid4().hex}.tmp{dest.suffix}")
 
 
 def _run_xverter_convert_atomic(
@@ -364,6 +362,10 @@ def _run_xverter_convert_atomic(
                 result["stderr"] = (
                     str(result.get("stderr", ""))
                     + "xverter reported success but did not create output"
+                )
+                result["error"] = _(
+                    "err.backend_failed",
+                    default="The disc image backend operation failed.",
                 )
             else:
                 os.replace(str(temp), target)
