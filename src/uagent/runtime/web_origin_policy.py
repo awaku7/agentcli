@@ -96,7 +96,11 @@ def _normalize_origin(value: str) -> str:
         ):
             raise ValueError("origin host is invalid")
     else:
-        host = str(parsed_ip)
+        if isinstance(parsed_ip, ipaddress.IPv6Address) and parsed_ip.ipv4_mapped:
+            mapped = int(parsed_ip.ipv4_mapped)
+            host = f"::ffff:{mapped >> 16:x}:{mapped & 0xffff:x}"
+        else:
+            host = str(parsed_ip)
     authority = f"[{host}]" if ":" in host else host
     if port is not None and not (
         (scheme == "http" and port == 80) or (scheme == "https" and port == 443)
