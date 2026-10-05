@@ -86,6 +86,24 @@ def test_invalid_configured_origin_fails_closed(monkeypatch):
         configured_websocket_origins()
 
 
+@pytest.mark.parametrize(
+    "origin",
+    [
+        "https://*.example.com",
+        "https://bad host.example",
+        "https://_service.example",
+        "https://-bad.example",
+        "https://bad-.example",
+    ],
+)
+def test_configured_origin_rejects_invalid_hostnames(monkeypatch, origin):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", origin)
+
+    with pytest.raises(IdentityConfigurationError, match="invalid origin"):
+        configured_websocket_origins()
+
+
 def test_websocket_route_rejects_origin_before_identity_resolution(monkeypatch):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
