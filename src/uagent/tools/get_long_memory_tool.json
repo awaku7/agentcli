@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Get all saved long-term memory notes (JSONL).",
-    "x_search_terms": [
-      "get memory",
-      "long memory",
-      "read memory",
-      "retrieve memory",
-      "memory recall",
-      "agent memory",
-      "get remembered",
-      "memory get",
-      "recall info",
-      "load memory"
-    ]
-  },
   "ja": {
     "tool.description": "保存されている長期記憶メモ（JSONL）をすべて取得します。",
     "x_search_terms": [

@@ -1,22 +1,4 @@
 {
-  "en": {
-    "tool.description": "Generic GCP API tool using Google API Discovery. It can list services, list API methods, and call Google APIs. Write methods require confirm_write=true.",
-    "x_search_terms": [
-      "gcp",
-      "google cloud",
-      "google api",
-      "cloud",
-      "gcp_api"
-    ],
-    "param.api": "Google API name, for example compute or storage.",
-    "param.version": "API version, for example v1 or v1beta1.",
-    "param.resource": "Dot-separated resource path, for example projects.locations.",
-    "param.method": "API method, for example get, list, insert, or delete.",
-    "param.parameters": "JSON object containing query/path parameters.",
-    "param.body": "Optional JSON request body.",
-    "param.include_write": "For list_methods, include write-capable methods.",
-    "param.confirm_write": "Required true to execute a non-read-only method."
-  },
   "ar": {
     "tool.description": "أداة GCP API العامة باستخدام Google API الاكتشاف. يمكنه سرد الخدمات وسرد طرق API واستدعاء Google واجهات برمجة التطبيقات. تتطلب أساليب الكتابة تأكيد_الكتابة = صحيح.",
     "x_search_terms": [

@@ -1,23 +1,4 @@
 {
-  "en": {
-    "param.format.description": "Output format.",
-    "param.ip.description": "Optional IP address to look up. If omitted, the current public IP is used (API mode only).",
-    "tool.description": "Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). Inaccurate with VPN/proxy/mobile. Prefer get_current_location for accurate GPS coordinates.",
-    "x_search_terms": [
-      "geoip",
-      "geolocation",
-      "ip location",
-      "ip geo",
-      "ip address location",
-      "geo location",
-      "ip lookup",
-      "location from ip",
-      "ip geolocation",
-      "ip info"
-    ],
-    "err.format_invalid": "[get_geoip error] format must be 'text' or 'json'",
-    "err.local_db_unavailable": "[get_geoip error] Local DB not configured. Set UAGENT_GEOIP_DB_PATH to a .mmdb file and install maxminddb to look up arbitrary IP addresses offline."
-  },
   "ja": {
     "param.format.description": "出力形式。",
     "param.ip.description": "ルックアップ対象のIPアドレス（任意）。省略時は現在の公開IPを使用（APIモードのみ）。",

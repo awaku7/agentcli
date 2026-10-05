@@ -1,30 +1,4 @@
 {
-  "en": {
-    "error.git_not_found": "[git_ops error] git command not found. Please ensure Git is installed.",
-    "error.invalid_command": "[git_ops error] unsupported or invalid command: {command}",
-    "error.meta_char": "Dangerous metacharacter is not allowed in args: {arg}",
-    "error.option_danger_requires_allow_danger": "Dangerous option requires allow_danger=true: {opt}",
-    "error.option_denied": "Disallowed option is present: {opt}",
-    "error.option_not_allowed": "Unallowed option is present: {opt}",
-    "error.timeout": "[git_ops error] command timed out.",
-    "error.unexpected": "[git_ops error] unexpected error: {error}",
-    "param.args.description": "List of arguments passed to the Git command.",
-    "param.command.description": "Git subcommand (restricted).",
-    "x_search_terms": [
-      "git",
-      "git operations",
-      "git command",
-      "version control",
-      "git repo",
-      "source control",
-      "git commit",
-      "git push",
-      "git pull",
-      "vcs"
-    ],
-    "param.allow_danger.description": "Whether to allow dangerous operations (default false). Example: push --force, reset --hard.",
-    "tool.description": "Run Git commands with safety-first restrictions. Some operations or special characters in arguments may be restricted for security."
-  },
   "ja": {
     "error.git_not_found": "[git_ops エラー] git コマンドが見つかりません。 Git がインストールされていることを確認してください。",
     "error.invalid_command": "[git_ops エラー] サポートされていない、または無効なコマンド: {command}",

@@ -1,37 +1,4 @@
 {
-  "en": {
-    "tool.description": "Generates a new image from a text prompt, saves it as a PNG, and returns the file path. For modifying a previously generated image, use img2img instead. Opening is handled by the caller (CLI/GUI/Web).",
-    "x_search_terms": [
-      "generate image",
-      "image creation",
-      "image gen",
-      "text to image",
-      "ai image",
-      "image generate",
-      "create image",
-      "image generator",
-      "image ai",
-      "text2image"
-    ],
-    "param.prompt.description": "Instructions (prompt) for the image you want to generate.",
-    "param.size.description": "Image size.",
-    "param.n.description": "Image count.",
-    "param.output_dir.description": "Directory to save images (relative or absolute). Defaults to outputs/image_generations if omitted.",
-    "err.httpx_unavailable": "httpx is not available",
-    "err.empty_data": "Image data was empty (resp.data is empty or b64_json/url is missing)",
-    "err.prompt_empty": "[generate_image] prompt is empty",
-    "err.no_saved": "[generate_image] Image data was empty",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.moderation.description": "Image moderation mode (optional).",
-    "param.quality.description": "Image quality.",
-    "param.background.description": "Image background.",
-    "err.depname_missing": "[generate_image] Image model (deployment name) is not set.\nPlease set the environment variable UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Include base64 image data for remote clients.",
-    "param.output_format.description": "Output image format: png, jpeg, or webp.",
-    "param.output_compression.description": "Output compression level (0-100). Only valid for jpeg/webp.",
-    "param.stream.description": "Request streaming image generation when supported by the model.",
-    "param.partial_images.description": "Number of partial images for streaming."
-  },
   "ja": {
     "tool.description": "テキストプロンプトから新しい画像を生成し、PNGとして保存してファイルパスを返します。既存画像の変更にはimg2imgを使用してください。開く処理は呼び出し元が行います。",
     "x_search_terms": [

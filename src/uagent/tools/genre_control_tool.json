@@ -43,17 +43,6 @@
       "Registrierung"
     ]
   },
-  "en": {
-    "tool.description": "Dummy tool for genre control registration.",
-    "x_search_terms": [
-      "genre control",
-      "genre_control",
-      "genre",
-      "GENRE",
-      "dummy",
-      "registration"
-    ]
-  },
   "es": {
     "tool.description": "Herramienta ficticia para el registro de control de género.",
     "x_search_terms": [
