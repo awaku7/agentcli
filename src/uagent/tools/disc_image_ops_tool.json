@@ -18,7 +18,18 @@
     "param.path_type.description": "ISO filename namespace to use. auto prefers UDF, Rock Ridge, then Joliet.",
     "param.deep.description": "For ISO verify, read every file byte. CHD verify always uses xverter integrity verification.",
     "param.overwrite.description": "Allow replacing existing output files or extracting into a non-empty directory.",
-    "param.timeout_seconds.description": "Maximum time for CHD info/verify/convert operations."
+    "param.timeout_seconds.description": "Maximum time for CHD info/verify/convert operations.",
+    "confirm.extract_overwrite": "disc_image_ops may overwrite files under: %(path)s",
+    "confirm.file_overwrite": "disc_image_ops may overwrite: %(path)s",
+    "err.backend_failed": "The disc image backend operation failed.",
+    "err.timeout": "Disc image operation timed out after %(seconds)s seconds.",
+    "err.permission": "The disc image operation was not permitted.",
+    "err.output_exists": "The output already exists.",
+    "err.output_type": "A file output was required, but a directory was specified.",
+    "err.not_found": "A required input file or dependency was not found.",
+    "err.invalid": "A disc image option, path, or format is invalid.",
+    "err.dependency": "A required disc image dependency is unavailable.",
+    "err.operation_failed": "The disc image operation failed."
   },
   "ja": {
     "tool.description": "ISO/CHD ディスクイメージの情報取得、一覧、検証、展開、変換を行います。ISO は pycdlib、CHD は xverter を使用し、未導入の Python 依存は UAGENT_AUTO_INSTALL ポリシーに従って自動インストールします。",
@@ -39,6 +50,17 @@
     "param.path_type.description": "ISO のファイル名名前空間。auto は UDF、Rock Ridge、Joliet の順に優先します。",
     "param.deep.description": "ISO の verify では全ファイル内容まで読み取ります。CHD verify は常に xverter の整合性検証を使用します。",
     "param.overwrite.description": "既存出力の置換、または空でないディレクトリへの展開を許可します。",
-    "param.timeout_seconds.description": "CHD の情報取得・検証・変換に許可する最大実行時間。"
+    "param.timeout_seconds.description": "CHD の情報取得・検証・変換に許可する最大実行時間。",
+    "confirm.extract_overwrite": "disc_image_ops は次の場所にあるファイルを上書きする可能性があります: %(path)s",
+    "confirm.file_overwrite": "disc_image_ops は次のファイルを上書きする可能性があります: %(path)s",
+    "err.backend_failed": "ディスクイメージのバックエンド処理に失敗しました。",
+    "err.timeout": "ディスクイメージ処理は %(seconds)s 秒後にタイムアウトしました。",
+    "err.permission": "ディスクイメージ処理は許可されませんでした。",
+    "err.output_exists": "出力先はすでに存在します。",
+    "err.output_type": "ファイル出力が必要ですが、ディレクトリが指定されました。",
+    "err.not_found": "必要な入力ファイルまたは依存関係が見つかりません。",
+    "err.invalid": "ディスクイメージのオプション、パス、または形式が無効です。",
+    "err.dependency": "必要なディスクイメージ依存関係を利用できません。",
+    "err.operation_failed": "ディスクイメージ処理に失敗しました。"
   }
 }
