@@ -3,9 +3,9 @@
     "tool.description": "أعِد البيانات الوصفية لعنصر Artifact مملوك للجلسة ومحفوظ مسبقًا، دون قراءة حمولته.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "بيانات الأثر الوصفية",
+      "نوع الأثر",
+      "حجم الأثر"
     ],
     "param.artifact_id.description": "معرّف الأثر أو مرجع artifact:// من نتيجة أداة سابقة.",
     "error.invalid_artifact_id": "يجب أن يكون artifact_id معرّف ملف صالحًا أو مرجع artifact://",
@@ -15,9 +15,9 @@
     "tool.description": "আগে সংরক্ষিত সেশন-মালিকানাধীন Artifact-এর পেলোড না পড়ে তার মেটাডেটা ফেরত দিন।",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "আর্টিফ্যাক্ট মেটাডেটা",
+      "আর্টিফ্যাক্টের ধরন",
+      "আর্টিফ্যাক্টের আকার"
     ],
     "param.artifact_id.description": "আর্টিফ্যাক্ট আইডি বা পূর্ববর্তী টুল ফলাফলের artifact:// রেফারেন্স।",
     "error.invalid_artifact_id": "artifact_id অবশ্যই একটি বৈধ আর্টিফ্যাক্ট আইডি বা artifact:// রেফারেন্স হতে হবে",
@@ -27,9 +27,9 @@
     "tool.description": "Vrátí metadata dříve uloženého artefaktu vlastněného relací, aniž by četl jeho datový obsah.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadata artefaktu",
+      "typ artefaktu",
+      "velikost artefaktu"
     ],
     "param.artifact_id.description": "ID artefaktu nebo odkaz artifact:// z dřívějších výsledků nástroje.",
     "error.invalid_artifact_id": "artifact_id musí být platné ID artefaktu nebo odkaz artifact://",
@@ -39,9 +39,9 @@
     "tool.description": "Returnér metadata for et tidligere gemt sessions-ejet artifact uden at læse dets payload.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefaktmetadata",
+      "artefakttype",
+      "artefaktstørrelse"
     ],
     "param.artifact_id.description": "Artefakt-ID eller artifact://-reference fra et tidligere værktøjsresultat.",
     "error.invalid_artifact_id": "artifact_id skal være et gyldigt artefakt-ID eller en artifact://-reference",
@@ -51,9 +51,9 @@
     "tool.description": "Gibt Metadaten für ein zuvor gespeichertes, sitzungseigenes Artefakt zurück, ohne dessen Nutzdaten zu lesen.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "Artefaktmetadaten",
+      "Artefakttyp",
+      "Artefaktgröße"
     ],
     "param.artifact_id.description": "Artefakt-ID oder „artifact://“-Referenz aus einem früheren Tool-Ergebnis.",
     "error.invalid_artifact_id": "artifact_id muss eine gültige Artefakt-ID oder eine artifact://-Referenz sein",
@@ -63,9 +63,9 @@
     "tool.description": "Επιστρέφει μεταδεδομένα για ένα προηγουμένως αποθηκευμένο artifact που ανήκει στη συνεδρία, χωρίς να διαβάζει το ωφέλιμο φορτίο του.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "μεταδεδομένα τεχνουργήματος",
+      "τύπος τεχνουργήματος",
+      "μέγεθος τεχνουργήματος"
     ],
     "param.artifact_id.description": "Αναγνωριστικό αρχείου ή αναφορά artifact:// από προηγούμενο αποτέλεσμα εργαλείου.",
     "error.invalid_artifact_id": "Το artifact_id πρέπει να είναι έγκυρο αναγνωριστικό αντικειμένου ή αναφορά artifact://",
@@ -87,9 +87,9 @@
     "tool.description": "Devuelve los metadatos de un artifact previamente almacenado y propiedad de la sesión sin leer su contenido.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadatos del artefacto",
+      "tipo de artefacto",
+      "tamaño del artefacto"
     ],
     "param.artifact_id.description": "ID del artefacto o referencia artifact:// de un resultado de herramienta anterior.",
     "error.invalid_artifact_id": "artifact_id debe ser un identificador de artefacto válido o una referencia artifact://",
@@ -99,9 +99,9 @@
     "tool.description": "فرادادهٔ یک Artifact متعلق به نشست که قبلاً ذخیره شده است را بدون خواندن محتوای آن برمی‌گرداند.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "فراداده آرتیفکت",
+      "نوع آرتیفکت",
+      "اندازه آرتیفکت"
     ],
     "param.artifact_id.description": "شناسه آرتفکت یا مرجع artifact:// از یک نتیجه ابزار قبلی.",
     "error.invalid_artifact_id": "artifact_id باید یک شناسه آرتفکت معتبر یا مرجع artifact:// باشد.",
@@ -111,9 +111,9 @@
     "tool.description": "Palauttaa aiemmin tallennetun, istunnon omistaman artifactin metatiedot lukematta sen hyötykuormaa.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefaktin metatiedot",
+      "artefaktin tyyppi",
+      "artefaktin koko"
     ],
     "param.artifact_id.description": "Artefaktin tunniste tai artifact://-viite aiemmasta työkalun tuloksesta.",
     "error.invalid_artifact_id": "artifact_id:n on oltava kelvollinen artefaktin tunniste tai artifact://-viite",
@@ -123,9 +123,9 @@
     "tool.description": "Ibalik ang metadata ng dati nang nakaimbak na Artifact na pag-aari ng session nang hindi binabasa ang payload nito.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadata ng artifact",
+      "uri ng artifact",
+      "laki ng artifact"
     ],
     "param.artifact_id.description": "Artifact ID o sangguniang artifact:// mula sa naunang resulta ng tool.",
     "error.invalid_artifact_id": "Ang artifact_id ay dapat isang wastong artifact ID o artifact:// reference",
@@ -135,9 +135,9 @@
     "tool.description": "Renvoie les métadonnées d’un artifact précédemment stocké et appartenant à la session, sans lire sa charge utile.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "métadonnées de l’artefact",
+      "type d’artefact",
+      "taille de l’artefact"
     ],
     "param.artifact_id.description": "Identifiant de l'artefact ou référence « artifact:// » provenant d'un résultat d'outil antérieur.",
     "error.invalid_artifact_id": "artifact_id doit être un identifiant d'artefact valide ou une référence artifact://",
@@ -147,9 +147,9 @@
     "tool.description": "מחזיר מטא-נתונים של Artifact שנשמר בעבר ושייך להפעלה, בלי לקרוא את המטען שלו.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "מטא-נתוני ארטיפקט",
+      "סוג ארטיפקט",
+      "גודל ארטיפקט"
     ],
     "param.artifact_id.description": "מזהה ארטפקט או הפניה מסוג artifact:// מתוצאת כלי קודמת.",
     "error.invalid_artifact_id": "artifact_id חייב להיות מזהה ארטפקט תקף או הפניה artifact://",
@@ -159,9 +159,9 @@
     "tool.description": "पहले से संग्रहीत, सत्र-स्वामित्व वाले Artifact का मेटाडेटा उसके पेलोड को पढ़े बिना लौटाएँ।",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "आर्टिफैक्ट मेटाडेटा",
+      "आर्टिफैक्ट प्रकार",
+      "आर्टिफैक्ट आकार"
     ],
     "param.artifact_id.description": "आर्टिफैक्ट आईडी या किसी पिछले टूल परिणाम से artifact:// संदर्भ।",
     "error.invalid_artifact_id": "artifact_id एक मान्य artifact ID या artifact:// संदर्भ होना चाहिए",
@@ -171,9 +171,9 @@
     "tool.description": "Visszaadja egy korábban eltárolt, munkamenet-tulajdonú artifact metaadatait a payload beolvasása nélkül.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefaktum metaadatai",
+      "artefaktum típusa",
+      "artefaktum mérete"
     ],
     "param.artifact_id.description": "Artefaktum-azonosító vagy artifact:// hivatkozás egy korábbi eszköz-eredményből.",
     "error.invalid_artifact_id": "az artifact_id-nek érvényes artefakt-azonosítónak vagy artifact:// hivatkozásnak kell lennie",
@@ -183,9 +183,9 @@
     "tool.description": "Mengembalikan metadata Artifact milik sesi yang sebelumnya disimpan tanpa membaca payload-nya.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadata artefak",
+      "jenis artefak",
+      "ukuran artefak"
     ],
     "param.artifact_id.description": "ID artefak atau referensi artifact:// dari hasil alat sebelumnya.",
     "error.invalid_artifact_id": "artifact_id harus berupa ID artefak yang valid atau referensi artifact://",
@@ -195,9 +195,9 @@
     "tool.description": "Restituisce i metadati di un artifact appartenente alla sessione e salvato in precedenza, senza leggerne il payload.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadati artefatto",
+      "tipo di artefatto",
+      "dimensione artefatto"
     ],
     "param.artifact_id.description": "ID dell'artefatto o riferimento artifact:// proveniente da un risultato di uno strumento precedente.",
     "error.invalid_artifact_id": "artifact_id deve essere un ID artefatto valido o un riferimento artifact://",
@@ -219,9 +219,9 @@
     "tool.description": "이전에 저장된 세션 소유 Artifact의 페이로드를 읽지 않고 메타데이터를 반환합니다.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "아티팩트 메타데이터",
+      "아티팩트 유형",
+      "아티팩트 크기"
     ],
     "param.artifact_id.description": "이전 툴 결과의 아티팩트 ID 또는 artifact:// 참조.",
     "error.invalid_artifact_id": "artifact_id는 유효한 아티팩트 ID 또는 artifact:// 참조여야 합니다.",
@@ -231,9 +231,9 @@
     "tool.description": "Өмнө хадгалсан, сесс эзэмшдэг Artifact-ийн payload-ыг уншихгүйгээр мета өгөгдлийг буцаана.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "артефактын метадата",
+      "артефактын төрөл",
+      "артефактын хэмжээ"
     ],
     "param.artifact_id.description": "Артфактын ID эсвэл өмнөх хэрэгслийн үр дүнгээс авсан artifact:// лавлагаа.",
     "error.invalid_artifact_id": "artifact_id нь хүчин төгөлдөр artifact ID эсвэл artifact:// лавлагаа байх ёстой",
@@ -243,9 +243,9 @@
     "tool.description": "पूर्वी साठवलेल्या, सत्र-मालकीच्या Artifact चे payload न वाचता त्याचे मेटाडेटा परत करा.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "आर्टिफॅक्ट मेटाडेटा",
+      "आर्टिफॅक्ट प्रकार",
+      "आर्टिफॅक्ट आकार"
     ],
     "param.artifact_id.description": "आर्टिफॅक्ट आयडी किंवा पूर्वीच्या टूल परिणामापासूनचा artifact:// संदर्भ.",
     "error.invalid_artifact_id": "artifact_id वैध artifact ID किंवा artifact:// संदर्भ असावा",
@@ -255,9 +255,9 @@
     "tool.description": "Kembalikan metadata Artifact milik sesi yang telah disimpan sebelum ini tanpa membaca payloadnya.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadata artifak",
+      "jenis artifak",
+      "saiz artifak"
     ],
     "param.artifact_id.description": "ID Artifak atau rujukan artifact:// daripada keputusan alat sebelum ini.",
     "error.invalid_artifact_id": "artifact_id mesti merupakan ID artifak yang sah atau rujukan artifact://",
@@ -267,9 +267,9 @@
     "tool.description": "Returnerer metadata for en tidligere lagret Artifact som eies av økten, uten å lese payloaden.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefaktmetadata",
+      "artefakttype",
+      "artefaktstørrelse"
     ],
     "param.artifact_id.description": "Artifact-ID eller artifact://-referanse fra et tidligere verktøyresultat.",
     "error.invalid_artifact_id": "artifact_id må være en gyldig artefakt-ID eller artifact://-referanse",
@@ -279,9 +279,9 @@
     "tool.description": "Retourneert metadata voor een eerder opgeslagen artifact dat eigendom is van de sessie, zonder de payload te lezen.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefactmetadata",
+      "artefacttype",
+      "artefactgrootte"
     ],
     "param.artifact_id.description": "Artefact-ID of artifact://-verwijzing uit een eerder toolresultaat.",
     "error.invalid_artifact_id": "artifact_id moet een geldige artefact-ID of artifact://-referentie zijn",
@@ -291,9 +291,9 @@
     "tool.description": "Returnerer metadata for ein tidlegare lagra Artifact som er eigd av økta, utan å lese payloaden.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefaktmetadata",
+      "artefakttype",
+      "artefaktstorleik"
     ],
     "param.artifact_id.description": "Artefakt-ID eller artifact:// referanse fra et tidligere verktøyresultat.",
     "error.invalid_artifact_id": "artefakt_id må være en gyldig artefakt-ID eller artifact:// reference",
@@ -303,9 +303,9 @@
     "tool.description": "Zwraca metadane wcześniej zapisanego artefaktu należącego do sesji bez odczytywania jego ładunku.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadane artefaktu",
+      "typ artefaktu",
+      "rozmiar artefaktu"
     ],
     "param.artifact_id.description": "Identyfikator artefaktu lub odwołanie typu „artifact://” z wcześniejszych wyników działania narzędzia.",
     "error.invalid_artifact_id": "artifact_id musi być prawidłowym identyfikatorem artefaktu lub odwołaniem typu artifact://",
@@ -315,9 +315,9 @@
     "tool.description": "Devolve os metadados de um artifact pertencente à sessão e guardado anteriormente, sem ler o respetivo payload.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadados do artefacto",
+      "tipo de artefacto",
+      "tamanho do artefacto"
     ],
     "param.artifact_id.description": "ID do artefacto ou referência artifact:// de um resultado de ferramenta anterior.",
     "error.invalid_artifact_id": "artifact_id deve ser um ID de artefacto válido ou uma referência artifact://",
@@ -327,9 +327,9 @@
     "tool.description": "Retorna os metadados de um Artifact pertencente à sessão e armazenado anteriormente, sem ler seu payload.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadados do artefato",
+      "tipo de artefato",
+      "tamanho do artefato"
     ],
     "param.artifact_id.description": "ID do artefato ou referência artifact:// de um resultado de ferramenta anterior.",
     "error.invalid_artifact_id": "artifact_id deve ser um ID de artefato válido ou uma referência artifact://",
@@ -339,9 +339,9 @@
     "tool.description": "Returnează metadatele unui artifact deținut de sesiune și salvat anterior, fără a-i citi conținutul.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadate artefact",
+      "tip artefact",
+      "dimensiune artefact"
     ],
     "param.artifact_id.description": "ID-ul artefactului sau referința artifact:// dintr-un rezultat anterior al unui instrument.",
     "error.invalid_artifact_id": "artifact_id trebuie să fie un ID de artefact valid sau o referință artifact://",
@@ -351,9 +351,9 @@
     "tool.description": "Возвращает метаданные ранее сохранённого артефакта, принадлежащего сеансу, не считывая его содержимое.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "метаданные артефакта",
+      "тип артефакта",
+      "размер артефакта"
     ],
     "param.artifact_id.description": "Идентификатор артефакта или ссылка artifact:// из предыдущего результата работы инструмента.",
     "error.invalid_artifact_id": "artifact_id должен быть действительным идентификатором артефакта или ссылкой artifact://",
@@ -363,9 +363,9 @@
     "tool.description": "Returnerar metadata för ett tidigare sparat, sessionsägt artifact utan att läsa dess payload.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artefaktmetadata",
+      "artefakttyp",
+      "artefaktstorlek"
     ],
     "param.artifact_id.description": "Artefakt-ID eller artifact://-referens från ett tidigare verktygsresultat.",
     "error.invalid_artifact_id": "artifact_id måste vara ett giltigt artefakt-ID eller en artifact://-referens",
@@ -375,9 +375,9 @@
     "tool.description": "Rudisha metadata ya Artifact inayomilikiwa na kipindi na iliyohifadhiwa awali bila kusoma payload yake.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "metadata ya artifact",
+      "aina ya artifact",
+      "ukubwa wa artifact"
     ],
     "param.artifact_id.description": "ID ya Artifact au rejeleo la artifact:// kutoka kwa matokeo ya zana ya awali.",
     "error.invalid_artifact_id": "artifact_id lazima iwe ID halali ya artifact au rejeleo la artifact://",
@@ -387,9 +387,9 @@
     "tool.description": "ส่งคืนเมทาดาทาของ Artifact ที่เป็นของเซสชันและบันทึกไว้ก่อนหน้านี้ โดยไม่อ่าน payload",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "เมทาดาทาอาร์ติแฟกต์",
+      "ประเภทอาร์ติแฟกต์",
+      "ขนาดอาร์ติแฟกต์"
     ],
     "param.artifact_id.description": "ID ของอาร์ติแฟกต์ หรือการอ้างอิง artifact:// จากผลลัพธ์เครื่องมือก่อนหน้านี้",
     "error.invalid_artifact_id": "artifact_id ต้องเป็น ID ของอาร์ติแฟกต์ที่ถูกต้อง หรือการอ้างอิง artifact://",
@@ -399,9 +399,9 @@
     "tool.description": "Daha önce kaydedilmiş, oturuma ait bir Artifact'ın yükünü okumadan meta verilerini döndürür.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "artifakt meta verisi",
+      "artifakt türü",
+      "artifakt boyutu"
     ],
     "param.artifact_id.description": "Bir önceki araç sonucuna ait artefakt kimliği veya artifact:// referansı.",
     "error.invalid_artifact_id": "artifact_id, geçerli bir artefakt kimliği veya artifact:// referansı olmalıdır",
@@ -411,9 +411,9 @@
     "tool.description": "Повертає метадані раніше збереженого артефакту, що належить сеансу, не зчитуючи його вміст.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "метадані артефакту",
+      "тип артефакту",
+      "розмір артефакту"
     ],
     "param.artifact_id.description": "Ідентифікатор артефакту або посилання artifact:// із попереднього результату роботи інструменту.",
     "error.invalid_artifact_id": "artifact_id має бути дійсним ідентифікатором артефакту або посиланням artifact://",
@@ -423,9 +423,9 @@
     "tool.description": "Trả về siêu dữ liệu của Artifact thuộc phiên đã được lưu trước đó mà không đọc payload của nó.",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "siêu dữ liệu artifact",
+      "loại artifact",
+      "kích thước artifact"
     ],
     "param.artifact_id.description": "ID đối tượng hoặc tham chiếu artifact:// từ một kết quả công cụ trước đó.",
     "error.invalid_artifact_id": "artifact_id phải là ID tài liệu hợp lệ hoặc tham chiếu artifact://",
@@ -435,9 +435,9 @@
     "tool.description": "返回先前保存且归当前会话所有的 Artifact 元数据，而不读取其载荷。",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "工件元数据",
+      "工件类型",
+      "工件大小"
     ],
     "param.artifact_id.description": "工件 ID 或来自先前工具结果的 artifact:// 引用。",
     "error.invalid_artifact_id": "artifact_id 必须是有效的工件 ID 或 artifact:// 引用",
@@ -447,9 +447,9 @@
     "tool.description": "傳回先前儲存且屬於目前工作階段的 Artifact 中繼資料，而不讀取其承載內容。",
     "x_search_terms": [
       "artifact_info",
-      "artifact metadata",
-      "artifact type",
-      "artifact size"
+      "工件中繼資料",
+      "工件類型",
+      "工件大小"
     ],
     "param.artifact_id.description": "來自先前工具結果的 artefact ID 或 artifact:// 參考。",
     "error.invalid_artifact_id": "artifact_id 必須是有效的工件 ID 或 artifact:// 參考",
