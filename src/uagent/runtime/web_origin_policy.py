@@ -65,9 +65,12 @@ def _normalize_origin(value: str) -> str:
         raise ValueError("origin must contain only scheme, host, and optional port")
 
     scheme = parsed.scheme.casefold()
-    host = parsed.hostname.casefold()
-    if not host:
+    raw_host = parsed.hostname
+    if not raw_host:
         raise ValueError("origin host is required")
+    if not raw_host.isascii():
+        raise ValueError("non-ASCII origin host is invalid")
+    host = raw_host.casefold()
     if "%" in host:
         raise ValueError("scoped IPv6 origin host is invalid")
     authority = parsed.netloc.rsplit("@", 1)[-1]
@@ -163,8 +166,34 @@ def validate_websocket_origin(
     return normalized
 
 
+def validate_http_mutation_origin(
+    request_context: object,
+    mode: str | None = None,
+) -> str:
+    """Validate browser Origin for a state-changing HTTP request."""
+
+    headers = getattr(request_context, "headers", None)
+    try:
+        origin = str((headers or {}).get("origin") or "")
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise IdentityResolutionError("HTTP Origin is unavailable") from exc
+    selected = resolve_identity_mode(mode)
+    if not origin:
+        if selected == "local":
+            return ""
+        raise IdentityResolutionError("HTTP Origin is required")
+    try:
+        normalized = _normalize_origin(origin)
+    except ValueError as exc:
+        raise IdentityResolutionError("HTTP Origin is invalid") from exc
+    if normalized not in configured_websocket_origins(selected):
+        raise IdentityResolutionError("HTTP Origin is not allowed")
+    return normalized
+
+
 __all__ = [
     "configured_websocket_origins",
+    "validate_http_mutation_origin",
     "validate_websocket_origin",
     "websocket_origin_configuration_revision",
 ]
