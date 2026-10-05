@@ -658,7 +658,7 @@
     ],
     "param.method.description": "HTTP-methode.",
     "param.url.description": "HTTP of HTTPS URL.",
-    "param.query.description": "Querystringparameters.",
+    "param.query.description": "Parameters van de querystring.",
     "param.headers.description": "Extra HTTP headers.",
     "param.body.description": "Verzoek lichaam. Objecten en arrays zijn JSON-gecodeerd; tekenreeksen worden verzonden als tekst.",
     "param.body_text.description": "Onbewerkte verzoektekst. Heeft voorrang op body.",
