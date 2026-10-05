@@ -321,7 +321,7 @@ def test_english_source_follows_delegated_catalog_binding(tmp_path: Path) -> Non
         "_ = make_tool_translator(\n"
         '    Path(__file__).resolve().parent.parent / "sample_tool.py"\n'
         ")\n"
-        '_(\"tool.description\", default=\"Hello\")\n',
+        '_("tool.description", default="Hello")\n',
         encoding="utf-8",
     )
 

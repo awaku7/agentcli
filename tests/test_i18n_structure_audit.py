@@ -297,7 +297,7 @@ def test_audit_follows_delegated_catalog_binding(tmp_path: Path) -> None:
         "_ = make_tool_translator(\n"
         '    Path(__file__).resolve().parent.parent / "sample_tool.py"\n'
         ")\n"
-        '_(\"tool.description\", default=\"Hello\")\n',
+        '_("tool.description", default="Hello")\n',
         encoding="utf-8",
     )
     (tools / "sample_tool.json").write_text(
