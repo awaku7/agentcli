@@ -97,8 +97,11 @@ changes, validate workflow syntax and changed routing behavior; the PR CI runs t
 Python checks. Prompt/skill Markdown and test fixtures are not documentation-only.
 
 - **Python syntax**: `python -m py_compile src/uagent/` (catches import/syntax errors).
-- **Format/lint**: `python -m ruff check src tests` and
-  `python -m black --check src tests`.
+- **Format/lint**: install the pinned toolchain with
+  `pip install -e ".[quality]"`. For Python edits, run
+  `python -m black <changed-python-files>` before committing, then verify with
+  `python -m ruff check src tests` and `python -m black --check src tests`.
+  Do not rely on an unpinned globally installed Black/Ruff version.
 - **Locale compile**: `python scripts/compile_locales.py` (after editing .po files).
 - **Locale QC**: `python scripts/po_qc_summary.py` (check translation quality).
 - **Targeted tests**: `pytest -q tests/<affected_area>`.
