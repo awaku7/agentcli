@@ -140,11 +140,7 @@ def test_status_explicit_langs_still_limit_scope(tmp_path: Path, capsys) -> None
     assert "review_candidates: 1" in output
 
 
-
-
-def test_status_ignores_empty_english_source_values(
-    tmp_path: Path, capsys
-) -> None:
+def test_status_ignores_empty_english_source_values(tmp_path: Path, capsys) -> None:
     tools_dir = tmp_path / "tools"
     catalog: dict[str, object] = {
         "en": {
