@@ -633,7 +633,7 @@
     "param.output_path.description": "مسیر خروجی اختیاری JSON یا Markdown.",
     "param.output_format.description": "قالب خروجی.",
     "param.include_source.description": "منبع VBA استخراج‌شده را برای فایل‌های XLSM شامل کنید.",
-    "param.overwrite.description": "اجازه جایگزینی فایل خروجی موجود. استفاده از .pptx، .xlsx/.xlsm، یا .docx",
+    "param.overwrite.description": "اجازه جایگزینی فایل خروجی موجود.",
     "err.input_path_required": "input_path الزامی است",
     "err.file_not_found": "file پیدا نشد: {path}",
     "err.extension": "ورودی باید فایل .xlsx یا .xlsm باشد.",
