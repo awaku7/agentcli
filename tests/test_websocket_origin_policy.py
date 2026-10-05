@@ -190,6 +190,7 @@ def test_request_origin_rejects_control_characters_before_trimming(monkeypatch):
         "https://_service.example",
         "https://-bad.example",
         "https://bad-.example",
+        "https://[v1.evil.com]",
     ],
 )
 def test_configured_origin_rejects_invalid_hostnames(monkeypatch, origin):
