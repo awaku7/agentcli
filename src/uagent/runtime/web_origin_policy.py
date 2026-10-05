@@ -23,7 +23,10 @@ _DEFAULT_LOCAL_ORIGINS = frozenset(
 
 
 def _normalize_origin(value: str) -> str:
-    text = str(value or "").strip()
+    raw = str(value or "")
+    if any(ord(char) < 0x20 or ord(char) == 0x7F for char in raw):
+        raise ValueError("origin contains control characters")
+    text = raw.strip()
     if not text or text.casefold() == "null":
         raise ValueError("origin is empty or opaque")
     try:
