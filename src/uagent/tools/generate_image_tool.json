@@ -1247,7 +1247,7 @@
     "param.quality.description": "Bildekvalitet.",
     "param.background.description": "Bildebakgrunn.",
     "err.depname_missing": "[generate_image] Bildemodell (distribusjonsnavn) er ikke angitt.\nVennligst still inn miljøvariabelen UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
-    "param.include_base64.description": "Ta med base64-biletdata for fjernklientar.",
+    "param.include_base64.description": "Ta med Base64-biletdata for fjernklientar.",
     "param.output_format.description": "Utgangsbildeformat: png, jpeg eller webp.",
     "param.output_compression.description": "Utgangskomprimeringsnivå (0-100). Kun gyldig for jpeg/webp.",
     "param.stream.description": "Be om strømming av bildegenerering når det støttes av modellen.",
