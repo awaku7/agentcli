@@ -6,6 +6,7 @@ import posixpath
 import shutil
 import subprocess
 import sysconfig
+import uuid
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -293,10 +294,30 @@ def _prepare_extract_dir(path: str, overwrite: bool) -> str:
     return str(target)
 
 
-def _prepare_output_file(path: str, overwrite: bool) -> str:
+def _paths_alias(source: str, output: str) -> bool:
+    src = Path(source).resolve()
+    dst = Path(output).resolve()
+    if src == dst:
+        return True
+    if dst.exists():
+        try:
+            return os.path.samefile(src, dst)
+        except OSError:
+            pass
+    return False
+
+
+def _prepare_output_file(
+    path: str,
+    overwrite: bool,
+    *,
+    source: str = "",
+) -> str:
     output = _safe_output(path)
     target = Path(output)
     target.parent.mkdir(parents=True, exist_ok=True)
+    if source and _paths_alias(source, str(target)):
+        raise ValueError("source and output must refer to different files")
     if target.exists() and target.is_dir():
         raise IsADirectoryError(f"output is a directory: {path}")
     if target.exists():
@@ -306,8 +327,42 @@ def _prepare_output_file(path: str, overwrite: bool) -> str:
             )
         if not _confirm_overwrite(f"disc_image_ops may overwrite: {target}"):
             raise PermissionError("overwrite was not confirmed")
-        target.unlink()
     return str(target)
+
+
+def _temporary_output_path(target: str) -> Path:
+    dest = Path(target)
+    return dest.with_name(
+        f".{dest.stem}.{uuid.uuid4().hex}.tmp{dest.suffix}"
+    )
+
+
+def _run_xverter_convert_atomic(
+    source: str,
+    target: str,
+    timeout_seconds: int,
+) -> dict[str, Any]:
+    temp = _temporary_output_path(target)
+    try:
+        result = _run_xverter(
+            ["convert", source, "-o", str(temp)],
+            timeout_seconds,
+        )
+        if result.get("ok"):
+            if not temp.is_file():
+                result["ok"] = False
+                result["stderr"] = (
+                    str(result.get("stderr", ""))
+                    + "xverter reported success but did not create output"
+                )
+            else:
+                os.replace(str(temp), target)
+        return result
+    finally:
+        try:
+            temp.unlink()
+        except FileNotFoundError:
+            pass
 
 
 def _iso_info(path: str, path_type: str) -> dict[str, Any]:
@@ -525,11 +580,14 @@ def _chd_action(
             target = _prepare_extract_dir(output, overwrite)
             target_arg = target + os.sep
         else:
-            target = _prepare_output_file(output, overwrite)
+            target = _prepare_output_file(output, overwrite, source=path)
             if Path(target).suffix.lower() not in {".iso", ".chd"}:
                 raise ValueError("convert output must end in .iso or .chd")
             target_arg = target
-        result = _run_xverter(["convert", path, "-o", target_arg], timeout_seconds)
+        if action == "convert":
+            result = _run_xverter_convert_atomic(path, target_arg, timeout_seconds)
+        else:
+            result = _run_xverter(["convert", path, "-o", target_arg], timeout_seconds)
         result["output"] = target
     else:
         raise ValueError(f"unsupported CHD action: {action}")
@@ -542,10 +600,10 @@ def _chd_action(
 def _convert_iso_to_chd(
     path: str, output: str, overwrite: bool, timeout_seconds: int
 ) -> dict[str, Any]:
-    target = _prepare_output_file(output, overwrite)
+    target = _prepare_output_file(output, overwrite, source=path)
     if Path(target).suffix.lower() != ".chd":
         raise ValueError("ISO convert output must end in .chd")
-    result = _run_xverter(["convert", path, "-o", target], timeout_seconds)
+    result = _run_xverter_convert_atomic(path, target, timeout_seconds)
     result.update(
         {"format": "iso", "path": path, "action": "convert", "output": target}
     )
