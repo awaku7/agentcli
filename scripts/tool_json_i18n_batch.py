@@ -694,9 +694,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         )
         missing_ids = {(u.source_path, u.lang, u.key) for u in missing_units}
         same_as_en_units = [
-            u
-            for u in review_units
-            if (u.source_path, u.lang, u.key) not in missing_ids
+            u for u in review_units if (u.source_path, u.lang, u.key) not in missing_ids
         ]
 
     review_units = missing_units + same_as_en_units
