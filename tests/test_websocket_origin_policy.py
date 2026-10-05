@@ -101,14 +101,45 @@ def test_configured_origin_rejects_control_characters(monkeypatch, origin):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setattr(
         web_origin_policy,
-        "env_get",
-        lambda name, default="": (
-            origin if name == "UAGENT_WEB_ALLOWED_ORIGINS" else default
-        ),
+        "_raw_allowed_origins_setting",
+        lambda: origin,
     )
 
     with pytest.raises(IdentityConfigurationError, match="invalid origin"):
         configured_websocket_origins()
+
+
+@pytest.mark.parametrize(
+    "origin",
+    [
+        "\thttps://uag.example",
+        "https://uag.example\t",
+        "\rhttps://uag.example",
+        "https://uag.example\n",
+        "https://a.example,\thttps://b.example",
+        "https://a.example,https://b.example\r",
+    ],
+)
+def test_configured_origin_rejects_controls_before_segment_trimming(
+    monkeypatch, origin
+):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setattr(
+        web_origin_policy,
+        "_raw_allowed_origins_setting",
+        lambda: origin,
+    )
+
+    with pytest.raises(IdentityConfigurationError, match="invalid origin"):
+        configured_websocket_origins()
+
+
+def test_request_origin_rejects_control_characters_before_trimming(monkeypatch):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+
+    with pytest.raises(IdentityResolutionError, match="invalid"):
+        validate_websocket_origin(_Request("\thttp://localhost:8000"))
 
 
 @pytest.mark.parametrize(
