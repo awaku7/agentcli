@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 
 from fastapi.testclient import TestClient
@@ -153,6 +154,35 @@ def test_http_mutations_require_allowed_origin_outside_local(monkeypatch):
         headers={"Origin": "https://uag.corp.example"},
     )
     assert allowed.status_code == 200
+    assert routes_api.core.tools_enabled is False
+
+
+def test_token_mode_mutation_allows_bearer_without_origin(monkeypatch):
+    credential = "service-token"
+    namespace = "services"
+    subject = "automation"
+    digest = hashlib.sha256(credential.encode()).hexdigest()
+    principal = "token:" + hashlib.sha256(
+        (namespace + "\0" + subject).encode()
+    ).hexdigest()
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "token")
+    monkeypatch.setenv("UAGENT_TOKEN_NAMESPACE", namespace)
+    monkeypatch.setenv(
+        "UAGENT_TOKEN_IDENTITIES",
+        json.dumps([{"token_sha256": digest, "subject": subject}]),
+    )
+    monkeypatch.setenv("UAGENT_ADMIN_PRINCIPALS", principal)
+    monkeypatch.delenv("UAGENT_WEB_ALLOWED_ORIGINS", raising=False)
+    monkeypatch.setattr(routes_api.core, "tools_enabled", True, raising=False)
+    client = TestClient(app)
+
+    response = client.post(
+        "/api/tools-enabled",
+        json={"enabled": False},
+        headers={"Authorization": f"Bearer {credential}"},
+    )
+
+    assert response.status_code == 200
     assert routes_api.core.tools_enabled is False
 
 
