@@ -1,27 +1,4 @@
 {
-  "en": {
-    "param.action.description": "Operation.",
-    "param.data.description": "JSON data to write.",
-    "param.file_path.description": "Excel path (absolute).",
-    "param.keep_sheets.description": "Sheets to keep.",
-    "param.output_path.description": "Output path.",
-    "tool.description": "Read/write an Excel (. xlsx) file and get sheet names.",
-    "x_search_terms": [
-      "excel",
-      "spreadsheet",
-      "xlsx",
-      "excel operations",
-      "excel file",
-      "excel sheet",
-      "excel cell",
-      "excel read",
-      "excel write",
-      "spreadsheet ops"
-    ],
-    "param.password.description": "Password (prompts if needed).",
-    "prompt.password": "Enter the password for this file:\n{path}",
-    "param.sheet_name.description": "Target sheet name (for read/write). If omitted, read uses the first sheet and write uses 'Sheet1'."
-  },
   "ja": {
     "param.action.description": "実行する操作。",
     "param.data.description": "書き込む JSON データ。",

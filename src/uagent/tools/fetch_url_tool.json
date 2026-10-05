@@ -1,27 +1,4 @@
 {
-  "en": {
-    "param.url.description": "URL to access.",
-    "x_search_terms": [
-      "fetch url",
-      "http get",
-      "download page",
-      "obtener url",
-      "save file",
-      "download file",
-      "html",
-      "scrape"
-    ],
-    "param.extract.description": "Extraction mode. head=return the beginning of the response; text=extract text from HTML; html=extract HTML fragment; json=parse JSON (optionally apply json_pointer); markdown=extract simplified markdown from HTML.",
-    "param.user_agent.description": "Optional User-Agent header value.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.maxb.description": "Maximum bytes to read from the response. Default 10MB when save_as is set.",
-    "param.maxc.description": "Maximum characters to return (applied after decoding/extraction).",
-    "param.ssl.description": "Whether to verify SSL certificates.",
-    "param.ptr.description": "Optional RFC 6901 JSON Pointer (e.g., /items/0/title) used when extract=json.",
-    "param.save_as.description": "If set, saves the raw response (binary) to the specified file path. Overrides extract/selector/ptr/maxc. Returns JSON metadata instead of content.",
-    "param.selector.description": "Optional CSS selector. If provided, the first matched element is extracted for extract=text/html/markdown.",
-    "tool.description": "Access the specified URL via HTTP GET and return the beginning of the response as text. Useful for fetching and inspecting HTML or JSON. When save_as is set, the raw response is saved to a file and metadata is returned instead. For JavaScript-heavy pages that require browser rendering, use browser_playwright instead."
-  },
   "ja": {
     "param.url.description": "アクセスする URL。",
     "x_search_terms": [

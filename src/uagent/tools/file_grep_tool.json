@@ -1,36 +1,4 @@
 {
-  "en": {
-    "param.context_lines.description": "Number of lines of leading and trailing context for each match.",
-    "param.filenames_only.description": "If enabled, return only the list of filenames with matches.",
-    "param.ignore_case.description": "Whether to ignore case (default: true).",
-    "param.path.description": "Root directory or specific file path (default: '.').",
-    "param.page.description": "Page number to retrieve (default: 1).",
-    "param.pattern.description": "Regex pattern to search for.",
-    "tool.description": "Search for a pattern in files and return matching lines with line numbers (like grep -n). Pattern is required.",
-    "x_search_terms": [
-      "file grep",
-      "search text",
-      "grep",
-      "find text",
-      "text search",
-      "search in file",
-      "file search",
-      "pattern search",
-      "search content",
-      "text find"
-    ],
-    "param.limit.description": "Maximum number of match lines to return (default: 100).",
-    "param.recur.description": "Whether to search subdirectories recursively.",
-    "param.root_path.description": "Alias (compat).",
-    "param.literal.description": "If true, treat pattern as a literal string instead of regex.",
-    "param.maxhits.description": "Maximum number of matches to return per file (default: 100).",
-    "param.exclude_dirs.description": "Directory names to exclude from recursive walking.",
-    "param.exclude_globs.description": "Filename glob patterns to exclude.",
-    "param.binary_skip.description": "Skip files that look like binary files.",
-    "err.pattern_required": "Error: pattern is required.",
-    "err.regex_compile": "[file_grep error] Failed to compile regex: {error}",
-    "param.glob.description": "Filename glob pattern (e.g., '*.py', 'test_*'). If omitted, all files are considered."
-  },
   "ja": {
     "param.context_lines.description": "各一致箇所の前後の文脈行数です。",
     "param.filenames_only.description": "有効にすると、一致したファイル名の一覧のみを返します。",

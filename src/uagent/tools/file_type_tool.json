@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Identify one or more files by inspecting their contents with libmagic (python-magic or Windows python-magic-bin), magic bytes, and filename heuristics. Returns the detected MIME type, format description, extension-based MIME guess, encoding, and file size. Read-only.",
-    "x_search_terms": [
-      "file type",
-      "detect type",
-      "mime type",
-      "file extension",
-      "file kind",
-      "type detect",
-      "magic bytes",
-      "file format",
-      "file category",
-      "identify file"
-    ],
-    "param.paths.description": "One or more file paths to identify.",
-    "err.no_paths": "No paths provided.",
-    "err.outside_workdir": "path outside workdir",
-    "err.not_found": "file not found"
-  },
   "ja": {
     "tool.description": "libmagic（python-magic、Windowsではpython-magic-bin）、マジックバイト、ファイル名のヒューリスティックを使って、1つ以上のファイルを内容から判定します。検出したMIMEタイプ、形式の説明、拡張子からのMIME推測、エンコーディング、ファイルサイズを返します。読み取り専用です。",
     "x_search_terms": [
