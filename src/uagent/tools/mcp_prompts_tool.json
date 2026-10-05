@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "List MCP prompts or get a prompt from an MCP server.",
-    "param.action.description": "Use list to enumerate prompts or get to retrieve one.",
-    "param.name.description": "Prompt name required when action=get.",
-    "param.arguments.description": "Optional prompt arguments for action=get.",
-    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
-    "param.server_name.description": "Configured MCP server name.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
-    "err.action": "Error: action must be list or get.",
-    "err.name_required": "Error: name is required for get.",
-    "err.arguments_object": "Error: arguments must be an object.",
-    "err.endpoint_required": "Error: MCP endpoint is required.",
-    "err.request": "Error: MCP prompt request failed: %(error)s",
-    "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
-    ]
-  },
   "ja": {
     "tool.description": "MCPサーバーのプロンプト一覧を取得、またはプロンプトを取得します。",
     "param.action.description": "listで一覧、getでプロンプトを取得します。",

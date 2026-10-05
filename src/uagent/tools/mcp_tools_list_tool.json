@@ -1,23 +1,4 @@
 {
-  "en": {
-    "param.pretty.description": "Whether to pretty-print JSON output.",
-    "param.server_name.description": "Server name from the config file.",
-    "tool.description": "Connect to an MCP server and list available tools. Supports HTTP and stdio transports.",
-    "x_search_terms": [
-      "mcp",
-      "mcp tools",
-      "tool list",
-      "mcp server",
-      "available tools",
-      "mcp capabilities",
-      "server tools",
-      "tool catalog",
-      "mcp functions",
-      "mcp endpoints"
-    ],
-    "param.url.description": "MCP server endpoint URL. If omitted, a configured server may be used.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless."
-  },
   "ja": {
     "param.pretty.description": "JSON 出力を整形するかどうか。",
     "param.server_name.description": "設定ファイル内のサーバー名。",

@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "List MCP resources or read one resource from an MCP server.",
-    "param.action.description": "Use list to enumerate resources or read to fetch a URI.",
-    "param.uri.description": "Resource URI required when action=read.",
-    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
-    "param.server_name.description": "Configured MCP server name.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
-    "err.action": "Error: action must be list or read.",
-    "err.uri_required": "Error: uri is required for read.",
-    "err.endpoint_required": "Error: MCP endpoint is required.",
-    "err.request": "Error: MCP resource request failed: %(error)s",
-    "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
-    ]
-  },
   "ja": {
     "tool.description": "MCPサーバーのリソース一覧を取得、またはリソースを読み取ります。",
     "param.action.description": "listで一覧、readでURIの内容を取得します。",

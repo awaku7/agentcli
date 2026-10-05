@@ -1,35 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "read markdown file",
-      "markdown table of contents",
-      "markdown index",
-      "markdown section",
-      "large document reader",
-      "md2idx",
-      "markdown parser",
-      "heading splitter",
-      "document navigation",
-      "section extractor"
-    ],
-    "param.path.description": "Path to the Markdown file.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.read_error": "Error reading file: {e}",
-    "err.parse_error": "Error parsing Markdown: {e}",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Section {section_num} not found. Valid range: 0..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
-    "msg.index_output": "Table of contents for: {path}\n(0 = preamble before first heading, 1..{last} = heading sections)\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call md2idx with mode='section' and the section number.",
-    "param.mode.description": "\"index\" returns a numbered table of contents. \"section\" returns a specific section by number.",
-    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
-    "tool.description": "Split a Markdown file into heading-level sections and return a numbered index or a specific section. Use this when you need to read a large Markdown document: first call with mode='index' to get the table of contents, then call with mode='section' and the section number to retrieve only the content you need. This saves tokens compared to reading the entire file.",
-    "meta.document_type": "Document type: {value}",
-    "meta.frontmatter": "Front matter: {value}",
-    "meta.skill_validation": "Agent Skills validation: {value}",
-    "meta.skill_details": "Agent Skills details: {value}"
-  },
   "ja": {
     "x_search_terms": [
       "markdown ファイルを読む",

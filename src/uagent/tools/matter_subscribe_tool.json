@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "Subscribe to state changes of a Matter device.",
-    "err.device_id_required": "Device ID is required.",
-    "param.dev.description": "Device ID (required).",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "param.cluster.description": "Cluster filter (optional).",
-    "param.attribute.description": "Attribute filter (optional).",
-    "param.duration.description": "Subscription duration in seconds (default 3600).",
-    "param.fmt.description": "Format: json or text.",
-    "x_search_terms": [
-      "matter subscribe",
-      "matter_subscribe",
-      "matter",
-      "MATTER",
-      "changes"
-    ]
-  },
   "ar": {
     "tool.description": "اشترك في تغييرات حالة جهاز Matter.",
     "err.device_id_required": "معرف الجهاز مطلوب.",

@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Remove a Matter device subscription.",
-    "err.subscription_id_required": "Subscription ID is required.",
-    "param.subscription_id.description": "Subscription ID to remove.",
-    "param.fmt.description": "Format: json or text.",
-    "err.subscription_not_found": "Subscription not found: {id}",
-    "x_search_terms": [
-      "matter unsubscribe",
-      "matter_unsubscribe",
-      "matter",
-      "MATTER",
-      "remove",
-      "subscription"
-    ]
-  },
   "ar": {
     "tool.description": "قم بإزالة اشتراك جهاز Matter.",
     "err.subscription_id_required": "معرف الاشتراك مطلوب.",
