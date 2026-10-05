@@ -767,7 +767,7 @@
     "param.args.description": "Mga argumento ng tool na ipapasa sa tool na MCP. Magbigay ng alinman sa JSON object (inirerekomenda) o isang JSON string.",
     "err.tool_name_required": "Error: kailangan ang tool_name.",
     "err.stdio_url_invalid": "Error: Di-wastong stdio url",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy (stateful SDK), o stateless HTTP. Gamitin ang stateless para sa mga stateless server; gamitin ang auto o legacy para sa mga Streamable HTTP server na nangangailangan ng session."
+    "param.protocol_mode.description": "Mode ng protocol ng MCP: auto, legacy (SDK na may estado), o stateless HTTP. Gamitin ang stateless para sa mga server na walang estado; gamitin ang auto o legacy para sa mga Streamable HTTP server na nangangailangan ng sesyon."
   },
   "ms": {
     "param.server_name.description": "Nama pelayan ditakrifkan dalam mcp_servers.json. Jika dinyatakan, ia mengambil keutamaan berbanding url.",
