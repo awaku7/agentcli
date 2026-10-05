@@ -279,9 +279,9 @@
     "err.endpoint_required": "Chyba: je vyžadován koncový bod MCP.",
     "err.request": "Chyba: požadavek na prompt MCP selhal: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "MCP prompty",
+      "MCP prompt",
+      "získat MCP prompt"
     ]
   },
   "el": {
@@ -298,9 +298,9 @@
     "err.endpoint_required": "Σφάλμα: απαιτείται τελικό σημείο MCP.",
     "err.request": "Σφάλμα: αποτυχία αιτήματος MCP prompt: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "προτροπές MCP",
+      "προτροπή MCP",
+      "λήψη προτροπής MCP"
     ]
   },
   "fa": {
@@ -317,9 +317,9 @@
     "err.endpoint_required": "خطا: نقطهٔ پایانی MCP الزامی است.",
     "err.request": "خطا: درخواست prompt MCP ناموفق بود: %(error)s",
     "x_search_terms": [
-      "mcp prompts",
-      "mcp prompt",
-      "get mcp prompt"
+      "پرامپت‌های MCP",
+      "پرامپت MCP",
+      "دریافت پرامپت MCP"
     ]
   },
   "fi": {

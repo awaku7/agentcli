@@ -54,6 +54,18 @@ TOOL_SPEC: dict[str, Any] = {
                 "format",
             ],
         ),
+        "x_search_terms_en": [
+            "javascript",
+            "typescript",
+            "lint",
+            "biome",
+            "eslint",
+            "code style",
+            "static analysis",
+            "js lint",
+            "ts lint",
+            "format",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -24,6 +24,11 @@ TOOL_SPEC: dict[str, Any] = {
             "x_search_terms",
             default=["mcp prompts", "mcp prompt", "get mcp prompt"],
         ),
+        "x_search_terms_en": [
+            "mcp prompts",
+            "mcp prompt",
+            "get mcp prompt",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

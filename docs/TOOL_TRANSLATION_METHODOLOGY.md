@@ -104,23 +104,29 @@ search key, subsequent terms are alternative aliases.
 
 ### 2. Python x_search_terms_en
 
-The same terms are duplicated in the Python tool file as a module‑level
-variable `x_search_terms_en`. This allows the `catalog_tool` to search without
-loading and parsing JSON files.
+The same terms are duplicated in each Python tool spec as
+`function["x_search_terms_en"]`. The localized
+`function["x_search_terms"]` value is loaded through i18n, while
+`x_search_terms_en` remains a literal English list. The catalog searches both
+fields.
 
 ```python
-x_search_terms_en = [
-    "bacnet scan",
-    "bacnet_scan",
-    "bacnet",
-    "BACNET",
-    "discover",
-    "bacnet/ip",
-    "devices",
-    "local",
-    "network",
-    "sends",
-]
+TOOL_SPEC = {
+    "type": "function",
+    "function": {
+        "name": "bacnet_scan",
+        "x_search_terms": _(
+            "x_search_terms",
+            default=["bacnet scan", "bacnet", "discover"],
+        ),
+        "x_search_terms_en": [
+            "bacnet scan",
+            "bacnet",
+            "discover",
+        ],
+        # ...
+    },
+}
 ```
 
 ## 3. Translation Pipeline

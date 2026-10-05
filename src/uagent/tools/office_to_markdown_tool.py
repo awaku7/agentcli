@@ -36,6 +36,15 @@ TOOL_SPEC: dict[str, Any] = {
                 "mermaid flowchart",
             ],
         ),
+        "x_search_terms_en": [
+            "office to markdown",
+            "pptx to markdown",
+            "xlsx to markdown",
+            "docx to markdown",
+            "convert office file",
+            "excel formatting",
+            "mermaid flowchart",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

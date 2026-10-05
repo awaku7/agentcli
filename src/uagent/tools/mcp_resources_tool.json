@@ -249,9 +249,9 @@
     "err.endpoint_required": "Chyba: je vyžadován koncový bod MCP.",
     "err.request": "Chyba: požadavek na prostředek MCP selhal: %(error)s",
     "x_search_terms": [
-      "mcp resources",
-      "mcp resource",
-      "read mcp resource"
+      "prostředky MCP",
+      "prostředek MCP",
+      "číst prostředek MCP"
     ]
   },
   "el": {
