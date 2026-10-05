@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import pytest
 
+from uagent.runtime import web_origin_policy
 from uagent.runtime.auth_management import authentication_configuration_fingerprint
 from uagent.runtime.identity_context import (
     IdentityConfigurationError,
@@ -98,7 +99,13 @@ def test_invalid_configured_origin_fails_closed(monkeypatch):
 )
 def test_configured_origin_rejects_control_characters(monkeypatch, origin):
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
-    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", origin)
+    monkeypatch.setattr(
+        web_origin_policy,
+        "env_get",
+        lambda name, default="": (
+            origin if name == "UAGENT_WEB_ALLOWED_ORIGINS" else default
+        ),
+    )
 
     with pytest.raises(IdentityConfigurationError, match="invalid origin"):
         configured_websocket_origins()
