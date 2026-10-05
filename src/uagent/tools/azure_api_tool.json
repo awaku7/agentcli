@@ -79,7 +79,7 @@
     "param.provider": "Azure ressourceudbydernavneområde, for eksempel Microsoft.Compute.",
     "param.resource": "ARM-ressourcesti eller fuld administrations-URL.",
     "param.method": "HTTP metode, for eksempel GET, PUT, POST, PATCH eller DELETE.",
-    "param.api_version": "Azure API version.",
+    "param.api_version": "Azure API-version.",
     "param.parameters": "JSON objekt, der indeholder forespørgselsparametre.",
     "param.body": "Valgfri JSON anmodningstekst.",
     "param.confirm_write": "Påkrævet sand for ikke-GET-operationer."
@@ -521,7 +521,7 @@
     "param.provider": "Azure resursleverantörens namnområde, till exempel Microsoft.Compute.",
     "param.resource": "ARM-resurssökväg eller fullständig hanterings-URL.",
     "param.method": "HTTP metod, till exempel GET, PUT, POST, PATCH eller DELETE.",
-    "param.api_version": "Azure API version.",
+    "param.api_version": "Azure API-version.",
     "param.parameters": "JSON objekt som innehåller frågeparametrar.",
     "param.body": "Valfri JSON begärandetext.",
     "param.confirm_write": "Krävs sant för icke-GET-operationer."
