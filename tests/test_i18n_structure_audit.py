@@ -60,6 +60,60 @@ def test_tool_audit_detects_nested_structure_and_placeholders(tmp_path: Path) ->
     assert "structure_extra" in kinds
 
 
+def test_tool_audit_allows_locale_specific_search_term_counts(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "en": {
+                    "x_search_terms": [
+                        "current location",
+                        "gps coordinates",
+                        "geolocation",
+                    ]
+                },
+                "ja": {"x_search_terms": ["現在地", "位置情報"]},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.locale == "ja"
+        and finding.kind
+        in {"structure_missing", "structure_extra", "value_type_mismatch"}
+        for finding in findings
+    )
+
+
+def test_tool_audit_keeps_other_array_lengths_strict(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "en": {"choices": ["one", "two"]},
+                "ja": {"choices": ["一"]},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.locale == "ja" and finding.kind == "structure_missing"
+        for finding in findings
+    )
+
+
 def test_tool_locale_coverage_is_advisory(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()

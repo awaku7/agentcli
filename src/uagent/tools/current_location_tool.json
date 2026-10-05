@@ -54,15 +54,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "IP位置情報",
-      "場所",
-      "GPS位置情報",
+      "現在地",
+      "位置情報",
+      "現在位置",
       "GPS座標",
-      "GPSデータ",
-      "位置情報サービス",
-      "GPS位置",
-      "座標",
-      "緯度経度"
+      "緯度経度",
+      "測位"
     ]
   },
   "es": {
@@ -87,15 +84,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "ventanas gps",
-      "ubicación",
-      "ubicación gps",
-      "coordenadas gps",
-      "datos gps",
-      "servicio de localización",
-      "posición gps",
-      "coordinar",
-      "latitud longitud"
+      "ubicación actual",
+      "geolocalización",
+      "posición actual",
+      "coordenadas GPS",
+      "latitud longitud",
+      "servicio de ubicación"
     ]
   },
   "fr": {
@@ -107,7 +101,7 @@
     "acc.very_low": "Très faible précision",
     "src.unknown": "Inconnu",
     "src.cellular": "Cellulaire",
-    "src.satellite": "GPS/Satellite",
+    "src.satellite": "GPS ou satellite",
     "src.wifi": "Positionnement Wi-Fi",
     "src.ip": "Géolocalisation IP",
     "src.nmea": "NMEA/GPS",
@@ -120,15 +114,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "emplacement",
-      "localisation GPS",
+      "position actuelle",
+      "géolocalisation",
+      "emplacement actuel",
       "coordonnées GPS",
-      "données GPS",
-      "service de localisation",
-      "position GPS",
-      "coordonner",
-      "latitude longitude"
+      "latitude longitude",
+      "service de localisation"
     ]
   },
   "ko": {
@@ -153,15 +144,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "위치",
-      "GPS 위치",
+      "현재 위치",
+      "지오로케이션",
+      "현재 좌표",
       "GPS 좌표",
-      "GPS 데이터",
-      "위치 서비스",
-      "GPS 위치",
-      "좌표",
       "위도 경도",
-      "gps sensor"
+      "위치 서비스"
     ]
   },
   "de": {
@@ -186,15 +174,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "Standort",
-      "GPS-Standort",
+      "aktueller Standort",
+      "Geolokalisierung",
+      "aktuelle Position",
       "GPS-Koordinaten",
-      "GPS-Daten",
-      "Ortungsdienst",
-      "GPS-Position",
-      "Koordinate",
-      "Breitengrad und Lngengrad",
-      "gps sensor"
+      "Breitengrad Längengrad",
+      "Ortungsdienst"
     ]
   },
   "it": {
@@ -219,15 +204,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "posizione",
-      "posizione gps",
-      "coordinate gps",
-      "dati gps",
-      "servizio di localizzazione",
-      "posizione gps",
-      "coordinare",
+      "posizione attuale",
+      "geolocalizzazione",
+      "ubicazione attuale",
+      "coordinate GPS",
       "latitudine longitudine",
-      "gps sensor"
+      "servizio di localizzazione"
     ]
   },
   "ru": {
@@ -252,15 +234,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "расположение",
-      "местоположение GPS",
-      "GPS-координата",
-      "данные GPS",
-      "служба определения местоположения",
-      "позиция GPS",
-      "координата",
-      "широта долгота"
+      "текущее местоположение",
+      "геолокация",
+      "текущая позиция",
+      "GPS-координаты",
+      "широта долгота",
+      "служба геолокации"
     ]
   },
   "pt": {
@@ -278,22 +257,19 @@
     "src.nmea": "NMEA/GPS",
     "src.obfuscated": "Ofuscado",
     "output.header": "## Localização atual",
-    "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
+    "output.coords": "- **Latitude geográfica**: {lat}\n- **Longitude geográfica**: {lon}",
     "output.accuracy": "- **Precisão**: {acc}",
     "output.source": "- **Fonte**: {src}",
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
       "gps",
       "geoip",
-      "janelas gps",
-      "localizao",
-      "localizao GPS",
+      "localização atual",
+      "geolocalização",
+      "posição atual",
       "coordenadas GPS",
-      "dados GPS",
-      "servio de localizao",
-      "posio GPS",
-      "coordenar",
-      "latitude longitude"
+      "latitude longitude",
+      "serviço de localização"
     ]
   },
   "pt_BR": {
@@ -311,22 +287,19 @@
     "src.nmea": "NMEA/GPS",
     "src.obfuscated": "Ofuscado",
     "output.header": "## Localização atual",
-    "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
+    "output.coords": "- **Latitude geográfica**: {lat}\n- **Longitude geográfica**: {lon}",
     "output.accuracy": "- **Precisão**: {acc}",
     "output.source": "- **Fonte**: {src}",
     "output.timestamp": "- **Carimbo de data/hora**: {ts}",
     "x_search_terms": [
       "gps",
       "geoip",
-      "janelas gps",
-      "localização",
-      "localização GPS",
+      "localização atual",
+      "geolocalização",
+      "posição atual",
       "coordenadas GPS",
-      "dados GPS",
-      "serviço de localização",
-      "posição GPS",
-      "coordenar",
-      "latitude longitude"
+      "latitude longitude",
+      "serviço de localização"
     ]
   },
   "id": {
@@ -351,15 +324,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "jendela gps",
-      "lokasi",
-      "lokasi gps",
-      "koordinat gps",
-      "data gps",
-      "layanan lokasi",
-      "posisi gps",
-      "koordinat",
-      "garis lintang bujur"
+      "lokasi saat ini",
+      "geolokasi",
+      "posisi saat ini",
+      "koordinat GPS",
+      "lintang bujur",
+      "layanan lokasi"
     ]
   },
   "vi": {
@@ -384,15 +354,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "cửa sổ gps",
-      "vị trí",
-      "vị trí gps",
-      "tọa độ gps",
-      "dữ liệu gps",
-      "dịch vụ định vị",
-      "vị trí gps",
-      "phối hợp",
-      "vĩ độ kinh độ"
+      "vị trí hiện tại",
+      "định vị địa lý",
+      "tọa độ hiện tại",
+      "tọa độ GPS",
+      "vĩ độ kinh độ",
+      "dịch vụ vị trí"
     ]
   },
   "pl": {
@@ -417,15 +384,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "lokalizacja",
-      "lokalizacja GPS",
+      "bieżąca lokalizacja",
+      "geolokalizacja",
+      "aktualna pozycja",
       "współrzędne GPS",
-      "dane GPS",
-      "usługa lokalizacyjna",
-      "pozycja GPS",
-      "współrzędna",
-      "szerokość geograficzna",
-      "gps sensor"
+      "szerokość długość geograficzna",
+      "usługa lokalizacji"
     ]
   },
   "hi": {
@@ -448,17 +412,14 @@
     "output.source": "- **स्रोत**: {src}",
     "output.timestamp": "- **टाइमस्टैम्प**: {ts}",
     "x_search_terms": [
-      "जीपीएस",
-      "स्थान",
-      "जीपीएस स्थान",
-      "जीपीएस समन्वय",
-      "जीपीएस डेटा",
-      "स्थान सेवा",
-      "जीपीएस स्थिति",
-      "समन्वय",
+      "GPS",
+      "GeoIP",
+      "वर्तमान स्थान",
+      "भौगोलिक स्थान",
+      "वर्तमान स्थिति",
+      "GPS निर्देशांक",
       "अक्षांश देशांतर",
-      "current location",
-      "gps sensor"
+      "स्थान सेवा"
     ]
   },
   "ar": {
@@ -481,17 +442,14 @@
     "output.source": "- **المصدر**: {src}",
     "output.timestamp": "- **الطابع الزمني**: {ts}",
     "x_search_terms": [
-      "نظام تحديد المواقع",
-      "الموقع",
-      "موقع جي بي اس",
-      "إحداثيات نظام تحديد المواقع",
-      "بيانات نظام تحديد المواقع",
-      "خدمة الموقع",
-      "موقف نظام تحديد المواقع",
-      "تنسيق",
-      "خط الطول",
-      "current location",
-      "gps sensor"
+      "GPS",
+      "GeoIP",
+      "الموقع الحالي",
+      "تحديد الموقع الجغرافي",
+      "الموضع الحالي",
+      "إحداثيات GPS",
+      "خط العرض خط الطول",
+      "خدمة الموقع"
     ]
   },
   "sv": {
@@ -516,15 +474,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "plats",
-      "gps plats",
-      "gps koordinat",
-      "gps data",
-      "platstjänst",
-      "gps position",
-      "koordinera",
-      "latitud longitud"
+      "aktuell plats",
+      "geolokalisering",
+      "aktuell position",
+      "GPS-koordinater",
+      "latitud longitud",
+      "platstjänst"
     ]
   },
   "sw": {
@@ -549,15 +504,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "eneo",
-      "eneo la gps",
-      "gps kuratibu",
-      "data ya gps",
-      "huduma ya eneo",
-      "nafasi ya gps",
-      "kuratibu",
-      "longitudo ya latitudo"
+      "eneo la sasa",
+      "jiolokesheni",
+      "nafasi ya sasa",
+      "viwianishi vya GPS",
+      "latitudo longitudo",
+      "huduma ya eneo"
     ]
   },
   "nb": {
@@ -582,15 +534,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "plassering",
-      "gps plassering",
-      "gps koordinat",
-      "gps data",
-      "plasseringstjeneste",
-      "gps-posisjon",
-      "koordinere",
-      "breddegrad lengdegrad"
+      "nåværende plassering",
+      "geolokalisering",
+      "nåværende posisjon",
+      "GPS-koordinater",
+      "breddegrad lengdegrad",
+      "posisjonstjeneste"
     ]
   },
   "nl": {
@@ -615,15 +564,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "locatie",
-      "gps-locatie",
-      "gps-coördinaat",
-      "gps-gegevens",
-      "locatieservice",
-      "GPS-positie",
-      "coördineren",
+      "huidige locatie",
+      "geolocatie",
+      "huidige positie",
+      "GPS-coördinaten",
       "breedtegraad lengtegraad",
-      "gps sensor"
+      "locatieservice"
     ]
   },
   "fi": {
@@ -648,15 +594,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "sijainti",
-      "gps-sijainti",
-      "gps-koordinaatti",
-      "gps tiedot",
-      "paikannuspalvelu",
-      "gps-sijainti",
-      "koordinaatit",
-      "leveysaste pituusaste"
+      "nykyinen sijainti",
+      "geopaikannus",
+      "nykyinen paikka",
+      "GPS-koordinaatit",
+      "leveysaste pituusaste",
+      "paikannuspalvelu"
     ]
   },
   "cs": {
@@ -681,15 +624,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "umístění",
-      "GPS umístění",
+      "aktuální poloha",
+      "geolokace",
+      "současná pozice",
       "GPS souřadnice",
-      "gps data",
-      "lokalizační služba",
-      "pozice GPS",
-      "souřadnice",
-      "zeměpisná šířka zeměpisná délka"
+      "zeměpisná šířka délka",
+      "lokalizační služba"
     ]
   },
   "uk": {
@@ -714,15 +654,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "розташування",
-      "розташування GPS",
-      "gps координати",
-      "дані gps",
-      "служба локації",
-      "GPS положення",
-      "координувати",
-      "широта довгота"
+      "поточне місцезнаходження",
+      "геолокація",
+      "поточна позиція",
+      "GPS-координати",
+      "широта довгота",
+      "служба геолокації"
     ]
   },
   "tr": {
@@ -747,15 +684,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "konum",
-      "gps konumu",
-      "gps koordinatı",
-      "gps verileri",
-      "konum hizmeti",
-      "gps konumu",
-      "koordinat",
-      "enlem boylam"
+      "mevcut konum",
+      "coğrafi konum",
+      "geçerli pozisyon",
+      "GPS koordinatları",
+      "enlem boylam",
+      "konum hizmeti"
     ]
   },
   "th": {
@@ -780,15 +714,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "วินโดวส์ จีพีเอส",
-      "ที่ตั้ง",
-      "ตำแหน่ง GPS",
+      "ตำแหน่งปัจจุบัน",
+      "พิกัดภูมิศาสตร์",
+      "ตำแหน่งขณะนี้",
       "พิกัด GPS",
-      "ข้อมูลจีพีเอส",
-      "บริการระบุตำแหน่ง",
-      "ตำแหน่ง GPS",
-      "ประสานงาน",
-      "ละติจูด ลองจิจูด"
+      "ละติจูด ลองจิจูด",
+      "บริการระบุตำแหน่ง"
     ]
   },
   "zh_CN": {
@@ -813,15 +744,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "视窗全球定位系统",
-      "地点",
-      "GPS定位",
+      "当前位置",
+      "地理定位",
+      "当前坐标",
       "GPS坐标",
-      "GPS 数据",
-      "定位服务",
-      "GPS 位置",
-      "坐标",
-      "纬度 经度"
+      "纬度 经度",
+      "定位服务"
     ]
   },
   "zh_TW": {
@@ -844,17 +772,14 @@
     "output.source": "- **來源**：{src}",
     "output.timestamp": "- **時間戳**：{ts}",
     "x_search_terms": [
-      "全球定位系統",
-      "視窗全球定位系統",
-      "地點",
-      "GPS定位",
+      "gps",
+      "geoip",
+      "目前位置",
+      "地理定位",
+      "目前座標",
       "GPS座標",
-      "GPS 資料",
-      "定位服務",
-      "GPS 位置",
-      "座標",
       "緯度 經度",
-      "gps sensor"
+      "定位服務"
     ]
   },
   "bn": {
@@ -877,17 +802,14 @@
     "output.source": "- **সূত্র**: {src}",
     "output.timestamp": "- **টাইমস্ট্যাম্প**: {ts}",
     "x_search_terms": [
-      "gps",
-      "geoip",
-      "উইন্ডোজ জিপিএস",
-      "অবস্থান",
-      "জিপিএস অবস্থান",
-      "জিপিএস স্থানাঙ্ক",
-      "জিপিএস ডেটা",
-      "অবস্থান পরিষেবা",
-      "জিপিএস অবস্থান",
-      "সমন্বয়",
-      "অক্ষাংশ দ্রাঘিমাংশ"
+      "GPS",
+      "GeoIP",
+      "বর্তমান অবস্থান",
+      "ভৌগোলিক অবস্থান",
+      "বর্তমান স্থান",
+      "GPS স্থানাঙ্ক",
+      "অক্ষাংশ দ্রাঘিমাংশ",
+      "অবস্থান পরিষেবা"
     ]
   },
   "fa": {
@@ -912,15 +834,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "ویندوز جی پی اس",
-      "مکان",
-      "مکان GPS",
-      "مختصات gps",
-      "داده های جی پی اس",
-      "سرویس مکان",
-      "موقعیت GPS",
-      "مختصات",
-      "طول جغرافیایی"
+      "موقعیت فعلی",
+      "مکان‌یابی جغرافیایی",
+      "مکان کنونی",
+      "مختصات GPS",
+      "عرض جغرافیایی طول جغرافیایی",
+      "سرویس مکان"
     ]
   },
   "mn": {
@@ -945,15 +864,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "байршил",
-      "gps байршил",
-      "gps координат",
-      "gps өгөгдөл",
-      "байршлын үйлчилгээ",
-      "gps байрлал",
-      "координат",
-      "өргөргийн уртраг"
+      "одоогийн байршил",
+      "гео байршил",
+      "одоогийн байрлал",
+      "GPS координат",
+      "өргөрөг уртраг",
+      "байршлын үйлчилгээ"
     ]
   },
   "mr": {
@@ -976,17 +892,14 @@
     "output.source": "- **स्रोत**: {src}",
     "output.timestamp": "- **टाइमस्टॅम्प**: {ts}",
     "x_search_terms": [
-      "gps",
-      "geoip",
-      "current location",
-      "स्थान",
-      "gps स्थान",
-      "gps समन्वय",
-      "gps डेटा",
-      "स्थान सेवा",
-      "जीपीएस स्थिती",
-      "समन्वय",
-      "अक्षांश रेखांश"
+      "GPS",
+      "GeoIP",
+      "सध्याचे स्थान",
+      "भौगोलिक स्थान",
+      "सध्याची स्थिती",
+      "GPS निर्देशांक",
+      "अक्षांश रेखांश",
+      "स्थान सेवा"
     ]
   },
   "el": {
@@ -1011,15 +924,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "τοποθεσία",
-      "τοποθεσία gps",
-      "συντεταγμένη gps",
-      "δεδομένα gps",
-      "υπηρεσία τοποθεσίας",
-      "θέση gps",
-      "συντεταγμένη",
-      "γεωγραφικό πλάτος γεωγραφικό μήκος"
+      "τρέχουσα τοποθεσία",
+      "γεωεντοπισμός",
+      "τρέχουσα θέση",
+      "συντεταγμένες GPS",
+      "γεωγραφικό πλάτος μήκος",
+      "υπηρεσία τοποθεσίας"
     ]
   },
   "he": {
@@ -1042,17 +952,14 @@
     "output.source": "- **מקור**: {src}",
     "output.timestamp": "- **חותמת זמן**: {ts}",
     "x_search_terms": [
-      "gps",
-      "geoip",
-      "current location",
-      "מיקום",
-      "מיקום gps",
-      "קואורדינטת gps",
-      "נתוני gps",
-      "שירות מיקום",
-      "עמדת gps",
-      "לתאם",
-      "קו אורך"
+      "GPS",
+      "GeoIP",
+      "מיקום נוכחי",
+      "מיקום גאוגרפי",
+      "מיקום עכשיו",
+      "קואורדינטות GPS",
+      "קו רוחב קו אורך",
+      "שירות מיקום"
     ]
   },
   "hu": {
@@ -1077,15 +984,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "hely",
-      "gps hely",
-      "gps koordináta",
-      "gps adatok",
-      "helymeghatározási szolgáltatás",
-      "gps pozíció",
-      "koordináta",
-      "szélességi hosszúság"
+      "aktuális hely",
+      "geolokáció",
+      "jelenlegi pozíció",
+      "GPS-koordináták",
+      "szélesség hosszúság",
+      "helymeghatározási szolgáltatás"
     ]
   },
   "ro": {
@@ -1110,15 +1014,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "current location",
-      "locație",
-      "locatie GPS",
-      "coordonata GPS",
-      "date GPS",
-      "serviciu de localizare",
-      "pozitia GPS",
-      "coordonate",
-      "latitudine longitudine"
+      "locație curentă",
+      "geolocalizare",
+      "poziție curentă",
+      "coordonate GPS",
+      "latitudine longitudine",
+      "serviciu de localizare"
     ]
   },
   "fil": {
@@ -1129,29 +1030,26 @@
     "acc.low": "Mababang katumpakan",
     "acc.very_low": "Napakababa ng katumpakan",
     "src.unknown": "Hindi alam",
-    "src.cellular": "Cellular",
-    "src.satellite": "GPS/Satellite",
+    "src.cellular": "Cellular network",
+    "src.satellite": "GPS o satellite",
     "src.wifi": "Pagpoposisyon ng WiFi",
-    "src.ip": "IP geolocation",
+    "src.ip": "Lokasyong IP",
     "src.nmea": "NMEA/GPS",
-    "src.obfuscated": "Obfuscated",
+    "src.obfuscated": "Nakatago",
     "output.header": "## Kasalukuyang Lokasyon",
-    "output.coords": "- **Latitude**: {lat}\n- **Longitude**: {lon}",
+    "output.coords": "- **Latitud**: {lat}\n- **Longhitud**: {lon}",
     "output.accuracy": "- **Katumpakan**: {acc}",
     "output.source": "- **Pinagmulan**: {src}",
-    "output.timestamp": "- **Timestamp**: {ts}",
+    "output.timestamp": "- **Tatak-oras**: {ts}",
     "x_search_terms": [
       "gps",
       "geoip",
-      "lokasyon",
-      "current location",
-      "geolocation",
-      "posisyon",
       "kasalukuyang lokasyon",
-      "gps coordinate",
-      "latitude longitude",
-      "lokasyon ng mga bintana",
-      "sensor ng gps"
+      "heolokasyon",
+      "kasalukuyang posisyon",
+      "mga koordinat ng GPS",
+      "latitud longhitud",
+      "serbisyo ng lokasyon"
     ]
   },
   "ms": {
@@ -1176,15 +1074,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "lokasi",
-      "gps tingkap",
-      "geolokasi",
-      "kedudukan",
       "lokasi semasa",
-      "koordinat gps",
+      "geolokasi",
+      "kedudukan semasa",
+      "koordinat GPS",
       "latitud longitud",
-      "lokasi tingkap",
-      "penderia gps"
+      "perkhidmatan lokasi"
     ]
   },
   "da": {
@@ -1198,7 +1093,7 @@
     "src.cellular": "Cellulær",
     "src.satellite": "GPS/satellit",
     "src.wifi": "WiFi positionering",
-    "src.ip": "IP geolocation",
+    "src.ip": "IP-geolokalisering",
     "src.nmea": "NMEA/GPS",
     "src.obfuscated": "Tilsløret",
     "output.header": "## Aktuel placering",
@@ -1209,15 +1104,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "placering",
-      "current location",
-      "geolocation",
-      "position",
       "nuværende placering",
-      "gps-koordinater",
-      "længdegrad",
-      "vinduesplacering",
-      "gps-sensor"
+      "geolokalisering",
+      "aktuel position",
+      "GPS-koordinater",
+      "breddegrad længdegrad",
+      "placeringstjeneste"
     ]
   },
   "nn": {
@@ -1242,15 +1134,12 @@
     "x_search_terms": [
       "gps",
       "geoip",
-      "posisjon",
-      "current location",
-      "geolocation",
-      "posisjon",
-      "nåværende plassering",
-      "gps-koordinater",
-      "lengdegrad",
-      "vindusposisjon",
-      "gps-sensor"
+      "noverande plassering",
+      "geolokalisering",
+      "noverande posisjon",
+      "GPS-koordinatar",
+      "breiddegrad lengdegrad",
+      "posisjonsteneste"
     ]
   }
 }

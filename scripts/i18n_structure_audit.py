@@ -68,6 +68,9 @@ BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 # Keep this explicit so ordinary msgid placeholder mismatches remain strict.
 KEYED_DEFAULT_PLACEHOLDER_KEYS = frozenset({"auto.review_judgment_system_prompt"})
 ADVISORY_FINDING_KINDS = frozenset({"coverage_missing", "key_extra"})
+# Search terms are locale-specific keyword sets. Their item count does not need
+# to match English because runtime English fallback lives in x_search_terms_en.
+VARIABLE_LENGTH_ARRAY_KEYS = frozenset({"x_search_terms"})
 
 
 @dataclass(frozen=True)
@@ -250,6 +253,11 @@ def _walk_structure(value: Any, prefix: str = "") -> dict[str, tuple[str, list[s
         return result
     if isinstance(value, list):
         result = {prefix: ("array", [])}
+        key = prefix.rsplit(".", 1)[-1] if prefix else ""
+        if key in VARIABLE_LENGTH_ARRAY_KEYS and all(
+            isinstance(item, str) for item in value
+        ):
+            return result
         for index, child in enumerate(value):
             result.update(_walk_structure(child, f"{prefix}[{index}]"))
         return result

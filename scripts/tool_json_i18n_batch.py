@@ -107,6 +107,11 @@ MAX_TEXT_LEN = 10000
 DEFAULT_BATCH_CHARS = 8000
 DEFAULT_BATCH_ITEMS = 40
 
+# Search terms are locale-specific keyword sets. They may intentionally contain
+# a different number of entries from English; x_search_terms_en is the runtime
+# English fallback.
+VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
+
 
 def _reconfigure_stdout() -> None:
     try:
@@ -205,6 +210,7 @@ def _is_missing_or_stale(
     en_val: Any,
     cur_val: Any,
     *,
+    key: str | None = None,
     force: bool,
     skip_same_as_en: bool,
 ) -> bool:
@@ -222,6 +228,14 @@ def _is_missing_or_stale(
             return True
         return False
     if isinstance(en_val, list) and isinstance(cur_val, list):
+        if key in VARIABLE_LENGTH_LIST_KEYS:
+            if not cur_val or any(
+                not isinstance(item, str) or not item.strip() for item in cur_val
+            ):
+                return True
+            if skip_same_as_en and cur_val == en_val:
+                return True
+            return False
         if len(cur_val) != len(en_val):
             return True
         if any(not isinstance(item, str) or not item.strip() for item in cur_val):
@@ -277,7 +291,11 @@ def collect_units(
                     continue
                 cur = block.get(key)
                 if only_missing and not _is_missing_or_stale(
-                    en_val, cur, force=force, skip_same_as_en=skip_same_as_en
+                    en_val,
+                    cur,
+                    key=str(key),
+                    force=force,
+                    skip_same_as_en=skip_same_as_en,
                 ):
                     continue
                 if len(text) > MAX_TEXT_LEN:
