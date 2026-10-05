@@ -89,6 +89,24 @@ def test_invalid_configured_origin_fails_closed(monkeypatch):
 @pytest.mark.parametrize(
     "origin",
     [
+        "https://trusted.exa\tmple",
+        "https://trusted.exa\rmple",
+        "https://trusted.exa\nmple",
+        "https://trusted.exa\x00mple",
+        "https://trusted.exa\x7fmple",
+    ],
+)
+def test_configured_origin_rejects_control_characters(monkeypatch, origin):
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", origin)
+
+    with pytest.raises(IdentityConfigurationError, match="invalid origin"):
+        configured_websocket_origins()
+
+
+@pytest.mark.parametrize(
+    "origin",
+    [
         "https://*.example.com",
         "https://bad host.example",
         "https://_service.example",
