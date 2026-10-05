@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import types
 
 import pytest
@@ -16,6 +17,7 @@ from uagent.decision.laya import (
     LayaDecisionError,
     LayaDecisionProvider,
     LayaDecisionUnavailableError,
+    _configure_huggingface_progress_bars,
     preload_laya_torch_on_windows,
 )
 
@@ -54,6 +56,22 @@ def _environ(**overrides):
     }
     values.update(overrides)
     return values
+
+
+def test_laya_suppresses_huggingface_progress_bars_by_default(monkeypatch):
+    monkeypatch.delenv("HF_HUB_DISABLE_PROGRESS_BARS", raising=False)
+
+    _configure_huggingface_progress_bars()
+
+    assert os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] == "1"
+
+
+def test_laya_respects_explicit_huggingface_progress_bar_setting(monkeypatch):
+    monkeypatch.setenv("HF_HUB_DISABLE_PROGRESS_BARS", "0")
+
+    _configure_huggingface_progress_bars()
+
+    assert os.environ["HF_HUB_DISABLE_PROGRESS_BARS"] == "0"
 
 
 def test_laya_config_defaults():

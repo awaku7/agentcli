@@ -20,6 +20,18 @@ from .models import (
 from .settings import DecisionSettings
 
 
+def _configure_huggingface_progress_bars() -> None:
+    """Hide Hugging Face download progress unless the user explicitly opts in."""
+
+    os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
+
+
+# Laya may download model artifacts through Hugging Face Hub. Set this before
+# the optional Laya runtime (and Hugging Face Hub) is imported, while respecting
+# an explicit user-provided value.
+_configure_huggingface_progress_bars()
+
+
 class LayaDecisionError(RuntimeError):
     """Base error raised by the Laya decision adapter."""
 
