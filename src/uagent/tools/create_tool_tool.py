@@ -131,11 +131,6 @@ TOOL_SPEC: dict[str, Any] = {{
 
     json_file = os.path.join(out_dir, f"{name}_tool.json")
     json_code = f"""{{
-    "en": {{
-        "tool.description": "{desc_short}",
-        "x_search_terms": ["{name}"],
-        "param.input": "Input text"
-    }},
     "ja": {{
         "tool.description": "{desc_short}",
         "x_search_terms": ["{name}"],
@@ -285,11 +280,6 @@ TOOL_SPEC: dict[str, Any] = {{
 
     json_file = os.path.join(out_dir, f"{name}_tool.json")
     json_code = f"""{{
-    "en": {{
-        "tool.description": "{desc_short}",
-        "x_search_terms": ["{name}"],
-        "param.input": "Input text"
-    }},
     "ja": {{
         "tool.description": "{desc_short}",
         "x_search_terms": ["{name}"],

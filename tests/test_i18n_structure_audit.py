@@ -23,6 +23,15 @@ def _write_po(path: Path, entries: dict[str, str]) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
+def _write_tool_source(path: Path, defaults: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        f"_({key!r}, default={value!r})"
+        for key, value in defaults.items()
+    ]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def test_host_audit_detects_key_and_placeholder_differences(tmp_path: Path) -> None:
     locales = tmp_path / "locales"
     for locale in audit_module.SHIPPED_LOCALES:
@@ -45,12 +54,13 @@ def test_host_audit_detects_key_and_placeholder_differences(tmp_path: Path) -> N
 def test_tool_audit_detects_nested_structure_and_placeholders(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"nested": {"message": "Hello {name}"}},
+    )
     (tools / "example_tool.json").write_text(
         json.dumps(
-            {
-                "en": {"nested": {"message": "Hello {name}"}},
-                "ja": {"nested": {"message": "こんにちは {user}"}, "extra": "x"},
-            }
+            {"ja": {"nested": {"message": "こんにちは {user}"}, "extra": "x"}}
         ),
         encoding="utf-8",
     )
@@ -65,18 +75,19 @@ def test_tool_audit_allows_locale_specific_search_term_counts(
 ) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {
+            "x_search_terms": [
+                "current location",
+                "gps coordinates",
+                "geolocation",
+            ]
+        },
+    )
     (tools / "example_tool.json").write_text(
         json.dumps(
-            {
-                "en": {
-                    "x_search_terms": [
-                        "current location",
-                        "gps coordinates",
-                        "geolocation",
-                    ]
-                },
-                "ja": {"x_search_terms": ["現在地", "位置情報"]},
-            },
+            {"ja": {"x_search_terms": ["現在地", "位置情報"]}},
             ensure_ascii=False,
         ),
         encoding="utf-8",
@@ -95,12 +106,13 @@ def test_tool_audit_allows_locale_specific_search_term_counts(
 def test_tool_audit_keeps_other_array_lengths_strict(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"choices": ["one", "two"]},
+    )
     (tools / "example_tool.json").write_text(
         json.dumps(
-            {
-                "en": {"choices": ["one", "two"]},
-                "ja": {"choices": ["一"]},
-            },
+            {"ja": {"choices": ["一"]}},
             ensure_ascii=False,
         ),
         encoding="utf-8",
@@ -117,8 +129,12 @@ def test_tool_audit_keeps_other_array_lengths_strict(tmp_path: Path) -> None:
 def test_tool_locale_coverage_is_advisory(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"message": "Hello"},
+    )
     (tools / "example_tool.json").write_text(
-        json.dumps({"en": {"message": "Hello"}, "ja": {"message": "こんにちは"}}),
+        json.dumps({"ja": {"message": "こんにちは"}}),
         encoding="utf-8",
     )
     payload = audit_module.audit(tmp_path / "missing", tools)
@@ -155,4 +171,54 @@ def test_strict_mode_fails_but_reporting_mode_is_audit_only(tmp_path: Path) -> N
     )
     assert json.loads(report.read_text(encoding="utf-8"))["shipped_locales"] == list(
         audit_module.SHIPPED_LOCALES
+    )
+
+
+def test_tool_audit_rejects_json_english_block(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"message": "Hello"},
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "en": {"message": "Hello"},
+                "ja": {"message": "こんにちは"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(finding.kind == "english_block_present" for finding in findings)
+
+
+def test_tool_audit_uses_locale_consensus_for_dynamic_default(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    source = tools / "example_tool.py"
+    source.write_text(
+        '_("message", default=f"Hello {runtime_value}")\n',
+        encoding="utf-8",
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"message": "こんにちは"},
+                "de": {},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.locale == "de" and finding.kind == "structure_missing"
+        for finding in findings
     )

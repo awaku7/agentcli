@@ -37,6 +37,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import os
 import re
@@ -153,25 +154,131 @@ def _dump_json(path: Path, data: Any) -> None:
         f.write("\n")
 
 
+def _is_tool_i18n_catalog(path: Path, data: Any) -> bool:
+    if not isinstance(data, dict):
+        return False
+    if any(isinstance(data.get(lang), dict) for lang in SUPPORTED_TARGET_LOCALES):
+        return True
+    try:
+        return bool(_english_source(path))
+    except ValueError:
+        return False
+
+
 def _iter_tool_json_files(tools_dir: Path, tools_filter: set[str] | None) -> list[Path]:
-    files = sorted(tools_dir.glob("*_tool.json"))
+    files = sorted(tools_dir.glob("*.json"))
     out: list[Path] = []
     for p in files:
-        # skip non-i18n json helpers if any
+        try:
+            data = _load_json(p)
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if not _is_tool_i18n_catalog(p, data):
+            continue
         name = p.name
         stem = name[: -len("_tool.json")] if name.endswith("_tool.json") else p.stem
-        if tools_filter and stem not in tools_filter and name not in tools_filter:
+        if (
+            tools_filter
+            and stem not in tools_filter
+            and p.stem not in tools_filter
+            and name not in tools_filter
+        ):
             continue
         out.append(p)
     return out
 
 
-def _en_block(data: dict[str, Any]) -> dict[str, Any]:
-    en = data.get("en")
-    if not isinstance(en, dict):
-        raise ValueError("missing en block")
-    return en
+def _static_eval(node: ast.AST, constants: dict[str, Any]) -> Any:
+    try:
+        return ast.literal_eval(node)
+    except (ValueError, TypeError, SyntaxError):
+        pass
+    if isinstance(node, ast.Name) and node.id in constants:
+        return constants[node.id]
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+        left = _static_eval(node.left, constants)
+        right = _static_eval(node.right, constants)
+        try:
+            return left + right
+        except TypeError:
+            return None
+    if isinstance(node, ast.JoinedStr):
+        parts: list[str] = []
+        for part in node.values:
+            if isinstance(part, ast.Constant) and isinstance(part.value, str):
+                parts.append(part.value)
+                continue
+            if not isinstance(part, ast.FormattedValue):
+                return None
+            value = _static_eval(part.value, constants)
+            if not isinstance(value, (str, int, float, bool)):
+                return None
+            format_spec = ""
+            if part.format_spec is not None:
+                spec = _static_eval(part.format_spec, constants)
+                if not isinstance(spec, str):
+                    return None
+                format_spec = spec
+            try:
+                parts.append(format(value, format_spec))
+            except (TypeError, ValueError):
+                return None
+        return "".join(parts)
+    return None
 
+
+def _english_source(path: Path) -> dict[str, Any]:
+    """Extract statically knowable English defaults from matching Python source."""
+    py_path = path.with_suffix(".py")
+    if not py_path.is_file():
+        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError) as exc:
+        raise ValueError(f"cannot parse Python source {py_path}: {exc}") from exc
+
+    constants: dict[str, Any] = {}
+    for statement in tree.body:
+        name: str | None = None
+        value_node: ast.AST | None = None
+        if (
+            isinstance(statement, ast.Assign)
+            and len(statement.targets) == 1
+            and isinstance(statement.targets[0], ast.Name)
+        ):
+            name = statement.targets[0].id
+            value_node = statement.value
+        elif isinstance(statement, ast.AnnAssign) and isinstance(
+            statement.target, ast.Name
+        ):
+            name = statement.target.id
+            value_node = statement.value
+        if name and value_node is not None:
+            value = _static_eval(value_node, constants)
+            if value is not None:
+                constants[name] = value
+
+    source: dict[str, Any] = {}
+    calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
+    calls.sort(
+        key=lambda node: (getattr(node, "lineno", 0), getattr(node, "col_offset", 0))
+    )
+    for node in calls:
+        if not isinstance(node.func, ast.Name) or node.func.id != "_" or not node.args:
+            continue
+        key_node = node.args[0]
+        if not isinstance(key_node, ast.Constant) or not isinstance(key_node.value, str):
+            continue
+        default_node = next(
+            (kw.value for kw in node.keywords if kw.arg == "default"),
+            None,
+        )
+        if default_node is None:
+            continue
+        value = _static_eval(default_node, constants)
+        if isinstance(value, (str, list, dict)):
+            source.setdefault(key_node.value, value)
+    return source
 
 def _value_to_text(v: Any) -> str | None:
     """Serialize a JSON value into a single translate unit.
@@ -269,7 +376,7 @@ def collect_units(
     for path in files:
         try:
             data = _load_json_object(path)
-            en = _en_block(data)
+            en = _english_source(path)
         except Exception as e:
             print(f"[skip] {path}: {e}", file=sys.stderr)
             continue
@@ -649,13 +756,12 @@ def merge_lang(
             if block.get(key) != new_val:
                 block[key] = new_val
                 changed += 1
-        # stable key order: follow en order then extras
-        en = data.get("en") if isinstance(data.get("en"), dict) else {}
+        # Stable key order follows the Python English source, then locale extras.
+        en = _english_source(path)
         ordered: dict[str, Any] = {}
-        if isinstance(en, dict):
-            for k in en.keys():
-                if k in block:
-                    ordered[k] = block[k]
+        for k in en.keys():
+            if k in block:
+                ordered[k] = block[k]
         for k, v in block.items():
             if k not in ordered:
                 ordered[k] = v
@@ -730,7 +836,7 @@ def cmd_status(args: argparse.Namespace) -> int:
 
     print(f"tools_scanned: {len(files)}")
     print(f"supported_locales: {len(SUPPORTED_TOOL_LOCALES)}")
-    print("source_language: en")
+    print("source_language: python default=")
     print(f"languages_scanned: {len(langs)}")
     print(f"missing_units: {len(missing_units)}")
     print(f"same_as_english_candidates: {len(same_as_en_units)}")

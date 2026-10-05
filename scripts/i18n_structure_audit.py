@@ -71,6 +71,7 @@ ADVISORY_FINDING_KINDS = frozenset({"coverage_missing", "key_extra"})
 # Search terms are locale-specific keyword sets. Their item count does not need
 # to match English because runtime English fallback lives in x_search_terms_en.
 VARIABLE_LENGTH_ARRAY_KEYS = frozenset({"x_search_terms"})
+TOOL_TRANSLATION_LOCALES = tuple(locale for locale in SHIPPED_LOCALES if locale != "en")
 
 
 @dataclass(frozen=True)
@@ -274,9 +275,123 @@ def _language_blocks(data: dict[str, Any]) -> dict[str, dict[str, Any]]:
     }
 
 
+def _static_eval(node: ast.AST, constants: dict[str, Any]) -> Any:
+    try:
+        return ast.literal_eval(node)
+    except (ValueError, TypeError, SyntaxError):
+        pass
+    if isinstance(node, ast.Name) and node.id in constants:
+        return constants[node.id]
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+        left = _static_eval(node.left, constants)
+        right = _static_eval(node.right, constants)
+        try:
+            return left + right
+        except TypeError:
+            return None
+    if isinstance(node, ast.JoinedStr):
+        parts: list[str] = []
+        for part in node.values:
+            if isinstance(part, ast.Constant) and isinstance(part.value, str):
+                parts.append(part.value)
+                continue
+            if not isinstance(part, ast.FormattedValue):
+                return None
+            value = _static_eval(part.value, constants)
+            if not isinstance(value, (str, int, float, bool)):
+                return None
+            format_spec = ""
+            if part.format_spec is not None:
+                spec = _static_eval(part.format_spec, constants)
+                if not isinstance(spec, str):
+                    return None
+                format_spec = spec
+            try:
+                parts.append(format(value, format_spec))
+            except (TypeError, ValueError):
+                return None
+        return "".join(parts)
+    return None
+
+
+def _english_source(path: Path) -> dict[str, Any]:
+    py_path = path.with_suffix(".py")
+    if not py_path.is_file():
+        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError) as exc:
+        raise ValueError(f"cannot parse Python source {py_path}: {exc}") from exc
+
+    constants: dict[str, Any] = {}
+    for statement in tree.body:
+        name: str | None = None
+        value_node: ast.AST | None = None
+        if (
+            isinstance(statement, ast.Assign)
+            and len(statement.targets) == 1
+            and isinstance(statement.targets[0], ast.Name)
+        ):
+            name = statement.targets[0].id
+            value_node = statement.value
+        elif isinstance(statement, ast.AnnAssign) and isinstance(
+            statement.target, ast.Name
+        ):
+            name = statement.target.id
+            value_node = statement.value
+        if name and value_node is not None:
+            value = _static_eval(value_node, constants)
+            if value is not None:
+                constants[name] = value
+
+    source: dict[str, Any] = {}
+    calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
+    calls.sort(
+        key=lambda node: (getattr(node, "lineno", 0), getattr(node, "col_offset", 0))
+    )
+    for node in calls:
+        if not isinstance(node.func, ast.Name) or node.func.id != "_" or not node.args:
+            continue
+        key_node = node.args[0]
+        if not isinstance(key_node, ast.Constant) or not isinstance(key_node.value, str):
+            continue
+        default_node = next(
+            (kw.value for kw in node.keywords if kw.arg == "default"),
+            None,
+        )
+        if default_node is None:
+            continue
+        value = _static_eval(default_node, constants)
+        if isinstance(value, (str, list, dict)):
+            source.setdefault(key_node.value, value)
+    return source
+
+
+def _reference_structure(
+    source: dict[str, Any],
+    translation_blocks: dict[str, dict[str, Any]],
+) -> dict[str, tuple[str, list[str]]]:
+    """Build structure from Python defaults plus locale consensus for dynamic defaults."""
+    reference = _walk_structure(source)
+    votes: dict[str, dict[tuple[str, tuple[str, ...]], int]] = {}
+    for block in translation_blocks.values():
+        for path, (kind, placeholders) in _walk_structure(block).items():
+            signature = (kind, tuple(placeholders))
+            bucket = votes.setdefault(path, {})
+            bucket[signature] = bucket.get(signature, 0) + 1
+    for path, bucket in votes.items():
+        if path in reference:
+            continue
+        (kind, placeholders), _count = max(
+            bucket.items(),
+            key=lambda item: (item[1], item[0][0], item[0][1]),
+        )
+        reference[path] = (kind, list(placeholders))
+    return reference
+
 def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
     findings: list[Finding] = []
-    for path in sorted(tools_root.glob("*_tool.json")):
+    for path in sorted(tools_root.glob("*.json")):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
@@ -290,20 +405,31 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
             )
             continue
         if not isinstance(data, dict):
-            findings.append(Finding("tool_json", "catalog_not_object", str(path)))
             continue
         blocks = _language_blocks(data)
-        if not blocks:
+        translation_blocks = {
+            locale: block
+            for locale, block in blocks.items()
+            if locale in TOOL_TRANSLATION_LOCALES
+        }
+        if not translation_blocks:
             continue
-        if "en" not in blocks:
+        if "en" in blocks:
+            findings.append(Finding("tool_json", "english_block_present", str(path)))
+        try:
+            reference = _reference_structure(_english_source(path), translation_blocks)
+        except ValueError as exc:
             findings.append(
-                Finding("tool_json", "reference_language_missing", str(path))
+                Finding(
+                    "tool_json",
+                    "python_source_error",
+                    str(path),
+                    detail={"error": str(exc)},
+                )
             )
             continue
-        missing_coverage = sorted(set(SHIPPED_LOCALES) - set(blocks))
+        missing_coverage = sorted(set(TOOL_TRANSLATION_LOCALES) - set(translation_blocks))
         if missing_coverage:
-            # Tool catalogs intentionally ship independently.  This is coverage
-            # information for the 38-locale objective, never a parity failure.
             findings.append(
                 Finding(
                     "tool_json",
@@ -312,10 +438,7 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
                     detail={"locales": missing_coverage},
                 )
             )
-        reference = _walk_structure(blocks["en"])
-        for locale, block in sorted(blocks.items()):
-            if locale == "en":
-                continue
+        for locale, block in sorted(translation_blocks.items()):
             current = _walk_structure(block)
             missing = sorted(set(reference) - set(current))
             extra = sorted(set(current) - set(reference))

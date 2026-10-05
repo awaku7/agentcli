@@ -41,7 +41,8 @@ The host-side release contract contains these 38 locales (including English):
 `pt_BR`, `ro`, `ru`, `sv`, `sw`, `th`, `tr`, `uk`, `vi`, `zh_CN`, `zh_TW`.
 
 Tool catalogs do **not** promise all 38 locales per file. Each tool JSON catalog is
-validated only for the language blocks it ships, against that file's `en` block.
+validated only for the non-English language blocks it ships, against the canonical
+English `default=` values in the matching Python module.
 
 ______________________________________________________________________
 
@@ -159,7 +160,7 @@ ______________________________________________________________________
 
 ### Scope
 
-Each tool in `src/uagent/tools/*_tool.py` has its own translation file at `src/uagent/tools/<name>_tool.json`.
+Tool-side translation catalogs use the same basename as the Python module (`<module>.py` → `<module>.json`) under `src/uagent/tools` or `src/uagent/tools_rust`. This includes shared/helper modules as well as `*_tool.py` files.
 
 ### Translator setup
 
@@ -182,17 +183,13 @@ TOOL_SPEC = {
 ```
 
 - First argument = lookup key in JSON.
-- `default=` = English fallback (used when JSON key is missing or language block absent).
+- `default=` = canonical English text and runtime fallback.
+- Tool JSON contains translations only; do not add an `en` block.
 
 ### JSON file structure
 
 ```json
 {
-  "en": {
-    "tool.description": "Analyzes code.",
-    "param.path.description": "Target file path.",
-    "err.not_found": "File not found: %(path)s"
-  },
   "ja": {
     "tool.description": "u30b3u30fcu30c9u3092u89e3u6790u3057u307eu3059u3002",
     "param.path.description": "u5bfeu8c61u30d5u30a1u30a4u30ebu306eu30d1u30b9u3002",
@@ -206,8 +203,8 @@ TOOL_SPEC = {
 ```
 
 - Language codes: standard BCP-47 (`ja`, `ko`, `zh_CN`, `pt_BR`, `id`, etc.).
-- `en` is mandatory (fallback for missing languages).
-- When adding a new language, add a new top-level key.
+- English is not stored in tool JSON. Keep it in Python `default=` values, and keep fixed English discovery terms in `x_search_terms_en`.
+- When adding a new non-English language, add a new top-level key.
 
 ### Key naming conventions
 
@@ -372,7 +369,7 @@ python scripts/i18n_tools_check.py
 |---------|-------------|------------|
 | `%(error)s` stored as literal backslash-n in JSON | Output shows `\\n` instead of newline | Use actual newline characters in JSON |
 | Placeholder format mismatch (`{name}` vs `%(name)s`) | `KeyError` at runtime | Use `%(name)s` consistently |
-| Missing `en` key in JSON | `KeyError` if locale not found | Always include `en` block |
+| Missing locale key in JSON | Python `default=` is used | Keep canonical English text in Python and add only non-English translations to JSON |
 | `.po` edited but `.mo` not recompiled | Changes invisible at runtime | Run `compile_locales.py` before commit |
 
 ______________________________________________________________________
@@ -392,8 +389,8 @@ ______________________________________________________________________
 ### Tool-side changes
 
 - [ ] New `_("key", default="...")` calls added
-- [ ] Corresponding keys added to `*_tool.json`
-- [ ] `en` block present and complete
+- [ ] Corresponding keys added to the tool JSON translation catalog
+- [ ] No `en` block in tool JSON; English remains in Python `default=` / `x_search_terms_en`
 - [ ] Placeholders `%(...)s` preserved in all translations
 - [ ] `python -m py_compile` passes
 - [ ] `python scripts/i18n_tools_check.py` passes (if applicable)

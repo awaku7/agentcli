@@ -193,13 +193,6 @@ def make_tool_translator(tool_py_file: str):
                 text = _unescape_value(v)
 
         if text is None:
-            en_map = data.get("en")
-            if isinstance(en_map, dict):
-                v = en_map.get(key)
-                if isinstance(v, (str, list, dict)) and v:
-                    text = _unescape_value(v)
-
-        if text is None:
             text = default
 
         if kwargs:
