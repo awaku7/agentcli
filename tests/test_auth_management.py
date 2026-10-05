@@ -222,10 +222,7 @@ def test_auth_health_rejects_malformed_websocket_origin_allowlist(monkeypatch):
     status = validate_authentication_configuration()
 
     assert status.configured is False
-    assert (
-        "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin"
-        in status.diagnostics
-    )
+    assert "UAGENT_WEB_ALLOWED_ORIGINS contains an invalid origin" in status.diagnostics
 
 
 def test_local_auth_health_uses_safe_default_websocket_origins(monkeypatch):
