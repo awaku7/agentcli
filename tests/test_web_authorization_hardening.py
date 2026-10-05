@@ -162,9 +162,9 @@ def test_token_mode_mutation_allows_bearer_without_origin(monkeypatch):
     namespace = "services"
     subject = "automation"
     digest = hashlib.sha256(credential.encode()).hexdigest()
-    principal = "token:" + hashlib.sha256(
-        (namespace + "\0" + subject).encode()
-    ).hexdigest()
+    principal = (
+        "token:" + hashlib.sha256((namespace + "\0" + subject).encode()).hexdigest()
+    )
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "token")
     monkeypatch.setenv("UAGENT_TOKEN_NAMESPACE", namespace)
     monkeypatch.setenv(
