@@ -97,6 +97,9 @@ def test_status_treats_english_fallbacks_as_missing(
     assert rc == 0
     assert f"languages_scanned: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
     assert f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
+    assert f"affected_tool_language_pairs: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
+    assert "missing_by_language:" in output
+    assert "ja       1" in output
 
 
 def test_status_explicit_langs_still_limit_scope(tmp_path: Path, capsys) -> None:
