@@ -397,7 +397,7 @@
     "error.max_lines": "max_lines:n on oltava enintään {limit}",
     "error.max_chars": "max_chars:n on oltava enintään {limit}",
     "error.not_active_session": "artefakti ei kuulu aktiiviseen istuntoon",
-    "error.binary_artifact": "artefakti on binäärinen; käytä artifact_infoa tai artifact_exportia artifact_readin sijaan"
+    "error.binary_artifact": "artefakti on binäärinen; käytä työkalua artifact_info tai artifact_export työkalun artifact_read sijaan"
   },
   "cs": {
     "tool.description": "Načíst ohraničenou část dříve uloženého artefaktu s výsledky nástroje.",
