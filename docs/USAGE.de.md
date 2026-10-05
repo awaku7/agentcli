@@ -130,6 +130,10 @@ Bind-Adresse für den Webserver (Standard: `127.0.0.1`, kann durch `UAGENT_WEB_H
 
 Standardmäßig lauscht der Webserver nur auf localhost (`127.0.0.1`). Um ihn von anderen Rechnern im Netzwerk aus erreichbar zu machen, verwenden Sie `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10

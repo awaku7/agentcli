@@ -130,6 +130,10 @@ Dirección de enlace para el servidor web (por defecto: `127.0.0.1`, se puede an
 
 Por defecto, el servidor web escucha únicamente en localhost (`127.0.0.1`). Para que sea accesible desde otros equipos de la red, utiliza `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10

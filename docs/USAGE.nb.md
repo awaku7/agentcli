@@ -130,6 +130,10 @@ Bindingsadresse for webserveren (standard: `127.0.0.1`, kan overstyres med `UAGE
 
 Som standard lytter webserveren kun på localhost (`127.0.0.1`). For å gjøre den tilgjengelig fra andre maskiner på nettverket, bruk `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10

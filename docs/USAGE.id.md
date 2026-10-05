@@ -130,6 +130,10 @@ Alamat pengikatan untuk server web (default: `127.0.0.1`, dapat diganti dengan `
 
 Secara default, server web hanya mendengarkan pada localhost (`127.0.0.1`). Untuk membuatnya dapat diakses dari mesin lain di jaringan, gunakan `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10

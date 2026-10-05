@@ -130,6 +130,10 @@ Adresse de liaison pour le serveur Web (par défaut : `127.0.0.1`, pouvant être
 
 Par défaut, le serveur Web n'écoute que sur localhost (`127.0.0.1`). Pour le rendre accessible depuis d'autres machines du réseau, utilisez `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10

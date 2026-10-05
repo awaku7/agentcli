@@ -130,6 +130,10 @@ Adresă de legare pentru serverul web (implicit: `127.0.0.1`, poate fi suprascri
 
 În mod implicit, serverul web ascultă numai pe localhost (`127.0.0.1`). Pentru a-l face accesibil de pe alte mașini din rețea, utilizați `--host 0.0.0.0`.
 
+```env
+UAGENT_WEB_ALLOWED_ORIGINS=http://192.168.1.10:8000
+```
+
 ```
 uagw --host 0.0.0.0
 uagw --host 192.168.1.10
