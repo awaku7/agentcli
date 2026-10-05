@@ -43,8 +43,12 @@ def test_status_defaults_to_all_non_english_locales_without_adding_blocks(
     output = capsys.readouterr().out
     assert rc == 0
     assert "tools_scanned: 1" in output
+    assert len(batch.SUPPORTED_TOOL_LOCALES) == 38
+    assert "supported_locales: 38" in output
     assert f"languages_scanned: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
     assert "missing_units: 0" in output
+    assert "same_as_english_candidates: 0" in output
+    assert "review_candidates: 0" in output
 
 
 def test_status_add_lang_reports_missing_locale_blocks(tmp_path: Path, capsys) -> None:
@@ -70,7 +74,9 @@ def test_status_add_lang_reports_missing_locale_blocks(tmp_path: Path, capsys) -
     assert f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
 
 
-def test_status_treats_english_fallbacks_as_missing(tmp_path: Path, capsys) -> None:
+def test_status_reports_english_matches_as_review_candidates(
+    tmp_path: Path, capsys
+) -> None:
     tools_dir = tmp_path / "tools"
     catalog: dict[str, object] = {
         "en": {"tool.description": "Hello"},
@@ -92,11 +98,17 @@ def test_status_treats_english_fallbacks_as_missing(tmp_path: Path, capsys) -> N
     output = capsys.readouterr().out
     assert rc == 0
     assert f"languages_scanned: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
-    assert f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
+    assert "missing_units: 0" in output
     assert (
-        f"affected_tool_language_pairs: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
+        f"same_as_english_candidates: {len(batch.SUPPORTED_TARGET_LOCALES)}"
+        in output
     )
-    assert "missing_by_language:" in output
+    assert f"review_candidates: {len(batch.SUPPORTED_TARGET_LOCALES)}" in output
+    assert (
+        f"affected_tool_language_pairs: {len(batch.SUPPORTED_TARGET_LOCALES)}"
+        in output
+    )
+    assert "same_as_english_by_language:" in output
     assert "ja       1" in output
 
 
@@ -125,7 +137,9 @@ def test_status_explicit_langs_still_limit_scope(tmp_path: Path, capsys) -> None
     output = capsys.readouterr().out
     assert rc == 0
     assert "languages_scanned: 1" in output
-    assert "missing_units: 1" in output
+    assert "missing_units: 0" in output
+    assert "same_as_english_candidates: 1" in output
+    assert "review_candidates: 1" in output
 
 
 def test_mutating_commands_still_require_langs(tmp_path: Path, capsys) -> None:
