@@ -572,7 +572,7 @@
       "HTTP क्लायंट",
       "पोस्टमन"
     ],
-    "param.method.description": "HTTP method.",
+    "param.method.description": "HTTP पद्धत.",
     "param.url.description": "HTTP किंवा HTTPS URL.",
     "param.query.description": "Query-string parameter.",
     "param.headers.description": "अतिरिक्त HTTP शीर्षलेख.",
