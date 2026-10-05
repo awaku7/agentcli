@@ -69,7 +69,7 @@ def _normalize_origin(value: str) -> str:
     if not host:
         raise ValueError("origin host is required")
     try:
-        ipaddress.ip_address(host)
+        parsed_ip = ipaddress.ip_address(host)
     except ValueError:
         dns_host = host[:-1] if host.endswith(".") else host
         if not dns_host or dns_host.endswith(".") or len(host) > 254:
@@ -83,6 +83,8 @@ def _normalize_origin(value: str) -> str:
             for label in labels
         ):
             raise ValueError("origin host is invalid")
+    else:
+        host = str(parsed_ip)
     authority = f"[{host}]" if ":" in host else host
     if port is not None and not (
         (scheme == "http" and port == 80) or (scheme == "https" and port == 443)
