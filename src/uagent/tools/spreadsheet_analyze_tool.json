@@ -270,10 +270,10 @@
     "err.input_path_required": "input_path là bắt buộc",
     "err.file_not_found": "không tìm thấy tập tin: {path}",
     "err.extension": "Đầu vào phải là tệp .xlsx hoặc .xlsm.",
-    "err.input_output_same": "output_path không phải là tệp đầu vào",
+    "err.input_output_same": "output_path không được là tệp đầu vào",
     "err.output_exists": "tệp đầu ra đã tồn tại: {path}; đặt overwrite=true để thay thế nó",
     "err.input_required": "input_path là bắt buộc",
-    "err.same_output": "output_path không phải là tệp đầu vào"
+    "err.same_output": "output_path không được là tệp đầu vào"
   },
   "pl": {
     "tool.description": "Analizuje arkusze XLSX/XLSM, formuły, zależności i osadzony VBA bez uruchamiania makr.",
