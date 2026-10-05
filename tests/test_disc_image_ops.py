@@ -115,6 +115,7 @@ def test_iso_to_chd_convert_uses_xverter(repo_tmp_path: Path, monkeypatch) -> No
 
     def fake_run(argv: list[str], timeout_seconds: int) -> dict[str, object]:
         seen.append(argv)
+        Path(argv[-1]).write_bytes(b"converted")
         return {
             "ok": True,
             "backend": "xverter",
@@ -137,7 +138,11 @@ def test_iso_to_chd_convert_uses_xverter(repo_tmp_path: Path, monkeypatch) -> No
 
     assert result["ok"] is True
     assert result["output"] == str(out_path.resolve())
-    assert seen == [["convert", str(iso_path.resolve()), "-o", str(out_path.resolve())]]
+    assert out_path.read_bytes() == b"converted"
+    assert len(seen) == 1
+    assert seen[0][:3] == ["convert", str(iso_path.resolve()), "-o"]
+    assert Path(seen[0][3]).suffix == ".chd"
+    assert Path(seen[0][3]) != out_path
 
 
 
@@ -170,7 +175,7 @@ def test_chd_convert_rejects_source_output_alias(
     )
 
     assert result["ok"] is False
-    assert "different files" in result["error"]
+    assert result["error_type"] == "ValueError"
     assert called is False
     assert chd_path.read_bytes() == original
 
@@ -259,3 +264,62 @@ def test_chd_convert_success_replaces_existing_destination_atomically(
     assert len(seen_output) == 1
     assert seen_output[0] != out_path
     assert not seen_output[0].exists()
+
+
+
+def test_i18n_catalog_has_all_38_locales_and_matching_keys() -> None:
+    catalog_path = (
+        Path(__file__).parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "disc_image_ops_tool.json"
+    )
+    data = json.loads(catalog_path.read_text(encoding="utf-8"))
+    shipped = {
+        "ar",
+        "bn",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fa",
+        "fi",
+        "fil",
+        "fr",
+        "he",
+        "hi",
+        "hu",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "mn",
+        "mr",
+        "ms",
+        "nb",
+        "nl",
+        "nn",
+        "pl",
+        "pt",
+        "pt_BR",
+        "ro",
+        "ru",
+        "sv",
+        "sw",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh_CN",
+        "zh_TW",
+    }
+    assert set(data) == shipped
+    en_keys = set(data["en"])
+    assert en_keys
+    for lang in shipped:
+        assert set(data[lang]) == en_keys
+        assert "%(path)s" in data[lang]["confirm.file_overwrite"]
+        assert "%(seconds)s" in data[lang]["err.timeout"]
