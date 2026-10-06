@@ -794,7 +794,7 @@
   "fil": {
     "tool.description": "Mag-publish ng mensahe sa isang paksa ng MQTT. Kumokonekta, naglalathala, at nagdidiskonekta.",
     "param.host.description": "MQTT broker hostname o IP.",
-    "param.port.description": "MQTT broker port (default: 1883).",
+    "param.port.description": "Port ng MQTT broker (default: 1883).",
     "param.topic.description": "MQTT paksa kung saan i-publish.",
     "param.payload.description": "Payload ng mensahe.",
     "param.qos.description": "Antas ng QoS (0, 1, 2).",

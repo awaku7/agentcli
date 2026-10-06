@@ -630,7 +630,7 @@
     "tool.description": "I-scan ang DALI bus para sa mga konektadong kagamitan sa pag-iilaw (mga address 0-63). Mga tanong sa bawat address para sa katayuan at aktwal na antas.",
     "param.driver.description": "Uri ng driver ng DALI. Sinusubukan ng 'auto' ang Tridonic USB, pagkatapos ay ang daliserver.",
     "param.host.description": "daliserver host (kinakailangan para sa driver=daliserver).",
-    "param.port.description": "daliserver TCP port (default: 55825).",
+    "param.port.description": "TCP port ng daliserver (default: 55825).",
     "param.fmt.description": "Format: json o text.",
     "msg.summary": "DALI scan: {count} (mga) device ang natagpuan sa {ms} ms.",
     "msg.no_devices": "Walang nakitang DALI device.",

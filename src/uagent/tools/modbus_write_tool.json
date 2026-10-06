@@ -761,8 +761,8 @@
   "fil": {
     "tool.description": "Sumulat ng mga halaga sa isang Modbus TCP device. Sinusuportahan ang paghawak ng mga register (single/multiple) at coils.",
     "param.ip.description": "Target na IPv4 address ng device.",
-    "param.port.description": "Modbus TCP port (default: 502).",
-    "param.unit.description": "Modbus unit ID (default: 1).",
+    "param.port.description": "TCP port ng Modbus (default: 502).",
+    "param.unit.description": "Unit ID ng Modbus (default: 1).",
     "param.type.description": "Uri ng rehistro: hawak o likid.",
     "param.address.description": "Panimulang rehistro ng address (0-based).",
     "param.values.description": "Mga halaga upang isulat. Para sa paghawak: mga comma-separated integer. Para sa mga coils: 'on'/'off' o '1'/'0'.",
