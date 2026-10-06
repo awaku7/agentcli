@@ -12,9 +12,13 @@ SUB_AGENT_PROMPT_KEYS = (
     "auto.c30a5aed7a2d7578",
     "auto.924901d00f734fac",
 )
+SUB_AGENT_PROTECTED_TOKEN_RE = re.compile(r"__UAG_PROTECTED_\d+__")
 SUB_AGENT_PROMPT_ARTIFACT_RE = re.compile(
     r"(?:Constant\(value=|Konstant\(value=|ধ্রুবক\(মান=|"
-    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])|_PH|__\d+|\|{3,}|"
+    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])|_PH|__|"
+    r"(?<![A-Za-z0-9_])_(?:[A-Za-z0-9]+|\[)|"
+    r"\b\d+n\b|\b\d+_[A-Za-z0-9_]+|\|{3,}|"
+    r"(?:kind|tipo|laji|kedves|type|art|typ|jenis|tipe)\s*=\s*[^,\n)]+\)|"
     r"\[Output format\]|\[Edge cases\]|\[Self-evaluation\]|"
     r"\[Token efficiency\]|\[Step-by-step reasoning\]|"
     r"\bYou are\b|\bStrictly output\b)"
@@ -208,7 +212,8 @@ def test_sub_agent_internal_prompts_are_clean_localized_text():
                 invalid.append(f"{lang}:{key}:protocol")
             if "\\n" in prompt:
                 invalid.append(f"{lang}:{key}:literal-newline")
-            match = SUB_AGENT_PROMPT_ARTIFACT_RE.search(prompt)
+            scan_prompt = SUB_AGENT_PROTECTED_TOKEN_RE.sub("", prompt)
+            match = SUB_AGENT_PROMPT_ARTIFACT_RE.search(scan_prompt)
             if match:
                 invalid.append(f"{lang}:{key}:{match.group(0)}")
 
