@@ -408,3 +408,62 @@ def test_tool_audit_ignores_numeric_braces_used_as_literal_aliases(
         finding.locale == "ja" and finding.kind == "placeholder_mismatch"
         for finding in findings
     )
+
+
+def test_tool_audit_rejects_unknown_locale_only_catalog(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(tools / "example_tool.py", {"message": "Hello"})
+    (tools / "example_tool.json").write_text(
+        json.dumps({"jp": {"message": "誤記"}}),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.kind == "unexpected_tool_locale" and finding.locale == "jp"
+        for finding in findings
+    )
+
+
+def test_tool_audit_rejects_unknown_locale_mixed_with_supported_locale(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(tools / "example_tool.py", {"message": "Hello"})
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"message": "こんにちは"},
+                "jp": {"message": "誤記"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.kind == "unexpected_tool_locale" and finding.locale == "jp"
+        for finding in findings
+    )
+
+
+def test_tool_audit_rejects_noncanonical_locale_format(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(tools / "example_tool.py", {"message": "Hello"})
+    (tools / "example_tool.json").write_text(
+        json.dumps({"ja-JP": {"message": "こんにちは"}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.kind == "unexpected_tool_locale" and finding.locale == "ja-JP"
+        for finding in findings
+    )

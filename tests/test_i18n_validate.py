@@ -56,3 +56,31 @@ def test_translation_manifest_keeps_protected_token_validation() -> None:
 
     assert result["ok"] is False
     assert result["checked_translations"] == 1
+
+
+def test_tool_catalog_validation_rejects_unsupported_locale() -> None:
+    result = validate_module._validate_tool_catalog(
+        {"ja": {"message": "こんにちは"}, "jp": {"message": "誤記"}}
+    )
+
+    assert result["ok"] is False
+    assert "jp: unsupported locale key" in result["errors"]
+
+
+def test_tool_catalog_validation_rejects_noncanonical_locale_format() -> None:
+    result = validate_module._validate_tool_catalog(
+        {"ja-JP": {"message": "こんにちは"}}
+    )
+
+    assert result["ok"] is False
+    assert "ja-JP: invalid locale key" in result["errors"]
+
+
+def test_tool_catalog_detection_does_not_hide_locale_typos() -> None:
+    assert validate_module._looks_like_tool_catalog({"jp": {"message": "誤記"}})
+    assert validate_module._looks_like_tool_catalog(
+        {"ja": {"message": "こんにちは"}, "jp": {"message": "誤記"}}
+    )
+    assert validate_module._looks_like_tool_catalog(
+        {"ja-JP": {"message": "こんにちは"}}
+    )

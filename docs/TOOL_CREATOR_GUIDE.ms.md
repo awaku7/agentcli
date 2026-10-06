@@ -368,17 +368,13 @@ description = _(
  JSON Format Fail
 ```json
 {
- "en": {
- "tool.description": "Default English text",
- "param.input": "Input text"
- },
  "ja": {
  "tool.description": "日本語の誇m",明掏"入力テキスト"
  }
 }
 ````
 
-Lihat fail `_tool.json` sedia ada untuk kod bahasa yang disokong.
+JSON alat hanya menyimpan terjemahan bukan bahasa Inggeris. Nilai `default=` Python ialah sumber bahasa Inggeris kanonik.
 
 ______________________________________________________________________
 

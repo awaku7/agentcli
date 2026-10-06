@@ -84,6 +84,7 @@ TOOL_FALLBACK_FINDING_KINDS = frozenset(
 # to match English because runtime English fallback lives in x_search_terms_en.
 VARIABLE_LENGTH_ARRAY_KEYS = frozenset({"x_search_terms"})
 TOOL_TRANSLATION_LOCALES = tuple(locale for locale in SHIPPED_LOCALES if locale != "en")
+TOOL_LOCALE_CANDIDATE_RE = re.compile(r"^[A-Za-z]{2,3}(?:[-_][A-Za-z]{2})?$")
 
 
 @dataclass(frozen=True)
@@ -506,6 +507,15 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
             continue
         if not isinstance(data, dict):
             continue
+        locale_candidates = {
+            key
+            for key, value in data.items()
+            if isinstance(value, dict) and TOOL_LOCALE_CANDIDATE_RE.fullmatch(key)
+        }
+        for locale in sorted(locale_candidates - set(SHIPPED_LOCALES)):
+            findings.append(
+                Finding("tool_json", "unexpected_tool_locale", str(path), locale)
+            )
         blocks = _language_blocks(data)
         if "en" in blocks:
             findings.append(Finding("tool_json", "english_block_present", str(path)))

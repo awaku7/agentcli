@@ -12,6 +12,7 @@ from typing import Any
 
 TOKEN_RE = re.compile(r"__UAG_PROTECTED_\d+__")
 LANG_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Z]{2})?$")
+LOCALE_CANDIDATE_RE = re.compile(r"^[A-Za-z]{2,3}(?:[-_][A-Za-z]{2})?$")
 SUPPORTED_TOOL_LOCALES = frozenset(
     {
         "ar", "bn", "cs", "da", "de", "el", "en", "es", "fa", "fi", "fil",
@@ -69,11 +70,18 @@ def _validate_translation_manifest(data: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _looks_like_tool_catalog(data: dict[str, Any]) -> bool:
+def _looks_like_tool_catalog(
+    data: dict[str, Any], *, has_python_source: bool = False
+) -> bool:
     if not data:
         return False
     keys = set(data)
-    return keys.issubset(SUPPORTED_TOOL_LOCALES)
+    locale_candidates = {
+        key for key in keys if isinstance(key, str) and LOCALE_CANDIDATE_RE.fullmatch(key)
+    }
+    if locale_candidates == keys:
+        return True
+    return has_python_source and bool(locale_candidates)
 
 
 def _validate_tool_catalog(data: dict[str, Any]) -> dict[str, Any]:
@@ -83,7 +91,8 @@ def _validate_tool_catalog(data: dict[str, Any]) -> dict[str, Any]:
     for locale, block in sorted(data.items()):
         if not LANG_RE.fullmatch(locale):
             errors.append(f"{locale}: invalid locale key")
-            continue
+        elif locale not in SUPPORTED_TOOL_LOCALES:
+            errors.append(f"{locale}: unsupported locale key")
         if not isinstance(block, dict):
             errors.append(f"{locale}: locale block must be an object")
     return {
@@ -112,7 +121,9 @@ def main() -> int:
         result = {"mode": "json", "errors": ["root must be an object"], "ok": False}
     elif "locales" in data or "entries" in data:
         result = _validate_translation_manifest(data)
-    elif _looks_like_tool_catalog(data):
+    elif _looks_like_tool_catalog(
+        data, has_python_source=args.catalog.with_suffix(".py").is_file()
+    ):
         result = _validate_tool_catalog(data)
     else:
         result = {
