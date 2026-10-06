@@ -12,6 +12,64 @@ SUB_AGENT_PROMPT_KEYS = (
     "auto.c30a5aed7a2d7578",
     "auto.924901d00f734fac",
 )
+SUB_AGENT_PROMPT_FIELDS = {
+    "auto.6cb7e91442d0aa96": (
+        "status",
+        "role",
+        "summary",
+        "assumptions",
+        "risks",
+        "next_actions",
+    ),
+    "auto.238f691c6304d301": (
+        "status",
+        "role",
+        "summary",
+        "findings",
+        "risks",
+        "recommended_actions",
+    ),
+    "auto.da98c4c06ff99472": (
+        "status",
+        "role",
+        "summary",
+        "key_points",
+        "open_questions",
+    ),
+    "auto.417eea12dad04caa": (
+        "status",
+        "role",
+        "summary",
+        "files",
+        "changes",
+        "risks",
+        "validation_steps",
+    ),
+    "auto.4651eaae39b1dbbb": (
+        "status",
+        "role",
+        "summary",
+        "root_cause",
+        "evidence",
+        "proposed_actions",
+    ),
+    "auto.c30a5aed7a2d7578": (
+        "status",
+        "role",
+        "summary",
+        "source_lang",
+        "target_lang",
+        "translation",
+        "notes",
+    ),
+    "auto.924901d00f734fac": (
+        "status",
+        "role",
+        "summary",
+        "details",
+        "notes",
+    ),
+}
 SUB_AGENT_PROTECTED_TOKEN_RE = re.compile(r"__UAG_PROTECTED_\d+__")
 SUB_AGENT_PROMPT_ARTIFACT_RE = re.compile(
     r"(?:Constant\(value=|Konstant\(value=|ধ্রুবক\(মান=|"
@@ -218,3 +276,28 @@ def test_sub_agent_internal_prompts_are_clean_localized_text():
                 invalid.append(f"{lang}:{key}:{match.group(0)}")
 
     assert not invalid, "Corrupted sub-agent prompt translations: " + ", ".join(invalid)
+
+
+def test_sub_agent_internal_prompts_preserve_canonical_role_instructions():
+    payload = _load("sub_agent_tool.json")
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+        for key, expected_fields in SUB_AGENT_PROMPT_FIELDS.items():
+            prompt = messages.get(key)
+            if not isinstance(prompt, str):
+                continue
+            body = prompt.split("\n[Protocol invariants]", 1)[0]
+            lines = [line for line in body.splitlines() if line.strip()]
+            if len(lines) < len(expected_fields) + 4:
+                invalid.append(f"{lang}:{key}:truncated")
+                continue
+            for field in expected_fields:
+                if field not in body:
+                    invalid.append(f"{lang}:{key}:{field}")
+            if "[Protocol invariants]" in body:
+                invalid.append(f"{lang}:{key}:protocol-in-body")
+
+    assert not invalid, "Incomplete sub-agent prompt translations: " + ", ".join(invalid)
