@@ -536,9 +536,7 @@ def test_intentional_english_tool_key_is_limited_to_invariant_text() -> None:
 
     assert batch._is_intentional_english_tool_key("create_tool", "cmd.help")
     assert batch._is_intentional_english_tool_key("human_ask", "ui.footer")
-    assert batch._is_intentional_english_tool_key(
-        "safe_exec_ops", "ui.fallback_prompt"
-    )
+    assert batch._is_intentional_english_tool_key("safe_exec_ops", "ui.fallback_prompt")
     assert batch._is_intentional_english_tool_key(
         "pybitchat_subscribe", "cmd.node_started_nostr_failed"
     )
