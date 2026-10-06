@@ -16,14 +16,14 @@ BLUESKY_BRAND_SEARCH_TERMS = {
 SERVICE_BRAND_SEARCH_TERM_CONTRACTS = {
     "teams_webhook_tool.json": ("teams", (0, 1, 3, 4, 5, 6, 8, 9)),
     "gmail_read_tool.json": ("gmail", (0,)),
-    "switchbot_ble_control_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_ble_scan_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_ble_status_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_cloud_control_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_cloud_list_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_cloud_status_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_subscribe_tool.json": ("switchbot", (0, 1, 2)),
-    "switchbot_unsubscribe_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_ble_control_tool.json": ("switchbot", (1, 2)),
+    "switchbot_ble_scan_tool.json": ("switchbot", (1, 2)),
+    "switchbot_ble_status_tool.json": ("switchbot", (1, 2)),
+    "switchbot_cloud_control_tool.json": ("switchbot", (1, 2)),
+    "switchbot_cloud_list_tool.json": ("switchbot", (1, 2)),
+    "switchbot_cloud_status_tool.json": ("switchbot", (1, 2)),
+    "switchbot_subscribe_tool.json": ("switchbot", (1, 2)),
+    "switchbot_unsubscribe_tool.json": ("switchbot", (1, 2)),
 }
 
 
