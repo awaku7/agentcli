@@ -39,8 +39,33 @@ def test_vision_provider_missing_env_messages_preserve_provider_names_and_envs()
             if "UAGENT_MOONSHOT_*" not in moonshot:
                 invalid.append(f"{lang}: UAGENT_MOONSHOT_*")
 
-    assert not invalid, (
-        "Corrupted vision provider locale messages: " + ", ".join(invalid)
+    assert not invalid, "Corrupted vision provider locale messages: " + ", ".join(
+        invalid
+    )
+
+
+def test_vision_missing_env_messages_do_not_reference_foreign_provider_config():
+    payload = _load("vision_openai.json")
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+
+        for key in (
+            "err.missing_env.azure",
+            "vision.alibaba_missing_env",
+            "vision.moonshot_missing_env",
+        ):
+            message = messages.get(key)
+            if message is None:
+                continue
+            lowered = message.lower()
+            if "uagent_responses" in lowered or "bedrock" in lowered:
+                invalid.append(f"{lang}:{key}")
+
+    assert not invalid, "Foreign provider/config guidance leaked into messages: " + ", ".join(
+        invalid
     )
 
 
@@ -58,8 +83,8 @@ def test_vision_default_prompt_is_not_replaced_by_provider_error():
         if "uagent_" in lowered or "ollama" in lowered:
             invalid.append(lang)
 
-    assert not invalid, (
-        "Corrupted localized vision prompt.default: " + ", ".join(invalid)
+    assert not invalid, "Corrupted localized vision prompt.default: " + ", ".join(
+        invalid
     )
 
 
