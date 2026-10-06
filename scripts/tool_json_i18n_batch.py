@@ -1028,6 +1028,14 @@ def cmd_status(args: argparse.Namespace) -> int:
         ):
             print(f"  {tool:40s} {key:48s} {n}")
 
+    if args.show_same_as_english_units and same_as_en_units:
+        print("same_as_english_units:")
+        for unit in sorted(
+            same_as_en_units,
+            key=lambda item: (item.tool, item.lang, item.key),
+        ):
+            print(f"  {unit.tool:40s} {unit.lang:8s} {unit.key}")
+
     if by_pair:
         print("review_candidates_by_tool_language:")
         for (tool, lang), n in sorted(by_pair.items()):
@@ -1215,6 +1223,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--show-same-as-english-keys",
         action="store_true",
         help="For status, print target==English candidates grouped by tool and key",
+    )
+    p.add_argument(
+        "--show-same-as-english-units",
+        action="store_true",
+        help="For status, print each target==English candidate as tool, locale, and key",
     )
     p.add_argument(
         "--require-complete",
