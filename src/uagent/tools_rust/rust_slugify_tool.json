@@ -60,7 +60,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "κείμενο σε slug"
     ],
     "tool.text": "Κείμενο για μετατροπή σε γυμνοσάλιαγκα",
     "tool.separator": "Διαχωριστικό λέξεων (προεπιλογή: '-')"
@@ -82,7 +83,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "متن به اسلاگ"
     ],
     "tool.text": "متنی برای تبدیل به اسلگ",
     "tool.separator": "جداکننده کلمات (پیش فرض: '-')"
@@ -93,7 +95,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "teksti slugiksi"
     ],
     "tool.text": "Teksti muuntaa etana",
     "tool.separator": "Sanaerotin (oletus: '-')"
@@ -115,7 +118,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "טקסט ל-slug"
     ],
     "tool.text": "טקסט להמרה לשבלול",
     "tool.separator": "מפריד מילים (ברירת מחדל: '-')"
@@ -137,7 +141,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "szövegből slug"
     ],
     "tool.text": "Szöveg slug-vá alakítani",
     "tool.separator": "Szóelválasztó (alapértelmezett: '-')"
@@ -203,7 +208,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "मजकूर ते स्लग"
     ],
     "tool.text": "स्लगमध्ये रूपांतरित करण्यासाठी मजकूर",
     "tool.separator": "शब्द विभाजक (डीफॉल्ट: '-')"
@@ -214,7 +220,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "teks kepada slug"
     ],
     "tool.text": "Teks untuk ditukar kepada slug",
     "tool.separator": "Pemisah perkataan (lalai: '-')"
@@ -280,7 +287,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "text în slug"
     ],
     "tool.text": "Text de convertit într-un slug",
     "tool.separator": "Separator de cuvinte (implicit: „-\")"
@@ -346,7 +354,8 @@
       "slugify",
       "slug",
       "url slug",
-      "text to slug"
+      "text to slug",
+      "текст у slug"
     ],
     "tool.text": "Текст для перетворення на слаг",
     "tool.separator": "Роздільник слів (за замовчуванням: '-')"
