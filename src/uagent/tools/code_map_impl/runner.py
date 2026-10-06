@@ -62,7 +62,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "project analysis",
                 "source code overview",
                 "repository structure",
-                "Code map",
                 "COBOL dependencies",
                 "COPY dependency",
                 "CALL dependency",

@@ -353,7 +353,7 @@
   },
   "ja": {
     "tool.description": "UCP チェックアウト セッションを管理します。 mode='create' — 新しいチェックアウトを開始します。\nmode='get' — 現在のチェックアウト ステータスを取得します。\nmode='update' — チェックアウト フィールドを変更します。\nmode='complete' — 注文を確定します。ビジネスが continue_url を含む require_escalation を返した場合、ユーザーはブラウザでその URL を開いて支払いを完了する必要があります。ユーザーがブラウザで支払いを行った後、mode='poll' を使用して完了を待ちます。\nmode='poll' — 完了するかタイムアウトになるまでチェックアウト ステータスをポーリングします。ユーザーが continue_url 経由で支払いを完了した後に使用します。",
-    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
+    "param.mode.description": "モード: 'create' / 'get' / 'update' / 'complete' / 'poll'。",
     "param.business_url.description": "ビジネスのベース URL。",
     "param.checkout_id.description": "チェックアウト セッション ID (取得/更新/完了/ポーリングに必要)。",
     "param.cart_id.description": "チェックアウトを作成するカート ID (オプション、line_items の代替)。",
