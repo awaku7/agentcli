@@ -109,6 +109,23 @@ PIP_COMMAND_TRAILING_PUNCTUATION = ".,;:!?。；：！？"
 UAGENT_ENV_RE = re.compile(
     r"\bUAGENT_(?:<[A-Z0-9_]+>|[A-Z0-9*]+)(?:_(?:<[A-Z0-9_]+>|[A-Z0-9*]+))*"
 )
+PROVIDER_OVERLOAD_STATUS_PATTERNS = (
+    re.compile(r"^\s*(?:HTTP(?:\s+status)?\s*)?(429|529)\b", re.IGNORECASE),
+    re.compile(r"\bHTTP(?:\s+status)?\s*[:=]?\s*(429|529)\b", re.IGNORECASE),
+    re.compile(r"\bstatus(?:_code)?\s*[:=]\s*(429|529)\b", re.IGNORECASE),
+    re.compile(
+        r"\bprovider\s+(?:returned|status(?:\s+code)?)\s*[:=]?\s*(429|529)\b",
+        re.IGNORECASE,
+    ),
+)
+
+
+def _provider_overload_status(message: str) -> str | None:
+    for pattern in PROVIDER_OVERLOAD_STATUS_PATTERNS:
+        match = pattern.search(message)
+        if match is not None:
+            return match.group(1)
+    return None
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -814,10 +831,7 @@ def translate_lang(
             )
         except Exception as e:
             msg = str(e)
-            overloaded_status = next(
-                (status for status in ("429", "529") if status in msg),
-                None,
-            )
+            overloaded_status = _provider_overload_status(msg)
             if overloaded_status is not None:
                 if rate_retries < 3:
                     base_delay = 15.0 if overloaded_status == "529" else 10.0

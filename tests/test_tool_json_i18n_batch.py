@@ -395,6 +395,17 @@ def test_translate_lang_sleeps_between_scoped_provider_calls(
     assert sleep_calls == [0.25, 0.25]
 
 
+def test_provider_overload_status_matches_structured_statuses() -> None:
+    assert batch._provider_overload_status("provider returned 529 overloaded") == "529"
+    assert batch._provider_overload_status("HTTP 429 Too Many Requests") == "429"
+    assert batch._provider_overload_status("status_code=529") == "529"
+
+
+def test_provider_overload_status_ignores_unrelated_counts() -> None:
+    assert batch._provider_overload_status("bad translated length (got 529, expected 7)") is None
+    assert batch._provider_overload_status("processed 429 items") is None
+
+
 def test_translate_lang_retries_529_with_backoff(tmp_path: Path, monkeypatch) -> None:
     texts = ["Translate this prompt."]
     job_dir = tmp_path / "ja"
