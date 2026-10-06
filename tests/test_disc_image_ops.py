@@ -315,8 +315,7 @@ def test_i18n_catalog_has_all_non_english_locales_and_matching_keys() -> None:
         encoding="utf-8"
     )
     english_keys = {
-        match.group(1)
-        for match in re.finditer(r'_\(\"([^\"]+)\"\s*,', source)
+        match.group(1) for match in re.finditer(r'_\(\"([^\"]+)\"\s*,', source)
     }
     assert english_keys
 
