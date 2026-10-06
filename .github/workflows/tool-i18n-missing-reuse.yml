@@ -2,7 +2,9 @@ name: Tool I18N Missing Reuse
 on:
   push:
     branches: [fix/tool-i18n-completeness]
-    paths: [".github/workflows/tool-i18n-missing-reuse.yml"]
+    paths:
+      - ".github/workflows/tool-i18n-missing-reuse.yml"
+      - "scripts/tool_json_i18n_reuse_missing.py"
 permissions:
   contents: write
 jobs:
