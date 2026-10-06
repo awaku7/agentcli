@@ -666,7 +666,7 @@
   },
   "da": {
     "tool.description": "Abonner på dataændringer på en OPC UA-servernode. Når værdien ændres, får LLM automatisk besked.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "URL til OPC UA-server.",
     "param.node_id.description": "Node-id til overvågning (f.eks. 'i=85' eller 'ns=2;s=Temperature').",
     "param.label.description": "Etiket, der kan læses af mennesker (f.eks. 'ボイラー温度').",
     "param.on_change_prompt.description": "Valgfri meddelelse om LLM, når værdien ændres.",

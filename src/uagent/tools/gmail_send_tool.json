@@ -812,7 +812,7 @@
     "err.auth_failed": "Nabigo ang pagpapatotoo ng SMTP. Suriin ang UAGENT_GMAIL_ADDRESS at UAGENT_GMAIL_APP_PASSWORD.",
     "err.recipients_refused": "Tumanggi ang (mga) tatanggap: {detail}",
     "err.server_disconnected": "Hindi inaasahang nadiskonekta ang SMTP server.",
-    "err.smtp_error": "SMTP error: {detail}",
+    "err.smtp_error": "Error sa SMTP: {detail}",
     "msg.sent": "Ipinadala ang email sa {count} (mga) tatanggap."
   },
   "ms": {
