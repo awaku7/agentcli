@@ -19,7 +19,10 @@
     "reason.src_trigger": "يطابق src ظروف المسار المحفوفة بالمخاطر",
     "ui.confirm.footer": "=== / تأكيد ===",
     "ui.confirm.howto": "كيفية الرد: ص = متابعة / ج = إلغاء / أخرى = رفض",
-    "ui.confirm.title": "=== طلب التأكيد البشري ==="
+    "ui.confirm.title": "=== طلب التأكيد البشري ===",
+    "err.path_empty": "المسار فارغ",
+    "err.outside_workdir": "المسار خارج دليل العمل: root={root} path={path}",
+    "err.file_not_found": "لم يتم العثور على الملف: {filename}"
   },
   "bn": {
     "confirm.rename": "নাম পরিবর্তন/সরানো বাস্তব ফাইলগুলিকে সরিয়ে দেবে (এটি বিদ্যমান ফাইলগুলি ওভাররাইট বা মুছে ফেলতে পারে)।\nsrc: {src}\ndst: {dst}\nবিস্তারিত: {details}\n\nএগিয়ে যেতে y দিয়ে উত্তর দিন অথবা বাতিল করতে c দিয়ে উত্তর দিন।",
@@ -41,7 +44,10 @@
     "reason.src_trigger": "src ঝুঁকিপূর্ণ পথের অবস্থার সাথে মেলে",
     "ui.confirm.footer": "=== /নিশ্চিত ===\n",
     "ui.confirm.howto": "কিভাবে উত্তর দিতে হবে: y=proceed/c=cancel/ other=deny\n",
-    "ui.confirm.title": "=== মানুষের নিশ্চিতকরণ অনুরোধ ==="
+    "ui.confirm.title": "=== মানুষের নিশ্চিতকরণ অনুরোধ ===",
+    "err.path_empty": "পথ ফাঁকা",
+    "err.outside_workdir": "পথটি ওয়ার্কডিরের বাইরে: রুট={root} পথ={path}",
+    "err.file_not_found": "ফাইল পাওয়া যায়নি: {filename}"
   },
   "cs": {
     "confirm.rename": "přejmenovat/přesunout přesune skutečné soubory (může přepsat nebo smazat existující soubory).\nsrc: {src}\ndst: {dst}\npodrobnosti: {details}\n\nOdpovězte pomocí y pro pokračování nebo c pro zrušení.",
@@ -63,7 +69,10 @@
     "reason.src_trigger": "src odpovídá podmínkám rizikové cesty",
     "ui.confirm.footer": "=== /potvrdit ===\n",
     "ui.confirm.howto": "Jak odpovědět: y=pokračovat / c=zrušit / jiné=odmítnout\n",
-    "ui.confirm.title": "=== Žádost o lidské potvrzení ==="
+    "ui.confirm.title": "=== Žádost o lidské potvrzení ===",
+    "err.path_empty": "cesta je prázdná",
+    "err.outside_workdir": "cesta je mimo pracovní adresář: root={root} cesta={path}",
+    "err.file_not_found": "soubor nenalezen: {filename}"
   },
   "da": {
     "confirm.rename": "rename/move will move real files (it may overwrite or delete existing files).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nReply with y to proceed, or c to cancel.",
@@ -107,7 +116,10 @@
     "reason.src_trigger": "src erfüllt riskante Pfadbedingungen",
     "ui.confirm.footer": "=== /bestätigen ===\n",
     "ui.confirm.howto": "Antworten: y=fortfahren / c=abbrechen / anderes=ablehnen\n",
-    "ui.confirm.title": "=== Anfrage zur menschlichen Bestätigung ==="
+    "ui.confirm.title": "=== Anfrage zur menschlichen Bestätigung ===",
+    "err.path_empty": "Pfad ist leer",
+    "err.outside_workdir": "Pfad liegt außerhalb des Arbeitsverzeichnisses: root={root} path={path}",
+    "err.file_not_found": "Datei nicht gefunden: {filename}"
   },
   "el": {
     "confirm.rename": "Η μετονομασία/μετακίνηση θα μετακινήσει πραγματικά αρχεία (μπορεί να αντικαταστήσει ή να διαγράψει υπάρχοντα αρχεία).\nsrc: {src}\ndst: {dst}\nλεπτομέρειες: {details}\n\nΑπαντήστε με y για να συνεχίσετε ή c για ακύρωση.",
@@ -129,7 +141,10 @@
     "reason.src_trigger": "Το src αντιστοιχεί σε συνθήκες επικίνδυνης διαδρομής",
     "ui.confirm.footer": "=== /επιβεβαίωση ===\n",
     "ui.confirm.howto": "Πώς να απαντήσετε: y=προχωρώ / c=ακύρωση / άλλο=άρνηση\n",
-    "ui.confirm.title": "=== Ανθρώπινο αίτημα επιβεβαίωσης ==="
+    "ui.confirm.title": "=== Ανθρώπινο αίτημα επιβεβαίωσης ===",
+    "err.path_empty": "διαδρομή είναι κενή",
+    "err.outside_workdir": "η διαδρομή είναι εκτός workdir: root={root} path={path}",
+    "err.file_not_found": "το αρχείο δεν βρέθηκε: {filename}"
   },
   "es": {
     "confirm.rename": "cambiar nombre/mover moverá archivos reales (puede sobrescribir o eliminar archivos existentes).\norigen: {src}\nhorario de verano: {dst}\ndetalles: {details}\n\nResponda con y para continuar o c para cancelar.",
@@ -151,7 +166,10 @@
     "reason.src_trigger": "src coincide con condiciones de ruta riesgosas",
     "ui.confirm.footer": "=== /confirmar ===",
     "ui.confirm.howto": "Cómo responder: y=continuar / c=cancelar / otro=denegar\n",
-    "ui.confirm.title": "=== Solicitud de confirmación humana ==="
+    "ui.confirm.title": "=== Solicitud de confirmación humana ===",
+    "err.path_empty": "el camino está vacío",
+    "err.outside_workdir": "la ruta está fuera del directorio de trabajo: root={root} ruta={path}",
+    "err.file_not_found": "archivo no encontrado: {filename}"
   },
   "fa": {
     "confirm.rename": "تغییر نام/حرکت فایل‌های واقعی را جابه‌جا می‌کند (ممکن است فایل‌های موجود را بازنویسی یا حذف کند).\nsrc: {src}\ndst: {dst}\nجزئیات: {details}\n\nبرای ادامه با y یا برای لغو با c پاسخ دهید.",
@@ -173,7 +191,10 @@
     "reason.src_trigger": "src با شرایط مسیر پرخطر مطابقت دارد",
     "ui.confirm.footer": "=== /تأیید ===\n",
     "ui.confirm.howto": "نحوه پاسخگویی: y=پیشرفت / c=لغو/دیگر=رد\n",
-    "ui.confirm.title": "=== درخواست تایید انسانی ==="
+    "ui.confirm.title": "=== درخواست تایید انسانی ===",
+    "err.path_empty": "مسیر خالی است",
+    "err.outside_workdir": "مسیر خارج از workdir است: root={root} مسیر={path}",
+    "err.file_not_found": "فایل یافت نشد: {filename}"
   },
   "fi": {
     "confirm.rename": "Nimeä uudelleen/siirrä siirtää oikeat tiedostot (se voi korvata tai poistaa olemassa olevia tiedostoja).\nsrc: {src}\ndst: {dst}\ntiedot: {details}\n\nJatka vastaamalla y:llä tai peruuta painamalla c.",
@@ -195,7 +216,10 @@
     "reason.src_trigger": "src vastaa riskialttiita polkuehtoja",
     "ui.confirm.footer": "=== /vahvista ===\n",
     "ui.confirm.howto": "Kuinka vastata: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Ihmisen vahvistuspyyntö ==="
+    "ui.confirm.title": "=== Ihmisen vahvistuspyyntö ===",
+    "err.path_empty": "polku on tyhjä",
+    "err.outside_workdir": "polku on työhakemiston ulkopuolella: root={root} polku={path}",
+    "err.file_not_found": "tiedostoa ei löydy: {filename}"
   },
   "fil": {
     "confirm.rename": "rename/move will move real files (it may overwrite or delete existing files).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nReply with y to proceed, or c to cancel.",
@@ -239,7 +263,10 @@
     "reason.src_trigger": "src correspond aux conditions de chemin à risque",
     "ui.confirm.footer": "=== /confirmer ===",
     "ui.confirm.howto": "Comment répondre : y=continuer / c=annuler / autre=refuser\n",
-    "ui.confirm.title": "=== Demande de confirmation humaine ==="
+    "ui.confirm.title": "=== Demande de confirmation humaine ===",
+    "err.path_empty": "le chemin est vide",
+    "err.outside_workdir": "le chemin se trouve en dehors du répertoire de travail : root={root} path={path}",
+    "err.file_not_found": "fichier introuvable : {filename}"
   },
   "he": {
     "confirm.rename": "שינוי שם/הזזה יעביר קבצים אמיתיים (הוא עשוי לדרוס או למחוק קבצים קיימים).\nsrc: {src}\ndst: {dst}\nפרטים: {details}\n\nהשב עם y כדי להמשיך, או c כדי לבטל.",
@@ -261,7 +288,10 @@
     "reason.src_trigger": "src תואם לתנאי נתיב מסוכן",
     "ui.confirm.footer": "=== בקשת אישור אנושית ===",
     "ui.confirm.howto": "כיצד להשיב: y=המשך / c=ביטול / אחר=הכחשה\n",
-    "ui.confirm.title": "=== בקשת אישור אנושית ==="
+    "ui.confirm.title": "=== בקשת אישור אנושית ===",
+    "err.path_empty": "הנתיב ריק",
+    "err.outside_workdir": "הנתיב נמצא מחוץ ל-workdir: root={root} path={path}",
+    "err.file_not_found": "הקובץ לא נמצא: {filename}"
   },
   "hi": {
     "confirm.rename": "नाम बदलने/स्थानांतरित करने से वास्तविक फ़ाइलें स्थानांतरित हो जाएंगी (यह मौजूदा फ़ाइलों को अधिलेखित कर सकती है या हटा सकती है)।\nस्रोत: {src}\nडीएसटी: {dst}\nविवरण: {details}\n\nआगे बढ़ने के लिए y, या रद्द करने के लिए c लिखकर उत्तर दें।",
@@ -283,7 +313,10 @@
     "reason.src_trigger": "src जोखिम भरी पथ स्थितियों से मेल खाता है",
     "ui.confirm.footer": "=== /पुष्टि ===\n",
     "ui.confirm.howto": "उत्तर कैसे दें: y=आगे बढ़ें / c=रद्द करें / अन्य=अस्वीकार करें\n",
-    "ui.confirm.title": "=== मानव पुष्टिकरण अनुरोध ==="
+    "ui.confirm.title": "=== मानव पुष्टिकरण अनुरोध ===",
+    "err.path_empty": "रास्ता खाली है",
+    "err.outside_workdir": "पथ कार्यदिर के बाहर है: रूट={root} पथ={path}",
+    "err.file_not_found": "फ़ाइल नहीं मिली: {filename}"
   },
   "hu": {
     "confirm.rename": "A rename/move valódi fájlokat helyez át (felülírhatja vagy törölheti a meglévő fájlokat).\nsrc: {src}\ndst: {dst}\nrészletek: {details}\n\nVálaszoljon y-val a folytatáshoz, vagy c-vel a visszavonáshoz.",
@@ -305,7 +338,10 @@
     "reason.src_trigger": "az src megfelel a kockázatos elérési út feltételeinek",
     "ui.confirm.footer": "=== /megerősítés ===\n",
     "ui.confirm.howto": "Hogyan kell válaszolni: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Emberi megerősítési kérés ==="
+    "ui.confirm.title": "=== Emberi megerősítési kérés ===",
+    "err.path_empty": "az út üres",
+    "err.outside_workdir": "az elérési út a munkakönyvtáron kívül található: root={root} path={path}",
+    "err.file_not_found": "a fájl nem található: {filename}"
   },
   "id": {
     "confirm.rename": "rename/move akan memindahkan file nyata (mungkin menimpa atau menghapus file yang ada).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nBalas dengan y untuk melanjutkan, atau c untuk membatalkan.",
@@ -327,7 +363,10 @@
     "reason.src_trigger": "src cocok dengan kondisi path berisiko",
     "ui.confirm.footer": "=== /confirm ===",
     "ui.confirm.howto": "Cara menjawab: y=lanjut / c=batal / lainnya=tolak",
-    "ui.confirm.title": "=== Permintaan konfirmasi manusia ==="
+    "ui.confirm.title": "=== Permintaan konfirmasi manusia ===",
+    "err.path_empty": "path kosong",
+    "err.outside_workdir": "path berada di luar workdir: root={root} path={path}",
+    "err.file_not_found": "file tidak ditemukan: {filename}"
   },
   "it": {
     "confirm.rename": "rename/move sposterà file reali (potrebbe sovrascrivere o eliminare file esistenti).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nDigita y per procedere oppure c per annullare.",
@@ -349,7 +388,10 @@
     "reason.src_trigger": "src corrisponde a condizioni di percorso rischiose",
     "ui.confirm.footer": "=== /conferma ===\n",
     "ui.confirm.howto": "Come rispondere: y=procedi / c=annulla / altro=nega\n",
-    "ui.confirm.title": "=== Richiesta di conferma umana ==="
+    "ui.confirm.title": "=== Richiesta di conferma umana ===",
+    "err.path_empty": "Il percorso è vuoto",
+    "err.outside_workdir": "Il percorso è esterno alla directory di lavoro: root={root} path={path}",
+    "err.file_not_found": "File non trovato: {filename}"
   },
   "ja": {
     "confirm.rename": "rename/move は実ファイルを移動します（上書きや既存の削除が発生する場合があります）。\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\n続行する場合は y、取消は c を入力してください。",
@@ -371,7 +413,10 @@
     "reason.src_trigger": "src が危険パス条件に該当します",
     "ui.confirm.footer": "=== /確認 ===\n",
     "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
-    "ui.confirm.title": "=== 確認 ==="
+    "ui.confirm.title": "=== 確認 ===",
+    "err.path_empty": "パスが空です",
+    "err.outside_workdir": "作業ディレクトリ外のパスです: root={root} path={path}",
+    "err.file_not_found": "ファイルが見つかりません: {filename}"
   },
   "ko": {
     "confirm.rename": "이름 바꾸기/이동은 실제 파일을 이동합니다(기존 파일을 덮어쓰거나 삭제할 수 있음).\n소스: {src}\n일자: {dst}\n세부정보: {details}\n\n계속하려면 y를, 취소하려면 c를 입력하세요.",
@@ -393,7 +438,10 @@
     "reason.src_trigger": "src가 위험한 경로 조건과 일치합니다.",
     "ui.confirm.footer": "=== /확인 ===",
     "ui.confirm.howto": "응답 방법: y=진행 / c=취소 / 기타=거부",
-    "ui.confirm.title": "=== 사람의 확인 요청 ==="
+    "ui.confirm.title": "=== 사람의 확인 요청 ===",
+    "err.path_empty": "경로가 비어 있습니다",
+    "err.outside_workdir": "경로가 작업 디렉터리 외부에 있습니다: root={root} path={path}",
+    "err.file_not_found": "파일을 찾을 수 없습니다: {filename}"
   },
   "mn": {
     "confirm.rename": "нэрийг өөрчлөх/зөөх нь бодит файлуудыг зөөнө (одоо байгаа файлуудыг дарж бичих эсвэл устгаж болно).\nsrc: {src}\ndst: {dst}\nдэлгэрэнгүй: {details}\n\nҮргэлжлүүлэхийн тулд y гэж хариулж, цуцлах бол c.",
@@ -415,7 +463,10 @@
     "reason.src_trigger": "src нь эрсдэлтэй замын нөхцөлтэй таарч байна",
     "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Хэрхэн хариулах вэ: y=үргэлжлүүлэх / c=цуцлах / бусад=татгалзах\n",
-    "ui.confirm.title": "=== Хүний баталгаажуулах хүсэлт ==="
+    "ui.confirm.title": "=== Хүний баталгаажуулах хүсэлт ===",
+    "err.path_empty": "зам хоосон байна",
+    "err.outside_workdir": "зам нь workdir-ээс гадуур байна: root={root} path={path}",
+    "err.file_not_found": "файл олдсонгүй: {filename}"
   },
   "mr": {
     "confirm.rename": "पुनर्नामित/हलवा वास्तविक फायली हलवेल (ते विद्यमान फायली अधिलिखित किंवा हटवू शकतात).\nsrc: {src}\ndst: {dst}\n तपशील: {details}\n\n पुढे जाण्यासाठी y किंवा रद्द करण्यासाठी c सह उत्तर द्या.",
@@ -437,7 +488,10 @@
     "reason.src_trigger": "src धोकादायक मार्ग परिस्थितीशी जुळते",
     "ui.confirm.footer": "=== /पुष्टी ===\n",
     "ui.confirm.howto": "कसे उत्तर द्यावे: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== मानवी पुष्टीकरण विनंती ==="
+    "ui.confirm.title": "=== मानवी पुष्टीकरण विनंती ===",
+    "err.path_empty": "मार्ग रिकामा आहे",
+    "err.outside_workdir": "मार्ग वर्कडायरच्या बाहेर आहे: रूट={root} पथ={path}",
+    "err.file_not_found": "फाइल आढळली नाही: {filename}"
   },
   "ms": {
     "confirm.rename": "rename/move will move real files (it may overwrite or delete existing files).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nReply with y to proceed, or c to cancel.",
@@ -481,7 +535,10 @@
     "reason.src_trigger": "src samsvarer med risikable baneforhold",
     "ui.confirm.footer": "=== /bekreft ===\n",
     "ui.confirm.howto": "Slik svarer du: y=fortsett / c=avbryt / annet=avslå\n",
-    "ui.confirm.title": "=== Forespørsel om menneskelig bekreftelse ==="
+    "ui.confirm.title": "=== Forespørsel om menneskelig bekreftelse ===",
+    "err.path_empty": "banen er tom",
+    "err.outside_workdir": "banen er utenfor arbeidskatalogen: root={root} bane={path}",
+    "err.file_not_found": "fil ikke funnet: {filename}"
   },
   "nl": {
     "confirm.rename": "hernoemen/verplaatsen verplaatst echte bestanden (het kan bestaande bestanden overschrijven of verwijderen).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nReageer met y om door te gaan, of c om te annuleren.",
@@ -503,7 +560,10 @@
     "reason.src_trigger": "src komt overeen met risicovolle padomstandigheden",
     "ui.confirm.footer": "=== /bevestig ===\n",
     "ui.confirm.howto": "Hoe te antwoorden: y=doorgaan / c=annuleren / anders=weigeren\n",
-    "ui.confirm.title": "=== Menselijk bevestigingsverzoek ==="
+    "ui.confirm.title": "=== Menselijk bevestigingsverzoek ===",
+    "err.path_empty": "pad is leeg",
+    "err.outside_workdir": "pad bevindt zich buiten de werkmap: root={root} pad={path}",
+    "err.file_not_found": "bestand niet gevonden: {filename}"
   },
   "nn": {
     "confirm.rename": "rename/move will move real files (it may overwrite or delete existing files).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nReply with y to proceed, or c to cancel.",
@@ -547,7 +607,10 @@
     "reason.src_trigger": "src odpowiada ryzykownym warunkom ścieżki",
     "ui.confirm.footer": "=== /potwierdź ===",
     "ui.confirm.howto": "Jak odpowiedzieć: y=kontynuuj / c=anuluj / inny=odmów",
-    "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ==="
+    "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ===",
+    "err.path_empty": "ścieżka jest pusta",
+    "err.outside_workdir": "ścieżka znajduje się poza katalogiem roboczym: root={root} ścieżka={path}",
+    "err.file_not_found": "nie znaleziono pliku: {filename}"
   },
   "pt": {
     "confirm.rename": "renomear/mover moverá arquivos reais (pode sobrescrever ou excluir arquivos existentes).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nResponda com y para continuar ou c para cancelar.",
@@ -569,7 +632,10 @@
     "reason.src_trigger": "src corresponde a condições de caminho arriscadas",
     "ui.confirm.footer": "=== /confirmar ===\n",
     "ui.confirm.howto": "Como responder: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Solicitação de confirmação humana ==="
+    "ui.confirm.title": "=== Solicitação de confirmação humana ===",
+    "err.path_empty": "o caminho está vazio",
+    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
+    "err.file_not_found": "arquivo não encontrado: {filename}"
   },
   "pt_BR": {
     "confirm.rename": "rename/move moverá arquivos reais (pode sobrescrever ou excluir arquivos existentes).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nDigite y para prosseguir ou c para cancelar.",
@@ -591,7 +657,10 @@
     "reason.src_trigger": "src corresponde a condições de caminho de risco",
     "ui.confirm.footer": "=== /confirmar ===\n",
     "ui.confirm.howto": "Como responder: y=prosseguir / c=cancelar / outro=negar\n",
-    "ui.confirm.title": "=== Solicitação de confirmação humana ==="
+    "ui.confirm.title": "=== Solicitação de confirmação humana ===",
+    "err.path_empty": "o caminho está vazio",
+    "err.outside_workdir": "o caminho está fora do diretório de trabalho: root={root} path={path}",
+    "err.file_not_found": "arquivo não encontrado: {filename}"
   },
   "ro": {
     "confirm.rename": "redenumiți/mutați va muta fișierele reale (se poate suprascrie sau șterge fișierele existente).\nsrc: {src}\ndst: {dst}\ndetalii: {details}\n\nRăspundeți cu y pentru a continua sau c pentru a anula.",
@@ -613,7 +682,10 @@
     "reason.src_trigger": "src se potrivește cu condițiile riscante ale căii",
     "ui.confirm.footer": "Cum să răspunzi: y=proceed / c=cancel / other=deny",
     "ui.confirm.howto": "=== Solicitare de confirmare umană ===",
-    "ui.confirm.title": "=== Cerere de confirmare umană ==="
+    "ui.confirm.title": "=== Cerere de confirmare umană ===",
+    "err.path_empty": "calea este goală",
+    "err.outside_workdir": "calea este în afara workdir: root={root} path={path}",
+    "err.file_not_found": "fișierul nu a fost găsit: {filename}"
   },
   "ru": {
     "confirm.rename": "rename/move переместит реальные файлы (может перезаписать или удалить существующие).\nsrc: {src}\ndst: {dst}\ndetails: {details}\n\nВведите y, чтобы продолжить, или c, чтобы отменить.",
@@ -635,7 +707,10 @@
     "reason.src_trigger": "src соответствует рискованным условиям пути",
     "ui.confirm.footer": "=== /подтверждение ===\n",
     "ui.confirm.howto": "Как ответить: y=продолжить / c=отмена / другое=отклонить\n",
-    "ui.confirm.title": "=== Запрос подтверждения от человека ==="
+    "ui.confirm.title": "=== Запрос подтверждения от человека ===",
+    "err.path_empty": "Путь пуст",
+    "err.outside_workdir": "Путь находится вне рабочей директории: root={root} path={path}",
+    "err.file_not_found": "Файл не найден: {filename}"
   },
   "sv": {
     "confirm.rename": "Rename/move kommer att flytta riktiga filer (det kan skriva över eller radera befintliga filer).\nsrc: {src}\ndst: {dst}\ndetaljer: {details}\n\nSvara med y för att fortsätta, eller c för att avbryta.",
@@ -657,7 +732,10 @@
     "reason.src_trigger": "src matchar riskfyllda vägförhållanden",
     "ui.confirm.footer": "=== /bekräfta ===\n",
     "ui.confirm.howto": "Så här svarar du: y=fortsätt / c=avbryt / annat=neka\n",
-    "ui.confirm.title": "=== Begäran om mänsklig bekräftelse ==="
+    "ui.confirm.title": "=== Begäran om mänsklig bekräftelse ===",
+    "err.path_empty": "vägen är tom",
+    "err.outside_workdir": "sökvägen är utanför arbetskatalogen: root={root} sökväg={path}",
+    "err.file_not_found": "filen hittades inte: {filename}"
   },
   "sw": {
     "confirm.rename": "kubadilisha jina/hamisha kutahamisha faili halisi (inaweza kubatilisha au kufuta faili zilizopo).\nsrc: {src}\ndst: {dst}\nmaelezo: {details}\n\nJibu kwa y ili kuendelea, au c kughairi.",
@@ -679,7 +757,10 @@
     "reason.src_trigger": "src inalingana na hali ya njia hatari",
     "ui.confirm.footer": "=== /thibitisha ===\n",
     "ui.confirm.howto": "Jinsi ya kujibu: y=endelea / c=ghairi / nyingine=kataa\n",
-    "ui.confirm.title": "=== Ombi la uthibitisho wa kibinadamu ==="
+    "ui.confirm.title": "=== Ombi la uthibitisho wa kibinadamu ===",
+    "err.path_empty": "njia ni tupu",
+    "err.outside_workdir": "njia iko nje ya workdir: mzizi={root} njia={path}",
+    "err.file_not_found": "faili haijapatikana: {filename}"
   },
   "th": {
     "confirm.rename": "เปลี่ยนชื่อ/ย้าย จะย้ายไฟล์จริง (อาจเขียนทับหรือลบไฟล์ที่มีอยู่)\nsrc: {src}\nเวลา: {dst}\nรายละเอียด: {details}\n\nตอบกลับด้วย y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
@@ -701,7 +782,10 @@
     "reason.src_trigger": "src ตรงกับเงื่อนไขเส้นทางที่มีความเสี่ยง",
     "ui.confirm.footer": "=== /ยืนยัน ===",
     "ui.confirm.howto": "วิธีตอบกลับ: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ==="
+    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ===",
+    "err.path_empty": "เส้นทางว่างเปล่า",
+    "err.outside_workdir": "เส้นทางอยู่นอก workdir: root={root} path={path}",
+    "err.file_not_found": "ไม่พบไฟล์: {filename}"
   },
   "tr": {
     "confirm.rename": "yeniden adlandır/taşı, gerçek dosyaları taşır (mevcut dosyaların üzerine yazabilir veya silebilir).\nkaynak: {src}\nvarış yeri: {dst}\nayrıntılar: {details}\n\nDevam etmek için y ile veya iptal etmek için c ile yanıtlayın.",
@@ -723,7 +807,10 @@
     "reason.src_trigger": "src riskli yol koşullarıyla eşleşiyor",
     "ui.confirm.footer": "=== /onayla ===",
     "ui.confirm.howto": "Nasıl cevap verilir: y=devam et / c=iptal / diğer=reddet",
-    "ui.confirm.title": "=== İnsandan onay talebi ==="
+    "ui.confirm.title": "=== İnsandan onay talebi ===",
+    "err.path_empty": "yol boş",
+    "err.outside_workdir": "yol çalışma dizininin dışında: root={root} path={path}",
+    "err.file_not_found": "dosya bulunamadı: {filename}"
   },
   "uk": {
     "confirm.rename": "перейменування/переміщення перемістить справжні файли (це може перезаписати або видалити існуючі файли).\nsrc: {src}\ndst: {dst}\nподробиці: {details}\n\nУ відповідь натисніть y, щоб продовжити, або c, щоб скасувати.",
@@ -745,7 +832,10 @@
     "reason.src_trigger": "src відповідає ризикованим умовам шляху",
     "ui.confirm.footer": "=== /підтвердити ===\n",
     "ui.confirm.howto": "Як відповісти: y=продовжити / c=скасувати / other=відмовити\n",
-    "ui.confirm.title": "=== Запит на підтвердження людиною ==="
+    "ui.confirm.title": "=== Запит на підтвердження людиною ===",
+    "err.path_empty": "шлях порожній",
+    "err.outside_workdir": "шлях знаходиться поза робочим каталогом: root={root} path={path}",
+    "err.file_not_found": "файл не знайдено: {filename}"
   },
   "vi": {
     "confirm.rename": "đổi tên/di chuyển sẽ di chuyển các tệp thực (nó có thể ghi đè hoặc xóa các tệp hiện có).\nsrc: {src}\ndst: {dst}\nchi tiết: {details}\n\nTrả lời bằng y để tiếp tục hoặc c để hủy.",
@@ -767,7 +857,10 @@
     "reason.src_trigger": "src phù hợp với điều kiện đường dẫn nguy hiểm",
     "ui.confirm.footer": "=== /xác nhận ===",
     "ui.confirm.howto": "Cách trả lời: y=proceed / c=cancel / other=deny",
-    "ui.confirm.title": "=== Yêu cầu xác nhận của con người ==="
+    "ui.confirm.title": "=== Yêu cầu xác nhận của con người ===",
+    "err.path_empty": "đường dẫn trống",
+    "err.outside_workdir": "đường dẫn nằm ngoài nơi làm việc: root={root} path={path}",
+    "err.file_not_found": "không tìm thấy tập tin: {filename}"
   },
   "zh_CN": {
     "confirm.rename": "重命名/移动将移动真实文件（可能会覆盖或删除现有文件）。\n来源：{src}\n目的地：{dst}\n详细信息：{details}\n\n回复 y 继续，或回复 c 取消。",
@@ -789,7 +882,10 @@
     "reason.src_trigger": "src 匹配有风险的路径条件",
     "ui.confirm.footer": "===/确认===",
     "ui.confirm.howto": "如何回复：y=继续 / c=取消 / other=拒绝\n",
-    "ui.confirm.title": "===人工确认请求==="
+    "ui.confirm.title": "===人工确认请求===",
+    "err.path_empty": "路径为空",
+    "err.outside_workdir": "路径在工作目录之外： root={root} path={path}",
+    "err.file_not_found": "未找到文件：{filename}"
   },
   "zh_TW": {
     "confirm.rename": "重新命名/移動將移動真實檔案（可能會覆蓋或刪除現有檔案）。\n來源：{src}\n目的地：{dst}\n詳細資料：{details}\n\n回覆 y 繼續，或回覆 c 取消。",
@@ -811,6 +907,9 @@
     "reason.src_trigger": "src 符合有風險的路徑條件",
     "ui.confirm.footer": "===/確認===",
     "ui.confirm.howto": "如何回覆：y=繼續 / c=取消 / other=拒絕\n",
-    "ui.confirm.title": "===人工確認請求==="
+    "ui.confirm.title": "===人工確認請求===",
+    "err.path_empty": "路徑為空",
+    "err.outside_workdir": "路徑在工作目錄之外： root={root} path={path}",
+    "err.file_not_found": "未找到文件：{filename}"
   }
 }
