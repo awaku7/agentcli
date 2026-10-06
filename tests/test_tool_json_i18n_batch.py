@@ -490,3 +490,10 @@ def test_placeholder_only_passthrough_key_is_intentional_english() -> None:
         force=False,
         skip_same_as_en=True,
     )
+
+
+def test_intentional_english_tool_key_is_scoped() -> None:
+    assert batch._is_intentional_english_tool_key("create_tool", "cmd.help")
+    assert batch._is_intentional_english_tool_key("human_ask", "ui.footer")
+    assert not batch._is_intentional_english_tool_key("other_tool", "cmd.help")
+    assert not batch._is_intentional_english_tool_key("other_tool", "ui.footer")
