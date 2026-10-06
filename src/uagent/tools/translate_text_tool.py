@@ -1054,7 +1054,10 @@ TOOL_SPEC: dict[str, Any] = {
                 "deepl",
                 "deepL",
                 "language",
+                "i18n",
+                "localization",
                 "file translate",
+                "translate file",
             ],
         ),
         "x_search_terms_en": [

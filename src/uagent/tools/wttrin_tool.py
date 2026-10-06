@@ -25,9 +25,6 @@ TOOL_SPEC = {
                 "weather",
                 "forecast",
                 "temperature",
-                "Weather",
-                "Temperature",
-                "Weather forecast",
             ],
         ),
         "x_search_terms_en": [

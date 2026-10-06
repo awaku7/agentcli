@@ -28,10 +28,10 @@ TOOL_SPEC: dict[str, Any] = {
                 "zipcode",
                 "postal code",
                 "Japan address",
-                "Postal code",
                 "address lookup",
                 "Japanese zipcode",
-                "〒",
+                "zip code",
+                "postal",
             ],
         ),
         "x_search_terms_en": [
