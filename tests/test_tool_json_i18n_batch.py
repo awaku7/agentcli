@@ -538,15 +538,12 @@ def test_intentional_english_tool_key_is_scoped() -> None:
     )
 
 
-def test_exception_label_is_intentional_english() -> None:
-    value = "Exception"
-
-    assert not batch._is_missing_or_stale(
-        value,
-        value,
-        key="err.exception",
-        force=False,
-        skip_same_as_en=True,
+def test_exception_label_is_scoped_to_reviewed_tools() -> None:
+    assert batch._is_intentional_english_tool_key("a2a_poll", "err.exception")
+    assert batch._is_intentional_english_tool_key("bash_exec", "err.exception")
+    assert batch._is_intentional_english_tool_key("teams_webhook", "err.exception")
+    assert not batch._is_intentional_english_tool_key(
+        "unreviewed_tool", "err.exception"
     )
     assert not batch._is_intentional_english_tool_key("other_tool", "cmd.help")
     assert not batch._is_intentional_english_tool_key("other_tool", "ui.footer")

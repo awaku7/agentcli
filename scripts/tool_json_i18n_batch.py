@@ -140,7 +140,6 @@ INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
         "match.line",
         "ui.fallback_prompt",
         "ui.confirm.footer",
-        "err.exception",
     }
 )
 
@@ -156,10 +155,15 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
         ("mdformat", "label.ok"),
         ("set_timer", "out.list_os_item"),
         ("ucp_checkout", "param.mode.description"),
+        ("a2a_poll", "err.exception"),
+        ("a2a_send", "err.exception"),
+        ("a2a_servers", "err.exception"),
         ("bacnet_read", "msg.summary"),
+        ("bash_exec", "err.exception"),
         ("bacnet_write", "msg.summary"),
         ("bluesky", "param.action.description"),
         ("diff_files", "label.text_input"),
+        ("discord_channel", "err.exception"),
         ("discord_channel", "param.message.description"),
         ("graph_rag_search", "out.hits_summary"),
         ("lint_js_ts", "label.error"),
@@ -170,12 +174,15 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
         ("mdformat", "label.timeout"),
         ("modbus_read", "msg.summary"),
         ("modbus_write", "msg.summary"),
+        ("pwsh_exec", "err.exception"),
         ("pwsh_exec", "err.returncode"),
         ("pybitchat_subscribe", "geo.channel_entry"),
         ("search_files", "out.file"),
+        ("secrets", "err.exception"),
         ("skills_mp_search", "prefix.error"),
         ("sub_agent", "status.error"),
         ("switchbot_batch", "msg.step_error"),
+        ("teams_webhook", "err.exception"),
         ("upnp_igd_control", "param.description.description"),
     }
 )
