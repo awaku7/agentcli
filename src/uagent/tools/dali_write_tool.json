@@ -740,9 +740,9 @@
     "param.action.description": "Handling: tændt, slukket eller dæmp.",
     "param.level.description": "Dæmpningsniveau (0-254). Påkrævet for handling=dim.",
     "param.group.description": "Valgfri gruppeadresse (0-15) i stedet for enkeltadresse.",
-    "param.driver.description": "DALI driver type.",
+    "param.driver.description": "DALI-driverens type.",
     "param.host.description": "daliserver vært.",
-    "param.port.description": "daliserver port.",
+    "param.port.description": "Port til daliserver.",
     "param.fmt.description": "Format: json eller tekst.",
     "msg.summary": "DALI {action}: addr={addr} niveau={level}",
     "x_search_terms": [
