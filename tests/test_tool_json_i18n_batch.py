@@ -480,6 +480,38 @@ def test_status_can_report_same_as_english_keys(tmp_path: Path, capsys) -> None:
     assert "tool.description" in captured.out
 
 
+def test_status_can_report_same_as_english_units(tmp_path: Path, capsys) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"ja": {"tool.description": "Hello"}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "ja",
+            "--show-same-as-english-units",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 0
+    assert "same_as_english_units:" in captured.out
+    assert "sample" in captured.out
+    assert "ja" in captured.out
+    assert "tool.description" in captured.out
+
+
 def test_placeholder_only_passthrough_key_is_intentional_english() -> None:
     value = "{message}"
 
