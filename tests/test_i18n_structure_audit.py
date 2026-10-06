@@ -473,15 +473,8 @@ def test_tool_audit_rejects_non_english_search_default(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
     (tools / "example_tool.py").write_text(
-        """
-_(
-    "x_search_terms",
-    default=["現在地", "位置情報"],
-)
-TOOL_SPEC = {
-    "x_search_terms_en": ["current location", "geolocation"],
-}
-""".strip() + "\n",
+        '_("x_search_terms", default=["現在地", "位置情報"])\n'
+        'TOOL_SPEC = {"x_search_terms_en": ["current location", "geolocation"]}\n',
         encoding="utf-8",
     )
     (tools / "example_tool.json").write_text(
