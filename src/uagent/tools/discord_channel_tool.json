@@ -964,7 +964,7 @@
     "err.missing_channel_id": "Nawawala ang 'channel_id'.",
     "err.missing_message": "Nawawala ang 'mensahe'.",
     "param.action.description": "Pagkilos: magpadala / magpadala_at_maghintay / kasaysayan",
-    "param.channel_id.description": "Target Discord channel ID.",
+    "param.channel_id.description": "ID ng target na Discord channel.",
     "param.exclude_bots.description": "Kapag naghihintay, huwag pansinin ang mga mensahe ng bot.",
     "param.limit.description": "Bilang ng mga mensaheng kukunin para sa kasaysayan/mga tugon.",
     "param.message.description": "Mensahe.",

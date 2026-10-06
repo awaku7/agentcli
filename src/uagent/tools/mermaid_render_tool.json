@@ -200,10 +200,10 @@
       "SVG",
       "PDF"
     ],
-    "param.source.description": "Mermaid source text.",
+    "param.source.description": "Source text ng Mermaid.",
     "param.input_path.description": "Opsyonal na landas ng file ng Mermaid.",
     "param.output_path.description": "Output .png, .svg, o .pdf path.",
-    "param.scale.description": "PNG scale factor.",
+    "param.scale.description": "Scale factor ng PNG.",
     "param.background.description": "Kulay ng background.",
     "param.theme.description": "Tema ng Mermaid.",
     "param.include_base64.description": "Isama ang base64 data para sa mga malalayong kliyente.",

@@ -627,10 +627,10 @@
     ]
   },
   "fil": {
-    "param.algo.description": "Algorithm.",
+    "param.algo.description": "Algoritmo.",
     "param.chunk_size.description": "Laki ng tipak.",
     "param.paths.description": "Array ng mga landas ng target na file.",
-    "param.return.description": "Output format.",
+    "param.return.description": "Format ng output.",
     "tool.description": "Kinakalkula ang hash (sha256/sha1/md5) ng mga file.",
     "x_search_terms": [
       "file hash",
