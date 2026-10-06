@@ -402,7 +402,7 @@ def test_provider_overload_status_matches_structured_statuses() -> None:
 
 
 def test_provider_overload_status_ignores_unrelated_counts() -> None:
-    assert batch._provider_overload_status("bad translated length (got 529, expected 7)") is None
+    assert (\n        batch._provider_overload_status("bad translated length (got 529, expected 7)")\n        is None\n    )
     assert batch._provider_overload_status("processed 429 items") is None
 
 
