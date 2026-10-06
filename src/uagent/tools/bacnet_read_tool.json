@@ -697,7 +697,7 @@
     "param.ip.description": "Target na IPv4 address ng device.",
     "param.device_instance.description": "BACnet device instance number (alternatibo sa ip). Ginagamit kung hindi ibinigay ang ip.",
     "param.object_type.description": "Uri ng object ng BACnet (hal. 'analogInput', 'binaryOutput', 'analogValue').",
-    "param.object_instance.description": "BACnet object instance number.",
+    "param.object_instance.description": "Numero ng BACnet object instance.",
     "param.property_name.description": "Pangalan ng property na babasahin (default: 'presentValue'). Karaniwan: presentValue, paglalarawan, mga unit, statusFlags, objectName.",
     "param.fmt.description": "Format: json o text.",
     "msg.summary": "BACnet read: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",

@@ -897,7 +897,7 @@
     "param.mode.description": "I-edit ang mode.",
     "param.occurrence.description": "Pangyayari (1-based; 0 = lahat).",
     "param.offset.description": "Byte offset (0-based). Kinakailangan para sa pagsulat/pagdugtong.",
-    "param.patch_json.description": "JSON string patch (apply_patch mode).",
+    "param.patch_json.description": "JSON string na patch (apply_patch mode).",
     "param.path.description": "Target na landas ng file.",
     "param.replace_hex.description": "Hex string na papalitan ng (replace mode). Dapat ay kapareho ng haba ng search_hex maliban kung allow_resize=true (hindi suportado).",
     "param.search_hex.description": "Hex string na hahanapin (palitan ang mode).",

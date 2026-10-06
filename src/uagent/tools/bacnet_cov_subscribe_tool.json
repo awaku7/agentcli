@@ -795,7 +795,7 @@
     "tool.description": "Mag-subscribe sa mga notification ng BACnet COV (Change of Value) para sa isang bagay. Kapag nagbago ang halaga, awtomatikong ino-notify ang LLM.",
     "param.ip.description": "Target na IPv4 address ng device.",
     "param.object_type.description": "Uri ng bagay na BACnet na susubaybayan.",
-    "param.object_instance.description": "BACnet object instance number.",
+    "param.object_instance.description": "Numero ng BACnet object instance.",
     "param.lifetime.description": "Habambuhay ng subscription sa mga segundo (default: 900). Awtomatikong nagre-renew ang BAC0.",
     "param.confirmed.description": "Gumamit ng kumpirmadong COV (kinikilala). Default: Mali (hindi kumpirmado).",
     "param.label.description": "Nababasa ng tao ang label para sa subscription na ito (hal. '3F会議室_室温').",
@@ -810,9 +810,9 @@
       "bacnet",
       "BACNET",
       "cov",
-      "change",
-      "value",
-      "notifications"
+      "pagbabago",
+      "halaga",
+      "abiso"
     ]
   },
   "ms": {
