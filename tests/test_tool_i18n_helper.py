@@ -153,9 +153,7 @@ def test_tool_translator_handles_brace_conversion_placeholders(
     )
 
 
-def test_tool_translator_rejects_malformed_brace_format(
-    tmp_path, monkeypatch
-) -> None:
+def test_tool_translator_rejects_malformed_brace_format(tmp_path, monkeypatch) -> None:
     tool_py = tmp_path / "sample.py"
     tool_py.write_text("", encoding="utf-8")
     tool_json = tmp_path / "sample.json"
@@ -168,7 +166,4 @@ def test_tool_translator_rejects_malformed_brace_format(
     monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
     translate = i18n_helper.make_tool_translator(str(tool_py))
 
-    assert (
-        translate("message", default="Value: {name}", name="Alice")
-        == "Value: Alice"
-    )
+    assert translate("message", default="Value: {name}", name="Alice") == "Value: Alice"

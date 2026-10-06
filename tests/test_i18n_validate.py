@@ -35,9 +35,7 @@ def test_tool_catalog_validation_accepts_translation_only_catalog() -> None:
 
 
 def test_non_i18n_json_is_not_misclassified_as_tool_catalog() -> None:
-    assert validate_module._looks_like_tool_catalog(
-        {"ja": {"message": "こんにちは"}}
-    )
+    assert validate_module._looks_like_tool_catalog({"ja": {"message": "こんにちは"}})
     assert not validate_module._looks_like_tool_catalog(
         {"id": {"value": 1}, "metadata": {"version": 1}}
     )
