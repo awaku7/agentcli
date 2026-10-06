@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
@@ -35,18 +36,11 @@ def test_discord_search_terms_preserve_brand_name() -> None:
                 continue
 
             term = str(terms[index])
-            normalized = term.lower()
-            padded = f" {normalized} "
-            if not any(
-                marker in padded
-                for marker in (
-                    " discord ",
-                    " discord-",
-                    "-discord ",
-                    " discord_",
-                    "_discord ",
-                )
-            ):
+            if re.search(
+                r"(^|[^a-z])discord($|[^a-z])",
+                term,
+                flags=re.IGNORECASE,
+            ) is None:
                 invalid.append(f"{locale}[{index}]={term!r}")
 
     assert not invalid, (
