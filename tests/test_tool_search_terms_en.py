@@ -173,3 +173,15 @@ def test_service_search_terms_preserve_brand_names() -> None:
         "Service brand names must remain literal in brand-specific localized "
         "search terms: " + ", ".join(invalid)
     )
+
+
+def test_teams_japanese_webhook_alias_stays_localized() -> None:
+    payload = json.loads(
+        (TOOLS_DIR / "teams_webhook_tool.json").read_text(encoding="utf-8")
+    )
+    terms = payload["ja"]["x_search_terms"]
+
+    assert any(
+        "teams" in str(term).lower() and "ウェブフック" in str(term)
+        for term in terms
+    )
