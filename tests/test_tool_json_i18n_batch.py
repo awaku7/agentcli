@@ -530,5 +530,23 @@ def test_intentional_english_tool_key_is_scoped() -> None:
     assert batch._is_intentional_english_tool_key(
         "ucp_checkout", "param.mode.description"
     )
+    assert batch._is_intentional_english_tool_key("diff_files", "label.text_input")
+    assert batch._is_intentional_english_tool_key("mdformat", "label.timeout")
+    assert batch._is_intentional_english_tool_key("search_files", "out.file")
+    assert not batch._is_intentional_english_tool_key(
+        "search_files", "tool.description"
+    )
+
+
+def test_exception_label_is_intentional_english() -> None:
+    value = "Exception"
+
+    assert not batch._is_missing_or_stale(
+        value,
+        value,
+        key="err.exception",
+        force=False,
+        skip_same_as_en=True,
+    )
     assert not batch._is_intentional_english_tool_key("other_tool", "cmd.help")
     assert not batch._is_intentional_english_tool_key("other_tool", "ui.footer")

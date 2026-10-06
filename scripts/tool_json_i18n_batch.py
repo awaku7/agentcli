@@ -140,6 +140,7 @@ INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
         "match.line",
         "ui.fallback_prompt",
         "ui.confirm.footer",
+        "err.exception",
     }
 )
 
@@ -155,6 +156,27 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
         ("mdformat", "label.ok"),
         ("set_timer", "out.list_os_item"),
         ("ucp_checkout", "param.mode.description"),
+        ("bacnet_read", "msg.summary"),
+        ("bacnet_write", "msg.summary"),
+        ("bluesky", "param.action.description"),
+        ("diff_files", "label.text_input"),
+        ("discord_channel", "param.message.description"),
+        ("graph_rag_search", "out.hits_summary"),
+        ("lint_js_ts", "label.error"),
+        ("lint_js_ts", "label.fail"),
+        ("matter_control", "param.action.description"),
+        ("mdformat", "label.error"),
+        ("mdformat", "label.fail"),
+        ("mdformat", "label.timeout"),
+        ("modbus_read", "msg.summary"),
+        ("modbus_write", "msg.summary"),
+        ("pwsh_exec", "err.returncode"),
+        ("pybitchat_subscribe", "geo.channel_entry"),
+        ("search_files", "out.file"),
+        ("skills_mp_search", "prefix.error"),
+        ("sub_agent", "status.error"),
+        ("switchbot_batch", "msg.step_error"),
+        ("upnp_igd_control", "param.description.description"),
     }
 )
 
