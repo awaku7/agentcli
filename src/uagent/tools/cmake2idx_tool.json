@@ -97,7 +97,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "έργο CMake"
     ],
     "param.path.description": "Διαδρομή σε ένα αρχείο CMake.",
     "param.mode.description": "Το \"index\" επιστρέφει έναν αριθμημένο πίνακα περιεχομένων. Το \"section\" επιστρέφει μία ενότητα.",
@@ -133,7 +134,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "پروژه CMake"
     ],
     "param.path.description": "مسیر فایل CMake.",
     "param.mode.description": "\"index\" فهرست مطالب شماره گذاری شده را برمی گرداند. \"section\" یک بخش را برمی گرداند.",
@@ -187,7 +189,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "פרויקט CMake"
     ],
     "param.path.description": "נתיב לקובץ CMake.",
     "param.mode.description": "\"אינדקס\" מחזיר תוכן עניינים ממוספר; \"קטע\" מחזיר סעיף אחד.",
@@ -331,7 +334,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "CMake-prosjekt"
     ],
     "param.path.description": "Bane til en CMake-fil.",
     "param.mode.description": "\"indeks\" returnerer en nummerert innholdsfortegnelse; \"seksjon\" returnerer én seksjon.",
@@ -349,7 +353,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "CMake-project"
     ],
     "param.path.description": "Pad naar een CMake-bestand.",
     "param.mode.description": "\"index\" retourneert een genummerde inhoudsopgave; \"sectie\" retourneert één sectie.",
@@ -439,7 +444,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "proiect CMake"
     ],
     "param.path.description": "Calea către un fișier CMake.",
     "param.mode.description": "„index” returnează un cuprins numerotat; „secțiune” returnează o secțiune.",
@@ -475,7 +481,8 @@
       "cmake project",
       "CMake target",
       "CMake preset",
-      "cmake parser"
+      "cmake parser",
+      "CMake-projekt"
     ],
     "param.path.description": "Sökväg till en CMake-fil.",
     "param.mode.description": "\"index\" returnerar en numrerad innehållsförteckning; \"sektion\" returnerar ett avsnitt.",
