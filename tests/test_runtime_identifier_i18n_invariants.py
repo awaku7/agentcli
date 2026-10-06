@@ -57,7 +57,9 @@ def test_azure_api_descriptions_preserve_runtime_identifiers():
             continue
 
         provider = messages.get("param.provider")
-        if provider is not None and "Microsoft.Compute" not in provider:
+        if provider is not None and not _has_standalone_token(
+            provider, "Microsoft.Compute"
+        ):
             invalid.append(f"{lang}:Microsoft.Compute")
 
         resource = messages.get("param.resource")
