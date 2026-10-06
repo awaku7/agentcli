@@ -20,9 +20,9 @@
     "msg.error_fmt": "خطأ: {msg}",
     "msg.unknown_error": "خطأ غير معروف",
     "x_search_terms": [
-      "تحكم سحابة switchbot",
-      "Switchbot_cloud_control",
-      "سويتش بوت",
+      "switchbot cloud control",
+      "switchbot_cloud_control",
+      "switchbot",
       "سحابة",
       "عن بعد"
     ],
@@ -53,9 +53,9 @@
     "msg.error_fmt": "ত্রুটি: {msg}",
     "msg.unknown_error": "অজানা ত্রুটি",
     "x_search_terms": [
-      "switchbot ক্লাউড নিয়ন্ত্রণ",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "সুইচবট",
+      "switchbot",
       "মেঘ",
       "দূরবর্তী"
     ],
@@ -86,9 +86,9 @@
     "msg.error_fmt": "Chyba: {msg}",
     "msg.unknown_error": "neznámá chyba",
     "x_search_terms": [
-      "ovládání cloudu switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "přepínač",
+      "switchbot",
       "mrak",
       "vzdálený"
     ],
@@ -119,9 +119,9 @@
     "msg.error_fmt": "Fehler: {msg}",
     "msg.unknown_error": "unbekannter Fehler",
     "x_search_terms": [
-      "Switchbot-Cloud-Steuerung",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "Switchbot",
+      "switchbot",
       "Wolke",
       "entfernt"
     ],
@@ -152,9 +152,9 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "error desconocido",
     "x_search_terms": [
-      "control de la nube switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "robot conmutador",
+      "switchbot",
       "nube",
       "remoto"
     ],
@@ -185,9 +185,9 @@
     "msg.error_fmt": "خطا: {msg}",
     "msg.unknown_error": "خطای ناشناخته",
     "x_search_terms": [
-      "کنترل ابری switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "سوییچ‌بات",
+      "switchbot",
       "ابر",
       "راه دور"
     ],
@@ -218,9 +218,9 @@
     "msg.error_fmt": "Virhe: {msg}",
     "msg.unknown_error": "tuntematon virhe",
     "x_search_terms": [
-      "switchbot-pilviohjaus",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "kytkinrobotti",
+      "switchbot",
       "pilvi",
       "etä"
     ],
@@ -251,9 +251,9 @@
     "msg.error_fmt": "Erreur : {msg}",
     "msg.unknown_error": "erreur inconnue",
     "x_search_terms": [
-      "contrôle cloud switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "robot de commutation",
+      "switchbot",
       "nuage",
       "à distance"
     ],
@@ -284,9 +284,9 @@
     "msg.error_fmt": "त्रुटि: {msg}",
     "msg.unknown_error": "अज्ञात त्रुटि",
     "x_search_terms": [
-      "switchbot क्लाउड नियंत्रण",
-      "स्विचबॉट_क्लाउड_कंट्रोल",
-      "स्विचबॉट",
+      "switchbot cloud control",
+      "switchbot_cloud_control",
+      "switchbot",
       "बादल",
       "दूरस्थ"
     ],
@@ -317,9 +317,9 @@
     "msg.error_fmt": "Kesalahan: {msg}",
     "msg.unknown_error": "kesalahan tidak dikenal",
     "x_search_terms": [
-      "kontrol cloud switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "saklarbot",
+      "switchbot",
       "awan",
       "terpencil"
     ],
@@ -350,9 +350,9 @@
     "msg.error_fmt": "Errore: {msg}",
     "msg.unknown_error": "errore sconosciuto",
     "x_search_terms": [
-      "controllo cloud switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "commutatore",
+      "switchbot",
       "nuvola",
       "remoto"
     ],
@@ -388,7 +388,7 @@
     "param.value.description": "set_value アクションのオプションの数値。範囲: 0 ～ 100。",
     "tool.description": "構成されたアカウントから SwitchBot クラウド デバイスを制御し、JSON またはテキストの結果を返します。",
     "x_search_terms": [
-      "switchbotクラウドコントロール",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "雲",
@@ -416,7 +416,7 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.unknown_error": "알 수 없는 오류",
     "x_search_terms": [
-      "switchbot 클라우드 제어",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "구름",
@@ -449,9 +449,9 @@
     "msg.error_fmt": "Алдаа: {msg}",
     "msg.unknown_error": "үл мэдэгдэх алдаа",
     "x_search_terms": [
-      "switchbot үүлэн хяналт",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "свичбот",
+      "switchbot",
       "үүл",
       "алсын"
     ],
@@ -482,9 +482,9 @@
     "msg.error_fmt": "त्रुटी: {msg}",
     "msg.unknown_error": "अज्ञात त्रुटी",
     "x_search_terms": [
-      "switchbot क्लाउड नियंत्रण",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "स्विचबॉट",
+      "switchbot",
       "ढग",
       "दूरस्थ"
     ],
@@ -515,9 +515,9 @@
     "msg.error_fmt": "Σφάλμα: {msg}",
     "msg.unknown_error": "άγνωστο σφάλμα",
     "x_search_terms": [
-      "έλεγχος cloud switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "διακόπτης",
+      "switchbot",
       "σύννεφο",
       "απομακρυσμένο"
     ],
@@ -548,9 +548,9 @@
     "msg.error_fmt": "שגיאה: {msg}",
     "msg.unknown_error": "שגיאה לא ידועה",
     "x_search_terms": [
-      "שליטת ענן switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "מתג-בוט",
+      "switchbot",
       "ענן",
       "מרחוק"
     ],
@@ -581,9 +581,9 @@
     "msg.error_fmt": "Hiba: {msg}",
     "msg.unknown_error": "ismeretlen hiba",
     "x_search_terms": [
-      "switchbot felhő vezérlés",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "kapcsolóbot",
+      "switchbot",
       "felhő",
       "távoli"
     ],
@@ -614,9 +614,9 @@
     "msg.error_fmt": "Eroare: {msg}",
     "msg.unknown_error": "eroare necunoscută",
     "x_search_terms": [
-      "control cloud switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "comutator robot",
+      "switchbot",
       "nor",
       "de la distanță"
     ],
@@ -647,7 +647,7 @@
     "msg.error_fmt": "Feil: {msg}",
     "msg.unknown_error": "ukjent feil",
     "x_search_terms": [
-      "switchbot sky-kontroll",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "sky",
@@ -680,9 +680,9 @@
     "msg.error_fmt": "Fout: {msg}",
     "msg.unknown_error": "onbekende fout",
     "x_search_terms": [
-      "switchbot cloud-controle",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "schakelbot",
+      "switchbot",
       "wolk",
       "extern"
     ],
@@ -713,9 +713,9 @@
     "msg.error_fmt": "Błąd: {msg}",
     "msg.unknown_error": "nieznany błąd",
     "x_search_terms": [
-      "kontrola chmury switchbota",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "przełącznik",
+      "switchbot",
       "chmura",
       "zdalny"
     ],
@@ -746,9 +746,9 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.unknown_error": "erro desconhecido",
     "x_search_terms": [
-      "controlo cloud switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "robô de comutação",
+      "switchbot",
       "nuvem",
       "remoto"
     ],
@@ -779,9 +779,9 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.unknown_error": "erro desconhecido",
     "x_search_terms": [
-      "controle de nuvem switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "robô de comutação",
+      "switchbot",
       "nuvem",
       "remoto"
     ],
@@ -812,7 +812,7 @@
     "msg.error_fmt": "Ошибка: {msg}",
     "msg.unknown_error": "неизвестная ошибка",
     "x_search_terms": [
-      "управление облаком switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "облако",
@@ -845,7 +845,7 @@
     "msg.error_fmt": "Fel: {msg}",
     "msg.unknown_error": "okänt fel",
     "x_search_terms": [
-      "switchbot molnstyrning",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "moln",
@@ -878,9 +878,9 @@
     "msg.error_fmt": "Hitilafu: {msg}",
     "msg.unknown_error": "hitilafu isiyojulikana",
     "x_search_terms": [
-      "udhibiti wa wingu la switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "kubadili bot",
+      "switchbot",
       "wingu",
       "kijijini"
     ],
@@ -911,9 +911,9 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
     "x_search_terms": [
-      "ควบคุมคลาวด์ switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "สวิตช์บอท",
+      "switchbot",
       "คลาวด์",
       "ระยะไกล"
     ],
@@ -944,9 +944,9 @@
     "msg.error_fmt": "Hata: {msg}",
     "msg.unknown_error": "bilinmeyen hata",
     "x_search_terms": [
-      "switchbot bulut kontrolü",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "anahtar bot",
+      "switchbot",
       "bulut",
       "uzak"
     ],
@@ -977,9 +977,9 @@
     "msg.error_fmt": "Помилка: {msg}",
     "msg.unknown_error": "невідома помилка",
     "x_search_terms": [
-      "керування хмарою switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "перемикач",
+      "switchbot",
       "хмара",
       "віддалений"
     ],
@@ -1010,7 +1010,7 @@
     "msg.error_fmt": "Lỗi: {msg}",
     "msg.unknown_error": "lỗi không xác định",
     "x_search_terms": [
-      "điều khiển đám mây switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "đám mây",
@@ -1043,9 +1043,9 @@
     "msg.error_fmt": "错误：{msg}",
     "msg.unknown_error": "未知错误",
     "x_search_terms": [
-      "switchbot 云控制",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "开关机器人",
+      "switchbot",
       "云",
       "远程"
     ],
@@ -1076,9 +1076,9 @@
     "msg.error_fmt": "錯誤：{msg}",
     "msg.unknown_error": "未知錯誤",
     "x_search_terms": [
-      "switchbot 雲端控制",
+      "switchbot cloud control",
       "switchbot_cloud_control",
-      "開關機器人",
+      "switchbot",
       "雲端",
       "遠端"
     ],
@@ -1149,7 +1149,7 @@
     "param.value.description": "Nilai angka pilihan untuk tindakan set_value. Julat: 0-100.",
     "tool.description": "Kawal peranti SwitchBot Cloud daripada akaun yang dikonfigurasikan dan kembalikan JSON atau hasil teks.",
     "x_search_terms": [
-      "kawalan awan switchbot",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "cloud",
@@ -1182,7 +1182,7 @@
     "param.value.description": "Valgfri numerisk værdi for sæt_værdi-handlinger. Rækkevidde: 0-100.",
     "tool.description": "Styr en SwitchBot Cloud-enhed fra den konfigurerede konto og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot cloud kontrol",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "cloud",
@@ -1215,7 +1215,7 @@
     "param.value.description": "Valgfri numerisk verdi for set_value-handlinger. Rekkevidde: 0-100.",
     "tool.description": "Kontroller en SwitchBot Cloud-enhet frå den konfigurerte kontoen og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot skykontroll",
+      "switchbot cloud control",
       "switchbot_cloud_control",
       "switchbot",
       "cloud",
