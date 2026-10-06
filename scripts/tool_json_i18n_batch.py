@@ -123,6 +123,10 @@ INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
         "bitchat.debug_hs_skip",
         "vision.error_prefix",
         "skill.ok",
+        "bitchat.nostr_msg",
+        "bitchat.noise_dm_msg",
+        "bitchat.mesh_msg",
+        "bitchat.dm_msg",
     }
 )
 
