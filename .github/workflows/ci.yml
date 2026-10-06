@@ -85,7 +85,7 @@ jobs:
         run: python -m black --check --diff src tests
 
       - name: I18N catalog status
-        run: python scripts/tool_json_i18n_batch.py status --show-missing-keys --show-same-as-english-keys --require-complete --show-missing-keys
+        run: python scripts/tool_json_i18n_batch.py status --show-missing-keys --show-same-as-english-keys --require-complete
 
       - name: Audit host and tool I18N structure
         run: |
