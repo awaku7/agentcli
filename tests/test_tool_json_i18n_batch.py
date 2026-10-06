@@ -550,9 +550,7 @@ def test_intentional_english_tool_key_is_limited_to_invariant_text() -> None:
 def test_exception_labels_remain_review_candidates() -> None:
     assert not batch._is_intentional_english_tool_key("a2a_poll", "err.exception")
     assert not batch._is_intentional_english_tool_key("bash_exec", "err.exception")
-    assert not batch._is_intentional_english_tool_key(
-        "teams_webhook", "err.exception"
-    )
+    assert not batch._is_intentional_english_tool_key("teams_webhook", "err.exception")
     assert not batch._is_intentional_english_tool_key(
         "unreviewed_tool", "err.exception"
     )
@@ -618,4 +616,3 @@ def test_discord_catalog_preserves_action_literals_and_safety_note() -> None:
     assert catalog["th"]["param.message.description"] == "ข้อความ"
     assert catalog["bn"]["param.message.description"] == "বার্তা।"
     assert catalog["bn"]["err.missing_action"] == "অনুপস্থিত 'action'।"
-
