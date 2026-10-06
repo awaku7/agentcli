@@ -260,7 +260,9 @@ def test_tool_structure_extra_is_advisory() -> None:
     )
 
 
-def test_tool_fallback_mismatches_are_advisory_but_host_placeholders_stay_strict() -> None:
+def test_tool_fallback_mismatches_are_advisory_but_host_placeholders_stay_strict() -> (
+    None
+):
     for kind in (
         "structure_missing",
         "value_type_mismatch",
