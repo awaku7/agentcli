@@ -348,7 +348,7 @@
     "tool.description": "Administrer en UCP-utsjekkingssesjon. mode='create' — start en ny utsjekkingssesjon.modus='get' — hent gjeldende utsjekkingsstatus.modus='update' — modifiser utsjekkingsfelt. modus='complete' — fullfør bestillingen. Hvis bedriften returnerer requires_escalation med en continue_url, MÅ brukeren åpne denne nettadressen i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.timeout. Bruk etter at brukeren har fullført betalingen via continue_url.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Basis-URL for virksomheten.",
-    "param.checkout_id.description": "Checkout session ID (required for get/update/complete/poll).",
+    "param.checkout_id.description": "ID for checkout-økta (påkravd for get/update/complete/poll).",
     "param.cart_id.description": "Handlekurv-ID for å opprette kassen fra (valgfritt, alternativ til line_items).",
     "param.line_items.description": "Linjeelementer for direkte utsjekking (alternativ til cart_id).",
     "param.ap2_token.description": "AP2-betalingstoken for autonom fullføring (mode='complete' only).",
