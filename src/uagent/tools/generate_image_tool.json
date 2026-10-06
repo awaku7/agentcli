@@ -976,7 +976,7 @@
     "param.output_dir.description": "Κατάλογος για αποθήκευση εικόνων (σχετικές ή απόλυτες). Προεπιλογές για outputs/image_generations εάν παραλειφθεί.",
     "err.httpx_unavailable": "Το httpx δεν είναι διαθέσιμο",
     "err.empty_data": "Τα δεδομένα εικόνας ήταν άδεια (το resp.data είναι κενό ή το b64_json/url λείπει)",
-    "err.prompt_empty": "[generate_image] Το μοντέλο εικόνας (όνομα ανάπτυξης) δεν έχει οριστεί.\nΟρίστε τη μεταβλητή περιβάλλοντος UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    "err.prompt_empty": "[generate_image] Το prompt είναι κενό",
     "err.no_saved": "[generate_image] Τα δεδομένα εικόνας ήταν άδεια",
     "param.prefix.description": "Λειτουργία εποπτείας εικόνας (προαιρετικό).",
     "param.moderation.description": "Ποιότητα εικόνας.",

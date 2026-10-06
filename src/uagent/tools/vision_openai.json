@@ -6,9 +6,9 @@
     "err.import_openai": "فشل استيراد حزمة openai: {err}",
     "prompt.default": "يرجى وصف هذه الصورة بالتفصيل.",
     "warn.empty_response": "[تحذير] استجابة فارغة",
-    "err.missing_env.azure": "يفتقد vars env المطلوبة لتحليل الصور اللازوردية.",
-    "vision.alibaba_missing_env": "يفتقد vars env المطلوبة لتحليل الصور اللازوردية. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "يفتقد vars env المطلوبة لتحليل الصور اللازوردية. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "تفتقد متغيرات البيئة المطلوبة لتحليل الصور باستخدام Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "تفتقد متغيرات البيئة المطلوبة لتحليل الصور باستخدام Alibaba. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "تفتقد متغيرات البيئة المطلوبة لتحليل الصور باستخدام Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "bn": {
@@ -18,9 +18,9 @@
     "err.import_openai": "Openai প্যাকেজ আমদানি করতে ব্যর্থ হয়েছে: {err}৷",
     "prompt.default": "এই ছবিটি বিস্তারিত বর্ণনা করুন.",
     "warn.empty_response": "[সতর্ক] খালি প্রতিক্রিয়া",
-    "err.missing_env.azure": "আকাশী চিত্র বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত৷",
-    "vision.alibaba_missing_env": "আকাশী চিত্র বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত৷ api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "আকাশী চিত্র বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত৷ api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Azure ইমেজ বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত। base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Alibaba ইমেজ বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত। api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Moonshot ইমেজ বিশ্লেষণের জন্য প্রয়োজনীয় env vars অনুপস্থিত। api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "cs": {
@@ -30,9 +30,9 @@
     "err.unsupported_provider": "Nepodporovaný poskytovatel pro Analysis_image (chat): {provider!r}",
     "err.import_openai": "Nepodařilo se importovat balíček openai: {err}",
     "prompt.default": "Popište prosím tento obrázek podrobně.",
-    "err.missing_env.azure": "Chybí požadované env vars pro analýzu azurového obrazu.",
-    "vision.alibaba_missing_env": "Chybí požadované env vars pro analýzu azurového obrazu. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Chybí požadované env vars pro analýzu azurového obrazu. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Chybí požadované proměnné prostředí pro analýzu obrazu Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Chybí požadované proměnné prostředí pro analýzu obrazu Alibaba. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Chybí požadované proměnné prostředí pro analýzu obrazu Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "da": {
@@ -42,7 +42,7 @@
     "err.import_openai": "Kunne ikke importere openai-pakken: {err}",
     "prompt.default": "Beskriv venligst dette billede i detaljer.",
     "warn.empty_response": "[ADVARSEL] tomt svar",
-    "err.missing_env.azure": "Missing required env vars for azure image analysis. ",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Missing required env vars for Alibaba image analysis.  api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Missing required env vars for Moonshot image analysis.  api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -54,7 +54,7 @@
     "err.import_openai": "Fehler beim Importieren des OpenAI-Pakets: {err}",
     "prompt.default": "Bitte beschreiben Sie dieses Bild ausführlich.",
     "warn.empty_response": "[WARN] leere Antwort",
-    "err.missing_env.azure": "Für die Azure-Image-Analyse fehlen erforderliche Umgebungsvariablen.",
+    "err.missing_env.azure": "Für die Azure-Image-Analyse fehlen erforderliche Umgebungsvariablen. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Für die Alibaba-Image-Analyse fehlen erforderliche Umgebungsvariablen. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Für die Moonshot-Image-Analyse fehlen erforderliche Umgebungsvariablen. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -64,11 +64,11 @@
     "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
     "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για analyzy_image (chat): {provider!r}",
     "err.import_openai": "Αποτυχία εισαγωγής πακέτου openai: {err}",
-    "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
+    "prompt.default": "Παρακαλώ περιγράψτε αυτή την εικόνα λεπτομερώς.",
     "warn.empty_response": "[ΠΡΟΕΙΔΟΠΟΙΗΣΗ] κενή απάντηση",
-    "err.missing_env.azure": "Λείπουν τα απαιτούμενα env vars για azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION απαιτείται για το τραγούδι=#=P]. (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "vision.alibaba_missing_env": "Λείπουν τα απαιτούμενα env vars για Alibaba (UAGENT_Alibaba_BASE_URL/API_KEY/API_VERSION απαιτείται για το τραγούδι=#=P]. (UAGENT_BEDROCK_BASE_URL/API_KEY) api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Λείπουν τα απαιτούμενα env vars για Moonshot (UAGENT_Moonshot_BASE_URL/API_KEY/API_VERSION απαιτείται για το τραγούδι=#=P]. (UAGENT_BEDROCK_BASE_URL/API_KEY) api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Λείπουν οι απαιτούμενες μεταβλητές περιβάλλοντος για ανάλυση εικόνας Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Λείπουν οι απαιτούμενες μεταβλητές περιβάλλοντος για ανάλυση εικόνας Alibaba. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Λείπουν οι απαιτούμενες μεταβλητές περιβάλλοντος για ανάλυση εικόνας Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "es": {
@@ -78,7 +78,7 @@
     "err.import_openai": "No se pudo importar el paquete openai: {err}",
     "prompt.default": "Por favor describe esta imagen en detalle.",
     "warn.empty_response": "[ADVERTENCIA] respuesta vacía",
-    "err.missing_env.azure": "Faltan variables de entorno necesarias para el análisis de imágenes de Azure.",
+    "err.missing_env.azure": "Faltan variables de entorno necesarias para el análisis de imágenes de Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Faltan variables de entorno necesarias para el análisis de imágenes de Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Faltan variables de entorno necesarias para el análisis de imágenes de Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -90,9 +90,9 @@
     "err.import_openai": "بسته openai وارد نشد: {err}",
     "prompt.default": "لطفا این تصویر را با جزئیات توضیح دهید.",
     "warn.empty_response": "[WARN] پاسخ خالی",
-    "err.missing_env.azure": "برای تجزیه و تحلیل تصویر لاجوردی، env vars مورد نیاز وجود ندارد.",
-    "vision.alibaba_missing_env": "برای تجزیه و تحلیل تصویر لاجوردی، env vars مورد نیاز وجود ندارد. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "برای تجزیه و تحلیل تصویر لاجوردی، env vars مورد نیاز وجود ندارد. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "متغیرهای محیطی مورد نیاز برای تحلیل تصویر Azure وجود ندارد. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "متغیرهای محیطی مورد نیاز برای تحلیل تصویر Alibaba وجود ندارد. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "متغیرهای محیطی مورد نیاز برای تحلیل تصویر Moonshot وجود ندارد. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "fi": {
@@ -102,9 +102,9 @@
     "err.import_openai": "Openai-paketin tuonti epäonnistui: {err}",
     "prompt.default": "Kuvaile tätä kuvaa yksityiskohtaisesti.",
     "warn.empty_response": "[VAROITUS] tyhjä vastaus",
-    "err.missing_env.azure": "Taivaansinisen kuva-analyysin pakolliset env-muuttujat puuttuvat.",
-    "vision.alibaba_missing_env": "Taivaansinisen kuva-analyysin pakolliset env-muuttujat puuttuvat. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Taivaansinisen kuva-analyysin pakolliset env-muuttujat puuttuvat. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Azure-kuva-analyysin pakolliset ympäristömuuttujat puuttuvat. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Alibaba-kuva-analyysin pakolliset ympäristömuuttujat puuttuvat. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Moonshot-kuva-analyysin pakolliset ympäristömuuttujat puuttuvat. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "fil": {
@@ -114,7 +114,7 @@
     "err.import_openai": "Hindi ma-import ang openai package: {err}",
     "prompt.default": "Pakilarawan nang detalyado ang larawang ito.",
     "warn.empty_response": "[BABALA] walang laman ang tugon",
-    "err.missing_env.azure": "Missing required env vars for azure image analysis. ",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Missing required env vars for Alibaba image analysis.  api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Missing required env vars for Moonshot image analysis.  api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -126,7 +126,7 @@
     "err.import_openai": "Échec de l'importation du package openai : {err}",
     "prompt.default": "Veuillez décrire cette image en détail.",
     "warn.empty_response": "[WARN] réponse vide",
-    "err.missing_env.azure": "Vars d'environnement requis manquants pour l'analyse d'image Azure.",
+    "err.missing_env.azure": "Vars d'environnement requis manquants pour l'analyse d'image Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Vars d'environnement requis manquants pour l'analyse d'image Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Vars d'environnement requis manquants pour l'analyse d'image Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -136,11 +136,11 @@
     "err.image_too_large": "קובץ התמונה גדול מדי: {size} בתים (מגבלה={max_bytes})",
     "err.unsupported_provider": "ספק לא נתמך עבור analyse_image (צ'אט): {provider!r}",
     "err.import_openai": "ייבוא ​​חבילת openai נכשל: {err}",
-    "prompt.default": "חסר var env נדרש עבור ניתוח תמונה של ollama (UAGENT_OLLAMA_DEPNAME)",
+    "prompt.default": "אנא תאר את התמונה הזו בפירוט.",
     "warn.empty_response": "[אזהרה] תגובה ריקה",
-    "err.missing_env.azure": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/azure/bedrock/openrouter/ollama",
-    "vision.alibaba_missing_env": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/Alibaba/bedrock/openrouter/ollama api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "UAGENT_RESPONSES=1 מוגדר, אך ניתוח תמונה באמצעות תגובות נתמך רק עבור openai/Moonshot/bedrock/openrouter/ollama api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "חסרים משתני הסביבה הנדרשים לניתוח תמונה ב-Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "חסרים משתני הסביבה הנדרשים לניתוח תמונה ב-Alibaba. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "חסרים משתני הסביבה הנדרשים לניתוח תמונה ב-Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "hi": {
@@ -150,9 +150,9 @@
     "err.import_openai": "openai पैकेज आयात करने में विफल: {err}",
     "prompt.default": "कृपया इस छवि का विस्तार से वर्णन करें।",
     "warn.empty_response": "[चेतावनी] खाली प्रतिक्रिया",
-    "err.missing_env.azure": "नीला छवि विश्लेषण के लिए आवश्यक env संस्करण गुम हैं।",
-    "vision.alibaba_missing_env": "नीला छवि विश्लेषण के लिए आवश्यक env संस्करण गुम हैं। api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "नीला छवि विश्लेषण के लिए आवश्यक env संस्करण गुम हैं। api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Azure छवि विश्लेषण के लिए आवश्यक env vars अनुपलब्ध हैं। base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Alibaba छवि विश्लेषण के लिए आवश्यक env vars अनुपलब्ध हैं। api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Moonshot छवि विश्लेषण के लिए आवश्यक env vars अनुपलब्ध हैं। api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "hu": {
@@ -160,11 +160,11 @@
     "err.image_too_large": "a képfájl túl nagy: {size} bájt (korlát={max_bytes})",
     "err.unsupported_provider": "Nem támogatott szolgáltató az elemző_képhez (csevegés): {provider!r}",
     "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
-    "prompt.default": "Hiányzik az env var az ollama képelemzéshez (UAGENT_OLLAMA_DEPNAME)",
+    "prompt.default": "Kérjük, írja le részletesen ezt a képet.",
     "warn.empty_response": "[WARN] üres válasz",
-    "err.missing_env.azure": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "vision.alibaba_missing_env": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_Alibaba_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY) api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_Moonshot_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY) api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Hiányoznak az Azure képelemzéshez szükséges környezeti változók. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Hiányoznak az Alibaba képelemzéshez szükséges környezeti változók. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Hiányoznak a Moonshot képelemzéshez szükséges környezeti változók. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "id": {
@@ -174,9 +174,9 @@
     "err.import_openai": "Gagal mengimpor paket openai: {err}",
     "prompt.default": "Tolong jelaskan gambar ini secara detail.",
     "warn.empty_response": "[PERINGATAN] respon kosong",
-    "err.missing_env.azure": "Vars env yang diperlukan untuk analisis gambar biru tidak ada.",
-    "vision.alibaba_missing_env": "Vars env yang diperlukan untuk analisis gambar biru tidak ada. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Vars env yang diperlukan untuk analisis gambar biru tidak ada. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Variabel lingkungan yang diperlukan untuk analisis gambar Azure tidak ada. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Variabel lingkungan yang diperlukan untuk analisis gambar Alibaba tidak ada. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Variabel lingkungan yang diperlukan untuk analisis gambar Moonshot tidak ada. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "it": {
@@ -186,7 +186,7 @@
     "err.import_openai": "Impossibile importare il pacchetto openai: {err}",
     "prompt.default": "Per favore descrivi questa immagine in dettaglio.",
     "warn.empty_response": "[WARN] risposta vuota",
-    "err.missing_env.azure": "Variabili di ambiente richieste mancanti per l'analisi delle immagini di Azure.",
+    "err.missing_env.azure": "Variabili di ambiente richieste mancanti per l'analisi delle immagini di Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Variabili di ambiente richieste mancanti per l'analisi delle immagini di Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Variabili di ambiente richieste mancanti per l'analisi delle immagini di Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -198,7 +198,7 @@
     "prompt.default": "この画像を詳しく説明してください。",
     "err.import_openai": "openai パッケージのインポートに失敗しました: {err}",
     "warn.empty_response": "[警告] 空の応答",
-    "err.missing_env.azure": "Azure イメージ分析に必要な環境変数がありません。",
+    "err.missing_env.azure": "Azure イメージ分析に必要な環境変数がありません。 base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Alibaba イメージ分析に必要な環境変数がありません。 api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Moonshot イメージ分析に必要な環境変数がありません。 api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -210,7 +210,7 @@
     "err.import_openai": "openai 패키지를 가져오지 못했습니다: {err}",
     "prompt.default": "이 이미지를 자세히 설명해주세요.",
     "warn.empty_response": "[경고] 빈 응답",
-    "err.missing_env.azure": "Azure 이미지 분석에 필요한 환경 변수가 누락되었습니다.",
+    "err.missing_env.azure": "Azure 이미지 분석에 필요한 환경 변수가 누락되었습니다. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Alibaba 이미지 분석에 필요한 환경 변수가 누락되었습니다. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Moonshot 이미지 분석에 필요한 환경 변수가 누락되었습니다. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -222,9 +222,9 @@
     "err.import_openai": "Openai багцыг оруулж чадсангүй: {err}",
     "prompt.default": "Энэ зургийг дэлгэрэнгүй тайлбарлана уу.",
     "warn.empty_response": "[АНХААРУУЛГА] хоосон хариулт",
-    "err.missing_env.azure": "Номин өнгөтэй дүрсний шинжилгээнд шаардлагатай env vars дутуу байна.",
-    "vision.alibaba_missing_env": "Номин өнгөтэй дүрсний шинжилгээнд шаардлагатай env vars дутуу байна. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Номин өнгөтэй дүрсний шинжилгээнд шаардлагатай env vars дутуу байна. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Azure дүрсний шинжилгээнд шаардлагатай орчны хувьсагчид дутуу байна. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Alibaba дүрсний шинжилгээнд шаардлагатай орчны хувьсагчид дутуу байна. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Moonshot дүрсний шинжилгээнд шаардлагатай орчны хувьсагчид дутуу байна. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "mr": {
@@ -234,9 +234,9 @@
     "err.import_openai": "Openai पॅकेज आयात करण्यात अयशस्वी: {err}",
     "prompt.default": "कृपया या प्रतिमेचे तपशीलवार वर्णन करा.",
     "warn.empty_response": "[चेतावणी] रिक्त प्रतिसाद",
-    "err.missing_env.azure": "अझर इमेज विश्लेषणासाठी आवश्यक env var गहाळ आहे.",
-    "vision.alibaba_missing_env": "अझर इमेज विश्लेषणासाठी आवश्यक env var गहाळ आहे. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "अझर इमेज विश्लेषणासाठी आवश्यक env var गहाळ आहे. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Azure प्रतिमा विश्लेषणासाठी आवश्यक env vars गहाळ आहेत. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Alibaba प्रतिमा विश्लेषणासाठी आवश्यक env vars गहाळ आहेत. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Moonshot प्रतिमा विश्लेषणासाठी आवश्यक env vars गहाळ आहेत. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "ms": {
@@ -246,7 +246,7 @@
     "err.import_openai": "Gagal mengimport pakej openai: {err}",
     "prompt.default": "Sila huraikan imej ini secara terperinci.",
     "warn.empty_response": "[AMARAN] respons kosong",
-    "err.missing_env.azure": "Missing required env vars for azure image analysis. ",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Missing required env vars for Alibaba image analysis.  api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Missing required env vars for Moonshot image analysis.  api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -258,9 +258,9 @@
     "prompt.default": "Vennligst beskriv dette bildet i detalj.",
     "warn.empty_response": "[ADVARSEL] tomt svar",
     "err.import_openai": "Kunne ikke importere openai-pakke: {err}",
-    "err.missing_env.azure": "Mangler nødvendige env-varianter for asurblå bildeanalyse.",
-    "vision.alibaba_missing_env": "Mangler nødvendige env-varianter for asurblå bildeanalyse. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Mangler nødvendige env-varianter for asurblå bildeanalyse. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Nødvendige miljøvariabler for Azure-bildeanalyse mangler. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Nødvendige miljøvariabler for Alibaba-bildeanalyse mangler. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Nødvendige miljøvariabler for Moonshot-bildeanalyse mangler. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "nl": {
@@ -270,7 +270,7 @@
     "err.import_openai": "Kan openai-pakket niet importeren: {err}",
     "prompt.default": "Beschrijf deze afbeelding in detail.",
     "warn.empty_response": "[WARN] leeg antwoord",
-    "err.missing_env.azure": "Ontbrekende vereiste env-vars voor Azure-beeldanalyse.",
+    "err.missing_env.azure": "Ontbrekende vereiste env-vars voor Azure-beeldanalyse. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Ontbrekende vereiste env-vars voor Alibaba-beeldanalyse. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Ontbrekende vereiste env-vars voor Moonshot-beeldanalyse. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -282,7 +282,7 @@
     "err.import_openai": "Klarte ikkje å importere openai-pakken: {err}",
     "prompt.default": "Skildra dette biletet i detalj.",
     "warn.empty_response": "[ÅTVARING] tomt svar",
-    "err.missing_env.azure": "Missing required env vars for azure image analysis. ",
+    "err.missing_env.azure": "Missing required env vars for azure image analysis. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Missing required env vars for Alibaba image analysis.  api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Missing required env vars for Moonshot image analysis.  api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -294,7 +294,7 @@
     "err.import_openai": "Nie udało się zaimportować pakietu Openai: {err}",
     "prompt.default": "Opisz szczegółowo ten obraz.",
     "warn.empty_response": "[OSTRZEŻENIE] pusta odpowiedź",
-    "err.missing_env.azure": "Brak wymaganych zmiennych środowiskowych do analizy obrazu platformy Azure.",
+    "err.missing_env.azure": "Brak wymaganych zmiennych środowiskowych do analizy obrazu platformy Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Brak wymaganych zmiennych środowiskowych do analizy obrazu platformy Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Brak wymaganych zmiennych środowiskowych do analizy obrazu platformy Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -306,7 +306,7 @@
     "err.import_openai": "Falha ao importar o pacote openai: {err}",
     "prompt.default": "Por favor, descreva esta imagem em detalhes.",
     "warn.empty_response": "[WARN] resposta vazia",
-    "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure.",
+    "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Faltam variáveis de ambiente necessárias para análise de imagem do Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Faltam variáveis de ambiente necessárias para análise de imagem do Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -318,7 +318,7 @@
     "err.import_openai": "Falha ao importar o pacote openai: {err}",
     "prompt.default": "Por favor, descreva esta imagem em detalhes.",
     "warn.empty_response": "[WARN] resposta vazia",
-    "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure.",
+    "err.missing_env.azure": "Faltam variáveis de ambiente necessárias para análise de imagem do Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Faltam variáveis de ambiente necessárias para análise de imagem do Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Faltam variáveis de ambiente necessárias para análise de imagem do Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -328,11 +328,11 @@
     "err.image_too_large": "fișierul imagine este prea mare: {size} octeți (limită={max_bytes})",
     "err.unsupported_provider": "Furnizor neacceptat pentru analiza_imagine (chat): {provider!r}",
     "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
-    "prompt.default": "Lipsește var env necesar pentru analiza imaginii ollama (UAGENT_OLLAMA_DEPNAME)",
+    "prompt.default": "Vă rugăm să descrieți această imagine în detaliu.",
     "warn.empty_response": "[WARN] răspuns gol",
-    "err.missing_env.azure": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/azure/bedrock/openrouter/ollama",
-    "vision.alibaba_missing_env": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/Alibaba/bedrock/openrouter/ollama api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/Moonshot/bedrock/openrouter/ollama api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Lipsesc variabilele de mediu necesare pentru analiza imaginilor Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Lipsesc variabilele de mediu necesare pentru analiza imaginilor Alibaba. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Lipsesc variabilele de mediu necesare pentru analiza imaginilor Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "ru": {
@@ -342,7 +342,7 @@
     "err.import_openai": "Не удалось импортировать пакет openai: {err}.",
     "prompt.default": "Пожалуйста, опишите этот образ подробно.",
     "warn.empty_response": "[ПРЕДУПРЕЖДЕНИЕ] пустой ответ",
-    "err.missing_env.azure": "Отсутствуют необходимые переменные среды для анализа изображений Azure.",
+    "err.missing_env.azure": "Отсутствуют необходимые переменные среды для анализа изображений Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Отсутствуют необходимые переменные среды для анализа изображений Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Отсутствуют необходимые переменные среды для анализа изображений Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -354,9 +354,9 @@
     "err.import_openai": "Det gick inte att importera openai-paket: {err}",
     "prompt.default": "Beskriv denna bild i detalj.",
     "warn.empty_response": "[VARNING] tomt svar",
-    "err.missing_env.azure": "Env vars krävs för azurblå bildanalys saknas.",
-    "vision.alibaba_missing_env": "Env vars krävs för azurblå bildanalys saknas. api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Env vars krävs för azurblå bildanalys saknas. api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Nödvändiga miljövariabler för Azure-bildanalys saknas. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Nödvändiga miljövariabler för Alibaba-bildanalys saknas. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Nödvändiga miljövariabler för Moonshot-bildanalys saknas. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "sw": {
@@ -366,7 +366,7 @@
     "err.import_openai": "Imeshindwa kuleta kifurushi cha openai: {err}",
     "prompt.default": "Tafadhali fafanua picha hii kwa undani.",
     "warn.empty_response": "[ONYA] jibu tupu",
-    "err.missing_env.azure": "Vyumba vya env vinavyohitajika kwa uchanganuzi wa picha za azure hazipo.",
+    "err.missing_env.azure": "Vyumba vya env vinavyohitajika kwa uchanganuzi wa picha za azure hazipo. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Vyumba vya env vinavyohitajika kwa uchanganuzi wa picha za Alibaba hazipo. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Vyumba vya env vinavyohitajika kwa uchanganuzi wa picha za Moonshot hazipo. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -378,9 +378,9 @@
     "err.import_openai": "ไม่สามารถนำเข้าแพ็คเกจ openai: {err}",
     "prompt.default": "กรุณาอธิบายภาพนี้โดยละเอียด",
     "warn.empty_response": "[คำเตือน] คำตอบที่ว่างเปล่า",
-    "err.missing_env.azure": "ไม่มี env vars ที่จำเป็นสำหรับการวิเคราะห์ภาพสีฟ้า",
-    "vision.alibaba_missing_env": "ไม่มี env vars ที่จำเป็นสำหรับการวิเคราะห์ภาพสีฟ้า api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "ไม่มี env vars ที่จำเป็นสำหรับการวิเคราะห์ภาพสีฟ้า api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "ไม่มีตัวแปรสภาพแวดล้อมที่จำเป็นสำหรับการวิเคราะห์ภาพ Azure base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "ไม่มีตัวแปรสภาพแวดล้อมที่จำเป็นสำหรับการวิเคราะห์ภาพ Alibaba api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "ไม่มีตัวแปรสภาพแวดล้อมที่จำเป็นสำหรับการวิเคราะห์ภาพ Moonshot api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "tr": {
@@ -390,7 +390,7 @@
     "err.import_openai": "Openai paketi içe aktarılamadı: {err}",
     "prompt.default": "Lütfen bu resmi ayrıntılı olarak açıklayın.",
     "warn.empty_response": "[WARN] boş yanıt",
-    "err.missing_env.azure": "Azure görüntü analizi için gerekli ortam değişkenleri eksik.",
+    "err.missing_env.azure": "Azure görüntü analizi için gerekli ortam değişkenleri eksik. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Alibaba görüntü analizi için gerekli ortam değişkenleri eksik. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Moonshot görüntü analizi için gerekli ortam değişkenleri eksik. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -402,7 +402,7 @@
     "err.import_openai": "Не вдалося імпортувати пакет openai: {err}",
     "prompt.default": "Будь ласка, опишіть це зображення детально.",
     "warn.empty_response": "[WARN] порожня відповідь",
-    "err.missing_env.azure": "Відсутні необхідні змінні env для аналізу зображень Azure.",
+    "err.missing_env.azure": "Відсутні необхідні змінні env для аналізу зображень Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Відсутні необхідні змінні env для аналізу зображень Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Відсутні необхідні змінні env для аналізу зображень Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -414,7 +414,7 @@
     "err.import_openai": "Không thể nhập gói openai: {err}",
     "prompt.default": "Hãy mô tả chi tiết hình ảnh này.",
     "warn.empty_response": "[CẢNH BÁO] phản hồi trống",
-    "err.missing_env.azure": "Thiếu các biến env cần thiết để phân tích hình ảnh Azure.",
+    "err.missing_env.azure": "Thiếu các biến env cần thiết để phân tích hình ảnh Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
     "vision.alibaba_missing_env": "Thiếu các biến env cần thiết để phân tích hình ảnh Alibaba. api_key/model: UAGENT_ALIBABA_*.",
     "vision.moonshot_missing_env": "Thiếu các biến env cần thiết để phân tích hình ảnh Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
@@ -426,9 +426,9 @@
     "err.import_openai": "导入 openai 包失败：{err}",
     "prompt.default": "请详细描述这张图片。",
     "warn.empty_response": "[警告] 空响应",
-    "err.missing_env.azure": "缺少天蓝色图像分析所需的环境变量。",
-    "vision.alibaba_missing_env": "缺少天蓝色图像分析所需的环境变量。 api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "缺少天蓝色图像分析所需的环境变量。 api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "缺少 Azure 图像分析所需的环境变量。 base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "缺少 Alibaba 图像分析所需的环境变量。 api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "缺少 Moonshot 图像分析所需的环境变量。 api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "zh_TW": {
@@ -438,9 +438,9 @@
     "err.import_openai": "導入 openai 套件失敗：{err}",
     "prompt.default": "請詳細描述這張圖。",
     "warn.empty_response": "[警告] 空響應",
-    "err.missing_env.azure": "缺少天藍色影像分析所需的環境變數。",
-    "vision.alibaba_missing_env": "缺少天藍色影像分析所需的環境變數。 api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "缺少天藍色影像分析所需的環境變數。 api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "缺少 Azure 影像分析所需的環境變數。 base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "缺少 Alibaba 影像分析所需的環境變數。 api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "缺少 Moonshot 影像分析所需的環境變數。 api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   }
 }
