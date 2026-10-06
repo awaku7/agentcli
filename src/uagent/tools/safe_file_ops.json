@@ -96,7 +96,7 @@
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== Human confirmation request ===",
     "err.path_empty": "stien er tom",
-    "err.outside_workdir": "stien er uden for arbejdsområdet: root={root} path={path}",
+    "err.outside_workdir": "stien er uden for arbejdsmappen: root={root} path={path}",
     "err.file_not_found": "filen blev ikke fundet: {filename}"
   },
   "de": {
@@ -247,7 +247,7 @@
     "ui.confirm.title": "=== Human confirmation request ===",
     "err.path_empty": "walang laman ang path",
     "err.outside_workdir": "nasa labas ng workdir ang path: root={root} path={path}",
-    "err.file_not_found": "hindi nahanap ang file: {filename}"
+    "err.file_not_found": "hindi nakita ang file: {filename}"
   },
   "fr": {
     "confirm.rename": "renommer/déplacer déplacera les vrais fichiers (cela peut écraser ou supprimer des fichiers existants).\nsrc : {src}\nheure d'heure : {dst}\ndétails : {details}\n\nRépondez avec y pour continuer, ou c pour annuler.",
@@ -596,7 +596,7 @@
     "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
     "ui.confirm.title": "=== Human confirmation request ===",
     "err.path_empty": "stien er tom",
-    "err.outside_workdir": "stien er utanfor arbeidsområdet: root={root} path={path}",
+    "err.outside_workdir": "stien er utanfor arbeidsmappa: root={root} path={path}",
     "err.file_not_found": "fila vart ikkje funnen: {filename}"
   },
   "pl": {
