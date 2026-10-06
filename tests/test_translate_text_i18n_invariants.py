@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
@@ -39,9 +40,13 @@ def test_translate_provider_description_preserves_enum_values_and_brand():
         if description is None:
             continue
 
-        for token in ("auto", "google", "deepl", "DeepL"):
-            if token not in description:
+        for token in ("auto", "google", "deepl"):
+            pattern = rf"(?<![A-Za-z0-9_]){re.escape(token)}(?![A-Za-z0-9_])"
+            if re.search(pattern, description) is None:
                 invalid.append(f"{lang}:{token}")
+
+        if "DeepL" not in description:
+            invalid.append(f"{lang}:DeepL")
 
     assert not invalid, "Corrupted translate provider identifiers: " + ", ".join(
         invalid
