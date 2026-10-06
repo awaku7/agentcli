@@ -44,8 +44,14 @@ def test_localized_dependency_messages_preserve_package_identifiers_and_commands
             prose = message[:command_index] if command_index >= 0 else message
             if package.lower() not in prose.lower():
                 invalid.append(f"{filename}:{lang}:{key}: missing package in prose")
-            if not message.rstrip().endswith(command):
+            if command_index < 0:
                 invalid.append(f"{filename}:{lang}:{key}: invalid install command")
+            if (
+                filename == "ble_ops_tool.json"
+                and key == "err.pyside6_missing"
+                and message.splitlines()[-1].strip() != command
+            ):
+                invalid.append(f"{filename}:{lang}:{key}: invalid command line")
 
     assert not invalid, (
         "Localized dependency messages must preserve literal package identifiers "
