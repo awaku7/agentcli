@@ -302,7 +302,13 @@ def test_missing_top_level_translation_uses_python_fallback(tmp_path: Path) -> N
         finding.locale == "ja" and finding.kind == "structure_missing"
         for finding in findings
     )
-    assert "translation_missing" in audit_module.ADVISORY_FINDING_KINDS
+    assert audit_module._is_advisory_finding(
+        audit_module.Finding(
+            "tool_json",
+            "translation_missing",
+            "tool.json",
+        )
+    )
 
 
 def test_audit_follows_delegated_catalog_binding(tmp_path: Path) -> None:
