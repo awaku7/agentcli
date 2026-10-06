@@ -671,4 +671,3 @@ def test_pybitchat_nostr_status_format_is_invariant() -> None:
     for lang, block in catalog.items():
         assert block["cmd.node_started_nostr_failed"] == "  nostr: %(state)s", lang
         assert block["cmd.status_nostr_stopped"] == "  nostr: %(state)s", lang
-
