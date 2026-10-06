@@ -496,3 +496,25 @@ def test_tool_audit_rejects_non_english_search_default(tmp_path: Path) -> None:
         "default": ["現在地", "位置情報"],
         "x_search_terms_en": ["current location", "geolocation"],
     }
+
+
+def test_audit_summary_reports_findings_by_kind(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(tools / "example_tool.py", {"message": "Hello"})
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"message": "こんにちは", "extra": "余分"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    payload = audit_module.audit(tmp_path / "missing", tools)
+
+    assert payload["summary"]["findings_by_kind"]["structure_extra"] == 1
+    assert payload["summary"]["findings_by_kind"]["coverage_missing"] == (
+        len(audit_module.TOOL_TRANSLATION_LOCALES) - 1
+    )
