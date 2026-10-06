@@ -19,7 +19,7 @@
     "msg.error_fmt": "خطأ: {msg}",
     "msg.unknown_error": "خطأ غير معروف",
     "x_search_terms": [
-      "switchbot ble control",
+      "تحكم switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "قريب",
@@ -53,7 +53,7 @@
     "msg.error_fmt": "ত্রুটি: {msg}",
     "msg.unknown_error": "অজানা ত্রুটি",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble নিয়ন্ত্রণ",
       "switchbot_ble_control",
       "switchbot",
       "কাছাকাছি",
@@ -87,7 +87,7 @@
     "msg.error_fmt": "Chyba: {msg}",
     "msg.unknown_error": "neznámá chyba",
     "x_search_terms": [
-      "switchbot ble control",
+      "ovládání switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "poblíž",
@@ -121,7 +121,7 @@
     "msg.error_fmt": "Fehler: {msg}",
     "msg.unknown_error": "unbekannter Fehler",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot BLE-Steuerung",
       "switchbot_ble_control",
       "switchbot",
       "in der Nähe",
@@ -155,7 +155,7 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "error desconocido",
     "x_search_terms": [
-      "switchbot ble control",
+      "control switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "cerca",
@@ -189,7 +189,7 @@
     "msg.error_fmt": "خطا: {msg}",
     "msg.unknown_error": "خطای ناشناخته",
     "x_search_terms": [
-      "switchbot ble control",
+      "کنترل switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "نزدیک",
@@ -223,7 +223,7 @@
     "msg.error_fmt": "Virhe: {msg}",
     "msg.unknown_error": "tuntematon virhe",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble -ohjaus",
       "switchbot_ble_control",
       "switchbot",
       "lähellä",
@@ -257,7 +257,7 @@
     "msg.error_fmt": "Erreur : {msg}",
     "msg.unknown_error": "erreur inconnue",
     "x_search_terms": [
-      "switchbot ble control",
+      "contrôle BLE switchbot",
       "switchbot_ble_control",
       "switchbot",
       "à proximité",
@@ -291,7 +291,7 @@
     "msg.error_fmt": "त्रुटि: {msg}",
     "msg.unknown_error": "अज्ञात त्रुटि",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble नियंत्रण",
       "switchbot_ble_control",
       "switchbot",
       "निकट",
@@ -325,7 +325,7 @@
     "msg.error_fmt": "Kesalahan: {msg}",
     "msg.unknown_error": "kesalahan tidak dikenal",
     "x_search_terms": [
-      "switchbot ble control",
+      "kontrol switchbot",
       "switchbot_ble_control",
       "switchbot",
       "terdekat",
@@ -359,7 +359,7 @@
     "msg.error_fmt": "Errore: {msg}",
     "msg.unknown_error": "errore sconosciuto",
     "x_search_terms": [
-      "switchbot ble control",
+      "controllo BLE switchbot",
       "switchbot_ble_control",
       "switchbot",
       "nelle vicinanze",
@@ -400,7 +400,7 @@
     "param.value.description": "set_value アクションのオプションの数値。範囲: 0 ～ 100。",
     "tool.description": "近くの SwitchBot BLE デバイスを制御し、JSON またはテキストの結果を返します。",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot BLE コントロール",
       "switchbot_ble_control",
       "switchbot",
       "近くの",
@@ -427,7 +427,7 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.unknown_error": "알 수 없는 오류",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot BLE 제어",
       "switchbot_ble_control",
       "switchbot",
       "인근",
@@ -461,7 +461,7 @@
     "msg.error_fmt": "Алдаа: {msg}",
     "msg.unknown_error": "үл мэдэгдэх алдаа",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble хяналт",
       "switchbot_ble_control",
       "switchbot",
       "ойролцоо",
@@ -495,7 +495,7 @@
     "msg.error_fmt": "त्रुटी: {msg}",
     "msg.unknown_error": "अज्ञात त्रुटी",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble नियंत्रण",
       "switchbot_ble_control",
       "switchbot",
       "जवळ",
@@ -529,7 +529,7 @@
     "msg.error_fmt": "Σφάλμα: {msg}",
     "msg.unknown_error": "άγνωστο σφάλμα",
     "x_search_terms": [
-      "switchbot ble control",
+      "έλεγχος switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "κοντά",
@@ -563,7 +563,7 @@
     "msg.error_fmt": "שגיאה: {msg}",
     "msg.unknown_error": "שגיאה לא ידועה",
     "x_search_terms": [
-      "switchbot ble control",
+      "שליטת switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "בקרבת מקום",
@@ -597,7 +597,7 @@
     "msg.error_fmt": "Hiba: {msg}",
     "msg.unknown_error": "ismeretlen hiba",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble vezérlés",
       "switchbot_ble_control",
       "switchbot",
       "közel",
@@ -631,7 +631,7 @@
     "msg.error_fmt": "Eroare: {msg}",
     "msg.unknown_error": "eroare necunoscută",
     "x_search_terms": [
-      "switchbot ble control",
+      "control switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "aproape",
@@ -665,7 +665,7 @@
     "msg.error_fmt": "Feil: {msg}",
     "msg.unknown_error": "ukjent feil",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble-kontroll",
       "switchbot_ble_control",
       "switchbot",
       "i nærheten",
@@ -699,7 +699,7 @@
     "msg.error_fmt": "Fout: {msg}",
     "msg.unknown_error": "onbekende fout",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble-controle",
       "switchbot_ble_control",
       "switchbot",
       "nabij",
@@ -733,7 +733,7 @@
     "msg.error_fmt": "Błąd: {msg}",
     "msg.unknown_error": "nieznany błąd",
     "x_search_terms": [
-      "switchbot ble control",
+      "sterowanie BLE switchbot",
       "switchbot_ble_control",
       "switchbot",
       "w pobliżu",
@@ -767,7 +767,7 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.unknown_error": "erro desconhecido",
     "x_search_terms": [
-      "switchbot ble control",
+      "controlo switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "próximo",
@@ -801,7 +801,7 @@
     "msg.error_fmt": "Erro: {msg}",
     "msg.unknown_error": "erro desconhecido",
     "x_search_terms": [
-      "switchbot ble control",
+      "controle switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "nas proximidades",
@@ -835,7 +835,7 @@
     "msg.error_fmt": "Ошибка: {msg}",
     "msg.unknown_error": "неизвестная ошибка",
     "x_search_terms": [
-      "switchbot ble control",
+      "управление switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "рядом",
@@ -869,7 +869,7 @@
     "msg.error_fmt": "Fel: {msg}",
     "msg.unknown_error": "okänt fel",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble kontroll",
       "switchbot_ble_control",
       "switchbot",
       "nära",
@@ -903,7 +903,7 @@
     "msg.error_fmt": "Hitilafu: {msg}",
     "msg.unknown_error": "hitilafu isiyojulikana",
     "x_search_terms": [
-      "switchbot ble control",
+      "udhibiti wa switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "karibu",
@@ -937,7 +937,7 @@
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
     "x_search_terms": [
-      "switchbot ble control",
+      "ควบคุม switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "ใกล้เคียง",
@@ -971,7 +971,7 @@
     "msg.error_fmt": "Hata: {msg}",
     "msg.unknown_error": "bilinmeyen hata",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble kontrolü",
       "switchbot_ble_control",
       "switchbot",
       "yakın",
@@ -1005,7 +1005,7 @@
     "msg.error_fmt": "Помилка: {msg}",
     "msg.unknown_error": "невідома помилка",
     "x_search_terms": [
-      "switchbot ble control",
+      "керування switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "поруч",
@@ -1039,7 +1039,7 @@
     "msg.error_fmt": "Lỗi: {msg}",
     "msg.unknown_error": "lỗi không xác định",
     "x_search_terms": [
-      "switchbot ble control",
+      "điều khiển switchbot",
       "switchbot_ble_control",
       "switchbot",
       "lân cận",
@@ -1073,7 +1073,7 @@
     "msg.error_fmt": "错误：{msg}",
     "msg.unknown_error": "未知错误",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble 控制",
       "switchbot_ble_control",
       "switchbot",
       "附近",
@@ -1107,7 +1107,7 @@
     "msg.error_fmt": "錯誤：{msg}",
     "msg.unknown_error": "未知錯誤",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble 控制",
       "switchbot_ble_control",
       "switchbot",
       "附近",
@@ -1184,7 +1184,7 @@
     "param.value.description": "Nilai angka pilihan untuk tindakan set_value. Julat: 0-100.",
     "tool.description": "Kawal peranti SwitchBot BLE yang berdekatan dan kembalikan JSON atau hasil teks.",
     "x_search_terms": [
-      "switchbot ble control",
+      "kawalan switchbot ble",
       "switchbot_ble_control",
       "switchbot",
       "nearby",
@@ -1218,7 +1218,7 @@
     "param.value.description": "Valgfri numerisk værdi for sæt_værdi-handlinger. Rækkevidde: 0-100.",
     "tool.description": "Styr en SwitchBot BLE-enhed i nærheden, og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble kontrol",
       "switchbot_ble_control",
       "switchbot",
       "nearby",
@@ -1252,7 +1252,7 @@
     "param.value.description": "Valgfri numerisk verdi for set_value-handlinger. Rekkevidde: 0-100.",
     "tool.description": "Kontroller en SwitchBot BLE-enhet i nærheten og returner et JSON- eller tekstresultat.",
     "x_search_terms": [
-      "switchbot ble control",
+      "switchbot ble kontroll",
       "switchbot_ble_control",
       "switchbot",
       "nearby",
