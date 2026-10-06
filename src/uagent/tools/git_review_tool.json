@@ -1,18 +1,4 @@
 {
-  "en": {
-    "tool.description": "Review Git changes, risky files, and possible secrets without modifying the repository.",
-    "param.staged.description": "Review staged changes instead of unstaged changes.",
-    "param.include_untracked.description": "Include untracked files in the review.",
-    "param.scan_secrets.description": "Scan changed text files for likely secrets without returning secret values.",
-    "param.max_files.description": "Maximum number of changed files to inspect.",
-    "x_search_terms": [
-      "git review",
-      "git diff review",
-      "changed files",
-      "secret scan",
-      "code review"
-    ]
-  },
   "ja": {
     "tool.description": "リポジトリを変更せずに、Git の変更、危険なファイル、秘密情報の可能性をレビューします。",
     "param.staged.description": "未ステージの変更ではなく、ステージ済みの変更をレビューします。",

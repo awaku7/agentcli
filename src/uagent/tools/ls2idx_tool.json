@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse LotusScript source definitions into a numbered index or return one selected definition section.",
-    "x_search_terms": [
-      "ls2idx",
-      "LotusScript",
-      "Domino",
-      "Notes",
-      "Sub",
-      "Function",
-      "Class"
-    ],
-    "param.path": "Path to a LotusScript source file.",
-    "param.mode": "index for a numbered index, section for one definition.",
-    "param.section": "1-based section number when mode is section."
-  },
   "ja": {
     "tool.description": "LotusScript ソース定義を番号付きインデックスに解析するか、選択した 1 つの定義セクションを返します。",
     "x_search_terms": [

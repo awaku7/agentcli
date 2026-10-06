@@ -1,9 +1,4 @@
 {
-  "en": {
-    "err.import_openai": "Failed to import openai package.",
-    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] empty response"
-  },
   "ar": {
     "err.import_openai": "فشل استيراد حزمة openai.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY مفقود (أو UAGENT_OPENAI_API_KEY).",

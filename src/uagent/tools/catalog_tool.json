@@ -1,37 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "tool catalog",
-      "available tools",
-      "tool list",
-      "list tools",
-      "search tools",
-      "tool discovery",
-      "find tool",
-      "tool search",
-      "catalog search",
-      "tool lookup",
-      "auto load",
-      "auto-load tool"
-    ],
-    "param.query.description": "Natural-language query describing the needed capability. Tip: decompose your goal into sub-steps (e.g., 'geoip location + weather forecast') to improve matching.",
-    "tool_load.description": "Load one or more tools by name so they become available for use. Use this after tool_catalog returns tools with loaded=false. Pass a single 'name' or a 'names' array (e.g. ['read_file', 'file_grep']) to load multiple tools in one call. Returns per-tool results (loaded/failed) or an error if not found.",
-    "param.name.description": "Name of the tool to load (e.g. 'generate_image', 'excel_ops'). A comma/whitespace separated list is also accepted.",
-    "msg.load.missing_name": "Missing 'name' parameter.",
-    "msg.load.ok": "Tool '{name}' has been loaded and is now available",
-    "msg.load.not_found": "Tool '{name}' not found.",
-    "param.all.description": "If true, return all available tools (loaded + unloaded) without query filtering.",
-    "msg.unload.missing_name": "Missing 'name' parameter.",
-    "msg.unload.not_found": "Tool '{name}' not found or not loaded.",
-    "msg.unload.ok": "Tool '{name}' has been unloaded.",
-    "unload_tool.description": "Unload a tool by name so it is no longer available for use. Use this to remove a previously loaded tool from the session.",
-    "tool.description": "Return a JSON catalog of available tools with ok, query, count, and tools fields so the model can discover relevant tools before requesting full tool definitions. Results include a 'loaded' field indicating if the tool is currently enabled. When a 'query' is provided, the top-ranked unloaded tool is automatically loaded (indicated by 'auto_loaded' in the response).",
-    "param.names.description": "Names of tools to load (e.g. ['read_file', 'file_grep']). Combined with 'name' when both are given.",
-    "msg.load.already_loaded": "Tool '{name}' is already loaded and available for use.",
-    "msg.load.not_found_or_not_visible": "Tool '{name}' was not found, or it failed to become visible to the LLM after load.",
-    "msg.load.batch_ok": "Loaded {count} tool(s): {names}.",
-    "msg.unload.pinned": "Tool '{name}' is pinned against unload. Unpin it first or force-close its sessions."
-  },
   "ja": {
     "x_search_terms": [
       "ツールカタログ",

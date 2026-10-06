@@ -1,27 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert units and evaluate unit-aware physical quantities using Pint. Supports expressions such as '25 degC to degF' or '2.5 kW * 8 hour to kWh'.",
-    "x_search_terms": [
-      "quantities",
-      "units",
-      "unit conversion",
-      "convert units",
-      "physical quantities",
-      "temperature conversion",
-      "pressure conversion",
-      "power calculation",
-      "engineering units",
-      "Pint"
-    ],
-    "param.expression.description": "A Pint quantity expression, optionally followed by 'to UNIT'; examples: '25 degC to degF', '1 meter + 20 centimeter to meter'.",
-    "param.to_unit.description": "Optional target unit. Use this instead of the 'to UNIT' suffix when preferred.",
-    "param.precision.description": "Number of decimal places in the formatted result (default: 6).",
-    "err.pint_unavailable": "Pint is not installed and automatic installation failed.",
-    "err.expression_missing": "No quantity expression was provided.",
-    "err.expression_unsafe": "The quantity expression contains unsupported syntax.",
-    "err.target_unsafe": "The target unit contains unsupported syntax.",
-    "err.evaluation": "Unable to evaluate the quantity expression: %(error)s"
-  },
   "ar": {
     "tool.description": "تحويل الوحدات وتقييم الكميات الفيزيائية المدركة للوحدة باستخدام Pint. يدعم تعبيرات مثل \"25 درجة مئوية إلى درجة فهرنهايت\" أو \"2.5 كيلو واط * 8 ساعة إلى كيلو واط ساعة\".",
     "x_search_terms": [

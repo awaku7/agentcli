@@ -1,13 +1,4 @@
 {
-  "en": {
-    "tool.description": "Inspect the current workspace, including Git status and the local runtime.",
-    "x_search_terms": [
-      "workspace status",
-      "repository status",
-      "git status",
-      "development environment"
-    ]
-  },
   "ar": {
     "tool.description": "افحص مساحة العمل الحالية، بما في ذلك حالة Git ووقت التشغيل المحلي.",
     "x_search_terms": [

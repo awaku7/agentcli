@@ -37,6 +37,7 @@ Examples:
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import os
 import re
@@ -44,6 +45,7 @@ import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from string import Formatter
 from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,10 +98,11 @@ SUPPORTED_TARGET_LOCALES = tuple(
 )
 
 LANG_KEY_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Za-z]{2})?$")
-# Match both {name} and %(name)s style placeholders for QC.
-PLACEHOLDER_RE = re.compile(
-    r"%(?:\([^)]+\))?[#0\- +]?\d*(?:\.\d+)?[hlL]?[dsfr]|\{[A-Za-z_][A-Za-z0-9_]*\}"
+PRINTF_PLACEHOLDER_RE = re.compile(
+    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
+FORMATTER = Formatter()
+BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -153,25 +156,185 @@ def _dump_json(path: Path, data: Any) -> None:
         f.write("\n")
 
 
+def _is_tool_i18n_catalog(path: Path, data: Any) -> bool:
+    if not isinstance(data, dict):
+        return False
+    if any(isinstance(data.get(lang), dict) for lang in SUPPORTED_TARGET_LOCALES):
+        return True
+    try:
+        return bool(_english_source(path))
+    except ValueError:
+        return False
+
+
 def _iter_tool_json_files(tools_dir: Path, tools_filter: set[str] | None) -> list[Path]:
-    files = sorted(tools_dir.glob("*_tool.json"))
+    files = sorted(tools_dir.glob("*.json"))
     out: list[Path] = []
     for p in files:
-        # skip non-i18n json helpers if any
+        try:
+            data = _load_json(p)
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            continue
+        if not _is_tool_i18n_catalog(p, data):
+            continue
         name = p.name
         stem = name[: -len("_tool.json")] if name.endswith("_tool.json") else p.stem
-        if tools_filter and stem not in tools_filter and name not in tools_filter:
+        if (
+            tools_filter
+            and stem not in tools_filter
+            and p.stem not in tools_filter
+            and name not in tools_filter
+        ):
             continue
         out.append(p)
     return out
 
 
-def _en_block(data: dict[str, Any]) -> dict[str, Any]:
-    en = data.get("en")
-    if not isinstance(en, dict):
-        raise ValueError("missing en block")
-    return en
+def _static_eval(node: ast.AST, constants: dict[str, Any]) -> Any:
+    try:
+        return ast.literal_eval(node)
+    except (ValueError, TypeError, SyntaxError):
+        pass
+    if isinstance(node, ast.Name) and node.id in constants:
+        return constants[node.id]
+    if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Add):
+        left = _static_eval(node.left, constants)
+        right = _static_eval(node.right, constants)
+        try:
+            return left + right
+        except TypeError:
+            return None
+    if isinstance(node, ast.JoinedStr):
+        parts: list[str] = []
+        for part in node.values:
+            if isinstance(part, ast.Constant) and isinstance(part.value, str):
+                parts.append(part.value)
+                continue
+            if not isinstance(part, ast.FormattedValue):
+                return None
+            value = _static_eval(part.value, constants)
+            if not isinstance(value, (str, int, float, bool)):
+                return None
+            format_spec = ""
+            if part.format_spec is not None:
+                spec = _static_eval(part.format_spec, constants)
+                if not isinstance(spec, str):
+                    return None
+                format_spec = spec
+            try:
+                parts.append(format(value, format_spec))
+            except (TypeError, ValueError):
+                return None
+        return "".join(parts)
+    return None
 
+
+def _extract_english_source(py_path: Path) -> dict[str, Any]:
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError) as exc:
+        raise ValueError(f"cannot parse Python source {py_path}: {exc}") from exc
+
+    constants: dict[str, Any] = {}
+    for statement in tree.body:
+        name: str | None = None
+        value_node: ast.AST | None = None
+        if (
+            isinstance(statement, ast.Assign)
+            and len(statement.targets) == 1
+            and isinstance(statement.targets[0], ast.Name)
+        ):
+            name = statement.targets[0].id
+            value_node = statement.value
+        elif isinstance(statement, ast.AnnAssign) and isinstance(
+            statement.target, ast.Name
+        ):
+            name = statement.target.id
+            value_node = statement.value
+        if name and value_node is not None:
+            value = _static_eval(value_node, constants)
+            if value is not None:
+                constants[name] = value
+
+    source: dict[str, Any] = {}
+    calls = [node for node in ast.walk(tree) if isinstance(node, ast.Call)]
+    calls.sort(
+        key=lambda node: (getattr(node, "lineno", 0), getattr(node, "col_offset", 0))
+    )
+    for node in calls:
+        if not isinstance(node.func, ast.Name) or node.func.id != "_" or not node.args:
+            continue
+        key_node = node.args[0]
+        if not isinstance(key_node, ast.Constant) or not isinstance(key_node.value, str):
+            continue
+        default_node = next(
+            (kw.value for kw in node.keywords if kw.arg == "default"),
+            None,
+        )
+        if default_node is None:
+            continue
+        value = _static_eval(default_node, constants)
+        if isinstance(value, (str, list, dict)):
+            source.setdefault(key_node.value, value)
+    return source
+
+
+def _delegated_source_files(path: Path) -> list[Path]:
+    """Find modules that explicitly bind the default translator to this facade."""
+    primary = path.with_suffix(".py")
+    target_name = primary.name
+    delegated: list[Path] = []
+    for candidate in sorted(path.parent.rglob("*.py")):
+        if candidate == primary:
+            continue
+        try:
+            text = candidate.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        if "make_tool_translator" not in text or target_name not in text:
+            continue
+        try:
+            tree = ast.parse(text, filename=str(candidate))
+        except SyntaxError:
+            continue
+        for statement in ast.walk(tree):
+            if not isinstance(statement, ast.Assign) or len(statement.targets) != 1:
+                continue
+            target = statement.targets[0]
+            value = statement.value
+            if not isinstance(target, ast.Name) or target.id != "_":
+                continue
+            if not isinstance(value, ast.Call):
+                continue
+            if not isinstance(value.func, ast.Name):
+                continue
+            if value.func.id != "make_tool_translator":
+                continue
+            explicit_targets = {
+                Path(node.value).name
+                for node in ast.walk(value)
+                if isinstance(node, ast.Constant)
+                and isinstance(node.value, str)
+                and node.value.endswith(".py")
+            }
+            if target_name in explicit_targets:
+                delegated.append(candidate)
+                break
+    return delegated
+
+
+def _english_source(path: Path) -> dict[str, Any]:
+    """Extract Python English defaults, following facade-bound implementations."""
+    py_path = path.with_suffix(".py")
+    if not py_path.is_file():
+        raise ValueError(f"missing Python source for i18n catalog: {py_path}")
+
+    source = _extract_english_source(py_path)
+
+    for delegated in _delegated_source_files(path):
+        for key, value in _extract_english_source(delegated).items():
+            source.setdefault(key, value)
+    return source
 
 def _value_to_text(v: Any) -> str | None:
     """Serialize a JSON value into a single translate unit.
@@ -203,7 +366,14 @@ def _text_to_value(text: str, template: Any) -> Any:
 
 
 def _placeholders(s: str) -> set[str]:
-    return set(PLACEHOLDER_RE.findall(s))
+    names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(s)}
+    try:
+        for _literal, field_name, _format_spec, _conversion in FORMATTER.parse(s):
+            if field_name is not None and BRACE_FIELD_NAME_RE.fullmatch(field_name):
+                names.add(field_name)
+    except ValueError:
+        names.add("<invalid-brace-format>")
+    return names
 
 
 def _is_missing_or_stale(
@@ -269,7 +439,7 @@ def collect_units(
     for path in files:
         try:
             data = _load_json_object(path)
-            en = _en_block(data)
+            en = _english_source(path)
         except Exception as e:
             print(f"[skip] {path}: {e}", file=sys.stderr)
             continue
@@ -649,13 +819,12 @@ def merge_lang(
             if block.get(key) != new_val:
                 block[key] = new_val
                 changed += 1
-        # stable key order: follow en order then extras
-        en = data.get("en") if isinstance(data.get("en"), dict) else {}
+        # Stable key order follows the Python English source, then locale extras.
+        en = _english_source(path)
         ordered: dict[str, Any] = {}
-        if isinstance(en, dict):
-            for k in en.keys():
-                if k in block:
-                    ordered[k] = block[k]
+        for k in en.keys():
+            if k in block:
+                ordered[k] = block[k]
         for k, v in block.items():
             if k not in ordered:
                 ordered[k] = v
@@ -730,7 +899,7 @@ def cmd_status(args: argparse.Namespace) -> int:
 
     print(f"tools_scanned: {len(files)}")
     print(f"supported_locales: {len(SUPPORTED_TOOL_LOCALES)}")
-    print("source_language: en")
+    print("source_language: python default=")
     print(f"languages_scanned: {len(langs)}")
     print(f"missing_units: {len(missing_units)}")
     print(f"same_as_english_candidates: {len(same_as_en_units)}")
@@ -871,7 +1040,14 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="Optional comma-separated translation keys (e.g. x_search_terms)",
     )
-    p.add_argument("--source-lang", default="en", help="Source language (default en)")
+    p.add_argument(
+        "--source-lang",
+        default="en",
+        help=(
+            "Source language for translation input; must be en because "
+            "Python defaults are canonical."
+        ),
+    )
     p.add_argument(
         "--provider",
         choices=["auto", "google", "deepl"],
@@ -928,6 +1104,21 @@ def main(argv: list[str] | None = None) -> int:
     args.tools_set = _parse_tools(args.tools)
     args.keys_set = _parse_tools(args.keys)
     args.langs_list = _parse_langs(args.langs)
+    args.source_lang = _norm_lang(args.source_lang)
+
+    if args.source_lang != "en":
+        print(
+            "error: --source-lang must be en because Python defaults are canonical",
+            file=sys.stderr,
+        )
+        return 2
+
+    if "en" in args.langs_list:
+        print(
+            "error: en is the Python source language and cannot be a JSON target locale",
+            file=sys.stderr,
+        )
+        return 2
 
     if args.command == "status" and not args.langs_list:
         args.langs_list = list(SUPPORTED_TARGET_LOCALES)

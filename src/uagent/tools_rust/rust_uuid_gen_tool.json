@@ -1,14 +1,4 @@
 {
-  "en": {
-    "tool.description": "Generate one or more UUID v4 strings. Returns one per line.",
-    "x_search_terms": [
-      "uuid",
-      "uuid_gen",
-      "generate uuid",
-      "guid"
-    ],
-    "tool.count": "Number of UUIDs to generate (1-100, default 1)"
-  },
   "ar": {
     "tool.description": "قم بإنشاء سلسلة UUID v4 واحدة أو أكثر. إرجاع واحد لكل سطر.",
     "x_search_terms": [

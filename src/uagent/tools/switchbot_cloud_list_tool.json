@@ -67,23 +67,6 @@
       "account"
     ]
   },
-  "en": {
-    "param.fmt.description": "Format: json or text.",
-    "msg.device_count": "SwitchBot Cloud devices: {count}",
-    "msg.error_fmt": "Error: {msg}",
-    "msg.fetched_at": "Fetched at: {ts}",
-    "msg.unknown_error": "unknown error",
-    "tool.description": "List SwitchBot Cloud devices for the configured account.",
-    "x_search_terms": [
-      "switchbot cloud list",
-      "switchbot_cloud_list",
-      "switchbot",
-      "cloud",
-      "devices",
-      "configured",
-      "account"
-    ]
-  },
   "es": {
     "param.fmt.description": "Formato: json o texto.",
     "msg.device_count": "Dispositivos SwitchBot Cloud: {count}",

@@ -1,17 +1,4 @@
 {
-  "en": {
-    "param.chunk_size.description": "Read buffer size in bytes; larger values are faster for large files.",
-    "param.paths.description": "Files to count.",
-    "param.return.description": "Output format.",
-    "tool.description": "Fast read-only count of lines, words, bytes, and characters in files.",
-    "x_search_terms": [
-      "wc",
-      "word count",
-      "line count",
-      "byte count",
-      "file statistics"
-    ]
-  },
   "ja": {
     "param.chunk_size.description": "読み取りバッファのバイト数。大きいほど大きなファイルを高速に処理できます。",
     "param.paths.description": "カウント対象ファイル。",

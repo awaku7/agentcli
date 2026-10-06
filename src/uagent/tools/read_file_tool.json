@@ -1,35 +1,4 @@
 {
-  "en": {
-    "err.dual_lines": "[read_file error] head_lines and tail_lines cannot be specified together",
-    "err.filename_missing": "[read_file error] filename/path not specified",
-    "err.out_of_range": "(file has only {count} lines, start_line {start_line} is out of range)",
-    "msg.truncated": "[read_file truncated: Byte limit {max_bytes} reached]",
-    "param.filename.description": "Path of the file to read.",
-    "param.page.description": "Page number to read (1-based). Used in conjunction with max_lines.",
-    "param.start_line.description": "Line number to start reading from (1-based). Default is 1.",
-    "tool.description": "Read file contents (max 1MB). Supports partial reading via start_line/max_lines.",
-    "x_search_terms": [
-      "read_file",
-      "read file",
-      "file read",
-      "file contents",
-      "read contents",
-      "open file",
-      "load file",
-      "file reader",
-      "text reader",
-      "read text",
-      "partial read",
-      "max lines"
-    ],
-    "param.head.description": "Number of lines to read from the beginning. Cannot be used with tail_lines.",
-    "param.maxl.description": "Maximum number of lines to read. If null, read to EOF.",
-    "param.tail.description": "Number of lines to read from the end. Cannot be used with head_lines.",
-    "err.negative_lines": "[read_file error] {option} cannot be negative",
-    "err.invalid_lines": "[read_file error] {option} must be an integer",
-    "err.invalid_page": "[read_file error] page must be an integer and at least 1",
-    "err.page_requires_maxl": "[read_file error] page requires maxl"
-  },
   "ja": {
     "err.dual_lines": "[read_file error] head_lines と tail_lines は同時に指定できません",
     "err.filename_missing": "[read_file error] filename/path が指定されていません",

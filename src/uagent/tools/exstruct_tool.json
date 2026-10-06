@@ -1,36 +1,4 @@
 {
-  "en": {
-    "param.auto_page_breaks_dir.description": "Directory to save auto page break areas.",
-    "param.density_min.description": "Table density threshold.",
-    "param.file_path.description": "Path to the input Excel file.",
-    "param.format.description": "Output format.",
-    "param.include_cell_links.description": "Whether to include cell hyperlinks.",
-    "param.include_shapes.description": "Whether to include shapes.",
-    "param.mode.description": "Extraction mode.",
-    "param.output_path.description": "Output path.",
-    "param.pretty.description": "Pretty print.",
-    "param.print_areas_dir.description": "Directory to save per-print-area files.",
-    "param.sheets_dir.description": "Directory to save per-sheet files.",
-    "param.table_score_threshold.description": "Table detection threshold.",
-    "tool.description": "Use exstruct to extract structured data from an Excel (. xlsx) and return/save as JSON/YAML.",
-    "x_search_terms": [
-      "exstruct",
-      "extract structure",
-      "struct extract",
-      "binary structure",
-      "data structure",
-      "structure parser",
-      "data extraction",
-      "extract binary",
-      "structure analysis",
-      "struct parser"
-    ],
-    "param.password.description": "Password (prompts if needed).",
-    "error.missing_exstruct": "The 'exstruct' package is not installed. Please install it with: pip install exstruct",
-    "load.disabled": "The 'exstruct' package is not installed. Please install it with: pip install exstruct",
-    "param.action.description": "Operation to perform. extract=return extracted content as a string / export_file=save to a file.",
-    "prompt.password": "Enter the password for this file:{path}"
-  },
   "ja": {
     "param.auto_page_breaks_dir.description": "自動改ページ領域ごとの保存先ディレクトリ。",
     "param.density_min.description": "表密度のしきい値。",

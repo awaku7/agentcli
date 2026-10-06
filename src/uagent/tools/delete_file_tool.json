@@ -1,25 +1,4 @@
 {
-  "en": {
-    "param.allow_dir.description": "If true, allow deleting directories matched by glob.",
-    "param.confirmed.description": "If true, skip the tool's internal confirmation prompt.",
-    "param.dry_run.description": "If true, only list matched paths and do not delete anything.",
-    "param.filename.description": "Path to delete, or a list of paths/glob patterns to delete.",
-    "x_search_terms": [
-      "delete file",
-      "remove file",
-      "erase file",
-      "file delete",
-      "delete folder",
-      "remove folder",
-      "file removal",
-      "delete directory",
-      "erase directory",
-      "delete item"
-    ],
-    "param.skip.description": "If true, do not error when the path does not exist.",
-    "confirm.delete_paths_bulk": "Delete {count} paths?\n\n{paths}\n\nEnter y to proceed, or c to cancel.",
-    "tool.description": "Delete the specified file or directory (directories are deleted recursively). Because this is dangerous, confirmation may be required."
-  },
   "ja": {
     "param.allow_dir.description": "有効にすると、glob に一致したディレクトリも削除できます。",
     "param.confirmed.description": "有効にすると、ツール内部の確認プロンプトを省略します。",

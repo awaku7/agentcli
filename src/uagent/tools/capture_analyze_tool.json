@@ -1,32 +1,4 @@
 {
-  "en": {
-    "tool.description": "Run offline pcap analysis and correlate flows with local connections.",
-    "param.pcap_path.description": "Input pcap file path.",
-    "param.operations.description": "Analysis operations: summary, statistics, flows, detect, or impact.",
-    "param.correlate.description": "Correlate flow endpoints with current local connections.",
-    "param.detail_level.description": "Packet detail level from 0 to 2; payload is never returned.",
-    "param.rules.description": "Detection rules passed to pcap_analyze.",
-    "param.thresholds.description": "Detection thresholds passed to pcap_analyze.",
-    "param.filter.description": "Packet filter fields passed to pcap_analyze.",
-    "param.limit.description": "Maximum number of returned items.",
-    "param.status.description": "Optional local connection status filter.",
-    "param.local_ip.description": "Optional local IP filter.",
-    "param.remote_ip.description": "Optional remote IP filter.",
-    "param.port.description": "Optional local or remote port filter.",
-    "param.include_process.description": "Include PID and process name when permitted.",
-    "x_search_terms": [
-      "capture analysis",
-      "offline pcap analysis",
-      "pcap correlation",
-      "traffic classification",
-      "local connection correlation"
-    ],
-    "param.live_capture.description": "Capture only on a loopback interface before analyzing.",
-    "param.interface.description": "Loopback interface alias or name; non-loopback interfaces are rejected.",
-    "param.duration.description": "Live capture duration in seconds.",
-    "param.max_packets.description": "Maximum packets captured.",
-    "param.bpf_filter.description": "Optional BPF capture filter."
-  },
   "ar": {
     "tool.description": "قم بتشغيل تحليل pcap دون اتصال بالإنترنت وربط التدفقات بالاتصالات المحلية.",
     "param.pcap_path.description": "إدخال مسار ملف PCAP",

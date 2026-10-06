@@ -1,25 +1,4 @@
 {
-  "en": {
-    "tool.description": "Poll an A2A task until terminal state. Use only when no local tool can substitute.",
-    "x_search_terms": [
-      "a2a_poll",
-      "a2a poll",
-      "poll task",
-      "check status",
-      "wait for task",
-      "task status",
-      "poll result",
-      "task polling",
-      "progress check",
-      "monitor task"
-    ],
-    "param.profile.description": "Profile name or a2a://name. If omitted, uses default profile.",
-    "param.task_id.description": "Task ID to poll.",
-    "param.interval_ms.description": "Override polling interval (ms).",
-    "param.timeout_s.description": "Override timeout (seconds).",
-    "err.missing_task_id": "Missing 'task_id'.",
-    "err.exception": "Exception"
-  },
   "ja": {
     "tool.description": "A2A タスクが終端状態になるまでポーリングします。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [

@@ -1,20 +1,4 @@
 {
-  "en": {
-    "param.message.description": "Optional final message to the user.",
-    "tool.description": "Signal that the current skill's tasks are complete. (Use ONLY during skill execution based on SKILL.",
-    "x_search_terms": [
-      "finish_skill",
-      "finish skill",
-      "complete skill",
-      "end skill",
-      "skill done",
-      "mark done",
-      "signal complete",
-      "finish task",
-      "stop instructions",
-      "end loop"
-    ]
-  },
   "ja": {
     "param.message.description": "ユーザーへのオプションの最終メッセージ。",
     "tool.description": "現在のスキルのタスクが完了したことを知らせます。（SKILL.md に基づくスキル実行時のみ使用してください）。これによりスキルの指示が削除され、無限ループが防止されます。",

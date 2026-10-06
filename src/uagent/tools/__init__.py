@@ -839,8 +839,10 @@ def _load_plugins() -> None:
             print(
                 _(
                     "log.load_fail.internal",
-                    default=f"[tools] Failed to load internal plugin {mod_name}: {e!r}",
-                ).format(mod_name=mod_name, err=repr(e)),
+                    default="[tools] Failed to load internal plugin {mod_name}: {err}",
+                    mod_name=mod_name,
+                    err=repr(e),
+                ),
                 file=sys.stderr,
             )
 
@@ -871,7 +873,7 @@ def _load_plugins() -> None:
                             print(
                                 _(
                                     "log.load_ok.external",
-                                    default=f"[tools] Loaded external tool: {entry.name}",
+                                    default="[tools] Loaded external tool: {entry_name}",
                                     entry_name=entry.name,
                                 ),
                                 file=sys.stderr,
@@ -880,7 +882,7 @@ def _load_plugins() -> None:
                     print(
                         _(
                             "log.load_fail.external",
-                            default=f"[tools] Failed to load external plugin {entry.path}: {e!r}",
+                            default="[tools] Failed to load external plugin {entry_path}: {err}",
                             entry_path=entry.path,
                             err=repr(e),
                         ),

@@ -1,13 +1,11 @@
 {
-  "en": {
-    "tool.description": "Cancel a queued or running background Sub-Agent Job. Cancellation is cooperative for an active provider request.",
-    "x_search_terms": ["cancel_sub_agent_job", "stop subagent job", "cancel job"],
-    "param.job_id.description": "Job ID returned by spawn_sub_agent.",
-    "param.reason.description": "Optional cancellation reason."
-  },
   "ja": {
     "tool.description": "キュー中または実行中のバックグラウンドサブエージェント Job をキャンセルします。実行中のプロバイダー呼び出しは協調的に停止されます。",
-    "x_search_terms": ["cancel_sub_agent_job", "サブエージェント停止", "ジョブキャンセル"],
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "サブエージェント停止",
+      "ジョブキャンセル"
+    ],
     "param.job_id.description": "spawn_sub_agent が返した Job ID。",
     "param.reason.description": "任意のキャンセル理由。"
   }

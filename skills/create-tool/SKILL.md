@@ -130,9 +130,9 @@ def run_tool(args: dict[str, Any]) -> str:
 
 ### 処理内容
 
-1. `en` セクションをユーザー入力から作成
+1. Python の `_("key", default=...)` を英語の唯一の正本として作成
 1. 本体のロケールディレクトリを検出し、`en` 以外の全ロケールについて `translate_text` を呼び出して翻訳
-1. 検出した全ロケールをまとめて `json.dumps(indent=2, ensure_ascii=False)` で書き出し
+1. JSON には `en` を書かず、非英語ロケールだけを `json.dumps(indent=2, ensure_ascii=False)` で書き出し
 
 ### 翻訳対象キー（各ロケール）
 
@@ -145,7 +145,7 @@ def run_tool(args: dict[str, Any]) -> str:
 固定のロケール数や一覧を使わず、作成時点の本体から動的に取得する。
 
 - `src/uagent/locales/*/LC_MESSAGES/uag.po` または `uag.mo` の親ディレクトリ名を列挙する
-- `en` を必ず含め、`en` 以外を翻訳対象にする
+- `en` は Python の `default=` / `x_search_terms_en` にのみ保持し、JSON には含めない
 - 現在の本体では次の38ロケールを提供している: `ar`, `bn`, `cs`, `da`, `de`, `el`, `en`, `es`, `fa`, `fi`, `fil`, `fr`, `he`, `hi`, `hu`, `id`, `it`, `ja`, `ko`, `mn`, `mr`, `ms`, `nb`, `nl`, `nn`, `pl`, `pt`, `pt_BR`, `ro`, `ru`, `sv`, `sw`, `th`, `tr`, `uk`, `vi`, `zh_CN`, `zh_TW`
 - 新しいロケールが本体に追加された場合は、SKILLの一覧を更新せず自動的に対象へ含める
 

@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Extract text and basic structure from Word-like documents (. docx, .",
-    "x_search_terms": [
-      "document extract",
-      "docx",
-      "word",
-      "office document",
-      "document parsing",
-      "extract text",
-      "document read",
-      "rtf",
-      "odt",
-      "word document"
-    ],
-    "param.path.description": "Path to the input document (.docx, .rtf, .odt).",
-    "param.password.description": "Password (prompts if needed).",
-    "prompt.password": "Enter the password for this file:\n{path}",
-    "param.fmt.description": "Output format: text or json."
-  },
   "ja": {
     "tool.description": "Word系文書(.docx/.rtf/.odt)からテキストと構造を抽出。",
     "x_search_terms": [

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ast
 import json
 import sys
 from pathlib import Path
@@ -36,23 +37,38 @@ def test_tool_spec_structure():
 
 
 def test_i18n_keys_exist():
-    """All i18n keys in forecast_tool.json match those used in TOOL_SPEC."""
-    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
-    json_path = Path(__file__).parents[2] / "src/uagent/tools/forecast_tool.json"
-    with open(json_path, encoding="utf-8") as f:
-        data = json.load(f)
-    en = data.get("en", {})
+    """Python English defaults and the Japanese catalog contain critical keys."""
+    root = Path(__file__).parents[2]
+    source_path = root / "src/uagent/tools/forecast_tool.py"
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
+    english_keys = {
+        node.args[0].value
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Name)
+        and node.func.id == "_"
+        and node.args
+        and isinstance(node.args[0], ast.Constant)
+        and isinstance(node.args[0].value, str)
+    }
+
+    json_path = root / "src/uagent/tools/forecast_tool.json"
+    with open(json_path, encoding="utf-8") as file:
+        data = json.load(file)
     ja = data.get("ja", {})
-    # check a few critical keys
-    assert "tool.forecast.description" in en
-    assert "param.data.description" in en
-    assert "param.horizon.description" in en
-    assert "param.model.description" in en
-    assert "error.data_too_small" in en
-    assert "error.missing_rate_high" in en
-    assert "error.timeout" in en
-    assert "error.all_models_failed" in en
-    # ja must exist (primary non-en)
+
+    critical_keys = {
+        "tool.forecast.description",
+        "param.data.description",
+        "param.horizon.description",
+        "param.model.description",
+        "error.data_too_small",
+        "error.missing_rate_high",
+        "error.timeout",
+        "error.all_models_failed",
+    }
+    assert critical_keys <= english_keys
+    assert "en" not in data
     assert "tool.forecast.description" in ja
 
 

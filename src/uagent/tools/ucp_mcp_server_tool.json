@@ -41,13 +41,6 @@
     "param.port.description": "Θύρα για τον διακομιστή MCP (προεπιλογή 8100).",
     "param.transport.description": "MCP μεταφορά: 'sse' (HTTP) ή 'stdio' (stdin/stdout)."
   },
-  "en": {
-    "tool.description": "Start or stop a UCP MCP Server that wraps a UCP merchant's REST API as MCP tools. Use mode='start' to launch the server, mode='stop' to shut it down, mode='status' to check.",
-    "param.mode.description": "'start' to launch, 'stop' to shut down, 'status' to check.",
-    "param.business_url.description": "Business URL to proxy (required for mode='start').",
-    "param.port.description": "Port for the MCP server (default 8100).",
-    "param.transport.description": "MCP transport: 'sse' (HTTP) or 'stdio' (stdin/stdout)."
-  },
   "es": {
     "tool.description": "Iniciar o detener un servidor UCP MCP que incluye el REST API de un comerciante UCP como herramientas MCP. Utilice mode='start' para iniciar el servidor, mode='stop' para apagarlo, mode='status' para comprobarlo.",
     "param.mode.description": "'iniciar' para iniciar, 'detener' para cerrar, 'estado' para comprobar.",

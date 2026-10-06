@@ -1,27 +1,4 @@
 {
-  "en": {
-    "tool.description": "Scan Modbus TCP devices on the local network. Probes IP addresses and unit IDs to discover Modbus devices.",
-    "param.ip_range.description": "IP range to scan (e.g. '192.168.1.1-254' or '192.168.1.0/24'). Required.",
-    "param.port.description": "Modbus TCP port (default: 502).",
-    "param.unit_start.description": "Starting unit ID (default: 1).",
-    "param.unit_end.description": "Ending unit ID (default: 10).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "Modbus scan completed: {count} device(s) found in {ms} ms.",
-    "msg.no_devices": "No Modbus devices were found.",
-    "err.ip_range_required": "ip_range is required.",
-    "err.invalid_ip_range": "Could not parse ip_range: {text}",
-    "err.too_many_ips": "Too many IPs ({count}). Limit to 255.",
-    "x_search_terms": [
-      "modbus scan",
-      "modbus_scan",
-      "modbus",
-      "MODBUS",
-      "devices",
-      "local",
-      "network"
-    ],
-    "param.timeout.description": "Timeout per connection attempt (seconds)."
-  },
   "ar": {
     "tool.description": "فحص أجهزة Modbus TCP على الشبكة المحلية. يستكشف عناوين IP ومعرفات الوحدات لاكتشاف أجهزة Modbus.",
     "param.ip_range.description": "نطاق IP المطلوب فحصه (على سبيل المثال \"192.168.1.1-254\" أو \"192.168.1.0/24\"). مطلوب.",

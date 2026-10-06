@@ -1,17 +1,4 @@
 {
-  "en": {
-    "tool.description": "Discover an MCP server's protocol versions, capabilities, and identity.",
-    "param.url.description": "MCP endpoint URL, unless server_name is configured.",
-    "param.server_name.description": "Configured MCP server name.",
-    "param.protocol_mode.description": "MCP protocol mode: auto, legacy, or stateless.",
-    "err.endpoint_required": "Error: MCP endpoint is required.",
-    "err.request": "Error: MCP discovery failed: %(error)s",
-    "x_search_terms": [
-      "mcp discover",
-      "mcp server discovery",
-      "mcp capabilities"
-    ]
-  },
   "ja": {
     "tool.description": "MCPサーバーのプロトコルバージョン、機能、識別情報を検出します。",
     "param.url.description": "MCPエンドポイントURL。server_name指定時は省略できます。",

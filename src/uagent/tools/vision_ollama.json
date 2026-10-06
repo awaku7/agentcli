@@ -1,15 +1,4 @@
 {
-  "en": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (ollama): {provider!r}",
-    "prompt.default": "Please describe this image in detail.",
-    "err.missing_env.ollama": "Missing required env var for ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
-    "err.request_failed": "Failed to call Ollama API: {err}",
-    "err.http_error": "Ollama API error: HTTP {status} {body}",
-    "err.invalid_json": "Ollama API returned invalid JSON: {err}",
-    "warn.empty_response": "[WARN] empty response"
-  },
   "ar": {
     "err.image_not_found": "لم يتم العثور على ملف الصورة: {path}",
     "err.image_too_large": "ملف الصورة كبير جدًا: {size} بايت (الحد={max_bytes})",

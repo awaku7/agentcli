@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "Apply a unified diff (patch) to files using pure Python. Supports dry-run preview, whitespace tolerance, and CRLF preservation.",
-    "x_search_terms": [
-      "apply patch",
-      "patch file",
-      "apply diff",
-      "unified diff apply",
-      "ux30d1ux30c3ux30c1ux9069ux7528"
-    ],
-    "param.patch_text.description": "Unified diff text to apply (git-format compatible, e.g. ---/+++ headers).",
-    "param.dry_run.description": "If true, only preview what would be changed without applying.",
-    "param.ignore_whitespace.description": "Ignore whitespace differences when matching context lines.",
-    "param.encoding.description": "File encoding (default: utf-8).",
-    "param.preserve_line_endings.description": "Preserve original line endings (CRLF/CR) in output.",
-    "param.revert.description": "Apply the patch in reverse (swap added/removed lines).",
-    "param.strip.description": "Strip N leading path components from file paths in patch headers (like git apply -pN).",
-    "err.patch_empty": "patch_text is empty.",
-    "err.no_hunks": "No valid hunks found in patch text.",
-    "err.hunk_not_found": "Context not found in file.",
-    "err.file_too_large": "File too large: %(size)s bytes (max %(max_bytes)s)",
-    "summary.applied": "%(applied)s of %(total)s hunk(s) applied to %(files)s file(s). %(added)s line(s) added, %(removed)s line(s) removed."
-  },
   "ja": {
     "tool.description": "パッチ（unified diff）を純粋 Python で適用します。dry-run プレビュー、ホワイトスペース共通、CRLF 保持に対応。",
     "x_search_terms": [

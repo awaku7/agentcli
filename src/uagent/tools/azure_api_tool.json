@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "Generic Azure Resource Manager REST API tool. It can list providers, list provider operations, and call Azure APIs. Non-GET operations require confirm_write=true.",
-    "x_search_terms": [
-      "azure",
-      "microsoft azure",
-      "azure arm",
-      "cloud",
-      "azure_api"
-    ],
-    "param.provider": "Azure resource provider namespace, for example Microsoft.Compute.",
-    "param.resource": "ARM resource path or full management URL.",
-    "param.method": "HTTP method, for example GET, PUT, POST, PATCH, or DELETE.",
-    "param.api_version": "Azure API version.",
-    "param.parameters": "JSON object containing query parameters.",
-    "param.body": "Optional JSON request body.",
-    "param.confirm_write": "Required true for non-GET operations."
-  },
   "ar": {
     "tool.description": "أداة Azure العامة لإدارة الموارد REST API. يمكنه سرد الموفرين، وسرد عمليات الموفر، واستدعاء Azure APIs. تتطلب العمليات التي لا تتعلق بـ GET تأكيد_الكتابة = صحيح.",
     "x_search_terms": [

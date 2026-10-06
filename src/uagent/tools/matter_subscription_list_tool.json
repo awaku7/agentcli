@@ -1,17 +1,4 @@
 {
-  "en": {
-    "tool.description": "List active Matter device subscriptions.",
-    "param.fmt.description": "Format: json or text.",
-    "x_search_terms": [
-      "matter subscription list",
-      "matter_subscription_list",
-      "matter",
-      "MATTER",
-      "subscription",
-      "active",
-      "subscriptions"
-    ]
-  },
   "ar": {
     "tool.description": "قائمة اشتراكات جهاز Matter النشطة.",
     "param.fmt.description": "التنسيق: json أو نص.",

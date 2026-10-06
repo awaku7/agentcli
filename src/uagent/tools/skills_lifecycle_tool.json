@@ -1,13 +1,4 @@
 {
-  "en": {
-    "err.name_required": "Plugin name is required.",
-    "err.review_validation_failed": "Plugin validation failed.",
-    "err.confirmation_required": "Explicit confirmation is required. Use --yes to enable the Skill.",
-    "out.reviewed": "Skill '{name}' is reviewed.",
-    "out.enabled": "Skill '{name}' is enabled.",
-    "help.review": "  :skills review <name>  Validate and review a Skill.",
-    "help.enable": "  :skills enable <name> --yes  Enable a reviewed Skill."
-  },
   "ja": {
     "err.name_required": "プラグイン名が必要です。",
     "err.review_validation_failed": "プラグインの検証に失敗しました。",

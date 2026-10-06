@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Return the current time and detailed date/time information (timezone, weekday, UTC time). Use this to resolve relative date expressions (e.",
-    "x_search_terms": [
-      "current time",
-      "get time",
-      "now",
-      "current date",
-      "date time",
-      "time now",
-      "today",
-      "timestamp",
-      "local time",
-      "system time"
-    ]
-  },
   "ja": {
     "tool.description": "現在の時刻と詳細な日時情報（タイムゾーン、曜日、UTC時刻）を返します。現在の曜日とUTCオフセットを確認することで、「今日」「明日」「今週末」「来月の第3火曜日」などの相対的な日付表現を解決するために使用します。",
     "x_search_terms": [

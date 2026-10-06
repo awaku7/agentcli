@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Retrieves raw long-term memory (shared memory) data shared across users. - Usually returns text in JSONL format (one record per line).",
-    "x_search_terms": [
-      "get shared",
-      "shared memory get",
-      "read shared",
-      "retrieve shared",
-      "shared recall",
-      "team memory get",
-      "shared info get",
-      "collaborative get",
-      "group memory get",
-      "shared retrieve"
-    ]
-  },
   "ja": {
     "tool.description": "ユーザー間で共有される生の長期メモリ (共有メモリ) データを取得します。- 通常、テキストを JSONL 形式で返します (1 行に 1 レコード)。",
     "x_search_terms": [

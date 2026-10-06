@@ -1,34 +1,4 @@
 {
-  "en": {
-    "err.dir_not_exist": "[search_files error] Directory does not exist: {path}",
-    "err.regex_compile": "[search_files error] Failed to compile regex: {error}",
-    "match.excerpt": "MATCH: {text}",
-    "match.line": "L{line}: {text}",
-    "match.more": "... (more matches in file)",
-    "out.file": "File: {file}",
-    "out.no_match": "[search_files] No files matched the criteria.",
-    "param.fast_read_threshold_bytes.description": "Files smaller than this threshold are fully read() for faster searching (default: 8000000 ≈ 8MB). Larger files are scanned with streaming to limit memory usage.",
-    "param.page.description": "Page number to retrieve (default: 1).",
-    "tool.description": "Search files under a directory by name pattern (glob) and/or by content (regex).",
-    "x_search_terms": [
-      "search files",
-      "find files",
-      "file search",
-      "search file",
-      "find file",
-      "file find",
-      "locate file",
-      "search path",
-      "file lookup",
-      "search directory"
-    ],
-    "param.cs.description": "Whether the content search is case-sensitive (default: false).",
-    "param.re_content.description": "Regular expression to search within files. If omitted, only filename matching is performed.",
-    "param.limit.description": "Maximum number of matched files to return (default: 50).",
-    "param.glob.description": "Filename glob pattern (e.g. '*.py', 'test_*'). If omitted, all files are considered.",
-    "param.path.description": "Search root (default: cwd).",
-    "out.found_paginated": "[search_files] Page {page} of {total_pages} (Total {total} results, showing {showing})"
-  },
   "ja": {
     "err.dir_not_exist": "[search_files エラー] ディレクトリが存在しません: {path}",
     "err.regex_compile": "[search_files エラー] 正規表現のコンパイルに失敗しました: {error}",

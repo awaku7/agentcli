@@ -1,22 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse CMakeLists.txt, .cmake, and CMake preset files into a numbered index or selected section.",
-    "x_search_terms": [
-      "CMake",
-      "CMakeLists.txt",
-      "cmake project",
-      "CMake target",
-      "CMake preset",
-      "cmake parser"
-    ],
-    "param.path.description": "Path to a CMake file.",
-    "param.mode.description": "\"index\" returns a numbered table of contents; \"section\" returns one section.",
-    "param.section.description": "Section number for section mode.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.parse_error": "Error parsing CMake file: {exc}",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: section must be between 1 and {total}."
-  },
   "ja": {
     "tool.description": "CMakeLists.txt、.cmake、CMakeプリセットを番号付きインデックスまたは指定セクションとして解析します。",
     "x_search_terms": [

@@ -381,7 +381,7 @@ description = _(
 }
 ```
 
-Se eksisterende `_tool.json`-filer for understøttede sprogkoder og
+Tool-JSON indeholder kun ikke-engelske oversættelser. Python-værdierne i `default=` er den kanoniske engelske kilde.
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ Debugging
 
 ### Syntaks Check

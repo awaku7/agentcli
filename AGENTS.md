@@ -108,7 +108,8 @@ Python checks. Prompt/skill Markdown and test fixtures are not documentation-onl
 - **CI-equivalent test run**: for the final code revision, after
   `pip install -r requirements.txt`, run `python -m pytest -q . --durations=30`.
 - **Tool catalogs**: `python scripts/tool_json_i18n_batch.py status` and validate
-  each `src/uagent/tools/*_tool.json` with `scripts/i18n_validate.py`.
+  each tool-side translation JSON with `scripts/i18n_validate.py`. English lives
+  in Python `default=` values; tool JSON must not contain an `en` block.
 - After changing tools, startup, or MCP behavior, run the affected path end-to-end.
 
 ## Git commit convention

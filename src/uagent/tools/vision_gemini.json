@@ -1,12 +1,4 @@
 {
-  "en": {
-    "err.missing_env": "Missing required env var(s): {keys}",
-    "err.not_installed": "google-genai package is not installed.",
-    "err.init_client": "Failed to initialize Gemini/VertexAI client: {error}",
-    "err.image_not_found": "Image file not found: {image_path}",
-    "result.no_description": "[No description generated]",
-    "err.analysis": "Error during image analysis: {error}"
-  },
   "ar": {
     "err.missing_env": "متغيرات البيئة المطلوبة مفقودة: {keys}",
     "err.not_installed": "الحزمة google-genai غير مثبتة.",

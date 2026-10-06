@@ -63,22 +63,6 @@
     "msg.step_error": "Fehler: {err}",
     "err.config_missing": "Die Anmeldeinformationen für SwitchBot Cloud fehlen."
   },
-  "en": {
-    "tool.description": "Execute multiple SwitchBot Cloud commands in sequence.",
-    "param.commands.items.device_id.description": "Device ID.",
-    "param.commands.items.device_name.description": "SwitchBot device name.",
-    "param.commands.items.action.description": "Control action.",
-    "param.commands.items.value.description": "Value (0-100).",
-    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
-    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
-    "param.commands.description": "Commands to execute.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
-    "err.commands_required": "The commands field must be a non-empty array.",
-    "msg.batch_summary": "Batch completed: {total} command(s), {ok} succeeded, {fail} failed",
-    "msg.step_error": "         Error: {err}",
-    "err.config_missing": "SwitchBot Cloud credentials are missing."
-  },
   "es": {
     "tool.description": "Ejecutar múltiples comandos de SwitchBot Cloud en secuencia.",
     "param.commands.items.device_id.description": "ID del dispositivo.",

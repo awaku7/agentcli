@@ -125,27 +125,6 @@
     "param.project.description": "Προαιρετικό ακριβές όνομα αποθηκευμένου έργου. Αφήστε κενό για προτίμηση στις συνεδρίες του τρέχοντος έργου.",
     "param.session_id.description": "Ακριβές session_id του υποψηφίου που επέλεξε ο χρήστης. Τα άλλα χρονικά πεδία δεν χρειάζονται."
   },
-  "en": {
-    "tool.description": "Resume a saved UAG CLI session from natural language. Interpret time expressions in the user's language and map them to the language-neutral fields. If several sessions match, ask the user to choose one and call again with its session_id.",
-    "x_search_terms": [
-      "session resume",
-      "resume previous session",
-      "continue previous work",
-      "yesterday work",
-      "day before yesterday work",
-      "last week work",
-      "recent work",
-      "previous conversation"
-    ],
-    "param.when.description": "Compatibility selector: latest=newest previous session, recent=about six hours, yesterday=the previous local calendar day.",
-    "param.day_offset.description": "Local calendar day offset: 0=today, 1=yesterday, 2=day before yesterday, 3=three days ago, and so on.",
-    "param.week_offset.description": "Local ISO-style week offset: 0=this Monday-Sunday week, 1=last week, 2=two weeks ago, and so on.",
-    "param.date_start.description": "Inclusive local start date in YYYY-MM-DD format.",
-    "param.date_end.description": "Inclusive local end date in YYYY-MM-DD format.",
-    "param.topic.description": "Optional meaningful topic keywords. Exclude words that only express resuming or the selected time period.",
-    "param.project.description": "Optional exact stored project name. Leave empty to prefer the current project's sessions.",
-    "param.session_id.description": "Exact candidate session_id to resume after the user chooses from an ambiguous result. Other time fields are then unnecessary."
-  },
   "es": {
     "tool.description": "Reanuda una sesión guardada de UAG CLI a partir de lenguaje natural. Interpreta las expresiones de tiempo en el idioma del usuario y asígnalas a campos independientes del idioma. Si hay varias coincidencias, pide al usuario que elija y vuelve a llamar con la session_id elegida.",
     "x_search_terms": [

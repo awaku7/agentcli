@@ -1,24 +1,4 @@
 {
-  "en": {
-    "param.command.description": "Command string passed to the OS shell. On Windows, cmd.exe /c is used.",
-    "tool.description": "As a last resort, execute a shell command and return a JSON result. Use only when no safer or more specific tool is available (e.",
-    "x_search_terms": [
-      "cmd json",
-      "command json",
-      "structured output",
-      "json result",
-      "cmd structured",
-      "command output",
-      "command result",
-      "execute json",
-      "json command",
-      "cmd result"
-    ],
-    "param.cwd.description": "Working directory. Only relative paths under workdir are allowed. If null, uses the current directory.",
-    "error.exit_code": "command exited with code %(returncode)s",
-    "error.os_error": "command execution failed (OS error): %(error)s",
-    "error.exec_failed": "command execution failed: %(error)s"
-  },
   "ja": {
     "param.command.description": "OS シェルに渡すコマンド文字列。Windows では cmd.exe /c を使います。",
     "tool.description": "最終手段としてシェルコマンドを実行し、JSON 結果を返します。より安全または適切なツールがない場合にのみ使用してください。",

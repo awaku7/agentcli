@@ -1,32 +1,4 @@
 {
-  "en": {
-    "tool.description": "Send an HTTP request to a REST or HTTP API and return the status, headers, and response body. Supports JSON, form, and text request bodies. GET/HEAD/OPTIONS requests are read-only; write methods remain serial by default.",
-    "x_search_terms": [
-      "http request",
-      "REST API",
-      "API request",
-      "POST API",
-      "PUT API",
-      "PATCH API",
-      "DELETE API",
-      "HTTP client",
-      "Postman"
-    ],
-    "param.method.description": "HTTP method.",
-    "param.url.description": "HTTP or HTTPS URL.",
-    "param.query.description": "Query-string parameters.",
-    "param.headers.description": "Additional HTTP headers.",
-    "param.body.description": "Request body. Objects and arrays are JSON-encoded; strings are sent as text.",
-    "param.body_text.description": "Raw request body. Takes precedence over body.",
-    "param.content_type.description": "Content-Type for a supplied body.",
-    "param.bearer_token.description": "Optional Bearer token.",
-    "param.username.description": "Optional HTTP Basic-auth username.",
-    "param.password.description": "Optional HTTP Basic-auth password.",
-    "param.timeout.description": "Request timeout in seconds.",
-    "param.max_bytes.description": "Maximum response size in bytes.",
-    "param.ssl.description": "Verify TLS certificates.",
-    "param.parse_json.description": "Parse a JSON response into response_json when possible."
-  },
   "ar": {
     "tool.description": "أرسل طلب HTTP إلى REST أو HTTP API وقم بإرجاع الحالة والرؤوس ونص الاستجابة.",
     "x_search_terms": [

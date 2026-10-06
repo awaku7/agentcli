@@ -1,27 +1,4 @@
 {
-  "en": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
-    "msg.use_hint": "[apm] Use ':skills apm use <number>' to activate a skill.",
-    "err.name_required": "[apm] Specify a skill name or number.",
-    "msg.found_skills": "[apm] Found {n} skill(s) in {path}/apm_modules/:",
-    "msg.no_skills": "[apm] No skills found in {path}/apm_modules/",
-    "msg.multiple_matches": "[apm] Multiple matches. Please use a number:\n",
-    "msg.applied": "[apm] Applied APM skill: {name}",
-    "msg.dir_set": "[apm] APM project root set to: {path}",
-    "msg.dir_current": "[apm] APM project root: {path}",
-    "err.out_of_range": "[apm] Number out of range (1-{max}).",
-    "err.load_failed": "[apm] Failed to load skill: {err}",
-    "err.dir_not_found": "[apm] Directory not found: {path}",
-    "err.unknown_subcommand": "[apm] Unknown subcommand: {cmd}",
-    "err.not_found": "[apm] No skill matching '{name}' found.",
-    "x_search_terms": [
-      "skills apm",
-      "skills_apm",
-      "skills",
-      "SKILLS",
-      "apm"
-    ]
-  },
   "ar": {
     "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
     "msg.use_hint": "[apm] استخدم ':skills apm استخدم <number>' لتنشيط إحدى المهارات.",

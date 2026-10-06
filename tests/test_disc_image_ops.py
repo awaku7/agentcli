@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 from io import BytesIO
 from pathlib import Path
@@ -265,14 +266,9 @@ def test_chd_convert_success_replaces_existing_destination_atomically(
     assert not seen_output[0].exists()
 
 
-def test_i18n_catalog_has_all_38_locales_and_matching_keys() -> None:
-    catalog_path = (
-        Path(__file__).parents[1]
-        / "src"
-        / "uagent"
-        / "tools"
-        / "disc_image_ops_tool.json"
-    )
+def test_i18n_catalog_has_all_non_english_locales_and_matching_keys() -> None:
+    root = Path(__file__).parents[1]
+    catalog_path = root / "src/uagent/tools/disc_image_ops_tool.json"
     data = json.loads(catalog_path.read_text(encoding="utf-8"))
     shipped = {
         "ar",
@@ -281,7 +277,6 @@ def test_i18n_catalog_has_all_38_locales_and_matching_keys() -> None:
         "da",
         "de",
         "el",
-        "en",
         "es",
         "fa",
         "fi",
@@ -315,9 +310,22 @@ def test_i18n_catalog_has_all_38_locales_and_matching_keys() -> None:
         "zh_TW",
     }
     assert set(data) == shipped
-    en_keys = set(data["en"])
-    assert en_keys
+
+    source_path = root / "src/uagent/tools/disc_image_ops_tool.py"
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
+    english_keys = {
+        node.args[0].value
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Name)
+        and node.func.id == "_"
+        and node.args
+        and isinstance(node.args[0], ast.Constant)
+        and isinstance(node.args[0].value, str)
+    }
+    assert english_keys
+
     for lang in shipped:
-        assert set(data[lang]) == en_keys
+        assert set(data[lang]) == english_keys
         assert "%(path)s" in data[lang]["confirm.file_overwrite"]
         assert "%(seconds)s" in data[lang]["err.timeout"]

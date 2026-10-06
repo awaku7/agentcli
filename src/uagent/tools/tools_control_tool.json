@@ -1,24 +1,4 @@
 {
-  "en": {
-    "cmd.help.tools_list": "  :tools list [query]               List loaded tools, optionally filtered by name/description",
-    "cmd.help.tools_load": "  :tools load <name>",
-    "msg.tools.usage_load": "Usage: :tools load <tool_name>",
-    "msg.tools.loaded_single": "[tools] Loaded tool: {name}",
-    "msg.tools.not_found": "[tools] Tool not found: {name}",
-    "cmd.help.tools_output": "  :tools output                     Toggle display of tool execution results",
-    "msg.tools.output_state": "[tools] Tool output display is now {state}",
-    "msg.tools.list_header": "[tools] Loaded tools ({count}):",
-    "msg.tools.no_match": "[tools] No matching tools: {q}",
-    "cmd.help.tools_reload": "  :tools reload                    Reload all tool code from disk.",
-    "msg.tools.reloaded": "[tools] System reloaded successfully. All tools updated with latest code.",
-    "x_search_terms": [
-      "tools control",
-      "tools_control",
-      "tools",
-      "TOOLS"
-    ],
-    "tool.description": "Dummy tool for tools control registration."
-  },
   "ja": {
     "cmd.help.tools_list": "  :tools list [query]               読み込み済みツールを一覧表示します。必要に応じて名前/説明で絞り込みます",
     "cmd.help.tools_load": "  :tools load <name>",

@@ -29,11 +29,6 @@
     "param.business_url.description": "URL βάσης της επιχείρησης (π.χ. 'https://example.shop').",
     "err.missing_business_url": "Σφάλμα: απαιτείται business_url."
   },
-  "en": {
-    "tool.description": "Discover a business's UCP (Universal Commerce Protocol) capabilities. Fetches the /.well-known/ucp profile and returns supported services, transports, capabilities, and authentication methods.",
-    "param.business_url.description": "Base URL of the business (e.g. 'https://example.shop').",
-    "err.missing_business_url": "Error: business_url is required."
-  },
   "es": {
     "tool.description": "Descubra las capacidades UCP (Protocolo de comercio universal) de una empresa. Obtiene el perfil /.well-known/ucp y devuelve servicios, transportes, capacidades y métodos de autenticación compatibles.",
     "param.business_url.description": "URL base de la empresa (por ejemplo, 'https://example.shop').",

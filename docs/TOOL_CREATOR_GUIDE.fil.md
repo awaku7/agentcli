@@ -364,17 +364,13 @@ description = _(
  JSON Format ng File
 ```json
 {
- "en": {
- "tool.description": "Default na English na text",
- "param.input": "Input text"
- },
  "ja": {
  "tool.description": "日本語の誇",明掏"入力テキスト"
  }
 }
 ````
 
-Tingnan ang mga umiiral nang `_tool.json` file para sa mga sinusuportahang code ng wika.
+Ang tool JSON ay naglalaman lamang ng mga salin na hindi Ingles. Ang mga Python `default=` value ang canonical na English source.
 
 ______________________________________________________________________
 

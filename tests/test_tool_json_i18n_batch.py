@@ -21,14 +21,21 @@ def _write_catalog(path: Path, data: dict[str, object]) -> None:
     )
 
 
+def _write_source(path: Path, defaults: dict[str, object]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    lines = [f"_({key!r}, default={value!r})" for key, value in defaults.items()]
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def test_status_defaults_to_all_non_english_locales_without_adding_blocks(
     tmp_path: Path, capsys
 ) -> None:
     tools_dir = tmp_path / "tools"
-    _write_catalog(
-        tools_dir / "sample_tool.json",
-        {"en": {"tool.description": "Hello"}},
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
     )
+    _write_catalog(tools_dir / "sample_tool.json", {})
 
     rc = batch.main(
         [
@@ -53,10 +60,11 @@ def test_status_defaults_to_all_non_english_locales_without_adding_blocks(
 
 def test_status_add_lang_reports_missing_locale_blocks(tmp_path: Path, capsys) -> None:
     tools_dir = tmp_path / "tools"
-    _write_catalog(
-        tools_dir / "sample_tool.json",
-        {"en": {"tool.description": "Hello"}},
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
     )
+    _write_catalog(tools_dir / "sample_tool.json", {})
 
     rc = batch.main(
         [
@@ -78,9 +86,11 @@ def test_status_reports_english_matches_as_review_candidates(
     tmp_path: Path, capsys
 ) -> None:
     tools_dir = tmp_path / "tools"
-    catalog: dict[str, object] = {
-        "en": {"tool.description": "Hello"},
-    }
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    catalog: dict[str, object] = {}
     for lang in batch.SUPPORTED_TARGET_LOCALES:
         catalog[lang] = {"tool.description": "Hello"}
     _write_catalog(tools_dir / "sample_tool.json", catalog)
@@ -112,12 +122,13 @@ def test_status_reports_english_matches_as_review_candidates(
 
 def test_status_explicit_langs_still_limit_scope(tmp_path: Path, capsys) -> None:
     tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
     _write_catalog(
         tools_dir / "sample_tool.json",
-        {
-            "en": {"tool.description": "Hello"},
-            "ja": {"tool.description": "Hello"},
-        },
+        {"ja": {"tool.description": "Hello"}},
     )
 
     rc = batch.main(
@@ -142,11 +153,14 @@ def test_status_explicit_langs_still_limit_scope(tmp_path: Path, capsys) -> None
 
 def test_status_ignores_empty_english_source_values(tmp_path: Path, capsys) -> None:
     tools_dir = tmp_path / "tools"
-    catalog: dict[str, object] = {
-        "en": {
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {
             "empty": "",
             "nonempty": "Hello",
         },
+    )
+    catalog: dict[str, object] = {
         "ja": {
             "empty": "",
             "nonempty": "こんにちは",
@@ -177,18 +191,19 @@ def test_status_allows_locale_specific_search_term_counts(
     tmp_path: Path, capsys
 ) -> None:
     tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {
+            "x_search_terms": [
+                "current location",
+                "gps coordinates",
+                "geolocation",
+            ]
+        },
+    )
     _write_catalog(
         tools_dir / "sample_tool.json",
-        {
-            "en": {
-                "x_search_terms": [
-                    "current location",
-                    "gps coordinates",
-                    "geolocation",
-                ]
-            },
-            "ja": {"x_search_terms": ["現在地", "位置情報"]},
-        },
+        {"ja": {"x_search_terms": ["現在地", "位置情報"]}},
     )
 
     rc = batch.main(
@@ -241,3 +256,107 @@ def test_mutating_commands_still_require_langs(tmp_path: Path, capsys) -> None:
     captured = capsys.readouterr()
     assert rc == 2
     assert "error: --langs is required" in captured.err
+
+
+def test_status_reads_named_python_default(tmp_path: Path, capsys) -> None:
+    tools_dir = tmp_path / "tools"
+    source = tools_dir / "sample_tool.py"
+    source.parent.mkdir(parents=True, exist_ok=True)
+    source.write_text(
+        'SEARCH_TERMS = ["current location", "gps coordinates"]\n'
+        '_("x_search_terms", default=SEARCH_TERMS)\n',
+        encoding="utf-8",
+    )
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"ja": {"x_search_terms": ["現在地", "位置情報"]}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "ja",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    output = capsys.readouterr().out
+    assert rc == 0
+    assert "review_candidates: 0" in output
+
+
+def test_english_cannot_be_used_as_json_target(tmp_path: Path, capsys) -> None:
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "en",
+            "--tools-dir",
+            str(tmp_path / "tools"),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 2
+    assert "cannot be a JSON target locale" in captured.err
+
+
+def test_english_source_follows_delegated_catalog_binding(tmp_path: Path) -> None:
+    tools_dir = tmp_path / "tools"
+    tools_dir.mkdir()
+    (tools_dir / "sample_tool.py").write_text(
+        "from .sample_impl import runner\n"
+        '_("facade.description", default="Facade")\n',
+        encoding="utf-8",
+    )
+    impl_dir = tools_dir / "sample_impl"
+    impl_dir.mkdir()
+    (impl_dir / "runner.py").write_text(
+        "from pathlib import Path\n"
+        "_ = make_tool_translator(\n"
+        '    Path(__file__).resolve().parent.parent / "sample_tool.py"\n'
+        ")\n"
+        '_("tool.description", default="Hello")\n',
+        encoding="utf-8",
+    )
+
+    source = batch._english_source(tools_dir / "sample_tool.json")
+
+    assert source == {
+        "facade.description": "Facade",
+        "tool.description": "Hello",
+    }
+
+
+def test_non_english_source_language_is_rejected(tmp_path: Path, capsys) -> None:
+    rc = batch.main(
+        [
+            "status",
+            "--source-lang",
+            "ja",
+            "--tools-dir",
+            str(tmp_path / "tools"),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 2
+    assert "--source-lang must be en" in captured.err
+
+
+def test_placeholder_qc_supports_brace_conversion_and_format_spec() -> None:
+    assert batch._placeholders(
+        "Value={name!r} amount={amount:.2f} count=%(count)03d"
+    ) == {"name", "amount", "count"}
+
+
+def test_placeholder_qc_ignores_numeric_braces_used_as_literal_aliases() -> None:
+    assert batch._placeholders("Aliases @A{0} through @A{9}") == set()

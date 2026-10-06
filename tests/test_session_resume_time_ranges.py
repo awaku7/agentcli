@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -15,7 +16,6 @@ HOST_LOCALES = (
     "da",
     "de",
     "el",
-    "en",
     "es",
     "fa",
     "fi",
@@ -61,6 +61,32 @@ REQUIRED_CATALOG_KEYS = {
     "param.project.description",
     "param.session_id.description",
 }
+
+
+def _python_i18n_defaults(path: Path) -> dict[str, object]:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    defaults: dict[str, object] = {}
+    for node in ast.walk(tree):
+        if (
+            not isinstance(node, ast.Call)
+            or not isinstance(node.func, ast.Name)
+            or node.func.id != "_"
+            or not node.args
+            or not isinstance(node.args[0], ast.Constant)
+            or not isinstance(node.args[0].value, str)
+        ):
+            continue
+        default_node = next(
+            (keyword.value for keyword in node.keywords if keyword.arg == "default"),
+            None,
+        )
+        if default_node is None:
+            continue
+        try:
+            defaults[node.args[0].value] = ast.literal_eval(default_node)
+        except (ValueError, TypeError, SyntaxError):
+            continue
+    return defaults
 
 
 class _Store:
@@ -171,21 +197,27 @@ def test_reversed_explicit_date_range_is_rejected():
 def test_all_host_locales_are_explicitly_translated_without_fallback():
     catalog_path = Path(session_resume_tool.__file__).with_suffix(".json")
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    english = _python_i18n_defaults(Path(session_resume_tool.__file__))
 
+    assert "en" not in catalog
     assert set(catalog) == set(HOST_LOCALES)
-    english_description = catalog["en"]["tool.description"]
+    assert REQUIRED_CATALOG_KEYS <= set(english)
     for locale in HOST_LOCALES:
         entry = catalog[locale]
         assert REQUIRED_CATALOG_KEYS <= set(entry)
         assert isinstance(entry["x_search_terms"], list)
         assert len(entry["x_search_terms"]) >= 8
-        if locale != "en":
-            assert entry["tool.description"] != english_description
+        assert entry["tool.description"] != english["tool.description"]
 
 
 def test_every_locale_has_day_before_yesterday_and_last_week_search_terms():
     catalog_path = Path(session_resume_tool.__file__).with_suffix(".json")
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    english_terms = session_resume_tool.TOOL_SPEC["function"]["x_search_terms_en"]
+    assert len(english_terms) >= 8
+    assert english_terms[4]
+    assert english_terms[5]
 
     for locale in HOST_LOCALES:
         terms = catalog[locale]["x_search_terms"]

@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Inspect or clear the shared ECHONET Lite cache.",
-    "param.action.description": "Cache action to perform: snapshot or clear.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.snapshot": "ECHONET cache snapshot: {count} item(s).",
-    "msg.no_items": "No cached entries are present.",
-    "msg.cleared": "Cleared {removed} cached entries from {scope}.",
-    "err.invalid_action": "Error: action must be 'snapshot' or 'clear'.",
-    "param.namespace.description": "Cache namespace (omit for all).",
-    "x_search_terms": [
-      "echonet cache",
-      "echonet_cache",
-      "echonet",
-      "ECHONET",
-      "inspect",
-      "clear",
-      "shared"
-    ]
-  },
   "ja": {
     "tool.description": "ECHONET Lite 共有キャッシュを検査またはクリアします。",
     "param.action.description": "実行するキャッシュアクション: スナップショットまたはクリア。",

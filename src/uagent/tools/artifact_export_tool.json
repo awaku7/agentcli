@@ -107,24 +107,6 @@
     "error.invalid_artifact_id": "Το artifact_id πρέπει να είναι έγκυρο αναγνωριστικό αντικειμένου ή αναφορά artifact://",
     "error.not_active_session": "Το αντικείμενο δεν ανήκει στην ενεργή συνεδρία"
   },
-  "en": {
-    "tool.description": "Export a previously stored session-owned artifact to a workdir-local file without returning base64 data.",
-    "x_search_terms": [
-      "artifact_export",
-      "export artifact",
-      "save artifact",
-      "copy binary artifact"
-    ],
-    "param.artifact_id.description": "Artifact ID or artifact:// reference from an earlier tool result.",
-    "param.output_path.description": "Destination path relative to the current workdir. Absolute paths must still be inside the workdir.",
-    "param.overwrite.description": "Overwrite the destination if it already exists (default: false).",
-    "error.invalid_overwrite": "overwrite must be a boolean",
-    "error.destination_exists": "destination already exists; set overwrite to true to replace it",
-    "error.destination_directory": "output_path must name a file, not a directory",
-    "error.invalid_output_path": "output_path must be inside the workdir",
-    "error.invalid_artifact_id": "artifact_id must be a valid artifact ID or artifact:// reference",
-    "error.not_active_session": "artifact does not belong to the active session"
-  },
   "es": {
     "tool.description": "Exporta un Artifact previamente almacenado y propiedad de la sesión a un archivo dentro de workdir sin devolver datos base64.",
     "x_search_terms": [

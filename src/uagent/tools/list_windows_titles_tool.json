@@ -1,22 +1,4 @@
 {
-  "en": {
-    "param.all.description": "Include non-visible windows",
-    "param.class.description": "Include class name.",
-    "param.pid.description": "Include process IDs.",
-    "tool.description": "Enumerate top-level window titles on Windows and return structured JSON. Parameters: 'all' (include non-visible), 'pid' (include PID), 'class' (include class name).",
-    "x_search_terms": [
-      "window titles",
-      "list windows",
-      "window list",
-      "open windows",
-      "window title",
-      "enum windows",
-      "active windows",
-      "desktop windows",
-      "windows enumeration",
-      "application windows"
-    ]
-  },
   "ja": {
     "param.all.description": "非表示ウィンドウも含める。",
     "param.class.description": "ウィンドウクラス名も含める。",

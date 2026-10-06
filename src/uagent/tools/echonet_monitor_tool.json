@@ -87,28 +87,6 @@
       "detect"
     ]
   },
-  "en": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.interval.description": "Polling interval in seconds.",
-    "param.duration.description": "Monitoring duration in seconds.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "ECHONET Lite monitoring completed: {count} change(s) in {elapsed_ms} ms.",
-    "msg.no_changes": "No property changes were detected.",
-    "err.invalid_argument": "Error: ip_address is required.",
-    "msg.no_response": "No ECHONET Lite response was received during monitoring.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "tool.description": "Poll an ECHONET Lite node repeatedly, detect property changes, and return a JSON or text summary.",
-    "x_search_terms": [
-      "echonet monitor",
-      "echonet_monitor",
-      "echonet",
-      "ECHONET",
-      "repeatedly",
-      "detect"
-    ]
-  },
   "es": {
     "param.ip.description": "Dirección IPv4 del nodo de destino.",
     "param.interval.description": "Intervalo de sondeo en segundos.",

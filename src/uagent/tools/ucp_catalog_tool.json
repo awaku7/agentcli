@@ -47,14 +47,6 @@
     "param.item_ids.description": "Λίστα αναγνωριστικών στοιχείων προς αναζήτηση (απαιτείται για mode='lookup').",
     "param.currency.description": "Κωδικός νομίσματος ISO 4217 (π.χ. «USD», «JPY»). Προαιρετικός."
   },
-  "en": {
-    "tool.description": "Search or lookup products in a UCP-enabled business catalog. Use mode='search' for keyword search or mode='lookup' for fetching product details by item IDs.",
-    "param.mode.description": "'search' for keyword search, 'lookup' for product detail by ID.",
-    "param.business_url.description": "Base URL of the business (e.g. 'https://example.shop').",
-    "param.query.description": "Search query string (required for mode='search').",
-    "param.item_ids.description": "List of item IDs to look up (required for mode='lookup').",
-    "param.currency.description": "ISO 4217 currency code (e.g. 'USD', 'JPY'). Optional."
-  },
   "es": {
     "tool.description": "Busque o busque productos en un catálogo empresarial habilitado para UCP. Utilice mode='search' para buscar palabras clave o mode='lookup' para obtener detalles del producto por ID de artículo.",
     "param.mode.description": "'buscar' para búsqueda de palabras clave, 'búsqueda' para detalles del producto por ID.",

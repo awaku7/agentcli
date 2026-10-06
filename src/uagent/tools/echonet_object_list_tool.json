@@ -79,26 +79,6 @@
       "objects"
     ]
   },
-  "en": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "msg.summary": "ECHONET Lite object list fetched: {count} object(s) in {elapsed_ms} ms.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "param.timeout.description": "Timeout in seconds for ECHONET Lite requests.",
-    "tool.description": "Discover ECHONET Lite objects on a node and return a JSON or text list.",
-    "x_search_terms": [
-      "echonet object list",
-      "echonet_object_list",
-      "echonet",
-      "ECHONET",
-      "discover",
-      "objects"
-    ]
-  },
   "es": {
     "param.ip.description": "Dirección IPv4 del nodo de destino.",
     "param.fmt.description": "Formato: json o texto.",

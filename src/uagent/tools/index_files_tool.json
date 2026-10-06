@@ -1,34 +1,4 @@
 {
-  "en": {
-    "err.glob_fail": "Error: Failed to parse pattern: {err}",
-    "err.pattern_required": "Error: pattern is required.",
-    "err.root_not_dir": "Error: root_path is not a directory: {root_path}",
-    "err.vec_unavailable": "Error: Unable to create index because the semantic search module (semantic_search_files_tool) is unavailable.",
-    "out.completed": "Indexing process completed.",
-    "out.fail": "Failed: {count}",
-    "out.footer": "\nYou can now search these files using `semantic_search_files`.",
-    "out.not_found": "No files were found matching pattern '{pattern}'.",
-    "out.pattern": "Target pattern: {pattern}",
-    "out.root": "Root directory: {root_abs}",
-    "out.success": "Success: {count}",
-    "param.pattern.description": "Target file name, directory name, or glob pattern (e.g. 'src/**/*.py', '*.md').",
-    "param.root_path.description": "The root directory for search and indexing. Defaults to current directory.",
-    "tool.description": "Indexes specified files or directories (glob pattern) into the vector DB to enable semantic search (semantic_search_files). This is useful for preparing documents for semantic queries.",
-    "x_search_terms": [
-      "index_files",
-      "index files",
-      "file indexing",
-      "indexing files",
-      "semantic indexing",
-      "vector index",
-      "build index",
-      "batch index",
-      "index directory",
-      "glob index"
-    ],
-    "param.recur.description": "Whether to search recursively when the pattern contains '**'.",
-    "out.total": "Total files: {count}"
-  },
   "ja": {
     "err.glob_fail": "エラー: パターンの解析に失敗しました: {err}",
     "err.pattern_required": "エラー: pattern が指定されていません。",

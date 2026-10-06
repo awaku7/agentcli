@@ -71,24 +71,6 @@
     "param.obj.description": "Objektcodefilter (z. B. „0130“).",
     "tool.description": "Lesen Sie den Status eines ECHONET Lite-Knotens im lokalen Netzwerk und geben Sie eine JSON- oder Textzusammenfassung zurück."
   },
-  "en": {
-    "param.ip.description": "Target node IPv4 address.",
-    "param.timeout.description": "Timeout (seconds).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_eoj": "Error: Could not parse EOJ '{eoj}'.",
-    "err.invalid_object_code": "Error: Could not parse object_code '{object_code}'.",
-    "msg.summary": "ECHONET Lite node status fetched: {ip_address} in {elapsed_ms} ms.",
-    "err.invalid_ip_address": "Error: ip_address must be a valid IPv4 address.",
-    "param.eoj.description": "Target EOJ (default: node profile).",
-    "param.obj.description": "Object code filter (e.g. '0130').",
-    "tool.description": "Read the status of an ECHONET Lite node on the local network and return a JSON or text summary.",
-    "x_search_terms": [
-      "echonet node status",
-      "echonet_node_status",
-      "echonet",
-      "ECHONET"
-    ]
-  },
   "es": {
     "param.ip.description": "Dirección IPv4 del nodo de destino.",
     "param.timeout.description": "Tiempo de espera (segundos).",

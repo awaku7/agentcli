@@ -1,24 +1,4 @@
 {
-  "en": {
-    "tool.description": "Send a message to an A2A server profile. Use only when no local tool can substitute.",
-    "x_search_terms": [
-      "a2a_send",
-      "a2a send",
-      "send message",
-      "send request",
-      "server profile",
-      "profile message",
-      "remote message",
-      "messaging",
-      "a2a message",
-      "send task"
-    ],
-    "param.profile.description": "Profile name or a2a://name. If omitted, uses default profile.",
-    "param.message.description": "User message to send.",
-    "param.return_immediately.description": "If true, return right after task creation.",
-    "err.missing_message": "Missing 'message'.",
-    "err.exception": "Exception"
-  },
   "ja": {
     "tool.description": "A2A サーバープロファイル（a2a://name またはプロファイル名）へメッセージを送信します。 既存のローカルツールで代替できない場合のみ使用してください。",
     "x_search_terms": [

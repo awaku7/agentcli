@@ -1,23 +1,4 @@
 {
-  "en": {
-    "param.dst.description": "Destination path (file/directory). Relative path recommended.",
-    "param.mkdirs.description": "If true, create the parent directory for dst before executing.",
-    "param.overwrite.description": "If true, delete and replace the destination if it already exists (requires confirmation).",
-    "param.src.description": "Original path (file/directory). Relative path recommended.",
-    "tool.description": "Rename (move) a file or directory.",
-    "x_search_terms": [
-      "rename",
-      "move file",
-      "rename file",
-      "rename folder",
-      "file rename",
-      "move path",
-      "rename directory",
-      "file move",
-      "path rename",
-      "mv"
-    ]
-  },
   "ja": {
     "param.dst.description": "移動先パス（ファイル/ディレクトリ）。相対パス推奨。",
     "param.mkdirs.description": "true の場合、dst の親ディレクトリを作成してから実行します。",

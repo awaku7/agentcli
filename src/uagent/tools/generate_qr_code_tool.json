@@ -1,34 +1,4 @@
 {
-  "en": {
-    "tool.description": "Generate a QR code image (PNG) from text or URL. Customizable colors and size.",
-    "x_search_terms": [
-      "qr code",
-      "qr",
-      "qrcode",
-      "generate qr",
-      "qr generator",
-      "barcode",
-      "qr image",
-      "qr create",
-      "qr generation",
-      "make qr"
-    ],
-    "param.text.description": "The text or URL to encode into the QR code.",
-    "param.filename.description": "The output filename (e.g., 'qrcode.png'). Must end with .png.",
-    "param.box_size.description": "Size of each box (pixel width/height). Default: 10.",
-    "param.border.description": "Border width (number of boxes). Default: 4.",
-    "param.fill_color.description": "Color of the QR code modules (e.g., 'black', '#000000'). Default: 'black'.",
-    "param.back_color.description": "BG color (default: white).",
-    "param.overwrite.description": "Overwrite if exists (default: false).",
-    "error.text_required": "text is required",
-    "error.filename_required": "filename is required",
-    "error.must_be_png": "filename must end with .png",
-    "error.file_exists": "File already exists: %(path)s",
-    "status.created": "Created QR code: %(path)s",
-    "status.overwritten": "Overwrote QR code: %(path)s",
-    "param.ecc.description": "Error correction: L/M/Q/H (default: M).",
-    "log.opened_default_app": "[INFO] Opened image file with the default app."
-  },
   "ja": {
     "tool.description": "テキストやURLからQRコード画像（PNG）を生成します。誤り訂正レベル、ボックスサイズ、ボーダー、色のカスタマイズに対応しています。",
     "x_search_terms": [

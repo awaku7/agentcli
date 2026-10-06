@@ -71,24 +71,6 @@
     "param.endpoint.description": "Endpunktfilter (optional).",
     "tool.description": "Rufen Sie den Status eines Matter-Geräts ab und geben Sie eine JSON- oder Textzusammenfassung zurück."
   },
-  "en": {
-    "param.fmt.description": "Format: json or text.",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.dev.description": "Matter device ID to look up. Required identifier.",
-    "param.endpoint.description": "Endpoint filter (optional).",
-    "tool.description": "Get the status of one Matter device and return a JSON or text summary.",
-    "x_search_terms": [
-      "matter device status",
-      "matter_device_status",
-      "matter",
-      "MATTER"
-    ]
-  },
   "es": {
     "param.fmt.description": "Formato: json o texto.",
     "err.device_id_required": "Se requiere la identificación del dispositivo.",

@@ -87,28 +87,6 @@
       "Kameragerät"
     ]
   },
-  "en": {
-    "tool.description": "Capture a photo from a USB camera via ffmpeg, or list available video devices. Supports Windows (dshow), Linux (v4l2), macOS (avfoundation).",
-    "param.action.description": "Action: capture (take a photo), list (show devices), or list_caps (show capabilities like resolutions and FPS for a device).",
-    "param.index.description": "Video device index (0 = first). Default: 0.",
-    "param.devname.description": "Device name/path (overrides index). On Linux use /dev/videoN. Use list action to find names.",
-    "param.width.description": "Capture width in pixels (e.g. 1920). Uses default if omitted.",
-    "param.height.description": "Capture height in pixels (e.g. 1080). Uses default if omitted.",
-    "param.fps.description": "Frames per second (e.g. 30). Uses default if omitted.",
-    "param.outdir.description": "Output directory for captured images. Default: outputs/usb_camera.",
-    "x_search_terms": [
-      "usb camera",
-      "webcam",
-      "camera capture",
-      "video",
-      "image capture",
-      "usb webcam",
-      "camera stream",
-      "photo",
-      "video capture",
-      "camera device"
-    ]
-  },
   "es": {
     "tool.description": "Capturar imagen de una cámara USB.",
     "param.action.description": "Acción: capturar (tomar una foto), enumerar (mostrar dispositivos) o list_caps (mostrar capacidades como resoluciones y FPS para un dispositivo).",

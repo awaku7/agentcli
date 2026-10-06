@@ -1,32 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse a PowerPoint presentation (.pptx) into slide titles and text summaries, returning a numbered index or a specific slide section. Use this when reading large PowerPoint files: call with mode='index' to get the list of slides with titles and preview text, then call with mode='section' and section=N to retrieve the full text content of that slide.",
-    "x_search_terms": [
-      "read pptx file",
-      "powerpoint index",
-      "powerpoint parser",
-      "powerpoint slide reader",
-      "ppt section",
-      "PPTXファイルを読む",
-      "PowerPointインデックス",
-      "スライド目次",
-      "スライド抽出",
-      "セクション分割"
-    ],
-    "param.path.description": "Path to the PowerPoint (.pptx) file.",
-    "param.mode.description": "\"index\" returns a numbered table of contents listing slides with titles and summaries. \"section\" returns the full text content of a specific slide.",
-    "param.section.description": "Slide number to retrieve (used only when mode='section'). Get the number from the index output.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.read_error": "Error reading file: {e}",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.parse_error": "Error parsing PowerPoint file: {e}",
-    "msg.no_slides": "(no slides found in presentation)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal slides: {total}\nTo retrieve a slide, call ppt2idx with mode='section' and section=N.",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Slide {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'."
-  },
   "ja": {
     "tool.description": "PowerPoint プレゼンテーション (.pptx) をスライドのタイトルとテキストの概要に分解し、番号付きインデックスまたは特定の操作スライドセクションを返します。大きな PowerPoint ファイルを読むときに使用します。mode='index' でタイトルとプレビューテキストを含むスライドのリストを取得し、mode='section' と section=N でそのスライドのフルテキストコンテンツを取得します。",
     "x_search_terms": [

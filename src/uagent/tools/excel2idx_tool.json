@@ -1,33 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse an Excel workbook (.xlsx/.xlsm) into worksheet summaries and table structures, returning a numbered index or a specific worksheet section. Use this when reading large Excel files: call with mode='index' to get the list of worksheets with row/column counts and header previews, then call with mode='section' and section=N to retrieve the cell data from that worksheet.",
-    "x_search_terms": [
-      "read excel file",
-      "excel index",
-      "excel parser",
-      "worksheet reader",
-      "excel section",
-      "Excelファイルを読む",
-      "Excelインデックス",
-      "シート目次",
-      "シート抽出",
-      "セクション分割"
-    ],
-    "param.path.description": "Path to the Excel (.xlsx/.xlsm) file.",
-    "param.mode.description": "\"index\" returns a numbered table of contents listing worksheets with dimensions and headers. \"section\" returns the table content of a specific worksheet.",
-    "param.section.description": "Worksheet number to retrieve (1-indexed, used only when mode='section'). Get the number from the index output.",
-    "param.max_rows.description": "Maximum number of rows to return in section mode (default 100).",
-    "err.path_required": "Error: 'path' is required.",
-    "err.read_error": "Error reading file: {e}",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.parse_error": "Error parsing Excel file: {e}",
-    "msg.no_sheets": "(no worksheets found in workbook)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sheets: {total}\nTo retrieve a worksheet, call excel2idx with mode='section' and section=N.",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Sheet {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'."
-  },
   "ja": {
     "tool.description": "Excel ワークブック (.xlsx/.xlsm) をワークシートの概要とテーブル構造に分解し、番号付きインデックスまたは特定のワークシートセクションを返します。大きな Excel ファイルを読むときに使用します。mode='index' で行数/列数とヘッダープレビューを含むワークシートのリストを取得し、mode='section' と section=N でそのワークシートのセルデータを取得します。",
     "x_search_terms": [

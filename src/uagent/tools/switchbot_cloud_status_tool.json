@@ -119,36 +119,6 @@
     "err.config_missing": "Die Anmeldeinformationen für SwitchBot Cloud fehlen. Legen Sie UAGENT_SWITCHBOT_TOKEN und UAGENT_SWITCHBOT_SECRET fest.",
     "tool.description": "Rufen Sie den Status eines SwitchBot Cloud-Geräts vom konfigurierten Konto ab."
   },
-  "en": {
-    "param.dev.description": "Device ID (preferred).",
-    "param.devname.description": "Device name (fallback).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_response": "SwitchBot Cloud returned an unexpected payload.",
-    "err.invalid_arguments": "Either device_id or device_name is required.",
-    "err.not_found": "No SwitchBot device matched the provided device_id.",
-    "err.ambiguous_target": "Multiple SwitchBot devices matched the provided device_name.",
-    "msg.summary": "SwitchBot Cloud status fetched: {device_name} ({device_id}).",
-    "msg.battery": "Battery: {val}",
-    "msg.error_code_fmt": "Error [{code}]: {msg}",
-    "msg.fetched_at": "Fetched at: {ts}",
-    "msg.humidity": "Humidity: {val}",
-    "msg.lock_state": "Lock state: {val}",
-    "msg.mode": "Mode: {val}",
-    "msg.online": "Online: {val}",
-    "msg.position": "Position: {val}",
-    "msg.power": "Power: {val}",
-    "msg.temperature": "Temperature: {val}",
-    "msg.type": "Type: {dtype}",
-    "msg.unknown": "(unknown)",
-    "err.config_missing": "SwitchBot Cloud credentials are missing. Set UAGENT_SWITCHBOT_TOKEN and UAGENT_SWITCHBOT_SECRET.",
-    "tool.description": "Get the status of one SwitchBot Cloud device from the configured account.",
-    "x_search_terms": [
-      "switchbot cloud status",
-      "switchbot_cloud_status",
-      "switchbot",
-      "cloud"
-    ]
-  },
   "es": {
     "param.dev.description": "ID del dispositivo (preferido).",
     "param.devname.description": "Nombre del dispositivo (alternativa).",

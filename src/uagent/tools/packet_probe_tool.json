@@ -1,21 +1,4 @@
 {
-  "en": {
-    "tool.description": "Probe a network target using low-privilege socket or privileged packet backends.",
-    "param.action.description": "Probe action.",
-    "param.target.description": "Target host or IP address.",
-    "param.port.description": "Target port.",
-    "param.timeout.description": "Probe timeout in seconds.",
-    "param.allow_elevation.description": "Allow the fixed privileged helper to be started after user confirmation.",
-    "param.elevation_confirmed.description": "Set only after human_ask explicitly confirms elevation.",
-    "param.dry_run.description": "Return a plan without sending a packet.",
-    "x_search_terms": [
-      "packet probe",
-      "tcp connect",
-      "icmp",
-      "arp",
-      "network probe"
-    ]
-  },
   "ar": {
     "tool.description": "افحص هدف الشبكة باستخدام مأخذ توصيل منخفض الامتيازات أو الحزم الخلفية ذات الامتيازات.",
     "param.action.description": "إجراء التحقيق.",

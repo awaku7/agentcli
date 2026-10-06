@@ -1,38 +1,4 @@
 {
-  "en": {
-    "tool.description": "Manage uagent plugins: list, install, remove, enable, disable, validate, or get info about a plugin.",
-    "x_search_terms": [
-      "plugin_manage",
-      "manage plugin",
-      "install plugin",
-      "remove plugin",
-      "enable plugin",
-      "disable plugin",
-      "list plugins"
-    ],
-    "param.action.description": "Operation to perform. One of: list/install/remove/enable/disable/validate/info.",
-    "param.source.description": "Source URL or path for install action (Git URL, HTTP ZIP, local directory).",
-    "param.name.description": "Plugin name (target for info/remove/enable/disable/validate).",
-    "param.scope.description": "Installation scope: 'user' (~/.uag/plugins/), 'project' (.uag/plugins/), 'local' (.uag/plugins.local/). Default: 'user'.",
-    "cmd.help.plugin_list": "  :plugin list [--enabled] [--verbose]  List installed plugins.",
-    "cmd.help.plugin_install": "  :plugin install <source> [name] [--scope user|project|local]  Install a plugin.",
-    "cmd.help.plugin_remove": "  :plugin remove <name>  Remove (uninstall) a plugin.",
-    "cmd.help.plugin_uninstall": "  :plugin uninstall <name>  Alias for remove.",
-    "cmd.help.plugin_enable": "  :plugin enable <name>  Enable a plugin.",
-    "cmd.help.plugin_disable": "  :plugin disable <name>  Disable a plugin.",
-    "cmd.help.plugin_reload": "  :plugin reload  Re-scan all plugin directories.",
-    "cmd.help.plugin_info": "  :plugin info <name>  Show plugin details.",
-    "cmd.help.plugin_init": "  :plugin init <name>  Scaffold a new plugin directory.",
-    "cmd.help.plugin_validate": "  :plugin validate <name>  Validate a plugin's manifest.",
-    "cmd.help.plugin_marketplace": "  :plugin marketplace add <url>      Register a marketplace\n  :plugin marketplace remove <name>  Remove a marketplace\n  :plugin marketplace list           List registered marketplaces\n  :plugin marketplace update <name>  Update a marketplace catalog",
-    "param.confirmed.description": "Explicit user confirmation is required for enable or deprecate actions.",
-    "err.name_required": "Plugin name is required.",
-    "err.review_validation_failed": "Plugin validation failed.",
-    "err.lifecycle_review_required": "Skill review is required before enabling.",
-    "err.plugin_not_found": "Plugin '%(name)s' not found at %(root)s.",
-    "err.remove_failed": "Failed to remove plugin '%(name)s': %(error)s",
-    "msg.plugin_removed": "Plugin '%(name)s' removed."
-  },
   "ja": {
     "tool.description": "uagent プラグインを管理します。プラグインの一覧表示、インストール、削除、有効化、無効化、検証、詳細情報の取得に対応します。",
     "x_search_terms": [

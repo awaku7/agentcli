@@ -1,24 +1,4 @@
 {
-  "en": {
-    "tool.description": "Browse the OPC UA server address space. Returns child nodes of the specified starting node.",
-    "param.url.description": "OPC UA server URL (e.g. 'opc.tcp://192.168.1.101:4840').",
-    "param.node_id.description": "Starting node ID (e.g. 'i=84' for Objects folder, 'ns=2;s=MyVariable'). Default: i=84 (Objects).",
-    "param.depth.description": "Browse depth (1=children only, 2=grandchildren, etc.). Max 5.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "OPC UA browse: {count} node(s) from {node} in {ms} ms.",
-    "err.url_required": "url is required.",
-    "x_search_terms": [
-      "opcua browse",
-      "opcua_browse",
-      "opcua",
-      "OPCUA",
-      "server",
-      "address",
-      "space",
-      "returns"
-    ],
-    "param.timeout.description": "Connection timeout."
-  },
   "ar": {
     "tool.description": "تصفح مساحة عنوان خادم OPC UA. إرجاع العقد الفرعية لعقدة البداية المحددة.",
     "param.url.description": "عنوان URL لخادم OPC UA (على سبيل المثال \"opc.tcp://192.168.1.101:4840\").",

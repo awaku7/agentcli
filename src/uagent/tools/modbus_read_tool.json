@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "Read Modbus TCP registers from a device. Supports holding registers, input registers, coils, and discrete inputs.",
-    "param.ip.description": "Target device IPv4 address.",
-    "param.port.description": "Modbus TCP port (default: 502).",
-    "param.unit.description": "Modbus unit ID (default: 1).",
-    "param.type.description": "Register type: holding, input, coil, or discrete.",
-    "param.address.description": "Starting register address (0-based).",
-    "param.count.description": "Number of registers to read (max 125).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "Modbus read: {ip} type={t} addr={addr} count={count}",
-    "err.ip_required": "ip is required.",
-    "err.invalid_type": "Invalid type. Valid: {types}.",
-    "x_search_terms": [
-      "modbus read",
-      "modbus_read",
-      "modbus",
-      "MODBUS",
-      "registers",
-      "supports"
-    ],
-    "param.timeout.description": "Timeout in seconds."
-  },
   "ar": {
     "tool.description": "قراءة سجلات Modbus TCP من الجهاز. يدعم الاحتفاظ بالسجلات، وسجلات الإدخال، والملفات، والمدخلات المنفصلة.",
     "param.ip.description": "عنوان IPv4 للجهاز المستهدف.",

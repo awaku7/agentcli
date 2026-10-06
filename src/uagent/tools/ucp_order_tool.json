@@ -35,12 +35,6 @@
     "param.business_url.description": "Βασική διεύθυνση URL της επιχείρησης.",
     "param.order_id.description": "Αναγνωριστικό παραγγελίας (απαιτείται για mode='get')."
   },
-  "en": {
-    "tool.description": "List or retrieve orders via UCP. Use mode='list' to get order history, or mode='get' to fetch a specific order by ID.",
-    "param.mode.description": "'list' for order history, 'get' for single order.",
-    "param.business_url.description": "Base URL of the business.",
-    "param.order_id.description": "Order ID (required for mode='get')."
-  },
   "es": {
     "tool.description": "Listar o recuperar pedidos a través de UCP. Utilice mode='list' para obtener el historial de pedidos, o mode='get' para obtener un pedido específico por ID.",
     "param.mode.description": "'lista' para el historial de pedidos, 'obtener' para un solo pedido.",

@@ -1,24 +1,4 @@
 {
-  "en": {
-    "err.unavailable": "This tool is available on Unix-like systems with bash installed.",
-    "param.command.description": "Command string passed to bash -lc.",
-    "x_search_terms": [
-      "bash",
-      "shell",
-      "bash command",
-      "shell exec",
-      "command line",
-      "linux shell",
-      "run command",
-      "execute bash",
-      "bash script",
-      "terminal"
-    ],
-    "tool.description": "As a last resort, execute a bash command. Use only when no other appropriate tool is available.",
-    "err.blocked": "[bash_exec blocked] %(reason)s",
-    "err.exception": "[bash_exec error] %(type)s: %(message)s",
-    "err.returncode": "[bash_exec]\n(returncode=%(code)s)\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s"
-  },
   "ja": {
     "err.unavailable": "このツールは bash がインストールされた Unix 系でのみ利用できます。",
     "param.command.description": "bash -lc に渡すコマンド文字列。",

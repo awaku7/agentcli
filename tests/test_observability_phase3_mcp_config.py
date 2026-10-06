@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import json
 from pathlib import Path
 from typing import Any
@@ -219,13 +220,9 @@ def test_session_pool_public_api_separates_and_threads_trust_boundary() -> None:
 
 
 def test_mcp_server_trust_messages_are_localized_for_shipped_catalog_blocks() -> None:
-    catalog_path = (
-        Path(__file__).resolve().parents[1]
-        / "src"
-        / "uagent"
-        / "tools"
-        / "mcp_servers_tool.json"
-    )
+    root = Path(__file__).resolve().parents[1]
+    catalog_path = root / "src/uagent/tools/mcp_servers_tool.json"
+    source_path = root / "src/uagent/tools/mcp_servers_tool.py"
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     keys = {
         "warn.trusted_trace_boolean",
@@ -233,9 +230,32 @@ def test_mcp_server_trust_messages_are_localized_for_shipped_catalog_blocks() ->
         "err.trusted_trace_boolean_indexed",
         "err.trusted_trace_boolean",
     }
-    english = catalog["en"]
+
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
+    english: dict[str, str] = {}
+    for node in ast.walk(tree):
+        if (
+            not isinstance(node, ast.Call)
+            or not isinstance(node.func, ast.Name)
+            or node.func.id != "_"
+            or not node.args
+            or not isinstance(node.args[0], ast.Constant)
+            or node.args[0].value not in keys
+        ):
+            continue
+        default_node = next(
+            (keyword.value for keyword in node.keywords if keyword.arg == "default"),
+            None,
+        )
+        if isinstance(default_node, ast.Constant) and isinstance(
+            default_node.value, str
+        ):
+            english[node.args[0].value] = default_node.value
+
+    assert set(english) == keys
+    assert "en" not in catalog
     for lang, block in catalog.items():
-        if lang == "en" or not isinstance(block, dict):
+        if not isinstance(block, dict):
             continue
         for key in keys:
             assert key in block, (lang, key)

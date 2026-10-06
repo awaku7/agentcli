@@ -1,36 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert an SVG file to a raster image and save it as PNG, JPEG, or WebP. The conversion is performed locally.",
-    "x_search_terms": [
-      "SVG to PNG",
-      "SVG to image",
-      "convert SVG",
-      "rasterize SVG",
-      "SVG converter",
-      "PNG",
-      "JPEG",
-      "WebP"
-    ],
-    "param.svg.description": "Path to the source SVG file.",
-    "param.output_path.description": "Output image path ending in .png, .jpg, .jpeg, or .webp.",
-    "param.width.description": "Optional output width in pixels. Keep the SVG intrinsic width when omitted.",
-    "param.height.description": "Optional output height in pixels. Keep the SVG intrinsic height when omitted.",
-    "param.scale.description": "Scale factor applied to the rendered image. Default: 1.0.",
-    "param.background.description": "Optional background color, such as white or #ffffff. Keep transparent when omitted.",
-    "param.overwrite.description": "Overwrite the output file if it already exists. Default: false.",
-    "param.include_base64.description": "Include base64 image data for remote clients. Default: true.",
-    "error.renderer_unavailable": "CairoSVG is not available. Install it with: pip install CairoSVG",
-    "error.pillow_unavailable": "Pillow is required for JPEG or WebP output. Install it with: pip install Pillow",
-    "error.positive_integer": "%(key)s must be a positive integer.",
-    "error.svg_required": "svg is required",
-    "error.output_required": "output_path is required",
-    "error.input_not_found": "SVG file was not found: %(path)s",
-    "error.input_extension": "The input file must have a .svg extension.",
-    "error.output_extension": "output_path must end in .png, .jpg, .jpeg, or .webp.",
-    "error.scale": "scale must be greater than 0.",
-    "error.file_exists": "Output file already exists: %(path)s",
-    "ok.converted": "[OK] SVG converted to image"
-  },
   "ja": {
     "tool.description": "SVG ファイルをラスター イメージに変換し、PNG、JPEG、または WebP として保存します。変換はローカルで実行されます。",
     "x_search_terms": [

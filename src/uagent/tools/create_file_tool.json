@@ -1,27 +1,4 @@
 {
-  "en": {
-    "param.content.description": "Text content.",
-    "param.encoding.description": "Encoding (e.g. utf-8, cp932; default: utf-8).",
-    "param.filename.description": "File path to create.",
-    "param.overwrite.description": "Overwrite if exists (default: false).",
-    "tool.description": "Create a text file. Optional overwrite with backup (.org). Choose encoding for Excel (utf-8-sig) or programmatic (utf-8).",
-    "x_search_terms": [
-      "create file",
-      "make file",
-      "new file",
-      "write file",
-      "file create",
-      "generate file",
-      "create document",
-      "new document",
-      "file write",
-      "save file"
-    ],
-    "err.file_exists": "File already exists: {path}",
-    "err.path_missing": "filename/path is required",
-    "msg.created": "Created file: {path}",
-    "msg.overwrote": "Overwrote file: {path}"
-  },
   "ja": {
     "param.content.description": "書き込むテキスト内容。",
     "param.encoding.description": "エンコーディング（例: utf-8, cp932; デフォルト: utf-8）。",

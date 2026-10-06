@@ -1,17 +1,4 @@
 {
-  "en": {
-    "tool.description": "Scan repository files for likely secrets and risky configuration files without returning secret values.",
-    "param.root.description": "Directory to scan, relative to the current workdir.",
-    "param.max_files.description": "Maximum number of files to inspect.",
-    "param.include_hidden.description": "Include hidden files and directories.",
-    "x_search_terms": [
-      "security scan",
-      "secret scan",
-      "credentials",
-      "private key",
-      "risky config"
-    ]
-  },
   "ja": {
     "tool.description": "秘密情報の値を返さずに、リポジトリ内の秘密情報の可能性と危険な設定ファイルを検査します。",
     "param.root.description": "現在の作業ディレクトリからの相対パスで指定する検査対象ディレクトリです。",

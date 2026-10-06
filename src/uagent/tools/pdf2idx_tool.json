@@ -1,27 +1,4 @@
 {
-  "en": {
-    "tool.description": "Parse a PDF document (.pdf) into page summaries and text previews, returning a numbered index or a specific page section. Use this when reading large PDF files: call with mode='index' to get the list of pages with preview text, then call with mode='section' and section=N to retrieve the full text content of that page.",
-    "x_search_terms": [
-      "read pdf file",
-      "pdf index",
-      "pdf parser",
-      "pdf page reader",
-      "pdf section"
-    ],
-    "param.path.description": "Path to the PDF (.pdf) file.",
-    "param.mode.description": "\"index\" returns a numbered table of contents listing pages with previews. \"section\" returns the full text content of a specific page.",
-    "param.section.description": "Page number to retrieve (1-indexed, used only when mode='section'). Get the number from the index output.",
-    "err.path_required": "Error: 'path' is required.",
-    "err.read_error": "Error reading file: {e}",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.parse_error": "Error parsing PDF file: {e}",
-    "msg.no_pages": "(no pages found in PDF)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal pages: {total}\nTo retrieve a page, call pdf2idx with mode='section' and section=N.",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Page {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'."
-  },
   "ja": {
     "tool.description": "PDF ドキュメント (.pdf) をページごとの概要とプレビューに分解し、番号付きインデックスまたは特定のページセクションを返します。大きな PDF ファイルを読むときに使用します。mode='index' でプレビューテキストを含むページのリストを取得し、mode='section' と section=N でそのページのフルテキストを取得します。",
     "x_search_terms": [

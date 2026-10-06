@@ -1,33 +1,4 @@
 {
-  "en": {
-    "tool.description": "Embed, extract, and detect hidden UTF-8 text represented by normal spaces and non-breaking spaces in a text file.",
-    "x_search_terms": [
-      "steganography",
-      "space steganography",
-      "hidden text",
-      "normal space",
-      "non-breaking space",
-      "NBSP"
-    ],
-    "param.action.description": "Operation: embed, extract, or detect.",
-    "param.carrier_path.description": "UTF-8 text file to read.",
-    "param.output_path.description": "Output UTF-8 text file path for embed.",
-    "param.hidden_text.description": "UTF-8 text to hide when embedding.",
-    "param.byte_length.description": "Number of UTF-8 message bytes to extract or detect.",
-    "param.repeat.description": "Repeat the hidden bit sequence across all available spaces.",
-    "error.bits_not_byte_aligned": "The extracted bit count must be a multiple of 8.",
-    "error.invalid_utf8": "The extracted bytes are not valid UTF-8.",
-    "error.hidden_text_empty": "hidden_text must not be empty.",
-    "error.insufficient_spaces": "Not enough normal spaces: required={required}, available={available}.",
-    "error.byte_length_positive": "byte_length must be greater than zero.",
-    "error.insufficient_bits": "Not enough encoded bits: required={required}, available={available}.",
-    "error.no_complete_message": "No complete repeated message unit was found.",
-    "error.carrier_required": "carrier_path is required.",
-    "error.read_failed": "Could not read carrier_path: {path}",
-    "error.invalid_action": "action must be embed, extract, or detect.",
-    "error.output_required": "output_path is required for embed.",
-    "error.write_failed": "Could not write output_path: {path}"
-  },
   "ar": {
     "tool.description": "تضمين واستخراج واكتشاف نص UTF-8 المخفي الذي يمثله مسافات عادية ومسافات غير منقسمة في ملف نصي.",
     "x_search_terms": [

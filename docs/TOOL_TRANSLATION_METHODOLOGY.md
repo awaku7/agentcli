@@ -7,14 +7,10 @@ field contains language‑specific keywords that enable users to discover tools 
 searching in their native language — without requiring a separate translation
 layer at runtime.
 
-Each tool JSON has the following structure (per language):
+Each tool JSON stores non-English translations only. English lives in the matching Python source via `_(..., default=...)`, with fixed English discovery keywords in `x_search_terms_en`.
 
 ```json
 {
-  "en": {
-    "description": "...",
-    "x_search_terms": ["bacnet", "bacnet/ip", "scan", "discover"]
-  },
   "ja": {
     "description": "...",
     "x_search_terms": ["バックネット", "バックネット/IP", "スキャン", "発見"]
@@ -98,9 +94,7 @@ Source of truth (English)
 
 ### 1. English x_search_terms (JSON)
 
-Each tool JSON defines `en.x_search_terms` as an array of searchable terms,
-ordered by specificity (most specific first). The first term is the primary
-search key, subsequent terms are alternative aliases.
+Each Python tool defines the canonical English `x_search_terms` default and `x_search_terms_en` array. The first term is the primary search key and subsequent terms are alternative aliases. Tool JSON stores only localized `x_search_terms` arrays.
 
 ### 2. Python x_search_terms_en
 
@@ -309,8 +303,9 @@ otherwise terms would map to the wrong tool.
 
 ## Adding a New Tool
 
-1. Add `en.x_search_terms` to the tool JSON
-1. Add `x_search_terms_en` to the Python file
+1. Add the English `x_search_terms` list to the Python `default=`
+1. Add the same English list to `x_search_terms_en`
+1. Add only non-English `x_search_terms` translations to the tool JSON
 1. Insert the corresponding pipe‑delimited line at the correct position
    in the N‑entry array (or regenerate all translations)
 

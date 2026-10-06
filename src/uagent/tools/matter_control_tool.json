@@ -115,35 +115,6 @@
     "param.ctrl.description": "Controller-ID (optional).",
     "param.dry_run.description": "Wenn „true“, validieren Sie den Befehl, ohne ihn in die Warteschlange zu stellen. Standard: false."
   },
-  "en": {
-    "tool.description": "Control a Matter device (on/off/open/close/lock/unlock/set_value).",
-    "param.dev.description": "Device ID (required).",
-    "param.action.description": "Action.",
-    "param.value.description": "Value (0-100).",
-    "param.fmt.description": "Format: json or text.",
-    "err.invalid_action": "Invalid action: {action}. Allowed: {allowed}",
-    "err.device_id_required": "Matter device ID is required.",
-    "err.value_out_of_range": "Value must be an integer between 0 and 100.",
-    "err.not_found": "Matter device not found: {device_id}",
-    "err.ambiguous_target": "Matter device target is ambiguous: {device_id}",
-    "msg.dry_run": "Dry run: command validated but not queued.",
-    "err.queue_failed": "Failed to queue control command: {reason}",
-    "err.action_not_supported": "Action '{action}' is not supported for device type '{device_type}'. Supported: {supported}",
-    "err.action_required": "A valid action is required: {allowed}",
-    "err.config_missing": "Matter device data is missing. Set {env_json} or {env_file} for devices, controllers, or bridges.",
-    "err.unsupported_device": "Device type '{device_type}' does not support any control actions.",
-    "err.value_required": "A numeric value (0-100) is required for action '{action}'.",
-    "param.bridge.description": "Bridge ID (optional).",
-    "param.ctrl.description": "Controller ID (optional).",
-    "param.dry_run.description": "If true, validate the command without queueing it. Default: false.",
-    "x_search_terms": [
-      "matter control",
-      "matter_control",
-      "matter",
-      "MATTER",
-      "on/off/open/close/lock/unlock/set_value"
-    ]
-  },
   "es": {
     "tool.description": "Controlar un dispositivo Matter (encender/apagar/abrir/cerrar/bloquear/desbloquear/establecer valor).",
     "param.dev.description": "ID del dispositivo (obligatorio).",

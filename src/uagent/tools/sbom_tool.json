@@ -1,19 +1,4 @@
 {
-  "en": {
-    "tool.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
-    "x_search_terms": [
-      "SBOM",
-      "CycloneDX",
-      "SPDX",
-      "software bill of materials"
-    ],
-    "param.root.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
-    "param.output_dir.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
-    "param.project_name.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
-    "param.max_files.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
-    "param.overwrite.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
-    "param.auto_install.description": "Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files."
-  },
   "ja": {
     "tool.description": "プロジェクトディレクトリを検査し、CycloneDXとSPDXの両方のSBOM JSONを生成します。",
     "x_search_terms": [

@@ -237,7 +237,7 @@ Placeholders use `%(name)s` format.
 To validate tool translation keys and ensure consistency across supported locales, use:
 - `python scripts/i18n_tools_check.py` — Checks missing translation keys for tools
 - `python scripts/tool_json_i18n_batch.py status` — Tool JSON translation status
-- `python scripts/i18n_validate.py src/uagent/tools/<tool>_tool.json` — Validates format and schema
+- `python scripts/i18n_validate.py src/uagent/tools/<module>.json` — Validates tool JSON shape and rejects `en` blocks
 
 See [DEVELOP_I18N.md](./DEVELOP_I18N.md) for full i18n details (covering both gettext and tool JSON).
 

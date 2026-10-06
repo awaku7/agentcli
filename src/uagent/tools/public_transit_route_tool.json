@@ -1,40 +1,4 @@
 {
-  "en": {
-    "tool.description": "Search Japanese public-transit routes with a selected provider (Yahoo! Japan Transit or Google Maps). Returns multiple candidate routes, total fare, per-segment or per-operator fare breakdown, travel time, transfers, and itinerary.",
-    "x_search_terms": [
-      "public transit",
-      "train route",
-      "route search",
-      "transfer guide",
-      "train fare",
-      "乗換案内",
-      "電車",
-      "鉄道運賃",
-      "バス経路",
-      "Yahoo transit",
-      "Google Maps"
-    ],
-    "param.origin.description": "Departure station, bus stop, address, or facility.",
-    "param.destination.description": "Arrival station, bus stop, address, or facility.",
-    "param.departure.description": "Optional local departure date/time in ISO 8601 format. Defaults to the current local time.",
-    "param.max_routes.description": "Maximum number of candidate routes to return (1-6, default: 3).",
-    "param.sort_by.description": "Route order: recommended/fastest, cheapest, or fewest_transfers.",
-    "param.ticket.description": "Fare preference: ic (default) or normal ticket.",
-    "param.avoid.description": "Transport types to avoid: shinkansen, limited_express, airline, highway_bus, local_bus, or ship.",
-    "err.locations_missing": "Both origin and destination are required.",
-    "err.no_routes": "No public-transit routes were found.",
-    "err.search_failed": "Yahoo! Japan Transit search failed: %(error)s",
-    "notice.fare": "Fares and schedules are provided by Yahoo! Japan Transit and may change.",
-    "source.link": "[Open Yahoo! Japan Transit route search](%(url)s)",
-    "param.provider.description": "Route provider: yahoo or google.",
-    "err.provider_invalid": "Provider must be either yahoo or google.",
-    "err.google_key_missing": "UAGENT_GOOGLE_MAPS_API_KEY is not set.",
-    "err.google_search_failed": "Google Maps route search failed: %(error)s",
-    "notice.google_fare": "Google route availability and fares are provider-dependent and may change.",
-    "fare.ticket": "Fare",
-    "fare.surcharge": "Surcharge",
-    "segment.walk": "Walking"
-  },
   "ar": {
     "tool.description": "ابحث عن مسارات النقل العام اليابانية مع موفر محدد (Yahoo! Japan Transit أو Google Maps). يُرجع طرقًا مرشحة متعددة، وإجمالي الأجرة، وتفصيل الأجرة لكل قطاع أو لكل مشغل، ووقت السفر، والتحويلات، ومسار الرحلة.",
     "x_search_terms": [

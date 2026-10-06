@@ -1,32 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "image to image",
-      "img2img",
-      "image generation",
-      "image editing",
-      "image transform",
-      "stable diffusion",
-      "image processing",
-      "image modification",
-      "image variation",
-      "image enhancement"
-    ],
-    "param.prompt.description": "Instructions for how to edit the image.",
-    "param.size.description": "Image size.",
-    "param.n.description": "Image count.",
-    "param.quality.description": "Image quality.",
-    "param.background.description": "Image background.",
-    "param.output_format.description": "Output image format: png, jpeg, or webp.",
-    "param.output_compression.description": "Output compression level (0-100). Only valid for jpeg/webp.",
-    "param.stream.description": "Request streaming image generation when supported by the model.",
-    "param.partial_images.description": "Number of partial images for streaming.",
-    "param.prefix.description": "Prefix for the saved filename (optional).",
-    "param.img.description": "Path to the source image to edit.",
-    "param.mask_path.description": "Optional path to a mask image. Transparent areas are treated as editable in many APIs.",
-    "param.output_dir.description": "Directory to save images (relative or absolute). Defaults to outputs/image_generations if omitted.",
-    "tool.description": "Edit an existing image using a text prompt, save the result as a PNG, and return the saved path. Use this for follow-up changes to a previously generated image; do not call generate_image for a requested modification. With Meta, the tool continues the prior image response using its response_id."
-  },
   "ja": {
     "x_search_terms": [
       "img2img",

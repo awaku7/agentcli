@@ -1,28 +1,4 @@
 {
-  "en": {
-    "tool.description": "Subscribe to BACnet COV (Change of Value) notifications for an object. When the value changes, the LLM is automatically notified.",
-    "param.ip.description": "Target device IPv4 address.",
-    "param.object_type.description": "BACnet object type to monitor.",
-    "param.object_instance.description": "BACnet object instance number.",
-    "param.lifetime.description": "Subscription lifetime in seconds (default: 900). BAC0 auto-renews.",
-    "param.confirmed.description": "Use confirmed COV (acknowledged). Default: False (unconfirmed).",
-    "param.label.description": "Human-readable label for this subscription (e.g. '3F会議室_室温').",
-    "param.on_change_prompt.description": "Optional prompt injected into the LLM when a change is detected.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.subscribed": "COV subscription active: task_id={task_id}, {label}",
-    "err.ip_required": "ip is required.",
-    "err.object_type_required": "object_type is required.",
-    "x_search_terms": [
-      "bacnet cov subscribe",
-      "bacnet_cov_subscribe",
-      "bacnet",
-      "BACNET",
-      "cov",
-      "change",
-      "value",
-      "notifications"
-    ]
-  },
   "ar": {
     "tool.description": "اشترك في إشعارات BACnet COV (تغيير القيمة) لكائن ما. عندما تتغير القيمة، يتم إخطار LLM تلقائيًا.",
     "param.ip.description": "عنوان IPv4 للجهاز المستهدف.",

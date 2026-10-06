@@ -1,28 +1,4 @@
 {
-  "en": {
-    "tool.description": "Publish a message to an MQTT topic. Connects, publishes, and disconnects.",
-    "param.host.description": "MQTT broker hostname or IP.",
-    "param.port.description": "MQTT broker port (default: 1883).",
-    "param.topic.description": "MQTT topic to publish to.",
-    "param.payload.description": "Message payload.",
-    "param.qos.description": "QoS level (0, 1, 2).",
-    "param.retain.description": "Retain message on broker.",
-    "param.username.description": "MQTT username (optional).",
-    "param.password.description": "MQTT password (optional).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.sent": "MQTT published: {topic} = {payload} [{qos}]",
-    "param.use_tls.description": "Enable TLS/SSL (MQTTS). Default port becomes 8883.",
-    "param.insecure.description": "Skip TLS certificate verification (insecure).",
-    "x_search_terms": [
-      "mqtt publish",
-      "mqtt_publish",
-      "mqtt",
-      "MQTT",
-      "message",
-      "topic",
-      "connects"
-    ]
-  },
   "ar": {
     "tool.description": "نشر رسالة إلى موضوع MQTT. يتصل وينشر ويقطع الاتصال.",
     "param.host.description": "اسم مضيف وسيط MQTT أو IP.",

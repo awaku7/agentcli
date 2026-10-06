@@ -1,39 +1,4 @@
 {
-  "en": {
-    "tool.description": "Convert PPTX, XLSX/XLSM, or DOCX files to Markdown. Slides, worksheets, headings, paragraphs, and tables are preserved.Preserves Excel number/date formats and optionally adds Mermaid flowcharts for recognizable process or dependency tables.",
-    "x_search_terms": [
-      "office to markdown",
-      "pptx to markdown",
-      "xlsx to markdown",
-      "docx to markdown",
-      "convert office file",
-      "excel formatting",
-      "mermaid flowchart"
-    ],
-    "param.input_path.description": "Input .pptx, .xlsx/.xlsm, or .docx path.",
-    "param.output_path.description": "Optional output .md path.",
-    "param.format.description": "Input format, normally auto-detected from the extension.",
-    "param.include_notes.description": "For PPTX, include speaker notes.",
-    "param.overwrite.description": "Allow replacing an existing output file.",
-    "err.input_path_required": "input_path is required",
-    "err.file_not_found": "file not found: {path}",
-    "err.format_mismatch": "unsupported or mismatched format; use .pptx, .xlsx/.xlsm, or .docx",
-    "err.exstruct_load": "exstruct could not be loaded: {error}",
-    "err.exstruct_required": "exstruct is required for Excel conversion",
-    "err.exstruct_extract": "could not extract workbook with exstruct: {error}",
-    "err.input_output_same": "output_path must not be the input file",
-    "err.output_exists": "output file already exists: {path}; set overwrite=true to replace it",
-    "label.no_data": "_(no data)_",
-    "label.slide": "Slide",
-    "label.notes": "Notes",
-    "label.table": "Table",
-    "label.merged_ranges": "Merged ranges",
-    "label.formulas": "Formulas",
-    "param.password.description": "Password for an encrypted Office file (optional).",
-    "param.recalculate.description": "For Excel files, recalculate formulas with Microsoft Excel before conversion when available.",
-    "param.include_hidden.description": "For Excel files, include hidden rows and columns.",
-    "param.include_mermaid.description": "For Excel sheets with recognizable process or dependency columns, include a Mermaid flowchart."
-  },
   "ja": {
     "tool.description": "PPTX、XLSX/XLSM、DOCXをMarkdownへ変換します。スライド、ワークシート、見出し、段落、表を保持します。.Excelの数値・日付書式を保持し、認識可能なプロセス／依存関係の表にはMermaidフローチャートを追加できます。",
     "x_search_terms": [

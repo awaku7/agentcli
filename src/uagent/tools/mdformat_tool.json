@@ -1,37 +1,4 @@
 {
-  "en": {
-    "tool.description": "Check Markdown file formatting with mdformat. Reports files that need formatting fixes. Optionally auto-fix.",
-    "x_search_terms": [
-      "markdown",
-      "format",
-      "lint",
-      "mdformat",
-      "md",
-      "style"
-    ],
-    "param.path.description": "Glob pattern or file path to check (e.g. 'docs/**/*.md' or 'README.md').",
-    "param.fix.description": "If true, auto-fix formatting issues instead of just checking.",
-    "pkg.mdformat": "mdformat (Markdown formatter)",
-    "pkg.mdformat_frontmatter": "mdformat YAML front matter plugin",
-    "result.no_match": "No Markdown files matched pattern: {pattern}",
-    "result.summary": "mdformat_check: {total} files, {ok} ok, {failed} failed",
-    "result.ok": "[{label}] {path}",
-    "result.ok_formatted": "[{label}] formatted: {path}",
-    "result.fail": "[{label}] {path}: {detail}",
-    "result.timeout": "[{label}] {path}",
-    "result.error": "[{label}] {path}: {e}",
-    "result.fallback_detail": "formatting issue",
-    "result.more": "... and {count} more",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.timeout": "TIMEOUT",
-    "label.error": "ERROR",
-    "param.validate_skills.description": "Validate SKILL.md files against the Agent Skills frontmatter specification.",
-    "param.strict_skills.description": "Treat Agent Skills validation warnings as errors.",
-    "result.frontmatter_missing": "[{label}] type={doc_type} {path}: YAML front matter support is unavailable; install mdformat-frontmatter",
-    "result.skill_invalid": "[{label}] type={doc_type} {path}: Agent Skills validation failed: {detail}",
-    "result.summary_detail": "; document_types={types}; agent_skill_invalid={skill_invalid}"
-  },
   "ja": {
     "tool.description": "mdformat を使用して Markdown ファイルの形式を確認します。フォーマットの修正が必要なファイルを報告します。オプションで自動修正。",
     "x_search_terms": [

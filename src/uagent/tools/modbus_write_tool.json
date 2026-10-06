@@ -1,27 +1,4 @@
 {
-  "en": {
-    "tool.description": "Write values to a Modbus TCP device. Supports holding registers (single/multiple) and coils.",
-    "param.ip.description": "Target device IPv4 address.",
-    "param.port.description": "Modbus TCP port (default: 502).",
-    "param.unit.description": "Modbus unit ID (default: 1).",
-    "param.type.description": "Register type: holding or coil.",
-    "param.address.description": "Starting register address (0-based).",
-    "param.values.description": "Values to write. For holding: comma-separated integers. For coils: 'on'/'off' or '1'/'0'.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "Modbus write: {ip} type={t} addr={addr} = {vals}",
-    "err.ip_required": "ip is required.",
-    "err.values_required": "values is required.",
-    "err.invalid_type": "Invalid type. Valid: {types}.",
-    "x_search_terms": [
-      "modbus write",
-      "modbus_write",
-      "modbus",
-      "MODBUS",
-      "values",
-      "supports"
-    ],
-    "param.timeout.description": "Timeout in seconds."
-  },
   "ar": {
     "tool.description": "اكتب القيم على جهاز Modbus TCP. يدعم الاحتفاظ بالسجلات (مفردة/متعددة) والملفات.",
     "param.ip.description": "عنوان IPv4 للجهاز المستهدف.",

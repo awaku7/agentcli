@@ -3,10 +3,19 @@ from __future__ import annotations
 import json
 import locale
 import os
+import re
 from functools import lru_cache
+from string import Formatter
 from typing import Any, Optional
 
 from ..env_utils import env_get
+
+_PRINTF_PLACEHOLDER_RE = re.compile(
+    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
+)
+_FORMATTER = Formatter()
+_BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+_VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
 
 
 def _normalize_lang_tag(tag: Optional[str]) -> str:
@@ -176,6 +185,44 @@ def _unescape_value(value: Any) -> Any:
     return value
 
 
+def _placeholders(value: str) -> set[str] | None:
+    names = {match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(value)}
+    try:
+        for _literal, field_name, _format_spec, _conversion in _FORMATTER.parse(value):
+            if field_name is not None and _BRACE_FIELD_NAME_RE.fullmatch(field_name):
+                names.add(field_name)
+    except ValueError:
+        return None
+    return names
+
+
+def _translation_compatible(key: str, default: Any, value: Any) -> bool:
+    if type(value) is not type(default):
+        return False
+    if isinstance(default, str):
+        expected = _placeholders(default)
+        actual = _placeholders(value)
+        return expected is not None and actual is not None and expected == actual
+    if isinstance(default, list):
+        if key in _VARIABLE_LENGTH_LIST_KEYS:
+            return bool(value) and all(
+                isinstance(item, str) and bool(item.strip()) for item in value
+            )
+        if len(value) != len(default):
+            return False
+        return all(
+            _translation_compatible(key, default_item, value_item)
+            for default_item, value_item in zip(default, value)
+        )
+    if isinstance(default, dict):
+        if set(value) != set(default):
+            return False
+        return all(
+            _translation_compatible(key, default[name], value[name]) for name in default
+        )
+    return True
+
+
 def make_tool_translator(tool_py_file: str):
     tool_dir = os.path.dirname(os.path.abspath(tool_py_file))
     base = os.path.splitext(os.path.basename(tool_py_file))[0]
@@ -186,17 +233,15 @@ def make_tool_translator(tool_py_file: str):
         data = _load_tool_dict(json_path)
 
         text = None
-        loc_map = data.get(loc)
-        if isinstance(loc_map, dict):
-            v = loc_map.get(key)
-            if isinstance(v, (str, list, dict)) and v:
-                text = _unescape_value(v)
-
-        if text is None:
-            en_map = data.get("en")
-            if isinstance(en_map, dict):
-                v = en_map.get(key)
-                if isinstance(v, (str, list, dict)) and v:
+        if loc != "en":
+            loc_map = data.get(loc)
+            if isinstance(loc_map, dict):
+                v = loc_map.get(key)
+                if (
+                    isinstance(v, (str, list, dict))
+                    and v
+                    and _translation_compatible(key, default, v)
+                ):
                     text = _unescape_value(v)
 
         if text is None:

@@ -1,25 +1,4 @@
 {
-  "en": {
-    "err.bad_template": "[generate_prompt error] template has unknown key: {key}",
-    "err.not_a_file": "[generate_prompt error] not a file: {path}",
-    "err.path_missing": "[generate_prompt error] path/filename is not specified",
-    "err.template_missing": "[generate_prompt error] template is not specified",
-    "param.path.description": "Path of the input file (must be under workdir).",
-    "tool.description": "Generate a prompt string from a file using a Python format template.",
-    "x_search_terms": [
-      "generate prompt",
-      "prompt generation",
-      "prompt create",
-      "ai prompt",
-      "prompt engineering",
-      "prompt maker",
-      "prompt builder",
-      "create prompt",
-      "prompt generator",
-      "text prompt"
-    ],
-    "param.template.description": "Python format template. Example: '{lines} lines\n\n{content}'."
-  },
   "ja": {
     "err.bad_template": "[generate_prompt エラー] テンプレートに未知のキーがあります: {key}",
     "err.not_a_file": "[generate_prompt エラー] ファイルではありません: {path}",

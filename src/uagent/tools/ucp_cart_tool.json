@@ -47,14 +47,6 @@
     "param.line_items.description": "Στοιχεία γραμμής για το καλάθι. Κάθε είδος έχει item_id (str) και quantity (int). Απαιτείται για mode='create' και mode='update'.",
     "param.currency.description": "Κωδικός νομίσματος ISO 4217 (π.χ. «USD», «JPY»). Προαιρετικός."
   },
-  "en": {
-    "tool.description": "Create, retrieve, or update a shopping cart via UCP. Use mode='create' to create a new cart, mode='get' to retrieve, or mode='update' to modify line items.",
-    "param.mode.description": "'create' to create cart, 'get' to retrieve, 'update' to modify.",
-    "param.business_url.description": "Base URL of the business.",
-    "param.cart_id.description": "Cart ID (required for mode='get' and mode='update').",
-    "param.line_items.description": "Line items for the cart. Each item has item_id (str) and quantity (int). Required for mode='create' and mode='update'.",
-    "param.currency.description": "ISO 4217 currency code (e.g. 'USD', 'JPY'). Optional."
-  },
   "es": {
     "tool.description": "Cree, recupere o actualice un carrito de compras a través de UCP. Utilice mode='create' para crear un nuevo carrito, mode='get' para recuperarlo o mode='update' para modificar líneas de pedido.",
     "param.mode.description": "'crear' para crear carrito, 'obtener' para recuperar, 'actualizar' para modificar.",

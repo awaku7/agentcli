@@ -1,22 +1,4 @@
 {
-  "en": {
-    "tool.description": "Look up an address from latitude/longitude (reverse geocoding). Uses the OpenStreetMap Nominatim API. Worldwide coverage.",
-    "param.lat.description": "Latitude (e.g. 35.6895).",
-    "param.lon.description": "Longitude (e.g. 139.6917).",
-    "param.language.description": "Language for the result (ISO 639-1 code, e.g. ja, en, zh, ko). Auto-detected if omitted.",
-    "x_search_terms": [
-      "reverse geocode",
-      "reverse geocoding",
-      "address from coordinates",
-      "lat lon to address",
-      "gps to address",
-      "geocode reverse",
-      "location lookup",
-      "address lookup",
-      "coordinates to address",
-      "geo address"
-    ]
-  },
   "ar": {
     "tool.description": "البحث عن عنوان من خط العرض/خط الطول (الجيوكودينغ العكسي). يستخدم API OpenStreetMap Nominatim. تغطية عالمية.",
     "param.lat.description": "خط العرض (مثال: 35.6895).",

@@ -1,35 +1,4 @@
 {
-  "en": {
-    "x_search_terms": [
-      "yaml",
-      "yaml code",
-      "yaml analysis",
-      "code index",
-      "yaml source",
-      "yaml parser",
-      "kubernetes manifest",
-      "docker compose",
-      "openapi",
-      "github actions",
-      "yaml file",
-      "jsonpath key path"
-    ],
-    "param.path.description": "Path to the YAML file.",
-    "param.mode.description": "\"index\" returns a numbered table of contents with line numbers and key paths. \"section\" returns a specific definition section by number.",
-    "param.section.description": "Section number to retrieve (used only when mode='section'). Get the number from the index output.",
-    "param.max_depth.description": "Maximum nesting depth of key paths to include in the index (default 3).",
-    "err.path_required": "Error: 'path' is required.",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.read_error": "Error reading file: {e}",
-    "err.parse_error": "Error parsing YAML file: {e}",
-    "err.section_required": "Error: 'section' (integer) is required when mode='section'.",
-    "err.section_invalid": "Error: 'section' must be an integer.",
-    "err.section_not_found": "Error: Section {section_num} not found. Valid range: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Use 'index' or 'section'.",
-    "msg.no_entries": "(no structural YAML keys found)",
-    "msg.index_output": "Index for: {path}\n---\n{toc}\n---\nTotal sections: {total}\nTo retrieve a section, call yaml2idx with mode='section' and section=N.",
-    "tool.description": "Parse a YAML file into key paths, document blocks, and structural summaries, returning a numbered index or a specific section. Use this when reading large YAML, Kubernetes manifests, Docker Compose, OpenAPI, or GitHub Actions files: call with mode='index' to get the table of contents with JSONPath-style key paths, then call with mode='section' and the section number to retrieve only the required lines."
-  },
   "ja": {
     "x_search_terms": [
       "YAML",

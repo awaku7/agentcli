@@ -441,10 +441,6 @@ description = _(
 
 ```json
 {
-    "en": {
-        "tool.description": "Default English text",
-        "param.input": "Input text"
-    },
     "ja": {
         "tool.description": "日本語の説明文",
         "param.input": "入力テキスト"
@@ -452,7 +448,7 @@ description = _(
 }
 ```
 
-See existing `_tool.json` files for supported language codes.
+Tool JSON stores non-English translations only. The Python `default=` values are the canonical English source, and `x_search_terms_en` stores fixed English discovery keywords. See existing translation JSON files for supported language codes.
 
 ______________________________________________________________________
 

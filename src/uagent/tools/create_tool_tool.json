@@ -1,18 +1,4 @@
 {
-  "en": {
-    "tool.description": "Scaffold a new tool (Python or Rust+Python) with boilerplate files.",
-    "x_search_terms": [
-      "create tool",
-      "scaffold",
-      "new tool",
-      "tool template"
-    ],
-    "param.name": "Tool name (snake_case, e.g. 'my_tool')",
-    "param.lang": "Implementation language: 'python' or 'rust'",
-    "param.description": "Short description of what the tool does",
-    "param.output_dir": "Output directory (default: UAGENT_EXTERNAL_TOOLS_DIR or current dir)",
-    "cmd.help": ":tool create <name> --lang python|rust --description '...'"
-  },
   "ja": {
     "tool.description": "新規ツール（Python または Rust+Python）のボイラープレートファイルを生成します。",
     "x_search_terms": [

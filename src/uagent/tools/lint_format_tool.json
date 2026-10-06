@@ -1,26 +1,4 @@
 {
-  "en": {
-    "param.cwd.description": "Working dir (under workdir).",
-    "param.mode.description": "check=check only / fix=automatic fix",
-    "param.targets.description": "Target path array (only allowed under workdir).",
-    "param.tools.description": "An array of tool names to run. If empty, tools are selected automatically.",
-    "tool.description": "Run static analysis/formatters (ruff/black/mypy). mode=fix modifies files, needs confirmation.",
-    "x_search_terms": [
-      "lint",
-      "format",
-      "code lint",
-      "code format",
-      "linter",
-      "formatter",
-      "code style",
-      "static analysis",
-      "linting",
-      "formatting"
-    ],
-    "param.xargs.description": "Additional arguments (array). Reject dangerous metacharacters.",
-    "confirm.msg": "lint_format(mode=fix) might overwrite files.\ntools: {tools}\ntargets: {targets}\ncwd: {cwd}\n\nReply with y to proceed, or c to cancel.",
-    "param.auto_install.description": "Automatically install missing formatter/linter tools with pip before running."
-  },
   "ja": {
     "param.cwd.description": "作業ディレクトリ（workdir下）。",
     "param.mode.description": "check=検査のみ / fix=自動修正",

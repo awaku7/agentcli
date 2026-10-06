@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "Discover BACnet/IP devices on the local network. Sends a Who-Is broadcast and returns I-Am responses as a JSON or text list.",
-    "param.timeout.description": "Who-Is response wait time in seconds.",
-    "param.interface.description": "Local IPv4 address to bind (e.g. '192.168.1.100'). If omitted, BAC0 auto-detects the local interface.",
-    "param.limit.description": "Maximum number of devices to return. 0 means unlimited.",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "BACnet/IP discovery completed: {count} device(s) found in {ms} ms.",
-    "msg.no_devices": "No BACnet/IP devices were found.",
-    "err.bac0_install": "BAC0 library could not be installed.",
-    "x_search_terms": [
-      "bacnet scan",
-      "bacnet_scan",
-      "bacnet",
-      "BACNET",
-      "discover",
-      "bacnet/ip",
-      "devices",
-      "local",
-      "network",
-      "sends"
-    ]
-  },
   "ar": {
     "tool.description": "اكتشف أجهزة BACnet/IP على الشبكة المحلية. يرسل بث Who-Is ويعيد استجابات I-Am كقائمة JSON أو قائمة نصية.",
     "param.timeout.description": "زمن انتظار استجابة Who-Is بالثواني.",

@@ -71,18 +71,6 @@
     "param.amount.description": "Ποσό πληρωμής σε δευτερεύουσες μονάδες (mode='execute').",
     "param.ap2_token.description": "Υπογεγραμμένο διακριτικό AP2 JWT για επαλήθευση (mode='verify')."
   },
-  "en": {
-    "tool.description": "AP2 (Agent Payments Protocol) — autonomous payment management.\n\nmode='mandate_create' — Create a new open payment mandate. This authorizes the agent to make autonomous purchases up to a specified limit. The user must approve this via continue_url.\n\nmode='mandate_list' — List all active payment mandates.\n\nmode='execute' — Execute a payment token using an existing mandate for a specific checkout. Returns a signed AP2 token that can be passed to ucp_checkout mode='complete' as ap2_token.\n\nmode='verify' — Verify an AP2 payment token and return its details.",
-    "param.mode.description": "Operation mode.",
-    "param.business_url.description": "Base URL of the business (required for mandate_create and execute).",
-    "param.merchant_name.description": "Merchant name for the mandate (mode='mandate_create').",
-    "param.max_amount.description": "Maximum payment amount in minor units (cents). e.g. 50000 = $500.00 (mode='mandate_create').",
-    "param.currency.description": "ISO 4217 currency code (default 'USD').",
-    "param.mandate_id.description": "Mandate ID from a previous mandate_create (for execute).",
-    "param.checkout_id.description": "Checkout session ID to execute payment for (mode='execute').",
-    "param.amount.description": "Payment amount in minor units (mode='execute').",
-    "param.ap2_token.description": "Signed AP2 token JWT to verify (mode='verify')."
-  },
   "es": {
     "tool.description": "AP2 (Protocolo de pagos de agentes): gestión de pagos autónoma.\n\nmode='mandate_create': crea un nuevo mandato de pago abierto. Este autoriza al agente a realizar compras autónomas hasta un límite determinado. El usuario debe aprobar esto a través de continue_url.\n\nmode='mandate_list': enumera todos los mandatos de pago activos.\n\nmode='execute': ejecuta un token de pago utilizando un mandato existente para un pago específico. Devuelve un token AP2 firmado que se puede pasar a ucp_checkout mode='complete' como ap2_token.\n\nmode='verify': verifica un token de pago AP2 y devuelve sus detalles.",
     "param.mode.description": "Modo de operación.",

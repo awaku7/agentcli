@@ -1,24 +1,4 @@
 {
-  "en": {
-    "tool.description": "Analyze local pcap files, summarize traffic, extract packets, inspect flows, and detect suspicious communication.",
-    "param.pcap_path.description": "Input pcap file path.",
-    "param.operation.description": "Operation: summary, statistics, flows, packets, extract, or detect.",
-    "param.filter.description": "Packet filter fields.",
-    "param.output_path.description": "Output pcap path for extraction.",
-    "param.detail_level.description": "Packet detail level from 0 to 2; payload is never returned.",
-    "param.rules.description": "Detection rules.",
-    "param.thresholds.description": "Detection thresholds.",
-    "param.limit.description": "Maximum number of returned items.",
-    "param.overwrite.description": "Allow overwriting an existing output file.",
-    "x_search_terms": [
-      "pcap",
-      "packet analysis",
-      "traffic analysis",
-      "flow",
-      "extract",
-      "anomaly detection"
-    ]
-  },
   "ar": {
     "tool.description": "تحليل ملفات pcap المحلية، وتلخيص حركة المرور، واستخراج الحزم، وفحص التدفقات، واكتشاف الاتصالات المشبوهة.",
     "param.pcap_path.description": "إدخال مسار ملف PCAP",

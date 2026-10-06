@@ -1,34 +1,4 @@
 {
-  "en": {
-    "tool.description": "Lint JavaScript/TypeScript files using Biome. Reports issues and optionally auto-fixes them.",
-    "x_search_terms": [
-      "javascript",
-      "typescript",
-      "lint",
-      "biome",
-      "eslint",
-      "code style",
-      "static analysis",
-      "js lint",
-      "ts lint",
-      "format"
-    ],
-    "param.path.description": "Glob pattern or file path to lint (e.g. 'src/**/*.{js,ts,tsx,jsx}' or 'src/app.ts').",
-    "param.fix.description": "If true, apply safe auto-fixes instead of just checking.",
-    "result.no_match": "No JS/TS files matched pattern: {pattern}",
-    "result.summary": "lint_js_ts: {total} files, {ok} ok, {failed} failed",
-    "result.ok": "[{label}] {path}",
-    "result.fail": "[{label}] {path}",
-    "result.fail_with_count": "[{label}] {path}: {count} issue(s)",
-    "result.timeout": "[{label}] {path}: timeout",
-    "result.error": "[{label}] {path}: {e}",
-    "result.more": "... and {count} more",
-    "err.no_npx": "Node.js/npx is not available. Please install Node.js (https://nodejs.org) to use this tool.",
-    "label.ok": "OK",
-    "label.fail": "FAIL",
-    "label.error": "ERROR",
-    "label.no_issues": "No issues found"
-  },
   "ja": {
     "tool.description": "Biome を使って JavaScript/TypeScript ファイルをリントします。問題を報告し、オプションで自動修正も可能です。",
     "x_search_terms": [

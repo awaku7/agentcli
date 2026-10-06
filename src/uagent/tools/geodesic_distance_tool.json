@@ -1,22 +1,4 @@
 {
-  "en": {
-    "tool.description": "Calculate the straight-line distance between two latitude/longitude points using the Haversine formula. Optionally resolves both points to addresses with OpenStreetMap Nominatim.",
-    "x_search_terms": [
-      "straight-line distance",
-      "geodesic distance",
-      "distance between coordinates",
-      "haversine distance",
-      "latitude longitude distance",
-      "緯度経度の距離",
-      "直線距離"
-    ],
-    "param.lat_a.description": "Latitude of point A.",
-    "param.lon_a.description": "Longitude of point A.",
-    "param.lat_b.description": "Latitude of point B.",
-    "param.lon_b.description": "Longitude of point B.",
-    "param.resolve_addresses.description": "Also resolve both coordinates to addresses.",
-    "param.language.description": "Address language for optional reverse geocoding."
-  },
   "ar": {
     "tool.description": "احسب مسافة الخط المستقيم بين نقطتي خط العرض/خط الطول باستخدام صيغة Haversine. يحل كلا النقطتين اختياريًا إلى العناوين باستخدام OpenStreetMap Nominatim.",
     "x_search_terms": [

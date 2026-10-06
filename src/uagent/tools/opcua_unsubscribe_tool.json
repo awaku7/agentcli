@@ -1,23 +1,4 @@
 {
-  "en": {
-    "tool.description": "Cancel an OPC UA subscription by subscription_id, or list active subscriptions.",
-    "param.action.description": "Action: 'unsubscribe' (default) or 'list'.",
-    "param.subscription_id.description": "Subscription ID to cancel (required for action=unsubscribe).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.no_subscriptions": "No active OPC UA subscriptions.",
-    "msg.header": "Active OPC UA subscriptions ({count}):",
-    "msg.unsubscribed": "OPC UA subscription {id} cancelled.",
-    "err.id_required": "subscription_id is required for action=unsubscribe.",
-    "x_search_terms": [
-      "opcua unsubscribe",
-      "opcua_unsubscribe",
-      "opcua",
-      "OPCUA",
-      "cancel",
-      "subscription",
-      "subscription_id"
-    ]
-  },
   "ar": {
     "tool.description": "قم بإلغاء اشتراك OPC UA بواسطة Subscription_id، أو قم بإدراج الاشتراكات النشطة.",
     "param.action.description": "الإجراء: \"إلغاء الاشتراك\" (افتراضي) أو \"القائمة\".",

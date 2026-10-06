@@ -1,25 +1,4 @@
 {
-  "en": {
-    "tool.description": "Discover OPC UA servers on the local network. Probes IP addresses on the default OPC UA port (4840) and attempts to connect and read the server's endpoint info.",
-    "param.ip_range.description": "IP range to scan (e.g. '192.168.1.1-254' or '192.168.1.0/24').",
-    "param.port.description": "OPC UA port (default: 4840).",
-    "param.fmt.description": "Format: json or text.",
-    "msg.summary": "OPC UA scan: {count} server(s) found in {ms} ms.",
-    "msg.no_servers": "No OPC UA servers were found.",
-    "err.ip_range_required": "ip_range is required.",
-    "err.invalid_ip_range": "Could not parse ip_range: {text}",
-    "x_search_terms": [
-      "opcua scan",
-      "opcua_scan",
-      "opcua",
-      "OPCUA",
-      "discover",
-      "servers",
-      "local",
-      "network"
-    ],
-    "param.timeout.description": "Timeout per connection (seconds)."
-  },
   "ar": {
     "tool.description": "اكتشف خوادم OPC UA على الشبكة المحلية. يستكشف عناوين IP على منفذ OPC UA الافتراضي (4840) ويحاول الاتصال وقراءة معلومات نقطة النهاية الخاصة بالخادم.",
     "param.ip_range.description": "نطاق IP المطلوب فحصه (على سبيل المثال \"192.168.1.1-254\" أو \"192.168.1.0/24\").",

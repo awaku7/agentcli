@@ -1,20 +1,4 @@
 {
-  "en": {
-    "tool.description": "Reorder Markdown headings to match a reference outline and remove extra sections",
-    "x_search_terms": [
-      "mdreorder_tool",
-      "Reorder Markdown headings to match a reference outline and remove extra sections",
-      "markdown reorder",
-      "markdown sections"
-    ],
-    "param.path": "Path to the Markdown file to reorder",
-    "param.reference_path": "Reference Markdown file used as the outline template",
-    "param.output_path": "Optional output path; if omitted, returns the reordered text",
-    "param.drop_extras": "Remove sections that do not exist in the reference outline",
-    "err.path_required": "Error: 'path' is required.",
-    "err.file_not_found": "Error: File not found: {path}",
-    "err.reference_not_found": "Error: Reference file not found: {reference_path}"
-  },
   "ar": {
     "tool.description": "أعد ترتيب عناوين Markdown لتتوافق مع المخطط التفصيلي المرجعي وأزل الأقسام الإضافية",
     "x_search_terms": [

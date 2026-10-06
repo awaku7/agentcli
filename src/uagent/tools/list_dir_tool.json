@@ -1,26 +1,4 @@
 {
-  "en": {
-    "tool.description": "List entries in a directory with pagination, similar to ls.",
-    "x_search_terms": [
-      "list dir",
-      "directory",
-      "list directory",
-      "dir listing",
-      "folder",
-      "list files",
-      "directory listing",
-      "file list",
-      "show dir",
-      "folder contents"
-    ],
-    "param.path.description": "Directory to list (default: current directory). Alias of root_path.",
-    "param.show_hidden.description": "Include hidden entries in the listing.",
-    "param.page.description": "Page number to retrieve (default: 1).",
-    "param.limit.description": "Maximum number of entries to return per page (default: 50).",
-    "err.not_a_dir": "Error: not a directory: {path}",
-    "msg.empty_dir": "(empty directory)",
-    "msg.paginate": "Page {page} of {total_pages} (showing {count} of {total} entries)"
-  },
   "ja": {
     "tool.description": "ディレクトリの内容を一覧表示（ページネーション対応）。",
     "x_search_terms": [

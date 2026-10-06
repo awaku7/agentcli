@@ -1,17 +1,4 @@
 {
-  "en": {
-    "tool.description": "Extract Suricata IDS alerts from a pcap as metadata.",
-    "param.pcap_path.description": "Input pcap file path.",
-    "param.output_dir.description": "Directory for Suricata output logs.",
-    "param.limit.description": "Maximum number of alerts to return.",
-    "x_search_terms": [
-      "Suricata",
-      "IDS",
-      "threat detection",
-      "eve.json",
-      "security alert"
-    ]
-  },
   "ar": {
     "tool.description": "قم باستخراج تنبيهات Suricata IDS من pcap كبيانات وصفية.",
     "param.pcap_path.description": "إدخال مسار ملف PCAP",
