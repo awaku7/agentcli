@@ -315,7 +315,8 @@ def test_audit_follows_delegated_catalog_binding(tmp_path: Path) -> None:
     tools = tmp_path / "tools"
     tools.mkdir()
     (tools / "sample_tool.py").write_text(
-        "from .sample_impl import runner\n",
+        "from .sample_impl import runner\n"
+        '_("facade.description", default="Facade")\n',
         encoding="utf-8",
     )
     impl_dir = tools / "sample_impl"
@@ -330,7 +331,12 @@ def test_audit_follows_delegated_catalog_binding(tmp_path: Path) -> None:
     )
     (tools / "sample_tool.json").write_text(
         json.dumps(
-            {"ja": {"tool.description": "こんにちは"}},
+            {
+                "ja": {
+                    "facade.description": "ファサード",
+                    "tool.description": "こんにちは",
+                }
+            },
             ensure_ascii=False,
         ),
         encoding="utf-8",
@@ -342,5 +348,41 @@ def test_audit_follows_delegated_catalog_binding(tmp_path: Path) -> None:
         finding.locale == "ja"
         and finding.kind
         in {"structure_extra", "structure_missing", "translation_missing"}
+        for finding in findings
+    )
+
+
+def test_tool_audit_rejects_en_only_json_catalog(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(tools / "example_tool.py", {"message": "Hello"})
+    (tools / "example_tool.json").write_text(
+        json.dumps({"en": {"message": "Hello"}}),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(finding.kind == "english_block_present" for finding in findings)
+
+
+def test_tool_audit_detects_brace_conversion_placeholder_mismatch(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"message": "Value: {name!r}"},
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps({"ja": {"message": "値"}}),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert any(
+        finding.locale == "ja" and finding.kind == "placeholder_mismatch"
         for finding in findings
     )

@@ -15,6 +15,7 @@ import re
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
+from string import Formatter
 from typing import Any, Iterable
 
 # This is a release contract, rather than a directory listing, so a removed or
@@ -62,7 +63,7 @@ SHIPPED_LOCALES = (
 PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
-BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
+FORMATTER = Formatter()
 # Key-based gettext entries may obtain their placeholders from the source
 # ``default=`` string rather than from the msgid key stored in the PO catalog.
 # Keep this explicit so ordinary msgid placeholder mismatches remain strict.
@@ -95,7 +96,12 @@ class Finding:
 
 def _placeholders(value: str) -> list[str]:
     names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(value)}
-    names.update(match.group("name") for match in BRACE_PLACEHOLDER_RE.finditer(value))
+    try:
+        for _literal, field_name, _format_spec, _conversion in FORMATTER.parse(value):
+            if field_name is not None:
+                names.add(field_name)
+    except ValueError:
+        names.add("<invalid-brace-format>")
     return sorted(names)
 
 
@@ -428,8 +434,6 @@ def _english_source_info(path: Path) -> tuple[dict[str, Any], set[str]]:
         raise ValueError(f"missing Python source for i18n catalog: {py_path}")
 
     source, dynamic_keys = _extract_english_source_info(py_path)
-    if source or dynamic_keys:
-        return source, dynamic_keys
 
     for delegated in _delegated_source_files(path):
         delegated_source, delegated_dynamic = _extract_english_source_info(delegated)
@@ -495,6 +499,8 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
         if not isinstance(data, dict):
             continue
         blocks = _language_blocks(data)
+        if "en" in blocks:
+            findings.append(Finding("tool_json", "english_block_present", str(path)))
         translation_blocks = {
             locale: block
             for locale, block in blocks.items()
@@ -502,8 +508,6 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
         }
         if not translation_blocks:
             continue
-        if "en" in blocks:
-            findings.append(Finding("tool_json", "english_block_present", str(path)))
         try:
             source, dynamic_keys = _english_source_info(path)
             reference = _reference_structure(source, translation_blocks, dynamic_keys)

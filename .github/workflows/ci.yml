@@ -92,7 +92,7 @@ jobs:
           python scripts/i18n_structure_audit.py --strict --report outputs/i18n/structure_audit.json
           python scripts/i18n_structure_audit.py --strict --tools-root src/uagent/tools_rust
 
-      - name: Validate tool catalogs
+      - name: Validate tool JSON catalog shape
         shell: bash
         run: |
           set -euo pipefail

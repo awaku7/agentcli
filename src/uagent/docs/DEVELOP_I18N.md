@@ -3,7 +3,7 @@
 This document covers **all** i18n mechanisms in uag:
 
 1. **Host side** (gettext `.po`/`.mo`) — for `core.py`, `cli.py`, `gui.py`, `web.py`, `runtime/`, `providers/`, etc.
-1. **Tool side** (JSON key-based) — for `tools/*_tool.py` and their `*_tool.json` translation files.
+1. **Tool side** (JSON key-based) — for `tools/*.py` modules and same-basename `.json` translation files.
 
 Both systems share the same goal: user-facing strings are translated while the code stays in English.
 
@@ -25,12 +25,12 @@ ______________________________________________________________________
 | Aspect | Host side | Tool side |
 |--------|-----------|-----------|
 | **Mechanism** | gettext (`.po` / `.mo`) | JSON key-value per tool |
-| **Translation files** | `src/uagent/locales/<lang>/LC_MESSAGES/uag.po` + `.mo` | `src/uagent/tools/<tool_name>_tool.json` |
+| **Translation files** | `src/uagent/locales/<lang>/LC_MESSAGES/uag.po` + `.mo` | same-basename `.json` beside the Python tool/module |
 | **Import** | `from .i18n import _` | `_ = make_tool_translator(__file__)` |
-| **Default language** | English (`msgid`) | English (`"en"` key in JSON) |
+| **Default language** | English (`msgid`) | English (`default=` in Python; no JSON `en`) |
 | **Fallback** | gettext returns `msgid` if missing | `_("key", default="...")` if JSON key missing |
 | **Config file** | `babel.cfg` (project root) | (none; JSON files are self-contained) |
-| **Locale count** | 38 shipped locales | Varies per tool (typically en + ja + others) |
+| **Locale count** | 38 shipped locales | Varies per tool (non-English blocks only) |
 
 ### Shipped host locales
 
@@ -269,7 +269,7 @@ python scripts/i18n_tools_check.py
 
 | Script | Purpose |
 |--------|---------|
-| `scripts/i18n_tools_check.py` | Validate all `*_tool.json` files for missing keys, broken placeholders, etc. |
+| `scripts/i18n_tools_check.py` | Legacy consistency check for tool translation catalogs. |
 | `scripts/tool_json_i18n_batch.py` | Report true missing/empty values separately from same-as-English review candidates, extract translation units to `tmp/`, batch-translate via `translate_text`, and merge back. `status` without `--langs` uses the shipped 38-locale set (English source + 37 targets) and scans language blocks already present in each tool. |
 
 ### Note about return values
@@ -310,7 +310,7 @@ touching JSON keys/structure.
 
 **Manual (single strings):**
 
-1. Open the tool's `*_tool.json`
+1. Open the tool/module's same-basename translation JSON
 1. Add a new top-level key for the language (e.g. `"fr": { ... }`)
 1. Use `translate_text` to translate values:
    ```

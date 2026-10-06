@@ -5,6 +5,7 @@ import locale
 import os
 import re
 from functools import lru_cache
+from string import Formatter
 from typing import Any, Optional
 
 from ..env_utils import env_get
@@ -12,7 +13,7 @@ from ..env_utils import env_get
 _PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
-_BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
+_FORMATTER = Formatter()
 _VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
 
 
@@ -183,9 +184,14 @@ def _unescape_value(value: Any) -> Any:
     return value
 
 
-def _placeholders(value: str) -> set[str]:
+def _placeholders(value: str) -> set[str] | None:
     names = {match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(value)}
-    names.update(match.group("name") for match in _BRACE_PLACEHOLDER_RE.finditer(value))
+    try:
+        for _literal, field_name, _format_spec, _conversion in _FORMATTER.parse(value):
+            if field_name is not None:
+                names.add(field_name)
+    except ValueError:
+        return None
     return names
 
 
@@ -193,7 +199,9 @@ def _translation_compatible(key: str, default: Any, value: Any) -> bool:
     if type(value) is not type(default):
         return False
     if isinstance(default, str):
-        return _placeholders(default) == _placeholders(value)
+        expected = _placeholders(default)
+        actual = _placeholders(value)
+        return expected is not None and actual is not None and expected == actual
     if isinstance(default, list):
         if key in _VARIABLE_LENGTH_LIST_KEYS:
             return bool(value) and all(

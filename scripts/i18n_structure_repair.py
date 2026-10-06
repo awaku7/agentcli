@@ -15,6 +15,7 @@ import json
 import re
 import shutil
 from pathlib import Path
+from string import Formatter
 from typing import Any
 
 TARGET_LOCALES = frozenset(
@@ -58,15 +59,24 @@ TARGET_LOCALES = frozenset(
         "zh_TW",
     }
 )
-_PLACEHOLDER_RE = re.compile(
-    r"(?:%\(([A-Za-z0-9_]+)\)[^%]*|\{([A-Za-z_][A-Za-z0-9_]*)\})"
+_PRINTF_PLACEHOLDER_RE = re.compile(
+    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
+_FORMATTER = Formatter()
 
 
 def _placeholder_names(value: object) -> set[str]:
-    return {
-        first or second for first, second in _PLACEHOLDER_RE.findall(str(value or ""))
+    text = str(value or "")
+    names = {
+        match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(text)
     }
+    try:
+        for _literal, field_name, _format_spec, _conversion in _FORMATTER.parse(text):
+            if field_name is not None:
+                names.add(field_name)
+    except ValueError:
+        names.add("<invalid-brace-format>")
+    return names
 
 
 def _english_search_terms(path: Path) -> list[str] | None:

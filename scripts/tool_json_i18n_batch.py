@@ -45,6 +45,7 @@ import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from string import Formatter
 from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -97,10 +98,10 @@ SUPPORTED_TARGET_LOCALES = tuple(
 )
 
 LANG_KEY_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Za-z]{2})?$")
-# Match both {name} and %(name)s style placeholders for QC.
-PLACEHOLDER_RE = re.compile(
-    r"%(?:\([^)]+\))?[#0\- +]?\d*(?:\.\d+)?[hlL]?[dsfr]|\{[A-Za-z_][A-Za-z0-9_]*\}"
+PRINTF_PLACEHOLDER_RE = re.compile(
+    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
+FORMATTER = Formatter()
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -328,8 +329,6 @@ def _english_source(path: Path) -> dict[str, Any]:
         raise ValueError(f"missing Python source for i18n catalog: {py_path}")
 
     source = _extract_english_source(py_path)
-    if source:
-        return source
 
     for delegated in _delegated_source_files(path):
         for key, value in _extract_english_source(delegated).items():
@@ -366,7 +365,14 @@ def _text_to_value(text: str, template: Any) -> Any:
 
 
 def _placeholders(s: str) -> set[str]:
-    return set(PLACEHOLDER_RE.findall(s))
+    names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(s)}
+    try:
+        for _literal, field_name, _format_spec, _conversion in FORMATTER.parse(s):
+            if field_name is not None:
+                names.add(field_name)
+    except ValueError:
+        names.add("<invalid-brace-format>")
+    return names
 
 
 def _is_missing_or_stale(

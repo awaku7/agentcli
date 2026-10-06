@@ -118,3 +118,57 @@ def test_tool_translator_falls_back_for_printf_precision_placeholder(
         )
         == "RMSE: 1.2346"
     )
+
+
+def test_tool_translator_handles_brace_conversion_placeholders(
+    tmp_path, monkeypatch
+) -> None:
+    tool_py = tmp_path / "sample.py"
+    tool_py.write_text("", encoding="utf-8")
+    tool_json = tmp_path / "sample.json"
+    tool_json.write_text(
+        json.dumps(
+            {
+                "ja": {
+                    "compatible": "値: {name!r}",
+                    "missing": "値",
+                }
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    i18n_helper.clear_tool_i18n_cache()
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
+    translate = i18n_helper.make_tool_translator(str(tool_py))
+
+    assert (
+        translate("compatible", default="Value: {name!r}", name="Alice")
+        == "値: 'Alice'"
+    )
+    assert (
+        translate("missing", default="Value: {name!r}", name="Alice")
+        == "Value: 'Alice'"
+    )
+
+
+def test_tool_translator_rejects_malformed_brace_format(
+    tmp_path, monkeypatch
+) -> None:
+    tool_py = tmp_path / "sample.py"
+    tool_py.write_text("", encoding="utf-8")
+    tool_json = tmp_path / "sample.json"
+    tool_json.write_text(
+        json.dumps({"ja": {"message": "値: {name"}}, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    i18n_helper.clear_tool_i18n_cache()
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
+    translate = i18n_helper.make_tool_translator(str(tool_py))
+
+    assert (
+        translate("message", default="Value: {name}", name="Alice")
+        == "Value: Alice"
+    )

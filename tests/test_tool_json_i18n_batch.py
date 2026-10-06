@@ -311,7 +311,8 @@ def test_english_source_follows_delegated_catalog_binding(tmp_path: Path) -> Non
     tools_dir = tmp_path / "tools"
     tools_dir.mkdir()
     (tools_dir / "sample_tool.py").write_text(
-        "from .sample_impl import runner\n",
+        "from .sample_impl import runner\n"
+        '_("facade.description", default="Facade")\n',
         encoding="utf-8",
     )
     impl_dir = tools_dir / "sample_impl"
@@ -327,7 +328,10 @@ def test_english_source_follows_delegated_catalog_binding(tmp_path: Path) -> Non
 
     source = batch._english_source(tools_dir / "sample_tool.json")
 
-    assert source == {"tool.description": "Hello"}
+    assert source == {
+        "facade.description": "Facade",
+        "tool.description": "Hello",
+    }
 
 
 def test_non_english_source_language_is_rejected(tmp_path: Path, capsys) -> None:
@@ -346,3 +350,9 @@ def test_non_english_source_language_is_rejected(tmp_path: Path, capsys) -> None
     captured = capsys.readouterr()
     assert rc == 2
     assert "--source-lang must be en" in captured.err
+
+
+def test_placeholder_qc_supports_brace_conversion_and_format_spec() -> None:
+    assert batch._placeholders(
+        "Value={name!r} amount={amount:.2f} count=%(count)03d"
+    ) == {"name", "amount", "count"}
