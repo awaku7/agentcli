@@ -3,6 +3,12 @@ import re
 from pathlib import Path
 
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
+TRANSLATION_PLACEHOLDER_ARTIFACT_RE = re.compile(
+    r"(?:"
+    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])"
+    r"|__|_\d+\b|-_th\b|\|{3,}"
+    r")"
+)
 
 
 def _load(name: str) -> dict:
@@ -163,7 +169,8 @@ def test_repaired_tool_catalogs_have_no_translation_placeholder_artifacts():
 
     for filename in repaired_catalogs:
         text = (TOOLS_DIR / filename).read_text(encoding="utf-8")
-        if "__PH_" in text or "_PH_PH_" in text or "PH_notes" in text:
-            invalid.append(filename)
+        match = TRANSLATION_PLACEHOLDER_ARTIFACT_RE.search(text)
+        if match:
+            invalid.append(f"{filename}:{match.group(0)}")
 
     assert not invalid, "Translation placeholder artifacts: " + ", ".join(invalid)
