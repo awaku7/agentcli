@@ -1587,6 +1587,25 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Analyze a pcap locally and extract matching packets to another pcap.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "pcap",
+                "packet analysis",
+                "traffic analysis",
+                "flow",
+                "extract",
+                "anomaly detection",
+            ],
+        ),
+        "x_search_terms_en": [
+            "pcap",
+            "packet analysis",
+            "traffic analysis",
+            "flow",
+            "extract",
+            "anomaly detection",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
