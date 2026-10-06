@@ -12,17 +12,25 @@ BLE_LOCALE_FILES = (
 
 
 def test_bleak_dependency_messages_preserve_package_and_install_command():
+    invalid = []
+
     for filename in BLE_LOCALE_FILES:
         payload = json.loads((TOOLS_DIR / filename).read_text(encoding="utf-8"))
 
         for lang, messages in payload.items():
             if not isinstance(messages, dict):
                 continue
+
             message = messages.get("err.bleak_missing")
             if message is None:
                 continue
 
-            assert "bleak" in message.lower(), f"{filename}:{lang}"
-            assert message.splitlines()[-1].strip() == "pip install bleak", (
-                f"{filename}:{lang}"
-            )
+            if "bleak" not in message.lower():
+                invalid.append(f"{filename}:{lang}: missing bleak")
+            if message.splitlines()[-1].strip() != "pip install bleak":
+                invalid.append(f"{filename}:{lang}: invalid install command")
+
+    assert not invalid, (
+        "Bleak dependency messages must preserve the package name and install "
+        "command: " + ", ".join(invalid)
+    )
