@@ -39,7 +39,9 @@ def test_vision_provider_missing_env_messages_preserve_provider_names_and_envs()
             if "UAGENT_MOONSHOT_*" not in moonshot:
                 invalid.append(f"{lang}: UAGENT_MOONSHOT_*")
 
-    assert not invalid, "Corrupted vision provider locale messages: " + ", ".join(invalid)
+    assert not invalid, (
+        "Corrupted vision provider locale messages: " + ", ".join(invalid)
+    )
 
 
 def test_vision_default_prompt_is_not_replaced_by_provider_error():
@@ -56,7 +58,9 @@ def test_vision_default_prompt_is_not_replaced_by_provider_error():
         if "uagent_" in lowered or "ollama" in lowered:
             invalid.append(lang)
 
-    assert not invalid, "Corrupted localized vision prompt.default: " + ", ".join(invalid)
+    assert not invalid, (
+        "Corrupted localized vision prompt.default: " + ", ".join(invalid)
+    )
 
 
 def test_generate_image_prompt_empty_does_not_contain_depname_guidance():
