@@ -14,16 +14,16 @@
     "param.img.description": "المسار المحلي لملف الصورة المراد إرفاقه. المدعومة: جى بي إي جي، PNG. الحد الأقصى 1 ميجابايت. يستخدم بواسطة \"البريد\".",
     "param.text.description": "نشر المحتوى (نص عادي، بحد أقصى 300 حرف). مطلوب ل\"منشور\".",
     "x_search_terms": [
-      "بلوسكاي",
-      "بسكي",
+      "bluesky",
+      "bsky",
       "سوشيال",
       "وسائل التواصل الاجتماعي",
       "نشر",
-      "بلوسكاى سوشال",
+      "bluesky social",
       "في البروتوكول",
       "microblog",
       "الشبكة الاجتماعية",
-      "بلوسكاى بوست"
+      "bluesky post"
     ]
   },
   "bn": {
@@ -46,7 +46,7 @@
       "social",
       "সামাজিক মিডিয়া",
       "post",
-      "ব্লুস্কি সামাজিক",
+      "bluesky social",
       "প্রোটোকল এ",
       "microblog",
       "সামাজিক নেটওয়ার্ক",
@@ -127,11 +127,11 @@
       "social",
       "redes sociales",
       "post",
-      "cielo azul social",
+      "bluesky social",
       "at protocolo",
       "microblog",
       "red social",
-      "publicación de cielo azul"
+      "bluesky post"
     ]
   },
   "fa": {
@@ -154,7 +154,7 @@
       "اجتماعی",
       "رسانه‌های اجتماعی",
       "پست",
-      "بلواسکای اجتماعی",
+      "bluesky social",
       "در پروتکل",
       "میکروبلاگ",
       "شبکه اجتماعی",
@@ -208,11 +208,11 @@
       "social",
       "médias sociaux",
       "post",
-      "ciel bleu social",
+      "bluesky social",
       "au protocole",
       "microblog",
       "réseau social",
-      "poste de ciel bleu"
+      "bluesky post"
     ]
   },
   "hi": {
@@ -230,16 +230,16 @@
     "param.img.description": "संलग्न करने के लिए छवि फ़ाइल का स्थानीय पथ। समर्थित: जेपीईजी, पीएनजी। अधिकतम 1 एमबी. 'पोस्ट' द्वारा प्रयुक्त।",
     "param.text.description": "पोस्ट सामग्री (सादा पाठ, अधिकतम 300 वर्ण)। 'पोस्ट' के लिए आवश्यक है.",
     "x_search_terms": [
-      "ब्लूस्काई",
-      "बीस्काई",
+      "bluesky",
+      "bsky",
       "सोशल",
       "सोशल मीडिया",
       "पोस्ट",
-      "ब्लूस्की सोशल",
+      "bluesky social",
       "प्रोटोकॉल",
       "माइक्रोब्लॉग",
       "सोशल नेटवर्क",
-      "ब्लूस्की पोस्ट"
+      "bluesky post"
     ]
   },
   "id": {
@@ -293,7 +293,7 @@
       "at protocollo",
       "microblog",
       "rete sociale",
-      "messaggio di cielo blu"
+      "bluesky post"
     ]
   },
   "ja": {
@@ -370,7 +370,7 @@
       "social",
       "олон нийтийн мэдээллийн хэрэгсэл",
       "post",
-      "хөх нийгэм",
+      "bluesky social",
       "протокол дээр",
       "microblog",
       "нийгмийн сүлжээ",
@@ -451,11 +451,11 @@
       "social",
       "מדיה חברתית",
       "פוסט",
-      "חברתי כחולה",
+      "bluesky social",
       "בפרוטוקול",
       "microblog",
       "רשת חברתית",
-      "פוסט כחול"
+      "bluesky post"
     ]
   },
   "hu": {
@@ -532,7 +532,7 @@
       "sosiale",
       "sosiale medier",
       "post",
-      "blåsky sosial",
+      "bluesky social",
       "ved protokoll",
       "microblog",
       "sosiale nettverk",
@@ -559,11 +559,11 @@
       "social",
       "sociale media",
       "post",
-      "blauw sociaal",
+      "bluesky social",
       "bij protocol",
       "microblog",
       "sociaal netwerk",
-      "blauwe post"
+      "bluesky post"
     ]
   },
   "pl": {
@@ -590,7 +590,7 @@
       "w protokole",
       "mikroblog",
       "sieć społecznościowa",
-      "błękitny post"
+      "bluesky post"
     ]
   },
   "pt": {
@@ -613,11 +613,11 @@
       "social",
       "mídia social",
       "post",
-      "céu azul social",
+      "bluesky social",
       "at protocolo",
       "microblog",
       "rede social",
-      "postagem do céu azul"
+      "bluesky post"
     ]
   },
   "pt_BR": {
@@ -640,11 +640,11 @@
       "social",
       "mídia social",
       "post",
-      "céu azul social",
+      "bluesky social",
       "at protocolo",
       "microblog",
       "rede social",
-      "postagem do céu azul"
+      "bluesky post"
     ]
   },
   "ru": {
@@ -671,7 +671,7 @@
       "at протокол",
       "микроблог",
       "социальная сеть",
-      "пост блюскай"
+      "bluesky post"
     ]
   },
   "sv": {
@@ -694,11 +694,11 @@
       "sociala",
       "sociala medier",
       "inlägg",
-      "blåblå social",
+      "bluesky social",
       "vid protokoll",
       "microblog",
       "socialt nätverk",
-      "blått inlägg"
+      "bluesky post"
     ]
   },
   "sw": {
@@ -748,11 +748,11 @@
       "โซเชียล",
       "โซเชียลมีเดีย",
       "โพสต์",
-      "โซเชียลบลูสกาย",
+      "bluesky social",
       "ที่โปรโตคอล",
       "ไมโครบล็อก",
       "เครือข่ายโซเชียล",
-      "โพสต์บลูสกาย"
+      "bluesky post"
     ]
   },
   "tr": {
@@ -806,7 +806,7 @@
       "при протоколі",
       "microblog",
       "соціальна мережа",
-      "блакитний пост"
+      "bluesky post"
     ]
   },
   "vi": {
@@ -829,7 +829,7 @@
       "social",
       "phương tiện truyền thông xã hội",
       "bài đăng",
-      "bầu trời xanh xã hội",
+      "bluesky social",
       "at giao thức",
       "microblog",
       "mạng xã hội",
@@ -964,11 +964,11 @@
       "social",
       "sociale medier",
       "post",
-      "blåsky social",
+      "bluesky social",
       "ved protokol",
       "microblog",
       "sociale netværk",
-      "blåt indlæg"
+      "bluesky post"
     ]
   },
   "nn": {
