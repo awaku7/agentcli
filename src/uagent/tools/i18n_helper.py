@@ -3,10 +3,18 @@ from __future__ import annotations
 import json
 import locale
 import os
+import re
 from functools import lru_cache
 from typing import Any, Optional
 
 from ..env_utils import env_get
+
+
+_PRINTF_PLACEHOLDER_RE = re.compile(
+    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\\-]?[0-9]*(?:\\.[0-9]+)?[diouxXeEfFgGcrs]"
+)
+_BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
+_VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
 
 
 def _normalize_lang_tag(tag: Optional[str]) -> str:
@@ -176,6 +184,38 @@ def _unescape_value(value: Any) -> Any:
     return value
 
 
+def _placeholders(value: str) -> set[str]:
+    names = {match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(value)}
+    names.update(match.group("name") for match in _BRACE_PLACEHOLDER_RE.finditer(value))
+    return names
+
+
+def _translation_compatible(key: str, default: Any, value: Any) -> bool:
+    if type(value) is not type(default):
+        return False
+    if isinstance(default, str):
+        return _placeholders(default) == _placeholders(value)
+    if isinstance(default, list):
+        if key in _VARIABLE_LENGTH_LIST_KEYS:
+            return bool(value) and all(
+                isinstance(item, str) and bool(item.strip()) for item in value
+            )
+        if len(value) != len(default):
+            return False
+        return all(
+            _translation_compatible(key, default_item, value_item)
+            for default_item, value_item in zip(default, value)
+        )
+    if isinstance(default, dict):
+        if set(value) != set(default):
+            return False
+        return all(
+            _translation_compatible(key, default[name], value[name])
+            for name in default
+        )
+    return True
+
+
 def make_tool_translator(tool_py_file: str):
     tool_dir = os.path.dirname(os.path.abspath(tool_py_file))
     base = os.path.splitext(os.path.basename(tool_py_file))[0]
@@ -190,7 +230,11 @@ def make_tool_translator(tool_py_file: str):
             loc_map = data.get(loc)
             if isinstance(loc_map, dict):
                 v = loc_map.get(key)
-                if isinstance(v, (str, list, dict)) and v:
+                if (
+                    isinstance(v, (str, list, dict))
+                    and v
+                    and _translation_compatible(key, default, v)
+                ):
                     text = _unescape_value(v)
 
         if text is None:
