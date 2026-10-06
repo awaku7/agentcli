@@ -87,4 +87,6 @@ def test_tool_translator_uses_compatible_localized_placeholder(
     monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
     translate = i18n_helper.make_tool_translator(str(tool_py))
 
-    assert translate("message", default="Hello {name}", name="Alice") == "こんにちは Alice"
+    assert (
+        translate("message", default="Hello {name}", name="Alice") == "こんにちは Alice"
+    )
