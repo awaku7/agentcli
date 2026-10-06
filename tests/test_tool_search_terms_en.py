@@ -47,3 +47,37 @@ def test_discord_search_terms_preserve_brand_name() -> None:
         "Discord brand name must remain literal in brand-specific localized "
         "search terms: " + ", ".join(invalid)
     )
+
+
+def test_sidecar_search_terms_are_wired_into_tool_spec() -> None:
+    missing = []
+
+    for json_path in sorted(TOOLS_DIR.rglob("*.json")):
+        try:
+            payload = json.loads(json_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            continue
+
+        if not isinstance(payload, dict):
+            continue
+
+        has_localized_search_terms = any(
+            isinstance(messages, dict) and "x_search_terms" in messages
+            for messages in payload.values()
+        )
+        if not has_localized_search_terms:
+            continue
+
+        python_path = json_path.with_suffix(".py")
+        if not python_path.exists():
+            continue
+
+        source = python_path.read_text(encoding="utf-8")
+        if '"x_search_terms": _(' not in source:
+            missing.append(python_path.name)
+
+    assert not missing, (
+        "Tool sidecars with localized x_search_terms must wire them into "
+        "TOOL_SPEC via _(\"x_search_terms\", default=...): "
+        + ", ".join(missing)
+    )
