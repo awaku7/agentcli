@@ -1218,7 +1218,7 @@
     "err.delete_failed": "[set_timer ত্রুটি] OS সময়সূচী মুছে ফেলতে ব্যর্থ হয়েছে: {msg}",
     "out.list_empty": "[set_timer] কোনো OS সময়সূচী পাওয়া যায়নি।",
     "out.list_header": "[সেট_টাইমার] ওএস সময়সূচী:",
-    "out.list_internal_item": "  - internal: {schedule_id} at {at} ({mode})",
+    "out.list_internal_item": "  - অভ্যন্তরীণ: {schedule_id} {at}-এ ({mode})",
     "out.list_os_item": "  - OS: {job_name}"
   },
   "fa": {
