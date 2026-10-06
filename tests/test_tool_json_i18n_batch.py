@@ -394,10 +394,7 @@ def test_status_require_complete_counts_absent_locale_blocks(
 
     captured = capsys.readouterr()
     assert rc == 1
-    assert (
-        f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES) - 1}"
-        in captured.out
-    )
+    assert f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES) - 1}" in captured.out
     assert "tool i18n catalogs are incomplete" in captured.err
 
 
