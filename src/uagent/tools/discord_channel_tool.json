@@ -152,7 +152,7 @@
     "err.missing_channel_id": "ID canale mancante.",
     "err.missing_message": "Messaggio mancante.",
     "param.action.description": "Azione: send / send_and_wait / history",
-    "param.channel_id.description": "Il contenuto del messaggio Discord deve contenere massimo 2000 caratteri.",
+    "param.channel_id.description": "ID del canale Discord di destinazione.",
     "param.exclude_bots.description": "Durante l'attesa, ignora i messaggi del bot.",
     "param.limit.description": "Numero di messaggi da recuperare per cronologia/risposte.",
     "param.message.description": "Messaggio.",
