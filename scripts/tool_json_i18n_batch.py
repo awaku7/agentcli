@@ -103,9 +103,8 @@ PRINTF_PLACEHOLDER_RE = re.compile(
 )
 FORMATTER = Formatter()
 BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-PIP_INSTALL_COMMAND_RE = re.compile(
-    r"\bpip\s+install\s+(?P<package>[A-Za-z0-9](?:[A-Za-z0-9_.+\-\[\]]*[A-Za-z0-9\]])?)"
-)
+PIP_INSTALL_PREFIX_RE = re.compile(r"\bpip\s+install\b")
+PIP_COMMAND_TRAILING_PUNCTUATION = ".,;:!?。；：！？"
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -621,18 +620,39 @@ def _chunk_indices(
     return batches
 
 
+def _pip_install_commands(text: str) -> list[str]:
+    """Extract copy-pasteable pip install commands from source text.
+
+    Commands are expected to occupy the remainder of their source line. This
+    preserves options, multiple requirements, extras, and version specifiers
+    without attempting to parse pip's full requirement grammar.
+    """
+    commands: list[str] = []
+
+    for line in text.splitlines():
+        match = PIP_INSTALL_PREFIX_RE.search(line)
+        if match is None:
+            continue
+
+        command = line[match.start() :].strip()
+        command = command.rstrip(PIP_COMMAND_TRAILING_PUNCTUATION).rstrip()
+        if command:
+            commands.append(command)
+
+    return commands
+
+
 def _pip_install_protect_terms(texts: list[str]) -> list[str]:
-    """Return exact pip-install commands and package ids that must stay literal."""
+    """Return exact pip-install commands that must stay literal."""
     terms: list[str] = []
     seen: set[str] = set()
 
     for text in texts:
-        for match in PIP_INSTALL_COMMAND_RE.finditer(text):
-            for term in (match.group(0), match.group("package")):
-                if term in seen:
-                    continue
-                seen.add(term)
-                terms.append(term)
+        for command in _pip_install_commands(text):
+            if command in seen:
+                continue
+            seen.add(command)
+            terms.append(command)
 
     return terms
 
@@ -643,7 +663,7 @@ def _scope_pip_install_groups(indices: list[int], texts: list[str]) -> list[list
     protected: list[list[int]] = []
 
     for index in indices:
-        if PIP_INSTALL_COMMAND_RE.search(texts[index]):
+        if _pip_install_commands(texts[index]):
             protected.append([index])
         else:
             normal.append(index)
