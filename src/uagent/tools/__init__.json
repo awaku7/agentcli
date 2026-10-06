@@ -18,8 +18,8 @@
     "log.load_disabled.internal": "[tools] Interní plugin {mod_name} je zakázán: {reason}"
   },
   "da": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_fail.external": "[tools] Kunne ikke indlæse eksternt plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Kunne ikke indlæse internt plugin {mod_name}: {err}",
     "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
     "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
   },
@@ -54,8 +54,8 @@
     "log.load_disabled.internal": "[työkalut] Sisäinen laajennus {mod_name} on poistettu käytöstä: {reason}"
   },
   "fil": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_fail.external": "[tools] Nabigong i-load ang external plugin {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Nabigong i-load ang internal plugin {mod_name}: {err}",
     "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
     "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
   },
@@ -120,8 +120,8 @@
     "log.load_disabled.internal": "[tools] अंतर्गत प्लगइन {mod_name} अक्षम आहे: {reason}"
   },
   "ms": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_fail.external": "[tools] Gagal memuatkan pemalam luaran {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Gagal memuatkan pemalam dalaman {mod_name}: {err}",
     "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
     "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
   },
@@ -138,8 +138,8 @@
     "log.load_disabled.internal": "[tools] Interne plug-in {mod_name} is uitgeschakeld: {reason}"
   },
   "nn": {
-    "log.load_fail.external": "[tools] Failed to load external plugin {entry_path}: {err}",
-    "log.load_fail.internal": "[tools] Failed to load internal plugin {mod_name}: {err}",
+    "log.load_fail.external": "[tools] Klarte ikkje å laste eksternt programtillegg {entry_path}: {err}",
+    "log.load_fail.internal": "[tools] Klarte ikkje å laste internt programtillegg {mod_name}: {err}",
     "log.load_ok.external": "[tools] Loaded external tools: {entry_name}",
     "log.load_disabled.internal": "[tools] Internal plugin {mod_name} is disabled: {reason}"
   },
