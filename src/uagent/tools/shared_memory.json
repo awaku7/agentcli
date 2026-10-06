@@ -18,10 +18,10 @@
     "msg.truncated": "\n[shared_memory zkrácen: omezeno na {max_bytes} bajtů]"
   },
   "da": {
-    "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "err.load": "[shared_memory-fejl] {err_type}: {err}",
+    "msg.disabled": "(shared memory er deaktiveret; angiv UAGENT_SHARED_MEMORY_FILE for at aktivere den)",
+    "msg.no_shared_memory": "(ingen shared memory endnu)",
+    "msg.truncated": "\n[shared_memory afkortet: begrænset til {max_bytes} byte]"
   },
   "de": {
     "err.load": "[shared_memory Fehler] {err_type}: {err}",
@@ -55,9 +55,9 @@
   },
   "fil": {
     "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "msg.disabled": "(naka-disable ang shared memory; itakda ang UAGENT_SHARED_MEMORY_FILE para i-enable ito)",
+    "msg.no_shared_memory": "(wala pang shared memory)",
+    "msg.truncated": "\n[na-truncate ang shared_memory: limitado sa {max_bytes} bytes]"
   },
   "fr": {
     "err.load": "[Erreur de mémoire partagée] {err_type} : {err}",
@@ -120,10 +120,10 @@
     "msg.truncated": "\n[shared_memory truncated: {max_bytes} बाइट्सपर्यंत मर्यादित]"
   },
   "ms": {
-    "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "err.load": "[ralat shared_memory] {err_type}: {err}",
+    "msg.disabled": "(shared memory dinyahdayakan; tetapkan UAGENT_SHARED_MEMORY_FILE untuk mendayakannya)",
+    "msg.no_shared_memory": "(belum ada shared memory)",
+    "msg.truncated": "\n[shared_memory dipendekkan: dihadkan kepada {max_bytes} bait]"
   },
   "nb": {
     "err.load": "[shared_memory-feil] {err_type}: {err}",
@@ -138,10 +138,10 @@
     "msg.truncated": "\n[shared_memory afgekapt: beperkt tot {max_bytes} bytes]"
   },
   "nn": {
-    "err.load": "[shared_memory error] {err_type}: {err}",
-    "msg.disabled": "(shared memory is disabled; set UAGENT_SHARED_MEMORY_FILE to enable it)",
-    "msg.no_shared_memory": "(no shared memory yet)",
-    "msg.truncated": "\n[shared_memory truncated: limited to {max_bytes} bytes]"
+    "err.load": "[shared_memory-feil] {err_type}: {err}",
+    "msg.disabled": "(shared memory er deaktivert; set UAGENT_SHARED_MEMORY_FILE for å aktivere det)",
+    "msg.no_shared_memory": "(ingen shared memory enno)",
+    "msg.truncated": "\n[shared_memory avkorta: avgrensa til {max_bytes} byte]"
   },
   "pl": {
     "err.load": "[błąd pamięci współdzielonej] {err_type}: {err}",

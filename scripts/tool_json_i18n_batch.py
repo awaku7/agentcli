@@ -122,6 +122,7 @@ INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
         "bitchat.debug_hs_msg1_sent",
         "bitchat.debug_hs_skip",
         "vision.error_prefix",
+        "skill.ok",
     }
 )
 

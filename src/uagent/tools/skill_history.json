@@ -22,7 +22,7 @@
   },
   "da": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.clear_log": "{message} (Ryddede {removed} skill-meddelelser)",
     "skill.ok": "{message}",
     "skill.warn.rewrite_failed": "[{label} advarsel] Kunne ikke omskrive den aktuelle log: {error}",
     "skill.clear_log_compat": " (Ryddede {removed} skill-meddelelser)"
@@ -64,7 +64,7 @@
   },
   "fil": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.clear_log": "{message} (Nag-clear ng {removed} skill message)",
     "skill.ok": "{message}",
     "skill.warn.rewrite_failed": "[{label} babala] Nabigong muling isulat ang kasalukuyang log: {error}",
     "skill.clear_log_compat": " (Na-clear ang {removed} skill messages)"
@@ -141,7 +141,7 @@
   },
   "ms": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.clear_log": "{message} ({removed} mesej skill dikosongkan)",
     "skill.ok": "{message}",
     "skill.warn.rewrite_failed": "[{label} amaran] Gagal menulis semula log semasa: {error}",
     "skill.clear_log_compat": " ({removed} mesej skill dikosongkan)"
@@ -162,7 +162,7 @@
   },
   "nn": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
+    "skill.clear_log": "{message} (Tømde {removed} skill-meldingar)",
     "skill.ok": "{message}",
     "skill.warn.rewrite_failed": "[{label} åtvaring] Klarte ikkje å skrive om gjeldande logg: {error}",
     "skill.clear_log_compat": " (Fjerna {removed} skill-meldingar)"

@@ -478,3 +478,15 @@ def test_status_can_report_same_as_english_keys(tmp_path: Path, capsys) -> None:
     assert rc == 0
     assert "same_as_english_by_tool_key:" in captured.out
     assert "tool.description" in captured.out
+
+
+def test_placeholder_only_passthrough_key_is_intentional_english() -> None:
+    value = "{message}"
+
+    assert not batch._is_missing_or_stale(
+        value,
+        value,
+        key="skill.ok",
+        force=False,
+        skip_same_as_en=True,
+    )
