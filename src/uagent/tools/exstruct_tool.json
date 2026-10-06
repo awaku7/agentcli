@@ -410,8 +410,8 @@
       "स्ट्रक्चर पार्सर"
     ],
     "param.password.description": "एन्क्रिप्टेड .",
-    "error.missing_exstruct": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
-    "load.disabled": "'एक्सस्ट्रक्ट' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
+    "error.missing_exstruct": "'exstruct' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
+    "load.disabled": "'exstruct' पैकेज स्थापित नहीं है। कृपया इसे इसके साथ इंस्टॉल करें: pip install exstruct",
     "param.action.description": "प्रदर्शन करने के लिए ऑपरेशन. एक्सट्रैक्ट = निकाली गई सामग्री को एक स्ट्रिंग के रूप में लौटाएं / निर्यात_फ़ाइल = एक फ़ाइल में सहेजें।",
     "prompt.password": "इस फ़ाइल के लिए पासवर्ड दर्ज करें:{path}"
   },
