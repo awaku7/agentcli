@@ -767,7 +767,7 @@
     "msg.multiple_matches": "[apm] Maramihang tugma. Mangyaring gumamit ng numero:\n",
     "msg.applied": "[apm] Inilapat na kasanayan sa APM: {name}",
     "msg.dir_set": "[apm] Ang ugat ng proyekto ng APM ay nakatakda sa: {path}",
-    "msg.dir_current": "[apm] APM project root: {path}",
+    "msg.dir_current": "[apm] Root ng APM project: {path}",
     "err.out_of_range": "[apm] Numero sa labas ng hanay (1-{max}).",
     "err.load_failed": "[apm] Nabigong i-load ang kasanayan: {err}",
     "err.dir_not_found": "[apm] Hindi nahanap ang direktoryo: {path}",

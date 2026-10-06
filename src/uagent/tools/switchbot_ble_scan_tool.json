@@ -1028,7 +1028,7 @@
     "msg.summary": "Nakumpleto ang pag-scan ng SwitchBot BLE: {count} (mga) device ang natagpuan sa {elapsed_ms} ms.",
     "msg.no_devices": "Walang nakitang SwitchBot BLE device.",
     "err.operation_failed": "Error sa panahon ng pagpapatakbo ng BLE: {err_msg}",
-    "msg.error_fmt": "Error: {msg}",
+    "msg.error_fmt": "Error sa SwitchBot: {msg}",
     "msg.interface_used": "Interface na ginamit: {iface}",
     "msg.unknown_error": "hindi kilalang error",
     "err.bleak_missing": "Error: hindi naka-install ang 'bleak' library. Paki-install ito gamit ang:\npip install bleak",

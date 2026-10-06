@@ -1090,8 +1090,8 @@
   },
   "fil": {
     "param.action.description": "Pagkilos: on/off/open/close/set_value/lock/unlock.",
-    "param.mode.description": "AC mode: auto/cool/dry/fan/heat.",
-    "param.fan.description": "AC fan: auto/low/medium/high.",
+    "param.mode.description": "Mode ng AC: auto/cool/dry/fan/heat.",
+    "param.fan.description": "Setting ng AC fan: auto/low/medium/high.",
     "param.timeout.description": "HTTP timeout (segundo).",
     "param.fmt.description": "Format: json o text.",
     "err.invalid_response": "Nagbalik ang SwitchBot Cloud ng hindi inaasahang payload.",
@@ -1106,7 +1106,7 @@
     "err.invalid_range": "Ang timeout ay dapat na higit sa 0.",
     "err.invalid_value_type": "Ang field ng halaga ay dapat na isang integer.",
     "err.operation_failed": "Error sa panahon ng SwitchBot Cloud control: {err_msg}",
-    "msg.error_fmt": "Error: {msg}",
+    "msg.error_fmt": "Error sa SwitchBot: {msg}",
     "msg.unknown_error": "hindi kilalang error",
     "err.config_missing": "Nawawala ang mga kredensyal ng SwitchBot Cloud. Itakda ang UAGENT_SWITCHBOT_TOKEN at UAGENT_SWITCHBOT_SECRET.",
     "param.dev.description": "SwitchBot device ID upang hanapin. Mas gustong identifier.",
@@ -1118,7 +1118,9 @@
       "switchbot_cloud_control",
       "switchbot",
       "cloud",
-      "configured"
+      "configured",
+      "kontrol sa switchbot",
+      "kontrol sa cloud"
     ]
   },
   "ms": {

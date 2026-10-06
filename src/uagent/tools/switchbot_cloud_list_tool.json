@@ -563,7 +563,7 @@
   "fil": {
     "param.fmt.description": "Format: json o text.",
     "msg.device_count": "Mga SwitchBot Cloud device: {count}",
-    "msg.error_fmt": "Error: {msg}",
+    "msg.error_fmt": "Error sa SwitchBot: {msg}",
     "msg.fetched_at": "Nakuha sa: {ts}",
     "msg.unknown_error": "hindi kilalang error",
     "tool.description": "Ilista ang mga SwitchBot Cloud device para sa na-configure na account.",

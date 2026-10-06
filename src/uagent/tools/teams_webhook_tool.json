@@ -845,7 +845,7 @@
     "param.theme_color.description": "Kulay ng tema ng card bilang isang hex string na walang #.",
     "param.payload_json.description": "Raw webhook payload bilang JSON string o object. Kung ibinigay, ito ay ipinadala sa kasalukuyan.",
     "param.webhook_env.description": "Pangalan ng variable ng kapaligiran na nag-iimbak ng URL ng webhook ng Teams.",
-    "param.timeout_s.description": "Timeout.",
+    "param.timeout_s.description": "Tagal bago mag-timeout.",
     "err.missing_message": "Nawawala ang 'mensahe'.",
     "err.exception": "Exception"
   },
@@ -895,7 +895,7 @@
     "param.theme_color.description": "Korttemafarve som en hex-streng uden #.",
     "param.payload_json.description": "Raw webhook nyttelast som JSON streng eller objekt. Hvis det er angivet, sendes det som det er.",
     "param.webhook_env.description": "Navn på miljøvariabel, der gemmer Teams webhook-URL.",
-    "param.timeout_s.description": "Timeout.",
+    "param.timeout_s.description": "Tidsgrænse.",
     "err.missing_message": "Mangler 'besked'.",
     "err.exception": "Undtagelse"
   },
