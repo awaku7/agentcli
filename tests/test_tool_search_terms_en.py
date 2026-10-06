@@ -13,6 +13,19 @@ BLUESKY_BRAND_SEARCH_TERMS = {
     9: "bluesky",
 }
 
+SERVICE_BRAND_SEARCH_TERM_CONTRACTS = {
+    "teams_webhook_tool.json": ("teams", (0, 1, 3, 4, 5, 6, 8, 9)),
+    "gmail_read_tool.json": ("gmail", (0,)),
+    "switchbot_ble_control_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_ble_scan_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_ble_status_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_cloud_control_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_cloud_list_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_cloud_status_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_subscribe_tool.json": ("switchbot", (0, 1, 2)),
+    "switchbot_unsubscribe_tool.json": ("switchbot", (0, 1, 2)),
+}
+
 
 def test_localized_search_terms_have_english_fallback() -> None:
     missing = []
@@ -122,5 +135,41 @@ def test_bluesky_search_terms_preserve_brand_name() -> None:
 
     assert not invalid, (
         "Bluesky brand names must remain literal in brand-specific localized "
+        "search terms: " + ", ".join(invalid)
+    )
+
+
+def test_service_search_terms_preserve_brand_names() -> None:
+    invalid = []
+
+    for filename, (token, indexes) in SERVICE_BRAND_SEARCH_TERM_CONTRACTS.items():
+        payload = json.loads((TOOLS_DIR / filename).read_text(encoding="utf-8"))
+
+        for locale, messages in sorted(payload.items()):
+            terms = messages.get("x_search_terms")
+            if not isinstance(terms, list):
+                invalid.append(f"{filename}:{locale}: x_search_terms is not a list")
+                continue
+
+            for index in indexes:
+                if index >= len(terms):
+                    invalid.append(
+                        f"{filename}:{locale}: x_search_terms[{index}] is missing"
+                    )
+                    continue
+
+                term = str(terms[index])
+                if (
+                    re.search(
+                        rf"(^|[^a-z]){re.escape(token)}($|[^a-z])",
+                        term,
+                        flags=re.IGNORECASE,
+                    )
+                    is None
+                ):
+                    invalid.append(f"{filename}:{locale}[{index}]={term!r}")
+
+    assert not invalid, (
+        "Service brand names must remain literal in brand-specific localized "
         "search terms: " + ", ".join(invalid)
     )
