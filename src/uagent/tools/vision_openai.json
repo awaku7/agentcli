@@ -162,9 +162,9 @@
     "err.import_openai": "Nem sikerült importálni az openai csomagot: {err}",
     "prompt.default": "Kérjük, írja le részletesen ezt a képet.",
     "warn.empty_response": "[WARN] üres válasz",
-    "err.missing_env.azure": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY) base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
-    "vision.alibaba_missing_env": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_Alibaba_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY) api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "Azúrhoz hiányoznak a szükséges env vars (UAGENT_Moonshot_BASE_URL/API_KEY/API_VERSION/DEPNAME) (UAGENT_BEDROCK_BASE_URL/API_KEY) api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Hiányoznak az Azure képelemzéshez szükséges környezeti változók. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Hiányoznak az Alibaba képelemzéshez szükséges környezeti változók. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Hiányoznak a Moonshot képelemzéshez szükséges környezeti változók. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "id": {
@@ -330,9 +330,9 @@
     "err.import_openai": "Nu s-a putut importa pachetul openai: {err}",
     "prompt.default": "Vă rugăm să descrieți această imagine în detaliu.",
     "warn.empty_response": "[WARN] răspuns gol",
-    "err.missing_env.azure": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/azure/bedrock/openrouter/ollama base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
-    "vision.alibaba_missing_env": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/Alibaba/bedrock/openrouter/ollama api_key/model: UAGENT_ALIBABA_*.",
-    "vision.moonshot_missing_env": "UAGENT_RESPONSES=1 este setat, dar analiza imaginilor prin Responses este acceptată numai pentru openai/Moonshot/bedrock/openrouter/ollama api_key/model: UAGENT_MOONSHOT_*.",
+    "err.missing_env.azure": "Lipsesc variabilele de mediu necesare pentru analiza imaginilor Azure. base_url/api_key/api_version/model: UAGENT_AZURE_* / UAGENT_AZURE_IMG_ANALYSIS_*.",
+    "vision.alibaba_missing_env": "Lipsesc variabilele de mediu necesare pentru analiza imaginilor Alibaba. api_key/model: UAGENT_ALIBABA_*.",
+    "vision.moonshot_missing_env": "Lipsesc variabilele de mediu necesare pentru analiza imaginilor Moonshot. api_key/model: UAGENT_MOONSHOT_*.",
     "vision.error_prefix": "[ERROR] {error}"
   },
   "ru": {
