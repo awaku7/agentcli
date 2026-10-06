@@ -360,3 +360,73 @@ def test_placeholder_qc_supports_brace_conversion_and_format_spec() -> None:
 
 def test_placeholder_qc_ignores_numeric_braces_used_as_literal_aliases() -> None:
     assert batch._placeholders("Aliases @A{0} through @A{9}") == set()
+
+
+def test_tool_label_supports_arbitrary_catalog_names() -> None:
+    assert batch._tool_label(Path("safe_exec_ops.json")) == "safe_exec_ops"
+    assert batch._tool_label(Path("vision_openai.json")) == "vision_openai"
+    assert batch._tool_label(Path("sample_tool.json")) == "sample"
+
+
+def test_status_require_complete_counts_absent_locale_blocks(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"ja": {"tool.description": "こんにちは"}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--require-complete",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 1
+    assert (
+        f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES) - 1}"
+        in captured.out
+    )
+    assert "tool i18n catalogs are incomplete" in captured.err
+
+
+def test_status_require_complete_succeeds_for_complete_catalog(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    catalog = {
+        lang: {"tool.description": f"{lang} translation"}
+        for lang in batch.SUPPORTED_TARGET_LOCALES
+    }
+    _write_catalog(tools_dir / "sample_tool.json", catalog)
+
+    rc = batch.main(
+        [
+            "status",
+            "--require-complete",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 0
+    assert "missing_units: 0" in captured.out
+    assert captured.err == ""
