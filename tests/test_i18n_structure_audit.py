@@ -243,7 +243,7 @@ def test_dynamic_consensus_ignores_keys_not_referenced_by_python(
     de_missing = next(
         finding
         for finding in findings
-        if finding.locale == "de" and finding.kind == "structure_missing"
+        if finding.locale == "de" and finding.kind == "translation_missing"
     )
 
     assert "message" in de_missing.detail["paths"]
@@ -255,7 +255,27 @@ def test_dynamic_consensus_ignores_keys_not_referenced_by_python(
 
 
 def test_tool_structure_extra_is_advisory() -> None:
-    assert "structure_extra" in audit_module.ADVISORY_FINDING_KINDS
+    assert audit_module._is_advisory_finding(
+        audit_module.Finding("tool_json", "structure_extra", "tool.json")
+    )
+
+
+def test_tool_fallback_mismatches_are_advisory_but_host_placeholders_stay_strict() -> None:
+    for kind in (
+        "structure_missing",
+        "value_type_mismatch",
+        "placeholder_mismatch",
+    ):
+        assert audit_module._is_advisory_finding(
+            audit_module.Finding("tool_json", kind, "tool.json")
+        )
+    assert not audit_module._is_advisory_finding(
+        audit_module.Finding(
+            "host_gettext",
+            "placeholder_mismatch",
+            "uag.po",
+        )
+    )
 
 
 def test_missing_top_level_translation_uses_python_fallback(tmp_path: Path) -> None:
