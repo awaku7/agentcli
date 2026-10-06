@@ -537,6 +537,8 @@ def test_intentional_english_tool_key_is_limited_to_invariant_text() -> None:
     assert batch._is_intentional_english_tool_key("create_tool", "cmd.help")
     assert batch._is_intentional_english_tool_key("human_ask", "ui.footer")
     assert batch._is_intentional_english_tool_key("safe_exec_ops", "ui.fallback_prompt")
+    assert batch._is_intentional_english_tool_key("safe_exec_ops", "ui.confirm.footer")
+    assert batch._is_intentional_english_tool_key("safe_file_ops", "ui.confirm.footer")
     assert batch._is_intentional_english_tool_key(
         "pybitchat_subscribe", "cmd.node_started_nostr_failed"
     )
@@ -620,3 +622,16 @@ def test_discord_catalog_preserves_action_literals_and_safety_note() -> None:
     assert catalog["th"]["param.message.description"] == "ข้อความ"
     assert catalog["bn"]["param.message.description"] == "বার্তা।"
     assert catalog["bn"]["err.missing_action"] == "অনুপস্থিত 'action'।"
+
+
+def test_confirm_command_footer_is_invariant() -> None:
+    tools_dir = Path(__file__).parents[1] / "src" / "uagent" / "tools"
+
+    for filename in ("safe_exec_ops.json", "safe_file_ops.json"):
+        catalog = json.loads((tools_dir / filename).read_text(encoding="utf-8"))
+        for lang, block in catalog.items():
+            assert block["ui.confirm.footer"] == "=== /confirm ===\n", (
+                filename,
+                lang,
+            )
+
