@@ -14,6 +14,7 @@ _PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
 _FORMATTER = Formatter()
+_BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
 
 
@@ -188,7 +189,7 @@ def _placeholders(value: str) -> set[str] | None:
     names = {match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(value)}
     try:
         for _literal, field_name, _format_spec, _conversion in _FORMATTER.parse(value):
-            if field_name is not None:
+            if field_name is not None and _BRACE_FIELD_NAME_RE.fullmatch(field_name):
                 names.add(field_name)
     except ValueError:
         return None

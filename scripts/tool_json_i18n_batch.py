@@ -102,6 +102,7 @@ PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
 FORMATTER = Formatter()
+BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -368,7 +369,7 @@ def _placeholders(s: str) -> set[str]:
     names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(s)}
     try:
         for _literal, field_name, _format_spec, _conversion in FORMATTER.parse(s):
-            if field_name is not None:
+            if field_name is not None and BRACE_FIELD_NAME_RE.fullmatch(field_name):
                 names.add(field_name)
     except ValueError:
         names.add("<invalid-brace-format>")

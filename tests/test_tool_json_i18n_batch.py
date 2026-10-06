@@ -356,3 +356,7 @@ def test_placeholder_qc_supports_brace_conversion_and_format_spec() -> None:
     assert batch._placeholders(
         "Value={name!r} amount={amount:.2f} count=%(count)03d"
     ) == {"name", "amount", "count"}
+
+
+def test_placeholder_qc_ignores_numeric_braces_used_as_literal_aliases() -> None:
+    assert batch._placeholders("Aliases @A{0} through @A{9}") == set()

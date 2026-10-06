@@ -63,6 +63,7 @@ _PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
 _FORMATTER = Formatter()
+_BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 
 def _placeholder_names(value: object) -> set[str]:
@@ -72,7 +73,7 @@ def _placeholder_names(value: object) -> set[str]:
     }
     try:
         for _literal, field_name, _format_spec, _conversion in _FORMATTER.parse(text):
-            if field_name is not None:
+            if field_name is not None and _BRACE_FIELD_NAME_RE.fullmatch(field_name):
                 names.add(field_name)
     except ValueError:
         names.add("<invalid-brace-format>")

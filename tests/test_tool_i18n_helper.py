@@ -167,3 +167,30 @@ def test_tool_translator_rejects_malformed_brace_format(tmp_path, monkeypatch) -
     translate = i18n_helper.make_tool_translator(str(tool_py))
 
     assert translate("message", default="Value: {name}", name="Alice") == "Value: Alice"
+
+
+def test_tool_translator_does_not_treat_numeric_braces_as_placeholders(
+    tmp_path, monkeypatch
+) -> None:
+    tool_py = tmp_path / "sample.py"
+    tool_py.write_text("", encoding="utf-8")
+    tool_json = tmp_path / "sample.json"
+    tool_json.write_text(
+        json.dumps(
+            {"ja": {"message": "短縮パスのエイリアスを利用できます。"}},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    i18n_helper.clear_tool_i18n_cache()
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
+    translate = i18n_helper.make_tool_translator(str(tool_py))
+
+    assert (
+        translate(
+            "message",
+            default="Short aliases @A{0} through @A{9} are supported.",
+        )
+        == "短縮パスのエイリアスを利用できます。"
+    )

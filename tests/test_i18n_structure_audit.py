@@ -386,3 +386,25 @@ def test_tool_audit_detects_brace_conversion_placeholder_mismatch(
         finding.locale == "ja" and finding.kind == "placeholder_mismatch"
         for finding in findings
     )
+
+
+def test_tool_audit_ignores_numeric_braces_used_as_literal_aliases(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(
+        tools / "example_tool.py",
+        {"message": "Short aliases @A{0} through @A{9} are supported."},
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps({"ja": {"message": "短縮パスのエイリアスを利用できます。"}}),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.locale == "ja" and finding.kind == "placeholder_mismatch"
+        for finding in findings
+    )
