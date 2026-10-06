@@ -34,11 +34,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "email",
                 "mail",
                 "outlook",
-                "Email file",
                 "parse email",
                 "eml parser",
-                "archivo eml",
-                "fichier eml",
             ],
         ),
         "x_search_terms_en": [

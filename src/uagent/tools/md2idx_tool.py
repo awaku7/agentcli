@@ -40,11 +40,6 @@ TOOL_SPEC = {
                 "markdown section",
                 "large document reader",
                 "md2idx",
-                "Read Markdown files",
-                "Markdown table of contents",
-                "Split into sections",
-                "Large document",
-                "Heading list",
             ],
         ),
         "x_search_terms_en": [

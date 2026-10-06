@@ -30,10 +30,6 @@ TOOL_SPEC = {
                 "json index",
                 "json parser",
                 "json section",
-                "Read JSON files",
-                "JSON index",
-                "Display key paths",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [
