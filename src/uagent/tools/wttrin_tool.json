@@ -1890,7 +1890,7 @@
     "output.header": "### Lagay ng panahon para sa {city}",
     "output.temp": "- **Temp**: {temp}°C (parang {feels}°C)",
     "output.condition": "- **Kondisyon**: {desc}",
-    "output.humidity": "- **Humidity**: {humidity}%",
+    "output.humidity": "- **Halumigmig**: {humidity}%",
     "output.forecast_header": "\n--- Pagtataya ---",
     "output.forecast_row": "- **{date}**: {min}°C / {max}°C ({desc})",
     "err.fetch": "Error sa pagkuha ng data ng panahon: {err}",
@@ -2021,7 +2021,7 @@
       "vejrforhold"
     ],
     "err.geocoding_failed": "Fejl: Kunne ikke finde byen '{city}'.",
-    "err.fallback_source": "[via Open-Meteo fallback]",
+    "err.fallback_source": "[via Open-Meteo-reserveløsning]",
     "wmo.0": "Klar himmel",
     "wmo.1": "Hovedsageligt klart",
     "wmo.2": "Delvis skyet",
