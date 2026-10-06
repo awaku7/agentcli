@@ -74,6 +74,7 @@ def test_azure_api_descriptions_preserve_runtime_identifiers():
 
     assert not invalid, "Corrupted Azure API identifiers: " + ", ".join(invalid)
 
+
 def test_runtime_enum_descriptions_preserve_exact_values():
     cases = (
         ("get_geoip_tool.json", "param.format.description", ("text", "json")),
