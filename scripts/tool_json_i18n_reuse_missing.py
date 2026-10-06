@@ -27,7 +27,7 @@ for p in files:
         for k,en in s.items():
             if k not in block: continue
             v=block[k]
-            if b._is_missing_or_stale(en,v,key=str(k),force=False,skip_same_as_en=False): continue
+            if b._is_missing_or_stale(en,v,key=str(k),force=False,skip_same_as_en=True): continue
             vt=tok(v); mem[(lang,tok(en))][vt]+=1; dec[vt]=v
 filled=changed=0
 for p in files:
