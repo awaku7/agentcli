@@ -103,6 +103,9 @@ PRINTF_PLACEHOLDER_RE = re.compile(
 )
 FORMATTER = Formatter()
 BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+PIP_INSTALL_COMMAND_RE = re.compile(
+    r"\bpip\s+install\s+(?P<package>[A-Za-z0-9][A-Za-z0-9_.+\-\[\]]*)"
+)
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -618,6 +621,22 @@ def _chunk_indices(
     return batches
 
 
+def _pip_install_protect_terms(texts: list[str]) -> list[str]:
+    """Return exact pip-install commands and package ids that must stay literal."""
+    terms: list[str] = []
+    seen: set[str] = set()
+
+    for text in texts:
+        for match in PIP_INSTALL_COMMAND_RE.finditer(text):
+            for term in (match.group(0), match.group("package")):
+                if term in seen:
+                    continue
+                seen.add(term)
+                terms.append(term)
+
+    return terms
+
+
 def _import_translate_run_tool():
     # Prefer in-repo tool module.
     sys.path.insert(0, str(ROOT / "src"))
@@ -692,7 +711,10 @@ def translate_lang(
             "provider": provider,
             "protect_placeholders": True,
             "protect_terms": True,
-            "extra_protect_terms": extra_terms,
+            "extra_protect_terms": [
+                *extra_terms,
+                *_pip_install_protect_terms(batch_texts),
+            ],
         }
         raw = run_tool(payload)
         try:
