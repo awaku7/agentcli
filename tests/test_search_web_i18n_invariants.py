@@ -6,9 +6,7 @@ TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
 
 
 def _load() -> dict:
-    return json.loads(
-        (TOOLS_DIR / "search_web_tool.json").read_text(encoding="utf-8")
-    )
+    return json.loads((TOOLS_DIR / "search_web_tool.json").read_text(encoding="utf-8"))
 
 
 def _has_standalone_token(text: str, token: str) -> bool:
