@@ -717,8 +717,12 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
         item for item in findings if not _is_advisory_finding(item)
     ]
     findings_by_kind: dict[str, int] = {}
+    tool_findings_by_kind_path: dict[str, dict[str, int]] = {}
     for item in findings:
         findings_by_kind[item.kind] = findings_by_kind.get(item.kind, 0) + 1
+        if item.component == "tool_json":
+            by_path = tool_findings_by_kind_path.setdefault(item.kind, {})
+            by_path[item.path] = by_path.get(item.path, 0) + 1
 
     strict_findings_by_kind: dict[str, int] = {}
     for item in structural_findings:
@@ -735,6 +739,10 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
             "coverage_findings": len(coverage_findings),
             "structural_findings": len(structural_findings),
             "findings_by_kind": dict(sorted(findings_by_kind.items())),
+            "tool_findings_by_kind_path": {
+                kind: dict(sorted(paths.items()))
+                for kind, paths in sorted(tool_findings_by_kind_path.items())
+            },
             "strict_findings_by_kind": dict(sorted(strict_findings_by_kind.items())),
             "total_findings": len(findings),
         },
