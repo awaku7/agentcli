@@ -37,6 +37,9 @@ TOOL_SPEC: dict[str, Any] = {
                 "convert",
                 "conversation",
                 "jsonl",
+                "export pdf",
+                "log to pdf",
+                "save as pdf",
             ],
         ),
         "x_search_terms_en": [
@@ -48,6 +51,9 @@ TOOL_SPEC: dict[str, Any] = {
             "convert",
             "conversation",
             "jsonl",
+            "export pdf",
+            "log to pdf",
+            "save as pdf",
         ],
         "parameters": {
             "type": "object",
