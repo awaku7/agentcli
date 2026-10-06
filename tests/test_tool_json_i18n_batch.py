@@ -534,8 +534,14 @@ def test_intentional_english_tool_key_is_limited_to_invariant_text() -> None:
         "pybitchat_shared", "bitchat.debug_hs_skip"
     )
 
-    assert not batch._is_intentional_english_tool_key("create_tool", "cmd.help")
-    assert not batch._is_intentional_english_tool_key("human_ask", "ui.footer")
+    assert batch._is_intentional_english_tool_key("create_tool", "cmd.help")
+    assert batch._is_intentional_english_tool_key("human_ask", "ui.footer")
+    assert batch._is_intentional_english_tool_key(
+        "safe_exec_ops", "ui.fallback_prompt"
+    )
+    assert batch._is_intentional_english_tool_key(
+        "pybitchat_subscribe", "cmd.node_started_nostr_failed"
+    )
     assert not batch._is_intentional_english_tool_key("mdformat", "label.timeout")
     assert not batch._is_intentional_english_tool_key("search_files", "out.file")
     assert not batch._is_intentional_english_tool_key(
