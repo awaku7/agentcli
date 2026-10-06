@@ -516,22 +516,33 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
         print(
             _(
                 "geo.auto_detected",
-                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s",
+                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s (precision=%(precision)d)",
             )
             % {"lat": lat, "lng": lng, "precision": precision}
         )
-        print("Available Geohash channels in your area:")
+        print(_("geo.channels_header", default="Available Geohash channels in your area:"))
         candidates = []
         for p in [2, 4, 5, 6, 8]:
             gh = _geo._geohash_encode(lat, lng, p)
             acc = _geo._GEO_PRECISION.get(p, "")
             candidates.append((gh, acc, p))
-            print(f"  #{gh:8s} (precision {p}, {acc})")
-        print("  #mesh     (global local mesh channel)")
+            print(
+                _(
+                    "geo.channel_entry",
+                    default="  #%(geohash)s (precision %(precision)d, %(accuracy)s)",
+                )
+                % {"geohash": gh, "precision": p, "accuracy": acc}
+            )
+        print(_("geo.mesh_channel", default="  #mesh     (global local mesh channel)"))
         print(
-            "\nTo join a channel, run: :bitchat geo join <geohash> (e.g. :bitchat geo join #"
-            + candidates[3][0]
-            + ")"
+            _(
+                "geo.join_hint",
+                default=(
+                    "\nTo join a channel, run: :bitchat geo join <geohash> "
+                    "(e.g. :bitchat geo join #%(geohash)s)"
+                ),
+            )
+            % {"geohash": candidates[3][0]}
         )
         from ..util_tools import CommandResult
 
@@ -733,13 +744,23 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
     from .pybitchat_shared import _NOSTR as _nt_mod
 
     if _nt_mod is None:
-        print("Error: Nostr transport not running.")
+        print(
+            _(
+                "geo.error_nostr_not_running",
+                default="Error: Nostr transport not running.",
+            )
+        )
         from ..util_tools import CommandResult
 
         return CommandResult()
     inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
     if inst is None or not inst.is_running:
-        print("Error: Nostr transport not running.")
+        print(
+            _(
+                "geo.error_nostr_not_running",
+                default="Error: Nostr transport not running.",
+            )
+        )
         from ..util_tools import CommandResult
 
         return CommandResult()

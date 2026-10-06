@@ -60,7 +60,11 @@
       "購読",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat チャットモード: LLM（mesh 転送 + LLM 注入が有効）"
+    "cmd.chat_llm": "bitchat チャットモード: LLM（mesh 転送 + LLM 注入が有効）",
+    "geo.channels_header": "現在地周辺で利用可能な Geohash チャンネル:",
+    "geo.channel_entry": "  #%(geohash)s（精度 %(precision)d、%(accuracy)s）",
+    "geo.mesh_channel": "  #mesh     （グローバルなローカル mesh チャンネル）",
+    "geo.join_hint": "\nチャンネルに参加するには実行: :bitchat geo join <geohash>（例: :bitchat geo join #%(geohash)s）"
   },
   "fil": {
     "tool.description": "Simulan/ihinto/subaybayan ang pybitchat BLE Mesh node. Ang mga kaganapan sa pagtuklas ng peer ay ipinapakita bilang mga notification ng [INFO] sa terminal.",
@@ -123,7 +127,11 @@
       "mag-subscribe",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat chat mode: LLM (mesh forwarding + LLM injection aktibo)"
+    "cmd.chat_llm": "bitchat chat mode: LLM (mesh forwarding + LLM injection aktibo)",
+    "geo.channels_header": "Mga available na Geohash channel sa iyong lugar:",
+    "geo.channel_entry": "  #%(geohash)s (precision %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (global na lokal na mesh channel)",
+    "geo.join_hint": "\nPara sumali sa channel, patakbuhin: :bitchat geo join <geohash> (hal. :bitchat geo join #%(geohash)s)"
   },
   "ms": {
     "tool.description": "Mulakan/hentikan/pantau nod BLE Mesh pybitchat. Peristiwa penemuan rakan sebaya ditunjukkan sebagai pemberitahuan [INFO] dalam terminal.",
@@ -186,7 +194,11 @@
       "langgan",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "mod sembang bitchat: LLM (pemajuan mesh + suntikan LLM aktif)"
+    "cmd.chat_llm": "mod sembang bitchat: LLM (pemajuan mesh + suntikan LLM aktif)",
+    "geo.channels_header": "Saluran Geohash yang tersedia di kawasan anda:",
+    "geo.channel_entry": "  #%(geohash)s (ketepatan %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (saluran mesh tempatan global)",
+    "geo.join_hint": "\nUntuk menyertai saluran, jalankan: :bitchat geo join <geohash> (cth. :bitchat geo join #%(geohash)s)"
   },
   "da": {
     "tool.description": "Start/stop/overvåg pybitchat BLE Mesh-noden. Peer-opdagelseshændelser vises som [INFO]-meddelelser i terminalen.",
@@ -249,7 +261,11 @@
       "abonner",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat chattilstand: LLM (mesh-videresending + LLM-injektion aktiv)"
+    "cmd.chat_llm": "bitchat chattilstand: LLM (mesh-videresending + LLM-injektion aktiv)",
+    "geo.channels_header": "Tilgængelige Geohash-kanaler i dit område:",
+    "geo.channel_entry": "  #%(geohash)s (præcision %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
+    "geo.join_hint": "\nFor at deltage i en kanal skal du køre: :bitchat geo join <geohash> (f.eks. :bitchat geo join #%(geohash)s)"
   },
   "nn": {
     "tool.description": "Start/stopp/overvåk pybitchat BLE Mesh-noden. Peer discovery-hendelser vises som [INFO]-varsler i terminalen.",
@@ -312,7 +328,11 @@
       "abonner",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat chat-modus: LLM (mesh-videresending + LLM-injeksjon aktiv)"
+    "cmd.chat_llm": "bitchat chat-modus: LLM (mesh-videresending + LLM-injeksjon aktiv)",
+    "geo.channels_header": "Tilgjengelege Geohash-kanalar i området ditt:",
+    "geo.channel_entry": "  #%(geohash)s (presisjon %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
+    "geo.join_hint": "\nFor å bli med i ein kanal, køyr: :bitchat geo join <geohash> (t.d. :bitchat geo join #%(geohash)s)"
   },
   "ar": {
     "tool.description": "بدء/إيقاف/مراقبة عقدة pybitchat BLE Mesh. تظهر أحداث اكتشاف النظراء كإشعارات [INFO] في الجهاز.",
@@ -375,7 +395,11 @@
       "اشتراك",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "وضع دردشة bitchat: LLM (إعادة توجيه mesh + حقن LLM نشط)"
+    "cmd.chat_llm": "وضع دردشة bitchat: LLM (إعادة توجيه mesh + حقن LLM نشط)",
+    "geo.channels_header": "قنوات Geohash المتاحة في منطقتك:",
+    "geo.channel_entry": "  #%(geohash)s (الدقة %(precision)d، %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (قناة mesh محلية عالمية)",
+    "geo.join_hint": "\nللانضمام إلى قناة، نفّذ: :bitchat geo join <geohash> (مثال: :bitchat geo join #%(geohash)s)"
   },
   "bn": {
     "tool.description": "পাইবিটচ্যাট BLE মেশ নোড শুরু/বন্ধ/নিরীক্ষণ করুন। পিয়ার আবিষ্কারের ঘটনাগুলি টার্মিনালে [INFO] বিজ্ঞপ্তি হিসাবে দেখানো হয়।",
@@ -438,7 +462,11 @@
       "সাবস্ক্রাইব",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat চ্যাট মোড: LLM (mesh forwarding + LLM injection সক্রিয়)"
+    "cmd.chat_llm": "bitchat চ্যাট মোড: LLM (mesh forwarding + LLM injection সক্রিয়)",
+    "geo.channels_header": "আপনার এলাকায় উপলব্ধ Geohash চ্যানেল:",
+    "geo.channel_entry": "  #%(geohash)s (নির্ভুলতা %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (গ্লোবাল লোকাল mesh চ্যানেল)",
+    "geo.join_hint": "\nকোনো চ্যানেলে যোগ দিতে চালান: :bitchat geo join <geohash> (যেমন: :bitchat geo join #%(geohash)s)"
   },
   "cs": {
     "tool.description": "Spusťte/zastavte/monitorujte uzel pybitchat BLE Mesh. Události zjišťování vrstevníků se v terminálu zobrazují jako oznámení [INFO].",
@@ -501,7 +529,11 @@
       "odebírat",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "režim chatu bitchat: LLM (přesměrování mesh + vkládání do LLM aktivní)"
+    "cmd.chat_llm": "režim chatu bitchat: LLM (přesměrování mesh + vkládání do LLM aktivní)",
+    "geo.channels_header": "Dostupné kanály Geohash ve vaší oblasti:",
+    "geo.channel_entry": "  #%(geohash)s (přesnost %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (globální místní mesh kanál)",
+    "geo.join_hint": "\nPro připojení ke kanálu spusťte: :bitchat geo join <geohash> (např. :bitchat geo join #%(geohash)s)"
   },
   "de": {
     "tool.description": "Starten/stoppen/überwachen Sie den pybitchat BLE Mesh-Knoten. Peer-Discovery-Ereignisse werden als [INFO]-Benachrichtigungen im Terminal angezeigt.",
@@ -564,7 +596,11 @@
       "abonnieren",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat-Chatmodus: LLM (Mesh-Weiterleitung + LLM-Injektion aktiv)"
+    "cmd.chat_llm": "bitchat-Chatmodus: LLM (Mesh-Weiterleitung + LLM-Injektion aktiv)",
+    "geo.channels_header": "Verfügbare Geohash-Kanäle in deiner Umgebung:",
+    "geo.channel_entry": "  #%(geohash)s (Genauigkeit %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (globaler lokaler Mesh-Kanal)",
+    "geo.join_hint": "\nUm einem Kanal beizutreten, ausführen: :bitchat geo join <geohash> (z. B. :bitchat geo join #%(geohash)s)"
   },
   "el": {
     "tool.description": "Έναρξη/διακοπή/παρακολούθηση του κόμβου pybitchat BLE Mesh. Τα συμβάντα ανακάλυψης ομοτίμων εμφανίζονται ως ειδοποιήσεις [INFO] στο τερματικό.",
@@ -627,7 +663,11 @@
       "εγγραφή",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "λειτουργία συνομιλίας bitchat: LLM (προώθηση mesh + έγχυση LLM ενεργή)"
+    "cmd.chat_llm": "λειτουργία συνομιλίας bitchat: LLM (προώθηση mesh + έγχυση LLM ενεργή)",
+    "geo.channels_header": "Διαθέσιμα κανάλια Geohash στην περιοχή σας:",
+    "geo.channel_entry": "  #%(geohash)s (ακρίβεια %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (καθολικό τοπικό κανάλι mesh)",
+    "geo.join_hint": "\nΓια συμμετοχή σε κανάλι εκτελέστε: :bitchat geo join <geohash> (π.χ. :bitchat geo join #%(geohash)s)"
   },
   "es": {
     "tool.description": "Iniciar/detener/monitorear el nodo pybitchat BLE Mesh. Los eventos de descubrimiento de pares se muestran como notificaciones [INFO] en la terminal.",
@@ -690,7 +730,11 @@
       "suscribirse",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "modo de chat bitchat: LLM (reenvío mesh + inyección LLM activos)"
+    "cmd.chat_llm": "modo de chat bitchat: LLM (reenvío mesh + inyección LLM activos)",
+    "geo.channels_header": "Canales Geohash disponibles en tu zona:",
+    "geo.channel_entry": "  #%(geohash)s (precisión %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (canal mesh local global)",
+    "geo.join_hint": "\nPara unirte a un canal, ejecuta: :bitchat geo join <geohash> (p. ej. :bitchat geo join #%(geohash)s)"
   },
   "fa": {
     "tool.description": "شروع/توقف/نظارت گره pybitchat BLE Mesh. رویدادهای کشف همتا به عنوان اعلان‌های [INFO] در ترمینال نشان داده می‌شوند.",
@@ -753,7 +797,11 @@
       "اشتراک",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "حالت چت bitchat: LLM (ارسال mesh + تزریق LLM فعال)"
+    "cmd.chat_llm": "حالت چت bitchat: LLM (ارسال mesh + تزریق LLM فعال)",
+    "geo.channels_header": "کانال‌های Geohash موجود در منطقه شما:",
+    "geo.channel_entry": "  #%(geohash)s (دقت %(precision)d، %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (کانال mesh محلی سراسری)",
+    "geo.join_hint": "\nبرای پیوستن به یک کانال اجرا کنید: :bitchat geo join <geohash> (مثلاً :bitchat geo join #%(geohash)s)"
   },
   "fi": {
     "tool.description": "Käynnistä/pysäytä/seuraa pybitchat BLE Mesh -solmua. Vertaisetsintätapahtumat näkyvät [INFO]-ilmoituksina päätteessä.",
@@ -816,7 +864,11 @@
       "tilaa",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat-chattila: LLM (mesh-välitys + LLM-syöttö aktiivinen)"
+    "cmd.chat_llm": "bitchat-chattila: LLM (mesh-välitys + LLM-syöttö aktiivinen)",
+    "geo.channels_header": "Alueellasi käytettävissä olevat Geohash-kanavat:",
+    "geo.channel_entry": "  #%(geohash)s (tarkkuus %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (yleinen paikallinen mesh-kanava)",
+    "geo.join_hint": "\nLiity kanavalle suorittamalla: :bitchat geo join <geohash> (esim. :bitchat geo join #%(geohash)s)"
   },
   "fr": {
     "tool.description": "Démarrez/arrêtez/surveillez le nœud pybitchat BLE Mesh. Les événements de découverte par les pairs sont affichés sous forme de notifications [INFO] dans le terminal.",
@@ -879,7 +931,11 @@
       "s’abonner",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "mode de chat bitchat : LLM (transfert mesh + injection LLM actifs)"
+    "cmd.chat_llm": "mode de chat bitchat : LLM (transfert mesh + injection LLM actifs)",
+    "geo.channels_header": "Canaux Geohash disponibles dans votre zone :",
+    "geo.channel_entry": "  #%(geohash)s (précision %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (canal mesh local global)",
+    "geo.join_hint": "\nPour rejoindre un canal, exécutez : :bitchat geo join <geohash> (ex. :bitchat geo join #%(geohash)s)"
   },
   "he": {
     "tool.description": "התחל/עצור/עקוב אחר צומת pybitchat BLE Mesh. אירועי גילוי עמיתים מוצגים כהודעות [INFO] בטרמינל.",
@@ -942,7 +998,11 @@
       "הרשמה",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "מצב צ׳אט bitchat: LLM (העברת mesh + הזרקת LLM פעילות)"
+    "cmd.chat_llm": "מצב צ׳אט bitchat: LLM (העברת mesh + הזרקת LLM פעילות)",
+    "geo.channels_header": "ערוצי Geohash זמינים באזור שלך:",
+    "geo.channel_entry": "  #%(geohash)s (דיוק %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (ערוץ mesh מקומי גלובלי)",
+    "geo.join_hint": "\nכדי להצטרף לערוץ, הפעל: :bitchat geo join <geohash> (למשל: :bitchat geo join #%(geohash)s)"
   },
   "hi": {
     "tool.description": "पाइबिटचैट BLE मेश नोड को प्रारंभ/रोकें/निगरानी करें। सहकर्मी खोज घटनाओं को टर्मिनल में [सूचना] सूचनाओं के रूप में दिखाया जाता है।",
@@ -1005,7 +1065,11 @@
       "सदस्यता",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat चैट मोड: LLM (mesh forwarding + LLM injection सक्रिय)"
+    "cmd.chat_llm": "bitchat चैट मोड: LLM (mesh forwarding + LLM injection सक्रिय)",
+    "geo.channels_header": "आपके क्षेत्र में उपलब्ध Geohash चैनल:",
+    "geo.channel_entry": "  #%(geohash)s (सटीकता %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (वैश्विक स्थानीय mesh चैनल)",
+    "geo.join_hint": "\nकिसी चैनल से जुड़ने के लिए चलाएँ: :bitchat geo join <geohash> (उदा. :bitchat geo join #%(geohash)s)"
   },
   "hu": {
     "tool.description": "A pybitchat BLE Mesh csomópont indítása/leállítása/figyelése. A társfelderítési események [INFO] értesítésként jelennek meg a terminálon.",
@@ -1068,7 +1132,11 @@
       "feliratkozás",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat csevegési mód: LLM (mesh-továbbítás + LLM-injektálás aktív)"
+    "cmd.chat_llm": "bitchat csevegési mód: LLM (mesh-továbbítás + LLM-injektálás aktív)",
+    "geo.channels_header": "Az Ön területén elérhető Geohash-csatornák:",
+    "geo.channel_entry": "  #%(geohash)s (pontosság %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (globális helyi mesh-csatorna)",
+    "geo.join_hint": "\nCsatornához csatlakozáshoz futtassa: :bitchat geo join <geohash> (pl. :bitchat geo join #%(geohash)s)"
   },
   "id": {
     "tool.description": "Mulai/hentikan/pantau node pybitchat BLE Mesh. Peristiwa penemuan rekan ditampilkan sebagai pemberitahuan [INFO] di terminal.",
@@ -1131,7 +1199,11 @@
       "berlangganan",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "mode chat bitchat: LLM (penerusan mesh + injeksi LLM aktif)"
+    "cmd.chat_llm": "mode chat bitchat: LLM (penerusan mesh + injeksi LLM aktif)",
+    "geo.channels_header": "Kanal Geohash yang tersedia di area Anda:",
+    "geo.channel_entry": "  #%(geohash)s (presisi %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (kanal mesh lokal global)",
+    "geo.join_hint": "\nUntuk bergabung ke kanal, jalankan: :bitchat geo join <geohash> (mis. :bitchat geo join #%(geohash)s)"
   },
   "it": {
     "tool.description": "Avvia/arresta/monitora il nodo mesh BLE pybitchat. Gli eventi di rilevamento peer vengono visualizzati come notifiche [INFO] nel terminale.",
@@ -1194,7 +1266,11 @@
       "iscriviti",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "modalità chat bitchat: LLM (inoltro mesh + iniezione LLM attivi)"
+    "cmd.chat_llm": "modalità chat bitchat: LLM (inoltro mesh + iniezione LLM attivi)",
+    "geo.channels_header": "Canali Geohash disponibili nella tua area:",
+    "geo.channel_entry": "  #%(geohash)s (precisione %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (canale mesh locale globale)",
+    "geo.join_hint": "\nPer unirti a un canale, esegui: :bitchat geo join <geohash> (es. :bitchat geo join #%(geohash)s)"
   },
   "ko": {
     "tool.description": "pybitchat BLE Mesh 노드를 시작/중지/모니터링합니다. 피어 검색 이벤트는 터미널에 [INFO] 알림으로 표시됩니다.",
@@ -1257,7 +1333,11 @@
       "구독",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat 채팅 모드: LLM (mesh 전달 + LLM 주입 활성)"
+    "cmd.chat_llm": "bitchat 채팅 모드: LLM (mesh 전달 + LLM 주입 활성)",
+    "geo.channels_header": "현재 지역에서 사용 가능한 Geohash 채널:",
+    "geo.channel_entry": "  #%(geohash)s (정밀도 %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (글로벌 로컬 mesh 채널)",
+    "geo.join_hint": "\n채널에 참여하려면 실행: :bitchat geo join <geohash> (예: :bitchat geo join #%(geohash)s)"
   },
   "mn": {
     "tool.description": "Pybitchat BLE Mesh зангилааг эхлүүлэх / зогсоох / хянах. Үе тэнгийн нээлтийн үйл явдлуудыг терминал дээр [INFO] мэдэгдэл хэлбэрээр харуулдаг.",
@@ -1320,7 +1400,11 @@
       "захиалах",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat чат горим: LLM (mesh дамжуулалт + LLM оруулга идэвхтэй)"
+    "cmd.chat_llm": "bitchat чат горим: LLM (mesh дамжуулалт + LLM оруулга идэвхтэй)",
+    "geo.channels_header": "Таны бүсэд ашиглах боломжтой Geohash сувгууд:",
+    "geo.channel_entry": "  #%(geohash)s (нарийвчлал %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (дэлхийн локал mesh суваг)",
+    "geo.join_hint": "\nСувагт нэгдэхийн тулд ажиллуулна уу: :bitchat geo join <geohash> (жишээ: :bitchat geo join #%(geohash)s)"
   },
   "mr": {
     "tool.description": "पायबिचॅट बीएलई मेश नोड सुरू/थांबवा/निरीक्षण करा. पीअर डिस्कवरी इव्हेंट टर्मिनलमध्ये [INFO] सूचना म्हणून दाखवले जातात.",
@@ -1383,7 +1467,11 @@
       "सदस्यता",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat चॅट मोड: LLM (mesh forwarding + LLM injection सक्रिय)"
+    "cmd.chat_llm": "bitchat चॅट मोड: LLM (mesh forwarding + LLM injection सक्रिय)",
+    "geo.channels_header": "तुमच्या भागात उपलब्ध Geohash चॅनेल:",
+    "geo.channel_entry": "  #%(geohash)s (अचूकता %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (जागतिक स्थानिक mesh चॅनेल)",
+    "geo.join_hint": "\nचॅनेलमध्ये सामील होण्यासाठी चालवा: :bitchat geo join <geohash> (उदा. :bitchat geo join #%(geohash)s)"
   },
   "nb": {
     "tool.description": "Start/stopp/overvåk pybitchat BLE Mesh-noden. Peer discovery-hendelser vises som [INFO]-varsler i terminalen.",
@@ -1446,7 +1534,11 @@
       "abonner",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat chat-modus: LLM (mesh-videresending + LLM-injeksjon aktiv)"
+    "cmd.chat_llm": "bitchat chat-modus: LLM (mesh-videresending + LLM-injeksjon aktiv)",
+    "geo.channels_header": "Tilgjengelige Geohash-kanaler i området ditt:",
+    "geo.channel_entry": "  #%(geohash)s (presisjon %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
+    "geo.join_hint": "\nFor å bli med i en kanal, kjør: :bitchat geo join <geohash> (f.eks. :bitchat geo join #%(geohash)s)"
   },
   "nl": {
     "tool.description": "Start/stop/bewaak het pybitchat BLE Mesh-knooppunt. Peer-ontdekkingsgebeurtenissen worden weergegeven als [INFO]-meldingen in de terminal.",
@@ -1509,7 +1601,11 @@
       "abonneren",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat-chatmodus: LLM (mesh-doorsturen + LLM-injectie actief)"
+    "cmd.chat_llm": "bitchat-chatmodus: LLM (mesh-doorsturen + LLM-injectie actief)",
+    "geo.channels_header": "Beschikbare Geohash-kanalen in jouw omgeving:",
+    "geo.channel_entry": "  #%(geohash)s (precisie %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (globaal lokaal mesh-kanaal)",
+    "geo.join_hint": "\nVoer dit uit om deel te nemen aan een kanaal: :bitchat geo join <geohash> (bijv. :bitchat geo join #%(geohash)s)"
   },
   "pl": {
     "tool.description": "Uruchom/zatrzymaj/monitoruj węzeł pybitchat BLE Mesh. Zdarzenia Peer Discovery są wyświetlane w terminalu jako powiadomienia [INFO].",
@@ -1572,7 +1668,11 @@
       "subskrybuj",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "tryb czatu bitchat: LLM (przekazywanie mesh + wstrzykiwanie LLM aktywne)"
+    "cmd.chat_llm": "tryb czatu bitchat: LLM (przekazywanie mesh + wstrzykiwanie LLM aktywne)",
+    "geo.channels_header": "Dostępne kanały Geohash w Twojej okolicy:",
+    "geo.channel_entry": "  #%(geohash)s (precyzja %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (globalny lokalny kanał mesh)",
+    "geo.join_hint": "\nAby dołączyć do kanału, uruchom: :bitchat geo join <geohash> (np. :bitchat geo join #%(geohash)s)"
   },
   "pt": {
     "tool.description": "Iniciar/parar/monitorar o nó pybitchat BLE Mesh. Os eventos de descoberta de pares são mostrados como notificações [INFO] no terminal.",
@@ -1635,7 +1735,11 @@
       "subscrever",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "modo de chat bitchat: LLM (encaminhamento mesh + injeção LLM ativos)"
+    "cmd.chat_llm": "modo de chat bitchat: LLM (encaminhamento mesh + injeção LLM ativos)",
+    "geo.channels_header": "Canais Geohash disponíveis na sua área:",
+    "geo.channel_entry": "  #%(geohash)s (precisão %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (canal mesh local global)",
+    "geo.join_hint": "\nPara entrar num canal, execute: :bitchat geo join <geohash> (ex.: :bitchat geo join #%(geohash)s)"
   },
   "pt_BR": {
     "tool.description": "Iniciar/parar/monitorar o nó pybitchat BLE Mesh. Os eventos de descoberta de pares são mostrados como notificações [INFO] no terminal.",
@@ -1698,7 +1802,11 @@
       "assinar",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "modo de chat bitchat: LLM (encaminhamento mesh + injeção LLM ativos)"
+    "cmd.chat_llm": "modo de chat bitchat: LLM (encaminhamento mesh + injeção LLM ativos)",
+    "geo.channels_header": "Canais Geohash disponíveis na sua área:",
+    "geo.channel_entry": "  #%(geohash)s (precisão %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (canal mesh local global)",
+    "geo.join_hint": "\nPara entrar em um canal, execute: :bitchat geo join <geohash> (ex.: :bitchat geo join #%(geohash)s)"
   },
   "ro": {
     "tool.description": "Porniți/opriți/monitorizați nodul pybitchat BLE Mesh. Evenimentele de descoperire peer sunt afișate ca notificări [INFO] în terminal.",
@@ -1761,7 +1869,11 @@
       "abonare",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "mod chat bitchat: LLM (redirecționare mesh + injectare LLM active)"
+    "cmd.chat_llm": "mod chat bitchat: LLM (redirecționare mesh + injectare LLM active)",
+    "geo.channels_header": "Canale Geohash disponibile în zona dvs.:",
+    "geo.channel_entry": "  #%(geohash)s (precizie %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (canal mesh local global)",
+    "geo.join_hint": "\nPentru a intra într-un canal, rulați: :bitchat geo join <geohash> (de ex. :bitchat geo join #%(geohash)s)"
   },
   "ru": {
     "tool.description": "Запуск/остановка/отслеживание узла pybitchat BLE Mesh. События обнаружения одноранговых узлов отображаются в терминале в виде уведомлений [INFO].",
@@ -1824,7 +1936,11 @@
       "подписаться",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "режим чата bitchat: LLM (mesh-пересылка + инъекция LLM активны)"
+    "cmd.chat_llm": "режим чата bitchat: LLM (mesh-пересылка + инъекция LLM активны)",
+    "geo.channels_header": "Доступные каналы Geohash в вашем районе:",
+    "geo.channel_entry": "  #%(geohash)s (точность %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (глобальный локальный mesh-канал)",
+    "geo.join_hint": "\nЧтобы присоединиться к каналу, выполните: :bitchat geo join <geohash> (например: :bitchat geo join #%(geohash)s)"
   },
   "sv": {
     "tool.description": "Starta/stoppa/övervaka pybitchat BLE Mesh-noden. Peer discovery-händelser visas som [INFO]-meddelanden i terminalen.",
@@ -1887,7 +2003,11 @@
       "prenumerera",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat chattläge: LLM (mesh-vidarebefordran + LLM-injektion aktiv)"
+    "cmd.chat_llm": "bitchat chattläge: LLM (mesh-vidarebefordran + LLM-injektion aktiv)",
+    "geo.channels_header": "Tillgängliga Geohash-kanaler i ditt område:",
+    "geo.channel_entry": "  #%(geohash)s (precision %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
+    "geo.join_hint": "\nFör att gå med i en kanal, kör: :bitchat geo join <geohash> (t.ex. :bitchat geo join #%(geohash)s)"
   },
   "sw": {
     "tool.description": "Anza/simamisha/fuatilia nodi ya pybitchat BLE Mesh. Matukio ya ugunduzi wa marafiki huonyeshwa kama arifa za [INFO] kwenye terminal.",
@@ -1950,7 +2070,11 @@
       "jisajili",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "hali ya gumzo ya bitchat: LLM (usambazaji mesh + uingizaji LLM unatumika)"
+    "cmd.chat_llm": "hali ya gumzo ya bitchat: LLM (usambazaji mesh + uingizaji LLM unatumika)",
+    "geo.channels_header": "Vituo vya Geohash vinavyopatikana katika eneo lako:",
+    "geo.channel_entry": "  #%(geohash)s (usahihi %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (kituo cha mesh cha eneo la kimataifa)",
+    "geo.join_hint": "\nIli kujiunga na kituo, endesha: :bitchat geo join <geohash> (mf. :bitchat geo join #%(geohash)s)"
   },
   "th": {
     "tool.description": "เริ่ม/หยุด/ตรวจสอบโหนด pybitchat BLE Mesh กิจกรรมการค้นพบเพื่อนจะแสดงเป็นการแจ้งเตือน [INFO] ในเทอร์มินัล",
@@ -2013,7 +2137,11 @@
       "สมัครรับ",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "โหมดแชท bitchat: LLM (การส่งต่อ mesh + การฉีด LLM ทำงานอยู่)"
+    "cmd.chat_llm": "โหมดแชท bitchat: LLM (การส่งต่อ mesh + การฉีด LLM ทำงานอยู่)",
+    "geo.channels_header": "ช่อง Geohash ที่ใช้ได้ในพื้นที่ของคุณ:",
+    "geo.channel_entry": "  #%(geohash)s (ความละเอียด %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (ช่อง mesh ท้องถิ่นแบบทั่วโลก)",
+    "geo.join_hint": "\nหากต้องการเข้าร่วมช่อง ให้รัน: :bitchat geo join <geohash> (เช่น :bitchat geo join #%(geohash)s)"
   },
   "tr": {
     "tool.description": "Pybitchat BLE Mesh düğümünü başlatın/durdurun/izleyin. Eş bulma olayları terminalde [BİLGİ] bildirimleri olarak gösterilir.",
@@ -2076,7 +2204,11 @@
       "abone ol",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat sohbet modu: LLM (mesh yönlendirme + LLM enjeksiyonu etkin)"
+    "cmd.chat_llm": "bitchat sohbet modu: LLM (mesh yönlendirme + LLM enjeksiyonu etkin)",
+    "geo.channels_header": "Bölgenizde kullanılabilen Geohash kanalları:",
+    "geo.channel_entry": "  #%(geohash)s (hassasiyet %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (genel yerel mesh kanalı)",
+    "geo.join_hint": "\nBir kanala katılmak için çalıştırın: :bitchat geo join <geohash> (örn. :bitchat geo join #%(geohash)s)"
   },
   "uk": {
     "tool.description": "Запуск/зупинка/моніторинг вузла pybitchat BLE Mesh. Події виявлення однорангових пристроїв відображаються як сповіщення [INFO] у терміналі.",
@@ -2139,7 +2271,11 @@
       "підписатися",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "режим чату bitchat: LLM (mesh-пересилання + ін’єкція LLM активні)"
+    "cmd.chat_llm": "режим чату bitchat: LLM (mesh-пересилання + ін’єкція LLM активні)",
+    "geo.channels_header": "Доступні канали Geohash у вашій місцевості:",
+    "geo.channel_entry": "  #%(geohash)s (точність %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (глобальний локальний mesh-канал)",
+    "geo.join_hint": "\nЩоб приєднатися до каналу, виконайте: :bitchat geo join <geohash> (наприклад: :bitchat geo join #%(geohash)s)"
   },
   "vi": {
     "tool.description": "Bắt đầu/dừng/giám sát nút BLE Mesh pybitchat. Các sự kiện khám phá ngang hàng được hiển thị dưới dạng thông báo [INFO] trong thiết bị đầu cuối.",
@@ -2202,7 +2338,11 @@
       "đăng ký",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "chế độ chat bitchat: LLM (chuyển tiếp mesh + chèn LLM đang hoạt động)"
+    "cmd.chat_llm": "chế độ chat bitchat: LLM (chuyển tiếp mesh + chèn LLM đang hoạt động)",
+    "geo.channels_header": "Các kênh Geohash khả dụng trong khu vực của bạn:",
+    "geo.channel_entry": "  #%(geohash)s (độ chính xác %(precision)d, %(accuracy)s)",
+    "geo.mesh_channel": "  #mesh     (kênh mesh cục bộ toàn cầu)",
+    "geo.join_hint": "\nĐể tham gia kênh, hãy chạy: :bitchat geo join <geohash> (ví dụ: :bitchat geo join #%(geohash)s)"
   },
   "zh_CN": {
     "tool.description": "启动/停止/监控 pybitchat BLE Mesh 节点。对等发现事件在终端中显示为 [INFO] 通知。",
@@ -2265,7 +2405,11 @@
       "订阅",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat 聊天模式：LLM（mesh 转发 + LLM 注入已启用）"
+    "cmd.chat_llm": "bitchat 聊天模式：LLM（mesh 转发 + LLM 注入已启用）",
+    "geo.channels_header": "您所在区域可用的 Geohash 频道：",
+    "geo.channel_entry": "  #%(geohash)s（精度 %(precision)d，%(accuracy)s）",
+    "geo.mesh_channel": "  #mesh     （全局本地 mesh 频道）",
+    "geo.join_hint": "\n要加入频道，请运行：:bitchat geo join <geohash>（例如：:bitchat geo join #%(geohash)s）"
   },
   "zh_TW": {
     "tool.description": "啟動/停止/監控 pybitchat BLE Mesh 節點。對等發現事件在終端機中顯示為 [INFO] 通知。",
@@ -2328,6 +2472,10 @@
       "訂閱",
       "pybitchat_subscribe"
     ],
-    "cmd.chat_llm": "bitchat 聊天模式：LLM（mesh 轉送 + LLM 注入已啟用）"
+    "cmd.chat_llm": "bitchat 聊天模式：LLM（mesh 轉送 + LLM 注入已啟用）",
+    "geo.channels_header": "您所在區域可用的 Geohash 頻道：",
+    "geo.channel_entry": "  #%(geohash)s（精度 %(precision)d，%(accuracy)s）",
+    "geo.mesh_channel": "  #mesh     （全域本地 mesh 頻道）",
+    "geo.join_hint": "\n若要加入頻道，請執行：:bitchat geo join <geohash>（例如：:bitchat geo join #%(geohash)s）"
   }
 }
