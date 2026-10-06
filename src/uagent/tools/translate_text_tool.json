@@ -43,7 +43,7 @@
   },
   "es": {
     "tool.description": "Traduce uno o más textos usando Google Translate.Admite más de 30 idiomas.Se unen y traducen varios textos como un solo bloque para preservar el contexto.Máximo 10000 caracteres por elemento.NO trunque el texto antes de enviarlo;la API maneja textos largos de forma nativa.Cuando protect_placeholders está habilitado (predeterminado), varios tipos de marcadores de posición (%(name)s, {name}, ${name}, etc.) están protegidos de la traducción si el tipo de archivo se detecta automáticamente en el contenido.",
-    "param.provider.description": "Proveedor de traducción: automático (use DeepL cuando esté configurado; de lo contrario, Google), google o deepl.",
+    "param.provider.description": "Proveedor de traducción: auto (use DeepL cuando esté configurado; de lo contrario, Google), google o deepl.",
     "param.target_lang.description": "Código de idioma de destino (por ejemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código del idioma fuente. Detectado automáticamente si se omite.",
     "x_search_terms": [
@@ -295,7 +295,7 @@
   },
   "pt_BR": {
     "tool.description": "Traduza um ou mais textos usando o Google Tradutor.Suporta mais de 30 idiomas.Vários textos são unidos e traduzidos como um único bloco para preservar o contexto.Máximo de 10.000 caracteres por elemento.NÃO trunque o texto antes de enviar;a API lida com texto longo nativamente.Quando protect_placeholders está ativado (padrão), vários tipos de espaço reservado (%(name)s, {name}, ${name}, etc.) são protegidos contra tradução se o tipo de arquivo for detectado automaticamente no conteúdo.",
-    "param.provider.description": "Provedor de tradução: automático (use DeepL quando configurado, caso contrário Google), google ou deepl.",
+    "param.provider.description": "Provedor de tradução: auto (use DeepL quando configurado, caso contrário Google), google ou deepl.",
     "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
     "x_search_terms": [
@@ -337,7 +337,7 @@
   },
   "pt": {
     "tool.description": "Traduza um ou mais textos usando o Google Tradutor.Suporta mais de 30 idiomas.Vários textos são unidos e traduzidos como um único bloco para preservar o contexto.Máximo de 10.000 caracteres por elemento.NÃO trunque o texto antes de enviar;a API lida com texto longo nativamente.Quando protect_placeholders está ativado (padrão), vários tipos de espaço reservado (%(name)s, {name}, ${name}, etc.) são protegidos contra tradução se o tipo de arquivo for detectado automaticamente no conteúdo.",
-    "param.provider.description": "Provedor de tradução: automático (use DeepL quando configurado, caso contrário Google), google ou deepl.",
+    "param.provider.description": "Provedor de tradução: auto (use DeepL quando configurado, caso contrário Google), google ou deepl.",
     "param.target_lang.description": "Código do idioma de destino (por exemplo, ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Código do idioma fonte. Detectado automaticamente se omitido.",
     "x_search_terms": [
@@ -757,7 +757,7 @@
   },
   "fi": {
     "tool.description": "Käännä yksi tai useampi teksti Google-kääntäjän avulla.Tukee yli 30 kieltä.Useat tekstit yhdistetään ja käännetään yhdeksi lohkoksi kontekstin säilyttämiseksi.Enintään 10 000 merkkiä elementtiä kohden.ÄLÄ katkaise tekstiä ennen lähettämistä;API käsittelee pitkää tekstiä natiivisti.Kun protect_placeholders on käytössä (oletus), useat paikkamerkkityypit (%(name)s, {name}, ${name} jne.) on suojattu käännökseltä, jos tiedostotyyppi tunnistetaan automaattisesti sisällöstä.",
-    "param.provider.description": "Käännöspalvelu: automaattinen (käytä DeepL:ää määritettynä, muuten Google), google tai deepl.",
+    "param.provider.description": "Käännöspalvelu: auto (käytä DeepL:ää määritettynä, muuten Google), google tai deepl.",
     "param.target_lang.description": "Kohdekielikoodi (esim. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Lähdekielen koodi. Havaitsee automaattisesti, jos se jätetään pois.",
     "x_search_terms": [
@@ -1303,7 +1303,7 @@
   },
   "hu": {
     "tool.description": "Fordítson le egy vagy több szöveget a Google Fordító segítségével.30+ nyelvet támogat.A kontextus megőrzése érdekében több szöveget egyesít és egyetlen blokkként fordít le.Maximum 10000 karakter elemenként.NE csonkolja a szöveget küldés előtt;az API natív módon kezeli a hosszú szövegeket.Ha a protect_placeholders engedélyezve van (alapértelmezett), a különböző helyőrző-típusok (%(name)s, {name}, ${name} stb.) védve vannak a fordítástól, ha a fájltípust automatikusan észleli a tartalom.",
-    "param.provider.description": "Fordításszolgáltató: automatikus (beállításkor használja a DeepL-t, egyébként Google), google vagy deepl.",
+    "param.provider.description": "Fordításszolgáltató: auto (beállításkor használja a DeepL-t, egyébként Google), google vagy deepl.",
     "param.target_lang.description": "Célnyelv kódja (pl. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Forrásnyelv kódja. Ha kihagyja, automatikusan észleli.",
     "x_search_terms": [
