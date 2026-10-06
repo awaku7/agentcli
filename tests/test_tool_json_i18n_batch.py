@@ -525,29 +525,37 @@ def test_placeholder_only_passthrough_key_is_scoped_to_skill_history() -> None:
     assert not batch._is_intentional_english_tool_key("other_tool", "skill.ok")
 
 
-def test_intentional_english_tool_key_is_scoped() -> None:
-    assert batch._is_intentional_english_tool_key("create_tool", "cmd.help")
-    assert batch._is_intentional_english_tool_key("human_ask", "ui.footer")
+def test_intentional_english_tool_key_is_limited_to_invariant_text() -> None:
     assert batch._is_intentional_english_tool_key(
         "ucp_checkout", "param.mode.description"
     )
     assert batch._is_intentional_english_tool_key("diff_files", "label.text_input")
-    assert batch._is_intentional_english_tool_key("mdformat", "label.timeout")
-    assert batch._is_intentional_english_tool_key("search_files", "out.file")
-    assert not batch._is_intentional_english_tool_key(
-        "search_files", "tool.description"
+    assert batch._is_intentional_english_tool_key(
+        "pybitchat_shared", "bitchat.debug_hs_skip"
     )
 
+    assert not batch._is_intentional_english_tool_key("create_tool", "cmd.help")
+    assert not batch._is_intentional_english_tool_key("human_ask", "ui.footer")
+    assert not batch._is_intentional_english_tool_key("mdformat", "label.timeout")
+    assert not batch._is_intentional_english_tool_key("search_files", "out.file")
+    assert not batch._is_intentional_english_tool_key(
+        "discord_channel", "param.message.description"
+    )
+    assert not batch._is_intentional_english_tool_key(
+        "bluesky", "param.action.description"
+    )
+    assert not batch._is_intentional_english_tool_key("sub_agent", "status.error")
 
-def test_exception_label_is_scoped_to_reviewed_tools() -> None:
-    assert batch._is_intentional_english_tool_key("a2a_poll", "err.exception")
-    assert batch._is_intentional_english_tool_key("bash_exec", "err.exception")
-    assert batch._is_intentional_english_tool_key("teams_webhook", "err.exception")
+
+def test_exception_labels_remain_review_candidates() -> None:
+    assert not batch._is_intentional_english_tool_key("a2a_poll", "err.exception")
+    assert not batch._is_intentional_english_tool_key("bash_exec", "err.exception")
+    assert not batch._is_intentional_english_tool_key(
+        "teams_webhook", "err.exception"
+    )
     assert not batch._is_intentional_english_tool_key(
         "unreviewed_tool", "err.exception"
     )
-    assert not batch._is_intentional_english_tool_key("other_tool", "cmd.help")
-    assert not batch._is_intentional_english_tool_key("other_tool", "ui.footer")
 
 
 def test_collect_units_skips_only_tool_scoped_intentional_english(
@@ -583,6 +591,7 @@ def test_collect_units_skips_only_tool_scoped_intentional_english(
     assert [(unit.tool, unit.key) for unit in units] == [
         ("other", "bitchat.debug_hs_skip")
     ]
+
 
 def test_discord_catalog_preserves_action_literals_and_safety_note() -> None:
     catalog_path = (
