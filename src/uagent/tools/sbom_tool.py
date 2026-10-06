@@ -37,20 +37,20 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Inspect a project directory and generate both CycloneDX and SPDX SBOM JSON files.",
         ),
-        "x_search_terms": [
-            "SBOM",
-            "CycloneDX",
-            "SPDX",
-            "software bill of materials",
-            "依存関係一覧",
-            "脆弱性管理",
-        ],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "SBOM",
+                "CycloneDX",
+                "SPDX",
+                "software bill of materials",
+            ],
+        ),
         "x_search_terms_en": [
             "SBOM",
             "CycloneDX",
             "SPDX",
-            "dependency inventory",
-            "software composition analysis",
+            "software bill of materials",
         ],
         "parameters": {
             "type": "object",
