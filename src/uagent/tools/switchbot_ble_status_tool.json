@@ -341,7 +341,7 @@
     "tool.description": "近くの SwitchBot BLE デバイスのステータスを読み取り、JSON またはテキストの概要を返します。",
     "err.macos_permission": "BLE 操作中のエラー: {err_msg}\n\n【macOS権限ガイド】\nBluetooth アクセスが macOS のセキュリティ制限によって拒否された可能性があります。\n「システム設定 > プライバシーとセキュリティ > Bluetooth」を開き、端末、VS Code、または Python プロセスが Bluetooth へのアクセスを許可されていることを確認してください。",
     "x_search_terms": [
-      "switchbot BLE ステータス",
+      "スイッチボットのステータス",
       "switchbot_ble_status",
       "switchbot",
       "近くの"
@@ -360,7 +360,7 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.unknown_error": "알 수 없는 오류",
     "x_search_terms": [
-      "switchbot BLE 상태",
+      "스위치봇 블 상태",
       "switchbot_ble_status",
       "switchbot",
       "인근"
