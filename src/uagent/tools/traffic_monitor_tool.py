@@ -103,6 +103,21 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Extract metadata-only traffic events from a pcap using Zeek.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "Zeek",
+                "traffic monitor",
+                "conn.log",
+                "network events",
+            ],
+        ),
+        "x_search_terms_en": [
+            "Zeek",
+            "traffic monitor",
+            "conn.log",
+            "network events",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
