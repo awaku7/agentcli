@@ -67,8 +67,15 @@ BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 # ``default=`` string rather than from the msgid key stored in the PO catalog.
 # Keep this explicit so ordinary msgid placeholder mismatches remain strict.
 KEYED_DEFAULT_PLACEHOLDER_KEYS = frozenset({"auto.review_judgment_system_prompt"})
-ADVISORY_FINDING_KINDS = frozenset(
-    {"coverage_missing", "key_extra", "structure_extra", "translation_missing"}
+ADVISORY_FINDING_KINDS = frozenset({"coverage_missing", "key_extra"})
+TOOL_FALLBACK_FINDING_KINDS = frozenset(
+    {
+        "structure_extra",
+        "translation_missing",
+        "structure_missing",
+        "value_type_mismatch",
+        "placeholder_mismatch",
+    }
 )
 # Search terms are locale-specific keyword sets. Their item count does not need
 # to match English because runtime English fallback lives in x_search_terms_en.
@@ -597,13 +604,22 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
     return findings
 
 
+def _is_advisory_finding(item: Finding) -> bool:
+    if item.kind in ADVISORY_FINDING_KINDS:
+        return True
+    return (
+        item.component == "tool_json"
+        and item.kind in TOOL_FALLBACK_FINDING_KINDS
+    )
+
+
 def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
     host_findings = audit_host_catalogs(locales_root)
     tool_findings = audit_tool_catalogs(tools_root)
     findings = host_findings + tool_findings
     coverage_findings = [item for item in findings if item.kind == "coverage_missing"]
     structural_findings = [
-        item for item in findings if item.kind not in ADVISORY_FINDING_KINDS
+        item for item in findings if not _is_advisory_finding(item)
     ]
     strict_findings_by_kind: dict[str, int] = {}
     for item in structural_findings:
