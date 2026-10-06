@@ -182,6 +182,5 @@ def test_teams_japanese_webhook_alias_stays_localized() -> None:
     terms = payload["ja"]["x_search_terms"]
 
     assert any(
-        "teams" in str(term).lower() and "ウェブフック" in str(term)
-        for term in terms
+        "teams" in str(term).lower() and "ウェブフック" in str(term) for term in terms
     )
