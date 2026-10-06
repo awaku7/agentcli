@@ -167,4 +167,3 @@ def test_repaired_tool_catalogs_have_no_translation_placeholder_artifacts():
             invalid.append(filename)
 
     assert not invalid, "Translation placeholder artifacts: " + ", ".join(invalid)
-
