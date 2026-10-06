@@ -9,7 +9,7 @@
     "err.file_too_large": "soubor je příliš velký: {size} > {max_bytes} bajtů"
   },
   "da": {
-    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+    "err.file_too_large": "filen er for stor: {size} > {max_bytes} byte"
   },
   "de": {
     "err.file_too_large": "Datei ist zu groß: {size} > {max_bytes} Bytes"
@@ -27,7 +27,7 @@
     "err.file_too_large": "tiedosto on liian suuri: {size} > {max_bytes} tavua"
   },
   "fil": {
-    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+    "err.file_too_large": "masyadong malaki ang file: {size} > {max_bytes} bytes"
   },
   "fr": {
     "err.file_too_large": "le fichier est trop volumineux : {size} > {max_bytes} octets"
@@ -60,7 +60,7 @@
     "err.file_too_large": "फाइल खूप मोठी आहे: {size} > {max_bytes} बाइट्स"
   },
   "ms": {
-    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+    "err.file_too_large": "fail terlalu besar: {size} > {max_bytes} bait"
   },
   "nb": {
     "err.file_too_large": "filen er for stor: {size} > {max_bytes} byte"
@@ -69,7 +69,7 @@
     "err.file_too_large": "bestand is te groot: {size} > {max_bytes} bytes"
   },
   "nn": {
-    "err.file_too_large": "file is too large: {size} > {max_bytes} bytes"
+    "err.file_too_large": "fila er for stor: {size} > {max_bytes} byte"
   },
   "pl": {
     "err.file_too_large": "plik jest zbyt duży: {size} > {max_bytes} bajtów"
