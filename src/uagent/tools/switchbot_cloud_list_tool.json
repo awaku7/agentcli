@@ -7,7 +7,7 @@
     "msg.unknown_error": "خطأ غير معروف",
     "tool.description": "قم بإدراج أجهزة SwitchBot Cloud للحساب الذي تم تكوينه.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "قائمة السحابة الخاصة بـ Switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -24,7 +24,7 @@
     "msg.unknown_error": "অজানা ত্রুটি",
     "tool.description": "কনফিগার করা অ্যাকাউন্টের জন্য SwitchBot ক্লাউড ডিভাইসের তালিকা করুন।",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot ক্লাউড তালিকা",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -41,7 +41,7 @@
     "msg.unknown_error": "neznámá chyba",
     "tool.description": "Seznam zařízení SwitchBot Cloud pro nakonfigurovaný účet.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "seznam cloudových zařízení switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -58,7 +58,7 @@
     "msg.unknown_error": "unbekannter Fehler",
     "tool.description": "Listen Sie SwitchBot Cloud-Geräte für das konfigurierte Konto auf.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "Switchbot-Cloud-Liste",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -75,7 +75,7 @@
     "msg.unknown_error": "error desconocido",
     "tool.description": "Enumere los dispositivos SwitchBot Cloud para la cuenta configurada.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "lista de nubes de switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "nube",
@@ -92,7 +92,7 @@
     "msg.unknown_error": "خطای ناشناخته",
     "tool.description": "دستگاه های SwitchBot Cloud را برای حساب پیکربندی شده فهرست کنید.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "فهرست ابر switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -109,7 +109,7 @@
     "msg.unknown_error": "tuntematon virhe",
     "tool.description": "Luettele määritetyn tilin SwitchBot Cloud -laitteet.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot-pilviluettelo",
       "switchbot_cloud_list",
       "switchbot",
       "pilvi",
@@ -126,7 +126,7 @@
     "msg.unknown_error": "erreur inconnue",
     "tool.description": "Répertoriez les appareils SwitchBot Cloud pour le compte configuré.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "liste des nuages switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -143,7 +143,7 @@
     "msg.unknown_error": "अज्ञात त्रुटि",
     "tool.description": "कॉन्फ़िगर किए गए खाते के लिए स्विचबॉट क्लाउड डिवाइस की सूची बनाएं।",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot क्लाउड सूची",
       "switchbot_cloud_list",
       "switchbot",
       "क्लाउड",
@@ -160,7 +160,7 @@
     "msg.unknown_error": "kesalahan tidak dikenal",
     "tool.description": "Cantumkan perangkat SwitchBot Cloud untuk akun yang dikonfigurasi.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "daftar cloud switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -177,7 +177,7 @@
     "msg.unknown_error": "errore sconosciuto",
     "tool.description": "Elenca i dispositivi SwitchBot Cloud per l'account configurato.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "elenco cloud switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -194,7 +194,7 @@
     "msg.unknown_error": "不明なエラー",
     "tool.description": "構成されたアカウントの SwitchBot Cloud デバイスを一覧表示します。",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot クラウド リスト",
       "switchbot_cloud_list",
       "switchbot",
       "クラウド",
@@ -211,7 +211,7 @@
     "msg.unknown_error": "알 수 없는 오류",
     "tool.description": "구성된 계정에 대한 SwitchBot Cloud 장치를 나열합니다.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot 클라우드 목록",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -228,7 +228,7 @@
     "msg.unknown_error": "үл мэдэгдэх алдаа",
     "tool.description": "Тохируулсан бүртгэлд зориулсан SwitchBot Cloud төхөөрөмжүүдийг жагсаана уу.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot үүл жагсаалт",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -245,7 +245,7 @@
     "msg.unknown_error": "अज्ञात त्रुटी",
     "tool.description": "कॉन्फिगर केलेल्या खात्यासाठी SwitchBot क्लाउड डिव्हाइसेसची यादी करा.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot क्लाउड सूची",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -262,7 +262,7 @@
     "msg.unknown_error": "άγνωστο σφάλμα",
     "tool.description": "Καταχωρίστε τις συσκευές SwitchBot Cloud για τον διαμορφωμένο λογαριασμό.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "λίστα σύννεφων switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -279,7 +279,7 @@
     "msg.unknown_error": "שגיאה לא ידועה",
     "tool.description": "רשום מכשירי SwitchBot Cloud עבור החשבון המוגדר.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot ענן רשימת",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -296,7 +296,7 @@
     "msg.unknown_error": "ismeretlen hiba",
     "tool.description": "Sorolja fel a SwitchBot Cloud eszközöket a konfigurált fiókhoz.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot felhő lista",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -313,7 +313,7 @@
     "msg.unknown_error": "eroare necunoscută",
     "tool.description": "Listați dispozitivele SwitchBot Cloud pentru contul configurat.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "listă cloud switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -330,7 +330,7 @@
     "msg.unknown_error": "ukjent feil",
     "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot skyliste",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -347,7 +347,7 @@
     "msg.unknown_error": "onbekende fout",
     "tool.description": "Maak een lijst van SwitchBot Cloud-apparaten voor het geconfigureerde account.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot cloudlijst",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -364,7 +364,7 @@
     "msg.unknown_error": "nieznany błąd",
     "tool.description": "Wyświetl listę urządzeń SwitchBot Cloud dla skonfigurowanego konta.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "lista chmur switchbota",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -381,7 +381,7 @@
     "msg.unknown_error": "erro desconhecido",
     "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "lista de nuvem switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -398,7 +398,7 @@
     "msg.unknown_error": "erro desconhecido",
     "tool.description": "Listar dispositivos SwitchBot Cloud para a conta configurada.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "lista de nuvem switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -415,7 +415,7 @@
     "msg.unknown_error": "неизвестная ошибка",
     "tool.description": "Список устройств SwitchBot Cloud для настроенной учетной записи.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "список облаков Switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -432,7 +432,7 @@
     "msg.unknown_error": "okänt fel",
     "tool.description": "Lista SwitchBot Cloud-enheter för det konfigurerade kontot.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot molnlista",
       "switchbot_cloud_list",
       "switchbot",
       "moln",
@@ -449,7 +449,7 @@
     "msg.unknown_error": "hitilafu isiyojulikana",
     "tool.description": "Orodhesha vifaa vya Wingu vya SwitchBot kwa akaunti iliyosanidiwa.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "orodha ya wingu ya switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -466,7 +466,7 @@
     "msg.unknown_error": "不明なエラー",
     "tool.description": "แสดงรายการอุปกรณ์ SwitchBot Cloud สำหรับบัญชีที่กำหนดค่า",
     "x_search_terms": [
-      "switchbot cloud list",
+      "รายการคลาวด์ switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -483,7 +483,7 @@
     "msg.unknown_error": "bilinmeyen hata",
     "tool.description": "Yapılandırılmış hesap için SwitchBot Cloud cihazlarını listeleyin.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot bulut listesi",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -500,7 +500,7 @@
     "msg.unknown_error": "невідома помилка",
     "tool.description": "Список пристроїв SwitchBot Cloud для налаштованого облікового запису.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "хмарний список switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -517,7 +517,7 @@
     "msg.unknown_error": "lỗi không xác định",
     "tool.description": "Liệt kê các thiết bị SwitchBot Cloud cho tài khoản được định cấu hình.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "danh sách đám mây switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -534,7 +534,7 @@
     "msg.unknown_error": "未知错误",
     "tool.description": "列出已配置帐户的 SwitchBot Cloud 设备。",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot 云列表",
       "switchbot_cloud_list",
       "switchbot",
       "云",
@@ -551,7 +551,7 @@
     "msg.unknown_error": "未知錯誤",
     "tool.description": "列出已設定帳戶的 SwitchBot Cloud 設備。",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot 雲端清單",
       "switchbot_cloud_list",
       "switchbot",
       "雲",
@@ -585,7 +585,7 @@
     "msg.unknown_error": "ralat yang tidak diketahui",
     "tool.description": "Senaraikan peranti SwitchBot Cloud untuk akaun yang dikonfigurasikan.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "senarai awan switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -602,7 +602,7 @@
     "msg.unknown_error": "ukendt fejl",
     "tool.description": "Liste SwitchBot Cloud-enheder for den konfigurerede konto.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot cloud liste",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -619,7 +619,7 @@
     "msg.unknown_error": "ukjend feil",
     "tool.description": "List SwitchBot Cloud-enheter for den konfigurerte kontoen.",
     "x_search_terms": [
-      "switchbot cloud list",
+      "switchbot sky liste",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
