@@ -169,7 +169,10 @@ def run_tool(args: dict[str, Any]) -> str:
                 "ok": False,
                 "error": {
                     "code": "invalid_argument",
-                    "message": _("err.business_url_required", default="business_url is required."),
+                    "message": _(
+                        "err.business_url_required",
+                        default="business_url is required.",
+                    ),
                 },
             },
             ensure_ascii=False,
@@ -389,7 +392,10 @@ def _poll_checkout(
                         "ok": False,
                         "error": {
                             "code": "checkout_canceled",
-                            "message": _("err.checkout_canceled", default="Checkout session was canceled."),
+                            "message": _(
+                                "err.checkout_canceled",
+                                default="Checkout session was canceled.",
+                            ),
                         },
                         "checkout_id": checkout_id,
                         "attempts": attempts,
@@ -441,7 +447,10 @@ def _build_escalation_response(checkout_id: str, exc: UCPBuyerInputError) -> str
     result: dict[str, Any] = {
         "ok": True,
         "requires_escalation": True,
-        "message": _("msg.payment_action_required", default="Payment requires user action in browser."),
+        "message": _(
+            "msg.payment_action_required",
+            default="Payment requires user action in browser.",
+        ),
         "checkout_id": checkout_id,
         "user_action_required": True,
         "user_action_message": _(
