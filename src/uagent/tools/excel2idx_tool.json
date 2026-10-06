@@ -87,7 +87,7 @@
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：未找到工作表 {section_num}。有效範圍：1..{last}。",
     "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
-    "err.openpyxl_missing": "錯誤：尚未安裝 openpyxl 或無法匯入。"
+    "err.openpyxl_missing": "錯誤：未安裝 openpyxl 或無法匯入。"
   },
   "ko": {
     "tool.description": "Excel 통합 문서(.xlsx/.xlsm)를 워크시트 요약 및 테이블 구조로 구문 분석하여 번호가 매겨진 인덱스 또는 특정 워크시트 섹션을 반환합니다. 큰 Excel 파일을 읽을 때 이것을 사용하십시오. mode='index'로 호출하여 행/열 개수와 헤더 미리 보기가 있는 워크시트 목록을 가져온 다음 mode='section' 및 section=N으로 호출하여 해당 워크시트에서 셀 데이터를 검색합니다.",
@@ -297,7 +297,7 @@
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Planilha {section_num} não encontrada. Intervalo válido: 1..{last}.",
     "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
-    "err.openpyxl_missing": "Erro: o openpyxl não está instalado ou não foi possível importá-lo."
+    "err.openpyxl_missing": "Erro: o openpyxl não está instalado ou não pôde ser importado."
   },
   "ru": {
     "tool.description": "Разберите книгу Excel (.xlsx/.xlsm) на сводки листов и структуры таблиц, возвращая нумерованный индекс или определенный раздел листа. Используйте это при чтении больших файлов Excel: вызовите с mode='index', чтобы получить список рабочих листов с количеством строк/столбцов и предварительным просмотром заголовков, затем вызовите с mode='section' иsection=N, чтобы получить данные ячейки из этого листа.",
@@ -327,7 +327,7 @@
     "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
     "err.section_not_found": "Ошибка: лист {section_num} не найден. Допустимый диапазон: 1..{last}.",
     "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
-    "err.openpyxl_missing": "Ошибка: openpyxl не установлен или не удалось импортировать."
+    "err.openpyxl_missing": "Ошибка: openpyxl не установлен или не удалось его импортировать."
   },
   "id": {
     "tool.description": "Parsing buku kerja Excel (.xlsx/.xlsm) menjadi ringkasan lembar kerja dan struktur tabel, sehingga menghasilkan indeks bernomor atau bagian lembar kerja tertentu. Gunakan ini saat membaca file Excel berukuran besar: panggil dengan mode='index' untuk mendapatkan daftar lembar kerja dengan jumlah baris/kolom dan pratinjau header, lalu panggil dengan mode='section' dan section=N untuk mengambil data sel dari lembar kerja itu.",
@@ -807,7 +807,7 @@
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: برگه {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
-    "err.openpyxl_missing": "خطا: openpyxl نصب نشده یا امکان import آن وجود ندارد."
+    "err.openpyxl_missing": "خطا: openpyxl نصب نشده است یا امکان import آن وجود ندارد."
   },
   "mn": {
     "tool.description": "Excel ажлын номыг (.xlsx/.xlsm) ажлын хуудасны хураангуй болон хүснэгтийн бүтцэд задлан, дугаарласан индекс эсвэл ажлын хуудасны тодорхой хэсгийг буцаана уу. Томоохон Excel файлуудыг уншихдаа үүнийг ашиглана уу: мөр/баганын тоо, толгой хэсгийг урьдчилан харах бүхий ажлын хуудасны жагсаалтыг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон section=N гэж залгаж тухайн ажлын хуудаснаас нүдний өгөгдлийг сэргээнэ үү.",
@@ -837,7 +837,7 @@
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хуудас олдсонгүй. Хүчинтэй муж: 1..{last}.",
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
-    "err.openpyxl_missing": "Алдаа: openpyxl суулгагдаагүй эсвэл импортлож чадсангүй."
+    "err.openpyxl_missing": "Алдаа: openpyxl суулгагдаагүй эсвэл import хийж чадсангүй."
   },
   "mr": {
     "tool.description": "एक्सेल वर्कबुक (.xlsx/.xlsm) वर्कशीट सारांश आणि टेबल स्ट्रक्चर्समध्ये पार्स करा, क्रमांकित अनुक्रमणिका किंवा विशिष्ट वर्कशीट विभाग परत करा. मोठ्या एक्सेल फाइल्स वाचताना याचा वापर करा: पंक्ती/स्तंभ संख्या आणि शीर्षलेख पूर्वावलोकनासह कार्यपत्रकांची सूची मिळविण्यासाठी mode='index' सह कॉल करा, नंतर त्या वर्कशीटमधून सेल डेटा पुनर्प्राप्त करण्यासाठी mode='section' आणि section=N सह कॉल करा.",

@@ -493,7 +493,7 @@
       "đàm thoại",
       "jsonl"
     ],
-    "err.log_path_required": "Lỗi: bắt buộc phải có log_path."
+    "err.log_path_required": "Lỗi: cần có log_path."
   },
   "zh_CN": {
     "tool.description": "使用 Playwright 将对话日志文件 (JSONL) 转换为 PDF。",

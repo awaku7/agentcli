@@ -388,7 +388,7 @@
     "err.not_a_dir": "Feil: ikke en katalog: {path}",
     "msg.empty_dir": "(tom katalog)",
     "msg.paginate": "Side {page} av {total_pages} (viser {count} av {total} oppføringer)",
-    "msg.path": "Sti: {path}"
+    "msg.path": "Bane: {path}"
   },
   "nl": {
     "tool.description": "Toon items in een directory met paginering, vergelijkbaar met ls.",
@@ -664,7 +664,7 @@
     "err.not_a_dir": "त्रुटी: निर्देशिका नाही: {path}",
     "msg.empty_dir": "(रिक्त निर्देशिका)",
     "msg.paginate": "पृष्ठ {total_pages} पैकी {page} ({total} पैकी {count} दर्शवित आहे)",
-    "msg.path": "पथ: {path}"
+    "msg.path": "मार्ग: {path}"
   },
   "el": {
     "tool.description": "Καταχωρήσεις λίστας σε έναν κατάλογο με σελιδοποίηση, παρόμοια με το ls.",

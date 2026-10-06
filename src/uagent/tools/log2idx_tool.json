@@ -357,7 +357,7 @@
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला. वैध सीमा: 1...{last}.",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
     "param.block_lines.description": "प्रति लॉग ब्लॉक लाइनों की संख्या (डिफ़ॉल्ट 200)।",
-    "msg.no_blocks": "(कोई लॉग पंक्ति नहीं मिली)"
+    "msg.no_blocks": "(कोई लॉग पंक्तियाँ नहीं मिलीं)"
   },
   "ar": {
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ log2idx.",
@@ -525,7 +525,7 @@
     "err.section_not_found": "Chyba: Sekce {section_num} nebyla nalezena. Platný rozsah: 1..{last}.",
     "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
     "param.block_lines.description": "Počet řádků na blok protokolu (výchozí 200).",
-    "msg.no_blocks": "(nebyly nalezeny žádné řádky logu)"
+    "msg.no_blocks": "(nebyly nalezeny žádné řádky protokolu)"
   },
   "uk": {
     "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для log2idx.",
@@ -645,7 +645,7 @@
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
     "param.block_lines.description": "تعداد خطوط در هر بلوک گزارش (پیش‌فرض 200).",
-    "msg.no_blocks": "(هیچ خط لاگی پیدا نشد)"
+    "msg.no_blocks": "(هیچ خط لاگی یافت نشد)"
   },
   "mn": {
     "tool.description": "Файлыг хэсэг болгон задлан, log2idx-д дугаарласан индекс эсвэл тодорхой хэсгийг буцаана уу.",
@@ -669,7 +669,7 @@
     "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{last}.",
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
     "param.block_lines.description": "Лог блок бүрт мөрийн тоо (өгөгдмөл 200).",
-    "msg.no_blocks": "(лог мөр олдсонгүй)"
+    "msg.no_blocks": "(логийн мөр олдсонгүй)"
   },
   "mr": {
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि log2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
@@ -813,7 +813,7 @@
     "err.section_not_found": "Error: Seksyon {section_num} ay hindi nahanap. Wastong saklaw: 1..{last}.",
     "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
     "param.block_lines.description": "Bilang ng mga linya sa bawat bloke ng log (default 200).",
-    "msg.no_blocks": "(walang nahanap na log line)"
+    "msg.no_blocks": "(walang nakitang log lines)"
   },
   "ms": {
     "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk log2idx.",

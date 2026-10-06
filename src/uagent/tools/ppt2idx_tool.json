@@ -84,7 +84,7 @@
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：未找到投影片 {section_num}。有效範圍：1..{last}。",
     "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
-    "err.optional_dependency_missing": "錯誤：無法安裝或匯入選用相依套件。"
+    "err.optional_dependency_missing": "錯誤：無法安裝或匯入選用相依項。"
   },
   "ko": {
     "tool.description": "PowerPoint 프레젠테이션(.pptx)을 슬라이드 제목과 텍스트 요약으로 구문 분석하여 번호가 매겨진 색인이나 특정 슬라이드 섹션을 반환합니다. 큰 PowerPoint 파일을 읽을 때 이 방법을 사용하세요. 제목과 미리보기 텍스트가 있는 슬라이드 목록을 가져오려면 mode='index'로 호출하고, 해당 슬라이드의 전체 텍스트 내용을 검색하려면 mode='section' 및 section=N으로 호출하세요.",
@@ -171,7 +171,7 @@
     "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Folie {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
     "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
-    "err.optional_dependency_missing": "Fehler: Die optionale Abhängigkeit konnte nicht installiert oder importiert werden."
+    "err.optional_dependency_missing": "Fehler: Optionale Abhängigkeit konnte nicht installiert oder importiert werden."
   },
   "es": {
     "tool.description": "Analice una presentación de PowerPoint (.pptx) en títulos de diapositivas y resúmenes de texto, obteniendo un índice numerado o una sección de diapositiva específica. Use esto cuando lea archivos grandes de PowerPoint: llame con mode='index' para obtener la lista de diapositivas con títulos y texto de vista previa, luego llame con mode='section' y sección=N para recuperar el contenido de texto completo de esa diapositiva.",
@@ -229,7 +229,7 @@
     "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
     "err.section_not_found": "Errore: diapositiva {section_num} non trovata. Intervallo valido: 1..{last}.",
     "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
-    "err.optional_dependency_missing": "Errore: non è stato possibile installare o importare la dipendenza opzionale."
+    "err.optional_dependency_missing": "Errore: impossibile installare o importare la dipendenza facoltativa."
   },
   "pt_BR": {
     "tool.description": "Analise uma apresentação do PowerPoint (.pptx) em títulos de slides e resumos de texto, retornando um índice numerado ou uma seção de slide específica. Use isto ao ler arquivos grandes do PowerPoint: chame com mode='index' para obter a lista de slides com títulos e texto de visualização e, em seguida, chame com mode='section' e section=N para recuperar o conteúdo de texto completo desse slide.",
@@ -374,7 +374,7 @@
     "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Không tìm thấy trang trình bày {section_num}. Phạm vi hợp lệ: 1..{last}.",
     "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
-    "err.optional_dependency_missing": "Lỗi: không thể cài đặt hoặc nhập phụ thuộc tùy chọn."
+    "err.optional_dependency_missing": "Lỗi: không thể cài đặt hoặc nhập dependency tùy chọn."
   },
   "pl": {
     "tool.description": "Przeanalizuj prezentację programu PowerPoint (.pptx) w tytuły slajdów i podsumowania tekstu, zwracając numerowany indeks lub określoną sekcję slajdu. Użyj tej opcji podczas czytania dużych plików programu PowerPoint: wywołaj z mode='index', aby uzyskać listę slajdów z tytułami i podglądem tekstu, następnie wywołaj z mode='section' isection=N, aby pobrać pełną zawartość tekstową tego slajdu.",
@@ -403,7 +403,7 @@
     "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: nie znaleziono slajdu {section_num}. Prawidłowy zakres: 1..{last}.",
     "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
-    "err.optional_dependency_missing": "Błąd: nie udało się zainstalować lub zaimportować opcjonalnej zależności."
+    "err.optional_dependency_missing": "Błąd: opcjonalnej zależności nie udało się zainstalować ani zaimportować."
   },
   "hi": {
     "tool.description": "पावरपॉइंट प्रेजेंटेशन (.pptx) को स्लाइड शीर्षकों और टेक्स्ट सारांशों में पार्स करें, एक क्रमांकित इंडेक्स या एक विशिष्ट स्लाइड अनुभाग लौटाएं। बड़ी पावरपॉइंट फ़ाइलों को पढ़ते समय इसका उपयोग करें: शीर्षक और पूर्वावलोकन पाठ के साथ स्लाइड की सूची प्राप्त करने के लिए mode='index' के साथ कॉल करें, फिर उस स्लाइड की पूर्ण पाठ सामग्री को पुनः प्राप्त करने के लिए mode='section' और section=N के साथ कॉल करें।",
@@ -432,7 +432,7 @@
     "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
     "err.section_not_found": "त्रुटि: स्लाइड {section_num} नहीं मिली. वैध सीमा: 1...{last}.",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
-    "err.optional_dependency_missing": "त्रुटि: वैकल्पिक dependency इंस्टॉल या इम्पोर्ट नहीं की जा सकी।"
+    "err.optional_dependency_missing": "त्रुटि: वैकल्पिक निर्भरता इंस्टॉल या इम्पोर्ट नहीं की जा सकी।"
   },
   "ar": {
     "tool.description": "قم بتحليل عرض PowerPoint التقديمي (.pptx) إلى عناوين الشرائح وملخصات النص، مما يؤدي إلى إرجاع فهرس مرقّم أو قسم شريحة محدد. استخدم هذا عند قراءة ملفات PowerPoint كبيرة الحجم: اتصل بالوضع='الفهرس' للحصول على قائمة الشرائح بالعناوين ومعاينة النص، ثم اتصل بالوضع='section' والقسم=N لاسترداد محتوى النص الكامل لتلك الشريحة.",
@@ -548,7 +548,7 @@
     "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
     "err.section_not_found": "Feil: Lysbilde {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
-    "err.optional_dependency_missing": "Feil: den valgfrie avhengigheten kunne ikke installeres eller importeres."
+    "err.optional_dependency_missing": "Feil: valgfri avhengighet kunne ikke installeres eller importeres."
   },
   "nl": {
     "tool.description": "Parseer een PowerPoint-presentatie (.pptx) in diatitels en tekstsamenvattingen, waarbij een genummerde index of een specifiek diagedeelte wordt geretourneerd. Gebruik dit bij het lezen van grote PowerPoint-bestanden: roep aan met mode='index' om de lijst met dia's met titels en voorbeeldtekst op te halen, roep vervolgens aan met mode='section' en section=N om de volledige tekstinhoud van die dia op te halen.",
@@ -577,7 +577,7 @@
     "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: dia {section_num} niet gevonden. Geldig bereik: 1..{last}.",
     "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
-    "err.optional_dependency_missing": "Fout: de optionele afhankelijkheid kon niet worden geïnstalleerd of geïmporteerd."
+    "err.optional_dependency_missing": "Fout: optionele afhankelijkheid kon niet worden geïnstalleerd of geïmporteerd."
   },
   "fi": {
     "tool.description": "Jäsennä PowerPoint-esitys (.pptx) diojen otsikoiksi ja tekstiyhteenvedoksi palauttaen numeroidun hakemiston tai tietyn diaosan. Käytä tätä, kun luet suuria PowerPoint-tiedostoja: soita komennolla mode='index' saadaksesi luettelon dioista, joissa on otsikot ja esikatseluteksti, ja soita sitten mode='section'- ja section=N-komennoilla noutaaksesi dian koko tekstisisällön.",
@@ -722,7 +722,7 @@
     "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบสไลด์ {section_num} ช่วงที่ถูกต้อง: 1..{last}",
     "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
-    "err.optional_dependency_missing": "ข้อผิดพลาด: ไม่สามารถติดตั้งหรือนำเข้า dependency แบบไม่บังคับได้"
+    "err.optional_dependency_missing": "ข้อผิดพลาด: ไม่สามารถติดตั้งหรือนำเข้า dependency เสริมได้"
   },
   "bn": {
     "tool.description": "একটি পাওয়ারপয়েন্ট প্রেজেন্টেশন (.pptx) স্লাইড শিরোনাম এবং পাঠ্য সারাংশে পার্স করুন, একটি সংখ্যাযুক্ত সূচক বা একটি নির্দিষ্ট স্লাইড বিভাগ প্রদান করুন। বড় পাওয়ারপয়েন্ট ফাইলগুলি পড়ার সময় এটি ব্যবহার করুন: শিরোনাম এবং পূর্বরূপ পাঠ্য সহ স্লাইডগুলির তালিকা পেতে mode='index' দিয়ে কল করুন, তারপর সেই স্লাইডের সম্পূর্ণ পাঠ্য সামগ্রী পুনরুদ্ধার করতে mode='section' এবং section=N দিয়ে কল করুন।",
@@ -780,7 +780,7 @@
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: اسلاید {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
-    "err.optional_dependency_missing": "خطا: وابستگی اختیاری نصب یا import نشد."
+    "err.optional_dependency_missing": "خطا: وابستگی اختیاری قابل نصب یا import نبود."
   },
   "mn": {
     "tool.description": "PowerPoint үзүүлэнг (.pptx) слайдын гарчиг болон текстийн хураангуй болгон задлан, дугаарласан индекс эсвэл слайдын тодорхой хэсгийг буцаана уу. Томоохон PowerPoint файлуудыг уншихдаа үүнийг ашиглана уу: гарчиг бүхий слайдуудын жагсаалтыг авах ба текстийг урьдчилан үзэхийн тулд mode='index'-ээр залгаж, дараа нь mode='section' болон section=N-ээр залгаж слайдын бүрэн текстийг авна уу.",
@@ -809,7 +809,7 @@
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: Слайд {section_num} олдсонгүй. Хүчинтэй муж: 1..{last}.",
     "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
-    "err.optional_dependency_missing": "Алдаа: нэмэлт хамаарлыг суулгах эсвэл импортлох боломжгүй байна."
+    "err.optional_dependency_missing": "Алдаа: нэмэлт хамаарлыг суулгах эсвэл import хийх боломжгүй байв."
   },
   "mr": {
     "tool.description": "पॉवरपॉइंट प्रेझेंटेशन (.pptx) स्लाइड शीर्षक आणि मजकूर सारांशांमध्ये पार्स करा, क्रमांकित अनुक्रमणिका किंवा विशिष्ट स्लाइड विभाग परत करा. मोठ्या PowerPoint फाइल्स वाचताना याचा वापर करा: शीर्षक आणि पूर्वावलोकन मजकूर असलेल्या स्लाइड्सची सूची मिळवण्यासाठी mode='index' सह कॉल करा, नंतर त्या स्लाइडची संपूर्ण मजकूर सामग्री पुनर्प्राप्त करण्यासाठी mode='section' आणि section=N सह कॉल करा.",
@@ -867,7 +867,7 @@
     "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Η διαφάνεια {section_num} δεν βρέθηκε. Έγκυρο εύρος: 1..{last}.",
     "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
-    "err.optional_dependency_missing": "Σφάλμα: η προαιρετική εξάρτηση δεν ήταν δυνατό να εγκατασταθεί ή να εισαχθεί."
+    "err.optional_dependency_missing": "Σφάλμα: δεν ήταν δυνατή η εγκατάσταση ή εισαγωγή της προαιρετικής εξάρτησης."
   },
   "he": {
     "tool.description": "נתח מצגת PowerPoint (.pptx) לכותרות שקופיות וסיכומי טקסט, החזרת אינדקס ממוספר או קטע שקופיות ספציפי. השתמש בזה בעת קריאת קבצי PowerPoint גדולים: התקשר עם mode='index' כדי לקבל את רשימת השקופיות עם כותרות וטקסט תצוגה מקדימה, ואז התקשר עם mode='section' ו-section=N כדי לאחזר את תוכן הטקסט המלא של השקופית הזו.",
@@ -925,7 +925,7 @@
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A {section_num}. dia nem található. Érvényes tartomány: 1..{last}.",
     "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
-    "err.optional_dependency_missing": "Hiba: az opcionális függőség nem telepíthető vagy importálható."
+    "err.optional_dependency_missing": "Hiba: az opcionális függőséget nem sikerült telepíteni vagy importálni."
   },
   "ro": {
     "tool.description": "Analizați o prezentare PowerPoint (.pptx) în titluri de diapozitive și rezumate text, returnând un index numerotat sau o anumită secțiune de diapozitive. Utilizați acest lucru când citiți fișiere PowerPoint mari: apelați cu mode='index' pentru a obține lista de diapozitive cu titluri și previzualizare text, apoi apelați cu mode='section' și section=N pentru a prelua conținutul text integral al acelui diapozitiv.",
@@ -1041,7 +1041,7 @@
     "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
     "err.section_not_found": "Fejl: Slide {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
     "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'.",
-    "err.optional_dependency_missing": "Fejl: den valgfrie afhængighed kunne ikke installeres eller importeres."
+    "err.optional_dependency_missing": "Fejl: valgfri afhængighed kunne ikke installeres eller importeres."
   },
   "nn": {
     "tool.description": "Parse en PowerPoint-presentasjon (.pptx) til lysbildetitler og tekstsammendrag, og returner en nummerert indeks eller en bestemt lysbildeseksjon. Bruk dette når du leser store PowerPoint-filer: ring med mode='index' for å få listen over lysbilder med titler og forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet i det lysbildet.",
@@ -1070,6 +1070,6 @@
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
     "err.section_not_found": "Feil: Lysbilde {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
     "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
-    "err.optional_dependency_missing": "Feil: den valfrie avhengigheita kunne ikkje installerast eller importerast."
+    "err.optional_dependency_missing": "Feil: valfri avhengigheit kunne ikkje installerast eller importerast."
   }
 }
