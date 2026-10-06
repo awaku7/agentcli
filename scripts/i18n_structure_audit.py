@@ -393,7 +393,6 @@ def _extract_english_source_info(
     return source, dynamic_keys
 
 
-
 def _extract_x_search_terms_en(py_path: Path) -> list[str] | None:
     try:
         tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
@@ -446,6 +445,7 @@ def _english_search_terms(path: Path) -> list[str] | None:
         if value is not None:
             return value
     return None
+
 
 def _delegated_source_files(path: Path) -> list[Path]:
     """Find modules that explicitly bind the default translator to this facade."""
@@ -543,6 +543,7 @@ def _reference_structure(
         for path, shape in chosen.items():
             reference.setdefault(path, shape)
     return reference
+
 
 def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
     findings: list[Finding] = []
