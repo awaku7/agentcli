@@ -467,3 +467,42 @@ def test_tool_audit_rejects_noncanonical_locale_format(tmp_path: Path) -> None:
         finding.kind == "unexpected_tool_locale" and finding.locale == "ja-JP"
         for finding in findings
     )
+
+
+def test_tool_audit_rejects_non_english_search_default(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.py").write_text(
+        """
+_(
+    "x_search_terms",
+    default=["現在地", "位置情報"],
+)
+TOOL_SPEC = {
+    "x_search_terms_en": ["current location", "geolocation"],
+}
+""".strip()
+        + "\n",
+        encoding="utf-8",
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"x_search_terms": ["現在地", "位置情報"]},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    finding = next(
+        item
+        for item in findings
+        if item.kind == "english_search_terms_mismatch"
+    )
+    assert finding.detail == {
+        "default": ["現在地", "位置情報"],
+        "x_search_terms_en": ["current location", "geolocation"],
+    }
