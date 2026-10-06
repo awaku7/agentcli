@@ -55,7 +55,7 @@
       "obtener respuesta",
       "obtener respuesta"
     ],
-    "ui.footer": "=== /humano_pregunta ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Solicitud humana (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask omitido (modo auto-pilot). El modelo debe decidir autónomamente.",
     "msg.empty_request": "(El mensaje de solicitud del modelo está vacío. Describa aquí la acción/decisión requerida).",
@@ -187,7 +187,7 @@
       "richiedi input",
       "ottieni risposta"
     ],
-    "ui.footer": "=== /chiesta_umana ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Richiesta umana (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask saltato (modalità auto-pilot). Il modello deve decidere autonomamente.",
     "msg.empty_request": "(Il messaggio di richiesta del modello è vuoto. Descrivi qui l'azione/decisione richiesta.)",
@@ -318,7 +318,7 @@
       "minta masukan",
       "dapatkan jawaban"
     ],
-    "ui.footer": "=== /manusia_ask ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Permintaan manusia (human_ask) ===",
     "tool.description": "Alat untuk meminta input/keputusan dari pengguna manusia yang tidak dapat diselesaikan oleh model sendiri. Catatan keamanan: saat meminta rahasia (kata sandi/token) input akan disembunyikan.",
     "ui.auto_pilot_skip": "[AUTO] human_ask dilewati (mode auto-pilot). Model harus memutuskan secara mandiri.",
@@ -418,7 +418,7 @@
       "अनुरोध इनपुट",
       "उत्तर प्राप्त करें"
     ],
-    "ui.footer": "=== / human_ask ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== मानव अनुरोध (मानव_पूछ) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask को छोड़ दिया गया (ऑटो-पायलट मोड)। मॉडल को स्वायत्त रूप से निर्णय लेना होगा।",
     "msg.empty_request": "(मॉडल से अनुरोध संदेश खाली है। कृपया यहां आवश्यक कार्रवाई/निर्णय का वर्णन करें।)",
@@ -451,7 +451,7 @@
       "إدخال الطلب",
       "الحصول على إجابة"
     ],
-    "ui.footer": "عنوان URL لنقطة نهاية خادم MCP (http://... أو stdio://command...). /human_ask ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== طلب لشخص (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] تم تخطي human_ask (وضع الطيار الآلي). يجب على النموذج أن يقرر بشكل مستقل.",
     "msg.empty_request": "(رسالة الطلب من النموذج فارغة. يرجى وصف الإجراء/القرار المطلوب هنا.)",
@@ -517,7 +517,7 @@
       "omba ingizo",
       "pata jibu"
     ],
-    "ui.footer": "=== /binadamu_uliza ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Ombi kwa mtu (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask imerukwa (hali ya auto-pilot). Modeli lazima aamue kwa uhuru.",
     "msg.empty_request": "(Ujumbe wa ombi kutoka kwa kielelezo ni tupu. Tafadhali eleza kitendo/uamuzi unaohitajika hapa.)",
@@ -616,7 +616,7 @@
       "pyytää syötteitä",
       "hae vastaus"
     ],
-    "ui.footer": "=== /ihminen_kysy ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Ihmisen pyyntö (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask ohitettu (autopilottitila). Mallin on päätettävä itsenäisesti.",
     "msg.empty_request": "(Mallin pyyntöviesti on tyhjä. Kuvaile vaadittu toimenpide/päätös tähän.)",
@@ -781,7 +781,7 @@
       "请求输入",
       "获取答案"
     ],
-    "ui.footer": "=== / human_ask ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== 向某人提出请求 (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] 已跳过 human_ask（自动执行模式）。模型必须自主决定。",
     "msg.empty_request": "（来自模型的请求消息为空。请在此处描述所需的操作/决策。）",
@@ -814,7 +814,7 @@
       "請求輸入",
       "取得答案"
     ],
-    "ui.footer": "=== / human_ask ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== 向某人提出請求 (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] 已跳過 human_ask（自動執行模式）。模型必須自主決定。",
     "msg.empty_request": "（來自模型的請求訊息為空。請在此處描述所需的操作/決策。）",
@@ -847,7 +847,7 @@
       "অনুরোধ ইনপুট",
       "উত্তর পান"
     ],
-    "ui.footer": "=== /মানুষ_আস্ক ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== মানুষের অনুরোধ (মানব_আস্ক) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask এড়িয়ে গেছেন (অটো-পাইলট মোড)। মডেলটিকে স্বায়ত্তশাসিতভাবে সিদ্ধান্ত নিতে হবে।",
     "msg.empty_request": "(মডেলের অনুরোধ বার্তাটি খালি। অনুগ্রহ করে প্রয়োজনীয় পদক্ষেপ/সিদ্ধান্ত এখানে বর্ণনা করুন।)",
@@ -913,7 +913,7 @@
       "хариулт авах",
       "хариулт авах"
     ],
-    "ui.footer": "=== /хүний_асуу ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Хүний хүсэлт (хүний_асуулт) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask алгассан (авто-пилот горим). Загвар нь бие даан шийдвэр гаргах ёстой.",
     "msg.empty_request": "(Загвараас ирсэн хүсэлтийн зурвас хоосон байна. Шаардлагатай арга хэмжээ/шийдвэрийг энд тайлбарлана уу.)",
@@ -979,7 +979,7 @@
       " αίτημα εισαγωγής",
       "λάβετε απάντηση"
     ],
-    "ui.footer": "απόφαση",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "Πώς να απαντήσετε:\n  - Πληκτρολογήστε την απάντησή σας και πατήστε Enter\n  - Πληκτρολογήστε 'f' για να εισέλθετε σε λειτουργία πολλαπλών γραμμών\n  - Πληκτρολογήστε 'c' ή 'cancel' για ακύρωση",
     "ui.auto_pilot_skip": "[AUTO] Παραλείφθηκε το human_ask (λειτουργία αυτόματου πιλότου). Το μοντέλο πρέπει να αποφασίζει αυτόνομα.",
     "msg.empty_request": "(Το μήνυμα αιτήματος από το μοντέλο είναι κενό. Περιγράψτε την απαιτούμενη ενέργεια/απόφαση εδώ.)",
@@ -1045,7 +1045,7 @@
       "bemenet kérése",
       "válasz kérése"
     ],
-    "ui.footer": "=== /human_sk ===",
+    "ui.footer": "=== /human_ask ===",
     "ui.title": "=== Emberi kérés (human_ask) ===",
     "ui.auto_pilot_skip": "[AUTO] human_ask kihagyva (automatikus vezetési mód). A modellnek önállóan kell döntenie.",
     "msg.empty_request": "(A kérés üzenete a modelltől üres. Kérjük, írja le itt a szükséges műveletet/döntést.)",
