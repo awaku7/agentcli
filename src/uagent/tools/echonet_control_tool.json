@@ -24,7 +24,10 @@
       "ECHONET",
       "تنفيذ",
       "أساسي"
-    ]
+    ],
+    "err.missing_value_for_set_value": "خطأ: حقل value مطلوب للإجراء set_value.",
+    "err.unsupported_action": "خطأ: الإجراء '{action}' غير مدعوم.",
+    "err.missing_action": "خطأ: action مطلوب."
   },
   "bn": {
     "param.ip.description": "লক্ষ্য নোড IPv4 ঠিকানা।",
@@ -51,7 +54,10 @@
       "ECHONET",
       " execute",
       " মৌলিক"
-    ]
+    ],
+    "err.missing_value_for_set_value": "ত্রুটি: set_value অ্যাকশনের জন্য value ফিল্ড প্রয়োজন।",
+    "err.unsupported_action": "ত্রুটি: অসমর্থিত অ্যাকশন '{action}'।",
+    "err.missing_action": "ত্রুটি: action প্রয়োজন।"
   },
   "cs": {
     "param.ip.description": "Adresa IPv4 cílového uzlu.",
@@ -78,7 +84,10 @@
       "ECHONET",
       "provést",
       "základní"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Chyba: pro akci set_value je vyžadováno pole value.",
+    "err.unsupported_action": "Chyba: Nepodporovaná akce '{action}'.",
+    "err.missing_action": "Chyba: action je povinná."
   },
   "de": {
     "param.ip.description": "IPv4-Adresse des Zielknotens.",
@@ -105,7 +114,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Fehler: Für die Aktion set_value ist das Feld value erforderlich.",
+    "err.unsupported_action": "Fehler: Nicht unterstützte Aktion '{action}'.",
+    "err.missing_action": "Fehler: action ist erforderlich."
   },
   "es": {
     "param.ip.description": "Dirección IPv4 del nodo de destino.",
@@ -132,7 +144,10 @@
       "ECHONET",
       "ejecutar",
       "básico"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Error: el campo value es obligatorio para la acción set_value.",
+    "err.unsupported_action": "Error: acción no compatible '{action}'.",
+    "err.missing_action": "Error: se requiere action."
   },
   "fa": {
     "param.ip.description": "آدرس IPv4 گره هدف.",
@@ -159,7 +174,10 @@
       "ECHONET",
       "اجرا",
       "پایه"
-    ]
+    ],
+    "err.missing_value_for_set_value": "خطا: فیلد value برای عمل set_value الزامی است.",
+    "err.unsupported_action": "خطا: عمل '{action}' پشتیبانی نمی‌شود.",
+    "err.missing_action": "خطا: action الزامی است."
   },
   "fi": {
     "param.ip.description": "Kohdesolmun IPv4-osoite.",
@@ -186,7 +204,10 @@
       "ECHONET",
       "suorita",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Virhe: value-kenttä vaaditaan set_value-toiminnolle.",
+    "err.unsupported_action": "Virhe: Toimintoa '{action}' ei tueta.",
+    "err.missing_action": "Virhe: action vaaditaan."
   },
   "fr": {
     "param.ip.description": "Adresse IPv4 du nœud cible.",
@@ -213,7 +234,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Erreur : le champ value est requis pour l’action set_value.",
+    "err.unsupported_action": "Erreur : action '{action}' non prise en charge.",
+    "err.missing_action": "Erreur : action est requis."
   },
   "hi": {
     "param.ip.description": "लक्ष्य नोड IPv4 पता.",
@@ -240,7 +264,10 @@
       "इकोनेट",
       "निष्पादित",
       "बेसिक"
-    ]
+    ],
+    "err.missing_value_for_set_value": "त्रुटि: set_value कार्रवाई के लिए value फ़ील्ड आवश्यक है।",
+    "err.unsupported_action": "त्रुटि: असमर्थित कार्रवाई '{action}'।",
+    "err.missing_action": "त्रुटि: action आवश्यक है।"
   },
   "id": {
     "param.ip.description": "Alamat IPv4 simpul target.",
@@ -267,7 +294,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Kesalahan: bidang value wajib untuk aksi set_value.",
+    "err.unsupported_action": "Kesalahan: Aksi '{action}' tidak didukung.",
+    "err.missing_action": "Kesalahan: action wajib diisi."
   },
   "it": {
     "param.ip.description": "Indirizzo IPv4 del nodo di destinazione.",
@@ -294,7 +324,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Errore: il campo value è obbligatorio per l’azione set_value.",
+    "err.unsupported_action": "Errore: azione '{action}' non supportata.",
+    "err.missing_action": "Errore: action è obbligatorio."
   },
   "ja": {
     "param.ip.description": "ターゲットノードのIPv4アドレス。",
@@ -321,7 +354,10 @@
       "ECHONET",
       "実行",
       "基本"
-    ]
+    ],
+    "err.missing_value_for_set_value": "エラー: set_value アクションには value フィールドが必要です。",
+    "err.unsupported_action": "エラー: 未対応のアクション '{action}' です。",
+    "err.missing_action": "エラー: action は必須です。"
   },
   "ko": {
     "param.ip.description": "대상 노드 IPv4 주소입니다.",
@@ -348,7 +384,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "오류: set_value 작업에는 value 필드가 필요합니다.",
+    "err.unsupported_action": "오류: 지원되지 않는 작업 '{action}'입니다.",
+    "err.missing_action": "오류: action이 필요합니다."
   },
   "mn": {
     "param.ip.description": "Зорилтот зангилааны IPv4 хаяг.",
@@ -375,7 +414,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Алдаа: set_value үйлдэлд value талбар шаардлагатай.",
+    "err.unsupported_action": "Алдаа: Дэмжигдээгүй үйлдэл '{action}'.",
+    "err.missing_action": "Алдаа: action шаардлагатай."
   },
   "mr": {
     "param.ip.description": "लक्ष्य नोड IPv4 पत्ता.",
@@ -402,7 +444,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "त्रुटी: set_value कृतीसाठी value फील्ड आवश्यक आहे.",
+    "err.unsupported_action": "त्रुटी: असमर्थित कृती '{action}'.",
+    "err.missing_action": "त्रुटी: action आवश्यक आहे."
   },
   "el": {
     "param.ip.description": "Διεύθυνση IPv4 κόμβου στόχου.",
@@ -429,7 +474,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Σφάλμα: το πεδίο value απαιτείται για την ενέργεια set_value.",
+    "err.unsupported_action": "Σφάλμα: Μη υποστηριζόμενη ενέργεια '{action}'.",
+    "err.missing_action": "Σφάλμα: απαιτείται action."
   },
   "he": {
     "param.ip.description": "כתובת IPv4 של צומת יעד.",
@@ -456,7 +504,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "שגיאה: השדה value נדרש עבור הפעולה set_value.",
+    "err.unsupported_action": "שגיאה: הפעולה '{action}' אינה נתמכת.",
+    "err.missing_action": "שגיאה: action נדרש."
   },
   "hu": {
     "param.ip.description": "Célcsomópont IPv4-címe.",
@@ -483,7 +534,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Hiba: a value mező kötelező a set_value művelethez.",
+    "err.unsupported_action": "Hiba: Nem támogatott művelet: '{action}'.",
+    "err.missing_action": "Hiba: az action megadása kötelező."
   },
   "ro": {
     "param.ip.description": "Adresa IPv4 a nodului țintă.",
@@ -510,7 +564,10 @@
       "ECHONET",
       "execute",
       "de bază"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Eroare: câmpul value este obligatoriu pentru acțiunea set_value.",
+    "err.unsupported_action": "Eroare: Acțiune neacceptată '{action}'.",
+    "err.missing_action": "Eroare: action este obligatoriu."
   },
   "nb": {
     "param.ip.description": "Målnodens IPv4-adresse.",
@@ -537,7 +594,10 @@
       "ECHONET",
       "execute",
       "grunnleggende"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Feil: feltet value kreves for handlingen set_value.",
+    "err.unsupported_action": "Feil: Handlingen '{action}' støttes ikke.",
+    "err.missing_action": "Feil: action er påkrevd."
   },
   "nl": {
     "param.ip.description": "IPv4-adres van doelknooppunt.",
@@ -564,7 +624,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Fout: het veld value is vereist voor de actie set_value.",
+    "err.unsupported_action": "Fout: Niet-ondersteunde actie '{action}'.",
+    "err.missing_action": "Fout: action is vereist."
   },
   "pl": {
     "param.ip.description": "Adres IPv4 węzła docelowego.",
@@ -591,7 +654,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Błąd: pole value jest wymagane dla akcji set_value.",
+    "err.unsupported_action": "Błąd: Nieobsługiwana akcja '{action}'.",
+    "err.missing_action": "Błąd: action jest wymagane."
   },
   "pt": {
     "param.ip.description": "Endereço IPv4 do nó de destino.",
@@ -618,7 +684,10 @@
       "ECHONET",
       "execute",
       "básico"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Erro: o campo value é obrigatório para a ação set_value.",
+    "err.unsupported_action": "Erro: Ação '{action}' não suportada.",
+    "err.missing_action": "Erro: action é obrigatório."
   },
   "pt_BR": {
     "param.ip.description": "Endereço IPv4 do nó de destino.",
@@ -645,7 +714,10 @@
       "ECHONET",
       "execute",
       "básico"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Erro: o campo value é obrigatório para a ação set_value.",
+    "err.unsupported_action": "Erro: Ação '{action}' não suportada.",
+    "err.missing_action": "Erro: action é obrigatório."
   },
   "ru": {
     "param.ip.description": "IPv4-адрес целевого узла.",
@@ -672,7 +744,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Ошибка: поле value обязательно для действия set_value.",
+    "err.unsupported_action": "Ошибка: Неподдерживаемое действие '{action}'.",
+    "err.missing_action": "Ошибка: требуется action."
   },
   "sv": {
     "param.ip.description": "IPv4-adress för målnoden.",
@@ -699,7 +774,10 @@
       "ECHONET",
       "exekvera",
       "grundläggande"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Fel: fältet value krävs för åtgärden set_value.",
+    "err.unsupported_action": "Fel: Åtgärden '{action}' stöds inte.",
+    "err.missing_action": "Fel: action krävs."
   },
   "sw": {
     "param.ip.description": "Anwani ya IPv4 ya nodi lengwa.",
@@ -726,7 +804,10 @@
       "ECHONET",
       "tekeleza",
       "msingi"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Hitilafu: sehemu ya value inahitajika kwa kitendo cha set_value.",
+    "err.unsupported_action": "Hitilafu: Kitendo '{action}' hakitumiki.",
+    "err.missing_action": "Hitilafu: action inahitajika."
   },
   "th": {
     "param.ip.description": "ที่อยู่ IPv4 ของโหนดเป้าหมาย",
@@ -753,7 +834,10 @@
       "ECHONET",
       "ดำเนินการ",
       "พื้นฐาน"
-    ]
+    ],
+    "err.missing_value_for_set_value": "ข้อผิดพลาด: ต้องระบุฟิลด์ value สำหรับการทำงาน set_value",
+    "err.unsupported_action": "ข้อผิดพลาด: ไม่รองรับการทำงาน '{action}'",
+    "err.missing_action": "ข้อผิดพลาด: ต้องระบุ action"
   },
   "tr": {
     "param.ip.description": "Hedef düğüm IPv4 adresi.",
@@ -780,7 +864,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Hata: set_value eylemi için value alanı gereklidir.",
+    "err.unsupported_action": "Hata: Desteklenmeyen eylem '{action}'.",
+    "err.missing_action": "Hata: action gereklidir."
   },
   "uk": {
     "param.ip.description": "IPv4-адреса цільового вузла.",
@@ -807,7 +894,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Помилка: поле value обов’язкове для дії set_value.",
+    "err.unsupported_action": "Помилка: Непідтримувана дія '{action}'.",
+    "err.missing_action": "Помилка: потрібен action."
   },
   "vi": {
     "param.ip.description": "Địa chỉ IPv4 của nút đích.",
@@ -834,7 +924,10 @@
       "ECHONET",
       "thực thi",
       "cơ bản"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Lỗi: trường value là bắt buộc cho hành động set_value.",
+    "err.unsupported_action": "Lỗi: Hành động '{action}' không được hỗ trợ.",
+    "err.missing_action": "Lỗi: action là bắt buộc."
   },
   "zh_CN": {
     "param.ip.description": "目标节点 IPv4 地址。",
@@ -861,7 +954,10 @@
       "ECHONET",
       "执行",
       "基本"
-    ]
+    ],
+    "err.missing_value_for_set_value": "错误：set_value 操作需要 value 字段。",
+    "err.unsupported_action": "错误：不支持的操作 '{action}'。",
+    "err.missing_action": "错误：需要 action。"
   },
   "zh_TW": {
     "param.ip.description": "目標節點 IPv4 位址。",
@@ -888,7 +984,10 @@
       "ECHONET",
       "執行",
       "基本"
-    ]
+    ],
+    "err.missing_value_for_set_value": "錯誤：set_value 動作需要 value 欄位。",
+    "err.unsupported_action": "錯誤：不支援的動作 '{action}'。",
+    "err.missing_action": "錯誤：需要 action。"
   },
   "fil": {
     "param.ip.description": "Target na node IPv4 address.",
@@ -915,7 +1014,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Error: kailangan ang value field para sa set_value action.",
+    "err.unsupported_action": "Error: Hindi suportadong action '{action}'.",
+    "err.missing_action": "Error: kailangan ang action."
   },
   "ms": {
     "param.ip.description": "Alamat IPv4 nod sasaran.",
@@ -942,7 +1044,10 @@
       "ECHONET",
       "laksanakan",
       "asas"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Ralat: medan value diperlukan untuk tindakan set_value.",
+    "err.unsupported_action": "Ralat: Tindakan '{action}' tidak disokong.",
+    "err.missing_action": "Ralat: action diperlukan."
   },
   "da": {
     "param.ip.description": "Målnodens IPv4-adresse.",
@@ -969,7 +1074,10 @@
       "ECHONET",
       "execute",
       "basic"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Fejl: feltet value er påkrævet for handlingen set_value.",
+    "err.unsupported_action": "Fejl: Ikke-understøttet handling '{action}'.",
+    "err.missing_action": "Fejl: action er påkrævet."
   },
   "nn": {
     "param.ip.description": "Målnodens IPv4-adresse.",
@@ -996,6 +1104,9 @@
       "ECHONET",
       "execute",
       "grunnleggende"
-    ]
+    ],
+    "err.missing_value_for_set_value": "Feil: feltet value er påkravd for handlinga set_value.",
+    "err.unsupported_action": "Feil: Handlinga '{action}' er ikkje støtta.",
+    "err.missing_action": "Feil: action er påkravd."
   }
 }
