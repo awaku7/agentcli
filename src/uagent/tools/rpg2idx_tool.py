@@ -35,8 +35,6 @@ TOOL_SPEC = {
                 "SQLRPGLE",
                 "EXEC SQL",
                 "/IF",
-                "Read RPG source",
-                "RPGLE program structure",
                 "dcl-proc",
                 "begsr",
             ],

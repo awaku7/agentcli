@@ -74,6 +74,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "window capture",
                 "desktop screenshot",
                 "png capture",
+                "snapshot",
             ],
         ),
         "x_search_terms_en": [

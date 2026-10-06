@@ -563,8 +563,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "duckduckgo",
                 "brave search",
                 "search internet",
-                "Web search",
-                "Internet search",
+                "google",
+                "browse",
             ],
         ),
         "x_search_terms_en": [

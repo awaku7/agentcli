@@ -30,10 +30,6 @@ TOOL_SPEC = {
                 "sql index",
                 "ddl parser",
                 "sql section",
-                "Read SQL files",
-                "SQL index",
-                "Table definition",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

@@ -102,9 +102,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "batch edit",
                 "glob replace",
                 "replace all files",
-                "複数ファイル置換",
-                "一括置換",
-                "glob置換",
+                "replace_all_in_files",
             ],
         ),
         "x_search_terms_en": [

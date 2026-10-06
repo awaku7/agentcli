@@ -32,9 +32,6 @@ TOOL_SPEC = {
                 "rust file index",
                 "function list",
                 "struct list",
-                "Read Rust files",
-                "Function list",
-                "Struct list",
             ],
         ),
         "x_search_terms_en": [
