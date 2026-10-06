@@ -127,7 +127,7 @@
   },
   "ko": {
     "tool.description": "Google 번역을 사용하여 하나 이상의 텍스트를 번역하세요.30개 이상의 언어를 지원합니다.컨텍스트를 보존하기 위해 여러 텍스트를 결합하고 단일 블록으로 번역합니다.요소당 최대 10,000자입니다.보내기 전에 텍스트를 자르지 마십시오.API는 기본적으로 긴 텍스트를 처리합니다.protect_placeholders가 활성화되면(기본값) 파일 형식이 콘텐츠에서 자동 감지되면 다양한 자리 표시자 유형(%(name)s, {name}, ${name} 등)이 번역으로부터 보호됩니다.",
-    "param.provider.description": "번역 공급자: 자동(구성된 경우 DeepL 사용, 그렇지 않으면 Google), google 또는 deepl.",
+    "param.provider.description": "번역 공급자: auto(구성된 경우 DeepL 사용, 그렇지 않으면 Google), google 또는 deepl.",
     "param.target_lang.description": "대상 언어 코드(예: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "소스 언어 코드. 생략되면 자동 감지됩니다.",
     "x_search_terms": [
@@ -379,7 +379,7 @@
   },
   "id": {
     "tool.description": "Terjemahkan satu atau lebih teks menggunakan Google Terjemahan. Mendukung 30+ bahasa. Beberapa teks digabungkan dan diterjemahkan sebagai satu blok untuk menjaga konteks. Maks 10.000 karakter per elemen. JANGAN memotong teks sebelum mengirim; API menangani teks panjang secara asli. Ketika protect_placeholders diaktifkan (default), berbagai jenis placeholder (%(name)s, {name}, ${name}, dll.) dilindungi dari terjemahan jika jenis file terdeteksi secara otomatis dari konten.",
-    "param.provider.description": "Penyedia terjemahan: otomatis (gunakan DeepL saat dikonfigurasi, jika tidak Google), google, atau deepl.",
+    "param.provider.description": "Penyedia terjemahan: auto (gunakan DeepL saat dikonfigurasi, jika tidak Google), google, atau deepl.",
     "param.target_lang.description": "Kode bahasa target (misalnya ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kode bahasa sumber. Terdeteksi otomatis jika dihilangkan.",
     "x_search_terms": [
@@ -421,7 +421,7 @@
   },
   "vi": {
     "tool.description": "Dịch một hoặc nhiều văn bản bằng Google Dịch.Hỗ trợ hơn 30 ngôn ngữ.Nhiều văn bản được nối và dịch thành một khối duy nhất để bảo toàn ngữ cảnh.Tối đa 10000 ký tự cho mỗi phần tử.KHÔNG cắt ngắn văn bản trước khi gửi;API xử lý văn bản dài một cách tự nhiên.Khi protect_placeholders được bật (mặc định), các loại trình giữ chỗ khác nhau (%(name)s, {name}, ${name}, v.v.) được bảo vệ khỏi dịch nếu loại tệp được tự động phát hiện khỏi nội dung.",
-    "param.provider.description": "Nhà cung cấp dịch vụ dịch: tự động (sử dụng DeepL khi được định cấu hình, nếu không thì Google), google hoặc deepl.",
+    "param.provider.description": "Nhà cung cấp dịch vụ dịch: auto (sử dụng DeepL khi được định cấu hình, nếu không thì Google), google hoặc deepl.",
     "param.target_lang.description": "Mã ngôn ngữ đích (ví dụ: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Mã ngôn ngữ nguồn. Tự động phát hiện nếu bỏ qua.",
     "x_search_terms": [
@@ -631,7 +631,7 @@
   },
   "sw": {
     "tool.description": "Tafsiri maandishi moja au zaidi kwa kutumia Google Tafsiri.Inaauni lugha 30+.Maandishi mengi yanaunganishwa na kutafsiriwa kama kizuizi kimoja ili kuhifadhi muktadha.Upeo wa herufi 10000 kwa kila kipengele.USIpunguze maandishi kabla ya kutuma;API hushughulikia maandishi marefu kiasili.Wakati protect_placeholders imewashwa (chaguo-msingi), aina mbalimbali za vishika nafasi (%(name)s, {name}, ${name}, n.k.) zinalindwa dhidi ya tafsiri ikiwa aina ya faili itatambuliwa kiotomatiki kutoka kwa maudhui.",
-    "param.provider.description": "Mtoa huduma wa tafsiri: otomatiki (tumia DeepL inaposanidiwa, vinginevyo Google), google, au deepl.",
+    "param.provider.description": "Mtoa huduma wa tafsiri: auto (tumia DeepL inaposanidiwa, vinginevyo Google), google, au deepl.",
     "param.target_lang.description": "Msimbo wa lugha lengwa (k.m. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Msimbo wa lugha ya asili. Imegunduliwa kiotomatiki ikiwa imeachwa.",
     "x_search_terms": [
@@ -883,7 +883,7 @@
   },
   "tr": {
     "tool.description": "Google Çeviri'yi kullanarak bir veya daha fazla metni çevirin.30'dan fazla dili destekler.Bağlamı korumak için birden çok metin birleştirilir ve tek bir blok halinde çevrilir.Öğe başına maksimum 10000 karakter.Göndermeden önce metni kesmeyin;API uzun metni yerel olarak işler.protect_placeholders etkinleştirildiğinde (varsayılan), dosya türü içerikten otomatik olarak algılanıyorsa çeşitli yer tutucu türleri (%(name)s, {name}, ${name}, vb.) çeviriye karşı korunur.",
-    "param.provider.description": "Çeviri sağlayıcı: otomatik (yapılandırıldığında DeepL'yi kullanın, aksi takdirde Google), google veya deepl.",
+    "param.provider.description": "Çeviri sağlayıcı: auto (yapılandırıldığında DeepL'yi kullanın, aksi takdirde Google), google veya deepl.",
     "param.target_lang.description": "Hedef dil kodu (ör. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Kaynak dil kodu. Atlanırsa otomatik olarak algılanır.",
     "x_search_terms": [
@@ -925,7 +925,7 @@
   },
   "th": {
     "tool.description": "แปลข้อความอย่างน้อยหนึ่งข้อความโดยใช้ Google Translateรองรับมากกว่า 30 ภาษาข้อความหลายฉบับถูกรวมและแปลเป็นบล็อกเดียวเพื่อรักษาบริบทสูงสุด 10,000 อักขระต่อองค์ประกอบอย่าตัดทอนข้อความก่อนส่งAPI จัดการข้อความขนาดยาวโดยกำเนิดเมื่อเปิดใช้งาน protect_placeholders (ค่าเริ่มต้น) ประเภทตัวยึดตำแหน่งต่างๆ (%(name)s, {name}, ${name} ฯลฯ) จะได้รับการปกป้องจากการแปลหากประเภทไฟล์ถูกตรวจพบโดยอัตโนมัติจากเนื้อหา",
-    "param.provider.description": "ผู้ให้บริการแปล: อัตโนมัติ (ใช้ DeepL เมื่อกำหนดค่า มิฉะนั้น Google), google หรือ deepl",
+    "param.provider.description": "ผู้ให้บริการแปล: auto (ใช้ DeepL เมื่อกำหนดค่า มิฉะนั้น Google), google หรือ deepl",
     "param.target_lang.description": "รหัสภาษาเป้าหมาย (เช่น ja, en, zh_CN, pt_BR, fr, de, es, ko)",
     "param.source_lang.description": "รหัสภาษาต้นฉบับ ตรวจพบอัตโนมัติหากละเว้น",
     "x_search_terms": [
@@ -1051,7 +1051,7 @@
   },
   "bn": {
     "tool.description": "Google অনুবাদ ব্যবহার করে এক বা একাধিক পাঠ্য অনুবাদ করুন।30+ ভাষা সমর্থন করে।একাধিক পাঠ্য সংযুক্ত করা হয় এবং প্রসঙ্গ সংরক্ষণের জন্য একক ব্লক হিসাবে অনুবাদ করা হয়।উপাদান প্রতি সর্বোচ্চ 10000 অক্ষর।পাঠানোর আগে টেক্সট ছেঁটে ফেলবেন না;API স্থানীয়ভাবে দীর্ঘ পাঠ্য পরিচালনা করে।যখন protect_placeholders সক্রিয় থাকে (ডিফল্ট), তখন বিভিন্ন স্থানধারক প্রকার (%(name)s, {name}, ${name}, ইত্যাদি) অনুবাদ থেকে সুরক্ষিত থাকে যদি ফাইলের ধরন বিষয়বস্তু থেকে স্বয়ংক্রিয়ভাবে সনাক্ত করা হয়।",
-    "param.provider.description": "অনুবাদ প্রদানকারী: স্বয়ংক্রিয় (কনফিগার করা হলে DeepL ব্যবহার করুন, অন্যথায় Google), google, বা deepl।",
+    "param.provider.description": "অনুবাদ প্রদানকারী: auto (কনফিগার করা হলে DeepL ব্যবহার করুন, অন্যথায় Google), google, বা deepl।",
     "param.target_lang.description": "লক্ষ্য ভাষার কোড (যেমন ja, en, zh_CN, pt_BR, fr, de, es, ko)।",
     "param.source_lang.description": "উৎস ভাষার কোড। বাদ দিলে স্বয়ংক্রিয়ভাবে সনাক্ত করা যায়।",
     "x_search_terms": [
@@ -1093,7 +1093,7 @@
   },
   "fa": {
     "tool.description": "یک یا چند متن را با استفاده از Google Translate ترجمه کنید.پشتیبانی از بیش از 30 زبانمتون متعدد به هم پیوسته و به عنوان یک بلوک ترجمه می شوند تا زمینه حفظ شود.حداکثر 10000 کاراکتر در هر عنصر.متن را قبل از ارسال کوتاه نکنید.API متن طولانی را به صورت بومی مدیریت می کند.هنگامی که protect_placeholders (پیش‌فرض) فعال است، انواع متغیرهای متغیر (%(name)s، {name}، ${name}، و غیره) از ترجمه محافظت می‌شوند، اگر نوع فایل به‌طور خودکار از محتوا شناسایی شود.",
-    "param.provider.description": "ارائه دهنده ترجمه: خودکار (از DeepL هنگام پیکربندی استفاده کنید، در غیر این صورت Google)، google یا deepl.",
+    "param.provider.description": "ارائه دهنده ترجمه: auto (از DeepL هنگام پیکربندی استفاده کنید، در غیر این صورت Google)، google یا deepl.",
     "param.target_lang.description": "کد زبان مقصد (به عنوان مثال ja، en، zh_CN، pt_BR، fr، de، es، ko).",
     "param.source_lang.description": "کد زبان مبدأ در صورت حذف به صورت خودکار شناسایی می شود.",
     "x_search_terms": [
@@ -1135,7 +1135,7 @@
   },
   "mn": {
     "tool.description": "Google Translate ашиглан нэг буюу хэд хэдэн текстийг орчуулаарай. 30+ хэлийг дэмждэг. Контекстийг хадгалахын тулд олон текстийг нэгтгэж, нэг блок болгон орчуулдаг. Нэг элемент бүрт хамгийн ихдээ 10000 тэмдэгт байна. Илгээхийн өмнө текстийг тайрч болохгүй; API нь урт текстийг эх аргаар боловсруулдаг. protect_placeholders идэвхжүүлсэн үед (өгөгдмөл) файлын төрлийг контентоос автоматаар илрүүлсэн тохиолдолд янз бүрийн орлуулагчийн төрлийг (%(name)s, {name}, ${name} гэх мэт) орчуулахаас хамгаална.",
-    "param.provider.description": "Орчуулгын үйлчилгээ үзүүлэгч: автомат (тохируулсан үед DeepL-г ашиглана уу, үгүй ​​бол Google), google эсвэл deepl.",
+    "param.provider.description": "Орчуулгын үйлчилгээ үзүүлэгч: auto (тохируулсан үед DeepL-г ашиглана уу, үгүй ​​бол Google), google эсвэл deepl.",
     "param.target_lang.description": "Зорилтот хэлний код (жишээ нь: ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "Эх хэлний код. Хэрэв орхигдуулсан бол автоматаар илрүүлнэ.",
     "x_search_terms": [
@@ -1177,7 +1177,7 @@
   },
   "mr": {
     "tool.description": "Google Translate वापरून एक किंवा अधिक मजकूर भाषांतरित करा.30+ भाषांना सपोर्ट करते.संदर्भ जतन करण्यासाठी एकाधिक मजकूर जोडले जातात आणि एकल ब्लॉक म्हणून अनुवादित केले जातात.प्रति घटक कमाल 10000 वर्ण.पाठवण्यापूर्वी मजकूर कापून टाकू नका;API लांब मजकूर स्थानिकरित्या हाताळते.जेव्हा protect_placeholders सक्षम केले जातात (डीफॉल्ट), फाइल प्रकार सामग्रीमधून स्वयंचलितपणे आढळल्यास, विविध प्लेसहोल्डर प्रकार (%(name)s, {name}, ${name}, इ.) अनुवादापासून संरक्षित केले जातात.",
-    "param.provider.description": "भाषांतर प्रदाता: स्वयं (कॉन्फिगर केल्यावर DeepL वापरा, अन्यथा Google), google किंवा deepl.",
+    "param.provider.description": "भाषांतर प्रदाता: auto (कॉन्फिगर केल्यावर DeepL वापरा, अन्यथा Google), google किंवा deepl.",
     "param.target_lang.description": "लक्ष्य भाषा कोड (उदा. ja, en, zh_CN, pt_BR, fr, de, es, ko).",
     "param.source_lang.description": "स्त्रोत भाषा कोड. वगळल्यास स्वयं आढळले.",
     "x_search_terms": [
@@ -1219,7 +1219,7 @@
   },
   "el": {
     "tool.description": "Μεταφράστε ένα ή περισσότερα κείμενα χρησιμοποιώντας τη Μετάφραση Google.Υποστηρίζει 30+ γλώσσες.Πολλά κείμενα ενώνονται και μεταφράζονται ως ένα ενιαίο μπλοκ για να διατηρηθεί το πλαίσιο.Έως 10000 χαρακτήρες ανά στοιχείο.ΜΗΝ περικόπτετε το κείμενο πριν το στείλετε.το API χειρίζεται εγγενώς μεγάλο κείμενο.Όταν το protect_placeholders είναι ενεργοποιημένο (προεπιλογή), διάφοροι τύποι κράτησης θέσης (%(name)s, {name}, ${name}, κ.λπ.) προστατεύονται από μετάφραση, εάν ο τύπος αρχείου εντοπίζεται αυτόματα από το περιεχόμενο.",
-    "param.provider.description": "Πάροχος μετάφρασης: αυτόματη (χρησιμοποιήστε το DeepL όταν έχει ρυθμιστεί, διαφορετικά Google), google ή deepl.",
+    "param.provider.description": "Πάροχος μετάφρασης: auto (χρησιμοποιήστε το DeepL όταν έχει ρυθμιστεί, διαφορετικά Google), google ή deepl.",
     "param.target_lang.description": "Κωδικός γλώσσας-στόχου (π.χ. ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "Κωδικός γλώσσας πηγής. Αν παραλειφθεί, ανιχνεύεται αυτόματα.",
     "x_search_terms": [
@@ -1261,7 +1261,7 @@
   },
   "he": {
     "tool.description": "תרגם טקסט אחד או יותר באמצעות Google Translate.תומך ב-30+ שפות.טקסטים מרובים מצטרפים ומתורגמים כבלוק אחד כדי לשמור על הקשר.מקסימום 10000 תווים לכל אלמנט.אין לקצץ טקסט לפני השליחה;ה-API מטפל בטקסט ארוך באופן מקורי.כאשר protect_placeholders מופעל (ברירת מחדל), סוגי מציין מיקום שונים (%(name)s, {name}, ${name} וכו') מוגנים מפני תרגום אם סוג הקובץ מזוהה אוטומטית מהתוכן.",
-    "param.provider.description": "ספק תרגום: אוטומטי (השתמש ב-DeepL כשמוגדר, אחרת Google), google או deepl.",
+    "param.provider.description": "ספק תרגום: auto (השתמש ב-DeepL כשמוגדר, אחרת Google), google או deepl.",
     "param.target_lang.description": "קוד שפת יעד (לדוגמה ja, en, zh_CN, pt_BR, fr, de, es, ko, el, he, hu, ro).",
     "param.source_lang.description": "קוד שפת מקור. מזוהה אוטומטית אם הושמט.",
     "x_search_terms": [
