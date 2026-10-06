@@ -63,6 +63,7 @@ SHIPPED_LOCALES = (
 PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
+BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 FORMATTER = Formatter()
 # Key-based gettext entries may obtain their placeholders from the source
 # ``default=`` string rather than from the msgid key stored in the PO catalog.
@@ -95,6 +96,12 @@ class Finding:
 
 
 def _placeholders(value: str) -> list[str]:
+    names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(value)}
+    names.update(match.group("name") for match in BRACE_PLACEHOLDER_RE.finditer(value))
+    return sorted(names)
+
+
+def _tool_placeholders(value: str) -> list[str]:
     names = {match.group("name") for match in PRINTF_PLACEHOLDER_RE.finditer(value)}
     try:
         for _literal, field_name, _format_spec, _conversion in FORMATTER.parse(value):
@@ -278,7 +285,7 @@ def _walk_structure(value: Any, prefix: str = "") -> dict[str, tuple[str, list[s
             result.update(_walk_structure(child, f"{prefix}[{index}]"))
         return result
     if isinstance(value, str):
-        return {prefix: ("string", _placeholders(value))}
+        return {prefix: ("string", _tool_placeholders(value))}
     return {prefix: (type(value).__name__, [])}
 
 
