@@ -521,3 +521,6 @@ def test_audit_summary_reports_findings_by_kind(tmp_path: Path) -> None:
     assert payload["summary"]["tool_findings_by_kind_path"]["structure_extra"] == {
         str(tools / "example_tool.json"): 1
     }
+    assert payload["summary"]["tool_finding_keys_by_kind_path"]["structure_extra"] == {
+        str(tools / "example_tool.json"): ["extra"]
+    }
