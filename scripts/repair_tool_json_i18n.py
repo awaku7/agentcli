@@ -139,10 +139,12 @@ def translate_batch(lang: str, texts: list[str]) -> list[str]:
     groups = _scope_pip_install_groups(indices, texts)
     if groups != [indices]:
         out: list[str | None] = [None] * len(texts)
-        for group in groups:
+        for group_index, group in enumerate(groups):
             translated = translate_batch(lang, [texts[index] for index in group])
             for index, value in zip(group, translated):
                 out[index] = value
+            if group_index < len(groups) - 1:
+                time.sleep(0.05)
         return [
             value if value is not None else texts[index]
             for index, value in enumerate(out)
