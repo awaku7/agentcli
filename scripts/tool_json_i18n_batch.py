@@ -154,6 +154,7 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
         ("lint_js_ts", "label.ok"),
         ("mdformat", "label.ok"),
         ("set_timer", "out.list_os_item"),
+        ("ucp_checkout", "param.mode.description"),
     }
 )
 
