@@ -36,11 +36,14 @@ def test_discord_search_terms_preserve_brand_name() -> None:
                 continue
 
             term = str(terms[index])
-            if re.search(
-                r"(^|[^a-z])discord($|[^a-z])",
-                term,
-                flags=re.IGNORECASE,
-            ) is None:
+            if (
+                re.search(
+                    r"(^|[^a-z])discord($|[^a-z])",
+                    term,
+                    flags=re.IGNORECASE,
+                )
+                is None
+            ):
                 invalid.append(f"{locale}[{index}]={term!r}")
 
     assert not invalid, (
@@ -72,12 +75,20 @@ def test_sidecar_search_terms_are_wired_into_tool_spec() -> None:
         if not python_path.exists():
             continue
 
-        source = python_path.read_text(encoding="utf-8")
-        if '"x_search_terms": _(' not in source:
+        candidate_sources = [python_path]
+        stem = json_path.stem
+        base_name = stem[:-5] if stem.endswith("_tool") else stem
+        impl_dir = json_path.parent / f"{base_name}_impl"
+        if impl_dir.is_dir():
+            candidate_sources.extend(sorted(impl_dir.rglob("*.py")))
+
+        if not any(
+            '"x_search_terms": _(' in source_path.read_text(encoding="utf-8")
+            for source_path in candidate_sources
+        ):
             missing.append(python_path.name)
 
     assert not missing, (
         "Tool sidecars with localized x_search_terms must wire them into "
-        "TOOL_SPEC via _(\"x_search_terms\", default=...): "
-        + ", ".join(missing)
+        'TOOL_SPEC via _("x_search_terms", default=...): ' + ", ".join(missing)
     )
