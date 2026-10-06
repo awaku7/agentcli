@@ -227,7 +227,7 @@
     "err.not_a_dir": "Kesalahan: bukan direktori: {path}",
     "msg.empty_dir": "(direktori kosong)",
     "msg.paginate": "Halaman {page} dari {total_pages} (menampilkan {count} dari {total} entri)",
-    "msg.path": "Path: {path}"
+    "msg.path": "Jalur: {path}"
   },
   "vi": {
     "tool.description": "Liệt kê các mục trong một thư mục có phân trang, tương tự như ls.",
@@ -779,7 +779,7 @@
     "err.not_a_dir": "Error: hindi isang direktoryo: {path}",
     "msg.empty_dir": "(walang laman na direktoryo)",
     "msg.paginate": "Pahina {page} ng {total_pages} (nagpapakita ng {count} ng {total} entry)",
-    "msg.path": "Path: {path}"
+    "msg.path": "Landas: {path}"
   },
   "ms": {
     "tool.description": "Senaraikan entri dalam direktori dengan penomboran, serupa dengan ls.",
