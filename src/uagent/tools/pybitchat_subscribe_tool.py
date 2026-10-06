@@ -806,9 +806,7 @@ CMD_SPECS = [
         "command": "bitchat",
         "subcommand": "stop",
         "handler": _cmd_bitchat_stop,
-        "help_text": _cmd_help(
-            ":bitchat stop", "help.stop", "Stop the BLE Mesh node"
-        ),
+        "help_text": _cmd_help(":bitchat stop", "help.stop", "Stop the BLE Mesh node"),
     },
     {
         "command": "bitchat",
@@ -824,9 +822,7 @@ CMD_SPECS = [
         "command": "bitchat",
         "subcommand": "off",
         "handler": _cmd_bitchat_off,
-        "help_text": _cmd_help(
-            ":bitchat off", "help.off", "Disable chat mode"
-        ),
+        "help_text": _cmd_help(":bitchat off", "help.off", "Disable chat mode"),
     },
     {
         "command": "bitchat",
