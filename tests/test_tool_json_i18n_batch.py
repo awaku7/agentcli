@@ -225,6 +225,22 @@ def test_status_allows_locale_specific_search_term_counts(
     assert "review_candidates: 0" in output
 
 
+def test_pip_install_protect_terms_extract_commands_and_packages() -> None:
+    assert batch._pip_install_protect_terms(
+        [
+            "Install it with: pip install bleak",
+            "Then run pip install PySide6.",
+            "A bleak outlook should remain translatable.",
+            "Duplicate: pip install bleak",
+        ]
+    ) == [
+        "pip install bleak",
+        "bleak",
+        "pip install PySide6",
+        "PySide6",
+    ]
+
+
 def test_non_search_term_lists_still_require_matching_length() -> None:
     assert batch._is_missing_or_stale(
         ["one", "two"],
