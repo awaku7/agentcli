@@ -201,7 +201,7 @@
       "konektor",
       "diagram"
     ],
-    "param.mermaid.description": "Mermaid source text.",
+    "param.mermaid.description": "Tekstong pinagmulan ng Mermaid.",
     "param.source_path.description": "Opsyonal na landas ng file ng Mermaid.",
     "param.output_path.description": "Output .xlsx path.",
     "error.source_required": "kailangan ang sirena o source_path",
@@ -448,7 +448,7 @@
       "connectors",
       "diagram"
     ],
-    "param.mermaid.description": "Mermaid source text.",
+    "param.mermaid.description": "Mermaid-kjeldetekst.",
     "param.source_path.description": "Valgfri Mermaid-filbane.",
     "param.output_path.description": "Utgang .xlsx-bane.",
     "error.source_required": "mermaid eller source_path er påkrevd",
