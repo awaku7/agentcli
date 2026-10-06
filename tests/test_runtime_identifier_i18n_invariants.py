@@ -3,6 +3,22 @@ import re
 from pathlib import Path
 
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
+SUB_AGENT_PROMPT_KEYS = (
+    "auto.6cb7e91442d0aa96",
+    "auto.238f691c6304d301",
+    "auto.da98c4c06ff99472",
+    "auto.417eea12dad04caa",
+    "auto.4651eaae39b1dbbb",
+    "auto.c30a5aed7a2d7578",
+    "auto.924901d00f734fac",
+)
+SUB_AGENT_PROMPT_ARTIFACT_RE = re.compile(
+    r"(?:Constant\\(value=|Konstant\\(value=|ধ্রুবক\\(মান=|"
+    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])|_PH|__\\d+|\\|{3,}|"
+    r"\\[Output format\\]|\\[Edge cases\\]|\\[Self-evaluation\\]|"
+    r"\\[Token efficiency\\]|\\[Step-by-step reasoning\\]|"
+    r"\\bYou are\\b|\\bStrictly output\\b)"
+)
 TRANSLATION_PLACEHOLDER_ARTIFACT_RE = re.compile(
     r"(?:"
     r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])"
@@ -174,3 +190,26 @@ def test_repaired_tool_catalogs_have_no_translation_placeholder_artifacts():
             invalid.append(f"{filename}:{match.group(0)}")
 
     assert not invalid, "Translation placeholder artifacts: " + ", ".join(invalid)
+
+
+def test_sub_agent_internal_prompts_are_clean_localized_text():
+    payload = _load("sub_agent_tool.json")
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+        for key in SUB_AGENT_PROMPT_KEYS:
+            prompt = messages.get(key)
+            if not isinstance(prompt, str) or not prompt.strip():
+                invalid.append(f"{lang}:{key}:missing")
+                continue
+            if "[Protocol invariants]" not in prompt:
+                invalid.append(f"{lang}:{key}:protocol")
+            if "\\\\n" in prompt:
+                invalid.append(f"{lang}:{key}:literal-newline")
+            match = SUB_AGENT_PROMPT_ARTIFACT_RE.search(prompt)
+            if match:
+                invalid.append(f"{lang}:{key}:{match.group(0)}")
+
+    assert not invalid, "Corrupted sub-agent prompt translations: " + ", ".join(invalid)
