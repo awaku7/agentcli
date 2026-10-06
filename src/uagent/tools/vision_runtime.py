@@ -70,7 +70,7 @@ def analyze_image_runtime(*, image_path: str, prompt: str | None) -> str:
             _(
                 "err.unsupported_provider",
                 default=(
-                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama/lmstudio "
+                    "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama/lmstudio/deepseek "
                     "(got provider={provider!r})"
                 ),
             ).format(provider=provider)
