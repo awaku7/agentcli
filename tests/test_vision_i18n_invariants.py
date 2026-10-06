@@ -119,7 +119,7 @@ def test_vision_runtime_provider_and_env_messages_preserve_identifiers():
             if "UAGENT_RESPONSES=1" not in unsupported:
                 invalid.append(f"{lang}: responses flag")
             if (
-                "openai/azure/bedrock/openrouter/ollama/lmstudio"
+                "openai/azure/bedrock/openrouter/ollama/lmstudio/deepseek"
                 not in unsupported.lower()
             ):
                 invalid.append(f"{lang}: provider list")
