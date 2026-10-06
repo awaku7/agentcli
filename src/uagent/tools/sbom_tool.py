@@ -44,6 +44,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "CycloneDX",
                 "SPDX",
                 "software bill of materials",
+                "dependency inventory",
+                "software composition analysis",
             ],
         ),
         "x_search_terms_en": [
@@ -51,6 +53,8 @@ TOOL_SPEC: dict[str, Any] = {
             "CycloneDX",
             "SPDX",
             "software bill of materials",
+            "dependency inventory",
+            "software composition analysis",
         ],
         "parameters": {
             "type": "object",
