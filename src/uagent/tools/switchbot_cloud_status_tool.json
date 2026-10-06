@@ -1016,7 +1016,8 @@
       "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
-      "cloud"
+      "cloud",
+      "katayuan ng SwitchBot cloud"
     ]
   },
   "ms": {
@@ -1076,7 +1077,8 @@
       "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
-      "cloud"
+      "cloud",
+      "SwitchBot cloud-status"
     ]
   },
   "nn": {
