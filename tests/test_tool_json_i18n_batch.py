@@ -431,22 +431,21 @@ def test_status_require_complete_succeeds_for_complete_catalog(
     assert captured.err == ""
 
 
-def test_intentional_english_debug_value_is_not_stale() -> None:
+def test_intentional_english_debug_value_is_scoped_to_pybitchat() -> None:
     value = "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d"
 
-    assert not batch._is_missing_or_stale(
+    assert batch._is_missing_or_stale(
         value,
         value,
         key="bitchat.debug_hs_skip",
         force=False,
         skip_same_as_en=True,
     )
-    assert batch._is_missing_or_stale(
-        value,
-        value,
-        key="ordinary.message",
-        force=False,
-        skip_same_as_en=True,
+    assert batch._is_intentional_english_tool_key(
+        "pybitchat_shared", "bitchat.debug_hs_skip"
+    )
+    assert not batch._is_intentional_english_tool_key(
+        "other_tool", "bitchat.debug_hs_skip"
     )
 
 
@@ -512,16 +511,18 @@ def test_status_can_report_same_as_english_units(tmp_path: Path, capsys) -> None
     assert "tool.description" in captured.out
 
 
-def test_placeholder_only_passthrough_key_is_intentional_english() -> None:
+def test_placeholder_only_passthrough_key_is_scoped_to_skill_history() -> None:
     value = "{message}"
 
-    assert not batch._is_missing_or_stale(
+    assert batch._is_missing_or_stale(
         value,
         value,
         key="skill.ok",
         force=False,
         skip_same_as_en=True,
     )
+    assert batch._is_intentional_english_tool_key("skill_history", "skill.ok")
+    assert not batch._is_intentional_english_tool_key("other_tool", "skill.ok")
 
 
 def test_intentional_english_tool_key_is_scoped() -> None:
@@ -547,3 +548,38 @@ def test_exception_label_is_scoped_to_reviewed_tools() -> None:
     )
     assert not batch._is_intentional_english_tool_key("other_tool", "cmd.help")
     assert not batch._is_intentional_english_tool_key("other_tool", "ui.footer")
+
+
+def test_collect_units_skips_only_tool_scoped_intentional_english(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    value = "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d"
+    _write_source(
+        tools / "pybitchat_shared.py",
+        {"bitchat.debug_hs_skip": value},
+    )
+    _write_catalog(
+        tools / "pybitchat_shared.json",
+        {"ja": {"bitchat.debug_hs_skip": value}},
+    )
+    _write_source(
+        tools / "other_tool.py",
+        {"bitchat.debug_hs_skip": value},
+    )
+    _write_catalog(
+        tools / "other_tool.json",
+        {"ja": {"bitchat.debug_hs_skip": value}},
+    )
+
+    units = batch.collect_units(
+        [tools / "pybitchat_shared.json", tools / "other_tool.json"],
+        ["ja"],
+        force=False,
+        skip_same_as_en=True,
+        only_missing=True,
+    )
+
+    assert [(unit.tool, unit.key) for unit in units] == [
+        ("other", "bitchat.debug_hs_skip")
+    ]
