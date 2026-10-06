@@ -132,6 +132,8 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
         ("create_tool", "cmd.help"),
         ("human_ask", "ui.footer"),
         ("safe_exec_ops", "ui.fallback_prompt"),
+        ("safe_exec_ops", "ui.confirm.footer"),
+        ("safe_file_ops", "ui.confirm.footer"),
         ("pybitchat_subscribe", "peers.list_entry"),
         ("pybitchat_subscribe", "geo.list_geohash"),
         ("pybitchat_subscribe", "geo.list_peer_id"),
