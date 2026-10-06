@@ -909,6 +909,7 @@ def cmd_status(args: argparse.Namespace) -> int:
     missing_by_lang: dict[str, int] = {}
     missing_by_tool: dict[str, int] = {}
     same_by_lang: dict[str, int] = {}
+    same_by_tool_key: dict[tuple[str, str], int] = {}
     missing_by_tool_key: dict[tuple[str, str], int] = {}
 
     for u in review_units:
@@ -924,6 +925,8 @@ def cmd_status(args: argparse.Namespace) -> int:
         missing_by_tool_key[tool_key] = missing_by_tool_key.get(tool_key, 0) + 1
     for u in same_as_en_units:
         same_by_lang[u.lang] = same_by_lang.get(u.lang, 0) + 1
+        tool_key = (u.tool, u.key)
+        same_by_tool_key[tool_key] = same_by_tool_key.get(tool_key, 0) + 1
 
     print(f"tools_scanned: {len(files)}")
     print(f"supported_locales: {len(SUPPORTED_TOOL_LOCALES)}")
@@ -968,6 +971,14 @@ def cmd_status(args: argparse.Namespace) -> int:
         print("missing_by_tool_language:")
         for (tool, lang), n in sorted(missing_by_pair.items()):
             print(f"  {tool:40s} {lang:8s} {n}")
+
+    if args.show_same_as_english_keys and same_by_tool_key:
+        print("same_as_english_by_tool_key:")
+        for (tool, key), n in sorted(
+            same_by_tool_key.items(),
+            key=lambda item: (-item[1], item[0][0], item[0][1]),
+        ):
+            print(f"  {tool:40s} {key:48s} {n}")
 
     if by_pair:
         print("review_candidates_by_tool_language:")
@@ -1151,6 +1162,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--show-missing-keys",
         action="store_true",
         help="For status, print missing translation keys grouped by tool catalog",
+    )
+    p.add_argument(
+        "--show-same-as-english-keys",
+        action="store_true",
+        help="For status, print target==English candidates grouped by tool and key",
     )
     p.add_argument(
         "--require-complete",
