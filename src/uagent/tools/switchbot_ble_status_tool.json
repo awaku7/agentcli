@@ -17,7 +17,7 @@
       "switchbot",
       "قريب"
     ],
-    "err.bleak_missing": "خطأ: لم يتم تثبيت المكتبة \"القاتمة\". الرجاء تثبيته باستخدام: \npip install قاتمة",
+    "err.bleak_missing": "خطأ: لم يتم تثبيت المكتبة \"bleak\". الرجاء تثبيته باستخدام: \npip install bleak",
     "err.linux_permission": "خطأ أثناء تشغيل BLE: {err_msg}\n\n[دليل أذونات Linux/Raspberry Pi]\nقد تفتقر إلى أذونات الوصول إلى مقبس Bluetooth. جرب أحد الإجراءات التالية:\n1. أضف المستخدم الخاص بك إلى مجموعة البلوتوث (مستحسن): \n sudo usermod -aG bluetooth $USER\n (يتطلب إعادة التشغيل أو إعادة تسجيل الدخول) \n2. منح الأذونات مباشرة إلى ثنائي Python: \n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(what python))",
     "err.macos_permission": "خطأ أثناء تشغيل BLE: {err_msg}\n\n[دليل أذونات macOS]\nربما تم رفض الوصول إلى البلوتوث بسبب قيود أمان macOS.\nيرجى فتح \"إعدادات النظام> الخصوصية والأمان> Bluetooth\" والتأكد من السماح للمحطة الطرفية أو VS Code أو عملية Python بالوصول إلى Bluetooth.",
     "param.devname.description": "مرشح اسم الجهاز.",
@@ -46,7 +46,7 @@
       "switchbot",
       "কাছাকাছি"
     ],
-    "err.bleak_missing": "ত্রুটি: 'ব্লাক' লাইব্রেরি ইনস্টল করা নেই। অনুগ্রহ করে এটি ব্যবহার করে ইনস্টল করুন:\nপিপ ইনস্টল ব্ল্যাক",
+    "err.bleak_missing": "ত্রুটি: 'bleak' লাইব্রেরি ইনস্টল করা নেই। অনুগ্রহ করে এটি ব্যবহার করে ইনস্টল করুন:\npip install bleak",
     "err.linux_permission": "BLE অপারেশনের সময় ত্রুটি: {err_msg}\n\n[লিনাক্স/রাস্পবেরি পাই অনুমতি নির্দেশিকা]\nব্লুটুথ সকেট অ্যাক্সেস করার জন্য আপনার অনুমতির অভাব থাকতে পারে। নিম্নলিখিতগুলির মধ্যে একটি চেষ্টা করুন:\n1. আপনার ব্যবহারকারীকে ব্লুটুথ গ্রুপে যুক্ত করুন (প্রস্তাবিত):\nsudo usermod -aG ব্লুটুথ $USER\n(রিস্টার্ট বা পুনরায় লগইন প্রয়োজন)\n2. পাইথন বাইনারিতে সরাসরি অনুমতি দিন:\nsudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE অপারেশনের সময় ত্রুটি: {err_msg}\n\n[macOS অনুমতি নির্দেশিকা]\nব্লুটুথ অ্যাক্সেস macOS নিরাপত্তা বিধিনিষেধ দ্বারা অস্বীকার করা হতে পারে.\nঅনুগ্রহ করে 'সিস্টেম সেটিংস > গোপনীয়তা ও নিরাপত্তা > ব্লুটুথ' খুলুন এবং নিশ্চিত করুন যে আপনার টার্মিনাল, ভিএস কোড বা পাইথন প্রক্রিয়া ব্লুটুথ অ্যাক্সেস করার অনুমতি রয়েছে।",
     "param.devname.description": "ডিভাইসের নাম ফিল্টার।",
@@ -75,7 +75,7 @@
       "switchbot",
       "poblíž"
     ],
-    "err.bleak_missing": "Chyba: Knihovna není nainstalována. Nainstalujte jej prosím pomocí:\npip install bleak",
+    "err.bleak_missing": "Chyba: Knihovna 'bleak' není nainstalována. Nainstalujte jej prosím pomocí:\npip install bleak",
     "err.linux_permission": "Chyba během operace BLE: {err_msg}\n\n[Průvodce oprávněními pro Linux/Raspberry Pi]\nMožná vám chybí oprávnění pro přístup k zásuvce Bluetooth. Zkuste jeden z následujících postupů:\n1. Přidejte svého uživatele do skupiny bluetooth (doporučeno):\n sudo usermod -aG bluetooth $USER\n (Vyžaduje restart nebo opětovné přihlášení)\n2. Udělte oprávnění přímo binárnímu souboru Pythonu:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(který python))",
     "err.macos_permission": "Chyba během operace BLE: {err_msg}\n\n[Průvodce oprávněními pro macOS]\nPřístup k Bluetooth mohl být odepřen bezpečnostními omezeními macOS.\nOtevřete „Nastavení systému > Soukromí a zabezpečení > Bluetooth“ a ujistěte se, že váš terminál, kód VS nebo proces Python mají povolen přístup k Bluetooth.",
     "param.devname.description": "Filtr názvu zařízení.",
@@ -133,7 +133,7 @@
       "switchbot",
       "cerca"
     ],
-    "err.bleak_missing": "Error: la biblioteca 'sombría' no está instalada. Instálelo usando: \npip install sombrío",
+    "err.bleak_missing": "Error: la biblioteca 'bleak' no está instalada. Instálelo usando: \npip install bleak",
     "err.linux_permission": "Error durante la operación BLE: {err_msg}\n\n[Guía de permisos de Linux/Raspberry Pi]\nEs posible que no tenga permisos para acceder al conector Bluetooth. Pruebe uno de los siguientes:\n1. Agregue su usuario al grupo de bluetooth (recomendado):\n sudo usermod -aG bluetooth $USER\n (Requiere reiniciar o volver a iniciar sesión)\n2. Otorgue permisos directamente al binario de Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(cuál python))",
     "err.macos_permission": "Error durante la operación BLE: {err_msg}\n\n[Guía de permisos de macOS]\nEs posible que las restricciones de seguridad de macOS hayan denegado el acceso a Bluetooth.\nAbra 'Configuración del sistema > Privacidad y seguridad > Bluetooth' y asegúrese de que su terminal, VS Code o proceso Python tenga permiso para acceder a Bluetooth.",
     "param.devname.description": "Filtro de nombre de dispositivo.",
@@ -162,7 +162,7 @@
       "switchbot",
       "نزدیک"
     ],
-    "err.bleak_missing": "خطا: کتابخانه \"مشت\" نصب نشده است. لطفا با استفاده از:\nنصب پیپ تاریک است",
+    "err.bleak_missing": "خطا: کتابخانه \"bleak\" نصب نشده است. لطفا با استفاده از:\npip install bleak",
     "err.linux_permission": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوز لینوکس/رزبری پای]\nممکن است مجوز دسترسی به سوکت بلوتوث را نداشته باشید. یکی از موارد زیر را امتحان کنید:\n1. کاربر خود را به گروه بلوتوث اضافه کنید (توصیه می شود):\nsudo usermod -aG بلوتوث $USER\n(نیاز به راه اندازی مجدد یا ورود مجدد دارد)\n2. مجوزها را مستقیماً به باینری پایتون بدهید:\nsudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(کدام پایتون))",
     "err.macos_permission": "خطا در حین عملیات BLE: {err_msg}\n\n[راهنمای مجوز macOS]\nدسترسی بلوتوث ممکن است توسط محدودیت های امنیتی macOS رد شده باشد.\nلطفاً «تنظیمات سیستم > حریم خصوصی و امنیت > بلوتوث» را باز کنید و مطمئن شوید که ترمینال، کد VS یا فرآیند پایتون شما اجازه دسترسی به بلوتوث را دارد.",
     "param.devname.description": "فیلتر نام دستگاه",
@@ -191,7 +191,7 @@
       "switchbot",
       "lähellä"
     ],
-    "err.bleak_missing": "Virhe: synkkää kirjastoa ei ole asennettu. Asenna se käyttämällä:\npip install bleak",
+    "err.bleak_missing": "Virhe: 'bleak'-kirjastoa ei ole asennettu. Asenna se käyttämällä:\npip install bleak",
     "err.linux_permission": "Virhe BLE-toiminnan aikana: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nSinulla ei ehkä ole oikeuksia käyttää Bluetooth-liitäntää. Kokeile jotakin seuraavista:\n1. Lisää käyttäjäsi bluetooth-ryhmään (suositus):\n sudo usermod -aG bluetooth $USER\n (Vaatii uudelleenkäynnistyksen tai uudelleenkirjautumisen)\n2. Myönnä käyttöoikeudet suoraan Python-binäärille:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(mikä python))",
     "err.macos_permission": "Virhe BLE-toiminnan aikana: {err_msg}\n\n[macOS-käyttöoikeusopas]\nMacOS-suojausrajoitukset ovat saattaneet estää Bluetoothin käytön.\nAvaa \"Järjestelmäasetukset > Tietosuoja ja suojaus > Bluetooth\" ja varmista, että päätelaitteellasi, VS-koodillasi tai Python-prosessillasi on oikeus käyttää Bluetoothia.",
     "param.devname.description": "Laitteen nimisuodatin.",
@@ -220,7 +220,7 @@
       "switchbot",
       "à proximité"
     ],
-    "err.bleak_missing": "Erreur : la bibliothèque 'bleak' n'est pas installée. Veuillez l'installer en utilisant :\npip installbleak",
+    "err.bleak_missing": "Erreur : la bibliothèque 'bleak' n'est pas installée. Veuillez l'installer en utilisant :\npip install bleak",
     "err.linux_permission": "Erreur lors du fonctionnement BLE : {err_msg}\n\n[Guide des autorisations Linux/Raspberry Pi]\nVous ne disposez peut-être pas des autorisations nécessaires pour accéder à la prise Bluetooth. Essayez l'une des solutions suivantes :\n1. Ajoutez votre utilisateur au groupe Bluetooth (recommandé) :\n sudo usermod -aG bluetooth $USER\n (nécessite un redémarrage ou une reconnexion)\n2. Accordez des autorisations directement au binaire Python :\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Erreur lors du fonctionnement BLE : {err_msg}\n\n[Guide des autorisations macOS]\nL'accès Bluetooth a peut-être été refusé par les restrictions de sécurité macOS.\nVeuillez ouvrir « Paramètres système > Confidentialité et sécurité > Bluetooth » et assurez-vous que votre terminal, VS Code ou votre processus Python est autorisé à accéder à Bluetooth.",
     "param.devname.description": "Filtre de nom de périphérique.",
@@ -249,7 +249,7 @@
       "switchbot",
       "निकट"
     ],
-    "err.bleak_missing": "त्रुटि: 'ब्लीक' लाइब्रेरी स्थापित नहीं है। कृपया इसका उपयोग करके इसे स्थापित करें:\nपिप इंस्टाल धूमिल",
+    "err.bleak_missing": "त्रुटि: 'bleak' लाइब्रेरी स्थापित नहीं है। कृपया इसका उपयोग करके इसे स्थापित करें:\npip install bleak",
     "err.linux_permission": "BLE ऑपरेशन के दौरान त्रुटि: {err_msg}\n\n[लिनक्स/रास्पबेरी पाई अनुमति गाइड]\nआपके पास ब्लूटूथ सॉकेट तक पहुंचने के लिए अनुमतियों की कमी हो सकती है। निम्नलिखित में से कोई एक प्रयास करें:\n1. अपने उपयोगकर्ता को ब्लूटूथ समूह में जोड़ें (अनुशंसित):\nsudo usermod -aG ब्लूटूथ $USER\n(पुनः आरंभ या पुनः लॉगिन की आवश्यकता है)\n2. सीधे पायथन बाइनरी को अनुमतियाँ प्रदान करें:\nसुडो सेटकैप 'कैप_नेट_रॉ, कैप_नेट_एडमिन+ईआईपी' $(रीडलिंक -एफ $(कौन सा पायथन))",
     "err.macos_permission": "BLE ऑपरेशन के दौरान त्रुटि: {err_msg}\n\n[macOS अनुमति गाइड]\nहो सकता है कि macOS सुरक्षा प्रतिबंधों के कारण ब्लूटूथ एक्सेस अस्वीकृत कर दिया गया हो।\nकृपया 'सिस्टम सेटिंग्स> गोपनीयता और सुरक्षा> ब्लूटूथ' खोलें और सुनिश्चित करें कि आपके टर्मिनल, वीएस कोड, या पायथन प्रक्रिया को ब्लूटूथ तक पहुंचने की अनुमति है।",
     "param.devname.description": "डिवाइस का नाम फ़िल्टर.",
@@ -278,7 +278,7 @@
       "switchbot",
       "di dekatnya"
     ],
-    "err.bleak_missing": "Kesalahan: perpustakaan 'suram' tidak diinstal. Silakan instal menggunakan: \npip install suram",
+    "err.bleak_missing": "Kesalahan: perpustakaan 'bleak' tidak diinstal. Silakan instal menggunakan: \npip install bleak",
     "err.linux_permission": "Kesalahan selama pengoperasian BLE: {err_msg}\n\n[Panduan Izin Linux/Raspberry Pi]\nAnda mungkin tidak memiliki izin untuk mengakses soket Bluetooth. Cobalah salah satu dari yang berikut:\n1. Tambahkan pengguna Anda ke grup bluetooth (disarankan):\n sudo usermod -aG bluetooth $USER\n (Memerlukan restart atau login ulang)\n2. Berikan izin langsung ke biner Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Kesalahan selama pengoperasian BLE: {err_msg}\n\n[Panduan Izin macOS]\nAkses Bluetooth mungkin ditolak oleh pembatasan keamanan macOS.\nSilakan buka 'Pengaturan Sistem > Privasi & Keamanan > Bluetooth' dan pastikan terminal Anda, Kode VS, atau proses Python diizinkan untuk mengakses Bluetooth.",
     "param.devname.description": "Filter nama perangkat.",
@@ -330,7 +330,7 @@
     "err.operation_failed": "BLE 操作中のエラー: {err_msg}",
     "msg.error_fmt": "エラー: {msg}",
     "msg.unknown_error": "不明なエラー",
-    "err.bleak_missing": "エラー: 「bleak」ライブラリがインストールされていません。以下を使用してインストールしてください。\npip インストール ブランク",
+    "err.bleak_missing": "エラー: 「bleak」ライブラリがインストールされていません。以下を使用してインストールしてください。\npip install bleak",
     "err.linux_permission": "BLE 操作中のエラー: {err_msg}\n\n[Linux/Raspberry Pi 権限ガイド]\nBluetooth ソケットにアクセスするための権限が不足している可能性があります。次のいずれかを試してください。\n1. ユーザーを Bluetooth グループに追加します (推奨)。\nsudo usermod -aG bluetooth $USER\n(再起動または再ログインが必要です)\n2. Python バイナリに直接アクセス許可を付与します。\nsudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(どのPython))",
     "param.devname.description": "デバイス名フィルター。",
     "param.interface.description": "バインド先のオプションのローカル BLE アダプター/インターフェイス名。",
@@ -394,7 +394,7 @@
       "switchbot",
       "ойролцоо"
     ],
-    "err.bleak_missing": "Алдаа: 'харин' номын сан суулгаагүй байна. Үүнийг ашиглан суулгана уу: \npip install bleak",
+    "err.bleak_missing": "Алдаа: 'bleak' номын сан суулгаагүй байна. Үүнийг ашиглан суулгана уу: \npip install bleak",
     "err.linux_permission": "Error during BLE operation: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nYou might lack permissions to access the Bluetooth socket. Дараахаас аль нэгийг нь туршаад үзээрэй: \n1. Хэрэглэгчээ bluetooth бүлэгт нэмнэ үү (санал болгож байна):\n sudo usermod -aG bluetooth $USER\n (Дахин эхлүүлэх эсвэл дахин нэвтрэх шаардлагатай)\n2. Python хоёртын файлд шууд зөвшөөрөл олгох:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(унших холбоос -f $(аль python))",
     "err.macos_permission": "BLE үйлдлийн үед гарсан алдаа: {err_msg}\n\n[macOS зөвшөөрлийн гарын авлага]\nBluetooth хандалтыг macOS-ийн аюулгүй байдлын хязгаарлалтаар хориглосон байж болзошгүй.\n'Системийн тохиргоо > Нууцлал, аюулгүй байдал > Bluetooth'-г нээж, таны терминал, VS код эсвэл Python процесс Bluetooth-д хандах эрхтэй эсэхийг шалгана уу.",
     "param.devname.description": "Төхөөрөмжийн нэрийн шүүлтүүр.",
@@ -423,7 +423,7 @@
       "switchbot",
       "जवळ"
     ],
-    "err.bleak_missing": "त्रुटी: 'ब्लॅक' लायब्ररी स्थापित केलेली नाही. कृपया ते वापरून स्थापित करा:\npip install bleak",
+    "err.bleak_missing": "त्रुटी: 'bleak' लायब्ररी स्थापित केलेली नाही. कृपया ते वापरून स्थापित करा:\npip install bleak",
     "err.linux_permission": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[Linux/Raspberry Pi परवानगी मार्गदर्शक]\nतुम्हाला ब्लूटूथ सॉकेटमध्ये प्रवेश करण्यासाठी परवानग्या नसतील. खालीलपैकी एक वापरून पहा:\n1. तुमच्या वापरकर्त्याला ब्लूटूथ ग्रुपमध्ये जोडा (शिफारस केलेले):\n sudo usermod -aG ब्लूटूथ $USER\n (रीस्टार्ट किंवा पुन्हा लॉगिन आवश्यक आहे)\n2. पायथन बायनरीला थेट परवानग्या द्या: \n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "BLE ऑपरेशन दरम्यान त्रुटी: {err_msg}\n\n[macOS परवानगी मार्गदर्शक]\nBluetooth प्रवेश macOS सुरक्षा निर्बंधांमुळे नाकारला गेला असावा.",
     "param.devname.description": "डिव्हाइसचे नाव फिल्टर.",
@@ -452,7 +452,7 @@
       "switchbot",
       "κοντά"
     ],
-    "err.bleak_missing": "Σφάλμα: Δεν έχει εγκατασταθεί η «μαυρή» βιβλιοθήκη. Εγκαταστήστε το χρησιμοποιώντας:\npip install bleak",
+    "err.bleak_missing": "Σφάλμα: Δεν έχει εγκατασταθεί η «bleak» βιβλιοθήκη. Εγκαταστήστε το χρησιμοποιώντας:\npip install bleak",
     "err.linux_permission": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}\n\n[Οδηγός άδειας Linux/Raspberry Pi]\nΜπορεί να μην έχετε δικαιώματα πρόσβασης στην υποδοχή Bluetooth. Δοκιμάστε ένα από τα παρακάτω:\n1. Προσθέστε τον χρήστη σας στην ομάδα bluetooth (συνιστάται):\n sudo usermod -aG bluetooth $USER\n (Απαιτείται επανεκκίνηση ή επανασύνδεση)\n2. Εκχωρήστε δικαιώματα απευθείας στο δυαδικό της Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(ποιο python))",
     "err.macos_permission": "Σφάλμα κατά τη λειτουργία BLE: {err_msg}\n\n[Οδηγός αδειών macOS]\nΗ πρόσβαση στο Bluetooth ενδέχεται να έχει απορριφθεί από περιορισμούς ασφαλείας του macOS.\nΑνοίξτε τις «Ρυθμίσεις συστήματος > Απόρρητο και ασφάλεια > Bluetooth» και βεβαιωθείτε ότι επιτρέπεται στο τερματικό σας, ο Κωδικός VS ή η διαδικασία Python να έχει πρόσβαση στο Bluetooth.",
     "param.devname.description": "Φίλτρο ονόματος συσκευής.",
@@ -481,7 +481,7 @@
       "switchbot",
       "בקרבת מקום"
     ],
-    "err.bleak_missing": "שגיאה: ספריית 'עגומה' אינה מותקנת. אנא התקן אותו באמצעות:\npip install beak",
+    "err.bleak_missing": "שגיאה: ספריית 'bleak' אינה מותקנת. אנא התקן אותו באמצעות:\npip install bleak",
     "err.linux_permission": "שגיאה במהלך פעולת BLE: {err_msg}\n\n[מדריך ההרשאות של Linux/Raspberry Pi]\nייתכן שחסרות לך הרשאות גישה לשקע ה-Bluetooth. נסה אחת מהאפשרויות הבאות:\n1. הוסף את המשתמש שלך לקבוצת ה-Bluetooth (מומלץ):\n sudo usermod -aG bluetooth $USER\n (דורש הפעלה מחדש או התחברות מחדש)\n2. הענק הרשאות ישירות לקובץ הבינארי של Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "שגיאה במהלך פעולת BLE: {err_msg}\n\n[מדריך הרשאות macOS]\nייתכן שהגישה ל-Bluetooth נדחתה על ידי הגבלות אבטחה של macOS.\nאנא פתח את 'הגדרות מערכת > פרטיות ואבטחה > Bluetooth' וודא שהטרמינל, קוד VS או תהליך Python שלך מורשה לגשת ל-Bluetooth.",
     "param.devname.description": "מסנן שם מכשיר.",
@@ -510,7 +510,7 @@
       "switchbot",
       "közel"
     ],
-    "err.bleak_missing": "Hiba: a „sivár” könyvtár nincs telepítve. Telepítse a következővel:\npip install bleak",
+    "err.bleak_missing": "Hiba: a „bleak” könyvtár nincs telepítve. Telepítse a következővel:\npip install bleak",
     "err.linux_permission": "Hiba a BLE működése közben: {err_msg}\n\n[Linux/Raspberry Pi engedélyek útmutatója]\nLehet, hogy nincs engedélye a Bluetooth-aljzat eléréséhez. Próbálja ki a következők egyikét:\n1. Adja hozzá felhasználóját a bluetooth csoporthoz (ajánlott):\n sudo usermod -aG bluetooth $USER\n (Újraindítást vagy újrajelentkezést igényel)\n2. Engedélyek megadása közvetlenül a Python binárisnak:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(melyik python))",
     "err.macos_permission": "Hiba a BLE működése közben: {err_msg}\n\n[macOS Permission Guide]\nLehet, hogy a Bluetooth-hozzáférést megtagadták a macOS biztonsági korlátozások.\nKérjük, nyissa meg a „Rendszerbeállítások > Adatvédelem és biztonság > Bluetooth” menüpontot, és győződjön meg arról, hogy a terminál, a VS Code vagy a Python folyamat hozzáfér a Bluetooth-hoz.",
     "param.devname.description": "Eszköznévszűrő.",
@@ -539,7 +539,7 @@
       "switchbot",
       "aproape"
     ],
-    "err.bleak_missing": "Eroare: biblioteca „sumbră” nu este instalată. Instalați-l folosind:\npip install bleak",
+    "err.bleak_missing": "Eroare: biblioteca „bleak” nu este instalată. Instalați-l folosind:\npip install bleak",
     "err.linux_permission": "Eroare în timpul funcționării BLE: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nEste posibil să nu aveți permisiuni pentru a accesa soclul Bluetooth. Încercați una dintre următoarele:\n1. Adăugați utilizatorul în grupul Bluetooth (recomandat):\n sudo usermod -aG bluetooth $USER\n (Necesită repornire sau reconectare)\n2. Acordați permisiuni direct binarului Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Eroare în timpul funcționării BLE: {err_msg}\n\n[MacOS Permission Guide]\nAccesul Bluetooth ar fi putut fi refuzat de restricțiile de securitate macOS.\nDeschideți „Setări de sistem > Confidențialitate și securitate > Bluetooth” și asigurați-vă că terminalul, VS Code sau procesul Python au permisiunea de a accesa Bluetooth.",
     "param.devname.description": "Filtru de nume de dispozitiv.",
@@ -597,7 +597,7 @@
       "switchbot",
       "nabij"
     ],
-    "err.bleak_missing": "Fout: 'bleak'-bibliotheek is niet geïnstalleerd. Installeer het met behulp van: \npip install somber",
+    "err.bleak_missing": "Fout: 'bleak'-bibliotheek is niet geïnstalleerd. Installeer het met behulp van: \npip install bleak",
     "err.linux_permission": "Fout tijdens BLE-bewerking: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nHet kan zijn dat u geen toestemming heeft om toegang te krijgen tot de Bluetooth-aansluiting. Probeer een van de volgende oplossingen:\n1. Voeg uw gebruiker toe aan de Bluetooth-groep (aanbevolen):\n sudo usermod -aG bluetooth $USER\n (vereist opnieuw opstarten of opnieuw inloggen)\n2. Verleen rechtstreeks rechten aan het binaire Python-bestand:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(welke python))",
     "err.macos_permission": "Fout tijdens BLE-bewerking: {err_msg}\n\n[macOS Permission Guide]\nBluetooth-toegang is mogelijk geweigerd door macOS-beveiligingsbeperkingen.\nOpen 'Systeeminstellingen > Privacy en beveiliging > Bluetooth' en zorg ervoor dat uw terminal, VS Code of Python-proces toegang heeft tot Bluetooth.",
     "param.devname.description": "Apparaatnaamfilter.",
@@ -713,7 +713,7 @@
       "switchbot",
       "рядом"
     ],
-    "err.bleak_missing": "Ошибка: «мрачная» библиотека не установлена. Пожалуйста, установите его, используя: \npip install bleak",
+    "err.bleak_missing": "Ошибка: «bleak» библиотека не установлена. Пожалуйста, установите его, используя: \npip install bleak",
     "err.linux_permission": "Ошибка во время работы BLE: {err_msg}\n\n[Руководство по разрешениям Linux/Raspberry Pi]\nВозможно, у вас недостаточно прав для доступа к разъему Bluetooth. Попробуйте одно из следующих действий:\n1. Добавьте пользователя в группу Bluetooth (рекомендуется):\n sudo usermod -aG bluetooth $USER\n (требуется перезагрузка или повторный вход в систему)\n2. Предоставьте разрешения непосредственно двоичному файлу Python: sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(what python))",
     "err.macos_permission": "Ошибка во время работы BLE: {err_msg}\n\n[Руководство по разрешениям macOS]\nДоступ к Bluetooth мог быть запрещен ограничениями безопасности macOS.\nОткройте «Системные настройки > Конфиденциальность и безопасность > Bluetooth» и убедитесь, что вашему терминалу, VS Code или процессу Python разрешен доступ к Bluetooth.",
     "param.devname.description": "Фильтр имени устройства.",
@@ -771,7 +771,7 @@
       "switchbot",
       "karibu"
     ],
-    "err.bleak_missing": "Hitilafu: maktaba ya 'mbaya' haijasakinishwa. Tafadhali isakinishe kwa kutumia:\npip install bleak",
+    "err.bleak_missing": "Hitilafu: maktaba ya 'bleak' haijasakinishwa. Tafadhali isakinishe kwa kutumia:\npip install bleak",
     "err.linux_permission": "Hitilafu wakati wa operesheni ya BLE: {err_msg}\n\n[Mwongozo wa Ruhusa wa Linux/Raspberry Pi]\nHuenda ukakosa ruhusa za kufikia soketi ya Bluetooth. Jaribu mojawapo ya yafuatayo:\n1. Ongeza mtumiaji wako kwenye kikundi cha bluetooth (inapendekezwa):\n sudo usermod -aG bluetooth $USER\n (Inahitaji kuzima na kuwasha upya au kuingia upya)\n2. Toa ruhusa moja kwa moja kwa mfumo wa binary wa Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(python ipi))",
     "err.macos_permission": "Hitilafu wakati wa operesheni ya BLE: {err_msg}\n\n[Mwongozo wa Ruhusa wa macOS]\nUfikiaji wa Bluetooth unaweza kuwa umekataliwa na vikwazo vya usalama vya macOS.\nTafadhali fungua 'Mipangilio ya Mfumo > Faragha na Usalama > Bluetooth' na uhakikishe kwamba mchakato wako wa kulipia, Msimbo wa VS, au Python unaruhusiwa kufikia Bluetooth.",
     "param.devname.description": "Kichujio cha jina la kifaa.",
@@ -829,7 +829,7 @@
       "switchbot",
       "yakın"
     ],
-    "err.bleak_missing": "Hata: 'kasvetli' kitaplık yüklü değil. Lütfen şunu kullanarak yükleyin: \npip install kasvetli",
+    "err.bleak_missing": "Hata: 'bleak' kitaplık yüklü değil. Lütfen şunu kullanarak yükleyin: \npip install bleak",
     "err.linux_permission": "BLE işlemi sırasında hata: {err_msg}\n\n[Linux/Raspberry Pi Permission Guide]\nBluetooth soketine erişim izniniz olmayabilir. Aşağıdakilerden birini deneyin:\n1. Kullanıcınızı Bluetooth grubuna ekleyin (önerilir):\n sudo usermod -aG bluetooth $USER\n (Yeniden başlatma veya yeniden oturum açma gerektirir)\n2. İzinleri doğrudan Python ikili dosyasına verin:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(hangi python))",
     "err.macos_permission": "BLE işlemi sırasında hata: {err_msg}\n\n[macOS İzin Kılavuzu]\nBluetooth erişimi, macOS güvenlik kısıtlamaları tarafından reddedilmiş olabilir.\nLütfen 'Sistem Ayarları > Gizlilik ve Güvenlik > Bluetooth'u açın ve terminalinizin, VS Kodunuzun veya Python işleminizin Bluetooth'a erişmesine izin verildiğinden emin olun.",
     "param.devname.description": "Cihaz adı filtresi.",
@@ -887,7 +887,7 @@
       "switchbot",
       "gần đó"
     ],
-    "err.bleak_missing": "Lỗi: thư viện 'ảm đạm' chưa được cài đặt. Vui lòng cài đặt nó bằng cách sử dụng:\npip install ảm đạm",
+    "err.bleak_missing": "Lỗi: thư viện 'bleak' chưa được cài đặt. Vui lòng cài đặt nó bằng cách sử dụng:\npip install bleak",
     "err.linux_permission": "Lỗi trong quá trình vận hành BLE: {err_msg}\n\n[Hướng dẫn cấp phép Linux/Raspberry Pi]\nBạn có thể thiếu quyền truy cập vào ổ cắm Bluetooth. Hãy thử một trong những cách sau:\n1. Thêm người dùng của bạn vào nhóm bluetooth (được khuyến nghị):\n sudo usermod -aG bluetooth $USER\n (Yêu cầu khởi động lại hoặc đăng nhập lại)\n2. Cấp quyền trực tiếp cho tệp nhị phân Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Lỗi trong quá trình vận hành BLE: {err_msg}\n\n[Hướng dẫn cấp phép macOS]\nQuyền truy cập Bluetooth có thể đã bị từ chối do các hạn chế bảo mật macOS.\nVui lòng mở 'Cài đặt hệ thống > Quyền riêng tư & Bảo mật > Bluetooth' và đảm bảo thiết bị đầu cuối, Mã VS hoặc quy trình Python của bạn được phép truy cập Bluetooth.",
     "param.devname.description": "Bộ lọc tên thiết bị",
@@ -997,7 +997,7 @@
     "err.operation_failed": "Ralat semasa operasi BLE: {err_msg}",
     "msg.error_fmt": "Ralat: {msg}",
     "msg.unknown_error": "ralat yang tidak diketahui",
-    "err.bleak_missing": "Ralat: perpustakaan 'suram' tidak dipasang. Sila pasang menggunakan:\npip install bleak",
+    "err.bleak_missing": "Ralat: perpustakaan 'bleak' tidak dipasang. Sila pasang menggunakan:\npip install bleak",
     "err.linux_permission": "Ralat semasa operasi BLE: {err_msg}\n\n[Panduan Kebenaran Linux/Raspberry Pi]\nAnda mungkin kekurangan kebenaran untuk mengakses soket Bluetooth. Cuba salah satu daripada yang berikut:\n1. Tambahkan pengguna anda pada kumpulan bluetooth (disyorkan):\n sudo usermod -aG bluetooth $USER\n (Memerlukan mulakan semula atau log masuk semula)\n2. Berikan kebenaran terus kepada binari Python:\n sudo setcap 'cap_net_raw,cap_net_admin+eip' $(readlink -f $(which python))",
     "err.macos_permission": "Ralat semasa operasi BLE: {err_msg}\n\n[Panduan Kebenaran macOS]\nAkses Bluetooth mungkin telah dinafikan oleh sekatan keselamatan macOS.\nSila buka 'Tetapan Sistem > Privasi & Keselamatan > Bluetooth' dan pastikan terminal, Kod VS atau proses Python anda dibenarkan untuk mengakses Bluetooth.",
     "param.devname.description": "Penapis nama peranti.",
