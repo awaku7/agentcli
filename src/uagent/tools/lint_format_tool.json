@@ -221,7 +221,7 @@
   },
   "vi": {
     "param.cwd.description": "Thư mục làm việc (dưới thư mục làm việc).",
-    "param.mode.description": "kiểm tra=chỉ kiểm tra / fix=sửa tự động",
+    "param.mode.description": "kiểm tra=chỉ kiểm tra / fix=sửa tự động (values: check/fix)",
     "param.targets.description": "Mảng đường dẫn đích (chỉ được phép trong Workdir).",
     "param.tools.description": "Một loạt tên công cụ để chạy. Nếu trống, nó sẽ được chọn tự động.",
     "tool.description": "Chạy phân tích/định dạng tĩnh (ví dụ: ruff/black/mypy). mode=fix sửa đổi tập tin và yêu cầu xác nhận.",
@@ -331,7 +331,7 @@
   },
   "sw": {
     "param.cwd.description": "Dir ya kufanya kazi (chini ya workdir).",
-    "param.mode.description": "check=angalia tu / rekebisha = kurekebisha otomatiki",
+    "param.mode.description": "check=angalia tu / rekebisha = kurekebisha otomatiki (values: check/fix)",
     "param.targets.description": "Safu ya njia inayolengwa (inaruhusiwa tu chini ya workdir).",
     "param.tools.description": "Safu ya majina ya zana za kukimbia. Ikiwa tupu, zana huchaguliwa kiotomatiki.",
     "tool.description": "Run static analysis/formatters (e.g., ruff/black/mypy).",
@@ -639,7 +639,7 @@
   },
   "el": {
     "param.cwd.description": "Συστοιχία διαδρομής στόχου (επιτρέπεται μόνο στο workdir).",
-    "param.mode.description": "Μια σειρά ονομάτων εργαλείων προς εκτέλεση. Εάν είναι κενό, τα εργαλεία επιλέγονται αυτόματα.",
+    "param.mode.description": "Μια σειρά ονομάτων εργαλείων προς εκτέλεση. Εάν είναι κενό, τα εργαλεία επιλέγονται αυτόματα. (values: check/fix)",
     "param.targets.description": "Εκτελέστε στατική ανάλυση/μορφοποιητές (ruff/black/mypy). mode=fix τροποποιεί αρχεία, χρειάζεται επιβεβαίωση.",
     "param.tools.description": "Μια σειρά ονομάτων εργαλείων προς εκτέλεση. Εάν είναι κενό, τα εργαλεία επιλέγονται αυτόματα.",
     "tool.description": "Εκτελέστε στατική ανάλυση/μορφοποιητές (ruff/black/mypy). mode=fix τροποποιεί αρχεία, χρειάζεται επιβεβαίωση.",
@@ -661,7 +661,7 @@
   },
   "he": {
     "param.cwd.description": "lint_format_tool\n\nכלי עטיפה להפעלת כלי ניתוח ועיצוב סטטי.\n\n- Python: מעדיף ruff / שחור / mypy\n- JavaScript: מסיבות בטיחות, אל תפעיל npx ישירות.\n\nבטיחות:\n- mode=fix משנה קבצים, אז בקש אישור עם human_ask.\n- קבל ארגומנטים כמערך ודחה אותם אם הם מכילים מטא-תווים מסוכנים של מעטפת.",
-    "param.mode.description": "מדריך עבודה (תחת workdir).",
+    "param.mode.description": "מדריך עבודה (תחת workdir). (values: check/fix)",
     "param.targets.description": "check=check only / fix=תיקון אוטומטי",
     "param.tools.description": "מערך נתיב יעד (מותר רק תחת workdir).",
     "tool.description": "מערך של שמות כלים להפעלה. אם ריקים, הכלים נבחרים באופן אוטומטי.",
@@ -705,7 +705,7 @@
   },
   "ro": {
     "param.cwd.description": "check=verificare doar / fix=remediere automată",
-    "param.mode.description": "Matrice de cale țintă (permise numai în workdir).",
+    "param.mode.description": "Matrice de cale țintă (permise numai în workdir). (values: check/fix)",
     "param.targets.description": "O serie de nume de instrumente de rulat. Dacă este gol, instrumentele sunt selectate automat.",
     "param.tools.description": "Rulați analize/formatatoare statice (ruff/black/mypy). mode=fix modifică fișierele, necesită confirmare.",
     "tool.description": "Rulați analize/formatatoare statice (ruff/black/mypy). mode=fix modifică fișierele, necesită confirmare.",
@@ -727,7 +727,7 @@
   },
   "fil": {
     "param.cwd.description": "Working dir (sa ilalim ng workdir).",
-    "param.mode.description": "check=check lang / ayusin=awtomatikong ayusin",
+    "param.mode.description": "check=check lang / ayusin=awtomatikong ayusin (values: check/fix)",
     "param.targets.description": "Target na path array (pinapayagan lang sa ilalim ng workdir).",
     "param.tools.description": "Isang hanay ng mga pangalan ng tool na tatakbo. Kung walang laman, awtomatikong pinipili ang mga tool.",
     "tool.description": "Magpatakbo ng static analysis/formatters (ruff/black/mypy). mode=fix ay nagbabago ng mga file, nangangailangan ng kumpirmasyon.",
@@ -749,7 +749,7 @@
   },
   "ms": {
     "param.cwd.description": "Working dir (di bawah workdir).",
-    "param.mode.description": "semak=semak sahaja / betulkan=pembetulan automatik",
+    "param.mode.description": "semak=semak sahaja / betulkan=pembetulan automatik (values: check/fix)",
     "param.targets.description": "Tatasusunan laluan sasaran (hanya dibenarkan di bawah workdir).",
     "param.tools.description": "Satu susunan nama alat untuk dijalankan. Jika kosong, alatan dipilih secara automatik.",
     "tool.description": "Jalankan analisis statik/pemformat (ruff/black/mypy). mod=fix mengubah suai fail, memerlukan pengesahan.",

@@ -1,6 +1,6 @@
 {
   "ja": {
-    "param.format.description": "出力形式。",
+    "param.format.description": "出力形式。 (values: text/json; default: text)",
     "param.ip.description": "ルックアップ対象のIPアドレス（任意）。省略時は現在の公開IPを使用（APIモードのみ）。",
     "tool.description": "パブリック IP アドレスからユーザーの大まかな都市レベルの位置を推定します。低精度 (都市のみ。実際の座標ではありません)。 VPN/プロキシ/モバイルでは不正確です。正確な GPS 座標を得るには get_current_location を優先します。",
     "x_search_terms": [
@@ -19,7 +19,7 @@
     "err.local_db_unavailable": "[get_geoip エラー] ローカル DB が設定されていません。UAGENT_GEOIP_DB_PATH を .mmdb ファイルに設定し、maxminddb をインストールして任意の IP アドレスをオフラインで検索します。"
   },
   "es": {
-    "param.format.description": "Formato de salida.",
+    "param.format.description": "Formato de salida. (values: text/json; default: text)",
     "param.ip.description": "Dirección IP opcional para buscar. Si se omite, se usa la IP pública actual (solo modo API).",
     "tool.description": "Calcule la ubicación aproximada a nivel de ciudad del usuario a partir de su dirección IP pública. Baja precisión (solo ciudad, no coordenadas reales). Inexacto con VPN/proxy/móvil. Prefiera get_current_location para obtener coordenadas GPS precisas.",
     "x_search_terms": [
@@ -38,7 +38,7 @@
     "err.local_db_unavailable": "[error get_geoip] Base de datos local no configurada. Configure UAGENT_GEOIP_DB_PATH en un archivo .mmdb e instale maxminddb para buscar direcciones IP arbitrarias sin conexión."
   },
   "fr": {
-    "param.format.description": "Format de sortie.",
+    "param.format.description": "Format de sortie. (values: text/json; default: text)",
     "param.ip.description": "Adresse IP facultative à rechercher. Si omise, l'IP publique actuelle est utilisée (mode API uniquement).",
     "tool.description": "Estimez l'emplacement approximatif de l'utilisateur au niveau de la ville à partir de son adresse IP publique. Faible précision (ville uniquement, pas les coordonnées réelles). Inexact avec VPN/proxy/mobile. Préférez get_current_location pour des coordonnées GPS précises.",
     "x_search_terms": [
@@ -57,7 +57,7 @@
     "err.local_db_unavailable": "[erreur get_geoip] Base de données locale non configurée. Définissez UAGENT_GEOIP_DB_PATH sur un fichier .mmdb et installez maxminddb pour rechercher des adresses IP arbitraires hors ligne."
   },
   "ko": {
-    "param.format.description": "출력 형식.",
+    "param.format.description": "출력 형식. (values: text/json; default: text)",
     "param.ip.description": "조회할 IP 주소 (선택). 생략 시 현재 공인 IP 사용 (API 모드 전용).",
     "tool.description": "공용 IP 주소에서 사용자의 대략적인 도시 수준 위치를 추정합니다. 정밀도가 낮습니다(실제 좌표가 아닌 도시만 해당). VPN/프록시/모바일에서는 부정확합니다. 정확한 GPS 좌표를 얻으려면 get_current_location를 선호하세요.",
     "x_search_terms": [
@@ -76,7 +76,7 @@
     "err.local_db_unavailable": "[get_geoip error] 로컬 DB가 구성되지 않았습니다. UAGENT_GEOIP_DB_PATH를 .mmdb 파일로 설정하고 maxminddb를 설치하여 오프라인에서 임의의 IP 주소를 조회하세요."
   },
   "de": {
-    "param.format.description": "Ausgabeformat.",
+    "param.format.description": "Ausgabeformat. (values: text/json; default: text)",
     "param.ip.description": "Optionale IP-Adresse für die Abfrage. Wenn weggelassen, wird die aktuelle öffentliche IP verwendet (nur API-Modus).",
     "tool.description": "Schätzen Sie den ungefähren Standort des Benutzers auf Stadtebene anhand seiner öffentlichen IP-Adresse. Geringe Präzision (nur Stadt, keine tatsächlichen Koordinaten). Ungenau mit VPN/Proxy/Mobilfunk. Bevorzugen Sie get_current_location für genaue GPS-Koordinaten.",
     "x_search_terms": [
@@ -95,7 +95,7 @@
     "err.local_db_unavailable": "[get_geoip-Fehler] Lokale Datenbank nicht konfiguriert. Setzen Sie UAGENT_GEOIP_DB_PATH auf eine .mmdb-Datei und installieren Sie maxminddb, um offline nach beliebigen IP-Adressen zu suchen."
   },
   "it": {
-    "param.format.description": "Formato di output.",
+    "param.format.description": "Formato di output. (values: text/json; default: text)",
     "param.ip.description": "Indirizzo IP facoltativo da cercare. Se omesso, viene utilizzato l'IP pubblico corrente (solo modalità API).",
     "tool.description": "Stimare la posizione approssimativa dell'utente a livello di città in base al suo indirizzo IP pubblico. Bassa precisione (solo città, non coordinate effettive). Impreciso con VPN/proxy/mobile. Preferisci get_current_location per coordinate GPS precise.",
     "x_search_terms": [
@@ -114,7 +114,7 @@
     "err.local_db_unavailable": "[errore get_geoip] DB locale non configurato. Imposta UAGENT_GEOIP_DB_PATH su un file .mmdb e installa maxminddb per cercare indirizzi IP arbitrari offline."
   },
   "ru": {
-    "param.format.description": "Формат вывода.",
+    "param.format.description": "Формат вывода. (values: text/json; default: text)",
     "param.ip.description": "Необязательный IP-адрес для поиска. Если не указан, используется текущий публичный IP (только в режиме API).",
     "tool.description": "Оцените приблизительное местоположение пользователя на уровне города по его общедоступному IP-адресу. Низкая точность (только город, а не фактические координаты). Неточно при использовании VPN/прокси/мобильного устройства. Предпочитайте get_current_location для получения точных координат GPS.",
     "x_search_terms": [
@@ -133,7 +133,7 @@
     "err.local_db_unavailable": "[ошибка get_geoip] Локальная база данных не настроена. Задайте для UAGENT_GEOIP_DB_PATH файл .mmdb и установите maxminddb для поиска произвольных IP-адресов в автономном режиме."
   },
   "pt_BR": {
-    "param.format.description": "Formato de saída.",
+    "param.format.description": "Formato de saída. (values: text/json; default: text)",
     "param.ip.description": "Endereço IP opcional para consulta. Se omitido, o IP público atual é usado (somente modo API).",
     "tool.description": "Estime a localização aproximada do usuário no nível da cidade a partir de seu endereço IP público. Baixa precisão (apenas cidade, não coordenadas reais). Impreciso com VPN/proxy/móvel. Prefira get_current_location para coordenadas GPS precisas.",
     "x_search_terms": [
@@ -152,7 +152,7 @@
     "err.local_db_unavailable": "[erro get_geoip] Banco de dados local não configurado. Defina UAGENT_GEOIP_DB_PATH como um arquivo .mmdb e instale maxminddb para procurar endereços IP arbitrários offline."
   },
   "pt": {
-    "param.format.description": "Formato de saída.",
+    "param.format.description": "Formato de saída. (values: text/json; default: text)",
     "param.ip.description": "Endereço IP opcional para consulta. Se omitido, o IP público atual é usado (somente modo API).",
     "tool.description": "Estime a localização aproximada do usuário no nível da cidade a partir de seu endereço IP público. Baixa precisão (apenas cidade, não coordenadas reais). Impreciso com VPN/proxy/móvel. Prefira get_current_location para coordenadas GPS precisas.",
     "x_search_terms": [
@@ -171,7 +171,7 @@
     "err.local_db_unavailable": "[erro get_geoip] Banco de dados local não configurado. Defina UAGENT_GEOIP_DB_PATH como um arquivo .mmdb e instale maxminddb para procurar endereços IP arbitrários offline."
   },
   "id": {
-    "param.format.description": "Format keluaran.",
+    "param.format.description": "Format keluaran. (values: text/json; default: text)",
     "param.ip.description": "Alamat IP opsional untuk dicari. Jika dihilangkan, IP publik saat ini digunakan (hanya mode API).",
     "tool.description": "Perkirakan lokasi kasar tingkat kota pengguna dari alamat IP publik mereka. Presisi rendah (hanya kota, bukan koordinat sebenarnya). Tidak akurat dengan VPN/proxy/ponsel. Lebih suka get_current_location untuk koordinat GPS yang akurat.",
     "x_search_terms": [
@@ -190,7 +190,7 @@
     "err.local_db_unavailable": "[kesalahan get_geoip] DB lokal tidak dikonfigurasi. Setel UAGENT_GEOIP_DB_PATH ke file .mmdb dan instal maxminddb untuk mencari alamat IP arbitrer secara offline."
   },
   "vi": {
-    "param.format.description": "Định dạng đầu ra.",
+    "param.format.description": "Định dạng đầu ra. (values: text/json; default: text)",
     "param.ip.description": "Địa chỉ IP tùy chọn để tra cứu. Nếu bỏ qua, IP công khai hiện tại được sử dụng (chỉ chế độ API).",
     "tool.description": "Ước tính vị trí cấp thành phố thô của người dùng từ địa chỉ IP công cộng của họ. Độ chính xác thấp (chỉ thành phố, không có tọa độ thực tế). Không chính xác với VPN/proxy/di động. Ưu tiên get_current_location để có tọa độ GPS chính xác.",
     "x_search_terms": [
@@ -209,7 +209,7 @@
     "err.local_db_unavailable": "[lỗi get_geoip] DB cục bộ chưa được định cấu hình. Đặt UAGENT_GEOIP_DB_PATH thành tệp .mmdb và cài đặt maxminddb để tra cứu địa chỉ IP tùy ý ngoại tuyến."
   },
   "pl": {
-    "param.format.description": "Format wyjściowy.",
+    "param.format.description": "Format wyjściowy. (values: text/json; default: text)",
     "param.ip.description": "Opcjonalny adres IP do wyszukania. Jeśli pominięty, używany jest bieżący publiczny adres IP (tylko tryb API).",
     "tool.description": "Oszacuj przybliżoną lokalizację użytkownika na poziomie miasta na podstawie jego publicznego adresu IP. Niska precyzja (tylko miasto, a nie rzeczywiste współrzędne). Niedokładne w przypadku VPN/proxy/urządzenia mobilnego. Preferuj get_current_location, aby uzyskać dokładne współrzędne GPS.",
     "x_search_terms": [
@@ -228,7 +228,7 @@
     "err.local_db_unavailable": "[błąd get_geoip] Lokalna baza danych nie została skonfigurowana. Ustaw UAGENT_GEOIP_DB_PATH na plik .mmdb i zainstaluj maxminddb, aby wyszukiwać dowolne adresy IP w trybie offline."
   },
   "hi": {
-    "param.format.description": "आउटपुट स्वरूप.",
+    "param.format.description": "आउटपुट स्वरूप. (values: text/json; default: text)",
     "param.ip.description": "खोजने के लिए वैकल्पिक आईपी पता। यदि छोड़ा गया है, तो वर्तमान सार्वजनिक आईपी का उपयोग किया जाता है (केवल API मोड)।",
     "tool.description": "उपयोगकर्ता के सार्वजनिक आईपी पते से उसके शहर-स्तरीय स्थान का अनुमान लगाएं। कम परिशुद्धता (केवल शहर, वास्तविक निर्देशांक नहीं)। वीपीएन/प्रॉक्सी/मोबाइल के साथ ग़लत। सटीक जीपीएस निर्देशांक के लिए get_current_location को प्राथमिकता दें।",
     "x_search_terms": [
@@ -247,7 +247,7 @@
     "err.local_db_unavailable": "[get_geoip त्रुटि] स्थानीय DB कॉन्फ़िगर नहीं किया गया है। UAGENT_GEOIP_DB_PATH को एक .mmdb फ़ाइल पर सेट करें और ऑफ़लाइन मनमाने IP पते देखने के लिए maxminddb इंस्टॉल करें।"
   },
   "ar": {
-    "param.format.description": "تنسيق الإخراج.",
+    "param.format.description": "تنسيق الإخراج. (values: text/json; default: text)",
     "param.ip.description": "عنوان IP اختياري للبحث. إذا تم حذفه، يتم استخدام IP العام الحالي (وضع API فقط).",
     "tool.description": "يمكنك تقدير الموقع التقريبي للمستخدم على مستوى المدينة من عنوان IP العام الخاص به. دقة منخفضة (المدينة فقط، وليس الإحداثيات الفعلية). غير دقيق مع VPN/الوكيل/الجوال. تفضل get_current_location للحصول على إحداثيات GPS دقيقة.",
     "x_search_terms": [
@@ -266,7 +266,7 @@
     "err.local_db_unavailable": "[خطأ get_geoip] لم يتم تكوين قاعدة البيانات المحلية. قم بتعيين UAGENT_GEOIP_DB_PATH إلى ملف .mmdb وقم بتثبيت maxminddb للبحث عن عناوين IP عشوائية دون الاتصال بالإنترنت."
   },
   "sv": {
-    "param.format.description": "Utdataformat.",
+    "param.format.description": "Utdataformat. (values: text/json; default: text)",
     "param.ip.description": "Valfri IP-adress att slå upp. Om utelämnad används nuvarande offentliga IP (endast API-läge).",
     "tool.description": "Uppskatta användarens grova plats på stadsnivå från deras offentliga IP-adress. Låg precision (endast stad, inte faktiska koordinater). Felaktig med VPN/proxy/mobil. Föredrar get_current_location för korrekta GPS-koordinater.",
     "x_search_terms": [
@@ -285,7 +285,7 @@
     "err.local_db_unavailable": "[get_geoip error] Lokal DB inte konfigurerad. Ställ in UAGENT_GEOIP_DB_PATH till en .mmdb-fil och installera maxminddb för att söka upp godtyckliga IP-adresser offline."
   },
   "sw": {
-    "param.format.description": "Umbizo la pato.",
+    "param.format.description": "Umbizo la pato. (values: text/json; default: text)",
     "param.ip.description": "Anwani ya IP ya hiari ya kutafuta. Ikiwa haijatajwa, IP ya umma ya sasa inatumika (hali ya API tu).",
     "tool.description": "Kadiria eneo mbaya la kiwango cha jiji la mtumiaji kutoka kwa anwani yake ya IP ya umma. Usahihi wa chini (jiji pekee, sio kuratibu halisi). Inaccurate with VPN/proxy/mobile. Pendelea get_current_location kwa viwianishi sahihi vya GPS.",
     "x_search_terms": [
@@ -304,7 +304,7 @@
     "err.local_db_unavailable": "[get_geoip error] DB ya Ndani haijasanidiwa. Weka UAGENT_GEOIP_DB_PATH iwe faili ya .mmdb na usakinishe maxminddb ili kutafuta anwani za IP za kiholela nje ya mtandao."
   },
   "nb": {
-    "param.format.description": "Utdataformat.",
+    "param.format.description": "Utdataformat. (values: text/json; default: text)",
     "param.ip.description": "Valgfri IP-adresse for oppslag. Hvis utelatt, brukes nåværende offentlige IP (kun API-modus).",
     "tool.description": "Estimer brukerens grove plassering på bynivå fra deres offentlige IP-adresse. Lav presisjon (kun by, ikke faktiske koordinater). Unøyaktig med VPN/proxy/mobil. Foretrekk get_current_location for nøyaktige GPS-koordinater.",
     "x_search_terms": [
@@ -323,7 +323,7 @@
     "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikke konfigurert. Sett UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for å slå opp vilkårlige IP-adresser offline."
   },
   "nl": {
-    "param.format.description": "Uitvoerformaat.",
+    "param.format.description": "Uitvoerformaat. (values: text/json; default: text)",
     "param.ip.description": "Optioneel IP-adres om op te zoeken. Indien weggelaten, wordt het huidige openbare IP gebruikt (alleen API-modus).",
     "tool.description": "Schat de ruwe locatie op stadsniveau van de gebruiker op basis van zijn openbare IP-adres. Lage precisie (alleen stad, geen werkelijke coördinaten). Onnauwkeurig met VPN/proxy/mobiel. Geef de voorkeur aan get_current_location voor nauwkeurige GPS-coördinaten.",
     "x_search_terms": [
@@ -342,7 +342,7 @@
     "err.local_db_unavailable": "[get_geoip error] Lokale DB niet geconfigureerd. Stel UAGENT_GEOIP_DB_PATH in op een .mmdb-bestand en installeer maxminddb om offline willekeurige IP-adressen op te zoeken."
   },
   "fi": {
-    "param.format.description": "Tulostusmuoto.",
+    "param.format.description": "Tulostusmuoto. (values: text/json; default: text)",
     "param.ip.description": "Valinnainen haettava IP-osoite. Jos jätetään pois, käytetään nykyistä julkista IP-osoitetta (vain API-tila).",
     "tool.description": "Arvioi käyttäjän karkea kaupunkitason sijainti hänen julkisen IP-osoitteensa perusteella. Matala tarkkuus (vain kaupunki, ei todellisia koordinaatteja). Epätarkka VPN:n/välityspalvelimen/mobiililaitteen kanssa. Valitse get_current_location saadaksesi tarkat GPS-koordinaatit.",
     "x_search_terms": [
@@ -361,7 +361,7 @@
     "err.local_db_unavailable": "[get_geoip error] Paikallista tietokantaa ei ole määritetty. Aseta UAGENT_GEOIP_DB_PATH .mmdb-tiedostoksi ja asenna maxminddb etsiäksesi mielivaltaisia ​​IP-osoitteita offline-tilassa."
   },
   "cs": {
-    "param.format.description": "Formát výstupu.",
+    "param.format.description": "Formát výstupu. (values: text/json; default: text)",
     "param.ip.description": "Volitelná IP adresa pro vyhledání. Pokud je vynechána, použije se aktuální veřejná IP (pouze režim API).",
     "tool.description": "Odhadněte přibližnou polohu uživatele na úrovni města z jeho veřejné IP adresy. Nízká přesnost (pouze město, nikoli skutečné souřadnice). Nepřesné s VPN/proxy/mobilem. Pro přesné GPS souřadnice preferujte get_current_location.",
     "x_search_terms": [
@@ -380,7 +380,7 @@
     "err.local_db_unavailable": "[chyba get_geoip] Místní databáze není nakonfigurována. Nastavte UAGENT_GEOIP_DB_PATH na soubor .mmdb a nainstalujte maxminddb pro vyhledávání libovolných IP adres offline."
   },
   "uk": {
-    "param.format.description": "Формат виводу.",
+    "param.format.description": "Формат виводу. (values: text/json; default: text)",
     "param.ip.description": "Необов'язкова IP-адреса для пошуку. Якщо не вказано, використовується поточна публічна IP (лише в режимі API).",
     "tool.description": "Оцініть приблизне місцезнаходження користувача на рівні міста за його публічною IP-адресою. Низька точність (лише місто, не фактичні координати). Неточно з VPN/проксі/мобільним. Надайте перевагу get_current_location для точних GPS-координат.",
     "x_search_terms": [
@@ -399,7 +399,7 @@
     "err.local_db_unavailable": "[помилка get_geoip] Локальну БД не налаштовано. Встановіть для UAGENT_GEOIP_DB_PATH файл .mmdb і встановіть maxminddb для пошуку довільних IP-адрес в автономному режимі."
   },
   "tr": {
-    "param.format.description": "Çıkış formatı.",
+    "param.format.description": "Çıkış formatı. (values: text/json; default: text)",
     "param.ip.description": "Sorgulanacak isteğe bağlı IP adresi. Atlanırsa, mevcut genel IP kullanılır (yalnızca API modu).",
     "tool.description": "Kullanıcının genel IP adresinden şehir düzeyindeki kaba konumunu tahmin edin. Düşük hassasiyet (yalnızca şehir, gerçek koordinatlar değil). VPN/proxy/mobil ile hatalı. Doğru GPS koordinatları için get_current_location'i tercih edin.",
     "x_search_terms": [
@@ -418,7 +418,7 @@
     "err.local_db_unavailable": "[get_geoip hatası] Yerel DB yapılandırılmadı. UAGENT_GEOIP_DB_PATH'i bir .mmdb dosyasına ayarlayın ve isteğe bağlı IP adreslerini çevrimdışı aramak için maxminddb'yi yükleyin."
   },
   "th": {
-    "param.format.description": "รูปแบบเอาต์พุต",
+    "param.format.description": "รูปแบบเอาต์พุต (values: text/json; default: text)",
     "param.ip.description": "IP แอดเดรสเสริมสำหรับค้นหา หากไม่ระบุ จะใช้ IP สาธารณะปัจจุบัน (โหมด API เท่านั้น)",
     "tool.description": "ประมาณตำแหน่งระดับเมืองของผู้ใช้โดยคร่าวๆ จากที่อยู่ IP สาธารณะ ความแม่นยำต่ำ (เมืองเท่านั้น ไม่ใช่พิกัดจริง) ไม่ถูกต้องกับ VPN/พร็อกซี/มือถือ ต้องการ get_current_location สำหรับพิกัด GPS ที่แม่นยำ",
     "x_search_terms": [
@@ -437,7 +437,7 @@
     "err.local_db_unavailable": "[ข้อผิดพลาด get_geoip] ไม่ได้กำหนดค่าฐานข้อมูลท้องถิ่น ตั้งค่า UAGENT_GEOIP_DB_PATH เป็นไฟล์ .mmdb และติดตั้ง maxminddb เพื่อค้นหาที่อยู่ IP ที่กำหนดเองแบบออฟไลน์"
   },
   "zh_CN": {
-    "param.format.description": "输出格式。",
+    "param.format.description": "输出格式。 (values: text/json; default: text)",
     "param.ip.description": "可选的要查询的IP地址。如果省略，则使用当前公网IP（仅API模式）。",
     "tool.description": "根据用户的公共 IP 地址估计用户的粗略城市级位置。精度低（仅城市，而不是实际坐标）。 VPN/代理/移动不准确。首选 get_current_location 以获得准确的 GPS 坐标。",
     "x_search_terms": [
@@ -456,7 +456,7 @@
     "err.local_db_unavailable": "[get_geoip 错误] 未配置本地数据库。将 UAGENT_GEOIP_DB_PATH 设置为 .mmdb 文件并安装 maxminddb 以离线查找任意 IP 地址。"
   },
   "zh_TW": {
-    "param.format.description": "輸出格式。",
+    "param.format.description": "輸出格式。 (values: text/json; default: text)",
     "param.ip.description": "可選的要查詢的IP位址。如果省略，則使用目前公網IP（僅API模式）。",
     "tool.description": "根據使用者的公共 IP 位址估計使用者的粗略城市級位置。精度低（僅城市，而不是實際座標）。 VPN/代理/移動不準確。首選 get_current_location 以獲得準確的 GPS 座標。",
     "x_search_terms": [
@@ -475,7 +475,7 @@
     "err.local_db_unavailable": "[get_geoip 錯誤] 未配置本機資料庫。將 UAGENT_GEOIP_DB_PATH 設定為 .mmdb 檔案並安裝 maxminddb 以離線查找任意 IP 位址。"
   },
   "bn": {
-    "param.format.description": "আউটপুট ফরম্যাট।",
+    "param.format.description": "আউটপুট ফরম্যাট। (values: text/json; default: text)",
     "param.ip.description": "অনুসন্ধানের জন্য ঐচ্ছিক IP ঠিকানা। বাদ দিলে, বর্তমান পাবলিক IP ব্যবহার করা হয় (শুধুমাত্র API মোড)।",
     "tool.description": "Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). ভিপিএন/প্রক্সি/মোবাইলের সাথে ভুল। Prefer get_current_location for accurate GPS coordinates.",
     "x_search_terms": [
@@ -494,7 +494,7 @@
     "err.local_db_unavailable": "[get_geoip ত্রুটি] স্থানীয় ডিবি কনফিগার করা হয়নি। একটি .mmdb ফাইলে UAGENT_GEOIP_DB_PATH সেট করুন এবং অফলাইনে নির্বিচারে IP ঠিকানাগুলি দেখতে maxminddb ইনস্টল করুন৷"
   },
   "fa": {
-    "param.format.description": "فرمت خروجی.",
+    "param.format.description": "فرمت خروجی. (values: text/json; default: text)",
     "param.ip.description": "آدرس IP اختیاری برای جستجو. در صورت حذف، IP عمومی فعلی استفاده می‌شود (فقط حالت API).",
     "tool.description": "مکان تقریبی کاربر در سطح شهر را از آدرس IP عمومی آنها تخمین بزنید. دقت پایین (فقط شهر، نه مختصات واقعی). نادرست با VPN/پراکسی/موبایل. برای مختصات GPS دقیق، get_current_location را ترجیح دهید.",
     "x_search_terms": [
@@ -513,7 +513,7 @@
     "err.local_db_unavailable": "[خطای get_geoip] DB محلی پیکربندی نشده است. UAGENT_GEOIP_DB_PATH را روی یک فایل mmdb. تنظیم کنید و maxminddb را نصب کنید تا آدرس های IP دلخواه را به صورت آفلاین جستجو کنید."
   },
   "mn": {
-    "param.format.description": "Гаралтын формат.",
+    "param.format.description": "Гаралтын формат. (values: text/json; default: text)",
     "param.ip.description": "Хайх нэмэлт IP хаяг. Хасагдвал одоогийн нийтийн IP ашиглагдана (зөвхөн API горим).",
     "tool.description": "Хэрэглэгчийн нийтийн IP хаягаас хотын түвшний ойролцоо байршлыг тооцоол. Бага нарийвчлал (зөвхөн хотод, бодит координат биш). VPN/proxy/mobile-д буруу байна. GPS-ийн координатыг үнэн зөв авахын тулд get_current_location-г илүүд үзээрэй.",
     "x_search_terms": [
@@ -532,7 +532,7 @@
     "err.local_db_unavailable": "[get_geoip алдаа] Локал DB тохируулагдаагүй. UAGENT_GEOIP_DB_PATH-г .mmdb файл болгож тохируулаад maxminddb-г суулгаж дурын IP хаягуудыг офлайнаар хайх болно."
   },
   "mr": {
-    "param.format.description": "आउटपुट फॉरमॅट.",
+    "param.format.description": "आउटपुट फॉरमॅट. (values: text/json; default: text)",
     "param.ip.description": "शोधण्यासाठी ऐच्छिक IP पत्ता. वगळल्यास, वर्तमान सार्वजनिक IP वापरले जाते (फक्त API मोड).",
     "tool.description": "Estimate the user's rough city-level location from their public IP address. Low precision (city only, not actual coordinates). VPN/प्रॉक्सी/मोबाइल सह चुकीचे. अचूक GPS निर्देशांकांसाठी get_current_location ला प्राधान्य द्या.",
     "x_search_terms": [
@@ -551,7 +551,7 @@
     "err.local_db_unavailable": "[get_geoip त्रुटी] स्थानिक DB कॉन्फिगर केलेले नाही. UAGENT_GEOIP_DB_PATH ला .mmdb फाइलवर सेट करा आणि अनियंत्रित IP पत्ते ऑफलाइन शोधण्यासाठी maxminddb स्थापित करा."
   },
   "el": {
-    "param.format.description": "Μορφή εξόδου.",
+    "param.format.description": "Μορφή εξόδου. (values: text/json; default: text)",
     "param.ip.description": "Προαιρετική διεύθυνση IP για αναζήτηση. Εάν παραλειφθεί, χρησιμοποιείται η τρέχουσα δημόσια IP (μόνο λειτουργία API).",
     "tool.description": "Υπολογίστε την κατά προσέγγιση τοποθεσία του χρήστη σε επίπεδο πόλης από τη δημόσια διεύθυνση IP του. Χαμηλή ακρίβεια (μόνο πόλη, όχι πραγματικές συντεταγμένες). Ανακριβές με VPN/μεσολάβηση/κινητό. Προτιμήστε get_current_location για ακριβείς συντεταγμένες GPS.",
     "x_search_terms": [
@@ -570,7 +570,7 @@
     "err.local_db_unavailable": "[get_geoip error] Το τοπικό DB δεν έχει διαμορφωθεί. Ρυθμίστε το UAGENT_GEOIP_DB_PATH σε ένα αρχείο .mmdb και εγκαταστήστε το maxminddb για να αναζητήσετε αυθαίρετες διευθύνσεις IP εκτός σύνδεσης."
   },
   "he": {
-    "param.format.description": "פורמט פלט.",
+    "param.format.description": "פורמט פלט. (values: text/json; default: text)",
     "param.ip.description": "כתובת IP אופציונלית כדי לחפש. אם מושמט, נעשה שימוש ב-IP הציבורי הנוכחי (במצב API בלבד).",
     "tool.description": "הערך את המיקום הגס של המשתמש ברמת העיר מכתובת ה-IP הציבורית שלו. דיוק נמוך (עיר בלבד, לא קואורדינטות בפועל). לא מדויק עם VPN/פרוקסי/נייד. העדיפו get_current_location עבור קואורדינטות GPS מדויקות.",
     "x_search_terms": [
@@ -589,7 +589,7 @@
     "err.local_db_unavailable": "[get_geoip error] DB מקומי לא מוגדר. הגדר את UAGENT_GEOIP_DB_PATH לקובץ ‎.mmdb והתקן את maxminddb כדי לחפש כתובות IP שרירותיות במצב לא מקוון."
   },
   "hu": {
-    "param.format.description": "Kimeneti formátum.",
+    "param.format.description": "Kimeneti formátum. (values: text/json; default: text)",
     "param.ip.description": "Opcionális IP-cím a kereséshez. Ha kihagyja, akkor az aktuális nyilvános IP-cím kerül felhasználásra (csak API mód).",
     "tool.description": "Becsülje meg a felhasználó hozzávetőleges városszintű helyét a nyilvános IP-címe alapján. Alacsony pontosság (csak város, nem tényleges koordináták). Pontatlan VPN/proxy/mobil esetén. A pontos GPS-koordináták érdekében előnyben részesítse a get_current_location-t.",
     "x_search_terms": [
@@ -608,7 +608,7 @@
     "err.local_db_unavailable": "[get_geoip hiba] A helyi adatbázis nincs konfigurálva. Állítsa be az UAGENT_GEOIP_DB_PATH-t egy .mmdb fájlra, és telepítse a maxminddb-t, hogy tetszőleges IP-címeket keressen offline."
   },
   "ro": {
-    "param.format.description": "Format de ieșire.",
+    "param.format.description": "Format de ieșire. (values: text/json; default: text)",
     "param.ip.description": "Adresă IP opțională pentru căutare. Dacă este omis, IP-ul public curent este utilizat (numai în modul API).",
     "tool.description": "Estimați locația aproximativă la nivel de oraș a utilizatorului din adresa IP publică. Precizie scăzută (numai orașul, nu coordonatele reale). Inexacte cu VPN/proxy/mobil. Preferă get_current_location pentru coordonate GPS precise.",
     "x_search_terms": [
@@ -627,7 +627,7 @@
     "err.local_db_unavailable": "[Eroare get_geoip] DB local nu este configurat. Setați UAGENT_GEOIP_DB_PATH la un fișier .mmdb și instalați maxminddb pentru a căuta adrese IP arbitrare offline."
   },
   "fil": {
-    "param.format.description": "Output format.",
+    "param.format.description": "Output format. (values: text/json; default: text)",
     "param.ip.description": "Opsyonal na IP address upang hanapin. Kung aalisin, ang kasalukuyang pampublikong IP ay ginagamit (API mode lamang).",
     "tool.description": "Tantyahin ang magaspang na lokasyon sa antas ng lungsod ng user mula sa kanilang pampublikong IP address. Mababang katumpakan (lungsod lamang, hindi aktwal na mga coordinate). Hindi tumpak sa VPN/proxy/mobile. Mas gusto ang get_current_location para sa tumpak na mga coordinate ng GPS.",
     "x_search_terms": [
@@ -646,7 +646,7 @@
     "err.local_db_unavailable": "[get_geoip error] Hindi na-configure ang lokal na DB. Itakda ang UAGENT_GEOIP_DB_PATH sa isang .mmdb file at i-install ang maxminddb upang maghanap ng mga arbitrary na IP address offline."
   },
   "ms": {
-    "param.format.description": "Format output.",
+    "param.format.description": "Format output. (values: text/json; default: text)",
     "param.ip.description": "Alamat IP pilihan untuk dicari. Jika ditinggalkan, IP awam semasa digunakan (mod API sahaja).",
     "tool.description": "Anggarkan lokasi kasar peringkat bandar pengguna daripada alamat IP awam mereka. Ketepatan rendah (bandar sahaja, bukan koordinat sebenar). Tidak tepat dengan VPN/proksi/mudah alih. Lebih suka get_current_location untuk koordinat GPS yang tepat.",
     "x_search_terms": [
@@ -665,7 +665,7 @@
     "err.local_db_unavailable": "[get_geoip error] DB tempatan tidak dikonfigurasikan. Tetapkan UAGENT_GEOIP_DB_PATH kepada fail .mmdb dan pasang maxminddb untuk mencari alamat IP sewenang-wenangnya di luar talian."
   },
   "da": {
-    "param.format.description": "Outputformat.",
+    "param.format.description": "Outputformat. (values: text/json; default: text)",
     "param.ip.description": "Valgfri IP-adresse at slå op. Hvis den udelades, bruges den aktuelle offentlige IP (kun tilstand API).",
     "tool.description": "Estimer brugerens grove placering på byniveau ud fra deres offentlige IP-adresse. Lav præcision (kun by, ikke faktiske koordinater). Upræcis med VPN/proxy/mobil. Foretrækker get_current_location for nøjagtige GPS-koordinater.",
     "x_search_terms": [
@@ -684,7 +684,7 @@
     "err.local_db_unavailable": "[get_geoip error] Lokal DB er ikke konfigureret. Indstil UAGENT_GEOIP_DB_PATH til en .mmdb-fil og installer maxminddb for at finde vilkårlige IP-adresser offline."
   },
   "nn": {
-    "param.format.description": "Utdataformat.",
+    "param.format.description": "Utdataformat. (values: text/json; default: text)",
     "param.ip.description": "Valgfri IP-adresse å slå opp. Hvis den utelates, vert brukt gjeldende offentlige IP-adresse (kun API-modus).",
     "tool.description": "Estimer brukerens grove plassering på bynivå frå deres offentlige IP-adresse. Lav presisjon (kun by, ikke faktiske koordinater). Unøyaktig med VPN/proxy/mobil. Foretrekk get_current_location for nøyaktige GPS-koordinater.",
     "x_search_terms": [

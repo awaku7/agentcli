@@ -1,13 +1,13 @@
 {
   "ar": {
     "tool.description": "قائمة أو استرداد الطلبات عبر UCP. استخدم mode='list' للحصول على سجل الطلبات، أو mode='get' لجلب طلب معين عن طريق المعرف.",
-    "param.mode.description": "\"قائمة\" لسجل الطلبات، و\"الحصول على\" لطلب واحد.",
+    "param.mode.description": "\"قائمة\" لسجل الطلبات، و\"الحصول على\" لطلب واحد. (values: list/get)",
     "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري.",
     "param.order_id.description": "معرف الطلب (مطلوب للوضع = 'get')."
   },
   "bn": {
     "tool.description": "UCP এর মাধ্যমে অর্ডারগুলি তালিকাভুক্ত করুন বা পুনরুদ্ধার করুন। অর্ডার ইতিহাস পেতে mode='list' ব্যবহার করুন, অথবা ID দ্বারা একটি নির্দিষ্ট অর্ডার আনতে mode='get' ব্যবহার করুন।",
-    "param.mode.description": "অর্ডার ইতিহাসের জন্য 'তালিকা', একক অর্ডারের জন্য 'পান'।",
+    "param.mode.description": "অর্ডার ইতিহাসের জন্য 'তালিকা', একক অর্ডারের জন্য 'পান'। (values: list/get)",
     "param.business_url.description": "ব্যবসার মূল URL।",
     "param.order_id.description": "অর্ডার আইডি (মোড='গেট' এর জন্য প্রয়োজনীয়)।"
   },
@@ -19,7 +19,7 @@
   },
   "da": {
     "tool.description": "Liste eller hente ordrer via UCP. Brug mode='list' for at få ordrehistorik, eller mode='get' for at hente en bestemt ordre efter ID.",
-    "param.mode.description": "'liste' for ordrehistorik, 'hent' for en enkelt ordre.",
+    "param.mode.description": "'liste' for ordrehistorik, 'hent' for en enkelt ordre. (values: list/get)",
     "param.business_url.description": "Virksomhedens basis-URL.",
     "param.order_id.description": "Ordre-id (påkrævet for mode='get')."
   },
@@ -31,61 +31,61 @@
   },
   "el": {
     "tool.description": "Λίστα ή ανάκτηση παραγγελιών μέσω UCP. Χρησιμοποιήστε το mode='list' για να λάβετε το ιστορικό παραγγελιών ή το mode='get' για να λάβετε μια συγκεκριμένη παραγγελία κατά αναγνωριστικό.",
-    "param.mode.description": "'λίστα' για το ιστορικό παραγγελιών, 'get' για μεμονωμένη παραγγελία.",
+    "param.mode.description": "'λίστα' για το ιστορικό παραγγελιών, 'get' για μεμονωμένη παραγγελία. (values: list/get)",
     "param.business_url.description": "Βασική διεύθυνση URL της επιχείρησης.",
     "param.order_id.description": "Αναγνωριστικό παραγγελίας (απαιτείται για mode='get')."
   },
   "es": {
     "tool.description": "Listar o recuperar pedidos a través de UCP. Utilice mode='list' para obtener el historial de pedidos, o mode='get' para obtener un pedido específico por ID.",
-    "param.mode.description": "'lista' para el historial de pedidos, 'obtener' para un solo pedido.",
+    "param.mode.description": "'lista' para el historial de pedidos, 'obtener' para un solo pedido. (values: list/get)",
     "param.business_url.description": "URL base del negocio.",
     "param.order_id.description": "ID de pedido (obligatorio para mode='get')."
   },
   "fa": {
     "tool.description": "فهرست یا بازیابی سفارشات از طریق UCP. از mode='list' برای دریافت سابقه سفارش یا mode='get' برای واکشی یک سفارش خاص با شناسه استفاده کنید.",
-    "param.mode.description": "\"لیست\" برای تاریخچه سفارش، \"دریافت\" برای سفارش تک.",
+    "param.mode.description": "\"لیست\" برای تاریخچه سفارش، \"دریافت\" برای سفارش تک. (values: list/get)",
     "param.business_url.description": "URL پایه کسب و کار.",
     "param.order_id.description": "شناسه سفارش (برای mode='get' لازم است)."
   },
   "fi": {
     "tool.description": "Listaa tai nouta tilaukset UCP:n kautta. Käytä mode='list' saadaksesi tilaushistorian tai mode='get' hakeaksesi tietyn tilauksen tunnuksella.",
-    "param.mode.description": "\"lista\" tilaushistorialle, \"get\" yksittäiselle tilaukselle.",
+    "param.mode.description": "\"lista\" tilaushistorialle, \"get\" yksittäiselle tilaukselle. (values: list/get)",
     "param.business_url.description": "Yrityksen perus-URL-osoite.",
     "param.order_id.description": "Tilaustunnus (pakollinen mode='get')."
   },
   "fil": {
     "tool.description": "Ilista o kunin ang mga order sa pamamagitan ng UCP. Gamitin ang mode='list' para makakuha ng history ng order, o mode='get' para kumuha ng partikular na order ayon sa ID.",
-    "param.mode.description": "'listahan' para sa kasaysayan ng order, 'kumuha' para sa isang order.",
+    "param.mode.description": "'listahan' para sa kasaysayan ng order, 'kumuha' para sa isang order. (values: list/get)",
     "param.business_url.description": "Base URL ng negosyo.",
     "param.order_id.description": "Order ID (kinakailangan para sa mode='get')."
   },
   "fr": {
     "tool.description": "Répertoriez ou récupérez les commandes via UCP. Utilisez mode='list' pour obtenir l'historique des commandes, ou mode='get' pour récupérer une commande spécifique par ID.",
-    "param.mode.description": "« liste » pour l'historique des commandes, « obtenir » pour une commande unique.",
+    "param.mode.description": "« liste » pour l'historique des commandes, « obtenir » pour une commande unique. (values: list/get)",
     "param.business_url.description": "URL de base de l'entreprise.",
     "param.order_id.description": "ID de commande (obligatoire pour mode='get')."
   },
   "he": {
     "tool.description": "רשום או אחזר הזמנות באמצעות UCP. השתמש ב-mode='list' כדי לקבל היסטוריית הזמנות, או ב-mode='get' כדי להביא הזמנה ספציפית לפי מזהה.",
-    "param.mode.description": "'רשימה' להיסטוריית הזמנות, 'קבל' להזמנה בודדת.",
+    "param.mode.description": "'רשימה' להיסטוריית הזמנות, 'קבל' להזמנה בודדת. (values: list/get)",
     "param.business_url.description": "כתובת האתר הבסיסית של העסק.",
     "param.order_id.description": "מזהה הזמנה (נדרש עבור mode='get')."
   },
   "hi": {
     "tool.description": "यूसीपी के माध्यम से ऑर्डर सूचीबद्ध करें या पुनः प्राप्त करें। ऑर्डर इतिहास प्राप्त करने के लिए mode='list' का उपयोग करें, या आईडी द्वारा विशिष्ट ऑर्डर लाने के लिए mode='get' का उपयोग करें।",
-    "param.mode.description": "ऑर्डर इतिहास के लिए 'सूची', एकल ऑर्डर के लिए 'प्राप्त करें'।",
+    "param.mode.description": "ऑर्डर इतिहास के लिए 'सूची', एकल ऑर्डर के लिए 'प्राप्त करें'। (values: list/get)",
     "param.business_url.description": "व्यवसाय का आधार URL.",
     "param.order_id.description": "ऑर्डर आईडी (मोड='प्राप्त' के लिए आवश्यक)।"
   },
   "hu": {
     "tool.description": "Rendelések listázása vagy lekérése UCP-n keresztül. A mode='list' használatával lekérheti a rendelési előzményeket, vagy a mode='get' parancsot, ha egy adott rendelést szeretne lekérni azonosító alapján.",
-    "param.mode.description": "'lista' a rendelési előzményekhez, 'get' egyetlen rendeléshez.",
+    "param.mode.description": "'lista' a rendelési előzményekhez, 'get' egyetlen rendeléshez. (values: list/get)",
     "param.business_url.description": "A vállalkozás alap URL-je.",
     "param.order_id.description": "Rendelési azonosító (szükséges a mode='get' esetén)."
   },
   "id": {
     "tool.description": "Daftar atau ambil pesanan melalui UCP. Gunakan mode='list' untuk mendapatkan riwayat pesanan, atau mode='get' untuk mengambil pesanan tertentu berdasarkan ID.",
-    "param.mode.description": "'daftar' untuk riwayat pesanan, 'dapatkan' untuk pesanan tunggal.",
+    "param.mode.description": "'daftar' untuk riwayat pesanan, 'dapatkan' untuk pesanan tunggal. (values: list/get)",
     "param.business_url.description": "URL Dasar bisnis.",
     "param.order_id.description": "ID Pesanan (diperlukan untuk mode='dapatkan')."
   },
@@ -109,25 +109,25 @@
   },
   "mn": {
     "tool.description": "UCP-ээр дамжуулан захиалгыг жагсаах эсвэл авах. Захиалгын түүхийг авахын тулд mode='list', эсвэл тодорхой захиалгыг ID-аар татахын тулд mode='get'-г ашиглана уу.",
-    "param.mode.description": "захиалгын түүхийг 'жагсаалт', нэг захиалгад 'авах'.",
+    "param.mode.description": "захиалгын түүхийг 'жагсаалт', нэг захиалгад 'авах'. (values: list/get)",
     "param.business_url.description": "Бизнесийн үндсэн URL.",
     "param.order_id.description": "Захиалгын ID (горимд шаардлагатай = 'ав')."
   },
   "mr": {
     "tool.description": "UCP द्वारे ऑर्डर सूचीबद्ध करा किंवा पुनर्प्राप्त करा. ऑर्डर इतिहास मिळविण्यासाठी mode='list' वापरा किंवा ID द्वारे विशिष्ट ऑर्डर मिळवण्यासाठी mode='get' वापरा.",
-    "param.mode.description": "ऑर्डर इतिहासासाठी 'सूची', सिंगल ऑर्डरसाठी 'मिळवा'.",
+    "param.mode.description": "ऑर्डर इतिहासासाठी 'सूची', सिंगल ऑर्डरसाठी 'मिळवा'. (values: list/get)",
     "param.business_url.description": "व्यवसायाची मूळ URL.",
     "param.order_id.description": "ऑर्डर आयडी (मोड = 'मिळवा' साठी आवश्यक)."
   },
   "ms": {
     "tool.description": "Senaraikan atau dapatkan semula pesanan melalui UCP. Gunakan mode='list' untuk mendapatkan sejarah pesanan, atau mode='get' untuk mengambil pesanan tertentu mengikut ID.",
-    "param.mode.description": "'senarai' untuk sejarah pesanan, 'dapatkan' untuk pesanan tunggal.",
+    "param.mode.description": "'senarai' untuk sejarah pesanan, 'dapatkan' untuk pesanan tunggal. (values: list/get)",
     "param.business_url.description": "URL asas perniagaan.",
     "param.order_id.description": "ID Pesanan (diperlukan untuk mod='dapat')."
   },
   "nb": {
     "tool.description": "List eller hent bestillinger via UCP. Bruk mode='list' for å få ordrehistorikk, eller mode='get' for å hente en spesifikk bestilling etter ID.",
-    "param.mode.description": "'liste' for ordrehistorikk, 'hent' for enkeltbestilling.",
+    "param.mode.description": "'liste' for ordrehistorikk, 'hent' for enkeltbestilling. (values: list/get)",
     "param.business_url.description": "Grunnadressen til bedriften.",
     "param.order_id.description": "Ordre-ID (påkrevd for mode='get')."
   },
@@ -139,7 +139,7 @@
   },
   "nn": {
     "tool.description": "Liste eller hente ordrer via UCP. Bruk mode='list' for å få ordrehistorikk, eller mode='get' for å hente en spesifikk ordre etter ID.",
-    "param.mode.description": "'liste' for ordrehistorikk, 'få' for enkelt ordre.",
+    "param.mode.description": "'liste' for ordrehistorikk, 'få' for enkelt ordre. (values: list/get)",
     "param.business_url.description": "Basis-URL for virksomheten.",
     "param.order_id.description": "Ordre-ID (kreves for mode='get')."
   },
@@ -151,49 +151,49 @@
   },
   "pt": {
     "tool.description": "Liste ou recupere pedidos via UCP. Use mode='list' para obter o histórico de pedidos ou mode='get' para buscar um pedido específico por ID.",
-    "param.mode.description": "'lista' para histórico de pedidos, 'get' para pedido único.",
+    "param.mode.description": "'lista' para histórico de pedidos, 'get' para pedido único. (values: list/get)",
     "param.business_url.description": "URL base da empresa.",
     "param.order_id.description": "ID do pedido (obrigatório para mode='get')."
   },
   "pt_BR": {
     "tool.description": "Liste ou recupere pedidos via UCP. Use mode='list' para obter o histórico de pedidos ou mode='get' para buscar um pedido específico por ID.",
-    "param.mode.description": "'lista' para histórico de pedidos, 'get' para pedido único.",
+    "param.mode.description": "'lista' para histórico de pedidos, 'get' para pedido único. (values: list/get)",
     "param.business_url.description": "URL base da empresa.",
     "param.order_id.description": "ID do pedido (obrigatório para mode='get')."
   },
   "ro": {
     "tool.description": "Lista sau preluarea comenzilor prin UCP. Utilizați mode='list' pentru a obține istoricul comenzilor sau mode='get' pentru a prelua o anumită comandă după ID.",
-    "param.mode.description": "„listă” pentru istoricul comenzilor, „obține” pentru o singură comandă.",
+    "param.mode.description": "„listă” pentru istoricul comenzilor, „obține” pentru o singură comandă. (values: list/get)",
     "param.business_url.description": "Adresa URL de bază a companiei.",
     "param.order_id.description": "ID comandă (necesar pentru mode='get')."
   },
   "ru": {
     "tool.description": "Перечислите или получите заказы через UCP. Используйте mode='list', чтобы получить историю заказов, или mode='get', чтобы получить конкретный заказ по идентификатору.",
-    "param.mode.description": "«список» для истории заказов, «получить» для одного заказа.",
+    "param.mode.description": "«список» для истории заказов, «получить» для одного заказа. (values: list/get)",
     "param.business_url.description": "Базовый URL компании.",
     "param.order_id.description": "Идентификатор заказа (обязательно для mode='get')."
   },
   "sv": {
     "tool.description": "Lista eller hämta beställningar via UCP. Använd mode='list' för att få orderhistorik, eller mode='get' för att hämta en specifik beställning efter ID.",
-    "param.mode.description": "'lista' för orderhistorik, 'get' för enstaka beställning.",
+    "param.mode.description": "'lista' för orderhistorik, 'get' för enstaka beställning. (values: list/get)",
     "param.business_url.description": "Företagets basadress.",
     "param.order_id.description": "Order-ID (krävs för mode='get')."
   },
   "sw": {
     "tool.description": "Orodhesha au urejeshe maagizo kupitia UCP. Tumia hali='orodha' kupata historia ya agizo, au modi='pata' ili kuleta agizo mahususi kwa kitambulisho.",
-    "param.mode.description": "'orodhesha' kwa historia ya agizo, 'pata' kwa agizo moja.",
+    "param.mode.description": "'orodhesha' kwa historia ya agizo, 'pata' kwa agizo moja. (values: list/get)",
     "param.business_url.description": "URL ya msingi ya biashara.",
     "param.order_id.description": "Kitambulisho cha agizo (kinahitajika kwa modi='pata')."
   },
   "th": {
     "tool.description": "แสดงรายการหรือรับคำสั่งซื้อผ่าน UCP ใช้ mode='list' เพื่อรับประวัติการสั่งซื้อ หรือใช้ mode='get' เพื่อดึงข้อมูลคำสั่งซื้อเฉพาะตาม ID",
-    "param.mode.description": "'รายการ' สำหรับประวัติการสั่งซื้อ 'รับ' สำหรับการสั่งซื้อครั้งเดียว",
+    "param.mode.description": "'รายการ' สำหรับประวัติการสั่งซื้อ 'รับ' สำหรับการสั่งซื้อครั้งเดียว (values: list/get)",
     "param.business_url.description": "URL พื้นฐานของธุรกิจ",
     "param.order_id.description": "รหัสคำสั่งซื้อ (จำเป็นสำหรับ mode='get')"
   },
   "tr": {
     "tool.description": "UCP aracılığıyla siparişleri listeleyin veya alın. Sipariş geçmişini almak için mode='list' kullanın veya kimliğe göre belirli bir siparişi getirmek için mode='get' kullanın.",
-    "param.mode.description": "Sipariş geçmişi için 'liste', tek sipariş için 'al'.",
+    "param.mode.description": "Sipariş geçmişi için 'liste', tek sipariş için 'al'. (values: list/get)",
     "param.business_url.description": "İşletmenin temel URL'si.",
     "param.order_id.description": "Sipariş Kimliği (mode='get' için gereklidir)."
   },
@@ -205,7 +205,7 @@
   },
   "vi": {
     "tool.description": "Liệt kê hoặc truy xuất đơn hàng qua UCP. Sử dụng mode='list' để lấy lịch sử đơn hàng hoặc mode='get' để tìm nạp đơn hàng cụ thể theo ID.",
-    "param.mode.description": "'danh sách' cho lịch sử đơn hàng, 'nhận' cho một đơn hàng.",
+    "param.mode.description": "'danh sách' cho lịch sử đơn hàng, 'nhận' cho một đơn hàng. (values: list/get)",
     "param.business_url.description": "URL cơ sở của doanh nghiệp.",
     "param.order_id.description": "ID đơn hàng (bắt buộc đối với mode='get')."
   },

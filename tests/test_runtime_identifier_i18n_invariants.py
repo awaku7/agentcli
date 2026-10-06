@@ -3,6 +3,12 @@ import re
 from pathlib import Path
 
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
+TRANSLATION_PLACEHOLDER_ARTIFACT_RE = re.compile(
+    r"(?:"
+    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])"
+    r"|__|_\d+\b|-_th\b|\|{3,}"
+    r")"
+)
 
 
 def _load(name: str) -> dict:
@@ -73,3 +79,98 @@ def test_azure_api_descriptions_preserve_runtime_identifiers():
             invalid.append(f"{lang}:GET")
 
     assert not invalid, "Corrupted Azure API identifiers: " + ", ".join(invalid)
+
+
+def test_runtime_enum_descriptions_preserve_exact_values():
+    cases = (
+        ("get_geoip_tool.json", "param.format.description", ("text", "json")),
+        (
+            "exstruct_tool.json",
+            "param.action.description",
+            ("extract", "export_file"),
+        ),
+        (
+            "exstruct_tool.json",
+            "param.mode.description",
+            ("light", "standard", "verbose"),
+        ),
+        ("exstruct_tool.json", "param.format.description", ("json", "yaml")),
+        (
+            "code_map_tool.json",
+            "param.format.description",
+            ("json", "mermaid", "ontology", "html"),
+        ),
+        (
+            "office_to_markdown_tool.json",
+            "param.format.description",
+            ("auto", "pptx", "xlsx", "docx"),
+        ),
+        (
+            "ucp_catalog_tool.json",
+            "param.mode.description",
+            ("search", "lookup"),
+        ),
+        ("ucp_order_tool.json", "param.mode.description", ("list", "get")),
+        (
+            "ucp_cart_tool.json",
+            "param.mode.description",
+            ("create", "get", "update"),
+        ),
+        (
+            "ucp_identity_tool.json",
+            "param.mode.description",
+            ("link", "status"),
+        ),
+        (
+            "ucp_mcp_server_tool.json",
+            "param.mode.description",
+            ("start", "stop", "status"),
+        ),
+        (
+            "diff_files_tool.json",
+            "param.mode.description",
+            ("unified", "summary", "json_diff"),
+        ),
+        (
+            "replace_in_file_tool.json",
+            "param.mode.description",
+            ("literal", "regex"),
+        ),
+        (
+            "replace_in_file_tool.json",
+            "param.mode_after.description",
+            ("literal", "regex"),
+        ),
+        ("lint_format_tool.json", "param.mode.description", ("check", "fix")),
+    )
+    invalid = []
+
+    for filename, key, tokens in cases:
+        payload = _load(filename)
+        for lang, messages in payload.items():
+            if not isinstance(messages, dict):
+                continue
+            description = messages.get(key)
+            if description is None:
+                continue
+            for token in tokens:
+                if not _has_standalone_token(description, token):
+                    invalid.append(f"{filename}:{lang}:{key}:{token}")
+
+    assert not invalid, "Corrupted runtime enum literals: " + ", ".join(invalid)
+
+
+def test_repaired_tool_catalogs_have_no_translation_placeholder_artifacts():
+    repaired_catalogs = (
+        "http_request_tool.json",
+        "office_to_markdown_tool.json",
+    )
+    invalid = []
+
+    for filename in repaired_catalogs:
+        text = (TOOLS_DIR / filename).read_text(encoding="utf-8")
+        match = TRANSLATION_PLACEHOLDER_ARTIFACT_RE.search(text)
+        if match:
+            invalid.append(f"{filename}:{match.group(0)}")
+
+    assert not invalid, "Translation placeholder artifacts: " + ", ".join(invalid)

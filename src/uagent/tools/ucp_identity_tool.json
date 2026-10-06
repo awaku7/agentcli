@@ -1,14 +1,14 @@
 {
   "ar": {
     "tool.description": "إدارة ربط هوية المستخدم عبر UCP. استخدم الوضع = \"الرابط\" للحصول على عنوان URL لتفويض OAuth للمستخدم للمصادقة في متصفحه، أو الوضع = \"الحالة\" للتحقق من حالة الارتباط الحالية.",
-    "param.mode.description": "\"رابط\" للحصول على عنوان URL لـ OAuth، و\"الحالة\" للتحقق من حالة الربط.",
+    "param.mode.description": "\"رابط\" للحصول على عنوان URL لـ OAuth، و\"الحالة\" للتحقق من حالة الربط. (values: link/status)",
     "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري.",
     "param.redirect_uri.description": "إعادة توجيه URI لرد اتصال OAuth (مطلوب للوضع = 'الرابط').",
     "param.link_id.description": "معرف الارتباط من محاولة الارتباط السابقة (مطلوب للوضع = \"الحالة\")."
   },
   "bn": {
     "tool.description": "UCP এর মাধ্যমে ব্যবহারকারী পরিচয় লিঙ্কিং পরিচালনা করুন। ব্যবহারকারীর ব্রাউজারে প্রমাণীকরণের জন্য একটি OAuth অনুমোদনের URL পেতে mode='link' ব্যবহার করুন, অথবা বর্তমান লিঙ্কিং স্থিতি পরীক্ষা করতে mode='status' ব্যবহার করুন।",
-    "param.mode.description": "OAuth URL পেতে 'লিঙ্ক', লিঙ্ক করার স্থিতি পরীক্ষা করতে 'স্থিতি'।",
+    "param.mode.description": "OAuth URL পেতে 'লিঙ্ক', লিঙ্ক করার স্থিতি পরীক্ষা করতে 'স্থিতি'। (values: link/status)",
     "param.business_url.description": "ব্যবসার মূল URL।",
     "param.redirect_uri.description": "OAuth কলব্যাকের জন্য URI রিডাইরেক্ট (মোড='লিঙ্ক'-এর জন্য প্রয়োজনীয়)।",
     "param.link_id.description": "পূর্ববর্তী লিঙ্কের প্রচেষ্টা থেকে লিঙ্ক আইডি (মোড='স্থিতি'র জন্য প্রয়োজনীয়)।"
@@ -36,21 +36,21 @@
   },
   "el": {
     "tool.description": "Διαχειριστείτε τη σύνδεση ταυτότητας χρήστη μέσω UCP. Χρησιμοποιήστε mode='link' για να λάβετε μια διεύθυνση URL εξουσιοδότησης OAuth για έλεγχο ταυτότητας από τον χρήστη στο πρόγραμμα περιήγησής του ή mode='status' για να ελέγξετε την τρέχουσα κατάσταση σύνδεσης.",
-    "param.mode.description": "'σύνδεσμος' για λήψη διεύθυνσης URL OAuth, 'κατάσταση' για έλεγχο της κατάστασης σύνδεσης.",
+    "param.mode.description": "'σύνδεσμος' για λήψη διεύθυνσης URL OAuth, 'κατάσταση' για έλεγχο της κατάστασης σύνδεσης. (values: link/status)",
     "param.business_url.description": "Βασική διεύθυνση URL της επιχείρησης.",
     "param.redirect_uri.description": "Ανακατεύθυνση URI για επανάκληση OAuth (απαιτείται για λειτουργία='σύνδεσμος').",
     "param.link_id.description": "Αναγνωριστικό συνδέσμου από προηγούμενη προσπάθεια σύνδεσης (απαιτείται για λειτουργία='κατάσταση')."
   },
   "es": {
     "tool.description": "Gestionar la vinculación de identidades de usuarios a través de UCP. Utilice mode='link' para obtener una URL de autorización de OAuth para que el usuario se autentique en su navegador, o mode='status' para comprobar el estado actual del enlace.",
-    "param.mode.description": "'enlace' para obtener la URL de OAuth, 'estado' para verificar el estado del enlace.",
+    "param.mode.description": "'enlace' para obtener la URL de OAuth, 'estado' para verificar el estado del enlace. (values: link/status)",
     "param.business_url.description": "URL base del negocio.",
     "param.redirect_uri.description": "URI de redirección para devolución de llamada de OAuth (obligatorio para mode='link').",
     "param.link_id.description": "ID de enlace de un intento de enlace anterior (obligatorio para mode='status')."
   },
   "fa": {
     "tool.description": "پیوند هویت کاربر را از طریق UCP مدیریت کنید. از mode='link' برای دریافت یک URL مجوز OAuth برای تأیید هویت کاربر در مرورگر خود، یا mode='status برای بررسی وضعیت پیوند فعلی استفاده کنید.",
-    "param.mode.description": "\"پیوند\" برای دریافت URL OAuth، \"وضعیت\" برای بررسی وضعیت پیوند.",
+    "param.mode.description": "\"پیوند\" برای دریافت URL OAuth، \"وضعیت\" برای بررسی وضعیت پیوند. (values: link/status)",
     "param.business_url.description": "URL پایه کسب و کار.",
     "param.redirect_uri.description": "تغییر مسیر URI برای پاسخ به تماس OAuth (برای mode='link' لازم است).",
     "param.link_id.description": "شناسه پیوند از تلاش پیوند قبلی (الزامی برای حالت = 'وضعیت')."
@@ -71,35 +71,35 @@
   },
   "fr": {
     "tool.description": "Gérez la liaison de l’identité de l’utilisateur via UCP. Utilisez mode='link' pour obtenir une URL d'autorisation OAuth permettant à l'utilisateur de s'authentifier dans son navigateur, ou mode='status' pour vérifier l'état actuel de la liaison.",
-    "param.mode.description": "« lien » pour obtenir l'URL OAuth, « statut » pour vérifier l'état de la liaison.",
+    "param.mode.description": "« lien » pour obtenir l'URL OAuth, « statut » pour vérifier l'état de la liaison. (values: link/status)",
     "param.business_url.description": "URL de base de l'entreprise.",
     "param.redirect_uri.description": "URI de redirection pour le rappel OAuth (obligatoire pour mode='link').",
     "param.link_id.description": "ID de lien d'une tentative de lien précédente (obligatoire pour mode='status')."
   },
   "he": {
     "tool.description": "נהל קישור זהות משתמש באמצעות UCP. השתמש ב-mode='link' כדי לקבל כתובת URL להרשאת OAuth עבור המשתמש לאימות בדפדפן שלו, או ב-mode='status' כדי לבדוק את סטטוס הקישור הנוכחי.",
-    "param.mode.description": "'קישור' כדי לקבל כתובת URL של OAuth, 'סטטוס' כדי לבדוק את סטטוס הקישור.",
+    "param.mode.description": "'קישור' כדי לקבל כתובת URL של OAuth, 'סטטוס' כדי לבדוק את סטטוס הקישור. (values: link/status)",
     "param.business_url.description": "כתובת האתר הבסיסית של העסק.",
     "param.redirect_uri.description": "הפניית URI עבור OAuth callback (נדרש עבור mode='link').",
     "param.link_id.description": "מזהה קישור מניסיון קישור קודם (נדרש עבור mode='status')."
   },
   "hi": {
     "tool.description": "यूसीपी के माध्यम से उपयोगकर्ता पहचान लिंकिंग प्रबंधित करें। उपयोगकर्ता को अपने ब्राउज़र में प्रमाणित करने के लिए OAuth प्राधिकरण URL प्राप्त करने के लिए mode='link' का उपयोग करें, या वर्तमान लिंकिंग स्थिति की जांच करने के लिए mode='status' का उपयोग करें।",
-    "param.mode.description": "OAuth URL प्राप्त करने के लिए 'लिंक', लिंकिंग स्थिति जांचने के लिए 'स्थिति'।",
+    "param.mode.description": "OAuth URL प्राप्त करने के लिए 'लिंक', लिंकिंग स्थिति जांचने के लिए 'स्थिति'। (values: link/status)",
     "param.business_url.description": "व्यवसाय का आधार URL.",
     "param.redirect_uri.description": "OAuth कॉलबैक के लिए URI को पुनर्निर्देशित करें (मोड='लिंक' के लिए आवश्यक)।",
     "param.link_id.description": "पिछले लिंक प्रयास से लिंक आईडी (मोड='स्थिति' के लिए आवश्यक)।"
   },
   "hu": {
     "tool.description": "Kezelje a felhasználói identitás összekapcsolását UCP-n keresztül. A mode='link' használatával szerezhet be egy OAuth-engedélyezési URL-t, amelyet a felhasználó hitelesíthet a böngészőjében, vagy a mode='status' használatával ellenőrizze az aktuális összekapcsolási állapotot.",
-    "param.mode.description": "„link” az OAuth URL lekéréséhez, „státusz” az összekapcsolás állapotának ellenőrzéséhez.",
+    "param.mode.description": "„link” az OAuth URL lekéréséhez, „státusz” az összekapcsolás állapotának ellenőrzéséhez. (values: link/status)",
     "param.business_url.description": "A vállalkozás alap URL-je.",
     "param.redirect_uri.description": "Átirányítási URI az OAuth visszahíváshoz (szükséges a mode='link' esetén).",
     "param.link_id.description": "Linkazonosító egy korábbi összekapcsolási kísérletből (szükséges a mode='status' esetén)."
   },
   "id": {
     "tool.description": "Kelola tautan identitas pengguna melalui UCP. Gunakan mode='link' untuk mendapatkan URL otorisasi OAuth bagi pengguna untuk mengautentikasi di browser mereka, atau mode='status' untuk memeriksa status tautan saat ini.",
-    "param.mode.description": "'tautan' untuk mendapatkan URL OAuth, 'status' untuk memeriksa status tautan.",
+    "param.mode.description": "'tautan' untuk mendapatkan URL OAuth, 'status' untuk memeriksa status tautan. (values: link/status)",
     "param.business_url.description": "URL Dasar bisnis.",
     "param.redirect_uri.description": "Redirect URI untuk panggilan balik OAuth (diperlukan untuk mode='link').",
     "param.link_id.description": "ID Tautan dari upaya tautan sebelumnya (diperlukan untuk mode='status')."
@@ -127,21 +127,21 @@
   },
   "mn": {
     "tool.description": "UCP-ээр дамжуулан хэрэглэгчийн таниулах холбоосыг удирдах. Хэрэглэгч хөтөч дээрээ баталгаажуулах OAuth зөвшөөрлийн URL-г авахын тулд mode='link' эсвэл одоогийн холбоосын статусыг шалгахын тулд mode='status'-г ашиглана уу.",
-    "param.mode.description": "OAuth URL авахын тулд 'холбоос', холбоосын статусыг шалгахын тулд 'статус'.",
+    "param.mode.description": "OAuth URL авахын тулд 'холбоос', холбоосын статусыг шалгахын тулд 'статус'. (values: link/status)",
     "param.business_url.description": "Бизнесийн үндсэн URL.",
     "param.redirect_uri.description": "OAuth дуудлагын URI-г дахин чиглүүлэх (горим='холбоос'-д шаардлагатай).",
     "param.link_id.description": "Өмнөх холбоосын оролдлогын холбоосын ID (горим='status'-д шаардлагатай)."
   },
   "mr": {
     "tool.description": "UCP द्वारे वापरकर्ता ओळख लिंकिंग व्यवस्थापित करा. वापरकर्त्याने त्यांच्या ब्राउझरमध्ये प्रमाणीकृत करण्यासाठी OAuth अधिकृतता URL मिळविण्यासाठी mode='link' किंवा वर्तमान लिंकिंग स्थिती तपासण्यासाठी mode='status' वापरा.",
-    "param.mode.description": "OAuth URL मिळविण्यासाठी 'लिंक', लिंकिंग स्थिती तपासण्यासाठी 'स्थिती'.",
+    "param.mode.description": "OAuth URL मिळविण्यासाठी 'लिंक', लिंकिंग स्थिती तपासण्यासाठी 'स्थिती'. (values: link/status)",
     "param.business_url.description": "व्यवसायाची मूळ URL.",
     "param.redirect_uri.description": "OAuth कॉलबॅकसाठी URI पुनर्निर्देशित (mode='link' साठी आवश्यक).",
     "param.link_id.description": "मागील लिंक प्रयत्नातून लिंक आयडी (mode='status' साठी आवश्यक)."
   },
   "ms": {
     "tool.description": "Urus pemautan identiti pengguna melalui UCP. Gunakan mode='pautan' untuk mendapatkan URL kebenaran OAuth bagi pengguna untuk mengesahkan dalam penyemak imbas mereka, atau mode='status' untuk menyemak status pemautan semasa.",
-    "param.mode.description": "'pautan' untuk mendapatkan URL OAuth, 'status' untuk menyemak status pemautan.",
+    "param.mode.description": "'pautan' untuk mendapatkan URL OAuth, 'status' untuk menyemak status pemautan. (values: link/status)",
     "param.business_url.description": "URL asas perniagaan.",
     "param.redirect_uri.description": "Ubah hala URI untuk panggil balik OAuth (diperlukan untuk mod='pautan').",
     "param.link_id.description": "ID pautan daripada percubaan pautan sebelumnya (diperlukan untuk mod='status')."
@@ -197,35 +197,35 @@
   },
   "ru": {
     "tool.description": "Управляйте привязкой идентификаторов пользователей через UCP. Используйте mode='link', чтобы получить URL-адрес авторизации OAuth, по которому пользователь может пройти аутентификацию в своем браузере, или mode='status', чтобы проверить текущий статус связывания.",
-    "param.mode.description": "«ссылка», чтобы получить URL-адрес OAuth, «статус», чтобы проверить статус связи.",
+    "param.mode.description": "«ссылка», чтобы получить URL-адрес OAuth, «статус», чтобы проверить статус связи. (values: link/status)",
     "param.business_url.description": "Базовый URL компании.",
     "param.redirect_uri.description": "URI перенаправления для обратного вызова OAuth (обязательно для mode='link').",
     "param.link_id.description": "Идентификатор ссылки из предыдущей попытки установления связи (обязательно для mode='status')."
   },
   "sv": {
     "tool.description": "Hantera länkning av användaridentitet via UCP. Använd mode='link' för att få en OAuth-auktoriserings-URL som användaren kan autentisera i sin webbläsare, eller mode='status' för att kontrollera den aktuella länkningsstatusen.",
-    "param.mode.description": "'länk' för att få OAuth-URL, 'status' för att kontrollera länkningsstatus.",
+    "param.mode.description": "'länk' för att få OAuth-URL, 'status' för att kontrollera länkningsstatus. (values: link/status)",
     "param.business_url.description": "Företagets basadress.",
     "param.redirect_uri.description": "Omdirigera URI för OAuth-återuppringning (krävs för mode='link').",
     "param.link_id.description": "Länk-ID från ett tidigare länkförsök (krävs för mode='status')."
   },
   "sw": {
     "tool.description": "Dhibiti utambulisho wa mtumiaji kuunganisha kupitia UCP. Tumia mode='link' kupata URL ya uidhinishaji wa OAuth ili mtumiaji aidhinishe katika kivinjari chake, au mode='status' ili kuangalia hali ya sasa ya kuunganisha.",
-    "param.mode.description": "'kiungo' ili kupata URL ya OAuth, 'hali' ya kuangalia hali ya kuunganisha.",
+    "param.mode.description": "'kiungo' ili kupata URL ya OAuth, 'hali' ya kuangalia hali ya kuunganisha. (values: link/status)",
     "param.business_url.description": "URL ya msingi ya biashara.",
     "param.redirect_uri.description": "Elekeza upya URI kwa upigaji simu wa OAuth (inahitajika kwa modi='kiungo').",
     "param.link_id.description": "Kitambulisho cha kiungo kutoka kwa jaribio la awali la kuunganisha (inahitajika kwa mode='status')."
   },
   "th": {
     "tool.description": "จัดการข้อมูลประจำตัวผู้ใช้ที่เชื่อมโยงผ่าน UCP ใช้ mode='link' เพื่อรับ URL การให้สิทธิ์ OAuth สำหรับผู้ใช้ในการตรวจสอบสิทธิ์ในเบราว์เซอร์ หรือใช้ mode='status' เพื่อตรวจสอบสถานะการเชื่อมโยงปัจจุบัน",
-    "param.mode.description": "'ลิงก์' เพื่อรับ OAuth URL, 'สถานะ' เพื่อตรวจสอบสถานะการเชื่อมโยง",
+    "param.mode.description": "'ลิงก์' เพื่อรับ OAuth URL, 'สถานะ' เพื่อตรวจสอบสถานะการเชื่อมโยง (values: link/status)",
     "param.business_url.description": "URL พื้นฐานของธุรกิจ",
     "param.redirect_uri.description": "เปลี่ยนเส้นทาง URI สำหรับการเรียกกลับ OAuth (จำเป็นสำหรับ mode='link')",
     "param.link_id.description": "ID ลิงก์จากการพยายามลิงก์ครั้งก่อน (จำเป็นสำหรับ mode='status')"
   },
   "tr": {
     "tool.description": "UCP aracılığıyla kullanıcı kimliği bağlantısını yönetin. Kullanıcının tarayıcısında kimlik doğrulaması yapmasına yönelik bir OAuth yetkilendirme URL'si almak için mode='link' kullanın veya mevcut bağlantı durumunu kontrol etmek için mode='status' kullanın.",
-    "param.mode.description": "OAuth URL'sini almak için 'bağlantı', bağlantı durumunu kontrol etmek için 'durum'.",
+    "param.mode.description": "OAuth URL'sini almak için 'bağlantı', bağlantı durumunu kontrol etmek için 'durum'. (values: link/status)",
     "param.business_url.description": "İşletmenin temel URL'si.",
     "param.redirect_uri.description": "OAuth geri çağırma için yönlendirme URI'si (mode='link' için gereklidir).",
     "param.link_id.description": "Önceki bir bağlantı denemesinden alınan bağlantı kimliği (mode='status' için gereklidir)."
