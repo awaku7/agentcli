@@ -399,6 +399,12 @@ def test_provider_overload_status_matches_structured_statuses() -> None:
     assert batch._provider_overload_status("provider returned 529 overloaded") == "529"
     assert batch._provider_overload_status("HTTP 429 Too Many Requests") == "429"
     assert batch._provider_overload_status("status_code=529") == "529"
+    assert (
+        batch._provider_overload_status(
+            "translate error: Translation request failed: HTTP Error 429: Too Many Requests"
+        )
+        == "429"
+    )
 
 
 def test_provider_overload_status_ignores_unrelated_counts() -> None:
@@ -407,6 +413,55 @@ def test_provider_overload_status_ignores_unrelated_counts() -> None:
         is None
     )
     assert batch._provider_overload_status("processed 429 items") is None
+
+
+def test_translate_lang_spaces_every_recursive_fallback_call(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = ["first", "second"]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": index, "tool": "sample", "key": f"k{index}", "text": text}
+                    for index, text in enumerate(texts)
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    provider_calls = []
+
+    def fake_run_tool(payload):
+        provider_calls.append(list(payload["texts"]))
+        if len(payload["texts"]) > 1:
+            raise RuntimeError("temporary provider error")
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=2.0,
+    )
+
+    assert provider_calls == [texts, [texts[0]], [texts[1]]]
+    assert sleep_calls == [2.0, 2.0]
 
 
 def test_translate_lang_retries_529_with_backoff(tmp_path: Path, monkeypatch) -> None:
