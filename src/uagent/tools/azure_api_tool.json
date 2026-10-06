@@ -25,7 +25,7 @@
       "Cloud",
       "azure_api"
     ],
-    "param.provider": "Azure রিসোর্স প্রোভাইডার নেমস্পেস, উদাহরণস্বরূপ Microsoft. Compute.",
+    "param.provider": "Azure রিসোর্স প্রোভাইডার নেমস্পেস, উদাহরণস্বরূপ Microsoft.Compute.",
     "param.resource": "ARM সম্পদ পথ বা সম্পূর্ণ ব্যবস্থাপনা URL।",
     "param.method": "HTTP পদ্ধতি, যেমন GET, PUT, POST, PATCH, বা DELETE৷",
     "param.api_version": "Azure API সংস্করণ।",
@@ -213,12 +213,12 @@
       "azure_api"
     ],
     "param.provider": "Azure संसाधन प्रदाता नामस्थान, उदाहरण के लिए Microsoft.Compute।",
-    "param.resource": "एआरएम संसाधन पथ या पूर्ण प्रबंधन यूआरएल।",
+    "param.resource": "ARM संसाधन पथ या पूर्ण प्रबंधन यूआरएल।",
     "param.method": "HTTP विधि, उदाहरण के लिए GET, PUT, POST, PATCH, या DELETE।",
     "param.api_version": "Azure API संस्करण.",
     "param.parameters": "JSON ऑब्जेक्ट जिसमें क्वेरी पैरामीटर हैं।",
     "param.body": "वैकल्पिक JSON अनुरोध निकाय.",
-    "param.confirm_write": "गैर-जीईटी परिचालनों के लिए सत्य आवश्यक है।"
+    "param.confirm_write": "गैर-GET परिचालनों के लिए सत्य आवश्यक है।"
   },
   "hu": {
     "tool.description": "Általános Azure Resource Manager REST API eszköz. Kilistázhatja a szolgáltatókat, felsorolhatja a szolgáltatói műveleteket, és meghívhat Azure API-kat. A nem GET műveletekhez megerősítés_write=true szükséges.",
