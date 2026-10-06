@@ -13,11 +13,11 @@ SUB_AGENT_PROMPT_KEYS = (
     "auto.924901d00f734fac",
 )
 SUB_AGENT_PROMPT_ARTIFACT_RE = re.compile(
-    r"(?:Constant\\(value=|Konstant\\(value=|ধ্রুবক\\(মান=|"
-    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])|_PH|__\\d+|\\|{3,}|"
-    r"\\[Output format\\]|\\[Edge cases\\]|\\[Self-evaluation\\]|"
-    r"\\[Token efficiency\\]|\\[Step-by-step reasoning\\]|"
-    r"\\bYou are\\b|\\bStrictly output\\b)"
+    r"(?:Constant\(value=|Konstant\(value=|ধ্রুবক\(মান=|"
+    r"(?<![A-Za-z])PH(?:_[A-Za-z0-9]+)*(?![A-Za-z])|_PH|__\d+|\|{3,}|"
+    r"\[Output format\]|\[Edge cases\]|\[Self-evaluation\]|"
+    r"\[Token efficiency\]|\[Step-by-step reasoning\]|"
+    r"\bYou are\b|\bStrictly output\b)"
 )
 TRANSLATION_PLACEHOLDER_ARTIFACT_RE = re.compile(
     r"(?:"

@@ -395,9 +395,7 @@ def test_translate_lang_sleeps_between_scoped_provider_calls(
     assert sleep_calls == [0.25, 0.25]
 
 
-def test_translate_lang_retries_529_with_backoff(
-    tmp_path: Path, monkeypatch
-) -> None:
+def test_translate_lang_retries_529_with_backoff(tmp_path: Path, monkeypatch) -> None:
     texts = ["Translate this prompt."]
     job_dir = tmp_path / "ja"
     job_dir.mkdir()
@@ -407,11 +405,7 @@ def test_translate_lang_retries_529_with_backoff(
     )
     (job_dir / "manifest.json").write_text(
         json.dumps(
-            {
-                "items": [
-                    {"id": 0, "tool": "sample", "key": "prompt", "text": texts[0]}
-                ]
-            },
+            {"items": [{"id": 0, "tool": "sample", "key": "prompt", "text": texts[0]}]},
             ensure_ascii=False,
         ),
         encoding="utf-8",
