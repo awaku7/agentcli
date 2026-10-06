@@ -299,7 +299,7 @@
   "hu": {
     "tool.description": "A Modbus lekérdezése ismételten regisztrál, és észleli a változásokat. Az összes észlelt változás összegzését adja vissza.",
     "param.ip.description": "Céleszköz IPv4-címe.",
-    "param.port.description": "Modbus TCP port.",
+    "param.port.description": "Modbus TCP-port.",
     "param.unit.description": "Modbus egység azonosítója.",
     "param.type.description": "A figyelni kívánt típus regisztrálása.",
     "param.address.description": "Kezdő regisztrációs cím.",
@@ -893,7 +893,7 @@
   "fil": {
     "tool.description": "Ang Poll Modbus ay paulit-ulit na nagrerehistro at nakakakita ng mga pagbabago. Nagbabalik ng buod ng lahat ng nakitang pagbabago.",
     "param.ip.description": "Target na IPv4 address ng device.",
-    "param.port.description": "Modbus TCP port.",
+    "param.port.description": "TCP port ng Modbus.",
     "param.unit.description": "ID ng unit ng Modbus.",
     "param.type.description": "Uri ng pagrehistro upang masubaybayan.",
     "param.address.description": "Panimulang rehistro ng address.",

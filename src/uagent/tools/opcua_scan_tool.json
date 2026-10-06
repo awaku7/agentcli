@@ -695,7 +695,7 @@
   "fil": {
     "tool.description": "Tuklasin ang mga OPC UA server sa lokal na network. Sinusuri ang mga IP address sa default na OPC UA port (4840) at sinusubukang ikonekta at basahin ang impormasyon ng endpoint ng server.",
     "param.ip_range.description": "IP range upang i-scan (hal. '192.168.1.1-254' o '192.168.1.0/24').",
-    "param.port.description": "OPC UA port (default: 4840).",
+    "param.port.description": "Port ng OPC UA (default: 4840).",
     "param.fmt.description": "Format: json o text.",
     "msg.summary": "OPC UA scan: {count} (mga) server ang natagpuan sa {ms} ms.",
     "msg.no_servers": "Walang nakitang mga OPC UA server.",
@@ -709,7 +709,8 @@
       "discover",
       "servers",
       "local",
-      "network"
+      "network",
+      "maghanap ng OPC UA server"
     ],
     "param.timeout.description": "Timeout bawat koneksyon (segundo)."
   },

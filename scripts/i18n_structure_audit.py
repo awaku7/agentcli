@@ -393,6 +393,93 @@ def _extract_english_source_info(
     return source, dynamic_keys
 
 
+def _extract_x_search_terms_en(py_path: Path) -> list[str] | None:
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError):
+        return None
+
+    constants: dict[str, Any] = {}
+    for statement in tree.body:
+        name: str | None = None
+        value_node: ast.AST | None = None
+        if (
+            isinstance(statement, ast.Assign)
+            and len(statement.targets) == 1
+            and isinstance(statement.targets[0], ast.Name)
+        ):
+            name = statement.targets[0].id
+            value_node = statement.value
+        elif isinstance(statement, ast.AnnAssign) and isinstance(
+            statement.target, ast.Name
+        ):
+            name = statement.target.id
+            value_node = statement.value
+        if name and value_node is not None:
+            value = _static_eval(value_node, constants)
+            if value is not None:
+                constants[name] = value
+
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Dict):
+            continue
+        for key_node, value_node in zip(node.keys, node.values):
+            if (
+                isinstance(key_node, ast.Constant)
+                and key_node.value == "x_search_terms_en"
+            ):
+                value = _static_eval(value_node, constants)
+                if isinstance(value, list) and all(
+                    isinstance(item, str) for item in value
+                ):
+                    return value
+    return None
+
+
+def _english_search_terms(path: Path) -> list[str] | None:
+    primary = _extract_x_search_terms_en(path.with_suffix(".py"))
+    if primary is not None:
+        return primary
+    for delegated in _delegated_source_files(path):
+        value = _extract_x_search_terms_en(delegated)
+        if value is not None:
+            return value
+    return None
+
+
+def _static_string_literals(py_path: Path) -> set[str]:
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError):
+        return set()
+    return {
+        node.value
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Constant) and isinstance(node.value, str)
+    }
+
+
+def _referenced_catalog_keys(
+    path: Path,
+    translation_blocks: dict[str, dict[str, Any]],
+) -> set[str]:
+    """Find catalog keys referenced statically outside direct translator calls.
+
+    Some tool modules route translations through small helpers or use catalog
+    keys from static lookup tables. Those keys are still real runtime
+    references even when the direct-call extractor cannot infer defaults.
+    """
+    candidate_keys = {
+        key
+        for block in translation_blocks.values()
+        for key in block
+        if isinstance(key, str)
+    }
+    literals = _static_string_literals(path.with_suffix(".py"))
+    for delegated in _delegated_source_files(path):
+        literals.update(_static_string_literals(delegated))
+    return candidate_keys & literals
+
 def _delegated_source_files(path: Path) -> list[Path]:
     """Find modules that explicitly bind the default translator to this facade."""
     primary = path.with_suffix(".py")
@@ -416,7 +503,7 @@ def _delegated_source_files(path: Path) -> list[Path]:
                 continue
             target = statement.targets[0]
             value = statement.value
-            if not isinstance(target, ast.Name) or target.id != "_":
+            if not isinstance(target, ast.Name):
                 continue
             if not isinstance(value, ast.Call):
                 continue
@@ -490,6 +577,7 @@ def _reference_structure(
             reference.setdefault(path, shape)
     return reference
 
+
 def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
     findings: list[Finding] = []
     for path in sorted(tools_root.glob("*.json")):
@@ -528,7 +616,28 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
             continue
         try:
             source, dynamic_keys = _english_source_info(path)
+            dynamic_keys.update(
+                _referenced_catalog_keys(path, translation_blocks) - set(source)
+            )
             reference = _reference_structure(source, translation_blocks, dynamic_keys)
+            source_search_terms = source.get("x_search_terms")
+            english_search_terms = _english_search_terms(path)
+            if (
+                isinstance(source_search_terms, list)
+                and english_search_terms is not None
+                and source_search_terms != english_search_terms
+            ):
+                findings.append(
+                    Finding(
+                        "tool_json",
+                        "english_search_terms_mismatch",
+                        str(path),
+                        detail={
+                            "default": source_search_terms,
+                            "x_search_terms_en": english_search_terms,
+                        },
+                    )
+                )
         except ValueError as exc:
             findings.append(
                 Finding(
@@ -643,6 +752,29 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
     structural_findings = [
         item for item in findings if not _is_advisory_finding(item)
     ]
+    findings_by_kind: dict[str, int] = {}
+    tool_findings_by_kind_path: dict[str, dict[str, int]] = {}
+    tool_finding_keys_by_kind_path: dict[str, dict[str, set[str]]] = {}
+    for item in findings:
+        findings_by_kind[item.kind] = findings_by_kind.get(item.kind, 0) + 1
+        if item.component == "tool_json":
+            by_path = tool_findings_by_kind_path.setdefault(item.kind, {})
+            by_path[item.path] = by_path.get(item.path, 0) + 1
+            keys: list[str] = []
+            if item.key:
+                keys.append(item.key)
+            if item.detail and isinstance(item.detail.get("paths"), list):
+                keys.extend(
+                    str(value)
+                    for value in item.detail["paths"]
+                    if isinstance(value, str)
+                )
+            if keys:
+                by_path_keys = tool_finding_keys_by_kind_path.setdefault(
+                    item.kind, {}
+                )
+                by_path_keys.setdefault(item.path, set()).update(keys)
+
     strict_findings_by_kind: dict[str, int] = {}
     for item in structural_findings:
         strict_findings_by_kind[item.kind] = (
@@ -657,6 +789,18 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
             "tool_json_findings": len(tool_findings),
             "coverage_findings": len(coverage_findings),
             "structural_findings": len(structural_findings),
+            "findings_by_kind": dict(sorted(findings_by_kind.items())),
+            "tool_findings_by_kind_path": {
+                kind: dict(sorted(paths.items()))
+                for kind, paths in sorted(tool_findings_by_kind_path.items())
+            },
+            "tool_finding_keys_by_kind_path": {
+                kind: {
+                    path: sorted(keys)
+                    for path, keys in sorted(paths.items())
+                }
+                for kind, paths in sorted(tool_finding_keys_by_kind_path.items())
+            },
             "strict_findings_by_kind": dict(sorted(strict_findings_by_kind.items())),
             "total_findings": len(findings),
         },
@@ -683,6 +827,14 @@ def main(argv: Iterable[str] | None = None) -> int:
     if args.report:
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(rendered, encoding="utf-8")
+    if args.strict and payload["summary"]["structural_findings"]:
+        for section in ("host_gettext", "tool_json"):
+            for item in payload[section]["findings"]:
+                finding = Finding(**item)
+                if not _is_advisory_finding(finding):
+                    sys.stdout.write(
+                        json.dumps(item, ensure_ascii=False, sort_keys=True) + "\n"
+                    )
     sys.stdout.write(
         json.dumps(payload["summary"], ensure_ascii=False, sort_keys=True) + "\n"
     )

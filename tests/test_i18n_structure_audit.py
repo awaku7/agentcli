@@ -467,3 +467,128 @@ def test_tool_audit_rejects_noncanonical_locale_format(tmp_path: Path) -> None:
         finding.kind == "unexpected_tool_locale" and finding.locale == "ja-JP"
         for finding in findings
     )
+
+
+def test_tool_audit_rejects_non_english_search_default(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.py").write_text(
+        '_("x_search_terms", default=["現在地", "位置情報"])\n'
+        'TOOL_SPEC = {"x_search_terms_en": ["current location", "geolocation"]}\n',
+        encoding="utf-8",
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"x_search_terms": ["現在地", "位置情報"]},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    finding = next(
+        item for item in findings if item.kind == "english_search_terms_mismatch"
+    )
+    assert finding.detail == {
+        "default": ["現在地", "位置情報"],
+        "x_search_terms_en": ["current location", "geolocation"],
+    }
+
+
+def test_audit_summary_reports_findings_by_kind(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    _write_tool_source(tools / "example_tool.py", {"message": "Hello"})
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"message": "こんにちは", "extra": "余分"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    payload = audit_module.audit(tmp_path / "missing", tools)
+
+    assert payload["summary"]["findings_by_kind"]["structure_extra"] == 1
+    assert payload["summary"]["findings_by_kind"]["coverage_missing"] == 1
+    assert payload["summary"]["tool_findings_by_kind_path"]["structure_extra"] == {
+        str(tools / "example_tool.json"): 1
+    }
+    assert payload["summary"]["tool_finding_keys_by_kind_path"]["structure_extra"] == {
+        str(tools / "example_tool.json"): ["extra"]
+    }
+
+
+def test_tool_audit_recognizes_helper_referenced_catalog_key(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.py").write_text(
+        "def translated_help(key, default):\n"
+        "    return _(key, default=default)\n"
+        'HELP = translated_help("help.start", "Start the tool")\n',
+        encoding="utf-8",
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"help.start": "ツールを開始"},
+                "de": {"help.start": "Tool starten"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.kind == "structure_extra"
+        and finding.detail
+        and "help.start" in finding.detail.get("paths", [])
+        for finding in findings
+    )
+
+
+def test_audit_follows_aliased_delegated_catalog_binding(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "sample_tool.py").write_text(
+        '_("facade.description", default="Facade")\n',
+        encoding="utf-8",
+    )
+    (tools / "policy.py").write_text(
+        "from pathlib import Path\n"
+        "_tool_ = make_tool_translator(\n"
+        '    Path(__file__).resolve().parent / "sample_tool.py"\n'
+        ")\n"
+        '_tool_("confirm.message", default="Confirm")\n',
+        encoding="utf-8",
+    )
+    (tools / "sample_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {
+                    "facade.description": "ファサード",
+                    "confirm.message": "確認",
+                }
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.kind == "structure_extra"
+        and finding.detail
+        and "confirm.message" in finding.detail.get("paths", [])
+        for finding in findings
+    )

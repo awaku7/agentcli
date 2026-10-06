@@ -33,9 +33,6 @@ TOOL_SPEC = {
                 "dart file index",
                 "class list",
                 "method list",
-                "Read Dart files",
-                "Class list",
-                "Method list",
             ],
         ),
         "x_search_terms_en": [

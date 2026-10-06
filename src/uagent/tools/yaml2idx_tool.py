@@ -37,11 +37,6 @@ TOOL_SPEC = {
                 "kubernetes manifest reader",
                 "docker compose index",
                 "openapi reader",
-                "Read YAML files",
-                "YAML index",
-                "Display key paths",
-                "K8s manifest analysis",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

@@ -15,9 +15,9 @@
     "err.path_empty": "cesta je prázdná"
   },
   "da": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "filen blev ikke fundet: {filename}",
+    "err.outside_workdir": "stien er uden for workdir: root={root} path={path}",
+    "err.path_empty": "stien er tom"
   },
   "de": {
     "err.file_not_found": "Datei nicht gefunden: {filename}",
@@ -45,9 +45,9 @@
     "err.path_empty": "polku on tyhjä"
   },
   "fil": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "hindi nakita ang file: {filename}",
+    "err.outside_workdir": "nasa labas ng workdir ang path: root={root} path={path}",
+    "err.path_empty": "walang laman ang path"
   },
   "fr": {
     "err.file_not_found": "fichier introuvable : {filename}",
@@ -100,9 +100,9 @@
     "err.path_empty": "मार्ग रिकामा आहे"
   },
   "ms": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "fail tidak ditemui: {filename}",
+    "err.outside_workdir": "laluan berada di luar workdir: root={root} path={path}",
+    "err.path_empty": "laluan kosong"
   },
   "nb": {
     "err.file_not_found": "fil ikke funnet: {filename}",
@@ -115,9 +115,9 @@
     "err.path_empty": "pad is leeg"
   },
   "nn": {
-    "err.file_not_found": "file not found: {filename}",
-    "err.outside_workdir": "path is outside workdir: root={root} path={path}",
-    "err.path_empty": "path is empty"
+    "err.file_not_found": "fila vart ikkje funnen: {filename}",
+    "err.outside_workdir": "stien er utanfor workdir: root={root} path={path}",
+    "err.path_empty": "stien er tom"
   },
   "pl": {
     "err.file_not_found": "nie znaleziono pliku: {filename}",

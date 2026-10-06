@@ -770,7 +770,7 @@
     "param.auto_install.description": "Pasang alat pemformat/linter yang hilang secara automatik dengan pip sebelum dijalankan."
   },
   "da": {
-    "param.cwd.description": "Working dir (under workdir).",
+    "param.cwd.description": "Arbejdsmappe (under workdir).",
     "param.mode.description": "check=check only / fix=automatisk rettelse",
     "param.targets.description": "Target path array (kun tilladt under workdir).",
     "param.tools.description": "En række værktøjsnavne til at køre. Hvis tom, vælges værktøjer automatisk.",

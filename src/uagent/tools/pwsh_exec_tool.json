@@ -20,7 +20,8 @@
     "err.blocked": "[pwsh_exec がブロックされました] %(reason)s",
     "err.exception": "[pwsh_exec エラー] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec エラー] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec エラー] PowerShell 実行可能ファイルが見つかりません: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec エラー] PowerShell 実行可能ファイルが見つかりません: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] コマンドの実行が中断されました"
   },
   "es": {
     "err.timeout": "[tiempo de espera de pwsh_exec] no finalizó en %(seconds)s segundos",
@@ -43,7 +44,8 @@
     "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
     "err.exception": "[error pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[error pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[error pwsh_exec] No se encontró el ejecutable de PowerShell: %(shell)s"
+    "err.shell_not_found": "[error pwsh_exec] No se encontró el ejecutable de PowerShell: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] la ejecución del comando fue interrumpida"
   },
   "fr": {
     "err.timeout": "[délai d'attente pwsh_exec] ne s'est pas terminé dans les %(seconds)s secondes",
@@ -66,7 +68,8 @@
     "err.blocked": "[pwsh_exec bloqué] %(reason)s",
     "err.exception": "[Erreur pwsh_exec] %(type)s : %(message)s",
     "err.returncode": "[Erreur pwsh_exec] code retour=%(code)s\nSTDOUT :\n%(stdout)s\nSTDERR :\n%(stderr)s",
-    "err.shell_not_found": "[Erreur pwsh_exec] Exécutable PowerShell introuvable : %(shell)s"
+    "err.shell_not_found": "[Erreur pwsh_exec] Exécutable PowerShell introuvable : %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] l’exécution de la commande a été interrompue"
   },
   "ko": {
     "err.timeout": "[pwsh_exec timeout]이 %(seconds)s초 안에 완료되지 않았습니다.",
@@ -89,7 +92,8 @@
     "err.blocked": "[pwsh_exec가 차단됨] %(reason)s",
     "err.exception": "[pwsh_exec 오류] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec 오류] 반환 코드=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec 오류] PowerShell 실행 파일을 찾을 수 없습니다: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec 오류] PowerShell 실행 파일을 찾을 수 없습니다: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] 명령 실행이 중단되었습니다"
   },
   "de": {
     "err.timeout": "[pwsh_exec-Timeout] wurde nicht innerhalb von %(seconds)s Sekunden beendet.",
@@ -112,7 +116,8 @@
     "err.blocked": "[pwsh_exec blockiert] %(reason)s",
     "err.exception": "[pwsh_exec-Fehler] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec-Fehler] Returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-Fehler] Ausführbare PowerShell-Datei nicht gefunden: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-Fehler] Ausführbare PowerShell-Datei nicht gefunden: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] Befehlsausführung wurde unterbrochen"
   },
   "it": {
     "err.timeout": "[timeout pwsh_exec] non è terminato entro %(seconds)s secondi",
@@ -135,7 +140,8 @@
     "err.blocked": "[pwsh_exec bloccato] %(reason)s",
     "err.exception": "[errore pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[errore pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[errore pwsh_exec] Eseguibile di PowerShell non trovato: %(shell)s"
+    "err.shell_not_found": "[errore pwsh_exec] Eseguibile di PowerShell non trovato: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] l’esecuzione del comando è stata interrotta"
   },
   "ru": {
     "err.timeout": "[таймаут pwsh_exec] не завершился в течение %(seconds)s секунд",
@@ -158,7 +164,8 @@
     "err.blocked": "[pwsh_exec заблокирован] %(reason)s",
     "err.exception": "[ошибка pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[ошибка pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[ошибка pwsh_exec] Исполняемый файл PowerShell не найден: %(shell)s"
+    "err.shell_not_found": "[ошибка pwsh_exec] Исполняемый файл PowerShell не найден: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] выполнение команды было прервано"
   },
   "pt_BR": {
     "err.timeout": "[pwsh_exec timeout] não terminou em %(seconds)s segundos",
@@ -181,7 +188,8 @@
     "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
     "err.exception": "[erro pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[erro pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[erro pwsh_exec] Executável do PowerShell não encontrado: %(shell)s"
+    "err.shell_not_found": "[erro pwsh_exec] Executável do PowerShell não encontrado: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] a execução do comando foi interrompida"
   },
   "pt": {
     "err.timeout": "[pwsh_exec timeout] não terminou em %(seconds)s segundos",
@@ -204,7 +212,8 @@
     "err.blocked": "[pwsh_exec bloqueado] %(reason)s",
     "err.exception": "[erro pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[erro pwsh_exec] código de retorno=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[erro pwsh_exec] Executável do PowerShell não encontrado: %(shell)s"
+    "err.shell_not_found": "[erro pwsh_exec] Executável do PowerShell não encontrado: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] a execução do comando foi interrompida"
   },
   "id": {
     "err.timeout": "[pwsh_exec timeout] tidak selesai dalam %(seconds)s detik",
@@ -227,7 +236,8 @@
     "err.blocked": "[pwsh_exec diblokir] %(reason)s",
     "err.exception": "[kesalahan pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[kesalahan pwsh_exec] kode pengembalian=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[kesalahan pwsh_exec] PowerShell yang dapat dieksekusi tidak ditemukan: %(shell)s"
+    "err.shell_not_found": "[kesalahan pwsh_exec] PowerShell yang dapat dieksekusi tidak ditemukan: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] eksekusi perintah dihentikan"
   },
   "vi": {
     "err.timeout": "[thời gian chờ pwsh_exec] không hoàn thành trong vòng %(seconds)s giây",
@@ -250,7 +260,8 @@
     "err.blocked": "[pwsh_exec bị chặn] %(reason)s",
     "err.exception": "[lỗi pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[lỗi pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[lỗi pwsh_exec] Không tìm thấy tệp thực thi PowerShell: %(shell)s"
+    "err.shell_not_found": "[lỗi pwsh_exec] Không tìm thấy tệp thực thi PowerShell: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] việc thực thi lệnh đã bị gián đoạn"
   },
   "pl": {
     "err.timeout": "[pwsh_exec timeout] nie zakończono w ciągu %(seconds)s sekund",
@@ -273,7 +284,8 @@
     "err.blocked": "[pwsh_exec zablokowany] %(reason)s",
     "err.exception": "[błąd pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[błąd pwsh_exec] kod powrotu=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[błąd pwsh_exec] Nie znaleziono pliku wykonywalnego PowerShell: %(shell)s"
+    "err.shell_not_found": "[błąd pwsh_exec] Nie znaleziono pliku wykonywalnego PowerShell: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] wykonywanie polecenia zostało przerwane"
   },
   "hi": {
     "err.timeout": "[pwsh_exec टाइमआउट] %(seconds)s सेकंड के भीतर समाप्त नहीं हुआ",
@@ -296,7 +308,8 @@
     "err.blocked": "[pwsh_exec अवरुद्ध] %(reason)s",
     "err.exception": "[pwsh_exec त्रुटि] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec त्रुटि] रिटर्नकोड=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec त्रुटि] PowerShell निष्पादन योग्य नहीं मिला: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec त्रुटि] PowerShell निष्पादन योग्य नहीं मिला: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] कमांड निष्पादन बाधित किया गया"
   },
   "ar": {
     "err.timeout": "[مهلة pwsh_exec] لم تنته خلال %(seconds)s ثانية",
@@ -319,7 +332,8 @@
     "err.blocked": "[تم حظر pwsh_exec] %(reason)s",
     "err.exception": "[خطأ pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[خطأ pwsh_exec] رمز الإرجاع=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[خطأ pwsh_exec] لم يتم العثور على ملف PowerShell القابل للتنفيذ: %(shell)s"
+    "err.shell_not_found": "[خطأ pwsh_exec] لم يتم العثور على ملف PowerShell القابل للتنفيذ: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] تمت مقاطعة تنفيذ الأمر"
   },
   "sv": {
     "err.timeout": "[pwsh_exec timeout] blev inte klar inom %(seconds)s sekunder",
@@ -342,7 +356,8 @@
     "err.blocked": "[pwsh_exec blockerad] %(reason)s",
     "err.exception": "[pwsh_exec-fel] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returkod=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-fel] PowerShell-körbar fil hittades inte: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-fel] PowerShell-körbar fil hittades inte: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] kommandokörningen avbröts"
   },
   "sw": {
     "err.timeout": "[pwsh_exec timeout] haikuisha ndani ya sekunde %(seconds)s",
@@ -365,7 +380,8 @@
     "err.blocked": "[pwsh_exec imezuiwa] %(reason)s",
     "err.exception": "[pwsh_exec hitilafu] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec hitilafu] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec error] PowerShell inayoweza kutekelezeka haijapatikana: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec error] PowerShell inayoweza kutekelezeka haijapatikana: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] utekelezaji wa amri ulikatizwa"
   },
   "nb": {
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen %(seconds)s sekunder",
@@ -388,7 +404,8 @@
     "err.blocked": "[pwsh_exec blokkert] %(reason)s",
     "err.exception": "[pwsh_exec-feil] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikke funnet: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikke funnet: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] kommandoen ble avbrutt"
   },
   "nl": {
     "err.timeout": "[pwsh_exec timeout] niet voltooid binnen %(seconds)s seconden",
@@ -411,7 +428,8 @@
     "err.blocked": "[pwsh_exec geblokkeerd] %(reason)s",
     "err.exception": "[pwsh_exec-fout] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec-fout] retourcode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec error] PowerShell-uitvoerbaar bestand niet gevonden: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec error] PowerShell-uitvoerbaar bestand niet gevonden: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] uitvoering van de opdracht werd onderbroken"
   },
   "fi": {
     "err.timeout": "[pwsh_exec aikakatkaisu] ei valmistunut %(seconds)s sekunnissa",
@@ -434,7 +452,8 @@
     "err.blocked": "[pwsh_exec estetty] %(reason)s",
     "err.exception": "[pwsh_exec-virhe] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec virhe] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-virhe] PowerShell-suoritettavaa tiedostoa ei löydy: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-virhe] PowerShell-suoritettavaa tiedostoa ei löydy: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] komennon suoritus keskeytettiin"
   },
   "cs": {
     "err.timeout": "[pwsh_exec timeout] nebylo dokončeno během %(seconds)s sekund",
@@ -457,7 +476,8 @@
     "err.blocked": "[pwsh_exec blokováno] %(reason)s",
     "err.exception": "[chyba pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[chyba pwsh_exec] návratový kód=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[chyba pwsh_exec] Spustitelný soubor PowerShellu nebyl nalezen: %(shell)s"
+    "err.shell_not_found": "[chyba pwsh_exec] Spustitelný soubor PowerShellu nebyl nalezen: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] provádění příkazu bylo přerušeno"
   },
   "uk": {
     "err.timeout": "[тайм-аут pwsh_exec] не завершився протягом %(seconds)s секунд",
@@ -480,7 +500,8 @@
     "err.blocked": "[pwsh_exec заблоковано] %(reason)s",
     "err.exception": "[помилка pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[помилка pwsh_exec] код повернення=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[помилка pwsh_exec] Виконуваний файл PowerShell не знайдено: %(shell)s"
+    "err.shell_not_found": "[помилка pwsh_exec] Виконуваний файл PowerShell не знайдено: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] виконання команди було перервано"
   },
   "tr": {
     "err.timeout": "[pwsh_exec timeout] %(seconds)s saniye içinde tamamlanmadı",
@@ -503,7 +524,8 @@
     "err.blocked": "[pwsh_exec engellendi] %(reason)s",
     "err.exception": "[pwsh_exec hatası] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec hatası] dönüş kodu=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec hatası] PowerShell yürütülebilir dosyası bulunamadı: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec hatası] PowerShell yürütülebilir dosyası bulunamadı: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] komut yürütme kesildi"
   },
   "th": {
     "err.timeout": "[pwsh_exec หมดเวลา] ไม่เสร็จสิ้นภายใน %(seconds)s วินาที",
@@ -526,7 +548,8 @@
     "err.blocked": "[pwsh_exec ถูกบล็อก] %(reason)s",
     "err.exception": "[ข้อผิดพลาด pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[ข้อผิดพลาด pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[ข้อผิดพลาด pwsh_exec] ไม่พบไฟล์ปฏิบัติการ PowerShell: %(shell)s"
+    "err.shell_not_found": "[ข้อผิดพลาด pwsh_exec] ไม่พบไฟล์ปฏิบัติการ PowerShell: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] การเรียกใช้คำสั่งถูกขัดจังหวะ"
   },
   "zh_CN": {
     "err.timeout": "[pwsh_exec 超时] 未在 %(seconds)s 秒内完成",
@@ -549,7 +572,8 @@
     "err.blocked": "[pwsh_exec 被阻止] %(reason)s",
     "err.exception": "[pwsh_exec 错误] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec 错误] 返回码=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec 错误] 未找到 PowerShell 可执行文件：%(shell)s"
+    "err.shell_not_found": "[pwsh_exec 错误] 未找到 PowerShell 可执行文件：%(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] 命令执行已中断"
   },
   "zh_TW": {
     "err.timeout": "[pwsh_exec 逾時] 未在 %(seconds)s 秒內完成",
@@ -572,7 +596,8 @@
     "err.blocked": "[pwsh_exec 被阻止] %(reason)s",
     "err.exception": "[pwsh_exec 錯誤] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec 錯誤] 回傳碼=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec 錯誤] 找不到 PowerShell 執行檔：%(shell)s"
+    "err.shell_not_found": "[pwsh_exec 錯誤] 找不到 PowerShell 執行檔：%(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] 指令執行已中斷"
   },
   "bn": {
     "err.timeout": "[pwsh_exec timeout] %(seconds)s সেকেন্ডের মধ্যে শেষ হয়নি",
@@ -595,7 +620,8 @@
     "err.blocked": "[pwsh_exec অবরুদ্ধ] %(reason)s",
     "err.exception": "[pwsh_exec ত্রুটি] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec ত্রুটি] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec ত্রুটি] পাওয়ারশেল এক্সিকিউটেবল পাওয়া যায়নি: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec ত্রুটি] পাওয়ারশেল এক্সিকিউটেবল পাওয়া যায়নি: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] কমান্ড কার্যকর করা বাধাগ্রস্ত হয়েছে"
   },
   "fa": {
     "err.timeout": "[مهلت pwsh_exec] در مدت %(seconds)s ثانیه تمام نشد",
@@ -618,7 +644,8 @@
     "err.blocked": "[pwsh_exec مسدود شد] %(reason)s",
     "err.exception": "[خطای pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[خطای pwsh_exec] کد بازگشتی=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[خطای pwsh_exec] فایل اجرایی PowerShell یافت نشد: %(shell)s"
+    "err.shell_not_found": "[خطای pwsh_exec] فایل اجرایی PowerShell یافت نشد: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] اجرای دستور قطع شد"
   },
   "mn": {
     "err.timeout": "[pwsh_exec timeout] %(seconds)s секундийн дотор дууссангүй",
@@ -641,7 +668,8 @@
     "err.blocked": "[pwsh_exec блоклогдсон] %(reason)s",
     "err.exception": "[pwsh_exec алдаа] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec алдаа] буцах код=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec алдаа] PowerShell-н ажиллах боломжтой файл олдсонгүй: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec алдаа] PowerShell-н ажиллах боломжтой файл олдсонгүй: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] командын гүйцэтгэл тасалдлаа"
   },
   "mr": {
     "err.timeout": "[pwsh_exec timeout] %(seconds)s सेकंदांत पूर्ण झाले नाही",
@@ -664,7 +692,8 @@
     "err.blocked": "[pwsh_exec अवरोधित] %(reason)s",
     "err.exception": "[pwsh_exec त्रुटी] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec त्रुटी] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec त्रुटी] PowerShell एक्झिक्युटेबल आढळले नाही: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec त्रुटी] PowerShell एक्झिक्युटेबल आढळले नाही: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] कमांडची अंमलबजावणी व्यत्यय आणली गेली"
   },
   "el": {
     "err.timeout": "Το [pwsh_exec timeout] δεν ολοκληρώθηκε μέσα σε %(seconds)s δευτερόλεπτα",
@@ -687,7 +716,8 @@
     "err.blocked": "[pwsh_exec αποκλεισμένο] %(reason)s",
     "err.exception": "[σφάλμα pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[σφάλμα pwsh_exec] κωδικός επιστροφής=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[σφάλμα pwsh_exec] Δεν βρέθηκε το εκτελέσιμο PowerShell: %(shell)s"
+    "err.shell_not_found": "[σφάλμα pwsh_exec] Δεν βρέθηκε το εκτελέσιμο PowerShell: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] η εκτέλεση της εντολής διακόπηκε"
   },
   "he": {
     "err.timeout": "[פסק הזמן של pwsh_exec] לא הסתיים תוך %(seconds)s שניות",
@@ -710,7 +740,8 @@
     "err.blocked": "[pwsh_exec חסום] %(reason)s",
     "err.exception": "[שגיאת pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec שגיאה] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec error] קובץ ההפעלה של PowerShell לא נמצא: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec error] קובץ ההפעלה של PowerShell לא נמצא: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] ביצוע הפקודה הופסק"
   },
   "hu": {
     "err.timeout": "A [pwsh_exec időtúllépés] nem fejeződött be %(seconds)s másodpercen belül",
@@ -733,7 +764,8 @@
     "err.blocked": "[pwsh_exec blokkolva] %(reason)s",
     "err.exception": "[pwsh_exec hiba] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec hiba] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec hiba] A PowerShell végrehajtható fájl nem található: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec hiba] A PowerShell végrehajtható fájl nem található: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] a parancs végrehajtása megszakadt"
   },
   "ro": {
     "err.timeout": "[pwsh_exec timeout] nu s-a încheiat în %(seconds)s secunde",
@@ -756,7 +788,8 @@
     "err.blocked": "[pwsh_exec blocat] %(reason)s",
     "err.exception": "[eroare pwsh_exec] %(type)s: %(message)s",
     "err.returncode": "[eroare pwsh_exec] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[eroare pwsh_exec] executabilul PowerShell nu a fost găsit: %(shell)s"
+    "err.shell_not_found": "[eroare pwsh_exec] executabilul PowerShell nu a fost găsit: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] execuția comenzii a fost întreruptă"
   },
   "fil": {
     "err.timeout": "[pwsh_exec timeout] ay hindi natapos sa loob ng %(seconds)s segundo",
@@ -779,7 +812,8 @@
     "err.blocked": "[na-block ang pwsh_exec] %(reason)s",
     "err.exception": "[pwsh_exec error] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec error] Hindi nahanap ang executable ng PowerShell: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec error] Hindi nahanap ang executable ng PowerShell: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] na-interrupt ang pagpapatakbo ng command"
   },
   "ms": {
     "err.timeout": "[pwsh_exec timeout] tidak selesai dalam masa %(seconds)s saat",
@@ -802,7 +836,8 @@
     "err.blocked": "[pwsh_exec disekat] %(reason)s",
     "err.exception": "[pwsh_exec ralat] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec ralat] returncode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec error] Boleh laku PowerShell tidak ditemui: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec error] Boleh laku PowerShell tidak ditemui: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] pelaksanaan arahan telah diganggu"
   },
   "da": {
     "err.timeout": "[pwsh_exec timeout] blev ikke færdig inden for %(seconds)s sekunder",
@@ -825,7 +860,8 @@
     "err.blocked": "[pwsh_exec blokeret] %(reason)s",
     "err.exception": "[pwsh_exec fejl] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec fejl] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-fejl] PowerShell-eksekverbar fil blev ikke fundet: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-fejl] PowerShell-eksekverbar fil blev ikke fundet: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] kommandoens udførelse blev afbrudt"
   },
   "nn": {
     "err.timeout": "[pwsh_exec timeout] ble ikke fullført innen %(seconds)s sekunder",
@@ -848,6 +884,7 @@
     "err.blocked": "[pwsh_exec blokkert] %(reason)s",
     "err.exception": "[pwsh_exec-feil] %(type)s: %(message)s",
     "err.returncode": "[pwsh_exec error] returkode=%(code)s\nSTDOUT:\n%(stdout)s\nSTDERR:\n%(stderr)s",
-    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikkje funnen: %(shell)s"
+    "err.shell_not_found": "[pwsh_exec-feil] PowerShell-kjørbar fil ble ikkje funnen: %(shell)s",
+    "err.interrupted": "[pwsh_exec interrupted] kommandoen vart avbroten"
   }
 }

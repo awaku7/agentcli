@@ -33,9 +33,6 @@ TOOL_SPEC = {
                 "csharp file index",
                 "class list",
                 "method list",
-                "Read C# files",
-                "Class list",
-                "Method list",
             ],
         ),
         "x_search_terms_en": [

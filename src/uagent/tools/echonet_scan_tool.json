@@ -2646,7 +2646,8 @@
       "discover",
       "nodes",
       "local",
-      "network"
+      "network",
+      "paghahanap ng ECHONET nodes"
     ],
     "param.scope.description": "I-filter ang mga natuklasang node ayon sa saklaw ng network. lahat=walang filter; local=parehong LAN subnet (+ sarili); external=pampubliko/WAN address; self=bind host lamang; local_other=pribado ngunit magkaibang subnet.",
     "param.refresh.description": "Kung totoo, i-bypass ang cache at pilitin ang isang bagong pag-scan."

@@ -1,4 +1,164 @@
 {
+  "ar": {
+    "tool.description": "أرسل تعليمات إضافية إلى Sub-Agent Job قيد التشغيل. يتم تسليمها عند حد جولة آمن ولا تُحقن في استدعاء مزوّد نشط.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "إرسال تعليمات للوكيل الفرعي",
+      "صندوق وارد المهمة"
+    ],
+    "param.job_id.description": "Job ID الذي أعاده spawn_sub_agent.",
+    "param.message.description": "تعليمات إضافية للـ Sub-Agent."
+  },
+  "bn": {
+    "tool.description": "চলমান Sub-Agent Job-এ অতিরিক্ত নির্দেশনা পাঠান। সেগুলো নিরাপদ round boundary-তে পৌঁছে, সক্রিয় provider call-এর মধ্যে ঢোকানো হয় না।",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "সাব-এজেন্টকে নির্দেশনা পাঠান",
+      "জব ইনবক্স"
+    ],
+    "param.job_id.description": "spawn_sub_agent থেকে ফেরত পাওয়া Job ID।",
+    "param.message.description": "Sub-Agent-এর জন্য অতিরিক্ত নির্দেশনা।"
+  },
+  "cs": {
+    "tool.description": "Odešle další pokyny běžící úloze Sub-Agent Job. Doručí se na bezpečné hranici kola a nevkládají se do aktivního volání poskytovatele.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "poslat pokyn sub-agentovi",
+      "schránka úlohy"
+    ],
+    "param.job_id.description": "Job ID vrácené nástrojem spawn_sub_agent.",
+    "param.message.description": "Další pokyn pro Sub-Agent."
+  },
+  "da": {
+    "tool.description": "Send ekstra instruktioner til en kørende Sub-Agent Job. De leveres ved en sikker rundegrænse og indsættes ikke i et aktivt provider-kald.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "send instruktion til sub-agent",
+      "job-indbakke"
+    ],
+    "param.job_id.description": "Job ID returneret af spawn_sub_agent.",
+    "param.message.description": "Ekstra instruktion til Sub-Agent."
+  },
+  "de": {
+    "tool.description": "Sendet zusätzliche Anweisungen an einen laufenden Sub-Agent Job. Sie werden an einer sicheren Rundengrenze zugestellt und nicht in einen aktiven Provider-Aufruf injiziert.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "Anweisung an Sub-Agent senden",
+      "Job-Postfach"
+    ],
+    "param.job_id.description": "Von spawn_sub_agent zurückgegebene Job ID.",
+    "param.message.description": "Zusätzliche Anweisung für den Sub-Agent."
+  },
+  "el": {
+    "tool.description": "Στέλνει πρόσθετες οδηγίες σε ένα Sub-Agent Job που εκτελείται. Παραδίδονται σε ασφαλές όριο γύρου και δεν εισάγονται σε ενεργή κλήση παρόχου.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "αποστολή οδηγίας σε sub-agent",
+      "εισερχόμενα job"
+    ],
+    "param.job_id.description": "Job ID που επέστρεψε το spawn_sub_agent.",
+    "param.message.description": "Πρόσθετη οδηγία για τον Sub-Agent."
+  },
+  "es": {
+    "tool.description": "Envía instrucciones adicionales a un Sub-Agent Job en ejecución. Se entregan en un límite de ronda seguro y no se inyectan en una llamada activa al proveedor.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "enviar instrucción al sub-agente",
+      "bandeja del job"
+    ],
+    "param.job_id.description": "Job ID devuelto por spawn_sub_agent.",
+    "param.message.description": "Instrucción adicional para el Sub-Agent."
+  },
+  "fa": {
+    "tool.description": "دستورهای اضافی را به Sub-Agent Job در حال اجرا می‌فرستد. این دستورها در مرز امن دور تحویل می‌شوند و به فراخوانی فعال ارائه‌دهنده تزریق نمی‌شوند.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "ارسال دستور به زیرعامل",
+      "صندوق ورودی کار"
+    ],
+    "param.job_id.description": "Job ID بازگردانده‌شده توسط spawn_sub_agent.",
+    "param.message.description": "دستور اضافی برای Sub-Agent."
+  },
+  "fi": {
+    "tool.description": "Lähetä lisäohjeita käynnissä olevalle Sub-Agent Jobille. Ne toimitetaan turvallisella kierrosrajalla eikä niitä lisätä aktiiviseen provider-kutsuun.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "lähetä ohje sub-agentille",
+      "jobin saapuneet"
+    ],
+    "param.job_id.description": "spawn_sub_agentin palauttama Job ID.",
+    "param.message.description": "Lisäohje Sub-Agentille."
+  },
+  "fil": {
+    "tool.description": "Magpadala ng karagdagang tagubilin sa tumatakbong Sub-Agent Job. Ihahatid ang mga ito sa ligtas na round boundary at hindi ini-inject sa aktibong provider call.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "magpadala ng tagubilin sa sub-agent",
+      "job inbox"
+    ],
+    "param.job_id.description": "Job ID na ibinalik ng spawn_sub_agent.",
+    "param.message.description": "Karagdagang tagubilin para sa Sub-Agent."
+  },
+  "fr": {
+    "tool.description": "Envoie des instructions supplémentaires à un Sub-Agent Job en cours. Elles sont livrées à une limite de tour sûre et ne sont pas injectées dans un appel fournisseur actif.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "envoyer une instruction au sous-agent",
+      "boîte de réception du job"
+    ],
+    "param.job_id.description": "Job ID renvoyé par spawn_sub_agent.",
+    "param.message.description": "Instruction supplémentaire pour le Sub-Agent."
+  },
+  "he": {
+    "tool.description": "שולח הוראות נוספות אל Sub-Agent Job פעיל. הן נמסרות בגבול סבב בטוח ואינן מוזרקות לשיחת ספק פעילה.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "שליחת הוראה לתת-סוכן",
+      "תיבת דואר job"
+    ],
+    "param.job_id.description": "Job ID שהוחזר על ידי spawn_sub_agent.",
+    "param.message.description": "הוראה נוספת עבור ה-Sub-Agent."
+  },
+  "hi": {
+    "tool.description": "चल रहे Sub-Agent Job को अतिरिक्त निर्देश भेजें। वे सुरक्षित round boundary पर दिए जाते हैं और सक्रिय provider call में इंजेक्ट नहीं किए जाते।",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "सब-एजेंट को निर्देश भेजें",
+      "जॉब इनबॉक्स"
+    ],
+    "param.job_id.description": "spawn_sub_agent द्वारा लौटाया गया Job ID।",
+    "param.message.description": "Sub-Agent के लिए अतिरिक्त निर्देश।"
+  },
+  "hu": {
+    "tool.description": "További utasításokat küld egy futó Sub-Agent Job számára. Az utasítások biztonságos körhatáron kerülnek kézbesítésre, nem pedig aktív szolgáltatói hívásba.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "utasítás küldése sub-agentnek",
+      "job postaláda"
+    ],
+    "param.job_id.description": "A spawn_sub_agent által visszaadott Job ID.",
+    "param.message.description": "További utasítás a Sub-Agent számára."
+  },
+  "id": {
+    "tool.description": "Kirim instruksi tambahan ke Sub-Agent Job yang sedang berjalan. Instruksi dikirim pada batas putaran yang aman dan tidak disisipkan ke panggilan provider aktif.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "kirim instruksi ke sub-agent",
+      "kotak masuk job"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent.",
+    "param.message.description": "Instruksi tambahan untuk Sub-Agent."
+  },
+  "it": {
+    "tool.description": "Invia istruzioni aggiuntive a un Sub-Agent Job in esecuzione. Vengono consegnate a un limite di round sicuro e non inserite in una chiamata provider attiva.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "invia istruzione al sub-agent",
+      "posta del job"
+    ],
+    "param.job_id.description": "Job ID restituito da spawn_sub_agent.",
+    "param.message.description": "Istruzione aggiuntiva per il Sub-Agent."
+  },
   "ja": {
     "tool.description": "実行中のサブエージェント Job に追加指示を送信します。指示は安全なラウンド境界で取り込まれ、実行中のプロバイダー呼び出しには割り込みません。",
     "x_search_terms": [
@@ -8,5 +168,205 @@
     ],
     "param.job_id.description": "spawn_sub_agent が返した Job ID。",
     "param.message.description": "サブエージェントへの追加指示。"
+  },
+  "ko": {
+    "tool.description": "실행 중인 Sub-Agent Job에 추가 지시를 보냅니다. 지시는 안전한 라운드 경계에서 전달되며 활성 provider 호출에 삽입되지 않습니다.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "서브에이전트에 지시 보내기",
+      "작업 수신함"
+    ],
+    "param.job_id.description": "spawn_sub_agent가 반환한 Job ID입니다.",
+    "param.message.description": "Sub-Agent에 대한 추가 지시입니다."
+  },
+  "mn": {
+    "tool.description": "Ажиллаж буй Sub-Agent Job-д нэмэлт заавар илгээнэ. Заавар нь аюулгүй round boundary дээр хүргэгдэх бөгөөд идэвхтэй provider call-д оруулахгүй.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "sub-agent-д заавар илгээх",
+      "job inbox"
+    ],
+    "param.job_id.description": "spawn_sub_agent-аас буцаасан Job ID.",
+    "param.message.description": "Sub-Agent-д өгөх нэмэлт заавар."
+  },
+  "mr": {
+    "tool.description": "चालू Sub-Agent Job ला अतिरिक्त सूचना पाठवा. त्या सुरक्षित round boundary वर दिल्या जातात आणि सक्रिय provider call मध्ये घातल्या जात नाहीत.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "सब-एजंटला सूचना पाठवा",
+      "जॉब इनबॉक्स"
+    ],
+    "param.job_id.description": "spawn_sub_agent ने परत केलेला Job ID.",
+    "param.message.description": "Sub-Agent साठी अतिरिक्त सूचना."
+  },
+  "ms": {
+    "tool.description": "Hantar arahan tambahan kepada Sub-Agent Job yang sedang berjalan. Arahan dihantar pada sempadan pusingan yang selamat dan tidak disuntik ke dalam panggilan provider aktif.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "hantar arahan kepada sub-agent",
+      "peti masuk job"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent.",
+    "param.message.description": "Arahan tambahan untuk Sub-Agent."
+  },
+  "nb": {
+    "tool.description": "Send flere instruksjoner til en kjørende Sub-Agent Job. De leveres ved en trygg rundegrense og settes ikke inn i et aktivt provider-kall.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "send instruksjon til sub-agent",
+      "jobbinnboks"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent.",
+    "param.message.description": "Ekstra instruksjon for Sub-Agent."
+  },
+  "nl": {
+    "tool.description": "Stuur extra instructies naar een actieve Sub-Agent Job. Ze worden op een veilige rondegrens afgeleverd en niet in een actieve provider-aanroep geïnjecteerd.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "instructie naar sub-agent sturen",
+      "job-inbox"
+    ],
+    "param.job_id.description": "Job ID teruggegeven door spawn_sub_agent.",
+    "param.message.description": "Extra instructie voor de Sub-Agent."
+  },
+  "nn": {
+    "tool.description": "Send fleire instruksjonar til ein køyrande Sub-Agent Job. Dei blir leverte ved ei trygg rundegrense og blir ikkje sette inn i eit aktivt provider-kall.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "send instruksjon til sub-agent",
+      "jobbinnboks"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent.",
+    "param.message.description": "Ekstra instruksjon for Sub-Agent."
+  },
+  "pl": {
+    "tool.description": "Wysyła dodatkowe instrukcje do działającego Sub-Agent Job. Są dostarczane na bezpiecznej granicy rundy i nie są wstrzykiwane do aktywnego wywołania providera.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "wyślij instrukcję do sub-agenta",
+      "skrzynka job"
+    ],
+    "param.job_id.description": "Job ID zwrócony przez spawn_sub_agent.",
+    "param.message.description": "Dodatkowa instrukcja dla Sub-Agent."
+  },
+  "pt": {
+    "tool.description": "Envia instruções adicionais para um Sub-Agent Job em execução. São entregues num limite seguro de ronda e não são injetadas numa chamada ativa ao provider.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "enviar instrução ao sub-agent",
+      "caixa de entrada do job"
+    ],
+    "param.job_id.description": "Job ID devolvido por spawn_sub_agent.",
+    "param.message.description": "Instrução adicional para o Sub-Agent."
+  },
+  "pt_BR": {
+    "tool.description": "Envia instruções adicionais para um Sub-Agent Job em execução. Elas são entregues em um limite seguro de rodada e não são injetadas em uma chamada ativa ao provider.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "enviar instrução ao sub-agent",
+      "caixa de entrada do job"
+    ],
+    "param.job_id.description": "Job ID retornado por spawn_sub_agent.",
+    "param.message.description": "Instrução adicional para o Sub-Agent."
+  },
+  "ro": {
+    "tool.description": "Trimite instrucțiuni suplimentare unui Sub-Agent Job în execuție. Acestea sunt livrate la o limită sigură de rundă și nu sunt injectate într-un apel activ către provider.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "trimite instrucțiune sub-agentului",
+      "inbox job"
+    ],
+    "param.job_id.description": "Job ID returnat de spawn_sub_agent.",
+    "param.message.description": "Instrucțiune suplimentară pentru Sub-Agent."
+  },
+  "ru": {
+    "tool.description": "Отправляет дополнительные инструкции выполняющемуся Sub-Agent Job. Они доставляются на безопасной границе раунда и не внедряются в активный вызов provider.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "отправить инструкцию sub-agent",
+      "входящие job"
+    ],
+    "param.job_id.description": "Job ID, возвращённый spawn_sub_agent.",
+    "param.message.description": "Дополнительная инструкция для Sub-Agent."
+  },
+  "sv": {
+    "tool.description": "Skicka ytterligare instruktioner till en körande Sub-Agent Job. De levereras vid en säker rundgräns och injiceras inte i ett aktivt provider-anrop.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "skicka instruktion till sub-agent",
+      "jobbinkorg"
+    ],
+    "param.job_id.description": "Job ID som returnerades av spawn_sub_agent.",
+    "param.message.description": "Ytterligare instruktion för Sub-Agent."
+  },
+  "sw": {
+    "tool.description": "Tuma maelekezo ya ziada kwa Sub-Agent Job inayoendelea. Yanawasilishwa kwenye mpaka salama wa raundi na hayaingizwi kwenye mwito wa provider unaotumika.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "tuma maelekezo kwa sub-agent",
+      "kikasha cha job"
+    ],
+    "param.job_id.description": "Job ID iliyorudishwa na spawn_sub_agent.",
+    "param.message.description": "Maelekezo ya ziada kwa Sub-Agent."
+  },
+  "th": {
+    "tool.description": "ส่งคำสั่งเพิ่มเติมไปยัง Sub-Agent Job ที่กำลังทำงาน คำสั่งจะถูกส่งที่ขอบเขตรอบที่ปลอดภัยและจะไม่ถูกแทรกใน provider call ที่กำลังทำงาน",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "ส่งคำสั่งให้ซับเอเจนต์",
+      "กล่องข้อความ job"
+    ],
+    "param.job_id.description": "Job ID ที่ส่งคืนโดย spawn_sub_agent",
+    "param.message.description": "คำสั่งเพิ่มเติมสำหรับ Sub-Agent"
+  },
+  "tr": {
+    "tool.description": "Çalışan bir Sub-Agent Job görevine ek talimatlar gönderir. Talimatlar güvenli bir tur sınırında teslim edilir ve etkin bir provider çağrısına enjekte edilmez.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "sub-agent talimat gönder",
+      "job gelen kutusu"
+    ],
+    "param.job_id.description": "spawn_sub_agent tarafından döndürülen Job ID.",
+    "param.message.description": "Sub-Agent için ek talimat."
+  },
+  "uk": {
+    "tool.description": "Надсилає додаткові інструкції запущеному Sub-Agent Job. Вони доставляються на безпечній межі раунду й не вставляються в активний виклик provider.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "надіслати інструкцію sub-agent",
+      "вхідні job"
+    ],
+    "param.job_id.description": "Job ID, повернений spawn_sub_agent.",
+    "param.message.description": "Додаткова інструкція для Sub-Agent."
+  },
+  "vi": {
+    "tool.description": "Gửi hướng dẫn bổ sung tới Sub-Agent Job đang chạy. Hướng dẫn được chuyển tại ranh giới vòng an toàn và không được chèn vào lời gọi provider đang hoạt động.",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "gửi hướng dẫn cho sub-agent",
+      "hộp thư job"
+    ],
+    "param.job_id.description": "Job ID do spawn_sub_agent trả về.",
+    "param.message.description": "Hướng dẫn bổ sung cho Sub-Agent."
+  },
+  "zh_CN": {
+    "tool.description": "向正在运行的 Sub-Agent Job 发送附加指令。指令会在安全的轮次边界送达，不会注入正在进行的 provider 调用。",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "向子代理发送指令",
+      "任务收件箱"
+    ],
+    "param.job_id.description": "spawn_sub_agent 返回的 Job ID。",
+    "param.message.description": "给 Sub-Agent 的附加指令。"
+  },
+  "zh_TW": {
+    "tool.description": "向正在執行的 Sub-Agent Job 傳送額外指示。指示會在安全的輪次邊界送達，不會注入正在進行的 provider 呼叫。",
+    "x_search_terms": [
+      "send_sub_agent_message",
+      "向子代理傳送指示",
+      "工作收件匣"
+    ],
+    "param.job_id.description": "spawn_sub_agent 傳回的 Job ID。",
+    "param.message.description": "給 Sub-Agent 的額外指示。"
   }
 }

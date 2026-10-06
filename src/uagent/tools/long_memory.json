@@ -5,7 +5,7 @@
     "msg.truncated": "[تم اقتطاع الذاكرة الطويلة: يقتصر على {max_bytes} من الأحرف]"
   },
   "bn": {
-    "err.load": "[long_memory error] {err_type}: {err}",
+    "err.load": "[long_memory ত্রুটি] {err_type}: {err}",
     "msg.no_memory": "(এখনও দীর্ঘমেয়াদী স্মৃতি নেই)",
     "msg.truncated": "\n[দীর্ঘ_স্মৃতি কাটা: {max_bytes} অক্ষরে সীমাবদ্ধ]"
   },
@@ -15,9 +15,9 @@
     "msg.truncated": "\n[long_memory zkrácen: omezeno na {max_bytes} znaků]"
   },
   "da": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[long_memory-fejl] {err_type}: {err}",
+    "msg.no_memory": "(ingen langtidshukommelse endnu)",
+    "msg.truncated": "\n[long_memory afkortet: begrænset til {max_bytes} tegn]"
   },
   "de": {
     "err.load": "[long_memory-Fehler] {err_type}: {err}",
@@ -45,9 +45,9 @@
     "msg.truncated": "\n[long_memory typistetty: rajoitettu {max_bytes} merkkiin]"
   },
   "fil": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[long_memory na error] {err_type}: {err}",
+    "msg.no_memory": "(wala pang long-term memory)",
+    "msg.truncated": "\n[na-truncate ang long_memory: limitado sa {max_bytes} character]"
   },
   "fr": {
     "err.load": "[erreur de mémoire longue] {err_type} : {err}",
@@ -65,7 +65,7 @@
     "msg.truncated": "\n[long_memory छोटा किया गया: {max_bytes} वर्णों तक सीमित]"
   },
   "hu": {
-    "err.load": "[long_memory error] {err_type}: {err}",
+    "err.load": "[long_memory hiba] {err_type}: {err}",
     "msg.no_memory": "A hídkezeléssel felügyelt eszközök listázása, és JSON vagy szöveges összefoglaló visszaadása.",
     "msg.truncated": "\n[long_memory csonka: {max_bytes} karakterekre korlátozva]"
   },
@@ -95,14 +95,14 @@
     "msg.truncated": "\n[урт_санах ой таслагдсан: {max_bytes} тэмдэгтээр хязгаарлагдсан]"
   },
   "mr": {
-    "err.load": "[long_memory error] {err_type}: {err}",
+    "err.load": "[long_memory त्रुटी] {err_type}: {err}",
     "msg.no_memory": "(अद्याप दीर्घकालीन स्मृती नाही)",
     "msg.truncated": "\n[long_memory truncated: {max_bytes} अक्षरांपर्यंत मर्यादित]"
   },
   "ms": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[ralat long_memory] {err_type}: {err}",
+    "msg.no_memory": "(belum ada memori jangka panjang)",
+    "msg.truncated": "\n[long_memory dipendekkan: dihadkan kepada {max_bytes} aksara]"
   },
   "nb": {
     "err.load": "[long_memory-feil] {err_type}: {err}",
@@ -115,9 +115,9 @@
     "msg.truncated": "\n[lang geheugen afgekapt: beperkt tot {max_bytes} tekens]"
   },
   "nn": {
-    "err.load": "[long_memory error] {err_type}: {err}",
-    "msg.no_memory": "(no long-term memory yet)",
-    "msg.truncated": "\n[long_memory truncated: limited to {max_bytes} chars]"
+    "err.load": "[long_memory-feil] {err_type}: {err}",
+    "msg.no_memory": "(inga langtidsminne enno)",
+    "msg.truncated": "\n[long_memory avkorta: avgrensa til {max_bytes} teikn]"
   },
   "pl": {
     "err.load": "[błąd długiej_pamięci] {err_type}: {err}",

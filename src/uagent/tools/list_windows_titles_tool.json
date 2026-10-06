@@ -270,7 +270,7 @@
     "tool.description": "Räkna upp toppnivåfönstertitlar på Windows och returnera strukturerad JSON. Parametrar: 'all' (inkludera icke-synliga), 'pid' (inkludera PID), 'class' (inkludera klassnamn)."
   },
   "sw": {
-    "param.all.description": "Include non-visible windows.",
+    "param.all.description": "Jumuisha madirisha yasiyoonekana.",
     "param.class.description": "Jumuisha jina la darasa.",
     "param.pid.description": "Jumuisha vitambulisho vya mchakato.",
     "x_search_terms": [

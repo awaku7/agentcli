@@ -2,186 +2,260 @@
   "ar": {
     "skill.prefix": "[المهارة]",
     "skill.clear_log": "{message} (تم مسح {removed} من رسائل المهارات)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} تحذير] فشل إعادة كتابة السجل الحالي: {error}",
+    "skill.clear_log_compat": " (تم مسح {removed} من رسائل skill)"
   },
   "bn": {
     "skill.prefix": "[দক্ষতা]",
     "skill.clear_log": "{message} (সাফ করা {removed} দক্ষতা বার্তা)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} সতর্কতা] বর্তমান লগ পুনরায় লিখতে ব্যর্থ: {error}",
+    "skill.clear_log_compat": " ({removed}টি skill বার্তা মুছে ফেলা হয়েছে)"
   },
   "cs": {
     "skill.prefix": "[DOVEDNOST]",
     "skill.clear_log": "{message} (vymazáno {removed} zpráv o dovednostech)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} varování] Nepodařilo se přepsat aktuální log: {error}",
+    "skill.clear_log_compat": " (Vymazáno {removed} zpráv skill)"
   },
   "da": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
-    "skill.ok": "{message}"
+    "skill.clear_log": "{message} (Ryddede {removed} skill-meddelelser)",
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} advarsel] Kunne ikke omskrive den aktuelle log: {error}",
+    "skill.clear_log_compat": " (Ryddede {removed} skill-meddelelser)"
   },
   "de": {
     "skill.prefix": "[FÄHIGKEIT]",
     "skill.clear_log": "{message} ({removed} Skill-Nachrichten gelöscht)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} Warnung] Aktuelles Log konnte nicht neu geschrieben werden: {error}",
+    "skill.clear_log_compat": " ({removed} Skill-Nachrichten gelöscht)"
   },
   "el": {
     "skill.prefix": "[ΕΠΙΔΕΞΙΟΤΗΤΑ]",
     "skill.clear_log": "{message} (Διαγράφηκαν μηνύματα δεξιοτήτων {removed})",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} προειδοποίηση] Αποτυχία επανεγγραφής του τρέχοντος log: {error}",
+    "skill.clear_log_compat": " (Διαγράφηκαν {removed} μηνύματα skill)"
   },
   "es": {
     "skill.prefix": "[HABILIDAD]",
     "skill.clear_log": "{message} (mensajes de habilidad {removed} borrados)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} aviso] No se pudo reescribir el registro actual: {error}",
+    "skill.clear_log_compat": " (Se borraron {removed} mensajes de skill)"
   },
   "fa": {
     "skill.prefix": "[مهارت]",
     "skill.clear_log": "{message} (پیام های مهارت {removed} پاک شد)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} هشدار] بازنویسی گزارش فعلی ناموفق بود: {error}",
+    "skill.clear_log_compat": " ({removed} پیام skill پاک شد)"
   },
   "fi": {
     "skill.prefix": "[TAITO]",
     "skill.clear_log": "{message} (poistettu {removed} taitoviestiä)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} varoitus] Nykyisen lokin uudelleenkirjoitus epäonnistui: {error}",
+    "skill.clear_log_compat": " (Tyhjennettiin {removed} skill-viestiä)"
   },
   "fil": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
-    "skill.ok": "{message}"
+    "skill.clear_log": "{message} (Nag-clear ng {removed} skill message)",
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} babala] Nabigong muling isulat ang kasalukuyang log: {error}",
+    "skill.clear_log_compat": " (Na-clear ang {removed} skill messages)"
   },
   "fr": {
     "skill.prefix": "[COMPÉTENCE]",
     "skill.clear_log": "{message} (messages de compétence {removed} effacés)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} avertissement] Échec de la réécriture du journal courant : {error}",
+    "skill.clear_log_compat": " ({removed} messages de skill effacés)"
   },
   "he": {
     "skill.prefix": "[מְיוּמָנוּת]",
     "skill.clear_log": "{message} (הודעות מיומנות {removed} נוקו)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} אזהרה] כתיבת הלוג הנוכחי מחדש נכשלה: {error}",
+    "skill.clear_log_compat": " (נוקו {removed} הודעות skill)"
   },
   "hi": {
     "skill.prefix": "[कौशल]",
     "skill.clear_log": "{message} ({removed} कौशल संदेश साफ़ किए गए)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} चेतावनी] वर्तमान लॉग फिर से लिखने में विफल: {error}",
+    "skill.clear_log_compat": " ({removed} skill संदेश साफ़ किए गए)"
   },
   "hu": {
     "skill.prefix": "A forrás URL vagy elérési útja (Git URL, HTTP ZIP URL, helyi könyvtár vagy helyi ZIP).",
     "skill.clear_log": "{message} ({removed} ügyességi üzenetek törölve)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} figyelmeztetés] Az aktuális napló újraírása sikertelen: {error}",
+    "skill.clear_log_compat": " ({removed} skill-üzenet törölve)"
   },
   "id": {
     "skill.prefix": "[Keterampilan]",
     "skill.clear_log": "{message} (Menghapus {removed} pesan keterampilan)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} peringatan] Gagal menulis ulang log saat ini: {error}",
+    "skill.clear_log_compat": " ({removed} pesan skill dibersihkan)"
   },
   "it": {
     "skill.prefix": "[ABILITA']",
     "skill.clear_log": "{message} (Cancellati {removed} messaggi di abilità)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} avviso] Impossibile riscrivere il log corrente: {error}",
+    "skill.clear_log_compat": " (Cancellati {removed} messaggi skill)"
   },
   "ja": {
     "skill.prefix": "【スキル】",
     "skill.clear_log": "{message} ({removed} 件のスキルメッセージをクリアしました)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} 警告] 現在のログの書き換えに失敗しました: {error}",
+    "skill.clear_log_compat": "（{removed} 件の skill メッセージをクリアしました）"
   },
   "ko": {
     "skill.prefix": "[스킬]",
     "skill.clear_log": "{message}({removed} 스킬 메시지 삭제됨)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} 경고] 현재 로그를 다시 쓰지 못했습니다: {error}",
+    "skill.clear_log_compat": " ({removed}개의 skill 메시지를 지웠습니다)"
   },
   "mn": {
     "skill.prefix": "[ЧАДВАР]",
     "skill.clear_log": "{message} ({removed} ур чадварын мессежийг арилгасан)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} анхааруулга] Одоогийн логийг дахин бичиж чадсангүй: {error}",
+    "skill.clear_log_compat": " ({removed} skill мессежийг цэвэрлэв)"
   },
   "mr": {
     "skill.prefix": "[कौशल्य]",
     "skill.clear_log": "{message} ({removed} कौशल्य संदेश साफ)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} चेतावणी] सध्याचा लॉग पुन्हा लिहिता आला नाही: {error}",
+    "skill.clear_log_compat": " ({removed} skill संदेश साफ केले)"
   },
   "ms": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
-    "skill.ok": "{message}"
+    "skill.clear_log": "{message} ({removed} mesej skill dikosongkan)",
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} amaran] Gagal menulis semula log semasa: {error}",
+    "skill.clear_log_compat": " ({removed} mesej skill dikosongkan)"
   },
   "nb": {
     "skill.prefix": "[FERDIGHET]",
     "skill.clear_log": "{message} (Tømte {removed} ferdighetsmeldinger)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} advarsel] Kunne ikke skrive om gjeldende logg: {error}",
+    "skill.clear_log_compat": " (Fjernet {removed} skill-meldinger)"
   },
   "nl": {
     "skill.prefix": "[VAARDIGHEID]",
     "skill.clear_log": "{message} ({removed} vaardigheidsberichten gewist)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} waarschuwing] Huidig logboek kon niet worden herschreven: {error}",
+    "skill.clear_log_compat": " ({removed} skill-berichten gewist)"
   },
   "nn": {
     "skill.prefix": "[SKILL] ",
-    "skill.clear_log": "{message} (Cleared {removed} skill messages)",
-    "skill.ok": "{message}"
+    "skill.clear_log": "{message} (Tømde {removed} skill-meldingar)",
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} åtvaring] Klarte ikkje å skrive om gjeldande logg: {error}",
+    "skill.clear_log_compat": " (Fjerna {removed} skill-meldingar)"
   },
   "pl": {
     "skill.prefix": "[UMIEJĘTNOŚCI]",
     "skill.clear_log": "{message} (Wyczyszczono {removed} komunikatów umiejętności)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} ostrzeżenie] Nie udało się przepisać bieżącego logu: {error}",
+    "skill.clear_log_compat": " (Wyczyszczono {removed} wiadomości skill)"
   },
   "pt": {
     "skill.prefix": "[HABILIDADE]",
     "skill.clear_log": "{message} (mensagens de habilidade {removed} apagadas)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} aviso] Falha ao reescrever o registo atual: {error}",
+    "skill.clear_log_compat": " ({removed} mensagens de skill limpas)"
   },
   "pt_BR": {
     "skill.prefix": "[HABILIDADE]",
     "skill.clear_log": "{message} (mensagens de habilidade {removed} apagadas)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} aviso] Falha ao reescrever o log atual: {error}",
+    "skill.clear_log_compat": " ({removed} mensagens de skill limpas)"
   },
   "ro": {
     "skill.prefix": "[ABILITATE]",
     "skill.clear_log": "{message} (Mesaje de aptitudini {removed} șterse)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} avertisment] Nu s-a putut rescrie jurnalul curent: {error}",
+    "skill.clear_log_compat": " (Au fost șterse {removed} mesaje skill)"
   },
   "ru": {
     "skill.prefix": "[НАВЫКИ]",
     "skill.clear_log": "{message} (Удалены сообщения о навыках {removed})",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} предупреждение] Не удалось перезаписать текущий лог: {error}",
+    "skill.clear_log_compat": " (Удалено {removed} сообщений skill)"
   },
   "sv": {
     "skill.prefix": "[SKILL]",
     "skill.clear_log": "{message} (Rensade {removed} färdighetsmeddelanden)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} varning] Det gick inte att skriva om den aktuella loggen: {error}",
+    "skill.clear_log_compat": " (Rensade {removed} skill-meddelanden)"
   },
   "sw": {
     "skill.prefix": "[SKILL]",
     "skill.clear_log": "{message} (Ujumbe {removed} wa ujuzi umefuta)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} onyo] Imeshindwa kuandika upya logi ya sasa: {error}",
+    "skill.clear_log_compat": " (Imefuta ujumbe {removed} wa skill)"
   },
   "th": {
     "skill.prefix": "[ทักษะ]",
     "skill.clear_log": "{message} (ล้างข้อความทักษะ {removed})",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} คำเตือน] เขียน log ปัจจุบันใหม่ไม่สำเร็จ: {error}",
+    "skill.clear_log_compat": " (ล้างข้อความ skill จำนวน {removed} รายการ)"
   },
   "tr": {
     "skill.prefix": "[BECERİ]",
     "skill.clear_log": "{message} ({removed} beceri mesajı temizlendi)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} uyarı] Geçerli günlük yeniden yazılamadı: {error}",
+    "skill.clear_log_compat": " ({removed} skill mesajı temizlendi)"
   },
   "uk": {
     "skill.prefix": "[НАВИЩІСТЬ]",
     "skill.clear_log": "{message} (Очищено {removed} повідомлень про навички)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} попередження] Не вдалося переписати поточний журнал: {error}",
+    "skill.clear_log_compat": " (Очищено {removed} повідомлень skill)"
   },
   "vi": {
     "skill.prefix": "[KỸ NĂNG]",
     "skill.clear_log": "{message} (Đã xóa {removed} thông báo kỹ năng)",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} cảnh báo] Không thể ghi lại log hiện tại: {error}",
+    "skill.clear_log_compat": " (Đã xóa {removed} thông báo skill)"
   },
   "zh_CN": {
     "skill.prefix": "[技能]",
     "skill.clear_log": "{message}（已清除 {removed} 技能消息）",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} 警告] 无法重写当前日志：{error}",
+    "skill.clear_log_compat": "（已清除 {removed} 条 skill 消息）"
   },
   "zh_TW": {
     "skill.prefix": "[技能]",
     "skill.clear_log": "{message}（已清除 {removed} 技能消息）",
-    "skill.ok": "{message}"
+    "skill.ok": "{message}",
+    "skill.warn.rewrite_failed": "[{label} 警告] 無法重寫目前日誌：{error}",
+    "skill.clear_log_compat": "（已清除 {removed} 則 skill 訊息）"
   }
 }

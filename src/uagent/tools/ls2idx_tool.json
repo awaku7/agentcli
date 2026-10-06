@@ -38,7 +38,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "লোটাসস্ক্রিপ্ট কোড"
     ],
     "param.path": "একটি LotusScript উৎস ফাইলের পথ।",
     "param.mode": "একটি সংখ্যাযুক্ত সূচকের জন্য সূচক, একটি সংজ্ঞার জন্য বিভাগ।",
@@ -83,7 +84,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript-Code"
     ],
     "param.path": "Pfad zu einer LotusScript-Quelldatei.",
     "param.mode": "Index für einen nummerierten Index, Abschnitt für eine Definition.",
@@ -98,7 +100,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "κώδικας LotusScript"
     ],
     "param.path": "Διαδρομή προς ένα αρχείο προέλευσης LotusScript.",
     "param.mode": "ευρετήριο για αριθμημένο ευρετήριο, ενότητα για έναν ορισμό.",
@@ -128,7 +131,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "کد LotusScript"
     ],
     "param.path": "مسیر فایل منبع LotusScript.",
     "param.mode": "شاخص برای یک شاخص شماره گذاری شده، بخش برای یک تعریف.",
@@ -143,7 +147,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript-koodi"
     ],
     "param.path": "Polku LotusScript-lähdetiedostoon.",
     "param.mode": "indeksi numeroidulle hakemistolle, osio yhdelle määritelmälle.",
@@ -203,7 +208,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript कोड"
     ],
     "param.path": "लोटसस्क्रिप्ट स्रोत फ़ाइल का पथ।",
     "param.mode": "क्रमांकित सूचकांक के लिए सूचकांक, एक परिभाषा के लिए अनुभाग।",
@@ -263,7 +269,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript 코드"
     ],
     "param.path": "LotusScript 소스 파일의 경로입니다.",
     "param.mode": "번호가 매겨진 색인에 대한 색인, 하나의 정의에 대한 섹션.",
@@ -293,7 +300,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript कोड"
     ],
     "param.path": "LotusScript स्रोत फाइलचा मार्ग.",
     "param.mode": "क्रमांकित निर्देशांकासाठी अनुक्रमणिका, एका व्याख्येसाठी विभाग.",
@@ -383,7 +391,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "código LotusScript"
     ],
     "param.path": "Caminho para um arquivo de origem do LotusScript.",
     "param.mode": "índice para um índice numerado, seção para uma definição.",
@@ -398,7 +407,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "código LotusScript"
     ],
     "param.path": "Caminho para um arquivo de origem do LotusScript.",
     "param.mode": "índice para um índice numerado, seção para uma definição.",
@@ -458,7 +468,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "msimbo wa LotusScript"
     ],
     "param.path": "Njia ya faili ya chanzo cha LotusScript.",
     "param.mode": "faharasa kwa faharasa yenye nambari, sehemu ya ufafanuzi mmoja.",
@@ -488,7 +499,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript kodu"
     ],
     "param.path": "LotusScript kaynak dosyasının yolu.",
     "param.mode": "numaralandırılmış bir dizin için dizin, bir tanım için bölüm.",
@@ -503,7 +515,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "код LotusScript"
     ],
     "param.path": "Шлях до вихідного файлу LotusScript.",
     "param.mode": "індекс для нумерованого покажчика, розділ для одного визначення.",
@@ -533,7 +546,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript 代码"
     ],
     "param.path": "LotusScript 源文件的路径。",
     "param.mode": "index 表示编号索引，section 表示一个定义。",
@@ -548,7 +562,8 @@
       "Notes",
       "Sub",
       "Function",
-      "Class"
+      "Class",
+      "LotusScript 程式碼"
     ],
     "param.path": "LotusScript 原始檔的路徑。",
     "param.mode": "index 表示編號索引，section 表示一個定義。",

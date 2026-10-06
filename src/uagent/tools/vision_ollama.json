@@ -33,15 +33,15 @@
     "err.invalid_json": "Ollama API vrátilo neplatný JSON: {err}"
   },
   "da": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (ollama): {provider!r}",
-    "prompt.default": "Please describe this image in detail.",
-    "err.missing_env.ollama": "Missing required env var for ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
-    "err.request_failed": "Failed to call Ollama API: {err}",
-    "err.http_error": "Ollama API error: HTTP {status} {body}",
-    "err.invalid_json": "Ollama API returned invalid JSON: {err}",
-    "warn.empty_response": "[WARN] empty response"
+    "err.image_not_found": "billedfilen blev ikke fundet: {path}",
+    "err.image_too_large": "billedfilen er for stor: {size} byte (grænse={max_bytes})",
+    "err.unsupported_provider": "Ikke-understøttet provider til analyze_image (ollama): {provider!r}",
+    "prompt.default": "Beskriv venligst dette billede i detaljer.",
+    "err.missing_env.ollama": "Mangler påkrævet miljøvariabel til ollama-billedanalyse (UAGENT_OLLAMA_DEPNAME)",
+    "err.request_failed": "Kunne ikke kalde Ollama API: {err}",
+    "err.http_error": "Ollama API-fejl: HTTP {status} {body}",
+    "err.invalid_json": "Ollama API returnerede ugyldig JSON: {err}",
+    "warn.empty_response": "[ADVARSEL] tomt svar"
   },
   "de": {
     "err.image_not_found": "Bilddatei nicht gefunden: {path}",
@@ -99,15 +99,15 @@
     "warn.empty_response": "[VAROITUS] tyhjä vastaus"
   },
   "fil": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (ollama): {provider!r}",
-    "prompt.default": "Please describe this image in detail.",
-    "err.missing_env.ollama": "Missing required env var for ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
-    "err.request_failed": "Failed to call Ollama API: {err}",
-    "err.http_error": "Ollama API error: HTTP {status} {body}",
-    "err.invalid_json": "Ollama API returned invalid JSON: {err}",
-    "warn.empty_response": "[WARN] empty response"
+    "err.image_not_found": "Hindi nakita ang image file: {path}",
+    "err.image_too_large": "Masyadong malaki ang image file: {size} bytes (limit={max_bytes})",
+    "err.unsupported_provider": "Hindi suportadong provider para sa analyze_image (ollama): {provider!r}",
+    "prompt.default": "Pakilarawan nang detalyado ang larawang ito.",
+    "err.missing_env.ollama": "Kulang ang kinakailangang env var para sa ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
+    "err.request_failed": "Hindi matawagan ang Ollama API: {err}",
+    "err.http_error": "Error sa Ollama API: HTTP {status} {body}",
+    "err.invalid_json": "Nagbalik ang Ollama API ng invalid JSON: {err}",
+    "warn.empty_response": "[BABALA] walang laman ang tugon"
   },
   "fr": {
     "err.image_not_found": "fichier image introuvable : {path}",
@@ -220,15 +220,15 @@
     "warn.empty_response": "[चेतावणी] रिक्त प्रतिसाद"
   },
   "ms": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (ollama): {provider!r}",
-    "prompt.default": "Please describe this image in detail.",
-    "err.missing_env.ollama": "Missing required env var for ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
-    "err.request_failed": "Failed to call Ollama API: {err}",
-    "err.http_error": "Ollama API error: HTTP {status} {body}",
-    "err.invalid_json": "Ollama API returned invalid JSON: {err}",
-    "warn.empty_response": "[WARN] empty response"
+    "err.image_not_found": "Fail imej tidak ditemui: {path}",
+    "err.image_too_large": "Fail imej terlalu besar: {size} bait (had={max_bytes})",
+    "err.unsupported_provider": "Provider tidak disokong untuk analyze_image (ollama): {provider!r}",
+    "prompt.default": "Sila huraikan imej ini secara terperinci.",
+    "err.missing_env.ollama": "Pemboleh ubah persekitaran yang diperlukan untuk analisis imej ollama tiada (UAGENT_OLLAMA_DEPNAME)",
+    "err.request_failed": "Gagal memanggil API Ollama: {err}",
+    "err.http_error": "Ralat API Ollama: HTTP {status} {body}",
+    "err.invalid_json": "API Ollama mengembalikan JSON tidak sah: {err}",
+    "warn.empty_response": "[AMARAN] respons kosong"
   },
   "nb": {
     "err.image_not_found": "Finner ikke bildefil: {path}",
@@ -253,15 +253,15 @@
     "warn.empty_response": "[WARN] leeg antwoord"
   },
   "nn": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.unsupported_provider": "Unsupported provider for analyze_image (ollama): {provider!r}",
-    "prompt.default": "Please describe this image in detail.",
-    "err.missing_env.ollama": "Missing required env var for ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
-    "err.request_failed": "Failed to call Ollama API: {err}",
-    "err.http_error": "Ollama API error: HTTP {status} {body}",
-    "err.invalid_json": "Ollama API returned invalid JSON: {err}",
-    "warn.empty_response": "[WARN] empty response"
+    "err.image_not_found": "Biletfila vart ikkje funnen: {path}",
+    "err.image_too_large": "Biletfila er for stor: {size} byte (grense={max_bytes})",
+    "err.unsupported_provider": "Provider som ikkje er støtta for analyze_image (ollama): {provider!r}",
+    "prompt.default": "Skildra dette biletet i detalj.",
+    "err.missing_env.ollama": "Manglar påkravd miljøvariabel for ollama-biletanalyse (UAGENT_OLLAMA_DEPNAME)",
+    "err.request_failed": "Klarte ikkje å kalle Ollama API: {err}",
+    "err.http_error": "Ollama API-feil: HTTP {status} {body}",
+    "err.invalid_json": "Ollama API returnerte ugyldig JSON: {err}",
+    "warn.empty_response": "[ÅTVARING] tomt svar"
   },
   "pl": {
     "err.image_not_found": "nie znaleziono pliku obrazu: {path}",

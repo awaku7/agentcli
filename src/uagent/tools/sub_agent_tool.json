@@ -49,7 +49,9 @@
     "param.max_tool_turns.description": "الحد الأقصى لعدد التفاعلات متعددة المنعطفات لاستخدام الأداة. 3 = موصى به. يمكن للوكيل الفرعي استخدام الأدوات عبر جولات متعددة قبل تقديم الإجابة النهائية.",
     "param.max_agent_rounds.description": "الحد الأقصى لجولات العمل المستقلة بما في ذلك الجولة الأولى. يتم تقييم اكتمال كل جولة قبل بدء جولة أخرى. القيمة الافتراضية 3.",
     "param.completion_sentinel.description": "استخدم Sub-Agent completion sentinel كحكم وحيد على اكتمال كل جولة agent. القيمة الافتراضية false؛ ويمكن أيضًا تمكينه عبر UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "تعبير منتظم اختياري يتم التحقق منه مقابل أحدث مخرجات Sub-Agent قبل حكم sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "تعبير منتظم اختياري يتم التحقق منه مقابل أحدث مخرجات Sub-Agent قبل حكم sentinel/Decision Provider/LLM.",
+    "status.error": "خطأ",
+    "status.blocked": "محظور"
   },
   "bn": {
     "subagent.human_ask_prefix": "সাব-এজেন্ট %(agent)s-এর মানব নিশ্চিতকরণ অনুরোধ:",
@@ -101,7 +103,9 @@
     "param.max_tool_turns.description": "টুল ব্যবহারের জন্য মাল্টি-টার্ন ইন্টারঅ্যাকশনের সর্বাধিক সংখ্যা। 3 = প্রস্তাবিত। সাব-এজেন্ট চূড়ান্ত উত্তর তৈরি করার আগে একাধিক রাউন্ড জুড়ে টুল ব্যবহার করতে পারে।",
     "param.max_agent_rounds.description": "প্রথম round-সহ autonomous কাজের সর্বোচ্চ round সংখ্যা। পরবর্তী round শুরু করার আগে প্রতিটি round-এর completion বিচার করা হয়। ডিফল্ট 3।",
     "param.completion_sentinel.description": "প্রতিটি agent round-এর একমাত্র completion judge হিসেবে Sub-Agent completion sentinel ব্যবহার করুন। ডিফল্ট false; UAGENT_SUB_AGENT_SENTINEL দিয়েও এটি সক্রিয় করা যায়।",
-    "param.completion_regex.description": "সর্বশেষ Sub-Agent output-এর বিরুদ্ধে sentinel/Decision Provider/LLM judgment-এর আগে পরীক্ষা করা ঐচ্ছিক regular expression।"
+    "param.completion_regex.description": "সর্বশেষ Sub-Agent output-এর বিরুদ্ধে sentinel/Decision Provider/LLM judgment-এর আগে পরীক্ষা করা ঐচ্ছিক regular expression।",
+    "status.error": "ত্রুটি",
+    "status.blocked": "অবরুদ্ধ"
   },
   "cs": {
     "subagent.human_ask_prefix": "Požadavek na potvrzení od subagenta %(agent)s:",
@@ -153,7 +157,9 @@
     "param.max_tool_turns.description": "Maximální počet víceotáčkových interakcí pro použití nástroje. 3 = doporučeno. Sub-agent může používat nástroje ve více kolech, než vytvoří konečnou odpověď.",
     "param.max_agent_rounds.description": "Maximální počet autonomních pracovních kol včetně úvodního kola. Před spuštěním dalšího kola se vždy posoudí dokončení aktuálního kola. Výchozí hodnota je 3.",
     "param.completion_sentinel.description": "Použít Sub-Agent completion sentinel jako jediný způsob posouzení dokončení každého kola agenta. Výchozí hodnota je false; lze jej zapnout také pomocí UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Volitelný regulární výraz kontrolovaný proti nejnovějšímu výstupu Sub-Agent před vyhodnocením sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Volitelný regulární výraz kontrolovaný proti nejnovějšímu výstupu Sub-Agent před vyhodnocením sentinel/Decision Provider/LLM.",
+    "status.error": "chyba",
+    "status.blocked": "blokováno"
   },
   "de": {
     "subagent.human_ask_prefix": "Bestätigungsanfrage des Sub-Agenten %(agent)s:",
@@ -205,7 +211,9 @@
     "param.max_tool_turns.description": "Maximale Anzahl von Multiturn-Interaktionen für den Werkzeugeinsatz. 3 = empfohlen. Der Subagent kann Tools über mehrere Runden hinweg nutzen, bevor er die endgültige Antwort erstellt.",
     "param.max_agent_rounds.description": "Maximale Anzahl autonomer Arbeitsrunden einschließlich der ersten Runde. Vor dem Start einer weiteren Runde wird jede Runde auf Abschluss geprüft. Standardwert: 3.",
     "param.completion_sentinel.description": "Verwendet den Sub-Agent completion sentinel als alleinige Abschlussprüfung für jede Agentenrunde. Standard: false; kann auch über UAGENT_SUB_AGENT_SENTINEL aktiviert werden.",
-    "param.completion_regex.description": "Optionaler regulärer Ausdruck, der vor der sentinel/Decision Provider/LLM-Prüfung gegen die neueste Sub-Agent-Ausgabe geprüft wird."
+    "param.completion_regex.description": "Optionaler regulärer Ausdruck, der vor der sentinel/Decision Provider/LLM-Prüfung gegen die neueste Sub-Agent-Ausgabe geprüft wird.",
+    "status.error": "Fehler",
+    "status.blocked": "blockiert"
   },
   "es": {
     "subagent.human_ask_prefix": "Solicitud de confirmación del subagente %(agent)s:",
@@ -257,7 +265,9 @@
     "param.max_tool_turns.description": "Número máximo de interacciones de múltiples vueltas para el uso de herramientas. 3 = recomendado. El subagente puede utilizar herramientas en varias rondas antes de producir la respuesta final.",
     "param.max_agent_rounds.description": "Número máximo de rondas de trabajo autónomo, incluida la ronda inicial. Se evalúa la finalización de cada ronda antes de iniciar otra. Valor predeterminado: 3.",
     "param.completion_sentinel.description": "Usa el Sub-Agent completion sentinel como juez exclusivo de finalización de cada ronda del agente. Valor predeterminado: false; UAGENT_SUB_AGENT_SENTINEL también puede activarlo.",
-    "param.completion_regex.description": "Expresión regular opcional que se comprueba contra la salida más reciente de Sub-Agent antes de la evaluación de sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Expresión regular opcional que se comprueba contra la salida más reciente de Sub-Agent antes de la evaluación de sentinel/Decision Provider/LLM.",
+    "status.error": "error",
+    "status.blocked": "bloqueado"
   },
   "fa": {
     "subagent.human_ask_prefix": "درخواست تأیید انسانی از عامل فرعی %(agent)s:",
@@ -309,7 +319,9 @@
     "param.max_tool_turns.description": "حداکثر تعداد فعل و انفعالات چند چرخشی برای استفاده از ابزار. 3 = توصیه می شود. عامل فرعی می تواند از ابزارها در چندین دور قبل از تولید پاسخ نهایی استفاده کند.",
     "param.max_agent_rounds.description": "حداکثر تعداد دورهای کار خودکار، شامل دور نخست. پیش از شروع دور بعدی، تکمیل هر دور ارزیابی می‌شود. مقدار پیش‌فرض 3 است.",
     "param.completion_sentinel.description": "از Sub-Agent completion sentinel به‌عنوان تنها معیار تکمیل هر دور agent استفاده کنید. مقدار پیش‌فرض false است؛ UAGENT_SUB_AGENT_SENTINEL نیز می‌تواند آن را فعال کند.",
-    "param.completion_regex.description": "عبارت منظم اختیاری که پیش از داوری sentinel/Decision Provider/LLM روی جدیدترین خروجی Sub-Agent بررسی می‌شود."
+    "param.completion_regex.description": "عبارت منظم اختیاری که پیش از داوری sentinel/Decision Provider/LLM روی جدیدترین خروجی Sub-Agent بررسی می‌شود.",
+    "status.error": "خطا",
+    "status.blocked": "مسدود"
   },
   "fi": {
     "subagent.human_ask_prefix": "Aliagentin %(agent)s vahvistuspyyntö:",
@@ -361,7 +373,9 @@
     "param.max_tool_turns.description": "Maksimimäärä usean kierroksen vuorovaikutuksia työkalun käyttöön. 3 = suositeltava. Aliagentti voi käyttää työkaluja useilla kierroksilla ennen lopullisen vastauksen antamista.",
     "param.max_agent_rounds.description": "Autonomisten työskentelykierrosten enimmäismäärä, ensimmäinen kierros mukaan lukien. Jokaisen kierroksen valmistuminen arvioidaan ennen uuden kierroksen aloittamista. Oletus: 3.",
     "param.completion_sentinel.description": "Käytä Sub-Agent completion sentinel -tunnistetta jokaisen agenttikierroksen ainoana valmistumisen arvioijana. Oletus: false; myös UAGENT_SUB_AGENT_SENTINEL voi ottaa sen käyttöön.",
-    "param.completion_regex.description": "Valinnainen säännöllinen lauseke, joka tarkistetaan uusimmasta Sub-Agent-tulosteesta ennen sentinel/Decision Provider/LLM-arviota."
+    "param.completion_regex.description": "Valinnainen säännöllinen lauseke, joka tarkistetaan uusimmasta Sub-Agent-tulosteesta ennen sentinel/Decision Provider/LLM-arviota.",
+    "status.error": "virhe",
+    "status.blocked": "estetty"
   },
   "fr": {
     "subagent.human_ask_prefix": "Demande de confirmation de l’agent secondaire %(agent)s :",
@@ -413,7 +427,9 @@
     "param.max_tool_turns.description": "Nombre maximum d'interactions multi-tours pour l'utilisation de l'outil. 3 = recommandé. Le sous-agent peut utiliser des outils sur plusieurs tours avant de produire la réponse finale.",
     "param.max_agent_rounds.description": "Nombre maximal de tours de travail autonomes, tour initial inclus. La fin de chaque tour est évaluée avant d’en démarrer un autre. Valeur par défaut : 3.",
     "param.completion_sentinel.description": "Utilise le Sub-Agent completion sentinel comme juge exclusif de fin pour chaque tour d’agent. Valeur par défaut : false ; UAGENT_SUB_AGENT_SENTINEL peut aussi l’activer.",
-    "param.completion_regex.description": "Expression régulière facultative vérifiée sur la dernière sortie Sub-Agent avant l’évaluation sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Expression régulière facultative vérifiée sur la dernière sortie Sub-Agent avant l’évaluation sentinel/Decision Provider/LLM.",
+    "status.error": "erreur",
+    "status.blocked": "bloqué"
   },
   "hi": {
     "subagent.human_ask_prefix": "सब-एजेंट %(agent)s का मानव पुष्टि अनुरोध:",
@@ -465,7 +481,9 @@
     "param.max_tool_turns.description": "टूल उपयोग के लिए मल्टी-टर्न इंटरैक्शन की अधिकतम संख्या। 3 = अनुशंसित. अंतिम उत्तर देने से पहले उप-एजेंट कई राउंड में टूल का उपयोग कर सकता है।",
     "param.max_agent_rounds.description": "प्रारंभिक round सहित autonomous काम के अधिकतम rounds। अगला round शुरू करने से पहले हर round के completion का मूल्यांकन किया जाता है। डिफ़ॉल्ट 3।",
     "param.completion_sentinel.description": "हर agent round के लिए केवल Sub-Agent completion sentinel को completion judge के रूप में उपयोग करें। डिफ़ॉल्ट false; UAGENT_SUB_AGENT_SENTINEL भी इसे सक्षम कर सकता है।",
-    "param.completion_regex.description": "वैकल्पिक regular expression जिसे sentinel/Decision Provider/LLM judgment से पहले नवीनतम Sub-Agent output पर जाँचा जाता है।"
+    "param.completion_regex.description": "वैकल्पिक regular expression जिसे sentinel/Decision Provider/LLM judgment से पहले नवीनतम Sub-Agent output पर जाँचा जाता है।",
+    "status.error": "त्रुटि",
+    "status.blocked": "अवरुद्ध"
   },
   "id": {
     "subagent.human_ask_prefix": "Permintaan konfirmasi manusia dari sub-agen %(agent)s:",
@@ -517,7 +535,9 @@
     "param.max_tool_turns.description": "Jumlah maksimum interaksi multi-putaran untuk penggunaan alat. 3 = direkomendasikan. Sub-agen dapat menggunakan alat dalam beberapa putaran sebelum menghasilkan jawaban akhir.",
     "param.max_agent_rounds.description": "Jumlah maksimum putaran kerja otonom, termasuk putaran awal. Penyelesaian setiap putaran dinilai sebelum putaran berikutnya dimulai. Default 3.",
     "param.completion_sentinel.description": "Gunakan Sub-Agent completion sentinel sebagai satu-satunya penilai penyelesaian untuk setiap putaran agen. Default false; UAGENT_SUB_AGENT_SENTINEL juga dapat mengaktifkannya.",
-    "param.completion_regex.description": "Regular expression opsional yang diperiksa terhadap output Sub-Agent terbaru sebelum penilaian sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Regular expression opsional yang diperiksa terhadap output Sub-Agent terbaru sebelum penilaian sentinel/Decision Provider/LLM.",
+    "status.error": "kesalahan",
+    "status.blocked": "diblokir"
   },
   "it": {
     "subagent.human_ask_prefix": "Richiesta di conferma dell’agente secondario %(agent)s:",
@@ -569,7 +589,9 @@
     "param.max_tool_turns.description": "Numero massimo di interazioni multigiro per l'utilizzo dello strumento. 3 = consigliato. Il sub-agente può utilizzare gli strumenti in più round prima di produrre la risposta finale.",
     "param.max_agent_rounds.description": "Numero massimo di cicli di lavoro autonomi, incluso quello iniziale. Il completamento di ogni ciclo viene valutato prima di avviarne un altro. Valore predefinito: 3.",
     "param.completion_sentinel.description": "Usa il Sub-Agent completion sentinel come unico giudice del completamento di ogni ciclo dell’agente. Valore predefinito: false; può essere abilitato anche da UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Espressione regolare facoltativa verificata sull’ultimo output Sub-Agent prima della valutazione sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Espressione regolare facoltativa verificata sull’ultimo output Sub-Agent prima della valutazione sentinel/Decision Provider/LLM.",
+    "status.error": "errore",
+    "status.blocked": "bloccato"
   },
   "ja": {
     "subagent.human_ask_prefix": "【サブエージェント %(agent)s】ユーザー確認リクエスト：\n",
@@ -621,7 +643,9 @@
     "param.max_tool_turns.description": "1回の自律Sub-Agentラウンド内でのLLM/ツールターンの最大数。既定値は3です。",
     "param.max_agent_rounds.description": "初回を含む自律作業ラウンドの最大数。各ラウンド後に完了判定を行い、必要なら次のラウンドへ進みます。既定値は3です。",
     "param.completion_sentinel.description": "各エージェントラウンドの完了判定にSub-Agent完了センチネルを排他的に使用します。既定はfalseです。UAGENT_SUB_AGENT_SENTINELでも有効化できます。",
-    "param.completion_regex.description": "最新のSub-Agent出力に対して、センチネル、Decision Provider、LLM判定より先に確認する任意の完了正規表現です。"
+    "param.completion_regex.description": "最新のSub-Agent出力に対して、センチネル、Decision Provider、LLM判定より先に確認する任意の完了正規表現です。",
+    "status.error": "エラー",
+    "status.blocked": "ブロック"
   },
   "ko": {
     "subagent.human_ask_prefix": "【하위 에이전트 %(agent)s】사용자 확인 요청:",
@@ -673,7 +697,9 @@
     "param.max_tool_turns.description": "도구 사용을 위한 다중 회전 상호 작용의 최대 수입니다. 3 = 권장됩니다. 하위 에이전트는 최종 답변을 생성하기 전에 여러 라운드에 걸쳐 도구를 사용할 수 있습니다.",
     "param.max_agent_rounds.description": "초기 round를 포함한 autonomous 작업 round의 최대 수입니다. 다음 round를 시작하기 전에 각 round의 완료 여부를 판단합니다. 기본값은 3입니다.",
     "param.completion_sentinel.description": "각 agent round의 유일한 완료 판단기로 Sub-Agent completion sentinel을 사용합니다. 기본값은 false이며 UAGENT_SUB_AGENT_SENTINEL로도 활성화할 수 있습니다.",
-    "param.completion_regex.description": "sentinel/Decision Provider/LLM 판단 전에 최신 Sub-Agent 출력에 대해 검사하는 선택적 정규식입니다."
+    "param.completion_regex.description": "sentinel/Decision Provider/LLM 판단 전에 최신 Sub-Agent 출력에 대해 검사하는 선택적 정규식입니다.",
+    "status.error": "오류",
+    "status.blocked": "차단됨"
   },
   "mn": {
     "subagent.human_ask_prefix": "Дэд агент %(agent)s-ийн хүний баталгаажуулах хүсэлт:",
@@ -725,7 +751,9 @@
     "param.max_tool_turns.description": "Багаж ашиглах олон эргэлтийн харилцан үйлчлэлийн хамгийн их тоо. 3 = санал болгож байна. Дэд агент нь эцсийн хариултыг гаргахаасаа өмнө хэд хэдэн шатанд хэрэглүүр ашиглаж болно.",
     "param.max_agent_rounds.description": "Эхний round-ыг багтаасан автономит ажлын round-ийн дээд тоо. Дараагийн round эхлэхээс өмнө round бүрийн completion-ийг шалгана. Өгөгдмөл нь 3.",
     "param.completion_sentinel.description": "Agent round бүрийн цорын ганц completion judge болгон Sub-Agent completion sentinel ашиглана. Өгөгдмөл false; UAGENT_SUB_AGENT_SENTINEL мөн идэвхжүүлж чадна.",
-    "param.completion_regex.description": "sentinel/Decision Provider/LLM judgment-ээс өмнө хамгийн сүүлийн Sub-Agent output дээр шалгах нэмэлт regular expression."
+    "param.completion_regex.description": "sentinel/Decision Provider/LLM judgment-ээс өмнө хамгийн сүүлийн Sub-Agent output дээр шалгах нэмэлт regular expression.",
+    "status.error": "алдаа",
+    "status.blocked": "хориглосон"
   },
   "mr": {
     "subagent.human_ask_prefix": "सब-एजंट %(agent)s कडून मानवी पुष्टी विनंती:",
@@ -777,7 +805,9 @@
     "param.max_tool_turns.description": "साधन वापरासाठी बहु-वळण परस्परसंवादांची कमाल संख्या. 3 = शिफारस केलेले. उप-एजंट अंतिम उत्तर तयार करण्यापूर्वी अनेक फेऱ्यांमध्ये साधने वापरू शकतो.",
     "param.max_agent_rounds.description": "प्रारंभिक round धरून autonomous कामाच्या rounds ची कमाल संख्या. पुढील round सुरू करण्यापूर्वी प्रत्येक round चे completion तपासले जाते. डीफॉल्ट 3.",
     "param.completion_sentinel.description": "प्रत्येक agent round साठी एकमेव completion judge म्हणून Sub-Agent completion sentinel वापरा. डीफॉल्ट false; UAGENT_SUB_AGENT_SENTINEL द्वारेही ते सक्षम करता येते.",
-    "param.completion_regex.description": "sentinel/Decision Provider/LLM judgment आधी नवीनतम Sub-Agent output वर तपासला जाणारा ऐच्छिक regular expression."
+    "param.completion_regex.description": "sentinel/Decision Provider/LLM judgment आधी नवीनतम Sub-Agent output वर तपासला जाणारा ऐच्छिक regular expression.",
+    "status.error": "त्रुटी",
+    "status.blocked": "अवरोधित"
   },
   "el": {
     "subagent.human_ask_prefix": "Αίτημα επιβεβαίωσης από τον υποπράκτορα %(agent)s:",
@@ -829,7 +859,9 @@
     "param.max_tool_turns.description": "Μέγιστος αριθμός αλληλεπιδράσεων πολλαπλών στροφών για χρήση εργαλείου. 3 = συνιστάται. Ο δευτερεύων πράκτορας μπορεί να χρησιμοποιήσει εργαλεία σε πολλούς γύρους πριν δώσει την τελική απάντηση.",
     "param.max_agent_rounds.description": "Μέγιστος αριθμός αυτόνομων γύρων εργασίας, μαζί με τον αρχικό γύρο. Η ολοκλήρωση κάθε γύρου αξιολογείται πριν ξεκινήσει ο επόμενος. Προεπιλογή: 3.",
     "param.completion_sentinel.description": "Χρησιμοποιεί το Sub-Agent completion sentinel ως αποκλειστικό κριτή ολοκλήρωσης για κάθε γύρο agent. Προεπιλογή: false· μπορεί επίσης να ενεργοποιηθεί μέσω UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Προαιρετική regular expression που ελέγχεται στην πιο πρόσφατη έξοδο Sub-Agent πριν από την κρίση sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Προαιρετική regular expression που ελέγχεται στην πιο πρόσφατη έξοδο Sub-Agent πριν από την κρίση sentinel/Decision Provider/LLM.",
+    "status.error": "σφάλμα",
+    "status.blocked": "αποκλεισμένο"
   },
   "he": {
     "subagent.human_ask_prefix": "בקשת אישור משתמש מסוכן המשנה %(agent)s:",
@@ -881,7 +913,9 @@
     "param.max_tool_turns.description": "מספר מרבי של אינטראקציות מרובה פניות לשימוש בכלי. 3 = מומלץ. סוכן המשנה יכול להשתמש בכלים על פני מספר סבבים לפני הפקת התשובה הסופית.",
     "param.max_agent_rounds.description": "מספר מרבי של סבבי עבודה אוטונומיים, כולל הסבב הראשון. השלמת כל סבב נבדקת לפני התחלת סבב נוסף. ברירת מחדל: 3.",
     "param.completion_sentinel.description": "השתמש ב-Sub-Agent completion sentinel כשופט ההשלמה הבלעדי לכל סבב agent. ברירת מחדל: false; ניתן להפעיל גם באמצעות UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "regular expression אופציונלי שנבדק מול הפלט האחרון של Sub-Agent לפני שיפוט sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "regular expression אופציונלי שנבדק מול הפלט האחרון של Sub-Agent לפני שיפוט sentinel/Decision Provider/LLM.",
+    "status.error": "שגיאה",
+    "status.blocked": "חסום"
   },
   "hu": {
     "subagent.human_ask_prefix": "A(z) %(agent)s alügynök megerősítési kérése:",
@@ -933,7 +967,9 @@
     "param.max_tool_turns.description": "A többfordulatú interakciók maximális száma szerszámhasználathoz. 3 = ajánlott. Az alügynök több körön keresztül is használhat eszközöket, mielőtt megadná a végső választ.",
     "param.max_agent_rounds.description": "Az autonóm munkakörök maximális száma az első kört is beleértve. Minden kör befejezettségét kiértékeli a következő kör indítása előtt. Alapértelmezés: 3.",
     "param.completion_sentinel.description": "A Sub-Agent completion sentinel legyen az egyetlen befejezettségi döntő minden agentkörben. Alapértelmezés: false; az UAGENT_SUB_AGENT_SENTINEL is engedélyezheti.",
-    "param.completion_regex.description": "Opcionális regular expression, amelyet a legfrissebb Sub-Agent kimeneten ellenőriz a sentinel/Decision Provider/LLM döntés előtt."
+    "param.completion_regex.description": "Opcionális regular expression, amelyet a legfrissebb Sub-Agent kimeneten ellenőriz a sentinel/Decision Provider/LLM döntés előtt.",
+    "status.error": "hiba",
+    "status.blocked": "blokkolva"
   },
   "ro": {
     "subagent.human_ask_prefix": "Solicitare de confirmare a subagentului %(agent)s:",
@@ -985,7 +1021,9 @@
     "param.max_tool_turns.description": "Număr maxim de interacțiuni cu mai multe ture pentru utilizarea sculei. 3 = recomandat. Agentul secundar poate folosi instrumente în mai multe runde înainte de a produce răspunsul final.",
     "param.max_agent_rounds.description": "Numărul maxim de runde de lucru autonome, inclusiv runda inițială. Finalizarea fiecărei runde este evaluată înainte de pornirea alteia. Implicit: 3.",
     "param.completion_sentinel.description": "Folosește Sub-Agent completion sentinel drept singurul criteriu de finalizare pentru fiecare rundă agent. Implicit: false; poate fi activat și prin UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Regular expression opțional verificat pe cea mai recentă ieșire Sub-Agent înainte de evaluarea sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Regular expression opțional verificat pe cea mai recentă ieșire Sub-Agent înainte de evaluarea sentinel/Decision Provider/LLM.",
+    "status.error": "eroare",
+    "status.blocked": "blocat"
   },
   "nb": {
     "subagent.human_ask_prefix": "Bekreftelsesforespørsel fra underagenten %(agent)s:",
@@ -1037,7 +1075,9 @@
     "param.max_tool_turns.description": "Maksimalt antall interaksjoner med flere svinger for bruk av verktøy. 3 = anbefalt. Underagenten kan bruke verktøy på tvers av flere runder før den produserer det endelige svaret.",
     "param.max_agent_rounds.description": "Maksimalt antall autonome arbeidsrunder inkludert første runde. Hver runde vurderes som fullført før en ny runde startes. Standard: 3.",
     "param.completion_sentinel.description": "Bruk Sub-Agent completion sentinel som eneste fullføringsvurdering for hver agentrunde. Standard: false; UAGENT_SUB_AGENT_SENTINEL kan også aktivere den.",
-    "param.completion_regex.description": "Valgfritt regular expression som sjekkes mot nyeste Sub-Agent-utdata før sentinel/Decision Provider/LLM-vurdering."
+    "param.completion_regex.description": "Valgfritt regular expression som sjekkes mot nyeste Sub-Agent-utdata før sentinel/Decision Provider/LLM-vurdering.",
+    "status.error": "feil",
+    "status.blocked": "blokkert"
   },
   "nl": {
     "subagent.human_ask_prefix": "Bevestigingsverzoek van subagent %(agent)s:",
@@ -1089,7 +1129,9 @@
     "param.max_tool_turns.description": "Maximaal aantal multi-turn-interacties voor gereedschapsgebruik. 3 = aanbevolen. De subagent kan tools in meerdere rondes gebruiken voordat hij het definitieve antwoord geeft.",
     "param.max_agent_rounds.description": "Maximaal aantal autonome werkrondes, inclusief de eerste ronde. Elke ronde wordt op voltooiing beoordeeld voordat een nieuwe ronde start. Standaard: 3.",
     "param.completion_sentinel.description": "Gebruik de Sub-Agent completion sentinel als enige voltooiingsbeoordelaar voor elke agentronde. Standaard: false; UAGENT_SUB_AGENT_SENTINEL kan deze ook inschakelen.",
-    "param.completion_regex.description": "Optionele regular expression die wordt gecontroleerd op de nieuwste Sub-Agent-uitvoer vóór de sentinel/Decision Provider/LLM-beoordeling."
+    "param.completion_regex.description": "Optionele regular expression die wordt gecontroleerd op de nieuwste Sub-Agent-uitvoer vóór de sentinel/Decision Provider/LLM-beoordeling.",
+    "status.error": "fout",
+    "status.blocked": "geblokkeerd"
   },
   "pl": {
     "subagent.human_ask_prefix": "Prośba o potwierdzenie od subagenta %(agent)s:",
@@ -1141,7 +1183,9 @@
     "param.max_tool_turns.description": "Maksymalna liczba interakcji wieloobrotowych przy użyciu narzędzia. 3 = zalecane. Podagent może korzystać z narzędzi w wielu rundach, zanim udzieli ostatecznej odpowiedzi.",
     "param.max_agent_rounds.description": "Maksymalna liczba autonomicznych rund pracy, łącznie z rundą początkową. Przed uruchomieniem kolejnej rundy oceniane jest ukończenie bieżącej. Domyślnie: 3.",
     "param.completion_sentinel.description": "Używa Sub-Agent completion sentinel jako wyłącznego kryterium ukończenia każdej rundy agenta. Domyślnie: false; można też włączyć przez UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Opcjonalne regular expression sprawdzane względem najnowszego wyjścia Sub-Agent przed oceną sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Opcjonalne regular expression sprawdzane względem najnowszego wyjścia Sub-Agent przed oceną sentinel/Decision Provider/LLM.",
+    "status.error": "błąd",
+    "status.blocked": "zablokowane"
   },
   "pt": {
     "subagent.human_ask_prefix": "Pedido de confirmação do subagente %(agent)s:",
@@ -1193,7 +1237,9 @@
     "param.max_tool_turns.description": "Número máximo de interações multivoltas para uso da ferramenta. 3 = recomendado. O subagente pode usar ferramentas em diversas rodadas antes de produzir a resposta final.",
     "param.max_agent_rounds.description": "Número máximo de rondas de trabalho autónomo, incluindo a ronda inicial. A conclusão de cada ronda é avaliada antes de iniciar outra. Predefinição: 3.",
     "param.completion_sentinel.description": "Usa o Sub-Agent completion sentinel como único avaliador de conclusão de cada ronda do agente. Predefinição: false; UAGENT_SUB_AGENT_SENTINEL também o pode ativar.",
-    "param.completion_regex.description": "Regular expression opcional verificada na saída Sub-Agent mais recente antes da avaliação sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Regular expression opcional verificada na saída Sub-Agent mais recente antes da avaliação sentinel/Decision Provider/LLM.",
+    "status.error": "erro",
+    "status.blocked": "bloqueado"
   },
   "pt_BR": {
     "subagent.human_ask_prefix": "Solicitação de confirmação do subagente %(agent)s:",
@@ -1245,7 +1291,9 @@
     "param.max_tool_turns.description": "Número máximo de interações multivoltas para uso da ferramenta. 3 = recomendado. O subagente pode usar ferramentas em diversas rodadas antes de produzir a resposta final.",
     "param.max_agent_rounds.description": "Número máximo de rodadas de trabalho autônomo, incluindo a rodada inicial. A conclusão de cada rodada é avaliada antes de iniciar outra. Padrão: 3.",
     "param.completion_sentinel.description": "Usa o Sub-Agent completion sentinel como único avaliador de conclusão de cada rodada do agente. Padrão: false; UAGENT_SUB_AGENT_SENTINEL também pode ativá-lo.",
-    "param.completion_regex.description": "Regular expression opcional verificada na saída Sub-Agent mais recente antes da avaliação sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Regular expression opcional verificada na saída Sub-Agent mais recente antes da avaliação sentinel/Decision Provider/LLM.",
+    "status.error": "erro",
+    "status.blocked": "bloqueado"
   },
   "ru": {
     "subagent.human_ask_prefix": "Запрос подтверждения от субагента %(agent)s:",
@@ -1297,7 +1345,9 @@
     "param.max_tool_turns.description": "Максимальное количество многооборотных взаимодействий при использовании инструмента. 3 = рекомендуется. Субагент может использовать инструменты в течение нескольких раундов, прежде чем дать окончательный ответ.",
     "param.max_agent_rounds.description": "Максимальное число автономных рабочих раундов, включая первый. Завершённость каждого раунда оценивается до запуска следующего. По умолчанию: 3.",
     "param.completion_sentinel.description": "Использует Sub-Agent completion sentinel как единственный критерий завершения каждого раунда агента. По умолчанию: false; также можно включить через UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Необязательное regular expression, проверяемое по последнему выводу Sub-Agent до оценки sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Необязательное regular expression, проверяемое по последнему выводу Sub-Agent до оценки sentinel/Decision Provider/LLM.",
+    "status.error": "ошибка",
+    "status.blocked": "заблокировано"
   },
   "sv": {
     "subagent.human_ask_prefix": "Bekräftelseförfrågan från underagenten %(agent)s:",
@@ -1349,7 +1399,9 @@
     "param.max_tool_turns.description": "Maximalt antal flervarvsinteraktioner för verktygsanvändning. 3 = rekommenderas. Underagenten kan använda verktyg i flera omgångar innan det slutliga svaret produceras.",
     "param.max_agent_rounds.description": "Maximalt antal autonoma arbetsrundor inklusive den första rundan. Varje runda bedöms som slutförd innan nästa startas. Standard: 3.",
     "param.completion_sentinel.description": "Använd Sub-Agent completion sentinel som enda slutförandebedömning för varje agentrunda. Standard: false; UAGENT_SUB_AGENT_SENTINEL kan också aktivera den.",
-    "param.completion_regex.description": "Valfritt regular expression som kontrolleras mot senaste Sub-Agent-utdata före sentinel/Decision Provider/LLM-bedömning."
+    "param.completion_regex.description": "Valfritt regular expression som kontrolleras mot senaste Sub-Agent-utdata före sentinel/Decision Provider/LLM-bedömning.",
+    "status.error": "fel",
+    "status.blocked": "blockerad"
   },
   "sw": {
     "subagent.human_ask_prefix": "Ombi la uthibitisho wa wakala mdogo %(agent)s:",
@@ -1401,7 +1453,9 @@
     "param.max_tool_turns.description": "Idadi ya juu zaidi ya mwingiliano wa zamu nyingi kwa matumizi ya zana. 3 = inapendekezwa. Wakala mdogo anaweza kutumia zana katika raundi nyingi kabla ya kutoa jibu la mwisho.",
     "param.max_agent_rounds.description": "Idadi ya juu ya raundi za kazi huru, ikijumuisha raundi ya kwanza. Kukamilika kwa kila raundi hupimwa kabla ya kuanza raundi nyingine. Chaguo-msingi: 3.",
     "param.completion_sentinel.description": "Tumia Sub-Agent completion sentinel kama kipimo pekee cha kukamilika kwa kila raundi ya agent. Chaguo-msingi: false; UAGENT_SUB_AGENT_SENTINEL pia inaweza kuiwasha.",
-    "param.completion_regex.description": "regular expression ya hiari inayokaguliwa dhidi ya matokeo ya hivi karibuni ya Sub-Agent kabla ya hukumu ya sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "regular expression ya hiari inayokaguliwa dhidi ya matokeo ya hivi karibuni ya Sub-Agent kabla ya hukumu ya sentinel/Decision Provider/LLM.",
+    "status.error": "hitilafu",
+    "status.blocked": "imezuiwa"
   },
   "th": {
     "subagent.human_ask_prefix": "คำขอยืนยันจากเอเจนต์ย่อย %(agent)s:",
@@ -1453,7 +1507,9 @@
     "param.max_tool_turns.description": "จำนวนการโต้ตอบหลายรอบสูงสุดสำหรับการใช้เครื่องมือ 3 = แนะนำ ตัวแทนย่อยสามารถใช้เครื่องมือได้หลายรอบก่อนที่จะสร้างคำตอบสุดท้าย",
     "param.max_agent_rounds.description": "จำนวนรอบการทำงาน autonomous สูงสุด รวมรอบแรกด้วย แต่ละรอบจะถูกตัดสินว่าเสร็จสิ้นก่อนเริ่มรอบถัดไป ค่าเริ่มต้นคือ 3",
     "param.completion_sentinel.description": "ใช้ Sub-Agent completion sentinel เป็นตัวตัดสินการเสร็จสิ้นเพียงอย่างเดียวสำหรับแต่ละ agent round ค่าเริ่มต้นคือ false และ UAGENT_SUB_AGENT_SENTINEL ก็สามารถเปิดใช้ได้",
-    "param.completion_regex.description": "regular expression แบบไม่บังคับที่ตรวจสอบกับ output ล่าสุดของ Sub-Agent ก่อนการตัดสินของ sentinel/Decision Provider/LLM"
+    "param.completion_regex.description": "regular expression แบบไม่บังคับที่ตรวจสอบกับ output ล่าสุดของ Sub-Agent ก่อนการตัดสินของ sentinel/Decision Provider/LLM",
+    "status.error": "ข้อผิดพลาด",
+    "status.blocked": "ถูกบล็อก"
   },
   "tr": {
     "subagent.human_ask_prefix": "Alt ajan %(agent)s tarafından insan onayı isteği:",
@@ -1505,7 +1561,9 @@
     "param.max_tool_turns.description": "Takım kullanımı için maksimum çok turlu etkileşim sayısı. 3 = önerilir. Alt temsilci, nihai cevabı üretmeden önce araçları birden fazla turda kullanabilir.",
     "param.max_agent_rounds.description": "İlk tur dahil maksimum otonom çalışma turu sayısı. Yeni bir tur başlamadan önce her turun tamamlanma durumu değerlendirilir. Varsayılan: 3.",
     "param.completion_sentinel.description": "Her agent turunda tek tamamlanma değerlendiricisi olarak Sub-Agent completion sentinel kullanır. Varsayılan: false; UAGENT_SUB_AGENT_SENTINEL da etkinleştirebilir.",
-    "param.completion_regex.description": "sentinel/Decision Provider/LLM değerlendirmesinden önce en son Sub-Agent çıktısında kontrol edilen isteğe bağlı regular expression."
+    "param.completion_regex.description": "sentinel/Decision Provider/LLM değerlendirmesinden önce en son Sub-Agent çıktısında kontrol edilen isteğe bağlı regular expression.",
+    "status.error": "hata",
+    "status.blocked": "engellendi"
   },
   "uk": {
     "subagent.human_ask_prefix": "Запит підтвердження від субагента %(agent)s:",
@@ -1557,7 +1615,9 @@
     "param.max_tool_turns.description": "Максимальна кількість багатооборотних взаємодій для використання інструменту. 3 = рекомендовано. Субагент може використовувати інструменти в кількох раундах, перш ніж дати остаточну відповідь.",
     "param.max_agent_rounds.description": "Максимальна кількість автономних робочих раундів, включно з початковим. Завершення кожного раунду оцінюється перед запуском наступного. Типово: 3.",
     "param.completion_sentinel.description": "Використовує Sub-Agent completion sentinel як єдиний критерій завершення кожного раунду агента. Типово: false; також можна ввімкнути через UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Необов’язковий regular expression, що перевіряється на останньому виводі Sub-Agent перед оцінюванням sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Необов’язковий regular expression, що перевіряється на останньому виводі Sub-Agent перед оцінюванням sentinel/Decision Provider/LLM.",
+    "status.error": "помилка",
+    "status.blocked": "заблоковано"
   },
   "vi": {
     "subagent.human_ask_prefix": "Yêu cầu xác nhận của tác nhân phụ %(agent)s:",
@@ -1609,7 +1669,9 @@
     "param.max_tool_turns.description": "Số lượng tương tác nhiều lượt tối đa để sử dụng công cụ. 3 = được khuyến nghị. Tác nhân phụ có thể sử dụng các công cụ qua nhiều vòng trước khi đưa ra câu trả lời cuối cùng.",
     "param.max_agent_rounds.description": "Số vòng làm việc tự động tối đa, bao gồm vòng đầu tiên. Mỗi vòng được đánh giá hoàn tất trước khi bắt đầu vòng tiếp theo. Mặc định: 3.",
     "param.completion_sentinel.description": "Dùng Sub-Agent completion sentinel làm bộ phán xét hoàn tất duy nhất cho mỗi vòng agent. Mặc định: false; UAGENT_SUB_AGENT_SENTINEL cũng có thể bật nó.",
-    "param.completion_regex.description": "Regular expression tùy chọn được kiểm tra trên đầu ra Sub-Agent mới nhất trước khi đánh giá sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "Regular expression tùy chọn được kiểm tra trên đầu ra Sub-Agent mới nhất trước khi đánh giá sentinel/Decision Provider/LLM.",
+    "status.error": "lỗi",
+    "status.blocked": "bị chặn"
   },
   "zh_CN": {
     "subagent.human_ask_prefix": "【子代理 %(agent)s】用户确认请求：",
@@ -1661,7 +1723,9 @@
     "param.max_tool_turns.description": "工具使用的多轮交互的最大数量。 3 = 推荐。在产生最终答案之前，子代理可以在多轮中使用工具。",
     "param.max_agent_rounds.description": "自主工作轮次的最大数量，包括初始轮次。开始下一轮之前，会先判断当前轮是否完成。默认值：3。",
     "param.completion_sentinel.description": "使用 Sub-Agent completion sentinel 作为每个 agent 轮次唯一的完成判断方式。默认值为 false；也可通过 UAGENT_SUB_AGENT_SENTINEL 启用。",
-    "param.completion_regex.description": "可选 regular expression，在 sentinel/Decision Provider/LLM 判断之前针对最新 Sub-Agent 输出进行检查。"
+    "param.completion_regex.description": "可选 regular expression，在 sentinel/Decision Provider/LLM 判断之前针对最新 Sub-Agent 输出进行检查。",
+    "status.error": "错误",
+    "status.blocked": "已阻止"
   },
   "zh_TW": {
     "subagent.human_ask_prefix": "【子代理 %(agent)s】使用者確認請求：",
@@ -1713,7 +1777,9 @@
     "param.max_tool_turns.description": "工具使用的多轮交互的最大数量。 3 = 推薦。在產生最終答案之前，子代理程式可以在多輪中使用工具。",
     "param.max_agent_rounds.description": "自主工作輪次的最大數量，包括初始輪次。開始下一輪之前，會先判斷目前輪次是否完成。預設值：3。",
     "param.completion_sentinel.description": "使用 Sub-Agent completion sentinel 作為每個 agent 輪次唯一的完成判斷方式。預設值為 false；也可透過 UAGENT_SUB_AGENT_SENTINEL 啟用。",
-    "param.completion_regex.description": "選用的 regular expression，會在 sentinel/Decision Provider/LLM 判斷前針對最新 Sub-Agent 輸出進行檢查。"
+    "param.completion_regex.description": "選用的 regular expression，會在 sentinel/Decision Provider/LLM 判斷前針對最新 Sub-Agent 輸出進行檢查。",
+    "status.error": "錯誤",
+    "status.blocked": "已阻擋"
   },
   "fil": {
     "subagent.human_ask_prefix": "Kahilingan ng kumpirmasyon ng sub-agent na %(agent)s:",
@@ -1765,7 +1831,9 @@
     "param.max_tool_turns.description": "Pinakamataas na bilang ng mga multi-turn na pakikipag-ugnayan para sa paggamit ng tool. 3 = inirerekomenda. Maaaring gumamit ang sub-agent ng mga tool sa maraming round bago ibigay ang huling sagot.",
     "param.max_agent_rounds.description": "Pinakamataas na bilang ng autonomous work rounds, kasama ang unang round. Sinusuri muna ang completion ng bawat round bago magsimula ng panibago. Default: 3.",
     "param.completion_sentinel.description": "Gamitin ang Sub-Agent completion sentinel bilang tanging completion judge sa bawat agent round. Default: false; maaari rin itong paganahin ng UAGENT_SUB_AGENT_SENTINEL.",
-    "param.completion_regex.description": "Opsyonal na regular expression na sinusuri laban sa pinakabagong Sub-Agent output bago ang sentinel/Decision Provider/LLM judgment."
+    "param.completion_regex.description": "Opsyonal na regular expression na sinusuri laban sa pinakabagong Sub-Agent output bago ang sentinel/Decision Provider/LLM judgment.",
+    "status.error": "error",
+    "status.blocked": "na-block"
   },
   "ms": {
     "subagent.human_ask_prefix": "Permintaan pengesahan manusia daripada sub-ejen %(agent)s:",
@@ -1817,7 +1885,9 @@
     "param.max_tool_turns.description": "Bilangan maksimum interaksi berbilang pusingan untuk kegunaan alat. 3 = disyorkan. Sub-ejen boleh menggunakan alatan merentasi berbilang pusingan sebelum menghasilkan jawapan akhir.",
     "param.max_agent_rounds.description": "Bilangan maksimum pusingan kerja autonomi termasuk pusingan awal. Setiap pusingan dinilai selesai sebelum pusingan seterusnya dimulakan. Lalai: 3.",
     "param.completion_sentinel.description": "Gunakan Sub-Agent completion sentinel sebagai penentu tunggal penyelesaian bagi setiap pusingan agent. Lalai: false; UAGENT_SUB_AGENT_SENTINEL juga boleh mengaktifkannya.",
-    "param.completion_regex.description": "regular expression pilihan yang disemak terhadap output Sub-Agent terkini sebelum penilaian sentinel/Decision Provider/LLM."
+    "param.completion_regex.description": "regular expression pilihan yang disemak terhadap output Sub-Agent terkini sebelum penilaian sentinel/Decision Provider/LLM.",
+    "status.error": "ralat",
+    "status.blocked": "disekat"
   },
   "da": {
     "subagent.human_ask_prefix": "Bekræftelsesanmodning fra underagenten %(agent)s:",
@@ -1869,7 +1939,9 @@
     "param.max_tool_turns.description": "Maksimalt antal multi-turn interaktioner til brug af værktøj. 3 = anbefales. Underagenten kan bruge værktøjer på tværs af flere runder, før den producerer det endelige svar.",
     "param.max_agent_rounds.description": "Maksimalt antal autonome arbejdsrunder inklusive den første runde. Hver runde vurderes som afsluttet, før en ny runde startes. Standard: 3.",
     "param.completion_sentinel.description": "Brug Sub-Agent completion sentinel som eneste afslutningsvurdering for hver agentrunde. Standard: false; UAGENT_SUB_AGENT_SENTINEL kan også aktivere den.",
-    "param.completion_regex.description": "Valgfrit regular expression, der kontrolleres mod det nyeste Sub-Agent-output før sentinel/Decision Provider/LLM-vurderingen."
+    "param.completion_regex.description": "Valgfrit regular expression, der kontrolleres mod det nyeste Sub-Agent-output før sentinel/Decision Provider/LLM-vurderingen.",
+    "status.error": "fejl",
+    "status.blocked": "blokeret"
   },
   "nn": {
     "subagent.human_ask_prefix": "Stadfestingsførespurnad frå underagenten %(agent)s:",
@@ -1921,6 +1993,8 @@
     "param.max_tool_turns.description": "Maksimalt antall interaksjoner med flere svinger for bruk av verktøy. 3 = anbefalt. Underagenten kan bruke verktøy på tvers av flere runder før den produserer det endelige svaret.",
     "param.max_agent_rounds.description": "Maksimalt tal autonome arbeidsrundar, inkludert den første. Kvar runde blir vurdert som fullført før ein ny runde startar. Standard: 3.",
     "param.completion_sentinel.description": "Bruk Sub-Agent completion sentinel som einaste fullføringsvurdering for kvar agentrunde. Standard: false; UAGENT_SUB_AGENT_SENTINEL kan òg aktivere han.",
-    "param.completion_regex.description": "Valfritt regular expression som blir kontrollert mot nyaste Sub-Agent-utdata før sentinel/Decision Provider/LLM-vurdering."
+    "param.completion_regex.description": "Valfritt regular expression som blir kontrollert mot nyaste Sub-Agent-utdata før sentinel/Decision Provider/LLM-vurdering.",
+    "status.error": "feil",
+    "status.blocked": "blokkert"
   }
 }

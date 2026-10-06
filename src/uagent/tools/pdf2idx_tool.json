@@ -20,7 +20,8 @@
     "err.section_required": "エラー: mode='section' の場合は 'section' (整数) が必須です。",
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: ページ {section_num} が見つかりません。有効な範囲: 1..{last}。",
-    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。"
+    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。",
+    "err.optional_dependency_missing": "エラー: オプション依存関係をインストールまたはインポートできませんでした。"
   },
   "zh_CN": {
     "tool.description": "将 PDF 文档 (.pdf) 解析为页面摘要和文本预览，返回编号索引或特定页面部分。阅读大型 PDF 文件时使用此功能：使用 mode='index' 调用以获取包含预览文本的页面列表，然后使用 mode='section' 和section=N 调用以检索该页面的全文内容。",
@@ -43,7 +44,8 @@
     "err.section_required": "错误：当 mode='section' 时，需要'section'（整数）。",
     "err.section_invalid": "错误：“节”必须是整数。",
     "err.section_not_found": "错误：找不到页 {section_num}。有效范围：1..{last}。",
-    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。"
+    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
+    "err.optional_dependency_missing": "错误：无法安装或导入可选依赖项。"
   },
   "zh_TW": {
     "tool.description": "將 PDF 文件 (.pdf) 解析為頁面摘要和文字預覽，並傳回編號索引或特定頁面部分。閱讀大型 PDF 檔案時使用此功能：使用 mode='index' 呼叫以取得包含預覽文字的頁面列表，然後使用 mode='section' 和section=N 呼叫以擷取該頁面的全文內容。",
@@ -66,7 +68,8 @@
     "err.section_required": "錯誤：當 mode='section' 時，需要'section'（整數）。",
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：找不到頁 {section_num}。有效範圍：1..{last}。",
-    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。"
+    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
+    "err.optional_dependency_missing": "錯誤：無法安裝或匯入選用相依項。"
   },
   "ko": {
     "tool.description": "PDF 문서(.pdf)를 페이지 요약과 텍스트 미리보기로 구문 분석하여 번호가 매겨진 색인이나 특정 페이지 섹션을 반환합니다. 큰 PDF 파일을 읽을 때 이것을 사용하십시오. 미리보기 텍스트가 있는 페이지 목록을 얻으려면 mode='index'로 호출한 다음, mode='section' 및 section=N으로 호출하여 해당 페이지의 전체 텍스트 내용을 검색하십시오.",
@@ -89,7 +92,8 @@
     "err.section_required": "오류: 모드='섹션'인 경우 '섹션'(정수)이 필요합니다.",
     "err.section_invalid": "오류: '섹션'은 정수여야 합니다.",
     "err.section_not_found": "오류: {section_num} 페이지를 찾을 수 없습니다. 유효한 범위: 1..{last}.",
-    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요."
+    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요.",
+    "err.optional_dependency_missing": "오류: 선택적 종속성을 설치하거나 가져올 수 없습니다."
   },
   "fr": {
     "tool.description": "Analysez un document PDF (.pdf) en résumés de pages et aperçus de texte, en renvoyant un index numéroté ou une section de page spécifique. Utilisez-le lors de la lecture de fichiers PDF volumineux : appelez avec mode='index' pour obtenir la liste des pages avec le texte d'aperçu, puis appelez avec mode='section' et section=N pour récupérer le contenu intégral de cette page.",
@@ -112,7 +116,8 @@
     "err.section_required": "Erreur : 'section' (entier) est requis lorsque mode='section'.",
     "err.section_invalid": "Erreur : « section » doit être un nombre entier.",
     "err.section_not_found": "Erreur : page {section_num} introuvable. Plage valide : 1..{last}.",
-    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section »."
+    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section ».",
+    "err.optional_dependency_missing": "Erreur : la dépendance facultative n’a pas pu être installée ou importée."
   },
   "de": {
     "tool.description": "Analysieren Sie ein PDF-Dokument (.pdf) in Seitenzusammenfassungen und Textvorschauen und geben Sie einen nummerierten Index oder einen bestimmten Seitenabschnitt zurück. Verwenden Sie dies beim Lesen großer PDF-Dateien: Rufen Sie mit mode='index' auf, um die Liste der Seiten mit Vorschautext abzurufen, und rufen Sie dann mit mode='section' und section=N auf, um den vollständigen Textinhalt dieser Seite abzurufen.",
@@ -135,7 +140,8 @@
     "err.section_required": "Fehler: 'Abschnitt' (Ganzzahl) ist erforderlich, wenn mode='Abschnitt'.",
     "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Seite {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
-    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“."
+    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
+    "err.optional_dependency_missing": "Fehler: Optionale Abhängigkeit konnte nicht installiert oder importiert werden."
   },
   "es": {
     "tool.description": "Analice un documento PDF (.pdf) en resúmenes de páginas y vistas previas de texto, obteniendo un índice numerado o una sección de página específica. Utilice esto cuando lea archivos PDF grandes: llame con mode='index' para obtener la lista de páginas con texto de vista previa, luego llame con mode='section' y sección=N para recuperar el contenido de texto completo de esa página.",
@@ -158,7 +164,8 @@
     "err.section_required": "Error: se requiere 'sección' (entero) cuando modo = 'sección'.",
     "err.section_invalid": "Error: la 'sección' debe ser un número entero.",
     "err.section_not_found": "Error: Página {section_num} no encontrada. Rango válido: 1..{last}.",
-    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'."
+    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'.",
+    "err.optional_dependency_missing": "Error: no se pudo instalar o importar la dependencia opcional."
   },
   "it": {
     "tool.description": "Analizza un documento PDF (.pdf) in riepiloghi di pagina e anteprime di testo, restituendo un indice numerato o una sezione di pagina specifica. Usalo quando leggi file PDF di grandi dimensioni: chiama con mode='index' per ottenere l'elenco delle pagine con il testo di anteprima, quindi chiama con mode='section' esection=N per recuperare il contenuto del testo completo di quella pagina.",
@@ -181,7 +188,8 @@
     "err.section_required": "Errore: 'sezione' (numero intero) è richiesto quando mode='sezione'.",
     "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
     "err.section_not_found": "Errore: pagina {section_num} non trovata. Intervallo valido: 1..{last}.",
-    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\"."
+    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
+    "err.optional_dependency_missing": "Errore: impossibile installare o importare la dipendenza facoltativa."
   },
   "pt_BR": {
     "tool.description": "Analise um documento PDF (.pdf) em resumos de páginas e visualizações de texto, retornando um índice numerado ou uma seção específica da página. Use isto ao ler arquivos PDF grandes: chame com mode='index' para obter a lista de páginas com texto de visualização e, em seguida, chame com mode='section' e section=N para recuperar o conteúdo de texto completo dessa página.",
@@ -204,7 +212,8 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: página {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "err.optional_dependency_missing": "Erro: não foi possível instalar ou importar a dependência opcional."
   },
   "pt": {
     "tool.description": "Analise um documento PDF (.pdf) em resumos de páginas e visualizações de texto, retornando um índice numerado ou uma seção específica da página. Use isto ao ler arquivos PDF grandes: chame com mode='index' para obter a lista de páginas com texto de visualização e, em seguida, chame com mode='section' e section=N para recuperar o conteúdo de texto completo dessa página.",
@@ -227,7 +236,8 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: página {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "err.optional_dependency_missing": "Erro: não foi possível instalar ou importar a dependência opcional."
   },
   "ru": {
     "tool.description": "Разберите PDF-документ (.pdf) на сводки страниц и предварительный просмотр текста, возвращая нумерованный индекс или определенный раздел страницы. Используйте это при чтении больших PDF-файлов: вызовите с mode='index', чтобы получить список страниц с текстом предварительного просмотра, затем вызовите с mode='section' иsection=N, чтобы получить полнотекстовое содержимое этой страницы.",
@@ -250,7 +260,8 @@
     "err.section_required": "Ошибка: «раздел» (целое число) требуется, если mode = «раздел».",
     "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
     "err.section_not_found": "Ошибка: страница {section_num} не найдена. Допустимый диапазон: 1..{last}.",
-    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел»."
+    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
+    "err.optional_dependency_missing": "Ошибка: не удалось установить или импортировать необязательную зависимость."
   },
   "id": {
     "tool.description": "Parsing dokumen PDF (.pdf) menjadi ringkasan halaman dan pratinjau teks, sehingga menghasilkan indeks bernomor atau bagian halaman tertentu. Gunakan ini saat membaca file PDF besar: panggil dengan mode='index' untuk mendapatkan daftar halaman dengan teks pratinjau, lalu panggil dengan mode='section' dan section=N untuk mengambil konten teks lengkap halaman itu.",
@@ -273,7 +284,8 @@
     "err.section_required": "Kesalahan: 'bagian' (bilangan bulat) diperlukan ketika mode='bagian'.",
     "err.section_invalid": "Kesalahan: 'bagian' harus berupa bilangan bulat.",
     "err.section_not_found": "Kesalahan: Halaman {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
-    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'."
+    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'.",
+    "err.optional_dependency_missing": "Error: dependensi opsional tidak dapat dipasang atau diimpor."
   },
   "vi": {
     "tool.description": "Phân tích tài liệu PDF (.pdf) thành phần tóm tắt trang và bản xem trước văn bản, trả về chỉ mục được đánh số hoặc phần trang cụ thể. Sử dụng điều này khi đọc các tệp PDF lớn: gọi với mode='index' để lấy danh sách các trang có văn bản xem trước, sau đó gọi với mode='section' và part=N để truy xuất nội dung văn bản đầy đủ của trang đó.",
@@ -296,7 +308,8 @@
     "err.section_required": "Lỗi: 'phần' (số nguyên) là bắt buộc khi mode='section'.",
     "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Không tìm thấy trang {section_num}. Phạm vi hợp lệ: 1..{last}.",
-    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'."
+    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
+    "err.optional_dependency_missing": "Lỗi: không thể cài đặt hoặc nhập dependency tùy chọn."
   },
   "pl": {
     "tool.description": "Analizuj dokument PDF (.pdf) w formie podsumowań stron i podglądów tekstu, zwracając numerowany indeks lub określoną sekcję strony. Użyj tej opcji podczas czytania dużych plików PDF: wywołaj z mode='index', aby uzyskać listę stron z podglądem tekstu, następnie wywołaj z mode='section' isection=N, aby pobrać pełną zawartość tekstową tej strony.",
@@ -319,7 +332,8 @@
     "err.section_required": "Błąd: „sekcja” (liczba całkowita) jest wymagana, gdy tryb = „sekcja”.",
     "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: nie znaleziono strony {section_num}. Prawidłowy zakres: 1..{last}.",
-    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”."
+    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
+    "err.optional_dependency_missing": "Błąd: opcjonalnej zależności nie udało się zainstalować ani zaimportować."
   },
   "hi": {
     "tool.description": "एक पीडीएफ दस्तावेज़ (.pdf) को पृष्ठ सारांश और पाठ पूर्वावलोकन में पार्स करें, एक क्रमांकित अनुक्रमणिका या एक विशिष्ट पृष्ठ अनुभाग लौटाएं। बड़ी पीडीएफ फाइलों को पढ़ते समय इसका उपयोग करें: पूर्वावलोकन पाठ वाले पृष्ठों की सूची प्राप्त करने के लिए mode='index' के साथ कॉल करें, फिर उस पृष्ठ की पूर्ण पाठ सामग्री को पुनः प्राप्त करने के लिए mode='section' और section=N के साथ कॉल करें।",
@@ -342,7 +356,8 @@
     "err.section_required": "त्रुटि: 'सेक्शन' (पूर्णांक) आवश्यक है जब मोड='सेक्शन'।",
     "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
     "err.section_not_found": "त्रुटि: पृष्ठ {section_num} नहीं मिला. वैध सीमा: 1...{last}.",
-    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें."
+    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
+    "err.optional_dependency_missing": "त्रुटि: वैकल्पिक निर्भरता इंस्टॉल या इम्पोर्ट नहीं की जा सकी।"
   },
   "ar": {
     "tool.description": "قم بتحليل مستند PDF (.pdf) إلى ملخصات الصفحات ومعاينات النص، مما يؤدي إلى إرجاع فهرس مرقّم أو قسم محدد من الصفحة. استخدم هذا عند قراءة ملفات PDF كبيرة الحجم: اتصل بالوضع='index' للحصول على قائمة الصفحات التي تحتوي على نص معاينة، ثم اتصل بالوضع='section' والقسم=N لاسترداد محتوى النص الكامل لتلك الصفحة.",
@@ -365,7 +380,8 @@
     "err.section_required": "خطأ: \"القسم\" (عدد صحيح) مطلوب عندما يكون الوضع = \"القسم\".",
     "err.section_invalid": "خطأ: يجب أن يكون \"القسم\" عددًا صحيحًا.",
     "err.section_not_found": "خطأ: الصفحة {section_num} غير موجودة. النطاق الصالح: 1..{last}.",
-    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\"."
+    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\".",
+    "err.optional_dependency_missing": "خطأ: تعذر تثبيت أو استيراد التبعية الاختيارية."
   },
   "sv": {
     "tool.description": "Analysera ett PDF-dokument (.pdf) till sidsammanfattningar och textförhandsvisningar, vilket ger ett numrerat index eller ett specifikt sidavsnitt. Använd detta när du läser stora PDF-filer: ring med mode='index' för att få listan över sidor med förhandsgranskningstext, ring sedan med mode='section' och section=N för att hämta hela textinnehållet på den sidan.",
@@ -388,7 +404,8 @@
     "err.section_required": "Fel: 'sektion' (heltal) krävs när mode='sektion'.",
     "err.section_invalid": "Fel: 'sektion' måste vara ett heltal.",
     "err.section_not_found": "Fel: Sidan {section_num} hittades inte. Giltigt intervall: 1..{last}.",
-    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'."
+    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'.",
+    "err.optional_dependency_missing": "Fel: det valfria beroendet kunde inte installeras eller importeras."
   },
   "sw": {
     "tool.description": "Changanua hati ya PDF (.pdf) katika muhtasari wa ukurasa na uhakiki wa maandishi, ukirudisha faharasa yenye nambari au sehemu mahususi ya ukurasa. Tumia hii unaposoma faili kubwa za PDF: piga simu kwa mode='index' ili kupata orodha ya kurasa zilizo na maandishi ya onyesho la kukagua, kisha piga simu kwa mode='section' na section=N ili kupata maandishi kamili ya ukurasa huo.",
@@ -411,7 +428,8 @@
     "err.section_required": "Hitilafu: 'sehemu' (idadi kamili) inahitajika wakati mode='sehemu'.",
     "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
     "err.section_not_found": "Hitilafu: Ukurasa {section_num} haujapatikana. Masafa halali: 1..{last}.",
-    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'."
+    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
+    "err.optional_dependency_missing": "Hitilafu: utegemezi wa hiari haukuweza kusakinishwa au kuingizwa."
   },
   "nb": {
     "tool.description": "Parse a PDF document (.pdf) into page summaries and text previews, returning a numbered index or a specific page section. Bruk dette når du leser store PDF-filer: ring med mode='index' for å få listen over sider med forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet på den siden.",
@@ -434,7 +452,8 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
     "err.section_not_found": "Feil: Side {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "err.optional_dependency_missing": "Feil: valgfri avhengighet kunne ikke installeres eller importeres."
   },
   "nl": {
     "tool.description": "Parseer een PDF-document (.pdf) in paginasamenvattingen en tekstvoorbeelden, waarbij een genummerde index of een specifieke paginasectie wordt geretourneerd. Gebruik dit bij het lezen van grote PDF-bestanden: roep aan met mode='index' om de lijst met pagina's met voorbeeldtekst op te halen, en roep vervolgens aan met mode='section' en section=N om de volledige tekstinhoud van die pagina op te halen.",
@@ -457,7 +476,8 @@
     "err.section_required": "Fout: 'section' (geheel getal) is vereist wanneer mode='section'.",
     "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: Pagina {section_num} niet gevonden. Geldig bereik: 1..{last}.",
-    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'."
+    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
+    "err.optional_dependency_missing": "Fout: optionele afhankelijkheid kon niet worden geïnstalleerd of geïmporteerd."
   },
   "fi": {
     "tool.description": "Jäsennä PDF-dokumentti (.pdf) sivujen yhteenvedoksi ja tekstin esikatseluiksi palauttaen numeroidun hakemiston tai tietyn sivuosan. Käytä tätä, kun luet suuria PDF-tiedostoja: soita mode='index' saadaksesi luettelon sivuista, joissa on esikatseluteksti, ja soita sitten mode='section' ja section=N hakeaksesi sivun koko tekstisisällön.",
@@ -480,7 +500,8 @@
     "err.section_required": "Virhe: 'osa' (kokonaisluku) vaaditaan, kun mode='section'.",
     "err.section_invalid": "Virhe: osan on oltava kokonaisluku.",
     "err.section_not_found": "Virhe: sivua {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
-    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'."
+    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'.",
+    "err.optional_dependency_missing": "Virhe: valinnaista riippuvuutta ei voitu asentaa tai tuoda."
   },
   "cs": {
     "tool.description": "Analyzujte dokument PDF (.pdf) na souhrny stránek a náhledy textu a vraťte očíslovaný rejstřík nebo konkrétní část stránky. Použijte toto při čtení velkých souborů PDF: volání s mode='index' pro získání seznamu stránek s náhledem textu, poté volání s mode='section' a section=N pro načtení plného textového obsahu této stránky.",
@@ -503,7 +524,8 @@
     "err.section_required": "Chyba: 'section' (celé číslo) je vyžadováno, když mode='section'.",
     "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
     "err.section_not_found": "Chyba: Stránka {section_num} nebyla nalezena. Platný rozsah: 1..{last}.",
-    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“."
+    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
+    "err.optional_dependency_missing": "Chyba: volitelnou závislost se nepodařilo nainstalovat nebo importovat."
   },
   "uk": {
     "tool.description": "Розберіть PDF-документ (.pdf) на підсумки сторінок і попередній перегляд тексту, повертаючи нумерований індекс або певний розділ сторінки. Використовуйте це під час читання великих PDF-файлів: зателефонуйте за допомогою mode='index', щоб отримати список сторінок із текстом попереднього перегляду, потім зателефонуйте за допомогою mode='section' і section=N, щоб отримати повний текстовий вміст цієї сторінки.",
@@ -526,7 +548,8 @@
     "err.section_required": "Помилка: «розділ» (ціле число) потрібен, якщо режим = «розділ».",
     "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
     "err.section_not_found": "Помилка: Сторінка {section_num} не знайдена. Дійсний діапазон: 1..{last}.",
-    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ»."
+    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
+    "err.optional_dependency_missing": "Помилка: не вдалося встановити або імпортувати необов’язкову залежність."
   },
   "tr": {
     "tool.description": "Numaralandırılmış bir dizin veya belirli bir sayfa bölümü döndürerek bir PDF belgesini (.pdf) sayfa özetlerine ve metin önizlemelerine ayrıştırın. Büyük PDF dosyalarını okurken bunu kullanın: önizleme metni içeren sayfaların listesini almak için mode='index' ile çağrı yapın, ardından o sayfanın tam metin içeriğini almak için mode='section' vesection=N ile çağrı yapın.",
@@ -549,7 +572,8 @@
     "err.section_required": "Hata: mode='bölüm' olduğunda 'bölüm' (tamsayı) gereklidir.",
     "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: Sayfa {section_num} bulunamadı. Geçerli aralık: 1..{last}.",
-    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın."
+    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
+    "err.optional_dependency_missing": "Hata: isteğe bağlı bağımlılık yüklenemedi veya içe aktarılamadı."
   },
   "th": {
     "tool.description": "แยกวิเคราะห์เอกสาร PDF (.pdf) ลงในสรุปหน้าและดูตัวอย่างข้อความ โดยส่งคืนดัชนีที่มีตัวเลขหรือส่วนของหน้าเฉพาะ ใช้สิ่งนี้เมื่ออ่านไฟล์ PDF ขนาดใหญ่: โทรด้วย mode='index' เพื่อรับรายการหน้าที่มีข้อความแสดงตัวอย่าง จากนั้นโทรด้วย mode='section' และsection=N เพื่อดึงเนื้อหาข้อความแบบเต็มของหน้านั้น",
@@ -572,7 +596,8 @@
     "err.section_required": "ข้อผิดพลาด: ต้องใช้ 'section' (จำนวนเต็ม) เมื่อ mode='section'",
     "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบหน้า {section_num} ช่วงที่ถูกต้อง: 1..{last}",
-    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'"
+    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
+    "err.optional_dependency_missing": "ข้อผิดพลาด: ไม่สามารถติดตั้งหรือนำเข้า dependency เสริมได้"
   },
   "bn": {
     "tool.description": "একটি পিডিএফ ডকুমেন্ট (.pdf) পার্স করুন পৃষ্ঠার সারাংশ এবং টেক্সট প্রিভিউতে, একটি সংখ্যাযুক্ত সূচী বা একটি নির্দিষ্ট পৃষ্ঠা বিভাগে ফিরিয়ে দিন। বড় পিডিএফ ফাইল পড়ার সময় এটি ব্যবহার করুন: পূর্বরূপ পাঠ্য সহ পৃষ্ঠাগুলির তালিকা পেতে mode='index' দিয়ে কল করুন, তারপর সেই পৃষ্ঠার সম্পূর্ণ পাঠ্য সামগ্রী পুনরুদ্ধার করতে mode='section' এবং section=N দিয়ে কল করুন।",
@@ -595,7 +620,8 @@
     "err.section_required": "ত্রুটি: মোড='বিভাগ' হলে 'বিভাগ' (পূর্ণসংখ্যা) প্রয়োজন।",
     "err.section_invalid": "ত্রুটি: 'বিভাগ' অবশ্যই একটি পূর্ণসংখ্যা হতে হবে।",
     "err.section_not_found": "ত্রুটি: পৃষ্ঠা {section_num} পাওয়া যায়নি। বৈধ ব্যাপ্তি: 1..{last}।",
-    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।"
+    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।",
+    "err.optional_dependency_missing": "ত্রুটি: ঐচ্ছিক নির্ভরতা ইনস্টল বা ইমপোর্ট করা যায়নি।"
   },
   "fa": {
     "tool.description": "یک سند PDF (pdf.) را به خلاصه‌های صفحه و پیش‌نمایش متن تجزیه کنید و یک فهرست شماره‌دار یا یک بخش صفحه خاص را بازگردانید. هنگام خواندن فایل‌های PDF بزرگ از این مورد استفاده کنید: برای دریافت لیست صفحات با متن پیش‌نمایش، با mode='index' تماس بگیرید، سپس با mode='section' و section=N تماس بگیرید تا محتوای متن کامل آن صفحه را بازیابی کنید.",
@@ -618,7 +644,8 @@
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: صفحه {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
-    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید."
+    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
+    "err.optional_dependency_missing": "خطا: وابستگی اختیاری قابل نصب یا import نبود."
   },
   "mn": {
     "tool.description": "PDF баримтыг (.pdf) хуудасны хураангуй болон текстийг урьдчилан харах болгон задлан, дугаарласан индекс эсвэл хуудасны тодорхой хэсгийг буцаана уу. Том хэмжээний PDF файлуудыг уншихдаа үүнийг ашиглана уу: Урьдчилан харах тексттэй хуудсуудын жагсаалтыг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон section=N-ээр залгаж тухайн хуудасны бүрэн текстийн агуулгыг авна уу.",
@@ -641,7 +668,8 @@
     "err.section_required": "Алдаа: mode='section' үед 'section' (бүхэл тоо) шаардлагатай.",
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хуудас олдсонгүй. Хүчинтэй муж: 1..{last}.",
-    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу."
+    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
+    "err.optional_dependency_missing": "Алдаа: нэмэлт хамаарлыг суулгах эсвэл import хийх боломжгүй байв."
   },
   "mr": {
     "tool.description": "पीडीएफ दस्तऐवज (.pdf) पृष्ठ सारांश आणि मजकूर पूर्वावलोकनांमध्ये पार्स करा, क्रमांकित अनुक्रमणिका किंवा विशिष्ट पृष्ठ विभाग परत करा. मोठ्या PDF फाइल्स वाचताना याचा वापर करा: पूर्वावलोकन मजकूर असलेल्या पृष्ठांची सूची मिळविण्यासाठी mode='index' सह कॉल करा, नंतर त्या पृष्ठावरील संपूर्ण मजकूर सामग्री पुनर्प्राप्त करण्यासाठी mode='section' आणि section=N सह कॉल करा.",
@@ -664,7 +692,8 @@
     "err.section_required": "त्रुटी: मोड='सेक्शन' असताना 'विभाग' (पूर्णांक) आवश्यक आहे.",
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: पृष्ठ {section_num} आढळले नाही. वैध श्रेणी: 1..{last}.",
-    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा."
+    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
+    "err.optional_dependency_missing": "त्रुटी: ऐच्छिक dependency स्थापित किंवा import करता आली नाही."
   },
   "el": {
     "tool.description": "Αναλύστε ένα έγγραφο PDF (.pdf) σε περιλήψεις σελίδων και προεπισκοπήσεις κειμένου, επιστρέφοντας ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα σελίδας. Χρησιμοποιήστε το κατά την ανάγνωση μεγάλων αρχείων PDF: καλέστε με mode='index' για να λάβετε τη λίστα των σελίδων με κείμενο προεπισκόπησης, μετά καλέστε με mode='section' και section=N για να ανακτήσετε το πλήρες περιεχόμενο κειμένου αυτής της σελίδας.",
@@ -687,7 +716,8 @@
     "err.section_required": "Σφάλμα: απαιτείται 'τμήμα' (ακέραιος αριθμός) όταν mode='section'.",
     "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Η σελίδα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 1..{last}.",
-    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα»."
+    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
+    "err.optional_dependency_missing": "Σφάλμα: δεν ήταν δυνατή η εγκατάσταση ή εισαγωγή της προαιρετικής εξάρτησης."
   },
   "he": {
     "tool.description": "נתח מסמך PDF (.pdf) לתוך סיכומי עמודים ותצוגות מקדימות של טקסט, החזרת אינדקס ממוספר או קטע עמוד מסוים. השתמש בזה בעת קריאת קובצי PDF גדולים: התקשר עם mode='index' כדי לקבל את רשימת הדפים עם טקסט תצוגה מקדימה, ואז התקשר עם mode='section' ו-section=N כדי לאחזר את תוכן הטקסט המלא של אותו עמוד.",
@@ -710,7 +740,8 @@
     "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: עמוד {section_num} לא נמצא. טווח חוקי: 1..{last}.",
-    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'."
+    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
+    "err.optional_dependency_missing": "שגיאה: לא ניתן להתקין או לייבא את התלות האופציונלית."
   },
   "hu": {
     "tool.description": "Elemezze a PDF-dokumentumot (.pdf) oldalösszegzésekké és szöveges előnézetekké, visszaadva egy számozott indexet vagy egy adott oldalrészt. Használja ezt a nagy PDF fájlok olvasásakor: hívja a mode='index' paramétert az előnézeti szöveget tartalmazó oldalak listájának megjelenítéséhez, majd hívja a mode='section' és section=N parancsot az oldal teljes szöveges tartalmának lekéréséhez.",
@@ -733,7 +764,8 @@
     "err.section_required": "Hiba: 'section' (egész szám) szükséges, ha mode='section'.",
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A {section_num} oldal nem található. Érvényes tartomány: 1..{last}.",
-    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést."
+    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
+    "err.optional_dependency_missing": "Hiba: az opcionális függőséget nem sikerült telepíteni vagy importálni."
   },
   "ro": {
     "tool.description": "Analizați un document PDF (.pdf) în rezumate de pagină și previzualizări de text, returnând un index numerotat sau o anumită secțiune de pagină. Utilizați acest lucru când citiți fișiere PDF mari: apelați cu mode='index' pentru a obține lista de pagini cu text de previzualizare, apoi apelați cu mode='section' și section=N pentru a prelua conținutul text integral al acelei pagini.",
@@ -756,7 +788,8 @@
     "err.section_required": "Eroare: „secțiune” (întreg) este necesară atunci când mode = „secțiune”.",
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: Pagina {section_num} nu a fost găsită. Interval valid: 1..{last}.",
-    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”."
+    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”.",
+    "err.optional_dependency_missing": "Eroare: dependența opțională nu a putut fi instalată sau importată."
   },
   "fil": {
     "tool.description": "I-parse ang isang PDF na dokumento (.pdf) sa mga buod ng pahina at mga preview ng teksto, na nagbabalik ng isang may numerong index o isang partikular na seksyon ng pahina. Gamitin ito kapag nagbabasa ng malalaking PDF file: tumawag gamit ang mode='index' para makuha ang listahan ng mga page na may preview na text, pagkatapos ay tumawag gamit ang mode='section' at section=N para makuha ang buong text content ng page na iyon.",
@@ -779,7 +812,8 @@
     "err.section_required": "Error: 'section' (integer) ay kinakailangan kapag mode='section'.",
     "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
     "err.section_not_found": "Error: Hindi nakita ang page {section_num}. Wastong saklaw: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'."
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
+    "err.optional_dependency_missing": "Error: hindi ma-install o ma-import ang opsyonal na dependency."
   },
   "ms": {
     "tool.description": "Menghuraikan dokumen PDF (.pdf) ke dalam ringkasan halaman dan pratonton teks, mengembalikan indeks bernombor atau bahagian halaman tertentu. Gunakan ini apabila membaca fail PDF yang besar: panggil dengan mode='index' untuk mendapatkan senarai halaman dengan teks pratonton, kemudian panggil dengan mode='section' dan section=N untuk mendapatkan kembali kandungan teks penuh halaman tersebut.",
@@ -802,7 +836,8 @@
     "err.section_required": "Ralat: 'section' (integer) diperlukan apabila mode='section'.",
     "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
     "err.section_not_found": "Ralat: Halaman {section_num} tidak ditemui. Julat sah: 1..{last}.",
-    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'."
+    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'.",
+    "err.optional_dependency_missing": "Ralat: kebergantungan pilihan tidak dapat dipasang atau diimport."
   },
   "da": {
     "tool.description": "Parse et PDF-dokument (.pdf) i sideresuméer og tekstforhåndsvisninger, hvilket returnerer et nummereret indeks eller et specifikt sideafsnit. Brug dette, når du læser store PDF-filer: ring med mode='index' for at få listen over sider med forhåndsvisningstekst, ring derefter med mode='section' og section=N for at hente hele tekstindholdet på den side.",
@@ -825,7 +860,8 @@
     "err.section_required": "Fejl: 'sektion' (heltal) er påkrævet, når mode='sektion'.",
     "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
     "err.section_not_found": "Fejl: Side {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
-    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'."
+    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'.",
+    "err.optional_dependency_missing": "Fejl: valgfri afhængighed kunne ikke installeres eller importeres."
   },
   "nn": {
     "tool.description": "Parse et PDF-dokument (.pdf) til sidesammendrag og tekstforhåndsvisninger, og returner en nummerert indeks eller en bestemt sidedel. Bruk dette når du leser store PDF-filer: ring med mode='index' for å få listen over sider med forhåndsvisningstekst, ring deretter med mode='section' og section=N for å hente hele tekstinnholdet på den siden.",
@@ -848,6 +884,7 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
     "err.section_not_found": "Feil: Side {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "err.optional_dependency_missing": "Feil: valfri avhengigheit kunne ikkje installerast eller importerast."
   }
 }

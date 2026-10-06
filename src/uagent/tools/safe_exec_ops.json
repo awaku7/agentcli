@@ -7,9 +7,13 @@
     "err.callbacks_unavailable": "عمليات الاسترجاعات human_ask غير متوفرة",
     "err.confirm_failed": "فشل التأكيد",
     "err.confirm_timeout": "مهلة التأكيد",
-    "ui.confirm.footer": "=== / تأكيد ===",
-    "ui.confirm.howto": "كيفية الرد: ص = متابعة / ج = إلغاء / أخرى = رفض",
-    "ui.confirm.title": "=== طلب التأكيد البشري ==="
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "كيفية الرد: y=متابعة / c=إلغاء / أخرى=رفض\n",
+    "ui.confirm.title": "=== طلب التأكيد البشري ===",
+    "err.empty_command": "أمر فارغ",
+    "err.blocked_by_rule": "محظور بواسطة القاعدة: {pattern}",
+    "msg.allowed": "مسموح",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "bn": {
     "confirm.risky_command": "সম্ভাব্য বিপজ্জনক কমান্ড বিষয়বস্তু সনাক্ত করা হয়েছে.\nকমান্ড: {command}\nএগিয়ে যেতে y বা বাতিল করতে c টাইপ করুন।",
@@ -19,9 +23,13 @@
     "err.callbacks_unavailable": "human_ask কলব্যাক উপলব্ধ নয়",
     "err.confirm_failed": "নিশ্চিতকরণ ব্যর্থ হয়েছে",
     "err.confirm_timeout": "নিশ্চিতকরণ সময়সীমা",
-    "ui.confirm.footer": "=== /নিশ্চিত ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "কিভাবে উত্তর দিতে হবে: y=proceed/c=cancel/ other=deny\n",
-    "ui.confirm.title": "=== মানুষের নিশ্চিতকরণ অনুরোধ ==="
+    "ui.confirm.title": "=== মানুষের নিশ্চিতকরণ অনুরোধ ===",
+    "err.empty_command": "খালি কমান্ড",
+    "err.blocked_by_rule": "নিয়ম দ্বারা অবরুদ্ধ: {pattern}",
+    "msg.allowed": "অনুমোদিত",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "cs": {
     "confirm.risky_command": "Byl zjištěn potenciálně nebezpečný obsah příkazu.\npříkaz: {command}\nPro pokračování zadejte y nebo pro zrušení zadejte c.",
@@ -31,21 +39,29 @@
     "err.callbacks_unavailable": "zpětná volání human_ask nejsou k dispozici",
     "err.confirm_failed": "potvrzení se nezdařilo",
     "err.confirm_timeout": "časový limit potvrzení",
-    "ui.confirm.footer": "=== /potvrdit ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Jak odpovědět: y=pokračovat / c=zrušit / jiné=odmítnout\n",
-    "ui.confirm.title": "=== Žádost o lidské potvrzení ==="
+    "ui.confirm.title": "=== Žádost o lidské potvrzení ===",
+    "err.empty_command": "prázdný příkaz",
+    "err.blocked_by_rule": "blokováno pravidlem: {pattern}",
+    "msg.allowed": "povoleno",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "da": {
-    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "err.blocked_cancelled": "user cancelled",
-    "err.blocked_rejected": "user rejected",
-    "err.callbacks_unavailable": "human_ask callbacks not available",
-    "err.confirm_failed": "confirmation failed",
-    "err.confirm_timeout": "confirmation timeout",
+    "confirm.risky_command": "Potentielt farligt kommandoindhold blev registreret.\ncommand: {command}\nSkriv y for at fortsætte eller c for at annullere.",
+    "confirm.shell_metachar": "Shell-operatorer (pipe/omdirigering/kædning) blev registreret.\ncommand: {command}\nSkriv y for at fortsætte eller c for at annullere.",
+    "err.blocked_cancelled": "brugeren annullerede",
+    "err.blocked_rejected": "brugeren afviste",
+    "err.callbacks_unavailable": "human_ask-callbacks er ikke tilgængelige",
+    "err.confirm_failed": "bekræftelsen mislykkedes",
+    "err.confirm_timeout": "bekræftelsen fik timeout",
     "ui.confirm.footer": "=== /confirm ===\n",
-    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Human confirmation request ==="
+    "ui.confirm.howto": "Sådan svarer du: y=fortsæt / c=annuller / andet=afvis\n",
+    "ui.confirm.title": "=== Anmodning om menneskelig bekræftelse ===",
+    "err.empty_command": "tom kommando",
+    "err.blocked_by_rule": "blokeret af regel: {pattern}",
+    "msg.allowed": "tilladt",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "de": {
     "confirm.risky_command": "Möglicherweise gefährlicher Befehlsinhalt wurde erkannt.\nBefehl: {command}\nGeben Sie y ein, um fortzufahren, oder c, um abzubrechen.",
@@ -55,9 +71,13 @@
     "err.callbacks_unavailable": "human_ask-Callbacks nicht verfügbar",
     "err.confirm_failed": "Bestätigung fehlgeschlagen",
     "err.confirm_timeout": "Bestätigung abgelaufen",
-    "ui.confirm.footer": "=== /bestätigen ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Antworten: y=fortfahren / c=abbrechen / anderes=ablehnen\n",
-    "ui.confirm.title": "=== Anfrage zur menschlichen Bestätigung ==="
+    "ui.confirm.title": "=== Anfrage zur menschlichen Bestätigung ===",
+    "err.empty_command": "leerer Befehl",
+    "err.blocked_by_rule": "durch Regel blockiert: {pattern}",
+    "msg.allowed": "erlaubt",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "el": {
     "confirm.risky_command": "Εντοπίστηκε δυνητικά επικίνδυνο περιεχόμενο εντολών.\nεντολή: {command}\nΠληκτρολογήστε y για να συνεχίσετε ή c για ακύρωση.",
@@ -67,9 +87,13 @@
     "err.callbacks_unavailable": "Πώς να απαντήσετε: y=proceed / c=cancel / other=deny",
     "err.confirm_failed": "=== Ανθρώπινο αίτημα επιβεβαίωσης ===",
     "err.confirm_timeout": "χρονικό όριο επιβεβαίωσης",
-    "ui.confirm.footer": "=== /επιβεβαίωση ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Πώς να απαντήσετε: y=προχωρώ / c=ακύρωση / άλλο=άρνηση\n",
-    "ui.confirm.title": "=== Ανθρώπινο αίτημα επιβεβαίωσης ==="
+    "ui.confirm.title": "=== Ανθρώπινο αίτημα επιβεβαίωσης ===",
+    "err.empty_command": "κενή εντολή",
+    "err.blocked_by_rule": "αποκλείστηκε από κανόνα: {pattern}",
+    "msg.allowed": "επιτρέπεται",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "es": {
     "confirm.risky_command": "Se detectó contenido de comando potencialmente peligroso.\ncomando: {command}\nEscriba y para continuar o c para cancelar.",
@@ -79,9 +103,13 @@
     "err.callbacks_unavailable": "devoluciones de llamada human_ask no disponibles",
     "err.confirm_failed": "confirmación fallida",
     "err.confirm_timeout": "tiempo de espera de confirmación",
-    "ui.confirm.footer": "=== /confirmar ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Cómo responder: y=continuar / c=cancelar / otro=denegar\n",
-    "ui.confirm.title": "=== Solicitud de confirmación humana ==="
+    "ui.confirm.title": "=== Solicitud de confirmación humana ===",
+    "err.empty_command": "comando vacío",
+    "err.blocked_by_rule": "bloqueado por regla: {pattern}",
+    "msg.allowed": "permitido",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "fa": {
     "confirm.risky_command": "محتوای فرمان بالقوه خطرناک شناسایی شد.\nدستور: {command}\nبرای ادامه y یا برای لغو c را تایپ کنید.",
@@ -91,9 +119,13 @@
     "err.callbacks_unavailable": "پاسخ به تماس human_ask در دسترس نیست",
     "err.confirm_failed": "تایید ناموفق بود",
     "err.confirm_timeout": "زمان تایید",
-    "ui.confirm.footer": "=== /تأیید ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "نحوه پاسخگویی: y=پیشرفت / c=لغو/دیگر=رد\n",
-    "ui.confirm.title": "=== درخواست تایید انسانی ==="
+    "ui.confirm.title": "=== درخواست تایید انسانی ===",
+    "err.empty_command": "دستور خالی",
+    "err.blocked_by_rule": "مسدودشده توسط قانون: {pattern}",
+    "msg.allowed": "مجاز",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "fi": {
     "confirm.risky_command": "Mahdollisesti vaarallinen komennon sisältö havaittiin.\nkomento: {command}\nJatka kirjoittamalla y tai peruuta kirjoittamalla c.",
@@ -103,21 +135,29 @@
     "err.callbacks_unavailable": "human_ask takaisinsoittoja ei ole saatavilla",
     "err.confirm_failed": "vahvistus epäonnistui",
     "err.confirm_timeout": "vahvistuksen aikakatkaisu",
-    "ui.confirm.footer": "=== /vahvista ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Kuinka vastata: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Ihmisen vahvistuspyyntö ==="
+    "ui.confirm.title": "=== Ihmisen vahvistuspyyntö ===",
+    "err.empty_command": "tyhjä komento",
+    "err.blocked_by_rule": "sääntö esti: {pattern}",
+    "msg.allowed": "sallittu",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "fil": {
-    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "err.blocked_cancelled": "user cancelled",
-    "err.blocked_rejected": "user rejected",
-    "err.callbacks_unavailable": "human_ask callbacks not available",
-    "err.confirm_failed": "confirmation failed",
-    "err.confirm_timeout": "confirmation timeout",
+    "confirm.risky_command": "May natukoy na posibleng mapanganib na nilalaman ng command.\ncommand: {command}\nMag-type ng y para magpatuloy, o c para magkansela.",
+    "confirm.shell_metachar": "May natukoy na mga shell operator (pipe/redirection/chaining).\ncommand: {command}\nMag-type ng y para magpatuloy, o c para magkansela.",
+    "err.blocked_cancelled": "kinansela ng user",
+    "err.blocked_rejected": "tinanggihan ng user",
+    "err.callbacks_unavailable": "hindi available ang human_ask callbacks",
+    "err.confirm_failed": "nabigo ang kumpirmasyon",
+    "err.confirm_timeout": "nag-timeout ang kumpirmasyon",
     "ui.confirm.footer": "=== /confirm ===\n",
-    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Human confirmation request ==="
+    "ui.confirm.howto": "Paano tumugon: y=magpatuloy / c=kanselahin / iba=tanggihan\n",
+    "ui.confirm.title": "=== Kahilingan para sa kumpirmasyon ng tao ===",
+    "err.empty_command": "walang laman na command",
+    "err.blocked_by_rule": "hinarang ng rule: {pattern}",
+    "msg.allowed": "pinapayagan",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "fr": {
     "confirm.risky_command": "Un contenu de commande potentiellement dangereux a été détecté.\ncommande : {command}\nTapez y pour continuer ou c pour annuler.",
@@ -127,9 +167,13 @@
     "err.callbacks_unavailable": "rappels human_ask non disponibles",
     "err.confirm_failed": "échec de la confirmation",
     "err.confirm_timeout": "délai de confirmation",
-    "ui.confirm.footer": "=== /confirmer ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Comment répondre : y=continuer / c=annuler / autre=refuser\n",
-    "ui.confirm.title": "=== Demande de confirmation humaine ==="
+    "ui.confirm.title": "=== Demande de confirmation humaine ===",
+    "err.empty_command": "commande vide",
+    "err.blocked_by_rule": "bloqué par la règle : {pattern}",
+    "msg.allowed": "autorisé",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "he": {
     "confirm.risky_command": "זוהה תוכן פקודה שעלול להיות מסוכן.\nפקודה: {command}\nהקלד y כדי להמשיך, או c כדי לבטל.",
@@ -139,9 +183,13 @@
     "err.callbacks_unavailable": "פסק זמן לאישור",
     "err.confirm_failed": "=== /confirm ===",
     "err.confirm_timeout": "כיצד להשיב: y=המשך / c=ביטול / אחר=הכחשה",
-    "ui.confirm.footer": "=== בקשת אישור אנושית ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "כיצד להשיב: y=המשך / c=ביטול / אחר=הכחשה\n",
-    "ui.confirm.title": "=== בקשת אישור אנושית ==="
+    "ui.confirm.title": "=== בקשת אישור אנושית ===",
+    "err.empty_command": "פקודה ריקה",
+    "err.blocked_by_rule": "נחסם על ידי כלל: {pattern}",
+    "msg.allowed": "מותר",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "hi": {
     "confirm.risky_command": "संभावित रूप से खतरनाक कमांड सामग्री का पता चला।\nआदेश: {command}\nआगे बढ़ने के लिए y टाइप करें, या रद्द करने के लिए c टाइप करें।",
@@ -151,9 +199,13 @@
     "err.callbacks_unavailable": "human_ask कॉलबैक उपलब्ध नहीं है",
     "err.confirm_failed": "पुष्टि विफल रही",
     "err.confirm_timeout": "पुष्टिकरण समयबाह्य",
-    "ui.confirm.footer": "=== /पुष्टि ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "उत्तर कैसे दें: y=आगे बढ़ें / c=रद्द करें / अन्य=अस्वीकार करें\n",
-    "ui.confirm.title": "=== मानव पुष्टिकरण अनुरोध ==="
+    "ui.confirm.title": "=== मानव पुष्टिकरण अनुरोध ===",
+    "err.empty_command": "खाली कमांड",
+    "err.blocked_by_rule": "नियम द्वारा अवरुद्ध: {pattern}",
+    "msg.allowed": "अनुमत",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "hu": {
     "confirm.risky_command": "A rendszer potenciálisan veszélyes parancstartalmat észlelt.\nparancs: {command}\nA folytatáshoz írja be az y billentyűt, a visszavonáshoz pedig a c billentyűt.",
@@ -163,9 +215,13 @@
     "err.callbacks_unavailable": "Válasz: y=proceed / c=cancel / other=deny",
     "err.confirm_failed": "=== Emberi megerősítési kérés ===",
     "err.confirm_timeout": "megerősítési időtúllépés",
-    "ui.confirm.footer": "=== /megerősítés ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Hogyan kell válaszolni: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Emberi megerősítési kérés ==="
+    "ui.confirm.title": "=== Emberi megerősítési kérés ===",
+    "err.empty_command": "üres parancs",
+    "err.blocked_by_rule": "szabály által blokkolva: {pattern}",
+    "msg.allowed": "engedélyezett",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "id": {
     "confirm.risky_command": "Konten perintah yang berpotensi berbahaya terdeteksi.\ncommand: {command}\nKetik y untuk melanjutkan, atau c untuk membatalkan.",
@@ -175,9 +231,13 @@
     "err.callbacks_unavailable": "callback human_ask tidak tersedia",
     "err.confirm_failed": "konfirmasi gagal",
     "err.confirm_timeout": "waktu konfirmasi habis",
-    "ui.confirm.footer": "=== /confirm ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Cara menjawab: y=lanjut / c=batal / lainnya=tolak",
-    "ui.confirm.title": "=== Permintaan konfirmasi manusia ==="
+    "ui.confirm.title": "=== Permintaan konfirmasi manusia ===",
+    "err.empty_command": "perintah kosong",
+    "err.blocked_by_rule": "diblokir oleh aturan: {pattern}",
+    "msg.allowed": "diizinkan",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "it": {
     "confirm.risky_command": "È stato rilevato un contenuto di comando potenzialmente pericoloso.\ncomando: {command}\nDigita y per procedere oppure c per annullare.",
@@ -187,9 +247,13 @@
     "err.callbacks_unavailable": "callback human_ask non disponibili",
     "err.confirm_failed": "conferma non riuscita",
     "err.confirm_timeout": "timeout della conferma",
-    "ui.confirm.footer": "=== /conferma ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Come rispondere: y=procedi / c=annulla / altro=nega\n",
-    "ui.confirm.title": "=== Richiesta di conferma umana ==="
+    "ui.confirm.title": "=== Richiesta di conferma umana ===",
+    "err.empty_command": "comando vuoto",
+    "err.blocked_by_rule": "bloccato dalla regola: {pattern}",
+    "msg.allowed": "consentito",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "ja": {
     "confirm.risky_command": "危険な可能性があるコマンド内容を検出しました。\ncommand: {command}\n続行する場合は y、取消する場合は c を入力してください。",
@@ -199,9 +263,13 @@
     "err.callbacks_unavailable": "human_ask のコールバックが利用できません",
     "err.confirm_failed": "確認に失敗しました",
     "err.confirm_timeout": "確認がタイムアウトしました",
-    "ui.confirm.footer": "=== /確認 ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "返信方法: y=続行 / c=取消 / その他=拒否\n",
-    "ui.confirm.title": "=== 確認 ==="
+    "ui.confirm.title": "=== 確認 ===",
+    "err.empty_command": "空のコマンド",
+    "err.blocked_by_rule": "ルールによりブロックされました: {pattern}",
+    "msg.allowed": "許可",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "ko": {
     "confirm.risky_command": "잠재적으로 위험한 명령 내용이 감지되었습니다.\n명령: {command}\n계속하려면 y를 입력하고, 취소하려면 c를 입력하세요.",
@@ -211,9 +279,13 @@
     "err.callbacks_unavailable": "human_ask 콜백을 사용할 수 없습니다.",
     "err.confirm_failed": "확인 실패",
     "err.confirm_timeout": "확인 시간 초과",
-    "ui.confirm.footer": "=== /확인 ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "응답 방법: y=진행 / c=취소 / 기타=거부",
-    "ui.confirm.title": "=== 사람의 확인 요청 ==="
+    "ui.confirm.title": "=== 사람의 확인 요청 ===",
+    "err.empty_command": "빈 명령",
+    "err.blocked_by_rule": "규칙에 의해 차단됨: {pattern}",
+    "msg.allowed": "허용됨",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "mn": {
     "confirm.risky_command": "Аюултай байж болзошгүй тушаалын агуулгыг илрүүллээ.\nКоманд: {command}\nҮргэлжлүүлэхийн тулд y, цуцлахын тулд c гэж бичнэ үү.",
@@ -225,7 +297,11 @@
     "err.confirm_timeout": "баталгаажуулах хугацаа дууссан",
     "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Хэрхэн хариулах вэ: y=үргэлжлүүлэх / c=цуцлах / бусад=татгалзах\n",
-    "ui.confirm.title": "=== Хүний баталгаажуулах хүсэлт ==="
+    "ui.confirm.title": "=== Хүний баталгаажуулах хүсэлт ===",
+    "err.empty_command": "хоосон команд",
+    "err.blocked_by_rule": "дүрмээр хориглосон: {pattern}",
+    "msg.allowed": "зөвшөөрсөн",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "mr": {
     "confirm.risky_command": "संभाव्य धोकादायक कमांड सामग्री आढळली. \n आदेश: {command}\n पुढे जाण्यासाठी y टाइप करा किंवा रद्द करण्यासाठी c टाइप करा.",
@@ -235,21 +311,29 @@
     "err.callbacks_unavailable": "human_ask कॉलबॅक उपलब्ध नाही",
     "err.confirm_failed": "पुष्टीकरण अयशस्वी",
     "err.confirm_timeout": "पुष्टीकरण कालबाह्य",
-    "ui.confirm.footer": "=== /पुष्टी ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "कसे उत्तर द्यावे: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== मानवी पुष्टीकरण विनंती ==="
+    "ui.confirm.title": "=== मानवी पुष्टीकरण विनंती ===",
+    "err.empty_command": "रिकामी कमांड",
+    "err.blocked_by_rule": "नियमामुळे अवरोधित: {pattern}",
+    "msg.allowed": "परवानगी",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "ms": {
-    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "err.blocked_cancelled": "user cancelled",
-    "err.blocked_rejected": "user rejected",
-    "err.callbacks_unavailable": "human_ask callbacks not available",
-    "err.confirm_failed": "confirmation failed",
-    "err.confirm_timeout": "confirmation timeout",
+    "confirm.risky_command": "Kandungan arahan yang berpotensi berbahaya dikesan.\ncommand: {command}\nTaip y untuk meneruskan, atau c untuk membatalkan.",
+    "confirm.shell_metachar": "Operator shell (pipe/penghalaan semula/rantaian) dikesan.\ncommand: {command}\nTaip y untuk meneruskan, atau c untuk membatalkan.",
+    "err.blocked_cancelled": "dibatalkan oleh pengguna",
+    "err.blocked_rejected": "ditolak oleh pengguna",
+    "err.callbacks_unavailable": "callback human_ask tidak tersedia",
+    "err.confirm_failed": "pengesahan gagal",
+    "err.confirm_timeout": "pengesahan tamat masa",
     "ui.confirm.footer": "=== /confirm ===\n",
-    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Human confirmation request ==="
+    "ui.confirm.howto": "Cara membalas: y=teruskan / c=batal / lain=tolak\n",
+    "ui.confirm.title": "=== Permintaan pengesahan manusia ===",
+    "err.empty_command": "arahan kosong",
+    "err.blocked_by_rule": "disekat oleh peraturan: {pattern}",
+    "msg.allowed": "dibenarkan",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "nb": {
     "confirm.risky_command": "Potensielt farlig kommandoinnhold ble oppdaget.\nkommando: {command}\nSkriv y for å fortsette, eller c for å avbryte.",
@@ -259,9 +343,13 @@
     "err.callbacks_unavailable": "human_ask tilbakeringinger er ikke tilgjengelig",
     "err.confirm_failed": "bekreftelse mislyktes",
     "err.confirm_timeout": "tidsavbrudd for bekreftelse",
-    "ui.confirm.footer": "=== /bekreft ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Slik svarer du: y=fortsett / c=avbryt / annet=avslå\n",
-    "ui.confirm.title": "=== Forespørsel om menneskelig bekreftelse ==="
+    "ui.confirm.title": "=== Forespørsel om menneskelig bekreftelse ===",
+    "err.empty_command": "tom kommando",
+    "err.blocked_by_rule": "blokkert av regel: {pattern}",
+    "msg.allowed": "tillatt",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "nl": {
     "confirm.risky_command": "Er is mogelijk gevaarlijke opdrachtinhoud gedetecteerd.\nopdracht: {command}\nTyp y om door te gaan, of c om te annuleren.",
@@ -271,21 +359,29 @@
     "err.callbacks_unavailable": "human_ask-callbacks zijn niet beschikbaar",
     "err.confirm_failed": "bevestiging mislukt",
     "err.confirm_timeout": "bevestiging time-out",
-    "ui.confirm.footer": "=== /bevestig ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Hoe te antwoorden: y=doorgaan / c=annuleren / anders=weigeren\n",
-    "ui.confirm.title": "=== Menselijk bevestigingsverzoek ==="
+    "ui.confirm.title": "=== Menselijk bevestigingsverzoek ===",
+    "err.empty_command": "lege opdracht",
+    "err.blocked_by_rule": "geblokkeerd door regel: {pattern}",
+    "msg.allowed": "toegestaan",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "nn": {
-    "confirm.risky_command": "Potentially dangerous command content was detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "confirm.shell_metachar": "Shell operators (pipe/redirection/chaining) were detected.\ncommand: {command}\nType y to proceed, or c to cancel.",
-    "err.blocked_cancelled": "user cancelled",
-    "err.blocked_rejected": "user rejected",
-    "err.callbacks_unavailable": "human_ask callbacks not available",
-    "err.confirm_failed": "confirmation failed",
-    "err.confirm_timeout": "confirmation timeout",
+    "confirm.risky_command": "Potensielt farleg kommandoinnhald vart oppdaga.\ncommand: {command}\nSkriv y for å halde fram, eller c for å avbryte.",
+    "confirm.shell_metachar": "Shell-operatorar (pipe/omdirigering/kjeding) vart oppdaga.\ncommand: {command}\nSkriv y for å halde fram, eller c for å avbryte.",
+    "err.blocked_cancelled": "brukaren avbraut",
+    "err.blocked_rejected": "brukaren avviste",
+    "err.callbacks_unavailable": "human_ask-callbacks er ikkje tilgjengelege",
+    "err.confirm_failed": "stadfestinga mislukkast",
+    "err.confirm_timeout": "stadfestinga fekk tidsavbrot",
     "ui.confirm.footer": "=== /confirm ===\n",
-    "ui.confirm.howto": "How to reply: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Human confirmation request ==="
+    "ui.confirm.howto": "Slik svarar du: y=hald fram / c=avbryt / anna=avvis\n",
+    "ui.confirm.title": "=== Førespurnad om menneskeleg stadfesting ===",
+    "err.empty_command": "tom kommando",
+    "err.blocked_by_rule": "blokkert av regel: {pattern}",
+    "msg.allowed": "tillaten",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "pl": {
     "confirm.risky_command": "Wykryto potencjalnie niebezpieczną treść polecenia.\npolecenie: {command}\nWpisz y, aby kontynuować, lub c, aby anulować.",
@@ -295,9 +391,13 @@
     "err.callbacks_unavailable": "Wywołania zwrotne human_ask są niedostępne",
     "err.confirm_failed": "potwierdzenie nie powiodło się",
     "err.confirm_timeout": "limit czasu potwierdzenia",
-    "ui.confirm.footer": "=== /potwierdź ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Jak odpowiedzieć: y=kontynuuj / c=anuluj / inny=odmów",
-    "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ==="
+    "ui.confirm.title": "=== Prośba o potwierdzenie przez człowieka ===",
+    "err.empty_command": "puste polecenie",
+    "err.blocked_by_rule": "zablokowano przez regułę: {pattern}",
+    "msg.allowed": "dozwolone",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "pt": {
     "confirm.risky_command": "Foi detectado conteúdo de comando potencialmente perigoso.\ncomando: {command}\nDigite y para continuar ou c para cancelar.",
@@ -307,9 +407,13 @@
     "err.callbacks_unavailable": "retornos de chamada human_ask não disponíveis",
     "err.confirm_failed": "falha na confirmação",
     "err.confirm_timeout": "tempo limite de confirmação",
-    "ui.confirm.footer": "=== /confirmar ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Como responder: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== Solicitação de confirmação humana ==="
+    "ui.confirm.title": "=== Solicitação de confirmação humana ===",
+    "err.empty_command": "comando vazio",
+    "err.blocked_by_rule": "bloqueado pela regra: {pattern}",
+    "msg.allowed": "permitido",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "pt_BR": {
     "confirm.risky_command": "Foi detectado conteúdo de comando potencialmente perigoso.\ncomando: {command}\nDigite y para continuar ou c para cancelar.",
@@ -319,9 +423,13 @@
     "err.callbacks_unavailable": "callbacks human_ask não disponíveis",
     "err.confirm_failed": "falha na confirmação",
     "err.confirm_timeout": "tempo limite da confirmação",
-    "ui.confirm.footer": "=== /confirmar ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Como responder: y=prosseguir / c=cancelar / outro=negar\n",
-    "ui.confirm.title": "=== Solicitação de confirmação humana ==="
+    "ui.confirm.title": "=== Solicitação de confirmação humana ===",
+    "err.empty_command": "comando vazio",
+    "err.blocked_by_rule": "bloqueado pela regra: {pattern}",
+    "msg.allowed": "permitido",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "ro": {
     "confirm.risky_command": "Operatorii Shell (conducte/redirecționare/înlănțuire) au fost detectați.\ncomanda: {command}\nTastați y pentru a continua sau c pentru a anula.",
@@ -331,9 +439,13 @@
     "err.callbacks_unavailable": "confirmarea eșuată",
     "err.confirm_failed": "expirare confirmare",
     "err.confirm_timeout": "=== /confirm ===",
-    "ui.confirm.footer": "Cum să răspunzi: y=proceed / c=cancel / other=deny",
-    "ui.confirm.howto": "=== Solicitare de confirmare umană ===",
-    "ui.confirm.title": "=== Cerere de confirmare umană ==="
+    "ui.confirm.footer": "=== /confirm ===\n",
+    "ui.confirm.howto": "Cum să răspundeți: y=continuați / c=anulați / altceva=refuzați\n",
+    "ui.confirm.title": "=== Cerere de confirmare umană ===",
+    "err.empty_command": "comandă goală",
+    "err.blocked_by_rule": "blocat de regulă: {pattern}",
+    "msg.allowed": "permis",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "ru": {
     "confirm.risky_command": "Обнаружено потенциально опасное содержимое команды.\nкоманда: {command}\nВведите y, чтобы продолжить, или c, чтобы отменить.",
@@ -343,9 +455,13 @@
     "err.callbacks_unavailable": "коллбэки human_ask недоступны",
     "err.confirm_failed": "подтверждение не удалось",
     "err.confirm_timeout": "время подтверждения истекло",
-    "ui.confirm.footer": "=== /подтверждение ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Как ответить: y=продолжить / c=отмена / другое=отклонить\n",
-    "ui.confirm.title": "=== Запрос подтверждения от пользователя ==="
+    "ui.confirm.title": "=== Запрос подтверждения от пользователя ===",
+    "err.empty_command": "пустая команда",
+    "err.blocked_by_rule": "заблокировано правилом: {pattern}",
+    "msg.allowed": "разрешено",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "sv": {
     "confirm.risky_command": "Potentiellt farligt kommandoinnehåll upptäcktes.\nkommando: {command}\nSkriv y för att fortsätta eller c för att avbryta.",
@@ -355,9 +471,13 @@
     "err.callbacks_unavailable": "human_ask-återuppringningar är inte tillgängliga",
     "err.confirm_failed": "bekräftelse misslyckades",
     "err.confirm_timeout": "timeout för bekräftelse",
-    "ui.confirm.footer": "=== /bekräfta ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Så här svarar du: y=fortsätt / c=avbryt / annat=neka\n",
-    "ui.confirm.title": "=== Begäran om mänsklig bekräftelse ==="
+    "ui.confirm.title": "=== Begäran om mänsklig bekräftelse ===",
+    "err.empty_command": "tomt kommando",
+    "err.blocked_by_rule": "blockerad av regel: {pattern}",
+    "msg.allowed": "tillåten",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "sw": {
     "confirm.risky_command": "Maudhui ya amri yanayoweza kuwa hatari yamegunduliwa.\namuru: {command}\nChapa y ili kuendelea, au c ili kughairi.",
@@ -367,9 +487,13 @@
     "err.callbacks_unavailable": "human_ask callbacks hazipatikani",
     "err.confirm_failed": "uthibitisho umeshindwa",
     "err.confirm_timeout": "uthibitisho umeisha",
-    "ui.confirm.footer": "=== /thibitisha ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Jinsi ya kujibu: y=endelea / c=ghairi / nyingine=kataa\n",
-    "ui.confirm.title": "=== Ombi la uthibitisho wa kibinadamu ==="
+    "ui.confirm.title": "=== Ombi la uthibitisho wa kibinadamu ===",
+    "err.empty_command": "amri tupu",
+    "err.blocked_by_rule": "imezuiwa na kanuni: {pattern}",
+    "msg.allowed": "imeruhusiwa",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "th": {
     "confirm.risky_command": "ตรวจพบเนื้อหาคำสั่งที่อาจเป็นอันตราย\nคำสั่ง: {command}\nพิมพ์ y เพื่อดำเนินการต่อ หรือ c เพื่อยกเลิก",
@@ -379,9 +503,13 @@
     "err.callbacks_unavailable": "การโทรกลับ human_ask ไม่พร้อมใช้งาน",
     "err.confirm_failed": "การยืนยันล้มเหลว",
     "err.confirm_timeout": "หมดเวลาการยืนยัน",
-    "ui.confirm.footer": "=== /ยืนยัน ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "วิธีตอบกลับ: y=proceed / c=cancel / other=deny\n",
-    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ==="
+    "ui.confirm.title": "=== คำขอยืนยันจากมนุษย์ ===",
+    "err.empty_command": "คำสั่งว่าง",
+    "err.blocked_by_rule": "ถูกบล็อกโดยกฎ: {pattern}",
+    "msg.allowed": "อนุญาต",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "tr": {
     "confirm.risky_command": "Potansiyel olarak tehlikeli komut içeriği algılandı.\nkomut: {command}\nDevam etmek için y, iptal etmek için c yazın.",
@@ -391,9 +519,13 @@
     "err.callbacks_unavailable": "human_ask geri aramaları kullanılamıyor",
     "err.confirm_failed": "onay başarısız oldu",
     "err.confirm_timeout": "onay zaman aşımı",
-    "ui.confirm.footer": "=== /onayla ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Nasıl cevap verilir: y=devam et / c=iptal / diğer=reddet",
-    "ui.confirm.title": "=== İnsandan onay talebi ==="
+    "ui.confirm.title": "=== İnsandan onay talebi ===",
+    "err.empty_command": "boş komut",
+    "err.blocked_by_rule": "kural tarafından engellendi: {pattern}",
+    "msg.allowed": "izin verildi",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "uk": {
     "confirm.risky_command": "Виявлено потенційно небезпечний вміст команди.\nкоманда: {command}\nВведіть y, щоб продовжити, або c, щоб скасувати.",
@@ -403,9 +535,13 @@
     "err.callbacks_unavailable": "зворотні виклики human_ask недоступні",
     "err.confirm_failed": "підтвердження не вдалося",
     "err.confirm_timeout": "тайм-аут підтвердження",
-    "ui.confirm.footer": "=== /підтвердити ===\n",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Як відповісти: y=продовжити / c=скасувати / other=відмовити\n",
-    "ui.confirm.title": "=== Запит на підтвердження людиною ==="
+    "ui.confirm.title": "=== Запит на підтвердження людиною ===",
+    "err.empty_command": "порожня команда",
+    "err.blocked_by_rule": "заблоковано правилом: {pattern}",
+    "msg.allowed": "дозволено",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "vi": {
     "confirm.risky_command": "Nội dung lệnh nguy hiểm tiềm tàng đã được phát hiện.\nlệnh: {command}\nGõ y để tiếp tục, hoặc c để hủy.",
@@ -415,9 +551,13 @@
     "err.callbacks_unavailable": "cuộc gọi lại human_ask không có sẵn",
     "err.confirm_failed": "xác nhận không thành công",
     "err.confirm_timeout": "hết thời gian xác nhận",
-    "ui.confirm.footer": "=== /xác nhận ===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "Cách trả lời: y=proceed / c=cancel / other=deny",
-    "ui.confirm.title": "=== Yêu cầu xác nhận của con người ==="
+    "ui.confirm.title": "=== Yêu cầu xác nhận của con người ===",
+    "err.empty_command": "lệnh trống",
+    "err.blocked_by_rule": "bị chặn bởi quy tắc: {pattern}",
+    "msg.allowed": "được phép",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "zh_CN": {
     "confirm.risky_command": "检测到潜在危险的命令内容。\n命令：{command}\n输入 y 继续，或输入 c 取消。",
@@ -427,9 +567,13 @@
     "err.callbacks_unavailable": "human_ask 回调不可用",
     "err.confirm_failed": "确认失败",
     "err.confirm_timeout": "确认超时",
-    "ui.confirm.footer": "===/确认===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "如何回复：y=继续 / c=取消 / other=拒绝\n",
-    "ui.confirm.title": "===人工确认请求==="
+    "ui.confirm.title": "===人工确认请求===",
+    "err.empty_command": "空命令",
+    "err.blocked_by_rule": "被规则阻止: {pattern}",
+    "msg.allowed": "已允许",
+    "ui.fallback_prompt": " [y/c/N]: "
   },
   "zh_TW": {
     "confirm.risky_command": "偵測到潛在危險的命令內容。\n指令：{command}\n輸入 y 繼續，或輸入 c 取消。",
@@ -439,8 +583,12 @@
     "err.callbacks_unavailable": "human_ask 回呼不可用",
     "err.confirm_failed": "確認失敗",
     "err.confirm_timeout": "確認超時",
-    "ui.confirm.footer": "===/確認===",
+    "ui.confirm.footer": "=== /confirm ===\n",
     "ui.confirm.howto": "如何回覆：y=繼續 / c=取消 / other=拒絕\n",
-    "ui.confirm.title": "===人工確認請求==="
+    "ui.confirm.title": "===人工確認請求===",
+    "err.empty_command": "空指令",
+    "err.blocked_by_rule": "被規則阻擋: {pattern}",
+    "msg.allowed": "已允許",
+    "ui.fallback_prompt": " [y/c/N]: "
   }
 }

@@ -31,6 +31,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "picture",
                 "photo",
                 "diagram",
+                "ocr",
+                "vision",
             ],
         ),
         "x_search_terms_en": [

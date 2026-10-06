@@ -46,7 +46,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "BLE",
                 "mesh",
                 "subscribe",
-                "pybitchat_subscribe",
             ],
         ),
         "x_search_terms_en": [
@@ -516,22 +515,35 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
         print(
             _(
                 "geo.auto_detected",
-                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s",
+                default="Auto-detected position: lat=%(lat)s, lng=%(lng)s (precision=%(precision)d)",
             )
             % {"lat": lat, "lng": lng, "precision": precision}
         )
-        print("Available Geohash channels in your area:")
+        print(
+            _("geo.channels_header", default="Available Geohash channels in your area:")
+        )
         candidates = []
         for p in [2, 4, 5, 6, 8]:
             gh = _geo._geohash_encode(lat, lng, p)
             acc = _geo._GEO_PRECISION.get(p, "")
             candidates.append((gh, acc, p))
-            print(f"  #{gh:8s} (precision {p}, {acc})")
-        print("  #mesh     (global local mesh channel)")
+            print(
+                _(
+                    "geo.channel_entry",
+                    default="  #%(geohash)s (precision %(precision)d, %(accuracy)s)",
+                )
+                % {"geohash": gh, "precision": p, "accuracy": acc}
+            )
+        print(_("geo.mesh_channel", default="  #mesh     (global local mesh channel)"))
         print(
-            "\nTo join a channel, run: :bitchat geo join <geohash> (e.g. :bitchat geo join #"
-            + candidates[3][0]
-            + ")"
+            _(
+                "geo.join_hint",
+                default=(
+                    "\nTo join a channel, run: :bitchat geo join <geohash> "
+                    "(e.g. :bitchat geo join #%(geohash)s)"
+                ),
+            )
+            % {"geohash": candidates[3][0]}
         )
         from ..util_tools import CommandResult
 
@@ -552,10 +564,10 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
         if not result.get("nostr") == "running":
             print(
                 _(
-                    "geo.error_nostr_not_running",
-                    default="Error: Could not start Nostr transport: %(error)s",
+                    "cmd.node_started_nostr_failed",
+                    default="  nostr: %(state)s",
                 )
-                % {"error": result.get("nostr", "unknown")}
+                % {"state": result.get("nostr", "unknown")}
             )
             from ..util_tools import CommandResult
 
@@ -733,13 +745,23 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
     from .pybitchat_shared import _NOSTR as _nt_mod
 
     if _nt_mod is None:
-        print("Error: Nostr transport not running.")
+        print(
+            _(
+                "geo.error_nostr_not_running",
+                default="Error: Nostr transport not running.",
+            )
+        )
         from ..util_tools import CommandResult
 
         return CommandResult()
     inst = getattr(_nt_mod, "_NOSTR_INSTANCE", None)
     if inst is None or not inst.is_running:
-        print("Error: Nostr transport not running.")
+        print(
+            _(
+                "geo.error_nostr_not_running",
+                default="Error: Nostr transport not running.",
+            )
+        )
         from ..util_tools import CommandResult
 
         return CommandResult()
@@ -764,66 +786,102 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
 # ---- End peers command ----------------------------------------------------
 
 
+def _cmd_help(syntax: str, key: str, default: str) -> str:
+    return f"  {syntax:<55} {_(key, default=default)}"
+
+
 CMD_SPECS = [
     {
         "command": "bitchat",
         "subcommand": "start",
         "handler": _cmd_bitchat_start,
-        "help_text": "  :bitchat start [nickname] [--nostr] [--network <mainnet|testnet>]  Start the BLE Mesh node",
+        "help_text": _cmd_help(
+            ":bitchat start [nickname] [--nostr] [--network <mainnet|testnet>]",
+            "help.start",
+            "Start the BLE Mesh node",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "stop",
         "handler": _cmd_bitchat_stop,
-        "help_text": "  :bitchat stop      Stop the BLE Mesh node",
+        "help_text": _cmd_help(":bitchat stop", "help.stop", "Stop the BLE Mesh node"),
     },
     {
         "command": "bitchat",
         "subcommand": "on",
         "handler": _cmd_bitchat_on,
-        "help_text": "  :bitchat on       Enable chat mode (user input forwarded to mesh)",
+        "help_text": _cmd_help(
+            ":bitchat on",
+            "help.on",
+            "Enable chat mode (user input forwarded to mesh)",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "off",
         "handler": _cmd_bitchat_off,
-        "help_text": "  :bitchat off      Disable chat mode",
+        "help_text": _cmd_help(":bitchat off", "help.off", "Disable chat mode"),
     },
     {
         "command": "bitchat",
         "subcommand": "status",
         "handler": _cmd_bitchat_status,
-        "help_text": "  :bitchat status   Show node and chat mode status",
+        "help_text": _cmd_help(
+            ":bitchat status",
+            "help.status",
+            "Show node and chat mode status",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "llm",
         "handler": _cmd_bitchat_llm,
-        "help_text": "  :bitchat llm      Enable chat mode with LLM injection (peer msgs sent to LLM)",
+        "help_text": _cmd_help(
+            ":bitchat llm",
+            "help.llm",
+            "Enable chat mode with LLM injection (peer msgs sent to LLM)",
+        ),
     },
     # Geo channel commands
     {
         "command": "bitchat",
         "subcommand": "geo join",
         "handler": _cmd_bitchat_geo_join,
-        "help_text": "  :bitchat geo join [<geohash>|lat lng [prec]]  Join geohash channel (shows candidates if no args)",
+        "help_text": _cmd_help(
+            ":bitchat geo join [<geohash>|lat lng [prec]]",
+            "help.geo_join",
+            "Join geohash channel (shows candidates if no args)",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "geo leave",
         "handler": _cmd_bitchat_geo_leave,
-        "help_text": "  :bitchat geo leave <geohash>       Leave a geohash channel",
+        "help_text": _cmd_help(
+            ":bitchat geo leave <geohash>",
+            "help.geo_leave",
+            "Leave a geohash channel",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "geo list",
         "handler": _cmd_bitchat_geo_list,
-        "help_text": "  :bitchat geo list                  List active geo channels",
+        "help_text": _cmd_help(
+            ":bitchat geo list",
+            "help.geo_list",
+            "List active geo channels",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "peers",
         "handler": _cmd_bitchat_peers,
-        "help_text": "  :bitchat peers     List discovered Nostr bitchat peers",
+        "help_text": _cmd_help(
+            ":bitchat peers",
+            "help.peers",
+            "List discovered Nostr bitchat peers",
+        ),
     },
 ]

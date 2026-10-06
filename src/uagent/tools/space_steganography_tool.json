@@ -152,7 +152,8 @@
       "hidden text",
       "normal space",
       "non-breaking space",
-      "NBSP"
+      "NBSP",
+      "κρυφό κείμενο με κενά"
     ],
     "param.action.description": "Λειτουργία: ενσωμάτωση, εξαγωγή ή ανίχνευση.",
     "param.carrier_path.description": "UTF-8 αρχείο κειμένου για ανάγνωση.",

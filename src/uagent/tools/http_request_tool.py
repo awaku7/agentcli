@@ -33,14 +33,14 @@ TOOL_SPEC: dict[str, Any] = {
         "x_search_terms": _(
             "x_search_terms",
             default=[
-                "HTTPリクエスト",
+                "http request",
                 "REST API",
-                "APIリクエスト",
+                "API request",
                 "POST API",
                 "PUT API",
                 "PATCH API",
                 "DELETE API",
-                "HTTPクライアント",
+                "HTTP client",
                 "Postman",
             ],
         ),

@@ -147,7 +147,8 @@
       "macro",
       "Sub",
       "Function",
-      "Property"
+      "Property",
+      "VBA macro at function"
     ],
     "param.path": "Path sa isang VBA source file.",
     "param.mode": "index para sa isang may bilang na index, seksyon para sa isang kahulugan.",
@@ -189,7 +190,8 @@
       "macro",
       "Sub",
       "Function",
-      "Property"
+      "Property",
+      "VBA मैक्रो कोड"
     ],
     "param.path": "VBA स्रोत फ़ाइल का पथ.",
     "param.mode": "क्रमांकित सूचकांक के लिए सूचकांक, एक परिभाषा के लिए अनुभाग।",
@@ -357,7 +359,8 @@
       "macro",
       "Sub",
       "Function",
-      "Property"
+      "Property",
+      "código de macro VBA"
     ],
     "param.path": "Caminho para um arquivo de origem VBA.",
     "param.mode": "índice para um índice numerado, seção para uma definição.",
@@ -371,7 +374,8 @@
       "macro",
       "Sub",
       "Function",
-      "Property"
+      "Property",
+      "código de macro VBA"
     ],
     "param.path": "Caminho para um arquivo de origem VBA.",
     "param.mode": "índice para um índice numerado, seção para uma definição.",
@@ -469,7 +473,8 @@
       "macro",
       "Sub",
       "Function",
-      "Property"
+      "Property",
+      "код макросу VBA"
     ],
     "param.path": "Шлях до вихідного файлу VBA.",
     "param.mode": "індекс для нумерованого покажчика, розділ для одного визначення.",

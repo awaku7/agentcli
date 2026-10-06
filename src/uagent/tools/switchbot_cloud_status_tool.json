@@ -999,12 +999,12 @@
     "err.ambiguous_target": "Maramihang SwitchBot device ang tumugma sa ibinigay na device_name.",
     "msg.summary": "Nakuha ang status ng SwitchBot Cloud: {device_name} ({device_id}).",
     "msg.battery": "Baterya: {val}",
-    "msg.error_code_fmt": "Error [{code}]: {msg}",
+    "msg.error_code_fmt": "Kamalian [{code}]: {msg}",
     "msg.fetched_at": "Nakuha sa: {ts}",
     "msg.humidity": "Halumigmig: {val}",
     "msg.lock_state": "Katayuan ng lock: {val}",
-    "msg.mode": "Mode: {val}",
-    "msg.online": "Online: {val}",
+    "msg.mode": "Paraan: {val}",
+    "msg.online": "Naka-online: {val}",
     "msg.position": "Posisyon: {val}",
     "msg.power": "Kapangyarihan: {val}",
     "msg.temperature": "Temperatura: {val}",
@@ -1016,7 +1016,8 @@
       "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
-      "cloud"
+      "cloud",
+      "katayuan ng SwitchBot cloud"
     ]
   },
   "ms": {
@@ -1064,11 +1065,11 @@
     "msg.humidity": "Luftfugtighed: {val}",
     "msg.lock_state": "Låsetilstand: {val}",
     "msg.mode": "Tilstand: {val}",
-    "msg.online": "Online: {val}",
-    "msg.position": "Position: {val}",
+    "msg.online": "Forbundet: {val}",
+    "msg.position": "Placering: {val}",
     "msg.power": "Strøm: {val}",
     "msg.temperature": "Temperatur: {val}",
-    "msg.type": "Type: {dtype}",
+    "msg.type": "Enhedstype: {dtype}",
     "msg.unknown": "(ukendt)",
     "err.config_missing": "SwitchBot Cloud-legitimationsoplysninger mangler. Indstil UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Få status for én SwitchBot Cloud-enhed fra den konfigurerede konto.",
@@ -1076,7 +1077,8 @@
       "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
-      "cloud"
+      "cloud",
+      "SwitchBot cloud-status"
     ]
   },
   "nn": {
@@ -1098,7 +1100,7 @@
     "msg.position": "Posisjon: {val}",
     "msg.power": "Strøm: {val}",
     "msg.temperature": "Temperatur: {val}",
-    "msg.type": "Type: {dtype}",
+    "msg.type": "Einingstype: {dtype}",
     "msg.unknown": "(ukjend)",
     "err.config_missing": "SwitchBot Cloud-legitimasjon mangler. Sett UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Få statusen til én SwitchBot Cloud-enhet frå den konfigurerte kontoen.",

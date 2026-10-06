@@ -262,7 +262,9 @@
       "PATCH API",
       "DELETE API",
       "HTTP client",
-      "Postman"
+      "Postman",
+      "kahilingan sa HTTP",
+      "kahilingan sa API"
     ],
     "param.method.description": "HTTP na paraan.",
     "param.url.description": "HTTP o HTTPS URL.",

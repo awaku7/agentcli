@@ -56,6 +56,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "weeks months",
                 "days from date",
                 "holiday check",
+                "date",
+                "calculate",
             ],
         ),
         "x_search_terms_en": [

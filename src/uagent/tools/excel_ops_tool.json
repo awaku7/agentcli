@@ -805,7 +805,7 @@
     "param.sheet_name.description": "Nama helaian sasaran (untuk dibaca/tulis). Jika ditinggalkan, baca menggunakan helaian pertama dan tulis menggunakan 'Helaian1'."
   },
   "da": {
-    "param.action.description": "Operation.",
+    "param.action.description": "Handling.",
     "param.data.description": "JSON data at skrive.",
     "param.file_path.description": "Excel-sti (absolut).",
     "param.keep_sheets.description": "Ark til at beholde.",

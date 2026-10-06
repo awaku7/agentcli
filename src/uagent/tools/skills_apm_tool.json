@@ -1,6 +1,6 @@
 {
   "ar": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    عرض المهارات من APM apm_modules/\n  :skills apm use <name|#>            تحميل وتفعيل مهارة APM\n  :skills apm dir [path]              عرض أو تعيين جذر مشروع APM",
     "msg.use_hint": "[apm] استخدم ':skills apm استخدم <number>' لتنشيط إحدى المهارات.",
     "err.name_required": "[apm] حدد اسم أو رقم المهارة.",
     "msg.found_skills": "[apm] تم العثور على {n} من المهارات في {path}/apm_modules/:",
@@ -23,7 +23,7 @@
     ]
   },
   "bn": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/ থেকে skill তালিকা দেখান\n  :skills apm use <name|#>            একটি APM skill লোড ও সক্রিয় করুন\n  :skills apm dir [path]              APM project root দেখান বা সেট করুন",
     "msg.use_hint": "[apm] একটি দক্ষতা সক্রিয় করতে ':skills apm <number>' ব্যবহার করুন।",
     "err.name_required": "[apm] একটি দক্ষতার নাম বা নম্বর উল্লেখ করুন।",
     "msg.found_skills": "[apm] {path}/apm_modules/ এ {n} দক্ষতা(গুলি) পাওয়া গেছে:",
@@ -46,7 +46,7 @@
     ]
   },
   "cs": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Vypsat dovednosti z APM apm_modules/\n  :skills apm use <name|#>            Načíst a aktivovat dovednost APM\n  :skills apm dir [path]              Zobrazit nebo nastavit kořen projektu APM",
     "msg.use_hint": "[apm] K aktivaci dovednosti použijte ':skills apm use <number>'.",
     "err.name_required": "[apm] Zadejte název nebo číslo dovednosti.",
     "msg.found_skills": "[apm] Nalezeno {n} dovedností v {path}/apm_modules/:",
@@ -69,7 +69,7 @@
     ]
   },
   "de": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Skills aus APM apm_modules/ auflisten\n  :skills apm use <name|#>            Einen APM-Skill laden und aktivieren\n  :skills apm dir [path]              APM-Projektstamm anzeigen oder setzen",
     "msg.use_hint": "[apm] Verwenden Sie „:skills apm use <number>“, um einen Skill zu aktivieren.",
     "err.name_required": "[apm] Geben Sie einen Skill-Namen oder eine Skill-Nummer an.",
     "msg.found_skills": "[apm] {n} Skill(s) in {path}/apm_modules/ gefunden:",
@@ -92,7 +92,7 @@
     ]
   },
   "el": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Λίστα skills από το APM apm_modules/\n  :skills apm use <name|#>            Φόρτωση και ενεργοποίηση APM skill\n  :skills apm dir [path]              Εμφάνιση ή ορισμός ρίζας έργου APM",
     "msg.use_hint": "[apm] Χρησιμοποιήστε το ':skills apm use <number>' για να ενεργοποιήσετε μια ικανότητα.",
     "err.name_required": "[apm] Καθορίστε ένα όνομα ή έναν αριθμό δεξιότητας.",
     "msg.found_skills": "[apm] Βρέθηκαν {n} δεξιότητες στο {path}/apm_modules/:",
@@ -115,7 +115,7 @@
     ]
   },
   "es": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Listar skills de APM apm_modules/\n  :skills apm use <name|#>            Cargar y activar una skill de APM\n  :skills apm dir [path]              Mostrar o establecer la raíz del proyecto APM",
     "msg.use_hint": "[apm] Utilice ':skills apm use <número>' para activar una habilidad.",
     "err.name_required": "[apm] Especifique un nombre o número de habilidad.",
     "msg.found_skills": "[apm] Se encontraron {n} habilidades en {path}/apm_modules/:",
@@ -138,7 +138,7 @@
     ]
   },
   "fa": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    فهرست skillها از APM apm_modules/\n  :skills apm use <name|#>            بارگذاری و فعال‌سازی یک skill در APM\n  :skills apm dir [path]              نمایش یا تنظیم ریشه پروژه APM",
     "msg.use_hint": "[apm] از ':skills apm استفاده از <number>' برای فعال کردن یک مهارت استفاده کنید.",
     "err.name_required": "[apm] نام یا شماره مهارت را مشخص کنید.",
     "msg.found_skills": "[apm] {n} مهارت(های) در {path}/apm_modules/ پیدا شد:",
@@ -161,7 +161,7 @@
     ]
   },
   "fi": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Listaa skillit APM apm_modules/ -hakemistosta\n  :skills apm use <name|#>            Lataa ja aktivoi APM-skill\n  :skills apm dir [path]              Näytä tai aseta APM-projektin juuri",
     "msg.use_hint": "[apm] Käytä ':skills apm use <number>' aktivoidaksesi taidon.",
     "err.name_required": "[apm] Määritä taidon nimi tai numero.",
     "msg.found_skills": "[apm] Löytyi {n} taitoa kohteessa {path}/apm_modules/:",
@@ -184,7 +184,7 @@
     ]
   },
   "fr": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Lister les skills depuis APM apm_modules/\n  :skills apm use <name|#>            Charger et activer une skill APM\n  :skills apm dir [path]              Afficher ou définir la racine du projet APM",
     "msg.use_hint": "[apm] Utilisez ':skills apm use <number>' pour activer une compétence.",
     "err.name_required": "[apm] Spécifiez un nom ou un numéro de compétence.",
     "msg.found_skills": "[apm] {n} compétence(s) trouvée(s) dans {path}/apm_modules/ :",
@@ -207,7 +207,7 @@
     ]
   },
   "he": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    הצגת skills מתוך APM apm_modules/\n  :skills apm use <name|#>            טעינה והפעלה של APM skill\n  :skills apm dir [path]              הצגה או הגדרה של שורש פרויקט APM",
     "msg.use_hint": "[apm] השתמש ב-':skills apm use <number>' כדי להפעיל מיומנות.",
     "err.name_required": "[apm] ציין שם או מספר מיומנות.",
     "msg.found_skills": "[apm] נמצאו {n} מיומנויות ב-{path}/apm_modules/:",
@@ -230,7 +230,7 @@
     ]
   },
   "hi": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/ से skill सूची दिखाएँ\n  :skills apm use <name|#>            APM skill लोड और सक्रिय करें\n  :skills apm dir [path]              APM project root दिखाएँ या सेट करें",
     "msg.use_hint": "[एपीएम] किसी कौशल को सक्रिय करने के लिए ':skills apm उपयोग <संख्या>' का उपयोग करें।",
     "err.name_required": "[एपीएम] कौशल का नाम या संख्या निर्दिष्ट करें।",
     "msg.found_skills": "[apm] {path}/apm_modules/ में {n} कौशल मिला:",
@@ -253,7 +253,7 @@
     ]
   },
   "hu": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Skillek listázása az APM apm_modules/ könyvtárból\n  :skills apm use <name|#>            APM-skill betöltése és aktiválása\n  :skills apm dir [path]              Az APM projektgyökér megjelenítése vagy beállítása",
     "msg.use_hint": "[apm] Használja a ':skills apm use <number>' parancsot a képesség aktiválásához.",
     "err.name_required": "[apm] Adja meg a készség nevét vagy számát.",
     "msg.found_skills": "[apm] {n} képességet találtunk a {path}/apm_modules/ mappában:",
@@ -276,7 +276,7 @@
     ]
   },
   "id": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Daftar skill dari APM apm_modules/\n  :skills apm use <name|#>            Muat dan aktifkan skill APM\n  :skills apm dir [path]              Tampilkan atau atur root proyek APM",
     "msg.use_hint": "[apm] Gunakan ':skills apm use <number>' untuk mengaktifkan skill.",
     "err.name_required": "[apm] Tentukan nama atau nomor keterampilan.",
     "msg.found_skills": "[apm] Menemukan {n} keterampilan di {path}/apm_modules/:",
@@ -299,7 +299,7 @@
     ]
   },
   "it": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Elenca le skill da APM apm_modules/\n  :skills apm use <name|#>            Carica e attiva una skill APM\n  :skills apm dir [path]              Mostra o imposta la radice del progetto APM",
     "msg.use_hint": "[apm] Usa ':skills apm usa <numero>' per attivare un'abilità.",
     "err.name_required": "[apm] Specificare il nome o il numero di una competenza.",
     "msg.found_skills": "[apm] Trovate {n} competenze in {path}/apm_modules/:",
@@ -322,7 +322,7 @@
     ]
   },
   "ja": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/ の skill を一覧表示\n  :skills apm use <name|#>            APM skill を読み込んで有効化\n  :skills apm dir [path]              APM プロジェクトルートを表示または設定",
     "msg.use_hint": "[apm] スキルをアクティブにするには、「:skills apm use <number>」を使用します。",
     "err.name_required": "[apm] スキル名またはスキル番号を指定します。",
     "msg.found_skills": "[apm] {path}/apm_modules/ で {n} 個のスキルが見つかりました:",
@@ -345,7 +345,7 @@
     ]
   },
   "ko": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/의 skill 목록 표시\n  :skills apm use <name|#>            APM skill 로드 및 활성화\n  :skills apm dir [path]              APM 프로젝트 루트 표시 또는 설정",
     "msg.use_hint": "[apm] 스킬을 활성화하려면 ':skills apm use <number>'를 사용하세요.",
     "err.name_required": "[apm] 스킬 이름이나 번호를 지정합니다.",
     "msg.found_skills": "[apm] {path}/apm_modules/에서 {n}개의 기술을 찾았습니다.",
@@ -368,7 +368,7 @@
     ]
   },
   "mn": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/ доторх skill-үүдийг жагсаах\n  :skills apm use <name|#>            APM skill ачаалж идэвхжүүлэх\n  :skills apm dir [path]              APM төслийн root-г харах эсвэл тохируулах",
     "msg.use_hint": "[apm] Ур чадварыг идэвхжүүлэхийн тулд ':skills apm use <number>'-г ашиглана уу.",
     "err.name_required": "[apm] Ур чадварын нэр эсвэл дугаарыг зааж өгнө үү.",
     "msg.found_skills": "[apm] {path}/apm_modules/ дотроос {n} ур чадвар олсон:",
@@ -391,7 +391,7 @@
     ]
   },
   "mr": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/ मधील skill सूची दाखवा\n  :skills apm use <name|#>            APM skill लोड करून सक्रिय करा\n  :skills apm dir [path]              APM project root दाखवा किंवा सेट करा",
     "msg.use_hint": "[apm] कौशल्य सक्रिय करण्यासाठी ':skills apm वापरा <number>'.",
     "err.name_required": "[apm] कौशल्याचे नाव किंवा क्रमांक निर्दिष्ट करा.",
     "msg.found_skills": "[apm] {path}/apm_modules/ मध्ये {n} कौशल्य आढळले:",
@@ -414,7 +414,7 @@
     ]
   },
   "nb": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    List skills fra APM apm_modules/\n  :skills apm use <name|#>            Last inn og aktiver en APM-skill\n  :skills apm dir [path]              Vis eller angi APM-prosjektroten",
     "msg.use_hint": "[apm] Bruk ':skills apm use <number>' for å aktivere en ferdighet.",
     "err.name_required": "[apm] Spesifiser et ferdighetsnavn eller nummer.",
     "msg.found_skills": "[apm] Fant {n} ferdigheter i {path}/apm_modules/:",
@@ -437,7 +437,7 @@
     ]
   },
   "nl": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Skills uit APM apm_modules/ weergeven\n  :skills apm use <name|#>            Een APM-skill laden en activeren\n  :skills apm dir [path]              De APM-projectroot tonen of instellen",
     "msg.use_hint": "[apm] Gebruik ':skills apm use <nummer>' om een vaardigheid te activeren.",
     "err.name_required": "[apm] Geef een vaardigheidsnaam of -nummer op.",
     "msg.found_skills": "[apm] {n} vaardigheid(en) gevonden in {path}/apm_modules/:",
@@ -460,7 +460,7 @@
     ]
   },
   "pl": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Wyświetl skills z APM apm_modules/\n  :skills apm use <name|#>            Wczytaj i aktywuj skill APM\n  :skills apm dir [path]              Pokaż lub ustaw katalog główny projektu APM",
     "msg.use_hint": "[apm] Użyj ':skills apm use <number>', aby aktywować umiejętność.",
     "err.name_required": "[apm] Podaj nazwę lub numer umiejętności.",
     "msg.found_skills": "[apm] Znaleziono {n} umiejętności w {path}/apm_modules/:",
@@ -483,7 +483,7 @@
     ]
   },
   "pt": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Listar skills de APM apm_modules/\n  :skills apm use <name|#>            Carregar e ativar uma skill APM\n  :skills apm dir [path]              Mostrar ou definir a raiz do projeto APM",
     "msg.use_hint": "[apm] Use ':skills apm use <number>' para ativar uma habilidade.",
     "err.name_required": "[apm] Especifique um nome ou número de habilidade.",
     "msg.found_skills": "[apm] Encontradas {n} habilidades em {path}/apm_modules/:",
@@ -506,7 +506,7 @@
     ]
   },
   "pt_BR": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Listar skills de APM apm_modules/\n  :skills apm use <name|#>            Carregar e ativar uma skill APM\n  :skills apm dir [path]              Mostrar ou definir a raiz do projeto APM",
     "msg.use_hint": "[apm] Use ':skills apm use <number>' para ativar uma habilidade.",
     "err.name_required": "[apm] Especifique um nome ou número de habilidade.",
     "msg.found_skills": "[apm] Encontradas {n} habilidades em {path}/apm_modules/:",
@@ -529,7 +529,7 @@
     ]
   },
   "ro": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Listează skill-urile din APM apm_modules/\n  :skills apm use <name|#>            Încarcă și activează un skill APM\n  :skills apm dir [path]              Afișează sau setează rădăcina proiectului APM",
     "msg.use_hint": "[apm] Folosiți „:skills apm use <number>” pentru a activa o abilitate.",
     "err.name_required": "[apm] Specificați un nume sau un număr de calificare.",
     "msg.found_skills": "[apm] S-au găsit {n} abilități în {path}/apm_modules/:",
@@ -552,7 +552,7 @@
     ]
   },
   "ru": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Показать skills из APM apm_modules/\n  :skills apm use <name|#>            Загрузить и активировать APM skill\n  :skills apm dir [path]              Показать или задать корень проекта APM",
     "msg.use_hint": "[apm] Используйте ':skills apm use <номер>', чтобы активировать навык.",
     "err.name_required": "[apm] Укажите имя или номер навыка.",
     "msg.found_skills": "[apm] Найдено {n} навыков в {path}/apm_modules/:",
@@ -575,7 +575,7 @@
     ]
   },
   "sv": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Lista skills från APM apm_modules/\n  :skills apm use <name|#>            Ladda och aktivera en APM-skill\n  :skills apm dir [path]              Visa eller ange APM-projektroten",
     "msg.use_hint": "[apm] Använd ':skills apm use <number>' för att aktivera en färdighet.",
     "err.name_required": "[apm] Ange ett färdighetsnamn eller nummer.",
     "msg.found_skills": "[apm] Hittade {n} färdigheter i {path}/apm_modules/:",
@@ -598,7 +598,7 @@
     ]
   },
   "sw": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Orodhesha skill kutoka APM apm_modules/\n  :skills apm use <name|#>            Pakia na uwashe skill ya APM\n  :skills apm dir [path]              Onyesha au weka mzizi wa mradi wa APM",
     "msg.use_hint": "[apm] Tumia ':skills apm tumia <number>' kuamilisha ujuzi.",
     "err.name_required": "[apm] Bainisha jina la ujuzi au nambari.",
     "msg.found_skills": "[apm] Imepata ujuzi {n} katika {path}/moduli_za_apm/:",
@@ -621,7 +621,7 @@
     ]
   },
   "th": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    แสดงรายการ skill จาก APM apm_modules/\n  :skills apm use <name|#>            โหลดและเปิดใช้งาน APM skill\n  :skills apm dir [path]              แสดงหรือตั้งค่า root ของโปรเจ็กต์ APM",
     "msg.use_hint": "[apm] ใช้ ':ทักษะ apm ใช้ <number>' เพื่อเปิดใช้งานทักษะ",
     "err.name_required": "[apm] ระบุชื่อหรือหมายเลขทักษะ",
     "msg.found_skills": "[apm] พบ {n} ทักษะใน {path}/apm_modules/:",
@@ -644,7 +644,7 @@
     ]
   },
   "tr": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    APM apm_modules/ içindeki skill'leri listele\n  :skills apm use <name|#>            Bir APM skill yükle ve etkinleştir\n  :skills apm dir [path]              APM proje kökünü göster veya ayarla",
     "msg.use_hint": "[apm] Bir beceriyi etkinleştirmek için ':skills apm kullanın <sayı>' kullanın.",
     "err.name_required": "[apm] Bir beceri adı veya numarası belirtin.",
     "msg.found_skills": "[apm] {path}/apm_modules/ dosyasında {n} beceri bulundu:",
@@ -667,7 +667,7 @@
     ]
   },
   "uk": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Показати skills з APM apm_modules/\n  :skills apm use <name|#>            Завантажити й активувати APM skill\n  :skills apm dir [path]              Показати або встановити корінь проєкту APM",
     "msg.use_hint": "[apm] Використовуйте ':skills apm use <number>', щоб активувати навичку.",
     "err.name_required": "[apm] Укажіть назву або номер навички.",
     "msg.found_skills": "[apm] Знайдено {n} навичок у {path}/apm_modules/:",
@@ -690,7 +690,7 @@
     ]
   },
   "vi": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Liệt kê skill từ APM apm_modules/\n  :skills apm use <name|#>            Tải và kích hoạt một APM skill\n  :skills apm dir [path]              Hiển thị hoặc đặt root dự án APM",
     "msg.use_hint": "[apm] Sử dụng ':skills apm use <number>' để kích hoạt một kỹ năng.",
     "err.name_required": "[apm] Chỉ định tên hoặc số kỹ năng.",
     "msg.found_skills": "[apm] Đã tìm thấy {n} kỹ năng trong {path}/apm_modules/:",
@@ -713,7 +713,7 @@
     ]
   },
   "zh_CN": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    列出 APM apm_modules/ 中的 skill\n  :skills apm use <name|#>            加载并启用 APM skill\n  :skills apm dir [path]              显示或设置 APM 项目根目录",
     "msg.use_hint": "[apm] 使用“:skills apm use <number>”来激活技能。",
     "err.name_required": "[apm] 指定技能名称或编号。",
     "msg.found_skills": "[apm] 在 {path}/apm_modules/ 中找到 {n} 项技能：",
@@ -736,7 +736,7 @@
     ]
   },
   "zh_TW": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    列出 APM apm_modules/ 中的 skill\n  :skills apm use <name|#>            載入並啟用 APM skill\n  :skills apm dir [path]              顯示或設定 APM 專案根目錄",
     "msg.use_hint": "[apm] 使用「:skills apm use <number>」來啟動技能。",
     "err.name_required": "[apm] 指定技能名稱或編號。",
     "msg.found_skills": "[apm] 在 {path}/apm_modules/ 中找到 {n} 項技能：",
@@ -759,7 +759,7 @@
     ]
   },
   "fil": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Ilista ang mga skill mula sa APM apm_modules/\n  :skills apm use <name|#>            I-load at i-activate ang APM skill\n  :skills apm dir [path]              Ipakita o itakda ang APM project root",
     "msg.use_hint": "[apm] Gamitin ang ':skills apm use <number>' para i-activate ang isang skill.",
     "err.name_required": "[apm] Tumukoy ng pangalan o numero ng kasanayan.",
     "msg.found_skills": "[apm] Nakakita ng {n} (mga) kasanayan sa {path}/apm_modules/:",
@@ -767,7 +767,7 @@
     "msg.multiple_matches": "[apm] Maramihang tugma. Mangyaring gumamit ng numero:\n",
     "msg.applied": "[apm] Inilapat na kasanayan sa APM: {name}",
     "msg.dir_set": "[apm] Ang ugat ng proyekto ng APM ay nakatakda sa: {path}",
-    "msg.dir_current": "[apm] APM project root: {path}",
+    "msg.dir_current": "[apm] Root ng APM project: {path}",
     "err.out_of_range": "[apm] Numero sa labas ng hanay (1-{max}).",
     "err.load_failed": "[apm] Nabigong i-load ang kasanayan: {err}",
     "err.dir_not_found": "[apm] Hindi nahanap ang direktoryo: {path}",
@@ -782,7 +782,7 @@
     ]
   },
   "ms": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Senaraikan skill daripada APM apm_modules/\n  :skills apm use <name|#>            Muatkan dan aktifkan skill APM\n  :skills apm dir [path]              Tunjukkan atau tetapkan akar projek APM",
     "msg.use_hint": "[apm] Gunakan ':skills apm use <number>' untuk mengaktifkan kemahiran.",
     "err.name_required": "[apm] Nyatakan nama atau nombor kemahiran.",
     "msg.found_skills": "[apm] Menemui {n} kemahiran dalam {path}/apm_modules/:",
@@ -805,7 +805,7 @@
     ]
   },
   "da": {
-    "help_text": "  :skills apm list                    List skills from APM apm_modules/\n  :skills apm use <name|#>            Load and activate an APM skill\n  :skills apm dir [path]              Show or set APM project root",
+    "help_text": "  :skills apm list                    Vis skills fra APM apm_modules/\n  :skills apm use <name|#>            Indlæs og aktivér en APM-skill\n  :skills apm dir [path]              Vis eller angiv APM-projektroden",
     "msg.use_hint": "[apm] Brug ':skills apm use <number>' for at aktivere en færdighed.",
     "err.name_required": "[apm] Angiv et færdighedsnavn eller nummer.",
     "msg.found_skills": "[apm] Fandt {n} færdigheder i {path}/apm_modules/:",
@@ -828,7 +828,7 @@
     ]
   },
   "nn": {
-    "help_text": "  :skills apm list                    List ferdigheiter frå APM apm_modules/\n  :skills apm use <name|#>            Last inn og aktiver ei APM-ferdigheit\n  :skills apm dir [path]              Vis eller set APM-prosjektróta",
+    "help_text": "  :skills apm list                    List skills frå APM apm_modules/\n  :skills apm use <name|#>            Last inn og aktiver ein APM-skill\n  :skills apm dir [path]              Vis eller set APM-prosjektrota",
     "msg.use_hint": "[apm] Bruk ':skills apm use <number>' for å aktivere en ferdighet.",
     "err.name_required": "[apm] Spesifiser et ferdighetsnavn eller nummer.",
     "msg.found_skills": "[apm] Fant {n} ferdigheter i {path}/apm_modules/:",

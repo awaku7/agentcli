@@ -529,18 +529,18 @@
   },
   "fil": {
     "tool.description": "Magsagawa ng maraming utos ng SwitchBot Cloud nang magkakasunod.",
-    "param.commands.items.device_id.description": "Device ID.",
+    "param.commands.items.device_id.description": "ID ng device.",
     "param.commands.items.device_name.description": "Pangalan ng device ng SwitchBot.",
     "param.commands.items.action.description": "Kontrolin ang pagkilos.",
     "param.commands.items.value.description": "Halaga (0-100).",
-    "param.commands.items.mode.description": "AC mode: auto/cool/dry/fan/heat.",
-    "param.commands.items.fan_speed.description": "AC fan: auto/low/medium/high.",
+    "param.commands.items.mode.description": "Mode ng AC: auto/cool/dry/fan/heat.",
+    "param.commands.items.fan_speed.description": "Bilis ng fan ng AC: auto/low/medium/high.",
     "param.commands.description": "Mga utos na isakatuparan.",
     "param.fmt.description": "Format: json o text.",
     "err.invalid_response": "Nagbalik ang SwitchBot Cloud ng hindi inaasahang payload.",
     "err.commands_required": "Ang field ng mga command ay dapat na isang hindi walang laman na array.",
     "msg.batch_summary": "Nakumpleto ang batch: {total} (mga) command, {ok} ang nagtagumpay, {fail} ang nabigo",
-    "msg.step_error": "         Error: {err}",
+    "msg.step_error": "         Kamalian: {err}",
     "err.config_missing": "Nawawala ang mga kredensyal ng SwitchBot Cloud."
   },
   "ms": {

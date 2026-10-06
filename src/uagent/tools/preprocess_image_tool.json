@@ -969,7 +969,7 @@
       "pagpapahusay ng imahe",
       "ops ng imahe"
     ],
-    "param.mode.description": "Preprocess mode.",
+    "param.mode.description": "Mode ng preprocessing.",
     "param.grayscale.description": "I-convert ang imahe sa grayscale.",
     "param.denoise.description": "Ilapat ang denoising / smoothing.",
     "param.binarize.description": "Ilapat ang binarization / thresholding.",

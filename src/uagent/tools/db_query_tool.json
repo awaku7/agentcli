@@ -54,7 +54,7 @@
       "select"
     ],
     "err.readonly": "[Erreur db_query] Seules les instructions SELECT et PRAGMA sont autorisées.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nlignes={rows}\ncolonnes={cols}"
   },
   "ko": {
     "param.db_path.description": "SQLite 데이터베이스 파일의 경로입니다.",
@@ -92,7 +92,7 @@
       "select"
     ],
     "err.readonly": "[db_query-Fehler] Es sind nur SELECT- und PRAGMA-Anweisungen zulässig.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nZeilen={rows}\nSpalten={cols}"
   },
   "it": {
     "param.db_path.description": "Percorso del file di database SQLite.",
@@ -130,7 +130,7 @@
       "выберите"
     ],
     "err.readonly": "[ошибка db_query] Разрешены только операторы SELECT и PRAGMA.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nстроки={rows}\nстолбцы={cols}"
   },
   "pt_BR": {
     "param.db_path.description": "Caminho para o arquivo de banco de dados SQLite",
@@ -225,7 +225,7 @@
       "wybierz"
     ],
     "err.readonly": "[błąd db_query] Dozwolone są tylko instrukcje SELECT i PRAGMA.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nwiersze={rows}\nkolumny={cols}"
   },
   "hi": {
     "param.db_path.description": "SQLite डेटाबेस फ़ाइल का पथ.",
@@ -244,7 +244,7 @@
       "चयन करें"
     ],
     "err.readonly": "[db_query त्रुटि] केवल SELECT और PRAGMA कथनों की अनुमति है।",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nपंक्तियाँ={rows}\nस्तंभ={cols}"
   },
   "ar": {
     "param.db_path.description": "المسار إلى ملف قاعدة بيانات SQLite.",
@@ -358,7 +358,7 @@
       "valitse"
     ],
     "err.readonly": "[db_query error] Vain SELECT- ja PRAGMA-käskyt ovat sallittuja.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nrivit={rows}\nsarakkeet={cols}"
   },
   "cs": {
     "param.db_path.description": "Cesta k souboru databáze SQLite.",
@@ -434,7 +434,7 @@
       "เลือก"
     ],
     "err.readonly": "[db_query error] อนุญาตเฉพาะคำสั่ง SELECT และ PRAGMA เท่านั้น",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nแถว={rows}\nคอลัมน์={cols}"
   },
   "zh_CN": {
     "param.db_path.description": "SQLite 数据库文件的路径。",
@@ -586,7 +586,7 @@
       "בחר"
     ],
     "err.readonly": "[db_query error] רק הצהרות SELECT ו-PRAGMA מותרות.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nשורות={rows}\nעמודות={cols}"
   },
   "hu": {
     "param.db_path.description": "Az SQLite adatbázisfájl elérési útja.",
@@ -624,7 +624,7 @@
       "selectați"
     ],
     "err.readonly": "[db_query error] Sunt permise numai instrucțiunile SELECT și PRAGMA.",
-    "msg.result": "[db_query]\nrows={rows}\ncolumns={cols}"
+    "msg.result": "[db_query]\nrânduri={rows}\ncoloane={cols}"
   },
   "fil": {
     "param.db_path.description": "Path sa SQLite database file.",

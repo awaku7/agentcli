@@ -26,7 +26,8 @@
     "err.section_required": "エラー: mode='section' の場合は 'section' (整数) が必須です。",
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: シート {section_num} が見つかりません。有効な範囲: 1..{last}。",
-    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。"
+    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。",
+    "err.openpyxl_missing": "エラー: openpyxl がインストールされていないか、インポートできませんでした。"
   },
   "zh_CN": {
     "tool.description": "将 Excel 工作簿 (.xlsx/.xlsm) 解析为工作表摘要和表结构，返回编号索引或特定工作表部分。读取大型 Excel 文件时使用此功能：使用 mode='index' 调用以获取包含行/列计数和标题预览的工作表列表，然后使用 mode='section' 和section=N 调用以从该工作表中检索单元格数据。",
@@ -55,7 +56,8 @@
     "err.section_required": "错误：当 mode='section' 时，需要'section'（整数）。",
     "err.section_invalid": "错误：“节”必须是整数。",
     "err.section_not_found": "错误：未找到工作表 {section_num}。有效范围：1..{last}。",
-    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。"
+    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
+    "err.openpyxl_missing": "错误：未安装 openpyxl 或无法导入。"
   },
   "zh_TW": {
     "tool.description": "將 Excel 工作簿 (.xlsx/.xlsm) 解析為工作表摘要和表格結構，傳回編號索引或特定工作表部分。讀取大型 Excel 檔案時使用此功能：使用 mode='index' 呼叫以取得包含行/列計數和標題預覽的工作表列表，然後使用 mode='section' 和section=N 呼叫以從該工作表中擷取儲存格資料。",
@@ -84,7 +86,8 @@
     "err.section_required": "錯誤：當 mode='section' 時，需要'section'（整數）。",
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：未找到工作表 {section_num}。有效範圍：1..{last}。",
-    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。"
+    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
+    "err.openpyxl_missing": "錯誤：未安裝 openpyxl 或無法匯入。"
   },
   "ko": {
     "tool.description": "Excel 통합 문서(.xlsx/.xlsm)를 워크시트 요약 및 테이블 구조로 구문 분석하여 번호가 매겨진 인덱스 또는 특정 워크시트 섹션을 반환합니다. 큰 Excel 파일을 읽을 때 이것을 사용하십시오. mode='index'로 호출하여 행/열 개수와 헤더 미리 보기가 있는 워크시트 목록을 가져온 다음 mode='section' 및 section=N으로 호출하여 해당 워크시트에서 셀 데이터를 검색합니다.",
@@ -113,7 +116,8 @@
     "err.section_required": "오류: 모드='섹션'인 경우 '섹션'(정수)이 필요합니다.",
     "err.section_invalid": "오류: '섹션'은 정수여야 합니다.",
     "err.section_not_found": "오류: 시트 {section_num}을(를) 찾을 수 없습니다. 유효한 범위: 1..{last}.",
-    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요."
+    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요.",
+    "err.openpyxl_missing": "오류: openpyxl이 설치되어 있지 않거나 가져올 수 없습니다."
   },
   "fr": {
     "tool.description": "Analysez un classeur Excel (.xlsx/.xlsm) en résumés de feuilles de calcul et en structures de tableaux, en renvoyant un index numéroté ou une section de feuille de calcul spécifique. Utilisez-le lors de la lecture de gros fichiers Excel : appelez avec mode='index' pour obtenir la liste des feuilles de calcul avec le nombre de lignes/colonnes et les aperçus d'en-tête, puis appelez avec mode='section' et section=N pour récupérer les données de cellule de cette feuille de calcul.",
@@ -142,7 +146,8 @@
     "err.section_required": "Erreur : 'section' (entier) est requis lorsque mode='section'.",
     "err.section_invalid": "Erreur : « section » doit être un nombre entier.",
     "err.section_not_found": "Erreur : Feuille {section_num} introuvable. Plage valide : 1..{last}.",
-    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section »."
+    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section ».",
+    "err.openpyxl_missing": "Erreur : openpyxl n’est pas installé ou n’a pas pu être importé."
   },
   "de": {
     "tool.description": "Analysieren Sie eine Excel-Arbeitsmappe (.xlsx/.xlsm) in Arbeitsblattzusammenfassungen und Tabellenstrukturen und geben Sie einen nummerierten Index oder einen bestimmten Arbeitsblattabschnitt zurück. Verwenden Sie dies beim Lesen großer Excel-Dateien: Rufen Sie mit mode='index' auf, um die Liste der Arbeitsblätter mit Zeilen-/Spaltenanzahl und Kopfzeilenvorschau abzurufen, und rufen Sie dann mit mode='section' und section=N auf, um die Zelldaten aus diesem Arbeitsblatt abzurufen.",
@@ -171,7 +176,8 @@
     "err.section_required": "Fehler: 'Abschnitt' (Ganzzahl) ist erforderlich, wenn mode='Abschnitt'.",
     "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Blatt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
-    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“."
+    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
+    "err.openpyxl_missing": "Fehler: openpyxl ist nicht installiert oder konnte nicht importiert werden."
   },
   "es": {
     "tool.description": "Analice un libro de Excel (.xlsx/.xlsm) en resúmenes de hojas de trabajo y estructuras de tablas, devolviendo un índice numerado o una sección específica de la hoja de trabajo. Use esto cuando lea archivos grandes de Excel: llame con mode='index' para obtener la lista de hojas de trabajo con recuentos de filas/columnas y vistas previas de encabezados, luego llame con mode='section' y sección=N para recuperar los datos de celda de esa hoja de trabajo.",
@@ -200,7 +206,8 @@
     "err.section_required": "Error: se requiere 'sección' (entero) cuando modo = 'sección'.",
     "err.section_invalid": "Error: la 'sección' debe ser un número entero.",
     "err.section_not_found": "Error: Hoja {section_num} no encontrada. Rango válido: 1..{last}.",
-    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'."
+    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'.",
+    "err.openpyxl_missing": "Error: openpyxl no está instalado o no se pudo importar."
   },
   "it": {
     "tool.description": "Analizza una cartella di lavoro di Excel (.xlsx/.xlsm) in riepiloghi di fogli di lavoro e strutture di tabelle, restituendo un indice numerato o una sezione specifica del foglio di lavoro. Utilizzalo quando leggi file Excel di grandi dimensioni: chiama con mode='index' per ottenere l'elenco dei fogli di lavoro con conteggi di righe/colonne e anteprime di intestazione, quindi chiama con mode='section' esection=N per recuperare i dati della cella da quel foglio di lavoro.",
@@ -229,7 +236,8 @@
     "err.section_required": "Errore: 'sezione' (numero intero) è richiesto quando mode='sezione'.",
     "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
     "err.section_not_found": "Errore: foglio {section_num} non trovato. Intervallo valido: 1..{last}.",
-    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\"."
+    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
+    "err.openpyxl_missing": "Errore: openpyxl non è installato o non è stato possibile importarlo."
   },
   "pt_BR": {
     "tool.description": "Analise uma pasta de trabalho do Excel (.xlsx/.xlsm) em resumos de planilhas e estruturas de tabelas, retornando um índice numerado ou uma seção específica da planilha. Use isto ao ler arquivos grandes do Excel: chame com mode='index' para obter a lista de planilhas com contagens de linhas/colunas e visualizações de cabeçalho e, em seguida, chame com mode='section' e section=N para recuperar os dados das células dessa planilha.",
@@ -258,7 +266,8 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Planilha {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "err.openpyxl_missing": "Erro: o openpyxl não está instalado ou não pôde ser importado."
   },
   "pt": {
     "tool.description": "Analise uma pasta de trabalho do Excel (.xlsx/.xlsm) em resumos de planilhas e estruturas de tabelas, retornando um índice numerado ou uma seção específica da planilha. Use isto ao ler arquivos grandes do Excel: chame com mode='index' para obter a lista de planilhas com contagens de linhas/colunas e visualizações de cabeçalho e, em seguida, chame com mode='section' e section=N para recuperar os dados das células dessa planilha.",
@@ -287,7 +296,8 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Planilha {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "err.openpyxl_missing": "Erro: o openpyxl não está instalado ou não pôde ser importado."
   },
   "ru": {
     "tool.description": "Разберите книгу Excel (.xlsx/.xlsm) на сводки листов и структуры таблиц, возвращая нумерованный индекс или определенный раздел листа. Используйте это при чтении больших файлов Excel: вызовите с mode='index', чтобы получить список рабочих листов с количеством строк/столбцов и предварительным просмотром заголовков, затем вызовите с mode='section' иsection=N, чтобы получить данные ячейки из этого листа.",
@@ -316,7 +326,8 @@
     "err.section_required": "Ошибка: «раздел» (целое число) требуется, если mode = «раздел».",
     "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
     "err.section_not_found": "Ошибка: лист {section_num} не найден. Допустимый диапазон: 1..{last}.",
-    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел»."
+    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
+    "err.openpyxl_missing": "Ошибка: openpyxl не установлен или не удалось его импортировать."
   },
   "id": {
     "tool.description": "Parsing buku kerja Excel (.xlsx/.xlsm) menjadi ringkasan lembar kerja dan struktur tabel, sehingga menghasilkan indeks bernomor atau bagian lembar kerja tertentu. Gunakan ini saat membaca file Excel berukuran besar: panggil dengan mode='index' untuk mendapatkan daftar lembar kerja dengan jumlah baris/kolom dan pratinjau header, lalu panggil dengan mode='section' dan section=N untuk mengambil data sel dari lembar kerja itu.",
@@ -345,7 +356,8 @@
     "err.section_required": "Kesalahan: 'bagian' (bilangan bulat) diperlukan ketika mode='bagian'.",
     "err.section_invalid": "Kesalahan: 'bagian' harus berupa bilangan bulat.",
     "err.section_not_found": "Kesalahan: Lembar {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
-    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'."
+    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'.",
+    "err.openpyxl_missing": "Error: openpyxl belum terpasang atau tidak dapat diimpor."
   },
   "vi": {
     "tool.description": "Phân tích sổ làm việc Excel (.xlsx/.xlsm) thành các cấu trúc bảng và tóm tắt trang tính, trả về một chỉ mục được đánh số hoặc một phần trang tính cụ thể. Sử dụng tính năng này khi đọc các tệp Excel lớn: gọi với mode='index' để lấy danh sách các trang tính có số hàng/cột và xem trước tiêu đề, sau đó gọi với mode='section' vàsection=N để truy xuất dữ liệu ô từ trang tính đó.",
@@ -374,7 +386,8 @@
     "err.section_required": "Lỗi: 'phần' (số nguyên) là bắt buộc khi mode='section'.",
     "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Không tìm thấy trang {section_num}. Phạm vi hợp lệ: 1..{last}.",
-    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'."
+    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
+    "err.openpyxl_missing": "Lỗi: openpyxl chưa được cài đặt hoặc không thể nhập."
   },
   "pl": {
     "tool.description": "Przeanalizuj skoroszyt programu Excel (.xlsx/.xlsm) na podsumowania arkuszy i struktury tabel, zwracając numerowany indeks lub określoną sekcję arkusza. Użyj tego podczas czytania dużych plików Excel: wywołaj z mode='index', aby uzyskać listę arkuszy kalkulacyjnych z liczbą wierszy/kolumn i podglądem nagłówków, następnie wywołaj z mode='section' isection=N, aby pobrać dane komórek z tego arkusza.",
@@ -403,7 +416,8 @@
     "err.section_required": "Błąd: „sekcja” (liczba całkowita) jest wymagana, gdy tryb = „sekcja”.",
     "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: nie znaleziono arkusza {section_num}. Prawidłowy zakres: 1..{last}.",
-    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”."
+    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
+    "err.openpyxl_missing": "Błąd: openpyxl nie jest zainstalowany lub nie udało się go zaimportować."
   },
   "hi": {
     "tool.description": "एक्सेल वर्कबुक (.xlsx/.xlsm) को वर्कशीट सारांश और तालिका संरचनाओं में पार्स करें, एक क्रमांकित इंडेक्स या एक विशिष्ट वर्कशीट अनुभाग लौटाएं। बड़ी एक्सेल फ़ाइलों को पढ़ते समय इसका उपयोग करें: पंक्ति/कॉलम गणना और हेडर पूर्वावलोकन के साथ वर्कशीट की सूची प्राप्त करने के लिए mode='index' के साथ कॉल करें, फिर उस वर्कशीट से सेल डेटा पुनर्प्राप्त करने के लिए mode='section' और section=N के साथ कॉल करें।",
@@ -432,7 +446,8 @@
     "err.section_required": "त्रुटि: 'सेक्शन' (पूर्णांक) आवश्यक है जब मोड='सेक्शन'।",
     "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
     "err.section_not_found": "त्रुटि: शीट {section_num} नहीं मिली. वैध सीमा: 1...{last}.",
-    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें."
+    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
+    "err.openpyxl_missing": "त्रुटि: openpyxl इंस्टॉल नहीं है या इम्पोर्ट नहीं किया जा सका।"
   },
   "ar": {
     "tool.description": "قم بتحليل مصنف Excel (.xlsx/.xlsm) إلى ملخصات ورقة العمل وهياكل الجدول، مما يؤدي إلى إرجاع فهرس مرقّم أو قسم محدد في ورقة العمل. استخدم هذا عند قراءة ملفات Excel كبيرة: اتصل بالوضع='الفهرس' للحصول على قائمة أوراق العمل التي تحتوي على عدد الصفوف/الأعمدة ومعاينات الرؤوس، ثم اتصل بالوضع='القسم' والقسم=N لاسترداد بيانات الخلية من ورقة العمل تلك.",
@@ -461,7 +476,8 @@
     "err.section_required": "خطأ: \"القسم\" (عدد صحيح) مطلوب عندما يكون الوضع = \"القسم\".",
     "err.section_invalid": "خطأ: يجب أن يكون \"القسم\" عددًا صحيحًا.",
     "err.section_not_found": "خطأ: لم يتم العثور على الورقة {section_num}. النطاق الصالح: 1..{last}.",
-    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\"."
+    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\".",
+    "err.openpyxl_missing": "خطأ: openpyxl غير مثبت أو تعذر استيراده."
   },
   "sv": {
     "tool.description": "Analysera en Excel-arbetsbok (.xlsx/.xlsm) i kalkylbladssammanfattningar och tabellstrukturer, returnera ett numrerat index eller en specifik kalkylbladssektion. Använd detta när du läser stora Excel-filer: ring med mode='index' för att få listan över kalkylblad med rad-/kolumnantal och förhandsgranskning av rubriker, anrop sedan med mode='section' och section=N för att hämta celldata från det kalkylbladet.",
@@ -490,7 +506,8 @@
     "err.section_required": "Fel: 'sektion' (heltal) krävs när mode='sektion'.",
     "err.section_invalid": "Fel: 'sektion' måste vara ett heltal.",
     "err.section_not_found": "Fel: Blad {section_num} hittades inte. Giltigt intervall: 1..{last}.",
-    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'."
+    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'.",
+    "err.openpyxl_missing": "Fel: openpyxl är inte installerat eller kunde inte importeras."
   },
   "sw": {
     "tool.description": "Changanua kitabu cha kazi cha Excel (.xlsx/.xlsm) kuwa muhtasari wa laha-kazi na miundo ya jedwali, ukirudisha faharasa yenye nambari au sehemu mahususi ya laha-kazi. Tumia hii unaposoma faili kubwa za Excel: piga simu kwa mode='index' ili kupata orodha ya laha za kazi zilizo na hesabu za safu mlalo/safu wima na muhtasari wa kichwa, kisha piga simu kwa mode='section' na section=N ili kuepua data ya kisanduku kutoka kwa karatasi hiyo ya kazi.",
@@ -519,7 +536,8 @@
     "err.section_required": "Hitilafu: 'sehemu' (idadi kamili) inahitajika wakati mode='sehemu'.",
     "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
     "err.section_not_found": "Hitilafu: Laha {section_num} halijapatikana. Masafa halali: 1..{last}.",
-    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'."
+    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
+    "err.openpyxl_missing": "Hitilafu: openpyxl haijasakinishwa au haikuweza kuingizwa."
   },
   "nb": {
     "tool.description": "Parse an Excel workbook (.xlsx/.xlsm) into worksheet summaries and table structures, returning a numbered index or a specific worksheet section. Bruk dette når du leser store Excel-filer: ring med mode='index' for å få listen over regneark med rad-/kolonnetall og forhåndsvisning av overskrifter, ring deretter med mode='section' og section=N for å hente celledataene fra det regnearket.",
@@ -548,7 +566,8 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
     "err.section_not_found": "Feil: Ark {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "err.openpyxl_missing": "Feil: openpyxl er ikke installert eller kunne ikke importeres."
   },
   "nl": {
     "tool.description": "Parseer een Excel-werkmap (.xlsx/.xlsm) in werkbladsamenvattingen en tabelstructuren, waarbij een genummerde index of een specifiek werkbladgedeelte wordt geretourneerd. Gebruik dit bij het lezen van grote Excel-bestanden: roep aan met mode='index' om de lijst met werkbladen met rij-/kolomaantallen en headervoorbeelden op te halen, en roep vervolgens aan met mode='section' en section=N om de celgegevens uit dat werkblad op te halen.",
@@ -577,7 +596,8 @@
     "err.section_required": "Fout: 'section' (geheel getal) is vereist wanneer mode='section'.",
     "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: blad {section_num} niet gevonden. Geldig bereik: 1..{last}.",
-    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'."
+    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
+    "err.openpyxl_missing": "Fout: openpyxl is niet geïnstalleerd of kon niet worden geïmporteerd."
   },
   "fi": {
     "tool.description": "Jäsennä Excel-työkirja (.xlsx/.xlsm) laskentataulukoiden yhteenvetoiksi ja taulukkorakenteiksi palauttaen numeroidun hakemiston tai tietyn laskentataulukon osan. Käytä tätä, kun luet suuria Excel-tiedostoja: kutsu komennolla mode='index' saadaksesi luettelon laskentataulukoista, joissa on rivi-/sarakemäärät ja otsikon esikatselut, ja kutsu sitten mode='section' ja section=N noutaaksesi solun tiedot kyseisestä laskentataulukosta.",
@@ -606,7 +626,8 @@
     "err.section_required": "Virhe: 'osa' (kokonaisluku) vaaditaan, kun mode='section'.",
     "err.section_invalid": "Virhe: osan on oltava kokonaisluku.",
     "err.section_not_found": "Virhe: Taulukkoa {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
-    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'."
+    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'.",
+    "err.openpyxl_missing": "Virhe: openpyxl ei ole asennettu tai sitä ei voitu tuoda."
   },
   "cs": {
     "tool.description": "Analyzujte sešit aplikace Excel (.xlsx/.xlsm) na souhrny listů a struktury tabulek a vraťte očíslovaný index nebo konkrétní část listu. Použijte toto při čtení velkých souborů aplikace Excel: voláním s mode='index' získáte seznam listů s počty řádků/sloupců a náhledy záhlaví, poté voláním s mode='section' a section=N pro načtení dat buňky z tohoto listu.",
@@ -635,7 +656,8 @@
     "err.section_required": "Chyba: 'section' (celé číslo) je vyžadováno, když mode='section'.",
     "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
     "err.section_not_found": "Chyba: List {section_num} nebyl nalezen. Platný rozsah: 1..{last}.",
-    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“."
+    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
+    "err.openpyxl_missing": "Chyba: openpyxl není nainstalován nebo jej nelze importovat."
   },
   "uk": {
     "tool.description": "Проаналізуйте робочу книгу Excel (.xlsx/.xlsm) на зведені аркуші та структури таблиць, повертаючи нумерований індекс або певний розділ аркуша. Використовуйте це під час читання великих файлів Excel: виклик за допомогою mode='index', щоб отримати список робочих аркушів із кількістю рядків/стовпців і попередній перегляд заголовків, потім виклик за допомогою mode='section' і section=N, щоб отримати дані клітинок із цього аркуша.",
@@ -664,7 +686,8 @@
     "err.section_required": "Помилка: «розділ» (ціле число) потрібен, якщо режим = «розділ».",
     "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
     "err.section_not_found": "Помилка: аркуш {section_num} не знайдено. Дійсний діапазон: 1..{last}.",
-    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ»."
+    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
+    "err.openpyxl_missing": "Помилка: openpyxl не встановлено або не вдалося імпортувати."
   },
   "tr": {
     "tool.description": "Numaralandırılmış bir dizin veya belirli bir çalışma sayfası bölümü döndürerek bir Excel çalışma kitabını (.xlsx/.xlsm) çalışma sayfası özetlerine ve tablo yapılarına ayrıştırın. Büyük Excel dosyalarını okurken bunu kullanın: satır/sütun sayılarını ve başlık önizlemelerini içeren çalışma sayfalarının listesini almak için mode='index' ile çağrı yapın, ardından o çalışma sayfasından hücre verilerini almak için mode='section' vesection=N ile çağrı yapın.",
@@ -693,7 +716,8 @@
     "err.section_required": "Hata: mode='bölüm' olduğunda 'bölüm' (tamsayı) gereklidir.",
     "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: {section_num} sayfası bulunamadı. Geçerli aralık: 1..{last}.",
-    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın."
+    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
+    "err.openpyxl_missing": "Hata: openpyxl yüklü değil veya içe aktarılamadı."
   },
   "th": {
     "tool.description": "แยกวิเคราะห์เวิร์กบุ๊ก Excel (.xlsx/.xlsm) ลงในสรุปเวิร์กชีตและโครงสร้างตาราง โดยส่งคืนดัชนีที่มีตัวเลขหรือส่วนของเวิร์กชีตเฉพาะ ใช้สิ่งนี้เมื่ออ่านไฟล์ Excel ขนาดใหญ่: โทรด้วย mode='index' เพื่อรับรายการเวิร์กชีทที่มีการนับแถว/คอลัมน์และการแสดงตัวอย่างส่วนหัว จากนั้นโทรด้วย mode='section' และsection=N เพื่อดึงข้อมูลเซลล์จากเวิร์กชีตนั้น",
@@ -722,7 +746,8 @@
     "err.section_required": "ข้อผิดพลาด: ต้องใช้ 'section' (จำนวนเต็ม) เมื่อ mode='section'",
     "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบชีต {section_num} ช่วงที่ถูกต้อง: 1..{last}",
-    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'"
+    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
+    "err.openpyxl_missing": "ข้อผิดพลาด: ยังไม่ได้ติดตั้ง openpyxl หรือไม่สามารถนำเข้าได้"
   },
   "bn": {
     "tool.description": "একটি এক্সেল ওয়ার্কবুক (.xlsx/.xlsm) ওয়ার্কশীট সারাংশ এবং টেবিল স্ট্রাকচারে পার্স করুন, একটি সংখ্যাযুক্ত সূচী বা একটি নির্দিষ্ট ওয়ার্কশীট বিভাগ প্রদান করুন। বড় এক্সেল ফাইল পড়ার সময় এটি ব্যবহার করুন: সারি/কলাম সংখ্যা এবং হেডার প্রিভিউ সহ ওয়ার্কশীটের তালিকা পেতে mode='index' দিয়ে কল করুন, তারপর সেই ওয়ার্কশীট থেকে সেল ডেটা পুনরুদ্ধার করতে mode='section' এবং section=N দিয়ে কল করুন।",
@@ -751,7 +776,8 @@
     "err.section_required": "ত্রুটি: মোড='বিভাগ' হলে 'বিভাগ' (পূর্ণসংখ্যা) প্রয়োজন।",
     "err.section_invalid": "ত্রুটি: 'বিভাগ' অবশ্যই একটি পূর্ণসংখ্যা হতে হবে।",
     "err.section_not_found": "ত্রুটি: পত্রক {section_num} পাওয়া যায়নি। বৈধ ব্যাপ্তি: 1..{last}।",
-    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।"
+    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।",
+    "err.openpyxl_missing": "ত্রুটি: openpyxl ইনস্টল করা নেই বা ইমপোর্ট করা যায়নি।"
   },
   "fa": {
     "tool.description": "یک کتاب کار اکسل (xlsx/.xlsm.) را به خلاصه‌های کاربرگ و ساختارهای جدول تجزیه کنید و یک فهرست شماره‌دار یا یک بخش کاربرگ خاص را برگردانید. هنگام خواندن فایل‌های بزرگ اکسل از این استفاده کنید: با mode='index' تماس بگیرید تا لیست کاربرگ‌ها را با تعداد سطر/ستون و پیش‌نمایش هدر دریافت کنید، سپس با mode='section' و section=N تماس بگیرید تا داده‌های سلولی را از آن کاربرگ بازیابی کنید.",
@@ -780,7 +806,8 @@
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: برگه {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
-    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید."
+    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
+    "err.openpyxl_missing": "خطا: openpyxl نصب نشده است یا امکان import آن وجود ندارد."
   },
   "mn": {
     "tool.description": "Excel ажлын номыг (.xlsx/.xlsm) ажлын хуудасны хураангуй болон хүснэгтийн бүтцэд задлан, дугаарласан индекс эсвэл ажлын хуудасны тодорхой хэсгийг буцаана уу. Томоохон Excel файлуудыг уншихдаа үүнийг ашиглана уу: мөр/баганын тоо, толгой хэсгийг урьдчилан харах бүхий ажлын хуудасны жагсаалтыг авахын тулд mode='index' гэж залгаж, дараа нь mode='section' болон section=N гэж залгаж тухайн ажлын хуудаснаас нүдний өгөгдлийг сэргээнэ үү.",
@@ -809,7 +836,8 @@
     "err.section_required": "Алдаа: mode='section' үед 'section' (бүхэл тоо) шаардлагатай.",
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хуудас олдсонгүй. Хүчинтэй муж: 1..{last}.",
-    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу."
+    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
+    "err.openpyxl_missing": "Алдаа: openpyxl суулгагдаагүй эсвэл import хийж чадсангүй."
   },
   "mr": {
     "tool.description": "एक्सेल वर्कबुक (.xlsx/.xlsm) वर्कशीट सारांश आणि टेबल स्ट्रक्चर्समध्ये पार्स करा, क्रमांकित अनुक्रमणिका किंवा विशिष्ट वर्कशीट विभाग परत करा. मोठ्या एक्सेल फाइल्स वाचताना याचा वापर करा: पंक्ती/स्तंभ संख्या आणि शीर्षलेख पूर्वावलोकनासह कार्यपत्रकांची सूची मिळविण्यासाठी mode='index' सह कॉल करा, नंतर त्या वर्कशीटमधून सेल डेटा पुनर्प्राप्त करण्यासाठी mode='section' आणि section=N सह कॉल करा.",
@@ -838,7 +866,8 @@
     "err.section_required": "त्रुटी: मोड='सेक्शन' असताना 'विभाग' (पूर्णांक) आवश्यक आहे.",
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: पत्रक {section_num} आढळले नाही. वैध श्रेणी: 1..{last}.",
-    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा."
+    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
+    "err.openpyxl_missing": "त्रुटी: openpyxl स्थापित नाही किंवा import करता आले नाही."
   },
   "el": {
     "tool.description": "Αναλύστε ένα βιβλίο εργασίας του Excel (.xlsx/.xlsm) σε περιλήψεις φύλλων εργασίας και δομές πινάκων, επιστρέφοντας ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα φύλλου εργασίας. Χρησιμοποιήστε το κατά την ανάγνωση μεγάλων αρχείων Excel: καλέστε με mode='index' για να λάβετε τη λίστα των φύλλων εργασίας με πλήθος σειρών/στηλών και προεπισκοπήσεις κεφαλίδων και, στη συνέχεια, καλέστε με mode='section' και section=N για να ανακτήσετε τα δεδομένα κελιών από αυτό το φύλλο εργασίας.",
@@ -867,7 +896,8 @@
     "err.section_required": "Σφάλμα: απαιτείται 'τμήμα' (ακέραιος αριθμός) όταν mode='section'.",
     "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Το φύλλο {section_num} δεν βρέθηκε. Έγκυρο εύρος: 1..{last}.",
-    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα»."
+    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
+    "err.openpyxl_missing": "Σφάλμα: το openpyxl δεν είναι εγκατεστημένο ή δεν ήταν δυνατή η εισαγωγή του."
   },
   "he": {
     "tool.description": "נתח חוברת עבודה של Excel (.xlsx/.xlsm) לתוך סיכומי גליונות עבודה ומבני טבלה, החזרת אינדקס ממוספר או מקטע גליון עבודה ספציפי. השתמש בזה בעת קריאת קבצי Excel גדולים: התקשר עם mode='index' כדי לקבל את רשימת גליונות העבודה עם ספירת שורות/עמודות ותצוגה מקדימה של כותרות, ואז התקשר עם mode='section' ו-section=N כדי לאחזר את נתוני התא מאותו גליון עבודה.",
@@ -896,7 +926,8 @@
     "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: גיליון {section_num} לא נמצא. טווח חוקי: 1..{last}.",
-    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'."
+    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
+    "err.openpyxl_missing": "שגיאה: openpyxl אינו מותקן או שלא ניתן לייבא אותו."
   },
   "hu": {
     "tool.description": "Elemezze az Excel-munkafüzetet (.xlsx/.xlsm) munkalap-összegzésekké és táblázatszerkezetekké, visszaadva egy számozott indexet vagy egy adott munkalapszakaszt. Használja ezt a nagy Excel-fájlok olvasásakor: hívja meg a mode='index' paraméterrel a sorok/oszlopok számát és a fejléc-előnézeteket tartalmazó munkalapok listáját, majd hívja meg a mode='section' és section=N paraméterrel a cellaadatok lekéréséhez a munkalapról.",
@@ -925,7 +956,8 @@
     "err.section_required": "Hiba: 'section' (egész szám) szükséges, ha mode='section'.",
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A {section_num} munkalap nem található. Érvényes tartomány: 1..{last}.",
-    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést."
+    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
+    "err.openpyxl_missing": "Hiba: az openpyxl nincs telepítve, vagy nem sikerült importálni."
   },
   "ro": {
     "tool.description": "Analizați un registru de lucru Excel (.xlsx/.xlsm) în rezumate ale foii de lucru și structuri de tabel, returnând un index numerotat sau o anumită secțiune a foii de lucru. Utilizați acest lucru când citiți fișiere Excel mari: apelați cu mode='index' pentru a obține lista de foi de lucru cu numărătoarea rândurilor/coloanelor și previzualizările antetului, apoi apelați cu mode='section' și section=N pentru a prelua datele celulei din foaia de lucru respectivă.",
@@ -954,7 +986,8 @@
     "err.section_required": "Eroare: „secțiune” (întreg) este necesară atunci când mode = „secțiune”.",
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: foaia {section_num} nu a fost găsită. Interval valid: 1..{last}.",
-    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”."
+    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”.",
+    "err.openpyxl_missing": "Eroare: openpyxl nu este instalat sau nu a putut fi importat."
   },
   "fil": {
     "tool.description": "I-parse ang isang Excel workbook (.xlsx/.xlsm) sa mga buod ng worksheet at mga istruktura ng talahanayan, na nagbabalik ng isang may bilang na index o isang partikular na seksyon ng worksheet. Gamitin ito kapag nagbabasa ng malalaking Excel file: tumawag gamit ang mode='index' upang makuha ang listahan ng mga worksheet na may mga bilang ng row/column at mga preview ng header, pagkatapos ay tumawag gamit ang mode='section' at section=N upang kunin ang cell data mula sa worksheet na iyon.",
@@ -983,7 +1016,8 @@
     "err.section_required": "Error: 'section' (integer) ay kinakailangan kapag mode='section'.",
     "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
     "err.section_not_found": "Error: Hindi nakita ang sheet {section_num}. Wastong saklaw: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'."
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
+    "err.openpyxl_missing": "Error: hindi naka-install ang openpyxl o hindi ito ma-import."
   },
   "ms": {
     "tool.description": "Menghuraikan buku kerja Excel (.xlsx/.xlsm) ke dalam ringkasan lembaran kerja dan struktur jadual, mengembalikan indeks bernombor atau bahagian lembaran kerja tertentu. Gunakan ini apabila membaca fail Excel yang besar: panggil dengan mod='index' untuk mendapatkan senarai lembaran kerja dengan kiraan baris/lajur dan pratonton pengepala, kemudian panggil dengan mod='section' dan section=N untuk mendapatkan semula data sel daripada lembaran kerja itu.",
@@ -1012,7 +1046,8 @@
     "err.section_required": "Ralat: 'section' (integer) diperlukan apabila mode='section'.",
     "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
     "err.section_not_found": "Ralat: Helaian {section_num} tidak ditemui. Julat sah: 1..{last}.",
-    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'."
+    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'.",
+    "err.openpyxl_missing": "Ralat: openpyxl tidak dipasang atau tidak dapat diimport."
   },
   "da": {
     "tool.description": "Parse en Excel-projektmappe (.xlsx/.xlsm) i regnearksoversigter og tabelstrukturer, og returnere et nummereret indeks eller en specifik regnearkssektion. Brug dette, når du læser store Excel-filer: kald med mode='index' for at få listen over regneark med række-/kolonneantal og header-forhåndsvisninger, kald derefter med mode='section' og section=N for at hente celledataene fra det regneark.",
@@ -1041,7 +1076,8 @@
     "err.section_required": "Fejl: 'sektion' (heltal) er påkrævet, når mode='sektion'.",
     "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
     "err.section_not_found": "Fejl: Ark {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
-    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'."
+    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'.",
+    "err.openpyxl_missing": "Fejl: openpyxl er ikke installeret eller kunne ikke importeres."
   },
   "nn": {
     "tool.description": "Parse en Excel-arbeidsbok (.xlsx/.xlsm) i regnearksammendrag og tabellstrukturer, og returner en nummerert indeks eller en bestemt regnearkdel. Bruk dette når du leser store Excel-filer: ring med mode='index' for å få listen over regneark med rad-/kolonnetall og forhåndsvisning av overskrifter, ring deretter med mode='section' og section=N for å hente celledataene frå det regnearket.",
@@ -1070,6 +1106,7 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
     "err.section_not_found": "Feil: Ark {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "err.openpyxl_missing": "Feil: openpyxl er ikkje installert eller kunne ikkje importerast."
   }
 }

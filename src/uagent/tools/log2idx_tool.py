@@ -30,10 +30,6 @@ TOOL_SPEC = {
                 "log index",
                 "log parser",
                 "log section",
-                "Read log files",
-                "Log index",
-                "Extract errors",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

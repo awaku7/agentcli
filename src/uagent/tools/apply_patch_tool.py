@@ -48,7 +48,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "patch file",
                 "apply diff",
                 "unified diff apply",
-                "ux30d1ux30c3ux30c1ux9069ux7528",
             ],
         ),
         "x_search_terms_en": [

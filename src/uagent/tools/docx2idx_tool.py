@@ -51,10 +51,6 @@ TOOL_SPEC = {
                 "word index",
                 "docx parser",
                 "word document reader",
-                "Read Word files",
-                "DOCX index",
-                "Heading index",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

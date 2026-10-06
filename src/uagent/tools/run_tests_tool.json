@@ -967,7 +967,7 @@
     "param.cwd.description": "Ang gumaganang direktoryo na tatakbo (dapat nasa loob ng workdir). Kung null, kasalukuyang direktoryo.",
     "param.framework.description": "Uri ng balangkas ng pagsubok.",
     "param.pythonpath.description": "Karagdagang PYTHONPATH (hal. 'src'). Kung ibinigay, ito ay prefix sa test command.",
-    "param.report.description": "Output format.",
+    "param.report.description": "Format ng output.",
     "param.target.description": "Target (pytest path, unittest start directory, npm script, atbp.). Kung null, ang mga default ay ginagamit.",
     "param.timeout_sec.description": "Pinakamataas na oras ng pagpapatupad ng pagsubok sa mga segundo.",
     "tool.description": "Magpatakbo ng mga pagsubok (auto-detect pytest/unittest/npm). Tanggihan ang mga metacharacter ng shell sa extra_args.",

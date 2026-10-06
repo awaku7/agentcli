@@ -69,7 +69,8 @@
     "err.replacement_required": "replacement は必須です",
     "err.invalid_mode": "無効な mode です: {mode}",
     "err.invalid_mode_after": "無効な mode_after です: {mode}",
-    "err.invalid_action": "無効な action です: {action}"
+    "err.invalid_action": "無効な action です: {action}",
+    "hint.fuzzy_match": "完全一致は見つかりませんでしたが、位置 {pos} 付近に {sim:.0%} 類似した内容があります: ...{before}[{matched}]{after}... 空白、インデント、特殊文字を確認してください。"
   },
   "es": {
     "err.path_missing": "la ruta no está especificada",
@@ -141,7 +142,8 @@
     "err.replacement_required": "replacement es obligatorio",
     "err.invalid_mode": "modo no válido: {mode}",
     "err.invalid_mode_after": "mode_after no válido: {mode}",
-    "err.invalid_action": "acción no válida: {action}"
+    "err.invalid_action": "acción no válida: {action}",
+    "hint.fuzzy_match": "No se encontró una coincidencia exacta, pero se encontró contenido con una similitud de {sim:.0%} cerca de la posición {pos}: ...{before}[{matched}]{after}... Revisa espacios, sangría o caracteres especiales."
   },
   "fr": {
     "err.path_missing": "le chemin n'est pas spécifié",
@@ -213,7 +215,8 @@
     "err.replacement_required": "replacement est obligatoire",
     "err.invalid_mode": "mode invalide : {mode}",
     "err.invalid_mode_after": "mode_after invalide : {mode}",
-    "err.invalid_action": "action invalide : {action}"
+    "err.invalid_action": "action invalide : {action}",
+    "hint.fuzzy_match": "Aucune correspondance exacte trouvée, mais un contenu similaire à {sim:.0%} a été trouvé près de la position {pos} : ...{before}[{matched}]{after}... Vérifiez les espaces, l’indentation ou les caractères spéciaux."
   },
   "ko": {
     "err.path_missing": "경로가 지정되지 않음",
@@ -285,7 +288,8 @@
     "err.replacement_required": "replacement가 필요합니다",
     "err.invalid_mode": "잘못된 mode: {mode}",
     "err.invalid_mode_after": "잘못된 mode_after: {mode}",
-    "err.invalid_action": "잘못된 action: {action}"
+    "err.invalid_action": "잘못된 action: {action}",
+    "hint.fuzzy_match": "정확히 일치하는 항목은 없지만 위치 {pos} 근처에서 {sim:.0%} 유사한 내용을 찾았습니다: ...{before}[{matched}]{after}... 공백, 들여쓰기 또는 특수 문자를 확인하세요."
   },
   "de": {
     "err.path_missing": "Pfad nicht angegeben",
@@ -357,7 +361,8 @@
     "err.replacement_required": "replacement ist erforderlich",
     "err.invalid_mode": "Ungültiger Modus: {mode}",
     "err.invalid_mode_after": "Ungültiger mode_after: {mode}",
-    "err.invalid_action": "Ungültige Aktion: {action}"
+    "err.invalid_action": "Ungültige Aktion: {action}",
+    "hint.fuzzy_match": "Keine exakte Übereinstimmung gefunden, aber nahe Position {pos} wurde zu {sim:.0%} ähnlicher Inhalt gefunden: ...{before}[{matched}]{after}... Prüfen Sie Leerzeichen, Einrückung oder Sonderzeichen."
   },
   "it": {
     "err.path_missing": "il percorso non è specificato",
@@ -429,7 +434,8 @@
     "err.replacement_required": "replacement è obbligatorio",
     "err.invalid_mode": "modalità non valida: {mode}",
     "err.invalid_mode_after": "mode_after non valido: {mode}",
-    "err.invalid_action": "azione non valida: {action}"
+    "err.invalid_action": "azione non valida: {action}",
+    "hint.fuzzy_match": "Nessuna corrispondenza esatta trovata, ma è stato trovato contenuto simile al {sim:.0%} vicino alla posizione {pos}: ...{before}[{matched}]{after}... Controlla spazi, rientri o caratteri speciali."
   },
   "ru": {
     "err.path_missing": "путь не указан",
@@ -501,7 +507,8 @@
     "err.replacement_required": "требуется replacement",
     "err.invalid_mode": "недопустимый режим: {mode}",
     "err.invalid_mode_after": "недопустимый mode_after: {mode}",
-    "err.invalid_action": "недопустимое действие: {action}"
+    "err.invalid_action": "недопустимое действие: {action}",
+    "hint.fuzzy_match": "Точное совпадение не найдено, но рядом с позицией {pos} найдено содержимое с похожестью {sim:.0%}: ...{before}[{matched}]{after}... Проверьте пробелы, отступы или специальные символы."
   },
   "pt_BR": {
     "err.path_missing": "caminho não especificado",
@@ -573,7 +580,8 @@
     "err.replacement_required": "replacement é obrigatório",
     "err.invalid_mode": "modo inválido: {mode}",
     "err.invalid_mode_after": "mode_after inválido: {mode}",
-    "err.invalid_action": "ação inválida: {action}"
+    "err.invalid_action": "ação inválida: {action}",
+    "hint.fuzzy_match": "Nenhuma correspondência exata foi encontrada, mas conteúdo {sim:.0%} semelhante foi encontrado perto da posição {pos}: ...{before}[{matched}]{after}... Verifique espaços, indentação ou caracteres especiais."
   },
   "pt": {
     "err.path_missing": "caminho não especificado",
@@ -645,7 +653,8 @@
     "err.replacement_required": "replacement é obrigatório",
     "err.invalid_mode": "modo inválido: {mode}",
     "err.invalid_mode_after": "mode_after inválido: {mode}",
-    "err.invalid_action": "ação inválida: {action}"
+    "err.invalid_action": "ação inválida: {action}",
+    "hint.fuzzy_match": "Não foi encontrada correspondência exata, mas foi encontrado conteúdo {sim:.0%} semelhante perto da posição {pos}: ...{before}[{matched}]{after}... Verifique espaços, indentação ou caracteres especiais."
   },
   "id": {
     "err.path_missing": "jalur tidak ditentukan",
@@ -717,7 +726,8 @@
     "err.replacement_required": "penggantian diperlukan",
     "err.invalid_mode": "modus tidak valid: {mode}",
     "err.invalid_mode_after": "mode_setelah tidak valid: {mode}",
-    "err.invalid_action": "tindakan tidak valid: {action}"
+    "err.invalid_action": "tindakan tidak valid: {action}",
+    "hint.fuzzy_match": "Tidak ditemukan kecocokan persis, tetapi ditemukan konten dengan kemiripan {sim:.0%} di dekat posisi {pos}: ...{before}[{matched}]{after}... Periksa spasi, indentasi, atau karakter khusus."
   },
   "vi": {
     "err.path_missing": "không được chỉ định",
@@ -789,7 +799,8 @@
     "err.replacement_required": "cần phải thay thế",
     "err.invalid_mode": "chế độ không hợp lệ: {mode}",
     "err.invalid_mode_after": "chế độ không hợp lệ_sau: {mode}",
-    "err.invalid_action": "hành động không hợp lệ: {action}"
+    "err.invalid_action": "hành động không hợp lệ: {action}",
+    "hint.fuzzy_match": "Không tìm thấy khớp chính xác, nhưng tìm thấy nội dung tương tự {sim:.0%} gần vị trí {pos}: ...{before}[{matched}]{after}... Kiểm tra khoảng trắng, thụt lề hoặc ký tự đặc biệt."
   },
   "pl": {
     "err.path_missing": "nie określono ścieżki",
@@ -861,7 +872,8 @@
     "err.replacement_required": "wymagana jest wymiana",
     "err.invalid_mode": "nieprawidłowy tryb: {mode}",
     "err.invalid_mode_after": "nieprawidłowy mode_after: {mode}",
-    "err.invalid_action": "nieprawidłowe działanie: {action}"
+    "err.invalid_action": "nieprawidłowe działanie: {action}",
+    "hint.fuzzy_match": "Nie znaleziono dokładnego dopasowania, ale w pobliżu pozycji {pos} znaleziono treść podobną w {sim:.0%}: ...{before}[{matched}]{after}... Sprawdź białe znaki, wcięcia lub znaki specjalne."
   },
   "hi": {
     "err.path_missing": "पथ निर्दिष्ट नहीं है",
@@ -933,7 +945,8 @@
     "err.replacement_required": "प्रतिस्थापन की आवश्यकता है",
     "err.invalid_mode": "अमान्य मोड: {mode}",
     "err.invalid_mode_after": "अमान्य मोड_बाद: {mode}",
-    "err.invalid_action": "अमान्य कार्रवाई: {action}"
+    "err.invalid_action": "अमान्य कार्रवाई: {action}",
+    "hint.fuzzy_match": "सटीक मिलान नहीं मिला, लेकिन स्थिति {pos} के पास {sim:.0%} समान सामग्री मिली: ...{before}[{matched}]{after}... व्हाइटस्पेस, इंडेंटेशन या विशेष अक्षर जाँचें।"
   },
   "ar": {
     "err.path_missing": "لم يتم تحديد المسار",
@@ -1005,7 +1018,8 @@
     "err.replacement_required": "مطلوب استبدال",
     "err.invalid_mode": "الوضع غير صالح: {mode}",
     "err.invalid_mode_after": "mode_after غير صالح: {mode}",
-    "err.invalid_action": "إجراء غير صالح: {action}"
+    "err.invalid_action": "إجراء غير صالح: {action}",
+    "hint.fuzzy_match": "لم يتم العثور على تطابق تام، لكن تم العثور على محتوى مشابه بنسبة {sim:.0%} قرب الموضع {pos}: ...{before}[{matched}]{after}... تحقق من المسافات البادئة والمحاذاة أو الأحرف الخاصة."
   },
   "sv": {
     "err.path_missing": "path är inte angiven",
@@ -1077,7 +1091,8 @@
     "err.replacement_required": "byte krävs",
     "err.invalid_mode": "ogiltigt läge: {mode}",
     "err.invalid_mode_after": "ogiltigt mode_after: {mode}",
-    "err.invalid_action": "ogiltig åtgärd: {action}"
+    "err.invalid_action": "ogiltig åtgärd: {action}",
+    "hint.fuzzy_match": "Ingen exakt träff hittades, men {sim:.0%} liknande innehåll hittades nära position {pos}: ...{before}[{matched}]{after}... Kontrollera blanksteg, indrag eller specialtecken."
   },
   "sw": {
     "err.path_missing": "path haijabainishwa",
@@ -1149,7 +1164,8 @@
     "err.replacement_required": "uingizwaji unahitajika",
     "err.invalid_mode": "hali batili: {mode}",
     "err.invalid_mode_after": "hali_batili baada ya: {mode}",
-    "err.invalid_action": "kitendo batili: {action}"
+    "err.invalid_action": "kitendo batili: {action}",
+    "hint.fuzzy_match": "Hakuna ulinganifu kamili uliopatikana, lakini maudhui yanayofanana kwa {sim:.0%} yalipatikana karibu na nafasi {pos}: ...{before}[{matched}]{after}... Angalia nafasi, ujongezaji au herufi maalum."
   },
   "nb": {
     "err.path_missing": "path er ikke angitt",
@@ -1221,7 +1237,8 @@
     "err.replacement_required": "utskifting er nødvendig",
     "err.invalid_mode": "ugyldig modus: {mode}",
     "err.invalid_mode_after": "ugyldig modus_etter: {mode}",
-    "err.invalid_action": "ugyldig handling: {action}"
+    "err.invalid_action": "ugyldig handling: {action}",
+    "hint.fuzzy_match": "Ingen eksakt treff ble funnet, men {sim:.0%} lignende innhold ble funnet nær posisjon {pos}: ...{before}[{matched}]{after}... Kontroller mellomrom, innrykk eller spesialtegn."
   },
   "nl": {
     "err.path_missing": "pad is niet opgegeven",
@@ -1293,7 +1310,8 @@
     "err.replacement_required": "vervanging is vereist",
     "err.invalid_mode": "ongeldige modus: {mode}",
     "err.invalid_mode_after": "ongeldige mode_after: {mode}",
-    "err.invalid_action": "ongeldige actie: {action}"
+    "err.invalid_action": "ongeldige actie: {action}",
+    "hint.fuzzy_match": "Geen exacte overeenkomst gevonden, maar nabij positie {pos} is {sim:.0%} vergelijkbare inhoud gevonden: ...{before}[{matched}]{after}... Controleer witruimte, inspringing of speciale tekens."
   },
   "fi": {
     "err.path_missing": "polkua ei ole annettu",
@@ -1365,7 +1383,8 @@
     "err.replacement_required": "vaihto on tarpeen",
     "err.invalid_mode": "virheellinen tila: {mode}",
     "err.invalid_mode_after": "virheellinen mode_after: {mode}",
-    "err.invalid_action": "virheellinen toiminto: {action}"
+    "err.invalid_action": "virheellinen toiminto: {action}",
+    "hint.fuzzy_match": "Täsmällistä osumaa ei löytynyt, mutta kohdasta {pos} löytyi {sim:.0%} samankaltaista sisältöä: ...{before}[{matched}]{after}... Tarkista välilyönnit, sisennys tai erikoismerkit."
   },
   "cs": {
     "err.path_missing": "cesta není zadána",
@@ -1437,7 +1456,8 @@
     "err.replacement_required": "je nutná výměna",
     "err.invalid_mode": "neplatný režim: {mode}",
     "err.invalid_mode_after": "neplatný režim_po: {mode}",
-    "err.invalid_action": "neplatná akce: {action}"
+    "err.invalid_action": "neplatná akce: {action}",
+    "hint.fuzzy_match": "Nebyla nalezena přesná shoda, ale poblíž pozice {pos} byl nalezen obsah podobný z {sim:.0%}: ...{before}[{matched}]{after}... Zkontrolujte mezery, odsazení nebo speciální znaky."
   },
   "uk": {
     "err.path_missing": "шлях не вказано",
@@ -1509,7 +1529,8 @@
     "err.replacement_required": "потрібна заміна",
     "err.invalid_mode": "недійсний режим: {mode}",
     "err.invalid_mode_after": "недійсний режим_після: {mode}",
-    "err.invalid_action": "недійсна дія: {action}"
+    "err.invalid_action": "недійсна дія: {action}",
+    "hint.fuzzy_match": "Точного збігу не знайдено, але біля позиції {pos} знайдено вміст зі схожістю {sim:.0%}: ...{before}[{matched}]{after}... Перевірте пробіли, відступи або спеціальні символи."
   },
   "tr": {
     "err.path_missing": "yol belirtilmedi",
@@ -1581,7 +1602,8 @@
     "err.replacement_required": "değiştirme gerekli",
     "err.invalid_mode": "geçersiz mod: {mode}",
     "err.invalid_mode_after": "geçersiz mode_after: {mode}",
-    "err.invalid_action": "geçersiz işlem: {action}"
+    "err.invalid_action": "geçersiz işlem: {action}",
+    "hint.fuzzy_match": "Tam eşleşme bulunamadı, ancak {pos} konumu yakınında {sim:.0%} benzer içerik bulundu: ...{before}[{matched}]{after}... Boşlukları, girintiyi veya özel karakterleri kontrol edin."
   },
   "th": {
     "err.path_missing": "ไม่ได้ระบุเส้นทาง",
@@ -1653,7 +1675,8 @@
     "err.replacement_required": "จำเป็นต้องเปลี่ยน",
     "err.invalid_mode": "โหมดไม่ถูกต้อง: {mode}",
     "err.invalid_mode_after": "mode_after ไม่ถูกต้อง: {mode}",
-    "err.invalid_action": "การกระทำที่ไม่ถูกต้อง: {action}"
+    "err.invalid_action": "การกระทำที่ไม่ถูกต้อง: {action}",
+    "hint.fuzzy_match": "ไม่พบข้อความที่ตรงกันทั้งหมด แต่พบเนื้อหาที่คล้ายกัน {sim:.0%} ใกล้ตำแหน่ง {pos}: ...{before}[{matched}]{after}... ตรวจสอบช่องว่าง การเยื้อง หรืออักขระพิเศษ"
   },
   "zh_CN": {
     "err.path_missing": "未指定路径",
@@ -1725,7 +1748,8 @@
     "err.replacement_required": "必须指定 replacement",
     "err.invalid_mode": "无效的模式：{mode}",
     "err.invalid_mode_after": "无效的 mode_after：{mode}",
-    "err.invalid_action": "无效的操作：{action}"
+    "err.invalid_action": "无效的操作：{action}",
+    "hint.fuzzy_match": "未找到完全匹配，但在位置 {pos} 附近发现了 {sim:.0%} 相似内容：...{before}[{matched}]{after}... 请检查空白、缩进或特殊字符。"
   },
   "zh_TW": {
     "err.path_missing": "未指定路徑",
@@ -1797,7 +1821,8 @@
     "err.replacement_required": "必須指定 replacement",
     "err.invalid_mode": "無效的模式：{mode}",
     "err.invalid_mode_after": "無效的 mode_after：{mode}",
-    "err.invalid_action": "無效的操作：{action}"
+    "err.invalid_action": "無效的操作：{action}",
+    "hint.fuzzy_match": "找不到完全相符內容，但在位置 {pos} 附近發現 {sim:.0%} 相似內容：...{before}[{matched}]{after}... 請檢查空白、縮排或特殊字元。"
   },
   "bn": {
     "err.path_missing": "পাথ নির্দিষ্ট করা হয়নি",
@@ -1869,7 +1894,8 @@
     "err.replacement_required": "প্রতিস্থাপন প্রয়োজন",
     "err.invalid_mode": "অবৈধ মোড: {mode}",
     "err.invalid_mode_after": "অবৈধ মোড_আফটার: {mode}",
-    "err.invalid_action": "অবৈধ কর্ম: {action}"
+    "err.invalid_action": "অবৈধ কর্ম: {action}",
+    "hint.fuzzy_match": "সঠিক মিল পাওয়া যায়নি, তবে অবস্থান {pos}-এর কাছে {sim:.0%} মিলযুক্ত কনটেন্ট পাওয়া গেছে: ...{before}[{matched}]{after}... হোয়াইটস্পেস, ইন্ডেন্টেশন বা বিশেষ অক্ষর পরীক্ষা করুন।"
   },
   "fa": {
     "err.path_missing": "مسیر مشخص نشده است",
@@ -1941,7 +1967,8 @@
     "err.replacement_required": "تعویض مورد نیاز است",
     "err.invalid_mode": "حالت نامعتبر: {mode}",
     "err.invalid_mode_after": "نامعتبر mode_after: {mode}",
-    "err.invalid_action": "اقدام نامعتبر: {action}"
+    "err.invalid_action": "اقدام نامعتبر: {action}",
+    "hint.fuzzy_match": "تطابق دقیقی یافت نشد، اما محتوایی با شباهت {sim:.0%} نزدیک موقعیت {pos} پیدا شد: ...{before}[{matched}]{after}... فاصله‌ها، تورفتگی یا نویسه‌های ویژه را بررسی کنید."
   },
   "mn": {
     "err.path_missing": "замыг заагаагүй байна",
@@ -2013,7 +2040,8 @@
     "err.replacement_required": "солих шаардлагатай",
     "err.invalid_mode": "Буруу горим: {mode}",
     "err.invalid_mode_after": "хүчингүй горим_дараа: {mode}",
-    "err.invalid_action": "хүчингүй үйлдэл: {action}"
+    "err.invalid_action": "хүчингүй үйлдэл: {action}",
+    "hint.fuzzy_match": "Яг тохирох зүйл олдсонгүй, гэхдээ {pos} байрлалын ойролцоо {sim:.0%} төстэй агуулга олдлоо: ...{before}[{matched}]{after}... Зай, догол мөр эсвэл тусгай тэмдэгтийг шалгана уу."
   },
   "mr": {
     "err.path_missing": "पथ निर्दिष्ट नाही",
@@ -2085,7 +2113,8 @@
     "err.replacement_required": "बदली आवश्यक आहे",
     "err.invalid_mode": "अवैध मोड: {mode}",
     "err.invalid_mode_after": "अवैध मोड_after: {mode}",
-    "err.invalid_action": "अवैध क्रिया: {action}"
+    "err.invalid_action": "अवैध क्रिया: {action}",
+    "hint.fuzzy_match": "अचूक जुळणारे आढळले नाही, पण स्थान {pos} जवळ {sim:.0%} समान मजकूर आढळला: ...{before}[{matched}]{after}... whitespace, indentation किंवा विशेष अक्षरे तपासा."
   },
   "el": {
     "err.path_missing": "η διαδρομή δεν έχει καθοριστεί",
@@ -2157,7 +2186,8 @@
     "err.replacement_required": "απαιτείται αντικατάσταση",
     "err.invalid_mode": "μη έγκυρη λειτουργία: {mode}",
     "err.invalid_mode_after": "μη έγκυρη λειτουργία_μετά: {mode}",
-    "err.invalid_action": "μη έγκυρη ενέργεια: {action}"
+    "err.invalid_action": "μη έγκυρη ενέργεια: {action}",
+    "hint.fuzzy_match": "Δεν βρέθηκε ακριβής αντιστοιχία, αλλά βρέθηκε περιεχόμενο με ομοιότητα {sim:.0%} κοντά στη θέση {pos}: ...{before}[{matched}]{after}... Ελέγξτε κενά, εσοχές ή ειδικούς χαρακτήρες."
   },
   "he": {
     "err.path_missing": "נתיב לא צוין",
@@ -2229,7 +2259,8 @@
     "err.replacement_required": "נדרשת החלפה",
     "err.invalid_mode": "מצב לא חוקי: {mode}",
     "err.invalid_mode_after": "מצב לא חוקי_אחרי: {mode}",
-    "err.invalid_action": "פעולה לא חוקית: {action}"
+    "err.invalid_action": "פעולה לא חוקית: {action}",
+    "hint.fuzzy_match": "לא נמצאה התאמה מדויקת, אך נמצא תוכן דומה ב-{sim:.0%} ליד המיקום {pos}: ...{before}[{matched}]{after}... בדוק רווחים, הזחה או תווים מיוחדים."
   },
   "hu": {
     "err.path_missing": "útvonal nincs megadva",
@@ -2301,7 +2332,8 @@
     "err.replacement_required": "csere szükséges",
     "err.invalid_mode": "érvénytelen mód: {mode}",
     "err.invalid_mode_after": "érvénytelen mode_after: {mode}",
-    "err.invalid_action": "érvénytelen művelet: {action}"
+    "err.invalid_action": "érvénytelen művelet: {action}",
+    "hint.fuzzy_match": "Nem található pontos egyezés, de a(z) {pos} pozíció közelében {sim:.0%} hasonló tartalom található: ...{before}[{matched}]{after}... Ellenőrizze a szóközöket, behúzást vagy speciális karaktereket."
   },
   "ro": {
     "err.path_missing": "calea nu este specificată",
@@ -2373,7 +2405,8 @@
     "err.replacement_required": "este necesară înlocuirea",
     "err.invalid_mode": "mod nevalid: {mode}",
     "err.invalid_mode_after": "mod invalid_după: {mode}",
-    "err.invalid_action": "acțiune nevalidă: {action}"
+    "err.invalid_action": "acțiune nevalidă: {action}",
+    "hint.fuzzy_match": "Nu s-a găsit o potrivire exactă, dar s-a găsit conținut similar în proporție de {sim:.0%} lângă poziția {pos}: ...{before}[{matched}]{after}... Verificați spațiile, indentarea sau caracterele speciale."
   },
   "fil": {
     "err.path_missing": "hindi tinukoy ang landas",
@@ -2390,7 +2423,7 @@
     "param.replacement.description": "Kapalit na text.",
     "summary.blocked": "Naka-block: {count}",
     "summary.blocked_reason": "Naka-block: {reason}",
-    "summary.error": "Error: {error}",
+    "summary.error": "May error: {error}",
     "summary.files_changed": "{count} (mga) file ang nabago",
     "summary.matches": "{count} (mga) tugma",
     "summary.no_change": "Matagumpay na walang pagbabago (0 tugma)",
@@ -2416,7 +2449,7 @@
       "replace all files",
       "replace_all_in_files"
     ],
-    "param.po_msgid.description": "gettext msgid (fallback: pattern).",
+    "param.po_msgid.description": "gettext msgid (kapalit: pattern).",
     "param.anchor_before.description": "Anchor text. Para sa insert_before: text na hahanapin at ipasok bago ang linyang iyon. Para sa replace_between: simulan ang hangganan.",
     "param.anchor_after.description": "Anchor text. Para sa insert_after: text na hahanapin at ipasok pagkatapos ng linyang iyon. Para sa replace_between: end boundary.",
     "param.occurrence.description": "Pangyayari (1-based; 0 = lahat).",
@@ -2443,9 +2476,10 @@
     "err.anchors_required": "anchor_before at anchor_after ay kinakailangan para sa replace_between",
     "err.line_no_out_of_range": "line_no {line_no} out of range para sa file na may {line_count} (mga) linya (wasto: 1..{max_line})",
     "err.replacement_required": "kailangan ng kapalit",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "di-wastong pagkilos: {action}"
+    "err.invalid_mode": "hindi wastong mode: {mode}",
+    "err.invalid_mode_after": "hindi wastong mode_after: {mode}",
+    "err.invalid_action": "di-wastong pagkilos: {action}",
+    "hint.fuzzy_match": "Walang eksaktong tugma, pero may natagpuang {sim:.0%} kaparehong content malapit sa posisyon {pos}: ...{before}[{matched}]{after}... Suriin ang whitespace, indentation, o special characters."
   },
   "ms": {
     "err.path_missing": "laluan tidak ditentukan",
@@ -2488,7 +2522,7 @@
       "replace all files",
       "replace_all_in_files"
     ],
-    "param.po_msgid.description": "gettext msgid (fallback: pattern).",
+    "param.po_msgid.description": "gettext msgid (fallback: corak).",
     "param.anchor_before.description": "Teks sauh. Untuk insert_before: teks untuk mencari dan memasukkan sebelum baris itu. Untuk replace_between: sempadan mula.",
     "param.anchor_after.description": "Teks sauh. Untuk insert_after: teks untuk mencari dan memasukkan selepas baris itu. Untuk replace_between: sempadan akhir.",
     "param.occurrence.description": "Kejadian (berasaskan 1; 0 = semua).",
@@ -2517,7 +2551,8 @@
     "err.replacement_required": "penggantian diperlukan",
     "err.invalid_mode": "mod tidak sah: {mode}",
     "err.invalid_mode_after": "mod tidak sah_selepas: {mode}",
-    "err.invalid_action": "tindakan tidak sah: {action}"
+    "err.invalid_action": "tindakan tidak sah: {action}",
+    "hint.fuzzy_match": "Tiada padanan tepat ditemui, tetapi kandungan {sim:.0%} serupa ditemui berhampiran kedudukan {pos}: ...{before}[{matched}]{after}... Semak ruang putih, inden atau aksara khas."
   },
   "da": {
     "err.path_missing": "sti er ikke angivet",
@@ -2588,8 +2623,9 @@
     "err.line_no_out_of_range": "line_no {line_no} uden for rækkevidde for fil med {line_count} linje(r) (gyldig: 1..{max_line})",
     "err.replacement_required": "udskiftning er påkrævet",
     "err.invalid_mode": "ugyldig tilstand: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
-    "err.invalid_action": "ugyldig handling: {action}"
+    "err.invalid_mode_after": "ugyldig mode_after: {mode}",
+    "err.invalid_action": "ugyldig handling: {action}",
+    "hint.fuzzy_match": "Der blev ikke fundet et nøjagtigt match, men {sim:.0%} lignende indhold blev fundet nær position {pos}: ...{before}[{matched}]{after}... Kontrollér mellemrum, indrykning eller specialtegn."
   },
   "nn": {
     "err.path_missing": "banen er ikke spesifisert",
@@ -2661,6 +2697,7 @@
     "err.replacement_required": "utskifting er naudsynt",
     "err.invalid_mode": "ugyldig modus: {mode}",
     "err.invalid_mode_after": "ugyldig modus_etter: {mode}",
-    "err.invalid_action": "ugyldig handling: {action}"
+    "err.invalid_action": "ugyldig handling: {action}",
+    "hint.fuzzy_match": "Ingen eksakt treff vart funnen, men {sim:.0%} liknande innhald vart funne nær posisjon {pos}: ...{before}[{matched}]{after}... Kontroller mellomrom, innrykk eller spesialteikn."
   }
 }

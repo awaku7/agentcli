@@ -169,7 +169,10 @@ def run_tool(args: dict[str, Any]) -> str:
                 "ok": False,
                 "error": {
                     "code": "invalid_argument",
-                    "message": "business_url is required.",
+                    "message": _(
+                        "err.business_url_required",
+                        default="business_url is required.",
+                    ),
                 },
             },
             ensure_ascii=False,
@@ -181,8 +184,10 @@ def run_tool(args: dict[str, Any]) -> str:
                 "ok": False,
                 "error": {
                     "code": "invalid_argument",
-                    "message": "checkout_id is required for mode='{mode}'.".format(
-                        mode=mode
+                    "message": _(
+                        "err.checkout_id_required",
+                        default="checkout_id is required for mode='{mode}'.",
+                        mode=mode,
                     ),
                 },
             },
@@ -268,7 +273,11 @@ def run_tool(args: dict[str, Any]) -> str:
                     "ok": False,
                     "error": {
                         "code": "invalid_mode",
-                        "message": "Unknown mode: {mode}".format(mode=mode),
+                        "message": _(
+                            "err.unknown_mode",
+                            default="Unknown mode: {mode}",
+                            mode=mode,
+                        ),
                     },
                 },
                 ensure_ascii=False,
@@ -315,10 +324,14 @@ def run_tool(args: dict[str, Any]) -> str:
         result["continue_url"] = continue_url
         result["requires_escalation"] = status == "requires_escalation"
         result["user_action_required"] = True
-        result["user_action_message"] = (
-            "Open the continue_url in your browser to complete payment. "
-            "After paying, use ucp_checkout with mode='poll' and the same checkout_id "
-            "to wait for the order to complete."
+        result["user_action_message"] = _(
+            "msg.complete_payment_browser",
+            default=(
+                "Open the continue_url in your browser to complete payment. "
+                "After paying, use ucp_checkout with mode='poll' and checkout_id='{checkout_id}' "
+                "to wait for the order to complete."
+            ),
+            checkout_id=checkout_id,
         )
 
     return json.dumps(result, ensure_ascii=False, indent=2)
@@ -379,7 +392,10 @@ def _poll_checkout(
                         "ok": False,
                         "error": {
                             "code": "checkout_canceled",
-                            "message": "Checkout session was canceled.",
+                            "message": _(
+                                "err.checkout_canceled",
+                                default="Checkout session was canceled.",
+                            ),
                         },
                         "checkout_id": checkout_id,
                         "attempts": attempts,
@@ -394,9 +410,15 @@ def _poll_checkout(
             "ok": False,
             "error": {
                 "code": "poll_timeout",
-                "message": "Checkout did not complete within {timeout} seconds. "
-                "The user may not have completed payment in the browser yet. "
-                "Try mode='poll' again with a longer timeout.".format(timeout=timeout),
+                "message": _(
+                    "err.poll_timeout",
+                    default=(
+                        "Checkout did not complete within {timeout} seconds. "
+                        "The user may not have completed payment in the browser yet. "
+                        "Try mode='poll' again with a longer timeout."
+                    ),
+                    timeout=timeout,
+                ),
             },
             "checkout_id": checkout_id,
             "attempts": attempts,
@@ -425,13 +447,20 @@ def _build_escalation_response(checkout_id: str, exc: UCPBuyerInputError) -> str
     result: dict[str, Any] = {
         "ok": True,
         "requires_escalation": True,
-        "message": "Payment requires user action in browser.",
+        "message": _(
+            "msg.payment_action_required",
+            default="Payment requires user action in browser.",
+        ),
         "checkout_id": checkout_id,
         "user_action_required": True,
-        "user_action_message": (
-            "Open the continue_url in your browser to complete payment. "
-            "After paying, use ucp_checkout with mode='poll' and checkout_id='{chk}' "
-            "to wait for the order to complete.".format(chk=checkout_id)
+        "user_action_message": _(
+            "msg.complete_payment_browser",
+            default=(
+                "Open the continue_url in your browser to complete payment. "
+                "After paying, use ucp_checkout with mode='poll' and checkout_id='{checkout_id}' "
+                "to wait for the order to complete."
+            ),
+            checkout_id=checkout_id,
         ),
     }
     if continue_url:

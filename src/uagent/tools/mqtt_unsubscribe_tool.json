@@ -642,7 +642,8 @@
       "MQTT",
       "cancel",
       "subscription",
-      "subscription_id"
+      "subscription_id",
+      "kanselahin ang MQTT subscription"
     ]
   },
   "ms": {

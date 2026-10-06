@@ -103,6 +103,8 @@ TOOL_SPEC: dict[str, Any] = {
                 "pptx",
                 "page text",
                 "extract pages",
+                "document",
+                "slide",
             ],
         ),
         "x_search_terms_en": [

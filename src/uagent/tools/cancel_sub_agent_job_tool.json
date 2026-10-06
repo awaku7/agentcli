@@ -1,4 +1,164 @@
 {
+  "ar": {
+    "tool.description": "إلغاء Sub-Agent Job في الخلفية الموجود في قائمة الانتظار أو قيد التشغيل. يكون إلغاء طلب المزوّد النشط تعاونياً.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "إيقاف الوكيل الفرعي",
+      "إلغاء المهمة"
+    ],
+    "param.job_id.description": "Job ID الذي أعاده spawn_sub_agent.",
+    "param.reason.description": "سبب إلغاء اختياري."
+  },
+  "bn": {
+    "tool.description": "সারিতে থাকা বা চলমান ব্যাকগ্রাউন্ড Sub-Agent Job বাতিল করুন। সক্রিয় provider অনুরোধ সহযোগিতামূলকভাবে বাতিল হয়।",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "সাব-এজেন্ট বন্ধ",
+      "জব বাতিল"
+    ],
+    "param.job_id.description": "spawn_sub_agent থেকে ফেরত পাওয়া Job ID।",
+    "param.reason.description": "ঐচ্ছিক বাতিলের কারণ।"
+  },
+  "cs": {
+    "tool.description": "Zruší zařazenou nebo spuštěnou úlohu Sub-Agent Job na pozadí. Zrušení aktivního požadavku poskytovatele probíhá kooperativně.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "zastavit sub-agenta",
+      "zrušit úlohu"
+    ],
+    "param.job_id.description": "Job ID vrácené nástrojem spawn_sub_agent.",
+    "param.reason.description": "Volitelný důvod zrušení."
+  },
+  "da": {
+    "tool.description": "Annuller en baggrunds-Sub-Agent Job, der er i kø eller kører. Annullering af en aktiv provider-anmodning sker kooperativt.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "stop sub-agent",
+      "annuller job"
+    ],
+    "param.job_id.description": "Job ID returneret af spawn_sub_agent.",
+    "param.reason.description": "Valgfri årsag til annullering."
+  },
+  "de": {
+    "tool.description": "Bricht einen wartenden oder laufenden Hintergrund-Sub-Agent Job ab. Das Abbrechen einer aktiven Provider-Anfrage erfolgt kooperativ.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "Sub-Agent stoppen",
+      "Job abbrechen"
+    ],
+    "param.job_id.description": "Von spawn_sub_agent zurückgegebene Job ID.",
+    "param.reason.description": "Optionaler Grund für den Abbruch."
+  },
+  "el": {
+    "tool.description": "Ακυρώνει ένα Sub-Agent Job παρασκηνίου που βρίσκεται σε ουρά ή εκτελείται. Η ακύρωση ενεργού αιτήματος παρόχου γίνεται συνεργατικά.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "διακοπή sub-agent",
+      "ακύρωση job"
+    ],
+    "param.job_id.description": "Job ID που επέστρεψε το spawn_sub_agent.",
+    "param.reason.description": "Προαιρετικός λόγος ακύρωσης."
+  },
+  "es": {
+    "tool.description": "Cancela un Sub-Agent Job en segundo plano que esté en cola o ejecutándose. La cancelación de una solicitud activa al proveedor es cooperativa.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "detener sub-agente",
+      "cancelar job"
+    ],
+    "param.job_id.description": "Job ID devuelto por spawn_sub_agent.",
+    "param.reason.description": "Motivo opcional de cancelación."
+  },
+  "fa": {
+    "tool.description": "یک Sub-Agent Job پس‌زمینه در صف یا در حال اجرا را لغو می‌کند. لغو درخواست فعال ارائه‌دهنده به‌صورت همکاری انجام می‌شود.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "توقف زیرعامل",
+      "لغو کار"
+    ],
+    "param.job_id.description": "Job ID بازگردانده‌شده توسط spawn_sub_agent.",
+    "param.reason.description": "دلیل اختیاری برای لغو."
+  },
+  "fi": {
+    "tool.description": "Peruuta jonossa oleva tai käynnissä oleva taustan Sub-Agent Job. Aktiivisen provider-pyynnön peruutus tapahtuu yhteistyössä.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "pysäytä sub-agent",
+      "peruuta job"
+    ],
+    "param.job_id.description": "spawn_sub_agentin palauttama Job ID.",
+    "param.reason.description": "Valinnainen peruutuksen syy."
+  },
+  "fil": {
+    "tool.description": "Kanselahin ang naka-queue o tumatakbong background Sub-Agent Job. Cooperative ang pagkansela ng aktibong provider request.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "ihinto ang sub-agent",
+      "kanselahin ang job"
+    ],
+    "param.job_id.description": "Job ID na ibinalik ng spawn_sub_agent.",
+    "param.reason.description": "Opsyonal na dahilan ng pagkansela."
+  },
+  "fr": {
+    "tool.description": "Annule un Sub-Agent Job en arrière-plan en file d’attente ou en cours d’exécution. L’annulation d’une requête active au fournisseur est coopérative.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "arrêter le sous-agent",
+      "annuler le job"
+    ],
+    "param.job_id.description": "Job ID renvoyé par spawn_sub_agent.",
+    "param.reason.description": "Motif d’annulation facultatif."
+  },
+  "he": {
+    "tool.description": "מבטל Sub-Agent Job ברקע שנמצא בתור או פועל. ביטול בקשת ספק פעילה נעשה באופן שיתופי.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "עצירת תת-סוכן",
+      "ביטול job"
+    ],
+    "param.job_id.description": "Job ID שהוחזר על ידי spawn_sub_agent.",
+    "param.reason.description": "סיבת ביטול אופציונלית."
+  },
+  "hi": {
+    "tool.description": "कतार में पड़े या चल रहे बैकग्राउंड Sub-Agent Job को रद्द करें। सक्रिय provider अनुरोध का रद्दीकरण सहयोगात्मक होता है।",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "सब-एजेंट रोकें",
+      "जॉब रद्द करें"
+    ],
+    "param.job_id.description": "spawn_sub_agent द्वारा लौटाया गया Job ID।",
+    "param.reason.description": "वैकल्पिक रद्द करने का कारण।"
+  },
+  "hu": {
+    "tool.description": "Megszakít egy sorban álló vagy futó háttérbeli Sub-Agent Job feladatot. Az aktív szolgáltatói kérés megszakítása együttműködő módon történik.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "sub-agent leállítása",
+      "job megszakítása"
+    ],
+    "param.job_id.description": "A spawn_sub_agent által visszaadott Job ID.",
+    "param.reason.description": "Opcionális megszakítási ok."
+  },
+  "id": {
+    "tool.description": "Batalkan Sub-Agent Job latar belakang yang mengantre atau sedang berjalan. Pembatalan permintaan provider aktif dilakukan secara kooperatif.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "hentikan sub-agent",
+      "batalkan job"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent.",
+    "param.reason.description": "Alasan pembatalan opsional."
+  },
+  "it": {
+    "tool.description": "Annulla un Sub-Agent Job in background in coda o in esecuzione. L’annullamento di una richiesta provider attiva è cooperativo.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "arresta sub-agent",
+      "annulla job"
+    ],
+    "param.job_id.description": "Job ID restituito da spawn_sub_agent.",
+    "param.reason.description": "Motivo di annullamento facoltativo."
+  },
   "ja": {
     "tool.description": "キュー中または実行中のバックグラウンドサブエージェント Job をキャンセルします。実行中のプロバイダー呼び出しは協調的に停止されます。",
     "x_search_terms": [
@@ -8,5 +168,205 @@
     ],
     "param.job_id.description": "spawn_sub_agent が返した Job ID。",
     "param.reason.description": "任意のキャンセル理由。"
+  },
+  "ko": {
+    "tool.description": "대기 중이거나 실행 중인 백그라운드 Sub-Agent Job을 취소합니다. 활성 provider 요청의 취소는 협력적으로 처리됩니다.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "서브에이전트 중지",
+      "작업 취소"
+    ],
+    "param.job_id.description": "spawn_sub_agent가 반환한 Job ID입니다.",
+    "param.reason.description": "선택적 취소 사유입니다."
+  },
+  "mn": {
+    "tool.description": "Дараалалд байгаа эсвэл ажиллаж буй дэвсгэр Sub-Agent Job-ыг цуцална. Идэвхтэй provider хүсэлтийг цуцлах нь хамтын ажиллагааны зарчмаар хийгдэнэ.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "sub-agent зогсоох",
+      "job цуцлах"
+    ],
+    "param.job_id.description": "spawn_sub_agent-аас буцаасан Job ID.",
+    "param.reason.description": "Цуцлах нэмэлт шалтгаан."
+  },
+  "mr": {
+    "tool.description": "रांगेत असलेला किंवा चालू असलेला पार्श्वभूमीतील Sub-Agent Job रद्द करा. सक्रिय provider विनंतीचे रद्दीकरण सहकार्याने केले जाते.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "सब-एजंट थांबवा",
+      "जॉब रद्द करा"
+    ],
+    "param.job_id.description": "spawn_sub_agent ने परत केलेला Job ID.",
+    "param.reason.description": "ऐच्छिक रद्द करण्याचे कारण."
+  },
+  "ms": {
+    "tool.description": "Batalkan Sub-Agent Job latar belakang yang beratur atau sedang berjalan. Pembatalan permintaan provider aktif dilakukan secara koperatif.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "hentikan sub-agent",
+      "batalkan job"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent.",
+    "param.reason.description": "Sebab pembatalan pilihan."
+  },
+  "nb": {
+    "tool.description": "Avbryt en bakgrunns-Sub-Agent Job som står i kø eller kjører. Avbrytelse av en aktiv provider-forespørsel skjer kooperativt.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "stopp sub-agent",
+      "avbryt jobb"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent.",
+    "param.reason.description": "Valgfri årsak til avbrytelse."
+  },
+  "nl": {
+    "tool.description": "Annuleer een achtergrond-Sub-Agent Job die in de wachtrij staat of actief is. Annulering van een actief provider-verzoek gebeurt coöperatief.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "sub-agent stoppen",
+      "job annuleren"
+    ],
+    "param.job_id.description": "Job ID teruggegeven door spawn_sub_agent.",
+    "param.reason.description": "Optionele annuleringsreden."
+  },
+  "nn": {
+    "tool.description": "Avbryt ein bakgrunns-Sub-Agent Job som står i kø eller køyrer. Avbryting av ein aktiv provider-førespurnad skjer kooperativt.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "stopp sub-agent",
+      "avbryt jobb"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent.",
+    "param.reason.description": "Valfri grunn til avbryting."
+  },
+  "pl": {
+    "tool.description": "Anuluje oczekujący lub uruchomiony w tle Sub-Agent Job. Anulowanie aktywnego żądania providera odbywa się kooperacyjnie.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "zatrzymaj sub-agenta",
+      "anuluj job"
+    ],
+    "param.job_id.description": "Job ID zwrócony przez spawn_sub_agent.",
+    "param.reason.description": "Opcjonalny powód anulowania."
+  },
+  "pt": {
+    "tool.description": "Cancela um Sub-Agent Job em segundo plano que esteja em fila ou em execução. O cancelamento de um pedido ativo ao provider é cooperativo.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "parar sub-agent",
+      "cancelar job"
+    ],
+    "param.job_id.description": "Job ID devolvido por spawn_sub_agent.",
+    "param.reason.description": "Motivo opcional de cancelamento."
+  },
+  "pt_BR": {
+    "tool.description": "Cancela um Sub-Agent Job em segundo plano que esteja na fila ou em execução. O cancelamento de uma solicitação ativa ao provider é cooperativo.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "parar sub-agent",
+      "cancelar job"
+    ],
+    "param.job_id.description": "Job ID retornado por spawn_sub_agent.",
+    "param.reason.description": "Motivo opcional de cancelamento."
+  },
+  "ro": {
+    "tool.description": "Anulează un Sub-Agent Job de fundal aflat în coadă sau în execuție. Anularea unei cereri active către provider este cooperativă.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "oprește sub-agent",
+      "anulează job"
+    ],
+    "param.job_id.description": "Job ID returnat de spawn_sub_agent.",
+    "param.reason.description": "Motiv opțional pentru anulare."
+  },
+  "ru": {
+    "tool.description": "Отменяет фоновый Sub-Agent Job, находящийся в очереди или выполняющийся. Отмена активного запроса к provider выполняется кооперативно.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "остановить sub-agent",
+      "отменить job"
+    ],
+    "param.job_id.description": "Job ID, возвращённый spawn_sub_agent.",
+    "param.reason.description": "Необязательная причина отмены."
+  },
+  "sv": {
+    "tool.description": "Avbryt en bakgrunds-Sub-Agent Job som står i kö eller körs. Avbrytning av en aktiv provider-begäran sker kooperativt.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "stoppa sub-agent",
+      "avbryt jobb"
+    ],
+    "param.job_id.description": "Job ID som returnerades av spawn_sub_agent.",
+    "param.reason.description": "Valfri orsak till avbrytning."
+  },
+  "sw": {
+    "tool.description": "Ghairi Sub-Agent Job ya usuli iliyo kwenye foleni au inayoendelea. Kughairi ombi linalotumika la provider hufanywa kwa ushirikiano.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "simamisha sub-agent",
+      "ghairi job"
+    ],
+    "param.job_id.description": "Job ID iliyorudishwa na spawn_sub_agent.",
+    "param.reason.description": "Sababu ya hiari ya kughairi."
+  },
+  "th": {
+    "tool.description": "ยกเลิก Sub-Agent Job เบื้องหลังที่อยู่ในคิวหรือกำลังทำงาน การยกเลิกคำขอ provider ที่กำลังทำงานเป็นแบบร่วมมือกัน",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "หยุดซับเอเจนต์",
+      "ยกเลิก job"
+    ],
+    "param.job_id.description": "Job ID ที่ส่งคืนโดย spawn_sub_agent",
+    "param.reason.description": "เหตุผลการยกเลิกแบบไม่บังคับ"
+  },
+  "tr": {
+    "tool.description": "Kuyrukta veya çalışmakta olan bir arka plan Sub-Agent Job görevini iptal eder. Etkin bir provider isteğinin iptali işbirlikçi şekilde yapılır.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "sub-agent durdur",
+      "job iptal et"
+    ],
+    "param.job_id.description": "spawn_sub_agent tarafından döndürülen Job ID.",
+    "param.reason.description": "İsteğe bağlı iptal nedeni."
+  },
+  "uk": {
+    "tool.description": "Скасовує фоновий Sub-Agent Job, що стоїть у черзі або виконується. Скасування активного запиту до provider відбувається кооперативно.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "зупинити sub-agent",
+      "скасувати job"
+    ],
+    "param.job_id.description": "Job ID, повернений spawn_sub_agent.",
+    "param.reason.description": "Необов’язкова причина скасування."
+  },
+  "vi": {
+    "tool.description": "Hủy Sub-Agent Job nền đang xếp hàng hoặc đang chạy. Việc hủy yêu cầu provider đang hoạt động được thực hiện theo cơ chế hợp tác.",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "dừng sub-agent",
+      "hủy job"
+    ],
+    "param.job_id.description": "Job ID do spawn_sub_agent trả về.",
+    "param.reason.description": "Lý do hủy tùy chọn."
+  },
+  "zh_CN": {
+    "tool.description": "取消排队中或正在运行的后台 Sub-Agent Job。对活动 provider 请求的取消采用协作方式。",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "停止子代理",
+      "取消任务"
+    ],
+    "param.job_id.description": "spawn_sub_agent 返回的 Job ID。",
+    "param.reason.description": "可选的取消原因。"
+  },
+  "zh_TW": {
+    "tool.description": "取消排隊中或正在執行的背景 Sub-Agent Job。對作用中 provider 請求的取消採協作方式。",
+    "x_search_terms": [
+      "cancel_sub_agent_job",
+      "停止子代理",
+      "取消工作"
+    ],
+    "param.job_id.description": "spawn_sub_agent 傳回的 Job ID。",
+    "param.reason.description": "選用的取消原因。"
   }
 }

@@ -96,7 +96,7 @@
     "param.address.description": "Διεύθυνση εγγραφής εκκίνησης (βάσει 0).",
     "param.count.description": "Αριθμός μητρώων προς ανάγνωση (μέγιστο 125).",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
-    "msg.summary": "Modbus read: {ip} type={t} addr={addr} count={count}",
+    "msg.summary": "Ανάγνωση Modbus: {ip} type={t} addr={addr} count={count}",
     "err.ip_required": "απαιτείται ip.",
     "err.invalid_type": "Μη έγκυρος τύπος. Ισχύει: {types}.",
     "x_search_terms": [
@@ -728,8 +728,8 @@
   "fil": {
     "tool.description": "Basahin ang mga rehistro ng Modbus TCP mula sa isang device. Sinusuportahan ang mga may hawak na register, input register, coils, at discrete input.",
     "param.ip.description": "Target na IPv4 address ng device.",
-    "param.port.description": "Modbus TCP port (default: 502).",
-    "param.unit.description": "Modbus unit ID (default: 1).",
+    "param.port.description": "TCP port ng Modbus (default: 502).",
+    "param.unit.description": "Unit ID ng Modbus (default: 1).",
     "param.type.description": "Uri ng pagpaparehistro: hawak, input, coil, o discrete.",
     "param.address.description": "Panimulang rehistro ng address (0-based).",
     "param.count.description": "Bilang ng mga rehistro na babasahin (max 125).",

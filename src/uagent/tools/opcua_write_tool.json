@@ -631,7 +631,7 @@
   },
   "da": {
     "tool.description": "Skriv en værdi til en OPC UA-servernode.",
-    "param.url.description": "OPC UA server URL.",
+    "param.url.description": "URL til OPC UA-server.",
     "param.node_id.description": "Målknude-id (f.eks. 'i=85' eller 'ns=2;s=Setpunkt').",
     "param.value.description": "Værdi at skrive. Brug typetip til ikke-strengtyper.",
     "param.type.description": "Datatypetip for værdien: streng, int, float, bool.",

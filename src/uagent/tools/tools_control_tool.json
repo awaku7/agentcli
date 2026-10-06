@@ -17,7 +17,11 @@
       "ツール",
       "ツール"
     ],
-    "tool.description": "ツール制御登録用のダミーツールです。"
+    "tool.description": "ツール制御登録用のダミーツールです。",
+    "cmd.help.tools_on": "  :tools on [genre]              ツール全体または指定 genre を有効化",
+    "cmd.detail.tools_on": "genre なし: LLM へのツール送信を有効にします。\ngenre あり: その genre を有効化し、ツール全体も有効にします。",
+    "cmd.help.tools_off": "  :tools off [genre]             ツール全体または指定 genre を無効化",
+    "cmd.detail.tools_off": "genre なし: LLM へのツール送信を無効にします。\ngenre あり: その genre だけを無効にします。"
   },
   "es": {
     "cmd.help.tools_list": "  :tools list [query]               Lista las herramientas cargadas, con filtro opcional por nombre/descripción",
@@ -37,7 +41,11 @@
       "herramientas",
       "HERRAMIENTAS"
     ],
-    "tool.description": "Herramienta ficticia para el registro de control de herramientas."
+    "tool.description": "Herramienta ficticia para el registro de control de herramientas.",
+    "cmd.help.tools_on": "  :tools on [genre]              Activa herramientas globalmente o un genre",
+    "cmd.detail.tools_on": "Sin genre: activa el envío de herramientas al LLM.\nCon genre: activa ese genre y las herramientas globales.",
+    "cmd.help.tools_off": "  :tools off [genre]             Desactiva herramientas globalmente o un genre",
+    "cmd.detail.tools_off": "Sin genre: desactiva el envío de herramientas al LLM.\nCon genre: desactiva solo ese genre."
   },
   "fr": {
     "cmd.help.tools_list": "  :tools list [query]               Liste les outils chargés, avec filtrage facultatif par nom/description",
@@ -57,7 +65,11 @@
       "outils",
       "OUTILS"
     ],
-    "tool.description": "Outil factice pour l’enregistrement du contrôle des outils."
+    "tool.description": "Outil factice pour l’enregistrement du contrôle des outils.",
+    "cmd.help.tools_on": "  :tools on [genre]              Activer les outils globalement ou pour un genre",
+    "cmd.detail.tools_on": "Sans genre : activer l’envoi des outils au LLM.\nAvec genre : activer ce genre et les outils globaux.",
+    "cmd.help.tools_off": "  :tools off [genre]             Désactiver les outils globalement ou pour un genre",
+    "cmd.detail.tools_off": "Sans genre : désactiver l’envoi des outils au LLM.\nAvec genre : désactiver uniquement ce genre."
   },
   "ko": {
     "cmd.help.tools_list": "  :tools list [query]               로드된 도구를 나열하고 필요하면 이름/설명으로 필터링합니다",
@@ -77,7 +89,11 @@
       "도구",
       "도구"
     ],
-    "tool.description": "도구 제어 등록을 위한 더미 도구입니다."
+    "tool.description": "도구 제어 등록을 위한 더미 도구입니다.",
+    "cmd.help.tools_on": "  :tools on [genre]              도구 전체 또는 하나의 genre 활성화",
+    "cmd.detail.tools_on": "genre 없음: LLM으로 도구 전송을 켭니다.\ngenre 있음: 해당 genre를 활성화하고 전체 도구도 켭니다.",
+    "cmd.help.tools_off": "  :tools off [genre]             도구 전체 또는 하나의 genre 비활성화",
+    "cmd.detail.tools_off": "genre 없음: LLM으로 도구 전송을 끕니다.\ngenre 있음: 해당 genre만 비활성화합니다."
   },
   "de": {
     "cmd.help.tools_list": "  :tools list [query]               Listet geladene Tools auf, optional nach Name/Beschreibung gefiltert",
@@ -97,7 +113,11 @@
       "Werkzeuge",
       "WERKZEUGE"
     ],
-    "tool.description": "Dummy-Tool für die Registrierung der Werkzeugsteuerung."
+    "tool.description": "Dummy-Tool für die Registrierung der Werkzeugsteuerung.",
+    "cmd.help.tools_on": "  :tools on [genre]              Tools global oder für ein Genre aktivieren",
+    "cmd.detail.tools_on": "Ohne genre: Senden von Tools an das LLM einschalten.\nMit genre: dieses Genre aktivieren und globale Tools einschalten.",
+    "cmd.help.tools_off": "  :tools off [genre]             Tools global oder für ein Genre deaktivieren",
+    "cmd.detail.tools_off": "Ohne genre: Senden von Tools an das LLM ausschalten.\nMit genre: nur dieses Genre deaktivieren."
   },
   "it": {
     "cmd.help.tools_list": "  :tools list [query]               Elenca gli strumenti caricati, con filtro facoltativo per nome/descrizione",
@@ -117,7 +137,11 @@
       "strumenti",
       "STRUMENTI"
     ],
-    "tool.description": "Strumento fittizio per la registrazione del controllo degli strumenti."
+    "tool.description": "Strumento fittizio per la registrazione del controllo degli strumenti.",
+    "cmd.help.tools_on": "  :tools on [genre]              Abilita gli strumenti globalmente o per un genre",
+    "cmd.detail.tools_on": "Senza genre: attiva l’invio degli strumenti all’LLM.\nCon genre: abilita quel genre e gli strumenti globali.",
+    "cmd.help.tools_off": "  :tools off [genre]             Disabilita gli strumenti globalmente o per un genre",
+    "cmd.detail.tools_off": "Senza genre: disattiva l’invio degli strumenti all’LLM.\nCon genre: disabilita solo quel genre."
   },
   "ru": {
     "cmd.help.tools_list": "  :tools list [query]               Показывает загруженные инструменты с необязательной фильтрацией по имени/описанию",
@@ -137,7 +161,11 @@
       "инструменты",
       "ИНСТРУМЕНТЫ"
     ],
-    "tool.description": "Инструмент-пустышка для регистрации управления инструментами."
+    "tool.description": "Инструмент-пустышка для регистрации управления инструментами.",
+    "cmd.help.tools_on": "  :tools on [genre]              Включить инструменты глобально или для одного genre",
+    "cmd.detail.tools_on": "Без genre: включить отправку инструментов в LLM.\nС genre: включить этот genre и глобальные инструменты.",
+    "cmd.help.tools_off": "  :tools off [genre]             Отключить инструменты глобально или для одного genre",
+    "cmd.detail.tools_off": "Без genre: отключить отправку инструментов в LLM.\nС genre: отключить только этот genre."
   },
   "pt_BR": {
     "cmd.help.tools_list": "  :tools list [query]               Lista as ferramentas carregadas, opcionalmente filtradas por nome/descrição",
@@ -157,7 +185,11 @@
       "ferramentas",
       "FERRAMENTAS"
     ],
-    "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
+    "tool.description": "Ferramenta fictícia para registro de controle de ferramentas.",
+    "cmd.help.tools_on": "  :tools on [genre]              Ativar ferramentas globalmente ou para um genre",
+    "cmd.detail.tools_on": "Sem genre: ative o envio de ferramentas ao LLM.\nCom genre: ative esse genre e as ferramentas globais.",
+    "cmd.help.tools_off": "  :tools off [genre]             Desativar ferramentas globalmente ou para um genre",
+    "cmd.detail.tools_off": "Sem genre: desative o envio de ferramentas ao LLM.\nCom genre: desative somente esse genre."
   },
   "pt": {
     "cmd.help.tools_list": "  :tools list [query]               Lista as ferramentas carregadas, opcionalmente filtradas por nome/descrição",
@@ -177,7 +209,11 @@
       "ferramentas",
       "FERRAMENTAS"
     ],
-    "tool.description": "Ferramenta fictícia para registro de controle de ferramentas."
+    "tool.description": "Ferramenta fictícia para registro de controle de ferramentas.",
+    "cmd.help.tools_on": "  :tools on [genre]              Ativar ferramentas globalmente ou para um genre",
+    "cmd.detail.tools_on": "Sem genre: ativar o envio de ferramentas para o LLM.\nCom genre: ativar esse genre e as ferramentas globais.",
+    "cmd.help.tools_off": "  :tools off [genre]             Desativar ferramentas globalmente ou para um genre",
+    "cmd.detail.tools_off": "Sem genre: desativar o envio de ferramentas para o LLM.\nCom genre: desativar apenas esse genre."
   },
   "id": {
     "cmd.help.tools_list": "  :tools list [query]               Mencantumkan alat yang dimuat, dengan filter opsional berdasarkan nama/deskripsi",
@@ -197,7 +233,11 @@
       "alat",
       "ALAT"
     ],
-    "tool.description": "Alat tiruan untuk alat kontrol registrasi."
+    "tool.description": "Alat tiruan untuk alat kontrol registrasi.",
+    "cmd.help.tools_on": "  :tools on [genre]              Aktifkan alat secara global atau satu genre",
+    "cmd.detail.tools_on": "Tanpa genre: aktifkan pengiriman alat ke LLM.\nDengan genre: aktifkan genre tersebut dan alat global.",
+    "cmd.help.tools_off": "  :tools off [genre]             Nonaktifkan alat secara global atau satu genre",
+    "cmd.detail.tools_off": "Tanpa genre: nonaktifkan pengiriman alat ke LLM.\nDengan genre: nonaktifkan hanya genre tersebut."
   },
   "vi": {
     "cmd.help.tools_list": "  :tools list [query]               Liệt kê các công cụ đã tải, có thể lọc theo tên/mô tả",
@@ -217,7 +257,11 @@
       "công cụ",
       "CÔNG CỤ"
     ],
-    "tool.description": "Công cụ giả để đăng ký kiểm soát công cụ."
+    "tool.description": "Công cụ giả để đăng ký kiểm soát công cụ.",
+    "cmd.help.tools_on": "  :tools on [genre]              Bật công cụ toàn cục hoặc cho một genre",
+    "cmd.detail.tools_on": "Không có genre: bật gửi công cụ tới LLM.\nCó genre: bật genre đó và bật công cụ toàn cục.",
+    "cmd.help.tools_off": "  :tools off [genre]             Tắt công cụ toàn cục hoặc cho một genre",
+    "cmd.detail.tools_off": "Không có genre: tắt gửi công cụ tới LLM.\nCó genre: chỉ tắt genre đó."
   },
   "pl": {
     "cmd.help.tools_list": "  :tools list [query]               Wyświetla załadowane narzędzia, opcjonalnie filtrowane według nazwy/opisu",
@@ -237,7 +281,11 @@
       "narzędzia",
       "NARZĘDZIA"
     ],
-    "tool.description": "Atrapa narzędzia do rejestracji kontroli narzędzi."
+    "tool.description": "Atrapa narzędzia do rejestracji kontroli narzędzi.",
+    "cmd.help.tools_on": "  :tools on [genre]              Włącz narzędzia globalnie lub dla jednego genre",
+    "cmd.detail.tools_on": "Bez genre: włącz wysyłanie narzędzi do LLM.\nZ genre: włącz ten genre i narzędzia globalne.",
+    "cmd.help.tools_off": "  :tools off [genre]             Wyłącz narzędzia globalnie lub dla jednego genre",
+    "cmd.detail.tools_off": "Bez genre: wyłącz wysyłanie narzędzi do LLM.\nZ genre: wyłącz tylko ten genre."
   },
   "hi": {
     "cmd.help.tools_list": "  :tools list [query]               लोड किए गए टूल सूचीबद्ध करें, वैकल्पिक रूप से नाम/विवरण के आधार पर फ़िल्टर करें",
@@ -257,7 +305,11 @@
       "उपकरण",
       "उपकरण"
     ],
-    "tool.description": "उपकरण नियंत्रण पंजीकरण के लिए डमी उपकरण।"
+    "tool.description": "उपकरण नियंत्रण पंजीकरण के लिए डमी उपकरण।",
+    "cmd.help.tools_on": "  :tools on [genre]              टूल वैश्विक रूप से या एक genre के लिए सक्षम करें",
+    "cmd.detail.tools_on": "genre न हो: LLM को टूल भेजना चालू करें।\ngenre हो: उस genre को सक्षम करें और वैश्विक टूल चालू करें।",
+    "cmd.help.tools_off": "  :tools off [genre]             टूल वैश्विक रूप से या एक genre के लिए अक्षम करें",
+    "cmd.detail.tools_off": "genre न हो: LLM को टूल भेजना बंद करें।\ngenre हो: केवल उस genre को अक्षम करें।"
   },
   "ar": {
     "cmd.help.tools_list": "  :tools list [query]               يعرض الأدوات المحمّلة مع إمكانية التصفية حسب الاسم/الوصف",
@@ -277,7 +329,11 @@
       "أدوات",
       "أدوات"
     ],
-    "tool.description": "أداة وهمية لتسجيل أدوات التحكم."
+    "tool.description": "أداة وهمية لتسجيل أدوات التحكم.",
+    "cmd.help.tools_on": "  :tools on [genre]              تمكين الأدوات (عالميًا) أو نوع واحد",
+    "cmd.detail.tools_on": "بدون genre: شغّل إرسال الأدوات إلى LLM.\nمع genre: فعّل ذلك النوع وشغّل الأدوات العامة.",
+    "cmd.help.tools_off": "  :tools off [genre]             تعطيل الأدوات (عالميًا) أو نوع واحد",
+    "cmd.detail.tools_off": "بدون genre: أوقف إرسال الأدوات إلى LLM.\nمع genre: عطّل ذلك النوع فقط."
   },
   "sv": {
     "cmd.help.tools_list": "  :tools list [query]               Listar inlästa verktyg, valfritt filtrerade efter namn/beskrivning",
@@ -297,7 +353,11 @@
       "verktyg",
       "VERKTYG"
     ],
-    "tool.description": "Dummy-verktyg för registrering av verktygskontroll."
+    "tool.description": "Dummy-verktyg för registrering av verktygskontroll.",
+    "cmd.help.tools_on": "  :tools on [genre]              Aktivera verktyg globalt eller för en genre",
+    "cmd.detail.tools_on": "Utan genre: slå på sändning av verktyg till LLM.\nMed genre: aktivera den genren och globala verktyg.",
+    "cmd.help.tools_off": "  :tools off [genre]             Inaktivera verktyg globalt eller för en genre",
+    "cmd.detail.tools_off": "Utan genre: slå av sändning av verktyg till LLM.\nMed genre: inaktivera endast den genren."
   },
   "sw": {
     "cmd.help.tools_list": "  :tools list [query]               Orodhesha zana zilizopakiwa, kwa hiari zikichujwa kwa jina/maelezo",
@@ -317,7 +377,11 @@
       "zana",
       "ZANA"
     ],
-    "tool.description": "Chombo cha dummy cha usajili wa udhibiti wa zana."
+    "tool.description": "Chombo cha dummy cha usajili wa udhibiti wa zana.",
+    "cmd.help.tools_on": "  :tools on [genre]              Washa zana kwa ujumla au genre moja",
+    "cmd.detail.tools_on": "Bila genre: washa kutuma zana kwa LLM.\nKwa genre: washa genre hiyo na zana za jumla.",
+    "cmd.help.tools_off": "  :tools off [genre]             Zima zana kwa ujumla au genre moja",
+    "cmd.detail.tools_off": "Bila genre: zima kutuma zana kwa LLM.\nKwa genre: zima genre hiyo pekee."
   },
   "nb": {
     "cmd.help.tools_list": "  :tools list [query]               Lister innlastede verktøy, valgfritt filtrert etter navn/beskrivelse",
@@ -337,7 +401,11 @@
       "verktøy",
       "VERKTØY"
     ],
-    "tool.description": "Dummyverktøy for verktøykontrollregistrering."
+    "tool.description": "Dummyverktøy for verktøykontrollregistrering.",
+    "cmd.help.tools_on": "  :tools on [genre]              Aktiver verktøy globalt eller for én genre",
+    "cmd.detail.tools_on": "Uten genre: slå på sending av verktøy til LLM.\nMed genre: aktiver den genren og slå på globale verktøy.",
+    "cmd.help.tools_off": "  :tools off [genre]             Deaktiver verktøy globalt eller for én genre",
+    "cmd.detail.tools_off": "Uten genre: slå av sending av verktøy til LLM.\nMed genre: deaktiver bare den genren."
   },
   "nl": {
     "cmd.help.tools_list": "  :tools list [query]               Toont geladen tools, optioneel gefilterd op naam/beschrijving",
@@ -357,7 +425,11 @@
       "gereedschap",
       "GEREEDSCHAP"
     ],
-    "tool.description": "Dummytool voor gereedschapscontroleregistratie."
+    "tool.description": "Dummytool voor gereedschapscontroleregistratie.",
+    "cmd.help.tools_on": "  :tools on [genre]              Tools globaal of voor één genre inschakelen",
+    "cmd.detail.tools_on": "Zonder genre: tools naar de LLM sturen inschakelen.\nMet genre: dat genre inschakelen en globale tools aanzetten.",
+    "cmd.help.tools_off": "  :tools off [genre]             Tools globaal of voor één genre uitschakelen",
+    "cmd.detail.tools_off": "Zonder genre: tools naar de LLM sturen uitschakelen.\nMet genre: alleen dat genre uitschakelen."
   },
   "fi": {
     "cmd.help.tools_list": "  :tools list [query]               Luettelee ladatut työkalut, tarvittaessa nimen/kuvauksen mukaan suodatettuina",
@@ -377,7 +449,11 @@
       "työkalut",
       "TYÖKALUT"
     ],
-    "tool.description": "Nuken työkalu työkalujen valvontarekisteröintiin."
+    "tool.description": "Nuken työkalu työkalujen valvontarekisteröintiin.",
+    "cmd.help.tools_on": "  :tools on [genre]              Ota työkalut käyttöön globaalisti tai yhdelle genrelle",
+    "cmd.detail.tools_on": "Ilman genreä: ota työkalujen lähetys LLM:lle käyttöön.\nGenren kanssa: ota kyseinen genre ja globaalit työkalut käyttöön.",
+    "cmd.help.tools_off": "  :tools off [genre]             Poista työkalut käytöstä globaalisti tai yhdeltä genreltä",
+    "cmd.detail.tools_off": "Ilman genreä: lopeta työkalujen lähetys LLM:lle.\nGenren kanssa: poista vain kyseinen genre käytöstä."
   },
   "cs": {
     "cmd.help.tools_list": "  :tools list [query]               Vypíše načtené nástroje, volitelně filtrované podle názvu/popisu",
@@ -397,7 +473,11 @@
       "nástroje",
       "NÁSTROJE"
     ],
-    "tool.description": "Dummy nástroj pro registraci ovládání nástrojů."
+    "tool.description": "Dummy nástroj pro registraci ovládání nástrojů.",
+    "cmd.help.tools_on": "  :tools on [genre]              Povolit nástroje globálně nebo pro jeden genre",
+    "cmd.detail.tools_on": "Bez genre: zapnout odesílání nástrojů do LLM.\nS genre: povolit daný genre a zapnout globální nástroje.",
+    "cmd.help.tools_off": "  :tools off [genre]             Zakázat nástroje globálně nebo pro jeden genre",
+    "cmd.detail.tools_off": "Bez genre: vypnout odesílání nástrojů do LLM.\nS genre: zakázat pouze daný genre."
   },
   "uk": {
     "cmd.help.tools_list": "  :tools list [query]               Показує завантажені інструменти з необов’язковим фільтруванням за назвою/описом",
@@ -417,7 +497,11 @@
       "інструменти",
       "ІНСТРУМЕНТИ"
     ],
-    "tool.description": "Фіктивний інструмент для реєстрації інструментів контролю."
+    "tool.description": "Фіктивний інструмент для реєстрації інструментів контролю.",
+    "cmd.help.tools_on": "  :tools on [genre]              Увімкнути інструменти глобально або для одного genre",
+    "cmd.detail.tools_on": "Без genre: увімкнути надсилання інструментів до LLM.\nЗ genre: увімкнути цей genre і глобальні інструменти.",
+    "cmd.help.tools_off": "  :tools off [genre]             Вимкнути інструменти глобально або для одного genre",
+    "cmd.detail.tools_off": "Без genre: вимкнути надсилання інструментів до LLM.\nЗ genre: вимкнути лише цей genre."
   },
   "tr": {
     "cmd.help.tools_list": "  :tools list [query]               Yüklenen araçları listeler; isteğe bağlı olarak ad/açıklamaya göre filtreler",
@@ -437,7 +521,11 @@
       "araçlar",
       "ARAÇLAR"
     ],
-    "tool.description": "Araç kontrolü kaydı için sahte araç."
+    "tool.description": "Araç kontrolü kaydı için sahte araç.",
+    "cmd.help.tools_on": "  :tools on [genre]              Araçları genel olarak veya bir genre için etkinleştir",
+    "cmd.detail.tools_on": "Genre yoksa: LLM'e araç göndermeyi aç.\nGenre varsa: o genre'yi etkinleştir ve genel araçları aç.",
+    "cmd.help.tools_off": "  :tools off [genre]             Araçları genel olarak veya bir genre için devre dışı bırak",
+    "cmd.detail.tools_off": "Genre yoksa: LLM'e araç göndermeyi kapat.\nGenre varsa: yalnızca o genre'yi devre dışı bırak."
   },
   "th": {
     "cmd.help.tools_list": "  :tools list [query]               แสดงรายการเครื่องมือที่โหลดแล้ว โดยเลือกกรองตามชื่อ/คำอธิบายได้",
@@ -457,7 +545,11 @@
       "เครื่องมือ",
       "เครื่องมือ"
     ],
-    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนการควบคุมเครื่องมือ"
+    "tool.description": "เครื่องมือจำลองสำหรับการลงทะเบียนการควบคุมเครื่องมือ",
+    "cmd.help.tools_on": "  :tools on [genre]              เปิดใช้เครื่องมือทั้งหมดหรือหนึ่ง genre",
+    "cmd.detail.tools_on": "ไม่มี genre: เปิดการส่งเครื่องมือไปยัง LLM\nมี genre: เปิด genre นั้นและเปิดเครื่องมือทั้งหมด",
+    "cmd.help.tools_off": "  :tools off [genre]             ปิดใช้เครื่องมือทั้งหมดหรือหนึ่ง genre",
+    "cmd.detail.tools_off": "ไม่มี genre: ปิดการส่งเครื่องมือไปยัง LLM\nมี genre: ปิดเฉพาะ genre นั้น"
   },
   "zh_CN": {
     "cmd.help.tools_list": "  :tools list [query]               列出已加载的工具，并可按名称/描述筛选",
@@ -477,7 +569,11 @@
       "工具",
       "工具"
     ],
-    "tool.description": "用于工具控制注册的虚拟工具。"
+    "tool.description": "用于工具控制注册的虚拟工具。",
+    "cmd.help.tools_on": "  :tools on [genre]              全局启用工具或启用一个 genre",
+    "cmd.detail.tools_on": "无 genre：开启向 LLM 发送工具。\n有 genre：启用该 genre，并开启全局工具。",
+    "cmd.help.tools_off": "  :tools off [genre]             全局禁用工具或禁用一个 genre",
+    "cmd.detail.tools_off": "无 genre：关闭向 LLM 发送工具。\n有 genre：仅禁用该 genre。"
   },
   "zh_TW": {
     "cmd.help.tools_list": "  :tools list [query]               列出已載入的工具，並可依名稱/說明篩選",
@@ -497,7 +593,11 @@
       "工具",
       "工具"
     ],
-    "tool.description": "用於工具控制註冊的虛擬工具。"
+    "tool.description": "用於工具控制註冊的虛擬工具。",
+    "cmd.help.tools_on": "  :tools on [genre]              全域啟用工具或啟用一個 genre",
+    "cmd.detail.tools_on": "無 genre：開啟向 LLM 傳送工具。\n有 genre：啟用該 genre，並開啟全域工具。",
+    "cmd.help.tools_off": "  :tools off [genre]             全域停用工具或停用一個 genre",
+    "cmd.detail.tools_off": "無 genre：關閉向 LLM 傳送工具。\n有 genre：僅停用該 genre。"
   },
   "bn": {
     "cmd.help.tools_list": "  :tools list [query]               লোড করা টুলগুলোর তালিকা দেখায়; চাইলে নাম/বর্ণনা অনুযায়ী ফিল্টার করে",
@@ -517,7 +617,11 @@
       "সরঞ্জাম",
       "সরঞ্জাম"
     ],
-    "tool.description": "সরঞ্জাম নিয়ন্ত্রণ নিবন্ধনের জন্য ডামি টুল।"
+    "tool.description": "সরঞ্জাম নিয়ন্ত্রণ নিবন্ধনের জন্য ডামি টুল।",
+    "cmd.help.tools_on": "  :tools on [genre]              টুল চালু করুন (গ্লোবাল) অথবা একটি genre",
+    "cmd.detail.tools_on": "genre না দিলে: LLM-এ টুল পাঠানো চালু করুন।\ngenre দিলে: সেই genre সক্রিয় করুন এবং গ্লোবাল টুল চালু করুন।",
+    "cmd.help.tools_off": "  :tools off [genre]             টুল বন্ধ করুন (গ্লোবাল) অথবা একটি genre",
+    "cmd.detail.tools_off": "genre না দিলে: LLM-এ টুল পাঠানো বন্ধ করুন।\ngenre দিলে: শুধু সেই genre নিষ্ক্রিয় করুন।"
   },
   "fa": {
     "cmd.help.tools_list": "  :tools list [query]               ابزارهای بارگذاری‌شده را فهرست می‌کند و در صورت نیاز بر اساس نام/توضیح فیلتر می‌کند",
@@ -537,7 +641,11 @@
       "ابزارها",
       "ابزارها"
     ],
-    "tool.description": "ابزار ساختگی برای ثبت نام کنترل ابزار."
+    "tool.description": "ابزار ساختگی برای ثبت نام کنترل ابزار.",
+    "cmd.help.tools_on": "  :tools on [genre]              فعال‌سازی ابزارها به‌صورت سراسری یا یک genre",
+    "cmd.detail.tools_on": "بدون genre: ارسال ابزارها به LLM را فعال کنید.\nبا genre: آن genre را فعال کرده و ابزارهای سراسری را روشن کنید.",
+    "cmd.help.tools_off": "  :tools off [genre]             غیرفعال‌سازی ابزارها به‌صورت سراسری یا یک genre",
+    "cmd.detail.tools_off": "بدون genre: ارسال ابزارها به LLM را خاموش کنید.\nبا genre: فقط همان genre را غیرفعال کنید."
   },
   "mn": {
     "cmd.help.tools_list": "  :tools list [query]               Ачаалагдсан хэрэгслүүдийг жагсааж, хүсвэл нэр/тайлбараар шүүнэ",
@@ -557,7 +665,11 @@
       "хэрэгслүүд",
       "хэрэгслүүд"
     ],
-    "tool.description": "Хэрэгслийн хяналтын бүртгэлд зориулсан дамми хэрэгсэл."
+    "tool.description": "Хэрэгслийн хяналтын бүртгэлд зориулсан дамми хэрэгсэл.",
+    "cmd.help.tools_on": "  :tools on [genre]              Хэрэгслүүдийг бүхэлд нь эсвэл нэг genre-д идэвхжүүлэх",
+    "cmd.detail.tools_on": "Genre байхгүй: LLM рүү хэрэгсэл илгээхийг асаана.\nGenre-тэй: тухайн genre-г идэвхжүүлж, бүх хэрэгслийг асаана.",
+    "cmd.help.tools_off": "  :tools off [genre]             Хэрэгслүүдийг бүхэлд нь эсвэл нэг genre-д идэвхгүй болгох",
+    "cmd.detail.tools_off": "Genre байхгүй: LLM рүү хэрэгсэл илгээхийг унтраана.\nGenre-тэй: зөвхөн тухайн genre-г идэвхгүй болгоно."
   },
   "mr": {
     "cmd.help.tools_list": "  :tools list [query]               लोड केलेली टूल्स सूचीबद्ध करा; हवे असल्यास नाव/वर्णनानुसार फिल्टर करा",
@@ -577,7 +689,11 @@
       "साधने",
       "साधने"
     ],
-    "tool.description": "टूल्स कंट्रोल नोंदणीसाठी डमी टूल."
+    "tool.description": "टूल्स कंट्रोल नोंदणीसाठी डमी टूल.",
+    "cmd.help.tools_on": "  :tools on [genre]              साधने जागतिक किंवा एका genre साठी सक्षम करा",
+    "cmd.detail.tools_on": "genre नसल्यास: LLM कडे साधने पाठवणे सुरू करा.\ngenre असल्यास: तो genre सक्षम करा आणि जागतिक साधने सुरू करा.",
+    "cmd.help.tools_off": "  :tools off [genre]             साधने जागतिक किंवा एका genre साठी अक्षम करा",
+    "cmd.detail.tools_off": "genre नसल्यास: LLM कडे साधने पाठवणे बंद करा.\ngenre असल्यास: फक्त तो genre अक्षम करा."
   },
   "el": {
     "cmd.help.tools_list": "  :tools list [query]               Παραθέτει τα φορτωμένα εργαλεία, με προαιρετικό φιλτράρισμα κατά όνομα/περιγραφή",
@@ -597,7 +713,11 @@
       "εργαλεία",
       "ΕΡΓΑΛΕΙΑ"
     ],
-    "tool.description": "Εργαλείο εικονικής εγγραφής για τον έλεγχο εργαλείων."
+    "tool.description": "Εργαλείο εικονικής εγγραφής για τον έλεγχο εργαλείων.",
+    "cmd.help.tools_on": "  :tools on [genre]              Ενεργοποίηση εργαλείων καθολικά ή για ένα genre",
+    "cmd.detail.tools_on": "Χωρίς genre: ενεργοποίηση αποστολής εργαλείων στο LLM.\nΜε genre: ενεργοποίηση αυτού του genre και των καθολικών εργαλείων.",
+    "cmd.help.tools_off": "  :tools off [genre]             Απενεργοποίηση εργαλείων καθολικά ή για ένα genre",
+    "cmd.detail.tools_off": "Χωρίς genre: διακοπή αποστολής εργαλείων στο LLM.\nΜε genre: απενεργοποίηση μόνο αυτού του genre."
   },
   "he": {
     "cmd.help.tools_list": "  :tools list [query]               מציג את הכלים שנטענו, עם סינון אופציונלי לפי שם/תיאור",
@@ -617,7 +737,11 @@
       "כלים",
       "כלים"
     ],
-    "tool.description": "כלי דמה לרישום בקרת כלים."
+    "tool.description": "כלי דמה לרישום בקרת כלים.",
+    "cmd.help.tools_on": "  :tools on [genre]              הפעלת כלים גלובלית או עבור genre אחד",
+    "cmd.detail.tools_on": "ללא genre: הפעלת שליחת כלים ל-LLM.\nעם genre: הפעלת אותו genre וגם כלים גלובליים.",
+    "cmd.help.tools_off": "  :tools off [genre]             השבתת כלים גלובלית או עבור genre אחד",
+    "cmd.detail.tools_off": "ללא genre: השבתת שליחת כלים ל-LLM.\nעם genre: השבתת אותו genre בלבד."
   },
   "hu": {
     "cmd.help.tools_list": "  :tools list [query]               Felsorolja a betöltött eszközöket, opcionálisan név/leírás szerint szűrve",
@@ -637,7 +761,11 @@
       "eszközök",
       "ESZKÖZÖK"
     ],
-    "tool.description": "Dummy eszköz a szerszámok ellenőrzéséhez."
+    "tool.description": "Dummy eszköz a szerszámok ellenőrzéséhez.",
+    "cmd.help.tools_on": "  :tools on [genre]              Eszközök engedélyezése globálisan vagy egy genre számára",
+    "cmd.detail.tools_on": "Genre nélkül: kapcsolja be az eszközök küldését az LLM-nek.\nGenre-rel: engedélyezze azt a genre-t és kapcsolja be a globális eszközöket.",
+    "cmd.help.tools_off": "  :tools off [genre]             Eszközök letiltása globálisan vagy egy genre számára",
+    "cmd.detail.tools_off": "Genre nélkül: kapcsolja ki az eszközök küldését az LLM-nek.\nGenre-rel: csak azt a genre-t tiltsa le."
   },
   "ro": {
     "cmd.help.tools_list": "  :tools list [query]               Listează instrumentele încărcate, opțional filtrate după nume/descriere",
@@ -657,7 +785,11 @@
       "unelte",
       "UNELTE"
     ],
-    "tool.description": "Instrument fals pentru înregistrarea controlului sculelor."
+    "tool.description": "Instrument fals pentru înregistrarea controlului sculelor.",
+    "cmd.help.tools_on": "  :tools on [genre]              Activează instrumentele global sau pentru un genre",
+    "cmd.detail.tools_on": "Fără genre: activează trimiterea instrumentelor către LLM.\nCu genre: activează acel genre și instrumentele globale.",
+    "cmd.help.tools_off": "  :tools off [genre]             Dezactivează instrumentele global sau pentru un genre",
+    "cmd.detail.tools_off": "Fără genre: dezactivează trimiterea instrumentelor către LLM.\nCu genre: dezactivează doar acel genre."
   },
   "fil": {
     "cmd.help.tools_list": "  :tools list [query]               Ilista ang mga naka-load na tool, na maaaring salain ayon sa pangalan/paglalarawan",
@@ -677,7 +809,11 @@
       "tools",
       "TOOLS"
     ],
-    "tool.description": "Dummy tool para sa mga tool control registration."
+    "tool.description": "Dummy tool para sa mga tool control registration.",
+    "cmd.help.tools_on": "  :tools on [genre]              I-enable ang tools globally o isang genre",
+    "cmd.detail.tools_on": "Walang genre: i-on ang pagpapadala ng tools sa LLM.\nMay genre: i-enable ang genre na iyon at i-on ang global tools.",
+    "cmd.help.tools_off": "  :tools off [genre]             I-disable ang tools globally o isang genre",
+    "cmd.detail.tools_off": "Walang genre: i-off ang pagpapadala ng tools sa LLM.\nMay genre: i-disable lang ang genre na iyon."
   },
   "ms": {
     "cmd.help.tools_list": "  :tools list [query]               Senaraikan alat yang dimuatkan, dengan pilihan tapis mengikut nama/penerangan",
@@ -697,7 +833,11 @@
       "alat",
       "ALAT"
     ],
-    "tool.description": "Alat dummy untuk pendaftaran kawalan alat."
+    "tool.description": "Alat dummy untuk pendaftaran kawalan alat.",
+    "cmd.help.tools_on": "  :tools on [genre]              Dayakan alat secara global atau satu genre",
+    "cmd.detail.tools_on": "Tanpa genre: hidupkan penghantaran alat ke LLM.\nDengan genre: dayakan genre itu dan hidupkan alat global.",
+    "cmd.help.tools_off": "  :tools off [genre]             Nyahdayakan alat secara global atau satu genre",
+    "cmd.detail.tools_off": "Tanpa genre: matikan penghantaran alat ke LLM.\nDengan genre: nyahdayakan genre itu sahaja."
   },
   "da": {
     "cmd.help.tools_list": "  :tools list [query]               Viser indlæste værktøjer, valgfrit filtreret efter navn/beskrivelse",
@@ -717,7 +857,11 @@
       "værktøjer",
       "VÆRKTØJ"
     ],
-    "tool.description": "Dummy-værktøj til registrering af værktøjskontrol."
+    "tool.description": "Dummy-værktøj til registrering af værktøjskontrol.",
+    "cmd.help.tools_on": "  :tools on [genre]              Aktivér værktøjer globalt eller én genre",
+    "cmd.detail.tools_on": "Uden genre: slå afsendelse af værktøjer til LLM til.\nMed genre: aktivér den genre og slå globale værktøjer til.",
+    "cmd.help.tools_off": "  :tools off [genre]             Deaktivér værktøjer globalt eller én genre",
+    "cmd.detail.tools_off": "Uden genre: slå afsendelse af værktøjer til LLM fra.\nMed genre: deaktivér kun den genre."
   },
   "nn": {
     "cmd.help.tools_list": "  :tools list [query]               List innlasta verktøy, eventuelt filtrerte etter namn eller omtale",
@@ -737,6 +881,10 @@
       "tools",
       "TOOLS"
     ],
-    "tool.description": "Dummyverktøy for verktøykontrollregistrering."
+    "tool.description": "Dummyverktøy for verktøykontrollregistrering.",
+    "cmd.help.tools_on": "  :tools on [genre]              Aktiver verktøy globalt eller for éin genre",
+    "cmd.detail.tools_on": "Utan genre: slå på sending av verktøy til LLM.\nMed genre: aktiver den genren og slå på globale verktøy.",
+    "cmd.help.tools_off": "  :tools off [genre]             Deaktiver verktøy globalt eller for éin genre",
+    "cmd.detail.tools_off": "Utan genre: slå av sending av verktøy til LLM.\nMed genre: deaktiver berre den genren."
   }
 }

@@ -34,6 +34,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "location lookup",
                 "address lookup",
                 "coordinates to address",
+                "geo address",
             ],
         ),
         "x_search_terms_en": [

@@ -64,7 +64,7 @@
   },
   "fil": {
     "tool.description": "Magsimula o huminto sa isang UCP MCP Server na bumabalot sa REST API ng isang UCP merchant bilang MCP na mga tool. Gamitin ang mode='start' upang ilunsad ang server, mode='stop' upang isara ito, mode='status' upang suriin.",
-    "param.mode.description": "'start' to launch, 'stop' to shut down, 'status' to check.",
+    "param.mode.description": "'start' para maglunsad, 'stop' para ihinto, 'status' para tingnan.",
     "param.business_url.description": "URL ng negosyo sa proxy (kinakailangan para sa mode='start').",
     "param.port.description": "Port para sa MCP server (default 8100).",
     "param.transport.description": "MCP transportasyon: 'sse' (HTTP) o 'stdio' (stdin/stdout)."

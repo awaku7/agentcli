@@ -789,7 +789,7 @@
     ],
     "ui.captured": "--- FANGET: {html}, {png}, {flow}, {snapshots}/ ---",
     "ui.resume_prompt": "Efter operationen skal du trykke på Genoptag (▷) i Inspektøren.",
-    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTED ---"
+    "ui.started": "--- PLAYWRIGHT INSPECTOR STARTET ---"
   },
   "nn": {
     "err.child_failed": "[playwright_inspector error] Underordnet prosess mislukkast:\n{stderr}",

@@ -36,10 +36,6 @@ TOOL_SPEC = {
                 "function list",
                 "class index",
                 "source code navigation",
-                "Read Python files",
-                "Function list",
-                "Class list",
-                "Analyze source code",
             ],
         ),
         "x_search_terms_en": [

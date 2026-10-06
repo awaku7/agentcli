@@ -1,7 +1,7 @@
 {
   "ar": {
     "tool.description": "إدارة جلسة الخروج UCP. mode='create' — بدء عملية دفع جديدة. \nmode='get' — جلب حالة الخروج الحالية. \nmode='update' — تعديل حقول الخروج.\nmode='Complete' — إنهاء الطلب. إذا قامت الشركة بإرجاع require_escalation باستخدام continue_url، فيجب على المستخدم فتح عنوان URL هذا في المتصفح لإكمال الدفع. بعد أن يدفع المستخدم في المتصفح، استخدم mode='poll' لانتظار الاكتمال. \nmode='poll' — حالة الخروج من الاستطلاع حتى اكتماله أو انتهاء المهلة. يُستخدم بعد إكمال المستخدم للدفع عبر continue_url.",
-    "param.mode.description": "\"إنشاء\" / \"الحصول على\" / \"تحديث\" / \"إكمال\" / \"استطلاع\".",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "عنوان URL الأساسي للنشاط التجاري.",
     "param.checkout_id.description": "معرف جلسة الخروج (مطلوب للحصول على/تحديث/إكمال/استطلاع).",
     "param.cart_id.description": "معرف سلة التسوق لإنشاء الخروج منه (اختياري، بديل لـ line_items).",
@@ -12,11 +12,18 @@
     "param.poll_interval.description": "الثواني بين محاولات الاستقصاء (الوضع='استقصاء' فقط، الافتراضي 3).",
     "param.shipping_address.description": "عنوان الشحن للوفاء (اختياري). الحقول: عنوان_الشارع، وعنوان_المحلية، ومنطقة_العنوان، والرمز_البريدي، وعنوان_البلد.",
     "param.buyer.description": "معلومات المشتري (اختياري). الحقول: البريد الإلكتروني، الاسم الأول، اسم العائلة.",
-    "param.extensions.description": "ملحقات خاصة بالمورد (اختياري). أزواج القيمة الأساسية لإمكانيات com.vendor.*."
+    "param.extensions.description": "ملحقات خاصة بالمورد (اختياري). أزواج القيمة الأساسية لإمكانيات com.vendor.*.",
+    "err.business_url_required": "business_url مطلوب.",
+    "err.checkout_id_required": "checkout_id مطلوب للوضع '{mode}'.",
+    "err.unknown_mode": "وضع غير معروف: {mode}",
+    "msg.complete_payment_browser": "افتح continue_url في المتصفح لإكمال الدفع. بعد الدفع، استخدم ucp_checkout مع mode='poll' و checkout_id='{checkout_id}' لانتظار اكتمال الطلب.",
+    "err.checkout_canceled": "تم إلغاء جلسة الدفع.",
+    "err.poll_timeout": "لم يكتمل الدفع خلال {timeout} ثانية. قد يكون المستخدم لم يكمل الدفع في المتصفح بعد. جرّب mode='poll' مرة أخرى بمهلة أطول.",
+    "msg.payment_action_required": "يتطلب الدفع إجراءً من المستخدم في المتصفح."
   },
   "bn": {
     "tool.description": "একটি UCP চেকআউট সেশন পরিচালনা করুন। mode='create' — একটি নতুন চেকআউট শুরু করুন। \nmode='get' — বর্তমান চেকআউট স্থিতি আনুন। \nmode='update' — চেকআউট ক্ষেত্রগুলি পরিবর্তন করুন। \nmode='complete' — অর্ডার চূড়ান্ত করুন। যদি ব্যবসায় একটি continue_url এর সাথে প্রয়োজন_এসকেলেশন ফেরত দেয়, তাহলে পেমেন্ট সম্পূর্ণ করতে ব্যবহারকারীকে অবশ্যই একটি ব্রাউজারে সেই URL খুলতে হবে। ব্যবহারকারী ব্রাউজারে অর্থ প্রদান করার পরে, সমাপ্তির জন্য অপেক্ষা করতে mode='poll' ব্যবহার করুন। \nmode='poll' — পোল চেকআউট স্থিতি সম্পূর্ণ না হওয়া পর্যন্ত বা সময় শেষ না হওয়া পর্যন্ত। ব্যবহারকারী continue_url এর মাধ্যমে অর্থপ্রদান সম্পূর্ণ করার পরে ব্যবহার করুন।",
-    "param.mode.description": "'তৈরি করুন' / 'পান' / 'আপডেট' / 'সম্পূর্ণ' / 'পোল'।",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "ব্যবসার মূল URL।",
     "param.checkout_id.description": "চেকআউট সেশন আইডি (গেট/আপডেট/সম্পূর্ণ/পোলের জন্য প্রয়োজনীয়)।",
     "param.cart_id.description": "থেকে চেকআউট তৈরি করতে কার্ট আইডি (ঐচ্ছিক, লাইন_আইটেমগুলির বিকল্প)।",
@@ -27,11 +34,18 @@
     "param.poll_interval.description": "পোল প্রচেষ্টার মধ্যে সেকেন্ড (শুধুমাত্র মোড = 'পোল', ডিফল্ট 3)।",
     "param.shipping_address.description": "পূরণের জন্য শিপিং ঠিকানা (ঐচ্ছিক)। ক্ষেত্র: রাস্তার_ঠিকানা, ঠিকানা_লোক্যালিটি, ঠিকানা_অঞ্চল, পোস্টাল_কোড, ঠিকানা_দেশ।",
     "param.buyer.description": "ক্রেতার তথ্য (ঐচ্ছিক)। ক্ষেত্র: ইমেল, প্রথম_নাম, শেষ_নাম।",
-    "param.extensions.description": "বিক্রেতা-নির্দিষ্ট এক্সটেনশন (ঐচ্ছিক)। com.vendor.* ক্ষমতার জন্য মূল-মান জোড়া।"
+    "param.extensions.description": "বিক্রেতা-নির্দিষ্ট এক্সটেনশন (ঐচ্ছিক)। com.vendor.* ক্ষমতার জন্য মূল-মান জোড়া।",
+    "err.business_url_required": "business_url প্রয়োজন।",
+    "err.checkout_id_required": "mode='{mode}' এর জন্য checkout_id প্রয়োজন।",
+    "err.unknown_mode": "অজানা mode: {mode}",
+    "msg.complete_payment_browser": "পেমেন্ট সম্পূর্ণ করতে ব্রাউজারে continue_url খুলুন। পেমেন্টের পরে ucp_checkout-এ mode='poll' এবং checkout_id='{checkout_id}' ব্যবহার করে অর্ডার সম্পূর্ণ হওয়া পর্যন্ত অপেক্ষা করুন।",
+    "err.checkout_canceled": "চেকআউট সেশন বাতিল করা হয়েছে।",
+    "err.poll_timeout": "{timeout} সেকেন্ডের মধ্যে চেকআউট সম্পূর্ণ হয়নি। ব্যবহারকারী হয়তো এখনও ব্রাউজারে পেমেন্ট শেষ করেননি। দীর্ঘ timeout দিয়ে আবার mode='poll' চেষ্টা করুন।",
+    "msg.payment_action_required": "পেমেন্টের জন্য ব্রাউজারে ব্যবহারকারীর পদক্ষেপ প্রয়োজন।"
   },
   "cs": {
     "tool.description": "Spravujte relaci pokladny UCP. mode='create' — spuštění nové pokladny.\nmode='get' — načtení aktuálního stavu pokladny.\nmode='update' — úprava polí pokladny.\nmode='complete' — dokončení objednávky. Pokud firma vrátí require_escalation s continue_url, MUSÍ uživatel tuto adresu URL otevřít v prohlížeči, aby mohl dokončit platbu. Poté, co uživatel zaplatí v prohlížeči, počkejte na dokončení pomocí mode='poll'.\nmode='poll' — stav zaplacení ankety do dokončení nebo do vypršení časového limitu. Použijte poté, co uživatel dokončí platbu prostřednictvím continue_url.",
-    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'anketa'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Základní adresa URL firmy.",
     "param.checkout_id.description": "ID relace pokladny (vyžadováno pro get/update/complete/polll).",
     "param.cart_id.description": "ID košíku, ze kterého se má vytvořit pokladna (volitelné, alternativa k řádek_položky).",
@@ -42,7 +56,14 @@
     "param.poll_interval.description": "Sekundy mezi pokusy o dotazování (mode=pouze 'dotaz', výchozí 3).",
     "param.shipping_address.description": "Doručovací adresa pro plnění (volitelné). Pole: street_address, address_locity, address_region, postal_code, address_country.",
     "param.buyer.description": "Informace o kupujícím (volitelné). Pole: email, first_name, last_name.",
-    "param.extensions.description": "Rozšíření specifická pro dodavatele (volitelné). Páry klíč–hodnota pro schopnosti com.vendor.*."
+    "param.extensions.description": "Rozšíření specifická pro dodavatele (volitelné). Páry klíč–hodnota pro schopnosti com.vendor.*.",
+    "err.business_url_required": "business_url je povinné.",
+    "err.checkout_id_required": "checkout_id je povinné pro mode='{mode}'.",
+    "err.unknown_mode": "Neznámý režim: {mode}",
+    "msg.complete_payment_browser": "Otevřete continue_url v prohlížeči a dokončete platbu. Poté použijte ucp_checkout s mode='poll' a checkout_id='{checkout_id}' a počkejte na dokončení objednávky.",
+    "err.checkout_canceled": "Relace checkout byla zrušena.",
+    "err.poll_timeout": "Checkout nebyl dokončen do {timeout} sekund. Uživatel možná ještě nedokončil platbu v prohlížeči. Zkuste znovu mode='poll' s delším timeoutem.",
+    "msg.payment_action_required": "Platba vyžaduje akci uživatele v prohlížeči."
   },
   "da": {
     "tool.description": "Administrer en UCP checkout session. mode='create' — start en ny kasse.\nmode='get' — hent den aktuelle kassestatus.\nmode='update' — modificer kassefelter.\nmode='complete' — færdiggør ordren. Hvis virksomheden returnerer requires_escalation med en continu_url, SKAL brugeren åbne denne URL i en browser for at gennemføre betalingen. Når brugeren har betalt i browseren, skal du bruge mode='afstemning' for at vente på fuldførelse.\nmode='afstemning' — status for afstemningscheck, indtil den er afsluttet eller timeout. Brug efter brugeren har gennemført betaling via continu_url.",
@@ -57,7 +78,14 @@
     "param.poll_interval.description": "Sekunder mellem afstemningsforsøg (kun mode='afstemning', standard 3).",
     "param.shipping_address.description": "Leveringsadresse til opfyldelse (valgfrit). Felter: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Køberoplysninger (valgfrit). Felter: e-mail, fornavn, efternavn.",
-    "param.extensions.description": "Leverandørspecifikke udvidelser (valgfrit). Nøgle-værdi-par for com.vendor.*-funktioner."
+    "param.extensions.description": "Leverandørspecifikke udvidelser (valgfrit). Nøgle-værdi-par for com.vendor.*-funktioner.",
+    "err.business_url_required": "business_url er påkrævet.",
+    "err.checkout_id_required": "checkout_id er påkrævet for mode='{mode}'.",
+    "err.unknown_mode": "Ukendt tilstand: {mode}",
+    "msg.complete_payment_browser": "Åbn continue_url i browseren for at gennemføre betalingen. Brug derefter ucp_checkout med mode='poll' og checkout_id='{checkout_id}' og vent på, at ordren fuldføres.",
+    "err.checkout_canceled": "Checkout-sessionen blev annulleret.",
+    "err.poll_timeout": "Checkout blev ikke fuldført inden for {timeout} sekunder. Brugeren har muligvis endnu ikke gennemført betalingen i browseren. Prøv mode='poll' igen med længere timeout.",
+    "msg.payment_action_required": "Betalingen kræver brugerhandling i browseren."
   },
   "de": {
     "tool.description": "Verwalten Sie eine UCP-Checkout-Sitzung. mode='create' – einen neuen Checkout starten.\nmode='get' – aktuellen Checkout-Status abrufen.\nmode='update' – Checkout-Felder ändern.\nmode='complete' – Bestellung abschließen. Wenn das Unternehmen „requires_escalation“ mit einer continue_url zurückgibt, MUSS der Benutzer diese URL in einem Browser öffnen, um die Zahlung abzuschließen. Nachdem der Benutzer im Browser bezahlt hat, verwenden Sie mode='poll', um auf den Abschluss zu warten.\nmode='poll' – Checkout-Status bis zum Abschluss oder Zeitüberschreitung abfragen. Wird verwendet, nachdem der Benutzer die Zahlung über continue_url abgeschlossen hat.",
@@ -72,7 +100,14 @@
     "param.poll_interval.description": "Sekunden zwischen Umfrageversuchen (nur mode='poll', Standard 3).",
     "param.shipping_address.description": "Lieferadresse für die Erfüllung (optional). Felder: Straße_Adresse, Adresse_Ort, Adresse_Region, Postleitzahl, Adresse_Land.",
     "param.buyer.description": "Käuferinformationen (optional). Felder: E-Mail, Vorname, Nachname.",
-    "param.extensions.description": "Herstellerspezifische Erweiterungen (optional). Schlüssel-Wert-Paare für com.vendor.*-Funktionen."
+    "param.extensions.description": "Herstellerspezifische Erweiterungen (optional). Schlüssel-Wert-Paare für com.vendor.*-Funktionen.",
+    "err.business_url_required": "business_url ist erforderlich.",
+    "err.checkout_id_required": "checkout_id ist für mode='{mode}' erforderlich.",
+    "err.unknown_mode": "Unbekannter Modus: {mode}",
+    "msg.complete_payment_browser": "Öffnen Sie continue_url im Browser, um die Zahlung abzuschließen. Verwenden Sie danach ucp_checkout mit mode='poll' und checkout_id='{checkout_id}', um auf den Abschluss der Bestellung zu warten.",
+    "err.checkout_canceled": "Die Checkout-Sitzung wurde abgebrochen.",
+    "err.poll_timeout": "Der Checkout wurde nicht innerhalb von {timeout} Sekunden abgeschlossen. Möglicherweise hat der Benutzer die Zahlung im Browser noch nicht beendet. Versuchen Sie mode='poll' erneut mit einem längeren Timeout.",
+    "msg.payment_action_required": "Die Zahlung erfordert eine Benutzeraktion im Browser."
   },
   "el": {
     "tool.description": "Διαχειριστείτε μια περίοδο ολοκλήρωσης αγοράς UCP. mode='create' — έναρξη νέας ολοκλήρωσης αγοράς.\nmode='get' — ανάκτηση της τρέχουσας κατάστασης ολοκλήρωσης αγοράς.\nmode='update' — τροποποίηση πεδίων ολοκλήρωσης αγοράς.\nmode='complete' — οριστικοποίηση της παραγγελίας. Εάν η επιχείρηση επιστρέφει requests_escalation με συνεχή_url, ο χρήστης ΠΡΕΠΕΙ να ανοίξει αυτήν τη διεύθυνση URL σε ένα πρόγραμμα περιήγησης για να ολοκληρώσει την πληρωμή. Αφού ο χρήστης πληρώσει στο πρόγραμμα περιήγησης, χρησιμοποιήστε τη λειτουργία='poll' για να περιμένετε την ολοκλήρωση.\nmode='poll' — κατάσταση ολοκλήρωσης ψηφοφορίας έως ότου ολοκληρωθεί ή λήξει. Χρησιμοποιήστε το αφού ο χρήστης ολοκληρώσει την πληρωμή μέσω του continue_url.",
@@ -87,11 +122,18 @@
     "param.poll_interval.description": "Δευτερόλεπτα μεταξύ των προσπαθειών δημοσκόπησης (mode='poll' μόνο, προεπιλογή 3).",
     "param.shipping_address.description": "Διεύθυνση αποστολής για εκπλήρωση (προαιρετικό). Πεδία: street_address, address_locality, address_region, ταχυδρομικός_κώδικας, address_country.",
     "param.buyer.description": "Πληροφορίες αγοραστή (προαιρετικό). Πεδία: email, name_name, last_name.",
-    "param.extensions.description": "Επεκτάσεις για συγκεκριμένο προμηθευτή (προαιρετικό). Ζεύγη κλειδιού-τιμής για δυνατότητες com.vendor.*."
+    "param.extensions.description": "Επεκτάσεις για συγκεκριμένο προμηθευτή (προαιρετικό). Ζεύγη κλειδιού-τιμής για δυνατότητες com.vendor.*.",
+    "err.business_url_required": "Απαιτείται το business_url.",
+    "err.checkout_id_required": "Απαιτείται checkout_id για mode='{mode}'.",
+    "err.unknown_mode": "Άγνωστη λειτουργία: {mode}",
+    "msg.complete_payment_browser": "Ανοίξτε το continue_url στο πρόγραμμα περιήγησης για να ολοκληρώσετε την πληρωμή. Έπειτα χρησιμοποιήστε ucp_checkout με mode='poll' και checkout_id='{checkout_id}' και περιμένετε να ολοκληρωθεί η παραγγελία.",
+    "err.checkout_canceled": "Η συνεδρία checkout ακυρώθηκε.",
+    "err.poll_timeout": "Το checkout δεν ολοκληρώθηκε μέσα σε {timeout} δευτερόλεπτα. Ο χρήστης ίσως δεν έχει ολοκληρώσει ακόμη την πληρωμή στο πρόγραμμα περιήγησης. Δοκιμάστε ξανά mode='poll' με μεγαλύτερο timeout.",
+    "msg.payment_action_required": "Η πληρωμή απαιτεί ενέργεια χρήστη στο πρόγραμμα περιήγησης."
   },
   "es": {
     "tool.description": "Administrar una sesión de pago UCP. mode='create' - iniciar un nuevo pago.\nmode='get' - obtener el estado de pago actual.\nmode='update' - modificar los campos de pago.\nmode='complete' - finalizar el pedido. Si la empresa devuelve require_escalation con continue_url, el usuario DEBE abrir esa URL en un navegador para completar el pago. Después de que el usuario pague en el navegador, use mode='poll' para esperar a que se complete. \nmode='poll': estado de pago de la encuesta hasta que se complete o se agote el tiempo de espera. Úselo después de que el usuario complete el pago a través de continue_url.",
-    "param.mode.description": "'crear' / 'obtener' / 'actualizar' / 'completar' / 'encuesta'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL base del negocio.",
     "param.checkout_id.description": "ID de sesión de pago (obligatorio para obtener/actualizar/completar/encuesta).",
     "param.cart_id.description": "ID del carrito para crear el pago (opcional, alternativa a line_items).",
@@ -102,11 +144,18 @@
     "param.poll_interval.description": "Segundos entre intentos de encuesta (modo = 'encuesta' solamente, valor predeterminado 3).",
     "param.shipping_address.description": "Dirección de envío para cumplimiento (opcional). Campos: dirección_calle, dirección_localidad, dirección_región, código_postal, dirección_país.",
     "param.buyer.description": "Información del comprador (opcional). Campos: correo electrónico, nombre, apellido.",
-    "param.extensions.description": "Extensiones específicas del proveedor (opcional). Pares clave-valor para capacidades com.vendor.*."
+    "param.extensions.description": "Extensiones específicas del proveedor (opcional). Pares clave-valor para capacidades com.vendor.*.",
+    "err.business_url_required": "business_url es obligatorio.",
+    "err.checkout_id_required": "checkout_id es obligatorio para mode='{mode}'.",
+    "err.unknown_mode": "Modo desconocido: {mode}",
+    "msg.complete_payment_browser": "Abre continue_url en el navegador para completar el pago. Después, usa ucp_checkout con mode='poll' y checkout_id='{checkout_id}' y espera a que se complete el pedido.",
+    "err.checkout_canceled": "La sesión de checkout fue cancelada.",
+    "err.poll_timeout": "El checkout no se completó en {timeout} segundos. Es posible que el usuario aún no haya completado el pago en el navegador. Vuelve a intentar mode='poll' con un timeout mayor.",
+    "msg.payment_action_required": "El pago requiere una acción del usuario en el navegador."
   },
   "fa": {
     "tool.description": "یک جلسه پرداخت UCP را مدیریت کنید. mode='create' — شروع تسویه حساب جدید.\nmode='get' — واکشی وضعیت پرداخت فعلی.\nmode='update' — اصلاح فیلدهای تسویه حساب.\nmode='complete' - سفارش را نهایی کنید. اگر کسب‌وکار دارای requires_escalation با یک continue_url است، کاربر باید برای تکمیل پرداخت، آن URL را در مرورگر باز کند. پس از اینکه کاربر در مرورگر پول پرداخت کرد، از mode='poll' استفاده کنید تا منتظر تکمیل شدن بمانید.\nmode='poll' — وضعیت پرداخت نظرسنجی تا تکمیل یا اتمام زمان. پس از تکمیل پرداخت توسط کاربر از طریق continue_url استفاده کنید.",
-    "param.mode.description": "\"ایجاد\" / \"دریافت\" / \"به روز رسانی\" / \"کامل\" / \"نظرسنجی\".",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL پایه کسب و کار.",
     "param.checkout_id.description": "شناسه جلسه پرداخت (برای دریافت/به‌روزرسانی/تکمیل/نظرسنجی لازم است).",
     "param.cart_id.description": "شناسه سبد خرید برای ایجاد تسویه حساب (اختیاری، جایگزین line_items).",
@@ -117,11 +166,18 @@
     "param.poll_interval.description": "ثانیه بین تلاش های نظرسنجی (فقط حالت = 'نظرسنجی'، پیش فرض 3).",
     "param.shipping_address.description": "آدرس حمل و نقل برای انجام (اختیاری). زمینه ها: آدرس_خیابان، آدرس_محل، آدرس_منطقه، کد_پستی، آدرس_کشور.",
     "param.buyer.description": "اطلاعات خریدار (اختیاری). زمینه ها: ایمیل، نام_نام، نام خانوادگی.",
-    "param.extensions.description": "پسوندهای خاص فروشنده (اختیاری). جفت های کلید-مقدار برای قابلیت های com.vendor.*."
+    "param.extensions.description": "پسوندهای خاص فروشنده (اختیاری). جفت های کلید-مقدار برای قابلیت های com.vendor.*.",
+    "err.business_url_required": "business_url الزامی است.",
+    "err.checkout_id_required": "برای mode='{mode}'، checkout_id الزامی است.",
+    "err.unknown_mode": "حالت ناشناخته: {mode}",
+    "msg.complete_payment_browser": "برای تکمیل پرداخت، continue_url را در مرورگر باز کنید. سپس ucp_checkout را با mode='poll' و checkout_id='{checkout_id}' اجرا کنید و منتظر تکمیل سفارش بمانید.",
+    "err.checkout_canceled": "جلسه checkout لغو شد.",
+    "err.poll_timeout": "checkout در {timeout} ثانیه تکمیل نشد. ممکن است کاربر هنوز پرداخت را در مرورگر کامل نکرده باشد. mode='poll' را با timeout طولانی‌تر دوباره امتحان کنید.",
+    "msg.payment_action_required": "پرداخت به اقدام کاربر در مرورگر نیاز دارد."
   },
   "fi": {
     "tool.description": "Hallinnoi UCP checkout istuntoa. mode='create' — aloita uusi kassa.\nmode='get' — hae nykyinen kassatila.\nmode='update' — muokkaa kassakenttiä.\nmode='complete' — viimeistele tilaus. Jos yritys palauttaa request_escalation ja jatka_url-osoitetta, käyttäjän PITÄÄ avata URL-osoite selaimessa suorittaakseen maksun loppuun. Kun käyttäjä on maksanut selaimessa, odota valmistumista käyttämällä mode='poll'.\nmode='poll' — kyselyn tila, kunnes se on valmis tai aikakatkaisu. Käytä sen jälkeen, kun käyttäjä on suorittanut maksun jatka_url-osoitteen kautta.",
-    "param.mode.description": "'luo' / 'hanki' / 'päivitä' / 'täytä' / 'kysely'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Yrityksen perus-URL-osoite.",
     "param.checkout_id.description": "Checkout-istunnon tunnus (pakollinen get/update/complete/poll varten).",
     "param.cart_id.description": "Ostoskorin tunnus, josta kassalle luodaan (valinnainen, vaihtoehto line_items).",
@@ -132,11 +188,18 @@
     "param.poll_interval.description": "Sekuntia kyselyyritysten välillä (vain mode='poll', oletusarvo 3).",
     "param.shipping_address.description": "Toimitusosoite toimitusta varten (valinnainen). Kentät: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Ostajan tiedot (valinnainen). Kentät: email, etunimi, sukunimi.",
-    "param.extensions.description": "Toimittajakohtaiset laajennukset (valinnainen). Avainarvoparit com.vendor.*-ominaisuuksille."
+    "param.extensions.description": "Toimittajakohtaiset laajennukset (valinnainen). Avainarvoparit com.vendor.*-ominaisuuksille.",
+    "err.business_url_required": "business_url vaaditaan.",
+    "err.checkout_id_required": "checkout_id vaaditaan, kun mode='{mode}'.",
+    "err.unknown_mode": "Tuntematon tila: {mode}",
+    "msg.complete_payment_browser": "Avaa continue_url selaimessa ja suorita maksu loppuun. Käytä sitten ucp_checkout-komentoa asetuksilla mode='poll' ja checkout_id='{checkout_id}' ja odota tilauksen valmistumista.",
+    "err.checkout_canceled": "Checkout-istunto peruttiin.",
+    "err.poll_timeout": "Checkout ei valmistunut {timeout} sekunnissa. Käyttäjä ei ehkä ole vielä suorittanut maksua selaimessa. Kokeile mode='poll' uudelleen pidemmällä aikakatkaisulla.",
+    "msg.payment_action_required": "Maksu vaatii käyttäjän toimia selaimessa."
   },
   "fil": {
     "tool.description": "Pamahalaan ang isang UCP checkout session. mode='create' — magsimula ng bagong checkout.\nmode='get' — kunin ang kasalukuyang status ng checkout.\nmode='update' — baguhin ang checkout fields.\nmode='complete' — tapusin ang order. Kung ang pagbabalik ng negosyo ay nangangailangan ng_escalation na may continue_url, DAPAT buksan ng user ang URL na iyon sa isang browser upang makumpleto ang pagbabayad. Pagkatapos magbayad ng user sa browser, gamitin ang mode='poll' upang maghintay para sa pagkumpleto.\nmode='poll' — status ng pag-checkout ng poll hanggang sa makumpleto o mag-timeout. Gamitin pagkatapos makumpleto ng user ang pagbabayad sa pamamagitan ng continue_url.",
-    "param.mode.description": "'lumikha' / 'kumuha' / 'i-update' / 'kumpleto' / 'poll'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Base URL ng negosyo.",
     "param.checkout_id.description": "Checkout session ID (kinakailangan para sa pagkuha/pag-update/pagkumpleto/poll).",
     "param.cart_id.description": "Cart ID para gumawa ng checkout mula sa (opsyonal, alternatibo sa line_items).",
@@ -147,11 +210,18 @@
     "param.poll_interval.description": "Mga segundo sa pagitan ng mga pagtatangka sa botohan (mode='poll' lang, default 3).",
     "param.shipping_address.description": "Address ng pagpapadala para sa katuparan (opsyonal). Mga patlang: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Impormasyon ng mamimili (opsyonal). Mga Field: email, first_name, last_name.",
-    "param.extensions.description": "Mga extension na partikular sa vendor (opsyonal). Key-value pairs para sa com.vendor.* na kakayahan."
+    "param.extensions.description": "Mga extension na partikular sa vendor (opsyonal). Key-value pairs para sa com.vendor.* na kakayahan.",
+    "err.business_url_required": "Kinakailangan ang business_url.",
+    "err.checkout_id_required": "Kinakailangan ang checkout_id para sa mode='{mode}'.",
+    "err.unknown_mode": "Hindi kilalang mode: {mode}",
+    "msg.complete_payment_browser": "Buksan ang continue_url sa browser para kumpletuhin ang bayad. Pagkatapos, gamitin ang ucp_checkout na may mode='poll' at checkout_id='{checkout_id}' at hintaying makumpleto ang order.",
+    "err.checkout_canceled": "Kinansela ang checkout session.",
+    "err.poll_timeout": "Hindi nakumpleto ang checkout sa loob ng {timeout} segundo. Maaaring hindi pa natatapos ng user ang bayad sa browser. Subukan muli ang mode='poll' na may mas mahabang timeout.",
+    "msg.payment_action_required": "Kailangan ng bayad ang aksyon ng user sa browser."
   },
   "fr": {
     "tool.description": "Gérer une session de paiement UCP. mode='create' — démarrer une nouvelle caisse.\nmode='get' — récupérer l'état actuel de la caisse.\nmode='update' — modifier les champs de caisse.\nmode='complete' — finaliser la commande. Si l'entreprise renvoie require_escalation avec une URL continue, l'utilisateur DOIT ouvrir cette URL dans un navigateur pour finaliser le paiement. Une fois que l'utilisateur a payé dans le navigateur, utilisez mode='poll' pour attendre la fin.\nmode='poll' — interroge l'état du paiement jusqu'à ce qu'il soit terminé ou expire. À utiliser une fois que l'utilisateur a terminé le paiement via continue_url.",
-    "param.mode.description": "'créer' / 'obtenir' / 'mettre à jour' / 'terminer' / 'interroger'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL de base de l'entreprise.",
     "param.checkout_id.description": "ID de session de paiement (obligatoire pour get/update/complete/poll).",
     "param.cart_id.description": "ID du panier à partir duquel créer le paiement (facultatif, alternative à line_items).",
@@ -162,11 +232,18 @@
     "param.poll_interval.description": "Secondes entre les tentatives d'interrogation (mode='poll' uniquement, par défaut 3).",
     "param.shipping_address.description": "Adresse de livraison pour l'exécution (facultatif). Champs : street_address, adresse_localité, adresse_région, code_postal, adresse_pays.",
     "param.buyer.description": "Informations sur l'acheteur (facultatif). Champs : email, prénom, nom.",
-    "param.extensions.description": "Extensions spécifiques au fournisseur (facultatif). Paires clé-valeur pour les fonctionnalités com.vendor.*."
+    "param.extensions.description": "Extensions spécifiques au fournisseur (facultatif). Paires clé-valeur pour les fonctionnalités com.vendor.*.",
+    "err.business_url_required": "business_url est requis.",
+    "err.checkout_id_required": "checkout_id est requis pour mode='{mode}'.",
+    "err.unknown_mode": "Mode inconnu : {mode}",
+    "msg.complete_payment_browser": "Ouvrez continue_url dans le navigateur pour terminer le paiement. Ensuite, utilisez ucp_checkout avec mode='poll' et checkout_id='{checkout_id}' et attendez la fin de la commande.",
+    "err.checkout_canceled": "La session de paiement a été annulée.",
+    "err.poll_timeout": "Le paiement ne s’est pas terminé dans les {timeout} secondes. L’utilisateur n’a peut-être pas encore terminé le paiement dans le navigateur. Réessayez mode='poll' avec un délai plus long.",
+    "msg.payment_action_required": "Le paiement nécessite une action de l’utilisateur dans le navigateur."
   },
   "he": {
     "tool.description": "נהל סשן קופה של UCP. mode='create' — התחל קופה חדשה.\nmode='get' — אחזר את מצב הקופה הנוכחי.\nmode='update' — שנה שדות קופה.\nmode='complete' — סיים את ההזמנה. אם העסק חוזר requires_escalation עם continue_url, המשתמש חייב לפתוח את כתובת האתר בדפדפן כדי להשלים את התשלום. לאחר שהמשתמש משלם בדפדפן, השתמש ב-mode='poll' כדי להמתין לסיום. השתמש לאחר שהמשתמש משלים תשלום באמצעות continue_url.",
-    "param.mode.description": "'צור' / 'קבל' / 'עדכון' / 'השלם' / 'סקר'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "כתובת האתר הבסיסית של העסק.",
     "param.checkout_id.description": "מזהה הפעלה בקופה (נדרש לקבלת/עדכון/השלמה/סקר).",
     "param.cart_id.description": "מזהה עגלה ליצירת תשלום (אופציונלי, חלופי ל-line_items).",
@@ -177,11 +254,18 @@
     "param.poll_interval.description": "שניות בין ניסיונות סקר (מצב='סקר' בלבד, ברירת מחדל 3).",
     "param.shipping_address.description": "כתובת למשלוח למימוש (אופציונלי). שדות: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "פרטי קונה (אופציונלי). שדות: email, first_name, last_name.",
-    "param.extensions.description": "הרחבות ספציפיות לספק (אופציונלי). צמדי מפתח-ערך עבור יכולות com.vendor.*."
+    "param.extensions.description": "הרחבות ספציפיות לספק (אופציונלי). צמדי מפתח-ערך עבור יכולות com.vendor.*.",
+    "err.business_url_required": "business_url נדרש.",
+    "err.checkout_id_required": "checkout_id נדרש עבור mode='{mode}'.",
+    "err.unknown_mode": "מצב לא מוכר: {mode}",
+    "msg.complete_payment_browser": "פתח את continue_url בדפדפן כדי להשלים את התשלום. לאחר מכן השתמש ב-ucp_checkout עם mode='poll' ו-checkout_id='{checkout_id}' והמתן להשלמת ההזמנה.",
+    "err.checkout_canceled": "הפעלת ה-checkout בוטלה.",
+    "err.poll_timeout": "ה-checkout לא הושלם בתוך {timeout} שניות. ייתכן שהמשתמש עדיין לא השלים את התשלום בדפדפן. נסה שוב mode='poll' עם timeout ארוך יותר.",
+    "msg.payment_action_required": "התשלום דורש פעולה של המשתמש בדפדפן."
   },
   "hi": {
     "tool.description": "यूसीपी चेकआउट सत्र प्रबंधित करें। mode='create' — एक नया चेकआउट शुरू करें।\nmode='get' — वर्तमान चेकआउट स्थिति प्राप्त करें।\nmode='update' — चेकआउट फ़ील्ड को संशोधित करें।\nmode='complete' — ऑर्डर को अंतिम रूप दें। यदि व्यवसाय जारी_यूआरएल के साथ आवश्यकता_एस्केलेशन लौटाता है, तो भुगतान पूरा करने के लिए उपयोगकर्ता को ब्राउज़र में उस यूआरएल को खोलना होगा। उपयोगकर्ता द्वारा ब्राउज़र में भुगतान करने के बाद, पूरा होने की प्रतीक्षा करने के लिए mode='poll' का उपयोग करें।\nmode='poll' - पूरा होने या समय समाप्त होने तक पोल चेकआउट स्थिति। उपयोगकर्ता द्वारा जारी_यूआरएल के माध्यम से भुगतान पूरा करने के बाद उपयोग करें।",
-    "param.mode.description": "'बनाएँ' / 'प्राप्त करें' / 'अद्यतन करें' / 'पूर्ण करें' / 'मतदान'।",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "व्यवसाय का आधार URL.",
     "param.checkout_id.description": "चेकआउट सत्र आईडी (प्राप्त/अद्यतन/पूर्ण/मतदान के लिए आवश्यक)।",
     "param.cart_id.description": "चेकआउट बनाने के लिए कार्ट आईडी (वैकल्पिक, लाइन_आइटम का विकल्प)।",
@@ -192,11 +276,18 @@
     "param.poll_interval.description": "मतदान प्रयासों के बीच सेकंड (केवल मोड='मतदान', डिफ़ॉल्ट 3)।",
     "param.shipping_address.description": "पूर्ति के लिए शिपिंग पता (वैकल्पिक)। फ़ील्ड: सड़क_पता, पता_स्थान, पता_क्षेत्र, डाक_कोड, पता_देश।",
     "param.buyer.description": "क्रेता जानकारी (वैकल्पिक). फ़ील्ड: ईमेल, प्रथम_नाम, अंतिम_नाम।",
-    "param.extensions.description": "विक्रेता-विशिष्ट एक्सटेंशन (वैकल्पिक)। com.vendor.* क्षमताओं के लिए कुंजी-मूल्य जोड़े।"
+    "param.extensions.description": "विक्रेता-विशिष्ट एक्सटेंशन (वैकल्पिक)। com.vendor.* क्षमताओं के लिए कुंजी-मूल्य जोड़े।",
+    "err.business_url_required": "business_url आवश्यक है।",
+    "err.checkout_id_required": "mode='{mode}' के लिए checkout_id आवश्यक है।",
+    "err.unknown_mode": "अज्ञात mode: {mode}",
+    "msg.complete_payment_browser": "भुगतान पूरा करने के लिए ब्राउज़र में continue_url खोलें। भुगतान के बाद ucp_checkout को mode='poll' और checkout_id='{checkout_id}' के साथ चलाएँ और ऑर्डर पूरा होने की प्रतीक्षा करें।",
+    "err.checkout_canceled": "checkout सत्र रद्द कर दिया गया।",
+    "err.poll_timeout": "checkout {timeout} सेकंड में पूरा नहीं हुआ। उपयोगकर्ता ने शायद ब्राउज़र में भुगतान अभी पूरा नहीं किया है। अधिक timeout के साथ mode='poll' फिर आज़माएँ।",
+    "msg.payment_action_required": "भुगतान के लिए ब्राउज़र में उपयोगकर्ता की कार्रवाई आवश्यक है।"
   },
   "hu": {
     "tool.description": "UCP fizetési munkamenet kezelése. mode='create' — új fizetés indítása.\nmode='get' — aktuális fizetési állapot lekérése.\nmode='update' — fizetési mezők módosítása.\nmode='complete' — a megrendelés véglegesítése. Ha a vállalkozás a request_escalation-t a következővel adja vissza, akkor a felhasználónak meg KELL nyitnia ezt az URL-t egy böngészőben a fizetés befejezéséhez. Miután a felhasználó fizetett a böngészőben, a mode='poll' használatával várja meg a befejezést.\nmode='poll' – a szavazás fizetési állapota a befejezésig vagy időtúllépésig. Használja, miután a felhasználó befejezte a fizetést a jatka_url címen keresztül.",
-    "param.mode.description": "'létrehozás' / 'get' / 'frissítés' / 'teljes' / 'szavazás'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "A vállalkozás alap URL-je.",
     "param.checkout_id.description": "Checkout munkamenet-azonosító (szükséges a get/update/complete/poll).",
     "param.cart_id.description": "Kosárazonosító a pénztár létrehozásához (opcionális, a line_items alternatívája).",
@@ -207,11 +298,18 @@
     "param.poll_interval.description": "A lekérdezési kísérletek közötti másodpercek (csak mode='poll', alapértelmezett 3).",
     "param.shipping_address.description": "Szállítási cím a teljesítéshez (nem kötelező). Mezők: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Vevő adatai (opcionális). Mezők: email, keresztnév, vezetéknév.",
-    "param.extensions.description": "Szállítóspecifikus bővítmények (opcionális). Kulcs-érték párok a com.vendor.* képességekhez."
+    "param.extensions.description": "Szállítóspecifikus bővítmények (opcionális). Kulcs-érték párok a com.vendor.* képességekhez.",
+    "err.business_url_required": "A business_url megadása kötelező.",
+    "err.checkout_id_required": "A checkout_id kötelező, ha mode='{mode}'.",
+    "err.unknown_mode": "Ismeretlen mód: {mode}",
+    "msg.complete_payment_browser": "Nyissa meg a continue_url címet a böngészőben a fizetés befejezéséhez. Ezután használja az ucp_checkout parancsot mode='poll' és checkout_id='{checkout_id}' értékekkel, és várja meg a rendelés befejezését.",
+    "err.checkout_canceled": "A checkout-munkamenet megszakadt.",
+    "err.poll_timeout": "A checkout nem fejeződött be {timeout} másodpercen belül. Lehet, hogy a felhasználó még nem fejezte be a fizetést a böngészőben. Próbálja újra a mode='poll' módot hosszabb timeout értékkel.",
+    "msg.payment_action_required": "A fizetés felhasználói műveletet igényel a böngészőben."
   },
   "id": {
     "tool.description": "Kelola sesi checkout UCP. mode='buat' — memulai pembayaran baru.\nmode='dapatkan' — mengambil status pembayaran saat ini.\nmode='perbarui' — mengubah kolom pembayaran.\nmode='selesai' — menyelesaikan pesanan. Jika bisnis mengembalikan require_escalation dengan continue_url, pengguna HARUS membuka URL tersebut di browser untuk menyelesaikan pembayaran. Setelah pengguna membayar di browser, gunakan mode='poll' untuk menunggu penyelesaian.\nmode='poll' — status checkout polling hingga selesai atau batas waktu habis. Gunakan setelah pengguna menyelesaikan pembayaran melalui continue_url.",
-    "param.mode.description": "'buat' / 'dapatkan' / 'perbarui' / 'selesai' / 'jajak pendapat'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL Dasar bisnis.",
     "param.checkout_id.description": "ID sesi checkout (diperlukan untuk mendapatkan/memperbarui/menyelesaikan/jajak pendapat).",
     "param.cart_id.description": "ID keranjang untuk membuat checkout (opsional, alternatif untuk line_items).",
@@ -222,11 +320,18 @@
     "param.poll_interval.description": "Detik antara upaya jajak pendapat (mode='jajak pendapat' saja, default 3).",
     "param.shipping_address.description": "Alamat pengiriman untuk pemenuhan (opsional). Bidang: alamat_jalan, alamat_lokalitas, alamat_wilayah, kode_pos, alamat_negara.",
     "param.buyer.description": "Informasi pembeli (opsional). Bidang: email, nama_depan, nama_belakang.",
-    "param.extensions.description": "Ekstensi khusus vendor (opsional). Pasangan nilai kunci untuk kemampuan com.vendor.*."
+    "param.extensions.description": "Ekstensi khusus vendor (opsional). Pasangan nilai kunci untuk kemampuan com.vendor.*.",
+    "err.business_url_required": "business_url wajib diisi.",
+    "err.checkout_id_required": "checkout_id wajib untuk mode='{mode}'.",
+    "err.unknown_mode": "Mode tidak dikenal: {mode}",
+    "msg.complete_payment_browser": "Buka continue_url di browser untuk menyelesaikan pembayaran. Setelah itu gunakan ucp_checkout dengan mode='poll' dan checkout_id='{checkout_id}' lalu tunggu hingga pesanan selesai.",
+    "err.checkout_canceled": "Sesi checkout dibatalkan.",
+    "err.poll_timeout": "Checkout tidak selesai dalam {timeout} detik. Pengguna mungkin belum menyelesaikan pembayaran di browser. Coba lagi mode='poll' dengan timeout yang lebih lama.",
+    "msg.payment_action_required": "Pembayaran memerlukan tindakan pengguna di browser."
   },
   "it": {
     "tool.description": "Gestisci una sessione di pagamento UCP. mode='create' — avvia un nuovo checkout.\nmode='get' — recupera lo stato corrente del checkout.\nmode='update' — modifica i campi del checkout.\nmode='complete' — finalizza l'ordine. Se l'azienda restituisce require_escalation con un continue_url, l'utente DEVE aprire quell'URL in un browser per completare il pagamento. Dopo che l'utente ha pagato nel browser, utilizza mode='poll' per attendere il completamento.\nmode='poll': sondaggi sullo stato del pagamento fino al completamento o timeout. Da utilizzare dopo che l'utente ha completato il pagamento tramite continue_url.",
-    "param.mode.description": "'crea' / 'ottieni' / 'aggiorna' / 'completa' / 'sondaggio'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL di base dell'attività.",
     "param.checkout_id.description": "ID sessione di pagamento (richiesto per ottenere/aggiornare/completare/sondaggio).",
     "param.cart_id.description": "ID carrello da cui creare il checkout (facoltativo, alternativo a line_items).",
@@ -237,11 +342,18 @@
     "param.poll_interval.description": "Secondi tra i tentativi di poll (solo modalità='poll', default 3).",
     "param.shipping_address.description": "Indirizzo di spedizione per l'adempimento (facoltativo). Campi: indirizzo_via, indirizzo_località, indirizzo_regione, codice_postale, indirizzo_paese.",
     "param.buyer.description": "Informazioni sull'acquirente (facoltativo). Campi: email, nome, cognome.",
-    "param.extensions.description": "Estensioni specifiche del fornitore (opzionali). Coppie chiave-valore per le funzionalità com.vendor.*."
+    "param.extensions.description": "Estensioni specifiche del fornitore (opzionali). Coppie chiave-valore per le funzionalità com.vendor.*.",
+    "err.business_url_required": "business_url è obbligatorio.",
+    "err.checkout_id_required": "checkout_id è obbligatorio per mode='{mode}'.",
+    "err.unknown_mode": "Modalità sconosciuta: {mode}",
+    "msg.complete_payment_browser": "Apri continue_url nel browser per completare il pagamento. Poi usa ucp_checkout con mode='poll' e checkout_id='{checkout_id}' e attendi il completamento dell’ordine.",
+    "err.checkout_canceled": "La sessione di checkout è stata annullata.",
+    "err.poll_timeout": "Il checkout non è stato completato entro {timeout} secondi. L’utente potrebbe non aver ancora completato il pagamento nel browser. Riprova mode='poll' con un timeout più lungo.",
+    "msg.payment_action_required": "Il pagamento richiede un’azione dell’utente nel browser."
   },
   "ja": {
     "tool.description": "UCP チェックアウト セッションを管理します。 mode='create' — 新しいチェックアウトを開始します。\nmode='get' — 現在のチェックアウト ステータスを取得します。\nmode='update' — チェックアウト フィールドを変更します。\nmode='complete' — 注文を確定します。ビジネスが continue_url を含む require_escalation を返した場合、ユーザーはブラウザでその URL を開いて支払いを完了する必要があります。ユーザーがブラウザで支払いを行った後、mode='poll' を使用して完了を待ちます。\nmode='poll' — 完了するかタイムアウトになるまでチェックアウト ステータスをポーリングします。ユーザーが continue_url 経由で支払いを完了した後に使用します。",
-    "param.mode.description": "「作成」/「取得」/「更新」/「完了」/「ポーリング」。",
+    "param.mode.description": "モード: 'create' / 'get' / 'update' / 'complete' / 'poll'。",
     "param.business_url.description": "ビジネスのベース URL。",
     "param.checkout_id.description": "チェックアウト セッション ID (取得/更新/完了/ポーリングに必要)。",
     "param.cart_id.description": "チェックアウトを作成するカート ID (オプション、line_items の代替)。",
@@ -252,11 +364,18 @@
     "param.poll_interval.description": "ポーリング試行間の秒数 (mode='poll' のみ、デフォルトは 3)。",
     "param.shipping_address.description": "フルフィルメントの配送先住所 (オプション)。フィールド: 番地、住所地域、住所地域、郵便番号、住所国。",
     "param.buyer.description": "購入者情報 (オプション)。フィールド: 電子メール、名、姓。",
-    "param.extensions.description": "ベンダー固有の拡張機能 (オプション)。 com.vendor.* 機能のキーと値のペア。"
+    "param.extensions.description": "ベンダー固有の拡張機能 (オプション)。 com.vendor.* 機能のキーと値のペア。",
+    "err.business_url_required": "business_url は必須です。",
+    "err.checkout_id_required": "mode='{mode}' では checkout_id が必要です。",
+    "err.unknown_mode": "不明な mode: {mode}",
+    "msg.complete_payment_browser": "支払いを完了するにはブラウザで continue_url を開いてください。支払い後、ucp_checkout を mode='poll'、checkout_id='{checkout_id}' で実行し、注文の完了を待ちます。",
+    "err.checkout_canceled": "チェックアウト セッションはキャンセルされました。",
+    "err.poll_timeout": "チェックアウトは {timeout} 秒以内に完了しませんでした。ユーザーがブラウザでまだ支払いを完了していない可能性があります。より長い timeout で mode='poll' を再試行してください。",
+    "msg.payment_action_required": "支払いにはブラウザでのユーザー操作が必要です。"
   },
   "ko": {
     "tool.description": "UCP 체크아웃 세션을 관리합니다. mode='create' — 새 체크아웃을 시작합니다.\nmode='get' — 현재 체크아웃 상태를 가져옵니다.\nmode='update' — 체크아웃 필드를 수정합니다.\nmode='complete' — 주문을 완료합니다. 비즈니스가 continue_url과 함께 require_escalation을 반환하는 경우 사용자는 결제를 완료하기 위해 브라우저에서 해당 URL을 열어야 합니다. 사용자가 브라우저에서 결제한 후 mode='poll'을 사용하여 완료될 때까지 기다립니다.\nmode='poll' — 완료되거나 시간 초과될 때까지 체크아웃 상태를 폴링합니다. continue_url을 통해 사용자가 결제를 완료한 후 사용하세요.",
-    "param.mode.description": "'생성' / '가져오기' / '업데이트' / '완료' / '설문 조사'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "비즈니스의 기본 URL입니다.",
     "param.checkout_id.description": "Checkout 세션 ID(가져오기/업데이트/완료/폴링에 필요)",
     "param.cart_id.description": "결제를 생성할 카트 ID(선택 사항, line_items 대신).",
@@ -267,11 +386,18 @@
     "param.poll_interval.description": "폴링 시도 사이의 초(mode='poll' 전용, 기본값 3).",
     "param.shipping_address.description": "주문 처리를 위한 배송 주소(선택 사항) 필드: 거리_주소, 주소_지역, 주소_지역, 우편번호, 주소_국가.",
     "param.buyer.description": "구매자 정보(선택사항). 필드: 이메일, 이름, 성.",
-    "param.extensions.description": "공급업체별 확장(선택 사항). com.vendor.* 기능에 대한 키-값 쌍입니다."
+    "param.extensions.description": "공급업체별 확장(선택 사항). com.vendor.* 기능에 대한 키-값 쌍입니다.",
+    "err.business_url_required": "business_url이 필요합니다.",
+    "err.checkout_id_required": "mode='{mode}'에는 checkout_id가 필요합니다.",
+    "err.unknown_mode": "알 수 없는 mode: {mode}",
+    "msg.complete_payment_browser": "결제를 완료하려면 브라우저에서 continue_url을 여세요. 결제 후 ucp_checkout을 mode='poll', checkout_id='{checkout_id}'로 실행하고 주문 완료를 기다리세요.",
+    "err.checkout_canceled": "checkout 세션이 취소되었습니다.",
+    "err.poll_timeout": "checkout이 {timeout}초 안에 완료되지 않았습니다. 사용자가 브라우저에서 아직 결제를 완료하지 않았을 수 있습니다. 더 긴 timeout으로 mode='poll'을 다시 시도하세요.",
+    "msg.payment_action_required": "결제에는 브라우저에서 사용자의 작업이 필요합니다."
   },
   "mn": {
     "tool.description": "UCP тооцооны сессийг удирдах. mode='create' — шинэ тооцоо эхлүүлэх.\nmode='get' — одоогийн төлбөрийн төлөвийг дуудах.\nmode='update' — төлбөрийн талбаруудыг өөрчлөх.\nmode='complete' — захиалгыг дуусгах. Хэрэв бизнес нь үргэлжлүүлэх_url-тай_өсгөх шаардлагатай гэж буцаавал хэрэглэгч төлбөрөө дуусгахын тулд тэр URL-г хөтөч дээрээ нээх ЗААВАЛ ЗААВАЛ. Хэрэглэгч хөтчөөр төлбөрөө төлсний дараа дуусгахыг хүлээхийн тулд mode='poll'-г ашиглана уу.\nmode='poll' — санал асуулга дуусах хүртэл эсвэл хугацаа дуусах хүртэл санал асуулга. Хэрэглэгч continue_url-ээр төлбөрөө хийж дууссаны дараа ашиглана уу.",
-    "param.mode.description": "'үүсгэх' / 'авах' / 'шинэчлэх' / 'дуусгах' / 'санал асуулга'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Бизнесийн үндсэн URL.",
     "param.checkout_id.description": "Тооцоо хийх сесс ID (авах/шинэчлэх/бүрэн/санал асуулга явуулахад шаардлагатай).",
     "param.cart_id.description": "Төлбөр хийх сагсны ID (заавал биш, line_items-н өөр).",
@@ -282,11 +408,18 @@
     "param.poll_interval.description": "Санал асуулгын оролдлогын хоорондох секунд (зөвхөн горим='санал асуулга', анхдагч 3).",
     "param.shipping_address.description": "Хүргэлтийн хаяг (заавал биш). Талбарууд: гудамжны_хаяг, хаяг_орон нутаг, хаяг_бүс, шуудангийн_код, хаяг_улс.",
     "param.buyer.description": "Худалдан авагчийн мэдээлэл (заавал биш). Талбарууд: имэйл, нэр, овог.",
-    "param.extensions.description": "Борлуулагчийн тусгай өргөтгөлүүд (заавал биш). com.vendor.* боломжуудын түлхүүр-утга хосууд."
+    "param.extensions.description": "Борлуулагчийн тусгай өргөтгөлүүд (заавал биш). com.vendor.* боломжуудын түлхүүр-утга хосууд.",
+    "err.business_url_required": "business_url шаардлагатай.",
+    "err.checkout_id_required": "mode='{mode}' үед checkout_id шаардлагатай.",
+    "err.unknown_mode": "Үл мэдэгдэх mode: {mode}",
+    "msg.complete_payment_browser": "Төлбөрийг дуусгахын тулд continue_url-ийг хөтөч дээр нээнэ үү. Дараа нь ucp_checkout-ыг mode='poll', checkout_id='{checkout_id}'-тэй ажиллуулаад захиалга дуусахыг хүлээнэ үү.",
+    "err.checkout_canceled": "Checkout session цуцлагдлаа.",
+    "err.poll_timeout": "Checkout {timeout} секундэд дууссангүй. Хэрэглэгч хөтөч дээр төлбөрөө хараахан дуусгаагүй байж магадгүй. Илүү урт timeout-тай mode='poll'-ийг дахин оролдоно уу.",
+    "msg.payment_action_required": "Төлбөр хийхэд хэрэглэгч хөтөч дээр үйлдэл хийх шаардлагатай."
   },
   "mr": {
     "tool.description": "UCP चेकआउट सत्र व्यवस्थापित करा. mode='create' — एक नवीन चेकआउट सुरू करा.\nmode='get' — वर्तमान चेकआउट स्थिती आणा.\nmode='update' — चेकआउट फील्ड सुधारित करा.\nmode='complete' — ऑर्डर अंतिम करा. जर व्यवसायाने continue_url द्वारे Requis_escalation परत केले, तर पेमेंट पूर्ण करण्यासाठी वापरकर्त्याने ती URL ब्राउझरमध्ये उघडली पाहिजे. वापरकर्त्याने ब्राउझरमध्ये पैसे दिल्यानंतर, पूर्ण होण्याची प्रतीक्षा करण्यासाठी mode='poll' वापरा.\nmode='poll' — मतदान चेकआउट स्थिती पूर्ण होईपर्यंत किंवा कालबाह्य होईपर्यंत. वापरकर्त्याने continue_url द्वारे पेमेंट पूर्ण केल्यानंतर वापरा.",
-    "param.mode.description": "'तयार करा' / 'मिळवा' / 'अपडेट' / 'पूर्ण' / 'पोल'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "व्यवसायाची मूळ URL.",
     "param.checkout_id.description": "चेकआउट सत्र आयडी (गेट/अपडेट/पूर्ण/पोलसाठी आवश्यक).",
     "param.cart_id.description": "वरून चेकआउट तयार करण्यासाठी कार्ट आयडी (पर्यायी, line_items साठी पर्यायी).",
@@ -297,11 +430,18 @@
     "param.poll_interval.description": "मतदान प्रयत्नांमधील सेकंद (फक्त मोड = 'पोल', डीफॉल्ट 3).",
     "param.shipping_address.description": "पूर्ततेसाठी शिपिंग पत्ता (पर्यायी). फील्ड: रस्ता_पत्ता, पत्ता_परिसर, पत्ता_क्षेत्र, पोस्टल_कोड, पत्ता_देश.",
     "param.buyer.description": "खरेदीदार माहिती (पर्यायी). फील्ड: ईमेल, नाव, आडनाव.",
-    "param.extensions.description": "विक्रेता-विशिष्ट विस्तार (पर्यायी). com.vendor.* क्षमतांसाठी की-व्हॅल्यू जोड्या."
+    "param.extensions.description": "विक्रेता-विशिष्ट विस्तार (पर्यायी). com.vendor.* क्षमतांसाठी की-व्हॅल्यू जोड्या.",
+    "err.business_url_required": "business_url आवश्यक आहे.",
+    "err.checkout_id_required": "mode='{mode}' साठी checkout_id आवश्यक आहे.",
+    "err.unknown_mode": "अज्ञात mode: {mode}",
+    "msg.complete_payment_browser": "पेमेंट पूर्ण करण्यासाठी ब्राउझरमध्ये continue_url उघडा. त्यानंतर ucp_checkout mode='poll' आणि checkout_id='{checkout_id}' सह वापरा आणि ऑर्डर पूर्ण होईपर्यंत प्रतीक्षा करा.",
+    "err.checkout_canceled": "checkout सत्र रद्द केले.",
+    "err.poll_timeout": "checkout {timeout} सेकंदांत पूर्ण झाले नाही. वापरकर्त्याने ब्राउझरमध्ये पेमेंट अजून पूर्ण केले नसेल. अधिक timeout सह mode='poll' पुन्हा वापरा.",
+    "msg.payment_action_required": "पेमेंटसाठी ब्राउझरमध्ये वापरकर्त्याची कृती आवश्यक आहे."
   },
   "ms": {
     "tool.description": "Uruskan sesi pembayaran UCP. mod='create' — mulakan pembayaran baharu.\nmode='get' — ambil status pembayaran semasa.\nmode='update' — ubah suai medan pembayaran.\nmode='complete' — memuktamadkan pesanan. Jika perniagaan kembali memerlukan_escalation dengan continue_url, pengguna MESTI membuka URL tersebut dalam penyemak imbas untuk menyelesaikan pembayaran. Selepas pengguna membayar dalam penyemak imbas, gunakan mode='poll' untuk menunggu selesai.\nmode='poll' — status daftar keluar tinjauan pendapat sehingga selesai atau tamat masa. Gunakan selepas pengguna menyelesaikan pembayaran melalui continue_url.",
-    "param.mode.description": "'buat' / 'dapat' / 'kemas kini' / 'selesai' / 'poll'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL asas perniagaan.",
     "param.checkout_id.description": "ID sesi pembayaran (diperlukan untuk mendapatkan/kemas kini/lengkap/pendapatan pendapat).",
     "param.cart_id.description": "ID Troli untuk membuat pembayaran daripada (pilihan, alternatif kepada item_baris).",
@@ -312,11 +452,18 @@
     "param.poll_interval.description": "Saat antara percubaan tinjauan pendapat (mode='poll' sahaja, lalai 3).",
     "param.shipping_address.description": "Alamat penghantaran untuk pemenuhan (pilihan). Medan: alamat_jalan, lokasi_alamat, wilayah_alamat, pos_kod, alamat_negara.",
     "param.buyer.description": "Maklumat pembeli (pilihan). Medan: e-mel, nama_pertama, nama_keluarga.",
-    "param.extensions.description": "Sambungan khusus vendor (pilihan). Pasangan nilai kunci untuk keupayaan com.vendor.*."
+    "param.extensions.description": "Sambungan khusus vendor (pilihan). Pasangan nilai kunci untuk keupayaan com.vendor.*.",
+    "err.business_url_required": "business_url diperlukan.",
+    "err.checkout_id_required": "checkout_id diperlukan untuk mode='{mode}'.",
+    "err.unknown_mode": "Mode tidak diketahui: {mode}",
+    "msg.complete_payment_browser": "Buka continue_url dalam pelayar untuk melengkapkan pembayaran. Selepas itu gunakan ucp_checkout dengan mode='poll' dan checkout_id='{checkout_id}' dan tunggu pesanan selesai.",
+    "err.checkout_canceled": "Sesi checkout dibatalkan.",
+    "err.poll_timeout": "Checkout tidak selesai dalam {timeout} saat. Pengguna mungkin belum menyelesaikan pembayaran dalam pelayar. Cuba mode='poll' semula dengan timeout yang lebih panjang.",
+    "msg.payment_action_required": "Pembayaran memerlukan tindakan pengguna dalam pelayar."
   },
   "nb": {
     "tool.description": "Administrer en UCP-utsjekkingsøkt. mode='create' — start en ny kasse.\nmode='get' — hent gjeldende kassestatus.\nmode='update' — endre kassefelt.\nmode='complete' — fullfør bestillingen. Hvis virksomheten returnerer requires_escalation med en continu_url, MÅ brukeren åpne denne URL-en i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.\nmode='poll' — avstemningsutsjekkingsstatus til fullført eller tidsavbrudd. Bruk etter at brukeren har fullført betaling via continu_url.",
-    "param.mode.description": "'opprett' / 'få' / 'oppdater' / 'fullfør' / 'avstemning'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Grunnadressen til bedriften.",
     "param.checkout_id.description": "Checkout økt-ID (påkrevd for å få/oppdatere/fullføre/avstemning).",
     "param.cart_id.description": "Handlevogn-ID for å opprette kassen fra (valgfritt, alternativ til linjeposter).",
@@ -327,11 +474,18 @@
     "param.poll_interval.description": "Sekunder mellom avstemningsforsøk (kun mode='avstemning', standard 3).",
     "param.shipping_address.description": "Leveringsadresse for oppfyllelse (valgfritt). Felt: gate_adresse, adresse_lokalitet, adresse_region, postnummer, adresse_land.",
     "param.buyer.description": "Kjøperinformasjon (valgfritt). Felter: e-post, fornavn, etternavn.",
-    "param.extensions.description": "Leverandørspesifikke utvidelser (valgfritt). Nøkkelverdi-par for com.vendor.*-funksjoner."
+    "param.extensions.description": "Leverandørspesifikke utvidelser (valgfritt). Nøkkelverdi-par for com.vendor.*-funksjoner.",
+    "err.business_url_required": "business_url er påkrevd.",
+    "err.checkout_id_required": "checkout_id er påkrevd for mode='{mode}'.",
+    "err.unknown_mode": "Ukjent modus: {mode}",
+    "msg.complete_payment_browser": "Åpne continue_url i nettleseren for å fullføre betalingen. Bruk deretter ucp_checkout med mode='poll' og checkout_id='{checkout_id}' og vent til ordren er fullført.",
+    "err.checkout_canceled": "Checkout-økten ble avbrutt.",
+    "err.poll_timeout": "Checkout ble ikke fullført innen {timeout} sekunder. Brukeren har kanskje ikke fullført betalingen i nettleseren ennå. Prøv mode='poll' igjen med lengre timeout.",
+    "msg.payment_action_required": "Betalingen krever brukerhandling i nettleseren."
   },
   "nl": {
     "tool.description": "Beheer een UCP-afrekensessie. mode='create' — start een nieuwe checkout.\nmode='get' — haal de huidige checkout-status op.\nmode='update' — wijzig de checkout-velden.\nmode='complete' — voltooi de bestelling. Als het bedrijf retourneert_escalatie vereist met een continue_url, MOET de gebruiker die URL in een browser openen om de betaling te voltooien. Nadat de gebruiker in de browser heeft betaald, gebruikt u mode='poll' om te wachten op voltooiing.\nmode='poll' — afrekenstatus van poll tot voltooiing of time-out. Gebruiken nadat de gebruiker de betaling heeft voltooid via continue_url.",
-    "param.mode.description": "'aanmaken' / 'krijgen' / 'bijwerken' / 'voltooien' / 'poll'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Basis-URL van het bedrijf.",
     "param.checkout_id.description": "Afrekensessie-ID (vereist voor ophalen/update/voltooien/poll).",
     "param.cart_id.description": "Winkelwagen-ID waaruit u een afrekening kunt maken (optioneel, alternatief voor line_items).",
@@ -342,13 +496,20 @@
     "param.poll_interval.description": "Seconden tussen pollpogingen (alleen mode='poll', standaard 3).",
     "param.shipping_address.description": "Verzendadres voor uitvoering (optioneel). Velden: straatadres, adres_plaats, adres_regio, postcode, adres_land.",
     "param.buyer.description": "Koperinformatie (optioneel). Velden: e-mailadres, voornaam, achternaam.",
-    "param.extensions.description": "Leveranciersspecifieke extensies (optioneel). Sleutel-waardeparen voor com.vendor.*-mogelijkheden."
+    "param.extensions.description": "Leveranciersspecifieke extensies (optioneel). Sleutel-waardeparen voor com.vendor.*-mogelijkheden.",
+    "err.business_url_required": "business_url is verplicht.",
+    "err.checkout_id_required": "checkout_id is verplicht voor mode='{mode}'.",
+    "err.unknown_mode": "Onbekende modus: {mode}",
+    "msg.complete_payment_browser": "Open continue_url in de browser om de betaling te voltooien. Gebruik daarna ucp_checkout met mode='poll' en checkout_id='{checkout_id}' en wacht tot de bestelling is voltooid.",
+    "err.checkout_canceled": "De checkout-sessie is geannuleerd.",
+    "err.poll_timeout": "Checkout is niet binnen {timeout} seconden voltooid. De gebruiker heeft de betaling mogelijk nog niet in de browser afgerond. Probeer mode='poll' opnieuw met een langere timeout.",
+    "msg.payment_action_required": "De betaling vereist een actie van de gebruiker in de browser."
   },
   "nn": {
     "tool.description": "Administrer en UCP-utsjekkingssesjon. mode='create' — start en ny utsjekkingssesjon.modus='get' — hent gjeldende utsjekkingsstatus.modus='update' — modifiser utsjekkingsfelt. modus='complete' — fullfør bestillingen. Hvis bedriften returnerer requires_escalation med en continue_url, MÅ brukeren åpne denne nettadressen i en nettleser for å fullføre betalingen. Etter at brukeren har betalt i nettleseren, bruk mode='poll' for å vente på fullføring.timeout. Bruk etter at brukeren har fullført betalingen via continue_url.",
     "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Basis-URL for virksomheten.",
-    "param.checkout_id.description": "Checkout session ID (required for get/update/complete/poll).",
+    "param.checkout_id.description": "ID for checkout-økta (påkravd for get/update/complete/poll).",
     "param.cart_id.description": "Handlekurv-ID for å opprette kassen fra (valgfritt, alternativ til line_items).",
     "param.line_items.description": "Linjeelementer for direkte utsjekking (alternativ til cart_id).",
     "param.ap2_token.description": "AP2-betalingstoken for autonom fullføring (mode='complete' only).",
@@ -357,11 +518,18 @@
     "param.poll_interval.description": "Sekunder mellom avstemningsforsøk (mode='poll' only, default 3).",
     "param.shipping_address.description": "Leveringsadresse for oppfyllelse (valgfritt). Felt: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Kjøperinformasjon (valgfritt). Felt: email, first_name, last_name.",
-    "param.extensions.description": "Leverandør-spesifikke utvidelser (valgfritt). Nøkkel-verdi par for com.vendor.* evner."
+    "param.extensions.description": "Leverandør-spesifikke utvidelser (valgfritt). Nøkkel-verdi par for com.vendor.* evner.",
+    "err.business_url_required": "business_url er påkravd.",
+    "err.checkout_id_required": "checkout_id er påkravd for mode='{mode}'.",
+    "err.unknown_mode": "Ukjend modus: {mode}",
+    "msg.complete_payment_browser": "Opne continue_url i nettlesaren for å fullføre betalinga. Bruk deretter ucp_checkout med mode='poll' og checkout_id='{checkout_id}' og vent til bestillinga er fullført.",
+    "err.checkout_canceled": "Checkout-økta vart avbroten.",
+    "err.poll_timeout": "Checkout vart ikkje fullført innan {timeout} sekund. Brukaren har kanskje ikkje fullført betalinga i nettlesaren enno. Prøv mode='poll' igjen med lengre timeout.",
+    "msg.payment_action_required": "Betalinga krev brukarhandling i nettlesaren."
   },
   "pl": {
     "tool.description": "Zarządzaj sesją realizacji transakcji UCP. mode='create' — rozpocznij nową transakcję.\nmode='get' — pobierz bieżący stan realizacji transakcji.\nmode='update' — zmodyfikuj pola kasy.\nmode='complete' — sfinalizuj zamówienie. Jeśli firma zwraca wymaga_eskalacji z adresem URL_kontynuacji, użytkownik MUSI otworzyć ten adres URL w przeglądarce, aby dokończyć płatność. Gdy użytkownik zapłaci w przeglądarce, użyj mode='poll', aby poczekać na zakończenie.\nmode='poll' — stan sprawdzania ankiety do zakończenia lub przekroczenia limitu czasu. Użyj, gdy użytkownik dokona płatności za pośrednictwem Continuous_url.",
-    "param.mode.description": "„utwórz” / „pobierz” / „aktualizuj” / „ukończ” / „ankieta”.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Podstawowy adres URL firmy.",
     "param.checkout_id.description": "Identyfikator sesji realizacji transakcji (wymagany do pobrania/aktualizacji/ukończenia/ankiety).",
     "param.cart_id.description": "Identyfikator koszyka, z którego chcesz utworzyć płatność (opcjonalnie, alternatywa dla line_items).",
@@ -372,11 +540,18 @@
     "param.poll_interval.description": "Sekundy między próbami odpytywania (tylko tryb = „ankieta”, domyślnie 3).",
     "param.shipping_address.description": "Adres wysyłki do realizacji (opcjonalnie). Pola: adres_ulicy, adres_lokalizacji, region_adresu, kod_pocztowy, kraj_adresu.",
     "param.buyer.description": "Informacje o kupującym (opcjonalnie). Pola: e-mail, imię, nazwisko.",
-    "param.extensions.description": "Rozszerzenia specyficzne dla dostawcy (opcjonalnie). Pary klucz-wartość dla możliwości com.vendor.*."
+    "param.extensions.description": "Rozszerzenia specyficzne dla dostawcy (opcjonalnie). Pary klucz-wartość dla możliwości com.vendor.*.",
+    "err.business_url_required": "business_url jest wymagany.",
+    "err.checkout_id_required": "checkout_id jest wymagany dla mode='{mode}'.",
+    "err.unknown_mode": "Nieznany tryb: {mode}",
+    "msg.complete_payment_browser": "Otwórz continue_url w przeglądarce, aby zakończyć płatność. Następnie użyj ucp_checkout z mode='poll' i checkout_id='{checkout_id}' i poczekaj na zakończenie zamówienia.",
+    "err.checkout_canceled": "Sesja checkout została anulowana.",
+    "err.poll_timeout": "Checkout nie zakończył się w ciągu {timeout} sekund. Użytkownik mógł jeszcze nie zakończyć płatności w przeglądarce. Spróbuj ponownie mode='poll' z dłuższym timeoutem.",
+    "msg.payment_action_required": "Płatność wymaga działania użytkownika w przeglądarce."
   },
   "pt": {
     "tool.description": "Gerencie uma sessão de checkout UCP. mode='create' — inicia um novo checkout.\nmode='get' — busca o status atual do checkout.\nmode='update' — modifica os campos de checkout.\nmode='complete' — finaliza o pedido. Se a empresa retornar require_escalation com continue_url, o usuário DEVE abrir esse URL em um navegador para concluir o pagamento. Depois que o usuário pagar no navegador, use mode='poll' para aguardar a conclusão.\nmode='poll' — status de checkout da pesquisa até a conclusão ou tempo limite. Use depois que o usuário concluir o pagamento via continue_url.",
-    "param.mode.description": "'criar' / 'obter' / 'atualizar' / 'completo' / 'enquete'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL base da empresa.",
     "param.checkout_id.description": "ID da sessão de checkout (obrigatório para obter/atualizar/concluir/enquete).",
     "param.cart_id.description": "ID do carrinho para criar o checkout (opcional, alternativa a line_items).",
@@ -387,11 +562,18 @@
     "param.poll_interval.description": "Segundos entre tentativas de enquete (somente mode='poll', padrão 3).",
     "param.shipping_address.description": "Endereço de entrega para cumprimento (opcional). Campos: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Informações do comprador (opcional). Campos: email, nome, sobrenome.",
-    "param.extensions.description": "Extensões específicas do fornecedor (opcional). Pares de valores-chave para recursos com.vendor.*."
+    "param.extensions.description": "Extensões específicas do fornecedor (opcional). Pares de valores-chave para recursos com.vendor.*.",
+    "err.business_url_required": "business_url é obrigatório.",
+    "err.checkout_id_required": "checkout_id é obrigatório para mode='{mode}'.",
+    "err.unknown_mode": "Modo desconhecido: {mode}",
+    "msg.complete_payment_browser": "Abra continue_url no navegador para concluir o pagamento. Depois, use ucp_checkout com mode='poll' e checkout_id='{checkout_id}' e aguarde a conclusão da encomenda.",
+    "err.checkout_canceled": "A sessão de checkout foi cancelada.",
+    "err.poll_timeout": "O checkout não foi concluído em {timeout} segundos. O utilizador pode ainda não ter concluído o pagamento no navegador. Tente novamente mode='poll' com um timeout maior.",
+    "msg.payment_action_required": "O pagamento requer uma ação do utilizador no navegador."
   },
   "pt_BR": {
     "tool.description": "Gerencie uma sessão de checkout UCP. mode='create' — inicia um novo checkout.\nmode='get' — busca o status atual do checkout.\nmode='update' — modifica os campos de checkout.\nmode='complete' — finaliza o pedido. Se a empresa retornar require_escalation com continue_url, o usuário DEVE abrir esse URL em um navegador para concluir o pagamento. Depois que o usuário pagar no navegador, use mode='poll' para aguardar a conclusão.\nmode='poll' — status de checkout da pesquisa até a conclusão ou tempo limite. Use depois que o usuário concluir o pagamento via continue_url.",
-    "param.mode.description": "'criar' / 'obter' / 'atualizar' / 'completo' / 'enquete'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL base da empresa.",
     "param.checkout_id.description": "ID da sessão de checkout (obrigatório para obter/atualizar/concluir/enquete).",
     "param.cart_id.description": "ID do carrinho para criar o checkout (opcional, alternativa a line_items).",
@@ -402,11 +584,18 @@
     "param.poll_interval.description": "Segundos entre tentativas de enquete (somente mode='poll', padrão 3).",
     "param.shipping_address.description": "Endereço de entrega para cumprimento (opcional). Campos: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Informações do comprador (opcional). Campos: email, nome, sobrenome.",
-    "param.extensions.description": "Extensões específicas do fornecedor (opcional). Pares de valores-chave para recursos com.vendor.*."
+    "param.extensions.description": "Extensões específicas do fornecedor (opcional). Pares de valores-chave para recursos com.vendor.*.",
+    "err.business_url_required": "business_url é obrigatório.",
+    "err.checkout_id_required": "checkout_id é obrigatório para mode='{mode}'.",
+    "err.unknown_mode": "Modo desconhecido: {mode}",
+    "msg.complete_payment_browser": "Abra continue_url no navegador para concluir o pagamento. Depois, use ucp_checkout com mode='poll' e checkout_id='{checkout_id}' e aguarde a conclusão do pedido.",
+    "err.checkout_canceled": "A sessão de checkout foi cancelada.",
+    "err.poll_timeout": "O checkout não foi concluído em {timeout} segundos. O usuário pode ainda não ter concluído o pagamento no navegador. Tente novamente mode='poll' com um timeout maior.",
+    "msg.payment_action_required": "O pagamento requer uma ação do usuário no navegador."
   },
   "ro": {
     "tool.description": "Gestionați o sesiune de plată UCP. mode='create' — începeți o nouă casă.\nmode='get' — obțineți starea curentă de plată.\nmode='update' — modificați câmpurile de finalizare a plății.\nmode='complete' — finalizați comanda. Dacă afacerea revine requires_escalation cu un continue_url, utilizatorul TREBUIE să deschidă acea adresă URL într-un browser pentru a finaliza plata. După ce utilizatorul plătește în browser, utilizați mode='poll' pentru a aștepta finalizarea.\nmode='poll' — starea de verificare a sondajului până la finalizare sau expirare. Utilizați după ce utilizatorul finalizează plata prin continue_url.",
-    "param.mode.description": "„creează” / „obține” / „actualizează” / „termină” / „sondaj”.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Adresa URL de bază a companiei.",
     "param.checkout_id.description": "ID-ul sesiunii de finalizare a plății (necesar pentru obținere/actualizare/finalizare/sondare).",
     "param.cart_id.description": "ID-ul coșului de la care să creați finalizarea comenzii (opțional, alternativă la articolele rând).",
@@ -417,11 +606,18 @@
     "param.poll_interval.description": "Secunde între încercările de sondare (mod = doar „sondaj”, implicit 3).",
     "param.shipping_address.description": "Adresa de livrare pentru onorare (optional). Câmpuri: street_address, address_locality, address_region, postal_code, address_country.",
     "param.buyer.description": "Informații despre cumpărător (opțional). Câmpuri: e-mail, prenume, prenume.",
-    "param.extensions.description": "Extensii specifice furnizorului (opțional). Perechi cheie-valoare pentru capabilitățile com.vendor.*."
+    "param.extensions.description": "Extensii specifice furnizorului (opțional). Perechi cheie-valoare pentru capabilitățile com.vendor.*.",
+    "err.business_url_required": "business_url este obligatoriu.",
+    "err.checkout_id_required": "checkout_id este obligatoriu pentru mode='{mode}'.",
+    "err.unknown_mode": "Mod necunoscut: {mode}",
+    "msg.complete_payment_browser": "Deschideți continue_url în browser pentru a finaliza plata. Apoi utilizați ucp_checkout cu mode='poll' și checkout_id='{checkout_id}' și așteptați finalizarea comenzii.",
+    "err.checkout_canceled": "Sesiunea de checkout a fost anulată.",
+    "err.poll_timeout": "Checkout-ul nu s-a finalizat în {timeout} secunde. Este posibil ca utilizatorul să nu fi finalizat încă plata în browser. Încercați din nou mode='poll' cu un timeout mai mare.",
+    "msg.payment_action_required": "Plata necesită o acțiune a utilizatorului în browser."
   },
   "ru": {
     "tool.description": "Управляйте сеансом оформления заказа UCP. mode='create' — начать новую проверку.\nmode='get' — получить текущий статус оформления заказа.\nmode='update' — изменить поля оформления заказа.\nmode='complete' — завершить заказ. Если бизнес возвращает require_escalation с continue_url, пользователь ДОЛЖЕН открыть этот URL-адрес в браузере для завершения платежа. После того, как пользователь оплатит в браузере, используйте mode='poll', чтобы дождаться завершения.\nmode='poll' — статус проверки опроса до завершения или истечения времени ожидания. Используйте после того, как пользователь завершит оплату через continue_url.",
-    "param.mode.description": "«создать» / «получить» / «обновить» / «завершить» / «опрос».",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Базовый URL компании.",
     "param.checkout_id.description": "Идентификатор сеанса оформления заказа (требуется для получения/обновления/завершения/опроса).",
     "param.cart_id.description": "Идентификатор корзины для создания оформления заказа (необязательно, альтернатива line_items).",
@@ -432,11 +628,18 @@
     "param.poll_interval.description": "Секунды между попытками опроса (только mode='poll', по умолчанию 3).",
     "param.shipping_address.description": "Адрес доставки для выполнения (необязательно). Поля: улица_адрес, адрес_локация, адрес_регион, почтовый_код, адрес_страна.",
     "param.buyer.description": "Информация о покупателе (необязательно). Поля: электронная почта, имя, фамилия.",
-    "param.extensions.description": "Расширения для конкретного поставщика (необязательно). Пары ключ-значение для возможностей com.vendor.*."
+    "param.extensions.description": "Расширения для конкретного поставщика (необязательно). Пары ключ-значение для возможностей com.vendor.*.",
+    "err.business_url_required": "business_url обязателен.",
+    "err.checkout_id_required": "checkout_id обязателен для mode='{mode}'.",
+    "err.unknown_mode": "Неизвестный режим: {mode}",
+    "msg.complete_payment_browser": "Откройте continue_url в браузере, чтобы завершить оплату. Затем используйте ucp_checkout с mode='poll' и checkout_id='{checkout_id}' и дождитесь завершения заказа.",
+    "err.checkout_canceled": "Сеанс checkout был отменён.",
+    "err.poll_timeout": "Checkout не завершился за {timeout} секунд. Возможно, пользователь ещё не завершил оплату в браузере. Повторите mode='poll' с большим timeout.",
+    "msg.payment_action_required": "Оплата требует действия пользователя в браузере."
   },
   "sv": {
     "tool.description": "Hantera en UCP-utcheckningssession. mode='skapa' — starta en ny utcheckning.\nmode='get' — hämta aktuell kassastatus.\nmode='uppdatera' — ändra kassafält.\nmode='komplett' — slutföra beställningen. Om företaget returnerar requires_escalation med en continu_url, MÅSTE användaren öppna den webbadressen i en webbläsare för att slutföra betalningen. Efter att användaren har betalat i webbläsaren, använd mode='poll' för att vänta på slutförandet.\nmode='poll' — omröstningsutcheckningsstatus tills den är klar eller timeout. Använd efter att användaren har slutfört betalningen via continu_url.",
-    "param.mode.description": "'skapa' / 'get' / 'uppdatera' / 'komplett' / 'omröstning'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "Företagets basadress.",
     "param.checkout_id.description": "Utcheckningssessions-ID (krävs för att hämta/uppdatera/slutföra/omröstning).",
     "param.cart_id.description": "Kundvagns-ID att skapa kassan från (valfritt, alternativ till radposter).",
@@ -447,11 +650,18 @@
     "param.poll_interval.description": "Sekunder mellan omröstningsförsök (endast läge='poll', standard 3).",
     "param.shipping_address.description": "Leveransadress för uppfyllelse (valfritt). Fält: gatuadress, adressort, adressregion, postnummer, adressland.",
     "param.buyer.description": "Köparinformation (valfritt). Fält: email, first_name, last_name.",
-    "param.extensions.description": "Leverantörsspecifika tillägg (valfritt). Nyckel-värdepar för com.vendor.*-funktioner."
+    "param.extensions.description": "Leverantörsspecifika tillägg (valfritt). Nyckel-värdepar för com.vendor.*-funktioner.",
+    "err.business_url_required": "business_url krävs.",
+    "err.checkout_id_required": "checkout_id krävs för mode='{mode}'.",
+    "err.unknown_mode": "Okänt läge: {mode}",
+    "msg.complete_payment_browser": "Öppna continue_url i webbläsaren för att slutföra betalningen. Använd sedan ucp_checkout med mode='poll' och checkout_id='{checkout_id}' och vänta tills beställningen är klar.",
+    "err.checkout_canceled": "Checkout-sessionen avbröts.",
+    "err.poll_timeout": "Checkout slutfördes inte inom {timeout} sekunder. Användaren kanske inte har slutfört betalningen i webbläsaren ännu. Försök mode='poll' igen med längre timeout.",
+    "msg.payment_action_required": "Betalningen kräver en användaråtgärd i webbläsaren."
   },
   "sw": {
     "tool.description": "Dhibiti kipindi cha malipo cha UCP. mode='unda' - anza malipo mapya.\nmode='pata' - pata hali ya sasa ya kulipa.\nmode='sasisha' - rekebisha sehemu za kulipa.\nmode='complete' — kamilisha agizo. Ikiwa biashara inarejesha inahitaji_kupanda kwa kuendelea na url, ni LAZIMA mtumiaji afungue URL hiyo kwenye kivinjari ili kukamilisha malipo. Baada ya mtumiaji kulipa katika kivinjari, tumia mode='poll' kusubiri kukamilika.\nmode='poll' — hali ya kulipa kura hadi ikamilike au kuisha. Tumia baada ya mtumiaji kukamilisha malipo kupitia kuendelea_url.",
-    "param.mode.description": "'unda' / 'pata' / 'sasisha' / 'kamilisha' / 'uchaguzi'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL ya msingi ya biashara.",
     "param.checkout_id.description": "Kitambulisho cha kipindi cha Malipo (kinahitajika kupata/kusasisha/kamilisha/kupiga kura).",
     "param.cart_id.description": "Kitambulisho cha rukwama cha kuunda malipo kutoka (si lazima, mbadala wa vipengee_vitu).",
@@ -462,11 +672,18 @@
     "param.poll_interval.description": "Sekunde kati ya majaribio ya kura (mode='upigaji kura' pekee, chaguo-msingi 3).",
     "param.shipping_address.description": "Anwani ya usafirishaji ili utimizwe (si lazima). Maeneo: anwani_ya_mitaa, anwani_eneo, anwani_ya_msimbo, anwani_ya_nchi.",
     "param.buyer.description": "Habari ya mnunuzi (hiari). Sehemu: barua pepe, jina_la_mwisho, jina_la_mwisho.",
-    "param.extensions.description": "Upanuzi maalum wa muuzaji (hiari). Jozi za thamani kuu kwa uwezo wa com.vendor.*."
+    "param.extensions.description": "Upanuzi maalum wa muuzaji (hiari). Jozi za thamani kuu kwa uwezo wa com.vendor.*.",
+    "err.business_url_required": "business_url inahitajika.",
+    "err.checkout_id_required": "checkout_id inahitajika kwa mode='{mode}'.",
+    "err.unknown_mode": "Hali isiyojulikana: {mode}",
+    "msg.complete_payment_browser": "Fungua continue_url kwenye kivinjari ili kukamilisha malipo. Baada ya kulipa, tumia ucp_checkout na mode='poll' pamoja na checkout_id='{checkout_id}' na usubiri agizo likamilike.",
+    "err.checkout_canceled": "Kikao cha checkout kimeghairiwa.",
+    "err.poll_timeout": "Checkout haikukamilika ndani ya sekunde {timeout}. Huenda mtumiaji bado hajakamilisha malipo kwenye kivinjari. Jaribu mode='poll' tena kwa timeout ndefu zaidi.",
+    "msg.payment_action_required": "Malipo yanahitaji hatua ya mtumiaji kwenye kivinjari."
   },
   "th": {
     "tool.description": "จัดการเซสชันการชำระเงิน UCP mode='create' — เริ่มการชำระเงินใหม่ \nmode='get' — ดึงข้อมูลสถานะการชำระเงินปัจจุบัน \nmode='update' — แก้ไขฟิลด์การชำระเงิน \nmode='complete' — เสร็จสิ้นการสั่งซื้อ หากธุรกิจส่งคืน need_escalation ด้วย Continue_url ผู้ใช้จะต้องเปิด URL นั้นในเบราว์เซอร์เพื่อชำระเงินให้เสร็จสิ้น หลังจากที่ผู้ใช้ชำระเงินในเบราว์เซอร์ ให้ใช้ mode='poll' เพื่อรอจนเสร็จสิ้น\nmode='poll' — สถานะการชำระเงินของโพลจนกว่าจะเสร็จสิ้นหรือหมดเวลา ใช้หลังจากที่ผู้ใช้ชำระเงินผ่าน Continue_url เรียบร้อยแล้ว",
-    "param.mode.description": "'สร้าง' / 'รับ' / 'อัปเดต' / 'เสร็จสิ้น' / 'โพลล์'",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL พื้นฐานของธุรกิจ",
     "param.checkout_id.description": "รหัสเซสชันการชำระเงิน (จำเป็นสำหรับการรับ/อัปเดต/กรอก/โพล)",
     "param.cart_id.description": "รหัสรถเข็นสำหรับสร้างการชำระเงิน (ไม่บังคับ เป็นทางเลือกแทน line_items)",
@@ -477,11 +694,18 @@
     "param.poll_interval.description": "วินาทีระหว่างความพยายามสำรวจความคิดเห็น (mode='poll' only, default 3)",
     "param.shipping_address.description": "ที่อยู่สำหรับจัดส่ง (ไม่บังคับ) ฟิลด์: street_address, address_locality, address_region, postal_code, address_country",
     "param.buyer.description": "ข้อมูลผู้ซื้อ (ไม่บังคับ) ฟิลด์: อีเมล first_name นามสกุล",
-    "param.extensions.description": "ส่วนขยายเฉพาะผู้ขาย (ไม่บังคับ) คู่คีย์-ค่าสำหรับความสามารถ com.vendor.*"
+    "param.extensions.description": "ส่วนขยายเฉพาะผู้ขาย (ไม่บังคับ) คู่คีย์-ค่าสำหรับความสามารถ com.vendor.*",
+    "err.business_url_required": "จำเป็นต้องระบุ business_url",
+    "err.checkout_id_required": "จำเป็นต้องมี checkout_id สำหรับ mode='{mode}'",
+    "err.unknown_mode": "ไม่รู้จัก mode: {mode}",
+    "msg.complete_payment_browser": "เปิด continue_url ในเบราว์เซอร์เพื่อชำระเงินให้เสร็จ จากนั้นใช้ ucp_checkout ด้วย mode='poll' และ checkout_id='{checkout_id}' แล้วรอให้คำสั่งซื้อเสร็จสมบูรณ์",
+    "err.checkout_canceled": "เซสชัน checkout ถูกยกเลิก",
+    "err.poll_timeout": "checkout ไม่เสร็จภายใน {timeout} วินาที ผู้ใช้อาจยังชำระเงินในเบราว์เซอร์ไม่เสร็จ ลอง mode='poll' อีกครั้งด้วย timeout ที่นานขึ้น",
+    "msg.payment_action_required": "การชำระเงินต้องการการดำเนินการของผู้ใช้ในเบราว์เซอร์"
   },
   "tr": {
     "tool.description": "UCP ödeme oturumunu yönetin. mode='create' — yeni bir ödeme başlat.\nmode='get' — mevcut ödeme durumunu getir.\nmode='update' — ödeme alanlarını değiştir.\nmode='complete' — siparişi sonlandır. İşletme, bir devam_url'si ile require_escalation değerini döndürürse, kullanıcının ödemeyi tamamlamak için bu URL'yi bir tarayıcıda açması GEREKİR. Kullanıcı tarayıcıda ödeme yaptıktan sonra, tamamlanmasını beklemek için mode='poll' komutunu kullanın.\nmode='poll' — tamamlanana veya zaman aşımına uğrayana kadar anket ödeme durumu. Kullanıcı devam_url yoluyla ödemeyi tamamladıktan sonra kullanın.",
-    "param.mode.description": "'oluştur' / 'al' / 'güncelle' / 'tamamla' / 'anket'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "İşletmenin temel URL'si.",
     "param.checkout_id.description": "Ödeme oturumu kimliği (alma/güncelleme/tamamlama/anket için gereklidir).",
     "param.cart_id.description": "Ödemenin oluşturulacağı sepet kimliği (isteğe bağlı, line_items'e alternatif).",
@@ -492,7 +716,14 @@
     "param.poll_interval.description": "Anket girişimleri arasındaki saniye sayısı (mode='anket' yalnızca, varsayılan 3).",
     "param.shipping_address.description": "Siparişin yerine getirilmesi için gönderim adresi (isteğe bağlı). Alanlar: cadde_adresi, adres_yerellik, adres_bölge, posta_kodu, adres_ülke.",
     "param.buyer.description": "Alıcı bilgileri (isteğe bağlı). Alanlar: e-posta, ad, soyadı.",
-    "param.extensions.description": "Satıcıya özel uzantılar (isteğe bağlı). com.vendor.* yetenekleri için anahtar/değer çiftleri."
+    "param.extensions.description": "Satıcıya özel uzantılar (isteğe bağlı). com.vendor.* yetenekleri için anahtar/değer çiftleri.",
+    "err.business_url_required": "business_url gereklidir.",
+    "err.checkout_id_required": "mode='{mode}' için checkout_id gereklidir.",
+    "err.unknown_mode": "Bilinmeyen mod: {mode}",
+    "msg.complete_payment_browser": "Ödemeyi tamamlamak için continue_url adresini tarayıcıda açın. Ardından ucp_checkout'u mode='poll' ve checkout_id='{checkout_id}' ile kullanın ve siparişin tamamlanmasını bekleyin.",
+    "err.checkout_canceled": "Checkout oturumu iptal edildi.",
+    "err.poll_timeout": "Checkout {timeout} saniye içinde tamamlanmadı. Kullanıcı tarayıcıda ödemeyi henüz tamamlamamış olabilir. Daha uzun timeout ile mode='poll' tekrar deneyin.",
+    "msg.payment_action_required": "Ödeme, tarayıcıda kullanıcı işlemi gerektiriyor."
   },
   "uk": {
     "tool.description": "Керуйте сеансом оформлення UCP. mode='create' — почати нову перевірку.\nmode='get' — отримати поточний статус перевірки.\nmode='update' — змінити поля перевірки.\nmode='complete' — завершити замовлення. Якщо компанія повертає запит requires_escalation із continue_url, користувач ПОВИНЕН відкрити цю URL-адресу в браузері, щоб завершити платіж. Після того, як користувач оплатить у браузері, використовуйте mode='poll', щоб дочекатися завершення.\nmode='poll' — статус перевірки опитування до завершення або час очікування. Використовуйте після того, як користувач завершить оплату через continue_url.",
@@ -507,11 +738,18 @@
     "param.poll_interval.description": "Секунди між спробами опитування (лише mode='poll', за умовчанням 3).",
     "param.shipping_address.description": "Адреса доставки для виконання (необов’язково). Поля: street_address, address_locality, address_region, poštanski_індекс, address_country.",
     "param.buyer.description": "Інформація про покупця (за бажанням). Поля: електронна пошта, ім'я, прізвище.",
-    "param.extensions.description": "Спеціальні розширення для постачальників (необов’язково). Пари ключ-значення для можливостей com.vendor.*."
+    "param.extensions.description": "Спеціальні розширення для постачальників (необов’язково). Пари ключ-значення для можливостей com.vendor.*.",
+    "err.business_url_required": "business_url є обов’язковим.",
+    "err.checkout_id_required": "checkout_id є обов’язковим для mode='{mode}'.",
+    "err.unknown_mode": "Невідомий режим: {mode}",
+    "msg.complete_payment_browser": "Відкрийте continue_url у браузері, щоб завершити оплату. Потім використайте ucp_checkout з mode='poll' і checkout_id='{checkout_id}' та дочекайтеся завершення замовлення.",
+    "err.checkout_canceled": "Сеанс checkout було скасовано.",
+    "err.poll_timeout": "Checkout не завершився за {timeout} секунд. Можливо, користувач ще не завершив оплату в браузері. Спробуйте mode='poll' ще раз із більшим timeout.",
+    "msg.payment_action_required": "Оплата потребує дії користувача в браузері."
   },
   "vi": {
     "tool.description": "Quản lý phiên thanh toán UCP. mode='create' — bắt đầu một lần thanh toán mới.\nmode='get' — tìm nạp trạng thái thanh toán hiện tại.\nmode='update' — sửa đổi các trường thanh toán.\nmode='complete' — hoàn tất đơn hàng. Nếu doanh nghiệp trả về require_escalation bằng continue_url, người dùng PHẢI mở URL đó trong trình duyệt để hoàn tất thanh toán. Sau khi người dùng thanh toán trên trình duyệt, hãy sử dụng mode='poll' để chờ hoàn thành.\nmode='poll' — trạng thái kiểm tra cuộc thăm dò ý kiến ​​cho đến khi hoàn thành hoặc hết thời gian chờ. Sử dụng sau khi người dùng hoàn tất thanh toán qua continue_url.",
-    "param.mode.description": "'tạo' / 'nhận' / 'cập nhật' / 'hoàn thành' / 'thăm dò ý kiến'.",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "URL cơ sở của doanh nghiệp.",
     "param.checkout_id.description": "ID phiên thanh toán (bắt buộc để nhận/cập nhật/hoàn thành/thăm dò ý kiến).",
     "param.cart_id.description": "ID giỏ hàng để tạo giao dịch thanh toán (tùy chọn, thay thế cho line_items).",
@@ -522,11 +760,18 @@
     "param.poll_interval.description": "Giây giữa các lần thăm dò ý kiến ​​(chỉ mode='poll', mặc định là 3).",
     "param.shipping_address.description": "Địa chỉ giao hàng để thực hiện (tùy chọn). Các trường: địa chỉ đường phố, địa chỉ_địa phương, địa chỉ_khu vực, mã bưu chính, địa chỉ_quốc gia.",
     "param.buyer.description": "Thông tin người mua (tùy chọn). Các trường: email, first_name, Last_name.",
-    "param.extensions.description": "Tiện ích mở rộng dành riêng cho nhà cung cấp (tùy chọn). Cặp khóa-giá trị cho khả năng com.vendor.*."
+    "param.extensions.description": "Tiện ích mở rộng dành riêng cho nhà cung cấp (tùy chọn). Cặp khóa-giá trị cho khả năng com.vendor.*.",
+    "err.business_url_required": "business_url là bắt buộc.",
+    "err.checkout_id_required": "checkout_id là bắt buộc với mode='{mode}'.",
+    "err.unknown_mode": "Mode không xác định: {mode}",
+    "msg.complete_payment_browser": "Mở continue_url trong trình duyệt để hoàn tất thanh toán. Sau đó dùng ucp_checkout với mode='poll' và checkout_id='{checkout_id}' rồi chờ đơn hàng hoàn tất.",
+    "err.checkout_canceled": "Phiên checkout đã bị hủy.",
+    "err.poll_timeout": "Checkout không hoàn tất trong {timeout} giây. Người dùng có thể chưa hoàn tất thanh toán trong trình duyệt. Hãy thử lại mode='poll' với timeout dài hơn.",
+    "msg.payment_action_required": "Thanh toán yêu cầu người dùng thao tác trong trình duyệt."
   },
   "zh_CN": {
     "tool.description": "管理 UCP 结帐会话。 mode='create' — 开始新的结帐。\nmode='get' — 获取当前结帐状态。\nmode='update' — 修改结帐字段。\nmode='complete' — 完成订单。如果企业返回带有 continue_url 的 require_escalation，则用户必须在浏览器中打开该 URL 才能完成付款。用户在浏览器中付款后，使用 mode='poll' 等待完成。\nmode='poll' — 轮询结帐状态，直到完成或超时。用户通过 continue_url 完成支付后使用。",
-    "param.mode.description": "“创建”/“获取”/“更新”/“完成”/“轮询”。",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "企业的基本 URL。",
     "param.checkout_id.description": "签出会话 ID（获取/更新/完成/轮询所需）。",
     "param.cart_id.description": "用于创建结帐的购物车 ID（可选，line_items 的替代方案）。",
@@ -537,11 +782,18 @@
     "param.poll_interval.description": "轮询尝试之间的秒数（仅限 mode='poll'，默认为 3）。",
     "param.shipping_address.description": "用于履行的送货地址（可选）。字段：街道地址、地址地点、地址区域、邮政编码、地址国家。",
     "param.buyer.description": "买家信息（可选）。字段：电子邮件、名字、姓氏。",
-    "param.extensions.description": "供应商特定的扩展（可选）。 com.vendor.* 功能的键值对。"
+    "param.extensions.description": "供应商特定的扩展（可选）。 com.vendor.* 功能的键值对。",
+    "err.business_url_required": "必须提供 business_url。",
+    "err.checkout_id_required": "mode='{mode}' 需要 checkout_id。",
+    "err.unknown_mode": "未知 mode：{mode}",
+    "msg.complete_payment_browser": "在浏览器中打开 continue_url 以完成付款。付款后，使用 ucp_checkout，设置 mode='poll' 和 checkout_id='{checkout_id}'，并等待订单完成。",
+    "err.checkout_canceled": "checkout 会话已取消。",
+    "err.poll_timeout": "checkout 未在 {timeout} 秒内完成。用户可能尚未在浏览器中完成付款。请使用更长的 timeout 再次尝试 mode='poll'。",
+    "msg.payment_action_required": "付款需要用户在浏览器中进行操作。"
   },
   "zh_TW": {
     "tool.description": "管理 UCP 結帳會話。 mode='create' — 開始新的結帳。 \nmode='get' — 取得目前結帳狀態。 \nmode='update' — 修改結帳欄位。 \nmode='complete' — 完成訂單。如果企業傳回帶有 continue_url 的 require_escalation，則使用者必須在瀏覽器中開啟該 URL 才能完成付款。用戶在瀏覽器中付款後，使用 mode='poll' 等待完成。 \nmode='poll' — 輪詢結帳狀態，直到完成或逾時。使用者透過 continue_url 完成付款後使用。",
-    "param.mode.description": "“創建”/“獲取”/“更新”/“完成”/“輪詢”。",
+    "param.mode.description": "'create' / 'get' / 'update' / 'complete' / 'poll'.",
     "param.business_url.description": "企業的基本 URL。",
     "param.checkout_id.description": "簽出會話 ID（取得/更新/完成/輪詢所需）。",
     "param.cart_id.description": "用於建立結帳的購物車 ID（可選，line_items 的替代方案）。",
@@ -552,6 +804,13 @@
     "param.poll_interval.description": "輪詢嘗試之間的秒數（僅限 mode='poll'，預設為 3）。",
     "param.shipping_address.description": "用於履行的送貨地址（可選）。欄位：街道地址、地址地點、地址區域、郵遞區號、地址國家。",
     "param.buyer.description": "買家資訊（可選）。欄位：電子郵件、名字、姓氏。",
-    "param.extensions.description": "供應商特定的擴展（可選）。 com.vendor.* 功能的鍵值對。"
+    "param.extensions.description": "供應商特定的擴展（可選）。 com.vendor.* 功能的鍵值對。",
+    "err.business_url_required": "必須提供 business_url。",
+    "err.checkout_id_required": "mode='{mode}' 需要 checkout_id。",
+    "err.unknown_mode": "未知 mode：{mode}",
+    "msg.complete_payment_browser": "在瀏覽器中開啟 continue_url 以完成付款。付款後，使用 ucp_checkout，設定 mode='poll' 和 checkout_id='{checkout_id}'，並等待訂單完成。",
+    "err.checkout_canceled": "checkout 工作階段已取消。",
+    "err.poll_timeout": "checkout 未在 {timeout} 秒內完成。使用者可能尚未在瀏覽器中完成付款。請使用更長的 timeout 再次嘗試 mode='poll'。",
+    "msg.payment_action_required": "付款需要使用者在瀏覽器中進行操作。"
   }
 }

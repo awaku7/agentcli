@@ -34,10 +34,6 @@ TOOL_SPEC = {
                 "c++ file index",
                 "function list",
                 "class list",
-                "Read C source files",
-                "Read C++ source files",
-                "Function list",
-                "Class list",
             ],
         ),
         "x_search_terms_en": [

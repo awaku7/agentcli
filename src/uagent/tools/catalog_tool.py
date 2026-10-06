@@ -31,6 +31,8 @@ def _build_tool_catalog_spec() -> dict[str, Any]:
                     "discover tools",
                     "tool discovery",
                     "list all tools",
+                    "auto load",
+                    "auto-load tool",
                 ],
             ),
             "x_search_terms_en": [

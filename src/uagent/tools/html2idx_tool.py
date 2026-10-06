@@ -51,10 +51,6 @@ TOOL_SPEC = {
                 "html index",
                 "xml parser",
                 "html section",
-                "Read HTML files",
-                "HTML index",
-                "XML parser",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

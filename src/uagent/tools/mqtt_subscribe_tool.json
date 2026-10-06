@@ -794,7 +794,7 @@
   "fil": {
     "tool.description": "Mag-subscribe sa isang paksa ng MQTT. Ang mga mensahe ay awtomatikong ipinapasa sa LLM sa pamamagitan ng SchedulerStore.",
     "param.host.description": "MQTT broker hostname o IP.",
-    "param.port.description": "MQTT broker port.",
+    "param.port.description": "Port ng MQTT broker.",
     "param.topic.description": "MQTT paksa upang mag-subscribe sa (mga wildcard suportado).",
     "param.qos.description": "Antas ng QoS (0, 1, 2).",
     "param.label.description": "Nababasa ng tao ang label para sa subscription na ito.",

@@ -185,7 +185,7 @@
   },
   "nn": {
     "tool.description": "Søk etter eller slå opp produkter i en UCP-aktivert bedriftskatalog. Bruk mode='search' for søkeordssøk eller mode='lookup' for å hente produktdetaljer etter vare-ID-er.",
-    "param.mode.description": "'search' for keyword search, 'lookup' for product detail by ID.",
+    "param.mode.description": "'search' for søk med nøkkelord, 'lookup' for produktdetaljar etter ID.",
     "param.business_url.description": "Basis-URL for virksomheten (f.eks. 'https://example.shop').",
     "param.query.description": "Søkestreng (påkrevd for mode='search').",
     "param.item_ids.description": "Liste over element-ID-er som skal slå opp (kreves for modus='oppslag').",

@@ -114,6 +114,51 @@ DEFAULT_BATCH_ITEMS = 40
 # a different number of entries from English; x_search_terms_en is the runtime
 # English fallback.
 VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
+INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
+    {
+        # Protocol/debug/output templates whose English spelling is part of the
+        # stable wire/log representation rather than user-facing prose.
+        ("pybitchat_shared", "bitchat.debug_noise_hs"),
+        ("pybitchat_shared", "bitchat.debug_noise_enc"),
+        ("pybitchat_shared", "bitchat.debug_hs_start"),
+        ("pybitchat_shared", "bitchat.debug_hs_msg1_sent"),
+        ("pybitchat_shared", "bitchat.debug_hs_skip"),
+        ("pybitchat_shared", "bitchat.nostr_msg"),
+        ("pybitchat_shared", "bitchat.noise_dm_msg"),
+        ("pybitchat_shared", "bitchat.mesh_msg"),
+        ("pybitchat_shared", "bitchat.dm_msg"),
+        ("vision_openai", "vision.error_prefix"),
+        ("skill_history", "skill.ok"),
+        ("create_tool", "cmd.help"),
+        ("human_ask", "ui.footer"),
+        ("safe_exec_ops", "ui.fallback_prompt"),
+        ("safe_exec_ops", "ui.confirm.footer"),
+        ("safe_file_ops", "ui.confirm.footer"),
+        ("pybitchat_subscribe", "peers.list_entry"),
+        ("pybitchat_subscribe", "geo.list_geohash"),
+        ("pybitchat_subscribe", "geo.list_peer_id"),
+        ("pybitchat_subscribe", "geo.joined_peer_id"),
+        ("pybitchat_subscribe", "geo.joined_coords"),
+        ("pybitchat_subscribe", "cmd.status_peer"),
+        ("pybitchat_subscribe", "cmd.node_started_nostr_failed"),
+        ("pybitchat_subscribe", "cmd.status_nostr_stopped"),
+        ("pybitchat_subscribe", "cmd.status_nostr_relay"),
+        ("pybitchat_subscribe", "cmd.status_nostr_pubkey"),
+        ("pybitchat_subscribe", "geo.channel_entry"),
+        ("search_files", "match.line"),
+        ("current_location", "src.nmea"),
+        ("wttrin", "output.forecast_row"),
+        ("graph_rag_search", "out.db"),
+        ("set_timer", "out.list_os_item"),
+        ("ucp_checkout", "param.mode.description"),
+        ("diff_files", "label.text_input"),
+    }
+)
+
+
+def _is_intentional_english_tool_key(tool: str, key: str) -> bool:
+    return (tool, key) in INTENTIONAL_ENGLISH_TOOL_KEYS
+
 
 
 def _reconfigure_stdout() -> None:
@@ -426,6 +471,12 @@ class Unit:
     text: str
 
 
+def _tool_label(path: Path) -> str:
+    """Return a stable diagnostic label for arbitrary tool catalog filenames."""
+    stem = path.stem
+    return stem[: -len("_tool")] if stem.endswith("_tool") else stem
+
+
 def collect_units(
     files: Iterable[Path],
     langs: list[str],
@@ -443,7 +494,7 @@ def collect_units(
         except Exception as e:
             print(f"[skip] {path}: {e}", file=sys.stderr)
             continue
-        tool = path.name[: -len("_tool.json")]
+        tool = _tool_label(path)
         present_langs = {
             k for k, v in data.items() if _is_lang_block(k, v) and k != "en"
         }
@@ -460,6 +511,15 @@ def collect_units(
                 if text is None or not text.strip():
                     continue
                 cur = block.get(key)
+                if (
+                    only_missing
+                    and skip_same_as_en
+                    and isinstance(en_val, str)
+                    and isinstance(cur, str)
+                    and cur.strip() == en_val.strip()
+                    and _is_intentional_english_tool_key(tool, str(key))
+                ):
+                    continue
                 if only_missing and not _is_missing_or_stale(
                     en_val,
                     cur,
@@ -860,13 +920,14 @@ def cmd_status(args: argparse.Namespace) -> int:
     files = _tool_files(args)
     langs = args.langs_list
 
+    require_all_locales = args.add_lang or args.require_complete
     missing_units = collect_units(
         files,
         langs,
         force=False,
         skip_same_as_en=False,
         only_missing=True,
-        only_existing_lang=not args.add_lang,
+        only_existing_lang=not require_all_locales,
     )
 
     same_as_en_units: list[Unit] = []
@@ -877,25 +938,44 @@ def cmd_status(args: argparse.Namespace) -> int:
             force=False,
             skip_same_as_en=True,
             only_missing=True,
-            only_existing_lang=not args.add_lang,
+            only_existing_lang=not require_all_locales,
         )
         missing_ids = {(u.source_path, u.lang, u.key) for u in missing_units}
         same_as_en_units = [
-            u for u in review_units if (u.source_path, u.lang, u.key) not in missing_ids
+            u
+            for u in review_units
+            if (u.source_path, u.lang, u.key) not in missing_ids
+            and not _is_intentional_english_tool_key(u.tool, u.key)
         ]
 
     review_units = missing_units + same_as_en_units
 
     by_pair: dict[tuple[str, str], int] = {}
+    missing_by_pair: dict[tuple[str, str], int] = {}
+    missing_keys_by_tool: dict[str, set[str]] = {}
+    same_keys_by_tool: dict[str, set[str]] = {}
     missing_by_lang: dict[str, int] = {}
+    missing_by_tool: dict[str, int] = {}
     same_by_lang: dict[str, int] = {}
+    same_by_tool_key: dict[tuple[str, str], int] = {}
+    missing_by_tool_key: dict[tuple[str, str], int] = {}
 
     for u in review_units:
         by_pair[(u.tool, u.lang)] = by_pair.get((u.tool, u.lang), 0) + 1
     for u in missing_units:
+        missing_keys_by_tool.setdefault(u.tool, set()).add(u.key)
+        missing_by_pair[(u.tool, u.lang)] = (
+            missing_by_pair.get((u.tool, u.lang), 0) + 1
+        )
         missing_by_lang[u.lang] = missing_by_lang.get(u.lang, 0) + 1
+        missing_by_tool[u.tool] = missing_by_tool.get(u.tool, 0) + 1
+        tool_key = (u.tool, u.key)
+        missing_by_tool_key[tool_key] = missing_by_tool_key.get(tool_key, 0) + 1
     for u in same_as_en_units:
+        same_keys_by_tool.setdefault(u.tool, set()).add(u.key)
         same_by_lang[u.lang] = same_by_lang.get(u.lang, 0) + 1
+        tool_key = (u.tool, u.key)
+        same_by_tool_key[tool_key] = same_by_tool_key.get(tool_key, 0) + 1
 
     print(f"tools_scanned: {len(files)}")
     print(f"supported_locales: {len(SUPPORTED_TOOL_LOCALES)}")
@@ -911,15 +991,69 @@ def cmd_status(args: argparse.Namespace) -> int:
         for lang, n in sorted(missing_by_lang.items()):
             print(f"  {lang:8s} {n}")
 
+    if missing_by_tool:
+        print("missing_by_tool:")
+        for tool, n in sorted(
+            missing_by_tool.items(), key=lambda item: (-item[1], item[0])
+        ):
+            print(f"  {tool:40s} {n}")
+
+    if args.show_missing_keys and missing_by_tool_key:
+        print("missing_by_tool_key:")
+        for (tool, key), n in sorted(
+            missing_by_tool_key.items(),
+            key=lambda item: (-item[1], item[0][0], item[0][1]),
+        ):
+            print(f"  {tool:40s} {key:48s} {n}")
+
     if same_by_lang:
         print("same_as_english_by_language:")
         for lang, n in sorted(same_by_lang.items()):
             print(f"  {lang:8s} {n}")
 
+    if missing_keys_by_tool:
+        print("missing_keys_by_tool:")
+        for tool, keys in sorted(missing_keys_by_tool.items()):
+            print(f"  {tool:40s} {','.join(sorted(keys))}")
+
+    if same_keys_by_tool:
+        print("same_as_english_keys_by_tool:")
+        for tool, keys in sorted(same_keys_by_tool.items()):
+            print(f"  {tool:40s} {','.join(sorted(keys))}")
+
+    if missing_by_pair:
+        print("missing_by_tool_language:")
+        for (tool, lang), n in sorted(missing_by_pair.items()):
+            print(f"  {tool:40s} {lang:8s} {n}")
+
+    if args.show_same_as_english_keys and same_by_tool_key:
+        print("same_as_english_by_tool_key:")
+        for (tool, key), n in sorted(
+            same_by_tool_key.items(),
+            key=lambda item: (-item[1], item[0][0], item[0][1]),
+        ):
+            print(f"  {tool:40s} {key:48s} {n}")
+
+    if args.show_same_as_english_units and same_as_en_units:
+        print("same_as_english_units:")
+        for unit in sorted(
+            same_as_en_units,
+            key=lambda item: (item.tool, item.lang, item.key),
+        ):
+            print(f"  {unit.tool:40s} {unit.lang:8s} {unit.key}")
+
     if by_pair:
         print("review_candidates_by_tool_language:")
         for (tool, lang), n in sorted(by_pair.items()):
             print(f"  {tool:40s} {lang:8s} {n}")
+
+    if args.require_complete and missing_units:
+        print(
+            "error: tool i18n catalogs are incomplete; "
+            f"{len(missing_units)} translation unit(s) are missing",
+            file=sys.stderr,
+        )
+        return 1
 
     return 0
 
@@ -1005,7 +1139,7 @@ def _parse_tools(s: str | None) -> set[str] | None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Batch-translate tool *_tool.json via tmp/")
+    p = argparse.ArgumentParser(description="Batch-translate tool JSON catalogs via tmp/")
     p.add_argument(
         "command",
         choices=["status", "extract", "translate", "merge", "run"],
@@ -1014,7 +1148,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--tools-dir",
         default="",
-        help="Directory containing *_tool.json (default: tools and tools_rust)",
+        help="Directory containing tool JSON catalogs (default: tools and tools_rust)",
     )
     p.add_argument(
         "--tmp-dir",
@@ -1074,7 +1208,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--apply",
         action="store_true",
-        help="Actually write *_tool.json on merge/run (otherwise preview only)",
+        help="Actually write tool JSON catalogs on merge/run (otherwise preview only)",
     )
     p.add_argument(
         "--keep-existing",
@@ -1085,6 +1219,29 @@ def build_parser() -> argparse.ArgumentParser:
         "--add-lang",
         action="store_true",
         help="Allow creating a language block on files that do not have it yet",
+    )
+    p.add_argument(
+        "--show-missing-keys",
+        action="store_true",
+        help="For status, print missing translation keys grouped by tool catalog",
+    )
+    p.add_argument(
+        "--show-same-as-english-keys",
+        action="store_true",
+        help="For status, print target==English candidates grouped by tool and key",
+    )
+    p.add_argument(
+        "--show-same-as-english-units",
+        action="store_true",
+        help="For status, print each target==English candidate as tool, locale, and key",
+    )
+    p.add_argument(
+        "--require-complete",
+        action="store_true",
+        help=(
+            "For status, return non-zero when any Python-source translation unit "
+            "is missing; absent locale blocks are included in the check"
+        ),
     )
     p.add_argument("--batch-chars", type=int, default=DEFAULT_BATCH_CHARS)
     p.add_argument("--batch-items", type=int, default=DEFAULT_BATCH_ITEMS)

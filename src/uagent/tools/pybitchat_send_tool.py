@@ -34,7 +34,6 @@ TOOL_SPEC: dict[str, Any] = {
             default=[
                 "pybitchat send",
                 "bitchat send",
-                "pybitchat_send",
                 "message",
             ],
         ),

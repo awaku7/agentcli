@@ -45,7 +45,7 @@
     "success.installed_marketplace": "マーケットプレイス/パッケージ '{name}' が {path} に正常にインストールされました ({count} 個のスキル定義が見つかりました)。",
     "warn.missing_skill_md": "スキルは{path}にインストールされましたが、ルートにSKILL.mdが見つかりませんでした。",
     "err.unexpected": "予期しないエラーが発生しました: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   ソースから skill または marketplace 形式パッケージをインストール",
     "prefix.skills": "【スキル】",
     "prefix.skills_error": "【スキルエラー】"
   },
@@ -95,7 +95,7 @@
     "success.installed_marketplace": "Se instaló correctamente el mercado/paquete '{name}' en {path} (se encontraron {count} definiciones de habilidades).",
     "warn.missing_skill_md": "Skill se instaló en {path}, pero SKILL.md no se encontró en la raíz.",
     "err.unexpected": "Se produjo un error inesperado: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Instalar una skill o paquete tipo marketplace desde una fuente",
     "prefix.skills": "[habilidades]",
     "prefix.skills_error": "[error de habilidades]"
   },
@@ -145,7 +145,7 @@
     "success.installed_marketplace": "Place de marché/package « {name} » installé avec succès sur {path} (définitions de compétences {count} trouvées).",
     "warn.missing_skill_md": "Skill installée à {path}, mais SKILL.md est introuvable à la racine.",
     "err.unexpected": "Une erreur inattendue s'est produite : {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Installer une skill ou un paquet de type marketplace depuis une source",
     "prefix.skills": "[compétences]",
     "prefix.skills_error": "[erreur de compétences]"
   },
@@ -195,7 +195,7 @@
     "success.installed_marketplace": "마켓플레이스/패키지 '{name}'을(를) {path}에 성공적으로 설치했습니다({count}개의 기술 정의를 찾았습니다).",
     "warn.missing_skill_md": "{path}에 스킬이 설치되어 있지만 루트에서 SKILL.md를 찾을 수 없습니다.",
     "err.unexpected": "예상치 못한 오류가 발생했습니다: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   source에서 skill 또는 marketplace 형식 패키지 설치",
     "prefix.skills": "[스킬]",
     "prefix.skills_error": "[스킬 오류]"
   },
@@ -245,7 +245,7 @@
     "success.installed_marketplace": "Marktplatz/Paket „{name}“ erfolgreich auf {path} installiert ({count} Skilldefinitionen gefunden).",
     "warn.missing_skill_md": "Skill wurde unter {path} installiert, aber SKILL.md wurde nicht im Stammverzeichnis gefunden.",
     "err.unexpected": "Es ist ein unerwarteter Fehler aufgetreten: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Einen Skill oder ein Marketplace-Paket aus einer Quelle installieren",
     "prefix.skills": "[Fähigkeiten]",
     "prefix.skills_error": "[Fähigkeitsfehler]"
   },
@@ -295,7 +295,7 @@
     "success.installed_marketplace": "Marketplace/pacchetto '{name}' installato correttamente su {path} (trovate {count} definizioni di competenze).",
     "warn.missing_skill_md": "Skill installata su {path}, ma SKILL.md non è stato trovato nella root.",
     "err.unexpected": "Si è verificato un errore imprevisto: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Installa una skill o un pacchetto in stile marketplace da una fonte",
     "prefix.skills": "[capacità]",
     "prefix.skills_error": "[errore di competenze]"
   },
@@ -345,7 +345,7 @@
     "success.installed_marketplace": "Торговая площадка/пакет «{name}» успешно установлена на {path} (обнаружено {count} определений навыков).",
     "warn.missing_skill_md": "Скилл установлен на {path}, но SKILL.md не найден в корне.",
     "err.unexpected": "Произошла непредвиденная ошибка: {error}.",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Установить skill или пакет marketplace из источника",
     "prefix.skills": "[навыки]",
     "prefix.skills_error": "[ошибка навыков]"
   },
@@ -395,7 +395,7 @@
     "success.installed_marketplace": "Mercado/pacote '{name}' instalado com sucesso em {path} (definições de habilidades de {count} encontradas).",
     "warn.missing_skill_md": "Skill instalada em {path}, mas SKILL.md não foi encontrado na raiz.",
     "err.unexpected": "Ocorreu um erro inesperado: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Instalar uma skill ou pacote estilo marketplace a partir de uma fonte",
     "prefix.skills": "[habilidades]",
     "prefix.skills_error": "[erro de habilidades]"
   },
@@ -445,7 +445,7 @@
     "success.installed_marketplace": "Mercado/pacote '{name}' instalado com sucesso em {path} (definições de habilidades de {count} encontradas).",
     "warn.missing_skill_md": "Skill instalada em {path}, mas SKILL.md não foi encontrado na raiz.",
     "err.unexpected": "Ocorreu um erro inesperado: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Instalar uma skill ou pacote tipo marketplace a partir de uma fonte",
     "prefix.skills": "[habilidades]",
     "prefix.skills_error": "[erro de habilidades]"
   },
@@ -495,7 +495,7 @@
     "success.installed_marketplace": "Berhasil memasang pasar/paket '{name}' ke {path} (definisi keterampilan {count} ditemukan).",
     "warn.missing_skill_md": "Skill dipasang di {path}, namun SKILL.md tidak ditemukan di root.",
     "err.unexpected": "Terjadi kesalahan tak terduga: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Instal skill atau paket bergaya marketplace dari sumber",
     "prefix.skills": "[keterampilan]",
     "prefix.skills_error": "[kesalahan keterampilan]"
   },
@@ -545,7 +545,7 @@
     "success.installed_marketplace": "Đã cài đặt thành công thị trường/gói '{name}' vào {path} (đã tìm thấy {count} định nghĩa kỹ năng).",
     "warn.missing_skill_md": "Skill được cài đặt tại {path}, nhưng không tìm thấy SKILL.md trong thư mục gốc.",
     "err.unexpected": "Đã xảy ra lỗi không mong muốn: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Cài đặt skill hoặc gói kiểu marketplace từ nguồn",
     "prefix.skills": "[kỹ năng]",
     "prefix.skills_error": "[lỗi kỹ năng]"
   },
@@ -595,7 +595,7 @@
     "success.installed_marketplace": "Pomyślnie zainstalowano platformę handlową/pakiet „{name}” do {path} (znaleziono definicje umiejętności {count}).",
     "warn.missing_skill_md": "Umiejętność zainstalowana w {path}, ale w katalogu głównym nie znaleziono pliku SKILL.md.",
     "err.unexpected": "Wystąpił nieoczekiwany błąd: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Zainstaluj skill lub pakiet typu marketplace ze źródła",
     "prefix.skills": "[umiejętności]",
     "prefix.skills_error": "[błąd umiejętności]"
   },
@@ -645,7 +645,7 @@
     "success.installed_marketplace": "मार्केटप्लेस/पैकेज '{name}' को {path} पर सफलतापूर्वक स्थापित किया गया ({count} कौशल परिभाषाएँ मिलीं)।",
     "warn.missing_skill_md": "{path} पर कौशल स्थापित किया गया, लेकिन SKILL.md रूट में नहीं मिला।",
     "err.unexpected": "एक अप्रत्याशित त्रुटि उत्पन्न हुई: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   source से skill या marketplace-style package इंस्टॉल करें",
     "prefix.skills": "[कौशल]",
     "prefix.skills_error": "[कौशल त्रुटि]"
   },
@@ -695,7 +695,7 @@
     "success.installed_marketplace": "تم تثبيت السوق/الحزمة '{name}' بنجاح على {path} (تم العثور على تعريفات المهارات {count}).",
     "warn.missing_skill_md": "تم تثبيت المهارة في {path}، ولكن لم يتم العثور على SKILL.md في الجذر.",
     "err.unexpected": "حدث خطأ غير متوقع: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   تثبيت skill أو حزمة بنمط marketplace من مصدر",
     "prefix.skills": "[المهارات]",
     "prefix.skills_error": "[خطأ في المهارات]"
   },
@@ -745,7 +745,7 @@
     "success.installed_marketplace": "Marknadsplatsen/paketet '{name}' till {path} har installerats ({count} färdighetsdefinitioner hittades).",
     "warn.missing_skill_md": "Skill installerad vid {path}, men SKILL.md hittades inte i roten.",
     "err.unexpected": "Ett oväntat fel inträffade: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Installera en skill eller marketplace-paket från en källa",
     "prefix.skills": "[färdigheter]",
     "prefix.skills_error": "[färdighetsfel]"
   },
@@ -795,7 +795,7 @@
     "success.installed_marketplace": "Imesakinisha soko/furushi '{name}' hadi {path} ({count} ufafanuzi wa ujuzi umepatikana).",
     "warn.missing_skill_md": "Ujuzi umesakinishwa katika {path}, lakini SKILL.md haikupatikana kwenye mzizi.",
     "err.unexpected": "Hitilafu isiyotarajiwa imetokea: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Sakinisha skill au kifurushi cha marketplace kutoka chanzo",
     "prefix.skills": "[ujuzi]",
     "prefix.skills_error": "[kosa la ujuzi]"
   },
@@ -845,7 +845,7 @@
     "success.installed_marketplace": "Vellykket installert markedsplass/pakke '{name}' til {path} ({count} ferdighetsdefinisjoner funnet).",
     "warn.missing_skill_md": "Skill installert på {path}, men SKILL.md ble ikke funnet i roten.",
     "err.unexpected": "Det oppstod en uventet feil: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Installer en skill eller marketplace-pakke fra en kilde",
     "prefix.skills": "[ferdigheter]",
     "prefix.skills_error": "[ferdighetsfeil]"
   },
@@ -895,7 +895,7 @@
     "success.installed_marketplace": "Marktplaats/pakket '{name}' met succes geïnstalleerd op {path} ({count} vaardigheidsdefinities gevonden).",
     "warn.missing_skill_md": "Skill is geïnstalleerd op {path}, maar SKILL.md is niet gevonden in de root.",
     "err.unexpected": "Er is een onverwachte fout opgetreden: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Een skill of marketplace-pakket vanuit een bron installeren",
     "prefix.skills": "[vaardigheden]",
     "prefix.skills_error": "[vaardigheidsfout]"
   },
@@ -945,7 +945,7 @@
     "success.installed_marketplace": "Kauppapaikan/paketin '{name}' asennus onnistui {path}:een ({count} taitomääritelmää löydetty).",
     "warn.missing_skill_md": "Skill asennettuna osoitteeseen {path}, mutta tiedostoa SKILL.md ei löytynyt juurista.",
     "err.unexpected": "Tapahtui odottamaton virhe: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Asenna skill tai marketplace-tyylinen paketti lähteestä",
     "prefix.skills": "[taidot]",
     "prefix.skills_error": "[taitovirhe]"
   },
@@ -995,7 +995,7 @@
     "success.installed_marketplace": "Marketplace/balík '{name}' do {path} byl úspěšně nainstalován (byly nalezeny definice dovedností {count}).",
     "warn.missing_skill_md": "Skill nainstalován na {path}, ale SKILL.md nebyl nalezen v kořenovém adresáři.",
     "err.unexpected": "Došlo k neočekávané chybě: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Nainstalovat dovednost nebo balíček ve stylu marketplace ze zdroje",
     "prefix.skills": "[dovednosti]",
     "prefix.skills_error": "[chyba dovedností]"
   },
@@ -1045,7 +1045,7 @@
     "success.installed_marketplace": "Торговий майданчик/пакет \"{name}\" успішно встановлено для {path} (знайдено {count} визначення навичок).",
     "warn.missing_skill_md": "Skill встановлено на {path}, але SKILL.md не знайдено в корені.",
     "err.unexpected": "Сталася неочікувана помилка: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Встановити skill або пакет marketplace із джерела",
     "prefix.skills": "[навички]",
     "prefix.skills_error": "[помилка навичок]"
   },
@@ -1095,7 +1095,7 @@
     "success.installed_marketplace": "মার্কেটপ্লেস/প্যাকেজ '{name}' থেকে {path} ({count} দক্ষতার সংজ্ঞা পাওয়া গেছে) সফলভাবে ইনস্টল করা হয়েছে।",
     "warn.missing_skill_md": "{path} এ স্কিল ইনস্টল করা হয়েছে, কিন্তু SKILL.md রুটে পাওয়া যায়নি।",
     "err.unexpected": "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে: {error}৷",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   source থেকে skill বা marketplace-style package ইনস্টল করুন",
     "prefix.skills": "[দক্ষতা]",
     "prefix.skills_error": "[দক্ষতা ত্রুটি]"
   },
@@ -1145,7 +1145,7 @@
     "success.installed_marketplace": "بازار/بسته «{name}» به {path} با موفقیت نصب شد (تعریف مهارت {count} یافت شد).",
     "warn.missing_skill_md": "مهارت در {path} نصب شده است، اما SKILL.md در ریشه یافت نشد.",
     "err.unexpected": "یک خطای غیرمنتظره روی داد: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   نصب skill یا بسته marketplace از یک منبع",
     "prefix.skills": "[مهارت ها]",
     "prefix.skills_error": "[خطای مهارت]"
   },
@@ -1195,7 +1195,7 @@
     "success.installed_marketplace": "\"{name}\" зах зээл/багцыг {path} руу амжилттай суулгасан ({count} ур чадварын тодорхойлолт олдсон).",
     "warn.missing_skill_md": "Skill-ийг {path} дээр суулгасан боловч SKILL.md нь root-ээс олдсонгүй.",
     "err.unexpected": "Гэнэтийн алдаа гарлаа: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Эх сурвалжаас skill эсвэл marketplace төрлийн package суулгах",
     "prefix.skills": "[ур чадвар]",
     "prefix.skills_error": "[ур чадварын алдаа]"
   },
@@ -1245,7 +1245,7 @@
     "success.installed_marketplace": "मार्केटप्लेस/पॅकेज '{name}' ते {path} ({count} कौशल्य व्याख्या सापडल्या) यशस्वीरित्या स्थापित केले.",
     "warn.missing_skill_md": "{path} येथे कौशल्य स्थापित केले, परंतु SKILL.md रूटमध्ये आढळले नाही.",
     "err.unexpected": "एक अनपेक्षित त्रुटी आली: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   source मधून skill किंवा marketplace-style package स्थापित करा",
     "prefix.skills": "[कौशल्य]",
     "prefix.skills_error": "[कौशल्य त्रुटी]"
   },
@@ -1276,7 +1276,7 @@
     "prompt.install": "(χωρίς περιγραφή)",
     "msg.cancelled": "Η εγκατάσταση ακυρώθηκε.",
     "msg.cancelled_detail": "Η εγκατάσταση δεξιοτήτων ακυρώθηκε από τον χρήστη.",
-    "msg.proceeding": "Το αρχείο ZIP περιέχει μη έγκυρη διαδρομή: {#= Η εντολή Git δεν βρέθηκε. Εγκαταστήστε το Git ή χρησιμοποιήστε μια διεύθυνση URL ZIP.",
+    "msg.proceeding": "Συνέχεια εγκατάστασης...",
     "msg.no_description": "(χωρίς περιγραφή)",
     "err.zip_too_many_files": "Το αρχείο ZIP περιέχει πάρα πολλά αρχεία (όριο: {max_files})",
     "err.zip_too_large": "Το μη συμπιεσμένο μέγεθος αρχείου ZIP υπερβαίνει το όριο (όριο: {max_size}MB)",
@@ -1295,7 +1295,7 @@
     "success.installed_marketplace": "Εγκαταστάθηκε με επιτυχία η αγορά/πακέτο '{name}' σε {path} (βρέθηκαν ορισμοί δεξιοτήτων {count}).",
     "warn.missing_skill_md": "Η ικανότητα εγκαταστάθηκε στο {path}, αλλά το SKILL.md δεν βρέθηκε στη ρίζα.",
     "err.unexpected": "Παρουσιάστηκε απροσδόκητο σφάλμα: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Εγκατάσταση skill ή πακέτου τύπου marketplace από πηγή",
     "prefix.skills": "[δεξιότητες]",
     "prefix.skills_error": "[λάθος δεξιοτήτων]"
   },
@@ -1345,7 +1345,7 @@
     "success.installed_marketplace": "התקנת ה-marketplace/חבילה '{name}' בהצלחה ל-{path} (נמצאו {count} הגדרות מיומנות).",
     "warn.missing_skill_md": "מיומנות מותקנת ב-{path}, אך SKILL.md לא נמצאה בשורש.",
     "err.unexpected": "אירעה שגיאה בלתי צפויה: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   התקנת skill או חבילת marketplace ממקור",
     "prefix.skills": "[מיומנויות]",
     "prefix.skills_error": "[שגיאת מיומנויות]"
   },
@@ -1395,7 +1395,7 @@
     "success.installed_marketplace": "A(z) '{name}' piactér/csomag sikeresen telepítve a(z) {path} címre ({count} készségdefiníció található).",
     "warn.missing_skill_md": "A Skill telepítve van a(z) {path} címen, de a SKILL.md nem található a gyökérben.",
     "err.unexpected": "Váratlan hiba történt: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Skill vagy marketplace-jellegű csomag telepítése forrásból",
     "prefix.skills": "[készségek]",
     "prefix.skills_error": "[készséghiba]"
   },
@@ -1445,7 +1445,7 @@
     "success.installed_marketplace": "S-a instalat cu succes marketplace/pachetul „{name}” la {path} ({count} definiții de competențe găsite).",
     "warn.missing_skill_md": "Skill instalat la {path}, dar SKILL.md nu a fost găsit în rădăcină.",
     "err.unexpected": "A apărut o eroare neașteptată: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Instalează un skill sau pachet de tip marketplace dintr-o sursă",
     "prefix.skills": "[aptitudini]",
     "prefix.skills_error": "[eroare de aptitudini]"
   },
@@ -1495,7 +1495,7 @@
     "success.installed_marketplace": "ติดตั้งตลาด/แพ็คเกจ '{name}' ถึง {path} สำเร็จแล้ว (พบคำจำกัดความทักษะ {count})",
     "warn.missing_skill_md": "ติดตั้งทักษะที่ {path} แต่ไม่พบ SKILL.md ในรูท",
     "err.unexpected": "เกิดข้อผิดพลาดที่ไม่คาดคิด: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   ติดตั้ง skill หรือแพ็กเกจแบบ marketplace จากแหล่งที่มา",
     "prefix.skills": "[ทักษะ]",
     "prefix.skills_error": "[ข้อผิดพลาดของทักษะ]"
   },
@@ -1545,7 +1545,7 @@
     "success.installed_marketplace": "Pazar yeri/paket '{name}' {path}'e başarıyla yüklendi ({count} beceri tanımı bulundu).",
     "warn.missing_skill_md": "Skill {path} konumuna yüklendi, ancak SKILL.md kökte bulunamadı.",
     "err.unexpected": "Beklenmeyen bir hata oluştu: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Bir kaynaktan skill veya marketplace tarzı paket yükle",
     "prefix.skills": "[beceriler]",
     "prefix.skills_error": "[beceri hatası]"
   },
@@ -1595,7 +1595,7 @@
     "success.installed_marketplace": "已成功将市场/包“{name}”安装到 {path}（找到 {count} 技能定义）。",
     "warn.missing_skill_md": "Skill 安装在 {path}，但在根目录中找不到 SKILL.md。",
     "err.unexpected": "发生意外错误：{error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   从来源安装 skill 或 marketplace 风格的软件包",
     "prefix.skills": "[技能]",
     "prefix.skills_error": "【技能错误】"
   },
@@ -1645,7 +1645,7 @@
     "success.installed_marketplace": "已成功將市場/包「{name}」安裝到 {path}（找到 {count} 技能定義）。",
     "warn.missing_skill_md": "Skill 安裝在 {path}，但在根目錄中找不到 SKILL.md。",
     "err.unexpected": "发生意外错误：{error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   從來源安裝 skill 或 marketplace 形式套件",
     "prefix.skills": "[技能]",
     "prefix.skills_error": "【技能錯誤】"
   },
@@ -1695,7 +1695,7 @@
     "success.installed_marketplace": "Matagumpay na na-install ang marketplace/package na '{name}' hanggang {path} ({count} na mga kahulugan ng kasanayan ang natagpuan).",
     "warn.missing_skill_md": "Naka-install ang Skill sa {path}, ngunit hindi nakita ang SKILL.md sa ugat.",
     "err.unexpected": "May naganap na hindi inaasahang error: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Mag-install ng skill o marketplace-style package mula sa source",
     "prefix.skills": "[kasanayan]",
     "prefix.skills_error": "[mali sa kasanayan]"
   },
@@ -1745,7 +1745,7 @@
     "success.installed_marketplace": "Berjaya memasang pasaran/pakej '{name}' kepada {path} ({count} definisi kemahiran ditemui).",
     "warn.missing_skill_md": "Skill dipasang pada {path}, tetapi SKILL.md tidak ditemui dalam root.",
     "err.unexpected": "Ralat yang tidak dijangka berlaku: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Pasang skill atau pakej gaya marketplace daripada sumber",
     "prefix.skills": "[kemahiran]",
     "prefix.skills_error": "[kesilapan kemahiran]"
   },
@@ -1795,7 +1795,7 @@
     "success.installed_marketplace": "Vellykket installeret markedsplads/pakke '{name}' til {path} ({count} færdighedsdefinitioner fundet).",
     "warn.missing_skill_md": "Skill installeret på {path}, men SKILL.md blev ikke fundet i roden.",
     "err.unexpected": "Der opstod en uventet fejl: {error}",
-    "help_text.install": "  :skills install <source> [name]   Install a skill or marketplace-style package from a source",
+    "help_text.install": "  :skills install <source> [name]   Installér en skill eller marketplace-pakke fra en kilde",
     "prefix.skills": "[færdigheder]",
     "prefix.skills_error": "[færdighedsfejl]"
   },
@@ -1845,7 +1845,7 @@
     "success.installed_marketplace": "Vellykket installert markedsplass/pakke '{name}' til {path} ({count} ferdighetsdefinisjoner funnet).",
     "warn.missing_skill_md": "Skill installert på {path}, men SKILL.md ble ikkje funnen i roten.",
     "err.unexpected": "Det oppstod en uventet feil: {error}",
-    "help_text.install": "  :skills install <source> [name]   Installer ei ferdigheit eller ein marknadsplasspakke frå ei kjelde",
+    "help_text.install": "  :skills install <source> [name]   Installer ein skill eller marketplace-pakke frå ei kjelde",
     "prefix.skills": "[ferdigheter]",
     "prefix.skills_error": "[ferdighetsfeil]"
   }

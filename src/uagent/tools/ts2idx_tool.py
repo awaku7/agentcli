@@ -34,9 +34,6 @@ TOOL_SPEC = {
                 "js file index",
                 "function list",
                 "class index",
-                "Read TypeScript files",
-                "Function list",
-                "Class list",
             ],
         ),
         "x_search_terms_en": [

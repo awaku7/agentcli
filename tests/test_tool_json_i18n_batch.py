@@ -360,3 +360,314 @@ def test_placeholder_qc_supports_brace_conversion_and_format_spec() -> None:
 
 def test_placeholder_qc_ignores_numeric_braces_used_as_literal_aliases() -> None:
     assert batch._placeholders("Aliases @A{0} through @A{9}") == set()
+
+
+def test_tool_label_supports_arbitrary_catalog_names() -> None:
+    assert batch._tool_label(Path("safe_exec_ops.json")) == "safe_exec_ops"
+    assert batch._tool_label(Path("vision_openai.json")) == "vision_openai"
+    assert batch._tool_label(Path("sample_tool.json")) == "sample"
+
+
+def test_status_require_complete_counts_absent_locale_blocks(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"ja": {"tool.description": "こんにちは"}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--require-complete",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 1
+    assert f"missing_units: {len(batch.SUPPORTED_TARGET_LOCALES) - 1}" in captured.out
+    assert "missing_by_tool:" in captured.out
+    assert f"sample{(40 - len('sample')) * ' '}" in captured.out
+    assert "tool i18n catalogs are incomplete" in captured.err
+
+
+def test_status_require_complete_succeeds_for_complete_catalog(
+    tmp_path: Path, capsys
+) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    catalog = {
+        lang: {"tool.description": f"{lang} translation"}
+        for lang in batch.SUPPORTED_TARGET_LOCALES
+    }
+    _write_catalog(tools_dir / "sample_tool.json", catalog)
+
+    rc = batch.main(
+        [
+            "status",
+            "--require-complete",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 0
+    assert "missing_units: 0" in captured.out
+    assert captured.err == ""
+
+
+def test_intentional_english_debug_value_is_scoped_to_pybitchat() -> None:
+    value = "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d"
+
+    assert batch._is_missing_or_stale(
+        value,
+        value,
+        key="bitchat.debug_hs_skip",
+        force=False,
+        skip_same_as_en=True,
+    )
+    assert batch._is_intentional_english_tool_key(
+        "pybitchat_shared", "bitchat.debug_hs_skip"
+    )
+    assert not batch._is_intentional_english_tool_key(
+        "other_tool", "bitchat.debug_hs_skip"
+    )
+
+
+def test_status_can_report_same_as_english_keys(tmp_path: Path, capsys) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"ja": {"tool.description": "Hello"}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "ja",
+            "--show-same-as-english-keys",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 0
+    assert "same_as_english_by_tool_key:" in captured.out
+    assert "tool.description" in captured.out
+
+
+def test_status_can_report_same_as_english_units(tmp_path: Path, capsys) -> None:
+    tools_dir = tmp_path / "tools"
+    _write_source(
+        tools_dir / "sample_tool.py",
+        {"tool.description": "Hello"},
+    )
+    _write_catalog(
+        tools_dir / "sample_tool.json",
+        {"ja": {"tool.description": "Hello"}},
+    )
+
+    rc = batch.main(
+        [
+            "status",
+            "--langs",
+            "ja",
+            "--show-same-as-english-units",
+            "--tools-dir",
+            str(tools_dir),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 0
+    assert "same_as_english_units:" in captured.out
+    assert "sample" in captured.out
+    assert "ja" in captured.out
+    assert "tool.description" in captured.out
+
+
+def test_placeholder_only_passthrough_key_is_scoped_to_skill_history() -> None:
+    value = "{message}"
+
+    assert batch._is_missing_or_stale(
+        value,
+        value,
+        key="skill.ok",
+        force=False,
+        skip_same_as_en=True,
+    )
+    assert batch._is_intentional_english_tool_key("skill_history", "skill.ok")
+    assert not batch._is_intentional_english_tool_key("other_tool", "skill.ok")
+
+
+def test_intentional_english_tool_key_is_limited_to_invariant_text() -> None:
+    assert batch._is_intentional_english_tool_key(
+        "ucp_checkout", "param.mode.description"
+    )
+    assert batch._is_intentional_english_tool_key("diff_files", "label.text_input")
+    assert batch._is_intentional_english_tool_key(
+        "pybitchat_shared", "bitchat.debug_hs_skip"
+    )
+
+    assert batch._is_intentional_english_tool_key("create_tool", "cmd.help")
+    assert batch._is_intentional_english_tool_key("human_ask", "ui.footer")
+    assert batch._is_intentional_english_tool_key("safe_exec_ops", "ui.fallback_prompt")
+    assert batch._is_intentional_english_tool_key("safe_exec_ops", "ui.confirm.footer")
+    assert batch._is_intentional_english_tool_key("safe_file_ops", "ui.confirm.footer")
+    assert batch._is_intentional_english_tool_key(
+        "pybitchat_subscribe", "cmd.node_started_nostr_failed"
+    )
+    assert not batch._is_intentional_english_tool_key("mdformat", "label.timeout")
+    assert not batch._is_intentional_english_tool_key("search_files", "out.file")
+    assert not batch._is_intentional_english_tool_key(
+        "discord_channel", "param.message.description"
+    )
+    assert not batch._is_intentional_english_tool_key(
+        "bluesky", "param.action.description"
+    )
+    assert not batch._is_intentional_english_tool_key("sub_agent", "status.error")
+
+
+def test_exception_labels_remain_review_candidates() -> None:
+    assert not batch._is_intentional_english_tool_key("a2a_poll", "err.exception")
+    assert not batch._is_intentional_english_tool_key("bash_exec", "err.exception")
+    assert not batch._is_intentional_english_tool_key("teams_webhook", "err.exception")
+    assert not batch._is_intentional_english_tool_key(
+        "unreviewed_tool", "err.exception"
+    )
+
+
+def test_collect_units_skips_only_tool_scoped_intentional_english(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    value = "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d"
+    _write_source(
+        tools / "pybitchat_shared.py",
+        {"bitchat.debug_hs_skip": value},
+    )
+    _write_catalog(
+        tools / "pybitchat_shared.json",
+        {"ja": {"bitchat.debug_hs_skip": value}},
+    )
+    _write_source(
+        tools / "other_tool.py",
+        {"bitchat.debug_hs_skip": value},
+    )
+    _write_catalog(
+        tools / "other_tool.json",
+        {"ja": {"bitchat.debug_hs_skip": value}},
+    )
+
+    units = batch.collect_units(
+        [tools / "pybitchat_shared.json", tools / "other_tool.json"],
+        ["ja"],
+        force=False,
+        skip_same_as_en=True,
+        only_missing=True,
+    )
+
+    assert [(unit.tool, unit.key) for unit in units] == [
+        ("other", "bitchat.debug_hs_skip")
+    ]
+
+
+def test_discord_catalog_preserves_action_literals_and_safety_note() -> None:
+    catalog_path = (
+        Path(__file__).parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "discord_channel_tool.json"
+    )
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    action_literal = "send / send_and_wait / history."
+
+    for lang, block in catalog.items():
+        action_description = block["param.action.description"]
+        assert action_literal in action_description, lang
+        warning = action_description.split(action_literal, 1)[1].strip()
+        assert len(warning) >= 20, lang
+
+    assert catalog["es"]["param.message.description"] == "Mensaje."
+    assert catalog["ru"]["param.message.description"] == "Сообщение."
+    assert catalog["hi"]["param.message.description"] == "संदेश।"
+    assert catalog["ar"]["param.message.description"] == "رسالة."
+    assert catalog["uk"]["param.message.description"] == "Повідомлення."
+    assert catalog["th"]["param.message.description"] == "ข้อความ"
+    assert catalog["bn"]["param.message.description"] == "বার্তা।"
+    assert catalog["bn"]["err.missing_action"] == "অনুপস্থিত 'action'।"
+    assert (
+        catalog["fr"]["param.exclude_bots.description"]
+        == "Lors de l'attente, ignorez les messages des bots."
+    )
+    assert catalog["sw"]["err.missing_channel_id"] == "'channel_id' haipo."
+    assert catalog["mn"]["err.missing_channel_id"] == '"channel_id" дутуу байна.'
+    assert (
+        catalog["pt"]["err.message_too_long"]
+        == "O conteúdo da mensagem do Discord deve ter 2000 caracteres ou menos."
+    )
+    assert (
+        catalog["pt_BR"]["err.message_too_long"]
+        == "O conteúdo da mensagem do Discord deve ter 2.000 caracteres ou menos."
+    )
+
+
+def test_confirm_command_footer_is_invariant() -> None:
+    tools_dir = Path(__file__).parents[1] / "src" / "uagent" / "tools"
+
+    for filename in ("safe_exec_ops.json", "safe_file_ops.json"):
+        catalog = json.loads((tools_dir / filename).read_text(encoding="utf-8"))
+        for lang, block in catalog.items():
+            assert block["ui.confirm.footer"] == "=== /confirm ===\n", (
+                filename,
+                lang,
+            )
+            howto = block["ui.confirm.howto"]
+            assert "y=" in howto, (filename, lang, howto)
+            assert "c=" in howto, (filename, lang, howto)
+            if filename == "safe_exec_ops.json":
+                assert block["ui.fallback_prompt"] == " [y/c/N]: ", (
+                    filename,
+                    lang,
+                )
+
+
+def test_pybitchat_nostr_status_format_is_invariant() -> None:
+    catalog_path = (
+        Path(__file__).parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "pybitchat_subscribe_tool.json"
+    )
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    for lang, block in catalog.items():
+        assert block["cmd.node_started_nostr_failed"] == "  nostr: %(state)s", lang
+        assert block["cmd.status_nostr_stopped"] == "  nostr: %(state)s", lang

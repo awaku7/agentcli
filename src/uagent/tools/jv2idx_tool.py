@@ -32,9 +32,6 @@ TOOL_SPEC = {
                 "java file index",
                 "class list",
                 "method list",
-                "Read Java files",
-                "Class list",
-                "Method list",
             ],
         ),
         "x_search_terms_en": [
