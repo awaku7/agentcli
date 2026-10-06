@@ -634,3 +634,6 @@ def test_confirm_command_footer_is_invariant() -> None:
                 filename,
                 lang,
             )
+            howto = block["ui.confirm.howto"]
+            assert "y=" in howto, (filename, lang, howto)
+            assert "c=" in howto, (filename, lang, howto)
