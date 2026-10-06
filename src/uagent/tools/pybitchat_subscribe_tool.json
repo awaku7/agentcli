@@ -50,7 +50,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE メッシュ ノードはすでに %(nickname)s として実行中です。",
     "cmd.node_stopped": "bitchat BLE メッシュ ノードが停止しました。",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "エラー: --network には値が必要です (mainnet|testnet)",
     "cmd.start.unknown_arg": "エラー: 不明な引数: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -96,7 +96,7 @@
     "cmd.chat_off": "bitchat chat mode: NAKA-OFF",
     "cmd.error": "Error: %(error)s",
     "cmd.status_node": "bitchat node: %(state)s",
-    "cmd.status_chat": "  chat mode: %(mode)s",
+    "cmd.status_chat": "  mode ng chat: %(mode)s",
     "cmd.status_peers_none": "  mga kasamahan: wala",
     "cmd.status_peer": "  kapantay: %(name)s",
     "cmd.status_nostr_running": "  nostr: tumatakbo (%(conns)d (mga) relay na nakakonekta)",
@@ -127,7 +127,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Ang bitchat BLE Mesh node ay tumatakbo na bilang %(nickname)s.",
     "cmd.node_stopped": "huminto ang bitchat BLE Mesh node.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Error: nangangailangan ang --network ng value (mainnet|testnet)",
     "cmd.start.unknown_arg": "Error: Hindi kilalang argumento: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -204,7 +204,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh nod sudah berjalan sebagai %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh nod berhenti.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Ralat: --network memerlukan nilai (mainnet|testnet)",
     "cmd.start.unknown_arg": "Ralat: Argumen tidak diketahui: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -249,7 +249,7 @@
     "cmd.chat_on": "bitchat-chattilstand: TIL (mesh-videresendelse aktiv)",
     "cmd.chat_off": "bitchat chat-tilstand: FRA",
     "cmd.error": "Fejl: %(error)s",
-    "cmd.status_node": "bitchat node: %(state)s",
+    "cmd.status_node": "bitchat-node: %(state)s",
     "cmd.status_chat": "  chattilstand: %(mode)s",
     "cmd.status_peers_none": "  jævnaldrende: ingen",
     "cmd.status_peer": "  peer: %(name)s",
@@ -281,7 +281,7 @@
     "cmd.node_started_nostr_failed": "nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh node kører allerede som %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh node stoppet.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Fejl: --network kræver en værdi (mainnet|testnet)",
     "cmd.start.unknown_arg": "Fejl: Ukendt argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -435,7 +435,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "عقدة شبكة bitchat BLE تعمل بالفعل كـ %(nickname)s.",
     "cmd.node_stopped": "توقفت عقدة bitchat BLE Mesh.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "خطأ: يتطلب --network قيمة (mainnet|testnet)",
     "cmd.start.unknown_arg": "خطأ: وسيطة غير معروفة: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -512,7 +512,7 @@
     "cmd.node_started_nostr_failed": "nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE মেশ নোড ইতিমধ্যেই %(nickname)s হিসাবে চলছে৷",
     "cmd.node_stopped": "bitchat BLE মেশ নোড বন্ধ.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "ত্রুটি: --network-এর জন্য একটি মান প্রয়োজন (mainnet|testnet)",
     "cmd.start.unknown_arg": "ত্রুটি: অজানা যুক্তি: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -555,7 +555,7 @@
     "msg.started_with_error": "pybitchat BLE Mesh uzel spuštěn, ale skener selhal: %(error)s. Zkontrolujte adaptér Bluetooth nebo spusťte pybitchat_subscribe action=status pro podrobnosti.",
     "msg.status": "stav uzlu pybitchat: %(state)s",
     "cmd.chat_on": "bitchat režim chatu: ON (aktivní přesměrování sítě)",
-    "cmd.chat_off": "bitchat chat mode: OFF",
+    "cmd.chat_off": "režim chatu bitchat: VYPNUTO",
     "cmd.error": "Chyba: %(error)s",
     "cmd.status_node": "bitchat uzel: %(state)s",
     "cmd.status_chat": "  režim chatu: %(mode)s",
@@ -589,7 +589,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh uzel již běží jako %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh uzel zastaven.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Chyba: --network vyžaduje hodnotu (mainnet|testnet)",
     "cmd.start.unknown_arg": "Chyba: Neznámý argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -666,7 +666,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Bitchat BLE Mesh-Knoten läuft bereits als %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh-Knoten gestoppt.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Fehler: --network benötigt einen Wert (mainnet|testnet)",
     "cmd.start.unknown_arg": "Fehler: Unbekanntes Argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -743,7 +743,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Ο κόμβος bitchat BLE Mesh εκτελείται ήδη ως %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Ο κόμβος Mesh σταμάτησε.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Σφάλμα: το --network απαιτεί τιμή (mainnet|testnet)",
     "cmd.start.unknown_arg": "Σφάλμα: Άγνωστο όρισμα: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -820,7 +820,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "El nodo bitchat BLE Mesh ya se está ejecutando como %(nickname)s.",
     "cmd.node_stopped": "El nodo bitchat BLE Mesh se detuvo.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Error: --network requiere un valor (mainnet|testnet)",
     "cmd.start.unknown_arg": "Error: Argumento desconocido: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -897,7 +897,7 @@
     "cmd.node_started_nostr_failed": "nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh گره قبلاً به عنوان %(nickname)s در حال اجرا است.",
     "cmd.node_stopped": "bitchat BLE Mesh گره متوقف شد.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "خطا: --network به یک مقدار نیاز دارد (mainnet|testnet)",
     "cmd.start.unknown_arg": "خطا: آرگومان ناشناخته: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -974,7 +974,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh -solmu on jo käynnissä nimellä %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh-solmu pysähtyi.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Virhe: --network vaatii arvon (mainnet|testnet)",
     "cmd.start.unknown_arg": "Virhe: Tuntematon argumentti: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1051,7 +1051,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Le nœud bitchat BLE Mesh fonctionne déjà sous le nom %(nickname)s.",
     "cmd.node_stopped": "Le nœud bitchat BLE Mesh s'est arrêté.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Erreur : --network nécessite une valeur (mainnet|testnet)",
     "cmd.start.unknown_arg": "Erreur : Argument inconnu : %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1128,7 +1128,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "צומת bitchat BLE Mesh כבר פועל בתור %(nickname)s.",
     "cmd.node_stopped": "צומת bitchat BLE Mesh נעצר.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "שגיאה: --network דורש ערך (mainnet|testnet)",
     "cmd.start.unknown_arg": "שגיאה: ארגומנט לא ידוע: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1205,7 +1205,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "बिटचैट BLE मेश नोड पहले से ही %(nickname)s के रूप में चल रहा है।",
     "cmd.node_stopped": "बिटचैट BLE मेश नोड बंद हो गया।",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "त्रुटि: --network के लिए एक मान आवश्यक है (mainnet|testnet)",
     "cmd.start.unknown_arg": "त्रुटि: अज्ञात तर्क: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1282,7 +1282,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh csomópont már %(nickname)s néven fut.",
     "cmd.node_stopped": "bitchat BLE Mesh csomópont megállt.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Hiba: a --network értéket igényel (mainnet|testnet)",
     "cmd.start.unknown_arg": "Hiba: Ismeretlen argumentum: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1359,7 +1359,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "simpul bitchat BLE Mesh sudah berjalan sebagai %(nickname)s.",
     "cmd.node_stopped": "simpul bitchat BLE Mesh berhenti.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Kesalahan: --network memerlukan nilai (mainnet|testnet)",
     "cmd.start.unknown_arg": "Kesalahan: Argumen tidak diketahui: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1436,7 +1436,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Nodo mesh BLE bitchat già in esecuzione come %(nickname)s.",
     "cmd.node_stopped": "Il nodo mesh BLE bitchat è stato interrotto.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Errore: --network richiede un valore (mainnet|testnet)",
     "cmd.start.unknown_arg": "Errore: argomento sconosciuto: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1513,7 +1513,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Bitchat BLE Mesh 노드가 이미 %(nickname)s으로 실행 중입니다.",
     "cmd.node_stopped": "Bitchat BLE 메시 노드가 중지되었습니다.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "오류: --network에는 값이 필요합니다 (mainnet|testnet)",
     "cmd.start.unknown_arg": "오류: 알 수 없는 인수: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1590,7 +1590,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh зангилаа аль хэдийн %(nickname)s гэж ажиллаж байна.",
     "cmd.node_stopped": "bitchat BLE Mesh зангилаа зогссон.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Алдаа: --network-д утга шаардлагатай (mainnet|testnet)",
     "cmd.start.unknown_arg": "Алдаа: Үл мэдэгдэх аргумент: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1667,7 +1667,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE मेश नोड आधीपासून %(nickname)s म्हणून चालू आहे.",
     "cmd.node_stopped": "bitchat BLE मेष नोड थांबला.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "त्रुटी: --network साठी मूल्य आवश्यक आहे (mainnet|testnet)",
     "cmd.start.unknown_arg": "त्रुटी: अज्ञात युक्तिवाद: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1712,7 +1712,7 @@
     "cmd.chat_on": "bitchat chat-modus: PÅ (mesh-videresending aktiv)",
     "cmd.chat_off": "bitchat chat-modus: AV",
     "cmd.error": "Feil: %(error)s",
-    "cmd.status_node": "bitchat node: %(state)s",
+    "cmd.status_node": "bitchat-node: %(state)s",
     "cmd.status_chat": "  chattemodus: %(mode)s",
     "cmd.status_peers_none": "  jevnaldrende: ingen",
     "cmd.status_peer": "  peer: %(name)s",
@@ -1744,7 +1744,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh-noden kjører allerede som %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh node stoppet.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Feil: --network krever en verdi (mainnet|testnet)",
     "cmd.start.unknown_arg": "Feil: Ukjent argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1821,7 +1821,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh-knooppunt draait al als %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh-knooppunt gestopt.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Fout: --network vereist een waarde (mainnet|testnet)",
     "cmd.start.unknown_arg": "Fout: onbekend argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1898,7 +1898,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "węzeł bitchat BLE Mesh już działa jako %(nickname)s.",
     "cmd.node_stopped": "Węzeł bitchat BLE Mesh został zatrzymany.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Błąd: --network wymaga wartości (mainnet|testnet)",
     "cmd.start.unknown_arg": "Błąd: nieznany argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -1975,7 +1975,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "O nó BLE Mesh da Bitchat já está em execução como %(nickname)s.",
     "cmd.node_stopped": "O nó BLE Mesh da Bitchat parou.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Erro: --network requer um valor (mainnet|testnet)",
     "cmd.start.unknown_arg": "Erro: argumento desconhecido: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2052,7 +2052,7 @@
     "cmd.node_started_nostr_failed": "nostr: %(state)s",
     "cmd.node_already_running": "O nó BLE Mesh da Bitchat já está em execução como %(nickname)s.",
     "cmd.node_stopped": "O nó BLE Mesh da Bitchat parou.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Erro: --network requer um valor (mainnet|testnet)",
     "cmd.start.unknown_arg": "Erro: argumento desconhecido: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2129,7 +2129,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Nodul bitchat BLE Mesh rulează deja ca %(nickname)s.",
     "cmd.node_stopped": "Bitchat BLE Mesh nodul oprit.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Eroare: --network necesită o valoare (mainnet|testnet)",
     "cmd.start.unknown_arg": "Eroare: Argument necunoscut: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2206,7 +2206,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Узел bitchat BLE Mesh уже работает как %(nickname)s.",
     "cmd.node_stopped": "Узел bitchat BLE Mesh остановлен.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Ошибка: --network требует значение (mainnet|testnet)",
     "cmd.start.unknown_arg": "Ошибка: Неизвестный аргумент: %(arg)s.",
     "x_search_terms": [
       "pybitchat",
@@ -2283,7 +2283,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh-nod körs redan som %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh nod stoppas.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Fel: --network kräver ett värde (mainnet|testnet)",
     "cmd.start.unknown_arg": "Fel: Okänt argument: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2360,7 +2360,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh nodi tayari inafanya kazi kama %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh nodi imesimamishwa.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Hitilafu: --network inahitaji thamani (mainnet|testnet)",
     "cmd.start.unknown_arg": "Hitilafu: Hoja isiyojulikana: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2437,7 +2437,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "โหนด bitchat BLE Mesh ทำงานอยู่แล้วในชื่อ %(nickname)s",
     "cmd.node_stopped": "โหนด Bitchat BLE Mesh หยุดทำงาน",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "ข้อผิดพลาด: --network ต้องมีค่า (mainnet|testnet)",
     "cmd.start.unknown_arg": "ข้อผิดพลาด: อาร์กิวเมนต์ที่ไม่รู้จัก: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2514,7 +2514,7 @@
     "cmd.node_started_nostr_failed": "nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh düğümü zaten %(nickname)s olarak çalışıyor.",
     "cmd.node_stopped": "bitchat BLE Mesh düğümü durduruldu.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Hata: --network bir değer gerektirir (mainnet|testnet)",
     "cmd.start.unknown_arg": "Hata: Bilinmeyen bağımsız değişken: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2591,7 +2591,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "Вузол bitchat BLE Mesh уже працює як %(nickname)s.",
     "cmd.node_stopped": "bitchat BLE Mesh вузол зупинено.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Помилка: --network потребує значення (mainnet|testnet)",
     "cmd.start.unknown_arg": "Помилка: невідомий аргумент: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2668,7 +2668,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "nút bitchat BLE Mesh đã chạy dưới dạng %(nickname)s.",
     "cmd.node_stopped": "nút BLE Mesh bitchat đã dừng.",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "Lỗi: --network yêu cầu một giá trị (mainnet|testnet)",
     "cmd.start.unknown_arg": "Lỗi: Đối số không xác định: %(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2745,7 +2745,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh 节点已作为 %(nickname)s 运行。",
     "cmd.node_stopped": "bitchat BLE Mesh 节点已停止。",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "错误：--network 需要一个值 (mainnet|testnet)",
     "cmd.start.unknown_arg": "错误：未知参数：%(arg)s",
     "x_search_terms": [
       "pybitchat",
@@ -2822,7 +2822,7 @@
     "cmd.node_started_nostr_failed": "  nostr: %(state)s",
     "cmd.node_already_running": "bitchat BLE Mesh 節點已以 %(nickname)s 運作。",
     "cmd.node_stopped": "bitchat BLE Mesh 節點已停止。",
-    "cmd.start.need_network": "Error: --network requires a value (mainnet|testnet)",
+    "cmd.start.need_network": "錯誤：--network 需要一個值 (mainnet|testnet)",
     "cmd.start.unknown_arg": "錯誤：未知參數：%(arg)s",
     "x_search_terms": [
       "pybitchat",
