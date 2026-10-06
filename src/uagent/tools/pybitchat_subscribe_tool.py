@@ -520,7 +520,9 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
             )
             % {"lat": lat, "lng": lng, "precision": precision}
         )
-        print(_("geo.channels_header", default="Available Geohash channels in your area:"))
+        print(
+            _("geo.channels_header", default="Available Geohash channels in your area:")
+        )
         candidates = []
         for p in [2, 4, 5, 6, 8]:
             gh = _geo._geohash_encode(lat, lng, p)
