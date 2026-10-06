@@ -919,6 +919,9 @@ def cmd_status(args: argparse.Namespace) -> int:
             missing_by_pair.get((u.tool, u.lang), 0) + 1
         )
         missing_by_lang[u.lang] = missing_by_lang.get(u.lang, 0) + 1
+        missing_by_tool[u.tool] = missing_by_tool.get(u.tool, 0) + 1
+        tool_key = (u.tool, u.key)
+        missing_by_tool_key[tool_key] = missing_by_tool_key.get(tool_key, 0) + 1
     for u in same_as_en_units:
         same_by_lang[u.lang] = same_by_lang.get(u.lang, 0) + 1
 
@@ -943,7 +946,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         ):
             print(f"  {tool:40s} {n}")
 
-    if missing_by_tool_key:
+    if args.show_missing_keys and missing_by_tool_key:
         print("missing_by_tool_key:")
         for (tool, key), n in sorted(
             missing_by_tool_key.items(),
