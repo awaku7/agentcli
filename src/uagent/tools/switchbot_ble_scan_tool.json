@@ -269,7 +269,7 @@
     "param.timeout.description": "सेकंड में स्कैन टाइमआउट।",
     "tool.description": "आस-पास के स्विचबॉट BLE डिवाइस खोजें और JSON या टेक्स्ट सूची लौटाएँ।",
     "x_search_terms": [
-      "switchbot BLE स्कैन",
+      "स्विचबॉट ब्ली स्कैन",
       "switchbot_ble_scan",
       "switchbot",
       "डिस्कवर",
@@ -393,7 +393,7 @@
     "param.timeout.description": "스캔 시간 초과(초)입니다.",
     "tool.description": "근처의 SwitchBot BLE 장치를 검색하고 JSON 또는 텍스트 목록을 반환합니다.",
     "x_search_terms": [
-      "switchbot BLE 스캔",
+      "스위치봇 블 스캔",
       "switchbot_ble_scan",
       "switchbot",
       "discover",
