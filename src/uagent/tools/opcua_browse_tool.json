@@ -475,7 +475,8 @@
       "server",
       "address",
       "space",
-      "returns"
+      "returns",
+      "răsfoire spațiu de adrese OPC UA"
     ],
     "param.timeout.description": "Timeout conexiune."
   },
@@ -675,7 +676,8 @@
       "server",
       "address",
       "space",
-      "returns"
+      "returns",
+      "pag-browse ng address space ng OPC UA"
     ],
     "param.timeout.description": "Timeout ng koneksyon."
   },
