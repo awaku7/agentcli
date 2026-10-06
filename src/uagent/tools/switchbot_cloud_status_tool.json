@@ -21,7 +21,7 @@
     "msg.type": "النوع: {dtype}",
     "msg.unknown": "(غير معروف)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "حالة سحابة switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "سحابة"
@@ -51,7 +51,7 @@
     "msg.type": "ধরন: {dtype}",
     "msg.unknown": "(অজানা)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot ক্লাউড স্থিতি",
       "switchbot_cloud_status",
       "switchbot",
       "মেঘ"
@@ -81,7 +81,7 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(neznámý)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "stav cloudu switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "mrak"
@@ -111,7 +111,7 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(unbekannt)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "Switchbot-Cloud-Status",
       "switchbot_cloud_status",
       "switchbot",
       "Wolke"
@@ -141,7 +141,7 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(desconocido)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "estado de la nube del switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "nube"
@@ -171,7 +171,7 @@
     "msg.type": "نوع: {dtype}",
     "msg.unknown": "(ناشناخته)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "وضعیت ابری switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "ابر"
@@ -201,7 +201,7 @@
     "msg.type": "Tyyppi: {dtype}",
     "msg.unknown": "(tuntematon)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot-pilvitila",
       "switchbot_cloud_status",
       "switchbot",
       "pilvi"
@@ -231,7 +231,7 @@
     "msg.type": "Type : {dtype}",
     "msg.unknown": "(inconnu)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "statut du cloud switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "nuage"
@@ -261,7 +261,7 @@
     "msg.type": "प्रकार: {dtype}",
     "msg.unknown": "(अज्ञात)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot क्लाउड स्थिति",
       "switchbot_cloud_status",
       "switchbot",
       "बादल"
@@ -291,7 +291,7 @@
     "msg.type": "Tipe: {dtype}",
     "msg.unknown": "(tidak dikenal)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "status awan switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "awan"
@@ -321,7 +321,7 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(sconosciuto)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "stato del cloud switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "nuvola"
@@ -353,7 +353,7 @@
     "err.config_missing": "SwitchBot クラウドの認証情報がありません。UAGENT_SWITCHBOT_TOKEN と UAGENT_SWITCHBOT_SECRET を設定します。",
     "tool.description": "構成されたアカウントから 1 台の SwitchBot Cloud デバイスのステータスを取得します。",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbotクラウドのステータス",
       "switchbot_cloud_status",
       "switchbot",
       "雲"
@@ -381,7 +381,7 @@
     "msg.type": "유형: {dtype}",
     "msg.unknown": "(알 수 없음)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot 클라우드 상태",
       "switchbot_cloud_status",
       "switchbot",
       "구름"
@@ -411,7 +411,7 @@
     "msg.type": "Төрөл: {dtype}",
     "msg.unknown": "(үл мэдэгдэх)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot үүлэн төлөв",
       "switchbot_cloud_status",
       "switchbot",
       "үүл"
@@ -441,7 +441,7 @@
     "msg.type": "प्रकार: {dtype}",
     "msg.unknown": "(अज्ञात)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot क्लाउड स्थिती",
       "switchbot_cloud_status",
       "switchbot",
       "ढग"
@@ -471,7 +471,7 @@
     "msg.type": "Τύπος: {dtype}",
     "msg.unknown": "(άγνωστο)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "κατάσταση cloud switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "σύννεφο"
@@ -501,7 +501,7 @@
     "msg.type": "סוג: {dtype}",
     "msg.unknown": "(לא ידוע)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "סטטוס ענן switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "ענן"
@@ -531,7 +531,7 @@
     "msg.type": "Típus: {dtype}",
     "msg.unknown": "(ismeretlen)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot felhő állapot",
       "switchbot_cloud_status",
       "switchbot",
       "felhő"
@@ -561,7 +561,7 @@
     "msg.type": "Tip: {dtype}",
     "msg.unknown": "(necunoscut)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "stare cloud switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "nor"
@@ -591,7 +591,7 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(ukjent)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot sky-status",
       "switchbot_cloud_status",
       "switchbot",
       "sky"
@@ -621,7 +621,7 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(onbekend)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot cloud-status",
       "switchbot_cloud_status",
       "switchbot",
       "wolk"
@@ -651,7 +651,7 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(nieznane)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "status chmury switchbota",
       "switchbot_cloud_status",
       "switchbot",
       "chmura"
@@ -681,7 +681,7 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(desconhecido)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "estado cloud switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "nuvem"
@@ -711,7 +711,7 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(desconhecido)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "status da nuvem do switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "nuvem"
@@ -741,7 +741,7 @@
     "msg.type": "Тип: {dtype}",
     "msg.unknown": "(неизвестно)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "состояние облака switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "облако"
@@ -771,7 +771,7 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(okänd)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot molnstatus",
       "switchbot_cloud_status",
       "switchbot",
       "moln"
@@ -801,7 +801,7 @@
     "msg.type": "Aina: {dtype}",
     "msg.unknown": "(haijulikani)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "hali ya wingu la switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "wingu"
@@ -831,7 +831,7 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(不明)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "สถานะคลาวด์ switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "คลาวด์"
@@ -861,7 +861,7 @@
     "msg.type": "Tür: {dtype}",
     "msg.unknown": "(bilinmiyor)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot bulut durumu",
       "switchbot_cloud_status",
       "switchbot",
       "bulut"
@@ -891,7 +891,7 @@
     "msg.type": "Тип: {dtype}",
     "msg.unknown": "(невідомо)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "стан хмари switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "хмара"
@@ -921,7 +921,7 @@
     "msg.type": "Loại: {dtype}",
     "msg.unknown": "(không xác định)",
     "x_search_terms": [
-      "switchbot cloud status",
+      "trạng thái đám mây switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "đám mây"
@@ -951,7 +951,7 @@
     "msg.type": "类型：{dtype}",
     "msg.unknown": "（未知）",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot 云状态",
       "switchbot_cloud_status",
       "switchbot",
       "云"
@@ -981,7 +981,7 @@
     "msg.type": "類型：{dtype}",
     "msg.unknown": "（未知）",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot 雲端狀態",
       "switchbot_cloud_status",
       "switchbot",
       "雲端"
@@ -1044,7 +1044,7 @@
     "err.config_missing": "Bukti kelayakan SwitchBot Cloud tiada. Tetapkan UAGENT_SWITCHBOT_TOKEN dan UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Dapatkan status satu peranti SwitchBot Cloud daripada akaun yang dikonfigurasikan.",
     "x_search_terms": [
-      "switchbot cloud status",
+      "status awan switchbot",
       "switchbot_cloud_status",
       "switchbot",
       "cloud"
@@ -1105,7 +1105,7 @@
     "err.config_missing": "SwitchBot Cloud-legitimasjon mangler. Sett UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Få statusen til én SwitchBot Cloud-enhet frå den konfigurerte kontoen.",
     "x_search_terms": [
-      "switchbot cloud status",
+      "switchbot-skystatus",
       "switchbot_cloud_status",
       "switchbot",
       "cloud"
