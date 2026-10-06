@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+import ast
 import json
-import re
 from io import BytesIO
 from pathlib import Path
 
@@ -311,11 +311,17 @@ def test_i18n_catalog_has_all_non_english_locales_and_matching_keys() -> None:
     }
     assert set(data) == shipped
 
-    source = (root / "src/uagent/tools/disc_image_ops_tool.py").read_text(
-        encoding="utf-8"
-    )
+    source_path = root / "src/uagent/tools/disc_image_ops_tool.py"
+    tree = ast.parse(source_path.read_text(encoding="utf-8"))
     english_keys = {
-        match.group(1) for match in re.finditer(r"_\(\"([^\"]+)\"\s*,", source)
+        node.args[0].value
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Name)
+        and node.func.id == "_"
+        and node.args
+        and isinstance(node.args[0], ast.Constant)
+        and isinstance(node.args[0].value, str)
     }
     assert english_keys
 
