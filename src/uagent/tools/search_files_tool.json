@@ -934,7 +934,7 @@
     "err.regex_compile": "[search_files hiba] Nem sikerült lefordítani a reguláris kifejezést: {error}",
     "match.excerpt": "EGYEZÉS: {text}",
     "match.line": "L{line}: {text}",
-    "match.more": "... (további egyezések a fájlban) [=}Fájl_keresése [==#] fájl: eredmények",
+    "match.more": "... (további egyezések a fájlban)",
     "out.file": "Fájl: {file}",
     "out.no_match": "Fájlok keresése egy könyvtárban névminta (glob) és/vagy tartalom (regex) alapján.",
     "param.fast_read_threshold_bytes.description": "Az ennél a küszöbértéknél kisebb fájlok teljes mértékben beolvasásra kerülnek a gyorsabb keresés érdekében (alapértelmezett: 8000000 ≈ 8 MB). A nagyobb fájlok streameléssel kerülnek beolvasásra a memóriahasználat korlátozása érdekében.",

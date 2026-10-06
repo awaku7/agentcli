@@ -564,10 +564,10 @@ def _cmd_bitchat_geo_join(arg: str, **kwargs) -> "CommandResult":
         if not result.get("nostr") == "running":
             print(
                 _(
-                    "geo.error_nostr_not_running",
-                    default="Error: Could not start Nostr transport: %(error)s",
+                    "cmd.node_started_nostr_failed",
+                    default="  nostr: %(state)s",
                 )
-                % {"error": result.get("nostr", "unknown")}
+                % {"state": result.get("nostr", "unknown")}
             )
             from ..util_tools import CommandResult
 
