@@ -20,7 +20,8 @@
     "error.brave_429_with_api_hint": "Brave Search がレート制限されました (429)。環境変数 UAGENT_BRAVE_API_KEY に Brave Search API キーを設定してください（無料枠あり: https://brave.com/search/api/）。API を使用すると安定した検索が可能です。",
     "param.engine.description": "検索エンジン: 'startpage'（既定）, 'duckduckgo', 'brave', 'yahoo_jp', または 'yahoo'。",
     "error.yahoo_failed": "Yahoo Japan 検索リクエストが失敗しました: {error}",
-    "error.startpage_failed": "StartPage 検索リクエストが失敗しました: {error}"
+    "error.startpage_failed": "StartPage 検索リクエストが失敗しました: {error}",
+    "error.startpage_captcha": "StartPage の CAPTCHA が発生しました。後でもう一度試すか、別の検索エンジンを使用してください。"
   },
   "es": {
     "error.args_must_be_dict": "deben ser un dictado",
@@ -43,7 +44,8 @@
     "error.brave_429_with_api_hint": "Límite de tasa de Brave Search excedido (429). Configure la variable de entorno UAGENT_BRAVE_API_KEY con una clave API de Brave Search (nivel gratuito disponible en https://brave.com/search/api/) para usar la API en lugar del scraping HTML.",
     "param.engine.description": "Motor de búsqueda: 'startpage' (predeterminado), 'duckduckgo', 'brave', 'yahoo_jp' o 'yahoo'.",
     "error.yahoo_failed": "Error en la solicitud de búsqueda de Yahoo Japón: {error}",
-    "error.startpage_failed": "Error en la solicitud de búsqueda de StartPage: {error}"
+    "error.startpage_failed": "Error en la solicitud de búsqueda de StartPage: {error}",
+    "error.startpage_captcha": "Se activó un CAPTCHA de StartPage. Inténtalo más tarde o usa otro motor."
   },
   "fr": {
     "error.args_must_be_dict": "doivent être une requête de recherche",
@@ -66,7 +68,8 @@
     "error.brave_429_with_api_hint": "Limite de débit Brave Search dépassée (429). Définissez la variable d'environnement UAGENT_BRAVE_API_KEY avec une clé API Brave Search (offre gratuite disponible sur https://brave.com/search/api/) pour utiliser l'API au lieu du scraping HTML.",
     "param.engine.description": "Moteur de recherche : 'startpage' (par défaut), 'duckduckgo', 'brave', 'yahoo_jp' ou 'yahoo'.",
     "error.yahoo_failed": "Échec de la demande de recherche Yahoo Japon : {error}",
-    "error.startpage_failed": "Échec de la demande de recherche sur la page de démarrage : {error}"
+    "error.startpage_failed": "Échec de la demande de recherche sur la page de démarrage : {error}",
+    "error.startpage_captcha": "Le CAPTCHA de StartPage s’est déclenché. Réessayez plus tard ou utilisez un autre moteur."
   },
   "ko": {
     "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
@@ -89,7 +92,8 @@
     "error.brave_429_with_api_hint": "Brave Search 요청 한도 초과 (429). 환경 변수 UAGENT_BRAVE_API_KEY에 Brave Search API 키를 설정하세요 (무료 티어: https://brave.com/search/api/). HTML 스크래핑 대신 API를 사용할 수 있습니다.",
     "param.engine.description": "검색 엔진: 'startpage'(기본값), 'duckduckgo', 'brave', 'yahoo_jp' 또는 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan 검색 요청 실패: {error}",
-    "error.startpage_failed": "시작 페이지 검색 요청 실패: {error}"
+    "error.startpage_failed": "시작 페이지 검색 요청 실패: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA가 발생했습니다. 나중에 다시 시도하거나 다른 엔진을 사용하세요."
   },
   "de": {
     "error.args_must_be_dict": "Argumente müssen ein Diktat sein.",
@@ -112,7 +116,8 @@
     "error.brave_429_with_api_hint": "Brave Search-Ratenlimit erreicht (429). Setzen Sie die Umgebungsvariable UAGENT_BRAVE_API_KEY mit einem Brave Search API-Schlüssel (kostenlose Stufe verfügbar unter https://brave.com/search/api/), um die API anstelle von HTML-Scraping zu verwenden.",
     "param.engine.description": "Suchmaschine: „startpage“ (Standard), „duckduckgo“, „brave“, „yahoo_jp“ oder „yahoo“.",
     "error.yahoo_failed": "Die Suchanfrage von Yahoo Japan ist fehlgeschlagen: {error}",
-    "error.startpage_failed": "StartPage-Suchanfrage fehlgeschlagen: {error}"
+    "error.startpage_failed": "StartPage-Suchanfrage fehlgeschlagen: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA wurde ausgelöst. Versuchen Sie es später erneut oder verwenden Sie eine andere Suchmaschine."
   },
   "it": {
     "error.args_must_be_dict": "args deve essere una query di ricerca dict",
@@ -135,7 +140,8 @@
     "error.brave_429_with_api_hint": "Limite di frequenza Brave Search superato (429). Imposta la variabile d'ambiente UAGENT_BRAVE_API_KEY con una chiave API Brave Search (piano gratuito disponibile su https://brave.com/search/api/) per utilizzare l'API invece dello scraping HTML.",
     "param.engine.description": "Motore di ricerca: \"startpage\" (predefinito), \"duckduckgo\", \"brave\", \"yahoo_jp\" o \"yahoo\".",
     "error.yahoo_failed": "Richiesta di ricerca di Yahoo Giappone non riuscita: {error}",
-    "error.startpage_failed": "Richiesta di ricerca StartPage non riuscita: {error}"
+    "error.startpage_failed": "Richiesta di ricerca StartPage non riuscita: {error}",
+    "error.startpage_captcha": "È stato attivato il CAPTCHA di StartPage. Riprova più tardi o usa un altro motore."
   },
   "ru": {
     "error.args_must_be_dict": "аргументы должны быть dict",
@@ -158,7 +164,8 @@
     "error.brave_429_with_api_hint": "Превышен лимит запросов Brave Search (429). Установите переменную окружения UAGENT_BRAVE_API_KEY с ключом API Brave Search (бесплатный уровень доступен на https://brave.com/search/api/) для использования API вместо парсинга HTML.",
     "param.engine.description": "Поисковая система: «начальная страница» (по умолчанию), «duckduckgo», «brave», «yahoo_jp» или «yahoo».",
     "error.yahoo_failed": "Поисковый запрос Yahoo в Японии не выполнен: {error}",
-    "error.startpage_failed": "Не удалось выполнить поиск по стартовой странице: {error}"
+    "error.startpage_failed": "Не удалось выполнить поиск по стартовой странице: {error}",
+    "error.startpage_captcha": "Сработала CAPTCHA StartPage. Повторите попытку позже или используйте другой поисковик."
   },
   "pt_BR": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -181,7 +188,8 @@
     "error.brave_429_with_api_hint": "Limite de taxa do Brave Search excedido (429). Defina a variável de ambiente UAGENT_BRAVE_API_KEY com uma chave de API do Brave Search (nível gratuito disponível em https://brave.com/search/api/) para usar a API em vez de scraping HTML.",
     "param.engine.description": "Mecanismo de pesquisa: 'startpage' (padrão), 'duckduckgo', 'brave', 'yahoo_jp' ou 'yahoo'.",
     "error.yahoo_failed": "Falha na solicitação de pesquisa do Yahoo Japão: {error}",
-    "error.startpage_failed": "Falha na solicitação de pesquisa do StartPage: {error}"
+    "error.startpage_failed": "Falha na solicitação de pesquisa do StartPage: {error}",
+    "error.startpage_captcha": "O CAPTCHA do StartPage foi acionado. Tente novamente mais tarde ou use outro mecanismo."
   },
   "pt": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -204,7 +212,8 @@
     "error.brave_429_with_api_hint": "Limite de taxa do Brave Search excedido (429). Defina a variável de ambiente UAGENT_BRAVE_API_KEY com uma chave API do Brave Search (nível gratuito disponível em https://brave.com/search/api/) para usar a API em vez de scraping HTML.",
     "param.engine.description": "Mecanismo de pesquisa: 'startpage' (padrão), 'duckduckgo', 'brave', 'yahoo_jp' ou 'yahoo'.",
     "error.yahoo_failed": "Falha na solicitação de pesquisa do Yahoo Japão: {error}",
-    "error.startpage_failed": "Falha na solicitação de pesquisa do StartPage: {error}"
+    "error.startpage_failed": "Falha na solicitação de pesquisa do StartPage: {error}",
+    "error.startpage_captcha": "O CAPTCHA do StartPage foi acionado. Tente novamente mais tarde ou use outro motor."
   },
   "id": {
     "error.args_must_be_dict": "argumen harus berupa dict",
@@ -227,7 +236,8 @@
     "error.brave_429_with_api_hint": "Brave Search dibatasi kecepatannya (429). Atur variabel lingkungan UAGENT_BRAVE_API_KEY dengan kunci API Brave Search (tingkat gratis tersedia di https://brave.com/search/api/) untuk menggunakan API sebagai pengganti scraping HTML.",
     "param.engine.description": "Mesin pencari: 'halaman awal' (default), 'duckduckgo', 'berani', 'yahoo_jp', atau 'yahoo'.",
     "error.yahoo_failed": "Permintaan pencarian Yahoo Jepang gagal: {error}",
-    "error.startpage_failed": "Permintaan pencarian Halaman Awal gagal: {error}"
+    "error.startpage_failed": "Permintaan pencarian Halaman Awal gagal: {error}",
+    "error.startpage_captcha": "CAPTCHA StartPage terpicu. Coba lagi nanti atau gunakan engine lain."
   },
   "vi": {
     "error.args_must_be_dict": "đối số phải là một lệnh",
@@ -250,7 +260,8 @@
     "error.brave_429_with_api_hint": "Brave Search bị giới hạn tần suất (429). Đặt biến môi trường UAGENT_BRAVE_API_KEY với khóa API Brave Search (gói miễn phí tại https://brave.com/search/api/) để sử dụng API thay vì quét HTML.",
     "param.engine.description": "Công cụ tìm kiếm: 'startpage' (mặc định), 'duckduckgo', 'brave', 'yahoo_jp' hoặc 'yahoo'.",
     "error.yahoo_failed": "Yêu cầu tìm kiếm Yahoo Nhật Bản không thành công: {error}",
-    "error.startpage_failed": "Yêu cầu tìm kiếm StartPage không thành công: {error}"
+    "error.startpage_failed": "Yêu cầu tìm kiếm StartPage không thành công: {error}",
+    "error.startpage_captcha": "CAPTCHA của StartPage đã được kích hoạt. Hãy thử lại sau hoặc dùng engine khác."
   },
   "pl": {
     "error.args_must_be_dict": "args musi być dict",
@@ -273,7 +284,8 @@
     "error.brave_429_with_api_hint": "Ograniczenie liczby żądań Brave Search (429). Ustaw zmienną środowiskową UAGENT_BRAVE_API_KEY z kluczem API Brave Search (darmowy poziom dostępny na https://brave.com/search/api/), aby użyć API zamiast skrobania HTML.",
     "param.engine.description": "Wyszukiwarka: „strona startowa” (domyślna), „duckduckgo”, „brave”, „yahoo_jp” lub „yahoo”.",
     "error.yahoo_failed": "Żądanie wyszukiwania Yahoo Japan nie powiodło się: {error}",
-    "error.startpage_failed": "Żądanie wyszukiwania StartPage nie powiodło się: {error}"
+    "error.startpage_failed": "Żądanie wyszukiwania StartPage nie powiodło się: {error}",
+    "error.startpage_captcha": "Uruchomiono CAPTCHA StartPage. Spróbuj później lub użyj innej wyszukiwarki."
   },
   "hi": {
     "error.args_must_be_dict": "args एक निर्देश होना चाहिए",
@@ -296,7 +308,8 @@
     "error.brave_429_with_api_hint": "Brave Search दर सीमित (429)। HTML स्क्रैपिंग के बजाय एपीआई का उपयोग करने के लिए Brave Search API कुंजी (https://brave.com/search/api/ पर मुफ्त टियर उपलब्ध) के साथ पर्यावरण चर UAGENT_BRAVE_API_KEY सेट करें।",
     "param.engine.description": "खोज इंजन: 'स्टार्टपेज' (डिफ़ॉल्ट), 'डकडकगो', 'ब्रेव', 'याहू_जेपी', या 'याहू'।",
     "error.yahoo_failed": "याहू जापान खोज अनुरोध विफल: {error}",
-    "error.startpage_failed": "स्टार्टपेज खोज अनुरोध विफल: {error}"
+    "error.startpage_failed": "स्टार्टपेज खोज अनुरोध विफल: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA सक्रिय हुआ। बाद में फिर प्रयास करें या किसी अन्य engine का उपयोग करें।"
   },
   "ar": {
     "error.args_must_be_dict": "يجب أن تكون الوسائط بمثابة إملاء",
@@ -319,7 +332,8 @@
     "error.brave_429_with_api_hint": "معدل Brave Search محدود (429). قم بتعيين متغير البيئة UAGENT_BRAVE_API_KEY باستخدام مفتاح Brave Search API (الطبقة المجانية المتوفرة على https://brave.com/search/api/) لاستخدام API بدلاً من تجريف HTML.",
     "param.engine.description": "محرك البحث: \"startpage\" (افتراضي)، أو \"duckduckgo\"، أو \"brave\"، أو \"yahoo_jp\"، أو \"yahoo\".",
     "error.yahoo_failed": "فشل طلب بحث Yahoo Japan: {error}",
-    "error.startpage_failed": "فشل طلب البحث في صفحة البداية: {error}"
+    "error.startpage_failed": "فشل طلب البحث في صفحة البداية: {error}",
+    "error.startpage_captcha": "تم تشغيل CAPTCHA في StartPage. حاول لاحقًا أو استخدم محركًا مختلفًا."
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara en dict",
@@ -342,7 +356,8 @@
     "error.brave_429_with_api_hint": "Brave Search-begränsning (429). Ställ in miljövariabeln UAGENT_BRAVE_API_KEY med en Brave Search API-nyckel (gratis nivå tillgänglig på https://brave.com/search/api/) för att använda API:t istället för HTML-skrapning.",
     "param.engine.description": "Sökmotor: 'startpage' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan sökbegäran misslyckades: {error}",
-    "error.startpage_failed": "StartPage-sökning misslyckades: {error}"
+    "error.startpage_failed": "StartPage-sökning misslyckades: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA utlöstes. Försök igen senare eller använd en annan sökmotor."
   },
   "sw": {
     "error.args_must_be_dict": "args lazima iwe dict",
@@ -365,7 +380,8 @@
     "error.brave_429_with_api_hint": "Kiwango cha Brave Search kimezuiwa (429). Weka kigezo cha mazingira UAGENT_BRAVE_API_KEY kwa kutumia ufunguo wa API ya Brave Search (ngao ya bure inapatikana kwenye https://brave.com/search/api/) ili kutumia API badala ya kufuta HTML.",
     "param.engine.description": "Injini ya utafutaji: 'startpage' (chaguo-msingi), 'duckduckgo', 'shujaa', 'yahoo_jp', au 'yahoo'.",
     "error.yahoo_failed": "Ombi la utafutaji la Yahoo Japani halikufaulu: {error}",
-    "error.startpage_failed": "Ombi la utafutaji wa Ukurasa wa Mwanzo halikufaulu: {error}"
+    "error.startpage_failed": "Ombi la utafutaji wa Ukurasa wa Mwanzo halikufaulu: {error}",
+    "error.startpage_captcha": "CAPTCHA ya StartPage imewashwa. Jaribu tena baadaye au tumia engine nyingine."
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
@@ -388,7 +404,8 @@
     "error.brave_429_with_api_hint": "Brave Search-frekvensbegrensning (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengelig på https://brave.com/search/api/) for å bruke API i stedet for HTML-skraping.",
     "param.engine.description": "Søkemotor: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislyktes: {error}",
-    "error.startpage_failed": "StartPage-søkeforespørsel mislyktes: {error}"
+    "error.startpage_failed": "StartPage-søkeforespørsel mislyktes: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA ble utløst. Prøv igjen senere eller bruk en annen søkemotor."
   },
   "nl": {
     "error.args_must_be_dict": "args moeten een dictaat zijn",
@@ -411,7 +428,8 @@
     "error.brave_429_with_api_hint": "Brave Search-snelheid beperkt (429). Stel de omgevingsvariabele UAGENT_BRAVE_API_KEY in met een Brave Search API-sleutel (gratis laag beschikbaar op https://brave.com/search/api/) om de API te gebruiken in plaats van HTML-scraping.",
     "param.engine.description": "Zoekmachine: 'startpagina' (standaard), 'duckduckgo', 'brave', 'yahoo_jp' of 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan-zoekopdracht mislukt: {error}",
-    "error.startpage_failed": "StartPage-zoekopdracht mislukt: {error}"
+    "error.startpage_failed": "StartPage-zoekopdracht mislukt: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA is geactiveerd. Probeer het later opnieuw of gebruik een andere zoekmachine."
   },
   "fi": {
     "error.args_must_be_dict": "argin on oltava sanelu",
@@ -434,7 +452,8 @@
     "error.brave_429_with_api_hint": "Brave Search -nopeusrajoitettu (429). Aseta ympäristömuuttuja UAGENT_BRAVE_API_KEY Brave Search API -avaimella (ilmainen taso saatavilla osoitteessa https://brave.com/search/api/) käyttämään API:a HTML-kaavinnan sijaan.",
     "param.engine.description": "Hakukone: 'aloitussivu' (oletus), 'duckduckgo', 'brave', 'yahoo_jp' tai 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan -hakupyyntö epäonnistui: {error}",
-    "error.startpage_failed": "Aloitussivun hakupyyntö epäonnistui: {error}"
+    "error.startpage_failed": "Aloitussivun hakupyyntö epäonnistui: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA käynnistyi. Yritä myöhemmin uudelleen tai käytä toista hakukonetta."
   },
   "cs": {
     "error.args_must_be_dict": "args musí být dict",
@@ -457,7 +476,8 @@
     "error.brave_429_with_api_hint": "Brave Search rate limited (429). Nastavte proměnnou prostředí UAGENT_BRAVE_API_KEY s klíčem Brave Search API (bezplatná úroveň dostupná na https://brave.com/search/api/), aby se místo scrapování HTML používalo API.",
     "param.engine.description": "Vyhledávač: 'startpage' (výchozí), 'duckduckgo', 'brave', 'yahoo_jp' nebo 'yahoo'.",
     "error.yahoo_failed": "Požadavek na vyhledávání Yahoo Japan selhal: {error}",
-    "error.startpage_failed": "Požadavek vyhledávání na StartPage selhal: {error}"
+    "error.startpage_failed": "Požadavek vyhledávání na StartPage selhal: {error}",
+    "error.startpage_captcha": "StartPage vyvolal CAPTCHA. Zkuste to později nebo použijte jiný vyhledávač."
   },
   "uk": {
     "error.args_must_be_dict": "args має бути dict",
@@ -480,7 +500,8 @@
     "error.brave_429_with_api_hint": "Brave Search обмеження частоти (429). Встановіть змінну середовища UAGENT_BRAVE_API_KEY за допомогою ключа Brave Search API (безкоштовний рівень доступний на https://brave.com/search/api/), щоб використовувати API замість скрапінгу HTML.",
     "param.engine.description": "Пошукова система: «startpage» (за замовчуванням), «duckduckgo», «brave», «yahoo_jp» або «yahoo».",
     "error.yahoo_failed": "Помилка пошукового запиту Yahoo Japan: {error}",
-    "error.startpage_failed": "Помилка запиту пошуку StartPage: {error}"
+    "error.startpage_failed": "Помилка запиту пошуку StartPage: {error}",
+    "error.startpage_captcha": "Спрацювала CAPTCHA StartPage. Спробуйте пізніше або використайте іншу пошукову систему."
   },
   "tr": {
     "error.args_must_be_dict": "bağımsız değişkenler bir dikte olmalıdır",
@@ -503,7 +524,8 @@
     "error.brave_429_with_api_hint": "Brave Search hız sınırı (429). HTML kazıma yerine API'yi kullanmak için UAGENT_BRAVE_API_KEY ortam değişkenini bir Brave Search API anahtarıyla (ücretsiz katman https://brave.com/search/api/ adresinde mevcuttur) ayarlayın.",
     "param.engine.description": "Arama motoru: 'başlangıç sayfası' (varsayılan), 'duckduckgo', 'brave', 'yahoo_jp' veya 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan arama isteği başarısız oldu: {error}",
-    "error.startpage_failed": "StartPage arama isteği başarısız oldu: {error}"
+    "error.startpage_failed": "StartPage arama isteği başarısız oldu: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA tetiklendi. Daha sonra tekrar deneyin veya farklı bir arama motoru kullanın."
   },
   "th": {
     "error.args_must_be_dict": "args ต้องเป็น dict",
@@ -526,7 +548,8 @@
     "error.brave_429_with_api_hint": "Brave Search ถูกจำกัดอัตราการใช้ (429) ตั้งค่าตัวแปรสภาพแวดล้อม UAGENT_BRAVE_API_KEY ด้วยคีย์ API ของ Brave Search (มีบริการฟรีที่ https://brave.com/search/api/) เพื่อใช้ API แทนการขูดข้อมูล HTML",
     "param.engine.description": "เครื่องมือค้นหา: 'หน้าเริ่มต้น' (ค่าเริ่มต้น), 'duckduckgo', 'brave', 'yahoo_jp' หรือ 'yahoo'",
     "error.yahoo_failed": "คำขอค้นหา Yahoo Japan ล้มเหลว: {error}",
-    "error.startpage_failed": "คำขอค้นหาหน้าเริ่มต้นล้มเหลว: {error}"
+    "error.startpage_failed": "คำขอค้นหาหน้าเริ่มต้นล้มเหลว: {error}",
+    "error.startpage_captcha": "เกิด CAPTCHA ของ StartPage ลองใหม่ภายหลังหรือใช้ engine อื่น"
   },
   "zh_CN": {
     "error.args_must_be_dict": "args 必须是一个字典",
@@ -549,7 +572,8 @@
     "error.brave_429_with_api_hint": "Brave Search 请求频率受限 (429)。请设置环境变量 UAGENT_BRAVE_API_KEY，填入 Brave Search API 密钥（免费额度: https://brave.com/search/api/）以使用 API 而非 HTML 抓取。",
     "param.engine.description": "搜索引擎：“startpage”（默认）、“duckduckgo”、“brave”、“yahoo_jp”或“yahoo”。",
     "error.yahoo_failed": "雅虎日本搜索请求失败：{error}",
-    "error.startpage_failed": "起始页搜索请求失败：{error}"
+    "error.startpage_failed": "起始页搜索请求失败：{error}",
+    "error.startpage_captcha": "触发了 StartPage CAPTCHA。请稍后重试或使用其他搜索引擎。"
   },
   "zh_TW": {
     "error.args_must_be_dict": "args 必須是字典",
@@ -572,7 +596,8 @@
     "error.brave_429_with_api_hint": "Brave Search 請求頻率受限 (429)。請設定環境變數 UAGENT_BRAVE_API_KEY，填入 Brave Search API 金鑰（免費額度: https://brave.com/search/api/）以使用 API 而非 HTML 抓取。",
     "param.engine.description": "搜尋引擎：「startpage」（預設）、「duckduckgo」、「brave」、「yahoo_jp」或「yahoo」。",
     "error.yahoo_failed": "雅虎日本搜尋請求失敗：{error}",
-    "error.startpage_failed": "起始頁搜尋請求失敗：{error}"
+    "error.startpage_failed": "起始頁搜尋請求失敗：{error}",
+    "error.startpage_captcha": "觸發了 StartPage CAPTCHA。請稍後再試或使用其他搜尋引擎。"
   },
   "bn": {
     "error.args_must_be_dict": "args অবশ্যই একটি dict হতে হবে",
@@ -595,7 +620,8 @@
     "error.brave_429_with_api_hint": "Brave Search হার সীমিত (429)। HTML স্ক্র্যাপিংয়ের পরিবর্তে API ব্যবহার করার জন্য Brave Search API কী (https://brave.com/search/api/-এ বিনামূল্যের স্তর উপলব্ধ) সহ পরিবেশ চলক UAGENT_BRAVE_API_KEY সেট করুন।",
     "param.engine.description": "সার্চ ইঞ্জিন: 'startpage' (ডিফল্ট), 'duckduckgo', 'brave', 'yahoo_jp', বা 'yahoo'।",
     "error.yahoo_failed": "Yahoo জাপান অনুসন্ধান অনুরোধ ব্যর্থ হয়েছে: {error}",
-    "error.startpage_failed": "স্টার্টপেজ অনুসন্ধানের অনুরোধ ব্যর্থ হয়েছে: {error}"
+    "error.startpage_failed": "স্টার্টপেজ অনুসন্ধানের অনুরোধ ব্যর্থ হয়েছে: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA সক্রিয় হয়েছে। পরে আবার চেষ্টা করুন বা অন্য engine ব্যবহার করুন।"
   },
   "fa": {
     "error.args_must_be_dict": "باید دیکته باشند",
@@ -618,7 +644,8 @@
     "error.brave_429_with_api_hint": "میزان Brave Search محدود (429). متغیر محیطی UAGENT_BRAVE_API_KEY را با کلید Brave Search API (سطح رایگان موجود در https://brave.com/search/api/) تنظیم کنید تا از API به جای اسکرپینگ HTML استفاده کنید.",
     "param.engine.description": "موتور جستجو: 'startpage' (پیش فرض)، 'duckduckgo'، 'brave'، 'yahoo_jp' یا 'yahoo'.",
     "error.yahoo_failed": "درخواست جستجوی Yahoo Japan ناموفق بود: {error}",
-    "error.startpage_failed": "درخواست جستجوی StartPage ناموفق بود: {error}"
+    "error.startpage_failed": "درخواست جستجوی StartPage ناموفق بود: {error}",
+    "error.startpage_captcha": "CAPTCHA در StartPage فعال شد. بعداً دوباره امتحان کنید یا از موتور دیگری استفاده کنید."
   },
   "mn": {
     "error.args_must_be_dict": "args нь dict байх ёстой",
@@ -641,7 +668,8 @@
     "error.brave_429_with_api_hint": "Brave Search хурдны хязгаарлалт (429). HTML хусахаас илүү API ашиглахын тулд UAGENT_BRAVE_API_KEY орчны хувьсагчийг Brave Search API түлхүүрээр (үнэгүй түвшин https://brave.com/search/api/ дээр байна) тохируулна уу.",
     "param.engine.description": "Хайлтын систем: 'эхлэх хуудас' (анхдагч), 'duckduckgo', 'brave', 'yahoo_jp', эсвэл 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan хайлтын хүсэлт амжилтгүй болсон: {error}",
-    "error.startpage_failed": "StartPage хайлтын хүсэлт амжилтгүй боллоо: {error}"
+    "error.startpage_failed": "StartPage хайлтын хүсэлт амжилтгүй боллоо: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA идэвхжлээ. Дараа дахин оролдох эсвэл өөр engine ашиглана уу."
   },
   "mr": {
     "error.args_must_be_dict": "args एक dict असणे आवश्यक आहे",
@@ -664,7 +692,8 @@
     "error.brave_429_with_api_hint": "Brave Search दर मर्यादित (429). HTML स्क्रॅपिंगऐवजी API वापरण्यासाठी Brave Search API की (https://brave.com/search/api/ येथे मोफत टियर उपलब्ध) सह पर्यावरण व्हेरिएबल UAGENT_BRAVE_API_KEY सेट करा.",
     "param.engine.description": "शोध इंजिन: 'startpage' (डिफॉल्ट), 'duckduckgo', 'brave', 'yahoo_jp', किंवा 'yahoo'.",
     "error.yahoo_failed": "Yahoo जपान शोध विनंती अयशस्वी: {error}",
-    "error.startpage_failed": "प्रारंभपृष्ठ शोध विनंती अयशस्वी: {error}"
+    "error.startpage_failed": "प्रारंभपृष्ठ शोध विनंती अयशस्वी: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA ट्रिगर झाला. नंतर पुन्हा प्रयत्न करा किंवा दुसरे engine वापरा."
   },
   "el": {
     "error.args_must_be_dict": "Το args πρέπει να είναι μια εντολή",
@@ -687,7 +716,8 @@
     "error.brave_429_with_api_hint": "Brave Search περιορισμός ρυθμού (429). Ορίστε τη μεταβλητή περιβάλλοντος UAGENT_BRAVE_API_KEY με ένα κλειδί Brave Search API (δωρεάν επίπεδο διαθέσιμο στη διεύθυνση https://brave.com/search/api/) για να χρησιμοποιήσετε το API αντί για HTML scraping.",
     "param.engine.description": "Μηχανή αναζήτησης: 'startpage' (προεπιλογή), 'duckduckgo', 'brave', 'yahoo_jp' ή 'yahoo'.",
     "error.yahoo_failed": "Το αίτημα αναζήτησης Yahoo Japan απέτυχε: {error}",
-    "error.startpage_failed": "Το αίτημα αναζήτησης StartPage απέτυχε: {error}"
+    "error.startpage_failed": "Το αίτημα αναζήτησης StartPage απέτυχε: {error}",
+    "error.startpage_captcha": "Ενεργοποιήθηκε CAPTCHA στο StartPage. Δοκιμάστε αργότερα ή χρησιμοποιήστε διαφορετική μηχανή."
   },
   "he": {
     "error.args_must_be_dict": "שורש חיפוש (ברירת מחדל: cwd).",
@@ -710,7 +740,8 @@
     "error.brave_429_with_api_hint": "Brave Search הוגבל בקצב (429). הגדר את משתנה הסביבה UAGENT_BRAVE_API_KEY עם מפתח Brave Search API (שכבה חינמית זמינה בכתובת https://brave.com/search/api/) כדי להשתמש ב-API במקום גירוד HTML.",
     "param.engine.description": "מנוע חיפוש: 'startpage' (ברירת מחדל), 'duckduckgo', 'brave', 'yahoo_jp' או 'yahoo'.",
     "error.yahoo_failed": "בקשת החיפוש של Yahoo Japan נכשלה: {error}",
-    "error.startpage_failed": "בקשת החיפוש של דף Start נכשלה: {error}"
+    "error.startpage_failed": "בקשת החיפוש של דף Start נכשלה: {error}",
+    "error.startpage_captcha": "הופעל CAPTCHA של StartPage. נסה שוב מאוחר יותר או השתמש במנוע אחר."
   },
   "hu": {
     "error.args_must_be_dict": "az args diktálásnak kell lennie",
@@ -733,7 +764,8 @@
     "error.brave_429_with_api_hint": "Brave Search sebességkorlátozás (429). Állítsa be az UAGENT_BRAVE_API_KEY környezeti változót egy Brave Search API-kulccsal (ingyenes szint elérhető a https://brave.com/search/api/ címen), hogy az API-t használja a HTML-kaparás helyett.",
     "param.engine.description": "Keresőmotor: 'startpage' (alapértelmezett), 'duckduckgo', 'brave', 'yahoo_jp' vagy 'yahoo'.",
     "error.yahoo_failed": "A Yahoo Japan keresési kérése sikertelen: {error}",
-    "error.startpage_failed": "A kezdőoldali keresési kérés sikertelen: {error}"
+    "error.startpage_failed": "A kezdőoldali keresési kérés sikertelen: {error}",
+    "error.startpage_captcha": "A StartPage CAPTCHA aktiválódott. Próbálja később, vagy használjon másik keresőt."
   },
   "ro": {
     "error.args_must_be_dict": "argumentele trebuie să fie un dictat",
@@ -756,7 +788,8 @@
     "error.brave_429_with_api_hint": "Brave Search limitare de rată (429). Setați variabila de mediu UAGENT_BRAVE_API_KEY cu o cheie Brave Search API (nivel gratuit disponibil la https://brave.com/search/api/) pentru a utiliza API-ul în loc de scraping HTML.",
     "param.engine.description": "Motor de căutare: „startpage” (implicit), „duckduckgo”, „brave”, „yahoo_jp” sau „yahoo”.",
     "error.yahoo_failed": "Solicitarea de căutare Yahoo Japan a eșuat: {error}",
-    "error.startpage_failed": "Solicitarea de căutare în pagina de pornire a eșuat: {error}"
+    "error.startpage_failed": "Solicitarea de căutare în pagina de pornire a eșuat: {error}",
+    "error.startpage_captcha": "CAPTCHA StartPage a fost declanșat. Încercați mai târziu sau folosiți alt motor."
   },
   "fil": {
     "error.args_must_be_dict": "args ay dapat na isang dict",
@@ -779,7 +812,8 @@
     "error.brave_429_with_api_hint": "Limitado ang rate ng Brave Search (429). Itakda ang environment variable na UAGENT_BRAVE_API_KEY gamit ang Brave Search API key (libreng tier na available sa https://brave.com/search/api/) para gamitin ang API sa halip na HTML scraping.",
     "param.engine.description": "Search engine: 'startpage' (default), 'duckduckgo', 'brave', 'yahoo_jp', o 'yahoo'.",
     "error.yahoo_failed": "Nabigo ang kahilingan sa paghahanap sa Yahoo Japan: {error}",
-    "error.startpage_failed": "Nabigo ang kahilingan sa paghahanap sa StartPage: {error}"
+    "error.startpage_failed": "Nabigo ang kahilingan sa paghahanap sa StartPage: {error}",
+    "error.startpage_captcha": "Na-trigger ang StartPage CAPTCHA. Subukan muli mamaya o gumamit ng ibang engine."
   },
   "ms": {
     "error.args_must_be_dict": "args mestilah dict",
@@ -802,7 +836,8 @@
     "error.brave_429_with_api_hint": "Kadar Carian Berani terhad (429). Tetapkan pembolehubah persekitaran UAGENT_BRAVE_API_KEY dengan kunci Brave Search API (peringkat percuma tersedia di https://brave.com/search/api/) untuk menggunakan API dan bukannya mengikis HTML.",
     "param.engine.description": "Enjin carian: 'halaman permulaan' (lalai), 'duckduckgo', 'berani', 'yahoo_jp' atau 'yahoo'.",
     "error.yahoo_failed": "Permintaan carian Yahoo Jepun gagal: {error}",
-    "error.startpage_failed": "Permintaan carian Halaman Mula gagal: {error}"
+    "error.startpage_failed": "Permintaan carian Halaman Mula gagal: {error}",
+    "error.startpage_captcha": "CAPTCHA StartPage dicetuskan. Cuba lagi kemudian atau gunakan enjin lain."
   },
   "da": {
     "error.args_must_be_dict": "args må være et diktat",
@@ -825,7 +860,8 @@
     "error.brave_429_with_api_hint": "Brave Search rate begrænset (429). Indstil miljøvariablen UAGENT_BRAVE_API_KEY med en Brave Search API-nøgle (gratis niveau tilgængelig på https://brave.com/search/api/) for at bruge API i stedet for HTML-skrabning.",
     "param.engine.description": "Søgemaskine: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan søgeanmodning mislykkedes: {error}",
-    "error.startpage_failed": "StartPage-søgningsanmodning mislykkedes: {error}"
+    "error.startpage_failed": "StartPage-søgningsanmodning mislykkedes: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA blev udløst. Prøv igen senere eller brug en anden søgemaskine."
   },
   "nn": {
     "error.args_must_be_dict": "args må være en diktat",
@@ -848,6 +884,7 @@
     "error.brave_429_with_api_hint": "Brave Search rate begrenset (429). Angi miljøvariabelen UAGENT_BRAVE_API_KEY med en Brave Search API-nøkkel (gratis nivå tilgjengeleg på https://brave.com/search/api/) for å bruke API i staden for HTML-skraping.",
     "param.engine.description": "Søkemotor: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislukkast: {error}",
-    "error.startpage_failed": "StartPage-søkeforespørsel mislukkast: {error}"
+    "error.startpage_failed": "StartPage-søkeforespørsel mislukkast: {error}",
+    "error.startpage_captcha": "StartPage CAPTCHA vart utløyst. Prøv igjen seinare eller bruk ein annan søkemotor."
   }
 }
