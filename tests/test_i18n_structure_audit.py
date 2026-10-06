@@ -524,3 +524,35 @@ def test_audit_summary_reports_findings_by_kind(tmp_path: Path) -> None:
     assert payload["summary"]["tool_finding_keys_by_kind_path"]["structure_extra"] == {
         str(tools / "example_tool.json"): ["extra"]
     }
+
+
+def test_tool_audit_recognizes_helper_referenced_catalog_key(
+    tmp_path: Path,
+) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "example_tool.py").write_text(
+        "def translated_help(key, default):\n"
+        "    return _(key, default=default)\n"
+        'HELP = translated_help("help.start", "Start the tool")\n',
+        encoding="utf-8",
+    )
+    (tools / "example_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {"help.start": "ツールを開始"},
+                "de": {"help.start": "Tool starten"},
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.kind == "structure_extra"
+        and finding.detail
+        and "help.start" in finding.detail.get("paths", [])
+        for finding in findings
+    )
