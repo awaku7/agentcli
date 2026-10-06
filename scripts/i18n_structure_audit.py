@@ -447,6 +447,39 @@ def _english_search_terms(path: Path) -> list[str] | None:
     return None
 
 
+def _static_string_literals(py_path: Path) -> set[str]:
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError):
+        return set()
+    return {
+        node.value
+        for node in ast.walk(tree)
+        if isinstance(node, ast.Constant) and isinstance(node.value, str)
+    }
+
+
+def _referenced_catalog_keys(
+    path: Path,
+    translation_blocks: dict[str, dict[str, Any]],
+) -> set[str]:
+    """Find catalog keys referenced statically outside direct translator calls.
+
+    Some tool modules route translations through small helpers or use catalog
+    keys from static lookup tables. Those keys are still real runtime
+    references even when the direct-call extractor cannot infer defaults.
+    """
+    candidate_keys = {
+        key
+        for block in translation_blocks.values()
+        for key in block
+        if isinstance(key, str)
+    }
+    literals = _static_string_literals(path.with_suffix(".py"))
+    for delegated in _delegated_source_files(path):
+        literals.update(_static_string_literals(delegated))
+    return candidate_keys & literals
+
 def _delegated_source_files(path: Path) -> list[Path]:
     """Find modules that explicitly bind the default translator to this facade."""
     primary = path.with_suffix(".py")
@@ -583,6 +616,9 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
             continue
         try:
             source, dynamic_keys = _english_source_info(path)
+            dynamic_keys.update(
+                _referenced_catalog_keys(path, translation_blocks) - set(source)
+            )
             reference = _reference_structure(source, translation_blocks, dynamic_keys)
             source_search_terms = source.get("x_search_terms")
             english_search_terms = _english_search_terms(path)
