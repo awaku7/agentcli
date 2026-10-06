@@ -756,6 +756,14 @@ def main(argv: Iterable[str] | None = None) -> int:
     if args.report:
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(rendered, encoding="utf-8")
+    if args.strict and payload["summary"]["structural_findings"]:
+        for section in ("host_gettext", "tool_json"):
+            for item in payload[section]["findings"]:
+                finding = Finding(**item)
+                if not _is_advisory_finding(finding):
+                    sys.stdout.write(
+                        json.dumps(item, ensure_ascii=False, sort_keys=True) + "\n"
+                    )
     sys.stdout.write(
         json.dumps(payload["summary"], ensure_ascii=False, sort_keys=True) + "\n"
     )
