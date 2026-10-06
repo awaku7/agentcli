@@ -32,10 +32,6 @@ TOOL_SPEC = {
                 "cobol program structure",
                 "cobol division",
                 "cobol paragraph",
-                "Read COBOL files",
-                "COBOL program structure",
-                "Paragraph list",
-                "Section list",
             ],
         ),
         "x_search_terms_en": [

@@ -54,6 +54,10 @@ TOOL_SPEC: dict[str, Any] = {
                 "voice",
                 "speech",
                 "sound",
+                "tts",
+                "text to speech",
+                "grok tts",
+                "xai tts",
             ],
         ),
         "x_search_terms_en": [

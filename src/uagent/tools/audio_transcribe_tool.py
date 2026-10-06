@@ -47,6 +47,11 @@ TOOL_SPEC: dict[str, Any] = {
                 "voice",
                 "speech",
                 "sound",
+                "transcribe",
+                "speech to text",
+                "stt",
+                "grok stt",
+                "xai stt",
             ],
         ),
         "x_search_terms_en": [
