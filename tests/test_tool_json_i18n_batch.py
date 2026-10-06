@@ -238,8 +238,12 @@ def test_pip_install_protect_terms_extract_complete_commands() -> None:
         ]
     ) == [
         "pip install bleak",
+        "bleak",
         "pip install PySide6",
+        "PySide6",
         "pip install foo bar",
+        "foo",
+        "bar",
         "pip install foo==1.2",
         "pip install --upgrade foo",
     ]
