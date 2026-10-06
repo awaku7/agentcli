@@ -105,7 +105,7 @@
     "prompt.default": "Pakilarawan nang detalyado ang larawang ito.",
     "err.missing_env.ollama": "Kulang ang kinakailangang env var para sa ollama image analysis (UAGENT_OLLAMA_DEPNAME)",
     "err.request_failed": "Hindi matawagan ang Ollama API: {err}",
-    "err.http_error": "Ollama API error: HTTP {status} {body}",
+    "err.http_error": "Error sa Ollama API: HTTP {status} {body}",
     "err.invalid_json": "Nagbalik ang Ollama API ng invalid JSON: {err}",
     "warn.empty_response": "[BABALA] walang laman ang tugon"
   },

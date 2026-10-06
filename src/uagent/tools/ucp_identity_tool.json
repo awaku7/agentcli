@@ -165,7 +165,7 @@
     "param.mode.description": "'link' for å få OAuth URL, 'status' for å sjekke linking status.",
     "param.business_url.description": "Basis-URL for virksomheten.",
     "param.redirect_uri.description": "Omdiriger URI for OAuth-tilbakekalling (kreves for mode='link').",
-    "param.link_id.description": "Link ID from a previous link attempt (required for mode='status')."
+    "param.link_id.description": "Link-ID frå eit tidlegare lenkeforsøk (påkravd for mode='status')."
   },
   "pl": {
     "tool.description": "Zarządzaj łączeniem tożsamości użytkowników za pośrednictwem UCP. Użyj mode='link', aby uzyskać adres URL autoryzacji OAuth, aby użytkownik mógł uwierzytelnić się w przeglądarce, lub mode='status', aby sprawdzić bieżący stan połączenia.",
