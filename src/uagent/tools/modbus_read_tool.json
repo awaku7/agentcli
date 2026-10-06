@@ -96,7 +96,7 @@
     "param.address.description": "Διεύθυνση εγγραφής εκκίνησης (βάσει 0).",
     "param.count.description": "Αριθμός μητρώων προς ανάγνωση (μέγιστο 125).",
     "param.fmt.description": "Μορφή: json ή κείμενο.",
-    "msg.summary": "Modbus read: {ip} type={t} addr={addr} count={count}",
+    "msg.summary": "Ανάγνωση Modbus: {ip} type={t} addr={addr} count={count}",
     "err.ip_required": "απαιτείται ip.",
     "err.invalid_type": "Μη έγκυρος τύπος. Ισχύει: {types}.",
     "x_search_terms": [
