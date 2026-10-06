@@ -104,3 +104,98 @@ def test_generate_image_prompt_empty_does_not_contain_depname_guidance():
     assert not invalid, "Corrupted localized generate_image prompt error: " + ", ".join(
         invalid
     )
+
+
+def test_vision_runtime_provider_and_env_messages_preserve_identifiers():
+    payload = _load("vision_runtime.json")
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+
+        unsupported = messages.get("err.unsupported_provider")
+        if unsupported is not None:
+            if "UAGENT_RESPONSES=1" not in unsupported:
+                invalid.append(f"{lang}: responses flag")
+            if (
+                "openai/azure/bedrock/openrouter/ollama/lmstudio"
+                not in unsupported.lower()
+            ):
+                invalid.append(f"{lang}: provider list")
+            if "{provider!r}" not in unsupported:
+                invalid.append(f"{lang}: provider placeholder")
+
+        checks = (
+            (
+                "err.missing_env.azure",
+                "azure",
+                "UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME",
+            ),
+            (
+                "err.missing_env.bedrock",
+                "bedrock",
+                "UAGENT_BEDROCK_BASE_URL/API_KEY",
+            ),
+            (
+                "err.missing_env.openrouter",
+                "openrouter",
+                "UAGENT_OPENROUTER_API_KEY",
+            ),
+            (
+                "err.missing_env.openai",
+                "openai",
+                "UAGENT_OPENAI_API_KEY/DEPNAME",
+            ),
+        )
+        for key, provider, env_hint in checks:
+            message = messages.get(key)
+            if message is None:
+                continue
+            if provider not in message.lower():
+                invalid.append(f"{lang}:{key}: provider")
+            if env_hint not in message:
+                invalid.append(f"{lang}:{key}: env")
+
+    assert not invalid, "Corrupted vision runtime locale messages: " + ", ".join(
+        invalid
+    )
+
+
+def test_vision_ollama_errors_preserve_literal_brand():
+    payload = _load("vision_ollama.json")
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+
+        for key in (
+            "err.unsupported_provider",
+            "err.request_failed",
+            "err.http_error",
+            "err.invalid_json",
+        ):
+            message = messages.get(key)
+            if message is not None and "ollama" not in message.lower():
+                invalid.append(f"{lang}:{key}")
+
+    assert not invalid, "Corrupted Ollama brand in localized vision errors: " + ", ".join(
+        invalid
+    )
+
+
+def test_vision_deepseek_import_error_preserves_openai_brand():
+    payload = _load("vision_deepseek.json")
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+        message = messages.get("err.import_openai")
+        if message is not None and "openai" not in message.lower():
+            invalid.append(lang)
+
+    assert not invalid, "Corrupted OpenAI brand in DeepSeek import errors: " + ", ".join(
+        invalid
+    )
