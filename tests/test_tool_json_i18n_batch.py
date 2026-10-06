@@ -395,6 +395,100 @@ def test_translate_lang_sleeps_between_scoped_provider_calls(
     assert sleep_calls == [0.25, 0.25]
 
 
+def test_translate_lang_retries_529_with_backoff(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = ["Translate this prompt."]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": 0, "tool": "sample", "key": "prompt", "text": texts[0]}
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    attempts = 0
+
+    def fake_run_tool(payload):
+        nonlocal attempts
+        attempts += 1
+        if attempts == 1:
+            raise RuntimeError("provider returned 529 overloaded")
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=2.0,
+    )
+
+    assert attempts == 2
+    assert sleep_calls == [15.0]
+
+
+def test_translate_lang_honors_sleep_during_single_item_fallback(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = ["one", "two"]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": index, "tool": "sample", "key": f"k{index}", "text": text}
+                    for index, text in enumerate(texts)
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    def fake_run_tool(payload):
+        if len(payload["texts"]) > 1:
+            raise RuntimeError("temporary provider error")
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=2.0,
+    )
+
+    assert sleep_calls == [2.0]
+
+
 def test_non_search_term_lists_still_require_matching_length() -> None:
     assert batch._is_missing_or_stale(
         ["one", "two"],

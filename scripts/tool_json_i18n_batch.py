@@ -814,16 +814,25 @@ def translate_lang(
             )
         except Exception as e:
             msg = str(e)
-            if "429" in msg:
+            overloaded_status = next(
+                (status for status in ("429", "529") if status in msg),
+                None,
+            )
+            if overloaded_status is not None:
                 if rate_retries < 3:
-                    delay = max(float(sleep_s or 0), 10.0) * (2**rate_retries)
-                    print(f"    [rate-limit] sleeping {delay:.1f}s before retry")
+                    base_delay = 15.0 if overloaded_status == "529" else 10.0
+                    delay = max(float(sleep_s or 0), base_delay) * (2**rate_retries)
+                    print(
+                        f"    [rate-limit {overloaded_status}] "
+                        f"sleeping {delay:.1f}s before retry"
+                    )
                     time.sleep(delay)
                     return _translate_with_fallback(
                         batch_texts, depth=depth, rate_retries=rate_retries + 1
                     )
                 raise RuntimeError(
-                    f"translation rate limit persisted after {rate_retries} retries: {msg}"
+                    "translation provider overload persisted after "
+                    f"{rate_retries} retries ({overloaded_status}): {msg}"
                 ) from e
             # Single item: last resort, return original to avoid aborting whole lang.
             if len(batch_texts) == 1:
@@ -837,7 +846,7 @@ def translate_lang(
                 for one in batch_texts:
                     out_parts.extend(_translate_with_fallback([one], depth=depth + 1))
                     if sleep_s > 0:
-                        time.sleep(min(sleep_s, 0.05))
+                        time.sleep(sleep_s)
                 return out_parts
             print(
                 f"    [fallback depth={depth}] {msg[:120]} -> split {len(batch_texts)} into "
@@ -1346,8 +1355,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--sleep",
         type=float,
-        default=0.2,
-        help="Sleep seconds between translate batches",
+        default=2.0,
+        help="Sleep seconds between translation provider calls (default: 2.0)",
     )
     return p
 
