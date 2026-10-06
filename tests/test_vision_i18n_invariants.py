@@ -180,9 +180,10 @@ def test_vision_ollama_errors_preserve_literal_brand():
             if message is not None and "ollama" not in message.lower():
                 invalid.append(f"{lang}:{key}")
 
-    assert not invalid, "Corrupted Ollama brand in localized vision errors: " + ", ".join(
+    error_message = "Corrupted Ollama brand in localized vision errors: " + ", ".join(
         invalid
     )
+    assert not invalid, error_message
 
 
 def test_vision_deepseek_import_error_preserves_openai_brand():
@@ -196,6 +197,7 @@ def test_vision_deepseek_import_error_preserves_openai_brand():
         if message is not None and "openai" not in message.lower():
             invalid.append(lang)
 
-    assert not invalid, "Corrupted OpenAI brand in DeepSeek import errors: " + ", ".join(
+    error_message = "Corrupted OpenAI brand in DeepSeek import errors: " + ", ".join(
         invalid
     )
+    assert not invalid, error_message
