@@ -427,3 +427,22 @@ def test_status_require_complete_succeeds_for_complete_catalog(
     assert rc == 0
     assert "missing_units: 0" in captured.out
     assert captured.err == ""
+
+
+def test_intentional_english_debug_value_is_not_stale() -> None:
+    value = "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d"
+
+    assert not batch._is_missing_or_stale(
+        value,
+        value,
+        key="bitchat.debug_hs_skip",
+        force=False,
+        skip_same_as_en=True,
+    )
+    assert batch._is_missing_or_stale(
+        value,
+        value,
+        key="ordinary.message",
+        force=False,
+        skip_same_as_en=True,
+    )
