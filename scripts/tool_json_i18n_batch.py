@@ -426,6 +426,12 @@ class Unit:
     text: str
 
 
+def _tool_label(path: Path) -> str:
+    """Return a stable diagnostic label for arbitrary tool catalog filenames."""
+    stem = path.stem
+    return stem[: -len("_tool")] if stem.endswith("_tool") else stem
+
+
 def collect_units(
     files: Iterable[Path],
     langs: list[str],
@@ -443,7 +449,7 @@ def collect_units(
         except Exception as e:
             print(f"[skip] {path}: {e}", file=sys.stderr)
             continue
-        tool = path.name[: -len("_tool.json")]
+        tool = _tool_label(path)
         present_langs = {
             k for k, v in data.items() if _is_lang_block(k, v) and k != "en"
         }
@@ -860,13 +866,14 @@ def cmd_status(args: argparse.Namespace) -> int:
     files = _tool_files(args)
     langs = args.langs_list
 
+    require_all_locales = args.add_lang or args.require_complete
     missing_units = collect_units(
         files,
         langs,
         force=False,
         skip_same_as_en=False,
         only_missing=True,
-        only_existing_lang=not args.add_lang,
+        only_existing_lang=not require_all_locales,
     )
 
     same_as_en_units: list[Unit] = []
@@ -877,7 +884,7 @@ def cmd_status(args: argparse.Namespace) -> int:
             force=False,
             skip_same_as_en=True,
             only_missing=True,
-            only_existing_lang=not args.add_lang,
+            only_existing_lang=not require_all_locales,
         )
         missing_ids = {(u.source_path, u.lang, u.key) for u in missing_units}
         same_as_en_units = [
@@ -920,6 +927,14 @@ def cmd_status(args: argparse.Namespace) -> int:
         print("review_candidates_by_tool_language:")
         for (tool, lang), n in sorted(by_pair.items()):
             print(f"  {tool:40s} {lang:8s} {n}")
+
+    if args.require_complete and missing_units:
+        print(
+            "error: tool i18n catalogs are incomplete; "
+            f"{len(missing_units)} translation unit(s) are missing",
+            file=sys.stderr,
+        )
+        return 1
 
     return 0
 
@@ -1005,7 +1020,7 @@ def _parse_tools(s: str | None) -> set[str] | None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Batch-translate tool *_tool.json via tmp/")
+    p = argparse.ArgumentParser(description="Batch-translate tool JSON catalogs via tmp/")
     p.add_argument(
         "command",
         choices=["status", "extract", "translate", "merge", "run"],
@@ -1014,7 +1029,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--tools-dir",
         default="",
-        help="Directory containing *_tool.json (default: tools and tools_rust)",
+        help="Directory containing tool JSON catalogs (default: tools and tools_rust)",
     )
     p.add_argument(
         "--tmp-dir",
@@ -1074,7 +1089,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--apply",
         action="store_true",
-        help="Actually write *_tool.json on merge/run (otherwise preview only)",
+        help="Actually write tool JSON catalogs on merge/run (otherwise preview only)",
     )
     p.add_argument(
         "--keep-existing",
@@ -1085,6 +1100,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--add-lang",
         action="store_true",
         help="Allow creating a language block on files that do not have it yet",
+    )
+    p.add_argument(
+        "--require-complete",
+        action="store_true",
+        help=(
+            "For status, return non-zero when any Python-source translation unit "
+            "is missing; absent locale blocks are included in the check"
+        ),
     )
     p.add_argument("--batch-chars", type=int, default=DEFAULT_BATCH_CHARS)
     p.add_argument("--batch-items", type=int, default=DEFAULT_BATCH_ITEMS)
