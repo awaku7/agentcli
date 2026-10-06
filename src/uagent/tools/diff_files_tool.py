@@ -53,8 +53,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "difference",
                 "unified diff",
                 "diff",
-                "ux30d5u30a1u30a4u30ebu6bd4u8f03",
-                "u5deeu5206",
             ],
         ),
         "x_search_terms_en": [

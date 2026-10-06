@@ -31,8 +31,6 @@ TOOL_SPEC = {
                 "physical file dds",
                 "display file dspf",
                 "logical file lf",
-                "Read DDS",
-                "PF/LF/DSPF definitions",
             ],
         ),
         "x_search_terms_en": [

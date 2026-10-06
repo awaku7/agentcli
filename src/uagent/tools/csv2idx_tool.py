@@ -30,10 +30,6 @@ TOOL_SPEC = {
                 "csv index",
                 "csv parser",
                 "tsv reader",
-                "Read CSV files",
-                "CSV index",
-                "Split into row blocks",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [
