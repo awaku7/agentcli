@@ -104,6 +104,7 @@ PRINTF_PLACEHOLDER_RE = re.compile(
 FORMATTER = Formatter()
 BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 PIP_INSTALL_PREFIX_RE = re.compile(r"\bpip\s+install\b")
+PIP_REQUIREMENT_NAME_RE = re.compile(r"^(?P<name>[A-Za-z0-9][A-Za-z0-9_.-]*)")
 PIP_COMMAND_TRAILING_PUNCTUATION = ".,;:!?。；：！？"
 
 # translate_text hard limit per element
@@ -643,16 +644,27 @@ def _pip_install_commands(text: str) -> list[str]:
 
 
 def _pip_install_protect_terms(texts: list[str]) -> list[str]:
-    """Return exact pip-install commands that must stay literal."""
+    """Return exact pip commands and requirement names that must stay literal."""
     terms: list[str] = []
     seen: set[str] = set()
 
+    def _add(term: str) -> None:
+        if term in seen:
+            return
+        seen.add(term)
+        terms.append(term)
+
     for text in texts:
         for command in _pip_install_commands(text):
-            if command in seen:
-                continue
-            seen.add(command)
-            terms.append(command)
+            _add(command)
+
+            tokens = command.split()[2:]
+            for token in tokens:
+                if token.startswith("-"):
+                    continue
+                match = PIP_REQUIREMENT_NAME_RE.match(token)
+                if match is not None:
+                    _add(match.group("name"))
 
     return terms
 
