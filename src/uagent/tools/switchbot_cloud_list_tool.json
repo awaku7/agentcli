@@ -8,7 +8,7 @@
     "tool.description": "قم بإدراج أجهزة SwitchBot Cloud للحساب الذي تم تكوينه.",
     "x_search_terms": [
       "قائمة السحابة الخاصة بـ Switchbot",
-      "Switchbot_cloud_list",
+      "switchbot_cloud_list",
       "switchbot",
       "cloud",
       "الأجهزة",
@@ -41,7 +41,7 @@
     "msg.unknown_error": "neznámá chyba",
     "tool.description": "Seznam zařízení SwitchBot Cloud pro nakonfigurovaný účet.",
     "x_search_terms": [
-      "seznam cloudových přepínačů",
+      "seznam cloudových zařízení switchbot",
       "switchbot_cloud_list",
       "switchbot",
       "cloud",
@@ -144,8 +144,8 @@
     "tool.description": "कॉन्फ़िगर किए गए खाते के लिए स्विचबॉट क्लाउड डिवाइस की सूची बनाएं।",
     "x_search_terms": [
       "स्विचबॉट क्लाउड सूची",
-      "स्विचबॉट_क्लाउड_लिस्ट",
-      "स्विचबॉट",
+      "switchbot_cloud_list",
+      "switchbot",
       "क्लाउड",
       "डिवाइस",
       "कॉन्फ़िगर",
@@ -195,7 +195,7 @@
     "tool.description": "構成されたアカウントの SwitchBot Cloud デバイスを一覧表示します。",
     "x_search_terms": [
       "switchbot クラウド リスト",
-      "スイッチボット_クラウド_リスト",
+      "switchbot_cloud_list",
       "switchbot",
       "クラウド",
       "デバイス",
@@ -212,7 +212,7 @@
     "tool.description": "구성된 계정에 대한 SwitchBot Cloud 장치를 나열합니다.",
     "x_search_terms": [
       "스위치봇 클라우드 목록",
-      "스위치봇_클라우드_목록",
+      "switchbot_cloud_list",
       "switchbot",
       "cloud",
       "devices",
@@ -348,7 +348,7 @@
     "tool.description": "Maak een lijst van SwitchBot Cloud-apparaten voor het geconfigureerde account.",
     "x_search_terms": [
       "switchbot cloudlijst",
-      "switchbot_cloud_lijst",
+      "switchbot_cloud_list",
       "switchbot",
       "cloud",
       "devices",

@@ -10,7 +10,7 @@
     "err.id_required": "معرف الاشتراك مطلوب للإجراء = إلغاء الاشتراك.",
     "x_search_terms": [
       "إلغاء الاشتراك في Switchbot",
-      "Switchbot_unsubscribe",
+      "switchbot_unsubscribe",
       "switchbot",
       "إلغاء",
       "الاشتراك",
@@ -189,9 +189,9 @@
     "msg.unsubscribed": "स्विचबॉट सदस्यता {id} रद्द कर दी गई।",
     "err.id_required": "कार्रवाई=सदस्यता समाप्त करने के लिए subscribe_id आवश्यक है।",
     "x_search_terms": [
-      "स्विचबॉट सदस्यता समाप्त",
-      "स्विचबॉट_अनसब्सक्राइब",
-      "स्विचबॉट",
+      "switchbot सदस्यता समाप्त",
+      "switchbot_unsubscribe",
+      "switchbot",
       "रद्द",
       "सदस्यता",
       "सदस्यता_आईडी"
@@ -226,7 +226,7 @@
     "err.id_required": "ID_langganan diperlukan untuk tindakan=berhenti berlangganan.",
     "x_search_terms": [
       "switchbot berhenti berlangganan",
-      "switchbot_berhenti berlangganan",
+      "switchbot_unsubscribe",
       "switchbot",
       "batalkan",
       "langganan",
@@ -262,7 +262,7 @@
     "err.id_required": "action=unsubscribe には subscription_id が必要です。",
     "x_search_terms": [
       "switchbot 購読解除",
-      "switchbot_購読解除",
+      "switchbot_unsubscribe",
       "switchbot",
       "キャンセル",
       "購読",
@@ -279,8 +279,8 @@
     "msg.unsubscribed": "SwitchBot 구독 {id}이 취소되었습니다.",
     "err.id_required": "action=unsubscribe에는 subscribe_id가 필요합니다.",
     "x_search_terms": [
-      "스위치봇 구독 취소",
-      "스위치봇_구독 취소",
+      "switchbot 구독 취소",
+      "switchbot_unsubscribe",
       "switchbot",
       "cancel",
       "subscription",
@@ -316,7 +316,7 @@
     "err.id_required": "कृती = सदस्यत्व रद्द करण्यासाठी subscription_id आवश्यक आहे.",
     "x_search_terms": [
       "switchbot सदस्यता रद्द करा",
-      "switchbot_unsubscribe करा",
+      "switchbot_unsubscribe",
       "switchbot",
       "cancel",
       "subscription",
@@ -478,7 +478,7 @@
     "err.id_required": "subscription_id inahitajika kwa action=kujiondoa.",
     "x_search_terms": [
       "switchbot jiondoe",
-      "switchbot_jiondoe",
+      "switchbot_unsubscribe",
       "switchbot",
       "ghairi",
       "subscription",
@@ -568,7 +568,7 @@
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
       "switchbot 取消订阅",
-      "switchbot_取消订阅",
+      "switchbot_unsubscribe",
       "switchbot",
       "取消",
       "订阅",
@@ -586,7 +586,7 @@
     "err.id_required": "action=unsubscribe 需要 subscription_id。",
     "x_search_terms": [
       "switchbot 取消訂閱",
-      "switchbot_取消訂閱",
+      "switchbot_unsubscribe",
       "switchbot",
       "取消",
       "訂閱",
