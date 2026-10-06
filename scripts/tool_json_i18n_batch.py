@@ -1033,7 +1033,14 @@ def build_parser() -> argparse.ArgumentParser:
         default="",
         help="Optional comma-separated translation keys (e.g. x_search_terms)",
     )
-    p.add_argument("--source-lang", default="en", help="Source language (default en)")
+    p.add_argument(
+        "--source-lang",
+        default="en",
+        help=(
+            "Source language for translation input; must be en because "
+            "Python defaults are canonical."
+        ),
+    )
     p.add_argument(
         "--provider",
         choices=["auto", "google", "deepl"],
@@ -1090,6 +1097,14 @@ def main(argv: list[str] | None = None) -> int:
     args.tools_set = _parse_tools(args.tools)
     args.keys_set = _parse_tools(args.keys)
     args.langs_list = _parse_langs(args.langs)
+    args.source_lang = _norm_lang(args.source_lang)
+
+    if args.source_lang != "en":
+        print(
+            "error: --source-lang must be en because Python defaults are canonical",
+            file=sys.stderr,
+        )
+        return 2
 
     if "en" in args.langs_list:
         print(
