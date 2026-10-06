@@ -9,7 +9,7 @@
     "msg.subscribed": "اشتراك SwitchBot نشط: المعرف={id}، {label}",
     "err.dev_required": "مطلوب معرف_الجهاز (مطور).",
     "x_search_terms": [
-      "switchbot subscribe",
+      "اشتراك switchbot",
       "switchbot_subscribe",
       "switchbot",
       "تغييرات",
@@ -26,7 +26,7 @@
     "msg.subscribed": "SwitchBot সদস্যতা সক্রিয়: id={id}, {label}",
     "err.dev_required": "device_id (dev) প্রয়োজন।",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot সাবস্ক্রাইব",
       "switchbot_subscribe",
       "switchbot",
       "পরিবর্তন",
@@ -43,7 +43,7 @@
     "msg.subscribed": "Aktivní předplatné SwitchBot: id={id}, {label}",
     "err.dev_required": "device_id (dev) je povinné.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot přihlásit se k odběru",
       "switchbot_subscribe",
       "switchbot",
       "změny",
@@ -60,7 +60,7 @@
     "msg.subscribed": "SwitchBot-Abonnement aktiv: id={id}, {label}",
     "err.dev_required": "device_id (dev) ist erforderlich.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "Switchbot abonnieren",
       "switchbot_subscribe",
       "switchbot",
       "Änderungen",
@@ -77,7 +77,7 @@
     "msg.subscribed": "Ενεργή συνδρομή SwitchBot: id={id}, {label}",
     "err.dev_required": "συσκευή_id (dev) απαιτείται.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "εγγραφή switchbot",
       "switchbot_subscribe",
       "switchbot",
       "αλλαγές",
@@ -94,7 +94,7 @@
     "msg.subscribed": "Suscripción SwitchBot activa: id={id}, {label}",
     "err.dev_required": "Se requiere device_id (dev).",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot suscribirse",
       "switchbot_subscribe",
       "switchbot",
       "cambios",
@@ -111,7 +111,7 @@
     "msg.subscribed": "اشتراک SwitchBot فعال: id={id}، {label}",
     "err.dev_required": "device_id (dev) مورد نیاز است.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "اشتراک switchbot",
       "switchbot_subscribe",
       "switchbot",
       "تغییرات",
@@ -128,7 +128,7 @@
     "msg.subscribed": "SwitchBot-tilaus aktiivinen: id={id}, {label}",
     "err.dev_required": "laitetunnus (dev) vaaditaan.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot tilaa",
       "switchbot_subscribe",
       "switchbot",
       "muutokset",
@@ -145,7 +145,7 @@
     "msg.subscribed": "Abonnement SwitchBot actif : id={id}, {label}",
     "err.dev_required": "device_id (dev) est requis.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot s'abonner",
       "switchbot_subscribe",
       "switchbot",
       "changements",
@@ -162,7 +162,7 @@
     "msg.subscribed": "מנוי SwitchBot פעיל: id={id}, {label}",
     "err.dev_required": "נדרש device_id (dev).",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot הירשם",
       "switchbot_subscribe",
       "switchbot",
       "שינויים",
@@ -179,7 +179,7 @@
     "msg.subscribed": "स्विचबॉट सदस्यता सक्रिय: id={id}, {label}",
     "err.dev_required": "डिवाइस_आईडी (डेव) आवश्यक है।",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot सब्सक्राइब करें",
       "switchbot_subscribe",
       "switchbot",
       "परिवर्तन",
@@ -196,7 +196,7 @@
     "msg.subscribed": "SwitchBot előfizetés aktív: id={id}, {label}",
     "err.dev_required": "A device_id (dev) megadása kötelező.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot feliratkozás",
       "switchbot_subscribe",
       "switchbot",
       "változások",
@@ -213,7 +213,7 @@
     "msg.subscribed": "Langganan SwitchBot aktif: id={id}, {label}",
     "err.dev_required": "device_id (dev) diperlukan.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot berlangganan",
       "switchbot_subscribe",
       "switchbot",
       "perubahan",
@@ -230,7 +230,7 @@
     "msg.subscribed": "Abbonamento SwitchBot attivo: id={id}, {label}",
     "err.dev_required": "dispositivo_id (dev) è obbligatorio.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot iscriviti",
       "switchbot_subscribe",
       "switchbot",
       "cambiamenti",
@@ -247,7 +247,7 @@
     "msg.subscribed": "SwitchBot サブスクリプションが有効です: id={id}、{label}",
     "err.dev_required": "device_id (dev) は必須です。",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot購読",
       "switchbot_subscribe",
       "switchbot",
       "変更点",
@@ -264,7 +264,7 @@
     "msg.subscribed": "SwitchBot 구독 활성: id={id}, {label}",
     "err.dev_required": "device_id(dev)가 필요합니다.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot 구독",
       "switchbot_subscribe",
       "switchbot",
       "변경",
@@ -281,7 +281,7 @@
     "msg.subscribed": "SwitchBot захиалга идэвхтэй: id={id}, {label}",
     "err.dev_required": "device_id (dev) шаардлагатай.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot бүртгүүлэх",
       "switchbot_subscribe",
       "switchbot",
       "өөрчлөлтүүд",
@@ -298,7 +298,7 @@
     "msg.subscribed": "SwitchBot सदस्यता सक्रिय: id={id}, {label}",
     "err.dev_required": "device_id (dev) आवश्यक आहे.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot सबस्क्राइब",
       "switchbot_subscribe",
       "switchbot",
       "बदल",
@@ -315,7 +315,7 @@
     "msg.subscribed": "SwitchBot-abonnement aktivt: id={id}, {label}",
     "err.dev_required": "device_id (dev) er påkrevd.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot abonner",
       "switchbot_subscribe",
       "switchbot",
       "endringer",
@@ -332,7 +332,7 @@
     "msg.subscribed": "SwitchBot-abonnement actief: id={id}, {label}",
     "err.dev_required": "device_id (dev) is vereist.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot abonneren",
       "switchbot_subscribe",
       "switchbot",
       "wijzigingen",
@@ -349,7 +349,7 @@
     "msg.subscribed": "Aktywna subskrypcja SwitchBota: id={id}, {label}",
     "err.dev_required": "id_urządzenia (dev) jest wymagany.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "Switchbot subskrybuj",
       "switchbot_subscribe",
       "switchbot",
       "zmiany",
@@ -366,7 +366,7 @@
     "msg.subscribed": "Assinatura SwitchBot ativa: id={id}, {label}",
     "err.dev_required": "device_id (dev) é obrigatório.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot subscrever",
       "switchbot_subscribe",
       "switchbot",
       "alterações",
@@ -383,7 +383,7 @@
     "msg.subscribed": "Assinatura SwitchBot ativa: id={id}, {label}",
     "err.dev_required": "device_id (dev) é obrigatório.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot assinar",
       "switchbot_subscribe",
       "switchbot",
       "mudanças",
@@ -400,7 +400,7 @@
     "msg.subscribed": "Abonament SwitchBot activ: id={id}, {label}",
     "err.dev_required": "device_id (dev) este necesar.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot abonare",
       "switchbot_subscribe",
       "switchbot",
       "modificări",
@@ -417,7 +417,7 @@
     "msg.subscribed": "Активна подписка на SwitchBot: id={id}, {label}",
     "err.dev_required": "Device_id (dev) является обязательным.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "подписаться на switchbot",
       "switchbot_subscribe",
       "switchbot",
       "изменения",
@@ -434,7 +434,7 @@
     "msg.subscribed": "SwitchBot-prenumeration aktiv: id={id}, {label}",
     "err.dev_required": "device_id (dev) krävs.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot prenumerera",
       "switchbot_subscribe",
       "switchbot",
       "förändringar",
@@ -451,7 +451,7 @@
     "msg.subscribed": "Usajili wa SwitchBot unatumika: id={id}, {label}",
     "err.dev_required": "device_id (dev) inahitajika.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot jiandikisha",
       "switchbot_subscribe",
       "switchbot",
       "mabadiliko",
@@ -468,7 +468,7 @@
     "msg.subscribed": "การสมัครใช้งาน SwitchBot ใช้งานอยู่: id={id}, {label}",
     "err.dev_required": "จำเป็นต้องมี device_id (dev)",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot สมัครสมาชิก",
       "switchbot_subscribe",
       "switchbot",
       "การเปลี่ยนแปลง",
@@ -485,7 +485,7 @@
     "msg.subscribed": "SwitchBot aboneliği etkin: id={id}, {label}",
     "err.dev_required": "Device_id (dev) gereklidir.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot abone ol",
       "switchbot_subscribe",
       "switchbot",
       "değişiklikler",
@@ -502,7 +502,7 @@
     "msg.subscribed": "Підписка на SwitchBot активна: id={id}, {label}",
     "err.dev_required": "device_id (dev) потрібен.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "підписатися на switchbot",
       "switchbot_subscribe",
       "switchbot",
       "зміни",
@@ -519,7 +519,7 @@
     "msg.subscribed": "Đăng ký SwitchBot đang hoạt động: id={id}, {label}",
     "err.dev_required": "device_id (dev) là bắt buộc.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "đăng ký switchbot",
       "switchbot_subscribe",
       "switchbot",
       "thay đổi",
@@ -536,7 +536,7 @@
     "msg.subscribed": "SwitchBot 订阅有效：id={id}、{label}",
     "err.dev_required": "device_id (dev) 是必需的。",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot 订阅",
       "switchbot_subscribe",
       "switchbot",
       "变化",
@@ -553,7 +553,7 @@
     "msg.subscribed": "SwitchBot 訂閱有效：id={id}、{label}",
     "err.dev_required": "device_id (dev) 是必要的。",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot 訂閱",
       "switchbot_subscribe",
       "switchbot",
       "變更",
@@ -588,7 +588,7 @@
     "msg.subscribed": "Langganan SwitchBot aktif: id={id}, {label}",
     "err.dev_required": "device_id (dev) diperlukan.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot melanggan",
       "switchbot_subscribe",
       "switchbot",
       "changes",
@@ -605,7 +605,7 @@
     "msg.subscribed": "SwitchBot-abonnement aktivt: id={id}, {label}",
     "err.dev_required": "device_id (dev) er påkrævet.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot abonnere",
       "switchbot_subscribe",
       "switchbot",
       "ændringer",
@@ -622,7 +622,7 @@
     "msg.subscribed": "SwitchBot-abonnement aktivt: id={id}, {label}",
     "err.dev_required": "device_id (dev) er påkrevd.",
     "x_search_terms": [
-      "switchbot subscribe",
+      "switchbot-abonnement",
       "switchbot_subscribe",
       "switchbot",
       "endringer",
