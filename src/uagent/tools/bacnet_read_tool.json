@@ -700,7 +700,7 @@
     "param.object_instance.description": "Numero ng BACnet object instance.",
     "param.property_name.description": "Pangalan ng property na babasahin (default: 'presentValue'). Karaniwan: presentValue, paglalarawan, mga unit, statusFlags, objectName.",
     "param.fmt.description": "Format: json o text.",
-    "msg.summary": "BACnet read: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
+    "msg.summary": "Pagbasa ng BACnet: {ip_or_dev}/{obj_type}:{obj_inst}.{prop} = {value}",
     "err.bac0_install": "Hindi ma-install ang BAC0 library.",
     "err.invalid_object_type": "Di-wastong object_type. Wasto: {types}.",
     "err.ip_or_device_required": "Kinakailangan ang alinman sa ip o device_instance.",
