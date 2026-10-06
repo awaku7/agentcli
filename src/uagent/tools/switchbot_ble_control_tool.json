@@ -400,7 +400,7 @@
     "param.value.description": "set_value アクションのオプションの数値。範囲: 0 ～ 100。",
     "tool.description": "近くの SwitchBot BLE デバイスを制御し、JSON またはテキストの結果を返します。",
     "x_search_terms": [
-      "switchbot BLE コントロール",
+      "スイッチボット ble コントロール",
       "switchbot_ble_control",
       "switchbot",
       "近くの",
@@ -427,7 +427,7 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.unknown_error": "알 수 없는 오류",
     "x_search_terms": [
-      "switchbot BLE 제어",
+      "스위치봇 블 제어",
       "switchbot_ble_control",
       "switchbot",
       "인근",
