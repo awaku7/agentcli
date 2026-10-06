@@ -15,9 +15,9 @@
     "warn.empty": "[WARN] prázdná odpověď"
   },
   "da": {
-    "err.import_openai": "Failed to import openai package.",
-    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] empty response"
+    "err.import_openai": "Kunne ikke importere openai-pakken.",
+    "err.missing_env": "Mangler UAGENT_DEEPSEEK_API_KEY (eller UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[ADVARSEL] tomt svar"
   },
   "de": {
     "err.import_openai": "Fehler beim Importieren des OpenAI-Pakets.",
@@ -45,9 +45,9 @@
     "warn.empty": "[VAROITUS] tyhjä vastaus"
   },
   "fil": {
-    "err.import_openai": "Failed to import openai package.",
-    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] empty response"
+    "err.import_openai": "Hindi ma-import ang openai package.",
+    "err.missing_env": "Kulang ang UAGENT_DEEPSEEK_API_KEY (o UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[BABALA] walang laman ang tugon"
   },
   "fr": {
     "err.import_openai": "Échec de l'importation du package openai.",
@@ -100,9 +100,9 @@
     "warn.empty": "[चेतावणी] रिक्त प्रतिसाद"
   },
   "ms": {
-    "err.import_openai": "Failed to import openai package.",
-    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] empty response"
+    "err.import_openai": "Gagal mengimport pakej openai.",
+    "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (atau UAGENT_OPENAI_API_KEY) tiada.",
+    "warn.empty": "[AMARAN] respons kosong"
   },
   "nb": {
     "err.import_openai": "Kunne ikke importere openai-pakken.",
@@ -115,9 +115,9 @@
     "warn.empty": "[WARN] leeg antwoord"
   },
   "nn": {
-    "err.import_openai": "Failed to import openai package.",
-    "err.missing_env": "Missing UAGENT_DEEPSEEK_API_KEY (or UAGENT_OPENAI_API_KEY).",
-    "warn.empty": "[WARN] empty response"
+    "err.import_openai": "Klarte ikkje å importere openai-pakken.",
+    "err.missing_env": "Manglar UAGENT_DEEPSEEK_API_KEY (eller UAGENT_OPENAI_API_KEY).",
+    "warn.empty": "[ÅTVARING] tomt svar"
   },
   "pl": {
     "err.import_openai": "Nie udało się zaimportować pakietu Openai.",

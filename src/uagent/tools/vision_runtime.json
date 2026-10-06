@@ -36,16 +36,16 @@
     "err.missing_env.openai": "Chybějící požadované proměnné prostředí pro openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "da": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
+    "err.image_not_found": "billedfilen blev ikke fundet: {path}",
+    "err.image_too_large": "billedfilen er for stor: {size} byte (grænse={max_bytes})",
+    "err.import_openai": "Kunne ikke importere openai-pakken: {err}",
+    "prompt.default": "Beskriv venligst dette billede i detaljer.",
+    "warn.empty_response": "[ADVARSEL] tomt svar",
     "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
-    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+    "err.missing_env.azure": "Mangler påkrævede miljøvariabler til azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Mangler påkrævede miljøvariabler til bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Mangler påkrævede miljøvariabler til openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Mangler påkrævede miljøvariabler til openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "de": {
     "err.image_not_found": "Bilddatei nicht gefunden: {path}",
@@ -108,16 +108,16 @@
     "err.missing_env.openai": "Openai:ta varten tarvittavat ympäristömuuttujat puuttuvat (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "fil": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
+    "err.image_not_found": "Hindi nakita ang image file: {path}",
+    "err.image_too_large": "Masyadong malaki ang image file: {size} bytes (limit={max_bytes})",
+    "err.import_openai": "Hindi ma-import ang openai package: {err}",
+    "prompt.default": "Pakilarawan nang detalyado ang larawang ito.",
+    "warn.empty_response": "[BABALA] walang laman ang tugon",
     "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
-    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+    "err.missing_env.azure": "Kulang ang kinakailangang env vars para sa azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Kulang ang kinakailangang env vars para sa bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Kulang ang kinakailangang env vars para sa openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Kulang ang kinakailangang env vars para sa openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "fr": {
     "err.image_not_found": "fichier image introuvable : {path}",
@@ -240,16 +240,16 @@
     "err.missing_env.openai": "openai साठी आवश्यक env व्हेरिएबल्स गहाळ (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "ms": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
+    "err.image_not_found": "Fail imej tidak ditemui: {path}",
+    "err.image_too_large": "Fail imej terlalu besar: {size} bait (had={max_bytes})",
+    "err.import_openai": "Gagal mengimport pakej openai: {err}",
+    "prompt.default": "Sila huraikan imej ini secara terperinci.",
+    "warn.empty_response": "[AMARAN] respons kosong",
     "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
-    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+    "err.missing_env.azure": "Pemboleh ubah persekitaran yang diperlukan untuk azure tiada (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Pemboleh ubah persekitaran yang diperlukan untuk bedrock tiada (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Pemboleh ubah persekitaran yang diperlukan untuk openrouter tiada (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Pemboleh ubah persekitaran yang diperlukan untuk openai tiada (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "nb": {
     "err.image_not_found": "bildefilen ble ikke funnet: {path}",
@@ -276,16 +276,16 @@
     "err.missing_env.openai": "Ontbrekende vereiste omgevingsvariabelen voor openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "nn": {
-    "err.image_not_found": "image file not found: {path}",
-    "err.image_too_large": "image file too large: {size} bytes (limit={max_bytes})",
-    "err.import_openai": "Failed to import openai package: {err}",
-    "prompt.default": "Please describe this image in detail.",
-    "warn.empty_response": "[WARN] empty response",
+    "err.image_not_found": "Biletfila vart ikkje funnen: {path}",
+    "err.image_too_large": "Biletfila er for stor: {size} byte (grense={max_bytes})",
+    "err.import_openai": "Klarte ikkje å importere openai-pakken: {err}",
+    "prompt.default": "Skildra dette biletet i detalj.",
+    "warn.empty_response": "[ÅTVARING] tomt svar",
     "err.unsupported_provider": "UAGENT_RESPONSES=1 is set, but image analysis via Responses is supported only for openai/azure/bedrock/openrouter/ollama ",
-    "err.missing_env.azure": "Missing required env vars for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
-    "err.missing_env.bedrock": "Missing required env vars for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
-    "err.missing_env.openrouter": "Missing required env vars for openrouter (UAGENT_OPENROUTER_API_KEY)",
-    "err.missing_env.openai": "Missing required env vars for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
+    "err.missing_env.azure": "Manglar påkravde miljøvariablar for azure (UAGENT_AZURE_BASE_URL/API_KEY/API_VERSION/DEPNAME)",
+    "err.missing_env.bedrock": "Manglar påkravde miljøvariablar for bedrock (UAGENT_BEDROCK_BASE_URL/API_KEY)",
+    "err.missing_env.openrouter": "Manglar påkravde miljøvariablar for openrouter (UAGENT_OPENROUTER_API_KEY)",
+    "err.missing_env.openai": "Manglar påkravde miljøvariablar for openai (UAGENT_OPENAI_API_KEY/DEPNAME)"
   },
   "pl": {
     "err.image_not_found": "nie znaleziono pliku obrazu: {path}",
