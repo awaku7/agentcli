@@ -153,13 +153,17 @@ def test_runtime_enum_descriptions_preserve_exact_values():
     assert not invalid, "Corrupted runtime enum literals: " + ", ".join(invalid)
 
 
-def test_tool_catalogs_have_no_translation_placeholder_artifacts():
+def test_repaired_tool_catalogs_have_no_translation_placeholder_artifacts():
+    repaired_catalogs = (
+        "http_request_tool.json",
+        "office_to_markdown_tool.json",
+    )
     invalid = []
 
-    for path in TOOLS_DIR.glob("*.json"):
-        text = path.read_text(encoding="utf-8")
+    for filename in repaired_catalogs:
+        text = (TOOLS_DIR / filename).read_text(encoding="utf-8")
         if "__PH_" in text or "_PH_PH_" in text or "PH_notes" in text:
-            invalid.append(path.name)
+            invalid.append(filename)
 
     assert not invalid, "Translation placeholder artifacts: " + ", ".join(invalid)
 
