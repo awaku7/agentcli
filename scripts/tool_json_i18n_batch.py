@@ -906,6 +906,7 @@ def cmd_status(args: argparse.Namespace) -> int:
     by_pair: dict[tuple[str, str], int] = {}
     missing_by_pair: dict[tuple[str, str], int] = {}
     missing_keys_by_tool: dict[str, set[str]] = {}
+    same_keys_by_tool: dict[str, set[str]] = {}
     missing_by_lang: dict[str, int] = {}
     missing_by_tool: dict[str, int] = {}
     same_by_lang: dict[str, int] = {}
@@ -924,6 +925,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         tool_key = (u.tool, u.key)
         missing_by_tool_key[tool_key] = missing_by_tool_key.get(tool_key, 0) + 1
     for u in same_as_en_units:
+        same_keys_by_tool.setdefault(u.tool, set()).add(u.key)
         same_by_lang[u.lang] = same_by_lang.get(u.lang, 0) + 1
         tool_key = (u.tool, u.key)
         same_by_tool_key[tool_key] = same_by_tool_key.get(tool_key, 0) + 1
@@ -965,6 +967,11 @@ def cmd_status(args: argparse.Namespace) -> int:
     if missing_keys_by_tool:
         print("missing_keys_by_tool:")
         for tool, keys in sorted(missing_keys_by_tool.items()):
+            print(f"  {tool:40s} {','.join(sorted(keys))}")
+
+    if same_keys_by_tool:
+        print("same_as_english_keys_by_tool:")
+        for tool, keys in sorted(same_keys_by_tool.items()):
             print(f"  {tool:40s} {','.join(sorted(keys))}")
 
     if missing_by_pair:
