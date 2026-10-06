@@ -247,7 +247,9 @@ def test_mcp_server_trust_messages_are_localized_for_shipped_catalog_blocks() ->
             (keyword.value for keyword in node.keywords if keyword.arg == "default"),
             None,
         )
-        if isinstance(default_node, ast.Constant) and isinstance(default_node.value, str):
+        if isinstance(default_node, ast.Constant) and isinstance(
+            default_node.value, str
+        ):
             english[node.args[0].value] = default_node.value
 
     assert set(english) == keys
