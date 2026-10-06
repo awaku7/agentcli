@@ -3,8 +3,9 @@
     "tool.description": "أرسل بريدًا إلكترونيًا عبر Gmail SMTP باستخدام كلمة مرور التطبيق. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "أرسل بريدًا إلكترونيًا عبر Gmail SMTP باستخدام كلمة مرور التطبيق. "
+      "إرسال بريد إلكتروني",
+      "email",
+      "mail"
     ],
     "param.to.description": "عنوان (عناوين) البريد الإلكتروني للمستلم. ",
     "param.subject.description": "موضوع البريد الإلكتروني.",
@@ -26,8 +27,9 @@
     "tool.description": "অ্যাপ পাসওয়ার্ড ব্যবহার করে Gmail SMTP এর মাধ্যমে একটি ইমেল পাঠান। ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "অ্যাপ পাসওয়ার্ড ব্যবহার করে Gmail SMTP এর মাধ্যমে একটি ইমেল পাঠান। "
+      "ইমেইল পাঠান",
+      "email",
+      "mail"
     ],
     "param.to.description": "প্রাপকের ইমেল ঠিকানা(গুলি)। ",
     "param.subject.description": "ইমেইল বিষয়.",
@@ -49,8 +51,9 @@
     "tool.description": "Odešlete e-mail přes Gmail SMTP pomocí hesla aplikace. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Odešlete e-mail přes Gmail SMTP pomocí hesla aplikace. "
+      "odeslat e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "E-mailová adresa(y) příjemce. ",
     "param.subject.description": "Předmět emailu.",
@@ -72,8 +75,9 @@
     "tool.description": "Senden Sie eine E-Mail über Gmail SMTP mit dem App-Passwort. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Senden Sie eine E-Mail über Gmail SMTP mit dem App-Passwort. "
+      "E-Mail senden",
+      "email",
+      "mail"
     ],
     "param.to.description": "E-Mail-Adresse(n) des Empfängers. ",
     "param.subject.description": "E-Mail-Betreff.",
@@ -95,8 +99,9 @@
     "tool.description": "Στείλτε ένα email μέσω Gmail SMTP χρησιμοποιώντας τον κωδικό εφαρμογής. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Στείλτε ένα email μέσω Gmail SMTP χρησιμοποιώντας τον κωδικό εφαρμογής. "
+      "αποστολή email",
+      "email",
+      "mail"
     ],
     "param.to.description": "Διεύθυνση(ες) email παραλήπτη. ",
     "param.subject.description": "Θέμα email.",
@@ -118,8 +123,9 @@
     "tool.description": "Envíe un correo electrónico a través de Gmail SMTP utilizando la contraseña de la aplicación. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Envíe un correo electrónico a través de Gmail SMTP utilizando la contraseña de la aplicación. "
+      "enviar correo",
+      "email",
+      "mail"
     ],
     "param.to.description": "Dirección(es) de correo electrónico del destinatario. ",
     "param.subject.description": "Asunto del correo electrónico.",
@@ -141,8 +147,9 @@
     "tool.description": "با استفاده از رمز عبور برنامه از طریق Gmail SMTP ایمیل ارسال کنید. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "با استفاده از رمز عبور برنامه از طریق Gmail SMTP ایمیل ارسال کنید. "
+      "ارسال ایمیل",
+      "email",
+      "mail"
     ],
     "param.to.description": "آدرس(های) ایمیل گیرنده ",
     "param.subject.description": "موضوع ایمیل",
@@ -164,8 +171,9 @@
     "tool.description": "Lähetä sähköposti Gmail SMTP:n kautta sovelluksen salasanalla. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Lähetä sähköposti Gmail SMTP:n kautta sovelluksen salasanalla. "
+      "lähetä sähköposti",
+      "email",
+      "mail"
     ],
     "param.to.description": "Vastaanottajan sähköpostiosoite(t). ",
     "param.subject.description": "Sähköpostin aihe.",
@@ -187,8 +195,9 @@
     "tool.description": "Envoyez un e-mail via Gmail SMTP en utilisant le mot de passe de l'application. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Envoyez un e-mail via Gmail SMTP en utilisant le mot de passe de l'application. "
+      "envoyer un e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "Adresse(s) e-mail du destinataire. ",
     "param.subject.description": "Objet de l'e-mail.",
@@ -210,8 +219,9 @@
     "tool.description": "שלח אימייל דרך Gmail SMTP באמצעות סיסמת אפליקציה. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "שלח אימייל דרך Gmail SMTP באמצעות סיסמת אפליקציה. "
+      "שליחת אימייל",
+      "email",
+      "mail"
     ],
     "param.to.description": "כתובות דוא\"ל של נמען. ",
     "param.subject.description": "נושא המייל.",
@@ -233,8 +243,9 @@
     "tool.description": "ऐप पासवर्ड का उपयोग करके जीमेल एसएमटीपी के माध्यम से एक ईमेल भेजें। ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "ऐप पासवर्ड का उपयोग करके जीमेल एसएमटीपी के माध्यम से एक ईमेल भेजें। "
+      "ईमेल भेजें",
+      "email",
+      "mail"
     ],
     "param.to.description": "प्राप्तकर्ता का ईमेल पता(पते)। ",
     "param.subject.description": "ईमेल विषय.",
@@ -256,8 +267,9 @@
     "tool.description": "E-mail küldése a Gmail SMTP-n keresztül az alkalmazásjelszó használatával. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "E-mail küldése a Gmail SMTP-n keresztül az alkalmazásjelszó használatával. "
+      "e-mail küldése",
+      "email",
+      "mail"
     ],
     "param.to.description": "A címzett e-mail címe(i). ",
     "param.subject.description": "E-mail tárgya.",
@@ -279,8 +291,9 @@
     "tool.description": "Kirim email melalui SMTP Gmail menggunakan Kata Sandi Aplikasi. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Kirim email melalui SMTP Gmail menggunakan Kata Sandi Aplikasi. "
+      "kirim email",
+      "email",
+      "mail"
     ],
     "param.to.description": "Alamat email penerima. ",
     "param.subject.description": "Subjek email.",
@@ -302,8 +315,9 @@
     "tool.description": "Invia un'e-mail tramite Gmail SMTP utilizzando la password dell'app. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Invia un'e-mail tramite Gmail SMTP utilizzando la password dell'app. "
+      "invia email",
+      "email",
+      "mail"
     ],
     "param.to.description": "Indirizzo/i email del destinatario. ",
     "param.subject.description": "Oggetto dell'e-mail.",
@@ -325,8 +339,9 @@
     "tool.description": "アプリパスワードを使用して、Gmail SMTP 経由でメールを送信します。UAGENT_GMAIL_ADDRESS および UAGENT_GMAIL_APP_PASSWORD 環境変数が必要です。",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "アプリパスワードを使用して、Gmail SMTP 経由でメールを送信します。UAGENT_GMAIL_ADDRESS および UAGENT_GMAIL_APP_PASSWORD 環境変数が必要です。"
+      "メール送信",
+      "email",
+      "mail"
     ],
     "param.to.description": "受信者の電子メール アドレス。",
     "param.subject.description": "メールの件名。",
@@ -348,8 +363,9 @@
     "tool.description": "앱 비밀번호를 사용하여 Gmail SMTP를 통해 이메일을 보냅니다. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "앱 비밀번호를 사용하여 Gmail SMTP를 통해 이메일을 보냅니다. "
+      "이메일 보내기",
+      "email",
+      "mail"
     ],
     "param.to.description": "수신자 이메일 주소. ",
     "param.subject.description": "이메일 제목.",
@@ -371,8 +387,9 @@
     "tool.description": "App Password ашиглан Gmail SMTP-ээр имэйл илгээнэ үү. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "App Password ашиглан Gmail SMTP-ээр имэйл илгээнэ үү. "
+      "имэйл илгээх",
+      "email",
+      "mail"
     ],
     "param.to.description": "Хүлээн авагчийн имэйл хаяг(ууд). ",
     "param.subject.description": "Имэйлийн сэдэв.",
@@ -394,8 +411,9 @@
     "tool.description": "ॲप पासवर्ड वापरून Gmail SMTP द्वारे ईमेल पाठवा. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "ॲप पासवर्ड वापरून Gmail SMTP द्वारे ईमेल पाठवा. "
+      "ईमेल पाठवा",
+      "email",
+      "mail"
     ],
     "param.to.description": "प्राप्तकर्त्याचा ईमेल पत्ता(ते). ",
     "param.subject.description": "ईमेल विषय.",
@@ -417,8 +435,9 @@
     "tool.description": "Send en e-post via Gmail SMTP med app-passord. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Send en e-post via Gmail SMTP med app-passord. "
+      "send e-post",
+      "email",
+      "mail"
     ],
     "param.to.description": "Mottakers e-postadresse(r). ",
     "param.subject.description": "E-postemne.",
@@ -440,8 +459,9 @@
     "tool.description": "Stuur een e-mail via Gmail SMTP met app-wachtwoord. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Stuur een e-mail via Gmail SMTP met app-wachtwoord. "
+      "e-mail verzenden",
+      "email",
+      "mail"
     ],
     "param.to.description": "E-mailadres(sen) van de ontvanger. ",
     "param.subject.description": "E-mailonderwerp.",
@@ -463,8 +483,9 @@
     "tool.description": "Wyślij e-mail przez Gmail SMTP, używając hasła do aplikacji. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Wyślij e-mail przez Gmail SMTP, używając hasła do aplikacji. "
+      "wyślij e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "Adres(y) e-mail odbiorcy. ",
     "param.subject.description": "Temat wiadomości e-mail.",
@@ -486,8 +507,9 @@
     "tool.description": "Envie um e-mail via SMTP do Gmail usando a senha do aplicativo. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Envie um e-mail via SMTP do Gmail usando a senha do aplicativo. "
+      "enviar e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "Endereço(s) de e-mail do destinatário. ",
     "param.subject.description": "Assunto do e-mail.",
@@ -509,8 +531,9 @@
     "tool.description": "Envie um e-mail via SMTP do Gmail usando a senha do aplicativo. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Envie um e-mail via SMTP do Gmail usando a senha do aplicativo. "
+      "enviar e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "Endereço(s) de e-mail do destinatário. ",
     "param.subject.description": "Assunto do e-mail.",
@@ -532,8 +555,9 @@
     "tool.description": "Trimiteți un e-mail prin Gmail SMTP folosind Parola aplicației. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Trimiteți un e-mail prin Gmail SMTP folosind Parola aplicației. "
+      "trimite e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "Adresele de e-mail ale destinatarului. ",
     "param.subject.description": "Subiectul e-mailului.",
@@ -555,8 +579,9 @@
     "tool.description": "Отправьте электронное письмо через Gmail SMTP, используя пароль приложения. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Отправьте электронное письмо через Gmail SMTP, используя пароль приложения. "
+      "отправить письмо",
+      "email",
+      "mail"
     ],
     "param.to.description": "Адрес(а) электронной почты получателя. ",
     "param.subject.description": "Тема письма.",
@@ -578,8 +603,9 @@
     "tool.description": "Skicka ett e-postmeddelande via Gmail SMTP med applösenord. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Skicka ett e-postmeddelande via Gmail SMTP med applösenord. "
+      "skicka e-post",
+      "email",
+      "mail"
     ],
     "param.to.description": "Mottagarens e-postadress(er). ",
     "param.subject.description": "E-postämne.",
@@ -601,8 +627,9 @@
     "tool.description": "Tuma barua pepe kupitia SMTP ya Gmail ukitumia Nenosiri la Programu. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Tuma barua pepe kupitia SMTP ya Gmail ukitumia Nenosiri la Programu. "
+      "tuma barua pepe",
+      "email",
+      "mail"
     ],
     "param.to.description": "Anwani ya barua pepe ya mpokeaji. ",
     "param.subject.description": "Mada ya barua pepe.",
@@ -624,8 +651,9 @@
     "tool.description": "ส่งอีเมลผ่าน Gmail SMTP โดยใช้รหัสผ่านสำหรับแอป ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "ส่งอีเมลผ่าน Gmail SMTP โดยใช้รหัสผ่านสำหรับแอป "
+      "ส่งอีเมล",
+      "email",
+      "mail"
     ],
     "param.to.description": "ที่อยู่อีเมลของผู้รับ ",
     "param.subject.description": "หัวเรื่องอีเมล.",
@@ -647,8 +675,9 @@
     "tool.description": "Uygulama Şifresini kullanarak Gmail SMTP aracılığıyla bir e-posta gönderin. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Uygulama Şifresini kullanarak Gmail SMTP aracılığıyla bir e-posta gönderin. "
+      "e-posta gönder",
+      "email",
+      "mail"
     ],
     "param.to.description": "Alıcı e-posta adres(ler)i. ",
     "param.subject.description": "E-posta konusu.",
@@ -670,8 +699,9 @@
     "tool.description": "Надішліть електронний лист через Gmail SMTP за допомогою пароля програми. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Надішліть електронний лист через Gmail SMTP за допомогою пароля програми. "
+      "надіслати лист",
+      "email",
+      "mail"
     ],
     "param.to.description": "Електронна адреса(и) одержувача. ",
     "param.subject.description": "Тема електронного листа.",
@@ -693,8 +723,9 @@
     "tool.description": "Gửi email qua Gmail SMTP bằng Mật khẩu ứng dụng. ",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Gửi email qua Gmail SMTP bằng Mật khẩu ứng dụng. "
+      "gửi email",
+      "email",
+      "mail"
     ],
     "param.to.description": "(Các) địa chỉ email của người nhận. ",
     "param.subject.description": "Chủ đề email.",
@@ -716,8 +747,9 @@
     "tool.description": "使用应用程序密码通过 Gmail SMTP 发送电子邮件。",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "使用应用程序密码通过 Gmail SMTP 发送电子邮件。"
+      "发送邮件",
+      "email",
+      "mail"
     ],
     "param.to.description": "收件人电子邮件地址。",
     "param.subject.description": "电子邮件主题。",
@@ -739,8 +771,9 @@
     "tool.description": "使用應用程式密碼透過 Gmail SMTP 發送電子郵件。需要 UAGENT_GMAIL_ADDRESS 和 UAGENT_GMAIL_APP_PASSWORD 環境變數。",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "使用應用程式密碼透過 Gmail SMTP 發送電子郵件。需要 UAGENT_GMAIL_ADDRESS 和 UAGENT_GMAIL_APP_PASSWORD 環境變數。"
+      "傳送郵件",
+      "email",
+      "mail"
     ],
     "param.to.description": "收件者電子郵件地址。多個以逗號分隔。",
     "param.subject.description": "電子郵件主題。",
@@ -762,8 +795,9 @@
     "tool.description": "Magpadala ng email sa pamamagitan ng Gmail SMTP gamit ang Password ng App. Nangangailangan ng mga variable ng kapaligiran ng UAGENT_GMAIL_ADDRESS at UAGENT_GMAIL_APP_PASSWORD.",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Magpadala ng email sa pamamagitan ng Gmail SMTP gamit ang Password ng App. Nangangailangan ng mga variable ng kapaligiran ng UAGENT_GMAIL_ADDRESS at UAGENT_GMAIL_APP_PASSWORD."
+      "magpadala ng email",
+      "email",
+      "mail"
     ],
     "param.to.description": "(mga) email address ng tatanggap. Pinaghihiwalay ng kuwit para sa maramihan.",
     "param.subject.description": "Paksa ng email.",
@@ -785,8 +819,9 @@
     "tool.description": "Hantar e-mel melalui Gmail SMTP menggunakan Kata Laluan Apl. Memerlukan pembolehubah persekitaran UAGENT_GMAIL_ADDRESS dan UAGENT_GMAIL_APP_PASSWORD.",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Hantar e-mel melalui Gmail SMTP menggunakan Kata Laluan Apl. Memerlukan pembolehubah persekitaran UAGENT_GMAIL_ADDRESS dan UAGENT_GMAIL_APP_PASSWORD."
+      "hantar e-mel",
+      "email",
+      "mail"
     ],
     "param.to.description": "Alamat e-mel penerima. Dipisahkan koma untuk berbilang.",
     "param.subject.description": "Subjek e-mel.",
@@ -808,8 +843,9 @@
     "tool.description": "Send en e-mail via Gmail SMTP ved hjælp af app-adgangskode. Kræver UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD miljøvariabler.",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Send en e-mail via Gmail SMTP ved hjælp af app-adgangskode. Kræver UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD miljøvariabler."
+      "send e-mail",
+      "email",
+      "mail"
     ],
     "param.to.description": "Modtagerens e-mailadresse(r). Kommasepareret for flere.",
     "param.subject.description": "E-mail emne.",
@@ -831,8 +867,9 @@
     "tool.description": "Send en e-post via Gmail SMTP med app-passord. Krever UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD miljøvariabler.",
     "x_search_terms": [
       "gmail",
-      "gmail_send",
-      "Send en e-post via Gmail SMTP med app-passord. Krever UAGENT_GMAIL_ADDRESS og UAGENT_GMAIL_APP_PASSWORD miljøvariabler."
+      "send e-post",
+      "email",
+      "mail"
     ],
     "param.to.description": "Mottakers e-postadresse(r). Kommaseparert for flere.",
     "param.subject.description": "E-postemne.",

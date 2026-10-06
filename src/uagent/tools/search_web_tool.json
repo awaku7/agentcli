@@ -45,7 +45,7 @@
     "param.engine.description": "Motor de búsqueda: 'startpage' (predeterminado), 'duckduckgo', 'brave', 'yahoo_jp' o 'yahoo'.",
     "error.yahoo_failed": "Error en la solicitud de búsqueda de Yahoo Japón: {error}",
     "error.startpage_failed": "Error en la solicitud de búsqueda de StartPage: {error}",
-    "error.startpage_captcha": "Se activó un CAPTCHA de StartPage. Inténtalo más tarde o usa otro motor."
+    "error.startpage_captcha": "Se activó el CAPTCHA de StartPage. Inténtalo de nuevo más tarde o usa otro motor."
   },
   "fr": {
     "error.args_must_be_dict": "doivent être une requête de recherche",
@@ -69,7 +69,7 @@
     "param.engine.description": "Moteur de recherche : 'startpage' (par défaut), 'duckduckgo', 'brave', 'yahoo_jp' ou 'yahoo'.",
     "error.yahoo_failed": "Échec de la demande de recherche Yahoo Japon : {error}",
     "error.startpage_failed": "Échec de la demande de recherche sur la page de démarrage : {error}",
-    "error.startpage_captcha": "Le CAPTCHA de StartPage s’est déclenché. Réessayez plus tard ou utilisez un autre moteur."
+    "error.startpage_captcha": "Le CAPTCHA de StartPage a été déclenché. Réessayez plus tard ou utilisez un autre moteur."
   },
   "ko": {
     "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
@@ -165,7 +165,7 @@
     "param.engine.description": "Поисковая система: «начальная страница» (по умолчанию), «duckduckgo», «brave», «yahoo_jp» или «yahoo».",
     "error.yahoo_failed": "Поисковый запрос Yahoo в Японии не выполнен: {error}",
     "error.startpage_failed": "Не удалось выполнить поиск по стартовой странице: {error}",
-    "error.startpage_captcha": "Сработала CAPTCHA StartPage. Повторите попытку позже или используйте другой поисковик."
+    "error.startpage_captcha": "Сработала CAPTCHA StartPage. Повторите попытку позже или используйте другую поисковую систему."
   },
   "pt_BR": {
     "error.args_must_be_dict": "args deve ser um dict",
@@ -237,7 +237,7 @@
     "param.engine.description": "Mesin pencari: 'halaman awal' (default), 'duckduckgo', 'berani', 'yahoo_jp', atau 'yahoo'.",
     "error.yahoo_failed": "Permintaan pencarian Yahoo Jepang gagal: {error}",
     "error.startpage_failed": "Permintaan pencarian Halaman Awal gagal: {error}",
-    "error.startpage_captcha": "CAPTCHA StartPage terpicu. Coba lagi nanti atau gunakan engine lain."
+    "error.startpage_captcha": "CAPTCHA StartPage terpicu. Coba lagi nanti atau gunakan mesin lain."
   },
   "vi": {
     "error.args_must_be_dict": "đối số phải là một lệnh",
@@ -261,7 +261,7 @@
     "param.engine.description": "Công cụ tìm kiếm: 'startpage' (mặc định), 'duckduckgo', 'brave', 'yahoo_jp' hoặc 'yahoo'.",
     "error.yahoo_failed": "Yêu cầu tìm kiếm Yahoo Nhật Bản không thành công: {error}",
     "error.startpage_failed": "Yêu cầu tìm kiếm StartPage không thành công: {error}",
-    "error.startpage_captcha": "CAPTCHA của StartPage đã được kích hoạt. Hãy thử lại sau hoặc dùng engine khác."
+    "error.startpage_captcha": "CAPTCHA của StartPage đã được kích hoạt. Hãy thử lại sau hoặc dùng công cụ khác."
   },
   "pl": {
     "error.args_must_be_dict": "args musi być dict",
@@ -285,7 +285,7 @@
     "param.engine.description": "Wyszukiwarka: „strona startowa” (domyślna), „duckduckgo”, „brave”, „yahoo_jp” lub „yahoo”.",
     "error.yahoo_failed": "Żądanie wyszukiwania Yahoo Japan nie powiodło się: {error}",
     "error.startpage_failed": "Żądanie wyszukiwania StartPage nie powiodło się: {error}",
-    "error.startpage_captcha": "Uruchomiono CAPTCHA StartPage. Spróbuj później lub użyj innej wyszukiwarki."
+    "error.startpage_captcha": "Uruchomiono CAPTCHA StartPage. Spróbuj ponownie później lub użyj innej wyszukiwarki."
   },
   "hi": {
     "error.args_must_be_dict": "args एक निर्देश होना चाहिए",
@@ -309,7 +309,7 @@
     "param.engine.description": "खोज इंजन: 'स्टार्टपेज' (डिफ़ॉल्ट), 'डकडकगो', 'ब्रेव', 'याहू_जेपी', या 'याहू'।",
     "error.yahoo_failed": "याहू जापान खोज अनुरोध विफल: {error}",
     "error.startpage_failed": "स्टार्टपेज खोज अनुरोध विफल: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA सक्रिय हुआ। बाद में फिर प्रयास करें या किसी अन्य engine का उपयोग करें।"
+    "error.startpage_captcha": "StartPage CAPTCHA ट्रिगर हुआ। बाद में फिर प्रयास करें या किसी अन्य इंजन का उपयोग करें।"
   },
   "ar": {
     "error.args_must_be_dict": "يجب أن تكون الوسائط بمثابة إملاء",
@@ -333,7 +333,7 @@
     "param.engine.description": "محرك البحث: \"startpage\" (افتراضي)، أو \"duckduckgo\"، أو \"brave\"، أو \"yahoo_jp\"، أو \"yahoo\".",
     "error.yahoo_failed": "فشل طلب بحث Yahoo Japan: {error}",
     "error.startpage_failed": "فشل طلب البحث في صفحة البداية: {error}",
-    "error.startpage_captcha": "تم تشغيل CAPTCHA في StartPage. حاول لاحقًا أو استخدم محركًا مختلفًا."
+    "error.startpage_captcha": "تم تشغيل CAPTCHA في StartPage. حاول مرة أخرى لاحقًا أو استخدم محركًا مختلفًا."
   },
   "sv": {
     "error.args_must_be_dict": "args måste vara en dict",
@@ -381,7 +381,7 @@
     "param.engine.description": "Injini ya utafutaji: 'startpage' (chaguo-msingi), 'duckduckgo', 'shujaa', 'yahoo_jp', au 'yahoo'.",
     "error.yahoo_failed": "Ombi la utafutaji la Yahoo Japani halikufaulu: {error}",
     "error.startpage_failed": "Ombi la utafutaji wa Ukurasa wa Mwanzo halikufaulu: {error}",
-    "error.startpage_captcha": "CAPTCHA ya StartPage imewashwa. Jaribu tena baadaye au tumia engine nyingine."
+    "error.startpage_captcha": "CAPTCHA ya StartPage imewashwa. Jaribu tena baadaye au tumia injini nyingine."
   },
   "nb": {
     "error.args_must_be_dict": "args må være en dict",
@@ -405,7 +405,7 @@
     "param.engine.description": "Søkemotor: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislyktes: {error}",
     "error.startpage_failed": "StartPage-søkeforespørsel mislyktes: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA ble utløst. Prøv igjen senere eller bruk en annen søkemotor."
+    "error.startpage_captcha": "StartPage CAPTCHA ble utløst. Prøv igjen senere, eller bruk en annen søkemotor."
   },
   "nl": {
     "error.args_must_be_dict": "args moeten een dictaat zijn",
@@ -453,7 +453,7 @@
     "param.engine.description": "Hakukone: 'aloitussivu' (oletus), 'duckduckgo', 'brave', 'yahoo_jp' tai 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan -hakupyyntö epäonnistui: {error}",
     "error.startpage_failed": "Aloitussivun hakupyyntö epäonnistui: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA käynnistyi. Yritä myöhemmin uudelleen tai käytä toista hakukonetta."
+    "error.startpage_captcha": "StartPage CAPTCHA aktivoitui. Yritä myöhemmin uudelleen tai käytä toista hakukonetta."
   },
   "cs": {
     "error.args_must_be_dict": "args musí být dict",
@@ -477,7 +477,7 @@
     "param.engine.description": "Vyhledávač: 'startpage' (výchozí), 'duckduckgo', 'brave', 'yahoo_jp' nebo 'yahoo'.",
     "error.yahoo_failed": "Požadavek na vyhledávání Yahoo Japan selhal: {error}",
     "error.startpage_failed": "Požadavek vyhledávání na StartPage selhal: {error}",
-    "error.startpage_captcha": "StartPage vyvolal CAPTCHA. Zkuste to později nebo použijte jiný vyhledávač."
+    "error.startpage_captcha": "Byla aktivována CAPTCHA StartPage. Zkuste to později nebo použijte jiný vyhledávač."
   },
   "uk": {
     "error.args_must_be_dict": "args має бути dict",
@@ -501,7 +501,7 @@
     "param.engine.description": "Пошукова система: «startpage» (за замовчуванням), «duckduckgo», «brave», «yahoo_jp» або «yahoo».",
     "error.yahoo_failed": "Помилка пошукового запиту Yahoo Japan: {error}",
     "error.startpage_failed": "Помилка запиту пошуку StartPage: {error}",
-    "error.startpage_captcha": "Спрацювала CAPTCHA StartPage. Спробуйте пізніше або використайте іншу пошукову систему."
+    "error.startpage_captcha": "Спрацювала CAPTCHA StartPage. Спробуйте пізніше або скористайтеся іншою пошуковою системою."
   },
   "tr": {
     "error.args_must_be_dict": "bağımsız değişkenler bir dikte olmalıdır",
@@ -525,7 +525,7 @@
     "param.engine.description": "Arama motoru: 'başlangıç sayfası' (varsayılan), 'duckduckgo', 'brave', 'yahoo_jp' veya 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan arama isteği başarısız oldu: {error}",
     "error.startpage_failed": "StartPage arama isteği başarısız oldu: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA tetiklendi. Daha sonra tekrar deneyin veya farklı bir arama motoru kullanın."
+    "error.startpage_captcha": "StartPage CAPTCHA tetiklendi. Daha sonra tekrar deneyin veya farklı bir motor kullanın."
   },
   "th": {
     "error.args_must_be_dict": "args ต้องเป็น dict",
@@ -549,7 +549,7 @@
     "param.engine.description": "เครื่องมือค้นหา: 'หน้าเริ่มต้น' (ค่าเริ่มต้น), 'duckduckgo', 'brave', 'yahoo_jp' หรือ 'yahoo'",
     "error.yahoo_failed": "คำขอค้นหา Yahoo Japan ล้มเหลว: {error}",
     "error.startpage_failed": "คำขอค้นหาหน้าเริ่มต้นล้มเหลว: {error}",
-    "error.startpage_captcha": "เกิด CAPTCHA ของ StartPage ลองใหม่ภายหลังหรือใช้ engine อื่น"
+    "error.startpage_captcha": "StartPage CAPTCHA ถูกเรียกใช้ ลองใหม่ภายหลังหรือใช้เครื่องมือค้นหาอื่น"
   },
   "zh_CN": {
     "error.args_must_be_dict": "args 必须是一个字典",
@@ -621,7 +621,7 @@
     "param.engine.description": "সার্চ ইঞ্জিন: 'startpage' (ডিফল্ট), 'duckduckgo', 'brave', 'yahoo_jp', বা 'yahoo'।",
     "error.yahoo_failed": "Yahoo জাপান অনুসন্ধান অনুরোধ ব্যর্থ হয়েছে: {error}",
     "error.startpage_failed": "স্টার্টপেজ অনুসন্ধানের অনুরোধ ব্যর্থ হয়েছে: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA সক্রিয় হয়েছে। পরে আবার চেষ্টা করুন বা অন্য engine ব্যবহার করুন।"
+    "error.startpage_captcha": "StartPage CAPTCHA সক্রিয় হয়েছে। পরে আবার চেষ্টা করুন বা অন্য ইঞ্জিন ব্যবহার করুন।"
   },
   "fa": {
     "error.args_must_be_dict": "باید دیکته باشند",
@@ -645,7 +645,7 @@
     "param.engine.description": "موتور جستجو: 'startpage' (پیش فرض)، 'duckduckgo'، 'brave'، 'yahoo_jp' یا 'yahoo'.",
     "error.yahoo_failed": "درخواست جستجوی Yahoo Japan ناموفق بود: {error}",
     "error.startpage_failed": "درخواست جستجوی StartPage ناموفق بود: {error}",
-    "error.startpage_captcha": "CAPTCHA در StartPage فعال شد. بعداً دوباره امتحان کنید یا از موتور دیگری استفاده کنید."
+    "error.startpage_captcha": "CAPTCHA در StartPage فعال شد. بعداً دوباره تلاش کنید یا از موتور دیگری استفاده کنید."
   },
   "mn": {
     "error.args_must_be_dict": "args нь dict байх ёстой",
@@ -669,7 +669,7 @@
     "param.engine.description": "Хайлтын систем: 'эхлэх хуудас' (анхдагч), 'duckduckgo', 'brave', 'yahoo_jp', эсвэл 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan хайлтын хүсэлт амжилтгүй болсон: {error}",
     "error.startpage_failed": "StartPage хайлтын хүсэлт амжилтгүй боллоо: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA идэвхжлээ. Дараа дахин оролдох эсвэл өөр engine ашиглана уу."
+    "error.startpage_captcha": "StartPage CAPTCHA идэвхжлээ. Дараа дахин оролдох эсвэл өөр хөдөлгүүр ашиглана уу."
   },
   "mr": {
     "error.args_must_be_dict": "args एक dict असणे आवश्यक आहे",
@@ -693,7 +693,7 @@
     "param.engine.description": "शोध इंजिन: 'startpage' (डिफॉल्ट), 'duckduckgo', 'brave', 'yahoo_jp', किंवा 'yahoo'.",
     "error.yahoo_failed": "Yahoo जपान शोध विनंती अयशस्वी: {error}",
     "error.startpage_failed": "प्रारंभपृष्ठ शोध विनंती अयशस्वी: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA ट्रिगर झाला. नंतर पुन्हा प्रयत्न करा किंवा दुसरे engine वापरा."
+    "error.startpage_captcha": "StartPage CAPTCHA ट्रिगर झाला. नंतर पुन्हा प्रयत्न करा किंवा वेगळे इंजिन वापरा."
   },
   "el": {
     "error.args_must_be_dict": "Το args πρέπει να είναι μια εντολή",
@@ -717,7 +717,7 @@
     "param.engine.description": "Μηχανή αναζήτησης: 'startpage' (προεπιλογή), 'duckduckgo', 'brave', 'yahoo_jp' ή 'yahoo'.",
     "error.yahoo_failed": "Το αίτημα αναζήτησης Yahoo Japan απέτυχε: {error}",
     "error.startpage_failed": "Το αίτημα αναζήτησης StartPage απέτυχε: {error}",
-    "error.startpage_captcha": "Ενεργοποιήθηκε CAPTCHA στο StartPage. Δοκιμάστε αργότερα ή χρησιμοποιήστε διαφορετική μηχανή."
+    "error.startpage_captcha": "Ενεργοποιήθηκε το CAPTCHA του StartPage. Δοκιμάστε ξανά αργότερα ή χρησιμοποιήστε άλλη μηχανή."
   },
   "he": {
     "error.args_must_be_dict": "שורש חיפוש (ברירת מחדל: cwd).",
@@ -741,7 +741,7 @@
     "param.engine.description": "מנוע חיפוש: 'startpage' (ברירת מחדל), 'duckduckgo', 'brave', 'yahoo_jp' או 'yahoo'.",
     "error.yahoo_failed": "בקשת החיפוש של Yahoo Japan נכשלה: {error}",
     "error.startpage_failed": "בקשת החיפוש של דף Start נכשלה: {error}",
-    "error.startpage_captcha": "הופעל CAPTCHA של StartPage. נסה שוב מאוחר יותר או השתמש במנוע אחר."
+    "error.startpage_captcha": "ה-CAPTCHA של StartPage הופעל. נסה שוב מאוחר יותר או השתמש במנוע אחר."
   },
   "hu": {
     "error.args_must_be_dict": "az args diktálásnak kell lennie",
@@ -765,7 +765,7 @@
     "param.engine.description": "Keresőmotor: 'startpage' (alapértelmezett), 'duckduckgo', 'brave', 'yahoo_jp' vagy 'yahoo'.",
     "error.yahoo_failed": "A Yahoo Japan keresési kérése sikertelen: {error}",
     "error.startpage_failed": "A kezdőoldali keresési kérés sikertelen: {error}",
-    "error.startpage_captcha": "A StartPage CAPTCHA aktiválódott. Próbálja később, vagy használjon másik keresőt."
+    "error.startpage_captcha": "A StartPage CAPTCHA aktiválódott. Próbálja újra később, vagy használjon másik keresőt."
   },
   "ro": {
     "error.args_must_be_dict": "argumentele trebuie să fie un dictat",
@@ -789,7 +789,7 @@
     "param.engine.description": "Motor de căutare: „startpage” (implicit), „duckduckgo”, „brave”, „yahoo_jp” sau „yahoo”.",
     "error.yahoo_failed": "Solicitarea de căutare Yahoo Japan a eșuat: {error}",
     "error.startpage_failed": "Solicitarea de căutare în pagina de pornire a eșuat: {error}",
-    "error.startpage_captcha": "CAPTCHA StartPage a fost declanșat. Încercați mai târziu sau folosiți alt motor."
+    "error.startpage_captcha": "CAPTCHA StartPage a fost declanșat. Încercați din nou mai târziu sau folosiți alt motor."
   },
   "fil": {
     "error.args_must_be_dict": "args ay dapat na isang dict",
@@ -861,7 +861,7 @@
     "param.engine.description": "Søgemaskine: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan søgeanmodning mislykkedes: {error}",
     "error.startpage_failed": "StartPage-søgningsanmodning mislykkedes: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA blev udløst. Prøv igen senere eller brug en anden søgemaskine."
+    "error.startpage_captcha": "StartPage CAPTCHA blev udløst. Prøv igen senere, eller brug en anden søgemaskine."
   },
   "nn": {
     "error.args_must_be_dict": "args må være en diktat",
@@ -885,6 +885,6 @@
     "param.engine.description": "Søkemotor: 'startside' (standard), 'duckduckgo', 'brave', 'yahoo_jp' eller 'yahoo'.",
     "error.yahoo_failed": "Yahoo Japan-søkeforespørsel mislukkast: {error}",
     "error.startpage_failed": "StartPage-søkeforespørsel mislukkast: {error}",
-    "error.startpage_captcha": "StartPage CAPTCHA vart utløyst. Prøv igjen seinare eller bruk ein annan søkemotor."
+    "error.startpage_captcha": "StartPage CAPTCHA vart utløyst. Prøv igjen seinare, eller bruk ein annan søkjemotor."
   }
 }

@@ -8,9 +8,10 @@
     "param.plain.description": "平文(暗号化なし)DMを強制します。Noiseハンドシェイクをスキップ。Androidアプリとのハンドシェイク失敗時に使用。",
     "err.payload_required": "payload が必要です",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "pybitchat BLE Mesh 経由でテキストメッセージまたはアナウンスを送信します。ノードが起動している必要があります。"
+      "メッセージ送信"
     ]
   },
   "fil": {
@@ -22,9 +23,10 @@
     "param.plain.description": "Pilitin ang plain-text (hindi naka-encrypt) na DM. Nilaktawan ang Noise handshake. Gamitin kapag nabigo ang Noise handshake sa Android app.",
     "err.payload_required": "kailangan ang payload",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Magpadala ng text message o mag-anunsyo sa pybitchat BLE Mesh. Dapat na tumatakbo ang node (pybitchat_subscribe action=start)."
+      "magpadala ng mensahe"
     ]
   },
   "ms": {
@@ -36,9 +38,10 @@
     "param.plain.description": "Paksa DM teks biasa (tidak disulitkan). Melangkaui jabat tangan Noise. Gunakan apabila jabat tangan Noise gagal dengan apl Android.",
     "err.payload_required": "muatan diperlukan",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Hantar mesej teks atau umumkan melalui pybitchat BLE Mesh. Nod mesti berjalan (pybitchat_subscribe action=start)."
+      "hantar mesej"
     ]
   },
   "da": {
@@ -50,9 +53,10 @@
     "param.plain.description": "Tving almindelig tekst (ukrypteret) DM. Springer Støj-håndtrykket over. Bruges, når Noise-håndtryk mislykkes med Android-appen.",
     "err.payload_required": "nyttelast er påkrævet",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Send en tekstbesked eller forkynd over pybitchat BLE Mesh. Noden skal køre (pybitchat_subscribe action=start)."
+      "send besked"
     ]
   },
   "nn": {
@@ -64,9 +68,10 @@
     "param.plain.description": "Tving ren tekst (ukryptert) DM. Hopper over støyhåndtrykket. Bruk når Noise-håndtrykk mislykkes med Android-appen.",
     "err.payload_required": "nyttelast er naudsynt",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Send en tekstmelding eller kunngjør over pybitchat BLE Mesh. Noden må kjøre (pybitchat_subscribe action=start)."
+      "send melding"
     ]
   },
   "ar": {
@@ -78,9 +83,10 @@
     "param.plain.description": "فرض رسالة مباشرة بنص عادي (غير مشفر). تخطي مصافحة الضوضاء. يُستخدم عند فشل مصافحة الضوضاء مع تطبيق Android.",
     "err.payload_required": "الحمولة مطلوبة",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "أرسل رسالة نصية أو أعلن عبر pybitchat BLE Mesh. يجب أن تكون العقدة قيد التشغيل (إجراء pybitchat_subscribe=start)."
+      "إرسال رسالة"
     ]
   },
   "bn": {
@@ -92,9 +98,10 @@
     "param.plain.description": "জোর করে প্লেইন-টেক্সট (এনক্রিপ্ট না করা) DM। নয়েজ হ্যান্ডশেক এড়িয়ে যায়। Android অ্যাপের সাথে নয়েজ হ্যান্ডশেক ব্যর্থ হলে ব্যবহার করুন।",
     "err.payload_required": "পেলোড প্রয়োজন",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "একটি পাঠ্য বার্তা পাঠান বা pybitchat BLE মেশের মাধ্যমে ঘোষণা করুন৷ নোড অবশ্যই চলমান থাকবে (pybitchat_subscribe action=start)।"
+      "বার্তা পাঠান"
     ]
   },
   "cs": {
@@ -106,9 +113,10 @@
     "param.plain.description": "Vynutit DM ve formátu prostého textu (nešifrované). Přeskočí handshake Noise. Použijte, když selže handshake Noise s aplikací pro Android.",
     "err.payload_required": "je vyžadováno užitečné zatížení",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Pošlete textovou zprávu nebo oznamte přes pybitchat BLE Mesh. Uzel musí být spuštěn (pybitchat_subscribe action=start)."
+      "odeslat zprávu"
     ]
   },
   "de": {
@@ -120,9 +128,10 @@
     "param.plain.description": "Erzwinge Direktnachrichten im Klartext (unverschlüsselt). Überspringt den Noise-Handshake. Verwenden Sie diese Option, wenn der Noise-Handshake mit der Android-App fehlschlägt.",
     "err.payload_required": "Nutzlast ist erforderlich",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Senden Sie eine Textnachricht oder kündigen Sie über das pybitchat BLE Mesh an. Der Knoten muss ausgeführt werden (pybitchat_subscribe action=start)."
+      "Nachricht senden"
     ]
   },
   "el": {
@@ -134,9 +143,10 @@
     "param.plain.description": "Επιβολή DM απλού κειμένου (μη κρυπτογραφημένη). Παρακάμπτει τη χειραψία Noise. Χρήση όταν η χειραψία Noise αποτυγχάνει με την εφαρμογή Android.",
     "err.payload_required": "απαιτείται ωφέλιμο φορτίο",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Στείλτε ένα μήνυμα κειμένου ή ανακοινώστε μέσω του pybitchat BLE Mesh. Ο κόμβος πρέπει να εκτελείται (pybitchat_subscribe action=start)."
+      "αποστολή μηνύματος"
     ]
   },
   "es": {
@@ -148,9 +158,10 @@
     "param.plain.description": "Forzar DM en texto plano (sin cifrar). Omite el apretón de manos de ruido. Úselo cuando falle el protocolo de enlace de ruido con la aplicación de Android.",
     "err.payload_required": "se requiere carga útil",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Envíe un mensaje de texto o anuncie a través de pybitchat BLE Mesh. El nodo debe estar ejecutándose (pybitchat_subscribe action=start)."
+      "enviar mensaje"
     ]
   },
   "fa": {
@@ -162,9 +173,10 @@
     "param.plain.description": "اجباری DM متن ساده (رمزگذاری نشده). از دست دادن Noise صرفنظر می کند. هنگامی که Noise handshake با برنامه Android ناموفق است استفاده کنید.",
     "err.payload_required": "محموله مورد نیاز است",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "یک پیام متنی ارسال کنید یا از طریق pybitchat BLE Mesh اعلام کنید. گره باید در حال اجرا باشد (pybitchat_subscribe action=start)."
+      "ارسال پیام"
     ]
   },
   "fi": {
@@ -176,9 +188,10 @@
     "param.plain.description": "Pakota pelkkä teksti (salaamaton) DM. Ohittaa Noise-kättelyn. Käytä, kun Noise handshake epäonnistuu Android-sovelluksen kanssa.",
     "err.payload_required": "hyötykuorma vaaditaan",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Lähetä tekstiviesti tai ilmoita pybitchat BLE Meshin kautta. Solmun on oltava käynnissä (pybitchat_subscribe action=start)."
+      "lähetä viesti"
     ]
   },
   "fr": {
@@ -190,9 +203,10 @@
     "param.plain.description": "Forcer le DM en texte brut (non chiffré). Ignore la poignée de main Noise. À utiliser lorsque la prise de contact Noise échoue avec l'application Android.",
     "err.payload_required": "la charge utile est requise",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Envoyez un message texte ou annoncez via le pybitchat BLE Mesh. Le nœud doit être en cours d'exécution (pybitchat_subscribe action=start)."
+      "envoyer un message"
     ]
   },
   "he": {
@@ -204,9 +218,10 @@
     "param.plain.description": "כפה DM בטקסט רגיל (לא מוצפן). מדלג על לחיצת היד של הרעש. השתמש כאשר לחיצת היד של רעש נכשלת עם אפליקציית Android.",
     "err.payload_required": "נדרש מטען",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "שלח הודעת טקסט או הכרזה דרך pybitchat BLE Mesh. הצומת חייב לפעול (pybitchat_subscribe action=start)."
+      "שליחת הודעה"
     ]
   },
   "hi": {
@@ -218,9 +233,10 @@
     "param.plain.description": "बलपूर्वक सादा-पाठ (अनएन्क्रिप्टेड) ​​डीएम। शोर से हाथ मिलाना छोड़ देता है। एंड्रॉइड ऐप के साथ नॉइज़ हैंडशेक विफल होने पर इसका उपयोग करें।",
     "err.payload_required": "पेलोड आवश्यक है",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "एक टेक्स्ट संदेश भेजें या पाइबिटचैट बीएलई मेश पर घोषणा करें। नोड अवश्य चलना चाहिए (pybitchat_subscribe क्रिया=प्रारंभ)।"
+      "संदेश भेजें"
     ]
   },
   "hu": {
@@ -232,9 +248,10 @@
     "param.plain.description": "Egyszerű szöveges (titkosítatlan) DM kényszerítése. Kihagyja a Noise kézfogást. Használja, ha a Zaj kézfogás sikertelen az Android alkalmazással.",
     "err.payload_required": "hasznos teher szükséges",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Küldjön szöveges üzenetet vagy jelentse be a pybitchat BLE Mesh-en keresztül. A csomópontnak futnia kell (pybitchat_subscribe action=start)."
+      "üzenet küldése"
     ]
   },
   "id": {
@@ -246,9 +263,10 @@
     "param.plain.description": "Paksa DM teks biasa (tidak terenkripsi). Melewati jabat tangan Noise. Gunakan saat jabat tangan Noise gagal dengan aplikasi Android.",
     "err.payload_required": "muatan diperlukan",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Kirim pesan teks atau umumkan melalui pybitchat BLE Mesh. Node harus berjalan (pybitchat_subscribe action=start)."
+      "kirim pesan"
     ]
   },
   "it": {
@@ -260,9 +278,10 @@
     "param.plain.description": "Forza il DM in testo semplice (non crittografato). Salta l'handshake del rumore. Da utilizzare quando l'handshake Noise non riesce con l'app Android.",
     "err.payload_required": "è richiesto il carico utile",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Invia un messaggio di testo o annuncia tramite BLE Mesh pybitchat. Il nodo deve essere in esecuzione (pybitchat_subscribe action=start)."
+      "invia messaggio"
     ]
   },
   "ko": {
@@ -274,9 +293,10 @@
     "param.plain.description": "일반 텍스트(암호화되지 않은) DM을 강제합니다. 노이즈 핸드셰이크를 건너뜁니다. Android 앱에서 Noise 핸드셰이크가 실패할 때 사용합니다.",
     "err.payload_required": "페이로드가 필요합니다",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "문자 메시지를 보내거나 pybitchat BLE Mesh를 통해 공지하세요. 노드가 실행 중이어야 합니다(pybitchat_subscribe action=start)."
+      "메시지 보내기"
     ]
   },
   "mn": {
@@ -288,9 +308,10 @@
     "param.plain.description": "Энгийн текст (шифрлэгдээгүй) DM-г албадах. Дуу чимээ гар барихыг алгасаж байна. Андройд аппликейшн дээр чимээ шуугиантай гар барих боломжгүй үед ашиглана уу.",
     "err.payload_required": "ачаалал шаардлагатай",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Pybitchat BLE Mesh дээр мессеж илгээх эсвэл зарлах. Зангилаа ажиллаж байх ёстой (pybitchat_subscribe action=start)."
+      "мессеж илгээх"
     ]
   },
   "mr": {
@@ -302,9 +323,10 @@
     "param.plain.description": "सक्तीने साधा मजकूर (एनक्रिप्ट केलेले) DM. नॉइज हँडशेक वगळते. Android ॲपसह नॉइज हँडशेक अयशस्वी झाल्यावर वापरा.",
     "err.payload_required": "पेलोड आवश्यक आहे",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "एक मजकूर संदेश पाठवा किंवा pybitchat BLE Mesh वर घोषणा करा. नोड चालू असणे आवश्यक आहे (pybitchat_subscribe action=start)."
+      "संदेश पाठवा"
     ]
   },
   "nb": {
@@ -316,9 +338,10 @@
     "param.plain.description": "Tving ren tekst (ukryptert) DM. Hopper over støyhåndtrykket. Bruk når Noise-håndtrykk mislykkes med Android-appen.",
     "err.payload_required": "nyttelast er nødvendig",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Send en tekstmelding eller kunngjør over pybitchat BLE Mesh. Noden må kjøre (pybitchat_subscribe action=start)."
+      "send melding"
     ]
   },
   "nl": {
@@ -330,9 +353,10 @@
     "param.plain.description": "Forceer DM in platte tekst (niet-gecodeerd). Slaat de Noise-handshake over. Gebruiken wanneer Noise-handshake mislukt met de Android-app.",
     "err.payload_required": "laadvermogen is vereist",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Stuur een sms-bericht of kondig het aan via de pybitchat BLE Mesh. Het knooppunt moet actief zijn (pybitchat_subscribe action=start)."
+      "bericht verzenden"
     ]
   },
   "pl": {
@@ -344,9 +368,10 @@
     "param.plain.description": "Wymuś zwykły tekst (nieszyfrowany) DM. Pomija uścisk dłoni Noise. Użyj, gdy uzgadnianie szumu nie powiedzie się w aplikacji na Androida.",
     "err.payload_required": "wymagany jest ładunek",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Wyślij wiadomość tekstową lub ogłoś za pośrednictwem pybitchat BLE Mesh. Węzeł musi być uruchomiony (akcja pybitchat_subscribe=start)."
+      "wyślij wiadomość"
     ]
   },
   "pt": {
@@ -358,9 +383,10 @@
     "param.plain.description": "Força DM de texto simples (não criptografado). Ignora o aperto de mão do ruído. Use quando o handshake de ruído falhar com o aplicativo Android.",
     "err.payload_required": "a carga útil é obrigatória",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Envie uma mensagem de texto ou anuncie pelo pybitchat BLE Mesh. O nó deve estar em execução (pybitchat_subscribe action=start)."
+      "enviar mensagem"
     ]
   },
   "pt_BR": {
@@ -372,9 +398,10 @@
     "param.plain.description": "Força DM de texto simples (não criptografado). Ignora o aperto de mão do ruído. Use quando o handshake de ruído falhar com o aplicativo Android.",
     "err.payload_required": "a carga útil é obrigatória",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Envie uma mensagem de texto ou anuncie pelo pybitchat BLE Mesh. O nó deve estar em execução (pybitchat_subscribe action=start)."
+      "enviar mensagem"
     ]
   },
   "ro": {
@@ -386,9 +413,10 @@
     "param.plain.description": "Forțați DM text simplu (necriptat). Omite strângerea de mână Noise. Utilizați atunci când strângerea de mână Noise eșuează cu aplicația Android.",
     "err.payload_required": "sarcina utilă este necesară",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Trimiteți un mesaj text sau anunțați prin pybitchat BLE Mesh. Nodul trebuie să ruleze (pybitchat_subscribe action=start)."
+      "trimite mesaj"
     ]
   },
   "ru": {
@@ -400,9 +428,10 @@
     "param.plain.description": "Принудительно использовать открытый текст (незашифрованный) DM. Пропускает шумовое рукопожатие. Используйте при сбое шумового рукопожатия в приложении Android.",
     "err.payload_required": "требуется полезная нагрузка",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Отправьте текстовое сообщение или объявите через pybitchat BLE Mesh. Узел должен быть запущен (pybitchat_subscribe action=start)."
+      "отправить сообщение"
     ]
   },
   "sv": {
@@ -414,9 +443,10 @@
     "param.plain.description": "Tvinga DM i vanlig text (okrypterad). Hoppar över Noise-handslaget. Använd när Noise-handskakning misslyckas med Android-appen.",
     "err.payload_required": "nyttolast krävs",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Skicka ett textmeddelande eller meddela över pybitchat BLE Mesh. Noden måste vara igång (pybitchat_subscribe action=start)."
+      "skicka meddelande"
     ]
   },
   "sw": {
@@ -428,9 +458,10 @@
     "param.plain.description": "Lazimisha DM ya maandishi wazi (isiyosimbwa). Huruka kupeana mkono kwa Kelele. Tumia wakati kupeana mkono kwa Kelele kunashindwa na programu ya Android.",
     "err.payload_required": "mzigo unahitajika",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Tuma ujumbe mfupi wa maandishi au tangaza kupitia pybitchat BLE Mesh. Nodi lazima iwe inaendeshwa (pybitchat_subscribe action=start)."
+      "tuma ujumbe"
     ]
   },
   "th": {
@@ -442,9 +473,10 @@
     "param.plain.description": "บังคับข้อความธรรมดา (ไม่เข้ารหัส) DM ข้ามการจับมือที่มีเสียงรบกวน ใช้เมื่อการจับมือกันเสียงรบกวนล้มเหลวด้วยแอป Android",
     "err.payload_required": "จำเป็นต้องมีเพย์โหลด",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "ส่งข้อความหรือประกาศผ่าน pybitchat BLE Mesh โหนดจะต้องทำงานอยู่ (pybitchat_subscribe action=start)"
+      "ส่งข้อความ"
     ]
   },
   "tr": {
@@ -456,9 +488,10 @@
     "param.plain.description": "Düz metin (şifrelenmemiş) DM'yi zorla. Gürültü el sıkışmasını atlar. Android uygulamasında Gürültü anlaşması başarısız olduğunda kullanın.",
     "err.payload_required": "yük gerekli",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Bir kısa mesaj gönderin veya pybitchat BLE Mesh üzerinden duyuru yapın. Düğümün çalışıyor olması gerekir (pybitchat_subscribe action=start)."
+      "mesaj gönder"
     ]
   },
   "uk": {
@@ -470,9 +503,10 @@
     "param.plain.description": "Примусово відкритий текстовий (незашифрований) DM. Пропускає рукостискання Noise. Використовуйте, коли рукостискання Noise не вдається за допомогою програми Android.",
     "err.payload_required": "потрібне корисне навантаження",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Надішліть текстове повідомлення або оголосите через pybitchat BLE Mesh. Вузол має бути запущеним (pybitchat_subscribe action=start)."
+      "надіслати повідомлення"
     ]
   },
   "vi": {
@@ -484,9 +518,10 @@
     "param.plain.description": "Buộc DM văn bản thuần túy (không được mã hóa). Bỏ qua cái bắt tay Tiếng ồn. Sử dụng khi bắt tay Tiếng ồn không thành công với ứng dụng Android.",
     "err.payload_required": "tải trọng là cần thiết",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "Gửi tin nhắn văn bản hoặc thông báo qua pybitchat BLE Mesh. Nút phải đang chạy (pybitchat_subscribe action=start)."
+      "gửi tin nhắn"
     ]
   },
   "zh_CN": {
@@ -498,9 +533,10 @@
     "param.plain.description": "强制使用纯文本（未加密）DM。跳过噪声握手。当 Android 应用程序的噪声握手失败时使用。",
     "err.payload_required": "需要有效负载",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "通过 pybitchat BLE Mesh 发送短信或公告。该节点必须正在运行（pybitchat_subscribe action=start）。"
+      "发送消息"
     ]
   },
   "zh_TW": {
@@ -512,9 +548,10 @@
     "param.plain.description": "強制使用純文字（未加密）DM。跳過噪音握手。當 Android 應用程式的噪音握手失敗時使用。",
     "err.payload_required": "需要有效負載",
     "x_search_terms": [
+      "pybitchat send",
+      "bitchat send",
       "pybitchat_send",
-      "bitchat",
-      "透過 pybitchat BLE Mesh 發送簡訊或公告。該節點必須正在運行（pybitchat_subscribe action=start）。"
+      "傳送訊息"
     ]
   }
 }

@@ -20,7 +20,7 @@
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: セクション {section_num} が見つかりません。有効な範囲: 1..{last}。",
     "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。",
-    "msg.no_statements": "(SQL文が見つかりません)"
+    "msg.no_statements": "(SQL ステートメントが見つかりません)"
   },
   "zh_CN": {
     "tool.description": "将文件解析为多个部分并返回 sql2idx 的编号索引或特定部分。",
@@ -66,7 +66,7 @@
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：未找到 {section_num} 部分。有效範圍：1..{last}。",
     "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
-    "msg.no_statements": "（找不到 SQL 陳述式）"
+    "msg.no_statements": "（找不到 SQL 語句）"
   },
   "ko": {
     "tool.description": "파일을 섹션으로 구문 분석하고 번호가 매겨진 인덱스 또는 sql2idx에 대한 특정 섹션을 반환합니다.",
@@ -250,7 +250,7 @@
     "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
     "err.section_not_found": "Ошибка: раздел {section_num} не найден. Допустимый диапазон: 1..{last}.",
     "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
-    "msg.no_statements": "(операторы SQL не найдены)"
+    "msg.no_statements": "(SQL-инструкции не найдены)"
   },
   "id": {
     "tool.description": "Parsing file menjadi beberapa bagian dan kembalikan indeks bernomor atau bagian tertentu untuk sql2idx.",
@@ -342,7 +342,7 @@
     "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला. वैध सीमा: 1...{last}.",
     "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
-    "msg.no_statements": "(कोई SQL statement नहीं मिला)"
+    "msg.no_statements": "(कोई SQL statements नहीं मिले)"
   },
   "ar": {
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ sql2idx.",
@@ -503,7 +503,7 @@
     "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
     "err.section_not_found": "Chyba: Sekce {section_num} nebyla nalezena. Platný rozsah: 1..{last}.",
     "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
-    "msg.no_statements": "(nebyly nalezeny žádné SQL příkazy)"
+    "msg.no_statements": "(nebyly nalezeny žádné příkazy SQL)"
   },
   "uk": {
     "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для sql2idx.",
@@ -526,7 +526,7 @@
     "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
     "err.section_not_found": "Помилка: розділ {section_num} не знайдено. Дійсний діапазон: 1..{last}.",
     "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
-    "msg.no_statements": "(інструкцій SQL не знайдено)"
+    "msg.no_statements": "(SQL-інструкцій не знайдено)"
   },
   "tr": {
     "tool.description": "Dosyayı bölümlere ayırın ve sql2idx için numaralandırılmış bir dizin veya belirli bir bölüm döndürün.",
@@ -549,7 +549,7 @@
     "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: Bölüm {section_num} bulunamadı. Geçerli aralık: 1..{last}.",
     "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
-    "msg.no_statements": "(SQL deyimi bulunamadı)"
+    "msg.no_statements": "(SQL ifadeleri bulunamadı)"
   },
   "th": {
     "tool.description": "แยกไฟล์ออกเป็นส่วนๆ และส่งคืนดัชนีที่มีหมายเลขหรือส่วนเฉพาะสำหรับ sql2idx",
@@ -618,7 +618,7 @@
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
     "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
-    "msg.no_statements": "(هیچ عبارت SQL پیدا نشد)"
+    "msg.no_statements": "(هیچ عبارت SQL یافت نشد)"
   },
   "mn": {
     "tool.description": "Файлыг хэсэг болгон задалж, дугаарласан индекс эсвэл sql2idx-ийн тодорхой хэсгийг буцаана уу.",
@@ -664,7 +664,7 @@
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}.",
     "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
-    "msg.no_statements": "(SQL statement आढळले नाहीत)"
+    "msg.no_statements": "(SQL statements आढळले नाहीत)"
   },
   "el": {
     "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το sql2idx.",
@@ -710,7 +710,7 @@
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: סעיף {section_num} לא נמצא. טווח חוקי: 1..{last}.",
     "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
-    "msg.no_statements": "(לא נמצאו פקודות SQL)"
+    "msg.no_statements": "(לא נמצאו משפטי SQL)"
   },
   "hu": {
     "tool.description": "Elemezze a fájlt szakaszokra, és adjon vissza egy számozott indexet vagy meghatározott szakaszt az sql2idx számára.",
@@ -733,7 +733,7 @@
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A {section_num} szakasz nem található. Érvényes tartomány: 1..{last}.",
     "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
-    "msg.no_statements": "(nem találhatók SQL utasítások)"
+    "msg.no_statements": "(nem találhatók SQL-utasítások)"
   },
   "ro": {
     "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru sql2idx.",
@@ -779,7 +779,7 @@
     "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
     "err.section_not_found": "Error: Seksyon {section_num} ay hindi nahanap. Wastong saklaw: 1..{last}.",
     "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
-    "msg.no_statements": "(walang nahanap na SQL statement)"
+    "msg.no_statements": "(walang nakitang SQL statements)"
   },
   "ms": {
     "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk sql2idx.",
