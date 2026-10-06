@@ -328,3 +328,21 @@ def test_english_source_follows_delegated_catalog_binding(tmp_path: Path) -> Non
     source = batch._english_source(tools_dir / "sample_tool.json")
 
     assert source == {"tool.description": "Hello"}
+
+
+def test_non_english_source_language_is_rejected(tmp_path: Path, capsys) -> None:
+    rc = batch.main(
+        [
+            "status",
+            "--source-lang",
+            "ja",
+            "--tools-dir",
+            str(tmp_path / "tools"),
+            "--tmp-dir",
+            str(tmp_path / "tmp"),
+        ]
+    )
+
+    captured = capsys.readouterr()
+    assert rc == 2
+    assert "--source-lang must be en" in captured.err
