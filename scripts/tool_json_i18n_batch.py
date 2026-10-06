@@ -106,6 +106,9 @@ BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 PIP_INSTALL_PREFIX_RE = re.compile(r"\bpip\s+install\b")
 PIP_REQUIREMENT_NAME_RE = re.compile(r"^(?P<name>[A-Za-z0-9][A-Za-z0-9_.-]*)")
 PIP_COMMAND_TRAILING_PUNCTUATION = ".,;:!?。；：！？"
+UAGENT_ENV_RE = re.compile(
+    r"\bUAGENT_(?:<[A-Z0-9_]+>|[A-Z0-9*]+)(?:_(?:<[A-Z0-9_]+>|[A-Z0-9*]+))*"
+)
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -621,6 +624,22 @@ def _chunk_indices(
     return batches
 
 
+def _uagent_env_protect_terms(texts: list[str]) -> list[str]:
+    """Return UAGENT environment-variable identifiers that must stay literal."""
+    terms: list[str] = []
+    seen: set[str] = set()
+
+    for text in texts:
+        for match in UAGENT_ENV_RE.finditer(text):
+            term = match.group(0)
+            if term in seen:
+                continue
+            seen.add(term)
+            terms.append(term)
+
+    return terms
+
+
 def _pip_install_commands(text: str) -> list[str]:
     """Extract copy-pasteable pip install commands from source text.
 
@@ -763,6 +782,7 @@ def translate_lang(
             "protect_terms": True,
             "extra_protect_terms": [
                 *extra_terms,
+                *_uagent_env_protect_terms(batch_texts),
                 *_pip_install_protect_terms(batch_texts),
             ],
         }

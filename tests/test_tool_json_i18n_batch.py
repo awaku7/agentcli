@@ -225,6 +225,73 @@ def test_status_allows_locale_specific_search_term_counts(
     assert "review_candidates: 0" in output
 
 
+def test_uagent_env_protect_terms_extract_identifiers() -> None:
+    assert batch._uagent_env_protect_terms(
+        [
+            "Set UAGENT_BRAVE_API_KEY.",
+            "Use UAGENT_AZURE_* or UAGENT_AZURE_IMG_ANALYSIS_*.",
+            "Set UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+            "Duplicate UAGENT_BRAVE_API_KEY.",
+        ]
+    ) == [
+        "UAGENT_BRAVE_API_KEY",
+        "UAGENT_AZURE_*",
+        "UAGENT_AZURE_IMG_ANALYSIS_*",
+        "UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME",
+    ]
+
+
+def test_translate_lang_protects_uagent_env_identifiers(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = [
+        "Set UAGENT_AZURE_* or UAGENT_AZURE_IMG_ANALYSIS_*.",
+        "Set UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME.",
+    ]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": index, "tool": "sample", "key": f"k{index}", "text": text}
+                    for index, text in enumerate(texts)
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    payloads = []
+
+    def fake_run_tool(payload):
+        payloads.append(payload)
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=0,
+    )
+
+    assert len(payloads) == 1
+    protected = payloads[0]["extra_protect_terms"]
+    assert "UAGENT_AZURE_*" in protected
+    assert "UAGENT_AZURE_IMG_ANALYSIS_*" in protected
+    assert "UAGENT_<PROVIDER>_IMG_GENERATE_DEPNAME" in protected
+
+
 def test_pip_install_protect_terms_extract_complete_commands() -> None:
     assert batch._pip_install_protect_terms(
         [

@@ -23,6 +23,7 @@ from tool_json_i18n_batch import (  # noqa: E402
     _iter_tool_json_files,
     _pip_install_protect_terms,
     _scope_pip_install_groups,
+    _uagent_env_protect_terms,
 )
 from uagent.tools.translate_text_tool import run_tool  # noqa: E402
 
@@ -159,6 +160,7 @@ def translate_batch(lang: str, texts: list[str]) -> list[str]:
             "protect_terms": True,
             "extra_protect_terms": [
                 *EXTRA_TERMS,
+                *_uagent_env_protect_terms(texts),
                 *_pip_install_protect_terms(texts),
             ],
         }
