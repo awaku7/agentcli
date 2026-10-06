@@ -241,6 +241,21 @@ def test_pip_install_protect_terms_extract_commands_and_packages() -> None:
     ]
 
 
+def test_pip_install_scope_isolates_protected_texts() -> None:
+    texts = [
+        "Install it with: pip install bleak",
+        "A bleak outlook should remain translatable.",
+        "Then run pip install PySide6.",
+        "Ordinary prose",
+    ]
+
+    assert batch._scope_pip_install_groups(list(range(len(texts))), texts) == [
+        [1, 3],
+        [0],
+        [2],
+    ]
+
+
 def test_non_search_term_lists_still_require_matching_length() -> None:
     assert batch._is_missing_or_stale(
         ["one", "two"],
