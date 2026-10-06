@@ -42,7 +42,8 @@
       "google cloud",
       "google api",
       "cloud",
-      "gcp_api"
+      "gcp_api",
+      "cloudové služby Google"
     ],
     "param.api": "Název Google API, například výpočet nebo úložiště.",
     "param.version": "API verze, například v1 nebo v1beta1.",
@@ -60,7 +61,8 @@
       "google cloud",
       "google api",
       "cloud",
-      "gcp_api"
+      "gcp_api",
+      "Google Cloud-tjenester"
     ],
     "param.api": "Google API navn, for eksempel computer eller lager.",
     "param.version": "API version, for eksempel v1 eller v1beta1.",
@@ -96,7 +98,8 @@
       "google cloud",
       "google api",
       "cloud",
-      "gcp_api"
+      "gcp_api",
+      "υπηρεσίες Google Cloud"
     ],
     "param.api": "Google API όνομα, για παράδειγμα υπολογισμός ή αποθήκευση.",
     "param.version": "Έκδοση API, για παράδειγμα v1 ή v1beta1.",
@@ -168,7 +171,8 @@
       "google cloud",
       "google api",
       "cloud",
-      "gcp_api"
+      "gcp_api",
+      "mga serbisyo ng Google Cloud"
     ],
     "param.api": "Google API pangalan, halimbawa compute o storage.",
     "param.version": "API na bersyon, halimbawa v1 o v1beta1.",
@@ -492,7 +496,8 @@
       "google cloud",
       "google api",
       "cloud",
-      "gcp_api"
+      "gcp_api",
+      "servicii Google Cloud"
     ],
     "param.api": "Google API nume, de exemplu, calcul sau stocare.",
     "param.version": "Versiunea API, de exemplu v1 sau v1beta1.",
