@@ -300,4 +300,6 @@ def test_sub_agent_internal_prompts_preserve_canonical_role_instructions():
             if "[Protocol invariants]" in body:
                 invalid.append(f"{lang}:{key}:protocol-in-body")
 
-    assert not invalid, "Incomplete sub-agent prompt translations: " + ", ".join(\n        invalid\n    )
+    assert not invalid, "Incomplete sub-agent prompt translations: " + ", ".join(
+        invalid
+    )
