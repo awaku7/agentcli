@@ -114,37 +114,33 @@ DEFAULT_BATCH_ITEMS = 40
 # a different number of entries from English; x_search_terms_en is the runtime
 # English fallback.
 VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
-INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
-    {
-        "bitchat.debug_noise_hs",
-        "bitchat.debug_noise_enc",
-        "bitchat.debug_hs_start",
-        "bitchat.debug_hs_msg1_sent",
-        "bitchat.debug_hs_skip",
-        "vision.error_prefix",
-        "skill.ok",
-        "peers.list_entry",
-        "geo.list_geohash",
-        "cmd.status_nostr_stopped",
-        "cmd.node_started_nostr_failed",
-        "geo.list_peer_id",
-        "geo.joined_peer_id",
-        "geo.joined_coords",
-        "cmd.status_peer",
-        "cmd.status_nostr_relay",
-        "cmd.status_nostr_pubkey",
-        "bitchat.nostr_msg",
-        "bitchat.noise_dm_msg",
-        "bitchat.mesh_msg",
-        "bitchat.dm_msg",
-        "match.line",
-        "ui.fallback_prompt",
-        "ui.confirm.footer",
-    }
-)
-
 INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
     {
+        ("pybitchat_shared", "bitchat.debug_noise_hs"),
+        ("pybitchat_shared", "bitchat.debug_noise_enc"),
+        ("pybitchat_shared", "bitchat.debug_hs_start"),
+        ("pybitchat_shared", "bitchat.debug_hs_msg1_sent"),
+        ("pybitchat_shared", "bitchat.debug_hs_skip"),
+        ("pybitchat_shared", "bitchat.nostr_msg"),
+        ("pybitchat_shared", "bitchat.noise_dm_msg"),
+        ("pybitchat_shared", "bitchat.mesh_msg"),
+        ("pybitchat_shared", "bitchat.dm_msg"),
+        ("vision_openai", "vision.error_prefix"),
+        ("skill_history", "skill.ok"),
+        ("pybitchat_subscribe", "peers.list_entry"),
+        ("pybitchat_subscribe", "geo.list_geohash"),
+        ("pybitchat_subscribe", "cmd.status_nostr_stopped"),
+        ("pybitchat_subscribe", "cmd.node_started_nostr_failed"),
+        ("pybitchat_subscribe", "geo.list_peer_id"),
+        ("pybitchat_subscribe", "geo.joined_peer_id"),
+        ("pybitchat_subscribe", "geo.joined_coords"),
+        ("pybitchat_subscribe", "cmd.status_peer"),
+        ("pybitchat_subscribe", "cmd.status_nostr_relay"),
+        ("pybitchat_subscribe", "cmd.status_nostr_pubkey"),
+        ("search_files", "match.line"),
+        ("safe_exec_ops", "ui.fallback_prompt"),
+        ("safe_exec_ops", "ui.confirm.footer"),
+        ("safe_file_ops", "ui.confirm.footer"),
         ("create_tool", "cmd.help"),
         ("current_location", "src.nmea"),
         ("wttrin", "output.forecast_row"),
@@ -472,7 +468,7 @@ def _is_missing_or_stale(
         if not cur_val.strip():
             return True
         if skip_same_as_en and cur_val.strip() == en_val.strip():
-            return key not in INTENTIONAL_ENGLISH_VALUE_KEYS
+            return True
         return False
     if isinstance(en_val, list) and isinstance(cur_val, list):
         if key in VARIABLE_LENGTH_LIST_KEYS:
@@ -543,6 +539,15 @@ def collect_units(
                 if text is None or not text.strip():
                     continue
                 cur = block.get(key)
+                if (
+                    only_missing
+                    and skip_same_as_en
+                    and isinstance(en_val, str)
+                    and isinstance(cur, str)
+                    and cur.strip() == en_val.strip()
+                    and _is_intentional_english_tool_key(tool, str(key))
+                ):
+                    continue
                 if only_missing and not _is_missing_or_stale(
                     en_val,
                     cur,
