@@ -637,3 +637,8 @@ def test_confirm_command_footer_is_invariant() -> None:
             howto = block["ui.confirm.howto"]
             assert "y=" in howto, (filename, lang, howto)
             assert "c=" in howto, (filename, lang, howto)
+            if filename == "safe_exec_ops.json":
+                assert block["ui.fallback_prompt"] == " [y/c/N]: ", (
+                    filename,
+                    lang,
+                )
