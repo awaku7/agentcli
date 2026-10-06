@@ -90,3 +90,31 @@ def test_tool_translator_uses_compatible_localized_placeholder(
     assert (
         translate("message", default="Hello {name}", name="Alice") == "こんにちは Alice"
     )
+
+
+def test_tool_translator_falls_back_for_printf_precision_placeholder(
+    tmp_path, monkeypatch
+) -> None:
+    tool_py = tmp_path / "sample.py"
+    tool_py.write_text("", encoding="utf-8")
+    tool_json = tmp_path / "sample.json"
+    tool_json.write_text(
+        json.dumps(
+            {"ja": {"message": "誤差"}},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    i18n_helper.clear_tool_i18n_cache()
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "ja")
+    translate = i18n_helper.make_tool_translator(str(tool_py))
+
+    assert (
+        translate(
+            "message",
+            default="RMSE: %(rmse).4f",
+            rmse=1.23456,
+        )
+        == "RMSE: 1.2346"
+    )
