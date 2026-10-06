@@ -904,12 +904,16 @@ def cmd_status(args: argparse.Namespace) -> int:
     review_units = missing_units + same_as_en_units
 
     by_pair: dict[tuple[str, str], int] = {}
+    missing_by_pair: dict[tuple[str, str], int] = {}
     missing_by_lang: dict[str, int] = {}
     same_by_lang: dict[str, int] = {}
 
     for u in review_units:
         by_pair[(u.tool, u.lang)] = by_pair.get((u.tool, u.lang), 0) + 1
     for u in missing_units:
+        missing_by_pair[(u.tool, u.lang)] = (
+            missing_by_pair.get((u.tool, u.lang), 0) + 1
+        )
         missing_by_lang[u.lang] = missing_by_lang.get(u.lang, 0) + 1
     for u in same_as_en_units:
         same_by_lang[u.lang] = same_by_lang.get(u.lang, 0) + 1
@@ -932,6 +936,11 @@ def cmd_status(args: argparse.Namespace) -> int:
         print("same_as_english_by_language:")
         for lang, n in sorted(same_by_lang.items()):
             print(f"  {lang:8s} {n}")
+
+    if missing_by_pair:
+        print("missing_by_tool_language:")
+        for (tool, lang), n in sorted(missing_by_pair.items()):
+            print(f"  {tool:40s} {lang:8s} {n}")
 
     if by_pair:
         print("review_candidates_by_tool_language:")
