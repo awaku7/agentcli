@@ -144,6 +144,23 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Probe a network target using a low-privilege Python socket backend.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "packet probe",
+                "tcp connect",
+                "icmp",
+                "arp",
+                "network probe",
+            ],
+        ),
+        "x_search_terms_en": [
+            "packet probe",
+            "tcp connect",
+            "icmp",
+            "arp",
+            "network probe",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
