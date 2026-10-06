@@ -6,7 +6,12 @@ TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
 DISCORD_CHANNEL_I18N = TOOLS_DIR / "discord_channel_tool.json"
 DISCORD_BRAND_SEARCH_TERM_INDEXES = (0, 1, 3, 5, 7, 9)
 BLUESKY_I18N = TOOLS_DIR / "bluesky_tool.json"
-BLUESKY_BRAND_SEARCH_TERMS = {0: "bluesky", 1: "bsky", 5: "bluesky", 9: "bluesky"}
+BLUESKY_BRAND_SEARCH_TERMS = {
+    0: "bluesky",
+    1: "bsky",
+    5: "bluesky",
+    9: "bluesky",
+}
 
 
 def test_localized_search_terms_have_english_fallback() -> None:
