@@ -556,3 +556,41 @@ def test_tool_audit_recognizes_helper_referenced_catalog_key(
         and "help.start" in finding.detail.get("paths", [])
         for finding in findings
     )
+
+
+def test_audit_follows_aliased_delegated_catalog_binding(tmp_path: Path) -> None:
+    tools = tmp_path / "tools"
+    tools.mkdir()
+    (tools / "sample_tool.py").write_text(
+        '_("facade.description", default="Facade")\n',
+        encoding="utf-8",
+    )
+    (tools / "policy.py").write_text(
+        "from pathlib import Path\n"
+        "_tool_ = make_tool_translator(\n"
+        '    Path(__file__).resolve().parent / "sample_tool.py"\n'
+        ")\n"
+        '_tool_("confirm.message", default="Confirm")\n',
+        encoding="utf-8",
+    )
+    (tools / "sample_tool.json").write_text(
+        json.dumps(
+            {
+                "ja": {
+                    "facade.description": "ファサード",
+                    "confirm.message": "確認",
+                }
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    findings = audit_module.audit_tool_catalogs(tools)
+
+    assert not any(
+        finding.kind == "structure_extra"
+        and finding.detail
+        and "confirm.message" in finding.detail.get("paths", [])
+        for finding in findings
+    )
