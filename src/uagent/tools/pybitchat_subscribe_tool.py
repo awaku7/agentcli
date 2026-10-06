@@ -46,7 +46,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "BLE",
                 "mesh",
                 "subscribe",
-                "pybitchat_subscribe",
             ],
         ),
         "x_search_terms_en": [

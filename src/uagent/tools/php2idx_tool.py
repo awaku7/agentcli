@@ -31,9 +31,6 @@ TOOL_SPEC = {
                 "php file index",
                 "class list",
                 "method list",
-                "Read PHP files",
-                "Class list",
-                "Method list",
             ],
         ),
         "x_search_terms_en": [

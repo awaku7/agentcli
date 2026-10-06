@@ -52,11 +52,6 @@ TOOL_SPEC = {
                 "powerpoint parser",
                 "powerpoint slide reader",
                 "ppt section",
-                "Read PPTX files",
-                "PowerPoint index",
-                "Slide index",
-                "Extract slides",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

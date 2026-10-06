@@ -52,11 +52,6 @@ TOOL_SPEC = {
                 "pdf parser",
                 "pdf page reader",
                 "pdf section",
-                "Read PDF files",
-                "PDF index",
-                "Page index",
-                "Extract page",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [
