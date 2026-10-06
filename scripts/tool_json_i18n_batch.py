@@ -1138,6 +1138,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Allow creating a language block on files that do not have it yet",
     )
     p.add_argument(
+        "--show-missing-keys",
+        action="store_true",
+        help="For status, print missing translation keys grouped by tool catalog",
+    )
+    p.add_argument(
         "--require-complete",
         action="store_true",
         help=(
