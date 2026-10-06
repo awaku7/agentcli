@@ -21,9 +21,9 @@
     "msg.type": "النوع: {dtype}",
     "msg.unknown": "(غير معروف)",
     "x_search_terms": [
-      "حالة سحابة switchbot",
-      "Switchbot_cloud_status",
-      "سويتش بوت",
+      "switchbot cloud status",
+      "switchbot_cloud_status",
+      "switchbot",
       "سحابة"
     ],
     "err.config_missing": "بيانات اعتماد SwitchBot Cloud مفقودة. قم بتعيين UAGENT_SWITCHBOT_TOKEN وUAGENT_SWITCHBOT_SECRET.",
@@ -51,9 +51,9 @@
     "msg.type": "ধরন: {dtype}",
     "msg.unknown": "(অজানা)",
     "x_search_terms": [
-      "switchbot ক্লাউড স্থিতি",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "সুইচবট",
+      "switchbot",
       "মেঘ"
     ],
     "err.config_missing": "SwitchBot ক্লাউড শংসাপত্র অনুপস্থিত. UAGENT_SWITCHBOT_TOKEN এবং UAGENT_SWITCHBOT_SECRET সেট করুন।",
@@ -81,9 +81,9 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(neznámý)",
     "x_search_terms": [
-      "stav cloudu switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "přepínač",
+      "switchbot",
       "mrak"
     ],
     "err.config_missing": "Chybí přihlašovací údaje SwitchBot Cloud. Nastavte UAGENT_SWITCHBOT_TOKEN a UAGENT_SWITCHBOT_SECRET.",
@@ -111,9 +111,9 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(unbekannt)",
     "x_search_terms": [
-      "Switchbot-Cloud-Status",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "Switchbot",
+      "switchbot",
       "Wolke"
     ],
     "err.config_missing": "Die Anmeldeinformationen für SwitchBot Cloud fehlen. Legen Sie UAGENT_SWITCHBOT_TOKEN und UAGENT_SWITCHBOT_SECRET fest.",
@@ -141,9 +141,9 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(desconocido)",
     "x_search_terms": [
-      "estado de la nube del switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "robot conmutador",
+      "switchbot",
       "nube"
     ],
     "err.config_missing": "Faltan las credenciales de SwitchBot Cloud. Establezca UAGENT_SWITCHBOT_TOKEN y UAGENT_SWITCHBOT_SECRET.",
@@ -171,9 +171,9 @@
     "msg.type": "نوع: {dtype}",
     "msg.unknown": "(ناشناخته)",
     "x_search_terms": [
-      "وضعیت ابری switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "سوییچ‌بات",
+      "switchbot",
       "ابر"
     ],
     "err.config_missing": "اعتبارنامه SwitchBot Cloud وجود ندارد. UAGENT_SWITCHBOT_TOKEN و UAGENT_SWITCHBOT_SECRET را تنظیم کنید.",
@@ -201,9 +201,9 @@
     "msg.type": "Tyyppi: {dtype}",
     "msg.unknown": "(tuntematon)",
     "x_search_terms": [
-      "switchbot-pilvitila",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "kytkinrobotti",
+      "switchbot",
       "pilvi"
     ],
     "err.config_missing": "SwitchBot Cloud -tunnistetiedot puuttuvat. Aseta UAGENT_SWITCHBOT_TOKEN ja UAGENT_SWITCHBOT_SECRET.",
@@ -231,9 +231,9 @@
     "msg.type": "Type : {dtype}",
     "msg.unknown": "(inconnu)",
     "x_search_terms": [
-      "statut du cloud switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "robot de commutation",
+      "switchbot",
       "nuage"
     ],
     "err.config_missing": "Les informations d’identification SwitchBot Cloud sont manquantes. Définissez UAGENT_SWITCHBOT_TOKEN et UAGENT_SWITCHBOT_SECRET.",
@@ -261,9 +261,9 @@
     "msg.type": "प्रकार: {dtype}",
     "msg.unknown": "(अज्ञात)",
     "x_search_terms": [
-      "switchbot क्लाउड स्थिति",
-      "स्विचबॉट_क्लाउड_स्टेटस",
-      "स्विचबॉट",
+      "switchbot cloud status",
+      "switchbot_cloud_status",
+      "switchbot",
       "बादल"
     ],
     "err.config_missing": "स्विचबॉट क्लाउड क्रेडेंशियल गायब हैं। UAGENT_SWITCHBOT_TOKEN और UAGENT_SWITCHBOT_SECRET सेट करें।",
@@ -291,9 +291,9 @@
     "msg.type": "Tipe: {dtype}",
     "msg.unknown": "(tidak dikenal)",
     "x_search_terms": [
-      "status awan switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "saklarbot",
+      "switchbot",
       "awan"
     ],
     "err.config_missing": "Kredensial SwitchBot Cloud tidak ada. Tetapkan UAGENT_SWITCHBOT_TOKEN dan UAGENT_SWITCHBOT_SECRET.",
@@ -321,9 +321,9 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(sconosciuto)",
     "x_search_terms": [
-      "stato del cloud switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "commutatore",
+      "switchbot",
       "nuvola"
     ],
     "err.config_missing": "Mancano le credenziali di SwitchBot Cloud. Imposta UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
@@ -353,7 +353,7 @@
     "err.config_missing": "SwitchBot クラウドの認証情報がありません。UAGENT_SWITCHBOT_TOKEN と UAGENT_SWITCHBOT_SECRET を設定します。",
     "tool.description": "構成されたアカウントから 1 台の SwitchBot Cloud デバイスのステータスを取得します。",
     "x_search_terms": [
-      "switchbotクラウドのステータス",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "雲"
@@ -381,7 +381,7 @@
     "msg.type": "유형: {dtype}",
     "msg.unknown": "(알 수 없음)",
     "x_search_terms": [
-      "switchbot 클라우드 상태",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "구름"
@@ -411,9 +411,9 @@
     "msg.type": "Төрөл: {dtype}",
     "msg.unknown": "(үл мэдэгдэх)",
     "x_search_terms": [
-      "switchbot үүлэн төлөв",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "свичбот",
+      "switchbot",
       "үүл"
     ],
     "err.config_missing": "SwitchBot Cloud итгэмжлэл байхгүй байна. UAGENT_SWITCHBOT_TOKEN болон UAGENT_SWITCHBOT_SECRET-г тохируулна уу.",
@@ -441,9 +441,9 @@
     "msg.type": "प्रकार: {dtype}",
     "msg.unknown": "(अज्ञात)",
     "x_search_terms": [
-      "switchbot क्लाउड स्थिती",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "स्विचबॉट",
+      "switchbot",
       "ढग"
     ],
     "err.config_missing": "SwitchBot क्लाउड क्रेडेन्शियल गहाळ आहेत. UAGENT_SWITCHBOT_TOKEN आणि UAGENT_SWITCHBOT_SECRET सेट करा.",
@@ -471,9 +471,9 @@
     "msg.type": "Τύπος: {dtype}",
     "msg.unknown": "(άγνωστο)",
     "x_search_terms": [
-      "κατάσταση cloud switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "διακόπτης",
+      "switchbot",
       "σύννεφο"
     ],
     "err.config_missing": "Τα διαπιστευτήρια SwitchBot Cloud λείπουν. Ορίστε UAGENT_SWITCHBOT_TOKEN και UAGENT_SWITCHBOT_SECRET.",
@@ -501,9 +501,9 @@
     "msg.type": "סוג: {dtype}",
     "msg.unknown": "(לא ידוע)",
     "x_search_terms": [
-      "סטטוס ענן switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "מתג-בוט",
+      "switchbot",
       "ענן"
     ],
     "err.config_missing": "חסרים אישורי SwitchBot Cloud. הגדר UAGENT_SWITCHBOT_TOKEN ו-UAGENT_SWITCHBOT_SECRET.",
@@ -531,9 +531,9 @@
     "msg.type": "Típus: {dtype}",
     "msg.unknown": "(ismeretlen)",
     "x_search_terms": [
-      "switchbot felhő állapot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "kapcsolóbot",
+      "switchbot",
       "felhő"
     ],
     "err.config_missing": "Hiányoznak a SwitchBot Cloud hitelesítő adatai. UAGENT_SWITCHBOT_TOKEN és UAGENT_SWITCHBOT_SECRET beállítása.",
@@ -561,9 +561,9 @@
     "msg.type": "Tip: {dtype}",
     "msg.unknown": "(necunoscut)",
     "x_search_terms": [
-      "stare cloud switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "comutator robot",
+      "switchbot",
       "nor"
     ],
     "err.config_missing": "Acreditările SwitchBot Cloud lipsesc. Setați UAGENT_SWITCHBOT_TOKEN și UAGENT_SWITCHBOT_SECRET.",
@@ -591,7 +591,7 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(ukjent)",
     "x_search_terms": [
-      "switchbot sky-status",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "sky"
@@ -621,9 +621,9 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(onbekend)",
     "x_search_terms": [
-      "switchbot cloud-status",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "schakelbot",
+      "switchbot",
       "wolk"
     ],
     "err.config_missing": "SwitchBot Cloud-inloggegevens ontbreken. Stel UAGENT_SWITCHBOT_TOKEN en UAGENT_SWITCHBOT_SECRET in.",
@@ -651,9 +651,9 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(nieznane)",
     "x_search_terms": [
-      "status chmury switchbota",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "przełącznik",
+      "switchbot",
       "chmura"
     ],
     "err.config_missing": "Brak danych uwierzytelniających SwitchBot Cloud. Ustaw UAGENT_SWITCHBOT_TOKEN i UAGENT_SWITCHBOT_SECRET.",
@@ -681,9 +681,9 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(desconhecido)",
     "x_search_terms": [
-      "estado cloud switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "robô de comutação",
+      "switchbot",
       "nuvem"
     ],
     "err.config_missing": "As credenciais do SwitchBot Cloud estão faltando. Defina UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
@@ -711,9 +711,9 @@
     "msg.type": "Tipo: {dtype}",
     "msg.unknown": "(desconhecido)",
     "x_search_terms": [
-      "status da nuvem do switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "robô de comutação",
+      "switchbot",
       "nuvem"
     ],
     "err.config_missing": "As credenciais do SwitchBot Cloud estão faltando. Defina UAGENT_SWITCHBOT_TOKEN e UAGENT_SWITCHBOT_SECRET.",
@@ -741,7 +741,7 @@
     "msg.type": "Тип: {dtype}",
     "msg.unknown": "(неизвестно)",
     "x_search_terms": [
-      "состояние облака switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "облако"
@@ -771,7 +771,7 @@
     "msg.type": "Typ: {dtype}",
     "msg.unknown": "(okänd)",
     "x_search_terms": [
-      "switchbot molnstatus",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "moln"
@@ -801,9 +801,9 @@
     "msg.type": "Aina: {dtype}",
     "msg.unknown": "(haijulikani)",
     "x_search_terms": [
-      "hali ya wingu la switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "kubadili bot",
+      "switchbot",
       "wingu"
     ],
     "err.config_missing": "Kitambulisho cha Wingu cha SwitchBot hakipo. Weka UAGENT_SWITCHBOT_TOKEN na UAGENT_SWITCHBOT_SECRET.",
@@ -831,9 +831,9 @@
     "msg.type": "種類: {dtype}",
     "msg.unknown": "(不明)",
     "x_search_terms": [
-      "สถานะคลาวด์ switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "สวิตช์บอท",
+      "switchbot",
       "คลาวด์"
     ],
     "err.config_missing": "ข้อมูลประจำตัวของ SwitchBot Cloud หายไป ตั้งค่า UAGENT_SWITCHBOT_TOKEN และ UAGENT_SWITCHBOT_SECRET",
@@ -861,9 +861,9 @@
     "msg.type": "Tür: {dtype}",
     "msg.unknown": "(bilinmiyor)",
     "x_search_terms": [
-      "switchbot bulut durumu",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "anahtar bot",
+      "switchbot",
       "bulut"
     ],
     "err.config_missing": "SwitchBot Cloud kimlik bilgileri eksik. UAGENT_SWITCHBOT_TOKEN ve UAGENT_SWITCHBOT_SECRET'i ayarlayın.",
@@ -891,9 +891,9 @@
     "msg.type": "Тип: {dtype}",
     "msg.unknown": "(невідомо)",
     "x_search_terms": [
-      "стан хмари switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "перемикач",
+      "switchbot",
       "хмара"
     ],
     "err.config_missing": "Облікові дані SwitchBot Cloud відсутні. Установіть UAGENT_SWITCHBOT_TOKEN і UAGENT_SWITCHBOT_SECRET.",
@@ -921,7 +921,7 @@
     "msg.type": "Loại: {dtype}",
     "msg.unknown": "(không xác định)",
     "x_search_terms": [
-      "trạng thái đám mây switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "đám mây"
@@ -951,9 +951,9 @@
     "msg.type": "类型：{dtype}",
     "msg.unknown": "（未知）",
     "x_search_terms": [
-      "switchbot 云状态",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "开关机器人",
+      "switchbot",
       "云"
     ],
     "err.config_missing": "SwitchBot Cloud 凭据丢失。设置 UAGENT_SWITCHBOT_TOKEN 和 UAGENT_SWITCHBOT_SECRET。",
@@ -981,9 +981,9 @@
     "msg.type": "類型：{dtype}",
     "msg.unknown": "（未知）",
     "x_search_terms": [
-      "switchbot 雲端狀態",
+      "switchbot cloud status",
       "switchbot_cloud_status",
-      "開關機器人",
+      "switchbot",
       "雲端"
     ],
     "err.config_missing": "SwitchBot Cloud 憑證遺失。設定 UAGENT_SWITCHBOT_TOKEN 和 UAGENT_SWITCHBOT_SECRET。",
@@ -1044,7 +1044,7 @@
     "err.config_missing": "Bukti kelayakan SwitchBot Cloud tiada. Tetapkan UAGENT_SWITCHBOT_TOKEN dan UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Dapatkan status satu peranti SwitchBot Cloud daripada akaun yang dikonfigurasikan.",
     "x_search_terms": [
-      "status awan switchbot",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "cloud"
@@ -1105,7 +1105,7 @@
     "err.config_missing": "SwitchBot Cloud-legitimasjon mangler. Sett UAGENT_SWITCHBOT_TOKEN og UAGENT_SWITCHBOT_SECRET.",
     "tool.description": "Få statusen til én SwitchBot Cloud-enhet frå den konfigurerte kontoen.",
     "x_search_terms": [
-      "switchbot-skystatus",
+      "switchbot cloud status",
       "switchbot_cloud_status",
       "switchbot",
       "cloud"
