@@ -225,6 +225,109 @@ def test_status_allows_locale_specific_search_term_counts(
     assert "review_candidates: 0" in output
 
 
+def test_pip_install_protect_terms_extract_complete_commands() -> None:
+    assert batch._pip_install_protect_terms(
+        [
+            "Install it with: pip install bleak",
+            "Then run pip install PySide6.",
+            "Multiple: pip install foo bar",
+            "Pinned: pip install foo==1.2",
+            "Options: pip install --upgrade foo",
+            "A bleak outlook should remain translatable.",
+            "Duplicate: pip install bleak",
+        ]
+    ) == [
+        "pip install bleak",
+        "bleak",
+        "pip install PySide6",
+        "PySide6",
+        "pip install foo bar",
+        "foo",
+        "bar",
+        "pip install foo==1.2",
+        "pip install --upgrade foo",
+    ]
+
+
+def test_pip_install_commands_keep_version_dots_but_drop_sentence_punctuation() -> None:
+    assert batch._pip_install_commands("Run pip install foo==1.2.") == [
+        "pip install foo==1.2"
+    ]
+    assert batch._pip_install_commands(
+        "First line\nInstall: pip install foo[extra]>=1.2 bar~=2.0!\nDone"
+    ) == ["pip install foo[extra]>=1.2 bar~=2.0"]
+
+
+def test_pip_install_scope_isolates_protected_texts() -> None:
+    texts = [
+        "Install it with: pip install bleak",
+        "A bleak outlook should remain translatable.",
+        "Then run pip install PySide6.",
+        "Ordinary prose",
+    ]
+
+    assert batch._scope_pip_install_groups(list(range(len(texts))), texts) == [
+        [1, 3],
+        [0],
+        [2],
+    ]
+
+
+def test_translate_lang_sleeps_between_scoped_provider_calls(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = [
+        "A bleak outlook should remain translatable.",
+        "Install it with: pip install bleak",
+        "Then run pip install PySide6.",
+    ]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": index, "tool": "sample", "key": f"k{index}", "text": text}
+                    for index, text in enumerate(texts)
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    provider_calls = []
+
+    def fake_run_tool(payload):
+        provider_calls.append(payload["texts"])
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=0.25,
+    )
+
+    assert provider_calls == [
+        [texts[0]],
+        [texts[1]],
+        [texts[2]],
+    ]
+    assert sleep_calls == [0.25, 0.25]
+
+
 def test_non_search_term_lists_still_require_matching_length() -> None:
     assert batch._is_missing_or_stale(
         ["one", "two"],

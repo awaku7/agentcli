@@ -21,6 +21,8 @@ from tool_json_i18n_batch import (  # noqa: E402
     SUPPORTED_TARGET_LOCALES,
     _english_source,
     _iter_tool_json_files,
+    _pip_install_protect_terms,
+    _scope_pip_install_groups,
 )
 from uagent.tools.translate_text_tool import run_tool  # noqa: E402
 
@@ -132,6 +134,22 @@ def collect_jobs(files: list[Path]) -> list[tuple[str, str, str, int | None, str
 def translate_batch(lang: str, texts: list[str]) -> list[str]:
     if not texts:
         return []
+
+    indices = list(range(len(texts)))
+    groups = _scope_pip_install_groups(indices, texts)
+    if groups != [indices]:
+        out: list[str | None] = [None] * len(texts)
+        for group_index, group in enumerate(groups):
+            translated = translate_batch(lang, [texts[index] for index in group])
+            for index, value in zip(group, translated):
+                out[index] = value
+            if group_index < len(groups) - 1:
+                time.sleep(0.05)
+        return [
+            value if value is not None else texts[index]
+            for index, value in enumerate(out)
+        ]
+
     raw = run_tool(
         {
             "texts": texts,
@@ -139,7 +157,10 @@ def translate_batch(lang: str, texts: list[str]) -> list[str]:
             "source_lang": "en",
             "protect_placeholders": True,
             "protect_terms": True,
-            "extra_protect_terms": EXTRA_TERMS,
+            "extra_protect_terms": [
+                *EXTRA_TERMS,
+                *_pip_install_protect_terms(texts),
+            ],
         }
     )
     res = json.loads(raw)

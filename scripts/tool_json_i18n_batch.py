@@ -103,6 +103,9 @@ PRINTF_PLACEHOLDER_RE = re.compile(
 )
 FORMATTER = Formatter()
 BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+PIP_INSTALL_PREFIX_RE = re.compile(r"\bpip\s+install\b")
+PIP_REQUIREMENT_NAME_RE = re.compile(r"^(?P<name>[A-Za-z0-9][A-Za-z0-9_.-]*)")
+PIP_COMMAND_TRAILING_PUNCTUATION = ".,;:!?。；：！？"
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -618,6 +621,72 @@ def _chunk_indices(
     return batches
 
 
+def _pip_install_commands(text: str) -> list[str]:
+    """Extract copy-pasteable pip install commands from source text.
+
+    Commands are expected to occupy the remainder of their source line. This
+    preserves options, multiple requirements, extras, and version specifiers
+    without attempting to parse pip's full requirement grammar.
+    """
+    commands: list[str] = []
+
+    for line in text.splitlines():
+        match = PIP_INSTALL_PREFIX_RE.search(line)
+        if match is None:
+            continue
+
+        command = line[match.start() :].strip()
+        command = command.rstrip(PIP_COMMAND_TRAILING_PUNCTUATION).rstrip()
+        if command:
+            commands.append(command)
+
+    return commands
+
+
+def _pip_install_protect_terms(texts: list[str]) -> list[str]:
+    """Return exact pip commands and requirement names that must stay literal."""
+    terms: list[str] = []
+    seen: set[str] = set()
+
+    def _add(term: str) -> None:
+        if term in seen:
+            return
+        seen.add(term)
+        terms.append(term)
+
+    for text in texts:
+        for command in _pip_install_commands(text):
+            _add(command)
+
+            tokens = command.split()[2:]
+            for token in tokens:
+                if token.startswith("-"):
+                    continue
+                match = PIP_REQUIREMENT_NAME_RE.match(token)
+                if match is not None:
+                    _add(match.group("name"))
+
+    return terms
+
+
+def _scope_pip_install_groups(indices: list[int], texts: list[str]) -> list[list[int]]:
+    """Keep pip-install source texts isolated from unrelated batch neighbors."""
+    normal: list[int] = []
+    protected: list[list[int]] = []
+
+    for index in indices:
+        if _pip_install_commands(texts[index]):
+            protected.append([index])
+        else:
+            normal.append(index)
+
+    groups: list[list[int]] = []
+    if normal:
+        groups.append(normal)
+    groups.extend(protected)
+    return groups
+
+
 def _import_translate_run_tool():
     # Prefer in-repo tool module.
     sys.path.insert(0, str(ROOT / "src"))
@@ -692,7 +761,10 @@ def translate_lang(
             "provider": provider,
             "protect_placeholders": True,
             "protect_terms": True,
-            "extra_protect_terms": extra_terms,
+            "extra_protect_terms": [
+                *extra_terms,
+                *_pip_install_protect_terms(batch_texts),
+            ],
         }
         raw = run_tool(payload)
         try:
@@ -758,17 +830,23 @@ def translate_lang(
             return left + right
 
     for bi, idxs in enumerate(batches, 1):
-        batch_texts = [texts[i] for i in idxs]
-        translated = _translate_with_fallback(batch_texts)
-        if len(translated) != len(batch_texts):
-            raise RuntimeError(
-                f"batch {bi}: fallback produced {len(translated)} != {len(batch_texts)}"
-            )
-        for i, tr in zip(idxs, translated):
-            out[i] = str(tr)
+        scoped_groups = _scope_pip_install_groups(idxs, texts)
+        for gi, scoped_idxs in enumerate(scoped_groups):
+            batch_texts = [texts[i] for i in scoped_idxs]
+            translated = _translate_with_fallback(batch_texts)
+            if len(translated) != len(batch_texts):
+                raise RuntimeError(
+                    f"batch {bi}: fallback produced {len(translated)} != {len(batch_texts)}"
+                )
+            for i, tr in zip(scoped_idxs, translated):
+                out[i] = str(tr)
+
+            has_more_scoped = gi < len(scoped_groups) - 1
+            has_more_batches = bi < len(batches)
+            if sleep_s > 0 and (has_more_scoped or has_more_batches):
+                time.sleep(sleep_s)
+
         print(f"  batch {bi}/{len(batches)}: {len(idxs)} items")
-        if sleep_s > 0 and bi < len(batches):
-            time.sleep(sleep_s)
 
     if any(x is None for x in out):
         missing = [i for i, x in enumerate(out) if x is None]
