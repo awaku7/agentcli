@@ -393,6 +393,60 @@ def _extract_english_source_info(
     return source, dynamic_keys
 
 
+
+def _extract_x_search_terms_en(py_path: Path) -> list[str] | None:
+    try:
+        tree = ast.parse(py_path.read_text(encoding="utf-8"), filename=str(py_path))
+    except (OSError, UnicodeDecodeError, SyntaxError):
+        return None
+
+    constants: dict[str, Any] = {}
+    for statement in tree.body:
+        name: str | None = None
+        value_node: ast.AST | None = None
+        if (
+            isinstance(statement, ast.Assign)
+            and len(statement.targets) == 1
+            and isinstance(statement.targets[0], ast.Name)
+        ):
+            name = statement.targets[0].id
+            value_node = statement.value
+        elif isinstance(statement, ast.AnnAssign) and isinstance(
+            statement.target, ast.Name
+        ):
+            name = statement.target.id
+            value_node = statement.value
+        if name and value_node is not None:
+            value = _static_eval(value_node, constants)
+            if value is not None:
+                constants[name] = value
+
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Dict):
+            continue
+        for key_node, value_node in zip(node.keys, node.values):
+            if (
+                isinstance(key_node, ast.Constant)
+                and key_node.value == "x_search_terms_en"
+            ):
+                value = _static_eval(value_node, constants)
+                if isinstance(value, list) and all(
+                    isinstance(item, str) for item in value
+                ):
+                    return value
+    return None
+
+
+def _english_search_terms(path: Path) -> list[str] | None:
+    primary = _extract_x_search_terms_en(path.with_suffix(".py"))
+    if primary is not None:
+        return primary
+    for delegated in _delegated_source_files(path):
+        value = _extract_x_search_terms_en(delegated)
+        if value is not None:
+            return value
+    return None
+
 def _delegated_source_files(path: Path) -> list[Path]:
     """Find modules that explicitly bind the default translator to this facade."""
     primary = path.with_suffix(".py")
@@ -529,6 +583,24 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
         try:
             source, dynamic_keys = _english_source_info(path)
             reference = _reference_structure(source, translation_blocks, dynamic_keys)
+            source_search_terms = source.get("x_search_terms")
+            english_search_terms = _english_search_terms(path)
+            if (
+                isinstance(source_search_terms, list)
+                and english_search_terms is not None
+                and source_search_terms != english_search_terms
+            ):
+                findings.append(
+                    Finding(
+                        "tool_json",
+                        "english_search_terms_mismatch",
+                        str(path),
+                        detail={
+                            "default": source_search_terms,
+                            "x_search_terms_en": english_search_terms,
+                        },
+                    )
+                )
         except ValueError as exc:
             findings.append(
                 Finding(
