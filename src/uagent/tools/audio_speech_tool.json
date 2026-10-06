@@ -538,7 +538,7 @@
     "ok.saved": "Faili ya sauti imehifadhiwa",
     "param.model.description": "Jina la mfano wa hotuba. Ikiwa imeachwa, jina la chaguo-msingi la mtoa huduma au lililosanidiwa la utumaji hutumiwa.",
     "tool.description": "Badilisha maandishi kuwa matamshi, hifadhi sauti kama faili, na urudishe njia iliyohifadhiwa.",
-    "param.language.description": "BCP-47 lebo ya lugha ya Grok/xAI TTS (k.m. en, ja, otomatiki). Imepuuzwa na watoa huduma wengine.",
+    "param.language.description": "BCP-47 lebo ya lugha ya Grok/xAI TTS (k.m. en, ja, auto). Imepuuzwa na watoa huduma wengine.",
     "err.grok_text_too_long": "maandishi yamezidi Grok TTS kikomo cha herufi {max} (imepata {n})",
     "err.grok_unsupported_format": "Grok/xAI TTS haitumii kodeki {fmt!r}. Tumia mojawapo ya: mp3, wav, pcm, mulaw, alaw.",
     "err.openai_unsupported_format": "OpenAI/Azure TTS haitumii kodeki {fmt!r}. Tumia mojawapo ya: mp3, opus, aac, flac, wav, pcm."
@@ -912,7 +912,7 @@
     "ok.saved": "فایل صوتی ذخیره شد",
     "param.model.description": "نام مدل گفتار در صورت حذف، از نام استقرار پیش‌فرض ارائه‌دهنده یا پیکربندی شده استفاده می‌شود.",
     "tool.description": "متن را به گفتار تبدیل کنید، صدا را به صورت فایل ذخیره کنید و مسیر ذخیره شده را برگردانید.",
-    "param.language.description": "برچسب زبان BCP-47 برای Grok/xAI TTS (به عنوان مثال en، ja، خودکار). توسط سایر ارائه دهندگان نادیده گرفته شده است.",
+    "param.language.description": "برچسب زبان BCP-47 برای Grok/xAI TTS (به عنوان مثال en، ja، auto). توسط سایر ارائه دهندگان نادیده گرفته شده است.",
     "err.grok_text_too_long": "متن از Grok TTS محدودیت {max} نویسه بیشتر است ({n} دریافت کرد)",
     "err.grok_unsupported_format": "Grok/xAI TTS از کدک {fmt!r} پشتیبانی نمی کند. از یکی از این موارد استفاده کنید: mp3، wav، pcm، mulaw، alaw.",
     "err.openai_unsupported_format": "OpenAI/Azure TTS از کدک {fmt!r} پشتیبانی نمی کند. از یکی از این موارد استفاده کنید: mp3، opus، aac، flac، wav، pcm."
