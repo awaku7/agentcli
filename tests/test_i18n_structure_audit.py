@@ -481,8 +481,7 @@ _(
 TOOL_SPEC = {
     "x_search_terms_en": ["current location", "geolocation"],
 }
-""".strip()
-        + "\n",
+""".strip() + "\n",
         encoding="utf-8",
     )
     (tools / "example_tool.json").write_text(
@@ -498,9 +497,7 @@ TOOL_SPEC = {
     findings = audit_module.audit_tool_catalogs(tools)
 
     finding = next(
-        item
-        for item in findings
-        if item.kind == "english_search_terms_mismatch"
+        item for item in findings if item.kind == "english_search_terms_mismatch"
     )
     assert finding.detail == {
         "default": ["現在地", "位置情報"],
