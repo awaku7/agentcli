@@ -203,7 +203,7 @@
     ],
     "param.mermaid.description": "Tekstong pinagmulan ng Mermaid.",
     "param.source_path.description": "Opsyonal na landas ng file ng Mermaid.",
-    "param.output_path.description": "Output .xlsx path.",
+    "param.output_path.description": "Path ng output na .xlsx.",
     "error.source_required": "kailangan ang Mermaid o source_path",
     "error.output_required": "Kinakailangan ang output_path",
     "error.output_extension": "Dapat magtapos ang output_path sa .xlsx"

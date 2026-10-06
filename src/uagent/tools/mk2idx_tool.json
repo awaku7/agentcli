@@ -296,7 +296,7 @@
     "msg.no_entries": "Nem található Makefile definíció.",
     "err.invalid_mode": "Hiba: a módnak „index” vagy „szakasz” kell lennie.",
     "err.invalid_section": "Hiba: a szakasznak 1 és {count} között kell lennie.",
-    "err.parse_error": "Error parsing Makefile: {e}",
+    "err.parse_error": "Hiba a Makefile elemzésekor: {e}",
     "x_search_terms": [
       "olvassa el a Makefile-t",
       "Makefile index",
@@ -796,11 +796,11 @@
     "param.path.description": "Makefile 的路徑。",
     "param.mode.description": "“index”返回編號的目錄； “section”返回一個選定的塊。",
     "param.section.description": "從 1 開始的節號，僅當 mode='section' 時使用。",
-    "err.path_required": "Error: 'path' is required.",
+    "err.path_required": "錯誤：必須提供 'path'。",
     "err.read_error": "讀取檔案時發生錯誤：{e}",
     "err.file_not_found": "錯誤：找不到檔案：{path}",
     "msg.no_entries": "未找到 Makefile 定義。",
-    "err.invalid_mode": "Error: mode must be 'index' or 'section'.",
+    "err.invalid_mode": "錯誤：mode 必須為 'index' 或 'section'。",
     "err.invalid_section": "錯誤：部分必須介於 1 和 {count} 之間。",
     "err.parse_error": "解析 Makefile 時發生錯誤：{e}",
     "x_search_terms": [

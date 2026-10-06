@@ -199,7 +199,9 @@
       "mail",
       "outlook",
       "parse email",
-      "eml parser"
+      "eml parser",
+      "urai email",
+      "urai eml"
     ],
     "param.path.description": "Jalur ke file .eml.",
     "param.max_body_length.description": "Karakter maksimal untuk ekstraksi tubuh (default: 5000, 0 = tidak terbatas).",
