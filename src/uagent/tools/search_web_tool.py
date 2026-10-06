@@ -554,7 +554,10 @@ TOOL_SPEC: dict[str, Any] = {
         "name": "search_web",
         "description": _(
             "tool.description",
-            default="Search the web via StartPage (default), DuckDuckGo, Brave Search, or Yahoo Japan. Returns title/link/snippet.",
+            default=(
+                "Search the web via StartPage (default), DuckDuckGo, Brave Search, "
+                "or Yahoo Japan. Returns title/link/snippet."
+            ),
         ),
         "x_search_terms": _(
             "x_search_terms",
@@ -596,7 +599,10 @@ TOOL_SPEC: dict[str, Any] = {
                     "type": "string",
                     "description": _(
                         "param.engine.description",
-                        default="Search engine: 'startpage' (default), 'duckduckgo', 'brave', 'yahoo_jp', or 'yahoo'.",
+                        default=(
+                            "Search engine: 'startpage' (default), 'duckduckgo', "
+                            "'brave', 'yahoo_jp', or 'yahoo'."
+                        ),
                     ),
                     "enum": ["duckduckgo", "brave", "yahoo", "yahoo_jp", "startpage"],
                 },
