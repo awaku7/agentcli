@@ -9,7 +9,6 @@ from typing import Any, Optional
 
 from ..env_utils import env_get
 
-
 _PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\\-]?[0-9]*(?:\\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
@@ -210,8 +209,7 @@ def _translation_compatible(key: str, default: Any, value: Any) -> bool:
         if set(value) != set(default):
             return False
         return all(
-            _translation_compatible(key, default[name], value[name])
-            for name in default
+            _translation_compatible(key, default[name], value[name]) for name in default
         )
     return True
 
