@@ -65,7 +65,9 @@ def test_azure_api_descriptions_preserve_runtime_identifiers():
             invalid.append(f"{lang}:ARM")
 
         confirm_write = messages.get("param.confirm_write")
-        if confirm_write is not None and not _has_standalone_token(confirm_write, "GET"):
+        if confirm_write is not None and not _has_standalone_token(
+            confirm_write, "GET"
+        ):
             invalid.append(f"{lang}:GET")
 
     assert not invalid, "Corrupted Azure API identifiers: " + ", ".join(invalid)
