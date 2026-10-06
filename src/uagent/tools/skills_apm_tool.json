@@ -13,14 +13,7 @@
     "err.load_failed": "[apm] فشل تحميل المهارة: {err}",
     "err.dir_not_found": "[apm] لم يتم العثور على الدليل: {path}",
     "err.unknown_subcommand": "[apm] أمر فرعي غير معروف: {cmd}",
-    "err.not_found": "[apm] لم يتم العثور على أي مهارة مطابقة لـ \"{name}\".",
-    "x_search_terms": [
-      "مهارات apm",
-      "skills_apm",
-      "مهارات",
-      "مهارات",
-      "في الدقيقة"
-    ]
+    "err.not_found": "[apm] لم يتم العثور على أي مهارة مطابقة لـ \"{name}\"."
   },
   "bn": {
     "help_text": "  :skills apm list                    APM apm_modules/ থেকে skill তালিকা দেখান\n  :skills apm use <name|#>            একটি APM skill লোড ও সক্রিয় করুন\n  :skills apm dir [path]              APM project root দেখান বা সেট করুন",
@@ -36,14 +29,7 @@
     "err.load_failed": "[apm] দক্ষতা লোড করতে ব্যর্থ হয়েছে: {err}",
     "err.dir_not_found": "[apm] ডিরেক্টরি পাওয়া যায়নি: {path}",
     "err.unknown_subcommand": "[apm] অজানা সাবকমান্ড: {cmd}",
-    "err.not_found": "[apm] '{name}'-এর সাথে মেলে কোনো দক্ষতা পাওয়া যায়নি।",
-    "x_search_terms": [
-      "দক্ষতা apm",
-      "skills_apm",
-      "দক্ষতা",
-      "দক্ষতা",
-      "এপিএম"
-    ]
+    "err.not_found": "[apm] '{name}'-এর সাথে মেলে কোনো দক্ষতা পাওয়া যায়নি।"
   },
   "cs": {
     "help_text": "  :skills apm list                    Vypsat dovednosti z APM apm_modules/\n  :skills apm use <name|#>            Načíst a aktivovat dovednost APM\n  :skills apm dir [path]              Zobrazit nebo nastavit kořen projektu APM",
@@ -59,14 +45,7 @@
     "err.load_failed": "[apm] Nepodařilo se načíst dovednost: {err}",
     "err.dir_not_found": "[apm] Adresář nenalezen: {path}",
     "err.unknown_subcommand": "[apm] Neznámý dílčí příkaz: {cmd}",
-    "err.not_found": "[apm] Nebyla nalezena žádná dovednost odpovídající '{name}'.",
-    "x_search_terms": [
-      "dovednosti apm",
-      "skills_apm",
-      "dovednosti",
-      "DOVEDNOSTI",
-      "apm"
-    ]
+    "err.not_found": "[apm] Nebyla nalezena žádná dovednost odpovídající '{name}'."
   },
   "de": {
     "help_text": "  :skills apm list                    Skills aus APM apm_modules/ auflisten\n  :skills apm use <name|#>            Einen APM-Skill laden und aktivieren\n  :skills apm dir [path]              APM-Projektstamm anzeigen oder setzen",
@@ -82,14 +61,7 @@
     "err.load_failed": "[apm] Skill konnte nicht geladen werden: {err}",
     "err.dir_not_found": "[apm] Verzeichnis nicht gefunden: {path}",
     "err.unknown_subcommand": "[apm] Unbekannter Unterbefehl: {cmd}",
-    "err.not_found": "[apm] Keine Fähigkeit gefunden, die mit „{name}“ übereinstimmt.",
-    "x_search_terms": [
-      "Fähigkeiten apm",
-      "skills_apm",
-      "Fähigkeiten",
-      "FÄHIGKEITEN",
-      "apm"
-    ]
+    "err.not_found": "[apm] Keine Fähigkeit gefunden, die mit „{name}“ übereinstimmt."
   },
   "el": {
     "help_text": "  :skills apm list                    Λίστα skills από το APM apm_modules/\n  :skills apm use <name|#>            Φόρτωση και ενεργοποίηση APM skill\n  :skills apm dir [path]              Εμφάνιση ή ορισμός ρίζας έργου APM",
@@ -105,14 +77,7 @@
     "err.load_failed": "[apm] Αποτυχία φόρτωσης δεξιότητας: {err}",
     "err.dir_not_found": "[apm] Ο κατάλογος δεν βρέθηκε: {path}",
     "err.unknown_subcommand": "[apm] Άγνωστη υποεντολή: {cmd}",
-    "err.not_found": "[apm] Δεν βρέθηκε δεξιότητα που να ταιριάζει με το '{name}'.",
-    "x_search_terms": [
-      "δεξιότητες apm",
-      "skills_apm",
-      "δεξιότητες",
-      "ΔΕΞΙΟΤΗΤΕΣ",
-      "apm"
-    ]
+    "err.not_found": "[apm] Δεν βρέθηκε δεξιότητα που να ταιριάζει με το '{name}'."
   },
   "es": {
     "help_text": "  :skills apm list                    Listar skills de APM apm_modules/\n  :skills apm use <name|#>            Cargar y activar una skill de APM\n  :skills apm dir [path]              Mostrar o establecer la raíz del proyecto APM",
@@ -128,14 +93,7 @@
     "err.load_failed": "[apm] No se pudo cargar la habilidad: {err}",
     "err.dir_not_found": "[apm] Directorio no encontrado: {path}",
     "err.unknown_subcommand": "[apm] Subcomando desconocido: {cmd}",
-    "err.not_found": "[apm] No se encontró ninguna habilidad que coincida con '{name}'.",
-    "x_search_terms": [
-      "habilidades apm",
-      "habilidades_apm",
-      "habilidades",
-      "HABILIDADES",
-      "apm"
-    ]
+    "err.not_found": "[apm] No se encontró ninguna habilidad que coincida con '{name}'."
   },
   "fa": {
     "help_text": "  :skills apm list                    فهرست skillها از APM apm_modules/\n  :skills apm use <name|#>            بارگذاری و فعال‌سازی یک skill در APM\n  :skills apm dir [path]              نمایش یا تنظیم ریشه پروژه APM",
@@ -151,14 +109,7 @@
     "err.load_failed": "[apm] مهارت بارگیری نشد: {err}",
     "err.dir_not_found": "[apm] دایرکتوری پیدا نشد: {path}",
     "err.unknown_subcommand": "[apm] فرمان فرعی ناشناخته: {cmd}",
-    "err.not_found": "[apm] هیچ مهارتی مطابق با «{name}» یافت نشد.",
-    "x_search_terms": [
-      "مهارت‌های apm",
-      "skills_apm",
-      "مهارت‌ها",
-      "مهارت‌ها",
-      "در دقیقه"
-    ]
+    "err.not_found": "[apm] هیچ مهارتی مطابق با «{name}» یافت نشد."
   },
   "fi": {
     "help_text": "  :skills apm list                    Listaa skillit APM apm_modules/ -hakemistosta\n  :skills apm use <name|#>            Lataa ja aktivoi APM-skill\n  :skills apm dir [path]              Näytä tai aseta APM-projektin juuri",
@@ -174,14 +125,7 @@
     "err.load_failed": "[apm] Taidon lataaminen epäonnistui: {err}",
     "err.dir_not_found": "[apm] Hakemistoa ei löydy: {path}",
     "err.unknown_subcommand": "[apm] Tuntematon alakomento: {cmd}",
-    "err.not_found": "[apm] Ei löytynyt taitoa, joka vastaa '{name}'.",
-    "x_search_terms": [
-      "taidot apm",
-      "skills_apm",
-      "taidot",
-      "TAIDOT",
-      "apm"
-    ]
+    "err.not_found": "[apm] Ei löytynyt taitoa, joka vastaa '{name}'."
   },
   "fr": {
     "help_text": "  :skills apm list                    Lister les skills depuis APM apm_modules/\n  :skills apm use <name|#>            Charger et activer une skill APM\n  :skills apm dir [path]              Afficher ou définir la racine du projet APM",
@@ -197,14 +141,7 @@
     "err.load_failed": "[apm] Échec du chargement de la compétence : {err}",
     "err.dir_not_found": "[apm] Répertoire introuvable : {path}",
     "err.unknown_subcommand": "[apm] Sous-commande inconnue : {cmd}",
-    "err.not_found": "[apm] Aucune compétence correspondant à « {name} » trouvée.",
-    "x_search_terms": [
-      "compétences apm",
-      "compétences_apm",
-      "compétences",
-      "COMPÉTENCES",
-      "apm"
-    ]
+    "err.not_found": "[apm] Aucune compétence correspondant à « {name} » trouvée."
   },
   "he": {
     "help_text": "  :skills apm list                    הצגת skills מתוך APM apm_modules/\n  :skills apm use <name|#>            טעינה והפעלה של APM skill\n  :skills apm dir [path]              הצגה או הגדרה של שורש פרויקט APM",
@@ -220,14 +157,7 @@
     "err.load_failed": "[apm] טעינת המיומנות נכשלה: {err}",
     "err.dir_not_found": "[apm] ספרייה לא נמצאה: {path}",
     "err.unknown_subcommand": "[apm] פקודת משנה לא ידועה: {cmd}",
-    "err.not_found": "[apm] לא נמצאו כישורים התואמים '{name}'.",
-    "x_search_terms": [
-      "מיומנויות apm",
-      "skills_apm",
-      "מיומנויות",
-      "מיומנויות",
-      "לדקה"
-    ]
+    "err.not_found": "[apm] לא נמצאו כישורים התואמים '{name}'."
   },
   "hi": {
     "help_text": "  :skills apm list                    APM apm_modules/ से skill सूची दिखाएँ\n  :skills apm use <name|#>            APM skill लोड और सक्रिय करें\n  :skills apm dir [path]              APM project root दिखाएँ या सेट करें",
@@ -243,14 +173,7 @@
     "err.load_failed": "[एपीएम] कौशल लोड करने में विफल: {err}",
     "err.dir_not_found": "[एपीएम] निर्देशिका नहीं मिली: {path}",
     "err.unknown_subcommand": "[एपीएम] अज्ञात उपकमांड: {cmd}",
-    "err.not_found": "[एपीएम] '{name}' से मेल खाता कोई कौशल नहीं मिला।",
-    "x_search_terms": [
-      "कौशल apm",
-      "skills_apm",
-      "कौशल",
-      "कौशल",
-      "एपीएम"
-    ]
+    "err.not_found": "[एपीएम] '{name}' से मेल खाता कोई कौशल नहीं मिला।"
   },
   "hu": {
     "help_text": "  :skills apm list                    Skillek listázása az APM apm_modules/ könyvtárból\n  :skills apm use <name|#>            APM-skill betöltése és aktiválása\n  :skills apm dir [path]              Az APM projektgyökér megjelenítése vagy beállítása",
@@ -266,14 +189,7 @@
     "err.load_failed": "[apm] Nem sikerült betölteni a készségeket: {err}",
     "err.dir_not_found": "[apm] A könyvtár nem található: {path}",
     "err.unknown_subcommand": "[apm] Ismeretlen alparancs: {cmd}",
-    "err.not_found": "[apm] Nem található a '{name}' készségnek megfelelő készség.",
-    "x_search_terms": [
-      "készségek apm",
-      "skills_apm",
-      "készségek",
-      "KÉSZSÉGEK",
-      "apm"
-    ]
+    "err.not_found": "[apm] Nem található a '{name}' készségnek megfelelő készség."
   },
   "id": {
     "help_text": "  :skills apm list                    Daftar skill dari APM apm_modules/\n  :skills apm use <name|#>            Muat dan aktifkan skill APM\n  :skills apm dir [path]              Tampilkan atau atur root proyek APM",
@@ -289,14 +205,7 @@
     "err.load_failed": "[apm] Gagal memuat keterampilan: {err}",
     "err.dir_not_found": "[apm] Direktori tidak ditemukan: {path}",
     "err.unknown_subcommand": "[apm] Subperintah tidak dikenal: {cmd}",
-    "err.not_found": "[apm] Tidak ditemukan keahlian yang cocok dengan '{name}'.",
-    "x_search_terms": [
-      "keterampilan apm",
-      "keterampilan_apm",
-      "keterampilan",
-      "KETERAMPILAN",
-      "sore"
-    ]
+    "err.not_found": "[apm] Tidak ditemukan keahlian yang cocok dengan '{name}'."
   },
   "it": {
     "help_text": "  :skills apm list                    Elenca le skill da APM apm_modules/\n  :skills apm use <name|#>            Carica e attiva una skill APM\n  :skills apm dir [path]              Mostra o imposta la radice del progetto APM",
@@ -312,14 +221,7 @@
     "err.load_failed": "[apm] Impossibile caricare la competenza: {err}",
     "err.dir_not_found": "[apm] Directory non trovata: {path}",
     "err.unknown_subcommand": "[apm] Sottocomando sconosciuto: {cmd}",
-    "err.not_found": "[apm] Nessuna competenza corrispondente a '{name}' trovata.",
-    "x_search_terms": [
-      "competenze apm",
-      "competenze_apm",
-      "competenze",
-      "COMPETENZE",
-      "apm"
-    ]
+    "err.not_found": "[apm] Nessuna competenza corrispondente a '{name}' trovata."
   },
   "ja": {
     "help_text": "  :skills apm list                    APM apm_modules/ の skill を一覧表示\n  :skills apm use <name|#>            APM skill を読み込んで有効化\n  :skills apm dir [path]              APM プロジェクトルートを表示または設定",
@@ -335,14 +237,7 @@
     "err.load_failed": "[apm] スキルのロードに失敗しました: {err}",
     "err.dir_not_found": "[apm] ディレクトリが見つかりません: {path}",
     "err.unknown_subcommand": "[apm] 不明なサブコマンド: {cmd}",
-    "err.not_found": "[apm] 「{name}」に一致するスキルが見つかりませんでした。",
-    "x_search_terms": [
-      "スキルapm",
-      "スキル_apm",
-      "スキル",
-      "スキル",
-      "毎分"
-    ]
+    "err.not_found": "[apm] 「{name}」に一致するスキルが見つかりませんでした。"
   },
   "ko": {
     "help_text": "  :skills apm list                    APM apm_modules/의 skill 목록 표시\n  :skills apm use <name|#>            APM skill 로드 및 활성화\n  :skills apm dir [path]              APM 프로젝트 루트 표시 또는 설정",
@@ -358,14 +253,7 @@
     "err.load_failed": "[apm] 스킬 로드 실패: {err}",
     "err.dir_not_found": "[apm] 디렉터리를 찾을 수 없습니다: {path}",
     "err.unknown_subcommand": "[apm] 알 수 없는 하위 명령: {cmd}",
-    "err.not_found": "[apm] '{name}'과 일치하는 스킬이 없습니다.",
-    "x_search_terms": [
-      "스킬 APM",
-      "기술_apm",
-      "기술",
-      "기술",
-      "오전"
-    ]
+    "err.not_found": "[apm] '{name}'과 일치하는 스킬이 없습니다."
   },
   "mn": {
     "help_text": "  :skills apm list                    APM apm_modules/ доторх skill-үүдийг жагсаах\n  :skills apm use <name|#>            APM skill ачаалж идэвхжүүлэх\n  :skills apm dir [path]              APM төслийн root-г харах эсвэл тохируулах",
@@ -381,14 +269,7 @@
     "err.load_failed": "[apm] Ур чадварыг ачаалж чадсангүй: {err}",
     "err.dir_not_found": "[apm] Лавлах олдсонгүй: {path}",
     "err.unknown_subcommand": "[apm] Үл мэдэгдэх дэд команд: {cmd}",
-    "err.not_found": "[apm] '{name}'-д тохирох ур чадвар олдсонгүй.",
-    "x_search_terms": [
-      "чадвар апм",
-      "skills_apm",
-      "чадвар",
-      "чадвар",
-      "апм"
-    ]
+    "err.not_found": "[apm] '{name}'-д тохирох ур чадвар олдсонгүй."
   },
   "mr": {
     "help_text": "  :skills apm list                    APM apm_modules/ मधील skill सूची दाखवा\n  :skills apm use <name|#>            APM skill लोड करून सक्रिय करा\n  :skills apm dir [path]              APM project root दाखवा किंवा सेट करा",
@@ -404,14 +285,7 @@
     "err.load_failed": "[apm] कौशल्य लोड करण्यात अयशस्वी: {err}",
     "err.dir_not_found": "[apm] निर्देशिका सापडली नाही: {path}",
     "err.unknown_subcommand": "[apm] अज्ञात उपकमांड: {cmd}",
-    "err.not_found": "[apm] '{name}' शी जुळणारे कोणतेही कौशल्य आढळले नाही.",
-    "x_search_terms": [
-      "कौशल्ये apm",
-      "skills_apm",
-      "कौशल्ये",
-      "कौशल्ये",
-      "एपीएम"
-    ]
+    "err.not_found": "[apm] '{name}' शी जुळणारे कोणतेही कौशल्य आढळले नाही."
   },
   "nb": {
     "help_text": "  :skills apm list                    List skills fra APM apm_modules/\n  :skills apm use <name|#>            Last inn og aktiver en APM-skill\n  :skills apm dir [path]              Vis eller angi APM-prosjektroten",
@@ -427,14 +301,7 @@
     "err.load_failed": "[apm] Kunne ikke laste ferdighet: {err}",
     "err.dir_not_found": "[apm] Katalog ikke funnet: {path}",
     "err.unknown_subcommand": "[apm] Ukjent underkommando: {cmd}",
-    "err.not_found": "[apm] Ingen ferdigheter som samsvarer med '{name}' funnet.",
-    "x_search_terms": [
-      "ferdigheter apm",
-      "skills_apm",
-      "ferdigheter",
-      "FERDIGHETER",
-      "apm"
-    ]
+    "err.not_found": "[apm] Ingen ferdigheter som samsvarer med '{name}' funnet."
   },
   "nl": {
     "help_text": "  :skills apm list                    Skills uit APM apm_modules/ weergeven\n  :skills apm use <name|#>            Een APM-skill laden en activeren\n  :skills apm dir [path]              De APM-projectroot tonen of instellen",
@@ -450,14 +317,7 @@
     "err.load_failed": "[apm] Kan vaardigheid niet laden: {err}",
     "err.dir_not_found": "[apm] Directory niet gevonden: {path}",
     "err.unknown_subcommand": "[apm] Onbekend subcommando: {cmd}",
-    "err.not_found": "[apm] Geen vaardigheid die overeenkomt met '{name}' gevonden.",
-    "x_search_terms": [
-      "vaardigheden apm",
-      "skills_apm",
-      "vaardigheden",
-      "VAARDIGHEDEN",
-      "apm"
-    ]
+    "err.not_found": "[apm] Geen vaardigheid die overeenkomt met '{name}' gevonden."
   },
   "pl": {
     "help_text": "  :skills apm list                    Wyświetl skills z APM apm_modules/\n  :skills apm use <name|#>            Wczytaj i aktywuj skill APM\n  :skills apm dir [path]              Pokaż lub ustaw katalog główny projektu APM",
@@ -473,14 +333,7 @@
     "err.load_failed": "[apm] Nie udało się załadować umiejętności: {err}",
     "err.dir_not_found": "[apm] Nie znaleziono katalogu: {path}",
     "err.unknown_subcommand": "[apm] Nieznana komenda: {cmd}",
-    "err.not_found": "[apm] Nie znaleziono umiejętności pasującej do „{name}”.",
-    "x_search_terms": [
-      "umiejętności apm",
-      "umiejętności_apm",
-      "umiejętności",
-      "UMIEJĘTNOŚCI",
-      "ok. godz"
-    ]
+    "err.not_found": "[apm] Nie znaleziono umiejętności pasującej do „{name}”."
   },
   "pt": {
     "help_text": "  :skills apm list                    Listar skills de APM apm_modules/\n  :skills apm use <name|#>            Carregar e ativar uma skill APM\n  :skills apm dir [path]              Mostrar ou definir a raiz do projeto APM",
@@ -496,14 +349,7 @@
     "err.load_failed": "[apm] Falha ao carregar habilidade: {err}",
     "err.dir_not_found": "[apm] Diretório não encontrado: {path}",
     "err.unknown_subcommand": "[apm] Subcomando desconhecido: {cmd}",
-    "err.not_found": "[apm] Nenhuma habilidade correspondente a '{name}' encontrada.",
-    "x_search_terms": [
-      "competências apm",
-      "skills_apm",
-      "competências",
-      "COMPETÊNCIAS",
-      "apm"
-    ]
+    "err.not_found": "[apm] Nenhuma habilidade correspondente a '{name}' encontrada."
   },
   "pt_BR": {
     "help_text": "  :skills apm list                    Listar skills de APM apm_modules/\n  :skills apm use <name|#>            Carregar e ativar uma skill APM\n  :skills apm dir [path]              Mostrar ou definir a raiz do projeto APM",
@@ -519,14 +365,7 @@
     "err.load_failed": "[apm] Falha ao carregar habilidade: {err}",
     "err.dir_not_found": "[apm] Diretório não encontrado: {path}",
     "err.unknown_subcommand": "[apm] Subcomando desconhecido: {cmd}",
-    "err.not_found": "[apm] Nenhuma habilidade correspondente a '{name}' encontrada.",
-    "x_search_terms": [
-      "habilidades apm",
-      "habilidades_apm",
-      "habilidades",
-      "HABILIDADES",
-      "horas da tarde"
-    ]
+    "err.not_found": "[apm] Nenhuma habilidade correspondente a '{name}' encontrada."
   },
   "ro": {
     "help_text": "  :skills apm list                    Listează skill-urile din APM apm_modules/\n  :skills apm use <name|#>            Încarcă și activează un skill APM\n  :skills apm dir [path]              Afișează sau setează rădăcina proiectului APM",
@@ -542,14 +381,7 @@
     "err.load_failed": "[apm] Nu s-a încărcat competența: {err}",
     "err.dir_not_found": "[apm] Director nu a fost găsit: {path}",
     "err.unknown_subcommand": "[apm] Subcomandă necunoscută: {cmd}",
-    "err.not_found": "[apm] Nu s-a găsit nicio abilitate care să se potrivească cu „{name}”.",
-    "x_search_terms": [
-      "abilități apm",
-      "skills_apm",
-      "abilități",
-      "ABILITĂȚI",
-      "apm"
-    ]
+    "err.not_found": "[apm] Nu s-a găsit nicio abilitate care să se potrivească cu „{name}”."
   },
   "ru": {
     "help_text": "  :skills apm list                    Показать skills из APM apm_modules/\n  :skills apm use <name|#>            Загрузить и активировать APM skill\n  :skills apm dir [path]              Показать или задать корень проекта APM",
@@ -565,14 +397,7 @@
     "err.load_failed": "[apm] Не удалось загрузить навык: {err}",
     "err.dir_not_found": "[apm] Каталог не найден: {path}",
     "err.unknown_subcommand": "[apm] Неизвестная подкоманда: {cmd}",
-    "err.not_found": "[apm] Не найдено навыков, соответствующих '{name}'.",
-    "x_search_terms": [
-      "навыки apm",
-      "skills_apm",
-      "навыки",
-      "НАВЫКИ",
-      "апм"
-    ]
+    "err.not_found": "[apm] Не найдено навыков, соответствующих '{name}'."
   },
   "sv": {
     "help_text": "  :skills apm list                    Lista skills från APM apm_modules/\n  :skills apm use <name|#>            Ladda och aktivera en APM-skill\n  :skills apm dir [path]              Visa eller ange APM-projektroten",
@@ -588,14 +413,7 @@
     "err.load_failed": "[apm] Det gick inte att ladda färdighet: {err}",
     "err.dir_not_found": "[apm] Katalogen hittades inte: {path}",
     "err.unknown_subcommand": "[apm] Okänt underkommando: {cmd}",
-    "err.not_found": "[apm] Inga färdigheter som matchar '{name}' hittades.",
-    "x_search_terms": [
-      "färdigheter apm",
-      "skills_apm",
-      "färdigheter",
-      "FÄRDIGHETER",
-      "apm"
-    ]
+    "err.not_found": "[apm] Inga färdigheter som matchar '{name}' hittades."
   },
   "sw": {
     "help_text": "  :skills apm list                    Orodhesha skill kutoka APM apm_modules/\n  :skills apm use <name|#>            Pakia na uwashe skill ya APM\n  :skills apm dir [path]              Onyesha au weka mzizi wa mradi wa APM",
@@ -611,14 +429,7 @@
     "err.load_failed": "[apm] Imeshindwa kupakia ujuzi: {err}",
     "err.dir_not_found": "[apm] Saraka haijapatikana: {path}",
     "err.unknown_subcommand": "[apm] Amri ndogo isiyojulikana: {cmd}",
-    "err.not_found": "[apm] Hakuna ujuzi unaolingana na '{name}' uliopatikana.",
-    "x_search_terms": [
-      "ujuzi apm",
-      "skills_apm",
-      "ujuzi",
-      "UJUZI",
-      "apm"
-    ]
+    "err.not_found": "[apm] Hakuna ujuzi unaolingana na '{name}' uliopatikana."
   },
   "th": {
     "help_text": "  :skills apm list                    แสดงรายการ skill จาก APM apm_modules/\n  :skills apm use <name|#>            โหลดและเปิดใช้งาน APM skill\n  :skills apm dir [path]              แสดงหรือตั้งค่า root ของโปรเจ็กต์ APM",
@@ -634,14 +445,7 @@
     "err.load_failed": "[apm] ไม่สามารถโหลดทักษะ: {err}",
     "err.dir_not_found": "[apm] ไม่พบไดเรกทอรี: {path}",
     "err.unknown_subcommand": "[apm] คำสั่งย่อยที่ไม่รู้จัก: {cmd}",
-    "err.not_found": "[apm] ไม่พบทักษะที่ตรงกับ '{name}'",
-    "x_search_terms": [
-      "ทักษะ apm",
-      "skills_apm",
-      "ทักษะ",
-      "ทักษะ",
-      "ต่อนาที"
-    ]
+    "err.not_found": "[apm] ไม่พบทักษะที่ตรงกับ '{name}'"
   },
   "tr": {
     "help_text": "  :skills apm list                    APM apm_modules/ içindeki skill'leri listele\n  :skills apm use <name|#>            Bir APM skill yükle ve etkinleştir\n  :skills apm dir [path]              APM proje kökünü göster veya ayarla",
@@ -657,14 +461,7 @@
     "err.load_failed": "[apm] Beceri yüklenemedi: {err}",
     "err.dir_not_found": "[apm] Dizin bulunamadı: {path}",
     "err.unknown_subcommand": "[apm] Bilinmeyen alt komut: {cmd}",
-    "err.not_found": "[apm] '{name}' ile eşleşen beceri bulunamadı.",
-    "x_search_terms": [
-      "beceriler apm",
-      "skills_apm",
-      "beceriler",
-      "BECERİLER",
-      "apm"
-    ]
+    "err.not_found": "[apm] '{name}' ile eşleşen beceri bulunamadı."
   },
   "uk": {
     "help_text": "  :skills apm list                    Показати skills з APM apm_modules/\n  :skills apm use <name|#>            Завантажити й активувати APM skill\n  :skills apm dir [path]              Показати або встановити корінь проєкту APM",
@@ -680,14 +477,7 @@
     "err.load_failed": "[apm] Не вдалося завантажити навик: {err}",
     "err.dir_not_found": "[apm] Каталог не знайдено: {path}",
     "err.unknown_subcommand": "[apm] Невідома підкоманда: {cmd}",
-    "err.not_found": "[apm] Не знайдено навичок, що відповідають \"{name}\".",
-    "x_search_terms": [
-      "навички apm",
-      "skills_apm",
-      "навички",
-      "НАВИЧКИ",
-      "апм"
-    ]
+    "err.not_found": "[apm] Не знайдено навичок, що відповідають \"{name}\"."
   },
   "vi": {
     "help_text": "  :skills apm list                    Liệt kê skill từ APM apm_modules/\n  :skills apm use <name|#>            Tải và kích hoạt một APM skill\n  :skills apm dir [path]              Hiển thị hoặc đặt root dự án APM",
@@ -703,14 +493,7 @@
     "err.load_failed": "[apm] Không tải được kỹ năng: {err}",
     "err.dir_not_found": "[apm] Không tìm thấy thư mục: {path}",
     "err.unknown_subcommand": "[apm] Lệnh phụ không xác định: {cmd}",
-    "err.not_found": "[apm] Không tìm thấy kỹ năng nào phù hợp với '{name}'.",
-    "x_search_terms": [
-      "kỹ năng apm",
-      "kỹ năng_apm",
-      "kỹ năng",
-      "KỸ NĂNG",
-      "buổi chiều"
-    ]
+    "err.not_found": "[apm] Không tìm thấy kỹ năng nào phù hợp với '{name}'."
   },
   "zh_CN": {
     "help_text": "  :skills apm list                    列出 APM apm_modules/ 中的 skill\n  :skills apm use <name|#>            加载并启用 APM skill\n  :skills apm dir [path]              显示或设置 APM 项目根目录",
@@ -726,14 +509,7 @@
     "err.load_failed": "[apm] 加载技能失败：{err}",
     "err.dir_not_found": "[apm] 未找到目录：{path}",
     "err.unknown_subcommand": "[apm] 未知子命令：{cmd}",
-    "err.not_found": "[apm] 找不到与“{name}”匹配的技能。",
-    "x_search_terms": [
-      "技能 apm",
-      "skills_apm",
-      "技能",
-      "技能",
-      "每分钟"
-    ]
+    "err.not_found": "[apm] 找不到与“{name}”匹配的技能。"
   },
   "zh_TW": {
     "help_text": "  :skills apm list                    列出 APM apm_modules/ 中的 skill\n  :skills apm use <name|#>            載入並啟用 APM skill\n  :skills apm dir [path]              顯示或設定 APM 專案根目錄",
@@ -749,14 +525,7 @@
     "err.load_failed": "[apm] 載入技能失敗：{err}",
     "err.dir_not_found": "[apm] 找不到目錄：{path}",
     "err.unknown_subcommand": "[apm] 未知子指令：{cmd}",
-    "err.not_found": "[apm] 找不到與「{name}」相符的技能。",
-    "x_search_terms": [
-      "技能 apm",
-      "skills_apm",
-      "技能",
-      "技能",
-      "每分鐘"
-    ]
+    "err.not_found": "[apm] 找不到與「{name}」相符的技能。"
   },
   "fil": {
     "help_text": "  :skills apm list                    Ilista ang mga skill mula sa APM apm_modules/\n  :skills apm use <name|#>            I-load at i-activate ang APM skill\n  :skills apm dir [path]              Ipakita o itakda ang APM project root",
@@ -772,14 +541,7 @@
     "err.load_failed": "[apm] Nabigong i-load ang kasanayan: {err}",
     "err.dir_not_found": "[apm] Hindi nahanap ang direktoryo: {path}",
     "err.unknown_subcommand": "[apm] Hindi kilalang subcommand: {cmd}",
-    "err.not_found": "[apm] Walang nakitang skill na tumutugma sa '{name}'.",
-    "x_search_terms": [
-      "kasanayan apm",
-      "skills_apm",
-      "skills",
-      "SKILLS",
-      "apm"
-    ]
+    "err.not_found": "[apm] Walang nakitang skill na tumutugma sa '{name}'."
   },
   "ms": {
     "help_text": "  :skills apm list                    Senaraikan skill daripada APM apm_modules/\n  :skills apm use <name|#>            Muatkan dan aktifkan skill APM\n  :skills apm dir [path]              Tunjukkan atau tetapkan akar projek APM",
@@ -795,14 +557,7 @@
     "err.load_failed": "[apm] Gagal memuatkan kemahiran: {err}",
     "err.dir_not_found": "[apm] Direktori tidak ditemui: {path}",
     "err.unknown_subcommand": "[apm] Subperintah tidak diketahui: {cmd}",
-    "err.not_found": "[apm] Tiada kemahiran yang sepadan dengan '{name}' ditemui.",
-    "x_search_terms": [
-      "kemahiran apm",
-      "kemahiran_apm",
-      "kemahiran",
-      "KEMAHIRAN",
-      "apm"
-    ]
+    "err.not_found": "[apm] Tiada kemahiran yang sepadan dengan '{name}' ditemui."
   },
   "da": {
     "help_text": "  :skills apm list                    Vis skills fra APM apm_modules/\n  :skills apm use <name|#>            Indlæs og aktivér en APM-skill\n  :skills apm dir [path]              Vis eller angiv APM-projektroden",
@@ -818,14 +573,7 @@
     "err.load_failed": "[apm] Kunne ikke indlæse færdighed: {err}",
     "err.dir_not_found": "[apm] Directory ikke fundet: {path}",
     "err.unknown_subcommand": "[apm] Ukendt underkommando: {cmd}",
-    "err.not_found": "[apm] Der blev ikke fundet nogen færdigheder, der matcher '{name}'.",
-    "x_search_terms": [
-      "færdigheder apm",
-      "skills_apm",
-      "skills",
-      "SKILLS",
-      "apm"
-    ]
+    "err.not_found": "[apm] Der blev ikke fundet nogen færdigheder, der matcher '{name}'."
   },
   "nn": {
     "help_text": "  :skills apm list                    List skills frå APM apm_modules/\n  :skills apm use <name|#>            Last inn og aktiver ein APM-skill\n  :skills apm dir [path]              Vis eller set APM-prosjektrota",
@@ -841,13 +589,6 @@
     "err.load_failed": "[apm] Kunne ikke laste ferdighet: {err}",
     "err.dir_not_found": "[apm] Katalog ikkje funnen: {path}",
     "err.unknown_subcommand": "[apm] Ukjend underkommando: {cmd}",
-    "err.not_found": "[apm] Ingen ferdigheter som samsvarer med '{name}' funnet.",
-    "x_search_terms": [
-      "ferdigheter apm",
-      "skills_apm",
-      "skills",
-      "SKILLS",
-      "apm"
-    ]
+    "err.not_found": "[apm] Ingen ferdigheter som samsvarer med '{name}' funnet."
   }
 }
