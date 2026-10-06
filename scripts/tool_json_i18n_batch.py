@@ -637,6 +637,24 @@ def _pip_install_protect_terms(texts: list[str]) -> list[str]:
     return terms
 
 
+def _scope_pip_install_groups(indices: list[int], texts: list[str]) -> list[list[int]]:
+    """Keep pip-install source texts isolated from unrelated batch neighbors."""
+    normal: list[int] = []
+    protected: list[list[int]] = []
+
+    for index in indices:
+        if PIP_INSTALL_COMMAND_RE.search(texts[index]):
+            protected.append([index])
+        else:
+            normal.append(index)
+
+    groups: list[list[int]] = []
+    if normal:
+        groups.append(normal)
+    groups.extend(protected)
+    return groups
+
+
 def _import_translate_run_tool():
     # Prefer in-repo tool module.
     sys.path.insert(0, str(ROOT / "src"))
@@ -780,14 +798,15 @@ def translate_lang(
             return left + right
 
     for bi, idxs in enumerate(batches, 1):
-        batch_texts = [texts[i] for i in idxs]
-        translated = _translate_with_fallback(batch_texts)
-        if len(translated) != len(batch_texts):
-            raise RuntimeError(
-                f"batch {bi}: fallback produced {len(translated)} != {len(batch_texts)}"
-            )
-        for i, tr in zip(idxs, translated):
-            out[i] = str(tr)
+        for scoped_idxs in _scope_pip_install_groups(idxs, texts):
+            batch_texts = [texts[i] for i in scoped_idxs]
+            translated = _translate_with_fallback(batch_texts)
+            if len(translated) != len(batch_texts):
+                raise RuntimeError(
+                    f"batch {bi}: fallback produced {len(translated)} != {len(batch_texts)}"
+                )
+            for i, tr in zip(scoped_idxs, translated):
+                out[i] = str(tr)
         print(f"  batch {bi}/{len(batches)}: {len(idxs)} items")
         if sleep_s > 0 and bi < len(batches):
             time.sleep(sleep_s)
