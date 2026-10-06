@@ -64,7 +64,17 @@
     "geo.channels_header": "現在地周辺で利用可能な Geohash チャンネル:",
     "geo.channel_entry": "  #%(geohash)s（精度 %(precision)d、%(accuracy)s）",
     "geo.mesh_channel": "  #mesh     （グローバルなローカル mesh チャンネル）",
-    "geo.join_hint": "\nチャンネルに参加するには実行: :bitchat geo join <geohash>（例: :bitchat geo join #%(geohash)s）"
+    "geo.join_hint": "\nチャンネルに参加するには実行: :bitchat geo join <geohash>（例: :bitchat geo join #%(geohash)s）",
+    "help.start": "BLE Mesh ノードを開始",
+    "help.stop": "BLE Mesh ノードを停止",
+    "help.on": "チャットモードを有効化（ユーザー入力を mesh に転送）",
+    "help.off": "チャットモードを無効化",
+    "help.status": "ノードとチャットモードの状態を表示",
+    "help.llm": "LLM 注入付きチャットモードを有効化（peer メッセージを LLM に送信）",
+    "help.geo_join": "geohash チャンネルに参加（引数なしなら候補を表示）",
+    "help.geo_leave": "geohash チャンネルから退出",
+    "help.geo_list": "有効な geo チャンネルを一覧表示",
+    "help.peers": "検出された Nostr bitchat peer を一覧表示"
   },
   "fil": {
     "tool.description": "Simulan/ihinto/subaybayan ang pybitchat BLE Mesh node. Ang mga kaganapan sa pagtuklas ng peer ay ipinapakita bilang mga notification ng [INFO] sa terminal.",
@@ -131,7 +141,17 @@
     "geo.channels_header": "Mga available na Geohash channel sa iyong lugar:",
     "geo.channel_entry": "  #%(geohash)s (precision %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (global na lokal na mesh channel)",
-    "geo.join_hint": "\nPara sumali sa channel, patakbuhin: :bitchat geo join <geohash> (hal. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPara sumali sa channel, patakbuhin: :bitchat geo join <geohash> (hal. :bitchat geo join #%(geohash)s)",
+    "help.start": "Simulan ang BLE Mesh node",
+    "help.stop": "Ihinto ang BLE Mesh node",
+    "help.on": "Paganahin ang chat mode (ipapasa ang input ng user sa mesh)",
+    "help.off": "I-disable ang chat mode",
+    "help.status": "Ipakita ang estado ng node at chat mode",
+    "help.llm": "Paganahin ang chat mode na may LLM injection (ipapadala sa LLM ang peer messages)",
+    "help.geo_join": "Sumali sa geohash channel (nagpapakita ng mga pagpipilian kapag walang argumento)",
+    "help.geo_leave": "Umalis sa geohash channel",
+    "help.geo_list": "Ilista ang mga aktibong geo channel",
+    "help.peers": "Ilista ang mga natuklasang Nostr bitchat peer"
   },
   "ms": {
     "tool.description": "Mulakan/hentikan/pantau nod BLE Mesh pybitchat. Peristiwa penemuan rakan sebaya ditunjukkan sebagai pemberitahuan [INFO] dalam terminal.",
@@ -198,7 +218,17 @@
     "geo.channels_header": "Saluran Geohash yang tersedia di kawasan anda:",
     "geo.channel_entry": "  #%(geohash)s (ketepatan %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (saluran mesh tempatan global)",
-    "geo.join_hint": "\nUntuk menyertai saluran, jalankan: :bitchat geo join <geohash> (cth. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nUntuk menyertai saluran, jalankan: :bitchat geo join <geohash> (cth. :bitchat geo join #%(geohash)s)",
+    "help.start": "Mulakan nod BLE Mesh",
+    "help.stop": "Hentikan nod BLE Mesh",
+    "help.on": "Dayakan mod sembang (input pengguna dimajukan ke mesh)",
+    "help.off": "Lumpuhkan mod sembang",
+    "help.status": "Tunjukkan status nod dan mod sembang",
+    "help.llm": "Dayakan mod sembang dengan suntikan LLM (mesej peer dihantar ke LLM)",
+    "help.geo_join": "Sertai saluran geohash (memaparkan calon jika tiada argumen)",
+    "help.geo_leave": "Tinggalkan saluran geohash",
+    "help.geo_list": "Senaraikan saluran geo aktif",
+    "help.peers": "Senaraikan peer Nostr bitchat yang ditemui"
   },
   "da": {
     "tool.description": "Start/stop/overvåg pybitchat BLE Mesh-noden. Peer-opdagelseshændelser vises som [INFO]-meddelelser i terminalen.",
@@ -265,7 +295,17 @@
     "geo.channels_header": "Tilgængelige Geohash-kanaler i dit område:",
     "geo.channel_entry": "  #%(geohash)s (præcision %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
-    "geo.join_hint": "\nFor at deltage i en kanal skal du køre: :bitchat geo join <geohash> (f.eks. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nFor at deltage i en kanal skal du køre: :bitchat geo join <geohash> (f.eks. :bitchat geo join #%(geohash)s)",
+    "help.start": "Start BLE Mesh-noden",
+    "help.stop": "Stop BLE Mesh-noden",
+    "help.on": "Aktivér chattilstand (brugerinput videresendes til mesh)",
+    "help.off": "Deaktivér chattilstand",
+    "help.status": "Vis status for node og chattilstand",
+    "help.llm": "Aktivér chattilstand med LLM-injektion (peer-beskeder sendes til LLM)",
+    "help.geo_join": "Deltag i geohash-kanal (viser kandidater uden argumenter)",
+    "help.geo_leave": "Forlad en geohash-kanal",
+    "help.geo_list": "Vis aktive geo-kanaler",
+    "help.peers": "Vis fundne Nostr bitchat-peers"
   },
   "nn": {
     "tool.description": "Start/stopp/overvåk pybitchat BLE Mesh-noden. Peer discovery-hendelser vises som [INFO]-varsler i terminalen.",
@@ -332,7 +372,17 @@
     "geo.channels_header": "Tilgjengelege Geohash-kanalar i området ditt:",
     "geo.channel_entry": "  #%(geohash)s (presisjon %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
-    "geo.join_hint": "\nFor å bli med i ein kanal, køyr: :bitchat geo join <geohash> (t.d. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nFor å bli med i ein kanal, køyr: :bitchat geo join <geohash> (t.d. :bitchat geo join #%(geohash)s)",
+    "help.start": "Start BLE Mesh-noden",
+    "help.stop": "Stopp BLE Mesh-noden",
+    "help.on": "Aktiver chat-modus (brukarinndata blir vidaresendt til mesh)",
+    "help.off": "Deaktiver chat-modus",
+    "help.status": "Vis status for node og chat-modus",
+    "help.llm": "Aktiver chat-modus med LLM-injeksjon (peer-meldingar blir sende til LLM)",
+    "help.geo_join": "Bli med i ein geohash-kanal (viser kandidatar utan argument)",
+    "help.geo_leave": "Forlat ein geohash-kanal",
+    "help.geo_list": "List aktive geo-kanalar",
+    "help.peers": "List oppdaga Nostr bitchat-peers"
   },
   "ar": {
     "tool.description": "بدء/إيقاف/مراقبة عقدة pybitchat BLE Mesh. تظهر أحداث اكتشاف النظراء كإشعارات [INFO] في الجهاز.",
@@ -399,7 +449,17 @@
     "geo.channels_header": "قنوات Geohash المتاحة في منطقتك:",
     "geo.channel_entry": "  #%(geohash)s (الدقة %(precision)d، %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (قناة mesh محلية عالمية)",
-    "geo.join_hint": "\nللانضمام إلى قناة، نفّذ: :bitchat geo join <geohash> (مثال: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nللانضمام إلى قناة، نفّذ: :bitchat geo join <geohash> (مثال: :bitchat geo join #%(geohash)s)",
+    "help.start": "بدء عقدة BLE Mesh",
+    "help.stop": "إيقاف عقدة BLE Mesh",
+    "help.on": "تمكين وضع الدردشة (يُعاد توجيه إدخال المستخدم إلى mesh)",
+    "help.off": "تعطيل وضع الدردشة",
+    "help.status": "عرض حالة العقدة ووضع الدردشة",
+    "help.llm": "تمكين وضع الدردشة مع حقن LLM (تُرسل رسائل الأقران إلى LLM)",
+    "help.geo_join": "الانضمام إلى قناة geohash (يعرض الخيارات عند عدم وجود وسائط)",
+    "help.geo_leave": "مغادرة قناة geohash",
+    "help.geo_list": "عرض قنوات geo النشطة",
+    "help.peers": "عرض أقران Nostr bitchat المكتشفين"
   },
   "bn": {
     "tool.description": "পাইবিটচ্যাট BLE মেশ নোড শুরু/বন্ধ/নিরীক্ষণ করুন। পিয়ার আবিষ্কারের ঘটনাগুলি টার্মিনালে [INFO] বিজ্ঞপ্তি হিসাবে দেখানো হয়।",
@@ -466,7 +526,17 @@
     "geo.channels_header": "আপনার এলাকায় উপলব্ধ Geohash চ্যানেল:",
     "geo.channel_entry": "  #%(geohash)s (নির্ভুলতা %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (গ্লোবাল লোকাল mesh চ্যানেল)",
-    "geo.join_hint": "\nকোনো চ্যানেলে যোগ দিতে চালান: :bitchat geo join <geohash> (যেমন: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nকোনো চ্যানেলে যোগ দিতে চালান: :bitchat geo join <geohash> (যেমন: :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh নোড শুরু করুন",
+    "help.stop": "BLE Mesh নোড বন্ধ করুন",
+    "help.on": "চ্যাট মোড চালু করুন (ব্যবহারকারীর ইনপুট mesh-এ ফরওয়ার্ড হবে)",
+    "help.off": "চ্যাট মোড বন্ধ করুন",
+    "help.status": "নোড ও চ্যাট মোডের অবস্থা দেখান",
+    "help.llm": "LLM injection সহ চ্যাট মোড চালু করুন (peer বার্তা LLM-এ পাঠানো হবে)",
+    "help.geo_join": "geohash চ্যানেলে যোগ দিন (আর্গুমেন্ট না থাকলে প্রার্থী দেখায়)",
+    "help.geo_leave": "geohash চ্যানেল ছাড়ুন",
+    "help.geo_list": "সক্রিয় geo চ্যানেল তালিকাভুক্ত করুন",
+    "help.peers": "আবিষ্কৃত Nostr bitchat peer তালিকাভুক্ত করুন"
   },
   "cs": {
     "tool.description": "Spusťte/zastavte/monitorujte uzel pybitchat BLE Mesh. Události zjišťování vrstevníků se v terminálu zobrazují jako oznámení [INFO].",
@@ -533,7 +603,17 @@
     "geo.channels_header": "Dostupné kanály Geohash ve vaší oblasti:",
     "geo.channel_entry": "  #%(geohash)s (přesnost %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (globální místní mesh kanál)",
-    "geo.join_hint": "\nPro připojení ke kanálu spusťte: :bitchat geo join <geohash> (např. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPro připojení ke kanálu spusťte: :bitchat geo join <geohash> (např. :bitchat geo join #%(geohash)s)",
+    "help.start": "Spustit uzel BLE Mesh",
+    "help.stop": "Zastavit uzel BLE Mesh",
+    "help.on": "Povolit režim chatu (vstup uživatele se předává do mesh)",
+    "help.off": "Zakázat režim chatu",
+    "help.status": "Zobrazit stav uzlu a režimu chatu",
+    "help.llm": "Povolit režim chatu s vložením do LLM (zprávy peerů se posílají do LLM)",
+    "help.geo_join": "Připojit se ke kanálu geohash (bez argumentů zobrazí kandidáty)",
+    "help.geo_leave": "Opustit kanál geohash",
+    "help.geo_list": "Vypsat aktivní geo kanály",
+    "help.peers": "Vypsat nalezené Nostr bitchat peery"
   },
   "de": {
     "tool.description": "Starten/stoppen/überwachen Sie den pybitchat BLE Mesh-Knoten. Peer-Discovery-Ereignisse werden als [INFO]-Benachrichtigungen im Terminal angezeigt.",
@@ -600,7 +680,17 @@
     "geo.channels_header": "Verfügbare Geohash-Kanäle in deiner Umgebung:",
     "geo.channel_entry": "  #%(geohash)s (Genauigkeit %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (globaler lokaler Mesh-Kanal)",
-    "geo.join_hint": "\nUm einem Kanal beizutreten, ausführen: :bitchat geo join <geohash> (z. B. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nUm einem Kanal beizutreten, ausführen: :bitchat geo join <geohash> (z. B. :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE-Mesh-Knoten starten",
+    "help.stop": "BLE-Mesh-Knoten stoppen",
+    "help.on": "Chatmodus aktivieren (Benutzereingaben werden an das Mesh weitergeleitet)",
+    "help.off": "Chatmodus deaktivieren",
+    "help.status": "Knoten- und Chatmodusstatus anzeigen",
+    "help.llm": "Chatmodus mit LLM-Injektion aktivieren (Peer-Nachrichten werden an das LLM gesendet)",
+    "help.geo_join": "Geohash-Kanal beitreten (ohne Argumente werden Kandidaten angezeigt)",
+    "help.geo_leave": "Geohash-Kanal verlassen",
+    "help.geo_list": "Aktive Geo-Kanäle auflisten",
+    "help.peers": "Entdeckte Nostr-bitchat-Peers auflisten"
   },
   "el": {
     "tool.description": "Έναρξη/διακοπή/παρακολούθηση του κόμβου pybitchat BLE Mesh. Τα συμβάντα ανακάλυψης ομοτίμων εμφανίζονται ως ειδοποιήσεις [INFO] στο τερματικό.",
@@ -667,7 +757,17 @@
     "geo.channels_header": "Διαθέσιμα κανάλια Geohash στην περιοχή σας:",
     "geo.channel_entry": "  #%(geohash)s (ακρίβεια %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (καθολικό τοπικό κανάλι mesh)",
-    "geo.join_hint": "\nΓια συμμετοχή σε κανάλι εκτελέστε: :bitchat geo join <geohash> (π.χ. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nΓια συμμετοχή σε κανάλι εκτελέστε: :bitchat geo join <geohash> (π.χ. :bitchat geo join #%(geohash)s)",
+    "help.start": "Εκκίνηση κόμβου BLE Mesh",
+    "help.stop": "Διακοπή κόμβου BLE Mesh",
+    "help.on": "Ενεργοποίηση λειτουργίας συνομιλίας (η είσοδος χρήστη προωθείται στο mesh)",
+    "help.off": "Απενεργοποίηση λειτουργίας συνομιλίας",
+    "help.status": "Εμφάνιση κατάστασης κόμβου και λειτουργίας συνομιλίας",
+    "help.llm": "Ενεργοποίηση συνομιλίας με έγχυση LLM (τα μηνύματα peer στέλνονται στο LLM)",
+    "help.geo_join": "Συμμετοχή σε κανάλι geohash (εμφανίζει υποψηφίους χωρίς ορίσματα)",
+    "help.geo_leave": "Αποχώρηση από κανάλι geohash",
+    "help.geo_list": "Λίστα ενεργών geo καναλιών",
+    "help.peers": "Λίστα εντοπισμένων Nostr bitchat peers"
   },
   "es": {
     "tool.description": "Iniciar/detener/monitorear el nodo pybitchat BLE Mesh. Los eventos de descubrimiento de pares se muestran como notificaciones [INFO] en la terminal.",
@@ -734,7 +834,17 @@
     "geo.channels_header": "Canales Geohash disponibles en tu zona:",
     "geo.channel_entry": "  #%(geohash)s (precisión %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (canal mesh local global)",
-    "geo.join_hint": "\nPara unirte a un canal, ejecuta: :bitchat geo join <geohash> (p. ej. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPara unirte a un canal, ejecuta: :bitchat geo join <geohash> (p. ej. :bitchat geo join #%(geohash)s)",
+    "help.start": "Iniciar el nodo BLE Mesh",
+    "help.stop": "Detener el nodo BLE Mesh",
+    "help.on": "Activar el modo chat (la entrada del usuario se reenvía a mesh)",
+    "help.off": "Desactivar el modo chat",
+    "help.status": "Mostrar el estado del nodo y del modo chat",
+    "help.llm": "Activar el modo chat con inyección LLM (los mensajes de peers se envían al LLM)",
+    "help.geo_join": "Unirse a un canal geohash (muestra candidatos si no hay argumentos)",
+    "help.geo_leave": "Salir de un canal geohash",
+    "help.geo_list": "Listar canales geo activos",
+    "help.peers": "Listar peers Nostr bitchat descubiertos"
   },
   "fa": {
     "tool.description": "شروع/توقف/نظارت گره pybitchat BLE Mesh. رویدادهای کشف همتا به عنوان اعلان‌های [INFO] در ترمینال نشان داده می‌شوند.",
@@ -801,7 +911,17 @@
     "geo.channels_header": "کانال‌های Geohash موجود در منطقه شما:",
     "geo.channel_entry": "  #%(geohash)s (دقت %(precision)d، %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (کانال mesh محلی سراسری)",
-    "geo.join_hint": "\nبرای پیوستن به یک کانال اجرا کنید: :bitchat geo join <geohash> (مثلاً :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nبرای پیوستن به یک کانال اجرا کنید: :bitchat geo join <geohash> (مثلاً :bitchat geo join #%(geohash)s)",
+    "help.start": "راه‌اندازی گره BLE Mesh",
+    "help.stop": "توقف گره BLE Mesh",
+    "help.on": "فعال‌کردن حالت چت (ورودی کاربر به mesh ارسال می‌شود)",
+    "help.off": "غیرفعال‌کردن حالت چت",
+    "help.status": "نمایش وضعیت گره و حالت چت",
+    "help.llm": "فعال‌کردن حالت چت با تزریق LLM (پیام‌های peer به LLM ارسال می‌شوند)",
+    "help.geo_join": "پیوستن به کانال geohash (بدون آرگومان گزینه‌ها را نشان می‌دهد)",
+    "help.geo_leave": "ترک کانال geohash",
+    "help.geo_list": "فهرست کانال‌های geo فعال",
+    "help.peers": "فهرست peerهای Nostr bitchat پیدا‌شده"
   },
   "fi": {
     "tool.description": "Käynnistä/pysäytä/seuraa pybitchat BLE Mesh -solmua. Vertaisetsintätapahtumat näkyvät [INFO]-ilmoituksina päätteessä.",
@@ -868,7 +988,17 @@
     "geo.channels_header": "Alueellasi käytettävissä olevat Geohash-kanavat:",
     "geo.channel_entry": "  #%(geohash)s (tarkkuus %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (yleinen paikallinen mesh-kanava)",
-    "geo.join_hint": "\nLiity kanavalle suorittamalla: :bitchat geo join <geohash> (esim. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nLiity kanavalle suorittamalla: :bitchat geo join <geohash> (esim. :bitchat geo join #%(geohash)s)",
+    "help.start": "Käynnistä BLE Mesh -solmu",
+    "help.stop": "Pysäytä BLE Mesh -solmu",
+    "help.on": "Ota chat-tila käyttöön (käyttäjän syöte välitetään meshiin)",
+    "help.off": "Poista chat-tila käytöstä",
+    "help.status": "Näytä solmun ja chat-tilan tila",
+    "help.llm": "Ota chat-tila käyttöön LLM-syötöllä (peer-viestit lähetetään LLM:lle)",
+    "help.geo_join": "Liity geohash-kanavalle (näyttää ehdokkaat ilman argumentteja)",
+    "help.geo_leave": "Poistu geohash-kanavalta",
+    "help.geo_list": "Listaa aktiiviset geo-kanavat",
+    "help.peers": "Listaa löydetyt Nostr bitchat -peerit"
   },
   "fr": {
     "tool.description": "Démarrez/arrêtez/surveillez le nœud pybitchat BLE Mesh. Les événements de découverte par les pairs sont affichés sous forme de notifications [INFO] dans le terminal.",
@@ -935,7 +1065,17 @@
     "geo.channels_header": "Canaux Geohash disponibles dans votre zone :",
     "geo.channel_entry": "  #%(geohash)s (précision %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (canal mesh local global)",
-    "geo.join_hint": "\nPour rejoindre un canal, exécutez : :bitchat geo join <geohash> (ex. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPour rejoindre un canal, exécutez : :bitchat geo join <geohash> (ex. :bitchat geo join #%(geohash)s)",
+    "help.start": "Démarrer le nœud BLE Mesh",
+    "help.stop": "Arrêter le nœud BLE Mesh",
+    "help.on": "Activer le mode chat (l’entrée utilisateur est transmise au mesh)",
+    "help.off": "Désactiver le mode chat",
+    "help.status": "Afficher l’état du nœud et du mode chat",
+    "help.llm": "Activer le mode chat avec injection LLM (les messages des pairs sont envoyés au LLM)",
+    "help.geo_join": "Rejoindre un canal geohash (affiche les candidats sans argument)",
+    "help.geo_leave": "Quitter un canal geohash",
+    "help.geo_list": "Lister les canaux geo actifs",
+    "help.peers": "Lister les pairs Nostr bitchat découverts"
   },
   "he": {
     "tool.description": "התחל/עצור/עקוב אחר צומת pybitchat BLE Mesh. אירועי גילוי עמיתים מוצגים כהודעות [INFO] בטרמינל.",
@@ -1002,7 +1142,17 @@
     "geo.channels_header": "ערוצי Geohash זמינים באזור שלך:",
     "geo.channel_entry": "  #%(geohash)s (דיוק %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (ערוץ mesh מקומי גלובלי)",
-    "geo.join_hint": "\nכדי להצטרף לערוץ, הפעל: :bitchat geo join <geohash> (למשל: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nכדי להצטרף לערוץ, הפעל: :bitchat geo join <geohash> (למשל: :bitchat geo join #%(geohash)s)",
+    "help.start": "הפעלת צומת BLE Mesh",
+    "help.stop": "עצירת צומת BLE Mesh",
+    "help.on": "הפעלת מצב צ׳אט (קלט המשתמש מועבר ל-mesh)",
+    "help.off": "השבתת מצב צ׳אט",
+    "help.status": "הצגת מצב הצומת ומצב הצ׳אט",
+    "help.llm": "הפעלת מצב צ׳אט עם הזרקת LLM (הודעות peer נשלחות ל-LLM)",
+    "help.geo_join": "הצטרפות לערוץ geohash (מציג מועמדים ללא ארגומנטים)",
+    "help.geo_leave": "עזיבת ערוץ geohash",
+    "help.geo_list": "רשימת ערוצי geo פעילים",
+    "help.peers": "רשימת עמיתי Nostr bitchat שהתגלו"
   },
   "hi": {
     "tool.description": "पाइबिटचैट BLE मेश नोड को प्रारंभ/रोकें/निगरानी करें। सहकर्मी खोज घटनाओं को टर्मिनल में [सूचना] सूचनाओं के रूप में दिखाया जाता है।",
@@ -1069,7 +1219,17 @@
     "geo.channels_header": "आपके क्षेत्र में उपलब्ध Geohash चैनल:",
     "geo.channel_entry": "  #%(geohash)s (सटीकता %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (वैश्विक स्थानीय mesh चैनल)",
-    "geo.join_hint": "\nकिसी चैनल से जुड़ने के लिए चलाएँ: :bitchat geo join <geohash> (उदा. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nकिसी चैनल से जुड़ने के लिए चलाएँ: :bitchat geo join <geohash> (उदा. :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh नोड शुरू करें",
+    "help.stop": "BLE Mesh नोड रोकें",
+    "help.on": "चैट मोड सक्षम करें (उपयोगकर्ता इनपुट mesh को भेजा जाएगा)",
+    "help.off": "चैट मोड अक्षम करें",
+    "help.status": "नोड और चैट मोड की स्थिति दिखाएँ",
+    "help.llm": "LLM injection के साथ चैट मोड सक्षम करें (peer संदेश LLM को भेजे जाते हैं)",
+    "help.geo_join": "geohash चैनल से जुड़ें (कोई argument न होने पर विकल्प दिखाता है)",
+    "help.geo_leave": "geohash चैनल छोड़ें",
+    "help.geo_list": "सक्रिय geo चैनल सूचीबद्ध करें",
+    "help.peers": "खोजे गए Nostr bitchat peer सूचीबद्ध करें"
   },
   "hu": {
     "tool.description": "A pybitchat BLE Mesh csomópont indítása/leállítása/figyelése. A társfelderítési események [INFO] értesítésként jelennek meg a terminálon.",
@@ -1136,7 +1296,17 @@
     "geo.channels_header": "Az Ön területén elérhető Geohash-csatornák:",
     "geo.channel_entry": "  #%(geohash)s (pontosság %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (globális helyi mesh-csatorna)",
-    "geo.join_hint": "\nCsatornához csatlakozáshoz futtassa: :bitchat geo join <geohash> (pl. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nCsatornához csatlakozáshoz futtassa: :bitchat geo join <geohash> (pl. :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh-csomópont indítása",
+    "help.stop": "BLE Mesh-csomópont leállítása",
+    "help.on": "Csevegési mód engedélyezése (a felhasználói bevitel a mesh felé továbbítódik)",
+    "help.off": "Csevegési mód letiltása",
+    "help.status": "A csomópont és a csevegési mód állapotának megjelenítése",
+    "help.llm": "Csevegési mód engedélyezése LLM-befecskendezéssel (a peer üzenetek az LLM-hez kerülnek)",
+    "help.geo_join": "Csatlakozás geohash-csatornához (argumentum nélkül jelölteket mutat)",
+    "help.geo_leave": "Geohash-csatorna elhagyása",
+    "help.geo_list": "Aktív geo-csatornák listázása",
+    "help.peers": "Felfedezett Nostr bitchat peerek listázása"
   },
   "id": {
     "tool.description": "Mulai/hentikan/pantau node pybitchat BLE Mesh. Peristiwa penemuan rekan ditampilkan sebagai pemberitahuan [INFO] di terminal.",
@@ -1203,7 +1373,17 @@
     "geo.channels_header": "Kanal Geohash yang tersedia di area Anda:",
     "geo.channel_entry": "  #%(geohash)s (presisi %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (kanal mesh lokal global)",
-    "geo.join_hint": "\nUntuk bergabung ke kanal, jalankan: :bitchat geo join <geohash> (mis. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nUntuk bergabung ke kanal, jalankan: :bitchat geo join <geohash> (mis. :bitchat geo join #%(geohash)s)",
+    "help.start": "Mulai node BLE Mesh",
+    "help.stop": "Hentikan node BLE Mesh",
+    "help.on": "Aktifkan mode chat (input pengguna diteruskan ke mesh)",
+    "help.off": "Nonaktifkan mode chat",
+    "help.status": "Tampilkan status node dan mode chat",
+    "help.llm": "Aktifkan mode chat dengan injeksi LLM (pesan peer dikirim ke LLM)",
+    "help.geo_join": "Gabung kanal geohash (menampilkan kandidat jika tanpa argumen)",
+    "help.geo_leave": "Keluar dari kanal geohash",
+    "help.geo_list": "Daftar kanal geo aktif",
+    "help.peers": "Daftar peer Nostr bitchat yang ditemukan"
   },
   "it": {
     "tool.description": "Avvia/arresta/monitora il nodo mesh BLE pybitchat. Gli eventi di rilevamento peer vengono visualizzati come notifiche [INFO] nel terminale.",
@@ -1270,7 +1450,17 @@
     "geo.channels_header": "Canali Geohash disponibili nella tua area:",
     "geo.channel_entry": "  #%(geohash)s (precisione %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (canale mesh locale globale)",
-    "geo.join_hint": "\nPer unirti a un canale, esegui: :bitchat geo join <geohash> (es. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPer unirti a un canale, esegui: :bitchat geo join <geohash> (es. :bitchat geo join #%(geohash)s)",
+    "help.start": "Avvia il nodo BLE Mesh",
+    "help.stop": "Arresta il nodo BLE Mesh",
+    "help.on": "Abilita la modalità chat (l’input utente viene inoltrato alla mesh)",
+    "help.off": "Disabilita la modalità chat",
+    "help.status": "Mostra lo stato del nodo e della modalità chat",
+    "help.llm": "Abilita la modalità chat con iniezione LLM (i messaggi dei peer vengono inviati all’LLM)",
+    "help.geo_join": "Unisciti a un canale geohash (mostra i candidati se non ci sono argomenti)",
+    "help.geo_leave": "Lascia un canale geohash",
+    "help.geo_list": "Elenca i canali geo attivi",
+    "help.peers": "Elenca i peer Nostr bitchat rilevati"
   },
   "ko": {
     "tool.description": "pybitchat BLE Mesh 노드를 시작/중지/모니터링합니다. 피어 검색 이벤트는 터미널에 [INFO] 알림으로 표시됩니다.",
@@ -1337,7 +1527,17 @@
     "geo.channels_header": "현재 지역에서 사용 가능한 Geohash 채널:",
     "geo.channel_entry": "  #%(geohash)s (정밀도 %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (글로벌 로컬 mesh 채널)",
-    "geo.join_hint": "\n채널에 참여하려면 실행: :bitchat geo join <geohash> (예: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\n채널에 참여하려면 실행: :bitchat geo join <geohash> (예: :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh 노드 시작",
+    "help.stop": "BLE Mesh 노드 중지",
+    "help.on": "채팅 모드 활성화(사용자 입력을 mesh로 전달)",
+    "help.off": "채팅 모드 비활성화",
+    "help.status": "노드 및 채팅 모드 상태 표시",
+    "help.llm": "LLM 주입이 있는 채팅 모드 활성화(peer 메시지를 LLM으로 전송)",
+    "help.geo_join": "geohash 채널 참여(인수가 없으면 후보 표시)",
+    "help.geo_leave": "geohash 채널 나가기",
+    "help.geo_list": "활성 geo 채널 목록 표시",
+    "help.peers": "발견된 Nostr bitchat peer 목록 표시"
   },
   "mn": {
     "tool.description": "Pybitchat BLE Mesh зангилааг эхлүүлэх / зогсоох / хянах. Үе тэнгийн нээлтийн үйл явдлуудыг терминал дээр [INFO] мэдэгдэл хэлбэрээр харуулдаг.",
@@ -1404,7 +1604,17 @@
     "geo.channels_header": "Таны бүсэд ашиглах боломжтой Geohash сувгууд:",
     "geo.channel_entry": "  #%(geohash)s (нарийвчлал %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (дэлхийн локал mesh суваг)",
-    "geo.join_hint": "\nСувагт нэгдэхийн тулд ажиллуулна уу: :bitchat geo join <geohash> (жишээ: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nСувагт нэгдэхийн тулд ажиллуулна уу: :bitchat geo join <geohash> (жишээ: :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh зангилааг эхлүүлэх",
+    "help.stop": "BLE Mesh зангилааг зогсоох",
+    "help.on": "Чат горимыг идэвхжүүлэх (хэрэглэгчийн оролтыг mesh рүү дамжуулна)",
+    "help.off": "Чат горимыг идэвхгүй болгох",
+    "help.status": "Зангилаа ба чат горимын төлөвийг харуулах",
+    "help.llm": "LLM оруулгатай чат горимыг идэвхжүүлэх (peer мессежүүд LLM рүү илгээгдэнэ)",
+    "help.geo_join": "geohash сувагт нэгдэх (аргументгүй бол сонголтуудыг харуулна)",
+    "help.geo_leave": "geohash сувгаас гарах",
+    "help.geo_list": "Идэвхтэй geo сувгуудыг жагсаах",
+    "help.peers": "Илэрсэн Nostr bitchat peer-үүдийг жагсаах"
   },
   "mr": {
     "tool.description": "पायबिचॅट बीएलई मेश नोड सुरू/थांबवा/निरीक्षण करा. पीअर डिस्कवरी इव्हेंट टर्मिनलमध्ये [INFO] सूचना म्हणून दाखवले जातात.",
@@ -1471,7 +1681,17 @@
     "geo.channels_header": "तुमच्या भागात उपलब्ध Geohash चॅनेल:",
     "geo.channel_entry": "  #%(geohash)s (अचूकता %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (जागतिक स्थानिक mesh चॅनेल)",
-    "geo.join_hint": "\nचॅनेलमध्ये सामील होण्यासाठी चालवा: :bitchat geo join <geohash> (उदा. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nचॅनेलमध्ये सामील होण्यासाठी चालवा: :bitchat geo join <geohash> (उदा. :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh नोड सुरू करा",
+    "help.stop": "BLE Mesh नोड थांबवा",
+    "help.on": "चॅट मोड सक्षम करा (वापरकर्ता इनपुट mesh कडे पाठवला जाईल)",
+    "help.off": "चॅट मोड अक्षम करा",
+    "help.status": "नोड आणि चॅट मोड स्थिती दाखवा",
+    "help.llm": "LLM injection सह चॅट मोड सक्षम करा (peer संदेश LLM कडे पाठवले जातात)",
+    "help.geo_join": "geohash चॅनेलमध्ये सामील व्हा (argument नसल्यास पर्याय दाखवतो)",
+    "help.geo_leave": "geohash चॅनेल सोडा",
+    "help.geo_list": "सक्रिय geo चॅनेल सूचीबद्ध करा",
+    "help.peers": "सापडलेले Nostr bitchat peer सूचीबद्ध करा"
   },
   "nb": {
     "tool.description": "Start/stopp/overvåk pybitchat BLE Mesh-noden. Peer discovery-hendelser vises som [INFO]-varsler i terminalen.",
@@ -1538,7 +1758,17 @@
     "geo.channels_header": "Tilgjengelige Geohash-kanaler i området ditt:",
     "geo.channel_entry": "  #%(geohash)s (presisjon %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
-    "geo.join_hint": "\nFor å bli med i en kanal, kjør: :bitchat geo join <geohash> (f.eks. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nFor å bli med i en kanal, kjør: :bitchat geo join <geohash> (f.eks. :bitchat geo join #%(geohash)s)",
+    "help.start": "Start BLE Mesh-noden",
+    "help.stop": "Stopp BLE Mesh-noden",
+    "help.on": "Aktiver chat-modus (brukerinndata videresendes til mesh)",
+    "help.off": "Deaktiver chat-modus",
+    "help.status": "Vis status for node og chat-modus",
+    "help.llm": "Aktiver chat-modus med LLM-injeksjon (peer-meldinger sendes til LLM)",
+    "help.geo_join": "Bli med i en geohash-kanal (viser kandidater uten argumenter)",
+    "help.geo_leave": "Forlat en geohash-kanal",
+    "help.geo_list": "List aktive geo-kanaler",
+    "help.peers": "List oppdagede Nostr bitchat-peers"
   },
   "nl": {
     "tool.description": "Start/stop/bewaak het pybitchat BLE Mesh-knooppunt. Peer-ontdekkingsgebeurtenissen worden weergegeven als [INFO]-meldingen in de terminal.",
@@ -1605,7 +1835,17 @@
     "geo.channels_header": "Beschikbare Geohash-kanalen in jouw omgeving:",
     "geo.channel_entry": "  #%(geohash)s (precisie %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (globaal lokaal mesh-kanaal)",
-    "geo.join_hint": "\nVoer dit uit om deel te nemen aan een kanaal: :bitchat geo join <geohash> (bijv. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nVoer dit uit om deel te nemen aan een kanaal: :bitchat geo join <geohash> (bijv. :bitchat geo join #%(geohash)s)",
+    "help.start": "Start het BLE Mesh-knooppunt",
+    "help.stop": "Stop het BLE Mesh-knooppunt",
+    "help.on": "Schakel chatmodus in (gebruikersinvoer wordt doorgestuurd naar mesh)",
+    "help.off": "Schakel chatmodus uit",
+    "help.status": "Toon status van knooppunt en chatmodus",
+    "help.llm": "Schakel chatmodus met LLM-injectie in (peerberichten worden naar de LLM gestuurd)",
+    "help.geo_join": "Neem deel aan een geohash-kanaal (toont kandidaten zonder argumenten)",
+    "help.geo_leave": "Verlaat een geohash-kanaal",
+    "help.geo_list": "Lijst actieve geo-kanalen",
+    "help.peers": "Lijst ontdekte Nostr bitchat-peers"
   },
   "pl": {
     "tool.description": "Uruchom/zatrzymaj/monitoruj węzeł pybitchat BLE Mesh. Zdarzenia Peer Discovery są wyświetlane w terminalu jako powiadomienia [INFO].",
@@ -1672,7 +1912,17 @@
     "geo.channels_header": "Dostępne kanały Geohash w Twojej okolicy:",
     "geo.channel_entry": "  #%(geohash)s (precyzja %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (globalny lokalny kanał mesh)",
-    "geo.join_hint": "\nAby dołączyć do kanału, uruchom: :bitchat geo join <geohash> (np. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nAby dołączyć do kanału, uruchom: :bitchat geo join <geohash> (np. :bitchat geo join #%(geohash)s)",
+    "help.start": "Uruchom węzeł BLE Mesh",
+    "help.stop": "Zatrzymaj węzeł BLE Mesh",
+    "help.on": "Włącz tryb czatu (wejście użytkownika jest przekazywane do mesh)",
+    "help.off": "Wyłącz tryb czatu",
+    "help.status": "Pokaż stan węzła i trybu czatu",
+    "help.llm": "Włącz tryb czatu z wstrzykiwaniem LLM (wiadomości peerów są wysyłane do LLM)",
+    "help.geo_join": "Dołącz do kanału geohash (bez argumentów pokazuje kandydatów)",
+    "help.geo_leave": "Opuść kanał geohash",
+    "help.geo_list": "Wyświetl aktywne kanały geo",
+    "help.peers": "Wyświetl wykryte peery Nostr bitchat"
   },
   "pt": {
     "tool.description": "Iniciar/parar/monitorar o nó pybitchat BLE Mesh. Os eventos de descoberta de pares são mostrados como notificações [INFO] no terminal.",
@@ -1739,7 +1989,17 @@
     "geo.channels_header": "Canais Geohash disponíveis na sua área:",
     "geo.channel_entry": "  #%(geohash)s (precisão %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (canal mesh local global)",
-    "geo.join_hint": "\nPara entrar num canal, execute: :bitchat geo join <geohash> (ex.: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPara entrar num canal, execute: :bitchat geo join <geohash> (ex.: :bitchat geo join #%(geohash)s)",
+    "help.start": "Iniciar o nó BLE Mesh",
+    "help.stop": "Parar o nó BLE Mesh",
+    "help.on": "Ativar o modo de chat (a entrada do utilizador é encaminhada para a mesh)",
+    "help.off": "Desativar o modo de chat",
+    "help.status": "Mostrar o estado do nó e do modo de chat",
+    "help.llm": "Ativar o modo de chat com injeção LLM (mensagens de peers são enviadas ao LLM)",
+    "help.geo_join": "Entrar num canal geohash (mostra candidatos sem argumentos)",
+    "help.geo_leave": "Sair de um canal geohash",
+    "help.geo_list": "Listar canais geo ativos",
+    "help.peers": "Listar peers Nostr bitchat descobertos"
   },
   "pt_BR": {
     "tool.description": "Iniciar/parar/monitorar o nó pybitchat BLE Mesh. Os eventos de descoberta de pares são mostrados como notificações [INFO] no terminal.",
@@ -1806,7 +2066,17 @@
     "geo.channels_header": "Canais Geohash disponíveis na sua área:",
     "geo.channel_entry": "  #%(geohash)s (precisão %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (canal mesh local global)",
-    "geo.join_hint": "\nPara entrar em um canal, execute: :bitchat geo join <geohash> (ex.: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPara entrar em um canal, execute: :bitchat geo join <geohash> (ex.: :bitchat geo join #%(geohash)s)",
+    "help.start": "Iniciar o nó BLE Mesh",
+    "help.stop": "Parar o nó BLE Mesh",
+    "help.on": "Ativar o modo de chat (a entrada do usuário é encaminhada para a mesh)",
+    "help.off": "Desativar o modo de chat",
+    "help.status": "Mostrar o status do nó e do modo de chat",
+    "help.llm": "Ativar o modo de chat com injeção LLM (mensagens de peers são enviadas ao LLM)",
+    "help.geo_join": "Entrar em um canal geohash (mostra candidatos sem argumentos)",
+    "help.geo_leave": "Sair de um canal geohash",
+    "help.geo_list": "Listar canais geo ativos",
+    "help.peers": "Listar peers Nostr bitchat descobertos"
   },
   "ro": {
     "tool.description": "Porniți/opriți/monitorizați nodul pybitchat BLE Mesh. Evenimentele de descoperire peer sunt afișate ca notificări [INFO] în terminal.",
@@ -1873,7 +2143,17 @@
     "geo.channels_header": "Canale Geohash disponibile în zona dvs.:",
     "geo.channel_entry": "  #%(geohash)s (precizie %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (canal mesh local global)",
-    "geo.join_hint": "\nPentru a intra într-un canal, rulați: :bitchat geo join <geohash> (de ex. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nPentru a intra într-un canal, rulați: :bitchat geo join <geohash> (de ex. :bitchat geo join #%(geohash)s)",
+    "help.start": "Pornește nodul BLE Mesh",
+    "help.stop": "Oprește nodul BLE Mesh",
+    "help.on": "Activează modul chat (intrarea utilizatorului este redirecționată către mesh)",
+    "help.off": "Dezactivează modul chat",
+    "help.status": "Afișează starea nodului și a modului chat",
+    "help.llm": "Activează modul chat cu injectare LLM (mesajele peer sunt trimise la LLM)",
+    "help.geo_join": "Intră într-un canal geohash (afișează candidații fără argumente)",
+    "help.geo_leave": "Părăsește un canal geohash",
+    "help.geo_list": "Listează canalele geo active",
+    "help.peers": "Listează peerii Nostr bitchat descoperiți"
   },
   "ru": {
     "tool.description": "Запуск/остановка/отслеживание узла pybitchat BLE Mesh. События обнаружения одноранговых узлов отображаются в терминале в виде уведомлений [INFO].",
@@ -1940,7 +2220,17 @@
     "geo.channels_header": "Доступные каналы Geohash в вашем районе:",
     "geo.channel_entry": "  #%(geohash)s (точность %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (глобальный локальный mesh-канал)",
-    "geo.join_hint": "\nЧтобы присоединиться к каналу, выполните: :bitchat geo join <geohash> (например: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nЧтобы присоединиться к каналу, выполните: :bitchat geo join <geohash> (например: :bitchat geo join #%(geohash)s)",
+    "help.start": "Запустить узел BLE Mesh",
+    "help.stop": "Остановить узел BLE Mesh",
+    "help.on": "Включить режим чата (ввод пользователя пересылается в mesh)",
+    "help.off": "Отключить режим чата",
+    "help.status": "Показать состояние узла и режима чата",
+    "help.llm": "Включить режим чата с инъекцией LLM (сообщения peer отправляются в LLM)",
+    "help.geo_join": "Присоединиться к каналу geohash (без аргументов показывает варианты)",
+    "help.geo_leave": "Покинуть канал geohash",
+    "help.geo_list": "Показать активные geo-каналы",
+    "help.peers": "Показать обнаруженные Nostr bitchat peer"
   },
   "sv": {
     "tool.description": "Starta/stoppa/övervaka pybitchat BLE Mesh-noden. Peer discovery-händelser visas som [INFO]-meddelanden i terminalen.",
@@ -2007,7 +2297,17 @@
     "geo.channels_header": "Tillgängliga Geohash-kanaler i ditt område:",
     "geo.channel_entry": "  #%(geohash)s (precision %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (global lokal mesh-kanal)",
-    "geo.join_hint": "\nFör att gå med i en kanal, kör: :bitchat geo join <geohash> (t.ex. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nFör att gå med i en kanal, kör: :bitchat geo join <geohash> (t.ex. :bitchat geo join #%(geohash)s)",
+    "help.start": "Starta BLE Mesh-noden",
+    "help.stop": "Stoppa BLE Mesh-noden",
+    "help.on": "Aktivera chattläge (användarinmatning vidarebefordras till mesh)",
+    "help.off": "Inaktivera chattläge",
+    "help.status": "Visa status för nod och chattläge",
+    "help.llm": "Aktivera chattläge med LLM-injektion (peer-meddelanden skickas till LLM)",
+    "help.geo_join": "Gå med i en geohash-kanal (visar kandidater utan argument)",
+    "help.geo_leave": "Lämna en geohash-kanal",
+    "help.geo_list": "Lista aktiva geo-kanaler",
+    "help.peers": "Lista upptäckta Nostr bitchat-peers"
   },
   "sw": {
     "tool.description": "Anza/simamisha/fuatilia nodi ya pybitchat BLE Mesh. Matukio ya ugunduzi wa marafiki huonyeshwa kama arifa za [INFO] kwenye terminal.",
@@ -2074,7 +2374,17 @@
     "geo.channels_header": "Vituo vya Geohash vinavyopatikana katika eneo lako:",
     "geo.channel_entry": "  #%(geohash)s (usahihi %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (kituo cha mesh cha eneo la kimataifa)",
-    "geo.join_hint": "\nIli kujiunga na kituo, endesha: :bitchat geo join <geohash> (mf. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nIli kujiunga na kituo, endesha: :bitchat geo join <geohash> (mf. :bitchat geo join #%(geohash)s)",
+    "help.start": "Anzisha nodi ya BLE Mesh",
+    "help.stop": "Simamisha nodi ya BLE Mesh",
+    "help.on": "Washa hali ya gumzo (ingizo la mtumiaji linasambazwa kwenye mesh)",
+    "help.off": "Zima hali ya gumzo",
+    "help.status": "Onyesha hali ya nodi na hali ya gumzo",
+    "help.llm": "Washa hali ya gumzo yenye uingizaji LLM (ujumbe wa peer unatumiwa kwa LLM)",
+    "help.geo_join": "Jiunge na kituo cha geohash (huonyesha chaguo bila hoja)",
+    "help.geo_leave": "Ondoka kwenye kituo cha geohash",
+    "help.geo_list": "Orodhesha vituo vya geo vinavyotumika",
+    "help.peers": "Orodhesha peer za Nostr bitchat zilizogunduliwa"
   },
   "th": {
     "tool.description": "เริ่ม/หยุด/ตรวจสอบโหนด pybitchat BLE Mesh กิจกรรมการค้นพบเพื่อนจะแสดงเป็นการแจ้งเตือน [INFO] ในเทอร์มินัล",
@@ -2141,7 +2451,17 @@
     "geo.channels_header": "ช่อง Geohash ที่ใช้ได้ในพื้นที่ของคุณ:",
     "geo.channel_entry": "  #%(geohash)s (ความละเอียด %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (ช่อง mesh ท้องถิ่นแบบทั่วโลก)",
-    "geo.join_hint": "\nหากต้องการเข้าร่วมช่อง ให้รัน: :bitchat geo join <geohash> (เช่น :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nหากต้องการเข้าร่วมช่อง ให้รัน: :bitchat geo join <geohash> (เช่น :bitchat geo join #%(geohash)s)",
+    "help.start": "เริ่มโหนด BLE Mesh",
+    "help.stop": "หยุดโหนด BLE Mesh",
+    "help.on": "เปิดโหมดแชท (ส่งต่ออินพุตผู้ใช้ไปยัง mesh)",
+    "help.off": "ปิดโหมดแชท",
+    "help.status": "แสดงสถานะโหนดและโหมดแชท",
+    "help.llm": "เปิดโหมดแชทพร้อม LLM injection (ส่งข้อความ peer ไปยัง LLM)",
+    "help.geo_join": "เข้าร่วมช่อง geohash (แสดงตัวเลือกเมื่อไม่มีอาร์กิวเมนต์)",
+    "help.geo_leave": "ออกจากช่อง geohash",
+    "help.geo_list": "แสดงรายการช่อง geo ที่ใช้งานอยู่",
+    "help.peers": "แสดงรายการ peer Nostr bitchat ที่ค้นพบ"
   },
   "tr": {
     "tool.description": "Pybitchat BLE Mesh düğümünü başlatın/durdurun/izleyin. Eş bulma olayları terminalde [BİLGİ] bildirimleri olarak gösterilir.",
@@ -2208,7 +2528,17 @@
     "geo.channels_header": "Bölgenizde kullanılabilen Geohash kanalları:",
     "geo.channel_entry": "  #%(geohash)s (hassasiyet %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (genel yerel mesh kanalı)",
-    "geo.join_hint": "\nBir kanala katılmak için çalıştırın: :bitchat geo join <geohash> (örn. :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nBir kanala katılmak için çalıştırın: :bitchat geo join <geohash> (örn. :bitchat geo join #%(geohash)s)",
+    "help.start": "BLE Mesh düğümünü başlat",
+    "help.stop": "BLE Mesh düğümünü durdur",
+    "help.on": "Sohbet modunu etkinleştir (kullanıcı girdisi mesh'e iletilir)",
+    "help.off": "Sohbet modunu devre dışı bırak",
+    "help.status": "Düğüm ve sohbet modu durumunu göster",
+    "help.llm": "LLM enjeksiyonlu sohbet modunu etkinleştir (peer mesajları LLM'ye gönderilir)",
+    "help.geo_join": "Geohash kanalına katıl (argüman yoksa adayları gösterir)",
+    "help.geo_leave": "Geohash kanalından ayrıl",
+    "help.geo_list": "Etkin geo kanallarını listele",
+    "help.peers": "Keşfedilen Nostr bitchat peer'lerini listele"
   },
   "uk": {
     "tool.description": "Запуск/зупинка/моніторинг вузла pybitchat BLE Mesh. Події виявлення однорангових пристроїв відображаються як сповіщення [INFO] у терміналі.",
@@ -2275,7 +2605,17 @@
     "geo.channels_header": "Доступні канали Geohash у вашій місцевості:",
     "geo.channel_entry": "  #%(geohash)s (точність %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (глобальний локальний mesh-канал)",
-    "geo.join_hint": "\nЩоб приєднатися до каналу, виконайте: :bitchat geo join <geohash> (наприклад: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nЩоб приєднатися до каналу, виконайте: :bitchat geo join <geohash> (наприклад: :bitchat geo join #%(geohash)s)",
+    "help.start": "Запустити вузол BLE Mesh",
+    "help.stop": "Зупинити вузол BLE Mesh",
+    "help.on": "Увімкнути режим чату (введення користувача пересилається в mesh)",
+    "help.off": "Вимкнути режим чату",
+    "help.status": "Показати стан вузла та режиму чату",
+    "help.llm": "Увімкнути режим чату з ін’єкцією LLM (повідомлення peer надсилаються в LLM)",
+    "help.geo_join": "Приєднатися до каналу geohash (без аргументів показує варіанти)",
+    "help.geo_leave": "Залишити канал geohash",
+    "help.geo_list": "Показати активні geo-канали",
+    "help.peers": "Показати виявлені Nostr bitchat peer"
   },
   "vi": {
     "tool.description": "Bắt đầu/dừng/giám sát nút BLE Mesh pybitchat. Các sự kiện khám phá ngang hàng được hiển thị dưới dạng thông báo [INFO] trong thiết bị đầu cuối.",
@@ -2342,7 +2682,17 @@
     "geo.channels_header": "Các kênh Geohash khả dụng trong khu vực của bạn:",
     "geo.channel_entry": "  #%(geohash)s (độ chính xác %(precision)d, %(accuracy)s)",
     "geo.mesh_channel": "  #mesh     (kênh mesh cục bộ toàn cầu)",
-    "geo.join_hint": "\nĐể tham gia kênh, hãy chạy: :bitchat geo join <geohash> (ví dụ: :bitchat geo join #%(geohash)s)"
+    "geo.join_hint": "\nĐể tham gia kênh, hãy chạy: :bitchat geo join <geohash> (ví dụ: :bitchat geo join #%(geohash)s)",
+    "help.start": "Khởi động nút BLE Mesh",
+    "help.stop": "Dừng nút BLE Mesh",
+    "help.on": "Bật chế độ chat (đầu vào người dùng được chuyển tiếp tới mesh)",
+    "help.off": "Tắt chế độ chat",
+    "help.status": "Hiển thị trạng thái nút và chế độ chat",
+    "help.llm": "Bật chế độ chat với chèn LLM (tin nhắn peer được gửi tới LLM)",
+    "help.geo_join": "Tham gia kênh geohash (hiển thị ứng viên nếu không có đối số)",
+    "help.geo_leave": "Rời kênh geohash",
+    "help.geo_list": "Liệt kê các kênh geo đang hoạt động",
+    "help.peers": "Liệt kê các peer Nostr bitchat đã phát hiện"
   },
   "zh_CN": {
     "tool.description": "启动/停止/监控 pybitchat BLE Mesh 节点。对等发现事件在终端中显示为 [INFO] 通知。",
@@ -2409,7 +2759,17 @@
     "geo.channels_header": "您所在区域可用的 Geohash 频道：",
     "geo.channel_entry": "  #%(geohash)s（精度 %(precision)d，%(accuracy)s）",
     "geo.mesh_channel": "  #mesh     （全局本地 mesh 频道）",
-    "geo.join_hint": "\n要加入频道，请运行：:bitchat geo join <geohash>（例如：:bitchat geo join #%(geohash)s）"
+    "geo.join_hint": "\n要加入频道，请运行：:bitchat geo join <geohash>（例如：:bitchat geo join #%(geohash)s）",
+    "help.start": "启动 BLE Mesh 节点",
+    "help.stop": "停止 BLE Mesh 节点",
+    "help.on": "启用聊天模式（用户输入转发到 mesh）",
+    "help.off": "禁用聊天模式",
+    "help.status": "显示节点和聊天模式状态",
+    "help.llm": "启用带 LLM 注入的聊天模式（peer 消息发送到 LLM）",
+    "help.geo_join": "加入 geohash 频道（无参数时显示候选项）",
+    "help.geo_leave": "离开 geohash 频道",
+    "help.geo_list": "列出活动 geo 频道",
+    "help.peers": "列出已发现的 Nostr bitchat peer"
   },
   "zh_TW": {
     "tool.description": "啟動/停止/監控 pybitchat BLE Mesh 節點。對等發現事件在終端機中顯示為 [INFO] 通知。",
@@ -2476,6 +2836,16 @@
     "geo.channels_header": "您所在區域可用的 Geohash 頻道：",
     "geo.channel_entry": "  #%(geohash)s（精度 %(precision)d，%(accuracy)s）",
     "geo.mesh_channel": "  #mesh     （全域本地 mesh 頻道）",
-    "geo.join_hint": "\n若要加入頻道，請執行：:bitchat geo join <geohash>（例如：:bitchat geo join #%(geohash)s）"
+    "geo.join_hint": "\n若要加入頻道，請執行：:bitchat geo join <geohash>（例如：:bitchat geo join #%(geohash)s）",
+    "help.start": "啟動 BLE Mesh 節點",
+    "help.stop": "停止 BLE Mesh 節點",
+    "help.on": "啟用聊天模式（使用者輸入轉送到 mesh）",
+    "help.off": "停用聊天模式",
+    "help.status": "顯示節點與聊天模式狀態",
+    "help.llm": "啟用含 LLM 注入的聊天模式（peer 訊息傳送到 LLM）",
+    "help.geo_join": "加入 geohash 頻道（無參數時顯示候選項）",
+    "help.geo_leave": "離開 geohash 頻道",
+    "help.geo_list": "列出作用中的 geo 頻道",
+    "help.peers": "列出已發現的 Nostr bitchat peer"
   }
 }

@@ -787,66 +787,106 @@ def _cmd_bitchat_peers(arg: str, **kwargs) -> "CommandResult":
 # ---- End peers command ----------------------------------------------------
 
 
+def _cmd_help(syntax: str, key: str, default: str) -> str:
+    return f"  {syntax:<55} {_(key, default=default)}"
+
+
 CMD_SPECS = [
     {
         "command": "bitchat",
         "subcommand": "start",
         "handler": _cmd_bitchat_start,
-        "help_text": "  :bitchat start [nickname] [--nostr] [--network <mainnet|testnet>]  Start the BLE Mesh node",
+        "help_text": _cmd_help(
+            ":bitchat start [nickname] [--nostr] [--network <mainnet|testnet>]",
+            "help.start",
+            "Start the BLE Mesh node",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "stop",
         "handler": _cmd_bitchat_stop,
-        "help_text": "  :bitchat stop      Stop the BLE Mesh node",
+        "help_text": _cmd_help(
+            ":bitchat stop", "help.stop", "Stop the BLE Mesh node"
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "on",
         "handler": _cmd_bitchat_on,
-        "help_text": "  :bitchat on       Enable chat mode (user input forwarded to mesh)",
+        "help_text": _cmd_help(
+            ":bitchat on",
+            "help.on",
+            "Enable chat mode (user input forwarded to mesh)",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "off",
         "handler": _cmd_bitchat_off,
-        "help_text": "  :bitchat off      Disable chat mode",
+        "help_text": _cmd_help(
+            ":bitchat off", "help.off", "Disable chat mode"
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "status",
         "handler": _cmd_bitchat_status,
-        "help_text": "  :bitchat status   Show node and chat mode status",
+        "help_text": _cmd_help(
+            ":bitchat status",
+            "help.status",
+            "Show node and chat mode status",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "llm",
         "handler": _cmd_bitchat_llm,
-        "help_text": "  :bitchat llm      Enable chat mode with LLM injection (peer msgs sent to LLM)",
+        "help_text": _cmd_help(
+            ":bitchat llm",
+            "help.llm",
+            "Enable chat mode with LLM injection (peer msgs sent to LLM)",
+        ),
     },
     # Geo channel commands
     {
         "command": "bitchat",
         "subcommand": "geo join",
         "handler": _cmd_bitchat_geo_join,
-        "help_text": "  :bitchat geo join [<geohash>|lat lng [prec]]  Join geohash channel (shows candidates if no args)",
+        "help_text": _cmd_help(
+            ":bitchat geo join [<geohash>|lat lng [prec]]",
+            "help.geo_join",
+            "Join geohash channel (shows candidates if no args)",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "geo leave",
         "handler": _cmd_bitchat_geo_leave,
-        "help_text": "  :bitchat geo leave <geohash>       Leave a geohash channel",
+        "help_text": _cmd_help(
+            ":bitchat geo leave <geohash>",
+            "help.geo_leave",
+            "Leave a geohash channel",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "geo list",
         "handler": _cmd_bitchat_geo_list,
-        "help_text": "  :bitchat geo list                  List active geo channels",
+        "help_text": _cmd_help(
+            ":bitchat geo list",
+            "help.geo_list",
+            "List active geo channels",
+        ),
     },
     {
         "command": "bitchat",
         "subcommand": "peers",
         "handler": _cmd_bitchat_peers,
-        "help_text": "  :bitchat peers     List discovered Nostr bitchat peers",
+        "help_text": _cmd_help(
+            ":bitchat peers",
+            "help.peers",
+            "List discovered Nostr bitchat peers",
+        ),
     },
 ]
