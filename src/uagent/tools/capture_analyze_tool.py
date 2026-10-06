@@ -340,6 +340,23 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Run offline pcap analysis and correlate flows with local connections.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "capture analysis",
+                "offline pcap analysis",
+                "pcap correlation",
+                "traffic classification",
+                "local connection correlation",
+            ],
+        ),
+        "x_search_terms_en": [
+            "capture analysis",
+            "offline pcap analysis",
+            "pcap correlation",
+            "traffic classification",
+            "local connection correlation",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
