@@ -503,7 +503,7 @@ def _delegated_source_files(path: Path) -> list[Path]:
                 continue
             target = statement.targets[0]
             value = statement.value
-            if not isinstance(target, ast.Name) or target.id != "_":
+            if not isinstance(target, ast.Name):
                 continue
             if not isinstance(value, ast.Call):
                 continue
