@@ -137,6 +137,9 @@ INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
         "bitchat.noise_dm_msg",
         "bitchat.mesh_msg",
         "bitchat.dm_msg",
+        "match.line",
+        "ui.fallback_prompt",
+        "ui.confirm.footer",
     }
 )
 

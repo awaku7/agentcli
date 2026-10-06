@@ -2423,7 +2423,7 @@
     "param.replacement.description": "Kapalit na text.",
     "summary.blocked": "Naka-block: {count}",
     "summary.blocked_reason": "Naka-block: {reason}",
-    "summary.error": "Error: {error}",
+    "summary.error": "May error: {error}",
     "summary.files_changed": "{count} (mga) file ang nabago",
     "summary.matches": "{count} (mga) tugma",
     "summary.no_change": "Matagumpay na walang pagbabago (0 tugma)",
@@ -2449,7 +2449,7 @@
       "replace all files",
       "replace_all_in_files"
     ],
-    "param.po_msgid.description": "gettext msgid (fallback: pattern).",
+    "param.po_msgid.description": "gettext msgid (kapalit: pattern).",
     "param.anchor_before.description": "Anchor text. Para sa insert_before: text na hahanapin at ipasok bago ang linyang iyon. Para sa replace_between: simulan ang hangganan.",
     "param.anchor_after.description": "Anchor text. Para sa insert_after: text na hahanapin at ipasok pagkatapos ng linyang iyon. Para sa replace_between: end boundary.",
     "param.occurrence.description": "Pangyayari (1-based; 0 = lahat).",
@@ -2476,8 +2476,8 @@
     "err.anchors_required": "anchor_before at anchor_after ay kinakailangan para sa replace_between",
     "err.line_no_out_of_range": "line_no {line_no} out of range para sa file na may {line_count} (mga) linya (wasto: 1..{max_line})",
     "err.replacement_required": "kailangan ng kapalit",
-    "err.invalid_mode": "invalid mode: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_mode": "hindi wastong mode: {mode}",
+    "err.invalid_mode_after": "hindi wastong mode_after: {mode}",
     "err.invalid_action": "di-wastong pagkilos: {action}",
     "hint.fuzzy_match": "Walang eksaktong tugma, pero may natagpuang {sim:.0%} kaparehong content malapit sa posisyon {pos}: ...{before}[{matched}]{after}... Suriin ang whitespace, indentation, o special characters."
   },
@@ -2522,7 +2522,7 @@
       "replace all files",
       "replace_all_in_files"
     ],
-    "param.po_msgid.description": "gettext msgid (fallback: pattern).",
+    "param.po_msgid.description": "gettext msgid (fallback: corak).",
     "param.anchor_before.description": "Teks sauh. Untuk insert_before: teks untuk mencari dan memasukkan sebelum baris itu. Untuk replace_between: sempadan mula.",
     "param.anchor_after.description": "Teks sauh. Untuk insert_after: teks untuk mencari dan memasukkan selepas baris itu. Untuk replace_between: sempadan akhir.",
     "param.occurrence.description": "Kejadian (berasaskan 1; 0 = semua).",
@@ -2623,7 +2623,7 @@
     "err.line_no_out_of_range": "line_no {line_no} uden for rækkevidde for fil med {line_count} linje(r) (gyldig: 1..{max_line})",
     "err.replacement_required": "udskiftning er påkrævet",
     "err.invalid_mode": "ugyldig tilstand: {mode}",
-    "err.invalid_mode_after": "invalid mode_after: {mode}",
+    "err.invalid_mode_after": "ugyldig mode_after: {mode}",
     "err.invalid_action": "ugyldig handling: {action}",
     "hint.fuzzy_match": "Der blev ikke fundet et nøjagtigt match, men {sim:.0%} lignende indhold blev fundet nær position {pos}: ...{before}[{matched}]{after}... Kontrollér mellemrum, indrykning eller specialtegn."
   },

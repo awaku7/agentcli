@@ -992,10 +992,10 @@
   "fil": {
     "err.dir_not_exist": "[search_files error] Walang directory: {path}",
     "err.regex_compile": "[search_files error] Nabigong i-compile ang regex: {error}",
-    "match.excerpt": "MATCH: {text}",
+    "match.excerpt": "TUGMA: {text}",
     "match.line": "L{line}: {text}",
     "match.more": "... (higit pang mga tugma sa file)",
-    "out.file": "File: {file}",
+    "out.file": "Fayl: {file}",
     "out.no_match": "[search_files] Walang mga file na tumugma sa pamantayan.",
     "param.fast_read_threshold_bytes.description": "Ang mga file na mas maliit sa threshold na ito ay ganap na nabasa() para sa mas mabilis na paghahanap (default: 8000000 ≈ 8MB). Ang mas malalaking file ay ini-scan gamit ang streaming upang limitahan ang paggamit ng memorya.",
     "param.page.description": "Numero ng pahina na kukunin (default: 1).",
@@ -1022,7 +1022,7 @@
   "ms": {
     "err.dir_not_exist": "[search_files error] Direktori tidak wujud: {path}",
     "err.regex_compile": "[search_files error] Gagal menyusun regex: {error}",
-    "match.excerpt": "PERLAWANAN: {text}",
+    "match.excerpt": "PADANAN: {text}",
     "match.line": "L{line}: {text}",
     "match.more": "... (lagi padanan dalam fail)",
     "out.file": "Fail: {file}",
@@ -1052,7 +1052,7 @@
   "da": {
     "err.dir_not_exist": "[search_files error] Directory eksisterer ikke: {path}",
     "err.regex_compile": "[search_files error] Kunne ikke kompilere regulært udtryk: {error}",
-    "match.excerpt": "MATCH: {text}",
+    "match.excerpt": "TRÆF: {text}",
     "match.line": "L{line}: {text}",
     "match.more": "... (flere matches i filen)",
     "out.file": "Fil: {file}",
@@ -1082,7 +1082,7 @@
   "nn": {
     "err.dir_not_exist": "[search_files error] Katalog eksisterer ikke: {path}",
     "err.regex_compile": "[search_files error] Kunne ikke kompilere regulært uttrykk: {error}",
-    "match.excerpt": "KAMP: {text}",
+    "match.excerpt": "TREFF: {text}",
     "match.line": "L{line}: {text}",
     "match.more": "... (flere treff i filen)",
     "out.file": "Fil: {file}",

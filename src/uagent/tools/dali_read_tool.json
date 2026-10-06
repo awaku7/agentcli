@@ -562,12 +562,12 @@
   },
   "fil": {
     "tool.description": "Basahin ang katayuan at antas mula sa isang DALI lighting device. Nagtatanong sa tinukoy na address para sa kasalukuyang estado.",
-    "param.address.description": "DALI device address (0-63).",
+    "param.address.description": "Address ng DALI device (0-63).",
     "param.driver.description": "Uri ng driver ng DALI.",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
+    "param.host.description": "Host ng daliserver.",
+    "param.port.description": "Port ng daliserver.",
     "param.fmt.description": "Format: json o text.",
-    "msg.summary": "DALI read: addr={addr} level={level} status={status}",
+    "msg.summary": "Pagbasa ng DALI: addr={addr} antas={level} status={status}",
     "x_search_terms": [
       "dali basahin",
       "dali_read",

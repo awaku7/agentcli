@@ -699,10 +699,10 @@
     "param.level.description": "Malamlam na antas (0-254). Kinakailangan para sa pagkilos=dim.",
     "param.group.description": "Opsyonal na address ng pangkat (0-15) sa halip na isang address.",
     "param.driver.description": "Uri ng driver ng DALI.",
-    "param.host.description": "daliserver host.",
-    "param.port.description": "daliserver port.",
+    "param.host.description": "Host ng daliserver.",
+    "param.port.description": "Port ng daliserver.",
     "param.fmt.description": "Format: json o text.",
-    "msg.summary": "DALI {action}: addr={addr} level={level}",
+    "msg.summary": "Operasyong DALI {action}: addr={addr} antas={level}",
     "x_search_terms": [
       "dali magsulat",
       "dali_write",
