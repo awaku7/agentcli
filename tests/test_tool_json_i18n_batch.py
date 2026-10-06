@@ -583,3 +583,30 @@ def test_collect_units_skips_only_tool_scoped_intentional_english(
     assert [(unit.tool, unit.key) for unit in units] == [
         ("other", "bitchat.debug_hs_skip")
     ]
+
+def test_discord_catalog_preserves_action_literals_and_safety_note() -> None:
+    catalog_path = (
+        Path(__file__).parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "discord_channel_tool.json"
+    )
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+    action_literal = "send / send_and_wait / history."
+
+    for lang, block in catalog.items():
+        action_description = block["param.action.description"]
+        assert action_literal in action_description, lang
+        warning = action_description.split(action_literal, 1)[1].strip()
+        assert len(warning) >= 20, lang
+
+    assert catalog["es"]["param.message.description"] == "Mensaje."
+    assert catalog["ru"]["param.message.description"] == "Сообщение."
+    assert catalog["hi"]["param.message.description"] == "संदेश।"
+    assert catalog["ar"]["param.message.description"] == "رسالة."
+    assert catalog["uk"]["param.message.description"] == "Повідомлення."
+    assert catalog["th"]["param.message.description"] == "ข้อความ"
+    assert catalog["bn"]["param.message.description"] == "বার্তা।"
+    assert catalog["bn"]["err.missing_action"] == "অনুপস্থিত 'action'।"
+
