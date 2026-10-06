@@ -95,7 +95,7 @@
     "warn.empty": "[АНХААРУУЛГА] хоосон хариулт"
   },
   "mr": {
-    "err.import_openai": "ओपनई पॅकेज इंपोर्ट करण्यात अयशस्वी.",
+    "err.import_openai": "OpenAI पॅकेज इंपोर्ट करण्यात अयशस्वी.",
     "err.missing_env": "UAGENT_DEEPSEEK_API_KEY (किंवा UAGENT_OPENAI_API_KEY) गहाळ आहे.",
     "warn.empty": "[चेतावणी] रिक्त प्रतिसाद"
   },
