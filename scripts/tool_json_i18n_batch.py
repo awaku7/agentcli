@@ -143,6 +143,25 @@ INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
     }
 )
 
+INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
+    {
+        ("create_tool", "cmd.help"),
+        ("current_location", "src.nmea"),
+        ("wttrin", "output.forecast_row"),
+        ("human_ask", "ui.footer"),
+        ("graph_rag_search", "out.db"),
+        ("bash_exec", "err.returncode"),
+        ("lint_js_ts", "label.ok"),
+        ("mdformat", "label.ok"),
+        ("set_timer", "out.list_os_item"),
+    }
+)
+
+
+def _is_intentional_english_tool_key(tool: str, key: str) -> bool:
+    return (tool, key) in INTENTIONAL_ENGLISH_TOOL_KEYS
+
+
 
 def _reconfigure_stdout() -> None:
     try:
@@ -916,7 +935,10 @@ def cmd_status(args: argparse.Namespace) -> int:
         )
         missing_ids = {(u.source_path, u.lang, u.key) for u in missing_units}
         same_as_en_units = [
-            u for u in review_units if (u.source_path, u.lang, u.key) not in missing_ids
+            u
+            for u in review_units
+            if (u.source_path, u.lang, u.key) not in missing_ids
+            and not _is_intentional_english_tool_key(u.tool, u.key)
         ]
 
     review_units = missing_units + same_as_en_units
