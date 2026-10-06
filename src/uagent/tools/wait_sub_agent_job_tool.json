@@ -1,4 +1,164 @@
 {
+  "ar": {
+    "tool.description": "انتظر حتى ينتهي Sub-Agent Job في الخلفية. هذا انتظار في الواجهة ويمكن مقاطعته من دون إلغاء Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "انتظار الوكيل الفرعي",
+      "انتظار اكتمال المهمة"
+    ],
+    "param.job_id.description": "Job ID الذي أعاده spawn_sub_agent.",
+    "param.timeout.description": "الحد الأقصى لثواني الانتظار. يستمر Job في العمل إذا انتهت مهلة الانتظار."
+  },
+  "bn": {
+    "tool.description": "ব্যাকগ্রাউন্ড Sub-Agent Job শেষ হওয়া পর্যন্ত অপেক্ষা করুন। এটি foreground wait এবং Job বাতিল না করেই বিঘ্নিত করা যায়।",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "সাব-এজেন্ট অপেক্ষা",
+      "জব শেষ হওয়ার অপেক্ষা"
+    ],
+    "param.job_id.description": "spawn_sub_agent থেকে ফেরত পাওয়া Job ID।",
+    "param.timeout.description": "অপেক্ষার সর্বোচ্চ সেকেন্ড। এই অপেক্ষার সময়সীমা শেষ হলেও Job চলতে থাকে।"
+  },
+  "cs": {
+    "tool.description": "Počká na dokončení úlohy Sub-Agent Job na pozadí. Jde o čekání v popředí, které lze přerušit bez zrušení Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "čekat na sub-agenta",
+      "čekat na dokončení úlohy"
+    ],
+    "param.job_id.description": "Job ID vrácené nástrojem spawn_sub_agent.",
+    "param.timeout.description": "Maximální počet sekund čekání. Po vypršení tohoto čekání Job pokračuje v běhu."
+  },
+  "da": {
+    "tool.description": "Vent på, at en baggrunds-Sub-Agent Job afsluttes. Dette er ventetid i forgrunden og kan afbrydes uden at annullere Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "vent på sub-agent",
+      "vent på job"
+    ],
+    "param.job_id.description": "Job ID returneret af spawn_sub_agent.",
+    "param.timeout.description": "Maksimalt antal sekunder at vente. Job fortsætter med at køre, hvis denne ventetid udløber."
+  },
+  "de": {
+    "tool.description": "Wartet auf den Abschluss eines Hintergrund-Sub-Agent Job. Dies ist ein Vordergrund-Warten und kann unterbrochen werden, ohne den Job abzubrechen.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "auf Sub-Agent warten",
+      "auf Job warten"
+    ],
+    "param.job_id.description": "Von spawn_sub_agent zurückgegebene Job ID.",
+    "param.timeout.description": "Maximale Anzahl Sekunden zum Warten. Der Job läuft weiter, wenn diese Wartezeit abläuft."
+  },
+  "el": {
+    "tool.description": "Περιμένει να ολοκληρωθεί ένα Sub-Agent Job παρασκηνίου. Είναι αναμονή προσκηνίου και μπορεί να διακοπεί χωρίς ακύρωση του Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "αναμονή sub-agent",
+      "αναμονή ολοκλήρωσης job"
+    ],
+    "param.job_id.description": "Job ID που επέστρεψε το spawn_sub_agent.",
+    "param.timeout.description": "Μέγιστα δευτερόλεπτα αναμονής. Το Job συνεχίζει να εκτελείται αν λήξει αυτή η αναμονή."
+  },
+  "es": {
+    "tool.description": "Espera a que termine un Sub-Agent Job en segundo plano. Es una espera en primer plano y puede interrumpirse sin cancelar el Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "esperar sub-agente",
+      "esperar finalización del job"
+    ],
+    "param.job_id.description": "Job ID devuelto por spawn_sub_agent.",
+    "param.timeout.description": "Máximo de segundos a esperar. El Job sigue ejecutándose si se agota esta espera."
+  },
+  "fa": {
+    "tool.description": "تا پایان Sub-Agent Job پس‌زمینه منتظر می‌ماند. این انتظار در پیش‌زمینه است و بدون لغو Job قابل قطع است.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "انتظار برای زیرعامل",
+      "انتظار پایان کار"
+    ],
+    "param.job_id.description": "Job ID بازگردانده‌شده توسط spawn_sub_agent.",
+    "param.timeout.description": "حداکثر ثانیه‌های انتظار. اگر این انتظار تمام شود Job همچنان اجرا می‌شود."
+  },
+  "fi": {
+    "tool.description": "Odota taustan Sub-Agent Jobin valmistumista. Tämä on etualan odotus ja sen voi keskeyttää peruuttamatta Jobia.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "odota sub-agentia",
+      "odota jobin valmistumista"
+    ],
+    "param.job_id.description": "spawn_sub_agentin palauttama Job ID.",
+    "param.timeout.description": "Odotuksen enimmäisaika sekunteina. Job jatkaa suorittamista, jos odotus aikakatkaistaan."
+  },
+  "fil": {
+    "tool.description": "Hintayin matapos ang background Sub-Agent Job. Foreground wait ito at maaaring ihinto nang hindi kinakansela ang Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "hintayin ang sub-agent",
+      "hintayin matapos ang job"
+    ],
+    "param.job_id.description": "Job ID na ibinalik ng spawn_sub_agent.",
+    "param.timeout.description": "Pinakamataas na segundo ng paghihintay. Patuloy na tatakbo ang Job kapag nag-timeout ang paghihintay na ito."
+  },
+  "fr": {
+    "tool.description": "Attend la fin d’un Sub-Agent Job en arrière-plan. Il s’agit d’une attente au premier plan qui peut être interrompue sans annuler le Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "attendre le sous-agent",
+      "attendre la fin du job"
+    ],
+    "param.job_id.description": "Job ID renvoyé par spawn_sub_agent.",
+    "param.timeout.description": "Nombre maximal de secondes à attendre. Le Job continue à s’exécuter si cette attente expire."
+  },
+  "he": {
+    "tool.description": "ממתין לסיום Sub-Agent Job ברקע. זו המתנה בחזית וניתן להפסיקה בלי לבטל את ה-Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "המתנה לתת-סוכן",
+      "המתנה לסיום job"
+    ],
+    "param.job_id.description": "Job ID שהוחזר על ידי spawn_sub_agent.",
+    "param.timeout.description": "מספר השניות המרבי להמתנה. ה-Job ממשיך לפעול אם ההמתנה מסתיימת בזמן קצוב."
+  },
+  "hi": {
+    "tool.description": "बैकग्राउंड Sub-Agent Job के समाप्त होने की प्रतीक्षा करें। यह foreground wait है और Job रद्द किए बिना बाधित किया जा सकता है।",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "सब-एजेंट की प्रतीक्षा",
+      "जॉब पूर्ण होने की प्रतीक्षा"
+    ],
+    "param.job_id.description": "spawn_sub_agent द्वारा लौटाया गया Job ID।",
+    "param.timeout.description": "प्रतीक्षा के अधिकतम सेकंड। इस प्रतीक्षा का समय समाप्त होने पर भी Job चलता रहता है।"
+  },
+  "hu": {
+    "tool.description": "Megvárja egy háttérbeli Sub-Agent Job befejezését. Ez előtérben történő várakozás, amely a Job megszakítása nélkül félbeszakítható.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "várakozás sub-agentre",
+      "várakozás job befejezésére"
+    ],
+    "param.job_id.description": "A spawn_sub_agent által visszaadott Job ID.",
+    "param.timeout.description": "A várakozás maximális ideje másodpercben. A Job tovább fut, ha ez a várakozás lejár."
+  },
+  "id": {
+    "tool.description": "Tunggu hingga Sub-Agent Job latar belakang selesai. Ini adalah penantian foreground dan dapat dihentikan tanpa membatalkan Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "tunggu sub-agent",
+      "tunggu job selesai"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent.",
+    "param.timeout.description": "Maksimum detik untuk menunggu. Job tetap berjalan jika penantian ini habis waktu."
+  },
+  "it": {
+    "tool.description": "Attende il completamento di un Sub-Agent Job in background. È un’attesa in primo piano e può essere interrotta senza annullare il Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "attendi sub-agent",
+      "attendi completamento job"
+    ],
+    "param.job_id.description": "Job ID restituito da spawn_sub_agent.",
+    "param.timeout.description": "Numero massimo di secondi da attendere. Il Job continua a essere eseguito se questa attesa scade."
+  },
   "ja": {
     "tool.description": "バックグラウンドサブエージェント Job の完了を待ちます。これはフォアグラウンド待機で、Jobをキャンセルせずに中断できます。",
     "x_search_terms": [
@@ -8,5 +168,205 @@
     ],
     "param.job_id.description": "spawn_sub_agent が返した Job ID。",
     "param.timeout.description": "待機する最大秒数。この時間を超えても Job は実行を続けます。"
+  },
+  "ko": {
+    "tool.description": "백그라운드 Sub-Agent Job이 끝날 때까지 기다립니다. 포그라운드 대기이며 Job을 취소하지 않고 중단할 수 있습니다.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "서브에이전트 대기",
+      "작업 완료 대기"
+    ],
+    "param.job_id.description": "spawn_sub_agent가 반환한 Job ID입니다.",
+    "param.timeout.description": "기다릴 최대 초입니다. 대기가 시간 초과되어도 Job은 계속 실행됩니다."
+  },
+  "mn": {
+    "tool.description": "Дэвсгэр Sub-Agent Job дуусахыг хүлээнэ. Энэ нь foreground wait бөгөөд Job-ыг цуцлахгүйгээр тасалдуулж болно.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "sub-agent хүлээх",
+      "job дуусахыг хүлээх"
+    ],
+    "param.job_id.description": "spawn_sub_agent-аас буцаасан Job ID.",
+    "param.timeout.description": "Хүлээх хамгийн их секунд. Энэ хүлээлт timeout болсон ч Job үргэлжлэн ажиллана."
+  },
+  "mr": {
+    "tool.description": "पार्श्वभूमीतील Sub-Agent Job पूर्ण होईपर्यंत प्रतीक्षा करा. ही foreground wait आहे आणि Job रद्द न करता थांबवता येते.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "सब-एजंटची प्रतीक्षा",
+      "जॉब पूर्ण होण्याची प्रतीक्षा"
+    ],
+    "param.job_id.description": "spawn_sub_agent ने परत केलेला Job ID.",
+    "param.timeout.description": "प्रतीक्षा करण्याचे कमाल सेकंद. ही प्रतीक्षा timeout झाली तरी Job चालू राहतो."
+  },
+  "ms": {
+    "tool.description": "Tunggu sehingga Sub-Agent Job latar belakang selesai. Ini ialah penantian foreground dan boleh diganggu tanpa membatalkan Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "tunggu sub-agent",
+      "tunggu job selesai"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent.",
+    "param.timeout.description": "Maksimum saat untuk menunggu. Job terus berjalan jika penantian ini tamat masa."
+  },
+  "nb": {
+    "tool.description": "Vent til en bakgrunns-Sub-Agent Job er ferdig. Dette er venting i forgrunnen og kan avbrytes uten å kansellere Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "vent på sub-agent",
+      "vent på jobb"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent.",
+    "param.timeout.description": "Maksimalt antall sekunder å vente. Job fortsetter å kjøre hvis ventingen tidsavbrytes."
+  },
+  "nl": {
+    "tool.description": "Wacht tot een achtergrond-Sub-Agent Job is voltooid. Dit is wachten op de voorgrond en kan worden onderbroken zonder de Job te annuleren.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "wachten op sub-agent",
+      "wachten op job"
+    ],
+    "param.job_id.description": "Job ID teruggegeven door spawn_sub_agent.",
+    "param.timeout.description": "Maximaal aantal seconden om te wachten. De Job blijft draaien als deze wachttijd verloopt."
+  },
+  "nn": {
+    "tool.description": "Vent til ein bakgrunns-Sub-Agent Job er ferdig. Dette er venting i framgrunnen og kan avbrytast utan å kansellere Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "vent på sub-agent",
+      "vent på jobb"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent.",
+    "param.timeout.description": "Maksimalt tal sekund å vente. Job held fram med å køyre dersom ventinga går ut på tid."
+  },
+  "pl": {
+    "tool.description": "Czeka na zakończenie działającego w tle Sub-Agent Job. Jest to oczekiwanie na pierwszym planie i można je przerwać bez anulowania Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "czekaj na sub-agenta",
+      "czekaj na zakończenie job"
+    ],
+    "param.job_id.description": "Job ID zwrócony przez spawn_sub_agent.",
+    "param.timeout.description": "Maksymalna liczba sekund oczekiwania. Job działa dalej, jeśli to oczekiwanie przekroczy limit czasu."
+  },
+  "pt": {
+    "tool.description": "Espera que um Sub-Agent Job em segundo plano termine. É uma espera em primeiro plano e pode ser interrompida sem cancelar o Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "esperar pelo sub-agent",
+      "esperar conclusão do job"
+    ],
+    "param.job_id.description": "Job ID devolvido por spawn_sub_agent.",
+    "param.timeout.description": "Máximo de segundos a esperar. O Job continua em execução se esta espera expirar."
+  },
+  "pt_BR": {
+    "tool.description": "Espera um Sub-Agent Job em segundo plano terminar. É uma espera em primeiro plano e pode ser interrompida sem cancelar o Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "aguardar sub-agent",
+      "aguardar conclusão do job"
+    ],
+    "param.job_id.description": "Job ID retornado por spawn_sub_agent.",
+    "param.timeout.description": "Máximo de segundos para esperar. O Job continua em execução se essa espera expirar."
+  },
+  "ro": {
+    "tool.description": "Așteaptă finalizarea unui Sub-Agent Job de fundal. Este o așteptare în prim-plan și poate fi întreruptă fără a anula Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "așteaptă sub-agent",
+      "așteaptă finalizarea jobului"
+    ],
+    "param.job_id.description": "Job ID returnat de spawn_sub_agent.",
+    "param.timeout.description": "Numărul maxim de secunde de așteptare. Job continuă să ruleze dacă această așteptare expiră."
+  },
+  "ru": {
+    "tool.description": "Ожидает завершения фонового Sub-Agent Job. Это ожидание на переднем плане, которое можно прервать без отмены Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "ждать sub-agent",
+      "ждать завершения job"
+    ],
+    "param.job_id.description": "Job ID, возвращённый spawn_sub_agent.",
+    "param.timeout.description": "Максимальное число секунд ожидания. Job продолжает выполняться, если это ожидание истекло."
+  },
+  "sv": {
+    "tool.description": "Vänta tills en bakgrunds-Sub-Agent Job är klar. Detta är väntan i förgrunden och kan avbrytas utan att Job avbryts.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "vänta på sub-agent",
+      "vänta på jobb"
+    ],
+    "param.job_id.description": "Job ID som returnerades av spawn_sub_agent.",
+    "param.timeout.description": "Maximalt antal sekunder att vänta. Job fortsätter att köras om väntan når tidsgränsen."
+  },
+  "sw": {
+    "tool.description": "Subiri Sub-Agent Job ya usuli ikamilike. Hii ni kusubiri mbele na inaweza kukatizwa bila kughairi Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "subiri sub-agent",
+      "subiri job ikamilike"
+    ],
+    "param.job_id.description": "Job ID iliyorudishwa na spawn_sub_agent.",
+    "param.timeout.description": "Sekunde za juu zaidi za kusubiri. Job itaendelea kufanya kazi muda huu wa kusubiri ukiisha."
+  },
+  "th": {
+    "tool.description": "รอให้ Sub-Agent Job เบื้องหลังเสร็จ นี่เป็นการรอแบบ foreground และสามารถขัดจังหวะได้โดยไม่ยกเลิก Job",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "รอซับเอเจนต์",
+      "รอ job เสร็จ"
+    ],
+    "param.job_id.description": "Job ID ที่ส่งคืนโดย spawn_sub_agent",
+    "param.timeout.description": "จำนวนวินาทีสูงสุดที่จะรอ Job จะทำงานต่อหากการรอนี้หมดเวลา"
+  },
+  "tr": {
+    "tool.description": "Bir arka plan Sub-Agent Job görevinin bitmesini bekler. Bu bir foreground beklemesidir ve Job iptal edilmeden kesilebilir.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "sub-agent bekle",
+      "job tamamlanmasını bekle"
+    ],
+    "param.job_id.description": "spawn_sub_agent tarafından döndürülen Job ID.",
+    "param.timeout.description": "Beklenecek azami saniye. Bu bekleme zaman aşımına uğrarsa Job çalışmaya devam eder."
+  },
+  "uk": {
+    "tool.description": "Очікує завершення фонового Sub-Agent Job. Це очікування на передньому плані, яке можна перервати без скасування Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "чекати sub-agent",
+      "чекати завершення job"
+    ],
+    "param.job_id.description": "Job ID, повернений spawn_sub_agent.",
+    "param.timeout.description": "Максимальна кількість секунд очікування. Job продовжує працювати, якщо це очікування спливає."
+  },
+  "vi": {
+    "tool.description": "Chờ Sub-Agent Job nền hoàn tất. Đây là chờ foreground và có thể bị ngắt mà không hủy Job.",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "chờ sub-agent",
+      "chờ job hoàn tất"
+    ],
+    "param.job_id.description": "Job ID do spawn_sub_agent trả về.",
+    "param.timeout.description": "Số giây tối đa để chờ. Job tiếp tục chạy nếu lần chờ này hết thời gian."
+  },
+  "zh_CN": {
+    "tool.description": "等待后台 Sub-Agent Job 完成。这是前台等待，可在不取消 Job 的情况下中断。",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "等待子代理",
+      "等待任务完成"
+    ],
+    "param.job_id.description": "spawn_sub_agent 返回的 Job ID。",
+    "param.timeout.description": "最多等待的秒数。即使此次等待超时，Job 仍会继续运行。"
+  },
+  "zh_TW": {
+    "tool.description": "等待背景 Sub-Agent Job 完成。這是前景等待，可在不取消 Job 的情況下中斷。",
+    "x_search_terms": [
+      "wait_sub_agent_job",
+      "等待子代理",
+      "等待工作完成"
+    ],
+    "param.job_id.description": "spawn_sub_agent 傳回的 Job ID。",
+    "param.timeout.description": "最多等待的秒數。即使此次等待逾時，Job 仍會繼續執行。"
   }
 }

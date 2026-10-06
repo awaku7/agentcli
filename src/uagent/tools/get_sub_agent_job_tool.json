@@ -1,4 +1,148 @@
 {
+  "ar": {
+    "tool.description": "احصل على الحالة الحالية ونتيجة Sub-Agent Job في الخلفية دون انتظار.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "حالة المهمة",
+      "حالة الوكيل الفرعي"
+    ],
+    "param.job_id.description": "Job ID الذي أعاده spawn_sub_agent."
+  },
+  "bn": {
+    "tool.description": "অপেক্ষা না করে ব্যাকগ্রাউন্ড Sub-Agent Job-এর বর্তমান অবস্থা ও ফলাফল নিন।",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "জব অবস্থা",
+      "সাব-এজেন্ট অবস্থা"
+    ],
+    "param.job_id.description": "spawn_sub_agent থেকে ফেরত পাওয়া Job ID।"
+  },
+  "cs": {
+    "tool.description": "Získá aktuální stav a výsledek úlohy Sub-Agent Job na pozadí bez čekání.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "stav úlohy",
+      "stav sub-agenta"
+    ],
+    "param.job_id.description": "Job ID vrácené nástrojem spawn_sub_agent."
+  },
+  "da": {
+    "tool.description": "Hent den aktuelle tilstand og resultatet af en baggrunds-Sub-Agent Job uden at vente.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "jobstatus",
+      "sub-agent-status"
+    ],
+    "param.job_id.description": "Job ID returneret af spawn_sub_agent."
+  },
+  "de": {
+    "tool.description": "Ruft den aktuellen Zustand und das Ergebnis eines Hintergrund-Sub-Agent Job ohne Warten ab.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "Jobstatus",
+      "Sub-Agent-Status"
+    ],
+    "param.job_id.description": "Von spawn_sub_agent zurückgegebene Job ID."
+  },
+  "el": {
+    "tool.description": "Λαμβάνει την τρέχουσα κατάσταση και το αποτέλεσμα ενός Sub-Agent Job παρασκηνίου χωρίς αναμονή.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "κατάσταση job",
+      "κατάσταση sub-agent"
+    ],
+    "param.job_id.description": "Job ID που επέστρεψε το spawn_sub_agent."
+  },
+  "es": {
+    "tool.description": "Obtiene el estado actual y el resultado de un Sub-Agent Job en segundo plano sin esperar.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "estado del job",
+      "estado del sub-agente"
+    ],
+    "param.job_id.description": "Job ID devuelto por spawn_sub_agent."
+  },
+  "fa": {
+    "tool.description": "وضعیت فعلی و نتیجه Sub-Agent Job پس‌زمینه را بدون انتظار دریافت می‌کند.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "وضعیت کار",
+      "وضعیت زیرعامل"
+    ],
+    "param.job_id.description": "Job ID بازگردانده‌شده توسط spawn_sub_agent."
+  },
+  "fi": {
+    "tool.description": "Hae taustan Sub-Agent Jobin nykyinen tila ja tulos odottamatta.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "jobin tila",
+      "sub-agentin tila"
+    ],
+    "param.job_id.description": "spawn_sub_agentin palauttama Job ID."
+  },
+  "fil": {
+    "tool.description": "Kunin ang kasalukuyang estado at resulta ng background Sub-Agent Job nang hindi naghihintay.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "estado ng job",
+      "estado ng sub-agent"
+    ],
+    "param.job_id.description": "Job ID na ibinalik ng spawn_sub_agent."
+  },
+  "fr": {
+    "tool.description": "Obtient l’état actuel et le résultat d’un Sub-Agent Job en arrière-plan sans attendre.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "état du job",
+      "état du sous-agent"
+    ],
+    "param.job_id.description": "Job ID renvoyé par spawn_sub_agent."
+  },
+  "he": {
+    "tool.description": "מקבל את המצב הנוכחי ואת התוצאה של Sub-Agent Job ברקע ללא המתנה.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "מצב job",
+      "מצב תת-סוכן"
+    ],
+    "param.job_id.description": "Job ID שהוחזר על ידי spawn_sub_agent."
+  },
+  "hi": {
+    "tool.description": "बिना प्रतीक्षा किए बैकग्राउंड Sub-Agent Job की वर्तमान स्थिति और परिणाम प्राप्त करें।",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "जॉब स्थिति",
+      "सब-एजेंट स्थिति"
+    ],
+    "param.job_id.description": "spawn_sub_agent द्वारा लौटाया गया Job ID।"
+  },
+  "hu": {
+    "tool.description": "Várakozás nélkül lekéri egy háttérbeli Sub-Agent Job aktuális állapotát és eredményét.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "job állapot",
+      "sub-agent állapot"
+    ],
+    "param.job_id.description": "A spawn_sub_agent által visszaadott Job ID."
+  },
+  "id": {
+    "tool.description": "Dapatkan status saat ini dan hasil Sub-Agent Job latar belakang tanpa menunggu.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "status job",
+      "status sub-agent"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent."
+  },
+  "it": {
+    "tool.description": "Ottiene lo stato corrente e il risultato di un Sub-Agent Job in background senza attendere.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "stato job",
+      "stato sub-agent"
+    ],
+    "param.job_id.description": "Job ID restituito da spawn_sub_agent."
+  },
   "ja": {
     "tool.description": "待機せずに、バックグラウンドサブエージェント Job の現在の状態と結果を取得します。",
     "x_search_terms": [
@@ -7,5 +151,185 @@
       "サブエージェント状態確認"
     ],
     "param.job_id.description": "spawn_sub_agent が返した Job ID。"
+  },
+  "ko": {
+    "tool.description": "기다리지 않고 백그라운드 Sub-Agent Job의 현재 상태와 결과를 가져옵니다.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "작업 상태",
+      "서브에이전트 상태"
+    ],
+    "param.job_id.description": "spawn_sub_agent가 반환한 Job ID입니다."
+  },
+  "mn": {
+    "tool.description": "Хүлээлгүйгээр дэвсгэр Sub-Agent Job-ын одоогийн төлөв ба үр дүнг авна.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "job төлөв",
+      "sub-agent төлөв"
+    ],
+    "param.job_id.description": "spawn_sub_agent-аас буцаасан Job ID."
+  },
+  "mr": {
+    "tool.description": "वाट न पाहता पार्श्वभूमीतील Sub-Agent Job ची सध्याची स्थिती आणि निकाल मिळवा.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "जॉब स्थिती",
+      "सब-एजंट स्थिती"
+    ],
+    "param.job_id.description": "spawn_sub_agent ने परत केलेला Job ID."
+  },
+  "ms": {
+    "tool.description": "Dapatkan keadaan semasa dan hasil Sub-Agent Job latar belakang tanpa menunggu.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "status job",
+      "status sub-agent"
+    ],
+    "param.job_id.description": "Job ID yang dikembalikan oleh spawn_sub_agent."
+  },
+  "nb": {
+    "tool.description": "Hent gjeldende tilstand og resultat for en bakgrunns-Sub-Agent Job uten å vente.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "jobbstatus",
+      "sub-agent-status"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent."
+  },
+  "nl": {
+    "tool.description": "Haal de huidige status en het resultaat van een achtergrond-Sub-Agent Job op zonder te wachten.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "jobstatus",
+      "sub-agent-status"
+    ],
+    "param.job_id.description": "Job ID teruggegeven door spawn_sub_agent."
+  },
+  "nn": {
+    "tool.description": "Hent gjeldande tilstand og resultat for ein bakgrunns-Sub-Agent Job utan å vente.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "jobbstatus",
+      "sub-agent-status"
+    ],
+    "param.job_id.description": "Job ID returnert av spawn_sub_agent."
+  },
+  "pl": {
+    "tool.description": "Pobiera bieżący stan i wynik działającego w tle Sub-Agent Job bez oczekiwania.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "stan job",
+      "stan sub-agenta"
+    ],
+    "param.job_id.description": "Job ID zwrócony przez spawn_sub_agent."
+  },
+  "pt": {
+    "tool.description": "Obtém o estado atual e o resultado de um Sub-Agent Job em segundo plano sem esperar.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "estado do job",
+      "estado do sub-agent"
+    ],
+    "param.job_id.description": "Job ID devolvido por spawn_sub_agent."
+  },
+  "pt_BR": {
+    "tool.description": "Obtém o estado atual e o resultado de um Sub-Agent Job em segundo plano sem esperar.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "status do job",
+      "status do sub-agent"
+    ],
+    "param.job_id.description": "Job ID retornado por spawn_sub_agent."
+  },
+  "ro": {
+    "tool.description": "Obține starea curentă și rezultatul unui Sub-Agent Job de fundal fără a aștepta.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "stare job",
+      "stare sub-agent"
+    ],
+    "param.job_id.description": "Job ID returnat de spawn_sub_agent."
+  },
+  "ru": {
+    "tool.description": "Получает текущее состояние и результат фонового Sub-Agent Job без ожидания.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "состояние job",
+      "состояние sub-agent"
+    ],
+    "param.job_id.description": "Job ID, возвращённый spawn_sub_agent."
+  },
+  "sv": {
+    "tool.description": "Hämta aktuellt tillstånd och resultat för en bakgrunds-Sub-Agent Job utan att vänta.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "jobbstatus",
+      "sub-agent-status"
+    ],
+    "param.job_id.description": "Job ID som returnerades av spawn_sub_agent."
+  },
+  "sw": {
+    "tool.description": "Pata hali ya sasa na matokeo ya Sub-Agent Job ya usuli bila kusubiri.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "hali ya job",
+      "hali ya sub-agent"
+    ],
+    "param.job_id.description": "Job ID iliyorudishwa na spawn_sub_agent."
+  },
+  "th": {
+    "tool.description": "รับสถานะปัจจุบันและผลลัพธ์ของ Sub-Agent Job เบื้องหลังโดยไม่ต้องรอ",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "สถานะ job",
+      "สถานะซับเอเจนต์"
+    ],
+    "param.job_id.description": "Job ID ที่ส่งคืนโดย spawn_sub_agent"
+  },
+  "tr": {
+    "tool.description": "Beklemeden bir arka plan Sub-Agent Job görevinin mevcut durumunu ve sonucunu alır.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "job durumu",
+      "sub-agent durumu"
+    ],
+    "param.job_id.description": "spawn_sub_agent tarafından döndürülen Job ID."
+  },
+  "uk": {
+    "tool.description": "Отримує поточний стан і результат фонового Sub-Agent Job без очікування.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "стан job",
+      "стан sub-agent"
+    ],
+    "param.job_id.description": "Job ID, повернений spawn_sub_agent."
+  },
+  "vi": {
+    "tool.description": "Lấy trạng thái hiện tại và kết quả của Sub-Agent Job nền mà không cần chờ.",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "trạng thái job",
+      "trạng thái sub-agent"
+    ],
+    "param.job_id.description": "Job ID do spawn_sub_agent trả về."
+  },
+  "zh_CN": {
+    "tool.description": "无需等待即可获取后台 Sub-Agent Job 的当前状态和结果。",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "任务状态",
+      "子代理状态"
+    ],
+    "param.job_id.description": "spawn_sub_agent 返回的 Job ID。"
+  },
+  "zh_TW": {
+    "tool.description": "無需等待即可取得背景 Sub-Agent Job 的目前狀態與結果。",
+    "x_search_terms": [
+      "get_sub_agent_job",
+      "工作狀態",
+      "子代理狀態"
+    ],
+    "param.job_id.description": "spawn_sub_agent 傳回的 Job ID。"
   }
 }
