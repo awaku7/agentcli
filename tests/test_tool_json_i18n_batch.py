@@ -634,4 +634,3 @@ def test_confirm_command_footer_is_invariant() -> None:
                 filename,
                 lang,
             )
-
