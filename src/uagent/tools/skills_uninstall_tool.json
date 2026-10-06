@@ -18,7 +18,8 @@
     "err.invalid_name": "無効なスキルフォルダ名: {name}",
     "err.not_found": "スキル「{name}」は{root}にインストールされていません",
     "success.uninstalled": "スキル「{name}」を{path}からアンインストールしました",
-    "err.unexpected": "予期しないエラーが発生しました: {error}"
+    "err.unexpected": "予期しないエラーが発生しました: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         インストール済み skill をアンインストール"
   },
   "es": {
     "param.name.description": "El nombre de la carpeta de la habilidad que se va a desinstalar.",
@@ -39,7 +40,8 @@
     "err.invalid_name": "Nombre de carpeta de habilidades no válido: {name}",
     "err.not_found": "La habilidad '{name}' no está instalada en {root}",
     "success.uninstalled": "Habilidad desinstalada exitosamente '{name}' de {path}",
-    "err.unexpected": "Se produjo un error inesperado: {error}"
+    "err.unexpected": "Se produjo un error inesperado: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Desinstala una skill instalada"
   },
   "fr": {
     "param.name.description": "Le nom du dossier de la compétence à désinstaller.",
@@ -60,7 +62,8 @@
     "err.invalid_name": "Nom de dossier de compétences non valide : {name}",
     "err.not_found": "La compétence '{name}' n'est pas installée dans {root}",
     "success.uninstalled": "Compétence '{name}' désinstallée avec succès de {path}",
-    "err.unexpected": "Une erreur inattendue s'est produite : {error}"
+    "err.unexpected": "Une erreur inattendue s'est produite : {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Désinstaller une skill installée"
   },
   "ko": {
     "param.name.description": "제거할 스킬의 폴더 이름입니다.",
@@ -81,7 +84,8 @@
     "err.invalid_name": "잘못된 스킬 폴더 이름: {name}",
     "err.not_found": "'{name}' 스킬이 {root}에 설치되지 않았습니다.",
     "success.uninstalled": "{path}에서 '{name}' 기술을 성공적으로 제거했습니다.",
-    "err.unexpected": "예상치 못한 오류가 발생했습니다: {error}"
+    "err.unexpected": "예상치 못한 오류가 발생했습니다: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         설치된 skill 제거"
   },
   "de": {
     "param.name.description": "Der Ordnername des Skills, der deinstalliert werden soll.",
@@ -102,7 +106,8 @@
     "err.invalid_name": "Ungültiger Skill-Ordnername: {name}",
     "err.not_found": "Der Skill „{name}“ ist in {root} nicht installiert",
     "success.uninstalled": "Der Skill „{name}“ wurde erfolgreich von {path} deinstalliert",
-    "err.unexpected": "Es ist ein unerwarteter Fehler aufgetreten: {error}"
+    "err.unexpected": "Es ist ein unerwarteter Fehler aufgetreten: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Installierten Skill deinstallieren"
   },
   "it": {
     "param.name.description": "Il nome della cartella della competenza da disinstallare.",
@@ -123,7 +128,8 @@
     "err.invalid_name": "Nome della cartella delle competenze non valido: {name}",
     "err.not_found": "La competenza \"{name}\" non è installata in {root}",
     "success.uninstalled": "Disinstallazione della competenza '{name}' da {path} riuscita",
-    "err.unexpected": "Si è verificato un errore imprevisto: {error}"
+    "err.unexpected": "Si è verificato un errore imprevisto: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Disinstalla una skill installata"
   },
   "ru": {
     "param.name.description": "Имя папки навыка, который необходимо удалить.",
@@ -144,7 +150,8 @@
     "err.invalid_name": "Недопустимое имя папки навыков: {name}.",
     "err.not_found": "Навык «{name}» не установлен в {root}.",
     "success.uninstalled": "Успешно удален навык «{name}» из {path}.",
-    "err.unexpected": "Произошла непредвиденная ошибка: {error}."
+    "err.unexpected": "Произошла непредвиденная ошибка: {error}.",
+    "help_text.uninstall": "  :skills uninstall <name>         Удалить установленный skill"
   },
   "pt_BR": {
     "param.name.description": "O nome da pasta da skill a ser desinstalada.",
@@ -165,7 +172,8 @@
     "err.invalid_name": "Nome da pasta de habilidades inválido: {name}",
     "err.not_found": "A habilidade '{name}' não está instalada em {root}",
     "success.uninstalled": "Habilidade '{name}' desinstalada com sucesso de {path}",
-    "err.unexpected": "Ocorreu um erro inesperado: {error}"
+    "err.unexpected": "Ocorreu um erro inesperado: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Desinstalar uma skill instalada"
   },
   "pt": {
     "param.name.description": "O nome da pasta da skill a ser desinstalada.",
@@ -186,7 +194,8 @@
     "err.invalid_name": "Nome da pasta de habilidades inválido: {name}",
     "err.not_found": "A habilidade '{name}' não está instalada em {root}",
     "success.uninstalled": "Habilidade '{name}' desinstalada com sucesso de {path}",
-    "err.unexpected": "Ocorreu um erro inesperado: {error}"
+    "err.unexpected": "Ocorreu um erro inesperado: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Desinstalar uma skill instalada"
   },
   "id": {
     "param.name.description": "Nama folder skill yang akan diuninstal.",
@@ -207,7 +216,8 @@
     "err.invalid_name": "Nama folder keterampilan tidak valid: {name}",
     "err.not_found": "Keterampilan '{name}' tidak dipasang di {root}",
     "success.uninstalled": "Berhasil menghapus instalasi keterampilan '{name}' dari {path}",
-    "err.unexpected": "Terjadi kesalahan tak terduga: {error}"
+    "err.unexpected": "Terjadi kesalahan tak terduga: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Hapus instalasi skill yang terpasang"
   },
   "vi": {
     "param.name.description": "Tên thư mục của kỹ năng cần gỡ cài đặt.",
@@ -228,7 +238,8 @@
     "err.invalid_name": "Tên thư mục kỹ năng không hợp lệ: {name}",
     "err.not_found": "Kỹ năng '{name}' chưa được cài đặt trong {root}",
     "success.uninstalled": "Đã gỡ cài đặt thành công kỹ năng '{name}' khỏi {path}",
-    "err.unexpected": "Đã xảy ra lỗi không mong muốn: {error}"
+    "err.unexpected": "Đã xảy ra lỗi không mong muốn: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Gỡ cài đặt skill đã cài"
   },
   "pl": {
     "param.name.description": "Nazwa folderu umiejętności do odinstalowania.",
@@ -249,7 +260,8 @@
     "err.invalid_name": "Nieprawidłowa nazwa folderu umiejętności: {name}",
     "err.not_found": "Umiejętność „{name}” nie jest zainstalowana w {root}",
     "success.uninstalled": "Pomyślnie odinstalowano umiejętność „{name}” z {path}",
-    "err.unexpected": "Wystąpił nieoczekiwany błąd: {error}"
+    "err.unexpected": "Wystąpił nieoczekiwany błąd: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Odinstaluj zainstalowany skill"
   },
   "hi": {
     "param.name.description": "अनइंस्टॉल किए जाने वाले कौशल का फ़ोल्डर नाम।",
@@ -270,7 +282,8 @@
     "err.invalid_name": "अमान्य कौशल फ़ोल्डर का नाम: {name}",
     "err.not_found": "कौशल '{name}' {root} में स्थापित नहीं है",
     "success.uninstalled": "{path} से कौशल '{name}' को सफलतापूर्वक अनइंस्टॉल किया गया",
-    "err.unexpected": "एक अप्रत्याशित त्रुटि उत्पन्न हुई: {error}"
+    "err.unexpected": "एक अप्रत्याशित त्रुटि उत्पन्न हुई: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         इंस्टॉल की गई skill अनइंस्टॉल करें"
   },
   "ar": {
     "param.name.description": "اسم مجلد المهارة المراد إلغاء تثبيتها.",
@@ -291,7 +304,8 @@
     "err.invalid_name": "اسم مجلد المهارات غير صالح: {name}",
     "err.not_found": "لم يتم تثبيت المهارة '{name}' في {root}",
     "success.uninstalled": "تم إلغاء تثبيت المهارة '{name}' من {path} بنجاح",
-    "err.unexpected": "حدث خطأ غير متوقع: {error}"
+    "err.unexpected": "حدث خطأ غير متوقع: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         إلغاء تثبيت skill مثبتة"
   },
   "sv": {
     "param.name.description": "Mappnamnet på färdigheten som ska avinstalleras.",
@@ -312,7 +326,8 @@
     "err.invalid_name": "Ogiltigt namn på färdighetsmappen: {name}",
     "err.not_found": "Färdigheten '{name}' är inte installerad i {root}",
     "success.uninstalled": "Avinstallerade färdigheten '{name}' från {path}",
-    "err.unexpected": "Ett oväntat fel inträffade: {error}"
+    "err.unexpected": "Ett oväntat fel inträffade: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Avinstallera en installerad skill"
   },
   "sw": {
     "param.name.description": "Jina la folda ya skill ya kuondoa.",
@@ -333,7 +348,8 @@
     "err.invalid_name": "Jina batili la folda ya ujuzi: {name}",
     "err.not_found": "Ujuzi '{name}' haujasakinishwa katika {root}",
     "success.uninstalled": "Ujuzi wa '{name}' kutoka kwa {path} umefaulu kusanidua",
-    "err.unexpected": "Hitilafu isiyotarajiwa imetokea: {error}"
+    "err.unexpected": "Hitilafu isiyotarajiwa imetokea: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Ondoa skill iliyosakinishwa"
   },
   "nb": {
     "param.name.description": "Mappenavnet til ferdigheten som skal avinstalleres.",
@@ -354,7 +370,8 @@
     "err.invalid_name": "Ugyldig navn på ferdighetsmappe: {name}",
     "err.not_found": "Ferdigheten '{name}' er ikke installert i {root}",
     "success.uninstalled": "Vellykket avinstallert ferdighet '{name}' fra {path}",
-    "err.unexpected": "Det oppstod en uventet feil: {error}"
+    "err.unexpected": "Det oppstod en uventet feil: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Avinstaller en installert skill"
   },
   "nl": {
     "param.name.description": "De mapnaam van de te deïnstalleren skill.",
@@ -375,7 +392,8 @@
     "err.invalid_name": "Ongeldige naam van de vaardighedenmap: {name}",
     "err.not_found": "Vaardigheid '{name}' is niet geïnstalleerd in {root}",
     "success.uninstalled": "Vaardigheid '{name}' van {path} is verwijderd",
-    "err.unexpected": "Er is een onverwachte fout opgetreden: {error}"
+    "err.unexpected": "Er is een onverwachte fout opgetreden: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Een geïnstalleerde skill verwijderen"
   },
   "fi": {
     "param.name.description": "Poistettavan skillin kansion nimi.",
@@ -396,7 +414,8 @@
     "err.invalid_name": "Virheellinen taitokansion nimi: {name}",
     "err.not_found": "Taitoa '{name}' ei ole asennettu kohteeseen {root}",
     "success.uninstalled": "Taidon '{name}' asennus poistettiin onnistuneesti kohteesta {path}",
-    "err.unexpected": "Tapahtui odottamaton virhe: {error}"
+    "err.unexpected": "Tapahtui odottamaton virhe: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Poista asennettu skill"
   },
   "cs": {
     "param.name.description": "Název složky skillu, který se má odinstalovat.",
@@ -417,7 +436,8 @@
     "err.invalid_name": "Neplatný název složky dovedností: {name}",
     "err.not_found": "Dovednost '{name}' není v {root} nainstalována",
     "success.uninstalled": "Dovednost '{name}' z {path} byla úspěšně odinstalována",
-    "err.unexpected": "Došlo k neočekávané chybě: {error}"
+    "err.unexpected": "Došlo k neočekávané chybě: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Odinstaluje nainstalovaný skill"
   },
   "uk": {
     "param.name.description": "Ім'я папки навички, яку необхідно видалити.",
@@ -438,7 +458,8 @@
     "err.invalid_name": "Недійсна назва папки навичок: {name}",
     "err.not_found": "Навички \"{name}\" не встановлено в {root}",
     "success.uninstalled": "Успішно видалено навик \"{name}\" від {path}",
-    "err.unexpected": "Сталася неочікувана помилка: {error}"
+    "err.unexpected": "Сталася неочікувана помилка: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Видалити встановлений skill"
   },
   "zh_CN": {
     "param.name.description": "要卸载的技能文件夹名称。",
@@ -459,7 +480,8 @@
     "err.invalid_name": "技能文件夹名称无效：{name}",
     "err.not_found": "{root} 中未安装技能“{name}”",
     "success.uninstalled": "已成功从 {path} 卸载技能“{name}”",
-    "err.unexpected": "发生意外错误：{error}"
+    "err.unexpected": "发生意外错误：{error}",
+    "help_text.uninstall": "  :skills uninstall <name>         卸载已安装的 skill"
   },
   "zh_TW": {
     "param.name.description": "要解除安裝的技能資料夾名稱。",
@@ -480,7 +502,8 @@
     "err.invalid_name": "技能文件夹名称无效：{name}",
     "err.not_found": "{root} 中未安裝技能“{name}”",
     "success.uninstalled": "已成功從 {path} 卸載技能“{name}”",
-    "err.unexpected": "发生意外错误：{error}"
+    "err.unexpected": "发生意外错误：{error}",
+    "help_text.uninstall": "  :skills uninstall <name>         解除安裝已安裝的 skill"
   },
   "bn": {
     "param.name.description": "[tool error] Related_path একটি অ-খালি স্ট্রিং হতে হবে",
@@ -501,7 +524,8 @@
     "err.invalid_name": "অবৈধ দক্ষতা ফোল্ডার নাম: {name}",
     "err.not_found": "{root}-এ দক্ষতা '{name}' ইনস্টল করা নেই",
     "success.uninstalled": "{path} থেকে '{name}' দক্ষতা সফলভাবে আনইনস্টল করা হয়েছে",
-    "err.unexpected": "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে: {error}৷"
+    "err.unexpected": "একটি অপ্রত্যাশিত ত্রুটি ঘটেছে: {error}৷",
+    "help_text.uninstall": "  :skills uninstall <name>         ইনস্টল করা skill আনইনস্টল করুন"
   },
   "fa": {
     "param.name.description": "نام پوشهٔ اسکیلی که باید حذف شود.",
@@ -522,7 +546,8 @@
     "err.invalid_name": "نام پوشه مهارت نامعتبر: {name}",
     "err.not_found": "مهارت \"{name}\" در {root} نصب نشده است",
     "success.uninstalled": "مهارت \"{name}\" از {path} با موفقیت حذف نصب شد",
-    "err.unexpected": "یک خطای غیرمنتظره روی داد: {error}"
+    "err.unexpected": "یک خطای غیرمنتظره روی داد: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         حذف skill نصب‌شده"
   },
   "mn": {
     "param.name.description": "Устгах skill-ийн хавтасны нэр.",
@@ -543,7 +568,8 @@
     "err.invalid_name": "Ур чадварын хавтасны нэр буруу: {name}",
     "err.not_found": "'{name}' ур чадварыг {root}-д суулгаагүй байна",
     "success.uninstalled": "{path}-с '{name}' ур чадварыг амжилттай устгалаа",
-    "err.unexpected": "Гэнэтийн алдаа гарлаа: {error}"
+    "err.unexpected": "Гэнэтийн алдаа гарлаа: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Суулгасан skill-ийг устгах"
   },
   "mr": {
     "param.name.description": "अनइंस्टॉल करायच्या skill च्या फोल्डरचे नाव.",
@@ -564,7 +590,8 @@
     "err.invalid_name": "अवैध कौशल्य फोल्डर नाव: {name}",
     "err.not_found": "{root} मध्ये कौशल्य '{name}' स्थापित केलेले नाही",
     "success.uninstalled": "{path} वरून कौशल्य '{name}' यशस्वीरित्या विस्थापित केले",
-    "err.unexpected": "एक अनपेक्षित त्रुटी आली: {error}"
+    "err.unexpected": "एक अनपेक्षित त्रुटी आली: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         स्थापित skill अनइन्स्टॉल करा"
   },
   "el": {
     "param.name.description": "Το όνομα του φακέλου της ικανότητας προς απεγκατάσταση.",
@@ -585,7 +612,8 @@
     "err.invalid_name": "Μη έγκυρο όνομα φακέλου δεξιότητας: {name}",
     "err.not_found": "Η δεξιότητα '{name}' δεν είναι εγκατεστημένη στο {root}",
     "success.uninstalled": "Η δεξιότητα '{name}' απεγκαταστάθηκε επιτυχώς από το {path}",
-    "err.unexpected": "Παρουσιάστηκε απροσδόκητο σφάλμα: {error}"
+    "err.unexpected": "Παρουσιάστηκε απροσδόκητο σφάλμα: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Απεγκατάσταση εγκατεστημένου skill"
   },
   "he": {
     "param.name.description": "הסר התקנה של מיומנות סוכן מ-~/.uag/skills.",
@@ -606,7 +634,8 @@
     "err.invalid_name": "שם תיקיית מיומנות לא חוקי: {name}",
     "err.not_found": "מיומנות '{name}' אינה מותקנת ב-{root}",
     "success.uninstalled": "הכישור '{name}' הוסר בהצלחה מ-{path}",
-    "err.unexpected": "אירעה שגיאה בלתי צפויה: {error}"
+    "err.unexpected": "אירעה שגיאה בלתי צפויה: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         הסר skill מותקן"
   },
   "hu": {
     "param.name.description": "Távolítson el egy ügynökkészséget a ~/.uag/skills webhelyről.",
@@ -627,7 +656,8 @@
     "err.invalid_name": "Érvénytelen készségmappanév: {name}",
     "err.not_found": "A '{name}' készség nincs telepítve a {root} fájlban",
     "success.uninstalled": "A '{name}' készség sikeresen eltávolítva a {path} fájlból",
-    "err.unexpected": "Váratlan hiba történt: {error}"
+    "err.unexpected": "Váratlan hiba történt: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Telepített skill eltávolítása"
   },
   "ro": {
     "param.name.description": "Numele folderului abilității de dezinstalat.",
@@ -648,7 +678,8 @@
     "err.invalid_name": "Nume nevalid al folderului de competențe: {name}",
     "err.not_found": "Abilitatea „{name}” nu este instalată în {root}",
     "success.uninstalled": "Abilitatea „{name}” a fost dezinstalată cu succes din {path}",
-    "err.unexpected": "A apărut o eroare neașteptată: {error}"
+    "err.unexpected": "A apărut o eroare neașteptată: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Dezinstalează un skill instalat"
   },
   "tr": {
     "param.name.description": "Kaldırılacak skill klasörünün adı.",
@@ -669,7 +700,8 @@
     "err.invalid_name": "Geçersiz beceri klasörü adı: {name}",
     "err.not_found": "'{name}' becerisi {root}'de yüklü değil",
     "success.uninstalled": "'{name}' becerisi {path} cihazından başarıyla kaldırıldı",
-    "err.unexpected": "Beklenmeyen bir hata oluştu: {error}"
+    "err.unexpected": "Beklenmeyen bir hata oluştu: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Yüklü bir skill'i kaldır"
   },
   "th": {
     "param.name.description": "ชื่อโฟลเดอร์ของสกิลที่จะถอนการติดตั้ง",
@@ -690,7 +722,8 @@
     "err.invalid_name": "ชื่อโฟลเดอร์ทักษะไม่ถูกต้อง: {name}",
     "err.not_found": "ไม่ได้ติดตั้งทักษะ '{name}' ใน {root}",
     "success.uninstalled": "ถอนการติดตั้งทักษะ '{name}' จาก {path} สำเร็จแล้ว",
-    "err.unexpected": "เกิดข้อผิดพลาดที่ไม่คาดคิด: {error}"
+    "err.unexpected": "เกิดข้อผิดพลาดที่ไม่คาดคิด: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         ถอนการติดตั้ง skill ที่ติดตั้งไว้"
   },
   "fil": {
     "param.name.description": "Ang pangalan ng folder ng kasanayang i-uninstall.",
@@ -711,7 +744,8 @@
     "err.invalid_name": "Di-wastong pangalan ng folder ng kasanayan: {name}",
     "err.not_found": "Ang kasanayang '{name}' ay hindi naka-install sa {root}",
     "success.uninstalled": "Matagumpay na na-uninstall ang kasanayang '{name}' mula sa {path}",
-    "err.unexpected": "May naganap na hindi inaasahang error: {error}"
+    "err.unexpected": "May naganap na hindi inaasahang error: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         I-uninstall ang naka-install na skill"
   },
   "ms": {
     "param.name.description": "Nama folder kemahiran untuk dinyahpasang.",
@@ -732,7 +766,8 @@
     "err.invalid_name": "Nama folder kemahiran tidak sah: {name}",
     "err.not_found": "Kemahiran '{name}' tidak dipasang dalam {root}",
     "success.uninstalled": "Berjaya menyahpasang kemahiran '{name}' daripada {path}",
-    "err.unexpected": "Ralat yang tidak dijangka berlaku: {error}"
+    "err.unexpected": "Ralat yang tidak dijangka berlaku: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Nyahpasang skill yang dipasang"
   },
   "da": {
     "param.name.description": "Mappenavnet på den færdighed, der skal afinstalleres.",
@@ -753,7 +788,8 @@
     "err.invalid_name": "Ugyldigt navn på færdighedsmappe: {name}",
     "err.not_found": "Færdighed '{name}' er ikke installeret i {root}",
     "success.uninstalled": "Afinstalleret færdighed '{name}' fra {path}",
-    "err.unexpected": "Der opstod en uventet fejl: {error}"
+    "err.unexpected": "Der opstod en uventet fejl: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Afinstaller en installeret skill"
   },
   "nn": {
     "param.name.description": "Mappenavnet til ferdigheten som skal avinstalleres.",
@@ -774,6 +810,7 @@
     "err.invalid_name": "Ugyldig namn på ferdighetsmappe: {name}",
     "err.not_found": "Ferdigheten '{name}' er ikke installert i {root}",
     "success.uninstalled": "Vellykket avinstallert ferdighet '{name}' frå {path}",
-    "err.unexpected": "Det oppstod en uventet feil: {error}"
+    "err.unexpected": "Det oppstod en uventet feil: {error}",
+    "help_text.uninstall": "  :skills uninstall <name>         Avinstaller ein installert skill"
   }
 }
