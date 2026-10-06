@@ -767,7 +767,7 @@
     "param.address.description": "Panimulang rehistro ng address (0-based).",
     "param.values.description": "Mga halaga upang isulat. Para sa paghawak: mga comma-separated integer. Para sa mga coils: 'on'/'off' o '1'/'0'.",
     "param.fmt.description": "Format: json o text.",
-    "msg.summary": "Modbus write: {ip} type={t} addr={addr} = {vals}",
+    "msg.summary": "Pagsulat sa Modbus: {ip} type={t} addr={addr} = {vals}",
     "err.ip_required": "ip ay kinakailangan.",
     "err.values_required": "kailangan ang mga halaga.",
     "err.invalid_type": "Di-wastong uri. Wasto: {types}.",
