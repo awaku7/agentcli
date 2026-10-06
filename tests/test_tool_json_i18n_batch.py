@@ -656,3 +656,19 @@ def test_confirm_command_footer_is_invariant() -> None:
                     filename,
                     lang,
                 )
+
+
+def test_pybitchat_nostr_status_format_is_invariant() -> None:
+    catalog_path = (
+        Path(__file__).parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "pybitchat_subscribe_tool.json"
+    )
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    for lang, block in catalog.items():
+        assert block["cmd.node_started_nostr_failed"] == "  nostr: %(state)s", lang
+        assert block["cmd.status_nostr_stopped"] == "  nostr: %(state)s", lang
+
