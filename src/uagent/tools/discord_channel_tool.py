@@ -188,6 +188,8 @@ TOOL_SPEC: dict[str, Any] = {
             default=[
                 "discord_channel",
                 "discord channel",
+                "discord",
+                "chat",
             ],
         ),
         "x_search_terms_en": [

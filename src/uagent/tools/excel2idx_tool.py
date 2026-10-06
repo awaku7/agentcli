@@ -52,11 +52,6 @@ TOOL_SPEC = {
                 "excel parser",
                 "worksheet reader",
                 "excel section",
-                "Read Excel files",
-                "Excel index",
-                "Sheet index",
-                "Extract sheet",
-                "Split into sections",
             ],
         ),
         "x_search_terms_en": [

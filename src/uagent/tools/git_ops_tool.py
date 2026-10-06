@@ -56,6 +56,7 @@ TOOL_SPEC: dict[str, Any] = {
                 "git",
                 "깃",
                 "git",
+                "push",
             ],
         ),
         "x_search_terms_en": [
