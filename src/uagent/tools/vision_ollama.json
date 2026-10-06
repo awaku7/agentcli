@@ -6,8 +6,8 @@
     "prompt.default": "يرجى وصف هذه الصورة بالتفصيل.",
     "err.missing_env.ollama": "يفتقد env var المطلوب لتحليل صور ollama (UAGENT_OLLAMA_DEPNAME)",
     "err.request_failed": "فشل الاتصال بـ Ollama API: {err}",
-    "err.http_error": "خطأ واجهة برمجة تطبيقات Olma: HTTP {status} {body}",
-    "err.invalid_json": "قامت واجهة برمجة تطبيقات Olma بإرجاع JSON غير صالح: {err}",
+    "err.http_error": "خطأ واجهة برمجة تطبيقات Ollama: HTTP {status} {body}",
+    "err.invalid_json": "قامت واجهة برمجة تطبيقات Ollama بإرجاع JSON غير صالح: {err}",
     "warn.empty_response": "[تحذير] استجابة فارغة"
   },
   "bn": {
@@ -17,8 +17,8 @@
     "prompt.default": "এই ছবিটি বিস্তারিত বর্ণনা করুন.",
     "err.missing_env.ollama": "ওল্লামা চিত্র বিশ্লেষণের জন্য প্রয়োজনীয় env var অনুপস্থিত (UAGENT_OLLAMA_DEPNAME)",
     "err.request_failed": "Ollama API কল করতে ব্যর্থ হয়েছে: {err}",
-    "err.http_error": "ওল্লামা API ত্রুটি: HTTP {status} {body}",
-    "err.invalid_json": "ওল্লামা API অবৈধ JSON ফেরত দিয়েছে: {err}",
+    "err.http_error": "Ollama API ত্রুটি: HTTP {status} {body}",
+    "err.invalid_json": "Ollama API অবৈধ JSON ফেরত দিয়েছে: {err}",
     "warn.empty_response": "[সতর্ক] খালি প্রতিক্রিয়া"
   },
   "cs": {
@@ -57,7 +57,7 @@
   "el": {
     "err.image_not_found": "αρχείο εικόνας δεν βρέθηκε: {path}",
     "err.image_too_large": "το αρχείο εικόνας είναι πολύ μεγάλο: {size} byte (όριο={max_bytes})",
-    "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για analyzy_image (olama): {provider!r}",
+    "err.unsupported_provider": "Μη υποστηριζόμενος πάροχος για analyzy_image (Ollama): {provider!r}",
     "prompt.default": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας ollama (UAGENT_OLLAMA_DEPNAME)",
     "err.missing_env.ollama": "Λείπει το απαιτούμενο env var για ανάλυση εικόνας olama (UAGENT_OLLAMA_DEPNAME)",
     "err.request_failed": "Απέτυχε η κλήση του Ollama API: {err}",
@@ -134,12 +134,12 @@
   "hi": {
     "err.image_not_found": "छवि फ़ाइल नहीं मिली: {path}",
     "err.image_too_large": "छवि फ़ाइल बहुत बड़ी है: {size} बाइट्स (सीमा={max_bytes})",
-    "err.unsupported_provider": "विश्लेषण_इमेज (ओलामा) के लिए असमर्थित प्रदाता: {provider!r}",
+    "err.unsupported_provider": "विश्लेषण_इमेज (Ollama) के लिए असमर्थित प्रदाता: {provider!r}",
     "prompt.default": "कृपया इस छवि का विस्तार से वर्णन करें।",
     "err.missing_env.ollama": "ओलामा छवि विश्लेषण के लिए आवश्यक env var गुम है (UAGENT_OLLAMA_DEPNAME)",
-    "err.request_failed": "ओलामा एपीआई को कॉल करने में विफल: {err}",
-    "err.http_error": "ओलामा एपीआई त्रुटि: HTTP {status} {body}",
-    "err.invalid_json": "ओलामा एपीआई ने अमान्य JSON लौटाया: {err}",
+    "err.request_failed": "Ollama एपीआई को कॉल करने में विफल: {err}",
+    "err.http_error": "Ollama एपीआई त्रुटि: HTTP {status} {body}",
+    "err.invalid_json": "Ollama एपीआई ने अमान्य JSON लौटाया: {err}",
     "warn.empty_response": "[चेतावनी] खाली प्रतिक्रिया"
   },
   "hu": {
@@ -200,7 +200,7 @@
   "mn": {
     "err.image_not_found": "зургийн файл олдсонгүй: {path}",
     "err.image_too_large": "зургийн файл хэт том: {size} байт (хязгаарлалт={max_bytes})",
-    "err.unsupported_provider": "Шинжилгээний_зургийн дэмжигдээгүй үйлчилгээ үзүүлэгч (оллама): {provider!r}",
+    "err.unsupported_provider": "Шинжилгээний_зургийн дэмжигдээгүй үйлчилгээ үзүүлэгч (Ollama): {provider!r}",
     "prompt.default": "Энэ зургийг дэлгэрэнгүй тайлбарлана уу.",
     "err.missing_env.ollama": "Оллама зургийн шинжилгээнд шаардлагатай env параметр дутуу байна (UAGENT_OLLAMA_DEPNAME)",
     "err.request_failed": "Ollama API руу залгаж чадсангүй: {err}",
@@ -215,7 +215,7 @@
     "prompt.default": "कृपया या प्रतिमेचे तपशीलवार वर्णन करा.",
     "err.missing_env.ollama": "ओलामा इमेज विश्लेषणासाठी आवश्यक env var गहाळ आहे (UAGENT_OLLAMA_DEPNAME)",
     "err.request_failed": "Ollama API ला कॉल करण्यात अयशस्वी: {err}",
-    "err.http_error": "ओलामा API त्रुटी: HTTP {status} {body}",
+    "err.http_error": "Ollama API त्रुटी: HTTP {status} {body}",
     "err.invalid_json": "Ollama API ने अवैध JSON परत केला: {err}",
     "warn.empty_response": "[चेतावणी] रिक्त प्रतिसाद"
   },
@@ -313,8 +313,8 @@
     "err.unsupported_provider": "Неподдерживаемый поставщик для Analysis_image (ollama): {provider!r}",
     "prompt.default": "Пожалуйста, опишите этот образ подробно.",
     "err.missing_env.ollama": "Отсутствует необходимая переменная среды для анализа изображений олламы (UAGENT_OLLAMA_DEPNAME).",
-    "err.request_failed": "Не удалось вызвать API Олламы: {err}.",
-    "err.http_error": "Ошибка API Олламы: HTTP {status} {body}",
+    "err.request_failed": "Не удалось вызвать API Ollama: {err}.",
+    "err.http_error": "Ошибка API Ollama: HTTP {status} {body}",
     "err.invalid_json": "API Ollama вернул неверный JSON: {err}.",
     "warn.empty_response": "[ПРЕДУПРЕЖДЕНИЕ] пустой ответ"
   },
