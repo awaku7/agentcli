@@ -724,11 +724,20 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
         if item.component == "tool_json":
             by_path = tool_findings_by_kind_path.setdefault(item.kind, {})
             by_path[item.path] = by_path.get(item.path, 0) + 1
+            keys: list[str] = []
             if item.key:
+                keys.append(item.key)
+            if item.detail and isinstance(item.detail.get("paths"), list):
+                keys.extend(
+                    str(value)
+                    for value in item.detail["paths"]
+                    if isinstance(value, str)
+                )
+            if keys:
                 by_path_keys = tool_finding_keys_by_kind_path.setdefault(
                     item.kind, {}
                 )
-                by_path_keys.setdefault(item.path, set()).add(item.key)
+                by_path_keys.setdefault(item.path, set()).update(keys)
 
     strict_findings_by_kind: dict[str, int] = {}
     for item in structural_findings:
