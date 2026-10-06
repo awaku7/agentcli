@@ -19,7 +19,9 @@
     "err.section_required": "エラー: mode='section' の場合は 'section' (整数) が必須です。",
     "err.section_invalid": "エラー: 'section' は整数である必要があります。",
     "err.section_not_found": "エラー: セクション {section_num} が見つかりません。有効な範囲: 1..{last}。",
-    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。"
+    "err.invalid_mode": "エラー: 無効なモード '{mode}' です。'index' または 'section' を使用してください。",
+    "err.docx_missing": "エラー: python-docx がインストールされていないか、インポートできませんでした。",
+    "msg.no_sections": "（文書内にセクションまたは段落が見つかりません）"
   },
   "zh_CN": {
     "tool.description": "将文件解析为多个部分并返回 docx2idx 的编号索引或特定部分。",
@@ -41,7 +43,9 @@
     "err.section_required": "错误：当 mode='section' 时，需要'section'（整数）。",
     "err.section_invalid": "错误：“节”必须是整数。",
     "err.section_not_found": "错误：未找到 {section_num} 部分。有效范围：1..{last}。",
-    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。"
+    "err.invalid_mode": "错误：模式“{mode}”无效。使用“索引”或“部分”。",
+    "err.docx_missing": "错误：python-docx 未安装或无法导入。",
+    "msg.no_sections": "（文档中未找到章节或段落）"
   },
   "zh_TW": {
     "tool.description": "將檔案解析為多個部分並傳回 docx2idx 的編號索引或特定部分。",
@@ -63,7 +67,9 @@
     "err.section_required": "錯誤：當 mode='section' 時，需要'section'（整數）。",
     "err.section_invalid": "錯誤：“節”必須是整數。",
     "err.section_not_found": "錯誤：未找到 {section_num} 部分。有效範圍：1..{last}。",
-    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。"
+    "err.invalid_mode": "錯誤：模式“{mode}”無效。使用“索引”或“部分”。",
+    "err.docx_missing": "錯誤：python-docx 未安裝或無法匯入。",
+    "msg.no_sections": "（文件中找不到章節或段落）"
   },
   "ko": {
     "tool.description": "파일을 섹션으로 구문 분석하고 docx2idx에 대한 번호가 매겨진 인덱스 또는 특정 섹션을 반환합니다.",
@@ -85,7 +91,9 @@
     "err.section_required": "오류: 모드='섹션'인 경우 '섹션'(정수)이 필요합니다.",
     "err.section_invalid": "오류: '섹션'은 정수여야 합니다.",
     "err.section_not_found": "오류: {section_num} 섹션을 찾을 수 없습니다. 유효한 범위: 1..{last}.",
-    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요."
+    "err.invalid_mode": "오류: 잘못된 모드 '{mode}'. '인덱스'나 '섹션'을 사용하세요.",
+    "err.docx_missing": "오류: python-docx가 설치되어 있지 않거나 가져올 수 없습니다.",
+    "msg.no_sections": "(문서에서 섹션 또는 단락을 찾지 못했습니다)"
   },
   "fr": {
     "tool.description": "Analysez le fichier en sections et renvoyez un index numéroté ou une section spécifique pour docx2idx.",
@@ -107,7 +115,9 @@
     "err.section_required": "Erreur : 'section' (entier) est requis lorsque mode='section'.",
     "err.section_invalid": "Erreur : « section » doit être un nombre entier.",
     "err.section_not_found": "Erreur : Section {section_num} introuvable. Plage valide : 1..{last}.",
-    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section »."
+    "err.invalid_mode": "Erreur : mode non valide '{mode}'. Utilisez « index » ou « section ».",
+    "err.docx_missing": "Erreur : python-docx n’est pas installé ou n’a pas pu être importé.",
+    "msg.no_sections": "(aucune section ni aucun paragraphe trouvé dans le document)"
   },
   "de": {
     "tool.description": "Analysieren Sie die Datei in Abschnitte und geben Sie einen nummerierten Index oder einen bestimmten Abschnitt für docx2idx zurück.",
@@ -129,7 +139,9 @@
     "err.section_required": "Fehler: 'Abschnitt' (Ganzzahl) ist erforderlich, wenn mode='Abschnitt'.",
     "err.section_invalid": "Fehler: „Abschnitt“ muss eine Ganzzahl sein.",
     "err.section_not_found": "Fehler: Abschnitt {section_num} nicht gefunden. Gültiger Bereich: 1..{last}.",
-    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“."
+    "err.invalid_mode": "Fehler: Ungültiger Modus „{mode}“. Verwenden Sie „Index“ oder „Abschnitt“.",
+    "err.docx_missing": "Fehler: python-docx ist nicht installiert oder konnte nicht importiert werden.",
+    "msg.no_sections": "(keine Abschnitte oder Absätze im Dokument gefunden)"
   },
   "es": {
     "tool.description": "Analiza el archivo en secciones y devuelve un índice numerado o una sección específica para docx2idx.",
@@ -151,7 +163,9 @@
     "err.section_required": "Error: se requiere 'sección' (entero) cuando modo = 'sección'.",
     "err.section_invalid": "Error: la 'sección' debe ser un número entero.",
     "err.section_not_found": "Error: Sección {section_num} no encontrada. Rango válido: 1..{last}.",
-    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'."
+    "err.invalid_mode": "Error: Modo no válido '{mode}'. Utilice 'índice' o 'sección'.",
+    "err.docx_missing": "Error: python-docx no está instalado o no se pudo importar.",
+    "msg.no_sections": "(no se encontraron secciones ni párrafos en el documento)"
   },
   "it": {
     "tool.description": "Analizza il file in sezioni e restituisce un indice numerato o una sezione specifica per docx2idx.",
@@ -173,7 +187,9 @@
     "err.section_required": "Errore: 'sezione' (numero intero) è richiesto quando mode='sezione'.",
     "err.section_invalid": "Errore: la \"sezione\" deve essere un numero intero.",
     "err.section_not_found": "Errore: sezione {section_num} non trovata. Intervallo valido: 1..{last}.",
-    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\"."
+    "err.invalid_mode": "Errore: modalità '{mode}' non valida. Utilizza \"indice\" o \"sezione\".",
+    "err.docx_missing": "Errore: python-docx non è installato o non è stato possibile importarlo.",
+    "msg.no_sections": "(nessuna sezione o paragrafo trovato nel documento)"
   },
   "pt_BR": {
     "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para docx2idx.",
@@ -195,7 +211,9 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "err.docx_missing": "Erro: python-docx não está instalado ou não foi possível importá-lo.",
+    "msg.no_sections": "(nenhuma seção ou parágrafo encontrado no documento)"
   },
   "pt": {
     "tool.description": "Analise o arquivo em seções e retorne um índice numerado ou seção específica para docx2idx.",
@@ -217,7 +235,9 @@
     "err.section_required": "Erro: 'seção' (inteiro) é necessária quando mode='seção'.",
     "err.section_invalid": "Erro: 'seção' deve ser um número inteiro.",
     "err.section_not_found": "Erro: Seção {section_num} não encontrada. Intervalo válido: 1..{last}.",
-    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'."
+    "err.invalid_mode": "Erro: modo inválido '{mode}'. Use 'índice' ou 'seção'.",
+    "err.docx_missing": "Erro: python-docx não está instalado ou não foi possível importá-lo.",
+    "msg.no_sections": "(não foram encontradas secções nem parágrafos no documento)"
   },
   "ru": {
     "tool.description": "Разберите файл на разделы и верните пронумерованный индекс или конкретный раздел для docx2idx.",
@@ -239,7 +259,9 @@
     "err.section_required": "Ошибка: «раздел» (целое число) требуется, если mode = «раздел».",
     "err.section_invalid": "Ошибка: «раздел» должен быть целым числом.",
     "err.section_not_found": "Ошибка: раздел {section_num} не найден. Допустимый диапазон: 1..{last}.",
-    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел»."
+    "err.invalid_mode": "Ошибка: неверный режим «{mode}». Используйте «индекс» или «раздел».",
+    "err.docx_missing": "Ошибка: python-docx не установлен или его не удалось импортировать.",
+    "msg.no_sections": "(в документе не найдено разделов или абзацев)"
   },
   "id": {
     "tool.description": "Parsing file menjadi beberapa bagian dan kembalikan indeks bernomor atau bagian tertentu untuk docx2idx.",
@@ -261,7 +283,9 @@
     "err.section_required": "Kesalahan: 'bagian' (bilangan bulat) diperlukan ketika mode='bagian'.",
     "err.section_invalid": "Kesalahan: 'bagian' harus berupa bilangan bulat.",
     "err.section_not_found": "Kesalahan: Bagian {section_num} tidak ditemukan. Rentang valid: 1..{last}.",
-    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'."
+    "err.invalid_mode": "Kesalahan: Mode '{mode}' tidak valid. Gunakan 'indeks' atau 'bagian'.",
+    "err.docx_missing": "Kesalahan: python-docx tidak terpasang atau tidak dapat diimpor.",
+    "msg.no_sections": "(tidak ditemukan bagian atau paragraf dalam dokumen)"
   },
   "vi": {
     "tool.description": "Phân tích tệp thành các phần và trả về chỉ mục được đánh số hoặc phần cụ thể cho docx2idx.",
@@ -283,7 +307,9 @@
     "err.section_required": "Lỗi: 'phần' (số nguyên) là bắt buộc khi mode='section'.",
     "err.section_invalid": "Lỗi: 'phần' phải là số nguyên.",
     "err.section_not_found": "Lỗi: Không tìm thấy phần {section_num}. Phạm vi hợp lệ: 1..{last}.",
-    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'."
+    "err.invalid_mode": "Lỗi: Chế độ không hợp lệ '{mode}'. Sử dụng 'chỉ mục' hoặc 'phần'.",
+    "err.docx_missing": "Lỗi: python-docx chưa được cài đặt hoặc không thể import.",
+    "msg.no_sections": "(không tìm thấy phần hoặc đoạn văn nào trong tài liệu)"
   },
   "pl": {
     "tool.description": "Podziel plik na sekcje i zwróć numerowany indeks lub określoną sekcję dla docx2idx.",
@@ -305,7 +331,9 @@
     "err.section_required": "Błąd: „sekcja” (liczba całkowita) jest wymagana, gdy tryb = „sekcja”.",
     "err.section_invalid": "Błąd: „sekcja” musi być liczbą całkowitą.",
     "err.section_not_found": "Błąd: nie znaleziono sekcji {section_num}. Prawidłowy zakres: 1..{last}.",
-    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”."
+    "err.invalid_mode": "Błąd: nieprawidłowy tryb „{mode}”. Użyj „indeksu” lub „sekcji”.",
+    "err.docx_missing": "Błąd: python-docx nie jest zainstalowany lub nie można go zaimportować.",
+    "msg.no_sections": "(w dokumencie nie znaleziono sekcji ani akapitów)"
   },
   "hi": {
     "tool.description": "फ़ाइल को अनुभागों में पार्स करें और docx2idx के लिए क्रमांकित अनुक्रमणिका या विशिष्ट अनुभाग लौटाएँ।",
@@ -327,7 +355,9 @@
     "err.section_required": "त्रुटि: 'सेक्शन' (पूर्णांक) आवश्यक है जब मोड='सेक्शन'।",
     "err.section_invalid": "त्रुटि: 'अनुभाग' एक पूर्णांक होना चाहिए.",
     "err.section_not_found": "त्रुटि: अनुभाग {section_num} नहीं मिला. वैध सीमा: 1...{last}.",
-    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें."
+    "err.invalid_mode": "त्रुटि: अमान्य मोड '{mode}'। 'सूचकांक' या 'अनुभाग' का प्रयोग करें.",
+    "err.docx_missing": "त्रुटि: python-docx इंस्टॉल नहीं है या इम्पोर्ट नहीं किया जा सका।",
+    "msg.no_sections": "(दस्तावेज़ में कोई सेक्शन या पैराग्राफ नहीं मिला)"
   },
   "ar": {
     "tool.description": "قم بتحليل الملف إلى أقسام وإرجاع فهرس مرقّم أو قسم محدد لـ docx2idx.",
@@ -349,7 +379,9 @@
     "err.section_required": "خطأ: \"القسم\" (عدد صحيح) مطلوب عندما يكون الوضع = \"القسم\".",
     "err.section_invalid": "خطأ: يجب أن يكون \"القسم\" عددًا صحيحًا.",
     "err.section_not_found": "خطأ: لم يتم العثور على القسم {section_num}. النطاق الصالح: 1..{last}.",
-    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\"."
+    "err.invalid_mode": "خطأ: الوضع غير صالح '{mode}'. استخدم \"الفهرس\" أو \"القسم\".",
+    "err.docx_missing": "خطأ: python-docx غير مثبت أو تعذر استيراده.",
+    "msg.no_sections": "(لم يتم العثور على أقسام أو فقرات في المستند)"
   },
   "sv": {
     "tool.description": "Analysera filen i sektioner och returnera ett numrerat index eller ett specifikt avsnitt för docx2idx.",
@@ -371,7 +403,9 @@
     "err.section_required": "Fel: 'sektion' (heltal) krävs när mode='sektion'.",
     "err.section_invalid": "Fel: 'sektion' måste vara ett heltal.",
     "err.section_not_found": "Fel: Avsnitt {section_num} hittades inte. Giltigt intervall: 1..{last}.",
-    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'."
+    "err.invalid_mode": "Fel: Ogiltigt läge '{mode}'. Använd 'index' eller 'sektion'.",
+    "err.docx_missing": "Fel: python-docx är inte installerat eller kunde inte importeras.",
+    "msg.no_sections": "(inga avsnitt eller stycken hittades i dokumentet)"
   },
   "sw": {
     "tool.description": "Changanua faili katika sehemu na urudishe faharasa yenye nambari au sehemu mahususi ya docx2idx.",
@@ -393,7 +427,9 @@
     "err.section_required": "Hitilafu: 'sehemu' (idadi kamili) inahitajika wakati mode='sehemu'.",
     "err.section_invalid": "Hitilafu: 'sehemu' lazima iwe nambari kamili.",
     "err.section_not_found": "Hitilafu: Sehemu ya {section_num} haijapatikana. Masafa halali: 1..{last}.",
-    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'."
+    "err.invalid_mode": "Hitilafu: Hali batili '{mode}'. Tumia 'index' au 'section'.",
+    "err.docx_missing": "Hitilafu: python-docx haijasakinishwa au haikuweza kuingizwa.",
+    "msg.no_sections": "(hakuna sehemu au aya zilizopatikana kwenye hati)"
   },
   "nb": {
     "tool.description": "Parse fil i seksjoner og returner en nummerert indeks eller spesifikk seksjon for docx2idx.",
@@ -415,7 +451,9 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: 'seksjon' må være et heltall.",
     "err.section_not_found": "Feil: Seksjon {section_num} ble ikke funnet. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "err.docx_missing": "Feil: python-docx er ikke installert eller kunne ikke importeres.",
+    "msg.no_sections": "(ingen seksjoner eller avsnitt funnet i dokumentet)"
   },
   "nl": {
     "tool.description": "Parseer het bestand in secties en retourneer een genummerde index of specifieke sectie voor docx2idx.",
@@ -437,7 +475,9 @@
     "err.section_required": "Fout: 'section' (geheel getal) is vereist wanneer mode='section'.",
     "err.section_invalid": "Fout: 'sectie' moet een geheel getal zijn.",
     "err.section_not_found": "Fout: Sectie {section_num} niet gevonden. Geldig bereik: 1..{last}.",
-    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'."
+    "err.invalid_mode": "Fout: ongeldige modus '{mode}'. Gebruik 'index' of 'sectie'.",
+    "err.docx_missing": "Fout: python-docx is niet geïnstalleerd of kon niet worden geïmporteerd.",
+    "msg.no_sections": "(geen secties of alinea’s gevonden in het document)"
   },
   "fi": {
     "tool.description": "Jäsennä tiedosto osiin ja palauta numeroitu hakemisto tai tietty osio docx2idx:lle.",
@@ -459,7 +499,9 @@
     "err.section_required": "Virhe: 'osa' (kokonaisluku) vaaditaan, kun mode='section'.",
     "err.section_invalid": "Virhe: osan on oltava kokonaisluku.",
     "err.section_not_found": "Virhe: Osaa {section_num} ei löydy. Kelvollinen alue: 1..{last}.",
-    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'."
+    "err.invalid_mode": "Virhe: Virheellinen tila '{mode}'. Käytä 'indeksiä' tai 'osastoa'.",
+    "err.docx_missing": "Virhe: python-docx ei ole asennettu tai sitä ei voitu tuoda.",
+    "msg.no_sections": "(asiakirjasta ei löytynyt osioita tai kappaleita)"
   },
   "cs": {
     "tool.description": "Rozložte soubor do sekcí a vraťte očíslovaný index nebo konkrétní sekci pro docx2idx.",
@@ -481,7 +523,9 @@
     "err.section_required": "Chyba: 'section' (celé číslo) je vyžadováno, když mode='section'.",
     "err.section_invalid": "Chyba: 'sekce' musí být celé číslo.",
     "err.section_not_found": "Chyba: Sekce {section_num} nebyla nalezena. Platný rozsah: 1..{last}.",
-    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“."
+    "err.invalid_mode": "Chyba: Neplatný režim '{mode}'. Použijte „index“ nebo „sekce“.",
+    "err.docx_missing": "Chyba: python-docx není nainstalován nebo jej nelze importovat.",
+    "msg.no_sections": "(v dokumentu nebyly nalezeny žádné sekce ani odstavce)"
   },
   "uk": {
     "tool.description": "Розберіть файл на розділи та поверніть нумерований індекс або певний розділ для docx2idx.",
@@ -503,7 +547,9 @@
     "err.section_required": "Помилка: «розділ» (ціле число) потрібен, якщо режим = «розділ».",
     "err.section_invalid": "Помилка: \"розділ\" має бути цілим числом.",
     "err.section_not_found": "Помилка: розділ {section_num} не знайдено. Дійсний діапазон: 1..{last}.",
-    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ»."
+    "err.invalid_mode": "Помилка: недійсний режим \"{mode}\". Використовуйте «індекс» або «розділ».",
+    "err.docx_missing": "Помилка: python-docx не встановлено або його не вдалося імпортувати.",
+    "msg.no_sections": "(у документі не знайдено розділів або абзаців)"
   },
   "tr": {
     "tool.description": "Dosyayı bölümlere ayırın ve docx2idx için numaralı bir dizin veya belirli bir bölüm döndürün.",
@@ -525,7 +571,9 @@
     "err.section_required": "Hata: mode='bölüm' olduğunda 'bölüm' (tamsayı) gereklidir.",
     "err.section_invalid": "Hata: 'bölüm' bir tamsayı olmalıdır.",
     "err.section_not_found": "Hata: Bölüm {section_num} bulunamadı. Geçerli aralık: 1..{last}.",
-    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın."
+    "err.invalid_mode": "Hata: Geçersiz mod '{mode}'. 'Dizin' veya 'bölüm' kullanın.",
+    "err.docx_missing": "Hata: python-docx kurulu değil veya içe aktarılamadı.",
+    "msg.no_sections": "(belgede bölüm veya paragraf bulunamadı)"
   },
   "th": {
     "tool.description": "แยกไฟล์ออกเป็นส่วนๆ และส่งกลับดัชนีตัวเลขหรือส่วนเฉพาะสำหรับ docx2idx",
@@ -547,7 +595,9 @@
     "err.section_required": "ข้อผิดพลาด: ต้องใช้ 'section' (จำนวนเต็ม) เมื่อ mode='section'",
     "err.section_invalid": "ข้อผิดพลาด: 'ส่วน' ต้องเป็นจำนวนเต็ม",
     "err.section_not_found": "ข้อผิดพลาด: ไม่พบส่วน {section_num} ช่วงที่ถูกต้อง: 1..{last}",
-    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'"
+    "err.invalid_mode": "ข้อผิดพลาด: โหมดไม่ถูกต้อง '{mode}' ใช้ 'ดัชนี' หรือ 'ส่วน'",
+    "err.docx_missing": "ข้อผิดพลาด: ไม่ได้ติดตั้ง python-docx หรือไม่สามารถนำเข้าได้",
+    "msg.no_sections": "(ไม่พบส่วนหรือย่อหน้าในเอกสาร)"
   },
   "bn": {
     "tool.description": "বিভাগগুলিতে ফাইল পার্স করুন এবং docx2idx এর জন্য একটি সংখ্যাযুক্ত সূচক বা নির্দিষ্ট বিভাগ ফেরত দিন।",
@@ -569,7 +619,9 @@
     "err.section_required": "ত্রুটি: মোড='বিভাগ' হলে 'বিভাগ' (পূর্ণসংখ্যা) প্রয়োজন।",
     "err.section_invalid": "ত্রুটি: 'বিভাগ' অবশ্যই একটি পূর্ণসংখ্যা হতে হবে।",
     "err.section_not_found": "ত্রুটি: বিভাগ {section_num} পাওয়া যায়নি। বৈধ ব্যাপ্তি: 1..{last}।",
-    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।"
+    "err.invalid_mode": "ত্রুটি: অবৈধ মোড '{mode}'৷ 'সূচী' বা 'বিভাগ' ব্যবহার করুন।",
+    "err.docx_missing": "ত্রুটি: python-docx ইনস্টল করা নেই বা ইমপোর্ট করা যায়নি।",
+    "msg.no_sections": "(ডকুমেন্টে কোনো সেকশন বা অনুচ্ছেদ পাওয়া যায়নি)"
   },
   "fa": {
     "tool.description": "فایل را به بخش ها تجزیه کنید و یک فهرست شماره گذاری شده یا بخش خاصی را برای docx2idx برگردانید.",
@@ -591,7 +643,9 @@
     "err.section_required": "خطا: «بخش» (عدد صحیح) زمانی که حالت = «بخش» مورد نیاز است.",
     "err.section_invalid": "خطا: «بخش» باید یک عدد صحیح باشد.",
     "err.section_not_found": "خطا: بخش {section_num} یافت نشد. محدوده معتبر: 1..{last}.",
-    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید."
+    "err.invalid_mode": "خطا: حالت نامعتبر '{mode}'. از 'index' یا 'section' استفاده کنید.",
+    "err.docx_missing": "خطا: python-docx نصب نیست یا وارد کردن آن ممکن نشد.",
+    "msg.no_sections": "(هیچ بخش یا پاراگرافی در سند یافت نشد)"
   },
   "mn": {
     "tool.description": "Файлыг хэсэг болгон задалж, docx2idx-д дугаарласан индекс эсвэл тодорхой хэсгийг буцаана уу.",
@@ -613,7 +667,9 @@
     "err.section_required": "Алдаа: mode='section' үед 'section' (бүхэл тоо) шаардлагатай.",
     "err.section_invalid": "Алдаа: \"хэсэг\" нь бүхэл тоо байх ёстой.",
     "err.section_not_found": "Алдаа: {section_num} хэсэг олдсонгүй. Хүчинтэй муж: 1..{last}.",
-    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу."
+    "err.invalid_mode": "Алдаа: '{mode}' горим буруу байна. \"индекс\" эсвэл \"хэсэг\"-ийг ашиглана уу.",
+    "err.docx_missing": "Алдаа: python-docx суулгагдаагүй эсвэл импортлох боломжгүй.",
+    "msg.no_sections": "(баримтаас хэсэг эсвэл догол мөр олдсонгүй)"
   },
   "mr": {
     "tool.description": "फाईलचे विभागांमध्ये विश्लेषण करा आणि docx2idx साठी क्रमांकित अनुक्रमणिका किंवा विशिष्ट विभाग परत करा.",
@@ -635,7 +691,9 @@
     "err.section_required": "त्रुटी: मोड='सेक्शन' असताना 'विभाग' (पूर्णांक) आवश्यक आहे.",
     "err.section_invalid": "त्रुटी: 'विभाग' पूर्णांक असणे आवश्यक आहे.",
     "err.section_not_found": "त्रुटी: विभाग {section_num} आढळला नाही. वैध श्रेणी: 1..{last}.",
-    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा."
+    "err.invalid_mode": "त्रुटी: अवैध मोड '{mode}'. 'इंडेक्स' किंवा 'सेक्शन' वापरा.",
+    "err.docx_missing": "त्रुटी: python-docx स्थापित नाही किंवा आयात करता आले नाही.",
+    "msg.no_sections": "(दस्तऐवजात कोणतेही विभाग किंवा परिच्छेद आढळले नाहीत)"
   },
   "el": {
     "tool.description": "Αναλύστε το αρχείο σε ενότητες και επιστρέψτε ένα αριθμημένο ευρετήριο ή μια συγκεκριμένη ενότητα για το docx2idx.",
@@ -657,7 +715,9 @@
     "err.section_required": "Σφάλμα: απαιτείται 'τμήμα' (ακέραιος αριθμός) όταν mode='section'.",
     "err.section_invalid": "Σφάλμα: Το 'τμήμα' πρέπει να είναι ακέραιος.",
     "err.section_not_found": "Σφάλμα: Η ενότητα {section_num} δεν βρέθηκε. Έγκυρο εύρος: 1..{last}.",
-    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα»."
+    "err.invalid_mode": "Σφάλμα: Μη έγκυρη λειτουργία '{mode}'. Χρησιμοποιήστε «ευρετήριο» ή «τμήμα».",
+    "err.docx_missing": "Σφάλμα: το python-docx δεν είναι εγκατεστημένο ή δεν ήταν δυνατή η εισαγωγή του.",
+    "msg.no_sections": "(δεν βρέθηκαν ενότητες ή παράγραφοι στο έγγραφο)"
   },
   "he": {
     "tool.description": "נתח קובץ למקטעים והחזר אינדקס ממוספר או קטע ספציפי עבור docx2idx.",
@@ -679,7 +739,9 @@
     "err.section_required": "שגיאה: 'קטע' (מספר שלם) נדרש כאשר mode='section'.",
     "err.section_invalid": "שגיאה: 'קטע' חייב להיות מספר שלם.",
     "err.section_not_found": "שגיאה: סעיף {section_num} לא נמצא. טווח חוקי: 1..{last}.",
-    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'."
+    "err.invalid_mode": "שגיאה: מצב לא חוקי '{mode}'. השתמש ב'אינדקס' או 'קטע'.",
+    "err.docx_missing": "שגיאה: python-docx אינו מותקן או שלא ניתן לייבא אותו.",
+    "msg.no_sections": "(לא נמצאו מקטעים או פסקאות במסמך)"
   },
   "hu": {
     "tool.description": "Elemezze a fájlt szakaszokra, és adjon vissza egy számozott indexet vagy meghatározott szakaszt a docx2idx számára.",
@@ -701,7 +763,9 @@
     "err.section_required": "Hiba: 'section' (egész szám) szükséges, ha mode='section'.",
     "err.section_invalid": "Hiba: a „szakasznak” egész számnak kell lennie.",
     "err.section_not_found": "Hiba: A {section_num} szakasz nem található. Érvényes tartomány: 1..{last}.",
-    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést."
+    "err.invalid_mode": "Hiba: Érvénytelen mód: '{mode}'. Használja az „index” vagy a „szakasz” kifejezést.",
+    "err.docx_missing": "Hiba: a python-docx nincs telepítve vagy nem importálható.",
+    "msg.no_sections": "(nem található szakasz vagy bekezdés a dokumentumban)"
   },
   "ro": {
     "tool.description": "Analizați fișierul în secțiuni și returnați un index numerotat sau o secțiune specifică pentru docx2idx.",
@@ -723,7 +787,9 @@
     "err.section_required": "Eroare: „secțiune” (întreg) este necesară atunci când mode = „secțiune”.",
     "err.section_invalid": "Eroare: „secțiunea” trebuie să fie un număr întreg.",
     "err.section_not_found": "Eroare: secțiunea {section_num} nu a fost găsită. Interval valid: 1..{last}.",
-    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”."
+    "err.invalid_mode": "Eroare: mod nevalid „{mode}”. Folosiți „index” sau „secțiune”.",
+    "err.docx_missing": "Eroare: python-docx nu este instalat sau nu a putut fi importat.",
+    "msg.no_sections": "(nu au fost găsite secțiuni sau paragrafe în document)"
   },
   "fil": {
     "tool.description": "I-parse ang file sa mga seksyon at ibalik ang isang may numerong index o partikular na seksyon para sa docx2idx.",
@@ -745,7 +811,9 @@
     "err.section_required": "Error: 'section' (integer) ay kinakailangan kapag mode='section'.",
     "err.section_invalid": "Error: Ang 'seksyon' ay dapat na isang integer.",
     "err.section_not_found": "Error: Seksyon {section_num} ay hindi nahanap. Wastong saklaw: 1..{last}.",
-    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'."
+    "err.invalid_mode": "Error: Invalid mode '{mode}'. Gamitin ang 'index' o 'section'.",
+    "err.docx_missing": "Error: hindi naka-install ang python-docx o hindi ito ma-import.",
+    "msg.no_sections": "(walang nakitang mga seksyon o talata sa dokumento)"
   },
   "ms": {
     "tool.description": "Parsing fail kepada bahagian dan kembalikan indeks bernombor atau bahagian khusus untuk docx2idx.",
@@ -767,7 +835,9 @@
     "err.section_required": "Ralat: 'section' (integer) diperlukan apabila mode='section'.",
     "err.section_invalid": "Ralat: 'bahagian' mestilah integer.",
     "err.section_not_found": "Ralat: Bahagian {section_num} tidak ditemui. Julat sah: 1..{last}.",
-    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'."
+    "err.invalid_mode": "Ralat: Mod '{mode}' tidak sah. Gunakan 'indeks' atau 'bahagian'.",
+    "err.docx_missing": "Ralat: python-docx tidak dipasang atau tidak dapat diimport.",
+    "msg.no_sections": "(tiada bahagian atau perenggan ditemui dalam dokumen)"
   },
   "da": {
     "tool.description": "Parse fil i sektioner og returner et nummereret indeks eller specifik sektion for docx2idx.",
@@ -789,7 +859,9 @@
     "err.section_required": "Fejl: 'sektion' (heltal) er påkrævet, når mode='sektion'.",
     "err.section_invalid": "Fejl: 'sektion' skal være et heltal.",
     "err.section_not_found": "Fejl: Sektion {section_num} blev ikke fundet. Gyldigt interval: 1..{last}.",
-    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'."
+    "err.invalid_mode": "Fejl: Ugyldig tilstand '{mode}'. Brug 'indeks' eller 'sektion'.",
+    "err.docx_missing": "Fejl: python-docx er ikke installeret eller kunne ikke importeres.",
+    "msg.no_sections": "(ingen sektioner eller afsnit fundet i dokumentet)"
   },
   "nn": {
     "tool.description": "Parse filen i seksjoner og returner en nummerert indeks eller spesifikk seksjon for docx2idx.",
@@ -811,6 +883,8 @@
     "err.section_required": "Feil: 'seksjon' (heltall) kreves når mode='seksjon'.",
     "err.section_invalid": "Feil: «seksjon» må være et heltall.",
     "err.section_not_found": "Feil: Seksjon {section_num} ble ikkje funnen. Gyldig område: 1..{last}.",
-    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'."
+    "err.invalid_mode": "Feil: Ugyldig modus '{mode}'. Bruk 'indeks' eller 'seksjon'.",
+    "err.docx_missing": "Feil: python-docx er ikkje installert eller kunne ikkje importerast.",
+    "msg.no_sections": "(ingen seksjonar eller avsnitt funne i dokumentet)"
   }
 }

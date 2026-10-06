@@ -218,7 +218,7 @@ def analyze_image_openai(
 
         vision_err = check_vision_support(model, provider)
         if vision_err:
-            return _("vision.error_prefix", default=f"[ERROR] {vision_err}")
+            return _("vision.error_prefix", default="[ERROR] {error}", error=vision_err)
         max_tokens = vision_completion_max_tokens(model, provider, default=1024)
     except Exception:
         max_tokens = 1024
