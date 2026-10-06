@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.7.25] - 2026-10-06
+
+### Fixed
+
+- Expose localized search terms for Browser Playwright, PDF export, SBOM, and security scanning tools while preserving existing English aliases.
+- Expand search-term regression coverage and keep tests Black-compatible.
+
 ## [0.7.24] - 2026-10-04
 
 ### Added
