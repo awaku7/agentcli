@@ -388,9 +388,9 @@
     "param.value.description": "set_value アクションのオプションの数値。範囲: 0 ～ 100。",
     "tool.description": "構成されたアカウントから SwitchBot クラウド デバイスを制御し、JSON またはテキストの結果を返します。",
     "x_search_terms": [
-      "スイッチボットクラウドコントロール",
-      "スイッチボット_クラウド_コントロール",
-      "スイッチボット",
+      "switchbotクラウドコントロール",
+      "switchbot_cloud_control",
+      "switchbot",
       "雲",
       "リモート"
     ]
@@ -416,9 +416,9 @@
     "msg.error_fmt": "오류: {msg}",
     "msg.unknown_error": "알 수 없는 오류",
     "x_search_terms": [
-      "스위치봇 클라우드 제어",
-      "스위치봇_클라우드_컨트롤",
-      "스위치봇",
+      "switchbot 클라우드 제어",
+      "switchbot_cloud_control",
+      "switchbot",
       "구름",
       "원격"
     ],
