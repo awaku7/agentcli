@@ -830,7 +830,8 @@ def translate_lang(
             return left + right
 
     for bi, idxs in enumerate(batches, 1):
-        for scoped_idxs in _scope_pip_install_groups(idxs, texts):
+        scoped_groups = _scope_pip_install_groups(idxs, texts)
+        for gi, scoped_idxs in enumerate(scoped_groups):
             batch_texts = [texts[i] for i in scoped_idxs]
             translated = _translate_with_fallback(batch_texts)
             if len(translated) != len(batch_texts):
@@ -839,9 +840,13 @@ def translate_lang(
                 )
             for i, tr in zip(scoped_idxs, translated):
                 out[i] = str(tr)
+
+            has_more_scoped = gi < len(scoped_groups) - 1
+            has_more_batches = bi < len(batches)
+            if sleep_s > 0 and (has_more_scoped or has_more_batches):
+                time.sleep(sleep_s)
+
         print(f"  batch {bi}/{len(batches)}: {len(idxs)} items")
-        if sleep_s > 0 and bi < len(batches):
-            time.sleep(sleep_s)
 
     if any(x is None for x in out):
         missing = [i for i, x in enumerate(out) if x is None]
