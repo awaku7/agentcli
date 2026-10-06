@@ -112,6 +112,23 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Extract Suricata IDS alerts from a pcap as metadata.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "Suricata",
+                "IDS",
+                "threat detection",
+                "eve.json",
+                "security alert",
+            ],
+        ),
+        "x_search_terms_en": [
+            "Suricata",
+            "IDS",
+            "threat detection",
+            "eve.json",
+            "security alert",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
