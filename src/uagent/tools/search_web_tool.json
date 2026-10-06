@@ -72,7 +72,7 @@
     "error.startpage_captcha": "Le CAPTCHA de StartPage a été déclenché. Réessayez plus tard ou utilisez un autre moteur."
   },
   "ko": {
-    "error.args_must_be_dict": "args는 딕셔너리여야 합니다",
+    "error.args_must_be_dict": "args는 dict여야 합니다.",
     "error.duckduckgo_failed_after_retries": "재시도 후 DuckDuckGo 요청이 실패했습니다: {error}",
     "error.missing_query_parameter": "'query' 매개변수가 누락되었습니다.",
     "error.run_tool_error": "run_tool 오류: {error}",
@@ -552,7 +552,7 @@
     "error.startpage_captcha": "StartPage CAPTCHA ถูกเรียกใช้ ลองใหม่ภายหลังหรือใช้เครื่องมือค้นหาอื่น"
   },
   "zh_CN": {
-    "error.args_must_be_dict": "args 必须是一个字典",
+    "error.args_must_be_dict": "args 必须是 dict。",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo 请求重试后失败：{error}",
     "error.missing_query_parameter": "缺少 'query' 参数",
     "error.run_tool_error": "运行工具错误：{error}",
@@ -576,7 +576,7 @@
     "error.startpage_captcha": "触发了 StartPage CAPTCHA。请稍后重试或使用其他搜索引擎。"
   },
   "zh_TW": {
-    "error.args_must_be_dict": "args 必須是字典",
+    "error.args_must_be_dict": "args 必須是 dict。",
     "error.duckduckgo_failed_after_retries": "DuckDuckGo 請求重試後失敗：{error}",
     "error.missing_query_parameter": "缺少 'query' 參數",
     "error.run_tool_error": "運行工具錯誤：{error}",
