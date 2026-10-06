@@ -198,6 +198,21 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Discover TCP ports using a low-privilege Python socket backend.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "network discovery",
+                "port scan",
+                "tcp scan",
+                "open port",
+            ],
+        ),
+        "x_search_terms_en": [
+            "network discovery",
+            "port scan",
+            "tcp scan",
+            "open port",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

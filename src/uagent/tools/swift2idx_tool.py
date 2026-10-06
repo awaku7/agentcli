@@ -18,6 +18,33 @@ TOOL_SPEC = {
             default="Parse a Swift (.swift) file into classes, structs, enums, protocols, extensions, functions, and methods and return a numbered index or a specific definition section.",
         ),
         "x_parallel_safe": True,
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "swift",
+                "swift code",
+                "swift analysis",
+                "code index",
+                "swift source",
+                "swift parser",
+                "swift function",
+                "swift class",
+                "swift file",
+                "swift module",
+            ],
+        ),
+        "x_search_terms_en": [
+            "swift",
+            "swift code",
+            "swift analysis",
+            "code index",
+            "swift source",
+            "swift parser",
+            "swift function",
+            "swift class",
+            "swift file",
+            "swift module",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

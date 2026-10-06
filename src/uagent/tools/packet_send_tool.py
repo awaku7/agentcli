@@ -136,6 +136,21 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Send bounded TCP/UDP data; dry_run is enabled by default.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "packet send",
+                "udp send",
+                "tcp send",
+                "network test",
+            ],
+        ),
+        "x_search_terms_en": [
+            "packet send",
+            "udp send",
+            "tcp send",
+            "network test",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

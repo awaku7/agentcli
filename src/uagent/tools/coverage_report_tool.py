@@ -27,7 +27,16 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Run project coverage using a detected language tool and return execution and coverage data when available.",
         ),
-        "x_search_terms": ["coverage", "test coverage", "カバレッジ", "テスト網羅率"],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "coverage",
+                "test coverage",
+                "line coverage",
+                "branch coverage",
+                "lcov",
+            ],
+        ),
         "x_search_terms_en": [
             "coverage",
             "test coverage",

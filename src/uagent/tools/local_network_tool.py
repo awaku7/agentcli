@@ -174,6 +174,21 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Read local network interfaces and addresses.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "network interface",
+                "local network",
+                "ip address",
+                "adapter",
+            ],
+        ),
+        "x_search_terms_en": [
+            "network interface",
+            "local network",
+            "ip address",
+            "adapter",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

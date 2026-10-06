@@ -183,6 +183,21 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Inspect selected protocol fields from a local pcap without returning payloads.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "protocol inspection",
+                "packet fields",
+                "pcap fields",
+                "header analysis",
+            ],
+        ),
+        "x_search_terms_en": [
+            "protocol inspection",
+            "packet fields",
+            "pcap fields",
+            "header analysis",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

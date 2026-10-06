@@ -22,13 +22,16 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Scan repository files for likely secrets and risky configuration files without returning secret values.",
         ),
-        "x_search_terms": [
-            "security scan",
-            "secret scan",
-            "脆弱性検査",
-            "秘密情報検出",
-            "セキュリティ検査",
-        ],
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "security scan",
+                "secret scan",
+                "credentials",
+                "private key",
+                "risky config",
+            ],
+        ),
         "x_search_terms_en": [
             "security scan",
             "secret scan",

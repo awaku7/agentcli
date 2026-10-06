@@ -25,6 +25,33 @@ TOOL_SPEC = {
             ),
         ),
         "x_parallel_safe": True,
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "golang",
+                "go code",
+                "go analysis",
+                "code index",
+                "go source",
+                "go parser",
+                "go function",
+                "go struct",
+                "go file",
+                "go module",
+            ],
+        ),
+        "x_search_terms_en": [
+            "golang",
+            "go code",
+            "go analysis",
+            "code index",
+            "go source",
+            "go parser",
+            "go function",
+            "go struct",
+            "go file",
+            "go module",
+        ],
         "parameters": {
             "type": "object",
             "properties": {

@@ -91,6 +91,23 @@ TOOL_SPEC: dict[str, Any] = {
             "tool.description",
             default="Check network tool dependencies, external commands, and privilege state.",
         ),
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "network capabilities",
+                "preflight",
+                "nmap installed",
+                "tshark installed",
+                "privilege check",
+            ],
+        ),
+        "x_search_terms_en": [
+            "network capabilities",
+            "preflight",
+            "nmap installed",
+            "tshark installed",
+            "privilege check",
+        ],
         "parameters": {"type": "object", "properties": {}},
     },
 }
