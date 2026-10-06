@@ -10,7 +10,7 @@ from typing import Any, Optional
 from ..env_utils import env_get
 
 _PRINTF_PLACEHOLDER_RE = re.compile(
-    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\\-]?[0-9]*(?:\\.[0-9]+)?[diouxXeEfFgGcrs]"
+    r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
 )
 _BRACE_PLACEHOLDER_RE = re.compile(r"\{(?P<name>[A-Za-z_][A-Za-z0-9_]*)\}")
 _VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
