@@ -622,6 +622,20 @@ def test_discord_catalog_preserves_action_literals_and_safety_note() -> None:
     assert catalog["th"]["param.message.description"] == "ข้อความ"
     assert catalog["bn"]["param.message.description"] == "বার্তা।"
     assert catalog["bn"]["err.missing_action"] == "অনুপস্থিত 'action'।"
+    assert (
+        catalog["fr"]["param.exclude_bots.description"]
+        == "Lors de l'attente, ignorez les messages des bots."
+    )
+    assert catalog["sw"]["err.missing_channel_id"] == "'channel_id' haipo."
+    assert catalog["mn"]["err.missing_channel_id"] == '"channel_id" дутуу байна.'
+    assert (
+        catalog["pt"]["err.message_too_long"]
+        == "O conteúdo da mensagem do Discord deve ter 2000 caracteres ou menos."
+    )
+    assert (
+        catalog["pt_BR"]["err.message_too_long"]
+        == "O conteúdo da mensagem do Discord deve ter 2.000 caracteres ou menos."
+    )
 
 
 def test_confirm_command_footer_is_invariant() -> None:
