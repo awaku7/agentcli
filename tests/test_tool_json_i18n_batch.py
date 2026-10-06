@@ -225,20 +225,33 @@ def test_status_allows_locale_specific_search_term_counts(
     assert "review_candidates: 0" in output
 
 
-def test_pip_install_protect_terms_extract_commands_and_packages() -> None:
+def test_pip_install_protect_terms_extract_complete_commands() -> None:
     assert batch._pip_install_protect_terms(
         [
             "Install it with: pip install bleak",
             "Then run pip install PySide6.",
+            "Multiple: pip install foo bar",
+            "Pinned: pip install foo==1.2",
+            "Options: pip install --upgrade foo",
             "A bleak outlook should remain translatable.",
             "Duplicate: pip install bleak",
         ]
     ) == [
         "pip install bleak",
-        "bleak",
         "pip install PySide6",
-        "PySide6",
+        "pip install foo bar",
+        "pip install foo==1.2",
+        "pip install --upgrade foo",
     ]
+
+
+def test_pip_install_commands_keep_version_dots_but_drop_sentence_punctuation() -> None:
+    assert batch._pip_install_commands("Run pip install foo==1.2.") == [
+        "pip install foo==1.2"
+    ]
+    assert batch._pip_install_commands(
+        "First line\nInstall: pip install foo[extra]>=1.2 bar~=2.0!\nDone"
+    ) == ["pip install foo[extra]>=1.2 bar~=2.0"]
 
 
 def test_pip_install_scope_isolates_protected_texts() -> None:
