@@ -151,10 +151,6 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
         ("graph_rag_search", "out.db"),
         ("set_timer", "out.list_os_item"),
         ("ucp_checkout", "param.mode.description"),
-        ("bacnet_read", "msg.summary"),
-        ("bacnet_write", "msg.summary"),
-        ("modbus_read", "msg.summary"),
-        ("modbus_write", "msg.summary"),
         ("diff_files", "label.text_input"),
     }
 )
