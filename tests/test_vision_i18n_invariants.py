@@ -64,9 +64,9 @@ def test_vision_missing_env_messages_do_not_reference_foreign_provider_config():
             if "uagent_responses" in lowered or "bedrock" in lowered:
                 invalid.append(f"{lang}:{key}")
 
-    assert not invalid, "Foreign provider/config guidance leaked into messages: " + ", ".join(
-        invalid
-    )
+    assert (
+        not invalid
+    ), "Foreign provider/config guidance leaked into messages: " + ", ".join(invalid)
 
 
 def test_vision_default_prompt_is_not_replaced_by_provider_error():
