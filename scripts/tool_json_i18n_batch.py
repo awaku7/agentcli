@@ -114,6 +114,15 @@ DEFAULT_BATCH_ITEMS = 40
 # a different number of entries from English; x_search_terms_en is the runtime
 # English fallback.
 VARIABLE_LENGTH_LIST_KEYS = frozenset({"x_search_terms"})
+INTENTIONAL_ENGLISH_VALUE_KEYS = frozenset(
+    {
+        "bitchat.debug_noise_hs",
+        "bitchat.debug_noise_enc",
+        "bitchat.debug_hs_start",
+        "bitchat.debug_hs_msg1_sent",
+        "bitchat.debug_hs_skip",
+    }
+)
 
 
 def _reconfigure_stdout() -> None:
@@ -395,7 +404,7 @@ def _is_missing_or_stale(
         if not cur_val.strip():
             return True
         if skip_same_as_en and cur_val.strip() == en_val.strip():
-            return True
+            return key not in INTENTIONAL_ENGLISH_VALUE_KEYS
         return False
     if isinstance(en_val, list) and isinstance(cur_val, list):
         if key in VARIABLE_LENGTH_LIST_KEYS:
