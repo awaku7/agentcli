@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-
 TOOLS_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "tools"
 BLE_LOCALE_FILES = (
     "ble_ops_tool.json",
@@ -25,9 +24,11 @@ def test_bleak_dependency_messages_preserve_package_and_install_command():
             if message is None:
                 continue
 
-            if "bleak" not in message.lower():
-                invalid.append(f"{filename}:{lang}: missing bleak")
-            if message.splitlines()[-1].strip() != "pip install bleak":
+            lines = message.splitlines()
+            prose = "\n".join(lines[:-1])
+            if "bleak" not in prose.lower():
+                invalid.append(f"{filename}:{lang}: missing bleak in prose")
+            if lines[-1].strip() != "pip install bleak":
                 invalid.append(f"{filename}:{lang}: invalid install command")
 
     assert not invalid, (
