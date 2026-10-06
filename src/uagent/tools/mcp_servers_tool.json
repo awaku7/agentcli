@@ -155,7 +155,7 @@
     "err.mcp_servers_not_list": "ERREUR : 'mcp_servers' est activé",
     "warn.item_not_dict": "AVERTISSEMENT : mcp_servers[{idx}] n'est pas un dictionnaire.",
     "err.item_not_dict": "ERREUR : mcp_servers[{idx}] n'est pas un dictionnaire",
-    "warn.name_missing": "AVERTISSEMENT : mcp_servers[{idx}].",
+    "warn.name_missing": "AVERTISSEMENT : mcp_servers[{idx}].name est absent ou vide.",
     "err.name_missing": "ERREUR : mcp_servers[{idx}].name est manquant ou vide",
     "warn.url_no_mcp": "AVERTISSEMENT : mcp_servers[{idx}].url={url!r} ne se termine pas par '/mcp'.",
     "warn.endpoint_missing": "AVERTISSEMENT : mcp_servers[{idx}] n'a ni url ni command.",
