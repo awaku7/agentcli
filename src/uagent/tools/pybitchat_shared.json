@@ -15,7 +15,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] مستلم غير معروف %(recipient)s -- تم إسقاط الرسالة",
+    "bitchat.noise_dm_failed": "[bitchat] فشل تشفير DM إلى %(recipient)s؛ تم إسقاط الرسالة",
+    "bitchat.noise_dm_dropped": "[bitchat] لا توجد جلسة Noise لـ DM إلى %(recipient)s؛ تم إسقاط الرسالة"
   },
   "bn": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -33,7 +41,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] অজানা প্রাপক %(recipient)s -- বার্তা বাদ দেওয়া হয়েছে",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s-এ DM এনক্রিপ্ট করা যায়নি; বার্তা বাদ দেওয়া হয়েছে",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s-এ DM-এর জন্য Noise session নেই; বার্তা বাদ দেওয়া হয়েছে"
   },
   "cs": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -51,7 +67,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Neznámý příjemce %(recipient)s -- zpráva zahozena",
+    "bitchat.noise_dm_failed": "[bitchat] Nepodařilo se zašifrovat DM pro %(recipient)s; zpráva zahozena",
+    "bitchat.noise_dm_dropped": "[bitchat] Pro DM příjemci %(recipient)s není relace Noise; zpráva zahozena"
   },
   "da": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -69,7 +93,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Ukendt modtager %(recipient)s -- beskeden blev droppet",
+    "bitchat.noise_dm_failed": "[bitchat] Kunne ikke kryptere DM til %(recipient)s; beskeden blev droppet",
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-session til DM til %(recipient)s; beskeden blev droppet"
   },
   "de": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -87,7 +119,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Unbekannter Empfänger %(recipient)s -- Nachricht verworfen",
+    "bitchat.noise_dm_failed": "[bitchat] DM an %(recipient)s konnte nicht verschlüsselt werden; Nachricht verworfen",
+    "bitchat.noise_dm_dropped": "[bitchat] Keine Noise-Sitzung für DM an %(recipient)s; Nachricht verworfen"
   },
   "el": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -105,7 +145,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Άγνωστος παραλήπτης %(recipient)s -- το μήνυμα απορρίφθηκε",
+    "bitchat.noise_dm_failed": "[bitchat] Αποτυχία κρυπτογράφησης DM προς %(recipient)s· το μήνυμα απορρίφθηκε",
+    "bitchat.noise_dm_dropped": "[bitchat] Δεν υπάρχει συνεδρία Noise για DM προς %(recipient)s· το μήνυμα απορρίφθηκε"
   },
   "es": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -123,7 +171,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Destinatario desconocido %(recipient)s -- mensaje descartado",
+    "bitchat.noise_dm_failed": "[bitchat] No se pudo cifrar el DM para %(recipient)s; mensaje descartado",
+    "bitchat.noise_dm_dropped": "[bitchat] No hay sesión Noise para el DM a %(recipient)s; mensaje descartado"
   },
   "fa": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -141,7 +197,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] گیرنده ناشناخته %(recipient)s -- پیام حذف شد",
+    "bitchat.noise_dm_failed": "[bitchat] رمزگذاری DM برای %(recipient)s ناموفق بود؛ پیام حذف شد",
+    "bitchat.noise_dm_dropped": "[bitchat] جلسه Noise برای DM به %(recipient)s وجود ندارد؛ پیام حذف شد"
   },
   "fi": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -159,7 +223,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Tuntematon vastaanottaja %(recipient)s -- viesti hylättiin",
+    "bitchat.noise_dm_failed": "[bitchat] DM:n salaaminen vastaanottajalle %(recipient)s epäonnistui; viesti hylättiin",
+    "bitchat.noise_dm_dropped": "[bitchat] Ei Noise-istuntoa DM:lle vastaanottajalle %(recipient)s; viesti hylättiin"
   },
   "fil": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -177,7 +249,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Hindi kilalang recipient %(recipient)s -- ibinagsak ang mensahe",
+    "bitchat.noise_dm_failed": "[bitchat] Nabigong i-encrypt ang DM para kay %(recipient)s; ibinagsak ang mensahe",
+    "bitchat.noise_dm_dropped": "[bitchat] Walang Noise session para sa DM kay %(recipient)s; ibinagsak ang mensahe"
   },
   "fr": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -195,7 +275,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Destinataire inconnu %(recipient)s -- message ignoré",
+    "bitchat.noise_dm_failed": "[bitchat] Échec du chiffrement du DM vers %(recipient)s ; message ignoré",
+    "bitchat.noise_dm_dropped": "[bitchat] Aucune session Noise pour le DM vers %(recipient)s ; message ignoré"
   },
   "he": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -213,7 +301,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] נמען לא ידוע %(recipient)s -- ההודעה הושמטה",
+    "bitchat.noise_dm_failed": "[bitchat] הצפנת DM אל %(recipient)s נכשלה; ההודעה הושמטה",
+    "bitchat.noise_dm_dropped": "[bitchat] אין הפעלת Noise עבור DM אל %(recipient)s; ההודעה הושמטה"
   },
   "hi": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -231,7 +327,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] अज्ञात प्राप्तकर्ता %(recipient)s -- संदेश छोड़ दिया गया",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s के लिए DM एन्क्रिप्ट नहीं हो सका; संदेश छोड़ दिया गया",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s के DM के लिए Noise session नहीं है; संदेश छोड़ दिया गया"
   },
   "hu": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -249,7 +353,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Ismeretlen címzett: %(recipient)s -- üzenet eldobva",
+    "bitchat.noise_dm_failed": "[bitchat] Nem sikerült titkosítani a DM-et %(recipient)s számára; üzenet eldobva",
+    "bitchat.noise_dm_dropped": "[bitchat] Nincs Noise-munkamenet a %(recipient)s címzett DM-jéhez; üzenet eldobva"
   },
   "id": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -267,7 +379,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Penerima tidak dikenal %(recipient)s -- pesan dibuang",
+    "bitchat.noise_dm_failed": "[bitchat] Gagal mengenkripsi DM ke %(recipient)s; pesan dibuang",
+    "bitchat.noise_dm_dropped": "[bitchat] Tidak ada sesi Noise untuk DM ke %(recipient)s; pesan dibuang"
   },
   "it": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -285,7 +405,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Destinatario sconosciuto %(recipient)s -- messaggio scartato",
+    "bitchat.noise_dm_failed": "[bitchat] Impossibile cifrare il DM per %(recipient)s; messaggio scartato",
+    "bitchat.noise_dm_dropped": "[bitchat] Nessuna sessione Noise per il DM a %(recipient)s; messaggio scartato"
   },
   "ja": {
     "bitchat.handshake_complete": "[bitchat] Noise ハンドシェイク完了: %(nick)s",
@@ -303,7 +431,15 @@
     "bitchat.scan_failed": "[bitchat] BLE スキャン開始に失敗: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE サービス開始 (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] %(recipient)s への DM 用 Noise セッションなし -- 平文で送信（暗号化なし）",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] 不明な送信先 %(recipient)s -- メッセージを破棄しました",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s への DM 暗号化に失敗しました。メッセージを破棄しました",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s への DM 用 Noise セッションがありません。メッセージを破棄しました"
   },
   "ko": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -321,7 +457,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] 알 수 없는 수신자 %(recipient)s -- 메시지를 버렸습니다",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s에 대한 DM 암호화 실패; 메시지를 버렸습니다",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s에 대한 DM용 Noise 세션이 없습니다; 메시지를 버렸습니다"
   },
   "mn": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -339,7 +483,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Үл мэдэгдэх хүлээн авагч %(recipient)s -- мессежийг хаялаа",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s руу DM шифрлэж чадсангүй; мессежийг хаялаа",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s руу DM хийх Noise session алга; мессежийг хаялаа"
   },
   "mr": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -357,7 +509,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] अज्ञात प्राप्तकर्ता %(recipient)s -- संदेश वगळला",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s साठी DM एन्क्रिप्ट करण्यात अयशस्वी; संदेश वगळला",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s साठी DM ची Noise session नाही; संदेश वगळला"
   },
   "ms": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -375,7 +535,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Penerima tidak diketahui %(recipient)s -- mesej digugurkan",
+    "bitchat.noise_dm_failed": "[bitchat] Gagal menyulitkan DM kepada %(recipient)s; mesej digugurkan",
+    "bitchat.noise_dm_dropped": "[bitchat] Tiada sesi Noise untuk DM kepada %(recipient)s; mesej digugurkan"
   },
   "nb": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -393,7 +561,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Ukjent mottaker %(recipient)s -- meldingen ble forkastet",
+    "bitchat.noise_dm_failed": "[bitchat] Kunne ikke kryptere DM til %(recipient)s; meldingen ble forkastet",
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-økt for DM til %(recipient)s; meldingen ble forkastet"
   },
   "nl": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -411,7 +587,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Onbekende ontvanger %(recipient)s -- bericht verworpen",
+    "bitchat.noise_dm_failed": "[bitchat] DM naar %(recipient)s kon niet worden versleuteld; bericht verworpen",
+    "bitchat.noise_dm_dropped": "[bitchat] Geen Noise-sessie voor DM naar %(recipient)s; bericht verworpen"
   },
   "nn": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -429,7 +613,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Ukjend mottakar %(recipient)s -- meldinga vart forkasta",
+    "bitchat.noise_dm_failed": "[bitchat] Klarte ikkje å kryptere DM til %(recipient)s; meldinga vart forkasta",
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-økt for DM til %(recipient)s; meldinga vart forkasta"
   },
   "pl": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -447,7 +639,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Nieznany odbiorca %(recipient)s -- wiadomość odrzucona",
+    "bitchat.noise_dm_failed": "[bitchat] Nie udało się zaszyfrować DM do %(recipient)s; wiadomość odrzucona",
+    "bitchat.noise_dm_dropped": "[bitchat] Brak sesji Noise dla DM do %(recipient)s; wiadomość odrzucona"
   },
   "pt": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -465,7 +665,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Destinatário desconhecido %(recipient)s -- mensagem descartada",
+    "bitchat.noise_dm_failed": "[bitchat] Falha ao cifrar DM para %(recipient)s; mensagem descartada",
+    "bitchat.noise_dm_dropped": "[bitchat] Não existe sessão Noise para DM para %(recipient)s; mensagem descartada"
   },
   "pt_BR": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -483,7 +691,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Destinatário desconhecido %(recipient)s -- mensagem descartada",
+    "bitchat.noise_dm_failed": "[bitchat] Falha ao criptografar DM para %(recipient)s; mensagem descartada",
+    "bitchat.noise_dm_dropped": "[bitchat] Não há sessão Noise para DM para %(recipient)s; mensagem descartada"
   },
   "ro": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -501,7 +717,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Destinatar necunoscut %(recipient)s -- mesaj eliminat",
+    "bitchat.noise_dm_failed": "[bitchat] Nu s-a putut cripta DM către %(recipient)s; mesaj eliminat",
+    "bitchat.noise_dm_dropped": "[bitchat] Nu există sesiune Noise pentru DM către %(recipient)s; mesaj eliminat"
   },
   "ru": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -519,7 +743,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Неизвестный получатель %(recipient)s -- сообщение отброшено",
+    "bitchat.noise_dm_failed": "[bitchat] Не удалось зашифровать DM для %(recipient)s; сообщение отброшено",
+    "bitchat.noise_dm_dropped": "[bitchat] Нет сессии Noise для DM к %(recipient)s; сообщение отброшено"
   },
   "sv": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -537,7 +769,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Okänd mottagare %(recipient)s -- meddelandet släpptes",
+    "bitchat.noise_dm_failed": "[bitchat] Kunde inte kryptera DM till %(recipient)s; meddelandet släpptes",
+    "bitchat.noise_dm_dropped": "[bitchat] Ingen Noise-session för DM till %(recipient)s; meddelandet släpptes"
   },
   "sw": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -555,7 +795,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Mpokeaji asiyejulikana %(recipient)s -- ujumbe umetupwa",
+    "bitchat.noise_dm_failed": "[bitchat] Imeshindwa kusimba DM kwa %(recipient)s; ujumbe umetupwa",
+    "bitchat.noise_dm_dropped": "[bitchat] Hakuna kipindi cha Noise kwa DM kwa %(recipient)s; ujumbe umetupwa"
   },
   "th": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -573,7 +821,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] ผู้รับไม่รู้จัก %(recipient)s -- ทิ้งข้อความแล้ว",
+    "bitchat.noise_dm_failed": "[bitchat] เข้ารหัส DM ไปยัง %(recipient)s ไม่สำเร็จ; ทิ้งข้อความแล้ว",
+    "bitchat.noise_dm_dropped": "[bitchat] ไม่มี Noise session สำหรับ DM ไปยัง %(recipient)s; ทิ้งข้อความแล้ว"
   },
   "tr": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -591,7 +847,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Bilinmeyen alıcı %(recipient)s -- mesaj atıldı",
+    "bitchat.noise_dm_failed": "[bitchat] %(recipient)s için DM şifrelenemedi; mesaj atıldı",
+    "bitchat.noise_dm_dropped": "[bitchat] %(recipient)s için DM Noise oturumu yok; mesaj atıldı"
   },
   "uk": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -609,7 +873,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Невідомий одержувач %(recipient)s -- повідомлення відкинуто",
+    "bitchat.noise_dm_failed": "[bitchat] Не вдалося зашифрувати DM для %(recipient)s; повідомлення відкинуто",
+    "bitchat.noise_dm_dropped": "[bitchat] Немає сеансу Noise для DM до %(recipient)s; повідомлення відкинуто"
   },
   "vi": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -627,7 +899,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] Người nhận không xác định %(recipient)s -- đã bỏ tin nhắn",
+    "bitchat.noise_dm_failed": "[bitchat] Không mã hóa được DM tới %(recipient)s; đã bỏ tin nhắn",
+    "bitchat.noise_dm_dropped": "[bitchat] Không có phiên Noise cho DM tới %(recipient)s; đã bỏ tin nhắn"
   },
   "zh_CN": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -645,7 +925,15 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] 未知接收者 %(recipient)s -- 消息已丢弃",
+    "bitchat.noise_dm_failed": "[bitchat] 无法加密发送给 %(recipient)s 的 DM；消息已丢弃",
+    "bitchat.noise_dm_dropped": "[bitchat] 没有用于向 %(recipient)s 发送 DM 的 Noise 会话；消息已丢弃"
   },
   "zh_TW": {
     "bitchat.handshake_complete": "[bitchat] Noise handshake complete with %(nick)s",
@@ -663,6 +951,14 @@
     "bitchat.scan_failed": "[bitchat] BLE scan start failed: %(exc)s",
     "bitchat.service_started": "[bitchat] BLE service started (network=%(network)s, nickname=%(nickname)s)",
     "bitchat.noise_dm_plaintext": "[bitchat] No Noise session for DM to %(recipient)s -- sending as plain text (unencrypted)",
-    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s"
+    "bitchat.nostr_msg": "[nostr/%(kind)s] %(nick)s: %(text)s",
+    "bitchat.debug_noise_hs": "[bitchat] [debug] NOISE_HANDSHAKE from %(sender)s len=%(n)d",
+    "bitchat.debug_noise_enc": "[bitchat] [debug] NOISE_ENCRYPTED from %(sender)s len=%(n)d",
+    "bitchat.debug_hs_start": "[bitchat] [debug] start Noise HS -> %(recipient)s rs=%(rs)s",
+    "bitchat.debug_hs_msg1_sent": "[bitchat] [debug] msg1 sent to %(recipient)s len=%(n)d",
+    "bitchat.debug_hs_skip": "[bitchat] [debug] HS skip rs=%(rs)s attempts=%(a)d",
+    "bitchat.unknown_recipient": "[bitchat] 未知接收者 %(recipient)s -- 訊息已捨棄",
+    "bitchat.noise_dm_failed": "[bitchat] 無法加密傳送給 %(recipient)s 的 DM；訊息已捨棄",
+    "bitchat.noise_dm_dropped": "[bitchat] 沒有用於向 %(recipient)s 傳送 DM 的 Noise 工作階段；訊息已捨棄"
   }
 }
