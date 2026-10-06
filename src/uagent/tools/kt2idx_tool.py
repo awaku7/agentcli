@@ -18,6 +18,33 @@ TOOL_SPEC = {
             default="Parse a Kotlin (.kt) file into classes, interfaces, objects, functions, and properties and return a numbered index or a specific definition section.",
         ),
         "x_parallel_safe": True,
+        "x_search_terms": _(
+            "x_search_terms",
+            default=[
+                "kotlin",
+                "kotlin code",
+                "kotlin analysis",
+                "code index",
+                "kotlin source",
+                "kotlin parser",
+                "kotlin function",
+                "kotlin class",
+                "kotlin file",
+                "kotlin module",
+            ],
+        ),
+        "x_search_terms_en": [
+            "kotlin",
+            "kotlin code",
+            "kotlin analysis",
+            "code index",
+            "kotlin source",
+            "kotlin parser",
+            "kotlin function",
+            "kotlin class",
+            "kotlin file",
+            "kotlin module",
+        ],
         "parameters": {
             "type": "object",
             "properties": {
