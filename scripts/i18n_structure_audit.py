@@ -718,11 +718,17 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
     ]
     findings_by_kind: dict[str, int] = {}
     tool_findings_by_kind_path: dict[str, dict[str, int]] = {}
+    tool_finding_keys_by_kind_path: dict[str, dict[str, set[str]]] = {}
     for item in findings:
         findings_by_kind[item.kind] = findings_by_kind.get(item.kind, 0) + 1
         if item.component == "tool_json":
             by_path = tool_findings_by_kind_path.setdefault(item.kind, {})
             by_path[item.path] = by_path.get(item.path, 0) + 1
+            if item.key:
+                by_path_keys = tool_finding_keys_by_kind_path.setdefault(
+                    item.kind, {}
+                )
+                by_path_keys.setdefault(item.path, set()).add(item.key)
 
     strict_findings_by_kind: dict[str, int] = {}
     for item in structural_findings:
@@ -742,6 +748,13 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
             "tool_findings_by_kind_path": {
                 kind: dict(sorted(paths.items()))
                 for kind, paths in sorted(tool_findings_by_kind_path.items())
+            },
+            "tool_finding_keys_by_kind_path": {
+                kind: {
+                    path: sorted(keys)
+                    for path, keys in sorted(paths.items())
+                }
+                for kind, paths in sorted(tool_finding_keys_by_kind_path.items())
             },
             "strict_findings_by_kind": dict(sorted(strict_findings_by_kind.items())),
             "total_findings": len(findings),
