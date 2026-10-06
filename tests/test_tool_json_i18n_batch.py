@@ -444,10 +444,10 @@ def test_translate_lang_retries_529_with_backoff(
     assert sleep_calls == [15.0]
 
 
-def test_translate_lang_honors_sleep_during_single_item_fallback(
+def test_translate_lang_honors_sleep_during_deep_single_item_fallback(
     tmp_path: Path, monkeypatch
 ) -> None:
-    texts = ["one", "two"]
+    texts = [f"text-{index}" for index in range(512)]
     job_dir = tmp_path / "ja"
     job_dir.mkdir()
     (job_dir / "values_en.json").write_text(
@@ -481,12 +481,19 @@ def test_translate_lang_honors_sleep_during_single_item_fallback(
         tmp_path,
         source_lang="en",
         provider="google",
-        max_chars=8000,
-        max_items=40,
+        max_chars=1_000_000,
+        max_items=1000,
         sleep_s=2.0,
     )
 
-    assert sleep_calls == [2.0]
+    assert sleep_calls
+    assert set(sleep_calls) == {2.0}
+
+
+def test_parser_defaults_to_safe_translation_spacing() -> None:
+    args = batch.build_parser().parse_args(["status"])
+
+    assert args.sleep == 2.0
 
 
 def test_non_search_term_lists_still_require_matching_length() -> None:

@@ -206,7 +206,7 @@ def test_sub_agent_internal_prompts_are_clean_localized_text():
                 continue
             if "[Protocol invariants]" not in prompt:
                 invalid.append(f"{lang}:{key}:protocol")
-            if "\\\\n" in prompt:
+            if "\\n" in prompt:
                 invalid.append(f"{lang}:{key}:literal-newline")
             match = SUB_AGENT_PROMPT_ARTIFACT_RE.search(prompt)
             if match:
