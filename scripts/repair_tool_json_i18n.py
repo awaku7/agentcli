@@ -143,7 +143,10 @@ def translate_batch(lang: str, texts: list[str]) -> list[str]:
             translated = translate_batch(lang, [texts[index] for index in group])
             for index, value in zip(group, translated):
                 out[index] = value
-        return [value if value is not None else texts[index] for index, value in enumerate(out)]
+        return [
+            value if value is not None else texts[index]
+            for index, value in enumerate(out)
+        ]
 
     raw = run_tool(
         {
