@@ -1,4 +1,292 @@
 {
+  "ar": {
+    "tool.description": "ابدأ Sub-Agent في الخلفية وأعد Job ID فوراً. استخدم أدوات Job لفحصه أو إرسال رسائل إليه أو انتظاره أو إلغائه.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "الوكيل الفرعي ",
+      " المخطط "
+    ],
+    "param.agent_name.description": "اسم الوكيل الفرعي المراد تشغيله. المدمج: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. يمكن تحميل أدوار مخصصة من UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "تعليمات أو مهمة محددة للوكيل الفرعي لمعالجتها.",
+    "param.provider.description": "موفر LLM اختياري لهذا الوكيل الفرعي (مثل openai أو claude أو gemini أو deepseek).",
+    "param.model.description": "النموذج أو اسم النشر الاختياري المستخدم مع موفر LLM المحدد.",
+    "param.reasoning.description": "مستوى reasoning موحد اختياري؛ تتم مواءمته داخليًا مع معاملات الموفر والنموذج.",
+    "param.permission_level.description": "يسمح Background V1 فقط بالقيمة none إلى أن يجتاز كل tool تدقيق أمان الخلفية.",
+    "param.timeout.description": "المهلة النهائية الكاملة للـ Job بالثواني، بما في ذلك وقت الانتظار في قائمة الانتظار.",
+    "param.parent_goal.description": "تجاوز هدف الوكيل الأصلي لاستدعاء الوكيل الفرعي هذا.",
+    "param.store_key.description": "مفتاح لتخزين نتيجة هذا الوكيل الفرعي في مخزن السياق المشترك ليستخدمها الوكلاء الفرعيون اللاحقون.",
+    "param.load_keys.description": "قائمة المفاتيح المراد تحميلها من مخزن السياق المشترك. يتم إدخال القيم المقابلة في حزمة contextPack الخاصة بالوكيل الفرعي."
+  },
+  "bn": {
+    "tool.description": "ব্যাকগ্রাউন্ডে একটি Sub-Agent শুরু করুন এবং সঙ্গে সঙ্গে Job ID ফেরত দিন। Job পরিদর্শন, বার্তা পাঠানো, অপেক্ষা বা বাতিল করতে Job টুল ব্যবহার করুন।",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "সাব-এজেন্ট",
+      "পরিকল্পক"
+    ],
+    "param.agent_name.description": "চালানোর জন্য সাব-এজেন্টের নাম। বিল্ট-ইন: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general। কাস্টম রোল UAGENT_SUB_AGENT_ROLES_DIR থেকে লোড করা যায়।",
+    "param.task.description": "প্রক্রিয়া করার জন্য সাব-এজেন্টের জন্য নির্দিষ্ট নির্দেশ/টাস্ক।",
+    "param.provider.description": "এই সাব-এজেন্টের জন্য ঐচ্ছিক LLM প্রদানকারী (যেমন openai, claude, gemini, deepseek)।",
+    "param.model.description": "নির্বাচিত LLM প্রদানকারীর জন্য ঐচ্ছিক মডেল বা ডিপ্লয়মেন্ট নাম।",
+    "param.reasoning.description": "ঐচ্ছিক একীভূত reasoning স্তর; প্রদানকারী ও মডেলভিত্তিক প্যারামিটারে অভ্যন্তরীণভাবে রূপান্তরিত হয়।",
+    "param.permission_level.description": "Background V1-এ প্রতিটি tool ব্যাকগ্রাউন্ড safety audit পাস না করা পর্যন্ত শুধু none অনুমোদিত।",
+    "param.timeout.description": "কিউ সময়সহ সম্পূর্ণ Job-এর চূড়ান্ত সময়সীমা সেকেন্ডে।",
+    "param.parent_goal.description": "এই সাব-এজেন্ট আহ্বানের জন্য অভিভাবক এজেন্টের লক্ষ্য ওভাররাইড করুন।",
+    "param.store_key.description": "পরবর্তী সাব-এজেন্টদের দ্বারা ব্যবহারের জন্য শেয়ার্ড কনটেক্সট স্টোরে এই সাব-এজেন্টের ফলাফল সংরক্ষণ করার কী।",
+    "param.load_keys.description": "ভাগ করা প্রসঙ্গ স্টোর থেকে লোড করার জন্য কীগুলির তালিকা৷ সংশ্লিষ্ট মানগুলি সাব-এজেন্টের কনটেক্সটপ্যাকে ইনজেকশন দেওয়া হয়।"
+  },
+  "cs": {
+    "tool.description": "Spusťte Sub-Agent na pozadí a okamžitě vraťte jeho Job ID. Pomocí nástrojů Job jej můžete kontrolovat, posílat mu zprávy, čekat na něj nebo jej zrušit.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Název sub-agenta, který se má spustit. Vestavěné: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Vlastní role lze načíst z UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Konkrétní pokyny nebo úkol, které má sub-agent zpracovat.",
+    "param.provider.description": "Volitelný poskytovatel LLM pro tohoto sub-agenta (například openai, claude, gemini nebo deepseek).",
+    "param.model.description": "Volitelný název modelu nebo nasazení pro vybraného poskytovatele LLM.",
+    "param.reasoning.description": "Volitelná jednotná úroveň reasoning; interně se normalizuje na parametry poskytovatele a modelu.",
+    "param.permission_level.description": "Background V1 povoluje pouze hodnotu none, dokud každý nástroj neprojde bezpečnostním auditem pro běh na pozadí.",
+    "param.timeout.description": "Absolutní časový limit celé úlohy Job v sekundách, včetně času ve frontě.",
+    "param.parent_goal.description": "Přepište cíl nadřazeného agenta pro toto vyvolání podřízeného agenta.",
+    "param.store_key.description": "Klíč k uložení výsledku tohoto dílčího agenta ve sdíleném úložišti kontextu pro použití následujícími dílčími agenty.",
+    "param.load_keys.description": "Seznam klíčů, které se mají načíst ze sdíleného kontextového úložiště. Odpovídající hodnoty jsou vloženy do ContextPack sub-agenta."
+  },
+  "da": {
+    "tool.description": "Start en Sub-Agent i baggrunden, og returnér straks dens Job ID. Brug Job-værktøjerne til at inspicere, sende beskeder, vente på eller annullere den.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Navnet på den underagent, der skal køres. Indbygget: planlægger, anmelder, summarizer, patch_designer, fejlanalytiker, oversætter, generelt. Tilpassede roller kan indlæses fra UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Specifik instruktion/opgave for underagenten at behandle.",
+    "param.provider.description": "Valgfri LLM provider til denne sub-agent (for eksempel: openai, claude, gemini, deepseek).",
+    "param.model.description": "Valgfri model/deployment override til denne sub-agent provider.",
+    "param.reasoning.description": "Valgfrit samlet reasoning-niveau. Provider/model-specifikke parametre normaliseres internt.",
+    "param.permission_level.description": "Background V1 tillader kun none, indtil hvert værktøj har bestået sikkerhedsrevisionen for baggrundskørsel.",
+    "param.timeout.description": "Absolut samlet Job-deadline i sekunder, inklusive tid i kø.",
+    "param.parent_goal.description": "Tilsidesæt den overordnede agents mål for denne underagentkaldelse.",
+    "param.store_key.description": "Nøgle til at gemme denne underagents resultat i det delte kontekstlager til brug for efterfølgende underagenter.",
+    "param.load_keys.description": "Liste over nøgler, der skal indlæses fra det delte kontekstlager. De tilsvarende værdier injiceres i underagentens ContextPack."
+  },
+  "de": {
+    "tool.description": "Startet einen Sub-Agent im Hintergrund und gibt sofort seine Job ID zurück. Mit den Job-Werkzeugen kann er geprüft, benachrichtigt, abgewartet oder abgebrochen werden.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "Subagent",
+      "planner"
+    ],
+    "param.agent_name.description": "Name des auszuführenden Subagenten. Eingebaut: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Benutzerdefinierte Rollen können aus UAGENT_SUB_AGENT_ROLES_DIR geladen werden.",
+    "param.task.description": "Spezifische Anweisung/Aufgabe, die der Subagent verarbeiten soll.",
+    "param.provider.description": "Optionaler LLM-Anbieter für diesen Sub-Agenten (z. B. openai, claude, gemini oder deepseek).",
+    "param.model.description": "Optionaler Modell- oder Deployment-Name für den ausgewählten LLM-Anbieter.",
+    "param.reasoning.description": "Optionale einheitliche Reasoning-Stufe; wird intern auf Anbieter- und Modellsparameter normalisiert.",
+    "param.permission_level.description": "Background V1 erlaubt nur none, bis jedes Werkzeug die Sicherheitsprüfung für Hintergrundausführung bestanden hat.",
+    "param.timeout.description": "Absolute End-to-End-Frist des Jobs in Sekunden, einschließlich Warteschlangenzeit.",
+    "param.parent_goal.description": "Überschreiben Sie das Ziel des übergeordneten Agenten für diesen Unteragentenaufruf.",
+    "param.store_key.description": "Schlüssel zum Speichern des Ergebnisses dieses Subagenten im gemeinsamen Kontextspeicher zur Verwendung durch nachfolgende Subagenten.",
+    "param.load_keys.description": "Liste der Schlüssel, die aus dem gemeinsam genutzten Kontextspeicher geladen werden sollen. Die entsprechenden Werte werden in das ContextPack des Subagenten eingefügt."
+  },
+  "el": {
+    "tool.description": "Ξεκινά έναν Sub-Agent στο παρασκήνιο και επιστρέφει αμέσως το Job ID. Χρησιμοποιήστε τα εργαλεία Job για έλεγχο, μηνύματα, αναμονή ή ακύρωση.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Το όνομα του υπο-πράκτορα που θα εκτελεστεί. Ενσωματωμένοι: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Προσαρμοσμένοι ρόλοι μπορούν να φορτωθούν από UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Συγκεκριμένη οδηγία/εργασία για επεξεργασία από τον δευτερεύοντα πράκτορα.",
+    "param.provider.description": "Προαιρετικός LLM provider για αυτό το sub-agent (π.χ.: openai, claude, gemini, deepseek).",
+    "param.model.description": "Προαιρετικό model/deployment override για αυτό το sub-agent provider.",
+    "param.reasoning.description": "Προαιρετικό ενιαίο επίπεδο reasoning. Οι παράμετροι ειδικά για provider/model κανονικοποιούνται εσωτερικά.",
+    "param.permission_level.description": "Το Background V1 επιτρέπει μόνο none μέχρι κάθε εργαλείο να περάσει τον έλεγχο ασφάλειας παρασκηνίου.",
+    "param.timeout.description": "Απόλυτη προθεσμία ολόκληρου του Job σε δευτερόλεπτα, μαζί με τον χρόνο στην ουρά.",
+    "param.parent_goal.description": "Παράκαμψη του στόχου του γονικού πράκτορα για αυτήν την επίκληση δευτερεύοντος πράκτορα.",
+    "param.store_key.description": "Κλειδί για την αποθήκευση του αποτελέσματος αυτού του δευτερεύοντος πράκτορα στον κοινόχρηστο χώρο αποθήκευσης περιβάλλοντος για χρήση από τους επόμενους δευτερεύοντες πράκτορες.",
+    "param.load_keys.description": "Λίστα κλειδιών για φόρτωση από τον κοινόχρηστο χώρο αποθήκευσης περιβάλλοντος. Οι αντίστοιχες τιμές εισάγονται στο ContextPack του δευτερεύοντος πράκτορα."
+  },
+  "es": {
+    "tool.description": "Inicia un Sub-Agent en segundo plano y devuelve inmediatamente su Job ID. Usa las herramientas de Job para inspeccionarlo, enviarle mensajes, esperarlo o cancelarlo.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "subagente",
+      "planificador"
+    ],
+    "param.agent_name.description": "Nombre del subagente a ejecutar. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Los roles personalizados se pueden cargar desde UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Instrucción/tarea específica para que la procese el subagente.",
+    "param.provider.description": "Proveedor LLM opcional para este subagente (por ejemplo, openai, claude, gemini o deepseek).",
+    "param.model.description": "Nombre opcional del modelo o despliegue para el proveedor LLM seleccionado.",
+    "param.reasoning.description": "Nivel de reasoning unificado opcional; se normaliza internamente a los parámetros del proveedor y modelo.",
+    "param.permission_level.description": "Background V1 solo permite none hasta que cada herramienta supere la auditoría de seguridad para ejecución en segundo plano.",
+    "param.timeout.description": "Límite absoluto de extremo a extremo del Job en segundos, incluido el tiempo en cola.",
+    "param.parent_goal.description": "Anule el objetivo del agente principal para esta invocación de subagente.",
+    "param.store_key.description": "Clave para almacenar el resultado de este subagente en el almacén de contexto compartido para que lo utilicen los subagentes posteriores.",
+    "param.load_keys.description": "Lista de claves para cargar desde el almacén de contexto compartido. Los valores correspondientes se inyectan en el ContextPack del subagente."
+  },
+  "fa": {
+    "tool.description": "یک Sub-Agent را در پس‌زمینه شروع می‌کند و Job ID آن را فوراً برمی‌گرداند. از ابزارهای Job برای بررسی، پیام‌رسانی، انتظار یا لغو آن استفاده کنید.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "عامل فرعی",
+      "طراح"
+    ],
+    "param.agent_name.description": "نام عامل فرعی برای اجرا. داخلی: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. نقش‌های سفارشی را می‌توان از UAGENT_SUB_AGENT_ROLES_DIR بارگذاری کرد.",
+    "param.task.description": "دستورالعمل یا وظیفه خاص برای پردازش توسط عامل فرعی.",
+    "param.provider.description": "ارائه‌دهنده اختیاری LLM برای این عامل فرعی (برای مثال openai، claude، gemini یا deepseek).",
+    "param.model.description": "نام اختیاری مدل یا استقرار برای ارائه‌دهنده LLM انتخاب‌شده.",
+    "param.reasoning.description": "سطح reasoning یکپارچه اختیاری؛ پارامترهای مخصوص ارائه‌دهنده و مدل در داخل نرمال‌سازی می‌شوند.",
+    "param.permission_level.description": "Background V1 فقط none را مجاز می‌داند تا هر ابزار ممیزی ایمنی اجرای پس‌زمینه را بگذراند.",
+    "param.timeout.description": "مهلت نهایی کل Job بر حسب ثانیه، شامل زمان صف.",
+    "param.parent_goal.description": "هدف نماینده والد را برای این فراخوانی عامل فرعی نادیده بگیرید.",
+    "param.store_key.description": "کلید ذخیره نتیجه این عامل فرعی در ذخیره سازی زمینه مشترک برای استفاده توسط عوامل فرعی بعدی.",
+    "param.load_keys.description": "فهرست کلیدها برای بارگیری از فروشگاه زمینه مشترک. مقادیر مربوطه به ContextPack عامل فرعی تزریق می شود."
+  },
+  "fi": {
+    "tool.description": "Käynnistä Sub-Agent taustalla ja palauta sen Job ID heti. Job-työkaluilla voit tarkistaa, viestittää, odottaa tai peruuttaa sen.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "aliagentti",
+      "suunnittelija"
+    ],
+    "param.agent_name.description": "Suoritettavan ala-agentin nimi. Sisäänrakennetut: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Mukautettuja rooleja voidaan ladata UAGENT_SUB_AGENT_ROLES_DIR:stä.",
+    "param.task.description": "Erityinen ohje tai tehtävä alitoimijan käsiteltäväksi.",
+    "param.provider.description": "Valinnainen LLM-palveluntarjoaja tälle aliagentille (esimerkiksi openai, claude, gemini tai deepseek).",
+    "param.model.description": "Valinnainen malli- tai käyttöönottonimi valitulle LLM-palveluntarjoajalle.",
+    "param.reasoning.description": "Valinnainen yhtenäinen reasoning-taso; se normalisoidaan sisäisesti palveluntarjoajan ja mallin parametreiksi.",
+    "param.permission_level.description": "Background V1 sallii vain arvon none, kunnes jokainen työkalu on läpäissyt tausta-ajon turvallisuusauditoinnin.",
+    "param.timeout.description": "Jobin absoluuttinen kokonaisaikaraja sekunteina, jonotus mukaan lukien.",
+    "param.parent_goal.description": "Ohita pääagentin tavoite tälle aliagentin kutsulle.",
+    "param.store_key.description": "Avain tämän aliagentin tuloksen tallentamiseen jaettuun kontekstivarastoon myöhempien aliagenttien käyttöön.",
+    "param.load_keys.description": "Luettelo avaimista, jotka ladataan jaetusta kontekstivarastosta. Vastaavat arvot lisätään aliagentin ContextPackiin."
+  },
+  "fil": {
+    "tool.description": "Magsimula ng Sub-Agent sa background at agad na ibalik ang Job ID nito. Gamitin ang mga Job tool para tingnan, padalhan ng mensahe, hintayin, o kanselahin ito.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Ang pangalan ng sub-agent na tatakbo. Built-in: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Maaaring i-load ang mga custom na tungkulin mula sa UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Tukoy na pagtuturo/gawain para iproseso ng sub-agent.",
+    "param.provider.description": "Opsyonal na LLM provider para sa sub-agent na ito (halimbawa: openai, claude, gemini, deepseek).",
+    "param.model.description": "Opsyonal na model/deployment override para sa sub-agent provider na ito.",
+    "param.reasoning.description": "Opsyonal na pinag-isang reasoning level. Ang mga provider/model-specific parameter ay hina-normalize sa loob.",
+    "param.permission_level.description": "Sa Background V1, none lang ang pinapayagan hanggang makapasa ang bawat tool sa background safety audit.",
+    "param.timeout.description": "Ganap na end-to-end deadline ng Job sa segundo, kasama ang oras sa queue.",
+    "param.parent_goal.description": "I-override ang layunin ng magulang na ahente para sa sub-agent na invocation na ito.",
+    "param.store_key.description": "Susi upang iimbak ang resulta ng sub-agent na ito sa nakabahaging tindahan ng konteksto para magamit ng mga kasunod na sub-agents.",
+    "param.load_keys.description": "Listahan ng mga key na ilo-load mula sa nakabahaging tindahan ng konteksto. Ang mga katumbas na halaga ay ini-inject sa ContextPack ng sub-agent."
+  },
+  "fr": {
+    "tool.description": "Démarre un Sub-Agent en arrière-plan et renvoie immédiatement son Job ID. Utilisez les outils Job pour l’inspecter, lui envoyer des messages, l’attendre ou l’annuler.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sous-agent",
+      "planificateur"
+    ],
+    "param.agent_name.description": "Nom du sous-agent à exécuter. Intégrés : planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Les rôles personnalisés peuvent être chargés depuis UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Instruction ou tâche spécifique à traiter par le sous-agent.",
+    "param.provider.description": "Fournisseur LLM facultatif pour ce sous-agent (par exemple openai, claude, gemini ou deepseek).",
+    "param.model.description": "Nom facultatif du modèle ou du déploiement pour le fournisseur LLM choisi.",
+    "param.reasoning.description": "Niveau de reasoning unifié facultatif, normalisé en interne selon le fournisseur et le modèle.",
+    "param.permission_level.description": "Background V1 n’autorise que none tant que chaque outil n’a pas réussi l’audit de sécurité en arrière-plan.",
+    "param.timeout.description": "Délai absolu de bout en bout du Job en secondes, temps de file d’attente compris.",
+    "param.parent_goal.description": "Remplacez l'objectif de l'agent parent pour cet appel de sous-agent.",
+    "param.store_key.description": "Clé pour stocker le résultat de ce sous-agent dans le magasin de contexte partagé pour une utilisation par les sous-agents suivants.",
+    "param.load_keys.description": "Liste des clés à charger depuis le magasin de contexte partagé. Les valeurs correspondantes sont injectées dans le ContextPack du sous-agent."
+  },
+  "he": {
+    "tool.description": "מפעיל Sub-Agent ברקע ומחזיר מיד את ה-Job ID שלו. השתמשו בכלי Job כדי לבדוק, לשלוח הודעה, להמתין או לבטל אותו.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "שם תת-הסוכן להרצה. מובנים: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. ניתן לטעון תפקידים מותאמים מ-UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "בצע סוכן משנה מיוחד ובטוח (מתכנן, מבקר, מסכמים, patch_designer, error_analyst או מתרגם) בשליטה של ​​ההורה...",
+    "param.provider.description": "LLM provider אופציונלי עבור sub-agent זה (לדוגמה: openai, claude, gemini, deepseek).",
+    "param.model.description": "model/deployment override אופציונלי עבור ה-sub-agent provider הזה.",
+    "param.reasoning.description": "רמת reasoning אחידה ואופציונלית. פרמטרים ייחודיים ל-provider/model מנורמלים פנימית.",
+    "param.permission_level.description": "Background V1 מאפשר רק none עד שכל כלי עובר ביקורת בטיחות להפעלה ברקע.",
+    "param.timeout.description": "מועד סיום מוחלט מקצה לקצה של ה-Job בשניות, כולל זמן בתור.",
+    "param.parent_goal.description": "לעקוף את המטרה של סוכן האב עבור הפקת סוכן משנה זו.",
+    "param.store_key.description": "מפתח לאחסון התוצאה של סוכן משנה זה במאגר ההקשר המשותף לשימוש על ידי סוכני משנה הבאים.",
+    "param.load_keys.description": "רשימת המפתחות לטעינה ממאגר ההקשרים המשותף. הערכים המתאימים מוזרקים ל-ContextPack של סוכן המשנה."
+  },
+  "hi": {
+    "tool.description": "बैकग्राउंड में एक Sub-Agent शुरू करें और उसका Job ID तुरंत लौटाएँ। उसे जाँचने, संदेश भेजने, प्रतीक्षा करने या रद्द करने के लिए Job टूल का उपयोग करें।",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "उप-एजेंट",
+      "योजनाकार"
+    ],
+    "param.agent_name.description": "चलाने के लिए उप-एजेंट का नाम। बिल्ट-इन: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general। कस्टम भूमिकाएँ UAGENT_SUB_AGENT_ROLES_DIR से लोड की जा सकती हैं।",
+    "param.task.description": "अनुपलब्ध आवश्यक फ़ील्ड या स्कीमा बेमेल को त्रुटियों के रूप में मानें।",
+    "param.provider.description": "इस सब-एजेंट के लिए वैकल्पिक LLM प्रदाता (जैसे openai, claude, gemini, deepseek)।",
+    "param.model.description": "चयनित LLM प्रदाता के लिए वैकल्पिक मॉडल या डिप्लॉयमेंट नाम।",
+    "param.reasoning.description": "वैकल्पिक एकीकृत reasoning स्तर; प्रदाता और मॉडल-विशिष्ट पैरामीटर में आंतरिक रूप से सामान्यीकृत।",
+    "param.permission_level.description": "Background V1 में प्रत्येक tool के background safety audit पास करने तक केवल none की अनुमति है।",
+    "param.timeout.description": "क्यू समय सहित पूरे Job की पूर्ण end-to-end समयसीमा सेकंड में।",
+    "param.parent_goal.description": "इस उप-एजेंट आमंत्रण के लिए मूल एजेंट के लक्ष्य को ओवरराइड करें।",
+    "param.store_key.description": "इस उप-एजेंट के परिणाम को बाद के उप-एजेंटों द्वारा उपयोग के लिए साझा संदर्भ स्टोर में संग्रहीत करने की कुंजी।",
+    "param.load_keys.description": "साझा संदर्भ स्टोर से लोड करने के लिए कुंजियों की सूची। संबंधित मानों को उप-एजेंट के कॉन्टेक्स्टपैक में इंजेक्ट किया जाता है।"
+  },
+  "hu": {
+    "tool.description": "Indítson Sub-Agentet a háttérben, és azonnal adja vissza a Job ID-ját. A Job eszközökkel ellenőrizhető, üzenet küldhető neki, megvárható vagy megszakítható.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "alügynök",
+      "tervező"
+    ],
+    "param.agent_name.description": "A futtatandó al-ágens neve. Beépített: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Egyéni szerepkörök az UAGENT_SUB_AGENT_ROLES_DIR-ből tölthetők be.",
+    "param.task.description": "Végezzen egy speciális, biztonságos segédügynököt (tervező, értékelő, összegző, javítás_tervező, hibaelemző vagy fordító) a szülő felügyelete alatt...",
+    "param.provider.description": "Opcionális LLM provider ehhez a sub-agenthez (például: openai, claude, gemini, deepseek).",
+    "param.model.description": "Opcionális model/deployment override ehhez a sub-agent providerhez.",
+    "param.reasoning.description": "Opcionális egységes reasoning szint. A provider/model-specifikus paraméterek belsőleg normalizálódnak.",
+    "param.permission_level.description": "A Background V1 csak a none értéket engedélyezi, amíg minden eszköz át nem megy a háttérbiztonsági ellenőrzésen.",
+    "param.timeout.description": "A Job abszolút teljes határideje másodpercben, a sorban állási idővel együtt.",
+    "param.parent_goal.description": "A szülőügynök céljának felülbírálása ehhez az alügynök-híváshoz.",
+    "param.store_key.description": "Kulcs az alügynök eredményének a megosztott környezettárolóban való tárolására, amelyet a következő alügynökök használhatnak.",
+    "param.load_keys.description": "A megosztott környezettárolóból betöltendő kulcsok listája. A megfelelő értékeket a rendszer beadja az alügynök ContextPack csomagjába."
+  },
+  "id": {
+    "tool.description": "Mulai Sub-Agent di latar belakang dan segera kembalikan Job ID-nya. Gunakan alat Job untuk memeriksa, mengirim pesan, menunggu, atau membatalkannya.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agen",
+      "planner"
+    ],
+    "param.agent_name.description": "Nama sub-agen yang akan dijalankan. Bawaan: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Peran kustom dapat dimuat dari UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Instruksi/tugas spesifik yang harus diproses oleh sub-agen.",
+    "param.provider.description": "Penyedia LLM opsional untuk sub-agen ini (misalnya openai, claude, gemini, deepseek).",
+    "param.model.description": "Nama model atau deployment opsional untuk penyedia LLM yang dipilih.",
+    "param.reasoning.description": "Tingkat reasoning terpadu opsional; dinormalisasi secara internal ke parameter penyedia dan model.",
+    "param.permission_level.description": "Background V1 hanya mengizinkan none sampai setiap alat lulus audit keamanan latar belakang.",
+    "param.timeout.description": "Batas waktu absolut end-to-end Job dalam detik, termasuk waktu antre.",
+    "param.parent_goal.description": "Ganti tujuan agen induk untuk pemanggilan sub-agen ini.",
+    "param.store_key.description": "Kunci untuk menyimpan hasil sub-agen ini di penyimpanan konteks bersama untuk digunakan oleh sub-agen berikutnya.",
+    "param.load_keys.description": "Daftar kunci untuk dimuat dari penyimpanan konteks bersama. Nilai yang sesuai dimasukkan ke dalam ContextPack sub-agen."
+  },
+  "it": {
+    "tool.description": "Avvia un Sub-Agent in background e restituisce subito il relativo Job ID. Usa gli strumenti Job per ispezionarlo, inviargli messaggi, attenderlo o annullarlo.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agente",
+      "pianificatore"
+    ],
+    "param.agent_name.description": "Nome del sotto-agente da eseguire. Integrati: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. I ruoli personalizzati possono essere caricati da UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Istruzione/attività specifica da elaborare per l'agente secondario.",
+    "param.provider.description": "Provider LLM opzionale per questo sub-agent (ad esempio openai, claude, gemini o deepseek).",
+    "param.model.description": "Nome opzionale del modello o deployment per il provider LLM selezionato.",
+    "param.reasoning.description": "Livello di reasoning unificato opzionale, normalizzato internamente in base al provider e al modello.",
+    "param.permission_level.description": "Background V1 consente solo none finché ogni strumento non supera l’audit di sicurezza per l’esecuzione in background.",
+    "param.timeout.description": "Scadenza assoluta end-to-end del Job in secondi, incluso il tempo in coda.",
+    "param.parent_goal.description": "Sostituisci l'obiettivo dell'agente principale per questa chiamata dell'agente secondario.",
+    "param.store_key.description": "Chiave per archiviare il risultato di questo agente secondario nell'archivio del contesto condiviso per l'utilizzo da parte degli agenti secondari successivi.",
+    "param.load_keys.description": "Elenco di chiavi da caricare dall'archivio contesto condiviso. I valori corrispondenti vengono inseriti nel ContextPack dell'agente secondario."
+  },
   "ja": {
     "tool.description": "バックグラウンドでサブエージェントを起動し、Job IDをすぐに返します。Jobツールで状態確認、追加指示、待機、キャンセルができます。",
     "x_search_terms": [
@@ -17,5 +305,365 @@
     "param.parent_goal.description": "サブエージェントのコンテキストに渡す任意の親目標。",
     "param.store_key.description": "承認済み Job 結果を保存する、owner スコープの任意キー。",
     "param.load_keys.description": "コンテキストへ読み込む owner スコープの共有結果キー。"
+  },
+  "ko": {
+    "tool.description": "백그라운드에서 Sub-Agent를 시작하고 Job ID를 즉시 반환합니다. Job 도구를 사용해 상태 확인, 메시지 전송, 대기 또는 취소를 수행합니다.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "하위 에이전트",
+      "플래너"
+    ],
+    "param.agent_name.description": "실행할 서브 에이전트의 이름. 내장: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. 사용자 정의 역할은 UAGENT_SUB_AGENT_ROLES_DIR에서 로드할 수 있습니다.",
+    "param.task.description": "서브 에이전트가 처리할 구체적인 지시 사항 또는 작업.",
+    "param.provider.description": "이 하위 에이전트에 사용할 선택적 LLM 제공자(예: openai, claude, gemini, deepseek).",
+    "param.model.description": "선택한 LLM 제공자의 선택적 모델 또는 배포 이름.",
+    "param.reasoning.description": "선택적 통합 reasoning 수준이며 제공자와 모델별 매개변수로 내부 정규화됩니다.",
+    "param.permission_level.description": "Background V1에서는 각 tool이 백그라운드 안전 감사를 통과할 때까지 none만 허용합니다.",
+    "param.timeout.description": "대기열 시간을 포함한 Job 전체의 절대 종료 시간(초)입니다.",
+    "param.parent_goal.description": "이 하위 에이전트 호출에 대한 상위 에이전트의 목표를 재정의합니다.",
+    "param.store_key.description": "후속 하위 에이전트에서 사용할 수 있도록 공유 컨텍스트 저장소에 이 하위 에이전트의 결과를 저장하기 위한 키입니다.",
+    "param.load_keys.description": "공유 컨텍스트 저장소에서 로드할 키 목록입니다. 해당 값은 하위 에이전트의 ContextPack에 주입됩니다."
+  },
+  "mn": {
+    "tool.description": "Sub-Agent-ыг дэвсгэр горимд эхлүүлж Job ID-г нь шууд буцаана. Job хэрэгслүүдээр шалгах, мессеж илгээх, хүлээх эсвэл цуцлах боломжтой.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "дэд агент",
+      "төлөвлөгч"
+    ],
+    "param.agent_name.description": "Ажиллуулах дэд агентийн нэр. Суурилуулсан: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Тусгай үүргүүдийг UAGENT_SUB_AGENT_ROLES_DIR-ээс ачаалж болно.",
+    "param.task.description": "Дэд агентаар шийдвэрлүүлэх тодорхой заавар эсвэл даалгавар.",
+    "param.provider.description": "Энэ sub-agent-д ашиглах нэмэлт LLM provider (жишээ нь: openai, claude, gemini, deepseek).",
+    "param.model.description": "Энэ sub-agent provider-д ашиглах нэмэлт model/deployment override.",
+    "param.reasoning.description": "Нэмэлт нэгдсэн reasoning түвшин. Provider/model-д хамаарах параметрүүдийг дотооддоо хэвийн болгоно.",
+    "param.permission_level.description": "Background V1 нь tool бүр дэвсгэр ажиллагааны аюулгүй байдлын шалгалтыг давах хүртэл зөвхөн none-г зөвшөөрнө.",
+    "param.timeout.description": "Дарааллын хугацааг оролцуулсан Job-ын нийт абсолют хугацааны хязгаар секундээр.",
+    "param.parent_goal.description": "Энэ дэд агентын дуудлагын эх төлөөлөгчийн зорилгыг дарж бичнэ үү.",
+    "param.store_key.description": "Энэ дэд агентын үр дүнг дараагийн дэд агентуудад ашиглахын тулд хуваалцсан контекст хадгалах түлхүүр.",
+    "param.load_keys.description": "Хуваалцсан контекст дэлгүүрээс ачаалах түлхүүрүүдийн жагсаалт. Харгалзах утгуудыг дэд агентын ContextPack-д оруулна."
+  },
+  "mr": {
+    "tool.description": "Sub-Agent पार्श्वभूमीत सुरू करा आणि त्याचा Job ID त्वरित परत करा. तपासणे, संदेश पाठवणे, प्रतीक्षा करणे किंवा रद्द करणे यासाठी Job साधने वापरा.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "चालवण्यासाठी उप-एजंटचे नाव. अंगभूत: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. सानुकूल भूमिका UAGENT_SUB_AGENT_ROLES_DIR मधून लोड करता येतात.",
+    "param.task.description": "उप-एजंटने प्रक्रिया करण्यासाठी विशिष्ट सूचना किंवा कार्य.",
+    "param.provider.description": "या sub-agent साठी ऐच्छिक LLM provider (उदा.: openai, claude, gemini, deepseek).",
+    "param.model.description": "या sub-agent provider साठी ऐच्छिक model/deployment override.",
+    "param.reasoning.description": "ऐच्छिक एकसंध reasoning स्तर. Provider/model-विशिष्ट parameters अंतर्गत normalize केले जातात.",
+    "param.permission_level.description": "Background V1 मध्ये प्रत्येक tool ने background safety audit पास करेपर्यंत फक्त none अनुमत आहे.",
+    "param.timeout.description": "क्यू वेळेसह संपूर्ण Job ची अंतिम end-to-end मर्यादा सेकंदांत.",
+    "param.parent_goal.description": "या सब-एजंट आवाहनासाठी पालक एजंटचे ध्येय ओव्हरराइड करा.",
+    "param.store_key.description": "या सब-एजंटचा परिणाम नंतरच्या सब-एजंटद्वारे वापरण्यासाठी सामायिक संदर्भ स्टोअरमध्ये संग्रहित करण्यासाठी की.",
+    "param.load_keys.description": "सामायिक केलेल्या संदर्भ स्टोअरमधून लोड करण्यासाठी कीची सूची. संबंधित मूल्ये सब-एजंटच्या कॉन्टेक्स्टपॅकमध्ये इंजेक्ट केली जातात."
+  },
+  "ms": {
+    "tool.description": "Mulakan Sub-Agent di latar belakang dan pulangkan Job ID dengan segera. Gunakan alat Job untuk memeriksa, menghantar mesej, menunggu atau membatalkannya.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agen",
+      "perancang"
+    ],
+    "param.agent_name.description": "Nama sub-agen untuk dijalankan. Terbina dalam: perancang, penyemak, ringkasan, patch_designer, error_analyst, penterjemah, umum. Peranan tersuai boleh dimuatkan daripada UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Arahan/tugas khusus untuk diproses oleh sub-agen.",
+    "param.provider.description": "LLM provider pilihan untuk sub-agent ini (contohnya: openai, claude, gemini, deepseek).",
+    "param.model.description": "model/deployment override pilihan untuk provider sub-agent ini.",
+    "param.reasoning.description": "Tahap reasoning bersepadu pilihan. Parameter khusus provider/model dinormalkan secara dalaman.",
+    "param.permission_level.description": "Background V1 hanya membenarkan none sehingga setiap alat lulus audit keselamatan latar belakang.",
+    "param.timeout.description": "Had masa mutlak hujung-ke-hujung Job dalam saat, termasuk masa dalam baris gilir.",
+    "param.parent_goal.description": "Gantikan matlamat ejen induk untuk permohonan sub-ejen ini.",
+    "param.store_key.description": "Kunci untuk menyimpan hasil sub-ejen ini dalam stor konteks dikongsi untuk digunakan oleh sub-ejen berikutnya.",
+    "param.load_keys.description": "Senarai kunci untuk dimuatkan daripada gedung konteks kongsi. Nilai yang sepadan disuntik ke dalam ContextPack sub-ejen."
+  },
+  "nb": {
+    "tool.description": "Start en Sub-Agent i bakgrunnen og returner Job ID med en gang. Bruk Job-verktøyene til å inspisere, sende meldinger, vente på eller avbryte den.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Egendefinerte roller kan lastes fra UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Spesifikk instruksjon/oppgave for underagenten å behandle.",
+    "param.provider.description": "Valgfri LLM provider for denne sub-agenten (for eksempel: openai, claude, gemini, deepseek).",
+    "param.model.description": "Valgfri model/deployment override for denne sub-agent-provideren.",
+    "param.reasoning.description": "Valgfritt samlet reasoning-nivå. Provider/model-spesifikke parametere normaliseres internt.",
+    "param.permission_level.description": "Background V1 tillater bare none til hvert verktøy har bestått sikkerhetsrevisjonen for bakgrunnskjøring.",
+    "param.timeout.description": "Absolutt ende-til-ende-frist for Job i sekunder, inkludert tid i kø.",
+    "param.parent_goal.description": "Overstyr den overordnede agentens mål for denne subagent-påkallelsen.",
+    "param.store_key.description": "Nøkkel for å lagre denne underagentens resultat i det delte kontekstlageret for bruk av påfølgende underagenter.",
+    "param.load_keys.description": "Liste over nøkler som skal lastes fra det delte kontekstlageret. De tilsvarende verdiene injiseres i underagentens ContextPack."
+  },
+  "nl": {
+    "tool.description": "Start een Sub-Agent op de achtergrond en retourneer direct de Job ID. Gebruik de Job-tools om deze te inspecteren, berichten te sturen, erop te wachten of te annuleren.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Naam van de uit te voeren subagent. Ingebouwd: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Aangepaste rollen kunnen worden geladen vanuit UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Specifieke instructie/taak die de sub-agent moet verwerken.",
+    "param.provider.description": "Optionele LLM provider voor deze sub-agent (bijvoorbeeld: openai, claude, gemini, deepseek).",
+    "param.model.description": "Optionele model/deployment override voor deze sub-agent provider.",
+    "param.reasoning.description": "Optioneel uniform reasoning-niveau. Provider/model-specifieke parameters worden intern genormaliseerd.",
+    "param.permission_level.description": "Background V1 staat alleen none toe totdat elk hulpmiddel de veiligheidsaudit voor achtergrondgebruik heeft doorstaan.",
+    "param.timeout.description": "Absolute end-to-enddeadline van de Job in seconden, inclusief wachtrijtijd.",
+    "param.parent_goal.description": "Overschrijf het doel van de bovenliggende agent voor deze subagentaanroep.",
+    "param.store_key.description": "Sleutel om het resultaat van deze subagent op te slaan in het gedeelde contextarchief voor gebruik door volgende subagenten.",
+    "param.load_keys.description": "Lijst met sleutels die moeten worden geladen vanuit het gedeelde contextarchief. De overeenkomstige waarden worden in het ContextPack van de subagent geïnjecteerd."
+  },
+  "nn": {
+    "tool.description": "Start ein Sub-Agent i bakgrunnen og returner Job ID med ein gong. Bruk Job-verktøya til å inspisere, sende meldingar, vente på eller avbryte han.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Navnet på underagenten som skal kjøres. Innebygd: planlegger, anmelder, summarizer, patch_designer, error_analyst, oversetter, generelt. Egendefinerte roller kan lastes inn frå UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Spesifikk instruksjon/oppgave for underagenten å behandle.",
+    "param.provider.description": "Valfri LLM-leverandør for denne underagenten (for eksempel openai, claude, gemini eller deepseek).",
+    "param.model.description": "Valfritt modell- eller distribusjonsnamn for den valde LLM-leverandøren.",
+    "param.reasoning.description": "Valfritt samla reasoning-nivå; vert internt normalisert til leverandør- og modellspesifikke parameter.",
+    "param.permission_level.description": "Background V1 tillèt berre none til kvart verktøy har bestått tryggleiksrevisjonen for bakgrunnskøyring.",
+    "param.timeout.description": "Absolutt ende-til-ende-frist for Job i sekund, inkludert tid i kø.",
+    "param.parent_goal.description": "Overstyr den overordnede agentens mål for denne subagent-påkallelsen.",
+    "param.store_key.description": "Nøkkel for å lagre denne underagentens resultat i det delte kontekstlageret for bruk av påfølgende underagenter.",
+    "param.load_keys.description": "Liste over nøkler som skal lastes frå det delte kontekstlageret. De tilsvarende verdiene injiseres i underagentens ContextPack."
+  },
+  "pl": {
+    "tool.description": "Uruchamia Sub-Agent w tle i natychmiast zwraca jego Job ID. Narzędzia Job służą do sprawdzania, wysyłania wiadomości, oczekiwania lub anulowania.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Nazwa podagenta do uruchomienia. Wbudowane: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Role niestandardowe można wczytać z UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Konkretne instrukcje/zadanie do przetworzenia przez subagenta.",
+    "param.provider.description": "Opcjonalny LLM provider dla tego sub-agenta (na przykład: openai, claude, gemini, deepseek).",
+    "param.model.description": "Opcjonalny model/deployment override dla providera tego sub-agenta.",
+    "param.reasoning.description": "Opcjonalny ujednolicony poziom reasoning. Parametry specyficzne dla provider/model są normalizowane wewnętrznie.",
+    "param.permission_level.description": "Background V1 zezwala tylko na none, dopóki każde narzędzie nie przejdzie audytu bezpieczeństwa pracy w tle.",
+    "param.timeout.description": "Bezwzględny limit czasu całego Job w sekundach, wraz z czasem w kolejce.",
+    "param.parent_goal.description": "Zastąp cel agenta nadrzędnego dla tego wywołania agenta podrzędnego.",
+    "param.store_key.description": "Klucz do przechowywania wyniku tego podagenta we wspólnym magazynie kontekstu do wykorzystania przez kolejnych podagentów.",
+    "param.load_keys.description": "Lista kluczy do załadowania ze wspólnego magazynu kontekstu. Odpowiednie wartości są wstrzykiwane do pakietu kontekstowego podagenta."
+  },
+  "pt": {
+    "tool.description": "Inicia um Sub-Agent em segundo plano e devolve imediatamente o respetivo Job ID. Use as ferramentas Job para o inspecionar, enviar mensagens, aguardar ou cancelar.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "subagente",
+      "planner"
+    ],
+    "param.agent_name.description": "Nome do subagente a executar. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Funções personalizadas podem ser carregadas de UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
+    "param.provider.description": "Provedor LLM opcional para este subagente (por exemplo, openai, claude, gemini ou deepseek).",
+    "param.model.description": "Nome opcional do modelo ou implantação para o provedor LLM selecionado.",
+    "param.reasoning.description": "Nível de reasoning unificado opcional, normalizado internamente para o provedor e o modelo.",
+    "param.permission_level.description": "O Background V1 permite apenas none até cada ferramenta passar a auditoria de segurança de execução em segundo plano.",
+    "param.timeout.description": "Prazo absoluto de ponta a ponta do Job em segundos, incluindo o tempo em fila.",
+    "param.parent_goal.description": "Substitua a meta do agente pai para esta invocação de subagente.",
+    "param.store_key.description": "Chave para armazenar o resultado deste subagente no armazenamento de contexto compartilhado para uso pelos subagentes subsequentes.",
+    "param.load_keys.description": "Lista de chaves para carregar do armazenamento de contexto compartilhado. Os valores correspondentes são injetados no ContextPack do subagente."
+  },
+  "pt_BR": {
+    "tool.description": "Inicia um Sub-Agent em segundo plano e retorna imediatamente o Job ID. Use as ferramentas de Job para inspecionar, enviar mensagens, aguardar ou cancelar.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "subagente",
+      "planner"
+    ],
+    "param.agent_name.description": "Nome do subagente a ser executado. Integrados: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Funções personalizadas podem ser carregadas de UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Instrução ou tarefa específica para o subagente processar.",
+    "param.provider.description": "Provedor LLM opcional para este subagente (por exemplo, openai, claude, gemini ou deepseek).",
+    "param.model.description": "Nome opcional do modelo ou implantação para o provedor LLM selecionado.",
+    "param.reasoning.description": "Nível de reasoning unificado opcional, normalizado internamente para o provedor e o modelo.",
+    "param.permission_level.description": "O Background V1 permite apenas none até que cada ferramenta passe pela auditoria de segurança para execução em segundo plano.",
+    "param.timeout.description": "Prazo absoluto de ponta a ponta do Job em segundos, incluindo o tempo na fila.",
+    "param.parent_goal.description": "Substitua a meta do agente pai para esta invocação de subagente.",
+    "param.store_key.description": "Chave para armazenar o resultado deste subagente no armazenamento de contexto compartilhado para uso pelos subagentes subsequentes.",
+    "param.load_keys.description": "Lista de chaves para carregar do armazenamento de contexto compartilhado. Os valores correspondentes são injetados no ContextPack do subagente."
+  },
+  "ro": {
+    "tool.description": "Pornește un Sub-Agent în fundal și returnează imediat Job ID-ul. Folosiți instrumentele Job pentru inspectare, mesaje, așteptare sau anulare.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "agent secundar",
+      "planificator"
+    ],
+    "param.agent_name.description": "Numele sub-agentului de rulat. Integrate: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Rolurile personalizate pot fi încărcate din UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Instrucțiune/sarcină specifică pe care subagentul trebuie să o proceseze.",
+    "param.provider.description": "LLM provider opțional pentru acest sub-agent (de exemplu: openai, claude, gemini, deepseek).",
+    "param.model.description": "model/deployment override opțional pentru providerul acestui sub-agent.",
+    "param.reasoning.description": "Nivel unificat de reasoning opțional. Parametrii specifici provider/model sunt normalizați intern.",
+    "param.permission_level.description": "Background V1 permite doar none până când fiecare instrument trece auditul de siguranță pentru rularea în fundal.",
+    "param.timeout.description": "Termenul absolut end-to-end al Job în secunde, inclusiv timpul petrecut în coadă.",
+    "param.parent_goal.description": "Ignorați obiectivul agentului părinte pentru această invocare a sub-agentului.",
+    "param.store_key.description": "Cheie pentru a stoca rezultatul acestui sub-agent în stocul de context partajat pentru a fi utilizat de sub-agenții următori.",
+    "param.load_keys.description": "Lista cheilor de încărcat din magazinul de context partajat. Valorile corespunzătoare sunt injectate în ContextPack-ul sub-agentului."
+  },
+  "ru": {
+    "tool.description": "Запускает Sub-Agent в фоне и сразу возвращает его Job ID. Используйте инструменты Job для проверки, отправки сообщений, ожидания или отмены.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "субагент",
+      "планировщик"
+    ],
+    "param.agent_name.description": "Имя суб-агента для запуска. Встроенные: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Пользовательские роли можно загрузить из UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Конкретная инструкция или задача для обработки суб-агентом.",
+    "param.provider.description": "Необязательный провайдер LLM для этого субагента (например, openai, claude, gemini или deepseek).",
+    "param.model.description": "Необязательное имя модели или развертывания выбранного провайдера LLM.",
+    "param.reasoning.description": "Необязательный единый уровень reasoning; внутри преобразуется в параметры провайдера и модели.",
+    "param.permission_level.description": "Background V1 разрешает только none, пока каждый инструмент не пройдёт аудит безопасности фонового выполнения.",
+    "param.timeout.description": "Абсолютный сквозной срок выполнения Job в секундах, включая время в очереди.",
+    "param.parent_goal.description": "Переопределить цель родительского агента для этого вызова субагента.",
+    "param.store_key.description": "Ключ для сохранения результата этого субагента в хранилище общего контекста для использования последующими субагентами.",
+    "param.load_keys.description": "Список ключей для загрузки из хранилища общего контекста. Соответствующие значения вводятся в ContextPack субагента."
+  },
+  "sv": {
+    "tool.description": "Starta en Sub-Agent i bakgrunden och returnera dess Job ID direkt. Använd Job-verktygen för att inspektera, skicka meddelanden, vänta eller avbryta.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "sub-agent",
+      "planner"
+    ],
+    "param.agent_name.description": "Namnet på underagenten som ska köras. Inbyggda: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Anpassade roller kan laddas från UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Specifik instruktion/uppgift för underagenten att bearbeta.",
+    "param.provider.description": "Valfri LLM provider för denna sub-agent (till exempel: openai, claude, gemini, deepseek).",
+    "param.model.description": "Valfri model/deployment override för denna sub-agent provider.",
+    "param.reasoning.description": "Valfri enhetlig reasoning-nivå. Provider/model-specifika parametrar normaliseras internt.",
+    "param.permission_level.description": "Background V1 tillåter endast none tills varje verktyg har klarat säkerhetsgranskningen för bakgrundskörning.",
+    "param.timeout.description": "Absolut end-to-end-tidsgräns för Job i sekunder, inklusive kötid.",
+    "param.parent_goal.description": "Åsidosätt den överordnade agentens mål för denna underagentanrop.",
+    "param.store_key.description": "Nyckel för att lagra denna underagents resultat i den delade kontextlagringen för användning av efterföljande underagenter.",
+    "param.load_keys.description": "Lista över nycklar som ska laddas från det delade sammanhangsarkivet. Motsvarande värden injiceras i underagentens ContextPack."
+  },
+  "sw": {
+    "tool.description": "Anzisha Sub-Agent chinichini na urudishe Job ID yake mara moja. Tumia zana za Job kukagua, kutuma ujumbe, kusubiri au kughairi.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "wakala mdogo",
+      "mpango"
+    ],
+    "param.agent_name.description": "Jina la ejenti msaidizi wa kumendesha. Iliyojengwa ndani: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Majukumu maalum yanaweza kupakiwa kutoka UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Maagizo/kazi mahususi kwa wakala mdogo kuchakata.",
+    "param.provider.description": "LLM provider ya hiari kwa sub-agent hii (kwa mfano: openai, claude, gemini, deepseek).",
+    "param.model.description": "model/deployment override ya hiari kwa provider ya sub-agent hii.",
+    "param.reasoning.description": "Kiwango cha reasoning kilichounganishwa cha hiari. Vigezo maalum vya provider/model vinasawazishwa ndani.",
+    "param.permission_level.description": "Background V1 inaruhusu none pekee hadi kila zana ipite ukaguzi wa usalama wa utekelezaji wa chinichini.",
+    "param.timeout.description": "Muda wa mwisho kabisa wa Job kwa sekunde, ukijumuisha muda wa foleni.",
+    "param.parent_goal.description": "Batilisha lengo la wakala mzazi la ombi hili la wakala mdogo.",
+    "param.store_key.description": "Ufunguo wa kuhifadhi matokeo ya wakala huyu mdogo katika hifadhi ya muktadha iliyoshirikiwa ili kutumiwa na mawakala wadogo wanaofuata.",
+    "param.load_keys.description": "Orodha ya vitufe vya kupakia kutoka kwa hifadhi ya muktadha iliyoshirikiwa. Thamani zinazolingana huingizwa kwenye ContextPack ya wakala mdogo."
+  },
+  "th": {
+    "tool.description": "เริ่ม Sub-Agent ในเบื้องหลังและคืน Job ID ทันที ใช้เครื่องมือ Job เพื่อตรวจสอบ ส่งข้อความ รอ หรือยกเลิก",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "ตัวแทนย่อย",
+      "ผู้วางแผน"
+    ],
+    "param.agent_name.description": "ชื่อของซับเอเจนต์ที่จะรัน ที่มีมาให้: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general บทบาทที่กำหนดเองสามารถโหลดจาก UAGENT_SUB_AGENT_ROLES_DIR",
+    "param.task.description": "คำสั่งหรือภารกิจเฉพาะเจาะจงเพื่อให้ซับเอเจนต์ประมวลผล",
+    "param.provider.description": "LLM provider แบบไม่บังคับสำหรับ sub-agent นี้ (เช่น openai, claude, gemini, deepseek)",
+    "param.model.description": "model/deployment override แบบไม่บังคับสำหรับ sub-agent provider นี้",
+    "param.reasoning.description": "ระดับ reasoning แบบรวมที่เป็นตัวเลือก พารามิเตอร์เฉพาะ provider/model จะถูก normalize ภายใน",
+    "param.permission_level.description": "Background V1 อนุญาตเฉพาะ none จนกว่าแต่ละ tool จะผ่านการตรวจสอบความปลอดภัยสำหรับการทำงานเบื้องหลัง",
+    "param.timeout.description": "กำหนดเวลาสิ้นสุดแบบ end-to-end ของ Job เป็นวินาที รวมเวลาที่อยู่ในคิว",
+    "param.parent_goal.description": "แทนที่เป้าหมายของตัวแทนหลักสำหรับการเรียกใช้ตัวแทนย่อยนี้",
+    "param.store_key.description": "คีย์เพื่อจัดเก็บผลลัพธ์ของตัวแทนย่อยนี้ในที่เก็บบริบทที่ใช้ร่วมกันเพื่อใช้โดยตัวแทนย่อยที่ตามมา",
+    "param.load_keys.description": "รายการคีย์ที่จะโหลดจากที่เก็บบริบทที่แบ่งใช้ ค่าที่เกี่ยวข้องจะถูกฉีดเข้าไปใน ContextPack ของตัวแทนย่อย"
+  },
+  "tr": {
+    "tool.description": "Bir Sub-Agent’i arka planda başlatır ve Job ID’sini hemen döndürür. İncelemek, mesaj göndermek, beklemek veya iptal etmek için Job araçlarını kullanın.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "alt aracı",
+      "planlayıcı"
+    ],
+    "param.agent_name.description": "Çalıştırılacak alt aracının adı. Yerleşik: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Özel roller UAGENT_SUB_AGENT_ROLES_DIR konumundan yüklenebilir.",
+    "param.task.description": "Alt temsilcinin işlemesi için belirli talimat veya görev.",
+    "param.provider.description": "Bu sub-agent için isteğe bağlı LLM provider (örneğin: openai, claude, gemini, deepseek).",
+    "param.model.description": "Bu sub-agent provider için isteğe bağlı model/deployment override.",
+    "param.reasoning.description": "İsteğe bağlı birleşik reasoning düzeyi. Provider/model özel parametreleri dahili olarak normalleştirilir.",
+    "param.permission_level.description": "Background V1, her araç arka plan güvenlik denetiminden geçene kadar yalnızca none değerine izin verir.",
+    "param.timeout.description": "Kuyruk süresi dâhil Job için saniye cinsinden mutlak uçtan uca son süre.",
+    "param.parent_goal.description": "Bu alt aracı çağrısı için ana aracının hedefini geçersiz kılın.",
+    "param.store_key.description": "Bu alt aracının sonucunu, sonraki alt aracıların kullanması için paylaşılan bağlam deposunda saklamanın anahtarı.",
+    "param.load_keys.description": "Paylaşılan içerik deposundan yüklenecek anahtarların listesi. Karşılık gelen değerler alt aracının ContextPack'ine enjekte edilir."
+  },
+  "uk": {
+    "tool.description": "Запускає Sub-Agent у фоні й одразу повертає його Job ID. Використовуйте інструменти Job для перевірки, надсилання повідомлень, очікування або скасування.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "субагент",
+      "планувальник"
+    ],
+    "param.agent_name.description": "Ім'я суб-агента для запуску. Вбудовані: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Користувацькі ролі можна завантажити з UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Конкретна інструкція або завдання для обробки суб-агентом.",
+    "param.provider.description": "Необов’язковий LLM provider для цього sub-agent (наприклад: openai, claude, gemini, deepseek).",
+    "param.model.description": "Необов’язковий model/deployment override для provider цього sub-agent.",
+    "param.reasoning.description": "Необов’язковий уніфікований рівень reasoning. Параметри, специфічні для provider/model, нормалізуються внутрішньо.",
+    "param.permission_level.description": "Background V1 дозволяє лише none, доки кожен інструмент не пройде аудит безпеки фонового виконання.",
+    "param.timeout.description": "Абсолютний наскрізний термін Job у секундах, включно з часом у черзі.",
+    "param.parent_goal.description": "Замінити ціль батьківського агента для цього виклику підагента.",
+    "param.store_key.description": "Ключ для збереження результату цього підагента в спільному контекстному сховищі для використання наступними підагентами.",
+    "param.load_keys.description": "Список ключів для завантаження зі спільного контекстного сховища. Відповідні значення вводяться в ContextPack субагента."
+  },
+  "vi": {
+    "tool.description": "Khởi chạy Sub-Agent ở chế độ nền và trả về Job ID ngay lập tức. Dùng các công cụ Job để kiểm tra, gửi tin nhắn, chờ hoặc hủy.",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "đại lý phụ",
+      "người lập kế hoạch"
+    ],
+    "param.agent_name.description": "Tên sub-agent cần chạy. Tích hợp sẵn: planner, reviewer, summarizer, patch_designer, error_analyst, translator, general. Vai trò tùy chỉnh có thể tải từ UAGENT_SUB_AGENT_ROLES_DIR.",
+    "param.task.description": "Hướng dẫn hoặc nhiệm vụ cụ thể để sub-agent xử lý.",
+    "param.provider.description": "LLM provider tùy chọn cho sub-agent này (ví dụ: openai, claude, gemini, deepseek).",
+    "param.model.description": "model/deployment override tùy chọn cho sub-agent provider này.",
+    "param.reasoning.description": "Mức reasoning thống nhất tùy chọn. Các tham số riêng cho provider/model được chuẩn hóa nội bộ.",
+    "param.permission_level.description": "Background V1 chỉ cho phép none cho đến khi từng công cụ vượt qua kiểm tra an toàn chạy nền.",
+    "param.timeout.description": "Thời hạn end-to-end tuyệt đối của Job tính bằng giây, bao gồm thời gian trong hàng đợi.",
+    "param.parent_goal.description": "Ghi đè mục tiêu của tác nhân mẹ cho lệnh gọi tác nhân phụ này.",
+    "param.store_key.description": "Khóa để lưu trữ kết quả của tác nhân phụ này trong kho ngữ cảnh dùng chung để các tác nhân phụ tiếp theo sử dụng.",
+    "param.load_keys.description": "Danh sách các khóa cần tải từ kho ngữ cảnh dùng chung. Các giá trị tương ứng được đưa vào ContextPack của tác nhân phụ."
+  },
+  "zh_CN": {
+    "tool.description": "在后台启动 Sub-Agent，并立即返回其 Job ID。使用 Job 工具检查、发送消息、等待或取消它。",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "子代理",
+      "规划者"
+    ],
+    "param.agent_name.description": "要运行的子智能体名称。内置：planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。自定义角色可从 UAGENT_SUB_AGENT_ROLES_DIR 加载。",
+    "param.task.description": "要交由子智能体处理的具体指令或任务。",
+    "param.provider.description": "此子代理可选的 LLM 提供商（例如 openai、claude、gemini、deepseek）。",
+    "param.model.description": "所选 LLM 提供商的可选模型或部署名称。",
+    "param.reasoning.description": "可选的统一 reasoning 级别；内部会根据提供商和模型参数进行标准化。",
+    "param.permission_level.description": "Background V1 仅允许 none，直到每个工具都通过后台安全审计。",
+    "param.timeout.description": "Job 的绝对端到端截止时间（秒），包括排队时间。",
+    "param.parent_goal.description": "覆盖此子代理调用的父代理的目标。",
+    "param.store_key.description": "将该子代理的结果存储在共享上下文存储中以供后续子代理使用的密钥。",
+    "param.load_keys.description": "要从共享上下文存储加载的键列表。相应的值被注入到子代理的ContextPack中。"
+  },
+  "zh_TW": {
+    "tool.description": "在背景啟動 Sub-Agent，並立即傳回其 Job ID。使用 Job 工具檢查、傳送訊息、等待或取消它。",
+    "x_search_terms": [
+      "spawn_sub_agent",
+      "子代理",
+      "規劃者"
+    ],
+    "param.agent_name.description": "要執行的子代理名稱。內建：planner, reviewer, summarizer, patch_designer, error_analyst, translator, general。自訂角色可從 UAGENT_SUB_AGENT_ROLES_DIR 載入。",
+    "param.task.description": "要交由子代理處理的具體指令或任務。",
+    "param.provider.description": "此子代理可選的 LLM 提供者（例如 openai、claude、gemini、deepseek）。",
+    "param.model.description": "所選 LLM 提供者的可選模型或部署名稱。",
+    "param.reasoning.description": "可選的統一 reasoning 層級；內部會依提供者與模型參數進行正規化。",
+    "param.permission_level.description": "Background V1 僅允許 none，直到每個工具都通過背景安全稽核。",
+    "param.timeout.description": "Job 的絕對端對端期限（秒），包含排隊時間。",
+    "param.parent_goal.description": "覆盖此子代理调用的父代理的目标。",
+    "param.store_key.description": "將該子代理程式的結果儲存在共用上下文儲存中以供後續子代理程式使用的金鑰。",
+    "param.load_keys.description": "要从共享上下文存储加载的键列表。對應的值被注入到子代理程式的ContextPack。"
   }
 }
