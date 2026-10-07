@@ -300,9 +300,9 @@ flowchart TD
 3. Runtime が DeterministicDelta を抽出
 4. LLM が semantic GoalDelta / Decision / Constraint / Fact / Narrative を抽出
 5. Runtime が Goal association、schema、item-level provenance を検証
-6. base revision / branch head を検証して immutable CompactionRecord を commit
-7. Reducer が conflict policy に従って AgentState を materialize
-8. session revision を atomic に更新
+6. base revision / branch head と operation_id を検証し、SQLite transaction 内で immutable CompactionRecord を記録（未commit）
+7. 同じ transaction 内で Reducer が AgentState を materialize
+8. 同じ transaction 内で session revision と operation_id の適用記録を更新し、**ここでまとめて commit**（失敗時はすべて rollback）
 9. AgentState materialized projection を基本 ContextCandidate とし、Checkpoint / Artifact を根拠検索に利用
 10. ActiveContextBuilder → Provider Projection → LLM
 
