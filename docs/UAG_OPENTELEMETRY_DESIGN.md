@@ -69,7 +69,6 @@ src/uagent/runtime/observability/
     bootstrap.py
     dependencies.py
     noop.py
-    logging_backend.py
     otel_backend.py
     semantic_mapping.py
     privacy.py
@@ -83,6 +82,7 @@ src/uagent/runtime/observability/
 
 Important rules:
 
+- structured event logging and trace/span correlation remain in `src/uagent/runtime/logging_setup.py`, which reads the active observability backend's current trace IDs;
 - runtime code calls UAG observability functions, not raw `span.set_attribute("gen_ai.*", ...)` throughout the tree;
 - semantic-convention-specific names stay in `semantic_mapping.py`;
 - disabled or unavailable OTel resolves to a no-op backend;
