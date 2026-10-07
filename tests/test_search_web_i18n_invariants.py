@@ -85,3 +85,86 @@ def test_search_web_limit_description_is_not_cross_key_content():
             invalid.append(lang)
 
     assert not invalid, "Corrupted search_web limit descriptions: " + ", ".join(invalid)
+
+def test_search_web_localized_strings_are_not_punctuation_only():
+    payload = _load()
+    invalid = []
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+        for key, value in messages.items():
+            if not isinstance(value, str):
+                continue
+            stripped = value.strip()
+            if stripped and all(char in ".,;:!?。！？、，；：" for char in stripped):
+                invalid.append(f"{lang}:{key}")
+
+    assert not invalid, "Punctuation-only search_web translations: " + ", ".join(
+        invalid
+    )
+
+
+def test_search_web_search_terms_are_clean_and_unique():
+    payload = _load()
+    invalid = []
+
+    forbidden_fragments = {
+        "ja": ("バスカー",),
+        "ko": ("버스카",),
+        "id": ("buscar en la web",),
+        "ru": ("автобус",),
+        "vi": ("xe buýt",),
+        "pl": ("autobus", "recherche"),
+        "hi": ("बसकार", "रेचेर्चे"),
+        "sv": ("buscar",),
+        "sw": ("buscar", "recherche"),
+        "nb": ("buscar",),
+        "nl": ("buscar",),
+        "fi": ("buscar", "recherche"),
+        "cs": ("buscar",),
+        "uk": ("автобус",),
+        "tr": ("otobüs",),
+        "th": ("รถบัส",),
+        "zh_CN": ("巴士",),
+        "zh_TW": ("巴士",),
+        "bn": ("বাসকার", "recherche"),
+        "fa": ("buscar", "recherche"),
+        "mn": ("автобус", "recherche"),
+        "mr": ("buscar", "recherche"),
+        "el": ("buscar", "recherche"),
+        "he": ("buscar", "recherche"),
+        "hu": ("buscar", "recherche"),
+        "ro": ("recherche",),
+        "fil": ("buscar", "recherche"),
+        "ms": ("buscar", "recherche"),
+        "da": ("buscar", "recherche"),
+        "nn": ("buscar", "recherche"),
+    }
+
+    for lang, messages in payload.items():
+        if not isinstance(messages, dict):
+            continue
+        terms = messages.get("x_search_terms")
+        if not isinstance(terms, list) or not terms:
+            invalid.append(f"{lang}:missing")
+            continue
+
+        normalized = [
+            str(term).strip().casefold() for term in terms if str(term).strip()
+        ]
+        if len(normalized) != len(terms):
+            invalid.append(f"{lang}:blank")
+        if len(set(normalized)) != len(normalized):
+            invalid.append(f"{lang}:duplicate")
+        for required in ("duckduckgo", "google"):
+            if required not in normalized:
+                invalid.append(f"{lang}:missing-{required}")
+
+        joined = "\n".join(normalized)
+        for fragment in forbidden_fragments.get(lang, ()):
+            if fragment.casefold() in joined:
+                invalid.append(f"{lang}:legacy-{fragment}")
+
+    assert not invalid, "Corrupted search_web search terms: " + ", ".join(invalid)
+
