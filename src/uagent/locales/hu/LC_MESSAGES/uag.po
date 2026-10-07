@@ -1613,7 +1613,7 @@ msgstr ""
 #: src/uagent/scheckgui.py:1928 src/uagent/util_mode.py:211
 #, python-format
 msgid "[mode] verbosity=%(mode)s"
-msgstr "[mode] verbosity=%(mode)s"
+msgstr "[mód] részletesség=%(mode)s"
 
 #: src/uagent/scheckgui.py:1930 src/uagent/util_mode.py:208
 msgid ":v [0|1|2|3]  (0=off, 1=low, 2=medium, 3=high; no arg=keep)"
@@ -3428,7 +3428,7 @@ msgstr ""
 
 #: src/uagent/util_cmd_session.py:930
 msgid "[shrink_llm error] %(etype)s: %(err)s"
-msgstr "[shrink_llm error] %(etype)s: %(err)s"
+msgstr "[shrink_llm hiba] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:998
 #, python-format
@@ -3550,7 +3550,7 @@ msgstr "[shared-mem-del] Az index=%(idx)d törlése sikertelen."
 #: src/uagent/util_cmd_session.py:1181
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[shared-mem-del hiba] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:1186
 #, python-format
@@ -4076,7 +4076,7 @@ msgstr "érvénytelen bőbeszédűség"
 #: src/uagent/util_model.py:47 src/uagent/util_model.py:108
 #, python-format
 msgid "[env error] %(etype)s: %(err)s"
-msgstr "[env error] %(etype)s: %(err)s"
+msgstr "[környezeti hiba] %(etype)s: %(err)s"
 
 #: src/uagent/util_model.py:70
 #, python-format
@@ -4104,7 +4104,7 @@ msgstr ":env unset KEY"
 #: src/uagent/util_model.py:97
 #, python-format
 msgid "[env] Unset %(key)s"
-msgstr "[env] Unset %(key)s"
+msgstr "[env] %(key)s törölve"
 
 #: src/uagent/util_model.py:105
 #, python-format
@@ -4869,12 +4869,12 @@ msgstr "[INFO] munkakönyvtár = %(workdir)s (forrás: %(source)s)"
 #: src/uagent/runtime/runtime_banner.py:499
 #, python-format
 msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] alap URL = %(base_url)s"
 
 #: src/uagent/runtime/runtime_banner.py:302
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] API-verzió = %(api_version)s"
 
 #: src/uagent/runtime/runtime_banner.py:439
 #, python-format

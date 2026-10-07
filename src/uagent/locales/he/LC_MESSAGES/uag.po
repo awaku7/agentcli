@@ -1546,7 +1546,7 @@ msgstr "שגיאה [display_reasoning]: %(err)s"
 #: src/uagent/scheckgui.py:1916 src/uagent/util_mode.py:200
 #, python-format
 msgid "[mode] reasoning=%(mode)s"
-msgstr "[mode] reasoning=%(mode)s"
+msgstr "[מצב] הנמקה=%(mode)s"
 
 #: src/uagent/scheckgui.py:1920 src/uagent/util_mode.py:195
 msgid ""
@@ -3340,7 +3340,7 @@ msgstr ""
 
 #: src/uagent/util_cmd_session.py:930
 msgid "[shrink_llm error] %(etype)s: %(err)s"
-msgstr "[shrink_llm error] %(etype)s: %(err)s"
+msgstr "[שגיאת shrink_llm] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:998
 #, python-format
@@ -3459,7 +3459,7 @@ msgstr "[shared-mem-del] נכשלה מחיקת האינדקס=%(idx)d."
 #: src/uagent/util_cmd_session.py:1181
 #, python-format
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[שגיאת shared-mem-del] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:1186
 #, python-format
@@ -4730,12 +4730,12 @@ msgstr "[INFO] workdir = %(workdir)s (מקור: %(source)s)"
 #: src/uagent/runtime/runtime_banner.py:499
 #, python-format
 msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] כתובת URL בסיסית = %(base_url)s"
 
 #: src/uagent/runtime/runtime_banner.py:302
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] גרסת API = %(api_version)s"
 
 #: src/uagent/runtime/runtime_banner.py:439
 #, python-format

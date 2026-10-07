@@ -216,9 +216,7 @@ msgstr "(ingen brukermelding)"
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
-msgstr ""
-"[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
-"%(last_user)s%(response_summary)s"
+msgstr "[%(idx)d] %(mtime_text)s | %(turns)d meldingar | første: %(first_user)s | siste: %(last_user)s%(response_summary)s"
 
 #: src/uagent/core.py:1510
 msgid ""
@@ -2599,7 +2597,7 @@ msgstr "[last på nytt] Lastet inn %(count)d ny(e) instruksjonsfil(er)."
 
 #: src/uagent/util_cmd_files.py:107
 msgid "[reload error] %(etype)s: %(err)s"
-msgstr "[reload error] %(etype)s: %(err)s"
+msgstr "[feil ved reload] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_files.py:125
 msgid "[ls] No matching paths: %(src)s -> %(expanded)s"
@@ -3190,7 +3188,7 @@ msgstr ""
 
 #: src/uagent/util_cmd_session.py:930
 msgid "[shrink_llm error] %(etype)s: %(err)s"
-msgstr "[shrink_llm error] %(etype)s: %(err)s"
+msgstr "[feil ved shrink_llm] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:998
 msgid "[tokens error] %(etype)s: %(err)s"
@@ -3298,7 +3296,7 @@ msgstr "[shared-mem-del] Kunne ikke slette indeks=%(idx)d."
 
 #: src/uagent/util_cmd_session.py:1181
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[feil ved shared-mem-del] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:1186
 msgid "Deleted shared long-term memory entry [%(idx)d]."
@@ -3564,10 +3562,7 @@ msgid ""
 "Manage the current Responses API response. status retrieves the current "
 "response; cancel stops it; tokens counts input tokens; compact compacts "
 "context; items lists input items; delete removes a response."
-msgstr ""
-"Manage the current Responses API response. status retrieves the current "
-"response; cancel stops it; tokens counts input tokens; compact compacts "
-"context; items lists input items; delete removes a response."
+msgstr "Administrer gjeldande Responses API-respons. status hentar gjeldande respons; cancel stoppar han; tokens tel inndata-token; compact komprimerer konteksten; items listar inndataelement; delete fjernar ein respons."
 
 #: src/uagent/util_help.py:184
 msgid "Manage UAGENT_* environment variables"
@@ -4555,11 +4550,11 @@ msgstr "[INFO] workdir = %(workdir)s (kilde: %(source)s)"
 #: src/uagent/runtime/runtime_banner.py:486
 #: src/uagent/runtime/runtime_banner.py:499
 msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] basis-URL = %(base_url)s"
 
 #: src/uagent/runtime/runtime_banner.py:302
 msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] API-versjon = %(api_version)s"
 
 #: src/uagent/runtime/runtime_banner.py:439
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
@@ -4708,13 +4703,13 @@ msgid "[sessions] Session store is not enabled."
 msgstr "[Sessions] Session store er ikke aktivert."
 
 msgid "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
-msgstr "[sessions] Usage: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] Bruk: :sessions prune --keep <N> [--dry-run|--yes]"
 
 msgid "[sessions] --keep must be a non-negative integer."
 msgstr "[sessions] --keep må være et ikke-negativt heltall."
 
 msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
-msgstr "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
+msgstr "[sessions] Ryddeplan: hald på dei nyaste %(keep)d, kandidatar=%(count)d"
 
 msgid "  %(id)s | %(created_at)s | %(count)d messages"
 msgstr "%(id)s | %(created_at)s | %(count)d meldinger"

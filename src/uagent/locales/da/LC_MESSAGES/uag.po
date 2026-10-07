@@ -533,7 +533,7 @@ msgstr ""
 
 #: src/uagent/docs_util.py:27
 msgid "Web Inspector (playwright_inspector) guide"
-msgstr "Web Inspector (playwright_inspector) guide"
+msgstr "Vejledning til Web Inspector (playwright_inspector)"
 
 #: src/uagent/docs_util.py:32
 msgid "Developer information"
@@ -1087,7 +1087,7 @@ msgstr "    Licens: %(value)s"
 
 #: src/uagent/llmcapa_util.py:842 src/uagent/util_model.py:140
 msgid "    Knowledge Cutoff: %(value)s"
-msgstr "    Knowledge Cutoff: %(value)s"
+msgstr "    Vidensgrænse: %(value)s"
 
 #: src/uagent/llmcapa_util.py:846 src/uagent/util_model.py:142
 msgid "    Deprecated:    %(value)s"
@@ -2612,11 +2612,11 @@ msgstr "  [D] %(name)s -> %(path)s"
 
 #: src/uagent/util_cmd_files.py:157
 msgid "  [F] %(name)s (%(size)d bytes) -> %(path)s"
-msgstr "  [F] %(name)s (%(size)d bytes) -> %(path)s"
+msgstr "  [F] %(name)s (%(size)d byte) -> %(path)s"
 
 #: src/uagent/util_cmd_files.py:169
 msgid "[ls] [F] %(path)s (%(size)d bytes)"
-msgstr "[ls] [F] %(path)s (%(size)d bytes)"
+msgstr "[ls] [F] %(path)s (%(size)d byte)"
 
 #: src/uagent/util_cmd_files.py:178
 msgid "[ls] Directory does not exist: %(src)s -> %(dst)s"
@@ -2628,7 +2628,7 @@ msgstr "  [D] %(name)s"
 
 #: src/uagent/util_cmd_files.py:204
 msgid "  [F] %(name)s (%(size)d bytes)"
-msgstr "  [F] %(name)s (%(size)d bytes)"
+msgstr "  [F] %(name)s (%(size)d byte)"
 
 #: src/uagent/util_cmd_files.py:208
 msgid "[ls error] %(etype)s: %(err)s"
@@ -4554,11 +4554,11 @@ msgstr "[INFO] workdir = %(workdir)s (kilde: %(source)s)"
 #: src/uagent/runtime/runtime_banner.py:486
 #: src/uagent/runtime/runtime_banner.py:499
 msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] basis-URL = %(base_url)s"
 
 #: src/uagent/runtime/runtime_banner.py:302
 msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] API-version = %(api_version)s"
 
 #: src/uagent/runtime/runtime_banner.py:439
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
@@ -4590,7 +4590,7 @@ msgstr "Chatafslutninger (UAGENT_RESPONSES er deaktiveret)"
 
 #: src/uagent/runtime/runtime_banner.py:559
 msgid "LLM streaming = %(state)s"
-msgstr "LLM streaming = %(state)s"
+msgstr "LLM-streaming = %(state)s"
 
 #: src/uagent/runtime/runtime_banner.py:560
 msgid "enabled"
