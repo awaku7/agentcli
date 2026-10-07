@@ -25,6 +25,10 @@ CREATE TABLE active_clients (
     principal_id TEXT,
     session_id TEXT,
     workdir TEXT NOT NULL,
+    host_id TEXT,
+    process_id INTEGER,
+    process_started_at TEXT,
+    client_kind TEXT NOT NULL,
     started_at TEXT NOT NULL,
     last_seen_at TEXT NOT NULL
 );
@@ -48,7 +52,13 @@ query other active clients in same workdir
 
 正常終了時は自分の row を削除する。
 
-異常終了で row が残る可能性があるため、`last_seen_at` が一定時間以上古い row は active とみなさない。
+異常終了で row が残る場合の判定は Client の種類で分ける。
+
+- ローカル CLI / GUI: 同一 host の `process_id` と `process_started_at` を照合し、プロセスが終了していることを確認できた row は inactive とする。PID 再利用に備えて開始時刻も必ず確認する。
+- Browser tab / Web Client: OS process を Client の生存判定に流用せず、`last_seen_at` による期限判定を行う。接続が途絶えたタブは期限経過後に inactive とする。
+- 異なる host、権限不足、プロセス情報取得失敗などで生存確認ができない場合は `unknown` とし、死亡と断定しない。Presence は参考情報であり、unknown を active と偽装しない。
+
+正常終了時は row を削除する。stale / dead row は照会時に無視し、必要なら lazy cleanup する。専用 cleanup daemon は作らない。
 
 専用 heartbeat daemon/thread は初期実装では作らない。LLM request、tool execution、user input 等の既存 Runtime activity に合わせて `last_seen_at` を更新し、**同じタイミングで他の active Client を再検索して Presence を更新する**。起動時の検索結果を固定して使わない。
 
@@ -79,7 +89,10 @@ Presence 自体は write を block しない。
 ## 7. Failure Rules
 
 - Presence DB への登録失敗だけで通常の Client 起動を禁止しない
-- stale row は `last_seen_at` で無視できる
+- Web Client の stale row は `last_seen_at` で無視できる
+- 同一ホストのローカル Client は PID とプロセス開始時刻で死亡を判定し、長時間の LLM / tool 実行を単純な idle timeout で死亡扱いしない
+- PID のみの照合で別プロセスを誤認しない
+- 判定不能なプロセスは unknown とし、誤って dead にしない
 - process crash 後に永久的な「起動中」表示を残さない
 - Presence は外部 IDE / editor / shell process の存在を検出しない
 - Presence を file consistency の保証として扱わない
@@ -106,6 +119,6 @@ Presence 自体は write を block しない。
 2. GUI / Browser tab も同じ Client Instance model で認識できる
 3. Presence があっても read / write / cmd / Python を Runtime が強制 block しない
 4. 正常終了した Client は active から外れる
-5. crash した Client は stale timeout 後に active とみなされない
+5. crash したローカル Client は PID と開始時刻の照合で inactive と判定できる。Web Client は期限切れで inactive となる
 6. Windows path 表記差で同一 workdir が別 Presence にならない
 7. Presence のために他 Session の会話履歴を ActiveContext へ自動注入しない
