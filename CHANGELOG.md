@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [0.7.26] - 2026-10-07
+
+### Added
+
+- Add OpenAI Decisions API as a Decision Provider, using `llmcapa` capability metadata and typed predicate questions, with setup, documentation, and regression coverage.
+
+### Changed
+
+- When the main provider is OpenAI and no Decision Provider is explicitly configured, default Auto-pilot completion review to OpenAI Decisions with `gpt-6-luna`; an explicit `none` keeps the legacy LLM reviewer.
+- Raise the minimum `llmcapa` version to `0.5.57` for OpenAI Decisions capability metadata.
+- Expand I18N audit and regression coverage for runtime identifiers, placeholders, active/obsolete gettext regressions, and localized search terms.
+
+### Fixed
+
+- Harden localized tool catalogs so service brands, package names, `UAGENT_*` environment variables, runtime enum values, and other execution-critical literals are preserved while user-facing text remains translated.
+- Repair localized Sub-Agent internal prompts, gettext placeholder/newline corruption, Japanese fuzzy and regressed entries, Vietnamese/Thai locale contamination, remaining Filipino and six-locale UI strings, and Filipino/Nynorsk coverage-report search terms.
+- Align `search_web` descriptions with the StartPage default and include DeepSeek in Responses image-provider support messaging.
+- On Windows, replace the conflicting generic `python-magic` distribution with `python-magic-bin` under the existing auto-install policy and initialize the binding only once.
+
 ## [0.7.25] - 2026-10-06
 
 ### Fixed
