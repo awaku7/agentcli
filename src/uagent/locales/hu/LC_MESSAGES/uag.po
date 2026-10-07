@@ -2595,7 +2595,7 @@ msgstr ""
 "További szükséges → CONTINUE\n"
 "Válaszoljon a következővel: COMPLETE vagy CONTINUE.\n"
 "Ha CONTINUE, röviden adja meg, mi hiányzik még.\n"
-"Formátum: <re___2>:"
+"Formátum: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
