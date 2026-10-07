@@ -3,7 +3,6 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
-
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
 INTENTIONAL_ACTIVE_ENGLISH = {"[display_reasoning] %(state)s"}
 
