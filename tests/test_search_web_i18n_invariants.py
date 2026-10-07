@@ -84,9 +84,7 @@ def test_search_web_limit_description_is_not_cross_key_content():
         if "5" not in description or "uagent" in description.lower():
             invalid.append(lang)
 
-    assert not invalid, "Corrupted search_web limit descriptions: " + ", ".join(invalid)
-
-def test_search_web_localized_strings_are_not_punctuation_only():
+    assert not invalid, "Corrupted search_web limit descriptions: " + ", ".join(invalid)\n\n\ndef test_search_web_localized_strings_are_not_punctuation_only():
     payload = _load()
     invalid = []
 
@@ -97,7 +95,7 @@ def test_search_web_localized_strings_are_not_punctuation_only():
             if not isinstance(value, str):
                 continue
             stripped = value.strip()
-            if stripped and all(char in ".,;:!?。！？、，；：" for char in stripped):
+            if stripped and all(\n                char in ".,;:!?。！？、，；：" for char in stripped\n            ):
                 invalid.append(f"{lang}:{key}")
 
     assert not invalid, "Punctuation-only search_web translations: " + ", ".join(
@@ -150,9 +148,7 @@ def test_search_web_search_terms_are_clean_and_unique():
             invalid.append(f"{lang}:missing")
             continue
 
-        normalized = [
-            str(term).strip().casefold() for term in terms if str(term).strip()
-        ]
+        normalized = [\n            str(term).strip().casefold()\n            for term in terms\n            if str(term).strip()\n        ]
         if len(normalized) != len(terms):
             invalid.append(f"{lang}:blank")
         if len(set(normalized)) != len(normalized):
