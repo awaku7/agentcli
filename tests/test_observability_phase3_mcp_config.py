@@ -146,6 +146,7 @@ def test_handle_mcp_v2_managed_stdio_threads_trace_optin(
     )
     assert seen == [True]
 
+
 def test_mcp_tools_list_managed_optin(repo_tmp_path: Path, monkeypatch) -> None:
     from uagent.tools import mcp_tools_list_tool as tool
 

@@ -34,7 +34,7 @@ def build_trusted_mcp_trace_meta(enabled: bool) -> dict[str, str]:
 def inject_trusted_mcp_trace_meta(
     params: Mapping[str, Any] | None,
     *,
-    enabled: bool
+    enabled: bool,
 ) -> dict[str, Any] | None:
     """Copy params and inject trusted trace context into params._meta.
 
@@ -75,7 +75,7 @@ async def call_with_trusted_mcp_trace_meta(
     callback: Callable[..., Awaitable[Any]],
     *args: Any,
     enabled: bool,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> Any:
     """Call an MCP SDK method with message-level trace metadata when supported."""
 
