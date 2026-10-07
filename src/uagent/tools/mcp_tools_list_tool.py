@@ -213,9 +213,14 @@ async def _mcp_tools_list_stdio(
     args: list[str],
     env: dict[str, str],
     protocol_mode: str = "auto",
+    trusted_trace_propagation: bool = False,
 ) -> dict[str, Any]:
     async with MCPClient(
-        command=command, args=args, env=env, protocol_mode=protocol_mode
+        command=command,
+        args=args,
+        env=env,
+        protocol_mode=protocol_mode,
+        trusted_trace_propagation=trusted_trace_propagation,
     ) as client:
         tools_result = await client.list_tools()
         raw_tools = getattr(tools_result, "tools", []) or (
@@ -324,14 +329,28 @@ def run_tool(args: dict[str, Any]) -> str:
         # 1) stdio via configured command
         if (not url) and command:
             result = asyncio.run(
-                _mcp_tools_list_stdio(command, cmd_args, cmd_env, protocol_mode)
+                _mcp_tools_list_stdio(
+                    command,
+                    cmd_args,
+                    cmd_env,
+                    protocol_mode,
+                    trusted_trace_propagation,
+                )
             )
 
         # 2) stdio shorthand url
         elif isinstance(url, str) and url.startswith("stdio://"):
             cmd = url[len("stdio://") :]
             # no args/env in shorthand
-            result = asyncio.run(_mcp_tools_list_stdio(cmd, [], {}, protocol_mode))
+            result = asyncio.run(
+                _mcp_tools_list_stdio(
+                    cmd,
+                    [],
+                    {},
+                    protocol_mode,
+                    trusted_trace_propagation,
+                )
+            )
 
         # 3) http
         else:
