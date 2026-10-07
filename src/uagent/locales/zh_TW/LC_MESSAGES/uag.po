@@ -2462,12 +2462,12 @@ msgstr "審閱者備註：%(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"您是 reviewer。評估下面的對話並確定目標「%(goal)s」是否已實現。 \n"
-"已實現→COMPLETE\n"
-"需要更多→CONTINUE\n"
-"回覆COMPLETE或CONTINUE。 \n"
-"如果是CONTINUE，請簡單說明還缺少什麼。 \n"
-"格式：CONTINUE：<原因>"
+"您是 reviewer。評估下面的對話並確定目標「%(goal)s」是否已實現。\\n"
+"已實現 → COMPLETE\\n"
+"需要更多 → CONTINUE\\n"
+"請使用 COMPLETE 或 CONTINUE 回答。\\n"
+"如果是 CONTINUE，請簡要說明還缺少什麼。\\n"
+"格式: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
