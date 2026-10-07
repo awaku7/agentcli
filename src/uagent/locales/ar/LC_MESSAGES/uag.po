@@ -4296,13 +4296,17 @@ msgstr "رابط خارجي:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- لم يتم العثور على ملف التكوين.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- لم يتم العثور على ملف التكوين.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- لم يتم تسجيل أية خوادم.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- لم يتم تسجيل أية خوادم.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

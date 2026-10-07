@@ -4203,13 +4203,17 @@ msgstr "URL Eksternal:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- File konfigurasi tidak ditemukan.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- File konfigurasi tidak ditemukan.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Tidak ada server yang terdaftar.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Tidak ada server yang terdaftar.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

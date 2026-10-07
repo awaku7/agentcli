@@ -4263,13 +4263,17 @@ msgstr "כתובת אתר חיצונית:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- קובץ התצורה לא נמצא.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- קובץ התצורה לא נמצא.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- אין שרתים רשומים.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- אין שרתים רשומים.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

@@ -4323,13 +4323,17 @@ msgstr "বাহ্যিক URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- কনফিগার ফাইল পাওয়া যায়নি।\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- কনফিগার ফাইল পাওয়া যায়নি।\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- কোনো সার্ভার নিবন্ধিত নেই।\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- কোনো সার্ভার নিবন্ধিত নেই।\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

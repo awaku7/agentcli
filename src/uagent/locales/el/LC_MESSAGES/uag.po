@@ -4419,13 +4419,17 @@ msgstr "Εξωτερική διεύθυνση URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Το αρχείο διαμόρφωσης δεν βρέθηκε.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Το αρχείο διαμόρφωσης δεν βρέθηκε.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Δεν έχουν εγγραφεί διακομιστές.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Δεν έχουν εγγραφεί διακομιστές.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
