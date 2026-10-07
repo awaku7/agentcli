@@ -183,24 +183,25 @@ CompactionRecord は現在状態の第二の正本にしない。AgentState を 
 
 Checkpoint から AgentState を更新するときは Runtime の Reducer を通す。LLM が生成した Checkpoint が AgentState を直接上書きしてはならない。
 
-### 3.9 Multi-User / Multi-Instance を基本要件とする
+### 3.9 Client Instance と Session を分離する
 
-UAG は単一プロセス・単一ユーザーだけを前提にしない。同一ユーザーの複数 CLI / GUI / Web instance、複数ユーザーの共有 Workspace / Project、Main Agent と Sub-Agent の並行実行を同じ concurrency model で扱う。
-
-Identity と Execution は分離する。
+CLI、GUI window、Browser tab は Runtime 設計上すべて同じ **Client Instance** として扱う。UI 種別ごとの concurrency model は作らない。
 
 ~~~text
-Tenant
-  └─ Principal / User
-      └─ Workspace / Project
-          └─ Session
-              ├─ Runtime Instance: CLI #1
-              ├─ Runtime Instance: CLI #2
-              ├─ Runtime Instance: GUI #1
-              └─ Agent / Sub-Agent
+Principal
+  ├─ Client Instance: Browser Tab
+  ├─ Client Instance: CLI
+  └─ Client Instance: GUI Window
+             │
+             └─ Session
 ~~~
 
-永続 Event / Checkpoint には tenant_id、principal_id、workspace_id、session_id、runtime_instance_id、agent_id、goal_id のうち該当する scope を明示する。同一 Session を複数 instance が同時に開くことを正常系として扱い、暗黙の last-write-wins に依存しない。
+同じ Session を複数 Client Instance が開くことを正常系とする。各 Client は `session_id` と、自分が観測した `base_revision` を持つ。
+
+Sub-Agent は Client Instance ではない。Session 内で Main Agent から起動される execution actor として扱い、Client concurrency と Agent concurrency を混同しない。
+
+通常の同時更新では Branch を自動生成しない。`base_revision` が最新 revision と一致しなければ conflict とし、最新 AgentState / history を取得して再評価・再 compaction する。Branch は明示的な alternative path が必要な場合の別機能とする。
+
 
 ### 3.10 Event / Checkpoint / Materialized State を分離する
 
@@ -238,9 +239,8 @@ Event は「何が起きたか」、Checkpoint は「ある履歴区間をどう
 | Split Turn | 1 logical turn 自体が budget を超えるため、その一部を圧縮すること |
 | Workstream / Goal | 継続的に追跡する意味上の作業単位。current state は AgentState に保持する |
 | goal_id | compaction / instance / resume をまたいで同じ Goal を識別する安定 ID |
-| runtime_instance_id | CLI / GUI / Web 等の実行 instance を識別する ID |
+| client_instance_id | CLI / GUI window / Browser tab 等の Client Instance を識別する ID |
 | Branch | 同一 Session 内の並行・代替 execution lineage |
-| Branch Head | ある branch で現在採用されている committed checkpoint / AgentState revision |
 | Revision | optimistic concurrency control に用いる単調増加する materialized state version |
 | Principal | 操作主体。人間ユーザー、service identity 等を含む認証・認可上の主体 |
 
@@ -249,7 +249,7 @@ Event は「何が起きたか」、Checkpoint は「ある履歴区間をどう
 
 ~~~mermaid
 flowchart TD
-    ID[Identity / Runtime Instance]
+    ID[Identity / Client Instance]
     AUTH[Scope / Authorization]
     RAW[Raw History / Events / Tool Results / Artifacts]
     STORE[Persistent Context Store]
@@ -261,7 +261,7 @@ flowchart TD
     RECORD[Immutable CompactionRecord]
     CONFLICT[Revision / Conflict Check]
     REDUCER[AgentState Reducer]
-    STATE[AgentState + Branch Head]
+    STATE[AgentState + Session Revision]
     CANDIDATE[ContextCandidate]
     DECISION[Context Decision Engine]
     ACTIVE[ActiveContextBuilder]
@@ -295,18 +295,18 @@ flowchart TD
 
 標準処理順は次の通り。
 
-1. Principal / runtime instance / workspace / session / branch scope を解決し authorization を確認
+1. Principal / Client Instance / workspace / session scope を解決し authorization を確認
 2. 圧縮が必要か判定し Safe Boundary を決定
 3. Runtime が DeterministicDelta を抽出
 4. LLM が semantic GoalDelta / Decision / Constraint / Fact / Narrative を抽出
 5. Runtime が Goal association、schema、item-level provenance を検証
 6. base revision / branch head を検証して immutable CompactionRecord を commit
 7. Reducer が conflict policy に従って AgentState を materialize
-8. branch head を compare-and-set で更新
+8. session revision を atomic に更新
 9. AgentState / Checkpoint / Artifact 等を authorization-aware ContextCandidate として選択
 10. ActiveContextBuilder → Provider Projection → LLM
 
-Compaction と current-state update を同一概念にしない。Checkpoint commit が成功しても branch head の更新に競合した場合、その Checkpoint は orphan として破棄せず lineage / retry / merge の evidence として保持できる。
+Compaction と current-state update を同一概念にしない。base_revision が古い場合は current state を上書きせず、最新 revision を取得して compaction / Reducer 適用をやり直す。
 
 
 ## 6. CompactionRecord
@@ -323,7 +323,7 @@ class CompactionRecord:
     principal_id: str | None
     workspace_id: str | None
     session_id: str
-    runtime_instance_id: str | None
+    client_instance_id: str | None
     agent_id: str | None
     created_at: str
 
@@ -343,7 +343,7 @@ class CompactionRecord:
     first_kept_message_id: str | None
     split_turn: bool
     previous_compaction_id: str | None
-    parent_checkpoint_ids: list[str]
+    parent_checkpoint_id: str | None
     base_revision: int | None
     committed_revision: int | None
 
@@ -832,27 +832,14 @@ Auto-pilot の終了判定には、AgentState 内の対象 Goal ごとの status
 
 ## 16. Branch / Alternative Path
 
-Branch / lineage は alternative UI の将来拡張だけでなく、複数 CLI / GUI / Web / Agent が同一 Session を並行更新するための基本機構とする。
+Branch は multi-client concurrency の基本機構にはしない。
 
-将来的には同一 session 内の alternative path に対して branch-aware checkpoint を持てる。
+通常の CLI / GUI / Browser tab の同時利用は Session revision の競合検出で処理する。古い revision を見ていた Client が更新しようとした場合は silent overwrite せず、最新 Session を再取得して処理をやり直す。
 
-~~~text
-Checkpoint A
-     │
-     ├── Branch B
-     │      └── Checkpoint B
-     │
-     └── Branch C
-            └── Checkpoint C
-~~~
+Branch はユーザーまたは Agent が「この時点から別案を試す」など、明示的な alternative path を必要とする場合の拡張機能とする。
 
-parent_checkpoint_ids によって lineage を保持する。単一親だけでなく merge checkpoint の複数親を表現できる。
+Checkpoint は将来の Branch 実装に備えて `parent_checkpoint_id` を保持できるが、初期 Structured Compaction 実装では merge commit / multi-parent lineage を必須としない。
 
-初期実装では branch UI を必須としない。
-
-Sub-Agent / retry / alternative-plan の内部 handoff で lineage を利用できればよい。
-
----
 
 ## 17. Provider / Model Handoff
 
@@ -1071,45 +1058,42 @@ CompactionRecord の永続化に失敗した場合、Raw History を置換しな
 
 Context retrieval 自体を authorization 対象とする。Checkpoint が過去に参照できた Artifact でも Rehydration 時には現在の権限を再評価する。Sub-Agent は呼び出し元以上の権限を得ない。
 
-### 23.2 Runtime Instance と同時実行
+### 23.2 Client Instance と同時実行
 
-各 CLI / GUI / Web process は安定した runtime_instance_id を持つ。同一 Session を複数 instance が同時に開くことを許可する。Checkpoint 10 から CLI #1 が 11、GUI #1 が 12 を作る分岐を正当な lineage として保持する。Branch / lineage は multi-instance concurrency の基礎機構とする。
+CLI、GUI window、Browser tab を同じ Client Instance として扱い、各 Client に `client_instance_id` を割り当てる。
 
-### 23.3 Ordering / Revision / Conflict
+Client Instance は durable work identity ではない。永続する作業単位は Session と AgentState であり、Client は接続元・provenance の識別に使う。
 
-wall-clock timestamp だけで event 順序を決めず、revision、parent checkpoint、event sequence / causal reference を使う。AgentState 更新は optimistic concurrency control を基本とし、競合を deterministic auto-merge、semantic merge、branch 維持、user/operator decision に分類する。暗黙の last-write-wins は採用しない。長時間 Agent 全体を lock せず、lock / lease は transaction-like operation に限定する。
-
-### 23.3.1 Session / Branch / Head の意味
-
-`session_id` は会話・作業履歴の共有 container であり、単一の current head を意味しない。同一 Session は複数 Branch を持てる。
-
-各 runtime instance は少なくとも `session_id + branch_id + observed_head_revision` を持つ。通常起動時は default branch の head を観測するが、並行更新や alternative path により branch が分岐できる。
-
-Branch head の更新は compare-and-set とする。
+同一 Session を複数 Client が同時に開ける。
 
 ~~~text
-observed head = revision 41
-        ↓
-checkpoint / state candidate for 42
-        ↓
-CAS(branch_head, expected=41, new=42)
-        ├─ success → 42 becomes head
-        └─ conflict → 既存 head を再取得し merge / new branch / user decision
+Session X revision=20
+   ├─ Client A observes 20
+   └─ Client B observes 20
+
+Client A commits → revision=21
+Client B submits with base_revision=20
+                  ↓
+               CONFLICT
+                  ↓
+       reload revision=21
+                  ↓
+       re-evaluate / re-compact
 ~~~
 
-`latest timestamp` を head 選択規則にしない。Session 全体に複数 head が存在する場合も許容する。
+### 23.3 Revision Conflict
 
-### 23.3.2 Branch の生成・合流
+AgentState 更新は `session_id + base_revision` を基準に optimistic concurrency control を行う。
 
-競合しただけで無条件に新 Branch を量産しない。まず deterministic merge の可否を判定する。意味的に独立した変更、明示的 alternative path、または安全に merge できない concurrent change の場合に branch を維持する。
+- base_revision が current revision と一致: commit 可能
+- 不一致: silent overwrite せず conflict
+- conflict 時: 最新 AgentState / relevant history を取得して再評価
+- 自動 retry が安全でない外部 mutation は再実行しない
 
-Branch merge は新しい merge checkpoint / revision を生成し、両 parent lineage を参照できるようにする。したがって単一 `parent_checkpoint_ids` だけでは merge commit を表現できないため、データモデルは `parent_checkpoint_ids: list[str]` を canonical とする。単一親は list 要素1件として表現する。
+初期実装では semantic auto-merge、automatic branch creation、distributed event ordering を必須にしない。これらは必要性が確認された段階で Concurrent Runtime 設計として拡張する。
 
-### 23.3.3 Event Ordering
+wall-clock timestamp は競合判定の正本にしない。Session revision を使用する。
 
-Event は wall-clock ではなく `event_id`、`runtime_instance_id`、instance-local sequence、causal parent / operation_id を持つ。DB の global autoincrement を分散因果順序そのものとして扱わない。
-
-全 Event の完全な total order を作る必要はなく、Reducer が必要とする causal order と branch-local order を保証する。並行で順序不能な Event は concurrent として扱う。
 
 ### 23.4 Transaction / Crash Recovery
 
@@ -1118,14 +1102,6 @@ Checkpoint / AgentState 更新には commit boundary を設ける。process / OS
 ### 23.5 Idempotency
 
 Tool call、Tool result、Compaction、Reducer、Handoff、side-effect request には安定した operation / event identifier を使う。retry で二重登録・二重適用しない。timeout 後に実行済みか不明な外部 mutation を無条件再実行しない。
-
-### 23.6 External Side-Effect Ledger
-
-GitHub push、メール送信、ファイル削除、外部 API mutation 等は AgentState rollback では戻らない。operation_id、principal_id、runtime_instance_id、session / goal、target、status、approval reference、result reference、originating revision / checkpoint を追跡する。AgentState rollback != external rollback を不変条件とする。
-
-### 23.7 Approval Binding
-
-Human approval は、誰が、何を、どの scope / revision / operation に対して承認したかを記録する。対象 revision や operation 内容が変わった場合は古い approval を自動再利用しない。Compaction / summary から approval を生成・推測しない。
 
 ### 23.7.1 Identity とローカル CLI の扱い
 
@@ -1138,31 +1114,13 @@ Multi-user 対応のために、すべての local CLI へオンライン認証�
 
 Principal が解決できない共有環境では cross-user retrieval / shared mutation を許可しない。`principal_id=None` を「全員アクセス可」の意味にしてはならない。
 
-### 23.7.2 Delegation / Capability
-
-Sub-Agent や background worker へ権限を渡す場合は ambient authority をコピーせず、対象 workspace / session / goal / tool / resource / expiry を絞った delegation を使う。delegation は呼び出し元 principal と provenance を保持し、revocation 後の新規 retrieval / mutation では再評価する。
-
 ### 23.8 Retention / GC / Redaction
 
 Raw History を論理的に失わないことと、全データを永久に同じ storage tier に置くことを分離する。retention / archive / GC を将来可能にしつつ参照整合性を守る。後から secret / private data と判明した情報を派生 Checkpoint、Narrative、Memory、Artifact まで追跡できるよう item-level provenance を使う。
 
-### 23.8.1 Snapshot / Replay Boundary
-
-AgentState を Event / Checkpoint から再構築可能にする一方、起動のたびに全履歴 replay を要求しない。定期的な materialized state snapshot を保存し、`snapshot_revision` と `last_applied_event/checkpoint` を持つ。
-
-復旧は最新の検証済み snapshot を読み、そこから後続 committed delta だけを replay する。snapshot は cache / acceleration であり、lineage と provenance を切断する新しい正本にはしない。
-
-Snapshot の checksum / schema_version / source revision を検証し、破損時は以前の snapshot または Raw History / committed records から再構築できるようにする。
-
 ### 23.9 Schema Migration / Capability Negotiation
 
 異なる UAG version の instance が同じ SessionStore を開く可能性を前提とする。reader / writer capability を確認し、古い instance が未知 schema record を silent drop / overwrite しない。読めない場合は read-only、feature disable、明示的 migration 要求など安全側へ倒す。
-
-### 23.9.1 Tombstone / Deletion Semantics
-
-append-only / immutable は「削除要求を無視する」ことを意味しない。ユーザー削除、privacy、secret redaction、retention expiry では immutable record 自体を書き換える代わりに tombstone / revocation metadata を記録し、通常 retrieval / projection から除外する。
-
-物理削除が必要な policy では provenance graph を用いて派生 Artifact / Checkpoint / Memory を特定し、削除または再生成する。audit log には内容そのものではなく削除操作の最小限 metadata を残す。
 
 ### 23.10 Memory Promotion
 
@@ -1289,7 +1247,7 @@ Reduction       95.3%
 - Auto-pilot checkpoint
 - provider/model handoff
 
-### PR 5: Multi-Instance / Multi-User Concurrency
+### PR 5: Client / Session Revision Safety
 
 目的:
 
@@ -1375,15 +1333,14 @@ long coding session
 8. provider/model を切り替えても provider-neutral checkpoint を利用できる
 9. structured compaction failure で Raw History を失わず安全に fallback する
 10. Sub-Agent handoff に同じ provenance / scope semantics を再利用できる
-11. 同一 Session を CLI / GUI / Web の複数 instance が同時に開いても silent overwrite / lost update を起こさない
-12. 複数ユーザー環境で retrieval / rehydration が current authorization を再評価し、個人 Memory を暗黙共有しない
-13. concurrent update を revision conflict として検出し、auto-merge / semantic merge / branch / user decision に分類できる
+11. CLI / GUI / Browser tab を同じ Client Instance model で扱える
+12. 同一 Session を複数 Client が開いても base_revision 不一致を検出し silent overwrite しない
+13. revision conflict 後に最新 AgentState / history を取得して安全に再評価できる
 14. process crash 後は最後の committed revision から二重適用なしに resume できる
-15. external side effect は AgentState rollback と区別され、operation / approval provenance を追跡できる
-16. 異なる schema capability の instance が未知 record を silent drop / overwrite しない
-17. telemetry と audit trail から compaction、fallback、principal、instance、revision、conflict を追跡できる
+15. 複数ユーザー環境で retrieval / rehydration が current authorization を再評価し、個人 Memory を暗黙共有しない
+16. telemetry から compaction、fallback、client、session revision、conflict を追跡できる
 
-必須 integration scenario として、同一 Session を CLI #1、CLI #2、GUI が同時に開き、並行変更中に一方が crash し、その後 resume しても committed state、branch lineage、side effect、authorization が矛盾しないケースを含める。
+必須 integration scenario として、同じ Session revision を CLI と GUI が同時に開き、片方が先に更新した後、もう片方の stale update が conflict として拒否され、最新 Session を読み直して継続できるケースを含める。
 
 
 ## 29. Non-Goals
