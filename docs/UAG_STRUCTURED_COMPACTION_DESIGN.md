@@ -300,13 +300,13 @@ flowchart TD
 3. Runtime が DeterministicDelta を抽出
 4. LLM が semantic GoalDelta / Decision / Constraint / Fact / Narrative を抽出
 5. Runtime が Goal association、schema、item-level provenance を検証
-6. base revision / branch head と operation_id を検証し、SQLite transaction 内で immutable CompactionRecord を記録（未commit）
+6. `applied` は現在の head revision / branch head と operation_id を検証する。`comparison_only` は保存済みの歴史的 base revision / parent lineage が存在することを検証し、現在の head との一致を要求しない。いずれも SQLite transaction 内で immutable CompactionRecord を記録（未commit）
 7. `application_status=applied` の場合だけ同じ transaction 内で Reducer が AgentState を materialize。`comparison_only` の場合は Reducer と AgentState revision 更新を実行しない
 8. 同じ transaction 内で適用対象の session revision と operation_id の記録を更新し、**ここでまとめて commit**（失敗時はすべて rollback）。比較用 record は適用済み扱いにしない
 9. AgentState materialized projection を基本 ContextCandidate とし、Checkpoint / Artifact を根拠検索に利用
 10. ActiveContextBuilder → Provider Projection → LLM
 
-Compaction と current-state update を同一概念にしない。base_revision が古い場合は current state を上書きせず、最新 revision を取得して compaction / Reducer 適用をやり直す。
+Compaction と current-state update を同一概念にしない。`applied` で base_revision が古い場合は current state を上書きせず、最新 revision を取得して compaction / Reducer 適用をやり直す。`comparison_only` は元の source range と歴史的 base_revision を維持して比較し、現在の revision に rebase しない。
 
 
 ## 6. CompactionRecord
@@ -789,8 +789,27 @@ class ProvenancedHandoffItem:
 
 ~~~python
 @dataclass
+class ProvenancedDeterministicItem:
+    value: str  # file path / artifact ref / tool event / check result ref
+    source_refs: list[str]
+
+@dataclass
+class ProvenancedDeterministicDelta:
+    read_files: list[ProvenancedDeterministicItem]
+    modified_files: list[ProvenancedDeterministicItem]
+    created_files: list[ProvenancedDeterministicItem]
+    deleted_files: list[ProvenancedDeterministicItem]
+    artifact_refs: list[ProvenancedDeterministicItem]
+    tool_call_refs: list[ProvenancedDeterministicItem]
+    subagent_refs: list[ProvenancedDeterministicItem]
+    executed_checks: list[ProvenancedDeterministicItem]
+    pending_operation_events: list[ProvenancedDeterministicItem]
+
+@dataclass
 class HandoffRecord:
     handoff_id: str  # stable across delivery retries; unique within receiving session
+    receiving_session_id: str  # fixed at dispatch
+    receiving_base_revision: int  # captured at dispatch
     agent_id: str
     role: str
 
@@ -803,7 +822,7 @@ class HandoffRecord:
     unresolved: list[ProvenancedHandoffItem]
     recommended_next_steps: list[ProvenancedHandoffItem]
 
-    state_delta: DeterministicDelta
+    state_delta: ProvenancedDeterministicDelta
     artifact_refs: list[str]
 
     source_checkpoint_id: str | None
@@ -820,13 +839,13 @@ Main Agent からは、
 - required Artifacts
 - explicit task scope
 
-だけを投影する。
+だけを投影する。派遣時に受信側 `session_id` と `AgentState.revision` を固定し、Handoff に `receiving_session_id` / `receiving_base_revision` として引き継ぐ。
 
 ### 14.2 Sub-Agent → Main
 
 Sub-Agent の Raw History は Sub-Agent 側 Persistent Context に残す。
 
-Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ ID の再送は再適用しない。
+Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ ID の再送は再適用しない。初回受信時にも `receiving_base_revision` と現在の受信 Session revision を比較し、不一致なら適用を保留して conflict を返すか、根拠を検証して semantic rebase する。古い `state_delta` / decisions を無条件に適用しない。Handoff の deterministic 項目は元イベントを指す `source_refs` を個別に持ち、受信側で項目単位の監査・無効化を可能にする。
 
 ~~~text
 Sub-Agent Raw History
@@ -1155,10 +1174,11 @@ handoff_applications    # new
   handoff_id             # UNIQUE per receiving session
   receiving_session_id
   applied_at
+  receiving_base_revision
   # (receiving_session_id, handoff_id) UNIQUE
 ~~~
 
-Handoff 適用記録と AgentState 更新は同一 SQLite transaction で確定する。異なる受信 Session は独立して同じ Handoff を受け取れる。
+Handoff 適用記録と AgentState 更新は同一 SQLite transaction で確定する。受信 revision の条件付き更新に失敗した場合は Handoff 適用記録も保存しない。異なる受信 Session は独立して同じ Handoff を受け取れる。
 
 `agent_states.revision` は Session の current AgentState revision として扱う。AgentState 保存は unconditional UPSERT ではなく expected/base revision を条件にした atomic update とし、条件不一致は Revision Conflict として返す。
 
