@@ -100,9 +100,7 @@ def test_search_web_localized_strings_are_not_punctuation_only():
             if not isinstance(value, str):
                 continue
             stripped = value.strip()
-            if stripped and all(
-                char in ".,;:!?。！？、，；：" for char in stripped
-            ):
+            if stripped and all(char in ".,;:!?。！？、，；：" for char in stripped):
                 invalid.append(f"{lang}:{key}")
 
     assert not invalid, "Punctuation-only search_web translations: " + ", ".join(
@@ -156,9 +154,7 @@ def test_search_web_search_terms_are_clean_and_unique():
             continue
 
         normalized = [
-            str(term).strip().casefold()
-            for term in terms
-            if str(term).strip()
+            str(term).strip().casefold() for term in terms if str(term).strip()
         ]
         if len(normalized) != len(terms):
             invalid.append(f"{lang}:blank")
@@ -174,4 +170,3 @@ def test_search_web_search_terms_are_clean_and_unique():
                 invalid.append(f"{lang}:legacy-{fragment}")
 
     assert not invalid, "Corrupted search_web search terms: " + ", ".join(invalid)
-
