@@ -5,6 +5,9 @@ from pathlib import Path
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
 ARTIFACT_RE = re.compile(r"(?:PH_|___[0-9]|__[0-9])")
 ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___[0-9]|__[0-9])")
+AUTO_REVIEW_ARTIFACT_RE = re.compile(r"\b[\w]*_[0-9]+\b")
+AUTO_REVIEW_FORMAT_RE = re.compile(r"CONTINUE:\s*<[^>\n]+>")
+AUTO_REVIEW_MSGID = "auto.review_judgment_system_prompt"
 
 MULTILINE_MSGIDS = {
     "auto_review": "auto.review_judgment_system_prompt",
@@ -113,4 +116,37 @@ def test_repaired_multiline_gettext_entries_use_real_newlines():
                 )
 
     message = "Broken multiline gettext entries:\n" + "\n".join(offenders)
+    assert not offenders, message
+
+
+
+def test_all_non_english_auto_review_prompts_are_structurally_complete():
+    offenders = []
+
+    for catalog in sorted(LOCALES_DIR.glob("*/LC_MESSAGES/uag.mo")):
+        locale = catalog.parent.parent.name
+        if locale == "en":
+            continue
+
+        with catalog.open("rb") as stream:
+            translation = gettext.GNUTranslations(stream)
+
+        translated = translation.gettext(AUTO_REVIEW_MSGID)
+        if translated == AUTO_REVIEW_MSGID:
+            offenders.append(f"{locale}: untranslated")
+            continue
+
+        if translated.count("\n") < 5:
+            offenders.append(f"{locale}: expected six-line prompt")
+        for token in ("%(goal)s", "COMPLETE", "CONTINUE"):
+            if token not in translated:
+                offenders.append(f"{locale}: missing {token}")
+        if "\\n" in translated:
+            offenders.append(f"{locale}: contains literal backslash-n")
+        if AUTO_REVIEW_ARTIFACT_RE.search(translated):
+            offenders.append(f"{locale}: contains underscore-number artifact")
+        if not AUTO_REVIEW_FORMAT_RE.search(translated):
+            offenders.append(f"{locale}: missing CONTINUE format")
+
+    message = "Broken auto-review gettext prompts:\n" + "\n".join(offenders)
     assert not offenders, message
