@@ -4885,12 +4885,12 @@ msgstr "[INFO] baza_url = %(base_url)s"
 #: src/uagent/runtime/runtime_banner.py:302
 #, python-format
 msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] versiune API = %(api_version)s"
 
 #: src/uagent/runtime/runtime_banner.py:439
 #, python-format
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
-msgstr "[INFO] vertexai = project=%(project)s, location=%(location)s"
+msgstr "[INFO] vertexai = proiect=%(project)s, locație=%(location)s"
 
 #: src/uagent/runtime/runtime_banner.py:513
 #, python-format
@@ -4922,7 +4922,7 @@ msgstr "Finalizări de chat (UAGENT_RESPONSES este dezactivat)"
 #: src/uagent/runtime/runtime_banner.py:559
 #, python-format
 msgid "LLM streaming = %(state)s"
-msgstr "LLM streaming = %(state)s"
+msgstr "Transmitere în flux LLM = %(state)s"
 
 #: src/uagent/runtime/runtime_banner.py:560
 msgid "enabled"

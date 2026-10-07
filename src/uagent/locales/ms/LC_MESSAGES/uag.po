@@ -869,8 +869,8 @@ msgid ""
 "Traceback:\n"
 "%(tb)s"
 msgstr ""
-"[tool args error] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
-"Traceback:\n"
+"[ralat argumen alat] name=%(name)r raw=%(raw)r err=%(etype)s: %(err)s\n"
+"Jejak balik:\n"
 "%(tb)s"
 
 #: src/uagent/llm_flow_helpers.py:615
@@ -3306,7 +3306,7 @@ msgstr "[shared-mem-del] Gagal memadamkan index=%(idx)d."
 
 #: src/uagent/util_cmd_session.py:1181
 msgid "[shared-mem-del error] %(etype)s: %(err)s"
-msgstr "[shared-mem-del error] %(etype)s: %(err)s"
+msgstr "[ralat shared-mem-del] %(etype)s: %(err)s"
 
 #: src/uagent/util_cmd_session.py:1186
 msgid "Deleted shared long-term memory entry [%(idx)d]."
@@ -3632,7 +3632,7 @@ msgstr "Pembantu mengarang alat"
 
 #: src/uagent/util_help.py:216
 msgid "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
-msgstr "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
+msgstr "Menyediakan rangka src/uagent/tools/<name>_tool.py (+ json)."
 
 #: src/uagent/util_help.py:219
 msgid "Install and manage plugins"
@@ -3817,7 +3817,7 @@ msgstr "verbosity tidak sah"
 
 #: src/uagent/util_model.py:47 src/uagent/util_model.py:108
 msgid "[env error] %(etype)s: %(err)s"
-msgstr "[env error] %(etype)s: %(err)s"
+msgstr "[ralat env] %(etype)s: %(err)s"
 
 #: src/uagent/util_model.py:70
 msgid "[env] Not found: %(key)s"
@@ -4563,11 +4563,11 @@ msgstr "[INFO] workdir = %(workdir)s (sumber: %(source)s)"
 #: src/uagent/runtime/runtime_banner.py:486
 #: src/uagent/runtime/runtime_banner.py:499
 msgid "[INFO] base_url = %(base_url)s"
-msgstr "[INFO] base_url = %(base_url)s"
+msgstr "[INFO] URL asas = %(base_url)s"
 
 #: src/uagent/runtime/runtime_banner.py:302
 msgid "[INFO] api_version = %(api_version)s"
-msgstr "[INFO] api_version = %(api_version)s"
+msgstr "[INFO] versi API = %(api_version)s"
 
 #: src/uagent/runtime/runtime_banner.py:439
 msgid "[INFO] vertexai = project=%(project)s, location=%(location)s"
