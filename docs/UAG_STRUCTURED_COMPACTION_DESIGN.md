@@ -177,6 +177,47 @@ goal:C
 
 Compaction は chunk ごとに新しい単一 Goal を作らず、既存 GoalState へ意味的に振り分けて更新する。
 
+### 3.8 AgentState を現在状態の正本とする
+
+CompactionRecord は現在状態の第二の正本にしない。AgentState を authoritative materialized current state、CompactionRecord / Checkpoint を immutable delta / evidence、SessionStore を永続化、Memory を cross-session の明示的知識、Artifact を大きな一次情報、Active Context を今回の LLM 呼び出しへの projection とする。
+
+Checkpoint から AgentState を更新するときは Runtime の Reducer を通す。LLM が生成した Checkpoint が AgentState を直接上書きしてはならない。
+
+### 3.9 Multi-User / Multi-Instance を基本要件とする
+
+UAG は単一プロセス・単一ユーザーだけを前提にしない。同一ユーザーの複数 CLI / GUI / Web instance、複数ユーザーの共有 Workspace / Project、Main Agent と Sub-Agent の並行実行を同じ concurrency model で扱う。
+
+Identity と Execution は分離する。
+
+~~~text
+Tenant
+  └─ Principal / User
+      └─ Workspace / Project
+          └─ Session
+              ├─ Runtime Instance: CLI #1
+              ├─ Runtime Instance: CLI #2
+              ├─ Runtime Instance: GUI #1
+              └─ Agent / Sub-Agent
+~~~
+
+永続 Event / Checkpoint には tenant_id、principal_id、workspace_id、session_id、runtime_instance_id、agent_id、goal_id のうち該当する scope を明示する。同一 Session を複数 instance が同時に開くことを正常系として扱い、暗黙の last-write-wins に依存しない。
+
+### 3.10 Event / Checkpoint / Materialized State を分離する
+
+完全な Event Sourcing を必須にはしないが、append-only Event、immutable Checkpoint、materialized AgentState の三層を区別する。
+
+~~~text
+append-only Event
+      ↓
+immutable Checkpoint
+      ↓
+AgentState Reducer
+      ↓
+AgentState (materialized current state)
+~~~
+
+Event は「何が起きたか」、Checkpoint は「ある履歴区間をどう継続可能に圧縮したか」、AgentState は「現在どうなっているか」を表す。
+
 ---
 
 ## 4. 用語
@@ -254,13 +295,18 @@ flowchart TD
 
 ### 6.1 データモデル
 
-概念モデルは以下とする。
+CompactionRecord は current state のコピーではなく、対象履歴区間から得られた immutable delta / evidence とする。
 
 ~~~python
 @dataclass
 class CompactionRecord:
     record_id: str
+    tenant_id: str | None
+    principal_id: str | None
+    workspace_id: str | None
     session_id: str
+    runtime_instance_id: str | None
+    agent_id: str | None
     created_at: str
 
     source_start_id: str | None
@@ -269,106 +315,108 @@ class CompactionRecord:
     source_tokens: int | None
     source_chars: int
 
-    summary: StructuredSummary
-    state: DeterministicState
+    goal_deltas: list[GoalDelta]
+    shared_constraints: list[ConstraintRecord]
+    shared_facts: list[FactRecord]
+    critical_context: list[FactRecord]
+    deterministic_delta: DeterministicDelta
+    narrative_continuation: str
 
     first_kept_message_id: str | None
     split_turn: bool
-
     previous_compaction_id: str | None
     parent_checkpoint_id: str | None
+    base_revision: int | None
+    committed_revision: int | None
 
     summarizer_provider: str | None
     summarizer_model: str | None
     summarizer_usage: dict[str, Any] | None
-
-    schema_version: int = 1
+    schema_version: int = 2
 ~~~
 
-### 6.2 StructuredSummary
+Checkpoint は append-only / immutable を原則とし、同じ Checkpoint を上書き更新せず新しい record と lineage を作る。
 
-StructuredSummary は単一 Goal を前提にしない。
+### 6.2 GoalDelta と Goal Association
+
+Goal の現在状態は AgentState に保持し、CompactionRecord には今回の履歴区間による変化を保存する。
 
 ~~~python
 @dataclass
-class StructuredSummary:
-    goals: list[GoalState]
-
-    shared_constraints: list[str]
-    shared_facts: list[str]
-    critical_context: list[str]
-
-    active_goal_ids: list[str]
+class GoalDelta:
+    goal_id: str | None
+    association: str  # existing / new / ambiguous
+    candidate_goal_ids: list[str]
+    title_hint: str | None
+    status_observations: list[str]
+    progress_events: list[str]
+    decisions: list[DecisionRecord]
+    constraints: list[ConstraintRecord]
+    facts: list[FactRecord]
+    next_action_observations: list[str]
+    source_refs: list[str]
 ~~~
 
-各 Goal / Workstream は独立した状態を持つ。
+Goal association は existing / new / ambiguous の三値で扱う。ambiguous を即座に新規 Goal へ変換せず、候補と provenance を保持して後続 evidence により解決する。
+
+### 6.3 Decision / Constraint / Fact と provenance
+
+重要な意味情報は item-level provenance を持つ。
 
 ~~~python
 @dataclass
-class GoalState:
-    goal_id: str
-    title: str
-    status: str  # active / blocked / done / paused
-    parent_goal_id: str | None
-
-    constraints: list[str]
-    known_facts: list[str]
-
-    completed: list[str]
-    in_progress: list[str]
-    blocked: list[str]
-
-    decisions: list[DecisionSummary]
-    next_steps: list[str]
-~~~
-
-~~~python
-@dataclass
-class DecisionSummary:
+class DecisionRecord:
+    decision_id: str
     decision: str
-    rationale: str | None = None
+    rationale: str | None
+    status: str  # active / superseded / reverted / tentative
+    supersedes: list[str]
+    source_refs: list[str]
+
+@dataclass
+class ConstraintRecord:
+    constraint_id: str
+    constraint: str
+    status: str  # active / superseded / revoked / tentative
+    supersedes: list[str]
+    source_refs: list[str]
+
+@dataclass
+class FactRecord:
+    fact_id: str
+    fact: str
+    source_refs: list[str]
 ~~~
 
-`goal_id` は rolling compaction をまたいで安定させる。
+Decision / Constraint は後の指示や確認結果による supersede / revert を表現できるようにする。古い値を物理削除せず lifecycle を保持する。source_refs は message / event / tool result / artifact / checkpoint 等を指し、Rehydration と監査に使用する。
 
-既存 Goal を更新する場合、Structured Summarizer には現在の GoalState 一覧と `goal_id` を渡し、該当する Goal を更新させる。
+### 6.4 DeterministicDelta
 
-新しい目的が本当に独立して発生した場合のみ新規 Goal とする。新規 Goal に対して LLM が任意の永続 ID を決めるのではなく、Runtime が一意な `goal_id` を割り当てる。
-
-例:
-
-~~~text
-goal:otel
-goal:oidc
-goal:black-ci
-~~~
-
-タイトルは将来変更可能だが、同じ意味上の Workstream である限り `goal_id` は変更しない。
-
-### 6.3 DeterministicState
+Deterministic 情報も Checkpoint ごとの delta と current aggregate を分離する。
 
 ~~~python
 @dataclass
-class DeterministicState:
+class DeterministicDelta:
     read_files: list[str]
     modified_files: list[str]
     created_files: list[str]
     deleted_files: list[str]
-
     artifact_refs: list[str]
     tool_call_refs: list[str]
     subagent_refs: list[str]
-
     executed_checks: list[ExecutionRecord]
-    pending_operations: list[str]
+    pending_operation_events: list[str]
 ~~~
 
-DeterministicState は可能な限り tool telemetry / file mutation records / Artifact metadata から生成する。
+Checkpoint の deterministic_delta はその区間だけを表す。全履歴の file / tool / check 一覧を各 Checkpoint に累積コピーしない。current aggregate は AgentState / materialized projection で構築する。
 
-LLM 出力で上書きしない。
+### 6.5 Narrative Continuation
 
----
+構造化だけでは設計意図、失敗したアプローチ、ユーザーが避けたい進め方、判断に至った文脈などが失われることがあるため、Checkpoint は短い narrative_continuation を持つ。これは第二の state store ではなく継続用の補助説明である。
 
+### 6.6 AgentState Reducer
+
+Validated CompactionRecord は Runtime の Reducer へ渡す。Reducer は base_revision の競合を無条件上書きせず、ambiguous Goal を勝手に確定せず、superseded Decision / Constraint を active に戻さず、LLM の推測だけで pending / blocked を done にせず、deterministic evidence を semantic summary より優先し、適用を idempotent にする。
 ## 7. Structured Summary の標準形式
 
 LLM が生成する summary は複数 Goal / Workstream を保持する。
@@ -599,8 +647,9 @@ Checkpoint N+1
 - タイトル表現が変わっても意味が同じなら新 Goal を作らない
 - 1 chunk に複数 Goal があれば各 Goal へ個別に merge
 - 1 Goal が複数 chunk にまたがれば同じ GoalState を継続更新
-- 不確実な場合は誤統合より分離を優先
-- 後から同一 Goal と確認できた場合の alias / merge は将来拡張とする
+- 不確実な場合は association=ambiguous とし、候補 Goal と provenance を保持する
+- ambiguous を即座に新 Goal にせず、後続 evidence または明示的判断で解決する
+- 後から同一 Goal と確認できた場合は alias / merge を行える lineage を保持する
 
 ### 10.2 Merge の不変条件
 
@@ -610,8 +659,9 @@ Checkpoint N+1
 - Blocked を解決済みと推測しない
 - Pending / In Progress を Done に推測で移さない
 - Decision を rationale ごと保持する
-- Runtime が収集した DeterministicState を累積する
-- 同じ file / artifact / tool ref は deduplicate する
+- Runtime が収集した DeterministicDelta を失わない
+- current aggregate は AgentState / materialized projection で構築する
+- 同じ event / file / artifact / tool ref は idempotency key に基づき deduplicate する
 
 ### 10.3 状態遷移
 
@@ -831,6 +881,8 @@ Auto-pilot の終了判定には、対象 GoalState ごとの status / completed
 ---
 
 ## 16. Branch / Alternative Path
+
+Branch / lineage は alternative UI の将来拡張だけでなく、複数 CLI / GUI / Web / Agent が同一 Session を並行更新するための基本機構とする。
 
 将来的には同一 session 内の alternative path に対して branch-aware checkpoint を持てる。
 
@@ -1062,6 +1114,52 @@ CompactionRecord の永続化に失敗した場合、Raw History を置換しな
 
 ---
 
+### 23.1 Identity / Scope / Authorization
+
+永続データと retrieval は session_id だけで分離しない。Tenant / Principal / Workspace / Session / Agent / Goal の scope を明示する。owner と visibility / sharing scope は分離し、共有 Workspace でも個人 Memory を暗黙に他ユーザーへ投影しない。
+
+Context retrieval 自体を authorization 対象とする。Checkpoint が過去に参照できた Artifact でも Rehydration 時には現在の権限を再評価する。Sub-Agent は呼び出し元以上の権限を得ない。
+
+### 23.2 Runtime Instance と同時実行
+
+各 CLI / GUI / Web process は安定した runtime_instance_id を持つ。同一 Session を複数 instance が同時に開くことを許可する。Checkpoint 10 から CLI #1 が 11、GUI #1 が 12 を作る分岐を正当な lineage として保持する。Branch / lineage は multi-instance concurrency の基礎機構とする。
+
+### 23.3 Ordering / Revision / Conflict
+
+wall-clock timestamp だけで event 順序を決めず、revision、parent checkpoint、event sequence / causal reference を使う。AgentState 更新は optimistic concurrency control を基本とし、競合を deterministic auto-merge、semantic merge、branch 維持、user/operator decision に分類する。暗黙の last-write-wins は採用しない。長時間 Agent 全体を lock せず、lock / lease は transaction-like operation に限定する。
+
+### 23.4 Transaction / Crash Recovery
+
+Checkpoint / AgentState 更新には commit boundary を設ける。process / OS / provider が途中停止しても最後の committed revision から復旧できるようにし、必要に応じ draft / committed / aborted 相当の transaction state を持つ。復旧時は未確定 operation を検出し、idempotency key で二重適用を防ぎ、external side effect を確認して安全な continuation point から resume する。
+
+### 23.5 Idempotency
+
+Tool call、Tool result、Compaction、Reducer、Handoff、side-effect request には安定した operation / event identifier を使う。retry で二重登録・二重適用しない。timeout 後に実行済みか不明な外部 mutation を無条件再実行しない。
+
+### 23.6 External Side-Effect Ledger
+
+GitHub push、メール送信、ファイル削除、外部 API mutation 等は AgentState rollback では戻らない。operation_id、principal_id、runtime_instance_id、session / goal、target、status、approval reference、result reference、originating revision / checkpoint を追跡する。AgentState rollback != external rollback を不変条件とする。
+
+### 23.7 Approval Binding
+
+Human approval は、誰が、何を、どの scope / revision / operation に対して承認したかを記録する。対象 revision や operation 内容が変わった場合は古い approval を自動再利用しない。Compaction / summary から approval を生成・推測しない。
+
+### 23.8 Retention / GC / Redaction
+
+Raw History を論理的に失わないことと、全データを永久に同じ storage tier に置くことを分離する。retention / archive / GC を将来可能にしつつ参照整合性を守る。後から secret / private data と判明した情報を派生 Checkpoint、Narrative、Memory、Artifact まで追跡できるよう item-level provenance を使う。
+
+### 23.9 Schema Migration / Capability Negotiation
+
+異なる UAG version の instance が同じ SessionStore を開く可能性を前提とする。reader / writer capability を確認し、古い instance が未知 schema record を silent drop / overwrite しない。読めない場合は read-only、feature disable、明示的 migration 要求など安全側へ倒す。
+
+### 23.10 Memory Promotion
+
+Compaction は長期 Memory を直接書き換えない。Checkpoint evidence → Memory candidate → promotion policy / explicit action → Memory とする。
+
+### 23.11 Audit / Observability
+
+OpenTelemetry の性能観測とは別に、誰が、どの runtime instance から、どの checkpoint / revision を基に、何を変更・取得・承認したかを追跡可能な audit event trail を保持する。
+
 ## 24. Backward Compatibility
 
 既存の compress_history_with_llm() 呼び出し契約を最初から破壊しない。
@@ -1126,6 +1224,14 @@ Reduction       95.3%
 
 ### PR 1: Structured Compaction Record
 
+- AgentState を authoritative current state とする責務分離
+- GoalDelta / ambiguous association
+- Decision / Constraint supersession
+- item-level provenance
+- DeterministicDelta
+- Narrative Continuation
+- Reducer / idempotency の基本 contract
+
 目的:
 
 - schema / dataclass
@@ -1160,6 +1266,15 @@ Reduction       95.3%
 - old checkpoint exclusion
 
 ### PR 4: Sub-Agent / Auto-pilot Handoff
+
+### PR 5: Multi-Instance / Multi-User Concurrency
+
+- principal / workspace / runtime_instance scope
+- immutable checkpoint lineage
+- optimistic revision control / conflict classification
+- transaction / crash recovery / idempotency
+- side-effect ledger / approval binding
+- schema capability negotiation
 
 目的:
 
