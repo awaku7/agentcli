@@ -41,7 +41,8 @@ UAG はすでに以下を持っている。
 
 しかし Coding Agent / Auto-pilot / Sub-Agent を長時間動作させる場合、文章要約だけでは以下を失いやすい。
 
-- 現在の Goal
+- 複数の Goal / Workstream が混在したときの目的ごとの状態
+- 圧縮をまたいだ Goal の同一性
 - 完了した作業と未完了の作業の境界
 - Blocker
 - 重要な Decision と rationale
@@ -101,7 +102,9 @@ ActiveContextBuilder
 
 ### 3.3 LLM にしか分からない情報と Runtime が確定できる情報を分離する
 
-Goal、Decision、Constraints、Next Steps などは LLM が整理する。
+Goal / Workstream、Decision、Constraints、Next Steps などの意味的整理は LLM が支援する。
+
+ただし Goal の同一性は自由文章だけに依存させない。既存 Goal には Runtime が管理する安定した `goal_id` を持たせ、次回 compaction でも同じ Goal へ更新を merge する。
 
 一方で次の情報は Runtime が決定論的に集計する。
 
@@ -146,6 +149,34 @@ Provider Projection が最後に各 API 形式へ変換する。
 
 圧縮できない場合は既存の deterministic fallback を使用する。
 
+### 3.7 Chunk と Goal / Workstream を分離する
+
+Chunk は **入力サイズを制御するための物理的な処理単位** とする。
+
+Goal / Workstream は **作業の意味を保持する論理単位** とする。
+
+したがって、1 chunk に複数 Goal が含まれてもよく、1 Goal が複数 chunk にまたがってもよい。
+
+~~~text
+chunk 1
+  goal:A
+  goal:A
+  goal:B
+
+chunk 2
+  goal:B
+  goal:C
+  goal:A
+        ↓
+Goal-aware merge
+        ↓
+goal:A
+goal:B
+goal:C
+~~~
+
+Compaction は chunk ごとに新しい単一 Goal を作らず、既存 GoalState へ意味的に振り分けて更新する。
+
 ---
 
 ## 4. 用語
@@ -161,6 +192,9 @@ Provider Projection が最後に各 API 形式へ変換する。
 | Active Context | 今回の LLM 呼び出しに投入する context |
 | Rehydration | Artifact / Raw History から必要情報を再取得すること |
 | Split Turn | 1 logical turn 自体が budget を超えるため、その一部を圧縮すること |
+| GoalState | 1つの目的・作業系統の状態を保持する構造 |
+| Workstream | 継続的に追跡する意味上の作業単位。実装上は GoalState で表現する |
+| goal_id | rolling compaction をまたいで同じ GoalState を識別する安定 ID |
 
 ---
 
@@ -172,6 +206,7 @@ flowchart TD
     BOUNDARY[Compaction Boundary Planner]
     EXTRACT[Deterministic State Extractor]
     SUMMARIZE[Structured Summarizer]
+    RECONCILE[Goal Reconciler]
     VALIDATE[Schema Validator]
     RECORD[CompactionRecord]
     STORE[Persistent Context Store]
@@ -186,7 +221,8 @@ flowchart TD
     BOUNDARY --> EXTRACT
     BOUNDARY --> SUMMARIZE
     EXTRACT --> RECORD
-    SUMMARIZE --> VALIDATE
+    SUMMARIZE --> RECONCILE
+    RECONCILE --> VALIDATE
     VALIDATE --> RECORD
     RECORD --> STORE
     RECORD --> CANDIDATE
@@ -203,10 +239,11 @@ flowchart TD
 2. Safe Boundary を決定
 3. Deterministic State を抽出
 4. LLM で Structured Summary を生成
-5. Schema Validation
-6. CompactionRecord を生成
-7. Persistent Storage へ保存
-8. Active Context では CompactionRecord の Projection を使用
+5. 既存 GoalState と照合し Goal-aware merge
+6. Schema Validation
+7. CompactionRecord を生成
+8. Persistent Storage へ保存
+9. Active Context では CompactionRecord の Projection を使用
 ~~~
 
 とする。
@@ -250,10 +287,30 @@ class CompactionRecord:
 
 ### 6.2 StructuredSummary
 
+StructuredSummary は単一 Goal を前提にしない。
+
 ~~~python
 @dataclass
 class StructuredSummary:
-    goal: str
+    goals: list[GoalState]
+
+    shared_constraints: list[str]
+    shared_facts: list[str]
+    critical_context: list[str]
+
+    active_goal_ids: list[str]
+~~~
+
+各 Goal / Workstream は独立した状態を持つ。
+
+~~~python
+@dataclass
+class GoalState:
+    goal_id: str
+    title: str
+    status: str  # active / blocked / done / paused
+    parent_goal_id: str | None
+
     constraints: list[str]
     known_facts: list[str]
 
@@ -263,7 +320,6 @@ class StructuredSummary:
 
     decisions: list[DecisionSummary]
     next_steps: list[str]
-    critical_context: list[str]
 ~~~
 
 ~~~python
@@ -272,6 +328,22 @@ class DecisionSummary:
     decision: str
     rationale: str | None = None
 ~~~
+
+`goal_id` は rolling compaction をまたいで安定させる。
+
+既存 Goal を更新する場合、Structured Summarizer には現在の GoalState 一覧と `goal_id` を渡し、該当する Goal を更新させる。
+
+新しい目的が本当に独立して発生した場合のみ新規 Goal とする。新規 Goal に対して LLM が任意の永続 ID を決めるのではなく、Runtime が一意な `goal_id` を割り当てる。
+
+例:
+
+~~~text
+goal:otel
+goal:oidc
+goal:black-ci
+~~~
+
+タイトルは将来変更可能だが、同じ意味上の Workstream である限り `goal_id` は変更しない。
 
 ### 6.3 DeterministicState
 
@@ -299,41 +371,71 @@ LLM 出力で上書きしない。
 
 ## 7. Structured Summary の標準形式
 
-LLM が生成する summary の意味論は次に固定する。
+LLM が生成する summary は複数 Goal / Workstream を保持する。
 
 ~~~text
-Goal
-- 現在達成しようとしている目的
+Goals
 
-Constraints
-- ユーザー要求
-- 技術制約
-- 互換性制約
-- セキュリティ制約
+  goal:otel
+    Title
+    Status
 
-Known Facts
-- 後続作業が前提として必要とする確認済み事実
+    Constraints
+    Known Facts
 
-Progress
-  Done
-  - 完了した作業
+    Progress
+      Done
+      In Progress
+      Blocked
 
-  In Progress
-  - 現在継続中の作業
+    Key Decisions
+    Next Steps
 
-  Blocked
-  - 未解決の障害
+  goal:oidc
+    Title
+    Status
+    ...
 
-Key Decisions
-- 決定
-- 必要なら rationale
+  goal:black-ci
+    Title
+    Status
+    ...
 
-Next Steps
-- 次に実行すべき具体的手順
+Shared Constraints
+- 複数 Goal に共通するユーザー要求・技術制約
+
+Shared Facts
+- 複数 Goal が共有する確認済み事実
 
 Critical Context
-- 圧縮後にも絶対保持すべき補足情報
+- Goal に閉じないが圧縮後にも絶対保持すべき補足情報
 ~~~
+
+1回の圧縮対象に複数目的が含まれる場合、それらを単一の抽象 Goal にまとめない。
+
+例えば、
+
+~~~text
+OTel 実装
+OIDC 設計
+Black 修正
+~~~
+
+を、
+
+~~~text
+UAG を改善する
+~~~
+
+のように潰してはならない。
+
+既存 GoalState が存在する場合、Summarizer は次の規則に従う。
+
+1. 新しい履歴を既存 `goal_id` に可能な限り対応付ける
+2. 関連する GoalState だけを更新する
+3. 無関係な GoalState を削除・統合しない
+4. 新規 Goal は本当に独立した目的のときだけ作る
+5. 目的が完了しても `status=done` として保持し、直ちに消さない
 
 原則として、ファイル一覧や Artifact 一覧をこの summary に文章として重複保存しない。
 
@@ -465,7 +567,42 @@ Structured Merge
 Checkpoint N+1
 ~~~
 
-### 10.1 Merge の不変条件
+### 10.1 Goal-aware Merge
+
+Chunk の境界と Goal の境界は一致させない。
+
+~~~text
+Checkpoint N
+  goal:A
+  goal:B
+  goal:C
+      +
+New Chunk
+  A に関する更新
+  C に関する更新
+  新しい D
+      ↓
+Goal Reconciler
+      ↓
+Checkpoint N+1
+  goal:A  updated
+  goal:B  preserved
+  goal:C  updated
+  goal:D  created
+~~~
+
+既存 GoalState の `goal_id` を Summarizer に提示し、LLM の出力を Runtime の Goal Reconciler で照合する。
+
+照合の原則:
+
+- 明確に既存 Goal と同じなら同じ `goal_id` に merge
+- タイトル表現が変わっても意味が同じなら新 Goal を作らない
+- 1 chunk に複数 Goal があれば各 Goal へ個別に merge
+- 1 Goal が複数 chunk にまたがれば同じ GoalState を継続更新
+- 不確実な場合は誤統合より分離を優先
+- 後から同一 Goal と確認できた場合の alias / merge は将来拡張とする
+
+### 10.2 Merge の不変条件
 
 新しい compaction では以下を守る。
 
@@ -476,7 +613,7 @@ Checkpoint N+1
 - Runtime が収集した DeterministicState を累積する
 - 同じ file / artifact / tool ref は deduplicate する
 
-### 10.2 状態遷移
+### 10.3 状態遷移
 
 LLM に自由文章で状態変更させるのではなく、merge 後に Runtime validator を通す。
 
@@ -620,7 +757,9 @@ UAG の Sub-Agent は全履歴を Main Agent に返さない。
 class HandoffRecord:
     agent_id: str
     role: str
-    goal: str
+
+    goal_ids: list[str]
+    objective: str
 
     work_done: list[str]
     findings: list[str]
@@ -638,7 +777,8 @@ class HandoffRecord:
 
 Main Agent からは、
 
-- Goal
+- 対象 `goal_id` の GoalState
+- explicit objective
 - Constraints
 - relevant Checkpoints
 - required Artifacts
@@ -682,7 +822,9 @@ Auto-pilot の複数ラウンド処理でも Structured Compaction を利用す�
 - interruption / cancellation 前
 - resume 用 checkpoint が必要なとき
 
-Auto-pilot の終了判定には Checkpoint の completed / in_progress / blocked / next_steps を入力候補として利用できる。
+Auto-pilot の終了判定には、対象 GoalState ごとの status / completed / in_progress / blocked / next_steps を入力候補として利用できる。
+
+複数 Goal が active な場合、1つの Goal が done になっただけでセッション全体を完了扱いにしない。
 
 ただし Checkpoint 自体を終了判断の唯一の根拠にはしない。
 
@@ -766,6 +908,8 @@ Validation が失敗した場合、
 ## 19. Compression Budget
 
 既存の token-budgeted chunking を利用する。
+
+ただし token chunk は入力サイズ制御だけに使用し、Goal / Workstream の意味境界として扱わない。
 
 追加で CompactionRecord 自体にも size budget を設ける。
 
@@ -955,6 +1099,11 @@ Output Tokens    2,950
 Split Turn      false
 Fallback        none
 
+Goals           3
+  Active         2
+  Blocked        0
+  Done           1
+
 Progress
   Done          12
   In Progress    2
@@ -980,7 +1129,8 @@ Reduction       95.3%
 目的:
 
 - schema / dataclass
-- StructuredSummary
+- StructuredSummary / GoalState
+- stable goal_id allocation / reconciliation
 - DeterministicState
 - legacy summary からの projection
 - validation
@@ -1037,6 +1187,11 @@ Reduction       95.3%
 - oversized tool result を Artifact 化する
 - split-turn prefix / suffix が再構成できる
 - previous checkpoint を fold-forward できる
+- 1 chunk に複数 Goal があっても分離保持される
+- 1 Goal が複数 chunk にまたがっても同じ goal_id へ merge される
+- 無関係な既存 Goal が新 chunk に現れなくても保持される
+- Goal title の言い換えだけで別 Goal が作られない
+- 独立した新目的には新 goal_id が割り当てられる
 - read / modified file が累積される
 - duplicate file refs が除去される
 - Artifact refs が保持される
@@ -1078,7 +1233,7 @@ long coding session
 
 初期完成条件は以下。
 
-1. 圧縮後も Goal / Constraints / Progress / Decisions / Next Steps が保持される
+1. 圧縮後も複数 Goal / Workstream が個別の goal_id で保持され、各 Goal の Constraints / Progress / Decisions / Next Steps が維持される
 2. tool call / result が compaction boundary で破壊されない
 3. read / modified files が deterministic に保持される
 4. full Tool Result は Artifact から再取得できる
@@ -1103,6 +1258,7 @@ long coding session
 - Checkpoint だけを根拠に Auto-pilot を終了
 - Provider 固有形式を CompactionRecord の canonical form にする
 - 全 branch UI の実装
+- 複数 Goal を強制的に1つの primary goal へ統合すること
 
 ---
 
@@ -1117,6 +1273,7 @@ Persistent Context
 ├── Artifacts
 ├── Memory
 ├── Agent State
+├── Goal / Workstream State
 ├── Compaction Checkpoints
 └── Handoff Records
         ↓
@@ -1147,4 +1304,4 @@ LLM
 
 と定義する。
 
-この設計により、既存 UAG の token-budgeted rolling summary を維持しつつ、Coding Agent、Sub-Agent、Auto-pilot、A2A、provider handoff に共通して使える Checkpoint 層へ拡張できる。
+この設計により、既存 UAG の token-budgeted rolling summary を維持しつつ、複数の Goal / Workstream を圧縮チャンクとは独立して追跡し、Coding Agent、Sub-Agent、Auto-pilot、A2A、provider handoff に共通して使える Checkpoint 層へ拡張できる。
