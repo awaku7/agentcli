@@ -74,7 +74,9 @@ Remote access changes the tool-execution threat model. A successfully authentica
 
 For an external or authenticated multi-user Web deployment, and for an externally reachable A2A server with tools enabled, **no ordinary tool call may execute directly on the UAG host**. The same rule applies regardless of whether the remote request entered through Web UI, WebSocket, A2A `/message:send`, A2A streaming, or another future remote Agent ingress that can reach the normal tool-capable execution loop.
 
-Every remote-originated tool action must be classified into exactly one of these paths:
+For the rest of E0, **isolated remote ingress** means: externally reachable Web, authenticated multi-user Web regardless of whether it is Internet-facing or internal-only, externally reachable A2A with tools enabled, and any future remote ingress that can reach the normal tool-capable Agent loop.
+
+Every isolated-remote-ingress tool action must be classified into exactly one of these paths:
 
 1. **sandbox execution**: normal data-plane tools run inside an isolated execution environment;
 2. **brokered control-plane action**: credential, policy, identity, audit, or other privileged administration is handled by a narrow host-side service with explicit authorization;
@@ -126,7 +128,7 @@ If a deployment selects a remote execution profile and the required sandbox back
 
 ### 3.1.3 What "all tools" means
 
-All **data-plane tool execution** initiated through external Web or remote A2A is sandboxed. This includes, where applicable:
+All **data-plane tool execution** initiated through isolated remote ingress is sandboxed. This includes authenticated multi-user Web even when it is reachable only on an internal network. This includes, where applicable:
 
 - shell / cmd / PowerShell / bash;
 - Python and other interpreters;
@@ -142,7 +144,7 @@ Network-only operations may be implemented inside the sandbox or through a separ
 
 Control-plane capabilities such as policy administration, credential management, session revocation, directory/SCIM administration, or audit configuration are **not** moved into the untrusted sandbox. They remain narrow brokered services and are never reachable through a generic shell/file escape.
 
-Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/device access are denied by default for external Web and remote A2A. Future device access requires an explicit device broker and per-device policy; generic device passthrough is not a baseline feature.
+Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/device access are denied by default for isolated remote ingress. Future device access requires an explicit device broker and per-device policy; generic device passthrough is not a baseline feature.
 
 ### 3.1.4 Sandbox lifetime and tenant binding
 
@@ -160,7 +162,7 @@ deployment
 
 `room_id` is mandatory and is never interchangeable with `session_id`. The same principal/project can participate in both private and shared rooms, so mutable sandbox state must not cross that room boundary. A session identifier may further narrow the execution scope, but it never replaces the room binding.
 
-The default external-Web model should use a clean sandbox created from an immutable image or snapshot. Warm pools are allowed only when a sandbox is reset to a verified clean state before reassignment.
+The default isolated-remote-ingress model should use a clean sandbox created from an immutable image or snapshot. Warm pools are allowed only when a sandbox is reset to a verified clean state before reassignment.
 
 Mutable project files should live in a broker-managed workspace or volume. The sandbox receives only the specific workspace projection required for the task. Host root, arbitrary host paths, the UAG source/configuration tree, and user home directories are not mounted.
 
@@ -218,7 +220,7 @@ Limit violations terminate the sandboxed operation and must not destabilize the 
 
 ### 3.1.8 Virtualization technology evaluation
 
-A Python virtual environment is dependency isolation, not a security boundary. It is not acceptable for external-Web tool isolation.
+A Python virtual environment is dependency isolation, not a security boundary. It is not acceptable for isolated-remote-ingress tool isolation.
 
 Likewise, process users, job objects, namespaces, seccomp, AppArmor/SELinux, Landlock, or rootless containers are valuable defense-in-depth controls but do not by themselves define the high-assurance hostile multi-tenant boundary.
 
@@ -227,11 +229,11 @@ Likewise, process users, job objects, namespaces, seccomp, AppArmor/SELinux, Lan
 | Python `venv` | dependency only | development | never a security boundary |
 | OS process/user + resource controls | process-level | supplemental | defense in depth only |
 | rootless OCI/Docker container | shared host kernel | useful orchestration and local/single-tenant sandbox | not sufficient alone for hostile external multi-user |
-| gVisor / `runsc` | userspace application kernel between workload and host Linux kernel | strong Linux default with OCI/Docker/containerd integration | preferred Linux baseline for general external-Web tools |
+| gVisor / `runsc` | userspace application kernel between workload and host Linux kernel | strong Linux default with OCI/Docker/containerd integration | preferred Linux baseline for general isolated-remote-ingress tools |
 | Kata Containers | lightweight VM per sandbox/container boundary | strong Kubernetes/containerd enterprise option | preferred where VM isolation and container orchestration are both required |
 | Firecracker microVM | KVM microVM, minimal device model | high-assurance Linux/serverless-style execution | optional high-assurance backend; higher orchestration cost |
 | Windows process-isolated container | shared Windows kernel | compatibility | not an adequate hostile multi-tenant boundary |
-| Windows Hyper-V isolated container | optimized VM with separate kernel | strong Windows Server backend | preferred Windows external-Web baseline |
+| Windows Hyper-V isolated container | optimized VM with separate kernel | strong Windows Server backend | preferred Windows isolated-remote-ingress baseline |
 | Windows Sandbox | hardware-isolated disposable desktop, but client-oriented and single-instance | local development/testing | not the production multi-user execution backend |
 | full VM / VM pool | hardware VM boundary | broadest compatibility, GUI/Computer Use | fallback/high-assurance backend where containers are insufficient |
 
@@ -265,7 +267,7 @@ gVisor is optimized to isolate untrusted Linux workloads while retaining contain
 
 #### Windows server
 
-Recommended default for external Web:
+Recommended default for isolated remote ingress:
 
 ```text
 ExecutionBroker
@@ -689,7 +691,7 @@ The implementation should be delivered in bounded PRs. Exact PR count may change
 
 ### Enterprise foundation: approximately 9-10 PRs
 
-1. Execution Broker contract, external-Web/remote-A2A fail-closed routing, and sandbox policy model.
+1. Execution Broker contract, authenticated multi-user Web/external-Web/remote-A2A fail-closed routing, and sandbox policy model.
 2. Linux sandbox backend using OCI plus gVisor as the preferred baseline.
 3. Windows Hyper-V isolation / VM backend and isolated Computer Use surface. This may be deferred to a platform-specific PR if Linux server deployment is the initial target.
 4. Durable OIDC session-store abstraction plus SQLite backend.
@@ -747,13 +749,13 @@ E5 Audit / SIEM
 E9 Supply Chain / Agent Registry
 ```
 
-E0 is the prerequisite for exposing executable tools through external Web or remote A2A. E1-E4 then form the minimum enterprise-control foundation. E5 should follow before broad deployment because administrator and policy activity must become reviewable. E6-E9 can then be prioritized according to customer/deployment needs.
+E0 is the prerequisite for exposing executable tools through authenticated multi-user Web (internal or external), external Web, or remote A2A. E1-E4 then form the minimum enterprise-control foundation. E5 should follow before broad deployment because administrator and policy activity must become reviewable. E6-E9 can then be prioritized according to customer/deployment needs.
 
 ## 18. Initial enterprise completion gate
 
 The first enterprise milestone is complete when all of the following hold:
 
-- external Web and remote A2A have no direct-host ordinary tool-execution path;
+- authenticated multi-user Web, external Web, and remote A2A have no direct-host ordinary tool-execution path;
 - executable remote tools fail closed when the required sandbox backend is unavailable;
 - any sandbox that receives plaintext credential material is destroyed/reset to a verified clean state before reuse, or the credential-bearing operation is kept behind a narrow broker outside the sandbox;
 - remote A2A requests that reach the normal Agent loop are subject to the same sandbox/broker/deny routing as Web requests;
@@ -813,10 +815,13 @@ Required properties:
 - revoke the local UAG session before redirecting to the IdP logout endpoint;
 - support an explicitly configured and allowlisted post-logout return URI;
 - never accept an arbitrary browser-supplied logout destination;
-- preserve safe behavior when the IdP does not support RP-Initiated Logout;
+- when requesting `post_logout_redirect_uri`, identify/bind the RP using a reviewed standards-compatible mechanism: prefer a session-bound `id_token_hint` when protected retention is explicitly enabled, otherwise send the configured `client_id` when the OP supports that path;
+- if `id_token_hint` is retained for logout, store it only in the protected server-side session/credential boundary, bind it to the verified issuer/client/session, exclude it from Memory/logs/telemetry/audit/export, and delete it when the session is revoked or expires;
+- do not retain ID Tokens merely for convenience when `client_id` is sufficient for the configured OP;
+- preserve safe behavior when the IdP does not support RP-Initiated Logout or rejects post-logout redirection;
 - avoid exposing ID tokens or provider session material to logs, telemetry, or audit records.
 
-Local logout must remain available even when IdP logout is unavailable.
+Local logout must remain available even when IdP logout is unavailable. Post-logout redirection is optional: if the deployment cannot provide a valid client/session binding accepted by the OP, UAG should perform local logout and omit the return redirect rather than weakening validation.
 
 ### 21.2 Priority 2: Back-Channel Logout and remote revocation
 
