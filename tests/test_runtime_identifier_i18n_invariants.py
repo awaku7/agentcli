@@ -306,6 +306,20 @@ def test_vietnamese_error_analyst_preserves_canonical_semantics():
     assert "proposed_actions" in body
 
 
+def test_simplified_chinese_error_analyst_preserves_canonical_semantics():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+    prompt = catalog["zh_CN"]["auto.4651eaae39b1dbbb"]
+    body = prompt.split("\n[Protocol invariants]", 1)[0]
+
+    assert "多个可能原因" in body
+    assert "按可能性高低排序" in body
+    assert "[自我评估]" in body
+    assert "复现错误" in body
+    assert "proposed_actions" in body
+
+
 def test_sub_agent_internal_prompts_preserve_canonical_role_instructions():
     payload = _load("sub_agent_tool.json")
     invalid = []
