@@ -265,6 +265,7 @@ def test_trusted_mcp_sdk_list_uses_paginated_params_meta(monkeypatch) -> None:
         "tracestate": "uag=test",
     }
 
+
 def test_trusted_mcp_sdk_call_keeps_legacy_sdk_compatible(monkeypatch) -> None:
     backend = _PropagationBackend()
     monkeypatch.setattr(
