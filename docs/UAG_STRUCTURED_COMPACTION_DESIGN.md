@@ -1081,6 +1081,52 @@ Client B submits with base_revision=20
        re-evaluate / re-compact
 ~~~
 
+### 23.2.1 Existing SQLite SessionStore Integration
+
+Structured Compaction のために新しい database / storage layer は導入しない。既存の `SessionStore` と SQLite を canonical durable storage として拡張する。
+
+現行実装はすでに `sessions`、`messages`、`tool_calls`、`tool_results`、`agent_states`、`context_decisions` 等を SQLite に保持し、WAL mode / busy timeout 等の multi-process 向け設定を持つ。この既存構造を利用する。
+
+初期実装で必要な主要変更は以下とする。
+
+~~~text
+agent_states
+  session_id
+  revision              # optimistic concurrency
+  state_json
+  updated_at
+  updated_by_client     # optional provenance
+
+checkpoints             # new
+  checkpoint_id
+  session_id
+  base_revision
+  result_revision
+  parent_checkpoint_id
+  record_json / structured fields
+  created_by_client
+  created_at
+~~~
+
+`agent_states.revision` は Session の current AgentState revision として扱う。AgentState 保存は unconditional UPSERT ではなく expected/base revision を条件にした atomic update とし、条件不一致は Revision Conflict として返す。
+
+概念的には次の更新と同等である。
+
+~~~sql
+UPDATE agent_states
+SET revision = revision + 1,
+    state_json = ?,
+    updated_at = ?
+WHERE session_id = ?
+  AND revision = ?;
+~~~
+
+更新行数 0 は silent overwrite ではなく conflict を意味する。実際の初回 INSERT、Checkpoint commit、transaction boundary は SessionStore API 内で一貫して処理する。
+
+`client_instance_id` は Session の owner 属性にしない。同じ Session を CLI / GUI window / Browser tab が同時に開けるため、Client ID は Checkpoint、更新 provenance、telemetry 等の「誰がこの更新を生成したか」を示す属性として扱う。
+
+SQLite 以外の database backend や PostgreSQL 移行は Structured Compaction の要件に含めない。将来 remote/server deployment で必要になった場合は SessionStore abstraction の別課題として扱う。
+
 ### 23.3 Revision Conflict
 
 AgentState 更新は `session_id + base_revision` を基準に optimistic concurrency control を行う。
