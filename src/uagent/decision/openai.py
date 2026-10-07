@@ -236,7 +236,9 @@ def _translate_probability(value: Any, *, label: str) -> float:
     try:
         probability = float(value)
     except (TypeError, ValueError) as exc:
-        raise OpenAIDecisionError(f"OpenAI {label} is missing a valid probability.") from exc
+        raise OpenAIDecisionError(
+            f"OpenAI {label} is missing a valid probability."
+        ) from exc
     if not 0.0 <= probability <= 1.0:
         raise OpenAIDecisionError(f"OpenAI {label} probability is outside [0, 1].")
     return probability
@@ -398,7 +400,9 @@ class OpenAIDecisionProvider:
         payload = {
             "model": self._config.model,
             "input": _state_to_input(request.state),
-            "questions": [_translate_question(question) for question in request.questions],
+            "questions": [
+                _translate_question(question) for question in request.questions
+            ],
         }
         headers = {
             "Authorization": f"Bearer {self._config.api_key}",

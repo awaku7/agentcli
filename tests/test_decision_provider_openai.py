@@ -103,9 +103,7 @@ def test_decisions_url(base_url, expected):
 
 def test_openai_requires_api_key_only_when_adapter_is_created():
     with pytest.raises(OpenAIDecisionConfigurationError, match="OPENAI_API_KEY"):
-        OpenAIDecisionProvider(
-            settings=_settings(), environ={}, client=FakeClient()
-        )
+        OpenAIDecisionProvider(settings=_settings(), environ={}, client=FakeClient())
 
 
 def test_registry_creates_openai_adapter():
@@ -171,7 +169,9 @@ def test_openai_decisions_adapter_translates_all_question_kinds():
                 kind=DecisionKind.CHOICE,
                 instruction="Should the task stop or continue?",
                 choices=("COMPLETE", "CONTINUE"),
-                metadata={"criteria": {"COMPLETE": "finished", "CONTINUE": "more work"}},
+                metadata={
+                    "criteria": {"COMPLETE": "finished", "CONTINUE": "more work"}
+                },
             ),
             DecisionQuestion(
                 id="risk",
@@ -224,7 +224,9 @@ def test_openai_decisions_adapter_translates_all_question_kinds():
     assert result.answers["ready"].confidence == pytest.approx(0.91)
     assert result.answers["route"].value == "CONTINUE"
     assert result.answers["route"].confidence == pytest.approx(0.86)
-    assert result.answers["route"].metadata["probabilities"]["COMPLETE"] == pytest.approx(0.14)
+    assert result.answers["route"].metadata["probabilities"][
+        "COMPLETE"
+    ] == pytest.approx(0.14)
     assert result.answers["risk"].value == pytest.approx(1.1)
     assert result.answers["risk"].metadata["probabilities"]["1"] == pytest.approx(0.7)
 
@@ -259,9 +261,10 @@ def test_openai_predicates_integrate_with_goal_completion_evaluation():
 
     assert evaluation.judgment == "COMPLETE"
     assert evaluation.provider == "openai"
-    assert [
-        question["type"] for question in client.calls[0]["json"]["questions"]
-    ] == ["predicate", "predicate"]
+    assert [question["type"] for question in client.calls[0]["json"]["questions"]] == [
+        "predicate",
+        "predicate",
+    ]
 
 
 def test_openai_rejects_wrong_answer_types_and_probability_ranges():
@@ -270,11 +273,7 @@ def test_openai_rejects_wrong_answer_types_and_probability_ranges():
         environ=_environ(),
         client=FakeClient(
             FakeResponse(
-                {
-                    "answers": [
-                        {"type": "predicate", "name": "flag", "probability": 1.1}
-                    ]
-                }
+                {"answers": [{"type": "predicate", "name": "flag", "probability": 1.1}]}
             )
         ),
     )
