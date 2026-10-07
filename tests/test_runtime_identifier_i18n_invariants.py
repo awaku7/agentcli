@@ -343,6 +343,23 @@ def test_known_localized_prompt_semantics_are_complete():
         assert "next_actions vazia" in planner_prompt
 
 
+def test_japanese_and_indonesian_prompt_semantics_are_complete():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+
+    ja = catalog["ja"]
+    assert "追加で必要な情報を具体的に列挙" in ja["auto.6cb7e91442d0aa96"]
+    assert "false positive" in ja["auto.238f691c6304d301"]
+    assert "可能性が高い順" in ja["auto.4651eaae39b1dbbb"]
+    assert "混在している箇所を notes で説明" in ja["auto.c30a5aed7a2d7578"]
+
+    ident = catalog["id"]
+    assert "istilah teknis persis seperti ditulis" in ident["auto.da98c4c06ff99472"]
+    assert "beberapa kemungkinan penyebab" in ident["auto.4651eaae39b1dbbb"]
+    assert "berdasarkan urutan kemungkinan" in ident["auto.4651eaae39b1dbbb"]
+
+
 def test_recent_reviewed_prompt_semantics_are_complete():
     catalog = json.loads(
         (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
