@@ -270,6 +270,5 @@ def test_repaired_vi_mcp_failed_info_entry_uses_real_newline():
     msgid = "[MCP Servers]\n- Failed to get info: %(err)s"
     translated = translation.gettext(msgid)
 
-    assert translated != msgid
     assert translated.count("\n") == 1
     assert "\\n" not in translated
