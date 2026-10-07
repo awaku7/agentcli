@@ -343,6 +343,29 @@ def test_known_localized_prompt_semantics_are_complete():
         assert "next_actions vazia" in planner_prompt
 
 
+def test_recent_reviewed_prompt_semantics_are_complete():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+
+    de_planner = catalog["de"]["auto.6cb7e91442d0aa96"]
+    assert "Aufgabe bereits abgeschlossen" in de_planner
+    assert "leere next_actions-Liste" in de_planner
+
+    de_error = catalog["de"]["auto.4651eaae39b1dbbb"]
+    assert "mehrere Ursachen möglich" in de_error
+    assert "Reihenfolge ihrer Wahrscheinlichkeit" in de_error
+
+    fr_summarizer = catalog["fr"]["auto.da98c4c06ff99472"]
+    assert "termes techniques" in fr_summarizer
+    assert "tels qu’ils sont écrits" in fr_summarizer
+
+    for lang in ("pt", "pt_BR"):
+        summarizer = catalog[lang]["auto.da98c4c06ff99472"]
+        assert "termos técnicos" in summarizer
+        assert "como estão escritos" in summarizer
+
+
 def test_localized_prompts_do_not_keep_known_sentence_fragments():
     catalog = json.loads(
         (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
