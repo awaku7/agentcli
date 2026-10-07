@@ -1251,11 +1251,10 @@ Reduction       95.3%
 
 目的:
 
-- principal / workspace / runtime_instance scope
+- principal / workspace / client_instance scope
 - immutable checkpoint lineage
 - optimistic revision control / conflict classification
 - transaction / crash recovery / idempotency
-- side-effect ledger / approval binding
 - schema capability negotiation
 - concurrency / recovery integration tests
 
