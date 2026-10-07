@@ -1423,13 +1423,13 @@ long coding session
 必須 integration scenario として、同じ Session revision を CLI と GUI が同時に開き、片方が先に更新した後、もう片方の stale update が conflict として拒否され、最新 Session を読み直して継続できるケースを含める。
 
 
-## 28.1 Workspace File Coordination Boundary
+## 28.1 Workdir Presence Boundary
 
-複数 Client / Session が同じ project/workspace を扱う場合、同一ファイルへの同時 write を避ける必要がある。ただしこれは Structured Compaction の責務ではない。
+複数 Client / Session が同じ workdir を扱う場合、別 Client が活動中であることを Agent が認識できるようにする。ただしこれは Structured Compaction の責務ではない。
 
-初期実装では重い distributed lock / daemon / worktree orchestration を導入せず、既存 SQLite SessionStore を利用した lightweight File Claim / Lease を Runtime 側で提供する。
+初期実装では file claim / file lease / workspace lock を導入しない。既存 SQLite SessionStore に lightweight Workdir Presence を持ち、同じ canonical workdir の他 Client が active かどうかだけを advisory information として Runtime / Agent に提供する。
 
-Structured Compaction は File Claim の状態を current work provenance として参照できるが、claim の取得・heartbeat・release・expiry は Workspace Coordination の責務とする。
+Presence は write を強制 block せず、cmd / Python / file tool の write 予測や filesystem monitoring も行わない。詳細は `UAG_WORKSPACE_FILE_COORDINATION_DESIGN.md` に分離する。
 
 ## 29. Non-Goals
 
