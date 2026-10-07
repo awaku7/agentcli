@@ -17,6 +17,7 @@ from uagent.runtime import runtime_banner
         ("none", "-"),
         ("typesafe", "jev-latest"),
         ("openrouter", "~typesafe/jev-latest"),
+        ("openai", "gpt-6-luna"),
         ("laya", "laya-multilingual"),
     ],
 )
@@ -31,7 +32,7 @@ def test_startup_banner_shows_resolved_decision_provider_without_initializing(
         "UAGENT_DECISION_PROVIDER", "laya" if provider != "laya" else "none"
     )
     monkeypatch.setenv("UAGENT_PROVIDER", "openai")
-    for name in ("TYPESAFE", "OPENROUTER", "LAYA"):
+    for name in ("TYPESAFE", "OPENROUTER", "OPENAI", "LAYA"):
         monkeypatch.delenv(f"UAGENT_DECISION_{name}_DEPNAME", raising=False)
         monkeypatch.delenv(f"UAGENT_DECISION_{name}_API_KEY", raising=False)
     monkeypatch.setattr(runtime_banner, "_", lambda text: text)
@@ -53,7 +54,7 @@ def test_startup_banner_shows_resolved_decision_provider_without_initializing(
     assert banner.count("Decision Provider") == 1
 
 
-@pytest.mark.parametrize("provider", ["typesafe", "openrouter", "laya"])
+@pytest.mark.parametrize("provider", ["typesafe", "openrouter", "openai", "laya"])
 @pytest.mark.parametrize(
     "value,expected", [("  custom-model  ", "custom-model"), ("  ", None)]
 )
@@ -67,6 +68,7 @@ def test_decision_banner_model_override_and_blank_default(
     defaults = {
         "typesafe": "jev-latest",
         "openrouter": "~typesafe/jev-latest",
+        "openai": "gpt-6-luna",
         "laya": "laya-multilingual",
     }
     assert runtime_banner._decision_model_info() == (

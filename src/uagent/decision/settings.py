@@ -7,7 +7,7 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
-SUPPORTED_DECISION_PROVIDERS = ("none", "typesafe", "openrouter", "laya")
+SUPPORTED_DECISION_PROVIDERS = ("none", "typesafe", "openrouter", "openai", "laya")
 
 
 class DecisionConfigurationError(ValueError):

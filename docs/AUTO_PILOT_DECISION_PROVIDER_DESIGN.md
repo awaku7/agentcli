@@ -45,9 +45,9 @@ main LLM work
 With a Decision Provider
 
 main LLM work
-    -> Laya / TypeSafe-Jev / OpenRouter-Jev decision
+    -> Laya / TypeSafe-Jev / OpenRouter-Jev / OpenAI Decisions API
     -> main LLM work
-    -> Laya / TypeSafe-Jev / OpenRouter-Jev decision
+    -> Laya / TypeSafe-Jev / OpenRouter-Jev / OpenAI Decisions API
     -> ...
 ```
 
@@ -285,7 +285,8 @@ This preserves backward compatibility while avoiding a new fallback subsystem.
 ## Decision request
 
 TypeSafe/Jev and OpenRouter/Jev receive one `DecisionRequest` with two atomic
-`boolean` questions, translated by their adapters to native `noul` questions:
+`boolean` questions, translated by their adapters to native `noul` questions.
+OpenAI Decisions maps those same questions to native `predicate` questions:
 
 - `goal_satisfied`: do the latest answer and cumulative evidence fulfill every explicit
   request, including requested actions?
@@ -754,9 +755,10 @@ The implementation PR should cover at least the following cases.
 
 21. TypeSafe/Jev adapter can answer the atomic `boolean` request.
 22. OpenRouter Decisions/Jev adapter can answer the same atomic `boolean` request.
-23. Laya adapter can answer the existing `choice` request.
-24. Laya remains an optional/lazy dependency.
-25. Laya confidence is observable but does not become an implicit completion
+23. OpenAI Decisions adapter maps the same request to atomic `predicate` questions.
+24. Laya adapter can answer the existing `choice` request.
+25. Laya remains an optional/lazy dependency.
+26. Laya confidence is observable but does not become an implicit completion
     threshold.
 
 ## Implementation sequence

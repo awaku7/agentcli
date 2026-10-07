@@ -4,9 +4,9 @@
 
 Design and staged implementation for an opt-in decision-model layer in UAG.
 
-PR 1 common infrastructure, PR 2 TypeSafe/Jev adapter, PR 3 Laya adapter,
-PR 4 auto-pilot integration/observability, and the post-PR4 setup/OpenRouter
-integration are implemented. The first runtime decision site is active in
+Common infrastructure, TypeSafe/Jev, Laya, OpenRouter Decisions, and OpenAI
+Decisions adapters, auto-pilot integration/observability, and setup integration
+are implemented. The first runtime decision site is active in
 auto-pilot completion review when a Decision Provider is explicitly selected.
 `none` remains the default and preserves the legacy LLM reviewer path.
 
@@ -15,11 +15,14 @@ The supported provider keys are:
 - `none`
 - `typesafe`
 - `openrouter`
+- `openai`
 - `laya`
 
 `typesafe` represents the direct TypeSafe decision API. `openrouter` represents
 OpenRouter's Decisions API. Jev is treated as a model selected through either
 provider rather than as a provider key itself.
+`openai` uses OpenAI's native Decisions API (currently `gpt-6-luna`), with
+capability metadata resolved through `llmcapa`.
 
 This layer is separate from the existing LLM provider layer. It is not an LLM
 provider and must not be added to `provider_caps.ALL_PROVIDERS`.
@@ -34,8 +37,8 @@ alongside the normal LLM flow.
 The design must:
 
 1. Preserve current UAG behavior by default.
-2. Require explicit opt-in before TypeSafe, OpenRouter Decisions, or Laya is initialized or called.
-3. Treat TypeSafe, OpenRouter Decisions, and Laya as interchangeable
+2. Require explicit opt-in before TypeSafe, OpenRouter Decisions, OpenAI Decisions, or Laya is initialized or called.
+3. Treat TypeSafe, OpenRouter Decisions, OpenAI Decisions, and Laya as interchangeable
    implementations behind a UAG-owned interface.
 4. Keep provider-specific schemas out of the UAG core.
 5. Avoid coupling the decision-provider layer to the LLM-provider registry.
@@ -50,7 +53,7 @@ The design must:
 The first implementation does not:
 
 - replace UAG's LLM provider selection,
-- make TypeSafe, OpenRouter Decisions, or Laya mandatory dependencies,
+- make TypeSafe, OpenRouter Decisions, OpenAI Decisions, or Laya mandatory dependencies,
 - automatically initialize or call a decision provider when none is selected,
 - automatically download or initialize a Laya model when Laya is not selected,
 - automatically trust a provider's confidence value as a universal risk score,
@@ -75,10 +78,10 @@ flow runs unchanged.
 
 When the effective provider is `none`, UAG must not:
 
-- import or initialize TypeSafe- or OpenRouter-specific decision code,
+- import or initialize TypeSafe-, OpenRouter-, or OpenAI-specific decision code,
 - import or initialize Laya runtime packages/models,
 - download decision-model assets,
-- probe TypeSafe, OpenRouter, or Laya endpoints,
+- probe TypeSafe, OpenRouter, OpenAI, or Laya endpoints,
 - add decision-model startup latency,
 - validate provider-specific credentials that are not active,
 - alter prompts, tool selection, routing, or agent behavior.
@@ -96,6 +99,7 @@ Proposed CLI option:
 uag --decision-provider none
 uag --decision-provider typesafe
 uag --decision-provider openrouter
+uag --decision-provider openai
 uag --decision-provider laya
 ```
 
@@ -105,6 +109,7 @@ Proposed environment variable:
 UAGENT_DECISION_PROVIDER=none
 UAGENT_DECISION_PROVIDER=typesafe
 UAGENT_DECISION_PROVIDER=openrouter
+UAGENT_DECISION_PROVIDER=openai
 UAGENT_DECISION_PROVIDER=laya
 ```
 
@@ -155,6 +160,23 @@ The dedicated key is optional when `UAGENT_OPENROUTER_API_KEY` or
 `OPENROUTER_API_KEY` is already available. The adapter calls
 `/alpha/decisions`, not the normal chat-completions endpoint.
 
+### OpenAI Decisions API
+
+OpenAI's native Decisions API is selected with `openai`. The current decision
+model is `gpt-6-luna`; `llmcapa` supplies the model's decision capabilities and
+question kinds. The adapter sends typed predicate/choice/score questions to
+`/v1/decisions`.
+
+```text
+UAGENT_DECISION_PROVIDER=openai
+UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna
+UAGENT_DECISION_OPENAI_BASE_URL=https://api.openai.com/v1
+UAGENT_DECISION_OPENAI_API_KEY=...  # optional if an OpenAI credential is already configured
+```
+
+The dedicated key falls back to the stored OpenAI credential,
+`UAGENT_OPENAI_API_KEY`, or `OPENAI_API_KEY`.
+
 ### Laya
 
 Laya is normally used as a local decision model/checkpoint.
@@ -185,13 +207,13 @@ layer.
               |                           |
         LLM Provider                Decision Provider
               |                           |
-    OpenAI / Claude / ...       none / typesafe / openrouter / laya
+    OpenAI / Claude / ...       none / typesafe / openrouter / openai / laya
                                           |
                                  UAG Decision API
 ```
 
 The UAG core must depend on UAG-owned request/result types. Provider adapters are responsible for translating those types to TypeSafe,
-OpenRouter Decisions, or Laya-specific APIs.
+OpenRouter Decisions, OpenAI Decisions, or Laya-specific APIs.
 
 Suggested package layout:
 
@@ -205,6 +227,7 @@ src/uagent/decision/
     goal_completion.py  # reusable COMPLETE/CONTINUE evaluator
     typesafe.py         # direct TypeSafe adapter
     openrouter.py       # OpenRouter Decisions adapter
+    openai.py           # OpenAI Decisions API adapter
     laya.py             # local Laya adapter
 ```
 

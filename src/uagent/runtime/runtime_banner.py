@@ -298,6 +298,7 @@ def _decision_model_info() -> tuple[str, str]:
     default_models = {
         "typesafe": "jev-latest",
         "openrouter": "~typesafe/jev-latest",
+        "openai": "gpt-6-luna",
         "laya": "laya-multilingual",
     }
     if provider == "none":

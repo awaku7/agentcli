@@ -587,6 +587,7 @@ DECISION_PROVIDERS: list[tuple[str, str]] = [
     ("none", "None (use the existing LLM reviewer)"),
     ("typesafe", "TypeSafe / Jev"),
     ("openrouter", "OpenRouter Decisions / Jev"),
+    ("openai", "OpenAI Decisions API / GPT-6 Luna"),
     ("laya", "Laya (local decision model)"),
 ]
 
@@ -631,6 +632,29 @@ DECISION_PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str, str]]] = {
             _(
                 "OpenRouter decision API key "
                 "(optional if UAGENT_OPENROUTER_API_KEY is set)"
+            ),
+            "",
+        ),
+    ],
+    "openai": [
+        (
+            "UAGENT_DECISION_OPENAI_DEPNAME",
+            False,
+            _("OpenAI decision model name"),
+            "gpt-6-luna",
+        ),
+        (
+            "UAGENT_DECISION_OPENAI_BASE_URL",
+            False,
+            _("OpenAI Decisions API base URL"),
+            "https://api.openai.com/v1",
+        ),
+        (
+            "UAGENT_DECISION_OPENAI_API_KEY",
+            False,
+            _(
+                "OpenAI decision API key "
+                "(optional if UAGENT_OPENAI_API_KEY or OPENAI_API_KEY is set)"
             ),
             "",
         ),
@@ -1617,6 +1641,9 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
         out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
         out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append("# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna")
+        out.append("# UAGENT_DECISION_OPENAI_BASE_URL=https://api.openai.com/v1")
+        out.append("# UAGENT_DECISION_OPENAI_API_KEY=")
         out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
         out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
     elif st.decision_provider == "openrouter":
@@ -1643,6 +1670,33 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         )
         out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
         out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
+        out.append("# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna")
+        out.append("# UAGENT_DECISION_OPENAI_BASE_URL=https://api.openai.com/v1")
+        out.append("# UAGENT_DECISION_OPENAI_API_KEY=")
+    elif st.decision_provider == "openai":
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
+        out.append("# UAGENT_DECISION_TYPESAFE_API_KEY=")
+        out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
+        out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
+        out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append(
+            "UAGENT_DECISION_OPENAI_DEPNAME="
+            + decision_values.get("UAGENT_DECISION_OPENAI_DEPNAME", "gpt-6-luna")
+        )
+        out.append(
+            "UAGENT_DECISION_OPENAI_BASE_URL="
+            + decision_values.get(
+                "UAGENT_DECISION_OPENAI_BASE_URL",
+                "https://api.openai.com/v1",
+            )
+        )
+        out.append(
+            "UAGENT_DECISION_OPENAI_API_KEY="
+            + decision_values.get("UAGENT_DECISION_OPENAI_API_KEY", "")
+        )
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+        out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
     elif st.decision_provider == "laya":
         out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
         out.append("# UAGENT_DECISION_TYPESAFE_BASE_URL=https://api.typesafe.ai")
@@ -1650,6 +1704,9 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
         out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
         out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append("# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna")
+        out.append("# UAGENT_DECISION_OPENAI_BASE_URL=https://api.openai.com/v1")
+        out.append("# UAGENT_DECISION_OPENAI_API_KEY=")
         out.append(
             "UAGENT_DECISION_LAYA_DEPNAME="
             + decision_values.get(
@@ -1668,6 +1725,9 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
         out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
         out.append("# UAGENT_DECISION_OPENROUTER_BASE_URL=https://openrouter.ai/api")
         out.append("# UAGENT_DECISION_OPENROUTER_API_KEY=")
+        out.append("# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna")
+        out.append("# UAGENT_DECISION_OPENAI_BASE_URL=https://api.openai.com/v1")
+        out.append("# UAGENT_DECISION_OPENAI_API_KEY=")
         out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
         out.append("# UAGENT_DECISION_LAYA_DEVICE=auto")
     out.append("")

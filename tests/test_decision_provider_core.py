@@ -105,6 +105,7 @@ def test_none_factory_does_not_import_any_adapter(monkeypatch):
             "uagent.decision.openrouter",
             "OpenRouterDecisionProvider",
         ),
+        ("openai", "uagent.decision.openai", "OpenAIDecisionProvider"),
         ("laya", "uagent.decision.laya", "LayaDecisionProvider"),
     ],
 )
@@ -167,14 +168,15 @@ def test_decision_result_serialization_omits_raw_by_default():
     assert "raw" not in payload
 
 
-def test_parse_startup_args_accepts_decision_provider(monkeypatch):
+@pytest.mark.parametrize("provider_name", ["laya", "openai"])
+def test_parse_startup_args_accepts_decision_provider(monkeypatch, provider_name):
     monkeypatch.setattr(
         sys,
         "argv",
-        ["uag", "--decision-provider", "laya"],
+        ["uag", "--decision-provider", provider_name],
     )
 
     args, unknown = parse_startup_args()
 
-    assert args["decision_provider"] == "laya"
+    assert args["decision_provider"] == provider_name
     assert unknown == []
