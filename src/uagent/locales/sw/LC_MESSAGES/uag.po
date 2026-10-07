@@ -2544,12 +2544,12 @@ msgstr "Maelezo ya mkaguzi: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Wewe ni reviewer. Tathmini mazungumzo yaliyo hapa chini na ubaini ikiwa lengo \"%(goal)s\" limeafikiwa.\n"
-"Imefikiwa → COMPLETE\n"
-"Inahitajika zaidi → CONTINUE\n"
-"Jibu ukitumia COMPLETE au CONTINUE.\n"
-"Kama CONTINUE, eleza kwa ufupi kile ambacho bado kinakosekana.\n"
-"Rea_2:"
+"Wewe ni reviewer. Tathmini mazungumzo yaliyo hapa chini na ubaini ikiwa lengo \"%(goal)s\" limeafikiwa.\\n"
+"Imefikiwa → COMPLETE\\n"
+"Inahitajika zaidi → CONTINUE\\n"
+"Jibu ukitumia COMPLETE au CONTINUE.\\n"
+"Kama CONTINUE, eleza kwa ufupi kile ambacho bado kinakosekana.\\n"
+"Muundo: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 msgid "[AUTO] Judgment call failed: %(etype)s: %(error)s"
