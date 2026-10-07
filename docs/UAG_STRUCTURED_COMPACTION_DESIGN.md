@@ -303,7 +303,7 @@ flowchart TD
 6. base revision / branch head を検証して immutable CompactionRecord を commit
 7. Reducer が conflict policy に従って AgentState を materialize
 8. session revision を atomic に更新
-9. AgentState / Checkpoint / Artifact 等を authorization-aware ContextCandidate として選択
+9. AgentState materialized projection を基本 ContextCandidate とし、Checkpoint / Artifact を根拠検索に利用
 10. ActiveContextBuilder → Provider Projection → LLM
 
 Compaction と current-state update を同一概念にしない。base_revision が古い場合は current state を上書きせず、最新 revision を取得して compaction / Reducer 適用をやり直す。
@@ -319,6 +319,7 @@ CompactionRecord は current state のコピーではなく、対象履歴区間
 @dataclass
 class CompactionRecord:
     record_id: str
+    operation_id: str  # stable across retries
     tenant_id: str | None
     principal_id: str | None
     workspace_id: str | None
@@ -366,16 +367,25 @@ class GoalDelta:
     association: str  # existing / new / ambiguous
     candidate_goal_ids: list[str]
     title_hint: str | None
-    status_observations: list[str]
-    progress_events: list[str]
+    status_observations: list[ProvenancedObservation]
+    progress_events: list[ProvenancedObservation]
     decisions: list[DecisionRecord]
     constraints: list[ConstraintRecord]
     facts: list[FactRecord]
-    next_action_observations: list[str]
+    next_action_observations: list[ProvenancedObservation]
     source_refs: list[str]
 ~~~
 
 Goal association は existing / new / ambiguous の三値で扱う。ambiguous を即座に新規 Goal へ変換せず、候補と provenance を保持して後続 evidence により解決する。
+
+各 observation は個別の source_refs を持つ。delta 全体の source_refs だけでは item-level provenance を満たさない。
+
+~~~python
+@dataclass
+class ProvenancedObservation:
+    text: str
+    source_refs: list[str]
+~~~
 
 ### 6.3 Decision / Constraint / Fact と provenance
 
@@ -431,6 +441,10 @@ Checkpoint の deterministic_delta はその区間だけを表す。全履歴の
 ### 6.5 Narrative Continuation
 
 構造化だけでは設計意図、失敗したアプローチ、ユーザーが避けたい進め方、判断に至った文脈などが失われることがあるため、Checkpoint は短い narrative_continuation を持つ。これは第二の state store ではなく継続用の補助説明である。
+
+### 6.5.1 Active Context Projection
+
+通常の Active Context は **AgentState の materialized projection** を基本とする。最新 Checkpoint の差分だけを投影すると、変更されなかった Goal / Constraint / deterministic state が欠落する。Checkpoint は根拠の参照と targeted Rehydration に利用する。
 
 ### 6.6 AgentState Reducer
 
@@ -618,6 +632,8 @@ Chunk の境界と Goal の境界は一致させない。既存 Goal と明確�
 - base_revision 不一致は silent overwrite しない
 
 ### 10.3 Compaction の再実行
+
+Compaction request には永続的な stable `operation_id` を付与し、crash / timeout 後の retry でも同じ ID を使用する。Checkpoint の operation_id UNIQUE 制約、Reducer 適用、AgentState revision 更新は **同一 SQLite transaction** で commit する。意図的な再圧縮では新しい operation_id を使う。
 
 同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として比較可能にし、同一 operation の retry は idempotency key で重複 commit を防ぐ。
 
@@ -1099,6 +1115,7 @@ agent_states
 
 checkpoints             # new
   checkpoint_id
+  operation_id          # UNIQUE
   session_id
   base_revision
   result_revision
