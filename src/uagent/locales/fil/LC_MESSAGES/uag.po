@@ -2481,11 +2481,11 @@ msgstr "Mga tala ng tagasuri: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Isa kang reviewer. Suriin ang pag-uusap sa ibaba at tukuyin kung ang layunin na \"%(goal)s\" ay nakamit.\\n"
-"Nakamit → COMPLETE\\n"
-"Higit pang kailangan → CONTINUE\\n"
-"Tumugon ng COMPLETE o CONTINUE.\\n"
-"Kung CONTINUE, maikling sabihin kung ano ang kulang pa.\\n"
+"Isa kang reviewer. Suriin ang pag-uusap sa ibaba at tukuyin kung ang layunin na \"%(goal)s\" ay nakamit.\n"
+"Nakamit → COMPLETE\n"
+"Higit pang kailangan → CONTINUE\n"
+"Tumugon ng COMPLETE o CONTINUE.\n"
+"Kung CONTINUE, maikling sabihin kung ano ang kulang pa.\n"
 "Format: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123

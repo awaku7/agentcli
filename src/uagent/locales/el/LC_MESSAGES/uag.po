@@ -2610,11 +2610,11 @@ msgstr "Σημειώσεις κριτικού: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Είστε reviewer. Αξιολογήστε τη συνομιλία παρακάτω και προσδιορίστε εάν ο στόχος \"%(goal)s\" έχει επιτευχθεί.\\n"
-"Επιτεύχθηκε → COMPLETE\\n"
-"Απαιτούνται περισσότερα → CONTINUE\\n"
-"Απαντήστε με COMPLETE ή CONTINUE.\\n"
-"Εάν CONTINUE, δηλώστε εν συντομία τι λείπει ακόμη.\\n"
+"Είστε reviewer. Αξιολογήστε τη συνομιλία παρακάτω και προσδιορίστε εάν ο στόχος \"%(goal)s\" έχει επιτευχθεί.\n"
+"Επιτεύχθηκε → COMPLETE\n"
+"Απαιτούνται περισσότερα → CONTINUE\n"
+"Απαντήστε με COMPLETE ή CONTINUE.\n"
+"Εάν CONTINUE, δηλώστε εν συντομία τι λείπει ακόμη.\n"
 "Μορφή: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123

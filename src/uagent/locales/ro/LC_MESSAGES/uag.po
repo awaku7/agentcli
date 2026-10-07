@@ -2595,11 +2595,11 @@ msgstr "Note ale recenzentului: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Sunteți un reviewer. Evaluați conversația de mai jos și stabiliți dacă obiectivul „%(goal)s” a fost atins.\\n"
-"Atins → COMPLETE\\n"
-"Mai este necesar → CONTINUE\\n"
-"Răspundeți cu COMPLETE sau CONTINUE.\\n"
-"Dacă CONTINUE, spuneți pe scurt ce mai lipsește.\\n"
+"Sunteți un reviewer. Evaluați conversația de mai jos și stabiliți dacă obiectivul „%(goal)s” a fost atins.\n"
+"Atins → COMPLETE\n"
+"Mai este necesar → CONTINUE\n"
+"Răspundeți cu COMPLETE sau CONTINUE.\n"
+"Dacă CONTINUE, spuneți pe scurt ce mai lipsește.\n"
 "Format: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123

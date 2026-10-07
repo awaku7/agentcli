@@ -2551,11 +2551,11 @@ msgstr "समीक्षक नोट: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"आप reviewer हैं। नीचे दी गई बातचीत का मूल्यांकन करें और निर्धारित करें कि लक्ष्य \"%(goal)s\" हासिल हुआ है या नहीं।\\n"
-"हासिल हुआ → COMPLETE\\n"
-"और आवश्यक → CONTINUE\\n"
-"COMPLETE या CONTINUE से उत्तर दें।\\n"
-"यदि CONTINUE है, तो संक्षेप में बताएं कि अभी क्या बाकी है।\\n"
+"आप reviewer हैं। नीचे दी गई बातचीत का मूल्यांकन करें और निर्धारित करें कि लक्ष्य \"%(goal)s\" हासिल हुआ है या नहीं।\n"
+"हासिल हुआ → COMPLETE\n"
+"और आवश्यक → CONTINUE\n"
+"COMPLETE या CONTINUE से उत्तर दें।\n"
+"यदि CONTINUE है, तो संक्षेप में बताएं कि अभी क्या बाकी है।\n"
 "प्रारूप: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
