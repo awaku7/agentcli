@@ -240,6 +240,31 @@ def test_trusted_mcp_sdk_call_injects_message_trace_meta(monkeypatch) -> None:
     }
 
 
+def test_trusted_mcp_sdk_list_uses_paginated_params_meta(monkeypatch) -> None:
+    backend = _PropagationBackend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    seen: dict[str, object] = {}
+
+    class Session:
+        async def list_tools(self, *, params=None):
+            seen["params"] = params
+            return {"tools": []}
+
+    client = MCPClient(trusted_trace_propagation=True)
+    client.session = Session()
+    result = asyncio.run(client.list_tools())
+
+    assert result == {"tools": []}
+    params = seen["params"]
+    assert params is not None
+    assert params.meta == {
+        "traceparent": _TRACEPARENT,
+        "tracestate": "uag=test",
+    }
+
 def test_trusted_mcp_sdk_call_keeps_legacy_sdk_compatible(monkeypatch) -> None:
     backend = _PropagationBackend()
     monkeypatch.setattr(

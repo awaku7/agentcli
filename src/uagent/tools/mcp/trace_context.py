@@ -59,15 +59,20 @@ def inject_trusted_mcp_trace_meta(
     return copied or None
 
 
-def _accepts_meta_keyword(callback: Callable[..., Any]) -> bool:
+def _parameter_names(callback: Callable[..., Any]) -> frozenset[str]:
     try:
-        parameters = inspect.signature(callback).parameters.values()
+        return frozenset(inspect.signature(callback).parameters)
     except (TypeError, ValueError):
-        return False
-    return any(
-        parameter.name == "meta" or parameter.kind is inspect.Parameter.VAR_KEYWORD
-        for parameter in parameters
-    )
+        return frozenset()
+
+
+def _paginated_params_with_trace_meta(trace_meta: Mapping[str, str]) -> Any:
+    try:
+        import mcp.types as mcp_types
+
+        return mcp_types.PaginatedRequestParams(**{"_meta": dict(trace_meta)})
+    except Exception:
+        return None
 
 
 async def call_with_trusted_mcp_trace_meta(
@@ -79,15 +84,25 @@ async def call_with_trusted_mcp_trace_meta(
     """Call an MCP SDK method with message-level trace metadata when supported."""
 
     trace_meta = build_trusted_mcp_trace_meta(enabled)
-    if not trace_meta or not _accepts_meta_keyword(callback):
+    if not trace_meta:
         return await callback(*args, **kwargs)
 
-    raw_meta = kwargs.get("meta")
-    meta = dict(raw_meta) if isinstance(raw_meta, Mapping) else {}
-    for key in _RESERVED_TRACE_META_KEYS:
-        meta.pop(key, None)
-    meta.update(trace_meta)
-    kwargs["meta"] = meta
+    parameter_names = _parameter_names(callback)
+    if "meta" in parameter_names:
+        raw_meta = kwargs.get("meta")
+        meta = dict(raw_meta) if isinstance(raw_meta, Mapping) else {}
+        for key in _RESERVED_TRACE_META_KEYS:
+            meta.pop(key, None)
+        meta.update(trace_meta)
+        kwargs["meta"] = meta
+        return await callback(*args, **kwargs)
+
+    if "params" in parameter_names and "params" not in kwargs:
+        params = _paginated_params_with_trace_meta(trace_meta)
+        if params is not None:
+            kwargs["params"] = params
+            return await callback(*args, **kwargs)
+
     return await callback(*args, **kwargs)
 
 
