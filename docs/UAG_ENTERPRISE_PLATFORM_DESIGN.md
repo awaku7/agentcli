@@ -150,17 +150,31 @@ Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/
 
 A sandbox must never carry mutable state from one principal or Project into another.
 
-Recommended identity key for every reusable lease and workspace projection:
+Every reusable lease and workspace projection must include a mandatory **execution-scope namespace** in addition to deployment/principal/project identity. The namespace shape depends on the remote ingress:
 
 ```text
-deployment
-  + principal_id
-  + project_id
-  + room_id
-  + session_id (when the execution lifetime is session-specific)
+Web:
+  deployment
+    + principal_id
+    + project_id
+    + scope_kind = "web-room"
+    + room_id
+    + session_id (optional additional narrowing)
+
+A2A:
+  deployment
+    + principal_id/service_id
+    + project_id
+    + scope_kind = "a2a-task"
+    + task_id
+    + session_id (optional additional narrowing)
 ```
 
-`room_id` is mandatory and is never interchangeable with `session_id`. The same principal/project can participate in both private and shared rooms, so mutable sandbox state must not cross that room boundary. A session identifier may further narrow the execution scope, but it never replaces the room binding.
+For Web, `room_id` is mandatory and is never interchangeable with `session_id`. The same principal/project can participate in both private and shared rooms, so mutable sandbox state must not cross that room boundary.
+
+For remote A2A, `task_id` is mandatory even when the opt-in session store is disabled and no room exists. A2A must never collapse to an empty room/session key or reuse mutable state across independent remote tasks. A session identifier may further narrow either namespace but never replaces the ingress-specific mandatory component.
+
+Different `scope_kind` values are non-interchangeable: a Web room and an A2A task must never resolve to the same reusable sandbox namespace even if all other identifiers happen to match.
 
 The default isolated-remote-ingress model should use a clean sandbox created from an immutable image or snapshot. Warm pools are allowed only when a sandbox is reset to a verified clean state before reassignment.
 
@@ -759,6 +773,7 @@ The first enterprise milestone is complete when all of the following hold:
 - executable remote tools fail closed when the required sandbox backend is unavailable;
 - any sandbox that receives plaintext credential material is destroyed/reset to a verified clean state before reuse, or the credential-bearing operation is kept behind a narrow broker outside the sandbox;
 - remote A2A requests that reach the normal Agent loop are subject to the same sandbox/broker/deny routing as Web requests;
+- Web reusable sandboxes are keyed by mandatory room scope, while remote A2A sandboxes are keyed by mandatory per-task scope even when no session store is enabled; neither scope may collapse to an empty/shared namespace;
 - Computer Use/browser automation does not expose the host desktop or host browser profile;
 - authenticated Web can run safely across process restart and multiple instances;
 - administrator revocation takes effect across nodes;
