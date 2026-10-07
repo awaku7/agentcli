@@ -65,8 +65,7 @@ def _accepts_meta_keyword(callback: Callable[..., Any]) -> bool:
     except (TypeError, ValueError):
         return False
     return any(
-        parameter.name == "meta"
-        or parameter.kind is inspect.Parameter.VAR_KEYWORD
+        parameter.name == "meta" or parameter.kind is inspect.Parameter.VAR_KEYWORD
         for parameter in parameters
     )
 
