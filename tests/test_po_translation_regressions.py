@@ -5,6 +5,7 @@ from pathlib import Path
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
 INTENTIONAL_ACTIVE_ENGLISH = {"[display_reasoning] %(state)s"}
+GENERATIVE_UI_MARKER = "Generative UI (Artifacts) Instructions"
 
 
 def _decode_po_entries(path: Path, *, obsolete: bool) -> dict[str, str]:
@@ -71,3 +72,15 @@ def test_active_translation_does_not_regress_to_obsolete_english_fallback() -> N
         "Active translations must not fall back to English when the same msgid "
         "still has a translated obsolete entry: " + ", ".join(regressions)
     )
+
+
+def test_japanese_generative_ui_translation_preserves_injection_marker() -> None:
+    active = _decode_po_entries(
+        LOCALES_DIR / "ja" / "LC_MESSAGES" / "uag.po", obsolete=False
+    )
+    translations = [
+        msgstr for msgid, msgstr in active.items() if GENERATIVE_UI_MARKER in msgid
+    ]
+
+    assert len(translations) == 1
+    assert GENERATIVE_UI_MARKER in translations[0]
