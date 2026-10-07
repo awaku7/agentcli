@@ -395,6 +395,179 @@ def test_translate_lang_sleeps_between_scoped_provider_calls(
     assert sleep_calls == [0.25, 0.25]
 
 
+def test_provider_overload_status_matches_structured_statuses() -> None:
+    assert batch._provider_overload_status("provider returned 529 overloaded") == "529"
+    assert batch._provider_overload_status("HTTP 429 Too Many Requests") == "429"
+    assert batch._provider_overload_status("status_code=529") == "529"
+    assert (
+        batch._provider_overload_status(
+            "translate error: Translation request failed: HTTP Error 429: Too Many Requests"
+        )
+        == "429"
+    )
+
+
+def test_provider_overload_status_matches_deepl_text_only_overload() -> None:
+    assert (
+        batch._provider_overload_status(
+            "translate error: Translation request failed: Too many requests"
+        )
+        == "429"
+    )
+
+
+def test_provider_overload_status_ignores_unrelated_counts() -> None:
+    assert (
+        batch._provider_overload_status("bad translated length (got 529, expected 7)")
+        is None
+    )
+    assert batch._provider_overload_status("processed 429 items") is None
+
+
+def test_translate_lang_spaces_every_recursive_fallback_call(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = ["first", "second"]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": index, "tool": "sample", "key": f"k{index}", "text": text}
+                    for index, text in enumerate(texts)
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    provider_calls = []
+
+    def fake_run_tool(payload):
+        provider_calls.append(list(payload["texts"]))
+        if len(payload["texts"]) > 1:
+            raise RuntimeError("temporary provider error")
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=2.0,
+    )
+
+    assert provider_calls == [texts, [texts[0]], [texts[1]]]
+    assert sleep_calls == [2.0, 2.0]
+
+
+def test_translate_lang_retries_529_with_backoff(tmp_path: Path, monkeypatch) -> None:
+    texts = ["Translate this prompt."]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {"items": [{"id": 0, "tool": "sample", "key": "prompt", "text": texts[0]}]},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    attempts = 0
+
+    def fake_run_tool(payload):
+        nonlocal attempts
+        attempts += 1
+        if attempts == 1:
+            raise RuntimeError("provider returned 529 overloaded")
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=8000,
+        max_items=40,
+        sleep_s=2.0,
+    )
+
+    assert attempts == 2
+    assert sleep_calls == [15.0]
+
+
+def test_translate_lang_honors_sleep_during_deep_single_item_fallback(
+    tmp_path: Path, monkeypatch
+) -> None:
+    texts = [f"text-{index}" for index in range(512)]
+    job_dir = tmp_path / "ja"
+    job_dir.mkdir()
+    (job_dir / "values_en.json").write_text(
+        json.dumps(texts, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    (job_dir / "manifest.json").write_text(
+        json.dumps(
+            {
+                "items": [
+                    {"id": index, "tool": "sample", "key": f"k{index}", "text": text}
+                    for index, text in enumerate(texts)
+                ]
+            },
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    def fake_run_tool(payload):
+        if len(payload["texts"]) > 1:
+            raise RuntimeError("temporary provider error")
+        return json.dumps({"ok": True, "translated": payload["texts"]})
+
+    sleep_calls = []
+    monkeypatch.setattr(batch, "_import_translate_run_tool", lambda: fake_run_tool)
+    monkeypatch.setattr(batch.time, "sleep", sleep_calls.append)
+
+    batch.translate_lang(
+        "ja",
+        tmp_path,
+        source_lang="en",
+        provider="google",
+        max_chars=1_000_000,
+        max_items=1000,
+        sleep_s=2.0,
+    )
+
+    assert sleep_calls
+    assert set(sleep_calls) == {2.0}
+
+
+def test_parser_defaults_to_safe_translation_spacing() -> None:
+    args = batch.build_parser().parse_args(["status"])
+
+    assert args.sleep == 2.0
+
+
 def test_non_search_term_lists_still_require_matching_length() -> None:
     assert batch._is_missing_or_stale(
         ["one", "two"],

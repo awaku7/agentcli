@@ -109,6 +109,37 @@ PIP_COMMAND_TRAILING_PUNCTUATION = ".,;:!?。；：！？"
 UAGENT_ENV_RE = re.compile(
     r"\bUAGENT_(?:<[A-Z0-9_]+>|[A-Z0-9*]+)(?:_(?:<[A-Z0-9_]+>|[A-Z0-9*]+))*"
 )
+PROVIDER_OVERLOAD_STATUS_PATTERNS = (
+    re.compile(
+        r"^\s*(?:HTTP(?:\s+(?:status|error))?\s*)?(429|529)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\bHTTP(?:\s+(?:status|error))?\s*[:=]?\s*(429|529)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(r"\bstatus(?:_code)?\s*[:=]\s*(429|529)\b", re.IGNORECASE),
+    re.compile(
+        r"\bprovider\s+(?:returned|status(?:\s+code)?)\s*[:=]?\s*(429|529)\b",
+        re.IGNORECASE,
+    ),
+)
+
+
+PROVIDER_OVERLOAD_TEXT_PATTERNS = (
+    (re.compile(r"\btoo many requests\b", re.IGNORECASE), "429"),
+)
+
+
+def _provider_overload_status(message: str) -> str | None:
+    for pattern in PROVIDER_OVERLOAD_STATUS_PATTERNS:
+        match = pattern.search(message)
+        if match is not None:
+            return match.group(1)
+    for pattern, status in PROVIDER_OVERLOAD_TEXT_PATTERNS:
+        if pattern.search(message) is not None:
+            return status
+    return None
 
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
@@ -736,6 +767,8 @@ def translate_lang(
     texts = [str(x) for x in texts]
 
     run_tool = _import_translate_run_tool()
+    provider_calls_started = 0
+    skip_next_provider_delay = False
     out: list[str | None] = [None] * len(texts)
     batches = _chunk_indices(texts, max_chars=max_chars, max_items=max_items)
     print(f"[translate] {lang}: {len(texts)} texts in {len(batches)} batch(es)")
@@ -773,6 +806,16 @@ def translate_lang(
     ]
 
     def _call_translate(batch_texts: list[str]) -> dict:
+        nonlocal provider_calls_started, skip_next_provider_delay
+        if provider_calls_started > 0 and sleep_s > 0:
+            if skip_next_provider_delay:
+                skip_next_provider_delay = False
+            else:
+                time.sleep(sleep_s)
+        elif skip_next_provider_delay:
+            skip_next_provider_delay = False
+        provider_calls_started += 1
+
         payload = {
             "texts": batch_texts,
             "target_lang": lang,
@@ -801,6 +844,7 @@ def translate_lang(
         batch_texts: list[str], *, depth: int = 0, rate_retries: int = 0
     ) -> list[str]:
         """Translate a batch; on line-count mismatch, split or fall back to singles."""
+        nonlocal skip_next_provider_delay
         if not batch_texts:
             return []
         try:
@@ -814,16 +858,23 @@ def translate_lang(
             )
         except Exception as e:
             msg = str(e)
-            if "429" in msg:
+            overloaded_status = _provider_overload_status(msg)
+            if overloaded_status is not None:
                 if rate_retries < 3:
-                    delay = max(float(sleep_s or 0), 10.0) * (2**rate_retries)
-                    print(f"    [rate-limit] sleeping {delay:.1f}s before retry")
+                    base_delay = 15.0 if overloaded_status == "529" else 10.0
+                    delay = max(float(sleep_s or 0), base_delay) * (2**rate_retries)
+                    print(
+                        f"    [rate-limit {overloaded_status}] "
+                        f"sleeping {delay:.1f}s before retry"
+                    )
                     time.sleep(delay)
+                    skip_next_provider_delay = True
                     return _translate_with_fallback(
                         batch_texts, depth=depth, rate_retries=rate_retries + 1
                     )
                 raise RuntimeError(
-                    f"translation rate limit persisted after {rate_retries} retries: {msg}"
+                    "translation provider overload persisted after "
+                    f"{rate_retries} retries ({overloaded_status}): {msg}"
                 ) from e
             # Single item: last resort, return original to avoid aborting whole lang.
             if len(batch_texts) == 1:
@@ -836,16 +887,12 @@ def translate_lang(
                 out_parts: list[str] = []
                 for one in batch_texts:
                     out_parts.extend(_translate_with_fallback([one], depth=depth + 1))
-                    if sleep_s > 0:
-                        time.sleep(min(sleep_s, 0.05))
                 return out_parts
             print(
                 f"    [fallback depth={depth}] {msg[:120]} -> split {len(batch_texts)} into "
                 f"{mid}+{len(batch_texts)-mid}"
             )
             left = _translate_with_fallback(batch_texts[:mid], depth=depth + 1)
-            if sleep_s > 0:
-                time.sleep(sleep_s)
             right = _translate_with_fallback(batch_texts[mid:], depth=depth + 1)
             return left + right
 
@@ -860,11 +907,6 @@ def translate_lang(
                 )
             for i, tr in zip(scoped_idxs, translated):
                 out[i] = str(tr)
-
-            has_more_scoped = gi < len(scoped_groups) - 1
-            has_more_batches = bi < len(batches)
-            if sleep_s > 0 and (has_more_scoped or has_more_batches):
-                time.sleep(sleep_s)
 
         print(f"  batch {bi}/{len(batches)}: {len(idxs)} items")
 
@@ -1346,8 +1388,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--sleep",
         type=float,
-        default=0.2,
-        help="Sleep seconds between translate batches",
+        default=2.0,
+        help="Sleep seconds between translation provider calls (default: 2.0)",
     )
     return p
 
