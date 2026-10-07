@@ -79,6 +79,7 @@ def provider_uses_atomic_goal_completion(decision_provider: Any) -> bool:
     return str(getattr(decision_provider, "name", "") or "").strip().lower() in {
         "typesafe",
         "openrouter",
+        "openai",
     }
 
 
@@ -112,7 +113,7 @@ def provider_supports_goal_completion(decision_provider: Any) -> bool | None:
         return None
 
     if provider_uses_atomic_goal_completion(decision_provider):
-        return bool({"boolean", "noul"} & set(kinds))
+        return bool({"boolean", "noul", "predicate"} & set(kinds))
     return "choice" in set(kinds)
 
 
@@ -278,9 +279,9 @@ def evaluate_goal_completion(
 ) -> GoalCompletionEvaluation:
     """Evaluate whether a bounded goal state is complete.
 
-    TypeSafe/OpenRouter use two atomic boolean questions. Laya uses a choice
-    question and is evaluated twice with reversed choice order; inconsistent
-    answers are rejected so the caller can conservatively fall back.
+    TypeSafe/OpenRouter/OpenAI use two atomic boolean questions. Laya uses a
+    choice question and is evaluated twice with reversed choice order;
+    inconsistent answers are rejected so the caller can conservatively fall back.
     """
 
     provider_name = str(getattr(decision_provider, "name", "") or "")

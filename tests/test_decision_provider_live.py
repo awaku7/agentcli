@@ -50,18 +50,18 @@ def _live_request() -> DecisionRequest:
     not _LIVE_ENABLED,
     reason="set UAGENT_DECISION_LIVE_TEST=1 to run live decision-provider smoke tests",
 )
-@pytest.mark.parametrize("provider_name", ["typesafe", "openrouter"])
+@pytest.mark.parametrize("provider_name", ["typesafe", "openrouter", "openai"])
 def test_live_remote_decision_provider_choice_contract(provider_name):
     try:
         store = get_default_credential_store()
     except Exception:
         store = None
 
-    dedicated_name = (
-        "UAGENT_DECISION_TYPESAFE_API_KEY"
-        if provider_name == "typesafe"
-        else "UAGENT_DECISION_OPENROUTER_API_KEY"
-    )
+    dedicated_name = {
+        "typesafe": "UAGENT_DECISION_TYPESAFE_API_KEY",
+        "openrouter": "UAGENT_DECISION_OPENROUTER_API_KEY",
+        "openai": "UAGENT_DECISION_OPENAI_API_KEY",
+    }[provider_name]
     has_key = bool(
         (os.getenv(dedicated_name) or "").strip()
         or get_provider_api_key(provider_name, store=store)

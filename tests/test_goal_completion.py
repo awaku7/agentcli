@@ -208,6 +208,7 @@ def test_build_choice_request_preserves_caller_site_and_subject():
     [
         ("typesafe", ["boolean"], True),
         ("openrouter", ["noul"], True),
+        ("openai", ["predicate"], True),
         ("typesafe", ["choice"], False),
         ("laya", ["choice"], True),
         ("laya", ["boolean"], False),

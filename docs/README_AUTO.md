@@ -65,9 +65,10 @@ The initial user goal is executed once by the normal generation path before `_ru
 The default remains `UAGENT_DECISION_PROVIDER=none`, which preserves the existing
 LLM reviewer exactly.
 
-When `UAGENT_DECISION_PROVIDER=typesafe`, `openrouter`, or `laya` is explicitly selected,
+When `UAGENT_DECISION_PROVIDER=typesafe`, `openrouter`, `openai`, or `laya` is explicitly selected,
 Step B first asks that Decision Provider for a typed completion review.
-TypeSafe/Jev and OpenRouter/Jev use two boolean/noul questions in one request:
+TypeSafe/Jev and OpenRouter/Jev use two boolean/noul questions; OpenAI Decisions uses
+two predicate questions in one request:
 `goal_satisfied` and `material_work_remaining`. UAG returns `COMPLETE` only for
 true/false. Laya retains its `COMPLETE` / `CONTINUE` choice. Completion regex and
 sentinel mode still take precedence. If the
@@ -76,7 +77,7 @@ the decision, or returns an invalid answer, auto-pilot falls back to the existin
 LLM reviewer. `UAGENT_AP_*` therefore remains useful as the fallback reviewer
 configuration.
 
-`uag_setup` can configure `none`, `typesafe`, `openrouter`, or `laya` and emits the
+`uag_setup` can configure `none`, `typesafe`, `openrouter`, `openai`, or `laya` and emits the
 matching `UAGENT_DECISION_*` settings. When Laya is selected, setup also tries
 to install the optional `laya` runtime through the shared
 `UAGENT_AUTO_INSTALL=allow|prompt|off` policy. The model itself is still loaded
@@ -91,8 +92,8 @@ Laya uses an additional order-consistency guard for the binary choice. UAG asks
 the same semantic question twice, once as `COMPLETE / CONTINUE` and once with
 the choice order reversed. The Laya result is used only when both calls select
 the same semantic answer. An order-dependent disagreement falls back to the
-existing LLM reviewer. TypeSafe/Jev and OpenRouter Decisions remain single-call
-reviewers.
+existing LLM reviewer. TypeSafe/Jev, OpenRouter Decisions, and OpenAI Decisions
+remain single-call reviewers.
 
 ### Observed first-review completion (2026-10-03)
 

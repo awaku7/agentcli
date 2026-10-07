@@ -17,6 +17,7 @@ def test_setup_env_emits_decision_provider_none():
 
     assert "UAGENT_DECISION_PROVIDER=none" in text
     assert "# UAGENT_DECISION_TYPESAFE_API_KEY=" in text
+    assert "# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna" in text
     assert "# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual" in text
 
 
@@ -59,6 +60,26 @@ def test_setup_env_emits_openrouter_decision_settings():
     assert "UAGENT_DECISION_OPENROUTER_API_KEY=" in text
     assert "# UAGENT_DECISION_TYPESAFE_API_KEY=" in text
     assert "# UAGENT_DECISION_LAYA_DEVICE=auto" in text
+
+
+def test_setup_env_emits_openai_decision_settings():
+    lines = setup_cli._env_lines_from_state(
+        _state(
+            "openai",
+            {
+                "UAGENT_DECISION_OPENAI_DEPNAME": "gpt-6-luna",
+                "UAGENT_DECISION_OPENAI_BASE_URL": "https://api.openai.com/v1",
+                "UAGENT_DECISION_OPENAI_API_KEY": "secret",
+            },
+        )
+    )
+    text = "\n".join(lines)
+
+    assert "UAGENT_DECISION_PROVIDER=openai" in text
+    assert "UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna" in text
+    assert "UAGENT_DECISION_OPENAI_BASE_URL=https://api.openai.com/v1" in text
+    assert "UAGENT_DECISION_OPENAI_API_KEY=secret" in text
+    assert "# UAGENT_DECISION_TYPESAFE_API_KEY=" in text
 
 
 def test_setup_env_emits_laya_decision_settings():
@@ -160,3 +181,4 @@ def test_setup_skips_runtime_install_for_non_laya(monkeypatch):
     assert setup_cli._ensure_decision_provider_runtime(_state("none"))
     assert setup_cli._ensure_decision_provider_runtime(_state("typesafe"))
     assert setup_cli._ensure_decision_provider_runtime(_state("openrouter"))
+    assert setup_cli._ensure_decision_provider_runtime(_state("openai"))

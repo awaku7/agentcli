@@ -42,6 +42,7 @@ completion_sentinel（有効時・この経路を排他的に使用）
     ↓
 Decision Provider
     ├─ TypeSafe/OpenRouter (Jev): atomic boolean
+    ├─ OpenAI Decisions: atomic predicate questions
     └─ Laya: reversed-choice consistency
     ↓ provider失敗/非対応
 LLM reviewer fallback
