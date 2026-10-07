@@ -301,8 +301,8 @@ flowchart TD
 4. LLM が semantic GoalDelta / Decision / Constraint / Fact / Narrative を抽出
 5. Runtime が Goal association、schema、item-level provenance を検証
 6. base revision / branch head と operation_id を検証し、SQLite transaction 内で immutable CompactionRecord を記録（未commit）
-7. 同じ transaction 内で Reducer が AgentState を materialize
-8. 同じ transaction 内で session revision と operation_id の適用記録を更新し、**ここでまとめて commit**（失敗時はすべて rollback）
+7. `application_status=applied` の場合だけ同じ transaction 内で Reducer が AgentState を materialize。`comparison_only` の場合は Reducer と AgentState revision 更新を実行しない
+8. 同じ transaction 内で適用対象の session revision と operation_id の記録を更新し、**ここでまとめて commit**（失敗時はすべて rollback）。比較用 record は適用済み扱いにしない
 9. AgentState materialized projection を基本 ContextCandidate とし、Checkpoint / Artifact を根拠検索に利用
 10. ActiveContextBuilder → Provider Projection → LLM
 
@@ -790,7 +790,7 @@ class ProvenancedHandoffItem:
 ~~~python
 @dataclass
 class HandoffRecord:
-    handoff_id: str  # stable across delivery retries
+    handoff_id: str  # stable across delivery retries; unique within receiving session
     agent_id: str
     role: str
 
@@ -1150,8 +1150,15 @@ checkpoints             # new
   created_at
 ~~~
 
-handoff_applications    # new; handoff_id UNIQUE, receiving_session_id, applied_at
-  # handoff_id の適用記録と AgentState 更新は同一 transaction
+~~~text
+handoff_applications    # new
+  handoff_id             # UNIQUE per receiving session
+  receiving_session_id
+  applied_at
+  # (receiving_session_id, handoff_id) UNIQUE
+~~~
+
+Handoff 適用記録と AgentState 更新は同一 SQLite transaction で確定する。異なる受信 Session は独立して同じ Handoff を受け取れる。
 
 `agent_states.revision` は Session の current AgentState revision として扱う。AgentState 保存は unconditional UPSERT ではなく expected/base revision を条件にした atomic update とし、条件不一致は Revision Conflict として返す。
 
