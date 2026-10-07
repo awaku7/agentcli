@@ -177,3 +177,24 @@ def test_all_non_english_auto_review_prompts_are_structurally_complete():
 
     message = "Broken auto-review gettext prompts:\n" + "\n".join(offenders)
     assert not offenders, message
+
+
+def test_shipped_gettext_catalogs_do_not_contain_fuzzy_entries():
+    offenders = []
+
+    for catalog in sorted(LOCALES_DIR.glob("*/LC_MESSAGES/uag.po")):
+        locale = catalog.parent.parent.name
+        for lineno, line in enumerate(
+            catalog.read_text(encoding="utf-8").splitlines(), start=1
+        ):
+            if not line.startswith("#,"):
+                continue
+            flags = {flag.strip() for flag in line[2:].split(",")}
+            if "fuzzy" in flags:
+                offenders.append(f"{locale}:{lineno}")
+
+    message = (
+        "Fuzzy gettext entries must not be shipped because the bundled PO-to-MO "
+        "compiler includes them at runtime:\n" + "\n".join(offenders)
+    )
+    assert not offenders, message

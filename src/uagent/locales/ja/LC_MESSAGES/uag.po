@@ -206,7 +206,6 @@ msgstr ""
 "- ユーザーの入力が短い肯定のみで、新しい情報が追加されない場合は、直前の明確な質問に対する直接の回答でない限り、同じ説明を繰り返さないでください。必要に応じて、「どの点から続けるべきですか?」と簡単に質問します。\n"
 
 #: src/uagent/core.py:106
-#, fuzzy
 msgid ""
 "## Dangerous operation policy (delete_file)\n"
 "- For deletion using the delete_file tool, do NOT ask for confirmation before preview.\n"
@@ -219,9 +218,10 @@ msgstr ""
 "## 危険な操作ポリシー（delete_file）\n"
 "- delete_file ツールで削除する場合、プレビュー前に確認を求めないでください。\n"
 "- まず dry_run=true で delete_file を実行し、削除候補の一覧を取得してください。\n"
-"- 候補をユーザーに提示し、human_ask による確認は 1 回だけ求めてください。\n"
-"- ユーザーが \"y\" または \"yes\"（または同等の明確な承認）と明示的に返信した場合にのみ、同じパラメータで dry_run=false を指定して delete_file を再実行してください。\n"
-"- 候補が 0 件の場合は確認を求めず、何も削除されないことを報告してください。\n"
+"- 候補をユーザーに提示し、human_ask による確認は必ず1回だけ求めてください。\n"
+"- ユーザーが \"y\" または \"yes\"（または同等の明確な承認）と明示的に返信した場合にのみ、同じパラメータで dry_run=false、confirmed=true を指定して delete_file を再実行してください。\n"
+"- 例外: ユーザーが `*.org`、`**/*.org`、`**/*.org*` のようなバックアップ用 glob だけを明示的に削除するよう依頼し、すべての一致項目が `.org` の後に数字だけが続く名前で終わる場合、delete_file は human_ask を呼び出さずに実行できます（ただし最初のプレビューは必須です）。\n"
+"- 候補が0件の場合は確認を求めず、削除対象がないことだけを報告してください。\n"
 
 #: src/uagent/core.py:114
 msgid ""
@@ -1299,19 +1299,16 @@ msgid "llama.cpp request timeout in seconds (default: 120)"
 msgstr "llama.cpp リクエストのタイムアウト (秒単位) (デフォルト: 120)"
 
 #: src/uagent/setup_cli.py:252
-#, fuzzy
 msgid "llama.cpp top_k (optional)"
-msgstr "llama.cpp API キー (オプション、デフォルト: ダミー)"
+msgstr "llama.cpp top_k（任意）"
 
 #: src/uagent/setup_cli.py:257
-#, fuzzy
 msgid "llama.cpp min_p (optional)"
-msgstr "llama.cpp API キー (オプション、デフォルト: ダミー)"
+msgstr "llama.cpp min_p（任意）"
 
 #: src/uagent/setup_cli.py:262
-#, fuzzy
 msgid "llama.cpp repeat_penalty (optional)"
-msgstr "Ollama repeat_penalty（既定: 1.1）"
+msgstr "llama.cpp repeat_penalty（任意）"
 
 #: src/uagent/setup_cli.py:266
 msgid "DeepSeek API key"
@@ -2015,21 +2012,19 @@ msgid "  feedback: %(feedback)s"
 msgstr "フィードバック: %(feedback)s"
 
 #: src/uagent/util_cmd_auto.py:248
-#, fuzzy
 msgid "[AUTO] Stopped."
-msgstr "停止"
+msgstr "[AUTO] 停止しました。"
 
 #: src/uagent/util_cmd_auto.py:257
-#, fuzzy
 msgid "[AUTO] Exited by user (F11)."
-msgstr "[AUTO] ユーザーにより終了されました (x キー)。"
+msgstr "[AUTO] ユーザーにより終了しました（F11）。"
 
 #: src/uagent/util_cmd_auto.py:268
 msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
 msgstr "[AUTO] 自動操縦マーカーがないか無効です。安全のため停止します。"
 
 #: src/uagent/util_cmd_auto.py:271
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "[AUTO:sentinel] %(judgment)s"
@@ -2880,14 +2875,12 @@ msgid "[sessions] Memory candidate approved."
 msgstr "[sessions] メモリ候補を承認しました。"
 
 #: src/uagent/util_cmd_session.py:1024
-#, fuzzy
 msgid "[sessions] Usage: :sessions import <jsonl_path> [project]"
-msgstr "[sessions] 使用法: :sessions prune --keep <N> [--dry-run|--yes]"
+msgstr "[sessions] 使用法: :sessions import <jsonl_path> [project]"
 
 #: src/uagent/util_cmd_session.py:1032
-#, fuzzy
 msgid "[sessions] No JSONL logs found."
-msgstr "[スキル] スキルは見つかりませんでした。"
+msgstr "[sessions] JSONL ログが見つかりません。"
 
 #: src/uagent/util_cmd_session.py:1039
 #, python-format
@@ -2895,98 +2888,88 @@ msgid "[sessions] JSONL imported: %(count)d"
 msgstr ""
 
 #: src/uagent/util_cmd_session.py:1041
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] Import failed: "
-msgstr "[sessions] VACUUM に失敗しました: %(error)s"
+msgstr "[sessions] インポートに失敗しました: "
 
 #: src/uagent/util_cmd_session.py:1049
-#, fuzzy
 msgid "[sessions] Usage: :sessions load <session_id>"
-msgstr "[sessions] 使用法: :sessions approve <番号>"
+msgstr "[sessions] 使用法: :sessions load <session_id>"
 
 #: src/uagent/util_cmd_session.py:1052
-#, fuzzy
 msgid "[sessions] Session is already active."
-msgstr "[sessions] セッションストアが有効ではありません。"
+msgstr "[sessions] セッションはすでにアクティブです。"
 
 #: src/uagent/util_cmd_session.py:1057
-#, fuzzy
 msgid "[sessions] Session has no messages."
-msgstr "[sessions] セッションストアが有効ではありません。"
+msgstr "[sessions] セッションにメッセージがありません。"
 
 #: src/uagent/util_cmd_session.py:1061
-#, fuzzy
 msgid "[sessions] Session loaded: "
-msgstr "[sessions] セッションストアが有効ではありません。"
+msgstr "[sessions] セッションを読み込みました: "
 
 #: src/uagent/util_cmd_session.py:1063
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] Load failed: "
-msgstr "[sessions] VACUUM に失敗しました: %(error)s"
+msgstr "[sessions] 読み込みに失敗しました: "
 
 #: src/uagent/util_cmd_session.py:1072
-#, fuzzy
 msgid "[sessions] Usage: :sessions pdf <session_id> [output.pdf]"
-msgstr "[ログ] 使用法: :logs pdf <インデックス> [output_path]"
+msgstr "[sessions] 使用法: :sessions pdf <session_id> [output.pdf]"
 
 #: src/uagent/util_cmd_session.py:1088
-#, fuzzy
 msgid "[sessions] PDF export failed: "
-msgstr "[sessions] メモリ候補:"
+msgstr "[sessions] PDF の出力に失敗しました: "
 
 #: src/uagent/util_cmd_session.py:1123
-#, fuzzy
 msgid "[sessions] Usage: :sessions delete <session_id> --yes"
-msgstr "[Responses API] 使用法: :response delete <response_id>"
+msgstr "[sessions] 使用法: :sessions delete <session_id> --yes"
 
 #: src/uagent/util_cmd_session.py:1126
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] Cannot delete the active session."
-msgstr "[sessions] %(deleted)d/%(total)d 件のセッションを削除しました。"
+msgstr "[sessions] アクティブなセッションは削除できません。"
 
 #: src/uagent/util_cmd_session.py:1130
-#, fuzzy
 msgid "[sessions] Session deleted."
-msgstr "[sessions] セッションストアが有効ではありません。"
+msgstr "[sessions] セッションを削除しました。"
 
 #: src/uagent/util_cmd_session.py:1132
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] Delete failed: "
-msgstr "[Responses API] 削除に失敗しました: %(error)s"
+msgstr "[sessions] 削除に失敗しました: "
 
 #: src/uagent/util_cmd_session.py:1140
 msgid "[sessions] Database vacuum completed."
 msgstr ""
 
 #: src/uagent/util_cmd_session.py:1142
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] Vacuum failed: "
-msgstr "[sessions] VACUUM に失敗しました: %(error)s"
+msgstr "[sessions] VACUUM に失敗しました: "
 
 #: src/uagent/util_cmd_session.py:1167
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] Search failed: "
-msgstr "[sessions] VACUUM に失敗しました: %(error)s"
+msgstr "[sessions] 検索に失敗しました: "
 
 #: src/uagent/util_cmd_session.py:1170
-#, fuzzy, python-format
+#, python-format
 msgid "[sessions] No matching sessions."
-msgstr "[sessions] %(count)d 件のセッションを要約しています..."
+msgstr "[sessions] 一致するセッションがありません。"
 
 #: src/uagent/util_cmd_session.py:1172
-#, fuzzy
 msgid "[sessions] Matches: "
-msgstr "[sessions] メモリ候補:"
+msgstr "[sessions] 一致したセッション: "
 
 #: src/uagent/util_cmd_session.py:1201
-#, fuzzy, python-format
+#, python-format
 msgid "[load error] SQLite session listing failed: %(error)s"
-msgstr "[Responses API] 入力項目のリストに失敗しました: %(error)s"
+msgstr "[読み込みエラー] SQLite セッション一覧の取得に失敗しました: %(error)s"
 
 #: src/uagent/util_cmd_session.py:1212
-#, fuzzy
 msgid "[load] No SQLite sessions available."
-msgstr "[Responses API] 使用可能な応答 ID がありません。"
+msgstr "[読み込み] 利用可能な SQLite セッションがありません。"
 
 #: src/uagent/util_cmd_session.py:1214
 msgid "[load] Select a session (newest first):"
@@ -2997,9 +2980,9 @@ msgid "[load] Usage: :load <index|session_id>"
 msgstr ""
 
 #: src/uagent/util_cmd_session.py:1250
-#, fuzzy, python-format
+#, python-format
 msgid "[load warn] Failed to update SQLite session recency: %(error)s"
-msgstr "[WARN] .env.sec の更新に失敗しました: %(error)s"
+msgstr "[読み込み警告] SQLite セッションの最終利用情報を更新できませんでした: %(error)s"
 
 #: src/uagent/util_cmd_session.py:1269
 msgid "[load] SQLite session loaded"
@@ -3704,9 +3687,9 @@ msgid "Failed to attach image: %(path)s (%(etype)s: %(err)s)"
 msgstr "画像の添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
 
 #: src/uagent/util_image.py:325
-#, fuzzy, python-format
+#, python-format
 msgid "Failed to attach video: %(path)s (%(etype)s: %(err)s)"
-msgstr "画像の添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
+msgstr "動画の添付に失敗しました: %(path)s (%(etype)s: %(err)s)"
 
 #: src/uagent/util_message.py:140
 msgid ""
