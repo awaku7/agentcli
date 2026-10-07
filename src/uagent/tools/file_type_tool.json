@@ -16,7 +16,9 @@
     "param.paths.description": "識別するファイルパス（1つ以上）。",
     "err.no_paths": "パスが指定されていません。",
     "err.outside_workdir": "パスが作業ディレクトリ外です",
-    "err.not_found": "ファイルが見つかりません"
+    "err.not_found": "ファイルが見つかりません",
+    "err.magic_conflict_replace": "python-magic を置き換えられませんでした: %(error)s",
+    "status.magic_conflict_removal": "Windows 上の競合する python-magic を削除しています。"
   },
   "es": {
     "tool.description": "Identifica uno o varios archivos inspeccionando su contenido con libmagic (python-magic o python-magic-bin en Windows), bytes mágicos y heurísticas del nombre. Devuelve el tipo MIME detectado, la descripción del formato, la estimación MIME basada en la extensión, la codificación y el tamaño. Solo lectura.",
@@ -35,7 +37,9 @@
     "param.paths.description": "Una o más rutas de archivo para identificar.",
     "err.no_paths": "No se proporcionaron rutas.",
     "err.outside_workdir": "ruta fuera del directorio de trabajo",
-    "err.not_found": "archivo no encontrado"
+    "err.not_found": "archivo no encontrado",
+    "err.magic_conflict_replace": "No se pudo reemplazar python-magic: %(error)s",
+    "status.magic_conflict_removal": "Eliminando python-magic en conflicto en Windows."
   },
   "fr": {
     "tool.description": "Identifie un ou plusieurs fichiers en inspectant leur contenu avec libmagic (python-magic ou python-magic-bin sous Windows), les octets magiques et des heuristiques de nom. Renvoie le type MIME détecté, la description du format, l’estimation MIME fondée sur l’extension, l’encodage et la taille. Lecture seule.",
@@ -54,7 +58,9 @@
     "param.paths.description": "Un ou plusieurs chemins de fichiers à identifier.",
     "err.no_paths": "Aucun chemin fourni.",
     "err.outside_workdir": "chemin en dehors du répertoire de travail",
-    "err.not_found": "fichier non trouvé"
+    "err.not_found": "fichier non trouvé",
+    "err.magic_conflict_replace": "Impossible de remplacer python-magic : %(error)s",
+    "status.magic_conflict_removal": "Suppression de python-magic en conflit sous Windows."
   },
   "ko": {
     "tool.description": "libmagic(python-magic 또는 Windows의 python-magic-bin), 매직 바이트 및 파일명 휴리스틱으로 하나 이상의 파일 내용을 검사해 식별합니다. 감지된 MIME 유형, 형식 설명, 확장자 기반 MIME 추정, 인코딩 및 파일 크기를 반환합니다. 읽기 전용입니다.",
@@ -73,7 +79,9 @@
     "param.paths.description": "식별할 하나 이상의 파일 경로.",
     "err.no_paths": "경로가 제공되지 않았습니다.",
     "err.outside_workdir": "작업 디렉터리 외부의 경로",
-    "err.not_found": "파일을 찾을 수 없습니다"
+    "err.not_found": "파일을 찾을 수 없습니다",
+    "err.magic_conflict_replace": "python-magic을(를) 교체할 수 없습니다: %(error)s",
+    "status.magic_conflict_removal": "Windows에서 충돌하는 python-magic을 제거하는 중입니다."
   },
   "de": {
     "tool.description": "Identifiziert eine oder mehrere Dateien durch Prüfung ihres Inhalts mit libmagic (python-magic oder unter Windows python-magic-bin), Magic Bytes und Dateinamen-Heuristiken. Gibt den erkannten MIME-Typ, die Formatbeschreibung, die erweiterungsbasierte MIME-Schätzung, die Kodierung und die Dateigröße zurück. Nur lesend.",
@@ -92,7 +100,9 @@
     "param.paths.description": "Ein oder mehrere zu identifizierende Dateipfade.",
     "err.no_paths": "Keine Pfade angegeben.",
     "err.outside_workdir": "Pfad außerhalb des Arbeitsverzeichnisses",
-    "err.not_found": "Datei nicht gefunden"
+    "err.not_found": "Datei nicht gefunden",
+    "err.magic_conflict_replace": "python-magic konnte nicht ersetzt werden: %(error)s",
+    "status.magic_conflict_removal": "Konfliktbehaftetes python-magic unter Windows wird entfernt."
   },
   "it": {
     "tool.description": "Identifica uno o più file esaminandone il contenuto con libmagic (python-magic o python-magic-bin su Windows), magic byte ed euristiche del nome. Restituisce il tipo MIME rilevato, la descrizione del formato, la stima MIME basata sull’estensione, la codifica e la dimensione. Solo lettura.",
@@ -111,7 +121,9 @@
     "param.paths.description": "Uno o più percorsi di file da identificare.",
     "err.no_paths": "Nessun percorso fornito.",
     "err.outside_workdir": "percorso fuori dalla directory di lavoro",
-    "err.not_found": "file non trovato"
+    "err.not_found": "file non trovato",
+    "err.magic_conflict_replace": "Impossibile sostituire python-magic: %(error)s",
+    "status.magic_conflict_removal": "Rimozione di python-magic in conflitto su Windows."
   },
   "ru": {
     "tool.description": "Определяет один или несколько файлов, проверяя их содержимое с помощью libmagic (python-magic или python-magic-bin в Windows), сигнатур и эвристик имени. Возвращает обнаруженный MIME-тип, описание формата, MIME-предположение по расширению, кодировку и размер. Только чтение.",
@@ -130,7 +142,9 @@
     "param.paths.description": "Один или несколько путей к файлам для определения.",
     "err.no_paths": "Пути не указаны.",
     "err.outside_workdir": "путь вне рабочего каталога",
-    "err.not_found": "файл не найден"
+    "err.not_found": "файл не найден",
+    "err.magic_conflict_replace": "Не удалось заменить python-magic: %(error)s",
+    "status.magic_conflict_removal": "Удаляется конфликтующий python-magic в Windows."
   },
   "pt_BR": {
     "tool.description": "Identifica um ou mais arquivos inspecionando seu conteúdo com libmagic (python-magic ou python-magic-bin no Windows), bytes mágicos e heurísticas do nome. Retorna o tipo MIME detectado, a descrição do formato, a estimativa MIME baseada na extensão, a codificação e o tamanho. Somente leitura.",
@@ -149,7 +163,9 @@
     "param.paths.description": "Um ou mais caminhos de arquivo para identificar.",
     "err.no_paths": "Nenhum caminho fornecido.",
     "err.outside_workdir": "caminho fora do diretório de trabalho",
-    "err.not_found": "arquivo não encontrado"
+    "err.not_found": "arquivo não encontrado",
+    "err.magic_conflict_replace": "Não foi possível substituir o python-magic: %(error)s",
+    "status.magic_conflict_removal": "Removendo o python-magic em conflito no Windows."
   },
   "pt": {
     "tool.description": "Identifica um ou mais ficheiros inspecionando o conteúdo com libmagic (python-magic ou python-magic-bin no Windows), bytes mágicos e heurísticas do nome. Devolve o tipo MIME detetado, a descrição do formato, a estimativa MIME baseada na extensão, a codificação e o tamanho. Apenas leitura.",
@@ -168,7 +184,9 @@
     "param.paths.description": "Um ou mais caminhos de ficheiro para identificar.",
     "err.no_paths": "Nenhum caminho fornecido.",
     "err.outside_workdir": "caminho fora do diretório de trabalho",
-    "err.not_found": "ficheiro não encontrado"
+    "err.not_found": "ficheiro não encontrado",
+    "err.magic_conflict_replace": "Não foi possível substituir o python-magic: %(error)s",
+    "status.magic_conflict_removal": "A remover o python-magic em conflito no Windows."
   },
   "id": {
     "tool.description": "Identifikasi satu atau lebih file dengan memeriksa kontennya menggunakan libmagic (python-magic atau Windows python-magic-bin), byte ajaib, dan heuristik nama file. Mengembalikan tipe MIME yang terdeteksi, deskripsi format, tebakan MIME berbasis ekstensi, pengkodean, dan ukuran file. Hanya baca.",
@@ -187,7 +205,9 @@
     "param.paths.description": "Satu atau lebih jalur file untuk diidentifikasi.",
     "err.no_paths": "Tidak ada jalur yang diberikan.",
     "err.outside_workdir": "jalur di luar direktori kerja",
-    "err.not_found": "file tidak ditemukan"
+    "err.not_found": "file tidak ditemukan",
+    "err.magic_conflict_replace": "Tidak dapat mengganti python-magic: %(error)s",
+    "status.magic_conflict_removal": "Menghapus python-magic yang bentrok di Windows."
   },
   "vi": {
     "tool.description": "Xác định một hoặc nhiều tệp bằng cách kiểm tra nội dung của chúng bằng libmagic (python-magic hoặc Windows python-magic-bin), byte ma thuật và chẩn đoán tên tệp. Trả về loại MIME được phát hiện, mô tả định dạng, phỏng đoán MIME dựa trên tiện ích mở rộng, mã hóa và kích thước tệp. Chỉ đọc.",
@@ -206,7 +226,9 @@
     "param.paths.description": "Một hoặc nhiều đường dẫn tệp để xác định.",
     "err.no_paths": "Không có đường dẫn nào được cung cấp.",
     "err.outside_workdir": "đường dẫn ngoài thư mục làm việc",
-    "err.not_found": "không tìm thấy tệp"
+    "err.not_found": "không tìm thấy tệp",
+    "err.magic_conflict_replace": "Không thể thay thế python-magic: %(error)s",
+    "status.magic_conflict_removal": "Đang gỡ python-magic xung đột trên Windows."
   },
   "pl": {
     "tool.description": "Zidentyfikuj jeden lub więcej plików, sprawdzając ich zawartość za pomocą libmagic (python-magic lub Windows python-magic-bin), magicznych bajtów i heurystyki nazw plików. Zwraca wykryty typ MIME, opis formatu, odgadnięcie MIME oparte na rozszerzeniu, kodowanie i rozmiar pliku. Tylko do odczytu.",
@@ -225,7 +247,9 @@
     "param.paths.description": "Jedna lub więcej ścieżek plików do identyfikacji.",
     "err.no_paths": "Nie podano ścieżek.",
     "err.outside_workdir": "ścieżka poza katalogiem roboczym",
-    "err.not_found": "nie znaleziono pliku"
+    "err.not_found": "nie znaleziono pliku",
+    "err.magic_conflict_replace": "Nie udało się zastąpić python-magic: %(error)s",
+    "status.magic_conflict_removal": "Usuwanie powodującego konflikt python-magic w systemie Windows."
   },
   "hi": {
     "tool.description": "libmagic (python-magic या Windows python-magic-bin), मैजिक बाइट्स और फ़ाइल नाम अनुमान के साथ उनकी सामग्री का निरीक्षण करके एक या अधिक फ़ाइलों की पहचान करें। पता लगाए गए MIME प्रकार, प्रारूप विवरण, एक्सटेंशन-आधारित MIME अनुमान, एन्कोडिंग और फ़ाइल आकार लौटाता है। केवल पढ़ने के लिए।",
@@ -244,7 +268,9 @@
     "param.paths.description": "पहचानने के लिए एक या अधिक फ़ाइल पथ।",
     "err.no_paths": "कोई पथ प्रदान नहीं किया गया।",
     "err.outside_workdir": "पथ कार्य निर्देशिका के बाहर है",
-    "err.not_found": "फ़ाइल नहीं मिली"
+    "err.not_found": "फ़ाइल नहीं मिली",
+    "err.magic_conflict_replace": "python-magic को बदला नहीं जा सका: %(error)s",
+    "status.magic_conflict_removal": "Windows पर टकराव वाले python-magic को हटाया जा रहा है।"
   },
   "ar": {
     "tool.description": "يحدد ملفًا واحدًا أو أكثر بفحص محتواها باستخدام libmagic ‏(python-magic أو python-magic-bin في Windows) وبايتات التوقيع وقواعد اسم الملف. يعرض نوع MIME المكتشف ووصف التنسيق وتخمين MIME المستند إلى الامتداد والترميز والحجم. للقراءة فقط.",
@@ -263,7 +289,9 @@
     "param.paths.description": "مسار ملف واحد أو أكثر للتعريف.",
     "err.no_paths": "لم يتم توفير مسارات.",
     "err.outside_workdir": "المسار خارج دليل العمل",
-    "err.not_found": "الملف غير موجود"
+    "err.not_found": "الملف غير موجود",
+    "err.magic_conflict_replace": "تعذّر استبدال python-magic: %(error)s",
+    "status.magic_conflict_removal": "تتم إزالة python-magic المتعارض على Windows."
   },
   "sv": {
     "tool.description": "Identifiera en eller flera filer genom att inspektera deras innehåll med libmagic (python-magic eller Windows python-magic-bin), magiska bytes och filnamnsheuristik. Returnerar den upptäckta MIME-typen, formatbeskrivningen, tilläggsbaserad MIME-gissning, kodning och filstorlek. Skrivskyddad.",
@@ -282,7 +310,9 @@
     "param.paths.description": "En eller flera filsökvägar att identifiera.",
     "err.no_paths": "Inga sökvägar angivna.",
     "err.outside_workdir": "sökväg utanför arbetskatalogen",
-    "err.not_found": "filen hittades inte"
+    "err.not_found": "filen hittades inte",
+    "err.magic_conflict_replace": "Kunde inte ersätta python-magic: %(error)s",
+    "status.magic_conflict_removal": "Tar bort motstridande python-magic i Windows."
   },
   "sw": {
     "tool.description": "Tambua faili moja au zaidi kwa kukagua maudhui yake kwa libmagic (python-magic au Windows python-magic-bin), magic bytes, na heuristiki za jina la faili. Hurejesha aina ya MIME iliyotambuliwa, maelezo ya umbizo, makadirio ya MIME kulingana na kiendelezi, usimbaji, na ukubwa wa faili. Kusoma pekee.",
@@ -301,7 +331,9 @@
     "param.paths.description": "Njia moja au zaidi za faili kutambua.",
     "err.no_paths": "Hakuna njia zilizotolewa.",
     "err.outside_workdir": "njia nje ya saraka ya kazi",
-    "err.not_found": "faili haipatikani"
+    "err.not_found": "faili haipatikani",
+    "err.magic_conflict_replace": "Haikuweza kubadilisha python-magic: %(error)s",
+    "status.magic_conflict_removal": "Inaondoa python-magic inayokinzana kwenye Windows."
   },
   "nb": {
     "tool.description": "Identifiser én eller flere filer ved å inspisere innholdet med libmagic (python-magic eller Windows python-magic-bin), magic bytes og heuristikk for filnavn. Returnerer oppdaget MIME-type, formatbeskrivelse, MIME-gjetning basert på filendelse, koding og filstørrelse. Skrivebeskyttet.",
@@ -320,7 +352,9 @@
     "param.paths.description": "En eller flere filstier å identifisere.",
     "err.no_paths": "Ingen stier oppgitt.",
     "err.outside_workdir": "sti utenfor arbeidskatalogen",
-    "err.not_found": "filen ikke funnet"
+    "err.not_found": "filen ikke funnet",
+    "err.magic_conflict_replace": "Kunne ikke erstatte python-magic: %(error)s",
+    "status.magic_conflict_removal": "Fjerner motstridende python-magic på Windows."
   },
   "nl": {
     "tool.description": "Identificeer een of meer bestanden door de inhoud ervan te inspecteren met libmagic (python-magic of Windows python-magic-bin), magische bytes en bestandsnaamheuristieken. Retourneert het gedetecteerde MIME-type, de indelingsbeschrijving, de op de extensie gebaseerde MIME-schatting, de codering en de bestandsgrootte. Alleen-lezen.",
@@ -339,7 +373,9 @@
     "param.paths.description": "Een of meer bestandspaden om te identificeren.",
     "err.no_paths": "Geen paden opgegeven.",
     "err.outside_workdir": "pad buiten de werkmap",
-    "err.not_found": "bestand niet gevonden"
+    "err.not_found": "bestand niet gevonden",
+    "err.magic_conflict_replace": "Kan python-magic niet vervangen: %(error)s",
+    "status.magic_conflict_removal": "Conflicterende python-magic op Windows wordt verwijderd."
   },
   "fi": {
     "tool.description": "Tunnista yksi tai useampi tiedosto tarkastamalla niiden sisältö libmagic:lla (python-magic tai Windows python-magic-bin), taikatavuilla ja tiedostonimiheuristiikalla. Palauttaa havaitun MIME-tyypin, muodon kuvauksen, laajennukseen perustuvan MIME-arvauksen, koodauksen ja tiedostokoon. Vain luku.",
@@ -358,7 +394,9 @@
     "param.paths.description": "Yksi tai useampi tunnistettava tiedostopolku.",
     "err.no_paths": "Polkuja ei annettu.",
     "err.outside_workdir": "polku työhakemiston ulkopuolella",
-    "err.not_found": "tiedostoa ei löydy"
+    "err.not_found": "tiedostoa ei löydy",
+    "err.magic_conflict_replace": "python-magic-pakettia ei voitu korvata: %(error)s",
+    "status.magic_conflict_removal": "Poistetaan ristiriitainen python-magic Windowsissa."
   },
   "cs": {
     "tool.description": "Identifikujte jeden nebo více souborů kontrolou jejich obsahu pomocí libmagic (python-magic nebo Windows python-magic-bin), magických bajtů a heuristiky názvu souboru. Vrátí zjištěný typ MIME, popis formátu, odhad MIME na základě přípony, kódování a velikost souboru. Pouze pro čtení.",
@@ -377,7 +415,9 @@
     "param.paths.description": "Jeden nebo více cest k souborům k identifikaci.",
     "err.no_paths": "Nebyly zadány žádné cesty.",
     "err.outside_workdir": "cesta mimo pracovní adresář",
-    "err.not_found": "soubor nenalezen"
+    "err.not_found": "soubor nenalezen",
+    "err.magic_conflict_replace": "Nepodařilo se nahradit python-magic: %(error)s",
+    "status.magic_conflict_removal": "Odstraňuje se konfliktní python-magic ve Windows."
   },
   "uk": {
     "tool.description": "Визначте один або кілька файлів, перевіривши їхній вміст за допомогою libmagic (python-magic або Windows python-magic-bin), магічних байтів і евристики імен файлів. Повертає виявлений тип MIME, опис формату, припущення MIME на основі розширення, кодування та розмір файлу. Тільки для читання.",
@@ -396,7 +436,9 @@
     "param.paths.description": "Один або більше шляхів до файлів для визначення.",
     "err.no_paths": "Шляхи не вказано.",
     "err.outside_workdir": "шлях поза робочим каталогом",
-    "err.not_found": "файл не знайдено"
+    "err.not_found": "файл не знайдено",
+    "err.magic_conflict_replace": "Не вдалося замінити python-magic: %(error)s",
+    "status.magic_conflict_removal": "Видалення конфліктного python-magic у Windows."
   },
   "tr": {
     "tool.description": "Bir veya daha fazla dosyayı, içeriklerini libmagic (python-magic veya Windows python-magic-bin), sihirli baytlar ve dosya adı buluşsal yöntemiyle inceleyerek tanımlayın. Algılanan MIME türünü, biçim açıklamasını, uzantıya dayalı MIME tahminini, kodlamayı ve dosya boyutunu döndürür. Salt okunur.",
@@ -415,7 +457,9 @@
     "param.paths.description": "Tanımlanacak bir veya daha fazla dosya yolu.",
     "err.no_paths": "Hiçbir yol belirtilmedi.",
     "err.outside_workdir": "yol çalışma dizini dışında",
-    "err.not_found": "dosya bulunamadı"
+    "err.not_found": "dosya bulunamadı",
+    "err.magic_conflict_replace": "python-magic değiştirilemedi: %(error)s",
+    "status.magic_conflict_removal": "Windows üzerindeki çakışan python-magic kaldırılıyor."
   },
   "th": {
     "tool.description": "ระบุไฟล์ตั้งแต่หนึ่งไฟล์ขึ้นไปโดยการตรวจสอบเนื้อหาด้วย libmagic (python-magic หรือ Windows python-magic-bin) ไบต์มหัศจรรย์ และการวิเคราะห์ชื่อไฟล์ ส่งคืนประเภท MIME ที่ตรวจพบ คำอธิบายรูปแบบ การเดา MIME ตามส่วนขยาย การเข้ารหัส และขนาดไฟล์ อ่านอย่างเดียว",
@@ -434,7 +478,9 @@
     "param.paths.description": "เส้นทางไฟล์อย่างน้อยหนึ่งเส้นทางเพื่อระบุ",
     "err.no_paths": "ไม่ได้ระบุเส้นทาง",
     "err.outside_workdir": "เส้นทางอยู่นอกไดเรกทอรีทำงาน",
-    "err.not_found": "ไม่พบไฟล์"
+    "err.not_found": "ไม่พบไฟล์",
+    "err.magic_conflict_replace": "ไม่สามารถแทนที่ python-magic ได้: %(error)s",
+    "status.magic_conflict_removal": "กำลังลบ python-magic ที่ขัดแย้งกันบน Windows"
   },
   "zh_CN": {
     "tool.description": "使用 libmagic（python-magic，Windows 使用 python-magic-bin）、文件魔数和文件名启发式规则检查一个或多个文件的内容并识别文件。返回检测到的 MIME 类型、格式说明、基于扩展名的 MIME 推测、编码和文件大小。仅执行读取操作。",
@@ -453,7 +499,9 @@
     "param.paths.description": "要识别的一个或多个文件路径。",
     "err.no_paths": "未提供路径。",
     "err.outside_workdir": "路径在工作目录之外",
-    "err.not_found": "文件未找到"
+    "err.not_found": "文件未找到",
+    "err.magic_conflict_replace": "无法替换 python-magic：%(error)s",
+    "status.magic_conflict_removal": "正在移除 Windows 上冲突的 python-magic。"
   },
   "zh_TW": {
     "tool.description": "使用 libmagic（python-magic，Windows 使用 python-magic-bin）、檔案魔數和檔名啟發式規則檢查一個或多個檔案的內容並識別檔案。回傳偵測到的 MIME 類型、格式說明、根據副檔名推測的 MIME、編碼和檔案大小。僅供讀取。",
@@ -472,7 +520,9 @@
     "param.paths.description": "要識別的一個或多個檔案路徑。",
     "err.no_paths": "未提供路徑。",
     "err.outside_workdir": "路徑在工作目錄之外",
-    "err.not_found": "找不到檔案"
+    "err.not_found": "找不到檔案",
+    "err.magic_conflict_replace": "無法取代 python-magic：%(error)s",
+    "status.magic_conflict_removal": "正在移除 Windows 上衝突的 python-magic。"
   },
   "bn": {
     "tool.description": "libmagic (python-magic বা Windows python-magic-bin), magic bytes এবং ফাইলনাম হিউরিস্টিক ব্যবহার করে এক বা একাধিক ফাইলের বিষয়বস্তু পরীক্ষা করে সেগুলো শনাক্ত করুন। শনাক্ত MIME ধরন, ফরম্যাটের বিবরণ, এক্সটেনশন-ভিত্তিক MIME অনুমান, এনকোডিং এবং ফাইলের আকার ফেরত দেয়। শুধুমাত্র পঠনযোগ্য।",
@@ -491,7 +541,9 @@
     "param.paths.description": "শনাক্ত করার জন্য এক বা একাধিক ফাইল পাথ।",
     "err.no_paths": "কোনো পাথ দেওয়া হয়নি।",
     "err.outside_workdir": "পাথ ওয়ার্কডিরের বাইরে",
-    "err.not_found": "ফাইল পাওয়া যায়নি"
+    "err.not_found": "ফাইল পাওয়া যায়নি",
+    "err.magic_conflict_replace": "python-magic প্রতিস্থাপন করা যায়নি: %(error)s",
+    "status.magic_conflict_removal": "Windows-এ দ্বন্দ্বপূর্ণ python-magic সরানো হচ্ছে।"
   },
   "fa": {
     "tool.description": "یک یا چند فایل را با بازرسی محتوای آنها با libmagic (python-magic یا Windows python-magic-bin)، بایت‌های جادویی و اکتشافات نام فایل شناسایی کنید. نوع MIME شناسایی شده، توضیحات قالب، حدس MIME مبتنی بر پسوند، رمزگذاری و اندازه فایل را برمی‌گرداند. فقط خواندنی.",
@@ -510,7 +562,9 @@
     "param.paths.description": "یک یا چند مسیر فایل برای شناسایی.",
     "err.no_paths": "هیچ مسیری ارائه نشده است.",
     "err.outside_workdir": "مسیر خارج از دایرکتوری کاری",
-    "err.not_found": "فایل یافت نشد"
+    "err.not_found": "فایل یافت نشد",
+    "err.magic_conflict_replace": "جایگزینی python-magic ممکن نشد: %(error)s",
+    "status.magic_conflict_removal": "در حال حذف python-magic ناسازگار در Windows."
   },
   "mn": {
     "tool.description": "Нэг буюу хэд хэдэн файлын агуулгыг libmagic (python-magic эсвэл Windows python-magic-bin), magic bytes болон файлын нэрийн эвристикээр шалгаж танина. Илрүүлсэн MIME төрөл, форматын тайлбар, өргөтгөлд суурилсан MIME таамаг, кодчилол болон файлын хэмжээг буцаана. Зөвхөн унших.",
@@ -529,7 +583,9 @@
     "param.paths.description": "Тодорхойлох нэг буюу хэд хэдэн файлын зам.",
     "err.no_paths": "Зам өгөгдөөгүй.",
     "err.outside_workdir": "зам ажлын директорын гадна",
-    "err.not_found": "файл олдсонгүй"
+    "err.not_found": "файл олдсонгүй",
+    "err.magic_conflict_replace": "python-magic-г сольж чадсангүй: %(error)s",
+    "status.magic_conflict_removal": "Windows дээр зөрчилтэй python-magic-г устгаж байна."
   },
   "mr": {
     "tool.description": "libmagic (python-magic किंवा Windows python-magic-bin), magic bytes आणि फाइलनाव ह्युरिस्टिक्स वापरून एक किंवा अधिक फाइल्सची सामग्री तपासून त्यांची ओळख करा. शोधलेला MIME प्रकार, स्वरूपाचे वर्णन, विस्तारावर आधारित MIME अंदाज, एन्कोडिंग आणि फाइलचा आकार परत करते. केवळ-वाचन.",
@@ -548,7 +604,9 @@
     "param.paths.description": "ओळखण्यासाठी एक किंवा अधिक फाइल पथ.",
     "err.no_paths": "कोणतेही पथ प्रदान केले नाहीत.",
     "err.outside_workdir": "पथ कार्य निर्देशिकेच्या बाहेर",
-    "err.not_found": "फाइल आढळली नाही"
+    "err.not_found": "फाइल आढळली नाही",
+    "err.magic_conflict_replace": "python-magic बदलता आले नाही: %(error)s",
+    "status.magic_conflict_removal": "Windows वरील संघर्ष करणारे python-magic काढत आहे."
   },
   "el": {
     "tool.description": "Προσδιορίστε ένα ή περισσότερα αρχεία ελέγχοντας το περιεχόμενό τους με libmagic (python-magic ή Windows python-magic-bin), μαγικά byte και ευρετικά ονόματα αρχείων. Επιστρέφει τον εντοπισμένο τύπο MIME, την περιγραφή μορφής, την εικασία MIME βάσει επέκτασης, την κωδικοποίηση και το μέγεθος αρχείου. Μόνο για ανάγνωση.",
@@ -567,7 +625,9 @@
     "param.paths.description": "Μία ή περισσότερες διαδρομές αρχείων προς αναγνώριση.",
     "err.no_paths": "Δεν δόθηκαν διαδρομές.",
     "err.outside_workdir": "διαδρομή εκτός καταλόγου εργασίας",
-    "err.not_found": "το αρχείο δεν βρέθηκε"
+    "err.not_found": "το αρχείο δεν βρέθηκε",
+    "err.magic_conflict_replace": "Δεν ήταν δυνατή η αντικατάσταση του python-magic: %(error)s",
+    "status.magic_conflict_removal": "Κατάργηση του συγκρουόμενου python-magic στα Windows."
   },
   "he": {
     "tool.description": "זהה קובץ אחד או יותר על ידי בדיקת תוכנם באמצעות libmagic (python-magic או Windows python-magic-bin), בתים קסומים והיוריסטיקה של שם קובץ. מחזירה את סוג MIME שזוהה, תיאור הפורמט, ניחוש MIME מבוסס סיומת, הקידוד וגודל הקובץ. לקריאה בלבד.",
@@ -586,7 +646,9 @@
     "param.paths.description": "נתיב קובץ אחד או יותר לזיהוי.",
     "err.no_paths": "לא סופקו נתיבים.",
     "err.outside_workdir": "הנתיב מחוץ לספריית העבודה",
-    "err.not_found": "הקובץ לא נמצא"
+    "err.not_found": "הקובץ לא נמצא",
+    "err.magic_conflict_replace": "לא ניתן היה להחליף את python-magic: %(error)s",
+    "status.magic_conflict_removal": "מסיר את python-magic המתנגש ב-Windows."
   },
   "hu": {
     "tool.description": "Egy vagy több fájl azonosítása a tartalmuk vizsgálatával libmagic (python-magic vagy Windows python-magic-bin), magic byte-ok és fájlnév-heurisztikák segítségével. Visszaadja az észlelt MIME-típust, a formátum leírását, a kiterjesztés alapján becsült MIME-típust, a kódolást és a fájlméretet. Csak olvasható.",
@@ -605,7 +667,9 @@
     "param.paths.description": "Egy vagy több azonosítandó fájlútvonal.",
     "err.no_paths": "Nincs megadva útvonal.",
     "err.outside_workdir": "útvonal a munkakönyvtáron kívül",
-    "err.not_found": "a fájl nem található"
+    "err.not_found": "a fájl nem található",
+    "err.magic_conflict_replace": "Nem sikerült lecserélni a python-magic csomagot: %(error)s",
+    "status.magic_conflict_removal": "Az ütköző python-magic eltávolítása Windows rendszeren."
   },
   "ro": {
     "tool.description": "Identificați unul sau mai multe fișiere inspectând conținutul acestora cu libmagic (python-magic sau Windows python-magic-bin), octeți magici și euristica numelor de fișiere. Returnează tipul MIME detectat, descrierea formatului, estimarea MIME bazată pe extensie, codificarea și dimensiunea fișierului. Numai citire.",
@@ -624,7 +688,9 @@
     "param.paths.description": "Una sau mai multe căi de fișiere de identificat.",
     "err.no_paths": "Nu au fost furnizate căi.",
     "err.outside_workdir": "cale în afara directorului de lucru",
-    "err.not_found": "fișierul nu a fost găsit"
+    "err.not_found": "fișierul nu a fost găsit",
+    "err.magic_conflict_replace": "Nu s-a putut înlocui python-magic: %(error)s",
+    "status.magic_conflict_removal": "Se elimină python-magic aflat în conflict pe Windows."
   },
   "fil": {
     "tool.description": "Tukuyin ang isa o higit pang file sa pamamagitan ng pagsusuri sa nilalaman gamit ang libmagic (python-magic o Windows python-magic-bin), magic bytes, at mga heuristic sa pangalan ng file. Ibinabalik nito ang natukoy na uri ng MIME, paglalarawan ng format, pagtataya ng MIME batay sa extension, encoding, at laki ng file. Para sa pagbasa lamang.",
@@ -643,7 +709,9 @@
     "param.paths.description": "Isa o higit pang mga path ng file upang matukoy.",
     "err.no_paths": "Walang ibinigay na mga landas.",
     "err.outside_workdir": "landas sa labas ng workdir",
-    "err.not_found": "hindi nahanap ang file"
+    "err.not_found": "hindi nahanap ang file",
+    "err.magic_conflict_replace": "Hindi mapalitan ang python-magic: %(error)s",
+    "status.magic_conflict_removal": "Inaalis ang sumasalungat na python-magic sa Windows."
   },
   "ms": {
     "tool.description": "Kenal pasti satu atau lebih fail dengan memeriksa kandungannya menggunakan libmagic (python-magic atau Windows python-magic-bin), magic bytes dan heuristik nama fail. Mengembalikan jenis MIME yang dikesan, penerangan format, anggaran MIME berdasarkan sambungan, pengekodan dan saiz fail. Baca sahaja.",
@@ -662,7 +730,9 @@
     "param.paths.description": "Satu atau lebih laluan fail untuk dikenal pasti.",
     "err.no_paths": "Tiada laluan disediakan.",
     "err.outside_workdir": "laluan di luar workdir",
-    "err.not_found": "fail tidak ditemui"
+    "err.not_found": "fail tidak ditemui",
+    "err.magic_conflict_replace": "Tidak dapat menggantikan python-magic: %(error)s",
+    "status.magic_conflict_removal": "Mengalih keluar python-magic yang bercanggah pada Windows."
   },
   "da": {
     "tool.description": "Identificer en eller flere filer ved at inspicere deres indhold med libmagic (python-magic eller Windows python-magic-bin), magiske bytes og filnavnsheuristik. Returnerer den registrerede MIME-type, formatbeskrivelse, udvidelsesbaserede MIME-gæt, kodning og filstørrelse. Skrivebeskyttet.",
@@ -681,7 +751,9 @@
     "param.paths.description": "En eller flere filstier at identificere.",
     "err.no_paths": "Ingen stier angivet.",
     "err.outside_workdir": "sti uden for arbejdsdir",
-    "err.not_found": "fil ikke fundet"
+    "err.not_found": "fil ikke fundet",
+    "err.magic_conflict_replace": "Kunne ikke erstatte python-magic: %(error)s",
+    "status.magic_conflict_removal": "Fjerner modstridende python-magic på Windows."
   },
   "nn": {
     "tool.description": "Identifiser éi eller fleire filer ved å undersøkje innhaldet med libmagic (python-magic eller Windows python-magic-bin), magiske byte og heuristikk basert på filnamn. Returnerer oppdaga MIME-type, formatomtale, MIME-gjetting basert på filending, teiknkoding og filstorleik. Skriveverna.",
@@ -700,6 +772,8 @@
     "param.paths.description": "En eller flere filbaner å identifisere.",
     "err.no_paths": "Ingen stier oppgitt.",
     "err.outside_workdir": "sti utenfor arbeidsdir",
-    "err.not_found": "fil ikkje funnen"
+    "err.not_found": "fil ikkje funnen",
+    "err.magic_conflict_replace": "Klarte ikkje å erstatte python-magic: %(error)s",
+    "status.magic_conflict_removal": "Fjernar motstridande python-magic på Windows."
   }
 }
