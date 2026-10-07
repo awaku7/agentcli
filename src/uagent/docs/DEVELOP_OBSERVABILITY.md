@@ -290,6 +290,38 @@ For OIDC WebSocket connections:
 
 Web Agent spans start as fresh OTel roots by default, which detaches them from arbitrary browser-provided `traceparent` / `tracestate`. A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching raw socket peer captured before proxy-header rewriting may supply the single-use trusted W3C parent for the first worker Agent span. `X-Forwarded-For` is never a trust input, baggage is ignored, and trace metadata never affects identity or authorization.
 
-## Later phases
+## Phase 4D authorization-aware trace query
 
-The ordinary-user trace query UI/proxy remains later work. Generic global provider/HTTP auto-instrumentation is not part of Phase 4C and remains unsupported unless a future reviewed contract explicitly adds it.
+Phase 4D is implemented as an opt-in ordinary-user trace-query path. Core OpenTelemetry and
+`UAGENT_OTEL_TRACE_QUERY_ENABLED` must both be enabled. The Web surface is intentionally
+limited to:
+
+```text
+GET /api/observability/traces/{trace_id}
+```
+
+The route does not authorize from trace possession or telemetry backend metadata. It uses the
+bounded process-local ownership index populated from UAG-owned canonical spans, then revalidates
+the caller's current product authentication and room/project/private-session authorization before
+and after backend work. Missing, expired, incomplete, unauthorized, or invalid ownership fails
+closed without granting access from backend data.
+
+Backend reads are deliberately separated from OTLP export. UAG does not reinterpret
+`OTEL_EXPORTER_OTLP_ENDPOINT` as a query endpoint and does not ship a generic production query
+adapter for Jaeger, Grafana Tempo, Elasticsearch, or other vendors. A trusted application
+integration must bind a reviewed adapter to the exact active observability backend with
+`install_trace_query_backend_adapter()`. Without a bound adapter, a fully authorized request
+returns the fixed `trace_query_unavailable` result.
+
+Ordinary-user responses use the closed `uag.trace_view.v1` projection and never expose raw
+backend payloads, attributes, events, links, resource data, provider metadata, credentials, or
+captured content. Query paging, decoded bytes, span counts, output counts, and total wall-clock
+time are bounded by the Phase 4 contract.
+
+See `DEVELOP_OBSERVABILITY_PHASE4D.md`,
+`runtime/observability/trace_ownership_index.py`,
+`runtime/observability/trace_ownership_runtime.py`, and
+`runtime/observability/trace_query_projection.py` for the focused implementation contract.
+
+Generic global provider/HTTP auto-instrumentation remains unsupported unless a future reviewed
+contract explicitly adds it.
