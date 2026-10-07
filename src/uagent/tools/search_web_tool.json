@@ -8,12 +8,11 @@
     "tool.description": "StartPage（既定、Google品質）、DuckDuckGo、Brave Search、またはYahoo! JapanのHTMLインターフェースでWeb検索を行います。",
     "x_search_terms": [
       "ウェブ検索",
-      "duckduckgo",
       "インターネット検索",
-      "ウェブでバスカー",
-      "ウェブ検索",
-      "グーグル",
-      "閲覧"
+      "オンライン検索",
+      "duckduckgo",
+      "google",
+      "ウェブ閲覧"
     ],
     "param.limit.description": "返す最大件数（既定: 5）。",
     "error.brave_failed_after_retries": "Brave Search へのリクエストがリトライ後も失敗しました: {error}",
@@ -29,15 +28,14 @@
     "error.missing_query_parameter": "falta el parámetro 'query'",
     "error.run_tool_error": "error de ejecución_herramienta: {error}",
     "param.query.description": "Consulta de búsqueda.",
-    "tool.description": "Busque en la web a través de la interfaz HTML de StartPage (predeterminado), DuckDuckGo o Brave Search. Devuelve título/enlace/fragmento. Brave Search es mejor para consultas en japonés/locales.",
+    "tool.description": "Busque en la web a través de la interfaz HTML de StartPage (predeterminado), DuckDuckGo o Brave Search. Devuelve título/enlace/fragmento. Brave Search es mejor para consultas en japonés/locales. También se admite Yahoo Japan.",
     "x_search_terms": [
       "búsqueda web",
-      "duckduckgo",
       "buscar en internet",
       "buscar en la web",
-      "buscar en la web",
+      "duckduckgo",
       "google",
-      "browse"
+      "navegar por la web"
     ],
     "param.limit.description": "Número máximo de resultados a devolver (predeterminado: 5).",
     "error.brave_failed_after_retries": "La solicitud a Brave Search falló después de reintentos: {error}",
@@ -52,16 +50,15 @@
     "error.duckduckgo_failed_after_retries": "La requête DuckDuckGo a échoué après plusieurs tentatives : {error}",
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
-    "param.query.description": ".",
-    "tool.description": "Recherchez sur le Web via l'interface HTML de StartPage (par défaut), DuckDuckGo ou Brave Search. Retourne titre/lien/extrait. Brave Search est meilleur pour les requêtes en japonais/locales.",
+    "param.query.description": "Requête de recherche.",
+    "tool.description": "Recherchez sur le Web via l'interface HTML de StartPage (par défaut), DuckDuckGo ou Brave Search. Retourne titre/lien/extrait. Brave Search est meilleur pour les requêtes en japonais/locales. Yahoo Japan est également pris en charge.",
     "x_search_terms": [
-      "recherche sur le Web",
-      "duckduckgo",
+      "recherche web",
       "recherche sur Internet",
-      "rechercher sur le web",
-      "rechercher sur le Web",
+      "rechercher en ligne",
+      "duckduckgo",
       "google",
-      "browse"
+      "naviguer sur le Web"
     ],
     "param.limit.description": "Nombre maximum de résultats à retourner (par défaut : 5).",
     "error.brave_failed_after_retries": "La requête Brave Search a échoué après plusieurs tentatives : {error}",
@@ -77,15 +74,14 @@
     "error.missing_query_parameter": "'query' 매개변수가 누락되었습니다.",
     "error.run_tool_error": "run_tool 오류: {error}",
     "param.query.description": "검색어 문자열입니다.",
-    "tool.description": "StartPage (기본), DuckDuckGo 또는 Brave Search HTML 인터페이스로 웹 검색을 수행합니다. 제목/링크/요약을 반환합니다. Brave Search는 일본어/로컬 검색에 더 적합합니다.",
+    "tool.description": "StartPage (기본), DuckDuckGo 또는 Brave Search HTML 인터페이스로 웹 검색을 수행합니다. 제목/링크/요약을 반환합니다. Brave Search는 일본어/로컬 검색에 더 적합합니다. Yahoo Japan도 지원합니다.",
     "x_search_terms": [
       "웹 검색",
-      "duckduckgo",
       "인터넷 검색",
-      "웹사이트에서 버스카",
-      "웹 검색",
+      "온라인 검색",
+      "duckduckgo",
       "google",
-      "browse"
+      "웹 탐색"
     ],
     "param.limit.description": "반환할 최대 결과 수(기본값: 5)",
     "error.brave_failed_after_retries": "Brave Search 요청이 재시도 후 실패했습니다: {error}",
@@ -101,15 +97,14 @@
     "error.missing_query_parameter": "fehlender 'query'-Parameter",
     "error.run_tool_error": "run_tool-Fehler: {error}",
     "param.query.description": "Suchabfrage.",
-    "tool.description": "Durchsuchen Sie das Web über die HTML-Schnittstelle von StartPage (Standard), DuckDuckGo oder Brave Search. Gibt Titel/Link/Auszug zurück. Brave Search eignet sich besser für japanische/lokale Abfragen.",
+    "tool.description": "Durchsuchen Sie das Web über die HTML-Schnittstelle von StartPage (Standard), DuckDuckGo oder Brave Search. Gibt Titel/Link/Auszug zurück. Brave Search eignet sich besser für japanische/lokale Abfragen. Yahoo Japan wird ebenfalls unterstützt.",
     "x_search_terms": [
       "Websuche",
+      "Internetsuche",
+      "online suchen",
       "duckduckgo",
-      "Suche im Internet",
-      "Im Internet suchen",
-      "Recherche-Web",
       "google",
-      "browse"
+      "Web durchsuchen"
     ],
     "param.limit.description": "Maximale Anzahl der zurückzugebenden Ergebnisse (Standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-Anfrage nach Wiederholungen fehlgeschlagen: {error}",
@@ -120,20 +115,19 @@
     "error.startpage_captcha": "StartPage CAPTCHA wurde ausgelöst. Versuchen Sie es später erneut oder verwenden Sie eine andere Suchmaschine."
   },
   "it": {
-    "error.args_must_be_dict": "args deve essere una query di ricerca dict",
+    "error.args_must_be_dict": "args deve essere un dict.",
     "error.duckduckgo_failed_after_retries": "Richiesta DuckDuckGo non riuscita dopo i tentativi: {error}",
     "error.missing_query_parameter": "manca il parametro 'query'",
     "error.run_tool_error": "errore run_tool: {error}",
-    "param.query.description": ".",
-    "tool.description": "Cerca sul web tramite l'interfaccia HTML di StartPage (predefinita), DuckDuckGo o Brave Search. Restituisce titolo/link/estratto. Brave Search è migliore per le query in giapponese/locali.",
+    "param.query.description": "Query di ricerca.",
+    "tool.description": "Cerca sul web tramite l'interfaccia HTML di StartPage (predefinita), DuckDuckGo o Brave Search. Restituisce titolo/link/estratto. Brave Search è migliore per le query in giapponese/locali. È supportato anche Yahoo Japan.",
     "x_search_terms": [
       "ricerca web",
+      "ricerca su internet",
+      "cerca online",
       "duckduckgo",
-      "cerca internet",
-      "cercare sul web",
-      "ricerca web",
       "google",
-      "browse"
+      "navigazione web"
     ],
     "param.limit.description": "Numero massimo di risultati da restituire (predefinito: 5).",
     "error.brave_failed_after_retries": "Richiesta Brave Search fallita dopo i tentativi: {error}",
@@ -149,15 +143,14 @@
     "error.missing_query_parameter": "отсутствует параметр 'query'",
     "error.run_tool_error": "ошибка run_tool: {error}",
     "param.query.description": "Поисковый запрос.",
-    "tool.description": "Поиск в Интернете через HTML-интерфейс StartPage (по умолчанию), DuckDuckGo или Brave Search. Возвращает заголовок/ссылку/фрагмент. Brave Search лучше подходит для японских/локальных запросов.",
+    "tool.description": "Поиск в Интернете через HTML-интерфейс StartPage (по умолчанию), DuckDuckGo или Brave Search. Возвращает заголовок/ссылку/фрагмент. Brave Search лучше подходит для японских/локальных запросов. Также поддерживается Yahoo Japan.",
     "x_search_terms": [
-      "поиск в Интернете",
+      "поиск в интернете",
+      "веб-поиск",
+      "поиск онлайн",
       "duckduckgo",
-      "поиск в Интернете",
-      "автобус в Интернете",
-      "поиск в Интернете",
       "google",
-      "просмотр"
+      "просмотр веб-страниц"
     ],
     "param.limit.description": "Максимальное количество возвращаемых результатов (по умолчанию: 5).",
     "error.brave_failed_after_retries": "Запрос к Brave Search не удался после повторных попыток: {error}",
@@ -173,15 +166,14 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "Consulta de pesquisa.",
-    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/link/trecho. Brave Search é melhor para consultas em japonês/locais.",
+    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/link/trecho. Brave Search é melhor para consultas em japonês/locais. O Yahoo Japan também é compatível.",
     "x_search_terms": [
       "pesquisa na web",
+      "pesquisa na internet",
+      "pesquisar online",
       "duckduckgo",
-      "pesquisar na internet",
-      "pesquisar na web",
-      "pesquisar na web",
       "google",
-      "browse"
+      "navegar na web"
     ],
     "param.limit.description": "Número máximo de resultados a retornar (padrão: 5).",
     "error.brave_failed_after_retries": "A solicitação ao Brave Search falhou após tentativas: {error}",
@@ -197,15 +189,14 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "Consulta de pesquisa.",
-    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/trecho. Brave Search é melhor para consultas em japonês/locais.",
+    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/trecho. Brave Search é melhor para consultas em japonês/locais. O Yahoo Japan também é suportado.",
     "x_search_terms": [
       "pesquisa na web",
+      "pesquisa na internet",
+      "pesquisar online",
       "duckduckgo",
-      "pesquisar na internet",
-      "pesquisar na web",
-      "pesquisar na web",
       "google",
-      "browse"
+      "navegar na web"
     ],
     "param.limit.description": "Número máximo de resultados a serem retornados (padrão: 5).",
     "error.brave_failed_after_retries": "O pedido ao Brave Search falhou após tentativas: {error}",
@@ -221,15 +212,14 @@
     "error.missing_query_parameter": "parameter 'query' tidak ada",
     "error.run_tool_error": "Galat run_tool: {error}",
     "param.query.description": "Kueri penelusuran.",
-    "tool.description": "Cari web melalui antarmuka HTML StartPage (default), DuckDuckGo atau Brave Search. Mengembalikan judul/tautan/cuplikan. Brave Search lebih baik untuk kueri bahasa Jepang/lokal.",
+    "tool.description": "Cari web melalui antarmuka HTML StartPage (default), DuckDuckGo atau Brave Search. Mengembalikan judul/tautan/cuplikan. Brave Search lebih baik untuk kueri bahasa Jepang/lokal. Yahoo Japan juga didukung.",
     "x_search_terms": [
       "pencarian web",
+      "pencarian internet",
+      "cari online",
       "duckduckgo",
-      "cari internet",
-      "buscar en la web",
-      "web pencarian ulang",
       "google",
-      "browse"
+      "jelajah web"
     ],
     "param.limit.description": "Jumlah maksimum hasil yang dikembalikan (default: 5).",
     "error.brave_failed_after_retries": "Permintaan Brave Search gagal setelah percobaan ulang: {error}",
@@ -245,15 +235,14 @@
     "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
     "param.query.description": "Truy vấn tìm kiếm.",
-    "tool.description": "Tìm kiếm web qua giao diện HTML của StartPage (mặc định), DuckDuckGo hoặc Brave Search. Trả về tiêu đề/liên kết/đoạn trích. Brave Search tốt hơn cho các truy vấn tiếng Nhật/địa phương.",
+    "tool.description": "Tìm kiếm web qua giao diện HTML của StartPage (mặc định), DuckDuckGo hoặc Brave Search. Trả về tiêu đề/liên kết/đoạn trích. Brave Search tốt hơn cho các truy vấn tiếng Nhật/địa phương. Yahoo Japan cũng được hỗ trợ.",
     "x_search_terms": [
-      "tìm kiếm trên web",
-      "duckduckgo",
+      "tìm kiếm web",
       "tìm kiếm trên internet",
-      "xe buýt trên web",
-      "trang web tìm kiếm",
+      "tìm kiếm trực tuyến",
+      "duckduckgo",
       "google",
-      "duyệt"
+      "duyệt web"
     ],
     "param.limit.description": "Số kết quả trả về tối đa (mặc định: 5).",
     "error.brave_failed_after_retries": "Yêu cầu Brave Search thất bại sau khi thử lại: {error}",
@@ -269,15 +258,14 @@
     "error.missing_query_parameter": "brakuje parametru 'query'",
     "error.run_tool_error": "błąd run_tool: {error}",
     "param.query.description": "Zapytanie wyszukiwania.",
-    "tool.description": "Przeszukuj sieć przez interfejs HTML StartPage (domyślnie), DuckDuckGo lub Brave Search. Zwraca tytuł/link/fragment. Brave Search jest lepszy w przypadku zapytań w języku japońskim/lokalnych.",
+    "tool.description": "Przeszukuj sieć przez interfejs HTML StartPage (domyślnie), DuckDuckGo lub Brave Search. Zwraca tytuł/link/fragment. Brave Search jest lepszy w przypadku zapytań w języku japońskim/lokalnych. Obsługiwany jest również Yahoo Japan.",
     "x_search_terms": [
-      "wyszukiwarka internetowa",
+      "wyszukiwanie w sieci",
+      "wyszukiwanie w internecie",
+      "szukaj online",
       "duckduckgo",
-      "wyszukiwarka w internecie",
-      "autobus w la web",
-      "recherche web",
       "google",
-      "przeglądaj"
+      "przeglądanie sieci"
     ],
     "param.limit.description": "Maksymalna liczba zwracanych wyników (domyślnie: 5).",
     "error.brave_failed_after_retries": "Żądanie Brave Search nie powiodło się po ponownych próbach: {error}",
@@ -293,15 +281,14 @@
     "error.missing_query_parameter": "'query' पैरामीटर गायब है",
     "error.run_tool_error": "run_tool त्रुटि: {error}",
     "param.query.description": "खोज क्वेरी।",
-    "tool.description": "StartPage (डिफ़ॉल्ट), DuckDuckGo या Brave Search HTML इंटरफ़ेस के माध्यम से वेब पर खोजें। शीर्षक/लिंक/स्निपेट लौटाता है। Brave Search जापानी/स्थानीय प्रश्नों के लिए बेहतर है।",
+    "tool.description": "StartPage (डिफ़ॉल्ट), DuckDuckGo या Brave Search HTML इंटरफ़ेस के माध्यम से वेब पर खोजें। शीर्षक/लिंक/स्निपेट लौटाता है। Brave Search जापानी/स्थानीय प्रश्नों के लिए बेहतर है। Yahoo Japan भी समर्थित है।",
     "x_search_terms": [
-      "वेब सर्च",
-      "डकडकगो",
-      "इंटरनेट पर सर्च",
-      "बसकार एन ला वेब",
-      "रेचेर्चे वेब",
-      "गूगल",
-      "ब्राउज"
+      "वेब खोज",
+      "इंटरनेट खोज",
+      "ऑनलाइन खोज",
+      "duckduckgo",
+      "google",
+      "वेब ब्राउज़िंग"
     ],
     "param.limit.description": "लौटने के लिए परिणामों की अधिकतम संख्या (डिफ़ॉल्ट: 5)।",
     "error.brave_failed_after_retries": "पुनः प्रयास के बाद Brave Search अनुरोध विफल रहा: {error}",
@@ -317,15 +304,14 @@
     "error.missing_query_parameter": "المعامل 'query' مفقود",
     "error.run_tool_error": "خطأ في run_tool: {error}",
     "param.query.description": "استعلام بحث.",
-    "tool.description": "ابحث في الويب عبر StartPage (افتراضي), DuckDuckGo أو واجهة Brave Search HTML. يعيد العنوان/الرابط/المقتطف. Brave Search أفضل للاستعلامات اليابانية/المحلية.",
+    "tool.description": "ابحث في الويب عبر StartPage (افتراضي), DuckDuckGo أو واجهة Brave Search HTML. يعيد العنوان/الرابط/المقتطف. Brave Search أفضل للاستعلامات اليابانية/المحلية. يتم أيضًا دعم Yahoo Japan.",
     "x_search_terms": [
       "البحث في الويب",
+      "البحث على الإنترنت",
+      "بحث عبر الإنترنت",
       "duckduckgo",
-      "البحث في الإنترنت",
-      "البحث في الويب",
-      "البحث في الويب",
       "google",
-      "تصفح"
+      "تصفح الويب"
     ],
     "param.limit.description": "الحد الأقصى لعدد النتائج المراد إرجاعها (الافتراضي: 5).",
     "error.brave_failed_after_retries": "فشل طلب Brave Search بعد إعادة المحاولة: {error}",
@@ -341,15 +327,14 @@
     "error.missing_query_parameter": "saknar parametern 'query'",
     "error.run_tool_error": "run_tool-fel: {error}",
     "param.query.description": "Sökfråga.",
-    "tool.description": "Sök på webben via StartPage (standard), DuckDuckGo eller Brave Search HTML-gränssnitt. Returnerar titel/länk/utdrag. Brave Search är bättre för japanska/lokala frågor.",
+    "tool.description": "Sök på webben via StartPage (standard), DuckDuckGo eller Brave Search HTML-gränssnitt. Returnerar titel/länk/utdrag. Brave Search är bättre för japanska/lokala frågor. Yahoo Japan stöds också.",
     "x_search_terms": [
       "webbsökning",
-      "duckduckgo",
       "sök på internet",
-      "buscar en la web",
-      "hitta webben",
+      "sök online",
+      "duckduckgo",
       "google",
-      "surf"
+      "webbsurfning"
     ],
     "param.limit.description": "Maximalt antal resultat att returnera (standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-begäran misslyckades efter försök: {error}",
@@ -365,15 +350,14 @@
     "error.missing_query_parameter": "'query' haipo",
     "error.run_tool_error": "hitilafu_ya_zana: {error}",
     "param.query.description": "Hoja ya utafutaji.",
-    "tool.description": "Tafuta wavuti kupitia StartPage (chaguo-msingi), DuckDuckGo au kiolesura cha HTML cha Brave Search. Hurejesha kichwa/kiungo/kijisehemu. Brave Search ni bora kwa maswali ya Kijapani/ya ndani.",
+    "tool.description": "Tafuta wavuti kupitia StartPage (chaguo-msingi), DuckDuckGo au kiolesura cha HTML cha Brave Search. Hurejesha kichwa/kiungo/kijisehemu. Brave Search ni bora kwa maswali ya Kijapani/ya ndani. Yahoo Japan pia inatumika.",
     "x_search_terms": [
-      "tafuta mtandao",
+      "utafutaji wa wavuti",
+      "tafuta kwenye intaneti",
+      "tafuta mtandaoni",
       "duckduckgo",
-      "tafuta mtandao",
-      "buscar katika mtandao",
-      "recherche mtandao",
       "google",
-      "vinjari"
+      "vinjari wavuti"
     ],
     "param.limit.description": "Idadi ya juu zaidi ya matokeo ya kurejesha (chaguo-msingi: 5).",
     "error.brave_failed_after_retries": "Ombi la Brave Search halikufaulu baada ya kujaribu tena: {error}",
@@ -389,15 +373,14 @@
     "error.missing_query_parameter": "mangler parameteren 'query'",
     "error.run_tool_error": "run_tool-feil: {error}",
     "param.query.description": "Søkespørring.",
-    "tool.description": "Søk på nettet via StartPage (standard), DuckDuckGo eller Brave Search HTML-grensesnitt. Returnerer tittel/lenke/utdrag. Brave Search er bedre for japanske/lokale søk.",
+    "tool.description": "Søk på nettet via StartPage (standard), DuckDuckGo eller Brave Search HTML-grensesnitt. Returnerer tittel/lenke/utdrag. Brave Search er bedre for japanske/lokale søk. Yahoo Japan støttes også.",
     "x_search_terms": [
       "nettsøk",
-      "duckduckgo",
       "søk på internett",
-      "buscar en la web",
-      "søke på nettet",
+      "søk på nett",
+      "duckduckgo",
       "google",
-      "se"
+      "nettlesing"
     ],
     "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-forespørsel mislyktes etter forsøk: {error}",
@@ -413,15 +396,14 @@
     "error.missing_query_parameter": "ontbrekende 'query'-parameter",
     "error.run_tool_error": "run_tool fout: {error}",
     "param.query.description": "Zoekopdracht.",
-    "tool.description": "Zoek op internet via StartPage (standaard), DuckDuckGo of Brave Search HTML-interface. Retourneert titel/link/fragment. Brave Search is beter voor Japanse/lokale zoekopdrachten.",
+    "tool.description": "Zoek op internet via StartPage (standaard), DuckDuckGo of Brave Search HTML-interface. Retourneert titel/link/fragment. Brave Search is beter voor Japanse/lokale zoekopdrachten. Yahoo Japan wordt ook ondersteund.",
     "x_search_terms": [
+      "zoeken op het web",
       "zoeken op internet",
+      "online zoeken",
       "duckduckgo",
-      "zoeken op internet",
-      "buscar en la web",
-      "zoek web",
       "google",
-      "browse"
+      "webbrowsen"
     ],
     "param.limit.description": "Maximaal aantal resultaten dat moet worden geretourneerd (standaard: 5).",
     "error.brave_failed_after_retries": "Brave Search-verzoek mislukt na nieuwe pogingen: {error}",
@@ -437,15 +419,14 @@
     "error.missing_query_parameter": "puuttuva 'query'-parametri",
     "error.run_tool_error": "run_tool-virhe: {error}",
     "param.query.description": "Hakukysely.",
-    "tool.description": "Hae verkosta StartPage (oletus), DuckDuckGo tai Brave Searchin HTML-käyttöliittymän kautta. Palauttaa otsikon/linkin/otteeen. Brave Search on parempi japanilaisille/paikallisille kyselyille.",
+    "tool.description": "Hae verkosta StartPage (oletus), DuckDuckGo tai Brave Searchin HTML-käyttöliittymän kautta. Palauttaa otsikon/linkin/otteeen. Brave Search on parempi japanilaisille/paikallisille kyselyille. Myös Yahoo Japania tuetaan.",
     "x_search_terms": [
       "verkkohaku",
+      "haku internetistä",
+      "hae verkosta",
       "duckduckgo",
-      "hae internetistä",
-      "buscar en la web",
-      "recherche web",
       "google",
-      "selaa"
+      "verkon selaus"
     ],
     "param.limit.description": "Palautettavien tulosten enimmäismäärä (oletus: 5).",
     "error.brave_failed_after_retries": "Brave Search -pyyntö epäonnistui uudelleenyritysten jälkeen: {error}",
@@ -461,15 +442,14 @@
     "error.missing_query_parameter": "chybí parametr 'query'",
     "error.run_tool_error": "chyba run_tool: {error}",
     "param.query.description": "Vyhledávací dotaz.",
-    "tool.description": "Prohledávejte web prostřednictvím rozhraní StartPage (výchozí), DuckDuckGo nebo Brave Search HTML. Vrací název/odkaz/úryvek. Brave Search je lepší pro japonské/místní dotazy.",
+    "tool.description": "Prohledávejte web prostřednictvím rozhraní StartPage (výchozí), DuckDuckGo nebo Brave Search HTML. Vrací název/odkaz/úryvek. Brave Search je lepší pro japonské/místní dotazy. Podporován je také Yahoo Japan.",
     "x_search_terms": [
       "vyhledávání na webu",
-      "duckduckgo",
       "hledání na internetu",
-      "buscar en la web",
-      "rešeršní web",
+      "hledat online",
+      "duckduckgo",
       "google",
-      "procházet"
+      "procházení webu"
     ],
     "param.limit.description": "Maximální počet vracených výsledků (výchozí: 5).",
     "error.brave_failed_after_retries": "Požadavek Brave Search selhal po opakovaných pokusech: {error}",
@@ -485,15 +465,14 @@
     "error.missing_query_parameter": "відсутній параметр 'query'",
     "error.run_tool_error": "помилка run_tool: {error}",
     "param.query.description": "Пошуковий запит.",
-    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс StartPage (за замовчуванням), DuckDuckGo або Brave Search. Повертає назву/посилання/фрагмент. Brave Search краще підходить для японських/місцевих запитів.",
+    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс StartPage (за замовчуванням), DuckDuckGo або Brave Search. Повертає назву/посилання/фрагмент. Brave Search краще підходить для японських/місцевих запитів. Також підтримується Yahoo Japan.",
     "x_search_terms": [
-      "пошук в Інтернеті",
+      "пошук в інтернеті",
+      "веб-пошук",
+      "пошук онлайн",
       "duckduckgo",
-      "пошук в Інтернеті",
-      "автобус в Інтернеті",
-      "пошук веб-сайту",
       "google",
-      "перегляд"
+      "перегляд вебсторінок"
     ],
     "param.limit.description": "Максимальна кількість результатів для повернення (за замовчуванням: 5).",
     "error.brave_failed_after_retries": "Запит Brave Search не вдався після повторних спроб: {error}",
@@ -509,15 +488,14 @@
     "error.missing_query_parameter": "'query' parametresi eksik",
     "error.run_tool_error": "run_tool hatası: {error}",
     "param.query.description": "Arama sorgusu.",
-    "tool.description": "StartPage (varsayılan), DuckDuckGo veya Brave Search HTML arayüzü aracılığıyla web'de arama yapın. Başlık/bağlantı/parçacık döndürür. Brave Search, Japonca/yerel sorgular için daha iyidir.",
+    "tool.description": "StartPage (varsayılan), DuckDuckGo veya Brave Search HTML arayüzü aracılığıyla web'de arama yapın. Başlık/bağlantı/parçacık döndürür. Brave Search, Japonca/yerel sorgular için daha iyidir. Yahoo Japan da desteklenir.",
     "x_search_terms": [
       "web araması",
-      "duckduckgo",
       "internette arama",
-      "web'de otobüs",
-      "web'i araştır",
+      "çevrimiçi arama",
+      "duckduckgo",
       "google",
-      "göz at"
+      "web'de gezinme"
     ],
     "param.limit.description": "Döndürülecek maksimum sonuç sayısı (varsayılan: 5).",
     "error.brave_failed_after_retries": "Brave Search isteği yeniden denemelerden sonra başarısız oldu: {error}",
@@ -533,15 +511,14 @@
     "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
     "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
     "param.query.description": "สตริงคำค้นหา",
-    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ HTML ของ StartPage (ค่าเริ่มต้น), DuckDuckGo หรือ Brave Search คืนค่าชื่อเรื่อง/ลิงก์/ตัวอย่างข้อความ Brave Search เหมาะกว่าสำหรับคำค้นหาภาษาญี่ปุ่นหรือท้องถิ่น",
+    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ HTML ของ StartPage (ค่าเริ่มต้น), DuckDuckGo หรือ Brave Search คืนค่าชื่อเรื่อง/ลิงก์/ตัวอย่างข้อความ Brave Search เหมาะกว่าสำหรับคำค้นหาภาษาญี่ปุ่นหรือท้องถิ่น รองรับ Yahoo Japan ด้วย",
     "x_search_terms": [
       "ค้นหาเว็บ",
-      "duckduckgo",
       "ค้นหาอินเทอร์เน็ต",
-      "รถบัสและเว็บ",
-      "ค้นหาเว็บอีกครั้ง",
+      "ค้นหาออนไลน์",
+      "duckduckgo",
       "google",
-      "เรียกดู"
+      "เรียกดูเว็บ"
     ],
     "param.limit.description": "จำนวนผลลัพธ์สูงสุดที่จะส่งคืน (ค่าเริ่มต้น: 5)",
     "error.brave_failed_after_retries": "คำขอ Brave Search ล้มเหลวหลังจากลองอีกครั้ง: {error}",
@@ -557,15 +534,14 @@
     "error.missing_query_parameter": "缺少 'query' 参数",
     "error.run_tool_error": "运行工具错误：{error}",
     "param.query.description": "搜索查询字符串。",
-    "tool.description": "通过 StartPage（默认）、DuckDuckGo或 Brave Search 的 HTML 界面进行网页搜索，返回标题/链接/摘要。Brave Search 更适合日语/本地化查询。",
+    "tool.description": "通过 StartPage（默认）、DuckDuckGo或 Brave Search 的 HTML 界面进行网页搜索，返回标题/链接/摘要。Brave Search 更适合日语/本地化查询。 也支持 Yahoo Japan。",
     "x_search_terms": [
       "网络搜索",
+      "互联网搜索",
+      "在线搜索",
       "duckduckgo",
-      "搜索互联网",
-      "网络巴士",
-      "研究网",
       "google",
-      "浏览"
+      "浏览网页"
     ],
     "param.limit.description": "返回结果的最大数量（默认值：5）。",
     "error.brave_failed_after_retries": "Brave Search 请求重试后失败: {error}",
@@ -581,15 +557,14 @@
     "error.missing_query_parameter": "缺少 'query' 參數",
     "error.run_tool_error": "運行工具錯誤：{error}",
     "param.query.description": "搜尋查詢字串。",
-    "tool.description": "透過 StartPage（預設）、DuckDuckGo或 Brave Search 的 HTML 介面進行網頁搜尋，回傳標題/連結/摘要。Brave Search 更適合日語/本地化查詢。",
+    "tool.description": "透過 StartPage（預設）、DuckDuckGo或 Brave Search 的 HTML 介面進行網頁搜尋，回傳標題/連結/摘要。Brave Search 更適合日語/本地化查詢。 也支援 Yahoo Japan。",
     "x_search_terms": [
       "網路搜尋",
+      "網際網路搜尋",
+      "線上搜尋",
       "duckduckgo",
-      "搜尋網路",
-      "網路巴士",
-      "研究網",
       "google",
-      "瀏覽"
+      "瀏覽網頁"
     ],
     "param.limit.description": "傳回結果的最大數量（預設值：5）。",
     "error.brave_failed_after_retries": "Brave Search 請求重試後失敗: {error}",
@@ -605,15 +580,14 @@
     "error.missing_query_parameter": "অনুপস্থিত 'query' প্যারামিটার",
     "error.run_tool_error": "run_tool ত্রুটি: {error}",
     "param.query.description": "অনুসন্ধান ক্যোয়ারী.",
-    "tool.description": "StartPage (ডিফল্ট), DuckDuckGo বা Brave Search HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন। শিরোনাম/লিঙ্ক/স্নিপেট প্রদান করে। Brave Search জাপানি/স্থানীয় প্রশ্নের জন্য ভাল।",
+    "tool.description": "StartPage (ডিফল্ট), DuckDuckGo বা Brave Search HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন। শিরোনাম/লিঙ্ক/স্নিপেট প্রদান করে। Brave Search জাপানি/স্থানীয় প্রশ্নের জন্য ভাল। Yahoo Japan-ও সমর্থিত।",
     "x_search_terms": [
-      "ওয়েব সার্চ",
+      "ওয়েব অনুসন্ধান",
+      "ইন্টারনেট অনুসন্ধান",
+      "অনলাইনে অনুসন্ধান",
       "duckduckgo",
-      " ইন্টারনেট অনুসন্ধান করুন",
-      "ওয়েবে বাসকার",
-      "recherche ওয়েব",
       "google",
-      " ব্রাউজ করুন"
+      "ওয়েব ব্রাউজ"
     ],
     "param.limit.description": "ফেরত দেওয়ার সর্বোচ্চ ফলাফলের সংখ্যা (ডিফল্ট: 5)।",
     "error.brave_failed_after_retries": "পুনরায় চেষ্টা করার পরে Brave Search অনুরোধ ব্যর্থ হয়েছে: {error}",
@@ -629,15 +603,14 @@
     "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
     "error.run_tool_error": "خطای run_tool: {error}",
     "param.query.description": "رشتهٔ جستجو.",
-    "tool.description": "وب را از طریق StartPage (پیش‌فرض), DuckDuckGo یا رابط HTML Brave Search جستجو کنید. عنوان/پیوند/بازه‌ای را برمی‌گرداند. Brave Search برای جستارهای ژاپنی/محلی بهتر است.",
+    "tool.description": "وب را از طریق StartPage (پیش‌فرض), DuckDuckGo یا رابط HTML Brave Search جستجو کنید. عنوان/پیوند/بازه‌ای را برمی‌گرداند. Brave Search برای جستارهای ژاپنی/محلی بهتر است. Yahoo Japan نیز پشتیبانی می‌شود.",
     "x_search_terms": [
       "جستجوی وب",
-      "duckduckgo",
       "جستجوی اینترنتی",
-      "buscar en la web",
-      "وب recherche",
+      "جستجوی آنلاین",
+      "duckduckgo",
       "google",
-      "مرور"
+      "مرور وب"
     ],
     "param.limit.description": "حداکثر تعداد نتایج برای بازگشت (پیش‌فرض: 5).",
     "error.brave_failed_after_retries": "درخواست Brave Search پس از تلاش مجدد ناموفق بود: {error}",
@@ -653,15 +626,14 @@
     "error.missing_query_parameter": "'query' параметр дутуу",
     "error.run_tool_error": "run_tool алдаа: {error}",
     "param.query.description": "Хайлтын асуулга дутуу байна.",
-    "tool.description": "StartPage (анхдагч), DuckDuckGo эсвэл Brave Search HTML интерфейсээр дамжуулан вэбээс хайх. Гарчиг/холбоос/хэсгийг буцаана. Brave Search нь Япон/орон нутгийн асуулгад илүү тохиромжтой.",
+    "tool.description": "StartPage (анхдагч), DuckDuckGo эсвэл Brave Search HTML интерфейсээр дамжуулан вэбээс хайх. Гарчиг/холбоос/хэсгийг буцаана. Brave Search нь Япон/орон нутгийн асуулгад илүү тохиромжтой. Yahoo Japan-ийг мөн дэмжинэ.",
     "x_search_terms": [
       "вэб хайлт",
+      "интернэт хайлт",
+      "онлайнаар хайх",
       "duckduckgo",
-      "internet хайлт",
-      "автобусаар вэбээр",
-      "recherche вэб",
       "google",
-      "брейк"
+      "вэб үзэх"
     ],
     "param.limit.description": "Буцаах үр дүнгийн дээд тоо (анхдагч: 5).",
     "error.brave_failed_after_retries": "Дахин оролдсоны дараа Brave Search хүсэлт амжилтгүй боллоо: {error}",
@@ -677,15 +649,14 @@
     "error.missing_query_parameter": "'query' पॅरामीटर नाही",
     "error.run_tool_error": "run_tool त्रुटी: {error}",
     "param.query.description": "शोध क्वेरी.",
-    "tool.description": "StartPage (डीफॉल्ट), DuckDuckGo किंवा Brave Search HTML इंटरफेस द्वारे वेब शोधा. शीर्षक/लिंक/स्निपेट मिळवते. Brave Search जपानी/स्थानिक प्रश्नांसाठी अधिक चांगला आहे.",
+    "tool.description": "StartPage (डीफॉल्ट), DuckDuckGo किंवा Brave Search HTML इंटरफेस द्वारे वेब शोधा. शीर्षक/लिंक/स्निपेट मिळवते. Brave Search जपानी/स्थानिक प्रश्नांसाठी अधिक चांगला आहे. Yahoo Japan देखील समर्थित आहे.",
     "x_search_terms": [
       "वेब शोध",
+      "इंटरनेट शोध",
+      "ऑनलाइन शोध",
       "duckduckgo",
-      "इंटरनेट शोधा",
-      "buscar en la web",
-      "recherche वेब",
       "google",
-      "browse"
+      "वेब ब्राउझिंग"
     ],
     "param.limit.description": "परत करायच्या परिणामांची कमाल संख्या (डीफॉल्ट: 5).",
     "error.brave_failed_after_retries": "प्रयत्नांनंतर Brave Search विनंती अयशस्वी झाली: {error}",
@@ -701,15 +672,14 @@
     "error.missing_query_parameter": "λείπει η παράμετρος 'query'",
     "error.run_tool_error": "σφάλμα run_tool: {error}",
     "param.query.description": "Ερώτημα αναζήτησης.",
-    "tool.description": "Αναζητήστε στον ιστό μέσω της διεπαφής StartPage (προεπιλογή), DuckDuckGo ή Brave Search HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα. Το Brave Search είναι καλύτερο για ιαπωνικά/τοπικά ερωτήματα.",
+    "tool.description": "Αναζητήστε στον ιστό μέσω της διεπαφής StartPage (προεπιλογή), DuckDuckGo ή Brave Search HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα. Το Brave Search είναι καλύτερο για ιαπωνικά/τοπικά ερωτήματα. Υποστηρίζεται επίσης το Yahoo Japan.",
     "x_search_terms": [
       "αναζήτηση ιστού",
-      "duckduckgo",
       "αναζήτηση στο διαδίκτυο",
-      "buscar en la web",
-      "recherche web",
+      "αναζήτηση online",
+      "duckduckgo",
       "google",
-      "περιήγηση"
+      "περιήγηση ιστού"
     ],
     "param.limit.description": "Μέγιστος αριθμός αποτελεσμάτων προς επιστροφή (προεπιλογή: 5).",
     "error.brave_failed_after_retries": "Το αίτημα Brave Search απέτυχε μετά από επαναλήψεις: {error}",
@@ -725,15 +695,14 @@
     "error.missing_query_parameter": "חסר פרמטר 'query'",
     "error.run_tool_error": "שגיאת run_tool: {error}",
     "param.query.description": "שאילתת חיפוש.",
-    "tool.description": "חפש באינטרנט באמצעות StartPage (ברירת מחדל), DuckDuckGo או ממשק Brave Search HTML. מחזיר כותרת/קישור/קטע. Brave Search עדיף עבור שאילתות יפניות/מקומיות.",
+    "tool.description": "חפש באינטרנט באמצעות StartPage (ברירת מחדל), DuckDuckGo או ממשק Brave Search HTML. מחזיר כותרת/קישור/קטע. Brave Search עדיף עבור שאילתות יפניות/מקומיות. גם Yahoo Japan נתמך.",
     "x_search_terms": [
-      "חיפוש אינטרנט",
+      "חיפוש ברשת",
+      "חיפוש באינטרנט",
+      "חיפוש מקוון",
       "duckduckgo",
-      "חפש באינטרנט",
-      "buscar en la web",
-      "recherche web",
       "google",
-      "גלישה"
+      "גלישה ברשת"
     ],
     "param.limit.description": "מספר התוצאות המרבי להחזרה (ברירת מחדל: 5).",
     "error.brave_failed_after_retries": "בקשת Brave Search נכשלה לאחר ניסיונות חוזרים: {error}",
@@ -749,15 +718,14 @@
     "error.missing_query_parameter": "hiányzik a „query” paraméter",
     "error.run_tool_error": "run_tool hiba: {error}",
     "param.query.description": "Keresési lekérdezés.",
-    "tool.description": "Keressen az interneten a StartPage (alapértelmezett), DuckDuckGo vagy a Brave Search HTML felületen keresztül. Címet/linket/részletet ad vissza. A Brave Search jobb a japán/helyi lekérdezésekhez.",
+    "tool.description": "Keressen az interneten a StartPage (alapértelmezett), DuckDuckGo vagy a Brave Search HTML felületen keresztül. Címet/linket/részletet ad vissza. A Brave Search jobb a japán/helyi lekérdezésekhez. A Yahoo Japan is támogatott.",
     "x_search_terms": [
       "webes keresés",
+      "internetes keresés",
+      "keresés online",
       "duckduckgo",
-      "keresés az interneten",
-      "buscar en la web",
-      "recherche web",
       "google",
-      "böngészés"
+      "webböngészés"
     ],
     "param.limit.description": "A visszaadandó találatok maximális száma (alapértelmezett: 5).",
     "error.brave_failed_after_retries": "A Brave Search kérés sikertelen volt az újrapróbálkozások után: {error}",
@@ -773,15 +741,14 @@
     "error.missing_query_parameter": "lipsește parametrul 'query'",
     "error.run_tool_error": "eroare run_tool: {error}",
     "param.query.description": "Interogare de căutare.",
-    "tool.description": "Căutați pe web prin StartPage (implicit), DuckDuckGo sau interfața HTML Brave Search. Returnează titlul/linkul/fragmentul. Brave Search este mai bun pentru interogările în limba japoneză/locale.",
+    "tool.description": "Căutați pe web prin StartPage (implicit), DuckDuckGo sau interfața HTML Brave Search. Returnează titlul/linkul/fragmentul. Brave Search este mai bun pentru interogările în limba japoneză/locale. Este acceptat și Yahoo Japan.",
     "x_search_terms": [
       "căutare pe web",
+      "căutare pe internet",
+      "căutare online",
       "duckduckgo",
-      "cauta pe internet",
-      "caută pe web",
-      "recherche web",
       "google",
-      "browse"
+      "navigare web"
     ],
     "param.limit.description": "Numărul maxim de rezultate returnate (implicit: 5).",
     "error.brave_failed_after_retries": "Solicitarea Brave Search a eșuat după reîncercări: {error}",
@@ -800,12 +767,11 @@
     "tool.description": "Maghanap sa web sa pamamagitan ng StartPage (default, Google-kalidad), DuckDuckGo, Brave Search, o Yahoo Japan HTML interface. Ibinabalik ang pamagat/link/snippet.",
     "x_search_terms": [
       "paghahanap sa web",
+      "paghahanap sa internet",
+      "maghanap online",
       "duckduckgo",
-      "search sa internet",
-      "buscar sa web",
-      "recherche web",
       "google",
-      "browse"
+      "mag-browse ng web"
     ],
     "param.limit.description": "Pinakamataas na bilang ng mga resultang ibabalik (default: 5).",
     "error.brave_failed_after_retries": "Nabigo ang kahilingan sa Brave Search pagkatapos muling subukan: {error}",
@@ -824,12 +790,11 @@
     "tool.description": "Cari di web melalui StartPage (lalai, kualiti Google), DuckDuckGo, Brave Search atau antara muka HTML Yahoo Japan. Mengembalikan tajuk/pautan/coretan.",
     "x_search_terms": [
       "carian web",
+      "carian internet",
+      "cari dalam talian",
       "duckduckgo",
-      "cari internet",
-      "buscar en la web",
-      "recherche web",
       "google",
-      "layari"
+      "layari web"
     ],
     "param.limit.description": "Bilangan maksimum keputusan untuk dikembalikan (lalai: 5).",
     "error.brave_failed_after_retries": "Permintaan Brave Search gagal selepas cuba semula: {error}",
@@ -848,12 +813,11 @@
     "tool.description": "Søg på nettet via StartPage (standard, Google-kvalitet), DuckDuckGo, Brave Search eller Yahoo Japan HTML-grænseflade. Returnerer titel/link/snippet.",
     "x_search_terms": [
       "websøgning",
-      "duckduckgo",
       "søg på internettet",
-      "buscar en la web",
-      "recherche web",
+      "søg online",
+      "duckduckgo",
       "google",
-      "søg"
+      "webbrowsing"
     ],
     "param.limit.description": "Maksimalt antal resultater, der skal returneres (standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-anmodning mislykkedes efter genforsøg: {error}",
@@ -872,12 +836,11 @@
     "tool.description": "Søk på nettet via StartPage (standard, Google-kvalitet), DuckDuckGo, Brave Search eller Yahoo Japan HTML-grensesnitt. Returnerer tittel/link/snippet.",
     "x_search_terms": [
       "nettsøk",
-      "duckduckgo",
       "søk på internett",
-      "buscar en la web",
-      "recherche web",
+      "søk på nettet",
+      "duckduckgo",
       "google",
-      "se"
+      "nettlesing"
     ],
     "param.limit.description": "Maksimalt antall resultater å returnere (standard: 5).",
     "error.brave_failed_after_retries": "Brave Search-forespørsel mislukkast etter forsøk: {error}",
