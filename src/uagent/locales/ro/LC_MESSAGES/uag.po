@@ -891,9 +891,9 @@ msgid ""
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
 "This may happen with some providers (including Grok/xAI and OpenAI-compatible endpoints) after tool calls. You can try setting UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
 msgstr ""
-"[AVERTISMENT] LLM a returnat un mesaj de asistent gol fără apeluri de instrumente.\n"
+"[AVERTISMENT] LLM a returnat un mesaj gol al asistentului fără apeluri de instrumente.\n"
 "provider=%(provider)s depname=%(depname)s empty_no_tool_rounds=%(empty_no_tool_rounds)s (max=%(empty_no_tool_max)s)\n"
-"Acest lucru se poate întâmpla cu unii furnizori (inclusiv Grok/__PH_PH_point-ul compatibil) apeluri. Puteți încerca să setați UAGENT_EMPTY_NO_TOOL_MAX la o valoare mai mare sau să schimbați furnizorul."
+"Acest lucru se poate întâmpla cu unii furnizori (inclusiv Grok/xAI și endpoint-uri compatibile OpenAI) după apelurile de instrumente. Puteți încerca să setați UAGENT_EMPTY_NO_TOOL_MAX la o valoare mai mare sau să schimbați furnizorul."
 
 #: src/uagent/llm_flow_helpers.py:501 src/uagent/llm_flow_helpers.py:636
 #, python-format
@@ -2595,12 +2595,12 @@ msgstr "Note ale recenzentului: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Sunteți un reviewer. Evaluează conversația de mai jos și stabilește dacă obiectivul „%(goal)s” a fost atins.\n"
+"Sunteți un reviewer. Evaluați conversația de mai jos și stabiliți dacă obiectivul „%(goal)s” a fost atins.\n"
 "Atins → COMPLETE\n"
-"Mai necesar → CONTINUE\n"
+"Mai este necesar → CONTINUE\n"
 "Răspundeți cu COMPLETE sau CONTINUE.\n"
-"Dacă CONTINUE, spuneți pe scurt ce mai lipsește: CONTINUE:\n"
-">motiv:"
+"Dacă CONTINUE, spuneți pe scurt ce mai lipsește.\n"
+"Format: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
@@ -3881,12 +3881,12 @@ msgid ""
 ":tools reload           Reload tool modules from disk\n"
 ":tools output           Toggle showing tool results in UI"
 msgstr ""
-":tools activat|dezactivat Activați/dezactivați instrumentele de trimitere către LLM\n"
-":tools activat|dezactivat <gen> Activați/dezactivați un gen de instrumente (și sincronizarea globală activată)\n"
-":tools listă [interogare] Listează instrumentele încărcate\n"
-":tools încărcare <nume> Încărcare un instrument după nume modulul Reîncărcare PH_0\n"
-"_ ieșire disc\n"
-":tools Comută afișarea rezultatelor instrumentului în UI"
+":tools on|off           Activați/dezactivați trimiterea instrumentelor către LLM\n"
+":tools on|off <genre>   Activați/dezactivați un gen de instrumente (și sincronizați global on)\n"
+":tools list [query]     Listați instrumentele încărcate\n"
+":tools load <name>      Încărcați un instrument după nume\n"
+":tools reload           Reîncărcați modulele instrumentelor de pe disc\n"
+":tools output           Comutați afișarea rezultatelor instrumentelor în UI"
 
 #: src/uagent/util_help.py:214
 msgid "Tool authoring helpers"
