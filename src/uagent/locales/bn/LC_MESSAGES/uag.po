@@ -2552,10 +2552,12 @@ msgstr "পর্যালোচক নোট: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"আপনি একজন reviewer নীচের কথোপকথনটি মূল্যায়ন করুন এবং লক্ষ্য \"%(goal)s\" অর্জিত হয়েছে কিনা তা নির্ধারণ করুন। \n"
+"আপনি একজন reviewer। নিচের কথোপকথনটি মূল্যায়ন করুন এবং লক্ষ্য \"%(goal)s\" অর্জিত হয়েছে কি না নির্ধারণ করুন।\n"
 "অর্জিত → COMPLETE\n"
-"আরো প্রয়োজন → CONTINUE\n"
-" COMPLETE বা CONTINUE এর সাথে উত্তর দিন।"
+"আরও প্রয়োজন → CONTINUE\n"
+"COMPLETE অথবা CONTINUE দিয়ে উত্তর দিন।\n"
+"যদি CONTINUE হয়, কী এখনও বাকি আছে তা সংক্ষেপে বলুন।\n"
+"ফরম্যাট: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
