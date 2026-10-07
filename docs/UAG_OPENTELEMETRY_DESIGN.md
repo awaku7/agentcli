@@ -186,7 +186,7 @@ Rules:
 - OTel packages must be added to `_pip_auto.py`'s allowlist;
 - installation/exporter failures never fail the Agent task.
 
-An optional `uag[otel]` packaging extra may still exist for reproducible/offline deployment, but ordinary enabled use should not require a manual pip command.
+The current package does not require a dedicated `uag[otel]` extra. Enabled use relies on the existing auto-install policy, while reproducible/offline deployments may preinstall the three OTel packages explicitly.
 
 ## 7. Canonical trace model
 
