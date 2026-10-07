@@ -68,19 +68,19 @@ The target model separates the data plane from the enterprise control plane.
 
 The control plane may initially be local-file / SQLite backed, but public interfaces must not assume one process or one host.
 
-## 3.1. Enterprise Phase E0: external Web execution isolation
+## 3.1. Enterprise Phase E0: remote execution isolation
 
-External Web access changes the tool-execution threat model. A successfully authenticated remote user, a compromised browser session, malicious prompt content, a vulnerable tool, or a compromised model/tool chain must not gain a direct host-OS execution path.
+Remote access changes the tool-execution threat model. A successfully authenticated remote user or agent, a compromised browser/session/token, malicious prompt content, a vulnerable tool, or a compromised model/tool chain must not gain a direct host-OS execution path.
 
-For an external or authenticated multi-user Web deployment, **no ordinary tool call may execute directly on the UAG host**.
+For an external or authenticated multi-user Web deployment, and for an externally reachable A2A server with tools enabled, **no ordinary tool call may execute directly on the UAG host**. The same rule applies regardless of whether the remote request entered through Web UI, WebSocket, A2A `/message:send`, A2A streaming, or another future remote Agent ingress that can reach the normal tool-capable execution loop.
 
-Every Web-originated tool action must be classified into exactly one of these paths:
+Every remote-originated tool action must be classified into exactly one of these paths:
 
 1. **sandbox execution**: normal data-plane tools run inside an isolated execution environment;
 2. **brokered control-plane action**: credential, policy, identity, audit, or other privileged administration is handled by a narrow host-side service with explicit authorization;
 3. **deny**: operations that cannot be safely sandboxed or brokered are unavailable.
 
-There is no fourth "direct host execution because the user confirmed" path for external Web.
+There is no fourth "direct host execution because the caller confirmed" path for external Web or remote A2A.
 
 ### 3.1.1 Execution Broker
 
@@ -103,7 +103,7 @@ The Web execution path must not expose a container daemon socket, hypervisor con
 
 ### 3.1.2 Deployment profiles
 
-The security profile must be explicit. Automatic network-interface detection may warn but must not be the authority that decides whether sandboxing is required.
+The security profile must be explicit. Automatic network-interface detection may warn but must not be the authority that decides whether sandboxing is required. A2A binding to a non-loopback address is remote ingress and must not bypass the selected enterprise isolation profile.
 
 Conceptual profiles:
 
@@ -112,20 +112,21 @@ local-trusted
     CLI / GUI or explicitly local-only Web
     -> host execution may remain available under Unified Policy
 
-web-sandboxed
-    externally reachable or authenticated multi-user Web
+remote-sandboxed
+    externally reachable or authenticated multi-user Web,
+    or remote A2A with tools enabled
     -> sandbox or brokered-control-plane only
 
-web-high-assurance
+remote-high-assurance
     hostile multi-tenant / regulated deployment
     -> hypervisor-backed isolation required
 ```
 
-If a deployment selects an external Web profile and the required sandbox backend is unavailable or unhealthy, executable tools fail closed. UAG must not silently fall back to host execution.
+If a deployment selects a remote execution profile and the required sandbox backend is unavailable or unhealthy, executable tools fail closed. UAG must not silently fall back to host execution. An externally reachable A2A server with tools enabled must either use the same broker/sandbox policy or refuse tool-capable execution.
 
 ### 3.1.3 What "all tools" means
 
-All **data-plane tool execution** initiated through external Web is sandboxed. This includes, where applicable:
+All **data-plane tool execution** initiated through external Web or remote A2A is sandboxed. This includes, where applicable:
 
 - shell / cmd / PowerShell / bash;
 - Python and other interpreters;
@@ -141,7 +142,7 @@ Network-only operations may be implemented inside the sandbox or through a separ
 
 Control-plane capabilities such as policy administration, credential management, session revocation, directory/SCIM administration, or audit configuration are **not** moved into the untrusted sandbox. They remain narrow brokered services and are never reachable through a generic shell/file escape.
 
-Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/device access are denied by default for external Web. Future device access requires an explicit device broker and per-device policy; generic device passthrough is not a baseline feature.
+Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/device access are denied by default for external Web and remote A2A. Future device access requires an explicit device broker and per-device policy; generic device passthrough is not a baseline feature.
 
 ### 3.1.4 Sandbox lifetime and tenant binding
 
@@ -299,7 +300,8 @@ Headless browser automation may use the normal Linux sandbox backend. Native des
 
 ### 3.1.11 Failure and fallback rules
 
-- Sandbox launch failure: fail the tool call; never run on host.
+- Sandbox launch failure: fail the tool call/task; never run on host.
+- Remote A2A broker/sandbox failure: fail the A2A task or deny tool-capable execution; never fall back to the host tool loop.
 - Unsupported syscall/application under gVisor: deny or route to an explicitly configured stronger compatible backend; never host fallback.
 - Missing virtualization support in an external profile: executable tools remain unavailable.
 - Sandbox network policy failure: fail closed.
@@ -687,7 +689,7 @@ The implementation should be delivered in bounded PRs. Exact PR count may change
 
 ### Enterprise foundation: approximately 9-10 PRs
 
-1. Execution Broker contract, external-Web fail-closed routing, and sandbox policy model.
+1. Execution Broker contract, external-Web/remote-A2A fail-closed routing, and sandbox policy model.
 2. Linux sandbox backend using OCI plus gVisor as the preferred baseline.
 3. Windows Hyper-V isolation / VM backend and isolated Computer Use surface. This may be deferred to a platform-specific PR if Linux server deployment is the initial target.
 4. Durable OIDC session-store abstraction plus SQLite backend.
@@ -718,7 +720,7 @@ With E0 execution isolation and the OIDC hardening profile included, the full ro
 Recommended order:
 
 ```text
-E0 External Web Execution Isolation
+E0 Remote Execution Isolation
         |
         v
 E1 Durable Identity / HA
@@ -745,15 +747,16 @@ E5 Audit / SIEM
 E9 Supply Chain / Agent Registry
 ```
 
-E0 is the prerequisite for exposing executable tools through external Web. E1-E4 then form the minimum enterprise-control foundation. E5 should follow before broad deployment because administrator and policy activity must become reviewable. E6-E9 can then be prioritized according to customer/deployment needs.
+E0 is the prerequisite for exposing executable tools through external Web or remote A2A. E1-E4 then form the minimum enterprise-control foundation. E5 should follow before broad deployment because administrator and policy activity must become reviewable. E6-E9 can then be prioritized according to customer/deployment needs.
 
 ## 18. Initial enterprise completion gate
 
 The first enterprise milestone is complete when all of the following hold:
 
-- external Web has no direct-host ordinary tool-execution path;
-- executable external-Web tools fail closed when the required sandbox backend is unavailable;
+- external Web and remote A2A have no direct-host ordinary tool-execution path;
+- executable remote tools fail closed when the required sandbox backend is unavailable;
 - any sandbox that receives plaintext credential material is destroyed/reset to a verified clean state before reuse, or the credential-bearing operation is kept behind a narrow broker outside the sandbox;
+- remote A2A requests that reach the normal Agent loop are subject to the same sandbox/broker/deny routing as Web requests;
 - Computer Use/browser automation does not expose the host desktop or host browser profile;
 - authenticated Web can run safely across process restart and multiple instances;
 - administrator revocation takes effect across nodes;
