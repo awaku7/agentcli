@@ -190,14 +190,16 @@ When a tool requires a secret:
 
 1. Unified Policy authorizes the tool, destination, and credential reference;
 2. the broker resolves the credential outside the sandbox;
-3. only the minimum required secret is injected for the minimum required operation;
-4. the broker revokes/removes the injected secret immediately when that credential-using operation completes, whether it succeeds, fails, or is cancelled;
-5. lease teardown performs an additional best-effort cleanup sweep but is never the primary secret-lifetime boundary;
-6. later tool calls in a reusable sandbox must not inherit credentials from an earlier operation;
-7. stdout/stderr/tool results remain subject to secret masking;
-8. raw secret material is excluded from audit and telemetry.
+3. prefer keeping the secret outside the sandbox entirely and perform the credential-bearing exchange through a narrowly scoped broker when the protocol/tool can support that model;
+4. if plaintext secret injection into the sandbox is unavoidable, inject only the minimum required secret for the minimum required operation;
+5. the broker revokes/removes the injection immediately when that credential-using operation completes, whether it succeeds, fails, or is cancelled;
+6. a sandbox lease that received plaintext credential material is **tainted and non-reusable**: terminate the complete process tree and discard/reset all writable sandbox state before any later tool call;
+7. warm-pool reuse is allowed only after returning to a verified clean image/snapshot that cannot retain files, processes, environment state, clipboard state, browser state, or other artifacts from the credential-bearing operation;
+8. lease teardown performs an additional cleanup sweep but is never the primary secret-lifetime boundary;
+9. stdout/stderr/tool results remain subject to secret masking;
+10. raw secret material is excluded from audit and telemetry.
 
-Where possible, prefer short-lived scoped credentials or workload identity from E8 over long-lived static secrets.
+Long-lived static credentials should not be exposed to an untrusted sandbox where a brokered exchange, short-lived scoped credential, or workload identity from E8 can satisfy the operation.
 
 ### 3.1.7 Resource and denial-of-service controls
 
@@ -751,6 +753,7 @@ The first enterprise milestone is complete when all of the following hold:
 
 - external Web has no direct-host ordinary tool-execution path;
 - executable external-Web tools fail closed when the required sandbox backend is unavailable;
+- any sandbox that receives plaintext credential material is destroyed/reset to a verified clean state before reuse, or the credential-bearing operation is kept behind a narrow broker outside the sandbox;
 - Computer Use/browser automation does not expose the host desktop or host browser profile;
 - authenticated Web can run safely across process restart and multiple instances;
 - administrator revocation takes effect across nodes;
