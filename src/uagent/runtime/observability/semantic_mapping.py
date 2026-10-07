@@ -20,8 +20,9 @@ _GENAI_PROVIDER_NAMES = {
 
 
 def _genai_provider_name(provider: str) -> str:
-    normalized = str(provider or "").strip().lower()
-    return _GENAI_PROVIDER_NAMES.get(normalized, normalized)
+    original = str(provider or "").strip()
+    normalized = original.lower()
+    return _GENAI_PROVIDER_NAMES.get(normalized, original)
 
 
 @dataclass(frozen=True)

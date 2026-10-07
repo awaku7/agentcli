@@ -4,6 +4,7 @@ import asyncio
 
 import httpx
 
+from uagent.tools.mcp.client import MCPClient
 from uagent.tools.mcp.http_client import create_mcp_http_client
 from uagent.tools.mcp.stateless_transport import StatelessHTTPClient
 
@@ -211,3 +212,88 @@ def test_stateful_setup_cancellation_closes_owned_trace_http_client(
         assert client._http_client is None
 
     asyncio.run(scenario())
+
+
+def test_trusted_mcp_sdk_call_injects_message_trace_meta(monkeypatch) -> None:
+    backend = _PropagationBackend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    seen: dict[str, object] = {}
+
+    class Session:
+        async def call_tool(self, name, arguments, *, meta=None):
+            seen["name"] = name
+            seen["arguments"] = arguments
+            seen["meta"] = meta
+            return {"ok": True}
+
+    client = MCPClient(trusted_trace_propagation=True)
+    client.session = Session()
+    result = asyncio.run(client.call_tool("ping", {"value": 1}))
+
+    assert result == {"ok": True}
+    assert seen["meta"] == {
+        "traceparent": _TRACEPARENT,
+        "tracestate": "uag=test",
+    }
+
+
+def test_trusted_mcp_sdk_call_keeps_legacy_sdk_compatible(monkeypatch) -> None:
+    backend = _PropagationBackend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    calls = []
+
+    class LegacySession:
+        async def call_tool(self, name, arguments):
+            calls.append((name, arguments))
+            return {"ok": True}
+
+    client = MCPClient(trusted_trace_propagation=True)
+    client.session = LegacySession()
+    result = asyncio.run(client.call_tool("ping", {"value": 1}))
+
+    assert result == {"ok": True}
+    assert calls == [("ping", {"value": 1})]
+
+
+def test_trusted_stateless_mcp_injects_trace_meta_into_jsonrpc(monkeypatch) -> None:
+    backend = _PropagationBackend()
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+    seen: dict[str, object] = {}
+
+    class Response:
+        status_code = 200
+
+        def json(self):
+            return {"jsonrpc": "2.0", "id": 1, "result": {"ok": True}}
+
+    class HTTPClient:
+        async def post(self, url, *, json, headers):
+            seen["url"] = url
+            seen["json"] = json
+            seen["headers"] = headers
+            return Response()
+
+    transport = StatelessHTTPClient(
+        "https://mcp.example/mcp",
+        http_client=HTTPClient(),
+        trusted_trace_propagation=True,
+    )
+    result = asyncio.run(transport.call_tool("ping", {"value": 1}))
+
+    assert result["result"] == {"ok": True}
+    body = seen["json"]
+    assert isinstance(body, dict)
+    assert body["params"]["_meta"] == {
+        "traceparent": _TRACEPARENT,
+        "tracestate": "uag=test",
+    }
+    assert "baggage" not in body["params"]["_meta"]
