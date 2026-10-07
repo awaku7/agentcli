@@ -175,7 +175,7 @@ goal:B
 goal:C
 ~~~
 
-Compaction は chunk ごとに新しい単一 Goal を作らず、既存 GoalState へ意味的に振り分けて更新する。
+Compaction は chunk ごとに新しい単一 Goal を作らず、既存 AgentState の Goal と照合して GoalDelta を生成する。
 
 ### 3.8 AgentState を現在状態の正本とする
 
@@ -777,7 +777,7 @@ class HandoffRecord:
 
 Main Agent からは、
 
-- 対象 `goal_id` の GoalState
+- 対象 `goal_id` に対応する AgentState の Goal projection
 - explicit objective
 - Constraints
 - relevant Checkpoints
@@ -822,7 +822,7 @@ Auto-pilot の複数ラウンド処理でも Structured Compaction を利用す�
 - interruption / cancellation 前
 - resume 用 checkpoint が必要なとき
 
-Auto-pilot の終了判定には、対象 GoalState ごとの status / completed / in_progress / blocked / next_steps を入力候補として利用できる。
+Auto-pilot の終了判定には、AgentState 内の対象 Goal ごとの status / completed / in_progress / blocked / next_steps を入力候補として利用できる。
 
 複数 Goal が active な場合、1つの Goal が done になっただけでセッション全体を完了扱いにしない。
 
@@ -1013,7 +1013,7 @@ Compaction は **情報変換処理** であり **Agent action** ではない。
 ### 22.1 要約失敗
 
 ~~~text
-Structured Summary failure
+Semantic extraction failure
     ↓
 legacy rolling summary
     ↓
@@ -1103,7 +1103,7 @@ CAS(branch_head, expected=41, new=42)
 
 競合しただけで無条件に新 Branch を量産しない。まず deterministic merge の可否を判定する。意味的に独立した変更、明示的 alternative path、または安全に merge できない concurrent change の場合に branch を維持する。
 
-Branch merge は新しい merge checkpoint / revision を生成し、両 parent lineage を参照できるようにする。したがって単一 `parent_checkpoint_id` だけでは merge commit を表現できないため、データモデルは `parent_checkpoint_ids: list[str]` を canonical とする。単一親は list 要素1件として表現する。
+Branch merge は新しい merge checkpoint / revision を生成し、両 parent lineage を参照できるようにする。したがって単一 `parent_checkpoint_ids` だけでは merge commit を表現できないため、データモデルは `parent_checkpoint_ids: list[str]` を canonical とする。単一親は list 要素1件として表現する。
 
 ### 23.3.3 Event Ordering
 
