@@ -1,7 +1,10 @@
 import gettext
+import re
 from pathlib import Path
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
+ARTIFACT_RE = re.compile(r"(?:PH_|___\\d|__\\d)")
+ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___\\d|__\\d)")
 
 MULTILINE_MSGIDS = {
     "auto_review": "auto.review_judgment_system_prompt",
@@ -49,10 +52,10 @@ REPAIRED_MULTILINE_LOCALES = {
     "cs": ("auto_review", "tools_help"),
     "da": ("auto_review", "tool_calling"),
     "el": ("warning",),
-    "fi": ("skills_help", "tools_help"),
+    "fi": ("auto_review", "skills_help", "tools_help"),
     "fil": ("tool_calling", "tools_help"),
     "he": ("tools_help",),
-    "hu": ("skills_help", "tools_help"),
+    "hu": ("auto_review", "skills_help", "tools_help"),
     "mn": ("warning", "auto_review", "skills_help", "tools_help"),
     "ms": ("tool_calling",),
     "nn": ("auto_review", "skills_help", "tools_help"),
@@ -69,18 +72,21 @@ def test_gettext_catalogs_do_not_ship_placeholder_artifacts():
         for line_number, line in enumerate(
             path.read_text(encoding="utf-8").splitlines(), start=1
         ):
-            if "PH_" in line:
+            if ARTIFACT_RE.search(line):
                 offenders.append(
                     f"{path.relative_to(LOCALES_DIR)}:{line_number}: {line.strip()}"
                 )
 
     for path in sorted(LOCALES_DIR.glob("*/LC_MESSAGES/uag.mo")):
-        if b"PH_" in path.read_bytes():
-            offenders.append(f"{path.relative_to(LOCALES_DIR)}: binary contains PH_")
+        if ARTIFACT_BYTES_RE.search(path.read_bytes()):
+            offenders.append(
+                f"{path.relative_to(LOCALES_DIR)}: binary contains placeholder artifact"
+            )
 
-    assert (
-        not offenders
-    ), "Placeholder artifacts remain in gettext catalogs:\n" + "\n".join(offenders)
+    message = "Placeholder artifacts remain in gettext catalogs:\n" + "\n".join(
+        offenders
+    )
+    assert not offenders, message
 
 
 def test_repaired_multiline_gettext_entries_use_real_newlines():
@@ -101,5 +107,10 @@ def test_repaired_multiline_gettext_entries_use_real_newlines():
                 offenders.append(f"{locale}:{key}: missing real newline")
             if "\\n" in translated:
                 offenders.append(f"{locale}:{key}: contains literal backslash-n")
+            if key == "auto_review" and "CONTINUE: <reason>" not in translated:
+                offenders.append(
+                    f"{locale}:{key}: missing CONTINUE: <reason> protocol format"
+                )
 
-    assert not offenders, "Broken multiline gettext entries:\n" + "\n".join(offenders)
+    message = "Broken multiline gettext entries:\n" + "\n".join(offenders)
+    assert not offenders, message
