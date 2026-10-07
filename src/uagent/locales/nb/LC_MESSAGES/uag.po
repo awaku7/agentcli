@@ -2549,12 +2549,12 @@ msgstr "Anmeldernotater: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Du er en reviewer. Evaluer samtalen nedenfor og avgjør om målet \"%(goal)s\" er oppnådd.\n"
-"Oppnådd → COMPLETE\n"
-"Mer nødvendig → CONTINUE\n"
-"Svar med COMPLETE eller CONTINUE.\n"
-"Hvis CONTINUE, oppgi kort hva som fortsatt mangler.\n"
-"ason: <CONTINUE"
+"Du er en reviewer. Evaluer samtalen nedenfor og avgjør om målet \"%(goal)s\" er oppnådd.\\n"
+"Oppnådd → COMPLETE\\n"
+"Mer nødvendig → CONTINUE\\n"
+"Svar med COMPLETE eller CONTINUE.\\n"
+"Hvis CONTINUE, oppgi kort hva som fortsatt mangler.\\n"
+"Format: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
