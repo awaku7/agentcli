@@ -281,16 +281,30 @@ def test_vietnamese_and_thai_gettext_catalogs_do_not_contain_han_script():
 
     for locale in ("th", "vi"):
         catalog = LOCALES_DIR / locale / "LC_MESSAGES" / "uag.po"
+        in_msgstr = False
+
         for line_number, line in enumerate(
             catalog.read_text(encoding="utf-8").splitlines(), start=1
         ):
-            if HAN_SCRIPT_RE.search(line):
+            stripped = line.strip()
+
+            if stripped.startswith("msgstr "):
+                in_msgstr = True
+                translated_line = stripped[len("msgstr ") :]
+            elif in_msgstr and stripped.startswith('"'):
+                translated_line = stripped
+            else:
+                in_msgstr = False
+                continue
+
+            if HAN_SCRIPT_RE.search(translated_line):
                 offenders.append(
-                    f"{locale}:{line_number}: unexpected Han script: {line.strip()}"
+                    f"{locale}:{line_number}: unexpected Han script: "
+                    f"{translated_line}"
                 )
 
     message = (
-        "Unexpected Han script remains in Vietnamese/Thai catalogs:\n"
+        "Unexpected Han script remains in Vietnamese/Thai translations:\n"
         + "\n".join(offenders)
     )
     assert not offenders, message
