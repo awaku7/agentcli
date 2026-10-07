@@ -320,11 +320,14 @@ CompactionRecord は current state のコピーではなく、対象履歴区間
 class CompactionRecord:
     record_id: str
     operation_id: str  # stable across retries
+    application_status: str  # applied / comparison_only; immutable
     tenant_id: str | None
     principal_id: str | None
     workspace_id: str | None
     session_id: str
-    client_instance_id: str | None
+    client_instance_id: str | None  # present only for a real Client Instance
+    actor_kind: str  # cli_client / gui_client / browser_tab / a2a_task / runtime
+    actor_id: str  # actual creator ID; A2A Task ID for a2a_task
     agent_id: str | None
     created_at: str
 
@@ -354,7 +357,7 @@ class CompactionRecord:
     schema_version: int = 2
 ~~~
 
-Checkpoint は append-only / immutable を原則とし、同じ Checkpoint を上書き更新せず新しい record と lineage を作る。
+Checkpoint は append-only / immutable を原則とし、同じ Checkpoint を上書き更新せず新しい record と lineage を作る。`application_status` は保存時に確定して永続化し、`comparison_only` は Reducer 適用・通常の Active Context 選択・最新適用 Checkpoint 判定のすべてから除外する。`applied` のみ AgentState に反映する。`actor_kind` / `actor_id` は作成元を表し、A2A Task では Task ID を保持する。
 
 ### 6.2 GoalDelta と Goal Association
 
@@ -644,7 +647,7 @@ Chunk の境界と Goal の境界は一致させない。既存 Goal と明確�
 
 Compaction request には永続的な stable `operation_id` を付与し、crash / timeout 後の retry でも同じ ID を使用する。Checkpoint の operation_id UNIQUE 制約、Reducer 適用、AgentState revision 更新は **同一 SQLite transaction** で commit する。意図的な再圧縮では新しい operation_id を使うが、operation_id の違いだけを理由に同じ evidence を再適用してはならない。
 
-同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として **comparison-only（Reducer には適用しない）** で保存する。正式に置き換える場合は、既存適用の取り消し・置換を別途設計してから行い、comparison-only record をそのまま Reducer に渡さない。同一 operation の retry は idempotency key で重複 commit を防ぐ。
+同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として **comparison-only（Reducer には適用しない）** で保存する。正式に置き換える場合は、既存適用の取り消し・置換を別途設計してから行い、comparison-only record をそのまま Reducer に渡さない。同一 operation の retry は idempotency key で重複 commit を防ぐ。比較用 record は `application_status=comparison_only` として保存し、復旧後も Reducer や通常の ContextCandidate に渡さない。
 
 ## 11. Deterministic File / Artifact Tracking
 
@@ -709,7 +712,7 @@ class ExecutionRecord:
 
 ## 12. Checkpoint と Active Context
 
-Checkpoint は ContextCandidate として扱う。
+Checkpoint は ContextCandidate として扱う。ただし `application_status=applied` の Checkpoint のみ通常選択の対象とし、`comparison_only` は明示的な比較・監査時だけ参照する。
 
 ~~~python
 ContextCandidate(
@@ -775,22 +778,30 @@ Rehydration は全文復元を意味しない。
 
 UAG の Sub-Agent は全履歴を Main Agent に返さない。
 
-標準の HandoffRecord を使用する。
+標準の HandoffRecord を使用する。各報告項目は `ProvenancedHandoffItem(text, source_refs)` とし、Sub-Agent 側の message / event / artifact を項目ごとに参照する。`source_checkpoint_id` だけを出典の代わりにしない。
+
+~~~python
+@dataclass
+class ProvenancedHandoffItem:
+    text: str
+    source_refs: list[str]
+~~~
 
 ~~~python
 @dataclass
 class HandoffRecord:
+    handoff_id: str  # stable across delivery retries
     agent_id: str
     role: str
 
     goal_ids: list[str]
     objective: str
 
-    work_done: list[str]
-    findings: list[str]
+    work_done: list[ProvenancedHandoffItem]
+    findings: list[ProvenancedHandoffItem]
     decisions: list[DecisionRecord]
-    unresolved: list[str]
-    recommended_next_steps: list[str]
+    unresolved: list[ProvenancedHandoffItem]
+    recommended_next_steps: list[ProvenancedHandoffItem]
 
     state_delta: DeterministicDelta
     artifact_refs: list[str]
@@ -815,7 +826,7 @@ Main Agent からは、
 
 Sub-Agent の Raw History は Sub-Agent 側 Persistent Context に残す。
 
-Main Agent へ戻すのは HandoffRecord と参照だけとする。
+Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ ID の再送は再適用しない。
 
 ~~~text
 Sub-Agent Raw History
@@ -1127,14 +1138,20 @@ agent_states
 checkpoints             # new
   checkpoint_id
   operation_id          # UNIQUE
+  application_status   # applied / comparison_only
+  actor_kind
+  actor_id
   session_id
   base_revision
   result_revision
   parent_checkpoint_id
   record_json / structured fields
-  created_by_client
+  created_by_client     # nullable; actual Client Instance only
   created_at
 ~~~
+
+handoff_applications    # new; handoff_id UNIQUE, receiving_session_id, applied_at
+  # handoff_id の適用記録と AgentState 更新は同一 transaction
 
 `agent_states.revision` は Session の current AgentState revision として扱う。AgentState 保存は unconditional UPSERT ではなく expected/base revision を条件にした atomic update とし、条件不一致は Revision Conflict として返す。
 
