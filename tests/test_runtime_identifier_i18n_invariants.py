@@ -320,6 +320,29 @@ def test_simplified_chinese_error_analyst_preserves_canonical_semantics():
     assert "proposed_actions" in body
 
 
+def test_known_localized_prompt_semantics_are_complete():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+
+    id_planner = catalog["id"]["auto.6cb7e91442d0aa96"]
+    assert "Jika tugas sudah selesai" in id_planner
+    assert "next_actions kosong" in id_planner
+
+    ja_summarizer = catalog["ja"]["auto.da98c4c06ff99472"]
+    assert "key_points は省略できます" in ja_summarizer
+    assert "技術用語は記載どおりに維持" in ja_summarizer
+
+    ko_patch = catalog["ko"]["auto.417eea12dad04caa"]
+    assert "summary에 이유를 설명" in ko_patch
+    assert "권장 순서대로 나열" in ko_patch
+
+    for lang in ("pt", "pt_BR"):
+        planner_prompt = catalog[lang]["auto.6cb7e91442d0aa96"]
+        assert "tarefa já estiver concluída" in planner_prompt
+        assert "next_actions vazia" in planner_prompt
+
+
 def test_sub_agent_internal_prompts_preserve_canonical_role_instructions():
     payload = _load("sub_agent_tool.json")
     invalid = []
