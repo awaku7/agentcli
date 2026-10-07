@@ -360,6 +360,16 @@ def test_japanese_and_indonesian_prompt_semantics_are_complete():
     assert "berdasarkan urutan kemungkinan" in ident["auto.4651eaae39b1dbbb"]
 
 
+def test_ukrainian_reviewer_preserves_no_problems_condition():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+    reviewer = catalog["uk"]["auto.238f691c6304d301"]
+
+    assert "Якщо проблем немає" in reviewer
+    assert "порожній список findings" in reviewer
+
+
 def test_recent_reviewed_prompt_semantics_are_complete():
     catalog = json.loads(
         (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")

@@ -407,6 +407,15 @@ def test_provider_overload_status_matches_structured_statuses() -> None:
     )
 
 
+def test_provider_overload_status_matches_deepl_text_only_overload() -> None:
+    assert (
+        batch._provider_overload_status(
+            "translate error: Translation request failed: Too many requests"
+        )
+        == "429"
+    )
+
+
 def test_provider_overload_status_ignores_unrelated_counts() -> None:
     assert (
         batch._provider_overload_status("bad translated length (got 529, expected 7)")

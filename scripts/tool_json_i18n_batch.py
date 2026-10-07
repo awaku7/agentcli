@@ -126,11 +126,19 @@ PROVIDER_OVERLOAD_STATUS_PATTERNS = (
 )
 
 
+PROVIDER_OVERLOAD_TEXT_PATTERNS = (
+    (re.compile(r"\btoo many requests\b", re.IGNORECASE), "429"),
+)
+
+
 def _provider_overload_status(message: str) -> str | None:
     for pattern in PROVIDER_OVERLOAD_STATUS_PATTERNS:
         match = pattern.search(message)
         if match is not None:
             return match.group(1)
+    for pattern, status in PROVIDER_OVERLOAD_TEXT_PATTERNS:
+        if pattern.search(message) is not None:
+            return status
     return None
 
 # translate_text hard limit per element
