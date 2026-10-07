@@ -226,70 +226,88 @@ Event は「何が起きたか」、Checkpoint は「ある履歴区間をどう
 |---|---|
 | Raw History | 圧縮前の会話・tool interaction |
 | Logical Turn | user input から、その処理に属する assistant / tool result 群まで |
-| Compaction | Raw History を継続可能な compact state に変換する処理 |
-| CompactionRecord | Compaction の永続的・構造化された結果 |
-| Checkpoint | 継続・resume に利用可能な CompactionRecord |
-| HandoffRecord | Agent / Sub-Agent / branch 間の引き継ぎ用 compact state |
+| Event | Runtime が観測した append-only の事実。ordering / provenance / idempotency の基礎 |
+| Compaction | Raw History / Event を継続可能な compact evidence に変換する処理 |
+| CompactionRecord | Compaction の immutable な delta / evidence |
+| Checkpoint | resume / retrieval に利用できる committed CompactionRecord |
+| AgentState | 現在の Goal / progress / next action 等を持つ authoritative materialized state |
+| GoalDelta | ある履歴区間で観測された Goal に関する変化・evidence |
+| HandoffRecord | Agent / Sub-Agent / branch 間の引き継ぎ用 compact evidence |
 | Active Context | 今回の LLM 呼び出しに投入する context |
-| Rehydration | Artifact / Raw History から必要情報を再取得すること |
+| Rehydration | authorization を再評価した上で Artifact / Raw History / Event から必要情報を再取得すること |
 | Split Turn | 1 logical turn 自体が budget を超えるため、その一部を圧縮すること |
-| GoalState | 1つの目的・作業系統の状態を保持する構造 |
-| Workstream | 継続的に追跡する意味上の作業単位。実装上は GoalState で表現する |
-| goal_id | rolling compaction をまたいで同じ GoalState を識別する安定 ID |
+| Workstream / Goal | 継続的に追跡する意味上の作業単位。current state は AgentState に保持する |
+| goal_id | compaction / instance / resume をまたいで同じ Goal を識別する安定 ID |
+| runtime_instance_id | CLI / GUI / Web 等の実行 instance を識別する ID |
+| Branch | 同一 Session 内の並行・代替 execution lineage |
+| Branch Head | ある branch で現在採用されている committed checkpoint / AgentState revision |
+| Revision | optimistic concurrency control に用いる単調増加する materialized state version |
+| Principal | 操作主体。人間ユーザー、service identity 等を含む認証・認可上の主体 |
 
----
 
 ## 5. 全体アーキテクチャ
 
 ~~~mermaid
 flowchart TD
-    RAW[Raw History / Tool Results / Artifacts]
-    BOUNDARY[Compaction Boundary Planner]
-    EXTRACT[Deterministic State Extractor]
-    SUMMARIZE[Structured Summarizer]
-    RECONCILE[Goal Reconciler]
-    VALIDATE[Schema Validator]
-    RECORD[CompactionRecord]
+    ID[Identity / Runtime Instance]
+    AUTH[Scope / Authorization]
+    RAW[Raw History / Events / Tool Results / Artifacts]
     STORE[Persistent Context Store]
+    BOUNDARY[Compaction Boundary Planner]
+    DEX[Deterministic Event Extractor]
+    SEM[Semantic Delta Extractor]
+    ASSOC[Goal Association]
+    VALIDATE[Schema / Provenance Validator]
+    RECORD[Immutable CompactionRecord]
+    CONFLICT[Revision / Conflict Check]
+    REDUCER[AgentState Reducer]
+    STATE[AgentState + Branch Head]
     CANDIDATE[ContextCandidate]
     DECISION[Context Decision Engine]
     ACTIVE[ActiveContextBuilder]
     PROJECTION[Provider Projection]
     LLM[LLM]
 
+    ID --> AUTH
+    AUTH --> RAW
     RAW --> STORE
     RAW --> BOUNDARY
-    BOUNDARY --> EXTRACT
-    BOUNDARY --> SUMMARIZE
-    EXTRACT --> RECORD
-    SUMMARIZE --> RECONCILE
-    RECONCILE --> VALIDATE
+    BOUNDARY --> DEX
+    BOUNDARY --> SEM
+    SEM --> ASSOC
+    DEX --> RECORD
+    ASSOC --> VALIDATE
     VALIDATE --> RECORD
     RECORD --> STORE
+    RECORD --> CONFLICT
+    STATE --> CONFLICT
+    CONFLICT --> REDUCER
+    REDUCER --> STATE
+    STATE --> STORE
     RECORD --> CANDIDATE
+    STATE --> CANDIDATE
+    AUTH --> CANDIDATE
     CANDIDATE --> DECISION
     DECISION --> ACTIVE
     ACTIVE --> PROJECTION
     PROJECTION --> LLM
 ~~~
 
-処理順は、
+標準処理順は次の通り。
 
-~~~text
-1. 圧縮が必要か判定
-2. Safe Boundary を決定
-3. Deterministic State を抽出
-4. LLM で Structured Summary を生成
-5. 既存 GoalState と照合し Goal-aware merge
-6. Schema Validation
-7. CompactionRecord を生成
-8. Persistent Storage へ保存
-9. Active Context では CompactionRecord の Projection を使用
-~~~
+1. Principal / runtime instance / workspace / session / branch scope を解決し authorization を確認
+2. 圧縮が必要か判定し Safe Boundary を決定
+3. Runtime が DeterministicDelta を抽出
+4. LLM が semantic GoalDelta / Decision / Constraint / Fact / Narrative を抽出
+5. Runtime が Goal association、schema、item-level provenance を検証
+6. base revision / branch head を検証して immutable CompactionRecord を commit
+7. Reducer が conflict policy に従って AgentState を materialize
+8. branch head を compare-and-set で更新
+9. AgentState / Checkpoint / Artifact 等を authorization-aware ContextCandidate として選択
+10. ActiveContextBuilder → Provider Projection → LLM
 
-とする。
+Compaction と current-state update を同一概念にしない。Checkpoint commit が成功しても branch head の更新に競合した場合、その Checkpoint は orphan として破棄せず lineage / retry / merge の evidence として保持できる。
 
----
 
 ## 6. CompactionRecord
 
@@ -325,7 +343,7 @@ class CompactionRecord:
     first_kept_message_id: str | None
     split_turn: bool
     previous_compaction_id: str | None
-    parent_checkpoint_id: str | None
+    parent_checkpoint_ids: list[str]
     base_revision: int | None
     committed_revision: int | None
 
@@ -828,7 +846,7 @@ Checkpoint A
             └── Checkpoint C
 ~~~
 
-parent_checkpoint_id によって lineage を保持する。
+parent_checkpoint_ids によって lineage を保持する。単一親だけでなく merge checkpoint の複数親を表現できる。
 
 初期実装では branch UI を必須としない。
 
@@ -1061,6 +1079,38 @@ Context retrieval 自体を authorization 対象とする。Checkpoint が過去
 
 wall-clock timestamp だけで event 順序を決めず、revision、parent checkpoint、event sequence / causal reference を使う。AgentState 更新は optimistic concurrency control を基本とし、競合を deterministic auto-merge、semantic merge、branch 維持、user/operator decision に分類する。暗黙の last-write-wins は採用しない。長時間 Agent 全体を lock せず、lock / lease は transaction-like operation に限定する。
 
+### 23.3.1 Session / Branch / Head の意味
+
+`session_id` は会話・作業履歴の共有 container であり、単一の current head を意味しない。同一 Session は複数 Branch を持てる。
+
+各 runtime instance は少なくとも `session_id + branch_id + observed_head_revision` を持つ。通常起動時は default branch の head を観測するが、並行更新や alternative path により branch が分岐できる。
+
+Branch head の更新は compare-and-set とする。
+
+~~~text
+observed head = revision 41
+        ↓
+checkpoint / state candidate for 42
+        ↓
+CAS(branch_head, expected=41, new=42)
+        ├─ success → 42 becomes head
+        └─ conflict → 既存 head を再取得し merge / new branch / user decision
+~~~
+
+`latest timestamp` を head 選択規則にしない。Session 全体に複数 head が存在する場合も許容する。
+
+### 23.3.2 Branch の生成・合流
+
+競合しただけで無条件に新 Branch を量産しない。まず deterministic merge の可否を判定する。意味的に独立した変更、明示的 alternative path、または安全に merge できない concurrent change の場合に branch を維持する。
+
+Branch merge は新しい merge checkpoint / revision を生成し、両 parent lineage を参照できるようにする。したがって単一 `parent_checkpoint_id` だけでは merge commit を表現できないため、データモデルは `parent_checkpoint_ids: list[str]` を canonical とする。単一親は list 要素1件として表現する。
+
+### 23.3.3 Event Ordering
+
+Event は wall-clock ではなく `event_id`、`runtime_instance_id`、instance-local sequence、causal parent / operation_id を持つ。DB の global autoincrement を分散因果順序そのものとして扱わない。
+
+全 Event の完全な total order を作る必要はなく、Reducer が必要とする causal order と branch-local order を保証する。並行で順序不能な Event は concurrent として扱う。
+
 ### 23.4 Transaction / Crash Recovery
 
 Checkpoint / AgentState 更新には commit boundary を設ける。process / OS / provider が途中停止しても最後の committed revision から復旧できるようにし、必要に応じ draft / committed / aborted 相当の transaction state を持つ。復旧時は未確定 operation を検出し、idempotency key で二重適用を防ぎ、external side effect を確認して安全な continuation point から resume する。
@@ -1077,13 +1127,42 @@ GitHub push、メール送信、ファイル削除、外部 API mutation 等は 
 
 Human approval は、誰が、何を、どの scope / revision / operation に対して承認したかを記録する。対象 revision や operation 内容が変わった場合は古い approval を自動再利用しない。Compaction / summary から approval を生成・推測しない。
 
+### 23.7.1 Identity とローカル CLI の扱い
+
+Multi-user 対応のために、すべての local CLI へオンライン認証を強制しない。Principal resolution は deployment mode に依存する。
+
+- standalone local: OS user / local profile に束縛された local principal
+- shared local machine: OS identity + UAG profile / workspace ACL
+- remote GUI / Web / server: authenticated principal / tenant identity
+- service / Sub-Agent: delegating principal と bounded capability
+
+Principal が解決できない共有環境では cross-user retrieval / shared mutation を許可しない。`principal_id=None` を「全員アクセス可」の意味にしてはならない。
+
+### 23.7.2 Delegation / Capability
+
+Sub-Agent や background worker へ権限を渡す場合は ambient authority をコピーせず、対象 workspace / session / goal / tool / resource / expiry を絞った delegation を使う。delegation は呼び出し元 principal と provenance を保持し、revocation 後の新規 retrieval / mutation では再評価する。
+
 ### 23.8 Retention / GC / Redaction
 
 Raw History を論理的に失わないことと、全データを永久に同じ storage tier に置くことを分離する。retention / archive / GC を将来可能にしつつ参照整合性を守る。後から secret / private data と判明した情報を派生 Checkpoint、Narrative、Memory、Artifact まで追跡できるよう item-level provenance を使う。
 
+### 23.8.1 Snapshot / Replay Boundary
+
+AgentState を Event / Checkpoint から再構築可能にする一方、起動のたびに全履歴 replay を要求しない。定期的な materialized state snapshot を保存し、`snapshot_revision` と `last_applied_event/checkpoint` を持つ。
+
+復旧は最新の検証済み snapshot を読み、そこから後続 committed delta だけを replay する。snapshot は cache / acceleration であり、lineage と provenance を切断する新しい正本にはしない。
+
+Snapshot の checksum / schema_version / source revision を検証し、破損時は以前の snapshot または Raw History / committed records から再構築できるようにする。
+
 ### 23.9 Schema Migration / Capability Negotiation
 
 異なる UAG version の instance が同じ SessionStore を開く可能性を前提とする。reader / writer capability を確認し、古い instance が未知 schema record を silent drop / overwrite しない。読めない場合は read-only、feature disable、明示的 migration 要求など安全側へ倒す。
+
+### 23.9.1 Tombstone / Deletion Semantics
+
+append-only / immutable は「削除要求を無視する」ことを意味しない。ユーザー削除、privacy、secret redaction、retention expiry では immutable record 自体を書き換える代わりに tombstone / revocation metadata を記録し、通常 retrieval / projection から除外する。
+
+物理削除が必要な policy では provenance graph を用いて派生 Artifact / Checkpoint / Memory を特定し、削除または再生成する。audit log には内容そのものではなく削除操作の最小限 metadata を残す。
 
 ### 23.10 Memory Promotion
 
