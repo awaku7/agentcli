@@ -2540,10 +2540,12 @@ msgstr "पुनरावलोकनकर्त्याच्या टि�
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"तुम्ही reviewer आहात. खालील संभाषणाचे मूल्यमापन करा आणि ध्येय \"%(goal)s\" साध्य झाले आहे की नाही हे निर्धारित करा. \n"
-" साध्य झाले → COMPLETE\n"
-"अधिक आवश्यक → CONTINUE\n"
-" COMPLETE किंवा CONTINUE सह प्रत्युत्तर द्या. CONTINUE असल्यास, अद्याप काय गहाळ आहे ते थोडक्यात सांगा."
+"तुम्ही reviewer आहात. खालील संभाषणाचे मूल्यमापन करा आणि ध्येय \"%(goal)s\" साध्य झाले आहे की नाही ते ठरवा.\\n"
+"साध्य झाले → COMPLETE\\n"
+"अधिक आवश्यक → CONTINUE\\n"
+"COMPLETE किंवा CONTINUE ने उत्तर द्या.\\n"
+"जर CONTINUE असेल, तर अजून काय बाकी आहे ते थोडक्यात सांगा.\\n"
+"स्वरूप: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
