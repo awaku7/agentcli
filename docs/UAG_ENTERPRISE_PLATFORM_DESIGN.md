@@ -823,6 +823,7 @@ The preferred design is OIDC Back-Channel Logout where supported.
 
 The back-channel endpoint must:
 
+- enforce a bounded HTTP form/body size and bounded `logout_token` length **before** JWT decoding, JOSE header parsing, JWKS lookup, or signature verification; oversized requests fail closed without attempting cryptographic validation;
 - verify the Logout Token signature against the configured issuer JWKS;
 - validate the JWT `alg` through the same provider/UAG/deployment algorithm intersection used for ID Tokens, and always reject `alg=none`;
 - require and validate `iss`, `aud`, `iat`, `exp`, `jti`, and the back-channel logout `events` member;
