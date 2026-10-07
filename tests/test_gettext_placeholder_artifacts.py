@@ -3,8 +3,8 @@ import re
 from pathlib import Path
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
-ARTIFACT_RE = re.compile(r"(?:PH_|___[0-9]|__[0-9])")
-ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___[0-9]|__[0-9])")
+ARTIFACT_RE = re.compile(r"(?:PH_|___|__[0-9])")
+ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___|__[0-9])")
 AUTO_REVIEW_ARTIFACT_RE = re.compile(r"\b[\w]*_[0-9]+\b")
 AUTO_REVIEW_FORMAT_RE = re.compile(r"CONTINUE:\s*<[^>\n]+>")
 AUTO_REVIEW_MSGID = "auto.review_judgment_system_prompt"
@@ -52,6 +52,7 @@ MULTILINE_MSGIDS = {
 }
 
 MULTILINE_REQUIRED_TOKENS = {
+    "tool_calling": ("function_call.arguments", "JSON", "{}", "human_ask"),
     "skills_help": (
         ":skills list",
         ":skills find",
@@ -83,7 +84,7 @@ REPAIRED_MULTILINE_LOCALES = {
     "mn": ("warning", "auto_review", "skills_help", "tools_help"),
     "ms": ("tool_calling",),
     "nb": ("skills_help", "tools_help"),
-    "nn": ("auto_review", "skills_help", "tools_help"),
+    "nn": ("auto_review", "tool_calling", "skills_help", "tools_help"),
     "ro": ("warning", "tools_help"),
     "sv": ("skills_help", "tools_help"),
     "sw": ("skills_help", "tools_help"),
@@ -132,6 +133,8 @@ def test_repaired_multiline_gettext_entries_use_real_newlines():
                 offenders.append(f"{locale}:{key}: missing real newline")
             if "\\n" in translated:
                 offenders.append(f"{locale}:{key}: contains literal backslash-n")
+            if key == "tool_calling" and translated.count("\n") < 5:
+                offenders.append(f"{locale}:{key}: expected five line breaks")
             for token in MULTILINE_REQUIRED_TOKENS.get(key, ()):
                 if token not in translated:
                     offenders.append(f"{locale}:{key}: missing {token}")
