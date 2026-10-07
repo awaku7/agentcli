@@ -58,6 +58,80 @@ explicitly only for rollback or compatibility testing.
 
 Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an optional development-time restriction.
 
+## OpenTelemetry observability
+
+OpenTelemetry support is opt-in and disabled by default. CLI flags override the environment:
+
+```text
+uag --otel
+uag --no-otel
+```
+
+The process-level activation fallback is:
+
+```env
+# Core OpenTelemetry activation (default: 0)
+UAGENT_OTEL_ENABLED=1
+
+# Standard OpenTelemetry exporter configuration
+OTEL_SERVICE_NAME=uagent
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_TRACES_EXPORTER=otlp
+OTEL_METRICS_EXPORTER=otlp
+
+# Optional sampling
+# OTEL_TRACES_SAMPLER=parentbased_traceidratio
+# OTEL_TRACES_SAMPLER_ARG=0.1
+```
+
+When `UAGENT_OTEL_ENABLED=1` is effective, missing `opentelemetry-api`,
+`opentelemetry-sdk`, and `opentelemetry-exporter-otlp` packages use the normal
+`UAGENT_AUTO_INSTALL=allow|prompt|off` policy. Merely setting `OTEL_*` variables does
+not enable uag observability or trigger dependency installation.
+
+Advanced diagnostics are independently opt-in:
+
+```env
+# Phase 4A controlled content capture (default: 0)
+UAGENT_OTEL_CAPTURE_CONTENT=0
+# Comma-separated closed set: user_input,assistant_output,tool_arguments,tool_result
+UAGENT_OTEL_CAPTURE_CATEGORIES=
+UAGENT_OTEL_CAPTURE_MAX_FIELD_CHARS=2048
+UAGENT_OTEL_CAPTURE_MAX_SPAN_CHARS=8192
+
+# Phase 4B pseudonymous principal/room/project correlation (default: 0)
+UAGENT_OTEL_PSEUDONYMOUS_CORRELATION=0
+UAGENT_OTEL_DEPLOYMENT_SCOPE=
+UAGENT_OTEL_CORRELATION_KEY_NAME=observability/correlation
+UAGENT_OTEL_CORRELATION_KEY_VERSION=v1
+
+# Phase 4C metadata-only provider SDK diagnostics
+# Closed selector set: openai,claude
+UAGENT_OTEL_PROVIDER_INSTRUMENTATION=
+
+# Phase 4D authorization-aware ordinary-user trace query (default: 0)
+UAGENT_OTEL_TRACE_QUERY_ENABLED=0
+
+# Phase 3 trusted Web reverse-proxy trace ingress
+# Comma/semicolon-separated explicit IP/CIDR allowlist
+UAGENT_OTEL_TRUSTED_PROXY_CIDRS=
+```
+
+`UAGENT_OTEL_CAPTURE_CONTENT` remains ineffective unless core OpenTelemetry is enabled and
+its category/size settings are valid. Phase 4B also requires a separately provisioned
+correlation credential with the metadata described in
+[the developer observability contract](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
+Phase 4D exposes the authorization-aware Web route
+`GET /api/observability/traces/{trace_id}`, but uag intentionally does not ship a generic
+Jaeger, Grafana Tempo, Elasticsearch, or other vendor query adapter. A trusted application
+integration must register a reviewed adapter with `install_trace_query_backend_adapter()`.
+`OTEL_EXPORTER_OTLP_ENDPOINT` is an export destination and is never reused as a query API.
+
+See [UAG OpenTelemetry Integration Design](UAG_OPENTELEMETRY_DESIGN.md) for the architecture
+and rollout/status details.
+
 ## Image generation diagnostics
 
 Internal image-generation diagnostics are disabled by default. Enable them explicitly only when troubleshooting the Meta Model API image workflow.
