@@ -4203,7 +4203,7 @@ msgstr "[Máy chủ MCP]"
 msgid ""
 "[MCP Servers]\n"
 "- Failed to get info: %(err)s"
-msgstr "[MCP Servers]\n- Failed to get info: %(err)s"
+msgstr "[MCP Servers]\n- Không thể lấy thông tin: %(err)s"
 
 #: src/uagent/welcome.py:70
 msgid "[Quick Guide]"
