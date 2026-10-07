@@ -2457,12 +2457,12 @@ msgstr "Nota pengulas: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Anda seorang reviewer. Nilaikan perbualan di bawah dan tentukan sama ada matlamat \"%(goal)s\" telah tercapai.\n"
-"Tercapai → COMPLETE\n"
-"Lagi diperlukan → CONTINUE\n"
-"Balas dengan COMPLETE atau CONTINUE.\n"
-"Jika CONTINUE, nyatakan secara ringkas perkara yang masih tiada.\n"
-"Format: CONTINUE"
+"Anda seorang reviewer. Nilaikan perbualan di bawah dan tentukan sama ada matlamat \"%(goal)s\" telah tercapai.\\n"
+"Tercapai → COMPLETE\\n"
+"Lagi diperlukan → CONTINUE\\n"
+"Balas dengan COMPLETE atau CONTINUE.\\n"
+"Jika CONTINUE, nyatakan secara ringkas perkara yang masih tiada.\\n"
+"Format: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 msgid "[AUTO] Judgment call failed: %(etype)s: %(error)s"
