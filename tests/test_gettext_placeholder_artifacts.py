@@ -4,6 +4,7 @@ from pathlib import Path
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
 ARTIFACT_RE = re.compile(r"(?:PH_|___|__[0-9])")
+HAN_SCRIPT_RE = re.compile(r"[\u3400-\u9fff]")
 ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___|__[0-9])")
 AUTO_REVIEW_ARTIFACT_RE = re.compile(r"\b[\w]*_[0-9]+\b")
 AUTO_REVIEW_FORMAT_RE = re.compile(r"CONTINUE:\s*<[^>\n]+>")
@@ -273,3 +274,37 @@ def test_repaired_vi_mcp_failed_info_entry_uses_real_newline():
     assert translated != msgid
     assert translated.count("\n") == 1
     assert "\\n" not in translated
+
+
+def test_vietnamese_and_thai_gettext_catalogs_do_not_contain_han_script():
+    offenders = []
+
+    for locale in ("th", "vi"):
+        catalog = LOCALES_DIR / locale / "LC_MESSAGES" / "uag.po"
+        in_msgstr = False
+
+        for line_number, line in enumerate(
+            catalog.read_text(encoding="utf-8").splitlines(), start=1
+        ):
+            stripped = line.strip()
+
+            if stripped.startswith("msgstr "):
+                in_msgstr = True
+                translated_line = stripped[len("msgstr ") :]
+            elif in_msgstr and stripped.startswith('"'):
+                translated_line = stripped
+            else:
+                in_msgstr = False
+                continue
+
+            if HAN_SCRIPT_RE.search(translated_line):
+                offenders.append(
+                    f"{locale}:{line_number}: unexpected Han script: "
+                    f"{translated_line}"
+                )
+
+    message = (
+        "Unexpected Han script remains in Vietnamese/Thai translations:\n"
+        + "\n".join(offenders)
+    )
+    assert not offenders, message
