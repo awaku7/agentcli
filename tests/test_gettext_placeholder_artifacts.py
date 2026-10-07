@@ -119,7 +119,6 @@ def test_repaired_multiline_gettext_entries_use_real_newlines():
     assert not offenders, message
 
 
-
 def test_all_non_english_auto_review_prompts_are_structurally_complete():
     offenders = []
 
