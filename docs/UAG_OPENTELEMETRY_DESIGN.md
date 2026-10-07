@@ -1,9 +1,9 @@
 # UAG OpenTelemetry Integration Design
 
-Status: Design only  
-Target: post-v0.7.16  
-Scope: observability architecture, activation, automatic dependency installation, privacy, Web/OIDC boundaries, propagation, rollout  
-Non-goal: this document does not implement OpenTelemetry.
+Status: Implemented on `main` through Phase 4D<br>
+Implementation baseline: v0.7.26<br>
+Scope: observability architecture, activation, automatic dependency installation, privacy, Web/OIDC boundaries, propagation, rollout, and current implementation status<br>
+Implementation contract: `src/uagent/docs/DEVELOP_OBSERVABILITY.md` and the phase-specific documents/tests describe the runtime behavior.
 
 Companion Web/OIDC design:
 
@@ -17,9 +17,9 @@ OpenTelemetry must not become UAG's internal runtime contract, identity system, 
 
 When OpenTelemetry is enabled, missing OTel Python packages are installed automatically through UAG's existing auto-install mechanism unless `UAGENT_AUTO_INSTALL` forbids it.
 
-## 2. Existing UAG boundaries to reuse
+## 2. UAG boundaries used by the implementation
 
-The implementation should instrument existing centralized boundaries rather than provider SDKs independently:
+The implementation instruments existing centralized boundaries rather than provider SDKs independently:
 
 - Agent lifecycle in `runtime/execution.py`;
 - provider-neutral LLM rounds in `runtime/round_orchestrator.py`;
@@ -59,7 +59,7 @@ The Collector is recommended but is not required for normal UAG operation.
 
 ## 4. Internal module boundary
 
-Future implementation should introduce a small runtime-neutral package such as:
+The runtime-neutral implementation lives under:
 
 ```text
 src/uagent/runtime/observability/
@@ -69,14 +69,20 @@ src/uagent/runtime/observability/
     bootstrap.py
     dependencies.py
     noop.py
-    logging_backend.py
     otel_backend.py
     semantic_mapping.py
     privacy.py
+    runtime.py
+    trusted_ingress.py
+    pseudonymous_correlation.py
+    trace_ownership_index.py
+    trace_ownership_runtime.py
+    trace_query_projection.py
 ```
 
 Important rules:
 
+- structured event logging and trace/span correlation remain in `src/uagent/runtime/logging_setup.py`, which reads the active observability backend's current trace IDs;
 - runtime code calls UAG observability functions, not raw `span.set_attribute("gen_ai.*", ...)` throughout the tree;
 - semantic-convention-specific names stay in `semantic_mapping.py`;
 - disabled or unavailable OTel resolves to a no-op backend;
@@ -86,9 +92,9 @@ Important rules:
 
 ### 5.1 Product-level activation
 
-UAG must provide an explicit product-level switch.
+UAG provides an explicit product-level switch.
 
-For CLI, define:
+For CLI:
 
 ```text
 --otel
@@ -141,7 +147,7 @@ UAGENT_OTEL_CAPTURE_CONTENT=0
 
 OpenTelemetry packages remain outside the minimal/base installation.
 
-Initial package set:
+Runtime dependency set:
 
 ```text
 opentelemetry-api
@@ -149,7 +155,7 @@ opentelemetry-sdk
 opentelemetry-exporter-otlp
 ```
 
-Exact compatible versions are selected at implementation time.
+These remain optional runtime dependencies and are installed through the existing UAG auto-install path when OTel is effectively enabled.
 
 When effective OTel activation is ON:
 
@@ -180,7 +186,7 @@ Rules:
 - OTel packages must be added to `_pip_auto.py`'s allowlist;
 - installation/exporter failures never fail the Agent task.
 
-An optional `uag[otel]` packaging extra may still exist for reproducible/offline deployment, but ordinary enabled use should not require a manual pip command.
+The current package does not require a dedicated `uag[otel]` extra. Enabled use relies on the existing auto-install policy, while reproducible/offline deployments may preinstall the three OTel packages explicitly.
 
 ## 7. Canonical trace model
 
@@ -215,7 +221,7 @@ Recommended logical mapping:
 | A2A | agent + transport spans | W3C propagation only on trusted boundaries |
 | MCP | logical tool + transport spans | avoid duplicates |
 
-The canonical LLM trace is created at UAG's provider-neutral round boundary. Provider SDK auto-instrumentation may later be an optional nested diagnostic layer, not the canonical model.
+The canonical LLM trace is created at UAG's provider-neutral round boundary. Phase 4C can optionally add one metadata-only `provider_sdk` child for reviewed OpenAI or Claude provider calls; it never replaces or duplicates the canonical UAG `chat` span.
 
 ## 9. Tokens and Decision Log
 
@@ -281,7 +287,7 @@ Critical rules:
 5. OIDC session validity must be revalidated on every WebSocket turn before creating the turn's trusted execution context.
 6. Room/project/private-room authorization must still be revalidated using server-side policy.
 7. Browser-provided inbound trace context is rejected/detached by default from the first OTel-enabled Web release.
-8. Trusted proxy/internal inbound context may be supported later through explicit deployment policy.
+8. Phase 3 supports trusted reverse-proxy inbound context only through explicit `UAGENT_OTEL_TRUSTED_PROXY_CIDRS` deployment policy.
 9. OIDC/session secrets and raw identity claims remain outside remote telemetry.
 10. External trace backends are operator/admin surfaces by default.
 
@@ -305,15 +311,13 @@ browser request / WebSocket message
       -> create fresh trusted UAG turn/Agent trace
 ```
 
-Later phases may add an explicit trusted-ingress policy for controlled reverse proxies or internal services.
+Phase 3 implements an explicit trusted-ingress policy for controlled reverse proxies through `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; malformed policy fails closed.
 
 ## 13. OIDC live-session requirement
 
-The current Web connection model may retain a resolved `IdentityContext` for a connection. That alone is not sufficient to guarantee that OIDC session expiry/revocation is observed on each later WebSocket turn.
+The Web implementation retains server-side session state separately from telemetry and revalidates live OIDC/session authorization before each WebSocket turn.
 
-Therefore the OTel/Web implementation must not describe live-session revocation as already guaranteed by current connection identity caching.
-
-Implementation requirement:
+Implemented requirement:
 
 - retain or derive a server-side OIDC session revalidation handle/reference at connection acceptance;
 - never expose that handle to OTel;
@@ -335,15 +339,15 @@ Priority:
 
 Useful aggregate metrics include operation duration, token usage, retry/error counts, and Context Runtime compression/savings. Security/audit logs remain useful even when OTel is disabled or sampled out.
 
-## 15. Rollout
+## 15. Rollout and implementation status
 
-### Phase 0 - design only
+### Phase 0 - design complete
 
 - finalize core design;
 - finalize Web/OIDC companion design;
 - no runtime behavior change.
 
-### Phase 1 - safe core tracing
+### Phase 1 - safe core tracing — implemented
 
 - shared `ObservabilitySettings` including CLI `--otel` / `--no-otel` precedence;
 - automatic dependency readiness;
@@ -355,25 +359,27 @@ Useful aggregate metrics include operation duration, token usage, retry/error co
 - **OIDC live-session revalidation before every WebSocket turn**;
 - content and raw identity capture OFF.
 
-### Phase 2 - Context and metrics
+### Phase 2 - Context and metrics — implemented
 
 - Context/Memory/Retrieval spans and aggregate metrics;
 - Decision Log linking;
 - auth/authz operational events/spans where useful.
 
-### Phase 3 - trusted distributed propagation
+### Phase 3 - trusted distributed propagation — complete
 
 - Sub-Agent/A2A/MCP propagation hardening;
 - explicit trusted reverse-proxy/internal ingress policy;
 - multi-instance validation;
 - duplicate-span policy with transport instrumentation.
 
-### Phase 4 - optional advanced diagnostics
+### Phase 4 - optional advanced diagnostics — implemented in slices 4A-4D
 
-- controlled content capture;
-- optional pseudonymous scope correlation;
-- optional SDK nested instrumentation;
-- optional trace-query proxy with UAG authorization.
+- Phase 4A: controlled, reviewed content capture;
+- Phase 4B: optional pseudonymous principal/room/project correlation;
+- Phase 4C: optional metadata-only OpenAI/Claude provider SDK diagnostics;
+- Phase 4D: authorization-aware ordinary-user trace-query route, bounded local ownership index, and closed backend projection.
+
+Phase 4D intentionally does **not** ship a generic production query adapter for Jaeger, Grafana Tempo, Elasticsearch, or other vendors. A trusted application integration must register a reviewed adapter with `install_trace_query_backend_adapter()`; without one, an otherwise authorized query returns `trace_query_unavailable`. The OTLP export endpoint is never reinterpreted as a trace-query API.
 
 ## 16. Testing requirements
 
@@ -442,14 +448,14 @@ The first implementation is acceptable only when all are true:
 - Standard `OTEL_*` exporter/sampler configuration is preferred after UAG activation.
 - OTLP is the standard export path.
 
-## 19. Remaining implementation-time choices
+## 19. Current implementation notes and remaining integration choices
 
-These do not change the architecture:
+The core architecture and Phase 1-4D runtime behavior are implemented. Remaining choices are deployment/integration concerns rather than missing core tracing:
 
-1. exact internal Python Protocol/context-manager API;
-2. exact compatible OTel package versions;
-3. exact validated GenAI semantic-convention revision;
-4. concrete CLI parser placement for `--otel` / `--no-otel`;
-5. concrete representation of the server-side OIDC session revalidation handle;
-6. explicit trusted-ingress configuration shape for reverse proxies/internal clients;
-7. whether metrics ship in the same release as initial traces.
+1. select and operate the OTLP Collector/backend appropriate to the deployment;
+2. choose exporter endpoints, headers, protocol, sampling, and retention through standard OTel configuration;
+3. if ordinary-user Phase 4D trace lookup is required, provide a reviewed vendor-specific backend query adapter and register it through `install_trace_query_backend_adapter()`;
+4. keep provider semantic-convention changes isolated in `semantic_mapping.py` and review them before expanding exported metadata;
+5. enable Phase 4A-4D diagnostics independently only where their privacy and operational requirements are understood.
+
+The runtime remains functional with all observability features disabled, and telemetry/backend failures must not change Agent behavior.

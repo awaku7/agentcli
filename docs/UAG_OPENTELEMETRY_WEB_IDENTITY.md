@@ -1,9 +1,10 @@
 # UAG OpenTelemetry Web Multi-User / OIDC Design
 
-Status: Design only  
-Parent design: `docs/UAG_OPENTELEMETRY_DESIGN.md`  
-Scope: Web multi-user execution, OIDC, room/project authorization, live-session revalidation, trace isolation, privacy, observability access control  
-Non-goal: this document does not implement authentication or OpenTelemetry.
+Status: Implemented on `main` through Phase 4D<br>
+Implementation baseline: v0.7.26<br>
+Parent design: `docs/UAG_OPENTELEMETRY_DESIGN.md`<br>
+Scope: Web multi-user execution, OIDC, room/project authorization, live-session revalidation, trace isolation, privacy, observability access control<br>
+Document role: normative Web/OIDC companion for the implemented observability and authorization boundaries.
 
 ## 1. Purpose
 
@@ -24,7 +25,7 @@ Authentication / session validation
 
 Trace context, baggage, span attributes, trace IDs, correlation IDs, exporter metadata, and trace-backend data are never proof of identity, room membership, project membership, ownership, or role.
 
-## 2. Existing identity model and one important gap
+## 2. Implemented identity and live-session model
 
 UAG already separates identity from turn-local execution.
 
@@ -57,13 +58,13 @@ server_bound_project
 
 Web connections bind an authenticated identity when the connection is accepted, and room/project policy is checked server-side.
 
-However, a connection-bound `IdentityContext` alone is **not sufficient** to guarantee that an OIDC session that expires or is revoked after WebSocket acceptance is rejected on every later turn.
+A connection-bound `IdentityContext` is intentionally not treated as sufficient proof of continuing OIDC session validity. The implemented Web identity boundary retains non-exported server-side revalidation state and rechecks the authoritative OIDC session before every WebSocket turn.
 
-This design therefore adds a required implementation contract:
+Implemented contract:
 
-> OIDC live-session validity must be revalidated on every WebSocket turn before a trusted `TurnContext` or Agent trace is created.
+> OIDC live-session validity is revalidated on every WebSocket turn before a trusted `TurnContext` or Agent trace is created.
 
-This is an authentication requirement discovered during design review. It must not be described as behavior already guaranteed by the current connection identity cache.
+This remains an authentication requirement rather than an OpenTelemetry authorization mechanism.
 
 ## 3. Multi-user trace isolation
 
@@ -128,7 +129,7 @@ WebSocket message
 
 ### 4.2 Connection state
 
-A future implementation may extend `WebConnectionContext` or the Web auth binding with a non-exported server-side session-validation reference.
+The implemented Web auth binding retains a non-exported server-side session-validation reference for per-turn revalidation.
 
 That reference:
 
@@ -185,11 +186,9 @@ This is a **Phase-1 requirement**, not something deferred until later A2A/distri
 
 If ASGI/HTTP auto-instrumentation is used, UAG must ensure untrusted browser context is detached before an application/Agent trace can inherit that parent.
 
-### 6.2 Trusted ingress later
+### 6.2 Trusted ingress — implemented in Phase 3
 
-A later deployment may explicitly trust trace propagation from controlled reverse proxies or internal services.
-
-Such trust must be opt-in and based on server/operator configuration, not arbitrary browser input.
+Controlled reverse-proxy/internal trace propagation is implemented as an opt-in server/operator policy through `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The raw socket peer must match the configured IP/CIDR allowlist; malformed policy fails closed, and browser-controlled forwarding headers or message data cannot establish trust.
 
 Trusted trace propagation is still observability metadata; it never supplies identity or authorization.
 
@@ -293,13 +292,13 @@ over exporting an owner's raw identifier.
 
 A shared-room member does not automatically gain access to the external trace backend.
 
-Direct Jaeger/Grafana/vendor access is operator/admin capability by default. If UAG later exposes traces to ordinary Web users, UAG must proxy the query and re-check current room/project authorization on every query.
+Direct Jaeger/Grafana/vendor access remains operator/admin capability by default. Phase 4D implements an authorization-aware UAG trace-query route for ordinary users, backed by a bounded local ownership index and final authorization revalidation. Vendor/backend query access is available only through a reviewed application adapter registered with `install_trace_query_backend_adapter()`; without one, an otherwise authorized query returns `trace_query_unavailable`.
 
 Possession of a trace ID is never authorization.
 
 ## 10. Optional pseudonymous correlation
 
-If operators later need cross-trace principal/project/room correlation, use server-keyed HMAC pseudonyms rather than raw IDs or plain hashes.
+Phase 4B implements optional cross-trace principal/project/room correlation using server-keyed HMAC pseudonyms rather than raw IDs or plain hashes.
 
 Requirements:
 
@@ -520,17 +519,17 @@ Initial Web tracing must include:
 - current room/project/private-room authorization before Agent execution;
 - no raw identity/session/content export.
 
-### Later phases
+### Implemented follow-on phases and remaining deployment work
 
-Later work may add:
+Implemented follow-on behavior includes:
 
-- trusted reverse-proxy/internal trace propagation;
-- multi-instance authentication-session storage;
-- tenant-aware exporter routing;
-- pseudonymous identity/scope correlation;
-- user-visible trace proxy guarded by UAG authorization.
+- Phase 3 trusted reverse-proxy/internal trace propagation guarded by explicit peer allowlists;
+- Phase 4B optional pseudonymous identity/scope correlation;
+- Phase 4D authorization-aware ordinary-user trace queries with a bounded ownership index and final authorization revalidation.
 
-None of those later features may weaken Phase-1 isolation.
+Phase 4D intentionally leaves vendor-specific backend querying to a reviewed application adapter; the OTLP export endpoint is never treated as a query API. Remaining architecture/deployment work may include multi-instance authentication-session storage and tenant-aware exporter routing.
+
+None of those follow-on features may weaken Phase-1 isolation.
 
 ## 21. Testing requirements
 

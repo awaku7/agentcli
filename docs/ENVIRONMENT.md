@@ -58,6 +58,51 @@ explicitly only for rollback or compatibility testing.
 
 Normally configure only `UAGENT_POLICY_FILE`. `UAGENT_POLICY_LEVEL` is an optional development-time restriction.
 
+## OpenTelemetry observability
+
+OpenTelemetry support is opt-in and disabled by default. CLI flags override the environment:
+
+```text
+uag --otel
+uag --no-otel
+```
+
+The process-level activation fallback is:
+
+```env
+# Core OpenTelemetry activation (default: 0)
+UAGENT_OTEL_ENABLED=1
+
+# Standard OpenTelemetry exporter configuration
+OTEL_SERVICE_NAME=uagent
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_TRACES_EXPORTER=otlp
+OTEL_METRICS_EXPORTER=otlp
+
+# Optional sampling
+# OTEL_TRACES_SAMPLER=parentbased_traceidratio
+# OTEL_TRACES_SAMPLER_ARG=0.1
+```
+
+When `UAGENT_OTEL_ENABLED=1` is effective, missing `opentelemetry-api`,
+`opentelemetry-sdk`, and `opentelemetry-exporter-otlp` packages use the normal
+`UAGENT_AUTO_INSTALL=allow|prompt|off` policy. Merely setting `OTEL_*` variables does
+not enable uag observability or trigger dependency installation.
+
+Advanced Phase 4 diagnostics are independently opt-in: controlled content capture,
+pseudonymous correlation, provider SDK diagnostics, and authorization-aware trace query.
+Their exact CLI/environment setting names, accepted values, defaults, limits, precedence,
+and failure behavior are defined only in the
+[OpenTelemetry Phase 4 Normative Contract](UAG_OPENTELEMETRY_PHASE4_CONTRACT.md#2-configuration-contract).
+Keep that contract as the single source of truth rather than duplicating its settings matrix here.
+
+Phase 3 trusted Web reverse-proxy trace ingress remains separately configured with
+`UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; see the OpenTelemetry design for the trust model.
+
+See [UAG OpenTelemetry Integration Design](UAG_OPENTELEMETRY_DESIGN.md) for the architecture
+and rollout/status details.
+
 ## Image generation diagnostics
 
 Internal image-generation diagnostics are disabled by default. Enable them explicitly only when troubleshooting the Meta Model API image workflow.

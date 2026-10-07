@@ -128,7 +128,7 @@ Metric dimensions use an explicit allowlist. Raw identity/scope IDs, trace/span 
 
 ## Phase-3 trusted propagation and local Sub-Agent spans
 
-Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP HTTP propagation, and explicitly trusted Web reverse-proxy ingress are Phase-3 runtime boundaries.
+Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP propagation, and explicitly trusted Web reverse-proxy ingress are Phase-3 runtime boundaries.
 
 - A2A propagates only W3C `traceparent` / `tracestate` across authenticated UAG-controlled hops. Baggage is not propagated, and trace metadata never affects authentication, authorization, identity, scope, or session validity.
 - Local Sub-Agent execution opens one canonical `invoke_agent <sub-agent>` child span at the existing `tools.context.set_active_sub_agent()` / `reset_active_sub_agent()` boundary.
@@ -137,10 +137,10 @@ Authenticated A2A propagation, local Sub-Agent child spans, trusted MCP HTTP pro
 - Exceptions are forwarded to the active Agent span without replacing or swallowing the original exception. Observability creation/close failures remain best-effort and must not alter Sub-Agent results.
 - Active Sub-Agent tokens remain reset-compatible across hot reloads and with the older plain ContextVar-token form.
 - MCP trace propagation is OFF by default and requires the explicit `trusted_trace_propagation=True` flag on a managed HTTP or stdio server.
-- Trusted MCP propagation injects the current UAG-owned W3C `traceparent` / `tracestate` into MCP request `params._meta` in line with SEP-414 and the OpenTelemetry MCP semantic conventions. UAG deliberately omits baggage. SDK calls that do not support a `meta` keyword retain their previous behavior.
+- Trusted MCP propagation injects the current UAG-owned W3C `traceparent` / `tracestate` into MCP request `params._meta` in line with SEP-414 and the OpenTelemetry MCP semantic conventions. UAG deliberately omits baggage. SDK methods that accept `meta` receive it directly; paginated list methods that accept `params` receive a `PaginatedRequestParams` carrying the same `_meta`. Unsupported legacy signatures retain their previous behavior.
 - Trusted MCP HTTP keeps the existing transport-level header propagation for compatibility. UAG-created HTTP clients remove pre-existing `traceparent`, `tracestate`, and `baggage` request headers before injecting the current UAG-owned W3C Trace Context; Authorization/OAuth headers are preserved and propagation failures are ignored.
 - Trusted MCP stdio uses the same message-level `params._meta` carrier, so propagation is transport-independent. No HTTP-style headers are invented for stdio.
-- Managed MCP configuration may opt an HTTP server into this trust boundary only with the exact JSON boolean `"trusted_trace_propagation": true`. Missing, false, string, or numeric values remain OFF. Direct `url` tool arguments cannot enable the trust flag.
+- Managed MCP configuration may opt an HTTP or stdio server into this trust boundary only with the exact JSON boolean `"trusted_trace_propagation": true`. Missing, false, string, or numeric values remain OFF. Direct `url` tool arguments cannot enable the trust flag.
 - The process-local MCP HTTP session pool includes the trust flag in its cache key, so trusted and untrusted sessions for the same URL/headers/protocol mode are never reused across the propagation boundary.
 - Web reverse-proxy propagation is OFF unless the raw socket peer captured before Uvicorn proxy-header rewriting matches `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`. The value accepts explicit IP/CIDR entries only; one malformed entry fails the whole trust policy closed.
 - Reverse-proxy trust never uses `X-Forwarded-For`, `Forwarded`, query parameters, cookies, or message JSON. Once the socket peer is trusted, only `traceparent` and `tracestate` are copied into the worker's process-local context; baggage is never accepted.
@@ -291,6 +291,38 @@ For OIDC WebSocket connections:
 
 Web Agent spans start as fresh OTel roots by default, which detaches them from arbitrary browser-provided `traceparent` / `tracestate`. A deployment may opt into reverse-proxy propagation with `UAGENT_OTEL_TRUSTED_PROXY_CIDRS`; only a matching raw socket peer captured before proxy-header rewriting may supply the single-use trusted W3C parent for the first worker Agent span. `X-Forwarded-For` is never a trust input, baggage is ignored, and trace metadata never affects identity or authorization.
 
-## Later phases
+## Phase 4D authorization-aware trace query
 
-The ordinary-user trace query UI/proxy remains later work. Generic global provider/HTTP auto-instrumentation is not part of Phase 4C and remains unsupported unless a future reviewed contract explicitly adds it.
+Phase 4D is implemented as an opt-in ordinary-user trace-query path. Core OpenTelemetry and
+`UAGENT_OTEL_TRACE_QUERY_ENABLED` must both be enabled. The Web surface is intentionally
+limited to:
+
+```text
+GET /api/observability/traces/{trace_id}
+```
+
+The route does not authorize from trace possession or telemetry backend metadata. It uses the
+bounded process-local ownership index populated from UAG-owned canonical spans, then revalidates
+the caller's current product authentication and room/project/private-session authorization before
+and after backend work. Missing, expired, incomplete, unauthorized, or invalid ownership fails
+closed without granting access from backend data.
+
+Backend reads are deliberately separated from OTLP export. UAG does not reinterpret
+`OTEL_EXPORTER_OTLP_ENDPOINT` as a query endpoint and does not ship a generic production query
+adapter for Jaeger, Grafana Tempo, Elasticsearch, or other vendors. A trusted application
+integration must bind a reviewed adapter to the exact active observability backend with
+`install_trace_query_backend_adapter()`. Without a bound adapter, a fully authorized request
+returns the fixed `trace_query_unavailable` result.
+
+Ordinary-user responses use the closed `uag.trace_view.v1` projection and never expose raw
+backend payloads, attributes, events, links, resource data, provider metadata, credentials, or
+captured content. Query paging, decoded bytes, span counts, output counts, and total wall-clock
+time are bounded by the Phase 4 contract.
+
+See `DEVELOP_OBSERVABILITY_PHASE4D.md`,
+`runtime/observability/trace_ownership_index.py`,
+`runtime/observability/trace_ownership_runtime.py`, and
+`runtime/observability/trace_query_projection.py` for the focused implementation contract.
+
+Generic global provider/HTTP auto-instrumentation remains unsupported unless a future reviewed
+contract explicitly adds it.
