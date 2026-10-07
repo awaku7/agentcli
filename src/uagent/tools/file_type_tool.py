@@ -12,9 +12,14 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+import importlib as _importlib
+import importlib.metadata as _metadata
 import json
 import mimetypes
 import os as _os
+import subprocess as _subprocess
+import sys as _sys
+import threading as _threading
 from pathlib import Path
 from typing import Any
 from .safe_file_ops_extras import ensure_within_workdir
@@ -86,12 +91,97 @@ _MAGIC_PATTERNS: list[tuple[int, bytes, str, str]] = [
 ]
 
 
+def _distribution_is_installed(name: str) -> bool:
+    try:
+        _metadata.distribution(name)
+        return True
+    except _metadata.PackageNotFoundError:
+        return False
+    except Exception:
+        return False
+
+
+def _remove_windows_python_magic_conflict() -> bool:
+    """On Windows, replace the conflicting generic package with the bundled DLL build."""
+    if _os.name != "nt" or not _distribution_is_installed("python-magic"):
+        return True
+
+    # Respect the configured auto-install policy before changing the environment.
+    try:
+        from .._pip_auto import _may_install
+
+        if not _may_install("python-magic-bin", display_name="python-magic-bin"):
+            return False
+    except Exception:
+        return False
+
+    try:
+        print(
+            _(
+                "status.magic_conflict_removal",
+                default="Removing conflicting python-magic on Windows.",
+            ),
+            file=_sys.stderr,
+        )
+        removed = _subprocess.run(
+            [_sys.executable, "-m", "pip", "uninstall", "-y", "python-magic"],
+            stdout=_sys.stderr,
+            stderr=_sys.stderr,
+            timeout=120,
+            check=False,
+        )
+        if removed.returncode != 0:
+            return False
+
+        # Both distributions provide the same `magic` import package. Reinstall
+        # the Windows build after uninstalling the generic distribution because
+        # pip may have removed files shared by both distributions.
+        installed = _subprocess.run(
+            [
+                _sys.executable,
+                "-m",
+                "pip",
+                "install",
+                "--force-reinstall",
+                "--no-deps",
+                "python-magic-bin",
+            ],
+            stdout=_sys.stderr,
+            stderr=_sys.stderr,
+            timeout=120,
+            check=False,
+        )
+        if installed.returncode != 0:
+            return False
+    except Exception as exc:
+        print(
+            _(
+                "err.magic_conflict_replace",
+                default="Could not replace python-magic: %(error)s",
+            )
+            % {"error": exc},
+            file=_sys.stderr,
+        )
+        return False
+
+    # Drop any already-imported files from the generic distribution.
+    for module_name in list(_sys.modules):
+        if module_name == "magic" or module_name.startswith("magic."):
+            _sys.modules.pop(module_name, None)
+    _importlib.invalidate_caches()
+    return True
+
+
 def _ensure_python_magic() -> Any:
-    """Try to import python-magic; auto-install if missing. Returns the module or None."""
+    """Import python-magic; on Windows replace the generic package with python-magic-bin."""
+    if _os.name == "nt" and _distribution_is_installed("python-magic"):
+        if not _remove_windows_python_magic_conflict():
+            return None
+
     try:
         import magic as _magic
 
-        # Verify it actually works (has libmagic)
+        # Verify that the selected binding can actually access libmagic.
         _magic.from_file(__file__)
         return _magic
     except Exception:
@@ -114,12 +204,16 @@ def _ensure_python_magic() -> Any:
 
 
 _PYTHON_MAGIC: Any = None
+_PYTHON_MAGIC_INITIALIZED = False
+_PYTHON_MAGIC_LOCK = _threading.Lock()
 
 
 def _detect_by_magic(path: str) -> dict[str, Any] | None:
-    global _PYTHON_MAGIC
-    if _PYTHON_MAGIC is None:
-        _PYTHON_MAGIC = _ensure_python_magic()
+    global _PYTHON_MAGIC, _PYTHON_MAGIC_INITIALIZED
+    with _PYTHON_MAGIC_LOCK:
+        if not _PYTHON_MAGIC_INITIALIZED:
+            _PYTHON_MAGIC = _ensure_python_magic()
+            _PYTHON_MAGIC_INITIALIZED = True
 
     # Prefer python-magic (libmagic binding) when available
     if _PYTHON_MAGIC is not None:
