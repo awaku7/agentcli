@@ -1,6 +1,65 @@
+import gettext
 from pathlib import Path
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
+
+MULTILINE_MSGIDS = {
+    "auto_review": "auto.review_judgment_system_prompt",
+    "warning": (
+        "[WARN] LLM returned an empty assistant message without tool calls.\n"
+        "provider=%(provider)s depname=%(depname)s "
+        "empty_no_tool_rounds=%(empty_no_tool_rounds)s "
+        "(max=%(empty_no_tool_max)s)\n"
+        "This may happen with some providers (including Grok/xAI and "
+        "OpenAI-compatible endpoints) after tool calls. You can try setting "
+        "UAGENT_EMPTY_NO_TOOL_MAX to a higher value, or switching provider."
+    ),
+    "tool_calling": (
+        "[Tool calling rules]\n"
+        "        - When calling a tool/function, you MUST provide "
+        "function_call.arguments as a JSON object.\n"
+        "        - The JSON object MUST include all required parameters defined "
+        "by the tool schema.\n"
+        "        - Never call a tool with an empty object {} unless the tool has "
+        "no required parameters.\n"
+        "        - If you do not have a required parameter, ask the user for it "
+        "using human_ask instead of guessing.\n"
+        "        "
+    ),
+    "skills_help": (
+        "Built-in: list/active/clear (see runtime skills handlers).\n"
+        ":skills list <keyword>  Filter skills by keyword (name/description).\n"
+        ":skills find <keyword>  Same as list with filter.\n"
+        "Dynamic subcommands come from tool CMD_SPEC "
+        "(install, uninstall, apm, mp_search).\n"
+        "Use :help skills install for a subcommand."
+    ),
+    "tools_help": (
+        ":tools on|off           Enable/disable sending tools to the LLM\n"
+        ":tools on|off <genre>   Enable/disable a tool genre "
+        "(and sync global on)\n"
+        ":tools list [query]     List loaded tools\n"
+        ":tools load <name>      Load one tool by name\n"
+        ":tools reload           Reload tool modules from disk\n"
+        ":tools output           Toggle showing tool results in UI"
+    ),
+}
+
+REPAIRED_MULTILINE_LOCALES = {
+    "cs": ("auto_review", "tools_help"),
+    "da": ("auto_review", "tool_calling"),
+    "el": ("warning",),
+    "fi": ("skills_help", "tools_help"),
+    "fil": ("tool_calling", "tools_help"),
+    "he": ("tools_help",),
+    "hu": ("skills_help", "tools_help"),
+    "mn": ("warning", "auto_review", "skills_help", "tools_help"),
+    "ms": ("tool_calling",),
+    "nn": ("auto_review", "skills_help", "tools_help"),
+    "ro": ("warning", "tools_help"),
+    "sv": ("skills_help", "tools_help"),
+    "sw": ("skills_help", "tools_help"),
+}
 
 
 def test_gettext_catalogs_do_not_ship_placeholder_artifacts():
@@ -22,3 +81,25 @@ def test_gettext_catalogs_do_not_ship_placeholder_artifacts():
     assert (
         not offenders
     ), "Placeholder artifacts remain in gettext catalogs:\n" + "\n".join(offenders)
+
+
+def test_repaired_multiline_gettext_entries_use_real_newlines():
+    offenders = []
+
+    for locale, keys in REPAIRED_MULTILINE_LOCALES.items():
+        catalog = LOCALES_DIR / locale / "LC_MESSAGES" / "uag.mo"
+        with catalog.open("rb") as stream:
+            translation = gettext.GNUTranslations(stream)
+
+        for key in keys:
+            msgid = MULTILINE_MSGIDS[key]
+            translated = translation.gettext(msgid)
+            if translated == msgid:
+                offenders.append(f"{locale}:{key}: untranslated")
+                continue
+            if "\n" not in translated:
+                offenders.append(f"{locale}:{key}: missing real newline")
+            if "\\n" in translated:
+                offenders.append(f"{locale}:{key}: contains literal backslash-n")
+
+    assert not offenders, "Broken multiline gettext entries:\n" + "\n".join(offenders)
