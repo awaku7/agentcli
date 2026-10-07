@@ -147,14 +147,17 @@ Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/
 
 A sandbox must never carry mutable state from one principal or Project into another.
 
-Recommended identity key:
+Recommended identity key for every reusable lease and workspace projection:
 
 ```text
 deployment
   + principal_id
   + project_id
-  + room/session execution scope
+  + room_id
+  + session_id (when the execution lifetime is session-specific)
 ```
+
+`room_id` is mandatory and is never interchangeable with `session_id`. The same principal/project can participate in both private and shared rooms, so mutable sandbox state must not cross that room boundary. A session identifier may further narrow the execution scope, but it never replaces the room binding.
 
 The default external-Web model should use a clean sandbox created from an immutable image or snapshot. Warm pools are allowed only when a sandbox is reset to a verified clean state before reassignment.
 
@@ -815,10 +818,14 @@ The preferred design is OIDC Back-Channel Logout where supported.
 
 The back-channel endpoint must:
 
-- verify the logout token signature against the configured issuer JWKS;
-- verify issuer, audience, token type/event claims, expiry, and replay constraints;
-- bind the logout request only to sessions created by the same configured issuer/client;
-- use the OIDC `sid` claim when available, with subject-based invalidation only when the reviewed provider contract permits it;
+- verify the Logout Token signature against the configured issuer JWKS;
+- validate the JWT `alg` through the same provider/UAG/deployment algorithm intersection used for ID Tokens, and always reject `alg=none`;
+- require and validate `iss`, `aud`, `iat`, `jti`, and the back-channel logout `events` member;
+- require `sub`, `sid`, or both;
+- reject every Logout Token containing a `nonce` claim;
+- enforce a bounded acceptable `iat` age/skew policy and a bounded `jti` replay cache rather than treating a missing `exp` as invalid;
+- bind the logout request only to sessions created by the same verified issuer/client;
+- use the OIDC `sid` claim when present, with subject-based invalidation only when the reviewed provider contract permits it;
 - make revocation visible across all UAG nodes once E1 shared sessions are enabled;
 - return bounded, non-secret diagnostics.
 
@@ -860,6 +867,9 @@ Important invariants:
 - an unrecognized `acr` or `amr` value never grants additional privilege;
 - assurance policy is based only on verified ID-token/session state;
 - MFA state does not replace Project/Room/tool authorization;
+- every step-up transaction is bound to the originating UAG session;
+- the verified step-up result must have the exact same issuer and subject as the session that initiated step-up; account switching or a changed provider subject aborts the upgrade and must use a separate sign-in flow;
+- assurance metadata is merged into an existing session only after that same-principal check succeeds;
 - step-up failure leaves the existing lower-assurance session bounded by its original permissions rather than silently upgrading it.
 
 ### 21.4 Priority 4: durable session and directory revocation integration
@@ -868,11 +878,15 @@ OIDC hardening depends on E1 and E2.
 
 The durable session model must preserve:
 
-- issuer/client binding;
+- verified issuer/client binding;
+- verified subject identity;
+- the verified OIDC `sid` when the provider supplies it;
 - authentication time and assurance metadata needed for policy;
 - revocation state;
 - configuration-fingerprint invalidation;
 - cross-node visibility.
+
+When `sid` is present, the shared session store must index it together with the verified issuer/client binding so a standards-compliant Logout Token containing `sid` without `sub` can locate and revoke the affected UAG session(s). A `sid` from one issuer/client must never revoke another issuer/client's sessions.
 
 Directory freshness and OIDC session revocation are related but separate:
 
@@ -992,8 +1006,9 @@ The first three items provide the highest enterprise security value relative to 
 Enterprise OIDC hardening is complete for a deployment profile when:
 
 - local logout and IdP logout behavior are defined and tested;
-- remote IdP revocation can invalidate UAG sessions without relying on a browser;
-- privileged policy can require reviewed authentication assurance;
+- remote IdP revocation can invalidate UAG sessions without relying on a browser, including `sid`-only Logout Tokens when supported;
+- Back-Channel Logout validation enforces the local algorithm allowlist, required `iat`/event/session claims, `nonce` prohibition, and replay controls;
+- privileged policy can require reviewed authentication assurance without permitting a different principal's step-up result to upgrade the current session;
 - multi-instance sessions preserve issuer binding, expiry, and revocation;
 - directory-role downgrade/revocation has a bounded freshness policy;
 - token-endpoint client authentication is explicit and uses protected credential material;
@@ -1002,4 +1017,3 @@ Enterprise OIDC hardening is complete for a deployment profile when:
 - raw OIDC credentials and claims remain excluded from normal logs, telemetry, Memory, and audit payload bodies.
 
 This profile does not change the earlier requirement that authentication, authorization, telemetry, and enterprise policy remain separate concerns.
-
