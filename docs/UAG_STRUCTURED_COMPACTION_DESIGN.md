@@ -339,7 +339,7 @@ class CompactionRecord:
     shared_facts: list[FactRecord]
     critical_context: list[FactRecord]
     deterministic_delta: DeterministicDelta
-    narrative_continuation: str
+    narrative_continuation: list[ProvenancedNarrativeItem]
 
     first_kept_message_id: str | None
     split_turn: bool
@@ -441,6 +441,15 @@ Checkpoint の deterministic_delta はその区間だけを表す。全履歴の
 ### 6.5 Narrative Continuation
 
 構造化だけでは設計意図、失敗したアプローチ、ユーザーが避けたい進め方、判断に至った文脈などが失われることがあるため、Checkpoint は短い narrative_continuation を持つ。これは第二の state store ではなく継続用の補助説明である。
+
+~~~python
+@dataclass
+class ProvenancedNarrativeItem:
+    text: str
+    source_refs: list[str]
+~~~
+
+Narrative は出典付き項目の配列として保存し、各項目に根拠となる message / event / artifact の正確な source_refs を付ける。後から出典が無効化・削除対象になった場合は影響する項目だけを除外・再生成する。出典不明の narrative を新しい確定事実として投影しない。
 
 ### 6.5.1 Active Context Projection
 
@@ -633,9 +642,9 @@ Chunk の境界と Goal の境界は一致させない。既存 Goal と明確�
 
 ### 10.3 Compaction の再実行
 
-Compaction request には永続的な stable `operation_id` を付与し、crash / timeout 後の retry でも同じ ID を使用する。Checkpoint の operation_id UNIQUE 制約、Reducer 適用、AgentState revision 更新は **同一 SQLite transaction** で commit する。意図的な再圧縮では新しい operation_id を使う。
+Compaction request には永続的な stable `operation_id` を付与し、crash / timeout 後の retry でも同じ ID を使用する。Checkpoint の operation_id UNIQUE 制約、Reducer 適用、AgentState revision 更新は **同一 SQLite transaction** で commit する。意図的な再圧縮では新しい operation_id を使うが、operation_id の違いだけを理由に同じ evidence を再適用してはならない。
 
-同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として比較可能にし、同一 operation の retry は idempotency key で重複 commit を防ぐ。
+同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として **comparison-only（Reducer には適用しない）** で保存する。正式に置き換える場合は、既存適用の取り消し・置換を別途設計してから行い、comparison-only record をそのまま Reducer に渡さない。同一 operation の retry は idempotency key で重複 commit を防ぐ。
 
 ## 11. Deterministic File / Artifact Tracking
 
@@ -1058,7 +1067,7 @@ CompactionRecord の永続化に失敗した場合、Raw History を置換しな
   "source_end_id": "...",
   "goal_deltas": [],
   "deterministic_delta": {},
-  "narrative_continuation": ""
+  "narrative_continuation": []
 }
 ~~~
 
@@ -1077,6 +1086,8 @@ Context retrieval 自体を authorization 対象とする。Checkpoint が過去
 ### 23.2 Client Instance と同時実行
 
 CLI、GUI window、Browser tab を同じ Client Instance として扱い、各 Client に `client_instance_id` を割り当てる。
+
+Presence の登録単位は Client Instance と異なる。Web は WebRoom ごと、A2A は Task ごとに Presence を登録し、`presence_instance_id` と `owner_kind` / `owner_id` で関連付ける。Browser tab の `client_instance_id` は維持し、WebRoom の ID に置き換えない。
 
 Client Instance は durable work identity ではない。永続する作業単位は Session と AgentState であり、Client は接続元・provenance の識別に使う。
 
