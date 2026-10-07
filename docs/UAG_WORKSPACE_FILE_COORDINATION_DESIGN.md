@@ -50,7 +50,7 @@ query other active clients in same workdir
 
 異常終了で row が残る可能性があるため、`last_seen_at` が一定時間以上古い row は active とみなさない。
 
-専用 heartbeat daemon/thread は初期実装では作らない。LLM request、tool execution、user input 等の既存 Runtime activity に合わせて `last_seen_at` を更新する。
+専用 heartbeat daemon/thread は初期実装では作らない。LLM request、tool execution、user input 等の既存 Runtime activity に合わせて `last_seen_at` を更新し、**同じタイミングで他の active Client を再検索して Presence を更新する**。起動時の検索結果を固定して使わない。
 
 ## 5. Agent Awareness
 
@@ -102,6 +102,7 @@ Presence 自体は write を block しない。
 ## 9. Acceptance Criteria
 
 1. 同じ canonical workdir で CLI A が活動中に CLI B を起動すると、B は他 Client の存在を認識できる
+2. A が stale 判定後に活動再開した場合も、活動時の再検索で他 Client の存在を認識できる
 2. GUI / Browser tab も同じ Client Instance model で認識できる
 3. Presence があっても read / write / cmd / Python を Runtime が強制 block しない
 4. 正常終了した Client は active から外れる
