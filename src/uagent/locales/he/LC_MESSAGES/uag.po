@@ -2526,12 +2526,12 @@ msgstr "הערות המבקר: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"אתה reviewer. הערך את השיחה שלהלן וקבע אם המטרה \"%(goal)s\" הושגה.\n"
-"הושג → COMPLETE\n"
-"נדרש יותר → CONTINUE\n"
-"השב עם COMPLETE או CONTINUE.\n"
-"אם CONTINUE, ציין בקצרה מה עדיין חסר.\n"
-"a_2 פורמט: <CONTINUE"
+"אתה reviewer. הערך את השיחה שלהלן וקבע אם המטרה \"%(goal)s\" הושגה.\\n"
+"הושג → COMPLETE\\n"
+"נדרש יותר → CONTINUE\\n"
+"השב עם COMPLETE או CONTINUE.\\n"
+"אם CONTINUE, ציין בקצרה מה עדיין חסר.\\n"
+"פורמט: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
