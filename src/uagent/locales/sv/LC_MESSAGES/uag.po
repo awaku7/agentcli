@@ -2551,12 +2551,12 @@ msgstr "Granskare: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Du är en reviewer. Utvärdera konversationen nedan och avgör om målet \"%(goal)s\" har uppnåtts.\n"
-"Uppnådd → COMPLETE\n"
-"Mer behövs → CONTINUE\n"
-"Svara med COMPLETE eller CONTINUE.\n"
-"Om CONTINUE, ange kort vad som fortfarande saknas.\n"
-">Format: <COMPLETE"
+"Du är en reviewer. Utvärdera konversationen nedan och avgör om målet \"%(goal)s\" har uppnåtts.\\n"
+"Uppnådd → COMPLETE\\n"
+"Mer behövs → CONTINUE\\n"
+"Svara med COMPLETE eller CONTINUE.\\n"
+"Om CONTINUE, ange kort vad som fortfarande saknas.\\n"
+"Format: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
