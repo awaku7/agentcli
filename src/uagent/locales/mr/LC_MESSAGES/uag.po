@@ -4309,13 +4309,13 @@ msgstr "बाह्य URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- कॉन्फिग फाइल आढळली नाही.\\n"
+msgstr "[MCP Servers]\n- कॉन्फिग फाइल आढळली नाही.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- कोणतेही सर्व्हर नोंदणीकृत नाहीत.\\n"
+msgstr "[MCP Servers]\n- कोणतेही सर्व्हर नोंदणीकृत नाहीत.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

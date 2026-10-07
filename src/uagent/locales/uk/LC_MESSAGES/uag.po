@@ -4399,13 +4399,13 @@ msgstr "Зовнішня URL-адреса:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Файл конфігурації не знайдено.\\n"
+msgstr "[MCP Servers]\n- Файл конфігурації не знайдено.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Немає зареєстрованих серверів.\\n"
+msgstr "[MCP Servers]\n- Немає зареєстрованих серверів.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

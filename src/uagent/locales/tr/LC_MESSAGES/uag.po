@@ -4358,13 +4358,13 @@ msgstr "Harici URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Yapılandırma dosyası bulunamadı.\\n"
+msgstr "[MCP Servers]\n- Yapılandırma dosyası bulunamadı.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Kayıtlı sunucu yok.\\n"
+msgstr "[MCP Servers]\n- Kayıtlı sunucu yok.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

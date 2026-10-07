@@ -4389,13 +4389,13 @@ msgstr "Zewnętrzny adres URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Nie znaleziono pliku konfiguracyjnego.\\n"
+msgstr "[MCP Servers]\n- Nie znaleziono pliku konfiguracyjnego.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Brak zarejestrowanych serwerów.\\n"
+msgstr "[MCP Servers]\n- Brak zarejestrowanych serwerów.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

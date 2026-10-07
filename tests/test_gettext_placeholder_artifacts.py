@@ -26,6 +26,22 @@ MCP_WELCOME_NEWLINE_LOCALES = (
     "it",
     "ko",
     "mn",
+    "mr",
+    "nb",
+    "nl",
+    "pl",
+    "pt",
+    "pt_BR",
+    "ro",
+    "ru",
+    "sv",
+    "sw",
+    "th",
+    "tr",
+    "uk",
+    "vi",
+    "zh_CN",
+    "zh_TW",
 )
 
 MCP_WELCOME_MSGIDS = (
@@ -244,3 +260,16 @@ def test_repaired_mcp_welcome_entries_use_real_newlines():
 
     message = "Broken MCP welcome gettext entries:\n" + "\n".join(offenders)
     assert not offenders, message
+
+
+def test_repaired_vi_mcp_failed_info_entry_uses_real_newline():
+    catalog = LOCALES_DIR / "vi" / "LC_MESSAGES" / "uag.mo"
+    with catalog.open("rb") as stream:
+        translation = gettext.GNUTranslations(stream)
+
+    msgid = "[MCP Servers]\n- Failed to get info: %(err)s"
+    translated = translation.gettext(msgid)
+
+    assert translated != msgid
+    assert translated.count("\n") == 1
+    assert "\\n" not in translated
