@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [0.7.26] - 2026-10-07
+
+### Added
+
+- Add an OpenAI Responses API decision provider for typed goal-completion decisions, including configuration and setup support.
+
+### Changed
+
+- Complete and restore localized UI translations across several locales, including Japanese, while preserving runtime markers and format placeholders.
+- Localize coverage-report search terms while retaining English aliases and expand i18n regression coverage.
+
+### Fixed
+
+- Replace conflicting `python-magic` with `python-magic-bin` on Windows when installation is permitted, and make initialization thread-safe.
+- Preserve MCP welcome-message newlines and prevent translation regressions.
+
 ## [0.7.25] - 2026-10-06
 
 ### Fixed

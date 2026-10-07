@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [0.7.26] - 2026-10-07
+
+### 追加
+
+- typed goal-completion判定に対応するOpenAI Responses API Decision Providerを追加し、設定・セットアップにも対応。
+
+### 変更
+
+- 日本語を含む複数言語のUI翻訳を補完・復元し、runtime markerと書式プレースホルダーを維持。
+- coverage reportのツール検索語をローカライズし、英語の別名と回帰テストを拡充。
+
+### 修正
+
+- Windowsで競合する`python-magic`を、インストール許可がある場合に`python-magic-bin`へ置換し、初期化をスレッドセーフ化。
+- MCPのwelcome messageで改行を保持し、翻訳回帰を防止。
+
 ## [0.7.25] - 2026-10-06
 
 ### 修正
