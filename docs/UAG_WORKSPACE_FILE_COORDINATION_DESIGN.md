@@ -19,7 +19,9 @@ CLI / GUI window / WebRoom / A2A Task が同じ workdir で同時に作業して
 
 ~~~sql
 CREATE TABLE active_clients (
-    client_instance_id TEXT PRIMARY KEY,
+    presence_instance_id TEXT PRIMARY KEY,
+    owner_kind TEXT NOT NULL,
+    owner_id TEXT NOT NULL,
     principal_id TEXT,
     session_id TEXT,
     workdir TEXT NOT NULL,
@@ -29,7 +31,7 @@ CREATE TABLE active_clients (
 );
 ~~~
 
-`client_instance_id` は Presence の実行単位を識別する。Web は Browser tab ではなく **WebRoom ごとに1件**登録し、同じ Room に接続する複数タブは同一 Presence を共有する。Room に接続タブがなく、かつ稼働中 worker / Task もない場合は heartbeat を停止し、再接続時に再登録する。A2A は Task ごとに固有 ID を割り当てる。複数 Task が同じ A2A 接続上で並行実行される場合も Task ごとに登録する。
+`presence_instance_id` は Presence 登録単位の固有 ID、`owner_kind` / `owner_id` は所有者（CLI Client / GUI Client / WebRoom / A2A Task）を識別する。`client_instance_id` は個々の Browser tab を含む Client の識別子として別に維持し、Presence ID と混同しない。Web は Browser tab ではなく **WebRoom ごとに1件**登録し、同じ Room に接続する複数タブは同一 Presence を共有する。Room に接続タブがなく、かつ稼働中 worker / Task もない場合は heartbeat を停止し、再接続時に再登録する。A2A は Task ごとに固有 ID を割り当てる。複数 Task が同じ A2A 接続上で並行実行される場合も Task ごとに登録する。
 
 `workdir` は canonicalize して保存する。Windows の separator、absolute path、case 等の表記差を正規化する。
 
@@ -40,11 +42,11 @@ CREATE TABLE active_clients (
 1. 起動・Task開始時に Presence を登録する
 2. **30秒ごとに heartbeat** を送り `last_seen_at` を更新する
 3. 更新時に同じ workdir の他の active Client を再検索し、Presence view を更新する
-4. **有効な workdir が変更された場合**（CLI / Web の `:cd`、`change_workdir_tool`、session restoration 等）は、その時点で新しい workdir を canonicalize し、自身の `active_clients.workdir` を更新してから新しい workdir の peer を再検索する。古い workdir に対する Presence view は破棄する。**ただし Presence だけを更新してはならず、実際に次のターンで使用される Runtime の canonical workdir と同じ値を使う**
+4. **有効な workdir が変更された場合**（CLI / Web の `:cd`、`change_workdir_tool`、session restoration 等）は、その時点で新しい workdir を canonicalize し、該当する `active_clients.workdir` を更新してから新しい workdir の peer を再検索する。古い workdir に対する Presence view は破棄する。**ただし Presence だけを更新してはならず、実際に次のターンで使用される Runtime の canonical workdir と同じ値を使う**
 5. 正常終了・Task完了・Taskキャンセル時に登録解除する
 6. 異常終了・通信断時は **90秒 TTL** 経過後に inactive と判定する
 
-workdir 変更は実行環境の所有者が提供する共通 setter を経由する。CLI では Runtime の workdir、Web では room owner の `WebRoom.base_dir` を正とし、同一 Room の全タブはこの値と単一の Presence view を共有する。A2A では Task ごとに独立した canonical workdir を保持し、Task-scoped setter を使用する。並列 Task の workdir 変更を process-global `os.chdir()` によって永続化してはならず、他 Task の実行 workdir / Presence に影響させない。、`:cd`、`change_workdir_tool`、session restoration がいずれもその setter を呼ぶ。setter は実行環境側の canonical workdir を更新し、同じ変更の一部として Presence row と peer view を更新する。Web worker の一時的な `os.chdir()` は process cwd の操作に過ぎず、room の永続的な workdir 更新とみなさない。worker が cwd を復元しても、次の Web turn は更新後の `WebRoom.base_dir` から開始する。setter の失敗時に Presence だけ先行更新しない。
+workdir 変更は実行環境の所有者が提供する共通 setter を経由する。CLI では Runtime の workdir、Web では room owner の `WebRoom.base_dir` を正とし、同一 Room の全タブはこの値と単一の Presence view を共有する。A2A では Task ごとに独立した canonical workdir を保持し、Task-scoped setter を使用する。並列 Task の workdir 変更を process-global `os.chdir()` によって永続化してはならず、他 Task の実行 workdir / Presence に影響させない。`:cd`、`change_workdir_tool`、session restoration がいずれもその setter を呼ぶ。setter は実行環境側の canonical workdir を更新し、同じ変更の一部として Presence row と peer view を更新する。Web worker の一時的な `os.chdir()` は process cwd の操作に過ぎず、room の永続的な workdir 更新とみなさない。worker が cwd を復元しても、次の Web turn は更新後の `WebRoom.base_dir` から開始する。setter の失敗時に Presence だけ先行更新しない。
 
 Heartbeat は LLM / tool の実行やユーザー入力と独立して継続する。CLI / GUI / Web / A2A Task のいずれも同じ方式とする。専用の外部監視 daemon は不要で、各 Client / Room / Task lifecycle 内の軽量 heartbeat scheduler を使う。
 
@@ -94,4 +96,5 @@ file claim、file lease、workspace lock、OT、CRDT、automatic semantic merge�
 9. 同じ WebRoom に複数タブが接続していても Room の Presence row は1件のみであり、workdir 変更時に全タブが同じ Room の Presence view を参照する。タブ切断時は他の接続・worker / Task があれば Room の Presence を維持する
 10. 並列 A2A Task は Task-scoped canonical workdir / setter を使い、一方の `change_workdir_tool` や復元が他方の workdir / Presence を変えない
 11. Web の `:cd`、`change_workdir_tool`、session restoration が room-aware setter を経由し、`WebRoom.base_dir` と Presence が一致する。worker の一時的 `os.chdir()` と cwd 復元によって次ターンの workdir が巻き戻らない
-12. Presence によってファイル操作を強制停止せず、他 Session の会話履歴も自動注入しない
+12. `presence_instance_id` と `owner_kind` / `owner_id` で登録単位を識別し、Browser tab の `client_instance_id` を WebRoom の ID に流用しない
+13. Presence によってファイル操作を強制停止せず、他 Session の会話履歴も自動注入しない
