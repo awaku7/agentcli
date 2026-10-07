@@ -2605,12 +2605,12 @@ msgstr "Notes du réviseur : %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"Vous êtes un reviewer. Évaluez la conversation ci-dessous et déterminez si l'objectif « %(goal)s » a été atteint.\n"
-"Atteint → COMPLETE\n"
-"Plus nécessaire → CONTINUE\n"
-"Répondez avec COMPLETE ou CONTINUE.\n"
-"Si CONTINUE, indiquez brièvement ce qui manque encore.\n"
-"Format : CONTINUE : <raison>"
+"Vous êtes un reviewer. Évaluez la conversation ci-dessous et déterminez si l’objectif « %(goal)s » a été atteint.\\n"
+"Atteint → COMPLETE\\n"
+"Plus nécessaire → CONTINUE\\n"
+"Répondez avec COMPLETE ou CONTINUE.\\n"
+"Si CONTINUE, indiquez brièvement ce qui manque encore.\\n"
+"Format : CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
