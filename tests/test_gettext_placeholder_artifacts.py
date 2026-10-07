@@ -3,8 +3,8 @@ import re
 from pathlib import Path
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
-ARTIFACT_RE = re.compile(r"(?:PH_|___\\d|__\\d)")
-ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___\\d|__\\d)")
+ARTIFACT_RE = re.compile(r"(?:PH_|___[0-9]|__[0-9])")
+ARTIFACT_BYTES_RE = re.compile(rb"(?:PH_|___[0-9]|__[0-9])")
 
 MULTILINE_MSGIDS = {
     "auto_review": "auto.review_judgment_system_prompt",
