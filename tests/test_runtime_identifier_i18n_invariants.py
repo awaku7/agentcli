@@ -279,11 +279,13 @@ def test_sub_agent_internal_prompts_are_clean_localized_text():
 
 
 def test_mongolian_summarizer_preserves_canonical_semantics():
-    catalog = json.loads((TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8"))
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
     prompt = catalog["mn"]["auto.da98c4c06ff99472"]
     body = prompt.split("\n[Protocol invariants]", 1)[0]
 
-    assert "\n - role: үргэлж \"summarizer\"" in body
+    assert '\n - role: үргэлж "summarizer"' in body
     assert "\n - summary:" in body
     assert "Техникийн нэр томьёог бичсэн хэвээр нь хадгал." in body
     assert "20 үгнээс хэтрүүлэхгүй" in body
