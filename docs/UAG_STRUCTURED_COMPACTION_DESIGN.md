@@ -1094,6 +1094,41 @@ AgentState 更新は `session_id + base_revision` を基準に optimistic concur
 
 wall-clock timestamp は競合判定の正本にしない。Session revision を使用する。
 
+### 23.3.1 Semantic Rebase
+
+UAG の concurrent Client update では、共同編集エディタで使われる Operational Transformation (OT) のような低レベル操作変換を基本方式にしない。
+
+OT が扱う insert / delete / position shift のような操作と異なり、UAG の User Turn / Agent Turn は「設計を簡略化する」「認証を追加する」のような意味的要求であり、機械的な位置変換では意図の整合性を保証できない。
+
+そのため stale Client の要求は次のように処理する。
+
+~~~text
+Client B observes revision 20
+        ↓
+Client A commits revision 21
+        ↓
+Client B submits against revision 20
+        ↓
+Revision Conflict
+        ↓
+Reload AgentState + relevant history at revision 21
+        ↓
+Re-evaluate original request in the new context
+        ↓
+Produce a new delta against revision 21
+~~~
+
+この処理を **semantic rebase** と呼ぶ。
+
+semantic rebase は stale な LLM 出力を新 revision へ機械的に貼り直す処理ではない。元の user intent / pending operation を保持し、最新 AgentState と必要な provenance / Raw History / Artifact を入力として、意味的判断を再実行する。
+
+初期実装では semantic rebase と semantic auto-merge を区別する。
+
+- semantic rebase: stale request を最新 context 上で再評価する。初期実装に含める
+- semantic auto-merge: 並行して生成済みの複数 state delta を意味的に自動合流する。初期実装には含めない
+
+これにより、リアルタイム共同テキスト編集の複雑な OT / CRDT machinery を導入せず、Agent workload に適した optimistic revision + semantic rebase で multi-client safety を実現する。
+
 
 ### 23.4 Transaction / Crash Recovery
 
@@ -1334,7 +1369,7 @@ long coding session
 10. Sub-Agent handoff に同じ provenance / scope semantics を再利用できる
 11. CLI / GUI / Browser tab を同じ Client Instance model で扱える
 12. 同一 Session を複数 Client が開いても base_revision 不一致を検出し silent overwrite しない
-13. revision conflict 後に最新 AgentState / history を取得して安全に再評価できる
+13. revision conflict 後に最新 AgentState / history を取得し、stale request を semantic rebase として安全に再評価できる
 14. process crash 後は最後の committed revision から二重適用なしに resume できる
 15. 複数ユーザー環境で retrieval / rehydration が current authorization を再評価し、個人 Memory を暗黙共有しない
 16. telemetry から compaction、fallback、client、session revision、conflict を追跡できる
