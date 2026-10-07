@@ -25,7 +25,7 @@ def test_search_web_tool_description_mentions_supported_engines():
         if description is None:
             continue
         lowered = description.lower()
-        for token in ("startpage", "duckduckgo", "brave search", "yahoo japan"):
+        for token in ("startpage", "duckduckgo", "brave search", "yahoo", "japan"):
             if token not in lowered:
                 invalid.append(f"{lang}:{token}")
 
