@@ -300,13 +300,13 @@ flowchart TD
 3. Runtime が DeterministicDelta を抽出
 4. LLM が semantic GoalDelta / Decision / Constraint / Fact / Narrative を抽出
 5. Runtime が Goal association、schema、item-level provenance を検証
-6. `applied` は現在の head revision / branch head と operation_id を検証する。`comparison_only` は保存済みの歴史的 base revision / parent lineage が存在することを検証し、現在の head との一致を要求しない。いずれも SQLite transaction 内で immutable CompactionRecord を記録（未commit）
+6. `applied` は現在の head revision / branch head と operation_id を検証する。`comparison_only` は歴史的 base revision の AgentState スナップショットと parent lineage が参照可能なことを検証し、当該スナップショットを読み込んで Goal association を実施する。スナップショットがなければ比較を実行せず、現在の head との一致も要求しない。いずれも SQLite transaction 内で immutable CompactionRecord を記録（未commit）
 7. `application_status=applied` の場合だけ同じ transaction 内で Reducer が AgentState を materialize。`comparison_only` の場合は Reducer と AgentState revision 更新を実行しない
 8. 同じ transaction 内で適用対象の session revision と operation_id の記録を更新し、**ここでまとめて commit**（失敗時はすべて rollback）。比較用 record は適用済み扱いにしない
 9. AgentState materialized projection を基本 ContextCandidate とし、Checkpoint / Artifact を根拠検索に利用
 10. ActiveContextBuilder → Provider Projection → LLM
 
-Compaction と current-state update を同一概念にしない。`applied` で base_revision が古い場合は current state を上書きせず、最新 revision を取得して compaction / Reducer 適用をやり直す。`comparison_only` は元の source range と歴史的 base_revision を維持して比較し、現在の revision に rebase しない。
+Compaction と current-state update を同一概念にしない。`applied` で base_revision が古い場合は current state を上書きせず、最新 revision を取得して compaction / Reducer 適用をやり直す。`comparison_only` は元の source range と保存済みの歴史的 AgentState を維持して比較し、現在の revision に rebase しない。
 
 
 ## 6. CompactionRecord
@@ -647,7 +647,7 @@ Chunk の境界と Goal の境界は一致させない。既存 Goal と明確�
 
 Compaction request には永続的な stable `operation_id` を付与し、crash / timeout 後の retry でも同じ ID を使用する。Checkpoint の operation_id UNIQUE 制約、Reducer 適用、AgentState revision 更新は **同一 SQLite transaction** で commit する。意図的な再圧縮では新しい operation_id を使うが、operation_id の違いだけを理由に同じ evidence を再適用してはならない。
 
-同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として **comparison-only（Reducer には適用しない）** で保存する。正式に置き換える場合は、既存適用の取り消し・置換を別途設計してから行い、comparison-only record をそのまま Reducer に渡さない。同一 operation の retry は idempotency key で重複 commit を防ぐ。比較用 record は `application_status=comparison_only` として保存し、復旧後も Reducer や通常の ContextCandidate に渡さない。
+同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として **comparison-only（Reducer には適用しない）** で保存する。正式に置き換える場合は、既存適用の取り消し・置換を別途設計してから行い、comparison-only record をそのまま Reducer に渡さない。同一 operation の retry は idempotency key で重複 commit を防ぐ。比較用 record は `application_status=comparison_only` として保存し、復旧後も Reducer や通常の ContextCandidate に渡さない。歴史的 AgentState の再構築は初期実装の対象外とし、元の base revision に対応する状態スナップショットが保存されている場合だけ比較を許可する。存在しなければ比較不能として返し、現在の AgentState で代用しない。
 
 ## 11. Deterministic File / Artifact Tracking
 
@@ -794,6 +794,11 @@ class ProvenancedDeterministicItem:
     source_refs: list[str]
 
 @dataclass
+class ProvenancedExecutionRecord:
+    execution: ExecutionRecord
+    source_refs: list[str]
+
+@dataclass
 class ProvenancedDeterministicDelta:
     read_files: list[ProvenancedDeterministicItem]
     modified_files: list[ProvenancedDeterministicItem]
@@ -802,14 +807,15 @@ class ProvenancedDeterministicDelta:
     artifact_refs: list[ProvenancedDeterministicItem]
     tool_call_refs: list[ProvenancedDeterministicItem]
     subagent_refs: list[ProvenancedDeterministicItem]
-    executed_checks: list[ProvenancedDeterministicItem]
+    executed_checks: list[ProvenancedExecutionRecord]
     pending_operation_events: list[ProvenancedDeterministicItem]
 
 @dataclass
 class HandoffRecord:
     handoff_id: str  # stable across delivery retries; unique within receiving session
     receiving_session_id: str  # fixed at dispatch
-    receiving_base_revision: int  # captured at dispatch
+    receiving_base_revision: int  # captured at dispatch; never overwritten
+    application_base_revision: int  # receiver revision used for this payload
     agent_id: str
     role: str
 
@@ -839,13 +845,13 @@ Main Agent からは、
 - required Artifacts
 - explicit task scope
 
-だけを投影する。派遣時に受信側 `session_id` と `AgentState.revision` を固定し、Handoff に `receiving_session_id` / `receiving_base_revision` として引き継ぐ。
+だけを投影する。派遣時に受信側 `session_id` と `AgentState.revision` を固定し、Handoff に `receiving_session_id` / `receiving_base_revision` として引き継ぐ。初回生成時の `application_base_revision` は `receiving_base_revision` と等しくする。
 
 ### 14.2 Sub-Agent → Main
 
 Sub-Agent の Raw History は Sub-Agent 側 Persistent Context に残す。
 
-Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ ID の再送は再適用しない。初回受信時にも `receiving_base_revision` と現在の受信 Session revision を比較し、不一致なら適用を保留して conflict を返すか、根拠を検証して semantic rebase する。古い `state_delta` / decisions を無条件に適用しない。Handoff の deterministic 項目は元イベントを指す `source_refs` を個別に持ち、受信側で項目単位の監査・無効化を可能にする。
+Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ ID の再送は再適用しない。初回受信時にも `application_base_revision` と現在の受信 Session revision を比較し、不一致なら適用を保留して conflict を返す。再調整が必要な場合は、元の Handoff を変更せず、新しい `handoff_id` と `application_base_revision`（再調整に使用した受信 revision）を持つ Handoff を生成し、元の `receiving_base_revision` は保持する。古い `state_delta` / decisions を無条件に適用しない。Handoff の deterministic 項目は元イベントを指す `source_refs` を個別に持ち、受信側で項目単位の監査・無効化を可能にする。
 
 ~~~text
 Sub-Agent Raw History
@@ -1144,7 +1150,7 @@ Structured Compaction のために新しい database / storage layer は導入�
 
 現行実装はすでに `sessions`、`messages`、`tool_calls`、`tool_results`、`agent_states`、`context_decisions` 等を SQLite に保持し、WAL mode / busy timeout 等の multi-process 向け設定を持つ。この既存構造を利用する。
 
-初期実装で必要な主要変更は以下とする。
+初期実装で必要な主要変更は以下とする。過去 revision の AgentState は既存の保存済み snapshot が参照できる場合のみ比較に利用する。全 revision の snapshot 永続化やイベント再生基盤は今回追加しない。
 
 ~~~text
 agent_states
@@ -1175,6 +1181,7 @@ handoff_applications    # new
   receiving_session_id
   applied_at
   receiving_base_revision
+  application_base_revision
   # (receiving_session_id, handoff_id) UNIQUE
 ~~~
 
