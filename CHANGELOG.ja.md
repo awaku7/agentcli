@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+## [0.7.26] - 2026-10-07
+
+### 追加
+
+- OpenAI Decisions APIをDecision Providerとして追加し、`llmcapa`のcapability情報と型付きpredicate質問を利用。setup、ドキュメント、回帰テストも追加。
+
+### 変更
+
+- メインProviderがOpenAIでDecision Providerを明示指定していない場合、Auto-pilotの完了判定に`gpt-6-luna`のOpenAI Decisionsを既定で使用。明示的な`none`では従来のLLM reviewerを維持。
+- OpenAI Decisionsのcapability情報対応のため、`llmcapa`の最低バージョンを`0.5.57`へ更新。
+- runtime identifier、placeholder、active/obsolete gettext回帰、ローカライズ済み検索語を検出するI18N監査・回帰テストを拡充。
+
+### 修正
+
+- service brand、package名、`UAGENT_*`環境変数、runtime enum値など実行に必要な固定文字列を維持しつつ、ユーザー向け文言だけを翻訳するようtool catalogを強化。
+- Sub-Agent内部prompt、gettextのplaceholder/newline破損、日本語のfuzzy・回帰項目、ベトナム語/タイ語のlocale混入、Filipinoおよび6言語の残存UI文字列、Filipino/Nynorskのcoverage検索語を修正。
+- `search_web`の説明をStartPage既定動作に合わせ、Responses画像Providerの対応メッセージにDeepSeekを追加。
+- Windowsで競合する汎用`python-magic`を既存の自動インストール方針に従って`python-magic-bin`へ置き換え、bindingの初期化を1回に限定。
+
 ## [0.7.25] - 2026-10-06
 
 ### 修正
