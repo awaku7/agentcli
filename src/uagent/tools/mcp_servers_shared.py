@@ -19,11 +19,11 @@ def get_default_mcp_config_path() -> str:
 
 
 def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
-    """Return whether a managed HTTP MCP server explicitly opts into tracing.
+    """Return whether a managed MCP server explicitly opts into tracing.
 
-    Only the exact JSON boolean ``true`` combined with a managed ``http://`` or
-    ``https://`` URL crosses this trust boundary. String/integer truthy values and
-    non-HTTP transports remain untrusted.
+    Only the exact JSON boolean ``true`` crosses this trust boundary. Managed
+    HTTP and stdio transports can carry W3C context at the MCP message layer;
+    string/integer truthy values and unsupported transports remain untrusted.
     """
 
     if (
@@ -32,9 +32,12 @@ def is_trusted_mcp_trace_propagation_enabled(server: Any) -> bool:
     ):
         return False
     url = server.get("url")
-    return isinstance(url, str) and url.strip().lower().startswith(
-        ("http://", "https://")
-    )
+    if isinstance(url, str) and url.strip().lower().startswith(
+        ("http://", "https://", "stdio://")
+    ):
+        return True
+    command = server.get("command")
+    return isinstance(command, str) and bool(command.strip())
 
 
 def ensure_mcp_config_template() -> str:
