@@ -104,6 +104,34 @@ deployment-specific Kerberos/Negotiate verifier and is not enabled by default.
 See [Web Identity and Memory](docs/WEB_IDENTITY_MEMORY.md) and
 [Enterprise Policy](docs/ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry observability
+
+uag includes opt-in, provider-neutral OpenTelemetry tracing and metrics for Agent, LLM, tool,
+Context, Memory, and retrieval operations, with trusted propagation support for Sub-Agent,
+A2A, MCP HTTP, and explicitly trusted Web reverse proxies. Observability is disabled by default.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+When enabled, missing OpenTelemetry Python dependencies can be installed through uag's existing
+auto-install policy. Exporter, endpoint, protocol, and sampling behavior use standard `OTEL_*`
+settings. Advanced content capture, pseudonymous correlation, provider SDK diagnostics, and
+ordinary-user trace query are separate opt-in features.
+
+The Phase 4D trace-query route is authorization-aware but intentionally has no generic vendor
+query adapter built in: a reviewed application integration must register the backend adapter.
+The OTLP export endpoint is never treated as a query API.
+
+See [OpenTelemetry design](docs/UAG_OPENTELEMETRY_DESIGN.md),
+[environment configuration](docs/ENVIRONMENT.md#opentelemetry-observability), and
+[developer observability contract](src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Parallel tool execution
 
 Independent read-only operations run concurrently when safe. Web searches, file inspection,
