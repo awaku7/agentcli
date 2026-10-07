@@ -4405,13 +4405,17 @@ msgstr "URL externe :"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Fichier de configuration introuvable.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Fichier de configuration introuvable.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Aucun serveur enregistré.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Aucun serveur enregistré.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

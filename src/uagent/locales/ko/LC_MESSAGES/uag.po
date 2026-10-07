@@ -4191,13 +4191,17 @@ msgstr "외부 URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- 구성 파일을 찾을 수 없습니다.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- 구성 파일을 찾을 수 없습니다.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- 등록된 서버가 없습니다.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- 등록된 서버가 없습니다.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

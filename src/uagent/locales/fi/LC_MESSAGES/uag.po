@@ -4360,13 +4360,17 @@ msgstr "Ulkoinen URL-osoite:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Määritystiedostoa ei löydy.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Määritystiedostoa ei löydy.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Palvelimia ei ole rekisteröity.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Palvelimia ei ole rekisteröity.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

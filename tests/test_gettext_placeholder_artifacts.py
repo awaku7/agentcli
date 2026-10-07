@@ -9,6 +9,30 @@ AUTO_REVIEW_ARTIFACT_RE = re.compile(r"\b[\w]*_[0-9]+\b")
 AUTO_REVIEW_FORMAT_RE = re.compile(r"CONTINUE:\s*<[^>\n]+>")
 AUTO_REVIEW_MSGID = "auto.review_judgment_system_prompt"
 
+MCP_WELCOME_NEWLINE_LOCALES = (
+    "ar",
+    "bn",
+    "cs",
+    "de",
+    "el",
+    "es",
+    "fa",
+    "fi",
+    "fr",
+    "he",
+    "hi",
+    "hu",
+    "id",
+    "it",
+    "ko",
+    "mn",
+)
+
+MCP_WELCOME_MSGIDS = (
+    "[MCP Servers]\n- Config file not found.\n",
+    "[MCP Servers]\n- No servers registered.\n",
+)
+
 MULTILINE_MSGIDS = {
     "auto_review": "auto.review_judgment_system_prompt",
     "warning": (
@@ -197,4 +221,26 @@ def test_shipped_gettext_catalogs_do_not_contain_fuzzy_entries():
         "Fuzzy gettext entries must not be shipped because the bundled PO-to-MO "
         "compiler includes them at runtime:\n" + "\n".join(offenders)
     )
+    assert not offenders, message
+
+
+def test_repaired_mcp_welcome_entries_use_real_newlines():
+    offenders = []
+
+    for locale in MCP_WELCOME_NEWLINE_LOCALES:
+        catalog = LOCALES_DIR / locale / "LC_MESSAGES" / "uag.mo"
+        with catalog.open("rb") as stream:
+            translation = gettext.GNUTranslations(stream)
+
+        for msgid in MCP_WELCOME_MSGIDS:
+            translated = translation.gettext(msgid)
+            if translated == msgid:
+                offenders.append(f"{locale}: untranslated")
+                continue
+            if translated.count("\n") != 2:
+                offenders.append(f"{locale}: expected two real newlines")
+            if "\\n" in translated:
+                offenders.append(f"{locale}: contains literal backslash-n")
+
+    message = "Broken MCP welcome gettext entries:\n" + "\n".join(offenders)
     assert not offenders, message

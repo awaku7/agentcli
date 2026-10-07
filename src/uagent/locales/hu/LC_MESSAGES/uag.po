@@ -4383,13 +4383,17 @@ msgstr "Külső URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- A konfigurációs fájl nem található.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- A konfigurációs fájl nem található.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Nincsenek regisztrálva szerverek.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Nincsenek regisztrálva szerverek.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

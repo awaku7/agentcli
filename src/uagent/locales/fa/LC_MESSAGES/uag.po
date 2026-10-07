@@ -4288,13 +4288,17 @@ msgstr "آدرس URL خارجی:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- فایل پیکربندی پیدا نشد.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- فایل پیکربندی پیدا نشد.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- هیچ سروری ثبت نشده است.\\n"
+msgstr ""
+"[MCP Servers]\n"
+"- هیچ سروری ثبت نشده است.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
