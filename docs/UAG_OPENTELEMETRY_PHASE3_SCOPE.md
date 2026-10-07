@@ -23,8 +23,8 @@ Default rules:
 2. A2A outbound calls may inject trace context only when initiated by UAG runtime code through the trusted A2A client boundary.
 3. A2A inbound context may be extracted only after the request has passed the existing A2A authentication/trust boundary.
 4. Sub-Agent execution inside the same process inherits the active ContextVar/OTel context naturally; no serialized trace metadata is required.
-5. MCP stdio does not require W3C header propagation. It may remain a child of the current local tool span through in-process context only.
-6. MCP HTTP propagation is opt-in to the UAG-owned HTTP transport boundary and must never overwrite configured authentication headers.
+5. Trusted MCP propagation is message-level and transport-independent: inject W3C Trace Context into request `params._meta` for both stdio and HTTP, while deliberately omitting baggage under UAG policy.
+6. MCP HTTP may additionally keep transport-level W3C headers for compatibility, but must never overwrite configured authentication headers.
 7. Reverse-proxy/internal Web ingress propagation is OFF unless the actual socket peer matches the server-side `UAGENT_OTEL_TRUSTED_PROXY_CIDRS` allowlist.
 8. `X-Forwarded-For`, `Forwarded`, cookies, query parameters, message JSON, and trace headers never make a peer trusted.
 9. Trusted Web ingress accepts only `traceparent` / `tracestate`; baggage is not accepted.
@@ -50,8 +50,9 @@ Default rules:
 ### MCP
 
 - keep existing outer UAG `execute_tool` span authoritative;
-- for HTTP MCP transports, inject W3C context only through the UAG-created HTTP client path;
-- for stdio, retain local parent/child context only and do not invent trace headers;
+- for trusted MCP requests, inject W3C `traceparent` / `tracestate` into `params._meta` in line with SEP-414 so propagation works across stdio and HTTP;
+- for HTTP, retain the existing UAG-created request-header propagation as a compatibility transport signal without treating it as the MCP message parent;
+- for stdio, use only the MCP `_meta` message carrier and do not invent HTTP-style headers;
 - avoid duplicate canonical tool spans from SDK/HTTP auto-instrumentation.
 
 ### Trusted reverse-proxy ingress
@@ -103,7 +104,8 @@ Required tests include:
 - each instance in that multi-instance chain exports exactly one canonical `invoke_agent` span for its logical Agent execution, so propagation does not introduce duplicate logical Agent spans;
 - Sub-Agent child spans inherit the active trace while sibling executions keep separate spans;
 - HTTP MCP injection preserves auth headers and omits sensitive content;
-- stdio MCP remains functional without serialized W3C headers;
+- trusted HTTP and stdio MCP requests carry the same W3C Trace Context in `params._meta`;
+- baggage is not propagated by UAG's trusted MCP path;
 - duplicate logical spans are not introduced;
 - OTel disabled behavior is unchanged;
 - Python 3.11 / 3.13 / 3.14, Ruff, Black, and full pytest stay green.

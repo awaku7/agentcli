@@ -8,6 +8,7 @@ from typing import Any
 from urllib.parse import urlparse
 
 from ...lazy_import import lazy_module
+from .trace_context import build_trusted_mcp_trace_meta
 
 httpx = lazy_module("httpx")
 
@@ -42,10 +43,7 @@ async def _inject_trusted_trace_context(request: Any) -> None:
             if key in request.headers:
                 del request.headers[key]
 
-        from ...runtime.observability.bootstrap import get_observability_backend
-
-        carrier: dict[str, str] = {}
-        get_observability_backend().inject_context(carrier)
+        carrier = build_trusted_mcp_trace_meta(True)
         for key in ("traceparent", "tracestate"):
             value = carrier.get(key)
             if value:

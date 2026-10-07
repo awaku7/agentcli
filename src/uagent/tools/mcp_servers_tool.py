@@ -165,8 +165,8 @@ TOOL_SPEC: dict[str, Any] = {
                     "description": _(
                         "param.trusted_trace_propagation.description",
                         default=(
-                            "(add/init_template) Explicitly trust this managed HTTP MCP "
-                            "server for W3C trace propagation. Default: false."
+                            "(add/init_template) Explicitly trust this managed MCP server "
+                            "for W3C trace propagation. Default: false."
                         ),
                     ),
                     "default": False,
@@ -360,7 +360,11 @@ def _validate_servers_for_list(servers: list[Any]) -> list[str]:
                 ).format(idx=idx)
             )
         elif trusted_trace is True and not (
-            isinstance(url, str) and url.lower().startswith(("http://", "https://"))
+            (
+                isinstance(url, str)
+                and url.lower().startswith(("http://", "https://", "stdio://"))
+            )
+            or (isinstance(command, str) and bool(command.strip()))
         ):
             warnings.append(
                 _(
@@ -455,7 +459,11 @@ def _validate_servers_strict(servers: list[Any]) -> tuple[list[str], list[str]]:
                 ).format(idx=idx)
             )
         elif trusted_trace is True and not (
-            has_http and str(url).lower().startswith(("http://", "https://"))
+            (
+                has_http
+                and str(url).lower().startswith(("http://", "https://", "stdio://"))
+            )
+            or has_stdio
         ):
             warnings.append(
                 _(

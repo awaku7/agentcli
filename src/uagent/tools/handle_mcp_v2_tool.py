@@ -292,6 +292,7 @@ async def _call_mcp_stdio(
     name: str,
     argv: dict[str, Any],
     protocol_mode: str = "auto",
+    trusted_trace_propagation: bool = False,
 ) -> str:
     try:
         async with MCPClient(
@@ -299,6 +300,7 @@ async def _call_mcp_stdio(
             args=args,
             env=env,
             protocol_mode=protocol_mode,
+            trusted_trace_propagation=trusted_trace_propagation,
         ) as client:
             try:
                 tools_result = await client.list_tools()
@@ -723,7 +725,15 @@ def run_tool(args: dict[str, Any]) -> str:
     try:
         if command:
             result_text = asyncio.run(
-                _call_mcp_stdio(command, cmd_args, cmd_env, name, argv, protocol_mode)
+                _call_mcp_stdio(
+                    command,
+                    cmd_args,
+                    cmd_env,
+                    name,
+                    argv,
+                    protocol_mode,
+                    trusted_trace_propagation,
+                )
             )
         elif url.startswith("stdio://"):
             parts = url[8:].strip().split()
@@ -733,7 +743,15 @@ def run_tool(args: dict[str, Any]) -> str:
                     "INVALID_STDIO_URL",
                 )
             result_text = asyncio.run(
-                _call_mcp_stdio(parts[0], parts[1:], {}, name, argv, protocol_mode)
+                _call_mcp_stdio(
+                    parts[0],
+                    parts[1:],
+                    {},
+                    name,
+                    argv,
+                    protocol_mode,
+                    trusted_trace_propagation,
+                )
             )
         else:
             result_text = asyncio.run(

@@ -36,6 +36,16 @@ def test_managed_trace_optin_requires_json_boolean_true(repo_tmp_path: Path) -> 
     assert stored["trusted_trace_propagation"] is True
     assert is_trusted_mcp_trace_propagation_enabled(stored) is True
     assert (
+        is_trusted_mcp_trace_propagation_enabled(
+            {
+                "command": "python",
+                "args": ["server.py"],
+                "trusted_trace_propagation": True,
+            }
+        )
+        is True
+    )
+    assert (
         is_trusted_mcp_trace_propagation_enabled({"trusted_trace_propagation": "true"})
         is False
     )
@@ -94,6 +104,49 @@ def test_handle_mcp_v2_managed_optin_and_direct_url_stays_off(
     assert seen == [True, False]
 
 
+def test_handle_mcp_v2_managed_stdio_threads_trace_optin(
+    repo_tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.tools import handle_mcp_v2_tool as tool
+
+    path = repo_tmp_path / "mcp_servers.json"
+    _write_config(
+        path,
+        [
+            {
+                "name": "trusted-stdio",
+                "command": "python",
+                "args": ["server.py"],
+                "trusted_trace_propagation": True,
+            }
+        ],
+    )
+    monkeypatch.setattr(tool, "get_default_mcp_config_path", lambda: str(path))
+    seen: list[bool] = []
+
+    async def fake_stdio(
+        command: str,
+        args: list[str],
+        env: dict[str, str],
+        name: str,
+        argv: dict[str, Any],
+        protocol_mode: str = "auto",
+        trusted_trace_propagation: bool = False,
+    ) -> str:
+        seen.append(trusted_trace_propagation)
+        return "ok"
+
+    monkeypatch.setattr(tool, "_call_mcp_stdio", fake_stdio)
+    tool.run_tool(
+        {
+            "server_name": "trusted-stdio",
+            "tool_name": "ping",
+            "args": {},
+        }
+    )
+    assert seen == [True]
+
+
 def test_mcp_tools_list_managed_optin(repo_tmp_path: Path, monkeypatch) -> None:
     from uagent.tools import mcp_tools_list_tool as tool
 
@@ -126,7 +179,7 @@ def test_mcp_tools_list_managed_optin(repo_tmp_path: Path, monkeypatch) -> None:
     assert seen == [True]
 
 
-def test_resources_resolver_only_marks_managed_http_as_trusted(
+def test_resources_resolver_marks_managed_http_and_stdio_as_trusted(
     repo_tmp_path: Path, monkeypatch
 ) -> None:
     from uagent.tools import mcp_resources_tool as tool
@@ -162,7 +215,7 @@ def test_resources_resolver_only_marks_managed_http_as_trusted(
 
     assert trusted["trusted_trace_propagation"] is True
     assert string_value["trusted_trace_propagation"] is False
-    assert "trusted_trace_propagation" not in stdio
+    assert stdio["trusted_trace_propagation"] is True
     assert "trusted_trace_propagation" not in direct
 
 

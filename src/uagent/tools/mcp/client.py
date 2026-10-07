@@ -23,6 +23,7 @@ from .protocol import (
 from .http_client import MCPHTTPConfig, create_mcp_http_client
 from .oauth_provider import MCPOAuthHTTPXAuth, attach_oauth_httpx_auth
 from .stateless_transport import StatelessHTTPClient
+from .trace_context import call_with_trusted_mcp_trace_meta
 
 try:
     from mcp import ClientSession
@@ -220,7 +221,10 @@ class MCPClient:
                     "connect",
                     {"requested_mode": "stateless"},
                 )
-            self.initialize_result = await self.session.initialize()
+            self.initialize_result = await call_with_trusted_mcp_trace_meta(
+                self.session.initialize,
+                enabled=self.trusted_trace_propagation,
+            )
             self.protocol_info = detect_protocol_mode(
                 requested_mode=self.requested_mode,
                 protocol_version=self._protocol_version(),
@@ -277,7 +281,10 @@ class MCPClient:
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "tools/list")
         try:
-            return await self.session.list_tools()
+            return await call_with_trusted_mcp_trace_meta(
+                self.session.list_tools,
+                enabled=self.trusted_trace_propagation,
+            )
         except Exception as exc:
             raise MCPTransportError(
                 "MCP_LIST_TOOLS_FAILED", "tools/list", {"error": str(exc)}
@@ -289,7 +296,12 @@ class MCPClient:
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "tools/call")
         try:
-            return await self.session.call_tool(name, arguments)
+            return await call_with_trusted_mcp_trace_meta(
+                self.session.call_tool,
+                name,
+                arguments,
+                enabled=self.trusted_trace_propagation,
+            )
         except Exception as exc:
             raise MCPTransportError(
                 "MCP_CALL_TOOL_FAILED",
@@ -310,7 +322,10 @@ class MCPClient:
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "resources/list")
         try:
-            return await self.session.list_resources()
+            return await call_with_trusted_mcp_trace_meta(
+                self.session.list_resources,
+                enabled=self.trusted_trace_propagation,
+            )
         except Exception as exc:
             raise MCPTransportError(
                 "MCP_LIST_RESOURCES_FAILED", "resources/list", {"error": str(exc)}
@@ -322,7 +337,11 @@ class MCPClient:
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "resources/read")
         try:
-            return await self.session.read_resource(uri)
+            return await call_with_trusted_mcp_trace_meta(
+                self.session.read_resource,
+                uri,
+                enabled=self.trusted_trace_propagation,
+            )
         except Exception as exc:
             raise MCPTransportError(
                 "MCP_READ_RESOURCE_FAILED",
@@ -336,7 +355,10 @@ class MCPClient:
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "prompts/list")
         try:
-            return await self.session.list_prompts()
+            return await call_with_trusted_mcp_trace_meta(
+                self.session.list_prompts,
+                enabled=self.trusted_trace_propagation,
+            )
         except Exception as exc:
             raise MCPTransportError(
                 "MCP_LIST_PROMPTS_FAILED", "prompts/list", {"error": str(exc)}
@@ -350,7 +372,12 @@ class MCPClient:
         if self.session is None:
             raise MCPTransportError("MCP_NOT_CONNECTED", "prompts/get")
         try:
-            return await self.session.get_prompt(name, arguments=arguments)
+            return await call_with_trusted_mcp_trace_meta(
+                self.session.get_prompt,
+                name,
+                arguments=arguments,
+                enabled=self.trusted_trace_propagation,
+            )
         except Exception as exc:
             raise MCPTransportError(
                 "MCP_GET_PROMPT_FAILED",

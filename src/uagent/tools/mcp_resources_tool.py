@@ -119,12 +119,9 @@ def _resolve(args: dict[str, Any]) -> tuple[dict[str, Any], str]:
                 "headers": _headers(server.get("headers")),
                 "protocol_mode": mode,
             }
-            if isinstance(resolved_url, str) and resolved_url.lower().startswith(
-                ("http://", "https://")
-            ):
-                connection["trusted_trace_propagation"] = (
-                    is_trusted_mcp_trace_propagation_enabled(server)
-                )
+            connection["trusted_trace_propagation"] = (
+                is_trusted_mcp_trace_propagation_enabled(server)
+            )
             return connection, server_name
     raise ValueError(f"MCP server not found: {server_name}")
 

@@ -5,6 +5,24 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Mapping
 
+_GENAI_PROVIDER_NAMES = {
+    "azure": "azure.ai.openai",
+    "bedrock": "aws.bedrock",
+    "claude": "anthropic",
+    "deepseek": "deepseek",
+    "gemini": "gcp.gemini",
+    "grok": "x_ai",
+    "moonshot": "moonshot_ai",
+    "openai": "openai",
+    "vertexai": "gcp.vertex_ai",
+}
+
+
+def _genai_provider_name(provider: str) -> str:
+    original = str(provider or "").strip()
+    normalized = original.lower()
+    return _GENAI_PROVIDER_NAMES.get(normalized, original)
+
 
 @dataclass(frozen=True)
 class MappedSpan:
@@ -36,11 +54,12 @@ def map_span(
     if op == "chat":
         model = str(attrs.get("uag.llm.model") or "").strip()
         provider = str(attrs.get("uag.llm.provider") or "").strip()
+        semantic_provider = _genai_provider_name(provider)
         mapped.setdefault("gen_ai.operation.name", "chat")
         if model:
             mapped.setdefault("gen_ai.request.model", model)
-        if provider:
-            mapped.setdefault("gen_ai.provider.name", provider)
+        if semantic_provider:
+            mapped.setdefault("gen_ai.provider.name", semantic_provider)
         return MappedSpan(f"chat {model}" if model else "chat", mapped)
 
     if op == "execute_tool":

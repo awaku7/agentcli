@@ -13,6 +13,7 @@ from typing import Any, Awaitable, Callable
 from .errors import MCPProtocolError, MCPTransportError
 from .http_client import MCPHTTPConfig, create_mcp_http_client
 from .stateless_http import build_protocol_headers
+from .trace_context import inject_trusted_mcp_trace_meta
 
 
 class StatelessHTTPClient:
@@ -63,8 +64,12 @@ class StatelessHTTPClient:
             "id": request_id,
             "method": method,
         }
-        if params is not None:
-            body["params"] = params
+        request_params = inject_trusted_mcp_trace_meta(
+            params,
+            enabled=self.trusted_trace_propagation,
+        )
+        if request_params is not None:
+            body["params"] = request_params
 
         request_headers = dict(self.headers)
         request_headers.update(
