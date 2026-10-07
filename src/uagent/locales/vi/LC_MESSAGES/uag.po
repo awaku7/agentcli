@@ -4186,13 +4186,13 @@ msgstr "URL bên ngoài:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Không tìm thấy tệp cấu hình.\\n"
+msgstr "[MCP Servers]\n- Không tìm thấy tệp cấu hình.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Không có máy chủ nào được đăng ký.\\n"
+msgstr "[MCP Servers]\n- Không có máy chủ nào được đăng ký.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -4203,7 +4203,7 @@ msgstr "[Máy chủ MCP]"
 msgid ""
 "[MCP Servers]\n"
 "- Failed to get info: %(err)s"
-msgstr "[MCP Servers]\\n- Failed to get info: %(err)s"
+msgstr "[MCP Servers]\n- Failed to get info: %(err)s"
 
 #: src/uagent/welcome.py:70
 msgid "[Quick Guide]"

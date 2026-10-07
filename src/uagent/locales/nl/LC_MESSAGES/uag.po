@@ -4361,13 +4361,13 @@ msgstr "Externe URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Configuratiebestand niet gevonden.\\n"
+msgstr "[MCP Servers]\n- Configuratiebestand niet gevonden.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Geen servers geregistreerd.\\n"
+msgstr "[MCP Servers]\n- Geen servers geregistreerd.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

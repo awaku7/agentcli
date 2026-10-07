@@ -4399,13 +4399,13 @@ msgstr "URL extern:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Fișierul de configurare nu a fost găsit.\\n"
+msgstr "[MCP Servers]\n- Fișierul de configurare nu a fost găsit.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Nu au fost înregistrate servere.\\n"
+msgstr "[MCP Servers]\n- Nu au fost înregistrate servere.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"

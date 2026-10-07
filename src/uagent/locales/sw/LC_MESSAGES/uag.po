@@ -4236,13 +4236,13 @@ msgstr "URL ya Nje:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\\n- Faili ya usanidi haijapatikana.\\n"
+msgstr "[MCP Servers]\n- Faili ya usanidi haijapatikana.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\\n- Hakuna seva zilizosajiliwa.\\n"
+msgstr "[MCP Servers]\n- Hakuna seva zilizosajiliwa.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
