@@ -14,7 +14,7 @@ def _has_standalone_token(text: str, token: str) -> bool:
     return re.search(pattern, text, flags=re.IGNORECASE) is not None
 
 
-def test_search_web_tool_description_mentions_startpage():
+def test_search_web_tool_description_mentions_supported_engines():
     payload = _load()
     invalid = []
 
@@ -24,10 +24,12 @@ def test_search_web_tool_description_mentions_startpage():
         description = messages.get("tool.description")
         if description is None:
             continue
-        if "startpage" not in description.lower():
-            invalid.append(lang)
+        lowered = description.lower()
+        for token in ("startpage", "duckduckgo", "brave search", "yahoo japan"):
+            if token not in lowered:
+                invalid.append(f"{lang}:{token}")
 
-    assert not invalid, "Missing StartPage in localized tool description: " + ", ".join(
+    assert not invalid, "Missing engine in localized tool description: " + ", ".join(
         invalid
     )
 
