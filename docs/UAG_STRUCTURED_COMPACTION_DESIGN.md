@@ -419,77 +419,38 @@ Checkpoint の deterministic_delta はその区間だけを表す。全履歴の
 Validated CompactionRecord は Runtime の Reducer へ渡す。Reducer は base_revision の競合を無条件上書きせず、ambiguous Goal を勝手に確定せず、superseded Decision / Constraint を active に戻さず、LLM の推測だけで pending / blocked を done にせず、deterministic evidence を semantic summary より優先し、適用を idempotent にする。
 ## 7. Structured Summary の標準形式
 
-LLM が生成する summary は複数 Goal / Workstream を保持する。
+LLM の semantic extraction は current GoalState 全体を再生成せず、対象区間から観測できた GoalDelta を返す。
 
 ~~~text
-Goals
+Goal Deltas
+  EXISTING goal:otel
+    Progress Events
+    Decision Events
+    Constraint Events
+    Fact Events
+    Next Action Observations
+    Source Refs
 
-  goal:otel
-    Title
-    Status
+  AMBIGUOUS
+    Candidate Goals: goal:oidc, goal:auth
+    Evidence
+    Source Refs
 
-    Constraints
-    Known Facts
+  NEW
+    Title Hint
+    Evidence
+    Source Refs
 
-    Progress
-      Done
-      In Progress
-      Blocked
-
-    Key Decisions
-    Next Steps
-
-  goal:oidc
-    Title
-    Status
-    ...
-
-  goal:black-ci
-    Title
-    Status
-    ...
-
-Shared Constraints
-- 複数 Goal に共通するユーザー要求・技術制約
-
-Shared Facts
-- 複数 Goal が共有する確認済み事実
-
+Shared Constraints / Facts
 Critical Context
-- Goal に閉じないが圧縮後にも絶対保持すべき補足情報
+Narrative Continuation
 ~~~
 
-1回の圧縮対象に複数目的が含まれる場合、それらを単一の抽象 Goal にまとめない。
+複数目的を「UAG を改善する」のような単一抽象 Goal に潰してはならない。同時に、不確実な関連を新 Goal として乱造してはならない。
 
-例えば、
+Summarizer は既存 AgentState の Goal 一覧を参照できるが、current state 全体を書き戻さない。Runtime が Goal association、schema、provenance、revision を検証して Reducer へ渡す。
 
-~~~text
-OTel 実装
-OIDC 設計
-Black 修正
-~~~
-
-を、
-
-~~~text
-UAG を改善する
-~~~
-
-のように潰してはならない。
-
-既存 GoalState が存在する場合、Summarizer は次の規則に従う。
-
-1. 新しい履歴を既存 `goal_id` に可能な限り対応付ける
-2. 関連する GoalState だけを更新する
-3. 無関係な GoalState を削除・統合しない
-4. 新規 Goal は本当に独立した目的のときだけ作る
-5. 目的が完了しても `status=done` として保持し、直ちに消さない
-
-原則として、ファイル一覧や Artifact 一覧をこの summary に文章として重複保存しない。
-
-それらは DeterministicState に持つ。
-
----
+ファイル一覧、Artifact 一覧、Tool call 一覧は semantic summary に重複保存せず DeterministicDelta に持つ。
 
 ## 8. Safe Compaction Boundary
 
@@ -601,75 +562,46 @@ split_turn=true とし、first_kept_message_id で raw suffix の開始位置を
 
 ## 10. Rolling Compaction
 
-既存 UAG の fold-forward 方針は維持する。
-
-ただし「古い summary 文字列 + 新しい chunk → 新 summary 文字列」ではなく、段階的に Structured State を fold する。
+rolling compaction は summary-of-summary による current state の再要約ではなく、Checkpoint delta を fold して AgentState を materialize する。
 
 ~~~text
-Checkpoint N
+AgentState revision N
    +
-New Raw Turns
+New Raw Turns / Events
    ↓
-Structured Merge
+CompactionRecord(delta, base_revision=N)
    ↓
-Checkpoint N+1
+Validate / Goal Association / Conflict Check
+   ↓
+AgentState Reducer
+   ↓
+AgentState revision N+1
 ~~~
 
-### 10.1 Goal-aware Merge
+### 10.1 Goal-aware Association
 
-Chunk の境界と Goal の境界は一致させない。
+Chunk の境界と Goal の境界は一致させない。既存 Goal と明確に同一なら existing、独立した新目的なら new、不確実なら ambiguous とする。
 
-~~~text
-Checkpoint N
-  goal:A
-  goal:B
-  goal:C
-      +
-New Chunk
-  A に関する更新
-  C に関する更新
-  新しい D
-      ↓
-Goal Reconciler
-      ↓
-Checkpoint N+1
-  goal:A  updated
-  goal:B  preserved
-  goal:C  updated
-  goal:D  created
-~~~
+- タイトル表現の変化だけで新 Goal を作らない
+- 1 chunk の複数 Goal は個別 delta に分ける
+- 1 Goal が複数 chunk にまたがっても同じ goal_id へ関連付ける
+- ambiguous は候補と evidence を保持し、即時 merge / new allocation を行わない
+- 後から同一 Goal と確認できるよう alias / merge lineage を保持する
 
-既存 GoalState の `goal_id` を Summarizer に提示し、LLM の出力を Runtime の Goal Reconciler で照合する。
+### 10.2 Reducer の不変条件
 
-照合の原則:
-
-- 明確に既存 Goal と同じなら同じ `goal_id` に merge
-- タイトル表現が変わっても意味が同じなら新 Goal を作らない
-- 1 chunk に複数 Goal があれば各 Goal へ個別に merge
-- 1 Goal が複数 chunk にまたがれば同じ GoalState を継続更新
-- 不確実な場合は association=ambiguous とし、候補 Goal と provenance を保持する
-- ambiguous を即座に新 Goal にせず、後続 evidence または明示的判断で解決する
-- 後から同一 Goal と確認できた場合は alias / merge を行える lineage を保持する
-
-### 10.2 Merge の不変条件
-
-新しい compaction では以下を守る。
-
-- 未解決 Constraint を勝手に削除しない
+- 未解決 Constraint を根拠なく削除しない
 - Blocked を解決済みと推測しない
 - Pending / In Progress を Done に推測で移さない
-- Decision を rationale ごと保持する
-- Runtime が収集した DeterministicDelta を失わない
+- Decision は rationale、status、supersedes、source_refs とともに扱う
+- DeterministicDelta を失わない
 - current aggregate は AgentState / materialized projection で構築する
-- 同じ event / file / artifact / tool ref は idempotency key に基づき deduplicate する
+- 同じ event / operation は idempotency key で二重適用しない
+- base_revision 不一致は silent overwrite しない
 
-### 10.3 状態遷移
+### 10.3 Compaction の再実行
 
-LLM に自由文章で状態変更させるのではなく、merge 後に Runtime validator を通す。
-
-最初の実装では完全な semantic validator まで行わず、少なくとも「消失より保持」を優先する。
-
----
+同じ source range を再圧縮する場合でも既存 committed record を破壊しない。再実行結果は新 record として比較可能にし、同一 operation の retry は idempotency key で重複 commit を防ぐ。
 
 ## 11. Deterministic File / Artifact Tracking
 
@@ -813,11 +745,11 @@ class HandoffRecord:
 
     work_done: list[str]
     findings: list[str]
-    decisions: list[DecisionSummary]
+    decisions: list[DecisionRecord]
     unresolved: list[str]
     recommended_next_steps: list[str]
 
-    state: DeterministicState
+    state_delta: DeterministicDelta
     artifact_refs: list[str]
 
     source_checkpoint_id: str | None
@@ -1099,12 +1031,13 @@ CompactionRecord の永続化に失敗した場合、Raw History を置換しな
 ~~~json
 {
   "type": "compaction_checkpoint",
-  "schema_version": 1,
+  "schema_version": 2,
   "record_id": "cmp_...",
   "source_start_id": "...",
   "source_end_id": "...",
-  "summary": {},
-  "state": {}
+  "goal_deltas": [],
+  "deterministic_delta": {},
+  "narrative_continuation": ""
 }
 ~~~
 
@@ -1235,11 +1168,12 @@ Reduction       95.3%
 目的:
 
 - schema / dataclass
-- StructuredSummary / GoalState
-- stable goal_id allocation / reconciliation
-- DeterministicState
+- GoalDelta / DecisionRecord / ConstraintRecord / FactRecord
+- stable goal_id allocation / three-state association
+- DeterministicDelta
+- AgentState Reducer contract
 - legacy summary からの projection
-- validation
+- validation / provenance
 - telemetry の基礎
 
 この PR では boundary algorithm を大きく変更しない。
@@ -1267,7 +1201,18 @@ Reduction       95.3%
 
 ### PR 4: Sub-Agent / Auto-pilot Handoff
 
+目的:
+
+- HandoffRecord
+- Main → Sub-Agent projection
+- Sub-Agent → Main compact return
+- caller-bounded authorization / provenance
+- Auto-pilot checkpoint
+- provider/model handoff
+
 ### PR 5: Multi-Instance / Multi-User Concurrency
+
+目的:
 
 - principal / workspace / runtime_instance scope
 - immutable checkpoint lineage
@@ -1275,14 +1220,7 @@ Reduction       95.3%
 - transaction / crash recovery / idempotency
 - side-effect ledger / approval binding
 - schema capability negotiation
-
-目的:
-
-- HandoffRecord
-- Main → Sub-Agent projection
-- Sub-Agent → Main compact return
-- Auto-pilot checkpoint
-- provider/model handoff
+- concurrency / recovery integration tests
 
 実装を急ぐ場合でも PR 1 と PR 2 は分離する。
 
@@ -1348,18 +1286,26 @@ long coding session
 
 初期完成条件は以下。
 
-1. 圧縮後も複数 Goal / Workstream が個別の goal_id で保持され、各 Goal の Constraints / Progress / Decisions / Next Steps が維持される
-2. tool call / result が compaction boundary で破壊されない
-3. read / modified files が deterministic に保持される
-4. full Tool Result は Artifact から再取得できる
-5. CompactionRecord が ContextCandidate として扱える
-6. provider/model を切り替えても checkpoint を利用できる
-7. structured compaction failure で既存圧縮へ安全に fallback する
-8. Raw History は Persistent Context に保持される
-9. telemetry から圧縮率と fallback 状況を確認できる
-10. Sub-Agent handoff に同じ record semantics を再利用できる
+1. AgentState が current work state の唯一の authoritative materialized state であり、Checkpoint が第二の current state を持たない
+2. 複数 Goal / Workstream を GoalDelta と stable goal_id で追跡でき、ambiguous association が不要な Goal 分裂を起こさない
+3. Decision / Constraint の supersede / revert と item-level provenance を保持できる
+4. tool call / result が compaction boundary で破壊されない
+5. read / modified files と execution metadata が DeterministicDelta として保持される
+6. full Tool Result は Artifact から authorization-aware に再取得できる
+7. CompactionRecord が ContextCandidate として扱え、必要時に source_refs から Rehydration できる
+8. provider/model を切り替えても provider-neutral checkpoint を利用できる
+9. structured compaction failure で Raw History を失わず安全に fallback する
+10. Sub-Agent handoff に同じ provenance / scope semantics を再利用できる
+11. 同一 Session を CLI / GUI / Web の複数 instance が同時に開いても silent overwrite / lost update を起こさない
+12. 複数ユーザー環境で retrieval / rehydration が current authorization を再評価し、個人 Memory を暗黙共有しない
+13. concurrent update を revision conflict として検出し、auto-merge / semantic merge / branch / user decision に分類できる
+14. process crash 後は最後の committed revision から二重適用なしに resume できる
+15. external side effect は AgentState rollback と区別され、operation / approval provenance を追跡できる
+16. 異なる schema capability の instance が未知 record を silent drop / overwrite しない
+17. telemetry と audit trail から compaction、fallback、principal、instance、revision、conflict を追跡できる
 
----
+必須 integration scenario として、同一 Session を CLI #1、CLI #2、GUI が同時に開き、並行変更中に一方が crash し、その後 resume しても committed state、branch lineage、side effect、authorization が矛盾しないケースを含める。
+
 
 ## 29. Non-Goals
 
