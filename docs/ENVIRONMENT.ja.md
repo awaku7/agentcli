@@ -399,10 +399,13 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 
 ### Decision Provider
 
-専用のDecision Provider層は明示的なopt-inで、既定値は `none` です。
+Decision Providerは通常は既定値 `none` です。ただし、
+`UAGENT_PROVIDER=openai` かつDecision Providerの設定がない場合は、OpenAI Decisions
+（既定モデル `gpt-6-luna`）をauto-pilotの判定に使用します。従来のLLMレビューアを使う場合は
+`UAGENT_DECISION_PROVIDER=none` を明示してください。
 
-- `UAGENT_DECISION_PROVIDER`: `none` / `typesafe` / `openrouter` / `laya`
-- `UAGENT_DECISION_LIVE_TEST`: TypeSafe/OpenRouter Decision Provider の実API smoke testを意図的に実行するときだけ `1` を設定します。通常CIでは未設定です。
+- `UAGENT_DECISION_PROVIDER`: `none` / `typesafe` / `openrouter` / `openai` / `laya`
+- `UAGENT_DECISION_LIVE_TEST`: TypeSafe/OpenRouter/OpenAI Decision Provider の実API smoke testを意図的に実行するときだけ `1` を設定します。通常CIでは未設定です。
 - TypeSafe/Jev:
   - `UAGENT_DECISION_TYPESAFE_DEPNAME`（既定: `jev-latest`）
   - `UAGENT_DECISION_TYPESAFE_BASE_URL`（既定: `https://api.typesafe.ai`）
@@ -411,6 +414,10 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
   - `UAGENT_DECISION_OPENROUTER_DEPNAME`（既定: `~typesafe/jev-latest`）
   - `UAGENT_DECISION_OPENROUTER_BASE_URL`（既定: `https://openrouter.ai/api`）
   - `UAGENT_DECISION_OPENROUTER_API_KEY`（`UAGENT_OPENROUTER_API_KEY` または `OPENROUTER_API_KEY` があれば省略可）
+- OpenAI Decisions:
+  - `UAGENT_DECISION_OPENAI_DEPNAME`（既定: `gpt-6-luna`）
+  - `UAGENT_DECISION_OPENAI_BASE_URL`（既定: `https://api.openai.com/v1`）
+  - `UAGENT_DECISION_OPENAI_API_KEY`（OpenAI認証情報またはOpenAI APIキーがあれば省略可）
 - Laya:
   - `UAGENT_DECISION_LAYA_DEPNAME`（既定: `laya-multilingual`）
   - `UAGENT_DECISION_LAYA_DEVICE`（既定: `auto`）

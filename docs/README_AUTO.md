@@ -62,8 +62,11 @@ The initial user goal is executed once by the normal generation path before `_ru
 
 ### Optional Decision Provider reviewer
 
-The default remains `UAGENT_DECISION_PROVIDER=none`, which preserves the existing
-LLM reviewer exactly.
+When `UAGENT_PROVIDER=openai` and neither `--decision-provider` nor
+`UAGENT_DECISION_PROVIDER` is set, UAG uses OpenAI Decisions with the default
+model `gpt-6-luna` for auto-pilot review. Set `UAGENT_DECISION_PROVIDER=none`
+or pass `--decision-provider none` to keep the existing LLM reviewer. For other
+main LLM providers, the default remains `none`.
 
 When `UAGENT_DECISION_PROVIDER=typesafe`, `openrouter`, `openai`, or `laya` is explicitly selected,
 Step B first asks that Decision Provider for a typed completion review.

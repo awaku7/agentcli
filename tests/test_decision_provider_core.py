@@ -32,6 +32,30 @@ def test_default_decision_provider_is_none():
     assert settings.enabled is False
 
 
+def test_openai_main_provider_selects_openai_decision_provider_by_default():
+    settings = resolve_decision_settings(environ={"UAGENT_PROVIDER": "openai"})
+
+    assert settings == DecisionSettings(provider="openai", source="provider_default")
+    assert settings.enabled is True
+
+
+def test_non_openai_main_provider_keeps_none_as_the_default():
+    settings = resolve_decision_settings(environ={"UAGENT_PROVIDER": "azure"})
+
+    assert settings == DecisionSettings(provider="none", source="default")
+
+
+def test_explicit_none_disables_openai_provider_default():
+    settings = resolve_decision_settings(
+        environ={
+            "UAGENT_PROVIDER": "openai",
+            "UAGENT_DECISION_PROVIDER": "none",
+        }
+    )
+
+    assert settings == DecisionSettings(provider="none", source="env")
+
+
 def test_decision_provider_resolves_from_environment():
     settings = resolve_decision_settings(environ={"UAGENT_DECISION_PROVIDER": "laya"})
 
@@ -48,6 +72,15 @@ def test_cli_decision_provider_overrides_environment():
 
     assert settings.provider == "typesafe"
     assert settings.source == "cli"
+
+
+def test_cli_none_overrides_inferred_openai_decision_provider():
+    settings = resolve_decision_settings(
+        cli_provider="none",
+        environ={"UAGENT_PROVIDER": "openai"},
+    )
+
+    assert settings == DecisionSettings(provider="none", source="cli")
 
 
 def test_invalid_environment_decision_provider_is_rejected():

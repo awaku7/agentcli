@@ -901,6 +901,11 @@ def _ask_decision_provider(
     allow_back: bool = True,
 ) -> str:
     current = st.decision_provider
+    configured_provider = str(
+        (st.values or {}).get("UAGENT_DECISION_PROVIDER") or ""
+    ).strip()
+    if current == "none" and st.provider == "openai" and not configured_provider:
+        current = "openai"
     default_index = 1
     for index, (provider, _label) in enumerate(DECISION_PROVIDERS, 1):
         if provider == current:
@@ -932,6 +937,9 @@ def _ask_decision_provider(
 
     st.decision_provider = provider
     st.decision_values = values
+    if st.values is None:
+        st.values = {}
+    st.values["UAGENT_DECISION_PROVIDER"] = provider
     return "ok"
 
 

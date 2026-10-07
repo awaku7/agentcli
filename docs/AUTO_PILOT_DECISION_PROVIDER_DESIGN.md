@@ -200,6 +200,11 @@ design.
 
 Examples:
 
+When `UAGENT_PROVIDER=openai` and neither `--decision-provider` nor
+`UAGENT_DECISION_PROVIDER` is set, UAG selects OpenAI Decisions with the default
+model `gpt-6-luna`. Set `UAGENT_DECISION_PROVIDER=none` or pass
+`--decision-provider none` to keep the legacy LLM reviewer.
+
 ```text
 UAGENT_DECISION_PROVIDER=none
 ```
@@ -714,6 +719,8 @@ The implementation PR should cover at least the following cases.
 1. `UAGENT_DECISION_PROVIDER=none` uses the existing LLM reviewer.
 2. No decision-provider package/client/model is initialized in `none` mode.
 3. Existing `UAGENT_AP_*` override behavior remains unchanged in `none` mode.
+4. With `UAGENT_PROVIDER=openai` and no Decision Provider setting, OpenAI
+   Decisions is selected with `gpt-6-luna`.
 
 ### Decision Provider result
 

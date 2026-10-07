@@ -7,8 +7,10 @@ Design and staged implementation for an opt-in decision-model layer in UAG.
 Common infrastructure, TypeSafe/Jev, Laya, OpenRouter Decisions, and OpenAI
 Decisions adapters, auto-pilot integration/observability, and setup integration
 are implemented. The first runtime decision site is active in
-auto-pilot completion review when a Decision Provider is explicitly selected.
-`none` remains the default and preserves the legacy LLM reviewer path.
+auto-pilot completion review. It uses OpenAI Decisions by default when the main
+LLM provider is `openai` and no Decision Provider is configured; in that case,
+`gpt-6-luna` is used. Other main providers default to `none`, preserving the
+legacy LLM reviewer path.
 
 The supported provider keys are:
 
@@ -36,8 +38,11 @@ alongside the normal LLM flow.
 
 The design must:
 
-1. Preserve current UAG behavior by default.
-2. Require explicit opt-in before TypeSafe, OpenRouter Decisions, OpenAI Decisions, or Laya is initialized or called.
+1. Preserve current UAG behavior by default for non-OpenAI main providers;
+   use the native OpenAI decision path by default for `UAGENT_PROVIDER=openai`.
+2. Require explicit opt-in before TypeSafe, OpenRouter Decisions, or Laya is initialized or called;
+   infer OpenAI Decisions only when the main LLM provider is `openai` and no
+   Decision Provider setting is supplied.
 3. Treat TypeSafe, OpenRouter Decisions, OpenAI Decisions, and Laya as interchangeable
    implementations behind a UAG-owned interface.
 4. Keep provider-specific schemas out of the UAG core.
@@ -55,21 +60,27 @@ The first implementation does not:
 - replace UAG's LLM provider selection,
 - make TypeSafe, OpenRouter Decisions, OpenAI Decisions, or Laya mandatory dependencies,
 - automatically initialize or call a decision provider when none is selected,
+  except for the inferred OpenAI Decisions default when `UAGENT_PROVIDER=openai`,
 - automatically download or initialize a Laya model when Laya is not selected,
 - automatically trust a provider's confidence value as a universal risk score,
 - automatically route all UAG decisions through the selected decision provider,
 - change existing behavior when the decision provider is `none`,
 - make `llmcapa` responsible for decision-provider execution.
 
-## Opt-in contract
+## Selection and opt-out contract
 
-The dedicated decision layer is disabled unless the user explicitly selects a
-provider other than `none`.
+The dedicated decision layer is disabled unless a provider is explicitly
+selected, with one conditional default: when `UAGENT_PROVIDER=openai` and neither
+`--decision-provider` nor `UAGENT_DECISION_PROVIDER` is set, UAG selects the
+OpenAI Decisions provider and its model defaults to `gpt-6-luna`. Setting
+`UAGENT_DECISION_PROVIDER=none` or passing `--decision-provider none` explicitly
+opts out and preserves the legacy LLM reviewer path.
 
 The effective default is:
 
 ```text
-Decision provider = none
+UAGENT_PROVIDER=openai and Decision Provider unset -> openai (gpt-6-luna)
+otherwise, Decision Provider unset -> none
 ```
 
 `none` means **no dedicated decision provider**. It does not mean "make no
@@ -118,11 +129,12 @@ Precedence:
 ```text
 --decision-provider
     > UAGENT_DECISION_PROVIDER
+    > openai when UAGENT_PROVIDER=openai
     > none
 ```
 
 The resolved value should be stored in shared runtime configuration so CLI, GUI,
-Web, and A2A use the same semantics.
+Web, and A2A use the same semantics. Explicit `none` always disables inference.
 
 Provider-specific settings use the namespace:
 

@@ -68,6 +68,9 @@ def resolve_decision_settings(
             source="env",
         )
 
+    if str(env.get("UAGENT_PROVIDER") or "").strip().lower() == "openai":
+        return DecisionSettings(provider="openai", source="provider_default")
+
     return DecisionSettings()
 
 
@@ -102,7 +105,8 @@ def add_decision_provider_argument(parser: Any) -> Any:
         default=None,
         help=(
             "Select the dedicated decision provider. "
-            "Overrides UAGENT_DECISION_PROVIDER; default is none."
+            "Overrides UAGENT_DECISION_PROVIDER; defaults to OpenAI Decisions "
+            "when UAGENT_PROVIDER=openai, otherwise none."
         ),
     )
     return parser

@@ -48,10 +48,13 @@ Round 3: ... (以下繰り返し)
 
 ### Decision Providerをレビューアに使う（任意）
 
-既定値は `UAGENT_DECISION_PROVIDER=none` で、従来どおりLLMレビューアを
-使用します。
+`UAGENT_PROVIDER=openai` で `--decision-provider` と
+`UAGENT_DECISION_PROVIDER` のどちらも指定されていない場合、auto-pilotの判定に
+OpenAI Decisionsを使い、モデルは `gpt-6-luna` を既定値とします。
+従来のLLMレビューアを使うには `UAGENT_DECISION_PROVIDER=none` または
+`--decision-provider none` を指定します。他のメインLLMプロバイダーでは既定値は `none` です。
 
-`UAGENT_DECISION_PROVIDER=typesafe`、`openrouter`、または `laya` を明示的に選択すると、
+`UAGENT_DECISION_PROVIDER=typesafe`、`openrouter`、`openai`、または `laya` を選択すると、
 Step BではまずDecision Providerに型付きの完了判定を依頼します。
 TypeSafe/JevとOpenRouter/Jevは、1回のリクエストで `goal_satisfied` と
 `material_work_remaining` の2つのboolean/noul質問を使います。UAGはそれぞれ

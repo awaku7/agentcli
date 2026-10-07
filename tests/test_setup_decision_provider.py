@@ -11,6 +11,60 @@ def _state(provider, values=None):
     )
 
 
+def test_setup_defaults_decision_provider_to_openai_for_openai_llm(monkeypatch):
+    state = _state("none")
+    seen = {}
+
+    def fake_menu(_title, options, *, default_index, allow_back):
+        seen["options"] = options
+        seen["default_index"] = default_index
+        return str(default_index)
+
+    monkeypatch.setattr(setup_cli, "_menu_choice", fake_menu)
+    monkeypatch.setattr(
+        setup_cli,
+        "_ask_text",
+        lambda _label, *, default, required, allow_back: ("ok", default),
+    )
+
+    assert setup_cli._ask_decision_provider(state) == "ok"
+    assert seen["options"][seen["default_index"] - 1].startswith("openai ")
+    assert state.decision_provider == "openai"
+
+
+def test_setup_keeps_none_as_default_for_other_llm_providers(monkeypatch):
+    state = _state("none")
+    state.provider = "azure"
+    seen = {}
+
+    def fake_menu(_title, options, *, default_index, allow_back):
+        seen["options"] = options
+        seen["default_index"] = default_index
+        return str(default_index)
+
+    monkeypatch.setattr(setup_cli, "_menu_choice", fake_menu)
+
+    assert setup_cli._ask_decision_provider(state) == "ok"
+    assert seen["options"][seen["default_index"] - 1].startswith("none ")
+    assert state.decision_provider == "none"
+
+
+def test_setup_preserves_explicit_none_for_openai_llm(monkeypatch):
+    state = _state("none")
+    state.values = {"UAGENT_DECISION_PROVIDER": "none"}
+    seen = {}
+
+    def fake_menu(_title, _options, *, default_index, allow_back):
+        seen["default_index"] = default_index
+        return str(default_index)
+
+    monkeypatch.setattr(setup_cli, "_menu_choice", fake_menu)
+
+    assert setup_cli._ask_decision_provider(state) == "ok"
+    assert seen["default_index"] == 1
+    assert state.decision_provider == "none"
+
+
 def test_setup_env_emits_decision_provider_none():
     lines = setup_cli._env_lines_from_state(_state("none"))
     text = "\n".join(lines)
