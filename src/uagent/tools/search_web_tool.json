@@ -28,7 +28,7 @@
     "error.missing_query_parameter": "falta el parámetro 'query'",
     "error.run_tool_error": "error de ejecución_herramienta: {error}",
     "param.query.description": "Consulta de búsqueda.",
-    "tool.description": "Busque en la web a través de la interfaz HTML de StartPage (predeterminado), DuckDuckGo o Brave Search. Devuelve título/enlace/fragmento. Brave Search es mejor para consultas en japonés/locales.",
+    "tool.description": "Busque en la web a través de la interfaz HTML de StartPage (predeterminado), DuckDuckGo o Brave Search. Devuelve título/enlace/fragmento. Brave Search es mejor para consultas en japonés/locales. También se admite Yahoo Japan.",
     "x_search_terms": [
       "búsqueda web",
       "buscar en internet",
@@ -51,7 +51,7 @@
     "error.missing_query_parameter": "paramètre 'query' manquant",
     "error.run_tool_error": "Erreur run_tool : {error}",
     "param.query.description": "Requête de recherche.",
-    "tool.description": "Recherchez sur le Web via l'interface HTML de StartPage (par défaut), DuckDuckGo ou Brave Search. Retourne titre/lien/extrait. Brave Search est meilleur pour les requêtes en japonais/locales.",
+    "tool.description": "Recherchez sur le Web via l'interface HTML de StartPage (par défaut), DuckDuckGo ou Brave Search. Retourne titre/lien/extrait. Brave Search est meilleur pour les requêtes en japonais/locales. Yahoo Japan est également pris en charge.",
     "x_search_terms": [
       "recherche web",
       "recherche sur Internet",
@@ -74,7 +74,7 @@
     "error.missing_query_parameter": "'query' 매개변수가 누락되었습니다.",
     "error.run_tool_error": "run_tool 오류: {error}",
     "param.query.description": "검색어 문자열입니다.",
-    "tool.description": "StartPage (기본), DuckDuckGo 또는 Brave Search HTML 인터페이스로 웹 검색을 수행합니다. 제목/링크/요약을 반환합니다. Brave Search는 일본어/로컬 검색에 더 적합합니다.",
+    "tool.description": "StartPage (기본), DuckDuckGo 또는 Brave Search HTML 인터페이스로 웹 검색을 수행합니다. 제목/링크/요약을 반환합니다. Brave Search는 일본어/로컬 검색에 더 적합합니다. Yahoo Japan도 지원합니다.",
     "x_search_terms": [
       "웹 검색",
       "인터넷 검색",
@@ -97,7 +97,7 @@
     "error.missing_query_parameter": "fehlender 'query'-Parameter",
     "error.run_tool_error": "run_tool-Fehler: {error}",
     "param.query.description": "Suchabfrage.",
-    "tool.description": "Durchsuchen Sie das Web über die HTML-Schnittstelle von StartPage (Standard), DuckDuckGo oder Brave Search. Gibt Titel/Link/Auszug zurück. Brave Search eignet sich besser für japanische/lokale Abfragen.",
+    "tool.description": "Durchsuchen Sie das Web über die HTML-Schnittstelle von StartPage (Standard), DuckDuckGo oder Brave Search. Gibt Titel/Link/Auszug zurück. Brave Search eignet sich besser für japanische/lokale Abfragen. Yahoo Japan wird ebenfalls unterstützt.",
     "x_search_terms": [
       "Websuche",
       "Internetsuche",
@@ -120,7 +120,7 @@
     "error.missing_query_parameter": "manca il parametro 'query'",
     "error.run_tool_error": "errore run_tool: {error}",
     "param.query.description": "Query di ricerca.",
-    "tool.description": "Cerca sul web tramite l'interfaccia HTML di StartPage (predefinita), DuckDuckGo o Brave Search. Restituisce titolo/link/estratto. Brave Search è migliore per le query in giapponese/locali.",
+    "tool.description": "Cerca sul web tramite l'interfaccia HTML di StartPage (predefinita), DuckDuckGo o Brave Search. Restituisce titolo/link/estratto. Brave Search è migliore per le query in giapponese/locali. È supportato anche Yahoo Japan.",
     "x_search_terms": [
       "ricerca web",
       "ricerca su internet",
@@ -143,7 +143,7 @@
     "error.missing_query_parameter": "отсутствует параметр 'query'",
     "error.run_tool_error": "ошибка run_tool: {error}",
     "param.query.description": "Поисковый запрос.",
-    "tool.description": "Поиск в Интернете через HTML-интерфейс StartPage (по умолчанию), DuckDuckGo или Brave Search. Возвращает заголовок/ссылку/фрагмент. Brave Search лучше подходит для японских/локальных запросов.",
+    "tool.description": "Поиск в Интернете через HTML-интерфейс StartPage (по умолчанию), DuckDuckGo или Brave Search. Возвращает заголовок/ссылку/фрагмент. Brave Search лучше подходит для японских/локальных запросов. Также поддерживается Yahoo Japan.",
     "x_search_terms": [
       "поиск в интернете",
       "веб-поиск",
@@ -166,7 +166,7 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "Consulta de pesquisa.",
-    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/link/trecho. Brave Search é melhor para consultas em japonês/locais.",
+    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/link/trecho. Brave Search é melhor para consultas em japonês/locais. O Yahoo Japan também é compatível.",
     "x_search_terms": [
       "pesquisa na web",
       "pesquisa na internet",
@@ -189,7 +189,7 @@
     "error.missing_query_parameter": "falta o parâmetro 'query'",
     "error.run_tool_error": "erro run_tool: {error}",
     "param.query.description": "Consulta de pesquisa.",
-    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/trecho. Brave Search é melhor para consultas em japonês/locais.",
+    "tool.description": "Pesquise na web através da interface HTML do StartPage (padrão), DuckDuckGo ou Brave Search. Retorna título/trecho. Brave Search é melhor para consultas em japonês/locais. O Yahoo Japan também é suportado.",
     "x_search_terms": [
       "pesquisa na web",
       "pesquisa na internet",
@@ -212,7 +212,7 @@
     "error.missing_query_parameter": "parameter 'query' tidak ada",
     "error.run_tool_error": "Galat run_tool: {error}",
     "param.query.description": "Kueri penelusuran.",
-    "tool.description": "Cari web melalui antarmuka HTML StartPage (default), DuckDuckGo atau Brave Search. Mengembalikan judul/tautan/cuplikan. Brave Search lebih baik untuk kueri bahasa Jepang/lokal.",
+    "tool.description": "Cari web melalui antarmuka HTML StartPage (default), DuckDuckGo atau Brave Search. Mengembalikan judul/tautan/cuplikan. Brave Search lebih baik untuk kueri bahasa Jepang/lokal. Yahoo Japan juga didukung.",
     "x_search_terms": [
       "pencarian web",
       "pencarian internet",
@@ -235,7 +235,7 @@
     "error.missing_query_parameter": "thiếu tham số 'query'",
     "error.run_tool_error": "lỗi run_tool: {error}",
     "param.query.description": "Truy vấn tìm kiếm.",
-    "tool.description": "Tìm kiếm web qua giao diện HTML của StartPage (mặc định), DuckDuckGo hoặc Brave Search. Trả về tiêu đề/liên kết/đoạn trích. Brave Search tốt hơn cho các truy vấn tiếng Nhật/địa phương.",
+    "tool.description": "Tìm kiếm web qua giao diện HTML của StartPage (mặc định), DuckDuckGo hoặc Brave Search. Trả về tiêu đề/liên kết/đoạn trích. Brave Search tốt hơn cho các truy vấn tiếng Nhật/địa phương. Yahoo Japan cũng được hỗ trợ.",
     "x_search_terms": [
       "tìm kiếm web",
       "tìm kiếm trên internet",
@@ -258,7 +258,7 @@
     "error.missing_query_parameter": "brakuje parametru 'query'",
     "error.run_tool_error": "błąd run_tool: {error}",
     "param.query.description": "Zapytanie wyszukiwania.",
-    "tool.description": "Przeszukuj sieć przez interfejs HTML StartPage (domyślnie), DuckDuckGo lub Brave Search. Zwraca tytuł/link/fragment. Brave Search jest lepszy w przypadku zapytań w języku japońskim/lokalnych.",
+    "tool.description": "Przeszukuj sieć przez interfejs HTML StartPage (domyślnie), DuckDuckGo lub Brave Search. Zwraca tytuł/link/fragment. Brave Search jest lepszy w przypadku zapytań w języku japońskim/lokalnych. Obsługiwany jest również Yahoo Japan.",
     "x_search_terms": [
       "wyszukiwanie w sieci",
       "wyszukiwanie w internecie",
@@ -281,7 +281,7 @@
     "error.missing_query_parameter": "'query' पैरामीटर गायब है",
     "error.run_tool_error": "run_tool त्रुटि: {error}",
     "param.query.description": "खोज क्वेरी।",
-    "tool.description": "StartPage (डिफ़ॉल्ट), DuckDuckGo या Brave Search HTML इंटरफ़ेस के माध्यम से वेब पर खोजें। शीर्षक/लिंक/स्निपेट लौटाता है। Brave Search जापानी/स्थानीय प्रश्नों के लिए बेहतर है।",
+    "tool.description": "StartPage (डिफ़ॉल्ट), DuckDuckGo या Brave Search HTML इंटरफ़ेस के माध्यम से वेब पर खोजें। शीर्षक/लिंक/स्निपेट लौटाता है। Brave Search जापानी/स्थानीय प्रश्नों के लिए बेहतर है। Yahoo Japan भी समर्थित है।",
     "x_search_terms": [
       "वेब खोज",
       "इंटरनेट खोज",
@@ -304,7 +304,7 @@
     "error.missing_query_parameter": "المعامل 'query' مفقود",
     "error.run_tool_error": "خطأ في run_tool: {error}",
     "param.query.description": "استعلام بحث.",
-    "tool.description": "ابحث في الويب عبر StartPage (افتراضي), DuckDuckGo أو واجهة Brave Search HTML. يعيد العنوان/الرابط/المقتطف. Brave Search أفضل للاستعلامات اليابانية/المحلية.",
+    "tool.description": "ابحث في الويب عبر StartPage (افتراضي), DuckDuckGo أو واجهة Brave Search HTML. يعيد العنوان/الرابط/المقتطف. Brave Search أفضل للاستعلامات اليابانية/المحلية. يتم أيضًا دعم Yahoo Japan.",
     "x_search_terms": [
       "البحث في الويب",
       "البحث على الإنترنت",
@@ -327,7 +327,7 @@
     "error.missing_query_parameter": "saknar parametern 'query'",
     "error.run_tool_error": "run_tool-fel: {error}",
     "param.query.description": "Sökfråga.",
-    "tool.description": "Sök på webben via StartPage (standard), DuckDuckGo eller Brave Search HTML-gränssnitt. Returnerar titel/länk/utdrag. Brave Search är bättre för japanska/lokala frågor.",
+    "tool.description": "Sök på webben via StartPage (standard), DuckDuckGo eller Brave Search HTML-gränssnitt. Returnerar titel/länk/utdrag. Brave Search är bättre för japanska/lokala frågor. Yahoo Japan stöds också.",
     "x_search_terms": [
       "webbsökning",
       "sök på internet",
@@ -350,7 +350,7 @@
     "error.missing_query_parameter": "'query' haipo",
     "error.run_tool_error": "hitilafu_ya_zana: {error}",
     "param.query.description": "Hoja ya utafutaji.",
-    "tool.description": "Tafuta wavuti kupitia StartPage (chaguo-msingi), DuckDuckGo au kiolesura cha HTML cha Brave Search. Hurejesha kichwa/kiungo/kijisehemu. Brave Search ni bora kwa maswali ya Kijapani/ya ndani.",
+    "tool.description": "Tafuta wavuti kupitia StartPage (chaguo-msingi), DuckDuckGo au kiolesura cha HTML cha Brave Search. Hurejesha kichwa/kiungo/kijisehemu. Brave Search ni bora kwa maswali ya Kijapani/ya ndani. Yahoo Japan pia inatumika.",
     "x_search_terms": [
       "utafutaji wa wavuti",
       "tafuta kwenye intaneti",
@@ -373,7 +373,7 @@
     "error.missing_query_parameter": "mangler parameteren 'query'",
     "error.run_tool_error": "run_tool-feil: {error}",
     "param.query.description": "Søkespørring.",
-    "tool.description": "Søk på nettet via StartPage (standard), DuckDuckGo eller Brave Search HTML-grensesnitt. Returnerer tittel/lenke/utdrag. Brave Search er bedre for japanske/lokale søk.",
+    "tool.description": "Søk på nettet via StartPage (standard), DuckDuckGo eller Brave Search HTML-grensesnitt. Returnerer tittel/lenke/utdrag. Brave Search er bedre for japanske/lokale søk. Yahoo Japan støttes også.",
     "x_search_terms": [
       "nettsøk",
       "søk på internett",
@@ -396,7 +396,7 @@
     "error.missing_query_parameter": "ontbrekende 'query'-parameter",
     "error.run_tool_error": "run_tool fout: {error}",
     "param.query.description": "Zoekopdracht.",
-    "tool.description": "Zoek op internet via StartPage (standaard), DuckDuckGo of Brave Search HTML-interface. Retourneert titel/link/fragment. Brave Search is beter voor Japanse/lokale zoekopdrachten.",
+    "tool.description": "Zoek op internet via StartPage (standaard), DuckDuckGo of Brave Search HTML-interface. Retourneert titel/link/fragment. Brave Search is beter voor Japanse/lokale zoekopdrachten. Yahoo Japan wordt ook ondersteund.",
     "x_search_terms": [
       "zoeken op het web",
       "zoeken op internet",
@@ -419,7 +419,7 @@
     "error.missing_query_parameter": "puuttuva 'query'-parametri",
     "error.run_tool_error": "run_tool-virhe: {error}",
     "param.query.description": "Hakukysely.",
-    "tool.description": "Hae verkosta StartPage (oletus), DuckDuckGo tai Brave Searchin HTML-käyttöliittymän kautta. Palauttaa otsikon/linkin/otteeen. Brave Search on parempi japanilaisille/paikallisille kyselyille.",
+    "tool.description": "Hae verkosta StartPage (oletus), DuckDuckGo tai Brave Searchin HTML-käyttöliittymän kautta. Palauttaa otsikon/linkin/otteeen. Brave Search on parempi japanilaisille/paikallisille kyselyille. Myös Yahoo Japania tuetaan.",
     "x_search_terms": [
       "verkkohaku",
       "haku internetistä",
@@ -442,7 +442,7 @@
     "error.missing_query_parameter": "chybí parametr 'query'",
     "error.run_tool_error": "chyba run_tool: {error}",
     "param.query.description": "Vyhledávací dotaz.",
-    "tool.description": "Prohledávejte web prostřednictvím rozhraní StartPage (výchozí), DuckDuckGo nebo Brave Search HTML. Vrací název/odkaz/úryvek. Brave Search je lepší pro japonské/místní dotazy.",
+    "tool.description": "Prohledávejte web prostřednictvím rozhraní StartPage (výchozí), DuckDuckGo nebo Brave Search HTML. Vrací název/odkaz/úryvek. Brave Search je lepší pro japonské/místní dotazy. Podporován je také Yahoo Japan.",
     "x_search_terms": [
       "vyhledávání na webu",
       "hledání na internetu",
@@ -465,7 +465,7 @@
     "error.missing_query_parameter": "відсутній параметр 'query'",
     "error.run_tool_error": "помилка run_tool: {error}",
     "param.query.description": "Пошуковий запит.",
-    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс StartPage (за замовчуванням), DuckDuckGo або Brave Search. Повертає назву/посилання/фрагмент. Brave Search краще підходить для японських/місцевих запитів.",
+    "tool.description": "Шукайте в Інтернеті через HTML-інтерфейс StartPage (за замовчуванням), DuckDuckGo або Brave Search. Повертає назву/посилання/фрагмент. Brave Search краще підходить для японських/місцевих запитів. Також підтримується Yahoo Japan.",
     "x_search_terms": [
       "пошук в інтернеті",
       "веб-пошук",
@@ -488,7 +488,7 @@
     "error.missing_query_parameter": "'query' parametresi eksik",
     "error.run_tool_error": "run_tool hatası: {error}",
     "param.query.description": "Arama sorgusu.",
-    "tool.description": "StartPage (varsayılan), DuckDuckGo veya Brave Search HTML arayüzü aracılığıyla web'de arama yapın. Başlık/bağlantı/parçacık döndürür. Brave Search, Japonca/yerel sorgular için daha iyidir.",
+    "tool.description": "StartPage (varsayılan), DuckDuckGo veya Brave Search HTML arayüzü aracılığıyla web'de arama yapın. Başlık/bağlantı/parçacık döndürür. Brave Search, Japonca/yerel sorgular için daha iyidir. Yahoo Japan da desteklenir.",
     "x_search_terms": [
       "web araması",
       "internette arama",
@@ -511,7 +511,7 @@
     "error.missing_query_parameter": "ไม่มีพารามิเตอร์ 'query'",
     "error.run_tool_error": "ข้อผิดพลาด run_tool: {error}",
     "param.query.description": "สตริงคำค้นหา",
-    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ HTML ของ StartPage (ค่าเริ่มต้น), DuckDuckGo หรือ Brave Search คืนค่าชื่อเรื่อง/ลิงก์/ตัวอย่างข้อความ Brave Search เหมาะกว่าสำหรับคำค้นหาภาษาญี่ปุ่นหรือท้องถิ่น",
+    "tool.description": "ค้นหาเว็บผ่านอินเทอร์เฟซ HTML ของ StartPage (ค่าเริ่มต้น), DuckDuckGo หรือ Brave Search คืนค่าชื่อเรื่อง/ลิงก์/ตัวอย่างข้อความ Brave Search เหมาะกว่าสำหรับคำค้นหาภาษาญี่ปุ่นหรือท้องถิ่น รองรับ Yahoo Japan ด้วย",
     "x_search_terms": [
       "ค้นหาเว็บ",
       "ค้นหาอินเทอร์เน็ต",
@@ -534,7 +534,7 @@
     "error.missing_query_parameter": "缺少 'query' 参数",
     "error.run_tool_error": "运行工具错误：{error}",
     "param.query.description": "搜索查询字符串。",
-    "tool.description": "通过 StartPage（默认）、DuckDuckGo或 Brave Search 的 HTML 界面进行网页搜索，返回标题/链接/摘要。Brave Search 更适合日语/本地化查询。",
+    "tool.description": "通过 StartPage（默认）、DuckDuckGo或 Brave Search 的 HTML 界面进行网页搜索，返回标题/链接/摘要。Brave Search 更适合日语/本地化查询。 也支持 Yahoo Japan。",
     "x_search_terms": [
       "网络搜索",
       "互联网搜索",
@@ -557,7 +557,7 @@
     "error.missing_query_parameter": "缺少 'query' 參數",
     "error.run_tool_error": "運行工具錯誤：{error}",
     "param.query.description": "搜尋查詢字串。",
-    "tool.description": "透過 StartPage（預設）、DuckDuckGo或 Brave Search 的 HTML 介面進行網頁搜尋，回傳標題/連結/摘要。Brave Search 更適合日語/本地化查詢。",
+    "tool.description": "透過 StartPage（預設）、DuckDuckGo或 Brave Search 的 HTML 介面進行網頁搜尋，回傳標題/連結/摘要。Brave Search 更適合日語/本地化查詢。 也支援 Yahoo Japan。",
     "x_search_terms": [
       "網路搜尋",
       "網際網路搜尋",
@@ -580,7 +580,7 @@
     "error.missing_query_parameter": "অনুপস্থিত 'query' প্যারামিটার",
     "error.run_tool_error": "run_tool ত্রুটি: {error}",
     "param.query.description": "অনুসন্ধান ক্যোয়ারী.",
-    "tool.description": "StartPage (ডিফল্ট), DuckDuckGo বা Brave Search HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন। শিরোনাম/লিঙ্ক/স্নিপেট প্রদান করে। Brave Search জাপানি/স্থানীয় প্রশ্নের জন্য ভাল।",
+    "tool.description": "StartPage (ডিফল্ট), DuckDuckGo বা Brave Search HTML ইন্টারফেসের মাধ্যমে ওয়েবে অনুসন্ধান করুন। শিরোনাম/লিঙ্ক/স্নিপেট প্রদান করে। Brave Search জাপানি/স্থানীয় প্রশ্নের জন্য ভাল। Yahoo Japan-ও সমর্থিত।",
     "x_search_terms": [
       "ওয়েব অনুসন্ধান",
       "ইন্টারনেট অনুসন্ধান",
@@ -603,7 +603,7 @@
     "error.missing_query_parameter": "پارامتر 'query' موجود نیست",
     "error.run_tool_error": "خطای run_tool: {error}",
     "param.query.description": "رشتهٔ جستجو.",
-    "tool.description": "وب را از طریق StartPage (پیش‌فرض), DuckDuckGo یا رابط HTML Brave Search جستجو کنید. عنوان/پیوند/بازه‌ای را برمی‌گرداند. Brave Search برای جستارهای ژاپنی/محلی بهتر است.",
+    "tool.description": "وب را از طریق StartPage (پیش‌فرض), DuckDuckGo یا رابط HTML Brave Search جستجو کنید. عنوان/پیوند/بازه‌ای را برمی‌گرداند. Brave Search برای جستارهای ژاپنی/محلی بهتر است. Yahoo Japan نیز پشتیبانی می‌شود.",
     "x_search_terms": [
       "جستجوی وب",
       "جستجوی اینترنتی",
@@ -626,7 +626,7 @@
     "error.missing_query_parameter": "'query' параметр дутуу",
     "error.run_tool_error": "run_tool алдаа: {error}",
     "param.query.description": "Хайлтын асуулга дутуу байна.",
-    "tool.description": "StartPage (анхдагч), DuckDuckGo эсвэл Brave Search HTML интерфейсээр дамжуулан вэбээс хайх. Гарчиг/холбоос/хэсгийг буцаана. Brave Search нь Япон/орон нутгийн асуулгад илүү тохиромжтой.",
+    "tool.description": "StartPage (анхдагч), DuckDuckGo эсвэл Brave Search HTML интерфейсээр дамжуулан вэбээс хайх. Гарчиг/холбоос/хэсгийг буцаана. Brave Search нь Япон/орон нутгийн асуулгад илүү тохиромжтой. Yahoo Japan-ийг мөн дэмжинэ.",
     "x_search_terms": [
       "вэб хайлт",
       "интернэт хайлт",
@@ -649,7 +649,7 @@
     "error.missing_query_parameter": "'query' पॅरामीटर नाही",
     "error.run_tool_error": "run_tool त्रुटी: {error}",
     "param.query.description": "शोध क्वेरी.",
-    "tool.description": "StartPage (डीफॉल्ट), DuckDuckGo किंवा Brave Search HTML इंटरफेस द्वारे वेब शोधा. शीर्षक/लिंक/स्निपेट मिळवते. Brave Search जपानी/स्थानिक प्रश्नांसाठी अधिक चांगला आहे.",
+    "tool.description": "StartPage (डीफॉल्ट), DuckDuckGo किंवा Brave Search HTML इंटरफेस द्वारे वेब शोधा. शीर्षक/लिंक/स्निपेट मिळवते. Brave Search जपानी/स्थानिक प्रश्नांसाठी अधिक चांगला आहे. Yahoo Japan देखील समर्थित आहे.",
     "x_search_terms": [
       "वेब शोध",
       "इंटरनेट शोध",
@@ -672,7 +672,7 @@
     "error.missing_query_parameter": "λείπει η παράμετρος 'query'",
     "error.run_tool_error": "σφάλμα run_tool: {error}",
     "param.query.description": "Ερώτημα αναζήτησης.",
-    "tool.description": "Αναζητήστε στον ιστό μέσω της διεπαφής StartPage (προεπιλογή), DuckDuckGo ή Brave Search HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα. Το Brave Search είναι καλύτερο για ιαπωνικά/τοπικά ερωτήματα.",
+    "tool.description": "Αναζητήστε στον ιστό μέσω της διεπαφής StartPage (προεπιλογή), DuckDuckGo ή Brave Search HTML. Επιστρέφει τίτλο/σύνδεσμο/απόσπασμα. Το Brave Search είναι καλύτερο για ιαπωνικά/τοπικά ερωτήματα. Υποστηρίζεται επίσης το Yahoo Japan.",
     "x_search_terms": [
       "αναζήτηση ιστού",
       "αναζήτηση στο διαδίκτυο",
@@ -695,7 +695,7 @@
     "error.missing_query_parameter": "חסר פרמטר 'query'",
     "error.run_tool_error": "שגיאת run_tool: {error}",
     "param.query.description": "שאילתת חיפוש.",
-    "tool.description": "חפש באינטרנט באמצעות StartPage (ברירת מחדל), DuckDuckGo או ממשק Brave Search HTML. מחזיר כותרת/קישור/קטע. Brave Search עדיף עבור שאילתות יפניות/מקומיות.",
+    "tool.description": "חפש באינטרנט באמצעות StartPage (ברירת מחדל), DuckDuckGo או ממשק Brave Search HTML. מחזיר כותרת/קישור/קטע. Brave Search עדיף עבור שאילתות יפניות/מקומיות. גם Yahoo Japan נתמך.",
     "x_search_terms": [
       "חיפוש ברשת",
       "חיפוש באינטרנט",
@@ -718,7 +718,7 @@
     "error.missing_query_parameter": "hiányzik a „query” paraméter",
     "error.run_tool_error": "run_tool hiba: {error}",
     "param.query.description": "Keresési lekérdezés.",
-    "tool.description": "Keressen az interneten a StartPage (alapértelmezett), DuckDuckGo vagy a Brave Search HTML felületen keresztül. Címet/linket/részletet ad vissza. A Brave Search jobb a japán/helyi lekérdezésekhez.",
+    "tool.description": "Keressen az interneten a StartPage (alapértelmezett), DuckDuckGo vagy a Brave Search HTML felületen keresztül. Címet/linket/részletet ad vissza. A Brave Search jobb a japán/helyi lekérdezésekhez. A Yahoo Japan is támogatott.",
     "x_search_terms": [
       "webes keresés",
       "internetes keresés",
@@ -741,7 +741,7 @@
     "error.missing_query_parameter": "lipsește parametrul 'query'",
     "error.run_tool_error": "eroare run_tool: {error}",
     "param.query.description": "Interogare de căutare.",
-    "tool.description": "Căutați pe web prin StartPage (implicit), DuckDuckGo sau interfața HTML Brave Search. Returnează titlul/linkul/fragmentul. Brave Search este mai bun pentru interogările în limba japoneză/locale.",
+    "tool.description": "Căutați pe web prin StartPage (implicit), DuckDuckGo sau interfața HTML Brave Search. Returnează titlul/linkul/fragmentul. Brave Search este mai bun pentru interogările în limba japoneză/locale. Este acceptat și Yahoo Japan.",
     "x_search_terms": [
       "căutare pe web",
       "căutare pe internet",
