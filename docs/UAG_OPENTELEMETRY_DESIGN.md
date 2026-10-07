@@ -1,8 +1,8 @@
 # UAG OpenTelemetry Integration Design
 
-Status: Implemented on `main` through Phase 4D  
-Implementation baseline: v0.7.26  
-Scope: observability architecture, activation, automatic dependency installation, privacy, Web/OIDC boundaries, propagation, rollout, and current implementation status  
+Status: Implemented on `main` through Phase 4D<br>
+Implementation baseline: v0.7.26<br>
+Scope: observability architecture, activation, automatic dependency installation, privacy, Web/OIDC boundaries, propagation, rollout, and current implementation status<br>
 Implementation contract: `src/uagent/docs/DEVELOP_OBSERVABILITY.md` and the phase-specific documents/tests describe the runtime behavior.
 
 Companion Web/OIDC design:
