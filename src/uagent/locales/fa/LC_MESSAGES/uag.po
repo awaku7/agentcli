@@ -2529,8 +2529,12 @@ msgstr "یادداشت های بازبین: %(feedback)s"
 #: src/uagent/util_cmd_auto.py:38
 msgid "auto.review_judgment_system_prompt"
 msgstr ""
-"شما یک reviewer هستید. مکالمه زیر را ارزیابی کنید و مشخص کنید که آیا هدف "
-"\"%(goal)s\" محقق شده است یا نه."
+"شما reviewer هستید. گفت‌وگوی زیر را ارزیابی کنید و مشخص کنید آیا هدف \"%(goal)s\" محقق شده است.\\n"
+"محقق شده → COMPLETE\\n"
+"نیاز به ادامه → CONTINUE\\n"
+"با COMPLETE یا CONTINUE پاسخ دهید.\\n"
+"اگر CONTINUE است، به‌اختصار بیان کنید چه چیزی هنوز باقی مانده است.\\n"
+"قالب: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
