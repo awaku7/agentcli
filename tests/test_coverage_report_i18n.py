@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-
 CATALOG_PATH = (
     Path(__file__).resolve().parents[1]
     / "src"
