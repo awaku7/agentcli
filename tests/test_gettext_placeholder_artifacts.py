@@ -289,7 +289,8 @@ def test_vietnamese_and_thai_gettext_catalogs_do_not_contain_han_script():
                     f"{locale}:{line_number}: unexpected Han script: {line.strip()}"
                 )
 
-    message = "Unexpected Han script remains in Vietnamese/Thai catalogs:\n" + "\n".join(
-        offenders
+    message = (
+        "Unexpected Han script remains in Vietnamese/Thai catalogs:\n"
+        + "\n".join(offenders)
     )
     assert not offenders, message
