@@ -740,10 +740,10 @@
     "error.simplecov_result_missing": "Hindi nakita ang resulta ng SimpleCov; paganahin ang SimpleCov sa test command",
     "error.swift_coverage_unavailable": "Nakumpleto ang mga mabilis na pagsubok; gumamit ng llvm-cov export upang mangolekta ng data ng saklaw",
     "x_search_terms": [
-      "coverage",
-      "test coverage",
-      "line coverage",
-      "branch coverage",
+      "saklaw",
+      "saklaw ng pagsubok",
+      "saklaw ng linya",
+      "saklaw ng sangay",
       "lcov"
     ]
   },
@@ -806,10 +806,10 @@
     "error.simplecov_result_missing": "SimpleCov-resultat ikke funnet; aktiver SimpleCov i testkommandoen",
     "error.swift_coverage_unavailable": "SWIFT-tester fullført; bruk llvm-cov-eksport for å samle dekningsdata",
     "x_search_terms": [
-      "dekningtest dekninglinje dekningfilial dekninglcov",
-      "test coverage",
-      "line coverage",
-      "branch coverage",
+      "dekning",
+      "testdekning",
+      "linjedekning",
+      "greindekning",
       "lcov"
     ]
   }
