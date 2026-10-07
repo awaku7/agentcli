@@ -529,3 +529,220 @@ This design is an umbrella roadmap. Existing documents remain authoritative for 
 - `docs/UAG_OPENTELEMETRY_PHASE4_CONTRACT.md`: normative Phase 4 observability contract.
 
 When implementation starts, each feature should update its authoritative subsystem document rather than turning this roadmap into a second normative source for low-level grammars, exact numeric limits, or protocol schemas.
+
+## 21. OIDC enterprise hardening profile
+
+The existing OIDC implementation already provides Authorization Code + PKCE (S256), browser-bound state / nonce handling, verified discovery and JWKS, signed ID-token validation, opaque server-side sessions, safe authentication status, local UAG logout, Entra group claims, and bounded Entra group-overage resolution.
+
+Enterprise deployments still need additional OIDC lifecycle and assurance controls. These are part of the enterprise identity program and should build on E1/E2 rather than create a parallel authentication stack.
+
+### 21.1 Priority 1: RP-Initiated Logout
+
+Current `POST /auth/logout` revokes the UAG server-side session and clears UAG cookies. Enterprise OIDC should additionally support standards-based RP-Initiated Logout when the configured provider advertises a reviewed `end_session_endpoint`.
+
+Required properties:
+
+- revoke the local UAG session before redirecting to the IdP logout endpoint;
+- support an explicitly configured and allowlisted post-logout return URI;
+- never accept an arbitrary browser-supplied logout destination;
+- preserve safe behavior when the IdP does not support RP-Initiated Logout;
+- avoid exposing ID tokens or provider session material to logs, telemetry, or audit records.
+
+Local logout must remain available even when IdP logout is unavailable.
+
+### 21.2 Priority 2: Back-Channel Logout and remote revocation
+
+Enterprise deployments need a server-to-server way for the IdP to invalidate UAG sessions after administrator revocation or upstream session termination.
+
+The preferred design is OIDC Back-Channel Logout where supported.
+
+The back-channel endpoint must:
+
+- verify the logout token signature against the configured issuer JWKS;
+- verify issuer, audience, token type/event claims, expiry, and replay constraints;
+- bind the logout request only to sessions created by the same configured issuer/client;
+- use the OIDC `sid` claim when available, with subject-based invalidation only when the reviewed provider contract permits it;
+- make revocation visible across all UAG nodes once E1 shared sessions are enabled;
+- return bounded, non-secret diagnostics.
+
+Front-Channel Logout is lower priority because it depends on browser behavior. It may be added for provider compatibility but must not be the authoritative enterprise revocation path.
+
+### 21.3 Priority 3: authentication assurance and step-up MFA
+
+UAG should understand verified authentication-assurance claims without turning them into identity by themselves.
+
+Candidate verified claims include:
+
+- `acr`;
+- `amr`;
+- `auth_time`.
+
+The login flow may additionally support reviewed request parameters such as:
+
+- `max_age`;
+- `acr_values`;
+- `prompt=login` where a deployment explicitly requires reauthentication.
+
+These claims should feed a normalized authentication-assurance context that Unified Policy can use.
+
+Example policy intent:
+
+```text
+ordinary chat / read-only tools
+    -> normal authenticated session
+
+credential administration / process-wide admin changes
+    -> recent authentication required
+
+shell, destructive write, external secret-bearing action
+    -> deployment policy may require MFA/strong ACR
+```
+
+Important invariants:
+
+- an unrecognized `acr` or `amr` value never grants additional privilege;
+- assurance policy is based only on verified ID-token/session state;
+- MFA state does not replace Project/Room/tool authorization;
+- step-up failure leaves the existing lower-assurance session bounded by its original permissions rather than silently upgrading it.
+
+### 21.4 Priority 4: durable session and directory revocation integration
+
+OIDC hardening depends on E1 and E2.
+
+The durable session model must preserve:
+
+- issuer/client binding;
+- authentication time and assurance metadata needed for policy;
+- revocation state;
+- configuration-fingerprint invalidation;
+- cross-node visibility.
+
+Directory freshness and OIDC session revocation are related but separate:
+
+- OIDC logout/revocation invalidates the authenticated session;
+- directory refresh may downgrade or remove authorization while the authenticated identity remains valid.
+
+Both must be revalidated before privileged execution.
+
+### 21.5 Priority 5: stronger client authentication
+
+The initial OIDC implementation supports public-client/PKCE behavior and client-secret deployments. Enterprise deployments should add an explicit token-endpoint client-authentication abstraction.
+
+Preferred additions:
+
+- `private_key_jwt`;
+- reviewed `client_secret_basic` / `client_secret_post` interoperability where required by the provider;
+- optional mTLS client authentication only when a concrete deployment requires it.
+
+Private-key material must use the existing credential/secret boundary and must never be embedded in ordinary policy, Memory, logs, telemetry, or exported session data.
+
+Client-authentication method selection must be explicit and validated against provider metadata plus the local UAG allowlist. Discovery metadata alone must never enable a weaker method automatically.
+
+### 21.6 Priority 6: ID-token signing algorithm agility
+
+The current verifier deliberately restricts ID-token signatures to RS256. Enterprise interoperability may require additional algorithms, but broad algorithm acceptance is unsafe.
+
+The target design is:
+
+```text
+provider-advertised algorithms
+        intersect
+UAG security allowlist
+        intersect
+deployment-selected algorithms
+```
+
+Only the resulting set may be accepted.
+
+Possible future algorithms include PS256 and ES256 when supported by the verification stack and covered by regression tests.
+
+Explicitly forbidden behavior:
+
+- accepting `none`;
+- trusting arbitrary algorithms solely because discovery advertises them;
+- algorithm fallback after verification failure;
+- mixing symmetric client-secret material with ID-token verification unless a separate reviewed contract explicitly requires it.
+
+### 21.7 Optional: multiple issuers and tenant routing
+
+The first enterprise milestone may remain one configured OIDC issuer per UAG deployment.
+
+A later multi-tenant deployment may add multiple explicitly configured issuers. If implemented, routing must be configuration-driven and fail closed.
+
+Requirements include:
+
+- issuer allowlist;
+- per-issuer client ID, redirect URI, client-authentication method, and policy binding;
+- no issuer selection from an untrusted ID-token body before signature verification;
+- principal IDs remain namespaced by verified issuer + subject;
+- no cross-tenant session, Project, Room, Memory, or directory-policy leakage;
+- operator-visible issuer/tenant health without exposing raw subject claims.
+
+Dynamic arbitrary-issuer discovery is not a goal.
+
+### 21.8 Refresh Token and UserInfo are not initial requirements
+
+UAG currently avoids retaining provider access/refresh tokens after login except for bounded transient Entra group-overage resolution. This reduces credential lifetime and storage risk.
+
+The initial enterprise OIDC milestone therefore does **not** require:
+
+- refresh-token persistence;
+- background access-token refresh;
+- continuous UserInfo polling.
+
+Add these only if a concrete integration requires them and only after defining:
+
+- encrypted token storage;
+- rotation/revocation semantics;
+- multi-instance ownership;
+- scope minimization;
+- audit/telemetry exclusion;
+- provider-specific failure handling.
+
+Directory freshness should prefer a dedicated reviewed directory adapter rather than introducing persistent refresh tokens merely to keep authorization current.
+
+### 21.9 OIDC hardening delivery order
+
+Recommended order:
+
+```text
+RP-Initiated Logout
+        |
+        v
+Back-Channel Logout
+        |
+        v
+Step-up / assurance context
+        |
+        +----> E1 Durable shared sessions
+        |
+        +----> E2 Directory freshness / revocation
+        |
+        v
+private_key_jwt / client-auth abstraction
+        |
+        v
+Signing algorithm agility
+        |
+        v
+Optional multi-issuer routing
+```
+
+The first three items provide the highest enterprise security value relative to implementation size. Durable sessions and directory freshness remain the broader E1/E2 foundation and should be implemented before claiming multi-instance enterprise OIDC readiness.
+
+### 21.10 Completion gate for enterprise OIDC
+
+Enterprise OIDC hardening is complete for a deployment profile when:
+
+- local logout and IdP logout behavior are defined and tested;
+- remote IdP revocation can invalidate UAG sessions without relying on a browser;
+- privileged policy can require reviewed authentication assurance;
+- multi-instance sessions preserve issuer binding, expiry, and revocation;
+- directory-role downgrade/revocation has a bounded freshness policy;
+- token-endpoint client authentication is explicit and uses protected credential material;
+- accepted ID-token signing algorithms are locally allowlisted;
+- all authentication failures remain fail-closed;
+- raw OIDC credentials and claims remain excluded from normal logs, telemetry, Memory, and audit payload bodies.
+
+This profile does not change the earlier requirement that authentication, authorization, telemetry, and enterprise policy remain separate concerns.
+
