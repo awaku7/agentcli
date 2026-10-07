@@ -54,15 +54,263 @@ The target model separates the data plane from the enterprise control plane.
 +-----------------------------+------------------------------+
 |                        UAG Data Plane                       |
 |                                                            |
-| Identity -> Authorization -> Policy -> Agent/Tool execution|
+| Identity -> Authorization -> Policy -> Execution Broker    |
 |      |             |           |             |             |
 |      +-------------+-----------+-------------+             |
+|                                      |                     |
+|                              Sandboxed Tool Runtime         |
+|                                      |                     |
+|                         Controlled filesystem/egress        |
 |                    Audit decision stream                    |
 |                    OTel diagnostics                         |
 +------------------------------------------------------------+
 ```
 
 The control plane may initially be local-file / SQLite backed, but public interfaces must not assume one process or one host.
+
+## 3.1. Enterprise Phase E0: external Web execution isolation
+
+External Web access changes the tool-execution threat model. A successfully authenticated remote user, a compromised browser session, malicious prompt content, a vulnerable tool, or a compromised model/tool chain must not gain a direct host-OS execution path.
+
+For an external or authenticated multi-user Web deployment, **no ordinary tool call may execute directly on the UAG host**.
+
+Every Web-originated tool action must be classified into exactly one of these paths:
+
+1. **sandbox execution**: normal data-plane tools run inside an isolated execution environment;
+2. **brokered control-plane action**: credential, policy, identity, audit, or other privileged administration is handled by a narrow host-side service with explicit authorization;
+3. **deny**: operations that cannot be safely sandboxed or brokered are unavailable.
+
+There is no fourth "direct host execution because the user confirmed" path for external Web.
+
+### 3.1.1 Execution Broker
+
+Introduce an `ExecutionBroker` boundary between Agent/tool dispatch and the host.
+
+The broker is responsible for:
+
+- selecting the sandbox backend;
+- binding execution to the current principal / Project / Room or session context;
+- enforcing the effective Unified Policy before launch;
+- creating a clean sandbox lease;
+- projecting only approved workspace inputs;
+- injecting only explicitly approved, short-lived credentials;
+- applying CPU, memory, process, disk, wall-clock, and network limits;
+- collecting bounded stdout/stderr/results/artifacts;
+- terminating and cleaning the sandbox;
+- emitting audit and OpenTelemetry linkage without exporting secret payloads.
+
+The Web execution path must not expose a container daemon socket, hypervisor control socket, host shell, host home directory, host credential store, or unrestricted host filesystem to the sandbox.
+
+### 3.1.2 Deployment profiles
+
+The security profile must be explicit. Automatic network-interface detection may warn but must not be the authority that decides whether sandboxing is required.
+
+Conceptual profiles:
+
+```text
+local-trusted
+    CLI / GUI or explicitly local-only Web
+    -> host execution may remain available under Unified Policy
+
+web-sandboxed
+    externally reachable or authenticated multi-user Web
+    -> sandbox or brokered-control-plane only
+
+web-high-assurance
+    hostile multi-tenant / regulated deployment
+    -> hypervisor-backed isolation required
+```
+
+If a deployment selects an external Web profile and the required sandbox backend is unavailable or unhealthy, executable tools fail closed. UAG must not silently fall back to host execution.
+
+### 3.1.3 What "all tools" means
+
+All **data-plane tool execution** initiated through external Web is sandboxed. This includes, where applicable:
+
+- shell / cmd / PowerShell / bash;
+- Python and other interpreters;
+- Git, compilers, package managers, and build/test tools;
+- filesystem mutation;
+- archive/media/document conversion and parsing;
+- downloaded code, Skills, plugins, or helper binaries;
+- browser automation;
+- Computer Use;
+- MCP/A2A helper processes and other local executable integrations.
+
+Network-only operations may be implemented inside the sandbox or through a separately isolated egress service, but they must still pass the same destination and data-governance policy.
+
+Control-plane capabilities such as policy administration, credential management, session revocation, directory/SCIM administration, or audit configuration are **not** moved into the untrusted sandbox. They remain narrow brokered services and are never reachable through a generic shell/file escape.
+
+Hardware-facing tools such as Bluetooth, USB, camera, serial, local IoT, or GPU/device access are denied by default for external Web. Future device access requires an explicit device broker and per-device policy; generic device passthrough is not a baseline feature.
+
+### 3.1.4 Sandbox lifetime and tenant binding
+
+A sandbox must never carry mutable state from one principal or Project into another.
+
+Recommended identity key:
+
+```text
+deployment
+  + principal_id
+  + project_id
+  + room/session execution scope
+```
+
+The default external-Web model should use a clean sandbox created from an immutable image or snapshot. Warm pools are allowed only when a sandbox is reset to a verified clean state before reassignment.
+
+Mutable project files should live in a broker-managed workspace or volume. The sandbox receives only the specific workspace projection required for the task. Host root, arbitrary host paths, the UAG source/configuration tree, and user home directories are not mounted.
+
+Prefer explicit copy-in/copy-out or broker-controlled workspace mounts. Host mounts are read-only by default; writable mappings require a reviewed Project boundary.
+
+### 3.1.5 Network and metadata isolation
+
+Sandbox networking is default-deny for destinations not required by the effective tool/policy.
+
+The network boundary should support:
+
+- destination allow/deny policy;
+- DNS policy;
+- outbound connection limits;
+- blocking host-local control ports;
+- blocking cloud instance metadata endpoints unless explicitly required;
+- blocking private/link-local network ranges by default for Internet-facing deployments;
+- DLP/egress inspection integration from E6;
+- separate policy for provider, MCP, A2A, package registry, and arbitrary Web destinations.
+
+A sandbox may not bypass the network policy by using a host network namespace.
+
+### 3.1.6 Credential injection
+
+The sandbox must not mount the UAG credential store or inherit the host process environment wholesale.
+
+When a tool requires a secret:
+
+1. Unified Policy authorizes the tool, destination, and credential reference;
+2. the broker resolves the credential outside the sandbox;
+3. only the minimum required secret is injected for the minimum required lifetime;
+4. the secret is removed when the lease ends;
+5. stdout/stderr/tool results remain subject to secret masking;
+6. raw secret material is excluded from audit and telemetry.
+
+Where possible, prefer short-lived scoped credentials or workload identity from E8 over long-lived static secrets.
+
+### 3.1.7 Resource and denial-of-service controls
+
+Each sandbox lease needs bounded resources:
+
+- CPU shares/cores;
+- memory;
+- process count;
+- disk and temporary-file usage;
+- wall-clock timeout;
+- stdout/stderr/result size;
+- network bandwidth/connections where supported.
+
+Limit violations terminate the sandboxed operation and must not destabilize the host Agent process.
+
+### 3.1.8 Virtualization technology evaluation
+
+A Python virtual environment is dependency isolation, not a security boundary. It is not acceptable for external-Web tool isolation.
+
+Likewise, process users, job objects, namespaces, seccomp, AppArmor/SELinux, Landlock, or rootless containers are valuable defense-in-depth controls but do not by themselves define the high-assurance hostile multi-tenant boundary.
+
+| Technology | Isolation | UAG fit | Design decision |
+|---|---|---|---|
+| Python `venv` | dependency only | development | never a security boundary |
+| OS process/user + resource controls | process-level | supplemental | defense in depth only |
+| rootless OCI/Docker container | shared host kernel | useful orchestration and local/single-tenant sandbox | not sufficient alone for hostile external multi-user |
+| gVisor / `runsc` | userspace application kernel between workload and host Linux kernel | strong Linux default with OCI/Docker/containerd integration | preferred Linux baseline for general external-Web tools |
+| Kata Containers | lightweight VM per sandbox/container boundary | strong Kubernetes/containerd enterprise option | preferred where VM isolation and container orchestration are both required |
+| Firecracker microVM | KVM microVM, minimal device model | high-assurance Linux/serverless-style execution | optional high-assurance backend; higher orchestration cost |
+| Windows process-isolated container | shared Windows kernel | compatibility | not an adequate hostile multi-tenant boundary |
+| Windows Hyper-V isolated container | optimized VM with separate kernel | strong Windows Server backend | preferred Windows external-Web baseline |
+| Windows Sandbox | hardware-isolated disposable desktop, but client-oriented and single-instance | local development/testing | not the production multi-user execution backend |
+| full VM / VM pool | hardware VM boundary | broadest compatibility, GUI/Computer Use | fallback/high-assurance backend where containers are insufficient |
+
+The sandbox abstraction must prevent application code from depending directly on Docker, gVisor, Kata, Firecracker, or Hyper-V APIs. Backends implement a common UAG execution contract.
+
+### 3.1.9 Recommended platform profiles
+
+#### Linux server
+
+Recommended default:
+
+```text
+ExecutionBroker
+  -> OCI/container orchestration
+     -> gVisor runsc
+        -> per-lease workspace + controlled network
+```
+
+Rootless container orchestration is desirable where compatible, because it reduces daemon/runtime privilege, but rootless mode is an additional mitigation rather than the only isolation boundary.
+
+For regulated/high-assurance or strongly hostile multi-tenant workloads:
+
+```text
+ExecutionBroker
+  -> Kata Containers
+     or
+  -> Firecracker microVM
+```
+
+gVisor is optimized to isolate untrusted Linux workloads while retaining container-style resource efficiency. Kata adds a lightweight VM layer and integrates with containerd/Kubernetes. Firecracker uses KVM microVMs and a deliberately small device model, making it attractive for high-density serverless-style isolation.
+
+#### Windows server
+
+Recommended default for external Web:
+
+```text
+ExecutionBroker
+  -> Windows container
+     -> Hyper-V isolation
+```
+
+Microsoft documents Hyper-V-isolated containers as using a separate optimized VM/kernel and recommends hypervisor isolation rather than process-isolated containers for hostile multi-tenant workloads.
+
+Windows Sandbox is useful for developer/testing scenarios but is not the enterprise server backend: it is client-oriented, networking is enabled by default unless configured otherwise, and current Windows documentation states that multiple Windows Sandbox instances cannot run simultaneously.
+
+For tools that require a real Windows desktop, GUI applications, or full Computer Use, use a dedicated Hyper-V VM/VM-pool backend rather than exposing the host desktop.
+
+### 3.1.10 Browser and Computer Use isolation
+
+External-Web Computer Use must never attach to the UAG host's visible desktop.
+
+The execution backend must provide a dedicated browser/desktop surface inside the sandbox or VM:
+
+```text
+remote Web user
+    -> UAG Web
+       -> ExecutionBroker
+          -> isolated browser/desktop
+             -> screenshots/events
+          <- bounded visual/tool result
+```
+
+The sandbox owns browser profile, downloads, clipboard, temporary files, and desktop session. Host clipboard, microphone, camera, printers, arbitrary mapped folders, and host browser profile remain unavailable unless a separately reviewed capability explicitly enables them.
+
+Headless browser automation may use the normal Linux sandbox backend. Native desktop Computer Use should prefer a microVM/VM backend when the chosen container runtime cannot provide the required GUI isolation.
+
+### 3.1.11 Failure and fallback rules
+
+- Sandbox launch failure: fail the tool call; never run on host.
+- Unsupported syscall/application under gVisor: deny or route to an explicitly configured stronger compatible backend; never host fallback.
+- Missing virtualization support in an external profile: executable tools remain unavailable.
+- Sandbox network policy failure: fail closed.
+- Artifact export failure: leave data inside the sandbox until cleanup policy removes it; do not copy arbitrary paths to host.
+- Broker crash/restart: orphaned leases are reclaimed/terminated according to bounded cleanup rules.
+- Audit/telemetry failure must not weaken the sandbox boundary.
+
+### 3.1.12 Virtualization references used by this design
+
+The technology selection should be revalidated at implementation time. Current primary references:
+
+- gVisor security architecture and OCI runtime: https://gvisor.dev/docs/architecture_guide/intro/
+- Kata Containers VM-based container runtime: https://katacontainers.io/
+- Firecracker microVM architecture: https://firecracker-microvm.github.io/
+- Docker rootless mode: https://docs.docker.com/engine/security/rootless/
+- Windows container isolation modes: https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/hyperv-container
+- Microsoft Windows container security guidance: https://learn.microsoft.com/en-us/virtualization/windowscontainers/manage-containers/container-security
+- Windows Sandbox overview: https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
 
 ## 4. Enterprise Phase E1: durable identity and HA session model
 
@@ -430,17 +678,20 @@ Enterprise additions must continue to enforce:
 
 The implementation should be delivered in bounded PRs. Exact PR count may change after design review, but avoid one PR per tiny helper.
 
-### Enterprise foundation: approximately 7 PRs
+### Enterprise foundation: approximately 9-10 PRs
 
-1. Durable OIDC session-store abstraction plus SQLite backend.
-2. Shared/HA session backend and cross-node revocation semantics.
-3. Directory freshness / session-time membership revocation.
-4. SCIM Users lifecycle.
-5. SCIM Groups / membership and authorization projection.
-6. Central policy revisions, hierarchy, dry-run, rollout, and kill switch.
-7. Foundation integration tests, deployment documentation, and enterprise rollout gate.
+1. Execution Broker contract, external-Web fail-closed routing, and sandbox policy model.
+2. Linux sandbox backend using OCI plus gVisor as the preferred baseline.
+3. Windows Hyper-V isolation / VM backend and isolated Computer Use surface. This may be deferred to a platform-specific PR if Linux server deployment is the initial target.
+4. Durable OIDC session-store abstraction plus SQLite backend.
+5. Shared/HA session backend and cross-node revocation semantics.
+6. Directory freshness / session-time membership revocation.
+7. SCIM Users lifecycle.
+8. SCIM Groups / membership and authorization projection.
+9. Central policy revisions, hierarchy, dry-run, rollout, and kill switch.
+10. Foundation integration tests, deployment documentation, and enterprise rollout gate.
 
-PRs 4 and 5 may be combined if review size remains reasonable. PRs 1 and 2 may also be combined if the storage abstraction stays small.
+Execution-isolation PRs should remain backend-oriented rather than splitting every tool into a separate sandbox PR. SCIM Users/Groups or durable/shared session work may be combined when review size remains reasonable.
 
 ### Governance expansion: approximately 6-8 PRs
 
@@ -453,13 +704,16 @@ PRs 4 and 5 may be combined if review size remains reasonable. PRs 1 and 2 may a
 7. SBOM / release provenance / security documentation.
 8. Agent Registry and administration API.
 
-Total expected implementation size is approximately 12-16 PRs, but the design favors coherent reviewable units over hitting a fixed number.
+With E0 execution isolation and the OIDC hardening profile included, the full roadmap is expected to require approximately 16-20 PRs. This is not a target to maximize PR count: backend work should be combined into coherent reviewable units whenever possible.
 
 ## 17. Recommended implementation order
 
 Recommended order:
 
 ```text
+E0 External Web Execution Isolation
+        |
+        v
 E1 Durable Identity / HA
         |
         v
@@ -484,12 +738,15 @@ E5 Audit / SIEM
 E9 Supply Chain / Agent Registry
 ```
 
-E1-E4 form the minimum enterprise-control foundation. E5 should follow before broad deployment because administrator and policy activity must become reviewable. E6-E9 can then be prioritized according to customer/deployment needs.
+E0 is the prerequisite for exposing executable tools through external Web. E1-E4 then form the minimum enterprise-control foundation. E5 should follow before broad deployment because administrator and policy activity must become reviewable. E6-E9 can then be prioritized according to customer/deployment needs.
 
 ## 18. Initial enterprise completion gate
 
 The first enterprise milestone is complete when all of the following hold:
 
+- external Web has no direct-host ordinary tool-execution path;
+- executable external-Web tools fail closed when the required sandbox backend is unavailable;
+- Computer Use/browser automation does not expose the host desktop or host browser profile;
 - authenticated Web can run safely across process restart and multiple instances;
 - administrator revocation takes effect across nodes;
 - directory-derived privileges have a defined freshness bound;
