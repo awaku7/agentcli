@@ -40,8 +40,9 @@ CREATE TABLE active_clients (
 1. 起動・Task開始時に Presence を登録する
 2. **30秒ごとに heartbeat** を送り `last_seen_at` を更新する
 3. 更新時に同じ workdir の他の active Client を再検索し、Presence view を更新する
-4. 正常終了・Task完了・Taskキャンセル時に登録解除する
-5. 異常終了・通信断時は **90秒 TTL** 経過後に inactive と判定する
+4. **有効な workdir が変更された場合**（CLI / Web の `:cd`、`change_workdir_tool`、session restoration 等）は、その時点で新しい workdir を canonicalize し、自身の `active_clients.workdir` を更新してから新しい workdir の peer を再検索する。古い workdir に対する Presence view は破棄する
+5. 正常終了・Task完了・Taskキャンセル時に登録解除する
+6. 異常終了・通信断時は **90秒 TTL** 経過後に inactive と判定する
 
 Heartbeat は LLM / tool の実行やユーザー入力と独立して継続する。CLI / GUI / Web / A2A Task のいずれも同じ方式とする。専用の外部監視 daemon は不要で、各 Client / Task lifecycle 内の軽量 heartbeat scheduler を使う。
 
@@ -87,4 +88,5 @@ file claim、file lease、workspace lock、OT、CRDT、automatic semantic merge�
 5. crash / 切断後は TTL 経過で inactive になる
 6. stale Client の heartbeat 再開時は他 Client の Presence を再検索する
 7. PID による Client 種別ごとの例外判定をしない
-8. Presence によってファイル操作を強制停止せず、他 Session の会話履歴も自動注入しない
+8. CLI / Web の `:cd`、`change_workdir_tool`、session restoration による workdir 変更後、旧 workdir には存在を広告せず、新 workdir の peer を認識できる
+9. Presence によってファイル操作を強制停止せず、他 Session の会話履歴も自動注入しない
