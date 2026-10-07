@@ -190,10 +190,12 @@ When a tool requires a secret:
 
 1. Unified Policy authorizes the tool, destination, and credential reference;
 2. the broker resolves the credential outside the sandbox;
-3. only the minimum required secret is injected for the minimum required lifetime;
-4. the secret is removed when the lease ends;
-5. stdout/stderr/tool results remain subject to secret masking;
-6. raw secret material is excluded from audit and telemetry.
+3. only the minimum required secret is injected for the minimum required operation;
+4. the broker revokes/removes the injected secret immediately when that credential-using operation completes, whether it succeeds, fails, or is cancelled;
+5. lease teardown performs an additional best-effort cleanup sweep but is never the primary secret-lifetime boundary;
+6. later tool calls in a reusable sandbox must not inherit credentials from an earlier operation;
+7. stdout/stderr/tool results remain subject to secret masking;
+8. raw secret material is excluded from audit and telemetry.
 
 Where possible, prefer short-lived scoped credentials or workload identity from E8 over long-lived static secrets.
 
@@ -820,12 +822,14 @@ The back-channel endpoint must:
 
 - verify the Logout Token signature against the configured issuer JWKS;
 - validate the JWT `alg` through the same provider/UAG/deployment algorithm intersection used for ID Tokens, and always reject `alg=none`;
-- require and validate `iss`, `aud`, `iat`, `jti`, and the back-channel logout `events` member;
+- require and validate `iss`, `aud`, `iat`, `exp`, `jti`, and the back-channel logout `events` member;
 - require `sub`, `sid`, or both;
 - reject every Logout Token containing a `nonce` claim;
-- enforce a bounded acceptable `iat` age/skew policy and a bounded `jti` replay cache rather than treating a missing `exp` as invalid;
+- validate `iat` and `exp` with bounded clock skew and reject expired tokens;
+- maintain a bounded `jti` replay cache as an additional replay defense;
 - bind the logout request only to sessions created by the same verified issuer/client;
-- use the OIDC `sid` claim when present, with subject-based invalidation only when the reviewed provider contract permits it;
+- when `sid` is present, revoke the matching verified issuer/client/session binding;
+- when `sid` is absent and `sub` is present, revoke all UAG sessions matching that verified issuer/client/subject, as required by the Back-Channel Logout semantics;
 - make revocation visible across all UAG nodes once E1 shared sessions are enabled;
 - return bounded, non-secret diagnostics.
 
@@ -1007,7 +1011,7 @@ Enterprise OIDC hardening is complete for a deployment profile when:
 
 - local logout and IdP logout behavior are defined and tested;
 - remote IdP revocation can invalidate UAG sessions without relying on a browser, including `sid`-only Logout Tokens when supported;
-- Back-Channel Logout validation enforces the local algorithm allowlist, required `iat`/event/session claims, `nonce` prohibition, and replay controls;
+- Back-Channel Logout validation enforces the local algorithm allowlist, required `iat`/`exp`/event/session claims, `nonce` prohibition, and replay controls;
 - privileged policy can require reviewed authentication assurance without permitting a different principal's step-up result to upgrade the current session;
 - multi-instance sessions preserve issuer binding, expiry, and revocation;
 - directory-role downgrade/revocation has a bounded freshness policy;
