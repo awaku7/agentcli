@@ -51,16 +51,38 @@ MULTILINE_MSGIDS = {
     ),
 }
 
+MULTILINE_REQUIRED_TOKENS = {
+    "skills_help": (
+        ":skills list",
+        ":skills find",
+        "CMD_SPEC",
+        "install",
+        "uninstall",
+        "apm",
+        "mp_search",
+        ":help skills install",
+    ),
+    "tools_help": (
+        ":tools on|off",
+        ":tools list",
+        ":tools load",
+        ":tools reload",
+        ":tools output",
+    ),
+}
+
 REPAIRED_MULTILINE_LOCALES = {
-    "cs": ("auto_review", "tools_help"),
+    "cs": ("auto_review", "skills_help", "tools_help"),
     "da": ("auto_review", "tool_calling"),
-    "el": ("warning",),
+    "el": ("warning", "skills_help", "tools_help"),
+    "fa": ("skills_help", "tools_help"),
     "fi": ("auto_review", "skills_help", "tools_help"),
     "fil": ("tool_calling", "tools_help"),
     "he": ("tools_help",),
     "hu": ("auto_review", "skills_help", "tools_help"),
     "mn": ("warning", "auto_review", "skills_help", "tools_help"),
     "ms": ("tool_calling",),
+    "nb": ("skills_help", "tools_help"),
     "nn": ("auto_review", "skills_help", "tools_help"),
     "ro": ("warning", "tools_help"),
     "sv": ("skills_help", "tools_help"),
@@ -110,6 +132,9 @@ def test_repaired_multiline_gettext_entries_use_real_newlines():
                 offenders.append(f"{locale}:{key}: missing real newline")
             if "\\n" in translated:
                 offenders.append(f"{locale}:{key}: contains literal backslash-n")
+            for token in MULTILINE_REQUIRED_TOKENS.get(key, ()):
+                if token not in translated:
+                    offenders.append(f"{locale}:{key}: missing {token}")
             if key == "auto_review" and "CONTINUE: <reason>" not in translated:
                 offenders.append(
                     f"{locale}:{key}: missing CONTINUE: <reason> protocol format"
