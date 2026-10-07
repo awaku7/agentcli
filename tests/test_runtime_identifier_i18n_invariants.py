@@ -343,6 +343,31 @@ def test_known_localized_prompt_semantics_are_complete():
         assert "next_actions vazia" in planner_prompt
 
 
+def test_localized_prompts_do_not_keep_known_sentence_fragments():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+    prompts = [
+        value
+        for messages in catalog.values()
+        if isinstance(messages, dict)
+        for key, value in messages.items()
+        if key.startswith("auto.") and isinstance(value, str)
+    ]
+
+    forbidden = (
+        " list.",
+        ". summary.",
+        "warum summary.",
+        "waarom summary.",
+        "alasannya summary.",
+        "[Token]effektivitet]",
+    )
+    for prompt in prompts:
+        for fragment in forbidden:
+            assert fragment not in prompt
+
+
 def test_sub_agent_internal_prompts_preserve_canonical_role_instructions():
     payload = _load("sub_agent_tool.json")
     invalid = []
