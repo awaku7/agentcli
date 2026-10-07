@@ -2579,7 +2579,7 @@ msgstr ""
 "Tarvitaan lisää → CONTINUE\n"
 "Vastaa numerolla COMPLETE tai CONTINUE.\n"
 "Jos CONTINUE, kerro lyhyesti, mitä vielä puuttuu.\n"
-"Muotoile: <re___2>:"
+"Muoto: CONTINUE: <reason>"
 
 #: src/uagent/util_cmd_auto.py:123
 #, python-format
