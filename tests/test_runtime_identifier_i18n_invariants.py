@@ -292,6 +292,20 @@ def test_mongolian_summarizer_preserves_canonical_semantics():
     assert "20 үгэнд багтаахаас зайлсхий" not in body
 
 
+def test_vietnamese_error_analyst_preserves_canonical_semantics():
+    catalog = json.loads(
+        (TOOLS_DIR / "sub_agent_tool.json").read_text(encoding="utf-8")
+    )
+    prompt = catalog["vi"]["auto.4651eaae39b1dbbb"]
+    body = prompt.split("\n[Protocol invariants]", 1)[0]
+
+    assert "nhiều nguyên nhân có thể xảy ra" in body
+    assert "theo thứ tự khả năng xảy ra" in body
+    assert "[Tự đánh giá]" in body
+    assert "tái tạo lỗi" in body
+    assert "proposed_actions" in body
+
+
 def test_sub_agent_internal_prompts_preserve_canonical_role_instructions():
     payload = _load("sub_agent_tool.json")
     invalid = []
