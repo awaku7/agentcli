@@ -5,6 +5,7 @@ from pathlib import Path
 
 
 LOCALES_DIR = Path(__file__).resolve().parents[1] / "src" / "uagent" / "locales"
+INTENTIONAL_ACTIVE_ENGLISH = {"[display_reasoning] %(state)s"}
 
 
 def _decode_po_entries(path: Path, *, obsolete: bool) -> dict[str, str]:
@@ -63,6 +64,7 @@ def test_active_translation_does_not_regress_to_obsolete_english_fallback() -> N
                 and msgstr == msgid
                 and old_translation
                 and old_translation != msgid
+                and msgid not in INTENTIONAL_ACTIVE_ENGLISH
             ):
                 regressions.append(f"{po_path.parent.parent.name}: {msgid!r}")
 

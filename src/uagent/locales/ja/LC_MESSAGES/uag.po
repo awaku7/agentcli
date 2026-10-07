@@ -5405,7 +5405,7 @@ msgid "Index (source code navigation: py2idx, ts2idx, etc.)"
 msgstr "インデックス（ソースコード移動: py2idx、ts2idxなど）"
 
 msgid "[display_reasoning] %(state)s"
-msgstr "[表示推論] %(state)s"
+msgstr "[display_reasoning] %(state)s"
 
 msgid "[display_reasoning] error: %(err)s"
 msgstr "[display_reasoning] エラー: %(err)s"
