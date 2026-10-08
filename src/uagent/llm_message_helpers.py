@@ -377,9 +377,17 @@ def _maybe_auto_shrink_messages(
     except Exception:
         keep_last = 20
 
-    # Nothing compressible beyond the protected tail.
+    # Ordinarily the protected tail is not shrinkable. An oversized logical
+    # turn can now be split at a safe assistant boundary, so still honor an
+    # explicit token-budget trigger even when the raw message count is small.
     if others_count <= keep_last:
-        return gemini_cache_name
+        if shrink_max_tokens <= 0:
+            return gemini_cache_name
+        try:
+            if _count_messages_tokens(messages, depname) < shrink_max_tokens:
+                return gemini_cache_name
+        except Exception:
+            return gemini_cache_name
 
     # After a prior LLM summary exists, require enough NEW tail growth
     # (hysteresis) so we do not re-shrink immediately on the next tool round.

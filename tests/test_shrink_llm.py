@@ -544,6 +544,43 @@ def test_auto_shrink_first_time_by_cnt(monkeypatch: pytest.MonkeyPatch):
     assert called["n"] == 1
 
 
+def test_auto_shrink_honors_token_budget_for_small_oversized_turn(monkeypatch):
+    messages = _make_dialog(1)
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "20")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "100")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "10")
+    monkeypatch.setattr(lmh, "_count_messages_tokens", lambda *_args: 100)
+
+    called = {"n": 0}
+
+    def _fake_compress(**kwargs):
+        called["n"] += 1
+        return [
+            {"role": "system", "content": "SYSTEM_PROMPT"},
+            {"role": "system", "content": "Summary of the conversation so far:\nS"},
+            *kwargs["messages"][1:],
+        ]
+
+    core_obj = SimpleNamespace(
+        compress_history_with_llm=_fake_compress,
+        rewrite_current_log_from_messages=lambda _messages: None,
+    )
+
+    lmh._maybe_auto_shrink_messages(
+        provider="openai",
+        client=object(),
+        depname="gpt-test",
+        messages=messages,
+        core=core_obj,
+        cache_mgr=SimpleNamespace(clear_cache=lambda _client: None),
+        gemini_cache_name=None,
+        call_maybe_thread_fn=lambda fn: fn(),
+        use_responses_api=False,
+    )
+
+    assert called["n"] == 1
+
+
 def test_local_auto_shrink_skips_when_responses_server_compaction_is_active(
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -816,3 +853,104 @@ def test_compression_chunks_never_split_a_logical_tool_turn(monkeypatch):
     assert "result b" in first_chunk
     assert "result a" not in second_chunk
     assert "result b" not in second_chunk
+
+
+def test_safe_assistant_cut_points_wait_for_all_parallel_tool_results():
+    messages = [
+        {"role": "user", "content": "request"},
+        {"role": "assistant", "content": "pre-tool update"},
+        {
+            "role": "assistant",
+            "tool_calls": [{"id": "call-a"}, {"id": "call-b"}],
+        },
+        {"role": "tool", "tool_call_id": "call-a", "content": "result a"},
+        {"role": "tool", "tool_call_id": "call-b", "content": "result b"},
+        {"role": "assistant", "content": "tools complete"},
+        {"role": "assistant", "content": "later continuation"},
+    ]
+
+    cut_points = history._safe_assistant_cut_points(messages, 0, len(messages))
+
+    assert cut_points == [2, 6]
+
+
+def test_oversized_logical_turn_keeps_suffix_after_assistant_boundary(monkeypatch):
+    monkeypatch.setattr(
+        "uagent.providers.util_providers.detect_provider", lambda: "openai"
+    )
+    monkeypatch.setattr(
+        history, "_history_summary_chunk_token_budget", lambda *_args: 50
+    )
+
+    def _estimate(items, *_args, **_kwargs):
+        if items and items[0].get("role") == "system":
+            text = str(items[1].get("content") or "")
+            dialogue = [
+                line
+                for line in text.splitlines()
+                if line.startswith(("User: ", "Assistant: ", "Tool: "))
+            ]
+            return sum(len(line) for line in dialogue) // 4
+        return sum(len(str(item.get("content") or "")) for item in items) // 4
+
+    monkeypatch.setattr(history, "_estimate_history_summary_tokens", _estimate)
+    messages = [
+        {"role": "system", "content": "SYSTEM_PROMPT"},
+        {"role": "user", "content": "earlier request"},
+        {"role": "assistant", "content": "earlier response"},
+        {"role": "user", "content": "request"},
+        {"role": "assistant", "content": "prefix to compact"},
+        {"role": "assistant", "content": "recent suffix " + "x" * 300},
+    ]
+    client = _FakeClient(["COMPACTED PREFIX"])
+
+    projected = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=messages,
+        keep_last=2,
+        use_responses_api=False,
+        emit_log=False,
+    )
+
+    assert len(client.chat.completions.calls) == 1
+    prompt_text = client.chat.completions.calls[0]["messages"][1]["content"]
+    assert "prefix to compact" in prompt_text
+    assert "recent suffix" not in prompt_text
+    assert projected[-1] == messages[-1]
+
+
+def test_oversized_turn_without_safe_assistant_cut_is_left_intact(monkeypatch):
+    monkeypatch.setattr(
+        "uagent.providers.util_providers.detect_provider", lambda: "openai"
+    )
+    monkeypatch.setattr(
+        history, "_history_summary_chunk_token_budget", lambda *_args: 10
+    )
+    monkeypatch.setattr(
+        history, "_estimate_history_summary_tokens", lambda *_args, **_kwargs: 100
+    )
+    messages = [
+        {"role": "system", "content": "SYSTEM_PROMPT"},
+        {"role": "user", "content": "request"},
+        {
+            "role": "assistant",
+            "tool_calls": [{"id": "call-a"}, {"id": "call-b"}],
+        },
+        {"role": "tool", "tool_call_id": "call-a", "content": "result a"},
+        {"role": "tool", "tool_call_id": "call-b", "content": "result b"},
+        {"role": "assistant", "content": "complete"},
+    ]
+    client = _FakeClient([])
+
+    projected = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=messages,
+        keep_last=2,
+        use_responses_api=False,
+        emit_log=False,
+    )
+
+    assert projected == messages
+    assert client.chat.completions.calls == []

@@ -6,7 +6,7 @@ import json
 import sys
 import time
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 from ..env_utils import env_get
 from ..i18n import _
@@ -545,6 +545,107 @@ def _logical_turn_spans(messages: list[dict[str, Any]]) -> list[tuple[int, int]]
     return spans
 
 
+def _safe_assistant_cut_points(
+    messages: list[dict[str, Any]], start: int, end: int
+) -> list[int]:
+    """Return assistant-message boundaries that do not bisect tool work."""
+    pending_tool_ids: set[str] = set()
+    pending_unknown_tool_call = False
+    saw_unknown_tool_result = False
+    cut_points: list[int] = []
+
+    for index in range(start, end):
+        message = messages[index] if isinstance(messages[index], dict) else {}
+        role = str(message.get("role") or "")
+        if role == "assistant":
+            tool_calls = message.get("tool_calls")
+            if isinstance(tool_calls, list) and tool_calls:
+                for tool_call in tool_calls:
+                    call_id = (
+                        tool_call.get("id") if isinstance(tool_call, dict) else None
+                    )
+                    if isinstance(call_id, str) and call_id:
+                        pending_tool_ids.add(call_id)
+                    else:
+                        pending_unknown_tool_call = True
+            elif pending_unknown_tool_call and saw_unknown_tool_result:
+                pending_unknown_tool_call = False
+                saw_unknown_tool_result = False
+
+            if (
+                index + 1 < end
+                and not (isinstance(tool_calls, list) and tool_calls)
+                and not pending_tool_ids
+                and not pending_unknown_tool_call
+            ):
+                cut_points.append(index + 1)
+        elif role == "tool":
+            result_id = message.get("tool_call_id")
+            if isinstance(result_id, str) and result_id in pending_tool_ids:
+                pending_tool_ids.discard(result_id)
+            elif pending_unknown_tool_call:
+                saw_unknown_tool_result = True
+
+    return cut_points
+
+
+def _oversized_turn_split_cut(
+    messages: list[dict[str, Any]],
+    desired_start: int,
+    *,
+    depname: str,
+    provider: str,
+    token_budget: int | None,
+    measure_tokens: Callable[[list[dict[str, Any]]], int] | None = None,
+) -> int | None:
+    """Split an oversized tail turn only at a safe assistant boundary.
+
+    Leave a suffix in the live request and return its first message index. The
+    split is attempted only when the turn itself exceeds the summary chunk
+    budget and some prefix can fit conservatively within that budget.
+    """
+    if not messages or token_budget is None or token_budget <= 0:
+        return None
+
+    target = min(len(messages), max(0, desired_start))
+    spans = _logical_turn_spans(messages)
+    eligible_spans = [span for span in spans if span[1] > target]
+    if target == len(messages) and spans:
+        eligible_spans = [spans[-1]]
+    # When available, measure the actual prompt shape; otherwise reserve room
+    # for summarizer instructions and the rolling-summary prompt.
+    prefix_budget = (
+        token_budget if callable(measure_tokens) else max(1, int(token_budget * 0.8))
+    )
+
+    def _measure(turn_messages: list[dict[str, Any]]) -> int:
+        if callable(measure_tokens):
+            return int(measure_tokens(turn_messages))
+        return _estimate_history_summary_tokens(turn_messages, depname, provider)
+
+    for turn_start, turn_end in reversed(eligible_spans):
+        turn_messages = messages[turn_start:turn_end]
+        try:
+            if _measure(turn_messages) <= token_budget:
+                continue
+        except Exception:
+            continue
+
+        candidates: list[int] = []
+        for cut in _safe_assistant_cut_points(messages, turn_start, turn_end):
+            prefix = messages[turn_start:cut]
+            try:
+                if _measure(prefix) <= prefix_budget:
+                    candidates.append(cut)
+            except Exception:
+                candidates = []
+                break
+        if candidates:
+            target_in_turn = min(max(target, turn_start), turn_end)
+            return min(candidates, key=lambda cut: (abs(cut - target_in_turn), cut))
+    return None
+
+
 def _tool_aware_tail_start(messages: list[dict[str, Any]], start: int) -> int:
     """Move a compression boundary back to the start of its logical turn."""
     if start <= 0 or start >= len(messages):
@@ -634,10 +735,12 @@ def compress_history_with_llm(
             hit_non_system = True
             others.append(m)
 
-    tail_start = max(0, len(others) - keep_last)
+    desired_tail_start = min(len(others), max(0, len(others) - keep_last))
+    tail_start = desired_tail_start
     tail_start = _tool_aware_tail_start(others, tail_start)
     old_part = others[:tail_start]
     tail_part = others[tail_start:]
+    split_turn = False
 
     # Message count is a secondary ceiling; token budget is the primary limit.
     chunk_size_raw = (env_get("UAGENT_SHRINK_CHUNK_SIZE", "") or "").strip()
@@ -962,6 +1065,29 @@ def compress_history_with_llm(
             {"role": "user", "content": summary_user_content},
         ]
 
+    def _measure_split_prompt(turn_messages: list[dict[str, Any]]) -> int:
+        prompt = _build_summary_messages(
+            "\n\n".join(prior_summary_bodies).strip(), turn_messages
+        )
+        if prompt is None:
+            return (initial_chunk_token_budget or 0) + 1
+        return _estimate_history_summary_tokens(prompt, depname, provider)
+
+    split_cut = _oversized_turn_split_cut(
+        others,
+        desired_tail_start,
+        depname=depname,
+        provider=provider,
+        token_budget=initial_chunk_token_budget,
+        measure_tokens=_measure_split_prompt,
+    )
+    if split_cut is not None:
+        old_part = others[:split_cut]
+        tail_part = others[split_cut:]
+        split_turn = True
+        if single_shot_requested:
+            initial_chunk_size = len(old_part)
+
     def _deterministic_structured_fallback() -> list[dict[str, Any]]:
         if not preserve_raw_history:
             return list(messages)
@@ -1187,6 +1313,8 @@ def compress_history_with_llm(
                         use_responses_api=use_responses_api,
                     ),
                     max_input_tokens=initial_chunk_token_budget,
+                    split_turn=split_turn,
+                    first_kept_message=tail_part[0] if split_turn else None,
                 )
                 structured_status = outcome.status
                 if outcome.status == "applied" and outcome.summary:

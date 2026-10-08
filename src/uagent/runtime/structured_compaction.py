@@ -536,6 +536,8 @@ def attempt_structured_compaction(
     generate_text: Callable[[list[dict[str, str]]], str],
     measure_tokens: Callable[[list[dict[str, str]]], int] | None = None,
     max_input_tokens: int | None = None,
+    split_turn: bool = False,
+    first_kept_message: dict[str, Any] | None = None,
 ) -> StructuredCompactionOutcome:
     """Generate, validate, and atomically persist one structured source window."""
     from .observability.bootstrap import get_observability_backend
@@ -558,6 +560,8 @@ def attempt_structured_compaction(
                 generate_text=generate_text,
                 measure_tokens=measure_tokens,
                 max_input_tokens=max_input_tokens,
+                split_turn=split_turn,
+                first_kept_message=first_kept_message,
             )
         except Exception:
             outcome = StructuredCompactionOutcome(
@@ -580,6 +584,8 @@ def _attempt_structured_compaction(
     generate_text: Callable[[list[dict[str, str]]], str],
     measure_tokens: Callable[[list[dict[str, str]]], int] | None,
     max_input_tokens: int | None,
+    split_turn: bool,
+    first_kept_message: dict[str, Any] | None,
 ) -> StructuredCompactionOutcome:
     try:
         window = _resolve_source_window(store, session_id, source_messages)
@@ -592,6 +598,45 @@ def _attempt_structured_compaction(
         return StructuredCompactionOutcome(
             status="fallback", reason=reason, source_message_count=len(source_messages)
         )
+
+    first_kept_message_id: str | None = None
+    if split_turn:
+        if not isinstance(first_kept_message, dict):
+            return StructuredCompactionOutcome(
+                status="fallback",
+                reason="split_suffix_unavailable",
+                source_message_count=len(source_messages),
+            )
+        try:
+            joined_window = _resolve_source_window(
+                store, session_id, [*source_messages, first_kept_message]
+            )
+            if joined_window.refs[: len(window.refs)] != window.refs:
+                raise StructuredCompactionError("split_source_alignment_mismatch")
+            suffix_ref = joined_window.refs[len(window.refs)]
+            if (
+                suffix_ref.session_seq is None
+                or suffix_ref.session_seq <= window.end_seq
+            ):
+                raise StructuredCompactionError("split_suffix_order_unavailable")
+            suffix_item = next(
+                (
+                    item
+                    for item in store.list_indexed_messages(session_id)
+                    if str(item.get("ref_id") or "") == suffix_ref.ref_id
+                    and int(item.get("session_seq") or 0) == suffix_ref.session_seq
+                ),
+                None,
+            )
+            if suffix_item is None or suffix_item.get("message_id") is None:
+                raise StructuredCompactionError("split_suffix_id_unavailable")
+            first_kept_message_id = str(suffix_item["message_id"])
+        except Exception:
+            return StructuredCompactionOutcome(
+                status="fallback",
+                reason="split_suffix_alignment_unavailable",
+                source_message_count=len(source_messages),
+            )
 
     operation_id = _source_window_id(session_id, window)
     prior = store.get_compaction_record(operation_id)
@@ -732,6 +777,8 @@ def _attempt_structured_compaction(
         "source_end_seq": window.end_seq,
         "source_message_count": len(window.messages),
         "source_chars": sum(len(_content_text(item)) for item in window.messages),
+        "split_turn": split_turn,
+        "first_kept_message_id": first_kept_message_id,
         "base_revision": base_revision,
         "summarizer_provider": provider,
         "summarizer_model": model,

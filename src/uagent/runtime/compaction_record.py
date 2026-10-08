@@ -647,6 +647,8 @@ class CompactionRecord(_RecordMixin):
             )
         if not isinstance(self.split_turn, bool):
             raise CompactionValidationError("split_turn must be a boolean")
+        if self.split_turn and not self.first_kept_message_id:
+            raise CompactionValidationError("split_turn requires first_kept_message_id")
         for name in ("source_message_count", "source_chars"):
             _nonnegative_int(getattr(self, name), name)
         _nonnegative_int(self.source_tokens, "source_tokens", optional=True)

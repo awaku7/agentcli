@@ -136,6 +136,81 @@ def test_structured_generation_commits_checkpoint_and_projects_agent_state(
         assert store.get_agent_state_revision(session_id) == 1
 
 
+def test_split_turn_record_persists_first_kept_message_id(tmp_path):
+    with SessionStore(tmp_path / "split-turn.sqlite3") as store:
+        session_id, source_ref = _seed(store)
+        first_kept = {"role": "assistant", "content": "Keep this raw suffix."}
+        store.append_message(
+            session_id,
+            first_kept["role"],
+            first_kept["content"],
+            payload=first_kept,
+        )
+        indexed = store.list_indexed_messages(session_id)
+
+        outcome = attempt_structured_compaction(
+            store=store,
+            session_id=session_id,
+            source_messages=[
+                {
+                    "role": "user",
+                    "content": "Ship the durable structured compaction path",
+                }
+            ],
+            provider="openai",
+            model="test-model",
+            locale="en",
+            generate_text=lambda _prompt: _response(source_ref),
+            split_turn=True,
+            first_kept_message=first_kept,
+        )
+
+        assert outcome.status == "applied"
+        operation_id = store.get_agent_state(session_id)["structured_compaction"][
+            "applied_operations"
+        ][0]
+        persisted = store.get_compaction_record(operation_id)["record"]
+        assert persisted["split_turn"] is True
+        assert persisted["first_kept_message_id"] == str(indexed[1]["message_id"])
+        resume_index = next(
+            index
+            for index, item in enumerate(indexed)
+            if str(item["message_id"]) == persisted["first_kept_message_id"]
+        )
+        restored_suffix = [item["payload"] for item in indexed[resume_index:]]
+        assert restored_suffix == [first_kept]
+        assert store.list_messages(session_id)[1]["content"] == first_kept["content"]
+
+
+def test_split_turn_without_indexed_suffix_falls_back_without_commit(tmp_path):
+    with SessionStore(tmp_path / "split-turn-fallback.sqlite3") as store:
+        session_id, source_ref = _seed(store)
+        outcome = attempt_structured_compaction(
+            store=store,
+            session_id=session_id,
+            source_messages=[
+                {
+                    "role": "user",
+                    "content": "Ship the durable structured compaction path",
+                }
+            ],
+            provider="openai",
+            model="test-model",
+            locale="en",
+            generate_text=lambda _prompt: _response(source_ref),
+            split_turn=True,
+            first_kept_message={"role": "assistant", "content": "not persisted"},
+        )
+
+        assert outcome.status == "fallback"
+        assert outcome.reason == "split_suffix_alignment_unavailable"
+        assert store.get_agent_state(session_id) is None
+        assert store.get_agent_state_revision(session_id) == 0
+        assert store.list_messages(session_id) == [
+            {"role": "user", "content": "Ship the durable structured compaction path"}
+        ]
+
+
 def test_retry_after_store_reopen_does_not_regenerate_or_reapply(tmp_path):
     db_path = tmp_path / "restart.sqlite3"
     with SessionStore(db_path) as store:
