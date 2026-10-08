@@ -237,6 +237,7 @@ def test_checkpoint_store_failure_leaves_message_context_usable():
     assert active.messages == messages
     assert active.decisions == []
 
+
 def test_checkpoint_data_is_not_promoted_to_system_role(tmp_path):
     with SessionStore(tmp_path / "checkpoint-trust.sqlite3") as store:
         session_id, _first_id, _second_id = _seed_checkpoints(store)
