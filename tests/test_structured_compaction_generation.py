@@ -274,7 +274,42 @@ def test_agent_state_projection_is_bounded():
     projected = project_agent_state(state, max_chars=500)
 
     assert len(projected) <= 500
-    assert projected.endswith("[context truncated]")
+    assert "important" in projected
+
+
+def test_bounded_projection_keeps_new_goals_and_shared_context(tmp_path):
+    goals = {}
+    for index in range(8):
+        goals[f"goal-{index}"] = {
+            "title": f"Workstream {index}",
+            "progress_events": [
+                {"text": f"progress-marker-{index} " + ("detail " * 80)}
+            ],
+        }
+    state = {
+        "structured_compaction": {
+            "goals": goals,
+            "shared_constraints": {
+                "constraint": {
+                    "constraint": "Shared constraint marker",
+                    "status": "active",
+                }
+            },
+            "shared_facts": {"fact": {"fact": "Shared fact marker"}},
+            "critical_context": {"critical": {"fact": "Critical marker"}},
+            "narrative_continuation": [{"text": "Narrative continuation marker"}],
+        }
+    }
+
+    projected = project_agent_state(state, max_chars=1500)
+
+    assert len(projected) <= 1500
+    assert "Workstream 7" in projected
+    assert "Shared constraint marker" in projected
+    assert "Shared fact marker" in projected
+    assert "Critical marker" in projected
+    assert "Narrative continuation marker" in projected
+    assert "AgentState retains full details" in projected
 
 
 @pytest.mark.parametrize("status", ["applied", "fallback"])

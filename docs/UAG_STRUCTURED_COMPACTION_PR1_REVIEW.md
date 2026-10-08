@@ -73,10 +73,10 @@
 ### PR 1 完了前の確認事項
 
 1. **実プロバイダ検証:** OpenAI Responses / Anthropic / Gemini / OpenAI-compatible等の実接続を未検証と明記。Fake clientの成功をprovider matrix完了と見なさない。
-2. **出典の認可境界:** 現実装は同一sessionのexact message windowに限定。cross-scope authorizationおよびrehydration時の再認可は未接続。現時点で対応済みと記載しない。PR 3担当との境界を設計書に照合する。
-3. **投影の欠落:** `project_agent_state()` はGoalを順に連結し、最大文字数で末尾を切る。多数Goalのとき後方Goal・共有制約・継続情報が投影から落ち得る。これはRaw Historyの消失ではないが、モデルへ渡す情報の偏りとして、長い複数Goalのテストと明示的な切り詰め方針を検討する。大規模な優先順位機構の新設は求めない。
-4. **安全なfallback:** source alignment失敗、生成失敗、revision競合、旧要約失敗の各経路でRaw History・revision・checkpointの不変条件を確認する。既存テストに含まれるものは重複追加しない。
-5. **範囲管理:** PR 2のsplit-turn/boundary、PR 3のActive Context候補化、PR 5のsemantic rebaseをこの段階に混ぜない。
+1. **出典の認可境界:** 現実装は同一sessionのexact message windowに限定。cross-scope authorizationおよびrehydration時の再認可は未接続。現時点で対応済みと記載しない。PR 3担当との境界を設計書に照合する。
+1. **投影の欠落（対応済み）:** `project_agent_state()` に簡潔なbudget allocationを追加。共有情報を先に確保し、新規作成Goalを優先、項目を短くboundedにして、複数Goal時に後方Goal・共有制約・narrativeが一括して末尾切り捨てされないようにした。8 Goalの回帰テストで確認。大規模な優先順位機構は追加していない。
+1. **安全なfallback（対象ケース確認済み）:** source alignment失敗、構造化生成・repair失敗、revision競合、legacy要約失敗の各経路をテスト。Raw HistoryのavailabilityとAgentState/revision/checkpointの非更新を確認。既存テストに含まれるものは重複追加しない。
+1. **範囲管理:** PR 2のsplit-turn/boundary、PR 3のActive Context候補化、PR 5のsemantic rebaseをこの段階に混ぜない。
 
 ### 検証について
 
@@ -91,9 +91,19 @@
 本節をチェックポイント4の対応依頼として扱う。レビューで挙げた事項をすべて新機能として実装する必要はない。**既存のテスト・設計で満たされているかを先に確認し、不足だけを最小限修正する。**
 
 1. **複数Goalの投影:** `project_agent_state()` が長い複数Goalを扱うとき、後方Goal、shared constraints、narrative continuationが文字数上限で失われる挙動を検証する。重要情報の脱落が確認できた場合のみ、簡潔な優先順・上限配分など最小限の改善と回帰テストを追加する。複雑なスコアリング機構は導入しない。
-2. **失敗時の不変条件:** source alignment失敗、生成失敗、revision競合、legacy要約失敗を既存テストと照合する。不足ケースだけ追加し、Raw History / AgentState / checkpoint / revisionが意図せず更新されないことを確認する。
-3. **実プロバイダ:** 利用可能な範囲で実接続を検証する。実行できないproviderは未検証としてprovider matrixに明記し、Fake clientテストと区別する。認証情報や実環境がないことを理由にテスト成功を推測しない。
-4. **後続PRとの境界:** cross-scope authorization / rehydration、Active Context統合、split-turn、semantic rebaseは該当後続PRの責務を確認し、PR 1の未対応事項として正確に記録する。必要以上に先行実装しない。
-5. **品質確認:** 対象pytestと関連回帰、Ruff、Black `--check` を実行する。失敗した場合は成功と記録しない。修正コード・テスト・実装記録・本レビューMDを一緒にコミットし、SHAと結果を追記する。
+1. **失敗時の不変条件:** source alignment失敗、生成失敗、revision競合、legacy要約失敗を既存テストと照合する。不足ケースだけ追加し、Raw History / AgentState / checkpoint / revisionが意図せず更新されないことを確認する。
+1. **実プロバイダ:** 利用可能な範囲で実接続を検証する。実行できないproviderは未検証としてprovider matrixに明記し、Fake clientテストと区別する。認証情報や実環境がないことを理由にテスト成功を推測しない。
+1. **後続PRとの境界:** cross-scope authorization / rehydration、Active Context統合、split-turn、semantic rebaseは該当後続PRの責務を確認し、PR 1の未対応事項として正確に記録する。必要以上に先行実装しない。
+1. **品質確認:** 対象pytestと関連回帰、Ruff、Black `--check` を実行する。失敗した場合は成功と記録しない。修正コード・テスト・実装記録・本レビューMDを一緒にコミットし、SHAと結果を追記する。
 
 **完了報告の形式:** 対応した項目／仕様上の制約として残した項目／後続PRへ送った項目／実行したテストと結果／コミットSHAを簡潔に記載する。プッシュ後、別レビュー担当が差分を再確認してPR 1の完了可否を判断する。
+
+## チェックポイント4 対応結果（2026-10-08）
+
+- **投影の欠落:** `project_agent_state()` をbounded allocationに変更。共有制約・共有事実・critical context・narrative continuationに予算を確保し、新規作成順のGoalを優先。長い項目を制限し、省略時はAgentStateに完全情報が残る旨を表示する。複数Goalと共有情報を含むテストを追加。
+- **失敗時の不変条件:** exact source alignment失敗、構造化JSON/修復失敗、revision conflict、legacy summary失敗からのdeterministic fallbackをテスト。structured success/fallbackともRaw Historyのsession item availabilityを維持し、SQLite message rowsを置換しないことを確認。SQLite再オープン後のoperation retryも検証。
+- **統合経路:** opt-in auto-shrinkからgenerator・保存・projectionまでfake OpenAI-compatible clientで通す回帰テストを追加。feature flag OFF時はlegacy経路を通る。
+- **認可境界:** SourceRef解決は同一sessionのexact message windowに限定。cross-scope authorizationとrehydration時の再認可は未接続で、対応済みとは扱わない。PR3との責務境界を設計書に照合する。
+- **プロバイダー:** fake OpenAI-compatible client以外の実接続は未検証。OpenAI Responses / Anthropic / Geminiの検証完了とは扱わない。
+- **判定:** 投影偏りと失敗時のRaw History不変条件への基礎対応は完了。PR1全体の完了判定はprovider matrix、cross-scope authorization / rehydration、full lifecycle review後まで保留。
+- **最終検証:** `test_structured_compaction_generation.py` 16件、`test_shrink_llm.py` 22件、`test_compaction_persistence.py` 17件、`test_session_store.py` 28件、`test_session_item_index.py` 6件成功。Ruff / Black `--check` / py_compile（5 files）/ Markdown format check成功。実provider検証は未実施。

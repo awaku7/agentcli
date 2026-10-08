@@ -396,8 +396,19 @@ def _format_records(items: Any, field: str, *, limit: int = 8) -> list[str]:
         else:
             text = str(item.get("fact") or "").strip()
         if text:
+            if len(text) > 240:
+                text = text[:237].rstrip() + "…"
             lines.append(f"- {text}")
     return lines
+
+
+def _clip_projection_text(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    marker = "\n[projection truncated; AgentState retains full details]"
+    if limit <= len(marker):
+        return text[:limit]
+    return text[: limit - len(marker)].rstrip() + marker
 
 
 def project_agent_state(
@@ -408,69 +419,78 @@ def project_agent_state(
     structured = agent_state.get("structured_compaction")
     if not isinstance(structured, dict):
         return ""
-    sections: list[str] = []
+
+    goal_sections: list[str] = []
     goals = structured.get("goals")
     if isinstance(goals, dict):
-        for goal_id, goal in goals.items():
+        # The reducer preserves insertion order; newly created Goals are
+        # projected first so a bounded summary does not always drop later work.
+        for goal_id, goal in reversed(list(goals.items())):
             if not isinstance(goal, dict):
                 continue
-            title = str(goal.get("title") or goal_id).strip()
-            lines = [f"## Goal: {title}"]
+            title = str(goal.get("title") or goal_id).strip()[:180]
+            lines = [f"### Goal: {title}"]
             for label, key in (
                 ("Status", "status_observations"),
                 ("Progress", "progress_events"),
                 ("Next actions", "next_action_observations"),
             ):
-                rendered = _format_records(goal.get(key), "observation")
+                rendered = _format_records(goal.get(key), "observation", limit=2)
                 if rendered:
                     lines.append(f"{label}:\n" + "\n".join(rendered))
-            decisions = goal.get("decisions")
-            active_decisions = (
-                {
-                    key: value
-                    for key, value in decisions.items()
-                    if isinstance(value, dict)
-                    and value.get("status", "active") in {"active", "tentative"}
-                }
-                if isinstance(decisions, dict)
-                else {}
-            )
-            rendered = _format_records(active_decisions, "decision")
-            if rendered:
-                lines.append("Decisions:\n" + "\n".join(rendered))
-            constraints = goal.get("constraints")
-            active_constraints = (
-                {
-                    key: value
-                    for key, value in constraints.items()
-                    if isinstance(value, dict)
-                    and value.get("status", "active") in {"active", "tentative"}
-                }
-                if isinstance(constraints, dict)
-                else {}
-            )
-            rendered = _format_records(active_constraints, "constraint")
-            if rendered:
-                lines.append("Constraints:\n" + "\n".join(rendered))
-            rendered = _format_records(goal.get("facts"), "fact")
-            if rendered:
-                lines.append("Facts:\n" + "\n".join(rendered))
-            sections.append("\n".join(lines))
+            for key, label, field in (
+                ("decisions", "Decisions", "decision"),
+                ("constraints", "Constraints", "constraint"),
+                ("facts", "Facts", "fact"),
+            ):
+                items = goal.get(key)
+                if key in {"decisions", "constraints"} and isinstance(items, dict):
+                    items = {
+                        item_id: item
+                        for item_id, item in items.items()
+                        if isinstance(item, dict)
+                        and item.get("status", "active") in {"active", "tentative"}
+                    }
+                rendered = _format_records(items, field, limit=2)
+                if rendered:
+                    lines.append(f"{label}:\n" + "\n".join(rendered))
+            goal_sections.append("\n".join(lines))
 
+    global_sections: list[str] = []
     for key, label, field in (
         ("shared_constraints", "Shared constraints", "constraint"),
         ("shared_facts", "Shared facts", "fact"),
         ("critical_context", "Critical context", "fact"),
         ("narrative_continuation", "Narrative continuation", "observation"),
     ):
-        rendered = _format_records(structured.get(key), field, limit=12)
+        rendered = _format_records(structured.get(key), field, limit=3)
         if rendered:
-            sections.append(f"## {label}\n" + "\n".join(rendered))
+            global_sections.append(f"## {label}\n" + "\n".join(rendered))
 
-    projection = "\n\n".join(sections).strip()
-    if len(projection) > max_chars:
-        projection = projection[: max_chars - 24].rstrip() + "\n[context truncated]"
-    return projection
+    if global_sections and goal_sections:
+        global_budget = max_chars // 3
+    elif global_sections:
+        global_budget = max_chars
+    else:
+        global_budget = 0
+    if global_sections:
+        separator_budget = 2 * (len(global_sections) - 1)
+        per_section = max(1, (global_budget - separator_budget) // len(global_sections))
+        global_text = "\n\n".join(
+            _clip_projection_text(section, per_section) for section in global_sections
+        )
+    else:
+        global_text = ""
+
+    if goal_sections:
+        goal_header = "## Goals (newly created first)\n"
+        goal_budget = max(0, max_chars - len(global_text) - len(goal_header))
+        goal_text = _clip_projection_text("\n\n".join(goal_sections), goal_budget)
+        goal_block = goal_header + goal_text
+    else:
+        goal_block = ""
+    sections = [section for section in (global_text, goal_block) if section]
+    return _clip_projection_text("\n\n".join(sections).strip(), max_chars)
 
 
 def _record_telemetry(
