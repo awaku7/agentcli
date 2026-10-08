@@ -56,3 +56,32 @@
 - comparison-only は、base revision と現在 revision が一致し、保存済み AgentState snapshot がある場合に限り記録できる。revision が過去の場合は `SessionComparisonUnavailable` を返し、AgentState・revision・checkpoint を変更しない。過去snapshotを復元する機構は追加していない。
 - `save_agent_state(..., expected_revision=None)` は互換性のため残しているが、呼び出し元の古いsnapshotを検出できない。複数クライアントが同一セッションを更新する場合は `get_agent_state_snapshot()` で状態とrevisionを一緒に読み、そのrevisionを `expected_revision` に渡す。runtime の `update_agent_state` / `complete_agent_step` はこの経路を使う。
 - 修正は `1aaad9d2` にコミットし、対象テストと静的チェックの通過を確認した。
+
+## チェックポイント4レビュー（2026-10-08）
+
+- 対象: [`1b6f1872`](https://github.com/awaku7/agentcli/commit/1b6f18722415378f011a6309b464bc013c3265b6)、[`eccceb7f`](https://github.com/awaku7/agentcli/commit/eccceb7f01025c9c145996ec3b7134d7b666945d)
+- 判定: **基礎接続は妥当。PR 1 全体の完了判定は保留。** 以下はレビューで確認した制約・残作業。新たな確定的P1/P2バグの指摘ではない。
+
+### 確認できた点
+
+- `UAGENT_STRUCTURED_COMPACTION=1` の opt-in に限定し、従来経路を既定で維持している。
+- `_resolve_source_window()` はセッション内のメッセージとの一意な一致・順序・可用性を検証し、一致できないときは構造化commitを行わない。
+- 生成JSONの検証、一度だけの修復、Reducer事前検証、revision付きcommit、失敗時の従来要約／決定的抜粋へのfallbackがある。
+- 成功・fallback時とも、opt-in経路ではSQLiteのRaw HistoryおよびJSONLを置換しない。
+- process restart後の同一operation再試行、auto-shrink統合、Telemetryに原文を含めないテストが追加された。
+
+### PR 1 完了前の確認事項
+
+1. **実プロバイダ検証:** OpenAI Responses / Anthropic / Gemini / OpenAI-compatible等の実接続を未検証と明記。Fake clientの成功をprovider matrix完了と見なさない。
+2. **出典の認可境界:** 現実装は同一sessionのexact message windowに限定。cross-scope authorizationおよびrehydration時の再認可は未接続。現時点で対応済みと記載しない。PR 3担当との境界を設計書に照合する。
+3. **投影の欠落:** `project_agent_state()` はGoalを順に連結し、最大文字数で末尾を切る。多数Goalのとき後方Goal・共有制約・継続情報が投影から落ち得る。これはRaw Historyの消失ではないが、モデルへ渡す情報の偏りとして、長い複数Goalのテストと明示的な切り詰め方針を検討する。大規模な優先順位機構の新設は求めない。
+4. **安全なfallback:** source alignment失敗、生成失敗、revision競合、旧要約失敗の各経路でRaw History・revision・checkpointの不変条件を確認する。既存テストに含まれるものは重複追加しない。
+5. **範囲管理:** PR 2のsplit-turn/boundary、PR 3のActive Context候補化、PR 5のsemantic rebaseをこの段階に混ぜない。
+
+### 検証について
+
+実装者の記録ではcheckpoint 4対象テスト15件、既存shrink22件、persistence17件、SessionStore28件、session index6件、Black/Ruffが成功。**このレビューではテストを独立実行していない。**
+
+| 日付 | コミット | 対応内容 | 検証結果 |
+|---|---|---|---|
+| 2026-10-08 | `1b6f1872`, `eccceb7f` | チェックポイント4のコード・追加テストをレビュー。基礎接続を確認し、完了前の制約と確認事項を記録 | コード確認のみ。独立テスト未実施 |
