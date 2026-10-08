@@ -1506,9 +1506,9 @@ long coding session
 
 ## 28.1 Workdir Presence Boundary
 
-複数 Client / Session が同じ workdir を扱う場合、別 Client が活動中であることを Agent が認識できるようにする。ただしこれは Structured Compaction の責務ではない。
+複数 Client / Session が同じ workdir を扱う場合、別 Client の登録と最終活動時刻を Agent が参照できるようにする。ただしこれは Structured Compaction の責務ではない。
 
-初期実装では file claim / file lease / workspace lock を導入しない。既存 SQLite SessionStore に lightweight Workdir Presence を持ち、同じ canonical workdir の他 Client が active かどうかだけを advisory information として Runtime / Agent に提供する。
+初期実装では file claim / file lease / workspace lock を導入しない。既存 SQLite SessionStore に lightweight Workdir Presence を持ち、同じ canonical workdir の他 Client の登録有無と `last_seen_at` を advisory information として Runtime / Agent に提供する。登録があっても稼働中とは断定しない。
 
 Presence は write を強制 block せず、cmd / Python / file tool の write 予測や filesystem monitoring も行わない。詳細は `UAG_WORKSPACE_FILE_COORDINATION_DESIGN.md` に分離する。
 
