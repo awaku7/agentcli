@@ -108,3 +108,41 @@
 - **判定:** 投影偏りと失敗時のRaw History不変条件への基礎対応は完了。PR1全体の完了判定はprovider matrix、cross-scope authorization / rehydration、full lifecycle review後まで保留。
 - **最終検証:** `test_structured_compaction_generation.py` 16件、`test_shrink_llm.py` 22件、`test_compaction_persistence.py` 17件、`test_session_store.py` 28件、`test_session_item_index.py` 6件成功。Ruff / Black `--check` / py_compile（5 files）/ Markdown format check成功。実provider検証は未実施。
 - **追加修正コミット:** `0780b5bf` (`fix: preserve multi-goal context in bounded projection`)。
+
+## PR 1 最終スコープレビュー（2026-10-08）
+
+**判定: 条件付きで PR 1 の実装スコープは完了と扱える。ただし本レビューは静的コード・差分・既存テスト記録の確認であり、独立した実行検証・実provider検証は未完了。** feature flagは既定OFFのまま維持する。PR 1を「全機能完成」「本番投入検証済み」とは表現しない。
+
+### PR 1 内で満たした基礎契約
+
+- provider-neutralなCompactionRecord / GoalDelta / typed SourceRef、session sequenceとwatermark、ReducerとAgentStateのcurrent-state正本を追加。
+- checkpoint / AgentState / revision / operation IDを一括更新（失敗時はすべて取り消す）。revision競合と再試行の二重適用防止を実装。
+- 同一session内のexact source windowに限定した構造化生成、出典検証、一度だけのrepair、bounded summary projection、legacy / deterministic fallbackをopt-inで接続。
+- Raw History / JSONLを置換しない方針をコードと対象テストで確認。複数Goalの投影偏りを改善（`0780b5bf`）。
+- 実装者の記録: structured generation 16、shrink 22、persistence 17、SessionStore 28、session index 6件成功。Ruff、Black --check、py_compile、Markdown format check成功。レビュー担当は独立実行していない。
+
+### PR 1 の完了条件と区別すべき未検証事項
+
+1. **実provider接続: 未検証。** Fake OpenAI-compatible clientによるテストは実API互換性の証明ではない。PR 1のprovider-neutral保存契約とは分離し、provider matrix実行時に結果を追記する。実接続を試さず「対応完了」と書かない。
+2. **end-to-end全ライフサイクル: 部分検証。** SQLite再オープン後のoperation retryはテスト済み。実CLI/実providerを通した再開、並行操作、長期利用は未検証。後続の統合検証で確認する。
+3. **SourceRefの権限: 現段階は同一session限定。** cross-scope retrieval/rehydration時の再認可は未実装。PR 3のretrieval接続およびPR 5のclient/principal権限モデルに合わせて実装・検証する。認可を伴うcross-scope参照をPR 1から有効化しない。
+4. **Safe Boundary / Split Turn: PR 2。** 既存auto-shrinkへの接続はあるが、tool call/resultをまたがない切断点とoversized turnはPR 2の責務。
+5. **ContextCandidate / ActiveContextBuilder / provider projection: PR 3。** PR 1のlegacy summary projectionと混同しない。
+6. **Sub-Agent / Auto-pilot handoff: PR 4。**
+7. **複数Clientのsemantic rebase・client scope: PR 5。** revisionを省略するlegacy保存APIの制約も引き続き残る。
+
+### 注意しておく設計上の制約
+
+- `project_agent_state()` はbounded text projectionであり、Goalが多い場合は省略され得る。AgentState自体は保持されるが、モデルへの投影が全Goalを網羅する保証はない。優先度の高度な判断はPR 3のContext Runtime設計と整合させる。
+- `comparison_only` は過去revisionのsnapshotが保存されていない場合に比較不能を返す。履歴snapshot再生はPR 1に追加しない。
+- 既存の圧縮挙動を変えないため、`UAGENT_STRUCTURED_COMPACTION` は既定OFFを維持する。
+
+### 最終判断と次の作業
+
+**レビュー上の結論:** PR 1で実装すると決めた「構造化レコード＋一括永続化＋既存経路へのopt-in基礎接続」は概ね揃っている。未実装の後続PR機能をPR 1のブロッカーとして扱わない。独立したCI/実行結果が得られるまでは「条件付き完了」とし、本番利用可能とは判断しない。
+
+**次の作業:** 実装者は実装計画MDのPR 1状態を「基礎実装完了・統合検証保留」に更新し、PR 2のSafe Boundary / Split Turnを別の差分として開始する。PR 2ではcheckpoint 1〜4のコードを無関係にリファクタリングしない。実provider matrixは別途実施し、結果を本書に追記する。
+
+| 日付 | 対象 | レビュー担当による確認 | 結果 |
+|---|---|---|---|
+| 2026-10-08 | `0780b5bf`, `1eab3dc5` とPR 1の実装計画・コード | GitHub上の差分・設計境界・実装記録を照合。独立pytest/CI実行なし | PR 1基礎実装は条件付き完了、実provider・全ライフサイクル検証は保留 |
