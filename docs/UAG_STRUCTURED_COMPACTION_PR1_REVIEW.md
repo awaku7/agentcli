@@ -38,7 +38,7 @@
 - [x] P2の2クライアント競合テストを追加
 - [x] 対象テストと関連回帰テストを実行
 - [x] Black `--check` とRuffを確認
-- [ ] 修正コミットを本書に追記して再レビュー
+- [x] 修正コミットを本書に追記して再レビュー
 
 ## 検証状況
 
@@ -49,10 +49,10 @@
 | 日付 | コミット | 対応内容 | 検証結果 |
 |---|---|---|---|
 | 2026-10-08 | `9e926f4b` | 初回レビュー。P1・P2を指摘 | 修正・再検証待ち |
-| 2026-10-08 | 作業ツリー（未コミット） | P1: historical base snapshot がない comparison-only を head conflict と区別し、比較不能として拒否。P2: snapshot+revision の同時読み取りを追加し、runtime の更新経路は observed revision を使って保存。revision 省略の legacy 経路には stale-write 制約を明記 | `tests/test_compaction_persistence.py` 17 passed; Python compile 2 passed; Ruff passed; Black `--check` passed |
+| 2026-10-08 | `1aaad9d2` | P1: historical base snapshot がない comparison-only を head conflict と区別し、比較不能として拒否。P2: snapshot+revision の同時読み取りを追加し、runtime の更新経路は observed revision を使って保存。revision 省略の legacy 経路には stale-write 制約を明記 | `tests/test_compaction_persistence.py` 17 passed; `tests/test_session_store.py` 28 passed; Python compile 2 passed; Ruff passed; Black `--check` passed |
 
 ### 再レビュー所見
 
 - comparison-only は、base revision と現在 revision が一致し、保存済み AgentState snapshot がある場合に限り記録できる。revision が過去の場合は `SessionComparisonUnavailable` を返し、AgentState・revision・checkpoint を変更しない。過去snapshotを復元する機構は追加していない。
 - `save_agent_state(..., expected_revision=None)` は互換性のため残しているが、呼び出し元の古いsnapshotを検出できない。複数クライアントが同一セッションを更新する場合は `get_agent_state_snapshot()` で状態とrevisionを一緒に読み、そのrevisionを `expected_revision` に渡す。runtime の `update_agent_state` / `complete_agent_step` はこの経路を使う。
-- この環境では修正コミットを作成していないため、コミット単位の再レビューは未実施。
+- 修正は `1aaad9d2` にコミットし、対象テストと静的チェックの通過を確認した。
