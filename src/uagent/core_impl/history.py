@@ -363,7 +363,11 @@ def shrink_messages(
         )
         return list(messages)
 
-    trimmed_others = others[-keep_last:]
+    if keep_last > 0:
+        tail_start = _tool_aware_tail_start(others, len(others) - keep_last)
+        trimmed_others = others[tail_start:]
+    else:
+        trimmed_others = others[-keep_last:]
     trimmed_others = _fix_tool_call_boundaries(trimmed_others)
     _stop_spinner_quietly()
     print(
@@ -476,34 +480,78 @@ def _fix_tool_call_boundaries(
     return result
 
 
+def _logical_turn_spans(messages: list[dict[str, Any]]) -> list[tuple[int, int]]:
+    """Return half-open message ranges for complete logical turns.
+
+    A turn starts at a user message and normally ends immediately before the
+    next user message. A new user message does not close a turn while a tool
+    call is still awaiting its result. This conservatively keeps parallel
+    tool calls and their results in the same unit for compaction.
+    """
+    if not messages:
+        return []
+
+    spans: list[tuple[int, int]] = []
+    start = 0
+    saw_user = False
+    pending_tool_ids: set[str] = set()
+    pending_unknown_tool_call = False
+    saw_unknown_tool_result = False
+
+    for index, message in enumerate(messages):
+        message = message if isinstance(message, dict) else {}
+        role = str(message.get("role") or "")
+
+        if (
+            index > start
+            and role == "user"
+            and saw_user
+            and not pending_tool_ids
+            and not pending_unknown_tool_call
+        ):
+            spans.append((start, index))
+            start = index
+            saw_user = False
+            pending_tool_ids.clear()
+            pending_unknown_tool_call = False
+            saw_unknown_tool_result = False
+
+        if role == "user":
+            saw_user = True
+        elif role == "assistant":
+            tool_calls = message.get("tool_calls")
+            if isinstance(tool_calls, list) and tool_calls:
+                for tool_call in tool_calls:
+                    call_id = (
+                        tool_call.get("id") if isinstance(tool_call, dict) else None
+                    )
+                    if isinstance(call_id, str) and call_id:
+                        pending_tool_ids.add(call_id)
+                    else:
+                        pending_unknown_tool_call = True
+            elif pending_unknown_tool_call and saw_unknown_tool_result:
+                # Legacy tool calls without IDs can only be considered closed
+                # after a tool result and a subsequent assistant continuation.
+                pending_unknown_tool_call = False
+                saw_unknown_tool_result = False
+        elif role == "tool":
+            result_id = message.get("tool_call_id")
+            if isinstance(result_id, str) and result_id in pending_tool_ids:
+                pending_tool_ids.discard(result_id)
+            elif pending_unknown_tool_call:
+                saw_unknown_tool_result = True
+
+    spans.append((start, len(messages)))
+    return spans
+
+
 def _tool_aware_tail_start(messages: list[dict[str, Any]], start: int) -> int:
-    """Move a compression boundary back to the start of a tool-call block."""
+    """Move a compression boundary back to the start of its logical turn."""
     if start <= 0 or start >= len(messages):
         return max(0, start)
-    candidate = messages[start]
-    if not isinstance(candidate, dict):
-        return start
-
-    candidate_role = candidate.get("role")
-    if candidate_role == "assistant" and candidate.get("tool_calls"):
-        return start
-    if candidate_role != "tool":
-        return start
-
-    tool_call_id = candidate.get("tool_call_id")
-    for index in range(start - 1, -1, -1):
-        message = messages[index]
-        if not isinstance(message, dict):
-            continue
-        if message.get("role") != "assistant":
-            continue
-        tool_calls = message.get("tool_calls") or []
-        if not isinstance(tool_calls, list):
-            return start
-        ids = {
-            tc.get("id") for tc in tool_calls if isinstance(tc, dict) and tc.get("id")
-        }
-        return index if tool_call_id in ids else start
+    for turn_start, turn_end in _logical_turn_spans(messages):
+        if turn_start < start < turn_end:
+            return turn_start
     return start
 
 
@@ -961,18 +1009,27 @@ def compress_history_with_llm(
         nonlocal oversized_single_chunk
         oversized_single_chunk = False
         current_chunk_size = max(1, current_chunk_size)
+        turn_spans = _logical_turn_spans(old_part)
         rolling_summary = "\n\n".join(prior_summary_bodies).strip()
-        cursor = 0
+        turn_cursor = 0
         chunk_index = 0
 
-        while cursor < len(old_part):
+        while turn_cursor < len(turn_spans):
             if force_single_shot:
-                chunk = old_part[cursor:]
-                cursor = len(old_part)
+                selected_turns = turn_spans[turn_cursor:]
+                turn_cursor = len(turn_spans)
+                chunk = [
+                    message
+                    for start, end in selected_turns
+                    for message in old_part[start:end]
+                ]
             else:
                 chunk = []
-                while cursor < len(old_part) and len(chunk) < current_chunk_size:
-                    candidate = chunk + [old_part[cursor]]
+                selected_turns: list[tuple[int, int]] = []
+                while turn_cursor < len(turn_spans) and len(chunk) < current_chunk_size:
+                    turn_start, turn_end = turn_spans[turn_cursor]
+                    turn_messages = old_part[turn_start:turn_end]
+                    candidate = chunk + turn_messages
                     prompt = _build_summary_messages(rolling_summary, candidate)
                     candidate_tokens = (
                         _estimate_history_summary_tokens(prompt, depname, provider)
@@ -990,13 +1047,12 @@ def compress_history_with_llm(
                         and current_token_budget is not None
                         and candidate_tokens > current_token_budget
                     ):
-                        # A single indivisible message may exceed the target.
-                        # Try it once; if the provider rejects it, leave the
-                        # source history unchanged rather than retrying it
-                        # repeatedly with smaller budgets.
+                        # A logical turn is indivisible at this stage. Try it
+                        # once; retries must not split its tool interaction.
                         oversized_single_chunk = True
-                    chunk.append(old_part[cursor])
-                    cursor += 1
+                    chunk.extend(turn_messages)
+                    selected_turns.append((turn_start, turn_end))
+                    turn_cursor += 1
 
             summary_messages = _build_summary_messages(rolling_summary, chunk)
             if summary_messages is None:
@@ -1011,11 +1067,18 @@ def compress_history_with_llm(
                     use_responses_api=use_responses_api,
                     allow_provider_counter=True,
                 )
-                while measured_tokens > current_token_budget and len(chunk) > 1:
-                    split_at = max(1, len(chunk) // 2)
-                    deferred = chunk[split_at:]
-                    cursor -= len(deferred)
-                    chunk = chunk[:split_at]
+                while (
+                    measured_tokens > current_token_budget and len(selected_turns) > 1
+                ):
+                    split_at = max(1, len(selected_turns) // 2)
+                    deferred = selected_turns[split_at:]
+                    turn_cursor -= len(deferred)
+                    selected_turns = selected_turns[:split_at]
+                    chunk = [
+                        message
+                        for start, end in selected_turns
+                        for message in old_part[start:end]
+                    ]
                     summary_messages = _build_summary_messages(rolling_summary, chunk)
                     if summary_messages is None:
                         chunk = []
@@ -1030,11 +1093,11 @@ def compress_history_with_llm(
                     )
                 if summary_messages is None:
                     continue
-                if measured_tokens > current_token_budget and len(chunk) == 1:
+                if measured_tokens > current_token_budget and len(selected_turns) == 1:
                     oversized_single_chunk = True
 
             chunk_index += 1
-            if emit_log and (chunk_index > 1 or cursor < len(old_part)):
+            if emit_log and (chunk_index > 1 or turn_cursor < len(turn_spans)):
                 _stop_spinner_quietly()
                 print(
                     _t("[shrink_llm] Summarizing chunk %(i)d...") % {"i": chunk_index},

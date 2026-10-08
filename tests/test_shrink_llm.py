@@ -17,6 +17,7 @@ import pytest
 
 from uagent import core
 from uagent import llm_message_helpers as lmh
+from uagent.core_impl import history
 
 
 class _FakeChoiceMsg:
@@ -268,7 +269,7 @@ def test_compress_chunks_by_estimated_tokens_and_includes_rolling_summary(
     )
     monkeypatch.setenv("UAGENT_SHRINK_CHUNK_SIZE", "50")
 
-    client = _FakeClient(["ROLLING_1", "ROLLING_2", "ROLLING_3"])
+    client = _FakeClient(["ROLLING_1", "ROLLING_2"])
     out = core.compress_history_with_llm(
         client=client,
         depname="gpt-test",
@@ -278,14 +279,12 @@ def test_compress_chunks_by_estimated_tokens_and_includes_rolling_summary(
     )
 
     calls = client.chat.completions.calls
-    assert len(calls) == 3
+    assert len(calls) == 2
     first_chunk = calls[0]["messages"][1]["content"]
     second_chunk = calls[1]["messages"][1]["content"]
-    third_chunk = calls[2]["messages"][1]["content"]
     assert "user-0" in first_chunk and "assistant-0" in first_chunk
-    assert "user-1" in second_chunk and "assistant-1" not in second_chunk
+    assert "user-1" in second_chunk and "assistant-1" in second_chunk
     assert "ROLLING_1" in second_chunk
-    assert "assistant-1" in third_chunk and "ROLLING_2" in third_chunk
     assert lmh._is_history_summary_message(out[1])
 
 
@@ -736,3 +735,84 @@ def test_compress_preserves_complete_latest_tool_block():
     )
 
     assert [message["role"] for message in out[-3:]] == ["assistant", "tool", "user"]
+
+
+def test_logical_turn_spans_keep_parallel_tool_results_together():
+    messages = [
+        {"role": "user", "content": "first"},
+        {
+            "role": "assistant",
+            "content": "dispatching tools",
+            "tool_calls": [{"id": "call-a"}, {"id": "call-b"}],
+        },
+        {"role": "tool", "tool_call_id": "call-a", "content": "result a"},
+        {"role": "tool", "tool_call_id": "call-b", "content": "result b"},
+        {"role": "assistant", "content": "completed"},
+        {"role": "user", "content": "second"},
+        {"role": "assistant", "content": "answered"},
+    ]
+
+    assert history._logical_turn_spans(messages) == [(0, 5), (5, 7)]
+    assert history._tool_aware_tail_start(messages, 2) == 0
+
+
+def test_logical_turn_does_not_close_while_a_tool_call_is_pending():
+    messages = [
+        {"role": "user", "content": "first"},
+        {"role": "assistant", "tool_calls": [{"id": "pending"}]},
+        {"role": "user", "content": "interleaved"},
+        {"role": "tool", "tool_call_id": "pending", "content": "result"},
+        {"role": "assistant", "content": "completed"},
+        {"role": "user", "content": "next turn"},
+    ]
+
+    assert history._logical_turn_spans(messages) == [(0, 5), (5, 6)]
+
+
+def test_compression_chunks_never_split_a_logical_tool_turn(monkeypatch):
+    monkeypatch.setenv("UAGENT_SHRINK_CHUNK_SIZE", "3")
+    monkeypatch.setenv("UAGENT_SHRINK_SINGLE_SHOT", "0")
+    monkeypatch.setattr(
+        history, "_history_summary_chunk_token_budget", lambda *_args: 100_000
+    )
+    monkeypatch.setattr(
+        history, "_estimate_history_summary_tokens", lambda *_args, **_kwargs: 1
+    )
+    monkeypatch.setattr(
+        "uagent.providers.util_providers.detect_provider", lambda: "openai"
+    )
+    messages = [
+        {"role": "system", "content": "SYSTEM_PROMPT"},
+        {"role": "user", "content": "first request"},
+        {
+            "role": "assistant",
+            "content": "dispatching tools",
+            "tool_calls": [{"id": "call-a"}, {"id": "call-b"}],
+        },
+        {"role": "tool", "tool_call_id": "call-a", "content": "result a"},
+        {"role": "tool", "tool_call_id": "call-b", "content": "result b"},
+        {"role": "assistant", "content": "first request completed"},
+        {"role": "user", "content": "second request"},
+        {"role": "assistant", "content": "second response"},
+        {"role": "user", "content": "latest request"},
+        {"role": "assistant", "content": "latest response"},
+    ]
+    client = _FakeClient(["SUMMARY 1", "SUMMARY 2"])
+
+    core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=messages,
+        keep_last=2,
+        use_responses_api=False,
+        emit_log=False,
+    )
+
+    calls = client.chat.completions.calls
+    assert len(calls) == 2
+    first_chunk = calls[0]["messages"][1]["content"]
+    second_chunk = calls[1]["messages"][1]["content"]
+    assert "result a" in first_chunk
+    assert "result b" in first_chunk
+    assert "result a" not in second_chunk
+    assert "result b" not in second_chunk
