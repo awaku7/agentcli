@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.7.27] - 2026-10-09
+
 ### 追加
 
 - OpenAI互換のChat CompletionsとステートレスResponses APIによるPerplexity Router連携を追加。
@@ -10,6 +12,7 @@
 
 - `llmcapa`最低バージョンを`0.5.59`へ引き上げ、Claude Haiku 4.5の手動thinking budgetと5.5のadaptive effort制御に対応。
 - OpenAI・OpenRouter・TypeSafeの各Decision APIで、`llmcapa`の対応質問形式・回答フィールドを検証し、信頼度の校正情報を反映。スコア回答の任意フィールドである`legend`がない場合も受け入れる。
+- ローカライズされた出力や任意の環境依存に左右されにくいテストアサーションに変更。
 
 ## [0.7.26] - 2026-10-07
 
