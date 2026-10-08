@@ -812,7 +812,8 @@ class ProvenancedDeterministicDelta:
 
 @dataclass
 class HandoffRecord:
-    handoff_id: str  # stable across delivery retries; unique within receiving session
+    handoff_id: str  # stable delivery identifier; derivatives retain root_handoff_id
+    root_handoff_id: str  # original delivery's stable idempotency key
     receiving_session_id: str  # fixed at dispatch
     receiving_base_revision: int  # captured at dispatch; never overwritten
     application_base_revision: int  # receiver revision used for this payload
@@ -851,7 +852,7 @@ Main Agent からは、
 
 Sub-Agent の Raw History は Sub-Agent 側 Persistent Context に残す。
 
-Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ ID の再送は再適用しない。初回受信時にも `application_base_revision` と現在の受信 Session revision を比較し、不一致なら適用を保留して conflict を返す。再調整が必要な場合は、元の Handoff を変更せず、新しい `handoff_id` と `application_base_revision`（再調整に使用した受信 revision）を持つ Handoff を生成し、元の `receiving_base_revision` は保持する。古い `state_delta` / decisions を無条件に適用しない。Handoff の deterministic 項目は元イベントを指す `source_refs` を個別に持ち、受信側で項目単位の監査・無効化を可能にする。
+Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ `root_handoff_id` の再送・再調整結果は、受信 Session 内で一度しか適用しない。適用記録は `root_handoff_id` を一意キーとして保存し、反映と同じ transaction 内で重複を防ぐ。初回受信時にも `application_base_revision` と現在の受信 Session revision を比較し、不一致なら適用を保留して conflict を返す。再調整が必要な場合は、元の Handoff を変更せず、新しい `handoff_id` と `application_base_revision`（再調整に使用した受信 revision）を持ち、元の `root_handoff_id` を引き継ぐ Handoff を生成し、元の `receiving_base_revision` は保持する。古い `state_delta` / decisions を無条件に適用しない。Handoff の deterministic 項目は元イベントを指す `source_refs` を個別に持ち、受信側で項目単位の監査・無効化を可能にする。
 
 ~~~text
 Sub-Agent Raw History
@@ -1177,12 +1178,13 @@ checkpoints             # new
 
 ~~~text
 handoff_applications    # new
-  handoff_id             # UNIQUE per receiving session
+  handoff_id             # concrete payload ID
+  root_handoff_id        # UNIQUE per receiving session
   receiving_session_id
   applied_at
   receiving_base_revision
   application_base_revision
-  # (receiving_session_id, handoff_id) UNIQUE
+  # (receiving_session_id, root_handoff_id) UNIQUE
 ~~~
 
 Handoff 適用記録と AgentState 更新は同一 SQLite transaction で確定する。受信 revision の条件付き更新に失敗した場合は Handoff 適用記録も保存しない。異なる受信 Session は独立して同じ Handoff を受け取れる。
