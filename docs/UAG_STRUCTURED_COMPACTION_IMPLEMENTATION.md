@@ -19,12 +19,12 @@
 
 - **全体状態:** PR 1 は基礎実装を**条件付き完了**（2026-10-08の最終スコープレビュー）。独立したCI/実行検証と実プロバイダ・全ライフサイクル検証は保留。後続PR機能はPR 1の完了条件に含めない。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`
-- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn の実装中
+- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn 完了（基礎実装）→ PR 3 Context Runtime Integration
 - **設計書の再レビュー:** 明確化事項を設計書へ反映済み（2026-10-08）
 - **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
-- **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装。Artifact-first tool-result path は既存実装と回帰テストを確認。対象テスト（29 / 18 / 12 / 2 / 4 passed）と全 pytest suite が成功。変更PythonのRuff / Black、Markdown形式、`git diff --check` も成功。
+- **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装し、SessionStore reopen 後のprefix/suffix再構成も検証。Artifact-first tool-result path は既存実装と回帰テストを確認。対象テスト（29 / 18 / 12 / 2 / 4 passed）と全 pytest suite が成功。変更PythonのRuff / Black、Markdown形式、`git diff --check` も成功。
 - **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、Active Context candidate 統合、provider matrix / end-to-end restart review。
-- **次の作業:** PR 2 の prefix / suffix 再構成を SessionStore reopen 後の resume/debug 経路まで検証する。split failure の安全な無変更 fallback はテスト済み。実provider matrix・実CLIでの全ライフサイクル検証は未実施として別途追跡し、結果をレビューMDに追記する。cross-scope認可・rehydrationはPR 3/5で扱う。
+- **次の作業:** PR 2 の基礎実装を完了として扱い、PR 3 Context Runtime Integration（CheckpointをContextCandidateとして公開する段階）を開始する。実provider matrix・実CLIでの全ライフサイクル検証は未実施として別途追跡し、結果をレビューMDに追記する。cross-scope認可・rehydrationはPR 3/5の境界に従って扱う。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -72,7 +72,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] tool call と対応する結果、および parallel tool result をまたがない safe cut point を実装
 - [x] 1 turn が budget を超える場合の Split-Turn 処理を実装
 - [x] oversized tool result の Artifact-first 処理を実装
-- [ ] prefix / suffix の復元可能性を検証
+- [x] prefix / suffix の復元可能性を検証（SessionStore reopen後、source rangeとfirst_kept_message_idから確認）
 - [x] boundary、split、failure fallback のテストを追加・実行
 
 ### PR 3 — Context Runtime Integration
@@ -160,7 +160,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 | 2026-10-08 | PR 1 checkpoint 4 targeted | `pytest -q tests/test_structured_compaction_generation.py`, `tests/test_shrink_llm.py`, `tests/test_compaction_persistence.py`, `tests/test_session_store.py`, `tests/test_session_item_index.py` | 成功（15 / 22 / 17 / 28 / 6 passed） | Fake OpenAI-compatible client tests cover exact source alignment, repair once, raw-history retention, deterministic fallback, idempotent retry, and revision conflict. `py_compile` 5 files, Ruff, Black `--check`, and Markdown format check passed. Live provider matrix is pending. |
 | 2026-10-09 | PR 2 checkpoint 1 | `pytest -q tests/test_shrink_llm.py` | 成功（25 passed） | Logical Turn parser、parallel tool call/result grouping、turn boundary の tail adjustment、turn 単位 chunking を追加。 |
 | 2026-10-09 | PR 2 checkpoint 1 回帰 / static | `pytest -q . --durations=30`; Ruff / Black check（変更2 Python files）; `git diff --check` | 成功（全 suite） | Oversized-turn split、Artifact-first、prefix/suffix 復元は未実装。 |
-| 2026-10-09 | PR 2 checkpoint 2 targeted / regression | `pytest -q tests/test_shrink_llm.py`, `test_structured_compaction_generation.py`, `test_compaction_record.py`, `test_tool_result_artifact.py`, `test_responses_tool_result_limit.py`（個別実行）; `pytest -q . --durations=30` | 成功（29 / 18 / 12 / 2 / 4 passed; 全 suite 成功） | Safe assistant split、small-message-count token trigger、suffix idによるraw suffix再構成、alignment失敗時のfallback、既存Artifact-first/bounded fallbackを検証。Ruff / Black と Markdown format check も成功。 |
+| 2026-10-09 | PR 2 checkpoint 2 targeted / regression | `pytest -q tests/test_shrink_llm.py`, `test_structured_compaction_generation.py`, `test_compaction_record.py`, `test_tool_result_artifact.py`, `test_responses_tool_result_limit.py`（個別実行）; `pytest -q . --durations=30` | 成功（29 / 18 / 12 / 2 / 4 passed; 全 suite 成功） | Safe assistant split、small-message-count token trigger、SessionStore reopen後のsource range / first_kept_message_idによるprefix/suffix再構成、alignment失敗時のfallback、既存Artifact-first/bounded fallbackを検証。Ruff / Black と Markdown format check も成功。 |
 
 ### Provider Matrix
 
@@ -201,7 +201,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 | 2026-10-08 | PR 1 checkpoint 3 として revision migration、Checkpoint table、session-scoped SourceRef の index validation、atomic commit / reducer / idempotency を追加。 | `src/uagent/runtime/session_store.py`, `src/uagent/runtime/compaction_reducer.py`, `tests/test_compaction_persistence.py`, implementation docs | 新規 tests 15、SessionStore / AgentState regression 29 passed。source index regressions を含む既存関連 regression 134 passed。Ruff / py_compile / Black --check 成功。最終 diff review は継続。 | checkpoint 3 の diff review と broader regressions 後、checkpoint 4 の LLM / legacy summary path 接続へ進む。 |
 | 2026-10-08 | PR 1 checkpoint 4 の基礎接続。Opt-in structured generation / provenance validation / one-shot repair / reducer + atomic commit / bounded summary projection / legacy and deterministic fallback / metadata-only telemetry を auto-shrink に接続。Strict source alignment できない時は structured record を commit せず fallback。成功・fallbackとも SQLite Raw History と JSONL を置換しない。 | `src/uagent/runtime/structured_compaction.py`, `src/uagent/runtime/session_store.py`, `src/uagent/core_impl/history.py`, `src/uagent/llm_message_helpers.py`, `tests/test_structured_compaction_generation.py`, implementation docs | structured generation 16, shrink 22, persistence 17, SessionStore 28, session index 6 passed; `py_compile` passed 5 files; Ruff, Black `--check`, and Markdown format check passed. Live provider matrix and cross-scope authorization/re-hydration review remain pending. | PR 1 は条件付き完了として扱い、未検証事項は別途追跡。PR 2 Safe Boundary / Split Turn を独立差分で開始する。 |
 | 2026-10-09 | PR 2 checkpoint 1 として Logical Turn の範囲解析、parallel tool results を含む turn の不可分な chunking、tail boundary の turn-aware adjustment を追加。oversized turn split / Artifact-first は未実装。 | `src/uagent/core_impl/history.py`, `tests/test_shrink_llm.py`, implementation docs | 対象25 tests と全 pytest suite 成功。変更Pythonファイル Ruff / Black check 成功、`git diff --check` 成功。 | oversized tool result の Artifact-first 処理、assistant 境界での oversized-turn split、復元可能性・failure fallback tests を続ける。 |
-| 2026-10-09 | PR 2 checkpoint 2 として oversized logical turn を安全な assistant boundary で prefix/suffix に分割し、structured Checkpoint に `split_turn` と `first_kept_message_id` を記録。Oversized tool result の Artifact-first 経路は既存実装を確認。 | `src/uagent/core_impl/history.py`, `src/uagent/llm_message_helpers.py`, `src/uagent/runtime/structured_compaction.py`, `src/uagent/runtime/compaction_record.py`, `tests/test_shrink_llm.py`, `tests/test_structured_compaction_generation.py`, implementation docs | 対象テストは 29 / 18 / 12 / 2 / 4 passed（個別実行）、全 pytest suite 成功。Ruff / Black fix+check、Markdown format check、`git diff --check` 成功。 | prefix/suffix を SessionStore reopen 後の resume/debug 経路で再構成できることを検証する。 |
+| 2026-10-09 | PR 2 checkpoint 2 として oversized logical turn を安全な assistant boundary で prefix/suffix に分割し、structured Checkpoint に `split_turn` と `first_kept_message_id` を記録。Oversized tool result の Artifact-first 経路は既存実装を確認。 | `src/uagent/core_impl/history.py`, `src/uagent/llm_message_helpers.py`, `src/uagent/runtime/structured_compaction.py`, `src/uagent/runtime/compaction_record.py`, `tests/test_shrink_llm.py`, `tests/test_structured_compaction_generation.py`, implementation docs | 対象テストは 29 / 18 / 12 / 2 / 4 passed（個別実行）、全 pytest suite 成功。Ruff / Black fix+check、Markdown format check、`git diff --check` 成功。 | PR 2 基礎実装を完了として扱い、PR 3 ContextCandidate と ActiveContextBuilder の接続を調査・設計する。 |
 
 ## 10. 設計書の明確化・再レビュー（2026-10-08）
 

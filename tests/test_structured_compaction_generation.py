@@ -136,27 +136,27 @@ def test_structured_generation_commits_checkpoint_and_projects_agent_state(
         assert store.get_agent_state_revision(session_id) == 1
 
 
-def test_split_turn_record_persists_first_kept_message_id(tmp_path):
-    with SessionStore(tmp_path / "split-turn.sqlite3") as store:
+def test_split_turn_record_reconstructs_prefix_and_suffix_after_store_reopen(
+    tmp_path,
+):
+    db_path = tmp_path / "split-turn.sqlite3"
+    source_message = {
+        "role": "user",
+        "content": "Ship the durable structured compaction path",
+    }
+    first_kept = {"role": "assistant", "content": "Keep this raw suffix."}
+    with SessionStore(db_path) as store:
         session_id, source_ref = _seed(store)
-        first_kept = {"role": "assistant", "content": "Keep this raw suffix."}
         store.append_message(
             session_id,
             first_kept["role"],
             first_kept["content"],
             payload=first_kept,
         )
-        indexed = store.list_indexed_messages(session_id)
-
         outcome = attempt_structured_compaction(
             store=store,
             session_id=session_id,
-            source_messages=[
-                {
-                    "role": "user",
-                    "content": "Ship the durable structured compaction path",
-                }
-            ],
+            source_messages=[source_message],
             provider="openai",
             model="test-model",
             locale="en",
@@ -169,17 +169,32 @@ def test_split_turn_record_persists_first_kept_message_id(tmp_path):
         operation_id = store.get_agent_state(session_id)["structured_compaction"][
             "applied_operations"
         ][0]
-        persisted = store.get_compaction_record(operation_id)["record"]
-        assert persisted["split_turn"] is True
-        assert persisted["first_kept_message_id"] == str(indexed[1]["message_id"])
+
+    with SessionStore(db_path) as reopened:
+        persisted = reopened.get_compaction_record(operation_id)["record"]
+        record = CompactionRecord.from_dict(persisted)
+        state = reopened.get_agent_state(session_id)
+        summary = project_agent_state(state)
+        indexed = reopened.list_indexed_messages(session_id)
+        assert record.split_turn is True
+        assert record.first_kept_message_id == str(indexed[1]["message_id"])
+
+        restored_prefix = [
+            item["payload"]
+            for item in indexed
+            if record.source_start_seq <= item["session_seq"] <= record.source_end_seq
+        ]
         resume_index = next(
             index
             for index, item in enumerate(indexed)
-            if str(item["message_id"]) == persisted["first_kept_message_id"]
+            if str(item["message_id"]) == record.first_kept_message_id
         )
         restored_suffix = [item["payload"] for item in indexed[resume_index:]]
+
+        assert restored_prefix == [source_message]
         assert restored_suffix == [first_kept]
-        assert store.list_messages(session_id)[1]["content"] == first_kept["content"]
+        assert summary and "Ship durable structured compaction" in summary
+        assert reopened.list_messages(session_id)[1]["content"] == first_kept["content"]
 
 
 def test_split_turn_without_indexed_suffix_falls_back_without_commit(tmp_path):
