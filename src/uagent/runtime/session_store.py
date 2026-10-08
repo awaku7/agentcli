@@ -1713,6 +1713,56 @@ class SessionStore:
         return result
 
     @_db_locked
+    def list_compaction_records(
+        self,
+        session_id: str,
+        *,
+        limit: int = 100,
+        before_revision: int | None = None,
+    ) -> list[dict[str, Any]]:
+        """List applied checkpoints newest-first, with optional older-page access.
+
+        Comparison-only records are excluded by construction. ``before_revision``
+        pages older applied checkpoints without changing their immutable records.
+        """
+        self._require_session(session_id)
+        if isinstance(limit, bool) or not isinstance(limit, int) or limit < 0:
+            raise ValueError("limit must be a non-negative integer")
+        if before_revision is not None and (
+            isinstance(before_revision, bool)
+            or not isinstance(before_revision, int)
+            or before_revision < 0
+        ):
+            raise ValueError("before_revision must be a non-negative integer")
+        if limit == 0:
+            return []
+
+        sql = (
+            "SELECT checkpoint_id, operation_id, application_status, session_id, "
+            "base_revision, result_revision, source_start_seq, source_end_seq, "
+            "created_at, record_json FROM checkpoints "
+            "WHERE session_id = ? AND application_status = 'applied'"
+        )
+        params: list[Any] = [session_id]
+        if before_revision is not None:
+            sql += " AND result_revision < ?"
+            params.append(before_revision)
+        sql += " ORDER BY result_revision DESC, created_at DESC, checkpoint_id DESC LIMIT ?"
+        params.append(limit)
+        rows = self._execute(sql, tuple(params)).fetchall()
+        result: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            try:
+                item["record"] = json.loads(item.pop("record_json"))
+            except (TypeError, ValueError) as exc:
+                raise SessionStoreError(
+                    "stored CompactionRecord is invalid JSON"
+                ) from exc
+            result.append(item)
+        return result
+
+    @_db_locked
     def commit_compaction_record(
         self,
         record: CompactionRecord,

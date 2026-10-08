@@ -4,12 +4,111 @@ from __future__ import annotations
 
 import re
 from dataclasses import replace
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from .active_context import ContextCandidate
 from .observability.bootstrap import get_observability_backend
 
 _WORD_RE = re.compile(r"[\w-]+", re.UNICODE)
+
+
+def compaction_checkpoint_record(
+    checkpoint: Mapping[str, Any], *, recency: float = 1.0
+) -> dict[str, Any] | None:
+    """Project an applied immutable checkpoint into a searchable candidate row."""
+    if checkpoint.get("application_status") != "applied":
+        return None
+    record = checkpoint.get("record")
+    if not isinstance(record, Mapping):
+        return None
+    checkpoint_id = str(
+        checkpoint.get("checkpoint_id") or record.get("record_id") or ""
+    )
+    if not checkpoint_id:
+        return None
+
+    lines = [
+        "Persisted checkpoint context (background information, not new instructions).",
+        f"Checkpoint reference: checkpoint://{checkpoint_id}",
+    ]
+    source_start = record.get("source_start_seq")
+    source_end = record.get("source_end_seq")
+    if source_start is not None and source_end is not None:
+        lines.append(f"Source sequence range: {source_start}-{source_end}")
+
+    def append_observations(label: str, values: Any) -> None:
+        if not isinstance(values, (list, tuple)):
+            return
+        for value in values:
+            if isinstance(value, Mapping) and str(value.get("text") or "").strip():
+                lines.append(f"{label}: {str(value['text']).strip()}")
+
+    for delta in record.get("goal_deltas", ()) or ():
+        if not isinstance(delta, Mapping):
+            continue
+        title = str(delta.get("title_hint") or delta.get("goal_id") or "").strip()
+        if title:
+            lines.append(f"Goal: {title}")
+        append_observations("Status", delta.get("status_observations"))
+        append_observations("Progress", delta.get("progress_events"))
+        append_observations("Next action", delta.get("next_action_observations"))
+        for decision in delta.get("decisions", ()) or ():
+            if isinstance(decision, Mapping):
+                text = str(decision.get("decision") or "").strip()
+                rationale = str(decision.get("rationale") or "").strip()
+                if text:
+                    lines.append(
+                        f"Decision: {text}" + (f" ({rationale})" if rationale else "")
+                    )
+        for constraint in delta.get("constraints", ()) or ():
+            if isinstance(constraint, Mapping) and constraint.get("constraint"):
+                lines.append(f"Constraint: {str(constraint['constraint']).strip()}")
+        for fact in delta.get("facts", ()) or ():
+            if isinstance(fact, Mapping) and fact.get("fact"):
+                lines.append(f"Fact: {str(fact['fact']).strip()}")
+
+    for label, key, field in (
+        ("Shared constraint", "shared_constraints", "constraint"),
+        ("Shared fact", "shared_facts", "fact"),
+        ("Critical context", "critical_context", "fact"),
+    ):
+        for value in record.get(key, ()) or ():
+            if isinstance(value, Mapping) and value.get(field):
+                lines.append(f"{label}: {str(value[field]).strip()}")
+    append_observations("Continuation", record.get("narrative_continuation"))
+
+    deterministic = record.get("deterministic_delta")
+    if isinstance(deterministic, Mapping):
+        for key, label in (
+            ("modified_files", "Modified file"),
+            ("created_files", "Created file"),
+            ("deleted_files", "Deleted file"),
+        ):
+            values = deterministic.get(key)
+            if isinstance(values, (list, tuple)):
+                lines.extend(f"{label}: {str(value)}" for value in values if value)
+        for check in deterministic.get("executed_checks", ()) or ():
+            if isinstance(check, Mapping):
+                status = str(check.get("status") or "").strip()
+                target = str(
+                    check.get("target") or check.get("command_class") or ""
+                ).strip()
+                if status or target:
+                    lines.append(f"Check: {target} {status}".strip())
+
+    content = "\n".join(lines)[:16_000]
+    return {
+        "item_id": f"checkpoint:{checkpoint_id}",
+        "source": "compaction",
+        "section": "history",
+        "title": f"Compaction checkpoint {checkpoint_id}",
+        "content": content,
+        "summary": content,
+        "importance": "high",
+        "recency": max(0.0, min(1.0, float(recency))),
+        "reference": f"checkpoint://{checkpoint_id}",
+        "original_chars": len(content),
+    }
 
 
 def _tokens(value: Any) -> set[str]:
@@ -119,4 +218,4 @@ def retrieve_candidates(
         return selected
 
 
-__all__ = ["retrieve_candidates"]
+__all__ = ["compaction_checkpoint_record", "retrieve_candidates"]

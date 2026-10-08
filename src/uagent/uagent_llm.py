@@ -1610,7 +1610,18 @@ def _run_one_round(
         context_manager = getattr(core, "context_manager", None)
         build_message_context = getattr(context_manager, "build_message_context", None)
         if callable(build_message_context):
-            active_context = build_message_context(call_messages)
+            session_store = getattr(core, "session_store", None)
+            session_id = getattr(core, "_session_store_active_id", None) or getattr(
+                core, "session_id", None
+            )
+            if session_store is not None and session_id:
+                active_context = build_message_context(
+                    call_messages,
+                    session_store=session_store,
+                    session_id=str(session_id),
+                )
+            else:
+                active_context = build_message_context(call_messages)
             core.active_context = active_context
             _persist_context_decision_log(active_context, core)
             call_messages = active_context.messages

@@ -19,12 +19,12 @@
 
 - **全体状態:** PR 1 は基礎実装を**条件付き完了**（2026-10-08の最終スコープレビュー）。独立したCI/実行検証と実プロバイダ・全ライフサイクル検証は保留。後続PR機能はPR 1の完了条件に含めない。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`
-- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn 完了（基礎実装）→ PR 3 Context Runtime Integration
+- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn 完了（基礎実装）→ PR 3 Context Runtime Integration（基礎実装・テスト完了、独立レビュー／CI実行保留）
 - **設計書の再レビュー:** 明確化事項を設計書へ反映済み（2026-10-08）
 - **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
-- **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装し、SessionStore reopen 後のprefix/suffix再構成も検証。Artifact-first tool-result path は既存実装と回帰テストを確認。対象テスト（29 / 18 / 12 / 2 / 4 passed）と全 pytest suite が成功。変更PythonのRuff / Black、Markdown形式、`git diff --check` も成功。
-- **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、Active Context candidate 統合、provider matrix / end-to-end restart review。
-- **次の作業:** PR 2 の基礎実装を完了として扱い、PR 3 Context Runtime Integration（CheckpointをContextCandidateとして公開する段階）を開始する。実provider matrix・実CLIでの全ライフサイクル検証は未実施として別途追跡し、結果をレビューMDに追記する。cross-scope認可・rehydrationはPR 3/5の境界に従って扱う。
+- **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装し、SessionStore reopen 後のprefix/suffix再構成も検証。Artifact-first tool-result path は既存実装と回帰テストを確認。PR 3 は checkpoint candidate の score / decision / budget、重複抑止、older-page retrieval、session-scoped source rehydration、store failure fallback を追加。PR 3 targeted tests（4 / 18 / 9 passed）と全 pytest suite、全 `src` / `tests` の Ruff・Black check、6ファイルの py_compile、Markdown format、`git diff --check` が成功。実provider matrix / 独立 CI review は未実施。
+- **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、PR 4 Handoff / PR 5 multi-client safety、provider matrix / end-to-end restart review。
+- **次の作業:** PR 3 の基礎実装は targeted tests・full suite・static checks の後に完了として記録する。独立レビューと CI での再実行は未確認として追跡し、次は PR 4 Sub-Agent / Auto-pilot Handoff に進む。cross-scope authorization は PR 5 に残し、source rehydration は同一 Session・exact/available message ref に限定する。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -77,12 +77,14 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 ### PR 3 — Context Runtime Integration
 
-- [ ] CompactionRecord を ContextCandidate として公開
-- [ ] Scoring / Decision / Budget と連携
-- [ ] ActiveContextBuilder および Provider Projection へ接続
-- [ ] 必要な場合に source refs から retrieval / rehydration
-- [ ] checkpoint の重複投入を防ぎ、古い checkpoint を再取得可能にする
-- [ ] runtime 統合テストと provider-neutral な検証を追加・実行
+- [x] CompactionRecord を ContextCandidate として公開
+- [x] Scoring / Decision / Budget と連携
+- [x] ActiveContextBuilder および Provider Projection へ接続
+- [x] 必要な場合に source refs から retrieval / rehydration（同一 Session の exact / available message refs に限定）
+- [x] checkpoint の重複投入を防ぎ、古い checkpoint を再取得可能にする
+- [x] runtime 統合テストと provider-neutral な検証を追加・実行
+
+**判定:** 基礎実装完了。source rehydration は session-scoped message refs のみであり、cross-scope authorization、artifact/tool-result adapter、実provider matrix は PR 3 の完了範囲外として保留。
 
 ### PR 4 — Sub-Agent / Auto-pilot Handoff
 
@@ -110,13 +112,13 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 |---|---|---|---|
 | AgentState / reducer | `src/uagent/runtime/agent_state.py`: 既存 `AgentState` payload を維持し、`structured_compaction` namespace を authoritative AgentState row 内に materialize。`src/uagent/runtime/compaction_reducer.py`: multi-goal / ambiguous evidence / lifecycle / deterministic-delta reducer。 | 既存・新規 | Structured state は同じ AgentState row に保存。ambiguous Goal は既定で未適用。explicit-authorization を呼び出し側が渡す必要がある。 |
 | CompactionRecord / GoalDelta model | `src/uagent/runtime/compaction_record.py`: schema v1 immutable dataclasses、typed / scoped `SourceRef`、item-level provenance、source sequence range、DeterministicDelta tracking coverage、split_turn / first_kept_message_id。 | 新規 | model validation 済み。SessionStore はsession-indexに対する session-scoped SourceRef の存在 / kind / id / availability を保存時検証。cross-scope authorization と rehydration 再認可は未接続。 |
-| SessionStore / revision | `src/uagent/runtime/session_store.py`: `session_items` ordering index、`agent_states.revision` / `updated_by_client` migration、append-only `checkpoints`、atomic `commit_compaction_record()`、operation idempotency、`list_indexed_messages()`。 | 既存・拡張 | 旧 AgentState table を revision 0 で migrate。`save_agent_state()` は `expected_revision` 指定時に stale update を拒否し、structured namespace を常に Reducer 側から保持する（引数省略は既存互換）。comparison-only は checkpoint のみを保存。 |
+| SessionStore / revision | `src/uagent/runtime/session_store.py`: `session_items` ordering index、`agent_states.revision` / `updated_by_client` migration、append-only `checkpoints`、atomic `commit_compaction_record()`、operation idempotency、`list_indexed_messages()`、`list_compaction_records()`。 | 既存・拡張 | 旧 AgentState table を revision 0 で migrate。`save_agent_state()` は `expected_revision` 指定時に stale update を拒否し、structured namespace を常に Reducer 側から保持する（引数省略は既存互換）。comparison-only は checkpoint のみを保存。`list_compaction_records()` は applied record の新しい順取得と `before_revision` による older-page retrieval を提供。 |
 | Structured generator / projection | `src/uagent/runtime/structured_compaction.py`: same-session exact source alignment、bounded generation prompt、one-shot repair、CompactionRecord validation / Reducer preflight、atomic commit、split-turn suffix provenance、AgentState → legacy summary projection、best-effort telemetry。 | 新規 | `UAGENT_STRUCTURED_COMPACTION=1` の opt-in auto-shrink から呼ぶ。SourceRef は選択した message window 内のみ許可。Cross-scope authorization / general rehydration は未接続。 |
 | Raw History / rolling summary | `src/uagent/core_impl/history.py`: `compress_history_with_llm()`, `shrink_messages()`, `_fix_tool_call_boundaries()`, `_logical_turn_spans()`, `_safe_assistant_cut_points()`, `_oversized_turn_split_cut()`, `_tool_aware_tail_start()`; `src/uagent/llm_message_helpers.py:_maybe_auto_shrink_messages()`。 | 既存・拡張 | opt-in structured auto-shrink は provider context 用 summary projection を返すが、SQLite Raw History / JSONL を置換しない。Generation / schema 失敗時は既存 rolling summary、これも失敗したら bounded deterministic excerpt fallback。feature flag 既定 OFF の既存経路は変更なし。 |
 | Tool call / result / logical turn | `session_store.py`: `record_tool_call()` / `list_tool_calls()`、`record_tool_result()` / `list_tool_results()`。Assistant payload / tool result / tool message の source order を索引化。 | 既存・拡張 | 新規 writes は atomic `exact` order。Legacy message linkage は `legacy_message_order`、関連付け不能な旧 call/result は `legacy_approximate` となり exact-range query は fallback する。 |
-| Artifact / bounded retrieval | `src/uagent/runtime/artifact_manager.py`, `tool_result_manager.py`, `tool_result_persistence.py`, `context_retrieval.py`; `src/uagent/runtime/history.py:materialize_large_tool_result()` を `src/uagent/llm_flow_helpers.py` から tool result history へ適用。 | 既存 | oversized results は先に Artifact 化し、登録失敗時は bounded text fallback。`test_tool_result_artifact.py` と `test_responses_tool_result_limit.py` を確認。Checkpoint provenance / scoped `SourceRef` retrieval 接続は未実装。 |
-| ContextCandidate / Decision / Budget | `src/uagent/runtime/active_context.py`, `context_decision.py`, `context_budget.py`, `context_manager.py`。 | 既存 | Checkpoint candidate と application-status filter は未実装。 |
-| ActiveContextBuilder / Provider Projection | `src/uagent/runtime/active_context.py` の provider-neutral `ActiveContextBuilder`。 | 既存 | Provider-specific projection への接続箇所は次段階で追跡する。 |
+| Artifact / bounded retrieval | `src/uagent/runtime/artifact_manager.py`, `tool_result_manager.py`, `tool_result_persistence.py`, `context_retrieval.py`; `src/uagent/runtime/history.py:materialize_large_tool_result()` を `src/uagent/llm_flow_helpers.py` から tool result history へ適用。 | 既存 | oversized results は先に Artifact 化し、登録失敗時は bounded text fallback。`test_tool_result_artifact.py` と `test_responses_tool_result_limit.py` を確認。Tool-result Artifact rehydration はPR 3で未接続。Checkpoint SourceRef は同一 Session の message kind に限って retrieval / rehydration 対応。 |
+| ContextCandidate / Decision / Budget | `src/uagent/runtime/active_context.py`, `context_decision.py`, `context_budget.py`, `context_manager.py`。 | 既存 | Applied checkpoint のみを session-scoped candidate 化し、query relevance / importance / recency の scoring、decision、budget を適用。Source range の exact / available 状態を選択後に再確認する。 |
+| ActiveContextBuilder / Provider Projection | `src/uagent/runtime/active_context.py` の provider-neutral `ActiveContextBuilder`。 | 既存 | `ContextManager.build_message_context()` から `_run_one_round()` の既存 provider-neutral context hand-off に接続。選択 checkpoint は先行 system prefix の後へ背景情報として投影し、重複 reference は再投入しない。 |
 | Sub-Agent / Auto-pilot handoff | `src/uagent/runtime/sub_agent_jobs.py`, `multi_agent.py`, `agent_loop.py` および関連 coordinator。 | 既存 | Structured `HandoffRecord` との接続は未実装。 |
 | 関連テスト | `tests/test_compaction_record.py`, `test_session_item_index.py`, `test_compaction_persistence.py`, `test_session_store.py`, `test_agent_state_store.py` 等。 | 新規・既存 | checkpoint model / ordered source index / atomic persistence tests と既存 SessionStore / AgentState regressions を個別実行。 |
 
@@ -132,8 +134,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 | 4 | tool call / result を圧縮境界で破壊しない | 未着手 | safe boundary / split-turn は PR 2。 |
 | 5 | ファイル変更と execution metadata を DeterministicDelta として保持する | 基礎実装 | Delta を AgentState の deterministic aggregate に保存。実イベント抽出との接続は未実装。 |
 | 6 | Tool Result を authorization-aware に Artifact から再取得できる | 未着手 | Runtime authorization-aware rehydration は未接続。 |
-| 7 | Checkpoint を ContextCandidate として扱い、source refs から rehydration できる | 未着手 | Context Runtime integration は PR 3。 |
-| 8 | provider / model を切り替えても provider-neutral checkpoint を利用できる | model 基礎実装 | record はprovider-neutral。Provider Projection 接続と matrix tests は未実施。 |
+| 7 | Checkpoint を ContextCandidate として扱い、source refs から rehydration できる | PR 3 基礎実装 | `compaction_checkpoint_record()` / `retrieve_checkpoint_candidates()` は applied-only filter、scoring / budget、exact available source range validation を行う。`rehydrate_checkpoint_sources()` は同一 Session の exact / available message refs のみを bounded retrieval する。artifact/tool-result と cross-scope authorization は未接続。 |
+| 8 | provider / model を切り替えても provider-neutral checkpoint を利用できる | 基礎実装 | `ContextManager.build_message_context()` の provider-neutral projection を `_run_one_round()` から既存 provider path に接続。Fake/provider-neutral integration tests は実施。実provider matrix は未実施。 |
 | 9 | structured compaction 失敗時に Raw History を保持して fallback する | checkpoint 4 基礎実装 | opt-in auto-shrink は Raw History / JSONL を置換しない。構造化生成またはvalidation失敗時はlegacy rolling summary、それも失敗時はbounded deterministic excerptsへfallback。`tests/test_structured_compaction_generation.py`。 |
 | 10 | Sub-Agent handoff で provenance / scope semantics を再利用する | 未着手 | PR 4。 |
 | 11 | CLI / GUI / Browser tab を共通の Client Instance model で扱う | 未着手 | PR 5。 |
@@ -161,6 +163,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 | 2026-10-09 | PR 2 checkpoint 1 | `pytest -q tests/test_shrink_llm.py` | 成功（25 passed） | Logical Turn parser、parallel tool call/result grouping、turn boundary の tail adjustment、turn 単位 chunking を追加。 |
 | 2026-10-09 | PR 2 checkpoint 1 回帰 / static | `pytest -q . --durations=30`; Ruff / Black check（変更2 Python files）; `git diff --check` | 成功（全 suite） | Oversized-turn split、Artifact-first、prefix/suffix 復元は未実装。 |
 | 2026-10-09 | PR 2 checkpoint 2 targeted / regression | `pytest -q tests/test_shrink_llm.py`, `test_structured_compaction_generation.py`, `test_compaction_record.py`, `test_tool_result_artifact.py`, `test_responses_tool_result_limit.py`（個別実行）; `pytest -q . --durations=30` | 成功（29 / 18 / 12 / 2 / 4 passed; 全 suite 成功） | Safe assistant split、small-message-count token trigger、SessionStore reopen後のsource range / first_kept_message_idによるprefix/suffix再構成、alignment失敗時のfallback、既存Artifact-first/bounded fallbackを検証。Ruff / Black と Markdown format check も成功。 |
+| 2026-10-09 | PR 3 targeted / full regression / static | `pytest -q tests/test_context_compaction_candidates.py`（4 passed）, `pytest -q tests/test_compaction_persistence.py`（18 passed）, `pytest -q tests/test_context_manager_pipeline.py`（9 passed）, `pytest -q . --durations=30`; Ruff check `src tests`, Black `--check src tests`, `python_compile`（変更6ファイル）, Markdown format check, `git diff --check` | 成功（targeted 31 passed; 全 suite 成功。全 static checks 成功。） | Applied-only candidate conversion、scoring / decision / budget、duplicate suppression、older checkpoint paging、same-session exact message SourceRef rehydration、store failure fallback を検証。実provider matrix / 独立CI実行は未実施。 |
 
 ### Provider Matrix
 
@@ -202,6 +205,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 | 2026-10-08 | PR 1 checkpoint 4 の基礎接続。Opt-in structured generation / provenance validation / one-shot repair / reducer + atomic commit / bounded summary projection / legacy and deterministic fallback / metadata-only telemetry を auto-shrink に接続。Strict source alignment できない時は structured record を commit せず fallback。成功・fallbackとも SQLite Raw History と JSONL を置換しない。 | `src/uagent/runtime/structured_compaction.py`, `src/uagent/runtime/session_store.py`, `src/uagent/core_impl/history.py`, `src/uagent/llm_message_helpers.py`, `tests/test_structured_compaction_generation.py`, implementation docs | structured generation 16, shrink 22, persistence 17, SessionStore 28, session index 6 passed; `py_compile` passed 5 files; Ruff, Black `--check`, and Markdown format check passed. Live provider matrix and cross-scope authorization/re-hydration review remain pending. | PR 1 は条件付き完了として扱い、未検証事項は別途追跡。PR 2 Safe Boundary / Split Turn を独立差分で開始する。 |
 | 2026-10-09 | PR 2 checkpoint 1 として Logical Turn の範囲解析、parallel tool results を含む turn の不可分な chunking、tail boundary の turn-aware adjustment を追加。oversized turn split / Artifact-first は未実装。 | `src/uagent/core_impl/history.py`, `tests/test_shrink_llm.py`, implementation docs | 対象25 tests と全 pytest suite 成功。変更Pythonファイル Ruff / Black check 成功、`git diff --check` 成功。 | oversized tool result の Artifact-first 処理、assistant 境界での oversized-turn split、復元可能性・failure fallback tests を続ける。 |
 | 2026-10-09 | PR 2 checkpoint 2 として oversized logical turn を安全な assistant boundary で prefix/suffix に分割し、structured Checkpoint に `split_turn` と `first_kept_message_id` を記録。Oversized tool result の Artifact-first 経路は既存実装を確認。 | `src/uagent/core_impl/history.py`, `src/uagent/llm_message_helpers.py`, `src/uagent/runtime/structured_compaction.py`, `src/uagent/runtime/compaction_record.py`, `tests/test_shrink_llm.py`, `tests/test_structured_compaction_generation.py`, implementation docs | 対象テストは 29 / 18 / 12 / 2 / 4 passed（個別実行）、全 pytest suite 成功。Ruff / Black fix+check、Markdown format check、`git diff --check` 成功。 | PR 2 基礎実装を完了として扱い、PR 3 ContextCandidate と ActiveContextBuilder の接続を調査・設計する。 |
+| 2026-10-09 | PR 3 基礎実装として applied CompactionRecord の ContextCandidate adapter、scoring / decision / budget integration、SessionStore page retrieval、duplicate suppression、same-session exact message SourceRef rehydration、および `_run_one_round()` provider-neutral context connection を追加。 | `src/uagent/runtime/session_store.py`, `src/uagent/runtime/context_retrieval.py`, `src/uagent/runtime/context_manager.py`, `src/uagent/uagent_llm.py`, `tests/test_compaction_persistence.py`, `tests/test_context_compaction_candidates.py`, implementation docs | targeted tests 4 / 18 / 9 passed、全 `pytest -q . --durations=30` 成功。Ruff check `src tests`、Black `--check src tests`、6-file py_compile、Markdown format、`git diff --check` 成功。実provider matrix / 独立CI reviewは未実施。 | PR 3 基礎実装を完了として扱い、次に PR 4 Sub-Agent / Auto-pilot Handoff を開始する。cross-scope authorization は PR 5、artifact/tool-result rehydration と実provider matrix は別途追跡する。 |
 
 ## 10. 設計書の明確化・再レビュー（2026-10-08）
 
@@ -237,3 +241,4 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 | 2026-10-08 | 設計書の再レビュー論点を確定し、設計書と PR チェックリストへ反映。 |
 | 2026-10-08 | PR 1 checkpoint 1 の provider-neutral model / validation / tests を追加し、Black 整形。 |
 | 2026-10-08 | PR 1 checkpoint 2 / 3 の session item index、AgentState revision、atomic Checkpoint commit / Reducer を実装し、テスト記録と未実装境界を更新。 |
+| 2026-10-09 | PR 3 Context Runtime Integration の checkpoint candidates / source retrieval / ActiveContext connection を実装・検証し、PR3 checklist、コード対応表、検証記録を更新。 |

@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from collections import Counter
+from dataclasses import replace
 from typing import Any, Sequence
-
+from .context_retrieval import compaction_checkpoint_record, retrieve_candidates
 from .active_context import (
     ActiveContext,
     ActiveContextBuilder,
@@ -13,7 +14,6 @@ from .active_context import (
 )
 from .context_budget import ContextBudget
 from .context_decision import ContextDecisionEngine
-from .context_retrieval import retrieve_candidates
 from .context_plan_builder import build_context_plan as _build_context_plan
 from .context_policy import ContextPolicy
 from .context_tools import ToolDefinitionSelection, select_tool_definitions
@@ -166,6 +166,229 @@ class ContextManager:
         """Retrieve ranked provider-neutral candidates from persisted records."""
         return retrieve_candidates(records, query=query, max_candidates=max_candidates)
 
+    def retrieve_checkpoint_candidates(
+        self,
+        session_store: Any,
+        session_id: str,
+        *,
+        query: str = "",
+        max_candidates: int = 20,
+        record_limit: int = 100,
+        before_revision: int | None = None,
+        existing_messages: Sequence[dict[str, Any]] = (),
+    ) -> list[ContextCandidate]:
+        """Retrieve deduplicated, applied checkpoints for this session only.
+
+        Older pages can be requested with ``before_revision``. Source ranges
+        are rechecked against the session index so unavailable or approximate
+        provenance is never promoted into active context.
+        """
+        if max_candidates < 0 or record_limit < 0:
+            raise ValueError("checkpoint limits must be non-negative")
+        if not session_id or record_limit == 0 or max_candidates == 0:
+            return []
+        list_records = getattr(session_store, "list_compaction_records", None)
+        list_items = getattr(session_store, "list_session_items", None)
+        if not callable(list_records) or not callable(list_items):
+            return []
+        rows = list_records(
+            session_id,
+            limit=record_limit,
+            before_revision=before_revision,
+        )
+        if not isinstance(rows, Sequence):
+            return []
+
+        existing_text = "\n".join(
+            str(message.get("content") or "")
+            for message in existing_messages
+            if isinstance(message, dict)
+        )
+        seen_ids: set[str] = set()
+        candidate_rows: list[dict[str, Any]] = []
+        row_by_id: dict[str, dict[str, Any]] = {}
+        row_count = len(rows)
+        for index, row in enumerate(rows):
+            if not isinstance(row, dict) or row.get("application_status") != "applied":
+                continue
+            record = row.get("record")
+            if (
+                not isinstance(record, dict)
+                or record.get("application_status") != "applied"
+                or record.get("session_id") != session_id
+            ):
+                continue
+            try:
+                start_seq = int(record["source_start_seq"])
+                end_seq = int(record["source_end_seq"])
+            except (KeyError, TypeError, ValueError):
+                continue
+            if start_seq <= 0 or end_seq < start_seq:
+                continue
+            checkpoint_id = str(
+                row.get("checkpoint_id") or record.get("record_id") or ""
+            )
+            if not checkpoint_id:
+                continue
+            if checkpoint_id in seen_ids:
+                continue
+            seen_ids.add(checkpoint_id)
+            recency = 1.0 if row_count <= 1 else 1.0 - index / (row_count - 1)
+            candidate_row = compaction_checkpoint_record(row, recency=recency)
+            if candidate_row is None:
+                continue
+            reference = str(candidate_row.get("reference") or "")
+            if reference and reference in existing_text:
+                continue
+            candidate_rows.append(candidate_row)
+            row_by_id[str(candidate_row["item_id"])] = row
+
+        ranked = self.retrieve_candidates(
+            candidate_rows, query=query, max_candidates=max_candidates
+        )
+        available: list[ContextCandidate] = []
+        for candidate in ranked:
+            row = row_by_id.get(candidate.item_id)
+            record = row.get("record") if row else None
+            if not isinstance(record, dict):
+                continue
+            try:
+                start_seq = int(record["source_start_seq"])
+                end_seq = int(record["source_end_seq"])
+                source_items = list_items(
+                    session_id,
+                    start_seq=start_seq,
+                    end_seq=end_seq,
+                    require_exact_order=True,
+                    require_available=True,
+                )
+            except Exception:
+                continue
+            if len(source_items) == end_seq - start_seq + 1:
+                available.append(candidate)
+        return available
+
+    def rehydrate_checkpoint_sources(
+        self,
+        session_store: Any,
+        session_id: str,
+        checkpoint_id: str,
+        *,
+        query: str = "",
+        max_candidates: int = 8,
+        max_chars: int = 12_000,
+        before_revision: int | None = None,
+    ) -> list[ContextCandidate]:
+        """Rehydrate available message sources from one applied checkpoint.
+
+        Only exact, available ``message`` SourceRefs owned by this session are
+        resolved. Other scopes and source kinds are left to their authorized
+        retrieval adapters rather than guessed here.
+        """
+        if max_candidates < 0 or max_chars < 0:
+            raise ValueError("rehydration limits must be non-negative")
+        if not session_id or not checkpoint_id or max_candidates == 0 or max_chars == 0:
+            return []
+        rows = session_store.list_compaction_records(
+            session_id,
+            limit=1_000,
+            before_revision=before_revision,
+        )
+        checkpoint = next(
+            (
+                row
+                for row in rows
+                if row.get("checkpoint_id") == checkpoint_id
+                and row.get("application_status") == "applied"
+            ),
+            None,
+        )
+        if checkpoint is None or checkpoint.get("session_id") != session_id:
+            return []
+        record = checkpoint.get("record")
+        if not isinstance(record, dict):
+            return []
+        try:
+            source_start = int(record["source_start_seq"])
+            source_end = int(record["source_end_seq"])
+        except (KeyError, TypeError, ValueError):
+            return []
+
+        refs: dict[tuple[str, int], str] = {}
+
+        def collect_refs(value: Any) -> None:
+            if isinstance(value, dict):
+                if {"kind", "ref_id", "scope_id", "session_seq"}.issubset(value):
+                    sequence = value.get("session_seq")
+                    if (
+                        value.get("kind") == "message"
+                        and value.get("scope_id") == session_id
+                        and isinstance(sequence, int)
+                        and not isinstance(sequence, bool)
+                        and source_start <= sequence <= source_end
+                    ):
+                        refs[(str(value["ref_id"]), sequence)] = str(value["ref_id"])
+                    return
+                for child in value.values():
+                    collect_refs(child)
+            elif isinstance(value, (list, tuple)):
+                for child in value:
+                    collect_refs(child)
+
+        collect_refs(record)
+        if not refs:
+            return []
+
+        indexed = session_store.list_indexed_messages(session_id)
+        indexed_by_ref = {
+            (str(item.get("ref_id") or ""), int(item.get("session_seq") or 0)): item
+            for item in indexed
+            if item.get("ordering_quality") == "exact"
+            and item.get("availability") == "available"
+        }
+        source_records: list[dict[str, Any]] = []
+        for (ref_id, sequence), _ in sorted(refs.items(), key=lambda pair: pair[0][1]):
+            item = indexed_by_ref.get((ref_id, sequence))
+            if item is None:
+                continue
+            payload = item.get("payload")
+            message = payload if isinstance(payload, dict) else item
+            content = str(message.get("content") or "")
+            if not content:
+                continue
+            reference = f"checkpoint://{checkpoint_id}/source/{ref_id}"
+            source_records.append(
+                {
+                    "item_id": f"checkpoint-source:{checkpoint_id}:{sequence}",
+                    "source": "compaction_source",
+                    "section": "history",
+                    "title": str(message.get("role") or "message"),
+                    "content": (
+                        f"Source from {reference} (seq {sequence}, "
+                        f"role {message.get('role') or 'unknown'}):\n"
+                        + content[:max_chars]
+                    ),
+                    "importance": "high",
+                    "recency": 1.0 - len(source_records) / max(1, len(refs)),
+                    "reference": reference,
+                }
+            )
+        candidates = retrieve_candidates(
+            source_records, query=query, max_candidates=max_candidates
+        )
+        projected: list[ContextCandidate] = []
+        remaining = max_chars
+        for candidate in candidates:
+            if remaining <= 0:
+                break
+            content = str(candidate.content or "")
+            content = content[:remaining]
+            projected.append(
+                replace(candidate, content=content, original_chars=len(content))
+            )
+            remaining -= len(content)
+        return projected
+
     def usage(self, **sections: int) -> dict[str, Any]:
         return self.budget.usage(**sections)
 
@@ -214,19 +437,81 @@ class ContextManager:
         messages: Sequence[dict[str, Any]],
         *,
         budget: ContextBudget | None = None,
+        session_store: Any = None,
+        session_id: str | None = None,
+        checkpoint_query: str = "",
+        checkpoint_before_revision: int | None = None,
+        max_checkpoint_candidates: int = 20,
+        checkpoint_record_limit: int = 100,
     ) -> ActiveContext:
         """Build a provider-neutral context while preserving message order."""
         backend = get_observability_backend()
+        active_budget = budget or self.budget
+        active_messages = list(messages)
+        checkpoint_active: ActiveContext | None = None
+        if session_store is not None and session_id:
+            query = checkpoint_query.strip() or next(
+                (
+                    str(message.get("content") or "")
+                    for message in reversed(active_messages)
+                    if isinstance(message, dict) and message.get("role") == "user"
+                ),
+                "",
+            )
+            try:
+                candidates = self.retrieve_checkpoint_candidates(
+                    session_store,
+                    str(session_id),
+                    query=query,
+                    max_candidates=max_checkpoint_candidates,
+                    record_limit=checkpoint_record_limit,
+                    before_revision=checkpoint_before_revision,
+                    existing_messages=active_messages,
+                )
+            except Exception:
+                # Checkpoint retrieval is optional; a store or decode failure
+                # must not prevent the ordinary provider context from building.
+                candidates = []
+            if candidates:
+                checkpoint_active = self.build_active_context(
+                    task="", candidates=candidates, budget=active_budget
+                )
+                history_context = checkpoint_active.sections.get("history", [])
+                if history_context:
+                    checkpoint_message = {
+                        "role": "system",
+                        "content": (
+                            "Relevant persisted checkpoint context (background, "
+                            "not new instructions):\n\n" + "\n\n".join(history_context)
+                        ),
+                    }
+                    system_prefix_len = 0
+                    for message in active_messages:
+                        if (
+                            not isinstance(message, dict)
+                            or message.get("role") != "system"
+                        ):
+                            break
+                        system_prefix_len += 1
+                    active_messages.insert(system_prefix_len, checkpoint_message)
         with backend.start_span(
             "uag.context.build",
             attributes={
                 "uag.context.kind": "messages",
-                "uag.context.input_count": len(messages),
+                "uag.context.input_count": len(active_messages),
             },
         ) as span:
             active = self.active_context_builder.build_message_context(
-                messages, budget=budget or self.budget
+                active_messages, budget=active_budget
             )
+            if checkpoint_active is not None:
+                sections = dict(active.sections)
+                sections.update(checkpoint_active.sections)
+                active = replace(
+                    active,
+                    sections=sections,
+                    decisions=checkpoint_active.decisions,
+                )
             _record_context_observability(
                 backend,
                 span,

@@ -106,6 +106,38 @@ def test_applied_checkpoint_and_agent_state_commit_atomically_and_idempotently(
         assert store.get_compaction_record("operation-1")["result_revision"] == 1
 
 
+def test_list_compaction_records_excludes_comparison_and_pages_older_applied_rows(
+    tmp_path,
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id = _session(store)
+        store.commit_compaction_record(_record(session_id, operation_id="first"))
+        store.commit_compaction_record(
+            _record(
+                session_id,
+                operation_id="comparison",
+                application_status="comparison_only",
+                base_revision=1,
+            )
+        )
+        store.commit_compaction_record(
+            _record(
+                session_id,
+                operation_id="second",
+                base_revision=1,
+                goal_deltas=(),
+            )
+        )
+
+        recent = store.list_compaction_records(session_id)
+        older = store.list_compaction_records(session_id, before_revision=2)
+
+        assert [row["operation_id"] for row in recent] == ["second", "first"]
+        assert all(row["application_status"] == "applied" for row in recent)
+        assert [row["operation_id"] for row in older] == ["first"]
+        assert store.list_compaction_records(session_id, limit=0) == []
+
+
 def test_revision_conflict_does_not_create_checkpoint_or_change_state(tmp_path) -> None:
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         session_id = _session(store)
