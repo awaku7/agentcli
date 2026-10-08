@@ -6,7 +6,7 @@ CLI / GUI window / WebRoom / A2A Task が同じ workdir で同時に作業して
 
 ## 2. Principles
 
-- CLI / GUI / Web / A2A Task を同一の最終活動時刻の記録方式 で扱う
+- CLI / GUI / Web / A2A Task を同一の最終活動時刻の記録方式で扱う
 - A2A の接続相手自体ではなく、UAG 側で実行する Task を登録する
 - A2A protocol の通信状態を Presence の生存保証として扱わない
 - file claim / file lease / workspace lock は行わない
@@ -43,8 +43,8 @@ CREATE TABLE active_clients (
 2. ユーザー入力、ターン開始・終了、tool 実行の開始・終了、workdir 変更時に `last_seen_at` を更新する。定期 heartbeat は送らない
 3. 活動時と Presence 照会時に同じ workdir の他の登録を検索し、最終活動時刻を含む Presence view を更新する
 4. **有効な workdir が変更された場合**（CLI / Web の `:cd`、`change_workdir_tool`、session restoration 等）は、実行環境の canonical workdir と Presence の workdir / 時刻を更新し、旧 workdir の Presence view を破棄して新しい workdir を再検索する
-5. 正常終了・Task完了・Taskキャンセル・WebRoom の最終接続終了時に登録解除する
-6. 異常終了・通信断では行が残り得るため、照会時に `last_seen_at` を示す。古い行を「現在稼働中」と断定しない。必要に応じて古い行を遅延削除する
+5. 正常終了・Task完了・Taskキャンセル・WebRoom で接続タブがなく、稼働中 worker / Task もなくなった時に登録解除する
+6. 異常終了・通信断では行が残り得るため、照会時に `last_seen_at` を示す。登録があることと現在稼働中であることを区別する。必要に応じて古い行を遅延削除する
 
 workdir 変更は実行環境の所有者が提供する共通 setter を経由する。CLI では Runtime の workdir、Web では room owner の `WebRoom.base_dir` を正とし、同一 Room の全タブはこの値と単一の Presence view を共有する。A2A では Task ごとに独立した canonical workdir を保持し、Task-scoped setter を使用する。並列 Task の workdir 変更を process-global `os.chdir()` によって永続化してはならず、他 Task の実行 workdir / Presence に影響させない。`:cd`、`change_workdir_tool`、session restoration がいずれもその setter を呼ぶ。setter は実行環境側の canonical workdir を更新し、同じ変更の一部として Presence row と peer view を更新する。Web worker の一時的な `os.chdir()` は process cwd の操作に過ぎず、room の永続的な workdir 更新とみなさない。worker が cwd を復元しても、次の Web turn は更新後の `WebRoom.base_dir` から開始する。setter の失敗時に Presence だけ先行更新しない。
 
@@ -56,7 +56,7 @@ workdir 変更は実行環境の所有者が提供する共通 setter を経由�
 
 ~~~text
 workspace_presence:
-  other_clients_recently_seen: true
+  other_clients_registered: true
   count: 1
   last_seen_at: "<timestamp>"
 ~~~
@@ -84,7 +84,7 @@ file claim、file lease、workspace lock、OT、CRDT、automatic semantic merge�
 1. 同じ canonical workdir の CLI / GUI / Web / A2A Task の登録と最終活動時刻を照会できる
 2. 起動・入力・ターン・tool・workdir 変更時に時刻を更新し、定期 heartbeat を使わない
 3. 長時間処理中や無操作時の時刻は更新されなくてもよく、生存保証と誤認しない
-4. 正常終了・Task完了・キャンセル・WebRoom の最終接続終了時に登録解除する
+4. 正常終了・Task完了・キャンセル・WebRoom で接続タブがなく、稼働中 worker / Task もなくなった時に登録解除する
 5. 異常終了後の残存登録は、時刻を示し、必要に応じて遅延削除する
 6. PID や Client 種別ごとの特別な生存判定をしない
 7. CLI / Web の `:cd`、`change_workdir_tool`、session restoration 後は実行 workdir と Presence が一致する
