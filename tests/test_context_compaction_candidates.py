@@ -273,7 +273,7 @@ def test_checkpoint_evicted_by_message_budget_is_not_reported(tmp_path):
             messages,
             session_store=store,
             session_id=session_id,
-            budget=ContextBudget(total_chars=90, history_chars=90),
+            budget=ContextBudget(total_chars=90),
         )
         assert not any(
             "Relevant persisted checkpoint context" in str(
