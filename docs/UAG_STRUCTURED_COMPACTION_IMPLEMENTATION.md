@@ -17,14 +17,20 @@
 
 ## 3. 現在の状態
 
-- **全体状態:** PR 1 checkpoint 4 を実装中。チェックポイント 1〜3 と P1/P2 初回レビュー修正は完了し、修正コミットは `1aaad9d2` / `4f2ee8b8` として push 済み。
+- **全体状態:** PR 1 は基礎実装を**条件付き完了**（2026-10-08の最終スコープレビュー）。独立したCI/実行検証と実プロバイダ・全ライフサイクル検証は保留。後続PR機能はPR 1の完了条件に含めない。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`
-- **現在のフェーズ:** PR 1 — structured generation と legacy summary 経路の opt-in 接続、fallback / telemetry の基礎
+- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn の準備
 - **設計書の再レビュー:** 明確化事項を設計書へ反映済み（2026-10-08）
 - **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
 - **テスト:** checkpoint 4 の generation / fallback / raw retention と既存 shrink / persistence / source-index regressions は成功。対象5 Pythonファイルの py_compile、Ruff、Black `--check` も成功。PR 1 の最終diff・設計範囲レビューは未完了。
 - **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、Active Context candidate 統合、provider matrix / end-to-end restart review。
-- **次の作業:** cross-scope authorization / rehydration、live provider matrix、process-restart / full lifecycle review を完了して PR 1 acceptance criteria を評価する。PR 2 の safe-boundary / split-turn 作業とは混ぜない。
+- **次の作業:** PR 2 Safe Boundary / Split Turn を独立した差分で開始する。実provider matrix・実CLIでの全ライフサイクル検証は未実施として別途追跡し、結果をレビューMDに追記する。cross-scope認可・rehydrationはPR 3/5で扱う。
+
+### PR 1 完了判定（2026-10-08）
+
+**判定: 条件付き完了（基礎実装完了、統合検証保留）。** CompactionRecord、SourceRef/session index、Reducer、revision付き一括永続化、opt-in生成・projection・fallbackの基礎が実装された。実装者の対象テスト・Ruff・Black成功記録はあるが、レビュー担当による独立実行ではない。実プロバイダ接続、実CLIを通したend-to-end再開・長期利用は未検証であり、本番利用可能とは判断しない。feature flagは既定OFFを維持する。
+
+Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoffはPR 4、複数Clientのsemantic rebaseと認可境界はPR 5に分離する。詳細は [PR 1最終スコープレビュー](./UAG_STRUCTURED_COMPACTION_PR1_REVIEW.md) を参照。
 
 ## 4. フェーズ計画
 
