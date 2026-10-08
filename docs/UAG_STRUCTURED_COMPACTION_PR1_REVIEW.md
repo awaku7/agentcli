@@ -3,7 +3,7 @@
 - 対象コミット: [`9e926f4b`](https://github.com/awaku7/agentcli/commit/9e926f4b30e1f28a0b5643d283ae4c9c1ad6d2df)
 - 記録日: 2026-10-08
 - 対象: PR 1 チェックポイント 1〜3（モデル、履歴順序、永続化、Reducer）
-- 状態: **指摘あり・未修正／未再検証**
+- 状態: **指摘対応済み・対象テスト／静的チェック済み**
 - 関連: [Issue #200](https://github.com/awaku7/agentcli/issues/200)
 
 ## 総評
@@ -32,20 +32,27 @@
 
 ## 確認項目
 
-- [ ] P1の比較専用・過去snapshotの扱いを修正または仕様上の制約として明確化
-- [ ] P1の回帰テストを追加
-- [ ] P2のlegacy保存の競合制約を明記し、必要な呼び出し経路でrevisionを渡す
-- [ ] P2の2クライアント競合テストを追加
-- [ ] 対象テストと関連回帰テストを実行
-- [ ] Black `--check` とRuffを確認
+- [x] P1の比較専用・過去snapshotの扱いを修正または仕様上の制約として明確化
+- [x] P1の回帰テストを追加
+- [x] P2のlegacy保存の競合制約を明記し、必要な呼び出し経路でrevisionを渡す
+- [x] P2の2クライアント競合テストを追加
+- [x] 対象テストと関連回帰テストを実行
+- [x] Black `--check` とRuffを確認
 - [ ] 修正コミットを本書に追記して再レビュー
 
 ## 検証状況
 
-実装記録にはテスト・Black・Ruffの成功が記載されているが、本レビューではそれらを独立に実行していない。指摘の解消とテスト成功は未確認。
+初回レビュー時点ではテスト・Black・Ruffを独立実行していなかった。修正後の対象テストと静的チェック結果は、下記の再レビュー記録に記載する。
 
 ## 修正・再レビュー記録
 
 | 日付 | コミット | 対応内容 | 検証結果 |
 |---|---|---|---|
 | 2026-10-08 | `9e926f4b` | 初回レビュー。P1・P2を指摘 | 修正・再検証待ち |
+| 2026-10-08 | 作業ツリー（未コミット） | P1: historical base snapshot がない comparison-only を head conflict と区別し、比較不能として拒否。P2: snapshot+revision の同時読み取りを追加し、runtime の更新経路は observed revision を使って保存。revision 省略の legacy 経路には stale-write 制約を明記 | `tests/test_compaction_persistence.py` 17 passed; Python compile 2 passed; Ruff passed; Black `--check` passed |
+
+### 再レビュー所見
+
+- comparison-only は、base revision と現在 revision が一致し、保存済み AgentState snapshot がある場合に限り記録できる。revision が過去の場合は `SessionComparisonUnavailable` を返し、AgentState・revision・checkpoint を変更しない。過去snapshotを復元する機構は追加していない。
+- `save_agent_state(..., expected_revision=None)` は互換性のため残しているが、呼び出し元の古いsnapshotを検出できない。複数クライアントが同一セッションを更新する場合は `get_agent_state_snapshot()` で状態とrevisionを一緒に読み、そのrevisionを `expected_revision` に渡す。runtime の `update_agent_state` / `complete_agent_step` はこの経路を使う。
+- この環境では修正コミットを作成していないため、コミット単位の再レビューは未実施。

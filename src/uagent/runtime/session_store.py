@@ -36,6 +36,10 @@ class SessionRevisionConflict(SessionStoreError):
     """Raised when an expected AgentState revision is no longer current."""
 
 
+class SessionComparisonUnavailable(SessionStoreError):
+    """Raised when comparison-only needs an AgentState snapshot we did not retain."""
+
+
 _SQLITE_LOCK_RETRIES = 3
 _SQLITE_LOCK_RETRY_DELAY = 0.25
 _SESSION_ITEM_KINDS = {
@@ -1534,7 +1538,9 @@ class SessionStore:
 
         ``expected_revision`` opts callers into optimistic concurrency. The
         reducer-owned structured namespace is preserved; this API cannot forge
-        or erase that namespace.
+        or erase that namespace. Omitting ``expected_revision`` is a legacy
+        compatibility path and does not detect that ``state`` was built from a
+        stale read; concurrent writers must pass the revision they observed.
         """
         self._require_session(session_id)
         if not isinstance(state, dict):
@@ -1635,6 +1641,24 @@ class SessionStore:
             "SELECT revision FROM agent_states WHERE session_id = ?", (session_id,)
         ).fetchone()
         return int(row["revision"]) if row is not None else 0
+
+    @_db_locked
+    def get_agent_state_snapshot(
+        self, session_id: str
+    ) -> tuple[dict[str, Any] | None, int]:
+        """Load AgentState and its revision together for optimistic updates."""
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT state_json, revision FROM agent_states WHERE session_id = ?",
+            (session_id,),
+        ).fetchone()
+        if row is None:
+            return None, 0
+        try:
+            state = json.loads(row["state_json"])
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError("stored agent state is invalid JSON") from exc
+        return (state if isinstance(state, dict) else None), int(row["revision"])
 
     @_db_locked
     def get_compaction_record(self, operation_id: str) -> dict[str, Any] | None:
@@ -1775,7 +1799,10 @@ class SessionStore:
                 (record.session_id,),
             ).fetchone()
             current_revision = int(current_row["revision"]) if current_row else 0
-            if record.base_revision != current_revision:
+            if (
+                record.application_status == "applied"
+                and record.base_revision != current_revision
+            ):
                 raise SessionRevisionConflict(
                     f"expected AgentState revision {record.base_revision}, found {current_revision}"
                 )
@@ -1806,8 +1833,15 @@ class SessionStore:
                 result_revision: int | None = record.base_revision + 1
             else:
                 if current_row is None:
-                    raise SessionRevisionConflict(
-                        "comparison_only requires a matching saved AgentState snapshot"
+                    raise SessionComparisonUnavailable(
+                        "comparison_only unavailable: no saved AgentState snapshot "
+                        f"is retained for base revision {record.base_revision}"
+                    )
+                if record.base_revision != current_revision:
+                    raise SessionComparisonUnavailable(
+                        "comparison_only unavailable: historical AgentState snapshot "
+                        f"for base revision {record.base_revision} is not retained "
+                        f"(current revision is {current_revision})"
                     )
                 result_revision = None
 
@@ -2409,36 +2443,44 @@ def attach_opt_in_session_store(
             evictable_only=evictable_only,
         )
 
-    def save_agent_state(state: dict[str, Any]) -> None:
+    def save_agent_state(
+        state: dict[str, Any], *, expected_revision: int | None = None
+    ) -> None:
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
         )
-        store.save_agent_state(active_session_id, state)
+        store.save_agent_state(
+            active_session_id, state, expected_revision=expected_revision
+        )
 
     def complete_agent_step(step: str, next_action: str = "") -> dict[str, Any]:
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
         )
-        persisted = store.get_agent_state(active_session_id)
+        persisted, expected_revision = store.get_agent_state_snapshot(active_session_id)
         manager = AgentStateManager(
             AgentState.from_dict(persisted) if persisted else AgentState()
         )
         state = manager.mark_step_complete(step, next_action=next_action)
         core.agent_state_manager = manager
-        store.save_agent_state(active_session_id, state.to_dict())
+        store.save_agent_state(
+            active_session_id, state.to_dict(), expected_revision=expected_revision
+        )
         return state.to_dict()
 
     def update_agent_state(**changes: Any) -> dict[str, Any]:
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
         )
-        persisted = store.get_agent_state(active_session_id)
+        persisted, expected_revision = store.get_agent_state_snapshot(active_session_id)
         manager = AgentStateManager(
             AgentState.from_dict(persisted) if persisted else AgentState()
         )
         state = manager.update(**changes)
         core.agent_state_manager = manager
-        store.save_agent_state(active_session_id, state.to_dict())
+        store.save_agent_state(
+            active_session_id, state.to_dict(), expected_revision=expected_revision
+        )
         return state.to_dict()
 
     def get_agent_state() -> dict[str, Any] | None:

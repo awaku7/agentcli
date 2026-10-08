@@ -11,6 +11,7 @@ from uagent.runtime.compaction_record import (
     SourceRef,
 )
 from uagent.runtime.session_store import (
+    SessionComparisonUnavailable,
     SessionRevisionConflict,
     SessionStore,
     SessionStoreError,
@@ -203,7 +204,10 @@ def test_comparison_only_persists_record_without_reducing_or_advancing_revision(
 def test_comparison_only_requires_available_matching_snapshot(tmp_path) -> None:
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         session_id = _session(store)
-        with pytest.raises(SessionRevisionConflict, match="matching saved AgentState"):
+        with pytest.raises(
+            SessionComparisonUnavailable,
+            match="no saved AgentState snapshot",
+        ):
             store.commit_compaction_record(
                 _record(
                     session_id,
@@ -213,6 +217,69 @@ def test_comparison_only_requires_available_matching_snapshot(tmp_path) -> None:
                 )
             )
         assert store.get_compaction_record("comparison-1") is None
+        assert store.get_agent_state(session_id) is None
+        assert store.get_agent_state_revision(session_id) == 0
+
+
+def test_comparison_only_past_revision_is_unavailable_not_head_conflict(
+    tmp_path,
+) -> None:
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id = _session(store)
+        store.commit_compaction_record(_record(session_id))
+        store.save_agent_state(session_id, {"goal": "advanced state"})
+        before_state, before_revision = store.get_agent_state_snapshot(session_id)
+
+        with pytest.raises(
+            SessionComparisonUnavailable,
+            match="historical AgentState snapshot for base revision 1 is not retained",
+        ):
+            store.commit_compaction_record(
+                _record(
+                    session_id,
+                    operation_id="historical-comparison",
+                    application_status="comparison_only",
+                    base_revision=1,
+                )
+            )
+
+        assert store.get_compaction_record("historical-comparison") is None
+        assert store.get_agent_state_snapshot(session_id) == (
+            before_state,
+            before_revision,
+        )
+
+
+def test_agent_state_stale_writer_is_rejected_when_revision_is_supplied(
+    tmp_path,
+) -> None:
+    db_path = tmp_path / "sessions.sqlite3"
+    with SessionStore(db_path) as first_client, SessionStore(db_path) as second_client:
+        session_id = _session(first_client)
+        first_client.save_agent_state(session_id, {"goal": "initial"})
+        first_state, first_revision = first_client.get_agent_state_snapshot(session_id)
+        second_state, second_revision = second_client.get_agent_state_snapshot(
+            session_id
+        )
+        assert first_state == second_state == {"goal": "initial"}
+        assert first_revision == second_revision == 1
+
+        first_client.save_agent_state(
+            session_id,
+            {"goal": "first writer"},
+            expected_revision=first_revision,
+        )
+        with pytest.raises(
+            SessionRevisionConflict, match="expected AgentState revision 1"
+        ):
+            second_client.save_agent_state(
+                session_id,
+                {"goal": "stale second writer"},
+                expected_revision=second_revision,
+            )
+
+        assert first_client.get_agent_state(session_id) == {"goal": "first writer"}
+        assert first_client.get_agent_state_revision(session_id) == 2
 
 
 def test_ambiguous_delta_is_preserved_unresolved_until_authorized(tmp_path) -> None:
