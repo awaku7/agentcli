@@ -115,6 +115,7 @@ def test_previous_response_id_capability_is_provider_specific() -> None:
     assert get_responses_capabilities("meta").previous_response_id is True
     assert get_responses_capabilities("lmstudio").previous_response_id is True
     assert get_responses_capabilities("openrouter").previous_response_id is False
+    assert get_responses_capabilities("perplexity").previous_response_id is False
     assert get_responses_capabilities("deepseek").previous_response_id is False
 
 

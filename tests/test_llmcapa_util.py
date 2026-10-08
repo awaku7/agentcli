@@ -89,6 +89,23 @@ class TestProviderCandidates:
 
 
 class TestGetCapability:
+    def test_perplexity_router_models_do_not_fall_back_across_providers(
+        self, monkeypatch
+    ) -> None:
+        import uagent.llmcapa_util as util
+
+        seen: list[tuple[str, str, bool]] = []
+
+        def fake_get(model_id: str, provider: str, scoped_only: bool = False):
+            seen.append((model_id, provider, scoped_only))
+            return None
+
+        fake_get.cache_clear = lambda: None
+        monkeypatch.setattr(util, "_get_capability_cached", fake_get)
+
+        assert util.get_capability("perplexity/kimi-k3", "perplexity") is None
+        assert seen == [("perplexity/kimi-k3", "perplexity", True)]
+
     def test_llama_cpp_prefers_props_context(self, monkeypatch) -> None:
         import uagent.llmcapa_util as util
 

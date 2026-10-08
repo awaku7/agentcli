@@ -150,7 +150,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`.
+  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `perplexity`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -199,6 +199,16 @@ Required if `UAGENT_PROVIDER=openrouter`:
 
 - `UAGENT_OPENROUTER_API_KEY` (required)
 - `UAGENT_OPENROUTER_DEPNAME` (optional, default: `gpt-5.4-nano`)
+
+#### Perplexity Router API
+
+Required if `UAGENT_PROVIDER=perplexity`:
+
+- `UAGENT_PERPLEXITY_API_KEY` (required; `PERPLEXITY_API_KEY` is also accepted)
+- `UAGENT_PERPLEXITY_BASE_URL` (optional, default: `https://api.perplexity.ai/router/v1`)
+- `UAGENT_PERPLEXITY_DEPNAME` (optional, default: `perplexity/kimi-k3`)
+
+The Router supports OpenAI Chat Completions and Responses. Set `UAGENT_RESPONSES=1` to use Responses; requests are stateless, so UAG sends the conversation history rather than `previous_response_id`. The Router is currently in private preview and requires an enabled Perplexity API account.
 
 #### Inception Labs / Mercury
 

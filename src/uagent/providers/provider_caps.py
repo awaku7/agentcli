@@ -17,6 +17,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "meta",
         "bedrock",
         "openrouter",
+        "perplexity",
         "ollama",
         "llama_cpp",
         "gemini",
@@ -52,6 +53,7 @@ RESPONSES_PROVIDERS: frozenset[str] = frozenset(
         "azure",
         "bedrock",
         "openrouter",
+        "perplexity",
         "ollama",
         "alibaba",
         "lmstudio",
@@ -87,6 +89,7 @@ _TEMPERATURE_ENV_NAMES: dict[str, str] = {
         "pfn",
         "azure",
         "openrouter",
+        "perplexity",
         "bedrock",
         "nvidia",
         "grok",
@@ -134,7 +137,7 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 # leak into the shared structured-output orchestration code.
 _STRUCTURED_OUTPUT_WIRE_FORMATS: dict[str, frozenset[str]] = {
     provider: frozenset({"chat_completions", "responses"})
-    for provider in ("openai", "azure", "openrouter", "deepseek")
+    for provider in ("openai", "azure", "openrouter", "perplexity", "deepseek")
 }
 
 

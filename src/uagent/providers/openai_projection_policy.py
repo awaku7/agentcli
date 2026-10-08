@@ -81,8 +81,20 @@ def build_openai_projection(
                     "format": {
                         "type": "json_schema",
                         "name": schema["name"],
-                        "strict": schema["strict"],
+                        "strict": (
+                            True if provider_key == "perplexity" else schema["strict"]
+                        ),
                         "schema": schema["schema"],
+                    }
+                }
+            elif provider_key == "perplexity":
+                # Router Responses accepts JSON Schema but rejects json_object.
+                options["text"] = {
+                    "format": {
+                        "type": "json_schema",
+                        "name": "json_output",
+                        "strict": True,
+                        "schema": {"type": "object"},
                     }
                 }
             else:
@@ -123,9 +135,12 @@ def build_openai_projection(
         options["service_tier"] = "fast"
 
     if use_responses_api:
-        options["context_management"] = [
-            {"type": "compaction", "compact_threshold": compaction_threshold}
-        ]
+        # Perplexity Router's Responses endpoint is stateless and rejects
+        # unknown fields such as OpenAI's context_management extension.
+        if provider_key != "perplexity":
+            options["context_management"] = [
+                {"type": "compaction", "compact_threshold": compaction_threshold}
+            ]
 
     if send_tools:
         options["tool_choice"] = "auto"

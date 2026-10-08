@@ -27,6 +27,7 @@ _SUPPORTED = frozenset(
         "azure",
         "nvidia",
         "openrouter",
+        "perplexity",
         "moonshot",
         "alibaba",
         "sakana",

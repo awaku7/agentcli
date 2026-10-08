@@ -35,3 +35,26 @@ def test_ollama_does_not_require_api_key(monkeypatch) -> None:
     assert provider == "ollama"
     assert not any(item.name == "UAGENT_OLLAMA_API_KEY" for item in missing)
     assert not warnings
+
+
+def test_perplexity_requires_router_api_key(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_PROVIDER", "perplexity")
+    monkeypatch.delenv("UAGENT_PERPLEXITY_API_KEY", raising=False)
+
+    provider, missing, warnings = validate_startup_env()
+
+    assert provider == "perplexity"
+    assert any(item.name == "UAGENT_PERPLEXITY_API_KEY" for item in missing)
+    assert not warnings
+
+
+def test_perplexity_accepts_official_api_key_environment_name(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_PROVIDER", "perplexity")
+    monkeypatch.delenv("UAGENT_PERPLEXITY_API_KEY", raising=False)
+    monkeypatch.setenv("PERPLEXITY_API_KEY", "router-key")
+
+    provider, missing, warnings = validate_startup_env()
+
+    assert provider == "perplexity"
+    assert not any(item.name == "UAGENT_PERPLEXITY_API_KEY" for item in missing)
+    assert not warnings

@@ -26,6 +26,7 @@ _PROVIDER_ENV_NAMES: dict[str, tuple[str, ...]] = {
     "zai": ("UAGENT_ZAI_API_KEY",),
     "nvidia": ("UAGENT_NVIDIA_API_KEY",),
     "openrouter": ("UAGENT_OPENROUTER_API_KEY", "OPENROUTER_API_KEY"),
+    "perplexity": ("UAGENT_PERPLEXITY_API_KEY", "PERPLEXITY_API_KEY"),
     "typesafe": (
         "UAGENT_DECISION_TYPESAFE_API_KEY",
         "UAGENT_TYPESAFE_API_KEY",

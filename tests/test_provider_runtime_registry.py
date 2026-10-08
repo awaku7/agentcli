@@ -41,6 +41,7 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
         "azure",
         "nvidia",
         "openrouter",
+        "perplexity",
         "moonshot",
         "alibaba",
         "sakana",
@@ -170,6 +171,7 @@ def test_registry_support_check_is_normalized_and_has_one_source_of_truth(
     assert supports_provider_runtime("nvidia") is True
     assert supports_provider_runtime("gemini") is False
     assert supports_provider_runtime("openrouter") is True
+    assert supports_provider_runtime("perplexity") is True
     assert supports_provider_runtime("moonshot") is True
     assert supports_provider_runtime("alibaba") is True
     assert supports_provider_runtime("sakana") is True

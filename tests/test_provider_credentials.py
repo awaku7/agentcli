@@ -81,3 +81,14 @@ def test_typesafe_decision_credential_uses_decision_environment_name(
     assert credential is not None
     assert credential.name == "provider/typesafe"
     assert credential.secret == "decision-key"
+
+
+def test_perplexity_credential_accepts_official_environment_name(monkeypatch) -> None:
+    monkeypatch.delenv("UAGENT_PERPLEXITY_API_KEY", raising=False)
+    monkeypatch.setenv("PERPLEXITY_API_KEY", "router-key")
+
+    credential = get_provider_credential("perplexity")
+
+    assert credential is not None
+    assert credential.name == "provider/perplexity"
+    assert credential.secret == "router-key"

@@ -38,6 +38,7 @@ _PROVIDER_CANDIDATES: dict[str, tuple[str, ...]] = {
     # the native row when no vertex-ai row exists.
     "vertexai": ("vertex-ai", "vertexai"),
     "grok": ("xai", "grok"),
+    "perplexity": ("perplexity",),
     "claude": ("anthropic", "claude"),
     "nvidia": ("nvidia",),
     "deepseek": ("deepseek",),
@@ -202,7 +203,9 @@ def get_capability(
             mid = current_model(prov)
     if not mid:
         return None
-    return _get_capability_cached(mid, prov, scoped_only)
+    # Router slugs such as ``perplexity/kimi-k3`` do not identify the
+    # underlying model vendor; never borrow a similarly named catalog row.
+    return _get_capability_cached(mid, prov, scoped_only or prov == "perplexity")
 
 
 def clear_capability_cache() -> None:
@@ -636,6 +639,11 @@ def provider_allows_responses_api(
     ):
         return False
     mid = (model_id or "").strip() or current_model(prov)
+    if prov == "perplexity":
+        # The Router publishes its own model allowlist and guarantees that
+        # every listed model supports its Responses schema. llmcapa may resolve
+        # a prefixed Router slug to an unrelated provider's model row.
+        return True
     if not mid:
         return True
     flag = supports_responses_api(mid, prov, default=None)

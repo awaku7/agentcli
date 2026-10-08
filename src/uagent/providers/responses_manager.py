@@ -91,6 +91,7 @@ _CAPABILITIES: dict[str, ResponsesCapabilities] = {
         previous_response_id=True,
     ),
     "openrouter": ResponsesCapabilities(create=True, streaming=True),
+    "perplexity": ResponsesCapabilities(create=True, streaming=True),
     "meta": ResponsesCapabilities(
         create=True, streaming=True, previous_response_id=True
     ),

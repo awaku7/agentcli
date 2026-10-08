@@ -72,6 +72,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("azure", "Azure OpenAI"),
     ("bedrock", "Bedrock OpenAI-compatible gateway"),
     ("openrouter", "OpenRouter"),
+    ("perplexity", "Perplexity Router API"),
     ("gemini", "Gemini"),
     ("vertexai", "Vertex AI"),
     ("grok", "Grok"),
@@ -168,6 +169,22 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             "UAGENT_OPENROUTER_FALLBACK_MODELS",
             False,
             _("OpenRouter fallback models (optional, comma-separated)"),
+        ),
+    ],
+    "perplexity": [
+        ("UAGENT_PERPLEXITY_API_KEY", True, _("Perplexity API key")),
+        (
+            "UAGENT_PERPLEXITY_BASE_URL",
+            False,
+            _(
+                "Perplexity Router base URL (optional, default: "
+                "https://api.perplexity.ai/router/v1)"
+            ),
+        ),
+        (
+            "UAGENT_PERPLEXITY_DEPNAME",
+            False,
+            _("Perplexity Router model ID (optional, e.g. perplexity/kimi-k3)"),
         ),
     ],
     "gemini": [
@@ -1593,7 +1610,7 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     out.append("# Provider selection")
     out.append("# ==============================")
     out.append(
-        "# azure / openai / plamo / bedrock / openrouter / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo / lmstudio / minimax / hf / sakana / sakura / novita / together / vercel"
+        "# azure / openai / plamo / bedrock / openrouter / perplexity / gemini / vertexai / grok / claude / ollama / nvidia / deepseek / zai / alibaba / moonshot / mimo / lmstudio / minimax / hf / sakana / sakura / novita / together / vercel"
     )
     out.append(f"UAGENT_PROVIDER={st.provider}")
     out.append("")

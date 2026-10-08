@@ -123,7 +123,7 @@ ______________________________________________________________________
 ### 1. プロバイダの選択
 
 - `UAGENT_PROVIDER`（必須）: LLMプロバイダ名。
-  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`。
+  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `perplexity`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`。
 - `UAGENT_USE_TOOL`: `0`, `false`, `no`, `off` に設定すると、LLMへのツール送信を無効化します。
 
 #### Azure OpenAI
@@ -172,6 +172,16 @@ set UAGENT_RESPONSES=0
 
 - `UAGENT_OPENROUTER_API_KEY`（必須）
 - `UAGENT_OPENROUTER_DEPNAME`（省略可、既定: `gpt-5.4-nano`）
+
+#### Perplexity Router API
+
+`UAGENT_PROVIDER=perplexity` の場合に必要：
+
+- `UAGENT_PERPLEXITY_API_KEY`（必須。`PERPLEXITY_API_KEY` も利用可）
+- `UAGENT_PERPLEXITY_BASE_URL`（省略可、既定: `https://api.perplexity.ai/router/v1`）
+- `UAGENT_PERPLEXITY_DEPNAME`（省略可、既定: `perplexity/kimi-k3`）
+
+RouterはOpenAI互換のChat CompletionsとResponsesに対応します。Responsesを使うには`UAGENT_RESPONSES=1`を設定してください。APIはステートレスのため、UAGは`previous_response_id`ではなく会話履歴を送信します。Routerは現在プレビュー中で、利用可能なPerplexity APIアカウントが必要です。
 
 #### Inception Labs / Mercury
 

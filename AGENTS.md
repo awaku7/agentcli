@@ -67,6 +67,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | `azure` | Azure OpenAI |
 | `bedrock` | Bedrock OpenAI-compatible gateway |
 | `openrouter` | OpenRouter |
+| `perplexity` | Perplexity Router API (Chat Completions / Responses) |
 | `gemini` | Gemini |
 | `vertexai` | Vertex AI |
 | `grok` | Grok |

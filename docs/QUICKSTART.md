@@ -181,7 +181,7 @@ python samples/generate_env_samples.py
 
 ### 6.3 (Optional) Responses API knobs (reasoning / verbosity)
 
-If you use the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock/OpenRouter/Ollama, you can optionally control reasoning effort and output verbosity.
+If you use the **Responses API** (`UAGENT_RESPONSES=1`) with Azure/OpenAI/Bedrock/OpenRouter/Perplexity Router/Ollama, you can optionally control reasoning effort and output verbosity. Perplexity Router is stateless, so UAG sends the full conversation history on each request.
 
 For Bedrock, uag uses a Bedrock-specific Responses request builder (string `input`) to avoid OpenAI-compatible gateway validation errors for message-list `input`.
 
