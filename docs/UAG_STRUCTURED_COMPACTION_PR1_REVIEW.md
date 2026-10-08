@@ -107,3 +107,4 @@
 - **プロバイダー:** fake OpenAI-compatible client以外の実接続は未検証。OpenAI Responses / Anthropic / Geminiの検証完了とは扱わない。
 - **判定:** 投影偏りと失敗時のRaw History不変条件への基礎対応は完了。PR1全体の完了判定はprovider matrix、cross-scope authorization / rehydration、full lifecycle review後まで保留。
 - **最終検証:** `test_structured_compaction_generation.py` 16件、`test_shrink_llm.py` 22件、`test_compaction_persistence.py` 17件、`test_session_store.py` 28件、`test_session_item_index.py` 6件成功。Ruff / Black `--check` / py_compile（5 files）/ Markdown format check成功。実provider検証は未実施。
+- **追加修正コミット:** `0780b5bf` (`fix: preserve multi-goal context in bounded projection`)。
