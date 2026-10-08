@@ -425,19 +425,75 @@ def _maybe_auto_shrink_messages(
             except Exception:
                 pass
 
-        new_messages = call_maybe_thread_fn(
-            lambda: core.compress_history_with_llm(
-                client=client,
-                depname=depname,
-                messages=messages,
-                keep_last=keep_last,
-                use_responses_api=use_responses_api,
-            )
+        store = getattr(core, "session_store", None)
+        session_id = getattr(core, "_session_store_active_id", None) or getattr(
+            core, "session_id", None
         )
+        structured_flag = env_get("UAGENT_STRUCTURED_COMPACTION", "0") or ""
+        structured_requested = (
+            persist
+            and store is not None
+            and bool(session_id)
+            and structured_flag.strip().lower() in {"1", "true", "yes", "on"}
+        )
+        if structured_requested:
+            compression_result = call_maybe_thread_fn(
+                lambda: core.compress_history_with_llm(
+                    client=client,
+                    depname=depname,
+                    messages=messages,
+                    keep_last=keep_last,
+                    use_responses_api=use_responses_api,
+                    structured_compaction=True,
+                    return_outcome=True,
+                    structured_store=store,
+                    structured_session_id=str(session_id),
+                )
+            )
+            preserve_raw_history = bool(
+                getattr(compression_result, "preserve_raw_history", False)
+            )
+            new_messages = getattr(compression_result, "messages", compression_result)
+        else:
+            preserve_raw_history = False
+            new_messages = call_maybe_thread_fn(
+                lambda: core.compress_history_with_llm(
+                    client=client,
+                    depname=depname,
+                    messages=messages,
+                    keep_last=keep_last,
+                    use_responses_api=use_responses_api,
+                )
+            )
         messages.clear()
         messages.extend(new_messages)
 
         if not persist:
+            return gemini_cache_name
+
+        if preserve_raw_history:
+            # The system summary is a provider-only projection of the
+            # committed AgentState (or its legacy fallback). Keep a display
+            # copy for session listings, but never replace raw messages or
+            # rewrite the source log in structured mode.
+            try:
+                summary = next(
+                    (
+                        _strip_history_summary_prefix(str(m.get("content", "")))
+                        for m in messages
+                        if _is_history_summary_message(m)
+                    ),
+                    "",
+                )
+                if summary:
+                    store.save_session_summary(str(session_id), summary)
+            except Exception as exc:
+                print(
+                    _(
+                        "[WARN] Structured compaction summary persistence failed: %(err)s"
+                    )
+                    % {"err": f"{type(exc).__name__}: {exc}"}
+                )
             return gemini_cache_name
 
         # Keep the SQLite session in sync with the in-memory auto-compression.

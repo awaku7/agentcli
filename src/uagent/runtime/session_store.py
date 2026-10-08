@@ -1312,6 +1312,40 @@ class SessionStore:
         return messages
 
     @_db_locked
+    def list_indexed_messages(self, session_id: str) -> list[dict[str, Any]]:
+        """List available messages with their exact session-order references.
+
+        Rows whose joined message payload is missing or whose ordering was only
+        approximated are returned with that metadata intact so callers can
+        decline provenance-sensitive work rather than guessing.
+        """
+        self._require_session(session_id)
+        rows = self._execute(
+            "SELECT si.session_seq, si.item_id AS ref_id, si.ordering_quality, "
+            "si.availability, m.message_id, m.role, m.content, m.payload_json "
+            "FROM session_items AS si LEFT JOIN messages AS m "
+            "ON m.session_id = si.session_id "
+            "AND CAST(m.message_id AS TEXT) = si.item_id "
+            "WHERE si.session_id = ? AND si.item_kind = 'message' "
+            "AND si.availability = 'available' ORDER BY si.session_seq",
+            (session_id,),
+        ).fetchall()
+        result: list[dict[str, Any]] = []
+        for row in rows:
+            item = dict(row)
+            payload_json = item.pop("payload_json", None)
+            if payload_json:
+                try:
+                    payload = json.loads(payload_json)
+                except (TypeError, ValueError):
+                    payload = None
+            else:
+                payload = None
+            item["payload"] = payload if isinstance(payload, dict) else None
+            result.append(item)
+        return result
+
+    @_db_locked
     def record_response_state(
         self,
         session_id: str,

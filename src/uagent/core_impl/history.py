@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import sys
 import time
+from dataclasses import dataclass
 from typing import Any, Optional
 
 from ..env_utils import env_get
@@ -506,6 +507,15 @@ def _tool_aware_tail_start(messages: list[dict[str, Any]], start: int) -> int:
     return start
 
 
+@dataclass(frozen=True)
+class HistoryCompressionOutcome:
+    """Optional metadata for automatic compression persistence decisions."""
+
+    messages: list[dict[str, Any]]
+    preserve_raw_history: bool = False
+    structured_status: str = "legacy"
+
+
 def compress_history_with_llm(
     client: Any,
     depname: str,
@@ -513,12 +523,26 @@ def compress_history_with_llm(
     keep_last: int = 20,
     use_responses_api: bool = False,
     emit_log: bool = True,
-) -> list[dict[str, Any]]:
+    structured_compaction: bool = False,
+    return_outcome: bool = False,
+    structured_store: Any = None,
+    structured_session_id: str | None = None,
+) -> list[dict[str, Any]] | HistoryCompressionOutcome:
     """
     Summarize old user/assistant/tool messages in rolling, token-budgeted chunks
     and compress them into a single system message.
     On context-length errors, retry with smaller token and message-count budgets.
     """
+    preserve_raw_history = False
+    structured_status = "legacy"
+
+    def _finish(result: list[dict[str, Any]]):
+        if return_outcome:
+            return HistoryCompressionOutcome(
+                list(result), preserve_raw_history, structured_status
+            )
+        return result
+
     try:
         from ..profile_manager import run_profiling_async
         import sys as _sys
@@ -890,6 +914,43 @@ def compress_history_with_llm(
             {"role": "user", "content": summary_user_content},
         ]
 
+    def _deterministic_structured_fallback() -> list[dict[str, Any]]:
+        if not preserve_raw_history:
+            return list(messages)
+        raw_limit = env_get("UAGENT_STRUCTURED_COMPACTION_FALLBACK_CHARS", "4000")
+        try:
+            char_limit = max(500, min(10_000, int(raw_limit)))
+        except (TypeError, ValueError):
+            char_limit = 4000
+        excerpts: list[str] = []
+        remaining = char_limit
+        # Keep a small chronological window of literal excerpts. They are
+        # explicitly labeled as excerpts rather than semantic conclusions.
+        rendered = [
+            text
+            for message in old_part
+            if (text := _message_to_text(message)[0]) is not None
+        ]
+        for text in rendered[-12:]:
+            snippet = text[: min(350, remaining)]
+            if not snippet:
+                break
+            excerpts.append(f"- {snippet}")
+            remaining -= len(snippet) + 1
+            if remaining <= 0:
+                break
+        if not excerpts:
+            return list(messages)
+        body = (
+            "Deterministic excerpts (not a semantic summary; raw history is retained):\n"
+            + "\n".join(excerpts)
+        )
+        summary_msg = {
+            "role": "system",
+            "content": _t("Summary of the conversation so far:\n") + body,
+        }
+        return system_msgs + [summary_msg] + tail_part
+
     oversized_single_chunk = False
 
     def _compress_once(
@@ -1015,9 +1076,83 @@ def compress_history_with_llm(
                 file=sys.stderr,
             )
 
-        if emit_log:
+        if emit_log and not preserve_raw_history:
             log_message(summary_msg)
         return new_messages, None
+
+    if structured_compaction and old_part:
+        store = structured_store or getattr(_core, "session_store", None)
+        session_id = (
+            structured_session_id
+            or getattr(_core, "_session_store_active_id", None)
+            or getattr(_core, "session_id", None)
+        )
+        if store is not None and session_id:
+            # Once opted in with a persistent SessionStore, never replace the
+            # source messages. The compressed list is a provider projection;
+            # the raw rows remain available as provenance and recovery input.
+            preserve_raw_history = True
+            structured_status = "fallback"
+            try:
+                from ..runtime.structured_compaction import (
+                    attempt_structured_compaction,
+                )
+
+                def _generate_structured_text(
+                    prompt_messages: list[dict[str, str]],
+                ) -> str:
+                    content, error = _summarize_with_llm(prompt_messages)
+                    if error is not None:
+                        raise error
+                    if content is None:
+                        raise RuntimeError("structured compaction returned no output")
+                    return content
+
+                outcome = attempt_structured_compaction(
+                    store=store,
+                    session_id=str(session_id),
+                    source_messages=old_part,
+                    provider=provider,
+                    model=depname,
+                    locale=active_locale,
+                    generate_text=_generate_structured_text,
+                    measure_tokens=lambda prompt: _estimate_history_summary_tokens(
+                        prompt,
+                        depname,
+                        provider,
+                        client=client,
+                        use_responses_api=use_responses_api,
+                    ),
+                    max_input_tokens=initial_chunk_token_budget,
+                )
+                structured_status = outcome.status
+                if outcome.status == "applied" and outcome.summary:
+                    summary_msg = {
+                        "role": "system",
+                        "content": _t("Summary of the conversation so far:\n")
+                        + outcome.summary,
+                    }
+                    new_messages = system_msgs + [summary_msg] + tail_part
+                    if emit_log:
+                        _stop_spinner_quietly()
+                        print(
+                            _t(
+                                "[INFO] structured compaction: {old_n} -> {new_n} messages "
+                                "(compressed {old_part_n} older messages into 1 projection; "
+                                "kept {tail_n} tail)"
+                            ).format(
+                                old_n=len(messages),
+                                new_n=len(new_messages),
+                                old_part_n=len(old_part),
+                                tail_n=len(tail_part),
+                            ),
+                            file=sys.stderr,
+                        )
+                    return _finish(new_messages)
+            except Exception:
+                # A generation/runtime failure may use the legacy compressor
+                # below, but the persistent raw history remains untouched.
+                structured_status = "fallback"
 
     current_chunk_size = initial_chunk_size
     current_token_budget = initial_chunk_token_budget
@@ -1027,7 +1162,7 @@ def compress_history_with_llm(
             current_chunk_size, current_token_budget, force_single_shot
         )
         if error is None:
-            return (
+            return _finish(
                 compressed_messages
                 if compressed_messages is not None
                 else list(messages)
@@ -1042,7 +1177,7 @@ def compress_history_with_llm(
                     ),
                     file=sys.stderr,
                 )
-                return list(messages)
+                return _finish(_deterministic_structured_fallback())
 
             next_chunk_size = max(1, current_chunk_size // 2)
             next_token_budget = (
@@ -1062,7 +1197,7 @@ def compress_history_with_llm(
                     ),
                     file=sys.stderr,
                 )
-                return list(messages)
+                return _finish(_deterministic_structured_fallback())
 
             _stop_spinner_quietly()
             print(
@@ -1091,4 +1226,4 @@ def compress_history_with_llm(
             ),
             file=sys.stderr,
         )
-        return list(messages)
+        return _finish(_deterministic_structured_fallback())

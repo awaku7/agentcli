@@ -17,14 +17,14 @@
 
 ## 3. 現在の状態
 
-- **全体状態:** PR 1 実装中（チェックポイント 1〜3 の実装と対象テストを追加。最終レビュー / 回帰確認中）
+- **全体状態:** PR 1 checkpoint 4 を実装中。チェックポイント 1〜3 と P1/P2 初回レビュー修正は完了し、修正コミットは `1aaad9d2` / `4f2ee8b8` として push 済み。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`
-- **現在のフェーズ:** PR 1 — チェックポイント 3 のレビュー完了後、既存経路接続（チェックポイント 4）へ進む
+- **現在のフェーズ:** PR 1 — structured generation と legacy summary 経路の opt-in 接続、fallback / telemetry の基礎
 - **設計書の再レビュー:** 明確化事項を設計書へ反映済み（2026-10-08）
-- **実装:** immutable record model / typed SourceRef / `session_seq` index に加え、AgentState revision、Checkpoint table、atomic commit、idempotency、Reducer を追加。圧縮生成 / Active Context / history pruning への接続は未実装
-- **テスト:** 新規 checkpoint tests（12 + 6 + 15）と SessionStore / AgentState 回帰 tests（28 + 1）成功。Ruff / py_compile / Black --check 成功
-- **未実装境界:** Runtime の source authorization resolver / rehydration、user confirmation UI と ambiguous-resolution caller、legacy summary projection / fallback、telemetry、実際の compaction 呼び出し接続
-- **次の作業:** PR 1 checkpoint 3 の最終 diff review と、checkpoint 4（生成・既存要約経路への接続）の設計 / 実装。PR 2 の safe-boundary 作業とは混ぜない。
+- **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
+- **テスト:** checkpoint 4 の generation / fallback / raw retention と既存 shrink / persistence / source-index regressions は成功。対象5 Pythonファイルの py_compile、Ruff、Black `--check` も成功。PR 1 の最終diff・設計範囲レビューは未完了。
+- **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、Active Context candidate 統合、provider matrix / end-to-end restart review。
+- **次の作業:** cross-scope authorization / rehydration、live provider matrix、process-restart / full lifecycle review を完了して PR 1 acceptance criteria を評価する。PR 2 の safe-boundary / split-turn 作業とは混ぜない。
 
 ## 4. フェーズ計画
 
@@ -35,9 +35,9 @@
 **PR 1 の実装順序（チェックポイント）**
 
 1. **調査・モデル**：既存コード対応表を確定し、CompactionRecord / GoalDelta と validation の最小モデルを追加。既存の圧縮動作は変えない。
-2. **出典・観測情報**：`SourceRef`、`session_seq`、Goal association、DeterministicDelta を追加し、単体テストで契約を固定する。
-3. **永続化・Reducer**：Checkpoint / AgentState / revision / operation ID の一括更新（失敗時はすべて取り消す）、競合検出、二重適用防止を実装・検証する。永続化を有効にする前にこの整合性を満たす。
-4. **既存経路との接続**：Narrative / legacy summary projection、fallback、最小 telemetry を追加し、回帰テストを通す。
+1. **出典・観測情報**：`SourceRef`、`session_seq`、Goal association、DeterministicDelta を追加し、単体テストで契約を固定する。
+1. **永続化・Reducer**：Checkpoint / AgentState / revision / operation ID の一括更新（失敗時はすべて取り消す）、競合検出、二重適用防止を実装・検証する。永続化を有効にする前にこの整合性を満たす。
+1. **既存経路との接続**：Narrative / legacy summary projection、fallback、最小 telemetry を追加し、回帰テストを通す。
 
 各チェックポイントは必要な最小限のファイルだけ変更し、既存動作を維持できない途中状態を main にマージしない。
 
@@ -45,17 +45,17 @@
 - [x] CompactionRecord / GoalDelta / DecisionRecord / ConstraintRecord / FactRecord のモデルを追加
 - [x] Goal association の三状態（既存 Goal、新規 Goal、曖昧）と deterministic `goal_id` 割当契約を実装
 - [x] typed / scoped `SourceRef`、session-index との save-time structural validation を実装
-- [ ] Runtime authorization resolver と rehydration 時の再認可を接続
+- [ ] Runtime の cross-scope authorization resolver と rehydration 時の再認可を接続（現checkpointでは active Session 内の exact source resolver のみ）
 - [x] `session_seq` の採番、source range / watermark、legacy ordering backfill policy を実装
 - [x] Reducer に ambiguous delta の explicit-authorization gate と resolution lineage の基礎を実装
 - [x] DeterministicDelta と dimension ごとの tracking coverage（complete / partial / unavailable）を保存
 - [x] SessionStore の Checkpoint 保存、stable operation ID、expected revision guard、AgentState 更新を atomic transaction 化
 - [x] comparison-only が AgentState revision を更新しないことを実装
-- [ ] Reducer の全 lifecycle invariant / compaction caller 接続 / end-to-end idempotency review を完了
-- [ ] Narrative Continuation と legacy summary の互換 projection を実装
-- [ ] schema validation failure 時の既存 fallback を接続
-- [ ] 基本 telemetry を追加
-- [x] 単体テストを追加・実行し、結果を検証記録に記載
+- [ ] Reducer の全 lifecycle invariant / compaction caller 接続 / process-restart idempotency review を完了
+- [x] Narrative Continuation を含む AgentState から bounded legacy summary projection を生成
+- [x] schema validation failure 時に一度だけrepairし、失敗時は legacy / deterministic fallback を接続
+- [x] opt-in structured compaction の success / fallback / latency telemetry を追加
+- [x] checkpoint 4 の生成・fallback・raw history 保持テストを追加・実行
 - [ ] 設計書の PR 1 範囲および関連 acceptance criteria をレビュー
 
 **完了条件:** AgentState が唯一の authoritative materialized current state であり、CompactionRecord が immutable な delta / evidence として扱われる。失敗時に Raw History が保持される。
@@ -104,8 +104,9 @@
 |---|---|---|---|
 | AgentState / reducer | `src/uagent/runtime/agent_state.py`: 既存 `AgentState` payload を維持し、`structured_compaction` namespace を authoritative AgentState row 内に materialize。`src/uagent/runtime/compaction_reducer.py`: multi-goal / ambiguous evidence / lifecycle / deterministic-delta reducer。 | 既存・新規 | Structured state は同じ AgentState row に保存。ambiguous Goal は既定で未適用。explicit-authorization を呼び出し側が渡す必要がある。 |
 | CompactionRecord / GoalDelta model | `src/uagent/runtime/compaction_record.py`: schema v1 immutable dataclasses、typed / scoped `SourceRef`、item-level provenance、source sequence range、DeterministicDelta tracking coverage。 | 新規 | model validation 済み。SessionStore はsession-indexに対する session-scoped SourceRef の存在 / kind / id / availability を保存時検証。cross-scope authorization と rehydration 再認可は未接続。 |
-| SessionStore / revision | `src/uagent/runtime/session_store.py`: `session_items` ordering index、`agent_states.revision` / `updated_by_client` migration、append-only `checkpoints`、atomic `commit_compaction_record()`、operation idempotency。 | 既存・拡張 | 旧 AgentState table を revision 0 で migrate。`save_agent_state()` は `expected_revision` 指定時に stale update を拒否し、structured namespace を常に Reducer 側から保持する（引数省略は既存互換）。comparison-only は checkpoint のみを保存。 |
-| Raw History / rolling summary | `src/uagent/core_impl/history.py`: `compress_history_with_llm()`, `shrink_messages()`, `_fix_tool_call_boundaries()`, `_tool_aware_tail_start()`。 | 既存 | `tests/test_shrink_llm.py`、session command / active context tests。Structured Compaction からは未接続。 |
+| SessionStore / revision | `src/uagent/runtime/session_store.py`: `session_items` ordering index、`agent_states.revision` / `updated_by_client` migration、append-only `checkpoints`、atomic `commit_compaction_record()`、operation idempotency、`list_indexed_messages()`。 | 既存・拡張 | 旧 AgentState table を revision 0 で migrate。`save_agent_state()` は `expected_revision` 指定時に stale update を拒否し、structured namespace を常に Reducer 側から保持する（引数省略は既存互換）。comparison-only は checkpoint のみを保存。 |
+| Structured generator / projection | `src/uagent/runtime/structured_compaction.py`: same-session exact source alignment、bounded generation prompt、one-shot repair、CompactionRecord validation / Reducer preflight、atomic commit、AgentState → legacy summary projection、best-effort telemetry。 | 新規 | `UAGENT_STRUCTURED_COMPACTION=1` の opt-in auto-shrink から呼ぶ。SourceRef は選択した message window 内のみ許可。Cross-scope authorization / general rehydration は未接続。 |
+| Raw History / rolling summary | `src/uagent/core_impl/history.py`: `compress_history_with_llm()`, `shrink_messages()`, `_fix_tool_call_boundaries()`, `_tool_aware_tail_start()`; `src/uagent/llm_message_helpers.py:_maybe_auto_shrink_messages()`。 | 既存・拡張 | opt-in structured auto-shrink は provider context 用 summary projection を返すが、SQLite Raw History / JSONL を置換しない。Generation / schema 失敗時は既存 rolling summary、これも失敗したら bounded deterministic excerpt fallback。feature flag 既定 OFF の既存経路は変更なし。 |
 | Tool call / result / logical turn | `session_store.py`: `record_tool_call()` / `list_tool_calls()`、`record_tool_result()` / `list_tool_results()`。Assistant payload / tool result / tool message の source order を索引化。 | 既存・拡張 | 新規 writes は atomic `exact` order。Legacy message linkage は `legacy_message_order`、関連付け不能な旧 call/result は `legacy_approximate` となり exact-range query は fallback する。 |
 | Artifact / bounded retrieval | `src/uagent/runtime/artifact_manager.py`, `tool_result_manager.py`, `tool_result_persistence.py`, `context_retrieval.py`。 | 既存 | artifact / retrieval tests あり。Checkpoint provenance / scoped `SourceRef` 接続は未実装。 |
 | ContextCandidate / Decision / Budget | `src/uagent/runtime/active_context.py`, `context_decision.py`, `context_budget.py`, `context_manager.py`。 | 既存 | Checkpoint candidate と application-status filter は未実装。 |
@@ -127,14 +128,14 @@
 | 6 | Tool Result を authorization-aware に Artifact から再取得できる | 未着手 | Runtime authorization-aware rehydration は未接続。 |
 | 7 | Checkpoint を ContextCandidate として扱い、source refs から rehydration できる | 未着手 | Context Runtime integration は PR 3。 |
 | 8 | provider / model を切り替えても provider-neutral checkpoint を利用できる | model 基礎実装 | record はprovider-neutral。Provider Projection 接続と matrix tests は未実施。 |
-| 9 | structured compaction 失敗時に Raw History を保持して fallback する | 未着手 | generator / legacy summary fallback の接続はcheckpoint 4。 |
+| 9 | structured compaction 失敗時に Raw History を保持して fallback する | checkpoint 4 基礎実装 | opt-in auto-shrink は Raw History / JSONL を置換しない。構造化生成またはvalidation失敗時はlegacy rolling summary、それも失敗時はbounded deterministic excerptsへfallback。`tests/test_structured_compaction_generation.py`。 |
 | 10 | Sub-Agent handoff で provenance / scope semantics を再利用する | 未着手 | PR 4。 |
 | 11 | CLI / GUI / Browser tab を共通の Client Instance model で扱う | 未着手 | PR 5。 |
 | 12 | stale `base_revision` を検出し silent overwrite しない | checkpoint 3 基礎実装 | `commit_compaction_record()` の expected revision guard / conflict test。multi-client response は未実装。 |
 | 13 | revision conflict 後に最新状態を取得し、安全に再評価できる | 未着手 | reload / semantic rebase は PR 5。 |
 | 14 | crash 後に最後の committed revision から二重適用なしで resume できる | atomicity / retry 基礎実装 | checkpoint / AgentState / operation ID を同一 transaction 化し retry test。process-restart integration は未実施。 |
 | 15 | retrieval / rehydration 時に現在の authorization を再評価する | 未着手 | Authorization resolver と rehydration は未接続。 |
-| 16 | compaction / fallback / client / revision / conflict を telemetry で追跡できる | 未着手 | telemetry 未実装。 |
+| 16 | compaction / fallback / client / revision / conflict を telemetry で追跡できる | checkpoint 4 基礎実装 | opt-in generator の outcome / fallback reason / source count / duration を内容を含めず記録。Client-wide / revision-conflict telemetry は未実装。 |
 
 ## 7. 検証記録
 
@@ -150,6 +151,7 @@
 | 2026-10-08 | PR 1 checkpoint 3 | `pytest -q tests/test_compaction_persistence.py` | 成功（15 passed） | atomic checkpoint/state commit、revision conflict、comparison-only、idempotency、ambiguous resolution、duplicate-title guard、decision/constraint lineage、legacy migration / source validation |
 | 2026-10-08 | PR 1 checkpoint 3 回帰 | `pytest -q tests/test_session_store.py`, `pytest -q tests/test_agent_state_store.py` | 成功（28 / 1 passed） | revised save semantics と既存 SessionStore / AgentState persistence |
 | 2026-10-08 | PR 1 checkpoint 1〜3 static | Ruff check、`python_compile`（6 files）、Black `--check`（6 files） | 成功 | 新規・変更Python 6ファイル。 |
+| 2026-10-08 | PR 1 checkpoint 4 targeted | `pytest -q tests/test_structured_compaction_generation.py`, `tests/test_shrink_llm.py`, `tests/test_compaction_persistence.py`, `tests/test_session_store.py`, `tests/test_session_item_index.py` | 成功（12 / 22 / 17 / 28 / 6 passed） | Fake OpenAI-compatible client tests cover exact source alignment, repair once, raw-history retention, deterministic fallback, idempotent retry, and revision conflict. `py_compile` 5 files, Ruff, Black `--check`, and Markdown format check passed. Live provider matrix is pending. |
 
 ### Provider Matrix
 
@@ -158,7 +160,7 @@
 | OpenAI Responses | 未実施 | 未実施 | |
 | Anthropic | 未実施 | 未実施 | |
 | Gemini | 未実施 | 未実施 | |
-| OpenAI-compatible local provider | 未実施 | 未実施 | |
+| OpenAI-compatible local provider | Fake client unit path only | Fake client validation / fallback tests | Real provider connectivity / model matrix not verified. |
 
 ## 8. 判断・課題ログ
 
@@ -173,6 +175,7 @@
 | 2026-10-08 | 実装判断（checkpoint 3） | Structured current state は別の current-state table にせず、AgentState JSON 内の `structured_compaction` namespace に materialize する。 | AgentState を唯一の current-state 正本に保ち、legacy save は呼び出し側の指定にかかわらず reducer-owned namespace を維持する。 | 採用 |
 | 2026-10-08 | 実装判断（checkpoint 3） | `new` Goal のIDは session / operation / delta ID から deterministic UUID5 で発行し、ambiguous delta は unresolved evidence に留める。 | operation retry の安定性を確保し、類似度だけによる自動 merge / 適用を避ける。既存 Goal と normalized exact-title duplicate は新規作成を拒否する。explicit resolution は trusted caller の authorization IDs を要求する。 | 採用。確認 UI / caller 未接続 |
 | 2026-10-08 | 実装判断（checkpoint 3） | SessionStore の commit API で session-scoped SourceRef を ordered index と照合し、Checkpoint row / session item / AgentState revision を一 transaction にする。 | ID / kind / scope / availability の不一致を拒否し、部分 commit と参照先 tombstone 利用を防ぐ。cross-scope authorization resolver は別段階。 | 採用 |
+| 2026-10-08 | 実装判断（checkpoint 4） | Structured compaction は `UAGENT_STRUCTURED_COMPACTION=1` の opt-in auto-shrink に限定し、既定は OFF。SourceRef と入力メッセージの厳密な一致が証明できなければ、structured commit を行わず既存 summary path へ fallback。 | Early rollout で従来挙動を保ち、誤った provenance / stale history replacement を防ぐ。structured success と fallback の双方で durable Raw History / JSONL を置換しない。 | 採用（cross-scope rehydration は後続） |
 | 2026-10-08 | 検証 | 明示確認後に Black で model / test を整形し、`--check` を再実行。 | 整形が反映され、checkpoint 1 の format gate を通過。 | 解決済み |
 
 ## 9. 作業セッション記録
@@ -187,6 +190,7 @@
 | 2026-10-08 | PR 1 checkpoint 1 として provider-neutral な record dataclasses / validation と単体テストを追加。AgentState / SessionStore / history compression は変更なし。 | `src/uagent/runtime/compaction_record.py`, `tests/test_compaction_record.py`, `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` | 初回10 tests、checkpoint 2 後12 tests。関連 regression tests 成功。 | checkpoint 1 を完了し、typed SourceRef / session_seq の設計実装へ進む。 |
 | 2026-10-08 | PR 1 checkpoint 2 として typed SourceRef / tracking coverage / session_items / watermark / legacy backfill / tombstone を追加。圧縮・AgentState 更新には未接続。 | `src/uagent/runtime/compaction_record.py`, `src/uagent/runtime/session_store.py`, `tests/test_compaction_record.py`, `tests/test_session_item_index.py`, design / implementation docs | checkpoint tests 18 passed、checkpoint 2 時点の related regression tests 134 passed、Ruff / py_compile 成功。 | checkpoint 2 完了後、checkpoint 3 の atomic persistence / revision / Reducer を実装。 |
 | 2026-10-08 | PR 1 checkpoint 3 として revision migration、Checkpoint table、session-scoped SourceRef の index validation、atomic commit / reducer / idempotency を追加。 | `src/uagent/runtime/session_store.py`, `src/uagent/runtime/compaction_reducer.py`, `tests/test_compaction_persistence.py`, implementation docs | 新規 tests 15、SessionStore / AgentState regression 29 passed。source index regressions を含む既存関連 regression 134 passed。Ruff / py_compile / Black --check 成功。最終 diff review は継続。 | checkpoint 3 の diff review と broader regressions 後、checkpoint 4 の LLM / legacy summary path 接続へ進む。 |
+| 2026-10-08 | PR 1 checkpoint 4 の基礎接続。Opt-in structured generation / provenance validation / one-shot repair / reducer + atomic commit / bounded summary projection / legacy and deterministic fallback / metadata-only telemetry を auto-shrink に接続。Strict source alignment できない時は structured record を commit せず fallback。成功・fallbackとも SQLite Raw History と JSONL を置換しない。 | `src/uagent/runtime/structured_compaction.py`, `src/uagent/runtime/session_store.py`, `src/uagent/core_impl/history.py`, `src/uagent/llm_message_helpers.py`, `tests/test_structured_compaction_generation.py`, implementation docs | structured generation 12, shrink 22, persistence 17, SessionStore 28, session index 6 passed; `py_compile` passed 5 files; Ruff, Black `--check`, and Markdown format check passed. Live provider matrix and cross-scope authorization/re-hydration review remain pending. | Complete cross-scope source authorization / rehydration, live provider matrix, and process-restart / full lifecycle review before marking PR 1 complete. Keep feature flag OFF by default; do not start PR 2 boundary changes. |
 
 ## 10. 設計書の明確化・再レビュー（2026-10-08）
 
