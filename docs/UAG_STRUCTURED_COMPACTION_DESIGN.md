@@ -371,7 +371,7 @@ Checkpoint は append-only / immutable を原則とし、同じ Checkpoint を�
 
 新規 Structured Compaction record の validation では、`applied` に `base_revision`、`source_start_seq`、`source_end_seq` を必須とし、commit 成功時は `committed_revision=base_revision+1` とする。base revision が現在 head と一致しない場合は Checkpoint を適用 commit せず conflict を返す。`comparison_only` は過去 snapshot に対応する base revision / source range を必須とし、`committed_revision=null` とする。これらの sequence が未設定の legacy data は structured path の入力にしない。
 
-`SourceRef` は Runtime が source item から構築する型付き・scope 付きの opaque reference である。LLM はプロンプトに渡された許可済み ref だけを選択でき、任意の ID / URI / path を発明できない。Runtime は保存前と Rehydration 時の両方で参照の存在・scope・現在の authorization を検証する。削除・無効化済み ref は取得対象から除外し、影響を受ける項目は有効な provenance が残らない限り確定情報として投影しない。
+`SourceRef` は Runtime が source item から構築する型付き・scope 付きの opaque reference である。LLM はプロンプトに渡された許可済み ref だけを選択でき、任意の ID / URI / path を発明できない。`message` / `event` / `tool_call` / `tool_result` / `execution` / `checkpoint` / `handoff` / `subagent` 等の session-scoped ref は `session_seq` を必須とし、workspace 等に属する global `artifact` ref のみ `session_seq=null` を許容する。`ref_id` は resource の stable ID であり、ファイルパスや任意 URL そのものを格納しない。Runtime は保存前と Rehydration 時の両方で参照の存在・scope・現在の authorization を検証する。削除・無効化済み ref は取得対象から除外し、影響を受ける項目は有効な provenance が残らない限り確定情報として投影しない。
 
 `session_seq` は各 Session の永続化された source item（message、tool call/result、runtime event、および session に紐づく artifact / handoff event）へ SessionStore が単調増加で割り当てる順序番号である。Compaction は固定済みの inclusive range `[source_start_seq, source_end_seq]` を処理し、`source_end_seq` を snapshot watermark とする。圧縮開始後に追加されたより大きな seq は当該 record に含めない。legacy record に seq を安全に backfill できない場合は structured path を使わず、既存 fallback を使う。
 
@@ -1201,10 +1201,12 @@ agent_states
 
 session_items           # ordering index; not a full Event Sourcing log
   session_id
-  session_seq            # monotonic, allocated in the append transaction
+  session_seq            # monotonic, allocated in the source append transaction
   item_kind              # message / tool_call / tool_result / runtime_event / execution / artifact_link / checkpoint / handoff / subagent_result
-  item_id                # stable ID in the owning table
-  UNIQUE(session_id, session_seq)
+  item_id                # stable ID in the source record or message payload
+  ordering_quality       # exact / legacy_message_order / legacy_approximate
+  availability           # available / unavailable; unavailable rows remain as tombstones
+  PRIMARY KEY(session_id, session_seq)
   UNIQUE(session_id, item_kind, item_id)
 
 checkpoints             # new
@@ -1225,7 +1227,11 @@ checkpoints             # new
   created_at
 ```
 
-`session_items` は既存 raw tables の item ID と順序を結ぶ index であり、全操作を複製する Event Sourcing log ではない。新規 source item の row と `session_seq` の割当は同一 append transaction で行う。既存履歴は正本となる Session serialization / persisted ordering から一度だけ backfill し、安定した順序を復元できない区間は structured compaction 対象外として既存 fallback を使う。`source_end_seq` は compaction 開始時に固定し、対象 source snapshot の上限として扱う。
+`session_items` は既存 raw tables / message payload の ID と順序を結ぶ index であり、全操作を複製する Event Sourcing log ではない。新規 source row と sequence index は同一 SQLite transaction で append する。Sequence は per-session で単調増加し、削除・置換・retention 後も index row を物理削除せず `availability=unavailable` の tombstone として残すため、sequence を再利用しない。
+
+既存履歴の backfill は message の `message_id` 順と、assistant message 内の tool call / 対応 tool message に結び付けられる tool result から行い、その順序を `legacy_message_order` とする。メッセージ構造に結び付けられず timestamp / rowid からしか並べられない tool call / tool result は `legacy_approximate` とする。`list_session_items()` の既定動作はそのような範囲を拒否し、呼び出し元は従来の rolling-summary fallback を使う。後から参照元を失った source row は `availability=unavailable` とし、含む範囲を rehydrate しない。
+
+新規 append では message、assistant payload 内の tool call、tool result、tool response message を観測順に記録する。runtime が観測した追加イベントは `record_session_item()` を通して同じ sequence に登録する。Compaction は開始時に watermark `source_end_seq` を固定し、inclusive range `[source_start_seq, source_end_seq]` のみを処理する。
 
 PR 1 の必須永続化契約は、Checkpoint と AgentState を一貫させる SessionStore transaction、stable `operation_id` の uniqueness、applied 更新時の expected `base_revision` 条件である。これがないと Reducer 適用途中の crash / retry で二重適用または silent overwrite が起こる。PR 5 はこの基礎を再実装せず、Client Instance の provenance、複数 Client の conflict 応答、最新状態の reload / semantic rebase、end-to-end recovery と multi-client 検証を追加する。
 

@@ -20,6 +20,8 @@ from typing import Any
 
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import mask_args
+from .compaction_record import CompactionRecord, CompactionValidationError
+from .compaction_reducer import CompactionReductionError, reduce_compaction_record
 from .tool_result_persistence import (
     sanitize_binary_payload,
     sanitize_message_for_history,
@@ -30,8 +32,28 @@ class SessionStoreError(RuntimeError):
     """Raised when session persistence cannot complete safely."""
 
 
+class SessionRevisionConflict(SessionStoreError):
+    """Raised when an expected AgentState revision is no longer current."""
+
+
 _SQLITE_LOCK_RETRIES = 3
 _SQLITE_LOCK_RETRY_DELAY = 0.25
+_SESSION_ITEM_KINDS = {
+    "message",
+    "tool_call",
+    "tool_result",
+    "runtime_event",
+    "execution",
+    "artifact_link",
+    "checkpoint",
+    "handoff",
+    "subagent_result",
+}
+_SESSION_ITEM_ORDERING_QUALITIES = {
+    "exact",
+    "legacy_message_order",
+    "legacy_approximate",
+}
 
 
 def _utc_now() -> str:
@@ -319,6 +341,20 @@ class SessionStore:
                     payload_json TEXT,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
                 );
+                CREATE TABLE IF NOT EXISTS session_items (
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    session_seq INTEGER NOT NULL CHECK(session_seq > 0),
+                    item_kind TEXT NOT NULL,
+                    item_id TEXT NOT NULL,
+                    ordering_quality TEXT NOT NULL CHECK(ordering_quality IN (
+                        'exact', 'legacy_message_order', 'legacy_approximate'
+                    )),
+                    availability TEXT NOT NULL DEFAULT 'available' CHECK(availability IN (
+                        'available', 'unavailable'
+                    )),
+                    PRIMARY KEY(session_id, session_seq),
+                    UNIQUE(session_id, item_kind, item_id)
+                );
                 CREATE TABLE IF NOT EXISTS portable_sessions (
                     session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
                     metadata_json TEXT NOT NULL
@@ -374,7 +410,32 @@ class SessionStore:
                 CREATE TABLE IF NOT EXISTS agent_states (
                     session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
                     state_json TEXT NOT NULL,
-                    updated_at TEXT NOT NULL
+                    updated_at TEXT NOT NULL,
+                    revision INTEGER NOT NULL DEFAULT 0,
+                    updated_by_client TEXT
+                );
+                CREATE TABLE IF NOT EXISTS checkpoints (
+                    checkpoint_id TEXT PRIMARY KEY,
+                    operation_id TEXT NOT NULL UNIQUE,
+                    application_status TEXT NOT NULL CHECK(application_status IN (
+                        'applied', 'comparison_only'
+                    )),
+                    actor_kind TEXT NOT NULL,
+                    actor_id TEXT NOT NULL,
+                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    base_revision INTEGER NOT NULL CHECK(base_revision >= 0),
+                    result_revision INTEGER,
+                    source_start_seq INTEGER NOT NULL CHECK(source_start_seq > 0),
+                    source_end_seq INTEGER NOT NULL CHECK(source_end_seq >= source_start_seq),
+                    schema_version INTEGER NOT NULL,
+                    parent_checkpoint_id TEXT REFERENCES checkpoints(checkpoint_id),
+                    record_json TEXT NOT NULL,
+                    created_by_client TEXT,
+                    created_at TEXT NOT NULL,
+                    CHECK(
+                        (application_status = 'applied' AND result_revision = base_revision + 1)
+                        OR (application_status = 'comparison_only' AND result_revision IS NULL)
+                    )
                 );
                 CREATE TABLE IF NOT EXISTS policy_decisions (
                     decision_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -411,6 +472,8 @@ class SessionStore:
                     ON sessions(project, created_at DESC);
                 CREATE INDEX IF NOT EXISTS idx_messages_session_id
                     ON messages(session_id, message_id);
+                CREATE INDEX IF NOT EXISTS idx_session_items_kind_seq
+                    ON session_items(session_id, item_kind, session_seq);
                 CREATE INDEX IF NOT EXISTS idx_response_states_session_id
                     ON response_states(session_id, state_id);
                 CREATE INDEX IF NOT EXISTS idx_tool_context_states_session_id
@@ -488,6 +551,23 @@ class SessionStore:
                 self._connection.execute(
                     "ALTER TABLE tool_results ADD COLUMN metadata_json TEXT NOT NULL DEFAULT '{}'"
                 )
+            agent_state_columns = {
+                row["name"]
+                for row in self._connection.execute("PRAGMA table_info(agent_states)")
+            }
+            if "revision" not in agent_state_columns:
+                self._connection.execute(
+                    "ALTER TABLE agent_states ADD COLUMN revision INTEGER NOT NULL DEFAULT 0"
+                )
+            if "updated_by_client" not in agent_state_columns:
+                self._connection.execute(
+                    "ALTER TABLE agent_states ADD COLUMN updated_by_client TEXT"
+                )
+            self._connection.execute(
+                "CREATE INDEX IF NOT EXISTS idx_checkpoints_session_created "
+                "ON checkpoints(session_id, created_at, checkpoint_id)"
+            )
+            self._backfill_session_items()
         except sqlite3.Error as exc:
             raise SessionStoreError(
                 f"could not initialize session store: {exc}"
@@ -529,6 +609,271 @@ class SessionStore:
         ).fetchone()
         if row is None:
             raise SessionStoreError(f"unknown session: {session_id}")
+
+    def _record_session_item_unlocked(
+        self,
+        session_id: str,
+        item_kind: str,
+        item_id: str,
+        *,
+        ordering_quality: str = "exact",
+        session_seq: int | None = None,
+    ) -> int:
+        """Index one source item while the caller owns a write transaction."""
+        self._require_session(session_id)
+        kind = str(item_kind or "").strip()
+        stable_id = str(item_id or "").strip()
+        if kind not in _SESSION_ITEM_KINDS:
+            raise ValueError(f"invalid session item kind: {kind}")
+        if not stable_id:
+            raise ValueError("session item ID is empty")
+        if ordering_quality not in _SESSION_ITEM_ORDERING_QUALITIES:
+            raise ValueError(
+                f"invalid session item ordering quality: {ordering_quality}"
+            )
+
+        existing = self._execute(
+            "SELECT session_seq, availability FROM session_items "
+            "WHERE session_id = ? AND item_kind = ? AND item_id = ?",
+            (session_id, kind, stable_id),
+        ).fetchone()
+        if existing is not None:
+            if existing["availability"] != "available":
+                raise SessionStoreError("unavailable session item IDs cannot be reused")
+            return int(existing["session_seq"])
+
+        if session_seq is None:
+            row = self._execute(
+                "SELECT COALESCE(MAX(session_seq), 0) + 1 AS next_seq "
+                "FROM session_items WHERE session_id = ?",
+                (session_id,),
+            ).fetchone()
+            session_seq = int(row["next_seq"])
+        elif (
+            isinstance(session_seq, bool)
+            or not isinstance(session_seq, int)
+            or session_seq <= 0
+        ):
+            raise ValueError("session_seq must be a positive integer")
+
+        self._execute(
+            "INSERT INTO session_items(session_id, session_seq, item_kind, item_id, "
+            "ordering_quality, availability) VALUES (?, ?, ?, ?, ?, 'available')",
+            (session_id, session_seq, kind, stable_id, ordering_quality),
+        )
+        return session_seq
+
+    def _backfill_session_items(self) -> None:
+        """Backfill stable message order and conservatively mark unlinked rows."""
+        sessions = self._connection.execute(
+            "SELECT s.session_id FROM sessions s WHERE "
+            "EXISTS (SELECT 1 FROM messages m WHERE m.session_id = s.session_id "
+            "AND NOT EXISTS (SELECT 1 FROM session_items i WHERE "
+            "i.session_id = m.session_id AND i.item_kind = 'message' "
+            "AND i.item_id = CAST(m.message_id AS TEXT))) OR "
+            "EXISTS (SELECT 1 FROM tool_calls t WHERE t.session_id = s.session_id "
+            "AND NOT EXISTS (SELECT 1 FROM session_items i WHERE "
+            "i.session_id = t.session_id AND i.item_kind = 'tool_call' "
+            "AND i.item_id = t.call_id)) OR "
+            "EXISTS (SELECT 1 FROM tool_results r WHERE r.session_id = s.session_id "
+            "AND NOT EXISTS (SELECT 1 FROM session_items i WHERE "
+            "i.session_id = r.session_id AND i.item_kind = 'tool_result' "
+            "AND i.item_id = r.result_id)) ORDER BY s.session_id"
+        ).fetchall()
+        for session_row in sessions:
+            session_id = str(session_row["session_id"])
+            self._connection.execute("BEGIN IMMEDIATE")
+            try:
+                max_row = self._execute(
+                    "SELECT COALESCE(MAX(session_seq), 0) AS max_seq "
+                    "FROM session_items WHERE session_id = ?",
+                    (session_id,),
+                ).fetchone()
+                next_seq = int(max_row["max_seq"]) + 1
+
+                def index_legacy(kind: str, item_id: str, quality: str) -> None:
+                    nonlocal next_seq
+                    exists = self._execute(
+                        "SELECT 1 FROM session_items "
+                        "WHERE session_id = ? AND item_kind = ? AND item_id = ?",
+                        (session_id, kind, item_id),
+                    ).fetchone()
+                    if exists is not None:
+                        return
+                    self._record_session_item_unlocked(
+                        session_id,
+                        kind,
+                        item_id,
+                        ordering_quality=quality,
+                        session_seq=next_seq,
+                    )
+                    next_seq += 1
+
+                result_rows = self._execute(
+                    "SELECT result_id, metadata_json, created_at FROM tool_results "
+                    "WHERE session_id = ? ORDER BY created_at, result_id",
+                    (session_id,),
+                ).fetchall()
+                results_by_call: dict[str, list[str]] = {}
+                for result_row in result_rows:
+                    try:
+                        metadata = json.loads(result_row["metadata_json"] or "{}")
+                    except (TypeError, ValueError):
+                        metadata = {}
+                    call_id = (
+                        str(metadata.get("tool_call_id") or "")
+                        if isinstance(metadata, dict)
+                        else ""
+                    )
+                    if call_id:
+                        results_by_call.setdefault(call_id, []).append(
+                            str(result_row["result_id"])
+                        )
+
+                indexed_results: set[str] = set()
+                message_rows = self._execute(
+                    "SELECT message_id, role, payload_json FROM messages "
+                    "WHERE session_id = ? ORDER BY message_id",
+                    (session_id,),
+                ).fetchall()
+                for message_row in message_rows:
+                    role = str(message_row["role"] or "")
+                    try:
+                        payload = json.loads(message_row["payload_json"] or "{}")
+                    except (TypeError, ValueError):
+                        payload = {}
+                    if not isinstance(payload, dict):
+                        payload = {}
+
+                    if role == "tool":
+                        call_id = str(payload.get("tool_call_id") or "")
+                        for result_id in results_by_call.get(call_id, []):
+                            index_legacy(
+                                "tool_result", result_id, "legacy_message_order"
+                            )
+                            indexed_results.add(result_id)
+
+                    index_legacy(
+                        "message",
+                        str(message_row["message_id"]),
+                        "legacy_message_order",
+                    )
+
+                    if role == "assistant":
+                        for raw_call in payload.get("tool_calls") or []:
+                            if not isinstance(raw_call, dict):
+                                continue
+                            call_id, _name, _args = normalize_tool_call(raw_call)
+                            if call_id:
+                                index_legacy(
+                                    "tool_call", call_id, "legacy_message_order"
+                                )
+
+                call_rows = self._execute(
+                    "SELECT call_id FROM tool_calls WHERE session_id = ? "
+                    "ORDER BY created_at, rowid",
+                    (session_id,),
+                ).fetchall()
+                for call_row in call_rows:
+                    index_legacy(
+                        "tool_call", str(call_row["call_id"]), "legacy_approximate"
+                    )
+                for result_row in result_rows:
+                    result_id = str(result_row["result_id"])
+                    if result_id not in indexed_results:
+                        index_legacy("tool_result", result_id, "legacy_approximate")
+
+                self._connection.execute("COMMIT")
+            except Exception:
+                try:
+                    self._connection.execute("ROLLBACK")
+                except sqlite3.Error:
+                    pass
+                raise
+
+    @_db_locked
+    def record_session_item(self, session_id: str, item_kind: str, item_id: str) -> int:
+        """Append a runtime-observed source item to the ordered session index."""
+        self._require_session(session_id)
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            session_seq = self._record_session_item_unlocked(
+                session_id, item_kind, item_id
+            )
+            self._connection.execute("COMMIT")
+            return session_seq
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
+
+    @_db_locked
+    def get_session_item_watermark(self, session_id: str) -> int:
+        """Return the highest allocated session_seq, or zero for an empty session."""
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT COALESCE(MAX(session_seq), 0) AS watermark "
+            "FROM session_items WHERE session_id = ?",
+            (session_id,),
+        ).fetchone()
+        return int(row["watermark"])
+
+    @_db_locked
+    def list_session_items(
+        self,
+        session_id: str,
+        *,
+        start_seq: int,
+        end_seq: int | None = None,
+        require_exact_order: bool = True,
+        require_available: bool = True,
+    ) -> list[dict[str, Any]]:
+        """List source-index metadata for an inclusive, fixed session range.
+
+        Callers should capture ``end_seq`` from ``get_session_item_watermark``
+        before building a compaction request. Legacy rows whose cross-table
+        order cannot be reconstructed, and source items that were replaced or
+        evicted, are rejected by default so callers can use the legacy fallback.
+        """
+        self._require_session(session_id)
+        if (
+            isinstance(start_seq, bool)
+            or not isinstance(start_seq, int)
+            or start_seq < 0
+        ):
+            raise ValueError("start_seq must be a non-negative integer")
+        watermark = self.get_session_item_watermark(session_id)
+        if end_seq is None:
+            end_seq = watermark
+        if isinstance(end_seq, bool) or not isinstance(end_seq, int) or end_seq < 0:
+            raise ValueError("end_seq must be a non-negative integer")
+        if end_seq > watermark:
+            raise SessionStoreError(
+                "source range exceeds the captured session watermark"
+            )
+        if end_seq < start_seq:
+            raise ValueError("end_seq must be greater than or equal to start_seq")
+
+        rows = self._execute(
+            "SELECT session_id, session_seq, item_kind, item_id, ordering_quality, "
+            "availability FROM session_items WHERE session_id = ? "
+            "AND session_seq BETWEEN ? AND ? ORDER BY session_seq",
+            (session_id, start_seq, end_seq),
+        ).fetchall()
+        items = [dict(row) for row in rows]
+        if require_exact_order and any(
+            item["ordering_quality"] == "legacy_approximate" for item in items
+        ):
+            raise SessionStoreError(
+                "source range contains legacy items with ambiguous ordering"
+            )
+        if require_available and any(
+            item["availability"] != "available" for item in items
+        ):
+            raise SessionStoreError("source range contains unavailable items")
+        return items
 
     @_db_locked
     def bind_identity_context(
@@ -694,6 +1039,26 @@ class SessionStore:
             "INSERT INTO message_search(content, session_id, message_id) VALUES (?, ?, ?)",
             (safe_content, session_id, message_id),
         )
+        self._record_session_item_unlocked(
+            session_id, "message", str(message_id), ordering_quality="exact"
+        )
+        if role == "assistant" and safe_payload:
+            try:
+                stored_payload = json.loads(safe_payload)
+            except (TypeError, ValueError):
+                stored_payload = {}
+            if isinstance(stored_payload, dict):
+                for raw_call in stored_payload.get("tool_calls") or []:
+                    if not isinstance(raw_call, dict):
+                        continue
+                    call_id, _name, _args = normalize_tool_call(raw_call)
+                    if call_id:
+                        self._record_session_item_unlocked(
+                            session_id,
+                            "tool_call",
+                            call_id,
+                            ordering_quality="exact",
+                        )
         return message_id
 
     @_db_locked
@@ -705,10 +1070,9 @@ class SessionStore:
         *,
         payload: dict[str, Any] | None = None,
     ) -> int:
-        # Keep the source row and FTS index in one transaction. Otherwise a
-        # lock/error between the two INSERTs could leave search inconsistent.
+        # Keep the source row, FTS index, and ordered source index atomic.
         try:
-            self._connection.execute("BEGIN")
+            self._connection.execute("BEGIN IMMEDIATE")
             message_id = self._append_message_unlocked(
                 session_id, role, content, payload=payload
             )
@@ -757,9 +1121,9 @@ class SessionStore:
         try:
             # Importing one message per autocommit transaction is extremely
             # expensive for large JSONL logs and exposes a partially imported
-            # session to other readers. Keep the whole import atomic while the
-            # shared connection lock prevents same-process interference.
-            self._connection.execute("BEGIN")
+            # session to other readers. Reserve the write lock before assigning
+            # source sequence numbers, and keep the import atomic.
+            self._connection.execute("BEGIN IMMEDIATE")
             with source.open("r", encoding="utf-8", errors="replace") as handle:
                 for line in handle:
                     try:
@@ -888,7 +1252,13 @@ class SessionStore:
         """Replace a session's message history while preserving its identity."""
         self._require_session(session_id)
         try:
-            self._connection.execute("BEGIN")
+            self._connection.execute("BEGIN IMMEDIATE")
+            self._execute(
+                "UPDATE session_items SET availability = 'unavailable' "
+                "WHERE session_id = ? AND item_kind = 'message' "
+                "AND availability = 'available'",
+                (session_id,),
+            )
             self._execute(
                 "DELETE FROM message_search WHERE session_id = ?", (session_id,)
             )
@@ -1025,28 +1395,52 @@ class SessionStore:
             raise SessionStoreError("tool result is not JSON serializable") from exc
         result_id = str(record.get("result_id") or uuid.uuid4().hex)
         created_at = str(record.get("created_at") or _utc_now())
-        self._execute(
-            "INSERT OR REPLACE INTO tool_results("
-            "result_id, session_id, task_id, tool_name, result_class, size_bytes, "
-            "summary, artifact_ref, importance, evictable, metadata_json, "
-            "persistent_json, created_at"
-            ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            (
-                result_id,
-                session_id,
-                str(record.get("task_id") or ""),
-                str(record.get("tool_name") or "tool"),
-                str(record.get("result_class") or "small"),
-                int(record.get("size_bytes") or 0),
-                _sanitize_text(str(record.get("summary") or "")),
-                _sanitize_text(str(record.get("artifact_ref") or "")),
-                str(record.get("importance") or "normal"),
-                1 if bool(record.get("evictable", True)) else 0,
-                metadata_json,
-                persistent_json,
-                created_at,
-            ),
-        )
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            existing = self._execute(
+                "SELECT session_id FROM tool_results WHERE result_id = ?",
+                (result_id,),
+            ).fetchone()
+            if existing is not None:
+                if str(existing["session_id"]) != session_id:
+                    raise SessionStoreError("tool result ID belongs to another session")
+                self._record_session_item_unlocked(
+                    session_id, "tool_result", result_id, ordering_quality="exact"
+                )
+                self._connection.execute("COMMIT")
+                return
+            self._execute(
+                "INSERT INTO tool_results("
+                "result_id, session_id, task_id, tool_name, result_class, size_bytes, "
+                "summary, artifact_ref, importance, evictable, metadata_json, "
+                "persistent_json, created_at"
+                ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    result_id,
+                    session_id,
+                    str(record.get("task_id") or ""),
+                    str(record.get("tool_name") or "tool"),
+                    str(record.get("result_class") or "small"),
+                    int(record.get("size_bytes") or 0),
+                    _sanitize_text(str(record.get("summary") or "")),
+                    _sanitize_text(str(record.get("artifact_ref") or "")),
+                    str(record.get("importance") or "normal"),
+                    1 if bool(record.get("evictable", True)) else 0,
+                    metadata_json,
+                    persistent_json,
+                    created_at,
+                ),
+            )
+            self._record_session_item_unlocked(
+                session_id, "tool_result", result_id, ordering_quality="exact"
+            )
+            self._connection.execute("COMMIT")
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
 
     @_db_locked
     def list_tool_results(
@@ -1096,38 +1490,126 @@ class SessionStore:
         if safe_max_rows == 0:
             return 0
         condition = "AND evictable = 1" if evictable_only else ""
-        rows = self._execute(
-            "SELECT result_id FROM tool_results WHERE session_id = ? "
-            f"{condition} ORDER BY created_at DESC LIMIT -1 OFFSET ?",
-            (session_id, safe_max_rows),
-        ).fetchall()
-        if not rows:
-            return 0
-        ids = [str(row["result_id"]) for row in rows]
-        placeholders = ",".join("?" for _ in ids)
-        self._execute(
-            f"DELETE FROM tool_results WHERE result_id IN ({placeholders})",
-            tuple(ids),
-        )
-        return len(ids)
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            rows = self._execute(
+                "SELECT result_id FROM tool_results WHERE session_id = ? "
+                f"{condition} ORDER BY created_at DESC LIMIT -1 OFFSET ?",
+                (session_id, safe_max_rows),
+            ).fetchall()
+            if not rows:
+                self._connection.execute("COMMIT")
+                return 0
+            ids = [str(row["result_id"]) for row in rows]
+            placeholders = ",".join("?" for _ in ids)
+            self._execute(
+                "UPDATE session_items SET availability = 'unavailable' "
+                "WHERE session_id = ? AND item_kind = 'tool_result' "
+                f"AND item_id IN ({placeholders})",
+                (session_id, *ids),
+            )
+            self._execute(
+                f"DELETE FROM tool_results WHERE result_id IN ({placeholders})",
+                tuple(ids),
+            )
+            self._connection.execute("COMMIT")
+            return len(ids)
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
 
     @_db_locked
-    def save_agent_state(self, session_id: str, state: dict[str, Any]) -> None:
-        """Persist the latest structured Agent State for a session."""
+    def save_agent_state(
+        self,
+        session_id: str,
+        state: dict[str, Any],
+        *,
+        expected_revision: int | None = None,
+        updated_by_client: str | None = None,
+    ) -> None:
+        """Persist an AgentState update and advance its revision.
+
+        ``expected_revision`` opts callers into optimistic concurrency. The
+        reducer-owned structured namespace is preserved; this API cannot forge
+        or erase that namespace.
+        """
         self._require_session(session_id)
-        try:
-            state_json = _safe_json_dumps(
-                _sanitize_value(state), ensure_ascii=False, sort_keys=True
-            )
-        except (TypeError, ValueError) as exc:
-            raise SessionStoreError("agent state is not JSON serializable") from exc
+        if not isinstance(state, dict):
+            raise SessionStoreError("agent state must be a JSON object")
+        if expected_revision is not None and (
+            isinstance(expected_revision, bool)
+            or not isinstance(expected_revision, int)
+            or expected_revision < 0
+        ):
+            raise ValueError("expected_revision must be a non-negative integer")
         updated_at = str(state.get("updated_at") or _utc_now())
-        self._execute(
-            "INSERT INTO agent_states(session_id, state_json, updated_at) VALUES (?, ?, ?) "
-            "ON CONFLICT(session_id) DO UPDATE SET state_json=excluded.state_json, "
-            "updated_at=excluded.updated_at",
-            (session_id, state_json, updated_at),
-        )
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            current = self._execute(
+                "SELECT state_json, revision FROM agent_states WHERE session_id = ?",
+                (session_id,),
+            ).fetchone()
+            value = dict(state)
+            value.pop("structured_compaction", None)
+            if current is not None:
+                try:
+                    previous = json.loads(current["state_json"])
+                except (TypeError, ValueError):
+                    previous = None
+                if isinstance(previous, dict) and "structured_compaction" in previous:
+                    value["structured_compaction"] = previous["structured_compaction"]
+            state_json = _safe_json_dumps(
+                _sanitize_value(value), ensure_ascii=False, sort_keys=True
+            )
+            current_revision = int(current["revision"]) if current is not None else 0
+            if expected_revision is not None and expected_revision != current_revision:
+                raise SessionRevisionConflict(
+                    f"expected AgentState revision {expected_revision}, found {current_revision}"
+                )
+            next_revision = current_revision + 1
+            if current is None:
+                self._execute(
+                    "INSERT INTO agent_states(session_id, state_json, updated_at, "
+                    "revision, updated_by_client) VALUES (?, ?, ?, ?, ?)",
+                    (
+                        session_id,
+                        state_json,
+                        updated_at,
+                        next_revision,
+                        updated_by_client,
+                    ),
+                )
+            else:
+                cursor = self._execute(
+                    "UPDATE agent_states SET state_json = ?, updated_at = ?, revision = ?, "
+                    "updated_by_client = ? WHERE session_id = ? AND revision = ?",
+                    (
+                        state_json,
+                        updated_at,
+                        next_revision,
+                        updated_by_client,
+                        session_id,
+                        current_revision,
+                    ),
+                )
+                if cursor.rowcount != 1:
+                    raise SessionRevisionConflict(
+                        "AgentState changed while saving legacy state"
+                    )
+            self._connection.execute("COMMIT")
+        except Exception as exc:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            if isinstance(exc, SessionStoreError):
+                raise
+            if isinstance(exc, (TypeError, ValueError)):
+                raise SessionStoreError("agent state is not JSON serializable") from exc
+            raise
 
     @_db_locked
     def get_agent_state(self, session_id: str) -> dict[str, Any] | None:
@@ -1144,6 +1626,278 @@ class SessionStore:
         except (TypeError, ValueError) as exc:
             raise SessionStoreError("stored agent state is invalid JSON") from exc
         return state if isinstance(state, dict) else None
+
+    @_db_locked
+    def get_agent_state_revision(self, session_id: str) -> int:
+        """Return the current revision (zero means no state row exists yet)."""
+        self._require_session(session_id)
+        row = self._execute(
+            "SELECT revision FROM agent_states WHERE session_id = ?", (session_id,)
+        ).fetchone()
+        return int(row["revision"]) if row is not None else 0
+
+    @_db_locked
+    def get_compaction_record(self, operation_id: str) -> dict[str, Any] | None:
+        """Load a committed compaction operation by its idempotency key."""
+        row = self._execute(
+            "SELECT checkpoint_id, operation_id, application_status, session_id, "
+            "base_revision, result_revision, record_json FROM checkpoints "
+            "WHERE operation_id = ?",
+            (str(operation_id),),
+        ).fetchone()
+        if row is None:
+            return None
+        result = dict(row)
+        try:
+            result["record"] = json.loads(result.pop("record_json"))
+        except (TypeError, ValueError) as exc:
+            raise SessionStoreError("stored CompactionRecord is invalid JSON") from exc
+        return result
+
+    @_db_locked
+    def commit_compaction_record(
+        self,
+        record: CompactionRecord,
+        *,
+        authorized_resolution_ids: tuple[str, ...] | list[str] = (),
+    ) -> dict[str, Any]:
+        """Atomically persist a checkpoint and, when applied, reduce AgentState.
+
+        A retry must reuse the same operation_id. Any conflict or reducer error
+        rolls back both the checkpoint and AgentState changes.
+        """
+        if not isinstance(record, CompactionRecord):
+            raise TypeError("record must be a CompactionRecord")
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            self._require_session(record.session_id)
+
+            committed_record = record
+            if record.application_status == "applied":
+                next_revision = record.base_revision + 1
+                if record.committed_revision not in (None, next_revision):
+                    raise SessionStoreError("record committed_revision is inconsistent")
+                if record.committed_revision is None:
+                    from dataclasses import replace
+
+                    committed_record = replace(record, committed_revision=next_revision)
+            normalized_json = committed_record.to_json()
+
+            # Check the idempotency key before inspecting mutable source/state:
+            # after a successful commit either may have advanced or been pruned.
+            existing = self._execute(
+                "SELECT session_id, record_json FROM checkpoints WHERE operation_id = ?",
+                (record.operation_id,),
+            ).fetchone()
+            if existing is not None:
+                if existing["session_id"] != record.session_id:
+                    raise SessionStoreError(
+                        "operation_id is already used by another session"
+                    )
+                if existing["record_json"] != normalized_json:
+                    raise SessionStoreError(
+                        "operation_id retry payload differs from committed record"
+                    )
+                self._connection.execute("COMMIT")
+                previous = self.get_compaction_record(record.operation_id)
+                assert previous is not None
+                previous["already_committed"] = True
+                return previous
+
+            if record.parent_checkpoint_id is not None:
+                parent = self._execute(
+                    "SELECT session_id FROM checkpoints WHERE checkpoint_id = ?",
+                    (record.parent_checkpoint_id,),
+                ).fetchone()
+                if parent is None or parent["session_id"] != record.session_id:
+                    raise SessionStoreError(
+                        "parent_checkpoint_id must identify a checkpoint in this session"
+                    )
+
+            source_items = self.list_session_items(
+                record.session_id,
+                start_seq=record.source_start_seq,
+                end_seq=record.source_end_seq,
+                require_exact_order=True,
+                require_available=True,
+            )
+            if len(source_items) != record.source_end_seq - record.source_start_seq + 1:
+                raise SessionStoreError("source range is incomplete")
+
+            source_kind_map = {
+                "message": "message",
+                "event": "runtime_event",
+                "tool_call": "tool_call",
+                "tool_result": "tool_result",
+                "execution": "execution",
+                "artifact": "artifact_link",
+                "checkpoint": "checkpoint",
+                "handoff": "handoff",
+                "subagent": "subagent_result",
+                "pending_operation": "runtime_event",
+            }
+
+            def validate_refs(value: Any) -> None:
+                if isinstance(value, dict):
+                    if {"kind", "ref_id", "scope_id", "session_seq"}.issubset(value):
+                        sequence = value["session_seq"]
+                        if sequence is not None:
+                            if value["scope_id"] != record.session_id:
+                                raise SessionStoreError(
+                                    "session-sequenced SourceRef has a foreign scope"
+                                )
+                            source = self._execute(
+                                "SELECT item_kind, item_id, ordering_quality, availability "
+                                "FROM session_items WHERE session_id = ? AND session_seq = ?",
+                                (record.session_id, sequence),
+                            ).fetchone()
+                            if (
+                                source is None
+                                or source["item_kind"]
+                                != source_kind_map.get(value["kind"])
+                                or source["item_id"] != value["ref_id"]
+                                or source["availability"] != "available"
+                                or source["ordering_quality"] == "legacy_approximate"
+                            ):
+                                raise SessionStoreError(
+                                    "SourceRef does not resolve to an available indexed source"
+                                )
+                    for child in value.values():
+                        validate_refs(child)
+                elif isinstance(value, (list, tuple)):
+                    for child in value:
+                        validate_refs(child)
+
+            validate_refs(record.to_dict())
+
+            current_row = self._execute(
+                "SELECT state_json, revision FROM agent_states WHERE session_id = ?",
+                (record.session_id,),
+            ).fetchone()
+            current_revision = int(current_row["revision"]) if current_row else 0
+            if record.base_revision != current_revision:
+                raise SessionRevisionConflict(
+                    f"expected AgentState revision {record.base_revision}, found {current_revision}"
+                )
+
+            state_json = ""
+            updated_at = ""
+            if record.application_status == "applied":
+                prior_state: dict[str, Any] | None = None
+                if current_row is not None:
+                    try:
+                        prior_state = json.loads(current_row["state_json"])
+                    except (TypeError, ValueError) as exc:
+                        raise SessionStoreError(
+                            "stored AgentState is invalid JSON"
+                        ) from exc
+                    if not isinstance(prior_state, dict):
+                        raise SessionStoreError("stored AgentState is not an object")
+                next_state = reduce_compaction_record(
+                    prior_state,
+                    committed_record,
+                    authorized_resolution_ids=authorized_resolution_ids,
+                )
+                updated_at = _utc_now()
+                next_state["updated_at"] = updated_at
+                state_json = _safe_json_dumps(
+                    _sanitize_value(next_state), ensure_ascii=False, sort_keys=True
+                )
+                result_revision: int | None = record.base_revision + 1
+            else:
+                if current_row is None:
+                    raise SessionRevisionConflict(
+                        "comparison_only requires a matching saved AgentState snapshot"
+                    )
+                result_revision = None
+
+            client_id = committed_record.client_instance_id
+            self._execute(
+                "INSERT INTO checkpoints(checkpoint_id, operation_id, application_status, "
+                "actor_kind, actor_id, session_id, base_revision, result_revision, "
+                "source_start_seq, source_end_seq, schema_version, parent_checkpoint_id, "
+                "record_json, created_by_client, created_at) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                (
+                    committed_record.record_id,
+                    committed_record.operation_id,
+                    committed_record.application_status,
+                    committed_record.actor_kind,
+                    committed_record.actor_id,
+                    committed_record.session_id,
+                    committed_record.base_revision,
+                    result_revision,
+                    committed_record.source_start_seq,
+                    committed_record.source_end_seq,
+                    committed_record.schema_version,
+                    committed_record.parent_checkpoint_id,
+                    normalized_json,
+                    client_id,
+                    committed_record.created_at,
+                ),
+            )
+            self._record_session_item_unlocked(
+                record.session_id, "checkpoint", committed_record.record_id
+            )
+            if record.application_status == "applied":
+                if current_row is None:
+                    if record.base_revision != 0:
+                        raise SessionRevisionConflict(
+                            "AgentState row is absent for nonzero base revision"
+                        )
+                    self._execute(
+                        "INSERT INTO agent_states(session_id, state_json, updated_at, "
+                        "revision, updated_by_client) VALUES (?, ?, ?, ?, ?)",
+                        (
+                            record.session_id,
+                            state_json,
+                            updated_at,
+                            result_revision,
+                            client_id,
+                        ),
+                    )
+                else:
+                    cursor = self._execute(
+                        "UPDATE agent_states SET state_json = ?, updated_at = ?, revision = ?, "
+                        "updated_by_client = ? WHERE session_id = ? AND revision = ?",
+                        (
+                            state_json,
+                            updated_at,
+                            result_revision,
+                            client_id,
+                            record.session_id,
+                            record.base_revision,
+                        ),
+                    )
+                    if cursor.rowcount != 1:
+                        raise SessionRevisionConflict(
+                            "AgentState revision changed during checkpoint commit"
+                        )
+            self._connection.execute("COMMIT")
+            return {
+                "checkpoint_id": committed_record.record_id,
+                "operation_id": committed_record.operation_id,
+                "application_status": committed_record.application_status,
+                "session_id": committed_record.session_id,
+                "base_revision": committed_record.base_revision,
+                "result_revision": result_revision,
+                "record": committed_record.to_dict(),
+                "already_committed": False,
+            }
+        except Exception as exc:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            if isinstance(exc, SessionStoreError):
+                raise
+            if isinstance(exc, (CompactionValidationError, CompactionReductionError)):
+                raise SessionStoreError(
+                    f"could not reduce CompactionRecord: {exc}"
+                ) from exc
+            if isinstance(exc, sqlite3.IntegrityError):
+                raise SessionStoreError(f"checkpoint constraint failed: {exc}") from exc
+            raise
 
     @_db_locked
     def get_tool_result(self, session_id: str, result_id: str) -> dict[str, Any] | None:
@@ -1384,16 +2138,41 @@ class SessionStore:
                 _sanitize_text(result if isinstance(result, str) else str(result or ""))
             )
         )
-        existing = self._execute(
-            "SELECT call_id FROM tool_calls WHERE call_id = ?", (call_id,)
-        ).fetchone()
-        if existing is not None:
-            return str(existing["call_id"])
-        self._execute(
-            "INSERT INTO tool_calls(call_id, session_id, tool_name, args_json, result, status) VALUES (?, ?, ?, ?, ?, ?)",
-            (call_id, session_id, tool_name, args_json, safe_result, status),
-        )
-        return call_id
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            existing = self._execute(
+                "SELECT call_id, session_id FROM tool_calls WHERE call_id = ?",
+                (call_id,),
+            ).fetchone()
+            if existing is not None:
+                if str(existing["session_id"]) != session_id:
+                    raise SessionStoreError("tool call ID belongs to another session")
+                self._record_session_item_unlocked(
+                    session_id,
+                    "tool_call",
+                    call_id,
+                    ordering_quality="legacy_approximate",
+                )
+                self._connection.execute("COMMIT")
+                return str(existing["call_id"])
+            self._execute(
+                "INSERT INTO tool_calls(call_id, session_id, tool_name, args_json, result, status) VALUES (?, ?, ?, ?, ?, ?)",
+                (call_id, session_id, tool_name, args_json, safe_result, status),
+            )
+            self._record_session_item_unlocked(
+                session_id,
+                "tool_call",
+                call_id,
+                ordering_quality="legacy_approximate",
+            )
+            self._connection.execute("COMMIT")
+            return call_id
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
 
     @_db_locked
     def list_tool_calls(self, session_id: str) -> list[dict[str, Any]]:
