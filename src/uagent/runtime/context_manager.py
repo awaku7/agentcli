@@ -528,12 +528,21 @@ class ContextManager:
                         decisions=[
                             decision
                             for decision in checkpoint_active.decisions
-                            if decision.reference
+                            if decision.action in ("KEEP", "COMPACT")
                             and any(
-                                decision.reference in item
-                                for item in checkpoint_active.sections.get(
-                                    "history", []
+                                (decision.reference and decision.reference in item)
+                                or (
+                                    decision.action == "COMPACT"
+                                    and any(
+                                        candidate.item_id == decision.item_id
+                                        and bool(str(candidate.content))
+                                        and item.startswith(
+                                            str(candidate.content)[: min(16, len(item))]
+                                        )
+                                        for candidate in candidates
+                                    )
                                 )
+                                for item in checkpoint_active.sections.get("history", [])
                             )
                         ],
                     )
