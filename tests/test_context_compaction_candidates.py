@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from uagent.runtime.active_context import ActiveContext
+from uagent.runtime.context_budget import ContextBudget
 from uagent.runtime.compaction_record import (
     CompactionRecord,
     GoalDelta,
@@ -122,13 +123,13 @@ def test_checkpoint_candidates_are_scored_injected_and_deduplicated(tmp_path):
 
         assert isinstance(active, ActiveContext)
         assert len(messages) == 2
-        checkpoint_system = next(
+        checkpoint_message = next(
             message
             for message in active.messages
-            if message.get("role") == "system"
+            if message.get("role") == "assistant"
             and "Relevant persisted checkpoint context" in str(message.get("content"))
         )
-        injected = checkpoint_system["content"]
+        injected = checkpoint_message["content"]
         assert f"checkpoint://{first_id}" in injected
         assert f"checkpoint://{second_id}" in injected
         assert "Database migration completed" in injected
@@ -235,3 +236,50 @@ def test_checkpoint_store_failure_leaves_message_context_usable():
 
     assert active.messages == messages
     assert active.decisions == []
+
+def test_checkpoint_data_is_not_promoted_to_system_role(tmp_path):
+    with SessionStore(tmp_path / "checkpoint-trust.sqlite3") as store:
+        session_id, _first_id, _second_id = _seed_checkpoints(store)
+        manager = ContextManager(policy=ContextPolicy(budget_enabled=False))
+        active = manager.build_message_context(
+            [
+                {"role": "system", "content": "Trusted system instruction"},
+                {"role": "user", "content": "database migration"},
+            ],
+            session_store=store,
+            session_id=session_id,
+        )
+        checkpoint_messages = [
+            message
+            for message in active.messages
+            if "Relevant persisted checkpoint context" in str(
+                message.get("content") or ""
+            )
+        ]
+        assert checkpoint_messages
+        assert all(message["role"] != "system" for message in checkpoint_messages)
+        assert "untrusted quoted data" in checkpoint_messages[0]["content"]
+
+
+def test_checkpoint_evicted_by_message_budget_is_not_reported(tmp_path):
+    with SessionStore(tmp_path / "checkpoint-budget.sqlite3") as store:
+        session_id, _first_id, _second_id = _seed_checkpoints(store)
+        manager = ContextManager(policy=ContextPolicy(budget_enabled=False))
+        messages = [
+            {"role": "system", "content": "Trusted system instruction"},
+            {"role": "user", "content": "database migration"},
+        ]
+        active = manager.build_message_context(
+            messages,
+            session_store=store,
+            session_id=session_id,
+            budget=ContextBudget(total_chars=90, history_chars=90),
+        )
+        assert not any(
+            "Relevant persisted checkpoint context" in str(
+                message.get("content") or ""
+            )
+            for message in active.messages
+        )
+        assert active.decisions == []
+        assert not active.sections.get("history")
