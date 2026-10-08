@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import nullcontext
 import json
 from types import SimpleNamespace
 
@@ -133,6 +134,34 @@ def test_structured_generation_commits_checkpoint_and_projects_agent_state(
         assert retry.status == "applied"
         assert retry.reason == "idempotent_retry"
         assert store.get_agent_state_revision(session_id) == 1
+
+
+def test_retry_after_store_reopen_does_not_regenerate_or_reapply(tmp_path):
+    db_path = tmp_path / "restart.sqlite3"
+    with SessionStore(db_path) as store:
+        session_id, source_ref = _seed(store)
+        initial = _attempt(
+            store,
+            session_id,
+            lambda _prompt: _response(source_ref),
+        )
+        assert initial.status == "applied"
+        committed_state = store.get_agent_state(session_id)
+        operation_id = committed_state["structured_compaction"]["applied_operations"][0]
+
+    with SessionStore(db_path) as restarted_store:
+        retry = _attempt(
+            restarted_store,
+            session_id,
+            lambda _prompt: (_ for _ in ()).throw(
+                AssertionError("committed operation must be loaded, not regenerated")
+            ),
+        )
+        assert retry.status == "applied"
+        assert retry.reason == "idempotent_retry"
+        assert restarted_store.get_agent_state(session_id) == committed_state
+        assert restarted_store.get_agent_state_revision(session_id) == 1
+        assert restarted_store.get_compaction_record(operation_id) is not None
 
 
 def test_structured_generation_repairs_invalid_json_once(tmp_path):
@@ -378,6 +407,98 @@ def test_legacy_fallback_in_structured_mode_does_not_rewrite_raw_messages(
         assert store.get_agent_state(session.session_id) is None
 
 
+def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+    monkeypatch.setattr(
+        "uagent.providers.util_providers.detect_provider", lambda: "openai"
+    )
+    monkeypatch.setattr(
+        history, "_history_summary_chunk_token_budget", lambda *_args: 10_000
+    )
+    monkeypatch.setattr(
+        history, "_estimate_history_summary_tokens", lambda *_args, **_kwargs: 1
+    )
+
+    messages = [{"role": "system", "content": "SYSTEM_PROMPT"}]
+    for index in range(6):
+        messages.extend(
+            [
+                {"role": "user", "content": f"user-{index}"},
+                {"role": "assistant", "content": f"assistant-{index}"},
+            ]
+        )
+
+    class FakeCompletions:
+        def __init__(self, response):
+            self.response = response
+            self.calls = []
+
+        def create(self, **kwargs):
+            self.calls.append(kwargs)
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(message=SimpleNamespace(content=self.response))
+                ]
+            )
+
+    with SessionStore(tmp_path / "auto-shrink.sqlite3") as store:
+        session = store.create_session(project="structured", entry_point="test")
+        for message in messages[1:]:
+            store.append_message(
+                session.session_id,
+                message["role"],
+                message["content"],
+                payload=message,
+            )
+        first_source = store.list_indexed_messages(session.session_id)[0]
+        source_ref = {
+            "kind": "message",
+            "ref_id": first_source["ref_id"],
+            "scope_id": session.session_id,
+            "session_seq": first_source["session_seq"],
+        }
+        client = SimpleNamespace(
+            chat=SimpleNamespace(completions=FakeCompletions(_response(source_ref)))
+        )
+        core_obj = SimpleNamespace(
+            compress_history_with_llm=history.compress_history_with_llm,
+            session_store=store,
+            session_id=session.session_id,
+            rewrite_current_log_from_messages=lambda _messages: pytest.fail(
+                "structured auto-shrink must preserve the raw JSONL log"
+            ),
+        )
+
+        lmh._maybe_auto_shrink_messages(
+            provider="openai",
+            client=client,
+            depname="gpt-test",
+            messages=messages,
+            core=core_obj,
+            cache_mgr=SimpleNamespace(clear_cache=lambda _client: None),
+            gemini_cache_name=None,
+            call_maybe_thread_fn=lambda fn: fn(),
+            use_responses_api=False,
+        )
+
+        assert client.chat.completions.calls
+        assert any(
+            "Ship durable structured compaction" in item["content"]
+            for item in messages
+            if item["role"] == "system"
+        )
+        assert store.get_agent_state_revision(session.session_id) == 1
+        assert len(store.list_messages(session.session_id)) == 12
+        assert all(
+            item["availability"] == "available"
+            for item in store.list_indexed_messages(session.session_id)
+        )
+        assert store.get_session_summary(session.session_id)
+
+
 def test_structured_auto_shrink_flag_off_keeps_legacy_path(monkeypatch):
     monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "0")
     monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
@@ -553,6 +674,58 @@ def test_existing_goal_decision_supersession_uses_only_known_ids(tmp_path):
             for key, item in decisions.items()
             if key != "decision-old"
         )
+
+
+def test_compaction_telemetry_records_outcome_without_source_content(
+    monkeypatch, tmp_path
+):
+    class FakeSpan:
+        def __init__(self):
+            self.attributes = {}
+            self.events = []
+            self.status = None
+
+        def set_attribute(self, key, value):
+            self.attributes[key] = value
+
+        def add_event(self, name, attributes=None):
+            self.events.append((name, attributes or {}))
+
+        def set_status(self, status, description=None):
+            self.status = status
+
+    span = FakeSpan()
+    telemetry = {"events": [], "counters": [], "histograms": []}
+    backend = SimpleNamespace(
+        start_span=lambda *_args, **_kwargs: nullcontext(span),
+        record_event=lambda name, attrs=None: telemetry["events"].append(
+            (name, attrs or {})
+        ),
+        record_counter=lambda *args: telemetry["counters"].append(args),
+        record_histogram=lambda *args: telemetry["histograms"].append(args),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.observability.bootstrap.get_observability_backend",
+        lambda: backend,
+    )
+
+    with SessionStore(tmp_path / "telemetry.sqlite3") as store:
+        session_id, _source_ref = _seed(store)
+        outcome = attempt_structured_compaction(
+            store=store,
+            session_id=session_id,
+            source_messages=[{"role": "user", "content": "private source text"}],
+            provider="openai",
+            model="test-model",
+            locale="en",
+            generate_text=lambda _prompt: pytest.fail("alignment should fail first"),
+        )
+
+    assert outcome.status == "fallback"
+    assert span.attributes["uag.compaction.outcome"] == "fallback"
+    serialized = repr((span.attributes, span.events, telemetry))
+    assert "private source text" not in serialized
+    assert "source_content" not in serialized
 
 
 def test_deterministic_fallback_is_used_when_both_llm_paths_fail(monkeypatch, tmp_path):
