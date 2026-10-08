@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add first-class Perplexity Router support through OpenAI-compatible Chat Completions and stateless Responses APIs.
+
+### Changed
+
+- Raise the minimum `llmcapa` version to `0.5.59`; support manual thinking budgets for Claude Haiku 4.5 and adaptive effort control for 5.5.
+- Use `llmcapa` decision capabilities to validate supported question kinds and answer fields across OpenAI, OpenRouter, and TypeSafe; honor calibrated-confidence metadata and accept score answers without an optional legend.
+
 ## [0.7.26] - 2026-10-07
 
 ### Added
