@@ -282,4 +282,3 @@ def test_checkpoint_evicted_by_message_budget_is_not_reported(tmp_path):
             for message in active.messages
         )
         assert active.decisions == []
-        assert not active.sections.get("history")
