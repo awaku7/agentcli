@@ -91,6 +91,7 @@ def _clear_memo():
     [
         ("claude-fable-5", True),
         ("claude-fable-5-1", True),
+        ("claude-haiku-4-5", False),
         ("claude-sonnet-5", True),
         ("claude-sonnet-4-5", False),
         ("claude-3-7-sonnet", False),
@@ -130,6 +131,21 @@ def test_fable5_sends_adaptive_first_request(capsys):
     assert "temperature" not in req
 
 
+def test_haiku_5_5_uses_llmcapa_effort_and_adaptive_thinking():
+    model = "claude-haiku-5-5"
+    assert _claude_requires_adaptive_thinking(model) is True
+    out_cfg = build_claude_output_config_for_effort(model, "xhigh")
+    assert out_cfg == {"effort": "max"}
+
+    client = FakeClient([Block("text", text="ok")], reject_enabled=True)
+    text, _ = claude_chat_with_tools(client, model, MSGS, output_config=out_cfg)
+    assert text == "ok"
+    assert len(client.messages.calls) == 1
+    req = client.messages.calls[0]
+    assert req["thinking"] == {"type": "adaptive"}
+    assert req["output_config"] == {"effort": "max"}
+
+
 def test_legacy_modern_model_sends_enabled_budget():
     # "claude-opus-4-5" matches the is_modern_claude regex (claude-[4-9])
     # and is not detected as adaptive -> legacy enabled+budget path.
@@ -148,19 +164,19 @@ def test_legacy_modern_model_sends_enabled_budget():
     assert "output_config" not in req
 
 
-def test_non_effort_model_omits_output_config():
-    # Claude Sonnet 4.5 does not advertise effort support in llmcapa.
+@pytest.mark.parametrize("model", ["claude-sonnet-4-5", "claude-haiku-4-5"])
+def test_manual_budget_models_use_enabled_thinking(model):
+    # These models expose budget_tokens rather than adaptive output_config.effort.
     client = FakeClient([Block("text", text="ok")])
-    out_cfg = build_claude_output_config_for_effort("claude-sonnet-4-5", "high")
-    assert out_cfg is None
+    out_cfg = build_claude_output_config_for_effort(model, "high")
+    assert out_cfg == {"effort": "high"}
 
-    text, _ = claude_chat_with_tools(
-        client, "claude-sonnet-4-5", MSGS, output_config=out_cfg
-    )
+    text, _ = claude_chat_with_tools(client, model, MSGS, output_config=out_cfg)
     assert text == "ok"
     assert len(client.messages.calls) == 1
     req = client.messages.calls[0]
-    assert "thinking" not in req
+    assert req["thinking"]["type"] == "enabled"
+    assert req["thinking"]["budget_tokens"] >= 1024
     assert "output_config" not in req
 
 

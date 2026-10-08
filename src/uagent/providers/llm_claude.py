@@ -128,8 +128,10 @@ def _claude_supports_effort(model_name: str) -> bool:
     - Claude Opus 4.6
     - Claude Sonnet 4.6
     - Claude Opus 4.5
+    - Claude Haiku 5.5
 
-    We treat Opus 4.5+ and Sonnet 4.6+ as supported to be forward-compatible.
+    Prefer llmcapa's model-specific capability data; the family/version checks
+    below are conservative fallbacks for catalogs that do not provide it.
     """
     try:
         from uagent.llmcapa_util import get_capability, current_provider
@@ -159,33 +161,56 @@ def _claude_supports_effort(model_name: str) -> bool:
     return False
 
 
+def _claude_supports_manual_thinking_budget(model_name: str) -> bool:
+    """Whether a non-adaptive Claude model supports budget-based thinking."""
+    if _claude_requires_adaptive_thinking(model_name):
+        return False
+    try:
+        from uagent.llmcapa_util import current_provider, get_capability
+
+        cap = get_capability(model_name, current_provider() or "claude")
+        return bool(cap and getattr(cap, "supports_thinking_budget", False))
+    except Exception:
+        return False
+
+
 def build_claude_output_config_for_effort(
     model_name: str,
     effort: str | None,
 ) -> Optional[dict[str, Any]]:
-    """Map agentcli's internal effort levels to Claude output_config.effort.
+    """Convert UAG effort to an Anthropic effort or manual-budget hint.
 
-    agentcli internal: minimal|low|medium|high|xhigh
-    Claude docs:       low|medium|high|max
+    Adaptive-thinking models receive ``output_config.effort``. Models that
+    expose only ``thinking.budget_tokens`` receive an internal effort hint
+    that the request builder converts to ``thinking.type=enabled``.
 
-    Notes:
-      - Effort is supported by Claude Opus 4.6, Claude Sonnet 4.6, and Claude Opus 4.5.
-      - If the target model does not support effort, return None (omit output_config).
-
-    Mapping:
-      - minimal -> low
-      - low     -> low
-      - medium  -> medium
-      - high    -> high
-      - xhigh   -> max (only if Opus 4.6+; otherwise fallback to high)
+    UAG levels are minimal|low|medium|high|xhigh; Anthropic effort levels are
+    low|medium|high|max. llmcapa determines which controls the model supports.
     """
 
     e = (effort or "").strip().lower()
     if not e:
         return None
 
-    # If the model doesn't support effort, do not send output_config at all.
-    if not _claude_supports_effort(model_name):
+    supports_effort = _claude_supports_effort(model_name)
+    supports_manual_budget = (
+        not supports_effort and _claude_supports_manual_thinking_budget(model_name)
+    )
+
+    # Older models such as Claude Haiku 4.5 support manual thinking budgets,
+    # not output_config.effort. Return an internal effort hint; the request
+    # builder translates it to thinking.type=enabled + budget_tokens.
+    if supports_manual_budget:
+        if e in ("minimal", "low"):
+            return {"effort": "low"}
+        if e == "medium":
+            return {"effort": "medium"}
+        if e in ("high", "xhigh", "max"):
+            return {"effort": "high"}
+        return None
+
+    # If the model supports neither effort nor manual budget thinking, omit it.
+    if not supports_effort:
         return None
 
     try:
@@ -555,14 +580,16 @@ def claude_chat_with_tools(
         except ValueError:
             pass
 
-    # If model is Claude 3.7+ or Claude 4+ or Fable 5+, treat it as a modern Claude model.
-    # Matches "3-7", "3.7", "3-8", "3.8", "3-9", "3.9", "claude-4", "fable", "claude-5", etc.
+    # Parse both family-first IDs (claude-haiku-4-5) and version-first IDs
+    # (claude-3-7-sonnet) so modern-model behavior applies to every family.
+    model_family, major, minor = _parse_claude_model(model_name)
     is_modern_claude = bool(
-        re.search(r"3[\.-][7-9]", model_name)
+        (major is not None and major >= 4)
+        or (major == 3 and minor is not None and minor >= 7)
+        or re.search(r"3[\.-][7-9]", model_name)
         or re.search(r"claude-[4-9]", model_name)
-        or re.search(r"(?:opus|sonnet)-4[\.-][5-9]", model_name)
+        or model_family == "fable"
         or "fable" in model_name.lower()
-        or "claude-5" in model_name.lower()
     )
 
     # Resolve max_tokens (dynamic based on environment variable or model/thinking)
@@ -666,18 +693,23 @@ def claude_chat_with_tools(
         except Exception:
             pass
     elif out_cfg is not None:
-        req_kwargs["output_config"] = out_cfg
-        try:
-            eff = None
-            if isinstance(out_cfg, dict):
-                eff = out_cfg.get("effort")
-            msg = f"[Claude] using output_config.effort: {eff or out_cfg}"
-            if callable(on_output_config_info):
-                on_output_config_info(msg)
-            else:
-                print(msg)
-        except Exception:
-            pass
+        # In the legacy budget path, "effort" is only an internal hint and
+        # must never be sent as output_config.effort. Keep any independent
+        # output_config fields (for example, structured-output format).
+        direct_out_cfg = out_cfg
+        if is_modern_claude and not use_adaptive_thinking:
+            direct_out_cfg = {k: v for k, v in out_cfg.items() if k != "effort"}
+        if direct_out_cfg:
+            req_kwargs["output_config"] = direct_out_cfg
+            try:
+                eff = direct_out_cfg.get("effort")
+                msg = f"[Claude] using output_config.effort: {eff or direct_out_cfg}"
+                if callable(on_output_config_info):
+                    on_output_config_info(msg)
+                else:
+                    print(msg)
+            except Exception:
+                pass
 
     try:
         response = client.messages.create(**req_kwargs)

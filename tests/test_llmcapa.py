@@ -55,6 +55,7 @@ class TestLlmcapaModelSpecs:
         ("o3-mini", "openai", 100000, 100000, False, True),
         ("claude-sonnet-4", "anthropic", 200000, 32000, True, True),
         ("claude-haiku-4-5", "anthropic", 200000, 64000, True, True),
+        ("claude-haiku-5-5", "anthropic", 1000000, 128000, True, True),
         ("gemini-2.0-flash", "google", 1000000, 8192, True, True),
         ("gemini-2.5-flash", "google", 1000000, 65535, True, True),
         ("gemini-2.5-pro", "google", 1000000, 65536, True, True),
@@ -106,6 +107,24 @@ class TestLlmcapaModelSpecs:
             errors.append("expected function_calling=False but got True")
 
         assert not errors, f"{model_id} ({provider}): {'; '.join(errors)}"
+
+    def test_claude_haiku_4_5_uses_thinking_budget(self) -> None:
+        cap = llmcapa.get("claude-haiku-4-5", provider="anthropic")
+        assert cap is not None
+        assert cap.supports_reasoning_effort is False
+        assert cap.supports_thinking_budget is True
+
+    def test_claude_haiku_5_5_reasoning_effort(self) -> None:
+        cap = llmcapa.get("claude-haiku-5-5", provider="anthropic")
+        assert cap is not None
+        assert cap.supports_reasoning_effort is True
+        assert set(cap.get_reasoning_effort_values()) >= {
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+        }
 
 
 class TestLlmcapaCountTokens:
