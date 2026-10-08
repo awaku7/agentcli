@@ -596,23 +596,27 @@ registry design compatible with adding it later.
 
 ## Relationship to `llmcapa`
 
-`llmcapa` remains the capability-information source for LLM/provider features.
-The decision-provider layer performs runtime decisions.
+`llmcapa` is the capability-information source for LLM/provider features,
+including documented typed-decision support. The TypeSafe, OpenRouter, and
+OpenAI adapters use the model-scoped `decision` record to reject requests that
+contradict documented question kinds or required answer fields, and to preserve
+the model's calibrated-confidence metadata. Unknown/custom models remain
+usable; lack of a catalog record is not treated as proof of incompatibility.
 
-These concerns should remain separate:
+The decision-provider layer still owns runtime decisions. The concerns remain
+separate:
 
 ```text
 llmcapa
-    -> What can this LLM/provider/model do?
+    -> What can this LLM/provider/model do, and what typed answers does it document?
 
-Decision provider (TypeSafe/OpenRouter/Laya)
+Decision provider (TypeSafe/OpenRouter/OpenAI/Laya)
     -> What decision should UAG make for this input/question?
 ```
 
-A future policy may use both inputs, for example using a decision model to select
-an execution tier and `llmcapa` to filter that tier to models that actually
-support the required tools or modalities. That does not require coupling their
-registries.
+A policy may use both inputs, for example using a decision model to select an
+execution tier and `llmcapa` to filter that tier to models that actually support
+the required tools or modalities. This does not require merging their registries.
 
 ## Startup and banner behavior
 

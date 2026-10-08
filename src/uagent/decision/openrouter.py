@@ -13,6 +13,7 @@ import httpx
 from ..auth.credential_store import get_default_credential_store
 from ..auth.provider_credentials import get_provider_api_key
 from ..providers.util_providers import make_httpx_client
+from .capabilities import validate_model_decision_request
 from .models import DecisionAnswer, DecisionRequest, DecisionResult
 from .settings import DecisionSettings
 from .typesafe import (
@@ -100,9 +101,16 @@ def _translate_questions(request: DecisionRequest) -> dict[str, dict[str, Any]]:
         ) from exc
 
 
-def _translate_result_answer(question: Any, payload: Any) -> DecisionAnswer:
+def _translate_result_answer(
+    question: Any,
+    payload: Any,
+    *,
+    calibrated_confidence: bool | None = None,
+) -> DecisionAnswer:
     try:
-        return _translate_answer(question, payload)
+        return _translate_answer(
+            question, payload, calibrated_confidence=calibrated_confidence
+        )
     except TypeSafeDecisionError as exc:
         raise OpenRouterDecisionError(
             str(exc).replace("TypeSafe", "OpenRouter")
@@ -158,6 +166,28 @@ class OpenRouterDecisionProvider:
             raise OpenRouterDecisionError(
                 "Decision request contains duplicate question ids."
             )
+
+        decision_capability = validate_model_decision_request(
+            provider="openrouter",
+            model=self._config.model,
+            request=request,
+            question_kinds={
+                "boolean": "noul",
+                "choice": "choice",
+                "score": "score",
+            },
+            required_answer_fields={
+                "boolean": ("noul",),
+                "choice": ("choice", "probabilities", "confidence"),
+                "score": ("score", "probabilities", "confidence"),
+            },
+            error_type=OpenRouterDecisionError,
+        )
+        calibrated_confidence = (
+            getattr(decision_capability, "calibrated_confidence", None)
+            if decision_capability is not None
+            else None
+        )
 
         payload = {
             "state": request.state,
@@ -218,6 +248,7 @@ class OpenRouterDecisionProvider:
             answers[question.id] = _translate_result_answer(
                 question,
                 raw_answers[question.id],
+                calibrated_confidence=calibrated_confidence,
             )
 
         latency_ms = (time.perf_counter() - started) * 1000.0

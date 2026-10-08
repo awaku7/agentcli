@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
 import httpx
 import pytest
 
@@ -106,7 +107,24 @@ def test_typesafe_requires_api_key_only_when_adapter_is_created():
         )
 
 
-def test_typesafe_adapter_translates_all_common_question_kinds():
+def test_typesafe_adapter_translates_all_common_question_kinds(monkeypatch):
+    monkeypatch.setattr(
+        "uagent.decision.capabilities.get_capability",
+        lambda *_args, **_kwargs: SimpleNamespace(
+            decision=SimpleNamespace(
+                decision=True,
+                question_kinds=("noul", "choice", "score"),
+                answer_fields=(
+                    "noul",
+                    "choice",
+                    "score",
+                    "probabilities",
+                    "confidence",
+                ),
+                calibrated_confidence=True,
+            )
+        ),
+    )
     response = FakeResponse(
         {
             "model": "jev-1.13.0",
@@ -128,11 +146,6 @@ def test_typesafe_adapter_translates_all_common_question_kinds():
                     "type": "score",
                     "score": 1.4,
                     "confidence": 0.72,
-                    "legend": {
-                        "0": "low",
-                        "1": "medium",
-                        "2": "high",
-                    },
                     "probabilities": {
                         "0": 0.1,
                         "1": 0.4,
@@ -210,7 +223,8 @@ def test_typesafe_adapter_translates_all_common_question_kinds():
 
     assert result.answers["risk"].value == pytest.approx(1.4)
     assert result.answers["risk"].confidence == pytest.approx(0.72)
-    assert result.answers["risk"].metadata["legend"]["2"] == "high"
+    assert result.answers["risk"].calibrated is True
+    assert "legend" not in result.answers["risk"].metadata
 
     assert len(client.calls) == 1
     call = client.calls[0]

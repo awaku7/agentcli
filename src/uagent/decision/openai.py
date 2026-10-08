@@ -14,6 +14,7 @@ import httpx
 from ..auth.credential_store import get_default_credential_store
 from ..auth.provider_credentials import get_provider_api_key
 from ..providers.util_providers import make_httpx_client
+from .capabilities import validate_model_decision_request
 from .models import (
     DecisionAnswer,
     DecisionKind,
@@ -396,6 +397,23 @@ class OpenAIDecisionProvider:
             raise OpenAIDecisionError(
                 "Decision request contains duplicate question ids."
             )
+
+        validate_model_decision_request(
+            provider="openai",
+            model=self._config.model,
+            request=request,
+            question_kinds={
+                "boolean": "predicate",
+                "choice": "choice",
+                "score": "score",
+            },
+            required_answer_fields={
+                "boolean": ("probability",),
+                "choice": ("choice",),
+                "score": ("score",),
+            },
+            error_type=OpenAIDecisionError,
+        )
 
         payload = {
             "model": self._config.model,

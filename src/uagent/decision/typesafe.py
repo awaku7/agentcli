@@ -15,6 +15,7 @@ from ..auth.credential_store import get_default_credential_store
 from ..auth.provider_credentials import get_provider_api_key
 from ..providers.util_providers import make_httpx_client
 from ..utils.secret_mask import _mask_inline_secrets
+from .capabilities import validate_model_decision_request
 from .models import (
     DecisionAnswer,
     DecisionKind,
@@ -204,6 +205,8 @@ def _translate_question(question: DecisionQuestion) -> dict[str, Any]:
 def _translate_answer(
     question: DecisionQuestion,
     payload: Any,
+    *,
+    calibrated_confidence: bool | None = None,
 ) -> DecisionAnswer:
     if not isinstance(payload, Mapping):
         raise TypeSafeDecisionError(
@@ -235,7 +238,7 @@ def _translate_answer(
         return DecisionAnswer(
             value=value,
             confidence=confidence,
-            calibrated=True,
+            calibrated=True if calibrated_confidence is None else calibrated_confidence,
             metadata={
                 "type": "noul",
                 "probability_true": probability_true,
@@ -285,7 +288,7 @@ def _translate_answer(
         return DecisionAnswer(
             value=value,
             confidence=answer_probability,
-            calibrated=True,
+            calibrated=True if calibrated_confidence is None else calibrated_confidence,
             metadata={
                 "type": "choice",
                 "probabilities": dict(probabilities),
@@ -313,21 +316,26 @@ def _translate_answer(
         )
     probabilities = payload.get("probabilities")
     legend = payload.get("legend")
-    if not isinstance(probabilities, Mapping) or not isinstance(legend, Mapping):
+    if not isinstance(probabilities, Mapping):
         raise TypeSafeDecisionError(
-            f"TypeSafe score answer for '{question.id}' is missing "
-            "probabilities/legend."
+            f"TypeSafe score answer for '{question.id}' is missing probabilities."
         )
+    if legend is not None and not isinstance(legend, Mapping):
+        raise TypeSafeDecisionError(
+            f"TypeSafe score answer for '{question.id}' has an invalid legend."
+        )
+    metadata = {
+        "type": "score",
+        "probabilities": dict(probabilities),
+        "provider_confidence": confidence,
+    }
+    if isinstance(legend, Mapping):
+        metadata["legend"] = dict(legend)
     return DecisionAnswer(
         value=score,
         confidence=confidence,
-        calibrated=False,
-        metadata={
-            "type": "score",
-            "probabilities": dict(probabilities),
-            "legend": dict(legend),
-            "provider_confidence": confidence,
-        },
+        calibrated=False if calibrated_confidence is None else calibrated_confidence,
+        metadata=metadata,
     )
 
 
@@ -380,6 +388,27 @@ class TypeSafeDecisionProvider:
             raise TypeSafeDecisionError(
                 "Decision request contains duplicate question ids."
             )
+        decision_capability = validate_model_decision_request(
+            provider="typesafe",
+            model=self._config.model,
+            request=request,
+            question_kinds={
+                "boolean": "noul",
+                "choice": "choice",
+                "score": "score",
+            },
+            required_answer_fields={
+                "boolean": ("noul",),
+                "choice": ("choice", "probabilities", "confidence"),
+                "score": ("score", "probabilities", "confidence"),
+            },
+            error_type=TypeSafeDecisionError,
+        )
+        calibrated_confidence = (
+            getattr(decision_capability, "calibrated_confidence", None)
+            if decision_capability is not None
+            else None
+        )
         questions = {
             question.id: _translate_question(question) for question in request.questions
         }
@@ -440,6 +469,11 @@ class TypeSafeDecisionProvider:
             answers[question.id] = _translate_answer(
                 question,
                 raw_answers[question.id],
+                calibrated_confidence=(
+                    bool(calibrated_confidence)
+                    if calibrated_confidence is not None
+                    else None
+                ),
             )
 
         latency_ms = (time.perf_counter() - started) * 1000.0
