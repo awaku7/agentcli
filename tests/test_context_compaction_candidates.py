@@ -252,9 +252,8 @@ def test_checkpoint_data_is_not_promoted_to_system_role(tmp_path):
         checkpoint_messages = [
             message
             for message in active.messages
-            if "Relevant persisted checkpoint context" in str(
-                message.get("content") or ""
-            )
+            if "Relevant persisted checkpoint context"
+            in str(message.get("content") or "")
         ]
         assert checkpoint_messages
         assert all(message["role"] != "system" for message in checkpoint_messages)
@@ -276,9 +275,7 @@ def test_checkpoint_evicted_by_message_budget_is_not_reported(tmp_path):
             budget=ContextBudget(total_chars=90),
         )
         assert not any(
-            "Relevant persisted checkpoint context" in str(
-                message.get("content") or ""
-            )
+            "Relevant persisted checkpoint context" in str(message.get("content") or "")
             for message in active.messages
         )
         assert active.decisions == []
