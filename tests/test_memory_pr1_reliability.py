@@ -9,8 +9,11 @@ def test_add_long_memory_reports_save_failure(monkeypatch) -> None:
 
     result = run_tool({"note": "must not be reported as saved"})
 
-    assert "error" in result.lower()
-    assert "saved" not in result.lower()
+    # The diagnostic is localized, but the tool name and failure-vs-success
+    # distinction are stable across languages.
+    assert result.startswith("[add_long_memory")
+    assert result != "[add_long_memory] saved"
+    assert "must not be reported as saved" not in result
 
 
 def test_long_memory_formatter_prefers_note_and_recent_records() -> None:

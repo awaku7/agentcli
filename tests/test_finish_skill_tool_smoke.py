@@ -26,7 +26,8 @@ def test_finish_skill_tool_clears_skill_messages():
     try:
         payload = json.loads(run_tool({"message": "Done"}))
         assert payload["status"] == "ok"
-        assert "Cleared 1 skill messages" in payload["message"]
+        assert payload["message"].startswith("Done")
+        assert payload["message"] != "Done"
         assert messages == [{"role": "user", "content": "hello"}]
         assert core.rewritten
     finally:

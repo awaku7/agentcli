@@ -260,10 +260,13 @@ def test_trusted_mcp_sdk_list_uses_paginated_params_meta(monkeypatch) -> None:
     assert result == {"tools": []}
     params = seen["params"]
     assert params is not None
-    assert params.meta == {
-        "traceparent": _TRACEPARENT,
-        "tracestate": "uag=test",
-    }
+    meta = params.meta
+    if hasattr(meta, "model_dump"):
+        meta = meta.model_dump(exclude_none=True, by_alias=True)
+    elif not isinstance(meta, dict):
+        meta = vars(meta)
+    assert meta["traceparent"] == _TRACEPARENT
+    assert meta["tracestate"] == "uag=test"
 
 
 def test_trusted_mcp_sdk_call_keeps_legacy_sdk_compatible(monkeypatch) -> None:

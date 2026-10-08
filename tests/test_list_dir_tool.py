@@ -16,7 +16,7 @@ def test_list_dir_tool_uses_cwd(
 
     out = list_dir_tool.run_tool({})
 
-    assert "Path: " in out
+    assert str(tmp_path) in out
     assert "[DIR] alpha/" in out
     assert "[FILE] beta.txt" in out
 

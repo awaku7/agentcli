@@ -5,7 +5,7 @@ import json
 from io import BytesIO
 from pathlib import Path
 
-import pycdlib
+import pytest
 
 from uagent.tools import disc_image_ops_tool as disc
 
@@ -15,6 +15,7 @@ def _rel(path: Path) -> str:
 
 
 def _make_iso(path: Path) -> None:
+    pycdlib = pytest.importorskip("pycdlib")
     iso = pycdlib.PyCdlib()
     iso.new(vol_ident="UAGTEST")
     payload = b"hello from iso\n"
