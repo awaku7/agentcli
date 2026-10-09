@@ -72,6 +72,9 @@ reservation; pending dispatches can still retry storage and free their slots.
 Structured work never consumes live Job inbox instructions. Additional input
 requires a newly captured, authorized dispatch; legacy Job inbox handling is
 unchanged.
+SQLite profile reconstruction excludes `sub-agent` sessions before reading
+messages or applying its log-count limit. Child objectives and generated
+findings must not become long-term user preferences injected into Main prompts.
 
 The tool schema does not accept `handoff_dispatch`. Existing host/tool/Job paths
 remain on the legacy path until their trusted policies explicitly opt in. Full

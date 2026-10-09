@@ -602,3 +602,87 @@ def test_failed_capture_removes_child_session_and_allows_clean_retry(
         assert len(store.list_sessions()) == 2
         assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
         assert store.get_agent_state_snapshot(session_id) == before
+
+
+@pytest.mark.parametrize("max_log_files", [None, 1])
+def test_profile_rebuild_excludes_child_sources_before_applying_log_limit(
+    tmp_path, monkeypatch, max_log_files
+):
+    from uagent import profile_manager
+    from uagent.providers import util_providers
+    from uagent.runtime import identity_context
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setattr(identity_context, "get_current_turn_context", lambda: None)
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        older = store.create_session(project="test", entry_point="gui")
+        store.append_message(older.session_id, "user", "OLDER HUMAN REQUEST")
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(
+            store, session_id, goal_id, ref, objective="SUBAGENT PROJECTED INPUT"
+        )
+        dispatch.record_result("SUBAGENT GENERATED RESULT")
+        inputs = []
+        saved = []
+
+        def extract(**kwargs):
+            inputs.append(kwargs["user_prompt"])
+            return json.dumps(
+                {
+                    "environment": {},
+                    "preferences": ["Keep answers concise"],
+                    "constraints": [],
+                }
+            )
+
+        monkeypatch.setattr(
+            util_providers, "make_client", lambda core: ("openai", object(), "test")
+        )
+        monkeypatch.setattr(profile_manager, "_llm_simple_text", extract)
+        monkeypatch.setattr(
+            profile_manager,
+            "_deduplicate_profile_with_llm",
+            lambda profile, **kwargs: profile,
+        )
+        monkeypatch.setattr(
+            profile_manager,
+            "save_profile",
+            lambda profile, principal_id: saved.append(profile),
+        )
+        profile = profile_manager.profile_from_logs(
+            SimpleNamespace(session_store=store), max_log_files=max_log_files
+        )
+        assert len(inputs) == 1
+        assert "PRIVATE MAIN HISTORY" in inputs[0]
+        assert "SUBAGENT PROJECTED INPUT" not in inputs[0]
+        assert "SUBAGENT GENERATED RESULT" not in inputs[0]
+        assert ("OLDER HUMAN REQUEST" in inputs[0]) == (max_log_files is None)
+        assert saved == [profile]
+        assert profile["preferences"] == ["Keep answers concise"]
+
+
+def test_profile_rebuild_with_only_child_messages_skips_provider(tmp_path, monkeypatch):
+    from uagent import profile_manager
+    from uagent.providers import util_providers
+    from uagent.runtime import identity_context
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setattr(identity_context, "get_current_turn_context", lambda: None)
+    monkeypatch.setattr(
+        util_providers,
+        "make_client",
+        lambda core: pytest.fail("child sessions must not be profiled"),
+    )
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session = store.create_session(project="test", entry_point="cli")
+        capture_sub_agent_dispatch(
+            store,
+            receiving_session_id=session.session_id,
+            objective="Child objective",
+            task_scope="Read only",
+            source_access_check=lambda source: False,
+        )
+        assert (
+            profile_manager.profile_from_logs(SimpleNamespace(session_store=store))
+            is None
+        )
