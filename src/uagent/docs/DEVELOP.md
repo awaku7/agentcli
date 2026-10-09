@@ -24,7 +24,7 @@ Notes:
 
 ______________________________________________________________________
 
-## Structured handoff foundation (PR 4, first stage)
+## Structured handoff (PR 4, staged)
 
 `runtime/handoff_record.py` defines immutable, provider-neutral `HandoffRecord`
 evidence with item-level `SourceRef` provenance. Delivery IDs and the original
@@ -40,11 +40,27 @@ Goal fields and explicitly selected constraints/checkpoint/artifact references
 travel; history, Memory and provider runtime state are excluded. Treat returned
 JSON as attributed evidence, never as system instructions or tool permissions.
 
-These APIs are not yet wired into the existing Sub-Agent dispatcher. Atomic
-receiver revision checks, durable root-ID deduplication/application and Auto-pilot
-checkpoint/resume remain subsequent stages. Run `tests/test_handoff_record.py`,
-`tests/test_handoff_projection.py` and `tests/test_compaction_record.py` when
-changing this foundation.
+`runtime/sub_agent_handoff.py` adds an opt-in runtime connection to
+`SubAgentRunner.run(..., handoff_dispatch=dispatch)`. Before execution or queuing,
+the trusted host calls `capture_sub_agent_dispatch(store, receiving_session_id=...,
+objective=..., task_scope=..., goal_ids=..., source_refs=...,
+source_access_check=...)`. This captures AgentState and revision together and
+stores the bounded projection and dispatch lineage in a dedicated Sub-Agent
+session. Access checks remain the host's responsibility and must verify both
+availability and authorization. The runner rechecks selected references before
+provider execution, sends only the captured projection, skips legacy file
+snippets/shared context/cache, and indexes the returned output in that session
+using SessionStore's normal redaction. `dispatch.record_result()` returns an
+exact session-scoped `SourceRef`; Main AgentState is not modified.
+
+The tool schema does not accept `handoff_dispatch`. Existing host/tool/Job paths
+remain on the legacy path until their trusted policies explicitly opt in. Full
+child conversation/tool-event persistence, compact `HandoffRecord` return,
+atomic receiver revision checks, durable root-ID deduplication/application and
+Auto-pilot checkpoint/resume remain subsequent stages. Run
+`tests/test_sub_agent_handoff.py`, `tests/test_handoff_record.py`,
+`tests/test_handoff_projection.py`, `tests/test_compaction_persistence.py` and
+the affected Sub-Agent tests when changing this foundation.
 
 ## XLSM static analysis
 
