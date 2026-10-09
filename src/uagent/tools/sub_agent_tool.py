@@ -1616,10 +1616,16 @@ class SubAgentRunner:
                     )
             result, llm_usage, total_retries = outcome
             if handoff_dispatch is not None:
-                # Cancellation may arrive after provider work returns. Do not
-                # make that output durable for a terminal structured Job.
-                self._check_job_active()
-                handoff_dispatch.record_result(result)
+                # The Job manager serializes persistence with cancellation and
+                # deadline transitions. Direct runner calls still check the
+                # cooperative Job context before writing.
+                job_context = get_current_sub_agent_job()
+                result_sink = getattr(job_context, "record_handoff_result", None)
+                if callable(result_sink):
+                    result_sink(handoff_dispatch, result)
+                else:
+                    self._check_job_active()
+                    handoff_dispatch.record_result(result)
                 result_recorded = True
                 with _SUB_AGENT_ENV_LOCK:
                     self._pending_handoff_results.pop(

@@ -112,6 +112,7 @@ class SubAgentJobExecutionContext:
     initial_messages: deque[dict[str, Any]]
     message_sink: Callable[[], list[dict[str, Any]]]
     handoff_dispatch: SubAgentDispatch | None = None
+    handoff_result_sink: Callable[[SubAgentDispatch, str], None] | None = None
 
     @property
     def effective_deadline_at(self) -> float | None:
@@ -138,6 +139,12 @@ class SubAgentJobExecutionContext:
             raise SubAgentJobDeadlineExceeded(
                 f"Sub-Agent job {self.job_id} deadline exceeded"
             )
+
+    def record_handoff_result(self, dispatch: SubAgentDispatch, result: str) -> None:
+        """Persist the result while the manager serializes Job termination."""
+        if dispatch is not self.handoff_dispatch or self.handoff_result_sink is None:
+            raise RuntimeError("structured result is not owned by this Job")
+        self.handoff_result_sink(dispatch, result)
 
     def log(self, kind: str, message: str) -> None:
         """Append a bounded, secret-masked event to this Job's private log."""
@@ -946,6 +953,9 @@ class SubAgentJobManager:
                         message_sink=lambda: self._drain_messages(job.job_id),
                         initial_messages=deque(initial_messages),
                         handoff_dispatch=job.handoff_dispatch,
+                        handoff_result_sink=lambda dispatch, result: self._record_handoff_result(
+                            job, dispatch, result
+                        ),
                     )
 
             if already_terminal:
@@ -1047,6 +1057,46 @@ class SubAgentJobManager:
                 continue
             self._dispatch_notice(notice)
             return
+
+    def _record_handoff_result(
+        self, job: _SubAgentJob, dispatch: SubAgentDispatch, result: str
+    ) -> None:
+        """Persist and finish a structured Job atomically against cancellation."""
+        with self._condition:
+            if job.handoff_dispatch is not dispatch:
+                raise RuntimeError("structured result is not owned by this Job")
+            deadline_candidates = [
+                value
+                for value in (job.deadline_at, job.shutdown_deadline.get())
+                if value is not None
+            ]
+            deadline_at = min(deadline_candidates) if deadline_candidates else None
+            now = time.monotonic()
+            if job.state.terminal or job.cancel_event.is_set():
+                if deadline_at is not None and now >= deadline_at:
+                    raise SubAgentJobDeadlineExceeded(
+                        f"Sub-Agent job {job.job_id} deadline exceeded"
+                    )
+                raise SubAgentJobCancelled(f"Sub-Agent job {job.job_id} cancelled")
+            if deadline_at is not None and now >= deadline_at:
+                raise SubAgentJobDeadlineExceeded(
+                    f"Sub-Agent job {job.job_id} deadline exceeded"
+                )
+
+            # Cancellation and timeout transitions use the same condition.
+            # Holding it through persistence makes either termination or
+            # successful result publication win as one serialized operation.
+            dispatch.record_result(result)
+            job.result, was_truncated = _bounded_result(
+                _mask_inline_secrets(result), self.settings.result_max_bytes
+            )
+            job.truncated = job.truncated or was_truncated
+            state = _infer_terminal_state(result)
+            self._finish_locked(job, state)
+            self._append_event_locked(job, job.state.value, "Job finished")
+            self._condition.notify_all()
+            notice = self._notice_locked(job, "finished")
+        self._dispatch_notice(notice)
 
     def _finish_from_exception(
         self, job: _SubAgentJob, state: SubAgentJobState, exc: BaseException

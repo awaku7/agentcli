@@ -166,6 +166,34 @@ def test_runner_uses_only_projection_and_persists_actual_output(tmp_path, monkey
         )
 
 
+def test_runner_routes_job_result_through_manager_sink(tmp_path, monkeypatch):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        persisted = []
+        job_context = SimpleNamespace(
+            raise_if_cancelled=lambda: None,
+            record_handoff_result=lambda actual_dispatch, result: persisted.append(
+                (actual_dispatch, result)
+            ),
+        )
+        monkeypatch.setattr(
+            sub_agent_tool, "get_current_sub_agent_job", lambda: job_context
+        )
+        monkeypatch.setattr(
+            runner,
+            "_run_llm",
+            lambda **_kwargs: ('{"status":"completed"}', {}, 0),
+        )
+
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+
+        assert json.loads(result)["status"] == "completed"
+        assert persisted == [(dispatch, result)]
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+
+
 def test_runner_rejects_model_dict_or_changed_objective(tmp_path):
     runner = sub_agent_tool.SubAgentRunner()
     with pytest.raises(TypeError, match="trusted runtime"):

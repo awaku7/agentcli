@@ -145,6 +145,62 @@ def test_structured_job_carries_host_dispatch_and_rejects_live_messages():
         manager.shutdown()
 
 
+def test_structured_result_persistence_serializes_job_cancellation(monkeypatch):
+    from uagent.runtime.sub_agent_handoff import SubAgentDispatch
+
+    owner = _owner()
+    dispatch = _dispatch(owner, "inspect the current regression")
+    persist_started = threading.Event()
+    release_persist = threading.Event()
+    cancel_started = threading.Event()
+    cancel_finished = threading.Event()
+    cancel_results = []
+    persisted = []
+    manager = _manager(handoff_dispatch_policy=lambda *_args: dispatch)
+
+    def blocked_record_result(_dispatch, result):
+        persist_started.set()
+        assert release_persist.wait(2)
+        persisted.append(result)
+
+    monkeypatch.setattr(SubAgentDispatch, "record_result", blocked_record_result)
+    try:
+
+        def worker(context):
+            context.record_handoff_result(dispatch, '{"status":"completed"}')
+            return '{"status":"completed"}'
+
+        accepted = manager.spawn(
+            owner=owner,
+            agent_name="planner",
+            task=dispatch.objective,
+            worker=worker,
+        )
+        assert accepted["status"] == "accepted"
+        job_id = accepted["job_id"]
+        assert persist_started.wait(1)
+
+        def cancel_job():
+            cancel_started.set()
+            cancel_results.append(manager.cancel(owner=owner, job_id=job_id))
+            cancel_finished.set()
+
+        cancel_thread = threading.Thread(target=cancel_job, daemon=True)
+        cancel_thread.start()
+        assert cancel_started.wait(1)
+        assert not cancel_finished.wait(0.05)
+        release_persist.set()
+        assert cancel_finished.wait(1)
+        result = manager.wait(owner=owner, job_id=job_id, timeout=1)
+        assert result["state"] == "completed"
+        assert cancel_results[0]["state"] == "completed"
+        assert cancel_results[0]["cancel_noop"] is True
+        assert persisted == ['{"status":"completed"}']
+    finally:
+        release_persist.set()
+        manager.shutdown()
+
+
 def test_structured_job_does_not_capture_when_shared_store_is_requested():
     owner = _owner()
     calls = []
