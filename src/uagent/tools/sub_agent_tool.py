@@ -1495,6 +1495,9 @@ class SubAgentRunner:
 
         call_chain = _SUB_AGENT_CALL_CHAIN.get()
         if agent_name in call_chain:
+            if handoff_dispatch is not None:
+                with _SUB_AGENT_ENV_LOCK:
+                    self.duplicate_guard.release(agent_name, task)
             result = json.dumps(
                 {
                     "status": "error",
