@@ -1,0 +1,288 @@
+from __future__ import annotations
+
+import copy
+import json
+from dataclasses import replace
+
+import pytest
+
+from uagent.runtime.compaction_record import (
+    CompactionValidationError,
+    ConstraintRecord,
+    ExecutionRecord,
+    SourceRef,
+)
+from uagent.runtime.handoff_projection import (
+    HandoffBounds,
+    project_main_to_sub_agent,
+    project_sub_agent_return,
+)
+from uagent.runtime.handoff_record import (
+    HandoffRecord,
+    ProvenancedDeterministicDelta,
+    ProvenancedDeterministicItem,
+    ProvenancedExecutionRecord,
+    ProvenancedHandoffItem,
+)
+
+REF = SourceRef("message", "m1", "sub-session", 1)
+ARTIFACT = SourceRef("artifact", "a1", "workspace")
+CHECKPOINT = SourceRef("checkpoint", "cp1", "sub-session", 2)
+
+
+def _bounds(**changes):
+    values = dict(
+        receiving_session_id="main",
+        receiving_base_revision=3,
+        goal_ids=("g1",),
+        source_refs=(REF, ARTIFACT, CHECKPOINT),
+    )
+    values.update(changes)
+    return HandoffBounds(**values)
+
+
+def _record(**changes):
+    values = dict(
+        handoff_id="h1",
+        root_handoff_id="h1",
+        receiving_session_id="main",
+        receiving_base_revision=3,
+        application_base_revision=3,
+        agent_id="worker",
+        role="researcher",
+        goal_ids=("g1",),
+        objective="Inspect the regression",
+        findings=(ProvenancedHandoffItem("Root cause found", (REF,)),),
+    )
+    values.update(changes)
+    return HandoffRecord(**values)
+
+
+def _state():
+    return {
+        "raw_history": "PRIVATE HISTORY",
+        "memory": "PRIVATE MEMORY",
+        "provider_response_id": "PRIVATE PROVIDER STATE",
+        "structured_compaction": {
+            "schema_version": 1,
+            "narrative_continuation": "PRIVATE GLOBAL NARRATIVE",
+            "deterministic": {"modified_files": ["PRIVATE FILE"]},
+            "goals": {
+                "g1": {
+                    "title": "Fix regression",
+                    "progress_events": [
+                        {
+                            "text": "Investigated",
+                            "source_refs": [REF.to_dict()],
+                            "_operation_id": "internal-operation",
+                            "raw_history": "PRIVATE GOAL HISTORY",
+                        }
+                    ],
+                    "constraints": {
+                        "c1": ConstraintRecord(
+                            "c1", "Keep API stable", source_refs=(REF,)
+                        ).to_dict()
+                    },
+                    "provider_cache_id": "PRIVATE CACHE",
+                },
+                "g2": {"title": "PRIVATE UNRELATED GOAL"},
+            },
+        },
+    }
+
+
+def _main(state=None, **changes):
+    kwargs = dict(
+        objective="Inspect regression",
+        task_scope="Read-only investigation",
+        goal_ids=("g1",),
+        bounds=_bounds(),
+        source_access_check=lambda ref: True,
+    )
+    kwargs.update(changes)
+    return project_main_to_sub_agent(_state() if state is None else state, **kwargs)
+
+
+def _return(record=None, **changes):
+    kwargs = dict(bounds=_bounds(), source_access_check=lambda ref: True)
+    kwargs.update(changes)
+    return project_sub_agent_return(_record() if record is None else record, **kwargs)
+
+
+def test_main_projection_only_contains_selected_goal_and_explicit_resources():
+    state = _state()
+    before = copy.deepcopy(state)
+    payload = _main(state, checkpoint_refs=(CHECKPOINT,), artifact_refs=(ARTIFACT,))
+    assert "PRIVATE" not in payload
+    assert "internal-operation" not in payload
+    parsed = json.loads(payload)
+    assert [goal["goal_id"] for goal in parsed["goals"]] == ["g1"]
+    assert parsed["goals"][0]["progress_events"][0]["source_refs"] == [REF.to_dict()]
+    assert parsed["checkpoint_refs"] == [CHECKPOINT.to_dict()]
+    assert parsed["artifact_refs"] == [ARTIFACT.to_dict()]
+    assert parsed["receiving_base_revision"] == parsed["application_base_revision"] == 3
+    assert state == before
+
+
+def test_compact_return_is_stable_across_deliveries_and_contains_no_history():
+    record = _record(artifact_refs=(ARTIFACT,), source_checkpoint_id="cp1")
+    first = _return(record)
+    assert first == _return(record)
+    assert json.loads(first)["root_handoff_id"] == "h1"
+    assert "raw_history" not in first
+    assert json.loads(first)["findings"][0]["source_refs"] == [REF.to_dict()]
+
+
+@pytest.mark.parametrize(
+    "different_ref",
+    [
+        replace(REF, scope_id="other-session"),
+        replace(REF, ref_id="ungranted-message"),
+        replace(REF, session_seq=9),
+        replace(REF, kind="event"),
+    ],
+)
+def test_scope_or_id_alone_never_authorizes_a_reference(different_ref):
+    record = _record(findings=(ProvenancedHandoffItem("Secret", (different_ref,)),))
+    with pytest.raises(CompactionValidationError, match="unauthorized"):
+        _return(record)
+
+
+@pytest.mark.parametrize("render", [_main, _return])
+def test_allowlist_is_an_upper_bound_and_current_access_is_rechecked(render):
+    checked = []
+
+    def unavailable(ref):
+        checked.append(ref)
+        return False
+
+    with pytest.raises(CompactionValidationError, match="unavailable"):
+        render(source_access_check=unavailable)
+    assert REF in checked
+
+
+@pytest.mark.parametrize("render", [_main, _return])
+def test_empty_source_grant_fails_closed(render):
+    with pytest.raises(CompactionValidationError, match="unauthorized"):
+        render(bounds=_bounds(source_refs=()))
+
+
+@pytest.mark.parametrize("render", [_main, _return])
+def test_unrelated_goals_are_rejected(render):
+    with pytest.raises(CompactionValidationError, match="out-of-scope goal"):
+        render(bounds=_bounds(goal_ids=()))
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"receiving_session_id": "other-main"},
+        {"receiving_base_revision": 2},
+    ],
+)
+def test_return_is_bound_to_original_receiver_and_dispatch_revision(changes):
+    with pytest.raises(CompactionValidationError, match="dispatch snapshot"):
+        _return(bounds=_bounds(**changes))
+
+
+def test_reconciled_return_preserves_dispatch_revision_without_applying_state():
+    record = _record(handoff_id="h2", application_base_revision=5)
+    payload = json.loads(_return(record))
+    assert payload["receiving_base_revision"] == 3
+    assert payload["application_base_revision"] == 5
+    assert payload["root_handoff_id"] == "h1"
+
+
+def test_execution_artifact_and_deterministic_sources_are_also_checked():
+    record = _record(
+        state_delta=ProvenancedDeterministicDelta(
+            modified_files=(ProvenancedDeterministicItem("file.py", (REF,)),),
+            executed_checks=(
+                ProvenancedExecutionRecord(
+                    ExecutionRecord("pytest", "passed", artifact_ref=ARTIFACT), (REF,)
+                ),
+            ),
+        )
+    )
+    with pytest.raises(CompactionValidationError, match="unauthorized"):
+        _return(record, bounds=_bounds(source_refs=(REF,)))
+    checked = []
+
+    def authorize(ref):
+        checked.append(ref)
+        return True
+
+    assert json.loads(_return(record, source_access_check=authorize))["state_delta"][
+        "modified_files"
+    ][0]["source_refs"] == [REF.to_dict()]
+    assert ARTIFACT in checked
+
+
+def test_checkpoint_id_is_neither_a_capability_nor_a_substitute_for_item_sources():
+    with pytest.raises(CompactionValidationError, match="scoped reference"):
+        _return(_record(source_checkpoint_id="cp-private"))
+    with pytest.raises(CompactionValidationError, match="unauthorized"):
+        _return(
+            _record(source_checkpoint_id="cp1"),
+            bounds=_bounds(source_refs=(CHECKPOINT,)),
+        )
+
+
+@pytest.mark.parametrize("render", [_main, _return])
+def test_budget_rejects_oversize_json_without_truncating_provenance(render):
+    full = render()
+    size = len(full.encode("utf-8"))
+    assert render(bounds=_bounds(max_bytes=size)) == full
+    with pytest.raises(CompactionValidationError, match="byte budget"):
+        render(bounds=_bounds(max_bytes=size - 1))
+
+
+def test_utf8_budget_counts_bytes_not_characters():
+    record = _record(objective="日本語の調査")
+    payload = _return(record)
+    with pytest.raises(CompactionValidationError, match="byte budget"):
+        _return(record, bounds=_bounds(max_bytes=len(payload)))
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"max_bytes": 0},
+        {"max_bytes": 128001},
+        {"max_bytes": True},
+        {"receiving_base_revision": True},
+        {"source_refs": ["untyped"]},
+    ],
+)
+def test_invalid_caller_bounds_are_rejected(changes):
+    with pytest.raises(CompactionValidationError):
+        _bounds(**changes)
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"checkpoint_refs": (ARTIFACT,)},
+        {"artifact_refs": (CHECKPOINT,)},
+        {"constraints": ("untyped",)},
+        {"objective": "bad\x00text"},
+        {"task_scope": ""},
+        {"goal_ids": ("unknown",), "bounds": _bounds(goal_ids=("unknown",))},
+    ],
+)
+def test_main_projection_rejects_invalid_resource_types_and_scope(changes):
+    with pytest.raises(CompactionValidationError):
+        _main(**changes)
+
+
+def test_unknown_state_schema_is_not_projected():
+    state = _state()
+    state["structured_compaction"]["schema_version"] = 2
+    with pytest.raises(CompactionValidationError, match="schema"):
+        _main(state)
+
+
+def test_no_goals_does_not_fall_back_to_global_state_or_history():
+    payload = _main(goal_ids=())
+    assert json.loads(payload)["goals"] == []
+    assert "PRIVATE" not in payload
