@@ -33,7 +33,11 @@ def _persisted_compact_report(result: str) -> dict[str, str] | None:
         return None
     status = parsed.get("status")
     summary = parsed.get("summary")
-    if not isinstance(summary, str) and status in {"error", "blocked", "incomplete"}:
+    if (
+        not isinstance(summary, str)
+        and isinstance(status, str)
+        and status in {"error", "blocked", "incomplete"}
+    ):
         summary = parsed.get("message")
     if not isinstance(status, str) or status not in {
         "completed",
