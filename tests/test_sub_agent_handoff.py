@@ -686,3 +686,98 @@ def test_profile_rebuild_with_only_child_messages_skips_provider(tmp_path, monke
             profile_manager.profile_from_logs(SimpleNamespace(session_store=store))
             is None
         )
+
+
+def test_host_can_abandon_revoked_pending_results_without_reexecution(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        authorized = True
+        dispatches = [
+            _dispatch(
+                store,
+                session_id,
+                goal_id,
+                ref,
+                source_access_check=lambda source: authorized,
+            )
+            for _ in range(2)
+        ]
+        unrelated = capture_sub_agent_dispatch(
+            store,
+            receiving_session_id=session_id,
+            objective="Unrelated work",
+            task_scope="Read only",
+            source_access_check=lambda source: True,
+        )
+        monkeypatch.setattr(sub_agent_tool, "_MAX_PENDING_HANDOFF_RESULTS", 2)
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs)
+            return '{"status":"completed","summary":"Private pending result"}', {}, 0
+
+        append = store.append_message
+
+        def fail_append(*args, **kwargs):
+            raise RuntimeError("storage unavailable")
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        monkeypatch.setattr(store, "append_message", fail_append)
+        for dispatch in dispatches:
+            with pytest.raises(RuntimeError, match="storage unavailable"):
+                runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        authorized = False
+        for dispatch in dispatches:
+            with pytest.raises(CompactionValidationError, match="delivery"):
+                runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        with pytest.raises(RuntimeError, match="capacity"):
+            runner.run("general", unrelated.objective, handoff_dispatch=unrelated)
+        first, second = dispatches
+        assert runner.discard_pending_handoff_result(first) is True
+        assert runner.discard_pending_handoff_result(first) is False
+        assert set(runner._pending_handoff_results) == {second.dispatch_id}
+        assert runner._handoff_result_slots == {second.dispatch_id}
+        monkeypatch.setattr(store, "append_message", append)
+        runner.run("general", unrelated.objective, handoff_dispatch=unrelated)
+        authorized = True
+        blocked = runner.run("general", first.objective, handoff_dispatch=first)
+        assert json.loads(blocked)["status"] == "blocked"
+        assert len(calls) == 3
+        assert len(store.list_indexed_messages(first.source_session_id)) == 1
+
+
+def test_host_cannot_abandon_pending_result_during_active_retry(tmp_path, monkeypatch):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs)
+            return '{"status":"completed","summary":"Stored later"}', {}, 0
+
+        append = store.append_message
+
+        def fail_append(*args, **kwargs):
+            raise RuntimeError("storage unavailable")
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        monkeypatch.setattr(store, "append_message", fail_append)
+        with pytest.raises(RuntimeError, match="storage unavailable"):
+            runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+
+        def append_during_retry(*args, **kwargs):
+            assert runner.discard_pending_handoff_result(dispatch) is False
+            assert dispatch.dispatch_id in runner._pending_handoff_results
+            return append(*args, **kwargs)
+
+        monkeypatch.setattr(store, "append_message", append_during_retry)
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert json.loads(result)["status"] == "completed"
+        assert len(calls) == 1
+        assert runner._pending_handoff_results == {}
+        assert runner._handoff_result_slots == set()

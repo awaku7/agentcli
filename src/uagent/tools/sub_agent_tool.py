@@ -183,18 +183,24 @@ class DuplicateCallGuard:
         self.cache_dir = cache_dir
 
     def fingerprint(self, agent_name: str, task: SubAgentTask) -> str:
-        identity = (
-            {"handoff_dispatch_id": task.handoff_dispatch_id}
-            if task.handoff_dispatch_id is not None
-            else {
+        if task.handoff_dispatch_id is not None:
+            return self.dispatch_fingerprint(task.handoff_dispatch_id)
+        normalized = json.dumps(
+            {
                 "agent_name": agent_name,
                 "parent_goal": task.parent_goal,
                 "task": task.task,
                 "scope_files": sorted(task.scope_files),
-            }
+            },
+            ensure_ascii=False,
+            sort_keys=True,
         )
+        return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
+    @staticmethod
+    def dispatch_fingerprint(dispatch_id: str) -> str:
         normalized = json.dumps(
-            identity,
+            {"handoff_dispatch_id": dispatch_id},
             ensure_ascii=False,
             sort_keys=True,
         )
@@ -584,6 +590,28 @@ class SubAgentRunner:
             "total_tokens": 0,
         }
         self._usage_lock = Lock()
+
+    def discard_pending_handoff_result(self, dispatch: SubAgentDispatch) -> bool:
+        """Let the trusted host abandon an inactive, terminally failed dispatch.
+
+        This is not a tool argument/action. Active calls cannot be discarded;
+        abandoned IDs stay blocked so finished provider work is not repeated.
+        """
+        if not isinstance(dispatch, SubAgentDispatch):
+            raise TypeError("dispatch must be trusted runtime input")
+        dispatch_id = dispatch.dispatch_id
+        fingerprint = self.duplicate_guard.dispatch_fingerprint(dispatch_id)
+        with _SUB_AGENT_ENV_LOCK:
+            if self.duplicate_guard.counts.get(fingerprint, 0):
+                return False
+            if dispatch_id not in self._pending_handoff_results:
+                return False
+            self._pending_handoff_results.pop(dispatch_id)
+            self._handoff_result_slots.discard(dispatch_id)
+            self.duplicate_guard.counts[fingerprint] = max(
+                1, self.duplicate_guard.max_repeats
+            )
+            return True
 
     def publish_shared_result(self, store_key: str, result: str) -> None:
         """Publish an already-approved result to the shared Sub-Agent store."""

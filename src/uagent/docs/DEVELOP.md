@@ -69,6 +69,11 @@ the shared result store; legacy calls retain those behaviors.
 Each runner admits at most 32 active/pending structured result slots. At
 capacity it rejects new provider work and releases that call's duplicate
 reservation; pending dispatches can still retry storage and free their slots.
+For terminal failures such as permanently revoked access, the trusted host may
+call `runner.discard_pending_handoff_result(dispatch)` to erase the private
+pending output and release its slot. This runtime-only operation rejects active
+calls and keeps abandoned dispatch IDs blocked against provider reexecution.
+Transient authorization failures do not automatically discard pending results.
 Structured work never consumes live Job inbox instructions. Additional input
 requires a newly captured, authorized dispatch; legacy Job inbox handling is
 unchanged.
