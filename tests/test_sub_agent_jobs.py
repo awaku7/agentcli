@@ -31,9 +31,28 @@ def _manager(**overrides) -> SubAgentJobManager:
         "shutdown_timeout_sec": 0.2,
     }
     notice_callback = overrides.pop("notice_callback", None)
+    handoff_dispatch_policy = overrides.pop("handoff_dispatch_policy", None)
     values.update(overrides)
     return SubAgentJobManager(
-        SubAgentJobSettings(**values), notice_callback=notice_callback
+        SubAgentJobSettings(**values),
+        notice_callback=notice_callback,
+        handoff_dispatch_policy=handoff_dispatch_policy,
+    )
+
+
+def _dispatch(owner: SubAgentJobOwner, task: str):
+    from uagent.runtime.handoff_projection import HandoffBounds
+    from uagent.runtime.sub_agent_handoff import SubAgentDispatch
+
+    return SubAgentDispatch(
+        dispatch_id="dispatch-test",
+        source_session_id="child-session",
+        objective=task,
+        bounds=HandoffBounds(owner.session_id, 0),
+        _context_json='{"kind":"main_to_subagent"}',
+        _source_refs=(),
+        _source_access_check=lambda _ref: False,
+        _store=object(),
     )
 
 
@@ -79,6 +98,150 @@ def test_spawn_returns_before_worker_finishes_and_context_is_propagated():
         inherited.reset(inherited_marker)
         CURRENT_SUB_AGENT_JOB_ID.reset(marker)
         release.set()
+        manager.shutdown()
+
+
+def test_structured_job_carries_host_dispatch_and_rejects_live_messages():
+    owner = _owner()
+    started = threading.Event()
+    release = threading.Event()
+    dispatch = _dispatch(owner, "inspect the current regression")
+    captured = []
+    manager = _manager(
+        handoff_dispatch_policy=lambda actual_owner, agent, task: (
+            captured.append((actual_owner, agent, task)) or dispatch
+        )
+    )
+    try:
+        assert manager.structured_handoff_enabled
+
+        def worker(context):
+            assert context.handoff_dispatch is dispatch
+            started.set()
+            assert release.wait(2)
+            return "indexed child result"
+
+        accepted = manager.spawn(
+            owner=owner,
+            agent_name="planner",
+            task=dispatch.objective,
+            worker=worker,
+        )
+        assert accepted["status"] == "accepted"
+        assert started.wait(1)
+        assert captured == [(owner, "planner", dispatch.objective)]
+        assert manager.send_message(
+            owner=owner, job_id=accepted["job_id"], message="new instruction"
+        ) == {
+            "status": "rejected",
+            "reason": "structured_handoff_requires_new_dispatch",
+        }
+        release.set()
+        result = manager.wait(owner=owner, job_id=accepted["job_id"], timeout=2)
+        assert result["state"] == "completed"
+        assert result["result"] == "indexed child result"
+    finally:
+        release.set()
+        manager.shutdown()
+
+
+def test_structured_result_persistence_serializes_job_cancellation(monkeypatch):
+    from uagent.runtime.sub_agent_handoff import SubAgentDispatch
+
+    owner = _owner()
+    dispatch = _dispatch(owner, "inspect the current regression")
+    persist_started = threading.Event()
+    release_persist = threading.Event()
+    cancel_started = threading.Event()
+    cancel_finished = threading.Event()
+    cancel_results = []
+    persisted = []
+    manager = _manager(handoff_dispatch_policy=lambda *_args: dispatch)
+
+    def blocked_record_result(_dispatch, result):
+        persist_started.set()
+        assert release_persist.wait(2)
+        persisted.append(result)
+
+    monkeypatch.setattr(SubAgentDispatch, "record_result", blocked_record_result)
+    try:
+
+        def worker(context):
+            context.record_handoff_result(dispatch, '{"status":"completed"}')
+            return '{"status":"completed"}'
+
+        accepted = manager.spawn(
+            owner=owner,
+            agent_name="planner",
+            task=dispatch.objective,
+            worker=worker,
+        )
+        assert accepted["status"] == "accepted"
+        job_id = accepted["job_id"]
+        assert persist_started.wait(1)
+
+        def cancel_job():
+            cancel_started.set()
+            cancel_results.append(manager.cancel(owner=owner, job_id=job_id))
+            cancel_finished.set()
+
+        cancel_thread = threading.Thread(target=cancel_job, daemon=True)
+        cancel_thread.start()
+        assert cancel_started.wait(1)
+        assert not cancel_finished.wait(0.05)
+        release_persist.set()
+        assert cancel_finished.wait(1)
+        result = manager.wait(owner=owner, job_id=job_id, timeout=1)
+        assert result["state"] == "completed"
+        assert cancel_results[0]["state"] == "completed"
+        assert cancel_results[0]["cancel_noop"] is True
+        assert persisted == ['{"status":"completed"}']
+    finally:
+        release_persist.set()
+        manager.shutdown()
+
+
+def test_structured_job_does_not_capture_when_shared_store_is_requested():
+    owner = _owner()
+    calls = []
+    manager = _manager(handoff_dispatch_policy=lambda *_args: calls.append(True))
+    try:
+        rejected = manager.spawn(
+            owner=owner,
+            agent_name="planner",
+            task="task",
+            worker=lambda _context: "unused",
+            store_key="result",
+        )
+        assert rejected == {
+            "status": "rejected",
+            "reason": "structured_handoff_shared_store_disabled",
+        }
+        assert calls == []
+    finally:
+        manager.shutdown()
+
+
+def test_structured_job_rejects_a_dispatch_for_another_owner():
+    owner = _owner()
+    other_owner = SubAgentJobOwner(entry_point="cli", session_id="other-session")
+    manager = _manager(
+        handoff_dispatch_policy=lambda _owner, _agent, task: _dispatch(
+            other_owner, task
+        )
+    )
+    try:
+        rejected = manager.spawn(
+            owner=owner,
+            agent_name="planner",
+            task="task",
+            worker=lambda _context: "unused",
+        )
+        assert rejected == {
+            "status": "rejected",
+            "reason": "structured_handoff_scope_mismatch",
+        }
+    finally:
         manager.shutdown()
 
 

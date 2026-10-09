@@ -149,6 +149,74 @@ def test_spawn_tool_binds_owner_shared_context_and_inbox_instructions(monkeypatc
     assert captured["worker_result"] == "analysis result"
 
 
+def test_structured_spawn_tool_passes_snapshot_without_shared_store_or_inbox(
+    monkeypatch,
+):
+    from uagent.runtime.handoff_projection import HandoffBounds
+    from uagent.runtime.sub_agent_handoff import SubAgentDispatch
+    from uagent.tools import spawn_sub_agent_tool, sub_agent_tool
+
+    owner = SubAgentJobOwner(entry_point="cli", session_id="session-a")
+    dispatch = SubAgentDispatch(
+        dispatch_id="dispatch-1",
+        source_session_id="child-session",
+        objective="Analyze only this task",
+        bounds=HandoffBounds(owner.session_id, 0),
+        _context_json='{"kind":"main_to_subagent"}',
+        _source_refs=(),
+        _source_access_check=lambda _ref: False,
+        _store=object(),
+    )
+    captured = {}
+
+    class FakeManager:
+        settings = SimpleNamespace(task_max_bytes=65536)
+        structured_handoff_enabled = True
+
+        def load_shared_results(self, **_kwargs):
+            raise AssertionError("structured jobs must not read the shared store")
+
+        def spawn(self, **kwargs):
+            captured["spawn_args"] = kwargs
+            context = SimpleNamespace(
+                handoff_dispatch=dispatch,
+                remaining=30.0,
+                raise_if_cancelled=lambda: None,
+                drain_messages=lambda: (_ for _ in ()).throw(
+                    AssertionError("structured jobs cannot drain live inbox")
+                ),
+            )
+            captured["worker_result"] = kwargs["worker"](context)
+            return {"status": "accepted", "job_id": "sa_structured"}
+
+    manager = FakeManager()
+    monkeypatch.setattr(
+        spawn_sub_agent_tool, "get_job_runtime", lambda: (manager, owner)
+    )
+
+    def fake_sync_run(args, *, handoff_dispatch):
+        captured["subagent_args"] = args
+        captured["dispatch"] = handoff_dispatch
+        return "structured result"
+
+    monkeypatch.setattr(sub_agent_tool, "run_tool", fake_sync_run)
+    result = json.loads(
+        spawn_sub_agent_tool.run_tool(
+            {
+                "agent_name": "planner",
+                "task": dispatch.objective,
+                "permission_level": "none",
+            }
+        )
+    )
+    assert result == {"status": "accepted", "job_id": "sa_structured"}
+    assert captured["dispatch"] is dispatch
+    assert captured["subagent_args"]["task"] == dispatch.objective
+    assert captured["subagent_args"]["_shared_context"] == {}
+    assert captured["spawn_args"]["store_key"] is None
+    assert captured["worker_result"] == "structured result"
+
+
 def test_get_tool_specs_context_filters_job_tools_at_delivery_time(monkeypatch):
     import uagent.core as core
     import uagent.tools as tools

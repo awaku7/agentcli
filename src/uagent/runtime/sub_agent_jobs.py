@@ -22,6 +22,7 @@ from enum import Enum
 from typing import Any, Callable
 
 from ..utils.secret_mask import _mask_inline_secrets
+from .sub_agent_handoff import SubAgentDispatch
 
 CURRENT_SUB_AGENT_JOB_ID: ContextVar[str | None] = ContextVar(
     "uagent_current_sub_agent_job_id", default=None
@@ -110,6 +111,8 @@ class SubAgentJobExecutionContext:
     waiting_sink: Callable[[bool], None]
     initial_messages: deque[dict[str, Any]]
     message_sink: Callable[[], list[dict[str, Any]]]
+    handoff_dispatch: SubAgentDispatch | None = None
+    handoff_result_sink: Callable[[SubAgentDispatch, str], None] | None = None
 
     @property
     def effective_deadline_at(self) -> float | None:
@@ -136,6 +139,12 @@ class SubAgentJobExecutionContext:
             raise SubAgentJobDeadlineExceeded(
                 f"Sub-Agent job {self.job_id} deadline exceeded"
             )
+
+    def record_handoff_result(self, dispatch: SubAgentDispatch, result: str) -> None:
+        """Persist the result while the manager serializes Job termination."""
+        if dispatch is not self.handoff_dispatch or self.handoff_result_sink is None:
+            raise RuntimeError("structured result is not owned by this Job")
+        self.handoff_result_sink(dispatch, result)
 
     def log(self, kind: str, message: str) -> None:
         """Append a bounded, secret-masked event to this Job's private log."""
@@ -335,6 +344,7 @@ class _SubAgentJob:
     next_message_sequence: int = 1
     continuation_count: int = 0
     store_key: str | None = None
+    handoff_dispatch: SubAgentDispatch | None = None
 
 
 class SubAgentJobManager:
@@ -348,10 +358,18 @@ class SubAgentJobManager:
         confirmation_handler: (
             Callable[[SubAgentJobExecutionContext, str, bool], str] | None
         ) = None,
+        handoff_dispatch_policy: (
+            Callable[[SubAgentJobOwner, str, str], SubAgentDispatch] | None
+        ) = None,
     ) -> None:
         self.settings = settings or SubAgentJobSettings.from_env()
         self._notice_callback = notice_callback
         self._confirmation_handler = confirmation_handler
+        if handoff_dispatch_policy is not None and not callable(
+            handoff_dispatch_policy
+        ):
+            raise TypeError("handoff_dispatch_policy must be callable")
+        self._handoff_dispatch_policy = handoff_dispatch_policy
         self._condition = threading.Condition(threading.RLock())
         self._jobs: OrderedDict[str, _SubAgentJob] = OrderedDict()
         self._queue: deque[str] = deque()
@@ -378,6 +396,11 @@ class SubAgentJobManager:
             self._workers.append(thread)
             thread.start()
         self._maintenance_thread.start()
+
+    @property
+    def structured_handoff_enabled(self) -> bool:
+        """Whether this host installed a trusted structured handoff policy."""
+        return self._handoff_dispatch_policy is not None
 
     def spawn(
         self,
@@ -446,6 +469,37 @@ class SubAgentJobManager:
                 return {"status": "rejected", "reason": "owner_limit"}
             if len(self._queue) >= self.settings.queue_limit:
                 return {"status": "rejected", "reason": "queue_full"}
+            handoff_dispatch = None
+            if self._handoff_dispatch_policy is not None:
+                if normalized_store_key:
+                    return {
+                        "status": "rejected",
+                        "reason": "structured_handoff_shared_store_disabled",
+                    }
+                try:
+                    # The host policy must only capture a local, bounded
+                    # SessionStore snapshot while the queue lock is held.
+                    handoff_dispatch = self._handoff_dispatch_policy(
+                        owner, agent_name, str(task or "")
+                    )
+                except Exception:
+                    return {
+                        "status": "rejected",
+                        "reason": "structured_handoff_capture_failed",
+                    }
+                if not isinstance(handoff_dispatch, SubAgentDispatch):
+                    return {
+                        "status": "rejected",
+                        "reason": "structured_handoff_capture_failed",
+                    }
+                if (
+                    handoff_dispatch.objective != str(task or "")
+                    or handoff_dispatch.bounds.receiving_session_id != owner.session_id
+                ):
+                    return {
+                        "status": "rejected",
+                        "reason": "structured_handoff_scope_mismatch",
+                    }
             now = time.monotonic()
             deadline_at = now + timeout if timeout is not None else None
             job = _SubAgentJob(
@@ -461,6 +515,7 @@ class SubAgentJobManager:
                 created_at=created_at,
                 deadline_at=deadline_at,
                 store_key=normalized_store_key,
+                handoff_dispatch=handoff_dispatch,
             )
             self._jobs[job_id] = job
             self._queue.append(job_id)
@@ -507,6 +562,11 @@ class SubAgentJobManager:
                 SubAgentJobState.WAITING_FOR_USER,
             }:
                 return {"status": "rejected", "reason": "job_not_running"}
+            if job.handoff_dispatch is not None:
+                return {
+                    "status": "rejected",
+                    "reason": "structured_handoff_requires_new_dispatch",
+                }
             if job.continuation_count >= self.settings.message_round_limit:
                 return {"status": "rejected", "reason": "message_round_limit"}
             if len(job.inbox) >= self.settings.inbox_limit:
@@ -892,6 +952,10 @@ class SubAgentJobManager:
                         ),
                         message_sink=lambda: self._drain_messages(job.job_id),
                         initial_messages=deque(initial_messages),
+                        handoff_dispatch=job.handoff_dispatch,
+                        handoff_result_sink=lambda dispatch, result: self._record_handoff_result(
+                            job, dispatch, result
+                        ),
                     )
 
             if already_terminal:
@@ -993,6 +1057,46 @@ class SubAgentJobManager:
                 continue
             self._dispatch_notice(notice)
             return
+
+    def _record_handoff_result(
+        self, job: _SubAgentJob, dispatch: SubAgentDispatch, result: str
+    ) -> None:
+        """Persist and finish a structured Job atomically against cancellation."""
+        with self._condition:
+            if job.handoff_dispatch is not dispatch:
+                raise RuntimeError("structured result is not owned by this Job")
+            deadline_candidates = [
+                value
+                for value in (job.deadline_at, job.shutdown_deadline.get())
+                if value is not None
+            ]
+            deadline_at = min(deadline_candidates) if deadline_candidates else None
+            now = time.monotonic()
+            if job.state.terminal or job.cancel_event.is_set():
+                if deadline_at is not None and now >= deadline_at:
+                    raise SubAgentJobDeadlineExceeded(
+                        f"Sub-Agent job {job.job_id} deadline exceeded"
+                    )
+                raise SubAgentJobCancelled(f"Sub-Agent job {job.job_id} cancelled")
+            if deadline_at is not None and now >= deadline_at:
+                raise SubAgentJobDeadlineExceeded(
+                    f"Sub-Agent job {job.job_id} deadline exceeded"
+                )
+
+            # Cancellation and timeout transitions use the same condition.
+            # Holding it through persistence makes either termination or
+            # successful result publication win as one serialized operation.
+            dispatch.record_result(result)
+            job.result, was_truncated = _bounded_result(
+                _mask_inline_secrets(result), self.settings.result_max_bytes
+            )
+            job.truncated = job.truncated or was_truncated
+            state = _infer_terminal_state(result)
+            self._finish_locked(job, state)
+            self._append_event_locked(job, job.state.value, "Job finished")
+            self._condition.notify_all()
+            notice = self._notice_locked(job, "finished")
+        self._dispatch_notice(notice)
 
     def _finish_from_exception(
         self, job: _SubAgentJob, state: SubAgentJobState, exc: BaseException

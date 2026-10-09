@@ -31,6 +31,8 @@ from ..utils.secret_mask import _mask_inline_secrets
 from ..runtime.agent_loop import run_agent_loop
 from ..runtime.sub_agent_handoff import SubAgentDispatch
 from ..runtime.sub_agent_jobs import (
+    SubAgentJobCancelled,
+    SubAgentJobDeadlineExceeded,
     current_sub_agent_job_mode,
     get_current_sub_agent_job,
 )
@@ -1476,7 +1478,11 @@ class SubAgentRunner:
             self._write_log(agent_name, None, result, "error")
             return result
 
-        goal = parent_goal or task_text
+        goal = (
+            handoff_dispatch.objective
+            if handoff_dispatch is not None
+            else parent_goal or task_text
+        )
         pack = ContextPack(
             current_goal=goal,
             current_state="PROCESSING",
@@ -1508,7 +1514,11 @@ class SubAgentRunner:
             parent_goal=goal,
             task=task_text,
             context_pack=pack,
-            scope_files=[current_file] if current_file else [],
+            scope_files=(
+                []
+                if handoff_dispatch is not None
+                else [current_file] if current_file else []
+            ),
             handoff_dispatch_id=(
                 handoff_dispatch.dispatch_id if handoff_dispatch else None
             ),
@@ -1606,7 +1616,16 @@ class SubAgentRunner:
                     )
             result, llm_usage, total_retries = outcome
             if handoff_dispatch is not None:
-                handoff_dispatch.record_result(result)
+                # The Job manager serializes persistence with cancellation and
+                # deadline transitions. Direct runner calls still check the
+                # cooperative Job context before writing.
+                job_context = get_current_sub_agent_job()
+                result_sink = getattr(job_context, "record_handoff_result", None)
+                if callable(result_sink):
+                    result_sink(handoff_dispatch, result)
+                else:
+                    self._check_job_active()
+                    handoff_dispatch.record_result(result)
                 result_recorded = True
                 with _SUB_AGENT_ENV_LOCK:
                     self._pending_handoff_results.pop(
@@ -1618,14 +1637,17 @@ class SubAgentRunner:
                 agent_name, task, result, status, retries=total_retries, usage=llm_usage
             )
             return result
-        except BaseException:
+        except BaseException as exc:
             if handoff_dispatch is not None and not result_recorded:
                 with _SUB_AGENT_ENV_LOCK:
                     self.duplicate_guard.release(agent_name, task)
-                    if (
-                        handoff_dispatch.dispatch_id
-                        not in self._pending_handoff_results
+                    dispatch_id = handoff_dispatch.dispatch_id
+                    if isinstance(
+                        exc, (SubAgentJobCancelled, SubAgentJobDeadlineExceeded)
                     ):
+                        self._pending_handoff_results.pop(dispatch_id, None)
+                        self._handoff_result_slots.discard(dispatch_id)
+                    elif dispatch_id not in self._pending_handoff_results:
                         self._handoff_result_slots.discard(handoff_dispatch.dispatch_id)
             raise
         finally:
@@ -2346,7 +2368,9 @@ def publish_shared_result(store_key: str, result: str) -> None:
     _runner.publish_shared_result(store_key, result)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(
+    args: Dict[str, Any], *, handoff_dispatch: Optional[SubAgentDispatch] = None
+) -> str:
     cb = get_callbacks()
     agent_name = args["agent_name"]
     task = args["task"]
@@ -2422,6 +2446,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             completion_sentinel=completion_sentinel,
             completion_regex=completion_regex,
             shared_context=shared_context,
+            handoff_dispatch=handoff_dispatch,
         )
     finally:
         reset_active_sub_agent(sub_agent_token)

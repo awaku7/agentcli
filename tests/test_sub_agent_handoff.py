@@ -16,6 +16,10 @@ from uagent.runtime.compaction_record import (
 )
 from uagent.runtime.session_store import SessionStore, SessionStoreError
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
+from uagent.runtime.sub_agent_jobs import (
+    SubAgentJobCancelled,
+    SubAgentJobDeadlineExceeded,
+)
 from uagent.tools import sub_agent_tool
 from uagent.tools.context import ToolCallbacks
 
@@ -162,6 +166,34 @@ def test_runner_uses_only_projection_and_persists_actual_output(tmp_path, monkey
         )
 
 
+def test_runner_routes_job_result_through_manager_sink(tmp_path, monkeypatch):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        persisted = []
+        job_context = SimpleNamespace(
+            raise_if_cancelled=lambda: None,
+            record_handoff_result=lambda actual_dispatch, result: persisted.append(
+                (actual_dispatch, result)
+            ),
+        )
+        monkeypatch.setattr(
+            sub_agent_tool, "get_current_sub_agent_job", lambda: job_context
+        )
+        monkeypatch.setattr(
+            runner,
+            "_run_llm",
+            lambda **_kwargs: ('{"status":"completed"}', {}, 0),
+        )
+
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+
+        assert json.loads(result)["status"] == "completed"
+        assert persisted == [(dispatch, result)]
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+
+
 def test_runner_rejects_model_dict_or_changed_objective(tmp_path):
     runner = sub_agent_tool.SubAgentRunner()
     with pytest.raises(TypeError, match="trusted runtime"):
@@ -171,6 +203,31 @@ def test_runner_rejects_model_dict_or_changed_objective(tmp_path):
         dispatch = _dispatch(store, session_id, goal_id, ref)
         with pytest.raises(ValueError, match="objective"):
             runner.run("general", "different task", handoff_dispatch=dispatch)
+
+
+def test_tool_entrypoint_keeps_dispatch_as_private_runtime_argument(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        captured = {}
+
+        class FakeRunner:
+            def run(self, *args, **kwargs):
+                captured["args"] = args
+                captured["kwargs"] = kwargs
+                return "structured result"
+
+        monkeypatch.setattr(sub_agent_tool, "_runner", FakeRunner())
+        monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: ToolCallbacks())
+        result = sub_agent_tool.run_tool(
+            {"agent_name": "general", "task": dispatch.objective},
+            handoff_dispatch=dispatch,
+        )
+        assert result == "structured result"
+        assert captured["kwargs"]["handoff_dispatch"] is dispatch
+        assert captured["kwargs"]["parent_goal"] is None
 
 
 def test_runner_stops_when_access_is_revoked_during_dispatch_guards(
@@ -285,6 +342,43 @@ def test_provider_exception_releases_reservation_for_retry(tmp_path, monkeypatch
         assert json.loads(result)["summary"] == "Recovered"
         assert len(attempts) == 2
         assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+
+
+@pytest.mark.parametrize(
+    "exception_type", [SubAgentJobCancelled, SubAgentJobDeadlineExceeded]
+)
+def test_runner_does_not_persist_output_after_job_cancellation(
+    tmp_path, monkeypatch, exception_type
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        cancelled = False
+
+        def raise_if_cancelled():
+            if cancelled:
+                raise exception_type("job is no longer active")
+
+        monkeypatch.setattr(
+            sub_agent_tool,
+            "get_current_sub_agent_job",
+            lambda: SimpleNamespace(raise_if_cancelled=raise_if_cancelled),
+        )
+
+        def run_llm(**kwargs):
+            nonlocal cancelled
+            cancelled = True
+            return '{"status":"completed"}', {}, 0
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        with pytest.raises(exception_type, match="no longer active"):
+            runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+        assert runner._pending_handoff_results == {}
+        assert runner._handoff_result_slots == set()
+        assert runner.duplicate_guard.counts == {}
 
 
 @pytest.mark.parametrize("commit_before_error", [False, True])
