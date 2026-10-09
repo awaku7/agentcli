@@ -31,6 +31,8 @@ from ..utils.secret_mask import _mask_inline_secrets
 from ..runtime.agent_loop import run_agent_loop
 from ..runtime.sub_agent_handoff import SubAgentDispatch
 from ..runtime.sub_agent_jobs import (
+    SubAgentJobCancelled,
+    SubAgentJobDeadlineExceeded,
     current_sub_agent_job_mode,
     get_current_sub_agent_job,
 )
@@ -1614,6 +1616,9 @@ class SubAgentRunner:
                     )
             result, llm_usage, total_retries = outcome
             if handoff_dispatch is not None:
+                # Cancellation may arrive after provider work returns. Do not
+                # make that output durable for a terminal structured Job.
+                self._check_job_active()
                 handoff_dispatch.record_result(result)
                 result_recorded = True
                 with _SUB_AGENT_ENV_LOCK:
@@ -1626,14 +1631,17 @@ class SubAgentRunner:
                 agent_name, task, result, status, retries=total_retries, usage=llm_usage
             )
             return result
-        except BaseException:
+        except BaseException as exc:
             if handoff_dispatch is not None and not result_recorded:
                 with _SUB_AGENT_ENV_LOCK:
                     self.duplicate_guard.release(agent_name, task)
-                    if (
-                        handoff_dispatch.dispatch_id
-                        not in self._pending_handoff_results
+                    dispatch_id = handoff_dispatch.dispatch_id
+                    if isinstance(
+                        exc, (SubAgentJobCancelled, SubAgentJobDeadlineExceeded)
                     ):
+                        self._pending_handoff_results.pop(dispatch_id, None)
+                        self._handoff_result_slots.discard(dispatch_id)
+                    elif dispatch_id not in self._pending_handoff_results:
                         self._handoff_result_slots.discard(handoff_dispatch.dispatch_id)
             raise
         finally:

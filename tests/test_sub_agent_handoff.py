@@ -16,6 +16,10 @@ from uagent.runtime.compaction_record import (
 )
 from uagent.runtime.session_store import SessionStore, SessionStoreError
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
+from uagent.runtime.sub_agent_jobs import (
+    SubAgentJobCancelled,
+    SubAgentJobDeadlineExceeded,
+)
 from uagent.tools import sub_agent_tool
 from uagent.tools.context import ToolCallbacks
 
@@ -310,6 +314,43 @@ def test_provider_exception_releases_reservation_for_retry(tmp_path, monkeypatch
         assert json.loads(result)["summary"] == "Recovered"
         assert len(attempts) == 2
         assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+
+
+@pytest.mark.parametrize(
+    "exception_type", [SubAgentJobCancelled, SubAgentJobDeadlineExceeded]
+)
+def test_runner_does_not_persist_output_after_job_cancellation(
+    tmp_path, monkeypatch, exception_type
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        cancelled = False
+
+        def raise_if_cancelled():
+            if cancelled:
+                raise exception_type("job is no longer active")
+
+        monkeypatch.setattr(
+            sub_agent_tool,
+            "get_current_sub_agent_job",
+            lambda: SimpleNamespace(raise_if_cancelled=raise_if_cancelled),
+        )
+
+        def run_llm(**kwargs):
+            nonlocal cancelled
+            cancelled = True
+            return '{"status":"completed"}', {}, 0
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        with pytest.raises(exception_type, match="no longer active"):
+            runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+        assert runner._pending_handoff_results == {}
+        assert runner._handoff_result_slots == set()
+        assert runner.duplicate_guard.counts == {}
 
 
 @pytest.mark.parametrize("commit_before_error", [False, True])
