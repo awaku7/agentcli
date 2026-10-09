@@ -192,3 +192,43 @@ def test_runner_stops_when_access_is_revoked_during_dispatch_guards(
         with pytest.raises(CompactionValidationError, match="delivery"):
             runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
         assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+
+
+def test_reused_runner_distinguishes_new_dispatches_but_blocks_same_dispatch(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        first = _dispatch(store, session_id, goal_id, ref)
+        store.save_agent_state(session_id, {"phase": "next"}, expected_revision=1)
+        newer = _dispatch(store, session_id, goal_id, ref)
+        other_session = store.create_session(project="test", entry_point="cli")
+        other = capture_sub_agent_dispatch(
+            store,
+            receiving_session_id=other_session.session_id,
+            objective=first.objective,
+            task_scope="Read-only investigation",
+            source_access_check=lambda source: False,
+        )
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs["pack"].to_json())
+            return '{"status":"completed","summary":"Found cause"}', {}, 0
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        for dispatch in (first, newer, other):
+            result = runner.run(
+                "general", dispatch.objective, handoff_dispatch=dispatch
+            )
+            assert json.loads(result)["status"] == "completed"
+            assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+        assert len(calls) == 3
+        assert json.loads(calls[0])["receiving_base_revision"] == 1
+        assert json.loads(calls[1])["receiving_base_revision"] == 2
+        assert json.loads(calls[2])["receiving_session_id"] == other_session.session_id
+        repeated = runner.run("general", first.objective, handoff_dispatch=first)
+        assert json.loads(repeated)["status"] == "blocked"
+        assert len(calls) == 3
+        assert len(store.list_indexed_messages(first.source_session_id)) == 2

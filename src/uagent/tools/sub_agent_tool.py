@@ -156,6 +156,7 @@ class SubAgentTask:
     task: str
     context_pack: ContextPack
     scope_files: List[str] = field(default_factory=list)
+    handoff_dispatch_id: Optional[str] = None
 
 
 @dataclass
@@ -181,8 +182,14 @@ class DuplicateCallGuard:
         self.cache_dir = cache_dir
 
     def fingerprint(self, agent_name: str, task: SubAgentTask) -> str:
+        dispatch_identity = (
+            {"handoff_dispatch_id": task.handoff_dispatch_id}
+            if task.handoff_dispatch_id is not None
+            else {}
+        )
         normalized = json.dumps(
             {
+                **dispatch_identity,
                 "agent_name": agent_name,
                 "parent_goal": task.parent_goal,
                 "task": task.task,
@@ -1445,6 +1452,9 @@ class SubAgentRunner:
             task=task_text,
             context_pack=pack,
             scope_files=[current_file] if current_file else [],
+            handoff_dispatch_id=(
+                handoff_dispatch.dispatch_id if handoff_dispatch else None
+            ),
         )
 
         with _SUB_AGENT_ENV_LOCK:
