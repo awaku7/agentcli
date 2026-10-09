@@ -24,6 +24,28 @@ Notes:
 
 ______________________________________________________________________
 
+## Structured handoff foundation (PR 4, first stage)
+
+`runtime/handoff_record.py` defines immutable, provider-neutral `HandoffRecord`
+evidence with item-level `SourceRef` provenance. Delivery IDs and the original
+receiving session/revision come from the dispatcher. Reconciled payloads retain
+the root delivery ID and dispatch revision; rendering never applies their state.
+
+`runtime/handoff_projection.py` provides bounded Main → Sub-Agent and compact
+return JSON. Build `HandoffBounds` only from trusted caller policy, never from
+model/tool arguments. It limits Goal IDs, exact references and UTF-8 bytes; a
+required source-access callback must recheck current availability/authorization.
+Pass the materialized AgentState payload to the Main projection. Only selected
+Goal fields and explicitly selected constraints/checkpoint/artifact references
+travel; history, Memory and provider runtime state are excluded. Treat returned
+JSON as attributed evidence, never as system instructions or tool permissions.
+
+These APIs are not yet wired into the existing Sub-Agent dispatcher. Atomic
+receiver revision checks, durable root-ID deduplication/application and Auto-pilot
+checkpoint/resume remain subsequent stages. Run `tests/test_handoff_record.py`,
+`tests/test_handoff_projection.py` and `tests/test_compaction_record.py` when
+changing this foundation.
+
 ## XLSM static analysis
 
 `spreadsheet_analyze` provides read-only analysis of `.xlsm` workbooks. It uses `openpyxl` for worksheet structure and `oletools` for embedded VBA extraction; macros are never executed. The tool reports sheets, formulas, merged ranges, VBA procedures/calls, and potentially risky operations, and can return JSON or Markdown. Localized tool strings live in `src/uagent/tools/spreadsheet_analyze_tool.json`.

@@ -24,7 +24,7 @@
 - **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
 - **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装し、SessionStore reopen 後のprefix/suffix再構成も検証。Artifact-first tool-result path は既存実装と回帰テストを確認。PR 3 は checkpoint candidate の score / decision / budget、重複抑止、older-page retrieval、session-scoped source rehydration、store failure fallback を追加。PR 3 targeted tests（4 / 18 / 9 passed）と全 pytest suite、全 `src` / `tests` の Ruff・Black check、6ファイルの py_compile、Markdown format、`git diff --check` が成功。実provider matrix / 独立 CI review は未実施。
 - **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、PR 4 Handoff / PR 5 multi-client safety、provider matrix / end-to-end restart review。
-- **次の作業:** PR 3 の基礎実装は targeted tests・full suite・static checks の後に完了として記録する。独立レビューと CI での再実行は未確認として追跡し、次は PR 4 Sub-Agent / Auto-pilot Handoff に進む。cross-scope authorization は PR 5 に残し、source rehydration は同一 Session・exact/available message ref に限定する。
+- **次の作業:** PR 4 の model / caller-bounded projection API の第一段階を追加（詳細・未検証事項は PR 4 節）。次は既存 dispatcher と durable source index への接続、受信側の atomic revision / root ID deduplication を実装し、その後 Auto-pilot 再開へ進む。PR 3 の独立レビュー / CI 再実行と cross-scope authorization は引き続き別途追跡する。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -88,11 +88,25 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 ### PR 4 — Sub-Agent / Auto-pilot Handoff
 
-- [ ] HandoffRecord と caller-bounded projection を実装
+- [x] HandoffRecord と caller-bounded projection を実装（provider-neutral な model / projection API の第一段階。既存 dispatcher への接続は後続）
 - [ ] Main → Sub-Agent の最小権限 context projection
 - [ ] Sub-Agent → Main の compact return と provenance
 - [ ] Auto-pilot の checkpoint / resume を実装
 - [ ] provider / model handoff のテストを追加・実行
+
+**現在の状態・次の作業（2026-10-09）:** 第一段階として immutable `HandoffRecord` と項目別 provenance、dispatch 時の receiver / revision、root delivery ID、schema / size validation を追加。`HandoffBounds` と Main → Sub-Agent / Sub-Agent → Main の projection API は、許可された Goal / exact SourceRef と送信時の availability / authorization check に限定する。Raw History、Memory、global narrative、provider state、無関係な Goal は投影しない。Checkpoint / Artifact は明示的に選択した参照のみを渡し、全文取得は行わない。既存 Sub-Agent tools / Job dispatcher はまだこの API を使用していない。
+
+**段階導入の境界:** この段階では evidence を生成・投影する API のみとし、AgentState / SessionStore 更新、root ID の永続 deduplication、revision conflict / reconciliation の受信処理、Auto-pilot checkpoint / resume、終了判定を変更しない。次は dispatch snapshot と durable Sub-Agent source index を既存経路に接続し、その後、受信側で revision check / root ID uniqueness / state application を同じ transaction に実装する。Auto-pilot 再開はその基盤の検証後に進める。
+
+**検証:** Black 26.10.0 の `python -m black` と `python -m black --check` は変更 Python 4 ファイルで成功。`tests/test_handoff_record.py`、`tests/test_handoff_projection.py`、`tests/test_compaction_record.py` は合計 74 passed。通常の clone / pip が実行環境の network 制限で利用できず、対象ブランチの source と Black / pytest の release source を GitHub connector から取得して実行した（外部ツールは repository 外の `/tmp` に配置）。`python -m ruff check src tests` は Ruff module がなく実行失敗し、pinned Ruff のインストールも network 権限の実行待ちで中断されたため **Ruff 未検証**。requirements の全依存関係、全 repository の source、全 pytest suite、全 `src tests` の Black check、実 provider matrix、既存 dispatcher / Auto-pilot 経由の end-to-end は **未検証**。この第一段階を PR 4 全体の完了とは扱わない。
+
+**コード対応表（PR 4 第一段階）:** `src/uagent/runtime/handoff_record.py` に immutable record と deterministic item-level provenance、`src/uagent/runtime/handoff_projection.py` に trusted caller bounds / exact reference checks / UTF-8 byte budget、`tests/test_handoff_record.py` と `tests/test_handoff_projection.py` に round-trip / lineage / scope / disclosure / budget の検証を追加。既存 compression / provider / Auto-pilot path の変更はない。
+
+**検証追記・Codex review 対応（2026-10-09）:** 初回 commit `b6be192` の [CI run 37872054415](https://github.com/awaku7/agentcli/actions/runs/37872054415) で Ruff `check src tests`、Black `--check --diff src tests`、全 pytest suite、Python 3.11 / 3.13 / 3.14 compatibility jobs が成功したことを確認。Codex review の P2「Artifact なしの ExecutionRecord が `artifact_ref: null` で往復できない」を再現し、Handoff の `ProvenancedExecutionRecord.from_dict()` のみに null → optional default の正規化を追加した。入力 dict を変更せず、unknown fields / provenance の validation は維持する。null / omitted artifact の wrapper・Handoff 全体の round-trip と unknown nested field の拒否を追加し、関連 pytest は **77 passed**。修正 Python 2 files の Black 整形・check 成功。修正 commit 前のローカル Ruff は module 不在で実行失敗（**未検証**）、全 suite は未実行。修正後の CI / 再レビュー結果は PR #203 で追跡する。共有 decoder、既存 compression、Auto-pilot は変更しない。
+
+PR 4 追加 review 対応（2026-10-09）: P2「累積 Goal evidence が50件を超えると projection が失敗する」を修正。materialized AgentState の累積件数は invalid とせず、送信時に section ごとの最大50件を選択する。観測は末尾の新しい項目、Decision / Constraint は active / tentative を優先し、非選択件数を `omitted_evidence` に明示する（current constraint / work の完全な一覧とは扱わない）。元の AgentState は変更せず、非選択 source の再認可・本文送信は行わない。75件の累積観測、51件の lifecycle evidence、非選択の古い不可用 source の除外を追加し、関連 pytest は **83 passed**。対象2 Python files の Black整形・check成功。修正commit前のローカルRuffはmodule不在で実行失敗・未検証。修正後CI / Codex再レビューはPR #203で追跡する。
+
+PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section 合計の出典許可が50件に制限される」を修正。trusted `HandoffBounds.source_refs` には per-record-section の50件上限を適用せず、SourceRef の型検証・immutable snapshot・exact reference の一致・送信時の認可チェックを維持する。work_done 26件 + findings 25件、およびMainの独立2 sectionから合計51件の出典を送る回帰テストを追加し、関連 pytest は **85 passed**。対象2 Python filesのBlack整形・check成功。commit前ローカルRuffはmodule不在で実行失敗・未検証。最新commitのCI / Codex再レビューはPR #203で追跡する。
 
 ### PR 5 — Client / Session Revision Safety
 
@@ -196,6 +210,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 | 日付 | 実施内容 | 変更ファイル | 検証結果 | 次の作業 |
 |---|---|---|---|---|
+| 2026-10-09 | Codex review P2 の null artifact デコード失敗を再現・修正。Handoff decoder に限定し、入力不変 / nested validation を検証。初回 CI 全 checks 成功も確認。 | `runtime/handoff_record.py`, `tests/test_handoff_record.py`, implementation docs | 関連 pytest 77 passed、対象 Black 整形・check 成功。修正前ローカル Ruff は実行失敗・未検証。 | 修正 commit の CI と Codex 再レビューを確認する。 |
+| 2026-10-09 | PR 4 第一段階として immutable HandoffRecord / item-level provenance / dispatch lineage と caller-bounded Main / return projection API を追加。既存 dispatcher、state application、Auto-pilot 再開への接続は未実装。 | `runtime/handoff_record.py`, `runtime/handoff_projection.py`, 対応する2 test files、implementation / DEVELOP docs | 対象 Black 26.10.0 整形・check、関連 pytest 74件、syntax / whitespace check 成功。Ruff・全 suite・実 provider / end-to-end は未検証。詳細は PR 4 節。 | CIで未検証 checks を再実行し、dispatch snapshot / source index 接続から段階的に進める。 |
 | 初期記録 | 設計書を基に、本実装計画・進捗記録を作成。実装コードの調査・変更・テストは未実施。 | `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` | 未実施 | 既存コードを調査し、PR 1 のコード対応表と最小スコープを確定する。 |
 | 2026-10-08 | PR 1 の実装順序を4チェックポイントに分け、無関係な Markdown 整形を避ける運用を追記。実装コードは変更せず。 | `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` | 文書更新のみ。テスト未実施。 | PR 1 のコード対応表を埋め、最初のチェックポイントから着手する。 |
 | 2026-10-08 | 設計書を再レビューし、8項目の仕様境界を明確化して設計書・実装記録を更新。 | `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`, `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` | ドキュメントレビュー・編集のみ。コード調査とテストは未実施。 | PR 1 のコード調査で既存 SessionStore / DB schema / revision API / schema version を照合する。 |
