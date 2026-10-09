@@ -197,7 +197,7 @@ def _candidates(
     service = SessionCommandService(store)
     matching_ids = _matching_ids(service, request.topic, project=project)
     return list_session_resume_candidates(
-        sessions,
+        (row for row in sessions if row.get("entry_point") != "sub-agent"),
         request,
         matching_session_ids=matching_ids,
     )
@@ -282,7 +282,13 @@ def run_tool(args: dict[str, Any]) -> str:
         if explicit_session_id == active_session_id:
             return _result(ok=False, error="session_already_active")
         try:
-            store.get_session(explicit_session_id)
+            session = store.get_session(explicit_session_id)
+            if session.get("entry_point") == "sub-agent":
+                return _result(
+                    ok=False,
+                    error="unknown_session",
+                    session_id=explicit_session_id,
+                )
         except Exception:
             return _result(
                 ok=False,

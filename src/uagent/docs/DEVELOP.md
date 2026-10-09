@@ -63,6 +63,11 @@ Structured dispatches force tool permission to `none`; model-supplied legacy
 permission levels cannot authorize live filesystem/tool inputs outside the
 snapshot. Trusted tool grants remain a later stage; legacy permissions are
 unchanged.
+Legacy `response_schema` and `required_fields` are ignored for structured
+dispatches; the worker uses its trusted AgentSpec output contract. Natural
+session resume excludes internal child sessions from candidates and rejects
+explicit child IDs, so latest-conversation resume cannot load child evidence
+into Main.
 
 Structured dispatch reservations are released when execution fails before a
 durable result is confirmed. Finished output awaiting persistence stays in the

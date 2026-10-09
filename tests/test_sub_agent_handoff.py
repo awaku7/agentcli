@@ -882,3 +882,87 @@ def test_failed_child_identity_binding_removes_unpublished_session(
         with pytest.raises(SessionStoreError, match="identity binding unavailable"):
             _dispatch(store, session_id, goal_id, ref)
         assert [row["session_id"] for row in store.list_sessions()] == [session_id]
+
+
+@pytest.mark.parametrize("structured", [False, True])
+def test_legacy_output_contract_cannot_inject_main_text_into_snapshot(
+    tmp_path, monkeypatch, structured
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref) if structured else None
+        runner = sub_agent_tool.SubAgentRunner()
+        monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: None)
+        monkeypatch.setattr(
+            sub_agent_tool,
+            "make_client",
+            lambda callbacks: ("openai", object(), "test"),
+        )
+        prompts = []
+        output = json.dumps(
+            {
+                "status": "completed",
+                "role": "general",
+                "summary": "CONTRACT_DONE",
+                "details": {},
+                "notes": "",
+            }
+        )
+
+        def call(**kwargs):
+            prompts.append(kwargs["system_prompt"])
+            return output, 0, {}
+
+        monkeypatch.setattr(runner, "_call_with_retry", call)
+        result = runner.run(
+            "general",
+            "Inspect regression",
+            handoff_dispatch=dispatch,
+            response_schema={"description": "PRIVATE MAIN SCHEMA"},
+            required_fields=["PRIVATE MAIN FIELD"],
+            strict_output=False,
+            completion_regex="CONTRACT_DONE",
+        )
+        assert json.loads(result)["status"] == "completed"
+        assert len(prompts) == 1
+        assert ("PRIVATE MAIN SCHEMA" in prompts[0]) is (not structured)
+        assert ("PRIVATE MAIN FIELD" in prompts[0]) is (not structured)
+
+
+@pytest.mark.parametrize("selector", [{"when": "latest"}, {"session_id": "child"}])
+def test_resume_never_queues_internal_child_session(tmp_path, monkeypatch, selector):
+    from queue import Queue
+    from uagent.tools import session_resume_tool
+
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        dispatch.record_result("PRIVATE CHILD RESUME RESULT")
+        active = store.create_session(project="test", entry_point="cli")
+        store._connection.execute(
+            "UPDATE sessions SET created_at='2026-10-01 00:00:00' WHERE session_id=?",
+            (session_id,),
+        )
+        store._connection.execute(
+            "UPDATE sessions SET created_at='2026-10-02 00:00:00' WHERE session_id=?",
+            (dispatch.source_session_id,),
+        )
+        queue = Queue()
+        monkeypatch.setattr(
+            session_resume_tool,
+            "get_callbacks",
+            lambda: ToolCallbacks(
+                session_store=store, session_id=active.session_id, event_queue=queue
+            ),
+        )
+        args = dict(selector)
+        if "session_id" in args:
+            args["session_id"] = dispatch.source_session_id
+        result = json.loads(session_resume_tool.run_tool(args))
+        if "session_id" in args:
+            assert result["ok"] is False
+            assert queue.empty()
+        else:
+            assert result["session_id"] == session_id
+            assert queue.get_nowait()["text"] == f":sessions load {session_id}"
+        assert "PRIVATE CHILD" not in json.dumps(result)
