@@ -121,7 +121,6 @@ def test_invalid_child_reports_never_become_handoff(tmp_path, result):
             _return(dispatch)
 
 
-
 @pytest.mark.parametrize("status", ["error", "blocked"])
 def test_runner_terminal_message_envelopes_can_be_returned(tmp_path, status):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
