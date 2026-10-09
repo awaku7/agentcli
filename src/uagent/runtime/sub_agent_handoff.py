@@ -123,6 +123,12 @@ def capture_sub_agent_dispatch(
         entry_point="sub-agent",
     )
     try:
+        if parent["principal_id"]:
+            store.bind_identity_context(
+                child.session_id,
+                principal_id=parent["principal_id"],
+                room_id=parent["room_id"] or "",
+            )
         store.append_message(
             child.session_id,
             "user",

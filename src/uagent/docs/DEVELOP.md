@@ -56,6 +56,13 @@ provider execution, sends only the captured projection, skips legacy file
 snippets/shared context/cache, and indexes the returned output in that session
 using SessionStore's normal redaction. `dispatch.record_result()` returns an
 exact session-scoped `SourceRef`; Main AgentState is not modified.
+Child sessions inherit the parent's bound principal and room before captured
+input is persisted, preserving owner-filtered visibility and room cleanup.
+Binding failures remove the unpublished child just like initial append failures.
+Structured dispatches force tool permission to `none`; model-supplied legacy
+permission levels cannot authorize live filesystem/tool inputs outside the
+snapshot. Trusted tool grants remain a later stage; legacy permissions are
+unchanged.
 
 Structured dispatch reservations are released when execution fails before a
 durable result is confirmed. Finished output awaiting persistence stays in the

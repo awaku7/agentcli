@@ -781,3 +781,104 @@ def test_host_cannot_abandon_pending_result_during_active_retry(tmp_path, monkey
         assert len(calls) == 1
         assert runner._pending_handoff_results == {}
         assert runner._handoff_result_slots == set()
+
+
+@pytest.mark.parametrize("permission_level", ["read_only", "propose_only"])
+def test_structured_dispatch_cannot_enable_live_tools(
+    tmp_path, monkeypatch, permission_level
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: None)
+        monkeypatch.setattr(
+            sub_agent_tool,
+            "make_client",
+            lambda callbacks: ("openai", object(), "test"),
+        )
+        monkeypatch.setattr(
+            runner,
+            "_build_tool_list_prompt",
+            lambda *args: pytest.fail("structured tool discovery"),
+        )
+        monkeypatch.setattr(
+            runner,
+            "_run_llm_multi_turn",
+            lambda **kwargs: pytest.fail("structured live tool execution"),
+        )
+        calls = []
+        output = json.dumps(
+            {
+                "status": "completed",
+                "role": "general",
+                "summary": "SNAPSHOT_ONLY",
+                "details": {},
+                "notes": "",
+            }
+        )
+
+        def call(*args, **kwargs):
+            calls.append((args, kwargs))
+            return output, 0, {}
+
+        monkeypatch.setattr(runner, "_call_with_retry", call)
+        result = runner.run(
+            "general",
+            dispatch.objective,
+            handoff_dispatch=dispatch,
+            permission_level=permission_level,
+            completion_regex="SNAPSHOT_ONLY",
+        )
+        assert json.loads(result)["summary"] == "SNAPSHOT_ONLY"
+        assert len(calls) == 1
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+
+
+def test_child_inherits_parent_identity_and_room_for_owner_cleanup(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        store.bind_identity_context(
+            session_id, principal_id="owner", room_id="private-room"
+        )
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        dispatch.record_result("PRIVATE CHILD RESULT")
+        child = store.get_session(dispatch.source_session_id)
+        assert child["principal_id"] == "owner"
+        assert child["room_id"] == "private-room"
+        assert {
+            row["session_id"] for row in store.list_sessions(principal_id="owner")
+        } == {session_id, dispatch.source_session_id}
+        assert store.list_sessions(principal_id="other-owner") == []
+        for row in store.list_sessions(principal_id="owner"):
+            if row["room_id"] == "private-room":
+                store.delete_session(row["session_id"])
+        assert store.list_sessions() == []
+        assert (
+            store._connection.execute("SELECT COUNT(*) FROM messages").fetchone()[0]
+            == 0
+        )
+        assert (
+            store._connection.execute("SELECT COUNT(*) FROM session_items").fetchone()[
+                0
+            ]
+            == 0
+        )
+
+
+def test_failed_child_identity_binding_removes_unpublished_session(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        store.bind_identity_context(
+            session_id, principal_id="owner", room_id="private-room"
+        )
+
+        def fail_bind(*args, **kwargs):
+            raise SessionStoreError("identity binding unavailable")
+
+        monkeypatch.setattr(store, "bind_identity_context", fail_bind)
+        with pytest.raises(SessionStoreError, match="identity binding unavailable"):
+            _dispatch(store, session_id, goal_id, ref)
+        assert [row["session_id"] for row in store.list_sessions()] == [session_id]

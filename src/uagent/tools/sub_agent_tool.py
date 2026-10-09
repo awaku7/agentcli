@@ -1576,7 +1576,7 @@ class SubAgentRunner:
                     strict_output=strict_output,
                     evidence_required=evidence_required,
                     evidence_min_items=evidence_min_items,
-                    permission_level=permission_level,
+                    permission_level="none" if handoff_dispatch else permission_level,
                     cache_ttl=0 if handoff_dispatch else cache_ttl,
                     store_key=None if handoff_dispatch else store_key,
                     timeout=timeout,
