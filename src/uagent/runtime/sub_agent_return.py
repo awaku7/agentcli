@@ -89,13 +89,18 @@ def build_compact_sub_agent_return(
             "Sub-Agent output is unavailable or unauthorized"
         )
 
-    raw_output = output["content"]
-    if not isinstance(raw_output, str):
-        raise CompactionValidationError("invalid persisted Sub-Agent output")
-    try:
-        report = json.loads(raw_output)
-    except (ValueError, TypeError) as exc:
-        raise CompactionValidationError("Sub-Agent output is not JSON") from exc
+    # record_result stored a redacted structured snapshot beside the source.
+    # The message text itself may no longer be parseable JSON after SQLite's
+    # credential masking consumes JSON quotes. Older records use text fallback.
+    report = (output["payload"] or {}).get("compact_report")
+    if report is None:
+        raw_output = output["content"]
+        if not isinstance(raw_output, str):
+            raise CompactionValidationError("invalid persisted Sub-Agent output")
+        try:
+            report = json.loads(raw_output)
+        except (ValueError, TypeError) as exc:
+            raise CompactionValidationError("Sub-Agent output is not JSON") from exc
     if not isinstance(report, dict):
         raise CompactionValidationError("Sub-Agent report must be an object")
     status = report.get("status")
