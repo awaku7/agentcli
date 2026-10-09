@@ -6,6 +6,7 @@ not apply returns, reconcile revisions, grant tool access, or resume Auto-pilot.
 
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass, field
 from uuid import uuid4
 
@@ -15,7 +16,28 @@ from .handoff_projection import (
     SourceAccessCheck,
     project_main_to_sub_agent,
 )
-from .session_store import SessionStore
+from .session_store import SessionStore, redact_sensitive
+
+
+def _persisted_compact_report(result: str) -> dict[str, str] | None:
+    """Capture only redacted report fields before text-level SQLite masking.
+
+    Masking serialized JSON can consume its closing quote or brace. The source
+    message stays redacted; a safe structured snapshot supports compact return.
+    """
+    try:
+        parsed = json.loads(result)
+    except (TypeError, ValueError):
+        return None
+    if not isinstance(parsed, dict):
+        return None
+    status = parsed.get("status")
+    summary = parsed.get("summary")
+    if not isinstance(summary, str) and status in {"error", "blocked", "incomplete"}:
+        summary = parsed.get("message")
+    if not isinstance(status, str) or not isinstance(summary, str):
+        return None
+    return {"status": status, "summary": redact_sensitive(summary)}
 
 
 @dataclass(frozen=True)
@@ -62,11 +84,15 @@ class SubAgentDispatch:
         existing = self._result_source()
         if existing is not None:
             return existing
+        payload = {"dispatch_id": self.dispatch_id}
+        compact_report = _persisted_compact_report(result)
+        if compact_report is not None:
+            payload["compact_report"] = compact_report
         self._store.append_message(
             self.source_session_id,
             "assistant",
             result,
-            payload={"dispatch_id": self.dispatch_id},
+            payload=payload,
         )
         source = self._result_source()
         if source is not None:
