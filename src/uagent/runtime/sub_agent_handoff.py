@@ -39,22 +39,38 @@ class SubAgentDispatch:
                 )
         return self._context_json
 
-    def record_result(self, result: str) -> SourceRef:
-        """Persist the actual returned output without changing Main AgentState."""
-        message_id = self._store.append_message(
-            self.source_session_id,
-            "assistant",
-            result,
-            payload={"dispatch_id": self.dispatch_id},
-        )
+    def _result_source(self) -> SourceRef | None:
         for item in self._store.list_indexed_messages(self.source_session_id):
-            if item["message_id"] == message_id:
+            if (
+                item["role"] == "assistant"
+                and (item["payload"] or {}).get("dispatch_id") == self.dispatch_id
+            ):
                 return SourceRef(
                     kind="message",
                     scope_id=self.source_session_id,
                     ref_id=item["ref_id"],
                     session_seq=item["session_seq"],
                 )
+        return None
+
+    def record_result(self, result: str) -> SourceRef:
+        """Persist output, or recover its ref after an ambiguous storage error.
+
+        Runner reservations serialize retries. This lookup does not implement
+        cross-process deduplication or Main's transactional return application.
+        """
+        existing = self._result_source()
+        if existing is not None:
+            return existing
+        self._store.append_message(
+            self.source_session_id,
+            "assistant",
+            result,
+            payload={"dispatch_id": self.dispatch_id},
+        )
+        source = self._result_source()
+        if source is not None:
+            return source
         raise RuntimeError("persisted Sub-Agent output has no source index")
 
 

@@ -574,6 +574,7 @@ class SubAgentRunner:
         ext_specs = self._load_external_roles()
         self.specs.update(ext_specs)
         self._shared_store: Dict[str, Any] = {}
+        self._pending_handoff_results: Dict[str, tuple[str, Dict[str, int], int]] = {}
         self._store_lock = Lock()
         self._total_usage: Dict[str, int] = {
             "prompt_tokens": 0,
@@ -1509,45 +1510,61 @@ class SubAgentRunner:
             return result
 
         call_chain_token = _SUB_AGENT_CALL_CHAIN.set(call_chain + (agent_name,))
+        result_recorded = False
         try:
             if handoff_dispatch is not None:
                 # Recheck after guards, immediately before provider execution.
-                try:
-                    pack.structured_handoff = handoff_dispatch.render_context()
-                except Exception:
-                    with _SUB_AGENT_ENV_LOCK:
-                        self.duplicate_guard.release(agent_name, task)
-                    raise
-            result, llm_usage, total_retries = self._run_llm(
-                agent_name=agent_name,
-                spec=spec,
-                task=task,
-                pack=pack,
-                provider=provider,
-                model_name=model_name,
-                response_mode=response_mode,
-                response_schema=response_schema,
-                required_fields=required_fields,
-                strict_output=strict_output,
-                evidence_required=evidence_required,
-                evidence_min_items=evidence_min_items,
-                permission_level=permission_level,
-                cache_ttl=0 if handoff_dispatch else cache_ttl,
-                store_key=None if handoff_dispatch else store_key,
-                timeout=timeout,
-                max_retries=max_retries,
-                max_tool_turns=max_tool_turns,
-                max_agent_rounds=max_agent_rounds,
-                completion_sentinel=completion_sentinel,
-                completion_regex=completion_regex,
+                pack.structured_handoff = handoff_dispatch.render_context()
+            outcome = (
+                self._pending_handoff_results.get(handoff_dispatch.dispatch_id)
+                if handoff_dispatch is not None
+                else None
             )
+            if outcome is None:
+                outcome = self._run_llm(
+                    agent_name=agent_name,
+                    spec=spec,
+                    task=task,
+                    pack=pack,
+                    provider=provider,
+                    model_name=model_name,
+                    response_mode=response_mode,
+                    response_schema=response_schema,
+                    required_fields=required_fields,
+                    strict_output=strict_output,
+                    evidence_required=evidence_required,
+                    evidence_min_items=evidence_min_items,
+                    permission_level=permission_level,
+                    cache_ttl=0 if handoff_dispatch else cache_ttl,
+                    store_key=None if handoff_dispatch else store_key,
+                    timeout=timeout,
+                    max_retries=max_retries,
+                    max_tool_turns=max_tool_turns,
+                    max_agent_rounds=max_agent_rounds,
+                    completion_sentinel=completion_sentinel,
+                    completion_regex=completion_regex,
+                )
+                if handoff_dispatch is not None:
+                    # Keep finished output private while persistence is retried;
+                    # do not execute provider work again after a storage error.
+                    self._pending_handoff_results[handoff_dispatch.dispatch_id] = (
+                        outcome
+                    )
+            result, llm_usage, total_retries = outcome
             if handoff_dispatch is not None:
                 handoff_dispatch.record_result(result)
+                result_recorded = True
+                self._pending_handoff_results.pop(handoff_dispatch.dispatch_id, None)
             status = self._infer_status(result)
             self._write_log(
                 agent_name, task, result, status, retries=total_retries, usage=llm_usage
             )
             return result
+        except BaseException:
+            if handoff_dispatch is not None and not result_recorded:
+                with _SUB_AGENT_ENV_LOCK:
+                    self.duplicate_guard.release(agent_name, task)
+            raise
         finally:
             _SUB_AGENT_CALL_CHAIN.reset(call_chain_token)
 

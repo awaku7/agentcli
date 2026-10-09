@@ -53,6 +53,16 @@ snippets/shared context/cache, and indexes the returned output in that session
 using SessionStore's normal redaction. `dispatch.record_result()` returns an
 exact session-scoped `SourceRef`; Main AgentState is not modified.
 
+Structured dispatch reservations are released when execution fails before a
+durable result is confirmed. Finished output awaiting persistence stays in the
+runner's private pending map, so a retry rechecks access and saves the output
+without rerunning provider work. `record_result()` recovers an existing indexed
+result after an ambiguous append failure. Recovery is limited to the same
+runner; persistent recovery across process restarts remains a later stage.
+Successful dispatches retain their duplicate guard reservation. Structured
+results/parent tasks do not enter legacy JSONL logs, Main message callbacks or
+the shared result store; legacy calls retain those behaviors.
+
 The tool schema does not accept `handoff_dispatch`. Existing host/tool/Job paths
 remain on the legacy path until their trusted policies explicitly opt in. Full
 child conversation/tool-event persistence, compact `HandoffRecord` return,

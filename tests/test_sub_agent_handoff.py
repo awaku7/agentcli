@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+from concurrent.futures import ThreadPoolExecutor
+from threading import Event, get_ident
 
 import pytest
 
@@ -14,6 +16,7 @@ from uagent.runtime.compaction_record import (
 from uagent.runtime.session_store import SessionStore
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
 from uagent.tools import sub_agent_tool
+from uagent.tools.context import ToolCallbacks
 
 
 def _main(store):
@@ -180,6 +183,8 @@ def test_runner_stops_when_access_is_revoked_during_dispatch_guards(
         )
         runner = sub_agent_tool.SubAgentRunner()
 
+        original_check = runner.duplicate_guard.check_and_record
+
         def revoke(*args):
             nonlocal allowed
             allowed = False
@@ -192,6 +197,18 @@ def test_runner_stops_when_access_is_revoked_during_dispatch_guards(
         with pytest.raises(CompactionValidationError, match="delivery"):
             runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
         assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+        assert runner.duplicate_guard.counts == {}
+        allowed = True
+        monkeypatch.setattr(runner.duplicate_guard, "check_and_record", original_check)
+        monkeypatch.setattr(
+            runner, "_run_llm", lambda **kwargs: ('{"status":"completed"}', {}, 0)
+        )
+        assert (
+            json.loads(
+                runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+            )["status"]
+            == "completed"
+        )
 
 
 def test_reused_runner_distinguishes_new_dispatches_but_blocks_same_dispatch(
@@ -232,6 +249,7 @@ def test_reused_runner_distinguishes_new_dispatches_but_blocks_same_dispatch(
         assert json.loads(repeated)["status"] == "blocked"
         assert len(calls) == 3
         assert len(store.list_indexed_messages(first.source_session_id)) == 2
+
         changed_legacy_args = runner.run(
             "general",
             first.objective,
@@ -242,3 +260,207 @@ def test_reused_runner_distinguishes_new_dispatches_but_blocks_same_dispatch(
         assert json.loads(changed_legacy_args)["status"] == "blocked"
         assert len(calls) == 3
         assert len(store.list_indexed_messages(first.source_session_id)) == 2
+
+
+def test_provider_exception_releases_reservation_for_retry(tmp_path, monkeypatch):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        attempts = []
+
+        def run_llm(**kwargs):
+            attempts.append(kwargs)
+            if len(attempts) == 1:
+                raise RuntimeError("provider unavailable")
+            return '{"status":"completed","summary":"Recovered"}', {}, 0
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        with pytest.raises(RuntimeError, match="provider unavailable"):
+            runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert runner.duplicate_guard.counts == {}
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert json.loads(result)["summary"] == "Recovered"
+        assert len(attempts) == 2
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+
+
+@pytest.mark.parametrize("commit_before_error", [False, True])
+def test_persistence_retry_reuses_output_and_does_not_duplicate_source(
+    tmp_path, monkeypatch, commit_before_error
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs)
+            return '{"status":"completed","summary":"Finished work"}', {}, 0
+
+        append = store.append_message
+
+        def fail_append(*args, **kwargs):
+            if commit_before_error:
+                append(*args, **kwargs)
+            raise RuntimeError("storage unavailable")
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        monkeypatch.setattr(store, "append_message", fail_append)
+        with pytest.raises(RuntimeError, match="storage unavailable"):
+            runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert runner.duplicate_guard.counts == {}
+        monkeypatch.setattr(store, "append_message", append)
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert json.loads(result)["summary"] == "Finished work"
+        assert len(calls) == 1
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+
+
+def test_concurrent_rejection_does_not_consume_failed_dispatch_reservation(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        reached_delivery = Event()
+        resume = Event()
+        worker = {}
+        allowed = True
+
+        def check(source):
+            if get_ident() == worker.get("thread"):
+                worker["checks"] = worker.get("checks", 0) + 1
+                if worker["checks"] == 2:
+                    reached_delivery.set()
+                    if not resume.wait(5):
+                        raise RuntimeError("test delivery barrier timed out")
+            return allowed
+
+        dispatch = _dispatch(store, session_id, goal_id, ref, source_access_check=check)
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs)
+            return '{"status":"completed"}', {}, 0
+
+        def first_call():
+            worker["thread"] = get_ident()
+            return runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            future = pool.submit(first_call)
+            try:
+                assert reached_delivery.wait(5)
+                counts = dict(runner.duplicate_guard.counts)
+                duplicate = runner.run(
+                    "general", dispatch.objective, handoff_dispatch=dispatch
+                )
+                assert json.loads(duplicate)["status"] == "blocked"
+                assert runner.duplicate_guard.counts == counts
+                allowed = False
+            finally:
+                resume.set()
+            with pytest.raises(CompactionValidationError, match="delivery"):
+                future.result(timeout=5)
+        assert runner.duplicate_guard.counts == {}
+        assert calls == []
+        allowed = True
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert json.loads(result)["status"] == "completed"
+        assert len(calls) == 1
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 2
+
+
+def test_circular_rejection_releases_reservation_for_non_nested_retry(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs)
+            return '{"status":"completed"}', {}, 0
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        token = sub_agent_tool._SUB_AGENT_CALL_CHAIN.set(("general",))
+        try:
+            rejected = runner.run(
+                "general", dispatch.objective, handoff_dispatch=dispatch
+            )
+        finally:
+            sub_agent_tool._SUB_AGENT_CALL_CHAIN.reset(token)
+        assert "Circular" in json.loads(rejected)["message"]
+        assert runner.duplicate_guard.counts == {}
+        assert calls == []
+        result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        assert json.loads(result)["status"] == "completed"
+        assert len(calls) == 1
+
+
+@pytest.mark.parametrize("structured", [False, True])
+def test_provider_path_separates_main_history_logs_and_shared_store(
+    tmp_path, monkeypatch, structured
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref) if structured else None
+        cb = ToolCallbacks(
+            log_message=lambda message: store.append_message(
+                session_id, message["role"], message["content"]
+            )
+        )
+        monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: cb)
+        monkeypatch.setattr(
+            sub_agent_tool,
+            "make_client",
+            lambda callbacks: ("openai", object(), "test"),
+        )
+        monkeypatch.setattr(sub_agent_tool, "_SUB_AGENT_LOG_DIR", tmp_path / "logs")
+        runner = sub_agent_tool.SubAgentRunner()
+        output = json.dumps(
+            {
+                "status": "completed",
+                "role": "general",
+                "summary": "PRIVATE RESULT_MARKER",
+                "details": {},
+                "notes": "",
+            }
+        )
+        monkeypatch.setattr(
+            runner, "_call_with_retry", lambda *args, **kwargs: (output, 0, {})
+        )
+        result = runner.run(
+            "general",
+            "Inspect regression",
+            parent_goal="PRIVATE PARENT GOAL",
+            store_key="result",
+            completion_regex="RESULT_MARKER",
+            current_file=str(tmp_path / "missing.txt") if structured else None,
+            handoff_dispatch=dispatch,
+        )
+        assert json.loads(result)["status"] == "completed"
+        main_messages = store.list_indexed_messages(session_id)
+        logs = "\n".join(
+            path.read_text() for path in (tmp_path / "logs").rglob("*.jsonl")
+        )
+        if structured:
+            assert len(main_messages) == 1
+            assert "PRIVATE" not in logs
+            assert "result" not in runner._shared_store
+            child = store.list_indexed_messages(dispatch.source_session_id)
+            assert (
+                json.loads(child[-1]["content"])["summary"] == "PRIVATE RESULT_MARKER"
+            )
+        else:
+            assert any(
+                "PRIVATE RESULT_MARKER" in item["content"] for item in main_messages
+            )
+            assert "PRIVATE PARENT GOAL" in logs
+            assert "PRIVATE RESULT_MARKER" in logs
+            assert runner._shared_store["result"] == result
