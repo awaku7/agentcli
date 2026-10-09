@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from dataclasses import FrozenInstanceError, replace
 
 import pytest
@@ -86,6 +87,35 @@ def test_input_lists_are_detached_and_record_is_immutable():
     assert len(record.work_done[0].source_refs) == 1
     with pytest.raises(FrozenInstanceError):
         record.receiving_base_revision = 8
+
+
+@pytest.mark.parametrize("omit_artifact", [False, True])
+def test_execution_without_artifact_roundtrips_without_mutating_input(omit_artifact):
+    check = ProvenancedExecutionRecord(
+        ExecutionRecord("pytest", "passed", exit_code=0),
+        (_ref("execution", "check"),),
+    )
+    record = _record(
+        state_delta=ProvenancedDeterministicDelta(executed_checks=(check,))
+    )
+    payload = json.loads(record.to_json())
+    raw_check = payload["state_delta"]["executed_checks"][0]
+    assert raw_check["execution"]["artifact_ref"] is None
+    if omit_artifact:
+        raw_check["execution"].pop("artifact_ref")
+    before = deepcopy(payload)
+    assert ProvenancedExecutionRecord.from_dict(raw_check) == check
+    assert HandoffRecord.from_dict(payload) == record
+    assert payload == before
+
+
+def test_null_artifact_does_not_relax_other_nested_validation():
+    payload = ProvenancedExecutionRecord(
+        ExecutionRecord("pytest", "passed"), (_ref("execution", "check"),)
+    ).to_dict()
+    payload["execution"]["raw_history"] = "private"
+    with pytest.raises(CompactionValidationError, match="unknown ExecutionRecord"):
+        ProvenancedExecutionRecord.from_dict(payload)
 
 
 def test_reconciliation_preserves_original_snapshot_and_root():

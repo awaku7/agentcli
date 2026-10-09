@@ -102,6 +102,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 **コード対応表（PR 4 第一段階）:** `src/uagent/runtime/handoff_record.py` に immutable record と deterministic item-level provenance、`src/uagent/runtime/handoff_projection.py` に trusted caller bounds / exact reference checks / UTF-8 byte budget、`tests/test_handoff_record.py` と `tests/test_handoff_projection.py` に round-trip / lineage / scope / disclosure / budget の検証を追加。既存 compression / provider / Auto-pilot path の変更はない。
 
+**検証追記・Codex review 対応（2026-10-09）:** 初回 commit `b6be192` の [CI run 37872054415](https://github.com/awaku7/agentcli/actions/runs/37872054415) で Ruff `check src tests`、Black `--check --diff src tests`、全 pytest suite、Python 3.11 / 3.13 / 3.14 compatibility jobs が成功したことを確認。Codex review の P2「Artifact なしの ExecutionRecord が `artifact_ref: null` で往復できない」を再現し、Handoff の `ProvenancedExecutionRecord.from_dict()` のみに null → optional default の正規化を追加した。入力 dict を変更せず、unknown fields / provenance の validation は維持する。null / omitted artifact の wrapper・Handoff 全体の round-trip と unknown nested field の拒否を追加し、関連 pytest は **77 passed**。修正 Python 2 files の Black 整形・check 成功。修正 commit 前のローカル Ruff は module 不在で実行失敗（**未検証**）、全 suite は未実行。修正後の CI / 再レビュー結果は PR #203 で追跡する。共有 decoder、既存 compression、Auto-pilot は変更しない。
+
 ### PR 5 — Client / Session Revision Safety
 
 - [ ] principal / workspace / client_instance / session の scope を確認・実装
@@ -204,6 +206,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 | 日付 | 実施内容 | 変更ファイル | 検証結果 | 次の作業 |
 |---|---|---|---|---|
+| 2026-10-09 | Codex review P2 の null artifact デコード失敗を再現・修正。Handoff decoder に限定し、入力不変 / nested validation を検証。初回 CI 全 checks 成功も確認。 | `runtime/handoff_record.py`, `tests/test_handoff_record.py`, implementation docs | 関連 pytest 77 passed、対象 Black 整形・check 成功。修正前ローカル Ruff は実行失敗・未検証。 | 修正 commit の CI と Codex 再レビューを確認する。 |
 | 2026-10-09 | PR 4 第一段階として immutable HandoffRecord / item-level provenance / dispatch lineage と caller-bounded Main / return projection API を追加。既存 dispatcher、state application、Auto-pilot 再開への接続は未実装。 | `runtime/handoff_record.py`, `runtime/handoff_projection.py`, 対応する2 test files、implementation / DEVELOP docs | 対象 Black 26.10.0 整形・check、関連 pytest 74件、syntax / whitespace check 成功。Ruff・全 suite・実 provider / end-to-end は未検証。詳細は PR 4 節。 | CIで未検証 checks を再実行し、dispatch snapshot / source index 接続から段階的に進める。 |
 | 初期記録 | 設計書を基に、本実装計画・進捗記録を作成。実装コードの調査・変更・テストは未実施。 | `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` | 未実施 | 既存コードを調査し、PR 1 のコード対応表と最小スコープを確定する。 |
 | 2026-10-08 | PR 1 の実装順序を4チェックポイントに分け、無関係な Markdown 整形を避ける運用を追記。実装コードは変更せず。 | `docs/UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` | 文書更新のみ。テスト未実施。 | PR 1 のコード対応表を埋め、最初のチェックポイントから着手する。 |

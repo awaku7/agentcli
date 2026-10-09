@@ -97,6 +97,15 @@ class ProvenancedExecutionRecord(_RecordMixin):
 
     @classmethod
     def from_dict(cls, value: Any) -> "ProvenancedExecutionRecord":
+        if isinstance(value, dict) and isinstance(value.get("execution"), dict):
+            execution = value["execution"]
+            if "artifact_ref" in execution and execution["artifact_ref"] is None:
+                # The shared nested decoder cannot decode null SourceRefs.
+                # Omission uses ExecutionRecord's optional default; copy both
+                # dictionaries so the incoming evidence remains untouched.
+                execution = dict(execution)
+                execution.pop("artifact_ref")
+                value = {**value, "execution": execution}
         return _decode_dataclass(
             cls,
             value,
