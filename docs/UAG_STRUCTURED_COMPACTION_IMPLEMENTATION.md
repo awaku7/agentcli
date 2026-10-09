@@ -104,6 +104,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 **検証追記・Codex review 対応（2026-10-09）:** 初回 commit `b6be192` の [CI run 37872054415](https://github.com/awaku7/agentcli/actions/runs/37872054415) で Ruff `check src tests`、Black `--check --diff src tests`、全 pytest suite、Python 3.11 / 3.13 / 3.14 compatibility jobs が成功したことを確認。Codex review の P2「Artifact なしの ExecutionRecord が `artifact_ref: null` で往復できない」を再現し、Handoff の `ProvenancedExecutionRecord.from_dict()` のみに null → optional default の正規化を追加した。入力 dict を変更せず、unknown fields / provenance の validation は維持する。null / omitted artifact の wrapper・Handoff 全体の round-trip と unknown nested field の拒否を追加し、関連 pytest は **77 passed**。修正 Python 2 files の Black 整形・check 成功。修正 commit 前のローカル Ruff は module 不在で実行失敗（**未検証**）、全 suite は未実行。修正後の CI / 再レビュー結果は PR #203 で追跡する。共有 decoder、既存 compression、Auto-pilot は変更しない。
 
+PR 4 追加 review 対応（2026-10-09）: P2「累積 Goal evidence が50件を超えると projection が失敗する」を修正。materialized AgentState の累積件数は invalid とせず、送信時に section ごとの最大50件を選択する。観測は末尾の新しい項目、Decision / Constraint は active / tentative を優先し、非選択件数を `omitted_evidence` に明示する（current constraint / work の完全な一覧とは扱わない）。元の AgentState は変更せず、非選択 source の再認可・本文送信は行わない。75件の累積観測、51件の lifecycle evidence、非選択の古い不可用 source の除外を追加し、関連 pytest は **83 passed**。対象2 Python files の Black整形・check成功。修正commit前のローカルRuffはmodule不在で実行失敗・未検証。修正後CI / Codex再レビューはPR #203で追跡する。
+
 ### PR 5 — Client / Session Revision Safety
 
 - [ ] principal / workspace / client_instance / session の scope を確認・実装

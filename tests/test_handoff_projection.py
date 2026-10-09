@@ -9,6 +9,7 @@ import pytest
 from uagent.runtime.compaction_record import (
     CompactionValidationError,
     ConstraintRecord,
+    DecisionRecord,
     ExecutionRecord,
     SourceRef,
 )
@@ -286,3 +287,74 @@ def test_no_goals_does_not_fall_back_to_global_state_or_history():
     payload = _main(goal_ids=())
     assert json.loads(payload)["goals"] == []
     assert "PRIVATE" not in payload
+
+
+@pytest.mark.parametrize(
+    "section", ["status_observations", "progress_events", "next_action_observations"]
+)
+def test_accumulated_goal_observations_are_selected_without_mutating_state(section):
+    state = _state()
+    goal = state["structured_compaction"]["goals"]["g1"]
+    goal[section] = [
+        {"text": f"Observation {index}", "source_refs": [REF.to_dict()]}
+        for index in range(75)
+    ]
+    before = copy.deepcopy(state)
+    projected = json.loads(_main(state))["goals"][0]
+    assert len(projected[section]) == 50
+    assert projected[section][0]["text"] == "Observation 25"
+    assert projected[section][-1]["text"] == "Observation 74"
+    assert projected["omitted_evidence"] == {section: 25}
+    assert all(item["source_refs"] == [REF.to_dict()] for item in projected[section])
+    assert state == before
+
+
+@pytest.mark.parametrize(
+    "section,record_type,text_field,id_field,inactive",
+    [
+        ("decisions", DecisionRecord, "decision", "decision_id", "superseded"),
+        ("constraints", ConstraintRecord, "constraint", "constraint_id", "revoked"),
+    ],
+)
+def test_lifecycle_selection_prefers_current_items_to_inactive_history(
+    section, record_type, text_field, id_field, inactive
+):
+    state = _state()
+    goal = state["structured_compaction"]["goals"]["g1"]
+    goal[section] = {
+        f"item-{index}": record_type(
+            **{
+                id_field: f"item-{index}",
+                text_field: f"Evidence {index}",
+                "status": "active" if index == 0 else inactive,
+                "source_refs": (REF,),
+            }
+        ).to_dict()
+        for index in range(51)
+    }
+    before = copy.deepcopy(state)
+    projected = json.loads(_main(state))["goals"][0]
+    assert len(projected[section]) == 50
+    assert any(item[id_field] == "item-0" for item in projected[section])
+    assert projected["omitted_evidence"] == {section: 1}
+    assert state == before
+
+
+def test_unselected_old_sources_are_not_disclosed_or_reauthorized():
+    state = _state()
+    observations = [
+        {"text": f"Observation {index}", "source_refs": [REF.to_dict()]}
+        for index in range(50)
+    ]
+    observations.insert(
+        0,
+        {
+            "text": "PRIVATE OLD SOURCE",
+            "source_refs": [replace(REF, ref_id="revoked-message").to_dict()],
+        },
+    )
+    state["structured_compaction"]["goals"]["g1"]["progress_events"] = observations
+    payload = _main(state)
+    assert "PRIVATE" not in payload
+    assert "revoked-message" not in payload
+    assert json.loads(payload)["goals"][0]["omitted_evidence"] == {"progress_events": 1}

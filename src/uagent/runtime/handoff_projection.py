@@ -145,6 +145,10 @@ def project_main_to_sub_agent(
     Relevant checkpoints and required artifacts travel as references, not full
     payloads. No global narrative, Memory, history, provider state or unrelated
     Goal is copied. The caller owns subsequent authorized bounded retrieval.
+    Accumulated evidence is selected per section (up to 50 items); observations
+    keep their latest entries, lifecycle items prioritize active/tentative
+    entries. Nonzero omitted_evidence counts mark an incomplete projection and
+    must not be interpreted as a complete list of current constraints or work.
     """
     _text(objective, "objective")
     _text(task_scope, "task_scope")
@@ -180,6 +184,7 @@ def project_main_to_sub_agent(
         title = goal.get("title")
         _text(title, "goal.title", optional=True)
         projection = {"goal_id": goal_id, "title": title}
+        omitted_evidence = {}
         for name, record_type, keyed in (
             ("status_observations", ProvenancedObservation, False),
             ("progress_events", ProvenancedObservation, False),
@@ -193,14 +198,28 @@ def project_main_to_sub_agent(
                 if not isinstance(raw_items, Mapping):
                     raise CompactionValidationError("invalid keyed goal evidence")
                 raw_items = list(raw_items.values())
-            if (
-                not isinstance(raw_items, (tuple, list))
-                or len(raw_items) > MAX_ITEMS_PER_SECTION
-            ):
-                raise CompactionValidationError("invalid or oversized goal evidence")
+            if not isinstance(raw_items, (tuple, list)):
+                raise CompactionValidationError("invalid goal evidence")
+            # AgentState accumulates multiple valid records. Bound the outgoing
+            # selection rather than rejecting its larger materialized lists.
+            if len(raw_items) > MAX_ITEMS_PER_SECTION:
+                omitted_evidence[name] = len(raw_items) - MAX_ITEMS_PER_SECTION
+                if record_type in (DecisionRecord, ConstraintRecord):
+                    # Keep current lifecycle items ahead of historical ones.
+                    # Within each group preserve the materialized source order.
+                    raw_items = sorted(
+                        raw_items,
+                        key=lambda item: (
+                            isinstance(item, dict)
+                            and item.get("status") in {"active", "tentative"}
+                        ),
+                    )
+                raw_items = raw_items[-MAX_ITEMS_PER_SECTION:]
             items = tuple(_state_item(record_type, item) for item in raw_items)
             _check_sources(items, bounds, source_access_check)
             projection[name] = [item.to_dict() for item in items]
+        if omitted_evidence:
+            projection["omitted_evidence"] = omitted_evidence
         projected_goals.append(projection)
     _check_sources(
         (constraints, checkpoint_refs, artifact_refs), bounds, source_access_check
