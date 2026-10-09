@@ -205,6 +205,14 @@ class DuplicateCallGuard:
         self.counts[fp] = current
         return current <= self.max_repeats
 
+    def release(self, agent_name: str, task: SubAgentTask) -> None:
+        fp = self.fingerprint(agent_name, task)
+        current = self.counts.get(fp, 0)
+        if current > 1:
+            self.counts[fp] = current - 1
+        elif current == 1:
+            self.counts.pop(fp, None)
+
     def get_cached(self, agent_name: str, task: SubAgentTask) -> Optional[str]:
         if not self.cache_dir:
             return None
@@ -1499,7 +1507,12 @@ class SubAgentRunner:
         try:
             if handoff_dispatch is not None:
                 # Recheck after guards, immediately before provider execution.
-                pack.structured_handoff = handoff_dispatch.render_context()
+                try:
+                    pack.structured_handoff = handoff_dispatch.render_context()
+                except Exception:
+                    with _SUB_AGENT_ENV_LOCK:
+                        self.duplicate_guard.release(agent_name, task)
+                    raise
             result, llm_usage, total_retries = self._run_llm(
                 agent_name=agent_name,
                 spec=spec,
@@ -1629,6 +1642,11 @@ class SubAgentRunner:
                 {},
                 0,
             )
+
+        # Structured output must not be logged into the receiving Main session.
+        # Client creation above may still use the host callbacks for setup.
+        if task.handoff_dispatch_id is not None:
+            cb = None
 
         if response_mode is None:
             if spec.default_response_mode:
