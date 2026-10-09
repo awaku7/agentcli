@@ -116,22 +116,28 @@ def capture_sub_agent_dispatch(
         source_access_check=check_source,
     )
     parent = store.get_session(receiving_session_id)
+    dispatch_id = uuid4().hex
     child = store.create_session(
         project=parent["project"],
         project_path=parent["project_path"],
         entry_point="sub-agent",
     )
-    dispatch_id = uuid4().hex
-    store.append_message(
-        child.session_id,
-        "user",
-        context_json,
-        payload={
-            "dispatch_id": dispatch_id,
-            "receiving_session_id": receiving_session_id,
-            "receiving_base_revision": revision,
-        },
-    )
+    try:
+        store.append_message(
+            child.session_id,
+            "user",
+            context_json,
+            payload={
+                "dispatch_id": dispatch_id,
+                "receiving_session_id": receiving_session_id,
+                "receiving_base_revision": revision,
+            },
+        )
+    except BaseException:
+        # This new session has not been published to a worker/caller yet.
+        # Remove its message, FTS and source-index rows on failed capture.
+        store.delete_session(child.session_id)
+        raise
     return SubAgentDispatch(
         dispatch_id=dispatch_id,
         source_session_id=child.session_id,

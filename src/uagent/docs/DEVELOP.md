@@ -46,7 +46,11 @@ the trusted host calls `capture_sub_agent_dispatch(store, receiving_session_id=.
 objective=..., task_scope=..., goal_ids=..., source_refs=...,
 source_access_check=...)`. This captures AgentState and revision together and
 stores the bounded projection and dispatch lineage in a dedicated Sub-Agent
-session. Access checks remain the host's responsibility and must verify both
+session.
+If the initial dispatch append fails, capture deletes the newly created,
+unpublished child session using SessionStore cleanup before propagating the
+error, so retries do not accumulate orphan sessions or their source rows.
+Access checks remain the host's responsibility and must verify both
 availability and authorization. The runner rechecks selected references before
 provider execution, sends only the captured projection, skips legacy file
 snippets/shared context/cache, and indexes the returned output in that session

@@ -14,7 +14,7 @@ from uagent.runtime.compaction_record import (
     ProvenancedObservation,
     SourceRef,
 )
-from uagent.runtime.session_store import SessionStore
+from uagent.runtime.session_store import SessionStore, SessionStoreError
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
 from uagent.tools import sub_agent_tool
 from uagent.tools.context import ToolCallbacks
@@ -566,3 +566,39 @@ def test_pending_result_capacity_blocks_new_work_but_preserves_retry(
         result = runner.run("general", third.objective, handoff_dispatch=third)
         assert json.loads(result)["status"] == "completed"
         assert len(calls) == 3
+
+
+@pytest.mark.parametrize("commit_before_error", [False, True])
+def test_failed_capture_removes_child_session_and_allows_clean_retry(
+    tmp_path, monkeypatch, commit_before_error
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        before = store.get_agent_state_snapshot(session_id)
+        append = store.append_message
+        if commit_before_error:
+
+            def fail_append(*args, **kwargs):
+                append(*args, **kwargs)
+                raise RuntimeError("initial handoff unavailable")
+
+            monkeypatch.setattr(store, "append_message", fail_append)
+            error = RuntimeError
+        else:
+            store._connection.execute(
+                "CREATE TRIGGER fail_initial_handoff BEFORE INSERT ON messages "
+                "BEGIN SELECT RAISE(FAIL, 'initial handoff unavailable'); END"
+            )
+            error = SessionStoreError
+        for _ in range(2):
+            with pytest.raises(error, match="initial handoff unavailable"):
+                _dispatch(store, session_id, goal_id, ref)
+            assert [row["session_id"] for row in store.list_sessions()] == [session_id]
+            assert store.get_agent_state_snapshot(session_id) == before
+        monkeypatch.setattr(store, "append_message", append)
+        if not commit_before_error:
+            store._connection.execute("DROP TRIGGER fail_initial_handoff")
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        assert len(store.list_sessions()) == 2
+        assert len(store.list_indexed_messages(dispatch.source_session_id)) == 1
+        assert store.get_agent_state_snapshot(session_id) == before
