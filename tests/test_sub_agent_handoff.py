@@ -992,7 +992,6 @@ def test_resume_never_queues_internal_child_session(tmp_path, monkeypatch, selec
         assert "PRIVATE CHILD" not in json.dumps(result)
 
 
-
 def test_unknown_structured_role_does_not_leak_model_argument_to_logs(
     tmp_path, monkeypatch
 ):
