@@ -173,6 +173,31 @@ def test_runner_rejects_model_dict_or_changed_objective(tmp_path):
             runner.run("general", "different task", handoff_dispatch=dispatch)
 
 
+def test_tool_entrypoint_keeps_dispatch_as_private_runtime_argument(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        captured = {}
+
+        class FakeRunner:
+            def run(self, *args, **kwargs):
+                captured["args"] = args
+                captured["kwargs"] = kwargs
+                return "structured result"
+
+        monkeypatch.setattr(sub_agent_tool, "_runner", FakeRunner())
+        monkeypatch.setattr(sub_agent_tool, "get_callbacks", lambda: ToolCallbacks())
+        result = sub_agent_tool.run_tool(
+            {"agent_name": "general", "task": dispatch.objective},
+            handoff_dispatch=dispatch,
+        )
+        assert result == "structured result"
+        assert captured["kwargs"]["handoff_dispatch"] is dispatch
+        assert captured["kwargs"]["parent_goal"] is None
+
+
 def test_runner_stops_when_access_is_revoked_during_dispatch_guards(
     tmp_path, monkeypatch
 ):

@@ -89,7 +89,13 @@ calls and keeps abandoned dispatch IDs blocked against provider reexecution.
 Transient authorization failures do not automatically discard pending results.
 Structured work never consumes live Job inbox instructions. Additional input
 requires a newly captured, authorized dispatch; legacy Job inbox handling is
-unchanged.
+unchanged. `SubAgentJobManager` accepts an optional host-owned
+`handoff_dispatch_policy`. When installed, the queue captures and validates the
+dispatch against the immutable Job owner before admission, carries it on the
+worker execution context, rejects shared-store publication and live inbox
+messages, and the worker passes it through a private runtime argument to
+`SubAgentRunner`. No current host installs this policy yet; each host must add
+its own bounded Goal/source selection and access checks before opting in.
 SQLite profile reconstruction excludes `sub-agent` sessions before reading
 messages or applying its log-count limit. Child objectives and generated
 findings must not become long-term user preferences injected into Main prompts.

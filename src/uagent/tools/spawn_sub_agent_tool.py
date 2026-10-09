@@ -157,17 +157,24 @@ def run_tool(args: dict[str, Any]) -> str:
         not isinstance(k, str) for k in load_keys
     ):
         return blocked("invalid_load_keys")
-    shared_context, missing_keys = manager.load_shared_results(
-        owner=owner, keys=load_keys
-    )
-    if missing_keys:
-        return blocked(
-            "shared_keys_not_found", json_result({"missing_keys": missing_keys})
+    structured_handoff = bool(getattr(manager, "structured_handoff_enabled", False))
+    store_key = str(args.get("store_key") or "").strip() or None
+    if structured_handoff:
+        if load_keys or store_key:
+            return blocked("structured_handoff_shared_store_disabled")
+        shared_context = {}
+    else:
+        shared_context, missing_keys = manager.load_shared_results(
+            owner=owner, keys=load_keys
         )
-    try:
-        shared_context = namespace_shared_context(shared_context)
-    except ValueError:
-        return blocked("shared_context_too_large")
+        if missing_keys:
+            return blocked(
+                "shared_keys_not_found", json_result({"missing_keys": missing_keys})
+            )
+        try:
+            shared_context = namespace_shared_context(shared_context)
+        except ValueError:
+            return blocked("shared_context_too_large")
 
     options = {
         "agent_name": agent_name,
@@ -184,21 +191,27 @@ def run_tool(args: dict[str, Any]) -> str:
     }
     # The manager supplies a fixed workdir snapshot; callers cannot select a
     # different filesystem root through tool arguments.
-    store_key = str(args.get("store_key") or "").strip() or None
 
     def worker(job_context):
         from .sub_agent_tool import run_tool as run_sync_sub_agent
 
         job_context.raise_if_cancelled()
-        messages = job_context.drain_messages()
-        worker_task = task
-        previous = getattr(worker_state, "previous_result", "")
-        if previous:
-            worker_task += "\n\n[Previous Job result]\n" + previous[:16000]
-        if messages:
-            worker_task += "\n\n[New instructions from Main Agent]\n" + "\n".join(
-                f"(message {item['sequence']}) {item['message']}" for item in messages
-            )
+        handoff_dispatch = getattr(job_context, "handoff_dispatch", None)
+        if handoff_dispatch is None:
+            messages = job_context.drain_messages()
+            worker_task = task
+            previous = getattr(worker_state, "previous_result", "")
+            if previous:
+                worker_task += "\n\n[Previous Job result]\n" + previous[:16000]
+            if messages:
+                worker_task += "\n\n[New instructions from Main Agent]\n" + "\n".join(
+                    f"(message {item['sequence']}) {item['message']}"
+                    for item in messages
+                )
+        else:
+            # Structured Jobs are single-dispatch snapshots. The Job manager
+            # rejects live inbox messages until a later dispatch is captured.
+            worker_task = handoff_dispatch.objective
         if (
             len(worker_task.encode("utf-8", errors="replace"))
             > manager.settings.task_max_bytes
@@ -210,7 +223,12 @@ def run_tool(args: dict[str, Any]) -> str:
         if per_call_remaining is not None:
             options["timeout"] = max(1, int(per_call_remaining))
         options["task"] = worker_task
-        result = run_sync_sub_agent(dict(options))
+        if handoff_dispatch is not None:
+            result = run_sync_sub_agent(
+                dict(options), handoff_dispatch=handoff_dispatch
+            )
+        else:
+            result = run_sync_sub_agent(dict(options))
         job_context.raise_if_cancelled()
         worker_state.previous_result = result
         return result

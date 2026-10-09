@@ -1476,7 +1476,11 @@ class SubAgentRunner:
             self._write_log(agent_name, None, result, "error")
             return result
 
-        goal = parent_goal or task_text
+        goal = (
+            handoff_dispatch.objective
+            if handoff_dispatch is not None
+            else parent_goal or task_text
+        )
         pack = ContextPack(
             current_goal=goal,
             current_state="PROCESSING",
@@ -1508,7 +1512,11 @@ class SubAgentRunner:
             parent_goal=goal,
             task=task_text,
             context_pack=pack,
-            scope_files=[current_file] if current_file else [],
+            scope_files=(
+                []
+                if handoff_dispatch is not None
+                else [current_file] if current_file else []
+            ),
             handoff_dispatch_id=(
                 handoff_dispatch.dispatch_id if handoff_dispatch else None
             ),
@@ -2346,7 +2354,9 @@ def publish_shared_result(store_key: str, result: str) -> None:
     _runner.publish_shared_result(store_key, result)
 
 
-def run_tool(args: Dict[str, Any]) -> str:
+def run_tool(
+    args: Dict[str, Any], *, handoff_dispatch: Optional[SubAgentDispatch] = None
+) -> str:
     cb = get_callbacks()
     agent_name = args["agent_name"]
     task = args["task"]
@@ -2422,6 +2432,7 @@ def run_tool(args: Dict[str, Any]) -> str:
             completion_sentinel=completion_sentinel,
             completion_regex=completion_regex,
             shared_context=shared_context,
+            handoff_dispatch=handoff_dispatch,
         )
     finally:
         reset_active_sub_agent(sub_agent_token)
