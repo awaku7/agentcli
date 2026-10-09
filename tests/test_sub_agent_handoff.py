@@ -926,12 +926,16 @@ def test_legacy_output_contract_cannot_inject_main_text_into_snapshot(
             "general",
             "Inspect regression",
             handoff_dispatch=dispatch,
-            provider="PRIVATE MAIN PROVIDER",
-            model_name="PRIVATE MAIN MODEL",
+            provider=("PRIVATE MAIN PROVIDER" if structured else "openai"),
+            model_name=("PRIVATE MAIN MODEL" if structured else "test-model"),
             response_mode="json",
             response_schema={"description": "PRIVATE MAIN SCHEMA"},
             required_fields=["PRIVATE MAIN FIELD"],
             strict_output=False,
+            evidence_required=structured,
+            evidence_min_items=(
+                "PRIVATE MAIN EVIDENCE MARKER" if structured else 2
+            ),
             completion_regex="CONTRACT_DONE",
         )
         assert json.loads(result)["status"] == "completed"
@@ -941,9 +945,11 @@ def test_legacy_output_contract_cannot_inject_main_text_into_snapshot(
             assert worker_arguments[0]["provider"] is None
             assert worker_arguments[0]["model_name"] is None
             assert worker_arguments[0]["response_mode"] is None
+            assert worker_arguments[0]["evidence_required"] is False
+            assert worker_arguments[0]["evidence_min_items"] == 0
         else:
-            assert worker_arguments[0]["provider"] == "PRIVATE MAIN PROVIDER"
-            assert worker_arguments[0]["model_name"] == "PRIVATE MAIN MODEL"
+            assert worker_arguments[0]["provider"] == "openai"
+            assert worker_arguments[0]["model_name"] == "test-model"
             assert worker_arguments[0]["response_mode"] == "json"
         assert ("PRIVATE MAIN SCHEMA" in prompts[0]) is (not structured)
         assert ("PRIVATE MAIN FIELD" in prompts[0]) is (not structured)
