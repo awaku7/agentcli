@@ -62,6 +62,12 @@ runner; persistent recovery across process restarts remains a later stage.
 Successful dispatches retain their duplicate guard reservation. Structured
 results/parent tasks do not enter legacy JSONL logs, Main message callbacks or
 the shared result store; legacy calls retain those behaviors.
+Each runner admits at most 32 active/pending structured result slots. At
+capacity it rejects new provider work and releases that call's duplicate
+reservation; pending dispatches can still retry storage and free their slots.
+Structured work never consumes live Job inbox instructions. Additional input
+requires a newly captured, authorized dispatch; legacy Job inbox handling is
+unchanged.
 
 The tool schema does not accept `handoff_dispatch`. Existing host/tool/Job paths
 remain on the legacy path until their trusted policies explicitly opt in. Full

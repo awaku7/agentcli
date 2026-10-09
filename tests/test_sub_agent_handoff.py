@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from concurrent.futures import ThreadPoolExecutor
 from threading import Event, get_ident
+from types import SimpleNamespace
 
 import pytest
 
@@ -465,3 +466,103 @@ def test_provider_path_separates_main_history_logs_and_shared_store(
             assert "PRIVATE PARENT GOAL" in logs
             assert "PRIVATE RESULT_MARKER" in logs
             assert runner._shared_store["result"] == result
+
+
+@pytest.mark.parametrize("structured", [False, True])
+def test_job_inbox_cannot_bypass_captured_context(tmp_path, monkeypatch, structured):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref) if structured else None
+        inbox = [{"sequence": 1, "message": "PRIVATE LIVE INBOX"}]
+        drains = []
+
+        def drain_messages():
+            drains.append(True)
+            messages = list(inbox)
+            inbox.clear()
+            return messages
+
+        job = SimpleNamespace(
+            raise_if_cancelled=lambda: None, drain_messages=drain_messages
+        )
+        monkeypatch.setattr(sub_agent_tool, "get_current_sub_agent_job", lambda: job)
+        monkeypatch.setattr(
+            sub_agent_tool,
+            "make_client",
+            lambda callbacks: ("openai", object(), "test"),
+        )
+        runner = sub_agent_tool.SubAgentRunner()
+        prompts = []
+        output = json.dumps(
+            {
+                "status": "completed",
+                "role": "general",
+                "summary": "WORK_DONE",
+                "details": {},
+                "notes": "",
+            }
+        )
+
+        def call(*args, **kwargs):
+            prompts.append(kwargs["user_prompt"])
+            return output, 0, {}
+
+        monkeypatch.setattr(runner, "_call_with_retry", call)
+        result = runner.run(
+            "general",
+            "Inspect regression",
+            completion_regex="WORK_DONE",
+            max_agent_rounds=2,
+            handoff_dispatch=dispatch,
+        )
+        assert json.loads(result)["status"] == "completed"
+        if structured:
+            assert len(prompts) == 1
+            assert drains == []
+            assert inbox
+            assert "PRIVATE LIVE INBOX" not in prompts[0]
+        else:
+            assert len(prompts) == 2
+            assert "PRIVATE LIVE INBOX" in prompts[1]
+            assert len(drains) == 2
+
+
+def test_pending_result_capacity_blocks_new_work_but_preserves_retry(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatches = [_dispatch(store, session_id, goal_id, ref) for _ in range(3)]
+        monkeypatch.setattr(sub_agent_tool, "_MAX_PENDING_HANDOFF_RESULTS", 2)
+        runner = sub_agent_tool.SubAgentRunner()
+        calls = []
+
+        def run_llm(**kwargs):
+            calls.append(kwargs)
+            return '{"status":"completed","summary":"Stored later"}', {}, 0
+
+        append = store.append_message
+
+        def fail_append(*args, **kwargs):
+            raise RuntimeError("storage unavailable")
+
+        monkeypatch.setattr(runner, "_run_llm", run_llm)
+        monkeypatch.setattr(store, "append_message", fail_append)
+        for dispatch in dispatches[:2]:
+            with pytest.raises(RuntimeError, match="storage unavailable"):
+                runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
+        third = dispatches[2]
+        with pytest.raises(RuntimeError, match="capacity"):
+            runner.run("general", third.objective, handoff_dispatch=third)
+        assert len(calls) == 2
+        assert len(runner._pending_handoff_results) == 2
+        assert runner.duplicate_guard.counts == {}
+        monkeypatch.setattr(store, "append_message", append)
+        first = dispatches[0]
+        result = runner.run("general", first.objective, handoff_dispatch=first)
+        assert json.loads(result)["status"] == "completed"
+        assert len(calls) == 2
+        assert len(runner._pending_handoff_results) == 1
+        result = runner.run("general", third.objective, handoff_dispatch=third)
+        assert json.loads(result)["status"] == "completed"
+        assert len(calls) == 3

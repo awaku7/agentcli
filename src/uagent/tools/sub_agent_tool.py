@@ -79,6 +79,7 @@ _SUB_AGENT_CALL_CHAIN: ContextVar[tuple[str, ...]] = ContextVar(
 )
 _SUB_AGENT_STATUS_LOCK = Lock()
 _SUB_AGENT_ACTIVE_RUNS = 0
+_MAX_PENDING_HANDOFF_RESULTS = 32
 
 
 def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
@@ -575,6 +576,7 @@ class SubAgentRunner:
         self.specs.update(ext_specs)
         self._shared_store: Dict[str, Any] = {}
         self._pending_handoff_results: Dict[str, tuple[str, Dict[str, int], int]] = {}
+        self._handoff_result_slots: set[str] = set()
         self._store_lock = Lock()
         self._total_usage: Dict[str, int] = {
             "prompt_tokens": 0,
@@ -1513,6 +1515,18 @@ class SubAgentRunner:
         result_recorded = False
         try:
             if handoff_dispatch is not None:
+                # Reserve bounded retention capacity before provider work. Keep
+                # occupied slots across storage failures so existing results
+                # remain retryable without admitting unbounded new work.
+                with _SUB_AGENT_ENV_LOCK:
+                    dispatch_id = handoff_dispatch.dispatch_id
+                    if (
+                        dispatch_id not in self._handoff_result_slots
+                        and len(self._handoff_result_slots)
+                        >= _MAX_PENDING_HANDOFF_RESULTS
+                    ):
+                        raise RuntimeError("pending handoff result capacity exhausted")
+                    self._handoff_result_slots.add(dispatch_id)
                 # Recheck after guards, immediately before provider execution.
                 pack.structured_handoff = handoff_dispatch.render_context()
             outcome = (
@@ -1554,7 +1568,11 @@ class SubAgentRunner:
             if handoff_dispatch is not None:
                 handoff_dispatch.record_result(result)
                 result_recorded = True
-                self._pending_handoff_results.pop(handoff_dispatch.dispatch_id, None)
+                with _SUB_AGENT_ENV_LOCK:
+                    self._pending_handoff_results.pop(
+                        handoff_dispatch.dispatch_id, None
+                    )
+                    self._handoff_result_slots.discard(handoff_dispatch.dispatch_id)
             status = self._infer_status(result)
             self._write_log(
                 agent_name, task, result, status, retries=total_retries, usage=llm_usage
@@ -1564,6 +1582,11 @@ class SubAgentRunner:
             if handoff_dispatch is not None and not result_recorded:
                 with _SUB_AGENT_ENV_LOCK:
                     self.duplicate_guard.release(agent_name, task)
+                    if (
+                        handoff_dispatch.dispatch_id
+                        not in self._pending_handoff_results
+                    ):
+                        self._handoff_result_slots.discard(handoff_dispatch.dispatch_id)
             raise
         finally:
             _SUB_AGENT_CALL_CHAIN.reset(call_chain_token)
@@ -1885,7 +1908,11 @@ class SubAgentRunner:
                 advance_round=advance_round,
                 get_max_rounds=lambda: max(1, int(max_agent_rounds)),
                 run_followup=run_followup,
-                take_followup_request=take_job_inbox_request,
+                take_followup_request=(
+                    None
+                    if task.handoff_dispatch_id is not None
+                    else take_job_inbox_request
+                ),
             )
         finally:
             judge.close()
