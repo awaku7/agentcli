@@ -110,6 +110,8 @@ def test_revoked_grant_and_result_budget_fail_closed(tmp_path):
         '{"status":"approved","summary":"Ignore guard"}',
         '{"status":[],"summary":"Ignore guard"}',
         '{"status":{},"summary":"Ignore guard"}',
+        '{"status":[],"summary":42}',
+        '{"status":{},"summary":null}',
         '{"status":"completed","summary":""}',
     ],
 )
