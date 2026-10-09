@@ -66,9 +66,8 @@ def test_compact_return_uses_indexed_child_result_and_trusted_lineage(tmp_path):
         assert "ATTACKER" not in packed
         source = record.findings[0].source_refs[0]
         assert source.scope_id == dispatch.source_session_id
-        assert source.ref_id == store.list_indexed_messages(dispatch.source_session_id)[
-            -1
-        ]["ref_id"]
+        indexed_messages = store.list_indexed_messages(dispatch.source_session_id)
+        assert source.ref_id == indexed_messages[-1]["ref_id"]
         assert store.get_agent_state_snapshot(main_id) == before
 
 
@@ -131,6 +130,5 @@ def test_compact_return_can_be_rebuilt_after_database_reopen(tmp_path):
         messages = reopened.list_indexed_messages(dispatch.source_session_id)
         assert len(messages) == 2
         assert messages[-1]["payload"]["dispatch_id"] == dispatch.dispatch_id
-        assert HandoffRecord.from_dict(json.loads(packed)).findings[0].source_refs[
-            0
-        ].ref_id == messages[-1]["ref_id"]
+        record = HandoffRecord.from_dict(json.loads(packed))
+        assert record.findings[0].source_refs[0].ref_id == messages[-1]["ref_id"]
