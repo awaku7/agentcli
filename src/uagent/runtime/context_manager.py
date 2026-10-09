@@ -542,7 +542,9 @@ class ContextManager:
                                         for candidate in candidates
                                     )
                                 )
-                                for item in checkpoint_active.sections.get("history", [])
+                                for item in checkpoint_active.sections.get(
+                                    "history", []
+                                )
                             )
                         ],
                     )
