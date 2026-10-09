@@ -933,9 +933,7 @@ def test_legacy_output_contract_cannot_inject_main_text_into_snapshot(
             required_fields=["PRIVATE MAIN FIELD"],
             strict_output=False,
             evidence_required=structured,
-            evidence_min_items=(
-                "PRIVATE MAIN EVIDENCE MARKER" if structured else 2
-            ),
+            evidence_min_items=("PRIVATE MAIN EVIDENCE MARKER" if structured else 2),
             completion_regex="CONTRACT_DONE",
         )
         assert json.loads(result)["status"] == "completed"
