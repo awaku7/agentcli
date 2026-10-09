@@ -706,9 +706,12 @@ class SubAgentRunner:
                 entry["usage"] = usage
             if task is not None:
                 entry["run_id"] = task.run_id
-                entry["parent_goal"] = task.parent_goal
-                entry["task_preview"] = task.task[:300]
-            if result:
+                if task.handoff_dispatch_id is not None:
+                    entry["dispatch_id"] = task.handoff_dispatch_id
+                else:
+                    entry["parent_goal"] = task.parent_goal
+                    entry["task_preview"] = task.task[:300]
+            if result and (task is None or task.handoff_dispatch_id is None):
                 entry["result_preview"] = result[:1000]
             with open(log_file, "a", encoding="utf-8") as f:
                 f.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -1407,7 +1410,7 @@ class SubAgentRunner:
             self._write_log(agent_name, None, result, "error")
             return result
 
-        if current_file and not os.path.isfile(current_file):
+        if handoff_dispatch is None and current_file and not os.path.isfile(current_file):
             result = json.dumps(
                 {
                     "status": "error",
@@ -1508,7 +1511,7 @@ class SubAgentRunner:
                 evidence_min_items=evidence_min_items,
                 permission_level=permission_level,
                 cache_ttl=0 if handoff_dispatch else cache_ttl,
-                store_key=store_key,
+                store_key=None if handoff_dispatch else store_key,
                 timeout=timeout,
                 max_retries=max_retries,
                 max_tool_turns=max_tool_turns,
