@@ -1410,7 +1410,11 @@ class SubAgentRunner:
             self._write_log(agent_name, None, result, "error")
             return result
 
-        if handoff_dispatch is None and current_file and not os.path.isfile(current_file):
+        if (
+            handoff_dispatch is None
+            and current_file
+            and not os.path.isfile(current_file)
+        ):
             result = json.dumps(
                 {
                     "status": "error",
