@@ -201,9 +201,11 @@ class DuplicateCallGuard:
 
     def check_and_record(self, agent_name: str, task: SubAgentTask) -> bool:
         fp = self.fingerprint(agent_name, task)
-        current = self.counts.get(fp, 0) + 1
-        self.counts[fp] = current
-        return current <= self.max_repeats
+        current = self.counts.get(fp, 0)
+        if current >= self.max_repeats:
+            return False
+        self.counts[fp] = current + 1
+        return True
 
     def release(self, agent_name: str, task: SubAgentTask) -> None:
         fp = self.fingerprint(agent_name, task)
