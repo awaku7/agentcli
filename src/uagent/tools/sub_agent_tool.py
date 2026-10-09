@@ -182,19 +182,18 @@ class DuplicateCallGuard:
         self.cache_dir = cache_dir
 
     def fingerprint(self, agent_name: str, task: SubAgentTask) -> str:
-        dispatch_identity = (
+        identity = (
             {"handoff_dispatch_id": task.handoff_dispatch_id}
             if task.handoff_dispatch_id is not None
-            else {}
-        )
-        normalized = json.dumps(
-            {
-                **dispatch_identity,
+            else {
                 "agent_name": agent_name,
                 "parent_goal": task.parent_goal,
                 "task": task.task,
                 "scope_files": sorted(task.scope_files),
-            },
+            }
+        )
+        normalized = json.dumps(
+            identity,
             ensure_ascii=False,
             sort_keys=True,
         )

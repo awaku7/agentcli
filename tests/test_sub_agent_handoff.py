@@ -232,3 +232,13 @@ def test_reused_runner_distinguishes_new_dispatches_but_blocks_same_dispatch(
         assert json.loads(repeated)["status"] == "blocked"
         assert len(calls) == 3
         assert len(store.list_indexed_messages(first.source_session_id)) == 2
+        changed_legacy_args = runner.run(
+            "general",
+            first.objective,
+            parent_goal="Different legacy parent goal",
+            shared_context={"changed": "legacy input"},
+            handoff_dispatch=first,
+        )
+        assert json.loads(changed_legacy_args)["status"] == "blocked"
+        assert len(calls) == 3
+        assert len(store.list_indexed_messages(first.source_session_id)) == 2
