@@ -106,6 +106,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 PR 4 追加 review 対応（2026-10-09）: P2「累積 Goal evidence が50件を超えると projection が失敗する」を修正。materialized AgentState の累積件数は invalid とせず、送信時に section ごとの最大50件を選択する。観測は末尾の新しい項目、Decision / Constraint は active / tentative を優先し、非選択件数を `omitted_evidence` に明示する（current constraint / work の完全な一覧とは扱わない）。元の AgentState は変更せず、非選択 source の再認可・本文送信は行わない。75件の累積観測、51件の lifecycle evidence、非選択の古い不可用 source の除外を追加し、関連 pytest は **83 passed**。対象2 Python files の Black整形・check成功。修正commit前のローカルRuffはmodule不在で実行失敗・未検証。修正後CI / Codex再レビューはPR #203で追跡する。
 
+PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section 合計の出典許可が50件に制限される」を修正。trusted `HandoffBounds.source_refs` には per-record-section の50件上限を適用せず、SourceRef の型検証・immutable snapshot・exact reference の一致・送信時の認可チェックを維持する。work_done 26件 + findings 25件、およびMainの独立2 sectionから合計51件の出典を送る回帰テストを追加し、関連 pytest は **85 passed**。対象2 Python filesのBlack整形・check成功。commit前ローカルRuffはmodule不在で実行失敗・未検証。最新commitのCI / Codex再レビューはPR #203で追跡する。
+
 ### PR 5 — Client / Session Revision Safety
 
 - [ ] principal / workspace / client_instance / session の scope を確認・実装

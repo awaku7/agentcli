@@ -358,3 +358,53 @@ def test_unselected_old_sources_are_not_disclosed_or_reauthorized():
     assert "PRIVATE" not in payload
     assert "revoked-message" not in payload
     assert json.loads(payload)["goals"][0]["omitted_evidence"] == {"progress_events": 1}
+
+
+def test_return_can_authorize_distinct_sources_across_multiple_valid_sections():
+    refs = tuple(
+        replace(REF, ref_id=f"m{index}", session_seq=index + 1) for index in range(51)
+    )
+    record = _record(
+        work_done=tuple(
+            ProvenancedHandoffItem(f"Work {index}", (ref,))
+            for index, ref in enumerate(refs[:26])
+        ),
+        findings=tuple(
+            ProvenancedHandoffItem(f"Finding {index}", (ref,))
+            for index, ref in enumerate(refs[26:])
+        ),
+    )
+    bounds = _bounds(source_refs=refs)
+    assert len(bounds.source_refs) == 51
+    payload = _return(record, bounds=bounds)
+    assert HandoffRecord.from_dict(json.loads(payload)) == record
+    with pytest.raises(CompactionValidationError, match="unauthorized"):
+        _return(record, bounds=_bounds(source_refs=refs[:-1]))
+
+
+def test_main_can_authorize_distinct_sources_across_goal_sections():
+    state = _state()
+    goal = state["structured_compaction"]["goals"]["g1"]
+    refs = tuple(
+        replace(REF, ref_id=f"m{index}", session_seq=index + 1) for index in range(51)
+    )
+    goal["constraints"] = {}
+    goal["progress_events"] = [
+        {"text": "Done", "source_refs": [ref.to_dict()]} for ref in refs[:26]
+    ]
+    goal["next_action_observations"] = [
+        {"text": "Next", "source_refs": [ref.to_dict()]} for ref in refs[26:]
+    ]
+    checked = set()
+
+    def authorize(ref):
+        checked.add(ref)
+        return True
+
+    payload = _main(
+        state, bounds=_bounds(source_refs=refs), source_access_check=authorize
+    )
+    projected = json.loads(payload)["goals"][0]
+    assert len(projected["progress_events"]) == 26
+    assert len(projected["next_action_observations"]) == 25
+    assert checked == set(refs)

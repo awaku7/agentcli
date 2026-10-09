@@ -48,9 +48,13 @@ class HandoffBounds:
         if not 0 < self.max_bytes <= MAX_HANDOFF_CONTEXT_BYTES:
             raise CompactionValidationError("invalid handoff context byte budget")
         object.__setattr__(self, "goal_ids", _text_tuple(self.goal_ids, "goal_ids"))
-        object.__setattr__(
-            self, "source_refs", _source_ref_tuple(self.source_refs, "source_refs")
-        )
+        # This trusted capability list spans every selected section, so the
+        # per-record-section item limit does not apply to its aggregate size.
+        if not isinstance(self.source_refs, (tuple, list)) or any(
+            not isinstance(ref, SourceRef) for ref in self.source_refs
+        ):
+            raise CompactionValidationError("source_refs must be a list of SourceRefs")
+        object.__setattr__(self, "source_refs", tuple(dict.fromkeys(self.source_refs)))
 
 
 def _refs(value: Any) -> Iterable[SourceRef]:
