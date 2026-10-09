@@ -119,6 +119,38 @@ def test_invalid_child_reports_never_become_handoff(tmp_path, result):
             _return(dispatch)
 
 
+
+@pytest.mark.parametrize("status", ["error", "blocked"])
+def test_runner_terminal_message_envelopes_can_be_returned(tmp_path, status):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        _, dispatch = _dispatch(store)
+        dispatch.record_result(
+            json.dumps({"status": status, "message": "Sub-Agent stopped"})
+        )
+        record = HandoffRecord.from_dict(json.loads(_return(dispatch)))
+        assert len(record.findings) == 1
+        assert status in record.findings[0].text
+        assert "Sub-Agent stopped" in record.findings[0].text
+        assert record.work_done == ()
+
+
+def test_sqlite_redaction_does_not_break_compact_report(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        _, dispatch = _dispatch(store)
+        dispatch.record_result(
+            json.dumps({"status": "completed", "summary": "Found token=abc123"})
+        )
+        indexed = store.list_indexed_messages(dispatch.source_session_id)[-1]
+        assert "abc123" not in indexed["content"]
+        assert "abc123" not in json.dumps(indexed["payload"])
+        assert indexed["payload"]["compact_report"]["summary"] == (
+            "Found token=[REDACTED]"
+        )
+        record = HandoffRecord.from_dict(json.loads(_return(dispatch)))
+        assert "Found token=[REDACTED]" in record.findings[0].text
+        assert record.decisions == ()
+
+
 def test_compact_return_can_be_rebuilt_after_database_reopen(tmp_path):
     path = tmp_path / "sessions.sqlite3"
     with SessionStore(path) as store:
