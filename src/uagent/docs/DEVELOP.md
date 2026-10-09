@@ -24,7 +24,7 @@ Notes:
 
 ______________________________________________________________________
 
-## Structured handoff foundation (PR 4, first stage)
+## Structured handoff (PR 4, staged)
 
 `runtime/handoff_record.py` defines immutable, provider-neutral `HandoffRecord`
 evidence with item-level `SourceRef` provenance. Delivery IDs and the original
@@ -40,11 +40,68 @@ Goal fields and explicitly selected constraints/checkpoint/artifact references
 travel; history, Memory and provider runtime state are excluded. Treat returned
 JSON as attributed evidence, never as system instructions or tool permissions.
 
-These APIs are not yet wired into the existing Sub-Agent dispatcher. Atomic
-receiver revision checks, durable root-ID deduplication/application and Auto-pilot
-checkpoint/resume remain subsequent stages. Run `tests/test_handoff_record.py`,
-`tests/test_handoff_projection.py` and `tests/test_compaction_record.py` when
-changing this foundation.
+`runtime/sub_agent_handoff.py` adds an opt-in runtime connection to
+`SubAgentRunner.run(..., handoff_dispatch=dispatch)`. Before execution or queuing,
+the trusted host calls `capture_sub_agent_dispatch(store, receiving_session_id=...,
+objective=..., task_scope=..., goal_ids=..., source_refs=...,
+source_access_check=...)`. This captures AgentState and revision together and
+stores the bounded projection and dispatch lineage in a dedicated Sub-Agent
+session.
+If the initial dispatch append fails, capture deletes the newly created,
+unpublished child session using SessionStore cleanup before propagating the
+error, so retries do not accumulate orphan sessions or their source rows.
+Access checks remain the host's responsibility and must verify both
+availability and authorization. The runner rechecks selected references before
+provider execution, sends only the captured projection, skips legacy file
+snippets/shared context/cache, and indexes the returned output in that session
+using SessionStore's normal redaction. `dispatch.record_result()` returns an
+exact session-scoped `SourceRef`; Main AgentState is not modified.
+Child sessions inherit the parent's bound principal and room before captured
+input is persisted, preserving owner-filtered visibility and room cleanup.
+Binding failures remove the unpublished child just like initial append failures.
+Structured dispatches ignore model-supplied provider, model, response,
+and evidence overrides, force tool permission to `none`, and use a generic log
+name for unknown roles. Legacy parameters cannot select a live provider or tool
+input outside the snapshot. Trusted tool grants remain a later stage; ordinary
+legacy invocation behavior is unchanged.
+Legacy `response_schema` and `required_fields` are ignored for structured
+dispatches; the worker uses its trusted AgentSpec output contract. Natural
+session resume excludes internal child sessions from candidates and rejects
+explicit child IDs, so latest-conversation resume cannot load child evidence
+into Main.
+
+Structured dispatch reservations are released when execution fails before a
+durable result is confirmed. Finished output awaiting persistence stays in the
+runner's private pending map, so a retry rechecks access and saves the output
+without rerunning provider work. `record_result()` recovers an existing indexed
+result after an ambiguous append failure. Recovery is limited to the same
+runner; persistent recovery across process restarts remains a later stage.
+Successful dispatches retain their duplicate guard reservation. Structured
+results/parent tasks do not enter legacy JSONL logs, Main message callbacks or
+the shared result store; legacy calls retain those behaviors.
+Each runner admits at most 32 active/pending structured result slots. At
+capacity it rejects new provider work and releases that call's duplicate
+reservation; pending dispatches can still retry storage and free their slots.
+For terminal failures such as permanently revoked access, the trusted host may
+call `runner.discard_pending_handoff_result(dispatch)` to erase the private
+pending output and release its slot. This runtime-only operation rejects active
+calls and keeps abandoned dispatch IDs blocked against provider reexecution.
+Transient authorization failures do not automatically discard pending results.
+Structured work never consumes live Job inbox instructions. Additional input
+requires a newly captured, authorized dispatch; legacy Job inbox handling is
+unchanged.
+SQLite profile reconstruction excludes `sub-agent` sessions before reading
+messages or applying its log-count limit. Child objectives and generated
+findings must not become long-term user preferences injected into Main prompts.
+
+The tool schema does not accept `handoff_dispatch`. Existing host/tool/Job paths
+remain on the legacy path until their trusted policies explicitly opt in. Full
+child conversation/tool-event persistence, compact `HandoffRecord` return,
+atomic receiver revision checks, durable root-ID deduplication/application and
+Auto-pilot checkpoint/resume remain subsequent stages. Run
+`tests/test_sub_agent_handoff.py`, `tests/test_handoff_record.py`,
+`tests/test_handoff_projection.py`, `tests/test_compaction_persistence.py` and
+the affected Sub-Agent tests when changing this foundation.
 
 ## XLSM static analysis
 

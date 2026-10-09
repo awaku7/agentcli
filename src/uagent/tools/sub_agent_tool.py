@@ -29,6 +29,7 @@ from ..providers.util_providers import make_client
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import _mask_inline_secrets
 from ..runtime.agent_loop import run_agent_loop
+from ..runtime.sub_agent_handoff import SubAgentDispatch
 from ..runtime.sub_agent_jobs import (
     current_sub_agent_job_mode,
     get_current_sub_agent_job,
@@ -78,6 +79,7 @@ _SUB_AGENT_CALL_CHAIN: ContextVar[tuple[str, ...]] = ContextVar(
 )
 _SUB_AGENT_STATUS_LOCK = Lock()
 _SUB_AGENT_ACTIVE_RUNS = 0
+_MAX_PENDING_HANDOFF_RESULTS = 32
 
 
 def _set_sub_agent_status(cb: Any, agent_name: str, *, entering: bool) -> None:
@@ -136,9 +138,14 @@ class ContextPack:
     relevant_snippets: List[str] = field(default_factory=list)
     recent_errors: List[str] = field(default_factory=list)
     shared_context: Dict[str, Any] = field(default_factory=dict)
+    structured_handoff: Optional[str] = None
 
     def to_json(self) -> str:
-        return json.dumps(dataclasses.asdict(self), ensure_ascii=False, indent=2)
+        if self.structured_handoff is not None:
+            return self.structured_handoff
+        value = dataclasses.asdict(self)
+        value.pop("structured_handoff")
+        return json.dumps(value, ensure_ascii=False, indent=2)
 
 
 @dataclass
@@ -150,6 +157,7 @@ class SubAgentTask:
     task: str
     context_pack: ContextPack
     scope_files: List[str] = field(default_factory=list)
+    handoff_dispatch_id: Optional[str] = None
 
 
 @dataclass
@@ -175,6 +183,8 @@ class DuplicateCallGuard:
         self.cache_dir = cache_dir
 
     def fingerprint(self, agent_name: str, task: SubAgentTask) -> str:
+        if task.handoff_dispatch_id is not None:
+            return self.dispatch_fingerprint(task.handoff_dispatch_id)
         normalized = json.dumps(
             {
                 "agent_name": agent_name,
@@ -187,11 +197,30 @@ class DuplicateCallGuard:
         )
         return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
 
+    @staticmethod
+    def dispatch_fingerprint(dispatch_id: str) -> str:
+        normalized = json.dumps(
+            {"handoff_dispatch_id": dispatch_id},
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        return hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+
     def check_and_record(self, agent_name: str, task: SubAgentTask) -> bool:
         fp = self.fingerprint(agent_name, task)
-        current = self.counts.get(fp, 0) + 1
-        self.counts[fp] = current
-        return current <= self.max_repeats
+        current = self.counts.get(fp, 0)
+        if current >= self.max_repeats:
+            return False
+        self.counts[fp] = current + 1
+        return True
+
+    def release(self, agent_name: str, task: SubAgentTask) -> None:
+        fp = self.fingerprint(agent_name, task)
+        current = self.counts.get(fp, 0)
+        if current > 1:
+            self.counts[fp] = current - 1
+        elif current == 1:
+            self.counts.pop(fp, None)
 
     def get_cached(self, agent_name: str, task: SubAgentTask) -> Optional[str]:
         if not self.cache_dir:
@@ -552,6 +581,8 @@ class SubAgentRunner:
         ext_specs = self._load_external_roles()
         self.specs.update(ext_specs)
         self._shared_store: Dict[str, Any] = {}
+        self._pending_handoff_results: Dict[str, tuple[str, Dict[str, int], int]] = {}
+        self._handoff_result_slots: set[str] = set()
         self._store_lock = Lock()
         self._total_usage: Dict[str, int] = {
             "prompt_tokens": 0,
@@ -559,6 +590,28 @@ class SubAgentRunner:
             "total_tokens": 0,
         }
         self._usage_lock = Lock()
+
+    def discard_pending_handoff_result(self, dispatch: SubAgentDispatch) -> bool:
+        """Let the trusted host abandon an inactive, terminally failed dispatch.
+
+        This is not a tool argument/action. Active calls cannot be discarded;
+        abandoned IDs stay blocked so finished provider work is not repeated.
+        """
+        if not isinstance(dispatch, SubAgentDispatch):
+            raise TypeError("dispatch must be trusted runtime input")
+        dispatch_id = dispatch.dispatch_id
+        fingerprint = self.duplicate_guard.dispatch_fingerprint(dispatch_id)
+        with _SUB_AGENT_ENV_LOCK:
+            if self.duplicate_guard.counts.get(fingerprint, 0):
+                return False
+            if dispatch_id not in self._pending_handoff_results:
+                return False
+            self._pending_handoff_results.pop(dispatch_id)
+            self._handoff_result_slots.discard(dispatch_id)
+            self.duplicate_guard.counts[fingerprint] = max(
+                1, self.duplicate_guard.max_repeats
+            )
+            return True
 
     def publish_shared_result(self, store_key: str, result: str) -> None:
         """Publish an already-approved result to the shared Sub-Agent store."""
@@ -694,9 +747,12 @@ class SubAgentRunner:
                 entry["usage"] = usage
             if task is not None:
                 entry["run_id"] = task.run_id
-                entry["parent_goal"] = task.parent_goal
-                entry["task_preview"] = task.task[:300]
-            if result:
+                if task.handoff_dispatch_id is not None:
+                    entry["dispatch_id"] = task.handoff_dispatch_id
+                else:
+                    entry["parent_goal"] = task.parent_goal
+                    entry["task_preview"] = task.task[:300]
+            if result and (task is None or task.handoff_dispatch_id is None):
                 entry["result_preview"] = result[:1000]
             with open(log_file, "a", encoding="utf-8") as f:
                 f.write(json.dumps(entry, ensure_ascii=False) + "\n")
@@ -1232,6 +1288,8 @@ class SubAgentRunner:
         context_pack: ContextPack,
         scope_files: List[str],
     ) -> str:
+        if context_pack.structured_handoff is not None:
+            return "[context_pack]\n" + context_pack.to_json()
         parts = [task_text.strip(), "[context_pack]\n" + context_pack.to_json()]
         if scope_files:
             parts.append(
@@ -1375,11 +1433,27 @@ class SubAgentRunner:
         completion_sentinel: bool = False,
         completion_regex: str = "",
         shared_context: Optional[Dict[str, Any]] = None,
+        handoff_dispatch: Optional[SubAgentDispatch] = None,
     ) -> str:
         self._check_job_active()
+        if handoff_dispatch is not None:
+            if not isinstance(handoff_dispatch, SubAgentDispatch):
+                raise TypeError("handoff_dispatch must be trusted runtime input")
+            if task_text != handoff_dispatch.objective:
+                raise ValueError("task must match the captured dispatch objective")
         permission_level = self._normalize_permission_level(permission_level)
         spec = self.specs.get(agent_name)
         if not spec:
+            if handoff_dispatch is not None:
+                result = json.dumps(
+                    {
+                        "status": "error",
+                        "message": "Requested Sub-Agent role is unavailable.",
+                    },
+                    ensure_ascii=False,
+                )
+                self._write_log("structured", None, result, "error")
+                return result
             result = json.dumps(
                 {"status": "error", "message": f"Agent {agent_name} not found."},
                 ensure_ascii=False,
@@ -1387,7 +1461,11 @@ class SubAgentRunner:
             self._write_log(agent_name, None, result, "error")
             return result
 
-        if current_file and not os.path.isfile(current_file):
+        if (
+            handoff_dispatch is None
+            and current_file
+            and not os.path.isfile(current_file)
+        ):
             result = json.dumps(
                 {
                     "status": "error",
@@ -1406,11 +1484,18 @@ class SubAgentRunner:
                 "Direct operations with side effects are prohibited",
                 "Reliable return in JSON format",
             ],
-            relevant_snippets=self._load_current_file_snippets(current_file),
-            shared_context=dict(shared_context or {}),
+            relevant_snippets=(
+                []
+                if handoff_dispatch
+                else self._load_current_file_snippets(current_file)
+            ),
+            shared_context={} if handoff_dispatch else dict(shared_context or {}),
+            structured_handoff=(
+                handoff_dispatch.render_context() if handoff_dispatch else None
+            ),
         )
 
-        if load_keys:
+        if load_keys and handoff_dispatch is None:
             with self._store_lock:
                 for key in load_keys:
                     if key in self._shared_store:
@@ -1424,6 +1509,9 @@ class SubAgentRunner:
             task=task_text,
             context_pack=pack,
             scope_files=[current_file] if current_file else [],
+            handoff_dispatch_id=(
+                handoff_dispatch.dispatch_id if handoff_dispatch else None
+            ),
         )
 
         with _SUB_AGENT_ENV_LOCK:
@@ -1438,7 +1526,9 @@ class SubAgentRunner:
                 self._write_log(agent_name, task, result, "blocked")
                 return result
 
-        if cache_ttl > 0:
+        # A structured dispatch needs output from this execution, not an older
+        # cached response with unrelated provenance/revision.
+        if cache_ttl > 0 and handoff_dispatch is None:
             cached = self.duplicate_guard.get_cached(agent_name, task)
             if cached is not None:
                 self._write_log(agent_name, task, cached, "cache_hit")
@@ -1446,6 +1536,9 @@ class SubAgentRunner:
 
         call_chain = _SUB_AGENT_CALL_CHAIN.get()
         if agent_name in call_chain:
+            if handoff_dispatch is not None:
+                with _SUB_AGENT_ENV_LOCK:
+                    self.duplicate_guard.release(agent_name, task)
             result = json.dumps(
                 {
                     "status": "error",
@@ -1457,35 +1550,84 @@ class SubAgentRunner:
             return result
 
         call_chain_token = _SUB_AGENT_CALL_CHAIN.set(call_chain + (agent_name,))
+        result_recorded = False
         try:
-            result, llm_usage, total_retries = self._run_llm(
-                agent_name=agent_name,
-                spec=spec,
-                task=task,
-                pack=pack,
-                provider=provider,
-                model_name=model_name,
-                response_mode=response_mode,
-                response_schema=response_schema,
-                required_fields=required_fields,
-                strict_output=strict_output,
-                evidence_required=evidence_required,
-                evidence_min_items=evidence_min_items,
-                permission_level=permission_level,
-                cache_ttl=cache_ttl,
-                store_key=store_key,
-                timeout=timeout,
-                max_retries=max_retries,
-                max_tool_turns=max_tool_turns,
-                max_agent_rounds=max_agent_rounds,
-                completion_sentinel=completion_sentinel,
-                completion_regex=completion_regex,
+            if handoff_dispatch is not None:
+                # Reserve bounded retention capacity before provider work. Keep
+                # occupied slots across storage failures so existing results
+                # remain retryable without admitting unbounded new work.
+                with _SUB_AGENT_ENV_LOCK:
+                    dispatch_id = handoff_dispatch.dispatch_id
+                    if (
+                        dispatch_id not in self._handoff_result_slots
+                        and len(self._handoff_result_slots)
+                        >= _MAX_PENDING_HANDOFF_RESULTS
+                    ):
+                        raise RuntimeError("pending handoff result capacity exhausted")
+                    self._handoff_result_slots.add(dispatch_id)
+                # Recheck after guards, immediately before provider execution.
+                pack.structured_handoff = handoff_dispatch.render_context()
+            outcome = (
+                self._pending_handoff_results.get(handoff_dispatch.dispatch_id)
+                if handoff_dispatch is not None
+                else None
             )
+            if outcome is None:
+                outcome = self._run_llm(
+                    agent_name=agent_name,
+                    spec=spec,
+                    task=task,
+                    pack=pack,
+                    provider=None if handoff_dispatch else provider,
+                    model_name=None if handoff_dispatch else model_name,
+                    response_mode=None if handoff_dispatch else response_mode,
+                    response_schema=None if handoff_dispatch else response_schema,
+                    required_fields=None if handoff_dispatch else required_fields,
+                    strict_output=strict_output,
+                    evidence_required=(
+                        False if handoff_dispatch else evidence_required
+                    ),
+                    evidence_min_items=(0 if handoff_dispatch else evidence_min_items),
+                    permission_level="none" if handoff_dispatch else permission_level,
+                    cache_ttl=0 if handoff_dispatch else cache_ttl,
+                    store_key=None if handoff_dispatch else store_key,
+                    timeout=timeout,
+                    max_retries=max_retries,
+                    max_tool_turns=max_tool_turns,
+                    max_agent_rounds=max_agent_rounds,
+                    completion_sentinel=completion_sentinel,
+                    completion_regex=completion_regex,
+                )
+                if handoff_dispatch is not None:
+                    # Keep finished output private while persistence is retried;
+                    # do not execute provider work again after a storage error.
+                    self._pending_handoff_results[handoff_dispatch.dispatch_id] = (
+                        outcome
+                    )
+            result, llm_usage, total_retries = outcome
+            if handoff_dispatch is not None:
+                handoff_dispatch.record_result(result)
+                result_recorded = True
+                with _SUB_AGENT_ENV_LOCK:
+                    self._pending_handoff_results.pop(
+                        handoff_dispatch.dispatch_id, None
+                    )
+                    self._handoff_result_slots.discard(handoff_dispatch.dispatch_id)
             status = self._infer_status(result)
             self._write_log(
                 agent_name, task, result, status, retries=total_retries, usage=llm_usage
             )
             return result
+        except BaseException:
+            if handoff_dispatch is not None and not result_recorded:
+                with _SUB_AGENT_ENV_LOCK:
+                    self.duplicate_guard.release(agent_name, task)
+                    if (
+                        handoff_dispatch.dispatch_id
+                        not in self._pending_handoff_results
+                    ):
+                        self._handoff_result_slots.discard(handoff_dispatch.dispatch_id)
+            raise
         finally:
             _SUB_AGENT_CALL_CHAIN.reset(call_chain_token)
 
@@ -1585,6 +1727,11 @@ class SubAgentRunner:
                 {},
                 0,
             )
+
+        # Structured output must not be logged into the receiving Main session.
+        # Client creation above may still use the host callbacks for setup.
+        if task.handoff_dispatch_id is not None:
+            cb = None
 
         if response_mode is None:
             if spec.default_response_mode:
@@ -1801,7 +1948,11 @@ class SubAgentRunner:
                 advance_round=advance_round,
                 get_max_rounds=lambda: max(1, int(max_agent_rounds)),
                 run_followup=run_followup,
-                take_followup_request=take_job_inbox_request,
+                take_followup_request=(
+                    None
+                    if task.handoff_dispatch_id is not None
+                    else take_job_inbox_request
+                ),
             )
         finally:
             judge.close()

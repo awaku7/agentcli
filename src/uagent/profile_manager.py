@@ -776,6 +776,10 @@ def profile_from_logs(
         store = core.session_store
         list_kwargs = {"principal_id": principal_id} if principal_id else {}
         for row in reversed(store.list_sessions(**list_kwargs)):
+            # Child objectives and generated findings are not user preferences.
+            # Exclude them before retrieval and the max_log_files selection.
+            if row.get("entry_point") == "sub-agent":
+                continue
             session_id = str(row["session_id"])
             messages = store.list_messages(session_id)
             if principal_id:
