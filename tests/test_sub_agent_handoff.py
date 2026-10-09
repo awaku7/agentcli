@@ -1013,9 +1013,8 @@ def test_unknown_structured_role_does_not_leak_model_argument_to_logs(
         assert '"agent_name": "structured"' in log
 
 
-def test_unknown_legacy_role_keeps_existing_error_behavior(tmp_path):
-    with SessionStore(tmp_path / "sessions.sqlite3") as store:
-        runner = sub_agent_tool.SubAgentRunner()
-        role = "missing legacy role"
-        result = runner.run(role, "ordinary legacy call")
-        assert role in result
+def test_unknown_legacy_role_keeps_existing_error_behavior():
+    runner = sub_agent_tool.SubAgentRunner()
+    role = "missing legacy role"
+    result = runner.run(role, "ordinary legacy call")
+    assert role in result
