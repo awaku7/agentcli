@@ -914,10 +914,21 @@ def test_legacy_output_contract_cannot_inject_main_text_into_snapshot(
             return output, 0, {}
 
         monkeypatch.setattr(runner, "_call_with_retry", call)
+        original_run_llm = runner._run_llm
+        worker_arguments = []
+
+        def capture_worker_arguments(**kwargs):
+            worker_arguments.append(kwargs.copy())
+            return original_run_llm(**kwargs)
+
+        monkeypatch.setattr(runner, "_run_llm", capture_worker_arguments)
         result = runner.run(
             "general",
             "Inspect regression",
             handoff_dispatch=dispatch,
+            provider="PRIVATE MAIN PROVIDER",
+            model_name="PRIVATE MAIN MODEL",
+            response_mode="json",
             response_schema={"description": "PRIVATE MAIN SCHEMA"},
             required_fields=["PRIVATE MAIN FIELD"],
             strict_output=False,
@@ -925,6 +936,15 @@ def test_legacy_output_contract_cannot_inject_main_text_into_snapshot(
         )
         assert json.loads(result)["status"] == "completed"
         assert len(prompts) == 1
+        assert len(worker_arguments) == 1
+        if structured:
+            assert worker_arguments[0]["provider"] is None
+            assert worker_arguments[0]["model_name"] is None
+            assert worker_arguments[0]["response_mode"] is None
+        else:
+            assert worker_arguments[0]["provider"] == "PRIVATE MAIN PROVIDER"
+            assert worker_arguments[0]["model_name"] == "PRIVATE MAIN MODEL"
+            assert worker_arguments[0]["response_mode"] == "json"
         assert ("PRIVATE MAIN SCHEMA" in prompts[0]) is (not structured)
         assert ("PRIVATE MAIN FIELD" in prompts[0]) is (not structured)
 
@@ -966,3 +986,30 @@ def test_resume_never_queues_internal_child_session(tmp_path, monkeypatch, selec
             assert result["session_id"] == session_id
             assert queue.get_nowait()["text"] == f":sessions load {session_id}"
         assert "PRIVATE CHILD" not in json.dumps(result)
+
+
+
+def test_unknown_structured_role_does_not_leak_model_argument_to_logs(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session_id, goal_id, ref = _main(store)
+        dispatch = _dispatch(store, session_id, goal_id, ref)
+        monkeypatch.setattr(sub_agent_tool, "_SUB_AGENT_LOG_DIR", tmp_path / "logs")
+        runner = sub_agent_tool.SubAgentRunner()
+        secret_role = "PRIVATE MAIN DATA IN ROLE FIELD"
+        result = runner.run(secret_role, dispatch.objective, handoff_dispatch=dispatch)
+        assert secret_role not in result
+        log = "\n".join(
+            path.read_text() for path in (tmp_path / "logs").rglob("*.jsonl")
+        )
+        assert secret_role not in log
+        assert '"agent_name": "structured"' in log
+
+
+def test_unknown_legacy_role_keeps_existing_error_behavior(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        runner = sub_agent_tool.SubAgentRunner()
+        role = "missing legacy role"
+        result = runner.run(role, "ordinary legacy call")
+        assert role in result

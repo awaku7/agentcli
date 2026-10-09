@@ -59,10 +59,11 @@ exact session-scoped `SourceRef`; Main AgentState is not modified.
 Child sessions inherit the parent's bound principal and room before captured
 input is persisted, preserving owner-filtered visibility and room cleanup.
 Binding failures remove the unpublished child just like initial append failures.
-Structured dispatches force tool permission to `none`; model-supplied legacy
-permission levels cannot authorize live filesystem/tool inputs outside the
-snapshot. Trusted tool grants remain a later stage; legacy permissions are
-unchanged.
+Structured dispatches ignore model-supplied provider, model, and response
+mode overrides and force tool permission to `none`. An unknown model-supplied
+role is logged under a generic name. Legacy parameters cannot select a live
+provider or tool input outside the snapshot. Trusted tool grants remain a
+later stage; legacy invocation behavior is unchanged.
 Legacy `response_schema` and `required_fields` are ignored for structured
 dispatches; the worker uses its trusted AgentSpec output contract. Natural
 session resume excludes internal child sessions from candidates and rejects

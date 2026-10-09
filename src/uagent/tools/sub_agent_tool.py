@@ -1444,6 +1444,16 @@ class SubAgentRunner:
         permission_level = self._normalize_permission_level(permission_level)
         spec = self.specs.get(agent_name)
         if not spec:
+            if handoff_dispatch is not None:
+                result = json.dumps(
+                    {
+                        "status": "error",
+                        "message": "Requested Sub-Agent role is unavailable.",
+                    },
+                    ensure_ascii=False,
+                )
+                self._write_log("structured", None, result, "error")
+                return result
             result = json.dumps(
                 {"status": "error", "message": f"Agent {agent_name} not found."},
                 ensure_ascii=False,
@@ -1568,9 +1578,9 @@ class SubAgentRunner:
                     spec=spec,
                     task=task,
                     pack=pack,
-                    provider=provider,
-                    model_name=model_name,
-                    response_mode=response_mode,
+                    provider=None if handoff_dispatch else provider,
+                    model_name=None if handoff_dispatch else model_name,
+                    response_mode=None if handoff_dispatch else response_mode,
                     response_schema=None if handoff_dispatch else response_schema,
                     required_fields=None if handoff_dispatch else required_fields,
                     strict_output=strict_output,
