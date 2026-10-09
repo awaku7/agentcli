@@ -187,8 +187,9 @@ def test_runner_stops_when_access_is_revoked_during_dispatch_guards(
 
         def revoke(*args):
             nonlocal allowed
+            accepted = original_check(*args)
             allowed = False
-            return True
+            return accepted
 
         monkeypatch.setattr(runner.duplicate_guard, "check_and_record", revoke)
         monkeypatch.setattr(
