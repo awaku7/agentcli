@@ -1926,20 +1926,17 @@ class SessionStore:
                 raise SessionStoreError("receipt dispatch or report has invalid shape")
             projected_goals = scoped.get("goals")
             if not isinstance(projected_goals, list) or any(
-                not isinstance(goal, dict)
-                or not isinstance(goal.get("goal_id"), str)
+                not isinstance(goal, dict) or not isinstance(goal.get("goal_id"), str)
                 for goal in projected_goals
             ):
                 raise SessionStoreError("receipt dispatch Goals are invalid")
             if (
                 scoped.get("kind") != "main_to_subagent"
-                or scoped.get("receiving_session_id")
-                != record.receiving_session_id
+                or scoped.get("receiving_session_id") != record.receiving_session_id
                 or scoped.get("receiving_base_revision")
                 != record.receiving_base_revision
                 or scoped.get("objective") != record.objective
-                or tuple(goal["goal_id"] for goal in projected_goals)
-                != record.goal_ids
+                or tuple(goal["goal_id"] for goal in projected_goals) != record.goal_ids
                 or record.agent_id != f"sub-agent:{record.root_handoff_id}"
             ):
                 raise SessionStoreError("receipt does not match indexed dispatch")
@@ -1947,7 +1944,8 @@ class SessionStore:
             report_summary = report.get("summary")
             if (
                 not isinstance(report_status, str)
-                or report_status not in {
+                or report_status
+                not in {
                     "completed",
                     "error",
                     "blocked",
