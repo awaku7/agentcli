@@ -197,6 +197,13 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         messages = [{"role": "user", "content": "Continue"}]
         clears = []
         core.responses_state = {"previous_response_id": "resp_old"}
+        store.record_response_state(
+            main,
+            provider="openai",
+            model="test",
+            response_id="resp_old",
+            status="completed",
+        )
         core.responses_runtime = SimpleNamespace(
             clear_continuation=lambda reason: clears.append(reason)
         )
@@ -210,6 +217,7 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
 
         assert successful("mock", None, "model", messages, core=core) == "done"
         assert "previous_response_id" not in core.responses_state
+        assert store.latest_response_state(main)["status"] == "invalidated"
         assert clears == ["temporary_sub_agent_receipt"]
         assert messages == [
             {"role": "user", "content": "Continue"},
@@ -222,9 +230,17 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
             raise RuntimeError("inference failed")
 
         core.responses_state["previous_response_id"] = "resp_next"
+        store.record_response_state(
+            main,
+            provider="openai",
+            model="test",
+            response_id="resp_next",
+            status="completed",
+        )
         with pytest.raises(RuntimeError, match="inference failed"):
             failing("mock", None, "model", messages, core=core)
         assert messages[0]["content"] == "Continue"
+        assert store.latest_response_state(main)["status"] == "invalidated"
         assert "previous_response_id" not in core.responses_state
         assert clears == [
             "temporary_sub_agent_receipt",
@@ -247,3 +263,4 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
 
         assert no_projection("mock", None, "model", fresh, core=core) == "safe"
         assert core.responses_state["previous_response_id"] == "resp_clean"
+        assert store.latest_response_state(main)["status"] == "invalidated"
