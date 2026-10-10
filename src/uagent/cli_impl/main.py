@@ -423,6 +423,7 @@ def main() -> int:
                     if not first_llm_started:
                         first_llm_started = True
                         _startup_timing_mark("first_llm_started")
+                    initial_round_succeeded = False
                     with lifecycle_execution() as lifecycle:
                         try:
                             _run_llm_event(
@@ -438,6 +439,7 @@ def main() -> int:
                                 append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                                 try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                             )
+                            initial_round_succeeded = True
                         except KeyboardInterrupt:
                             process_exit_code = max(process_exit_code, 130)
                             # Ctrl+C during generation: stop and return to the
@@ -474,6 +476,11 @@ def main() -> int:
                     if first_llm_started and not first_llm_completed:
                         first_llm_completed = True
                         _startup_timing_mark("first_llm_completed")
+
+                    # Failed initial rounds must never become resumable.
+                    if core.auto_pilot_active and not initial_round_succeeded:
+                        core.auto_pilot_active = False
+                        print(_("[AUTO] Initial round failed; resume unavailable."))
 
                     # Auto-pilot loop: if auto mode is active, continue rounds
                     if core.auto_pilot_active:
