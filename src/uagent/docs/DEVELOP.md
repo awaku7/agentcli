@@ -142,7 +142,18 @@ structured snapshot so text masking cannot invalidate its JSON. Receipt
 insertion requires the host's expected role and exact saved output semantics.
 Receipt rows are owned by the Main session and remain after child Session
 cleanup; the original source itself may no longer be available for reading.
-No existing host calls the receipt API automatically. Full child conversation/tool-event
+No existing host calls the receipt API automatically.
+
+A trusted host can now request `SubAgentJobManager.deliver_compact_handoff_to_main()`
+with its existing owner, Job ID and current source authorization function.
+The manager checks terminal/persisted status and the saved Job ID before
+calling the Main-side receipt transaction. The same trusted Job ID is checked
+again against the indexed output **inside** the SQLite receiving transaction,
+so a source changed after the first check cannot be accepted. Only receipt metadata is returned;
+ordinary Job status, notices and tool-visible results remain unchanged.
+Repeated delivery is idempotent, and failures do not mark a Job as delivered.
+No host installs this delivery path automatically yet; state application
+and Auto-pilot resumption remain separate work. Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
 resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
