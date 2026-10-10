@@ -35,6 +35,8 @@ _AUTO_CHECKPOINT_KEY = "_auto_pilot_checkpoint"
 
 
 def _auto_checkpoint_location(core: Any) -> tuple[Any, str]:
+    if not getattr(core, "_cli_auto_resume_enabled", False):
+        return None, ""
     store = getattr(core, "session_store", None)
     session_id = str(
         getattr(core, "_session_store_active_id", None)
@@ -1102,6 +1104,9 @@ def _handle_cmd_auto(
         return CommandResult()
 
     if a.lower() == "resume":
+        if not getattr(core, "_cli_auto_resume_enabled", False):
+            print(_("[AUTO] Resume is supported only in the interactive CLI."))
+            return CommandResult()
         if core.auto_pilot_active or not _restore_auto_checkpoint(core):
             return CommandResult()
         print(_("[AUTO] Resuming from the last completed round."))
