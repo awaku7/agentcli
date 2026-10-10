@@ -483,8 +483,11 @@ def test_long_cli_history_commits_bounded_incremental_windows(
         assert store.list_messages(session.session_id) == second_raw
 
 
-def test_tool_heavy_turn_splits_only_after_completed_assistant(tmp_path, monkeypatch):
-    """A single long turn needs a safe split even without another user turn."""
+@pytest.mark.parametrize("with_assistant_continuations", [False, True])
+def test_tool_heavy_turn_splits_at_safe_boundaries(
+    tmp_path, monkeypatch, with_assistant_continuations
+):
+    """Split a tool chain with or without plain assistant acknowledgements."""
     monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
     monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "2")
     monkeypatch.setenv("UAGENT_SHRINK_CNT", "10")
@@ -503,8 +506,12 @@ def test_tool_heavy_turn_splits_only_after_completed_assistant(tmp_path, monkeyp
     )
 
     class FakeCompletions:
+        def __init__(self):
+            self.requests = []
+
         def create(self, **kwargs):
             request = json.loads(kwargs["messages"][-1]["content"])
+            self.requests.append(request)
             return SimpleNamespace(
                 choices=[
                     SimpleNamespace(
@@ -534,19 +541,21 @@ def test_tool_heavy_turn_splits_only_after_completed_assistant(tmp_path, monkeyp
                                 "type": "function",
                                 "function": {
                                     "name": "lookup",
-                                    "arguments": "{}",
+                                    "arguments": json.dumps({"index": index}),
                                 },
                             }
                         ],
                     },
                     {
                         "role": "tool",
+                        "name": "lookup",
                         "tool_call_id": call_id,
                         "content": f"result-{index}",
                     },
-                    {"role": "assistant", "content": f"handled-{index}"},
                 ]
             )
+            if with_assistant_continuations:
+                msgs.append({"role": "assistant", "content": f"handled-{index}"})
         msgs.append({"role": "user", "content": "Next task"})
         for item in msgs[1:]:
             store.append_message(
@@ -556,7 +565,8 @@ def test_tool_heavy_turn_splits_only_after_completed_assistant(tmp_path, monkeyp
                 payload=item,
             )
         before = store.list_messages(session.session_id)
-        client = SimpleNamespace(chat=SimpleNamespace(completions=FakeCompletions()))
+        completions = FakeCompletions()
+        client = SimpleNamespace(chat=SimpleNamespace(completions=completions))
         projected = _options(store, session.session_id, msgs, client, previous=True)
         assert projected is not None
         checkpoints = store.list_compaction_records(session.session_id)
@@ -566,6 +576,18 @@ def test_tool_heavy_turn_splits_only_after_completed_assistant(tmp_path, monkeyp
         assert 0 < source_count < 100
         assert record["split_turn"] is True
         assert record["first_kept_message_id"]
-        assert (source_count - 1) % 3 == 0
+        stride = 3 if with_assistant_continuations else 2
+        assert (source_count - 1) % stride == 0
+        sources = completions.requests[0]["sources"]
+        first_call = sources[1]
+        first_result = sources[2]
+        assert first_call["tool_calls"][0]["id"] == "call-0"
+        assert first_call["tool_calls"][0]["function"] == {
+            "name": "lookup",
+            "arguments": '{"index": 0}',
+        }
+        assert first_result["name"] == "lookup"
+        assert first_result["tool_call_id"] == "call-0"
+        assert first_result["content"] == "result-0"
         assert projected.messages[-1]["content"] == "Next task"
         assert store.list_messages(session.session_id) == before

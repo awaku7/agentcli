@@ -207,14 +207,24 @@ def _generation_messages(
         '{"kind":"message","ref_id":"123","scope_id":"session-id",'
         '"session_seq":7}. Empty arrays are valid when no evidence supports them.'
     )
-    source_items = [
-        {
+    source_items = []
+    for ref, message in zip(window.refs, window.messages):
+        role = str(message.get("role") or "")
+        source_item = {
             "source_ref": ref.to_dict(),
-            "role": str(message.get("role") or ""),
+            "role": role,
             "content": _content_text(message),
         }
-        for ref, message in zip(window.refs, window.messages)
-    ]
+        if role == "assistant":
+            metadata_keys = ("tool_calls", "function_call")
+        elif role in {"tool", "function"}:
+            metadata_keys = ("tool_call_id", "name")
+        else:
+            metadata_keys = ()
+        for key in metadata_keys:
+            if message.get(key) is not None:
+                source_item[key] = message[key]
+        source_items.append(source_item)
     user = json.dumps(
         {
             "known_goals": _known_goals(agent_state),
