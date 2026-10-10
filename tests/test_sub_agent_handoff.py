@@ -395,7 +395,7 @@ def test_persistence_retry_reuses_output_and_does_not_duplicate_source(
             calls.append(kwargs)
             return '{"status":"completed","summary":"Finished work"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             if commit_before_error:
@@ -403,11 +403,11 @@ def test_persistence_retry_reuses_output_and_does_not_duplicate_source(
             raise RuntimeError("storage unavailable")
 
         monkeypatch.setattr(runner, "_run_llm", run_llm)
-        monkeypatch.setattr(store, "append_message", fail_append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", fail_append)
         with pytest.raises(RuntimeError, match="storage unavailable"):
             runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
         assert runner.duplicate_guard.counts == {}
-        monkeypatch.setattr(store, "append_message", append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", append)
         result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
         assert json.loads(result)["summary"] == "Finished work"
         assert len(calls) == 1
@@ -635,13 +635,13 @@ def test_pending_result_capacity_blocks_new_work_but_preserves_retry(
             calls.append(kwargs)
             return '{"status":"completed","summary":"Stored later"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             raise RuntimeError("storage unavailable")
 
         monkeypatch.setattr(runner, "_run_llm", run_llm)
-        monkeypatch.setattr(store, "append_message", fail_append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", fail_append)
         for dispatch in dispatches[:2]:
             with pytest.raises(RuntimeError, match="storage unavailable"):
                 runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
@@ -651,7 +651,7 @@ def test_pending_result_capacity_blocks_new_work_but_preserves_retry(
         assert len(calls) == 2
         assert len(runner._pending_handoff_results) == 2
         assert runner.duplicate_guard.counts == {}
-        monkeypatch.setattr(store, "append_message", append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", append)
         first = dispatches[0]
         result = runner.run("general", first.objective, handoff_dispatch=first)
         assert json.loads(result)["status"] == "completed"
@@ -813,13 +813,13 @@ def test_host_can_abandon_revoked_pending_results_without_reexecution(
             calls.append(kwargs)
             return '{"status":"completed","summary":"Private pending result"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             raise RuntimeError("storage unavailable")
 
         monkeypatch.setattr(runner, "_run_llm", run_llm)
-        monkeypatch.setattr(store, "append_message", fail_append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", fail_append)
         for dispatch in dispatches:
             with pytest.raises(RuntimeError, match="storage unavailable"):
                 runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
@@ -834,7 +834,7 @@ def test_host_can_abandon_revoked_pending_results_without_reexecution(
         assert runner.discard_pending_handoff_result(first) is False
         assert set(runner._pending_handoff_results) == {second.dispatch_id}
         assert runner._handoff_result_slots == {second.dispatch_id}
-        monkeypatch.setattr(store, "append_message", append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", append)
         runner.run("general", unrelated.objective, handoff_dispatch=unrelated)
         authorized = True
         blocked = runner.run("general", first.objective, handoff_dispatch=first)
@@ -854,13 +854,13 @@ def test_host_cannot_abandon_pending_result_during_active_retry(tmp_path, monkey
             calls.append(kwargs)
             return '{"status":"completed","summary":"Stored later"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             raise RuntimeError("storage unavailable")
 
         monkeypatch.setattr(runner, "_run_llm", run_llm)
-        monkeypatch.setattr(store, "append_message", fail_append)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", fail_append)
         with pytest.raises(RuntimeError, match="storage unavailable"):
             runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
 
@@ -869,7 +869,7 @@ def test_host_cannot_abandon_pending_result_during_active_retry(tmp_path, monkey
             assert dispatch.dispatch_id in runner._pending_handoff_results
             return append(*args, **kwargs)
 
-        monkeypatch.setattr(store, "append_message", append_during_retry)
+        monkeypatch.setattr(store, "append_sub_agent_result_once", append_during_retry)
         result = runner.run("general", dispatch.objective, handoff_dispatch=dispatch)
         assert json.loads(result)["status"] == "completed"
         assert len(calls) == 1

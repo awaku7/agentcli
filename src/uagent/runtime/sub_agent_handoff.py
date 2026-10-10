@@ -72,12 +72,18 @@ class SubAgentDispatch:
                 )
         return self._context_json
 
-    def _result_source(self) -> SourceRef | None:
+    def _result_source(
+        self, *, job_id: str | None = None, check_owner: bool = True
+    ) -> SourceRef | None:
         for item in self._store.list_indexed_messages(self.source_session_id):
             if (
                 item["role"] == "assistant"
                 and (item["payload"] or {}).get("dispatch_id") == self.dispatch_id
             ):
+                if check_owner and (item["payload"] or {}).get("job_id") != job_id:
+                    raise CompactionValidationError(
+                        "persisted Sub-Agent result belongs to another Job"
+                    )
                 return SourceRef(
                     kind="message",
                     scope_id=self.source_session_id,
@@ -86,26 +92,26 @@ class SubAgentDispatch:
                 )
         return None
 
-    def record_result(self, result: str) -> SourceRef:
-        """Persist output, or recover its ref after an ambiguous storage error.
+    def record_result(self, result: str, *, job_id: str | None = None) -> SourceRef:
+        """Persist output, or recover a result owned by this same Job.
 
-        Runner reservations serialize retries. This lookup does not implement
-        cross-process deduplication or Main's transactional return application.
+        The optional trusted Job ID is not model-controlled. It prevents a
+        different Job from adopting an existing dispatch's indexed output on
+        retries or when separate Job managers share one child session.
         """
-        existing = self._result_source()
+        if job_id is not None and (not isinstance(job_id, str) or not job_id.strip()):
+            raise CompactionValidationError("invalid trusted Job ID")
+        existing = self._result_source(job_id=job_id)
         if existing is not None:
             return existing
-        payload = {"dispatch_id": self.dispatch_id}
-        compact_report = _persisted_compact_report(result)
-        if compact_report is not None:
-            payload["compact_report"] = compact_report
-        self._store.append_message(
+        self._store.append_sub_agent_result_once(
             self.source_session_id,
-            "assistant",
             result,
-            payload=payload,
+            dispatch_id=self.dispatch_id,
+            job_id=job_id,
+            compact_report=_persisted_compact_report(result),
         )
-        source = self._result_source()
+        source = self._result_source(job_id=job_id)
         if source is not None:
             return source
         raise RuntimeError("persisted Sub-Agent output has no source index")

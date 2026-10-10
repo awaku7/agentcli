@@ -158,7 +158,8 @@ def test_structured_result_persistence_serializes_job_cancellation(monkeypatch):
     persisted = []
     manager = _manager(handoff_dispatch_policy=lambda *_args: dispatch)
 
-    def blocked_record_result(_dispatch, result):
+    def blocked_record_result(_dispatch, result, *, job_id=None):
+        assert isinstance(job_id, str) and job_id.startswith("sa_")
         persist_started.set()
         assert release_persist.wait(2)
         persisted.append(result)
