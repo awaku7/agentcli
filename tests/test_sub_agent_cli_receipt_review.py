@@ -57,9 +57,10 @@ def test_review_command_requires_local_operator(tmp_path, monkeypatch, capsys):
             command, core=core, store=store, owner=owner
         )
         assert "requires an interactive local operator" in capsys.readouterr().out
-        assert store.get_sub_agent_receipt_review(
-            owner.session_id, dispatch.dispatch_id
-        ) is None
+        assert (
+            store.get_sub_agent_receipt_review(owner.session_id, dispatch.dispatch_id)
+            is None
+        )
 
 
 def test_explicit_review_is_audit_only_and_idempotent(tmp_path, monkeypatch, capsys):
@@ -113,9 +114,10 @@ def test_switching_sessions_or_auto_mode_cannot_register_review(
             command, core=core, store=store, owner=owner
         )
         assert "interactive local operator" in capsys.readouterr().out
-        assert store.get_sub_agent_receipt_review(
-            owner.session_id, dispatch.dispatch_id
-        ) is None
+        assert (
+            store.get_sub_agent_receipt_review(owner.session_id, dispatch.dispatch_id)
+            is None
+        )
 
 
 def test_rejects_invalid_independent_evidence_and_conflicting_replay(
@@ -158,9 +160,7 @@ def test_interactive_gate_disallows_headless_and_auto_mode(monkeypatch):
     fake = SimpleNamespace(isatty=lambda: True)
     monkeypatch.setattr(cli_review, "sys", SimpleNamespace(stdin=fake, stdout=fake))
     monkeypatch.delenv("UAGENT_NON_INTERACTIVE", raising=False)
-    assert cli_review._human_review_available(
-        SimpleNamespace(auto_pilot_active=False)
-    )
+    assert cli_review._human_review_available(SimpleNamespace(auto_pilot_active=False))
     assert not cli_review._human_review_available(
         SimpleNamespace(auto_pilot_active=True)
     )
@@ -180,18 +180,17 @@ def test_interactive_gate_disallows_headless_and_auto_mode(monkeypatch):
         ":receipt review missing-root supported 1 1 extra",
     ],
 )
-def test_malformed_commands_do_not_create_reviews(
-    tmp_path, monkeypatch, cmd
-):
+def test_malformed_commands_do_not_create_reviews(tmp_path, monkeypatch, cmd):
     with SessionStore(tmp_path / "session.sqlite3") as store:
         core, owner, dispatch, _evidence, _command = _setup(store)
         monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
         assert cli_review.handle_cli_receipt_command(
             cmd, core=core, store=store, owner=owner
         )
-        assert store.get_sub_agent_receipt_review(
-            owner.session_id, dispatch.dispatch_id
-        ) is None
+        assert (
+            store.get_sub_agent_receipt_review(owner.session_id, dispatch.dispatch_id)
+            is None
+        )
 
 
 def test_cli_command_events_release_busy_state_even_after_rejection(
@@ -259,9 +258,10 @@ def test_oversized_sqlite_sequence_is_rejected_without_crashing(
             malformed, core=core, store=store, owner=owner
         )
         assert "Invalid" in capsys.readouterr().out
-        assert store.get_sub_agent_receipt_review(
-            owner.session_id, dispatch.dispatch_id
-        ) is None
+        assert (
+            store.get_sub_agent_receipt_review(owner.session_id, dispatch.dispatch_id)
+            is None
+        )
 
 
 def test_new_cli_messages_flow_through_host_translation(tmp_path, monkeypatch, capsys):
