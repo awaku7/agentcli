@@ -583,10 +583,18 @@ def _safe_assistant_cut_points(
             result_id = message.get("tool_call_id")
             if isinstance(result_id, str) and result_id in pending_tool_ids:
                 pending_tool_ids.discard(result_id)
-                # A completed tool result is a safe cut even if the next
-                # assistant immediately starts another tool call.
+                # Split here only when the next assistant immediately
+                # starts another tool call. A plain assistant response is
+                # already handled by the assistant boundary above.
+                next_message = (
+                    messages[index + 1]
+                    if index + 1 < end and isinstance(messages[index + 1], dict)
+                    else {}
+                )
                 if (
-                    index + 1 < end
+                    next_message.get("role") == "assistant"
+                    and isinstance(next_message.get("tool_calls"), list)
+                    and next_message["tool_calls"]
                     and not pending_tool_ids
                     and not pending_unknown_tool_call
                 ):
