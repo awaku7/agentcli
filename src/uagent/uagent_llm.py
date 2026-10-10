@@ -1585,11 +1585,7 @@ def _run_one_round(
     structured_projection = None
     # A new user turn is the safe boundary for a durable checkpoint. Tool
     # continuation rounds must preserve their pending call_id/response_id chain.
-    if (
-        not judgment_mode
-        and messages
-        and messages[-1].get("role") in {"user", "tool"}
-    ):
+    if not judgment_mode and messages and messages[-1].get("role") in {"user", "tool"}:
         structured_projection = build_structured_auto_shrink_projection(
             provider=provider,
             client=client,
