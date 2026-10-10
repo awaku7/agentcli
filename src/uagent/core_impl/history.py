@@ -736,6 +736,12 @@ def compress_history_with_llm(
             others.append(m)
 
     desired_tail_start = min(len(others), max(0, len(others) - keep_last))
+    if structured_compaction:
+        from ..runtime.structured_compaction import MAX_SOURCE_MESSAGES
+
+        # Limit one durable checkpoint to an exact, contiguous source window.
+        # Later turns will checkpoint the remaining raw suffix incrementally.
+        desired_tail_start = min(desired_tail_start, MAX_SOURCE_MESSAGES)
     tail_start = desired_tail_start
     tail_start = _tool_aware_tail_start(others, tail_start)
     old_part = others[:tail_start]
@@ -1081,6 +1087,15 @@ def compress_history_with_llm(
         token_budget=initial_chunk_token_budget,
         measure_tokens=_measure_split_prompt,
     )
+    if (
+        structured_compaction
+        and split_cut is not None
+        and split_cut > MAX_SOURCE_MESSAGES
+    ):
+        # Oversized-turn splitting must not undo the source-window limit.
+        # Retain the original tool-safe boundary rather than committing an
+        # oversized window that the provenance validator will reject.
+        split_cut = None
     if split_cut is not None:
         old_part = others[:split_cut]
         tail_part = others[split_cut:]
