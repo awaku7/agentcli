@@ -14,26 +14,7 @@ from typing import Any
 
 from .session_store import SessionStore
 
-_ENV_NAME = "UAGENT_SUB_AGENT_HANDOFF_CONTEXT"
-_ENABLED = frozenset({"1", "true", "yes", "on"})
-_DISABLED = frozenset({"", "0", "false", "no", "off"})
 _MARKER = "[unverified sub-agent receipts]"
-
-
-def cli_receipt_context_enabled(
-    environment: Mapping[str, str], *, structured_handoff_enabled: bool
-) -> bool:
-    """Read-only context follows structured opt-in unless explicitly disabled."""
-    flag = str(environment.get(_ENV_NAME, "")).strip().lower()
-    if flag == "":
-        return structured_handoff_enabled
-    if flag in _DISABLED:
-        return False
-    if flag not in _ENABLED:
-        raise ValueError(f"{_ENV_NAME} must be 0 or 1")
-    if not structured_handoff_enabled:
-        raise ValueError(f"{_ENV_NAME} requires structured CLI handoff")
-    return True
 
 
 def format_sub_agent_receipt_context(
