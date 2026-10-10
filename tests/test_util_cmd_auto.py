@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import threading
 from types import SimpleNamespace
 
@@ -159,7 +160,10 @@ def _sqlite_auto_core(store, session_id):
     return core
 
 
-def test_auto_resume_uses_last_completed_round_without_initial_llm(tmp_path):
+@pytest.mark.parametrize("load_marker", [False, True])
+def test_auto_resume_uses_last_completed_round_without_initial_llm(
+    tmp_path, load_marker
+):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         session = store.create_session(project="project", entry_point="cli")
         sid = session.session_id
@@ -170,6 +174,15 @@ def test_auto_resume_uses_last_completed_round_without_initial_llm(tmp_path):
         original.auto_pilot_max_rounds = 10
         original.auto_pilot_round = 3
         util_cmd_auto._save_auto_checkpoint(original, "ready")
+        if load_marker:
+            store.append_message(
+                sid,
+                "system",
+                "[CWD] "
+                + json.dumps(
+                    {"event": "load", "path": "/workspace", "session_id": sid}
+                ),
+            )
 
         restored = _sqlite_auto_core(store, sid)
         result = _handle_cmd_auto(
@@ -185,7 +198,8 @@ def test_auto_resume_uses_last_completed_round_without_initial_llm(tmp_path):
 
 
 @pytest.mark.parametrize(
-    "change", ["message", "revision", "other_session", "same_count_replacement"]
+    "change",
+    ["message", "revision", "other_session", "same_count_replacement", "fake_marker"],
 )
 def test_auto_resume_rejects_changed_session(tmp_path, change):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
@@ -201,6 +215,13 @@ def test_auto_resume_rejects_changed_session(tmp_path, change):
             store.save_agent_state(sid, {"goal": "modified"}, expected_revision=0)
         elif change == "same_count_replacement":
             store.replace_messages(sid, [{"role": "user", "content": "Changed"}])
+        elif change == "fake_marker":
+            store.append_message(
+                sid,
+                "user",
+                "[CWD] "
+                + json.dumps({"event": "load", "session_id": sid}),
+            )
         else:
             sid = store.create_session(project="p", entry_point="cli").session_id
 
