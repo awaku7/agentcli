@@ -40,7 +40,7 @@ python -m pip install -e .
 set "UAGENT_SESSION_STORE=1"
 set "UAGENT_SESSION_STORE_PATH=%TEMP%\uag-structured-compaction-20261012.sqlite3"
 set "UAGENT_STRUCTURED_COMPACTION=1"
-set "UAGENT_SHRINK_CNT=6"
+set "UAGENT_SHRINK_CNT=12"
 set "UAGENT_SHRINK_KEEP_LAST=2"
 set "UAGENT_SHRINK_MAX_TOKENS=0"
 set "UAGENT_SHRINK_CHUNK_TOKENS=12000"
@@ -55,7 +55,7 @@ if exist "%UAGENT_SESSION_STORE_PATH%" echo WARNING: Test DB already exists. Use
 
 **設定の意味:**
 
-- `UAGENT_SHRINK_CNT=6`：少ないターン数で初回圧縮を試す。
+- `UAGENT_SHRINK_CNT=12`：4件の重要事項を投入して圧縮前の生履歴を保存した後に、初回圧縮を発動させるための検証用設定。
 - `UAGENT_SHRINK_KEEP_LAST=2`：直近2メッセージを圧縮対象から保護する。
 - `UAGENT_SHRINK_MAX_TOKENS=0`：**トークン数による圧縮開始判定を抑止**する。対応するResponsesのサーバー側圧縮もこのしきい値では有効にならず、ローカル構造化圧縮の件数発動を観測しやすくする。
 - `UAGENT_SHRINK_CHUNK_TOKENS=12000`：構造化要約を作るときの入力トークン予算の上限。**圧縮を開始する条件とは別**。
@@ -71,7 +71,7 @@ if exist "%UAGENT_SESSION_STORE_PATH%" echo WARNING: Test DB already exists. Use
 python -m uagent
 ```
 
-次の5つを**1件ずつ、応答を待ってから**送信する。通常の会話として扱い、`add_long_memory`等への保存は依頼しない。
+まず次の**4件だけ**を1件ずつ、応答を待ってから送信する。通常の会話として扱い、`add_long_memory`等への保存は依頼しない。4件の入力が終わったら**5件目の入力をする前に**、圧縮前のRaw Historyを記録する。
 
 ```text
 検証案件K17は在庫管理システムの開発です。
@@ -89,8 +89,39 @@ python -m uagent
 画面はWeb UIとし、デスクトップアプリは作りません。
 ```
 
+#### 4件の入力後：圧縮前のRaw Historyを記録する
+
+UAGを起動したcmdはそのままにして、**別のcmdウィンドウ**を開く。こちらにも同じテストDBのパスを設定する（第2節でファイル名を変更したなら、その変更後のパスにする）。
+
+```bat
+set "UAGENT_SESSION_STORE_PATH=%TEMP%\uag-structured-compaction-20261012.sqlite3"
+echo %UAGENT_SESSION_STORE_PATH%
+```
+
+以降のSQLite確認コマンドは**すべて**この環境変数を参照する。パスが未設定またはDBが存在しなければ、別の空のDBを自動生成せず停止する。
+
+この時点では、構造化Checkpointのない生履歴を基準として保存する。以下は**一度だけ**実行し、生成する`<DBパス>.raw-baseline.json`を検証終了まで保持する。
+
+```bat
+python -c "import os,sqlite3,json,pathlib; p=os.environ['UAGENT_SESSION_STORE_PATH']; assert os.path.isfile(p), 'test DB not found'; c=sqlite3.connect(p); rows=c.execute('SELECT session_id,message_id,role,content FROM messages ORDER BY message_id').fetchall(); facts=('検証案件K17は在庫管理システム','Python 3.14','PostgreSQLは使いません','画面はWeb UI'); assert all(any(fact in r[3] for r in rows if r[2]=='user') for fact in facts), 'one or more seeded facts missing'; assert c.execute('SELECT COUNT(*) FROM checkpoints').fetchone()[0]==0, 'checkpoint already exists; restart with fresh test DB'; b=pathlib.Path(p+'.raw-baseline.json'); assert not b.exists(), 'baseline already exists'; b.write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8'); print('Raw baseline saved:',len(rows),'messages; file:',b); c.close()"
+```
+
+チェックで止まった場合は、その時点のログを確認する。既にCheckpointがあれば、初回圧縮より**前**の状態を保証できないため、基準を上書きせず新しい検証用DBを使ってやり直す。
+
+#### 初回圧縮を発動させる
+
+元のUAGのcmdに戻り、次の質問を1件ずつ送信する。
+
 ```text
 これまでの検証案件K17の決定事項を整理してください。
+```
+
+```text
+この案件の開発環境として決まっている内容を、重複なく列挙してください。
+```
+
+```text
+検証案件K17の設計でまだ決まっていない項目を挙げてください。
 ```
 
 必要ならさらに数ターン、設計の決定事項について対話を追加する。圧縮成功時にはCLIに以下のような情報が表示される場合がある。
@@ -103,27 +134,27 @@ python -m uagent
 
 ## 4. SQLiteで永続保存を確認
 
-検証用のDBを参照する。別のcmdを使っても同じ`%TEMP%`のファイルを参照する。
+検証用のDBを参照する。**第3節で設定した別のcmdウィンドウ**を使用する。ファイル名を変更した場合も、変更後の`UAGENT_SESSION_STORE_PATH`を指定する。
 
 以下は**読み取りだけ**を行う。`checkpoints`の`application_status`が`applied`となっているか、出典の`source_start_seq` / `source_end_seq`がどう推移したかを確認する。
 
 ```bat
-python -c "import os,sqlite3; p=os.path.join(os.environ['TEMP'],'uag-structured-compaction-20261012.sqlite3'); c=sqlite3.connect(p); print('DB:',p); print('Raw messages:',c.execute('SELECT COUNT(*) FROM messages').fetchone()[0]); print('Checkpoints:',c.execute('SELECT session_id, application_status, source_start_seq, source_end_seq, result_revision FROM checkpoints ORDER BY session_id, source_start_seq').fetchall()); c.close()"
+python -c "import os,sqlite3; p=os.environ['UAGENT_SESSION_STORE_PATH']; assert os.path.isfile(p), 'test DB not found'; c=sqlite3.connect(p); print('DB:',p); print('Raw messages:',c.execute('SELECT COUNT(*) FROM messages').fetchone()[0]); print('Checkpoints:',c.execute('SELECT session_id, application_status, source_start_seq, source_end_seq, result_revision FROM checkpoints ORDER BY session_id, source_start_seq').fetchall()); c.close()"
 ```
 
 期待結果:
 
 - `Checkpoints:` に少なくとも1件の`applied`がある。
-- `Raw messages:` には元の発言が残る。
+- `Raw messages:` の件数だけでなく、下記の圧縮前スナップショットとの比較で元の発言が全件保持されたことを確認する。
 - チェックポイントがない場合、**原因を調べるまで未確認扱い**にする（生成失敗、しきい値未到達、異なるDBを開いた、サーバー側圧縮の優先、出典不整合など）。
 
-元の重要事項が残っているかも確認する。
+**圧縮前後のRaw Historyを比較**する。第3節の基準には、K17、Python 3.14、SQLite/PostgreSQL、Web UIの4件すべてを含む元の`message_id`・`session_id`・role・本文が保存されている。ここではそれらが同じID・同じ内容のまま残っていることを確認する。新しい会話行の追加は許容する。
 
 ```bat
-python -c "import os,sqlite3; p=os.path.join(os.environ['TEMP'],'uag-structured-compaction-20261012.sqlite3'); c=sqlite3.connect(p); print(c.execute('SELECT message_id, role, content FROM messages WHERE content LIKE ?',('%検証案件K17%',)).fetchall()); c.close()"
+python -c "import os,sqlite3,json,pathlib; p=os.environ['UAGENT_SESSION_STORE_PATH']; assert os.path.isfile(p), 'test DB not found'; old=json.loads(pathlib.Path(p+'.raw-baseline.json').read_text(encoding='utf-8')); c=sqlite3.connect(p); rows=c.execute('SELECT session_id,message_id,role,content FROM messages ORDER BY message_id').fetchall(); by_id={(r[0],r[1]):r for r in rows}; changed=[r for r in old if by_id.get((r[0],r[1]))!=tuple(r)]; print('Baseline:',len(old),'Current:',len(rows),'Lost or modified:',len(changed)); assert not changed, 'Raw History was deleted or modified'; c.close()"
 ```
 
-この出力には会話本文が含まれる。共有するときは私的情報や機密情報を除去する。
+`Lost or modified: 0`なら、基準時点の全生メッセージが同一内容で残っている。後続の圧縮やセッション再開後にも同じ比較を再実行する。基準JSONは会話本文を含むため、機密情報と同様に取り扱い、外部へ共有しない。
 
 ## 5. 継続圧縮・出典重複の確認
 
@@ -158,7 +189,7 @@ python -c "import os,sqlite3; p=os.path.join(os.environ['TEMP'],'uag-structured-
 3. **同じ検証用SQLiteと環境変数**のままCLIを再起動する（別のcmdで起動する場合は第2節の`set`を再設定）。
 4. `:sessions load <session_id>`で該当セッションを開く。
 5. 第6節の質問をもう一度行い、4点が保持されているか確かめる。
-6. SQLiteの`applied` Checkpoint数・出典範囲・Raw messagesも再確認する。**復元だけで同じ古い履歴を再圧縮してCheckpointが増えることを期待しない。**
+6. SQLiteの`applied` Checkpoint数・出典範囲・Raw messagesも再確認し、第4節のRaw History比較コマンドを再実行する。**復元だけで同じ古い履歴を再圧縮してCheckpointが増えることを期待しない。**
 
 `:sessions resume`は移植用パッケージのコマンドであり、今回の通常セッション再開には使用しない。
 
@@ -185,7 +216,7 @@ python -c "import os,sqlite3; p=os.path.join(os.environ['TEMP'],'uag-structured-
 | 初回Checkpoint | `applied`が1件以上保存される | 未実施 |
 | 継続Checkpoint | 同一セッションに2件以上、後続の`source_start_seq > 前回のsource_end_seq` | 未実施 |
 | 内容保持 | 4つの決定事項を正確に回答 | 未実施 |
-| Raw History | 過去のメッセージが消えずに参照できる | 未実施 |
+| Raw History | 圧縮前の4つの入力を含む全基準行が同じID・内容のまま残り、`Lost or modified: 0` | 未実施 |
 | 再起動・復元 | 元のセッションを開き、決定事項を回答できる | 未実施 |
 | ツール対応 | 複数のツール呼び出しと結果が対応し、正常に終了 | 未実施 |
 
@@ -195,7 +226,7 @@ python -c "import os,sqlite3; p=os.path.join(os.environ['TEMP'],'uag-structured-
 - 使用した`UAGENT_SHRINK_*`および`UAGENT_STRUCTURED_COMPACTION`設定（APIキーは記録しない）
 - 再現した入力・CLI出力のうち必要な部分、エラーとその直前の操作
 - `checkpoints`の件数・状態・`source_start_seq` / `source_end_seq` / revision
-- `messages`の件数と、該当する旧発言が残っているか
+- `messages`の基準件数・最新件数・`Lost or modified`件数
 - 再起動の前後やツール実行の前後、どの段階で挙動が変わったか
 
 失敗があっても、**原因が確定する前に圧縮ロジックをまとめて書き換えない**。一つずつ事象を再現・切り分けて修正する。
@@ -210,7 +241,7 @@ python -c "import os,sqlite3; p=os.path.join(os.environ['TEMP'],'uag-structured-
 | Responses API使用有無 | |
 | 初回Checkpoint数・source range | |
 | 継続Checkpoint数・source range | |
-| Raw messages件数（前／後） | |
+| Raw messages件数（前／後）と比較結果 | |
 | 記憶の回答結果 | |
 | 再起動後の回答結果 | |
 | ツール実行の結果 | |
