@@ -92,9 +92,7 @@ def _restore_auto_checkpoint(core: Any) -> bool:
         revision = checkpoint.get("agent_revision")
         messages = store.list_messages(session_id)
         watermark = store.get_session_item_watermark(session_id)
-        unchanged = (
-            len(messages) == message_count and watermark == message_watermark
-        )
+        unchanged = len(messages) == message_count and watermark == message_watermark
         # :load may append one trusted [CWD] event after changing directory.
         # It does not alter the previous Auto-pilot work.
         load_marker_only = False
