@@ -185,9 +185,8 @@ def test_plain_worker_and_legacy_job_never_publish_compact_return(tmp_path):
         legacy = _manager()
         try:
             job_id = _spawn(manager, owner, dispatch, report, persist=False)
-            assert manager.wait(owner=owner, job_id=job_id, timeout=2)[
-                "state"
-            ] == "completed"
+            finished = manager.wait(owner=owner, job_id=job_id, timeout=2)
+            assert finished["state"] == "completed"
             assert _compact(manager, owner, job_id) is None
             accepted = legacy.spawn(
                 owner=owner,
