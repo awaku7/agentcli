@@ -2745,6 +2745,13 @@ def run_llm_rounds(
             _inject_agent_state_context(messages, core)
             _inject_retrieved_tool_context(messages, core)
             _update_agent_state_for_turn(messages, core)
+            # Add lower-trust receipt evidence only AFTER state updates:
+            # the generated receipt prose must never become a persisted Goal.
+            from .runtime.sub_agent_receipt_context import (
+                inject_sub_agent_receipt_context,
+            )
+
+            inject_sub_agent_receipt_context(messages, core)
             # Apply the budget after state/retrieval injection so recovered
             # context is governed by the same policy as the conversation.
             _apply_context_budget(messages, core)
