@@ -19,12 +19,12 @@
 
 - **全体状態:** PR 1 は基礎実装を**条件付き完了**（2026-10-08の最終スコープレビュー）。独立したCI/実行検証と実プロバイダ・全ライフサイクル検証は保留。後続PR機能はPR 1の完了条件に含めない。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`
-- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn 完了（基礎実装）→ PR 3 Context Runtime Integration（基礎実装・テスト完了、独立レビュー／CI実行保留）
+- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn 完了 → PR 3 Context Runtime Integration 基礎実装・checkpoint境界修正（#202 merged）→ PR 4 Handoff基盤の段階導入中（#204 / #205 merged）
 - **設計書の再レビュー:** 明確化事項を設計書へ反映済み（2026-10-08）
 - **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
 - **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装し、SessionStore reopen 後のprefix/suffix再構成も検証。Artifact-first tool-result path は既存実装と回帰テストを確認。PR 3 は checkpoint candidate の score / decision / budget、重複抑止、older-page retrieval、session-scoped source rehydration、store failure fallback を追加。PR 3 targeted tests（4 / 18 / 9 passed）と全 pytest suite、全 `src` / `tests` の Ruff・Black check、6ファイルの py_compile、Markdown format、`git diff --check` が成功。実provider matrix / 独立 CI review は未実施。
-- **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、PR 4 Handoff / PR 5 multi-client safety、provider matrix / end-to-end restart review。
-- **次の作業:** PR 4 の model / caller-bounded projection API の第一段階を追加（詳細・未検証事項は PR 4 節）。次は既存 dispatcher と durable source index への接続、受信側の atomic revision / root ID deduplication を実装し、その後 Auto-pilot 再開へ進む。PR 3 の独立レビュー / CI 再実行と cross-scope authorization は引き続き別途追跡する。
+- **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、PR 4 のhost policy / return適用 / Auto-pilot再開と PR 5 multi-client safety、provider matrix / end-to-end restart review。
+- **次の作業:** PR #207で子Sessionの保存済み出力から読み取り専用compact `HandoffRecord` を構築するAPIと回帰テストを追加（PR審査中）。これはMainへの自動配送やAgentState適用を意味しない。次にhost側のtrusted Goal/source選択、Job結果の配送、Main側のrevision競合・root ID重複排除と一括適用を段階的に行う。cross-scope authorization、実provider matrix、process restart後の回復は独立して追跡する。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -88,17 +88,31 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 ### PR 4 — Sub-Agent / Auto-pilot Handoff
 
-- [x] HandoffRecord と caller-bounded projection を実装（provider-neutral な model / projection API の第一段階。既存 dispatcher への接続は後続）
-- [ ] Main → Sub-Agent の最小権限 context projection
-- [ ] Sub-Agent → Main の compact return と provenance
+- [x] HandoffRecord と caller-bounded projection を実装（provider-neutralなrecord / projection API）
+- [x] trusted dispatch snapshotをSubAgentRunnerへ接続し、専用子Sessionに実出力を保存（#204）
+- [x] opt-in host policyからJob workerへのdispatch snapshotの受け渡しを実装（#205）
+- [x] 子Sessionの保存済み実出力から読み取り専用compact returnを生成・検証するAPIを実装（#207。Mainへの配送・適用は未実装）
+- [ ] Job完了時のcompact returnをtrusted host / Mainへ配送し、受信側で検証
+- [ ] 各hostのtrusted Goal/source選択policyを有効化
+- [ ] Main側のrevision検証・root ID重複排除・state適用を一括処理
 - [ ] Auto-pilot の checkpoint / resume を実装
-- [ ] provider / model handoff のテストを追加・実行
+- [ ] provider / model handoff の実接続テストを追加・実行
 
-**現在の状態・次の作業（2026-10-09）:** 第一段階として immutable `HandoffRecord` と項目別 provenance、dispatch 時の receiver / revision、root delivery ID、schema / size validation を追加。`HandoffBounds` と Main → Sub-Agent / Sub-Agent → Main の projection API は、許可された Goal / exact SourceRef と送信時の availability / authorization check に限定する。Raw History、Memory、global narrative、provider state、無関係な Goal は投影しない。Checkpoint / Artifact は明示的に選択した参照のみを渡し、全文取得は行わない。既存 Sub-Agent tools / Job dispatcher はまだこの API を使用していない。
+**現在の状態・次の作業（2026-10-09）:** 第一段階として immutable `HandoffRecord` と項目別 provenance、dispatch 時の receiver / revision、root delivery ID、schema / size validation を追加。`HandoffBounds` と Main → Sub-Agent / Sub-Agent → Main の projection API は、許可された Goal / exact SourceRef と送信時の availability / authorization check に限定する。Raw History、Memory、global narrative、provider state、無関係な Goal は投影しない。Checkpoint / Artifact は明示的に選択した参照のみを渡し、全文取得は行わない。#204ではtrusted opt-in dispatchをSubAgentRunnerへ接続し、#205ではhost-owned policyが設定されたJob queueからworkerへそのsnapshotを渡せるようにした。既存hostはpolicy未設定のため、この経路を自動的には利用しない。
 
 **第二段階（opt-in dispatch 接続）:** `runtime/sub_agent_handoff.py` の `capture_sub_agent_dispatch()` は trusted host が指定した receiving Session の AgentState / revision を一緒に取得し、許可 Goal / exact SourceRef に限定した projection を固定する。専用 Sub-Agent Session に dispatch ID / receiver / revision と投影を保存し、`SubAgentRunner.run(..., handoff_dispatch=dispatch)` は送信直前にも availability / authorization callback を再確認する。この経路では legacy の file snippet / shared context / cache を送らず、実際の返却結果を SessionStore の通常の redaction と source index を通して保存する。モデルの tool schema に bounds / dispatch 指定を追加しない。今回、Job manager にhost-owned policyを指定したときの snapshot capture / worker transport を追加したが、既存hostにはまだpolicyを設定していないため、通常のtools / Job / 各hostの opt-in、child 全会話 / tool event の保存、compact HandoffRecord 返却は未実装。
 
-**段階導入の境界:** 第二段階でも Main AgentState の更新、root ID の永続 deduplication、revision conflict / reconciliation の受信処理、Auto-pilot checkpoint / resume、終了判定は変更しない。Job queueはtrusted policyから受けたdispatchをowner scope検証後にworkerへ渡し、structured Jobのshared-store書き込みとlive inbox continuationを拒否する。各hostのGoal/source選択policyは未設定である。次はhostごとのtrusted policyを設定し、child全会話のsource index / compact returnを実装する。その後、受信側でrevision check / root ID uniqueness / state applicationを同じtransactionに実装する。Auto-pilot再開はその基盤の検証後に進める。
+**段階導入の境界:** 第二段階でも Main AgentState の更新、root ID の永続 deduplication、revision conflict / reconciliation の受信処理、Auto-pilot checkpoint / resume、終了判定は変更しない。Job queueはtrusted policyから受けたdispatchをowner scope検証後にworkerへ渡し、structured Jobのshared-store書き込みとlive inbox continuationを拒否する。各hostのGoal/source選択policyは未設定である。次の独立段階では、既に索引化された子Sessionの実出力だけを出典とするcompact returnを先に実装する。子の全会話・tool eventの索引化は別段階とする。#207で保存済み子出力だけのcompact return構築APIを実装したが、hostとの接続は未実装である。後続でhostごとのtrusted Goal/source policy、Job結果のMainへの配送、受信側のrevision check / root ID uniqueness / state applicationを同じtransactionに実装する。Auto-pilot再開はその基盤の検証後に進める。
+
+**実装済みAPI — 子Session出力のcompact return（#207、Main配送前の段階）:**
+
+1. `SubAgentDispatch.record_result()` が返す子Sessionの正確な `SourceRef` を出典の起点とする。実際に保存されたメッセージ／source indexに存在することを検証し、モデルが返した出典ID・受信先Session・revision・root IDをそのまま信用しない。
+1. 既存 `HandoffRecord` と `project_sub_agent_return()` を使い、trusted runtime側がdispatch lineage（受信先Session、base revision、Goal IDs、root ID）を設定する。dispatch時点の `HandoffBounds.source_refs` はMainからの入力専用であり、子出力はまだ存在しない。返却時には同じ受信先・revision・Goal範囲を維持し、索引と現在の認可を検証した子出力 `SourceRef` のみを許可する **別の trusted return-side `HandoffBounds`** を作成する。出力が自由文で構造化された個別の事実を保証できない場合、根拠のないwork_done・decision・state_deltaを捏造せず、受信可能な最小表現または明示的な変換失敗とする。
+1. 返却は読み取り専用の提案とし、MainのRaw History、AgentState、Memory、長期profileへ自動書込みしない。全出力・toolイベントの永続化はこの実装単位の前提とせず、今回は保存済みの実出力に出典を限定する。
+1. 出典の再認可、参照先不在、サイズ超過、保存時の例外、同一dispatchの再試行・競合、キャンセルと完了の競合を検証する。既存の非構造化Sub-Agent経路と、opt-inしていないhostの動作を維持する。
+1. この段階ではMain側のrevision更新、永続root ID重複排除、異なるrunner/processからの復旧、Auto-pilot再開を実装しない。それらは受信側の一括適用と復旧の別差分で扱う。
+
+**受け入れ条件と検証状態:** APIは許可されたGoalと保存済み子出力だけを参照し、失敗してもMainの状態を変更しない。#207のCI #38005828975ではquality（Ruff/Black/I18N）、full pytest、Python 3.11/3.13/3.14互換性チェックが成功した。Job→Mainの実配送、実provider接続、process restartを含むend-to-end検証は未実施であり、PR4完了とはみなさない。
 
 **第二段階のローカル検証:** 変更した Python ファイルで Black 26.10.0 の整形 / check 成功。dispatch persistence / bounded runner と既存 handoff / compaction / Sub-Agent 回帰 pytest は計 169 passed。Main callback / JSONL / shared store の情報分離、権限復旧後の再試行、並行 duplicate 拒否時の予約不変、循環拒否時の予約解除、provider 例外と append 前後の保存失敗からの回復、および legacy 経路を検証。保存失敗時の結果は同じ runner 内で非公開に保持して再保存し、provider work を再実行しない。保存待ち / 実行中の structured 結果は runner ごとに最大32件に制限し、上限到達時は新規 provider work を始めず予約を解除する。既存の保存待ちは再試行できる。恒久的な権限失効などで再保存を断念する場合は trusted host の `discard_pending_handoff_result(dispatch)` で非公開結果と枠を明示的に解放できる。実行中は破棄を拒否し、破棄した ID は再実行を禁止する。一時的な権限停止では結果を自動破棄しない。初回 dispatch append が失敗した場合は作成直後の未公開 child Session を削除し、再試行による孤立 Session / source index の蓄積を防ぐ。child Session は初回 append 前に親の principal / room を既存 identity binding で引き継ぎ、binding 失敗も未公開 child を削除する。構造化派遣では従来の `provider` / `model` / `response_mode` / 証拠要件を無視し、未登録 role の値をログから伏せる。従来の `response_schema` / `required_fields` を無視して trusted AgentSpec の出力契約を使い、自然言語の会話再開は内部 child を候補から除外し明示 ID も拒否する。構造化派遣は tool permission を `none` に固定し、モデル由来の従来権限で snapshot 外のライブ入力を取得できない。structured 経路は live Job inbox を消費せず、追加入力は新しい authorized dispatch に分ける。SQLite からの profile 再構築では sub-agent Session を message 取得と件数制限の前に除外し、子の objective / generated result が長期 profile 経由で Main に混ざらないようにする。process restart / cross-runner recovery と永続 root ID deduplication は対象外。Ruff module がなくローカル Ruff は実行失敗・未検証。全 suite も実行したが partial source snapshot に `uagent.core` がなく collection error で中断したため未検証。全 `src tests` Black check、実 provider と host / Job end-to-end も未検証。PR CI で full-source の pinned quality / test checks を確認する。
 
@@ -137,7 +151,7 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 | Artifact / bounded retrieval | `src/uagent/runtime/artifact_manager.py`, `tool_result_manager.py`, `tool_result_persistence.py`, `context_retrieval.py`; `src/uagent/runtime/history.py:materialize_large_tool_result()` を `src/uagent/llm_flow_helpers.py` から tool result history へ適用。 | 既存 | oversized results は先に Artifact 化し、登録失敗時は bounded text fallback。`test_tool_result_artifact.py` と `test_responses_tool_result_limit.py` を確認。Tool-result Artifact rehydration はPR 3で未接続。Checkpoint SourceRef は同一 Session の message kind に限って retrieval / rehydration 対応。 |
 | ContextCandidate / Decision / Budget | `src/uagent/runtime/active_context.py`, `context_decision.py`, `context_budget.py`, `context_manager.py`。 | 既存 | Applied checkpoint のみを session-scoped candidate 化し、query relevance / importance / recency の scoring、decision、budget を適用。Source range の exact / available 状態を選択後に再確認する。 |
 | ActiveContextBuilder / Provider Projection | `src/uagent/runtime/active_context.py` の provider-neutral `ActiveContextBuilder`。 | 既存 | `ContextManager.build_message_context()` から `_run_one_round()` の既存 provider-neutral context hand-off に接続。選択 checkpoint は先行 system prefix の後へ背景情報として投影し、重複 reference は再投入しない。 |
-| Sub-Agent / Auto-pilot handoff | `src/uagent/runtime/sub_agent_jobs.py`, `multi_agent.py`, `agent_loop.py` および関連 coordinator。 | 既存 | Structured `HandoffRecord` との接続は未実装。 |
+| Sub-Agent / Auto-pilot handoff | `src/uagent/runtime/sub_agent_handoff.py`, `sub_agent_jobs.py`, `tools/sub_agent_tool.py` および関連 coordinator。 | 既存・拡張 | trusted opt-in dispatchとJob workerへのsnapshot transportは#204/#205で実装済み。host policy有効化、compact return / Main側の一括適用、Auto-pilot再開は未接続。 |
 | 関連テスト | `tests/test_compaction_record.py`, `test_session_item_index.py`, `test_compaction_persistence.py`, `test_session_store.py`, `test_agent_state_store.py` 等。 | 新規・既存 | checkpoint model / ordered source index / atomic persistence tests と既存 SessionStore / AgentState regressions を個別実行。 |
 
 ## 6. 受け入れ条件の追跡
@@ -155,7 +169,7 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 | 7 | Checkpoint を ContextCandidate として扱い、source refs から rehydration できる | PR 3 基礎実装 | `compaction_checkpoint_record()` / `retrieve_checkpoint_candidates()` は applied-only filter、scoring / budget、exact available source range validation を行う。`rehydrate_checkpoint_sources()` は同一 Session の exact / available message refs のみを bounded retrieval する。artifact/tool-result と cross-scope authorization は未接続。 |
 | 8 | provider / model を切り替えても provider-neutral checkpoint を利用できる | 基礎実装 | `ContextManager.build_message_context()` の provider-neutral projection を `_run_one_round()` から既存 provider path に接続。Fake/provider-neutral integration tests は実施。実provider matrix は未実施。 |
 | 9 | structured compaction 失敗時に Raw History を保持して fallback する | checkpoint 4 基礎実装 | opt-in auto-shrink は Raw History / JSONL を置換しない。構造化生成またはvalidation失敗時はlegacy rolling summary、それも失敗時はbounded deterministic excerptsへfallback。`tests/test_structured_compaction_generation.py`。 |
-| 10 | Sub-Agent handoff で provenance / scope semantics を再利用する | 未着手 | PR 4。 |
+| 10 | Sub-Agent handoff で provenance / scope semantics を再利用する | 部分実装 | #204/#205でtrusted opt-in dispatchとJob transport、#207で子Session出力のcompact return生成APIを追加。Mainへの配送/一括適用は未実装。 |
 | 11 | CLI / GUI / Browser tab を共通の Client Instance model で扱う | 未着手 | PR 5。 |
 | 12 | stale `base_revision` を検出し silent overwrite しない | checkpoint 3 基礎実装 | `commit_compaction_record()` の expected revision guard / conflict test。multi-client response は未実装。 |
 | 13 | revision conflict 後に最新状態を取得し、安全に再評価できる | 未着手 | reload / semantic rebase は PR 5。 |
