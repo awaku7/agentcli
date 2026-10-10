@@ -369,6 +369,7 @@ def test_stateless_tool_round_uses_checkpoint_without_recompressing(
             is None
         )
 
+
 def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypatch):
     """More than 80 eligible sources must progress instead of retrying fallback."""
     monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
@@ -455,7 +456,12 @@ def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypa
         checkpoints = store.list_compaction_records(session.session_id)
         assert len(checkpoints) == 2
         assert checkpoints[0]["source_start_seq"] > checkpoints[1]["source_end_seq"]
-        assert checkpoints[0]["source_end_seq"] <= checkpoints[0]["source_start_seq"] + 79
-        assert client_calls.source_lengths == [80, checkpoints[0]["record"]["source_message_count"]]
+        assert (
+            checkpoints[0]["source_end_seq"] <= checkpoints[0]["source_start_seq"] + 79
+        )
+        assert client_calls.source_lengths == [
+            80,
+            checkpoints[0]["record"]["source_message_count"],
+        ]
         assert second.messages[-1]["content"] == "now review Task B"
         assert store.list_messages(session.session_id) == second_raw
