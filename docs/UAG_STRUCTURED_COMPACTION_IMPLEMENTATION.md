@@ -175,7 +175,7 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 
 | 順序 | フェーズ | 残作業と完了判定 |
 |---|---|---|
-| 1 | PR 4 | #215の審査済みroot管理情報登録APIをCLIから明示利用する経路を接続（個別事実・Goalは非更新）。別途、個別事実・Goalの承認対象と独立根拠を定義し、`reviewed_unverified` のroot管理情報と区別する。revision競合・出典失効・二重適用防止を検証する。 |
+| 1 | PR 4 | 日常のSub-Agent結果は自動受理・未検証context投影で共有する（手動root登録は不要）。個別事実・Goalを永続的に承認・適用する必要がある場合は、独立根拠・revision競合・出典失効・二重適用防止を別途設計・検証する。 |
 | 2 | PR 4 | Auto-pilot の checkpoint / resume。複数ラウンドの中断、再起動、状態競合、終了判断が根拠のない Goal 完了を生まないことを検証する。 |
 | 3 | PR 4 | 実 provider / model handoff の接続試験。既存の provider-neutral な単体テストだけでは完了扱いしない。 |
 | 4 | PR 4・PR 5 の先行安全条件 | GUI/Web/A2Aの有効化より前に、principal/workspace/Sessionの所有権・出典認可・revision競合時の拒否を当該hostで検証する。未実装の複数Client更新を暗黙に許可しない。 |
