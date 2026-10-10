@@ -164,9 +164,19 @@ Main session and are checked again at dispatch time. Unknown, stale, wrongly
 scoped, unindexed and unpermitted sources are rejected, never upgraded to
 broader Session access. Invalid opt-in settings fail closed at CLI startup.
 Other hosts remain on legacy Job behavior, as does CLI without the opt-in.
-CLI opt-in enables **dispatch only**: no Main-side automatic receipt delivery,
-Goal completion, state application, or Auto-pilot resume is enabled yet.
-Those are separate host features. Full child conversation/tool-event
+CLI structured dispatch is independent of receipt delivery. A second explicit
+flag, `UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT=1`, enables best-effort foreground
+CLI handling of the current owner's finished Job notices. This flag requires
+structured dispatch opt-in and a persistent store; both flags default off.
+The receiver rechecks the exact indexed child output, Job ID, scope, source
+availability and Main revision within its durable SQLite receipt transaction.
+Only receipt metadata is logged as structured events; no child report is
+printed in notices or promoted to the Main AgentState/Goal/Memory. Invalid
+settings fail closed. A stale revision or revoked source rejects receipt and
+is logged without changing Main state. Notices from a switched-away CLI
+session are not rerouted; the interactive CLI event loop is best-effort, not
+an end-to-end delivery guarantee across CLI shutdown/restart. GUI/Web/A2A,
+Main state application and Auto-pilot resume remain subsequent work. Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
 resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
