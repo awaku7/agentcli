@@ -1835,9 +1835,10 @@ class SessionStore:
         """
         if not isinstance(root_handoff_id, str) or not root_handoff_id.strip():
             raise ValueError("root_handoff_id must be nonempty")
-        if not isinstance(reviewer_id, str) or re.fullmatch(
-            r"[A-Za-z0-9._:@/-]{1,128}", reviewer_id
-        ) is None:
+        if (
+            not isinstance(reviewer_id, str)
+            or re.fullmatch(r"[A-Za-z0-9._:@/-]{1,128}", reviewer_id) is None
+        ):
             raise ValueError("reviewer_id must be a trusted reviewer identifier")
         if outcome not in {"supported", "rejected"}:
             raise ValueError("invalid receipt review outcome")
@@ -1874,9 +1875,7 @@ class SessionStore:
                     or existing["evidence_refs_json"] != evidence_json
                     or existing["base_revision"] != expected_revision
                 ):
-                    raise SessionStoreError(
-                        "receipt has a different recorded review"
-                    )
+                    raise SessionStoreError("receipt has a different recorded review")
                 self._connection.execute("COMMIT")
                 return {
                     "root_handoff_id": root_handoff_id,
@@ -1903,9 +1902,7 @@ class SessionStore:
                     "Main AgentState revision changed before review"
                 )
             try:
-                record = HandoffRecord.from_dict(
-                    json.loads(receipt["record_json"])
-                )
+                record = HandoffRecord.from_dict(json.loads(receipt["record_json"]))
             except (TypeError, ValueError, CompactionValidationError) as exc:
                 raise SessionStoreError("stored receipt is invalid") from exc
             if (
