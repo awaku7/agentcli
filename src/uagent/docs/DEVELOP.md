@@ -199,6 +199,25 @@ The text is lower-trust material, not instructions or confirmed facts;
 there is no Goal/Memory/state mutation, no completion signal, and no
 Auto-pilot resume. Other hosts do not enable this context projection.
 
+Receipt review is a separate, trusted-host-only API:
+`SessionStore.review_sub_agent_receipt(main_id, root_handoff_id,
+reviewer_id=..., outcome="supported"|"rejected",
+evidence_refs=(...), expected_revision=..., source_access_check=...)`.
+The reviewer ID, decision and evidence references must be host-owned, never
+taken directly from model output. A first review requires an already-received
+report with available child provenance and at least one separate, exact,
+available, currently authorized **Main user message** as review evidence.
+It records a reviewer assessment (`supported` or `rejected`), **not**
+objective verification of a claim, Goal completion, or a state transition.
+The first review checks the current Main revision and stores one record per
+root ID in a single SQLite transaction. Identical retries are safe after
+restart or a later revision; contradictory retries are rejected. Use
+`get_sub_agent_receipt_review()` for audit metadata and a current indication
+of evidence availability. This review API is not exported to LLM tools,
+not called automatically by any host, and never writes AgentState/Memory.
+It is the prerequisite for, not the implementation of, later state
+application or an independently verified factual claim.
+
 Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
