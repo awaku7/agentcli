@@ -375,3 +375,59 @@ def test_indexed_result_must_match_trusted_job_identity(tmp_path):
         indexed = store.list_indexed_messages(dispatch.source_session_id)
         assert len(indexed) == 2
         assert indexed[-1]["payload"]["job_id"] == "sa_first"
+
+
+def test_two_managers_cannot_persist_two_outputs_for_same_dispatch(tmp_path):
+    from dataclasses import replace
+
+    path = tmp_path / "sessions.sqlite3"
+    with SessionStore(path) as store, SessionStore(path) as second_store:
+        owner, dispatch = _dispatch(store)
+        other_dispatch = replace(dispatch, _store=second_store)
+        first_manager = _manager(policy=lambda *_args: dispatch)
+        second_manager = _manager(policy=lambda *_args: other_dispatch)
+        simultaneous = threading.Barrier(2)
+
+        def spawn(manager, actual_dispatch, summary):
+            report = json.dumps({"status": "completed", "summary": summary})
+
+            def worker(context):
+                simultaneous.wait(timeout=5)
+                context.record_handoff_result(actual_dispatch, report)
+                return report
+
+            admission = manager.spawn(
+                owner=owner,
+                agent_name="reviewer",
+                task=dispatch.objective,
+                worker=worker,
+            )
+            assert admission["status"] == "accepted"
+            return admission["job_id"]
+
+        try:
+            first_id = spawn(first_manager, dispatch, "First output")
+            second_id = spawn(second_manager, other_dispatch, "Second output")
+            first = first_manager.wait(owner=owner, job_id=first_id, timeout=8)
+            second = second_manager.wait(owner=owner, job_id=second_id, timeout=8)
+            assert sorted([first["state"], second["state"]]) == [
+                "completed",
+                "failed",
+            ]
+            indexed = store.list_indexed_messages(dispatch.source_session_id)
+            assert len(indexed) == 2
+            assert indexed[-1]["role"] == "assistant"
+            if first["state"] == "completed":
+                winner, loser = first_manager, second_manager
+                winning_id, losing_id = first_id, second_id
+            else:
+                winner, loser = second_manager, first_manager
+                winning_id, losing_id = second_id, first_id
+            assert indexed[-1]["payload"]["job_id"] == winning_id
+            packed = _compact(winner, owner, winning_id)
+            record = HandoffRecord.from_dict(json.loads(packed))
+            assert len(record.findings) == 1
+            assert _compact(loser, owner, losing_id) is None
+        finally:
+            first_manager.shutdown()
+            second_manager.shutdown()
