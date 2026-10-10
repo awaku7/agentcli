@@ -8,7 +8,11 @@ import threading
 import pytest
 
 from uagent.runtime.compaction_record import CompactionValidationError
-from uagent.runtime.session_store import SessionRevisionConflict, SessionStore
+from uagent.runtime.session_store import (
+    SessionRevisionConflict,
+    SessionStore,
+    SessionStoreError,
+)
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
 from uagent.runtime.sub_agent_jobs import (
     SubAgentJobManager,
@@ -256,4 +260,49 @@ def test_cancelled_job_cannot_deliver_late_output(tmp_path):
             assert _receipt_count(store) == 0
         finally:
             release.set()
+            manager.shutdown()
+
+
+def test_output_replaced_after_owner_precheck_is_rejected_atomically(
+    tmp_path, monkeypatch
+):
+    import uagent.runtime.sub_agent_jobs as jobs_module
+
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        owner, dispatch, manager = _setup(store)
+        try:
+            job_id = _start(
+                manager,
+                owner,
+                dispatch,
+                '{"status":"completed","summary":"Original result"}',
+            )
+            manager.wait(owner=owner, job_id=job_id, timeout=2)
+            original = jobs_module.receive_compact_sub_agent_return
+
+            def replace_between_checks(current_dispatch, **kwargs):
+                row = store._connection.execute(
+                    "SELECT message_id, payload_json FROM messages "
+                    "WHERE session_id = ? AND role = 'assistant'",
+                    (dispatch.source_session_id,),
+                ).fetchone()
+                payload = json.loads(row["payload_json"])
+                assert payload["job_id"] == job_id
+                payload["job_id"] = "sa_other_job"
+                store._connection.execute(
+                    "UPDATE messages SET payload_json = ? WHERE message_id = ?",
+                    (json.dumps(payload), row["message_id"]),
+                )
+                return original(current_dispatch, **kwargs)
+
+            monkeypatch.setattr(
+                jobs_module,
+                "receive_compact_sub_agent_return",
+                replace_between_checks,
+            )
+            with pytest.raises(SessionStoreError, match="another Job"):
+                _deliver(manager, owner, job_id)
+            assert _receipt_count(store) == 0
+            assert store.get_agent_state_snapshot(owner.session_id) == (None, 0)
+        finally:
             manager.shutdown()
