@@ -71,15 +71,9 @@ A tömörítési szabály a következőket veszi figyelembe:
 - a nem rendszerüzenetek számát;
 - a modell feloldott kontextusablakát, ha rendelkezésre áll;
 - `UAGENT_SHRINK_KEEP_LAST` (alapértelmezés szerint 20);
-- `UAGENT_SHRINK_MAX_TOKENS` vagy egy modellspecifikus felülírás;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; és
 - `UAGENT_SHRINK_RATIO` (alapértelmezés szerint 0,5, ha a kontextusablak ismert).
-
-A modellspecifikus korlát a következőképpen adható meg:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 A korábbi összefoglalót nem minden körben generálják újra. A hiszterézis miatt elegendő új előzménynek kell felhalmozódnia, vagy újabb token-keret túllépésnek kell bekövetkeznie, mielőtt a tömörítés újra elindulna.
 

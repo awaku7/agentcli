@@ -71,15 +71,9 @@ UAGENT_TOOL_RESULT_MAX_CHARS=12000
 - 非系統訊息的數量；
 - 若可用，則採用模型已解析的上下文視窗；
 - `UAGENT_SHRINK_KEEP_LAST`（預設為 20）；
-- `UAGENT_SHRINK_MAX_TOKENS` 或特定模型的覆寫設定；
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`；以及
 - `UAGENT_SHRINK_RATIO`（當已知上下文視窗時，預設為 0.5）。
-
-可透過以下方式指定模型專屬的限制：
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 系統不會在每個回合都重新生成先前已生成的摘要。 遲滯機制要求必須累積足夠的新歷史記錄，或發生另一次標記預算溢出，壓縮才會再次執行。
 

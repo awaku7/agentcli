@@ -71,15 +71,9 @@ La politica di compressione utilizza:
 - il numero di messaggi non di sistema;
 - la finestra di contesto risolta del modello, quando disponibile;
 - `UAGENT_SHRINK_KEEP_LAST` (20 per impostazione predefinita);
-- `UAGENT_SHRINK_MAX_TOKENS` o una sovrascrittura specifica del modello;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; e
 - `UAGENT_SHRINK_RATIO` (0,5 per impostazione predefinita quando la finestra di contesto è nota).
-
-È possibile specificare un limite specifico per il modello come segue:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Un riepilogo precedente non viene rigenerato ad ogni turno. L’isteresi richiede che si accumuli una quantità sufficiente di nuova cronologia, oppure un altro overflow del budget di token, prima che la compressione venga eseguita nuovamente.
 

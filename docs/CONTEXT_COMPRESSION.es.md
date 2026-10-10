@@ -71,15 +71,9 @@ La política de compresión utiliza:
 - el número de mensajes que no son del sistema;
 - la ventana de contexto resuelta del modelo, cuando esté disponible;
 - `UAGENT_SHRINK_KEEP_LAST` (20 por defecto);
-- `UAGENT_SHRINK_MAX_TOKENS` o una sustitución específica del modelo;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; y
 - `UAGENT_SHRINK_RATIO` (0,5 por defecto cuando se conoce una ventana de contexto).
-
-Se puede especificar un límite específico del modelo de la siguiente forma:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 No se vuelve a generar un resumen anterior en cada turno. La histéresis requiere que se acumule suficiente historial nuevo, o que se produzca otro desbordamiento del presupuesto de tokens, antes de que la compresión se ejecute de nuevo.
 

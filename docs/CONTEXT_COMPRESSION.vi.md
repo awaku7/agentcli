@@ -71,15 +71,9 @@ Chính sách nén sử dụng:
 - số lượng tin nhắn không phải hệ thống;
 - cửa sổ bối cảnh đã giải quyết của mô hình (nếu có);
 - `UAGENT_SHRINK_KEEP_LAST` (mặc định là 20);
-- `UAGENT_SHRINK_MAX_TOKENS` hoặc giá trị ghi đè cụ thể cho mô hình;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; và
 - `UAGENT_SHRINK_RATIO` (mặc định là 0,5 khi có cửa sổ bối cảnh đã biết).
-
-Giới hạn cụ thể cho từng mô hình có thể được cung cấp như sau:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Tóm tắt trước đó sẽ không được tạo lại ở mỗi lượt. Hiệu ứng trễ (hysteresis) yêu cầu phải tích lũy đủ lịch sử mới, hoặc xảy ra tràn ngân sách token khác, trước khi quá trình nén được thực hiện lại.
 

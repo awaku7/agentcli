@@ -71,15 +71,9 @@ Politica de compresie utilizează:
 - numărul de mesaje care nu sunt de sistem;
 - fereastra de context rezolvată a modelului, atunci când este disponibilă;
 - `UAGENT_SHRINK_KEEP_LAST` (20 în mod implicit);
-- `UAGENT_SHRINK_MAX_TOKENS` sau o suprascriere specifică modelului;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; și
 - `UAGENT_SHRINK_RATIO` (0,5 în mod implicit atunci când se cunoaște o fereastră de context).
-
-O limită specifică modelului poate fi furnizată astfel:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Un rezumat anterior nu este regenerat la fiecare tur. Histerezisul necesită acumularea unui istoric suficient de nou sau o altă depășire a bugetului de tokenuri înainte ca compresia să se execute din nou.
 

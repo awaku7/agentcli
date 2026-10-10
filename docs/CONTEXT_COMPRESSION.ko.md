@@ -71,15 +71,9 @@ uag은 메시지 수나 예상 토큰 수가 구성된 한도에 도달하면 �
 - 비시스템 메시지 수;
 - 가능한 경우 모델의 해결된 컨텍스트 윈도우;
 - `UAGENT_SHRINK_KEEP_LAST`(기본값 20);
-- `UAGENT_SHRINK_MAX_TOKENS` 또는 모델별 재정의 값;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; 그리고
 - `UAGENT_SHRINK_RATIO`(컨텍스트 윈도우가 알려진 경우 기본값 0.5).
-
-모델별 제한값은 다음과 같이 지정할 수 있습니다:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 이전 요약은 매 턴마다 재생성되지 않습니다. 히스테리시스(hysteresis)로 인해 압축이 다시 실행되기 전에는 충분한 새로운 이력이 누적되거나, 토큰 예산이 다시 초과되어야 합니다.
 

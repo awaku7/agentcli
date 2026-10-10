@@ -71,15 +71,9 @@ Komprimeringspolicyn använder:
 - antalet icke-systemmeddelanden;
 - modellens upplösta kontextfönster när det är tillgängligt;
 - `UAGENT_SHRINK_KEEP_LAST` (20 som standard);
-- `UAGENT_SHRINK_MAX_TOKENS` eller en modellspecifik överskrivning;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; och
 - `UAGENT_SHRINK_RATIO` (0,5 som standard när ett kontextfönster är känt).
-
-En modellspecifik gräns kan anges som:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 En tidigare sammanfattning genereras inte på nytt vid varje tur. Hysteres kräver att tillräckligt med ny historik har ackumulerats, eller att tokenbudgeten överskrids igen, innan komprimeringen körs på nytt.
 

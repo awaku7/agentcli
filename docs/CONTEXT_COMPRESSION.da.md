@@ -71,15 +71,9 @@ Komprimeringspolitikken anvender:
 - antallet af ikke-systembeskeder;
 - modellens opløste kontekstvindue, når det er tilgængeligt;
 - `UAGENT_SHRINK_KEEP_LAST` (20 som standard);
-- `UAGENT_SHRINK_MAX_TOKENS` eller en model-specifik tilsidesættelse;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; og
 - `UAGENT_SHRINK_RATIO` (0,5 som standard, når et kontekstvindue er kendt).
-
-En modelspecifik grænse kan angives som:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Et tidligere resumé genoprettes ikke ved hver tur. Hysterese kræver, at der akkumuleres tilstrækkelig ny historik, eller at der sker endnu et token-budgetoverskridelse, før komprimeringen kører igen.
 

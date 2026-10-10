@@ -71,15 +71,9 @@ Zasady kompresji uwzględniają:
 - liczbę wiadomości niesystemowych;
 - rozstrzygnięte okno kontekstowe modelu, jeśli jest dostępne;
 - `UAGENT_SHRINK_KEEP_LAST` (domyślnie 20);
-- `UAGENT_SHRINK_MAX_TOKENS` lub nadpisanie specyficzne dla modelu;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; oraz
 - `UAGENT_SHRINK_RATIO` (domyślnie 0,5, gdy okno kontekstowe jest znane).
-
-Limit specyficzny dla modelu można podać w następujący sposób:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Poprzednie podsumowanie nie jest generowane na nowo przy każdej turze. Histereza wymaga zgromadzenia wystarczającej ilości nowych danych historycznych lub kolejnego przepełnienia budżetu tokenów, zanim kompresja zostanie uruchomiona ponownie.
 

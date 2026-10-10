@@ -71,15 +71,9 @@ Die Komprimierungsrichtlinie berücksichtigt:
 - die Anzahl der Nicht-System-Nachrichten;
 - das aufgelöste Kontextfenster des Modells, sofern verfügbar;
 - `UAGENT_SHRINK_KEEP_LAST` (standardmäßig 20);
-- `UAGENT_SHRINK_MAX_TOKENS` oder eine modellspezifische Überschreibung;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; und
 - `UAGENT_SHRINK_RATIO` (standardmäßig 0,5, wenn ein Kontextfenster bekannt ist).
-
-Ein modellspezifischer Grenzwert kann wie folgt angegeben werden:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Eine bereits erstellte Zusammenfassung wird nicht bei jedem Durchlauf neu generiert. Die Hysterese erfordert, dass sich genügend neue Historie ansammelt oder ein weiterer Token-Budget-Überlauf auftritt, bevor die Komprimierung erneut ausgeführt wird.
 

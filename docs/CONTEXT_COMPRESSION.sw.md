@@ -71,15 +71,9 @@ Sera ya ufinyaji inatumia:
 - idadi ya ujumbe zisizo za mfumo;
 - dirisha la muktadha lililosuluhishwa la mfano linapopatikana;
 - `UAGENT_SHRINK_KEEP_LAST` (20 kwa chaguo-msingi);
-- `UAGENT_SHRINK_MAX_TOKENS` au ubatilishaji maalum wa mfano;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; na
 - `UAGENT_SHRINK_RATIO` (0.5 kwa chaguo-msingi wakati dirisha la muktadha linajulikana).
-
-Kikomo maalum cha mfano kinaweza kutolewa kama:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<JINA_LA_MFANO>
-```
 
 Muhtasari wa awali hautolewi upya kila zamu. Hysteresis inahitaji historia mpya ya kutosha ikusanyike, au bajeti nyingine ya tokeni izidiwe, kabla ya ukandishaji kufanyika tena.
 

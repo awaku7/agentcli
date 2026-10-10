@@ -71,15 +71,9 @@ UI 和远程客户端仍可接收内存中的附件，已保存的文件也可�
 - 非系统消息的数量；
 - 模型已解析的上下文窗口（如有）；
 - `UAGENT_SHRINK_KEEP_LAST`（默认值为 20）；
-- `UAGENT_SHRINK_MAX_TOKENS` 或模型特定的覆盖值；
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`；以及
 - `UAGENT_SHRINK_RATIO`（当已知上下文窗口时，默认值为 0.5）。
-
-模型特有的限制可通过以下方式指定：
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 并非在每个回合都会重新生成之前的摘要。 要再次进行压缩，需要积累足够的新历史数据，或者发生另一次令牌预算溢出。
 

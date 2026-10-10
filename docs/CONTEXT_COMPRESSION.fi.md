@@ -71,15 +71,9 @@ Pakkauskäytäntö käyttää seuraavia tekijöitä:
 - järjestelmän ulkopuolisten viestien lukumäärää;
 - mallin ratkaistua konteksti-ikkunaa, jos se on käytettävissä;
 - `UAGENT_SHRINK_KEEP_LAST` (oletusarvo 20);
-- `UAGENT_SHRINK_MAX_TOKENS` tai mallikohtainen ohitus;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; ja
 - `UAGENT_SHRINK_RATIO` (oletusarvo 0,5, kun konteksti-ikkuna on tiedossa).
-
-Mallikohtainen raja voidaan antaa seuraavasti:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Aikaisempaa yhteenvetoa ei luoda uudelleen jokaisella kierroksella. Hystereesin vuoksi tarvitaan riittävästi uutta historiaa tai toinen token-budjetin ylitys, ennen kuin pakkaus suoritetaan uudelleen.
 
