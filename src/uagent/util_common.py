@@ -45,6 +45,7 @@ class CommandResult:
     continue_running: bool = True
     run_llm: bool = False
     prompt: str | None = None
+    resume_auto_pilot: bool = False
 
     def __bool__(self) -> bool:
         return self.continue_running
