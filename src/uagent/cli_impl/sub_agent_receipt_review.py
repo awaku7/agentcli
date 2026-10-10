@@ -13,6 +13,7 @@ import shlex
 import sys
 from typing import Any
 
+from ..i18n import _
 from ..runtime.compaction_record import SourceRef
 from ..runtime.session_store import SessionStore, SessionStoreError
 from ..runtime.sub_agent_jobs import SubAgentJobOwner
@@ -65,19 +66,19 @@ def handle_cli_receipt_command(
     try:
         parts = shlex.split(stripped)
     except ValueError:
-        print("Usage: :receipt [evidence | review <root-id> <supported|rejected> <message-id> <seq>]")
+        print(_("Usage: :receipt [evidence | review <root-id> <supported|rejected> <message-id> <seq>]"))
         return True
     if not parts or parts[0] != ":receipt":
         return False
     session_id = _active_cli_session(core, store, owner)
     if session_id is None:
-        print("Receipt review is unavailable for the current CLI Session.")
+        print(_("Receipt review is unavailable for the current CLI Session."))
         return True
 
     if len(parts) == 1:
         receipts = store.list_visible_sub_agent_receipts(session_id, limit=10)
         if not receipts:
-            print("No currently accessible unverified receipts.")
+            print(_("No currently accessible unverified receipts."))
             return True
         for item in receipts:
             root = item["root_handoff_id"]
@@ -85,8 +86,8 @@ def handle_cli_receipt_command(
             status = audit["outcome"] if audit is not None else "not-reviewed"
             print(
                 f"{_safe_terminal_text(root, 128)} "
-                f"role={_safe_terminal_text(item['role'], 80)} "
-                f"review={status}"
+                f"{_('role')}={_safe_terminal_text(item['role'], 80)} "
+                f"{_('review')}={status}"
             )
         return True
 
@@ -99,9 +100,9 @@ def handle_cli_receipt_command(
             and item["availability"] == "available"
         ][-20:]
         if not entries:
-            print("No indexed Main user messages available as evidence.")
+            print(_("No indexed Main user messages available as evidence."))
             return True
-        print("Candidate evidence IDs (content intentionally hidden):")
+        print(_("Candidate evidence IDs (content intentionally hidden):"))
         for item in entries:
             print(
                 f"message-id={_safe_terminal_text(item['ref_id'], 32)} "
@@ -110,11 +111,11 @@ def handle_cli_receipt_command(
         return True
 
     if len(parts) != 6 or parts[1] != "review":
-        print("Usage: :receipt review <root-id> <supported|rejected> <message-id> <seq>")
-        print("Use :receipt evidence to list candidate Main user message IDs.")
+        print(_("Usage: :receipt review <root-id> <supported|rejected> <message-id> <seq>"))
+        print(_("Use :receipt evidence to list candidate Main user message IDs."))
         return True
     if not _human_review_available(core):
-        print("Receipt review requires an interactive local operator (not Auto-pilot).")
+        print(_("Receipt review requires an interactive local operator (not Auto-pilot)."))
         return True
     root_id, outcome, message_id, seq_value = parts[2:]
     if (
@@ -124,26 +125,42 @@ def handle_cli_receipt_command(
         or not message_id.isdecimal()
         or not seq_value.isascii()
         or not seq_value.isdecimal()
+        or len(seq_value) > 19
         or int(seq_value) < 1
+        or int(seq_value) > 9_223_372_036_854_775_807
     ):
-        print("Invalid receipt review command arguments.")
+        print(_("Invalid receipt review command arguments."))
         return True
     evidence = SourceRef("message", message_id, session_id, int(seq_value))
     try:
+        earlier = store.get_sub_agent_receipt_review(session_id, root_id)
+        expected_revision = store.get_agent_state_revision(session_id)
+        if (
+            earlier is not None
+            and earlier["reviewer_id"] == "cli:local-operator"
+            and earlier["outcome"] == outcome
+            and earlier["evidence_refs"] == [evidence.to_dict()]
+        ):
+            # An identical retry must use the original revision that was
+            # persisted with the audit decision, even if Main moved forward.
+            expected_revision = earlier["base_revision"]
         receipt = store.review_sub_agent_receipt(
             session_id,
             root_id,
             reviewer_id="cli:local-operator",
             outcome=outcome,
             evidence_refs=(evidence,),
-            expected_revision=store.get_agent_state_revision(session_id),
+            expected_revision=expected_revision,
             source_access_check=lambda ref: (
                 ref == evidence and store.is_exact_indexed_message_available(ref)
             ),
         )
-    except (SessionStoreError, ValueError, TypeError) as exc:
-        print(f"Receipt review rejected: {_safe_terminal_text(type(exc).__name__, 80)}")
+    except (SessionStoreError, ValueError, TypeError, OverflowError) as exc:
+        print(_("Receipt review rejected: %(error)s") % {"error": _safe_terminal_text(type(exc).__name__, 80)})
         return True
-    label = "already recorded" if receipt["already_reviewed"] else "recorded"
-    print(f"Receipt review {label}: {outcome} (audit only; no Goal or state changes)")
+    label = _("already recorded") if receipt["already_reviewed"] else _("recorded")
+    print(
+        _("Receipt review %(status)s: %(outcome)s (audit only; no Goal or state changes)")
+        % {"status": label, "outcome": outcome}
+    )
     return True
