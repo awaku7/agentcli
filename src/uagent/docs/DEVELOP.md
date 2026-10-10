@@ -146,8 +146,10 @@ No existing host calls the receipt API automatically.
 
 A trusted host can now request `SubAgentJobManager.deliver_compact_handoff_to_main()`
 with its existing owner, Job ID and current source authorization function.
-The manager checks terminal/persisted status and exact saved Job ID before
-calling the Main-side receipt transaction. Only receipt metadata is returned;
+The manager checks terminal/persisted status and the saved Job ID before
+calling the Main-side receipt transaction. The same trusted Job ID is checked
+again against the indexed output **inside** the SQLite receiving transaction,
+so a source changed after the first check cannot be accepted. Only receipt metadata is returned;
 ordinary Job status, notices and tool-visible results remain unchanged.
 Repeated delivery is idempotent, and failures do not mark a Job as delivered.
 No host installs this delivery path automatically yet; state application
