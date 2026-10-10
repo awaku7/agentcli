@@ -216,3 +216,49 @@ def test_two_receivers_commit_one_root_across_connections(tmp_path):
             "SELECT count(*) FROM sub_agent_receipts"
         ).fetchone()[0]
         assert receipt_count == 1
+
+
+@pytest.mark.parametrize("field", ["finding", "objective", "goal_ids", "agent_id"])
+def test_first_receipt_must_match_indexed_dispatch_and_output(tmp_path, field):
+    from uagent.runtime.handoff_record import HandoffRecord
+    from uagent.runtime.sub_agent_return import build_compact_sub_agent_return
+
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        main, dispatch = _setup(store)
+        legitimate = HandoffRecord.from_dict(
+            json.loads(
+                build_compact_sub_agent_return(
+                    dispatch,
+                    agent_role="reviewer",
+                    source_access_check=lambda _ref: True,
+                )
+            )
+        )
+        if field == "finding":
+            injected = replace(
+                legitimate,
+                findings=(
+                    replace(
+                        legitimate.findings[0],
+                        text="Unverified Sub-Agent report (completed): invented",
+                    ),
+                ),
+            )
+        elif field == "objective":
+            injected = replace(legitimate, objective="Invented task")
+        elif field == "goal_ids":
+            injected = replace(legitimate, goal_ids=("invented-goal",))
+        else:
+            injected = replace(legitimate, agent_id="fake-agent")
+        with pytest.raises(SessionStoreError, match="does not match"):
+            store.commit_sub_agent_receipt(
+                injected,
+                source_session_id=dispatch.source_session_id,
+                source_access_check=lambda _ref: True,
+            )
+        assert store.get_agent_state_snapshot(main) == (None, 0)
+        receipt_count = store._connection.execute(
+            "SELECT count(*) FROM sub_agent_receipts"
+        ).fetchone()[0]
+        assert receipt_count == 0
+        assert _receive(dispatch)["already_received"] is False
