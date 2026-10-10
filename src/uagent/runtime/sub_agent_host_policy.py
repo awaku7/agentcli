@@ -23,9 +23,7 @@ _ENABLED = frozenset({"1", "true", "yes", "on"})
 _DISABLED = frozenset({"", "0", "false", "no", "off"})
 
 
-def _configuration_array(
-    environment: Mapping[str, str], name: str
-) -> list[object]:
+def _configuration_array(environment: Mapping[str, str], name: str) -> list[object]:
     raw = environment.get(name, "[]")
     if not isinstance(raw, str) or len(raw) > 16_384:
         raise ValueError(f"{name} must be a short JSON array")
@@ -57,8 +55,7 @@ def build_scoped_job_handoff_policy(
     if len(goal_ids) != len(set(goal_ids)) or len(goal_ids) > 50:
         raise ValueError("goal_ids must be unique and bounded")
     if not isinstance(source_refs, tuple) or any(
-        not isinstance(ref, SourceRef) or ref.kind != "message"
-        for ref in source_refs
+        not isinstance(ref, SourceRef) or ref.kind != "message" for ref in source_refs
     ):
         raise ValueError("only indexed message SourceRefs are supported")
     if len(source_refs) != len(set(source_refs)) or len(source_refs) > 50:
@@ -68,7 +65,9 @@ def build_scoped_job_handoff_policy(
     scoped_sources = tuple(source_refs)
     selected = frozenset(scoped_sources)
 
-    def policy(owner: SubAgentJobOwner, _agent_name: str, task: str) -> SubAgentDispatch:
+    def policy(
+        owner: SubAgentJobOwner, _agent_name: str, task: str
+    ) -> SubAgentDispatch:
         if not isinstance(owner, SubAgentJobOwner):
             raise CompactionValidationError("invalid trusted Job owner")
         if owner.entry_point != permitted_entry:
@@ -79,7 +78,9 @@ def build_scoped_job_handoff_policy(
         if parent["room_id"] != owner.room_id:
             raise CompactionValidationError("Job owner room does not match Session")
         if any(ref.scope_id != owner.session_id for ref in scoped_sources):
-            raise CompactionValidationError("selected source belongs to another Session")
+            raise CompactionValidationError(
+                "selected source belongs to another Session"
+            )
 
         def check_source(ref: SourceRef) -> bool:
             if ref not in selected or ref.kind != "message":
