@@ -110,9 +110,7 @@ def test_memory_projection_change_clears_pending_tool_continuation(monkeypatch) 
     )
 
     monkeypatch.setattr(llm._core_module, "interrupt_requested", False)
-    monkeypatch.setattr(
-        llm, "memory_projection_access_is_current", lambda *_: False
-    )
+    monkeypatch.setattr(llm, "memory_projection_access_is_current", lambda *_: False)
 
     result = llm._run_one_round(
         "openai",
