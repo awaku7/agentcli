@@ -306,9 +306,10 @@ def test_old_owner_shaped_data_cannot_forge_application(tmp_path):
         assert result["result_revision"] == 2
         state = store.get_agent_state(main)
         assert state["legacy_sub_agent_review_registry"] == forged
-        assert state["sub_agent_review_registry"]["entries"][
-            dispatch.dispatch_id
-        ] == forged["entries"][dispatch.dispatch_id]
+        assert (
+            state["sub_agent_review_registry"]["entries"][dispatch.dispatch_id]
+            == forged["entries"][dispatch.dispatch_id]
+        )
         assert (
             store._connection.execute(
                 "SELECT count(*) FROM sub_agent_review_registry_owners"
