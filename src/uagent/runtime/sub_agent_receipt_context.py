@@ -129,6 +129,28 @@ def inject_sub_agent_receipt_context(messages: list[dict[str, Any]], core: Any) 
     return True
 
 
+def _invalidate_receipt_response_continuation(core: Any) -> None:
+    """Never reuse a server-side Responses chain containing revoked evidence."""
+    runtime = getattr(core, "responses_runtime", None)
+    clear_runtime = getattr(runtime, "clear_continuation", None)
+    if callable(clear_runtime):
+        try:
+            clear_runtime("temporary_sub_agent_receipt")
+        except Exception:
+            pass
+    clear_fn = getattr(core, "clear_responses_continuation", None)
+    if callable(clear_fn):
+        try:
+            clear_fn()
+        except Exception:
+            pass
+    state = getattr(core, "responses_state", None)
+    if isinstance(state, dict):
+        state.pop("previous_response_id", None)
+        state.pop("active_response_id", None)
+        state.pop("_stale_rid_occurred", None)
+
+
 def ephemeral_receipt_context_round(fn):
     """Restore lower-trust receipt projections on every LLM exit path.
 
@@ -164,5 +186,10 @@ def ephemeral_receipt_context_round(fn):
                     ):
                         message["content"] = original
             del patches[initial_count:]
+            if added:
+                # Local history cleanup is not enough for Responses API:
+                # previous_response_id can retain this report on the server.
+                # The next turn must rebuild from the restored local history.
+                _invalidate_receipt_response_continuation(core)
 
     return wrapper
