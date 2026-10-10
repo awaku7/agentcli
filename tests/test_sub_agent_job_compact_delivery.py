@@ -372,6 +372,8 @@ def test_indexed_result_must_match_trusted_job_identity(tmp_path):
         assert dispatch.record_result(report, job_id="sa_first") == own
         with pytest.raises(CompactionValidationError, match="another Job"):
             dispatch.record_result(report, job_id="sa_different")
+        with pytest.raises(CompactionValidationError, match="another Job"):
+            dispatch.record_result('{"status":"completed","summary":"New direct"}')
         indexed = store.list_indexed_messages(dispatch.source_session_id)
         assert len(indexed) == 2
         assert indexed[-1]["payload"]["job_id"] == "sa_first"
