@@ -16,9 +16,7 @@ def test_auto_initial_round_accepts_only_completed_outcome():
         assert not _auto_initial_round_completed(
             SimpleNamespace(_last_round_outcome={"status": status})
         )
-    assert not _auto_initial_round_completed(
-        SimpleNamespace(_last_round_outcome=None)
-    )
+    assert not _auto_initial_round_completed(SimpleNamespace(_last_round_outcome=None))
     assert not _auto_initial_round_completed(SimpleNamespace())
 
 
