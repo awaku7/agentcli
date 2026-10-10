@@ -186,7 +186,10 @@ current CLI owner matches the active Main Session and that the exact child
 message SourceRef is still indexed and available. Revoked/deleted child
 sources are excluded even if the durable receipt remains for auditing.
 The projection is size-bounded and placed after AgentState turn updates,
-so a report cannot become a Goal merely by entering LLM context.
+so a report cannot become a Goal merely by entering LLM context. The user
+turn's original text is restored at the end of each provider round (including
+error exits), preventing unverified evidence from accumulating in persistent
+conversation history or surviving later source revocation.
 The text is lower-trust material, not instructions or confirmed facts;
 there is no Goal/Memory/state mutation, no completion signal, and no
 Auto-pilot resume. Other hosts do not enable this context projection.
