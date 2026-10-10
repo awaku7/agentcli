@@ -1474,6 +1474,28 @@ class SessionStore:
         return result
 
     @_db_locked
+    def list_recent_exact_user_message_refs(
+        self, session_id: str, *, limit: int = 20
+    ) -> list[dict[str, Any]]:
+        """Return recent, available user-message IDs without loading content."""
+        self._require_session(session_id)
+        rows = self._execute(
+            "SELECT si.item_id AS ref_id, si.session_seq "
+            "FROM session_items AS si JOIN messages AS m "
+            "ON m.session_id = si.session_id "
+            "AND CAST(m.message_id AS TEXT) = si.item_id "
+            "WHERE si.session_id = ? AND si.item_kind = 'message' "
+            "AND si.ordering_quality = 'exact' "
+            "AND si.availability = 'available' AND m.role = 'user' "
+            "AND TRIM(m.content, CHAR(9, 10, 11, 12, 13, 28, 29, 30, 31, 32, "
+            "133, 160, 5760, 8192, 8193, 8194, 8195, 8196, 8197, 8198, "
+            "8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288)) <> '' "
+            "ORDER BY si.session_seq DESC LIMIT ?",
+            (session_id, max(0, limit)),
+        ).fetchall()
+        return [dict(row) for row in reversed(rows)]
+
+    @_db_locked
     def record_response_state(
         self,
         session_id: str,

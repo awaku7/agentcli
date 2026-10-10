@@ -252,6 +252,18 @@ arbitrary values under the same name remain ordinary legacy user data.
 The compaction reducer preserves unrelated protected state.
 This method is not installed in any host or exposed as an LLM tool.
 
+The CLI provides explicit local audit commands: `:receipt` lists
+currently visible receipt IDs and review statuses; `:receipt evidence`
+lists the IDs and exact sequence numbers of Main user messages without
+printing their contents. `:receipt review <root-id> <supported|rejected>
+<message-id> <seq>` asks the existing trusted review API to record the
+local operator's assessment. This write command requires an interactive
+CLI session and is disabled in headless and Auto-pilot modes. The reviewer
+label `cli:local-operator` identifies a local action, **not an
+authenticated individual**. A review is audit metadata, not proof of a
+claim's truth; it never completes a Goal, changes Main AgentState/Memory,
+or promotes Sub-Agent text into authoritative instructions.
+
 Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
