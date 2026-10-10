@@ -230,8 +230,12 @@ Auto-pilot. A rejected/missing review, stale AgentState revision, unavailable
 child source or revoked independent evidence prevents first application.
 The write and root-ID duplicate check share one SQLite transaction.
 Identical retries are read-only, including after restart/revision changes.
-Legacy `save_agent_state()` callers cannot alter or erase the protected
-registry, and the compaction reducer preserves unrelated protected state.
+UAG-owned review registries carry a distinct runtime ownership marker.
+Pre-existing user fields with the same name are preserved under an available
+`legacy_sub_agent_review_registry*` key on first application, rather than
+blocking all future applications. Legacy `save_agent_state()` callers cannot
+alter or erase an UAG-owned registry (or forge a new one), and the compaction
+reducer preserves unrelated protected state.
 This method is not installed in any host or exposed as an LLM tool.
 
 Full child conversation/tool-event
