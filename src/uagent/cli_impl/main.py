@@ -55,6 +55,10 @@ from .sub_agent_jobs import (
     prepare_cli_session_transition,
 )
 from ..runtime.sub_agent_host_policy import cli_scoped_handoff_policy_from_environment
+from ..runtime.sub_agent_cli_receipt import (
+    cli_auto_receipt_enabled,
+    deliver_cli_finished_job_notice,
+)
 from ..runtime.sub_agent_jobs import SubAgentJobManager
 
 
@@ -189,6 +193,9 @@ def main() -> int:
     # from the host environment, never model-supplied tool arguments.
     handoff_policy = cli_scoped_handoff_policy_from_environment(
         session_store, os.environ
+    )
+    auto_receipt_enabled = cli_auto_receipt_enabled(
+        os.environ, structured_handoff_enabled=handoff_policy is not None
     )
     job_manager = SubAgentJobManager(
         notice_callback=_enqueue_sub_agent_job_notice,
@@ -474,6 +481,29 @@ def main() -> int:
             if kind == "sub_agent_job_notice":
                 notice = ev.get("notice") or {}
                 display_job_notice(core, notice)
+                if auto_receipt_enabled:
+                    try:
+                        receipt = deliver_cli_finished_job_notice(
+                            manager=job_manager,
+                            owner=job_owner,
+                            notice=notice,
+                            store=session_store,
+                        )
+                    except Exception as exc:
+                        # A rejected delivery never promotes model evidence.
+                        # Record a diagnostic without exposing child content.
+                        log_event(
+                            "sub_agent.handoff_receipt_failed",
+                            job_id=notice.get("job_id"),
+                            error_type=type(exc).__name__,
+                        )
+                    else:
+                        if receipt is not None:
+                            log_event(
+                                "sub_agent.handoff_receipt_recorded",
+                                job_id=notice.get("job_id"),
+                                already_received=receipt["already_received"],
+                            )
                 continue
 
             if kind == "schedule_notice":
