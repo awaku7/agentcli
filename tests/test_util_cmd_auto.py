@@ -155,6 +155,7 @@ def _sqlite_auto_core(store, session_id):
     core = _core()
     core.session_store = store
     core._session_store_active_id = session_id
+    core._cli_auto_resume_enabled = True
     return core
 
 
