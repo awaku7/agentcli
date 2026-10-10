@@ -638,7 +638,7 @@
 ### Changed
 
 - fix: support GPT-5 and o-series token parameters in chat-completion paths
-- fix: improve CLI completion navigation and add F11 auto-pilot termination
+- fix: improve CLI completion navigation and auto-pilot interruption
 - fix: preserve sub-agent confirmation context across localized interfaces
 - docs: expand the README with architecture, plugin, marketplace, and IoT guidance and refresh translations
 
