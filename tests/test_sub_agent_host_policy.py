@@ -146,6 +146,42 @@ def test_revoked_or_resequenced_parent_source_is_rejected(tmp_path):
             policy(owner, "reviewer", "Inspect again")
 
 
+def test_exact_source_check_uses_index_and_rejects_invalid_rows(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        owner, ref = _main(store)
+        goal_id = _save_goal(store, owner, ref)
+        assert store.is_exact_indexed_message_available(ref)
+        wrong_sequence = SourceRef(
+            "message", ref.ref_id, owner.session_id, ref.session_seq + 1
+        )
+        assert not store.is_exact_indexed_message_available(wrong_sequence)
+        assert not store.is_exact_indexed_message_available(
+            SourceRef("message", "999999", owner.session_id, ref.session_seq)
+        )
+
+        def full_scan_disallowed(_session_id):
+            raise AssertionError("authorization must not scan full message history")
+
+        monkeypatch.setattr(store, "list_indexed_messages", full_scan_disallowed)
+        policy = build_scoped_job_handoff_policy(
+            store, entry_point="cli", goal_ids=(goal_id,), source_refs=(ref,)
+        )
+        dispatch = policy(owner, "reviewer", "Inspect")
+        assert dispatch.render_context()
+        store._connection.execute(
+            "UPDATE session_items SET ordering_quality = 'legacy_message_order' "
+            "WHERE session_id = ? AND item_kind = 'message' AND item_id = ?",
+            (owner.session_id, ref.ref_id),
+        )
+        assert not store.is_exact_indexed_message_available(ref)
+        with pytest.raises(CompactionValidationError, match="delivery"):
+            dispatch.render_context()
+        with pytest.raises(CompactionValidationError, match="unavailable"):
+            policy(owner, "reviewer", "Inspect again")
+
+
 def test_other_owner_session_and_entry_point_cannot_reuse_grants(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, ref = _main(store)
