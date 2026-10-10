@@ -2396,10 +2396,10 @@ class SessionStore:
     ) -> dict[str, Any]:
         """Durably receive one unverified child report without applying state.
 
-        Root-ID deduplication, Main revision validation and indexed source
-        validation share one SQLite transaction. Replays of the exact record
-        succeed even after Main's revision advances. This is a quarantined
-        receipt, not a Goal update, decision, or completion signal.
+        Root-ID deduplication and source validation share one SQLite
+        transaction. Persisted Job reports can be read-only evidence after
+        Main advances; direct handoffs still require the original revision.
+        This is not a Goal update, decision, or completion signal.
         """
         if not isinstance(record, HandoffRecord):
             raise TypeError("record must be a HandoffRecord")

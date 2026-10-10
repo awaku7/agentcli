@@ -268,7 +268,9 @@ def test_stale_direct_receipt_still_rejected_without_job_ownership(tmp_path):
         assert store.get_agent_state_snapshot(main) == before
 
 
-def test_stale_main_revision_keeps_unverified_receipt_and_revocation_fails_closed(tmp_path):
+def test_stale_main_revision_keeps_unverified_receipt_and_revocation_fails_closed(
+    tmp_path,
+):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, manager, notices, finished = _setup(store)
         try:

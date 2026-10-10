@@ -511,7 +511,10 @@ def main() -> int:
                         )
                     else:
                         if receipt is not None:
-                            if core._sub_agent_receipt_context_enabled:
+                            if (
+                                core._sub_agent_receipt_context_enabled
+                                and not receipt["already_received"]
+                            ):
                                 queue_cli_sub_agent_receipt(core, receipt)
                             log_event(
                                 "sub_agent.handoff_receipt_recorded",

@@ -113,7 +113,8 @@ def test_injection_is_cli_opt_in_current_owner_only_and_idempotent(tmp_path):
         messages = [{"role": "user", "content": "Continue this task"}]
         core = _core(store, main, enabled=False)
         queue_cli_sub_agent_receipt(
-            core, {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id}
+            core,
+            {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id},
         )
         assert not inject_sub_agent_receipt_context(messages, core)
         assert messages[0]["content"] == "Continue this task"
@@ -203,7 +204,8 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         main, dispatch = _record(store)
         core = _core(store, main)
         queue_cli_sub_agent_receipt(
-            core, {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id}
+            core,
+            {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id},
         )
         messages = [{"role": "user", "content": "Continue"}]
         clears = []
@@ -294,7 +296,8 @@ def test_old_receipts_are_not_automatically_replayed_on_cli_restart(tmp_path):
         message = [{"role": "user", "content": "Start"}]
         assert not inject_sub_agent_receipt_context(message, core)
         queue_cli_sub_agent_receipt(
-            core, {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id}
+            core,
+            {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id},
         )
         assert inject_sub_agent_receipt_context(message, core)
         # A new CLI process has no new delivery event and must not replay old DB rows.

@@ -56,8 +56,7 @@ def format_sub_agent_receipt_context(
     )
     if root_ids is not None:
         receipts = [
-            receipt for receipt in receipts
-            if receipt["root_handoff_id"] in root_ids
+            receipt for receipt in receipts if receipt["root_handoff_id"] in root_ids
         ][:limit]
     if not receipts:
         return ""
