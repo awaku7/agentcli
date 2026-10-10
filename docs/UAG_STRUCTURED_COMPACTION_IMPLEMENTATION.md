@@ -17,14 +17,15 @@
 
 ## 3. 現在の状態
 
-- **全体状態:** PR 1 は基礎実装を**条件付き完了**（2026-10-08の最終スコープレビュー）。独立したCI/実行検証と実プロバイダ・全ライフサイクル検証は保留。後続PR機能はPR 1の完了条件に含めない。
-- **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`
-- **現在のフェーズ:** PR 1 条件付き完了 → PR 2 Safe Boundary / Split Turn 完了 → PR 3 Context Runtime Integration 基礎実装・checkpoint境界修正（#202 merged）→ PR 4 Handoff基盤の段階導入中（#204 / #205 merged）
-- **設計書の再レビュー:** 明確化事項を設計書へ反映済み（2026-10-08）
-- **実装:** immutable record model / typed SourceRef / `session_seq` index、AgentState revision、atomic checkpoint commit、idempotency、Reducer に加え、feature flag `UAGENT_STRUCTURED_COMPACTION=1` で動く structured auto-compaction path の基礎を追加。structured projection と legacy / deterministic fallback を provider context に接続し、Raw History は置換しない。
-- **テスト:** PR 1 最終スコープレビューは条件付き完了。PR 2 では Logical Turn parser、parallel tool results を保つ安全境界、oversized turn の assistant 境界 split、split suffix の保持とCheckpoint provenanceを実装し、SessionStore reopen 後のprefix/suffix再構成も検証。Artifact-first tool-result path は既存実装と回帰テストを確認。PR 3 は checkpoint candidate の score / decision / budget、重複抑止、older-page retrieval、session-scoped source rehydration、store failure fallback を追加。PR 3 targeted tests（4 / 18 / 9 passed）と全 pytest suite、全 `src` / `tests` の Ruff・Black check、6ファイルの py_compile、Markdown format、`git diff --check` が成功。実provider matrix / 独立 CI review は未実施。
-- **未実装境界:** cross-scope authorization / rehydration の再認可、user confirmation UI と ambiguous-resolution caller、runtime DeterministicDelta の実イベント抽出、PR 4 のhost policy / return適用 / Auto-pilot再開と PR 5 multi-client safety、provider matrix / end-to-end restart review。
-- **次の作業:** PR #207で子Sessionの保存済み出力から読み取り専用compact `HandoffRecord` を構築するAPIと回帰テストを追加（PR審査中）。これはMainへの自動配送やAgentState適用を意味しない。次にhost側のtrusted Goal/source選択、Job結果の配送、Main側のrevision競合・root ID重複排除と一括適用を段階的に行う。cross-scope authorization、実provider matrix、process restart後の回復は独立して追跡する。
+- **確認基準日:** 2026-10-10。GitHub PR #217 の main へのマージを確認した時点。
+- **全体状態:** PR 1 は基礎実装が条件付き完了、PR 2 は完了、PR 3 は同一 Session のメッセージ出典に限定した基礎統合まで完了。PR 4 は CLI での限定的な受理・審査の経路まで実装済み。PR 5 の複数 Client 安全性は未完了。
+- **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`。第26章の PR 1〜5 は**実装フェーズ名**であり、実際の GitHub PR 件数を指定しない。
+- **PR 4 の実装済み範囲:** trusted な dispatch / Job 経由の Sub-Agent 実出力保存、compact return、受信先への受理記録、CLI の二段階 opt-in 自動配送、読み取り専用 Main context 表示、独立根拠による審査記録、root 単位の審査済みメタデータの AgentState への原子的登録、および CLI からの手動審査登録（#217）。審査結果を示す context は根拠失効時に `evidence_unavailable` とする。
+- **未実装の意味上の境界:** root の審査済み管理情報が AgentState にあることと、報告の個別事実が確認済みであることは異なる。個別事実・Goal 状態の承認／適用、Auto-pilot checkpoint / resume、GUI / Web / A2A host の接続、実 provider/model handoff 検証は PR 4 に残る。現時点でそれらを完了扱いしない。
+- **PR 1・PR 3 に残る統合課題:** cross-scope の認可付き出典参照／rehydration、Artifact / tool-result の再取得、Reducer のライフサイクル不変条件と呼び出し経路の検証、DeterministicDelta の実イベント抽出、実 provider 検証など。
+- **PR 5 の残作業:** Client Instance の識別・出典、複数 Client による revision 競合時の応答、最新状態の再取得と安全な再評価、プロセス再起動後の復旧、認可境界と複数 Client の統合テスト。
+- **検証状況:** #217 の最終 CI で Ruff / Black / I18N、全 pytest、Python 3.11・3.13・3.14 の互換性テストが成功。nightly 専用テストはスキップ。これは実 provider / Auto-pilot 再開 / 複数 Client の end-to-end 検証完了を意味しない。
+- **次の作業:** PR 4 の個別事実・Goal の承認と安全な適用を、既存の root 単位メタデータ登録から分離して設計・実装する。その後 Auto-pilot checkpoint / resume、provider 接続検証を進め、GUI / Web / A2A host と PR 5 の複数 Client 対応へ展開する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -105,7 +106,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] 対話型CLIからMainユーザーメッセージを根拠にreview監査記録を明示登録（本人認証・Main状態更新は対象外）
 - [x] trusted host専用のreview済みrootメタデータをMain AgentStateへ一括反映（SQLite単一transactionでrevision照合・root ID重複排除。報告本文やGoalは非更新）
 - [ ] review済み報告から独立に検証された個別事実／Goal状態を適用する承認・根拠モデル
-- [ ] Main側のrevision検証・root ID重複排除・state適用を一括処理
+- [ ] 個別事実・Goal状態を承認してMainへ適用する際のrevision検証・root ID重複排除・状態更新の原子性を実装（#215の審査済みrootメタデータ登録とは別）
 - [ ] Auto-pilot の checkpoint / resume を実装
 - [ ] provider / model handoff の実接続テストを追加・実行
 
@@ -163,6 +164,21 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 - [ ] authorization-aware retrieval / rehydration と schema capability negotiation を検証
 - [ ] CLI と GUI 等、複数 Client が同一 Session を更新する統合テストを追加・実行
 
+### PR 4・PR 5 の残作業の整理（2026-10-10、#217 マージ後）
+
+以下は既存の設計フェーズを**実際の作業単位**に分け直したものであり、GitHub PR の発行件数を確約するものではない。ひとつのフェーズを複数 PR に分けても設計の PR 1〜5 という名前は変更しない。
+
+| 順序 | フェーズ | 残作業と完了判定 |
+|---|---|---|
+| 1 | PR 4 | 個別事実・Goal の承認対象と独立根拠を定義し、`reviewed_unverified` の root 管理情報と明確に区別する。revision 競合・出典失効・二重適用防止を同一更新処理で検証する。 |
+| 2 | PR 4 | Auto-pilot の checkpoint / resume。複数ラウンドの中断、再起動、状態競合、終了判断が根拠のない Goal 完了を生まないことを検証する。 |
+| 3 | PR 4 | 実 provider / model handoff の接続試験。既存の provider-neutral な単体テストだけでは完了扱いしない。 |
+| 4 | PR 4 | GUI / Web / A2A の trusted host 統合。host ごとの owner / 認可・Goal / source 選択と安全な受理・適用の境界を確認する。 |
+| 5 | PR 5 | principal / workspace / Client Instance / Session の識別と provenance、revision 競合後の再取得・安全な再評価、再起動後の復旧、複数 Client 統合試験。 |
+| 並行で確認 | PR 1・PR 3 の保留事項 | cross-scope 認可と rehydration、Artifact / tool-result、Reducer lifecycle、実イベントの DeterministicDelta 抽出の範囲と必要な補強を確定する。 |
+
+完了の判定は各行のコード・テスト・レビューに基づく。作業数と PR 数は同一ではなく、独立性のある差分を無理に細分化しない。Auto-pilot を優先しても、GUI / Web / A2A や PR 5 を完了と見なさない。
+
 ## 5. コード対応表
 
 コード調査後に、設計概念と実際のモジュール・型・テストを対応づける。未確認の欄を推測で埋めない。
@@ -190,13 +206,13 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 | 1 | AgentState が唯一の current state 正本である | checkpoint 3 基礎実装 | Structured state は AgentState row 内に materialize。checkpoint は delta/evidence のみ。atomic commit tests。 |
 | 2 | 複数 Goal を stable `goal_id` と GoalDelta で追跡し、曖昧な関連付けで不要な分裂を起こさない | 基礎実装 | reducer は operation/delta から stable ID を生成し、ambiguous は unresolved evidence に留める。exact normalized title の new-Goal 重複は拒否。explicit authorization / duplicate-title tests。 |
 | 3 | Decision / Constraint の supersede・revert と item-level provenance を保持する | 部分実装 | model / reducer が lifecycle と source refs を保存。再活性化禁止等の完全不変条件は review 未完。 |
-| 4 | tool call / result を圧縮境界で破壊しない | 未着手 | safe boundary / split-turn は PR 2。 |
+| 4 | tool call / result を圧縮境界で破壊しない | PR 2 実装・検証済み | Logical Turn、safe cut point、split-turn と source range の回帰テストで確認。 |
 | 5 | ファイル変更と execution metadata を DeterministicDelta として保持する | 基礎実装 | Delta を AgentState の deterministic aggregate に保存。実イベント抽出との接続は未実装。 |
 | 6 | Tool Result を authorization-aware に Artifact から再取得できる | 未着手 | Runtime authorization-aware rehydration は未接続。 |
 | 7 | Checkpoint を ContextCandidate として扱い、source refs から rehydration できる | PR 3 基礎実装 | `compaction_checkpoint_record()` / `retrieve_checkpoint_candidates()` は applied-only filter、scoring / budget、exact available source range validation を行う。`rehydrate_checkpoint_sources()` は同一 Session の exact / available message refs のみを bounded retrieval する。artifact/tool-result と cross-scope authorization は未接続。 |
 | 8 | provider / model を切り替えても provider-neutral checkpoint を利用できる | 基礎実装 | `ContextManager.build_message_context()` の provider-neutral projection を `_run_one_round()` から既存 provider path に接続。Fake/provider-neutral integration tests は実施。実provider matrix は未実施。 |
 | 9 | structured compaction 失敗時に Raw History を保持して fallback する | checkpoint 4 基礎実装 | opt-in auto-shrink は Raw History / JSONL を置換しない。構造化生成またはvalidation失敗時はlegacy rolling summary、それも失敗時はbounded deterministic excerptsへfallback。`tests/test_structured_compaction_generation.py`。 |
-| 10 | Sub-Agent handoff で provenance / scope semantics を再利用する | 部分実装 | #204/#205でtrusted opt-in dispatchとJob transport、#207で子Session出力のcompact return生成APIを追加。Mainへの配送/一括適用は未実装。 |
+| 10 | Sub-Agent handoff で provenance / scope semantics を再利用する | PR 4 部分実装 | #204/#205のdispatch・Job連携から#217のCLI受理・手動審査まで実装。#215で審査済みrootのメタデータをAgentStateに登録。個別事実・Goal適用、Auto-pilot再開、他host連携は未実装。 |
 | 11 | CLI / GUI / Browser tab を共通の Client Instance model で扱う | 未着手 | PR 5。 |
 | 12 | stale `base_revision` を検出し silent overwrite しない | checkpoint 3 基礎実装 | `commit_compaction_record()` の expected revision guard / conflict test。multi-client response は未実装。 |
 | 13 | revision conflict 後に最新状態を取得し、安全に再評価できる | 未着手 | reload / semantic rebase は PR 5。 |
