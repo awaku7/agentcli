@@ -3,16 +3,25 @@
 from __future__ import annotations
 
 import threading
+from types import SimpleNamespace
 
 import pytest
 
 from uagent.runtime.compaction_record import CompactionValidationError
 from uagent.runtime.session_store import SessionRevisionConflict, SessionStore
+from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
+from uagent.runtime.sub_agent_receipt import receive_compact_sub_agent_return
 from uagent.runtime.sub_agent_cli_receipt import (
     cli_auto_receipt_enabled,
     deliver_cli_finished_job_notice,
 )
 from uagent.runtime.sub_agent_host_policy import build_scoped_job_handoff_policy
+from uagent.runtime.sub_agent_receipt_context import (
+    cli_receipt_context_enabled,
+    format_sub_agent_receipt_context,
+    inject_sub_agent_receipt_context,
+    queue_cli_sub_agent_receipt,
+)
 from uagent.runtime.sub_agent_jobs import (
     SubAgentJobManager,
     SubAgentJobOwner,
@@ -92,8 +101,9 @@ def _count(store):
     ).fetchone()[0]
 
 
-def test_cli_auto_receipt_configuration_is_separate_opt_in():
+def test_cli_auto_receipt_follows_structured_opt_in():
     assert not cli_auto_receipt_enabled({}, structured_handoff_enabled=False)
+    assert cli_auto_receipt_enabled({}, structured_handoff_enabled=True)
     assert not cli_auto_receipt_enabled(
         {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "0"},
         structured_handoff_enabled=True,
@@ -112,6 +122,45 @@ def test_cli_auto_receipt_configuration_is_separate_opt_in():
             {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "maybe"},
             structured_handoff_enabled=True,
         )
+
+
+def test_single_structured_opt_in_shares_unverified_results_with_main(tmp_path):
+    # The user enables one structured mode, not separate delivery/context flags.
+    environment = {"UAGENT_SUB_AGENT_STRUCTURED_HANDOFF": "1"}
+    assert cli_auto_receipt_enabled(environment, structured_handoff_enabled=True)
+    assert cli_receipt_context_enabled(environment, structured_handoff_enabled=True)
+
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        owner, manager, notices, finished = _setup(store)
+        before = store.get_agent_state_snapshot(owner.session_id)
+        try:
+            job_id = _spawn(manager, owner)
+            notice = _finished_notice(manager, owner, notices, finished, job_id)
+            received = deliver_cli_finished_job_notice(
+                manager=manager, owner=owner, notice=notice, store=store
+            )
+            assert received["receiving_session_id"] == owner.session_id
+            context = format_sub_agent_receipt_context(store, owner.session_id)
+            assert "UNVERIFIED" in context
+            assert "Needs verification" in context
+            assert "not instructions" in context
+            core = SimpleNamespace(
+                session_store=store,
+                _session_store_active_id=owner.session_id,
+                _sub_agent_job_owner=owner,
+                _sub_agent_receipt_context_enabled=True,
+            )
+            next_turn = [{"role": "user", "content": "Continue"}]
+            queue_cli_sub_agent_receipt(core, received)
+            assert inject_sub_agent_receipt_context(next_turn, core)
+            assert "Needs verification" in next_turn[0]["content"]
+            assert not inject_sub_agent_receipt_context(
+                [{"role": "user", "content": "Unrelated"}], core
+            )
+            assert store.get_agent_state_snapshot(owner.session_id) == before
+            assert store.list_indexed_messages(owner.session_id) == []
+        finally:
+            manager.shutdown()
 
 
 def test_cli_notice_auto_receipts_only_unverified_evidence_and_retries(tmp_path):
@@ -197,7 +246,31 @@ def test_unstructured_job_and_forged_notice_do_not_deliver(tmp_path):
             manager.shutdown()
 
 
-def test_stale_main_revision_and_source_revocation_fail_closed(tmp_path):
+def test_stale_direct_receipt_still_rejected_without_job_ownership(tmp_path):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        main = store.create_session(project="test", entry_point="cli").session_id
+        dispatch = capture_sub_agent_dispatch(
+            store,
+            receiving_session_id=main,
+            objective="Inspect",
+            task_scope="Read-only",
+            source_access_check=lambda _ref: False,
+        )
+        dispatch.record_result('{"status":"completed","summary":"Inspect result"}')
+        store.save_agent_state(main, {"memory": "newer"}, expected_revision=0)
+        before = store.get_agent_state_snapshot(main)
+        with pytest.raises(SessionRevisionConflict):
+            receive_compact_sub_agent_return(
+                dispatch,
+                agent_role="reviewer",
+                source_access_check=lambda _ref: True,
+            )
+        assert store.get_agent_state_snapshot(main) == before
+
+
+def test_stale_main_revision_keeps_unverified_receipt_and_revocation_fails_closed(
+    tmp_path,
+):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, manager, notices, finished = _setup(store)
         try:
@@ -207,12 +280,16 @@ def test_stale_main_revision_and_source_revocation_fail_closed(tmp_path):
                 owner.session_id, {"memory": "newer"}, expected_revision=0
             )
             before = store.get_agent_state_snapshot(owner.session_id)
-            with pytest.raises(SessionRevisionConflict):
-                deliver_cli_finished_job_notice(
-                    manager=manager, owner=owner, notice=notice, store=store
-                )
+            receipt = deliver_cli_finished_job_notice(
+                manager=manager, owner=owner, notice=notice, store=store
+            )
+            assert receipt["receiving_session_id"] == owner.session_id
+            assert receipt["already_received"] is False
             assert store.get_agent_state_snapshot(owner.session_id) == before
-            assert _count(store) == 0
+            assert _count(store) == 1
+            rendered = format_sub_agent_receipt_context(store, owner.session_id)
+            assert "Needs verification" in rendered
+            assert '"base_revision": 0' in rendered
         finally:
             manager.shutdown()
     with SessionStore(tmp_path / "revoked.sqlite3") as store:

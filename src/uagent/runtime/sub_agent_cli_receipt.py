@@ -1,4 +1,4 @@
-"""Optional CLI foreground delivery of finished structured Job receipts.
+"""CLI foreground delivery of finished structured Job receipts.
 
 The event itself is never a source of authority: owner and Job state come
 from the trusted Job manager, and the Main receiver checks output provenance.
@@ -22,8 +22,10 @@ _DISABLED = frozenset({"", "0", "false", "no", "off"})
 def cli_auto_receipt_enabled(
     environment: Mapping[str, str], *, structured_handoff_enabled: bool
 ) -> bool:
-    """A separate, explicit opt-in; invalid or unsupported use fails closed."""
+    """Structured CLI handoff delivers receipts by default; explicit opt-out is safe."""
     flag = str(environment.get(_ENV_NAME, "")).strip().lower()
+    if flag == "":
+        return structured_handoff_enabled
     if flag in _DISABLED:
         return False
     if flag not in _ENABLED:

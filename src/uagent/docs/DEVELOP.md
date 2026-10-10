@@ -164,24 +164,28 @@ Main session and are checked again at dispatch time. Unknown, stale, wrongly
 scoped, unindexed and unpermitted sources are rejected, never upgraded to
 broader Session access. Invalid opt-in settings fail closed at CLI startup.
 Other hosts remain on legacy Job behavior, as does CLI without the opt-in.
-CLI structured dispatch is independent of receipt delivery. A second explicit
-flag, `UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT=1`, enables best-effort foreground
-CLI handling of the current owner's finished Job notices. This flag requires
-structured dispatch opt-in and a persistent store; both flags default off.
-The receiver rechecks the exact indexed child output, Job ID, scope, source
-availability and Main revision within its durable SQLite receipt transaction.
-Only receipt metadata is logged as structured events; no child report is
-printed in notices or promoted to the Main AgentState/Goal/Memory. Invalid
-settings fail closed. A stale revision or revoked source rejects receipt and
-is logged without changing Main state. Notices from a switched-away CLI
+With `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1`, the CLI also delivers
+completed structured Job reports to the current Main Session. No extra
+delivery/review/apply command or receipt flag is required. The optional
+`UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT=0` disables delivery explicitly.
+Without structured opt-in, all of this remains off.
+The receiver checks the exact indexed child output, Job ID, Session scope
+and current source availability within its SQLite receipt transaction.
+A Job result produced before Main's latest revision remains unverified,
+attributed evidence; it can be received without changing Main AgentState.
+Direct returns without a trusted Job ID still reject a stale revision.
+Invalid settings and revoked sources fail closed. Reports never update
+Goal/Memory or authorize new tool permissions. Notices from a switched-away CLI
 session are not rerouted; the interactive CLI event loop is best-effort, not
 an end-to-end delivery guarantee across CLI shutdown/restart. GUI/Web/A2A,
 Main state application and Auto-pilot resume remain subsequent work.
 
-The optional CLI setting `UAGENT_SUB_AGENT_HANDOFF_CONTEXT=1` (requires
-structured handoff opt-in) projects at most three recent Main-side receipts
-into the next LLM user turn as **unverified JSON evidence**. This is separate
-from automatic receipt delivery and defaults off. Reading checks that the
+The same structured handoff opt-in projects up to three **newly delivered**
+Main-side receipts once, in the next LLM user turn, as unverified JSON
+evidence. Old receipts are not replayed on CLI restart. Failed LLM turns
+can retry their pending receipts. The optional
+`UAGENT_SUB_AGENT_HANDOFF_CONTEXT=0` disables the projection. No manual
+review, root ID or apply command is required. Reading checks that the
 current CLI owner matches the active Main Session and that the exact child
 message SourceRef is still indexed and available. Revoked/deleted child
 sources are excluded even if the durable receipt remains for auditing.
@@ -260,9 +264,10 @@ printing their contents. `:receipt review <root-id> <supported|rejected>
 local operator's assessment. This write command requires an interactive
 CLI session and is disabled in headless and Auto-pilot modes. The reviewer
 label `cli:local-operator` identifies a local action, **not an
-authenticated individual**. A review is audit metadata, not proof of a
-claim's truth; it never completes a Goal, changes Main AgentState/Memory,
-or promotes Sub-Agent text into authoritative instructions.
+authenticated individual**. A review is optional audit metadata, not a prerequisite for receiving a
+Sub-Agent result. It is not proof of a claim's truth; it never completes a
+Goal, changes Main AgentState/Memory, or promotes Sub-Agent text into
+authoritative instructions.
 
 Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision

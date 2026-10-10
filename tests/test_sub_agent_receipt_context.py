@@ -15,6 +15,7 @@ from uagent.runtime.sub_agent_receipt_context import (
     ephemeral_receipt_context_round,
     format_sub_agent_receipt_context,
     inject_sub_agent_receipt_context,
+    queue_cli_sub_agent_receipt,
 )
 
 
@@ -107,10 +108,14 @@ def test_revoked_or_deleted_child_source_never_reappears(tmp_path):
 
 def test_injection_is_cli_opt_in_current_owner_only_and_idempotent(tmp_path):
     with SessionStore(tmp_path / "session.sqlite3") as store:
-        main, _dispatch = _record(store)
+        main, dispatch = _record(store)
         other = store.create_session(project="test", entry_point="cli")
         messages = [{"role": "user", "content": "Continue this task"}]
         core = _core(store, main, enabled=False)
+        queue_cli_sub_agent_receipt(
+            core,
+            {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id},
+        )
         assert not inject_sub_agent_receipt_context(messages, core)
         assert messages[0]["content"] == "Continue this task"
         core._sub_agent_receipt_context_enabled = True
@@ -121,6 +126,9 @@ def test_injection_is_cli_opt_in_current_owner_only_and_idempotent(tmp_path):
         assert messages[0]["content"].endswith("Continue this task")
         assert messages[0]["content"].count("[unverified sub-agent receipts]") == 1
         assert not inject_sub_agent_receipt_context(messages, core)
+        assert not inject_sub_agent_receipt_context(
+            [{"role": "user", "content": "Another task"}], core
+        )
         assert store.get_agent_state_snapshot(main) == (None, 0)
 
 
@@ -140,7 +148,7 @@ def test_other_sessions_and_hosts_cannot_read_via_injection(tmp_path):
 
 @pytest.mark.parametrize(
     "flag,enabled",
-    [("", False), ("0", False), ("1", True), ("true", True)],
+    [("", True), ("0", False), ("1", True), ("true", True)],
 )
 def test_receipt_context_configuration(flag, enabled):
     env = {"UAGENT_SUB_AGENT_HANDOFF_CONTEXT": flag}
@@ -159,6 +167,7 @@ def test_receipt_context_requires_structured_dispatch_and_valid_configuration():
             structured_handoff_enabled=True,
         )
     assert not cli_receipt_context_enabled({}, structured_handoff_enabled=False)
+    assert cli_receipt_context_enabled({}, structured_handoff_enabled=True)
 
 
 def test_receipt_listing_and_projection_reject_unsafe_budgets(tmp_path):
@@ -194,6 +203,10 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
     with SessionStore(tmp_path / "session.sqlite3") as store:
         main, dispatch = _record(store)
         core = _core(store, main)
+        queue_cli_sub_agent_receipt(
+            core,
+            {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id},
+        )
         messages = [{"role": "user", "content": "Continue"}]
         clears = []
         core.responses_state = {"previous_response_id": "resp_old"}
@@ -224,6 +237,15 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
             {"role": "assistant", "content": "Report received"},
         ]
 
+        assert not inject_sub_agent_receipt_context(
+            [{"role": "user", "content": "Unrelated question"}], core
+        )
+        # A different newly completed Job can still be handed off.
+        _, newer = _record(store, session_id=main, report="Second report")
+        queue_cli_sub_agent_receipt(
+            core, {"receiving_session_id": main, "root_handoff_id": newer.dispatch_id}
+        )
+
         @ephemeral_receipt_context_round
         def failing(_provider, _client, _model, history, *, core):
             assert inject_sub_agent_receipt_context(history, core)
@@ -240,6 +262,7 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         with pytest.raises(RuntimeError, match="inference failed"):
             failing("mock", None, "model", messages, core=core)
         assert messages[0]["content"] == "Continue"
+        assert core._sub_agent_receipt_pending[main] == [newer.dispatch_id]
         assert store.latest_response_state(main)["status"] == "invalidated"
         assert "previous_response_id" not in core.responses_state
         assert clears == [
@@ -250,7 +273,7 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         store._connection.execute(
             "UPDATE session_items SET availability = 'unavailable' "
             "WHERE session_id = ? AND item_kind = 'message'",
-            (dispatch.source_session_id,),
+            (newer.source_session_id,),
         )
         fresh = [{"role": "user", "content": "Another turn"}]
         assert not inject_sub_agent_receipt_context(fresh, core)
@@ -264,3 +287,21 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         assert no_projection("mock", None, "model", fresh, core=core) == "safe"
         assert core.responses_state["previous_response_id"] == "resp_clean"
         assert store.latest_response_state(main)["status"] == "invalidated"
+
+
+def test_old_receipts_are_not_automatically_replayed_on_cli_restart(tmp_path):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        main, dispatch = _record(store)
+        core = _core(store, main)
+        message = [{"role": "user", "content": "Start"}]
+        assert not inject_sub_agent_receipt_context(message, core)
+        queue_cli_sub_agent_receipt(
+            core,
+            {"receiving_session_id": main, "root_handoff_id": dispatch.dispatch_id},
+        )
+        assert inject_sub_agent_receipt_context(message, core)
+        # A new CLI process has no new delivery event and must not replay old DB rows.
+        restarted_core = _core(store, main)
+        assert not inject_sub_agent_receipt_context(
+            [{"role": "user", "content": "Unrelated question"}], restarted_core
+        )

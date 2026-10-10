@@ -2396,10 +2396,10 @@ class SessionStore:
     ) -> dict[str, Any]:
         """Durably receive one unverified child report without applying state.
 
-        Root-ID deduplication, Main revision validation and indexed source
-        validation share one SQLite transaction. Replays of the exact record
-        succeed even after Main's revision advances. This is a quarantined
-        receipt, not a Goal update, decision, or completion signal.
+        Root-ID deduplication and source validation share one SQLite
+        transaction. Persisted Job reports can be read-only evidence after
+        Main advances; direct handoffs still require the original revision.
+        This is not a Goal update, decision, or completion signal.
         """
         if not isinstance(record, HandoffRecord):
             raise TypeError("record must be a HandoffRecord")
@@ -2476,7 +2476,10 @@ class SessionStore:
                 (record.receiving_session_id,),
             ).fetchone()
             revision = int(current["revision"]) if current is not None else 0
-            if revision != record.receiving_base_revision:
+            if revision != record.receiving_base_revision and expected_job_id is None:
+                # An explicitly delivered, persisted Job report is read-only
+                # evidence. Its original revision remains part of provenance;
+                # stale dispatches must never change Main AgentState.
                 raise SessionRevisionConflict(
                     "Sub-Agent return was produced for an older AgentState revision"
                 )

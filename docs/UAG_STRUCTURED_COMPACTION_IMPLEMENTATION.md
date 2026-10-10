@@ -25,7 +25,7 @@
 - **PR 1・PR 3 に残る統合課題:** cross-scope の認可付き出典参照／rehydration、Artifact / tool-result の再取得、Reducer のライフサイクル不変条件と呼び出し経路の検証、DeterministicDelta の実イベント抽出、実 provider 検証など。
 - **PR 5 の残作業:** Client Instance の識別・出典、複数 Client による revision 競合時の応答、最新状態の再取得と安全な再評価、プロセス再起動後の復旧、認可境界と複数 Client の統合テスト。
 - **検証状況:** #217 の最終 CI で Ruff / Black / I18N、全 pytest、Python 3.11・3.13・3.14 の互換性テストが成功。nightly 専用テストはスキップ。これは実 provider / Auto-pilot 再開 / 複数 Client の end-to-end 検証完了を意味しない。
-- **次の作業:** PR 4の審査済みrootメタデータ登録APIをCLIから明示利用する経路と、個別事実・Goalの承認・安全な適用を別々に整備する。その後Auto-pilot checkpoint/resumeと実provider接続検証を進める。GUI/Web/A2Aの有効化前には、主体・workspace・Session所有権、出典認可、revision競合時の安全な処理を該当hostで検証する。複数Clientの競合後の再評価と復旧はPR 5で統合する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
+- **次の作業:** CLIではstructured handoff opt-inひとつで、Sub-Agent終了結果をMainに未検証情報として自動配送し、新着のみ次のLLMターンへ1回提示する。Mainが更新されていてもJob報告を古い出典付き参考情報として受理し、AgentStateは更新しない。手動root適用は通常操作に追加しない。個別事実・Goalの永続的な承認・安全な適用が必要な場合だけ別途設計する。その後Auto-pilot checkpoint/resumeと実provider接続検証を進める。GUI/Web/A2Aの有効化前には、主体・workspace・Session所有権、出典認可、revision競合時の安全な処理を該当hostで検証する。複数Clientの競合後の再評価と復旧はPR 5で統合する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -96,8 +96,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] 結果保存済みの終了Jobからtrusted hostが出典付きcompact returnを取得する読み取り専用APIを実装
 - [x] Main側に出典とrevisionを検証する永続compact return受理記録APIを追加（AgentState更新・host接続は対象外）
 - [x] trusted Job ownerからMain側の永続受理記録へ結果を明示的に配送するAPIを接続（後続でCLIの二段階opt-inは接続済み。GUI/Web/A2Aは未有効化）
-- [x] CLIの終了通知からMain受理記録への自動配送を二段階opt-inで接続（CLI稼働中・同じowner限定、Main状態は非更新）
-- [x] CLIのMainに受理記録を未検証・読み取り専用データとして提示するopt-in経路を追加（出典失効時非表示、Goal・Memory非更新）
+- [x] CLIの終了通知からMain受理記録への自動配送をstructured handoff opt-inで接続（別の受理flag不要。CLI稼働中・同じowner限定、Main状態は非更新）
+- [x] CLIのMainに受理記録を未検証・読み取り専用データとして提示（structured handoff opt-inと連動。別のcontext flag不要。出典失効時非表示、Goal・Memory非更新）
 - [ ] GUI/Web/A2Aの自動配送とMain AgentStateへの安全な適用を接続（遠隔hostの主体・workspace・Session所有権、出典認可、revision競合処理を有効化前に検証）
 - [x] CLIに明示的opt-inのtrusted Goal ID／親Sessionの厳密なmessage SourceRef選択ポリシーを接続（既定は無効、許可リストは空）
 - [ ] GUI・Web・A2Aホストのtrusted Goal/source選択ポリシーを安全に有効化
@@ -167,13 +167,15 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 - [ ] authorization-aware retrieval / rehydration と schema capability negotiation を検証
 - [ ] CLI と GUI 等、複数 Client が同一 Session を更新する統合テストを追加・実行
 
+**簡素化方針（#219未マージで終了後）:** 通常のSub-Agent成果共有では手動 `:receipt review` やroot管理情報の `:receipt apply` を要求しない。既存の出典確認付き受理・一時context投影をstructured handoff opt-inひとつから利用する。完了Jobの受理はMainのrevisionが進んでも、元のrevisionを保存した未検証の参照記録として許可し、Mainの状態を更新しない。直接受理APIでは旧revisionを引き続き拒否する。CLIが新着通知を処理したrootのみ次のターンに1回だけ投影し、旧記録を毎ターン再投入したり再起動後に自動再提示したりしない。自動で真偽認定・Goal完了・Memory昇格はしない。審査／root管理APIは監査・明示的な更新が必要なときの内部基盤として維持し、通常経路の必須ステップにしない。
+
 ### PR 4・PR 5 の残作業の整理（2026-10-10、#217 マージ後）
 
 以下は既存の設計フェーズを**実際の作業単位**に分け直したものであり、GitHub PR の発行件数を確約するものではない。ひとつのフェーズを複数 PR に分けても設計の PR 1〜5 という名前は変更しない。
 
 | 順序 | フェーズ | 残作業と完了判定 |
 |---|---|---|
-| 1 | PR 4 | #215の審査済みroot管理情報登録APIをCLIから明示利用する経路を接続（個別事実・Goalは非更新）。別途、個別事実・Goalの承認対象と独立根拠を定義し、`reviewed_unverified` のroot管理情報と区別する。revision競合・出典失効・二重適用防止を検証する。 |
+| 1 | PR 4 | 日常のSub-Agent結果は自動受理・未検証context投影で共有する（手動root登録は不要）。個別事実・Goalを永続的に承認・適用する必要がある場合は、独立根拠・revision競合・出典失効・二重適用防止を別途設計・検証する。 |
 | 2 | PR 4 | Auto-pilot の checkpoint / resume。複数ラウンドの中断、再起動、状態競合、終了判断が根拠のない Goal 完了を生まないことを検証する。 |
 | 3 | PR 4 | 実 provider / model handoff の接続試験。既存の provider-neutral な単体テストだけでは完了扱いしない。 |
 | 4 | PR 4・PR 5 の先行安全条件 | GUI/Web/A2Aの有効化より前に、principal/workspace/Sessionの所有権・出典認可・revision競合時の拒否を当該hostで検証する。未実装の複数Client更新を暗黙に許可しない。 |

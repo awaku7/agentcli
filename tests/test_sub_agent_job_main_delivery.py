@@ -9,7 +9,6 @@ import pytest
 
 from uagent.runtime.compaction_record import CompactionValidationError
 from uagent.runtime.session_store import (
-    SessionRevisionConflict,
     SessionStore,
     SessionStoreError,
 )
@@ -163,7 +162,7 @@ def test_pending_other_owner_missing_and_unpersisted_jobs_do_not_deliver(
             manager.shutdown()
 
 
-def test_stale_main_revision_rejects_delivery_without_receipt(tmp_path):
+def test_stale_main_revision_keeps_read_only_job_receipt(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, dispatch, manager = _setup(store)
         try:
@@ -178,9 +177,10 @@ def test_stale_main_revision_rejects_delivery_without_receipt(tmp_path):
                 owner.session_id, {"memory": "newer"}, expected_revision=0
             )
             before = store.get_agent_state_snapshot(owner.session_id)
-            with pytest.raises(SessionRevisionConflict, match="older"):
-                _deliver(manager, owner, job_id)
-            assert _receipt_count(store) == 0
+            received = _deliver(manager, owner, job_id)
+            assert received["already_received"] is False
+            assert received["root_handoff_id"] == dispatch.dispatch_id
+            assert _receipt_count(store) == 1
             assert store.get_agent_state_snapshot(owner.session_id) == before
         finally:
             manager.shutdown()
