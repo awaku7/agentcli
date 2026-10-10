@@ -13,6 +13,10 @@ from uagent.runtime.sub_agent_cli_receipt import (
     deliver_cli_finished_job_notice,
 )
 from uagent.runtime.sub_agent_host_policy import build_scoped_job_handoff_policy
+from uagent.runtime.sub_agent_receipt_context import (
+    cli_receipt_context_enabled,
+    format_sub_agent_receipt_context,
+)
 from uagent.runtime.sub_agent_jobs import (
     SubAgentJobManager,
     SubAgentJobOwner,
@@ -113,6 +117,36 @@ def test_cli_auto_receipt_follows_structured_opt_in():
             {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "maybe"},
             structured_handoff_enabled=True,
         )
+
+
+def test_single_structured_opt_in_shares_unverified_results_with_main(tmp_path):
+    # The user enables one structured mode, not separate delivery/context flags.
+    environment = {"UAGENT_SUB_AGENT_STRUCTURED_HANDOFF": "1"}
+    assert cli_auto_receipt_enabled(
+        environment, structured_handoff_enabled=True
+    )
+    assert cli_receipt_context_enabled(
+        environment, structured_handoff_enabled=True
+    )
+
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        owner, manager, notices, finished = _setup(store)
+        before = store.get_agent_state_snapshot(owner.session_id)
+        try:
+            job_id = _spawn(manager, owner)
+            notice = _finished_notice(manager, owner, notices, finished, job_id)
+            received = deliver_cli_finished_job_notice(
+                manager=manager, owner=owner, notice=notice, store=store
+            )
+            assert received["receiving_session_id"] == owner.session_id
+            context = format_sub_agent_receipt_context(store, owner.session_id)
+            assert "UNVERIFIED" in context
+            assert "Needs verification" in context
+            assert "not instructions" in context
+            assert store.get_agent_state_snapshot(owner.session_id) == before
+            assert store.list_indexed_messages(owner.session_id) == []
+        finally:
+            manager.shutdown()
 
 
 def test_cli_notice_auto_receipts_only_unverified_evidence_and_retries(tmp_path):
