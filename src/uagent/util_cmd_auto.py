@@ -62,6 +62,7 @@ def _save_auto_checkpoint(core: Any, status: str) -> None:
                 "round": core.auto_pilot_round,
                 "max_rounds": core.auto_pilot_max_rounds,
                 "message_count": len(store.list_messages(session_id)),
+                "message_watermark": store.get_session_item_watermark(session_id),
                 "agent_revision": store.get_agent_state_revision(session_id),
             },
         )
@@ -87,6 +88,7 @@ def _restore_auto_checkpoint(core: Any) -> bool:
         rounds = checkpoint.get("round")
         maximum = checkpoint.get("max_rounds")
         message_count = checkpoint.get("message_count")
+        message_watermark = checkpoint.get("message_watermark")
         revision = checkpoint.get("agent_revision")
         if (
             checkpoint.get("version") != 1
@@ -107,6 +109,9 @@ def _restore_auto_checkpoint(core: Any) -> bool:
             or not isinstance(message_count, int)
             or isinstance(revision, bool)
             or not isinstance(revision, int)
+            or isinstance(message_watermark, bool)
+            or not isinstance(message_watermark, int)
+            or store.get_session_item_watermark(session_id) != message_watermark
             or len(store.list_messages(session_id)) != message_count
             or store.get_agent_state_revision(session_id) != revision
         ):
