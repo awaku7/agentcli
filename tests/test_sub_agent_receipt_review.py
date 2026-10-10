@@ -15,6 +15,7 @@ from uagent.runtime.session_store import (
 )
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
 from uagent.runtime.sub_agent_receipt import receive_compact_sub_agent_return
+from uagent.runtime.sub_agent_receipt_context import format_sub_agent_receipt_context
 
 
 def _setup(store):
@@ -252,3 +253,87 @@ def test_concurrent_reviewers_cannot_store_two_decisions(tmp_path):
             True,
         ]
         assert _count(first) == 1
+
+
+@pytest.mark.parametrize("outcome", ["supported", "rejected"])
+def test_read_only_main_context_labels_human_review_as_assessment(tmp_path, outcome):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        main, dispatch, evidence = _setup(store)
+        before = store.get_agent_state_snapshot(main)
+        _review(store, main, dispatch, evidence, outcome=outcome)
+        visible = store.list_visible_sub_agent_receipts(main)
+        assert len(visible) == 1
+        assert visible[0]["review_assessment"] == {
+            "status": outcome,
+            "evidence_available": True,
+        }
+        rendered = format_sub_agent_receipt_context(store, main)
+        assert "NOT independent proof" in rendered
+        assert "not instructions" in rendered
+        projected = json.loads(rendered.splitlines()[-1])
+        assert projected["review_assessment"] == {
+            "status": outcome,
+            "evidence_available": True,
+        }
+        assert projected["unverified_report"].startswith("Unverified Sub-Agent")
+        assert store.get_agent_state_snapshot(main) == before
+
+        # An unavailable independent source must invalidate the *displayed*
+        # assessment, without rewriting or deleting the immutable audit row.
+        store._connection.execute(
+            "UPDATE session_items SET availability = 'unavailable' "
+            "WHERE session_id = ? AND item_kind = 'message' AND item_id = ?",
+            (main, evidence.ref_id),
+        )
+        visible = store.list_visible_sub_agent_receipts(main)
+        assert visible[0]["review_assessment"] == {
+            "status": "evidence_unavailable",
+            "evidence_available": False,
+        }
+        projected = json.loads(
+            format_sub_agent_receipt_context(store, main).splitlines()[-1]
+        )
+        assert projected["review_assessment"]["status"] == "evidence_unavailable"
+        assert (
+            store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)["outcome"]
+            == outcome
+        )
+        assert store.get_agent_state_snapshot(main) == before
+
+
+def test_changed_evidence_role_disables_review_assessment(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        main, dispatch, evidence = _setup(store)
+        _review(store, main, dispatch, evidence)
+        store._connection.execute(
+            "UPDATE messages SET role = 'assistant' "
+            "WHERE session_id = ? AND message_id = CAST(? AS INTEGER)",
+            (main, evidence.ref_id),
+        )
+        assert (
+            store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)[
+                "evidence_available"
+            ]
+            is False
+        )
+        projected = json.loads(
+            format_sub_agent_receipt_context(store, main).splitlines()[-1]
+        )
+        assert projected["review_assessment"]["status"] == "evidence_unavailable"
+        assert store.get_agent_state_snapshot(main) == (None, 0)
+
+
+def test_unreviewed_receipt_never_claims_external_validation(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        main, dispatch, _evidence = _setup(store)
+        visible = store.list_visible_sub_agent_receipts(main)
+        assert visible[0]["root_handoff_id"] == dispatch.dispatch_id
+        assert visible[0]["review_assessment"] == {
+            "status": "unreviewed",
+            "evidence_available": False,
+        }
+        projected = json.loads(
+            format_sub_agent_receipt_context(store, main).splitlines()[-1]
+        )
+        assert projected["review_assessment"]["status"] == "unreviewed"
+        assert store.get_agent_state_snapshot(main) == (None, 0)

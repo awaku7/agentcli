@@ -218,6 +218,18 @@ not called automatically by any host, and never writes AgentState/Memory.
 It is the prerequisite for, not the implementation of, later state
 application or an independently verified factual claim.
 
+The CLI's existing opt-in receipt projection now includes a bounded
+`review_assessment` metadata object with `status` (`unreviewed`,
+`supported`, `rejected`, or `evidence_unavailable`) and current
+`evidence_available`. A stored review conclusion is shown only while its
+independent Main user-message evidence remains indexed, available and
+still has user origin. When evidence disappears or its role changes, the
+LLM sees `evidence_unavailable` rather than the old review conclusion.
+No reviewer identity, raw review evidence text, or new permissions are
+included. This remains lower-trust, transient context, never verified
+facts, Main state, or Goal completion.
+
+
 A subsequent **trusted-host-only** method,
 `SessionStore.apply_reviewed_sub_agent_receipt(main_id, root_id,
 expected_revision=..., source_access_check=...)`, can atomically register

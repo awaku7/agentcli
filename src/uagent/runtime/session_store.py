@@ -1474,6 +1474,25 @@ class SessionStore:
         return result
 
     @_db_locked
+    def list_recent_exact_user_message_refs(
+        self, session_id: str, *, limit: int = 20
+    ) -> list[dict[str, Any]]:
+        """Return recent, available user-message IDs without loading content."""
+        self._require_session(session_id)
+        rows = self._execute(
+            "SELECT si.item_id AS ref_id, si.session_seq "
+            "FROM session_items AS si JOIN messages AS m "
+            "ON m.session_id = si.session_id "
+            "AND CAST(m.message_id AS TEXT) = si.item_id "
+            "WHERE si.session_id = ? AND si.item_kind = 'message' "
+            "AND si.ordering_quality = 'exact' "
+            "AND si.availability = 'available' AND m.role = 'user' "
+            "ORDER BY si.session_seq DESC LIMIT ?",
+            (session_id, max(0, limit)),
+        ).fetchall()
+        return [dict(row) for row in reversed(rows)]
+
+    @_db_locked
     def record_response_state(
         self,
         session_id: str,
@@ -2232,14 +2251,34 @@ class SessionStore:
             )
         except (TypeError, ValueError, CompactionValidationError):
             return None
+        evidence_available = bool(refs)
+        for ref in refs:
+            if (
+                ref.kind != "message"
+                or ref.scope_id != receiving_session_id
+                or not self.is_exact_indexed_message_available(ref)
+            ):
+                evidence_available = False
+                break
+            message = self._execute(
+                "SELECT role, content FROM messages "
+                "WHERE message_id = CAST(? AS INTEGER) "
+                "AND CAST(message_id AS TEXT) = ? AND session_id = ?",
+                (ref.ref_id, ref.ref_id, receiving_session_id),
+            ).fetchone()
+            if (
+                message is None
+                or message["role"] != "user"
+                or not message["content"].strip()
+            ):
+                evidence_available = False
+                break
         return {
             "root_handoff_id": root_handoff_id,
             "reviewer_id": row["reviewer_id"],
             "outcome": row["outcome"],
             "evidence_refs": [ref.to_dict() for ref in refs],
-            "evidence_available": all(
-                self.is_exact_indexed_message_available(ref) for ref in refs
-            ),
+            "evidence_available": evidence_available,
             "base_revision": row["base_revision"],
             "reviewed_at": row["reviewed_at"],
         }
@@ -2307,6 +2346,22 @@ class SessionStore:
                     or not self.is_exact_indexed_message_available(source)
                 ):
                     continue
+                review = self.get_sub_agent_receipt_review(
+                    receiving_session_id, record.root_handoff_id
+                )
+                review_assessment = {
+                    "status": "unreviewed",
+                    "evidence_available": False,
+                }
+                if review is not None:
+                    review_assessment = {
+                        "status": (
+                            review["outcome"]
+                            if review["evidence_available"]
+                            else "evidence_unavailable"
+                        ),
+                        "evidence_available": review["evidence_available"],
+                    }
                 visible.append(
                     {
                         "root_handoff_id": record.root_handoff_id,
@@ -2317,6 +2372,7 @@ class SessionStore:
                         "source_ref": source.to_dict(),
                         "base_revision": record.receiving_base_revision,
                         "received_at": row["received_at"],
+                        "review_assessment": review_assessment,
                     }
                 )
                 if len(visible) >= limit:

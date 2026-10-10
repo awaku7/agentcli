@@ -20,6 +20,7 @@ from ..runtime.sub_agent_jobs import SubAgentJobOwner
 from .sub_agent_jobs import _safe_terminal_text
 
 _ROOT_ID_RE = re.compile(r"[A-Za-z0-9_-]{1,128}")
+_MAX_SQLITE_ID = 9_223_372_036_854_775_807
 
 
 def _active_cli_session(
@@ -96,13 +97,7 @@ def handle_cli_receipt_command(
         return True
 
     if len(parts) == 2 and parts[1] == "evidence":
-        entries = [
-            item
-            for item in store.list_indexed_messages(session_id)
-            if item["role"] == "user"
-            and item["ordering_quality"] == "exact"
-            and item["availability"] == "available"
-        ][-20:]
+        entries = store.list_recent_exact_user_message_refs(session_id, limit=20)
         if not entries:
             print(_("No indexed Main user messages available as evidence."))
             return True
@@ -133,11 +128,14 @@ def handle_cli_receipt_command(
         or outcome not in {"supported", "rejected"}
         or not message_id.isascii()
         or not message_id.isdecimal()
+        or len(message_id) > 19
+        or int(message_id) < 1
+        or int(message_id) > _MAX_SQLITE_ID
         or not seq_value.isascii()
         or not seq_value.isdecimal()
         or len(seq_value) > 19
         or int(seq_value) < 1
-        or int(seq_value) > 9_223_372_036_854_775_807
+        or int(seq_value) > _MAX_SQLITE_ID
     ):
         print(_("Invalid receipt review command arguments."))
         return True

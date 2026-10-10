@@ -274,3 +274,50 @@ def test_new_cli_messages_flow_through_host_translation(tmp_path, monkeypatch, c
             ":receipt", core=core, store=store, owner=owner
         )
         assert "[translated] No currently accessible" in capsys.readouterr().out
+
+
+def test_oversized_message_ids_are_rejected_without_crashing(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, _evidence, _command = _setup(store)
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        for invalid_message_id in ("9" * 16_001, "9223372036854775808"):
+            malformed = (
+                f":receipt review {dispatch.dispatch_id} supported "
+                f"{invalid_message_id} 1"
+            )
+            assert cli_review.handle_cli_receipt_command(
+                malformed, core=core, store=store, owner=owner
+            )
+            assert "Invalid" in capsys.readouterr().out
+        assert (
+            store.get_sub_agent_receipt_review(owner.session_id, dispatch.dispatch_id)
+            is None
+        )
+
+
+def test_evidence_candidates_are_bounded_and_do_not_load_history(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, _dispatch, evidence, _command = _setup(store)
+        for index in range(30):
+            store.append_message(owner.session_id, "user", f"private {index}")
+        latest = store.list_indexed_messages(owner.session_id)[-1]
+
+        def reject_full_history_scan(*_args, **_kwargs):
+            raise AssertionError("Full message history must not be loaded")
+
+        monkeypatch.setattr(store, "list_indexed_messages", reject_full_history_scan)
+        assert cli_review.handle_cli_receipt_command(
+            ":receipt evidence", core=core, store=store, owner=owner
+        )
+        output = capsys.readouterr().out
+        candidates = [
+            line for line in output.splitlines() if line.startswith("message-id=")
+        ]
+        assert len(candidates) == 20
+        assert f"message-id={latest['ref_id']}" in candidates[-1]
+        assert f"message-id={evidence['ref_id']}" not in output
+        assert "private" not in output
