@@ -1585,7 +1585,11 @@ def _run_one_round(
     structured_projection = None
     # A new user turn is the safe boundary for a durable checkpoint. Tool
     # continuation rounds must preserve their pending call_id/response_id chain.
-    if not judgment_mode and messages and messages[-1].get("role") == "user":
+    if (
+        not judgment_mode
+        and messages
+        and messages[-1].get("role") in {"user", "tool"}
+    ):
         structured_projection = build_structured_auto_shrink_projection(
             provider=provider,
             client=client,
@@ -1597,6 +1601,7 @@ def _run_one_round(
             call_maybe_thread_fn=_call_maybe_thread_fn,
             use_responses_api=use_responses_api,
             previous_response_id=_using_prev_rid,
+            allow_checkpoint_creation=messages[-1].get("role") == "user",
         )
     if structured_projection is not None:
         # A locally shortened request cannot continue a server-held response
