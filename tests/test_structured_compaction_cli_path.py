@@ -482,9 +482,8 @@ def test_long_cli_history_commits_bounded_incremental_windows(
             assert second.messages[-1]["content"] == "now review Task B"
         assert store.list_messages(session.session_id) == second_raw
 
-def test_tool_heavy_turn_splits_only_after_completed_assistant(
-    tmp_path, monkeypatch
-):
+
+def test_tool_heavy_turn_splits_only_after_completed_assistant(tmp_path, monkeypatch):
     """A single long turn needs a safe split even without another user turn."""
     monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
     monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "2")
@@ -493,9 +492,7 @@ def test_tool_heavy_turn_splits_only_after_completed_assistant(
     monkeypatch.setattr(
         "uagent.providers.util_providers.detect_provider", lambda: "openai"
     )
-    monkeypatch.setattr(
-        history, "_history_summary_chunk_token_budget", lambda *_: 650
-    )
+    monkeypatch.setattr(history, "_history_summary_chunk_token_budget", lambda *_: 650)
     monkeypatch.setattr(
         history,
         "_estimate_history_summary_tokens",
