@@ -33,6 +33,15 @@ Examples:
 
 ______________________________________________________________________
 
+## Resume a paused run
+
+In the SQLite-backed CLI, completed Auto-pilot rounds are saved automatically.
+After interruption, load the original session with `:load <session-id>` and
+run `:auto resume`. This restarts completion judgment without replaying the
+last completed LLM or tool call. The CLI refuses resume when conversation
+history or AgentState changed, when the prior goal finished, or after
+`:auto off`. There is no automatic restart or new persistence table.
+
 ## What happens
 
 When `:auto` runs, it starts the following loop:
