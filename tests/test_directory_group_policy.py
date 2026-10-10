@@ -65,6 +65,39 @@ def test_directory_group_assignments_sync_without_storing_groups(tmp_path):
             "role": "editor",
             "granted_by": "directory-policy",
         }
+        # Refreshing unchanged directory policy must not invalidate an
+        # unrelated turn's memory snapshot or bump membership revisions.
+        before = store.db.execute(
+            "SELECT value FROM memory_metadata WHERE key = 'restriction_generation'"
+        ).fetchone()["value"]
+        project_revision = store.db.execute(
+            "SELECT revision FROM project_memberships "
+            "WHERE project_id='demo' AND principal_id='user'"
+        ).fetchone()["revision"]
+        room_revision = store.db.execute(
+            "SELECT revision FROM room_memberships "
+            "WHERE room_id='room-x' AND principal_id='user'"
+        ).fetchone()["revision"]
+        policy.sync_directory_policy(identity)
+        after = store.db.execute(
+            "SELECT value FROM memory_metadata WHERE key = 'restriction_generation'"
+        ).fetchone()["value"]
+        assert before == after
+        assert (
+            store.db.execute(
+                "SELECT revision FROM project_memberships "
+                "WHERE project_id='demo' AND principal_id='user'"
+            ).fetchone()["revision"]
+            == project_revision
+        )
+        assert (
+            store.db.execute(
+                "SELECT revision FROM room_memberships "
+                "WHERE room_id='room-x' AND principal_id='user'"
+            ).fetchone()["revision"]
+            == room_revision
+        )
+
         stored_groups = store.db.execute(
             "SELECT name FROM sqlite_master WHERE type = 'table' AND name LIKE '%group%'"
         ).fetchall()
