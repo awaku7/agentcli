@@ -55,14 +55,6 @@ def _make_prompt_key_bindings() -> Any:
         return None
     kb = KeyBindings()
 
-    @kb.add("f11", eager=True)
-    def _stop_auto_pilot(event: Any) -> None:
-        if not core.auto_pilot_active:
-            return
-        with core.auto_pilot_exit_lock:
-            core.auto_pilot_exit_requested = True
-        event.app.exit(result=None)
-
     @kb.add("escape", eager=True)
     def _cancel(event: Any) -> None:
         # Ask prompt_toolkit to propagate the cancellation through its
