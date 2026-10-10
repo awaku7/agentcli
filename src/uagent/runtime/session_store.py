@@ -430,6 +430,18 @@ class SessionStore:
                 );
                 CREATE INDEX IF NOT EXISTS idx_sub_agent_receipts_receiver
                     ON sub_agent_receipts(receiving_session_id, received_at);
+                CREATE TABLE IF NOT EXISTS sub_agent_receipt_reviews (
+                    root_handoff_id TEXT PRIMARY KEY
+                        REFERENCES sub_agent_receipts(root_handoff_id)
+                        ON DELETE CASCADE,
+                    receiving_session_id TEXT NOT NULL
+                        REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    reviewer_id TEXT NOT NULL,
+                    outcome TEXT NOT NULL CHECK(outcome IN ('supported', 'rejected')),
+                    evidence_refs_json TEXT NOT NULL,
+                    base_revision INTEGER NOT NULL CHECK(base_revision >= 0),
+                    reviewed_at TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS checkpoints (
                     checkpoint_id TEXT PRIMARY KEY,
                     operation_id TEXT NOT NULL UNIQUE,
@@ -1802,6 +1814,193 @@ class SessionStore:
         except (TypeError, ValueError) as exc:
             raise SessionStoreError("stored agent state is invalid JSON") from exc
         return (state if isinstance(state, dict) else None), int(row["revision"])
+
+    @_db_locked
+    def review_sub_agent_receipt(
+        self,
+        receiving_session_id: str,
+        root_handoff_id: str,
+        *,
+        reviewer_id: str,
+        outcome: str,
+        evidence_refs: tuple[SourceRef, ...],
+        expected_revision: int,
+        source_access_check: Callable[[SourceRef], bool],
+    ) -> dict[str, Any]:
+        """Record a host-authorized review, separate from Main AgentState.
+
+        This records a reviewer assessment backed by independent Main-session
+        user evidence. It does not independently establish factual truth,
+        apply a HandoffRecord, complete any Goal, or change AgentState.
+        """
+        if not isinstance(root_handoff_id, str) or not root_handoff_id.strip():
+            raise ValueError("root_handoff_id must be nonempty")
+        if not isinstance(reviewer_id, str) or re.fullmatch(
+            r"[A-Za-z0-9._:@/-]{1,128}", reviewer_id
+        ) is None:
+            raise ValueError("reviewer_id must be a trusted reviewer identifier")
+        if outcome not in {"supported", "rejected"}:
+            raise ValueError("invalid receipt review outcome")
+        if type(expected_revision) is not int or expected_revision < 0:
+            raise ValueError("expected_revision must be non-negative")
+        if (
+            not isinstance(evidence_refs, tuple)
+            or not 1 <= len(evidence_refs) <= 5
+            or any(not isinstance(ref, SourceRef) for ref in evidence_refs)
+            or len(set(evidence_refs)) != len(evidence_refs)
+        ):
+            raise ValueError("review requires 1-5 distinct SourceRefs")
+        if not callable(source_access_check):
+            raise TypeError("source_access_check must be callable")
+        evidence_json = _safe_json_dumps(
+            [ref.to_dict() for ref in evidence_refs],
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        try:
+            self._connection.execute("BEGIN IMMEDIATE")
+            self._require_session(receiving_session_id)
+            existing = self._execute(
+                "SELECT receiving_session_id, reviewer_id, outcome, "
+                "evidence_refs_json, base_revision "
+                "FROM sub_agent_receipt_reviews WHERE root_handoff_id = ?",
+                (root_handoff_id,),
+            ).fetchone()
+            if existing is not None:
+                if (
+                    existing["receiving_session_id"] != receiving_session_id
+                    or existing["reviewer_id"] != reviewer_id
+                    or existing["outcome"] != outcome
+                    or existing["evidence_refs_json"] != evidence_json
+                    or existing["base_revision"] != expected_revision
+                ):
+                    raise SessionStoreError(
+                        "receipt has a different recorded review"
+                    )
+                self._connection.execute("COMMIT")
+                return {
+                    "root_handoff_id": root_handoff_id,
+                    "outcome": outcome,
+                    "already_reviewed": True,
+                }
+            receipt = self._execute(
+                "SELECT source_session_id, record_json "
+                "FROM sub_agent_receipts "
+                "WHERE root_handoff_id = ? AND receiving_session_id = ?",
+                (root_handoff_id, receiving_session_id),
+            ).fetchone()
+            if receipt is None:
+                raise SessionStoreError("receipt is not owned by this Main Session")
+            revision_row = self._execute(
+                "SELECT revision FROM agent_states WHERE session_id = ?",
+                (receiving_session_id,),
+            ).fetchone()
+            current_revision = (
+                int(revision_row["revision"]) if revision_row is not None else 0
+            )
+            if current_revision != expected_revision:
+                raise SessionRevisionConflict(
+                    "Main AgentState revision changed before review"
+                )
+            try:
+                record = HandoffRecord.from_dict(
+                    json.loads(receipt["record_json"])
+                )
+            except (TypeError, ValueError, CompactionValidationError) as exc:
+                raise SessionStoreError("stored receipt is invalid") from exc
+            if (
+                record.root_handoff_id != root_handoff_id
+                or record.receiving_session_id != receiving_session_id
+                or len(record.findings) != 1
+                or len(record.findings[0].source_refs) != 1
+            ):
+                raise SessionStoreError("stored receipt has invalid lineage")
+            child_source = record.findings[0].source_refs[0]
+            if (
+                child_source.kind != "message"
+                or child_source.scope_id != receipt["source_session_id"]
+                or not self.is_exact_indexed_message_available(child_source)
+            ):
+                raise SessionStoreError("original child report is no longer available")
+            for ref in evidence_refs:
+                if (
+                    ref.kind != "message"
+                    or ref.scope_id != receiving_session_id
+                    or not self.is_exact_indexed_message_available(ref)
+                    or source_access_check(ref) is not True
+                ):
+                    raise SessionStoreError(
+                        "review evidence is unavailable or unauthorized"
+                    )
+                row = self._execute(
+                    "SELECT role, content FROM messages "
+                    "WHERE session_id = ? AND message_id = ?",
+                    (receiving_session_id, int(ref.ref_id)),
+                ).fetchone()
+                if row is None or row["role"] != "user" or not row["content"].strip():
+                    raise SessionStoreError(
+                        "review evidence must be a separate Main user message"
+                    )
+            self._execute(
+                "INSERT INTO sub_agent_receipt_reviews ("
+                "root_handoff_id, receiving_session_id, reviewer_id, "
+                "outcome, evidence_refs_json, base_revision, reviewed_at) "
+                "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                (
+                    root_handoff_id,
+                    receiving_session_id,
+                    reviewer_id,
+                    outcome,
+                    evidence_json,
+                    expected_revision,
+                    _utc_now(),
+                ),
+            )
+            self._connection.execute("COMMIT")
+            return {
+                "root_handoff_id": root_handoff_id,
+                "outcome": outcome,
+                "already_reviewed": False,
+            }
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
+
+    @_db_locked
+    def get_sub_agent_receipt_review(
+        self, receiving_session_id: str, root_handoff_id: str
+    ) -> dict[str, Any] | None:
+        """Return review audit metadata, with current evidence availability."""
+        self._require_session(receiving_session_id)
+        row = self._execute(
+            "SELECT reviewer_id, outcome, evidence_refs_json, "
+            "base_revision, reviewed_at FROM sub_agent_receipt_reviews "
+            "WHERE root_handoff_id = ? AND receiving_session_id = ?",
+            (root_handoff_id, receiving_session_id),
+        ).fetchone()
+        if row is None:
+            return None
+        try:
+            refs = tuple(
+                SourceRef.from_dict(value)
+                for value in json.loads(row["evidence_refs_json"])
+            )
+        except (TypeError, ValueError, CompactionValidationError):
+            return None
+        return {
+            "root_handoff_id": root_handoff_id,
+            "reviewer_id": row["reviewer_id"],
+            "outcome": row["outcome"],
+            "evidence_refs": [ref.to_dict() for ref in refs],
+            "evidence_available": all(
+                self.is_exact_indexed_message_available(ref) for ref in refs
+            ),
+            "base_revision": row["base_revision"],
+            "reviewed_at": row["reviewed_at"],
+        }
 
     @_db_locked
     def list_visible_sub_agent_receipts(
