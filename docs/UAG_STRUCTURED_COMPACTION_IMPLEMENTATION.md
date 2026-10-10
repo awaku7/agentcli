@@ -101,6 +101,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] CLIに明示的opt-inのtrusted Goal ID／親Sessionの厳密なmessage SourceRef選択ポリシーを接続（既定は無効、許可リストは空）
 - [ ] GUI・Web・A2Aホストのtrusted Goal/source選択ポリシーを安全に有効化
 - [x] 受理報告と独立した根拠に基づくtrusted reviewの記録を追加（受理root単位に1件、Mainの状態は非更新）
+- [x] Mainの未検証受理レポートへ根拠の現在の有効性を示すreviewメタデータを添付（出典失効時は以前のsupportedを非表示）
 - [x] trusted host専用のreview済みrootメタデータをMain AgentStateへ一括反映（SQLite単一transactionでrevision照合・root ID重複排除。報告本文やGoalは非更新）
 - [ ] review済み報告から独立に検証された個別事実／Goal状態を適用する承認・根拠モデル
 - [ ] Main側のrevision検証・root ID重複排除・state適用を一括処理
