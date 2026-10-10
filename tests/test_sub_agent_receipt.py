@@ -106,7 +106,7 @@ def test_existing_root_cannot_be_replayed_with_another_payload(tmp_path):
             "SELECT record_json FROM sub_agent_receipts"
         ).fetchone()
         saved = HandoffRecord.from_dict(json.loads(row["record_json"]))
-        malicious = replace(saved, role="different-role")
+        malicious = replace(saved, objective="changed-after-commit")
         with pytest.raises(SessionStoreError, match="different receipt"):
             store.commit_sub_agent_receipt(
                 malicious,
