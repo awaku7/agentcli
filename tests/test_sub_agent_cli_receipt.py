@@ -92,8 +92,9 @@ def _count(store):
     ).fetchone()[0]
 
 
-def test_cli_auto_receipt_configuration_is_separate_opt_in():
+def test_cli_auto_receipt_follows_structured_opt_in():
     assert not cli_auto_receipt_enabled({}, structured_handoff_enabled=False)
+    assert cli_auto_receipt_enabled({}, structured_handoff_enabled=True)
     assert not cli_auto_receipt_enabled(
         {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "0"},
         structured_handoff_enabled=True,
