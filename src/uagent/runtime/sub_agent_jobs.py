@@ -527,7 +527,7 @@ class SubAgentJobManager:
                     }
                 if isinstance(handoff_dispatch._store, SessionStore):
                     try:
-                        previously_saved = handoff_dispatch._result_source()
+                        previously_saved = handoff_dispatch._result_source(check_owner=False)
                     except Exception:
                         return {
                             "status": "rejected",
