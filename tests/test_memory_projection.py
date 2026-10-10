@@ -438,3 +438,43 @@ def test_projection_uses_same_explicit_project_basis_as_save(
     assert any(
         "same project rule" in str(message.get("content", "")) for message in projected
     )
+
+
+def test_add_long_memory_keeps_local_snapshot_valid(tmp_path, monkeypatch) -> None:
+    from types import SimpleNamespace
+
+    from uagent.runtime.memory_projection import (
+        memory_projection_access_is_current,
+        prepare_memory_projection,
+    )
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.tools import long_memory
+
+    db_path = tmp_path / "memory.sqlite3"
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(db_path))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECTION", "1")
+    core = SimpleNamespace(workdir=str(tmp_path))
+    snapshot = prepare_memory_projection(
+        [{"role": "user", "content": "work on project A"}], core
+    )
+    assert snapshot is not None
+
+    store = MemoryStore(db_path)
+    try:
+        before = store.db.execute(
+            "SELECT value FROM memory_metadata WHERE key = 'access_generation'"
+        ).fetchone()
+        assert before is not None
+        assert long_memory.append_long_memory(
+            "project A uses Python 3.14", project="project A"
+        )
+        after = store.db.execute(
+            "SELECT value FROM memory_metadata WHERE key = 'access_generation'"
+        ).fetchone()
+        assert after is not None
+        assert int(after["value"]) > int(before["value"])
+    finally:
+        store.close()
+
+    assert memory_projection_access_is_current(snapshot, core)

@@ -168,7 +168,10 @@ class ProjectAccessPolicy:
                     "revision, granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "
                     "1, 'directory-policy', ?, ?) ON CONFLICT(project_id, principal_id) DO UPDATE SET "
                     "role=excluded.role, status='active', revision=project_memberships.revision + 1, "
-                    "granted_by=excluded.granted_by, updated_at=excluded.updated_at",
+                    "granted_by=excluded.granted_by, updated_at=excluded.updated_at "
+                    "WHERE project_memberships.role <> excluded.role "
+                    "OR project_memberships.status <> 'active' "
+                    "OR project_memberships.granted_by <> excluded.granted_by",
                     (project_id, identity.principal_id, assigned_role, now, now),
                 )
 
@@ -188,7 +191,10 @@ class ProjectAccessPolicy:
                     "granted_by, created_at, updated_at) VALUES (?, ?, ?, 'active', "
                     "'directory-policy', ?, ?) ON CONFLICT(room_id, principal_id) DO UPDATE SET "
                     "role=excluded.role, status='active', revision=room_memberships.revision + 1, "
-                    "granted_by=excluded.granted_by, updated_at=excluded.updated_at",
+                    "granted_by=excluded.granted_by, updated_at=excluded.updated_at "
+                    "WHERE room_memberships.role <> excluded.role "
+                    "OR room_memberships.status <> 'active' "
+                    "OR room_memberships.granted_by <> excluded.granted_by",
                     (room_id, identity.principal_id, room_role, now, now),
                 )
             self._store.db.commit()

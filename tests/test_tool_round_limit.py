@@ -88,3 +88,52 @@ def test_tool_round_limit_override_remains_supported(monkeypatch) -> None:
 
     monkeypatch.setattr(llm, "env_get", lambda _name, _default=None: "700")
     assert llm._resolve_max_tool_rounds() == 700
+
+
+def test_memory_projection_change_clears_pending_tool_continuation(monkeypatch) -> None:
+    import uagent.uagent_llm as llm
+
+    cleared: list[str] = []
+    state = {
+        "previous_response_id": "resp_pending_tool",
+        "active_response_id": "resp_pending_tool",
+    }
+    core = SimpleNamespace(
+        responses_state=state,
+        memory_projection_snapshot=object(),
+        responses_runtime=SimpleNamespace(
+            clear_continuation=lambda reason: cleared.append(reason)
+        ),
+        clear_responses_continuation=lambda: (
+            state.pop("previous_response_id", None),
+            state.pop("active_response_id", None),
+        ),
+    )
+
+    monkeypatch.setattr(llm._core_module, "interrupt_requested", False)
+    monkeypatch.setattr(llm, "memory_projection_access_is_current", lambda *_: False)
+
+    result = llm._run_one_round(
+        "openai",
+        None,
+        "test-model",
+        [],
+        core=core,
+        make_client_fn=lambda: None,
+        append_result_to_outfile_fn=lambda *_: None,
+        try_open_images_from_text_fn=lambda *_: None,
+        round_count=2,
+        max_tool_rounds=10,
+        empty_no_tool_rounds=0,
+        empty_no_tool_max=2,
+        cache_mgr=None,
+        gemini_cache_name=None,
+        use_llm_thread=False,
+    )
+
+    assert result[0] == llm._RS_BREAK
+    assert core._last_round_reason == "memory_access_changed"
+    assert core._memory_projection_invalidated is True
+    assert cleared == ["memory_access_changed"]
+    assert "previous_response_id" not in state
+    assert "active_response_id" not in state

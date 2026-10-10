@@ -229,6 +229,13 @@ class MemoryStore:
             "INSERT OR IGNORE INTO memory_metadata(key, value) "
             "VALUES ('access_generation', '0')"
         )
+        # Distinguish additive writes from changes that could invalidate an
+        # already-authorized Memory projection. The existing access_generation
+        # remains a general change counter for callers that require it.
+        self.db.execute(
+            "INSERT OR IGNORE INTO memory_metadata(key, value) "
+            "VALUES ('restriction_generation', '0')"
+        )
         # Include legacy writes: they must not leave a valid grant to new text.
         self.db.execute(
             "CREATE TRIGGER IF NOT EXISTS memory_grants_invalidate "
@@ -261,6 +268,31 @@ class MemoryStore:
                     "UPDATE memory_metadata SET value = "
                     "CAST(CAST(value AS INTEGER) + 1 AS TEXT) "
                     "WHERE key = 'access_generation'; END"
+                )
+
+        # Adding a memory or granting new access cannot invalidate an earlier
+        # projection, whereas modifying/removing accessible records or rights
+        # can. Keep this counter conservative for updates and deletions.
+        for table in (
+            "memories",
+            "memory_grants",
+            "projects",
+            "project_memberships",
+            "room_projects",
+            "room_memberships",
+            "private_rooms",
+        ):
+            for operation in ("UPDATE", "DELETE"):
+                if table == "private_rooms" and operation == "UPDATE":
+                    trigger_operation = "UPDATE OF room_id, principal_id, session_id"
+                else:
+                    trigger_operation = operation
+                self.db.execute(
+                    f"CREATE TRIGGER IF NOT EXISTS {table}_restriction_{operation} "
+                    f"AFTER {trigger_operation} ON {table} BEGIN "
+                    "UPDATE memory_metadata SET value = "
+                    "CAST(CAST(value AS INTEGER) + 1 AS TEXT) "
+                    "WHERE key = 'restriction_generation'; END"
                 )
 
     def close(self) -> None:

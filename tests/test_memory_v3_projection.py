@@ -7,6 +7,7 @@ from uagent.runtime.identity_context import TurnContext, bind_turn_context
 from uagent.runtime.memory_access import MemoryAccessContext, ScopedMemoryStore
 from uagent.runtime.memory_projection import (
     apply_memory_projection,
+    memory_projection_access_is_current,
     prepare_memory_projection,
 )
 from uagent.runtime.memory_store import MemoryStore
@@ -86,9 +87,19 @@ def test_identity_bound_projection_attributes_sharing_and_invalidates_revocation
     assert f"memory:{record['memory_id']}@1;grant:{grant_id}" in rendered
 
     store = MemoryStore(memory_path)
+    owner = ScopedMemoryStore(store, _access("alice"))
+    # Appending an unrelated memory must not interrupt a tool continuation.
+    owner.append("new private note without any revoked access")
+    store.close()
+    with bind_turn_context(_turn("bob", room_id="private-bob", private_session=True)):
+        assert memory_projection_access_is_current(snapshot, core)
+        assert apply_memory_projection(messages, snapshot, core) == projected
+
+    store = MemoryStore(memory_path)
     ScopedMemoryStore(store, _access("alice")).revoke(record["memory_id"], grant_id)
     store.close()
     with bind_turn_context(_turn("bob", room_id="private-bob", private_session=True)):
+        assert not memory_projection_access_is_current(snapshot, core)
         assert apply_memory_projection(messages, snapshot, core) == messages
     with bind_turn_context(_turn("charlie")):
         assert apply_memory_projection(messages, snapshot, core) == messages
