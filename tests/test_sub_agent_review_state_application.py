@@ -239,3 +239,52 @@ def test_parallel_receipt_application_exactly_once(tmp_path):
 
 def store_revision(store, main):
     return store.get_agent_state_revision(main)
+
+
+def test_legacy_registry_collision_is_preserved_and_review_can_apply(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        main, dispatch, evidence = _prepare(store)
+        legacy = {"custom": ["old", "value"]}
+        store.save_agent_state(
+            main,
+            {
+                "sub_agent_review_registry": legacy,
+                "legacy_sub_agent_review_registry": "existing field",
+            },
+            expected_revision=0,
+        )
+        result = _apply(store, main, dispatch)
+        assert result["result_revision"] == 2
+        state = store.get_agent_state(main)
+        assert state["legacy_sub_agent_review_registry"] == "existing field"
+        assert state["legacy_sub_agent_review_registry_2"] == legacy
+        registry = state["sub_agent_review_registry"]
+        assert registry["owner"] == "uag.runtime.sub_agent.review_registry.v1"
+        assert registry["entries"][dispatch.dispatch_id]["evidence_refs"] == [
+            evidence.to_dict()
+        ]
+        store.save_agent_state(
+            main,
+            {
+                "memory": "current",
+                "sub_agent_review_registry": {"custom": "try to overwrite"},
+            },
+            expected_revision=2,
+        )
+        assert (
+            store.get_agent_state(main)["sub_agent_review_registry"] == registry
+        )
+
+
+def test_legacy_save_does_not_allow_forged_owned_registry(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        main = store.create_session(project="test", entry_point="cli").session_id
+        forged = {
+            "owner": "uag.runtime.sub_agent.review_registry.v1",
+            "schema_version": 1,
+            "entries": {"forged-root": {"status": "reviewed_unverified"}},
+        }
+        store.save_agent_state(
+            main, {"sub_agent_review_registry": forged}, expected_revision=0
+        )
+        assert "sub_agent_review_registry" not in store.get_agent_state(main)
