@@ -278,3 +278,100 @@ def test_compact_return_uses_persisted_evidence_not_truncated_job_buffer(tmp_pat
             assert "x" * 180 in record.findings[0].text
         finally:
             manager.shutdown()
+
+
+def test_reused_dispatch_is_rejected_before_and_after_job_completion(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        owner, dispatch = _dispatch(store)
+        started = threading.Event()
+        release = threading.Event()
+        report = '{"status":"completed","summary":"Only one Job"}'
+        manager = _manager(policy=lambda *_args: dispatch)
+
+        def worker(context):
+            started.set()
+            assert release.wait(2)
+            context.record_handoff_result(dispatch, report)
+            return report
+
+        try:
+            first = manager.spawn(
+                owner=owner,
+                agent_name="reviewer",
+                task=dispatch.objective,
+                worker=worker,
+            )
+            assert first["status"] == "accepted"
+            assert started.wait(1)
+            second = manager.spawn(
+                owner=owner,
+                agent_name="reviewer",
+                task=dispatch.objective,
+                worker=worker,
+            )
+            assert second == {
+                "status": "rejected",
+                "reason": "structured_handoff_dispatch_conflict",
+            }
+            release.set()
+            first_job_id = first["job_id"]
+            finished = manager.wait(owner=owner, job_id=first_job_id, timeout=2)
+            assert finished["state"] == "completed"
+            repeated = manager.spawn(
+                owner=owner,
+                agent_name="reviewer",
+                task=dispatch.objective,
+                worker=worker,
+            )
+            assert repeated == second
+            record = HandoffRecord.from_dict(
+                json.loads(_compact(manager, owner, first_job_id))
+            )
+            assert len(record.findings) == 1
+            indexed = store.list_indexed_messages(dispatch.source_session_id)
+            assert indexed[-1]["payload"]["job_id"] == first_job_id
+            assert len(indexed) == 2
+        finally:
+            release.set()
+            manager.shutdown()
+
+
+def test_evicted_job_and_other_manager_cannot_claim_persisted_output(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        owner, dispatch = _dispatch(store)
+        manager = _manager(policy=lambda *_args: dispatch)
+        another_manager = _manager(policy=lambda *_args: dispatch)
+        report = '{"status":"completed","summary":"Initial output"}'
+        try:
+            first_job_id = _spawn(manager, owner, dispatch, report)
+            finished = manager.wait(owner=owner, job_id=first_job_id, timeout=2)
+            assert finished["state"] == "completed"
+            with manager._condition:
+                manager._evict_completed_locked(float("inf"))
+            for candidate in (manager, another_manager):
+                attempt = candidate.spawn(
+                    owner=owner,
+                    agent_name="reviewer",
+                    task=dispatch.objective,
+                    worker=lambda _context: report,
+                )
+                assert attempt == {
+                    "status": "rejected",
+                    "reason": "structured_handoff_dispatch_conflict",
+                }
+        finally:
+            manager.shutdown()
+            another_manager.shutdown()
+
+
+def test_indexed_result_must_match_trusted_job_identity(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        _owner, dispatch = _dispatch(store)
+        report = '{"status":"completed","summary":"Indexed"}'
+        own = dispatch.record_result(report, job_id="sa_first")
+        assert dispatch.record_result(report, job_id="sa_first") == own
+        with pytest.raises(CompactionValidationError, match="another Job"):
+            dispatch.record_result(report, job_id="sa_different")
+        indexed = store.list_indexed_messages(dispatch.source_session_id)
+        assert len(indexed) == 2
+        assert indexed[-1]["payload"]["job_id"] == "sa_first"
