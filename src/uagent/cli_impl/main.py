@@ -54,6 +54,7 @@ from .sub_agent_jobs import (
     is_cli_session_transition_command,
     prepare_cli_session_transition,
 )
+from ..runtime.sub_agent_host_policy import cli_scoped_handoff_policy_from_environment
 from ..runtime.sub_agent_jobs import SubAgentJobManager
 
 
@@ -184,9 +185,15 @@ def main() -> int:
     confirmation_broker = CLIJobConfirmationBroker(
         core, enabled=cli_confirmation_supported(enabled=not UAGENT_NON_INTERACTIVE)
     )
+    # Structured handoff is explicitly opt-in. Goal/source selections come
+    # from the host environment, never model-supplied tool arguments.
+    handoff_policy = cli_scoped_handoff_policy_from_environment(
+        session_store, os.environ
+    )
     job_manager = SubAgentJobManager(
         notice_callback=_enqueue_sub_agent_job_notice,
         confirmation_handler=confirmation_broker.ask,
+        handoff_dispatch_policy=handoff_policy,
     )
     core._sub_agent_job_manager = job_manager
     core._sub_agent_job_owner = job_owner
