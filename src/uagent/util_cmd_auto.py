@@ -859,7 +859,7 @@ def _run_auto_pilot_loop(
 
         if outcome.reason == "user_exit":
             record_run_outcome("user_exit", judgment_source=last_judgment_source)
-            print(_("[AUTO] Exited by user (F11)."))
+            print(_("[AUTO] Stopped."))
             return
 
         if outcome.reason == "completion_regex":
