@@ -1412,6 +1412,8 @@ ______________________________________________________________________
 
 ## 26. 実装フェーズ
 
+ここでいう PR 1〜5 は機能・検証の**実装フェーズ**を示し、実際に作成する GitHub Pull Request を各1件とする指定ではない。各フェーズの差分はレビュー可能な単位に分割できる。進捗・マージ済み PR・未完了項目の判定は `UAG_STRUCTURED_COMPACTION_IMPLEMENTATION.md` に記録し、個別の PR 数を本設計の完了条件にしない。
+
 ### PR 1: Structured Compaction Record
 
 - AgentState を authoritative current state とする責務分離
