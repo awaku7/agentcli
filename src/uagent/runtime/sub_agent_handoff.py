@@ -72,14 +72,16 @@ class SubAgentDispatch:
                 )
         return self._context_json
 
-    def _result_source(self, *, job_id: str | None = None) -> SourceRef | None:
+    def _result_source(
+        self, *, job_id: str | None = None, check_owner: bool = True
+    ) -> SourceRef | None:
         for item in self._store.list_indexed_messages(self.source_session_id):
             if (
                 item["role"] == "assistant"
                 and (item["payload"] or {}).get("dispatch_id") == self.dispatch_id
             ):
                 if (
-                    job_id is not None
+                    check_owner
                     and (item["payload"] or {}).get("job_id") != job_id
                 ):
                     raise CompactionValidationError(
