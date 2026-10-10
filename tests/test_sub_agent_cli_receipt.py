@@ -11,13 +11,9 @@ from uagent.runtime.compaction_record import CompactionValidationError
 from uagent.runtime.session_store import SessionRevisionConflict, SessionStore
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
 from uagent.runtime.sub_agent_receipt import receive_compact_sub_agent_return
-from uagent.runtime.sub_agent_cli_receipt import (
-    cli_auto_receipt_enabled,
-    deliver_cli_finished_job_notice,
-)
+from uagent.runtime.sub_agent_cli_receipt import deliver_cli_finished_job_notice
 from uagent.runtime.sub_agent_host_policy import build_scoped_job_handoff_policy
 from uagent.runtime.sub_agent_receipt_context import (
-    cli_receipt_context_enabled,
     format_sub_agent_receipt_context,
     inject_sub_agent_receipt_context,
     queue_cli_sub_agent_receipt,
@@ -101,35 +97,8 @@ def _count(store):
     ).fetchone()[0]
 
 
-def test_cli_auto_receipt_follows_structured_opt_in():
-    assert not cli_auto_receipt_enabled({}, structured_handoff_enabled=False)
-    assert cli_auto_receipt_enabled({}, structured_handoff_enabled=True)
-    assert not cli_auto_receipt_enabled(
-        {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "0"},
-        structured_handoff_enabled=True,
-    )
-    assert cli_auto_receipt_enabled(
-        {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "1"},
-        structured_handoff_enabled=True,
-    )
-    with pytest.raises(ValueError, match="requires structured"):
-        cli_auto_receipt_enabled(
-            {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "1"},
-            structured_handoff_enabled=False,
-        )
-    with pytest.raises(ValueError, match="must be 0 or 1"):
-        cli_auto_receipt_enabled(
-            {"UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT": "maybe"},
-            structured_handoff_enabled=True,
-        )
-
-
-def test_single_structured_opt_in_shares_unverified_results_with_main(tmp_path):
-    # The user enables one structured mode, not separate delivery/context flags.
-    environment = {"UAGENT_SUB_AGENT_STRUCTURED_HANDOFF": "1"}
-    assert cli_auto_receipt_enabled(environment, structured_handoff_enabled=True)
-    assert cli_receipt_context_enabled(environment, structured_handoff_enabled=True)
-
+def test_structured_handoff_shares_unverified_results_with_main(tmp_path):
+    # Receipt delivery and LLM projection follow the same structured dispatch mode.
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, manager, notices, finished = _setup(store)
         before = store.get_agent_state_snapshot(owner.session_id)
