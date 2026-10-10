@@ -120,7 +120,18 @@ def test_permission_revocation_and_missing_source_fail_closed(tmp_path):
     with SessionStore(tmp_path / "session.sqlite3") as store:
         _main, dispatch = _setup(store)
         from uagent.runtime.compaction_record import CompactionValidationError
+        from uagent.runtime.handoff_record import HandoffRecord
+        from uagent.runtime.sub_agent_return import build_compact_sub_agent_return
 
+        record = HandoffRecord.from_dict(
+            json.loads(
+                build_compact_sub_agent_return(
+                    dispatch,
+                    agent_role="reviewer",
+                    source_access_check=lambda _ref: True,
+                )
+            )
+        )
         with pytest.raises(CompactionValidationError, match="unauthorized"):
             _receive(dispatch, allowed=False)
         store._connection.execute(
@@ -130,8 +141,14 @@ def test_permission_revocation_and_missing_source_fail_closed(tmp_path):
             "WHERE session_id = ?)",
             (dispatch.source_session_id, dispatch.source_session_id),
         )
-        with pytest.raises(SessionStoreError, match="unavailable"):
+        with pytest.raises(CompactionValidationError, match="missing or ambiguous"):
             _receive(dispatch)
+        with pytest.raises(SessionStoreError, match="unavailable"):
+            store.commit_sub_agent_receipt(
+                record,
+                source_session_id=dispatch.source_session_id,
+                source_access_check=lambda _ref: True,
+            )
         receipt_count = store._connection.execute(
             "SELECT count(*) FROM sub_agent_receipts"
         ).fetchone()[0]
