@@ -481,3 +481,94 @@ def test_long_cli_history_commits_bounded_incremental_windows(
             ]
             assert second.messages[-1]["content"] == "now review Task B"
         assert store.list_messages(session.session_id) == second_raw
+
+def test_tool_heavy_turn_splits_only_after_completed_assistant(
+    tmp_path, monkeypatch
+):
+    """A single long turn needs a safe split even without another user turn."""
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "2")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "10")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+    monkeypatch.setattr(
+        "uagent.providers.util_providers.detect_provider", lambda: "openai"
+    )
+    monkeypatch.setattr(
+        history, "_history_summary_chunk_token_budget", lambda *_: 650
+    )
+    monkeypatch.setattr(
+        history,
+        "_estimate_history_summary_tokens",
+        lambda prompt, *_, **__: sum(
+            len(str(message.get("content", ""))) for message in prompt
+        )
+        // 10,
+    )
+
+    class FakeCompletions:
+        def create(self, **kwargs):
+            request = json.loads(kwargs["messages"][-1]["content"])
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(
+                            content=_delta(request["sources"][0]["source_ref"])
+                        )
+                    )
+                ]
+            )
+
+    with SessionStore(tmp_path / "tool-heavy.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="cli")
+        msgs = [
+            {"role": "system", "content": "instructions"},
+            {"role": "user", "content": "Please run 34 tool operations"},
+        ]
+        for index in range(34):
+            call_id = f"call-{index}"
+            msgs.extend(
+                [
+                    {
+                        "role": "assistant",
+                        "content": "",
+                        "tool_calls": [
+                            {
+                                "id": call_id,
+                                "type": "function",
+                                "function": {
+                                    "name": "lookup",
+                                    "arguments": "{}",
+                                },
+                            }
+                        ],
+                    },
+                    {
+                        "role": "tool",
+                        "tool_call_id": call_id,
+                        "content": f"result-{index}",
+                    },
+                    {"role": "assistant", "content": f"handled-{index}"},
+                ]
+            )
+        msgs.append({"role": "user", "content": "Next task"})
+        for item in msgs[1:]:
+            store.append_message(
+                session.session_id,
+                item["role"],
+                item["content"],
+                payload=item,
+            )
+        before = store.list_messages(session.session_id)
+        client = SimpleNamespace(chat=SimpleNamespace(completions=FakeCompletions()))
+        projected = _options(store, session.session_id, msgs, client, previous=True)
+        assert projected is not None
+        checkpoints = store.list_compaction_records(session.session_id)
+        assert len(checkpoints) == 1
+        record = checkpoints[0]["record"]
+        source_count = record["source_message_count"]
+        assert 0 < source_count < 100
+        assert record["split_turn"] is True
+        assert record["first_kept_message_id"]
+        assert (source_count - 1) % 3 == 0
+        assert projected.messages[-1]["content"] == "Next task"
+        assert store.list_messages(session.session_id) == before
