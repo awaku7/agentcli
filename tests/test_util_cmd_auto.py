@@ -262,6 +262,79 @@ def test_auto_resume_requires_persistent_session():
     assert not core.auto_pilot_active
 
 
+def test_auto_checkpoint_never_persists_raw_goal_credentials(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        sid = store.create_session(project="p", entry_point="cli").session_id
+        core = _sqlite_auto_core(store, sid)
+        core.auto_pilot_goal = "Inspect token=hidden-value bearer secret-value"
+        util_cmd_auto._save_auto_checkpoint(core, "ready")
+        checkpoint = store.latest_tool_context(sid)["_auto_pilot_checkpoint"]
+        assert "hidden-value" not in str(checkpoint)
+        assert "secret-value" not in str(checkpoint)
+        assert checkpoint["status"] != "ready"
+        restored = _sqlite_auto_core(store, sid)
+        result = _handle_cmd_auto(
+            "resume", [], None, "", core=restored, tr=lambda text: text
+        )
+        assert not result.resume_auto_pilot
+        assert not restored.auto_pilot_active
+
+
+@pytest.mark.parametrize("outcome", ["failed", "cancelled", "interrupted", None])
+def test_auto_followup_refuses_incomplete_round_checkpoint(
+    tmp_path, monkeypatch, outcome
+):
+    from uagent import uagent_llm
+
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        sid = store.create_session(project="p", entry_point="cli").session_id
+        store.append_message(sid, "user", "Inspect")
+        core = _loop_core(max_rounds=2)
+        core.session_store = store
+        core._session_store_active_id = sid
+        core._cli_auto_resume_enabled = True
+        util_cmd_auto._save_auto_checkpoint(core, "ready")
+
+        monkeypatch.setattr(
+            util_cmd_auto,
+            "get_decision_settings",
+            lambda: DecisionSettings(provider="none", source="default"),
+        )
+        monkeypatch.setattr(
+            util_cmd_auto,
+            "_ask_reviewer_judgment",
+            lambda *_args, **_kwargs: ("CONTINUE", "work remains"),
+        )
+
+        def incomplete_round(*_args, **_kwargs):
+            core._last_round_outcome = (
+                None if outcome is None else {"status": outcome}
+            )
+            return None
+
+        monkeypatch.setattr(uagent_llm, "run_llm_rounds", incomplete_round)
+        with pytest.raises(RuntimeError, match="did not complete"):
+            util_cmd_auto._run_auto_pilot_loop(
+                "openai",
+                object(),
+                "model",
+                [{"role": "assistant", "content": "initial complete"}],
+                core,
+                lambda _core: ("openai", object(), "model"),
+                lambda *_args, **_kwargs: None,
+                lambda *_args, **_kwargs: None,
+            )
+
+        checkpoint = store.latest_tool_context(sid)["_auto_pilot_checkpoint"]
+        assert checkpoint["status"] == "failed"
+        assert core.auto_pilot_active is False
+        restored = _sqlite_auto_core(store, sid)
+        result = _handle_cmd_auto(
+            "resume", [], None, "", core=restored, tr=lambda text: text
+        )
+        assert not result.resume_auto_pilot
+
+
 def test_reviewer_judgment_includes_masked_tool_result_summaries() -> None:
     messages = [
         {"role": "user", "content": "inspect the result"},
