@@ -114,7 +114,12 @@ place of `summary`. The host may now call `SubAgentJobManager.get_compact_handof
 with its trusted Job owner, job ID, and a current source-access check after a
 Job terminal notice. The method returns a compact record only after a
 structured Job has durably published its indexed output; legacy, unfinished,
-cancelled, and unpersisted Jobs return no compact record. It also permits
+cancelled, and unpersisted Jobs return no compact record. A dispatch's child
+session ID and dispatch ID must be unique among a manager's retained Jobs; a
+previously indexed child output prevents dispatch reuse after Job eviction.
+Persisted result payloads carry the trusted Job ID, and only that same Job may
+recover an existing result on retry. Reusing a dispatch for a different Job
+cannot borrow its indexed result or mark the second Job as persisted. It also permits
 retrieval of an unverified terminal error/blocked report, without interpreting
 it as successful completion. The output is not inserted into ordinary Job
 snapshots, notices, model/tool arguments, Main AgentState, or Memory. Reads
