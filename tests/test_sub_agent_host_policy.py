@@ -6,7 +6,13 @@ import json
 
 import pytest
 
-from uagent.runtime.compaction_record import CompactionValidationError, SourceRef
+from uagent.runtime.compaction_record import (
+    CompactionRecord,
+    CompactionValidationError,
+    GoalDelta,
+    ProvenancedObservation,
+    SourceRef,
+)
 from uagent.runtime.session_store import SessionStore
 from uagent.runtime.sub_agent_host_policy import (
     build_scoped_job_handoff_policy,
@@ -31,28 +37,44 @@ def _main(store):
 
 
 def _save_goal(store, owner, ref):
-    store.save_agent_state(
-        owner.session_id,
-        {
-            "structured_compaction": {
-                "schema_version": 1,
-                "goals": {
-                    "g1": {
-                        "title": "Investigate incident",
-                        "status_observations": [
-                            {
-                                "text": "Investigating",
-                                "source_refs": [ref.to_dict()],
-                            }
-                        ],
-                    },
-                    "g2": {"title": "Unrelated confidential goal"},
-                },
-            }
-        },
-        expected_revision=0,
+    store.commit_compaction_record(
+        CompactionRecord(
+            record_id="checkpoint",
+            operation_id="operation",
+            application_status="applied",
+            session_id=owner.session_id,
+            actor_kind="runtime",
+            actor_id="test",
+            source_start_seq=1,
+            source_end_seq=1,
+            base_revision=0,
+            goal_deltas=(
+                GoalDelta(
+                    goal_delta_id="d1",
+                    association="new",
+                    title_hint="Investigate incident",
+                    progress_events=(
+                        ProvenancedObservation("Investigating", (ref,)),
+                    ),
+                    source_refs=(ref,),
+                ),
+                GoalDelta(
+                    goal_delta_id="d2",
+                    association="new",
+                    title_hint="Unrelated confidential goal",
+                    source_refs=(ref,),
+                ),
+            ),
+        )
     )
-
+    goals = store.get_agent_state(owner.session_id)["structured_compaction"][
+        "goals"
+    ]
+    return next(
+        goal_id
+        for goal_id, goal in goals.items()
+        if goal["title"] == "Investigate incident"
+    )
 
 def _settings():
     return SubAgentJobSettings(
@@ -89,12 +111,12 @@ def test_explicit_goal_and_indexed_source_grants_do_not_leak_unselected_goals(
 ):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, ref = _main(store)
-        _save_goal(store, owner, ref)
+        goal_id = _save_goal(store, owner, ref)
         policy = cli_scoped_handoff_policy_from_environment(
             store,
             {
                 "UAGENT_SUB_AGENT_STRUCTURED_HANDOFF": "true",
-                "UAGENT_SUB_AGENT_HANDOFF_GOAL_IDS": json.dumps(["g1"]),
+                "UAGENT_SUB_AGENT_HANDOFF_GOAL_IDS": json.dumps([goal_id]),
                 "UAGENT_SUB_AGENT_HANDOFF_SOURCE_REFS": json.dumps(
                     [ref.to_dict()]
                 ),
@@ -102,7 +124,7 @@ def test_explicit_goal_and_indexed_source_grants_do_not_leak_unselected_goals(
         )
         dispatch = policy(owner, "reviewer", "Investigate incident")
         projected = json.loads(dispatch.render_context())
-        assert [item["goal_id"] for item in projected["goals"]] == ["g1"]
+        assert [item["goal_id"] for item in projected["goals"]] == [goal_id]
         assert projected["goals"][0]["status_observations"][0]["text"] == "Investigating"
         assert "Unrelated confidential goal" not in dispatch.render_context()
         assert "PRIVATE MESSAGE" not in dispatch.render_context()
