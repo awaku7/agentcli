@@ -96,7 +96,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] Main側に出典とrevisionを検証する永続compact return受理記録APIを追加（AgentState更新・host接続は対象外）
 - [x] trusted Job ownerからMain側の永続受理記録へ結果を明示的に配送するAPIを接続（既存hostは未有効化）
 - [ ] 各hostからの自動配送とMain AgentStateへの安全な適用を接続
-- [ ] 各hostのtrusted Goal/source選択policyを有効化
+- [x] CLIに明示的opt-inのtrusted Goal ID／親Sessionの厳密なmessage SourceRef選択ポリシーを接続（既定は無効、許可リストは空）
+- [ ] GUI・Web・A2Aホストのtrusted Goal/source選択ポリシーを安全に有効化
 - [ ] Main側のrevision検証・root ID重複排除・state適用を一括処理
 - [ ] Auto-pilot の checkpoint / resume を実装
 - [ ] provider / model handoff の実接続テストを追加・実行
@@ -108,6 +109,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 **段階導入の境界:** 第二段階でも Main AgentState の更新、root ID の永続 deduplication、revision conflict / reconciliation の受信処理、Auto-pilot checkpoint / resume、終了判定は変更しない。Job queueはtrusted policyから受けたdispatchをowner scope検証後にworkerへ渡し、structured Jobのshared-store書き込みとlive inbox continuationを拒否する。各hostのGoal/source選択policyは未設定である。次の独立段階では、既に索引化された子Sessionの実出力だけを出典とするcompact returnを先に実装する。子の全会話・tool eventの索引化は別段階とする。#207で保存済み子出力だけのcompact return構築APIを実装した。続いてJob managerに終了Jobの保存確認・owner制限・出典再認可に基づくhost向け取得APIを追加した。各hostによるこのAPIの利用開始とMainへの適用は未実装である。後続でhostごとのtrusted Goal/source policy、Job結果のMainへの配送、受信側のrevision check / root ID uniqueness / state applicationを同じtransactionに実装する。Auto-pilot再開はその基盤の検証後に進める。
 
 **Main側の受理記録（次の限定的な実装段階）:** `receive_compact_sub_agent_return()` はtrusted dispatchと現在のsource認可から `HandoffRecord` を再生成し、受信先Sessionのrevision、子Sessionの同一project/identity/room、dispatchの索引と唯一の出力SourceRefを検証して `sub_agent_receipts` に記録する。受理とroot IDの重複排除はSQLite `BEGIN IMMEDIATE` で一括処理し、同じrootの同内容再試行のみ冪等に成功する。revisionが進んだ未受理の古い結果は拒否する。これは **未検証報告の受理記録** に限り、Main AgentStateのrevision・Goal・Memory・完了判定には変更を加えない。hostへの自動接続とMain状態適用は後続PRの対象とする。
+
+**CLIホストの限定的なopt-in（次の実装）:** 環境設定 `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` を明示したCLI起動時だけ、`SessionStore` に基づく `build_scoped_job_handoff_policy()` をJob managerへ登録する。Goal IDと正確なmessage SourceRefはホスト設定のJSON配列で指定し、初期値はともに空。source accessをSession ID・メッセージID・順序番号・available/exactで都度検証し、選ばれていないGoalや本文履歴を渡さない。Main Sessionの切替、出典失効、無効な設定は暗黙に広い権限へ切り替えない。現時点ではCLIだけがopt-in可能で、Job完了後のMainへの自動配送・AgentStateへの適用は未実装。
 
 **Job→Mainの明示的な配送（追加の限定実装）:** `SubAgentJobManager.deliver_compact_handoff_to_main(owner, job_id, source_access_check)` は、trusted ownerが取得できる終了Jobのうち構造化された結果を正常保存したものだけを対象とし、Indexed child outputに記録されたJob IDの一致を検証してから#209の `receive_compact_sub_agent_return()` を呼び出す。Main側はSQLiteトランザクション内で出力のJob ID・権限・出典・revision・root IDを再検証し、同じ結果の再配送は受理済みとして返す。キャンセル・未保存・他owner・通常Jobは配送しない。エラー終了の結果も未検証報告として扱い、MainのGoal完了やAgentStateを更新しない。**既存hostは本APIをまだ呼ばず、自動配送とGoal/source選択policyの有効化は別作業。**
 
