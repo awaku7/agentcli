@@ -274,15 +274,59 @@ def test_legacy_registry_collision_is_preserved_and_review_can_apply(tmp_path):
         assert store.get_agent_state(main)["sub_agent_review_registry"] == registry
 
 
-def test_legacy_save_does_not_allow_forged_owned_registry(tmp_path):
+def test_old_owner_shaped_data_cannot_forge_application(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
-        main = store.create_session(project="test", entry_point="cli").session_id
+        main, dispatch, evidence = _prepare(store)
         forged = {
             "owner": "uag.runtime.sub_agent.review_registry.v1",
             "schema_version": 1,
-            "entries": {"forged-root": {"status": "reviewed_unverified"}},
+            "entries": {
+                dispatch.dispatch_id: {
+                    "status": "reviewed_unverified",
+                    "reviewer_id": "operator:local",
+                    "review_base_revision": 0,
+                    "evidence_refs": [evidence.to_dict()],
+                }
+            },
         }
+        # Before the new feature, a caller was allowed to use this exact
+        # JSON shape as arbitrary user state. It is not an ownership grant.
         store.save_agent_state(
             main, {"sub_agent_review_registry": forged}, expected_revision=0
         )
-        assert "sub_agent_review_registry" not in store.get_agent_state(main)
+        assert store.get_agent_state(main)["sub_agent_review_registry"] == forged
+        assert (
+            store._connection.execute(
+                "SELECT count(*) FROM sub_agent_review_registry_owners"
+            ).fetchone()[0]
+            == 0
+        )
+        result = _apply(store, main, dispatch)
+        assert result["already_applied"] is False
+        assert result["result_revision"] == 2
+        state = store.get_agent_state(main)
+        assert state["legacy_sub_agent_review_registry"] == forged
+        assert state["sub_agent_review_registry"]["entries"][
+            dispatch.dispatch_id
+        ] == forged["entries"][dispatch.dispatch_id]
+        assert (
+            store._connection.execute(
+                "SELECT count(*) FROM sub_agent_review_registry_owners"
+            ).fetchone()[0]
+            == 1
+        )
+
+        # Only the separate SQLite marker now protects this registry from
+        # ordinary writes; model/user state cannot erase the reviewed root.
+        store.save_agent_state(
+            main,
+            {"sub_agent_review_registry": {}, "memory": "updated"},
+            expected_revision=2,
+        )
+        assert (
+            store.get_agent_state(main)["sub_agent_review_registry"]["entries"][
+                dispatch.dispatch_id
+            ]
+            == forged["entries"][dispatch.dispatch_id]
+        )
+        assert _apply(store, main, dispatch)["already_applied"] is True
