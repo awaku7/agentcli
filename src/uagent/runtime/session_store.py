@@ -2016,7 +2016,9 @@ class SessionStore:
                 evidence_refs = tuple(SourceRef.from_dict(value) for value in evidence)
                 receipt = HandoffRecord.from_dict(json.loads(review["record_json"]))
             except (TypeError, ValueError, CompactionValidationError) as exc:
-                raise SessionStoreError("review or receipt has invalid provenance") from exc
+                raise SessionStoreError(
+                    "review or receipt has invalid provenance"
+                ) from exc
             if (
                 len(set(evidence_refs)) != len(evidence_refs)
                 or receipt.root_handoff_id != root_handoff_id
