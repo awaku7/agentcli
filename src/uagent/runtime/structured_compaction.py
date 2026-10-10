@@ -16,7 +16,7 @@ from .compaction_record import SCHEMA_VERSION, CompactionRecord, SourceRef
 from .compaction_reducer import reduce_compaction_record
 from .session_store import SessionRevisionConflict, SessionStoreError
 
-_MAX_SOURCE_MESSAGES = 80
+MAX_SOURCE_MESSAGES = 80
 _MAX_REPAIR_CHARS = 24_000
 _MAX_PROJECTION_CHARS = 12_000
 _SEMANTIC_FIELDS = {
@@ -74,7 +74,7 @@ def _resolve_source_window(
 ) -> _SourceWindow:
     if not messages:
         raise StructuredCompactionError("empty_source_window")
-    if len(messages) > _MAX_SOURCE_MESSAGES:
+    if len(messages) > MAX_SOURCE_MESSAGES:
         raise StructuredCompactionError("source_window_too_large")
 
     watermark = int(store.get_session_item_watermark(session_id))
