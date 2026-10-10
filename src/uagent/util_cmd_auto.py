@@ -90,6 +90,30 @@ def _restore_auto_checkpoint(core: Any) -> bool:
         message_count = checkpoint.get("message_count")
         message_watermark = checkpoint.get("message_watermark")
         revision = checkpoint.get("agent_revision")
+        messages = store.list_messages(session_id)
+        watermark = store.get_session_item_watermark(session_id)
+        unchanged = (
+            len(messages) == message_count and watermark == message_watermark
+        )
+        # :load may append one trusted [CWD] event after changing directory.
+        # It does not alter the previous Auto-pilot work.
+        load_marker_only = False
+        if (
+            len(messages) == message_count + 1
+            and watermark == message_watermark + 1
+            and messages[-1].get("role") == "system"
+        ):
+            content = messages[-1].get("content", "")
+            if isinstance(content, str) and content.startswith("[CWD] "):
+                try:
+                    marker = json.loads(content[len("[CWD] ") :])
+                except (TypeError, ValueError):
+                    marker = None
+                load_marker_only = (
+                    isinstance(marker, dict)
+                    and marker.get("event") == "load"
+                    and marker.get("session_id") == session_id
+                )
         if (
             checkpoint.get("version") != 1
             or not isinstance(goal, str)
@@ -111,8 +135,7 @@ def _restore_auto_checkpoint(core: Any) -> bool:
             or not isinstance(revision, int)
             or isinstance(message_watermark, bool)
             or not isinstance(message_watermark, int)
-            or store.get_session_item_watermark(session_id) != message_watermark
-            or len(store.list_messages(session_id)) != message_count
+            or not (unchanged or load_marker_only)
             or store.get_agent_state_revision(session_id) != revision
         ):
             print(_("[AUTO] Session changed since the saved round; resume refused."))
