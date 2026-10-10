@@ -1988,14 +1988,34 @@ class SessionStore:
             )
         except (TypeError, ValueError, CompactionValidationError):
             return None
+        evidence_available = bool(refs)
+        for ref in refs:
+            if (
+                ref.kind != "message"
+                or ref.scope_id != receiving_session_id
+                or not self.is_exact_indexed_message_available(ref)
+            ):
+                evidence_available = False
+                break
+            message = self._execute(
+                "SELECT role, content FROM messages "
+                "WHERE message_id = CAST(? AS INTEGER) "
+                "AND CAST(message_id AS TEXT) = ? AND session_id = ?",
+                (ref.ref_id, ref.ref_id, receiving_session_id),
+            ).fetchone()
+            if (
+                message is None
+                or message["role"] != "user"
+                or not message["content"].strip()
+            ):
+                evidence_available = False
+                break
         return {
             "root_handoff_id": root_handoff_id,
             "reviewer_id": row["reviewer_id"],
             "outcome": row["outcome"],
             "evidence_refs": [ref.to_dict() for ref in refs],
-            "evidence_available": all(
-                self.is_exact_indexed_message_available(ref) for ref in refs
-            ),
+            "evidence_available": evidence_available,
             "base_revision": row["base_revision"],
             "reviewed_at": row["reviewed_at"],
         }
