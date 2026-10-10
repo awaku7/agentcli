@@ -137,6 +137,11 @@ authorization, exact indexed child output, matching scope and revision,
 and SQLite root-ID deduplication. Same-payload retries are idempotent.
 **Receipt is not Main state application:** no Goal is completed, no unverified
 facts are promoted, and AgentState/Memory/Auto-pilot are left untouched.
+The dispatch's necessary scope metadata is saved as a separately redacted
+structured snapshot so text masking cannot invalidate its JSON. Receipt
+insertion requires the host's expected role and exact saved output semantics.
+Receipt rows are owned by the Main session and remain after child Session
+cleanup; the original source itself may no longer be available for reading.
 No existing host calls the receipt API automatically. Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
