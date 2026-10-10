@@ -14,6 +14,7 @@ from .compaction_record import SourceRef
 from .session_store import SessionStore
 from .sub_agent_jobs import SubAgentJobManager, SubAgentJobOwner
 
+
 def deliver_cli_finished_job_notice(
     *,
     manager: SubAgentJobManager,
