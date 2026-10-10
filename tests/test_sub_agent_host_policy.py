@@ -53,9 +53,7 @@ def _save_goal(store, owner, ref):
                     goal_delta_id="d1",
                     association="new",
                     title_hint="Investigate incident",
-                    progress_events=(
-                        ProvenancedObservation("Investigating", (ref,)),
-                    ),
+                    progress_events=(ProvenancedObservation("Investigating", (ref,)),),
                     source_refs=(ref,),
                 ),
                 GoalDelta(
@@ -67,14 +65,13 @@ def _save_goal(store, owner, ref):
             ),
         )
     )
-    goals = store.get_agent_state(owner.session_id)["structured_compaction"][
-        "goals"
-    ]
+    goals = store.get_agent_state(owner.session_id)["structured_compaction"]["goals"]
     return next(
         goal_id
         for goal_id, goal in goals.items()
         if goal["title"] == "Investigate incident"
     )
+
 
 def _settings():
     return SubAgentJobSettings(
@@ -117,15 +114,15 @@ def test_explicit_goal_and_indexed_source_grants_do_not_leak_unselected_goals(
             {
                 "UAGENT_SUB_AGENT_STRUCTURED_HANDOFF": "true",
                 "UAGENT_SUB_AGENT_HANDOFF_GOAL_IDS": json.dumps([goal_id]),
-                "UAGENT_SUB_AGENT_HANDOFF_SOURCE_REFS": json.dumps(
-                    [ref.to_dict()]
-                ),
+                "UAGENT_SUB_AGENT_HANDOFF_SOURCE_REFS": json.dumps([ref.to_dict()]),
             },
         )
         dispatch = policy(owner, "reviewer", "Investigate incident")
         projected = json.loads(dispatch.render_context())
         assert [item["goal_id"] for item in projected["goals"]] == [goal_id]
-        assert projected["goals"][0]["status_observations"][0]["text"] == "Investigating"
+        assert (
+            projected["goals"][0]["status_observations"][0]["text"] == "Investigating"
+        )
         assert "Unrelated confidential goal" not in dispatch.render_context()
         assert "PRIVATE MESSAGE" not in dispatch.render_context()
         assert dispatch.bounds.source_refs == (ref,)
@@ -160,9 +157,7 @@ def test_other_owner_session_and_entry_point_cannot_reuse_grants(tmp_path):
         other_owner = SubAgentJobOwner(entry_point="cli", session_id=other.session_id)
         with pytest.raises(CompactionValidationError, match="another Session"):
             policy(other_owner, "reviewer", "Inspect")
-        wrong_host = SubAgentJobOwner(
-            entry_point="web", session_id=owner.session_id
-        )
+        wrong_host = SubAgentJobOwner(entry_point="web", session_id=owner.session_id)
         with pytest.raises(CompactionValidationError, match="entry point"):
             policy(wrong_host, "reviewer", "Inspect")
 
@@ -218,10 +213,9 @@ def test_manager_accepts_only_host_selected_dispatch(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, _ref = _main(store)
         policy = build_scoped_job_handoff_policy(store, entry_point="cli")
-        manager = SubAgentJobManager(
-            _settings(), handoff_dispatch_policy=policy
-        )
+        manager = SubAgentJobManager(_settings(), handoff_dispatch_policy=policy)
         try:
+
             def worker(context):
                 context.record_handoff_result(
                     context.handoff_dispatch,
@@ -236,9 +230,7 @@ def test_manager_accepts_only_host_selected_dispatch(tmp_path):
                 worker=worker,
             )
             assert accepted["status"] == "accepted"
-            result = manager.wait(
-                owner=owner, job_id=accepted["job_id"], timeout=2
-            )
+            result = manager.wait(owner=owner, job_id=accepted["job_id"], timeout=2)
             assert result["state"] == "completed"
             indexed = store.list_indexed_messages(owner.session_id)
             assert len(indexed) == 1
