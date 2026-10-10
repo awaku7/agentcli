@@ -105,17 +105,12 @@ class SubAgentDispatch:
         existing = self._result_source(job_id=job_id)
         if existing is not None:
             return existing
-        payload = {"dispatch_id": self.dispatch_id}
-        if job_id is not None:
-            payload["job_id"] = job_id
-        compact_report = _persisted_compact_report(result)
-        if compact_report is not None:
-            payload["compact_report"] = compact_report
-        self._store.append_message(
+        self._store.append_sub_agent_result_once(
             self.source_session_id,
-            "assistant",
             result,
-            payload=payload,
+            dispatch_id=self.dispatch_id,
+            job_id=job_id,
+            compact_report=_persisted_compact_report(result),
         )
         source = self._result_source(job_id=job_id)
         if source is not None:
