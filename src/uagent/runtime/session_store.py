@@ -1107,9 +1107,7 @@ class SessionStore:
         """
         if not isinstance(dispatch_id, str) or not dispatch_id.strip():
             raise SessionStoreError("invalid Sub-Agent dispatch ID")
-        if job_id is not None and (
-            not isinstance(job_id, str) or not job_id.strip()
-        ):
+        if job_id is not None and (not isinstance(job_id, str) or not job_id.strip()):
             raise SessionStoreError("invalid Sub-Agent Job ID")
         payload: dict[str, Any] = {"dispatch_id": dispatch_id}
         if job_id is not None:
