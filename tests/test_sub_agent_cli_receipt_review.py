@@ -368,3 +368,95 @@ def test_recent_evidence_skips_blank_messages_before_limit(tmp_path):
         assert (
             store.list_recent_exact_user_message_refs(session_id, limit=20) == expected
         )
+
+
+def test_cli_apply_registers_reviewed_root_metadata_once(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, evidence, command = _setup(store)
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        assert cli_review.handle_cli_receipt_command(
+            command, core=core, store=store, owner=owner
+        )
+        capsys.readouterr()
+        assert store.get_agent_state_snapshot(owner.session_id) == (None, 0)
+        apply_command = f":receipt apply {dispatch.dispatch_id}"
+        assert cli_review.handle_cli_receipt_command(
+            apply_command, core=core, store=store, owner=owner
+        )
+        assert "metadata registered" in capsys.readouterr().out
+        state, revision = store.get_agent_state_snapshot(owner.session_id)
+        assert revision == 1
+        assert state["sub_agent_review_registry"]["entries"][dispatch.dispatch_id] == {
+            "status": "reviewed_unverified",
+            "reviewer_id": "cli:local-operator",
+            "review_base_revision": 0,
+            "evidence_refs": [{
+                "kind": "message",
+                "ref_id": evidence["ref_id"],
+                "scope_id": owner.session_id,
+                "session_seq": evidence["session_seq"],
+            }],
+        }
+        assert "goals" not in state
+        assert "memory" not in state
+        assert "findings" not in state
+        assert cli_review.handle_cli_receipt_command(
+            apply_command, core=core, store=store, owner=owner
+        )
+        assert "already registered" in capsys.readouterr().out
+        assert store.get_agent_state_revision(owner.session_id) == 1
+
+
+def test_cli_apply_fails_closed_if_review_missing_or_evidence_revoked(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, evidence, command = _setup(store)
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        apply_command = f":receipt apply {dispatch.dispatch_id}"
+        assert cli_review.handle_cli_receipt_command(
+            apply_command, core=core, store=store, owner=owner
+        )
+        assert "rejected" in capsys.readouterr().out
+        assert cli_review.handle_cli_receipt_command(
+            command, core=core, store=store, owner=owner
+        )
+        capsys.readouterr()
+        store._connection.execute(
+            "UPDATE session_items SET availability = 'unavailable' "
+            "WHERE session_id = ? AND item_kind = 'message' AND item_id = ?",
+            (owner.session_id, evidence["ref_id"]),
+        )
+        assert cli_review.handle_cli_receipt_command(
+            apply_command, core=core, store=store, owner=owner
+        )
+        assert "rejected" in capsys.readouterr().out
+        assert store.get_agent_state_snapshot(owner.session_id) == (None, 0)
+
+
+def test_cli_apply_requires_current_local_operator(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, evidence, command = _setup(store)
+        apply_command = f":receipt apply {dispatch.dispatch_id}"
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: False)
+        assert cli_review.handle_cli_receipt_command(
+            apply_command, core=core, store=store, owner=owner
+        )
+        assert "interactive local operator" in capsys.readouterr().out
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        other = store.create_session(project="test", entry_point="cli")
+        core._session_store_active_id = other.session_id
+        assert cli_review.handle_cli_receipt_command(
+            apply_command, core=core, store=store, owner=owner
+        )
+        assert "unavailable" in capsys.readouterr().out
+        core._session_store_active_id = owner.session_id
+        assert cli_review.handle_cli_receipt_command(
+            ":receipt apply invalid/root", core=core, store=store, owner=owner
+        )
+        assert "Invalid" in capsys.readouterr().out
+        assert store.get_agent_state_snapshot(owner.session_id) == (None, 0)
