@@ -1522,6 +1522,7 @@ def _run_one_round(
     ):
         core._last_round_reason = "memory_access_changed"
         core._memory_projection_invalidated = True
+        _clear_responses_after_tool_loop(core, reason="memory_access_changed")
         return (
             _RS_BREAK,
             client,
@@ -1551,6 +1552,7 @@ def _run_one_round(
     ):
         core._last_round_reason = "memory_access_changed"
         core._memory_projection_invalidated = True
+        _clear_responses_after_tool_loop(core, reason="memory_access_changed")
         return (
             _RS_BREAK,
             client,
@@ -3004,6 +3006,7 @@ def run_llm_rounds(
             ):
                 core._last_round_reason = "memory_access_changed"
                 core._memory_projection_invalidated = True
+                _clear_responses_after_tool_loop(core, reason="memory_access_changed")
                 break
             round_count += 1
             core._last_round_reason = ""
