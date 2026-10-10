@@ -271,9 +271,7 @@ def test_legacy_registry_collision_is_preserved_and_review_can_apply(tmp_path):
             },
             expected_revision=2,
         )
-        assert (
-            store.get_agent_state(main)["sub_agent_review_registry"] == registry
-        )
+        assert store.get_agent_state(main)["sub_agent_review_registry"] == registry
 
 
 def test_legacy_save_does_not_allow_forged_owned_registry(tmp_path):
