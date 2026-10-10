@@ -348,6 +348,7 @@ def main() -> int:
                 if handle_cli_receipt_command(
                     line, core=core, store=session_store, owner=job_owner
                 ):
+                    core.set_status(False, "")
                     continue
                 if handle_cli_job_command(line, manager=job_manager, owner=job_owner):
                     continue
