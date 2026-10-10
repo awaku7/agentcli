@@ -1463,6 +1463,16 @@ class SessionStore:
         )
 
     @_db_locked
+    def invalidate_responses_continuation(self, session_id: str) -> None:
+        """Persist a tombstone so :load cannot revive a stale provider chain."""
+        self._require_session(session_id)
+        self._execute(
+            "INSERT INTO response_states(session_id, provider, model, response_id, status) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (session_id, "", "", "", "invalidated"),
+        )
+
+    @_db_locked
     def latest_response_state(self, session_id: str) -> dict[str, Any] | None:
         self._require_session(session_id)
         row = self._execute(
@@ -1792,6 +1802,87 @@ class SessionStore:
         except (TypeError, ValueError) as exc:
             raise SessionStoreError("stored agent state is invalid JSON") from exc
         return (state if isinstance(state, dict) else None), int(row["revision"])
+
+    @_db_locked
+    def list_visible_sub_agent_receipts(
+        self, receiving_session_id: str, *, limit: int = 5
+    ) -> list[dict[str, Any]]:
+        """Read bounded, currently accessible unverified receipts for Main.
+
+        A receipt is historical evidence, never AgentState. The caller must
+        supply the receiver's trusted Session ID. Each returned report must
+        still have its exact indexed child output available; source removal
+        or revoked availability hides the report even if its receipt remains.
+        """
+        if type(limit) is not int or not 1 <= limit <= 10:
+            raise ValueError("receipt limit must be between 1 and 10")
+        self._require_session(receiving_session_id)
+        visible: list[dict[str, Any]] = []
+        offset = 0
+        while len(visible) < limit:
+            # Filter by *current* availability before enforcing the result
+            # count. Newer revoked records must not hide older visible ones.
+            rows = self._execute(
+                "SELECT root_handoff_id, source_session_id, base_revision, "
+                "record_json, received_at FROM sub_agent_receipts "
+                "WHERE receiving_session_id = ? "
+                "ORDER BY received_at DESC, root_handoff_id DESC LIMIT 50 OFFSET ?",
+                (receiving_session_id, offset),
+            ).fetchall()
+            if not rows:
+                break
+            offset += len(rows)
+            for row in rows:
+                try:
+                    record = HandoffRecord.from_dict(json.loads(row["record_json"]))
+                except (TypeError, ValueError, CompactionValidationError):
+                    continue
+                if (
+                    record.receiving_session_id != receiving_session_id
+                    or record.root_handoff_id != row["root_handoff_id"]
+                    or record.receiving_base_revision != row["base_revision"]
+                    or record.handoff_id != record.root_handoff_id
+                    or record.application_base_revision
+                    != record.receiving_base_revision
+                    or record.artifact_refs
+                    or record.source_checkpoint_id is not None
+                    or record.work_done
+                    or record.decisions
+                    or record.unresolved
+                    or record.recommended_next_steps
+                    or record.state_delta != ProvenancedDeterministicDelta()
+                    or len(record.findings) != 1
+                    or len(record.findings[0].source_refs) != 1
+                    or not record.findings[0].text.startswith(
+                        "Unverified Sub-Agent report ("
+                    )
+                    or record.agent_id != f"sub-agent:{record.root_handoff_id}"
+                ):
+                    continue
+                source = record.findings[0].source_refs[0]
+                if (
+                    source.kind != "message"
+                    or source.scope_id != row["source_session_id"]
+                    or not self.is_exact_indexed_message_available(source)
+                ):
+                    continue
+                visible.append(
+                    {
+                        "root_handoff_id": record.root_handoff_id,
+                        "role": record.role,
+                        "goal_ids": list(record.goal_ids),
+                        "objective": record.objective,
+                        "unverified_report": record.findings[0].text,
+                        "source_ref": source.to_dict(),
+                        "base_revision": record.receiving_base_revision,
+                        "received_at": row["received_at"],
+                    }
+                )
+                if len(visible) >= limit:
+                    return visible
+            if len(rows) < 50:
+                break
+        return visible
 
     @_db_locked
     def commit_sub_agent_receipt(
