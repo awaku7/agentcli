@@ -76,9 +76,10 @@ def test_receiver_rejects_stale_revision_without_durable_receipt(tmp_path):
         with pytest.raises(SessionRevisionConflict, match="older"):
             _receive(dispatch)
         assert store.get_agent_state_snapshot(main) == before
-        assert store._connection.execute(
+        receipt_count = store._connection.execute(
             "SELECT count(*) FROM sub_agent_receipts"
-        ).fetchone()[0] == 0
+        ).fetchone()[0]
+        assert receipt_count == 0
 
 
 def test_receipt_retry_survives_revision_change_and_store_restart(tmp_path):
@@ -131,9 +132,10 @@ def test_permission_revocation_and_missing_source_fail_closed(tmp_path):
         )
         with pytest.raises(SessionStoreError, match="unavailable"):
             _receive(dispatch)
-        assert store._connection.execute(
+        receipt_count = store._connection.execute(
             "SELECT count(*) FROM sub_agent_receipts"
-        ).fetchone()[0] == 0
+        ).fetchone()[0]
+        assert receipt_count == 0
 
 
 def test_second_session_does_not_inherit_child_result(tmp_path):
@@ -193,6 +195,7 @@ def test_two_receivers_commit_one_root_across_connections(tmp_path):
             False,
             True,
         ]
-        assert primary._connection.execute(
+        receipt_count = primary._connection.execute(
             "SELECT count(*) FROM sub_agent_receipts"
-        ).fetchone()[0] == 1
+        ).fetchone()[0]
+        assert receipt_count == 1
