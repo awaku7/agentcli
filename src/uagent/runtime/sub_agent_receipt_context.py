@@ -1,7 +1,8 @@
 """CLI-only, read-only projection of unverified Sub-Agent receipts.
 
 The projected material is lower-trust child output, not instructions, facts,
-or an AgentState update. It is opt-in and strictly bounded for LLM context.
+or an AgentState update. It is enabled only for explicitly opted-in structured
+CLI handoff and strictly bounded for LLM context.
 """
 
 from __future__ import annotations
@@ -22,8 +23,10 @@ _MARKER = "[unverified sub-agent receipts]"
 def cli_receipt_context_enabled(
     environment: Mapping[str, str], *, structured_handoff_enabled: bool
 ) -> bool:
-    """Explicit opt-in; never enable against an unstructured CLI session."""
+    """Read-only context follows structured opt-in unless explicitly disabled."""
     flag = str(environment.get(_ENV_NAME, "")).strip().lower()
+    if flag == "":
+        return structured_handoff_enabled
     if flag in _DISABLED:
         return False
     if flag not in _ENABLED:
