@@ -66,7 +66,11 @@ def handle_cli_receipt_command(
     try:
         parts = shlex.split(stripped)
     except ValueError:
-        print(_("Usage: :receipt [evidence | review <root-id> <supported|rejected> <message-id> <seq>]"))
+        print(
+            _(
+                "Usage: :receipt [evidence | review <root-id> <supported|rejected> <message-id> <seq>]"
+            )
+        )
         return True
     if not parts or parts[0] != ":receipt":
         return False
@@ -111,11 +115,17 @@ def handle_cli_receipt_command(
         return True
 
     if len(parts) != 6 or parts[1] != "review":
-        print(_("Usage: :receipt review <root-id> <supported|rejected> <message-id> <seq>"))
+        print(
+            _(
+                "Usage: :receipt review <root-id> <supported|rejected> <message-id> <seq>"
+            )
+        )
         print(_("Use :receipt evidence to list candidate Main user message IDs."))
         return True
     if not _human_review_available(core):
-        print(_("Receipt review requires an interactive local operator (not Auto-pilot)."))
+        print(
+            _("Receipt review requires an interactive local operator (not Auto-pilot).")
+        )
         return True
     root_id, outcome, message_id, seq_value = parts[2:]
     if (
@@ -156,14 +166,20 @@ def handle_cli_receipt_command(
             ),
         )
     except (SessionStoreError, ValueError, TypeError, OverflowError) as exc:
-        print(_("Receipt review rejected: %(error)s") % {"error": _safe_terminal_text(type(exc).__name__, 80)})
+        print(
+            _("Receipt review rejected: %(error)s")
+            % {"error": _safe_terminal_text(type(exc).__name__, 80)}
+        )
         return True
     label = _("already recorded") if receipt["already_reviewed"] else _("recorded")
     print(
-        _("Receipt review %(status)s: %(outcome)s (audit only; no Goal or state changes)")
+        _(
+            "Receipt review %(status)s: %(outcome)s (audit only; no Goal or state changes)"
+        )
         % {"status": label, "outcome": outcome}
     )
     return True
+
 
 def dispatch_cli_receipt_command_event(
     line: str,
@@ -177,8 +193,6 @@ def dispatch_cli_receipt_command_event(
     if stripped != ":receipt" and not stripped.startswith(":receipt "):
         return False
     try:
-        return handle_cli_receipt_command(
-            line, core=core, store=store, owner=owner
-        )
+        return handle_cli_receipt_command(line, core=core, store=store, owner=owner)
     finally:
         core.set_status(False, "")
