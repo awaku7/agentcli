@@ -1388,6 +1388,28 @@ class SessionStore:
         return messages
 
     @_db_locked
+    def is_exact_indexed_message_available(self, ref: SourceRef) -> bool:
+        """Check one exact indexed message without loading session history.
+
+        The composite unique index on (session_id, item_kind, item_id)
+        bounds this lookup independently of the session's message count.
+        Missing/deleted, approximate or unavailable sources fail closed.
+        """
+        if not isinstance(ref, SourceRef) or ref.kind != "message":
+            return False
+        row = self._execute(
+            "SELECT 1 FROM session_items AS si "
+            "JOIN messages AS m ON m.session_id = si.session_id "
+            "AND CAST(m.message_id AS TEXT) = si.item_id "
+            "WHERE si.session_id = ? AND si.item_kind = 'message' "
+            "AND si.item_id = ? AND si.session_seq = ? "
+            "AND si.ordering_quality = 'exact' "
+            "AND si.availability = 'available' LIMIT 1",
+            (ref.scope_id, ref.ref_id, ref.session_seq),
+        ).fetchone()
+        return row is not None
+
+    @_db_locked
     def list_indexed_messages(self, session_id: str) -> list[dict[str, Any]]:
         """List available messages with their exact session-order references.
 
