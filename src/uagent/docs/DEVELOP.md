@@ -101,13 +101,23 @@ messages or applying its log-count limit. Child objectives and generated
 findings must not become long-term user preferences injected into Main prompts.
 
 The tool schema does not accept `handoff_dispatch`. Existing host/tool/Job paths
-remain on the legacy path until their trusted policies explicitly opt in. Full
-child conversation/tool-event persistence, compact `HandoffRecord` return,
-atomic receiver revision checks, durable root-ID deduplication/application and
-Auto-pilot checkpoint/resume remain subsequent stages. Run
+remain on the legacy path until their trusted policies explicitly opt in.
+`runtime/sub_agent_return.py:build_compact_sub_agent_return()` now provides a
+read-only, opt-in compact `HandoffRecord` projection of the one indexed child
+assistant result. A trusted caller supplies the captured dispatch, agent role,
+source access check and byte limit; returned work is marked unverified, and
+model-supplied revision / delivery IDs or state deltas are never accepted.
+`record_result()` keeps a separately redacted `compact_report` in the indexed
+message payload because SQLite's text-level credential masking can invalidate
+the raw result's JSON. Terminal error/blocked reports may use `message` in
+place of `summary`. This API neither delivers returns automatically through
+Jobs nor applies them to Main AgentState. Full child conversation/tool-event
+persistence, trusted Job-to-host return delivery, atomic receiver revision
+checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
+resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
 `tests/test_sub_agent_handoff.py`, `tests/test_handoff_record.py`,
-`tests/test_handoff_projection.py`, `tests/test_compaction_persistence.py` and
-the affected Sub-Agent tests when changing this foundation.
+`tests/test_handoff_projection.py`, `tests/test_compaction_persistence.py`
+and the affected Sub-Agent tests when changing this foundation.
 
 ## XLSM static analysis
 
