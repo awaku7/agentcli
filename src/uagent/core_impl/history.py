@@ -1106,9 +1106,7 @@ def compress_history_with_llm(
             # assistant boundaries even without another user turn.
             cuts.extend(
                 cut
-                for cut in _safe_assistant_cut_points(
-                    others, turn_start, turn_end
-                )
+                for cut in _safe_assistant_cut_points(others, turn_start, turn_end)
                 if cut <= limit
             )
         boundary = select_structured_source_prefix(
