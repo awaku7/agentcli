@@ -192,3 +192,85 @@ def test_malformed_commands_do_not_create_reviews(
         assert store.get_sub_agent_receipt_review(
             owner.session_id, dispatch.dispatch_id
         ) is None
+
+
+def test_cli_command_events_release_busy_state_even_after_rejection(
+    tmp_path, monkeypatch
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, _dispatch, _evidence, command = _setup(store)
+        core.status_busy = True
+
+        def set_status(busy, _label):
+            core.status_busy = busy
+
+        core.set_status = set_status
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: False)
+        assert not cli_review.dispatch_cli_receipt_command_event(
+            ":jobs", core=core, store=store, owner=owner
+        )
+        assert core.status_busy
+        assert cli_review.dispatch_cli_receipt_command_event(
+            ":receipt evidence", core=core, store=store, owner=owner
+        )
+        assert not core.status_busy
+        core.status_busy = True
+        assert cli_review.dispatch_cli_receipt_command_event(
+            command, core=core, store=store, owner=owner
+        )
+        assert not core.status_busy
+
+
+def test_identical_cli_review_retry_after_main_revision_advances(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, _evidence, command = _setup(store)
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        assert cli_review.handle_cli_receipt_command(
+            command, core=core, store=store, owner=owner
+        )
+        capsys.readouterr()
+        store.save_agent_state(
+            owner.session_id, {"memory": "later"}, expected_revision=0
+        )
+        assert cli_review.handle_cli_receipt_command(
+            command, core=core, store=store, owner=owner
+        )
+        assert "already recorded" in capsys.readouterr().out
+        record = store.get_sub_agent_receipt_review(
+            owner.session_id, dispatch.dispatch_id
+        )
+        assert record["base_revision"] == 0
+        assert store.get_agent_state_revision(owner.session_id) == 1
+
+
+def test_oversized_sqlite_sequence_is_rejected_without_crashing(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, evidence, _command = _setup(store)
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        malformed = (
+            f":receipt review {dispatch.dispatch_id} supported "
+            f"{evidence['ref_id']} 999999999999999999999999"
+        )
+        assert cli_review.handle_cli_receipt_command(
+            malformed, core=core, store=store, owner=owner
+        )
+        assert "Invalid" in capsys.readouterr().out
+        assert store.get_sub_agent_receipt_review(
+            owner.session_id, dispatch.dispatch_id
+        ) is None
+
+
+def test_new_cli_messages_flow_through_host_translation(tmp_path, monkeypatch, capsys):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        main = store.create_session(project="test", entry_point="cli")
+        owner = SubAgentJobOwner(entry_point="cli", session_id=main.session_id)
+        core = SimpleNamespace(_session_store_active_id=main.session_id)
+        monkeypatch.setattr(cli_review, "_", lambda value: "[translated] " + value)
+        assert cli_review.handle_cli_receipt_command(
+            ":receipt", core=core, store=store, owner=owner
+        )
+        assert "[translated] No currently accessible" in capsys.readouterr().out
