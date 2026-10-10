@@ -1487,6 +1487,9 @@ class SessionStore:
             "WHERE si.session_id = ? AND si.item_kind = 'message' "
             "AND si.ordering_quality = 'exact' "
             "AND si.availability = 'available' AND m.role = 'user' "
+            "AND TRIM(m.content, CHAR(9, 10, 11, 12, 13, 28, 29, 30, 31, 32, "
+            "133, 160, 5760, 8192, 8193, 8194, 8195, 8196, 8197, 8198, "
+            "8199, 8200, 8201, 8202, 8232, 8233, 8239, 8287, 12288)) <> '' "
             "ORDER BY si.session_seq DESC LIMIT ?",
             (session_id, max(0, limit)),
         ).fetchall()

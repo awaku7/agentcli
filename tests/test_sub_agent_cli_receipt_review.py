@@ -350,3 +350,19 @@ def test_cli_receipt_displays_expired_evidence_as_unavailable(
         assert dispatch.dispatch_id in output
         assert "review=evidence_unavailable" in output
         assert "review=supported" not in output
+
+
+def test_recent_evidence_skips_blank_messages_before_limit(tmp_path):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        session_id = store.create_session(project="test", entry_point="cli").session_id
+        for index in range(25):
+            store.append_message(session_id, "user", f"valid evidence {index}")
+        expected = store.list_recent_exact_user_message_refs(session_id, limit=20)
+        assert len(expected) == 20
+
+        for index in range(24):
+            store.append_message(
+                session_id, "user", ("", " ", "\t\n", "\u3000")[index % 4]
+            )
+
+        assert store.list_recent_exact_user_message_refs(session_id, limit=20) == expected
