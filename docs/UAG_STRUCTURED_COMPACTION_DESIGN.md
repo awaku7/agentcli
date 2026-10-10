@@ -916,7 +916,7 @@ Auto-pilot の複数ラウンドでも、従来の Context Runtime / Structured 
 
 この章で扱う通常の Compaction Checkpoint は、長期的な文脈と出典を保持するための情報であり、**Auto-pilot の実行を中断した地点から再開するための機能ではない**。Auto-pilot 専用のラウンド保存、`:auto resume`、自動復元、途中のツール操作の再実行は実装対象に含めない（#221 は未マージで終了）。
 
-**現行の中断仕様は F12 のみ**とする（#222 で旧 F11 を削除）。F12 により現在の処理を中断し、Auto-pilot に終了を要求する。中断時に専用 Checkpoint を強制生成せず、自動で再開もしない。通常の完了判定は既存の reviewer / Decision Provider / 最大ラウンド数の機構を使い、Checkpoint を唯一の終了根拠としない。
+**現行の中断仕様は F12 のみ**とする（#222 で旧キー処理を削除）。F12 により現在の処理を中断し、Auto-pilot に終了を要求する。中断時に専用 Checkpoint を強制生成せず、自動で再開もしない。通常の完了判定は既存の reviewer / Decision Provider / 最大ラウンド数の機構を使い、Checkpoint を唯一の終了根拠としない。
 
 複数 Goal が active な場合、ひとつの Goal が終了しただけでセッション全体を自動完了とはみなさない。
 
