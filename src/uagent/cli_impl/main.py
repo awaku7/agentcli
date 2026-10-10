@@ -60,7 +60,10 @@ from ..runtime.sub_agent_cli_receipt import (
     cli_auto_receipt_enabled,
     deliver_cli_finished_job_notice,
 )
-from ..runtime.sub_agent_receipt_context import cli_receipt_context_enabled
+from ..runtime.sub_agent_receipt_context import (
+    cli_receipt_context_enabled,
+    queue_cli_sub_agent_receipt,
+)
 from ..runtime.sub_agent_jobs import SubAgentJobManager
 
 
@@ -508,6 +511,8 @@ def main() -> int:
                         )
                     else:
                         if receipt is not None:
+                            if core._sub_agent_receipt_context_enabled:
+                                queue_cli_sub_agent_receipt(core, receipt)
                             log_event(
                                 "sub_agent.handoff_receipt_recorded",
                                 job_id=notice.get("job_id"),

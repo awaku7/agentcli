@@ -169,20 +169,23 @@ completed structured Job reports to the current Main Session. No extra
 delivery/review/apply command or receipt flag is required. The optional
 `UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT=0` disables delivery explicitly.
 Without structured opt-in, all of this remains off.
-The receiver rechecks the exact indexed child output, Job ID, scope, source
-availability and Main revision within its durable SQLite receipt transaction.
-Only receipt metadata is logged as structured events; no child report is
-printed in notices or promoted to the Main AgentState/Goal/Memory. Invalid
-settings fail closed. A stale revision or revoked source rejects receipt and
-is logged without changing Main state. Notices from a switched-away CLI
+The receiver checks the exact indexed child output, Job ID, Session scope
+and current source availability within its SQLite receipt transaction.
+A Job result produced before Main's latest revision remains unverified,
+attributed evidence; it can be received without changing Main AgentState.
+Direct returns without a trusted Job ID still reject a stale revision.
+Invalid settings and revoked sources fail closed. Reports never update
+Goal/Memory or authorize new tool permissions. Notices from a switched-away CLI
 session are not rerouted; the interactive CLI event loop is best-effort, not
 an end-to-end delivery guarantee across CLI shutdown/restart. GUI/Web/A2A,
 Main state application and Auto-pilot resume remain subsequent work.
 
-The same structured handoff opt-in projects at most three recent
-Main-side receipts into the next LLM user turn as **unverified JSON evidence**.
-The optional `UAGENT_SUB_AGENT_HANDOFF_CONTEXT=0` disables this projection.
-Routine result sharing requires no separate review, root ID or apply command. Reading checks that the
+The same structured handoff opt-in projects up to three **newly delivered**
+Main-side receipts once, in the next LLM user turn, as unverified JSON
+evidence. Old receipts are not replayed on CLI restart. Failed LLM turns
+can retry their pending receipts. The optional
+`UAGENT_SUB_AGENT_HANDOFF_CONTEXT=0` disables the projection. No manual
+review, root ID or apply command is required. Reading checks that the
 current CLI owner matches the active Main Session and that the exact child
 message SourceRef is still indexed and available. Revoked/deleted child
 sources are excluded even if the durable receipt remains for auditing.

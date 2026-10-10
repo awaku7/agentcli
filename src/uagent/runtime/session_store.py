@@ -2476,7 +2476,10 @@ class SessionStore:
                 (record.receiving_session_id,),
             ).fetchone()
             revision = int(current["revision"]) if current is not None else 0
-            if revision != record.receiving_base_revision:
+            if revision != record.receiving_base_revision and expected_job_id is None:
+                # An explicitly delivered, persisted Job report is read-only
+                # evidence. Its original revision remains part of provenance;
+                # stale dispatches must never change Main AgentState.
                 raise SessionRevisionConflict(
                     "Sub-Agent return was produced for an older AgentState revision"
                 )

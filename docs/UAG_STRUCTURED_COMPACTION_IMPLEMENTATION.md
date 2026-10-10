@@ -25,7 +25,7 @@
 - **PR 1・PR 3 に残る統合課題:** cross-scope の認可付き出典参照／rehydration、Artifact / tool-result の再取得、Reducer のライフサイクル不変条件と呼び出し経路の検証、DeterministicDelta の実イベント抽出、実 provider 検証など。
 - **PR 5 の残作業:** Client Instance の識別・出典、複数 Client による revision 競合時の応答、最新状態の再取得と安全な再評価、プロセス再起動後の復旧、認可境界と複数 Client の統合テスト。
 - **検証状況:** #217 の最終 CI で Ruff / Black / I18N、全 pytest、Python 3.11・3.13・3.14 の互換性テストが成功。nightly 専用テストはスキップ。これは実 provider / Auto-pilot 再開 / 複数 Client の end-to-end 検証完了を意味しない。
-- **次の作業:** CLIの通常経路ではSub-Agent終了結果をMainへ自動配送し、次ターンへ未検証の出典付き情報として提示する（structured handoff opt-inのみ）。手動のroot適用を通常操作として追加しない。個別事実・Goalの永続的な承認・安全な適用が必要な場合だけ別途設計する。その後Auto-pilot checkpoint/resumeと実provider接続検証を進める。GUI/Web/A2Aの有効化前には、主体・workspace・Session所有権、出典認可、revision競合時の安全な処理を該当hostで検証する。複数Clientの競合後の再評価と復旧はPR 5で統合する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
+- **次の作業:** CLIではstructured handoff opt-inひとつで、Sub-Agent終了結果をMainに未検証情報として自動配送し、新着のみ次のLLMターンへ1回提示する。Mainが更新されていてもJob報告を古い出典付き参考情報として受理し、AgentStateは更新しない。手動root適用は通常操作に追加しない。個別事実・Goalの永続的な承認・安全な適用が必要な場合だけ別途設計する。その後Auto-pilot checkpoint/resumeと実provider接続検証を進める。GUI/Web/A2Aの有効化前には、主体・workspace・Session所有権、出典認可、revision競合時の安全な処理を該当hostで検証する。複数Clientの競合後の再評価と復旧はPR 5で統合する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -167,7 +167,7 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 - [ ] authorization-aware retrieval / rehydration と schema capability negotiation を検証
 - [ ] CLI と GUI 等、複数 Client が同一 Session を更新する統合テストを追加・実行
 
-**簡素化方針（#219未マージで終了後）:** 通常のSub-Agent成果共有では手動 `:receipt review` やroot管理情報の `:receipt apply` を要求しない。既存の出典確認付き受理・一時context投影をstructured handoff opt-inひとつから利用し、Mainは「未検証の情報」として必要に応じて判断する。自動で真偽認定・Goal完了・Memory昇格はしない。審査／root管理APIは監査・明示的な更新が必要なときの内部基盤として維持し、通常経路の必須ステップにしない。
+**簡素化方針（#219未マージで終了後）:** 通常のSub-Agent成果共有では手動 `:receipt review` やroot管理情報の `:receipt apply` を要求しない。既存の出典確認付き受理・一時context投影をstructured handoff opt-inひとつから利用する。完了Jobの受理はMainのrevisionが進んでも、元のrevisionを保存した未検証の参照記録として許可し、Mainの状態を更新しない。直接受理APIでは旧revisionを引き続き拒否する。CLIが新着通知を処理したrootのみ次のターンに1回だけ投影し、旧記録を毎ターン再投入したり再起動後に自動再提示したりしない。自動で真偽認定・Goal完了・Memory昇格はしない。審査／root管理APIは監査・明示的な更新が必要なときの内部基盤として維持し、通常経路の必須ステップにしない。
 
 ### PR 4・PR 5 の残作業の整理（2026-10-10、#217 マージ後）
 
