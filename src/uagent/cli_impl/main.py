@@ -59,6 +59,7 @@ from ..runtime.sub_agent_cli_receipt import (
     cli_auto_receipt_enabled,
     deliver_cli_finished_job_notice,
 )
+from ..runtime.sub_agent_receipt_context import cli_receipt_context_enabled
 from ..runtime.sub_agent_jobs import SubAgentJobManager
 
 
@@ -195,6 +196,9 @@ def main() -> int:
         session_store, os.environ
     )
     auto_receipt_enabled = cli_auto_receipt_enabled(
+        os.environ, structured_handoff_enabled=handoff_policy is not None
+    )
+    core._sub_agent_receipt_context_enabled = cli_receipt_context_enabled(
         os.environ, structured_handoff_enabled=handoff_policy is not None
     )
     job_manager = SubAgentJobManager(
