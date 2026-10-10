@@ -22,8 +22,10 @@ from enum import Enum
 from typing import Any, Callable
 
 from ..utils.secret_mask import _mask_inline_secrets
+from .compaction_record import CompactionValidationError
 from .handoff_projection import SourceAccessCheck
 from .sub_agent_handoff import SubAgentDispatch
+from .sub_agent_receipt import receive_compact_sub_agent_return
 from .sub_agent_return import build_compact_sub_agent_return
 from .session_store import SessionStore
 
@@ -605,6 +607,51 @@ class SubAgentJobManager:
         # No Job-manager lock during SQLite access or host authorization.
         # Terminal persistence and cancellation were serialized at publication.
         return build_compact_sub_agent_return(
+            dispatch,
+            agent_role=role,
+            source_access_check=source_access_check,
+            max_bytes=max_bytes,
+        )
+
+    def deliver_compact_handoff_to_main(
+        self,
+        *,
+        owner: SubAgentJobOwner,
+        job_id: str,
+        source_access_check: SourceAccessCheck,
+        max_bytes: int = 32_000,
+    ) -> dict[str, Any] | None:
+        """Host-only delivery of a finished Job's evidence to Main's receipt log.
+
+        Owner checks happen before source inspection. Only the same Job's
+        persisted child output can be delivered; a plain, unfinished,
+        cancelled, unpersisted or unknown Job returns None. The receiving
+        transaction rechecks scope, revision and source grants, and rejects
+        stale or forged returns. Delivery never changes Main AgentState,
+        Memory, or Goal completion, nor acknowledges the Job notification.
+        """
+        with self._condition:
+            self._evict_completed_locked(time.monotonic())
+            job = self._authorized_job_locked(owner, job_id)
+            if (
+                job is None
+                or not job.state.terminal
+                or not job.handoff_result_persisted
+                or job.handoff_dispatch is None
+            ):
+                return None
+            dispatch = job.handoff_dispatch
+            role = job.agent_name
+            trusted_job_id = job.job_id
+
+        # Do not keep the Job lock while invoking SQLite or host permissions.
+        # This separate check prevents a Job from adopting an output produced
+        # by another Job, including one using the same dispatch elsewhere.
+        if dispatch._result_source(job_id=trusted_job_id) is None:
+            raise CompactionValidationError(
+                "persisted Sub-Agent Job output is unavailable"
+            )
+        return receive_compact_sub_agent_return(
             dispatch,
             agent_role=role,
             source_access_check=source_access_check,
