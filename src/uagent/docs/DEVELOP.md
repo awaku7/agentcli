@@ -176,7 +176,22 @@ settings fail closed. A stale revision or revoked source rejects receipt and
 is logged without changing Main state. Notices from a switched-away CLI
 session are not rerouted; the interactive CLI event loop is best-effort, not
 an end-to-end delivery guarantee across CLI shutdown/restart. GUI/Web/A2A,
-Main state application and Auto-pilot resume remain subsequent work. Full child conversation/tool-event
+Main state application and Auto-pilot resume remain subsequent work.
+
+The optional CLI setting `UAGENT_SUB_AGENT_HANDOFF_CONTEXT=1` (requires
+structured handoff opt-in) projects at most three recent Main-side receipts
+into the next LLM user turn as **unverified JSON evidence**. This is separate
+from automatic receipt delivery and defaults off. Reading checks that the
+current CLI owner matches the active Main Session and that the exact child
+message SourceRef is still indexed and available. Revoked/deleted child
+sources are excluded even if the durable receipt remains for auditing.
+The projection is size-bounded and placed after AgentState turn updates,
+so a report cannot become a Goal merely by entering LLM context.
+The text is lower-trust material, not instructions or confirmed facts;
+there is no Goal/Memory/state mutation, no completion signal, and no
+Auto-pilot resume. Other hosts do not enable this context projection.
+
+Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
 resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
