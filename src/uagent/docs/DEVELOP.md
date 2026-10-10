@@ -130,9 +130,19 @@ ownership. It also permits
 retrieval of an unverified terminal error/blocked report, without interpreting
 it as successful completion. The output is not inserted into ordinary Job
 snapshots, notices, model/tool arguments, Main AgentState, or Memory. Reads
-are repeatable and do not acknowledge delivery. Hosts still need explicit
-Goal/source policy opt-in, Main-side authorization and atomic revision/root-ID
-checks before applying anything; no current host enables this path. Full child conversation/tool-event
+are repeatable and do not acknowledge delivery. Hosts still need explicit Goal/source policy opt-in before any ordinary
+job uses this path. A new host-only `receive_compact_sub_agent_return()` API
+can durably record a proposed report on the Main side with current source
+authorization, exact indexed child output, matching scope and revision,
+and SQLite root-ID deduplication. Same-payload retries are idempotent.
+**Receipt is not Main state application:** no Goal is completed, no unverified
+facts are promoted, and AgentState/Memory/Auto-pilot are left untouched.
+The dispatch's necessary scope metadata is saved as a separately redacted
+structured snapshot so text masking cannot invalidate its JSON. Receipt
+insertion requires the host's expected role and exact saved output semantics.
+Receipt rows are owned by the Main session and remain after child Session
+cleanup; the original source itself may no longer be available for reading.
+No existing host calls the receipt API automatically. Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
 resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,

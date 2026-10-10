@@ -180,6 +180,13 @@ def capture_sub_agent_dispatch(
                 "dispatch_id": dispatch_id,
                 "receiving_session_id": receiving_session_id,
                 "receiving_base_revision": revision,
+                "dispatch_scope": {
+                    "kind": "main_to_subagent",
+                    "receiving_session_id": receiving_session_id,
+                    "receiving_base_revision": revision,
+                    "objective": redact_sensitive(objective),
+                    "goals": [{"goal_id": goal_id} for goal_id in goal_ids],
+                },
             },
         )
     except BaseException:

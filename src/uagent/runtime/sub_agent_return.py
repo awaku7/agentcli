@@ -17,6 +17,7 @@ from .handoff_projection import (
 )
 from .handoff_record import HandoffRecord, ProvenancedHandoffItem
 from .sub_agent_handoff import SubAgentDispatch
+from .session_store import redact_sensitive
 
 
 def build_compact_sub_agent_return(
@@ -126,7 +127,7 @@ def build_compact_sub_agent_return(
         agent_id=f"sub-agent:{dispatch.dispatch_id}",
         role=agent_role,
         goal_ids=dispatch.bounds.goal_ids,
-        objective=dispatch.objective,
+        objective=redact_sensitive(dispatch.objective),
         findings=(
             ProvenancedHandoffItem(
                 text=f"Unverified Sub-Agent report ({status}): {summary}",
