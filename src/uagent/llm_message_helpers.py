@@ -748,10 +748,17 @@ def build_structured_auto_shrink_projection(
         if projected == source:
             return None
 
-    # Keep temporary user-turn instructions/attachments in provider input,
-    # but never include those injected values in checkpoint source evidence.
-    if messages and messages[-1].get("role") == "user":
-        projected[-1] = copy.deepcopy(messages[-1])
+    # Keep temporary user-turn context in the provider projection for every
+    # tool round, while checkpoint evidence continues to use canonical rows.
+    latest_user = next(
+        (item for item in reversed(messages) if item.get("role") == "user"),
+        None,
+    )
+    if latest_user is not None:
+        for index in range(len(projected) - 1, -1, -1):
+            if projected[index].get("role") == "user":
+                projected[index] = copy.deepcopy(latest_user)
+                break
     return AutoShrinkProjection(
         cache_name=None,
         messages=tuple(projected),
