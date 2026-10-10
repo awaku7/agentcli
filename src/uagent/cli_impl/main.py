@@ -110,6 +110,12 @@ def _set_status_for_command_result(core: Any, result: Any) -> bool:
     return run_llm
 
 
+def _auto_initial_round_completed(core: Any) -> bool:
+    """Only a completed provider round is safe to checkpoint and judge."""
+    outcome = getattr(core, "_last_round_outcome", None)
+    return isinstance(outcome, dict) and outcome.get("status") == "completed"
+
+
 def main() -> int:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
@@ -424,6 +430,9 @@ def main() -> int:
                         first_llm_started = True
                         _startup_timing_mark("first_llm_started")
                     initial_round_succeeded = False
+                    if core.auto_pilot_active:
+                        # Never reuse a successful result from an older turn.
+                        core._last_round_outcome = None
                     with lifecycle_execution() as lifecycle:
                         try:
                             _run_llm_event(
@@ -439,7 +448,9 @@ def main() -> int:
                                 append_result_to_outfile_fn=tools_util.append_result_to_outfile,
                                 try_open_images_from_text_fn=tools_util.try_open_images_from_text,
                             )
-                            initial_round_succeeded = True
+                            initial_round_succeeded = _auto_initial_round_completed(
+                                core
+                            )
                         except KeyboardInterrupt:
                             process_exit_code = max(process_exit_code, 130)
                             # Ctrl+C during generation: stop and return to the
