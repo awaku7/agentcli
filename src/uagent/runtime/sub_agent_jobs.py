@@ -22,7 +22,9 @@ from enum import Enum
 from typing import Any, Callable
 
 from ..utils.secret_mask import _mask_inline_secrets
+from .handoff_projection import SourceAccessCheck
 from .sub_agent_handoff import SubAgentDispatch
+from .sub_agent_return import build_compact_sub_agent_return
 
 CURRENT_SUB_AGENT_JOB_ID: ContextVar[str | None] = ContextVar(
     "uagent_current_sub_agent_job_id", default=None
@@ -345,6 +347,7 @@ class _SubAgentJob:
     continuation_count: int = 0
     store_key: str | None = None
     handoff_dispatch: SubAgentDispatch | None = None
+    handoff_result_persisted: bool = False
 
 
 class SubAgentJobManager:
@@ -532,6 +535,44 @@ class SubAgentJobManager:
             if job is None:
                 return _not_found()
             return self._snapshot_locked(job)
+
+    def get_compact_handoff_return(
+        self,
+        *,
+        owner: SubAgentJobOwner,
+        job_id: str,
+        source_access_check: SourceAccessCheck,
+        max_bytes: int = 32_000,
+    ) -> str | None:
+        """Let the trusted host read a finished, indexed Sub-Agent return.
+
+        This read-only API is not a model/tool action. Missing, unauthorized,
+        unfinished, legacy and unpersisted jobs all return None. The caller
+        must supply a current source-access check; a successful read does not
+        deliver or apply a state delta to Main. Results are not consumed, so
+        an eventual receiver must deduplicate root handoff IDs durably.
+        """
+        with self._condition:
+            self._evict_completed_locked(time.monotonic())
+            job = self._authorized_job_locked(owner, job_id)
+            if (
+                job is None
+                or not job.state.terminal
+                or not job.handoff_result_persisted
+                or job.handoff_dispatch is None
+            ):
+                return None
+            dispatch = job.handoff_dispatch
+            role = job.agent_name
+
+        # No Job-manager lock during SQLite access or host authorization.
+        # Terminal persistence and cancellation were serialized at publication.
+        return build_compact_sub_agent_return(
+            dispatch,
+            agent_role=role,
+            source_access_check=source_access_check,
+            max_bytes=max_bytes,
+        )
 
     def record_event(
         self, *, owner: SubAgentJobOwner, job_id: str, kind: str, message: str
@@ -1087,6 +1128,7 @@ class SubAgentJobManager:
             # Holding it through persistence makes either termination or
             # successful result publication win as one serialized operation.
             dispatch.record_result(result)
+            job.handoff_result_persisted = True
             job.result, was_truncated = _bounded_result(
                 _mask_inline_secrets(result), self.settings.result_max_bytes
             )
