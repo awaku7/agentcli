@@ -250,7 +250,7 @@ imitates the UAG owner marker/schema) are preserved under a free
 `save_agent_state()` cannot alter or erase it; before first application,
 arbitrary values under the same name remain ordinary legacy user data.
 The compaction reducer preserves unrelated protected state.
-This method is not installed in any host or exposed as an LLM tool.
+This method is exposed only to the interactive local CLI via `:receipt apply`; it is not an LLM tool or enabled in other hosts.
 
 The CLI provides explicit local audit commands: `:receipt` lists
 currently visible receipt IDs and review statuses; `:receipt evidence`
@@ -263,6 +263,15 @@ label `cli:local-operator` identifies a local action, **not an
 authenticated individual**. A review is audit metadata, not proof of a
 claim's truth; it never completes a Goal, changes Main AgentState/Memory,
 or promotes Sub-Agent text into authoritative instructions.
+
+`:receipt apply <root-id>` is a separate explicit interactive command. It
+calls the trusted-host-only application API only for the current CLI Main
+Session, validating the existing supported review, its independent user
+source, the current revision and available child output in one SQLite
+transaction. Identical retries do not increment the revision. The command
+registers `reviewed_unverified` root metadata only; it never certifies
+facts, changes Goals/Memory or resumes Auto-pilot. Headless and Auto-pilot
+commands cannot perform this write.
 
 Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
