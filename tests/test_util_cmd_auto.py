@@ -184,7 +184,9 @@ def test_auto_resume_uses_last_completed_round_without_initial_llm(tmp_path):
         assert restored.auto_pilot_max_rounds == 10
 
 
-@pytest.mark.parametrize("change", ["message", "revision", "other_session"])
+@pytest.mark.parametrize(
+    "change", ["message", "revision", "other_session", "same_count_replacement"]
+)
 def test_auto_resume_rejects_changed_session(tmp_path, change):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         sid = store.create_session(project="p", entry_point="cli").session_id
@@ -197,6 +199,8 @@ def test_auto_resume_rejects_changed_session(tmp_path, change):
             store.append_message(sid, "user", "Unrelated turn")
         elif change == "revision":
             store.save_agent_state(sid, {"goal": "modified"}, expected_revision=0)
+        elif change == "same_count_replacement":
+            store.replace_messages(sid, [{"role": "user", "content": "Changed"}])
         else:
             sid = store.create_session(project="p", entry_point="cli").session_id
 
