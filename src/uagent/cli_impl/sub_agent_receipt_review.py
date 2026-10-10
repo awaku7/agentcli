@@ -164,3 +164,21 @@ def handle_cli_receipt_command(
         % {"status": label, "outcome": outcome}
     )
     return True
+
+def dispatch_cli_receipt_command_event(
+    line: str,
+    *,
+    core: Any,
+    store: SessionStore,
+    owner: SubAgentJobOwner,
+) -> bool:
+    """Run a command event and always release stdin's command-pending state."""
+    stripped = str(line or "").strip()
+    if stripped != ":receipt" and not stripped.startswith(":receipt "):
+        return False
+    try:
+        return handle_cli_receipt_command(
+            line, core=core, store=store, owner=owner
+        )
+    finally:
+        core.set_status(False, "")
