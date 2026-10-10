@@ -335,7 +335,7 @@ def test_stateless_tool_round_uses_checkpoint_without_recompressing(
         messages = [
             {"role": "system", "content": "instructions"},
             {"role": "user", "content": "Task A uses Python 3.14"},
-            user,
+            {**user, "content": "turn-only context\\n" + user["content"]},
             assistant,
             tool,
         ]
@@ -350,6 +350,7 @@ def test_stateless_tool_round_uses_checkpoint_without_recompressing(
         assert projected is not None and projected.changed
         assert projected.messages[-1] == tool
         assert projected.messages[-2] == assistant
+        assert projected.messages[-3] == messages[-3]
         assert any(
             item.get("role") == "system" and "Task A" in str(item.get("content"))
             for item in projected.messages
