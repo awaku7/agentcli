@@ -450,7 +450,7 @@ def _maybe_auto_shrink_messages(
                     client=client,
                     depname=depname,
                     messages=messages,
-                    keep_last=keep_last,
+                    keep_last=max(1, keep_last),
                     use_responses_api=use_responses_api,
                     structured_compaction=True,
                     return_outcome=True,
@@ -589,6 +589,7 @@ def build_structured_auto_shrink_projection(
     call_maybe_thread_fn: Any,
     use_responses_api: bool,
     previous_response_id: bool,
+    allow_checkpoint_creation: bool = True,
 ) -> AutoShrinkProjection | None:
     """Compact canonical session sources while keeping the live history intact.
 
@@ -633,9 +634,25 @@ def build_structured_auto_shrink_projection(
         while raw_messages and raw_messages[0].get("role") == "system":
             raw_messages.pop(0)
             indexed.pop(0)
-        if not raw_messages or raw_messages[-1].get("role") != "user":
+        if not raw_messages:
             return None
+        if allow_checkpoint_creation:
+            if raw_messages[-1].get("role") != "user":
+                return None
+        else:
+            # Stateless tool continuations must reuse a committed checkpoint
+            # without generating another one or crossing a pending tool block.
+            if (
+                previous_response_id
+                or not messages
+                or messages[-1].get("role") != "tool"
+                or raw_messages[-1].get("role") != "tool"
+                or raw_messages[-1].get("content") != messages[-1].get("content")
+            ):
+                return None
         checkpoints = store.list_compaction_records(str(session_id), limit=1)
+        if not allow_checkpoint_creation and not checkpoints:
+            return None
     except Exception:
         # No trusted, exactly ordered sources: do not create a checkpoint.
         return None
@@ -676,7 +693,11 @@ def build_structured_auto_shrink_projection(
 
     # The normal rolling-summary hysteresis applies to *new* persisted rows,
     # not the source rows retained for audit and source-reference resolution.
-    if checkpoints:
+    if checkpoints and not allow_checkpoint_creation:
+        # Never summarize a live tool continuation. The exact tool block is
+        # appended after the previously committed AgentState projection.
+        projected = source
+    elif checkpoints:
         keep_raw = (env_get("UAGENT_SHRINK_KEEP_LAST", "") or "").strip()
         count_raw = (env_get("UAGENT_SHRINK_CNT", "") or "").strip()
         try:
