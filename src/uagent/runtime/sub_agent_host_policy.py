@@ -87,14 +87,7 @@ def build_scoped_job_handoff_policy(
                 return False
             # Re-evaluate the exact id and sequence, not merely the scope.
             # Legacy ordering or deleted sources must not be disclosed.
-            return any(
-                item["ref_id"] == ref.ref_id
-                and item["session_seq"] == ref.session_seq
-                and item["ordering_quality"] == "exact"
-                and item["availability"] == "available"
-                and item["message_id"] is not None
-                for item in store.list_indexed_messages(owner.session_id)
-            )
+            return store.is_exact_indexed_message_available(ref)
 
         if any(not check_source(ref) for ref in scoped_sources):
             raise CompactionValidationError("selected source is unavailable")
