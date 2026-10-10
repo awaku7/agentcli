@@ -285,9 +285,9 @@ def test_redacted_dispatch_scope_stays_parseable_for_secret_objective(tmp_path):
         dispatch.record_result(
             '{"status":"completed","summary":"Investigated the bug"}'
         )
-        scope = store.list_indexed_messages(dispatch.source_session_id)[0][
-            "payload"
-        ]["dispatch_scope"]
+        scope = store.list_indexed_messages(dispatch.source_session_id)[0]["payload"][
+            "dispatch_scope"
+        ]
         assert "secret" not in json.dumps(scope)
         assert scope["objective"].startswith("Investigate api_key=")
         assert _receive(dispatch)["already_received"] is False
@@ -302,8 +302,7 @@ def test_receipt_survives_child_cleanup_and_remains_idempotent(tmp_path):
         main, dispatch = _setup(store)
         _receive(dispatch)
         row = store._connection.execute(
-            "SELECT record_json FROM sub_agent_receipts "
-            "WHERE root_handoff_id = ?",
+            "SELECT record_json FROM sub_agent_receipts WHERE root_handoff_id = ?",
             (dispatch.dispatch_id,),
         ).fetchone()
         from uagent.runtime.handoff_record import HandoffRecord
@@ -311,17 +310,17 @@ def test_receipt_survives_child_cleanup_and_remains_idempotent(tmp_path):
         record = HandoffRecord.from_dict(json.loads(row["record_json"]))
         store.delete_session(dispatch.source_session_id)
         present = store._connection.execute(
-            "SELECT count(*) FROM sub_agent_receipts "
-            "WHERE root_handoff_id = ?",
+            "SELECT count(*) FROM sub_agent_receipts WHERE root_handoff_id = ?",
             (dispatch.dispatch_id,),
         ).fetchone()[0]
         assert present == 1
-        assert store.commit_sub_agent_receipt(
+        replayed = store.commit_sub_agent_receipt(
             record,
             source_session_id=dispatch.source_session_id,
             expected_role="reviewer",
             source_access_check=lambda _ref: True,
-        )["already_received"] is True
+        )
+        assert replayed["already_received"] is True
         store.delete_session(main)
         removed = store._connection.execute(
             "SELECT count(*) FROM sub_agent_receipts"
