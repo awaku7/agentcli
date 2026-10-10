@@ -89,6 +89,7 @@ def test_tool_round_limit_override_remains_supported(monkeypatch) -> None:
     monkeypatch.setattr(llm, "env_get", lambda _name, _default=None: "700")
     assert llm._resolve_max_tool_rounds() == 700
 
+
 def test_memory_projection_change_clears_pending_tool_continuation(monkeypatch) -> None:
     import uagent.uagent_llm as llm
 
