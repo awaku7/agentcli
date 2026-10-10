@@ -80,10 +80,7 @@ class SubAgentDispatch:
                 item["role"] == "assistant"
                 and (item["payload"] or {}).get("dispatch_id") == self.dispatch_id
             ):
-                if (
-                    check_owner
-                    and (item["payload"] or {}).get("job_id") != job_id
-                ):
+                if check_owner and (item["payload"] or {}).get("job_id") != job_id:
                     raise CompactionValidationError(
                         "persisted Sub-Agent result belongs to another Job"
                     )
