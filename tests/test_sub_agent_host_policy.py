@@ -146,9 +146,7 @@ def test_revoked_or_resequenced_parent_source_is_rejected(tmp_path):
             policy(owner, "reviewer", "Inspect again")
 
 
-def test_exact_source_check_uses_index_and_rejects_invalid_rows(
-    tmp_path, monkeypatch
-):
+def test_exact_source_check_uses_index_and_rejects_invalid_rows(tmp_path, monkeypatch):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, ref = _main(store)
         goal_id = _save_goal(store, owner, ref)
