@@ -189,7 +189,12 @@ The projection is size-bounded and placed after AgentState turn updates,
 so a report cannot become a Goal merely by entering LLM context. The user
 turn's original text is restored at the end of each provider round (including
 error exits), preventing unverified evidence from accumulating in persistent
-conversation history or surviving later source revocation.
+conversation history or surviving later source revocation. Because a provider
+may retain a server-side conversation chain, any round that projected a
+receipt also invalidates the in-memory and SQLite-persisted Responses
+continuation and requests a refresh of Gemini/Vertex provider caches.
+An explicit later `:load` therefore cannot revive the last projected
+Responses ID after the source has been revoked.
 The text is lower-trust material, not instructions or confirmed facts;
 there is no Goal/Memory/state mutation, no completion signal, and no
 Auto-pilot resume. Other hosts do not enable this context projection.
