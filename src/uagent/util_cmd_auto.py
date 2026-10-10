@@ -23,6 +23,7 @@ from .runtime.observability.auto_pilot import (
     record_auto_pilot_run_finished,
 )
 from .runtime.agent_loop import AgentLoopJudgment, run_agent_loop
+from .runtime.session_store import redact_sensitive
 from .util_common import CommandResult, append_result_to_outfile
 from .util_image import try_open_images_from_text
 from .utils.secret_mask import _mask_inline_secrets, mask_message
@@ -52,13 +53,17 @@ def _save_auto_checkpoint(core: Any, status: str) -> None:
     if store is None or not session_id:
         return
     try:
+        goal = str(core.auto_pilot_goal or "")
+        safe_goal = redact_sensitive(_mask_inline_secrets(goal))
+        # Never persist a raw credential or resume with a changed goal.
+        safe_status = status if goal == safe_goal else "sensitive_goal"
         store.record_tool_context(
             session_id,
             tool_name=_AUTO_CHECKPOINT_KEY,
             context={
                 "version": 1,
-                "status": status,
-                "goal": core.auto_pilot_goal,
+                "status": safe_status,
+                "goal": safe_goal,
                 "round": core.auto_pilot_round,
                 "max_rounds": core.auto_pilot_max_rounds,
                 "message_count": len(store.list_messages(session_id)),
@@ -948,6 +953,9 @@ def _run_auto_pilot_loop(
         with core.interrupt_lock:
             core.interrupt_requested = False
 
+        # A previous turn's successful outcome cannot authorize this round.
+        if getattr(core, "_cli_auto_resume_enabled", False):
+            core._last_round_outcome = None
         llm_util.run_llm_rounds(
             provider,
             client,
@@ -959,6 +967,13 @@ def _run_auto_pilot_loop(
             try_open_images_from_text_fn=try_open_images_from_text_fn,
             preserve_tool_loop_state=True,
         )
+
+        if getattr(core, "_cli_auto_resume_enabled", False):
+            result = getattr(core, "_last_round_outcome", None)
+            if not isinstance(result, dict) or result.get("status") != "completed":
+                _save_auto_checkpoint(core, "failed")
+                core.auto_pilot_active = False
+                raise RuntimeError("Auto-pilot follow-up round did not complete")
 
         core.set_status(True, "AUTO")
         _save_auto_checkpoint(core, "ready")
