@@ -122,12 +122,8 @@ def test_cli_auto_receipt_follows_structured_opt_in():
 def test_single_structured_opt_in_shares_unverified_results_with_main(tmp_path):
     # The user enables one structured mode, not separate delivery/context flags.
     environment = {"UAGENT_SUB_AGENT_STRUCTURED_HANDOFF": "1"}
-    assert cli_auto_receipt_enabled(
-        environment, structured_handoff_enabled=True
-    )
-    assert cli_receipt_context_enabled(
-        environment, structured_handoff_enabled=True
-    )
+    assert cli_auto_receipt_enabled(environment, structured_handoff_enabled=True)
+    assert cli_receipt_context_enabled(environment, structured_handoff_enabled=True)
 
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, manager, notices, finished = _setup(store)
