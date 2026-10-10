@@ -144,6 +144,7 @@ def main() -> int:
     depname = startup.depname
     messages = startup.messages
     session_store = startup.session_store
+    core._cli_auto_resume_enabled = not UAGENT_NON_INTERACTIVE
     resume_id = getattr(core, "_portable_resume_id", None)
     if resume_id:
         del core._portable_resume_id
