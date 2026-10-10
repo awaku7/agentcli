@@ -1968,10 +1968,6 @@ msgstr ""
 msgid "[AUTO] Stopped."
 msgstr ""
 
-#: src/uagent/util_cmd_auto.py:257
-msgid "[AUTO] Exited by user (F11)."
-msgstr ""
-
 #: src/uagent/util_cmd_auto.py:268
 msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
 msgstr ""
@@ -3448,7 +3444,7 @@ msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
 msgstr ""
 
 #: src/uagent/util_help.py:256
-msgid "Press F11 in CLI to stop auto-pilot; F12 stops the current LLM response."
+msgid "Press F12 to interrupt the current LLM response and stop auto-pilot."
 msgstr ""
 
 #: src/uagent/util_help.py:260

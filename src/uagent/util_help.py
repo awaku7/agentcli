@@ -257,7 +257,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
             tr("Auto-pilot: repeatedly pursue a goal until done or stopped"),
             usage=(":auto <goal> [--max-rounds N] | :auto off"),
             detail=tr(
-                "Press F11 in CLI to stop auto-pilot; F12 stops the current LLM response."
+                "Press F12 to interrupt the current LLM response and stop auto-pilot."
             ),
         ),
         "model": e(

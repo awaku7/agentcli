@@ -281,7 +281,7 @@ Stop methods:
 
 | Method | Description |
 |---|---|
-| **F11 key** | Stops auto-pilot at the next safe checkpoint |
+| **F12 key** | Interrupts the current response and stops auto-pilot |
 | **`COMPLETE` judged** | Reviewer decides goal is met |
 | **`--max-rounds N` reached** | Default 10 rounds |
 
