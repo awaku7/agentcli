@@ -120,9 +120,7 @@ def test_explicit_goal_and_indexed_source_grants_do_not_leak_unselected_goals(
         dispatch = policy(owner, "reviewer", "Investigate incident")
         projected = json.loads(dispatch.render_context())
         assert [item["goal_id"] for item in projected["goals"]] == [goal_id]
-        assert (
-            projected["goals"][0]["progress_events"][0]["text"] == "Investigating"
-        )
+        assert projected["goals"][0]["progress_events"][0]["text"] == "Investigating"
         assert "Unrelated confidential goal" not in dispatch.render_context()
         assert "PRIVATE MESSAGE" not in dispatch.render_context()
         assert dispatch.bounds.source_refs == (ref,)
