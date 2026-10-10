@@ -71,15 +71,9 @@ Zásady komprese využívají:
 - počet nesystémových zpráv;
 - vyřešené kontextové okno modelu, je-li k dispozici;
 - `UAGENT_SHRINK_KEEP_LAST` (výchozí hodnota 20);
-- `UAGENT_SHRINK_MAX_TOKENS` nebo přepsání specifické pro daný model;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; a
 - `UAGENT_SHRINK_RATIO` (výchozí hodnota 0,5, pokud je kontextové okno známo).
-
-Limit specifický pro daný model lze zadat takto:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Předchozí souhrn se negeneruje při každém tahu. Hysteréze vyžaduje, aby se nashromáždilo dostatečné množství nové historie nebo došlo k dalšímu přetečení tokenového rozpočtu, než se komprese spustí znovu.
 

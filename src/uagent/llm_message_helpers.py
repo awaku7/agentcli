@@ -230,37 +230,13 @@ def _get_default_shrink_max_tokens(depname: str) -> int:
 
 
 def _get_shrink_max_tokens(depname: str) -> int:
-    # 1. 蛟句挨迺ｰ蠅・､画焚 (譛蜆ｪ蜈・
-    dep_suffix = depname.upper().replace("-", "_").replace(".", "_").replace("/", "_")
-    env_specific_key = f"UAGENT_SHRINK_MAX_TOKENS_{dep_suffix}"
-    specific_val = (env_get(env_specific_key) or "").strip()
-    if specific_val:
+    """Read the shared limit or use the model's default context-based limit."""
+    configured = (env_get("UAGENT_SHRINK_MAX_TOKENS") or "").strip()
+    if configured:
         try:
-            return int(specific_val)
-        except Exception:
+            return int(configured)
+        except ValueError:
             pass
-
-    # 2. 蜈ｱ騾夂腸蠅・､画焚 (JSON霎樊嶌 縺ｾ縺溘・ 蜊倅ｸ謨ｰ蛟､)
-    global_val = (env_get("UAGENT_SHRINK_MAX_TOKENS") or "").strip()
-    if global_val:
-        if global_val.startswith("{") and global_val.endswith("}"):
-            try:
-                import json
-
-                limits_dict = json.loads(global_val)
-                dep_lower = depname.lower()
-                for k, v in limits_dict.items():
-                    if k.lower() in dep_lower:
-                        return int(v)
-            except Exception:
-                pass
-        else:
-            try:
-                return int(global_val)
-            except Exception:
-                pass
-
-    # 3. 繧ｳ繝ｼ繝牙・縺ｮ繝・ヵ繧ｩ繝ｫ繝亥､
     return _get_default_shrink_max_tokens(depname)
 
 

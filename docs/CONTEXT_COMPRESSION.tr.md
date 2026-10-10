@@ -71,15 +71,9 @@ Sıkıştırma politikası şunları kullanır:
 - sistem dışı mesaj sayısı;
 - varsa, modelin çözümlenmiş bağlam penceresi;
 - `UAGENT_SHRINK_KEEP_LAST` (varsayılan olarak 20);
-- `UAGENT_SHRINK_MAX_TOKENS` veya modele özgü bir geçersiz kılma;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; ve
 - `UAGENT_SHRINK_RATIO` (bağlam penceresi bilindiğinde varsayılan olarak 0,5).
-
-Modele özgü bir sınır şu şekilde sağlanabilir:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Önceki bir özet her turda yeniden oluşturulmaz. Sıkıştırma işleminin tekrar çalışabilmesi için, yeterli miktarda yeni geçmiş verisinin birikmesi veya başka bir token bütçesi taşması gerekir.
 

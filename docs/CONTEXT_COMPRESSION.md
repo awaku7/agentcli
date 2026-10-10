@@ -76,15 +76,11 @@ The compression policy uses:
 - the number of non-system messages;
 - the model's resolved context window when available;
 - `UAGENT_SHRINK_KEEP_LAST` (20 by default);
-- `UAGENT_SHRINK_MAX_TOKENS` or a model-specific override;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; and
 - `UAGENT_SHRINK_RATIO` (0.5 by default when a context window is known).
 
-A model-specific limit can be supplied as:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
+Configure one integer limit using `UAGENT_SHRINK_MAX_TOKENS`. When unset, the limit is inferred from the model context window through llmcapa. Per-model environment variables and JSON per-model mappings are no longer supported.
 
 A previous summary is not regenerated on every turn. Hysteresis requires enough new history to accumulate, or another token-budget overflow, before compression runs again.
 

@@ -71,15 +71,9 @@ Kebijakan kompresi ini menggunakan:
 - jumlah pesan non-sistem;
 - jendela konteks model yang telah diselesaikan jika tersedia;
 - `UAGENT_SHRINK_KEEP_LAST` (20 secara default);
-- `UAGENT_SHRINK_MAX_TOKENS` atau penggantian yang spesifik untuk model;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; dan
 - `UAGENT_SHRINK_RATIO` (0,5 secara default jika jendela konteks diketahui).
-
-Batas khusus model dapat diberikan sebagai:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Ringkasan sebelumnya tidak dibuat ulang pada setiap giliran. Histeresis memerlukan akumulasi riwayat baru yang cukup, atau kelebihan anggaran token lainnya, sebelum kompresi dijalankan kembali.
 

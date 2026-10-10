@@ -71,15 +71,9 @@ Het compressiebeleid maakt gebruik van:
 - het aantal niet-systeemberichten;
 - het opgeloste contextvenster van het model, indien beschikbaar;
 - `UAGENT_SHRINK_KEEP_LAST` (standaard 20);
-- `UAGENT_SHRINK_MAX_TOKENS` of een modelspecifieke overschrijving;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; en
 - `UAGENT_SHRINK_RATIO` (standaard 0,5 wanneer een contextvenster bekend is).
-
-Een modelspecifieke limiet kan worden opgegeven als:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Een eerdere samenvatting wordt niet bij elke beurt opnieuw gegenereerd. Er moet voldoende nieuwe geschiedenis zijn opgebouwd, of er moet opnieuw een overschrijding van het tokenbudget plaatsvinden, voordat de compressie opnieuw wordt uitgevoerd.
 

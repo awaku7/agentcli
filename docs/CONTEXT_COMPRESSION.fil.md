@@ -71,15 +71,9 @@ Ang patakaran sa pagkompres ay gumagamit ng:
 - ang bilang ng mga mensaheng hindi mula sa sistema;
 - ang resolved context window ng modelo kapag magagamit;
 - `UAGENT_SHRINK_KEEP_LAST` (20 bilang default);
-- `UAGENT_SHRINK_MAX_TOKENS` o isang override na partikular sa modelo;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; at
 - `UAGENT_SHRINK_RATIO` (0.5 bilang default kapag kilala ang kontekstong bintana).
-
-Maaaring magbigay ng limitasyong partikular sa modelo bilang:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Hindi muling ginagawa ang naunang buod sa bawat pag-ikot. Kinakailangan ng hysteresis na mag-ipon ng sapat na bagong kasaysayan, o magkaroon ng isa pang pag-uumapaw ng token-budget, bago muling magpatakbo ang compression.
 

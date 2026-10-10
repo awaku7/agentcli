@@ -69,15 +69,9 @@ Dasar pemampatan menggunakan:
 - bilangan mesej bukan sistem;
 - tetingkap konteks terurai model apabila tersedia;
 - `UAGENT_SHRINK_KEEP_LAST` (20 secara lalai);
-- `UAGENT_SHRINK_MAX_TOKENS` atau keutamaan khusus model;
+- `UAGENT_SHRINK_MAX_TOKENS`;
 - `UAGENT_SHRINK_CNT`; dan
 - `UAGENT_SHRINK_RATIO` (0.5 secara lalai apabila tetingkap konteks diketahui).
-
-Had khusus model boleh disertakan sebagai:
-
-```text
-UAGENT_SHRINK_MAX_TOKENS_<MODEL_NAME>
-```
 
 Ringkasan sebelumnya tidak dihasil semula pada setiap giliran. Histeresis memerlukan sejarah baru yang mencukupi untuk terkumpul, atau lebihan bajet token lain, sebelum pemampatan dijalankan semula.
 

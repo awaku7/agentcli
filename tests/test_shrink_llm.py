@@ -120,6 +120,33 @@ def _isolate_env(monkeypatch: pytest.MonkeyPatch):
     yield
 
 
+@pytest.mark.parametrize(
+    ("configured", "expected"),
+    [
+        ("8192", 8192),
+        ("0", 0),
+        ('{"gpt-6-luna": 8192}', 50000),
+        ("not-a-number", 50000),
+        (None, 50000),
+    ],
+)
+def test_shrink_max_tokens_uses_only_shared_setting(
+    monkeypatch: pytest.MonkeyPatch,
+    configured: str | None,
+    expected: int,
+):
+    # Legacy per-model variables must not override the shared setting.
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS_GPT_6_LUNA", "1024")
+    if configured is None:
+        monkeypatch.delenv("UAGENT_SHRINK_MAX_TOKENS", raising=False)
+    else:
+        monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", configured)
+    monkeypatch.setattr(lmh, "_get_default_shrink_max_tokens", lambda _: 50000)
+
+    assert lmh._get_shrink_max_tokens("gpt-6-luna") == expected
+    assert lmh._get_shrink_max_tokens("another-model") == expected
+
+
 def test_history_summary_helpers_detect_and_strip():
     prefix = "Summary of the conversation so far:\n"
     body = "Decided to use X. Pending Y."
