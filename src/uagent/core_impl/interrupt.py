@@ -25,14 +25,14 @@ def _check_key_win() -> None:
                 if scan == b"\x86":  # F12
                     _core.interrupt_requested = True
             with _core.auto_pilot_exit_lock:
-                if scan in (b"\x85", b"\x86"):  # F11 (legacy) / F12
+                if scan == b"\x86":  # F12
                     _core.auto_pilot_exit_requested = True
     except Exception:
         pass
 
 
 def _check_key_posix() -> None:
-    """Check F11/F12 terminal escape sequences without consuming text."""
+    """Check F12 terminal escape sequences without consuming text."""
     with _core.human_ask_lock:
         if _core.human_ask_active or _core.input_prompt_active or not _core.status_busy:
             return
@@ -64,14 +64,14 @@ def _check_key_posix() -> None:
             if data == b"\x1b[24~":  # F12
                 _core.interrupt_requested = True
         with _core.auto_pilot_exit_lock:
-            if data in (b"\x1b[23~", b"\x1b[24~"):  # F11 (legacy) / F12
+            if data == b"\x1b[24~":  # F12
                 _core.auto_pilot_exit_requested = True
     except Exception:
         pass
 
 
 def start_interrupt_monitor() -> None:
-    """Start daemon thread that monitors F11/F12 function keys."""
+    """Start daemon thread that monitors the F12 function key."""
     if _core._interrupt_monitor_thread is not None:
         return
 
@@ -80,7 +80,7 @@ def start_interrupt_monitor() -> None:
 
         while not _core._interrupt_monitor_stop.is_set():
             # Keep monitoring during auto-pilot between rounds as well as
-            # during normal BUSY work; otherwise F11 can be lost during the
+            # during normal BUSY work; otherwise F12 can be lost during the
             # short IDLE gap between the reviewer and the next LLM call.
             if not _core.status_busy and not _core.auto_pilot_active:
                 _core._interrupt_monitor_stop.wait(0.1)
