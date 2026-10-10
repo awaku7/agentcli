@@ -233,9 +233,7 @@ def test_auto_resume_rejects_unfinished_and_explicitly_stopped_runs(tmp_path):
 
 def test_auto_resume_requires_persistent_session():
     core = _core()
-    result = _handle_cmd_auto(
-        "resume", [], None, "", core=core, tr=lambda x: x
-    )
+    result = _handle_cmd_auto("resume", [], None, "", core=core, tr=lambda x: x)
     assert not result.resume_auto_pilot
     assert not core.auto_pilot_active
 
