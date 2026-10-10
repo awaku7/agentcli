@@ -63,9 +63,7 @@ def _apply(store, main, dispatch, **changes):
         "source_access_check": lambda _ref: True,
     }
     options.update(changes)
-    return store.apply_reviewed_sub_agent_receipt(
-        main, dispatch.dispatch_id, **options
-    )
+    return store.apply_reviewed_sub_agent_receipt(main, dispatch.dispatch_id, **options)
 
 
 def _entry(store, session_id, root):
@@ -96,9 +94,10 @@ def test_review_metadata_applies_atomically_without_promoting_report(tmp_path):
         assert "goals" not in state
         assert "memory" not in state
         assert "structured_compaction" not in state
-        assert store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)[
-            "outcome"
-        ] == "supported"
+        assert (
+            store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)["outcome"]
+            == "supported"
+        )
 
 
 def test_replay_after_restart_and_legacy_save_cannot_erase_registry(tmp_path):
