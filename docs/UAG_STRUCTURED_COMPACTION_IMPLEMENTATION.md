@@ -109,7 +109,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 **Main側の受理記録（次の限定的な実装段階）:** `receive_compact_sub_agent_return()` はtrusted dispatchと現在のsource認可から `HandoffRecord` を再生成し、受信先Sessionのrevision、子Sessionの同一project/identity/room、dispatchの索引と唯一の出力SourceRefを検証して `sub_agent_receipts` に記録する。受理とroot IDの重複排除はSQLite `BEGIN IMMEDIATE` で一括処理し、同じrootの同内容再試行のみ冪等に成功する。revisionが進んだ未受理の古い結果は拒否する。これは **未検証報告の受理記録** に限り、Main AgentStateのrevision・Goal・Memory・完了判定には変更を加えない。hostへの自動接続とMain状態適用は後続PRの対象とする。
 
-**Job→Mainの明示的な配送（追加の限定実装）:** `SubAgentJobManager.deliver_compact_handoff_to_main(owner, job_id, source_access_check)` は、trusted ownerが取得できる終了Jobのうち構造化された結果を正常保存したものだけを対象とし、Indexed child outputに記録されたJob IDの一致を検証してから#209の `receive_compact_sub_agent_return()` を呼び出す。Main側はSQLiteトランザクションで権限・出典・revision・root IDを再検証し、同じ結果の再配送は受理済みとして返す。キャンセル・未保存・他owner・通常Jobは配送しない。エラー終了の結果も未検証報告として扱い、MainのGoal完了やAgentStateを更新しない。**既存hostは本APIをまだ呼ばず、自動配送とGoal/source選択policyの有効化は別作業。**
+**Job→Mainの明示的な配送（追加の限定実装）:** `SubAgentJobManager.deliver_compact_handoff_to_main(owner, job_id, source_access_check)` は、trusted ownerが取得できる終了Jobのうち構造化された結果を正常保存したものだけを対象とし、Indexed child outputに記録されたJob IDの一致を検証してから#209の `receive_compact_sub_agent_return()` を呼び出す。Main側はSQLiteトランザクション内で出力のJob ID・権限・出典・revision・root IDを再検証し、同じ結果の再配送は受理済みとして返す。キャンセル・未保存・他owner・通常Jobは配送しない。エラー終了の結果も未検証報告として扱い、MainのGoal完了やAgentStateを更新しない。**既存hostは本APIをまだ呼ばず、自動配送とGoal/source選択policyの有効化は別作業。**
 
 **実装済みAPI — 子Session出力のcompact return（#207、Main配送前の段階）:**
 
