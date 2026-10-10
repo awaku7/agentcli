@@ -7,6 +7,7 @@ import pytest
 
 from uagent.decision import DecisionAnswer, DecisionResult, DecisionSettings
 from uagent import util_cmd_auto
+from uagent.runtime.session_store import SessionStore
 from uagent.util_cmd_auto import (
     _ask_auto_pilot_decision,
     _build_auto_pilot_decision_state,
@@ -148,6 +149,94 @@ def test_auto_off_stops_infinite_mode() -> None:
     assert result.run_llm is False
     assert core.auto_pilot_active is False
     assert core.auto_pilot_exit_requested is False
+
+
+def _sqlite_auto_core(store, session_id):
+    core = _core()
+    core.session_store = store
+    core._session_store_active_id = session_id
+    return core
+
+
+def test_auto_resume_uses_last_completed_round_without_initial_llm(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session = store.create_session(project="project", entry_point="cli")
+        sid = session.session_id
+        store.append_message(sid, "user", "Inspect project")
+        store.append_message(sid, "assistant", "Initial inspection complete")
+        original = _sqlite_auto_core(store, sid)
+        original.auto_pilot_goal = "Inspect project"
+        original.auto_pilot_max_rounds = 10
+        original.auto_pilot_round = 3
+        util_cmd_auto._save_auto_checkpoint(original, "ready")
+
+        restored = _sqlite_auto_core(store, sid)
+        result = _handle_cmd_auto(
+            "resume", [], None, "", core=restored, tr=lambda text: text
+        )
+        assert result.resume_auto_pilot
+        assert not result.run_llm
+        assert result.prompt is None
+        assert restored.auto_pilot_active
+        assert restored.auto_pilot_goal == "Inspect project"
+        assert restored.auto_pilot_round == 3
+        assert restored.auto_pilot_max_rounds == 10
+
+
+@pytest.mark.parametrize("change", ["message", "revision", "other_session"])
+def test_auto_resume_rejects_changed_session(tmp_path, change):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        sid = store.create_session(project="p", entry_point="cli").session_id
+        store.append_message(sid, "user", "Goal")
+        original = _sqlite_auto_core(store, sid)
+        original.auto_pilot_goal = "Goal"
+        util_cmd_auto._save_auto_checkpoint(original, "ready")
+
+        if change == "message":
+            store.append_message(sid, "user", "Unrelated turn")
+        elif change == "revision":
+            store.save_agent_state(sid, {"goal": "modified"}, expected_revision=0)
+        else:
+            sid = store.create_session(project="p", entry_point="cli").session_id
+
+        restored = _sqlite_auto_core(store, sid)
+        result = _handle_cmd_auto(
+            "resume", [], None, "", core=restored, tr=lambda text: text
+        )
+        assert not result.resume_auto_pilot
+        assert not restored.auto_pilot_active
+
+
+def test_auto_resume_rejects_unfinished_and_explicitly_stopped_runs(tmp_path):
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        sid = store.create_session(project="p", entry_point="cli").session_id
+        core = _sqlite_auto_core(store, sid)
+        start = _handle_cmd_auto(
+            "Inspect --max-rounds 5", [], None, "", core=core, tr=lambda x: x
+        )
+        assert start.run_llm
+        core.auto_pilot_active = False
+        after_restart = _sqlite_auto_core(store, sid)
+        result = _handle_cmd_auto(
+            "resume", [], None, "", core=after_restart, tr=lambda x: x
+        )
+        assert not result.resume_auto_pilot
+
+        util_cmd_auto._save_auto_checkpoint(core, "ready")
+        _handle_cmd_auto("off", [], None, "", core=core, tr=lambda x: x)
+        result = _handle_cmd_auto(
+            "resume", [], None, "", core=after_restart, tr=lambda x: x
+        )
+        assert not result.resume_auto_pilot
+
+
+def test_auto_resume_requires_persistent_session():
+    core = _core()
+    result = _handle_cmd_auto(
+        "resume", [], None, "", core=core, tr=lambda x: x
+    )
+    assert not result.resume_auto_pilot
+    assert not core.auto_pilot_active
 
 
 def test_reviewer_judgment_includes_masked_tool_result_summaries() -> None:
