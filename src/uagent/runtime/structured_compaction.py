@@ -16,7 +16,6 @@ from .compaction_record import SCHEMA_VERSION, CompactionRecord, SourceRef
 from .compaction_reducer import reduce_compaction_record
 from .session_store import SessionRevisionConflict, SessionStoreError
 
-MAX_SOURCE_MESSAGES = 80
 _MAX_REPAIR_CHARS = 24_000
 _MAX_PROJECTION_CHARS = 12_000
 _SEMANTIC_FIELDS = {
@@ -74,8 +73,6 @@ def _resolve_source_window(
 ) -> _SourceWindow:
     if not messages:
         raise StructuredCompactionError("empty_source_window")
-    if len(messages) > MAX_SOURCE_MESSAGES:
-        raise StructuredCompactionError("source_window_too_large")
 
     watermark = int(store.get_session_item_watermark(session_id))
     indexed = store.list_indexed_messages(session_id)
@@ -228,6 +225,64 @@ def _generation_messages(
         sort_keys=True,
     )
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
+
+
+def select_structured_source_prefix(
+    *,
+    store: Any,
+    session_id: str,
+    source_messages: Sequence[dict[str, Any]],
+    safe_cut_points: Sequence[int],
+    locale: str,
+    measure_tokens: Callable[[list[dict[str, str]]], int],
+    max_input_tokens: int | None,
+) -> int | None:
+    """Choose a complete, reference-validated prefix using the *actual* prompt.
+
+    A source window is bounded by the summarizer's model-token budget, not by
+    a number of messages. Candidates end at logical turns or completed
+    assistant boundaries, never inside an outstanding tool call.
+    """
+    if max_input_tokens is None or max_input_tokens <= 0:
+        return None
+    cuts = sorted(
+        {int(cut) for cut in safe_cut_points if 0 < cut <= len(source_messages)}
+    )
+    if not cuts:
+        return None
+    try:
+        # Check source identity and ordering once. A projection cannot create
+        # valid provenance from non-unique or unavailable persisted messages.
+        window = _resolve_source_window(store, session_id, source_messages)
+        state = store.get_agent_state(session_id) or {}
+    except Exception:
+        return None
+
+    low, high = 0, len(cuts) - 1
+    best: int | None = None
+    while low <= high:
+        middle = (low + high) // 2
+        count = cuts[middle]
+        candidate = _SourceWindow(
+            refs=window.refs[:count],
+            messages=window.messages[:count],
+            start_seq=window.start_seq,
+            end_seq=window.refs[count - 1].session_seq,
+            start_id=window.start_id,
+            end_id=window.refs[count - 1].ref_id,
+            watermark=window.watermark,
+        )
+        try:
+            prompt = _generation_messages(candidate, state, locale=locale)
+            fits = int(measure_tokens(prompt)) <= max_input_tokens
+        except Exception:
+            return None
+        if fits:
+            best = count
+            low = middle + 1
+        else:
+            high = middle - 1
+    return best
 
 
 def _parse_json_object(response: str) -> dict[str, Any]:
