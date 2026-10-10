@@ -423,8 +423,7 @@ class SessionStore:
                     root_handoff_id TEXT PRIMARY KEY,
                     receiving_session_id TEXT NOT NULL
                         REFERENCES sessions(session_id) ON DELETE CASCADE,
-                    source_session_id TEXT NOT NULL
-                        REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    source_session_id TEXT NOT NULL,
                     base_revision INTEGER NOT NULL CHECK(base_revision >= 0),
                     record_json TEXT NOT NULL,
                     received_at TEXT NOT NULL
@@ -1777,6 +1776,7 @@ class SessionStore:
         record: HandoffRecord,
         *,
         source_session_id: str,
+        expected_role: str,
         source_access_check: Callable[[SourceRef], bool],
     ) -> dict[str, Any]:
         """Durably receive one unverified child report without applying state.
@@ -1790,6 +1790,8 @@ class SessionStore:
             raise TypeError("record must be a HandoffRecord")
         if not callable(source_access_check):
             raise TypeError("source_access_check must be callable")
+        if record.role != expected_role:
+            raise SessionStoreError("receipt role does not match trusted host role")
         if (
             record.handoff_id != record.root_handoff_id
             or record.application_base_revision != record.receiving_base_revision
@@ -1818,14 +1820,6 @@ class SessionStore:
         try:
             self._connection.execute("BEGIN IMMEDIATE")
             parent = self.get_session(record.receiving_session_id)
-            child = self.get_session(source_session_id)
-            if (
-                child["entry_point"] != "sub-agent"
-                or child["project_key"] != parent["project_key"]
-                or child["principal_id"] != parent["principal_id"]
-                or child["room_id"] != parent["room_id"]
-            ):
-                raise SessionStoreError("receipt child and receiver scope mismatch")
 
             # After a committed receipt, replay can succeed without depending
             # on the mutable revision or availability of old source evidence.
@@ -1849,6 +1843,15 @@ class SessionStore:
                     "root_handoff_id": record.root_handoff_id,
                     "already_received": True,
                 }
+
+            child = self.get_session(source_session_id)
+            if (
+                child["entry_point"] != "sub-agent"
+                or child["project_key"] != parent["project_key"]
+                or child["principal_id"] != parent["principal_id"]
+                or child["room_id"] != parent["room_id"]
+            ):
+                raise SessionStoreError("receipt child and receiver scope mismatch")
 
             current = self._execute(
                 "SELECT revision FROM agent_states WHERE session_id = ?",
@@ -1909,7 +1912,17 @@ class SessionStore:
             # the indexed dispatch and child output. A public store caller
             # must not be able to reserve a root ID with invented contents.
             try:
-                scoped = json.loads(dispatch_row["content"])
+                dispatch_payload = json.loads(dispatch_row["payload_json"] or "null")
+                scope_snapshot = (
+                    dispatch_payload.get("dispatch_scope")
+                    if isinstance(dispatch_payload, dict)
+                    else None
+                )
+                scoped = (
+                    scope_snapshot
+                    if scope_snapshot is not None
+                    else json.loads(dispatch_row["content"])
+                )
                 output_payload = json.loads(output["payload_json"] or "null")
                 report = (
                     output_payload.get("compact_report")
