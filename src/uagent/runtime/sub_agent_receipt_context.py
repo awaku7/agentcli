@@ -160,8 +160,7 @@ def ephemeral_receipt_context_round(fn):
                         continue
                     current = message.get("content")
                     if message is injected or (
-                        isinstance(current, str)
-                        and current == injected_text
+                        isinstance(current, str) and current == injected_text
                     ):
                         message["content"] = original
             del patches[initial_count:]
