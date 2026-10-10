@@ -37,9 +37,18 @@ def _delta(ref, *, title="Task A"):
     )
 
 
-def _options(store, session_id, messages, client, *, previous=False):
+def _options(
+    store,
+    session_id,
+    messages,
+    client,
+    *,
+    previous=False,
+    provider="openai",
+    cache_name=None,
+):
     return lmh.build_structured_auto_shrink_projection(
-        provider="openai",
+        provider=provider,
         client=client,
         depname="gpt-test",
         messages=messages,
@@ -52,7 +61,7 @@ def _options(store, session_id, messages, client, *, previous=False):
             ),
         ),
         cache_mgr=SimpleNamespace(clear_cache=lambda _: None),
-        gemini_cache_name=None,
+        gemini_cache_name=cache_name,
         call_maybe_thread_fn=lambda fn: fn(),
         use_responses_api=False,
         previous_response_id=previous,
@@ -237,3 +246,45 @@ def test_compaction_does_not_reuse_already_checkpointed_source(tmp_path, monkeyp
         assert len(checkpoints) == 2
         assert checkpoints[0]["source_start_seq"] > checkpoints[1]["source_end_seq"]
         assert store.list_messages(session.session_id) == before
+
+
+def test_restored_gemini_checkpoint_keeps_agent_state_system_summary(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="cli")
+        _seed_one_checkpoint(store, session.session_id)
+        newer = {"role": "user", "content": "Task B uses C# 7.3"}
+        store.append_message(
+            session.session_id, "user", newer["content"], payload=newer
+        )
+        messages = [
+            {"role": "system", "content": "startup instructions"},
+            {"role": "user", "content": "Task A uses Python 3.14"},
+            newer,
+        ]
+        projection = _options(
+            store,
+            session.session_id,
+            messages,
+            SimpleNamespace(),
+            provider="gemini",
+            cache_name="cached-startup-instructions",
+        )
+        assert projection is not None
+        assert projection.cache_name is None
+        provider_messages = lmh._build_call_messages(
+            provider="gemini",
+            messages=list(projection.messages),
+            core=SimpleNamespace(),
+            depname="gemini-test",
+            gemini_cache_name=projection.cache_name,
+        )
+        assert any(
+            item.get("role") == "system" and "Task A" in str(item.get("content"))
+            for item in provider_messages
+        )
