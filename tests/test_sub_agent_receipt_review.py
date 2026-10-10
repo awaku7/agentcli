@@ -24,9 +24,7 @@ def _setup(store):
         main_id, "user", "Independent human review evidence for the report"
     )
     indexed = store.list_indexed_messages(main_id)[0]
-    evidence = SourceRef(
-        "message", indexed["ref_id"], main_id, indexed["session_seq"]
-    )
+    evidence = SourceRef("message", indexed["ref_id"], main_id, indexed["session_seq"])
     dispatch = capture_sub_agent_dispatch(
         store,
         receiving_session_id=main_id,
@@ -52,9 +50,7 @@ def _review(store, main_id, dispatch, evidence, **changes):
         "source_access_check": lambda _ref: True,
     }
     kwargs.update(changes)
-    return store.review_sub_agent_receipt(
-        main_id, dispatch.dispatch_id, **kwargs
-    )
+    return store.review_sub_agent_receipt(main_id, dispatch.dispatch_id, **kwargs)
 
 
 def _count(store):
@@ -102,7 +98,10 @@ def test_conflicting_replays_and_other_main_sessions_are_rejected(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         main, dispatch, evidence = _setup(store)
         other = store.create_session(project="test", entry_point="cli")
-        assert store.get_sub_agent_receipt_review(other.session_id, dispatch.dispatch_id) is None
+        assert (
+            store.get_sub_agent_receipt_review(other.session_id, dispatch.dispatch_id)
+            is None
+        )
         with pytest.raises(SessionStoreError, match="not owned"):
             _review(store, other.session_id, dispatch, evidence)
         _review(store, main, dispatch, evidence)
@@ -152,11 +151,14 @@ def test_review_evidence_must_be_independent_current_user_message(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         main, dispatch, evidence = _setup(store)
         output = next(
-            item for item in store.list_indexed_messages(dispatch.source_session_id)
+            item
+            for item in store.list_indexed_messages(dispatch.source_session_id)
             if item["role"] == "assistant"
         )
         child = SourceRef(
-            "message", output["ref_id"], dispatch.source_session_id,
+            "message",
+            output["ref_id"],
+            dispatch.source_session_id,
             output["session_seq"],
         )
         with pytest.raises(SessionStoreError, match="unavailable or unauthorized"):
@@ -201,9 +203,9 @@ def test_rejection_is_audit_only_and_review_survives_child_cleanup(tmp_path):
         before = store.get_agent_state_snapshot(main)
         _review(store, main, dispatch, evidence, outcome="rejected")
         store.delete_session(dispatch.source_session_id)
-        assert store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)["outcome"] == (
-            "rejected"
-        )
+        assert store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)[
+            "outcome"
+        ] == ("rejected")
         assert store.get_agent_state_snapshot(main) == before
         store._connection.execute(
             "UPDATE session_items SET availability = 'unavailable' "
