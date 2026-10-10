@@ -1934,8 +1934,9 @@ class SessionStore:
                     )
                 row = self._execute(
                     "SELECT role, content FROM messages "
-                    "WHERE session_id = ? AND message_id = ?",
-                    (receiving_session_id, int(ref.ref_id)),
+                    "WHERE message_id = CAST(? AS INTEGER) "
+                    "AND CAST(message_id AS TEXT) = ? AND session_id = ?",
+                    (ref.ref_id, ref.ref_id, receiving_session_id),
                 ).fetchone()
                 if row is None or row["role"] != "user" or not row["content"].strip():
                     raise SessionStoreError(
