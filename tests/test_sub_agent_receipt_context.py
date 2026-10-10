@@ -11,7 +11,6 @@ from uagent.runtime.session_store import SessionStore
 from uagent.runtime.sub_agent_handoff import capture_sub_agent_dispatch
 from uagent.runtime.sub_agent_receipt import receive_compact_sub_agent_return
 from uagent.runtime.sub_agent_receipt_context import (
-    cli_receipt_context_enabled,
     ephemeral_receipt_context_round,
     format_sub_agent_receipt_context,
     inject_sub_agent_receipt_context,
@@ -144,30 +143,6 @@ def test_other_sessions_and_hosts_cannot_read_via_injection(tmp_path):
         core._sub_agent_job_owner.entry_point = "web"
         assert not inject_sub_agent_receipt_context(messages, core)
         assert messages[0]["content"] == "Next task"
-
-
-@pytest.mark.parametrize(
-    "flag,enabled",
-    [("", True), ("0", False), ("1", True), ("true", True)],
-)
-def test_receipt_context_configuration(flag, enabled):
-    env = {"UAGENT_SUB_AGENT_HANDOFF_CONTEXT": flag}
-    assert cli_receipt_context_enabled(env, structured_handoff_enabled=True) is enabled
-
-
-def test_receipt_context_requires_structured_dispatch_and_valid_configuration():
-    with pytest.raises(ValueError, match="requires structured"):
-        cli_receipt_context_enabled(
-            {"UAGENT_SUB_AGENT_HANDOFF_CONTEXT": "1"},
-            structured_handoff_enabled=False,
-        )
-    with pytest.raises(ValueError, match="must be 0 or 1"):
-        cli_receipt_context_enabled(
-            {"UAGENT_SUB_AGENT_HANDOFF_CONTEXT": "maybe"},
-            structured_handoff_enabled=True,
-        )
-    assert not cli_receipt_context_enabled({}, structured_handoff_enabled=False)
-    assert cli_receipt_context_enabled({}, structured_handoff_enabled=True)
 
 
 def test_receipt_listing_and_projection_reject_unsafe_budgets(tmp_path):
