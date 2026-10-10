@@ -43,6 +43,7 @@ from .runtime.context_budget import ContextBudget
 from .runtime.context_manager import ContextManager
 from .runtime.context_plan_builder import build_context_plan, context_plan_matches
 from .runtime.context_policy import ContextPolicy
+from .runtime.sub_agent_receipt_context import ephemeral_receipt_context_round
 from .runtime.memory_projection import (
     apply_memory_projection,
     memory_projection_access_is_current,
@@ -2692,6 +2693,7 @@ def _resolve_max_tool_rounds() -> int:
         return _DEFAULT_MAX_TOOL_ROUNDS
 
 
+@ephemeral_receipt_context_round
 @_observed_llm_rounds
 def run_llm_rounds(
     provider: str,
