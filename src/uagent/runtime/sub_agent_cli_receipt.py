@@ -14,27 +14,6 @@ from .compaction_record import SourceRef
 from .session_store import SessionStore
 from .sub_agent_jobs import SubAgentJobManager, SubAgentJobOwner
 
-_ENV_NAME = "UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT"
-_ENABLED = frozenset({"1", "true", "yes", "on"})
-_DISABLED = frozenset({"", "0", "false", "no", "off"})
-
-
-def cli_auto_receipt_enabled(
-    environment: Mapping[str, str], *, structured_handoff_enabled: bool
-) -> bool:
-    """Structured CLI handoff delivers receipts by default; explicit opt-out is safe."""
-    flag = str(environment.get(_ENV_NAME, "")).strip().lower()
-    if flag == "":
-        return structured_handoff_enabled
-    if flag in _DISABLED:
-        return False
-    if flag not in _ENABLED:
-        raise ValueError(f"{_ENV_NAME} must be 0 or 1")
-    if not structured_handoff_enabled:
-        raise ValueError(f"{_ENV_NAME} requires structured CLI handoff")
-    return True
-
-
 def deliver_cli_finished_job_notice(
     *,
     manager: SubAgentJobManager,
