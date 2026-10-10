@@ -23,7 +23,7 @@ def _fake_core():
 
 
 def test_windows_f12_only(monkeypatch):
-    for scan, expected in ((b"\x86", True), (b"\x84", False)):
+    for scan, expected in ((b"\x86", True), (b"\x85", False)):
         core = _fake_core()
         for name, value in vars(core).items():
             monkeypatch.setattr(interrupt, name, value)
@@ -58,7 +58,7 @@ def test_posix_f12_only(monkeypatch):
             self.remaining -= 1
             return bytes([next(self.data)])
 
-    for sequence, expected in ((b"\x1b[24~", True), (b"\x1b[22~", False)):
+    for sequence, expected in ((b"\x1b[24~", True), (b"\x1b[23~", False)):
         core = _fake_core()
         for name, value in vars(core).items():
             monkeypatch.setattr(interrupt, name, value)
