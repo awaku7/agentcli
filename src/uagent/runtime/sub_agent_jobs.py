@@ -656,6 +656,7 @@ class SubAgentJobManager:
             agent_role=role,
             source_access_check=source_access_check,
             max_bytes=max_bytes,
+            expected_job_id=trusted_job_id,
         )
 
     def record_event(
