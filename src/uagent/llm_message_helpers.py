@@ -450,7 +450,7 @@ def _maybe_auto_shrink_messages(
                     client=client,
                     depname=depname,
                     messages=messages,
-                    keep_last=keep_last,
+                    keep_last=max(1, keep_last),
                     use_responses_api=use_responses_api,
                     structured_compaction=True,
                     return_outcome=True,
@@ -573,6 +573,197 @@ def build_auto_shrink_projection(
         messages=tuple(dict(message) for message in projected),
         changed=projected != source_messages,
         source_message_count=len(source_messages),
+        projected_message_count=len(projected),
+    )
+
+
+def build_structured_auto_shrink_projection(
+    *,
+    provider: str,
+    client: Any,
+    depname: str,
+    messages: list[dict[str, Any]],
+    core: Any,
+    cache_mgr: Any,
+    gemini_cache_name: Any,
+    call_maybe_thread_fn: Any,
+    use_responses_api: bool,
+    previous_response_id: bool,
+    allow_checkpoint_creation: bool = True,
+) -> AutoShrinkProjection | None:
+    """Compact canonical session sources while keeping the live history intact.
+
+    The mutable conversation may contain provider-only memory/state injections.
+    Structured source references must instead resolve against exact, persisted
+    SessionStore rows. Committed checkpoints determine the *next* source window,
+    so old evidence is never fed back to the reducer as a new observation.
+    """
+    flag = (env_get("UAGENT_STRUCTURED_COMPACTION", "0") or "").strip().lower()
+    store = getattr(core, "session_store", None)
+    session_id = getattr(core, "_session_store_active_id", None) or getattr(
+        core, "session_id", None
+    )
+    if flag not in {"1", "true", "yes", "on"} or store is None or not session_id:
+        return None
+    if is_server_side_compaction_enabled(
+        provider,
+        use_responses_api=use_responses_api,
+        compact_threshold=_get_shrink_max_tokens(depname),
+    ):
+        return None
+
+    try:
+        indexed = store.list_indexed_messages(str(session_id))
+        if not indexed or any(
+            item.get("ordering_quality") != "exact"
+            or item.get("availability") != "available"
+            or item.get("message_id") is None
+            for item in indexed
+        ):
+            return None
+        raw_messages = [
+            (
+                copy.deepcopy(item["payload"])
+                if isinstance(item.get("payload"), dict)
+                else {"role": item["role"], "content": item["content"]}
+            )
+            for item in indexed
+        ]
+        # Startup system instructions already come from the live conversation.
+        # Do not inject their persisted copies a second time.
+        while raw_messages and raw_messages[0].get("role") == "system":
+            raw_messages.pop(0)
+            indexed.pop(0)
+        if not raw_messages:
+            return None
+        if allow_checkpoint_creation:
+            if raw_messages[-1].get("role") != "user":
+                return None
+        else:
+            # Stateless tool continuations must reuse a committed checkpoint
+            # without generating another one or crossing a pending tool block.
+            if (
+                previous_response_id
+                or not messages
+                or messages[-1].get("role") != "tool"
+                or raw_messages[-1].get("role") != "tool"
+                or raw_messages[-1].get("content") != messages[-1].get("content")
+            ):
+                return None
+        checkpoints = store.list_compaction_records(str(session_id), limit=1)
+        if not allow_checkpoint_creation and not checkpoints:
+            return None
+    except Exception:
+        # No trusted, exactly ordered sources: do not create a checkpoint.
+        return None
+
+    system_prefix = []
+    for message in messages:
+        if message.get("role") != "system":
+            break
+        if not _is_history_summary_message(message):
+            system_prefix.append(copy.deepcopy(message))
+
+    recent = raw_messages
+    summary_message = None
+    if checkpoints:
+        from .runtime.structured_compaction import project_agent_state
+
+        try:
+            checkpoint_end = int(checkpoints[0]["source_end_seq"])
+            recent = [
+                message
+                for item, message in zip(indexed, raw_messages)
+                if int(item["session_seq"]) > checkpoint_end
+            ]
+            summary = project_agent_state(store.get_agent_state(str(session_id)) or {})
+            if not summary:
+                return None
+            summary_message = {
+                "role": "system",
+                "content": "Summary of the conversation so far:\n" + summary,
+            }
+        except Exception:
+            return None
+
+    source = system_prefix + ([summary_message] if summary_message else []) + recent
+    if not source or not recent:
+        return None
+    original_count = len(messages)
+
+    # The normal rolling-summary hysteresis applies to *new* persisted rows,
+    # not the source rows retained for audit and source-reference resolution.
+    if checkpoints and not allow_checkpoint_creation:
+        # Never summarize a live tool continuation. The exact tool block is
+        # appended after the previously committed AgentState projection.
+        projected = source
+    elif checkpoints:
+        keep_raw = (env_get("UAGENT_SHRINK_KEEP_LAST", "") or "").strip()
+        count_raw = (env_get("UAGENT_SHRINK_CNT", "") or "").strip()
+        try:
+            keep_last = max(0, int(keep_raw)) if keep_raw else 20
+        except ValueError:
+            keep_last = 20
+        try:
+            shrink_cnt = max(0, int(count_raw)) if count_raw else 0
+        except ValueError:
+            shrink_cnt = 0
+        re_cnt = max(keep_last * 2, keep_last + 10, shrink_cnt)
+        token_limit = _get_shrink_max_tokens(depname)
+        token_trigger = (
+            token_limit > 0 and _count_messages_tokens(source, depname) >= token_limit
+        )
+        if len(recent) < re_cnt and not token_trigger:
+            if previous_response_id:
+                return None
+            projected = source
+        else:
+            projected = copy.deepcopy(source)
+            _maybe_auto_shrink_messages(
+                provider=provider,
+                client=client,
+                depname=depname,
+                messages=projected,
+                core=core,
+                cache_mgr=cache_mgr,
+                gemini_cache_name=gemini_cache_name,
+                call_maybe_thread_fn=call_maybe_thread_fn,
+                use_responses_api=use_responses_api,
+                persist=True,
+            )
+    else:
+        projected = copy.deepcopy(source)
+        _maybe_auto_shrink_messages(
+            provider=provider,
+            client=client,
+            depname=depname,
+            messages=projected,
+            core=core,
+            cache_mgr=cache_mgr,
+            gemini_cache_name=gemini_cache_name,
+            call_maybe_thread_fn=call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+            persist=True,
+        )
+        if projected == source:
+            return None
+
+    # Keep temporary user-turn context in the provider projection for every
+    # tool round, while checkpoint evidence continues to use canonical rows.
+    latest_user = next(
+        (item for item in reversed(messages) if item.get("role") == "user"),
+        None,
+    )
+    if latest_user is not None:
+        for index in range(len(projected) - 1, -1, -1):
+            if projected[index].get("role") == "user":
+                projected[index] = copy.deepcopy(latest_user)
+                break
+    return AutoShrinkProjection(
+        cache_name=None,
+        messages=tuple(projected),
+        changed=True,
+        source_message_count=original_count,
         projected_message_count=len(projected),
     )
 

@@ -18,8 +18,10 @@
 ## 3. 現在の状態
 
 - **確認基準日:** 2026-10-10。GitHub PR #222 の main へのマージを確認した時点。
+- **CLIの構造化圧縮実行経路（PR #226、レビュー中）:** `UAGENT_STRUCTURED_COMPACTION=1` でも従来の通常CLI呼び出しが `persist=False` の投影にとどまりCheckpointを保存できなかった問題を修正する。ユーザーターンの境界で永続 SessionStore の正確な順序付き生メッセージを取得して構造化Checkpointを保存し、SourceRefが解決できない場合には永続構造化状態を変更しない。Responses継続IDが残る場合、圧縮が成立したときに限りIDを無効化して要約を含む完全履歴で再開する。圧縮済みの末尾より後の生メッセージのみを次の圧縮対象にし、保存済み生履歴は置換しない。実LLMでの確認とCodexレビューは未完了。
 - **全体状態:** PR 1 は基礎実装が条件付き完了、PR 2 は完了、PR 3 は同一 Session のメッセージ出典に限定した基礎統合まで完了。PR 4 は CLI の Sub-Agent 完了結果を Main に未検証情報として自動共有するところまで実装済み。PR 5 の複数 Client 安全性は未完了。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`。第26章の PR 1〜5 は**実装フェーズ名**であり、実際の GitHub PR 件数を指定しない。
+- **CLI圧縮単位の選択（PR #226）:** 固定80メッセージ制限を撤廃し、LLMごとのコンテキスト長または明示的な `UAGENT_SHRINK_CHUNK_TOKENS` から求めたトークン予算と、正確な永続SourceRefを含む構造化生成プロンプトの推定トークン数で処理範囲を決定する。通常は論理ターン単位で切り、単一ターンが予算を超える場合のみ、完了済みassistantで安全に切れる場所を使う。ツールの呼び出し・結果の途中は分割しない。予算が取得できない場合や安全な切断点がない場合はCheckpoint生成を保留し、Raw履歴を保持する。80件を超える短い履歴が予算内なら1回で処理できる。実機動作・レビューの最終判定は未完了。
 - **PR 4 の実装済み範囲:** trusted dispatch / Job、保存済み子出力からの compact return、Main 側の出典付き受理記録、CLI の `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` による自動配送と新着一回限りの読み取り専用 context 提示（#220）。Main の revision が進んだ後でも、完了 Job の報告は元 revision を保持した未検証情報として受理し、Main AgentState / Goal / Memory は自動更新しない。配送・提示の独立した環境変数は廃止し、同じ単一 opt-in に連動する。既存の根拠付き review・root 管理 API および任意の CLI review 監査コマンドは、通常の共有に必須ではない。
 - **採用しない機能（2026-10-10確定）:** #219 は未マージで終了し、CLI の手動 `:receipt apply` と審査済み root 登録を通常手順に追加しない。#221 は未マージで終了し、Auto-pilot の中断後 `:auto resume`、ラウンド再開用永続 checkpoint、自動復元は実装しない。#222 をマージ済みで、**実行中の中断は F12 のみ**。旧キーの入力処理・互換分岐・表示・関連文書は削除済み。既存の Structured Compaction Checkpoint は context 圧縮・参照のために維持し、Auto-pilot の実行再開機能とは区別する。
 - **未完了の境界:** 実 provider/model を用いた handoff の end-to-end 接続検証、GUI / Web / A2A host の安全な opt-in、複数 Client の revision 競合と再評価、PR 1・PR 3 に残る認可付き出典参照・Artifact/tool-result 再取得・Reducer lifecycle の検証。個別事実・Goal 状態の権威ある適用は日常の共有に必要とせず、将来明示的な要件が出た場合に別途設計する。
