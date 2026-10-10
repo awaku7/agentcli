@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 from types import SimpleNamespace
 
+import pytest
+
 from uagent import llm_message_helpers as lmh
 from uagent.core_impl import history
 from uagent.runtime.session_store import SessionStore
@@ -46,6 +48,7 @@ def _options(
     previous=False,
     provider="openai",
     cache_name=None,
+    allow_checkpoint_creation=True,
 ):
     return lmh.build_structured_auto_shrink_projection(
         provider=provider,
@@ -65,6 +68,7 @@ def _options(
         call_maybe_thread_fn=lambda fn: fn(),
         use_responses_api=False,
         previous_response_id=previous,
+        allow_checkpoint_creation=allow_checkpoint_creation,
     )
 
 
@@ -90,11 +94,12 @@ def _seed_one_checkpoint(store, session_id):
     assert outcome.status == "applied"
 
 
+@pytest.mark.parametrize("keep_last", [0, 4])
 def test_initial_cli_projection_commits_checkpoint_without_rewriting_raw(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, keep_last
 ):
     monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
-    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", str(keep_last))
     monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
     monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
     monkeypatch.setattr(
@@ -140,6 +145,8 @@ def test_initial_cli_projection_commits_checkpoint_without_rewriting_raw(
         client = SimpleNamespace(chat=SimpleNamespace(completions=responses))
         projected = _options(store, session.session_id, messages, client, previous=True)
         assert projected is not None and projected.changed
+        assert projected.messages[-1]["role"] == "user"
+        assert projected.messages[-1]["content"] == "latest"
         assert responses.calls
         assert any(
             "Task A" in str(message["content"])
@@ -287,4 +294,77 @@ def test_restored_gemini_checkpoint_keeps_agent_state_system_summary(
         assert any(
             item.get("role") == "system" and "Task A" in str(item.get("content"))
             for item in provider_messages
+        )
+
+
+
+def test_stateless_tool_round_uses_checkpoint_without_recompressing(
+    tmp_path, monkeypatch
+):
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="cli")
+        _seed_one_checkpoint(store, session.session_id)
+        user = {"role": "user", "content": "run the tool"}
+        assistant = {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+                {
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {"name": "sample_tool", "arguments": "{}"},
+                }
+            ],
+        }
+        tool = {
+            "role": "tool",
+            "name": "sample_tool",
+            "tool_call_id": "call-1",
+            "content": "result: 42",
+        }
+        for item in (user, assistant, tool):
+            store.append_message(
+                session.session_id,
+                item["role"],
+                item["content"],
+                payload=item,
+            )
+        messages = [
+            {"role": "system", "content": "instructions"},
+            {"role": "user", "content": "Task A uses Python 3.14"},
+            user,
+            assistant,
+            tool,
+        ]
+        before = store.list_messages(session.session_id)
+        projected = _options(
+            store,
+            session.session_id,
+            messages,
+            SimpleNamespace(),
+            allow_checkpoint_creation=False,
+        )
+        assert projected is not None and projected.changed
+        assert projected.messages[-1] == tool
+        assert projected.messages[-2] == assistant
+        assert any(
+            item.get("role") == "system" and "Task A" in str(item.get("content"))
+            for item in projected.messages
+        )
+        assert len(store.list_compaction_records(session.session_id)) == 1
+        assert store.list_messages(session.session_id) == before
+        assert (
+            _options(
+                store,
+                session.session_id,
+                messages,
+                SimpleNamespace(),
+                previous=True,
+                allow_checkpoint_creation=False,
+            )
+            is None
         )
