@@ -37,5 +37,6 @@ def receive_compact_sub_agent_return(
     return dispatch._store.commit_sub_agent_receipt(
         record,
         source_session_id=dispatch.source_session_id,
+        expected_role=agent_role,
         source_access_check=source_access_check,
     )
