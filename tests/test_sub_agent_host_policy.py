@@ -132,8 +132,9 @@ def test_explicit_goal_and_indexed_source_grants_do_not_leak_unselected_goals(
 def test_revoked_or_resequenced_parent_source_is_rejected(tmp_path):
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         owner, ref = _main(store)
+        goal_id = _save_goal(store, owner, ref)
         policy = build_scoped_job_handoff_policy(
-            store, entry_point="cli", source_refs=(ref,)
+            store, entry_point="cli", goal_ids=(goal_id,), source_refs=(ref,)
         )
         dispatch = policy(owner, "reviewer", "Inspect")
         store._connection.execute(
