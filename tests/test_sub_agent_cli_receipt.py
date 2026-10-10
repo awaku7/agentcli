@@ -152,15 +152,21 @@ def test_notice_does_not_deliver_to_switched_owner_or_on_start(tmp_path):
             switched = SubAgentJobOwner(
                 entry_point="cli", session_id=switched_session.session_id
             )
-            assert deliver_cli_finished_job_notice(
-                manager=manager, owner=switched, notice=notice, store=store
-            ) is None
+            assert (
+                deliver_cli_finished_job_notice(
+                    manager=manager, owner=switched, notice=notice, store=store
+                )
+                is None
+            )
             started = next(
                 n for n in notices if n["event"] == "started" and n["job_id"] == job_id
             )
-            assert deliver_cli_finished_job_notice(
-                manager=manager, owner=owner, notice=started, store=store
-            ) is None
+            assert (
+                deliver_cli_finished_job_notice(
+                    manager=manager, owner=owner, notice=started, store=store
+                )
+                is None
+            )
             assert _count(store) == 0
         finally:
             manager.shutdown()
@@ -172,14 +178,20 @@ def test_unstructured_job_and_forged_notice_do_not_deliver(tmp_path):
         try:
             job_id = _spawn(manager, owner, structured=False)
             notice = _finished_notice(manager, owner, notices, finished, job_id)
-            assert deliver_cli_finished_job_notice(
-                manager=manager, owner=owner, notice=notice, store=store
-            ) is None
+            assert (
+                deliver_cli_finished_job_notice(
+                    manager=manager, owner=owner, notice=notice, store=store
+                )
+                is None
+            )
             forged = dict(notice)
             forged["owner"] = dict(notice["owner"], session_id="another")
-            assert deliver_cli_finished_job_notice(
-                manager=manager, owner=owner, notice=forged, store=store
-            ) is None
+            assert (
+                deliver_cli_finished_job_notice(
+                    manager=manager, owner=owner, notice=forged, store=store
+                )
+                is None
+            )
             assert _count(store) == 0
         finally:
             manager.shutdown()
