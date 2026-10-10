@@ -1,0 +1,149 @@
+"""Explicit, local operator commands for Sub-Agent receipt audit reviews.
+
+Only a foreground interactive CLI command can write a review. Nothing here
+accepts model-proposed reviewer identities or automatically promotes a report
+to verified AgentState, Memory or Goal completion.
+"""
+
+from __future__ import annotations
+
+import os
+import re
+import shlex
+import sys
+from typing import Any
+
+from ..runtime.compaction_record import SourceRef
+from ..runtime.session_store import SessionStore, SessionStoreError
+from ..runtime.sub_agent_jobs import SubAgentJobOwner
+from .sub_agent_jobs import _safe_terminal_text
+
+_ROOT_ID_RE = re.compile(r"[A-Za-z0-9_-]{1,128}")
+
+
+def _active_cli_session(
+    core: Any, store: SessionStore, owner: SubAgentJobOwner
+) -> str | None:
+    if not isinstance(store, SessionStore):
+        return None
+    if not isinstance(owner, SubAgentJobOwner) or owner.entry_point != "cli":
+        return None
+    active = str(getattr(core, "_session_store_active_id", "") or "")
+    if active != owner.session_id:
+        return None
+    try:
+        session = store.get_session(active)
+    except (SessionStoreError, ValueError):
+        return None
+    if session["entry_point"] != "cli":
+        return None
+    return active
+
+
+def _human_review_available(core: Any) -> bool:
+    """Fail closed for injected, headless and Auto-pilot commands."""
+    return (
+        getattr(sys.stdin, "isatty", lambda: False)()
+        and getattr(sys.stdout, "isatty", lambda: False)()
+        and os.environ.get("UAGENT_NON_INTERACTIVE", "").lower()
+        not in {"1", "true", "yes", "on"}
+        and not bool(getattr(core, "auto_pilot_active", False))
+    )
+
+
+def handle_cli_receipt_command(
+    line: str,
+    *,
+    core: Any,
+    store: SessionStore,
+    owner: SubAgentJobOwner,
+) -> bool:
+    """Handle :receipt commands; never claim factual verification."""
+    stripped = str(line or "").strip()
+    if stripped != ":receipt" and not stripped.startswith(":receipt "):
+        return False
+    try:
+        parts = shlex.split(stripped)
+    except ValueError:
+        print("Usage: :receipt [evidence | review <root-id> <supported|rejected> <message-id> <seq>]")
+        return True
+    if not parts or parts[0] != ":receipt":
+        return False
+    session_id = _active_cli_session(core, store, owner)
+    if session_id is None:
+        print("Receipt review is unavailable for the current CLI Session.")
+        return True
+
+    if len(parts) == 1:
+        receipts = store.list_visible_sub_agent_receipts(session_id, limit=10)
+        if not receipts:
+            print("No currently accessible unverified receipts.")
+            return True
+        for item in receipts:
+            root = item["root_handoff_id"]
+            audit = store.get_sub_agent_receipt_review(session_id, root)
+            status = audit["outcome"] if audit is not None else "not-reviewed"
+            print(
+                f"{_safe_terminal_text(root, 128)} "
+                f"role={_safe_terminal_text(item['role'], 80)} "
+                f"review={status}"
+            )
+        return True
+
+    if len(parts) == 2 and parts[1] == "evidence":
+        entries = [
+            item
+            for item in store.list_indexed_messages(session_id)
+            if item["role"] == "user"
+            and item["ordering_quality"] == "exact"
+            and item["availability"] == "available"
+        ][-20:]
+        if not entries:
+            print("No indexed Main user messages available as evidence.")
+            return True
+        print("Candidate evidence IDs (content intentionally hidden):")
+        for item in entries:
+            print(
+                f"message-id={_safe_terminal_text(item['ref_id'], 32)} "
+                f"seq={item['session_seq']}"
+            )
+        return True
+
+    if len(parts) != 6 or parts[1] != "review":
+        print("Usage: :receipt review <root-id> <supported|rejected> <message-id> <seq>")
+        print("Use :receipt evidence to list candidate Main user message IDs.")
+        return True
+    if not _human_review_available(core):
+        print("Receipt review requires an interactive local operator (not Auto-pilot).")
+        return True
+    root_id, outcome, message_id, seq_value = parts[2:]
+    if (
+        _ROOT_ID_RE.fullmatch(root_id) is None
+        or outcome not in {"supported", "rejected"}
+        or not message_id.isascii()
+        or not message_id.isdecimal()
+        or not seq_value.isascii()
+        or not seq_value.isdecimal()
+        or int(seq_value) < 1
+    ):
+        print("Invalid receipt review command arguments.")
+        return True
+    evidence = SourceRef("message", message_id, session_id, int(seq_value))
+    try:
+        receipt = store.review_sub_agent_receipt(
+            session_id,
+            root_id,
+            reviewer_id="cli:local-operator",
+            outcome=outcome,
+            evidence_refs=(evidence,),
+            expected_revision=store.get_agent_state_revision(session_id),
+            source_access_check=lambda ref: (
+                ref == evidence and store.is_exact_indexed_message_available(ref)
+            ),
+        )
+    except (SessionStoreError, ValueError, TypeError) as exc:
+        print(f"Receipt review rejected: {_safe_terminal_text(type(exc).__name__, 80)}")
+        return True
+    label = "already recorded" if receipt["already_reviewed"] else "recorded"
+    print(f"Receipt review {label}: {outcome} (audit only; no Goal or state changes)")
+    return True

@@ -101,6 +101,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] CLIに明示的opt-inのtrusted Goal ID／親Sessionの厳密なmessage SourceRef選択ポリシーを接続（既定は無効、許可リストは空）
 - [ ] GUI・Web・A2Aホストのtrusted Goal/source選択ポリシーを安全に有効化
 - [x] 受理報告と独立した根拠に基づくtrusted reviewの記録を追加（受理root単位に1件、Mainの状態は非更新）
+- [x] 対話型CLIからMainユーザーメッセージを根拠にreview監査記録を明示登録（本人認証・Main状態更新は対象外）
 - [x] trusted host専用のreview済みrootメタデータをMain AgentStateへ一括反映（SQLite単一transactionでrevision照合・root ID重複排除。報告本文やGoalは非更新）
 - [ ] review済み報告から独立に検証された個別事実／Goal状態を適用する承認・根拠モデル
 - [ ] Main側のrevision検証・root ID重複排除・state適用を一括処理
@@ -124,6 +125,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 **Mainの審査済みroot管理（PR #215、限定実装）:** `SessionStore.apply_reviewed_sub_agent_receipt()` は、trusted hostが明示的に指定した既存の `supported` reviewのみを対象に、独立根拠の現在の利用可否・user role・認可、元の子出力の利用可否、Main revisionをSQLite `BEGIN IMMEDIATE` の同一transactionで確認する。初回適用時に `sub_agent_review_registry` へroot ID・確認者・独立根拠SourceRef等のメタデータだけを `reviewed_unverified` として格納し、AgentState revisionを1つ進める。同じrootの再適用は冪等で、状態やGoalは二度更新しない。UAG所有権はJSON内部の識別子だけでなく独立したSQLiteテーブル `sub_agent_review_registry_owners` によって管理し、初回適用と同一transactionで所有者行を記録する。旧バージョンで同名の任意データ（識別子を模倣したJSONも含む）があった場合は `legacy_sub_agent_review_registry*` に退避してから新領域を作る。所有者行ができた後は通常の `save_agent_state()` による上書き・消去を拒否し、reducer経由の他の状態更新はその領域を保持する。**これは受理と審査をMain状態に紐付ける処理であり、報告内容の事実認定やGoal完了、自動実行への適用ではない。** CLI/GUI/Web/A2Aホストへの自動接続やAuto-pilot再開は別段階。
 
 **根拠付きreviewの監査記録（新しい限定実装）:** `SessionStore.review_sub_agent_receipt()` は、trusted hostが指定した確認者・判断（`supported` または `rejected`）・独立したMainユーザーメッセージの出典を受け取り、最新のMain revision、元の子出力の出典、別根拠の現在の認可・exact/availableを確認してSQLiteトランザクション内で1件だけ記録する。元の子出力だけを根拠にすることは認めず、別Sessionやassistant出力の流用も拒否する。同じrootと同内容の再試行だけを冪等に認め、別判断による上書きを拒否する。根拠の失効後も監査記録は保持し、参照APIは現在の出典利用可否を返す。これは確認者による審査履歴であり、事実の自動認定、Goal終了判断、AgentStateへの一括適用には相当しない。モデルや一般ツールに書込みAPIを公開しない。
+
+**CLIでの手動審査登録（独立したホスト接続）:** `:receipt` で現在のMainの受理IDと審査結果、`:receipt evidence` で利用可能なMainユーザーメッセージのID・順序番号を本文なしで表示する。`:receipt review <root-id> supported|rejected <message-id> <seq>` を対話型CLIで明示した場合に限り、#214の審査APIを呼ぶ。Session所有者・根拠の参照権限・出典の現在の利用可否・Main revisionをトランザクションで再確認し、同一rootへの矛盾した審査記録を拒否する。ローカル操作の識別子 `cli:local-operator` は本人認証の証明ではない。審査結果は監査情報であって、報告の真偽の自動判定・Goal完了・AgentState更新・Auto-pilot再開を実行しない。
 
 **Job→Mainの明示的な配送（追加の限定実装）:** `SubAgentJobManager.deliver_compact_handoff_to_main(owner, job_id, source_access_check)` は、trusted ownerが取得できる終了Jobのうち構造化された結果を正常保存したものだけを対象とし、Indexed child outputに記録されたJob IDの一致を検証してから#209の `receive_compact_sub_agent_return()` を呼び出す。Main側はSQLiteトランザクション内で出力のJob ID・権限・出典・revision・root IDを再検証し、同じ結果の再配送は受理済みとして返す。キャンセル・未保存・他owner・通常Jobは配送しない。エラー終了の結果も未検証報告として扱い、MainのGoal完了やAgentStateを更新しない。**既存hostは本APIをまだ呼ばず、自動配送とGoal/source選択policyの有効化は別作業。**
 
