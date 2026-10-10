@@ -36,6 +36,7 @@ except Exception:
 from .llm_message_helpers import (
     _build_call_messages,
     build_auto_shrink_projection,
+    build_structured_auto_shrink_projection,
     _get_shrink_max_tokens,
     _init_gemini_cache,
 )
@@ -1581,7 +1582,47 @@ def _run_one_round(
     # uncompressed request and avoids rebuilding context after planning.
     _using_prev_rid = bool(core.responses_state.get("previous_response_id"))
     projection_changed = False
-    if not judgment_mode and not _using_prev_rid:
+    structured_projection = None
+    # A new user turn is the safe boundary for a durable checkpoint. Tool
+    # continuation rounds must preserve their pending call_id/response_id chain.
+    if (
+        not judgment_mode
+        and messages
+        and messages[-1].get("role") == "user"
+    ):
+        structured_projection = build_structured_auto_shrink_projection(
+            provider=provider,
+            client=client,
+            depname=depname,
+            messages=messages,
+            core=core,
+            cache_mgr=cache_mgr,
+            gemini_cache_name=gemini_cache_name,
+            call_maybe_thread_fn=_call_maybe_thread_fn,
+            use_responses_api=use_responses_api,
+            previous_response_id=_using_prev_rid,
+        )
+    if structured_projection is not None:
+        # A locally shortened request cannot continue a server-held response
+        # that still contains the uncompressed history.
+        if _using_prev_rid:
+            _clear_responses_after_tool_loop(core, reason="structured_compaction")
+            _using_prev_rid = False
+        projection_changed = True
+        gemini_cache_name = structured_projection.cache_name
+        call_messages = _build_call_messages(
+            provider=provider,
+            messages=list(structured_projection.messages),
+            core=core,
+            depname=depname,
+            gemini_cache_name=gemini_cache_name,
+        )
+        call_messages = apply_memory_projection(
+            call_messages,
+            getattr(core, "memory_projection_snapshot", None),
+            core,
+        )
+    elif not judgment_mode and not _using_prev_rid:
         auto_shrink_projection = build_auto_shrink_projection(
             provider=provider,
             client=client,
