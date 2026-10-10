@@ -94,9 +94,7 @@ def test_initial_cli_projection_commits_checkpoint_without_rewriting_raw(
     monkeypatch.setattr(
         history, "_history_summary_chunk_token_budget", lambda *_: 10000
     )
-    monkeypatch.setattr(
-        history, "_estimate_history_summary_tokens", lambda *_, **__: 1
-    )
+    monkeypatch.setattr(history, "_estimate_history_summary_tokens", lambda *_, **__: 1)
 
     class Responses:
         def __init__(self):
@@ -107,11 +105,7 @@ def test_initial_cli_projection_commits_checkpoint_without_rewriting_raw(
             request = json.loads(kwargs["messages"][-1]["content"])
             ref = request["sources"][0]["source_ref"]
             return SimpleNamespace(
-                choices=[
-                    SimpleNamespace(
-                        message=SimpleNamespace(content=_delta(ref))
-                    )
-                ]
+                choices=[SimpleNamespace(message=SimpleNamespace(content=_delta(ref)))]
             )
 
     with SessionStore(tmp_path / "session.sqlite3") as store:
@@ -134,12 +128,8 @@ def test_initial_cli_projection_commits_checkpoint_without_rewriting_raw(
             )
         before = store.list_messages(session.session_id)
         responses = Responses()
-        client = SimpleNamespace(
-            chat=SimpleNamespace(completions=responses)
-        )
-        projected = _options(
-            store, session.session_id, messages, client, previous=True
-        )
+        client = SimpleNamespace(chat=SimpleNamespace(completions=responses))
+        projected = _options(store, session.session_id, messages, client, previous=True)
         assert projected is not None and projected.changed
         assert responses.calls
         assert any(
@@ -204,9 +194,7 @@ def test_compaction_does_not_reuse_already_checkpointed_source(tmp_path, monkeyp
     monkeypatch.setattr(
         history, "_history_summary_chunk_token_budget", lambda *_: 10000
     )
-    monkeypatch.setattr(
-        history, "_estimate_history_summary_tokens", lambda *_, **__: 1
-    )
+    monkeypatch.setattr(history, "_estimate_history_summary_tokens", lambda *_, **__: 1)
 
     class Responses:
         def create(self, **kwargs):
@@ -242,12 +230,8 @@ def test_compaction_does_not_reuse_already_checkpointed_source(tmp_path, monkeyp
                 payload=message,
             )
         before = store.list_messages(session.session_id)
-        client = SimpleNamespace(
-            chat=SimpleNamespace(completions=Responses())
-        )
-        projected = _options(
-            store, session.session_id, messages, client, previous=True
-        )
+        client = SimpleNamespace(chat=SimpleNamespace(completions=Responses()))
+        projected = _options(store, session.session_id, messages, client, previous=True)
         assert projected is not None and projected.changed
         checkpoints = store.list_compaction_records(session.session_id)
         assert len(checkpoints) == 2
