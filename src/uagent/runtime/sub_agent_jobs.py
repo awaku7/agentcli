@@ -25,6 +25,7 @@ from ..utils.secret_mask import _mask_inline_secrets
 from .handoff_projection import SourceAccessCheck
 from .sub_agent_handoff import SubAgentDispatch
 from .sub_agent_return import build_compact_sub_agent_return
+from .session_store import SessionStore
 
 CURRENT_SUB_AGENT_JOB_ID: ContextVar[str | None] = ContextVar(
     "uagent_current_sub_agent_job_id", default=None
@@ -503,6 +504,40 @@ class SubAgentJobManager:
                         "status": "rejected",
                         "reason": "structured_handoff_scope_mismatch",
                     }
+                # One captured dispatch belongs to exactly one Job. The
+                # check includes terminal Jobs still retained by the manager.
+                # The indexed-output check also rejects reuse after eviction,
+                # or if a different manager already persisted an output.
+                key = (
+                    handoff_dispatch.source_session_id,
+                    handoff_dispatch.dispatch_id,
+                )
+                if any(
+                    existing.handoff_dispatch is not None
+                    and (
+                        existing.handoff_dispatch.source_session_id,
+                        existing.handoff_dispatch.dispatch_id,
+                    )
+                    == key
+                    for existing in self._jobs.values()
+                ):
+                    return {
+                        "status": "rejected",
+                        "reason": "structured_handoff_dispatch_conflict",
+                    }
+                if isinstance(handoff_dispatch._store, SessionStore):
+                    try:
+                        previously_saved = handoff_dispatch._result_source()
+                    except Exception:
+                        return {
+                            "status": "rejected",
+                            "reason": "structured_handoff_capture_failed",
+                        }
+                    if previously_saved is not None:
+                        return {
+                            "status": "rejected",
+                            "reason": "structured_handoff_dispatch_conflict",
+                        }
             now = time.monotonic()
             deadline_at = now + timeout if timeout is not None else None
             job = _SubAgentJob(
@@ -1127,7 +1162,7 @@ class SubAgentJobManager:
             # Cancellation and timeout transitions use the same condition.
             # Holding it through persistence makes either termination or
             # successful result publication win as one serialized operation.
-            dispatch.record_result(result)
+            dispatch.record_result(result, job_id=job.job_id)
             job.handoff_result_persisted = True
             job.result, was_truncated = _bounded_result(
                 _mask_inline_secrets(result), self.settings.result_max_bytes
