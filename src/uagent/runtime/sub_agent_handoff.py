@@ -100,9 +100,7 @@ class SubAgentDispatch:
         different Job from adopting an existing dispatch's indexed output on
         retries or when separate Job managers share one child session.
         """
-        if job_id is not None and (
-            not isinstance(job_id, str) or not job_id.strip()
-        ):
+        if job_id is not None and (not isinstance(job_id, str) or not job_id.strip()):
             raise CompactionValidationError("invalid trusted Job ID")
         existing = self._result_source(job_id=job_id)
         if existing is not None:
