@@ -519,6 +519,8 @@ Key modules:
       `COMPLETE / CONTINUE` Decision Provider judgment. Provider failure or
       invalid output falls back to the existing LLM reviewer; confidence is
       logged only and is not used as a threshold.
+    - **Resume:** CLI SQLite sessions save the goal, completed round count, and conversation/AgentState position in the existing tool-context table. After loading the original Session with `:load <id>`, `:auto resume` returns to completion judgment without replaying the initial LLM/tool call. Changed Session history or AgentState rejects resume; `:auto off` and completed goals cannot resume. Other hosts are not enabled.
+
     - **Exit mechanisms:**
       - Press F11 to stop auto-pilot at the next safe checkpoint; F12 interrupts the current LLM response.
       - Reviewer returns `COMPLETE` → auto-pilot stops.
