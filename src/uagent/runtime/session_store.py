@@ -1090,6 +1090,72 @@ class SessionStore:
             raise
 
     @_db_locked
+    def append_sub_agent_result_once(
+        self,
+        session_id: str,
+        content: str,
+        *,
+        dispatch_id: str,
+        job_id: str | None = None,
+        compact_report: dict[str, str] | None = None,
+    ) -> int:
+        """Atomically persist one output per child dispatch across DB connections.
+
+        A retry by the same trusted Job recovers the existing row. Another Job
+        cannot claim its output, even if a different Job manager had admitted
+        the same dispatch before either Job finished.
+        """
+        if not isinstance(dispatch_id, str) or not dispatch_id.strip():
+            raise SessionStoreError("invalid Sub-Agent dispatch ID")
+        if job_id is not None and (
+            not isinstance(job_id, str) or not job_id.strip()
+        ):
+            raise SessionStoreError("invalid Sub-Agent Job ID")
+        payload: dict[str, Any] = {"dispatch_id": dispatch_id}
+        if job_id is not None:
+            payload["job_id"] = job_id
+        if compact_report is not None:
+            payload["compact_report"] = compact_report
+        try:
+            # BEGIN IMMEDIATE serializes checks and inserts across independent
+            # SessionStore instances targeting the same SQLite database.
+            self._connection.execute("BEGIN IMMEDIATE")
+            session = self.get_session(session_id)
+            if session["entry_point"] != "sub-agent":
+                raise SessionStoreError("Sub-Agent output requires a child session")
+            rows = self._execute(
+                "SELECT message_id, payload_json FROM messages "
+                "WHERE session_id = ? AND role = 'assistant'",
+                (session_id,),
+            ).fetchall()
+            for row in rows:
+                try:
+                    existing = json.loads(row["payload_json"] or "null")
+                except (TypeError, ValueError):
+                    continue
+                if not isinstance(existing, dict):
+                    continue
+                if existing.get("dispatch_id") != dispatch_id:
+                    continue
+                if existing.get("job_id") != job_id:
+                    raise SessionStoreError(
+                        "persisted Sub-Agent result belongs to another Job"
+                    )
+                self._connection.execute("COMMIT")
+                return int(row["message_id"])
+            message_id = self._append_message_unlocked(
+                session_id, "assistant", content, payload=payload
+            )
+            self._connection.execute("COMMIT")
+            return message_id
+        except Exception:
+            try:
+                self._connection.execute("ROLLBACK")
+            except sqlite3.Error:
+                pass
+            raise
+
+    @_db_locked
     def import_jsonl(
         self,
         path: str | Path,
