@@ -297,7 +297,6 @@ def test_restored_gemini_checkpoint_keeps_agent_state_system_summary(
         )
 
 
-
 def test_stateless_tool_round_uses_checkpoint_without_recompressing(
     tmp_path, monkeypatch
 ):
