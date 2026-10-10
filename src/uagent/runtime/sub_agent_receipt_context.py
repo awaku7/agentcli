@@ -125,11 +125,13 @@ def inject_sub_agent_receipt_context(messages: list[dict[str, Any]], core: Any) 
     if not isinstance(patches, list):
         patches = []
         core._sub_agent_receipt_context_patches = patches
-    patches.append((injected, content))
+    patches.append((injected, content, session_id))
     return True
 
 
-def _invalidate_receipt_response_continuation(core: Any) -> None:
+def _invalidate_receipt_response_continuation(
+    core: Any, session_ids: set[str]
+) -> None:
     """Never reuse a server-side Responses chain containing revoked evidence."""
     runtime = getattr(core, "responses_runtime", None)
     clear_runtime = getattr(runtime, "clear_continuation", None)
@@ -149,6 +151,14 @@ def _invalidate_receipt_response_continuation(core: Any) -> None:
         state.pop("previous_response_id", None)
         state.pop("active_response_id", None)
         state.pop("_stale_rid_occurred", None)
+    store = getattr(core, "session_store", None)
+    if isinstance(store, SessionStore):
+        for session_id in session_ids:
+            try:
+                store.invalidate_responses_continuation(session_id)
+            except Exception:
+                # Never reuse the in-memory response ID on failure.
+                pass
 
 
 def ephemeral_receipt_context_round(fn):
@@ -175,7 +185,7 @@ def ephemeral_receipt_context_round(fn):
             return fn(*args, **kwargs)
         finally:
             added = patches[initial_count:]
-            for injected, original in reversed(added):
+            for injected, original, _session_id in reversed(added):
                 injected_text = injected.get("content")
                 for message in messages:
                     if not isinstance(message, dict) or message.get("role") != "user":
@@ -190,6 +200,8 @@ def ephemeral_receipt_context_round(fn):
                 # Local history cleanup is not enough for Responses API:
                 # previous_response_id can retain this report on the server.
                 # The next turn must rebuild from the restored local history.
-                _invalidate_receipt_response_continuation(core)
+                _invalidate_receipt_response_continuation(
+                    core, {item[2] for item in added}
+                )
 
     return wrapper
