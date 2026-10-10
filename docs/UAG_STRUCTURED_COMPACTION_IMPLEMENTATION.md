@@ -93,7 +93,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] opt-in host policyからJob workerへのdispatch snapshotの受け渡しを実装（#205）
 - [x] 子Sessionの保存済み実出力から読み取り専用compact returnを生成・検証するAPIを実装（#207。Mainへの配送・適用は未実装）
 - [x] 結果保存済みの終了Jobからtrusted hostが出典付きcompact returnを取得する読み取り専用APIを実装
-- [ ] trusted hostからMainへの配送・受信者の一括適用を接続（現行はAPI取得のみ）
+- [x] Main側に出典とrevisionを検証する永続compact return受理記録APIを追加（AgentState更新・host接続は対象外）
+- [ ] trusted hostからMainへの実配送とAgentStateへの一括適用を接続
 - [ ] 各hostのtrusted Goal/source選択policyを有効化
 - [ ] Main側のrevision検証・root ID重複排除・state適用を一括処理
 - [ ] Auto-pilot の checkpoint / resume を実装
@@ -104,6 +105,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 **第二段階（opt-in dispatch 接続）:** `runtime/sub_agent_handoff.py` の `capture_sub_agent_dispatch()` は trusted host が指定した receiving Session の AgentState / revision を一緒に取得し、許可 Goal / exact SourceRef に限定した projection を固定する。専用 Sub-Agent Session に dispatch ID / receiver / revision と投影を保存し、`SubAgentRunner.run(..., handoff_dispatch=dispatch)` は送信直前にも availability / authorization callback を再確認する。この経路では legacy の file snippet / shared context / cache を送らず、実際の返却結果を SessionStore の通常の redaction と source index を通して保存する。モデルの tool schema に bounds / dispatch 指定を追加しない。今回、Job manager にhost-owned policyを指定したときの snapshot capture / worker transport を追加したが、既存hostにはまだpolicyを設定していないため、通常のtools / Job / 各hostの opt-in、child 全会話 / tool event の保存、compact HandoffRecord 返却は未実装。
 
 **段階導入の境界:** 第二段階でも Main AgentState の更新、root ID の永続 deduplication、revision conflict / reconciliation の受信処理、Auto-pilot checkpoint / resume、終了判定は変更しない。Job queueはtrusted policyから受けたdispatchをowner scope検証後にworkerへ渡し、structured Jobのshared-store書き込みとlive inbox continuationを拒否する。各hostのGoal/source選択policyは未設定である。次の独立段階では、既に索引化された子Sessionの実出力だけを出典とするcompact returnを先に実装する。子の全会話・tool eventの索引化は別段階とする。#207で保存済み子出力だけのcompact return構築APIを実装した。続いてJob managerに終了Jobの保存確認・owner制限・出典再認可に基づくhost向け取得APIを追加した。各hostによるこのAPIの利用開始とMainへの適用は未実装である。後続でhostごとのtrusted Goal/source policy、Job結果のMainへの配送、受信側のrevision check / root ID uniqueness / state applicationを同じtransactionに実装する。Auto-pilot再開はその基盤の検証後に進める。
+
+**Main側の受理記録（次の限定的な実装段階）:** `receive_compact_sub_agent_return()` はtrusted dispatchと現在のsource認可から `HandoffRecord` を再生成し、受信先Sessionのrevision、子Sessionの同一project/identity/room、dispatchの索引と唯一の出力SourceRefを検証して `sub_agent_receipts` に記録する。受理とroot IDの重複排除はSQLite `BEGIN IMMEDIATE` で一括処理し、同じrootの同内容再試行のみ冪等に成功する。revisionが進んだ未受理の古い結果は拒否する。これは **未検証報告の受理記録** に限り、Main AgentStateのrevision・Goal・Memory・完了判定には変更を加えない。hostへの自動接続とMain状態適用は後続PRの対象とする。
 
 **実装済みAPI — 子Session出力のcompact return（#207、Main配送前の段階）:**
 
