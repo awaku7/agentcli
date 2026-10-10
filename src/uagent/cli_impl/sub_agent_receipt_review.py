@@ -87,8 +87,7 @@ def handle_cli_receipt_command(
             return True
         for item in receipts:
             root = item["root_handoff_id"]
-            audit = store.get_sub_agent_receipt_review(session_id, root)
-            status = audit["outcome"] if audit is not None else "not-reviewed"
+            status = item["review_assessment"]["status"]
             print(
                 f"{_safe_terminal_text(root, 128)} "
                 f"{_('role')}={_safe_terminal_text(item['role'], 80)} "

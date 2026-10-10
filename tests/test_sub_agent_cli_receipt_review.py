@@ -318,6 +318,35 @@ def test_evidence_candidates_are_bounded_and_do_not_load_history(
             line for line in output.splitlines() if line.startswith("message-id=")
         ]
         assert len(candidates) == 20
-        assert f"message-id={latest['ref_id']}" in candidates[-1]
-        assert f"message-id={evidence['ref_id']}" not in output
+        candidate_ids = [line.split(" ", 1)[0] for line in candidates]
+        assert candidate_ids[-1] == f"message-id={latest['ref_id']}"
+        assert f"message-id={evidence['ref_id']}" not in candidate_ids
         assert "private" not in output
+
+
+def test_cli_receipt_displays_expired_evidence_as_unavailable(
+    tmp_path, monkeypatch, capsys
+):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        core, owner, dispatch, evidence, command = _setup(store)
+        monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
+        assert cli_review.handle_cli_receipt_command(
+            command, core=core, store=store, owner=owner
+        )
+        capsys.readouterr()
+        assert cli_review.handle_cli_receipt_command(
+            ":receipt", core=core, store=store, owner=owner
+        )
+        assert "review=supported" in capsys.readouterr().out
+        store._connection.execute(
+            "UPDATE session_items SET availability = 'unavailable' "
+            "WHERE session_id = ? AND item_kind = 'message' AND item_id = ?",
+            (owner.session_id, evidence["ref_id"]),
+        )
+        assert cli_review.handle_cli_receipt_command(
+            ":receipt", core=core, store=store, owner=owner
+        )
+        output = capsys.readouterr().out
+        assert dispatch.dispatch_id in output
+        assert "review=evidence_unavailable" in output
+        assert "review=supported" not in output
