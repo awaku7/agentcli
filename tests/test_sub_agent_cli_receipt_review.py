@@ -370,9 +370,7 @@ def test_recent_evidence_skips_blank_messages_before_limit(tmp_path):
         )
 
 
-def test_cli_apply_registers_reviewed_root_metadata_once(
-    tmp_path, monkeypatch, capsys
-):
+def test_cli_apply_registers_reviewed_root_metadata_once(tmp_path, monkeypatch, capsys):
     with SessionStore(tmp_path / "session.sqlite3") as store:
         core, owner, dispatch, evidence, command = _setup(store)
         monkeypatch.setattr(cli_review, "_human_review_available", lambda _core: True)
@@ -392,12 +390,14 @@ def test_cli_apply_registers_reviewed_root_metadata_once(
             "status": "reviewed_unverified",
             "reviewer_id": "cli:local-operator",
             "review_base_revision": 0,
-            "evidence_refs": [{
-                "kind": "message",
-                "ref_id": evidence["ref_id"],
-                "scope_id": owner.session_id,
-                "session_seq": evidence["session_seq"],
-            }],
+            "evidence_refs": [
+                {
+                    "kind": "message",
+                    "ref_id": evidence["ref_id"],
+                    "scope_id": owner.session_id,
+                    "session_seq": evidence["session_seq"],
+                }
+            ],
         }
         assert "goals" not in state
         assert "memory" not in state
@@ -436,9 +436,7 @@ def test_cli_apply_fails_closed_if_review_missing_or_evidence_revoked(
         assert store.get_agent_state_snapshot(owner.session_id) == (None, 0)
 
 
-def test_cli_apply_requires_current_local_operator(
-    tmp_path, monkeypatch, capsys
-):
+def test_cli_apply_requires_current_local_operator(tmp_path, monkeypatch, capsys):
     with SessionStore(tmp_path / "session.sqlite3") as store:
         core, owner, dispatch, evidence, command = _setup(store)
         apply_command = f":receipt apply {dispatch.dispatch_id}"

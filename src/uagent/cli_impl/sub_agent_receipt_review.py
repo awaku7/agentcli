@@ -111,7 +111,9 @@ def handle_cli_receipt_command(
     if len(parts) == 3 and parts[1] == "apply":
         if not _human_review_available(core):
             print(
-                _("Receipt application requires an interactive local operator (not Auto-pilot).")
+                _(
+                    "Receipt application requires an interactive local operator (not Auto-pilot)."
+                )
             )
             return True
         root_id = parts[2]
@@ -136,9 +138,7 @@ def handle_cli_receipt_command(
             )
             return True
         status = (
-            _("already registered")
-            if result["already_applied"]
-            else _("registered")
+            _("already registered") if result["already_applied"] else _("registered")
         )
         print(
             _(
@@ -155,7 +155,11 @@ def handle_cli_receipt_command(
             )
         )
         print(_("Use :receipt evidence to list candidate Main user message IDs."))
-        print(_("Use :receipt apply <root-id> to register an approved root as unverified metadata."))
+        print(
+            _(
+                "Use :receipt apply <root-id> to register an approved root as unverified metadata."
+            )
+        )
         return True
     if not _human_review_available(core):
         print(
