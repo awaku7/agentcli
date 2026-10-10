@@ -1778,6 +1778,7 @@ class SessionStore:
         source_session_id: str,
         expected_role: str,
         source_access_check: Callable[[SourceRef], bool],
+        expected_job_id: str | None = None,
     ) -> dict[str, Any]:
         """Durably receive one unverified child report without applying state.
 
@@ -1792,6 +1793,9 @@ class SessionStore:
             raise TypeError("source_access_check must be callable")
         if record.role != expected_role:
             raise SessionStoreError("receipt role does not match trusted host role")
+        if expected_job_id is not None:
+            if not isinstance(expected_job_id, str) or not expected_job_id.strip():
+                raise SessionStoreError("invalid expected Sub-Agent Job ID")
         if (
             record.handoff_id != record.root_handoff_id
             or record.application_base_revision != record.receiving_base_revision
@@ -1935,6 +1939,13 @@ class SessionStore:
                 raise SessionStoreError(
                     "receipt lacks readable indexed dispatch or report"
                 ) from exc
+            if expected_job_id is not None and (
+                not isinstance(output_payload, dict)
+                or output_payload.get("job_id") != expected_job_id
+            ):
+                raise SessionStoreError(
+                    "indexed Sub-Agent output belongs to another Job"
+                )
             if not isinstance(scoped, dict) or not isinstance(report, dict):
                 raise SessionStoreError("receipt dispatch or report has invalid shape")
             projected_goals = scoped.get("goals")
