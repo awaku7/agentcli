@@ -736,12 +736,6 @@ def compress_history_with_llm(
             others.append(m)
 
     desired_tail_start = min(len(others), max(0, len(others) - keep_last))
-    if structured_compaction:
-        from ..runtime.structured_compaction import MAX_SOURCE_MESSAGES
-
-        # Limit one durable checkpoint to an exact, contiguous source window.
-        # Later turns will checkpoint the remaining raw suffix incrementally.
-        desired_tail_start = min(desired_tail_start, MAX_SOURCE_MESSAGES)
     tail_start = desired_tail_start
     tail_start = _tool_aware_tail_start(others, tail_start)
     old_part = others[:tail_start]
@@ -1087,21 +1081,59 @@ def compress_history_with_llm(
         token_budget=initial_chunk_token_budget,
         measure_tokens=_measure_split_prompt,
     )
-    if (
-        structured_compaction
-        and split_cut is not None
-        and split_cut > MAX_SOURCE_MESSAGES
-    ):
-        # Oversized-turn splitting must not undo the source-window limit.
-        # Retain the original tool-safe boundary rather than committing an
-        # oversized window that the provenance validator will reject.
-        split_cut = None
     if split_cut is not None:
         old_part = others[:split_cut]
         tail_part = others[split_cut:]
         split_turn = True
         if single_shot_requested:
             initial_chunk_size = len(old_part)
+
+    if structured_compaction and structured_store is not None and structured_session_id:
+        # The SessionStore owns durable evidence. Never overwrite raw history
+        # when no trustworthy, budget-fitting structured cut is available.
+        preserve_raw_history = True
+        structured_status = "fallback"
+        from ..runtime.structured_compaction import select_structured_source_prefix
+
+        limit = split_cut if split_cut is not None else desired_tail_start
+        limit = max(0, min(len(others), limit))
+        spans = _logical_turn_spans(others)
+        cuts: list[int] = []
+        for turn_start, turn_end in spans:
+            if turn_end <= limit:
+                cuts.append(turn_end)
+            # A single large tool-heavy turn can contain safe completed
+            # assistant boundaries even without another user turn.
+            cuts.extend(
+                cut
+                for cut in _safe_assistant_cut_points(
+                    others, turn_start, turn_end
+                )
+                if cut <= limit
+            )
+        boundary = select_structured_source_prefix(
+            store=structured_store,
+            session_id=str(structured_session_id),
+            source_messages=others[:limit],
+            safe_cut_points=cuts,
+            locale=active_locale,
+            measure_tokens=lambda prompt: _estimate_history_summary_tokens(
+                prompt,
+                depname,
+                provider,
+                client=client,
+                use_responses_api=use_responses_api,
+            ),
+            max_input_tokens=initial_chunk_token_budget,
+        )
+        if boundary is None:
+            old_part = []
+            tail_part = others
+            split_turn = False
+        else:
+            old_part = others[:boundary]
+            tail_part = others[boundary:]
+            split_turn = all(turn_end != boundary for _, turn_end in spans)
 
     def _deterministic_structured_fallback() -> list[dict[str, Any]]:
         if not preserve_raw_history:
