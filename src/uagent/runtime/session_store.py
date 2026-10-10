@@ -1840,7 +1840,9 @@ class SessionStore:
                     or existing["source_session_id"] != source_session_id
                     or existing["record_json"] != serialized
                 ):
-                    raise SessionStoreError("root handoff ID already has a different receipt")
+                    raise SessionStoreError(
+                        "root handoff ID already has a different receipt"
+                    )
                 self._connection.execute("COMMIT")
                 return {
                     "receiving_session_id": record.receiving_session_id,
