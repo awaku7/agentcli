@@ -527,7 +527,7 @@ Key modules:
       invalid output falls back to the existing LLM reviewer; confidence is
       logged only and is not used as a threshold.
     - **Exit mechanisms:**
-      - Press F12 to interrupt the current LLM response and stop Auto-pilot; there is no F11 compatibility or `:auto resume`.
+      - Press F12 to interrupt the current LLM response and stop Auto-pilot; there is no legacy key compatibility or `:auto resume`.
       - Reviewer returns `COMPLETE` → auto-pilot stops.
       - `--max-rounds N` reached (default 10).
       - `:auto off` to stop.
