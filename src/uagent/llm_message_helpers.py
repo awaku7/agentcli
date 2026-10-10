@@ -626,7 +626,12 @@ def build_structured_auto_shrink_projection(
             else {"role": item["role"], "content": item["content"]}
             for item in indexed
         ]
-        if raw_messages[-1].get("role") != "user":
+        # Startup system instructions already come from the live conversation.
+        # Do not inject their persisted copies a second time.
+        while raw_messages and raw_messages[0].get("role") == "system":
+            raw_messages.pop(0)
+            indexed.pop(0)
+        if not raw_messages or raw_messages[-1].get("role") != "user":
             return None
         checkpoints = store.list_compaction_records(str(session_id), limit=1)
     except Exception:
@@ -726,7 +731,7 @@ def build_structured_auto_shrink_projection(
     if messages and messages[-1].get("role") == "user":
         projected[-1] = copy.deepcopy(messages[-1])
     return AutoShrinkProjection(
-        cache_name=gemini_cache_name,
+        cache_name=None if projected != source else gemini_cache_name,
         messages=tuple(projected),
         changed=True,
         source_message_count=original_count,
