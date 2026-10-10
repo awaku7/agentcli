@@ -888,7 +888,13 @@ Main Agent からは、
 
 Sub-Agent の Raw History は Sub-Agent 側 Persistent Context に残す。
 
-Main Agent へ戻すのは HandoffRecord と参照だけとする。`handoff_id` は生成時に確定して再送時も変更しない。受信側は適用済み ID を永続化し、`state_delta` / decisions / findings の反映と同じ SQLite transaction 内で記録する（失敗時はすべて取り消す）。同じ `root_handoff_id` の再送・再調整結果は、受信 Session 内で一度しか適用しない。適用記録は `root_handoff_id` を一意キーとして保存し、反映と同じ transaction 内で重複を防ぐ。初回受信時にも `application_base_revision` と現在の受信 Session revision を比較し、不一致なら適用を保留して conflict を返す。再調整が必要な場合は、元の Handoff を変更せず、新しい `handoff_id` と `application_base_revision`（再調整に使用した受信 revision）を持ち、元の `root_handoff_id` を引き継ぐ Handoff を生成し、元の `receiving_base_revision` は保持する。古い `state_delta` / decisions を無条件に適用しない。Handoff の deterministic 項目は元イベントを指す `source_refs` を個別に持ち、受信側で項目単位の監査・無効化を可能にする。
+Main Agent へ戻すのは出典付き HandoffRecord と参照だけとする。**通常の CLI 完了結果共有は未検証・読み取り専用**であり、受理や提示によって Main AgentState、Goal、Memory、Auto-pilot の終了判定を変更しない。実装済みの単一 opt-in `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` で完了 Job の出典付き受理と、**新着結果だけを次の LLM ターンへ一度提示**する処理を有効にする（#220）。古い受理記録を毎ターン再投入したり、再起動後に自動再提示したりしない。
+
+`root_handoff_id` は同一結果の重複受理を防ぐ識別子とする。Job 経由の既存報告は、Main の revision が派遣時より進んでいても**元 revision を保存した未検証情報**として受理できるが、受理先の権威ある状態には適用しない。Job以外の直接受理APIは旧revisionを拒否する。出典の利用可否と受信 Session のスコープ・権限を確認し、利用不可の根拠は表示しない。
+
+将来、独立した根拠によって確認された個別事実や Goal 状態を**権威ある状態へ適用する要件が明示された場合だけ**、そのための認可、受信 revision 照合、重複適用防止、一括更新を別途設計する。この設計上の更新条件は、現時点で成果共有に手動 `:receipt apply` を要求することを意味しない。#219 の CLI 手動 root 適用は未マージで取りやめた。既存の審査監査 API は任意の監査用として維持する。
+
+
 
 ```text
 Sub-Agent Raw History
@@ -904,27 +910,15 @@ Sub-Agent Raw History
 
 ______________________________________________________________________
 
-## 15. Auto-pilot Checkpoint
+## 15. Auto-pilot と Structured Compaction の関係（2026-10-10見直し）
 
-Auto-pilot の複数ラウンド処理でも Structured Compaction を利用する。
+Auto-pilot の複数ラウンドでも、従来の Context Runtime / Structured Compaction による**会話内容の圧縮と再参照**は利用できる。必要なときだけ既存の圧縮処理を実行し、ラウンドごとに新しい永続 checkpoint を必須としない。
 
-ラウンド境界で毎回 LLM summary を作る必要はない。
+この章で扱う通常の Compaction Checkpoint は、長期的な文脈と出典を保持するための情報であり、**Auto-pilot の実行を中断した地点から再開するための機能ではない**。Auto-pilot 専用のラウンド保存、`:auto resume`、自動復元、途中のツール操作の再実行は実装対象に含めない（#221 は未マージで終了）。
 
-以下の場合に Checkpoint を生成する。
+**現行の中断仕様は F12 のみ**とする（#222 で旧 F11 を削除）。F12 により現在の処理を中断し、Auto-pilot に終了を要求する。中断時に専用 Checkpoint を強制生成せず、自動で再開もしない。通常の完了判定は既存の reviewer / Decision Provider / 最大ラウンド数の機構を使い、Checkpoint を唯一の終了根拠としない。
 
-- context threshold 到達
-- phase 完了
-- important decision 完了
-- tool-heavy round 完了
-- model/provider handoff
-- interruption / cancellation 前
-- resume 用 checkpoint が必要なとき
-
-Auto-pilot の終了判定には、AgentState 内の対象 Goal ごとの status / completed / in_progress / blocked / next_steps を入力候補として利用できる。
-
-複数 Goal が active な場合、1つの Goal が done になっただけでセッション全体を完了扱いにしない。
-
-ただし Checkpoint 自体を終了判断の唯一の根拠にはしない。
+複数 Goal が active な場合、ひとつの Goal が終了しただけでセッション全体を自動完了とはみなさない。
 
 ______________________________________________________________________
 
@@ -1469,8 +1463,10 @@ ______________________________________________________________________
 - Main → Sub-Agent projection
 - Sub-Agent → Main compact return
 - caller-bounded authorization / provenance
-- Auto-pilot checkpoint
-- provider/model handoff
+- F12 による Auto-pilot 中断を維持（中断後の復元は非採用）
+- provider/model handoff の実接続検証
+
+**2026-10-10の実装方針:** CLI の成果共有は #220 で未検証・読み取り専用として簡素化済み。#219 の手動 root 適用、#221 の Auto-pilot 中断後再開は採用せず、#222 で F12 専用の中断に統一した。これらを残作業として再提案しない。次の独立した検証対象は実 provider / model での handoff とし、GUI / Web / A2A への拡張は認可・Session 所有権・revision 競合の安全性を確かめた後に行う。
 
 ### PR 5: Client / Session Revision Safety
 
