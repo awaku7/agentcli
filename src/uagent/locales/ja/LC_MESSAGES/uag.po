@@ -2015,10 +2015,6 @@ msgstr "フィードバック: %(feedback)s"
 msgid "[AUTO] Stopped."
 msgstr "[AUTO] 停止しました。"
 
-#: src/uagent/util_cmd_auto.py:257
-msgid "[AUTO] Exited by user (F11)."
-msgstr "[AUTO] ユーザーにより終了しました（F11）。"
-
 #: src/uagent/util_cmd_auto.py:268
 msgid "[AUTO] Missing or invalid auto sentinel; stopping safely."
 msgstr "[AUTO] 自動操縦マーカーがないか無効です。安全のため停止します。"
@@ -3553,9 +3549,8 @@ msgid "Auto-pilot: repeatedly pursue a goal until done or stopped"
 msgstr "自動操縦: 完了するか停止するまで、目標に繰り返し取り組みます"
 
 #: src/uagent/util_help.py:256
-msgid ""
-"Press F11 in CLI to stop auto-pilot; F12 stops the current LLM response."
-msgstr ""
+msgid "Press F12 to interrupt the current LLM response and stop auto-pilot."
+msgstr "F12で現在のLLM応答を中断し、自動操縦を停止します。"
 
 #: src/uagent/util_help.py:260
 msgid "Show detailed model configuration"
