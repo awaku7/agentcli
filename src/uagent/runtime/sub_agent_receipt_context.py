@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from collections.abc import Mapping
+from functools import wraps
 from typing import Any
 
 from .session_store import SessionStore
@@ -115,8 +116,54 @@ def inject_sub_agent_receipt_context(messages: list[dict[str, Any]], core: Any) 
         return False
     if not projected:
         return False
-    messages[user_index] = {
+    injected = {
         **messages[user_index],
         "content": projected + "\n\n" + content,
     }
+    messages[user_index] = injected
+    patches = getattr(core, "_sub_agent_receipt_context_patches", None)
+    if not isinstance(patches, list):
+        patches = []
+        core._sub_agent_receipt_context_patches = patches
+    patches.append((injected, content))
     return True
+
+
+def ephemeral_receipt_context_round(fn):
+    """Restore lower-trust receipt projections on every LLM exit path.
+
+    Job/tool messages produced by the round remain in shared history; only
+    the temporary prefix of a user message is undone. This includes failed,
+    interrupted and early-return rounds. A removed/revoked source therefore
+    cannot leak through a previous user turn during the next provider call.
+    """
+
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        messages = args[3] if len(args) > 3 else kwargs.get("messages")
+        core = kwargs.get("core")
+        if not isinstance(messages, list) or core is None:
+            return fn(*args, **kwargs)
+        patches = getattr(core, "_sub_agent_receipt_context_patches", None)
+        if not isinstance(patches, list):
+            patches = []
+            core._sub_agent_receipt_context_patches = patches
+        initial_count = len(patches)
+        try:
+            return fn(*args, **kwargs)
+        finally:
+            added = patches[initial_count:]
+            for injected, original in reversed(added):
+                injected_text = injected.get("content")
+                for message in messages:
+                    if not isinstance(message, dict) or message.get("role") != "user":
+                        continue
+                    current = message.get("content")
+                    if message is injected or (
+                        isinstance(current, str)
+                        and current == injected_text
+                    ):
+                        message["content"] = original
+            del patches[initial_count:]
+
+    return wrapper
