@@ -124,7 +124,9 @@ separate managers using the same database cannot both publish that dispatch.
 If both had already admitted work, one output is accepted and the other Job
 fails closed without adding a duplicate result. Reusing a dispatch for a
 different Job cannot borrow its indexed result or mark the second Job as
-persisted. It also permits
+persisted. A direct runner without a Job ID also cannot recover a Job-owned
+result; the separate admission-time output-existence check confers no
+ownership. It also permits
 retrieval of an unverified terminal error/blocked report, without interpreting
 it as successful completion. The output is not inserted into ordinary Job
 snapshots, notices, model/tool arguments, Main AgentState, or Memory. Reads
