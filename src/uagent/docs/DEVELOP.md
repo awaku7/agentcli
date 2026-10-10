@@ -152,8 +152,21 @@ again against the indexed output **inside** the SQLite receiving transaction,
 so a source changed after the first check cannot be accepted. Only receipt metadata is returned;
 ordinary Job status, notices and tool-visible results remain unchanged.
 Repeated delivery is idempotent, and failures do not mark a Job as delivered.
-No host installs this delivery path automatically yet; state application
-and Auto-pilot resumption remain separate work. Full child conversation/tool-event
+The CLI may now opt into structured dispatch by setting
+`UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` with a persistent SessionStore.
+Its host-only allowlists are JSON arrays:
+`UAGENT_SUB_AGENT_HANDOFF_GOAL_IDS='["trusted-goal-id"]'` and
+`UAGENT_SUB_AGENT_HANDOFF_SOURCE_REFS='[{"kind":"message","ref_id":"123","scope_id":"<main-session-id>","session_seq":1}]'`.
+Both default to `[]`: no Goal or message source is implicitly shared. Goal
+selection is checked against the current structured AgentState; message grants
+must match an available, exactly ordered indexed message from that specific
+Main session and are checked again at dispatch time. Unknown, stale, wrongly
+scoped, unindexed and unpermitted sources are rejected, never upgraded to
+broader Session access. Invalid opt-in settings fail closed at CLI startup.
+Other hosts remain on legacy Job behavior, as does CLI without the opt-in.
+CLI opt-in enables **dispatch only**: no Main-side automatic receipt delivery,
+Goal completion, state application, or Auto-pilot resume is enabled yet.
+Those are separate host features. Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
 resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
