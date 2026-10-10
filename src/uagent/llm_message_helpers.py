@@ -621,9 +621,11 @@ def build_structured_auto_shrink_projection(
         ):
             return None
         raw_messages = [
-            copy.deepcopy(item["payload"])
-            if isinstance(item.get("payload"), dict)
-            else {"role": item["role"], "content": item["content"]}
+            (
+                copy.deepcopy(item["payload"])
+                if isinstance(item.get("payload"), dict)
+                else {"role": item["role"], "content": item["content"]}
+            )
             for item in indexed
         ]
         # Startup system instructions already come from the live conversation.
@@ -688,8 +690,7 @@ def build_structured_auto_shrink_projection(
         re_cnt = max(keep_last * 2, keep_last + 10, shrink_cnt)
         token_limit = _get_shrink_max_tokens(depname)
         token_trigger = (
-            token_limit > 0
-            and _count_messages_tokens(source, depname) >= token_limit
+            token_limit > 0 and _count_messages_tokens(source, depname) >= token_limit
         )
         if len(recent) < re_cnt and not token_trigger:
             if previous_response_id:
@@ -731,7 +732,7 @@ def build_structured_auto_shrink_projection(
     if messages and messages[-1].get("role") == "user":
         projected[-1] = copy.deepcopy(messages[-1])
     return AutoShrinkProjection(
-        cache_name=None if projected != source else gemini_cache_name,
+        cache_name=None,
         messages=tuple(projected),
         changed=True,
         source_message_count=original_count,
