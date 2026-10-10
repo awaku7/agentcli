@@ -1,8 +1,8 @@
 """Explicit, local operator commands for Sub-Agent receipt audit reviews.
 
-Only a foreground interactive CLI command can write a review. Nothing here
-accepts model-proposed reviewer identities or automatically promotes a report
-to verified AgentState, Memory or Goal completion.
+Only a foreground interactive CLI command can write a review or register
+reviewed root metadata. Nothing here accepts model-proposed reviewer identities
+or promotes a report to verified facts, Memory or Goal completion.
 """
 
 from __future__ import annotations
@@ -69,7 +69,7 @@ def handle_cli_receipt_command(
     except ValueError:
         print(
             _(
-                "Usage: :receipt [evidence | review <root-id> <supported|rejected> <message-id> <seq>]"
+                "Usage: :receipt [evidence | apply <root-id> | review <root-id> <supported|rejected> <message-id> <seq>]"
             )
         )
         return True
@@ -108,6 +108,46 @@ def handle_cli_receipt_command(
             )
         return True
 
+    if len(parts) == 3 and parts[1] == "apply":
+        if not _human_review_available(core):
+            print(
+                _("Receipt application requires an interactive local operator (not Auto-pilot).")
+            )
+            return True
+        root_id = parts[2]
+        if _ROOT_ID_RE.fullmatch(root_id) is None:
+            print(_("Invalid receipt application root ID."))
+            return True
+        try:
+            result = store.apply_reviewed_sub_agent_receipt(
+                session_id,
+                root_id,
+                expected_revision=store.get_agent_state_revision(session_id),
+                source_access_check=lambda ref: (
+                    ref.scope_id == session_id
+                    and ref.kind == "message"
+                    and store.is_exact_indexed_message_available(ref)
+                ),
+            )
+        except (SessionStoreError, ValueError, TypeError, OverflowError) as exc:
+            print(
+                _("Receipt application rejected: %(error)s")
+                % {"error": _safe_terminal_text(type(exc).__name__, 80)}
+            )
+            return True
+        status = (
+            _("already registered")
+            if result["already_applied"]
+            else _("registered")
+        )
+        print(
+            _(
+                "Reviewed root metadata %(status)s (reviewed_unverified; no facts or Goal changes)"
+            )
+            % {"status": status}
+        )
+        return True
+
     if len(parts) != 6 or parts[1] != "review":
         print(
             _(
@@ -115,6 +155,7 @@ def handle_cli_receipt_command(
             )
         )
         print(_("Use :receipt evidence to list candidate Main user message IDs."))
+        print(_("Use :receipt apply <root-id> to register an approved root as unverified metadata."))
         return True
     if not _human_review_available(core):
         print(
