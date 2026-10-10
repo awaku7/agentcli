@@ -1860,7 +1860,7 @@ class SessionStore:
                     "Sub-Agent return was produced for an older AgentState revision"
                 )
             rows = self._execute(
-                "SELECT m.message_id, m.role, m.payload_json, si.session_seq, "
+                "SELECT m.message_id, m.role, m.content, m.payload_json, si.session_seq, "
                 "si.ordering_quality, si.availability "
                 "FROM messages m JOIN session_items si "
                 "ON si.session_id = m.session_id "
@@ -1904,6 +1904,64 @@ class SessionStore:
                 or source_access_check(source) is not True
             ):
                 raise SessionStoreError("receipt source unavailable or unauthorized")
+
+            # A first receipt must be a faithful, unverified copy of
+            # the indexed dispatch and child output. A public store caller
+            # must not be able to reserve a root ID with invented contents.
+            try:
+                scoped = json.loads(dispatch_row["content"])
+                output_payload = json.loads(output["payload_json"] or "null")
+                report = (
+                    output_payload.get("compact_report")
+                    if isinstance(output_payload, dict)
+                    else None
+                )
+                if report is None:
+                    report = json.loads(output["content"])
+            except (TypeError, ValueError) as exc:
+                raise SessionStoreError(
+                    "receipt lacks readable indexed dispatch or report"
+                ) from exc
+            if not isinstance(scoped, dict) or not isinstance(report, dict):
+                raise SessionStoreError("receipt dispatch or report has invalid shape")
+            projected_goals = scoped.get("goals")
+            if not isinstance(projected_goals, list) or any(
+                not isinstance(goal, dict)
+                or not isinstance(goal.get("goal_id"), str)
+                for goal in projected_goals
+            ):
+                raise SessionStoreError("receipt dispatch Goals are invalid")
+            if (
+                scoped.get("kind") != "main_to_subagent"
+                or scoped.get("receiving_session_id")
+                != record.receiving_session_id
+                or scoped.get("receiving_base_revision")
+                != record.receiving_base_revision
+                or scoped.get("objective") != record.objective
+                or tuple(goal["goal_id"] for goal in projected_goals)
+                != record.goal_ids
+                or record.agent_id != f"sub-agent:{record.root_handoff_id}"
+            ):
+                raise SessionStoreError("receipt does not match indexed dispatch")
+            report_status = report.get("status")
+            report_summary = report.get("summary")
+            if (
+                not isinstance(report_status, str)
+                or report_status not in {
+                    "completed",
+                    "error",
+                    "blocked",
+                    "incomplete",
+                }
+                or not isinstance(report_summary, str)
+                or not report_summary.strip()
+                or record.findings[0].text
+                != (
+                    f"Unverified Sub-Agent report "
+                    f"({report_status}): {report_summary}"
+                )
+            ):
+                raise SessionStoreError("receipt does not match indexed child output")
 
             self._execute(
                 "INSERT INTO sub_agent_receipts("
