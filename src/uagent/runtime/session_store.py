@@ -2063,6 +2063,19 @@ class SessionStore:
                     or not self.is_exact_indexed_message_available(source)
                 ):
                     continue
+                review = self.get_sub_agent_receipt_review(
+                    receiving_session_id, record.root_handoff_id
+                )
+                review_assessment = {"status": "unreviewed", "evidence_available": False}
+                if review is not None:
+                    review_assessment = {
+                        "status": (
+                            review["outcome"]
+                            if review["evidence_available"]
+                            else "evidence_unavailable"
+                        ),
+                        "evidence_available": review["evidence_available"],
+                    }
                 visible.append(
                     {
                         "root_handoff_id": record.root_handoff_id,
@@ -2073,6 +2086,7 @@ class SessionStore:
                         "source_ref": source.to_dict(),
                         "base_revision": record.receiving_base_revision,
                         "received_at": row["received_at"],
+                        "review_assessment": review_assessment,
                     }
                 )
                 if len(visible) >= limit:
