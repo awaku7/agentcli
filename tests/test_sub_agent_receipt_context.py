@@ -195,6 +195,11 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         main, dispatch = _record(store)
         core = _core(store, main)
         messages = [{"role": "user", "content": "Continue"}]
+        clears = []
+        core.responses_state = {"previous_response_id": "resp_old"}
+        core.responses_runtime = SimpleNamespace(
+            clear_continuation=lambda reason: clears.append(reason)
+        )
 
         @ephemeral_receipt_context_round
         def successful(_provider, _client, _model, history, *, core):
@@ -204,6 +209,8 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
             return "done"
 
         assert successful("mock", None, "model", messages, core=core) == "done"
+        assert "previous_response_id" not in core.responses_state
+        assert clears == ["temporary_sub_agent_receipt"]
         assert messages == [
             {"role": "user", "content": "Continue"},
             {"role": "assistant", "content": "Report received"},
@@ -214,9 +221,15 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
             assert inject_sub_agent_receipt_context(history, core)
             raise RuntimeError("inference failed")
 
+        core.responses_state["previous_response_id"] = "resp_next"
         with pytest.raises(RuntimeError, match="inference failed"):
             failing("mock", None, "model", messages, core=core)
         assert messages[0]["content"] == "Continue"
+        assert "previous_response_id" not in core.responses_state
+        assert clears == [
+            "temporary_sub_agent_receipt",
+            "temporary_sub_agent_receipt",
+        ]
 
         store._connection.execute(
             "UPDATE session_items SET availability = 'unavailable' "
@@ -226,3 +239,11 @@ def test_ephemeral_round_restores_history_on_success_and_failure(tmp_path):
         fresh = [{"role": "user", "content": "Another turn"}]
         assert not inject_sub_agent_receipt_context(fresh, core)
         assert fresh[0]["content"] == "Another turn"
+
+        @ephemeral_receipt_context_round
+        def no_projection(_provider, _client, _model, _messages, *, core):
+            core.responses_state["previous_response_id"] = "resp_clean"
+            return "safe"
+
+        assert no_projection("mock", None, "model", fresh, core=core) == "safe"
+        assert core.responses_state["previous_response_id"] == "resp_clean"
