@@ -365,4 +365,6 @@ def test_recent_evidence_skips_blank_messages_before_limit(tmp_path):
                 session_id, "user", ("", " ", "\t\n", "\u3000")[index % 4]
             )
 
-        assert store.list_recent_exact_user_message_refs(session_id, limit=20) == expected
+        assert (
+            store.list_recent_exact_user_message_refs(session_id, limit=20) == expected
+        )
