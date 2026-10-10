@@ -129,9 +129,7 @@ def inject_sub_agent_receipt_context(messages: list[dict[str, Any]], core: Any) 
     return True
 
 
-def _invalidate_receipt_response_continuation(
-    core: Any, session_ids: set[str]
-) -> None:
+def _invalidate_receipt_response_continuation(core: Any, session_ids: set[str]) -> None:
     """Never reuse a server-side Responses chain containing revoked evidence."""
     runtime = getattr(core, "responses_runtime", None)
     clear_runtime = getattr(runtime, "clear_continuation", None)
