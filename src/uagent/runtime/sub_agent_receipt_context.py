@@ -151,6 +151,11 @@ def _invalidate_receipt_response_continuation(
         state.pop("previous_response_id", None)
         state.pop("active_response_id", None)
         state.pop("_stale_rid_occurred", None)
+    # Gemini/Vertex may cache provider context outside the local history too.
+    try:
+        core._gemini_cache_needs_refresh = True
+    except Exception:
+        pass
     store = getattr(core, "session_store", None)
     if isinstance(store, SessionStore):
         for session_id in session_ids:
