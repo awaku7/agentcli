@@ -17,16 +17,27 @@
 
 ## 3. 現在の状態
 
-- **確認基準日:** 2026-10-10。GitHub PR #222 の main へのマージを確認した時点。
-- **CLIの構造化圧縮実行経路（PR #226、レビュー中）:** `UAGENT_STRUCTURED_COMPACTION=1` でも従来の通常CLI呼び出しが `persist=False` の投影にとどまりCheckpointを保存できなかった問題を修正する。ユーザーターンの境界で永続 SessionStore の正確な順序付き生メッセージを取得して構造化Checkpointを保存し、SourceRefが解決できない場合には永続構造化状態を変更しない。Responses継続IDが残る場合、圧縮が成立したときに限りIDを無効化して要約を含む完全履歴で再開する。圧縮済みの末尾より後の生メッセージのみを次の圧縮対象にし、保存済み生履歴は置換しない。実LLMでの確認とCodexレビューは未完了。
+- **確認基準日:** 2026-10-11。GitHub PR #226 が 2026-10-10 に main へマージされ、最終CIとCodexレビューが成功した時点。
+- **CLIの構造化圧縮実行経路（PR #226、2026-10-10マージ済み）:** 通常CLIでも `UAGENT_STRUCTURED_COMPACTION=1` のとき、永続SessionStore上の正確な順序を持つ生メッセージから構造化Checkpointを生成・保存できる。従来の `persist=False` の一時投影だけで終わる問題を解消した。圧縮後はAgentStateを要約として投影し、次回以降は最後のCheckpointより後のメッセージだけを新しい証拠として扱う。必要な場合はResponsesの継続IDを破棄して要約を含む履歴を送る。SQLite / JSONLのRaw Historyは置換しない。最終Codexレビューは重大な問題なし。実LLMによるend-to-end動作確認は未実施。
 - **全体状態:** PR 1 は基礎実装が条件付き完了、PR 2 は完了、PR 3 は同一 Session のメッセージ出典に限定した基礎統合まで完了。PR 4 は CLI の Sub-Agent 完了結果を Main に未検証情報として自動共有するところまで実装済み。PR 5 の複数 Client 安全性は未完了。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`。第26章の PR 1〜5 は**実装フェーズ名**であり、実際の GitHub PR 件数を指定しない。
-- **CLI圧縮単位の選択（PR #226）:** 固定80メッセージ制限を撤廃し、LLMごとのコンテキスト長または明示的な `UAGENT_SHRINK_CHUNK_TOKENS` から求めたトークン予算と、正確な永続SourceRefを含む構造化生成プロンプトの推定トークン数で処理範囲を決定する。通常は論理ターン単位で切り、単一ターンが予算を超える場合のみ、完了済みassistantで安全に切れる場所を使う。ツールの呼び出し・結果の途中は分割しない。予算が取得できない場合や安全な切断点がない場合はCheckpoint生成を保留し、Raw履歴を保持する。80件を超える短い履歴が予算内なら1回で処理できる。実機動作・レビューの最終判定は未完了。
+- **CLI圧縮単位の選択（PR #226、マージ済み）:** 固定80メッセージ制限を撤廃し、モデル情報または `UAGENT_SHRINK_CHUNK_TOKENS` から求めたトークン予算で構造化生成プロンプト全体（AgentState・SourceRef・ツール情報を含む）を測定する。論理ターン末尾、または全ツール結果が揃った安全な境界だけを選び、呼び出しと結果を分離しない。通常のassistant応答が続く場合は応答後に分割する。照合時にはツール呼び出しID等も比較し、内容が同一の結果を区別する。予算・安全な境界・正確な出典のいずれかが得られない場合はCheckpoint生成を保留し、生履歴を保持する。
 - **PR 4 の実装済み範囲:** trusted dispatch / Job、保存済み子出力からの compact return、Main 側の出典付き受理記録、CLI の `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` による自動配送と新着一回限りの読み取り専用 context 提示（#220）。Main の revision が進んだ後でも、完了 Job の報告は元 revision を保持した未検証情報として受理し、Main AgentState / Goal / Memory は自動更新しない。配送・提示の独立した環境変数は廃止し、同じ単一 opt-in に連動する。既存の根拠付き review・root 管理 API および任意の CLI review 監査コマンドは、通常の共有に必須ではない。
 - **採用しない機能（2026-10-10確定）:** #219 は未マージで終了し、CLI の手動 `:receipt apply` と審査済み root 登録を通常手順に追加しない。#221 は未マージで終了し、Auto-pilot の中断後 `:auto resume`、ラウンド再開用永続 checkpoint、自動復元は実装しない。#222 をマージ済みで、**実行中の中断は F12 のみ**。旧キーの入力処理・互換分岐・表示・関連文書は削除済み。既存の Structured Compaction Checkpoint は context 圧縮・参照のために維持し、Auto-pilot の実行再開機能とは区別する。
 - **未完了の境界:** 実 provider/model を用いた handoff の end-to-end 接続検証、GUI / Web / A2A host の安全な opt-in、複数 Client の revision 競合と再評価、PR 1・PR 3 に残る認可付き出典参照・Artifact/tool-result 再取得・Reducer lifecycle の検証。個別事実・Goal 状態の権威ある適用は日常の共有に必要とせず、将来明示的な要件が出た場合に別途設計する。
-- **検証状況:** #220 と #222 の最終 CI で quality（Ruff / Black / I18N）、全 pytest、Python 3.11・3.13・3.14 互換性テストが成功。これは実 provider handoff、GUI/Web/A2A 接続、複数 Client の end-to-end 動作を保証しない。
+- **検証状況:** #220 と #222 の最終CIに加え、#226 の最終CI [run #2351](https://github.com/awaku7/agentcli/actions/runs/38063839656) でも quality（Ruff / Black / I18N）、全pytest、Python 3.11・3.13・3.14互換性テストが成功。#226 の最終Codexレビューは [重大な問題なし](https://github.com/awaku7/agentcli/pull/226#issuecomment-6099165019)。Fake clientとSessionStoreを使う回帰テストの成功は、実provider接続や複数Clientのend-to-end検証の完了を意味しない。
 - **次の作業:** まず実 provider / model で Main → Sub-Agent → Main の完了結果共有を検証する。新着のみ次の LLM ターンへ一度提示し、元出典・権限・未検証の注記・重複抑止・Main 状態非更新が守られることを確認する。外部接続の有効化前に host の主体・workspace・Session 所有権、出典認可、revision 競合時の安全な処理を検証する。複数 Client 競合後の再評価と復旧は PR 5 として扱う。
+
+### PR #226 — 通常CLIの永続Structured Compaction（2026-10-10マージ済み）
+
+- **原因と対応:** 通常CLIのauto-shrinkが一時的なメッセージ投影にとどまり、SessionStoreへの構造化Checkpoint保存を実行していなかった。明示opt-in `UAGENT_STRUCTURED_COMPACTION=1` の経路を永続Checkpoint生成へ接続した。既定はOFF。
+- **保存と継続:** SessionStoreのexact順序を持つmessage payloadとSourceRefを使用する。保存済みCheckpointの末尾より後のメッセージのみを次の対象とし、重複した証拠の適用を避ける。生成した要約はLLMに送る投影へ適用し、Raw History / JSONLは書き換えない。Responsesの継続IDが要約投影と矛盾する場合は完全履歴へ切り替える。
+- **処理単位:** 固定80メッセージ制限を撤廃。AgentState / SourceRef / ツールメタデータを含む実際の構造化生成プロンプトの推定トークン数で対象範囲を選ぶ。単一の長いターンでも、全tool call IDに対応する結果を受領済みで次のassistantが新たなツール呼び出しを始める位置なら分割できる。通常のassistant応答が続く場合はその応答を含めて分割する。
+- **出典の識別:** assistantの`tool_calls` / `function_call`、tool結果の`tool_call_id` / `name`を生成入力と出典照合に含める。同じ`"ok"`が繰り返されても異なる呼び出しを区別し、曖昧な窓を誤って確定しない。
+- **失敗時:** トークン予算不明、未完了のツール処理、正確な出典の不一致、生成・検証失敗では構造化Checkpointを無理に確定しない。Raw Historyを保持する。
+- **回帰テスト:** `tests/test_structured_compaction_cli_path.py`で初回圧縮、次回の増分圧縮、再開、連続ツール呼び出し、ツール呼び出しと結果の対応、同一内容のツール結果と連続Checkpoint、保存済みRaw履歴不変を検証。関連する`tests/test_shrink_llm.py`の既存境界検証も全体pytestで確認。
+- **変更箇所:** `src/uagent/llm_message_helpers.py`、`src/uagent/uagent_llm.py`、`src/uagent/core_impl/history.py`、`src/uagent/runtime/structured_compaction.py`、関連テストと本実装記録。 [PR #226](https://github.com/awaku7/agentcli/pull/226) / [最終CI #2351](https://github.com/awaku7/agentcli/actions/runs/38063839656) / 最終HEAD `e910858df297753890c008d836c373f99b326cac`。
+- **完了範囲と残件:** コード・自動テスト・Codex再レビューは完了。OpenAI Responses等の実プロバイダでの長時間CLI運用、実機再起動後の一連の動作、GUI/Web/A2Aや複数Client競合は、このPRの検証範囲外であり未完了として追跡する。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -244,6 +255,7 @@ PR 1〜5 は実装フェーズ名であり、下表は進める**作業順序**�
 | 2026-10-09 | PR 2 checkpoint 1 回帰 / static | `pytest -q . --durations=30`; Ruff / Black check（変更2 Python files）; `git diff --check` | 成功（全 suite） | Oversized-turn split、Artifact-first、prefix/suffix 復元は未実装。 |
 | 2026-10-09 | PR 2 checkpoint 2 targeted / regression | `pytest -q tests/test_shrink_llm.py`, `test_structured_compaction_generation.py`, `test_compaction_record.py`, `test_tool_result_artifact.py`, `test_responses_tool_result_limit.py`（個別実行）; `pytest -q . --durations=30` | 成功（29 / 18 / 12 / 2 / 4 passed; 全 suite 成功） | Safe assistant split、small-message-count token trigger、SessionStore reopen後のsource range / first_kept_message_idによるprefix/suffix再構成、alignment失敗時のfallback、既存Artifact-first/bounded fallbackを検証。Ruff / Black と Markdown format check も成功。 |
 | 2026-10-09 | PR 3 targeted / full regression / static | `pytest -q tests/test_context_compaction_candidates.py`（4 passed）, `pytest -q tests/test_compaction_persistence.py`（18 passed）, `pytest -q tests/test_context_manager_pipeline.py`（9 passed）, `pytest -q . --durations=30`; Ruff check `src tests`, Black `--check src tests`, `python_compile`（変更6ファイル）, Markdown format check, `git diff --check` | 成功（targeted 31 passed; 全 suite 成功。全 static checks 成功。） | Applied-only candidate conversion、scoring / decision / budget、duplicate suppression、older checkpoint paging、same-session exact message SourceRef rehydration、store failure fallback を検証。実provider matrix / 独立CI実行は未実施。 |
+| 2026-10-10 | CLI実行経路 PR #226 最終CI | GitHub Actions [run #2351](https://github.com/awaku7/agentcli/actions/runs/38063839656): quality（Ruff / Black / I18N）、全pytest、Python 3.11 / 3.13 / 3.14互換性 | すべて成功 | 最終コミット`e910858`。ツール連続実行・同じ結果の繰り返し・SourceRef・Raw History不変の回帰検証。Codex最終レビュー重大な問題なし。実LLM接続は未実施。 |
 
 ### Provider Matrix
 
@@ -269,6 +281,7 @@ PR 1〜5 は実装フェーズ名であり、下表は進める**作業順序**�
 | 2026-10-08 | 実装判断（checkpoint 3） | SessionStore の commit API で session-scoped SourceRef を ordered index と照合し、Checkpoint row / session item / AgentState revision を一 transaction にする。 | ID / kind / scope / availability の不一致を拒否し、部分 commit と参照先 tombstone 利用を防ぐ。cross-scope authorization resolver は別段階。 | 採用 |
 | 2026-10-08 | 実装判断（checkpoint 4） | Structured compaction は `UAGENT_STRUCTURED_COMPACTION=1` の opt-in auto-shrink に限定し、既定は OFF。SourceRef と入力メッセージの厳密な一致が証明できなければ、structured commit を行わず既存 summary path へ fallback。 | Early rollout で従来挙動を保ち、誤った provenance / stale history replacement を防ぐ。structured success と fallback の双方で durable Raw History / JSONL を置換しない。 | 採用（cross-scope rehydration は後続） |
 | 2026-10-08 | 検証 | 明示確認後に Black で model / test を整形し、`--check` を再実行。 | 整形が反映され、checkpoint 1 の format gate を通過。 | 解決済み |
+| 2026-10-10 | 実装判断（#226） | 固定80件制限を廃止し、トークン予算で圧縮対象を選ぶ。安全なツール境界とツールメタデータ付きの厳密な出典照合を採用。 | 長い単一ターンや同じツール結果の繰り返しでCheckpointが進まない問題を防ぐ。予算・出典不明時はRaw履歴を維持。 | マージ済み・最終CI成功（実LLM確認は別途） |
 
 ## 9. 作業セッション記録
 
@@ -276,6 +289,7 @@ PR 1〜5 は実装フェーズ名であり、下表は進める**作業順序**�
 
 | 日付 | 実施内容 | 変更ファイル | 検証結果 | 次の作業 |
 |---|---|---|---|---|
+| 2026-10-10 | PR #226 通常CLIのStructured Compaction永続保存・安全な圧縮境界・ツール出典識別を確定し、mainにマージ。 | `src/uagent/llm_message_helpers.py`, `src/uagent/uagent_llm.py`, `src/uagent/core_impl/history.py`, `src/uagent/runtime/structured_compaction.py`, `tests/test_structured_compaction_cli_path.py` 等 | 最終CI #2351でquality・全pytest・Python 3.11/3.13/3.14互換性成功。Codex重大問題なし。 | 実プロバイダで通常CLIの初回・継続・再起動後を検証する（別作業）。 |
 | 2026-10-09 | Codex review P2 の null artifact デコード失敗を再現・修正。Handoff decoder に限定し、入力不変 / nested validation を検証。初回 CI 全 checks 成功も確認。 | `runtime/handoff_record.py`, `tests/test_handoff_record.py`, implementation docs | 関連 pytest 77 passed、対象 Black 整形・check 成功。修正前ローカル Ruff は実行失敗・未検証。 | 修正 commit の CI と Codex 再レビューを確認する。 |
 | 2026-10-09 | PR 4 第一段階として immutable HandoffRecord / item-level provenance / dispatch lineage と caller-bounded Main / return projection API を追加。既存 dispatcher、state application、Auto-pilot 再開への接続は未実装。 | `runtime/handoff_record.py`, `runtime/handoff_projection.py`, 対応する2 test files、implementation / DEVELOP docs | 対象 Black 26.10.0 整形・check、関連 pytest 74件、syntax / whitespace check 成功。Ruff・全 suite・実 provider / end-to-end は未検証。詳細は PR 4 節。 | CIで未検証 checks を再実行し、dispatch snapshot / source index 接続から段階的に進める。 |
 | 2026-10-09 | Job manager に host-owned structured dispatch policy とsnapshotのworker transportを追加。構造化Jobはshared store / live inboxを拒否し、module-level Sub-Agent tool entrypointはdispatchを非公開runtime引数としてRunnerへ渡す。既存hostはpolicy未設定のため従来動作を維持。 | `runtime/sub_agent_jobs.py`, `tools/spawn_sub_agent_tool.py`, `tools/sub_agent_tool.py`, Job / handoff tests, DEVELOP docs | Black 26.10.0整形・check、py_compile成功。関連pytest **61 passed**。3ケースは部分ソースに欠落する`uagent.core` / Job plugin依存のため除外。Ruffはmodule不在、pinned installは長時間待ち後に中断され未検証。全suite / CI未確認。 | CLI/Web/GUI/A2Aの各trusted Goal/source policyを別段階で設定し、child source index / compact returnを実装する。 |
@@ -328,3 +342,4 @@ PR 1〜5 は実装フェーズ名であり、下表は進める**作業順序**�
 | 2026-10-10 | #217までの実装状況とPR4/5の作業順序を整理。#218の再審査でホスト未接続の審査済みroot登録、PR4詳細の履歴表記、遠隔ホストの安全条件、コード対応表の旧記述を修正。 |
 | 2026-10-10 | #219・#221の未マージ終了と#220・#222のマージを反映。CLIの単一設定によるSub-Agent結果共有、F12のみの中断を現行仕様とし、手動root適用・Auto-pilot再開・旧キー互換を非採用と明記。実provider handoff検証を次の作業とした。 |
 | 2026-10-10 | Structured Handoff の配送・Mainへの提示に関する冗長な2環境変数を削除。CLI単一opt-inに連動させる一方、情報共有範囲に関わる Goal ID / SourceRef 許可リストは明示指定・既定空を維持。 |
+| 2026-10-11 | #226（2026-10-10マージ）の仕様・テスト結果を反映。通常CLIからの永続Checkpoint生成、トークン予算、ツールの安全な分割・識別、Raw履歴保持、実LLM未検証の境界を明文化。 |
