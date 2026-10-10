@@ -318,12 +318,14 @@ runtime includes:
 - Personal Memory, revision-bound read grants, received shared-memory references,
   Room Memory, and Project/Room membership APIs;
 - principal-keyed Profile reads/writes and identity-bound Memory projection;
-- `access_generation`-bound projection invalidation and access re-checks around
-  provider/delivery/continuation paths;
+- `restriction_generation`-bound projection invalidation and access re-checks
+  around provider/delivery/continuation paths;
 - legacy `/api/memories` and `/api/profile` restricted to trusted local mode.
 
-Schema V3 adds `owner_id`, audience columns, revision-bound read grants and an
-access generation counter. Existing V2 rows remain `legacy` and continue to work
+Schema V3 adds `owner_id`, audience columns, revision-bound read grants and two
+change counters: `access_generation` tracks all writes for general observers;
+`restriction_generation` tracks updates and deletes that could invalidate
+already-projected access. Existing V2 rows remain `legacy` and continue to work
 through the trusted local `MemoryStore` API. They are invisible to scoped reads
 until an administrator explicitly verifies and applies `map_legacy_owner` for a
 nonempty legacy owner and project. No grants are created by migration.
@@ -337,9 +339,14 @@ project and a principal-private session. Returned shared references retain
 The receiver must treat these as attributed evidence, never personal guidance.
 
 Grant changes and Memory writes increment `access_generation` transactionally,
-including legacy writes. Updating a Personal Memory invalidates revision-bound
-old grants; forgetting it removes its grants. Project/Room policy changes also
-participate in the authorization checks used to build and reuse projections.
+including legacy writes. Memory and access-policy UPDATE/DELETE operations also
+increment `restriction_generation`; an additive `add_long_memory` write does
+not invalidate the existing turn's immutable Memory projection. Unchanged
+directory-policy refreshes do not alter membership revisions or either counter.
+Updating a Personal Memory invalidates revision-bound old grants; forgetting it
+removes its grants. Project/Room policy changes participate in the authorization
+checks used to build and reuse projections. A genuine access invalidation aborts
+the pending LLM tool continuation and discards its Responses ID.
 
 Web Memory stores are request-local resources. `web_impl/app.py` tracks stores
 opened through the Web API in a request-local `ContextVar` and closes them at the
