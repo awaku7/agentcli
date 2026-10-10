@@ -442,6 +442,11 @@ class SessionStore:
                 );
                 CREATE INDEX IF NOT EXISTS idx_sub_agent_receipts_receiver
                     ON sub_agent_receipts(receiving_session_id, received_at);
+                CREATE TABLE IF NOT EXISTS sub_agent_review_registry_owners (
+                    session_id TEXT PRIMARY KEY
+                        REFERENCES sessions(session_id) ON DELETE CASCADE,
+                    created_at TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS sub_agent_receipt_reviews (
                     root_handoff_id TEXT PRIMARY KEY
                         REFERENCES sub_agent_receipts(root_handoff_id)
@@ -1725,11 +1730,15 @@ class SessionStore:
                 "SELECT state_json, revision FROM agent_states WHERE session_id = ?",
                 (session_id,),
             ).fetchone()
+            owner_row = self._execute(
+                "SELECT 1 FROM sub_agent_review_registry_owners WHERE session_id = ?",
+                (session_id,),
+            ).fetchone()
             value = dict(state)
             value.pop("structured_compaction", None)
-            if _is_owned_sub_agent_review_registry(
-                value.get("sub_agent_review_registry")
-            ):
+            if owner_row is not None:
+                # Only a SQLite ownership row can make a registry protected.
+                # Prior releases allowed arbitrary JSON in this field.
                 value.pop("sub_agent_review_registry", None)
             if current is not None:
                 try:
@@ -1741,8 +1750,12 @@ class SessionStore:
                         value["structured_compaction"] = previous[
                             "structured_compaction"
                         ]
-                    owned = previous.get("sub_agent_review_registry")
-                    if _is_owned_sub_agent_review_registry(owned):
+                    if owner_row is not None:
+                        owned = previous.get("sub_agent_review_registry")
+                        if not _is_owned_sub_agent_review_registry(owned):
+                            raise SessionStoreError(
+                                "persisted reviewed receipt registry is invalid"
+                            )
                         value["sub_agent_review_registry"] = owned
             state_json = _safe_json_dumps(
                 _sanitize_value(value), ensure_ascii=False, sort_keys=True
@@ -2066,10 +2079,12 @@ class SessionStore:
                 raise SessionStoreError("stored AgentState is invalid JSON") from exc
             if not isinstance(state, dict):
                 raise SessionStoreError("stored AgentState is not an object")
+            owner_row = self._execute(
+                "SELECT 1 FROM sub_agent_review_registry_owners WHERE session_id = ?",
+                (receiving_session_id,),
+            ).fetchone()
             registry = state.get("sub_agent_review_registry")
-            if "sub_agent_review_registry" in state and not (
-                _is_owned_sub_agent_review_registry(registry)
-            ):
+            if owner_row is None and "sub_agent_review_registry" in state:
                 # Before this feature, callers could store arbitrary values
                 # under this name. Preserve those values instead of trapping
                 # existing sessions with an unremovable incompatible key.
@@ -2080,7 +2095,7 @@ class SessionStore:
                     suffix += 1
                 state[key] = registry
                 registry = None
-            if registry is None:
+            if owner_row is None:
                 registry = {
                     "owner": _REVIEW_REGISTRY_OWNER,
                     "schema_version": 1,
@@ -2177,6 +2192,12 @@ class SessionStore:
                     raise SessionRevisionConflict(
                         "AgentState revision changed during review application"
                     )
+            if owner_row is None:
+                self._execute(
+                    "INSERT INTO sub_agent_review_registry_owners("
+                    "session_id, created_at) VALUES (?, ?)",
+                    (receiving_session_id, updated_at),
+                )
             self._connection.execute("COMMIT")
             return {
                 "root_handoff_id": root_handoff_id,
