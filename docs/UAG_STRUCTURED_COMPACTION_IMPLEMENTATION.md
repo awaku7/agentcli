@@ -25,7 +25,7 @@
 - **PR 1・PR 3 に残る統合課題:** cross-scope の認可付き出典参照／rehydration、Artifact / tool-result の再取得、Reducer のライフサイクル不変条件と呼び出し経路の検証、DeterministicDelta の実イベント抽出、実 provider 検証など。
 - **PR 5 の残作業:** Client Instance の識別・出典、複数 Client による revision 競合時の応答、最新状態の再取得と安全な再評価、プロセス再起動後の復旧、認可境界と複数 Client の統合テスト。
 - **検証状況:** #217 の最終 CI で Ruff / Black / I18N、全 pytest、Python 3.11・3.13・3.14 の互換性テストが成功。nightly 専用テストはスキップ。これは実 provider / Auto-pilot 再開 / 複数 Client の end-to-end 検証完了を意味しない。
-- **次の作業:** PR 4の審査済みrootメタデータ登録APIをCLIから明示利用する経路と、個別事実・Goalの承認・安全な適用を別々に整備する。その後Auto-pilot checkpoint/resumeと実provider接続検証を進める。GUI/Web/A2Aの有効化前には、主体・workspace・Session所有権、出典認可、revision競合時の安全な処理を該当hostで検証する。複数Clientの競合後の再評価と復旧はPR 5で統合する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
+- **次の作業:** PR 4の審査済みrootメタデータ登録APIをCLIから明示利用する経路は接続済み。次は個別事実・Goalの承認・安全な適用を設計・実装する。その後Auto-pilot checkpoint/resumeと実provider接続検証を進める。GUI/Web/A2Aの有効化前には、主体・workspace・Session所有権、出典認可、revision競合時の安全な処理を該当hostで検証する。複数Clientの競合後の再評価と復旧はPR 5で統合する。固定の残 PR 数は設定せず、依存関係と変更差分がレビュー可能な単位でまとめる。
 
 ### PR 1 完了判定（2026-10-08）
 
@@ -104,8 +104,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] 受理報告と独立した根拠に基づくtrusted reviewの記録を追加（受理root単位に1件、Mainの状態は非更新）
 - [x] Mainの未検証受理レポートへ根拠の現在の有効性を示すreviewメタデータを添付（出典失効時は以前のsupportedを非表示）
 - [x] 対話型CLIからMainユーザーメッセージを根拠にreview監査記録を明示登録（本人認証・Main状態更新は対象外）
-- [x] trusted host専用のreview済みrootメタデータ登録APIを実装（SQLite単一transactionでrevision照合・root ID重複排除。報告本文やGoalは非更新。CLIへの呼び出し経路は未接続）
-- [ ] 対話型CLIから審査済みrootを明示登録するtrusted host経路を接続（権限・独立根拠・revisionを再検証。報告本文やGoalは非更新）
+- [x] trusted host専用のreview済みrootメタデータ登録APIを実装（SQLite単一transactionでrevision照合・root ID重複排除。報告本文やGoalは非更新。CLI呼び出しは後続で接続済み）
+- [x] 対話型CLIから審査済みrootを明示登録するtrusted host経路を接続（`:receipt apply <root-id>`。権限・独立根拠・revisionを再検証。報告本文やGoalは非更新）
 - [ ] review済み報告から独立に検証された個別事実／Goal状態を適用する承認・根拠モデル
 - [ ] 個別事実・Goal状態を承認してMainへ適用する際のrevision検証・root ID重複排除・状態更新の原子性を実装（#215の審査済みrootメタデータ登録とは別）
 - [ ] Auto-pilot の checkpoint / resume を実装
@@ -173,7 +173,7 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 
 | 順序 | フェーズ | 残作業と完了判定 |
 |---|---|---|
-| 1 | PR 4 | #215の審査済みroot管理情報登録APIをCLIから明示利用する経路を接続（個別事実・Goalは非更新）。別途、個別事実・Goalの承認対象と独立根拠を定義し、`reviewed_unverified` のroot管理情報と区別する。revision競合・出典失効・二重適用防止を検証する。 |
+| 1 | PR 4 | #215の審査済みroot管理情報登録APIをCLIから明示利用する経路は接続済み（個別事実・Goalは非更新）。次は個別事実・Goalの承認対象と独立根拠を定義し、`reviewed_unverified` のroot管理情報と区別する。revision競合・出典失効・二重適用防止を検証する。 |
 | 2 | PR 4 | Auto-pilot の checkpoint / resume。複数ラウンドの中断、再起動、状態競合、終了判断が根拠のない Goal 完了を生まないことを検証する。 |
 | 3 | PR 4 | 実 provider / model handoff の接続試験。既存の provider-neutral な単体テストだけでは完了扱いしない。 |
 | 4 | PR 4・PR 5 の先行安全条件 | GUI/Web/A2Aの有効化より前に、principal/workspace/Sessionの所有権・出典認可・revision競合時の拒否を当該hostで検証する。未実装の複数Client更新を暗黙に許可しない。 |
@@ -182,6 +182,8 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 | 並行で確認 | PR 1・PR 3 の保留事項 | cross-scope 認可と rehydration、Artifact / tool-result、Reducer lifecycle、実イベントの DeterministicDelta 抽出の範囲と必要な補強を確定する。 |
 
 完了の判定は各行のコード・テスト・レビューに基づく。作業数と PR 数は同一ではなく、独立性のある差分を無理に細分化しない。Auto-pilot を優先しても、GUI / Web / A2A や PR 5 を完了と見なさない。
+
+**CLIの審査済みroot適用接続（後続段階）:** 対話型CLIの `:receipt apply <root-id>` により、#215のtrusted APIをMain Sessionの最新revisionで明示呼び出しする。`supported` の審査があり、独立したMain user messageと子出力が現在も利用可能な場合に限ってroot管理情報を登録する。同じrootへの再実行は冪等であり、Goal・Memory・報告本文・Auto-pilotを更新しない。他hostの接続と個別事実・Goal適用は未実装。
 
 ## 5. コード対応表
 
@@ -198,7 +200,7 @@ PR 4 aggregate source grant review 対応（2026-10-09）: P2「複数 section �
 | Artifact / bounded retrieval | `src/uagent/runtime/artifact_manager.py`, `tool_result_manager.py`, `tool_result_persistence.py`, `context_retrieval.py`; `src/uagent/runtime/history.py:materialize_large_tool_result()` を `src/uagent/llm_flow_helpers.py` から tool result history へ適用。 | 既存 | oversized results は先に Artifact 化し、登録失敗時は bounded text fallback。`test_tool_result_artifact.py` と `test_responses_tool_result_limit.py` を確認。Tool-result Artifact rehydration はPR 3で未接続。Checkpoint SourceRef は同一 Session の message kind に限って retrieval / rehydration 対応。 |
 | ContextCandidate / Decision / Budget | `src/uagent/runtime/active_context.py`, `context_decision.py`, `context_budget.py`, `context_manager.py`。 | 既存 | Applied checkpoint のみを session-scoped candidate 化し、query relevance / importance / recency の scoring、decision、budget を適用。Source range の exact / available 状態を選択後に再確認する。 |
 | ActiveContextBuilder / Provider Projection | `src/uagent/runtime/active_context.py` の provider-neutral `ActiveContextBuilder`。 | 既存 | `ContextManager.build_message_context()` から `_run_one_round()` の既存 provider-neutral context hand-off に接続。選択 checkpoint は先行 system prefix の後へ背景情報として投影し、重複 reference は再投入しない。 |
-| Sub-Agent / Auto-pilot handoff | `src/uagent/runtime/sub_agent_handoff.py`, `sub_agent_jobs.py`, `sub_agent_receipt.py`, `sub_agent_receipt_context.py`, `session_store.py`, `src/uagent/cli_impl/sub_agent_receipt_review.py` と関連host。 | 既存・拡張 | #204/#205 dispatch・Job接続、#207 compact return、Main受理・CLI二段階opt-in配送・未検証context表示、#214 review監査、#215 審査済みroot登録API、#216 根拠有効性付きreview表示、#217 CLI手動審査まで実装。#215 APIのCLI呼び出し、個別事実・Goal適用、GUI/Web/A2AおよびAuto-pilot再開は未接続。 |
+| Sub-Agent / Auto-pilot handoff | `src/uagent/runtime/sub_agent_handoff.py`, `sub_agent_jobs.py`, `sub_agent_receipt.py`, `sub_agent_receipt_context.py`, `session_store.py`, `src/uagent/cli_impl/sub_agent_receipt_review.py` と関連host。 | 既存・拡張 | #204/#205 dispatch・Job接続、#207 compact return、Main受理・CLI二段階opt-in配送・未検証context表示、#214 review監査、#215 審査済みroot登録API、#216 根拠有効性付きreview表示、#217 CLI手動審査まで実装。#215 APIのCLI呼び出しは後続で接続済み。個別事実・Goal適用、GUI/Web/A2AおよびAuto-pilot再開は未接続。 |
 | 関連テスト | `tests/test_compaction_record.py`, `test_session_item_index.py`, `test_compaction_persistence.py`, `test_session_store.py`, `test_agent_state_store.py` 等。 | 新規・既存 | checkpoint model / ordered source index / atomic persistence tests と既存 SessionStore / AgentState regressions を個別実行。 |
 
 ## 6. 受け入れ条件の追跡
