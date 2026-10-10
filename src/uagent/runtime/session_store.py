@@ -61,6 +61,18 @@ _SESSION_ITEM_ORDERING_QUALITIES = {
 }
 
 
+_REVIEW_REGISTRY_OWNER = "uag.runtime.sub_agent.review_registry.v1"
+
+
+def _is_owned_sub_agent_review_registry(value: Any) -> bool:
+    return (
+        isinstance(value, dict)
+        and value.get("owner") == _REVIEW_REGISTRY_OWNER
+        and value.get("schema_version") == 1
+        and isinstance(value.get("entries"), dict)
+    )
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -1714,18 +1726,24 @@ class SessionStore:
                 (session_id,),
             ).fetchone()
             value = dict(state)
-            protected_keys = ("structured_compaction", "sub_agent_review_registry")
-            for key in protected_keys:
-                value.pop(key, None)
+            value.pop("structured_compaction", None)
+            if _is_owned_sub_agent_review_registry(
+                value.get("sub_agent_review_registry")
+            ):
+                value.pop("sub_agent_review_registry", None)
             if current is not None:
                 try:
                     previous = json.loads(current["state_json"])
                 except (TypeError, ValueError):
                     previous = None
                 if isinstance(previous, dict):
-                    for key in protected_keys:
-                        if key in previous:
-                            value[key] = previous[key]
+                    if "structured_compaction" in previous:
+                        value["structured_compaction"] = previous[
+                            "structured_compaction"
+                        ]
+                    owned = previous.get("sub_agent_review_registry")
+                    if _is_owned_sub_agent_review_registry(owned):
+                        value["sub_agent_review_registry"] = owned
             state_json = _safe_json_dumps(
                 _sanitize_value(value), ensure_ascii=False, sort_keys=True
             )
@@ -2049,13 +2067,26 @@ class SessionStore:
             if not isinstance(state, dict):
                 raise SessionStoreError("stored AgentState is not an object")
             registry = state.get("sub_agent_review_registry")
-            if registry is None:
-                registry = {"schema_version": 1, "entries": {}}
-            if (
-                not isinstance(registry, dict)
-                or registry.get("schema_version") != 1
-                or not isinstance(registry.get("entries"), dict)
+            if "sub_agent_review_registry" in state and not (
+                _is_owned_sub_agent_review_registry(registry)
             ):
+                # Before this feature, callers could store arbitrary values
+                # under this name. Preserve those values instead of trapping
+                # existing sessions with an unremovable incompatible key.
+                key = "legacy_sub_agent_review_registry"
+                suffix = 2
+                while key in state:
+                    key = f"legacy_sub_agent_review_registry_{suffix}"
+                    suffix += 1
+                state[key] = registry
+                registry = None
+            if registry is None:
+                registry = {
+                    "owner": _REVIEW_REGISTRY_OWNER,
+                    "schema_version": 1,
+                    "entries": {},
+                }
+            if not _is_owned_sub_agent_review_registry(registry):
                 raise SessionStoreError("unsupported reviewed receipt registry")
             entries = dict(registry["entries"])
             entry = {
@@ -2113,6 +2144,7 @@ class SessionStore:
                     )
             entries[root_handoff_id] = entry
             state["sub_agent_review_registry"] = {
+                "owner": _REVIEW_REGISTRY_OWNER,
                 "schema_version": 1,
                 "entries": entries,
             }
