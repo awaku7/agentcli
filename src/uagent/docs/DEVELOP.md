@@ -110,8 +110,17 @@ model-supplied revision / delivery IDs or state deltas are never accepted.
 `record_result()` keeps a separately redacted `compact_report` in the indexed
 message payload because SQLite's text-level credential masking can invalidate
 the raw result's JSON. Terminal error/blocked reports may use `message` in
-place of `summary`. This API neither delivers returns automatically through
-Jobs nor applies them to Main AgentState. Full child conversation/tool-event
+place of `summary`. The host may now call `SubAgentJobManager.get_compact_handoff_return()`
+with its trusted Job owner, job ID, and a current source-access check after a
+Job terminal notice. The method returns a compact record only after a
+structured Job has durably published its indexed output; legacy, unfinished,
+cancelled, and unpersisted Jobs return no compact record. It also permits
+retrieval of an unverified terminal error/blocked report, without interpreting
+it as successful completion. The output is not inserted into ordinary Job
+snapshots, notices, model/tool arguments, Main AgentState, or Memory. Reads
+are repeatable and do not acknowledge delivery. Hosts still need explicit
+Goal/source policy opt-in, Main-side authorization and atomic revision/root-ID
+checks before applying anything; no current host enables this path. Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
 resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
