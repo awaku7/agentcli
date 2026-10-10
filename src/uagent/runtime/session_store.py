@@ -1399,7 +1399,8 @@ class SessionStore:
             return False
         row = self._execute(
             "SELECT 1 FROM session_items AS si "
-            "JOIN messages AS m ON m.session_id = si.session_id "
+            "JOIN messages AS m ON m.message_id = CAST(si.item_id AS INTEGER) "
+            "AND m.session_id = si.session_id "
             "AND CAST(m.message_id AS TEXT) = si.item_id "
             "WHERE si.session_id = ? AND si.item_kind = 'message' "
             "AND si.item_id = ? AND si.session_seq = ? "
