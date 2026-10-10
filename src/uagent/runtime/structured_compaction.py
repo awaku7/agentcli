@@ -64,8 +64,22 @@ def _content_text(message: Mapping[str, Any]) -> str:
     return str(value)
 
 
-def _message_key(message: Mapping[str, Any]) -> tuple[str, str]:
-    return str(message.get("role") or ""), _content_text(message)
+def _message_key(message: Mapping[str, Any]) -> tuple[str, str, str]:
+    role = str(message.get("role") or "")
+    if role == "assistant":
+        metadata_keys = ("tool_calls", "function_call")
+    elif role in {"tool", "function"}:
+        metadata_keys = ("tool_call_id", "name")
+    else:
+        metadata_keys = ()
+    metadata = {
+        key: message[key] for key in metadata_keys if message.get(key) is not None
+    }
+    return (
+        role,
+        _content_text(message),
+        json.dumps(metadata, ensure_ascii=False, sort_keys=True),
+    )
 
 
 def _resolve_source_window(
@@ -80,7 +94,7 @@ def _resolve_source_window(
     matches: list[list[dict[str, Any]]] = []
     for start in range(0, len(indexed) - len(target_keys) + 1):
         candidate = indexed[start : start + len(target_keys)]
-        candidate_keys: list[tuple[str, str]] = []
+        candidate_keys: list[tuple[str, str, str]] = []
         for item in candidate:
             payload = item.get("payload")
             source_message = (

@@ -591,3 +591,53 @@ def test_tool_heavy_turn_splits_at_safe_boundaries(
         assert first_result["content"] == "result-0"
         assert projected.messages[-1]["content"] == "Next task"
         assert store.list_messages(session.session_id) == before
+
+
+def test_repeated_tool_windows_keep_distinct_checkpoint_sources(tmp_path):
+    """Identical tool results must not make later exact source windows ambiguous."""
+    with SessionStore(tmp_path / "repeated-tools.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="cli")
+        for call_id in ("call-one", "call-two"):
+            assistant = {
+                "role": "assistant",
+                "content": "",
+                "tool_calls": [
+                    {
+                        "id": call_id,
+                        "type": "function",
+                        "function": {"name": "lookup", "arguments": "{}"},
+                    }
+                ],
+            }
+            tool = {
+                "role": "tool",
+                "name": "lookup",
+                "tool_call_id": call_id,
+                "content": "ok",
+            }
+            for message in (assistant, tool):
+                store.append_message(
+                    session.session_id,
+                    message["role"],
+                    message["content"],
+                    payload=message,
+                )
+            before = store.list_messages(session.session_id)
+            outcome = attempt_structured_compaction(
+                store=store,
+                session_id=session.session_id,
+                source_messages=[assistant, tool],
+                provider="openai",
+                model="gpt-test",
+                locale="en",
+                generate_text=lambda prompt: _delta(
+                    json.loads(prompt[-1]["content"])["sources"][-1]["source_ref"],
+                    title=call_id,
+                ),
+            )
+            assert outcome.status == "applied"
+            assert store.list_messages(session.session_id) == before
+
+        records = store.list_compaction_records(session.session_id)
+        assert len(records) == 2
+        assert records[0]["source_start_seq"] > records[1]["source_end_seq"]
