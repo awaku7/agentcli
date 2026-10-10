@@ -294,9 +294,10 @@ def test_read_only_main_context_labels_human_review_as_assessment(tmp_path, outc
             format_sub_agent_receipt_context(store, main).splitlines()[-1]
         )
         assert projected["review_assessment"]["status"] == "evidence_unavailable"
-        assert store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)[
-            "outcome"
-        ] == outcome
+        assert (
+            store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)["outcome"]
+            == outcome
+        )
         assert store.get_agent_state_snapshot(main) == before
 
 
@@ -309,9 +310,12 @@ def test_changed_evidence_role_disables_review_assessment(tmp_path):
             "WHERE session_id = ? AND message_id = CAST(? AS INTEGER)",
             (main, evidence.ref_id),
         )
-        assert store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)[
-            "evidence_available"
-        ] is False
+        assert (
+            store.get_sub_agent_receipt_review(main, dispatch.dispatch_id)[
+                "evidence_available"
+            ]
+            is False
+        )
         projected = json.loads(
             format_sub_agent_receipt_context(store, main).splitlines()[-1]
         )
