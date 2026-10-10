@@ -45,7 +45,7 @@ from .startup import (
 )
 from .state import _CLI_SHUTDOWN
 from .stdin_loop import stdin_loop
-from .sub_agent_receipt_review import handle_cli_receipt_command
+from .sub_agent_receipt_review import dispatch_cli_receipt_command_event
 from .sub_agent_jobs import (
     CLIJobConfirmationBroker,
     cli_confirmation_supported,
@@ -345,10 +345,9 @@ def main() -> int:
 
             if kind == "command":
                 line = ev.get("text", "")
-                if handle_cli_receipt_command(
+                if dispatch_cli_receipt_command_event(
                     line, core=core, store=session_store, owner=job_owner
                 ):
-                    core.set_status(False, "")
                     continue
                 if handle_cli_job_command(line, manager=job_manager, owner=job_owner):
                     continue
