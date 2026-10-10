@@ -96,6 +96,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] Main側に出典とrevisionを検証する永続compact return受理記録APIを追加（AgentState更新・host接続は対象外）
 - [x] trusted Job ownerからMain側の永続受理記録へ結果を明示的に配送するAPIを接続（既存hostは未有効化）
 - [x] CLIの終了通知からMain受理記録への自動配送を二段階opt-inで接続（CLI稼働中・同じowner限定、Main状態は非更新）
+- [x] CLIのMainに受理記録を未検証・読み取り専用データとして提示するopt-in経路を追加（出典失効時非表示、Goal・Memory非更新）
 - [ ] GUI/Web/A2Aの自動配送とMain AgentStateへの安全な適用を接続
 - [x] CLIに明示的opt-inのtrusted Goal ID／親Sessionの厳密なmessage SourceRef選択ポリシーを接続（既定は無効、許可リストは空）
 - [ ] GUI・Web・A2Aホストのtrusted Goal/source選択ポリシーを安全に有効化
@@ -114,6 +115,8 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 **CLIホストの限定的なopt-in（次の実装）:** 環境設定 `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` を明示したCLI起動時だけ、`SessionStore` に基づく `build_scoped_job_handoff_policy()` をJob managerへ登録する。Goal IDと正確なmessage SourceRefはホスト設定のJSON配列で指定し、初期値はともに空。source accessをSession ID・メッセージID・順序番号・available/exactで都度検証し、選ばれていないGoalや本文履歴を渡さない。Main Sessionの切替、出典失効、無効な設定は暗黙に広い権限へ切り替えない。現時点ではCLIだけがopt-in可能で、Job完了後のMainへの自動配送・AgentStateへの適用は未実装。
 
 **CLIでの通知駆動受理（限定的な自動接続）:** `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` に加え、別の `UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT=1` を指定したCLIでのみ、現在のCLI ownerの `finished` Job通知から #210 の受理APIを呼び出す。終了通知の内容だけを信用せず、Jobの所有者・確定済み子出力・出典索引・Main revisionを改めて検証する。成功・失敗の結果は子本文を含めず構造化ログに記録し、通常のCLI Job通知は変更しない。Session切替後の旧ownerの通知は新Sessionへ配送しない。CLI終了時や再起動跨ぎの未処理通知を再送する仕組みはなく、この自動配送はベストエフォートである。未検証報告をAgentState、Goal、MemoryやAuto-pilotへ適用しない。
+
+**Mainからの安全な参照（次の限定実装）:** 受理済みの `sub_agent_receipts` を、trusted Main Session IDに限定して最大5件まで読み取るAPIを追加する。記録の構造・root ID・受信先の一致を検査し、元の子出力 `SourceRef` が現在もexact/availableであるものだけを表示対象とする。子Sessionの削除や出典利用不可後は、記録自体を消去しなくても報告本文をMainへ再提示しない。CLIの `UAGENT_SUB_AGENT_HANDOFF_CONTEXT=1` 設定が明示的に有効なときだけ、最大3件・4000文字の未検証JSONデータとして次ターンへ渡す。LLMがその本文の指示に従わないように非信頼の注記を付け、AgentState更新の後に追加することで、報告文をMain Goalとして永続化することを避ける。これはMainの参照手段であって、事実認定・Goal完了・Auto-pilot再開ではない。
 
 **Job→Mainの明示的な配送（追加の限定実装）:** `SubAgentJobManager.deliver_compact_handoff_to_main(owner, job_id, source_access_check)` は、trusted ownerが取得できる終了Jobのうち構造化された結果を正常保存したものだけを対象とし、Indexed child outputに記録されたJob IDの一致を検証してから#209の `receive_compact_sub_agent_return()` を呼び出す。Main側はSQLiteトランザクション内で出力のJob ID・権限・出典・revision・root IDを再検証し、同じ結果の再配送は受理済みとして返す。キャンセル・未保存・他owner・通常Jobは配送しない。エラー終了の結果も未検証報告として扱い、MainのGoal完了やAgentStateを更新しない。**既存hostは本APIをまだ呼ばず、自動配送とGoal/source選択policyの有効化は別作業。**
 
