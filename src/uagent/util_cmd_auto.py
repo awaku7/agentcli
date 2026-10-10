@@ -31,6 +31,100 @@ from .utils.secret_mask import _mask_inline_secrets, mask_message
 tr = _
 tr_ = _
 
+_AUTO_CHECKPOINT_KEY = "_auto_pilot_checkpoint"
+
+
+def _auto_checkpoint_location(core: Any) -> tuple[Any, str]:
+    store = getattr(core, "session_store", None)
+    session_id = str(
+        getattr(core, "_session_store_active_id", None)
+        or getattr(core, "session_id", "")
+        or ""
+    )
+    return store, session_id
+
+
+def _save_auto_checkpoint(core: Any, status: str) -> None:
+    """Store completed round boundaries in the existing SessionStore."""
+    store, session_id = _auto_checkpoint_location(core)
+    if store is None or not session_id:
+        return
+    try:
+        store.record_tool_context(
+            session_id,
+            tool_name=_AUTO_CHECKPOINT_KEY,
+            context={
+                "version": 1,
+                "status": status,
+                "goal": core.auto_pilot_goal,
+                "round": core.auto_pilot_round,
+                "max_rounds": core.auto_pilot_max_rounds,
+                "message_count": len(store.list_messages(session_id)),
+                "agent_revision": store.get_agent_state_revision(session_id),
+            },
+        )
+    except Exception as exc:
+        print(
+            _("[AUTO] Unable to save resume point (%(error)s).")
+            % {"error": type(exc).__name__}
+        )
+
+
+def _restore_auto_checkpoint(core: Any) -> bool:
+    """Resume only when the saved session has not changed."""
+    store, session_id = _auto_checkpoint_location(core)
+    if store is None or not session_id:
+        print(_("[AUTO] Resume requires a loaded SQLite session."))
+        return False
+    try:
+        checkpoint = store.latest_tool_context(session_id).get(_AUTO_CHECKPOINT_KEY)
+        if not isinstance(checkpoint, dict) or checkpoint.get("status") != "ready":
+            print(_("[AUTO] No paused Auto-pilot run is available."))
+            return False
+        goal = checkpoint.get("goal")
+        rounds = checkpoint.get("round")
+        maximum = checkpoint.get("max_rounds")
+        message_count = checkpoint.get("message_count")
+        revision = checkpoint.get("agent_revision")
+        if (
+            checkpoint.get("version") != 1
+            or not isinstance(goal, str)
+            or not goal.strip()
+            or isinstance(rounds, bool)
+            or not isinstance(rounds, int)
+            or rounds < 0
+            or (
+                maximum is not None
+                and (
+                    isinstance(maximum, bool)
+                    or not isinstance(maximum, int)
+                    or maximum <= 0
+                )
+            )
+            or isinstance(message_count, bool)
+            or not isinstance(message_count, int)
+            or isinstance(revision, bool)
+            or not isinstance(revision, int)
+            or len(store.list_messages(session_id)) != message_count
+            or store.get_agent_state_revision(session_id) != revision
+        ):
+            print(_("[AUTO] Session changed since the saved round; resume refused."))
+            return False
+    except Exception as exc:
+        print(
+            _("[AUTO] Resume point unavailable (%(error)s).")
+            % {"error": type(exc).__name__}
+        )
+        return False
+
+    core.auto_pilot_goal = goal
+    core.auto_pilot_round = rounds
+    core.auto_pilot_max_rounds = maximum
+    core.auto_pilot_exit_requested = False
+    core.auto_pilot_active = True
+    return True
+
+
 _SENTINEL_INSTRUCTION = _(
     "\n\nAuto-pilot protocol: finish your response with exactly one line: "
     "<AUTO_CONTINUE> if work remains, or <AUTO_COMPLETE> if the goal is complete. "
@@ -839,7 +933,9 @@ def _run_auto_pilot_loop(
         )
 
         core.set_status(True, "AUTO")
+        _save_auto_checkpoint(core, "ready")
 
+    _save_auto_checkpoint(core, "ready")
     try:
         outcome = run_agent_loop(
             is_active=lambda: bool(core.auto_pilot_active),
@@ -863,6 +959,7 @@ def _run_auto_pilot_loop(
             return
 
         if outcome.reason == "completion_regex":
+            _save_auto_checkpoint(core, "finished")
             record_run_outcome("completion_regex")
             print(_("[AUTO] Completion regex matched."))
             return
@@ -875,6 +972,7 @@ def _run_auto_pilot_loop(
             return
 
         if outcome.reason == "complete":
+            _save_auto_checkpoint(core, "finished")
             core.auto_pilot_active = False
             core._last_round_outcome = {
                 "status": "completed",
@@ -888,6 +986,7 @@ def _run_auto_pilot_loop(
             return
 
         if outcome.reason == "max_rounds":
+            _save_auto_checkpoint(core, "finished")
             core.auto_pilot_active = False
             core._last_round_outcome = {
                 "status": "failed",
@@ -991,14 +1090,22 @@ def _handle_cmd_auto(
       :auto <goal> --infinite
       :auto INFINITE <goal>
       :auto off
+      :auto resume
     """
     a = (arg or "").strip()
 
     if a.lower() == "off":
         core.auto_pilot_active = False
         core.auto_pilot_exit_requested = False
+        _save_auto_checkpoint(core, "finished")
         print(_("[AUTO] Auto-pilot turned off."))
         return CommandResult()
+
+    if a.lower() == "resume":
+        if core.auto_pilot_active or not _restore_auto_checkpoint(core):
+            return CommandResult()
+        print(_("[AUTO] Resuming from the last completed round."))
+        return CommandResult(resume_auto_pilot=True)
 
     if not a:
         print(tr("Usage: :auto <goal> [--max-rounds N]"))
@@ -1024,6 +1131,7 @@ def _handle_cmd_auto(
     core.auto_pilot_round = 0
     core.auto_pilot_exit_requested = False
     core.auto_pilot_active = True
+    _save_auto_checkpoint(core, "starting")
 
     print(_("[AUTO] Started. Goal: %(goal)s") % {"goal": goal})
     if max_rounds is None:
