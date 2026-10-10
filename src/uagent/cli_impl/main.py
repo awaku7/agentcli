@@ -56,14 +56,8 @@ from .sub_agent_jobs import (
     prepare_cli_session_transition,
 )
 from ..runtime.sub_agent_host_policy import cli_scoped_handoff_policy_from_environment
-from ..runtime.sub_agent_cli_receipt import (
-    cli_auto_receipt_enabled,
-    deliver_cli_finished_job_notice,
-)
-from ..runtime.sub_agent_receipt_context import (
-    cli_receipt_context_enabled,
-    queue_cli_sub_agent_receipt,
-)
+from ..runtime.sub_agent_cli_receipt import deliver_cli_finished_job_notice
+from ..runtime.sub_agent_receipt_context import queue_cli_sub_agent_receipt
 from ..runtime.sub_agent_jobs import SubAgentJobManager
 
 
@@ -199,12 +193,8 @@ def main() -> int:
     handoff_policy = cli_scoped_handoff_policy_from_environment(
         session_store, os.environ
     )
-    auto_receipt_enabled = cli_auto_receipt_enabled(
-        os.environ, structured_handoff_enabled=handoff_policy is not None
-    )
-    core._sub_agent_receipt_context_enabled = cli_receipt_context_enabled(
-        os.environ, structured_handoff_enabled=handoff_policy is not None
-    )
+    structured_handoff_enabled = handoff_policy is not None
+    core._sub_agent_receipt_context_enabled = structured_handoff_enabled
     job_manager = SubAgentJobManager(
         notice_callback=_enqueue_sub_agent_job_notice,
         confirmation_handler=confirmation_broker.ask,
@@ -493,7 +483,7 @@ def main() -> int:
             if kind == "sub_agent_job_notice":
                 notice = ev.get("notice") or {}
                 display_job_notice(core, notice)
-                if auto_receipt_enabled:
+                if structured_handoff_enabled:
                     try:
                         receipt = deliver_cli_finished_job_notice(
                             manager=job_manager,
@@ -511,10 +501,7 @@ def main() -> int:
                         )
                     else:
                         if receipt is not None:
-                            if (
-                                core._sub_agent_receipt_context_enabled
-                                and not receipt["already_received"]
-                            ):
+                            if not receipt["already_received"]:
                                 queue_cli_sub_agent_receipt(core, receipt)
                             log_event(
                                 "sub_agent.handoff_receipt_recorded",
