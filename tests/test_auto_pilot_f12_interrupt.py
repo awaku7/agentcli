@@ -6,7 +6,7 @@ import sys
 import threading
 from types import SimpleNamespace
 
-from uagent.core_impl import interrupt
+from uagent import core as interrupt
 
 
 def _fake_core():
@@ -25,7 +25,8 @@ def _fake_core():
 def test_windows_f12_only(monkeypatch):
     for scan, expected in ((b"\x86", True), (b"\x84", False)):
         core = _fake_core()
-        monkeypatch.setattr(interrupt, "_core", core)
+        for name, value in vars(core).items():
+            monkeypatch.setattr(interrupt, name, value)
         keys = iter((b"\xe0", scan))
         monkeypatch.setitem(
             sys.modules,
@@ -35,8 +36,8 @@ def test_windows_f12_only(monkeypatch):
 
         interrupt._check_key_win()
 
-        assert core.interrupt_requested is expected
-        assert core.auto_pilot_exit_requested is expected
+        assert interrupt.interrupt_requested is expected
+        assert interrupt.auto_pilot_exit_requested is expected
 
 
 def test_posix_f12_only(monkeypatch):
@@ -59,7 +60,8 @@ def test_posix_f12_only(monkeypatch):
 
     for sequence, expected in ((b"\x1b[24~", True), (b"\x1b[22~", False)):
         core = _fake_core()
-        monkeypatch.setattr(interrupt, "_core", core)
+        for name, value in vars(core).items():
+            monkeypatch.setattr(interrupt, name, value)
         stdin = FakeInput(sequence)
         monkeypatch.setattr(sys, "stdin", stdin)
         monkeypatch.setitem(
@@ -88,5 +90,5 @@ def test_posix_f12_only(monkeypatch):
 
         interrupt._check_key_posix()
 
-        assert core.interrupt_requested is expected
-        assert core.auto_pilot_exit_requested is expected
+        assert interrupt.interrupt_requested is expected
+        assert interrupt.auto_pilot_exit_requested is expected
