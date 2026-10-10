@@ -320,6 +320,7 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
     readable_audiences = [("project", turn.project_id)]
     store = open_memory_store(long_memory._sqlite_path())
     try:
+        before = _read_restriction_generation(store)
         from .project_access import ProjectAccessPolicy
 
         project_policy = ProjectAccessPolicy(store)
@@ -353,7 +354,6 @@ def _prepare_scoped_records(core: Any, turn: Any) -> tuple[list[dict[str, Any]],
             readable_audiences=tuple(readable_audiences),
         )
         scoped = ScopedMemoryStore(store, context)
-        before = _read_restriction_generation(store)
         records = scoped.records()
         after = _read_restriction_generation(store)
         if before != after:
