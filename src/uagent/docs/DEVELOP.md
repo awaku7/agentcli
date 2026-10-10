@@ -94,8 +94,8 @@ unchanged. `SubAgentJobManager` accepts an optional host-owned
 dispatch against the immutable Job owner before admission, carries it on the
 worker execution context, rejects shared-store publication and live inbox
 messages, and the worker passes it through a private runtime argument to
-`SubAgentRunner`. No current host installs this policy yet; each host must add
-its own bounded Goal/source selection and access checks before opting in.
+`SubAgentRunner`. The CLI has an opt-in bounded Goal/source selection policy;
+other hosts must add their own authorization checks before opting in.
 SQLite profile reconstruction excludes `sub-agent` sessions before reading
 messages or applying its log-count limit. Child objectives and generated
 findings must not become long-term user preferences injected into Main prompts.
@@ -273,10 +273,9 @@ registers `reviewed_unverified` root metadata only; it never certifies
 facts, changes Goals/Memory or resumes Auto-pilot. Headless and Auto-pilot
 commands cannot perform this write.
 
-Full child conversation/tool-event
-persistence, trusted Job-to-host return delivery, atomic receiver revision
-checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
-resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
+Full child conversation/tool-event persistence, process-restart
+recovery, other host integration, separately approved individual facts/Goals,
+and Auto-pilot checkpoint / resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
 `tests/test_sub_agent_handoff.py`, `tests/test_handoff_record.py`,
 `tests/test_handoff_projection.py`, `tests/test_compaction_persistence.py`
 and the affected Sub-Agent tests when changing this foundation.
