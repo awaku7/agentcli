@@ -111,6 +111,7 @@ def test_existing_root_cannot_be_replayed_with_another_payload(tmp_path):
             store.commit_sub_agent_receipt(
                 malicious,
                 source_session_id=dispatch.source_session_id,
+                expected_role="reviewer",
                 source_access_check=lambda _ref: True,
             )
         assert store.get_agent_state_snapshot(main) == before
@@ -147,6 +148,7 @@ def test_permission_revocation_and_missing_source_fail_closed(tmp_path):
             store.commit_sub_agent_receipt(
                 record,
                 source_session_id=dispatch.source_session_id,
+                expected_role="reviewer",
                 source_access_check=lambda _ref: True,
             )
         receipt_count = store._connection.execute(
@@ -180,6 +182,7 @@ def test_second_session_does_not_inherit_child_result(tmp_path):
             store.commit_sub_agent_receipt(
                 forged,
                 source_session_id=dispatch.source_session_id,
+                expected_role="reviewer",
                 source_access_check=lambda _ref: True,
             )
 
@@ -218,7 +221,9 @@ def test_two_receivers_commit_one_root_across_connections(tmp_path):
         assert receipt_count == 1
 
 
-@pytest.mark.parametrize("field", ["finding", "objective", "goal_ids", "agent_id"])
+@pytest.mark.parametrize(
+    "field", ["finding", "objective", "goal_ids", "agent_id", "role"]
+)
 def test_first_receipt_must_match_indexed_dispatch_and_output(tmp_path, field):
     from uagent.runtime.handoff_record import HandoffRecord
     from uagent.runtime.sub_agent_return import build_compact_sub_agent_return
@@ -248,12 +253,15 @@ def test_first_receipt_must_match_indexed_dispatch_and_output(tmp_path, field):
             injected = replace(legitimate, objective="Invented task")
         elif field == "goal_ids":
             injected = replace(legitimate, goal_ids=("invented-goal",))
-        else:
+        elif field == "agent_id":
             injected = replace(legitimate, agent_id="fake-agent")
+        else:
+            injected = replace(legitimate, role="attacker")
         with pytest.raises(SessionStoreError, match="does not match"):
             store.commit_sub_agent_receipt(
                 injected,
                 source_session_id=dispatch.source_session_id,
+                expected_role="reviewer",
                 source_access_check=lambda _ref: True,
             )
         assert store.get_agent_state_snapshot(main) == (None, 0)
@@ -262,3 +270,60 @@ def test_first_receipt_must_match_indexed_dispatch_and_output(tmp_path, field):
         ).fetchone()[0]
         assert receipt_count == 0
         assert _receive(dispatch)["already_received"] is False
+
+
+def test_redacted_dispatch_scope_stays_parseable_for_secret_objective(tmp_path):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        main = store.create_session(project="test", entry_point="cli")
+        dispatch = capture_sub_agent_dispatch(
+            store,
+            receiving_session_id=main.session_id,
+            objective="Investigate api_key=secret",
+            task_scope="Read-only investigation",
+            source_access_check=lambda _ref: False,
+        )
+        dispatch.record_result(
+            '{"status":"completed","summary":"Investigated the bug"}'
+        )
+        scope = store.list_indexed_messages(dispatch.source_session_id)[0][
+            "payload"
+        ]["dispatch_scope"]
+        assert "secret" not in json.dumps(scope)
+        assert scope["objective"].startswith("Investigate api_key=")
+        assert _receive(dispatch)["already_received"] is False
+        saved = store._connection.execute(
+            "SELECT record_json FROM sub_agent_receipts"
+        ).fetchone()["record_json"]
+        assert "secret" not in saved
+
+
+def test_receipt_survives_child_cleanup_and_remains_idempotent(tmp_path):
+    with SessionStore(tmp_path / "session.sqlite3") as store:
+        main, dispatch = _setup(store)
+        _receive(dispatch)
+        row = store._connection.execute(
+            "SELECT record_json FROM sub_agent_receipts "
+            "WHERE root_handoff_id = ?",
+            (dispatch.dispatch_id,),
+        ).fetchone()
+        from uagent.runtime.handoff_record import HandoffRecord
+
+        record = HandoffRecord.from_dict(json.loads(row["record_json"]))
+        store.delete_session(dispatch.source_session_id)
+        present = store._connection.execute(
+            "SELECT count(*) FROM sub_agent_receipts "
+            "WHERE root_handoff_id = ?",
+            (dispatch.dispatch_id,),
+        ).fetchone()[0]
+        assert present == 1
+        assert store.commit_sub_agent_receipt(
+            record,
+            source_session_id=dispatch.source_session_id,
+            expected_role="reviewer",
+            source_access_check=lambda _ref: True,
+        )["already_received"] is True
+        store.delete_session(main)
+        removed = store._connection.execute(
+            "SELECT count(*) FROM sub_agent_receipts"
+        ).fetchone()[0]
+        assert removed == 0
