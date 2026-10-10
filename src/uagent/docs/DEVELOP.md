@@ -229,6 +229,29 @@ No reviewer identity, raw review evidence text, or new permissions are
 included. This remains lower-trust, transient context, never verified
 facts, Main state, or Goal completion.
 
+
+A subsequent **trusted-host-only** method,
+`SessionStore.apply_reviewed_sub_agent_receipt(main_id, root_id,
+expected_revision=..., source_access_check=...)`, can atomically register
+a `supported` review in the protected Main AgentState key
+`sub_agent_review_registry`. The registry holds only the reviewed root ID,
+reviewer identifier, review revision and independent user-message SourceRefs,
+marked `reviewed_unverified`; it does **not** copy a child's report text,
+declare facts established, change the Structured Compaction Goals, or resume
+Auto-pilot. A rejected/missing review, stale AgentState revision, unavailable
+child source or revoked independent evidence prevents first application.
+The write and root-ID duplicate check share one SQLite transaction.
+Identical retries are read-only, including after restart/revision changes.
+UAG-owned review registries are authenticated by a separate SQLite
+`sub_agent_review_registry_owners` table, created atomically with first
+application. Pre-existing user fields with the same name (even if their JSON
+imitates the UAG owner marker/schema) are preserved under a free
+`legacy_sub_agent_review_registry*` key. Once SQLite owns the registry,
+`save_agent_state()` cannot alter or erase it; before first application,
+arbitrary values under the same name remain ordinary legacy user data.
+The compaction reducer preserves unrelated protected state.
+This method is not installed in any host or exposed as an LLM tool.
+
 Full child conversation/tool-event
 persistence, trusted Job-to-host return delivery, atomic receiver revision
 checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
