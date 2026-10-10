@@ -370,8 +370,11 @@ def test_stateless_tool_round_uses_checkpoint_without_recompressing(
         )
 
 
-def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypatch):
-    """More than 80 eligible sources must progress instead of retrying fallback."""
+@pytest.mark.parametrize("token_budget", [850, 10000])
+def test_long_cli_history_commits_bounded_incremental_windows(
+    tmp_path, monkeypatch, token_budget
+):
+    """Source boundaries depend on tokens, not a fixed message count."""
     monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
     monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
     monkeypatch.setenv("UAGENT_SHRINK_CNT", "10")
@@ -380,9 +383,16 @@ def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypa
         "uagent.providers.util_providers.detect_provider", lambda: "openai"
     )
     monkeypatch.setattr(
-        history, "_history_summary_chunk_token_budget", lambda *_: 10000
+        history, "_history_summary_chunk_token_budget", lambda *_: token_budget
     )
-    monkeypatch.setattr(history, "_estimate_history_summary_tokens", lambda *_, **__: 1)
+    monkeypatch.setattr(
+        history,
+        "_estimate_history_summary_tokens",
+        lambda prompt, *_, **__: sum(
+            len(str(message.get("content", ""))) for message in prompt
+        )
+        // 10,
+    )
 
     class FakeCompletions:
         def __init__(self):
@@ -432,7 +442,12 @@ def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypa
         )
         assert first is not None and first.changed
         first_checkpoint = store.list_compaction_records(session.session_id)[0]
-        assert first_checkpoint["source_end_seq"] <= 80
+        first_size = first_checkpoint["record"]["source_message_count"]
+        assert first_size == client_calls.source_lengths[0]
+        if token_budget == 10000:
+            assert first_size > 80
+        else:
+            assert first_size < 80
         assert first.messages[-1]["content"] == "latest"
         assert store.list_messages(session.session_id) == initial_raw
 
@@ -452,16 +467,17 @@ def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypa
         second = _options(
             store, session.session_id, history_messages, client, previous=True
         )
-        assert second is not None and second.changed
         checkpoints = store.list_compaction_records(session.session_id)
-        assert len(checkpoints) == 2
-        assert checkpoints[0]["source_start_seq"] > checkpoints[1]["source_end_seq"]
-        assert (
-            checkpoints[0]["source_end_seq"] <= checkpoints[0]["source_start_seq"] + 79
-        )
-        assert client_calls.source_lengths == [
-            80,
-            checkpoints[0]["record"]["source_message_count"],
-        ]
-        assert second.messages[-1]["content"] == "now review Task B"
+        if token_budget == 10000:
+            assert second is None
+            assert len(checkpoints) == 1
+        else:
+            assert second is not None and second.changed
+            assert len(checkpoints) == 2
+            assert checkpoints[0]["source_start_seq"] > checkpoints[1]["source_end_seq"]
+            assert client_calls.source_lengths == [
+                first_size,
+                checkpoints[0]["record"]["source_message_count"],
+            ]
+            assert second.messages[-1]["content"] == "now review Task B"
         assert store.list_messages(session.session_id) == second_raw
