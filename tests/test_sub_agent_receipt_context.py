@@ -140,7 +140,7 @@ def test_other_sessions_and_hosts_cannot_read_via_injection(tmp_path):
 
 @pytest.mark.parametrize(
     "flag,enabled",
-    [("", False), ("0", False), ("1", True), ("true", True)],
+    [("", True), ("0", False), ("1", True), ("true", True)],
 )
 def test_receipt_context_configuration(flag, enabled):
     env = {"UAGENT_SUB_AGENT_HANDOFF_CONTEXT": flag}
@@ -159,6 +159,7 @@ def test_receipt_context_requires_structured_dispatch_and_valid_configuration():
             structured_handoff_enabled=True,
         )
     assert not cli_receipt_context_enabled({}, structured_handoff_enabled=False)
+    assert cli_receipt_context_enabled({}, structured_handoff_enabled=True)
 
 
 def test_receipt_listing_and_projection_reject_unsafe_budgets(tmp_path):
