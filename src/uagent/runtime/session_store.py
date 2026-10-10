@@ -2330,7 +2330,10 @@ class SessionStore:
                 review = self.get_sub_agent_receipt_review(
                     receiving_session_id, record.root_handoff_id
                 )
-                review_assessment = {"status": "unreviewed", "evidence_available": False}
+                review_assessment = {
+                    "status": "unreviewed",
+                    "evidence_available": False,
+                }
                 if review is not None:
                     review_assessment = {
                         "status": (
