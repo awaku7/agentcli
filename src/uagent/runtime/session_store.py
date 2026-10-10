@@ -1463,6 +1463,16 @@ class SessionStore:
         )
 
     @_db_locked
+    def invalidate_responses_continuation(self, session_id: str) -> None:
+        """Persist a tombstone so :load cannot revive a stale provider chain."""
+        self._require_session(session_id)
+        self._execute(
+            "INSERT INTO response_states(session_id, provider, model, response_id, status) "
+            "VALUES (?, ?, ?, ?, ?)",
+            (session_id, "", "", "", "invalidated"),
+        )
+
+    @_db_locked
     def latest_response_state(self, session_id: str) -> dict[str, Any] | None:
         self._require_session(session_id)
         row = self._execute(
