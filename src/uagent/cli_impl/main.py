@@ -390,6 +390,29 @@ def main() -> int:
                 if not result:
                     running = False
                     break
+                if getattr(result, "resume_auto_pilot", False):
+                    # The last LLM round already completed before interruption.
+                    # Resume the Auto-pilot judgment loop, not the first LLM call.
+                    try:
+                        with lifecycle_execution():
+                            _run_cli_turn(
+                                tools_util._run_auto_pilot_loop,
+                                provider,
+                                client,
+                                depname,
+                                messages,
+                                core=core,
+                                make_client_fn=providers.make_client,
+                                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+                            )
+                    except KeyboardInterrupt:
+                        print("[AUTO] Interrupted by user.")
+                    except Exception as exc:
+                        print("[AUTO] Resume interrupted: " + type(exc).__name__)
+                    finally:
+                        core.set_status(False, "")
+                    continue
                 if _set_status_for_command_result(core, result):
                     prompt = getattr(result, "prompt", None) or "Run the loaded skill."
                     user_msg = {"role": "user", "content": prompt}
