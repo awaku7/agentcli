@@ -135,16 +135,16 @@ def test_unknown_cross_owner_and_pending_return_are_indistinguishable(tmp_path):
             assert _compact(manager, owner, job_id) is None
             assert _compact(manager, other, job_id) is None
             assert _compact(manager, owner, "missing") is None
-            assert manager.get_compact_handoff_return(
+            other_result = manager.get_compact_handoff_return(
                 owner=other,
                 job_id=job_id,
                 source_access_check=lambda _ref: calls.append(True) or True,
-            ) is None
+            )
+            assert other_result is None
             assert calls == []
             release.set()
-            assert manager.wait(owner=owner, job_id=job_id, timeout=2)[
-                "state"
-            ] == "completed"
+            status = manager.wait(owner=owner, job_id=job_id, timeout=2)
+            assert status["state"] == "completed"
             assert _compact(manager, other, job_id) is None
             assert _compact(manager, owner, job_id) is not None
         finally:
@@ -165,9 +165,8 @@ def test_persisted_terminal_error_remains_unverified_evidence(
         try:
             report = json.dumps({"status": status, "message": "Cannot complete"})
             job_id = _spawn(manager, owner, dispatch, report)
-            assert manager.wait(owner=owner, job_id=job_id, timeout=2)[
-                "state"
-            ] == expected
+            status_snapshot = manager.wait(owner=owner, job_id=job_id, timeout=2)
+            assert status_snapshot["state"] == expected
             record = HandoffRecord.from_dict(
                 json.loads(_compact(manager, owner, job_id))
             )
@@ -196,9 +195,10 @@ def test_plain_worker_and_legacy_job_never_publish_compact_return(tmp_path):
                 task="legacy",
                 worker=lambda _ctx: report,
             )
-            assert legacy.wait(
+            legacy_status = legacy.wait(
                 owner=owner, job_id=accepted["job_id"], timeout=2
-            )["state"] == "completed"
+            )
+            assert legacy_status["state"] == "completed"
             assert _compact(legacy, owner, accepted["job_id"]) is None
         finally:
             manager.shutdown()
@@ -253,9 +253,8 @@ def test_cancelled_job_cannot_publish_late_result(tmp_path):
             assert manager.cancel(owner=owner, job_id=job_id)["state"] == "cancelled"
             release.set()
             assert _compact(manager, owner, job_id) is None
-            assert store.list_indexed_messages(dispatch.source_session_id)[
-                -1
-            ]["role"] == "user"
+            indexed = store.list_indexed_messages(dispatch.source_session_id)
+            assert indexed[-1]["role"] == "user"
         finally:
             release.set()
             manager.shutdown()
