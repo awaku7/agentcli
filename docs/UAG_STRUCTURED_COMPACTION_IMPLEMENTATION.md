@@ -20,7 +20,7 @@
 - **確認基準日:** 2026-10-10。GitHub PR #222 の main へのマージを確認した時点。
 - **全体状態:** PR 1 は基礎実装が条件付き完了、PR 2 は完了、PR 3 は同一 Session のメッセージ出典に限定した基礎統合まで完了。PR 4 は CLI の Sub-Agent 完了結果を Main に未検証情報として自動共有するところまで実装済み。PR 5 の複数 Client 安全性は未完了。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`。第26章の PR 1〜5 は**実装フェーズ名**であり、実際の GitHub PR 件数を指定しない。
-- **PR 4 の実装済み範囲:** trusted dispatch / Job、保存済み子出力からの compact return、Main 側の出典付き受理記録、CLI の `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` による自動配送と新着一回限りの読み取り専用 context 提示（#220）。Main の revision が進んだ後でも、完了 Job の報告は元 revision を保持した未検証情報として受理し、Main AgentState / Goal / Memory は自動更新しない。別の受理・context 用 opt-in は不要（明示的な opt-out は可能）。既存の根拠付き review・root 管理 API および任意の CLI review 監査コマンドは、通常の共有に必須ではない。
+- **PR 4 の実装済み範囲:** trusted dispatch / Job、保存済み子出力からの compact return、Main 側の出典付き受理記録、CLI の `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` による自動配送と新着一回限りの読み取り専用 context 提示（#220）。Main の revision が進んだ後でも、完了 Job の報告は元 revision を保持した未検証情報として受理し、Main AgentState / Goal / Memory は自動更新しない。配送・提示の独立した環境変数は廃止し、同じ単一 opt-in に連動する。既存の根拠付き review・root 管理 API および任意の CLI review 監査コマンドは、通常の共有に必須ではない。
 - **採用しない機能（2026-10-10確定）:** #219 は未マージで終了し、CLI の手動 `:receipt apply` と審査済み root 登録を通常手順に追加しない。#221 は未マージで終了し、Auto-pilot の中断後 `:auto resume`、ラウンド再開用永続 checkpoint、自動復元は実装しない。#222 をマージ済みで、**実行中の中断は F12 のみ**。旧キーの入力処理・互換分岐・表示・関連文書は削除済み。既存の Structured Compaction Checkpoint は context 圧縮・参照のために維持し、Auto-pilot の実行再開機能とは区別する。
 - **未完了の境界:** 実 provider/model を用いた handoff の end-to-end 接続検証、GUI / Web / A2A host の安全な opt-in、複数 Client の revision 競合と再評価、PR 1・PR 3 に残る認可付き出典参照・Artifact/tool-result 再取得・Reducer lifecycle の検証。個別事実・Goal 状態の権威ある適用は日常の共有に必要とせず、将来明示的な要件が出た場合に別途設計する。
 - **検証状況:** #220 と #222 の最終 CI で quality（Ruff / Black / I18N）、全 pytest、Python 3.11・3.13・3.14 互換性テストが成功。これは実 provider handoff、GUI/Web/A2A 接続、複数 Client の end-to-end 動作を保証しない。
@@ -94,9 +94,9 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] 子Sessionの保存済み実出力から読み取り専用compact returnを生成・検証するAPIを実装（#207。当該API単体では未実装。Mainへの配送・受理は後続で実装済み。個別事実・Goal適用は未実装）
 - [x] 結果保存済みの終了Jobからtrusted hostが出典付きcompact returnを取得する読み取り専用APIを実装
 - [x] Main側に出典とrevisionを検証する永続compact return受理記録APIを追加（AgentState更新・host接続は対象外）
-- [x] trusted Job ownerからMain側の永続受理記録へ結果を明示的に配送するAPIを接続（後続でCLIの二段階opt-inは接続済み。GUI/Web/A2Aは未有効化）
-- [x] CLIの終了通知からMain受理記録への自動配送をstructured handoff opt-inで接続（別の受理flag不要。CLI稼働中・同じowner限定、Main状態は非更新）
-- [x] CLIのMainに受理記録を未検証・読み取り専用データとして提示（structured handoff opt-inと連動。別のcontext flag不要。出典失効時非表示、Goal・Memory非更新）
+- [x] trusted Job ownerからMain側の永続受理記録へ結果を明示的に配送するAPIを接続（後続でCLIの単一structured handoff opt-inは接続済み。GUI/Web/A2Aは未有効化）
+- [x] CLIの終了通知からMain受理記録への自動配送をstructured handoff opt-inで接続（単一opt-inに連動。CLI稼働中・同じowner限定、Main状態は非更新）
+- [x] CLIのMainに受理記録を未検証・読み取り専用データとして提示（単一opt-inに連動。出典失効時非表示、Goal・Memory非更新）
 - [ ] GUI/Web/A2Aに未検証・読み取り専用の報告配送・参照を安全に接続（遠隔hostの主体・workspace・Session所有権、出典認可、revision競合処理を有効化前に検証。Main AgentStateへの自動適用は行わない）
 - [x] CLIに明示的opt-inのtrusted Goal ID／親Sessionの厳密なmessage SourceRef選択ポリシーを接続（既定は無効、許可リストは空）
 - [ ] GUI・Web・A2Aホストのtrusted Goal/source選択ポリシーを安全に有効化
@@ -108,7 +108,7 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 - [x] Auto-pilot の実行中断を F12 のみに統一（#222）。中断後の checkpoint / resume は非採用（#221 は未マージ）
 - [ ] provider / model handoff の実接続テストを追加・実行
 
-**PR 4の履歴記録:** 以下の2026-10-09当時の段階別記述は実装過程を残す履歴であり、「未接続」「次の実装」「二段階 opt-in」「手動適用」といった記述は当時の状態・案を示す。現行仕様ではない。最新の進捗・採用しない機能は第3節と直前のチェックリストを優先する。
+**PR 4の履歴記録:** 以下の2026-10-09当時の段階別記述は実装過程を残す履歴であり、「未接続」「次の実装」「手動適用」といった記述は当時の状態・案を示す。現行仕様ではない。最新の進捗・採用しない機能は第3節と直前のチェックリストを優先する。
 
 **現在の状態・次の作業（2026-10-09時点）:** 第一段階として immutable `HandoffRecord` と項目別 provenance、dispatch 時の receiver / revision、root delivery ID、schema / size validation を追加。`HandoffBounds` と Main → Sub-Agent / Sub-Agent → Main の projection API は、許可された Goal / exact SourceRef と送信時の availability / authorization check に限定する。Raw History、Memory、global narrative、provider state、無関係な Goal は投影しない。Checkpoint / Artifact は明示的に選択した参照のみを渡し、全文取得は行わない。#204ではtrusted opt-in dispatchをSubAgentRunnerへ接続し、#205ではhost-owned policyが設定されたJob queueからworkerへそのsnapshotを渡せるようにした。既存hostはpolicy未設定のため、この経路を自動的には利用しない。
 
@@ -120,9 +120,9 @@ Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoff�
 
 **CLIホストの限定的なopt-in（次の実装）:** 環境設定 `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` を明示したCLI起動時だけ、`SessionStore` に基づく `build_scoped_job_handoff_policy()` をJob managerへ登録する。Goal IDと正確なmessage SourceRefはホスト設定のJSON配列で指定し、初期値はともに空。source accessをSession ID・メッセージID・順序番号・available/exactで都度検証し、選ばれていないGoalや本文履歴を渡さない。Main Sessionの切替、出典失効、無効な設定は暗黙に広い権限へ切り替えない。現時点ではCLIだけがopt-in可能で、Job完了後のMainへの自動配送・AgentStateへの適用は未実装。
 
-**CLIでの通知駆動受理（限定的な自動接続）:** `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` に加え、別の `UAGENT_SUB_AGENT_HANDOFF_AUTO_RECEIPT=1` を指定したCLIでのみ、現在のCLI ownerの `finished` Job通知から #210 の受理APIを呼び出す。終了通知の内容だけを信用せず、Jobの所有者・確定済み子出力・出典索引・Main revisionを改めて検証する。成功・失敗の結果は子本文を含めず構造化ログに記録し、通常のCLI Job通知は変更しない。Session切替後の旧ownerの通知は新Sessionへ配送しない。CLI終了時や再起動跨ぎの未処理通知を再送する仕組みはなく、この自動配送はベストエフォートである。未検証報告をAgentState、Goal、MemoryやAuto-pilotへ適用しない。
+**CLIでの通知駆動受理（限定的な自動接続）:** `UAGENT_SUB_AGENT_STRUCTURED_HANDOFF=1` が有効なCLIで、現在のCLI ownerの `finished` Job通知から #210 の受理APIを呼び出す。終了通知の内容だけを信用せず、Jobの所有者・確定済み子出力・出典索引・Main revisionを改めて検証する。成功・失敗の結果は子本文を含めず構造化ログに記録し、通常のCLI Job通知は変更しない。Session切替後の旧ownerの通知は新Sessionへ配送しない。CLI終了時や再起動跨ぎの未処理通知を再送する仕組みはなく、この自動配送はベストエフォートである。未検証報告をAgentState、Goal、MemoryやAuto-pilotへ適用しない。
 
-**Mainからの安全な参照（次の限定実装）:** 受理済みの `sub_agent_receipts` を、trusted Main Session IDに限定して最大5件まで読み取るAPIを追加する。記録の構造・root ID・受信先の一致を検査し、元の子出力 `SourceRef` が現在もexact/availableであるものだけを表示対象とする。子Sessionの削除や出典利用不可後は、記録自体を消去しなくても報告本文をMainへ再提示しない。CLIの `UAGENT_SUB_AGENT_HANDOFF_CONTEXT=1` 設定が明示的に有効なときだけ、最大3件・4000文字の未検証JSONデータとして次ターンへ渡す。LLMがその本文の指示に従わないように非信頼の注記を付け、AgentState更新の後に追加し、LLM処理の成功・例外終了を問わず元のユーザー本文へ必ず復元することで、報告文のGoal化・会話履歴への残留を避ける。また、一時的な報告を含んだOpenAI Responsesの継続IDは処理終了時に無効化し、Session Storeにも無効化の記録を残す。次のターンや `:load` では古いサーバー側会話へ戻らない。Gemini/Vertexのキャッシュも再構築対象とする。これはMainの参照手段であって、事実認定・Goal完了・Auto-pilot再開ではない。
+**Mainからの安全な参照（次の限定実装）:** 受理済みの `sub_agent_receipts` を、trusted Main Session IDに限定して最大5件まで読み取るAPIを追加する。記録の構造・root ID・受信先の一致を検査し、元の子出力 `SourceRef` が現在もexact/availableであるものだけを表示対象とする。子Sessionの削除や出典利用不可後は、記録自体を消去しなくても報告本文をMainへ再提示しない。CLIの単一structured handoff opt-inが有効な場合に、新着分のみ最大3件・4000文字の未検証JSONデータとして次ターンへ一度だけ渡す。LLMがその本文の指示に従わないように非信頼の注記を付け、AgentState更新の後に追加し、LLM処理の成功・例外終了を問わず元のユーザー本文へ必ず復元することで、報告文のGoal化・会話履歴への残留を避ける。また、一時的な報告を含んだOpenAI Responsesの継続IDは処理終了時に無効化し、Session Storeにも無効化の記録を残す。次のターンや `:load` では古いサーバー側会話へ戻らない。Gemini/Vertexのキャッシュも再構築対象とする。これはMainの参照手段であって、事実認定・Goal完了・Auto-pilot再開ではない。
 
 **Mainの審査済みroot管理（PR #215、限定実装）:** `SessionStore.apply_reviewed_sub_agent_receipt()` は、trusted hostが明示的に指定した既存の `supported` reviewのみを対象に、独立根拠の現在の利用可否・user role・認可、元の子出力の利用可否、Main revisionをSQLite `BEGIN IMMEDIATE` の同一transactionで確認する。初回適用時に `sub_agent_review_registry` へroot ID・確認者・独立根拠SourceRef等のメタデータだけを `reviewed_unverified` として格納し、AgentState revisionを1つ進める。同じrootの再適用は冪等で、状態やGoalは二度更新しない。UAG所有権はJSON内部の識別子だけでなく独立したSQLiteテーブル `sub_agent_review_registry_owners` によって管理し、初回適用と同一transactionで所有者行を記録する。旧バージョンで同名の任意データ（識別子を模倣したJSONも含む）があった場合は `legacy_sub_agent_review_registry*` に退避してから新領域を作る。所有者行ができた後は通常の `save_agent_state()` による上書き・消去を拒否し、reducer経由の他の状態更新はその領域を保持する。**これは受理と審査をMain状態に紐付ける処理であり、報告内容の事実認定やGoal完了、自動実行への適用ではない。** CLI/GUI/Web/A2Aホストへの自動接続やAuto-pilot再開は別段階。
 
@@ -325,3 +325,4 @@ PR 1〜5 は実装フェーズ名であり、下表は進める**作業順序**�
 | 2026-10-09 | PR 3 Context Runtime Integration の checkpoint candidates / source retrieval / ActiveContext connection を実装・検証し、PR3 checklist、コード対応表、検証記録を更新。 |
 | 2026-10-10 | #217までの実装状況とPR4/5の作業順序を整理。#218の再審査でホスト未接続の審査済みroot登録、PR4詳細の履歴表記、遠隔ホストの安全条件、コード対応表の旧記述を修正。 |
 | 2026-10-10 | #219・#221の未マージ終了と#220・#222のマージを反映。CLIの単一設定によるSub-Agent結果共有、F12のみの中断を現行仕様とし、手動root適用・Auto-pilot再開・旧キー互換を非採用と明記。実provider handoff検証を次の作業とした。 |
+| 2026-10-10 | Structured Handoff の配送・Mainへの提示に関する冗長な2環境変数を削除。CLI単一opt-inに連動させる一方、情報共有範囲に関わる Goal ID / SourceRef 許可リストは明示指定・既定空を維持。 |
