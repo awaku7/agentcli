@@ -219,8 +219,7 @@ def test_auto_resume_rejects_changed_session(tmp_path, change):
             store.append_message(
                 sid,
                 "user",
-                "[CWD] "
-                + json.dumps({"event": "load", "session_id": sid}),
+                "[CWD] " + json.dumps({"event": "load", "session_id": sid}),
             )
         else:
             sid = store.create_session(project="p", entry_point="cli").session_id
