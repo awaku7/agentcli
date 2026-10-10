@@ -1,10 +1,25 @@
 from types import SimpleNamespace
 
 from uagent.cli_impl.main import (
+    _auto_initial_round_completed,
     _exit_code_for_round_outcome,
     _set_status_for_command_result,
 )
 from uagent.uagent_llm import _public_round_status
+
+
+def test_auto_initial_round_accepts_only_completed_outcome():
+    assert _auto_initial_round_completed(
+        SimpleNamespace(_last_round_outcome={"status": "completed"})
+    )
+    for status in ("failed", "cancelled", "interrupted", "continue", ""):
+        assert not _auto_initial_round_completed(
+            SimpleNamespace(_last_round_outcome={"status": status})
+        )
+    assert not _auto_initial_round_completed(
+        SimpleNamespace(_last_round_outcome=None)
+    )
+    assert not _auto_initial_round_completed(SimpleNamespace())
 
 
 def test_run_llm_command_transitions_directly_to_busy_status():
