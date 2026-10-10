@@ -177,8 +177,12 @@ Direct returns without a trusted Job ID still reject a stale revision.
 Invalid settings and revoked sources fail closed. Reports never update
 Goal/Memory or authorize new tool permissions. Notices from a switched-away CLI
 session are not rerouted; the interactive CLI event loop is best-effort, not
-an end-to-end delivery guarantee across CLI shutdown/restart. GUI/Web/A2A,
-Main state application and Auto-pilot resume remain subsequent work.
+an end-to-end delivery guarantee across CLI shutdown/restart. GUI/Web/A2A
+handoff is not enabled until identity, workspace, Session ownership, source
+authorization and revision conflict behavior are verified. Automatic Main
+Goal/Memory state application is not part of ordinary receipt delivery.
+Auto-pilot resume is explicitly not planned (unmerged PR #221); only F12
+interruption remains (merged PR #222).
 
 The same structured handoff opt-in projects up to three **newly delivered**
 Main-side receipts once, in the next LLM user turn, as unverified JSON
@@ -269,10 +273,13 @@ Sub-Agent result. It is not proof of a claim's truth; it never completes a
 Goal, changes Main AgentState/Memory, or promotes Sub-Agent text into
 authoritative instructions.
 
-Full child conversation/tool-event
-persistence, trusted Job-to-host return delivery, atomic receiver revision
-checks, durable root-ID deduplication/application, and Auto-pilot checkpoint /
-resume remain subsequent stages. Run `tests/test_sub_agent_compact_return.py`,
+Full child conversation/tool-event persistence, other-host authorization
+and provider/model end-to-end verification remain separate work. The CLI's
+trusted Job-to-Main receipt delivery and duplicate handling are already
+implemented (#220); they do not apply unverified facts to Main state.
+Manual `:receipt apply` was withdrawn without merging (#219); Auto-pilot
+checkpoint/resume was also withdrawn (#221) and is not a planned stage.
+Run `tests/test_sub_agent_compact_return.py`,
 `tests/test_sub_agent_handoff.py`, `tests/test_handoff_record.py`,
 `tests/test_handoff_projection.py`, `tests/test_compaction_persistence.py`
 and the affected Sub-Agent tests when changing this foundation.
@@ -520,7 +527,7 @@ Key modules:
       invalid output falls back to the existing LLM reviewer; confidence is
       logged only and is not used as a threshold.
     - **Exit mechanisms:**
-      - Press F12 to interrupt the current LLM response and stop Auto-pilot.
+      - Press F12 to interrupt the current LLM response and stop Auto-pilot; there is no F11 compatibility or `:auto resume`.
       - Reviewer returns `COMPLETE` → auto-pilot stops.
       - `--max-rounds N` reached (default 10).
       - `:auto off` to stop.
