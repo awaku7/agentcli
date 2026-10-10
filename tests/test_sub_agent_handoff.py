@@ -395,7 +395,7 @@ def test_persistence_retry_reuses_output_and_does_not_duplicate_source(
             calls.append(kwargs)
             return '{"status":"completed","summary":"Finished work"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             if commit_before_error:
@@ -635,7 +635,7 @@ def test_pending_result_capacity_blocks_new_work_but_preserves_retry(
             calls.append(kwargs)
             return '{"status":"completed","summary":"Stored later"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             raise RuntimeError("storage unavailable")
@@ -813,7 +813,7 @@ def test_host_can_abandon_revoked_pending_results_without_reexecution(
             calls.append(kwargs)
             return '{"status":"completed","summary":"Private pending result"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             raise RuntimeError("storage unavailable")
@@ -854,7 +854,7 @@ def test_host_cannot_abandon_pending_result_during_active_retry(tmp_path, monkey
             calls.append(kwargs)
             return '{"status":"completed","summary":"Stored later"}', {}, 0
 
-        append = store.append_message
+        append = store.append_sub_agent_result_once
 
         def fail_append(*args, **kwargs):
             raise RuntimeError("storage unavailable")
