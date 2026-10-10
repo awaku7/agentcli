@@ -21,7 +21,7 @@ from typing import Any, Callable
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import mask_args
 from .compaction_record import CompactionRecord, CompactionValidationError, SourceRef
-from .handoff_record import HandoffRecord
+from .handoff_record import HandoffRecord, ProvenancedDeterministicDelta
 from .compaction_reducer import CompactionReductionError, reduce_compaction_record
 from .tool_result_persistence import (
     sanitize_binary_payload,
@@ -1799,7 +1799,7 @@ class SessionStore:
             or record.recommended_next_steps
             or record.artifact_refs
             or record.source_checkpoint_id is not None
-            or any(record.state_delta.to_dict().values())
+            or record.state_delta != ProvenancedDeterministicDelta()
             or len(record.findings) != 1
             or len(record.findings[0].source_refs) != 1
         ):
