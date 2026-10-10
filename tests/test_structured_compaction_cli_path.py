@@ -368,3 +368,94 @@ def test_stateless_tool_round_uses_checkpoint_without_recompressing(
             )
             is None
         )
+
+def test_long_cli_history_commits_bounded_incremental_windows(tmp_path, monkeypatch):
+    """More than 80 eligible sources must progress instead of retrying fallback."""
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
+    monkeypatch.setenv("UAGENT_SHRINK_CNT", "10")
+    monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
+    monkeypatch.setattr(
+        "uagent.providers.util_providers.detect_provider", lambda: "openai"
+    )
+    monkeypatch.setattr(
+        history, "_history_summary_chunk_token_budget", lambda *_: 10000
+    )
+    monkeypatch.setattr(history, "_estimate_history_summary_tokens", lambda *_, **__: 1)
+
+    class FakeCompletions:
+        def __init__(self):
+            self.source_lengths = []
+
+        def create(self, **kwargs):
+            payload = json.loads(kwargs["messages"][-1]["content"])
+            sources = payload["sources"]
+            self.source_lengths.append(len(sources))
+            return SimpleNamespace(
+                choices=[
+                    SimpleNamespace(
+                        message=SimpleNamespace(
+                            content=_delta(
+                                sources[0]["source_ref"],
+                                title=f"Batch {len(self.source_lengths)}",
+                            )
+                        )
+                    )
+                ]
+            )
+
+    with SessionStore(tmp_path / "many-messages.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="cli")
+        history_messages = [{"role": "system", "content": "instructions"}]
+        for index in range(60):
+            history_messages.extend(
+                [
+                    {"role": "user", "content": f"question-{index}"},
+                    {"role": "assistant", "content": f"answer-{index}"},
+                ]
+            )
+        history_messages.append({"role": "user", "content": "latest"})
+        for item in history_messages[1:]:
+            store.append_message(
+                session.session_id,
+                item["role"],
+                item["content"],
+                payload=item,
+            )
+
+        initial_raw = store.list_messages(session.session_id)
+        client_calls = FakeCompletions()
+        client = SimpleNamespace(chat=SimpleNamespace(completions=client_calls))
+        first = _options(
+            store, session.session_id, history_messages, client, previous=True
+        )
+        assert first is not None and first.changed
+        first_checkpoint = store.list_compaction_records(session.session_id)[0]
+        assert first_checkpoint["source_end_seq"] <= 80
+        assert first.messages[-1]["content"] == "latest"
+        assert store.list_messages(session.session_id) == initial_raw
+
+        # The next user turn continues from the first exact source window.
+        next_assistant = {"role": "assistant", "content": "acknowledged"}
+        next_user = {"role": "user", "content": "now review Task B"}
+        for item in (next_assistant, next_user):
+            history_messages.append(item)
+            store.append_message(
+                session.session_id,
+                item["role"],
+                item["content"],
+                payload=item,
+            )
+
+        second_raw = store.list_messages(session.session_id)
+        second = _options(
+            store, session.session_id, history_messages, client, previous=True
+        )
+        assert second is not None and second.changed
+        checkpoints = store.list_compaction_records(session.session_id)
+        assert len(checkpoints) == 2
+        assert checkpoints[0]["source_start_seq"] > checkpoints[1]["source_end_seq"]
+        assert checkpoints[0]["source_end_seq"] <= checkpoints[0]["source_start_seq"] + 79
+        assert client_calls.source_lengths == [80, checkpoints[0]["record"]["source_message_count"]]
+        assert second.messages[-1]["content"] == "now review Task B"
+        assert store.list_messages(session.session_id) == second_raw
