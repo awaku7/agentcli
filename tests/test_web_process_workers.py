@@ -100,6 +100,21 @@ def _crashing_child(connection, payload):
     os._exit(7)
 
 
+def _stream_crashing_child(connection, payload):
+    connection.send(
+        {"event": {"type": "message", "message": {"role": "user", "content": payload["input"]}}}
+    )
+    connection.send({"event": {"type": "assistant_stream_start", "id": "stream-1"}})
+    connection.send(
+        {"event": {"type": "assistant_stream_delta", "id": "stream-1", "delta": "partial "}}
+    )
+    connection.send(
+        {"event": {"type": "assistant_stream_delta", "id": "stream-1", "delta": "reply"}}
+    )
+    connection.close()
+    os._exit(7)
+
+
 def _wait(predicate, timeout=15):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
@@ -425,3 +440,31 @@ def _reconnect_messages(room, monkeypatch):
 
     asyncio.run(room.connect(socket))
     return socket.initial["messages"]
+
+
+def test_crashed_stream_preserves_partial_reply_on_reconnect(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.tools import _genre_control_util
+
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    room = WebRoom("stream-crash")
+    room.history = [{"role": "assistant", "content": "previous"}]
+    room.messages = list(room.history)
+    room.welcome_shown = True
+    room.private_session = True
+    room.base_dir = str(tmp_path)
+    pool = RoomWorkerPool(1, target=_stream_crashing_child)
+    try:
+        pool.run(room, "question")
+        contents = [m["content"] for m in _reconnect_messages(room, monkeypatch)]
+        assert contents == [
+            "previous",
+            "question",
+            "partial reply",
+            "[ERROR] Room worker exited before returning its state.",
+        ]
+        assert not room.worker_lock.locked()
+        assert not pool.busy
+    finally:
+        pool.shutdown()
