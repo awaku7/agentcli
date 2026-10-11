@@ -1203,3 +1203,7 @@ provider selection and provider-specific `UAGENT_DECISION_*_DEPNAME` overrides;
 blank model values use the adapter defaults. Disabled review displays `none` with
 model `-`. Rendering this line does not initialize adapters, require credentials,
 connect to remote APIs, or load Laya models.
+
+Process workers inherit the resolved decision-provider selection (including CLI
+overrides and provider defaults). During an active process turn, room reconnects
+use live display messages; after completion they use the returned LLM history.

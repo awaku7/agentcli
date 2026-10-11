@@ -26,6 +26,7 @@ def _offline_child(connection, payload):
 
     def run_rounds(provider, client, model, history, **kwargs):
         from uagent.tools.python_exec_tool import run_tool
+        from uagent.decision.settings import get_decision_settings
 
         result = run_tool(
             {
@@ -35,6 +36,7 @@ def _offline_child(connection, payload):
         assert "tool-ok" in result
         observation = {
             "pid": os.getpid(),
+            "decision_provider": get_decision_settings().provider,
             "cwd": os.getcwd(),
             "session": core.session_id,
             "response": core.responses_state.get("previous_response_id"),
@@ -110,6 +112,14 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
     from uagent import core
     from uagent.tools import _genre_control_util
 
+    from uagent.decision import settings
+
+    monkeypatch.setattr(settings, "_current_settings", settings.DecisionSettings())
+    expected_decision = "typesafe" if private_session else "openai"
+    settings.configure_decision_settings(
+        cli_provider="typesafe" if private_session else None,
+        environ={"UAGENT_PROVIDER": "openai"},
+    )
     monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
     monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
@@ -164,6 +174,8 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
             assert observed[0]["pid"] != observed[1]["pid"]
             assert all(item["pid"] != os.getpid() for item in observed)
             for room, item in zip(rooms, observed):
+                assert item["decision_provider"] == expected_decision
+                assert room._process_turn_active
                 assert item["cwd"] == room.base_dir
                 from pathlib import Path
 
@@ -194,6 +206,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
             assert not pool.busy
             assert os.getcwd() == initial_cwd
             for room in rooms:
+                assert not room._process_turn_active
                 assert not room.worker_lock.locked()
                 assert room.status["label"] == "IDLE"
                 messages = store.list_messages(room.session_id)
@@ -336,3 +349,44 @@ def test_worker_count_defaults_to_five(monkeypatch):
     monkeypatch.delenv("UAGENT_WEB_ROOM_WORKERS", raising=False)
     assert room_worker_count() == 5
     assert room_worker_count(1) == 1
+
+
+@pytest.mark.parametrize("active", [True, False])
+def test_reconnect_uses_live_messages_only_during_process_turn(monkeypatch, active):
+    room = WebRoom("reconnect")
+    room.private_session = True
+    room.welcome_shown = True
+    room.history = [{"role": "assistant", "content": "previous"}]
+    room.messages = [
+        {"role": "assistant", "content": "previous"},
+        {"role": "user", "content": "current input"},
+    ]
+    room._process_turn_active = active
+    RoomWorkerPool._relay(
+        room,
+        {
+            "type": "message",
+            "message": {"role": "assistant", "content": "current output"},
+        },
+    )
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            if event["type"] == "init":
+                self.initial = event
+
+    socket = Socket()
+    import asyncio
+
+    asyncio.run(room.connect(socket))
+    assert [m["content"] for m in socket.initial["messages"]] == (
+        ["previous", "current input", "current output"] if active else ["previous"]
+    )

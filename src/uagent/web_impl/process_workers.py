@@ -104,12 +104,14 @@ def room_worker_count(cli_value: int | None = None) -> int:
 def _child_turn(connection, payload) -> None:
     """Spawn entry point; no parent locks, SQLite handles or clients are inherited."""
     from .. import core
+    from ..decision.settings import configure_decision_settings
     from ..runtime.session_store import attach_opt_in_session_store
     from ..tools._genre_control_util import enable_single_tool
     from .agent_worker import run_agent_worker
     from .init import init_web
     from .rooms import WebRoom, web_manager
 
+    configure_decision_settings(cli_provider=payload["decision_provider"])
     send_lock = threading.Lock()
     finished = threading.Event()
 
@@ -289,6 +291,7 @@ class RoomWorkerPool:
         from .. import core
         from ..i18n import _
         from ..tools._genre_control_util import get_enabled_tool_names
+        from ..decision.settings import get_decision_settings
         from .agent_worker import _ensure_public_room_session
 
         if not room.worker_lock.acquire(blocking=False):
@@ -327,6 +330,7 @@ class RoomWorkerPool:
             )
             payload = {
                 "room": room_state(room),
+                "decision_provider": get_decision_settings().provider,
                 "input": user_input,
                 "attachments": attachments,
                 "core": {
@@ -350,6 +354,7 @@ class RoomWorkerPool:
             with self._lock:
                 if self._closed.is_set():
                     return
+                room._process_turn_active = True
                 process.start()
                 self._running[room.room_id] = (room, parent, process, threading.Lock())
             child.close()
@@ -396,6 +401,7 @@ class RoomWorkerPool:
             for pipe in (parent, child):
                 if pipe is not None:
                     pipe.close()
+            room._process_turn_active = False
             room.human_ask_pending = False
             try:
                 room.set_status(False, "IDLE")
