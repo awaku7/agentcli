@@ -569,6 +569,74 @@ def test_reconnect_snapshot_and_queued_delta_do_not_duplicate(monkeypatch):
     assert room._partial_streams["stream-1"] == "beforeafter"
 
 
+def test_reconnect_replays_retained_stream_end(monkeypatch):
+    room = WebRoom("ended-reconnect")
+    room.private_session = True
+    room.welcome_shown = True
+    room._process_turn_active = True
+    room.messages = [{"role": "user", "content": "question"}]
+    room._partial_streams = {"stream-1": "completed"}
+    room._ended_streams.add("stream-1")
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        def __init__(self):
+            self.events = []
+
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            self.events.append(event)
+
+    import asyncio
+
+    socket = Socket()
+    asyncio.run(room.connect(socket))
+    assert [event["type"] for event in socket.events[:4]] == [
+        "init",
+        "assistant_stream_start",
+        "assistant_stream_replace",
+        "assistant_stream_end",
+    ]
+
+
+def test_add_message_during_reconnect_is_replayed_once(monkeypatch):
+    room = WebRoom("error-reconnect")
+    room.private_session = True
+    room.welcome_shown = True
+    room._process_turn_active = True
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        def __init__(self):
+            self.events = []
+
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            self.events.append(event)
+            if event["type"] == "init":
+                room.add_message({"role": "assistant", "content": "worker failed"})
+
+    import asyncio
+
+    socket = Socket()
+    asyncio.run(room.connect(socket))
+    assert socket.events[0]["messages"] == []
+    assert [event["type"] for event in socket.events].count("message") == 1
+    assert socket.events[-1]["message"]["content"] == "worker failed"
+
+
 def test_ended_stream_survives_until_state_or_matching_message():
     room = WebRoom("stream-end")
     room._partial_streams = {}
