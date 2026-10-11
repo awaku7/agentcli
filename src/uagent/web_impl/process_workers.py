@@ -323,8 +323,6 @@ class RoomWorkerPool:
                     if self._slots.acquire(timeout=0.1):
                         acquired = True
                         break
-            else:
-                room.set_status(True, "BUSY")
             if not acquired or self._closed.is_set():
                 return
             store = getattr(core, "session_store", None)
@@ -365,11 +363,13 @@ class RoomWorkerPool:
             with self._lock:
                 if self._closed.is_set():
                     return
-                room._process_stale_history = room.history
-                room._process_turn_active = True
+                with room._lifecycle_lock:
+                    room._process_stale_history = room.history
+                    room._process_turn_active = True
                 process.start()
                 self._running[room.room_id] = (room, parent, process, threading.Lock())
             child.close()
+            # Do not expose Stop as available until interrupt() can reach the child.
             room.set_status(True, "BUSY")
             connected = payload["connected"]
             while True:
@@ -383,9 +383,10 @@ class RoomWorkerPool:
                     except (EOFError, OSError):
                         break
                     if "state" in value:
-                        for name, item in value["state"].items():
-                            if name != "room_id":
-                                setattr(room, name, item)
+                        with room._lifecycle_lock:
+                            for name, item in value["state"].items():
+                                if name != "room_id":
+                                    setattr(room, name, item)
                         state_received = True
                     elif "event" in value:
                         self._relay(room, value["event"])
@@ -418,9 +419,9 @@ class RoomWorkerPool:
             with room._lifecycle_lock:
                 room._partial_streams = {}
                 room._ended_streams.clear()
-            if state_received:
-                room._process_stale_history = None
-            room._process_turn_active = False
+                if state_received:
+                    room._process_stale_history = None
+                room._process_turn_active = False
             room.human_ask_pending = False
             try:
                 room.set_status(False, "IDLE")

@@ -4,6 +4,7 @@ import json
 import os
 import threading
 import time
+from multiprocessing.process import BaseProcess
 from types import SimpleNamespace
 
 import pytest
@@ -115,6 +116,17 @@ def _asking_child(connection, payload):
 
     agent_worker.llm_util.run_llm_rounds = run_rounds
     _child_turn(connection, payload)
+
+
+def _interruptible_child(connection, payload):
+    deadline = time.monotonic() + 15
+    while time.monotonic() < deadline:
+        if connection.poll(0.1):
+            request = connection.recv()
+            if request.get("type") == "interrupt":
+                connection.send({"state": payload["room"]})
+                return
+    connection.send({"state": payload["room"]})
 
 
 def _crashing_child(connection, payload):
@@ -408,6 +420,60 @@ def test_crashed_worker_releases_room_and_capacity(monkeypatch, tmp_path):
     pool.shutdown()
 
 
+def test_stop_is_not_exposed_until_child_is_interruptible(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.tools import _genre_control_util
+
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    spawn_entered = threading.Event()
+    allow_spawn = threading.Event()
+    busy_exposed = threading.Event()
+    original_start = BaseProcess.start
+
+    def gated_start(process, *args, **kwargs):
+        spawn_entered.set()
+        assert allow_spawn.wait(10)
+        return original_start(process, *args, **kwargs)
+
+    monkeypatch.setattr(BaseProcess, "start", gated_start)
+    pool = RoomWorkerPool(1, target=_interruptible_child)
+    room = WebRoom("stop-startup")
+    room.base_dir = str(tmp_path)
+    original_set_status = room.set_status
+
+    def track_busy(busy, label=""):
+        if busy and label == "BUSY":
+            with pool._lock:
+                assert room.room_id in pool._running
+            busy_exposed.set()
+        original_set_status(busy, label)
+
+    monkeypatch.setattr(room, "set_status", track_busy)
+    thread = threading.Thread(target=pool.run, args=(room, "interrupt me"))
+    thread.start()
+    try:
+        assert spawn_entered.wait(20)
+        assert not busy_exposed.is_set()
+        assert not room.status["busy"]
+
+        allow_spawn.set()
+        assert busy_exposed.wait(10), (
+            f"worker_thread_alive={thread.is_alive()}, "
+            f"status={room.status}, pool_busy={pool.busy}, "
+            f"messages={room.messages}"
+        )
+        assert pool.interrupt(room)
+        thread.join(10)
+        assert not thread.is_alive()
+        assert not pool.busy
+        assert not room.worker_lock.locked()
+    finally:
+        allow_spawn.set()
+        pool.shutdown()
+        thread.join(10)
+
+
 def test_worker_count_cli_overrides_environment(monkeypatch):
     from uagent.web_impl.process_workers import room_worker_count
 
@@ -474,6 +540,62 @@ def test_reconnect_uses_live_messages_only_during_process_turn(monkeypatch, acti
     assert [m["content"] for m in messages] == (
         ["previous", "current input", "current output"] if active else ["previous"]
     )
+
+
+def test_reconnect_buffers_worker_messages_during_history_conversion(monkeypatch):
+    import asyncio
+
+    from uagent.web_impl import rooms as rooms_module
+
+    room = WebRoom("reconnect-history-race")
+    room.private_session = True
+    room.welcome_shown = True
+    room.history = [{"role": "assistant", "content": "previous"}]
+    room.messages = list(room.history)
+    original_enrich = rooms_module._enrich_message_attachments
+    injected = False
+
+    def inject_worker_message(message):
+        nonlocal injected
+        if not injected and message.get("content") == "previous":
+            injected = True
+            with room._lifecycle_lock:
+                room._process_turn_active = True
+            RoomWorkerPool._relay(
+                room,
+                {
+                    "type": "message",
+                    "message": {"role": "user", "content": "new turn input"},
+                },
+            )
+        return original_enrich(message)
+
+    monkeypatch.setattr(
+        rooms_module, "_enrich_message_attachments", inject_worker_message
+    )
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        def __init__(self):
+            self.events = []
+
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            self.events.append(event)
+
+    socket = Socket()
+    asyncio.run(room.connect(socket))
+
+    assert socket.events[0]["messages"][0]["content"] == "previous"
+    assert [event["message"]["content"] for event in socket.events[1:]] == [
+        "new turn input"
+    ]
 
 
 def _reconnect_messages(room, monkeypatch):

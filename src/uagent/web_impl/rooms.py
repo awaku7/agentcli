@@ -134,32 +134,7 @@ class WebRoom:
             with self._lifecycle_lock:
                 self._bootstrapping_connections.add(id(websocket))
             self.touch()
-
-            msgs = self.messages
-            if (
-                self.history
-                and not getattr(self, "_process_turn_active", False)
-                and self.history is not getattr(self, "_process_stale_history", None)
-            ):
-                try:
-                    msgs = []
-                    for m in self.history:
-                        msgs.append(
-                            _enrich_message_attachments(
-                                {
-                                    "role": m.get("role"),
-                                    "content": m.get("content", ""),
-                                    "name": m.get("name"),
-                                    "tool_calls": m.get("tool_calls"),
-                                    "attachments": m.get("attachments"),
-                                    "saved_path": m.get("saved_path"),
-                                    "saved_files": m.get("saved_files"),
-                                    "timestamp": datetime.now().isoformat(),
-                                }
-                            )
-                        )
-                except Exception:
-                    msgs = self.messages
+            welcome_added = False
 
             _v = (env_get("UAGENT_WEB_VERBOSE") or "").strip().lower()
             web_verbose = _v in ("1", "true", "yes", "on")
@@ -198,14 +173,15 @@ class WebRoom:
                     welcome_msg = welcome_msg + "\n" + banner
 
                 if welcome_msg.strip():
+                    welcome_added = True
                     welcome_display = _enrich_message_attachments(
                         {"role": "assistant", "content": welcome_msg}
                     )
                     welcome_display["role"] = "assistant"
                     welcome_display["content"] = welcome_msg
                     welcome_display["timestamp"] = datetime.now().isoformat()
-                    self.messages.append(welcome_display)
-                    msgs = self.messages
+                    with self._lifecycle_lock:
+                        self.messages.append(welcome_display)
 
                 try:
                     setattr(self, "welcome_shown", True)
@@ -215,17 +191,52 @@ class WebRoom:
             # Bootstrap input history from persisted file
             input_history = [] if self.private_session else _load_input_history()
             await self._validate_connection_context(websocket, connection_context)
-            # Establish the snapshot/replay boundary under the same lock as
-            # parent worker event updates. Events after this point are queued.
+            # Select and copy the initial message source under the same lock
+            # that establishes replay. Work starting afterward is buffered.
             with self._lifecycle_lock:
                 self._pending_replays[id(websocket)] = []
-                msgs = [dict(message) for message in msgs]
+                use_history = (
+                    not welcome_added
+                    and self.history
+                    and not getattr(self, "_process_turn_active", False)
+                    and self.history
+                    is not getattr(self, "_process_stale_history", None)
+                )
+                if use_history:
+                    try:
+                        message_snapshot = [dict(message) for message in self.history]
+                    except Exception:
+                        use_history = False
+                        message_snapshot = [dict(message) for message in self.messages]
+                else:
+                    message_snapshot = [dict(message) for message in self.messages]
                 stream_snapshot = [
                     (stream_id, content, stream_id in self._ended_streams)
                     for stream_id, content in getattr(
                         self, "_partial_streams", {}
                     ).items()
                 ]
+            if use_history:
+                try:
+                    msgs = [
+                        _enrich_message_attachments(
+                            {
+                                "role": message.get("role"),
+                                "content": message.get("content", ""),
+                                "name": message.get("name"),
+                                "tool_calls": message.get("tool_calls"),
+                                "attachments": message.get("attachments"),
+                                "saved_path": message.get("saved_path"),
+                                "saved_files": message.get("saved_files"),
+                                "timestamp": datetime.now().isoformat(),
+                            }
+                        )
+                        for message in message_snapshot
+                    ]
+                except Exception:
+                    msgs = message_snapshot
+            else:
+                msgs = message_snapshot
             await websocket.send_json(
                 {
                     "type": "init",
