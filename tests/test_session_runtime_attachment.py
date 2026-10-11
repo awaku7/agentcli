@@ -38,6 +38,7 @@ def test_attach_opt_in_session_store_wraps_shared_log_callback(monkeypatch, tmp_
     assert logged
     assert store.list_messages(session_id)[0]["content"] == "hello"
     assert store.get_session(session_id)["project"] == "agentcli"
+    assert core._session_store_entry_point == "web"
     store.close()
     assert get_callbacks().session_store is None
     assert get_callbacks().session_id is None
@@ -62,6 +63,7 @@ def test_locked_session_write_does_not_abort_interactive_callback(
     core.log_message({"role": "user", "content": "first"})
     core.log_message({"role": "user", "content": "second"})
 
+    assert core._session_store_entry_point == "cli"
     assert core._session_store_write_disabled is True
     assert session_id
     store.close()
