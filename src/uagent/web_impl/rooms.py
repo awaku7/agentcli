@@ -324,6 +324,7 @@ class WebManager:
     def __init__(self):
         self.rooms: dict[str, WebRoom] = {}
         self.global_worker_lock = threading.Lock()
+        self.room_worker_pool = None
         self.rooms_lock = threading.Lock()
         # Room currently executing a worker. Used when thread-local room is
         # missing (e.g. parallel tool pool threads calling set_status).

@@ -63,9 +63,11 @@ class RoomSessionBusyError(RuntimeError):
 
 
 @contextmanager
-def guard_room_session_command(room: Any, command_name: str):
+def guard_room_session_command(
+    room: Any, command_name: str, *, serialize_all: bool = False
+):
     """Serialize session-changing Web commands with the room's worker."""
-    if command_name not in {"load", "cont", "sessions"}:
+    if not serialize_all and command_name not in {"load", "cont", "sessions"}:
         yield
         return
     if not room.worker_lock.acquire(blocking=False):

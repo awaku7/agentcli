@@ -3350,17 +3350,28 @@ class SessionStore:
 
 
 def attach_opt_in_session_store(
-    core: Any, *, project_path: str | Path, entry_point: str
+    core: Any,
+    *,
+    project_path: str | Path,
+    entry_point: str,
+    existing_session_id: str | None = None,
 ) -> tuple[SessionStore | None, str | None]:
     """Attach the opt-in store to any UAG entry point using its log callback."""
     store = SessionStore.from_environment()
     if store is None:
         return None, None
-    session = store.create_session(
-        project=project_id_from_path(project_path),
-        project_path=project_path,
-        entry_point=entry_point,
-    )
+    if existing_session_id:
+        saved = store.get_session(existing_session_id)
+        if not saved:
+            store.close()
+            raise SessionStoreError("existing session is unavailable")
+        session = Session(existing_session_id, saved.get("project"), entry_point)
+    else:
+        session = store.create_session(
+            project=project_id_from_path(project_path),
+            project_path=project_path,
+            entry_point=entry_point,
+        )
     original_log_message = core.log_message
     core._session_store_original_log_message = original_log_message
     # The CLI can switch the loaded conversation with :load. Keep the active

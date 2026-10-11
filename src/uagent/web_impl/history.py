@@ -224,6 +224,10 @@ def _bootstrap_room_on_connect(room: WebRoom) -> None:
     """Run once after first websocket connect so AGENTS.md is asked immediately."""
     if getattr(room, "history_initialized", False):
         return
+    # Parallel workers initialize history inside their isolated child at the
+    # first turn. Connect-time initialization must not change the server cwd.
+    if web_manager.room_worker_pool is not None:
+        return
     if getattr(room, "_bootstrap_started", False):
         return
     try:

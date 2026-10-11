@@ -44,6 +44,13 @@ interrupt ownership regressions. Connect-time bootstrap may temporarily change
 `active_room` for display routing, but only the serialized worker sets/clears
 `worker_room`; bootstrap cannot acquire another room's Stop authorization.
 
+Web foreground concurrency is configurable with `uagw --room-workers N` or
+`UAGENT_WEB_ROOM_WORKERS=N`. The default 1 retains the serial worker; counts greater
+than 1 use the bounded spawn/IPC bridge in `web_impl/process_workers.py`.
+See [Web room concurrency](../../../docs/WEB_ROOM_CONCURRENCY.md) for isolation,
+startup precedence, lifecycle and current process-lifetime limitations.
+Run `tests/test_web_process_workers.py` when changing this path.
+
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
 - Entry points:
