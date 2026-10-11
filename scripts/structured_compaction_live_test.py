@@ -7,6 +7,7 @@ and report persisted checkpoints without modifying the test database.
 from __future__ import annotations
 
 import argparse
+from contextlib import closing
 import json
 import os
 import sqlite3
@@ -84,7 +85,7 @@ def prepare() -> Path:
             "@echo off\n"
             f'"{sys.executable}" "{Path(__file__).resolve()}" '
             f'{command} --run-dir "{run_dir}"\n'
-            "if errorlevel 1 pause\n"
+            + ("if errorlevel 1 pause\n" if command == "start" else "pause\n")
         )
         (run_dir / filename).write_text(script, encoding="utf-8")
     print("Isolated test directory:", run_dir)
@@ -132,7 +133,7 @@ def capture_baseline(run_dir: Path) -> int:
     baseline_file = run_dir / "raw-baseline.json"
     if baseline_file.exists():
         raise ValueError("Baseline already exists; do not overwrite it.")
-    with _db_connection(config) as connection:
+    with closing(_db_connection(config)) as connection:
         if connection.execute("SELECT COUNT(*) FROM checkpoints").fetchone()[0]:
             raise ValueError("Checkpoint already exists; create a new isolated run.")
         placeholders = ",".join("?" for _ in SEED_FACTS)
@@ -180,7 +181,7 @@ def inspect(run_dir: Path) -> dict:
         raise ValueError("Capture the baseline first: 02-baseline.cmd")
     baseline = json.loads(baseline_file.read_text(encoding="utf-8"))
     session_id = baseline["session_id"]
-    with _db_connection(config) as connection:
+    with closing(_db_connection(config)) as connection:
         rows = _messages(connection, session_id)
         checkpoints = [
             dict(row)
