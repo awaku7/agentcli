@@ -417,7 +417,7 @@ def _maybe_auto_shrink_messages(
             persist
             and store is not None
             and bool(session_id)
-            and _structured_compaction_enabled(core, store, session_id)
+            and _structured_compaction_enabled(store, session_id)
         )
         if structured_requested:
             compression_result = call_maybe_thread_fn(
@@ -552,23 +552,15 @@ def build_auto_shrink_projection(
     )
 
 
-def _structured_compaction_enabled(
-    core: Any, store: Any, session_id: Any
-) -> bool:
-    """Enable structured compaction by default for the local CLI host only.
+def _structured_compaction_enabled(store: Any, session_id: Any) -> bool:
+    """Use Structured Compaction whenever a persistent session is available.
 
-    A persisted session's entry_point is not the current caller's host:
-    a Web/A2A host may access a session originally created by the CLI.
+    Explicit UAGENT_STRUCTURED_COMPACTION=0 opts out on every host.
     """
+    if store is None or not session_id:
+        return False
     flag = (env_get("UAGENT_STRUCTURED_COMPACTION") or "").strip().lower()
-    if flag:
-        return flag in {"1", "true", "yes", "on"}
-    return (
-        store is not None
-        and bool(session_id)
-        and getattr(core, "_session_store_entry_point", None) == "cli"
-    )
-
+    return not flag or flag in {"1", "true", "yes", "on"}
 
 def build_structured_auto_shrink_projection(
     *,
@@ -595,7 +587,7 @@ def build_structured_auto_shrink_projection(
     session_id = getattr(core, "_session_store_active_id", None) or getattr(
         core, "session_id", None
     )
-    if not _structured_compaction_enabled(core, store, session_id):
+    if not _structured_compaction_enabled(store, session_id):
         return None
     if is_server_side_compaction_enabled(
         provider,
