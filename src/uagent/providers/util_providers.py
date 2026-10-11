@@ -367,10 +367,7 @@ def get_model_name() -> str:
     if provider == "inception":
         return env_get("UAGENT_INCEPTION_DEPNAME", "mercury-2.5") or "mercury-2.5"
     if provider == "grok":
-        return (
-            env_get("UAGENT_GROK_DEPNAME", "grok-4.7")
-            or "grok-4.7"
-        )
+        return env_get("UAGENT_GROK_DEPNAME", "grok-4.7") or "grok-4.7"
     if provider == "gemini":
         return (
             env_get("UAGENT_GEMINI_DEPNAME", "gemini-3.8-flash") or "gemini-3.8-flash"

@@ -16,7 +16,9 @@ from uagent.providers.util_providers import get_model_name
         ("moonshot", "kimi-k3"),
     ],
 )
-def test_current_provider_default_models(monkeypatch, provider: str, expected: str) -> None:
+def test_current_provider_default_models(
+    monkeypatch, provider: str, expected: str
+) -> None:
     monkeypatch.setenv("UAGENT_PROVIDER", provider)
     monkeypatch.delenv(f"UAGENT_{provider.upper()}_DEPNAME", raising=False)
 
