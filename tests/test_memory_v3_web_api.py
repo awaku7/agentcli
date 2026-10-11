@@ -68,6 +68,21 @@ def test_local_web_commands_keep_session_indices_per_room(
             )
             assert rooms[name].session_id
         assert routes_api.core.session_id is None
+        busy_room = rooms["first"]
+        previous_session = busy_room.session_id
+        previous_history = list(busy_room.history)
+        busy_room.worker_lock.acquire()
+        try:
+            rejected = client.post(
+                "/api/command",
+                json={"room_id": "first", "command": ":load 0"},
+            )
+            assert rejected.status_code == 409
+            assert "turn is running" in rejected.json()["error"]
+            assert busy_room.session_id == previous_session
+            assert busy_room.history == previous_history
+        finally:
+            busy_room.worker_lock.release()
 
 
 def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):
