@@ -12,7 +12,11 @@ from pathlib import Path
 
 import pytest
 
-SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "structured_compaction_live_test.py"
+SCRIPT = (
+    Path(__file__).resolve().parents[1]
+    / "scripts"
+    / "structured_compaction_live_test.py"
+)
 SPEC = importlib.util.spec_from_file_location("structured_compaction_live_test", SCRIPT)
 assert SPEC and SPEC.loader
 live = importlib.util.module_from_spec(SPEC)
@@ -26,11 +30,14 @@ def run_dir(tmp_path: Path) -> Path:
     state = run / "state"
     db = state / "sessions" / "sessions.sqlite3"
     db.parent.mkdir(parents=True)
-    config = {"state_dir": str(state), "session_db": str(db), "project_dir": str(tmp_path)}
+    config = {
+        "state_dir": str(state),
+        "session_db": str(db),
+        "project_dir": str(tmp_path),
+    }
     (run / "test-config.json").write_text(json.dumps(config), encoding="utf-8")
     with sqlite3.connect(db) as con:
-        con.executescript(
-            """
+        con.executescript("""
             CREATE TABLE messages (
                 session_id TEXT, message_id INTEGER, role TEXT, content TEXT
             );
@@ -40,8 +47,7 @@ def run_dir(tmp_path: Path) -> Path:
                 result_revision INTEGER
             );
             CREATE TABLE tool_calls (session_id TEXT, call_id TEXT);
-            """
-        )
+            """)
         con.executemany(
             "INSERT INTO messages VALUES ('s1', ?, 'user', ?)",
             [(i + 1, fact) for i, fact in enumerate(live.SEED_FACTS)],
@@ -71,18 +77,14 @@ def test_checkpoints_and_raw_history_regression(run_dir: Path) -> None:
             "INSERT INTO checkpoints VALUES ('s1', 'applied', ?, ?, ?)",
             [(1, 4, 1), (5, 8, 2)],
         )
-        con.executemany(
-            "INSERT INTO tool_calls VALUES ('s1', ?)", [("one",), ("two",)]
-        )
+        con.executemany("INSERT INTO tool_calls VALUES ('s1', ?)", [("one",), ("two",)])
     report = live.inspect(run_dir)
     assert all(value == "PASS" for value in report["checks"].values())
     assert not report["lost_or_modified_ids"]
 
     with sqlite3.connect(db) as con:
         con.execute("UPDATE messages SET content = 'rewritten' WHERE message_id = 3")
-        con.execute(
-            "INSERT INTO checkpoints VALUES ('s1', 'applied', 8, 12, 3)"
-        )
+        con.execute("INSERT INTO checkpoints VALUES ('s1', 'applied', 8, 12, 3)")
     report = live.inspect(run_dir)
     assert report["checks"]["raw_history"] == "FAIL"
     assert report["checks"]["continued_checkpoint"] == "FAIL"
