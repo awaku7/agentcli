@@ -95,6 +95,43 @@ def test_sessions_list_active_index_does_not_load_another_session(
         db.close()
 
 
+
+def test_cont_ignores_displayed_indices_and_loads_newest_inactive(
+    monkeypatch, tmp_path, capsys
+):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        active = db.create_session(project="active", entry_point="cli")
+        wanted = db.create_session(project="wanted", entry_point="cli")
+        other = db.create_session(project="other", entry_point="cli")
+        db.append_message(active.session_id, "user", "current")
+        db.append_message(wanted.session_id, "user", "wanted")
+        db.append_message(other.session_id, "user", "other")
+        # Displayed list includes active at [0]; :cont must still load wanted.
+        rows = [
+            {"session_id": active.session_id},
+            {"session_id": wanted.session_id},
+            {"session_id": other.session_id},
+        ]
+        monkeypatch.setattr(db, "list_sessions", lambda: rows)
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        messages = [{"role": "user", "content": "current"}]
+        assert _handle_cmd_sessions("list", core=core, tr=lambda text, **_: text)
+        assert core._session_search_results[0] == active.session_id
+        # Explicit :load 0 must not reload the active session.
+        assert _handle_cmd_load("0", messages, core=core, tr=lambda text, **_: text)
+        assert messages == [{"role": "user", "content": "current"}]
+        assert "already active" in capsys.readouterr().out.lower()
+        # :cont deliberately chooses the newest inactive session instead.
+        assert handle_command(":cont", messages, None, "", core=core)
+        assert [message["content"] for message in messages] == ["wanted"]
+    finally:
+        db.close()
+
+
 def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
     db = SessionStore(tmp_path / "sessions.sqlite3")
