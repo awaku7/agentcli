@@ -106,10 +106,7 @@ class WebRoom:
         try:
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
-            with self._lifecycle_lock:
-                self.active_connections.append(websocket)
-                if connection_context is not None:
-                    self._connection_contexts[id(websocket)] = connection_context
+            # Keep the socket out of live broadcasts until initialization ends.
             self.touch()
 
             msgs = self.messages
@@ -230,6 +227,10 @@ class WebRoom:
                         "content": content,
                     }
                 )
+            with self._lifecycle_lock:
+                self.active_connections.append(websocket)
+                if connection_context is not None:
+                    self._connection_contexts[id(websocket)] = connection_context
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
