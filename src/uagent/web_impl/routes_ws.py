@@ -39,6 +39,26 @@ from .rooms import (
 )
 
 
+def _request_room_interrupt(room) -> bool:
+    """Only the current foreground room may stop the process-wide worker."""
+    # Hold ownership stable through flag publication: worker cleanup/startup
+    # uses the same lock when clearing or replacing active_room.
+    with web_manager.active_room_lock:
+        if web_manager.active_room is not room:
+            return False
+        ask_pending = bool(getattr(room, "human_ask_pending", False))
+        if ask_pending:
+            room.human_ask_cancelled = True
+            room.human_ask_result = ""
+            room.human_ask_sync_event.set()
+        if not getattr(core, "status_busy", False) and not ask_pending:
+            if not getattr(room, "human_ask_cancelled", False):
+                return False
+        with core.interrupt_lock:
+            core.interrupt_requested = True
+        return True
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     try:
@@ -300,25 +320,8 @@ async def websocket_endpoint(websocket: WebSocket):
                 except Exception:
                     pass
 
-                # Unblock pending human_ask even if status was cleared to WAIT.
-                if getattr(room, "human_ask_pending", False):
-                    try:
-                        room.human_ask_cancelled = True
-                        room.human_ask_result = ""
-                        room.human_ask_sync_event.set()
-                    except Exception:
-                        pass
-
-                # NOP if not busy and no pending ask
-                if not getattr(_core, "status_busy", False) and not getattr(
-                    room, "human_ask_pending", False
-                ):
-                    # human_ask_pending may already be cleared by the waiter;
-                    # still allow interrupt flag for in-flight LLM.
-                    if not getattr(room, "human_ask_cancelled", False):
-                        continue
-                with _core.interrupt_lock:
-                    _core.interrupt_requested = True
+                if not _request_room_interrupt(room):
+                    continue
                 try:
                     if room.loop:
                         asyncio.run_coroutine_threadsafe(

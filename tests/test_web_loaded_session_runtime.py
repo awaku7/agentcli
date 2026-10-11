@@ -235,3 +235,60 @@ def test_other_room_queues_without_changing_active_worker_state(monkeypatch, tmp
     for room in rooms:
         assert room.status["label"] == "IDLE"
         assert not room.worker_lock.locked()
+
+
+@pytest.mark.parametrize("label", ["QUEUED", "IDLE"])
+def test_non_active_room_cannot_interrupt_other_room(monkeypatch, label):
+    import threading
+
+    from uagent.web_impl import routes_ws
+    from uagent.web_impl.rooms import WebManager
+
+    manager = WebManager()
+    active = WebRoom("active")
+    other = WebRoom("other")
+    manager.active_room = active
+    other.set_status(label == "QUEUED", label)
+    # Even stale/pending confirmation state must not bypass room ownership.
+    other.human_ask_pending = True
+    other.human_ask_cancelled = False
+    other.human_ask_result = "keep"
+    core = SimpleNamespace(
+        status_busy=True, interrupt_lock=threading.Lock(), interrupt_requested=False
+    )
+    monkeypatch.setattr(routes_ws, "web_manager", manager)
+    monkeypatch.setattr(routes_ws, "core", core)
+    assert not routes_ws._request_room_interrupt(other)
+    assert not core.interrupt_requested
+    assert not other.human_ask_cancelled
+    assert other.human_ask_result == "keep"
+    assert not other.human_ask_sync_event.is_set()
+    assert routes_ws._request_room_interrupt(active)
+    assert core.interrupt_requested
+
+
+def test_active_room_interrupt_unblocks_confirmation_with_busy_cleared(monkeypatch):
+    import threading
+
+    from uagent.web_impl import routes_ws
+    from uagent.web_impl.rooms import WebManager
+
+    manager = WebManager()
+    room = WebRoom("active")
+    room.human_ask_pending = True
+    room.human_ask_result = "pending"
+    manager.active_room = room
+    core = SimpleNamespace(
+        status_busy=False, interrupt_lock=threading.Lock(), interrupt_requested=False
+    )
+    monkeypatch.setattr(routes_ws, "web_manager", manager)
+    monkeypatch.setattr(routes_ws, "core", core)
+    assert routes_ws._request_room_interrupt(room)
+    assert room.human_ask_cancelled
+    assert room.human_ask_result == ""
+    assert room.human_ask_sync_event.is_set()
+    assert core.interrupt_requested
+    manager.active_room = None
+    core.interrupt_requested = False
+    assert not routes_ws._request_room_interrupt(room)
+    assert not core.interrupt_requested

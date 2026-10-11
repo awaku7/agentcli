@@ -36,7 +36,11 @@ reserved room is rejected, while a different room can reserve its own turn.
 Process cwd and core log callbacks are captured, changed and restored only while
 holding the global lock. This keeps a queued room from changing the running
 room's workdir or restoring another worker's callback.
-Run `tests/test_web_loaded_session_runtime.py` for the concurrent A/B regression.
+Queued rooms have a disabled Stop button. The WebSocket interrupt handler checks
+foreground room ownership under `active_room_lock` before changing the shared
+interrupt flag or cancelling a confirmation; queued/idle rooms cannot stop another
+room. Run `tests/test_web_loaded_session_runtime.py` for the concurrent A/B and
+interrupt ownership regressions.
 
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
