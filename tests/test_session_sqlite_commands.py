@@ -13,6 +13,82 @@ from uagent.runtime.session_store import (
 from uagent.util_cmd_files import _handle_cmd_logs
 from uagent.util_cmd_session import _handle_cmd_load
 from uagent.util_cmd_session import _handle_cmd_sessions
+from uagent.util_cmd_session import bind_session_selection_context
+
+
+@pytest.mark.parametrize("loader", [":load 1", ":sessions load 1"])
+def test_empty_search_preserves_last_numbered_list(loader, monkeypatch, tmp_path):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        rows = []
+        for label in ("active", "wanted", "other"):
+            session = db.create_session(project=label, entry_point="cli")
+            db.append_message(session.session_id, "user", label)
+            rows.append({"session_id": session.session_id})
+        monkeypatch.setattr(db, "list_sessions", lambda: rows)
+        core = SimpleNamespace(session_store=db, session_id=rows[0]["session_id"])
+        messages = []
+        assert handle_command(":sessions list", messages, None, "", core=core)
+        assert handle_command(
+            ":sessions search no-such-fact", messages, None, "", core=core
+        )
+        assert handle_command(loader, messages, None, "", core=core)
+        assert [message["content"] for message in messages] == ["wanted"]
+    finally:
+        db.close()
+
+
+def test_room_session_views_are_isolated_on_shared_core(monkeypatch, tmp_path):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        first = db.create_session(project="first", entry_point="cli")
+        second = db.create_session(project="second", entry_point="cli")
+        db.append_message(first.session_id, "user", "first-room-fact")
+        db.append_message(second.session_id, "user", "second-room-fact")
+        core = SimpleNamespace(
+            session_store=db,
+            session_id=None,
+            _session_search_results={0: "cli-selection"},
+        )
+        first_room = SimpleNamespace(history=[])
+        second_room = SimpleNamespace(history=[])
+        with bind_session_selection_context(first_room):
+            assert handle_command(
+                ":sessions search first-room-fact",
+                first_room.history,
+                None,
+                "",
+                core=core,
+            )
+        with bind_session_selection_context(second_room):
+            assert handle_command(
+                ":sessions search second-room-fact",
+                second_room.history,
+                None,
+                "",
+                core=core,
+            )
+        with bind_session_selection_context(first_room):
+            assert handle_command(":load 0", first_room.history, None, "", core=core)
+        with bind_session_selection_context(second_room):
+            assert handle_command(
+                ":sessions load 0", second_room.history, None, "", core=core
+            )
+        assert [message["content"] for message in first_room.history] == [
+            "first-room-fact"
+        ]
+        assert [message["content"] for message in second_room.history] == [
+            "second-room-fact"
+        ]
+        assert core._session_search_results == {0: "cli-selection"}
+    finally:
+        db.close()
 
 
 @pytest.mark.parametrize("view", ["list", "list --verbose", "load", ":load"])

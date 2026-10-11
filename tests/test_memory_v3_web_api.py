@@ -18,6 +18,51 @@ class _Resolver:
         return IdentityContext(self.principal[0], True, self.authn_kind)
 
 
+def test_local_web_commands_keep_session_indices_per_room(tmp_path, monkeypatch):
+    from uagent.runtime.session_store import SessionStore
+    from uagent.web_impl import connection_identity
+    from uagent.web_impl.rooms import WebRoom
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setattr(
+        routes_api,
+        "_request_identity",
+        lambda request: IdentityContext("local", False, "local"),
+    )
+    monkeypatch.setattr(
+        connection_identity,
+        "require_room_access",
+        lambda identity, room_id: ("", False),
+    )
+    rooms = {name: WebRoom(name) for name in ("first", "second")}
+    monkeypatch.setattr(routes_api.web_manager, "get_room", rooms.__getitem__)
+    monkeypatch.setattr(
+        routes_api.providers, "make_client", lambda core: (None, None, "")
+    )
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        monkeypatch.setattr(routes_api.core, "session_store", store, raising=False)
+        monkeypatch.setattr(routes_api.core, "session_id", None, raising=False)
+        for name in rooms:
+            session = store.create_session(project=name, entry_point="cli")
+            store.append_message(session.session_id, "user", f"{name}-room-fact")
+        client = TestClient(app)
+        for name in rooms:
+            response = client.post(
+                "/api/command",
+                json={"room_id": name, "command": f":sessions search {name}-room-fact"},
+            )
+            assert response.status_code == 200
+        for name in rooms:
+            response = client.post(
+                "/api/command", json={"room_id": name, "command": ":load 0"}
+            )
+            assert response.status_code == 200
+            assert any(
+                message.get("content") == f"{name}-room-fact"
+                for message in rooms[name].history
+            )
+
+
 def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):
     principal = ["admin"]
     resolver = _Resolver(principal)

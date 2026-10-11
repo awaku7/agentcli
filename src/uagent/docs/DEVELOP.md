@@ -15,6 +15,9 @@ commands retain that view's number-to-ID mapping on the core, so excluding the
 active session or a later change in store ordering cannot shift displayed indices.
 The `:cont` shortcut is different: it always selects the newest **inactive**
 session, ignoring the last displayed view.
+An empty search retains the prior numbered view. Web HTTP and WebSocket commands
+bind selection state to their room, so rooms sharing core cannot overwrite each
+other's displayed indices.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 

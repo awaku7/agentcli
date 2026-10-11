@@ -1699,9 +1699,12 @@ async def api_command(req: Request):
         _old_stdout = _sys.stdout
         try:
             _sys.stdout = _capture
-            _result = tools_util.handle_command(
-                cmd_line, room.history, _client, _depname, core=core
-            )
+            from ..util_cmd_session import bind_session_selection_context
+
+            with bind_session_selection_context(room):
+                _result = tools_util.handle_command(
+                    cmd_line, room.history, _client, _depname, core=core
+                )
         finally:
             _sys.stdout = _old_stdout
         _output = _capture.getvalue().strip()

@@ -6,6 +6,8 @@ Moved from util_tools.py.
 from __future__ import annotations
 
 import datetime as _datetime
+from contextlib import contextmanager
+from contextvars import ContextVar
 import glob
 import json
 import os
@@ -40,6 +42,25 @@ from .util_message import (
 # Default translation function used when core.tr is not provided.
 tr = _
 tr_ = _
+
+_SESSION_SELECTION_CONTEXT: ContextVar[Any] = ContextVar(
+    "session_selection_context", default=None
+)
+
+
+@contextmanager
+def bind_session_selection_context(owner: Any):
+    """Keep Web command selection state on its room rather than shared core."""
+    token = _SESSION_SELECTION_CONTEXT.set(owner)
+    try:
+        yield
+    finally:
+        _SESSION_SELECTION_CONTEXT.reset(token)
+
+
+def _session_selection_owner(core: Any) -> Any:
+    owner = _SESSION_SELECTION_CONTEXT.get()
+    return core if owner is None else owner
 
 
 def _restore_skill_command_hint(text: str) -> str:
@@ -1461,7 +1482,7 @@ def _handle_cmd_sessions(
             print(_("[sessions] Load failed: " + str(exc)))
             return True
         if not target:
-            core._session_search_results = {
+            _session_selection_owner(core)._session_search_results = {
                 index: row["session_id"] for index, row in enumerate(sessions)
             }
             if not sessions:
@@ -1475,7 +1496,9 @@ def _handle_cmd_sessions(
         resolution = SessionCommandService.resolve_load_target(
             target,
             sessions,
-            search_results=getattr(core, "_session_search_results", {}),
+            search_results=getattr(
+                _session_selection_owner(core), "_session_search_results", {}
+            ),
         )
         if resolution.error:
             print(_("[sessions] Session index out of range."))
@@ -1573,7 +1596,7 @@ def _handle_cmd_sessions(
         sessions = store.list_sessions()
         # Resolve numbers against the last displayed view, including the active
         # session, rather than recomputing indices from a filtered load list.
-        core._session_search_results = {
+        _session_selection_owner(core)._session_search_results = {
             index: row["session_id"] for index, row in enumerate(sessions)
         }
         for index, row in enumerate(sessions):
@@ -1659,11 +1682,10 @@ def _handle_cmd_sessions(
         print(_("[sessions] Search failed: " + str(exc)))
         return True
     if not search_results:
-        core._session_search_results = {}
         print(_("[sessions] No matching sessions."))
         return True
     # Both load commands use the most recently displayed numbered view.
-    core._session_search_results = {
+    _session_selection_owner(core)._session_search_results = {
         index: result.row["session_id"] for index, result in enumerate(search_results)
     }
     print(_("[sessions] Matches: " + str(len(search_results))))
@@ -1709,7 +1731,7 @@ def _handle_cmd_load(
         if len(target) >= 2 and target[0] == target[-1] and target[0] in {'"', "'"}:
             target = target[1:-1]
         if not target:
-            core._session_search_results = {
+            _session_selection_owner(core)._session_search_results = {
                 index: row["session_id"] for index, row in enumerate(sessions)
             }
             if not sessions:
@@ -1724,7 +1746,7 @@ def _handle_cmd_load(
             target,
             sessions,
             search_results=(
-                getattr(core, "_session_search_results", {})
+                getattr(_session_selection_owner(core), "_session_search_results", {})
                 if use_last_displayed_view
                 else None
             ),
