@@ -64,9 +64,7 @@ def test_public_web_room_does_not_silently_reuse_missing_session(tmp_path):
         assert room.session_id == old_id
 
 
-def test_public_web_workers_write_only_to_their_own_sessions(
-    monkeypatch, tmp_path
-):
+def test_public_web_workers_write_only_to_their_own_sessions(monkeypatch, tmp_path):
     monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
     monkeypatch.setattr(agent_worker, "resolve_identity_mode", lambda: "local")
     with SessionStore(tmp_path / "web-room-runtime.sqlite3") as store:
@@ -111,4 +109,3 @@ def test_public_web_workers_write_only_to_their_own_sessions(
             assert [
                 item["content"] for item in store.list_messages(room.session_id)
             ] == [f"{room.room_id}-fact"]
-
