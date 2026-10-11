@@ -5222,19 +5222,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Istunto ladattu"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Keskustelu ladattu nykyiseen kontekstiin; voit jatkaa kirjoittamalla viestin."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Keskustelu ladattu nykyiseen kontekstiin; voit jatkaa "
+"kirjoittamalla viestin."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Käyttö: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Käyttö: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort-arvon on sisällettävä date ja/tai matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Käyttö: :sessions load [<index|session_id>]"
@@ -5275,7 +5282,9 @@ msgstr ":mem-vacuum ei ota argumentteja."
 
 #: src/uagent/util_cmd_session.py:1958
 msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
-msgstr "Henkilökohtainen muisti käyttää JSONL-muotoa; SQLite VACUUM ei ole sovellettavissa."
+msgstr ""
+"Henkilökohtainen muisti käyttää JSONL-muotoa; SQLite VACUUM ei ole "
+"sovellettavissa."
 
 #: src/uagent/util_cmd_session.py:1961
 msgid "Personal memory database vacuum completed."
@@ -5283,8 +5292,17 @@ msgstr "Henkilökohtaisen muistin tietokannan vacuum valmistui."
 
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
-msgstr "[mem-vacuum] Henkilökohtaisen muistin tietokannan vacuumin suorittaminen epäonnistui."
+msgstr ""
+"[mem-vacuum] Henkilökohtaisen muistin tietokannan vacuumin suorittaminen "
+"epäonnistui."
 
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Päätöksentekopalvelun tarjoaja"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[istuntovaroitus] Istuntojen tallennus on poistettu käytöstä tälle ajolle: "
+"%(error)s"

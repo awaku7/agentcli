@@ -216,7 +216,9 @@ msgstr "(ingen brukermelding)"
 msgid ""
 "[%(idx)d] %(mtime_text)s | %(turns)d msgs | first: %(first_user)s | last: "
 "%(last_user)s%(response_summary)s"
-msgstr "[%(idx)d] %(mtime_text)s | %(turns)d meldingar | første: %(first_user)s | siste: %(last_user)s%(response_summary)s"
+msgstr ""
+"[%(idx)d] %(mtime_text)s | %(turns)d meldingar | første: %(first_user)s | "
+"siste: %(last_user)s%(response_summary)s"
 
 #: src/uagent/core.py:1510
 msgid ""
@@ -3562,7 +3564,10 @@ msgid ""
 "Manage the current Responses API response. status retrieves the current "
 "response; cancel stops it; tokens counts input tokens; compact compacts "
 "context; items lists input items; delete removes a response."
-msgstr "Administrer gjeldande Responses API-respons. status hentar gjeldande respons; cancel stoppar han; tokens tel inndata-token; compact komprimerer konteksten; items listar inndataelement; delete fjernar ein respons."
+msgstr ""
+"Administrer gjeldande Responses API-respons. status hentar gjeldande "
+"respons; cancel stoppar han; tokens tel inndata-token; compact komprimerer "
+"konteksten; items listar inndataelement; delete fjernar ein respons."
 
 #: src/uagent/util_help.py:184
 msgid "Manage UAGENT_* environment variables"
@@ -4709,7 +4714,8 @@ msgid "[sessions] --keep must be a non-negative integer."
 msgstr "[sessions] --keep må være et ikke-negativt heltall."
 
 msgid "[sessions] Prune plan: keep newest %(keep)d, candidates=%(count)d"
-msgstr "[sessions] Ryddeplan: hald på dei nyaste %(keep)d, kandidatar=%(count)d"
+msgstr ""
+"[sessions] Ryddeplan: hald på dei nyaste %(keep)d, kandidatar=%(count)d"
 
 msgid "  %(id)s | %(created_at)s | %(count)d messages"
 msgstr "%(id)s | %(created_at)s | %(count)d meldinger"
@@ -4906,19 +4912,25 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Økt lasta inn"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Samtalen er lasta inn i gjeldande kontekst; du kan halda fram ved å skriva ei melding."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Samtalen er lasta inn i gjeldande kontekst; du kan halda fram ved"
+" å skriva ei melding."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Bruk: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Bruk: :sessions search <query> [--sort date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort må innehalda date og/eller matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Bruk: :sessions load [<index|session_id>]"
@@ -4972,3 +4984,9 @@ msgstr "[mem-vacuum] Klarte ikkje å vakuumera databasen for personleg minne."
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Avgjerdsleverandør"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[sesjonsåtvaring] Sesjonslagring er deaktivert for denne køyringa: %(error)s"

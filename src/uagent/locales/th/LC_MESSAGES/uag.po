@@ -4307,13 +4307,17 @@ msgstr "URL ภายนอก:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- ไม่พบไฟล์กำหนดค่า\n"
+msgstr ""
+"[MCP Servers]\n"
+"- ไม่พบไฟล์กำหนดค่า\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- ไม่มีการลงทะเบียนเซิร์ฟเวอร์\n"
+msgstr ""
+"[MCP Servers]\n"
+"- ไม่มีการลงทะเบียนเซิร์ฟเวอร์\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -5035,7 +5039,9 @@ msgstr ""
 msgid ""
 "Start auto-pilot with an injected goal. Include --max-rounds N or --infinite"
 " in the value."
-msgstr "เริ่มโหมดออโตไพลอตด้วยเป้าหมายที่ระบุไว้ โดยใส่ --max-rounds N หรือ --infinite ไว้ในค่า"
+msgstr ""
+"เริ่มโหมดออโตไพลอตด้วยเป้าหมายที่ระบุไว้ โดยใส่ --max-rounds N หรือ "
+"--infinite ไว้ในค่า"
 
 msgid ""
 "\n"
@@ -5146,19 +5152,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] โหลดเซสชันแล้ว"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] โหลดบทสนทนาเข้าสู่บริบทปัจจุบันแล้ว คุณสามารถดำเนินการต่อได้โดยป้อนข้อความ."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] โหลดบทสนทนาเข้าสู่บริบทปัจจุบันแล้ว "
+"คุณสามารถดำเนินการต่อได้โดยป้อนข้อความ."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] วิธีใช้: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] วิธีใช้: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort ต้องมี date และ/หรือ matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] วิธีใช้: :sessions load [<index|session_id>]"
@@ -5212,3 +5225,10 @@ msgstr "[mem-vacuum] ไม่สามารถ vacuum ฐานข้อมู
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "ผู้ให้บริการตัดสินใจ"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[คำเตือนเซสชัน] การคงอยู่ของเซสชันถูกปิดใช้งานสำหรับการเรียกใช้นี้: "
+"%(error)s"

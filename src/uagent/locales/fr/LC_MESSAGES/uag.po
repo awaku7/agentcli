@@ -5279,19 +5279,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Session chargée"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Conversation chargée dans le contexte actuel ; vous pouvez continuer en saisissant un message."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Conversation chargée dans le contexte actuel ; vous pouvez "
+"continuer en saisissant un message."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Utilisation : :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Utilisation : :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort doit contenir date et/ou matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Utilisation : :sessions load [<index|session_id>]"
@@ -5332,7 +5339,8 @@ msgstr ":mem-vacuum ne prend aucun argument."
 
 #: src/uagent/util_cmd_session.py:1958
 msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
-msgstr "La mémoire personnelle utilise JSONL ; SQLite VACUUM n'est pas applicable."
+msgstr ""
+"La mémoire personnelle utilise JSONL ; SQLite VACUUM n'est pas applicable."
 
 #: src/uagent/util_cmd_session.py:1961
 msgid "Personal memory database vacuum completed."
@@ -5340,8 +5348,17 @@ msgstr "Vacuum de la base de données de la mémoire personnelle terminé."
 
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
-msgstr "[mem-vacuum] Échec du vacuum de la base de données de la mémoire personnelle."
+msgstr ""
+"[mem-vacuum] Échec du vacuum de la base de données de la mémoire "
+"personnelle."
 
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Fournisseur de décisions"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[avertissement de session] La persistance de session est désactivée pour "
+"cette exécution : %(error)s"

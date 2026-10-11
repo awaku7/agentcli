@@ -4399,13 +4399,17 @@ msgstr "URL extern:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- Fișierul de configurare nu a fost găsit.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Fișierul de configurare nu a fost găsit.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- Nu au fost înregistrate servere.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Nu au fost înregistrate servere.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -5259,19 +5263,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Sesiune încărcată"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Conversația a fost încărcată în contextul curent; puteți continua introducând un mesaj."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Conversația a fost încărcată în contextul curent; puteți continua"
+" introducând un mesaj."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Utilizare: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Utilizare: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort trebuie să conțină date și/sau matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Utilizare: :sessions load [<index|session_id>]"
@@ -5325,3 +5336,10 @@ msgstr "[mem-vacuum] Vacuumarea bazei de date a memoriei personale a eșuat."
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Furnizor de decizii"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[avertisment sesiune] Persistența sesiunii este dezactivată pentru această "
+"rulare: %(error)s"

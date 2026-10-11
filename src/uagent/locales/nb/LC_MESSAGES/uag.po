@@ -4317,13 +4317,17 @@ msgstr "Ekstern URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- Konfigurasjonsfilen ble ikke funnet.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Konfigurasjonsfilen ble ikke funnet.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- Ingen servere registrert.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Ingen servere registrert.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -5175,19 +5179,25 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Økt lastet inn"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Samtalen er lastet inn i gjeldende kontekst; du kan fortsette ved å skrive inn en melding."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Samtalen er lastet inn i gjeldende kontekst; du kan fortsette ved"
+" å skrive inn en melding."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Bruk: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Bruk: :sessions search <query> [--sort date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort må inneholde date og/eller matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Bruk: :sessions load [<index|session_id>]"
@@ -5241,3 +5251,10 @@ msgstr "[mem-vacuum] Kunne ikke vakuumere databasen for personlig minne."
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Beslutningsleverandør"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[sesjonsadvarsel] Sesjonslagring er deaktivert for denne kjøringen: "
+"%(error)s"

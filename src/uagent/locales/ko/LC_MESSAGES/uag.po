@@ -5007,19 +5007,23 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] 세션을 불러왔습니다"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
 msgstr "[sessions] 대화를 현재 컨텍스트에 불러왔습니다. 메시지를 입력하여 계속할 수 있습니다."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] 사용법: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] 사용법: :sessions search <query> [--sort date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort에는 date 및/또는 matches가 포함되어야 합니다."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] 사용법: :sessions load [<index|session_id>]"
@@ -5073,3 +5077,8 @@ msgstr "[mem-vacuum] 개인 메모리 데이터베이스를 vacuum하지 못했�
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "판정 제공자"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[세션 경고] 이 실행에서는 세션 유지가 비활성화되었습니다: %(error)s"

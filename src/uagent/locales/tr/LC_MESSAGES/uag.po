@@ -4358,13 +4358,17 @@ msgstr "Harici URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- Yapılandırma dosyası bulunamadı.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Yapılandırma dosyası bulunamadı.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- Kayıtlı sunucu yok.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Kayıtlı sunucu yok.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -5217,19 +5221,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Oturum yüklendi"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Konuşma mevcut bağlama yüklendi; bir mesaj girerek devam edebilirsiniz."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Konuşma mevcut bağlama yüklendi; bir mesaj girerek devam "
+"edebilirsiniz."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Kullanım: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Kullanım: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort, date ve/veya matches içermelidir."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Kullanım: :sessions load [<index|session_id>]"
@@ -5278,8 +5289,16 @@ msgstr "Kişisel bellek veritabanı vacuum işlemi tamamlandı."
 
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
-msgstr "[mem-vacuum] Kişisel bellek veritabanının vacuum işlemi başarısız oldu."
+msgstr ""
+"[mem-vacuum] Kişisel bellek veritabanının vacuum işlemi başarısız oldu."
 
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Karar sağlayıcısı"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[oturum uyarısı] Bu çalıştırma için oturum kalıcılığı devre dışı bırakıldı: "
+"%(error)s"

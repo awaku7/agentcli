@@ -540,7 +540,9 @@ msgstr ""
 msgid ""
 "The following tools are currently loaded in this session. Choose the most "
 "appropriate tool for the task."
-msgstr "Các công cụ sau hiện đang được nạp trong phiên này. Hãy chọn công cụ phù hợp nhất cho tác vụ."
+msgstr ""
+"Các công cụ sau hiện đang được nạp trong phiên này. Hãy chọn công cụ phù hợp"
+" nhất cho tác vụ."
 
 #: src/uagent/docs_util.py:27
 msgid "Web Inspector (playwright_inspector) guide"
@@ -842,7 +844,10 @@ msgid ""
 "[RATE_LIMIT] provider=%(provider)s model=%(model)s status=%(status)s "
 "attempt=%(attempt)s/%(max_retries)s wait=%(wait_seconds).1fs "
 "retry_after=%(retry_after)s"
-msgstr "[RATE_LIMIT] nhà cung cấp=%(provider)s mô hình=%(model)s trạng thái=%(status)s lần thử=%(attempt)s/%(max_retries)s chờ=%(wait_seconds).1fs retry_after=%(retry_after)s"
+msgstr ""
+"[RATE_LIMIT] nhà cung cấp=%(provider)s mô hình=%(model)s trạng "
+"thái=%(status)s lần thử=%(attempt)s/%(max_retries)s chờ=%(wait_seconds).1fs "
+"retry_after=%(retry_after)s"
 
 #: src/uagent/llm_flow_helpers.py:245
 msgid ""
@@ -3395,13 +3400,17 @@ msgstr "Đã xóa mục nhập bộ nhớ dài hạn được chia sẻ [%(idx)d
 msgid ""
 "Specify working directory. If not set, uses UAGENT_WORKDIR env var or the "
 "current directory."
-msgstr "Chỉ định thư mục làm việc. Nếu không đặt, sẽ dùng biến môi trường UAGENT_WORKDIR hoặc thư mục hiện tại."
+msgstr ""
+"Chỉ định thư mục làm việc. Nếu không đặt, sẽ dùng biến môi trường "
+"UAGENT_WORKDIR hoặc thư mục hiện tại."
 
 #: src/uagent/util_common.py:161
 msgid ""
 "Non-interactive mode. Do not start the stdin loop; exit after processing the"
 " startup file (if any)."
-msgstr "Chế độ không tương tác. Không khởi động vòng lặp stdin; thoát sau khi xử lý tệp khởi động (nếu có)."
+msgstr ""
+"Chế độ không tương tác. Không khởi động vòng lặp stdin; thoát sau khi xử lý "
+"tệp khởi động (nếu có)."
 
 #: src/uagent/util_common.py:206
 msgid ""
@@ -4183,13 +4192,17 @@ msgstr "URL bên ngoài:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- Không tìm thấy tệp cấu hình.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Không tìm thấy tệp cấu hình.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- Không có máy chủ nào được đăng ký.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- Không có máy chủ nào được đăng ký.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -4200,7 +4213,9 @@ msgstr "[Máy chủ MCP]"
 msgid ""
 "[MCP Servers]\n"
 "- Failed to get info: %(err)s"
-msgstr "[MCP Servers]\n- Không thể lấy thông tin: %(err)s"
+msgstr ""
+"[MCP Servers]\n"
+"- Không thể lấy thông tin: %(err)s"
 
 #: src/uagent/welcome.py:70
 msgid "[Quick Guide]"
@@ -4232,7 +4247,9 @@ msgstr "- Thoát: ':exit' hoặc ':quit' sẽ kết thúc phiên."
 msgid ""
 "- Images: GUI supports drag & drop; in CUI you can input a file path for "
 "image analysis."
-msgstr "- Hình ảnh: GUI hỗ trợ kéo và thả; trong CUI, bạn có thể nhập đường dẫn tệp để phân tích hình ảnh."
+msgstr ""
+"- Hình ảnh: GUI hỗ trợ kéo và thả; trong CUI, bạn có thể nhập đường dẫn tệp "
+"để phân tích hình ảnh."
 
 #: src/uagent/welcome.py:81
 msgid ""
@@ -4262,7 +4279,9 @@ msgstr "- \"Phân tích mã nguồn trong thư mục này và tạo tệp README
 msgid ""
 "- \"Take a screenshot of the current desktop and describe the visible window"
 " contents.\""
-msgstr "- \"Chụp ảnh màn hình desktop hiện tại và mô tả nội dung các cửa sổ đang hiển thị.\""
+msgstr ""
+"- \"Chụp ảnh màn hình desktop hiện tại và mô tả nội dung các cửa sổ đang "
+"hiển thị.\""
 
 #: src/uagent/welcome.py:92
 msgid "- \"Create a monthly summary report from this Excel file.\""
@@ -5016,19 +5035,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Đã tải phiên"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Cuộc hội thoại đã được tải vào ngữ cảnh hiện tại; bạn có thể tiếp tục bằng cách nhập tin nhắn."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Cuộc hội thoại đã được tải vào ngữ cảnh hiện tại; bạn có thể tiếp"
+" tục bằng cách nhập tin nhắn."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Cách dùng: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Cách dùng: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort phải chứa date và/hoặc matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Cách dùng: :sessions load [<index|session_id>]"
@@ -5082,3 +5108,10 @@ msgstr "[mem-vacuum] Không thể vacuum cơ sở dữ liệu bộ nhớ cá nh�
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Nhà cung cấp quyết định"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[cảnh báo phiên] Tính bền vững của phiên đã bị tắt cho lần chạy này: "
+"%(error)s"

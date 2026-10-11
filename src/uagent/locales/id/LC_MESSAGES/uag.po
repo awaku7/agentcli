@@ -5056,19 +5056,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Sesi dimuat"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Percakapan dimuat ke dalam konteks saat ini; Anda dapat melanjutkan dengan memasukkan pesan."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Percakapan dimuat ke dalam konteks saat ini; Anda dapat "
+"melanjutkan dengan memasukkan pesan."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Penggunaan: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Penggunaan: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort harus berisi date dan/atau matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Penggunaan: :sessions load [<index|session_id>]"
@@ -5122,3 +5129,9 @@ msgstr "[mem-vacuum] Gagal melakukan vacuum pada basis data memori personal."
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Penyedia keputusan"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[peringatan sesi] Persistensi sesi dinonaktifkan untuk proses ini: %(error)s"

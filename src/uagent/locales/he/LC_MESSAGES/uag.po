@@ -5098,19 +5098,24 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] ההפעלה נטענה"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
 msgstr "[sessions] השיחה נטענה להקשר הנוכחי; ניתן להמשיך על ידי הזנת הודעה."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] שימוש: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] שימוש: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort חייב להכיל date ו/או matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] שימוש: :sessions load [<index|session_id>]"
@@ -5164,3 +5169,8 @@ msgstr "[mem-vacuum] נכשל בביצוע vacuum למסד נתוני הזיכר
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "ספק החלטות"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[אזהרת הפעלה] שמירת ההפעלה הושבתה עבור הפעלה זו: %(error)s"

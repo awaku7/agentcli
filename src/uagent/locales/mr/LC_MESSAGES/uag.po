@@ -4309,13 +4309,17 @@ msgstr "बाह्य URL:"
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- कॉन्फिग फाइल आढळली नाही.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- कॉन्फिग फाइल आढळली नाही.\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- कोणतेही सर्व्हर नोंदणीकृत नाहीत.\n"
+msgstr ""
+"[MCP Servers]\n"
+"- कोणतेही सर्व्हर नोंदणीकृत नाहीत.\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -5154,19 +5158,25 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] सत्र लोड केले"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] संभाषण सध्याच्या संदर्भात लोड केले; संदेश प्रविष्ट करून तुम्ही पुढे चालू ठेवू शकता."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] संभाषण सध्याच्या संदर्भात लोड केले; संदेश प्रविष्ट करून तुम्ही "
+"पुढे चालू ठेवू शकता."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] वापर: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] वापर: :sessions search <query> [--sort date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort मध्ये date आणि/किंवा matches असणे आवश्यक आहे."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] वापर: :sessions load [<index|session_id>]"
@@ -5220,3 +5230,8 @@ msgstr "[mem-vacuum] वैयक्तिक मेमरी डेटाबे
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "निर्णय प्रदाता"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[सत्र चेतावणी] या रनसाठी सत्र टिकाऊपणा अक्षम केला आहे: %(error)s"

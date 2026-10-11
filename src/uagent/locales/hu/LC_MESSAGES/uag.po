@@ -5251,19 +5251,28 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Munkamenet betöltve"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] A beszélgetés betöltve az aktuális kontextusba; üzenet beírásával folytathatja."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] A beszélgetés betöltve az aktuális kontextusba; üzenet beírásával"
+" folytathatja."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Használat: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Használat: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
-msgstr "[sessions] A --sort paraméternek tartalmaznia kell a date és/vagy matches értéket."
+msgstr ""
+"[sessions] A --sort paraméternek tartalmaznia kell a date és/vagy matches "
+"értéket."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Használat: :sessions load [<index|session_id>]"
@@ -5304,7 +5313,8 @@ msgstr ":mem-vacuum nem fogad argumentumokat."
 
 #: src/uagent/util_cmd_session.py:1958
 msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
-msgstr "A személyes memória JSONL-t használ; a SQLite VACUUM nem alkalmazható."
+msgstr ""
+"A személyes memória JSONL-t használ; a SQLite VACUUM nem alkalmazható."
 
 #: src/uagent/util_cmd_session.py:1961
 msgid "Personal memory database vacuum completed."
@@ -5312,8 +5322,17 @@ msgstr "A személyes memória adatbázis vacuum befejeződött."
 
 #: src/uagent/util_cmd_session.py:1963
 msgid "[mem-vacuum] Failed to vacuum the personal memory database."
-msgstr "[mem-vacuum] Nem sikerült végrehajtani a személyes memória adatbázis vacuum műveletét."
+msgstr ""
+"[mem-vacuum] Nem sikerült végrehajtani a személyes memória adatbázis vacuum "
+"műveletét."
 
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Döntésszolgáltató"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[munkamenet figyelmeztetés] A munkamenet megőrzése le van tiltva erre a "
+"futtatásra: %(error)s"

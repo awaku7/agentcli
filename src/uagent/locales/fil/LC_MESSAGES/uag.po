@@ -3108,7 +3108,9 @@ msgstr ""
 msgid ""
 "[clean] Startup sweep: deleted=%(deleted)d, failed=%(failed)d "
 "(threshold=%(threshold)d user turns)."
-msgstr "[clean] Paglilinis sa startup: nabura=%(deleted)d, nabigo=%(failed)d (threshold=%(threshold)d turn ng user)."
+msgstr ""
+"[clean] Paglilinis sa startup: nabura=%(deleted)d, nabigo=%(failed)d "
+"(threshold=%(threshold)d turn ng user)."
 
 #: src/uagent/util_cmd_session.py:549
 msgid ""
@@ -3666,7 +3668,8 @@ msgstr "Mga katulong sa paggawa ng tool"
 
 #: src/uagent/util_help.py:216
 msgid "Scaffolds src/uagent/tools/<name>_tool.py (+ json)."
-msgstr "Gumagawa ng scaffold para sa src/uagent/tools/<name>_tool.py (+ json)."
+msgstr ""
+"Gumagawa ng scaffold para sa src/uagent/tools/<name>_tool.py (+ json)."
 
 #: src/uagent/util_help.py:219
 msgid "Install and manage plugins"
@@ -4981,19 +4984,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Na-load ang session"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Na-load ang pag-uusap sa kasalukuyang konteksto; maaari kang magpatuloy sa pamamagitan ng paglalagay ng mensahe."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Na-load ang pag-uusap sa kasalukuyang konteksto; maaari kang "
+"magpatuloy sa pamamagitan ng paglalagay ng mensahe."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Paggamit: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Paggamit: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] Ang --sort ay dapat maglaman ng date at/o matches."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Paggamit: :sessions load [<index|session_id>]"
@@ -5034,7 +5044,9 @@ msgstr ":mem-vacuum ay hindi tumatanggap ng mga argumento."
 
 #: src/uagent/util_cmd_session.py:1958
 msgid "Personal memory uses JSONL; SQLite VACUUM is not applicable."
-msgstr "Ang personal memory ay gumagamit ng JSONL; hindi naaangkop ang SQLite VACUUM."
+msgstr ""
+"Ang personal memory ay gumagamit ng JSONL; hindi naaangkop ang SQLite "
+"VACUUM."
 
 #: src/uagent/util_cmd_session.py:1961
 msgid "Personal memory database vacuum completed."
@@ -5047,3 +5059,10 @@ msgstr "[mem-vacuum] Nabigong i-vacuum ang personal memory database."
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Tagapagbigay ng desisyon"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[babala sa sesyon] Hindi pinagana ang pagpapanatili ng sesyon para sa "
+"pagtakbong ito: %(error)s"

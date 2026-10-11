@@ -4178,13 +4178,17 @@ msgstr "外部 URL："
 msgid ""
 "[MCP Servers]\n"
 "- Config file not found.\n"
-msgstr "[MCP Servers]\n- 未找到配置文件。\n"
+msgstr ""
+"[MCP Servers]\n"
+"- 未找到配置文件。\n"
 
 #: src/uagent/welcome.py:36
 msgid ""
 "[MCP Servers]\n"
 "- No servers registered.\n"
-msgstr "[MCP Servers]\n- 没有注册服务器。\n"
+msgstr ""
+"[MCP Servers]\n"
+"- 没有注册服务器。\n"
 
 #: src/uagent/welcome.py:38
 msgid "[MCP Servers]"
@@ -4985,19 +4989,23 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] 会话已加载"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
 msgstr "[sessions] 对话已加载到当前上下文；输入消息即可继续。"
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] 用法：:sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] 用法：:sessions search <query> [--sort date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort 必须包含 date 和/或 matches。"
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] 用法：:sessions load [<index|session_id>]"
@@ -5051,3 +5059,8 @@ msgstr "[mem-vacuum] 清理个人记忆数据库失败。"
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "决策提供方"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[会话警告] 本次运行已禁用会话持久化: %(error)s"

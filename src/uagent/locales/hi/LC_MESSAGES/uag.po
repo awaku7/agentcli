@@ -5187,19 +5187,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] सत्र लोड हो गया"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] वार्तालाप वर्तमान संदर्भ में लोड हो गया है; आप संदेश दर्ज करके जारी रख सकते हैं।"
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] वार्तालाप वर्तमान संदर्भ में लोड हो गया है; आप संदेश दर्ज करके "
+"जारी रख सकते हैं।"
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] उपयोग: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] उपयोग: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort में date और/या matches होना चाहिए।"
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] उपयोग: :sessions load [<index|session_id>]"
@@ -5253,3 +5260,8 @@ msgstr "[mem-vacuum] पर्सनल मेमोरी डेटाबेस
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "निर्णय प्रदाता"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[सत्र चेतावनी] इस रन के लिए सत्र स्थायित्व अक्षम किया गया: %(error)s"

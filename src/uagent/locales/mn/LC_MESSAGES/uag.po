@@ -5237,19 +5237,26 @@ msgid "[sessions] Session loaded"
 msgstr "[sessions] Сесс ачаалагдлаа"
 
 #: src/uagent/util_cmd_session.py:1310
-msgid "[sessions] Conversation loaded into the current context; you can continue by entering a message."
-msgstr "[sessions] Харилцан яриа одоогийн контекстэд ачаалагдлаа; мессеж оруулж үргэлжлүүлж болно."
+msgid ""
+"[sessions] Conversation loaded into the current context; you can continue by"
+" entering a message."
+msgstr ""
+"[sessions] Харилцан яриа одоогийн контекстэд ачаалагдлаа; мессеж оруулж "
+"үргэлжлүүлж болно."
 
 #: src/uagent/util_cmd_session.py:1396
-msgid "[sessions] Usage: :sessions search <query> [--sort date|matches|date,matches]"
-msgstr "[sessions] Хэрэглээ: :sessions search <query> [--sort date|matches|date,matches]"
+msgid ""
+"[sessions] Usage: :sessions search <query> [--sort "
+"date|matches|date,matches]"
+msgstr ""
+"[sessions] Хэрэглээ: :sessions search <query> [--sort "
+"date|matches|date,matches]"
 
 #: src/uagent/util_cmd_session.py:1405
 msgid "[sessions] --sort must contain date and/or matches."
 msgstr "[sessions] --sort нь date болон/эсвэл matches агуулсан байх ёстой."
 
-#: src/uagent/util_cmd_session.py:1250
-#: src/uagent/util_cmd_session.py:1274
+#: src/uagent/util_cmd_session.py:1250 src/uagent/util_cmd_session.py:1274
 #: src/uagent/util_cmd_session.py:1489
 msgid "[sessions] Usage: :sessions load [<index|session_id>]"
 msgstr "[sessions] Хэрэглээ: :sessions load [<index|session_id>]"
@@ -5303,3 +5310,10 @@ msgstr "[mem-vacuum] Хувийн санах ойн мэдээллийн сан�
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr "Шийдвэр гаргах үйлчилгээ үзүүлэгч"
+
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+"[сессийн анхааруулга] Энэ удаагийн ажиллагаанд сесс хадгалалтыг идэвхгүй "
+"болгосон: %(error)s"
