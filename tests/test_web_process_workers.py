@@ -485,3 +485,59 @@ def test_crashed_stream_preserves_partial_reply_on_reconnect(monkeypatch, tmp_pa
         assert not pool.busy
     finally:
         pool.shutdown()
+
+
+def test_reconnect_replays_live_stream_events(monkeypatch):
+    room = WebRoom("stream-reconnect")
+    room.private_session = True
+    room.welcome_shown = True
+    room._process_turn_active = True
+    room._partial_streams = {"stream-1": "partial reply"}
+    room.messages = [{"role": "user", "content": "question"}]
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        def __init__(self):
+            self.events = []
+
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            self.events.append(event)
+
+    import asyncio
+
+    socket = Socket()
+    asyncio.run(room.connect(socket))
+    assert [event["type"] for event in socket.events[:3]] == [
+        "init",
+        "assistant_stream_start",
+        "assistant_stream_replace",
+    ]
+    assert socket.events[2]["content"] == "partial reply"
+
+
+def test_ended_stream_survives_until_state_or_matching_message():
+    room = WebRoom("stream-end")
+    room._partial_streams = {}
+    RoomWorkerPool._relay(
+        room, {"type": "assistant_stream_start", "id": "stream-1"}
+    )
+    RoomWorkerPool._relay(
+        room,
+        {"type": "assistant_stream_delta", "id": "stream-1", "delta": "complete"},
+    )
+    RoomWorkerPool._relay(
+        room, {"type": "assistant_stream_end", "id": "stream-1"}
+    )
+    assert room._partial_streams == {"stream-1": "complete"}
+    RoomWorkerPool._relay(
+        room,
+        {"type": "message", "message": {"role": "assistant", "content": "complete"}},
+    )
+    assert room._partial_streams == {}
