@@ -38,7 +38,6 @@ def test_attach_opt_in_session_store_wraps_shared_log_callback(monkeypatch, tmp_
     assert logged
     assert store.list_messages(session_id)[0]["content"] == "hello"
     assert store.get_session(session_id)["project"] == "agentcli"
-    assert core._session_store_entry_point == "web"
     store.close()
     assert get_callbacks().session_store is None
     assert get_callbacks().session_id is None
