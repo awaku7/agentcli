@@ -17,6 +17,7 @@ from ..i18n import (
 from .. import core
 from ..env_utils import env_get
 from .. import util_tools as tools_util
+from ..util_cmd_session import bind_room_session_runtime
 from ..providers import util_providers as providers
 from .. import uagent_llm as llm_util
 from ..runtime.logging_setup import log_event
@@ -135,6 +136,7 @@ def run_agent_worker(
     _orig_log_message = getattr(core, "log_message", None)
     _orig_active_session_id = None
     _had_active_session_id = False
+    _room_session_runtime = None
 
     try:
         # Switch to this room's base_dir for the duration of the worker
@@ -153,6 +155,9 @@ def run_agent_worker(
             # A private Web room owns a separate durable session identity. The
             # process-wide worker lock makes this compatibility binding safe.
             core._session_store_active_id = turn_context.session_id
+        elif getattr(room, "session_id", None):
+            _room_session_runtime = bind_room_session_runtime(core, room)
+            _room_session_runtime.__enter__()
 
         with web_manager.active_room_lock:
             web_manager.active_room = room
@@ -702,6 +707,9 @@ def run_agent_worker(
                     delattr(core, "_session_store_active_id")
             except Exception:
                 pass
+
+        if _room_session_runtime is not None:
+            _room_session_runtime.__exit__(None, None, None)
 
         if acquired_global:
             try:

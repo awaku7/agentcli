@@ -34,6 +34,7 @@ from ..runtime.project_context import PROJECT_CONTEXT_COOKIE, ProjectContextStor
 from ..runtime.room_access import RoomAccessPolicy, RoomMemoryService
 from ..auth.oidc_sessions import get_oidc_session_store
 from ..env_utils import env_get
+from ..util_cmd_session import RoomSessionBusyError, guard_room_session_command
 from .agent_worker import run_agent_worker
 from .app import app
 from .rooms import _handle_mode_command, web_manager
@@ -1699,9 +1700,13 @@ async def api_command(req: Request):
         _old_stdout = _sys.stdout
         try:
             _sys.stdout = _capture
-            _result = tools_util.handle_command(
-                cmd_line, room.history, _client, _depname, core=core
-            )
+            from ..util_cmd_session import bind_session_selection_context
+
+            with guard_room_session_command(room, command_name):
+                with bind_session_selection_context(room):
+                    _result = tools_util.handle_command(
+                        cmd_line, room.history, _client, _depname, core=core
+                    )
         finally:
             _sys.stdout = _old_stdout
         _output = _capture.getvalue().strip()
@@ -1744,5 +1749,7 @@ async def api_command(req: Request):
                 }
             )
         return {"ok": True, "command": cmd_line, "run_llm": False}
+    except RoomSessionBusyError as e:
+        return JSONResponse(status_code=409, content={"error": str(e)})
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": str(e)})

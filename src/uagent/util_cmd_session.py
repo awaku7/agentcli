@@ -6,6 +6,8 @@ Moved from util_tools.py.
 from __future__ import annotations
 
 import datetime as _datetime
+from contextlib import contextmanager
+from contextvars import ContextVar
 import glob
 import json
 import os
@@ -40,6 +42,86 @@ from .util_message import (
 # Default translation function used when core.tr is not provided.
 tr = _
 tr_ = _
+
+_SESSION_SELECTION_CONTEXT: ContextVar[Any] = ContextVar(
+    "session_selection_context", default=None
+)
+
+
+@contextmanager
+def bind_session_selection_context(owner: Any):
+    """Keep Web command selection state on its room rather than shared core."""
+    token = _SESSION_SELECTION_CONTEXT.set(owner)
+    try:
+        yield
+    finally:
+        _SESSION_SELECTION_CONTEXT.reset(token)
+
+
+class RoomSessionBusyError(RuntimeError):
+    """A running Web turn owns the room history and continuation state."""
+
+
+@contextmanager
+def guard_room_session_command(room: Any, command_name: str):
+    """Serialize session-changing Web commands with the room's worker."""
+    if command_name not in {"load", "cont", "sessions"}:
+        yield
+        return
+    if not room.worker_lock.acquire(blocking=False):
+        raise RoomSessionBusyError(
+            "A turn is running in this room; retry after it ends"
+        )
+    try:
+        yield
+    finally:
+        room.worker_lock.release()
+
+
+def _session_selection_owner(core: Any) -> Any:
+    owner = _SESSION_SELECTION_CONTEXT.get()
+    return core if owner is None else owner
+
+
+@contextmanager
+def bind_room_session_runtime(core: Any, room: Any):
+    """Install a loaded room's state while the Web global worker lock is held."""
+    if not getattr(room, "session_id", None):
+        yield
+        return
+    missing = object()
+    names = (
+        "session_id",
+        "_session_store_active_id",
+        "responses_state",
+        "tool_context",
+        "agent_state_manager",
+        "mcp_request_generation",
+    )
+    previous = {name: getattr(core, name, missing) for name in names}
+    bound_session_id = room.session_id
+    callbacks = get_callbacks()
+    callback_state = (callbacks.session_id, callbacks.session_store)
+    try:
+        bind_session(core, room.session_id, getattr(core, "session_store", None))
+        for name in names[2:]:
+            if hasattr(room, name):
+                setattr(core, name, getattr(room, name))
+        yield
+    finally:
+        # A :load may have replaced this room's session mid-turn. Do not
+        # overwrite its newly restored continuation with the old worker state.
+        if room.session_id == bound_session_id:
+            for name in names[2:]:
+                if hasattr(room, name) and hasattr(core, name):
+                    setattr(room, name, getattr(core, name))
+        for name, value in previous.items():
+            if value is missing:
+                if hasattr(core, name):
+                    delattr(core, name)
+            else:
+                setattr(core, name, value)
+        callbacks.session_id, callbacks.session_store = callback_state
 
 
 def _restore_skill_command_hint(text: str) -> str:
@@ -247,9 +329,33 @@ def _restore_sqlite_session_context(
             % {"error": touch_exc},
             file=sys.stderr,
         )
-    bind_session(core, target, store)
-    _restore_session_workdir(target, loaded, core=core, store=store)
-    apply_persisted_state(core, restore_plan)
+    owner = _session_selection_owner(core)
+    if owner is core:
+        bind_session(core, target, store)
+        _restore_session_workdir(target, loaded, core=core, store=store)
+    else:
+        # A Web room owns its active session; do not rebind shared CLI/core
+        # persistence or callbacks while another room is selecting history.
+        owner.session_id = target
+        owner._session_store_active_id = target
+        owner.responses_state = {}
+        owner.tool_context = {}
+        from .runtime.agent_state import AgentStateManager
+
+        owner.agent_state_manager = AgentStateManager()
+        owner.mcp_request_generation = 0
+        session_row = store.get_session(target)
+        workdir_plan = SessionCommandService.plan_workdir(
+            target,
+            message_workdir=_extract_last_cwd_from_messages(loaded),
+            session_project_path=(
+                session_row.get("project_path") if session_row else None
+            ),
+            current_workdir=getattr(owner, "base_dir", None),
+        )
+        if workdir_plan is not None and callable(getattr(owner, "set_base_dir", None)):
+            owner.set_base_dir(workdir_plan.target_path)
+    apply_persisted_state(owner, restore_plan)
     return loaded
 
 
@@ -1160,7 +1266,7 @@ def _handle_cmd_sessions(
     parts = (arg or "").strip().split()
     command = parts[0].lower() if parts else ""
     store = getattr(core, "session_store", None)
-    session_id = getattr(core, "session_id", None)
+    session_id = getattr(_session_selection_owner(core), "session_id", None)
     if command in {"export", "import-uag"}:
         # Passphrases must never pass through chat, Web commands, tool args,
         # command history or the model. Web has dedicated authenticated APIs.
@@ -1461,6 +1567,9 @@ def _handle_cmd_sessions(
             print(_("[sessions] Load failed: " + str(exc)))
             return True
         if not target:
+            _session_selection_owner(core)._session_search_results = {
+                index: row["session_id"] for index, row in enumerate(sessions)
+            }
             if not sessions:
                 print(_("[sessions] No sessions available."))
                 return True
@@ -1469,19 +1578,21 @@ def _handle_cmd_sessions(
                 _print_session_list_row(index, row)
             print(_("[sessions] Usage: :sessions load [<index|session_id>]"))
             return True
-        if target == session_id:
-            print(_("[sessions] Session is already active."))
-            return True
         resolution = SessionCommandService.resolve_load_target(
             target,
             sessions,
-            search_results=getattr(core, "_session_search_results", {}),
+            search_results=getattr(
+                _session_selection_owner(core), "_session_search_results", None
+            ),
         )
         if resolution.error:
             print(_("[sessions] Session index out of range."))
             return True
         if resolution.target is not None:
             target = resolution.target
+        if target == session_id:
+            print(_("[sessions] Session is already active."))
+            return True
         try:
             loaded = store.list_messages(target)
             if not loaded:
@@ -1567,7 +1678,13 @@ def _handle_cmd_sessions(
             print(_("[sessions] Session store is not enabled."))
             return True
         verbose = any(flag in parts[1:] for flag in ("--verbose", "-v"))
-        for index, row in enumerate(store.list_sessions()):
+        sessions = store.list_sessions()
+        # Resolve numbers against the last displayed view, including the active
+        # session, rather than recomputing indices from a filtered load list.
+        _session_selection_owner(core)._session_search_results = {
+            index: row["session_id"] for index, row in enumerate(sessions)
+        }
+        for index, row in enumerate(sessions):
             if verbose:
                 _print_session_list_row(index, row)
             else:
@@ -1652,9 +1769,8 @@ def _handle_cmd_sessions(
     if not search_results:
         print(_("[sessions] No matching sessions."))
         return True
-    # Keep the numbered search result available to :load. Search result
-    # numbers are intentionally zero-based, matching :load's normal index.
-    core._session_search_results = {
+    # Both load commands use the most recently displayed numbered view.
+    _session_selection_owner(core)._session_search_results = {
         index: result.row["session_id"] for index, result in enumerate(search_results)
     }
     print(_("[sessions] Matches: " + str(len(search_results))))
@@ -1675,6 +1791,7 @@ def _handle_cmd_load(
     *,
     core: Any,
     tr: Any,
+    use_last_displayed_view: bool = True,
 ) -> bool:
     if (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
@@ -1685,7 +1802,8 @@ def _handle_cmd_load(
             sessions = [
                 row
                 for row in store.list_sessions()
-                if row["session_id"] != getattr(core, "session_id", None)
+                if row["session_id"]
+                != getattr(_session_selection_owner(core), "session_id", None)
             ]
         except Exception as exc:
             print(
@@ -1699,6 +1817,9 @@ def _handle_cmd_load(
         if len(target) >= 2 and target[0] == target[-1] and target[0] in {'"', "'"}:
             target = target[1:-1]
         if not target:
+            _session_selection_owner(core)._session_search_results = {
+                index: row["session_id"] for index, row in enumerate(sessions)
+            }
             if not sessions:
                 print(_("[load] No SQLite sessions available."))
                 return True
@@ -1710,13 +1831,20 @@ def _handle_cmd_load(
         resolution = SessionCommandService.resolve_load_target(
             target,
             sessions,
-            search_results=getattr(core, "_session_search_results", {}),
+            search_results=(
+                getattr(_session_selection_owner(core), "_session_search_results", None)
+                if use_last_displayed_view
+                else None
+            ),
         )
         if resolution.error:
             print("[load] Session index out of range.")
             return True
         if resolution.target is not None:
             target = resolution.target
+        if target == getattr(_session_selection_owner(core), "session_id", None):
+            print("[load] Session is already active.")
+            return True
         try:
             loaded = store.list_messages(target)
             if not loaded:
