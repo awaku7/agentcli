@@ -30,11 +30,10 @@
 
 ### 構造化圧縮の既定値（2026-10-11更新）
 
-- 通常CLI（SessionStore有効）はStructured Compactionを**標準ON**にする。 `UAGENT_STRUCTURED_COMPACTION` は未設定でよく、明示的な `0` / `false` / `off` で従来経路に戻る（opt-out）。
-- Web / A2A / GUIなど他ホストは既定OFFを維持し、使用には明示的な `UAGENT_STRUCTURED_COMPACTION=1` が必要。永続セッションの作成元ではなく、現在の接続ホストの種別で既定値を判定する。
-- 明示的な有効・無効指定は従来通り優先。SessionStoreが無い場合、構造化Checkpointは生成せず従来経路を使う。
-- セッションのRaw Historyは構造化Checkpointの成否にかかわらず維持する。既存の従来経路・他ホストの変更は含めない。
-- 過去のPR実装・判断ログにある「opt-in」「既定OFF」の記述は当時の仕様であり、現行のCLI既定値は本節を優先する。
+- **CLI・GUI・Web・A2Aの全ホストで標準ON。** `UAGENT_STRUCTURED_COMPACTION` は未設定でよい。設定値 `0` / `false` / `off` を指定した場合だけ従来方式へ戻す（opt-out）。明示的な `1` も引き続き有効。
+- SessionStoreと有効なセッションIDがなければ構造化Checkpointは生成せず、従来の処理に委ねる。ホスト種別や保存済みセッションの作成元で有効／無効を切り替えない。
+- 厳密な出典の照合、安全なツール境界、revision付きの一括保存、失敗時のfallback、Raw History保持は既存の実装に従う。**標準ONは各ホストの実LLM・複数クライアント競合試験がすべて完了したという意味ではない。**
+- 過去のPR実装・判断ログにある「opt-in」「既定OFF」は当時の仕様を記録したもの。現行の既定値は本節を優先する。
 
 ### PR #226 — 通常CLIの永続Structured Compaction（2026-10-10マージ済み）
 
