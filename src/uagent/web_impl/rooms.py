@@ -200,7 +200,9 @@ class WebRoom:
                 msgs = [dict(message) for message in msgs]
                 stream_snapshot = [
                     (stream_id, content, stream_id in self._ended_streams)
-                    for stream_id, content in getattr(self, "_partial_streams", {}).items()
+                    for stream_id, content in getattr(
+                        self, "_partial_streams", {}
+                    ).items()
                 ]
             await websocket.send_json(
                 {
