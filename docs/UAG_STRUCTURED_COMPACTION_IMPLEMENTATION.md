@@ -18,7 +18,7 @@
 ## 3. 現在の状態
 
 - **確認基準日:** 2026-10-11。GitHub PR #226 が 2026-10-10 に main へマージされ、最終CIとCodexレビューが成功した時点。
-- **CLIの構造化圧縮実行経路（PR #226、2026-10-10マージ済み）:** 通常CLIでも `UAGENT_STRUCTURED_COMPACTION=1` のとき、永続SessionStore上の正確な順序を持つ生メッセージから構造化Checkpointを生成・保存できる。従来の `persist=False` の一時投影だけで終わる問題を解消した。圧縮後はAgentStateを要約として投影し、次回以降は最後のCheckpointより後のメッセージだけを新しい証拠として扱う。必要な場合はResponsesの継続IDを破棄して要約を含む履歴を送る。SQLite / JSONLのRaw Historyは置換しない。最終Codexレビューは重大な問題なし。実LLMによるend-to-end動作確認は未実施。
+- **CLIの構造化圧縮実行経路（PR #226、2026-10-10マージ済み）:** 通常CLIにおけるStructured Compactionの永続Checkpoint経路は永続SessionStore上の正確な順序を持つ生メッセージから構造化Checkpointを生成・保存できる。従来の `persist=False` の一時投影だけで終わる問題を解消した。圧縮後はAgentStateを要約として投影し、次回以降は最後のCheckpointより後のメッセージだけを新しい証拠として扱う。必要な場合はResponsesの継続IDを破棄して要約を含む履歴を送る。SQLite / JSONLのRaw Historyは置換しない。最終Codexレビューは重大な問題なし。実LLMによるend-to-end動作確認は未実施。
 - **全体状態:** PR 1 は基礎実装が条件付き完了、PR 2 は完了、PR 3 は同一 Session のメッセージ出典に限定した基礎統合まで完了。PR 4 は CLI の Sub-Agent 完了結果を Main に未検証情報として自動共有するところまで実装済み。PR 5 の複数 Client 安全性は未完了。
 - **基準設計:** `docs/UAG_STRUCTURED_COMPACTION_DESIGN.md`。第26章の PR 1〜5 は**実装フェーズ名**であり、実際の GitHub PR 件数を指定しない。
 - **CLI圧縮単位の選択（PR #226、マージ済み）:** 固定80メッセージ制限を撤廃し、モデル情報または `UAGENT_SHRINK_CHUNK_TOKENS` から求めたトークン予算で構造化生成プロンプト全体（AgentState・SourceRef・ツール情報を含む）を測定する。論理ターン末尾、または全ツール結果が揃った安全な境界だけを選び、呼び出しと結果を分離しない。通常のassistant応答が続く場合は応答後に分割する。照合時にはツール呼び出しID等も比較し、内容が同一の結果を区別する。予算・安全な境界・正確な出典のいずれかが得られない場合はCheckpoint生成を保留し、生履歴を保持する。
@@ -28,9 +28,17 @@
 - **検証状況:** #220 と #222 の最終CIに加え、#226 の最終CI [run #2351](https://github.com/awaku7/agentcli/actions/runs/38063839656) でも quality（Ruff / Black / I18N）、全pytest、Python 3.11・3.13・3.14互換性テストが成功。#226 の最終Codexレビューは [重大な問題なし](https://github.com/awaku7/agentcli/pull/226#issuecomment-6099165019)。Fake clientとSessionStoreを使う回帰テストの成功は、実provider接続や複数Clientのend-to-end検証の完了を意味しない。
 - **次の作業:** まず実 provider / model で Main → Sub-Agent → Main の完了結果共有を検証する。新着のみ次の LLM ターンへ一度提示し、元出典・権限・未検証の注記・重複抑止・Main 状態非更新が守られることを確認する。外部接続の有効化前に host の主体・workspace・Session 所有権、出典認可、revision 競合時の安全な処理を検証する。複数 Client 競合後の再評価と復旧は PR 5 として扱う。
 
+### 構造化圧縮の既定値（2026-10-11更新）
+
+- 通常CLI（SessionStore有効）はStructured Compactionを**標準ON**にする。 `UAGENT_STRUCTURED_COMPACTION` は未設定でよく、明示的な `0` / `false` / `off` で従来経路に戻る（opt-out）。
+- Web / A2A / GUIなど他ホストは既定OFFを維持し、使用には明示的な `UAGENT_STRUCTURED_COMPACTION=1` が必要。永続セッションの作成元ではなく、現在の接続ホストの種別で既定値を判定する。
+- 明示的な有効・無効指定は従来通り優先。SessionStoreが無い場合、構造化Checkpointは生成せず従来経路を使う。
+- セッションのRaw Historyは構造化Checkpointの成否にかかわらず維持する。既存の従来経路・他ホストの変更は含めない。
+- 過去のPR実装・判断ログにある「opt-in」「既定OFF」の記述は当時の仕様であり、現行のCLI既定値は本節を優先する。
+
 ### PR #226 — 通常CLIの永続Structured Compaction（2026-10-10マージ済み）
 
-- **原因と対応:** 通常CLIのauto-shrinkが一時的なメッセージ投影にとどまり、SessionStoreへの構造化Checkpoint保存を実行していなかった。明示opt-in `UAGENT_STRUCTURED_COMPACTION=1` の経路を永続Checkpoint生成へ接続した。既定はOFF。
+- **原因と対応（#226当時）:** 通常CLIのauto-shrinkが一時的なメッセージ投影にとどまり、SessionStoreへの構造化Checkpoint保存を実行していなかった。#226で明示opt-inの経路を永続Checkpoint生成へ接続した。当時の既定はOFFで、現行の既定値は上記「構造化圧縮の既定値」を参照。
 - **保存と継続:** SessionStoreのexact順序を持つmessage payloadとSourceRefを使用する。保存済みCheckpointの末尾より後のメッセージのみを次の対象とし、重複した証拠の適用を避ける。生成した要約はLLMに送る投影へ適用し、Raw History / JSONLは書き換えない。Responsesの継続IDが要約投影と矛盾する場合は完全履歴へ切り替える。
 - **処理単位:** 固定80メッセージ制限を撤廃。AgentState / SourceRef / ツールメタデータを含む実際の構造化生成プロンプトの推定トークン数で対象範囲を選ぶ。単一の長いターンでも、全tool call IDに対応する結果を受領済みで次のassistantが新たなツール呼び出しを始める位置なら分割できる。通常のassistant応答が続く場合はその応答を含めて分割する。
 - **出典の識別:** assistantの`tool_calls` / `function_call`、tool結果の`tool_call_id` / `name`を生成入力と出典照合に含める。同じ`"ok"`が繰り返されても異なる呼び出しを区別し、曖昧な窓を誤って確定しない。
