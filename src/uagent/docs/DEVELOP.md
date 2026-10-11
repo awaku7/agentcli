@@ -29,6 +29,21 @@ authoritative: numbers absent from the view are rejected.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 
+Web workers reserve their own room before waiting for the process-wide worker
+lock. The waiting room reports `busy=true`, `label=QUEUED`; it becomes `BUSY`
+when execution starts and `IDLE` on completion. A second submission to that same
+reserved room is rejected, while a different room can reserve its own turn.
+Process cwd and core log callbacks are captured, changed and restored only while
+holding the global lock. This keeps a queued room from changing the running
+room's workdir or restoring another worker's callback.
+Queued rooms have a disabled Stop button. The WebSocket interrupt handler checks
+foreground `worker_room` ownership under `active_room_lock` before changing the shared
+interrupt flag or cancelling a confirmation; queued/idle rooms cannot stop another
+room. Run `tests/test_web_loaded_session_runtime.py` for the concurrent A/B and
+interrupt ownership regressions. Connect-time bootstrap may temporarily change
+`active_room` for display routing, but only the serialized worker sets/clears
+`worker_room`; bootstrap cannot acquire another room's Stop authorization.
+
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
 - Entry points:

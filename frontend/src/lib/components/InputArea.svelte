@@ -178,7 +178,8 @@
   {#if isBusy}
     <button
       onclick={onInterrupt}
-      class="px-5 py-2 rounded-xl font-bold text-white shadow-sm transition hover:brightness-110 active:scale-[0.97] flex items-center gap-1.5"
+      disabled={status.label === 'QUEUED'}
+      class="px-5 py-2 rounded-xl font-bold text-white shadow-sm transition hover:brightness-110 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
       style="background:linear-gradient(135deg, #ef4444, #dc2626);"
     >⬛ {t('stop')}</button>
   {:else}
