@@ -51,6 +51,7 @@ def _config(run_dir: Path) -> dict[str, str]:
 def _test_env(config: dict[str, str]) -> dict[str, str]:
     state_dir = Path(config["state_dir"])
     env = dict(os.environ)
+    env.pop("UAGENT_WORKDIR", None)
     env.update(ENV_SETTINGS)
     env.update(
         {
@@ -90,7 +91,8 @@ def prepare() -> Path:
         )
         (run_dir / filename).write_text(script, encoding="utf-8")
     print("Isolated test directory:", run_dir)
-    print("1. Run 01-start.cmd and enter the FOUR seed statements.")
+    print("1. Run 01-start.cmd; answer N to any .env.sec sync prompt.")
+    print("   THEN enter the FOUR seed statements.")
     for statement in SEED_FACTS:
         print("   ", statement)
     print("2. Run 02-baseline.cmd from a SECOND window before further conversation.")
@@ -102,8 +104,9 @@ def prepare() -> Path:
 
 def launch(run_dir: Path) -> None:
     config = _config(run_dir)
+    print("If .env.sec sync/creation is asked, type N before entering test facts.", flush=True)
     subprocess.run(
-        [sys.executable, "-m", "uagent"],
+        [sys.executable, "-m", "uagent", "-C", config["project_dir"]],
         cwd=config["project_dir"],
         env=_test_env(config),
         check=True,
