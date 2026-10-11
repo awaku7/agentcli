@@ -13,6 +13,8 @@ SQLite session selection uses zero-based numbers from the most recently displaye
 `:sessions list`, `:sessions search`, `:load`, or `:sessions load` view. Both load
 commands retain that view's number-to-ID mapping on the core, so excluding the
 active session or a later change in store ordering cannot shift displayed indices.
+The `:cont` shortcut is different: it always selects the newest **inactive**
+session, ignoring the last displayed view.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 
