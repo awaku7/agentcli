@@ -534,7 +534,13 @@ def test_legacy_fallback_in_structured_mode_does_not_rewrite_raw_messages(
 
 @pytest.mark.parametrize(
     ("explicit_opt_in", "entry_point"),
-    [(True, "test"), (False, "cli"), (False, "web"), (False, "a2a"), (False, "gui")],
+    [
+        (True, "test"),
+        (False, "cli"),
+        (False, "web"),
+        (False, "a2a"),
+        (False, "gui"),
+    ],
 )
 def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
     monkeypatch, tmp_path, explicit_opt_in, entry_point
