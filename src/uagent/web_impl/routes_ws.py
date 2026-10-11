@@ -21,7 +21,10 @@ from ..runtime.observability.trusted_ingress import (
 )
 from ..runtime.web_origin_policy import validate_websocket_origin
 from .. import util_tools as tools_util
-from ..util_cmd_session import bind_session_selection_context
+from ..util_cmd_session import (
+    bind_session_selection_context,
+    guard_room_session_command,
+)
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
 from .connection_identity import resolve_web_connection
@@ -179,14 +182,15 @@ async def websocket_endpoint(websocket: WebSocket):
                     _old_stdout = _sys.stdout
                     try:
                         _sys.stdout = _capture
-                        with bind_session_selection_context(room):
-                            _result = tools_util.handle_command(
-                                _cmd_line,
-                                room.history,
-                                _wc_client,
-                                _wc_depname,
-                                core=core,
-                            )
+                        with guard_room_session_command(room, command_name):
+                            with bind_session_selection_context(room):
+                                _result = tools_util.handle_command(
+                                    _cmd_line,
+                                    room.history,
+                                    _wc_client,
+                                    _wc_depname,
+                                    core=core,
+                                )
                     finally:
                         _sys.stdout = _old_stdout
                     # :load replaces the server-side history. Refresh the
