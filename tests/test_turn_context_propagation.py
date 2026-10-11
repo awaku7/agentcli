@@ -157,7 +157,8 @@ def test_web_turn_prefers_bound_room_session_over_process_default() -> None:
         'session_id=str(room.session_id or getattr(core, "session_id", "") or ""),'
         in source
     )
-    assert "core._session_store_active_id = bound_session_id" in source
+    assert "_ensure_public_room_session(" in source
+    assert "_room_session_runtime = bind_room_session_runtime(core, room)" in source
 
 
 def test_gui_image_preprocessing_uses_turn_context() -> None:
