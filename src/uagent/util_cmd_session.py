@@ -63,6 +63,43 @@ def _session_selection_owner(core: Any) -> Any:
     return core if owner is None else owner
 
 
+@contextmanager
+def bind_room_session_runtime(core: Any, room: Any):
+    """Install a loaded room's state while the Web global worker lock is held."""
+    if not getattr(room, "session_id", None):
+        yield
+        return
+    missing = object()
+    names = (
+        "session_id",
+        "_session_store_active_id",
+        "responses_state",
+        "tool_context",
+        "agent_state_manager",
+        "mcp_request_generation",
+    )
+    previous = {name: getattr(core, name, missing) for name in names}
+    callbacks = get_callbacks()
+    callback_state = (callbacks.session_id, callbacks.session_store)
+    try:
+        bind_session(core, room.session_id, getattr(core, "session_store", None))
+        for name in names[2:]:
+            if hasattr(room, name):
+                setattr(core, name, getattr(room, name))
+        yield
+    finally:
+        for name in names[2:]:
+            if hasattr(room, name) and hasattr(core, name):
+                setattr(room, name, getattr(core, name))
+        for name, value in previous.items():
+            if value is missing:
+                if hasattr(core, name):
+                    delattr(core, name)
+            else:
+                setattr(core, name, value)
+        callbacks.session_id, callbacks.session_store = callback_state
+
+
 def _restore_skill_command_hint(text: str) -> str:
     """Keep the executable ``:skills clear`` command untranslated."""
     return re.sub(r":skills\s*\S+(?=\s*[\(（])", ":skills clear", text)
@@ -277,6 +314,12 @@ def _restore_sqlite_session_context(
         # persistence or callbacks while another room is selecting history.
         owner.session_id = target
         owner._session_store_active_id = target
+        owner.responses_state = {}
+        owner.tool_context = {}
+        from .runtime.agent_state import AgentStateManager
+
+        owner.agent_state_manager = AgentStateManager()
+        owner.mcp_request_generation = 0
         session_row = store.get_session(target)
         workdir_plan = SessionCommandService.plan_workdir(
             target,
@@ -1515,7 +1558,7 @@ def _handle_cmd_sessions(
             target,
             sessions,
             search_results=getattr(
-                _session_selection_owner(core), "_session_search_results", {}
+                _session_selection_owner(core), "_session_search_results", None
             ),
         )
         if resolution.error:
@@ -1765,7 +1808,7 @@ def _handle_cmd_load(
             target,
             sessions,
             search_results=(
-                getattr(_session_selection_owner(core), "_session_search_results", {})
+                getattr(_session_selection_owner(core), "_session_search_results", None)
                 if use_last_displayed_view
                 else None
             ),

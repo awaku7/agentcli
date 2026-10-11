@@ -149,8 +149,10 @@ class SessionCommandService:
         if not target.isdigit():
             return LoadTargetResolution(target=target)
         index = int(target)
-        if search_results and index in search_results:
-            return LoadTargetResolution(target=str(search_results[index]))
+        if search_results is not None:
+            if index in search_results:
+                return LoadTargetResolution(target=str(search_results[index]))
+            return LoadTargetResolution(error="index_out_of_range")
         if 0 <= index < len(sessions):
             return LoadTargetResolution(target=str(sessions[index]["session_id"]))
         return LoadTargetResolution(error="index_out_of_range")

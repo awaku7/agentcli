@@ -21,6 +21,11 @@ bind selection state to their room, so rooms sharing core cannot overwrite each
 other's displayed indices.
 Web loads also bind the active session and restore state/workdir on the room,
 without rebinding shared core or changing the process working directory.
+During a loaded room's serialized worker turn, its session ID, Responses
+continuation, tool context and agent state are temporarily installed on core.
+The worker saves updated state back to the room and restores the previous core
+and callback bindings on exit, including error exits. Displayed views are
+authoritative: numbers absent from the view are rejected.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 
