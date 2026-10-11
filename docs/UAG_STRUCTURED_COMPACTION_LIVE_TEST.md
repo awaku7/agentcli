@@ -31,7 +31,7 @@ python scripts/structured_compaction_live_test.py prepare
 ---
 ## 1. 検証の目的
 
-通常CLIで`UAGENT_STRUCTURED_COMPACTION=1`にしたとき、次の6項目を実LLMで確認する。
+全ホストで標準ONとなったStructured Compactionについて、通常CLIで次の6項目を実LLMで確認する。テスト環境は再現性のため`UAGENT_STRUCTURED_COMPACTION=1`を明示するが、通常運用では未設定で有効、`0`で無効となる。
 
 1. 初回圧縮でSQLiteの`checkpoints`へ`applied`レコードが保存される。
 2. 圧縮後の新しい会話だけが次のCheckpointの出典範囲になる（旧履歴の再適用なし）。
