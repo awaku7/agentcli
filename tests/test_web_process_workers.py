@@ -328,3 +328,11 @@ def test_auto_goals_stay_on_their_room(monkeypatch):
         assert core.auto_pilot_active is True
     assert b._worker_auto_pilot["auto_pilot_goal"] == "goal-b"
     assert core.auto_pilot_goal is None
+
+
+def test_worker_count_defaults_to_five(monkeypatch):
+    from uagent.web_impl.process_workers import room_worker_count
+
+    monkeypatch.delenv("UAGENT_WEB_ROOM_WORKERS", raising=False)
+    assert room_worker_count() == 5
+    assert room_worker_count(1) == 1

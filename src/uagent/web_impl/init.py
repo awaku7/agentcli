@@ -226,7 +226,7 @@ def main():
         "--room-workers",
         type=int,
         default=None,
-        help="Maximum concurrent Web rooms (default: UAGENT_WEB_ROOM_WORKERS or 1).",
+        help="Maximum concurrent Web rooms (default: UAGENT_WEB_ROOM_WORKERS or 5).",
     )
     parser.add_argument(
         "--host",

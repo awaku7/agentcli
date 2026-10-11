@@ -8,7 +8,7 @@ uagw --room-workers 3
 
 Alternatively set `UAGENT_WEB_ROOM_WORKERS=3` in the Web server environment.
 The command-line option takes precedence. The count must be a positive integer;
-the default is 1, retaining the existing serial implementation.
+the default is 5. Set `--room-workers 1` to use the existing serial implementation.
 
 With a count of 3, A, B and C may execute together. D reports `QUEUED` until a
 slot becomes available. Each room still accepts only one active turn; duplicate
@@ -42,7 +42,7 @@ Children last for one foreground turn. Process-local tool resources (for example
 a browser or MCP connection) are recreated on the next turn; serialized history
 and supported continuation state are retained. Background Sub-Agent Jobs are
 unavailable inside these children because their runtime cannot outlive the
-foreground process. The default one-worker mode retains existing background Job
+foreground process. Explicit one-worker mode (`--room-workers 1`) retains existing background Job
 behavior. This mode does not change the CLI, GUI or A2A hosts.
 
 Offline tests run the real spawn/IPC/worker path with a fake provider and actual

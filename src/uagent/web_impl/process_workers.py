@@ -92,7 +92,7 @@ def room_worker_count(cli_value: int | None = None) -> int:
         value = int(
             cli_value
             if cli_value is not None
-            else (env_get("UAGENT_WEB_ROOM_WORKERS") or "1")
+            else (env_get("UAGENT_WEB_ROOM_WORKERS") or "5")
         )
     except (TypeError, ValueError) as exc:
         raise ValueError("room workers must be a positive integer") from exc

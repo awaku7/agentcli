@@ -45,7 +45,7 @@ interrupt ownership regressions. Connect-time bootstrap may temporarily change
 `worker_room`; bootstrap cannot acquire another room's Stop authorization.
 
 Web foreground concurrency is configurable with `uagw --room-workers N` or
-`UAGENT_WEB_ROOM_WORKERS=N`. The default 1 retains the serial worker; counts greater
+`UAGENT_WEB_ROOM_WORKERS=N`. The default is 5. Explicitly selecting 1 retains the serial worker; counts greater
 than 1 use the bounded spawn/IPC bridge in `web_impl/process_workers.py`.
 See [Web room concurrency](../../../docs/WEB_ROOM_CONCURRENCY.md) for isolation,
 startup precedence, lifecycle and current process-lifetime limitations.
