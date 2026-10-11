@@ -667,9 +667,7 @@ def test_structured_compaction_default_on_all_session_backed_hosts(
 
     with SessionStore(tmp_path / "default-mode.sqlite3") as store:
         session = store.create_session(project="mode", entry_point=entry_point)
-        assert (
-            lmh._structured_compaction_enabled(store, session.session_id) is expected
-        )
+        assert lmh._structured_compaction_enabled(store, session.session_id) is expected
 
 
 def test_structured_compaction_requires_a_persistent_session(monkeypatch):
