@@ -256,7 +256,9 @@ class WebRoom:
                         self._pending_replays.pop(id(websocket), None)
                         self.active_connections.append(websocket)
                         if connection_context is not None:
-                            self._connection_contexts[id(websocket)] = connection_context
+                            self._connection_contexts[id(websocket)] = (
+                                connection_context
+                            )
                         break
                     self._pending_replays[id(websocket)] = []
                 for event in pending:
