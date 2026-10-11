@@ -208,7 +208,7 @@ def _child_turn(connection, payload) -> None:
                 break
 
     threading.Thread(target=controls, daemon=True).start()
-    if room.private_session:
+    if room.private_session or not room.session_id:
         for name in (
             "responses_state",
             "tool_context",
@@ -226,7 +226,7 @@ def _child_turn(connection, payload) -> None:
             identity_context=payload["identity_context"],
             project_path=payload["project_path"],
         )
-        if room.private_session:
+        if room.private_session or not room.session_id:
             for name in (
                 "responses_state",
                 "tool_context",
@@ -395,12 +395,21 @@ class RoomWorkerPool:
                     connected = current_connected
             process.join(5)
             if not state_received:
-                for content in list(room._partial_streams.values()):
-                    if content and not any(
-                        m.get("role") == "assistant" and m.get("content") == content
-                        for m in room.messages
-                    ):
-                        room.messages.append({"role": "assistant", "content": content})
+                with room._lifecycle_lock:
+                    recovered = [
+                        content
+                        for content in room._partial_streams.values()
+                        if content
+                        and not any(
+                            m.get("role") == "assistant"
+                            and m.get("content") == content
+                            for m in room.messages
+                        )
+                    ]
+                    room._partial_streams.clear()
+                    room._ended_streams.clear()
+                for content in recovered:
+                    room.add_message({"role": "assistant", "content": content})
                 room.add_message(
                     {
                         "role": "assistant",
@@ -420,7 +429,9 @@ class RoomWorkerPool:
             for pipe in (parent, child):
                 if pipe is not None:
                     pipe.close()
-            room._partial_streams = {}
+            with room._lifecycle_lock:
+                room._partial_streams = {}
+                room._ended_streams.clear()
             if state_received:
                 room._process_stale_history = None
             room._process_turn_active = False
