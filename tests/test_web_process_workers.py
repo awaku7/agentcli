@@ -27,6 +27,7 @@ def _offline_child(connection, payload):
     def run_rounds(provider, client, model, history, **kwargs):
         from uagent.tools.python_exec_tool import run_tool
         from uagent.decision.settings import get_decision_settings
+        from uagent.util_mode import get_display_reasoning
 
         result = run_tool(
             {
@@ -37,6 +38,7 @@ def _offline_child(connection, payload):
         observation = {
             "pid": os.getpid(),
             "decision_provider": get_decision_settings().provider,
+            "display_reasoning": get_display_reasoning(),
             "cwd": os.getcwd(),
             "session": core.session_id,
             "response": core.responses_state.get("previous_response_id"),
@@ -85,6 +87,16 @@ def _asking_child(connection, payload):
 
 
 def _crashing_child(connection, payload):
+    for role, content in (("user", payload["input"]), ("assistant", "partial output")):
+        connection.send(
+            {
+                "event": {
+                    "type": "message",
+                    "message": {"role": role, "content": content},
+                }
+            }
+        )
+    connection.close()
     os._exit(7)
 
 
@@ -115,6 +127,9 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
     from uagent.decision import settings
 
     monkeypatch.setattr(settings, "_current_settings", settings.DecisionSettings())
+    from uagent import util_mode
+
+    monkeypatch.setattr(util_mode, "_DISPLAY_REASONING", private_session)
     expected_decision = "typesafe" if private_session else "openai"
     settings.configure_decision_settings(
         cli_provider="typesafe" if private_session else None,
@@ -175,6 +190,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
             assert all(item["pid"] != os.getpid() for item in observed)
             for room, item in zip(rooms, observed):
                 assert item["decision_provider"] == expected_decision
+                assert item["display_reasoning"] is private_session
                 assert room._process_turn_active
                 assert item["cwd"] == room.base_dir
                 from pathlib import Path
@@ -206,6 +222,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
             assert not pool.busy
             assert os.getcwd() == initial_cwd
             for room in rooms:
+                assert room._process_stale_history is None
                 assert not room._process_turn_active
                 assert not room.worker_lock.locked()
                 assert room.status["label"] == "IDLE"
@@ -296,10 +313,23 @@ def test_crashed_worker_releases_room_and_capacity(monkeypatch, tmp_path):
     monkeypatch.setattr(core, "session_store", None, raising=False)
     monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
     room = WebRoom("crash")
+    room.history = [{"role": "assistant", "content": "previous"}]
+    room.messages = list(room.history)
+    room.welcome_shown = True
+    room.private_session = True
     room.base_dir = str(tmp_path)
     pool = RoomWorkerPool(1, target=_crashing_child)
     pool.run(room, "first")
-    assert "exited" in room.messages[-1]["content"]
+    assert "[ERROR] Room worker" in room.messages[-1]["content"]
+    assert not room._process_turn_active
+    assert room._process_stale_history is room.history
+    assert _reconnect_messages(room, monkeypatch) == room.messages
+    assert any(m["content"] == "first" for m in room.messages)
+    assert any(m["content"] == "partial output" for m in room.messages)
+    room.history = [{"role": "assistant", "content": "explicitly loaded"}]
+    assert [m["content"] for m in _reconnect_messages(room, monkeypatch)] == [
+        "explicitly loaded"
+    ]
     assert not pool.busy
     assert not room.worker_lock.locked()
     pool.run(room, "second")
@@ -370,6 +400,13 @@ def test_reconnect_uses_live_messages_only_during_process_turn(monkeypatch, acti
         },
     )
 
+    messages = _reconnect_messages(room, monkeypatch)
+    assert [m["content"] for m in messages] == (
+        ["previous", "current input", "current output"] if active else ["previous"]
+    )
+
+
+def _reconnect_messages(room, monkeypatch):
     async def validate(*args):
         pass
 
@@ -387,6 +424,4 @@ def test_reconnect_uses_live_messages_only_during_process_turn(monkeypatch, acti
     import asyncio
 
     asyncio.run(room.connect(socket))
-    assert [m["content"] for m in socket.initial["messages"]] == (
-        ["previous", "current input", "current output"] if active else ["previous"]
-    )
+    return socket.initial["messages"]

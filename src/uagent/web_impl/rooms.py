@@ -113,7 +113,11 @@ class WebRoom:
             self.touch()
 
             msgs = self.messages
-            if self.history and not getattr(self, "_process_turn_active", False):
+            if (
+                self.history
+                and not getattr(self, "_process_turn_active", False)
+                and self.history is not getattr(self, "_process_stale_history", None)
+            ):
                 try:
                     msgs = []
                     for m in self.history:

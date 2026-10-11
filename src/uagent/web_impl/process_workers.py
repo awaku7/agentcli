@@ -111,7 +111,10 @@ def _child_turn(connection, payload) -> None:
     from .init import init_web
     from .rooms import WebRoom, web_manager
 
+    from ..util_mode import set_display_reasoning
+
     configure_decision_settings(cli_provider=payload["decision_provider"])
+    set_display_reasoning(payload["display_reasoning"])
     send_lock = threading.Lock()
     finished = threading.Event()
 
@@ -292,6 +295,7 @@ class RoomWorkerPool:
         from ..i18n import _
         from ..tools._genre_control_util import get_enabled_tool_names
         from ..decision.settings import get_decision_settings
+        from ..util_mode import get_display_reasoning
         from .agent_worker import _ensure_public_room_session
 
         if not room.worker_lock.acquire(blocking=False):
@@ -304,6 +308,7 @@ class RoomWorkerPool:
                 }
             )
             return
+        state_received = False
         acquired = False
         process = None
         parent = child = None
@@ -331,6 +336,7 @@ class RoomWorkerPool:
             payload = {
                 "room": room_state(room),
                 "decision_provider": get_decision_settings().provider,
+                "display_reasoning": get_display_reasoning(),
                 "input": user_input,
                 "attachments": attachments,
                 "core": {
@@ -354,12 +360,12 @@ class RoomWorkerPool:
             with self._lock:
                 if self._closed.is_set():
                     return
+                room._process_stale_history = room.history
                 room._process_turn_active = True
                 process.start()
                 self._running[room.room_id] = (room, parent, process, threading.Lock())
             child.close()
             room.set_status(True, "BUSY")
-            state_received = False
             connected = bool(room.active_connections)
             while True:
                 if parent.poll(0.1):
@@ -401,6 +407,8 @@ class RoomWorkerPool:
             for pipe in (parent, child):
                 if pipe is not None:
                     pipe.close()
+            if state_received:
+                room._process_stale_history = None
             room._process_turn_active = False
             room.human_ask_pending = False
             try:

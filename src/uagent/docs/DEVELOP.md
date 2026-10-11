@@ -1207,3 +1207,8 @@ connect to remote APIs, or load Laya models.
 Process workers inherit the resolved decision-provider selection (including CLI
 overrides and provider defaults). During an active process turn, room reconnects
 use live display messages; after completion they use the returned LLM history.
+
+Reasoning visibility is explicitly transferred to spawned turns. When a child
+exits without a final snapshot, reconnects continue to use live display messages
+until a successful turn or explicit history replacement supersedes the stale
+history. The active-worker flag is still cleared to release room admission.
