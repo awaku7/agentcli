@@ -107,9 +107,6 @@ class WebRoom:
         try:
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
-            # Queue broadcasts during initialization; replay them in order.
-            with self._lifecycle_lock:
-                self._pending_replays[id(websocket)] = []
             self.touch()
 
             msgs = self.messages
@@ -192,6 +189,12 @@ class WebRoom:
             # Bootstrap input history from persisted file
             input_history = [] if self.private_session else _load_input_history()
             await self._validate_connection_context(websocket, connection_context)
+            # Establish the snapshot/replay boundary under the same lock as
+            # parent worker event updates. Events after this point are queued.
+            with self._lifecycle_lock:
+                self._pending_replays[id(websocket)] = []
+                msgs = [dict(message) for message in msgs]
+                stream_snapshot = list(getattr(self, "_partial_streams", {}).items())
             await websocket.send_json(
                 {
                     "type": "init",
@@ -216,9 +219,7 @@ class WebRoom:
                 }
             )
             # Rehydrate live streams after init resets browser stream state.
-            for stream_id, content in list(
-                getattr(self, "_partial_streams", {}).items()
-            ):
+            for stream_id, content in stream_snapshot:
                 await self._validate_connection_context(websocket, connection_context)
                 await websocket.send_json(
                     {"type": "assistant_stream_start", "id": stream_id}
