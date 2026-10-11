@@ -390,7 +390,10 @@ class RoomWorkerPool:
             process.join(5)
             if not state_received:
                 for content in room._partial_streams.values():
-                    if content:
+                    if content and not any(
+                        m.get("role") == "assistant" and m.get("content") == content
+                        for m in room.messages
+                    ):
                         room.messages.append({"role": "assistant", "content": content})
                 room.add_message(
                     {
@@ -428,6 +431,12 @@ class RoomWorkerPool:
         kind = event.get("type")
         if kind == "message":
             room.messages.append(event["message"])
+            if event["message"].get("role") == "assistant":
+                content = event["message"].get("content")
+                for stream_id, text in list(room._partial_streams.items()):
+                    if text == content:
+                        room._partial_streams.pop(stream_id, None)
+                        break
         elif kind == "assistant_stream_start":
             room._partial_streams[event["id"]] = ""
         elif kind == "assistant_stream_delta":
@@ -439,7 +448,8 @@ class RoomWorkerPool:
             if stream_id in room._partial_streams:
                 room._partial_streams[stream_id] = event.get("content", "")
         elif kind == "assistant_stream_end":
-            room._partial_streams.pop(event.get("id"), None)
+            # Keep the text until the child returns a durable final state.
+            pass
         elif kind == "status":
             if event["status"].get("label") == "QUEUED":
                 # The child's uncontended serial lock is not server admission.
