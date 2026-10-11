@@ -1461,6 +1461,9 @@ def _handle_cmd_sessions(
             print(_("[sessions] Load failed: " + str(exc)))
             return True
         if not target:
+            core._session_search_results = {
+                index: row["session_id"] for index, row in enumerate(sessions)
+            }
             if not sessions:
                 print(_("[sessions] No sessions available."))
                 return True
@@ -1468,9 +1471,6 @@ def _handle_cmd_sessions(
             for index, row in enumerate(sessions):
                 _print_session_list_row(index, row)
             print(_("[sessions] Usage: :sessions load [<index|session_id>]"))
-            return True
-        if target == session_id:
-            print(_("[sessions] Session is already active."))
             return True
         resolution = SessionCommandService.resolve_load_target(
             target,
@@ -1482,6 +1482,9 @@ def _handle_cmd_sessions(
             return True
         if resolution.target is not None:
             target = resolution.target
+        if target == session_id:
+            print(_("[sessions] Session is already active."))
+            return True
         try:
             loaded = store.list_messages(target)
             if not loaded:
@@ -1567,7 +1570,13 @@ def _handle_cmd_sessions(
             print(_("[sessions] Session store is not enabled."))
             return True
         verbose = any(flag in parts[1:] for flag in ("--verbose", "-v"))
-        for index, row in enumerate(store.list_sessions()):
+        sessions = store.list_sessions()
+        # Resolve numbers against the last displayed view, including the active
+        # session, rather than recomputing indices from a filtered load list.
+        core._session_search_results = {
+            index: row["session_id"] for index, row in enumerate(sessions)
+        }
+        for index, row in enumerate(sessions):
             if verbose:
                 _print_session_list_row(index, row)
             else:
@@ -1650,10 +1659,10 @@ def _handle_cmd_sessions(
         print(_("[sessions] Search failed: " + str(exc)))
         return True
     if not search_results:
+        core._session_search_results = {}
         print(_("[sessions] No matching sessions."))
         return True
-    # Keep the numbered search result available to :load. Search result
-    # numbers are intentionally zero-based, matching :load's normal index.
+    # Both load commands use the most recently displayed numbered view.
     core._session_search_results = {
         index: result.row["session_id"] for index, result in enumerate(search_results)
     }
@@ -1699,6 +1708,9 @@ def _handle_cmd_load(
         if len(target) >= 2 and target[0] == target[-1] and target[0] in {'"', "'"}:
             target = target[1:-1]
         if not target:
+            core._session_search_results = {
+                index: row["session_id"] for index, row in enumerate(sessions)
+            }
             if not sessions:
                 print(_("[load] No SQLite sessions available."))
                 return True

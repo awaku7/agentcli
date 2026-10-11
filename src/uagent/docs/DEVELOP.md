@@ -9,6 +9,13 @@ inert provenance, never authorization or execution state. See
 Run `tests/test_session_portability.py` and `tests/test_web_session_portability.py`
 when changing these boundaries; both are in the Python compatibility CI matrix.
 
+SQLite session selection uses zero-based numbers from the most recently displayed
+`:sessions list`, `:sessions search`, `:load`, or `:sessions load` view. Both load
+commands retain that view's number-to-ID mapping on the core, so excluding the
+active session or a later change in store ordering cannot shift displayed indices.
+Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
+when changing selection behavior.
+
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
 - Entry points:
