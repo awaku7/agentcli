@@ -83,6 +83,7 @@ def prepare() -> Path:
     ):
         script = (
             "@echo off\n"
+            "chcp 65001 >nul\n"
             f'"{sys.executable}" "{Path(__file__).resolve()}" '
             f'{command} --run-dir "{run_dir}"\n'
             + ("if errorlevel 1 pause\n" if command == "start" else "pause\n")
