@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import asyncio
+from dataclasses import replace as dataclass_replace
 import os
 import time
 import traceback
@@ -44,6 +45,24 @@ from .rooms import (
     set_context_web_room,
     web_manager,
 )
+
+
+def _ensure_public_room_session(room: WebRoom, store: Any, project_path: str) -> str:
+    """Give each public Web room its own durable compaction source window."""
+    if room.session_id:
+        saved = store.get_session(room.session_id)
+        saved_room = str(saved.get("room_id") or "")
+        if saved_room and saved_room != room.room_id:
+            raise IdentityResolutionError("Web room session is bound to another room")
+        return room.session_id
+
+    session = store.create_session(
+        project=project_id_from_path(project_path),
+        project_path=project_path,
+        entry_point="web",
+    )
+    room.session_id = session.session_id
+    return room.session_id
 
 
 def run_agent_worker(
@@ -96,7 +115,7 @@ def run_agent_worker(
             entry_point="web",
             room_id=str(getattr(room, "room_id", "") or ""),
             project_path=str(getattr(room, "base_dir", "") or os.getcwd()),
-            session_id=str(getattr(core, "session_id", "") or ""),
+            session_id=str(room.session_id or getattr(core, "session_id", "") or ""),
             **kwargs,
         )
 
@@ -149,10 +168,24 @@ def run_agent_worker(
         acquired_global = True
         _had_active_session_id = hasattr(core, "_session_store_active_id")
         _orig_active_session_id = getattr(core, "_session_store_active_id", None)
-        if turn_context is not None and turn_context.private_session:
-            # A private Web room owns a separate durable session identity. The
-            # process-wide worker lock makes this compatibility binding safe.
-            core._session_store_active_id = turn_context.session_id
+        session_store = getattr(core, "session_store", None)
+        if session_store is not None:
+            if turn_context is not None and turn_context.private_session:
+                # An authenticated private room already has its own session.
+                bound_session_id = turn_context.session_id
+            else:
+                # Public room sessions must never fall back to the process-wide
+                # startup session: structured projection reads ALL persisted rows.
+                bound_session_id = _ensure_public_room_session(
+                    room,
+                    session_store,
+                    project_path if turn_context is not None else room.base_dir,
+                )
+                if turn_context is not None:
+                    turn_context = dataclass_replace(
+                        turn_context, session_id=bound_session_id
+                    )
+            core._session_store_active_id = bound_session_id
 
         with web_manager.active_room_lock:
             web_manager.active_room = room
@@ -690,11 +723,7 @@ def run_agent_worker(
         except Exception:
             pass
 
-        if (
-            acquired_global
-            and turn_context is not None
-            and turn_context.private_session
-        ):
+        if acquired_global and getattr(core, "session_store", None) is not None:
             try:
                 if _had_active_session_id:
                     core._session_store_active_id = _orig_active_session_id
