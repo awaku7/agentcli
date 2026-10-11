@@ -190,7 +190,7 @@ def inspect(run_dir: Path) -> dict:
                 "SELECT application_status, source_start_seq, source_end_seq, "
                 "result_revision FROM checkpoints "
                 "WHERE session_id = ? AND application_status = 'applied' "
-                "ORDER BY source_start_seq, source_end_seq",
+                "ORDER BY result_revision, source_start_seq",
                 (session_id,),
             )
         ]
