@@ -534,7 +534,7 @@ def test_legacy_fallback_in_structured_mode_does_not_rewrite_raw_messages(
 
 @pytest.mark.parametrize(
     ("explicit_opt_in", "entry_point"),
-    [(True, "test"), (False, "cli")],
+    [(True, "test"), (False, "cli"), (False, "web"), (False, "a2a"), (False, "gui")],
 )
 def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
     monkeypatch, tmp_path, explicit_opt_in, entry_point
@@ -601,7 +601,6 @@ def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
             compress_history_with_llm=history.compress_history_with_llm,
             session_store=store,
             session_id=session.session_id,
-            _session_store_entry_point=entry_point,
             rewrite_current_log_from_messages=lambda _messages: pytest.fail(
                 "structured auto-shrink must preserve the raw JSONL log"
             ),
@@ -638,17 +637,21 @@ def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
     ("setting", "entry_point", "expected"),
     [
         (None, "cli", True),
-        (None, "web", False),
-        (None, "a2a", False),
-        (None, "gui", False),
-        (None, "test", False),
+        (None, "web", True),
+        (None, "a2a", True),
+        (None, "gui", True),
+        (None, "test", True),
         ("1", "web", True),
         ("0", "cli", False),
+        ("0", "web", False),
+        ("0", "a2a", False),
+        ("0", "gui", False),
         ("false", "cli", False),
+        ("off", "web", False),
         ("invalid", "cli", False),
     ],
 )
-def test_structured_compaction_default_is_cli_only(
+def test_structured_compaction_default_on_all_session_backed_hosts(
     monkeypatch, tmp_path, setting, entry_point, expected
 ):
     if setting is None:
@@ -658,37 +661,19 @@ def test_structured_compaction_default_is_cli_only(
 
     with SessionStore(tmp_path / "default-mode.sqlite3") as store:
         session = store.create_session(project="mode", entry_point=entry_point)
-        core_obj = SimpleNamespace(_session_store_entry_point=entry_point)
         assert (
-            lmh._structured_compaction_enabled(
-                core_obj, store, session.session_id
-            )
-            is expected
+            lmh._structured_compaction_enabled(store, session.session_id) is expected
         )
 
 
-def test_structured_compaction_default_requires_attached_cli_host(monkeypatch):
+def test_structured_compaction_requires_a_persistent_session(monkeypatch):
     monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
-    cli_core = SimpleNamespace(_session_store_entry_point="cli")
-    web_core = SimpleNamespace(_session_store_entry_point="web")
-    assert not lmh._structured_compaction_enabled(cli_core, None, "missing")
-    assert not lmh._structured_compaction_enabled(web_core, object(), "missing")
+    assert not lmh._structured_compaction_enabled(None, "session-id")
+    assert not lmh._structured_compaction_enabled(object(), None)
 
-
-def test_structured_compaction_default_follows_current_host_not_session_origin(
-    monkeypatch, tmp_path
-):
-    monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
-    with SessionStore(tmp_path / "host-boundary.sqlite3") as store:
-        session = store.create_session(project="original-cli", entry_point="cli")
-        web_core = SimpleNamespace(_session_store_entry_point="web")
-        assert not lmh._structured_compaction_enabled(
-            web_core, store, session.session_id
-        )
-        cli_core = SimpleNamespace(_session_store_entry_point="cli")
-        assert lmh._structured_compaction_enabled(
-            cli_core, store, session.session_id
-        )
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    assert not lmh._structured_compaction_enabled(None, "session-id")
+    assert not lmh._structured_compaction_enabled(object(), None)
 
 
 def test_structured_auto_shrink_flag_off_keeps_legacy_path(monkeypatch):
