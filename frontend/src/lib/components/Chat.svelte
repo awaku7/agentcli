@@ -88,7 +88,7 @@
         streamState = { ...streamState, active: false, done: true };
       }
     });
-    return () => { unsubStart(); unsubDelta(); unsubReasoning(); unsubImage(); unsubEnd(); };
+    return () => { unsubStart(); unsubDelta(); unsubReplace(); unsubReasoning(); unsubImage(); unsubEnd(); };
   });
 </script>
 
