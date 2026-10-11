@@ -350,7 +350,9 @@ class RoomWorkerPool:
                 "store_path": str(store.path.resolve()) if store is not None else "",
                 "tools": tool_names,
                 "parent_tools": parent_tools,
-                "connected": bool(room.active_connections or room._bootstrapping_connections),
+                "connected": bool(
+                    room.active_connections or room._bootstrapping_connections
+                ),
                 "turn_context": kwargs.get("turn_context"),
                 "identity_context": kwargs.get("identity_context"),
                 "project_path": kwargs.get("project_path"),
