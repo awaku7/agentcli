@@ -97,9 +97,7 @@ def run_agent_worker(
             entry_point="web",
             room_id=str(getattr(room, "room_id", "") or ""),
             project_path=str(getattr(room, "base_dir", "") or os.getcwd()),
-            session_id=str(
-                getattr(room, "session_id", "") or getattr(core, "session_id", "") or ""
-            ),
+            session_id=str(getattr(core, "session_id", "") or ""),
             **kwargs,
         )
 
