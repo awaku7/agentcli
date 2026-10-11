@@ -102,9 +102,7 @@ def test_public_web_workers_write_only_to_their_own_sessions(
             monkeypatch.setattr(agent_worker.providers, "make_client", provider_setup)
             agent_worker.run_agent_worker(room, "question")
             assert core._session_store_active_id == startup.session_id
-            assert core.responses_state == {
-                "previous_response_id": "startup-secret"
-            }
+            assert core.responses_state == {"previous_response_id": "startup-secret"}
             assert core.tool_context == {"startup-secret": {}}
 
         assert rooms[0].session_id != rooms[1].session_id
