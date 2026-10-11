@@ -38,6 +38,8 @@ class WebRoom:
         self._connection_contexts: dict[int, Any] = {}
         self._lifecycle_lock = threading.Lock()
         self._pending_replays: dict[int, list[dict[str, Any]]] = {}
+        self._bootstrapping_connections: set[int] = set()
+        self._ended_streams: set[str] = set()
         self._activity_lock = threading.Lock()
         self.last_activity = time.monotonic()
         self.messages: list[dict[str, Any]] = []  # UI display
@@ -107,6 +109,8 @@ class WebRoom:
         try:
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
+            with self._lifecycle_lock:
+                self._bootstrapping_connections.add(id(websocket))
             self.touch()
 
             msgs = self.messages
@@ -194,7 +198,10 @@ class WebRoom:
             with self._lifecycle_lock:
                 self._pending_replays[id(websocket)] = []
                 msgs = [dict(message) for message in msgs]
-                stream_snapshot = list(getattr(self, "_partial_streams", {}).items())
+                stream_snapshot = [
+                    (stream_id, content, stream_id in self._ended_streams)
+                    for stream_id, content in getattr(self, "_partial_streams", {}).items()
+                ]
             await websocket.send_json(
                 {
                     "type": "init",
@@ -219,7 +226,7 @@ class WebRoom:
                 }
             )
             # Rehydrate live streams after init resets browser stream state.
-            for stream_id, content in stream_snapshot:
+            for stream_id, content, ended in stream_snapshot:
                 await self._validate_connection_context(websocket, connection_context)
                 await websocket.send_json(
                     {"type": "assistant_stream_start", "id": stream_id}
@@ -231,6 +238,10 @@ class WebRoom:
                         "content": content,
                     }
                 )
+                if ended:
+                    await websocket.send_json(
+                        {"type": "assistant_stream_end", "id": stream_id}
+                    )
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
@@ -255,6 +266,7 @@ class WebRoom:
                     pending = self._pending_replays.get(id(websocket), [])
                     if not pending:
                         self._pending_replays.pop(id(websocket), None)
+                        self._bootstrapping_connections.discard(id(websocket))
                         self.active_connections.append(websocket)
                         if connection_context is not None:
                             self._connection_contexts[id(websocket)] = (
@@ -267,6 +279,7 @@ class WebRoom:
         finally:
             with self._lifecycle_lock:
                 self._pending_replays.pop(id(websocket), None)
+                self._bootstrapping_connections.discard(id(websocket))
             set_thread_lang(None)
 
     async def _validate_connection_context(
@@ -295,6 +308,7 @@ class WebRoom:
                 self.active_connections.remove(websocket)
             self._connection_contexts.pop(id(websocket), None)
             self._pending_replays.pop(id(websocket), None)
+            self._bootstrapping_connections.discard(id(websocket))
         self.touch()
 
     async def broadcast(self, data: dict[str, Any], *, _connections=None):
@@ -358,10 +372,15 @@ class WebRoom:
         if msg.get("reasoning_content"):
             display_msg["reasoning_content"] = msg.get("reasoning_content")
         display_msg["timestamp"] = datetime.now().isoformat()
-        self.messages.append(display_msg)
+        with self._lifecycle_lock:
+            self.messages.append(display_msg)
+            event = {"type": "message", "message": display_msg}
+            for queue in self._pending_replays.values():
+                queue.append(event.copy())
+            recipients = tuple(self.active_connections)
         if self.loop:
             asyncio.run_coroutine_threadsafe(
-                self.broadcast({"type": "message", "message": display_msg}), self.loop
+                self.broadcast(event, _connections=recipients), self.loop
             )
 
 
@@ -441,7 +460,7 @@ class WebManager:
         # Keep the explicit checks as defense in depth if worker/status contracts
         # change independently in the future.
         with room._lifecycle_lock:
-            connected = bool(room.active_connections)
+            connected = bool(room.active_connections or room._bootstrapping_connections)
         active_jobs = False
         try:
             manager = getattr(self, "sub_agent_job_manager", None)
