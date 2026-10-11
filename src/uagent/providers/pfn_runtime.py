@@ -9,6 +9,7 @@ adapter is adopted behind the registry feature gate.
 
 from __future__ import annotations
 
+import uuid
 from dataclasses import replace
 from typing import Any, Iterator, Mapping
 
@@ -73,9 +74,13 @@ class PfnProviderRuntime(OpenAICompatibleRuntime):
                 text, calls = parse_pfn_response(response)
                 if text:
                     yield self._event("TextDelta", {"text": text})
+                # A missing provider ID used to fall back to the call index,
+                # which repeats across rounds and silently collided with an
+                # earlier recorded call in the same session. Mint a unique
+                # fallback once here so the delta and completion events agree.
                 normalized = {
                     index: {
-                        "id": call.get("id", ""),
+                        "id": call.get("id", "") or f"pfn_fc_{uuid.uuid4().hex[:12]}",
                         "name": call.get("function", {}).get("name", ""),
                         "arguments": call.get("function", {}).get("arguments", ""),
                     }

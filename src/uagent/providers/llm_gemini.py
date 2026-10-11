@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import time
+import uuid
 from typing import Any
 
 from ..env_utils import env_get
@@ -1369,9 +1370,11 @@ def gemini_chat_with_tools(
                     if isinstance(fc, dict):
                         name3 = fc.get("name")
                         args_raw = fc.get("args")
+                        native_id = fc.get("id")
                     else:
                         name3 = getattr(fc, "name", None)
                         args_raw = getattr(fc, "args", None)
+                        native_id = getattr(fc, "id", None)
 
                     if isinstance(name3, str) and name3:
                         if isinstance(args_raw, str):
@@ -1384,9 +1387,18 @@ def gemini_chat_with_tools(
                         else:
                             args_obj = {}
 
+                        # Tool-call IDs share one global primary key in the
+                        # session store, so they must never repeat across
+                        # sessions. Reuse the provider-assigned ID when the API
+                        # supplies one, otherwise mint a unique fallback.
+                        if isinstance(native_id, str) and native_id.strip():
+                            call_id3 = native_id.strip()
+                        else:
+                            call_id3 = f"gemini_fc_{uuid.uuid4().hex[:12]}"
+
                         chunk_tool_calls.append(
                             {
-                                "id": f"gemini_fc_{len(chunk_tool_calls) + 1}",
+                                "id": call_id3,
                                 "type": "function",
                                 "function": {
                                     "name": name3,

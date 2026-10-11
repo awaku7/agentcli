@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from types import SimpleNamespace
 
+from uagent.i18n import _
 from uagent.runtime.session_store import (
     SessionStoreError,
     attach_opt_in_session_store,
@@ -64,6 +65,53 @@ def test_locked_session_write_does_not_abort_interactive_callback(
 
     assert core._session_store_write_disabled is True
     assert session_id
+    store.close()
+
+
+def test_tool_call_persistence_failure_does_not_abort_interactive_callback(
+    monkeypatch, tmp_path, capsys
+):
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))
+    core = SimpleNamespace(log_message=lambda message: None)
+
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="cli"
+    )
+
+    def failing_record(*_args, **_kwargs):
+        raise SessionStoreError("tool call ID belongs to another session")
+
+    store.record_tool_call = failing_record
+    core.log_message(
+        {
+            "role": "assistant",
+            "content": "",
+            "tool_calls": [
+                {
+                    "id": "call-1",
+                    "type": "function",
+                    "function": {"name": "read_file", "arguments": "{}"},
+                }
+            ],
+        }
+    )
+    core.log_message(
+        {
+            "role": "tool",
+            "tool_call_id": "call-1",
+            "name": "read_file",
+            "content": "ok",
+        }
+    )
+
+    assert core._session_store_write_disabled is True
+    assert session_id
+    prefix = _(
+        "[sessions warn] Session persistence disabled for this run: %(error)s"
+    ).split("%(error)s")[0]
+    assert prefix in capsys.readouterr().out
     store.close()
 
 

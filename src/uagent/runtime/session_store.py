@@ -18,6 +18,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
 
+from ..i18n import _
 from ..utils.paths import get_state_dir
 from ..utils.secret_mask import mask_args
 from .compaction_record import CompactionRecord, CompactionValidationError, SourceRef
@@ -71,6 +72,104 @@ def _is_owned_sub_agent_review_registry(value: Any) -> bool:
         and value.get("schema_version") == 1
         and isinstance(value.get("entries"), dict)
     )
+
+
+# Structural schema version stored in ``PRAGMA user_version``. Version 1
+# scoped tool-call/tool-result identity to their owning session.
+_SCHEMA_VERSION = 1
+
+# Tool-call and tool-result identities come from providers and imported
+# conversations, so they are only unique inside one session. Keeping them in
+# the primary key alongside ``session_id`` matches the session-scoped key that
+# ``session_items`` already uses, and stops two sessions that reuse an ID from
+# aborting each other's LLM round.
+_TOOL_CALLS_DDL = """
+    CREATE TABLE IF NOT EXISTS tool_calls (
+        session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+        call_id TEXT NOT NULL,
+        tool_name TEXT NOT NULL,
+        args_json TEXT NOT NULL,
+        result TEXT NOT NULL,
+        status TEXT NOT NULL,
+        created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY(session_id, call_id)
+    )
+"""
+
+_TOOL_RESULTS_DDL = """
+    CREATE TABLE IF NOT EXISTS tool_results (
+        session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
+        result_id TEXT NOT NULL,
+        task_id TEXT,
+        tool_name TEXT NOT NULL,
+        result_class TEXT NOT NULL,
+        size_bytes INTEGER NOT NULL,
+        summary TEXT NOT NULL,
+        artifact_ref TEXT,
+        importance TEXT NOT NULL,
+        evictable INTEGER NOT NULL,
+        metadata_json TEXT NOT NULL,
+        persistent_json TEXT NOT NULL,
+        created_at TEXT NOT NULL,
+        PRIMARY KEY(session_id, result_id)
+    )
+"""
+
+# ``tool_calls`` and ``tool_results`` are created outside the main schema script
+# so the migration can rebuild them without drifting from these definitions.
+_TOOL_IDENTITY_INDEX_DDL = (
+    "CREATE INDEX IF NOT EXISTS idx_tool_calls_session_created "
+    "ON tool_calls(session_id, created_at)",
+    "CREATE INDEX IF NOT EXISTS idx_tool_results_session_created "
+    "ON tool_results(session_id, created_at)",
+)
+
+_TOOL_IDENTITY_DDL = (_TOOL_CALLS_DDL, _TOOL_RESULTS_DDL) + _TOOL_IDENTITY_INDEX_DDL
+
+_TOOL_CALLS_COLUMNS = (
+    "call_id",
+    "session_id",
+    "tool_name",
+    "args_json",
+    "result",
+    "status",
+    "created_at",
+)
+
+_TOOL_RESULTS_COLUMNS = (
+    "result_id",
+    "session_id",
+    "task_id",
+    "tool_name",
+    "result_class",
+    "size_bytes",
+    "summary",
+    "artifact_ref",
+    "importance",
+    "evictable",
+    "metadata_json",
+    "persistent_json",
+    "created_at",
+)
+
+# One entry per identity table: table, identity column, index name, DDL and the
+# column order used to copy rows into the rebuilt table.
+_TOOL_IDENTITY_REBUILD_SPECS = (
+    (
+        "tool_calls",
+        "call_id",
+        "idx_tool_calls_session_created",
+        _TOOL_CALLS_DDL,
+        _TOOL_CALLS_COLUMNS,
+    ),
+    (
+        "tool_results",
+        "result_id",
+        "idx_tool_results_session_created",
+        _TOOL_RESULTS_DDL,
+        _TOOL_RESULTS_COLUMNS,
+    ),
+)
 
 
 def _utc_now() -> str:
@@ -376,15 +475,6 @@ class SessionStore:
                     session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
                     metadata_json TEXT NOT NULL
                 );
-                CREATE TABLE IF NOT EXISTS tool_calls (
-                    call_id TEXT PRIMARY KEY,
-                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
-                    tool_name TEXT NOT NULL,
-                    args_json TEXT NOT NULL,
-                    result TEXT NOT NULL,
-                    status TEXT NOT NULL,
-                    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-                );
                 CREATE VIRTUAL TABLE IF NOT EXISTS message_search USING fts5(
                     content, session_id UNINDEXED, message_id UNINDEXED
                 );
@@ -408,21 +498,6 @@ class SessionStore:
                     tool_name TEXT NOT NULL,
                     context_json TEXT NOT NULL,
                     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
-                );
-                CREATE TABLE IF NOT EXISTS tool_results (
-                    result_id TEXT PRIMARY KEY,
-                    session_id TEXT NOT NULL REFERENCES sessions(session_id) ON DELETE CASCADE,
-                    task_id TEXT,
-                    tool_name TEXT NOT NULL,
-                    result_class TEXT NOT NULL,
-                    size_bytes INTEGER NOT NULL,
-                    summary TEXT NOT NULL,
-                    artifact_ref TEXT,
-                    importance TEXT NOT NULL,
-                    evictable INTEGER NOT NULL,
-                    metadata_json TEXT NOT NULL,
-                    persistent_json TEXT NOT NULL,
-                    created_at TEXT NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS agent_states (
                     session_id TEXT PRIMARY KEY REFERENCES sessions(session_id) ON DELETE CASCADE,
@@ -523,17 +598,17 @@ class SessionStore:
                     ON response_states(session_id, state_id);
                 CREATE INDEX IF NOT EXISTS idx_tool_context_states_session_id
                     ON tool_context_states(session_id, context_id);
-                CREATE INDEX IF NOT EXISTS idx_tool_results_session_created
-                    ON tool_results(session_id, created_at);
                 CREATE INDEX IF NOT EXISTS idx_messages_session_role_id
                     ON messages(session_id, role, message_id);
-                CREATE INDEX IF NOT EXISTS idx_tool_calls_session_created
-                    ON tool_calls(session_id, created_at);
                 CREATE INDEX IF NOT EXISTS idx_policy_decisions_session_id
                     ON policy_decisions(session_id, decision_id);
                 CREATE INDEX IF NOT EXISTS idx_context_decisions_session_id
                     ON context_decisions(session_id, decision_id);
                 """)
+            # Tool identity tables live outside the block above so the versioned
+            # migration can rebuild them from the same definitions.
+            for statement in _TOOL_IDENTITY_DDL:
+                self._connection.execute(statement)
             columns = {
                 row["name"]
                 for row in self._connection.execute("PRAGMA table_info(sessions)")
@@ -612,11 +687,92 @@ class SessionStore:
                 "CREATE INDEX IF NOT EXISTS idx_checkpoints_session_created "
                 "ON checkpoints(session_id, created_at, checkpoint_id)"
             )
+            self._migrate_schema()
             self._backfill_session_items()
         except sqlite3.Error as exc:
             raise SessionStoreError(
                 f"could not initialize session store: {exc}"
             ) from exc
+
+    def _migrate_schema(self) -> None:
+        """Apply structural migrations and record the resulting version.
+
+        Runs on every open so a store written by an older build is upgraded in
+        place. Each step must be idempotent because the version is only a hint
+        for stores that predate it.
+        """
+        row = self._connection.execute("PRAGMA user_version").fetchone()
+        version = int(row[0] or 0)
+        if version >= _SCHEMA_VERSION:
+            return
+        if version < 1:
+            self._migrate_tool_identity_to_session_scope()
+        self._connection.execute(f"PRAGMA user_version = {int(_SCHEMA_VERSION)}")
+
+    def _has_session_scoped_primary_key(self, table: str, column: str) -> bool:
+        """Return True when ``table`` already keys on (session_id, column)."""
+        primary = {
+            str(row["name"]): int(row["pk"] or 0)
+            for row in self._connection.execute(f"PRAGMA table_info({table})")
+        }
+        return primary.get("session_id", 0) > 0 and primary.get(column, 0) > 0
+
+    def _rebuild_identity_table(
+        self,
+        table: str,
+        create_sql: str,
+        columns: tuple[str, ...],
+    ) -> None:
+        """Rebuild ``table`` with the session-scoped key in ``create_sql``."""
+        legacy = f"_{table}_legacy_identity"
+        column_list = ", ".join(columns)
+        self._connection.execute(f"DROP TABLE IF EXISTS {legacy}")
+        self._connection.execute(f"ALTER TABLE {table} RENAME TO {legacy}")
+        self._connection.execute(create_sql)
+        self._connection.execute(
+            f"INSERT INTO {table}({column_list}) " f"SELECT {column_list} FROM {legacy}"
+        )
+        self._connection.execute(f"DROP TABLE {legacy}")
+
+    def _migrate_tool_identity_to_session_scope(self) -> None:
+        """Rebuild tool identity tables with session-scoped primary keys.
+
+        Provider- and import-supplied call/result IDs are only unique inside a
+        conversation, so a store-wide key made any second session that reused
+        an ID fail with "belongs to another session" and abort its LLM round.
+        """
+        pending = [
+            spec
+            for spec in _TOOL_IDENTITY_REBUILD_SPECS
+            if not self._has_session_scoped_primary_key(spec[0], spec[1])
+        ]
+        if not pending:
+            return
+        for attempt in range(_SQLITE_LOCK_RETRIES + 1):
+            try:
+                self._connection.execute("BEGIN IMMEDIATE")
+                try:
+                    for table, _column, index_name, _sql, _columns in pending:
+                        # The renamed table keeps its old index, so drop it now
+                        # and recreate it over the rebuilt table below.
+                        self._connection.execute(f"DROP INDEX IF EXISTS {index_name}")
+                    for table, _column, _index, create_sql, columns in pending:
+                        self._rebuild_identity_table(table, create_sql, columns)
+                    for statement in _TOOL_IDENTITY_INDEX_DDL:
+                        self._connection.execute(statement)
+                    self._connection.execute("COMMIT")
+                except Exception:
+                    try:
+                        self._connection.execute("ROLLBACK")
+                    except sqlite3.Error:
+                        pass
+                    raise
+                return
+            except sqlite3.OperationalError as exc:
+                if "locked" in str(exc).lower() and attempt < _SQLITE_LOCK_RETRIES:
+                    time.sleep(_SQLITE_LOCK_RETRY_DELAY * (2**attempt))
+                    continue
+                raise
 
     def _execute(self, sql: str, parameters: tuple[Any, ...] = ()) -> sqlite3.Cursor:
         # Safety net: lone surrogates (Windows console/clipboard, broken
@@ -1595,13 +1751,14 @@ class SessionStore:
         created_at = str(record.get("created_at") or _utc_now())
         try:
             self._connection.execute("BEGIN IMMEDIATE")
+            # Result IDs are only unique inside a session, so a repeat from
+            # another conversation is a distinct result rather than a conflict.
             existing = self._execute(
-                "SELECT session_id FROM tool_results WHERE result_id = ?",
-                (result_id,),
+                "SELECT result_id FROM tool_results "
+                "WHERE session_id = ? AND result_id = ?",
+                (session_id, result_id),
             ).fetchone()
             if existing is not None:
-                if str(existing["session_id"]) != session_id:
-                    raise SessionStoreError("tool result ID belongs to another session")
                 self._record_session_item_unlocked(
                     session_id, "tool_result", result_id, ordering_quality="exact"
                 )
@@ -1707,8 +1864,9 @@ class SessionStore:
                 (session_id, *ids),
             )
             self._execute(
-                f"DELETE FROM tool_results WHERE result_id IN ({placeholders})",
-                tuple(ids),
+                "DELETE FROM tool_results WHERE session_id = ? "
+                f"AND result_id IN ({placeholders})",
+                (session_id, *ids),
             )
             self._connection.execute("COMMIT")
             return len(ids)
@@ -3193,13 +3351,13 @@ class SessionStore:
         )
         try:
             self._connection.execute("BEGIN IMMEDIATE")
+            # Call IDs are only unique inside a session, so a repeat from
+            # another conversation is a distinct call rather than a conflict.
             existing = self._execute(
-                "SELECT call_id, session_id FROM tool_calls WHERE call_id = ?",
-                (call_id,),
+                "SELECT call_id FROM tool_calls WHERE session_id = ? AND call_id = ?",
+                (session_id, call_id),
             ).fetchone()
             if existing is not None:
-                if str(existing["session_id"]) != session_id:
-                    raise SessionStoreError("tool call ID belongs to another session")
                 self._record_session_item_unlocked(
                     session_id,
                     "tool_call",
@@ -3392,6 +3550,21 @@ def attach_opt_in_session_store(
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() != "sqlite"
     )
 
+    def degrade_session_persistence(exc: BaseException) -> None:
+        """Stop persisting this run instead of aborting the LLM round.
+
+        The store is an auxiliary audit sink, so a competing process or a
+        storage-level failure must not terminate the interactive operation.
+        The callback is disabled for the remainder of this entry point.
+        """
+        if getattr(core, "_session_store_write_disabled", False):
+            return
+        core._session_store_write_disabled = True
+        print(
+            _("[sessions warn] Session persistence disabled for this run: %(error)s")
+            % {"error": exc}
+        )
+
     def log_message(message: dict[str, Any]) -> None:
         try:
             from .observability.content_runtime import capture_logged_message
@@ -3418,12 +3591,7 @@ def attach_opt_in_session_store(
                 payload=message if isinstance(message, dict) else None,
             )
         except SessionStoreError as exc:
-            if "locked" not in str(exc).lower():
-                raise
-            # Session persistence is auxiliary; a competing process must not
-            # terminate the interactive LLM operation. Disable only the
-            # SQLite callback for the remainder of this entry point.
-            core._session_store_write_disabled = True
+            degrade_session_persistence(exc)
             return
         if role == "assistant":
             for call in message.get("tool_calls") or []:
@@ -3437,31 +3605,41 @@ def attach_opt_in_session_store(
                 call_id, (str(message.get("name") or "tool"), {})
             )
             status = "failed" if "[tool runtime error]" in content else "success"
-            store.record_tool_call(
-                active_session_id,
-                tool_name=name,
-                args=args,
-                result=content,
-                status=status,
-                call_id=call_id,
-            )
+            try:
+                store.record_tool_call(
+                    active_session_id,
+                    tool_name=name,
+                    args=args,
+                    result=content,
+                    status=status,
+                    call_id=call_id,
+                )
+            except SessionStoreError as exc:
+                degrade_session_persistence(exc)
 
     def record_tool_result(record: dict[str, Any], persistent_history: Any) -> None:
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
         )
-        store.record_tool_result(
-            active_session_id,
-            record,
-            persistent_history,
-        )
+        try:
+            store.record_tool_result(
+                active_session_id,
+                record,
+                persistent_history,
+            )
+        except SessionStoreError as exc:
+            degrade_session_persistence(exc)
+            return
         raw_max_rows = os.environ.get("UAGENT_TOOL_RESULT_MAX_ROWS", "500")
         try:
             max_rows = int(raw_max_rows)
         except (TypeError, ValueError):
             max_rows = 500
         if max_rows > 0:
-            store.prune_tool_results(active_session_id, max_rows=max_rows)
+            try:
+                store.prune_tool_results(active_session_id, max_rows=max_rows)
+            except SessionStoreError as exc:
+                degrade_session_persistence(exc)
 
     def prune_tool_results(max_rows: int = 500, evictable_only: bool = True) -> int:
         active_session_id = getattr(

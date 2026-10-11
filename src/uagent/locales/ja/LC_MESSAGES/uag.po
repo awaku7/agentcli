@@ -2980,6 +2980,11 @@ msgstr ""
 msgid "[load warn] Failed to update SQLite session recency: %(error)s"
 msgstr "[読み込み警告] SQLite セッションの最終利用情報を更新できませんでした: %(error)s"
 
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[セッション警告] この実行ではセッションの保存を無効にしました: %(error)s"
+
 #: src/uagent/util_cmd_session.py:1269
 msgid "[load] SQLite session loaded"
 msgstr ""

@@ -4376,6 +4376,11 @@ msgstr ""
 msgid "Specified workdir path is a file: %(path)s"
 msgstr ""
 
+#: src/uagent/runtime/session_store.py:3564
+#, python-format
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr ""
+
 
 #: src/uagent/setup_cli.py:352
 msgid "LM Studio transport: sdk, chat, or responses (optional, default: responses)"

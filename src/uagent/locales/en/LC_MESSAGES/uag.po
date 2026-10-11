@@ -3568,6 +3568,9 @@ msgstr "%(n)d enabled: %(names)s"
 msgid "Specified workdir path is a file: %(path)s"
 msgstr "Specified workdir path is a file: %(path)s"
 
+msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
+msgstr "[sessions warn] Session persistence disabled for this run: %(error)s"
+
 msgid ""
 "Allow the side-effecting tool '%(tool)s' to run? Reply yes to continue or no"
 " to cancel."
