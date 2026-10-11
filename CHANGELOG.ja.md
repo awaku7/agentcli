@@ -2,11 +2,21 @@
 
 ## [Unreleased]
 
+## [0.7.28] - 2026-10-12
+
+### 追加
+
+- Decision Providerに`auto`ルーティングを追加し、`llmcapa`のモデル情報からOpenAI Decisions、OpenRouter Decisions、System One互換APIを選択。
+
 ### 変更
 
-- Decision Providerに`auto`ルーティングを追加し、`llmcapa`のモデル情報から
-  OpenAI Decisions、OpenRouter Decisions、System One互換APIを選択。
+- 各プロバイダーの既定モデルを更新（Grok 4.7、GLM 5.3、Qwen 3.7 Plus、Kimi K3など）。
+- セッションストアにおけるツールコール識別子の管理をセッションコンテキスト単位に厳密化。
 - `llmcapa`の最低バージョンを`0.5.60`へ引き上げ。
+
+### 修正
+
+- Webルーム並行ワーカーにおけるワーカー起動および再接続の競合を解消。
 
 ## [0.7.27] - 2026-10-09
 

@@ -2,6 +2,22 @@
 
 ## [Unreleased]
 
+## [0.7.28] - 2026-10-12
+
+### Added
+
+- Add automatic decision provider routing selecting between OpenAI Decisions, OpenRouter Decisions, and System One compatible APIs based on `llmcapa` model metadata.
+
+### Changed
+
+- Update default provider models across providers (including Grok 4.7, GLM 5.3, Qwen 3.7 Plus, and Kimi K3).
+- Scope tool-call identity tracking strictly to its session context in session stores.
+- Raise minimum `llmcapa` dependency to `0.5.60`.
+
+### Fixed
+
+- Prevent worker startup and reconnect races in Web room parallel workers.
+
 ## [0.7.27] - 2026-10-09
 
 ### Added
