@@ -69,7 +69,9 @@ def guard_room_session_command(room: Any, command_name: str):
         yield
         return
     if not room.worker_lock.acquire(blocking=False):
-        raise RoomSessionBusyError("A turn is running in this room; retry after it ends")
+        raise RoomSessionBusyError(
+            "A turn is running in this room; retry after it ends"
+        )
     try:
         yield
     finally:
