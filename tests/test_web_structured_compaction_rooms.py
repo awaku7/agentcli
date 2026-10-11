@@ -24,12 +24,12 @@ def test_public_web_rooms_persist_to_distinct_sessions(tmp_path):
 
         store.append_message(first_id, "user", "room-a-private-message")
         store.append_message(second_id, "user", "room-b-private-message")
-        assert [
-            item["content"] for item in store.list_indexed_messages(first_id)
-        ] == ["room-a-private-message"]
-        assert [
-            item["content"] for item in store.list_indexed_messages(second_id)
-        ] == ["room-b-private-message"]
+        assert [item["content"] for item in store.list_indexed_messages(first_id)] == [
+            "room-a-private-message"
+        ]
+        assert [item["content"] for item in store.list_indexed_messages(second_id)] == [
+            "room-b-private-message"
+        ]
 
 
 def test_public_web_room_rejects_session_bound_to_another_room(tmp_path):
