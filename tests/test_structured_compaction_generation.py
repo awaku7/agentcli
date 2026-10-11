@@ -667,21 +667,12 @@ def test_structured_compaction_default_is_cli_only(
         )
 
 
-def test_structured_compaction_default_falls_back_when_session_is_unavailable(
-    monkeypatch,
-):
+def test_structured_compaction_default_requires_attached_cli_host(monkeypatch):
     monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
-
-    class MissingSessionStore:
-        def get_session(self, _session_id):
-            raise KeyError("missing")
-
-    core = SimpleNamespace(_session_store_entry_point="web")
-    assert not lmh._structured_compaction_enabled(
-        core, MissingSessionStore(), "missing"
-    )
-    assert not lmh._structured_compaction_enabled(core, None, "missing")
-
+    cli_core = SimpleNamespace(_session_store_entry_point="cli")
+    web_core = SimpleNamespace(_session_store_entry_point="web")
+    assert not lmh._structured_compaction_enabled(cli_core, None, "missing")
+    assert not lmh._structured_compaction_enabled(web_core, object(), "missing")
 
 
 def test_structured_compaction_default_follows_current_host_not_session_origin(
