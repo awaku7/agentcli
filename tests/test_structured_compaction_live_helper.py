@@ -126,7 +126,6 @@ def test_test_env_overrides_live_memory_configuration(
     assert env["UAGENT_ENABLE_PROFILING"] == "0"
 
 
-
 def test_launcher_forces_project_workdir(
     run_dir: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -134,7 +133,9 @@ def test_launcher_forces_project_workdir(
     monkeypatch.setenv("UAGENT_WORKDIR", "unrelated-project")
     calls: list[dict] = []
 
-    def fake_run(args: list[str], *, cwd: str, env: dict[str, str], check: bool) -> None:
+    def fake_run(
+        args: list[str], *, cwd: str, env: dict[str, str], check: bool
+    ) -> None:
         calls.append({"args": args, "cwd": cwd, "env": env, "check": check})
 
     monkeypatch.setattr(live.subprocess, "run", fake_run)
