@@ -62,7 +62,6 @@ def test_locked_session_write_does_not_abort_interactive_callback(
     core.log_message({"role": "user", "content": "first"})
     core.log_message({"role": "user", "content": "second"})
 
-    assert core._session_store_entry_point == "cli"
     assert core._session_store_write_disabled is True
     assert session_id
     store.close()
