@@ -348,7 +348,7 @@ class RoomWorkerPool:
                 "store_path": str(store.path.resolve()) if store is not None else "",
                 "tools": tool_names,
                 "parent_tools": parent_tools,
-                "connected": bool(room.active_connections),
+                "connected": bool(room.active_connections or room._bootstrapping_connections),
                 "turn_context": kwargs.get("turn_context"),
                 "identity_context": kwargs.get("identity_context"),
                 "project_path": kwargs.get("project_path"),
@@ -442,6 +442,7 @@ class RoomWorkerPool:
                             break
             elif kind == "assistant_stream_start":
                 room._partial_streams[event["id"]] = ""
+                room._ended_streams.discard(event["id"])
             elif kind == "assistant_stream_delta":
                 stream_id = event.get("id")
                 if stream_id in room._partial_streams:
@@ -451,8 +452,8 @@ class RoomWorkerPool:
                 if stream_id in room._partial_streams:
                     room._partial_streams[stream_id] = event.get("content", "")
             elif kind == "assistant_stream_end":
-                # Keep the text until the child returns a durable final state.
-                pass
+                # Retain text for crash recovery, but replay its ended state.
+                room._ended_streams.add(event["id"])
             elif kind == "status":
                 if event["status"].get("label") == "QUEUED":
                     # The child's uncontended serial lock is not server admission.
