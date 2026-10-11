@@ -547,7 +547,11 @@ def test_reconnect_snapshot_and_queued_delta_do_not_duplicate(monkeypatch):
             if event["type"] == "init":
                 RoomWorkerPool._relay(
                     room,
-                    {"type": "assistant_stream_delta", "id": "stream-1", "delta": "after"},
+                    {
+                        "type": "assistant_stream_delta",
+                        "id": "stream-1",
+                        "delta": "after",
+                    },
                 )
 
     import asyncio
