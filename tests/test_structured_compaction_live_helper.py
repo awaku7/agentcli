@@ -64,7 +64,7 @@ def test_baseline_and_pending_report(run_dir: Path) -> None:
         "raw_history": "PASS",
         "tool_calls_recorded": "PENDING",
     }
-    assert (run_dir / "result.md").exists()
+    assert "- Session ID: `s1`" in (run_dir / "result.md").read_text(encoding="utf-8")
     with pytest.raises(ValueError, match="already exists"):
         live.capture_baseline(run_dir)
 

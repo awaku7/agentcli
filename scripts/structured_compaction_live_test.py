@@ -105,7 +105,10 @@ def prepare() -> Path:
 
 def launch(run_dir: Path) -> None:
     config = _config(run_dir)
-    print("If .env.sec sync/creation is asked, type N before entering test facts.", flush=True)
+    print(
+        "If .env.sec sync/creation is asked, type N before entering test facts.",
+        flush=True,
+    )
     subprocess.run(
         [sys.executable, "-m", "uagent", "-C", config["project_dir"]],
         cwd=config["project_dir"],
@@ -163,7 +166,9 @@ def capture_baseline(run_dir: Path) -> int:
         session_id = matches[0]
         rows = _messages(connection, session_id)
     baseline_file.write_text(
-        json.dumps({"session_id": session_id, "rows": rows}, ensure_ascii=False, indent=2),
+        json.dumps(
+            {"session_id": session_id, "rows": rows}, ensure_ascii=False, indent=2
+        ),
         encoding="utf-8",
     )
     print(f"PASS: baseline captured ({len(rows)} messages, session {session_id})")
@@ -172,11 +177,7 @@ def capture_baseline(run_dir: Path) -> int:
 
 def _check_rows(baseline: dict, rows: list[list]) -> list[int]:
     current = {(row[0], row[1]): row for row in rows}
-    return [
-        old[1]
-        for old in baseline["rows"]
-        if current.get((old[0], old[1])) != old
-    ]
+    return [old[1] for old in baseline["rows"] if current.get((old[0], old[1])) != old]
 
 
 def inspect(run_dir: Path) -> dict:
@@ -229,7 +230,7 @@ def inspect(run_dir: Path) -> dict:
     lines = [
         "# UAG Structured Compaction live-test report",
         "",
-        f"- Session ID: \`{session_id}\`",
+        f"- Session ID: `{session_id}`",
         f"- Raw history: {len(baseline['rows'])} baseline / {len(rows)} now",
         f"- Lost or modified: {len(changed)} (message IDs: {changed})",
         f"- Saved tool calls: {tool_count}",
