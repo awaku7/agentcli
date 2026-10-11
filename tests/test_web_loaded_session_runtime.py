@@ -91,7 +91,6 @@ def test_loaded_room_worker_binds_persistence_and_continuation_then_restores(
         assert store.list_messages(startup.session_id) == []
 
 
-
 def test_room_session_switch_is_blocked_while_worker_owns_lock():
     room = WebRoom("busy-room")
     room.worker_lock.acquire()
