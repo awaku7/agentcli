@@ -297,11 +297,14 @@ class WebRoom:
             self._pending_replays.pop(id(websocket), None)
         self.touch()
 
-    async def broadcast(self, data: dict[str, Any]):
-        with self._lifecycle_lock:
-            for queue in self._pending_replays.values():
-                queue.append(data.copy())
-            connections = list(self.active_connections)
+    async def broadcast(self, data: dict[str, Any], *, _connections=None):
+        if _connections is None:
+            with self._lifecycle_lock:
+                for queue in self._pending_replays.values():
+                    queue.append(data.copy())
+                connections = list(self.active_connections)
+        else:
+            connections = _connections
         for connection in connections:
             connection_context = self._connection_contexts.get(id(connection))
             if connection_context is not None:
