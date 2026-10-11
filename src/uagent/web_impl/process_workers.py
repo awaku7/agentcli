@@ -401,8 +401,7 @@ class RoomWorkerPool:
                         for content in room._partial_streams.values()
                         if content
                         and not any(
-                            m.get("role") == "assistant"
-                            and m.get("content") == content
+                            m.get("role") == "assistant" and m.get("content") == content
                             for m in room.messages
                         )
                     ]
