@@ -224,15 +224,21 @@ def _handle_cmd_logs(arg: str, *, core: Any, tr: Any) -> bool:
             print("[logs] Use :sessions pdf <session_id> [output.pdf] in sqlite mode.")
             return True
         try:
+            from .util_cmd_session import _session_selection_owner
+
+            selection_owner = _session_selection_owner(core)
             limit = 10
             if a and a.lower() not in {"all", "-a", "--all"}:
                 limit = max(1, int(a))
             rows = store.list_sessions(
                 limit=None if a.lower() in {"all", "-a", "--all"} else limit,
-                exclude_session_id=getattr(core, "session_id", None),
+                exclude_session_id=getattr(selection_owner, "session_id", None),
             )
             from .util_cmd_session import _print_session_list_row as _print_row
 
+            selection_owner._session_search_results = {
+                index: row["session_id"] for index, row in enumerate(rows)
+            }
             for index, row in enumerate(rows):
                 _print_row(index, row)
             return True

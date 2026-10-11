@@ -18,7 +18,10 @@ class _Resolver:
         return IdentityContext(self.principal[0], True, self.authn_kind)
 
 
-def test_local_web_commands_keep_session_indices_per_room(tmp_path, monkeypatch):
+@pytest.mark.parametrize("shared", [False, True])
+def test_local_web_commands_keep_session_indices_per_room(
+    tmp_path, monkeypatch, shared
+):
     from uagent.runtime.session_store import SessionStore
     from uagent.web_impl import connection_identity
     from uagent.web_impl.rooms import WebRoom
@@ -42,25 +45,29 @@ def test_local_web_commands_keep_session_indices_per_room(tmp_path, monkeypatch)
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         monkeypatch.setattr(routes_api.core, "session_store", store, raising=False)
         monkeypatch.setattr(routes_api.core, "session_id", None, raising=False)
-        for name in rooms:
+        names = ["shared"] if shared else list(rooms)
+        for name in names:
             session = store.create_session(project=name, entry_point="cli")
             store.append_message(session.session_id, "user", f"{name}-room-fact")
         client = TestClient(app)
         for name in rooms:
+            fact = "shared-room-fact" if shared else f"{name}-room-fact"
             response = client.post(
                 "/api/command",
-                json={"room_id": name, "command": f":sessions search {name}-room-fact"},
+                json={"room_id": name, "command": f":sessions search {fact}"},
             )
             assert response.status_code == 200
         for name in rooms:
+            fact = "shared-room-fact" if shared else f"{name}-room-fact"
             response = client.post(
                 "/api/command", json={"room_id": name, "command": ":load 0"}
             )
             assert response.status_code == 200
             assert any(
-                message.get("content") == f"{name}-room-fact"
-                for message in rooms[name].history
+                message.get("content") == fact for message in rooms[name].history
             )
+            assert rooms[name].session_id
+        assert routes_api.core.session_id is None
 
 
 def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):

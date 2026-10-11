@@ -10,7 +10,8 @@ Run `tests/test_session_portability.py` and `tests/test_web_session_portability.
 when changing these boundaries; both are in the Python compatibility CI matrix.
 
 SQLite session selection uses zero-based numbers from the most recently displayed
-`:sessions list`, `:sessions search`, `:load`, or `:sessions load` view. Both load
+`:sessions list`, `:sessions search`, SQLite `:logs`, `:load`, or `:sessions load`
+view. Both load
 commands retain that view's number-to-ID mapping on the core, so excluding the
 active session or a later change in store ordering cannot shift displayed indices.
 The `:cont` shortcut is different: it always selects the newest **inactive**
@@ -18,6 +19,8 @@ session, ignoring the last displayed view.
 An empty search retains the prior numbered view. Web HTTP and WebSocket commands
 bind selection state to their room, so rooms sharing core cannot overwrite each
 other's displayed indices.
+Web loads also bind the active session and restore state/workdir on the room,
+without rebinding shared core or changing the process working directory.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 

@@ -268,9 +268,27 @@ def _restore_sqlite_session_context(
             % {"error": touch_exc},
             file=sys.stderr,
         )
-    bind_session(core, target, store)
-    _restore_session_workdir(target, loaded, core=core, store=store)
-    apply_persisted_state(core, restore_plan)
+    owner = _session_selection_owner(core)
+    if owner is core:
+        bind_session(core, target, store)
+        _restore_session_workdir(target, loaded, core=core, store=store)
+    else:
+        # A Web room owns its active session; do not rebind shared CLI/core
+        # persistence or callbacks while another room is selecting history.
+        owner.session_id = target
+        owner._session_store_active_id = target
+        session_row = store.get_session(target)
+        workdir_plan = SessionCommandService.plan_workdir(
+            target,
+            message_workdir=_extract_last_cwd_from_messages(loaded),
+            session_project_path=(
+                session_row.get("project_path") if session_row else None
+            ),
+            current_workdir=getattr(owner, "base_dir", None),
+        )
+        if workdir_plan is not None and callable(getattr(owner, "set_base_dir", None)):
+            owner.set_base_dir(workdir_plan.target_path)
+    apply_persisted_state(owner, restore_plan)
     return loaded
 
 
@@ -1181,7 +1199,7 @@ def _handle_cmd_sessions(
     parts = (arg or "").strip().split()
     command = parts[0].lower() if parts else ""
     store = getattr(core, "session_store", None)
-    session_id = getattr(core, "session_id", None)
+    session_id = getattr(_session_selection_owner(core), "session_id", None)
     if command in {"export", "import-uag"}:
         # Passphrases must never pass through chat, Web commands, tool args,
         # command history or the model. Web has dedicated authenticated APIs.
@@ -1717,7 +1735,8 @@ def _handle_cmd_load(
             sessions = [
                 row
                 for row in store.list_sessions()
-                if row["session_id"] != getattr(core, "session_id", None)
+                if row["session_id"]
+                != getattr(_session_selection_owner(core), "session_id", None)
             ]
         except Exception as exc:
             print(
@@ -1756,7 +1775,7 @@ def _handle_cmd_load(
             return True
         if resolution.target is not None:
             target = resolution.target
-        if target == getattr(core, "session_id", None):
+        if target == getattr(_session_selection_owner(core), "session_id", None):
             print("[load] Session is already active.")
             return True
         try:

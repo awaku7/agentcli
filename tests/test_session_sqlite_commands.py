@@ -16,6 +16,28 @@ from uagent.util_cmd_session import _handle_cmd_sessions
 from uagent.util_cmd_session import bind_session_selection_context
 
 
+@pytest.mark.parametrize("loader", [":load 0", ":sessions load 0"])
+def test_logs_replaces_previous_session_selection(loader, monkeypatch, tmp_path):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        old = db.create_session(project="old", entry_point="cli")
+        db.append_message(old.session_id, "user", "old")
+        active = db.create_session(project="active", entry_point="cli")
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        messages = []
+        assert handle_command(":sessions list", messages, None, "", core=core)
+        core._session_search_results = {0: active.session_id}
+        assert handle_command(":logs all", messages, None, "", core=core)
+        assert core._session_search_results == {0: old.session_id}
+        assert handle_command(loader, messages, None, "", core=core)
+        assert [message["content"] for message in messages] == ["old"]
+    finally:
+        db.close()
+
+
 @pytest.mark.parametrize("loader", [":load 1", ":sessions load 1"])
 def test_empty_search_preserves_last_numbered_list(loader, monkeypatch, tmp_path):
     from uagent.util_tools import handle_command
