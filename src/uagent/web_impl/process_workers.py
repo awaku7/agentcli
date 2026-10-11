@@ -428,44 +428,49 @@ class RoomWorkerPool:
 
     @staticmethod
     def _relay(room, event):
-        kind = event.get("type")
-        if kind == "message":
-            room.messages.append(event["message"])
-            if event["message"].get("role") == "assistant":
-                content = event["message"].get("content")
-                for stream_id, text in list(
-                    getattr(room, "_partial_streams", {}).items()
-                ):
-                    if text == content:
-                        room._partial_streams.pop(stream_id, None)
-                        break
-        elif kind == "assistant_stream_start":
-            room._partial_streams[event["id"]] = ""
-        elif kind == "assistant_stream_delta":
-            stream_id = event.get("id")
-            if stream_id in room._partial_streams:
-                room._partial_streams[stream_id] += event.get("delta", "")
-        elif kind == "assistant_stream_replace":
-            stream_id = event.get("id")
-            if stream_id in room._partial_streams:
-                room._partial_streams[stream_id] = event.get("content", "")
-        elif kind == "assistant_stream_end":
-            # Keep the text until the child returns a durable final state.
-            pass
-        elif kind == "status":
-            if event["status"].get("label") == "QUEUED":
-                # The child's uncontended serial lock is not server admission.
-                event = {**event, "status": {**event["status"], "label": "BUSY"}}
-            room.status = event["status"]
-            if not room.status.get("busy"):
-                room.human_ask_pending = False
-        elif kind == "human_ask":
-            room.human_ask_pending = True
-            room.human_ask_message = event["message"]
-            room.human_ask_is_password = event.get("is_password", False)
+        with room._lifecycle_lock:
+                kind = event.get("type")
+            if kind == "message":
+                room.messages.append(event["message"])
+                if event["message"].get("role") == "assistant":
+                    content = event["message"].get("content")
+                    for stream_id, text in list(
+                        getattr(room, "_partial_streams", {}).items()
+                    ):
+                        if text == content:
+                            room._partial_streams.pop(stream_id, None)
+                            break
+            elif kind == "assistant_stream_start":
+                room._partial_streams[event["id"]] = ""
+            elif kind == "assistant_stream_delta":
+                stream_id = event.get("id")
+                if stream_id in room._partial_streams:
+                    room._partial_streams[stream_id] += event.get("delta", "")
+            elif kind == "assistant_stream_replace":
+                stream_id = event.get("id")
+                if stream_id in room._partial_streams:
+                    room._partial_streams[stream_id] = event.get("content", "")
+            elif kind == "assistant_stream_end":
+                # Keep the text until the child returns a durable final state.
+                pass
+            elif kind == "status":
+                if event["status"].get("label") == "QUEUED":
+                    # The child's uncontended serial lock is not server admission.
+                    event = {**event, "status": {**event["status"], "label": "BUSY"}}
+                room.status = event["status"]
+                if not room.status.get("busy"):
+                    room.human_ask_pending = False
+            elif kind == "human_ask":
+                room.human_ask_pending = True
+                room.human_ask_message = event["message"]
+                room.human_ask_is_password = event.get("is_password", False)
+            for queue in room._pending_replays.values():
+                queue.append(event.copy())
+            recipients = tuple(room.active_connections)
         if room.loop is not None:
-            asyncio.run_coroutine_threadsafe(room.broadcast(event), room.loop)
-
+            asyncio.run_coroutine_threadsafe(
+                room.broadcast(event, _connections=recipients), room.loop
+            )
     def shutdown(self):
         self._closed.set()
         with self._lock:
