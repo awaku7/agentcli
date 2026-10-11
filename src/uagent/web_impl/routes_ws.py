@@ -27,6 +27,7 @@ from ..util_cmd_session import (
 )
 from ..tools.pybitchat_shared import forward_to_mesh, is_chat_mode
 from .agent_worker import run_agent_worker
+from .process_workers import bind_room_auto_pilot
 from .connection_identity import resolve_web_connection
 from .app import app
 from .helpers import _enrich_message_attachments, _load_input_history
@@ -41,6 +42,8 @@ from .rooms import (
 
 def _request_room_interrupt(room) -> bool:
     """Only the current foreground room may stop the process-wide worker."""
+    if web_manager.room_worker_pool is not None:
+        return web_manager.room_worker_pool.interrupt(room)
     # Hold ownership stable through flag publication: worker cleanup/startup
     # uses the same lock when clearing or replacing worker_room.
     with web_manager.active_room_lock:
@@ -180,7 +183,8 @@ async def websocket_endpoint(websocket: WebSocket):
                     if _cmd_line.lstrip(":").strip().startswith("cd"):
                         _cd_arg = _cmd_line.lstrip(":").strip()[3:].strip()
                         try:
-                            room.set_base_dir(_cd_arg or ".")
+                            with guard_room_session_command(room, "load"):
+                                room.set_base_dir(_cd_arg or ".")
                         except Exception as _cd_e:
                             room.add_message(
                                 {
@@ -202,15 +206,23 @@ async def websocket_endpoint(websocket: WebSocket):
                     _old_stdout = _sys.stdout
                     try:
                         _sys.stdout = _capture
-                        with guard_room_session_command(room, command_name):
+                        with guard_room_session_command(
+                            room,
+                            command_name,
+                            serialize_all=web_manager.room_worker_pool is not None,
+                        ):
                             with bind_session_selection_context(room):
-                                _result = tools_util.handle_command(
-                                    _cmd_line,
-                                    room.history,
-                                    _wc_client,
-                                    _wc_depname,
-                                    core=core,
-                                )
+                                with bind_room_auto_pilot(
+                                    room,
+                                    enabled=web_manager.room_worker_pool is not None,
+                                ):
+                                    _result = tools_util.handle_command(
+                                        _cmd_line,
+                                        room.history,
+                                        _wc_client,
+                                        _wc_depname,
+                                        core=core,
+                                    )
                     finally:
                         _sys.stdout = _old_stdout
                     # :load replaces the server-side history. Refresh the
@@ -345,6 +357,10 @@ async def websocket_endpoint(websocket: WebSocket):
                     except Exception:
                         pass
                     continue
+                pool = web_manager.room_worker_pool
+                if pool is not None:
+                    pool.answer(room, payload.get("text", ""))
+                    room.human_ask_pending = False
                 room.human_ask_cancelled = False
                 room.human_ask_result = payload.get("text", "")
                 try:

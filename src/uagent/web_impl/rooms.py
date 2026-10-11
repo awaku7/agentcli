@@ -25,6 +25,28 @@ from .. import util_tools as tools_util
 from .helpers import _enrich_message_attachments, _load_input_history
 
 
+def _prepare_display_message(msg: dict[str, Any]) -> dict[str, Any]:
+    display_msg = _enrich_message_attachments(msg)
+    display_msg["role"] = msg.get("role")
+    raw_content = msg.get("content", "")
+    if isinstance(raw_content, list):
+        text_parts = []
+        for part in raw_content:
+            if isinstance(part, dict) and part.get("type") == "text":
+                text_parts.append(str(part.get("text", "")))
+        display_msg["content"] = " ".join(text_parts)
+    else:
+        display_msg["content"] = raw_content
+    display_msg["name"] = msg.get("name")
+    display_msg["tool_calls"] = msg.get("tool_calls")
+    display_msg["saved_path"] = msg.get("saved_path")
+    display_msg["saved_files"] = msg.get("saved_files")
+    if msg.get("reasoning_content"):
+        display_msg["reasoning_content"] = msg.get("reasoning_content")
+    display_msg["timestamp"] = datetime.now().isoformat()
+    return display_msg
+
+
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
@@ -37,6 +59,9 @@ class WebRoom:
         self.active_connections: list[WebSocket] = []
         self._connection_contexts: dict[int, Any] = {}
         self._lifecycle_lock = threading.Lock()
+        self._pending_replays: dict[int, list[dict[str, Any]]] = {}
+        self._bootstrapping_connections: set[int] = set()
+        self._ended_streams: set[str] = set()
         self._activity_lock = threading.Lock()
         self.last_activity = time.monotonic()
         self.messages: list[dict[str, Any]] = []  # UI display
@@ -107,32 +132,9 @@ class WebRoom:
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
             with self._lifecycle_lock:
-                self.active_connections.append(websocket)
-                if connection_context is not None:
-                    self._connection_contexts[id(websocket)] = connection_context
+                self._bootstrapping_connections.add(id(websocket))
             self.touch()
-
-            msgs = self.messages
-            if self.history:
-                try:
-                    msgs = []
-                    for m in self.history:
-                        msgs.append(
-                            _enrich_message_attachments(
-                                {
-                                    "role": m.get("role"),
-                                    "content": m.get("content", ""),
-                                    "name": m.get("name"),
-                                    "tool_calls": m.get("tool_calls"),
-                                    "attachments": m.get("attachments"),
-                                    "saved_path": m.get("saved_path"),
-                                    "saved_files": m.get("saved_files"),
-                                    "timestamp": datetime.now().isoformat(),
-                                }
-                            )
-                        )
-                except Exception:
-                    msgs = self.messages
+            welcome_added = False
 
             _v = (env_get("UAGENT_WEB_VERBOSE") or "").strip().lower()
             web_verbose = _v in ("1", "true", "yes", "on")
@@ -171,14 +173,15 @@ class WebRoom:
                     welcome_msg = welcome_msg + "\n" + banner
 
                 if welcome_msg.strip():
+                    welcome_added = True
                     welcome_display = _enrich_message_attachments(
                         {"role": "assistant", "content": welcome_msg}
                     )
                     welcome_display["role"] = "assistant"
                     welcome_display["content"] = welcome_msg
                     welcome_display["timestamp"] = datetime.now().isoformat()
-                    self.messages.append(welcome_display)
-                    msgs = self.messages
+                    with self._lifecycle_lock:
+                        self.messages.append(welcome_display)
 
                 try:
                     setattr(self, "welcome_shown", True)
@@ -188,6 +191,52 @@ class WebRoom:
             # Bootstrap input history from persisted file
             input_history = [] if self.private_session else _load_input_history()
             await self._validate_connection_context(websocket, connection_context)
+            # Select and copy the initial message source under the same lock
+            # that establishes replay. Work starting afterward is buffered.
+            with self._lifecycle_lock:
+                self._pending_replays[id(websocket)] = []
+                use_history = (
+                    not welcome_added
+                    and self.history
+                    and not getattr(self, "_process_turn_active", False)
+                    and self.history
+                    is not getattr(self, "_process_stale_history", None)
+                )
+                if use_history:
+                    try:
+                        message_snapshot = [dict(message) for message in self.history]
+                    except Exception:
+                        use_history = False
+                        message_snapshot = [dict(message) for message in self.messages]
+                else:
+                    message_snapshot = [dict(message) for message in self.messages]
+                stream_snapshot = [
+                    (stream_id, content, stream_id in self._ended_streams)
+                    for stream_id, content in getattr(
+                        self, "_partial_streams", {}
+                    ).items()
+                ]
+            if use_history:
+                try:
+                    msgs = [
+                        _enrich_message_attachments(
+                            {
+                                "role": message.get("role"),
+                                "content": message.get("content", ""),
+                                "name": message.get("name"),
+                                "tool_calls": message.get("tool_calls"),
+                                "attachments": message.get("attachments"),
+                                "saved_path": message.get("saved_path"),
+                                "saved_files": message.get("saved_files"),
+                                "timestamp": datetime.now().isoformat(),
+                            }
+                        )
+                        for message in message_snapshot
+                    ]
+                except Exception:
+                    msgs = message_snapshot
+            else:
+                msgs = message_snapshot
             await websocket.send_json(
                 {
                     "type": "init",
@@ -211,6 +260,23 @@ class WebRoom:
                     ),
                 }
             )
+            # Rehydrate live streams after init resets browser stream state.
+            for stream_id, content, ended in stream_snapshot:
+                await self._validate_connection_context(websocket, connection_context)
+                await websocket.send_json(
+                    {"type": "assistant_stream_start", "id": stream_id}
+                )
+                await websocket.send_json(
+                    {
+                        "type": "assistant_stream_replace",
+                        "id": stream_id,
+                        "content": content,
+                    }
+                )
+                if ended:
+                    await websocket.send_json(
+                        {"type": "assistant_stream_end", "id": stream_id}
+                    )
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
@@ -229,7 +295,26 @@ class WebRoom:
                     )
                 except Exception:
                     pass
+            # Drain queued broadcasts before atomically activating this socket.
+            while True:
+                with self._lifecycle_lock:
+                    pending = self._pending_replays.get(id(websocket), [])
+                    if not pending:
+                        self._pending_replays.pop(id(websocket), None)
+                        self._bootstrapping_connections.discard(id(websocket))
+                        self.active_connections.append(websocket)
+                        if connection_context is not None:
+                            self._connection_contexts[id(websocket)] = (
+                                connection_context
+                            )
+                        break
+                    self._pending_replays[id(websocket)] = []
+                for event in pending:
+                    await websocket.send_json(event)
         finally:
+            with self._lifecycle_lock:
+                self._pending_replays.pop(id(websocket), None)
+                self._bootstrapping_connections.discard(id(websocket))
             set_thread_lang(None)
 
     async def _validate_connection_context(
@@ -257,10 +342,19 @@ class WebRoom:
             if websocket in self.active_connections:
                 self.active_connections.remove(websocket)
             self._connection_contexts.pop(id(websocket), None)
+            self._pending_replays.pop(id(websocket), None)
+            self._bootstrapping_connections.discard(id(websocket))
         self.touch()
 
-    async def broadcast(self, data: dict[str, Any]):
-        for connection in list(self.active_connections):
+    async def broadcast(self, data: dict[str, Any], *, _connections=None):
+        if _connections is None:
+            with self._lifecycle_lock:
+                for queue in self._pending_replays.values():
+                    queue.append(data.copy())
+                connections = list(self.active_connections)
+        else:
+            connections = _connections
+        for connection in connections:
             connection_context = self._connection_contexts.get(id(connection))
             if connection_context is not None:
                 try:
@@ -294,36 +388,75 @@ class WebRoom:
 
     def add_message(self, msg: dict[str, Any]):
         self.touch()
-        display_msg = _enrich_message_attachments(msg)
-        display_msg["role"] = msg.get("role")
-        # Normalize content: list -> plain text for frontend
-        raw_content = msg.get("content", "")
-        if isinstance(raw_content, list):
-            text_parts = []
-            for part in raw_content:
-                if isinstance(part, dict) and part.get("type") == "text":
-                    text_parts.append(str(part.get("text", "")))
-            display_msg["content"] = " ".join(text_parts)
-        else:
-            display_msg["content"] = raw_content
-        display_msg["name"] = msg.get("name")
-        display_msg["tool_calls"] = msg.get("tool_calls")
-        display_msg["saved_path"] = msg.get("saved_path")
-        display_msg["saved_files"] = msg.get("saved_files")
-        if msg.get("reasoning_content"):
-            display_msg["reasoning_content"] = msg.get("reasoning_content")
-        display_msg["timestamp"] = datetime.now().isoformat()
-        self.messages.append(display_msg)
+        display_msg = _prepare_display_message(msg)
+        with self._lifecycle_lock:
+            self.messages.append(display_msg)
+            event = {"type": "message", "message": display_msg}
+            for queue in self._pending_replays.values():
+                queue.append(event.copy())
+            recipients = tuple(self.active_connections)
         if self.loop:
             asyncio.run_coroutine_threadsafe(
-                self.broadcast({"type": "message", "message": display_msg}), self.loop
+                self.broadcast(event, _connections=recipients), self.loop
             )
+
+    def recover_partial_streams(self, error_message: str) -> list[str]:
+        """Persist crashed stream text atomically with the reconnect snapshot."""
+        self.touch()
+        with self._lifecycle_lock:
+            streams = list(getattr(self, "_partial_streams", {}).items())
+            ended_streams = set(self._ended_streams)
+            recovered = [
+                content
+                for _, content in streams
+                if content
+                and not any(
+                    message.get("role") == "assistant"
+                    and message.get("content") == content
+                    for message in self.messages
+                )
+            ]
+            self._partial_streams.clear()
+            self._ended_streams.clear()
+            display_messages = [
+                _prepare_display_message({"role": "assistant", "content": content})
+                for content in recovered
+            ]
+            recovered_events = [
+                {"type": "message", "message": message} for message in display_messages
+            ]
+            for display_msg in display_messages:
+                self.messages.append(display_msg)
+            error_msg = _prepare_display_message(
+                {"role": "assistant", "content": error_message}
+            )
+            self.messages.append(error_msg)
+            error_event = {"type": "message", "message": error_msg}
+            ended_events = [
+                {"type": "assistant_stream_end", "id": stream_id}
+                for stream_id, _ in streams
+                if stream_id not in ended_streams
+            ]
+            for queue in self._pending_replays.values():
+                queue.extend(event.copy() for event in ended_events)
+                # The reconnect snapshot already contains the stream text.
+                # Replay its termination and the error, not a duplicate message.
+                queue.append(error_event.copy())
+            recipients = tuple(self.active_connections)
+        events = [*ended_events, *recovered_events, error_event]
+        if self.loop:
+            for event in events:
+                asyncio.run_coroutine_threadsafe(
+                    self.broadcast(event, _connections=recipients), self.loop
+                )
+        return recovered
 
 
 class WebManager:
     def __init__(self):
         self.rooms: dict[str, WebRoom] = {}
         self.global_worker_lock = threading.Lock()
+        self.room_worker_pool = None
         self.rooms_lock = threading.Lock()
         # Room currently executing a worker. Used when thread-local room is
         # missing (e.g. parallel tool pool threads calling set_status).
@@ -395,7 +528,7 @@ class WebManager:
         # Keep the explicit checks as defense in depth if worker/status contracts
         # change independently in the future.
         with room._lifecycle_lock:
-            connected = bool(room.active_connections)
+            connected = bool(room.active_connections or room._bootstrapping_connections)
         active_jobs = False
         try:
             manager = getattr(self, "sub_agent_job_manager", None)

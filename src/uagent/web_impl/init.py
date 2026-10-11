@@ -223,6 +223,12 @@ def main():
         help=_("Disable Computer Use (overrides UAGENT_COMPUTER_USE env var)."),
     )
     parser.add_argument(
+        "--room-workers",
+        type=int,
+        default=None,
+        help="Maximum concurrent Web rooms (default: UAGENT_WEB_ROOM_WORKERS or 5).",
+    )
+    parser.add_argument(
         "--host",
         type=str,
         default=None,
@@ -322,6 +328,15 @@ def main():
         _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
         core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
 
+    from .process_workers import RoomWorkerPool, room_worker_count
+
+    try:
+        room_workers = room_worker_count(web_args.room_workers)
+    except ValueError as exc:
+        parser.error(str(exc))
+    web_manager.room_worker_pool = (
+        RoomWorkerPool(room_workers) if room_workers > 1 else None
+    )
     init_web()
     try:
         tools.start_tools_warmup()

@@ -34,6 +34,10 @@ async def _web_lifespan(_app):
     try:
         yield
     finally:
+        from .rooms import web_manager
+
+        if web_manager.room_worker_pool is not None:
+            await asyncio.to_thread(web_manager.room_worker_pool.shutdown)
         cleanup_task.cancel()
         try:
             await cleanup_task

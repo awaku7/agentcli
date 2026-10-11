@@ -56,6 +56,11 @@
         if (html) setArtifactHtml(html);
       }
     });
+    const unsubReplace = onMessage('streamReplace', (id, content) => {
+      if (streamState.active && streamState.id === id) {
+        streamState = { ...streamState, text: content || '' };
+      }
+    });
     const unsubReasoning = onMessage('reasoning', (content) => {
       if (streamState.active) {
         streamState = { ...streamState, reasoning: streamState.reasoning + content };
@@ -83,7 +88,7 @@
         streamState = { ...streamState, active: false, done: true };
       }
     });
-    return () => { unsubStart(); unsubDelta(); unsubReasoning(); unsubImage(); unsubEnd(); };
+    return () => { unsubStart(); unsubDelta(); unsubReplace(); unsubReasoning(); unsubImage(); unsubEnd(); };
   });
 </script>
 

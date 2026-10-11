@@ -243,6 +243,9 @@ function handleWsMessage(data) {
     case 'assistant_stream_delta':
       if (messageHandlers.streamDelta) messageHandlers.streamDelta(data.id, data.delta);
       break;
+    case 'assistant_stream_replace':
+      if (messageHandlers.streamReplace) messageHandlers.streamReplace(data.id, data.content);
+      break;
     case 'assistant_stream_end':
     case 'assistant_stream_interrupted':
       if (messageHandlers.streamEnd) messageHandlers.streamEnd(data.id);

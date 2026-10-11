@@ -36,6 +36,7 @@ from ..auth.oidc_sessions import get_oidc_session_store
 from ..env_utils import env_get
 from ..util_cmd_session import RoomSessionBusyError, guard_room_session_command
 from .agent_worker import run_agent_worker
+from .process_workers import bind_room_auto_pilot
 from .app import app
 from .rooms import _handle_mode_command, web_manager
 
@@ -275,7 +276,9 @@ async def set_tool_genre(req: Request):
     enabled = bool(body.get("enabled", False))
 
     # Reject if busy
-    busy = bool(getattr(core, "status_busy", False))
+    busy = bool(getattr(core, "status_busy", False)) or (
+        web_manager.room_worker_pool is not None and web_manager.room_worker_pool.busy
+    )
     if busy:
         return JSONResponse(
             status_code=409,
@@ -306,7 +309,9 @@ async def get_tools_enabled():
 @app.post("/api/tools-enabled")
 async def set_tools_enabled(req: Request):
     """Toggle tool sending to LLM on/off. Only allowed when idle."""
-    if bool(getattr(core, "status_busy", False)):
+    if bool(getattr(core, "status_busy", False)) or (
+        web_manager.room_worker_pool is not None and web_manager.room_worker_pool.busy
+    ):
         return JSONResponse(
             status_code=409,
             content={
@@ -1683,8 +1688,11 @@ async def api_command(req: Request):
     if cmd_line.lstrip(":").strip().startswith("cd"):
         _cd_arg = cmd_line.lstrip(":").strip()[3:].strip()
         try:
-            room.set_base_dir(_cd_arg or ".")
+            with guard_room_session_command(room, "load"):
+                room.set_base_dir(_cd_arg or ".")
             return {"ok": True, "command": "cd", "workdir": room.base_dir}
+        except RoomSessionBusyError as _cd_e:
+            return JSONResponse(status_code=409, content={"error": str(_cd_e)})
         except Exception as _cd_e:
             return JSONResponse(status_code=400, content={"error": str(_cd_e)})
     try:
@@ -1702,11 +1710,18 @@ async def api_command(req: Request):
             _sys.stdout = _capture
             from ..util_cmd_session import bind_session_selection_context
 
-            with guard_room_session_command(room, command_name):
+            with guard_room_session_command(
+                room,
+                command_name,
+                serialize_all=web_manager.room_worker_pool is not None,
+            ):
                 with bind_session_selection_context(room):
-                    _result = tools_util.handle_command(
-                        cmd_line, room.history, _client, _depname, core=core
-                    )
+                    with bind_room_auto_pilot(
+                        room, enabled=web_manager.room_worker_pool is not None
+                    ):
+                        _result = tools_util.handle_command(
+                            cmd_line, room.history, _client, _depname, core=core
+                        )
         finally:
             _sys.stdout = _old_stdout
         _output = _capture.getvalue().strip()

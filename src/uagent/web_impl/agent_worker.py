@@ -109,6 +109,17 @@ def run_agent_worker(
         ):
             raise IdentityResolutionError("Web turn project mismatch")
 
+    pool = web_manager.room_worker_pool
+    if pool is not None:
+        return pool.run(
+            room,
+            user_input,
+            attachments,
+            turn_context=turn_context,
+            identity_context=identity_context,
+            project_path=project_path,
+        )
+
     def _run_web_turn(fn, *args, **kwargs):
         if turn_context is not None:
             return call_with_turn_context(

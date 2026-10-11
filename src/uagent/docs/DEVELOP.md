@@ -44,6 +44,13 @@ interrupt ownership regressions. Connect-time bootstrap may temporarily change
 `active_room` for display routing, but only the serialized worker sets/clears
 `worker_room`; bootstrap cannot acquire another room's Stop authorization.
 
+Web foreground concurrency is configurable with `uagw --room-workers N` or
+`UAGENT_WEB_ROOM_WORKERS=N`. The default is 5. Explicitly selecting 1 retains the serial worker; counts greater
+than 1 use the bounded spawn/IPC bridge in `web_impl/process_workers.py`.
+See [Web room concurrency](../../../docs/WEB_ROOM_CONCURRENCY.md) for isolation,
+startup precedence, lifecycle and current process-lifetime limitations.
+Run `tests/test_web_process_workers.py` when changing this path.
+
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
 - Entry points:
@@ -1196,3 +1203,12 @@ provider selection and provider-specific `UAGENT_DECISION_*_DEPNAME` overrides;
 blank model values use the adapter defaults. Disabled review displays `none` with
 model `-`. Rendering this line does not initialize adapters, require credentials,
 connect to remote APIs, or load Laya models.
+
+Process workers inherit the resolved decision-provider selection (including CLI
+overrides and provider defaults). During an active process turn, room reconnects
+use live display messages; after completion they use the returned LLM history.
+
+Reasoning visibility is explicitly transferred to spawned turns. When a child
+exits without a final snapshot, reconnects continue to use live display messages
+until a successful turn or explicit history replacement supersedes the stale
+history. The active-worker flag is still cleared to release room admission.

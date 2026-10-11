@@ -114,6 +114,12 @@ _REASONING_HISTORY: list[str] = ["medium"]
 _DISPLAY_REASONING: bool = True
 
 
+def set_display_reasoning(enabled: bool) -> None:
+    """Set reasoning visibility without changing its generation level."""
+    global _DISPLAY_REASONING
+    _DISPLAY_REASONING = bool(enabled)
+
+
 def get_display_reasoning() -> bool:
     """Return whether reasoning content should be displayed to the user."""
     return _DISPLAY_REASONING
