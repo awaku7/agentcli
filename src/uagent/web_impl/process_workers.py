@@ -471,6 +471,7 @@ class RoomWorkerPool:
             asyncio.run_coroutine_threadsafe(
                 room.broadcast(event, _connections=recipients), room.loop
             )
+
     def shutdown(self):
         self._closed.set()
         with self._lock:
