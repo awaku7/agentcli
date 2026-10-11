@@ -102,14 +102,31 @@ def _crashing_child(connection, payload):
 
 def _stream_crashing_child(connection, payload):
     connection.send(
-        {"event": {"type": "message", "message": {"role": "user", "content": payload["input"]}}}
+        {
+            "event": {
+                "type": "message",
+                "message": {"role": "user", "content": payload["input"]},
+            }
+        }
     )
     connection.send({"event": {"type": "assistant_stream_start", "id": "stream-1"}})
     connection.send(
-        {"event": {"type": "assistant_stream_delta", "id": "stream-1", "delta": "partial "}}
+        {
+            "event": {
+                "type": "assistant_stream_delta",
+                "id": "stream-1",
+                "delta": "partial ",
+            }
+        }
     )
     connection.send(
-        {"event": {"type": "assistant_stream_delta", "id": "stream-1", "delta": "reply"}}
+        {
+            "event": {
+                "type": "assistant_stream_delta",
+                "id": "stream-1",
+                "delta": "reply",
+            }
+        }
     )
     connection.close()
     os._exit(7)
