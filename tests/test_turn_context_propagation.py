@@ -150,11 +150,14 @@ def test_llm_call_thread_receives_current_turn_context(tmp_path, monkeypatch) ->
     assert turn.session_id == "session-thread"
 
 
-def test_web_turn_uses_active_core_session_id() -> None:
+def test_web_turn_prefers_bound_room_session_over_process_default() -> None:
     root = Path(__file__).resolve().parents[1]
     source = (root / "src/uagent/web_impl/agent_worker.py").read_text(encoding="utf-8")
-    assert 'session_id=str(getattr(core, "session_id", "") or ""),' in source
-    assert 'session_id=str(getattr(room, "session_id", "") or ""),' not in source
+    assert (
+        'session_id=str(room.session_id or getattr(core, "session_id", "") or ""),'
+        in source
+    )
+    assert 'core._session_store_active_id = bound_session_id' in source
 
 
 def test_gui_image_preprocessing_uses_turn_context() -> None:
