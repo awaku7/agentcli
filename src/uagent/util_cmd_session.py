@@ -1684,6 +1684,7 @@ def _handle_cmd_load(
     *,
     core: Any,
     tr: Any,
+    use_last_displayed_view: bool = True,
 ) -> bool:
     if (
         os.environ.get("UAGENT_SESSION_BACKEND", "sqlite").strip().lower() == "sqlite"
@@ -1722,13 +1723,20 @@ def _handle_cmd_load(
         resolution = SessionCommandService.resolve_load_target(
             target,
             sessions,
-            search_results=getattr(core, "_session_search_results", {}),
+            search_results=(
+                getattr(core, "_session_search_results", {})
+                if use_last_displayed_view
+                else None
+            ),
         )
         if resolution.error:
             print("[load] Session index out of range.")
             return True
         if resolution.target is not None:
             target = resolution.target
+        if target == getattr(core, "session_id", None):
+            print("[load] Session is already active.")
+            return True
         try:
             loaded = store.list_messages(target)
             if not loaded:
