@@ -309,6 +309,7 @@ class RoomWorkerPool:
             )
             return
         state_received = False
+        room._partial_streams = {}
         acquired = False
         process = None
         parent = child = None
@@ -388,6 +389,9 @@ class RoomWorkerPool:
                     connected = current_connected
             process.join(5)
             if not state_received:
+                for content in room._partial_streams.values():
+                    if content:
+                        room.messages.append({"role": "assistant", "content": content})
                 room.add_message(
                     {
                         "role": "assistant",
@@ -407,6 +411,7 @@ class RoomWorkerPool:
             for pipe in (parent, child):
                 if pipe is not None:
                     pipe.close()
+            room._partial_streams = {}
             if state_received:
                 room._process_stale_history = None
             room._process_turn_active = False
@@ -423,6 +428,18 @@ class RoomWorkerPool:
         kind = event.get("type")
         if kind == "message":
             room.messages.append(event["message"])
+        elif kind == "assistant_stream_start":
+            room._partial_streams[event["id"]] = ""
+        elif kind == "assistant_stream_delta":
+            stream_id = event.get("id")
+            if stream_id in room._partial_streams:
+                room._partial_streams[stream_id] += event.get("delta", "")
+        elif kind == "assistant_stream_replace":
+            stream_id = event.get("id")
+            if stream_id in room._partial_streams:
+                room._partial_streams[stream_id] = event.get("content", "")
+        elif kind == "assistant_stream_end":
+            room._partial_streams.pop(event.get("id"), None)
         elif kind == "status":
             if event["status"].get("label") == "QUEUED":
                 # The child's uncontended serial lock is not server admission.
