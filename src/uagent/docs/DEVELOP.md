@@ -37,10 +37,12 @@ Process cwd and core log callbacks are captured, changed and restored only while
 holding the global lock. This keeps a queued room from changing the running
 room's workdir or restoring another worker's callback.
 Queued rooms have a disabled Stop button. The WebSocket interrupt handler checks
-foreground room ownership under `active_room_lock` before changing the shared
+foreground `worker_room` ownership under `active_room_lock` before changing the shared
 interrupt flag or cancelling a confirmation; queued/idle rooms cannot stop another
 room. Run `tests/test_web_loaded_session_runtime.py` for the concurrent A/B and
-interrupt ownership regressions.
+interrupt ownership regressions. Connect-time bootstrap may temporarily change
+`active_room` for display routing, but only the serialized worker sets/clears
+`worker_room`; bootstrap cannot acquire another room's Stop authorization.
 
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 

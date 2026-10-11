@@ -210,6 +210,7 @@ def test_other_room_queues_without_changing_active_worker_state(monkeypatch, tmp
         assert rooms[1].status["label"] == "QUEUED"
         assert rooms[1].worker_lock.locked()
         assert manager.active_room is rooms[0]
+        assert manager.worker_room is rooms[0]
         assert os.getcwd() == rooms[0].base_dir
         assert core.log_message is active_log[0]
         assert core.status_busy
@@ -219,6 +220,7 @@ def test_other_room_queues_without_changing_active_worker_state(monkeypatch, tmp
         assert "Another task" in rooms[1].messages[-1]["content"]
         assert rooms[1].status["label"] == "QUEUED"
         assert manager.active_room is rooms[0]
+        assert manager.worker_room is rooms[0]
         assert core.log_message is active_log[0]
     finally:
         release.set()
@@ -232,6 +234,7 @@ def test_other_room_queues_without_changing_active_worker_state(monkeypatch, tmp
     assert core.log_message is original_log
     assert not core.status_busy
     assert manager.active_room is None
+    assert manager.worker_room is None
     for room in rooms:
         assert room.status["label"] == "IDLE"
         assert not room.worker_lock.locked()
@@ -248,6 +251,7 @@ def test_non_active_room_cannot_interrupt_other_room(monkeypatch, label):
     active = WebRoom("active")
     other = WebRoom("other")
     manager.active_room = active
+    manager.worker_room = active
     other.set_status(label == "QUEUED", label)
     # Even stale/pending confirmation state must not bypass room ownership.
     other.human_ask_pending = True
@@ -278,6 +282,7 @@ def test_active_room_interrupt_unblocks_confirmation_with_busy_cleared(monkeypat
     room.human_ask_pending = True
     room.human_ask_result = "pending"
     manager.active_room = room
+    manager.worker_room = room
     core = SimpleNamespace(
         status_busy=False, interrupt_lock=threading.Lock(), interrupt_requested=False
     )
@@ -289,6 +294,49 @@ def test_active_room_interrupt_unblocks_confirmation_with_busy_cleared(monkeypat
     assert room.human_ask_sync_event.is_set()
     assert core.interrupt_requested
     manager.active_room = None
+    manager.worker_room = None
     core.interrupt_requested = False
     assert not routes_ws._request_room_interrupt(room)
     assert not core.interrupt_requested
+
+
+def test_bootstrap_display_room_cannot_take_worker_interrupt_ownership(
+    monkeypatch, tmp_path
+):
+    import threading
+
+    from uagent.web_impl import history, routes_ws
+    from uagent.web_impl.rooms import WebManager
+
+    manager = WebManager()
+    active = WebRoom("executing-a")
+    bootstrap = WebRoom("connecting-b")
+    bootstrap.base_dir = str(tmp_path)
+    manager.active_room = active
+    manager.worker_room = active
+    core = SimpleNamespace(
+        status_busy=True, interrupt_lock=threading.Lock(), interrupt_requested=False
+    )
+    monkeypatch.setattr(routes_ws, "web_manager", manager)
+    monkeypatch.setattr(routes_ws, "core", core)
+    monkeypatch.setattr(history, "web_manager", manager)
+    observed = []
+
+    def build_initial_messages(**kwargs):
+        assert manager.active_room is bootstrap
+        assert bootstrap.status["label"] == "INIT"
+        assert manager.worker_room is active
+        assert not routes_ws._request_room_interrupt(bootstrap)
+        assert not core.interrupt_requested
+        assert routes_ws._request_room_interrupt(active)
+        assert core.interrupt_requested
+        observed.append(True)
+        return []
+
+    monkeypatch.setattr(
+        history.tools_util, "build_initial_messages", build_initial_messages
+    )
+    history._ensure_room_history_initialized(bootstrap)
+    assert observed == [True]
+    assert manager.worker_room is active
+    assert manager.active_room is active

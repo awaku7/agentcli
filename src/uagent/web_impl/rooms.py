@@ -329,6 +329,9 @@ class WebManager:
         # missing (e.g. parallel tool pool threads calling set_status).
         self.active_room: WebRoom | None = None
         self.active_room_lock = threading.Lock()
+        # Foreground worker ownership; bootstrap may change active_room for
+        # display routing, but must never change interrupt authorization.
+        self.worker_room: WebRoom | None = None
 
         self.original_log_message = None
         self.original_set_status = None

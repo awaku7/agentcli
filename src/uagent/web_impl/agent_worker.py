@@ -203,6 +203,7 @@ def run_agent_worker(
 
         with web_manager.active_room_lock:
             web_manager.active_room = room
+            web_manager.worker_room = room
 
         # Suppress CLI [STATE] before first status update (Windows WriteConsoleW
         # bypasses sys.stderr redirection and leaks to the server console).
@@ -729,6 +730,8 @@ def run_agent_worker(
             with web_manager.active_room_lock:
                 if web_manager.active_room is room:
                     web_manager.active_room = None
+                if web_manager.worker_room is room:
+                    web_manager.worker_room = None
         except Exception:
             pass
 

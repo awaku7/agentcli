@@ -42,9 +42,9 @@ from .rooms import (
 def _request_room_interrupt(room) -> bool:
     """Only the current foreground room may stop the process-wide worker."""
     # Hold ownership stable through flag publication: worker cleanup/startup
-    # uses the same lock when clearing or replacing active_room.
+    # uses the same lock when clearing or replacing worker_room.
     with web_manager.active_room_lock:
-        if web_manager.active_room is not room:
+        if web_manager.worker_room is not room:
             return False
         ask_pending = bool(getattr(room, "human_ask_pending", False))
         if ask_pending:
