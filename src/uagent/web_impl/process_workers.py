@@ -373,10 +373,14 @@ class RoomWorkerPool:
             room.set_status(True, "BUSY")
             connected = payload["connected"]
             while True:
-                if parent.poll(0.1):
+                try:
+                    ready = parent.poll(0.1)
+                except (EOFError, OSError):
+                    break
+                if ready:
                     try:
                         value = parent.recv()
-                    except EOFError:
+                    except (EOFError, OSError):
                         break
                     if "state" in value:
                         for name, item in value["state"].items():
@@ -395,25 +399,8 @@ class RoomWorkerPool:
                     connected = current_connected
             process.join(5)
             if not state_received:
-                with room._lifecycle_lock:
-                    recovered = [
-                        content
-                        for content in room._partial_streams.values()
-                        if content
-                        and not any(
-                            m.get("role") == "assistant" and m.get("content") == content
-                            for m in room.messages
-                        )
-                    ]
-                    room._partial_streams.clear()
-                    room._ended_streams.clear()
-                for content in recovered:
-                    room.add_message({"role": "assistant", "content": content})
-                room.add_message(
-                    {
-                        "role": "assistant",
-                        "content": "[ERROR] Room worker exited before returning its state.",
-                    }
+                room.recover_partial_streams(
+                    "[ERROR] Room worker exited before returning its state."
                 )
         except Exception as exc:
             room.add_message(

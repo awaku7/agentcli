@@ -65,6 +65,37 @@ def _offline_child(connection, payload):
     _child_turn(connection, payload)
 
 
+def _state_child(connection, payload):
+    from uagent import core
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import _child_turn
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+
+    def run_worker(room, user_input, attachments=None, **kwargs):
+        manager = core.agent_state_manager
+        observed = {
+            "responses_state": dict(core.responses_state),
+            "tool_context": dict(core.tool_context),
+            "agent_goal": manager.state.goal,
+            "mcp_request_generation": core.mcp_request_generation,
+        }
+        room.add_message(
+            {
+                "role": "assistant",
+                "content": "STATE:" + json.dumps(observed, sort_keys=True),
+            }
+        )
+        core.responses_state["previous_response_id"] = "resp-" + user_input
+        core.tool_context["marker"] = "tool-" + user_input
+        manager.update(goal="goal-" + user_input)
+        core.mcp_request_generation += 1
+
+    agent_worker.run_agent_worker = run_worker
+    _child_turn(connection, payload)
+
+
 def _asking_child(connection, payload):
     from uagent.runtime import runtime_plugins
     from uagent.web_impl import agent_worker
@@ -237,8 +268,15 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
             _wait(lambda: rooms[2].status["label"] == "QUEUED")
             assert not _observations(rooms[2])
             assert not pool.interrupt(rooms[2])
+            from uagent.i18n import _
+
             pool.run(rooms[0], "duplicate")
-            assert "Another task" in rooms[0].messages[-1]["content"]
+            assert (
+                _(
+                    "[WARN] Another task is already running in this room. Please retry after it completes."
+                )
+                == rooms[0].messages[-1]["content"]
+            )
             assert pool.interrupt(rooms[0])
             threads[0].join(10)
             assert not threads[0].is_alive()
@@ -651,4 +689,108 @@ def test_ended_stream_survives_until_state_or_matching_message():
         room,
         {"type": "message", "message": {"role": "assistant", "content": "complete"}},
     )
+    assert room._partial_streams == {}
+
+
+def test_public_room_without_session_store_keeps_turn_state(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.runtime.agent_state import AgentStateManager
+
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(core, "auto_pilot_active", False, raising=False)
+    room = WebRoom("public-no-store")
+    room.base_dir = str(tmp_path)
+    room.history_initialized = True
+    room.history = [{"role": "system", "content": "offline"}]
+    room.responses_state = {}
+    room.tool_context = {}
+    room.agent_state_manager = AgentStateManager()
+    room.mcp_request_generation = 0
+    pool = RoomWorkerPool(1, target=_state_child)
+    try:
+        pool.run(room, "turn-1")
+        pool.run(room, "turn-2")
+
+        observations = [
+            json.loads(message["content"][len("STATE:") :])
+            for message in room.messages
+            if message.get("content", "").startswith("STATE:")
+        ]
+        assert observations == [
+            {
+                "responses_state": {},
+                "tool_context": {},
+                "agent_goal": "",
+                "mcp_request_generation": 0,
+            },
+            {
+                "responses_state": {"previous_response_id": "resp-turn-1"},
+                "tool_context": {"marker": "tool-turn-1"},
+                "agent_goal": "goal-turn-1",
+                "mcp_request_generation": 1,
+            },
+        ]
+        assert room.responses_state["previous_response_id"] == "resp-turn-2"
+        assert room.tool_context["marker"] == "tool-turn-2"
+        assert room.agent_state_manager.state.goal == "goal-turn-2"
+        assert room.mcp_request_generation == 2
+    finally:
+        pool.shutdown()
+
+
+def test_crash_recovery_is_atomic_with_reconnect_snapshot(monkeypatch):
+    import asyncio
+
+    room = WebRoom("atomic-crash-reconnect")
+    room.private_session = True
+    room.welcome_shown = True
+    room._process_turn_active = True
+    room._partial_streams = {"stream-1": "partial reply"}
+    room.messages = [{"role": "user", "content": "question"}]
+    snapshot_sent = threading.Event()
+    allow_connect_to_continue = threading.Event()
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        def __init__(self):
+            self.events = []
+
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            self.events.append(event)
+            if event["type"] == "init":
+                snapshot_sent.set()
+                assert allow_connect_to_continue.wait(5)
+
+    socket = Socket()
+    connect_thread = threading.Thread(target=lambda: asyncio.run(room.connect(socket)))
+    connect_thread.start()
+    try:
+        assert snapshot_sent.wait(5)
+        room.recover_partial_streams("[ERROR] worker exited")
+    finally:
+        allow_connect_to_continue.set()
+        connect_thread.join(5)
+
+    assert not connect_thread.is_alive()
+    assert [event["type"] for event in socket.events] == [
+        "init",
+        "assistant_stream_start",
+        "assistant_stream_replace",
+        "assistant_stream_end",
+        "message",
+    ]
+    assert socket.events[2]["content"] == "partial reply"
+    assert socket.events[-1]["message"]["content"] == "[ERROR] worker exited"
+    assert [message["content"] for message in room.messages] == [
+        "question",
+        "partial reply",
+        "[ERROR] worker exited",
+    ]
     assert room._partial_streams == {}

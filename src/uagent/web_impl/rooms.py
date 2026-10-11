@@ -25,6 +25,28 @@ from .. import util_tools as tools_util
 from .helpers import _enrich_message_attachments, _load_input_history
 
 
+def _prepare_display_message(msg: dict[str, Any]) -> dict[str, Any]:
+    display_msg = _enrich_message_attachments(msg)
+    display_msg["role"] = msg.get("role")
+    raw_content = msg.get("content", "")
+    if isinstance(raw_content, list):
+        text_parts = []
+        for part in raw_content:
+            if isinstance(part, dict) and part.get("type") == "text":
+                text_parts.append(str(part.get("text", "")))
+        display_msg["content"] = " ".join(text_parts)
+    else:
+        display_msg["content"] = raw_content
+    display_msg["name"] = msg.get("name")
+    display_msg["tool_calls"] = msg.get("tool_calls")
+    display_msg["saved_path"] = msg.get("saved_path")
+    display_msg["saved_files"] = msg.get("saved_files")
+    if msg.get("reasoning_content"):
+        display_msg["reasoning_content"] = msg.get("reasoning_content")
+    display_msg["timestamp"] = datetime.now().isoformat()
+    return display_msg
+
+
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
@@ -355,25 +377,7 @@ class WebRoom:
 
     def add_message(self, msg: dict[str, Any]):
         self.touch()
-        display_msg = _enrich_message_attachments(msg)
-        display_msg["role"] = msg.get("role")
-        # Normalize content: list -> plain text for frontend
-        raw_content = msg.get("content", "")
-        if isinstance(raw_content, list):
-            text_parts = []
-            for part in raw_content:
-                if isinstance(part, dict) and part.get("type") == "text":
-                    text_parts.append(str(part.get("text", "")))
-            display_msg["content"] = " ".join(text_parts)
-        else:
-            display_msg["content"] = raw_content
-        display_msg["name"] = msg.get("name")
-        display_msg["tool_calls"] = msg.get("tool_calls")
-        display_msg["saved_path"] = msg.get("saved_path")
-        display_msg["saved_files"] = msg.get("saved_files")
-        if msg.get("reasoning_content"):
-            display_msg["reasoning_content"] = msg.get("reasoning_content")
-        display_msg["timestamp"] = datetime.now().isoformat()
+        display_msg = _prepare_display_message(msg)
         with self._lifecycle_lock:
             self.messages.append(display_msg)
             event = {"type": "message", "message": display_msg}
@@ -384,6 +388,57 @@ class WebRoom:
             asyncio.run_coroutine_threadsafe(
                 self.broadcast(event, _connections=recipients), self.loop
             )
+
+    def recover_partial_streams(self, error_message: str) -> list[str]:
+        """Persist crashed stream text atomically with the reconnect snapshot."""
+        self.touch()
+        with self._lifecycle_lock:
+            streams = list(getattr(self, "_partial_streams", {}).items())
+            ended_streams = set(self._ended_streams)
+            recovered = [
+                content
+                for _, content in streams
+                if content
+                and not any(
+                    message.get("role") == "assistant"
+                    and message.get("content") == content
+                    for message in self.messages
+                )
+            ]
+            self._partial_streams.clear()
+            self._ended_streams.clear()
+            display_messages = [
+                _prepare_display_message({"role": "assistant", "content": content})
+                for content in recovered
+            ]
+            recovered_events = [
+                {"type": "message", "message": message} for message in display_messages
+            ]
+            for display_msg in display_messages:
+                self.messages.append(display_msg)
+            error_msg = _prepare_display_message(
+                {"role": "assistant", "content": error_message}
+            )
+            self.messages.append(error_msg)
+            error_event = {"type": "message", "message": error_msg}
+            ended_events = [
+                {"type": "assistant_stream_end", "id": stream_id}
+                for stream_id, _ in streams
+                if stream_id not in ended_streams
+            ]
+            for queue in self._pending_replays.values():
+                queue.extend(event.copy() for event in ended_events)
+                # The reconnect snapshot already contains the stream text.
+                # Replay its termination and the error, not a duplicate message.
+                queue.append(error_event.copy())
+            recipients = tuple(self.active_connections)
+        events = [*ended_events, *recovered_events, error_event]
+        if self.loop:
+            for event in events:
+                asyncio.run_coroutine_threadsafe(
+                    self.broadcast(event, _connections=recipients), self.loop
+                )
+        return recovered
 
 
 class WebManager:
