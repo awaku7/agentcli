@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.7.29] - 2026-10-12
+
+### Fixed
+
+- Localize session persistence disabled warning message across all 38 shipped locales to pass strict i18n structure audit in CI.
+
 ## [0.7.28] - 2026-10-12
 
 ### Added
