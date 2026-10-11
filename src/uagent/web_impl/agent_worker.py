@@ -62,7 +62,13 @@ def _ensure_public_room_session(room: WebRoom, store: Any, project_path: str) ->
         project_path=project_path,
         entry_point="web",
     )
+    from ..runtime.agent_state import AgentStateManager
+
     room.session_id = session.session_id
+    room.responses_state = {}
+    room.tool_context = {}
+    room.agent_state_manager = AgentStateManager()
+    room.mcp_request_generation = 0
     return room.session_id
 
 
