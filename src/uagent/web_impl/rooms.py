@@ -37,6 +37,7 @@ class WebRoom:
         self.active_connections: list[WebSocket] = []
         self._connection_contexts: dict[int, Any] = {}
         self._lifecycle_lock = threading.Lock()
+        self._pending_replays: dict[int, list[dict[str, Any]]] = {}
         self._activity_lock = threading.Lock()
         self.last_activity = time.monotonic()
         self.messages: list[dict[str, Any]] = []  # UI display
@@ -106,7 +107,9 @@ class WebRoom:
         try:
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
-            # Keep the socket out of live broadcasts until initialization ends.
+            # Queue broadcasts during initialization; replay them in order.
+            with self._lifecycle_lock:
+                self._pending_replays[id(websocket)] = []
             self.touch()
 
             msgs = self.messages
@@ -227,10 +230,6 @@ class WebRoom:
                         "content": content,
                     }
                 )
-            with self._lifecycle_lock:
-                self.active_connections.append(websocket)
-                if connection_context is not None:
-                    self._connection_contexts[id(websocket)] = connection_context
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
@@ -249,7 +248,22 @@ class WebRoom:
                     )
                 except Exception:
                     pass
+            # Drain queued broadcasts before atomically activating this socket.
+            while True:
+                with self._lifecycle_lock:
+                    pending = self._pending_replays.get(id(websocket), [])
+                    if not pending:
+                        self._pending_replays.pop(id(websocket), None)
+                        self.active_connections.append(websocket)
+                        if connection_context is not None:
+                            self._connection_contexts[id(websocket)] = connection_context
+                        break
+                    self._pending_replays[id(websocket)] = []
+                for event in pending:
+                    await websocket.send_json(event)
         finally:
+            with self._lifecycle_lock:
+                self._pending_replays.pop(id(websocket), None)
             set_thread_lang(None)
 
     async def _validate_connection_context(
@@ -277,10 +291,15 @@ class WebRoom:
             if websocket in self.active_connections:
                 self.active_connections.remove(websocket)
             self._connection_contexts.pop(id(websocket), None)
+            self._pending_replays.pop(id(websocket), None)
         self.touch()
 
     async def broadcast(self, data: dict[str, Any]):
-        for connection in list(self.active_connections):
+        with self._lifecycle_lock:
+            for queue in self._pending_replays.values():
+                queue.append(data.copy())
+            connections = list(self.active_connections)
+        for connection in connections:
             connection_context = self._connection_contexts.get(id(connection))
             if connection_context is not None:
                 try:
