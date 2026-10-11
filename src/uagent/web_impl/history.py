@@ -158,7 +158,6 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             except Exception:
                 pass
             try:
-                before_len = len(room.history)
                 flags = _runtime_init.append_long_memory_system_messages(
                     core=core,
                     messages=room.history,
@@ -177,8 +176,9 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
                         )
                     except Exception:
                         pass
-                for message in room.history[before_len:]:
-                    core.log_message(message)
+                # These are room-scoped provider instructions, not raw turns.
+                # Logging them through the process-global core callback could
+                # write one room's memory into another room's active session.
             except Exception as exc:
                 print(
                     _(

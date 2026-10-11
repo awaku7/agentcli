@@ -413,12 +413,11 @@ def _maybe_auto_shrink_messages(
         session_id = getattr(core, "_session_store_active_id", None) or getattr(
             core, "session_id", None
         )
-        structured_flag = env_get("UAGENT_STRUCTURED_COMPACTION", "0") or ""
         structured_requested = (
             persist
             and store is not None
             and bool(session_id)
-            and structured_flag.strip().lower() in {"1", "true", "yes", "on"}
+            and _structured_compaction_enabled(store, session_id)
         )
         if structured_requested:
             compression_result = call_maybe_thread_fn(
@@ -553,6 +552,17 @@ def build_auto_shrink_projection(
     )
 
 
+def _structured_compaction_enabled(store: Any, session_id: Any) -> bool:
+    """Use Structured Compaction whenever a persistent session is available.
+
+    Explicit UAGENT_STRUCTURED_COMPACTION=0 opts out on every host.
+    """
+    if store is None or not session_id:
+        return False
+    flag = (env_get("UAGENT_STRUCTURED_COMPACTION") or "").strip().lower()
+    return flag not in {"0", "false", "no", "off"}
+
+
 def build_structured_auto_shrink_projection(
     *,
     provider: str,
@@ -574,12 +584,11 @@ def build_structured_auto_shrink_projection(
     SessionStore rows. Committed checkpoints determine the *next* source window,
     so old evidence is never fed back to the reducer as a new observation.
     """
-    flag = (env_get("UAGENT_STRUCTURED_COMPACTION", "0") or "").strip().lower()
     store = getattr(core, "session_store", None)
     session_id = getattr(core, "_session_store_active_id", None) or getattr(
         core, "session_id", None
     )
-    if flag not in {"1", "true", "yes", "on"} or store is None or not session_id:
+    if not _structured_compaction_enabled(store, session_id):
         return None
     if is_server_side_compaction_enabled(
         provider,

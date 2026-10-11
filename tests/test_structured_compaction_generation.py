@@ -532,8 +532,23 @@ def test_legacy_fallback_in_structured_mode_does_not_rewrite_raw_messages(
         assert store.get_agent_state(session.session_id) is None
 
 
-def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(monkeypatch, tmp_path):
-    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+@pytest.mark.parametrize(
+    ("explicit_opt_in", "entry_point"),
+    [
+        (True, "test"),
+        (False, "cli"),
+        (False, "web"),
+        (False, "a2a"),
+        (False, "gui"),
+    ],
+)
+def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
+    monkeypatch, tmp_path, explicit_opt_in, entry_point
+):
+    if explicit_opt_in:
+        monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    else:
+        monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
     monkeypatch.setenv("UAGENT_SHRINK_KEEP_LAST", "4")
     monkeypatch.setenv("UAGENT_SHRINK_CNT", "4")
     monkeypatch.setenv("UAGENT_SHRINK_MAX_TOKENS", "0")
@@ -570,7 +585,7 @@ def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(monkeypatch, tm
             )
 
     with SessionStore(tmp_path / "auto-shrink.sqlite3") as store:
-        session = store.create_session(project="structured", entry_point="test")
+        session = store.create_session(project="structured", entry_point=entry_point)
         for message in messages[1:]:
             store.append_message(
                 session.session_id,
@@ -622,6 +637,47 @@ def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(monkeypatch, tm
             for item in store.list_indexed_messages(session.session_id)
         )
         assert store.get_session_summary(session.session_id)
+
+
+@pytest.mark.parametrize(
+    ("setting", "entry_point", "expected"),
+    [
+        (None, "cli", True),
+        (None, "web", True),
+        (None, "a2a", True),
+        (None, "gui", True),
+        (None, "test", True),
+        ("1", "web", True),
+        ("0", "cli", False),
+        ("0", "web", False),
+        ("0", "a2a", False),
+        ("0", "gui", False),
+        ("false", "cli", False),
+        ("off", "web", False),
+        ("invalid", "cli", True),
+    ],
+)
+def test_structured_compaction_default_on_all_session_backed_hosts(
+    monkeypatch, tmp_path, setting, entry_point, expected
+):
+    if setting is None:
+        monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
+    else:
+        monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", setting)
+
+    with SessionStore(tmp_path / "default-mode.sqlite3") as store:
+        session = store.create_session(project="mode", entry_point=entry_point)
+        assert lmh._structured_compaction_enabled(store, session.session_id) is expected
+
+
+def test_structured_compaction_requires_a_persistent_session(monkeypatch):
+    monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
+    assert not lmh._structured_compaction_enabled(None, "session-id")
+    assert not lmh._structured_compaction_enabled(object(), None)
+
+    monkeypatch.setenv("UAGENT_STRUCTURED_COMPACTION", "1")
+    assert not lmh._structured_compaction_enabled(None, "session-id")
+    assert not lmh._structured_compaction_enabled(object(), None)
 
 
 def test_structured_auto_shrink_flag_off_keeps_legacy_path(monkeypatch):
