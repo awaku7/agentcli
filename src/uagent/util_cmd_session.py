@@ -58,6 +58,24 @@ def bind_session_selection_context(owner: Any):
         _SESSION_SELECTION_CONTEXT.reset(token)
 
 
+class RoomSessionBusyError(RuntimeError):
+    """A running Web turn owns the room history and continuation state."""
+
+
+@contextmanager
+def guard_room_session_command(room: Any, command_name: str):
+    """Serialize session-changing Web commands with the room's worker."""
+    if command_name not in {"load", "cont", "sessions"}:
+        yield
+        return
+    if not room.worker_lock.acquire(blocking=False):
+        raise RoomSessionBusyError("A turn is running in this room; retry after it ends")
+    try:
+        yield
+    finally:
+        room.worker_lock.release()
+
+
 def _session_selection_owner(core: Any) -> Any:
     owner = _SESSION_SELECTION_CONTEXT.get()
     return core if owner is None else owner
@@ -79,6 +97,7 @@ def bind_room_session_runtime(core: Any, room: Any):
         "mcp_request_generation",
     )
     previous = {name: getattr(core, name, missing) for name in names}
+    bound_session_id = room.session_id
     callbacks = get_callbacks()
     callback_state = (callbacks.session_id, callbacks.session_store)
     try:
@@ -88,9 +107,12 @@ def bind_room_session_runtime(core: Any, room: Any):
                 setattr(core, name, getattr(room, name))
         yield
     finally:
-        for name in names[2:]:
-            if hasattr(room, name) and hasattr(core, name):
-                setattr(room, name, getattr(core, name))
+        # A :load may have replaced this room's session mid-turn. Do not
+        # overwrite its newly restored continuation with the old worker state.
+        if room.session_id == bound_session_id:
+            for name in names[2:]:
+                if hasattr(room, name) and hasattr(core, name):
+                    setattr(room, name, getattr(core, name))
         for name, value in previous.items():
             if value is missing:
                 if hasattr(core, name):
