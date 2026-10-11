@@ -3,6 +3,8 @@ from __future__ import annotations
 import os
 from types import SimpleNamespace
 
+import pytest
+
 from uagent.runtime.session_store import (
     SessionStore,
     attach_opt_in_session_store,
@@ -11,6 +13,220 @@ from uagent.runtime.session_store import (
 from uagent.util_cmd_files import _handle_cmd_logs
 from uagent.util_cmd_session import _handle_cmd_load
 from uagent.util_cmd_session import _handle_cmd_sessions
+from uagent.util_cmd_session import bind_session_selection_context
+
+
+@pytest.mark.parametrize("loader", [":load 0", ":sessions load 0"])
+def test_logs_replaces_previous_session_selection(loader, monkeypatch, tmp_path):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        old = db.create_session(project="old", entry_point="cli")
+        db.append_message(old.session_id, "user", "old")
+        active = db.create_session(project="active", entry_point="cli")
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        messages = []
+        assert handle_command(":sessions list", messages, None, "", core=core)
+        core._session_search_results = {0: active.session_id}
+        assert handle_command(":logs all", messages, None, "", core=core)
+        assert core._session_search_results == {0: old.session_id}
+        assert handle_command(loader, messages, None, "", core=core)
+        assert [message["content"] for message in messages] == ["old"]
+    finally:
+        db.close()
+
+
+@pytest.mark.parametrize("loader", [":load 1", ":sessions load 1"])
+def test_empty_search_preserves_last_numbered_list(loader, monkeypatch, tmp_path):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        rows = []
+        for label in ("active", "wanted", "other"):
+            session = db.create_session(project=label, entry_point="cli")
+            db.append_message(session.session_id, "user", label)
+            rows.append({"session_id": session.session_id})
+        monkeypatch.setattr(db, "list_sessions", lambda: rows)
+        core = SimpleNamespace(session_store=db, session_id=rows[0]["session_id"])
+        messages = []
+        assert handle_command(":sessions list", messages, None, "", core=core)
+        assert handle_command(
+            ":sessions search no-such-fact", messages, None, "", core=core
+        )
+        assert handle_command(loader, messages, None, "", core=core)
+        assert [message["content"] for message in messages] == ["wanted"]
+    finally:
+        db.close()
+
+
+def test_room_session_views_are_isolated_on_shared_core(monkeypatch, tmp_path):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        first = db.create_session(project="first", entry_point="cli")
+        second = db.create_session(project="second", entry_point="cli")
+        db.append_message(first.session_id, "user", "first-room-fact")
+        db.append_message(second.session_id, "user", "second-room-fact")
+        core = SimpleNamespace(
+            session_store=db,
+            session_id=None,
+            _session_search_results={0: "cli-selection"},
+        )
+        first_room = SimpleNamespace(history=[])
+        second_room = SimpleNamespace(history=[])
+        with bind_session_selection_context(first_room):
+            assert handle_command(
+                ":sessions search first-room-fact",
+                first_room.history,
+                None,
+                "",
+                core=core,
+            )
+        with bind_session_selection_context(second_room):
+            assert handle_command(
+                ":sessions search second-room-fact",
+                second_room.history,
+                None,
+                "",
+                core=core,
+            )
+        with bind_session_selection_context(first_room):
+            assert handle_command(":load 0", first_room.history, None, "", core=core)
+        with bind_session_selection_context(second_room):
+            assert handle_command(
+                ":sessions load 0", second_room.history, None, "", core=core
+            )
+        assert [message["content"] for message in first_room.history] == [
+            "first-room-fact"
+        ]
+        assert [message["content"] for message in second_room.history] == [
+            "second-room-fact"
+        ]
+        assert core._session_search_results == {0: "cli-selection"}
+    finally:
+        db.close()
+
+
+@pytest.mark.parametrize("view", ["list", "list --verbose", "load", ":load"])
+@pytest.mark.parametrize("loader", ["load", ":load"])
+def test_load_index_uses_last_displayed_session_view(
+    view, loader, monkeypatch, tmp_path, capsys
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        rows = []
+        for label in ("active", "wanted", "other"):
+            session = db.create_session(project=label, entry_point="cli")
+            db.append_message(session.session_id, "user", label)
+            rows.append({"session_id": session.session_id, "project": label})
+        monkeypatch.setattr(db, "list_sessions", lambda: rows)
+        core = SimpleNamespace(
+            session_store=db,
+            session_id=rows[0]["session_id"],
+            _session_search_results={
+                0: rows[2]["session_id"],
+                1: rows[2]["session_id"],
+            },
+        )
+        if view == ":load":
+            assert _handle_cmd_load("", [], core=core, tr=lambda text, **_: text)
+        else:
+            assert _handle_cmd_sessions(
+                view, messages_ref=[], core=core, tr=lambda text, **_: text
+            )
+        output = capsys.readouterr().out
+        index = 1 if view.startswith("list") else 0
+        assert f"[{index}]" in output
+        assert rows[1]["session_id"] in output
+        # The displayed numbering must survive changes to the store's order.
+        rows.reverse()
+        messages = []
+        if loader == ":load":
+            assert _handle_cmd_load(
+                str(index), messages, core=core, tr=lambda text, **_: text
+            )
+        else:
+            assert _handle_cmd_sessions(
+                f"load {index}",
+                messages_ref=messages,
+                core=core,
+                tr=lambda text, **_: text,
+            )
+        assert [message["content"] for message in messages] == ["wanted"]
+    finally:
+        db.close()
+
+
+def test_sessions_list_active_index_does_not_load_another_session(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        active = db.create_session(project="active", entry_point="cli")
+        other = db.create_session(project="other", entry_point="cli")
+        db.append_message(other.session_id, "user", "other")
+        monkeypatch.setattr(
+            db,
+            "list_sessions",
+            lambda: [
+                {"session_id": active.session_id},
+                {"session_id": other.session_id},
+            ],
+        )
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        messages = [{"role": "user", "content": "keep active"}]
+        assert _handle_cmd_sessions("list", core=core, tr=lambda text, **_: text)
+        assert _handle_cmd_sessions(
+            "load 0", messages_ref=messages, core=core, tr=lambda text, **_: text
+        )
+        assert messages == [{"role": "user", "content": "keep active"}]
+        assert core.session_id == active.session_id
+    finally:
+        db.close()
+
+
+def test_cont_ignores_displayed_indices_and_loads_newest_inactive(
+    monkeypatch, tmp_path, capsys
+):
+    from uagent.util_tools import handle_command
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        active = db.create_session(project="active", entry_point="cli")
+        wanted = db.create_session(project="wanted", entry_point="cli")
+        other = db.create_session(project="other", entry_point="cli")
+        db.append_message(active.session_id, "user", "current")
+        db.append_message(wanted.session_id, "user", "wanted")
+        db.append_message(other.session_id, "user", "other")
+        # Displayed list includes active at [0]; :cont must still load wanted.
+        rows = [
+            {"session_id": active.session_id},
+            {"session_id": wanted.session_id},
+            {"session_id": other.session_id},
+        ]
+        monkeypatch.setattr(db, "list_sessions", lambda: rows)
+        core = SimpleNamespace(session_store=db, session_id=active.session_id)
+        messages = [{"role": "user", "content": "current"}]
+        assert _handle_cmd_sessions("list", core=core, tr=lambda text, **_: text)
+        assert core._session_search_results[0] == active.session_id
+        # Explicit :load 0 must not reload the active session.
+        assert _handle_cmd_load("0", messages, core=core, tr=lambda text, **_: text)
+        assert messages == [{"role": "user", "content": "current"}]
+        assert "already active" in capsys.readouterr().out.lower()
+        # :cont deliberately chooses the newest inactive session instead.
+        assert handle_command(":cont", messages, None, "", core=core)
+        assert [message["content"] for message in messages] == ["wanted"]
+    finally:
+        db.close()
 
 
 def test_logs_and_load_use_sqlite_backend(monkeypatch, tmp_path, capsys):

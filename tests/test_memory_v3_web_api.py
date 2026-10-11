@@ -18,6 +18,73 @@ class _Resolver:
         return IdentityContext(self.principal[0], True, self.authn_kind)
 
 
+@pytest.mark.parametrize("shared", [False, True])
+def test_local_web_commands_keep_session_indices_per_room(
+    tmp_path, monkeypatch, shared
+):
+    from uagent.runtime.session_store import SessionStore
+    from uagent.web_impl import connection_identity
+    from uagent.web_impl.rooms import WebRoom
+
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setattr(
+        routes_api,
+        "_request_identity",
+        lambda request: IdentityContext("local", False, "local"),
+    )
+    monkeypatch.setattr(
+        connection_identity,
+        "require_room_access",
+        lambda identity, room_id: ("", False),
+    )
+    rooms = {name: WebRoom(name) for name in ("first", "second")}
+    monkeypatch.setattr(routes_api.web_manager, "get_room", rooms.__getitem__)
+    monkeypatch.setattr(
+        routes_api.providers, "make_client", lambda core: (None, None, "")
+    )
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        monkeypatch.setattr(routes_api.core, "session_store", store, raising=False)
+        monkeypatch.setattr(routes_api.core, "session_id", None, raising=False)
+        names = ["shared"] if shared else list(rooms)
+        for name in names:
+            session = store.create_session(project=name, entry_point="cli")
+            store.append_message(session.session_id, "user", f"{name}-room-fact")
+        client = TestClient(app)
+        for name in rooms:
+            fact = "shared-room-fact" if shared else f"{name}-room-fact"
+            response = client.post(
+                "/api/command",
+                json={"room_id": name, "command": f":sessions search {fact}"},
+            )
+            assert response.status_code == 200
+        for name in rooms:
+            fact = "shared-room-fact" if shared else f"{name}-room-fact"
+            response = client.post(
+                "/api/command", json={"room_id": name, "command": ":load 0"}
+            )
+            assert response.status_code == 200
+            assert any(
+                message.get("content") == fact for message in rooms[name].history
+            )
+            assert rooms[name].session_id
+        assert routes_api.core.session_id is None
+        busy_room = rooms["first"]
+        previous_session = busy_room.session_id
+        previous_history = list(busy_room.history)
+        busy_room.worker_lock.acquire()
+        try:
+            rejected = client.post(
+                "/api/command",
+                json={"room_id": "first", "command": ":load 0"},
+            )
+            assert rejected.status_code == 409
+            assert "turn is running" in rejected.json()["error"]
+            assert busy_room.session_id == previous_session
+            assert busy_room.history == previous_history
+        finally:
+            busy_room.worker_lock.release()
+
+
 def test_v3_web_api_personal_read_grant_lifecycle(tmp_path, monkeypatch):
     principal = ["admin"]
     resolver = _Resolver(principal)

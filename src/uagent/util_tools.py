@@ -269,7 +269,9 @@ def handle_command(
         return _handle_cmd_clean(arg, core=core, tr=tr)
 
     if cmd == "cont":
-        return _handle_cmd_load("0", messages_ref, core=core, tr=tr)
+        return _handle_cmd_load(
+            "0", messages_ref, core=core, tr=tr, use_last_displayed_view=False
+        )
 
     if cmd == "load":
         return _handle_cmd_load(arg, messages_ref, core=core, tr=tr)
