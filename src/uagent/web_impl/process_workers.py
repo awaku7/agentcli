@@ -309,7 +309,9 @@ class RoomWorkerPool:
             )
             return
         state_received = False
-        room._partial_streams = {}
+        with room._lifecycle_lock:
+            room._partial_streams = {}
+            room._ended_streams.clear()
         acquired = False
         process = None
         parent = child = None
@@ -389,7 +391,7 @@ class RoomWorkerPool:
                     connected = current_connected
             process.join(5)
             if not state_received:
-                for content in room._partial_streams.values():
+                for content in list(room._partial_streams.values()):
                     if content and not any(
                         m.get("role") == "assistant" and m.get("content") == content
                         for m in room.messages
