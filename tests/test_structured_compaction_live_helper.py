@@ -91,6 +91,19 @@ def test_checkpoints_and_raw_history_regression(run_dir: Path) -> None:
     assert report["lost_or_modified_ids"] == [3]
 
 
+
+def test_out_of_order_checkpoint_revisions_are_rejected(run_dir: Path) -> None:
+    live.capture_baseline(run_dir)
+    db = Path(live._config(run_dir)["session_db"])
+    with sqlite3.connect(db) as con:
+        con.executemany(
+            "INSERT INTO checkpoints VALUES ('s1', 'applied', ?, ?, ?)",
+            [(5, 8, 1), (1, 4, 2)],
+        )
+    report = live.inspect(run_dir)
+    assert report["checks"]["continued_checkpoint"] == "FAIL"
+
+
 def test_baseline_rejects_existing_checkpoint(run_dir: Path) -> None:
     db = Path(live._config(run_dir)["session_db"])
     with sqlite3.connect(db) as con:
