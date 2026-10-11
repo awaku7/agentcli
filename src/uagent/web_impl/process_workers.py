@@ -367,7 +367,7 @@ class RoomWorkerPool:
                 self._running[room.room_id] = (room, parent, process, threading.Lock())
             child.close()
             room.set_status(True, "BUSY")
-            connected = bool(room.active_connections)
+            connected = payload["connected"]
             while True:
                 if parent.poll(0.1):
                     try:
