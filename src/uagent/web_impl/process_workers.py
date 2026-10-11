@@ -433,7 +433,9 @@ class RoomWorkerPool:
             room.messages.append(event["message"])
             if event["message"].get("role") == "assistant":
                 content = event["message"].get("content")
-                for stream_id, text in list(getattr(room, "_partial_streams", {}).items()):
+                for stream_id, text in list(
+                    getattr(room, "_partial_streams", {}).items()
+                ):
                     if text == content:
                         room._partial_streams.pop(stream_id, None)
                         break
