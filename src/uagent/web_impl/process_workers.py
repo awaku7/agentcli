@@ -264,7 +264,7 @@ class RoomWorkerPool:
         self._lock = threading.Lock()
         self._closed = threading.Event()
         self._running: dict[str, tuple[Any, Any, Any, threading.Lock]] = {}
-        self._starting: set[str] = set()
+        self._reserved_rooms: set[str] = set()
         self._busy_event = threading.Event()
         self._target = target
         self._context = multiprocessing.get_context("spawn")
@@ -317,6 +317,11 @@ class RoomWorkerPool:
         process = None
         parent = child = None
         try:
+            with self._lock:
+                if self._closed.is_set():
+                    return
+                self._reserved_rooms.add(room.room_id)
+                self._busy_event.set()
             acquired = self._slots.acquire(blocking=False)
             if not acquired:
                 room.set_status(True, "QUEUED")
@@ -326,11 +331,6 @@ class RoomWorkerPool:
                         break
             if not acquired or self._closed.is_set():
                 return
-            with self._lock:
-                if self._closed.is_set():
-                    return
-                self._starting.add(room.room_id)
-                self._busy_event.set()
             room.set_status(True, "QUEUED")
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
@@ -375,7 +375,6 @@ class RoomWorkerPool:
                     room._process_turn_active = True
                 process.start()
                 self._running[room.room_id] = (room, parent, process, threading.Lock())
-                self._starting.discard(room.room_id)
             child.close()
             # Do not expose Stop as available until interrupt() can reach the child.
             room.set_status(True, "BUSY")
@@ -418,8 +417,8 @@ class RoomWorkerPool:
         finally:
             with self._lock:
                 self._running.pop(room.room_id, None)
-                self._starting.discard(room.room_id)
-                if not self._running and not self._starting:
+                self._reserved_rooms.discard(room.room_id)
+                if not self._reserved_rooms:
                     self._busy_event.clear()
             if process is not None and process.pid is not None and process.is_alive():
                 process.terminate()

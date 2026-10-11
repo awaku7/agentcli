@@ -478,6 +478,55 @@ def test_stop_is_not_exposed_until_child_is_interruptible(monkeypatch, tmp_path)
         thread.join(10)
 
 
+def test_pool_busy_stays_set_across_queued_worker_handoff(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.tools import _genre_control_util
+
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    pool = RoomWorkerPool(1, target=_interruptible_child)
+    first, queued = WebRoom("handoff-first"), WebRoom("handoff-queued")
+    first.base_dir = queued.base_dir = str(tmp_path)
+    release_entered = threading.Event()
+    allow_release = threading.Event()
+    original_release = pool._slots.release
+
+    def gated_release():
+        release_entered.set()
+        assert allow_release.wait(10)
+        original_release()
+
+    pool._slots.release = gated_release
+    first_thread = threading.Thread(target=pool.run, args=(first, "first"))
+    queued_thread = threading.Thread(target=pool.run, args=(queued, "queued"))
+    try:
+        first_thread.start()
+        _wait(lambda: first.status["label"] == "BUSY")
+        queued_thread.start()
+        _wait(lambda: queued.status["label"] == "QUEUED")
+        assert pool.busy
+
+        assert pool.interrupt(first)
+        assert release_entered.wait(10)
+        # The first worker has left _running, but the queued room is still
+        # reserved and must keep the idle-only settings guard closed.
+        assert pool.busy
+
+        allow_release.set()
+        _wait(lambda: queued.status["label"] == "BUSY")
+        assert pool.interrupt(queued)
+        first_thread.join(10)
+        queued_thread.join(10)
+        assert not first_thread.is_alive()
+        assert not queued_thread.is_alive()
+        assert not pool.busy
+    finally:
+        allow_release.set()
+        pool.shutdown()
+        first_thread.join(10)
+        queued_thread.join(10)
+
+
 def test_worker_count_cli_overrides_environment(monkeypatch):
     from uagent.web_impl.process_workers import room_worker_count
 
