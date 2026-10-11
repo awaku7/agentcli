@@ -178,7 +178,7 @@ def _child_turn(connection, payload) -> None:
     loop = asyncio.new_event_loop()
     room.loop = loop
 
-    async def broadcast(event):
+    async def broadcast(event, *, _connections=None):
         send({"event": event})
 
     room.broadcast = broadcast
@@ -387,7 +387,9 @@ class RoomWorkerPool:
                         self._relay(room, value["event"])
                 elif not process.is_alive():
                     break
-                current_connected = bool(room.active_connections)
+                current_connected = bool(
+                    room.active_connections or room._bootstrapping_connections
+                )
                 if current_connected != connected:
                     self._send(room, {"type": "connected", "value": current_connected})
                     connected = current_connected
