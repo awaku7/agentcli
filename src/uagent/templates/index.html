@@ -669,6 +669,7 @@
                     if (WEB_VERBOSE) { const rawContent = data.content_html || data.content; addMessage({ role: 'tool', content: rawContent, is_raw_html: !!data.content_html }); }
                 } else if (data.type === 'assistant_stream_start') { startAssistantStream(data.id);
                 } else if (data.type === 'assistant_stream_delta') { appendAssistantStream(data.id, data.delta);
+                } else if (data.type === 'assistant_stream_replace') { if (streamAssistant.active && streamAssistant.id === data.id) { streamAssistant.text = ''; appendAssistantStream(data.id, data.content); }
                 } else if (data.type === 'assistant_stream_end') { endAssistantStream(data.id);
                 } else if (data.type === 'assistant_stream_interrupted') { endAssistantStream(data.id); }
             };
