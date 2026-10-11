@@ -7,7 +7,14 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any
 
-SUPPORTED_DECISION_PROVIDERS = ("none", "typesafe", "openrouter", "openai", "laya")
+SUPPORTED_DECISION_PROVIDERS = (
+    "none",
+    "auto",
+    "typesafe",
+    "openrouter",
+    "openai",
+    "laya",
+)
 
 
 class DecisionConfigurationError(ValueError):
@@ -105,6 +112,7 @@ def add_decision_provider_argument(parser: Any) -> Any:
         default=None,
         help=(
             "Select the dedicated decision provider. "
+            "'auto' routes catalogued models using llmcapa protocol metadata. "
             "Overrides UAGENT_DECISION_PROVIDER; defaults to OpenAI Decisions "
             "when UAGENT_PROVIDER=openai, otherwise none."
         ),

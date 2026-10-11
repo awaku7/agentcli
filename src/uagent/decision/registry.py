@@ -9,6 +9,7 @@ from .base import DecisionProvider
 from .settings import DecisionSettings, get_decision_settings
 
 _ADAPTERS: dict[str, tuple[str, str]] = {
+    "auto": ("uagent.decision.catalog", "CatalogDecisionProvider"),
     "typesafe": ("uagent.decision.typesafe", "TypeSafeDecisionProvider"),
     "openrouter": ("uagent.decision.openrouter", "OpenRouterDecisionProvider"),
     "openai": ("uagent.decision.openai", "OpenAIDecisionProvider"),

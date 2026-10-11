@@ -296,6 +296,7 @@ def _decision_model_info() -> tuple[str, str]:
     """Describe resolved configuration without creating a decision adapter."""
     provider = get_decision_settings().provider
     default_models = {
+        "auto": "-",
         "typesafe": "jev-latest",
         "openrouter": "~typesafe/jev-latest",
         "openai": "gpt-6-luna",
@@ -303,6 +304,8 @@ def _decision_model_info() -> tuple[str, str]:
     }
     if provider == "none":
         return provider, "-"
+    if provider == "auto":
+        return provider, _env("UAGENT_DECISION_MODEL") or default_models[provider]
     model = _env(f"UAGENT_DECISION_{provider.upper()}_DEPNAME")
     return provider, model or default_models[provider]
 

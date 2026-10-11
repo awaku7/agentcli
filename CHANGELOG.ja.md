@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### 変更
+
+- Decision Providerに`auto`ルーティングを追加し、`llmcapa`のモデル情報から
+  OpenAI Decisions、OpenRouter Decisions、System One互換APIを選択。
+- `llmcapa`の最低バージョンを`0.5.60`へ引き上げ。
+
 ## [0.7.27] - 2026-10-09
 
 ### 追加

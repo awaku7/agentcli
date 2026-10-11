@@ -74,19 +74,46 @@ class GoalCompletionError(RuntimeError):
 
 
 def provider_uses_atomic_goal_completion(decision_provider: Any) -> bool:
-    """Return whether the provider uses the atomic boolean completion contract."""
-
-    return str(getattr(decision_provider, "name", "") or "").strip().lower() in {
+    """Return whether the selected model supports an atomic boolean question."""
+    provider = str(getattr(decision_provider, "name", "") or "").strip().lower()
+    if provider in {
         "typesafe",
         "openrouter",
         "openai",
-    }
+    }:
+        return True
+    if not bool(getattr(decision_provider, "uses_catalog_metadata", False)):
+        return False
+
+    model = str(
+        getattr(decision_provider, "catalog_model", None)
+        or getattr(decision_provider, "model", "")
+        or ""
+    ).strip()
+    if not model or not provider:
+        return False
+    try:
+        import llmcapa
+
+        capability = llmcapa.get(model, provider=provider)
+        decision = getattr(capability, "decision", None)
+        kinds = {
+            str(kind).strip().lower()
+            for kind in (getattr(decision, "question_kinds", ()) or ())
+        }
+        return bool({"boolean", "noul", "predicate"} & kinds)
+    except Exception:
+        return False
 
 
 def provider_supports_goal_completion(decision_provider: Any) -> bool | None:
     """Check llmcapa decision-output support for the required question kind."""
 
-    model = str(getattr(decision_provider, "model", "") or "").strip()
+    model = str(
+        getattr(decision_provider, "catalog_model", None)
+        or getattr(decision_provider, "model", "")
+        or ""
+    ).strip()
     provider = str(getattr(decision_provider, "name", "") or "").strip()
     if not model or not provider:
         return None

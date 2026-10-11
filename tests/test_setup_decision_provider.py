@@ -75,6 +75,26 @@ def test_setup_env_emits_decision_provider_none():
     assert "# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual" in text
 
 
+def test_setup_env_emits_auto_llmcapa_decision_settings():
+    lines = setup_cli._env_lines_from_state(
+        _state(
+            "auto",
+            {
+                "UAGENT_DECISION_MODEL": "Microsoft-Decision-1",
+                "UAGENT_DECISION_MODEL_PROVIDER": "microsoft",
+                "UAGENT_DECISION_DEPLOYMENT": "ticket-router-prod",
+            },
+        )
+    )
+    text = "\n".join(lines)
+
+    assert "UAGENT_DECISION_PROVIDER=auto" in text
+    assert "UAGENT_DECISION_MODEL=Microsoft-Decision-1" in text
+    assert "UAGENT_DECISION_MODEL_PROVIDER=microsoft" in text
+    assert "UAGENT_DECISION_DEPLOYMENT=ticket-router-prod" in text
+    assert "UAGENT_DECISION_ENDPOINT=" in text
+
+
 def test_setup_env_emits_typesafe_decision_settings():
     lines = setup_cli._env_lines_from_state(
         _state(

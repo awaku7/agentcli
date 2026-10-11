@@ -41,6 +41,8 @@ class TypeSafeDecisionConfig:
     model: str = "jev-latest"
     base_url: str = "https://api.typesafe.ai"
     api_key: str = field(default="", repr=False)
+    endpoint: str = ""
+    auth_header: str = "bearer"
 
     @classmethod
     def from_environment(
@@ -59,6 +61,16 @@ class TypeSafeDecisionConfig:
             ).strip()
             or "https://api.typesafe.ai"
         )
+        endpoint = str(env.get("UAGENT_DECISION_TYPESAFE_ENDPOINT") or "").strip()
+        auth_header = (
+            str(env.get("UAGENT_DECISION_TYPESAFE_AUTH_HEADER") or "bearer")
+            .strip()
+            .lower()
+        )
+        if auth_header not in {"bearer", "api-key"}:
+            raise TypeSafeDecisionConfigurationError(
+                "UAGENT_DECISION_TYPESAFE_AUTH_HEADER must be 'bearer' or 'api-key'."
+            )
         api_key = str(env.get("UAGENT_DECISION_TYPESAFE_API_KEY") or "").strip()
         if not api_key:
             store = None
@@ -75,7 +87,13 @@ class TypeSafeDecisionConfig:
                 "UAGENT_DECISION_TYPESAFE_API_KEY is required when "
                 "UAGENT_DECISION_PROVIDER=typesafe."
             )
-        return cls(model=model, base_url=base_url.rstrip("/"), api_key=api_key)
+        return cls(
+            model=model,
+            base_url=base_url.rstrip("/"),
+            api_key=api_key,
+            endpoint=endpoint,
+            auth_header=auth_header,
+        )
 
 
 def _system_one_url(base_url: str) -> str:
@@ -417,15 +435,16 @@ class TypeSafeDecisionProvider:
             "model": self._config.model,
             "questions": questions,
         }
-        headers = {
-            "Authorization": f"Bearer {self._config.api_key}",
-            "Content-Type": "application/json",
-        }
+        headers = {"Content-Type": "application/json"}
+        if self._config.auth_header == "api-key":
+            headers["api-key"] = self._config.api_key
+        else:
+            headers["Authorization"] = f"Bearer {self._config.api_key}"
 
         started = time.perf_counter()
         try:
             response = self._client.post(
-                _system_one_url(self._config.base_url),
+                self._config.endpoint or _system_one_url(self._config.base_url),
                 headers=headers,
                 json=payload,
             )

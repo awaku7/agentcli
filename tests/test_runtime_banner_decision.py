@@ -15,6 +15,7 @@ from uagent.runtime import runtime_banner
     "provider,model",
     [
         ("none", "-"),
+        ("auto", "Microsoft-Decision-1"),
         ("typesafe", "jev-latest"),
         ("openrouter", "~typesafe/jev-latest"),
         ("openai", "gpt-6-luna"),
@@ -35,6 +36,9 @@ def test_startup_banner_shows_resolved_decision_provider_without_initializing(
     for name in ("TYPESAFE", "OPENROUTER", "OPENAI", "LAYA"):
         monkeypatch.delenv(f"UAGENT_DECISION_{name}_DEPNAME", raising=False)
         monkeypatch.delenv(f"UAGENT_DECISION_{name}_API_KEY", raising=False)
+    monkeypatch.delenv("UAGENT_DECISION_MODEL", raising=False)
+    if provider == "auto":
+        monkeypatch.setenv("UAGENT_DECISION_MODEL", model)
     monkeypatch.setattr(runtime_banner, "_", lambda text: text)
     monkeypatch.setattr(runtime_banner, "_startup_optional_model_infos", lambda: [])
 
@@ -54,7 +58,9 @@ def test_startup_banner_shows_resolved_decision_provider_without_initializing(
     assert banner.count("Decision Provider") == 1
 
 
-@pytest.mark.parametrize("provider", ["typesafe", "openrouter", "openai", "laya"])
+@pytest.mark.parametrize(
+    "provider", ["auto", "typesafe", "openrouter", "openai", "laya"]
+)
 @pytest.mark.parametrize(
     "value,expected", [("  custom-model  ", "custom-model"), ("  ", None)]
 )
@@ -65,7 +71,10 @@ def test_decision_banner_model_override_and_blank_default(
         settings, "_current_settings", settings.DecisionSettings(provider)
     )
     monkeypatch.setenv(f"UAGENT_DECISION_{provider.upper()}_DEPNAME", value)
+    if provider == "auto":
+        monkeypatch.setenv("UAGENT_DECISION_MODEL", value)
     defaults = {
+        "auto": "-",
         "typesafe": "jev-latest",
         "openrouter": "~typesafe/jev-latest",
         "openai": "gpt-6-luna",

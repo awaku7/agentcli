@@ -9,8 +9,17 @@ sections may no longer match the source tree.
 Provider completion review are implemented. Current code is split between
 `src/uagent/util_cmd_auto.py` and `src/uagent/uagent_llm.py`, with
 compatibility exports in `util_tools.py`. With Decision Provider `none`,
-behavior remains the existing LLM reviewer path. TypeSafe/Jev or Laya may be
-selected explicitly; provider failures fall back to the LLM reviewer.
+behavior remains the existing LLM reviewer path. TypeSafe/Jev, OpenRouter,
+OpenAI, or Laya may be selected explicitly; `auto` routes supported llmcapa
+catalog entries by their documented protocol. Provider failures fall back to
+the LLM reviewer.
+
+For `auto`, set `UAGENT_DECISION_MODEL` to the llmcapa model ID. Optionally set
+`UAGENT_DECISION_MODEL_PROVIDER` to disambiguate aliases and
+`UAGENT_DECISION_DEPLOYMENT` when the API expects a deployment name rather than
+the catalog ID. Microsoft Foundry also needs `UAGENT_AZURE_BASE_URL` and
+`UAGENT_AZURE_API_KEY` (or a full `UAGENT_DECISION_ENDPOINT` and
+`UAGENT_DECISION_API_KEY`).
 
 ______________________________________________________________________
 

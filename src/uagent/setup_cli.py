@@ -602,6 +602,7 @@ AUDIO_PROVIDERS: list[tuple[str, str]] = [
 
 DECISION_PROVIDERS: list[tuple[str, str]] = [
     ("none", "None (use the existing LLM reviewer)"),
+    ("auto", "Automatic (route with llmcapa model metadata)"),
     ("typesafe", "TypeSafe / Jev"),
     ("openrouter", "OpenRouter Decisions / Jev"),
     ("openai", "OpenAI Decisions API / GPT-6 Luna"),
@@ -610,6 +611,32 @@ DECISION_PROVIDERS: list[tuple[str, str]] = [
 
 DECISION_PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str, str]]] = {
     "none": [],
+    "auto": [
+        (
+            "UAGENT_DECISION_MODEL",
+            True,
+            _("llmcapa Decision model ID"),
+            "",
+        ),
+        (
+            "UAGENT_DECISION_MODEL_PROVIDER",
+            False,
+            _("llmcapa provider name (optional; for ambiguous model IDs)"),
+            "",
+        ),
+        (
+            "UAGENT_DECISION_DEPLOYMENT",
+            False,
+            _("API deployment name override (optional)"),
+            "",
+        ),
+        (
+            "UAGENT_DECISION_ENDPOINT",
+            False,
+            _("Full Decision API endpoint override (optional)"),
+            "",
+        ),
+    ],
     "typesafe": [
         (
             "UAGENT_DECISION_TYPESAFE_DEPNAME",
@@ -1647,7 +1674,20 @@ def _env_lines_from_state(st: _WizardState) -> list[str]:
     section(_("Decision Provider"))
     out.append(f"UAGENT_DECISION_PROVIDER={st.decision_provider}")
     decision_values = st.decision_values or {}
-    if st.decision_provider == "typesafe":
+    if st.decision_provider == "auto":
+        for key, _required, _label, default_value in DECISION_PROVIDER_FIELDS["auto"]:
+            out.append(f"{key}={decision_values.get(key, default_value)}")
+        out.append(
+            "# UAGENT_DECISION_API_KEY= (optional; falls back to provider credentials)"
+        )
+        out.append(
+            "# Microsoft Foundry models: UAGENT_AZURE_BASE_URL and UAGENT_AZURE_API_KEY"
+        )
+        out.append("# UAGENT_DECISION_TYPESAFE_DEPNAME=jev-latest")
+        out.append("# UAGENT_DECISION_OPENROUTER_DEPNAME=~typesafe/jev-latest")
+        out.append("# UAGENT_DECISION_OPENAI_DEPNAME=gpt-6-luna")
+        out.append("# UAGENT_DECISION_LAYA_DEPNAME=laya-multilingual")
+    elif st.decision_provider == "typesafe":
         out.append(
             "UAGENT_DECISION_TYPESAFE_DEPNAME="
             + decision_values.get("UAGENT_DECISION_TYPESAFE_DEPNAME", "jev-latest")

@@ -524,7 +524,7 @@ All entry points (CLI/GUI/Web/A2A) accept the following common options unless no
 | `--non-interactive` | CLI | Non-interactive mode. No stdin loop; exit after processing startup file (if any). | `util_tools.py:parse_startup_args()` |
 | `--tool-genre-mask <int>` | CLI, GUI, Web, A2A | Tool genre bitmask (1=basic,2=comm,4=office,8=devel,16=iot,32=exec,64=external,128=media,256=file,512=index,1024=dev,2048=web,4096=utility,8191=all). Skips interactive genre prompt when specified. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
 | `--use-tool` / `--no-use-tool` | CLI, GUI, Web, A2A | Enable/disable tool sending to LLM. Overrides `UAGENT_USE_TOOL` env var. | `util_tools.py:parse_startup_args()`, `a2a/server.py` |
-| `--decision-provider <none|typesafe|openrouter|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. Provider adapters are loaded lazily by the decision registry; `uag_setup` configures the same setting. | `decision/settings.py`, `setup_cli.py`, and entry-point parsers |
+| `--decision-provider <none|auto|typesafe|openrouter|openai|laya>` | CLI, GUI, Web, A2A | Select the dedicated decision-provider backend. `auto` routes catalogued models from llmcapa protocol metadata. Priority: CLI arg > `UAGENT_DECISION_PROVIDER` > `none`. Provider adapters are loaded lazily by the decision registry; `uag_setup` configures the same setting. | `decision/settings.py`, `decision/catalog.py`, `setup_cli.py`, and entry-point parsers |
 | `--inject-message` / `-M <text>` | CLI | Inject a message into the LLM at startup and exit after completion. Implies `--non-interactive`. Used by OS-level scheduled timers. | `util_tools.py:parse_startup_args()`, `cli_startup.py` |
 | `--host` | A2A only | Bind address (default: `0.0.0.0`, overridable by `UAGENT_A2A_HOST`). | `a2a/server.py` |
 | `--port` | A2A only | Bind port (default: `8765`, overridable by `UAGENT_A2A_PORT`). | `a2a/server.py` |
@@ -549,10 +549,19 @@ Key modules:
     - `src/uagent/llm_flow_helpers.py`
   - Retry / backoff helpers live in `src/uagent/llm_errors.py`
 - Decision-provider core: `src/uagent/decision/`
-  - `settings.py` resolves `--decision-provider` > `UAGENT_DECISION_PROVIDER` > `none` consistently across CLI/GUI/Web/A2A.
+  - `settings.py` resolves `--decision-provider` > `UAGENT_DECISION_PROVIDER` >
+    `none` consistently across CLI/GUI/Web/A2A. `auto` routes catalogued models
+    using `UAGENT_DECISION_MODEL` and optional `UAGENT_DECISION_MODEL_PROVIDER`.
   - `models.py` and `base.py` define provider-neutral typed decision requests/results and the common protocol.
   - `registry.py` lazily imports only an explicitly selected adapter; `none` returns no active provider and performs no adapter import/initialization.
   - `typesafe.py` implements the opt-in TypeSafe/Jev System One adapter using `httpx`. It maps UAG `boolean/choice/score` to TypeSafe `noul/choice/score` and reads `UAGENT_DECISION_TYPESAFE_DEPNAME`, `UAGENT_DECISION_TYPESAFE_BASE_URL`, and `UAGENT_DECISION_TYPESAFE_API_KEY` only on the TypeSafe path.
+  - `catalog.py` implements the opt-in metadata router. It uses llmcapa
+    endpoint/protocol and compatibility metadata for OpenAI Decisions, OpenRouter
+    Decisions, TypeSafe/System One, Perplexity System One-compatible, and Microsoft
+    Foundry System One endpoints. Microsoft uses `UAGENT_AZURE_BASE_URL` /
+    `AZURE_ENDPOINT` and the Azure API key unless a full endpoint or
+    `UAGENT_DECISION_API_KEY` is supplied. Unknown protocols fail closed;
+    OpenAI-compatible Chat Completions decision responses are not yet translated.
   - `openrouter.py` implements OpenRouter's Decisions API path using `httpx`. It defaults to `~typesafe/jev-latest`, calls `/api/alpha/decisions`, and can reuse the normal OpenRouter API key.
   - `laya.py` implements the opt-in local Laya adapter. The optional `laya` package and `Router` are loaded only on the first `decide()`; `UAGENT_DECISION_LAYA_DEPNAME` defaults to `laya-multilingual`, `UAGENT_DECISION_LAYA_DEVICE` defaults to `auto`, and the optional runtime is installable with `pip install "uag[decision-laya]"`.
 - Provider wiring (Azure/OpenAI/Bedrock/OpenRouter/Ollama/Gemini/Vertex AI/Grok/Claude/NVIDIA/DeepSeek/Z.AI/Alibaba/Moonshot/MiMo/LM Studio/MiniMax/Sakana/Sakura/Novita/Together/Vercel/etc.): `src/uagent/providers/util_providers.py`
@@ -561,8 +570,9 @@ Key modules:
   - **`:auto <goal> [--max-rounds N]`** — Automated multi-round execution.
     - Runs the goal through iterative LLM rounds. Each round consists of a
       continuation query (Step A) followed by a reviewer judgment (Step B).
-    - `uag_setup` can configure `none`, `typesafe`, `openrouter`, or `laya` and writes the
-      provider-specific Decision Provider settings to the generated environment.
+    - `uag_setup` can configure `none`, `auto`, `typesafe`, `openrouter`,
+      `openai`, or `laya` and writes the provider-specific Decision Provider
+      settings to the generated environment.
     - When Laya is selected, `uag_setup` attempts to install the optional `laya`
       runtime through the shared `UAGENT_AUTO_INSTALL=allow|prompt|off` policy.
       Model loading remains lazy until first inference; first use retries runtime
@@ -570,10 +580,10 @@ Key modules:
     - With `UAGENT_DECISION_PROVIDER=none`, judgment uses the same
       provider/code path as the main query via
       `run_llm_rounds(judgment_mode=True)`, including Responses API support.
-    - With `typesafe`, `openrouter`, or `laya`, auto-pilot first requests a typed
-      `COMPLETE / CONTINUE` Decision Provider judgment. Provider failure or
-      invalid output falls back to the existing LLM reviewer; confidence is
-      logged only and is not used as a threshold.
+    - With `auto`, `typesafe`, `openrouter`, `openai`, or `laya`, auto-pilot
+      first requests a typed `COMPLETE / CONTINUE` Decision Provider judgment.
+      Provider failures or invalid output fall back to the existing LLM
+      reviewer; confidence is logged only and is not used as a threshold.
     - **Exit mechanisms:**
       - Press F12 to interrupt the current LLM response and stop Auto-pilot; there is no legacy key compatibility or `:auto resume`.
       - Reviewer returns `COMPLETE` → auto-pilot stops.
@@ -707,6 +717,16 @@ left untouched. Before SQLite or JSONL persistence, tool-message copies are
 also sanitized so inline image, audio, PDF, screenshot, and MCP binary fields
 are replaced by bounded markers; the in-memory UI/remote attachment copy is not
 modified.
+
+Structural schema changes are versioned through `PRAGMA user_version` and
+applied once, in a single transaction, on the first open of an older store.
+Version 1 rebuilt `tool_calls` and `tool_results` with `(session_id, call_id)`
+and `(session_id, result_id)` primary keys: provider- and import-supplied IDs
+are only unique inside one conversation, so a store-wide key made any second
+session that reused an ID abort its LLM round. The rebuild reuses the same DDL
+constants as a fresh store so the two cannot drift. When auxiliary persistence
+fails afterwards, the log callback disables SQLite writing for the remainder of
+the run and reports it, instead of failing the interaction.
 
 ### 3.6 Tool levels and genres
 

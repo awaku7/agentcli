@@ -64,6 +64,13 @@ def test_decision_provider_resolves_from_environment():
     assert settings.enabled is True
 
 
+def test_catalog_auto_provider_resolves_from_environment():
+    settings = resolve_decision_settings(environ={"UAGENT_DECISION_PROVIDER": "auto"})
+
+    assert settings == DecisionSettings(provider="auto", source="env")
+    assert settings.enabled is True
+
+
 def test_cli_decision_provider_overrides_environment():
     settings = resolve_decision_settings(
         cli_provider="typesafe",
@@ -128,6 +135,11 @@ def test_none_factory_does_not_import_any_adapter(monkeypatch):
 @pytest.mark.parametrize(
     ("provider_name", "module_name", "class_name"),
     [
+        (
+            "auto",
+            "uagent.decision.catalog",
+            "CatalogDecisionProvider",
+        ),
         (
             "typesafe",
             "uagent.decision.typesafe",
@@ -201,7 +213,7 @@ def test_decision_result_serialization_omits_raw_by_default():
     assert "raw" not in payload
 
 
-@pytest.mark.parametrize("provider_name", ["laya", "openai"])
+@pytest.mark.parametrize("provider_name", ["laya", "openai", "auto"])
 def test_parse_startup_args_accepts_decision_provider(monkeypatch, provider_name):
     monkeypatch.setattr(
         sys,
