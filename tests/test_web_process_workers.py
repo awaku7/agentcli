@@ -525,16 +525,12 @@ def test_reconnect_replays_live_stream_events(monkeypatch):
 def test_ended_stream_survives_until_state_or_matching_message():
     room = WebRoom("stream-end")
     room._partial_streams = {}
-    RoomWorkerPool._relay(
-        room, {"type": "assistant_stream_start", "id": "stream-1"}
-    )
+    RoomWorkerPool._relay(room, {"type": "assistant_stream_start", "id": "stream-1"})
     RoomWorkerPool._relay(
         room,
         {"type": "assistant_stream_delta", "id": "stream-1", "delta": "complete"},
     )
-    RoomWorkerPool._relay(
-        room, {"type": "assistant_stream_end", "id": "stream-1"}
-    )
+    RoomWorkerPool._relay(room, {"type": "assistant_stream_end", "id": "stream-1"})
     assert room._partial_streams == {"stream-1": "complete"}
     RoomWorkerPool._relay(
         room,
