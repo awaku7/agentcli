@@ -264,13 +264,14 @@ class RoomWorkerPool:
         self._lock = threading.Lock()
         self._closed = threading.Event()
         self._running: dict[str, tuple[Any, Any, Any, threading.Lock]] = {}
+        self._starting: set[str] = set()
         self._target = target
         self._context = multiprocessing.get_context("spawn")
 
     @property
     def busy(self) -> bool:
         with self._lock:
-            return bool(self._running)
+            return bool(self._running or self._starting)
 
     def _send(self, room, value) -> bool:
         with self._lock:
@@ -325,6 +326,10 @@ class RoomWorkerPool:
                         break
             if not acquired or self._closed.is_set():
                 return
+            with self._lock:
+                if self._closed.is_set():
+                    return
+                self._starting.add(room.room_id)
             room.set_status(True, "QUEUED")
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
@@ -369,6 +374,7 @@ class RoomWorkerPool:
                     room._process_turn_active = True
                 process.start()
                 self._running[room.room_id] = (room, parent, process, threading.Lock())
+                self._starting.discard(room.room_id)
             child.close()
             # Do not expose Stop as available until interrupt() can reach the child.
             room.set_status(True, "BUSY")
@@ -411,6 +417,7 @@ class RoomWorkerPool:
         finally:
             with self._lock:
                 self._running.pop(room.room_id, None)
+                self._starting.discard(room.room_id)
             if process is not None and process.pid is not None and process.is_alive():
                 process.terminate()
                 process.join(5)

@@ -443,6 +443,8 @@ def test_stop_is_not_exposed_until_child_is_interruptible(monkeypatch, tmp_path)
     original_set_status = room.set_status
 
     def track_busy(busy, label=""):
+        if busy and label == "QUEUED":
+            assert pool.busy
         if busy and label == "BUSY":
             with pool._lock:
                 assert room.room_id in pool._running
