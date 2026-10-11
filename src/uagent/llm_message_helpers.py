@@ -562,6 +562,7 @@ def _structured_compaction_enabled(store: Any, session_id: Any) -> bool:
     flag = (env_get("UAGENT_STRUCTURED_COMPACTION") or "").strip().lower()
     return not flag or flag in {"1", "true", "yes", "on"}
 
+
 def build_structured_auto_shrink_projection(
     *,
     provider: str,
