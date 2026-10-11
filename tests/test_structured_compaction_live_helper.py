@@ -118,12 +118,14 @@ def test_test_env_overrides_live_memory_configuration(
     monkeypatch.setenv("UAGENT_MEMORY_DB", "other-memory.sqlite3")
     monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", "other-sessions.sqlite3")
     monkeypatch.setenv("UAGENT_SHARED_MEMORY_FILE", "old-shared.jsonl")
+    monkeypatch.setenv("UAGENT_NON_INTERACTIVE", "1")
     config = live._config(run_dir)
     env = live._test_env(config)
     assert env["UAGENT_SESSION_STORE_PATH"] == config["session_db"]
     assert env["UAGENT_MEMORY_DB"] != "other-memory.sqlite3"
     assert env["UAGENT_SHARED_MEMORY_FILE"] == ""
     assert env["UAGENT_ENABLE_PROFILING"] == "0"
+    assert env["UAGENT_NON_INTERACTIVE"] == "0"
 
 
 def test_launcher_forces_project_workdir(
