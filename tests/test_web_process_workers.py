@@ -522,6 +522,49 @@ def test_reconnect_replays_live_stream_events(monkeypatch):
     assert socket.events[2]["content"] == "partial reply"
 
 
+def test_reconnect_snapshot_and_queued_delta_do_not_duplicate(monkeypatch):
+    room = WebRoom("snapshot-boundary")
+    room.private_session = True
+    room.welcome_shown = True
+    room._process_turn_active = True
+    room._partial_streams = {"stream-1": "before"}
+    room.messages = [{"role": "user", "content": "question"}]
+
+    async def validate(*args):
+        pass
+
+    monkeypatch.setattr(room, "_validate_connection_context", validate)
+
+    class Socket:
+        def __init__(self):
+            self.events = []
+
+        async def accept(self):
+            pass
+
+        async def send_json(self, event):
+            self.events.append(event)
+            if event["type"] == "init":
+                RoomWorkerPool._relay(
+                    room,
+                    {"type": "assistant_stream_delta", "id": "stream-1", "delta": "after"},
+                )
+
+    import asyncio
+
+    socket = Socket()
+    asyncio.run(room.connect(socket))
+    assert [event["type"] for event in socket.events[:4]] == [
+        "init",
+        "assistant_stream_start",
+        "assistant_stream_replace",
+        "assistant_stream_delta",
+    ]
+    assert socket.events[2]["content"] == "before"
+    assert socket.events[3]["delta"] == "after"
+    assert room._partial_streams["stream-1"] == "beforeafter"
+
+
 def test_ended_stream_survives_until_state_or_matching_message():
     room = WebRoom("stream-end")
     room._partial_streams = {}
