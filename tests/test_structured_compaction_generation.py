@@ -601,6 +601,7 @@ def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
             compress_history_with_llm=history.compress_history_with_llm,
             session_store=store,
             session_id=session.session_id,
+            _session_store_entry_point=entry_point,
             rewrite_current_log_from_messages=lambda _messages: pytest.fail(
                 "structured auto-shrink must preserve the raw JSONL log"
             ),
@@ -657,8 +658,12 @@ def test_structured_compaction_default_is_cli_only(
 
     with SessionStore(tmp_path / "default-mode.sqlite3") as store:
         session = store.create_session(project="mode", entry_point=entry_point)
+        core_obj = SimpleNamespace(_session_store_entry_point=entry_point)
         assert (
-            lmh._structured_compaction_enabled(store, session.session_id) is expected
+            lmh._structured_compaction_enabled(
+                core_obj, store, session.session_id
+            )
+            is expected
         )
 
 
@@ -671,8 +676,28 @@ def test_structured_compaction_default_falls_back_when_session_is_unavailable(
         def get_session(self, _session_id):
             raise KeyError("missing")
 
-    assert not lmh._structured_compaction_enabled(MissingSessionStore(), "missing")
-    assert not lmh._structured_compaction_enabled(None, "missing")
+    core = SimpleNamespace(_session_store_entry_point="web")
+    assert not lmh._structured_compaction_enabled(
+        core, MissingSessionStore(), "missing"
+    )
+    assert not lmh._structured_compaction_enabled(core, None, "missing")
+
+
+
+def test_structured_compaction_default_follows_current_host_not_session_origin(
+    monkeypatch, tmp_path
+):
+    monkeypatch.delenv("UAGENT_STRUCTURED_COMPACTION", raising=False)
+    with SessionStore(tmp_path / "host-boundary.sqlite3") as store:
+        session = store.create_session(project="original-cli", entry_point="cli")
+        web_core = SimpleNamespace(_session_store_entry_point="web")
+        assert not lmh._structured_compaction_enabled(
+            web_core, store, session.session_id
+        )
+        cli_core = SimpleNamespace(_session_store_entry_point="cli")
+        assert lmh._structured_compaction_enabled(
+            cli_core, store, session.session_id
+        )
 
 
 def test_structured_auto_shrink_flag_off_keeps_legacy_path(monkeypatch):
