@@ -429,7 +429,7 @@ class RoomWorkerPool:
     @staticmethod
     def _relay(room, event):
         with room._lifecycle_lock:
-                kind = event.get("type")
+            kind = event.get("type")
             if kind == "message":
                 room.messages.append(event["message"])
                 if event["message"].get("role") == "assistant":
