@@ -654,7 +654,7 @@ def test_opt_in_auto_shrink_commits_record_and_keeps_raw_history(
         ("0", "gui", False),
         ("false", "cli", False),
         ("off", "web", False),
-        ("invalid", "cli", False),
+        ("invalid", "cli", True),
     ],
 )
 def test_structured_compaction_default_on_all_session_backed_hosts(
