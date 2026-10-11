@@ -3367,8 +3367,6 @@ def attach_opt_in_session_store(
     # persistence target on core so the callback does not permanently capture
     # the session created at startup.
     core._session_store_active_id = session.session_id
-    # Current host identity, distinct from the persisted session origin.
-    core._session_store_entry_point = entry_point
     from .agent_state import AgentState, AgentStateManager
 
     persisted_agent_state = store.get_agent_state(session.session_id)
