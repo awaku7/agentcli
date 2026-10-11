@@ -457,6 +457,7 @@ def test_stop_is_not_exposed_until_child_is_interruptible(monkeypatch, tmp_path)
     try:
         assert spawn_entered.wait(20)
         assert not busy_exposed.is_set()
+        assert pool.busy
         assert room.status["busy"]
         assert room.status["label"] == "QUEUED"
 

@@ -265,13 +265,13 @@ class RoomWorkerPool:
         self._closed = threading.Event()
         self._running: dict[str, tuple[Any, Any, Any, threading.Lock]] = {}
         self._starting: set[str] = set()
+        self._busy_event = threading.Event()
         self._target = target
         self._context = multiprocessing.get_context("spawn")
 
     @property
     def busy(self) -> bool:
-        with self._lock:
-            return bool(self._running or self._starting)
+        return self._busy_event.is_set()
 
     def _send(self, room, value) -> bool:
         with self._lock:
@@ -330,6 +330,7 @@ class RoomWorkerPool:
                 if self._closed.is_set():
                     return
                 self._starting.add(room.room_id)
+                self._busy_event.set()
             room.set_status(True, "QUEUED")
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
@@ -418,6 +419,8 @@ class RoomWorkerPool:
             with self._lock:
                 self._running.pop(room.room_id, None)
                 self._starting.discard(room.room_id)
+                if not self._running and not self._starting:
+                    self._busy_event.clear()
             if process is not None and process.pid is not None and process.is_alive():
                 process.terminate()
                 process.join(5)
