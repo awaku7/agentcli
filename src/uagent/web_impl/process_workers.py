@@ -325,6 +325,7 @@ class RoomWorkerPool:
                         break
             if not acquired or self._closed.is_set():
                 return
+            room.set_status(True, "QUEUED")
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
                 _ensure_public_room_session(room, store, room.base_dir)
