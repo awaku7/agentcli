@@ -24,6 +24,11 @@ def test_public_web_rooms_persist_to_distinct_sessions(tmp_path):
         assert first_id != ""
         assert second_id != ""
         assert _ensure_public_room_session(first, store, str(tmp_path)) == first_id
+        assert first.responses_state == {}
+        assert second.responses_state == {}
+        assert first.responses_state is not second.responses_state
+        assert first.tool_context is not second.tool_context
+        assert first.agent_state_manager is not second.agent_state_manager
 
         store.append_message(first_id, "user", "room-a-private-message")
         store.append_message(second_id, "user", "room-b-private-message")
@@ -70,8 +75,8 @@ def test_public_web_workers_write_only_to_their_own_sessions(
             session_store=store,
             session_id=startup.session_id,
             _session_store_active_id=startup.session_id,
-            responses_state={},
-            tool_context={},
+            responses_state={"previous_response_id": "startup-secret"},
+            tool_context={"startup-secret": {}},
         )
 
         def persist(message):
@@ -87,6 +92,8 @@ def test_public_web_workers_write_only_to_their_own_sessions(
 
             def provider_setup(bound_core):
                 assert bound_core.session_id == room.session_id
+                assert bound_core.responses_state == {}
+                assert bound_core.tool_context == {}
                 bound_core.log_message(
                     {"role": "user", "content": f"{room.room_id}-fact"}
                 )
@@ -95,6 +102,10 @@ def test_public_web_workers_write_only_to_their_own_sessions(
             monkeypatch.setattr(agent_worker.providers, "make_client", provider_setup)
             agent_worker.run_agent_worker(room, "question")
             assert core._session_store_active_id == startup.session_id
+            assert core.responses_state == {
+                "previous_response_id": "startup-secret"
+            }
+            assert core.tool_context == {"startup-secret": {}}
 
         assert rooms[0].session_id != rooms[1].session_id
         assert store.list_messages(startup.session_id) == []
