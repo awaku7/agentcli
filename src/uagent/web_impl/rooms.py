@@ -215,6 +215,21 @@ class WebRoom:
                     ),
                 }
             )
+            # Rehydrate live streams after init resets browser stream state.
+            for stream_id, content in list(
+                getattr(self, "_partial_streams", {}).items()
+            ):
+                await self._validate_connection_context(websocket, connection_context)
+                await websocket.send_json(
+                    {"type": "assistant_stream_start", "id": stream_id}
+                )
+                await websocket.send_json(
+                    {
+                        "type": "assistant_stream_replace",
+                        "id": stream_id,
+                        "content": content,
+                    }
+                )
             # Restore pending human_ask modal after reconnect.
             if getattr(self, "human_ask_pending", False):
                 try:
