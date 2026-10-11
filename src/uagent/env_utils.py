@@ -6,7 +6,7 @@ Small, dependency-free helpers for reading environment variables.
 Purpose:
 - Allow users to wrap env values with matching quotes, e.g.:
     set UAGENT_OPENAI_BASE_URL="https://api.openai.com/v1"
-    set UAGENT_DEPNAME='gpt-4o'
+    set UAGENT_DEPNAME='gpt-5.4-nano'
 
 Policy:
 - Only strip *one* outer pair of matching quotes after whitespace stripping.

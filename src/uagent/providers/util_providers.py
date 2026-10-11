@@ -368,8 +368,8 @@ def get_model_name() -> str:
         return env_get("UAGENT_INCEPTION_DEPNAME", "mercury-2.5") or "mercury-2.5"
     if provider == "grok":
         return (
-            env_get("UAGENT_GROK_DEPNAME", "grok-4-1-fast-reasoning")
-            or "grok-4-1-fast-reasoning"
+            env_get("UAGENT_GROK_DEPNAME", "grok-4.7")
+            or "grok-4.7"
         )
     if provider == "gemini":
         return (
@@ -395,11 +395,11 @@ def get_model_name() -> str:
     if provider == "deepseek":
         return env_get("UAGENT_DEEPSEEK_DEPNAME", "deepseek-flash") or "deepseek-flash"
     if provider == "zai":
-        return env_get("UAGENT_ZAI_DEPNAME", "glm-5.2") or "glm-5.2"
+        return env_get("UAGENT_ZAI_DEPNAME", "glm-5.3") or "glm-5.3"
     if provider == "alibaba":
-        return env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.5-plus") or "qwen3.5-plus"
+        return env_get("UAGENT_ALIBABA_DEPNAME", "qwen3.7-plus") or "qwen3.7-plus"
     if provider == "moonshot":
-        return env_get("UAGENT_MOONSHOT_DEPNAME", "kimi-k2") or "kimi-k2"
+        return env_get("UAGENT_MOONSHOT_DEPNAME", "kimi-k3") or "kimi-k3"
     if provider == "mimo":
         return env_get("UAGENT_MIMO_DEPNAME", "mimo-v2.5-pro") or "mimo-v2.5-pro"
     if provider == "lmstudio":

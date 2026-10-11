@@ -330,7 +330,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_ZAI_DEPNAME",
             False,
-            _("Z.AI model name (optional, default: glm-5.2)"),
+            _("Z.AI model name (optional, default: glm-5.3)"),
         ),
     ],
     "alibaba": [
@@ -345,7 +345,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_ALIBABA_DEPNAME",
             False,
-            _("Alibaba model name (optional, default: qwen3.5-plus)"),
+            _("Alibaba model name (optional, default: qwen3.7-plus)"),
         ),
     ],
     "moonshot": [
@@ -358,7 +358,7 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
         (
             "UAGENT_MOONSHOT_DEPNAME",
             False,
-            _("Moonshot model name (optional, default: kimi-k2)"),
+            _("Moonshot model name (optional, default: kimi-k3)"),
         ),
     ],
     "mimo": [
