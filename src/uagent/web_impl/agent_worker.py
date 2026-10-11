@@ -86,7 +86,7 @@ def run_agent_worker(
     Lock/status contract:
     - room.worker_lock: per-room serialization (non-blocking acquire)
     - global_worker_lock: process-wide cwd/tool safety
-    - room status BUSY is set only after both locks are held
+    - room status QUEUED is set while waiting; BUSY after both locks are held
     - finally always clears room/core status and releases locks
     """
 
@@ -157,23 +157,25 @@ def run_agent_worker(
     locale_context_token = set_contextvar_locale(getattr(room, "lang", "en"))
 
     acquired_global = False
-    _orig_cwd = os.getcwd()
-    _orig_log_message = getattr(core, "log_message", None)
+    _orig_cwd = None
+    _orig_log_message = None
     _orig_active_session_id = None
     _had_active_session_id = False
     _room_session_runtime = None
 
     try:
-        # Switch to this room's base_dir for the duration of the worker
+        # A queued turn already owns this room's lock. Expose that reservation
+        # so clients do not mistake it for an idle room and submit another turn.
+        room.set_status(True, "QUEUED")
+        web_manager.global_worker_lock.acquire()
+        acquired_global = True
+        # Capture and mutate process-wide state only while holding its lock.
+        _orig_cwd = os.getcwd()
+        _orig_log_message = getattr(core, "log_message", None)
         try:
             os.chdir(project_path if turn_context is not None else room.base_dir)
         except Exception:
             pass
-
-        # Acquire global lock BEFORE marking BUSY so a blocked waiter never
-        # appears BUSY while still queued on the lock.
-        web_manager.global_worker_lock.acquire()
-        acquired_global = True
         _had_active_session_id = hasattr(core, "_session_store_active_id")
         _orig_active_session_id = getattr(core, "_session_store_active_id", None)
         session_store = getattr(core, "session_store", None)
@@ -731,7 +733,8 @@ def run_agent_worker(
             pass
 
         try:
-            os.chdir(_orig_cwd)
+            if acquired_global and _orig_cwd is not None:
+                os.chdir(_orig_cwd)
         except Exception:
             pass
 

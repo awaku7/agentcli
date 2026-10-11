@@ -29,6 +29,15 @@ authoritative: numbers absent from the view are rejected.
 Run `tests/test_session_sqlite_commands.py` and `tests/test_session_search_command.py`
 when changing selection behavior.
 
+Web workers reserve their own room before waiting for the process-wide worker
+lock. The waiting room reports `busy=true`, `label=QUEUED`; it becomes `BUSY`
+when execution starts and `IDLE` on completion. A second submission to that same
+reserved room is rejected, while a different room can reserve its own turn.
+Process cwd and core log callbacks are captured, changed and restored only while
+holding the global lock. This keeps a queued room from changing the running
+room's workdir or restoring another worker's callback.
+Run `tests/test_web_loaded_session_runtime.py` for the concurrent A/B regression.
+
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 
 - Entry points:

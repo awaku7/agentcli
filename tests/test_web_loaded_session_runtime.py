@@ -146,3 +146,92 @@ def test_displayed_view_is_authoritative_for_missing_indices(mapping):
     )
     assert result.error == "index_out_of_range"
     assert result.target is None
+
+
+def test_other_room_queues_without_changing_active_worker_state(monkeypatch, tmp_path):
+    import os
+    import threading
+
+    from uagent.web_impl.rooms import WebManager
+
+    manager = WebManager()
+    monkeypatch.setattr(agent_worker, "web_manager", manager)
+    monkeypatch.setattr(agent_worker, "resolve_identity_mode", lambda: "local")
+    monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
+
+    def original_log(message):
+        pass
+
+    core = SimpleNamespace(log_message=original_log, status_busy=False)
+    monkeypatch.setattr(agent_worker, "core", core)
+    rooms = [WebRoom("room-a"), WebRoom("room-b")]
+    for room in rooms:
+        directory = tmp_path / room.room_id
+        directory.mkdir()
+        room.base_dir = str(directory)
+    initial_cwd = os.getcwd()
+    entered = threading.Event()
+    queued = threading.Event()
+    release = threading.Event()
+    observations = []
+    errors = []
+    active_log = []
+    original_set_status = rooms[1].set_status
+
+    def observe_status(busy, label=""):
+        original_set_status(busy, label)
+        if label == "QUEUED":
+            queued.set()
+
+    monkeypatch.setattr(rooms[1], "set_status", observe_status)
+
+    def provider_setup(bound_core):
+        room = manager.active_room
+        observations.append((room.room_id, os.getcwd()))
+        if room is rooms[0]:
+            active_log.append(bound_core.log_message)
+            entered.set()
+            if not release.wait(10):
+                errors.append("first worker timed out")
+        raise RuntimeError("offline provider stop")
+
+    monkeypatch.setattr(agent_worker.providers, "make_client", provider_setup)
+    workers = [
+        threading.Thread(target=agent_worker.run_agent_worker, args=(room, "input"))
+        for room in rooms
+    ]
+    workers[0].start()
+    try:
+        assert entered.wait(10)
+        workers[1].start()
+        assert queued.wait(10)
+        assert rooms[0].status["busy"]
+        assert rooms[1].status["busy"]
+        assert rooms[1].status["label"] == "QUEUED"
+        assert rooms[1].worker_lock.locked()
+        assert manager.active_room is rooms[0]
+        assert os.getcwd() == rooms[0].base_dir
+        assert core.log_message is active_log[0]
+        assert core.status_busy
+        assert not rooms[1].messages
+        # Only a second submission to the already reserved B room is rejected.
+        agent_worker.run_agent_worker(rooms[1], "duplicate")
+        assert "Another task" in rooms[1].messages[-1]["content"]
+        assert rooms[1].status["label"] == "QUEUED"
+        assert manager.active_room is rooms[0]
+        assert core.log_message is active_log[0]
+    finally:
+        release.set()
+        for worker in workers:
+            if worker.ident is not None:
+                worker.join(10)
+    assert not errors
+    assert all(not worker.is_alive() for worker in workers)
+    assert observations == [(room.room_id, room.base_dir) for room in rooms]
+    assert os.getcwd() == initial_cwd
+    assert core.log_message is original_log
+    assert not core.status_busy
+    assert manager.active_room is None
+    for room in rooms:
+        assert room.status["label"] == "IDLE"
+        assert not room.worker_lock.locked()
