@@ -95,7 +95,6 @@ def test_sessions_list_active_index_does_not_load_another_session(
         db.close()
 
 
-
 def test_cont_ignores_displayed_indices_and_loads_newest_inactive(
     monkeypatch, tmp_path, capsys
 ):
