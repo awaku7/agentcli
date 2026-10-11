@@ -5,7 +5,13 @@ from types import SimpleNamespace
 import pytest
 
 from uagent.runtime.session_store import SessionStore
-from uagent.util_cmd_session import _handle_cmd_load, bind_session_selection_context
+from uagent.util_cmd_session import (
+    RoomSessionBusyError,
+    _handle_cmd_load,
+    bind_room_session_runtime,
+    bind_session_selection_context,
+    guard_room_session_command,
+)
 from uagent.web_impl import agent_worker
 from uagent.web_impl.rooms import WebRoom
 
@@ -83,6 +89,51 @@ def test_loaded_room_worker_binds_persistence_and_continuation_then_restores(
             assert core.responses_state is original_responses
             assert core.tool_context is original_tools
         assert store.list_messages(startup.session_id) == []
+
+
+
+def test_room_session_switch_is_blocked_while_worker_owns_lock():
+    room = WebRoom("busy-room")
+    room.worker_lock.acquire()
+    try:
+        for command in ("load", "cont", "sessions"):
+            with pytest.raises(RoomSessionBusyError, match="turn is running"):
+                with guard_room_session_command(room, command):
+                    pytest.fail("busy room must never run session-changing commands")
+    finally:
+        room.worker_lock.release()
+
+    with guard_room_session_command(room, "load"):
+        assert room.worker_lock.locked()
+    assert not room.worker_lock.locked()
+
+
+def test_room_runtime_cleanup_never_overwrites_another_loaded_session(tmp_path):
+    with SessionStore(tmp_path / "switched.sqlite3") as store:
+        first = store.create_session(project="first", entry_point="cli")
+        second = store.create_session(project="second", entry_point="cli")
+        core = SimpleNamespace(
+            session_store=store,
+            session_id="startup",
+            responses_state={"previous_response_id": "startup"},
+            tool_context={"startup": {}},
+        )
+        room = WebRoom("room")
+        room.session_id = first.session_id
+        room.responses_state = {"previous_response_id": "first"}
+        room.tool_context = {"first": {}}
+
+        with bind_room_session_runtime(core, room):
+            core.responses_state["previous_response_id"] = "first-next"
+            # Simulate an unexpected external load while this worker is active.
+            room.session_id = second.session_id
+            room.responses_state = {"previous_response_id": "second-restored"}
+            room.tool_context = {"second": {}}
+
+        assert room.session_id == second.session_id
+        assert room.responses_state == {"previous_response_id": "second-restored"}
+        assert room.tool_context == {"second": {}}
+        assert core.responses_state == {"previous_response_id": "startup"}
 
 
 @pytest.mark.parametrize("mapping", [{}, {0: "shown"}])
