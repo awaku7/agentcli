@@ -5,6 +5,7 @@ No provider/API traffic and no changes to the user's real session databases.
 
 from __future__ import annotations
 
+from contextlib import closing
 import importlib.util
 import json
 import sqlite3
@@ -36,7 +37,7 @@ def run_dir(tmp_path: Path) -> Path:
         "project_dir": str(tmp_path),
     }
     (run / "test-config.json").write_text(json.dumps(config), encoding="utf-8")
-    with sqlite3.connect(db) as con:
+    with closing(sqlite3.connect(db)) as con, con:
         con.executescript("""
             CREATE TABLE messages (
                 session_id TEXT, message_id INTEGER, role TEXT, content TEXT
@@ -72,7 +73,7 @@ def test_baseline_and_pending_report(run_dir: Path) -> None:
 def test_checkpoints_and_raw_history_regression(run_dir: Path) -> None:
     live.capture_baseline(run_dir)
     db = Path(live._config(run_dir)["session_db"])
-    with sqlite3.connect(db) as con:
+    with closing(sqlite3.connect(db)) as con, con:
         con.executemany(
             "INSERT INTO checkpoints VALUES ('s1', 'applied', ?, ?, ?)",
             [(1, 4, 1), (5, 8, 2)],
@@ -82,7 +83,7 @@ def test_checkpoints_and_raw_history_regression(run_dir: Path) -> None:
     assert all(value == "PASS" for value in report["checks"].values())
     assert not report["lost_or_modified_ids"]
 
-    with sqlite3.connect(db) as con:
+    with closing(sqlite3.connect(db)) as con, con:
         con.execute("UPDATE messages SET content = 'rewritten' WHERE message_id = 3")
         con.execute("INSERT INTO checkpoints VALUES ('s1', 'applied', 8, 12, 3)")
     report = live.inspect(run_dir)
@@ -94,7 +95,7 @@ def test_checkpoints_and_raw_history_regression(run_dir: Path) -> None:
 def test_out_of_order_checkpoint_revisions_are_rejected(run_dir: Path) -> None:
     live.capture_baseline(run_dir)
     db = Path(live._config(run_dir)["session_db"])
-    with sqlite3.connect(db) as con:
+    with closing(sqlite3.connect(db)) as con, con:
         con.executemany(
             "INSERT INTO checkpoints VALUES ('s1', 'applied', ?, ?, ?)",
             [(5, 8, 1), (1, 4, 2)],
@@ -105,7 +106,7 @@ def test_out_of_order_checkpoint_revisions_are_rejected(run_dir: Path) -> None:
 
 def test_baseline_rejects_existing_checkpoint(run_dir: Path) -> None:
     db = Path(live._config(run_dir)["session_db"])
-    with sqlite3.connect(db) as con:
+    with closing(sqlite3.connect(db)) as con, con:
         con.execute("INSERT INTO checkpoints VALUES ('s1', 'applied', 1, 4, 1)")
     with pytest.raises(ValueError, match="Checkpoint already exists"):
         live.capture_baseline(run_dir)
