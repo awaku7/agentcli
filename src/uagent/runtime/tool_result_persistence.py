@@ -22,7 +22,7 @@ _BINARY_KEYS = {
     "screenshotdata",
 }
 _PERSISTENCE_PUBLIC_RESULT_KEYS = frozenset(
-    {"authorization_url", "signature", "token_id"}
+    {"authorization_url", "signature", "token_id", "secret_findings"}
 )
 _TOKEN_PUBLIC_METADATA_KEYS = frozenset({"token_id", "status", "expires_at"})
 

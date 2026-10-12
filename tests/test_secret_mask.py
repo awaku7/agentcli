@@ -148,6 +148,7 @@ def test_inline_secret_mask_covers_bearer_cookie_and_camel_case_keys():
 
 def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked():
     prose = "Authorization: required; visit https://example/approve"
+    spaced_prose = "Authorization: required ; visit https://example/approve?next=home"
     bearer_prose = '"Bearer authentication is common"'
     long_bearer_prose = "Bearer responsibilities are assigned here"
     basic_prose = "Authorization: Basic authentication is described here"
@@ -162,6 +163,7 @@ def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked()
     )
 
     assert _mask_inline_secrets(prose) == prose
+    assert _mask_inline_secrets(spaced_prose) == spaced_prose
     assert _mask_inline_secrets(bearer_prose) == bearer_prose
     assert _mask_inline_secrets(long_bearer_prose) == long_bearer_prose
     assert _mask_inline_secrets(basic_prose) == basic_prose
@@ -179,3 +181,25 @@ def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked()
     )
     assert "eyJhbGciOiJIUzI1NiJ9" not in _mask_inline_secrets(opaque_header)
     assert SECRET_MASK in _mask_inline_secrets(opaque_header)
+
+
+def test_authorization_unknown_schemes_and_short_bearers_are_masked_without_prose_loss():
+    assert _mask_inline_secrets("Authorization: ApiKey abc123") == (
+        "Authorization: ApiKey ********"
+    )
+    assert (
+        _mask_inline_secrets('Authorization: Digest username="Mufasa", realm="test"')
+        == "Authorization: Digest ********"
+    )
+    assert _mask_inline_secrets("Bearer abc123") == "Bearer ********"
+    assert _mask_inline_secrets("Bearer abcdefghijklmnopqrstuvwxyz") == (
+        "Bearer ********"
+    )
+    quoted_prose = '"Bearer authentication is common"'
+    assert _mask_inline_secrets(quoted_prose) == quoted_prose
+
+
+def test_quoted_inline_secret_is_masked_as_a_whole_value():
+    assert _mask_inline_secrets("password: 'correct horse battery staple'") == (
+        "password: '********'"
+    )

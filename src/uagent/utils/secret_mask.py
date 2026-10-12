@@ -114,6 +114,12 @@ def mask_value(v: Any) -> Any:
     return SECRET_MASK
 
 
+_INLINE_SECRET_QUOTED_RE = re.compile(
+    r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
+    r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
+    r"private[_-]?key|bearer|credential|cookie|signature|nsec)\b"
+    r"[\"']?\s*[:=]\s*)([\"'])((?:\\.|(?!\2)[^\r\n])*)\2"
+)
 _INLINE_SECRET_RE = re.compile(
     r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
     r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
@@ -126,10 +132,8 @@ _TOKEN_LIKE_LOOKAHEAD = r"(?=[A-Za-z0-9._~+/-]*[0-9._~+/-])"
 _TOKEN_LIKE_CHARS = r"[A-Za-z0-9._~+/-]"
 _BEARER_RE = re.compile(
     r"(?i)(\bbearer\s+)"
-    + _TOKEN_LIKE_LOOKAHEAD
-    + r"("
-    + _TOKEN_LIKE_CHARS
-    + r"{16,}=*)",
+    r"(?:(?=[A-Za-z0-9._~+/-]*[0-9._~+/])[A-Za-z0-9._~+/-]+|[A-Za-z]{16,}=*)"
+    r"(?=[ \t]*(?:[,;]|[\"']|\r?$))"
 )
 _URL_PASSWORD_RE = re.compile(
     r"(://[^/@\s:]+:)([^/@\s]+)(@)",
@@ -140,7 +144,21 @@ _COOKIE_HEADER_RE = re.compile(r"(?i)(\bCookie\s*:\s*)(.*)")
 _AUTHORIZATION_HEADER_RE = re.compile(
     r"(?im)(\bAuthorization[ 	]*:[ 	]*(?:Bearer|Basic)[ 	]+)"
     r"([A-Za-z0-9._~+/-]+=*)"
-    r"(?=[ 	]*(?:[,;]|\r?$))"
+    r"(?=[ 	]*(?:[,;]|\r?$|Authorization[ 	]*:))"
+)
+_AUTHORIZATION_PARAMETER_RE = re.compile(
+    r"(?im)(\bAuthorization[ \t]*:[ \t]*)"
+    r"(?!Basic\b|Bearer\b)([A-Za-z][A-Za-z0-9._+-]*)[ \t]+"
+    r"(?=[A-Za-z][A-Za-z0-9_-]*[ \t]*=)([^\r\n]+)"
+)
+_AUTHORIZATION_SCHEME_TOKEN_RE = re.compile(
+    r"(?im)(\bAuthorization[ \t]*:[ \t]*)"
+    r"(?!Basic\b|Bearer\b)([A-Za-z][A-Za-z0-9._+-]*)[ \t]+"
+    + _TOKEN_LIKE_LOOKAHEAD
+    + r"("
+    + _TOKEN_LIKE_CHARS
+    + r"+=*)"
+    + r"(?=[ \t]*(?:[,;]|\r?$|Authorization[ \t]*:))"
 )
 _AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
     r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)"
@@ -156,8 +174,14 @@ def _mask_inline_secrets(text: str) -> str:
     """Mask secret-looking values embedded in otherwise generic strings."""
     text = _COOKIE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _AUTHORIZATION_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _AUTHORIZATION_PARAMETER_RE.sub(r"\1\2 " + SECRET_MASK, text)
+    text = _AUTHORIZATION_SCHEME_TOKEN_RE.sub(r"\1\2 " + SECRET_MASK, text)
     text = _AUTHORIZATION_OPAQUE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _BEARER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _INLINE_SECRET_QUOTED_RE.sub(
+        lambda match: f"{match.group(1)}{match.group(2)}{SECRET_MASK}{match.group(2)}",
+        text,
+    )
     text = _INLINE_SECRET_RE.sub(r"\1\2" + SECRET_MASK, text)
     text = _URL_PASSWORD_RE.sub(r"\1" + SECRET_MASK + r"\3", text)
     text = _BARE_API_TOKEN_RE.sub(SECRET_MASK, text)

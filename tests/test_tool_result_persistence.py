@@ -7,6 +7,7 @@ from uagent.runtime.session_store import SessionStore
 from uagent.runtime.tool_result_persistence import (
     sanitize_binary_payload,
     sanitize_message_for_history,
+    sanitize_persistent_text,
 )
 
 
@@ -170,3 +171,9 @@ def test_tool_message_payload_sanitizer_failure_uses_redacted_fallback(
     store.close()
     assert secret not in json.dumps(stored, ensure_ascii=False)
     assert "[REDACTED]" in stored["content"]
+
+
+def test_persistent_text_redacts_complete_quoted_password_value():
+    text = "password: 'correct horse battery staple'"
+
+    assert sanitize_persistent_text(text) == "password: '********'"

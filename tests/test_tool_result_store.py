@@ -168,6 +168,9 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
                 ),
                 "password": {"status": secrets[8]},
                 "private_key": {"token_id": secrets[9]},
+                "secret_findings": [
+                    {"path": "src/app.py", "line": 17, "kind": "api_key_assignment"}
+                ],
                 "token": {
                     "signed_token": secrets[6],
                     "token_id": "tokid-public-123",
@@ -197,6 +200,9 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
     assert persistent["nested"]["private_key"] == "********"
     assert persistent["password"]["status"] == "********"
     assert persistent["private_key"]["token_id"] == "********"
+    assert persistent["secret_findings"] == [
+        {"path": "src/app.py", "line": 17, "kind": "api_key_assignment"}
+    ]
     assert "********" in persistent["detail"]
     assert persistent["authorization_url"] == (
         "https://idp.example/authorize?client_id=demo&state=state-dummy"
