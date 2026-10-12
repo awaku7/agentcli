@@ -201,5 +201,5 @@ not inferred and remains excluded by strict scope.
 Both rollout flags remain reversible by setting them explicitly to `0`.
 
 The authoritative completion rationale and V3 identity boundary are documented
-in `docs/MEMORY_V2_COMPLETION.md`. The current runtime behavior is summarized in
+in [the archived Memory V2 completion record](archive/MEMORY_V2_COMPLETION.md). The current runtime behavior is summarized in
 `docs/MEMORY.md`.
