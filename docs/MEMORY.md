@@ -7,7 +7,7 @@ Import/resume uses destination authentication and policy. See
 
 Status: **Current runtime reference for uag v0.7.14.**
 
-This document describes the Memory/Profile behavior users and integrators should expect today. Historical V2 design rationale lives in `UAG_MEMORY_ARCHITECTURE_V2.md`; authenticated multi-user architecture and security invariants live in `UAG_MEMORY_ARCHITECTURE_V3.md`.
+This document describes the Memory/Profile behavior users and integrators should expect today. Historical V2 design rationale lives in [the archived V2 architecture](archive/UAG_MEMORY_ARCHITECTURE_V2.md); authenticated multi-user architecture and security invariants live in `UAG_MEMORY_ARCHITECTURE_V3.md`.
 
 For authenticated Web deployment instructions, see [Web identity and Memory](WEB_IDENTITY_MEMORY.md). For current security and rollout boundaries, see [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md).
 

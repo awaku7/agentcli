@@ -5,7 +5,7 @@ Decision date: 2026-09-22 (JST)
 Baseline before default-on change: `e4b157ba143aa497eaf270473ce090f83bb545b2`
 
 This document is the completion record for Memory V2. The current operational
-reference is [MEMORY.md](MEMORY.md). The original V2 architecture review remains
+reference is [MEMORY.md](../MEMORY.md). The original V2 architecture review remains
 a historical design snapshot.
 
 ## 1. Final completion decision
@@ -61,7 +61,7 @@ These measurements are local deterministic retrieval/render measurements. They d
 
 The table above records the rollout decision point. Later retrieval-precision
 hardening added regression cases without changing the rollout defaults or scope
-contract; see [Memory Evaluation Gates](MEMORY_EVALUATION.md).
+contract; see [Memory Evaluation Gates](../MEMORY_EVALUATION.md).
 
 ## 4. Final V2 runtime contract
 

@@ -10,8 +10,8 @@
 
 ### 既存設計との関係
 
-- [UAG Context Management Design](UAG_CONTEXT_MANAGEMENT_DESIGN.md)：Historyと投影の分離、Stable/Active/Persistent Contextの原則を継承する。
-- [Brain Memory設計書](BRAIN_MEMORY_DESIGN.md)：特に20〜26節の正本、承認、引用、競合、忘却の契約を継承する。本書はBrainの代替でも、同設計が実装済みだという宣言でもない。
+- [UAG Context Management Design](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)：Historyと投影の分離、Stable/Active/Persistent Contextの原則を継承する。
+- [Brain Memory設計書](../BRAIN_MEMORY_DESIGN.md)：特に20〜26節の正本、承認、引用、競合、忘却の契約を継承する。本書はBrainの代替でも、同設計が実装済みだという宣言でもない。
 - 本書：既存Personal/Profile/Sessionの不具合修正、評価、ContextPlanへの選択投影を先行させる具体的な実装順序を扱う。
 
 Brainは整理・探索のための派生レイヤー、SessionStoreは会話の正本、既存Memoryは正式なメモの保持先、AgentStateは作業状態の正本とする。BrainのMarkdownとSQLiteに同じ事実の更新権限を二重に持たせない。将来Brainを検索元へ追加する場合も、同じsource参照・scope・承認契約へ接続する。

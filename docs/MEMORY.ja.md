@@ -6,7 +6,7 @@
 
 Status: **uag v0.7.14の現行runtime reference**
 
-この文書では、現在のuagでユーザーとintegratorが期待できるMemory / Profileの動作を説明します。V2の設計経緯は `UAG_MEMORY_ARCHITECTURE_V2.md`、認証付きmulti-userの設計とsecurity invariantは `UAG_MEMORY_ARCHITECTURE_V3.md` を参照してください。
+この文書では、現在のuagでユーザーとintegratorが期待できるMemory / Profileの動作を説明します。V2の設計経緯は [保管済みのV2設計書](archive/UAG_MEMORY_ARCHITECTURE_V2.md)、認証付きmulti-userの設計とsecurity invariantは `UAG_MEMORY_ARCHITECTURE_V3.md` を参照してください。
 
 認証付きWebの設定・利用方法は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、オンプレミスActive Directory / IIS Windows認証の具体的な導入方法は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md)、現在のセキュリティ対応状況は [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照してください。
 
