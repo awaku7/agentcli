@@ -109,3 +109,45 @@ def test_translated_tool_errors_keep_explicit_status(monkeypatch) -> None:
     complete = translate("msg.completed", default="Processed {count} files.")
     assert complete.format(count=2) == "Processed 2 files."
     assert getattr(complete, "_uag_execution_status", None) is None
+
+
+def test_powershell_truncation_keeps_localized_failure_status(monkeypatch) -> None:
+    from uagent.runtime.history import truncate_output
+    from uagent.tools import i18n_helper, pwsh_exec_tool
+
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "fr")
+    monkeypatch.setattr(
+        i18n_helper,
+        "_load_tool_dict",
+        lambda _path: {
+            "fr": {
+                "err.returncode": (
+                    "[Erreur pwsh_exec] returncode=%(code)s\\nSTDOUT:\\n"
+                    "%(stdout)s\\nSTDERR:\\n%(stderr)s"
+                )
+            }
+        },
+    )
+    monkeypatch.setattr(pwsh_exec_tool.shutil, "which", lambda shell: shell)
+    monkeypatch.setattr(pwsh_exec_tool, "decide_cmd_exec", None)
+    monkeypatch.setattr(
+        pwsh_exec_tool,
+        "get_callbacks",
+        lambda: SimpleNamespace(
+            cmd_encoding="utf-8",
+            cmd_exec_timeout_ms=120_000,
+            truncate_output=truncate_output,
+        ),
+    )
+    monkeypatch.setattr(
+        pwsh_exec_tool.subprocess,
+        "run",
+        lambda **kwargs: SimpleNamespace(
+            returncode=7, stdout="x" * 400_100, stderr="error"
+        ),
+    )
+
+    result = pwsh_exec_tool.run_tool({"command": "example"})
+    assert result.startswith("[Erreur pwsh_exec]")
+    assert "[pwsh_exec truncated:" in result
+    assert getattr(result, "_uag_execution_status", None) == "failed"
