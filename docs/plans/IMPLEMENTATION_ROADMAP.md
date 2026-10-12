@@ -278,7 +278,7 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 ### 現行設計の残存課題を再照合する
 
-旧TODOの9つの基盤項目（ActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等）は実装済みの履歴記録として保管する。ただし、**これはContext Management Designの最終要件がすべて完了したことを意味しない**。同設計§32.2–32.4は次の10領域を残課題として記載しているため、各項目の現行コード・テスト・入口経路を照合してから、完了／部分実装／未実装を判定する。
+旧TODOの9つの基盤項目（ActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等）は実装済みの履歴記録として保管する。ただし、**これはContext Management Designの最終要件がすべて完了したことを意味しない**。2026-10-12にコード・既存テストを読み取り照合した結果、以下は**項目2の基盤実装済み、他9領域の部分実装**と判定した。各領域の根拠・未確認の境界は[現行設計§32.3](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)に記載。全入口・Providerの実行確認や新規テスト実行は行っていない。
 
 1. ContextManagerの統合層（`context_manager.py`にfacadeは存在するため、実際の全実行経路への接続を確認）。**加えてProvider Native Tool Searchおよびnative compactionが`ContextPolicy`から一貫して制御されるか**、OpenAI/Azure/Gemini等のProvider固有設定・フォールバックを含めて検証する。facade接続確認だけでは完了としない。
 2. ToolResultRecordの統一管理（`tool_result_manager.py`にrecordは存在するため、永続化・全呼出元での利用を確認）。
@@ -291,7 +291,7 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 9. 画像・音声・PDF・スクリーンショット・MCP blob等の共通Artifact化と機密データの保護。
 10. Resultごとのretention、参照数、孤児データ回収、Artifact quotaと削除。
 
-同設計§32には、`ContextManager`や`ToolResultRecord`を「存在しない」とする旧記述と、現行コードにある実装が混在する。**10件すべてを未実装として再起票せず**、実装済み部分を差し引いた具体的な不足だけを以後の作業対象にする。現行設計の記述自体の更新も照合後に行う。
+旧設計にあった「`ContextManager`や`ToolResultRecord`が存在しない」という誤記は現行設計§32.3で修正済み。**基盤実装済みと全実行経路での要求充足は異なる**ため、拡張実装の要否は上記の残る差分と受け入れ条件を確認してから決める。
 
 ### Vertex AI実環境回帰（確認済み）
 

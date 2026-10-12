@@ -1302,11 +1302,9 @@ Runtimeでサイズ・種類・重要度を判定
 
 ---
 
-# 32. 現在の実装状況と未実装項目
+# 32. 現在の実装状況と設計との差分
 
-本設計書と現在のコードとの差分を明示する。以下の「未実装」は、既存機能を
-否定するものではなく、本設計書の最終Architectureに対して未到達であることを
-示す。
+2026-10-12時点の `main`（`227adafee0`）のコードおよび既存テストを照合した結果。**実装・テストの存在と、すべての入口・Providerでの受け入れ完了は区別する。** 新しい統合テストや実環境試験はこの文書整理では実行していない。§32.1–32.2は既存基盤・設計上の差分を説明し、§32.3を10領域の最新の照合結果とする。
 
 ## 32.1 実装済みまたは基盤が存在する項目
 
@@ -1343,8 +1341,7 @@ Runtimeでサイズ・種類・重要度を判定
 巨大         → Artifact + Preview + Reference
 ```
 
-設計書が要求するStructured / Large / Hugeの明示的な分類、種類・重要度・
-再利用性を考慮した判定は未統合である。
+実際には`ContextResultManager`にsmall / large / hugeの長さに基づく分類と構造化Previewがある。Toolの種類・重要度・再利用性を組み合わせた判定と、全実行経路への適用は別途確認が必要である。
 
 ### HistoryとLLM Contextの分離
 
@@ -1362,125 +1359,38 @@ LLMへ送る本文のbounded化、バイナリ除去、SQLite/JSONL保存時の�
 
 `artifact_read`とSQLite FTS5による手動取得に加え、SessionStoreのTool Result検索、
 boundedなRelevant Context生成、最新ユーザー入力への自動再注入を実装済みである。
-Embedding検索、意味検索、Artifact本文の自動再取得は未実装である。
+Context Runtime共通の自動再注入経路では、Embeddingによる意味検索やArtifact本文の自動再取得を確認できていない。ファイル検索等の別Toolの機能とは区別する。
 
 ### Provider統合
 
 OpenAI Tool Search、compaction、各Providerの変換処理は存在するが、Context
 Managerから一貫したPolicyで制御する統合層は未実装である。
 
-## 32.3 残存未実装項目
+## 32.3 10領域の現行コード照合（2026-10-12）
 
-### 1. ContextManager統合層
+判定は**基盤実装済み**（記載機能を担う実装とテストがある）、**部分実装**（基盤はあるが設計の要求範囲全体は確認できない）、**未実装**（対象の共通経路の実装を確認できない）を区別する。「部分実装」は新しい機能を直ちに追加する指示ではない。
 
-以下を統合する`ContextManager`が存在しない。
+| 領域 | 判定 | 確認できた現行の実装・テスト | 残る差分・判定条件 |
+| --- | --- | --- | --- |
+| 1. ContextManager統合 | 部分実装 | `runtime/context_manager.py`、`context_policy.py`、`tests/test_context_manager.py`。通常のLLMターンで`ContextManager`を生成する。 | CLI/Web/GUI/A2A等のすべての実行経路に適用されるか確認。**Provider Native Tool Search / native compactionの`ContextPolicy`一元制御**とProvider固有fallbackも確認。 |
+| 2. ToolResultRecord | 基盤実装済み | `runtime/tool_result_manager.py`に全主要フィールドとLLM/UI/History投影があり、`session_store.py`に永続化・取得がある。`tests/test_tool_result_store.py`。 | 全Tool呼出元で共通Recordを使うかは項目7で判定。 |
+| 3. 段階的Summary | 部分実装 | `tool_result_manager.py`に構造化Result由来の軽量Summaryとbounded preview。`tests/test_tool_result_manager.py`。 | Tool別抽出・軽量処理・必要時のみのLLM Summaryを一貫したpipelineとして持つかを確認。 |
+| 4. 重要度・evictable | 部分実装 | Recordに`importance` / `evictable`、`context_budget.py`に重要度順の削減候補選択、`session_store.py`にevictable限定prune。`tests/test_context_budget.py`、`tests/test_tool_result_retention.py`。 | Tool別重要度、自動再取得可能性、保持期限の決定規則は再評価が必要。 |
+| 5. Context Budget | 部分実装 | `context_budget.py`にセクション配分、warning/compact/emergency、eviction。`context_tokens.py`のProvider別推定。`tests/test_context_budget_integration.py`。 | 既定unlimitedと明示的budgetの境界、全Provider/経路での適用とnative機能との整合を確認。 |
+| 6. Agent State・再起動 | 部分実装 | `agent_state.py`、`session_store.py`、`session_restore.py`に更新・永続化・復元。`tests/test_agent_state.py`、`tests/test_session_restore.py`。 | Agent State復元と実行中Tool/Agent Loopの安全な再開は別物。checkpointからの再構築とprocess restart時の範囲を検証。 |
+| 7. Result Manager経路 | 部分実装 | `llm_flow_helpers.py`は`context_manager.process_result()`を呼び、RecordとHistory投影を保存。`tests/test_tool_result_manager.py`。 | すべてのTool/A2A/MCP/entry pointが同じ経路を通る保証は未確認。 |
+| 8. 自動Retrieval | 部分実装 | `context_retrieval.py`の候補選択、`context_manager.py`の検索・再注入、`tests/test_context_retrieval.py`、`tests/test_context_manager_pipeline.py`。 | Context共通経路での意味検索・Artifact本文の自動再取得は未確認。追加の必要性・情報漏洩リスクも評価。 |
+| 9. 共通Artifact化 | 部分実装 | `tool_result_persistence.py`でバイナリ履歴をサニタイズ。`artifact_manager.py`、`artifact_helpers.py`で登録。`tests/test_artifact_manager.py`。 | すべての画像/音声/PDF/screenshot/MCP blobをTool非依存でArtifact化し、機密payloadと区別できるか未確認。 |
+| 10. Result/Artifact保持 | 部分実装 | `session_store.py`のResult prune、`artifact_retention.py`の容量・件数・年齢ルール、`artifact_manager.py`のopt-in cleanup。`tests/test_tool_result_retention.py`、`tests/test_artifact_retention.py`。 | Result単位の保持期限・参照数、孤児回収、Artifact quotaの包括的適用を確認。cleanupは既定では自動削除しない。 |
 
-- `ContextManager`
-- `ContextPolicy`
-- `ContextBudget`
-- `ContextResultManager`
-- `ContextCompaction`
-- `ContextEviction`
-- `AgentState`
+現行基盤に既にあるものを「未実装」として再作成しない。**この監査は読み取り調査であり、全入口の実行確認や未充足機能の優先度決定はしていない。** 項目2の「基盤実装済み」も全Tool適用完了の意味ではない。
 
-現在は`llm_flow_helpers.py`、`runtime/history.py`、`SessionStore`、Provider
-adapterに処理が分散している。
+## 32.4 次の対応判断
 
-### 2. ToolResultRecord
-
-設計書の次の情報を一つのResult recordとして管理していない。
-
-- `result_id`
-- `session_id`
-- `task_id`
-- `tool_name`
-- `summary`
-- `artifact_ref`
-- `size_bytes`
-- `importance`
-- `created_at`
-- `evictable`
-
-現行Artifact metadataおよび`messages`/`tool_calls`は一部の情報を保持するが、
-Result単位の統一レコードではない。
-
-### 3. Summary生成パイプライン
-
-以下の段階的なSummary処理は未実装である。
-
-1. Tool固有の構造化Result
-2. Pythonによる軽量抽出
-3. truncation / extraction
-4. 小型モデル
-5. メインLLM
-
-現状の巨大Resultは、意味的Summaryではなく固定長Previewを使用する。
-
-### 4. 重要度・evictable判定
-
-Resultごとの重要度、保持期限、再取得可能性、evictable判定がない。
-
-### 5. Context Budgetの一元管理
-
-Provider/Model別の以下の予算配分と閾値を、Context全体で一元管理していない。
-
-- System
-- Tool Definitions
-- Agent State
-- Recent History
-- Tool Results
-- Reserved Budget
-- warning / compaction / emergency threshold
-
-### 6. Agent Stateの生成・更新・復旧
-
-Goal、current step、progressなどのStructured Agent State、checkpointからの
-再構築、Process Restart後のAgent Loop復旧は未統合である。
-
-### 7. Agent LoopへのResult Manager組み込み
-
-現在はTool実行後の一部処理を`llm_flow_helpers.py`が担う。設計書の次の明示的な
-境界は未実装である。
-
-```text
-Tool Execution
-    ↓
-Result Manager
-    ├── Direct
-    ├── Summary
-    ├── Artifact
-    └── Reference
-    ↓
-ContextManager
-    ↓
-LLM
-```
-
-### 8. 自動RetrievalとContext再注入
-
-Agentが必要な`result_id`や`artifact_ref`を判定し、Relevantな部分だけを自動的に
-Contextへ戻す仕組みは未実装である。
-
-### 9. 全バイナリ出力の共通Artifact化
-
-画像・音声・PDF・グラフ・QR・スクリーンショット・MCP blobを、Toolごとの実装に
-依存せず共通処理でArtifact化する仕組みは未実装である。
-
-### 10. Result単位の削除・保持ポリシー
-
-Session削除時の新形式Artifact cleanupは存在するが、Result単位の保持期限、
-参照カウント、孤児Result回収、Artifact quota管理は未実装である。
-
-## 32.4 次の実装優先順位
-
-1. `ContextResultManager`と`ToolResultRecord`を追加する
-2. UI / LLM / Persistent Historyの3系統のResult projectionを統一する
-3. 全バイナリ出力をArtifact Referenceへ変換する
-4. Structured Resultと軽量Summaryを追加する
-5. Context Budgetとeviction policyを追加する
-6. Relevant RetrievalとContext再注入を追加する
-7. Agent State、checkpoint、restart recoveryを統合する
-8. Provider Native機能をContextPolicyから制御する
+1. **既存テストで検証できる差分を先に確定**し、設計の旧記述による誤判定を解消する。
+2. Provider Native Tool Search / native compactionのPolicy一元管理（項目1・5）、全ToolのResult投影とBinary保護（項目7・9）、restartと保持期限の境界（項目6・10）を横断する確認項目として扱う。
+3. Embedding検索、Artifact本文自動再取得、任意LLM Summaryなどは、現状の機能では満たせない実際の要件が確認できた場合にだけ仕様・費用・セキュリティを設計する。
+4. 新規実装が必要と判定された場合に、対象入口、受け入れ条件、回帰テストを明示して小さな独立PRへ分割する。
 
 ---
 
