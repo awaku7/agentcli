@@ -55,7 +55,7 @@ Web Memory API request-store cleanup、Entra overageのlogin-time Graph解決と
 - identity resolver failure時に暗黙 `local` fallbackしない。
 - denied requestを繰り返してもSQLite connection resourceが残存しない。
 
-## P0: [Responses API管理機能](responses-api-management.md)
+## P0: Responses API管理機能
 
 - Status: in-progress
 - Priority: P0
@@ -163,11 +163,11 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 - 検出結果にcategory、severity、confidence、evidenceを含める。
 - LLMへRaw packetやpayloadを既定で返さない。
 
-## P1: [MCP 2026-07-28仕様対応](mcp-2026-07-28.md)
+## P1: MCP 2026-07-28仕様対応
 
 - Status: planned
 - Priority: P1
-- Source: [`mcp-2026-07-28.md`](mcp-2026-07-28.md)
+- Source: [MCP現行実装棚卸し](mcp-current-implementation.md)
 
 ### 対象
 
@@ -208,7 +208,7 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 - write操作は既存UAGの確認・承認ポリシーと統合する。
 - OAuthなしHTTP MCP、stdio、legacy MCPを壊さない。
 
-## P1: [UCP / AP2の未対応機能](ucp-ap2.md)
+## P1: UCP / AP2の未対応機能
 
 - Status: planned
 - Priority: P1
@@ -223,7 +223,7 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 実装前に、UCP仕様の対象バージョン、認証境界、ユーザー確認が必要な操作を確定する。
 
-## P1: [Auto-Pilot / Interruptの残課題](auto-pilot-interrupt.md)
+## P1: Auto-Pilot / Interruptの残課題
 
 - Status: planned
 - Priority: P1

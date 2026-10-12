@@ -519,4 +519,5 @@ class SubAgentRunner:
 - `tests/test_sub_agent_translator.py`: 単体テスト
 - `src/uagent/docs/DEVELOP_TOOL.md`: ツールプラグインの作成方法
 - `src/uagent/docs/DEVELOP_I18N.md`: 国際化対応ガイド
-- `docs/plans/sub-agent-job-runtime-v1.md`: background Job runtime、host ownership、CLI/Web/GUI/A2A integration 設計
+- [Sub-Agent Job Runtime V1 設計（実装済み・履歴）](archive/sub-agent-job-runtime-v1.md): background Job runtime、host ownership、CLI/Web/GUI/A2A integration の実装時設計
+- [Sub-Agent 権限レベルのテスト手順](sub-agent-permissions-test.md): 実行時権限の自動テストと任意の実機検証
