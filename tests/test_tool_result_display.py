@@ -90,6 +90,20 @@ def test_translated_tool_errors_keep_explicit_status(monkeypatch) -> None:
     assert message._uag_execution_status == "failed"
     assert message.format()._uag_execution_status == "failed"
 
+    # bash_exec formats with .format(); pwsh_exec uses % interpolation.
+    bash_timeout = translate(
+        "err.timeout",
+        default="[bash_exec timeout] exceeded {seconds}s",
+    )
+    assert bash_timeout.format(seconds=12)._uag_execution_status == "timeout"
+    pwsh_timeout = translate(
+        "err.timeout",
+        default="[pwsh_exec timeout] exceeded %(seconds)s seconds",
+    )
+    assert (pwsh_timeout % {"seconds": 12})._uag_execution_status == "timeout"
+    assert str(bash_timeout.format(seconds=12)).startswith("[bash_exec timeout]")
+    assert str(pwsh_timeout % {"seconds": 12}).startswith("[pwsh_exec timeout]")
+
     complete = translate("msg.completed", default="Processed {count} files.")
     assert complete.format(count=2) == "Processed 2 files."
     assert getattr(complete, "_uag_execution_status", None) is None
