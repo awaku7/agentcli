@@ -541,20 +541,19 @@ def _tool_result_status(value: Any) -> str:
             return "failed"
         if status in {"timeout", "timed_out", "cancelled"}:
             return "cancelled" if status == "cancelled" else "timeout"
-    text = str(value or "").lstrip().lower()
-    if text.startswith(
-        (
-            "[tool args error]",
-            "[tool argument error]",
-            "[tool runtime error]",
-            "[tool error]",
-            "error:",
-        )
-    ):
+    text = str(value or "").lstrip().casefold()
+    # A successful text tool may quote "timeout" or "cancelled" in its
+    # payload. Only inspect explicit result markers, not arbitrary words.
+    if text.startswith(("error:", "エラー:", "[tool policy]")):
         return "failed"
-    if "mcp_cancelled" in text or "cancelled" in text:
+    if text.startswith("["):
+        marker, closing, _ = text.partition("]")
+        if closing and marker[1:].endswith((" error", "エラー")):
+            # Handles localized host errors and tool-specific "[name error]".
+            return "failed"
+    if text.startswith(("mcp_cancelled", "cancelled:", "[tool cancelled]")):
         return "cancelled"
-    if "timeout" in text or "timed out" in text:
+    if text.startswith(("timeout:", "timed out:", "[tool timeout]")):
         return "timeout"
     return "success"
 
