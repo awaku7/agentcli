@@ -935,6 +935,7 @@ def _execute_tool_calls(
             if isinstance(parsed_tool_result, dict)
             else raw_context_result
         )
+        result_status = _tool_result_status(parsed_tool_result or raw_context_result)
         result_record, projections = context_manager.process_result(
             record_value,
             tool_name=name,
@@ -950,7 +951,7 @@ def _execute_tool_calls(
             artifact_ref=artifact_ref,
             metadata={
                 "tool_call_id": str(tc.get("id") or ""),
-                "status": _tool_result_status(parsed_tool_result or raw_context_result),
+                "status": result_status,
             },
         )
         if _cli_tool_result_display_enabled(core):
@@ -977,12 +978,20 @@ def _execute_tool_calls(
                 state_changes["next_action"] = str(auto_user_msg.get("content") or "")
             try:
                 update_agent_state(**state_changes)
-                complete_agent_step = getattr(core, "complete_agent_step", None)
-                if callable(complete_agent_step):
-                    complete_agent_step(
-                        f"tool:{name}",
-                        state_changes.get("next_action", ""),
-                    )
+                if result_status == "success":
+                    complete_agent_step = getattr(core, "complete_agent_step", None)
+                    if callable(complete_agent_step):
+                        complete_agent_step(
+                            f"tool:{name}",
+                            state_changes.get("next_action", ""),
+                        )
+                else:
+                    fail_agent_step = getattr(core, "fail_agent_step", None)
+                    if callable(fail_agent_step):
+                        fail_agent_step(
+                            f"tool:{name}",
+                            state_changes.get("next_action", ""),
+                        )
             except Exception:
                 pass
 

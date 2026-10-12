@@ -25,6 +25,7 @@ class AgentState:
 
     goal: str = ""
     completed_steps: tuple[str, ...] = ()
+    failed_steps: tuple[str, ...] = ()
     current_step: str = ""
     files: tuple[str, ...] = ()
     errors: tuple[str, ...] = ()
@@ -36,7 +37,7 @@ class AgentState:
 
     def to_dict(self) -> dict[str, Any]:
         data = asdict(self)
-        for key in ("completed_steps", "files", "errors"):
+        for key in ("completed_steps", "failed_steps", "files", "errors"):
             data[key] = list(data[key])
         return data
 
@@ -50,6 +51,9 @@ class AgentState:
             goal=str(value.get("goal") or ""),
             completed_steps=tuple(
                 str(item) for item in value.get("completed_steps", []) if item
+            ),
+            failed_steps=tuple(
+                str(item) for item in value.get("failed_steps", []) if item
             ),
             current_step=str(value.get("current_step") or ""),
             files=tuple(str(item) for item in value.get("files", []) if item),
@@ -74,6 +78,7 @@ class AgentStateManager:
         allowed = {
             "goal",
             "completed_steps",
+            "failed_steps",
             "current_step",
             "files",
             "errors",
@@ -86,7 +91,7 @@ class AgentStateManager:
         if unknown:
             raise ValueError(f"unknown agent state fields: {sorted(unknown)}")
         normalized = dict(changes)
-        for key in ("completed_steps", "files", "errors"):
+        for key in ("completed_steps", "failed_steps", "files", "errors"):
             if key in normalized:
                 normalized[key] = tuple(str(item) for item in normalized[key] if item)
         if "mcp_request_generation" in normalized:
@@ -109,6 +114,22 @@ class AgentStateManager:
             completed.append(step)
         return self.update(
             completed_steps=completed,
+            failed_steps=[name for name in self.state.failed_steps if name != step],
+            current_step="",
+            next_action=next_action,
+        )
+
+    def mark_step_failed(self, step: str, *, next_action: str = "") -> AgentState:
+        """Record a failed step without treating it as completed."""
+        step = str(step or "").strip()
+        if not step:
+            raise ValueError("step is empty")
+        failed = list(self.state.failed_steps)
+        if step not in failed:
+            failed.append(step)
+        return self.update(
+            completed_steps=[name for name in self.state.completed_steps if name != step],
+            failed_steps=failed,
             current_step="",
             next_action=next_action,
         )
