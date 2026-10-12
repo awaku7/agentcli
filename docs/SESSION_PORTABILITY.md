@@ -6,6 +6,8 @@ credentials. There is no plaintext package mode or automatic cloud synchronizati
 The existing SQLite session store remains the local source of truth; this feature
 does not encrypt that database.
 
+> Historical reference: [Session Portability pre-implementation design](archive/SESSION_PORTABILITY_DESIGN.md) describes the original, unencrypted `.uags` proposal. It is not the implemented `.uag` format or a current security/feature contract.
+
 ## CLI
 
 Install the core extra (`pip install 'uag[core]'`). These commands use the normal
