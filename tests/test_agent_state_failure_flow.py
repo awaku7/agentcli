@@ -98,8 +98,12 @@ def test_read_file_contents_do_not_control_agent_step_status(
 
     monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
-    monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "read-sessions.sqlite3"))
-    monkeypatch.setattr("uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False)
+    monkeypatch.setenv(
+        "UAGENT_SESSION_STORE_PATH", str(tmp_path / "read-sessions.sqlite3")
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False
+    )
     monkeypatch.setattr(read_file_tool, "sync_file", None)
     monkeypatch.setattr(
         "uagent.llm_flow_helpers.tools.run_tool",
