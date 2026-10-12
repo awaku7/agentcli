@@ -15,10 +15,44 @@ LANG_RE = re.compile(r"^[a-z]{2,3}(?:_[A-Z]{2})?$")
 LOCALE_CANDIDATE_RE = re.compile(r"^[A-Za-z]{2,3}(?:[-_][A-Za-z]{2})?$")
 SUPPORTED_TOOL_LOCALES = frozenset(
     {
-        "ar", "bn", "cs", "da", "de", "el", "en", "es", "fa", "fi", "fil",
-        "fr", "he", "hi", "hu", "id", "it", "ja", "ko", "mn", "mr", "ms",
-        "nb", "nl", "nn", "pl", "pt", "pt_BR", "ro", "ru", "sv", "sw", "th",
-        "tr", "uk", "vi", "zh_CN", "zh_TW",
+        "ar",
+        "bn",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fa",
+        "fi",
+        "fil",
+        "fr",
+        "he",
+        "hi",
+        "hu",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "mn",
+        "mr",
+        "ms",
+        "nb",
+        "nl",
+        "nn",
+        "pl",
+        "pt",
+        "pt_BR",
+        "ro",
+        "ru",
+        "sv",
+        "sw",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh_CN",
+        "zh_TW",
     }
 )
 
@@ -77,7 +111,9 @@ def _looks_like_tool_catalog(
         return False
     keys = set(data)
     locale_candidates = {
-        key for key in keys if isinstance(key, str) and LOCALE_CANDIDATE_RE.fullmatch(key)
+        key
+        for key in keys
+        if isinstance(key, str) and LOCALE_CANDIDATE_RE.fullmatch(key)
     }
     if locale_candidates == keys:
         return True

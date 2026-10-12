@@ -68,9 +68,7 @@ _BRACE_FIELD_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 
 def _placeholder_names(value: object) -> set[str]:
     text = str(value or "")
-    names = {
-        match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(text)
-    }
+    names = {match.group("name") for match in _PRINTF_PLACEHOLDER_RE.finditer(text)}
     try:
         for _literal, field_name, _format_spec, _conversion in _FORMATTER.parse(text):
             if field_name is not None and _BRACE_FIELD_NAME_RE.fullmatch(field_name):
@@ -129,7 +127,9 @@ def repair_file(path: Path, *, apply: bool) -> bool:
         normalized = list(current)
         for index in range(min(len(normalized), len(terms))):
             english_term = terms[index]
-            if _placeholder_names(normalized[index]) != _placeholder_names(english_term):
+            if _placeholder_names(normalized[index]) != _placeholder_names(
+                english_term
+            ):
                 normalized[index] = english_term
         if normalized != current:
             block["x_search_terms"] = normalized

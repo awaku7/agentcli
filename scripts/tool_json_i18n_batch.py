@@ -141,6 +141,7 @@ def _provider_overload_status(message: str) -> str | None:
             return status
     return None
 
+
 # translate_text hard limit per element
 MAX_TEXT_LEN = 10000
 # Keep batches comfortably under API/join limits
@@ -195,7 +196,6 @@ INTENTIONAL_ENGLISH_TOOL_KEYS = frozenset(
 
 def _is_intentional_english_tool_key(tool: str, key: str) -> bool:
     return (tool, key) in INTENTIONAL_ENGLISH_TOOL_KEYS
-
 
 
 def _reconfigure_stdout() -> None:
@@ -347,7 +347,9 @@ def _extract_english_source(py_path: Path) -> dict[str, Any]:
         if not isinstance(node.func, ast.Name) or node.func.id != "_" or not node.args:
             continue
         key_node = node.args[0]
-        if not isinstance(key_node, ast.Constant) or not isinstance(key_node.value, str):
+        if not isinstance(key_node, ast.Constant) or not isinstance(
+            key_node.value, str
+        ):
             continue
         default_node = next(
             (kw.value for kw in node.keywords if kw.arg == "default"),
@@ -417,6 +419,7 @@ def _english_source(path: Path) -> dict[str, Any]:
         for key, value in _extract_english_source(delegated).items():
             source.setdefault(key, value)
     return source
+
 
 def _value_to_text(v: Any) -> str | None:
     """Serialize a JSON value into a single translate unit.
@@ -1104,9 +1107,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         by_pair[(u.tool, u.lang)] = by_pair.get((u.tool, u.lang), 0) + 1
     for u in missing_units:
         missing_keys_by_tool.setdefault(u.tool, set()).add(u.key)
-        missing_by_pair[(u.tool, u.lang)] = (
-            missing_by_pair.get((u.tool, u.lang), 0) + 1
-        )
+        missing_by_pair[(u.tool, u.lang)] = missing_by_pair.get((u.tool, u.lang), 0) + 1
         missing_by_lang[u.lang] = missing_by_lang.get(u.lang, 0) + 1
         missing_by_tool[u.tool] = missing_by_tool.get(u.tool, 0) + 1
         tool_key = (u.tool, u.key)
@@ -1279,7 +1280,9 @@ def _parse_tools(s: str | None) -> set[str] | None:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(description="Batch-translate tool JSON catalogs via tmp/")
+    p = argparse.ArgumentParser(
+        description="Batch-translate tool JSON catalogs via tmp/"
+    )
     p.add_argument(
         "command",
         choices=["status", "extract", "translate", "merge", "run"],

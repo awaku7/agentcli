@@ -99,7 +99,10 @@ def collect_jobs(files: list[Path]) -> list[tuple[str, str, str, int | None, str
                 localized = block[key]
                 if isinstance(source_value, list) and isinstance(localized, list):
                     for index, english_text in enumerate(source_value):
-                        if not isinstance(english_text, str) or not english_text.strip():
+                        if (
+                            not isinstance(english_text, str)
+                            or not english_text.strip()
+                        ):
                             continue
                         if index >= len(localized):
                             # Search-term counts are locale-specific and may be shorter.
@@ -122,13 +125,11 @@ def collect_jobs(files: list[Path]) -> list[tuple[str, str, str, int | None, str
                     continue
                 if isinstance(source_value, str) and isinstance(localized, str):
                     if not localized.strip() and source_value.strip():
-                        jobs.append(
-                            (str(fp), lg, key, None, source_value, "empty_str")
-                        )
-                    elif localized == source_value and not _should_skip_same(source_value):
-                        jobs.append(
-                            (str(fp), lg, key, None, source_value, "same_str")
-                        )
+                        jobs.append((str(fp), lg, key, None, source_value, "empty_str"))
+                    elif localized == source_value and not _should_skip_same(
+                        source_value
+                    ):
+                        jobs.append((str(fp), lg, key, None, source_value, "same_str"))
     return jobs
 
 
