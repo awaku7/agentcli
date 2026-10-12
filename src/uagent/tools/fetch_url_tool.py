@@ -24,6 +24,7 @@ except ImportError:
     from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 
 from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
+from ..runtime.tool_execution_result import ToolExecutionText
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -473,7 +474,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
         if extract == "head":
             result = _truncate_chars(text, max_chars)
-            return result + _content_note(content_type, extract)
+            return ToolExecutionText(result + _content_note(content_type, extract))
 
         if extract in ("text", "html", "markdown"):
             soup = BeautifulSoup(text, "html.parser")
@@ -485,7 +486,7 @@ def run_tool(args: dict[str, Any]) -> str:
             elif extract == "markdown":
                 extracted = _html_to_markdown(el)
             result = _truncate_chars(extracted, max_chars)
-            return result + _content_note(content_type, extract)
+            return ToolExecutionText(result + _content_note(content_type, extract))
 
         if extract == "json":
             try:
@@ -512,7 +513,7 @@ def run_tool(args: dict[str, Any]) -> str:
                     )
 
             result = _truncate_chars(json.dumps(doc, ensure_ascii=False), max_chars)
-            return result + _content_note(content_type, extract)
+            return ToolExecutionText(result + _content_note(content_type, extract))
 
         return json.dumps(
             {

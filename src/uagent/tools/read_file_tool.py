@@ -9,14 +9,9 @@ from typing import Any, Callable, Optional, cast
 from .arg_util import get_int, get_path
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
-
-
-class _SuccessfulFileContent(str):
-    """Keep a successful file read distinct from its arbitrary text payload."""
-
-    _uag_execution_status = "success"
 
 
 def _json_err(message: str, **extra: Any) -> str:
@@ -416,7 +411,7 @@ def run_tool(args: dict[str, Any]) -> str:
             except Exception:
                 pass
 
-        return _SuccessfulFileContent("".join(lines))
+        return ToolExecutionText("".join(lines))
 
     except Exception as e:
         msg = f"[read_file error] {type(e).__name__}: {e}"

@@ -176,3 +176,146 @@ def test_read_file_contents_do_not_control_agent_step_status(
         assert state["failed_steps"] == ["tool:read_file"]
     finally:
         detach_opt_in_session_store(core)
+
+
+def test_fetched_payload_is_not_treated_as_tool_status(
+    monkeypatch, tmp_path
+) -> None:
+    from uagent.tools import fetch_url_tool
+
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv(
+        "UAGENT_SESSION_STORE_PATH", str(tmp_path / "fetch-sessions.sqlite3")
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False
+    )
+
+    class Response:
+        headers = {"Content-Type": "application/json"}
+
+        def __init__(self, body):
+            self.body = body
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return None
+
+        def read(self, max_bytes):
+            return self.body[:max_bytes].encode("utf-8")
+
+    responses = iter(
+        [
+            '{"status":"blocked","error":"example"}',
+            "Error: This is an ordinary webpage",
+        ]
+    )
+    monkeypatch.setattr(
+        fetch_url_tool, "urlopen", lambda request: Response(next(responses))
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool",
+        lambda name, args: fetch_url_tool.run_tool(args),
+    )
+    core = SimpleNamespace(
+        log_message=lambda message: None,
+        set_status=lambda *args: None,
+        show_tool_output=False,
+    )
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="test"
+    )
+    assert store is not None
+    assert session_id
+
+    try:
+        for index, extract in enumerate(("json", "head")):
+            _execute_tool_calls(
+                tool_calls_list=[
+                    {
+                        "id": f"fetch-{index}",
+                        "type": "function",
+                        "function": {
+                            "name": "fetch_url",
+                            "arguments": json.dumps(
+                                {"url": "https://example.test", "extract": extract}
+                            ),
+                        },
+                    }
+                ],
+                messages=[],
+                core=core,
+                cache_mgr=_Cache(),
+            )
+            state = store.get_agent_state(session_id)
+            assert state is not None
+            assert state["completed_steps"] == ["tool:fetch_url"]
+            assert state["failed_steps"] == []
+    finally:
+        detach_opt_in_session_store(core)
+
+
+def test_localized_location_error_is_marked_failed(monkeypatch, tmp_path) -> None:
+    from uagent.tools import current_location_tool
+
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv(
+        "UAGENT_SESSION_STORE_PATH", str(tmp_path / "location-sessions.sqlite3")
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False
+    )
+    monkeypatch.setattr(
+        current_location_tool,
+        "_",
+        lambda key, default=None: (
+            "Erreur : Échec de la requête: {err}"
+            if key == "err.generic"
+            else default
+        ),
+    )
+
+    def raise_location_error():
+        raise RuntimeError("location backend unavailable")
+
+    monkeypatch.setattr(current_location_tool, "_get_location", raise_location_error)
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool",
+        lambda name, args: current_location_tool.run_tool(args),
+    )
+    core = SimpleNamespace(
+        log_message=lambda message: None,
+        set_status=lambda *args: None,
+        show_tool_output=False,
+    )
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="test"
+    )
+    assert store is not None
+    assert session_id
+    try:
+        _execute_tool_calls(
+            tool_calls_list=[
+                {
+                    "id": "location-error",
+                    "type": "function",
+                    "function": {
+                        "name": "get_current_location",
+                        "arguments": "{}",
+                    },
+                }
+            ],
+            messages=[],
+            core=core,
+            cache_mgr=_Cache(),
+        )
+        state = store.get_agent_state(session_id)
+        assert state is not None
+        assert state["completed_steps"] == []
+        assert state["failed_steps"] == ["tool:get_current_location"]
+    finally:
+        detach_opt_in_session_store(core)
