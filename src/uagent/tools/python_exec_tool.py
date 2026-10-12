@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -95,9 +96,14 @@ def _run_python_code(args: dict[str, Any], cb: Any) -> str:
             env=child_env,
         )
     except subprocess.TimeoutExpired:
-        return f"[python_exec timeout] Did not finish within {cb.python_exec_timeout_ms / 1000:.0f} seconds"
+        return ToolExecutionText(
+            f"[python_exec timeout] Did not finish within {cb.python_exec_timeout_ms / 1000:.0f} seconds",
+            status="timeout",
+        )
     except Exception as e:
-        return f"[python_exec error] {type(e).__name__}: {e}"
+        return ToolExecutionText(
+            f"[python_exec error] {type(e).__name__}: {e}", status="failed"
+        )
     finally:
         try:
             if "tmp_path" in locals() and os.path.exists(tmp_path):
@@ -119,8 +125,10 @@ def _run_python_code(args: dict[str, Any], cb: Any) -> str:
             ]
         )
         if cb.truncate_output is not None:
-            return cb.truncate_output("python_exec", msg, 400_000)
-        return msg
+            return ToolExecutionText(
+                cb.truncate_output("python_exec", msg, 400_000), status="failed"
+            )
+        return ToolExecutionText(msg, status="failed")
 
     if not out_str.strip():
         out_str = "(no output)"
@@ -128,8 +136,8 @@ def _run_python_code(args: dict[str, Any], cb: Any) -> str:
         out_str += "\n[stderr]\n" + err_str
 
     if cb.truncate_output is not None:
-        return cb.truncate_output("python_exec", out_str, 400_000)
-    return out_str
+        return ToolExecutionText(cb.truncate_output("python_exec", out_str, 400_000))
+    return ToolExecutionText(out_str)
 
 
 def run_tool(args: dict[str, Any]) -> str:
