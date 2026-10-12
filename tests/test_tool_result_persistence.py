@@ -8,6 +8,7 @@ from uagent.runtime.tool_result_persistence import (
     sanitize_binary_payload,
     sanitize_message_for_history,
     sanitize_persistent_text,
+    sanitize_persistent_value,
 )
 
 
@@ -201,3 +202,16 @@ def test_persistent_text_masks_namespaced_environment_credentials():
     assert "openai-key-dummy" not in sanitized
     assert "aws-secret-dummy" not in sanitized
     assert "uagent-token-dummy" not in sanitized
+
+
+def test_binary_payloads_inside_json_encoded_string_fields_are_removed():
+    raw_response = json.dumps(
+        {"image_b64": "a" * 512, "caption": "safe metadata"}, ensure_ascii=False
+    )
+
+    sanitized = sanitize_persistent_value({"raw_response": raw_response})
+    parsed_response = json.loads(sanitized["raw_response"])
+
+    assert parsed_response["image_b64"].startswith("[binary payload omitted")
+    assert parsed_response["caption"] == "safe metadata"
+    assert "a" * 100 not in json.dumps(sanitized, ensure_ascii=False)

@@ -190,10 +190,11 @@ def _redact_sensitive_values(
         except (TypeError, ValueError):
             return _mask_inline_secrets(value)
         if isinstance(parsed, (dict, list)):
+            original_parsed = parsed
             if strip_binary:
                 parsed = sanitize_binary_payload(parsed)
             safe_parsed = _redact_sensitive_values(parsed, strip_binary=strip_binary)
-            if safe_parsed != parsed:
+            if safe_parsed != original_parsed:
                 return json.dumps(safe_parsed, ensure_ascii=False)
         return _mask_inline_secrets(value)
     if inside_secret_object and value is not None:
