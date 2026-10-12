@@ -104,10 +104,10 @@ revoked_grant_reuse_count
 
 Project isolation and active-revocation fixtures exist, but production rollout must also exercise the actual OIDC/directory/proxy environment used by the deployment.
 
-## Remaining hardening / rollout work at main `6f848f20`
+## Remaining hardening / rollout work
 
-1. Add safe idle TTL / eviction and persistent cleanup for private Web rooms without breaking reconnect, active WebSocket, agent/streaming or pending `human_ask` behavior.
-1. Stream Entra Graph responses and enforce the response-byte ceiling before buffering can exceed it.
+Private Web room idle expiry/cleanup (including active work and pending `human_ask` safeguards) and streamed Entra Graph response-byte enforcement were completed after the historical `6f848f20` baseline. They are not remaining work; see [Memory](MEMORY.md) and the [implementation roadmap](plans/IMPLEMENTATION_ROADMAP.md) for the current status.
+
 1. Add automatic workspace-derived default ProjectContext where deployments require it; retain membership checks for user-selected projects.
 1. Define session-time directory membership freshness/revocation and generalized non-Entra Directory API adapters.
 1. Decide and implement durable OIDC sessions before multi-instance/HA Web rollout.
