@@ -172,6 +172,5 @@ def analyze_image_ollama(*, image_path: str, prompt: str | None) -> str:
         out = ""
 
     return ToolExecutionText(
-        (out or "").strip()
-        or _("warn.empty_response", default="[WARN] empty response")
+        (out or "").strip() or _("warn.empty_response", default="[WARN] empty response")
     )
