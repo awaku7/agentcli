@@ -1359,7 +1359,7 @@ LLMへ送る本文のbounded化、バイナリ除去、SQLite/JSONL保存時の�
 
 `artifact_read`とSQLite FTS5による手動取得に加え、SessionStoreのTool Result検索、
 boundedなRelevant Context生成、最新ユーザー入力への自動再注入を実装済みである。
-Context Runtime共通の自動再注入経路では、Embeddingによる意味検索やArtifact本文の自動再取得を確認できていない。ファイル検索等の別Toolの機能とは区別する。
+同一SessionのTool Result検索から得た`artifact_ref`については、`session_store.py`の`retrieve_tool_context()`が同一Sessionに属するtext/JSON Artifact本文の**先頭最大2,000文字**を`artifact_preview`に追加し、自動的な関連Context再注入に利用する。これは実装済みである。一方、Context Runtime共通のEmbedding意味検索、Artifact本文の関連箇所を選択する再取得、他メディア対応は別の拡張要件とし、ファイル検索Toolの機能とも区別する。
 
 ### Provider統合
 
@@ -1376,10 +1376,10 @@ Managerから一貫したPolicyで制御する統合層は未実装である。
 | 2. ToolResultRecord | 基盤実装済み | `runtime/tool_result_manager.py`に全主要フィールドとLLM/UI/History投影があり、`session_store.py`に永続化・取得がある。`tests/test_tool_result_store.py`。 | 全Tool呼出元で共通Recordを使うかは項目7で判定。 |
 | 3. 段階的Summary | 部分実装 | `tool_result_manager.py`に構造化Result由来の軽量Summaryとbounded preview。`tests/test_tool_result_manager.py`。 | Tool別抽出・軽量処理・必要時のみのLLM Summaryを一貫したpipelineとして持つかを確認。 |
 | 4. 重要度・evictable | 部分実装 | Recordに`importance` / `evictable`、`context_budget.py`に重要度順の削減候補選択、`session_store.py`にevictable限定prune。`tests/test_context_budget.py`、`tests/test_tool_result_retention.py`。 | Tool別重要度、自動再取得可能性、保持期限の決定規則は再評価が必要。 |
-| 5. Context Budget | 部分実装 | `context_budget.py`にセクション配分、warning/compact/emergency、eviction。`context_tokens.py`のProvider別推定。`tests/test_context_budget_integration.py`。 | 既定unlimitedと明示的budgetの境界、全Provider/経路での適用とnative機能との整合を確認。 |
-| 6. Agent State・再起動 | 部分実装 | `agent_state.py`、`session_store.py`、`session_restore.py`に更新・永続化・復元。`tests/test_agent_state.py`、`tests/test_session_restore.py`。 | Agent State復元と実行中Tool/Agent Loopの安全な再開は別物。checkpointからの再構築とprocess restart時の範囲を検証。 |
-| 7. Result Manager経路 | 部分実装 | `llm_flow_helpers.py`は`context_manager.process_result()`を呼び、RecordとHistory投影を保存。`tests/test_tool_result_manager.py`。 | すべてのTool/A2A/MCP/entry pointが同じ経路を通る保証は未確認。 |
-| 8. 自動Retrieval | 部分実装 | `context_retrieval.py`の候補選択、`context_manager.py`の検索・再注入、`tests/test_context_retrieval.py`、`tests/test_context_manager_pipeline.py`。 | Context共通経路での意味検索・Artifact本文の自動再取得は未確認。追加の必要性・情報漏洩リスクも評価。 |
+| 5. Context Budget | 部分実装 | `context_budget.py`にセクション配分、warning/compact/emergency、eviction。`context_tokens.py`のProvider別推定。`tests/test_context_budget_integration.py`。 | 既定unlimitedと明示的budgetの境界、全Provider/経路での適用とnative機能との整合を確認。**warning/compaction/emergencyの閾値を`ContextPolicy`から一元管理する設計要件も未達**。現行`ContextBudget.usage()`の固定値は80%/90%/100%、§16の例示値は70%/80%/90%であり、仕様値と設定元を照合する。 |
+| 6. Agent State・再起動 | 部分実装 | `agent_state.py`、`session_store.py`、`session_restore.py`に更新・永続化・復元。`tests/test_agent_state.py`、`tests/test_session_restore.py`。 | §12の`failed_steps`と`important_facts`は現行`AgentState`に存在せず、`relevant_files`に相当する情報は`files`で保持する。**失敗時に`completed_steps`へ誤記録しない更新規則と、失敗/重要事実の保存・復元**を検証。Agent State復元と実行中Tool/Agent Loopの安全な再開は別物なので、checkpointとprocess restart時の範囲も確認。 |
+| 7. Result Manager経路 | 部分実装 | `llm_flow_helpers.py`は`context_manager.process_result()`を呼び、RecordとHistory投影を保存。`tests/test_tool_result_manager.py`。 | **主要経路でも`projections.llm_context`はTool messageへ適用されず、別経路の`materialized_result`を送信している**。分類・Summary・Referenceを含む各projectionが対応するLLM/UI/Persistent Historyの受け手に届くことをまず検証する。加えて全Tool/A2A/MCP/entry pointを通じた統一適用も確認。 |
+| 8. 自動Retrieval | 部分実装 | `context_retrieval.py`の候補選択、`context_manager.py`の検索・再注入、`session_store.py`の`retrieve_tool_context()`による**同一Sessionのtext/JSON Artifact先頭2,000文字の自動preview取得**。`tests/test_context_retrieval.py`、`tests/test_context_manager_pipeline.py`。 | 実装済みのbounded previewを再実装しない。必要な箇所だけの抽出・Context共通経路のEmbedding意味検索・他メディアの再取得は未確認であり、必要性・アクセス境界・情報漏洩リスクを評価。 |
 | 9. 共通Artifact化 | 部分実装 | `tool_result_persistence.py`でバイナリ履歴をサニタイズ。`artifact_manager.py`、`artifact_helpers.py`で登録。`tests/test_artifact_manager.py`。 | すべての画像/音声/PDF/screenshot/MCP blobをTool非依存でArtifact化し、機密payloadと区別できるか未確認。 |
 | 10. Result/Artifact保持 | 部分実装 | `session_store.py`のResult prune、`artifact_retention.py`の容量・件数・年齢ルール、`artifact_manager.py`のopt-in cleanup。`tests/test_tool_result_retention.py`、`tests/test_artifact_retention.py`。 | Result単位の保持期限・参照数、孤児回収、Artifact quotaの包括的適用を確認。cleanupは既定では自動削除しない。 |
 
@@ -1389,7 +1389,7 @@ Managerから一貫したPolicyで制御する統合層は未実装である。
 
 1. **既存テストで検証できる差分を先に確定**し、設計の旧記述による誤判定を解消する。
 2. Provider Native Tool Search / native compactionのPolicy一元管理（項目1・5）、全ToolのResult投影とBinary保護（項目7・9）、restartと保持期限の境界（項目6・10）を横断する確認項目として扱う。
-3. Embedding検索、Artifact本文自動再取得、任意LLM Summaryなどは、現状の機能では満たせない実際の要件が確認できた場合にだけ仕様・費用・セキュリティを設計する。
+3. Embedding検索、**現行の同一Session text/JSON Artifact先頭2,000文字previewより高度な関連箇所抽出・他メディア再取得**、任意LLM Summaryなどは、現状の機能では満たせない実際の要件が確認できた場合にだけ仕様・費用・セキュリティを設計する。
 4. 新規実装が必要と判定された場合に、対象入口、受け入れ条件、回帰テストを明示して小さな独立PRへ分割する。
 
 ---
