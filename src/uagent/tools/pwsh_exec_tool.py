@@ -259,5 +259,5 @@ def run_tool(args: dict[str, Any]) -> str:
         out_str += f"\n[stderr]\n{err_str}"
 
     if cb.truncate_output is not None:
-        return cb.truncate_output("pwsh_exec", out_str, 400_000)
-    return out_str
+        return ToolExecutionText(cb.truncate_output("pwsh_exec", out_str, 400_000))
+    return ToolExecutionText(out_str)
