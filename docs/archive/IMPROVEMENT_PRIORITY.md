@@ -1,5 +1,7 @@
 # 改善優先順位と期待効果
 
+> **履歴記録（2026-08-19時点）**: 以下の完了状況・優先順位は当時の判断です。現行の未完了事項は [実装ロードマップ](../plans/IMPLEMENTATION_ROADMAP.md) を参照してください。
+
 この文書は、`uag_improvement_plan.md` に記載された改善項目を、現在の実装状況を踏まえて整理したものです。
 実装済みの範囲と未実装の拡張を区別し、ロードマップのチェック状態を実コードとテストに合わせて更新します。
 
@@ -434,5 +436,5 @@ Refactor → 重複・責務・型・可読性を改善
 
 ## 関連文書
 
-- [ARCHITECTURE.md](ARCHITECTURE.md)
-- [README_AUTO.md](README_AUTO.md)
+- [ARCHITECTURE.md](../ARCHITECTURE.md)
+- [README_AUTO.md](../README_AUTO.md)

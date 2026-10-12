@@ -5,3 +5,4 @@
 - [Sub-Agent Job Runtime V1 設計](sub-agent-job-runtime-v1.md) — V1 実装済みの設計履歴。現在の説明は [Sub-Agent](../subagent.md) を参照。
 - [UAG Memory Architecture V2](UAG_MEMORY_ARCHITECTURE_V2.md) — 2026年9月のV2設計・再レビュー記録。現行の認証・共有境界は [Memory V3](../UAG_MEMORY_ARCHITECTURE_V3.md) を参照。
 - [Memory V2 Completion Decision](MEMORY_V2_COMPLETION.md) — V2の既定有効化・評価結果・完了判定。現行の運用仕様は [Memory](../MEMORY.md)、評価ゲートは [Memory Evaluation](../MEMORY_EVALUATION.md) を参照。
+- [改善優先順位と期待効果（2026-08-19）](IMPROVEMENT_PRIORITY.md) — 20項目の当時の完了判定と残る拡張候補の履歴。現行の残作業は [実装ロードマップ](../plans/IMPLEMENTATION_ROADMAP.md) を参照。
