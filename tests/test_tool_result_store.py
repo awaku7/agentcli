@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+
 from uagent.runtime.session_store import SessionStore
 
 
@@ -122,3 +124,180 @@ def test_tool_result_record_sanitizes_binary_history(tmp_path) -> None:
 
     assert "secret" not in str(result["persistent_history"])
     assert result["persistent_history"]["path"] == "/tmp/image.png"
+
+
+def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) -> None:
+    secrets = (
+        "summary-dummy-secret",
+        "metadata-dummy-token",
+        "password-dummy-value",
+        "private-key-dummy-value",
+        "body-dummy-bearer",
+        "camel-case-dummy-token",
+        "signed-token-dummy-value",
+        "unknown-token-object-field",
+        "password-status-secret",
+        "private-key-token-id-secret",
+    )
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="test")
+        store.record_tool_result(
+            session.session_id,
+            {
+                "result_id": "result-redaction",
+                "tool_name": "example",
+                "summary": f"api_key={secrets[0]}",
+                "metadata": {
+                    "tool_call_id": "call-redaction",
+                    "status": "failed",
+                    "authorization": f"Bearer {secrets[1]}",
+                },
+            },
+            {
+                "nested": {
+                    "password": secrets[2],
+                    "private_key": secrets[3],
+                },
+                "detail": f"Authorization: Bearer {secrets[4]}",
+                "authorization_url": (
+                    "https://idp.example/authorize?client_id=demo&state=state-dummy&access_token=oauth-access-dummy"
+                ),
+                "signature": "ET MALWARE Test Rule",
+                "json_text": json.dumps(
+                    {"accessToken": secrets[5]}, ensure_ascii=False
+                ),
+                "password": {"status": secrets[8]},
+                "private_key": {"token_id": secrets[9]},
+                "secret_findings": [
+                    {"path": "src/app.py", "line": 17, "kind": "api_key_assignment"}
+                ],
+                "token": {
+                    "signed_token": secrets[6],
+                    "token_id": "tokid-public-123",
+                    "status": "approved",
+                    "expires_at": "2026-10-12T12:00:00Z",
+                    "internal": secrets[7],
+                },
+                "token_id": "verification-id-public-123",
+                "has_token": True,
+            },
+        )
+        raw = store._connection.execute(
+            "SELECT summary, metadata_json, persistent_json "
+            "FROM tool_results WHERE session_id = ? AND result_id = ?",
+            (session.session_id, "result-redaction"),
+        ).fetchone()
+        assert raw is not None
+        raw_text = " ".join(str(value) for value in raw)
+        assert all(secret not in raw_text for secret in secrets)
+        metadata = json.loads(raw["metadata_json"])
+        persistent = json.loads(raw["persistent_json"])
+        result = store.get_tool_result(session.session_id, "result-redaction")
+
+    assert metadata["tool_call_id"] == "call-redaction"
+    assert metadata["status"] == "failed"
+    assert metadata["authorization"] == "********"
+    assert persistent["nested"]["password"] == "********"
+    assert persistent["nested"]["private_key"] == "********"
+    assert persistent["password"]["status"] == "********"
+    assert persistent["private_key"]["token_id"] == "********"
+    assert persistent["secret_findings"] == [
+        {"path": "src/app.py", "line": 17, "kind": "api_key_assignment"}
+    ]
+    assert "********" in persistent["detail"]
+    assert persistent["authorization_url"] == (
+        "https://idp.example/authorize?client_id=demo&state=state-dummy"
+        "&access_token=********"
+    )
+    assert persistent["signature"] == "ET MALWARE Test Rule"
+    assert json.loads(persistent["json_text"])["accessToken"] == "********"
+    assert persistent["token"] == {
+        "signed_token": "********",
+        "token_id": "tokid-public-123",
+        "status": "approved",
+        "expires_at": "2026-10-12T12:00:00Z",
+        "internal": "********",
+    }
+    assert persistent["token_id"] == "verification-id-public-123"
+    assert persistent["has_token"] is True
+    assert result is not None
+    assert result["summary"] == "api_key=********"
+
+
+def test_tool_result_persistence_enforces_utf8_record_byte_budget(tmp_path) -> None:
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="test")
+        store.record_tool_result(
+            session.session_id,
+            {
+                "result_id": "result-byte-limit",
+                "tool_name": "read_file",
+                "result_class": "huge",
+                "size_bytes": 1_500_000,
+                "summary": "large result",
+                "artifact_ref": "artifact://bounded-ref",
+                "metadata": {
+                    "tool_call_id": "call-byte-limit",
+                    "status": "timeout",
+                    "padding": "x" * 100_000,
+                },
+            },
+            {"content": "界" * 500_000, "tail": "end"},
+        )
+        raw = store._connection.execute(
+            "SELECT result_id, session_id, task_id, tool_name, result_class, "
+            "size_bytes, summary, artifact_ref, importance, evictable, "
+            "metadata_json, persistent_json, created_at FROM tool_results "
+            "WHERE session_id = ? AND result_id = ?",
+            (session.session_id, "result-byte-limit"),
+        ).fetchone()
+        assert raw is not None
+        stored_bytes = sum(len(str(value).encode("utf-8")) for value in raw)
+        metadata = json.loads(raw["metadata_json"])
+        persisted = json.loads(raw["persistent_json"])
+        result = store.get_tool_result(session.session_id, "result-byte-limit")
+
+    assert stored_bytes <= 512 * 1024
+    assert metadata["tool_call_id"] == "call-byte-limit"
+    assert metadata["status"] == "timeout"
+    assert metadata["_uagent_metadata_truncated"] is True
+    assert persisted["_uagent_persisted_history"] == "truncated"
+    assert persisted["artifact_ref"] == "artifact://bounded-ref"
+    assert result is not None
+    assert result["persistent_history"]["original_bytes"] > 512 * 1024
+
+
+def test_tool_result_redaction_failure_never_persists_raw_fallback(
+    tmp_path, monkeypatch
+) -> None:
+    from uagent.runtime import session_store as session_store_module
+
+    def fail_serialization(*_args, **_kwargs):
+        raise RuntimeError("simulated sanitizer failure")
+
+    monkeypatch.setattr(
+        session_store_module, "bounded_persistent_json", fail_serialization
+    )
+    secret = "raw-dummy-payload-secret"
+    with SessionStore(tmp_path / "sessions.sqlite3") as store:
+        session = store.create_session(project="demo", entry_point="test")
+        store.record_tool_result(
+            session.session_id,
+            {
+                "result_id": "result-safe-fallback",
+                "tool_name": "example",
+                "metadata": {"status": "success", "tool_call_id": "call-safe"},
+            },
+            {"content": secret},
+        )
+        raw = store._connection.execute(
+            "SELECT persistent_json, metadata_json FROM tool_results "
+            "WHERE session_id = ? AND result_id = ?",
+            (session.session_id, "result-safe-fallback"),
+        ).fetchone()
+
+    assert raw is not None
+    assert secret not in raw["persistent_json"]
+    assert "omitted_after_sanitization_error" in raw["persistent_json"]
+    metadata = json.loads(raw["metadata_json"])
+    assert metadata["status"] == "success"

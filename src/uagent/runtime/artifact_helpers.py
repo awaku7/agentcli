@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from .artifact_manager import ArtifactManager, ArtifactManagerError
-from .session_store import redact_sensitive
+from .tool_result_persistence import sanitize_persistent_text
 
 
 def register_artifacts(
@@ -67,7 +67,9 @@ def register_tool_result(
     manager = ArtifactManager(root, store=session_store)
     session_id = getattr(callbacks, "session_id", None)
     try:
-        safe_text = redact_sensitive(text if isinstance(text, str) else str(text or ""))
+        safe_text = sanitize_persistent_text(
+            text if isinstance(text, str) else str(text or "")
+        )
         item = manager.register_text(
             safe_text,
             session_id=session_id,

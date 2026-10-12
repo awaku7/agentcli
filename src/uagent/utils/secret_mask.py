@@ -114,24 +114,100 @@ def mask_value(v: Any) -> Any:
     return SECRET_MASK
 
 
+_INLINE_SECRET_QUOTED_RE = re.compile(
+    r"(?i)((?<![A-Za-z0-9])(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
+    r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
+    r"private[_-]?key|bearer|credential|cookie|signature|nsec)\b"
+    r"[\"']?\s*[:=]\s*)([\"'])((?:\\.|(?!\2)[^\r\n])*)\2"
+)
 _INLINE_SECRET_RE = re.compile(
-    r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
-    r"access[_-]?key|private[_-]?key|authorization|bearer|credential|"
+    r"(?i)((?<![A-Za-z0-9])(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
+    r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
+    r"private[_-]?key|bearer|credential|"
     r"cookie|signature|nsec)\b[\"']?\s*[:=]\s*)([\"']?)([^\"'&\s,};]+)",
 )
+# Long alphabetic words are common in prose and should not be mistaken for
+# opaque credentials. Require at least one digit or token punctuation.
+_TOKEN_LIKE_LOOKAHEAD = r"(?=[A-Za-z0-9._~+/-]*[0-9._~+/-])"
+_TOKEN_LIKE_CHARS = r"[A-Za-z0-9._~+/-]"
 _BEARER_RE = re.compile(
-    r"(?i)(\bbearer\s+)([A-Za-z0-9._~+/-]+=*)",
+    r"(?i)(\bbearer\s+)"
+    r"(?:(?=[A-Za-z0-9._~+/-]*[0-9._~+/])[A-Za-z0-9._~+/-]+|[A-Za-z]{16,}=*)"
+    r"(?=[ \t]*(?:[,;]|[\"']|\r?$))"
 )
 _URL_PASSWORD_RE = re.compile(
     r"(://[^/@\s:]+:)([^/@\s]+)(@)",
 )
 
 
+_COOKIE_HEADER_RE = re.compile(r"(?i)(\bCookie\s*:\s*)(.*)")
+_AUTHORIZATION_HEADER_RE = re.compile(
+    r"(?im)(\bAuthorization[ 	]*:[ 	]*(?:Bearer|Basic)[ 	]+)"
+    r"([A-Za-z0-9._~+/-]+=*)"
+    r"(?=[ 	]*(?:[,;]|\r?$|Authorization[ 	]*:))"
+)
+_AUTHORIZATION_PARAMETER_RE = re.compile(
+    r"(?im)(\bAuthorization[ \t]*:[ \t]*)"
+    r"(?!Basic\b|Bearer\b)([A-Za-z][A-Za-z0-9._+-]*)[ \t]+"
+    r"(?=[A-Za-z][A-Za-z0-9_-]*[ \t]*=)([^\r\n]+)"
+)
+_AUTHORIZATION_SCHEME_TOKEN_RE = re.compile(
+    r"(?im)(\bAuthorization[ \t]*:[ \t]*)"
+    r"(?!Basic\b|Bearer\b|Digest\b)([A-Za-z][A-Za-z0-9._+-]*)[ \t]+"
+    r"([A-Za-z0-9._~+/-]+=*)"
+    r"(?=[ \t]*(?:[,;]|\r?$|Authorization[ \t]*:))"
+)
+_AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
+    r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)"
+    + _TOKEN_LIKE_LOOKAHEAD
+    + r"("
+    + _TOKEN_LIKE_CHARS
+    + r"{24,}=*)"
+)
+_BARE_API_TOKEN_RE = re.compile(r"\bsk-[A-Za-z0-9_-]+\b")
+
+
+def _mask_custom_authorization_token(match: re.Match[str]) -> str:
+    """Mask opaque values for explicitly shaped custom authorization schemes."""
+    scheme = match.group(2)
+    credential = match.group(3)
+    normalized_scheme = re.sub(r"[^a-z0-9]", "", scheme.lower())
+    known_scheme = normalized_scheme in {
+        "apikey",
+        "oauth",
+        "oauth1",
+        "oauth2",
+        "signature",
+        "token",
+        "hmac",
+        "mac",
+    }
+    scheme_looks_custom = any(char.isupper() for char in scheme[1:]) or any(
+        char in "._+-" or char.isdigit() for char in scheme
+    )
+    credential_looks_opaque = any(
+        char.isdigit() or char in "._~+/" for char in credential
+    )
+    if not (known_scheme or scheme_looks_custom or credential_looks_opaque):
+        return match.group(0)
+    return f"{match.group(1)}{scheme} {SECRET_MASK}"
+
+
 def _mask_inline_secrets(text: str) -> str:
     """Mask secret-looking values embedded in otherwise generic strings."""
-    text = _INLINE_SECRET_RE.sub(r"\1\2" + SECRET_MASK, text)
+    text = _COOKIE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _AUTHORIZATION_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _AUTHORIZATION_PARAMETER_RE.sub(r"\1\2 " + SECRET_MASK, text)
+    text = _AUTHORIZATION_SCHEME_TOKEN_RE.sub(_mask_custom_authorization_token, text)
+    text = _AUTHORIZATION_OPAQUE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _BEARER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _INLINE_SECRET_QUOTED_RE.sub(
+        lambda match: f"{match.group(1)}{match.group(2)}{SECRET_MASK}{match.group(2)}",
+        text,
+    )
+    text = _INLINE_SECRET_RE.sub(r"\1\2" + SECRET_MASK, text)
     text = _URL_PASSWORD_RE.sub(r"\1" + SECRET_MASK + r"\3", text)
+    text = _BARE_API_TOKEN_RE.sub(SECRET_MASK, text)
     return text
 
 

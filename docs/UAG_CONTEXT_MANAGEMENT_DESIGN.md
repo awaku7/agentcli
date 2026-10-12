@@ -1385,6 +1385,8 @@ Managerから一貫したPolicyで制御する統合層は未実装である。
 
 現行基盤に既にあるものを「未実装」として再作成しない。**この監査は読み取り調査であり、全入口の実行確認や未充足機能の優先度決定はしていない。** 項目2の「基盤実装済み」も全Tool適用完了の意味ではない。
 
+**2026-10-12 PR 1追補（未マージ）:** Tool Result専用recordの保存境界に、再帰的secret/Binary sanitizerと512 KiBのUTF-8レコード上限（metadata 8 KiB、summary 4 KiB）を追加。上限超過時はJSON markerとbounded previewに縮小し、Artifact参照を保持する。Tool Result用テキストArtifactにも保存前sanitizerを適用し、SQLite実列・Artifact実ファイルを検査する回帰テストを追加した。これはPR 1の作業ブランチ上の変更であり、PR 2のLLM向けprojection未接続、既存DB/Artifactの遡及修正、全Media Artifact対応、全入口・Provider実機検証を完了扱いにはしない。
+
 ## 32.4 次の対応判断
 
 1. **既存テストで検証できる差分を先に確定**し、設計の旧記述による誤判定を解消する。
@@ -1437,6 +1439,15 @@ Provider-neutral Result Manager
 
 UI / リモート向けのBase64を保持しても、LLM ContextまたはSQLite/JSONLへ同じ値を
 再利用してはならない。
+
+SessionStoreは呼び出し元のprojectionを信頼せず、Tool Result専用レコードの
+保存境界でもsecret key・inline credential・Binary payloadを再度sanitizeする。
+`tool_results`の1レコードはUTF-8で合計512 KiB以内とし、`metadata_json`は8 KiB、
+`summary`は4 KiB以内に制限する。残りの履歴が上限を超える場合は、有効なJSON
+markerとbounded previewへ置き換え、既存の`artifact_ref`があれば維持する。
+Tool Result用のテキストArtifactも登録前に同じsecret/Binary sanitizerを通す。
+この保存上限はLLM Contextのtruncate閾値とは別であり、既存DB・Artifactの一括
+再書換えは行わない。
 
 ## 33.3 バイナリ保存方針
 

@@ -377,7 +377,9 @@ def _extract_english_source_info(
         if not isinstance(node.func, ast.Name) or node.func.id != "_" or not node.args:
             continue
         key_node = node.args[0]
-        if not isinstance(key_node, ast.Constant) or not isinstance(key_node.value, str):
+        if not isinstance(key_node, ast.Constant) or not isinstance(
+            key_node.value, str
+        ):
             continue
         default_node = next(
             (kw.value for kw in node.keywords if kw.arg == "default"),
@@ -480,6 +482,7 @@ def _referenced_catalog_keys(
         literals.update(_static_string_literals(delegated))
     return candidate_keys & literals
 
+
 def _delegated_source_files(path: Path) -> list[Path]:
     """Find modules that explicitly bind the default translator to this facade."""
     primary = path.with_suffix(".py")
@@ -542,6 +545,7 @@ def _english_source_info(path: Path) -> tuple[dict[str, Any], set[str]]:
 def _english_source(path: Path) -> dict[str, Any]:
     source, _dynamic_keys = _english_source_info(path)
     return source
+
 
 def _reference_structure(
     source: dict[str, Any],
@@ -648,7 +652,9 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
                 )
             )
             continue
-        missing_coverage = sorted(set(TOOL_TRANSLATION_LOCALES) - set(translation_blocks))
+        missing_coverage = sorted(
+            set(TOOL_TRANSLATION_LOCALES) - set(translation_blocks)
+        )
         if missing_coverage:
             findings.append(
                 Finding(
@@ -665,8 +671,7 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
             translation_missing = [
                 item
                 for item in missing
-                if item
-                and item.split(".", 1)[0].split("[", 1)[0] not in block
+                if item and item.split(".", 1)[0].split("[", 1)[0] not in block
             ]
             structure_missing = [
                 item for item in missing if item not in translation_missing
@@ -738,10 +743,7 @@ def audit_tool_catalogs(tools_root: Path) -> list[Finding]:
 def _is_advisory_finding(item: Finding) -> bool:
     if item.kind in ADVISORY_FINDING_KINDS:
         return True
-    return (
-        item.component == "tool_json"
-        and item.kind in TOOL_FALLBACK_FINDING_KINDS
-    )
+    return item.component == "tool_json" and item.kind in TOOL_FALLBACK_FINDING_KINDS
 
 
 def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
@@ -749,9 +751,7 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
     tool_findings = audit_tool_catalogs(tools_root)
     findings = host_findings + tool_findings
     coverage_findings = [item for item in findings if item.kind == "coverage_missing"]
-    structural_findings = [
-        item for item in findings if not _is_advisory_finding(item)
-    ]
+    structural_findings = [item for item in findings if not _is_advisory_finding(item)]
     findings_by_kind: dict[str, int] = {}
     tool_findings_by_kind_path: dict[str, dict[str, int]] = {}
     tool_finding_keys_by_kind_path: dict[str, dict[str, set[str]]] = {}
@@ -770,9 +770,7 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
                     if isinstance(value, str)
                 )
             if keys:
-                by_path_keys = tool_finding_keys_by_kind_path.setdefault(
-                    item.kind, {}
-                )
+                by_path_keys = tool_finding_keys_by_kind_path.setdefault(item.kind, {})
                 by_path_keys.setdefault(item.path, set()).update(keys)
 
     strict_findings_by_kind: dict[str, int] = {}
@@ -795,10 +793,7 @@ def audit(locales_root: Path, tools_root: Path) -> dict[str, Any]:
                 for kind, paths in sorted(tool_findings_by_kind_path.items())
             },
             "tool_finding_keys_by_kind_path": {
-                kind: {
-                    path: sorted(keys)
-                    for path, keys in sorted(paths.items())
-                }
+                kind: {path: sorted(keys) for path, keys in sorted(paths.items())}
                 for kind, paths in sorted(tool_finding_keys_by_kind_path.items())
             },
             "strict_findings_by_kind": dict(sorted(strict_findings_by_kind.items())),

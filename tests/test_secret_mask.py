@@ -4,6 +4,7 @@ import json
 
 from uagent.utils.secret_mask import (
     SECRET_MASK,
+    _mask_inline_secrets,
     looks_like_password_field,
     looks_like_secret_key,
     mask_args,
@@ -127,3 +128,101 @@ def test_mask_message_human_ask_secret():
     masked = mask_message({"role": "tool", "content": content})
     parsed = json.loads(masked["content"])
     assert parsed["user_reply"] == SECRET_MASK
+
+
+def test_inline_secret_mask_covers_bearer_cookie_and_camel_case_keys():
+    raw = (
+        "Authorization: Bearer bearer-dummy; "
+        "accessToken=camel-dummy; Cookie: session=dummy-cookie\n"
+        "Authorization: Basic basic-dummy"
+    )
+
+    masked = _mask_inline_secrets(raw)
+
+    assert "bearer-dummy" not in masked
+    assert "camel-dummy" not in masked
+    assert "dummy-cookie" not in masked
+    assert "basic-dummy" not in masked
+    assert SECRET_MASK in masked
+
+
+def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked():
+    prose = "Authorization: required; visit https://example/approve"
+    spaced_prose = "Authorization: required ; visit https://example/approve?next=home"
+    bearer_prose = '"Bearer authentication is common"'
+    long_bearer_prose = "Bearer responsibilities are assigned here"
+    basic_prose = "Authorization: Basic authentication is described here"
+    raw_header_prose = "Authorization: responsibilities are assigned here"
+    header = "Authorization: Bearer bearer-header-dummy; keep this note"
+    basic_header = "Authorization: Basic basic-dummy"
+    alpha_basic_header = "Authorization: Basic YTphYWFh"
+    alpha_bearer_header = "Authorization: Bearer alphabeticbearertoken"
+    crlf_header = "Authorization: Basic YTphYWFh\r\nHost: example"
+    opaque_header = (
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature"
+    )
+
+    assert _mask_inline_secrets(prose) == prose
+    assert _mask_inline_secrets(spaced_prose) == spaced_prose
+    assert _mask_inline_secrets(bearer_prose) == bearer_prose
+    assert _mask_inline_secrets(long_bearer_prose) == long_bearer_prose
+    assert _mask_inline_secrets(basic_prose) == basic_prose
+    assert _mask_inline_secrets(raw_header_prose) == raw_header_prose
+    assert _mask_inline_secrets(header) == (
+        "Authorization: Bearer ********; keep this note"
+    )
+    assert _mask_inline_secrets(basic_header) == "Authorization: Basic ********"
+    assert _mask_inline_secrets(alpha_basic_header) == "Authorization: Basic ********"
+    assert _mask_inline_secrets(alpha_bearer_header) == (
+        "Authorization: Bearer ********"
+    )
+    assert _mask_inline_secrets(crlf_header) == (
+        "Authorization: Basic ********\r\nHost: example"
+    )
+    assert "eyJhbGciOiJIUzI1NiJ9" not in _mask_inline_secrets(opaque_header)
+    assert SECRET_MASK in _mask_inline_secrets(opaque_header)
+
+
+def test_authorization_unknown_schemes_and_short_bearers_are_masked_without_prose_loss():
+    assert _mask_inline_secrets("Authorization: ApiKey abc123") == (
+        "Authorization: ApiKey ********"
+    )
+    assert _mask_inline_secrets("Authorization: ApiKey abcdef") == (
+        "Authorization: ApiKey ********"
+    )
+    assert _mask_inline_secrets("Authorization: permission needed") == (
+        "Authorization: permission needed"
+    )
+    assert (
+        _mask_inline_secrets('Authorization: Digest username="Mufasa", realm="test"')
+        == "Authorization: Digest ********"
+    )
+    assert _mask_inline_secrets("Bearer abc123") == "Bearer ********"
+    assert _mask_inline_secrets("Bearer abcdefghijklmnopqrstuvwxyz") == (
+        "Bearer ********"
+    )
+    quoted_prose = '"Bearer authentication is common"'
+    assert _mask_inline_secrets(quoted_prose) == quoted_prose
+
+
+def test_quoted_inline_secret_is_masked_as_a_whole_value():
+    assert _mask_inline_secrets("password: 'correct horse battery staple'") == (
+        "password: '********'"
+    )
+
+
+def test_namespaced_environment_secret_assignments_are_masked():
+    raw = (
+        "OPENAI_API_KEY=openai-key-dummy "
+        "AWS_SECRET_ACCESS_KEY=aws-secret-dummy "
+        "UAGENT_AUTH_TOKEN=uagent-token-dummy"
+    )
+
+    masked = _mask_inline_secrets(raw)
+
+    assert "OPENAI_API_KEY=********" in masked
+    assert "AWS_SECRET_ACCESS_KEY=********" in masked
+    assert "UAGENT_AUTH_TOKEN=********" in masked
+    assert "openai-key-dummy" not in masked
+    assert "aws-secret-dummy" not in masked
+    assert "uagent-token-dummy" not in masked

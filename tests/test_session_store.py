@@ -386,6 +386,52 @@ def test_search_finds_messages_and_filters_by_project(tmp_path):
     assert store.search("project", project="alpha") == []
 
 
+def test_binary_fields_are_stripped_only_from_tool_message_content(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    content = json.dumps(
+        {
+            "image_b64": "example-payload",
+            "question": "how do I parse this?",
+            "api_key": "secret-dummy-value",
+        }
+    )
+
+    for role in ("user", "assistant", "tool"):
+        store.append_message(session.session_id, role, content)
+
+    messages = {
+        message["role"]: message for message in store.list_messages(session.session_id)
+    }
+    for role in ("user", "assistant"):
+        stored = json.loads(messages[role]["content"])
+        assert stored["image_b64"] == "example-payload"
+        assert stored["question"] == "how do I parse this?"
+        assert stored["api_key"] == "[REDACTED]"
+
+    tool_content = json.loads(messages["tool"]["content"])
+    assert tool_content["image_b64"].startswith("[binary payload omitted")
+    assert tool_content["api_key"] == "[REDACTED]"
+
+
+def test_literal_mask_marker_is_preserved_in_persisted_text(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    prose = "Markdown: ********"
+    structured = json.dumps({"note": "********", "password": "hunter2"})
+
+    store.append_message(session.session_id, "user", prose)
+    store.append_message(session.session_id, "user", structured)
+
+    contents = [
+        message["content"] for message in store.list_messages(session.session_id)
+    ]
+    assert contents[0] == prose
+    parsed = json.loads(contents[1])
+    assert parsed["note"] == "********"
+    assert parsed["password"] == "[REDACTED]"
+
+
 def test_sensitive_values_are_redacted_before_storage(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")
@@ -400,6 +446,27 @@ def test_sensitive_values_are_redacted_before_storage(tmp_path):
     assert "sk-secret-value" not in content
     assert "hunter2" not in content
     assert "session-cookie" not in content
+    assert "[REDACTED]" in content
+
+
+def test_redaction_preserves_bearer_and_basic_prose_in_persisted_messages(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    prose = (
+        "Bearer responsibilities are assigned here; "
+        "Authorization: Basic authentication is described here."
+    )
+    credential = (
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.abc123_signature "
+        "Authorization: Basic YTphYWFh\r\nHost: example"
+    )
+
+    store.append_message(session.session_id, "user", prose + " " + credential)
+
+    content = store.list_messages(session.session_id)[0]["content"]
+    assert prose in content
+    assert "eyJhbGciOiJIUzI1NiJ9.abc123_signature" not in content
+    assert "Authorization: Basic [REDACTED]\r\nHost: example" in content
     assert "[REDACTED]" in content
 
 
