@@ -206,6 +206,38 @@ def test_compress_first_run_single_summary(monkeypatch: pytest.MonkeyPatch):
     assert len(others) == 4
 
 
+def test_compress_keep_last_zero_summarizes_entire_tool_heavy_turn():
+    # One logical turn is kept intact when keep_last=1, leaving no old part to
+    # summarize. Session summaries must pass keep_last=0 to include this turn.
+    messages = [
+        {"role": "system", "content": "SYSTEM_PROMPT"},
+        {"role": "user", "content": "Inspect these results."},
+        {"role": "assistant", "content": ""},
+        {"role": "tool", "name": "lookup", "content": "TOOL_RESULT_1"},
+        {"role": "assistant", "content": ""},
+        {"role": "tool", "name": "lookup", "content": "TOOL_RESULT_2"},
+    ]
+    client = _FakeClient(["SUMMARY_INCLUDES_TOOL_RESULTS"])
+
+    out = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=messages,
+        keep_last=0,
+        emit_log=False,
+    )
+
+    assert len(client.chat.completions.calls) == 1
+    user_prompt = client.chat.completions.calls[0]["messages"][1]["content"]
+    assert "TOOL_RESULT_1" in user_prompt
+    assert "TOOL_RESULT_2" in user_prompt
+    summaries = [message for message in out if lmh._is_history_summary_message(message)]
+    assert len(summaries) == 1
+    assert "SUMMARY_INCLUDES_TOOL_RESULTS" in summaries[0]["content"]
+    assert out[0] == messages[0]
+    assert len(out) == 2
+
+
 def test_summary_chunk_token_budget_is_clamped_by_context_window(
     monkeypatch: pytest.MonkeyPatch,
 ):

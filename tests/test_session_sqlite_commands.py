@@ -362,10 +362,10 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
     db.save_session_summary(session.session_id, "Fresh summary.")
 
     core = SimpleNamespace(session_store=db, session_id=session.session_id)
-    compress_calls: list[str] = []
+    compress_calls: list[tuple[int, int]] = []
 
     def fake_compress(client, depname, messages, keep_last=1, emit_log=True):
-        compress_calls.append("called")
+        compress_calls.append((len(messages), keep_last))
         return [
             {
                 "role": "system",
@@ -401,7 +401,7 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
         (session.session_id, session.session_id),
     )
     run_summarize()
-    assert compress_calls == ["called"]
+    assert compress_calls == [(len(db.list_messages(session.session_id)), 0)]
     assert db.get_session_summary(session.session_id) == "Updated summary"
     db.close()
 

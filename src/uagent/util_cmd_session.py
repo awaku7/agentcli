@@ -1422,9 +1422,9 @@ def _handle_cmd_sessions(
                     continue
             try:
                 # Keep the interactive summary operation bounded: summarize
-                # only the first ten stored messages for each session. The
-                # duplicated tail item below is intentional; the compressor
-                # preserves it while summarizing the preceding ten items.
+                # only the first ten stored messages for each session. Unlike
+                # live-history compression, a session summary must cover every
+                # selected message, so do not preserve a recent-message tail.
                 stored = store.list_messages(sid)[:10]
                 if len(stored) < 2:
                     print(
@@ -1436,8 +1436,8 @@ def _handle_cmd_sessions(
                 compressed = core.compress_history_with_llm(
                     client=client,
                     depname=depname,
-                    messages=stored + [stored[-1]],
-                    keep_last=1,
+                    messages=stored,
+                    keep_last=0,
                     emit_log=False,
                 )
                 from .llm_message_helpers import (
