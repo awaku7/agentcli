@@ -37,6 +37,7 @@ jobs:
                   path in {"AGENTS.md", "tests/README.md"}
                   or ("/" not in path and path.startswith("README") and path.endswith(".md"))
                   or (path.startswith("docs/") and path.endswith(".md"))
+                  or (path.startswith("src/uagent/docs/") and path.endswith(".md"))
               )
 
           base = os.environ.get("BASE_SHA", "")
