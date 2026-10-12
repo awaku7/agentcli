@@ -227,7 +227,8 @@ def _translation_compatible(key: str, default: Any, value: Any) -> bool:
 def _mark_tool_error_translation(key: str, result: Any) -> Any:
     """Mark translated Tool errors independently of their display language."""
     if key.startswith("err.") and isinstance(result, str):
-        return ToolExecutionText(result, status="failed")
+        status = "timeout" if key == "err.timeout" else "failed"
+        return ToolExecutionText(result, status=status)
     return result
 
 
