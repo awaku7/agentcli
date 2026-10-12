@@ -944,6 +944,20 @@ Common checks during development:
 - If startup/tool/MCP behavior changed, run the affected path end-to-end
 - Run the relevant test suite for the touched area
 
+### Session summary diagnostics
+
+Set `UAGENT_SESSION_SUMMARY_DEBUG=1` before launching the CLI to write
+`[session-summary-debug]` diagnostic records to stderr while `:sessions summarize`
+or history compression runs. The records include provider/model, selected API
+path, response status/shape, and text lengths, but not prompt or response text.
+Disable the variable (or set it to `0`) to turn diagnostics off. For example, in
+PowerShell:
+
+```powershell
+$env:UAGENT_SESSION_SUMMARY_DEBUG = "1"
+python -m uagent
+```
+
 If a change affects startup, tools, or MCP behavior, verify the corresponding flow end-to-end.
 
 ### 6.1 Runtime process-exit policy
