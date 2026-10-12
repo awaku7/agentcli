@@ -121,7 +121,7 @@ _INLINE_SECRET_RE = re.compile(
     r"cookie|signature|nsec)\b[\"']?\s*[:=]\s*)([\"']?)([^\"'&\s,};]+)",
 )
 _BEARER_RE = re.compile(
-    r"(?i)(\bbearer\s+)([A-Za-z0-9._~+/-]+=*)",
+    r"(?i)(\bbearer\s+)([A-Za-z0-9._~+/-]{16,}=*)",
 )
 _URL_PASSWORD_RE = re.compile(
     r"(://[^/@\s:]+:)([^/@\s]+)(@)",

@@ -148,9 +148,11 @@ def test_inline_secret_mask_covers_bearer_cookie_and_camel_case_keys():
 
 def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked():
     prose = "Authorization: required; visit https://example/approve"
+    bearer_prose = '"Bearer authentication is common"'
     header = "Authorization: Bearer bearer-header-dummy; keep this note"
 
     assert _mask_inline_secrets(prose) == prose
+    assert _mask_inline_secrets(bearer_prose) == bearer_prose
     assert _mask_inline_secrets(header) == (
         "Authorization: Bearer ********; keep this note"
     )
