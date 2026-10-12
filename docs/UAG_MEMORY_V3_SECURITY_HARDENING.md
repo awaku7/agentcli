@@ -2,7 +2,7 @@
 
 Current source baseline: **main `6f848f2069cc9e9365d3a56d6dbb6419dbd1becc` (v0.7.15 series, after PR #75)**.
 
-This document records the security state rechecked against that main revision. The v0.7.14 findings remain a historical review in [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md); do not treat its unclosed-at-the-time items as the current remaining-work list.
+This document records the security state rechecked against that main revision. Earlier review findings are historical; use this document and the current V3 architecture for the remaining security and rollout boundaries.
 
 ## Implemented hardening
 
@@ -83,7 +83,7 @@ At main `6f848f20`, the Graph size check occurs after the full response body is 
 
 ## Resolved v0.7.14 finding: Web Memory DB lifetime
 
-The v0.7.14 review found that denied `/api/me/*` and Room API paths could raise before a caller received the opened SQLite Memory store and closed it. This resource leak (not an authorization bypass) was fixed in merged PR #72: the Web request boundary tracks and closes opened Memory stores on success, denial and exception paths. Regression coverage verifies cleanup on denied requests. The historical finding and review-time state remain in [UAG_0_7_14_IMPLEMENTATION_REVIEW.md](UAG_0_7_14_IMPLEMENTATION_REVIEW.md).
+The v0.7.14 review found that denied `/api/me/*` and Room API paths could raise before a caller received the opened SQLite Memory store and closed it. This resource leak (not an authorization bypass) was fixed in merged PR #72: the Web request boundary tracks and closes opened Memory stores on success, denial and exception paths. Regression coverage verifies cleanup on denied requests. The original review snapshot remains accessible in Git history.
 
 ## Current rollout gates
 

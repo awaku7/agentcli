@@ -433,7 +433,7 @@ Malformed or unavailable remote context must degrade to the existing local/no-op
 behavior without changing A2A responses or Agent execution. Relevant implementation
 lives in `runtime/observability/otel_backend.py`, `a2a/auth.py`, and `a2a/server.py`.
 Regression coverage is in `tests/test_observability_phase3_a2a.py`; the broader
-trust and rollout scope is documented in `docs/UAG_OPENTELEMETRY_PHASE3_SCOPE.md`.
+trust and rollout scope is documented in `docs/UAG_OPENTELEMETRY_DESIGN.md`.
 
 ## OpenTelemetry controlled content capture (Phase 4A)
 

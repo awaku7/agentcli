@@ -50,7 +50,7 @@
 
 **判定: 条件付き完了（基礎実装完了、統合検証保留）。** CompactionRecord、SourceRef/session index、Reducer、revision付き一括永続化、opt-in生成・projection・fallbackの基礎が実装された。実装者の対象テスト・Ruff・Black成功記録はあるが、レビュー担当による独立実行ではない。実プロバイダ接続、実CLIを通したend-to-end再開・長期利用は未検証であり、本番利用可能とは判断しない。feature flagは既定OFFを維持する。
 
-Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoffはPR 4、複数Clientのsemantic rebaseと認可境界はPR 5に分離する。詳細は [PR 1最終スコープレビュー](./UAG_STRUCTURED_COMPACTION_PR1_REVIEW.md) を参照。
+Safe Boundary/Split TurnはPR 2、Active Context・rehydrationはPR 3、handoffはPR 4、複数Clientのsemantic rebaseと認可境界はPR 5に分離する。PR 1のレビュー上の制約と後続課題は、本書および設計書のフェーズ別記録で管理する。
 
 ## 4. フェーズ計画
 
