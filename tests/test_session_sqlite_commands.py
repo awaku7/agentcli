@@ -362,10 +362,10 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
     db.save_session_summary(session.session_id, "Fresh summary.")
 
     core = SimpleNamespace(session_store=db, session_id=session.session_id)
-    compress_calls: list[str] = []
+    compress_calls: list[tuple[int, int]] = []
 
     def fake_compress(client, depname, messages, keep_last=1, emit_log=True):
-        compress_calls.append("called")
+        compress_calls.append((len(messages), keep_last))
         return [
             {
                 "role": "system",
@@ -401,8 +401,44 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
         (session.session_id, session.session_id),
     )
     run_summarize()
-    assert compress_calls == ["called"]
+    assert compress_calls == [(len(db.list_messages(session.session_id)), 0)]
     assert db.get_session_summary(session.session_id) == "Updated summary"
+    db.close()
+
+
+def test_sessions_summarize_debug_reports_missing_summary_without_content(
+    monkeypatch, tmp_path, capsys
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_SUMMARY_DEBUG", "1")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    db.append_message(session.session_id, "user", "PRIVATE_USER_TEXT")
+    db.append_message(session.session_id, "assistant", "PRIVATE_ASSISTANT_TEXT")
+    core = SimpleNamespace(session_store=db, session_id=session.session_id)
+
+    def return_uncompressed(client, depname, messages, keep_last=1, emit_log=True):
+        return messages
+
+    core.compress_history_with_llm = return_uncompressed
+    from uagent.util_cmd_session import _handle_cmd_sessions
+
+    assert _handle_cmd_sessions(
+        f"summarize {session.session_id}",
+        messages_ref=[],
+        client=object(),
+        depname="test-model",
+        core=core,
+        tr=lambda text, **_: text,
+    )
+
+    captured = capsys.readouterr()
+    assert '"event": "session_input"' in captured.err
+    assert '"event": "compression_output"' in captured.err
+    assert '"event": "summary_not_found"' in captured.err
+    assert '"recognized_summary_count": 0' in captured.err
+    assert "PRIVATE_USER_TEXT" not in captured.err
+    assert "PRIVATE_ASSISTANT_TEXT" not in captured.err
     db.close()
 
 
