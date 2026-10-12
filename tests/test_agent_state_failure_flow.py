@@ -418,3 +418,82 @@ def test_successful_vision_payload_is_not_marked_failed(monkeypatch, tmp_path):
             assert state["failed_steps"] == []
     finally:
         detach_opt_in_session_store(core)
+
+
+def test_successful_command_stdout_does_not_override_step_status(
+    monkeypatch, tmp_path
+):
+    from uagent.runtime.history import truncate_output
+    from uagent.tools import pwsh_exec_tool, python_exec_tool
+
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv(
+        "UAGENT_SESSION_STORE_PATH", str(tmp_path / "command-sessions.sqlite3")
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False
+    )
+    cb = SimpleNamespace(
+        cmd_encoding="utf-8",
+        cmd_exec_timeout_ms=120_000,
+        python_exec_timeout_ms=120_000,
+        truncate_output=truncate_output,
+    )
+    monkeypatch.setattr(pwsh_exec_tool, "get_callbacks", lambda: cb)
+    monkeypatch.setattr(python_exec_tool, "get_callbacks", lambda: cb)
+    monkeypatch.setattr(pwsh_exec_tool.shutil, "which", lambda shell: shell)
+    monkeypatch.setattr(pwsh_exec_tool, "decide_cmd_exec", None)
+    outputs = iter(("Error: healthy", '{"status":"blocked","error":"quoted"}'))
+    monkeypatch.setattr(
+        python_exec_tool.subprocess,
+        "run",
+        lambda *args, **kwargs: SimpleNamespace(
+            returncode=0, stdout=next(outputs), stderr=""
+        ),
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool",
+        lambda name, args: (
+            pwsh_exec_tool.run_tool(args)
+            if name == "pwsh_exec"
+            else python_exec_tool.run_tool(args)
+        ),
+    )
+    core = SimpleNamespace(
+        log_message=lambda message: None,
+        set_status=lambda *args: None,
+        show_tool_output=False,
+    )
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="test"
+    )
+    assert store is not None and session_id
+    try:
+        for index, (name, args) in enumerate(
+            (
+                ("pwsh_exec", {"command": "Write-Output 'Error: healthy'"}),
+                ("python_exec", {"code": "print('quoted')"}),
+            )
+        ):
+            _execute_tool_calls(
+                tool_calls_list=[
+                    {
+                        "id": f"command-{index}",
+                        "type": "function",
+                        "function": {
+                            "name": name,
+                            "arguments": json.dumps(args),
+                        },
+                    }
+                ],
+                messages=[],
+                core=core,
+                cache_mgr=_Cache(),
+            )
+            state = store.get_agent_state(session_id)
+            assert state is not None
+            assert state["failed_steps"] == []
+            assert f"tool:{name}" in state["completed_steps"]
+    finally:
+        detach_opt_in_session_store(core)
