@@ -270,6 +270,21 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 - 自動修正を既定で有効化せず、ユーザー確認を必須にする。
 
+## P2: Context RuntimeのVertex AI実環境回帰確認
+
+- Status: in-progress（Context Runtimeの主要機能は実装済み、Vertex AI実環境の回帰確認待ち）
+- Priority: P2（実機・外部Provider環境を必要とする検証）
+- Source: [Context Management Design](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)、[旧Context Runtime実装計画](../archive/UAG_CONTEXT_RUNTIME_TODO.md)
+
+### 残る検証
+
+- Vertex AI実環境で、Control-Cによる中断・停止を検証する。
+- 中断・承認後の会話継続時に、UserターンとProvider Projectionの整合性が維持されることを確認する。
+- `tool_load` を連続実行した際のtool定義・応答・コンテキスト復元を確認する。
+- 問題を再現した場合だけ、Provider固有Projectionの修正と回帰テストを追加する。
+
+旧計画に記載のActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等は実装済みとして扱い、再実装しない。上記は**未実装機能と断定せず実環境検証待ち**として管理する。
+
 ## P2: 開発基盤の改善
 
 - Status: in-progress
