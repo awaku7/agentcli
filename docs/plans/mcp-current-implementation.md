@@ -2,7 +2,7 @@
 
 - Status: mostly complete（主要機能実装済み。実Proxy/TLSは残課題）
 - Priority: P1
-- Related plan: [`mcp-2026-07-28.md`](mcp-2026-07-28.md)
+- Related plan: [MCP 2026-07-28仕様対応（実装ロードマップ）](IMPLEMENTATION_ROADMAP.md)
 - Survey date: 2026-08-06
 
 ## 使用SDK

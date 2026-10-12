@@ -43,11 +43,10 @@
 ## 一覧
 
 - [`IMPLEMENTATION_ROADMAP.md`](IMPLEMENTATION_ROADMAP.md): 実装予定項目の一覧と優先順位
-- [`responses-api-management.md`](responses-api-management.md): Responses API管理機能
 - [`network-toolkit.md`](network-toolkit.md): Network Toolkit運用品質
-- [`ucp-ap2.md`](ucp-ap2.md): UCP / AP2未対応機能
-- [`auto-pilot-interrupt.md`](auto-pilot-interrupt.md): Auto-Pilot / Interrupt残課題
-- [`mcp-2026-07-28.md`](mcp-2026-07-28.md): MCP 2026-07-28仕様対応
 - [`mcp-current-implementation.md`](mcp-current-implementation.md): MCP現行実装棚卸し
 - [`gitlab-mcp-oauth.md`](gitlab-mcp-oauth.md): GitLab MCPを主要ユースケースとした汎用MCP OAuth DCR / pre-registered client設計
-- [`sub-agent-job-runtime-v1.md`](sub-agent-job-runtime-v1.md): Main AgentをブロックしないSub-Agent Job Runtime V1とCLI Foreground/Background表示設計
+
+Responses API、UCP/AP2、MCP 2026-07-28、Auto-Pilot/Interrupt の残課題は上記ロードマップ内で管理します（未作成の個別計画ファイルにはリンクしません）。
+
+実装済みの [Sub-Agent Job Runtime V1設計](../archive/sub-agent-job-runtime-v1.md) は履歴保管へ移し、現在の機能説明は [Sub-Agent設計](../subagent.md) を参照してください。権限検証用の [Sub-Agentテスト手順](../sub-agent-permissions-test.md) は利用可能な手順書として `docs/` に移動しました。
