@@ -548,9 +548,15 @@ def _tool_result_status(value: Any) -> str:
         return "failed"
     if text.startswith("["):
         marker, closing, _ = text.partition("]")
-        if closing and marker[1:].endswith((" error", "エラー")):
-            # Handles localized host errors and tool-specific "[name error]".
-            return "failed"
+        if closing:
+            label = marker[1:]
+            if label.endswith((" error", "エラー")):
+                # Localized host errors and tool-specific "[name error]".
+                return "failed"
+            if label.endswith(" timeout"):
+                return "timeout"
+            if label.endswith((" cancelled", " canceled")):
+                return "cancelled"
     if text.startswith(("mcp_cancelled", "cancelled:", "[tool cancelled]")):
         return "cancelled"
     if text.startswith(("timeout:", "timed out:", "[tool timeout]")):
@@ -808,6 +814,13 @@ def _execute_tool_calls(
                 print(_display)
             executed_new_tool = True
 
+        # A successful file read can contain JSON status/error keys or text
+        # that looks like an error. Capture trusted execution metadata before
+        # normalizing the arbitrary result body for the provider.
+        explicit_execution_status = getattr(
+            tool_result, "_uag_execution_status", None
+        )
+
         # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)
         if not isinstance(tool_result, str):
             tool_result = json.dumps(tool_result, ensure_ascii=False)
@@ -944,7 +957,11 @@ def _execute_tool_calls(
             if isinstance(parsed_tool_result, dict)
             else raw_context_result
         )
-        result_status = _tool_result_status(parsed_tool_result or raw_context_result)
+        result_status = (
+            explicit_execution_status
+            if explicit_execution_status in {"success", "failed", "timeout", "cancelled"}
+            else _tool_result_status(parsed_tool_result or raw_context_result)
+        )
         result_record, projections = context_manager.process_result(
             record_value,
             tool_name=name,
