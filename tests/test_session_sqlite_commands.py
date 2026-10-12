@@ -406,6 +406,58 @@ def test_sessions_summarize_replaces_stale_summary(monkeypatch, tmp_path):
     db.close()
 
 
+def test_sessions_summarize_folds_compressor_tail_into_persisted_summary(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    db.append_message(session.session_id, "user", "Summarize the tool results.")
+    db.append_message(session.session_id, "assistant", "Working on it.")
+    core = SimpleNamespace(session_store=db, session_id=session.session_id)
+    calls: list[tuple[list[dict], int]] = []
+
+    def fake_compress(client, depname, messages, keep_last=1, emit_log=True):
+        calls.append((messages, keep_last))
+        if len(calls) == 1:
+            return [
+                {
+                    "role": "system",
+                    "content": "Summary of the conversation so far:\nPrefix summary",
+                },
+                {
+                    "role": "tool",
+                    "name": "lookup",
+                    "content": "UNSUMMARIZED_TOOL_TAIL",
+                },
+            ]
+        assert calls[-1][0][1]["content"] == "UNSUMMARIZED_TOOL_TAIL"
+        return [
+            {
+                "role": "system",
+                "content": "Summary of the conversation so far:\nComplete summary",
+            }
+        ]
+
+    core.compress_history_with_llm = fake_compress
+    from uagent.util_cmd_session import _handle_cmd_sessions
+
+    assert _handle_cmd_sessions(
+        f"summarize {session.session_id}",
+        messages_ref=[],
+        client=object(),
+        depname="test-model",
+        core=core,
+        tr=lambda text, **_: text,
+    )
+
+    assert len(calls) == 2
+    assert calls[0][1] == 0
+    assert calls[1][1] == 0
+    assert db.get_session_summary(session.session_id) == "Complete summary"
+    db.close()
+
+
 def test_sessions_summarize_only_processes_first_ten_records(
     monkeypatch, tmp_path, capsys
 ):
