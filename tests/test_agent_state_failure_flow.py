@@ -420,9 +420,7 @@ def test_successful_vision_payload_is_not_marked_failed(monkeypatch, tmp_path):
         detach_opt_in_session_store(core)
 
 
-def test_successful_command_stdout_does_not_override_step_status(
-    monkeypatch, tmp_path
-):
+def test_command_success_stdout_does_not_fail(monkeypatch, tmp_path) -> None:
     from uagent.runtime.history import truncate_output
     from uagent.tools import pwsh_exec_tool, python_exec_tool
 
