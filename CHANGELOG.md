@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.7.30] - 2026-10-13
+
+### Added
+
+- Add opt-in, content-free diagnostics for session-history compression and persisted session-summary generation.
+
+### Changed
+
+- Document the limits of bounded Tool Result persistence and context projection.
+
+### Fixed
+
+- Protect credentials and binary-shaped tool results when projecting them into persisted session history, while preserving safe token and Base64 metadata.
+- Preserve unconsumed split tails when generating session summaries and fix context-result projection persistence.
+
 ## [0.7.29] - 2026-10-12
 
 ### Fixed
