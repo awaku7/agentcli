@@ -1385,6 +1385,32 @@ def _handle_cmd_sessions(
         if store is None or client is None or not depname:
             print(_("[sessions] Session store or LLM is not enabled."))
             return True
+        debug_raw = env_get("UAGENT_SESSION_SUMMARY_DEBUG", "") or ""
+        session_summary_debug = debug_raw.strip().lower() in {
+            "1",
+            "true",
+            "yes",
+            "on",
+        }
+
+        def _debug_session_summary(event: str, **fields: Any) -> None:
+            """Emit opt-in summary diagnostics without logging message content."""
+            if not session_summary_debug:
+                return
+            try:
+                print(
+                    "[session-summary-debug] "
+                    + json.dumps(
+                        {"event": event, **fields},
+                        ensure_ascii=False,
+                        default=str,
+                    ),
+                    file=sys.stderr,
+                )
+            except Exception:
+                # Diagnostic output must not change summary behavior.
+                pass
+
         force = "--force" in parts[1:]
         target = next((p for p in parts[1:] if not p.startswith("--")), "")
         rows = store.list_sessions()
@@ -1433,6 +1459,17 @@ def _handle_cmd_sessions(
                     )
                     skipped += 1
                     continue
+                _debug_session_summary(
+                    "session_input",
+                    session_id=sid,
+                    stored_message_count=len(stored),
+                    stored_roles=[str(m.get("role") or "") for m in stored],
+                    stored_content_chars=[
+                        len(str(m.get("content") or "")) for m in stored
+                    ],
+                    compression_input_count=len(stored),
+                    keep_last=0,
+                )
                 from .llm_message_helpers import (
                     _is_history_summary_message,
                     _strip_history_summary_prefix,
@@ -1444,6 +1481,24 @@ def _handle_cmd_sessions(
                     messages=stored,
                     keep_last=0,
                     emit_log=False,
+                )
+                recognized_summary_messages = [
+                    m for m in compressed if _is_history_summary_message(m)
+                ]
+                _debug_session_summary(
+                    "compression_output",
+                    session_id=sid,
+                    output_message_count=len(compressed),
+                    output_shapes=[
+                        {
+                            "role": str(m.get("role") or ""),
+                            "content_type": type(m.get("content")).__name__,
+                            "content_chars": len(str(m.get("content") or "")),
+                            "recognized_as_summary": _is_history_summary_message(m),
+                        }
+                        for m in compressed
+                    ],
+                    recognized_summary_count=len(recognized_summary_messages),
                 )
                 # A very large final logical turn can be split by the history
                 # compressor: it summarizes a safe prefix and returns the
@@ -1506,6 +1561,12 @@ def _handle_cmd_sessions(
                     "",
                 )
                 if not summary:
+                    _debug_session_summary(
+                        "summary_not_found",
+                        session_id=sid,
+                        recognized_summary_count=len(recognized_summary_messages),
+                        extracted_summary_chars=len(summary),
+                    )
                     raise RuntimeError("LLM returned no summary")
                 store.save_session_summary(sid, summary)
                 print(
@@ -1524,6 +1585,12 @@ def _handle_cmd_sessions(
                 interrupted = True
                 break
             except Exception as exc:
+                _debug_session_summary(
+                    "session_error",
+                    session_id=sid,
+                    error_type=type(exc).__name__,
+                    error_message_chars=len(str(exc)),
+                )
                 print(
                     _("[%(index)d/%(total)d] %(id)s  failed: %(error)s")
                     % {"index": index, "total": len(rows), "id": sid, "error": exc}

@@ -862,6 +862,53 @@ def compress_history_with_llm(
             )
         )
 
+    summary_debug_raw = env_get("UAGENT_SESSION_SUMMARY_DEBUG", "") or ""
+    summary_debug_enabled = summary_debug_raw.strip().lower() in {
+        "1",
+        "true",
+        "yes",
+        "on",
+    }
+
+    def _debug_summary(event: str, **fields: Any) -> None:
+        """Emit opt-in, content-free diagnostics for session summaries."""
+        if not summary_debug_enabled:
+            return
+        record = {
+            "event": event,
+            "provider": provider,
+            "model": depname,
+            "use_responses_api": bool(use_responses_api),
+            **fields,
+        }
+        try:
+            print(
+                "[session-summary-debug] "
+                + json.dumps(record, ensure_ascii=False, default=str),
+                file=sys.stderr,
+            )
+        except Exception:
+            # Debug output must never interfere with history compression.
+            pass
+
+    def _obj_field(value: Any, name: str, default: Any = None) -> Any:
+        if isinstance(value, dict):
+            return value.get(name, default)
+        return getattr(value, name, default)
+
+    _debug_summary(
+        "compression_input",
+        client_type=type(client).__name__,
+        message_count=len(messages),
+        message_roles=[str(message.get("role") or "") for message in messages],
+        message_content_chars=[
+            len(str(message.get("content") or "")) for message in messages
+        ],
+        old_message_count=len(old_part),
+        tail_message_count=len(tail_part),
+        keep_last=keep_last,
+    )
+
     def _summarize_with_llm(
         summary_messages: list[dict[str, Any]],
     ) -> tuple[str | None, Exception | None]:
@@ -869,11 +916,13 @@ def compress_history_with_llm(
         summary_content = ""
         attempt_429 = 0
         module_deadlock_retries = 0
+        call_path = "unselected"
         while True:
             try:
                 if provider in ("gemini", "vertexai") or "genai.Client" in str(
                     type(client)
                 ):
+                    call_path = "gemini"
                     from ..providers.llm_gemini import gemini_chat_with_tools
 
                     summary_content, _summary_unused1, _summary_unused2 = (
@@ -895,6 +944,7 @@ def compress_history_with_llm(
                         )
                     )
                 elif provider == "claude":
+                    call_path = "claude"
                     from ..providers.llm_claude import claude_chat_with_tools
 
                     claude_result = claude_chat_with_tools(
@@ -920,6 +970,7 @@ def compress_history_with_llm(
                         pass
 
                     if use_responses_api:
+                        call_path = "responses"
                         resp = client.responses.create(
                             model=depname,
                             instructions=summary_messages[0]["content"],
@@ -936,18 +987,59 @@ def compress_history_with_llm(
                             ],
                             max_output_tokens=_sum_max,
                         )
-                        if hasattr(resp, "output") and resp.output:
-                            for item in resp.output:
-                                if item.type == "message":
-                                    for c in item.content:
-                                        if c.type == "output_text":
-                                            summary_content += c.text
+                        response_output = _obj_field(resp, "output", None) or []
+                        output_shape = []
+                        for item in response_output:
+                            item_type = _obj_field(item, "type", None)
+                            item_content = _obj_field(item, "content", None) or []
+                            content_shape = []
+                            for content_item in item_content:
+                                text_value = _obj_field(content_item, "text", None)
+                                content_shape.append(
+                                    {
+                                        "type": _obj_field(content_item, "type", None),
+                                        "text_chars": (
+                                            len(text_value)
+                                            if isinstance(text_value, str)
+                                            else None
+                                        ),
+                                    }
+                                )
+                                if (
+                                    item_type == "message"
+                                    and _obj_field(content_item, "type", None)
+                                    == "output_text"
+                                    and isinstance(text_value, str)
+                                ):
+                                    summary_content += text_value
+                            output_shape.append(
+                                {
+                                    "type": item_type,
+                                    "status": _obj_field(item, "status", None),
+                                    "content": content_shape,
+                                }
+                            )
+                        incomplete_details = _obj_field(
+                            resp, "incomplete_details", None
+                        )
+                        _debug_summary(
+                            "provider_response",
+                            call_path=call_path,
+                            response_type=type(resp).__name__,
+                            response_status=_obj_field(resp, "status", None),
+                            incomplete_reason=_obj_field(
+                                incomplete_details, "reason", None
+                            ),
+                            output_item_count=len(response_output),
+                            output_shape=output_shape,
+                        )
                     elif (
                         hasattr(client, "chat")
                         and hasattr(client.chat, "create")
                         and not hasattr(client.chat, "completions")
                     ):
                         # xai_sdk (gRPC): convert OpenAI-format messages first
+                        call_path = "xai_sdk.chat"
                         from ..providers.llm_grok import simple_xai_chat
 
                         summary_content = simple_xai_chat(
@@ -960,6 +1052,7 @@ def compress_history_with_llm(
                     elif hasattr(client, "chat") and hasattr(
                         client.chat, "completions"
                     ):
+                        call_path = "chat.completions"
                         _summary_kwargs = {
                             "model": depname,
                             "messages": summary_messages,
@@ -980,13 +1073,52 @@ def compress_history_with_llm(
                             # temperature and reject any explicit value.
                             _summary_kwargs.pop("temperature", None)
                             resp = client.chat.completions.create(**_summary_kwargs)
-                        summary_content = resp.choices[0].message.content or ""
+                        choices = _obj_field(resp, "choices", None) or []
+                        choice = choices[0] if choices else None
+                        response_message = _obj_field(choice, "message", None)
+                        response_text = _obj_field(response_message, "content", None)
+                        summary_content = response_text or ""
+                        _debug_summary(
+                            "provider_response",
+                            call_path=call_path,
+                            response_type=type(resp).__name__,
+                            choice_count=len(choices),
+                            finish_reason=_obj_field(choice, "finish_reason", None),
+                            message_content_type=(
+                                type(response_text).__name__
+                                if response_text is not None
+                                else None
+                            ),
+                            message_content_chars=(
+                                len(response_text)
+                                if isinstance(response_text, str)
+                                else None
+                            ),
+                        )
                     else:
                         raise AttributeError(
                             f"Client {type(client)} has no attribute 'chat' and is not recognized as Gemini."
                         )
+                _debug_summary(
+                    "summary_text",
+                    call_path=call_path,
+                    text_type=type(summary_content).__name__,
+                    text_chars=(
+                        len(summary_content)
+                        if isinstance(summary_content, str)
+                        else None
+                    ),
+                    blank=not bool(str(summary_content or "").strip()),
+                )
                 return summary_content, None
             except Exception as e:
+                _debug_summary(
+                    "provider_error",
+                    call_path=call_path,
+                    error_type=type(e).__name__,
+                    error_message_chars=len(str(e)),
+                    attempt_429=attempt_429,
+                )
                 if _is_openai_module_deadlock(e) and module_deadlock_retries < 3:
                     module_deadlock_retries += 1
                     time.sleep(0.25 * module_deadlock_retries)

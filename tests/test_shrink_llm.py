@@ -111,6 +111,7 @@ def test_provider_call_messages_drop_local_actor_id_without_mutating_history(
 def _isolate_env(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("UAGENT_PROVIDER", "openai")
     monkeypatch.delenv("UAGENT_RESPONSES", raising=False)
+    monkeypatch.delenv("UAGENT_SESSION_SUMMARY_DEBUG", raising=False)
     monkeypatch.delenv("UAGENT_SHRINK_SINGLE_SHOT", raising=False)
     monkeypatch.setenv("UAGENT_SHRINK_CHUNK_SIZE", "50")
     monkeypatch.setattr(
@@ -1013,3 +1014,97 @@ def test_oversized_turn_without_safe_assistant_cut_is_left_intact(monkeypatch):
 
     assert projected == messages
     assert client.chat.completions.calls == []
+
+
+def test_session_summary_debug_is_opt_in_and_does_not_log_content(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    messages = _make_dialog(2)
+
+    core.compress_history_with_llm(
+        client=_FakeClient([""]),
+        depname="gpt-test",
+        messages=messages,
+        keep_last=1,
+        emit_log=False,
+    )
+    assert "session-summary-debug" not in capsys.readouterr().err
+
+    monkeypatch.setenv("UAGENT_SESSION_SUMMARY_DEBUG", "1")
+    core.compress_history_with_llm(
+        client=_FakeClient([""]),
+        depname="gpt-test",
+        messages=messages,
+        keep_last=1,
+        emit_log=False,
+    )
+    debug_output = capsys.readouterr().err
+    assert '"event": "compression_input"' in debug_output
+    assert '"call_path": "chat.completions"' in debug_output
+    assert '"blank": true' in debug_output
+    assert "user-0 fact-0" not in debug_output
+
+
+def test_session_summary_debug_reports_responses_output_shape(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+):
+    monkeypatch.setenv("UAGENT_SESSION_SUMMARY_DEBUG", "true")
+    response = SimpleNamespace(
+        status="incomplete",
+        incomplete_details=SimpleNamespace(reason="max_output_tokens"),
+        output=[
+            SimpleNamespace(
+                type="message",
+                status="incomplete",
+                content=[
+                    SimpleNamespace(type="refusal", refusal="PRIVATE_RESPONSE_TEXT")
+                ],
+            )
+        ],
+    )
+    client = SimpleNamespace(
+        responses=SimpleNamespace(create=lambda **_kwargs: response)
+    )
+
+    core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=_make_dialog(2),
+        keep_last=1,
+        use_responses_api=True,
+        emit_log=False,
+    )
+
+    debug_output = capsys.readouterr().err
+    assert '"call_path": "responses"' in debug_output
+    assert '"response_status": "incomplete"' in debug_output
+    assert '"incomplete_reason": "max_output_tokens"' in debug_output
+    assert '"type": "refusal"' in debug_output
+    assert "PRIVATE_RESPONSE_TEXT" not in debug_output
+
+
+def test_compress_responses_api_accepts_mapping_shaped_response():
+    response = {
+        "output": [
+            {
+                "type": "message",
+                "content": [{"type": "output_text", "text": "MAPPING_SUMMARY"}],
+            }
+        ]
+    }
+    client = SimpleNamespace(
+        responses=SimpleNamespace(create=lambda **_kwargs: response)
+    )
+
+    out = core.compress_history_with_llm(
+        client=client,
+        depname="gpt-test",
+        messages=_make_dialog(2),
+        keep_last=0,
+        use_responses_api=True,
+        emit_log=False,
+    )
+
+    summaries = [message for message in out if lmh._is_history_summary_message(message)]
+    assert len(summaries) == 1
+    assert "MAPPING_SUMMARY" in summaries[0]["content"]

@@ -572,3 +572,37 @@ def test_sessions_search_matches_tool_payload_and_metadata(tmp_path, monkeypatch
     assert results and results[0]["session_id"] == session.session_id
     assert results[0]["role"] == "tool"
     db.close()
+
+
+def test_sessions_summarize_debug_reports_missing_summary_without_content(
+    monkeypatch, tmp_path, capsys
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_SESSION_SUMMARY_DEBUG", "1")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    session = db.create_session(project="agentcli", entry_point="cli")
+    db.append_message(session.session_id, "user", "PRIVATE_USER_TEXT")
+    db.append_message(session.session_id, "assistant", "PRIVATE_ASSISTANT_TEXT")
+    core = SimpleNamespace(session_store=db, session_id=session.session_id)
+
+    def return_uncompressed(client, depname, messages, keep_last=1, emit_log=True):
+        return messages
+
+    core.compress_history_with_llm = return_uncompressed
+    assert _handle_cmd_sessions(
+        f"summarize {session.session_id}",
+        messages_ref=[],
+        client=object(),
+        depname="test-model",
+        core=core,
+        tr=lambda text, **_: text,
+    )
+
+    captured = capsys.readouterr()
+    assert '"event": "session_input"' in captured.err
+    assert '"event": "compression_output"' in captured.err
+    assert '"event": "summary_not_found"' in captured.err
+    assert '"recognized_summary_count": 0' in captured.err
+    assert "PRIVATE_USER_TEXT" not in captured.err
+    assert "PRIVATE_ASSISTANT_TEXT" not in captured.err
+    db.close()
