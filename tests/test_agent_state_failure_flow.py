@@ -26,6 +26,10 @@ def test_tool_failure_is_not_persisted_as_completed(monkeypatch, tmp_path) -> No
     results = iter(
         [
             json.dumps({"ok": False, "error": "simulated failure"}),
+            "[tool argument error] name='demo' err=invalid alias",
+            "[tool error] unknown tool: demo",
+            "Error: plugin failed",
+            json.dumps({"status": "blocked", "reason": "permission denied"}),
             json.dumps({"ok": True}),
         ]
     )
@@ -44,7 +48,14 @@ def test_tool_failure_is_not_persisted_as_completed(monkeypatch, tmp_path) -> No
     assert session_id
 
     try:
-        for call_id, expected_failed in (("failed-1", True), ("success-2", False)):
+        for call_id, expected_failed in (
+            ("json-failure", True),
+            ("argument-error", True),
+            ("unknown-tool", True),
+            ("plugin-error", True),
+            ("blocked", True),
+            ("retry-success", False),
+        ):
             tool_calls = [
                 {
                     "id": call_id,
