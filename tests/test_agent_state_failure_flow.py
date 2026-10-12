@@ -178,9 +178,7 @@ def test_read_file_contents_do_not_control_agent_step_status(
         detach_opt_in_session_store(core)
 
 
-def test_fetched_payload_is_not_treated_as_tool_status(
-    monkeypatch, tmp_path
-) -> None:
+def test_fetched_payload_is_not_treated_as_tool_status(monkeypatch, tmp_path) -> None:
     from uagent.tools import fetch_url_tool
 
     monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
@@ -273,9 +271,7 @@ def test_localized_location_error_is_marked_failed(monkeypatch, tmp_path) -> Non
         current_location_tool,
         "_",
         lambda key, default=None: (
-            "Erreur : Échec de la requête: {err}"
-            if key == "err.generic"
-            else default
+            "Erreur : Échec de la requête: {err}" if key == "err.generic" else default
         ),
     )
 
