@@ -209,3 +209,20 @@ def test_quoted_inline_secret_is_masked_as_a_whole_value():
     assert _mask_inline_secrets("password: 'correct horse battery staple'") == (
         "password: '********'"
     )
+
+
+def test_namespaced_environment_secret_assignments_are_masked():
+    raw = (
+        "OPENAI_API_KEY=openai-key-dummy "
+        "AWS_SECRET_ACCESS_KEY=aws-secret-dummy "
+        "UAGENT_AUTH_TOKEN=uagent-token-dummy"
+    )
+
+    masked = _mask_inline_secrets(raw)
+
+    assert "OPENAI_API_KEY=********" in masked
+    assert "AWS_SECRET_ACCESS_KEY=********" in masked
+    assert "UAGENT_AUTH_TOKEN=********" in masked
+    assert "openai-key-dummy" not in masked
+    assert "aws-secret-dummy" not in masked
+    assert "uagent-token-dummy" not in masked

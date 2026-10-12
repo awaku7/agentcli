@@ -184,3 +184,20 @@ def test_persistent_text_redacts_complete_quoted_password_value():
     text = "password: 'correct horse battery staple'"
 
     assert sanitize_persistent_text(text) == "password: '********'"
+
+
+def test_persistent_text_masks_namespaced_environment_credentials():
+    text = (
+        "OPENAI_API_KEY=openai-key-dummy "
+        "AWS_SECRET_ACCESS_KEY=aws-secret-dummy "
+        "UAGENT_AUTH_TOKEN=uagent-token-dummy"
+    )
+
+    sanitized = sanitize_persistent_text(text)
+
+    assert "OPENAI_API_KEY=********" in sanitized
+    assert "AWS_SECRET_ACCESS_KEY=********" in sanitized
+    assert "UAGENT_AUTH_TOKEN=********" in sanitized
+    assert "openai-key-dummy" not in sanitized
+    assert "aws-secret-dummy" not in sanitized
+    assert "uagent-token-dummy" not in sanitized

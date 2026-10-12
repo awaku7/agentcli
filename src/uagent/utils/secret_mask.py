@@ -115,13 +115,13 @@ def mask_value(v: Any) -> Any:
 
 
 _INLINE_SECRET_QUOTED_RE = re.compile(
-    r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
+    r"(?i)((?<![A-Za-z0-9])(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
     r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
     r"private[_-]?key|bearer|credential|cookie|signature|nsec)\b"
     r"[\"']?\s*[:=]\s*)([\"'])((?:\\.|(?!\2)[^\r\n])*)\2"
 )
 _INLINE_SECRET_RE = re.compile(
-    r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
+    r"(?i)((?<![A-Za-z0-9])(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
     r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
     r"private[_-]?key|bearer|credential|"
     r"cookie|signature|nsec)\b[\"']?\s*[:=]\s*)([\"']?)([^\"'&\s,};]+)",

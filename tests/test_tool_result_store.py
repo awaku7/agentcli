@@ -179,6 +179,7 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
                     "internal": secrets[7],
                 },
                 "token_id": "verification-id-public-123",
+                "has_token": True,
             },
         )
         raw = store._connection.execute(
@@ -218,6 +219,7 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
         "internal": "********",
     }
     assert persistent["token_id"] == "verification-id-public-123"
+    assert persistent["has_token"] is True
     assert result is not None
     assert result["summary"] == "api_key=********"
 
