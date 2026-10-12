@@ -280,14 +280,14 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 旧TODOの9つの基盤項目（ActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等）は実装済みの履歴記録として保管する。ただし、**これはContext Management Designの最終要件がすべて完了したことを意味しない**。2026-10-12にコード・既存テストを読み取り照合した結果、以下は**項目2の基盤実装済み、他9領域の部分実装**と判定した。各領域の根拠・未確認の境界は[現行設計§32.3](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)に記載。全入口・Providerの実行確認や新規テスト実行は行っていない。
 
-1. ContextManagerの統合層（`context_manager.py`にfacadeは存在するため、実際の全実行経路への接続を確認）。**加えてProvider Native Tool Searchおよびnative compactionが`ContextPolicy`から一貫して制御されるか**、OpenAI/Azure/Gemini等のProvider固有設定・フォールバックを含めて検証する。facade接続確認だけでは完了としない。
+1. ContextManagerの統合層（`context_manager.py`にfacadeは存在するため、実際の全実行経路への接続を確認）。**加えてProvider Native Tool Searchおよびnative compactionが`ContextPolicy`から一貫して制御されるか**、OpenAI/Azure/Gemini等のProvider固有設定・フォールバックを含めて検証する。facade接続確認だけでは完了としない。 **§7.3/§24/Phase 5のProvider `supports_context_editing` / Anthropic `context_edit`もTool Search/native compactionとは別に、capability検出・Policy制御・未対応時fallbackを検証する。**
 2. ToolResultRecordの統一管理（`tool_result_manager.py`にrecordは存在するため、永続化・全呼出元での利用を確認）。
 3. Structured Resultから段階的なSummaryを生成する処理（軽量要約と任意のLLM要約の範囲）。
 4. Resultの重要度・再取得可能性・evictable・保持期限の判断。
-5. Context Budget、Provider/Model別の予算配分、evictionの一元適用。**warning/compaction/emergency閾値の`ContextPolicy`制御と設計§16の例示値との整合**を確認（現行`ContextBudget.usage()`は80%/90%/100%固定）。
+5. Context Budget、Provider/Model別の予算配分、evictionの一元適用。**warning/compaction/emergency閾値の`ContextPolicy`制御と設計§16の例示値との整合**を確認（現行`ContextBudget.usage()`は80%/90%/100%固定）。 **§17に列挙されたResultサイズ閾値、recent_message_count、Tool Search/Result Management/Compaction/Retrievalの機能スイッチもPolicyから一元適用されるか確認する。§20のwarning/compact/emergency判定が準備・履歴圧縮・Tool Result削減・State再構築・Retrievalなどの実処理を発火することも受け入れ条件とする。**
 6. Agent State、checkpoint、process restart後の実行状態復旧。設計§12の`failed_steps`/`important_facts`の未充足、および失敗ステップを誤って完了扱いにしない更新規則を確認。
 7. 全Tool実行後に共通Result Managerと3系統projectionを通す経路。**主要Tool経路が`projections.llm_context`ではなく`materialized_result`をLLMへ渡している現状**を含め、LLM/UI/Historyの各projectionが実際の受け手へ届くことを検証。
-8. 検索・再注入の範囲。**同一Sessionのtext/JSON Artifact先頭最大2,000文字の自動preview取得は実装済み**。残る検証候補は意味検索、関連箇所選択、他メディアの扱い（必要性と権限境界を先に評価）。
+8. 検索・再注入の範囲。**同一Sessionのtext/JSON Artifact先頭最大2,000文字の自動preview取得は実装済み**。残る検証候補は意味検索、関連箇所選択、他メディアの扱い（必要性と権限境界を先に評価）。 **§15/Phase 4に従い、Session履歴（message/search/summary）とMemoryの検索・Context再注入および各入口の認可境界も確認する。`memory_projection.py`の本番投影と`memory_retrieval.py`のshadow観測は別扱い。**
 9. 画像・音声・PDF・スクリーンショット・MCP blob等の共通Artifact化と機密データの保護。
 10. Resultごとのretention、参照数、孤児データ回収、Artifact quotaと削除。
 
