@@ -120,8 +120,16 @@ _INLINE_SECRET_RE = re.compile(
     r"private[_-]?key|bearer|credential|"
     r"cookie|signature|nsec)\b[\"']?\s*[:=]\s*)([\"']?)([^\"'&\s,};]+)",
 )
+# Long alphabetic words are common in prose and should not be mistaken for
+# opaque credentials. Require at least one digit or token punctuation.
+_TOKEN_LIKE_LOOKAHEAD = r"(?=[A-Za-z0-9._~+/-]*[0-9._~+/-])"
+_TOKEN_LIKE_CHARS = r"[A-Za-z0-9._~+/-]"
 _BEARER_RE = re.compile(
-    r"(?i)(\bbearer\s+)([A-Za-z0-9._~+/-]{16,}=*)",
+    r"(?i)(\bbearer\s+)"
+    + _TOKEN_LIKE_LOOKAHEAD
+    + r"("
+    + _TOKEN_LIKE_CHARS
+    + r"{16,}=*)",
 )
 _URL_PASSWORD_RE = re.compile(
     r"(://[^/@\s:]+:)([^/@\s]+)(@)",
@@ -130,10 +138,18 @@ _URL_PASSWORD_RE = re.compile(
 
 _COOKIE_HEADER_RE = re.compile(r"(?i)(\bCookie\s*:\s*)(.*)")
 _AUTHORIZATION_HEADER_RE = re.compile(
-    r"(?i)(\bAuthorization\s*:\s*(?:Bearer|Basic)\s+)([^\s,;]+)"
+    r"(?i)(\bAuthorization\s*:\s*(?:Bearer|Basic)\s+)"
+    + _TOKEN_LIKE_LOOKAHEAD
+    + r"("
+    + _TOKEN_LIKE_CHARS
+    + r"{8,}=*)"
 )
 _AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
-    r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)([A-Za-z0-9._~+/-]{24,}=*)"
+    r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)"
+    + _TOKEN_LIKE_LOOKAHEAD
+    + r"("
+    + _TOKEN_LIKE_CHARS
+    + r"{24,}=*)"
 )
 _BARE_API_TOKEN_RE = re.compile(r"\bsk-[A-Za-z0-9_-]+\b")
 

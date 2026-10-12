@@ -149,10 +149,23 @@ def test_inline_secret_mask_covers_bearer_cookie_and_camel_case_keys():
 def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked():
     prose = "Authorization: required; visit https://example/approve"
     bearer_prose = '"Bearer authentication is common"'
+    long_bearer_prose = "Bearer responsibilities are assigned here"
+    basic_prose = "Authorization: Basic authentication is described here"
+    raw_header_prose = "Authorization: responsibilities are assigned here"
     header = "Authorization: Bearer bearer-header-dummy; keep this note"
+    basic_header = "Authorization: Basic basic-dummy"
+    opaque_header = (
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature"
+    )
 
     assert _mask_inline_secrets(prose) == prose
     assert _mask_inline_secrets(bearer_prose) == bearer_prose
+    assert _mask_inline_secrets(long_bearer_prose) == long_bearer_prose
+    assert _mask_inline_secrets(basic_prose) == basic_prose
+    assert _mask_inline_secrets(raw_header_prose) == raw_header_prose
     assert _mask_inline_secrets(header) == (
         "Authorization: Bearer ********; keep this note"
     )
+    assert _mask_inline_secrets(basic_header) == "Authorization: Basic ********"
+    assert "eyJhbGciOiJIUzI1NiJ9" not in _mask_inline_secrets(opaque_header)
+    assert SECRET_MASK in _mask_inline_secrets(opaque_header)

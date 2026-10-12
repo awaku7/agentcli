@@ -403,6 +403,23 @@ def test_sensitive_values_are_redacted_before_storage(tmp_path):
     assert "[REDACTED]" in content
 
 
+def test_redaction_preserves_bearer_and_basic_prose_in_persisted_messages(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    prose = (
+        "Bearer responsibilities are assigned here; "
+        "Authorization: Basic authentication is described here."
+    )
+    credential = "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.abc123_signature"
+
+    store.append_message(session.session_id, "user", prose + " " + credential)
+
+    content = store.list_messages(session.session_id)[0]["content"]
+    assert prose in content
+    assert "eyJhbGciOiJIUzI1NiJ9.abc123_signature" not in content
+    assert "[REDACTED]" in content
+
+
 def test_tool_call_arguments_are_redacted_before_storage(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")
