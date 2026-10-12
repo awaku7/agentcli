@@ -59,6 +59,8 @@ def test_history_sanitizer_removes_provider_image_base64_payloads():
             "media_type": "application/octet-stream",
             "data": "preserve-this-envelope",
         },
+        "options": {"include_base64": False, "include_base64_text": "false"},
+        "opaque_image_base64": "A" * 256,
     }
 
     sanitized = sanitize_binary_payload(payload)
@@ -67,6 +69,11 @@ def test_history_sanitizer_removes_provider_image_base64_payloads():
     assert sanitized["custom"]["data"] == marker
     assert sanitized["custom"]["media_type"] == "image/jpeg"
     assert sanitized["protocol_envelope"]["data"] == "preserve-this-envelope"
+    assert sanitized["options"] == {
+        "include_base64": False,
+        "include_base64_text": "false",
+    }
+    assert sanitized["opaque_image_base64"] == marker
 
 
 def test_session_store_persists_tool_payload_without_binary_body(tmp_path):

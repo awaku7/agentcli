@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import base64
+import binascii
 import json
 import re
 from typing import Any
@@ -44,9 +46,24 @@ def _is_persistent_secret_key(key: Any) -> bool:
     return looks_like_secret_key(normalized)
 
 
-def _is_binary_key(key: Any) -> bool:
+def _is_binary_key(key: Any, value: Any = None) -> bool:
     normalized = str(key).strip().lower().replace("-", "_")
-    return normalized in _BINARY_KEYS or "base64" in normalized
+    if normalized in _BINARY_KEYS:
+        return True
+    if "base64" not in normalized or not isinstance(value, str):
+        return False
+    compact = re.sub(r"\s+", "", value)
+    if len(compact) < 64 or len(compact) % 4 == 1:
+        return False
+    if re.fullmatch(r"[A-Za-z0-9+/_-]*={0,2}", compact) is None:
+        return False
+    try:
+        decoded = base64.b64decode(
+            compact + "=" * (-len(compact) % 4), altchars=b"-_", validate=True
+        )
+    except (binascii.Error, ValueError):
+        return False
+    return len(decoded) >= 32
 
 
 def _is_data_url(value: Any) -> bool:
@@ -83,7 +100,7 @@ def sanitize_binary_payload(value: Any) -> Any:
         provider_image = _is_provider_image_base64(value)
         for key, item in value.items():
             if (
-                _is_binary_key(key)
+                _is_binary_key(key, item)
                 or _is_data_url(item)
                 or (
                     provider_image
