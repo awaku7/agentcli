@@ -414,6 +414,24 @@ def test_binary_fields_are_stripped_only_from_tool_message_content(tmp_path):
     assert tool_content["api_key"] == "[REDACTED]"
 
 
+def test_literal_mask_marker_is_preserved_in_persisted_text(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="cli")
+    prose = "Markdown: ********"
+    structured = json.dumps({"note": "********", "password": "hunter2"})
+
+    store.append_message(session.session_id, "user", prose)
+    store.append_message(session.session_id, "user", structured)
+
+    contents = [
+        message["content"] for message in store.list_messages(session.session_id)
+    ]
+    assert contents[0] == prose
+    parsed = json.loads(contents[1])
+    assert parsed["note"] == "********"
+    assert parsed["password"] == "[REDACTED]"
+
+
 def test_sensitive_values_are_redacted_before_storage(tmp_path):
     store = SessionStore(tmp_path / "sessions.sqlite3")
     session = store.create_session(project="demo", entry_point="cli")

@@ -153,12 +153,9 @@ _AUTHORIZATION_PARAMETER_RE = re.compile(
 )
 _AUTHORIZATION_SCHEME_TOKEN_RE = re.compile(
     r"(?im)(\bAuthorization[ \t]*:[ \t]*)"
-    r"(?!Basic\b|Bearer\b)([A-Za-z][A-Za-z0-9._+-]*)[ \t]+"
-    + _TOKEN_LIKE_LOOKAHEAD
-    + r"("
-    + _TOKEN_LIKE_CHARS
-    + r"+=*)"
-    + r"(?=[ \t]*(?:[,;]|\r?$|Authorization[ \t]*:))"
+    r"(?!Basic\b|Bearer\b|Digest\b)([A-Za-z][A-Za-z0-9._+-]*)[ \t]+"
+    r"([A-Za-z0-9._~+/-]+=*)"
+    r"(?=[ \t]*(?:[,;]|\r?$|Authorization[ \t]*:))"
 )
 _AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
     r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)"
@@ -170,12 +167,38 @@ _AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
 _BARE_API_TOKEN_RE = re.compile(r"\bsk-[A-Za-z0-9_-]+\b")
 
 
+def _mask_custom_authorization_token(match: re.Match[str]) -> str:
+    """Mask opaque values for explicitly shaped custom authorization schemes."""
+    scheme = match.group(2)
+    credential = match.group(3)
+    normalized_scheme = re.sub(r"[^a-z0-9]", "", scheme.lower())
+    known_scheme = normalized_scheme in {
+        "apikey",
+        "oauth",
+        "oauth1",
+        "oauth2",
+        "signature",
+        "token",
+        "hmac",
+        "mac",
+    }
+    scheme_looks_custom = any(char.isupper() for char in scheme[1:]) or any(
+        char in "._+-" or char.isdigit() for char in scheme
+    )
+    credential_looks_opaque = any(
+        char.isdigit() or char in "._~+/" for char in credential
+    )
+    if not (known_scheme or scheme_looks_custom or credential_looks_opaque):
+        return match.group(0)
+    return f"{match.group(1)}{scheme} {SECRET_MASK}"
+
+
 def _mask_inline_secrets(text: str) -> str:
     """Mask secret-looking values embedded in otherwise generic strings."""
     text = _COOKIE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _AUTHORIZATION_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _AUTHORIZATION_PARAMETER_RE.sub(r"\1\2 " + SECRET_MASK, text)
-    text = _AUTHORIZATION_SCHEME_TOKEN_RE.sub(r"\1\2 " + SECRET_MASK, text)
+    text = _AUTHORIZATION_SCHEME_TOKEN_RE.sub(_mask_custom_authorization_token, text)
     text = _AUTHORIZATION_OPAQUE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _BEARER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _INLINE_SECRET_QUOTED_RE.sub(

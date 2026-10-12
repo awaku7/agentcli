@@ -231,7 +231,11 @@ def normalize_tool_call(call: dict[str, Any]) -> tuple[str, str, dict[str, Any]]
 
 def redact_sensitive(text: str, *, strip_binary: bool = False) -> str:
     """Mask secrets in text, optionally stripping binaries for tool messages."""
-    value = str(text or "")
+    original_value = str(text or "")
+    literal_mask_marker = f"__uagent_literal_mask_{uuid.uuid4().hex}__"
+    while literal_mask_marker in original_value:
+        literal_mask_marker = f"__uagent_literal_mask_{uuid.uuid4().hex}__"
+    value = original_value.replace(SECRET_MASK, literal_mask_marker)
     try:
         if value.lstrip()[:1] not in {"{", "["}:
             sanitized = _mask_inline_secrets(value)
@@ -247,9 +251,10 @@ def redact_sensitive(text: str, *, strip_binary: bool = False) -> str:
                     else redact_persistent_secrets(parsed)
                 )
                 if safe_value == parsed:
-                    return value
+                    return original_value
                 sanitized = json.dumps(safe_value, ensure_ascii=False)
-        return sanitized.replace(SECRET_MASK, "[REDACTED]")
+        sanitized = sanitized.replace(SECRET_MASK, "[REDACTED]")
+        return sanitized.replace(literal_mask_marker, SECRET_MASK)
     except Exception:
         # Do not persist the original text if parsing or masking fails.
         return "[persisted message omitted after sanitization error]"

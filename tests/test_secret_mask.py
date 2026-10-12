@@ -187,6 +187,12 @@ def test_authorization_unknown_schemes_and_short_bearers_are_masked_without_pros
     assert _mask_inline_secrets("Authorization: ApiKey abc123") == (
         "Authorization: ApiKey ********"
     )
+    assert _mask_inline_secrets("Authorization: ApiKey abcdef") == (
+        "Authorization: ApiKey ********"
+    )
+    assert _mask_inline_secrets("Authorization: permission needed") == (
+        "Authorization: permission needed"
+    )
     assert (
         _mask_inline_secrets('Authorization: Digest username="Mufasa", realm="test"')
         == "Authorization: Digest ********"
