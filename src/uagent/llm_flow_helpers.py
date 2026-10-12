@@ -537,10 +537,20 @@ def _tool_result_status(value: Any) -> str:
         if value.get("ok") is False or value.get("error"):
             return "failed"
         status = str(value.get("status") or "").strip().lower()
-        if status in {"failed", "error", "timeout", "timed_out", "cancelled"}:
-            return "cancelled" if status == "cancelled" else status
+        if status in {"failed", "failure", "error", "blocked", "denied", "rejected"}:
+            return "failed"
+        if status in {"timeout", "timed_out", "cancelled"}:
+            return "cancelled" if status == "cancelled" else "timeout"
     text = str(value or "").lstrip().lower()
-    if text.startswith("[tool args error]") or text.startswith("[tool runtime error]"):
+    if text.startswith(
+        (
+            "[tool args error]",
+            "[tool argument error]",
+            "[tool runtime error]",
+            "[tool error]",
+            "error:",
+        )
+    ):
         return "failed"
     if "mcp_cancelled" in text or "cancelled" in text:
         return "cancelled"
