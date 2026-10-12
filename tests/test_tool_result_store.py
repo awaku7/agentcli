@@ -155,6 +155,10 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
                     "private_key": secrets[3],
                 },
                 "detail": f"Authorization: Bearer {secrets[4]}",
+                "authorization_url": (
+                    "https://idp.example/authorize?client_id=demo&state=state-dummy&access_token=oauth-access-dummy"
+                ),
+                "signature": "ET MALWARE Test Rule",
                 "json_text": json.dumps(
                     {"accessToken": secrets[5]}, ensure_ascii=False
                 ),
@@ -178,6 +182,11 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
     assert persistent["nested"]["password"] == "********"
     assert persistent["nested"]["private_key"] == "********"
     assert "********" in persistent["detail"]
+    assert persistent["authorization_url"] == (
+        "https://idp.example/authorize?client_id=demo&state=state-dummy"
+        "&access_token=********"
+    )
+    assert persistent["signature"] == "ET MALWARE Test Rule"
     assert json.loads(persistent["json_text"])["accessToken"] == "********"
     assert result is not None
     assert result["summary"] == "api_key=********"

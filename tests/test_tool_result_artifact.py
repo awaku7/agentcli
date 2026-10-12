@@ -47,6 +47,10 @@ def test_large_json_artifact_redacts_nested_secrets_and_preserves_json(
     value = json.dumps(
         {
             "public": "keep-this",
+            "authorization_url": (
+                "https://idp.example/authorize?client_id=demo&state=state-dummy&access_token=oauth-access-dummy"
+            ),
+            "signature": "ET MALWARE Test Rule",
             "connection_settings": {
                 "private_key": "artifact-private-dummy",
                 "nested": {"authorization": "Bearer artifact-token-dummy"},
@@ -71,6 +75,11 @@ def test_large_json_artifact_redacts_nested_secrets_and_preserves_json(
     )
     stored = json.loads(stored_text)
     assert stored["public"] == "keep-this"
+    assert stored["authorization_url"] == (
+        "https://idp.example/authorize?client_id=demo&state=state-dummy"
+        "&access_token=********"
+    )
+    assert stored["signature"] == "ET MALWARE Test Rule"
     assert stored["connection_settings"]["private_key"] == "********"
     assert stored["connection_settings"]["nested"]["authorization"] == "********"
     assert "artifact-private-dummy" not in stored_text

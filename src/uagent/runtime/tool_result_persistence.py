@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 from typing import Any
 
 from ..utils.secret_mask import SECRET_MASK, _mask_inline_secrets, looks_like_secret_key
@@ -20,6 +21,16 @@ _BINARY_KEYS = {
     "screenshot_data",
     "screenshotdata",
 }
+_PERSISTENCE_PUBLIC_RESULT_KEYS = frozenset({"authorization_url", "signature"})
+
+
+def _is_persistent_secret_key(key: Any) -> bool:
+    """Classify persisted result keys without hiding known public result fields."""
+    normalized = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", str(key))
+    normalized = normalized.strip().replace("-", "_").lower()
+    if normalized in _PERSISTENCE_PUBLIC_RESULT_KEYS:
+        return False
+    return looks_like_secret_key(normalized)
 
 
 def _is_binary_key(key: Any) -> bool:
@@ -62,7 +73,7 @@ def _redact_sensitive_values(value: Any) -> Any:
     if isinstance(value, dict):
         result: dict[Any, Any] = {}
         for key, item in value.items():
-            if looks_like_secret_key(str(key)):
+            if _is_persistent_secret_key(key):
                 result[key] = None if item is None else SECRET_MASK
             else:
                 result[key] = _redact_sensitive_values(item)
