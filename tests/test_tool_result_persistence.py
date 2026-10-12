@@ -4,7 +4,10 @@ import json
 
 from uagent.runtime.history import rewrite_jsonl_log
 from uagent.runtime.session_store import SessionStore
-from uagent.runtime.tool_result_persistence import sanitize_message_for_history
+from uagent.runtime.tool_result_persistence import (
+    sanitize_binary_payload,
+    sanitize_message_for_history,
+)
 
 
 def test_history_sanitizer_removes_binary_fields_without_mutating_ui_payload():
@@ -32,6 +35,37 @@ def test_history_sanitizer_removes_binary_fields_without_mutating_ui_payload():
     assert sanitized["attachments"][0]["path"] == "/tmp/image.png"
     assert sanitized["attachments"][0]["artifact_id"] == "a" * 32
     assert sanitized["data_url"].startswith("[binary payload omitted")
+
+
+def test_history_sanitizer_removes_provider_image_base64_payloads():
+    marker = "[binary payload omitted from persisted history]"
+    payload = {
+        "anthropic": {
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/png",
+                "data": "a" * 256,
+            },
+        },
+        "custom": {
+            "type": "image",
+            "media_type": "image/jpeg",
+            "data": "b" * 256,
+        },
+        "protocol_envelope": {
+            "type": "base64",
+            "media_type": "application/octet-stream",
+            "data": "preserve-this-envelope",
+        },
+    }
+
+    sanitized = sanitize_binary_payload(payload)
+
+    assert sanitized["anthropic"]["source"]["data"] == marker
+    assert sanitized["custom"]["data"] == marker
+    assert sanitized["custom"]["media_type"] == "image/jpeg"
+    assert sanitized["protocol_envelope"]["data"] == "preserve-this-envelope"
 
 
 def test_session_store_persists_tool_payload_without_binary_body(tmp_path):

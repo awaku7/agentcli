@@ -57,17 +57,40 @@ def _is_data_url(value: Any) -> bool:
     )
 
 
+def _is_provider_image_base64(value: Any) -> bool:
+    """Identify image bytes in provider objects whose payload key is just data."""
+    if not isinstance(value, dict) or not isinstance(value.get("data"), str):
+        return False
+    object_type = str(value.get("type") or "").strip().lower()
+    if object_type not in {"image", "base64"}:
+        return False
+    media_type = (
+        str(value.get("media_type") or value.get("mime_type") or "").strip().lower()
+    )
+    return media_type.startswith("image/")
+
+
 def sanitize_binary_payload(value: Any) -> Any:
     """Return a copy with inline binary payloads replaced by bounded markers.
 
     This function is intentionally limited to binary-shaped fields. Ordinary
     Base64 used for authentication, signatures, protocol envelopes, or text is
-    not removed unless it is explicitly stored under a binary field name.
+    not removed unless it is explicitly stored under a binary field name or is
+    identified as an image payload by a provider object.
     """
     if isinstance(value, dict):
         result: dict[Any, Any] = {}
+        provider_image = _is_provider_image_base64(value)
         for key, item in value.items():
-            if _is_binary_key(key) or _is_data_url(item):
+            if (
+                _is_binary_key(key)
+                or _is_data_url(item)
+                or (
+                    provider_image
+                    and str(key).strip().lower() == "data"
+                    and isinstance(item, str)
+                )
+            ):
                 result[key] = _BINARY_KEY_MARKER
             else:
                 result[key] = sanitize_binary_payload(item)
