@@ -154,6 +154,8 @@ def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked()
     raw_header_prose = "Authorization: responsibilities are assigned here"
     header = "Authorization: Bearer bearer-header-dummy; keep this note"
     basic_header = "Authorization: Basic basic-dummy"
+    alpha_basic_header = "Authorization: Basic YTphYWFh"
+    alpha_bearer_header = "Authorization: Bearer alphabeticbearertoken"
     opaque_header = (
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature"
     )
@@ -167,5 +169,9 @@ def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked()
         "Authorization: Bearer ********; keep this note"
     )
     assert _mask_inline_secrets(basic_header) == "Authorization: Basic ********"
+    assert _mask_inline_secrets(alpha_basic_header) == "Authorization: Basic ********"
+    assert _mask_inline_secrets(alpha_bearer_header) == (
+        "Authorization: Bearer ********"
+    )
     assert "eyJhbGciOiJIUzI1NiJ9" not in _mask_inline_secrets(opaque_header)
     assert SECRET_MASK in _mask_inline_secrets(opaque_header)

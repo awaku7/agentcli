@@ -138,11 +138,9 @@ _URL_PASSWORD_RE = re.compile(
 
 _COOKIE_HEADER_RE = re.compile(r"(?i)(\bCookie\s*:\s*)(.*)")
 _AUTHORIZATION_HEADER_RE = re.compile(
-    r"(?i)(\bAuthorization\s*:\s*(?:Bearer|Basic)\s+)"
-    + _TOKEN_LIKE_LOOKAHEAD
-    + r"("
-    + _TOKEN_LIKE_CHARS
-    + r"{8,}=*)"
+    r"(?im)(\bAuthorization[ 	]*:[ 	]*(?:Bearer|Basic)[ 	]+)"
+    r"([A-Za-z0-9._~+/-]+=*)"
+    r"(?=[ 	]*(?:[,;]|$))"
 )
 _AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
     r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)"
