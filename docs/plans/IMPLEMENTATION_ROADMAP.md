@@ -280,7 +280,7 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 旧TODOの9つの基盤項目（ActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等）は実装済みの履歴記録として保管する。ただし、**これはContext Management Designの最終要件がすべて完了したことを意味しない**。同設計§32.2–32.4は次の10領域を残課題として記載しているため、各項目の現行コード・テスト・入口経路を照合してから、完了／部分実装／未実装を判定する。
 
-1. ContextManagerの統合層（`context_manager.py`にfacadeは存在するため、実際の全実行経路への接続を確認）。
+1. ContextManagerの統合層（`context_manager.py`にfacadeは存在するため、実際の全実行経路への接続を確認）。**加えてProvider Native Tool Searchおよびnative compactionが`ContextPolicy`から一貫して制御されるか**、OpenAI/Azure/Gemini等のProvider固有設定・フォールバックを含めて検証する。facade接続確認だけでは完了としない。
 2. ToolResultRecordの統一管理（`tool_result_manager.py`にrecordは存在するため、永続化・全呼出元での利用を確認）。
 3. Structured Resultから段階的なSummaryを生成する処理（軽量要約と任意のLLM要約の範囲）。
 4. Resultの重要度・再取得可能性・evictable・保持期限の判断。
