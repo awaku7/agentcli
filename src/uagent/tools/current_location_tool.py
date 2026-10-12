@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from .i18n_helper import make_tool_translator
 from .location_backends import get_location as _get_location
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -42,8 +43,11 @@ def run_tool(args: dict) -> str:
     try:
         lat, lon, acc, src, ts = _get_location()
     except Exception as e:
-        return _("err.generic", default="Error: Location query failed: {err}").format(
-            err=str(e)
+        return ToolExecutionText(
+            _("err.generic", default="Error: Location query failed: {err}").format(
+                err=str(e)
+            ),
+            status="failed",
         )
 
     # Build readable output with accuracy description
@@ -95,4 +99,4 @@ def run_tool(args: dict) -> str:
             _("output.timestamp", default="- **Timestamp**: {ts}").format(ts=ts)
         )
 
-    return "\n".join(output)
+    return ToolExecutionText("\n".join(output))

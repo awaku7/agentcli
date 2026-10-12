@@ -534,17 +534,38 @@ def _tool_result_status(value: Any) -> str:
     """Classify a result for the bounded UI projection."""
 
     if isinstance(value, dict):
+        if value.get("timeout") is True:
+            return "timeout"
+        if value.get("timed_out") is True:
+            return "timeout"
+        if value.get("cancelled") is True:
+            return "cancelled"
         if value.get("ok") is False or value.get("error"):
             return "failed"
         status = str(value.get("status") or "").strip().lower()
-        if status in {"failed", "error", "timeout", "timed_out", "cancelled"}:
-            return "cancelled" if status == "cancelled" else status
-    text = str(value or "").lstrip().lower()
-    if text.startswith("[tool args error]") or text.startswith("[tool runtime error]"):
+        if status in {"failed", "failure", "error", "blocked", "denied", "rejected"}:
+            return "failed"
+        if status in {"timeout", "timed_out", "cancelled"}:
+            return "cancelled" if status == "cancelled" else "timeout"
+    text = str(value or "").lstrip().casefold()
+    # A successful text tool may quote "timeout" or "cancelled" in its
+    # payload. Only inspect explicit result markers, not arbitrary words.
+    if text.startswith(("error:", "エラー:", "[tool policy]")):
         return "failed"
-    if "mcp_cancelled" in text or "cancelled" in text:
+    if text.startswith("["):
+        marker, closing, _ = text.partition("]")
+        if closing:
+            label = marker[1:]
+            if label.endswith((" error", "エラー")):
+                # Localized host errors and tool-specific "[name error]".
+                return "failed"
+            if label.endswith(" timeout"):
+                return "timeout"
+            if label.endswith((" cancelled", " canceled")):
+                return "cancelled"
+    if text.startswith(("mcp_cancelled", "cancelled:", "[tool cancelled]")):
         return "cancelled"
-    if "timeout" in text or "timed out" in text:
+    if text.startswith(("timeout:", "timed out:", "[tool timeout]")):
         return "timeout"
     return "success"
 
@@ -799,6 +820,11 @@ def _execute_tool_calls(
                 print(_display)
             executed_new_tool = True
 
+        # A successful file read can contain JSON status/error keys or text
+        # that looks like an error. Capture trusted execution metadata before
+        # normalizing the arbitrary result body for the provider.
+        explicit_execution_status = getattr(tool_result, "_uag_execution_status", None)
+
         # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)
         if not isinstance(tool_result, str):
             tool_result = json.dumps(tool_result, ensure_ascii=False)
@@ -935,6 +961,12 @@ def _execute_tool_calls(
             if isinstance(parsed_tool_result, dict)
             else raw_context_result
         )
+        result_status = (
+            explicit_execution_status
+            if explicit_execution_status
+            in {"success", "failed", "timeout", "cancelled"}
+            else _tool_result_status(parsed_tool_result or raw_context_result)
+        )
         result_record, projections = context_manager.process_result(
             record_value,
             tool_name=name,
@@ -950,7 +982,7 @@ def _execute_tool_calls(
             artifact_ref=artifact_ref,
             metadata={
                 "tool_call_id": str(tc.get("id") or ""),
-                "status": _tool_result_status(parsed_tool_result or raw_context_result),
+                "status": result_status,
             },
         )
         if _cli_tool_result_display_enabled(core):
@@ -977,12 +1009,20 @@ def _execute_tool_calls(
                 state_changes["next_action"] = str(auto_user_msg.get("content") or "")
             try:
                 update_agent_state(**state_changes)
-                complete_agent_step = getattr(core, "complete_agent_step", None)
-                if callable(complete_agent_step):
-                    complete_agent_step(
-                        f"tool:{name}",
-                        state_changes.get("next_action", ""),
-                    )
+                if result_status == "success":
+                    complete_agent_step = getattr(core, "complete_agent_step", None)
+                    if callable(complete_agent_step):
+                        complete_agent_step(
+                            f"tool:{name}",
+                            state_changes.get("next_action", ""),
+                        )
+                else:
+                    fail_agent_step = getattr(core, "fail_agent_step", None)
+                    if callable(fail_agent_step):
+                        fail_agent_step(
+                            f"tool:{name}",
+                            state_changes.get("next_action", ""),
+                        )
             except Exception:
                 pass
 

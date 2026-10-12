@@ -11,6 +11,7 @@ from pathlib import Path
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -118,8 +119,8 @@ def analyze_image_deepseek(*, image_path: str, prompt: str | None) -> str:
                 temperature=0.0,
             )
             content = resp.choices[0].message.content if resp.choices else ""
-        return (content or "").strip() or _(
-            "warn.empty", default="[WARN] empty response"
+        return ToolExecutionText(
+            (content or "").strip() or _("warn.empty", default="[WARN] empty response")
         )
     except Exception as e:
         err = str(e)

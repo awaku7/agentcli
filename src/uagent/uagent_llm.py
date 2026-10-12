@@ -2534,10 +2534,14 @@ def _format_agent_state_context(
     completed = state.get("completed_steps") or []
     if not isinstance(completed, list):
         completed = list(completed) if isinstance(completed, tuple) else []
+    failed = state.get("failed_steps") or []
+    if not isinstance(failed, list):
+        failed = list(failed) if isinstance(failed, tuple) else []
     lines = [
         "[agent state]",
         f"goal: {str(state.get('goal') or '')[-1000:]}",
         f"current_step: {str(state.get('current_step') or '')[-500:]}",
+        f"failed_steps: {', '.join(str(item) for item in failed[-20:])}",
         f"completed_steps: {', '.join(str(item) for item in completed[-20:])}",
         f"next_action: {str(state.get('next_action') or '')[-1000:]}",
     ]

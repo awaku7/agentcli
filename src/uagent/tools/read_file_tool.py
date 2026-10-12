@@ -9,6 +9,7 @@ from typing import Any, Callable, Optional, cast
 from .arg_util import get_int, get_path
 from .context import get_callbacks
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -410,7 +411,7 @@ def run_tool(args: dict[str, Any]) -> str:
             except Exception:
                 pass
 
-        return "".join(lines)
+        return ToolExecutionText("".join(lines))
 
     except Exception as e:
         msg = f"[read_file error] {type(e).__name__}: {e}"

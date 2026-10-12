@@ -3676,6 +3676,21 @@ def attach_opt_in_session_store(
         )
         return state.to_dict()
 
+    def fail_agent_step(step: str, next_action: str = "") -> dict[str, Any]:
+        active_session_id = getattr(
+            core, "_session_store_active_id", session.session_id
+        )
+        persisted, expected_revision = store.get_agent_state_snapshot(active_session_id)
+        manager = AgentStateManager(
+            AgentState.from_dict(persisted) if persisted else AgentState()
+        )
+        state = manager.mark_step_failed(step, next_action=next_action)
+        core.agent_state_manager = manager
+        store.save_agent_state(
+            active_session_id, state.to_dict(), expected_revision=expected_revision
+        )
+        return state.to_dict()
+
     def update_agent_state(**changes: Any) -> dict[str, Any]:
         active_session_id = getattr(
             core, "_session_store_active_id", session.session_id
@@ -3810,6 +3825,7 @@ def attach_opt_in_session_store(
     core.save_agent_state = save_agent_state
     core.update_agent_state = update_agent_state
     core.complete_agent_step = complete_agent_step
+    core.fail_agent_step = fail_agent_step
     core.get_agent_state = get_agent_state
     core.get_tool_result = get_tool_result
     core.artifact_cleanup_report = artifact_cleanup_report
@@ -3862,6 +3878,7 @@ def detach_opt_in_session_store(core: Any) -> None:
             "save_agent_state",
             "update_agent_state",
             "complete_agent_step",
+            "fail_agent_step",
             "get_agent_state",
             "get_tool_result",
             "artifact_cleanup_report",

@@ -22,8 +22,10 @@ def test_detach_closes_store_and_restores_log_callback(monkeypatch, tmp_path):
     )
     assert store is not None and session_id
     assert core.log_message is not original
+    assert callable(core.fail_agent_step)
 
     detach_opt_in_session_store(core)
     assert core.log_message is original
     assert not hasattr(core, "session_store")
     assert not hasattr(core, "session_id")
+    assert not hasattr(core, "fail_agent_step")

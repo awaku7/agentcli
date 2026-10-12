@@ -9,6 +9,7 @@ from string import Formatter
 from typing import Any, Optional
 
 from ..env_utils import env_get
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _PRINTF_PLACEHOLDER_RE = re.compile(
     r"%\((?P<name>[A-Za-z0-9_]+)\)[#0 +\-]?[0-9]*(?:\.[0-9]+)?[diouxXeEfFgGcrs]"
@@ -223,6 +224,14 @@ def _translation_compatible(key: str, default: Any, value: Any) -> bool:
     return True
 
 
+def _mark_tool_error_translation(key: str, result: Any) -> Any:
+    """Mark translated Tool errors independently of their display language."""
+    if key.startswith("err.") and isinstance(result, str):
+        status = "timeout" if key == "err.timeout" else "failed"
+        return ToolExecutionText(result, status=status)
+    return result
+
+
 def make_tool_translator(tool_py_file: str):
     tool_dir = os.path.dirname(os.path.abspath(tool_py_file))
     base = os.path.splitext(os.path.basename(tool_py_file))[0]
@@ -254,17 +263,17 @@ def make_tool_translator(tool_py_file: str):
             for candidate in candidates:
                 if "%(" in candidate:
                     try:
-                        return candidate % kwargs
+                        return _mark_tool_error_translation(key, candidate % kwargs)
                     except Exception:
                         pass
                 try:
-                    return candidate.format(**kwargs)
+                    return _mark_tool_error_translation(key, candidate.format(**kwargs))
                 except Exception:
                     try:
-                        return candidate % kwargs
+                        return _mark_tool_error_translation(key, candidate % kwargs)
                     except Exception:
                         pass
 
-        return text
+        return _mark_tool_error_translation(key, text)
 
     return _

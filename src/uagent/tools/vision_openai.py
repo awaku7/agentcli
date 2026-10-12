@@ -20,6 +20,7 @@ from typing import Any
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -218,7 +219,10 @@ def analyze_image_openai(
 
         vision_err = check_vision_support(model, provider)
         if vision_err:
-            return _("vision.error_prefix", default="[ERROR] {error}", error=vision_err)
+            return ToolExecutionText(
+                _("vision.error_prefix", default="[ERROR] {error}", error=vision_err),
+                status="failed",
+            )
         max_tokens = vision_completion_max_tokens(model, provider, default=1024)
     except Exception:
         max_tokens = 1024
@@ -244,6 +248,7 @@ def analyze_image_openai(
     except Exception:
         out = None
 
-    return (str(out or "").strip()) or _(
-        "warn.empty_response", default="[WARN] empty response"
+    return ToolExecutionText(
+        (str(out or "").strip())
+        or _("warn.empty_response", default="[WARN] empty response")
     )

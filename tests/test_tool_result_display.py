@@ -53,6 +53,104 @@ def test_tool_result_status_classifies_common_results() -> None:
     assert _tool_result_status({"ok": True}) == "success"
     assert _tool_result_status({"ok": False, "error": "nope"}) == "failed"
     assert _tool_result_status({"status": "cancelled"}) == "cancelled"
+    assert _tool_result_status({"cancelled": True}) == "cancelled"
+    assert _tool_result_status({"timed_out": True, "cancelled": True}) == "timeout"
+    assert (
+        _tool_result_status({"timeout": True, "ok": False, "error": "expired"})
+        == "timeout"
+    )
+    assert _tool_result_status({"timeout": False, "ok": False}) == "failed"
+    assert _tool_result_status({"timed_out": False, "cancelled": False}) == "success"
     assert _tool_result_status("[tool runtime error] failed") == "failed"
+    assert _tool_result_status("[tool argument error] bad alias") == "failed"
+    assert _tool_result_status("[tool error] unknown tool") == "failed"
+    assert _tool_result_status("  Error: plugin failed") == "failed"
+    assert _tool_result_status("エラー: コマンドを実行できません") == "failed"
+    assert _tool_result_status("[ツール引数エラー] 引数不正") == "failed"
+    assert _tool_result_status("[ツール実行時エラー] 実行失敗") == "failed"
+    assert _tool_result_status("[get_env error] missing") == "failed"
+    assert _tool_result_status("[tool policy] confirmation denied") == "failed"
+    assert _tool_result_status({"status": "blocked"}) == "failed"
+    assert _tool_result_status({"status": "timed_out"}) == "timeout"
+    assert _tool_result_status("timeout: tool request expired") == "timeout"
+    assert _tool_result_status("[python_exec timeout] exceeded limit") == "timeout"
     assert _tool_result_status("MCP_CANCELLED") == "cancelled"
-    assert _tool_result_status("request timed out") == "timeout"
+    assert _tool_result_status("request timed out") == "success"
+    assert _tool_result_status("timeout = 30; cancelled = False") == "success"
+    assert _tool_result_status("source code: request cancelled") == "success"
+
+
+def test_translated_tool_errors_keep_explicit_status(monkeypatch) -> None:
+    from uagent.tools import i18n_helper
+
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "fr")
+    monkeypatch.setattr(
+        i18n_helper,
+        "_load_tool_dict",
+        lambda _path: {"fr": {"err.path_required": "Erreur : 'path' est requis."}},
+    )
+    translate = i18n_helper.make_tool_translator(__file__)
+    message = translate("err.path_required", default="Error: path is required.")
+    assert str(message) == "Erreur : 'path' est requis."
+    assert message._uag_execution_status == "failed"
+    assert message.format()._uag_execution_status == "failed"
+
+    # bash_exec formats with .format(); pwsh_exec uses % interpolation.
+    bash_timeout = translate(
+        "err.timeout",
+        default="[bash_exec timeout] exceeded {seconds}s",
+    )
+    assert bash_timeout.format(seconds=12)._uag_execution_status == "timeout"
+    pwsh_timeout = translate(
+        "err.timeout",
+        default="[pwsh_exec timeout] exceeded %(seconds)s seconds",
+    )
+    assert (pwsh_timeout % {"seconds": 12})._uag_execution_status == "timeout"
+    assert str(bash_timeout.format(seconds=12)).startswith("[bash_exec timeout]")
+    assert str(pwsh_timeout % {"seconds": 12}).startswith("[pwsh_exec timeout]")
+
+    complete = translate("msg.completed", default="Processed {count} files.")
+    assert complete.format(count=2) == "Processed 2 files."
+    assert getattr(complete, "_uag_execution_status", None) is None
+
+
+def test_powershell_truncation_keeps_localized_failure_status(monkeypatch) -> None:
+    from uagent.runtime.history import truncate_output
+    from uagent.tools import i18n_helper, pwsh_exec_tool
+
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "fr")
+    monkeypatch.setattr(
+        i18n_helper,
+        "_load_tool_dict",
+        lambda _path: {
+            "fr": {
+                "err.returncode": (
+                    "[Erreur pwsh_exec] returncode=%(code)s\\nSTDOUT:\\n"
+                    "%(stdout)s\\nSTDERR:\\n%(stderr)s"
+                )
+            }
+        },
+    )
+    monkeypatch.setattr(pwsh_exec_tool.shutil, "which", lambda shell: shell)
+    monkeypatch.setattr(pwsh_exec_tool, "decide_cmd_exec", None)
+    monkeypatch.setattr(
+        pwsh_exec_tool,
+        "get_callbacks",
+        lambda: SimpleNamespace(
+            cmd_encoding="utf-8",
+            cmd_exec_timeout_ms=120_000,
+            truncate_output=truncate_output,
+        ),
+    )
+    monkeypatch.setattr(
+        pwsh_exec_tool.subprocess,
+        "run",
+        lambda **kwargs: SimpleNamespace(
+            returncode=7, stdout="x" * 400_100, stderr="error"
+        ),
+    )
+
+    result = pwsh_exec_tool.run_tool({"command": "example"})
+    assert result.startswith("[Erreur pwsh_exec]")
+    assert "[pwsh_exec truncated:" in result
+    assert getattr(result, "_uag_execution_status", None) == "failed"
