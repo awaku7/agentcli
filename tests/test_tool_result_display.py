@@ -65,6 +65,7 @@ def test_tool_result_status_classifies_common_results() -> None:
     assert _tool_result_status({"status": "blocked"}) == "failed"
     assert _tool_result_status({"status": "timed_out"}) == "timeout"
     assert _tool_result_status("timeout: tool request expired") == "timeout"
+    assert _tool_result_status("[python_exec timeout] exceeded limit") == "timeout"
     assert _tool_result_status("MCP_CANCELLED") == "cancelled"
     assert _tool_result_status("request timed out") == "success"
     assert _tool_result_status("timeout = 30; cancelled = False") == "success"
