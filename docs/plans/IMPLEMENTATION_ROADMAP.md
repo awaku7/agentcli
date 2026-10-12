@@ -270,10 +270,10 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 - 自動修正を既定で有効化せず、ユーザー確認を必須にする。
 
-## P2: Context Runtime現行設計との差分確認・Vertex AI実環境回帰
+## P2: Context Runtime現行設計との差分確認
 
-- Status: in-progress（旧TODOの基盤項目は実装済み。現行設計の拡張要件と実環境回帰は未照合・未完了）
-- Priority: P2（実装差分の再評価と外部Provider環境を必要とする検証）
+- Status: in-progress（旧TODOの基盤項目は実装済み。現行設計の拡張要件は未照合。Vertex AI実環境回帰はユーザー確認済み）
+- Priority: P2（現行設計の実装差分の再評価）
 - Source: [Context Management Design §32](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)、[旧Context Runtime実装計画](../archive/UAG_CONTEXT_RUNTIME_TODO.md)
 
 ### 現行設計の残存課題を再照合する
@@ -293,12 +293,15 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 同設計§32には、`ContextManager`や`ToolResultRecord`を「存在しない」とする旧記述と、現行コードにある実装が混在する。**10件すべてを未実装として再起票せず**、実装済み部分を差し引いた具体的な不足だけを以後の作業対象にする。現行設計の記述自体の更新も照合後に行う。
 
-### Vertex AI実環境の回帰確認
+### Vertex AI実環境回帰（確認済み）
 
-- Control-Cによる中断・停止を検証する。
-- 中断・承認後の会話継続時に、UserターンとProvider Projectionの整合性が維持されることを確認する。
-- `tool_load` の連続実行時に、Tool定義・応答・コンテキスト復元を確認する。
-- 問題を再現した場合だけ、Provider固有Projectionの修正と回帰テストを追加する。
+2026-10-12、ユーザーから次の3項目について実機検証済みとの報告を受けた。通常動作の推定やCIでの検証完了と混同せず、**ユーザーによる実機確認結果**として記録する。
+
+- [x] Ctrl+Cによる中断・停止。
+- [x] 中断・承認後の会話継続と、Userターン／Provider Projectionの整合性。
+- [x] `tool_load` 連続実行時のTool定義・応答・コンテキスト復元。
+
+この3項目を未検証の残作業として再起票しない。新たな不具合が報告された場合に限り再現確認・回帰テスト・Provider固有Projectionの修正を検討する。
 
 ## P2: 開発基盤の改善
 
