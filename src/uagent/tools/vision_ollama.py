@@ -24,6 +24,7 @@ requests = lazy_module("requests")
 from ..env_utils import env_get
 from ..providers.llm_ollama import _ollama_extra_params
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -170,6 +171,7 @@ def analyze_image_ollama(*, image_path: str, prompt: str | None) -> str:
     except Exception:
         out = ""
 
-    return (out or "").strip() or _(
-        "warn.empty_response", default="[WARN] empty response"
+    return ToolExecutionText(
+        (out or "").strip()
+        or _("warn.empty_response", default="[WARN] empty response")
     )

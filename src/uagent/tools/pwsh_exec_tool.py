@@ -2,6 +2,7 @@ from __future__ import annotations
 
 # tools/pwsh_exec_tool.py
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -247,7 +248,9 @@ def run_tool(args: dict[str, Any]) -> str:
             "stderr": err_str,
         }
         if cb.truncate_output is not None:
-            return cb.truncate_output("pwsh_exec", msg, 400_000)
+            return ToolExecutionText(
+                cb.truncate_output("pwsh_exec", msg, 400_000), status="failed"
+            )
         return msg
 
     if not out_str.strip():

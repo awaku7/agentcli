@@ -6,6 +6,7 @@ from typing import Optional
 from ..auth.provider_credentials import get_provider_api_key
 from ..env_utils import env_get
 from .i18n_helper import make_tool_translator
+from ..runtime.tool_execution_result import ToolExecutionText
 
 _ = make_tool_translator(__file__)
 
@@ -109,7 +110,10 @@ def analyze_image_gemini(
 
             vision_err = check_vision_support(model_name, provider)
             if vision_err:
-                return _("vision.error_prefix", default=f"[ERROR] {vision_err}")
+                return ToolExecutionText(
+                    _("vision.error_prefix", default=f"[ERROR] {vision_err}"),
+                    status="failed",
+                )
             max_out = vision_completion_max_tokens(model_name, provider, default=1024)
             try:
                 gen_config = types.GenerateContentConfig(
@@ -138,8 +142,9 @@ def analyze_image_gemini(
                     final_prompt,
                 ],
             )
-        return response.text or _(
-            "result.no_description", default="[No description generated]"
+        return ToolExecutionText(
+            response.text
+            or _("result.no_description", default="[No description generated]")
         )
     except Exception as e:
         return _(

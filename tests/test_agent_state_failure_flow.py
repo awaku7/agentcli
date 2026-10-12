@@ -366,3 +366,55 @@ def test_cancelled_human_ask_result_is_persisted_as_failed(monkeypatch, tmp_path
             assert bool(state["completed_steps"]) is not failed
     finally:
         detach_opt_in_session_store(core)
+
+
+def test_successful_vision_payload_is_not_marked_failed(monkeypatch, tmp_path):
+    from uagent.runtime.tool_execution_result import ToolExecutionText
+
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv(
+        "UAGENT_SESSION_STORE_PATH", str(tmp_path / "vision-sessions.sqlite3")
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False
+    )
+    outputs = iter(
+        (
+            ToolExecutionText('{"status":"blocked","error":"quoted data"}'),
+            ToolExecutionText("Error: the sample image contains an error message"),
+            ToolExecutionText("[python_exec timeout] text printed in the image"),
+        )
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool", lambda name, args: next(outputs)
+    )
+    core = SimpleNamespace(
+        log_message=lambda message: None,
+        set_status=lambda *args: None,
+        show_tool_output=False,
+    )
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="test"
+    )
+    assert store is not None and session_id
+    try:
+        for index in range(3):
+            _execute_tool_calls(
+                tool_calls_list=[
+                    {
+                        "id": f"vision-{index}",
+                        "type": "function",
+                        "function": {"name": "analyze_image", "arguments": "{}"},
+                    }
+                ],
+                messages=[],
+                core=core,
+                cache_mgr=_Cache(),
+            )
+            state = store.get_agent_state(session_id)
+            assert state is not None
+            assert state["completed_steps"] == ["tool:analyze_image"]
+            assert state["failed_steps"] == []
+    finally:
+        detach_opt_in_session_store(core)
