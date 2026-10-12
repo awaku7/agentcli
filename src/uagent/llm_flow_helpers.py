@@ -817,9 +817,7 @@ def _execute_tool_calls(
         # A successful file read can contain JSON status/error keys or text
         # that looks like an error. Capture trusted execution metadata before
         # normalizing the arbitrary result body for the provider.
-        explicit_execution_status = getattr(
-            tool_result, "_uag_execution_status", None
-        )
+        explicit_execution_status = getattr(tool_result, "_uag_execution_status", None)
 
         # Ensure content is a string (OpenAI/DeepSeek requires string content for tool role)
         if not isinstance(tool_result, str):
@@ -959,7 +957,8 @@ def _execute_tool_calls(
         )
         result_status = (
             explicit_execution_status
-            if explicit_execution_status in {"success", "failed", "timeout", "cancelled"}
+            if explicit_execution_status
+            in {"success", "failed", "timeout", "cancelled"}
             else _tool_result_status(parsed_tool_result or raw_context_result)
         )
         result_record, projections = context_manager.process_result(
