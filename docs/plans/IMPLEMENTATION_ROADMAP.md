@@ -270,20 +270,35 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 
 - 自動修正を既定で有効化せず、ユーザー確認を必須にする。
 
-## P2: Context RuntimeのVertex AI実環境回帰確認
+## P2: Context Runtime現行設計との差分確認・Vertex AI実環境回帰
 
-- Status: in-progress（Context Runtimeの主要機能は実装済み、Vertex AI実環境の回帰確認待ち）
-- Priority: P2（実機・外部Provider環境を必要とする検証）
-- Source: [Context Management Design](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)、[旧Context Runtime実装計画](../archive/UAG_CONTEXT_RUNTIME_TODO.md)
+- Status: in-progress（旧TODOの基盤項目は実装済み。現行設計の拡張要件と実環境回帰は未照合・未完了）
+- Priority: P2（実装差分の再評価と外部Provider環境を必要とする検証）
+- Source: [Context Management Design §32](../UAG_CONTEXT_MANAGEMENT_DESIGN.md)、[旧Context Runtime実装計画](../archive/UAG_CONTEXT_RUNTIME_TODO.md)
 
-### 残る検証
+### 現行設計の残存課題を再照合する
 
-- Vertex AI実環境で、Control-Cによる中断・停止を検証する。
+旧TODOの9つの基盤項目（ActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等）は実装済みの履歴記録として保管する。ただし、**これはContext Management Designの最終要件がすべて完了したことを意味しない**。同設計§32.2–32.4は次の10領域を残課題として記載しているため、各項目の現行コード・テスト・入口経路を照合してから、完了／部分実装／未実装を判定する。
+
+1. ContextManagerの統合層（`context_manager.py`にfacadeは存在するため、実際の全実行経路への接続を確認）。
+2. ToolResultRecordの統一管理（`tool_result_manager.py`にrecordは存在するため、永続化・全呼出元での利用を確認）。
+3. Structured Resultから段階的なSummaryを生成する処理（軽量要約と任意のLLM要約の範囲）。
+4. Resultの重要度・再取得可能性・evictable・保持期限の判断。
+5. Context Budget、Provider/Model別の予算配分、evictionの一元適用。
+6. Agent State、checkpoint、process restart後の実行状態復旧。
+7. 全Tool実行後に共通Result Managerと3系統projectionを通す経路。
+8. 検索・再注入の範囲（既存のTool Result検索に加え、意味検索・Artifact本文の自動再取得を含む）。
+9. 画像・音声・PDF・スクリーンショット・MCP blob等の共通Artifact化と機密データの保護。
+10. Resultごとのretention、参照数、孤児データ回収、Artifact quotaと削除。
+
+同設計§32には、`ContextManager`や`ToolResultRecord`を「存在しない」とする旧記述と、現行コードにある実装が混在する。**10件すべてを未実装として再起票せず**、実装済み部分を差し引いた具体的な不足だけを以後の作業対象にする。現行設計の記述自体の更新も照合後に行う。
+
+### Vertex AI実環境の回帰確認
+
+- Control-Cによる中断・停止を検証する。
 - 中断・承認後の会話継続時に、UserターンとProvider Projectionの整合性が維持されることを確認する。
-- `tool_load` を連続実行した際のtool定義・応答・コンテキスト復元を確認する。
+- `tool_load` の連続実行時に、Tool定義・応答・コンテキスト復元を確認する。
 - 問題を再現した場合だけ、Provider固有Projectionの修正と回帰テストを追加する。
-
-旧計画に記載のActiveContextBuilder、Budget、Retrieval、Token-aware推定、Decision Log、Debug Snapshot、Benchmark等は実装済みとして扱い、再実装しない。上記は**未実装機能と断定せず実環境検証待ち**として管理する。
 
 ## P2: 開発基盤の改善
 
