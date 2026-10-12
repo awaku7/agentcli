@@ -53,6 +53,9 @@ def test_tool_result_status_classifies_common_results() -> None:
     assert _tool_result_status({"ok": True}) == "success"
     assert _tool_result_status({"ok": False, "error": "nope"}) == "failed"
     assert _tool_result_status({"status": "cancelled"}) == "cancelled"
+    assert _tool_result_status({"cancelled": True}) == "cancelled"
+    assert _tool_result_status({"timed_out": True, "cancelled": True}) == "timeout"
+    assert _tool_result_status({"timed_out": False, "cancelled": False}) == "success"
     assert _tool_result_status("[tool runtime error] failed") == "failed"
     assert _tool_result_status("[tool argument error] bad alias") == "failed"
     assert _tool_result_status("[tool error] unknown tool") == "failed"
@@ -70,3 +73,23 @@ def test_tool_result_status_classifies_common_results() -> None:
     assert _tool_result_status("request timed out") == "success"
     assert _tool_result_status("timeout = 30; cancelled = False") == "success"
     assert _tool_result_status("source code: request cancelled") == "success"
+
+
+def test_translated_tool_errors_keep_explicit_status(monkeypatch) -> None:
+    from uagent.tools import i18n_helper
+
+    monkeypatch.setattr(i18n_helper, "get_locale", lambda: "fr")
+    monkeypatch.setattr(
+        i18n_helper,
+        "_load_tool_dict",
+        lambda _path: {"fr": {"err.path_required": "Erreur : 'path' est requis."}},
+    )
+    translate = i18n_helper.make_tool_translator(__file__)
+    message = translate("err.path_required", default="Error: path is required.")
+    assert str(message) == "Erreur : 'path' est requis."
+    assert message._uag_execution_status == "failed"
+    assert message.format()._uag_execution_status == "failed"
+
+    complete = translate("msg.completed", default="Processed {count} files.")
+    assert complete.format(count=2) == "Processed 2 files."
+    assert getattr(complete, "_uag_execution_status", None) is None

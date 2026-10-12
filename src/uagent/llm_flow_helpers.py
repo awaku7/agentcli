@@ -534,6 +534,10 @@ def _tool_result_status(value: Any) -> str:
     """Classify a result for the bounded UI projection."""
 
     if isinstance(value, dict):
+        if value.get("timed_out") is True:
+            return "timeout"
+        if value.get("cancelled") is True:
+            return "cancelled"
         if value.get("ok") is False or value.get("error"):
             return "failed"
         status = str(value.get("status") or "").strip().lower()

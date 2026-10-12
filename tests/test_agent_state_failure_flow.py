@@ -315,3 +315,54 @@ def test_localized_location_error_is_marked_failed(monkeypatch, tmp_path) -> Non
         assert state["failed_steps"] == ["tool:get_current_location"]
     finally:
         detach_opt_in_session_store(core)
+
+
+def test_cancelled_human_ask_result_is_persisted_as_failed(monkeypatch, tmp_path):
+    monkeypatch.setenv("UAGENT_SESSION_STORE", "1")
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    monkeypatch.setenv(
+        "UAGENT_SESSION_STORE_PATH", str(tmp_path / "human-ask-sessions.sqlite3")
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.is_parallel_safe", lambda *a: False
+    )
+    results = iter(
+        (
+            json.dumps({"tool": "human_ask", "cancelled": True}),
+            json.dumps({"tool": "human_ask", "timed_out": True, "cancelled": True}),
+            json.dumps({"tool": "human_ask", "cancelled": False, "user_reply": "yes"}),
+        )
+    )
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers.tools.run_tool", lambda name, args: next(results)
+    )
+    core = SimpleNamespace(
+        log_message=lambda message: None,
+        set_status=lambda *args: None,
+        show_tool_output=False,
+    )
+    store, session_id = attach_opt_in_session_store(
+        core, project_path=tmp_path, entry_point="test"
+    )
+    assert store is not None
+    assert session_id
+    try:
+        for index, failed in enumerate((True, True, False)):
+            _execute_tool_calls(
+                tool_calls_list=[
+                    {
+                        "id": f"human-ask-{index}",
+                        "type": "function",
+                        "function": {"name": "human_ask", "arguments": "{}"},
+                    }
+                ],
+                messages=[],
+                core=core,
+                cache_mgr=_Cache(),
+            )
+            state = store.get_agent_state(session_id)
+            assert state is not None
+            assert bool(state["failed_steps"]) is failed
+            assert bool(state["completed_steps"]) is not failed
+    finally:
+        detach_opt_in_session_store(core)

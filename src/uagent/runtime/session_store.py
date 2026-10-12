@@ -3878,6 +3878,7 @@ def detach_opt_in_session_store(core: Any) -> None:
             "save_agent_state",
             "update_agent_state",
             "complete_agent_step",
+            "fail_agent_step",
             "get_agent_state",
             "get_tool_result",
             "artifact_cleanup_report",
