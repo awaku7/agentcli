@@ -284,10 +284,10 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 2. ToolResultRecordの統一管理（`tool_result_manager.py`にrecordは存在するため、永続化・全呼出元での利用を確認）。
 3. Structured Resultから段階的なSummaryを生成する処理（軽量要約と任意のLLM要約の範囲）。
 4. Resultの重要度・再取得可能性・evictable・保持期限の判断。
-5. Context Budget、Provider/Model別の予算配分、evictionの一元適用。
-6. Agent State、checkpoint、process restart後の実行状態復旧。
-7. 全Tool実行後に共通Result Managerと3系統projectionを通す経路。
-8. 検索・再注入の範囲（既存のTool Result検索に加え、意味検索・Artifact本文の自動再取得を含む）。
+5. Context Budget、Provider/Model別の予算配分、evictionの一元適用。**warning/compaction/emergency閾値の`ContextPolicy`制御と設計§16の例示値との整合**を確認（現行`ContextBudget.usage()`は80%/90%/100%固定）。
+6. Agent State、checkpoint、process restart後の実行状態復旧。設計§12の`failed_steps`/`important_facts`の未充足、および失敗ステップを誤って完了扱いにしない更新規則を確認。
+7. 全Tool実行後に共通Result Managerと3系統projectionを通す経路。**主要Tool経路が`projections.llm_context`ではなく`materialized_result`をLLMへ渡している現状**を含め、LLM/UI/Historyの各projectionが実際の受け手へ届くことを検証。
+8. 検索・再注入の範囲。**同一Sessionのtext/JSON Artifact先頭最大2,000文字の自動preview取得は実装済み**。残る検証候補は意味検索、関連箇所選択、他メディアの扱い（必要性と権限境界を先に評価）。
 9. 画像・音声・PDF・スクリーンショット・MCP blob等の共通Artifact化と機密データの保護。
 10. Resultごとのretention、参照数、孤児データ回収、Artifact quotaと削除。
 
