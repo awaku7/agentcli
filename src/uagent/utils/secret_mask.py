@@ -116,7 +116,8 @@ def mask_value(v: Any) -> Any:
 
 _INLINE_SECRET_RE = re.compile(
     r"(?i)(\b(?:password|passwd|passcode|pwd|token|secret|api[_-]?key|"
-    r"access[_-]?key|private[_-]?key|authorization|bearer|credential|"
+    r"access[_-]?key|access[_-]?token|refresh[_-]?token|client[_-]?secret|"
+    r"private[_-]?key|authorization|bearer|credential|"
     r"cookie|signature|nsec)\b[\"']?\s*[:=]\s*)([\"']?)([^\"'&\s,};]+)",
 )
 _BEARER_RE = re.compile(
@@ -127,11 +128,19 @@ _URL_PASSWORD_RE = re.compile(
 )
 
 
+_COOKIE_HEADER_RE = re.compile(r"(?i)(\bCookie\s*:\s*)(.*)")
+_AUTHORIZATION_HEADER_RE = re.compile(r"(?i)(\bAuthorization\s*[:=]\s*)(.*)")
+_BARE_API_TOKEN_RE = re.compile(r"\bsk-[A-Za-z0-9_-]+\b")
+
+
 def _mask_inline_secrets(text: str) -> str:
     """Mask secret-looking values embedded in otherwise generic strings."""
-    text = _INLINE_SECRET_RE.sub(r"\1\2" + SECRET_MASK, text)
+    text = _COOKIE_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _AUTHORIZATION_HEADER_RE.sub(r"\1" + SECRET_MASK, text)
     text = _BEARER_RE.sub(r"\1" + SECRET_MASK, text)
+    text = _INLINE_SECRET_RE.sub(r"\1\2" + SECRET_MASK, text)
     text = _URL_PASSWORD_RE.sub(r"\1" + SECRET_MASK + r"\3", text)
+    text = _BARE_API_TOKEN_RE.sub(SECRET_MASK, text)
     return text
 
 

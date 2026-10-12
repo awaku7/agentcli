@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from uagent.runtime.history import materialize_large_tool_result
@@ -38,3 +39,39 @@ def test_artifact_registration_failure_keeps_bounded_fallback(monkeypatch):
 
     assert len(result) <= 200
     assert "original length=300" in result
+
+
+def test_large_json_artifact_redacts_nested_secrets_and_preserves_json(
+    tmp_path, monkeypatch
+):
+    value = json.dumps(
+        {
+            "public": "keep-this",
+            "connection_settings": {
+                "private_key": "artifact-private-dummy",
+                "nested": {"authorization": "Bearer artifact-token-dummy"},
+            },
+        },
+        ensure_ascii=False,
+    )
+    monkeypatch.setenv("UAGENT_WORKDIR", str(tmp_path))
+    state_dir = tmp_path / "state"
+    monkeypatch.setenv("UAGENT_STATE_DIR", str(state_dir))
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS", "1")
+
+    result = materialize_large_tool_result(value, tool_name="example")
+
+    artifact_path = next(
+        line.split(": ", 1)[1]
+        for line in result.splitlines()
+        if line.startswith("artifact_path: ")
+    )
+    stored_text = Path(state_dir, "artifacts", artifact_path).read_text(
+        encoding="utf-8"
+    )
+    stored = json.loads(stored_text)
+    assert stored["public"] == "keep-this"
+    assert stored["connection_settings"]["private_key"] == "********"
+    assert stored["connection_settings"]["nested"]["authorization"] == "********"
+    assert "artifact-private-dummy" not in stored_text
+    assert "artifact-token-dummy" not in stored_text

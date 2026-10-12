@@ -291,6 +291,8 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 9. 画像・音声・PDF・スクリーンショット・MCP blob等の共通Artifact化と機密データの保護。
 10. Resultごとのretention、参照数、孤児データ回収、Artifact quotaと削除。
 
+**2026-10-12 PR 1追補（未マージ）:** Tool Result保存境界の再帰的secret/Binary sanitizer、512 KiB UTF-8レコード上限、Artifact実ファイルの検査を実装・回帰テスト中。保護範囲はSessionStoreの新規Tool Resultレコードおよび新規Tool ResultテキストArtifactであり、過去DB/Artifactの移行、全MediaのArtifact化、Tool messageのLLM projection統合は含まない。PR CI・レビュー・ユーザーによるマージ前の作業ブランチ状態として記録する。
+
 旧設計にあった「`ContextManager`や`ToolResultRecord`が存在しない」という誤記は現行設計§32.3で修正済み。**基盤実装済みと全実行経路での要求充足は異なる**ため、拡張実装の要否は上記の残る差分と受け入れ条件を確認してから決める。
 
 ### Vertex AI実環境回帰（確認済み）

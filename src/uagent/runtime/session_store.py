@@ -20,13 +20,14 @@ from typing import Any, Callable
 
 from ..i18n import _
 from ..utils.paths import get_state_dir
-from ..utils.secret_mask import mask_args
+from ..utils.secret_mask import SECRET_MASK, _mask_inline_secrets, mask_args
 from .compaction_record import CompactionRecord, CompactionValidationError, SourceRef
 from .handoff_record import HandoffRecord, ProvenancedDeterministicDelta
 from .compaction_reducer import CompactionReductionError, reduce_compaction_record
 from .tool_result_persistence import (
-    sanitize_binary_payload,
+    bounded_persistent_json,
     sanitize_message_for_history,
+    sanitize_persistent_value,
 )
 
 
@@ -77,6 +78,9 @@ def _is_owned_sub_agent_review_registry(value: Any) -> bool:
 # Structural schema version stored in ``PRAGMA user_version``. Version 1
 # scoped tool-call/tool-result identity to their owning session.
 _SCHEMA_VERSION = 1
+_TOOL_RESULT_MAX_RECORD_BYTES = 512 * 1024
+_TOOL_RESULT_MAX_METADATA_BYTES = 8 * 1024
+_TOOL_RESULT_MAX_SUMMARY_BYTES = 4 * 1024
 
 # Tool-call and tool-result identities come from providers and imported
 # conversations, so they are only unique inside one session. Keeping them in
@@ -197,15 +201,6 @@ class Session:
     project_path: str | None = None
 
 
-_SECRET_PATTERNS = (
-    re.compile(
-        r"(?i)(\b(?:token|password|passwd|api[_-]?key|secret)\s*[:=]\s*)([^\s,;]+)"
-    ),
-    re.compile(r"(?i)(\bCookie\s*:\s*)([^\r\n]+)"),
-    re.compile(r"\bsk-[A-Za-z0-9_-]+\b"),
-)
-
-
 def project_id_from_path(path: str | Path) -> str:
     """Return a stable, human-friendly workspace name from a path."""
     raw = str(path).rstrip("\\/")
@@ -234,11 +229,25 @@ def normalize_tool_call(call: dict[str, Any]) -> tuple[str, str, dict[str, Any]]
 
 
 def redact_sensitive(text: str) -> str:
-    """Remove common credential values without attempting to parse secrets."""
-    result = text
-    for pattern in _SECRET_PATTERNS[:2]:
-        result = pattern.sub(r"\1[REDACTED]", result)
-    return _SECRET_PATTERNS[2].sub("[REDACTED]", result)
+    """Mask secret-bearing text while leaving unrelated content unchanged."""
+    value = str(text or "")
+    try:
+        if value.lstrip()[:1] not in {"{", "["}:
+            sanitized = _mask_inline_secrets(value)
+        else:
+            try:
+                parsed = json.loads(value)
+            except (TypeError, ValueError):
+                sanitized = _mask_inline_secrets(value)
+            else:
+                safe_value = sanitize_persistent_value(parsed)
+                if safe_value == parsed:
+                    return value
+                sanitized = json.dumps(safe_value, ensure_ascii=False)
+        return sanitized.replace(SECRET_MASK, "[REDACTED]")
+    except Exception:
+        # Do not persist the original text if parsing or masking fails.
+        return "[persisted message omitted after sanitization error]"
 
 
 def _sanitize_text(value: Any) -> Any:
@@ -295,6 +304,54 @@ def _safe_json_dumps(obj: Any, **kwargs: Any) -> str:
     except (TypeError, ValueError):
         raise
     return _sanitize_text(text)
+
+
+def _truncate_utf8_field(value: str, max_bytes: int) -> str:
+    """Bound one stored text field without splitting a UTF-8 character."""
+    value = _sanitize_text(str(value or ""))
+    encoded = value.encode("utf-8", errors="replace")
+    if len(encoded) <= max_bytes:
+        return value
+    marker = "...[truncated]"
+    marker_size = len(marker.encode("utf-8"))
+    if max_bytes <= marker_size:
+        return encoded[:max_bytes].decode("utf-8", errors="ignore")
+    prefix_budget = max_bytes - marker_size
+    prefix: list[str] = []
+    used = 0
+    for char in value:
+        size = len(char.encode("utf-8", errors="replace"))
+        if used + size > prefix_budget:
+            break
+        prefix.append(char)
+        used += size
+    return "".join(prefix) + marker
+
+
+def _bounded_tool_result_metadata(value: Any) -> str:
+    """Serialize sanitized metadata while preserving call/status identifiers."""
+    cleaned = sanitize_persistent_value(_sanitize_value(value or {}))
+    if not isinstance(cleaned, dict):
+        cleaned = {"value": cleaned}
+    encoded = _safe_json_dumps(cleaned, ensure_ascii=False, sort_keys=True)
+    if (
+        len(encoded.encode("utf-8", errors="replace"))
+        <= _TOOL_RESULT_MAX_METADATA_BYTES
+    ):
+        return encoded
+
+    compact: dict[str, Any] = {"_uagent_metadata_truncated": True}
+    for key in ("tool_call_id", "status"):
+        if key not in cleaned:
+            continue
+        item = cleaned[key]
+        compact[key] = (
+            _truncate_utf8_field(str(item), 256) if isinstance(item, str) else item
+        )
+    encoded = _safe_json_dumps(compact, ensure_ascii=False, sort_keys=True)
+    if len(encoded.encode("utf-8", errors="replace")) > _TOOL_RESULT_MAX_METADATA_BYTES:
+        return _safe_json_dumps({"_uagent_metadata_truncated": True})
+    return encoded
 
 
 def _migrate_legacy_session_store(path: Path) -> None:
@@ -1226,7 +1283,7 @@ class SessionStore:
                     ensure_ascii=False,
                     sort_keys=True,
                 )
-            except (TypeError, ValueError):
+            except Exception:
                 safe_payload = _safe_json_dumps(
                     {"role": role, "content": safe_content}, ensure_ascii=False
                 )
@@ -1735,20 +1792,99 @@ class SessionStore:
         """Persist one provider-neutral ToolResultRecord and its history view."""
         self._require_session(session_id)
         try:
-            metadata_json = _safe_json_dumps(
-                _sanitize_value(record.get("metadata") or {}),
-                ensure_ascii=False,
-                sort_keys=True,
+            result_id = _sanitize_text(str(record.get("result_id") or uuid.uuid4().hex))
+            if sanitize_persistent_value(result_id) != result_id:
+                raise SessionStoreError("tool result ID contains secret-looking data")
+            if len(result_id.encode("utf-8", errors="replace")) > 256:
+                raise SessionStoreError("tool result ID exceeds the 256-byte limit")
+            task_id = _truncate_utf8_field(
+                str(sanitize_persistent_value(record.get("task_id") or "")), 1024
             )
+            tool_name = _truncate_utf8_field(
+                str(sanitize_persistent_value(record.get("tool_name") or "tool")), 256
+            )
+            result_class = _truncate_utf8_field(
+                str(sanitize_persistent_value(record.get("result_class") or "small")),
+                32,
+            )
+            importance = _truncate_utf8_field(
+                str(sanitize_persistent_value(record.get("importance") or "normal")),
+                64,
+            )
+            created_at = _truncate_utf8_field(
+                str(sanitize_persistent_value(record.get("created_at") or _utc_now())),
+                64,
+            )
+        except SessionStoreError:
+            raise
+        except Exception as exc:
+            raise SessionStoreError(
+                "tool result identity metadata could not be safely sanitized"
+            ) from exc
+        try:
+            metadata_json = _bounded_tool_result_metadata(record.get("metadata") or {})
+            summary_value = sanitize_persistent_value(
+                _sanitize_text(str(record.get("summary") or ""))
+            )
+            summary = _truncate_utf8_field(
+                str(summary_value), _TOOL_RESULT_MAX_SUMMARY_BYTES
+            )
+            artifact_ref_value = sanitize_persistent_value(
+                _sanitize_text(str(record.get("artifact_ref") or ""))
+            )
+            artifact_ref = _truncate_utf8_field(str(artifact_ref_value), 4096)
+            safe_size_bytes = max(
+                0,
+                min(int(record.get("size_bytes") or 0), (1 << 63) - 1),
+            )
+            fixed_fields = (
+                session_id,
+                result_id,
+                task_id,
+                tool_name,
+                result_class,
+                str(safe_size_bytes),
+                summary,
+                artifact_ref,
+                importance,
+                metadata_json,
+                created_at,
+            )
+            fixed_bytes = sum(
+                len(str(field).encode("utf-8", errors="replace"))
+                for field in fixed_fields
+            )
+            history_budget = max(0, _TOOL_RESULT_MAX_RECORD_BYTES - fixed_bytes - 128)
+            persistent_json = bounded_persistent_json(
+                _sanitize_value(persistent_history),
+                history_budget,
+                artifact_ref=artifact_ref,
+            )
+        except Exception:
+            # Never fall back to serializing the unprocessed value. Keep only
+            # inert metadata if redaction or serialization itself fails.
+            fallback_metadata: dict[str, Any] = {
+                "_uagent_metadata": "omitted_after_sanitization_error"
+            }
+            raw_metadata = record.get("metadata")
+            if isinstance(raw_metadata, dict) and raw_metadata.get("status") in {
+                "success",
+                "failed",
+                "timeout",
+                "cancelled",
+            }:
+                fallback_metadata["status"] = raw_metadata["status"]
+            metadata_json = _safe_json_dumps(fallback_metadata)
+            summary = "[persisted summary omitted]"
+            artifact_ref = ""
+            safe_size_bytes = 0
+            task_id = _truncate_utf8_field(task_id, 1024)
+            tool_name = _truncate_utf8_field(tool_name, 256)
+            result_class = _truncate_utf8_field(result_class, 32)
+            importance = _truncate_utf8_field(importance, 64)
             persistent_json = _safe_json_dumps(
-                _sanitize_value(sanitize_binary_payload(persistent_history)),
-                ensure_ascii=False,
-                sort_keys=True,
+                {"_uagent_persisted_history": "omitted_after_sanitization_error"}
             )
-        except (TypeError, ValueError) as exc:
-            raise SessionStoreError("tool result is not JSON serializable") from exc
-        result_id = str(record.get("result_id") or uuid.uuid4().hex)
-        created_at = str(record.get("created_at") or _utc_now())
         try:
             self._connection.execute("BEGIN IMMEDIATE")
             # Result IDs are only unique inside a session, so a repeat from
@@ -1773,13 +1909,13 @@ class SessionStore:
                 (
                     result_id,
                     session_id,
-                    str(record.get("task_id") or ""),
-                    str(record.get("tool_name") or "tool"),
-                    str(record.get("result_class") or "small"),
-                    int(record.get("size_bytes") or 0),
-                    _sanitize_text(str(record.get("summary") or "")),
-                    _sanitize_text(str(record.get("artifact_ref") or "")),
-                    str(record.get("importance") or "normal"),
+                    task_id,
+                    tool_name,
+                    result_class,
+                    safe_size_bytes,
+                    summary,
+                    artifact_ref,
+                    importance,
                     1 if bool(record.get("evictable", True)) else 0,
                     metadata_json,
                     persistent_json,

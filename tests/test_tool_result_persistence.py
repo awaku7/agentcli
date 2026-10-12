@@ -83,3 +83,56 @@ def test_non_tool_messages_are_not_binary_sanitized():
     message = {"role": "assistant", "data_base64": "keep-this"}
 
     assert sanitize_message_for_history(message) == message
+
+
+def test_tool_message_history_masks_structured_and_inline_secrets(tmp_path):
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="test")
+    secret = "history-private-dummy"
+    content = json.dumps(
+        {
+            "private_key": secret,
+            "note": "Authorization: Bearer history-token-dummy",
+        },
+        ensure_ascii=False,
+    )
+
+    store.append_message(
+        session.session_id,
+        "tool",
+        content,
+        payload={"role": "tool", "content": content},
+    )
+
+    stored = store.list_messages(session.session_id)[0]
+    store.close()
+    assert secret not in json.dumps(stored, ensure_ascii=False)
+    assert "history-token-dummy" not in json.dumps(stored, ensure_ascii=False)
+    assert json.loads(stored["content"])["private_key"] == "[REDACTED]"
+
+
+def test_tool_message_payload_sanitizer_failure_uses_redacted_fallback(
+    tmp_path, monkeypatch
+):
+    from uagent.runtime import session_store as session_store_module
+
+    def fail_sanitizer(_message):
+        raise RuntimeError("simulated payload sanitizer failure")
+
+    monkeypatch.setattr(
+        session_store_module, "sanitize_message_for_history", fail_sanitizer
+    )
+    store = SessionStore(tmp_path / "sessions.sqlite3")
+    session = store.create_session(project="demo", entry_point="test")
+    secret = "payload-fallback-dummy"
+    store.append_message(
+        session.session_id,
+        "tool",
+        f"api_key={secret}",
+        payload={"role": "tool", "content": f"api_key={secret}", "extra": secret},
+    )
+
+    stored = store.list_messages(session.session_id)[0]
+    store.close()
+    assert secret not in json.dumps(stored, ensure_ascii=False)
+    assert "[REDACTED]" in stored["content"]

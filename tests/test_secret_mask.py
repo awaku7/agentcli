@@ -4,6 +4,7 @@ import json
 
 from uagent.utils.secret_mask import (
     SECRET_MASK,
+    _mask_inline_secrets,
     looks_like_password_field,
     looks_like_secret_key,
     mask_args,
@@ -127,3 +128,19 @@ def test_mask_message_human_ask_secret():
     masked = mask_message({"role": "tool", "content": content})
     parsed = json.loads(masked["content"])
     assert parsed["user_reply"] == SECRET_MASK
+
+
+def test_inline_secret_mask_covers_bearer_cookie_and_camel_case_keys():
+    raw = (
+        "Authorization: Bearer bearer-dummy; "
+        "accessToken=camel-dummy; Cookie: session=dummy-cookie\n"
+        "Authorization: Basic basic-dummy"
+    )
+
+    masked = _mask_inline_secrets(raw)
+
+    assert "bearer-dummy" not in masked
+    assert "camel-dummy" not in masked
+    assert "dummy-cookie" not in masked
+    assert "basic-dummy" not in masked
+    assert SECRET_MASK in masked
