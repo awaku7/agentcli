@@ -156,6 +156,7 @@ def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked()
     basic_header = "Authorization: Basic basic-dummy"
     alpha_basic_header = "Authorization: Basic YTphYWFh"
     alpha_bearer_header = "Authorization: Bearer alphabeticbearertoken"
+    crlf_header = "Authorization: Basic YTphYWFh\r\nHost: example"
     opaque_header = (
         "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ.signature"
     )
@@ -172,6 +173,9 @@ def test_authorization_prose_keeps_remainder_but_header_credentials_are_masked()
     assert _mask_inline_secrets(alpha_basic_header) == "Authorization: Basic ********"
     assert _mask_inline_secrets(alpha_bearer_header) == (
         "Authorization: Bearer ********"
+    )
+    assert _mask_inline_secrets(crlf_header) == (
+        "Authorization: Basic ********\r\nHost: example"
     )
     assert "eyJhbGciOiJIUzI1NiJ9" not in _mask_inline_secrets(opaque_header)
     assert SECRET_MASK in _mask_inline_secrets(opaque_header)

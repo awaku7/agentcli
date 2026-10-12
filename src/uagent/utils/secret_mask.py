@@ -140,7 +140,7 @@ _COOKIE_HEADER_RE = re.compile(r"(?i)(\bCookie\s*:\s*)(.*)")
 _AUTHORIZATION_HEADER_RE = re.compile(
     r"(?im)(\bAuthorization[ 	]*:[ 	]*(?:Bearer|Basic)[ 	]+)"
     r"([A-Za-z0-9._~+/-]+=*)"
-    r"(?=[ 	]*(?:[,;]|$))"
+    r"(?=[ 	]*(?:[,;]|\r?$))"
 )
 _AUTHORIZATION_OPAQUE_HEADER_RE = re.compile(
     r"(?im)(^[ 	]*Authorization[ 	]*:[ 	]*)"

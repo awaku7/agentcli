@@ -83,6 +83,7 @@ def _redact_sensitive_values(
     value: Any,
     *,
     inside_secret_object: bool = False,
+    allow_token_metadata: bool = False,
     strip_binary: bool = True,
 ) -> Any:
     """Mask credentials while retaining public metadata in secret objects."""
@@ -91,8 +92,10 @@ def _redact_sensitive_values(
         for key, item in value.items():
             normalized = _normalize_persistence_key(key)
             if inside_secret_object:
-                if normalized in _TOKEN_PUBLIC_METADATA_KEYS and not isinstance(
-                    item, (dict, list, tuple)
+                if (
+                    allow_token_metadata
+                    and normalized in _TOKEN_PUBLIC_METADATA_KEYS
+                    and not isinstance(item, (dict, list, tuple))
                 ):
                     result[key] = _redact_sensitive_values(
                         item, strip_binary=strip_binary
@@ -110,6 +113,7 @@ def _redact_sensitive_values(
                     result[key] = _redact_sensitive_values(
                         item,
                         inside_secret_object=True,
+                        allow_token_metadata=normalized == "token",
                         strip_binary=strip_binary,
                     )
                 else:

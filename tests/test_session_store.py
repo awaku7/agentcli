@@ -438,13 +438,17 @@ def test_redaction_preserves_bearer_and_basic_prose_in_persisted_messages(tmp_pa
         "Bearer responsibilities are assigned here; "
         "Authorization: Basic authentication is described here."
     )
-    credential = "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.abc123_signature"
+    credential = (
+        "Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.abc123_signature "
+        "Authorization: Basic YTphYWFh\r\nHost: example"
+    )
 
     store.append_message(session.session_id, "user", prose + " " + credential)
 
     content = store.list_messages(session.session_id)[0]["content"]
     assert prose in content
     assert "eyJhbGciOiJIUzI1NiJ9.abc123_signature" not in content
+    assert "Authorization: Basic [REDACTED]\r\nHost: example" in content
     assert "[REDACTED]" in content
 
 

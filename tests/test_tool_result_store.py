@@ -136,6 +136,8 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
         "camel-case-dummy-token",
         "signed-token-dummy-value",
         "unknown-token-object-field",
+        "password-status-secret",
+        "private-key-token-id-secret",
     )
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         session = store.create_session(project="demo", entry_point="test")
@@ -164,6 +166,8 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
                 "json_text": json.dumps(
                     {"accessToken": secrets[5]}, ensure_ascii=False
                 ),
+                "password": {"status": secrets[8]},
+                "private_key": {"token_id": secrets[9]},
                 "token": {
                     "signed_token": secrets[6],
                     "token_id": "tokid-public-123",
@@ -191,6 +195,8 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
     assert metadata["authorization"] == "********"
     assert persistent["nested"]["password"] == "********"
     assert persistent["nested"]["private_key"] == "********"
+    assert persistent["password"]["status"] == "********"
+    assert persistent["private_key"]["token_id"] == "********"
     assert "********" in persistent["detail"]
     assert persistent["authorization_url"] == (
         "https://idp.example/authorize?client_id=demo&state=state-dummy"
