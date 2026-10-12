@@ -134,6 +134,8 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
         "private-key-dummy-value",
         "body-dummy-bearer",
         "camel-case-dummy-token",
+        "signed-token-dummy-value",
+        "unknown-token-object-field",
     )
     with SessionStore(tmp_path / "sessions.sqlite3") as store:
         session = store.create_session(project="demo", entry_point="test")
@@ -162,6 +164,14 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
                 "json_text": json.dumps(
                     {"accessToken": secrets[5]}, ensure_ascii=False
                 ),
+                "token": {
+                    "signed_token": secrets[6],
+                    "token_id": "tokid-public-123",
+                    "status": "approved",
+                    "expires_at": "2026-10-12T12:00:00Z",
+                    "internal": secrets[7],
+                },
+                "token_id": "verification-id-public-123",
             },
         )
         raw = store._connection.execute(
@@ -188,6 +198,14 @@ def test_tool_result_persistence_redacts_nested_secrets_in_database(tmp_path) ->
     )
     assert persistent["signature"] == "ET MALWARE Test Rule"
     assert json.loads(persistent["json_text"])["accessToken"] == "********"
+    assert persistent["token"] == {
+        "signed_token": "********",
+        "token_id": "tokid-public-123",
+        "status": "approved",
+        "expires_at": "2026-10-12T12:00:00Z",
+        "internal": "********",
+    }
+    assert persistent["token_id"] == "verification-id-public-123"
     assert result is not None
     assert result["summary"] == "api_key=********"
 

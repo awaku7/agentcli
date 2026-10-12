@@ -21,13 +21,24 @@ _BINARY_KEYS = {
     "screenshot_data",
     "screenshotdata",
 }
-_PERSISTENCE_PUBLIC_RESULT_KEYS = frozenset({"authorization_url", "signature"})
+_PERSISTENCE_PUBLIC_RESULT_KEYS = frozenset(
+    {"authorization_url", "signature", "token_id"}
+)
+_TOKEN_PUBLIC_METADATA_KEYS = frozenset({"token_id", "status", "expires_at"})
+
+
+def _normalize_persistence_key(key: Any) -> str:
+    return (
+        re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", str(key))
+        .strip()
+        .replace("-", "_")
+        .lower()
+    )
 
 
 def _is_persistent_secret_key(key: Any) -> bool:
     """Classify persisted result keys without hiding known public result fields."""
-    normalized = re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", str(key))
-    normalized = normalized.strip().replace("-", "_").lower()
+    normalized = _normalize_persistence_key(key)
     if normalized in _PERSISTENCE_PUBLIC_RESULT_KEYS:
         return False
     return looks_like_secret_key(normalized)
@@ -68,19 +79,47 @@ def sanitize_binary_payload(value: Any) -> Any:
     return value
 
 
-def _redact_sensitive_values(value: Any) -> Any:
-    """Mask secret-looking keys and inline values without truncating content."""
+def _redact_sensitive_values(value: Any, *, inside_secret_object: bool = False) -> Any:
+    """Mask credentials while retaining known public metadata in token objects."""
     if isinstance(value, dict):
         result: dict[Any, Any] = {}
         for key, item in value.items():
-            if _is_persistent_secret_key(key):
-                result[key] = None if item is None else SECRET_MASK
+            normalized = _normalize_persistence_key(key)
+            if inside_secret_object:
+                if normalized in _TOKEN_PUBLIC_METADATA_KEYS and not isinstance(
+                    item, (dict, list, tuple)
+                ):
+                    result[key] = _redact_sensitive_values(item)
+                elif isinstance(item, (dict, list, tuple)):
+                    result[key] = _redact_sensitive_values(
+                        item, inside_secret_object=True
+                    )
+                else:
+                    result[key] = None if item is None else SECRET_MASK
+            elif _is_persistent_secret_key(key):
+                if isinstance(item, (dict, list, tuple)):
+                    result[key] = _redact_sensitive_values(
+                        item, inside_secret_object=True
+                    )
+                else:
+                    result[key] = None if item is None else SECRET_MASK
             else:
                 result[key] = _redact_sensitive_values(item)
         return result
     if isinstance(value, (list, tuple)):
+        if inside_secret_object:
+            return [
+                (
+                    _redact_sensitive_values(item, inside_secret_object=True)
+                    if isinstance(item, (dict, list, tuple))
+                    else None if item is None else SECRET_MASK
+                )
+                for item in value
+            ]
         return [_redact_sensitive_values(item) for item in value]
     if isinstance(value, str):
+        if inside_secret_object:
+            return SECRET_MASK
         if _is_data_url(value):
             return _BINARY_KEY_MARKER
         if value.lstrip()[:1] not in {"{", "["}:
@@ -94,6 +133,8 @@ def _redact_sensitive_values(value: Any) -> Any:
             if safe_parsed != parsed:
                 return json.dumps(safe_parsed, ensure_ascii=False)
         return _mask_inline_secrets(value)
+    if inside_secret_object and value is not None:
+        return SECRET_MASK
     return value
 
 

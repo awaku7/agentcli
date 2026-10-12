@@ -51,6 +51,12 @@ def test_large_json_artifact_redacts_nested_secrets_and_preserves_json(
                 "https://idp.example/authorize?client_id=demo&state=state-dummy&access_token=oauth-access-dummy"
             ),
             "signature": "ET MALWARE Test Rule",
+            "token": {
+                "signed_token": "artifact-signed-token-dummy",
+                "token_id": "artifact-token-id-public",
+                "status": "approved",
+                "expires_at": "2026-10-12T12:00:00Z",
+            },
             "connection_settings": {
                 "private_key": "artifact-private-dummy",
                 "nested": {"authorization": "Bearer artifact-token-dummy"},
@@ -80,7 +86,14 @@ def test_large_json_artifact_redacts_nested_secrets_and_preserves_json(
         "&access_token=********"
     )
     assert stored["signature"] == "ET MALWARE Test Rule"
+    assert stored["token"] == {
+        "signed_token": "********",
+        "token_id": "artifact-token-id-public",
+        "status": "approved",
+        "expires_at": "2026-10-12T12:00:00Z",
+    }
     assert stored["connection_settings"]["private_key"] == "********"
     assert stored["connection_settings"]["nested"]["authorization"] == "********"
     assert "artifact-private-dummy" not in stored_text
     assert "artifact-token-dummy" not in stored_text
+    assert "artifact-signed-token-dummy" not in stored_text
