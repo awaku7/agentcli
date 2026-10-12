@@ -26,6 +26,7 @@ from .handoff_record import HandoffRecord, ProvenancedDeterministicDelta
 from .compaction_reducer import CompactionReductionError, reduce_compaction_record
 from .tool_result_persistence import (
     bounded_persistent_json,
+    redact_persistent_secrets,
     sanitize_message_for_history,
     sanitize_persistent_value,
 )
@@ -228,8 +229,8 @@ def normalize_tool_call(call: dict[str, Any]) -> tuple[str, str, dict[str, Any]]
     return call_id, name, raw_args
 
 
-def redact_sensitive(text: str) -> str:
-    """Mask secret-bearing text while leaving unrelated content unchanged."""
+def redact_sensitive(text: str, *, strip_binary: bool = False) -> str:
+    """Mask secrets in text, optionally stripping binaries for tool messages."""
     value = str(text or "")
     try:
         if value.lstrip()[:1] not in {"{", "["}:
@@ -240,7 +241,11 @@ def redact_sensitive(text: str) -> str:
             except (TypeError, ValueError):
                 sanitized = _mask_inline_secrets(value)
             else:
-                safe_value = sanitize_persistent_value(parsed)
+                safe_value = (
+                    sanitize_persistent_value(parsed)
+                    if strip_binary
+                    else redact_persistent_secrets(parsed)
+                )
                 if safe_value == parsed:
                     return value
                 sanitized = json.dumps(safe_value, ensure_ascii=False)
@@ -1268,7 +1273,9 @@ class SessionStore:
             content if isinstance(content, str) else str(content or "")
         )
         role = _sanitize_text(str(role or ""))
-        safe_content = _sanitize_text(redact_sensitive(content))
+        safe_content = _sanitize_text(
+            redact_sensitive(content, strip_binary=role == "tool")
+        )
         safe_payload = None
         if payload is not None:
             try:

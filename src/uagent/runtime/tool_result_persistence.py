@@ -79,8 +79,13 @@ def sanitize_binary_payload(value: Any) -> Any:
     return value
 
 
-def _redact_sensitive_values(value: Any, *, inside_secret_object: bool = False) -> Any:
-    """Mask credentials while retaining known public metadata in token objects."""
+def _redact_sensitive_values(
+    value: Any,
+    *,
+    inside_secret_object: bool = False,
+    strip_binary: bool = True,
+) -> Any:
+    """Mask credentials while retaining public metadata in secret objects."""
     if isinstance(value, dict):
         result: dict[Any, Any] = {}
         for key, item in value.items():
@@ -89,38 +94,50 @@ def _redact_sensitive_values(value: Any, *, inside_secret_object: bool = False) 
                 if normalized in _TOKEN_PUBLIC_METADATA_KEYS and not isinstance(
                     item, (dict, list, tuple)
                 ):
-                    result[key] = _redact_sensitive_values(item)
+                    result[key] = _redact_sensitive_values(
+                        item, strip_binary=strip_binary
+                    )
                 elif isinstance(item, (dict, list, tuple)):
                     result[key] = _redact_sensitive_values(
-                        item, inside_secret_object=True
+                        item,
+                        inside_secret_object=True,
+                        strip_binary=strip_binary,
                     )
                 else:
                     result[key] = None if item is None else SECRET_MASK
             elif _is_persistent_secret_key(key):
                 if isinstance(item, (dict, list, tuple)):
                     result[key] = _redact_sensitive_values(
-                        item, inside_secret_object=True
+                        item,
+                        inside_secret_object=True,
+                        strip_binary=strip_binary,
                     )
                 else:
                     result[key] = None if item is None else SECRET_MASK
             else:
-                result[key] = _redact_sensitive_values(item)
+                result[key] = _redact_sensitive_values(item, strip_binary=strip_binary)
         return result
     if isinstance(value, (list, tuple)):
         if inside_secret_object:
             return [
                 (
-                    _redact_sensitive_values(item, inside_secret_object=True)
+                    _redact_sensitive_values(
+                        item,
+                        inside_secret_object=True,
+                        strip_binary=strip_binary,
+                    )
                     if isinstance(item, (dict, list, tuple))
                     else None if item is None else SECRET_MASK
                 )
                 for item in value
             ]
-        return [_redact_sensitive_values(item) for item in value]
+        return [
+            _redact_sensitive_values(item, strip_binary=strip_binary) for item in value
+        ]
     if isinstance(value, str):
         if inside_secret_object:
             return SECRET_MASK
-        if _is_data_url(value):
+        if strip_binary and _is_data_url(value):
             return _BINARY_KEY_MARKER
         if value.lstrip()[:1] not in {"{", "["}:
             return _mask_inline_secrets(value)
@@ -129,7 +146,9 @@ def _redact_sensitive_values(value: Any, *, inside_secret_object: bool = False) 
         except (TypeError, ValueError):
             return _mask_inline_secrets(value)
         if isinstance(parsed, (dict, list)):
-            safe_parsed = _redact_sensitive_values(sanitize_binary_payload(parsed))
+            if strip_binary:
+                parsed = sanitize_binary_payload(parsed)
+            safe_parsed = _redact_sensitive_values(parsed, strip_binary=strip_binary)
             if safe_parsed != parsed:
                 return json.dumps(safe_parsed, ensure_ascii=False)
         return _mask_inline_secrets(value)
@@ -146,6 +165,11 @@ def sanitize_persistent_value(value: Any) -> Any:
     persistence boundary applies a separate explicit byte budget.
     """
     return _redact_sensitive_values(sanitize_binary_payload(value))
+
+
+def redact_persistent_secrets(value: Any) -> Any:
+    """Redact secret-bearing values without dropping binary-shaped content."""
+    return _redact_sensitive_values(value, strip_binary=False)
 
 
 def sanitize_persistent_text(text: str) -> str:
@@ -260,6 +284,7 @@ def sanitize_message_for_history(message: Any) -> Any:
 
 __all__ = [
     "bounded_persistent_json",
+    "redact_persistent_secrets",
     "sanitize_binary_payload",
     "sanitize_message_for_history",
     "sanitize_persistent_text",
