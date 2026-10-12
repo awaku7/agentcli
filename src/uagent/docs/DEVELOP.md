@@ -701,6 +701,24 @@ bounded preview and an `artifact://...` reference instead of the full result.
 Artifact storage uses the active session store when available and redacts
 common credential values before writing the text artifact.
 
+### 3.5.2 Tool Result persistence limits
+
+The SessionStore persistence boundary caps each Tool Result record at 512 KiB
+of UTF-8 data. The `metadata_json` field is limited to 8 KiB, and the stored
+summary to 4 KiB. These limits apply to the durable copy; the in-memory result
+used by the active interaction is not truncated by this boundary.
+
+Before writing, persistent result content is recursively sanitized:
+credential-like fields and inline credential values are redacted, and binary
+payloads are replaced with bounded omission markers. If content must be
+shortened, the persisted history remains valid JSON and carries
+`_uagent_persisted_history: "truncated"` (or `"omitted"` when it cannot be
+retained); metadata shortening is marked by
+`_uagent_metadata_truncated: true`. The persistence metadata records the
+original history size, and an available `artifact_ref` is retained so callers
+can retrieve the full result through the artifact path. Existing stored records
+and artifacts are not retroactively rewritten.
+
 The read-only `artifact_read` tool accepts an artifact ID or reference and
 returns a bounded line range. It permits access only to the active session's
 artifacts. This keeps artifact retrieval provider-neutral and prevents a
