@@ -55,7 +55,10 @@ def test_tool_result_status_classifies_common_results() -> None:
     assert _tool_result_status({"status": "cancelled"}) == "cancelled"
     assert _tool_result_status({"cancelled": True}) == "cancelled"
     assert _tool_result_status({"timed_out": True, "cancelled": True}) == "timeout"
-    assert _tool_result_status({"timeout": True, "ok": False, "error": "expired"}) == "timeout"
+    assert (
+        _tool_result_status({"timeout": True, "ok": False, "error": "expired"})
+        == "timeout"
+    )
     assert _tool_result_status({"timeout": False, "ok": False}) == "failed"
     assert _tool_result_status({"timed_out": False, "cancelled": False}) == "success"
     assert _tool_result_status("[tool runtime error] failed") == "failed"
