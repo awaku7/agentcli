@@ -95,5 +95,6 @@ The policy is enforced at Tool dispatch, Credential resolution, MCP connection, 
 
 See also:
 
-- [Improvement priority](IMPROVEMENT_PRIORITY.md)
+- [Implementation roadmap](plans/IMPLEMENTATION_ROADMAP.md)
+- [Historical improvement priority](archive/IMPROVEMENT_PRIORITY.md)
 - [Architecture](ARCHITECTURE.md)

@@ -14,6 +14,26 @@
 - **P1**: 高優先
 - **P2**: 中長期
 
+## P0: Enterprise E0 — リモート入口からの全ツール実行隔離
+
+- Status: planned（Enterprise E0の実装・受け入れ検証が未完了）
+- Priority: P0（認証付きmulti-user Web / 外部公開A2Aでtool実行を許可する前の必須条件）
+- Source: [Enterprise Platform Design — Phase E0](../UAG_ENTERPRISE_PLATFORM_DESIGN.md)
+
+### 必須の実装境界
+
+- 認証付きmulti-user Web（内部ネットワーク限定を含む）、外部到達可能なWeb / WebSocket、ツール実行可能な外部公開A2Aなど、通常のAgent tool loopに到達するremote ingressを漏れなく対象とする。
+- **すべてのdata-plane tool action** を **sandbox execution / 狭い権限のbrokered control-plane action / deny** のいずれかに分類し、remote ingressからhost OSへの直接実行を禁止する。shell、filesystem、Python、Computer Use、Skills、Plugin、MCP/A2A helper等をPluginだけに限定せず含める。
+- Agent/tool dispatchとhostの間に `ExecutionBroker` 境界を導入する。principal / Project / Room / session、Unified Policy、workspace投影、credential注入、実行資源・network制限、結果回収、cleanup、auditを管理する。
+- remote実行プロファイルで隔離backendを利用できない場合は **fail closed** とし、host実行へフォールバックしない。local-trustedなCLI / GUI / 明示的local-only Webとは境界を分ける。
+- control-planeの認証情報・policy・監査操作を汎用sandboxへ渡さない。hardware / device操作はremote ingressで既定拒否とする。
+
+### 受け入れ条件
+
+- Web UI / WebSocket / A2Aなどの各remote経路と各ツール種別について、sandbox・broker・deny以外の実行経路がないことを自動テストと実環境検証で確認する。
+- 隔離backendの停止、権限不足、scopeの不一致、sandbox終了後cleanup、並行する異なるprincipal / Projectでの漏洩がfail closedとなる。
+- Plugin固有のsandbox強化（下記P2候補）を完了しても、このE0の全ツール隔離・`ExecutionBroker` が検証されるまではremote実行隔離の完了としない。
+
 ## P0: Memory V3 rollout / security completion
 
 - Status: in-progress
@@ -264,6 +284,25 @@ v0.7.14でSQLite-backed claim / lease、expired lease reclaim、WAL、scheduler 
 - 実装済み機能と古い設計記録の分離
 - v0.7.14以前のMemory V3 staged-status記述を現行実装statusへ更新
 - ドキュメント内リンクの継続検査
+
+## P2: 旧改善計画からの再評価候補
+
+- Status: planned（必要性と現行実装の再照合待ち）
+- Priority: P2（旧文書の優先順位をそのまま引き継がない）
+- Source: [2026-08-19時点の改善計画・完了判定](../archive/IMPROVEMENT_PRIORITY.md)、[Enterprise Platform Design](../UAG_ENTERPRISE_PLATFORM_DESIGN.md)、[Distributed Coordination](../DISTRIBUTED_COORDINATION.md)
+
+2026-08-19時点の改善計画は20/20の主要項目を完了と判定した履歴記録です。次の項目はその計画で **主要実装の完了とは別スコープ** とされた候補であり、現行コードとの再照合なしに未実装と断定しません。
+
+- Plugin sandbox: 作業ディレクトリ、ネットワーク、subprocess、リソース制限の実行時隔離要件をEnterprise設計と突き合わせ、既存Policyと役割を分ける。これは上記P0のEnterprise E0リモート入口全ツール実行隔離とは別の改善候補。
+- 分散実行: A2Aのlease競合、再接続、二重実行、ネットワーク分断時の安全性を評価する。etcd / ZooKeeper相当のconsensusは具体的な必要性が出た場合だけ検討する。
+- Provider metadata: llama.cppの`/props`、Ollamaの`/api/show`に由来する情報をCLI/Web/GUIでどう表示するか再評価する。
+
+OpenTelemetryのtrace/span/exporter実装は [現行OpenTelemetry設計](../UAG_OPENTELEMETRY_DESIGN.md) においてPhase 4Dまで実装済みです。旧計画の「未導入」という記述から実装タスクを再起票しません。Credential CLIおよびイベントの共通envelope/カテゴリ別payloadも旧計画上は実装済みのため、ここでは再実装対象にしません。
+
+### 着手の条件
+
+- 既存実装・テストと現行設計を再確認し、未充足の具体的な要件だけを独立した計画・issueにする。
+- 実環境の検証が必要な項目は、机上の仕様上の不足と実機検証待ちを区別する。
 
 ## 完了・保留へ移す基準
 
