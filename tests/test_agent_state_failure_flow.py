@@ -29,7 +29,12 @@ def test_tool_failure_is_not_persisted_as_completed(monkeypatch, tmp_path) -> No
             "[tool argument error] name='demo' err=invalid alias",
             "[tool error] unknown tool: demo",
             "Error: plugin failed",
+            "[ツール引数エラー] 無効な引数",
+            "[ツール実行時エラー] 実行に失敗",
+            "エラー: ツール実行失敗",
+            "[get_env error] required name missing",
             json.dumps({"status": "blocked", "reason": "permission denied"}),
+            "source: timeout = 30; cancelled = False",
             json.dumps({"ok": True}),
         ]
     )
@@ -53,7 +58,12 @@ def test_tool_failure_is_not_persisted_as_completed(monkeypatch, tmp_path) -> No
             ("argument-error", True),
             ("unknown-tool", True),
             ("plugin-error", True),
+            ("localized-args", True),
+            ("localized-runtime", True),
+            ("localized-tool", True),
+            ("get-env", True),
             ("blocked", True),
+            ("payload-keywords", False),
             ("retry-success", False),
         ):
             tool_calls = [
