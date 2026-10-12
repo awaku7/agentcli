@@ -1422,9 +1422,9 @@ def _handle_cmd_sessions(
                     continue
             try:
                 # Keep the interactive summary operation bounded: summarize
-                # only the first ten stored messages for each session. The
-                # duplicated tail item below is intentional; the compressor
-                # preserves it while summarizing the preceding ten items.
+                # only the first ten stored messages for each session. Unlike
+                # live-history compression, a session summary must cover every
+                # selected message, so do not preserve a recent-message tail.
                 stored = store.list_messages(sid)[:10]
                 if len(stored) < 2:
                     print(
@@ -1433,17 +1433,66 @@ def _handle_cmd_sessions(
                     )
                     skipped += 1
                     continue
-                compressed = core.compress_history_with_llm(
-                    client=client,
-                    depname=depname,
-                    messages=stored + [stored[-1]],
-                    keep_last=1,
-                    emit_log=False,
-                )
                 from .llm_message_helpers import (
                     _is_history_summary_message,
                     _strip_history_summary_prefix,
                 )
+
+                compressed = core.compress_history_with_llm(
+                    client=client,
+                    depname=depname,
+                    messages=stored,
+                    keep_last=0,
+                    emit_log=False,
+                )
+                # A very large final logical turn can be split by the history
+                # compressor: it summarizes a safe prefix and returns the
+                # suffix as a tail. Fold that tail into the summary before
+                # persisting it, rather than silently dropping session content.
+                for _tail_pass in range(len(stored) + 1):
+                    summary_index = next(
+                        (
+                            position
+                            for position, message in enumerate(compressed)
+                            if _is_history_summary_message(message)
+                        ),
+                        None,
+                    )
+                    if summary_index is None:
+                        break
+                    tail = compressed[summary_index + 1 :]
+                    if not tail:
+                        break
+
+                    continued = core.compress_history_with_llm(
+                        client=client,
+                        depname=depname,
+                        messages=[compressed[summary_index], *tail],
+                        keep_last=0,
+                        emit_log=False,
+                    )
+                    continued_summary_index = next(
+                        (
+                            position
+                            for position, message in enumerate(continued)
+                            if _is_history_summary_message(message)
+                        ),
+                        None,
+                    )
+                    if continued_summary_index is None:
+                        raise RuntimeError(
+                            "LLM returned no summary for the remaining session tail"
+                        )
+                    continued_tail = continued[continued_summary_index + 1 :]
+                    if len(continued_tail) >= len(tail):
+                        raise RuntimeError(
+                            "LLM did not consume the remaining session tail"
+                        )
+                    compressed = continued
+                else:
+                    raise RuntimeError(
+                        "Session summary did not consume all selected messages"
+                    )
 
                 # The summary prefix is translated according to the active
                 # locale, so do not search for the English literal here.
