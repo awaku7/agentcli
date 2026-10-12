@@ -8,7 +8,7 @@ Status: **uag v0.7.14の現行runtime reference**
 
 この文書では、現在のuagでユーザーとintegratorが期待できるMemory / Profileの動作を説明します。V2の設計経緯は `UAG_MEMORY_ARCHITECTURE_V2.md`、認証付きmulti-userの設計とsecurity invariantは `UAG_MEMORY_ARCHITECTURE_V3.md` を参照してください。
 
-認証付きWebの設定・利用方法は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、オンプレミスActive Directory / IIS Windows認証の具体的な導入方法は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md)、v0.7.14の実装レビューと残課題は [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) を参照してください。
+認証付きWebの設定・利用方法は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、オンプレミスActive Directory / IIS Windows認証の具体的な導入方法は [Active Directory / Windows認証 導入ガイド](ACTIVE_DIRECTORY.ja.md)、現在のセキュリティ対応状況は [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照してください。
 
 ______________________________________________________________________
 
@@ -276,4 +276,4 @@ V3の主要authorization / Memory boundaryは実装されていますが、deplo
 - Trusted Proxy / OAuth / Windows AD / External modeは、deployment固有のverified adapter / trust boundaryを検証する必要があります。
 - multi-user / shared-roomのdefault rolloutはV3のisolation / revocation evaluation gateを通してから判断します。
 
-Web Memoryのrequest境界store cleanupは実装済みです。これはPrivate Room / sessionのretentionとは別です。詳細は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、[Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md)、[歴史的なv0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) を参照してください。
+Web Memoryのrequest境界store cleanupは実装済みです。これはPrivate Room / sessionのretentionとは別です。詳細は [Web認証とMemory](WEB_IDENTITY_MEMORY.ja.md)、[Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) を参照してください。

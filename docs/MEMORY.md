@@ -9,7 +9,7 @@ Status: **Current runtime reference for uag v0.7.14.**
 
 This document describes the Memory/Profile behavior users and integrators should expect today. Historical V2 design rationale lives in `UAG_MEMORY_ARCHITECTURE_V2.md`; authenticated multi-user architecture and security invariants live in `UAG_MEMORY_ARCHITECTURE_V3.md`.
 
-For authenticated Web deployment instructions, see [Web identity and Memory](WEB_IDENTITY_MEMORY.md). For the v0.7.14 implementation audit and remaining gaps, see [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md).
+For authenticated Web deployment instructions, see [Web identity and Memory](WEB_IDENTITY_MEMORY.md). For current security and rollout boundaries, see [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md).
 
 ______________________________________________________________________
 
@@ -277,4 +277,4 @@ Core V3 authorization and Memory boundaries are implemented, but deployment roll
 - Trusted Proxy/OAuth/Windows AD/External modes require deployment-specific verified adapters/trust boundaries where applicable.
 - Multi-user/shared-room default rollout should follow the V3 isolation/revocation evaluation gates.
 
-The request-boundary Web Memory store cleanup is implemented; it is separate from private-room/session retention. See [Web identity and Memory](WEB_IDENTITY_MEMORY.md), [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md), and [the historical v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md) for details.
+The request-boundary Web Memory store cleanup is implemented; it is separate from private-room/session retention. See [Web identity and Memory](WEB_IDENTITY_MEMORY.md) and [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md) for details.

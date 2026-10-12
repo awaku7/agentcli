@@ -2,7 +2,7 @@
 
 Current source baseline: **main `6f848f2069cc9e9365d3a56d6dbb6419dbd1becc` (v0.7.15 series, after PR #75)**.
 
-This document records the security state rechecked against that main revision. The v0.7.14 findings remain a historical review in [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md); do not treat its unclosed-at-the-time items as the current remaining-work list.
+This document records the security state rechecked against that main revision. Earlier review findings are historical; use this document and the current V3 architecture for the remaining security and rollout boundaries.
 
 ## Implemented hardening
 
@@ -83,7 +83,7 @@ At main `6f848f20`, the Graph size check occurs after the full response body is 
 
 ## Resolved v0.7.14 finding: Web Memory DB lifetime
 
-The v0.7.14 review found that denied `/api/me/*` and Room API paths could raise before a caller received the opened SQLite Memory store and closed it. This resource leak (not an authorization bypass) was fixed in merged PR #72: the Web request boundary tracks and closes opened Memory stores on success, denial and exception paths. Regression coverage verifies cleanup on denied requests. The historical finding and review-time state remain in [UAG_0_7_14_IMPLEMENTATION_REVIEW.md](UAG_0_7_14_IMPLEMENTATION_REVIEW.md).
+The v0.7.14 review found that denied `/api/me/*` and Room API paths could raise before a caller received the opened SQLite Memory store and closed it. This resource leak (not an authorization bypass) was fixed in merged PR #72: the Web request boundary tracks and closes opened Memory stores on success, denial and exception paths. Regression coverage verifies cleanup on denied requests. The original review snapshot remains accessible in Git history.
 
 ## Current rollout gates
 
@@ -104,10 +104,10 @@ revoked_grant_reuse_count
 
 Project isolation and active-revocation fixtures exist, but production rollout must also exercise the actual OIDC/directory/proxy environment used by the deployment.
 
-## Remaining hardening / rollout work at main `6f848f20`
+## Remaining hardening / rollout work
 
-1. Add safe idle TTL / eviction and persistent cleanup for private Web rooms without breaking reconnect, active WebSocket, agent/streaming or pending `human_ask` behavior.
-1. Stream Entra Graph responses and enforce the response-byte ceiling before buffering can exceed it.
+Private Web room idle expiry/cleanup (including active work and pending `human_ask` safeguards) and streamed Entra Graph response-byte enforcement were completed after the historical `6f848f20` baseline. They are not remaining work; see [Memory](MEMORY.md) and the [implementation roadmap](plans/IMPLEMENTATION_ROADMAP.md) for the current status.
+
 1. Add automatic workspace-derived default ProjectContext where deployments require it; retain membership checks for user-selected projects.
 1. Define session-time directory membership freshness/revocation and generalized non-Entra Directory API adapters.
 1. Decide and implement durable OIDC sessions before multi-instance/HA Web rollout.

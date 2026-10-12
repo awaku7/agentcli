@@ -2,7 +2,7 @@
 
 This guide explains the authenticated multi-user Web behavior available in uag v0.7.14. It focuses on identity, project/room access, Personal Memory, shared Memory, and Profile isolation.
 
-For the internal design and security invariants, see [UAG Memory Architecture V3](UAG_MEMORY_ARCHITECTURE_V3.md). For the implementation status review, see [UAG v0.7.14 implementation review](UAG_0_7_14_IMPLEMENTATION_REVIEW.md).
+For the internal design and security invariants, see [UAG Memory Architecture V3](UAG_MEMORY_ARCHITECTURE_V3.md). For current implementation and security boundaries, see [Memory V3 security hardening](UAG_MEMORY_V3_SECURITY_HARDENING.md).
 
 ## 1. Choose the deployment mode
 
