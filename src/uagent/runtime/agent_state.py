@@ -128,7 +128,9 @@ class AgentStateManager:
         if step not in failed:
             failed.append(step)
         return self.update(
-            completed_steps=[name for name in self.state.completed_steps if name != step],
+            completed_steps=[
+                name for name in self.state.completed_steps if name != step
+            ],
             failed_steps=failed,
             current_step="",
             next_action=next_action,
