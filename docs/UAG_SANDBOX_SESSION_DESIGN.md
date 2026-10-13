@@ -2,7 +2,7 @@
 
 - Status: **Design / 未実装**
 - Date: 2026-10-14
-- Scope: CLI / GUI / Web / A2A、Windows / Linux / macOS の **64-bit OS のみ**（x86-64 / ARM64）
+- Scope: CLI / GUI / Web / A2A、最終対応候補は Windows / Linux / macOS の **64-bit OS のみ**（x86-64 / ARM64）。**実装は Windows を先行し、Linux・macOS は後続 PR で有効化**
 - Priority: Enterprise E0 の一部。ローカル実行の任意 Sandbox は追加要件
 - Related: [Enterprise E0 設計](UAG_ENTERPRISE_PLATFORM_DESIGN.md)、[実装ロードマップ](plans/IMPLEMENTATION_ROADMAP.md)、[Web Room 並列処理](WEB_ROOM_CONCURRENCY.md)
 
@@ -72,7 +72,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 | Entry point | 必須の Scope ID | Sandbox 既定 | 維持・終了の契機 |
 | --- | --- | --- | --- |
 | CLI (uag) | CLI runtime session UUID | local: off | CLI Session 終了、明示破棄 |
-| GUI (uagg) | GUI 会話 ID + runtime 所有情報 | local: off | 会話の切替時は切替先へ、会話削除で破棄 |
+| GUI (uagg) | 現在の GUI Session / 会話 ID + runtime 所有情報 | local: off | 現在のSessionの終了・破棄で回収。既存のSession切替／履歴復帰経路がある場合のみ切替先へ |
 | Web (uagw) | **room_id + principal_id** | 明示的 local-only: optional / 隔離対象 Remote: required | 認可済み Room の存続中に Principal ごとに保持。削除・Private Room TTL・認可取消で破棄 |
 | A2A (uaga) | **task_id** | remote tools: required | Task の完了・取消・期限切れで破棄 |
 
@@ -80,7 +80,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 - 同じ Principal/Project でも **異なる room_id の Sandbox は共有しない**。同じ Shared Room でも Principal が異なれば別 Lease を割り当て、Private / shared Room の可変状態は共有しない。Room 自体が共有資産でも、Sandbox 内のファイル・プロセスは自動的に他参加者へ共有しない。
 - A2A の opt-in SessionStore が無効でも **task_id 必須**。Task が異なれば会話履歴が似ていても Sandbox は共有しない。現行 A2A の単一 Bearer Token は個々の利用者の識別情報ではないため、認証済み Server 側 Service Principal として Scope を生成する。利用者別 Principal を必要とする構成では、事前に信頼できる呼出元識別・認可を追加し、Client 提供の owner/user ID を受け入れない。
 - CLI の新規 Session は新しい Scope とする。保存済み Session をロードした場合は所有者・Workspace を再検証し、**同一稼働インスタンス内の健全な既存 Lease** に限り再接続する。CLI 終了後の会話履歴ロードは新規 Sandbox が必要で、終了済みプロセス状態の復元を装わない。会話履歴の Session ID と稼働中 Sandbox Lease は異なる。**Snapshot の保存時所有権はこの一時的な runtime UUID ではなく、永続 Session ID + Principal/Project Binding で管理**する（6.5参照）。
-- GUI の会話切替でも同様。GUI プロセス内で複数の会話の Lease を保持できるが、切替時は Scope を再検証する。会話を消したときの Sandbox 破棄と、履歴だけを残す動作は分ける。
+- **現行GUIでは現在の会話/Sessionに1つのSandbox Leaseを割り当て、Function Call間で再利用する。Sandboxのために会話一覧・会話切替・会話削除の専用画面を新設しない。** 既存のSession新規作成・履歴ロード・終了などの操作が実際に提供される場合に限り、変更先Scopeを再検証してLeaseを選択・新規作成し、旧Scopeの破棄条件を適用する。将来GUIに複数会話切替機能が追加された場合も同じScope分離規則を適用するが、今回のSandbox実装の前提条件にしない。
 - CLI/GUI で Sandbox off のときは SessionManager にリソースを作らない。
 - Sub-Agent / background Job は親 Scope と権限の縮小を基本とし、長寿命 Job は親終了後の孤立実行を許可しない。独立 Scope が必要な場合は別途定義する。
 - ローカルからの接続でも、認証付き Multi-user Web（社内ネットワークのみを含む）や外部公開 Web / Remote A2A には E0 隔離を強制する。ID モードが local、Host の bind address が loopback、または今回の Request の送信元が内部 IP であることだけを根拠に Remote 要件を解除しない。
@@ -284,7 +284,7 @@ SessionStore に書くイベント例（**概念スキーマ・未実装**）:
 
 ## 8. OS・Backend 選定
 
-MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ごとに Stateful Lifecycle と安全性が異なる。下表は設計時点の **候補**であり、採用可否は Probe と実機テストの結果で決める。
+MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ごとに Stateful Lifecycle と安全性が異なる。下表は**将来の対応候補**であり、採用可否は Probe と実機テストの結果で決める。**実装優先順は Windows → Linux → macOS**。Linux/macOS向けのBackendが未実装の間、当該OSでのSandbox opt-inやRemote隔離実行を対応済みとして表示せず、実行を拒否する。UAGの従来の非Sandboxローカル機能まで無効化しない。
 
 | OS | 軽量 MXC 候補 | 永続実行の方針 | リモート高リスク用途 |
 | --- | --- | --- | --- |
@@ -411,8 +411,8 @@ uaga --sandbox auto
 OS 別の候補と前提条件は **8節の Capability Probe と実機検証を正とする**。初期設計時点の案内例は以下とする。
 
 - **Windows 11 64-bit:** 対象 OS ビルドと ProcessContainer 利用条件を検証。要件未達は Windows Update を案内し、UAG が勝手に OS 更新・管理者権限の昇格を実行しない。MXC Adapter は検証済み配布物を優先。
-- **macOS 15+ 64-bit:** OS 標準の Seatbelt を優先。MXC Adapter のみ必要に応じて導入する。OS 非対応なら理由を表示。
-- **Linux / Raspberry Pi ARM64 64-bit:** Bubblewrap、user namespace の実効権限、MXC Adapter のアーキテクチャ適合性を検証。Ubuntu / Debian 系では `bubblewrap` 等の導入コマンドを案内可能だが、全ディストリビューションで同じインストール方式を前提にしない。
+- **macOS 15+ 64-bit（後続PR 7）:** OS 標準の Seatbelt を優先。MXC Adapter のみ必要に応じて導入する。対応するAdapterを実装・検証するまではSandbox非対応として案内し、OS非対応なら理由を表示。
+- **Linux / Raspberry Pi ARM64 64-bit（後続PR 6）:** Bubblewrap、user namespace の実効権限、MXC Adapter のアーキテクチャ適合性を検証。Ubuntu / Debian 系では `bubblewrap` 等の導入コマンドを案内可能だが、全ディストリビューションで同じインストール方式を前提にしない。対応するAdapterを実装・検証するまではSandbox非対応とする。
 - **32-bit OS / 32-bit ユーザーランド:** Sandbox 非対応を明示し、無隔離への暗黙フォールバックを行わない。
 
 インストールは**必要なら1回、隔離された Tool Workspace は Session ごと**という区別を明示する。Tool が Sandbox 内へ追加する Python ライブラリ等は、その Session の Workspace に保持し、ホストの Python 環境へ勝手にインストールしない。署名・Hash・信頼済み配布元を検証できない実行コンポーネントは自動導入しない。OS 更新・管理者権限が必要な操作・システムパッケージ導入は、明示同意と管理者ポリシーに従う。
@@ -430,7 +430,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 | web_impl/process_workers.py | PR #236 の **1-turn subprocess** をセキュリティ Sandbox と誤認しない。Broker/SessionManager は 1-turn 子プロセスとは独立の長寿命 Owner が保持 |
 | web_impl/rooms.py / Room Access | Room 削除・Private Room 期限切れ・認可取消で Lease を回収。Socket 切断のみで破棄しない |
 | a2a/engine.py / a2a/server.py / a2a/auth.py | 現行は単一 A2A Bearer Token を確認するが、個々の Principal ID までは識別しておらず、engine の resolved_turn_context() に task_id が自動で埋まるわけでもない。**Server 側 Service Principal / 強制的な Task ID Binding** を先に追加し、Task Cancel/終了で Lease Cleanup。将来の Multi-tenant は別の信頼できる Identity Binding が必須 |
-| CLI / GUI Session 切替 | 切替先 Lease を認可し直し、存在すれば再利用。新規 Session と会話削除で Cleanup |
+| CLI Session 切替 / GUI の既存Session操作 | 既存の操作でSessionや履歴が変わる場合のみ切替先Scopeを認可し、健全なLeaseを再利用・新規作成。GUIの会話切替UIは追加しない。Session終了・削除イベントが存在する場合はCleanup |
 | Background Job / Sub-Agent | 元 Scope からの派生権限、独立 Job の終了と取消、orphan cleanup を明示 |
 
 特に PR #236 の Web 1-turn プロセスに Sandbox 所有権を持たせると、Turn 終了時に Sandbox が失われる。SessionManager は Web サーバー側の安全な Supervisor または専用 Broker Service が所有し、子 Worker は認可された Lease に RPC でアクセスする。
@@ -451,7 +451,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 ### 契約テスト（Mock Backend）
 
 1. CLI Session A は Tool を3回実行しても Lease を1回だけ作成し、Session B と共有しない。
-2. GUI 会話切替・戻りで Lease を正しく選択し、会話削除で破棄する。
+2. **現行GUIの単一会話/Session**で複数のTool Callが同じ健全なLeaseを再利用し、GUI終了・Session終了時に回収する。既存の履歴ロードやSession変更イベントを受ける場合は、変更先Scopeの認可とLease選択/再生成をテストする。**GUIの会話A→B→A切替画面の新設は受け入れ条件としない**。将来その操作が提供された際はA/BのLeaseを混在させず、削除イベントがある場合に該当Leaseを破棄する。
 3. Web Room A/B（同じ Principal/Project でも）は異なる Lease。Socket 切断・再接続では有効な Lease を再利用する。
 4. Private Room の TTL、認可失効、Room 削除で Lease を破棄する。
 5. A2A Task A/B は、同一 Principal/Project/SessionStore でも異なる Lease を持ち、Task Cancel/完了で破棄する。単一 Bearer Token からユーザー Principal を偽造せず、Server Service Principal に紐付ける。
@@ -474,14 +474,16 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 22. 保存済み CLI/GUI Session をアプリ再起動後にロードした際、**将来の Snapshot 対応機能において**同一 Principal/Project の永続 Session Binding と 6.5 の検証・承認を満たす `ready` Snapshot から、新しい Sandbox に保存時点の環境・ファイルを復元できる。別所有者・別 Project・別 Session の Snapshot の無断引継ぎは拒否する。
 23. 同じ保存済み CLI/GUI Session に `ready` Snapshot がある場合と無い場合の双方を検証し、6.4 と 6.5 の振り分けが一致すること、Snapshot 時点以降の未保存変更・稼働プロセスが復元されないことを確認する。
 24. Local Sandbox off の初回起動で依存導入や案内が行われない。opt-in の初回だけ同意が必要な依存を案内し、導入成功後の2回目の起動は再インストールしない。
-25. Windows / macOS / Linux / Raspberry Pi で前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。
+25. **各OSの対応開始前**に、前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。Windows先行段階ではLinux/macOS/Raspberry PiのSandbox起動が明示的に未対応となることも検証する。
 26. Remote Web / A2A の依存不足時、一般利用者に導入プロンプトを出さず Remote Tool を fail closed する。導入済みの場合も Probe / Cleanup の適合性なしに実行を始めない。
 27. `probe()` が永久ブロック・無応答・異常終了する Mock Backend を用い、**Broker が既定15秒以内に `probe_timeout` などの確定失敗を返す**ことを検証する。Local Sandbox opt-in は起動エラー、Remote Web/A2A は fail closed、旧/固着した Helper は回収または隔離され、次回の Probe や Tool Call に使われない。Sandbox off の Local CLI/GUI では Probe 自体を呼ばない。
 
-### OS 実機検証（導入必須）
+### OS 実機検証（各OSの対応開始前に必須）
 
-- Windows x64 / ARM64 (MXC ProcessContainer)、Linux x86-64 / ARM64 (MXC Bubblewrap)、macOS 15+ ARM64 / x86-64 (MXC Seatbelt) の各サポート対象バージョンで Probe→複数実行→Cleanup。
-- **Raspberry Pi の ARM64 Linux 実機**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。
+- **先行PR 2 / Windows:** Windows 11 x64 のMXC ProcessContainer実機でProbe→複数実行→Cleanup、および隔離違反・取消・ハング時の検査に合格させる。Windows ARM64は実機・SDKの適合が確認できるまで未対応とし、確認なしに対応を宣言しない。
+- **後続PR 6 / Linux:** Linux x86-64 / ARM64 のMXC Bubblewrap実機でProbe→複数実行→Cleanupと隔離違反試験を行う。Linuxを有効化する際に完了が必須。Windows先行PRのマージ条件にはしない。
+- **後続PR 7 / macOS:** macOS 15+ ARM64 / x86-64 のMXC Seatbelt実機でProbe→複数実行→Cleanupと隔離違反試験を行う。macOSを有効化する際に完了が必須。Windows先行PRのマージ条件にはしない。
+- **Raspberry Pi の ARM64 Linux 実機（後続PR 6）**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。
 - Windows / Linux / macOS / Raspberry Pi の **32-bit OS または 32-bit ユーザーランド**は非対応として検出し、Sandbox 有効化を明示的な非対応エラーで拒否する。Remote では fail closed、Local の Sandbox opt-in でも無隔離への代替実行を禁止する。
 - Worker 内から起動した子孫プロセスが隔離ポリシーを継承すること。
 - Sandbox 外 Path、Host Credential、ネットワーク制限先、Host Broker 制御 Channel へのアクセスが拒否されること。
@@ -496,12 +498,14 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 | --- | --- | --- |
 | Design PR（本書） | OS 非依存契約、Scope、セキュリティ要件、受け入れテストを決定 | 文書レビュー。コード変更なし |
 | PR 1: Broker / Policy | ExecutionClass、Broker、明示 SecurityProfile、Web 全入口と A2A Service Principal/Task ID Binding を含む remote ingress の fail-closed routing、Mock Backend 契約テスト | Remote で Host 直接実行へ迂回できない。Backend 未対応なら Remote Tool 不許可 |
-| PR 2: MXC local PoC | Windows / Linux / macOS の MXC Adapter、常駐 Worker の可否判定、CLI/GUI opt-in | 同一 Session 複数 Tool が再利用され、停止時に破棄 |
+| PR 2: Windows MXC local PoC | **Windows 11 x64先行**のMXC ProcessContainer Adapter、常駐Workerの可否、CLI/GUI opt-in | Windows実機で同一Session複数Toolが再利用され、停止時に破棄。未検証のOS/archは有効化しない |
 | PR 3: SessionManager 統合 | Web Room・A2A Task と Lease の Binding/Recovery/Cleanup | Room 再接続、Task 終了、Crash、異なる Principal を検証 |
-| PR 4: Production Isolation (single instance) | リモート用の強隔離 Backend、Network/Filesystem/Resource Policy、単一インスタンスでの実環境検証 | **単一インスタンス構成に限定した** E0 隔離の受け入れ条件を満たす。Enterprise 全体の完了は主張しない |
-| PR 5: Multi-instance ownership | 共有 Lease Registry、原子的 Owner Claim、世代/Fencing Token、Owner ルーティング、他 Node への Revoke 伝播と Crash/Partition 回収 | 複数 Node で同一 Scope の Lease を二重作成せず、管理者失効を全 Node で強制。Enterprise 完了判定は E1-E5 等の既存ゲートにも従う |
+| PR 4: Windows Production Isolation (single instance) | **Windows向け**の強隔離Backend（Hyper-V候補）、Network/Filesystem/Resource Policy、単一インスタンスでの実機検証 | **検証済みWindows単一インスタンス構成に限定した** E0隔離の受け入れ条件を満たす。Linux/macOSやEnterprise全体の完了は主張しない |
+| PR 5: Multi-instance ownership (Windows first) | 共有 Lease Registry、原子的 Owner Claim、世代/Fencing Token、Owner ルーティング、他 Node への Revoke 伝播と Crash/Partition 回収 | Windows複数Nodeで同一ScopeのLeaseを二重作成せず、失効を全Nodeへ強制。Linux/macOSの対応完了やEnterprise全体完了とは区別 |
+| PR 6: Linux Backend（後日） | Linux x86-64/ARM64（Raspberry Pi 64-bitを含む）のMXC Bubblewrap Adapter、CLI/GUI・Remoteの該当Backend、実機隔離検証 | **Linux x86-64、Linux ARM64、64-bit Raspberry Pi ARM64の各実機で**Probe・複数Tool・Cleanup・隔離違反試験を合格させるまでPR 6全体を完了としない。必要なRemote隔離強度のない構成はDeny |
+| PR 7: macOS Backend（後日） | macOS 15+ x86-64/ARM64のMXC Seatbelt Adapter、CLI/GUI統合、Remoteで必要な強隔離Backendの適合性評価 | **macOS 15+ ARM64とx86-64の両実機で**Probe・複数Tool・Cleanup・隔離違反試験を合格させるまでPR 7全体を完了としない。Remote向けの強隔離が無ければDeny |
 
-既存 [Enterprise E0 Delivery Plan](UAG_ENTERPRISE_PLATFORM_DESIGN.md#16-delivery-plan) の置換ではなく、**Session 維持と全 Host 共通化の具体化**である。実装順・PR の統合は差分規模と実機検証の結果で調整し、機能追加を無制限に混ぜない。
+**先行する5本のPRはWindows向け実装・検証まで**を担当する。Linux/macOSは省略するのではなく、**後続PR 6 / PR 7が明示的に担当**し、各OSの必須実機検証をそのPRの完了条件に移す。Windows版の完成をクロスプラットフォーム実装完了と報告しない。既存 [Enterprise E0 Delivery Plan](UAG_ENTERPRISE_PLATFORM_DESIGN.md#16-delivery-plan) の置換ではなく、**Session維持と全Host共通化の具体化**である。実装順・PRの統合は差分規模と実機検証の結果で調整し、機能追加を無制限に混ぜない。
 
 ## 16. 未確定事項 / PoC で決めること
 
