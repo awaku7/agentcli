@@ -98,7 +98,7 @@ Content-Type: application/json
 
 The selection succeeds only when the authenticated principal already has at least viewer access to that project.
 
-If an authenticated non-OIDC request has no fixed project, OIDC binding or selected ProjectContext cookie, the server derives a default from its trusted workspace (`UAGENT_MEMORY_PROJECT`, then `UAGENT_WORKDIR` or the server working directory). `/api/me/projects` binds that default in an opaque ProjectContext cookie only when the principal has viewer membership. Otherwise no default is bound, and the user must explicitly select an authorized project. OIDC and local identity behavior are unchanged.
+If an authenticated non-OIDC request has no fixed project, OIDC binding or selected ProjectContext cookie, the server derives a default from the captured startup workdir (selected from configured `UAGENT_WORKDIR` during startup); request-time CWD or environment changes do not affect it. `/api/me/projects` binds that default in an opaque ProjectContext cookie only when the principal has viewer membership. Otherwise no default is bound, and the user must explicitly select an authorized project. OIDC and local identity behavior are unchanged.
 
 Project roles are used as authorization boundaries. The current policy uses viewer/editor/admin-style access: read operations require an appropriate membership, writes require stronger access, and project/room administration requires admin authorization.
 

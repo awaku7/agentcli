@@ -98,7 +98,7 @@ Content-Type: application/json
 
 選択できるのは、認証済みprincipalがそのProjectのviewer以上の権限を持っている場合だけです。
 
-固定Project、OIDC session binding、選択済みProjectContext cookieがない認証済みnon-OIDC requestでは、serverのtrusted workspace（`UAGENT_MEMORY_PROJECT`、次に`UAGENT_WORKDIR`またはserver working directory）から既定値を導出します。`/api/me/projects`はprincipalにviewer membershipがある場合だけ、その既定値をopaque ProjectContext cookieにbindします。membershipがない場合は既定値をbindせず、利用者が認可済みProjectを明示選択する必要があります。OIDCとlocal identityの動作は変更しません。
+固定Project、OIDC session binding、選択済みProjectContext cookieがない認証済みnon-OIDC requestでは、startup時にconfigured `UAGENT_WORKDIR`を適用したcaptured startup workdirから既定値を導出します。request-timeのCWDや環境変数変更は既定値に影響しません。`/api/me/projects`はprincipalにviewer membershipがある場合だけ、その既定値をopaque ProjectContext cookieにbindします。membershipがない場合は既定値をbindせず、利用者が認可済みProjectを明示選択する必要があります。OIDCとlocal identityの動作は変更しません。
 
 Project membership管理API:
 

@@ -21,6 +21,11 @@ def get_startup_workdir() -> str:
     return _STARTUP_WORKDIR or os.getcwd()
 
 
+def get_captured_startup_workdir() -> str:
+    """Return the initialized startup workdir without a mutable-CWD fallback."""
+    return _STARTUP_WORKDIR or ""
+
+
 def decide_workdir(
     *, cli_workdir: Optional[str] = None, env_workdir: Optional[str] = None
 ) -> WorkdirDecision:

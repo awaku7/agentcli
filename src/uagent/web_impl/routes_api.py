@@ -27,7 +27,6 @@ from ..runtime.memory_access import (
     MemoryAccessError,
     ScopedMemoryStore,
 )
-from ..runtime.memory_scope import resolve_memory_project
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
 from ..runtime.session_store import SessionStoreError, project_id_from_path
 from ..runtime.project_access import ProjectAccessPolicy, ProjectMemoryService
@@ -56,7 +55,9 @@ def _workspace_default_project(identity) -> str:
     """Resolve a non-OIDC default only from the trusted server workspace."""
     if identity.authn_kind in {"local", "oidc"}:
         return ""
-    return resolve_memory_project()
+    from ..runtime.memory_scope import resolve_server_workspace_project
+
+    return resolve_server_workspace_project()
 
 
 def _project_context_project(identity, request: Request, store=None) -> str:

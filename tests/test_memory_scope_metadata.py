@@ -4,6 +4,29 @@ import json
 from pathlib import Path
 
 
+def test_server_workspace_project_uses_captured_workdir_not_mutable_env(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_scope, runtime_workdir
+
+    captured = tmp_path / "captured-workspace"
+    configured = tmp_path / "configured-workspace"
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(captured)
+    )
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    monkeypatch.delenv("UAGENT_WORKDIR", raising=False)
+    assert memory_scope.resolve_server_workspace_project() == "captured-workspace"
+
+    monkeypatch.setenv("UAGENT_WORKDIR", str(configured))
+    assert memory_scope.resolve_server_workspace_project() == "captured-workspace"
+
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: ""
+    )
+    assert memory_scope.resolve_server_workspace_project() == ""
+
+
 def test_new_personal_records_store_owner_and_project(
     tmp_path: Path, monkeypatch
 ) -> None:

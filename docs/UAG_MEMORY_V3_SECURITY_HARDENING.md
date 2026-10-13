@@ -37,7 +37,7 @@ Current implementation:
 
 Non-OIDC workspace default:
 
-- if there is no fixed project, OIDC session binding, or selected ProjectContext cookie, HTTP requests derive the candidate from canonical `resolve_memory_project()` on the trusted server workspace;
+- if there is no fixed project, OIDC session binding, or selected ProjectContext cookie, HTTP requests derive the candidate with `resolve_server_workspace_project()` from the captured startup workdir (chosen from configured `UAGENT_WORKDIR` at startup), never request-time CWD;
 - `/api/me/projects` binds this default in an opaque ProjectContext cookie only when the principal has viewer membership; private-room creation also performs its own membership check and binds the result in the server-side ProjectContext store;
 - when the workspace candidate is unauthorized, no default is bound and the user must explicitly select a membership-approved project;
 - browser-supplied `project_id` remains a selector only and never grants access.

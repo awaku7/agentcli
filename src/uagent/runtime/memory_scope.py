@@ -60,4 +60,20 @@ def resolve_memory_project() -> str:
     return project_id_from_path(workdir)
 
 
-__all__ = ["resolve_memory_owner", "resolve_memory_project"]
+def resolve_server_workspace_project() -> str:
+    """Resolve a Web default from configured or captured startup workdir.
+
+    Do not use request-time ``os.getcwd()`` here: Web room workers can change
+    the process-global CWD while another request is resolving its default.
+    """
+    from .runtime_workdir import get_captured_startup_workdir
+
+    workdir = get_captured_startup_workdir()
+    return project_id_from_path(workdir) if workdir else ""
+
+
+__all__ = [
+    "resolve_memory_owner",
+    "resolve_memory_project",
+    "resolve_server_workspace_project",
+]

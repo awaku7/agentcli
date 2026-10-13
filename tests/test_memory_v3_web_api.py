@@ -535,6 +535,11 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
     workspace = tmp_path / "trusted-workspace"
     workspace.mkdir()
+    from uagent.runtime import runtime_workdir
+
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
+    )
     monkeypatch.setenv("UAGENT_WORKDIR", str(workspace))
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
@@ -573,6 +578,11 @@ def test_non_oidc_workspace_default_requires_membership_and_allows_explicit_sele
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
     workspace = tmp_path / "unassigned-workspace"
     workspace.mkdir()
+    from uagent.runtime import runtime_workdir
+
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
+    )
     monkeypatch.setenv("UAGENT_WORKDIR", str(workspace))
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
