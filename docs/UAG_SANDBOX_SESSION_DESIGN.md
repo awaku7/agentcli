@@ -72,7 +72,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 | Entry point | 必須の Scope ID | Sandbox 既定 | 維持・終了の契機 |
 | --- | --- | --- | --- |
 | CLI (uag) | CLI runtime session UUID | local: off | CLI Session 終了、明示破棄 |
-| GUI (uagg) | GUI 会話 ID + runtime 所有情報 | local: off | 会話の切替時は切替先へ、会話削除で破棄 |
+| GUI (uagg) | 現在の GUI Session / 会話 ID + runtime 所有情報 | local: off | 現在のSessionの終了・破棄で回収。既存のSession切替／履歴復帰経路がある場合のみ切替先へ |
 | Web (uagw) | **room_id + principal_id** | 明示的 local-only: optional / 隔離対象 Remote: required | 認可済み Room の存続中に Principal ごとに保持。削除・Private Room TTL・認可取消で破棄 |
 | A2A (uaga) | **task_id** | remote tools: required | Task の完了・取消・期限切れで破棄 |
 
@@ -80,7 +80,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 - 同じ Principal/Project でも **異なる room_id の Sandbox は共有しない**。同じ Shared Room でも Principal が異なれば別 Lease を割り当て、Private / shared Room の可変状態は共有しない。Room 自体が共有資産でも、Sandbox 内のファイル・プロセスは自動的に他参加者へ共有しない。
 - A2A の opt-in SessionStore が無効でも **task_id 必須**。Task が異なれば会話履歴が似ていても Sandbox は共有しない。現行 A2A の単一 Bearer Token は個々の利用者の識別情報ではないため、認証済み Server 側 Service Principal として Scope を生成する。利用者別 Principal を必要とする構成では、事前に信頼できる呼出元識別・認可を追加し、Client 提供の owner/user ID を受け入れない。
 - CLI の新規 Session は新しい Scope とする。保存済み Session をロードした場合は所有者・Workspace を再検証し、**同一稼働インスタンス内の健全な既存 Lease** に限り再接続する。CLI 終了後の会話履歴ロードは新規 Sandbox が必要で、終了済みプロセス状態の復元を装わない。会話履歴の Session ID と稼働中 Sandbox Lease は異なる。**Snapshot の保存時所有権はこの一時的な runtime UUID ではなく、永続 Session ID + Principal/Project Binding で管理**する（6.5参照）。
-- GUI の会話切替でも同様。GUI プロセス内で複数の会話の Lease を保持できるが、切替時は Scope を再検証する。会話を消したときの Sandbox 破棄と、履歴だけを残す動作は分ける。
+- **現行GUIでは現在の会話/Sessionに1つのSandbox Leaseを割り当て、Function Call間で再利用する。Sandboxのために会話一覧・会話切替・会話削除の専用画面を新設しない。** 既存のSession新規作成・履歴ロード・終了などの操作が実際に提供される場合に限り、変更先Scopeを再検証してLeaseを選択・新規作成し、旧Scopeの破棄条件を適用する。将来GUIに複数会話切替機能が追加された場合も同じScope分離規則を適用するが、今回のSandbox実装の前提条件にしない。
 - CLI/GUI で Sandbox off のときは SessionManager にリソースを作らない。
 - Sub-Agent / background Job は親 Scope と権限の縮小を基本とし、長寿命 Job は親終了後の孤立実行を許可しない。独立 Scope が必要な場合は別途定義する。
 - ローカルからの接続でも、認証付き Multi-user Web（社内ネットワークのみを含む）や外部公開 Web / Remote A2A には E0 隔離を強制する。ID モードが local、Host の bind address が loopback、または今回の Request の送信元が内部 IP であることだけを根拠に Remote 要件を解除しない。
@@ -430,7 +430,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 | web_impl/process_workers.py | PR #236 の **1-turn subprocess** をセキュリティ Sandbox と誤認しない。Broker/SessionManager は 1-turn 子プロセスとは独立の長寿命 Owner が保持 |
 | web_impl/rooms.py / Room Access | Room 削除・Private Room 期限切れ・認可取消で Lease を回収。Socket 切断のみで破棄しない |
 | a2a/engine.py / a2a/server.py / a2a/auth.py | 現行は単一 A2A Bearer Token を確認するが、個々の Principal ID までは識別しておらず、engine の resolved_turn_context() に task_id が自動で埋まるわけでもない。**Server 側 Service Principal / 強制的な Task ID Binding** を先に追加し、Task Cancel/終了で Lease Cleanup。将来の Multi-tenant は別の信頼できる Identity Binding が必須 |
-| CLI / GUI Session 切替 | 切替先 Lease を認可し直し、存在すれば再利用。新規 Session と会話削除で Cleanup |
+| CLI Session 切替 / GUI の既存Session操作 | 既存の操作でSessionや履歴が変わる場合のみ切替先Scopeを認可し、健全なLeaseを再利用・新規作成。GUIの会話切替UIは追加しない。Session終了・削除イベントが存在する場合はCleanup |
 | Background Job / Sub-Agent | 元 Scope からの派生権限、独立 Job の終了と取消、orphan cleanup を明示 |
 
 特に PR #236 の Web 1-turn プロセスに Sandbox 所有権を持たせると、Turn 終了時に Sandbox が失われる。SessionManager は Web サーバー側の安全な Supervisor または専用 Broker Service が所有し、子 Worker は認可された Lease に RPC でアクセスする。
@@ -451,7 +451,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 ### 契約テスト（Mock Backend）
 
 1. CLI Session A は Tool を3回実行しても Lease を1回だけ作成し、Session B と共有しない。
-2. GUI 会話切替・戻りで Lease を正しく選択し、会話削除で破棄する。
+2. **現行GUIの単一会話/Session**で複数のTool Callが同じ健全なLeaseを再利用し、GUI終了・Session終了時に回収する。既存の履歴ロードやSession変更イベントを受ける場合は、変更先Scopeの認可とLease選択/再生成をテストする。**GUIの会話A→B→A切替画面の新設は受け入れ条件としない**。将来その操作が提供された際はA/BのLeaseを混在させず、削除イベントがある場合に該当Leaseを破棄する。
 3. Web Room A/B（同じ Principal/Project でも）は異なる Lease。Socket 切断・再接続では有効な Lease を再利用する。
 4. Private Room の TTL、認可失効、Room 削除で Lease を破棄する。
 5. A2A Task A/B は、同一 Principal/Project/SessionStore でも異なる Lease を持ち、Task Cancel/完了で破棄する。単一 Bearer Token からユーザー Principal を偽造せず、Server Service Principal に紐付ける。
