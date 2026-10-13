@@ -20,8 +20,8 @@
 - 設定追加は最小限。外部向けは設計書の共通 sandbox 引数／明示 SecurityProfile に寄せ、Backend ごとの環境変数を大量に増やさない。
 - **実装順は Windows → Linux → macOS。** Windows先行PR完了後でもLinux/macOSのSandboxは未対応と表示し、明示的な実装・実機検証が済むまで無隔離に切り替えない。
 - OS差は Adapter に閉じ込める。Sandbox は **64-bit x86-64 / ARM64 のみ**。ARM32、32-bit OS/ユーザーランドの互換対応を作らない。
-- 既存 CLI/GUI は **Sandbox off が既定**で従来動作を維持する。Opt-in が失敗したとき無言で Host 実行へ戻さない。
-- リモート Web（認証付きマルチユーザー含む）・Remote A2A は **Sandbox / 限定 Broker / Deny** のいずれかのみ。必要な Backend が無ければ危険なTool実行を拒否する。
+- **CLI / GUI / Web はいずれもSandbox offが既定・明示opt-in**。信頼済みlocal-only単独利用WebとCLI/GUIはoffで従来どおり実行。**外部公開・認証付きMulti-user Webはoffの間、一般Toolを拒否**し、Host直接実行へ逃がさない。ONにしても適合Backendがなければ実行拒否。
+- リモートWeb（認証付きマルチユーザー含む）・Remote A2Aは**Sandbox / 限定Broker / Deny**のいずれかのみ。**Webのopt-inは隔離の解除許可ではない**。Web off時はToolなしモード（Toolを完全に遮断できる場合）かTool対応サービス起動拒否。Backend不足・未検証時もToolは拒否する。Local-onlyの判定をリクエストIP、Host Header、loopback bindだけに依存させない。
 - 設計にない Snapshot 実体の保存・復元、デバイスパススルー、Docker必須化、追加管理UIは今回の5 PRに混ぜない。
 
 ### 1.2 実装前の事実確認
@@ -58,9 +58,9 @@
 
 | PR | 推奨PRタイトル | 取り扱う責務 | 完了判定 |
 | --- | --- | --- | --- |
-| 1 | feat: add sandbox broker and fail-closed tool routing | ExecutionClass、共通Broker、Policy、Remote ingressとA2A ID拘束、Mockテスト | リモートHost直実行が発生しない |
-| 2 | feat: add opt-in Windows MXC local sandbox adapter | **Windows 11 x64先行**のMXC ProcessContainer、隔離Worker、CLI/GUI opt-in、初回セットアップ | Windows x64実機でSessionの複数Toolを隔離実行・回収できる。未検証OS/archは有効化しない |
-| 3 | feat: bind sandbox leases to web rooms and A2A tasks | 全入口のSessionManager/Lease/回収と履歴再接続 | Room/Taskごとの状態維持・境界・終了が正しい |
+| 1 | feat: add sandbox broker and fail-closed tool routing | ExecutionClass、共通Broker、Policy、**Web off既定・明示opt-inとRemote Web off時の全Tool拒否**、Remote ingress/A2A ID拘束、Mockテスト | local-only Web offの既存動作を維持し、Remote Web off/BackendなしでHost Runnerへ到達しない |
+| 2 | feat: add opt-in Windows MXC local sandbox adapter | **Windows 11 x64先行**のMXC ProcessContainer、隔離Worker、**CLI/GUI/信頼済みlocal-only Web opt-in**、初回セットアップ | Windows x64実機でSession複数Toolを隔離実行・回収できる。強隔離不足のRemote Webには有効化しない |
+| 3 | feat: bind sandbox leases to web rooms and A2A tasks | **Web opt-in時のみ**のRoomとSessionManager/Lease/回収、A2A Task Binding | Web offならLease生成なし・Remote Tool拒否。ONならRoom/Taskの分離と回収が正しい |
 | 4 | feat: enforce Windows production sandbox isolation for remote tools | Windowsの強隔離Backend（Hyper-V候補）、Workspace/Network/Secret/Resourceの実効Policy | **Windows単一インスタンス構成に限り**E0の実機テストが成立 |
 | 5 | feat: coordinate sandbox lease ownership across Windows instances | 共有Registry、原子的Owner取得、世代/Fencing/ルーティング | **Windows複数Node**で二重Lease・失効迂回が起きない |
 
@@ -74,8 +74,8 @@
 
 1. ExecutionClass（SANDBOX / BROKERED / DENY / ローカル限定LOCAL_HOST_PURE）、SecurityProfile、必要Capability、Trusted SandboxScopeの最小モデルを定義。型・エラー形式を必要以上に増やさない。
 2. **実行順序を正本 §7 に揃える:** (a) Trusted Principal/Project/Room/Taskと入口を確定 → (b) UnifiedPolicy・Role・ToolPolicyで認可/副作用を判定し、拒否なら終了 → (c) **承認を求める前に**ツール名・引数・実機能・MCP展開先・ネットワーク宛先から ExecutionClass を選び、必要な隔離強度とBackend Capabilityを照合。不可能なら確認ダイアログを出さず拒否 → (d) 必要なHost UI/Broker承認を取得 → (e) **承認後・実行直前に権限とPolicy Revision、Scope/Bindingを再検証**し、失効・変更時は実行拒否（必要なら最初から再判定）→ (f) 許可されたSandbox Leaseまたは狭いBrokerへルーティング。Host側の管理Broker操作と未信頼な汎用Runnerを明確に区別し、古い承認を権限昇格に使わない。
-3. src/uagent/tools/__init__.py の共通入口に導入。CLI/GUIのSandbox offだけ既存実行を維持。run_tools_parallel、動的Toolロード、MCP、Sub-Agent等の別経路が迂回しないことを検証。
-4. Remote Web（HTTP、WebSocket、1-turn Worker）とA2A（通常・ストリーム）への入口で、**ツールを起動する前**に実効SecurityProfileと認証済みScopeを確定する。Web WorkerがProfileを自由に弱められない。
+3. src/uagent/tools/__init__.py の共通入口に導入。CLI/GUIおよび**信頼済みlocal-only単独利用WebのSandbox off**だけ既存実行を維持。run_tools_parallel、動的Toolロード、MCP、Sub-Agent等の別経路が迂回しないことを検証。**Webの既定はoff**とし、Remoteではoff/不適合時の全Tool起動を事前に拒否する。
+4. Remote Web（HTTP、WebSocket、Streaming、1-turn Worker）とA2A（通常・ストリーム）への入口で、**Toolを起動する前**に実効SecurityProfileと認証済みScopeを確定する。Web WorkerがProfileを自由に弱められない。**Remote WebでSandbox offのとき、一般ToolのHost Runnerを全入口から遮断**する。Toolを一切渡さない安全なチャット専用運用なら続行可能だが、その遮断が保証できない場合はTool対応Webの起動を拒否する。OFFからONへの暗黙切替は行わない。
 5. A2Aの信頼済みService Principalと**必須task_id**をServer側で結合。単一Bearer Tokenからユーザーごとの本人識別を捏造せず、Client提供IDでLeaseを選ばない。
 6. A2Aの非Loopback Listen検証を実装。Sandbox未対応でも、local-trusted + sandbox-offのままTool実行可能な公開サーバーを立てない。
 7. **Mock Backendのみ**でCapability不足・Backendなし・Policy拒否・Brokered操作・取消要求の契約を検証。汎用HostRunnerに到達したかをSpyで検証する。
@@ -89,13 +89,13 @@
 
 ### 必須テスト・完了条件
 
-- Local Sandbox off のCLI/GUIは従来のFunction Call/承認/出力で動く。
+- Local Sandbox offのCLI/GUI/**明示的に信頼済みのlocal-only単独利用Web**は従来のFunction Call/承認/出力で動き、Probe・依存インストール・Sandbox Lease生成を行わない。
 - Remote Tool がSANDBOXと判定されたのにBackendが無い場合、**実際のRunnerは呼ばれず拒否**される。
 - Remote BROKEREDは限定操作だけ。任意のTool名・Path・URLを指定してHost汎用Runnerに入れない。
 - READ_ONLYの read_file / get_env / http_request GET でも「Hostで安全」と誤分類しない。
 - 未分類Tool、遅延ロードTool、MCP子機能、Sub-Agent経由の迂回を拒否できる。
 - 非Loopback A2A + local-trusted / sandbox-off は強制隔離または起動拒否。
-- 認証付き社内Webがlocalhost経由だからといってLocal扱いされない。
+- Webの既定は**sandbox=off**。認証付き社内Webがlocalhost経由だからといってLocal扱いされない。**Remote Web offのHTTP/WebSocket/Streaming/内部Helperから一般Toolを呼び出してもHost実行しない**。Web offでもSandboxを自動有効化しない。remoteでonにしても適合Backendが無ければ拒否する。信頼済みlocal-only単独利用Webのoffだけ従来のTool実行を保つ。
 - **認可から確認画面の間・ユーザーの確認待機中・確認直後**にRoomメンバー権限、Principalの権限、Policy Revisionを変更した場合、実行直前の再検証で古い許可が拒否され、Sandbox/HostのどちらのRunnerも起動しない。実行不能なCapabilityの場合は**ユーザー確認前**に拒否する。
 - **このPRだけではRemote Toolが利用できなくても正常**。後続PRで適合Backendが導入されるまでfail closedとする。
 
@@ -109,7 +109,7 @@
 2. 必要最小限のPython Host Adapter + 隔離Workerを作る。MXCへの依存はAdapterに隠し、Function Callの公的契約にMXC固有型を出さない。
 3. **Native stateful** が使えれば採用。spawnのみなら隔離した長寿命Worker + 構造化IPCを検証する。子孫プロセスまで封じ込められなければ unsupported。
 4. Worker側には許可された機能だけを投影。Hostの.env/.env.sec、Credential Store、管理設定、Hostのos.environ全体を引き継がない。stdoutとIPCを分離し、結果をサイズ制限付きで受け取る。
-5. CLI/GUIのSandbox opt-inを設計書の共通引数へまとめる。off時は追加インストール/Probe/環境変更を行わない。
+5. CLI/GUIに加え**信頼済みlocal-only単独利用Web**のSandbox opt-inを設計書の共通`--sandbox off|auto|mxc`引数へまとめる。Webを含めoff時は追加インストール/Probe/環境変更を行わない。WebのRoom単位Lease再接続・破棄はPR 3で完成させる。**Remote Webは軽量MXCだけでは許可しない**。
 6. 初回のみOS/arch/依存を調べ、管理者権限やOS変更を要するときは**明示同意**を求める。2回目以降は静かな短時間Probeのみ。非対話実行・依存不足は明示エラー。
 7. Brokerがprobeの**既定15秒期限**を強制し、固着するSDKを回収できる独立Helperで実行。初回実行確認は通常起動Probeと別の有界手順にする。
 8. ローカルでSession内のファイル・導入済み依存を複数Toolで使い回し、停止時はWorker/子孫プロセスを回収する。操作単位とLease単位の取消を区別。
@@ -129,7 +129,7 @@
 - 子プロセス/任意Host Path/秘密環境変数の隔離を**実際の不正アクセス試験**で確認。
 - Stop/Cancel/Timeout/Crashで子孫プロセスが残らない。wait_executionが無限待機しない。
 - 32-bit拒否、OS未対応、導入拒否、オフライン、Helperハング時に**無隔離へ戻らない**。
-- Local Sandbox off の回帰テストが通る。**Windows 11 x64**のBackend/SDK版、Probe・不正アクセス・複数Tool・Cleanupの実機試験と結果をPR本文に記録する。**Windows ARM64の実機確認が無ければ当該archは未対応と表示**。Linux/macOS/Raspberry PiではWindows先行段階でSandboxが明示的な未対応エラーとなり、Hostへフォールバックしないテストも行う。
+- Local Sandbox offのCLI/GUI/**信頼済みlocal-only Web**の回帰テストが通る。Webのoff起動でProbe・導入が行われず、Webの明示opt-in後にWindows適合Backendへルーティングされる。**Windows 11 x64**のBackend/SDK版、Probe・不正アクセス・複数Tool・Cleanupの実機試験と結果をPR本文に記録する。**Windows ARM64の実機確認が無ければ当該archは未対応と表示**。Linux/macOS/Raspberry PiではWindows先行段階でSandboxが明示的な未対応エラーとなり、Hostへフォールバックしないテストも行う。
 
 ## 5. PR 3 — 全入口とSandboxSessionManagerの統合
 
@@ -139,7 +139,7 @@
 
 1. 設計書の型付きSandboxScopeをSessionManagerで使い、Host側のTrusted Context以外からScopeを生成しない。
 2. Webは**principal + project + room_id**、A2Aは**Service Principal + task_id**を必須とし、異なるscope_kindが同じLeaseにならないようにする。
-3. Webの1-turn Worker（現行process_workers.py）にLeaseの所有権を持たせない。安全なサーバー側Supervisor/BrokerがOwnerとなり、Turn Workerは認可済みLeaseを参照する。
+3. Webの**明示opt-in時に限り**1-turn Worker（現行process_workers.py）にLeaseの所有権を持たせない。安全なサーバー側Supervisor/BrokerがOwnerとなり、Turn Workerは認可済みLeaseを参照する。**Web offではSandbox Leaseを確保しない**。Remote offでは全一般Toolを拒否する。
 4. CLIの既存Session切替・履歴ロードと、GUIの**現在のSessionでの継続実行・既存の履歴ロード／Session変更・終了操作（実際に提供されている場合のみ）**をLeaseの状態遷移として結ぶ。**SandboxのためにGUIの会話一覧・A/B切替・削除UIを新設しない。** WebのSocket切断・同Room再接続、Room削除/TTL、A2A Task終了/Cancelは既存のライフサイクルへ統合する。
 5. 保存済み履歴と生きたLeaseを区別。再起動後は新規Sandboxで、**過去のToolを自動再実行しない**。初期段階ではProject Revision/Export済み内容だけを新規投入。
 6. Lease Registryは単一Host/単一OwnerのSQLite等を許容するが、これを分散Owner排他の代替としない。Crash後の孤立プロセス回収、TTL、二重生成防止を用意。
@@ -156,7 +156,8 @@
 - **CLI Session Aで複数回Toolを呼び、同じLeaseが再利用される**。新規CLI Session Bでは別Leaseとし、終了/明示破棄で回収する。CLI履歴ロードは、生存Leaseが同一実行Scopeで健全なときだけ再接続する。
 - **GUIの現行単一会話/Session**で3回のTool Callが同じ健全なLeaseを使い、GUI/Session終了で回収することを試験する。既存の履歴ロード・Session変更・削除イベントが利用可能な場合だけScope再認可・Lease選択・Cleanupを試験し、MockのSession変更イベントでもA/BのLease混在を禁止する。**新しいGUI会話切替画面や会話管理UIの実装・UI操作試験は必須条件にしない。**
 - **CLI/GUIのプロセス再起動後**は古い生存Leaseを当然に再利用せず、新規Sandboxを生成する。保存済み履歴やWorkdirだけでHostへのアクセス権を拡大せず、過去Toolを再実行しない。GUIに未実装の会話切替画面をSandboxの前提条件として追加しない。
-- 同一Room/Principalの再接続では健全なLeaseを再利用、異なるRoom/Principal/Projectは別Lease。
+- **Web offではRoom用Sandbox Leaseが作成されない**。信頼済みlocal-only単独利用Webのoffは既存動作、Remote WebのoffではTool経路が拒否されることを先に確認。
+- **Web opt-inでBackendが適合する場合だけ**同一Room/Principalの再接続では健全なLeaseを再利用、異なるRoom/Principal/Projectは別Lease。
 - WebSocketの切断だけでRoom Leaseを消さず、Room削除・TTL・権限失効時は回収する。
 - A2A別TaskでLeaseを共有せず、Cancel/完了で破棄する。
 - 切替直前の実行中Toolが誤って別Scopeへ流れない。Owner Generation/Binding不一致は拒否。
