@@ -46,6 +46,41 @@ def test_apply_workdir_captures_canonical_workspace_for_relative_paths(
     assert memory_scope.resolve_server_workspace_project() == tmp_path.name
 
 
+def test_memory_tools_use_canonical_startup_project(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_scope, runtime_workdir
+    from uagent.tools import long_memory, shared_memory
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "nested").mkdir()
+    monkeypatch.setattr(runtime_workdir, "_STARTUP_WORKDIR", None)
+    runtime_workdir.apply_workdir(
+        runtime_workdir.decide_workdir(env_workdir="nested/..")
+    )
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    monkeypatch.setenv("UAGENT_WORKDIR", "nested/..")
+    monkeypatch.setenv("UAGENT_MEMORY_OWNER", "alice")
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "jsonl")
+    personal = tmp_path / "personal.jsonl"
+    shared = tmp_path / "shared.jsonl"
+    monkeypatch.setenv("UAGENT_MEMORY_FILE", str(personal))
+    monkeypatch.setenv("UAGENT_SHARED_MEMORY_FILE", str(shared))
+
+    other = tmp_path / "other"
+    other.mkdir()
+    monkeypatch.chdir(other)
+    assert memory_scope.resolve_memory_project() == tmp_path.name
+    assert long_memory.append_long_memory("personal note")
+    shared_memory.append_shared_memory("shared note")
+    personal_row = json.loads(personal.read_text(encoding="utf-8"))
+    shared_row = json.loads(shared.read_text(encoding="utf-8"))
+    assert personal_row["project"] == shared_row["project"] == tmp_path.name
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "explicit")
+    assert memory_scope.resolve_memory_project() == "explicit"
+
+
 def test_new_personal_records_store_owner_and_project(
     tmp_path: Path, monkeypatch
 ) -> None:

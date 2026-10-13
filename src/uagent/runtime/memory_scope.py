@@ -48,15 +48,19 @@ def resolve_memory_owner(owner: Any = "") -> str:
 def resolve_memory_project() -> str:
     """Resolve the project using the same basis for save and projection paths.
 
-    ``UAGENT_MEMORY_PROJECT`` is the canonical explicit override. Otherwise both
-    persistence and projection use ``UAGENT_WORKDIR`` when configured, then the
-    process current directory. They deliberately do not use separate core-only
-    or tool-only path sources.
+    ``UAGENT_MEMORY_PROJECT`` is the canonical explicit override. Once
+    initialized, the immutable canonical startup workspace is used for both
+    persistence and projection. Before initialization, use ``UAGENT_WORKDIR``
+    or process CWD as the existing local fallback.
     """
     configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
     if configured:
         return configured
-    workdir = str(env_get("UAGENT_WORKDIR", "") or "").strip() or os.getcwd()
+    from .runtime_workdir import get_captured_startup_workdir
+
+    workdir = get_captured_startup_workdir()
+    if not workdir:
+        workdir = str(env_get("UAGENT_WORKDIR", "") or "").strip() or os.getcwd()
     return project_id_from_path(workdir)
 
 
