@@ -2,7 +2,7 @@
 
 - Status: **Design / 未実装**
 - Date: 2026-10-14
-- Scope: CLI / GUI / Web / A2A、Windows / Linux / macOS
+- Scope: CLI / GUI / Web / A2A、Windows / Linux / macOS の **64-bit OS のみ**（x86-64 / ARM64）
 - Priority: Enterprise E0 の一部。ローカル実行の任意 Sandbox は追加要件
 - Related: [Enterprise E0 設計](UAG_ENTERPRISE_PLATFORM_DESIGN.md)、[実装ロードマップ](plans/IMPLEMENTATION_ROADMAP.md)、[Web Room 並列処理](WEB_ROOM_CONCURRENCY.md)
 
@@ -298,9 +298,11 @@ MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ご�
 
 ### 8.1 Raspberry Pi と CPU アーキテクチャ
 
-UAG の共通 Broker / SessionManager は CPU/OS 非依存とする。Microsoft MXC が公表する対象は **Linux x64 / ARM64、macOS ARM64 / x64、Windows x64 / ARM64**。従って **64-bit Raspberry Pi OS または対応する ARM64 Linux ディストリビューションを稼働させる Raspberry Pi は候補**である。Linux ARM32（armv7/armhf）、旧 Raspberry Pi の ARMv6、macOS 14 以前は今回の MXC 基準で対応を保証しない。
+**UAG Sandbox の対応対象は 64-bit OS / 64-bit ユーザーランドのみ（x86-64 / ARM64）とし、32-bit OS・32-bit バイナリ・ARM32（armv7/armhf）・ARMv6・x86 32-bit は明示的に非対応とする。** 32-bit 用 Backend、配布物、互換レイヤー、テストは作らない。この制約は **本 Sandbox 機能**の対象範囲であり、UAG の既存の非 Sandbox 実行可否全体を新たに変更するものではない。
 
-- Raspberry Pi は **`uname -m` の `aarch64` / `arm64` と 64-bit ユーザーランド**を確認する。CPU が ARM64 対応でも 32-bit OS であれば対象外。
+UAG の共通 Broker / SessionManager は CPU/OS 非依存の設計とし、実行可能性は OS/arch の Capability Probe で判断する。Microsoft MXC が公表する対象は **Linux x64 / ARM64、macOS ARM64 / x64、Windows x64 / ARM64**。従って **64-bit Raspberry Pi OS または対応する ARM64 Linux ディストリビューションを稼働させる Raspberry Pi は候補**である。macOS Seatbelt は macOS 15 以降が必要となる。
+
+- Raspberry Pi は **`uname -m` の `aarch64` / `arm64` と 64-bit ユーザーランド**を確認する。CPU が ARM64 対応でも 32-bit OS であれば明示的に非対応とし、Sandbox 初期化をエラーで終了する。
 - Bubblewrap は Linux の user/mount/PID 等の Namespace を利用するため、`bwrap` と適切な Kernel 設定、unprivileged user namespace の実効権限を確認する。ディストリビューションのセキュリティ設定・コンテナ内実行・制限されたカーネルでは利用できない可能性がある。
 - MXC SDK / Adapter / Native Runtime の **ARM64 向けバイナリと依存関係**が導入できることを Probe で検証する。README の「Linux ARM64 対応」だけで全 Raspberry Pi 個体の動作を保証しない。
 - Raspberry Pi のメモリ・CPU・ディスク・IO に合わせて、同時 Sandbox 数と各 Lease の資源上限を設定する。1 Session 1 Lease の構造は変えないが、負荷により入場制限・容量不足エラーを返す。
@@ -444,7 +446,8 @@ uaga --sandbox auto
 ### OS 実機検証（導入必須）
 
 - Windows x64 / ARM64 (MXC ProcessContainer)、Linux x86-64 / ARM64 (MXC Bubblewrap)、macOS 15+ ARM64 / x86-64 (MXC Seatbelt) の各サポート対象バージョンで Probe→複数実行→Cleanup。
-- **Raspberry Pi の ARM64 Linux 実機**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。ARM32 では未対応を明示し、無隔離への代替実行を禁止する。
+- **Raspberry Pi の ARM64 Linux 実機**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。
+- Windows / Linux / macOS / Raspberry Pi の **32-bit OS または 32-bit ユーザーランド**は非対応として検出し、Sandbox 有効化を明示的な非対応エラーで拒否する。Remote では fail closed、Local の Sandbox opt-in でも無隔離への代替実行を禁止する。
 - Worker 内から起動した子孫プロセスが隔離ポリシーを継承すること。
 - Sandbox 外 Path、Host Credential、ネットワーク制限先、Host Broker 制御 Channel へのアクセスが拒否されること。
 - Worker 強制終了、親 Broker 再起動、OS 停止、複数 Session 同時実行による孤立リソースを回収できること。
