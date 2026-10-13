@@ -140,7 +140,7 @@
 1. 設計書の型付きSandboxScopeをSessionManagerで使い、Host側のTrusted Context以外からScopeを生成しない。
 2. Webは**principal + project + room_id**、A2Aは**Service Principal + task_id**を必須とし、異なるscope_kindが同じLeaseにならないようにする。
 3. Webの1-turn Worker（現行process_workers.py）にLeaseの所有権を持たせない。安全なサーバー側Supervisor/BrokerがOwnerとなり、Turn Workerは認可済みLeaseを参照する。
-4. CLI/GUIの会話切替・履歴ロード、WebのSocket切断・同Room再接続、Room削除/TTL、A2A Task終了/CancelをSessionの状態遷移として結ぶ。
+4. CLIの既存Session切替・履歴ロードと、GUIの**現在のSessionでの継続実行・既存の履歴ロード／Session変更・終了操作（実際に提供されている場合のみ）**をLeaseの状態遷移として結ぶ。**SandboxのためにGUIの会話一覧・A/B切替・削除UIを新設しない。** WebのSocket切断・同Room再接続、Room削除/TTL、A2A Task終了/Cancelは既存のライフサイクルへ統合する。
 5. 保存済み履歴と生きたLeaseを区別。再起動後は新規Sandboxで、**過去のToolを自動再実行しない**。初期段階ではProject Revision/Export済み内容だけを新規投入。
 6. Lease Registryは単一Host/単一OwnerのSQLite等を許容するが、これを分散Owner排他の代替としない。Crash後の孤立プロセス回収、TTL、二重生成防止を用意。
 7. Sub-Agent/Background Jobは親のScopeと縮小権限を継承し、終了後の孤立実行を許さない。
@@ -154,8 +154,8 @@
 ### 必須テスト・完了条件
 
 - **CLI Session Aで複数回Toolを呼び、同じLeaseが再利用される**。新規CLI Session Bでは別Leaseとし、終了/明示破棄で回収する。CLI履歴ロードは、生存Leaseが同一実行Scopeで健全なときだけ再接続する。
-- **GUI会話A→B→A**の切替・復帰でLeaseが対応する会話に戻り、Bと混在しない。会話削除で当該Leaseを破棄する。GUIの履歴復帰も権限・Workspace Bindingを再確認する。
-- **CLI/GUIのプロセス再起動後**は古い生存Leaseを当然に再利用せず、新規Sandboxを生成する。保存済み履歴やWorkdirだけでHostへのアクセス権を拡大せず、過去Toolを再実行しない。
+- **GUIの現行単一会話/Session**で3回のTool Callが同じ健全なLeaseを使い、GUI/Session終了で回収することを試験する。既存の履歴ロード・Session変更・削除イベントが利用可能な場合だけScope再認可・Lease選択・Cleanupを試験し、MockのSession変更イベントでもA/BのLease混在を禁止する。**新しいGUI会話切替画面や会話管理UIの実装・UI操作試験は必須条件にしない。**
+- **CLI/GUIのプロセス再起動後**は古い生存Leaseを当然に再利用せず、新規Sandboxを生成する。保存済み履歴やWorkdirだけでHostへのアクセス権を拡大せず、過去Toolを再実行しない。GUIに未実装の会話切替画面をSandboxの前提条件として追加しない。
 - 同一Room/Principalの再接続では健全なLeaseを再利用、異なるRoom/Principal/Projectは別Lease。
 - WebSocketの切断だけでRoom Leaseを消さず、Room削除・TTL・権限失効時は回収する。
 - A2A別TaskでLeaseを共有せず、Cancel/完了で破棄する。
