@@ -20,8 +20,8 @@
 - 設定追加は最小限。外部向けは設計書の共通 sandbox 引数／明示 SecurityProfile に寄せ、Backend ごとの環境変数を大量に増やさない。
 - **実装順は Windows → Linux → macOS。** Windows先行PR完了後でもLinux/macOSのSandboxは未対応と表示し、明示的な実装・実機検証が済むまで無隔離に切り替えない。
 - OS差は Adapter に閉じ込める。Sandbox は **64-bit x86-64 / ARM64 のみ**。ARM32、32-bit OS/ユーザーランドの互換対応を作らない。
-- **CLI / GUI / Web はいずれもSandbox offが既定・明示opt-in**。信頼済みlocal-only単独利用WebとCLI/GUIはoffで従来どおり実行。**外部公開・認証付きMulti-user Webはoffの間、一般Toolを拒否**し、Host直接実行へ逃がさない。ONにしても適合Backendがなければ実行拒否。
-- リモートWeb（認証付きマルチユーザー含む）・Remote A2Aは**Sandbox / 限定Broker / Deny**のいずれかのみ。**Webのopt-inは隔離の解除許可ではない**。Web off時はToolなしモード（Toolを完全に遮断できる場合）かTool対応サービス起動拒否。Backend不足・未検証時もToolは拒否する。Local-onlyの判定をリクエストIP、Host Header、loopback bindだけに依存させない。
+- **CLI / GUI / Web はいずれもSandbox offが既定・明示opt-in**。WebでOFF時のHost直接Tool実行を認めるのは**起動時の実効Bind Addressが`127.0.0.1`、Identity=`local`、外部転送のない単独利用**だけ。CLI/GUIは従来どおり。**外部公開・認証付きMulti-user Webはoffの間、一般Toolを拒否**し、Host直接実行へ逃がさない。ONにしても適合Backendがなければ実行拒否。
+- リモートWeb（認証付きマルチユーザー含む）・Remote A2Aは**Sandbox / 限定Broker / Deny**のいずれかのみ。**Webのopt-inは隔離の解除許可ではない**。Web off時はToolなしモード（Toolを完全に遮断できる場合）かTool対応サービス起動拒否。Backend不足・未検証時もToolは拒否する。**WebのLocal-only判定は既存の`--host 127.0.0.1`と`UAGENT_IDENTITY_MODE=local`で行い、新しい管理フラグは増やさない。** `0.0.0.0`/`::`/その他のBindはOFF時にTool拒否。**Reverse Proxy・Port Forward・SSHトンネルは127.0.0.1への外部中継が可能で自動検出を保証できない**ため、非公開単独利用の必須運用条件として使用を禁止。リクエストIPやHost Headerを信頼して公開判定を緩めない。
 - 設計にない Snapshot 実体の保存・復元、デバイスパススルー、Docker必須化、追加管理UIは今回の5 PRに混ぜない。
 
 ### 1.2 実装前の事実確認
@@ -74,7 +74,7 @@
 
 1. ExecutionClass（SANDBOX / BROKERED / DENY / ローカル限定LOCAL_HOST_PURE）、SecurityProfile、必要Capability、Trusted SandboxScopeの最小モデルを定義。型・エラー形式を必要以上に増やさない。
 2. **実行順序を正本 §7 に揃える:** (a) Trusted Principal/Project/Room/Taskと入口を確定 → (b) UnifiedPolicy・Role・ToolPolicyで認可/副作用を判定し、拒否なら終了 → (c) **承認を求める前に**ツール名・引数・実機能・MCP展開先・ネットワーク宛先から ExecutionClass を選び、必要な隔離強度とBackend Capabilityを照合。不可能なら確認ダイアログを出さず拒否 → (d) 必要なHost UI/Broker承認を取得 → (e) **承認後・実行直前に権限とPolicy Revision、Scope/Bindingを再検証**し、失効・変更時は実行拒否（必要なら最初から再判定）→ (f) 許可されたSandbox Leaseまたは狭いBrokerへルーティング。Host側の管理Broker操作と未信頼な汎用Runnerを明確に区別し、古い承認を権限昇格に使わない。
-3. src/uagent/tools/__init__.py の共通入口に導入。CLI/GUIおよび**信頼済みlocal-only単独利用WebのSandbox off**だけ既存実行を維持。run_tools_parallel、動的Toolロード、MCP、Sub-Agent等の別経路が迂回しないことを検証。**Webの既定はoff**とし、Remoteではoff/不適合時の全Tool起動を事前に拒否する。
+3. src/uagent/tools/__init__.py の共通入口に導入。CLI/GUIおよび**実効Bind Address=`127.0.0.1`・Identity=`local`・外部中継なしのWeb（Sandbox off）**だけ既存実行を維持。run_tools_parallel、動的Toolロード、MCP、Sub-Agent等の別経路が迂回しないことを検証。**Webの既定はoff**とし、Remoteではoff/不適合時の全Tool起動を事前に拒否する。
 4. Remote Web（HTTP、WebSocket、Streaming、1-turn Worker）とA2A（通常・ストリーム）への入口で、**Toolを起動する前**に実効SecurityProfileと認証済みScopeを確定する。Web WorkerがProfileを自由に弱められない。**Remote WebでSandbox offのとき、一般ToolのHost Runnerを全入口から遮断**する。Toolを一切渡さない安全なチャット専用運用なら続行可能だが、その遮断が保証できない場合はTool対応Webの起動を拒否する。OFFからONへの暗黙切替は行わない。
 5. A2Aの信頼済みService Principalと**必須task_id**をServer側で結合。単一Bearer Tokenからユーザーごとの本人識別を捏造せず、Client提供IDでLeaseを選ばない。
 6. A2Aの非Loopback Listen検証を実装。Sandbox未対応でも、local-trusted + sandbox-offのままTool実行可能な公開サーバーを立てない。
@@ -95,7 +95,7 @@
 - READ_ONLYの read_file / get_env / http_request GET でも「Hostで安全」と誤分類しない。
 - 未分類Tool、遅延ロードTool、MCP子機能、Sub-Agent経由の迂回を拒否できる。
 - 非Loopback A2A + local-trusted / sandbox-off は強制隔離または起動拒否。
-- Webの既定は**sandbox=off**。認証付き社内Webがlocalhost経由だからといってLocal扱いされない。**Remote Web offのHTTP/WebSocket/Streaming/内部Helperから一般Toolを呼び出してもHost実行しない**。Web offでもSandboxを自動有効化しない。remoteでonにしても適合Backendが無ければ拒否する。信頼済みlocal-only単独利用Webのoffだけ従来のTool実行を保つ。
+- Webの既定は**sandbox=off**。**Bind=`127.0.0.1`+Identity=`local`+外部中継なし**の単独利用Webだけ従来Tool実行を保つ。`0.0.0.0`/`::`/LANアドレス・Identity=`oidc`等はOFF時にTool拒否。認証付き社内Webがlocalhost経由だからといってLocal扱いされない。**Remote Web offのHTTP/WebSocket/Streaming/内部Helperから一般Toolを呼び出してもHost実行しない**。Web offでもSandboxを自動有効化せず、onでも適合Backendが無ければ拒否。**Proxy/SSH tunnelによるLoopback中継はアプリから完全検出できない**ため、これを自動検出できるという不可能な試験を書かず、外部中継禁止の運用条件を文書化する。
 - **認可から確認画面の間・ユーザーの確認待機中・確認直後**にRoomメンバー権限、Principalの権限、Policy Revisionを変更した場合、実行直前の再検証で古い許可が拒否され、Sandbox/HostのどちらのRunnerも起動しない。実行不能なCapabilityの場合は**ユーザー確認前**に拒否する。
 - **このPRだけではRemote Toolが利用できなくても正常**。後続PRで適合Backendが導入されるまでfail closedとする。
 
