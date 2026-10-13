@@ -560,7 +560,10 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     assert listed.json()["bound_project"] == "trusted-workspace"
     assert "uag_project_context=" not in listed.headers.get("set-cookie", "")
     for _ in range(3):
-        assert client.get("/api/me/projects").json()["bound_project"] == "trusted-workspace"
+        assert (
+            client.get("/api/me/projects").json()["bound_project"]
+            == "trusted-workspace"
+        )
     store = MemoryStore(tmp_path / "memory.sqlite3")
     assert (
         store.db.execute("SELECT COUNT(*) FROM project_context_sessions").fetchone()[0]
