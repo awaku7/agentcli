@@ -1,4 +1,4 @@
-# UAG Sandbox 実装引き継ぎ手順書（想定5 PR）
+# UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
 - 状態: 実装エージェント向け作業手順／実装未着手
@@ -8,7 +8,7 @@
 - セキュリティ要件: [UAG_ENTERPRISE_PLATFORM_DESIGN.md](../UAG_ENTERPRISE_PLATFORM_DESIGN.md) §3.1 / E0
 - 開発規約: [AGENTS.md](../../AGENTS.md)
 
-> この文書は設計書 §15 の **PR 1〜PR 5すべて**を、別エージェントが実装・検証するための手順にしたもの。設計を再決定したり、PR数を機械的に増やしたりする文書ではない。矛盾時はマージ済みの設計書とEnterprise E0を優先し、変更が必要なら根拠を明示して最小範囲で提案する。
+> 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
 
 ## 1. 全PR共通の実装ルール
 
@@ -18,6 +18,7 @@
 - 実行先は **SANDBOX / 狭い BROKERED / DENY** を基本とする。監査済み LOCAL_HOST_PURE は信頼済みローカル CLI/GUI にのみ認め、リモートへ追加しない。
 - 「副作用区分」（ToolPolicy）と「隔離・実行先」（ExecutionClass）は別概念。READ_ONLY でも Host 情報を取得するツールをリモート Host 上で動かさない。
 - 設定追加は最小限。外部向けは設計書の共通 sandbox 引数／明示 SecurityProfile に寄せ、Backend ごとの環境変数を大量に増やさない。
+- **実装順は Windows → Linux → macOS。** Windows先行PR完了後でもLinux/macOSのSandboxは未対応と表示し、明示的な実装・実機検証が済むまで無隔離に切り替えない。
 - OS差は Adapter に閉じ込める。Sandbox は **64-bit x86-64 / ARM64 のみ**。ARM32、32-bit OS/ユーザーランドの互換対応を作らない。
 - 既存 CLI/GUI は **Sandbox off が既定**で従来動作を維持する。Opt-in が失敗したとき無言で Host 実行へ戻さない。
 - リモート Web（認証付きマルチユーザー含む）・Remote A2A は **Sandbox / 限定 Broker / Deny** のいずれかのみ。必要な Backend が無ければ危険なTool実行を拒否する。
@@ -58,12 +59,12 @@
 | PR | 推奨PRタイトル | 取り扱う責務 | 完了判定 |
 | --- | --- | --- | --- |
 | 1 | feat: add sandbox broker and fail-closed tool routing | ExecutionClass、共通Broker、Policy、Remote ingressとA2A ID拘束、Mockテスト | リモートHost直実行が発生しない |
-| 2 | feat: add opt-in MXC local sandbox adapter | Windows・Linux・macOS 各MXC Adapter、能力判定、隔離Worker、CLI/GUI opt-in、初回セットアップ | **3 OSすべて**で同一Sessionの複数Toolが隔離実行でき、OSごとの実機ゲートを通過する |
+| 2 | feat: add opt-in Windows MXC local sandbox adapter | **Windows 11 x64先行**のMXC ProcessContainer、隔離Worker、CLI/GUI opt-in、初回セットアップ | Windows x64実機でSessionの複数Toolを隔離実行・回収できる。未検証OS/archは有効化しない |
 | 3 | feat: bind sandbox leases to web rooms and A2A tasks | 全入口のSessionManager/Lease/回収と履歴再接続 | Room/Taskごとの状態維持・境界・終了が正しい |
-| 4 | feat: enforce production sandbox isolation for remote tools | 強隔離Backend、Workspace/Network/Secret/Resourceの実効Policy | **単一インスタンス構成に限り**E0の実機テストが成立 |
-| 5 | feat: coordinate sandbox lease ownership across instances | 共有Registry、原子的Owner取得、世代/Fencing/ルーティング | 複数Nodeで二重Lease・失効迂回が起きない |
+| 4 | feat: enforce Windows production sandbox isolation for remote tools | Windowsの強隔離Backend（Hyper-V候補）、Workspace/Network/Secret/Resourceの実効Policy | **Windows単一インスタンス構成に限り**E0の実機テストが成立 |
+| 5 | feat: coordinate sandbox lease ownership across Windows instances | 共有Registry、原子的Owner取得、世代/Fencing/ルーティング | **Windows複数Node**で二重Lease・失効迂回が起きない |
 
-PRごとに新しい作業ブランチを **最新mainから作る**。前のPRの未マージブランチに無断で積まない。依存が未マージなら先行PRの完了まで次段階の本実装を開始しない。並列でできるのは読み取り調査・テスト設計のみ。
+**Windows先行の対象はPR 1〜5。** Linuxは後続PR 6（Raspberry Pi 64-bitを含む）、macOSは後続PR 7で実装・検証する。これらをPR 2の完了条件に含めず、将来の担当を消さない。PRごとに新しい作業ブランチを **最新mainから作る**。前のPRの未マージブランチに無断で積まない。依存が未マージなら先行PRの完了まで次段階の本実装を開始しない。並列でできるのは読み取り調査・テスト設計のみ。
 
 ## 3. PR 1 — ExecutionBroker / Policy（まずこれだけ）
 
@@ -100,11 +101,11 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 
 ## 4. PR 2 — MXC Local PoC / CLI・GUI Opt-in
 
-**目的:** **Windows・Linux・macOSの3 OSで**MXC Adapterを導入し、実Sandbox上の複数Function Callが同一Session環境を使えることをOSごとに確認する。まず1 OSで小さくPoCを行ってよいが、**1 OSだけの成功ではPR 2完了としない**。
+**目的:** **Windows 11 x64先行**でMXC ProcessContainer Adapterを導入し、実Sandbox上の複数Function Callが同一Session環境を使えることを確認する。Linux/macOSのAdapter実装は**後続PR 6・PR 7**へ明示的に延期する。
 
 ### 作業
 
-1. MXCの現行API・Backend実装、対応OS/バージョン、Node SDKとNative Runtime依存を**着手時に実際に確認**する。**Windows ProcessContainer、Linux Bubblewrap、macOS 15+ Seatbeltの3 AdapterすべてをPR 2の担当範囲**とする。各OSでProbe・隔離付き複数実行・Cleanupと失敗時動作を実機検証し、未検証のまま互換を保証しない。
+1. MXCの現行API・Windows ProcessContainer実装、対応Windowsビルド、Node SDKとNative Runtime依存を**着手時に実際に確認**する。**PR 2のAdapterはWindowsだけ**。Linux Bubblewrap・macOS 15+ Seatbeltは後続PRで実装する。Windows実機でProbe・隔離付き複数実行・Cleanupと失敗時動作を検証する。
 2. 必要最小限のPython Host Adapter + 隔離Workerを作る。MXCへの依存はAdapterに隠し、Function Callの公的契約にMXC固有型を出さない。
 3. **Native stateful** が使えれば採用。spawnのみなら隔離した長寿命Worker + 構造化IPCを検証する。子孫プロセスまで封じ込められなければ unsupported。
 4. Worker側には許可された機能だけを投影。Hostの.env/.env.sec、Credential Store、管理設定、Hostのos.environ全体を引き継がない。stdoutとIPCを分離し、結果をサイズ制限付きで受け取る。
@@ -115,11 +116,11 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 
 ### 対応範囲・対象外
 
-- 対象CPUは64-bit x86-64/ARM64。Linux ARM64とRaspberry Piは**実機確認ができるまで候補/未検証**と報告する。
+- **PR 2で有効化する対象はWindows 11 x64**。Windows ARM64は、SDKと実機の適合を確認できるまで未対応とする。Linux x86-64/ARM64・Raspberry Pi ARM64・macOSは後続PR 6/7の対象であり、Windows段階で対応済みと表示しない。
 - Windows用コマンドをLinux/macOSで使えるかのように扱わない。
 - このPRの軽量MXC Sandboxを、Enterprise Remote向け強隔離として**有効化しない**。
 - ホストへの安全な書き戻しや高度なネットワーク隔離はPR 4の検証ゲートを満たすまで不許可。
-- **Windows・Linux・macOSのいずれかのAdapterが未実装／各OSの実機検証が未完了なら、PR 2の全体完了条件は未充足**とする。検証に必要な環境が無い場合、未検証と明記してユーザーへ報告し、残りのOSをPR 3〜5へ暗黙に先送りしない。工程変更が必要なら正本§15と所有PRを明示的に改訂してから進める。
+- **Windows 11 x64でのAdapter実装・実機検証がPR 2の完了条件**。Linux/macOSは正本§15に明記した**後続PR 6/7の担当**とし、PR 2〜5の未完了条件としない。対応していないOS/CPUではSandbox opt-inおよびRemote Toolを拒否し、暗黙にHost実行へ戻さない。
 
 ### 必須テスト・完了条件
 
@@ -128,7 +129,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 - 子プロセス/任意Host Path/秘密環境変数の隔離を**実際の不正アクセス試験**で確認。
 - Stop/Cancel/Timeout/Crashで子孫プロセスが残らない。wait_executionが無限待機しない。
 - 32-bit拒否、OS未対応、導入拒否、オフライン、Helperハング時に**無隔離へ戻らない**。
-- Local Sandbox off の回帰テストが通る。**Windows x64/ARM64、Linux x86-64/ARM64（Raspberry Pi ARM64を含む）、macOS 15+ ARM64/x86-64**の設計対象に対して、各Backend/アーキテクチャの実装・Probe・不正アクセス・Cleanupの検証行列を作り、実際の実行環境・SDK版・テスト結果をPRに記載する。**少なくともWindows・Linux・macOSの各OSで実機の受け入れ試験が合格**するまでPR 2を完了としない。未検証アーキテクチャは許可を有効にせず、正本§14に従う実機検証を次の利用可能な環境で完了させる。
+- Local Sandbox off の回帰テストが通る。**Windows 11 x64**のBackend/SDK版、Probe・不正アクセス・複数Tool・Cleanupの実機試験と結果をPR本文に記録する。**Windows ARM64の実機確認が無ければ当該archは未対応と表示**。Linux/macOS/Raspberry PiではWindows先行段階でSandboxが明示的な未対応エラーとなり、Hostへフォールバックしないテストも行う。
 
 ## 5. PR 3 — 全入口とSandboxSessionManagerの統合
 
@@ -168,7 +169,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 
 ### 作業
 
-1. リモートに必要なIsolationLevelをSecurityProfileへ明示する。WindowsのHyper-V隔離、LinuxのOCI/gVisor等は**候補**。macOSを含め、必要な隔離がない環境はunsupported/denyとする。
+1. リモートに必要なIsolationLevelをSecurityProfileへ明示する。**PR 4はWindows向けのHyper-V隔離Backend/VM等を候補として選定・検証**する。Linux OCI/gVisor等は後続PR 6、macOSは後続PR 7の評価範囲。対応する強隔離がないOSではunsupported/denyとする。
 2. Capability Probeと実機違反テストにより、Backendが**要求隔離強度を実際に強制できる**ことを証明。プロセス分離だけでVM相当と主張しない。
 3. Scope別Workspaceの**copy-in / validated copy-out**を導入し、Host公開は承認済みProjectへの明示Export/Commitのみ。競合Revision/Path Traversal/Symlink/Hardlinkを検査する。
 4. ネットワークは既定egress deny。許可先、DNS、metadata/private/link-local、Host管理ポート、Proxy回避を試験する。Seatbeltの細かな宛先制御不可などを無言で許容しない。
@@ -197,7 +198,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 
 ## 7. PR 5 — 複数インスタンスの所有権・Fencing
 
-**目的:** 2つ以上のWeb/A2Aサーバーが同じScopeを処理しても、同時に別Leaseを作ったり、古いOwnerが実行を継続したりできないようにする。
+**目的:** **Windows先行**で2つ以上のWeb/A2Aサーバーが同じScopeを処理しても、同時に別Leaseを作ったり、古いOwnerが実行を継続したりできないようにする。他OSへの統合検証は後続PRで行う。
 
 ### 作業
 
@@ -220,6 +221,26 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 - リトライ、Partition、Node Crash、Admin Revoke、Room削除、Task Cancelで二重副作用・孤立Leaseを作らない。
 - Ownerを失ったNodeがHostへ直接フォールバックしない。
 - 複数Nodeの実負荷/障害注入テストを実施。Mock-onlyなら「設計/ユニットテスト段階」と明記する。
+
+### 7.1 PR 6 — Linux Backend（後日着手）
+
+**開始条件:** Windows先行PR 1〜5の仕様とテスト結果を継承し、Linuxの実装を明示的に開始するときだけ着手する。
+
+- Linux x86-64 / ARM64（64-bit Raspberry Piを含む）でMXC Bubblewrap Adapterを実装し、隔離Workerの複数Tool・IPC・Cancel・Cleanup、Kernel/User Namespace・SDKの適合性を確認する。
+- Linux上でCLI/GUIのopt-inと必要な初回導入を有効化し、未対応環境・32-bitはDenyする。Linux向けRemoteはOCI/gVisor等の**必要隔離強度を実機で確認できた場合のみ**有効化する。
+- Linux x86-64、ARM64、Raspberry Pi ARM64は**実機で確認した環境・機能だけ対応済みと表示**し、未検証構成を保証しない。
+- HostのCredential・Filesystem・Network・Resource・Browser隔離、SessionManager、Owner/FencingをLinux実環境で検証。**Windows PR 1〜5の合格をLinuxの合格と取り違えない**。
+
+### 7.2 PR 7 — macOS Backend（後日着手）
+
+**開始条件:** Windows先行の共通実装を維持したまま、macOSの実機・MXC SDK・Seatbeltの適合性を確認できること。
+
+- macOS 15+ x86-64 / ARM64のMXC Seatbelt Adapter、隔離Worker、CLI/GUIのopt-in・初回導入・Capability Probe・Cancel・Cleanupを実装する。
+- macOSで同一Session複数Tool、子孫プロセス封じ込め、Host Credential/Filesystemからの隔離とResource上限を実機で確認する。macOSのネットワーク宛先制限はSeatbeltだけで達成できると仮定しない。
+- macOSのRemote Web/A2Aは、**専用Backendで必要な隔離強度を満たせない限りDenyを維持**する。Browser/Computer UseのHost Desktop露出も禁止する。
+- 対応OS/arch/SDKと検証結果を明記。未検証構成を勝手に有効化しない。
+
+**PR 6・PR 7はWindows版のマージ条件には含めず、後日それぞれ独立したPRで実装・検証する。** 以降の共通テスト・レビュー手順は同じく適用する。
 
 ## 8. 全PRの作業・レビュー手順
 
@@ -272,7 +293,8 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 
 - Sandboxの **設計PR #252がマージされた事実だけ**で、Sandboxが利用可能だと説明すること。
 - PR 1のMockテスト通過で、MXCやリモート隔離ができたと説明すること。
-- PR 2の軽量Local Sandboxを、権限未検証のRemoteマルチユーザー環境で有効化すること。
+- PR 2のWindows軽量Local Sandboxを、権限未検証のRemoteマルチユーザー環境で有効化すること。
+- Windows先行PR 1〜5の完了をLinux/macOS/Raspberry Piの対応完了と宣言すること（担当は後続PR 6/7）。
 - PR 4の単一NodeのE0試験で、PR 5の分散Owner保証まで完了と判断すること。
 - 将来用Snapshot参照仕様だけで、環境/実行プロセスの復元ができると説明すること。
 - Raspberry Pi ARM64や全OSにおけるMXCの実機動作を、README上の対応表だけで保証すること。
