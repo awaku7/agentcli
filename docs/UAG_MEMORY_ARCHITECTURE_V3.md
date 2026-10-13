@@ -951,7 +951,7 @@ class ProjectContext:
 
 実装箇所は `src/uagent/auth/oidc_sessions.py` と `src/uagent/web_impl/routes_api.py`。sessionのproject bindingも期限・authentication configuration fingerprintによる失効対象であり、process-local storeの再起動を越えて永続化しない。WebSocketのprojectは `src/uagent/web_impl/connection_identity.py` でserver側project pathからTurnContextへ導出する。HTTP sessionでの選択が接続済みWebSocketのworkspaceを自動変更する仕様ではない。
 
-Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-projectでは利用者がmembership確認済みprojectを選び、server-side ProjectContext cookieへbindできる。加えて、固定project・OIDC session・選択済みcookieがないnon-OIDC requestでは、`resolve_server_workspace_project()` がcaptured startup workdir（startup時にconfigured `UAGENT_WORKDIR`を適用）から既定値を導出する（request-time CWDは使わない）。既定値はviewer membership確認後のみbound contextとして扱い、未認可なら候補project一覧から明示選択を要求する。`/api/me/projects`で認可済み既定値をopaque ProjectContext cookieへbindし、private-room作成時にもmembershipを再確認する。browser/model requestからworkspaceやprojectを上書きできない。
+Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-projectでは利用者がmembership確認済みprojectを選び、server-side ProjectContext cookieへbindできる。加えて、固定project・OIDC session・選択済みcookieがないnon-OIDC requestでは、`resolve_server_workspace_project()` がcaptured startup workdir（startup時にconfigured `UAGENT_WORKDIR`を適用）から既定値を導出する（request-time CWDは使わない）。`GET /api/me/projects`はviewer membership確認後に既定値を`bound_project`として報告するだけで、ProjectContext sessionやcookieを作成しない。永続的なbindingは明示的な`POST /api/project-context`、またはmembership再確認後の`POST /api/me/private-room`で試みる。ProjectContextの容量上限に達しても、認可済みPrivate Roomのserver-side bindingは保持される。未認可のworkspace候補は採用せず、候補project一覧から明示選択を要求する。browser/model requestからworkspaceやprojectを上書きできない。
 
 認可順序は次で固定する。
 
