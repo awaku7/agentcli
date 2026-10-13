@@ -591,9 +591,9 @@ def test_workspace_project_listing_survives_full_context_store(
 
     store = MemoryStore(tmp_path / "memory.sqlite3")
     try:
-        ProjectAccessPolicy(
-            store, admin_principals=frozenset({"root"})
-        ).set_membership("root", "trusted-workspace", "alice", "viewer")
+        ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+            "root", "trusted-workspace", "alice", "viewer"
+        )
         ProjectContextStore(store).bind(
             "", IdentityContext("bob", True, "trusted_proxy"), "trusted-workspace"
         )
