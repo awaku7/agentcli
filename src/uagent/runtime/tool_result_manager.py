@@ -124,6 +124,9 @@ class ContextResultManager:
         importance: str = "normal",
         evictable: bool = True,
         metadata: dict[str, Any] | None = None,
+        llm_text: str | None = None,
+        inline_limit_chars: int | None = None,
+        preview_limit_chars: int | None = None,
     ) -> tuple[ToolResultRecord, ToolResultProjections]:
         """Return a record and isolated LLM/UI/history projections.
 
@@ -132,8 +135,21 @@ class ContextResultManager:
         artifact without coupling classification to storage.
         """
         text = _stringify(value)
-        size_bytes = len(text.encode("utf-8", errors="replace"))
-        result_class = self._classify(len(text))
+        llm_source_text = text if llm_text is None else str(llm_text)
+        size_bytes = len(llm_source_text.encode("utf-8", errors="replace"))
+        inline_limit = (
+            self.inline_limit_chars
+            if inline_limit_chars is None
+            else max(0, int(inline_limit_chars))
+        )
+        preview_limit = (
+            inline_limit
+            if preview_limit_chars is None
+            else max(0, int(preview_limit_chars))
+        )
+        result_class = self._classify(
+            len(llm_source_text), inline_limit_chars=inline_limit
+        )
         effective_summary = str(summary or "").strip() or _derive_summary(value)
         record = ToolResultRecord(
             result_id=result_id or uuid.uuid4().hex,
@@ -149,7 +165,14 @@ class ContextResultManager:
             evictable=evictable,
             metadata=dict(metadata or {}),
         )
-        llm_context = self._llm_projection(text, record, value)
+        llm_context = self._llm_projection(
+            text,
+            record,
+            value,
+            llm_text=llm_text,
+            original_length=len(llm_source_text),
+            preview_limit_chars=preview_limit,
+        )
         history_value = sanitize_binary_payload(value)
         projections = ToolResultProjections(
             llm_context=llm_context,
@@ -208,17 +231,31 @@ class ContextResultManager:
                 break
         return _bounded_preview("\n".join(lines), max_chars)
 
-    def _classify(self, length: int) -> ResultClass:
-        if length <= self.inline_limit_chars:
+    def _classify(
+        self, length: int, *, inline_limit_chars: int | None = None
+    ) -> ResultClass:
+        inline_limit = (
+            self.inline_limit_chars
+            if inline_limit_chars is None
+            else max(0, int(inline_limit_chars))
+        )
+        if length <= inline_limit:
             return "small"
         if length <= self.large_limit_chars:
             return "large"
         return "huge"
 
-    def _structured_preview(self, value: Any, text: str) -> str:
+    def _structured_preview(
+        self, value: Any, text: str, *, preview_limit_chars: int | None = None
+    ) -> str:
         """Preserve the shape of oversized tabular results before char clipping."""
+        preview_limit = (
+            self.inline_limit_chars
+            if preview_limit_chars is None
+            else max(0, int(preview_limit_chars))
+        )
         if self.max_preview_rows == 0 or not isinstance(value, (list, dict)):
-            return _bounded_preview(text, self.inline_limit_chars)
+            return _bounded_preview(text, preview_limit)
 
         if isinstance(value, list):
             total = len(value)
@@ -244,19 +281,31 @@ class ContextResultManager:
                 selected["... omitted keys ..."] = total - head - tail
                 if tail:
                     selected.update({key: value[key] for key in keys[-tail:]})
-        return _bounded_preview(_stringify(selected), self.inline_limit_chars)
+        return _bounded_preview(_stringify(selected), preview_limit)
 
-    def _llm_projection(self, text: str, record: ToolResultRecord, value: Any) -> str:
-        if record.result_class == "small":
-            return text
-        preview = self._structured_preview(value, text)
+    def _llm_projection(
+        self,
+        text: str,
+        record: ToolResultRecord,
+        value: Any,
+        *,
+        llm_text: str | None = None,
+        original_length: int | None = None,
+        preview_limit_chars: int | None = None,
+    ) -> str:
+        if record.result_class == "small" and not record.artifact_ref:
+            return text if llm_text is None else str(llm_text)
+        preview = self._structured_preview(
+            value, text, preview_limit_chars=preview_limit_chars
+        )
 
         lines = [
             "[tool result projected by ContextResultManager]",
             f"result_id: {record.result_id}",
             f"tool_name: {record.tool_name}",
             f"result_class: {record.result_class}",
-            f"original_length: {len(text)}",
+            "original_length: "
+            + str(len(text) if original_length is None else original_length),
         ]
         if record.summary:
             lines.append(f"summary: {record.summary}")
