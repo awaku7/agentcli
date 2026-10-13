@@ -187,6 +187,9 @@ jobs:
                   "tests/test_web_memory_store_lifetime.py",
                   "tests/test_web_room_lifecycle.py",
                   "tests/test_web_session_portability.py",
+                  "tests/test_observability_phase4_trace_query_final_revalidation.py",
+                  "tests/test_observability_phase4_trace_query_projection.py",
+                  "tests/test_observability_phase4_trace_query_route.py",
               ],
           }
 
