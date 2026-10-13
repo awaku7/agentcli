@@ -138,7 +138,7 @@ class SandboxBackend(Protocol):
         self, handle: "SandboxHandle", request: "ToolExecutionRequest"
     ) -> "SandboxExecutionHandle": ...
     def wait_execution(
-        self, execution: "SandboxExecutionHandle"
+        self, execution: "SandboxExecutionHandle", *, timeout_seconds: float
     ) -> "ToolExecutionResult": ...
     def cancel_execution(
         self, execution: "SandboxExecutionHandle", *, reason: str
@@ -147,7 +147,7 @@ class SandboxBackend(Protocol):
     def health(self, handle: "SandboxHandle") -> bool: ...
 ~~~
 
-**create → start_execution / wait_execution / cancel_execution (N 回) → terminate** が UAG の契約である。実行用 Handle は **Lease Handle とは別の opaque ID** とし、Broker が request_id と合わせて現在の実行を追跡する。wait_execution() がブロックしても、別制御 Channel から cancel_execution() を呼べなければならない。cancel_execution() はその実行と子孫プロセスの停止・後始末完了を確認できる場合だけ成功扱いにし、未完了・Timeout・Backend 未対応時は Lease 全体を停止・破棄する。単一 Worker 内の実行を選択的に止めることができない Backend は、**Stop 時に Lease を破棄する能力**として明示し、保持できるとは約束しない。Backend は以下のいずれかで実現する。
+**create → start_execution / wait_execution / cancel_execution (N 回) → terminate** が UAG の契約である。実行用 Handle は **Lease Handle とは別の opaque ID** とし、Broker が request_id と合わせて現在の実行を追跡する。wait_execution() がブロックしても、別制御 Channel から cancel_execution() を呼べなければならない。cancel_execution() はその実行と子孫プロセスの停止・後始末完了を確認できる場合だけ成功扱いにし、未完了・Timeout・Backend 未対応時は Lease 全体を停止・破棄する。**wait_execution() は Cancel/Lease 終了を含む全終了経路で規定の上限時間内に明示的な終端結果（completed / cancelled / terminated / failed / timeout）を返す**。応答しない Backend/IPC に対しては Broker が自身の待機期限を強制し、該当 Lease を隔離・使用禁止にして終了結果を呼出元へ返す。古い実行が停止したことを確証できるまで新規 Tool Call を同 Scope の Lease に通さず、ワーカーの掃除は別途追跡する。**実行待機のロックは Cancel 後も有限時間内に解除**し、結果待ちスレッドを永続的に塞がない。単一 Worker 内の実行を選択的に止めることができない Backend は、**Stop 時に Lease を破棄する能力**として明示し、保持できるとは約束しない。Backend は以下のいずれかで実現する。
 
 1. **Native stateful**: provision / start / exec / stop / deprovision に実際に対応する MXC Backend を使用。
 2. **Persistent Worker**: 1回の隔離付き spawn で専用 RPC Worker を起動し、同じ隔離されたプロセスツリー内で Tool を複数回実行。生存 Worker と作業領域を Session に紐付ける。
@@ -171,7 +171,7 @@ ABSENT -> PROVISIONING -> RUNNING -> TERMINATING -> DESTROYED
 - Scope 内の Tool Call は初期実装では直列化する。並列化は Backend の独立子プロセス制御と資源制限の実証後に検討する。
 - User による Stop は **現在の Tool/Turn** を中断する操作で、必ずしも Session の終了を意味しない。**個別 Execution Handle と別制御 Channel**から Cancel し、子孫プロセス停止と Broker/Worker 状態の整合性を確認できた場合のみ Lease を維持する。個別 Cancel 非対応・確認不可なら Lease を破棄する。セッションは引き続き有効でも、Sandbox 状態は失われうる。
 - 異常終了・安全な状態を判断できない中断時は Lease を隔離・破棄する。**状態消失を Session UI/LLM に明示し、その失敗した Tool を自動再実行しない**。次の Tool 実行に進む前に、クリーンな Sandbox への移行と作業ファイル消失の扱いを確定する。残存プロセスや未確定の外部副作用を「正常終了」と扱わない。
-- Sandbox に秘密情報の平文が入った場合は E0 の tainted lease 規則に従い **即時破棄し再利用しない**。この場合、同じ Session が生きていても安全性を優先する。
+- Sandbox に平文 Credential を注入した瞬間に Lease を **tainted / non-reusable** として確定し、他の Tool Call と Snapshot 作成を直ちに拒否する。ただし当該 Credential を必要とする **現在の操作は許可された時間内で継続**させる。操作の成功・失敗・Cancel・Timeout のいずれかで終了した時点で Credential を取り除き、当該 Lease を破棄（または検証済みの完全クリーン状態へリセット）する。**完了後の次の Tool Call より前**に破棄・検証を完了する。操作が終了しないときは Timeout で強制終了し、未回収の Lease は隔離・利用不可とする。同じ Session が生きていても秘密情報保護を優先する。
 
 ### 6.2 セッション終了の定義
 
@@ -351,7 +351,7 @@ Broker と Worker は専用 IPC を使う。Protocol はバージョン付き・
 
 - Host 側 Credential Store を丸ごとマウントせず、Host 環境変数も引き継がない。
 - 認証付き操作は、可能な限り **Broker 経由の短寿命認可**で行い、秘密の平文を Sandbox へ渡さない。
-- 平文 Credential が Sandbox へ渡された Lease は **tainted** として直ちに再利用不可、破棄・クリーン状態への再生成を必須とする。Session 維持より秘密保護を優先する。
+- 平文 Credential を Sandbox へ渡した場合は、**注入直後に tainted 状態へ遷移し、新規 Tool を禁止**する。許可された現在の操作が成功・失敗・Cancel・Timeout で終わるまでは継続可能とし、終了直後に Credential を撤去して Lease 全体を破棄する（または書込み可能な全状態とプロセスツリーが完全に消去されたことを検証）。**次の Tool Call には再利用しない**。E0 の制約と同様、長時間終了しない操作には期限を設ける。
 
 ### 結果
 
@@ -398,7 +398,7 @@ uaga --sandbox auto
 
 - **backend unavailable / timeout / crash**: Remote は Tool Call を失敗扱いにし、Host では実行しない。Local opt-in も黙って Sandbox を無効化しない。Worker が再作成されても過去のファイル・プロセス状態が復元されたと装わず、途中の Tool Call を再実行しない。
 - **lease mismatch**: Principal、Project、Room、Task、Auth/Policy Revision、Owner Generation の不一致を拒否。既存 Lease を別 Scope に割り当てない。履歴中の Session ID・Workdir・任意 Tool 出力を Trust Anchor としない。
-- **revocation**: 新規 Tool を直ちに遮断し、実行中 Tool の Execution Handle に Cancel を要求、取消完了が確認できなければ Lease 全体を強制終了し、終了後も別 Scope に再利用しない。既存 Lease の新規利用も禁止する。既に完了した外部送信・不可逆な副作用は取り消せないため、監査・補償手順を別途用意する。
+- **revocation**: 新規 Tool を直ちに遮断し、実行中 Tool の Execution Handle に Cancel を要求、取消完了が確認できなければ Lease 全体を強制終了し、終了後も別 Scope に再利用しない。既存 Lease の新規利用も禁止する。Cancel/強制終了後は呼出元の wait_execution() が有限時間内に終端結果を受け取ることを要求する。既に完了した外部送信・不可逆な副作用は取り消せないため、監査・補償手順を別途用意する。
 - **duplicate Tool / parallel turns**: Scope ごとの同時実行を制御し、各 Request ID の再送・タイムアウトで二重副作用を起こさない。
 - **host restart / orphan**: Active Lease Registry を照合し、所有者不明の実体を上限付き Cleanup で回収。Cleanup 失敗は記録・再試行し、再利用しない。
 - **cleanup failure**: Session が消えたように表示しても Sandbox 実体が残る可能性を監視可能にする。Audit/Telemetry に機密本文を載せない。
@@ -414,10 +414,10 @@ uaga --sandbox auto
 3. Web Room A/B（同じ Principal/Project でも）は異なる Lease。Socket 切断・再接続では有効な Lease を再利用する。
 4. Private Room の TTL、認可失効、Room 削除で Lease を破棄する。
 5. A2A Task A/B は、同一 Principal/Project/SessionStore でも異なる Lease を持ち、Task Cancel/完了で破棄する。単一 Bearer Token からユーザー Principal を偽造せず、Server Service Principal に紐付ける。
-6. 同時作成、重複 Call、Stop、Worker Crash、Lease Registry 再起動で二重生成・漏洩が無い。**wait_execution() 中でも別 Channel で Cancel 可能**で、成功した Cancel 後の状態再利用と、Timeout 時の Lease 強制破棄を区別する。
+6. 同時作成、重複 Call、Stop、Worker Crash、Lease Registry 再起動で二重生成・漏洩が無い。**wait_execution() 中でも別 Channel で Cancel 可能**で、成功した Cancel 後の状態再利用と、Timeout 時の Lease 強制破棄を区別する。Backend が Cancel/Terminate に応答しないケースを注入し、Broker 側の待機期限到達時に必ず終端結果を返し、直列化ロックを解放し、該当 Lease を隔離して新規 Tool を拒否する。
 7. 未分類 Tool、Capability 不足、Policy 拒否、Backend 不在時に **Host Tool Runner が一度も呼ばれない**。現行 ToolPolicy / EnterprisePolicy の allow 既定に依存した Remote の実行許可を拒否する。
 8. Local Sandbox off の CLI/GUI で既存動作に回帰が無い。
-9. 秘密を Sandbox に渡した Lease の再利用は禁止され、Workspace を含めて完全に再生成される。
+9. 平文 Credential が注入された Lease は即座に tainted となって他の Tool と Snapshot を拒否する一方、**その Credential を必要とする実行中 Tool が完了するまでは継続可能**。操作終了直後の Credential 撤去・Lease 破棄が次 Tool の前に完了することを確認する。Cancel と Timeout 時も同じ境界を守り、Workspace を含めて完全に再生成される。
 10. 監査データと Telemetry に秘密・会話本文・Tool 引数が漏れない。
 11. 認証付き Multi-user Web を localhost 経由で操作しても、公開 Web を local identity で起動しても、Remote の隔離要件を回避できない。
 12. CLI :cd / GUI Workspace / Web Project を変更した場合、前の Sandbox が新しい Host Path を読み書きできず、作業ファイルの export が競合検出と明示許可なしで Host へ反映されない。
