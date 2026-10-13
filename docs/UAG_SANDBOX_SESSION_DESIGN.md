@@ -393,6 +393,30 @@ uaga --sandbox auto
 - Local GUI/CLI の既存直接実行は Feature が有効になるまで変更しない。
 - 有効化時に Worker/Backend の自動インストールを行う場合も、管理者確認・署名/Hash 検証・配布経路の制約を必要とする。信頼できない SDK や実行ファイルを自動導入しない。
 
+### 11.1 初回セットアップと通常起動（UX）
+
+**原則は「初回だけ必要なセットアップ、以後は静かに起動」**とする。ユーザーに MXC、Backend、Lease の詳細設定を求めず、インストールとセッション内 Tool 実行の設定を分ける。
+
+| 状況 | ユーザーに見せる動作 |
+| --- | --- |
+| ローカル CLI / GUI で Sandbox が無効（既定） | 依存関係を追加せず、これまでどおり起動。初回セットアップ画面も出さない |
+| ローカルで Sandbox を初めて有効化 | OS/CPU/OSビルド・利用可能な Backend を検査。必要な依存関係と権限だけを**一度**案内し、利用者の同意を得て導入・動作確認 |
+| Sandbox 有効・導入済み | 起動時に短い Capability Probe を行い、適合すれば追加操作なしで開始。各 Tool Call では初期設定を繰り返さない |
+| 依存不足・OS非対応・導入失敗・利用者が拒否 | 不足物・理由・必要な対処を簡潔に表示。Local の Sandbox opt-in は **勝手に無隔離へ切り替えない** |
+| Remote Web / A2A の起動 | **サーバー管理者による事前セットアップ**で適合性を確認。一般のWeb利用者へインストールを求めず、強制隔離が使えなければ Remote Tool を fail closed |
+| 非対話実行 / CI / サービス | 対話プロンプトを出さず、必要な前提条件を明示して失敗。管理者が明示指定した事前導入だけを使用 |
+
+OS 別の候補と前提条件は **8節の Capability Probe と実機検証を正とする**。初期設計時点の案内例は以下とする。
+
+- **Windows 11 64-bit:** 対象 OS ビルドと ProcessContainer 利用条件を検証。要件未達は Windows Update を案内し、UAG が勝手に OS 更新・管理者権限の昇格を実行しない。MXC Adapter は検証済み配布物を優先。
+- **macOS 15+ 64-bit:** OS 標準の Seatbelt を優先。MXC Adapter のみ必要に応じて導入する。OS 非対応なら理由を表示。
+- **Linux / Raspberry Pi ARM64 64-bit:** Bubblewrap、user namespace の実効権限、MXC Adapter のアーキテクチャ適合性を検証。Ubuntu / Debian 系では `bubblewrap` 等の導入コマンドを案内可能だが、全ディストリビューションで同じインストール方式を前提にしない。
+- **32-bit OS / 32-bit ユーザーランド:** Sandbox 非対応を明示し、無隔離への暗黙フォールバックを行わない。
+
+インストールは**必要なら1回、隔離された Tool Workspace は Session ごと**という区別を明示する。Tool が Sandbox 内へ追加する Python ライブラリ等は、その Session の Workspace に保持し、ホストの Python 環境へ勝手にインストールしない。署名・Hash・信頼済み配布元を検証できない実行コンポーネントは自動導入しない。OS 更新・管理者権限が必要な操作・システムパッケージ導入は、明示同意と管理者ポリシーに従う。
+
+導入成功は単にファイルが存在することではなく、**小さな隔離実行の Probe と Cleanup の成功**で判定する。環境変更・アップデート後は再Probeし、不適合になった場合は実行前に停止する。GUIでは最小限の案内を表示し、CLIでは同じ内容をテキスト表示する。新しい恒久設定項目や初回セットアップ専用サービスは原則追加しない。
+
 ## 12. 既存 UAG 実装への組み込み箇所
 
 | 現行要素 | 変更方針 |
@@ -447,6 +471,9 @@ uaga --sandbox auto
 21. A2A の起動時、非Loopback Listen + local-trusted/sandbox-off は拒否し、Remote Profile と適切な Backend が揃うまで Host 上の Tool を実行しない。
 22. 保存済み CLI/GUI Session をアプリ再起動後にロードした際、**将来の Snapshot 対応機能において**同一 Principal/Project の永続 Session Binding と 6.5 の検証・承認を満たす `ready` Snapshot から、新しい Sandbox に保存時点の環境・ファイルを復元できる。別所有者・別 Project・別 Session の Snapshot の無断引継ぎは拒否する。
 23. 同じ保存済み CLI/GUI Session に `ready` Snapshot がある場合と無い場合の双方を検証し、6.4 と 6.5 の振り分けが一致すること、Snapshot 時点以降の未保存変更・稼働プロセスが復元されないことを確認する。
+24. Local Sandbox off の初回起動で依存導入や案内が行われない。opt-in の初回だけ同意が必要な依存を案内し、導入成功後の2回目の起動は再インストールしない。
+25. Windows / macOS / Linux / Raspberry Pi で前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。
+26. Remote Web / A2A の依存不足時、一般利用者に導入プロンプトを出さず Remote Tool を fail closed する。導入済みの場合も Probe / Cleanup の適合性なしに実行を始めない。
 
 ### OS 実機検証（導入必須）
 
