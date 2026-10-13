@@ -285,8 +285,8 @@ MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ご�
 | OS | 軽量 MXC 候補 | 永続実行の方針 | リモート高リスク用途 |
 | --- | --- | --- | --- |
 | Windows | ProcessContainer | 隔離された長寿命 Worker の可否を検証 | Hyper-V 隔離 VM/Container 等の強隔離 |
-| Linux | Bubblewrap | Persistent Worker の子プロセス・IPC・終了処理を検証 | OCI + gVisor 等 |
-| macOS | Seatbelt | Persistent Worker の子プロセス・IPC・終了処理を検証 | 標準軽量 Backend を前提にしない。互換の強隔離が無ければ拒否 |
+| Linux x86-64 / ARM64（Raspberry Pi 64-bit OS を含む） | Bubblewrap | Persistent Worker の子プロセス・IPC・終了処理を検証 | OCI + gVisor 等。ただし ARM64 上でも実際に隔離強度が満たせることを別途確認 |
+| macOS 15+（ARM64 / x86-64） | Seatbelt | Persistent Worker の子プロセス・IPC・終了処理を検証 | 標準軽量 Backend を前提にしない。互換の強隔離が無ければ拒否 |
 
 - Bubblewrap / Seatbelt は通常の spawn/one-shot 方式であり、MXC の native stateful lifecycle がそのまま利用できるわけではない。
 - ProcessContainer の利用可能 OS、AppContainer 設定、子プロセス起動能力は実際の MXC バージョンで検証する。
@@ -296,7 +296,18 @@ MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ご�
 - Windows ネイティブコマンドは Linux/macOS で使えない場合がある。API を統一しても Tool の OS 依存性は Capability で判定する。
 - macOS Seatbelt は任意 Hostname / CIDR / Port ごとの直接 Egress 許可・拒否ができない。厳密な宛先制御が必要な場合は、実際に強制可能な別 Network Broker / Backend を要求する。プロキシ設定だけを安全な Egress 強制の証拠としない。
 
-### 8.1 実装前の技術的検証ゲート
+### 8.1 Raspberry Pi と CPU アーキテクチャ
+
+UAG の共通 Broker / SessionManager は CPU/OS 非依存とする。Microsoft MXC が公表する対象は **Linux x64 / ARM64、macOS ARM64 / x64、Windows x64 / ARM64**。従って **64-bit Raspberry Pi OS または対応する ARM64 Linux ディストリビューションを稼働させる Raspberry Pi は候補**である。Linux ARM32（armv7/armhf）、旧 Raspberry Pi の ARMv6、macOS 14 以前は今回の MXC 基準で対応を保証しない。
+
+- Raspberry Pi は **`uname -m` の `aarch64` / `arm64` と 64-bit ユーザーランド**を確認する。CPU が ARM64 対応でも 32-bit OS であれば対象外。
+- Bubblewrap は Linux の user/mount/PID 等の Namespace を利用するため、`bwrap` と適切な Kernel 設定、unprivileged user namespace の実効権限を確認する。ディストリビューションのセキュリティ設定・コンテナ内実行・制限されたカーネルでは利用できない可能性がある。
+- MXC SDK / Adapter / Native Runtime の **ARM64 向けバイナリと依存関係**が導入できることを Probe で検証する。README の「Linux ARM64 対応」だけで全 Raspberry Pi 個体の動作を保証しない。
+- Raspberry Pi のメモリ・CPU・ディスク・IO に合わせて、同時 Sandbox 数と各 Lease の資源上限を設定する。1 Session 1 Lease の構造は変えないが、負荷により入場制限・容量不足エラーを返す。
+- Raspberry Pi 上での GPU / camera / GPIO / Bluetooth 等の直接パススルーは **既定で禁止**。必要なら権限を絞った専用 Device Broker と許可ポリシーを別途設計する。
+- ARM64 で強隔離 Backend が実際に有効でない場合、ローカルの opt-in Sandbox は Capability に応じて利用できても、**リモート Enterprise E0 の高リスク Tool 実行は fail closed** とする。
+
+### 8.2 実装前の技術的検証ゲート
 
 Native stateful でない MXC Backend に対し、単に spawn が成功しただけで「セッション常駐 Sandbox 対応」と判定しない。以下を検証する。
 
@@ -432,7 +443,8 @@ uaga --sandbox auto
 
 ### OS 実機検証（導入必須）
 
-- Windows (MXC ProcessContainer)、Linux (MXC Bubblewrap)、macOS (MXC Seatbelt) の各サポート対象バージョンで Probe→複数実行→Cleanup。
+- Windows x64 / ARM64 (MXC ProcessContainer)、Linux x86-64 / ARM64 (MXC Bubblewrap)、macOS 15+ ARM64 / x86-64 (MXC Seatbelt) の各サポート対象バージョンで Probe→複数実行→Cleanup。
+- **Raspberry Pi の ARM64 Linux 実機**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。ARM32 では未対応を明示し、無隔離への代替実行を禁止する。
 - Worker 内から起動した子孫プロセスが隔離ポリシーを継承すること。
 - Sandbox 外 Path、Host Credential、ネットワーク制限先、Host Broker 制御 Channel へのアクセスが拒否されること。
 - Worker 強制終了、親 Broker 再起動、OS 停止、複数 Session 同時実行による孤立リソースを回収できること。
