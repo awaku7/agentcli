@@ -52,7 +52,47 @@ def _bound_final_tool_projection(
     max_chars: int,
     original_length: int,
     external_content: bool,
+    artifact_ref: str = "",
 ) -> str:
+    if max_chars == 0:
+        return _wrap_external_content(text) if external_content else str(text)
+
+    if artifact_ref:
+        reference_line = f"artifact_ref: {artifact_ref}"
+        lines = str(text).splitlines()
+        try:
+            lines.remove(reference_line)
+        except ValueError:
+            pass
+        remainder = "\n".join(lines)
+        wrapper_overhead = (
+            len(_EXTERNAL_CONTENT_BEGIN) + len(_EXTERNAL_CONTENT_END) + 2
+            if external_content
+            else 0
+        )
+        available = max_chars - wrapper_overhead
+        if available <= len(reference_line):
+            bounded = reference_line
+        else:
+            remainder_limit = available - len(reference_line) - 1
+            truncation_marker_length = len(
+                f"\n[tool output truncated: original length={original_length}]\n"
+            )
+            if remainder_limit <= truncation_marker_length:
+                bounded_remainder = ""
+            elif len(remainder) <= remainder_limit:
+                bounded_remainder = remainder
+            else:
+                bounded_remainder = truncate_tool_result_projection(
+                    remainder,
+                    max_chars=remainder_limit,
+                    original_length=original_length,
+                )
+            bounded = reference_line
+            if bounded_remainder:
+                bounded += "\n" + bounded_remainder
+        return _wrap_external_content(bounded) if external_content else bounded
+
     if not external_content:
         return truncate_tool_result_projection(
             text, max_chars=max_chars, original_length=original_length
@@ -1062,6 +1102,7 @@ def _execute_tool_calls(
             max_chars=configured_result_limit,
             original_length=len(llm_source_text),
             external_content=external_content,
+            artifact_ref=artifact_ref,
         )
 
         auto_user_msg = _build_auto_user_message_from_next_action(

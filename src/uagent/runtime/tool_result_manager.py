@@ -135,7 +135,8 @@ class ContextResultManager:
         artifact without coupling classification to storage.
         """
         text = _stringify(value)
-        size_bytes = len(text.encode("utf-8", errors="replace"))
+        llm_source_text = text if llm_text is None else str(llm_text)
+        size_bytes = len(llm_source_text.encode("utf-8", errors="replace"))
         inline_limit = (
             self.inline_limit_chars
             if inline_limit_chars is None
@@ -146,7 +147,9 @@ class ContextResultManager:
             if preview_limit_chars is None
             else max(0, int(preview_limit_chars))
         )
-        result_class = self._classify(len(text), inline_limit_chars=inline_limit)
+        result_class = self._classify(
+            len(llm_source_text), inline_limit_chars=inline_limit
+        )
         effective_summary = str(summary or "").strip() or _derive_summary(value)
         record = ToolResultRecord(
             result_id=result_id or uuid.uuid4().hex,
@@ -167,6 +170,7 @@ class ContextResultManager:
             record,
             value,
             llm_text=llm_text,
+            original_length=len(llm_source_text),
             preview_limit_chars=preview_limit,
         )
         history_value = sanitize_binary_payload(value)
@@ -286,6 +290,7 @@ class ContextResultManager:
         value: Any,
         *,
         llm_text: str | None = None,
+        original_length: int | None = None,
         preview_limit_chars: int | None = None,
     ) -> str:
         if record.result_class == "small" and not record.artifact_ref:
@@ -299,7 +304,8 @@ class ContextResultManager:
             f"result_id: {record.result_id}",
             f"tool_name: {record.tool_name}",
             f"result_class: {record.result_class}",
-            f"original_length: {len(text)}",
+            "original_length: "
+            + str(len(text) if original_length is None else original_length),
         ]
         if record.summary:
             lines.append(f"summary: {record.summary}")

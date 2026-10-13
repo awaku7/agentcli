@@ -164,6 +164,16 @@ def test_zero_limit_still_projects_artifactized_results(tmp_path, monkeypatch) -
     assert len(tool_message["content"]) < 12_000
 
 
+def test_zero_limit_classifies_compact_json_by_actual_llm_text(monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_CHARS", "0")
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS", "100000")
+    value = "[" + ",".join("1" for _ in range(7_000)) + "]"
+
+    tool_message, _ = _run_tool(monkeypatch, value)
+
+    assert tool_message["content"] == value
+
+
 def test_responses_continuation_keeps_projected_tool_message_shape(monkeypatch) -> None:
     monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_CHARS", "12000")
     monkeypatch.setenv("UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS", "100000")
@@ -244,3 +254,36 @@ def test_artifact_registration_failure_uses_bounded_projection(monkeypatch) -> N
     assert "[tool result projected by ContextResultManager]" in tool_message["content"]
     assert "artifact_ref:" not in tool_message["content"]
     assert len(tool_message["content"]) <= 12_000
+
+
+def test_artifact_reference_survives_small_output_limit(tmp_path, monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_WORKDIR", str(tmp_path))
+    monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path / "state"))
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_CHARS", "100")
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS", "10")
+    value = json.dumps({"ok": True, "payload": "x" * 100})
+
+    tool_message, core = _run_tool(monkeypatch, value)
+
+    reference = core.recorded_tool_results[0][0]["artifact_ref"]
+    assert reference in tool_message["content"]
+    assert len(tool_message["content"]) <= 100
+
+
+def test_external_artifact_reference_survives_tiny_limit(tmp_path, monkeypatch) -> None:
+    monkeypatch.setenv("UAGENT_WORKDIR", str(tmp_path))
+    monkeypatch.setenv("UAGENT_STATE_DIR", str(tmp_path / "state"))
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_MAX_CHARS", "50")
+    monkeypatch.setenv("UAGENT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS", "10")
+    monkeypatch.setattr(
+        "uagent.llm_flow_helpers._is_external_data_tool", lambda name: True
+    )
+    value = json.dumps({"payload": "external " * 20})
+
+    tool_message, core = _run_tool(monkeypatch, value, tool_name="external_test")
+    content = tool_message["content"]
+    reference = core.recorded_tool_results[0][0]["artifact_ref"]
+
+    assert content.startswith("---BEGIN_UAGENT_EXTERNAL_CONTENT---\n")
+    assert content.endswith("\n---END_UAGENT_EXTERNAL_CONTENT---")
+    assert reference in content
