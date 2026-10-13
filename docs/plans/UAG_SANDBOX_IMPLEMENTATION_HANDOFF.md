@@ -228,7 +228,7 @@
 
 - Linux x86-64 / ARM64（64-bit Raspberry Piを含む）でMXC Bubblewrap Adapterを実装し、隔離Workerの複数Tool・IPC・Cancel・Cleanup、Kernel/User Namespace・SDKの適合性を確認する。
 - Linux上でCLI/GUIのopt-inと必要な初回導入を有効化し、未対応環境・32-bitはDenyする。Linux向けRemoteはOCI/gVisor等の**必要隔離強度を実機で確認できた場合のみ**有効化する。
-- Linux x86-64、ARM64、Raspberry Pi ARM64は**実機で確認した環境・機能だけ対応済みと表示**し、未検証構成を保証しない。
+- **PR 6の完了ゲート:** Linux x86-64、Linux ARM64、Raspberry Pi ARM64（64-bit OS）の**3対象それぞれ**で、実機のProbe・複数Tool・Cleanup・隔離違反・Cancel/Crash回収を合格させる。一つでも未検証ならPR 6全体を完了としない。途中の部分実装は実機で検証済みの構成だけ利用可能とし、未検証構成を保証しない。
 - HostのCredential・Filesystem・Network・Resource・Browser隔離、SessionManager、Owner/FencingをLinux実環境で検証。**Windows PR 1〜5の合格をLinuxの合格と取り違えない**。
 
 ### 7.2 PR 7 — macOS Backend（後日着手）
@@ -238,7 +238,7 @@
 - macOS 15+ x86-64 / ARM64のMXC Seatbelt Adapter、隔離Worker、CLI/GUIのopt-in・初回導入・Capability Probe・Cancel・Cleanupを実装する。
 - macOSで同一Session複数Tool、子孫プロセス封じ込め、Host Credential/Filesystemからの隔離とResource上限を実機で確認する。macOSのネットワーク宛先制限はSeatbeltだけで達成できると仮定しない。
 - macOSのRemote Web/A2Aは、**専用Backendで必要な隔離強度を満たせない限りDenyを維持**する。Browser/Computer UseのHost Desktop露出も禁止する。
-- 対応OS/arch/SDKと検証結果を明記。未検証構成を勝手に有効化しない。
+- **PR 7の完了ゲート:** **macOS 15+ ARM64とx86-64の両方**で、MXC Seatbelt Adapterの実機Probe・同一Session複数Tool・Cleanup・隔離違反・Cancel/Crash回収が合格していること。一方しか実機確認できない場合は、未検証の構成をSandbox非対応のままにし、**PR 7全体を完了と報告しない**。対応OS/arch/SDKと検証結果を明記する。Remote用強隔離Backendがない環境はDenyを維持する。
 
 **PR 6・PR 7はWindows版のマージ条件には含めず、後日それぞれ独立したPRで実装・検証する。** 以降の共通テスト・レビュー手順は同じく適用する。
 
@@ -270,7 +270,7 @@
 
 ### PR本文
 
-- 対象PR段階: PR N / 5
+- 対象PR段階: **PR N / 7**（PR 1〜5: Windows先行、PR 6: Linux後日、PR 7: macOS後日）。Windows先行の進捗は別途「Windows段階 N/5」と表記してよい。
 - 目的とScope: 何ができるようになったか
 - 仕様根拠: Sandbox Designの該当節、Enterprise E0の該当条件
 - 実装したこと / **実装しないこと**
