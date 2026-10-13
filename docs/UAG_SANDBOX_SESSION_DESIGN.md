@@ -134,14 +134,20 @@ class SandboxCapabilities:
 class SandboxBackend(Protocol):
     def probe(self) -> SandboxCapabilities: ...
     def create(self, spec: "SandboxSpec") -> "SandboxHandle": ...
-    def execute(
+    def start_execution(
         self, handle: "SandboxHandle", request: "ToolExecutionRequest"
+    ) -> "SandboxExecutionHandle": ...
+    def wait_execution(
+        self, execution: "SandboxExecutionHandle"
     ) -> "ToolExecutionResult": ...
+    def cancel_execution(
+        self, execution: "SandboxExecutionHandle", *, reason: str
+    ) -> "CancellationResult": ...
     def terminate(self, handle: "SandboxHandle") -> None: ...
     def health(self, handle: "SandboxHandle") -> bool: ...
 ~~~
 
-**create → execute (N 回) → terminate** が UAG の契約である。Backend はこれを以下のいずれかで実現する。
+**create → start_execution / wait_execution / cancel_execution (N 回) → terminate** が UAG の契約である。実行用 Handle は **Lease Handle とは別の opaque ID** とし、Broker が request_id と合わせて現在の実行を追跡する。wait_execution() がブロックしても、別制御 Channel から cancel_execution() を呼べなければならない。cancel_execution() はその実行と子孫プロセスの停止・後始末完了を確認できる場合だけ成功扱いにし、未完了・Timeout・Backend 未対応時は Lease 全体を停止・破棄する。単一 Worker 内の実行を選択的に止めることができない Backend は、**Stop 時に Lease を破棄する能力**として明示し、保持できるとは約束しない。Backend は以下のいずれかで実現する。
 
 1. **Native stateful**: provision / start / exec / stop / deprovision に実際に対応する MXC Backend を使用。
 2. **Persistent Worker**: 1回の隔離付き spawn で専用 RPC Worker を起動し、同じ隔離されたプロセスツリー内で Tool を複数回実行。生存 Worker と作業領域を Session に紐付ける。
@@ -163,7 +169,7 @@ ABSENT -> PROVISIONING -> RUNNING -> TERMINATING -> DESTROYED
 - RUNNING の間は同じ Lease を再利用し、作業領域や一時的な追加依存関係を保持する。
 - Scope ごとに排他的な Lease 作成を保証し、同時開始しても Sandbox が二重生成されないようにする。Scope の中には Principal ID と認可世代を含め、同一 Room の他利用者と共有しない。
 - Scope 内の Tool Call は初期実装では直列化する。並列化は Backend の独立子プロセス制御と資源制限の実証後に検討する。
-- User による Stop は **現在の Tool/Turn** を中断する操作で、必ずしも Session の終了を意味しない。Worker が健全なら Lease は維持する。
+- User による Stop は **現在の Tool/Turn** を中断する操作で、必ずしも Session の終了を意味しない。**個別 Execution Handle と別制御 Channel**から Cancel し、子孫プロセス停止と Broker/Worker 状態の整合性を確認できた場合のみ Lease を維持する。個別 Cancel 非対応・確認不可なら Lease を破棄する。セッションは引き続き有効でも、Sandbox 状態は失われうる。
 - 異常終了・安全な状態を判断できない中断時は Lease を隔離・破棄する。**状態消失を Session UI/LLM に明示し、その失敗した Tool を自動再実行しない**。次の Tool 実行に進む前に、クリーンな Sandbox への移行と作業ファイル消失の扱いを確定する。残存プロセスや未確定の外部副作用を「正常終了」と扱わない。
 - Sandbox に秘密情報の平文が入った場合は E0 の tainted lease 規則に従い **即時破棄し再利用しない**。この場合、同じ Session が生きていても安全性を優先する。
 
@@ -175,7 +181,7 @@ ABSENT -> PROVISIONING -> RUNNING -> TERMINATING -> DESTROYED
 - Session 存続中に短い idle timeout だけで安易に破棄しない。運用上の最大存続期間・メモリ上限・容量上限を超えて破棄する場合は、利用者に **状態消失** を明示し、次回 Tool Call を透過的に再実行しない。管理者が定めたハード制限は Session 存続より優先する。
 - SessionStore の「履歴保存期限」と「生存する実行 Lease」は別。履歴が残っていても Sandbox が残る保証はしない。
 - Broker 再起動後は既存 Lease を列挙し、Scope・Backend 実体・Owner・Revision を照合して安全なものだけ再接続。それ以外は回収する。**プロセス型 MXC Worker の再接続可否は未検証**であり、再起動後の継続を前提としない。
-- Multi-instance 化前は、単一 Owner と process/host fencing を前提とする。他 Node の Lease を誤って操作・再利用しない。
+- 初期単一インスタンス実装では、単一 Owner と process/host fencing を前提とする。他 Node の Lease を誤って操作・再利用しない。**複数Webインスタンス構成を単一インスタンスの実装で E0 完了とはみなさない**。複数インスタンス運用には、共有 Lease Registry、Scope ごとの原子的 Owner Claim、Owner Generation / Fencing Token、実行 Request の Owner へのルーティング、所有権の変更に伴う旧 Worker の失効・Revoke 伝播、Crash/Partition 時の Orphan Recovery が必要。これらを満たさないときは同一 Room/Scope の並列実行を拒否する。
 
 ### 6.3 永続レジストリ（秘密情報を持たない）
 
@@ -183,7 +189,26 @@ ABSENT -> PROVISIONING -> RUNNING -> TERMINATING -> DESTROYED
 
 保存禁止: API Key、OAuth Token、平文 Credential、任意の Tool 引数/本文、作業ファイルの内容、秘密を含む stdout/stderr。
 
-SQLite は初期の単一ホスト実装として使用可能。Crash 後の orphan 削除、再起動時の整合性照合、TTL と回収待ち状態を必須とする。
+SQLite は初期の単一ホスト・単一 Owner 実装として使用可能。Crash 後の orphan 削除、再起動時の整合性照合、TTL と回収待ち状態を必須とする。別 Host からの共有ストアや単一 SQLite ファイルへの同時書込みを **分散 Owner 保証と誤認しない**。共有 Owner Claim は同一 Scope に対して世代を単調に更新し、期限切れ Lease を回収しても旧 Owner からの遅延書込み・Tool 実行を Fencing Token で拒否しなければならない。
+
+### 6.4 履歴ロードと Sandbox 再接続
+
+**会話履歴の復元、Session ID の再利用、Sandbox 実体の再接続、Workspace の復元を別々の処理とする。** 保存されたメッセージに SandboxHandle、承認の再利用、稼働中プロセスの存在を示す権限を与えない。
+
+| 履歴ロード時の状態 | Sandbox 側の動作 |
+| --- | --- |
+| UAG が所有する同一 Scope の RUNNING Lease が健全に存在 | 所有者・Project・Workspace Binding・Policy Revision・Owner Generation を再照合して接続 |
+| Lease が無い、正常終了済み、CLI / GUI アプリケーション再起動後 | **新しい Sandbox を遅延生成**。作業領域は承認済み Project Revision から初期化し、過去の未公開ファイル・インストール済み依存・常駐プロセスは復元しない |
+| Lease の Crash / 期限切れ / Policy 変更 / Cancel 後の強制破棄 | 前の Lease を使用禁止にして新規生成。**状態消失と必要な環境再構築を UI/LLM に通知** |
+| 別 Principal / Project / Room / Task に履歴を取り込む | **元の Lease に絶対に接続しない**。履歴の内容も別途アクセス認可し、許可された現在 Scope の新しい Workspace を使用 |
+| Web の一時切断と同じ Room の正当な再接続 | Lease が健全なら再接続。WebSocket 接続 ID ではなく信頼済み Room + Principal Binding で判断 |
+| A2A で完了した Task の履歴・Checkpoint を参照 | Task Lease は完了時に破棄済み。新しい A2A Task は別 Scope の Sandbox を作る |
+
+- CLI の :load / :sessions load と Web の Session 切替は、**Sandbox ID を履歴からロードして無条件に再利用する操作ではない**。現行 src/uagent/util_cmd_session.py はメッセージや最後の Workdir を復元するが、その Workdir は **実行環境への信頼されたアクセス許可ではない**。Target Session の所有者・Project 境界と、現在許可される Workspace を検証する。異なる場合は Load を拒否するか、既存権限の範囲へ安全に読み替える。
+- 再接続できなかったときは自動で以前の Tool Call を再実行しない（削除、メール送信、Git Push 等の副作用を重複させない）。保存した会話の「成功した」という記録は過去の結果であり、現在の Sandbox の実行状態ではない。
+- 新規 Sandbox に復元するのは **明示的に Export/Commit 済みの Workspace 内容**のみ。中断前の未公開ファイル・仮想環境・依存ライブラリ・プロセス・ブラウザ Cookie・Port Forward は自動復元しない。
+- 将来的な環境 Snapshot / Checkpoint は別機能として設計する。Scope、Ownership、Policy Revision、Artifact 完全性、Secret 混入、Malware 検査に合格した Snapshot のみ復元を許可し、履歴テキストから Snapshot を選択できない。**初期実装は Snapshot 無し**。
+- 履歴ロードで Sandbox が切り替わるときは現在の Execution が終了・取消済みであることを確認し、旧 Lease を勝手に破棄しない（他の生存 Session が正当に保有している場合を含む）。異なる Workspace/Scope に混在した実行中状態を作らない。
 
 ## 7. Tool 実行分類と権限
 
@@ -334,8 +359,8 @@ uaga --sandbox auto
 ## 13. 異常系・競合・監査
 
 - **backend unavailable / timeout / crash**: Remote は Tool Call を失敗扱いにし、Host では実行しない。Local opt-in も黙って Sandbox を無効化しない。Worker が再作成されても過去のファイル・プロセス状態が復元されたと装わず、途中の Tool Call を再実行しない。
-- **lease mismatch**: Principal、Project、Room、Task、Auth/Policy Revision、Owner Generation の不一致を拒否。既存 Lease を別 Scope に割り当てない。
-- **revocation**: 新規 Tool を直ちに遮断し、実行中 Tool と既存 Lease の取消・終了を行う。ただし既に完了した外部送信・不可逆な副作用は取り消せないため、監査・補償手順を別途用意する。
+- **lease mismatch**: Principal、Project、Room、Task、Auth/Policy Revision、Owner Generation の不一致を拒否。既存 Lease を別 Scope に割り当てない。履歴中の Session ID・Workdir・任意 Tool 出力を Trust Anchor としない。
+- **revocation**: 新規 Tool を直ちに遮断し、実行中 Tool の Execution Handle に Cancel を要求、取消完了が確認できなければ Lease 全体を強制終了し、終了後も別 Scope に再利用しない。既存 Lease の新規利用も禁止する。既に完了した外部送信・不可逆な副作用は取り消せないため、監査・補償手順を別途用意する。
 - **duplicate Tool / parallel turns**: Scope ごとの同時実行を制御し、各 Request ID の再送・タイムアウトで二重副作用を起こさない。
 - **host restart / orphan**: Active Lease Registry を照合し、所有者不明の実体を上限付き Cleanup で回収。Cleanup 失敗は記録・再試行し、再利用しない。
 - **cleanup failure**: Session が消えたように表示しても Sandbox 実体が残る可能性を監視可能にする。Audit/Telemetry に機密本文を載せない。
@@ -351,7 +376,7 @@ uaga --sandbox auto
 3. Web Room A/B（同じ Principal/Project でも）は異なる Lease。Socket 切断・再接続では有効な Lease を再利用する。
 4. Private Room の TTL、認可失効、Room 削除で Lease を破棄する。
 5. A2A Task A/B は、同一 Principal/Project/SessionStore でも異なる Lease を持ち、Task Cancel/完了で破棄する。単一 Bearer Token からユーザー Principal を偽造せず、Server Service Principal に紐付ける。
-6. 同時作成、重複 Call、Stop、Worker Crash、Lease Registry 再起動で二重生成・漏洩が無い。
+6. 同時作成、重複 Call、Stop、Worker Crash、Lease Registry 再起動で二重生成・漏洩が無い。**wait_execution() 中でも別 Channel で Cancel 可能**で、成功した Cancel 後の状態再利用と、Timeout 時の Lease 強制破棄を区別する。
 7. 未分類 Tool、Capability 不足、Policy 拒否、Backend 不在時に **Host Tool Runner が一度も呼ばれない**。現行 ToolPolicy / EnterprisePolicy の allow 既定に依存した Remote の実行許可を拒否する。
 8. Local Sandbox off の CLI/GUI で既存動作に回帰が無い。
 9. 秘密を Sandbox に渡した Lease の再利用は禁止され、Workspace を含めて完全に再生成される。
@@ -361,6 +386,9 @@ uaga --sandbox auto
 13. Worker の Session 中クラッシュと再起動では状態消失を利用者へ通知し、以前の Tool を自動再実行しない。
 14. 未隔離 Helper 直接呼出し、MCP / Plugin 内部 subprocess、Sub-Agent の越境を拒否し、Host-pure への Remote 第4経路がない。
 15. macOS Seatbelt の宛先絞り込み不能など Backend ごとの Capability 不足で、静かに Network Policy を弱めない。
+16. :load / :sessions load / GUI 履歴復帰 / Web 再接続で、健全な同一 Scope の Lease だけが再利用され、アプリ再起動や Crash 後は **状態消失を通知し、過去の Tool を再実行しない**。
+17. Saved Session の Workdir 指定だけでは別 Project/Workspace の Host File にアクセスできない。Sandbox 新規生成では承認済み Export/Commit 内容以外は自動復元しない。
+18. 2つの Web インスタンスが同一 Room/Principal/Project を同時に取得しようとした場合、単一原子的 Claim・Fencing Token・Owner ルーティングが無ければ拒否し、競合 Lease を作らない。
 
 ### OS 実機検証（導入必須）
 
@@ -380,7 +408,8 @@ uaga --sandbox auto
 | PR 1: Broker / Policy | ExecutionClass、Broker、明示 SecurityProfile、Web 全入口と A2A Service Principal/Task ID Binding を含む remote ingress の fail-closed routing、Mock Backend 契約テスト | Remote で Host 直接実行へ迂回できない。Backend 未対応なら Remote Tool 不許可 |
 | PR 2: MXC local PoC | Windows / Linux / macOS の MXC Adapter、常駐 Worker の可否判定、CLI/GUI opt-in | 同一 Session 複数 Tool が再利用され、停止時に破棄 |
 | PR 3: SessionManager 統合 | Web Room・A2A Task と Lease の Binding/Recovery/Cleanup | Room 再接続、Task 終了、Crash、異なる Principal を検証 |
-| PR 4: Production Isolation | リモート用の強隔離 Backend、Network/Filesystem/Resource Policy、実環境検証 | Enterprise E0 の受け入れ条件を満たす |
+| PR 4: Production Isolation (single instance) | リモート用の強隔離 Backend、Network/Filesystem/Resource Policy、単一インスタンスでの実環境検証 | **単一インスタンス構成に限定した** E0 隔離の受け入れ条件を満たす。Enterprise 全体の完了は主張しない |
+| PR 5: Multi-instance ownership | 共有 Lease Registry、原子的 Owner Claim、世代/Fencing Token、Owner ルーティング、他 Node への Revoke 伝播と Crash/Partition 回収 | 複数 Node で同一 Scope の Lease を二重作成せず、管理者失効を全 Node で強制。Enterprise 完了判定は E1-E5 等の既存ゲートにも従う |
 
 既存 [Enterprise E0 Delivery Plan](UAG_ENTERPRISE_PLATFORM_DESIGN.md#16-delivery-plan) の置換ではなく、**Session 維持と全 Host 共通化の具体化**である。実装順・PR の統合は差分規模と実機検証の結果で調整し、機能追加を無制限に混ぜない。
 
@@ -388,7 +417,7 @@ uaga --sandbox auto
 
 - 各 MXC Backend で長寿命 Worker の子孫プロセスが確実に隔離・強制終了できるか。
 - 現行 CLI/GUI における Session の終了通知・会話削除イベントにどこまで連携できるか。
-- ファイルの永続保持を、Sandbox 破棄と別の Project Workspace export として許可する範囲。
+- ファイルの永続保持を、Sandbox 破棄と別の Project Workspace export として許可する範囲。履歴ロード時は Export 済み Project ファイルのみを初期再投影し、**Sandbox 内プロセス Snapshot は初期実装で復元しない**。
 - Web 同一 Room の共有メンバー交代に対する Lease ローテーションと公開済み成果物の可視性。
 - A2A の複数 Task を一つの上位会話にまとめるユースケースを将来許可する場合の明示的な Shared Scope 設計。
 - Backend ごとの IsolationLevel 判定を、どの OS/API/テスト結果で「適合」と認定するか。
