@@ -132,7 +132,7 @@ class SandboxCapabilities:
 
 
 class SandboxBackend(Protocol):
-    def probe(self) -> SandboxCapabilities: ...
+    def probe(self, *, timeout_seconds: float) -> SandboxCapabilities: ...
     def create(self, spec: "SandboxSpec") -> "SandboxHandle": ...
     def start_execution(
         self, handle: "SandboxHandle", request: "ToolExecutionRequest"
@@ -152,6 +152,8 @@ class SandboxBackend(Protocol):
 1. **Native stateful**: provision / start / exec / stop / deprovision に実際に対応する MXC Backend を使用。
 2. **Persistent Worker**: 1回の隔離付き spawn で専用 RPC Worker を起動し、同じ隔離されたプロセスツリー内で Tool を複数回実行。生存 Worker と作業領域を Session に紐付ける。
 3. 上記のいずれも、安全なプロセス生成・子プロセス封じ込め・終了処理を検証できない場合は **unsupported**。ホスト直接実行にフォールバックしない。
+
+**Capability Probe は有界の起動前検証**とする。ExecutionBroker は起動時の `probe(timeout_seconds=...)` に対して **単調時計による実時間の締切（通常起動の既定 15 秒）**を強制する。Adapter 側への Timeout 指示だけには依存せず、Probe が固着した場合にも Broker 側が期限内に失敗を確定できるよう **停止可能な独立 Helper Process**で実行する。Timeout・子プロセス異常・無応答では `probe_timeout` / `probe_failed` を記録し、Helper と子孫プロセスを期限付きで回収（回収できなければ隔離・監査）する。未完了の Probe は Capability 合格としてキャッシュせず、新しい Tool Call に使用しない。**Local Sandbox opt-in は明示的なエラー、Remote Web/A2A は fail closed** にする。通常起動の上限は共通の内部定数とし、Backend ごとの新規 CLI 引数・環境変数を増やさない。初回の依存導入・隔離実行の検証は通常起動の短時間 Probe と別操作にし、同じ無限待機を許さない。
 
 SandboxHandle は外部への公開 ID ではない。Capability は実際の Backend/OS/Version/Policy で検証し、宣言だけでは利用許可しない。SandboxManager は Backend オブジェクトではなく Host 側の記録から所有 Scope を照合する。
 
@@ -401,7 +403,7 @@ uaga --sandbox auto
 | --- | --- |
 | ローカル CLI / GUI で Sandbox が無効（既定） | 依存関係を追加せず、これまでどおり起動。初回セットアップ画面も出さない |
 | ローカルで Sandbox を初めて有効化 | OS/CPU/OSビルド・利用可能な Backend を検査。必要な依存関係と権限だけを**一度**案内し、利用者の同意を得て導入・動作確認 |
-| Sandbox 有効・導入済み | 起動時に短い Capability Probe を行い、適合すれば追加操作なしで開始。各 Tool Call では初期設定を繰り返さない |
+| Sandbox 有効・導入済み | 起動時に **Broker が制限時間（既定15秒）を強制する Capability Probe** を行い、適合すれば追加操作なしで開始。Timeout/無応答なら Local は明示的なエラー、Remote は Tool 実行を拒否。各 Tool Call では初期設定を繰り返さない |
 | 依存不足・OS非対応・導入失敗・利用者が拒否 | 不足物・理由・必要な対処を簡潔に表示。Local の Sandbox opt-in は **勝手に無隔離へ切り替えない** |
 | Remote Web / A2A の起動 | **サーバー管理者による事前セットアップ**で適合性を確認。一般のWeb利用者へインストールを求めず、強制隔離が使えなければ Remote Tool を fail closed |
 | 非対話実行 / CI / サービス | 対話プロンプトを出さず、必要な前提条件を明示して失敗。管理者が明示指定した事前導入だけを使用 |
@@ -415,7 +417,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 
 インストールは**必要なら1回、隔離された Tool Workspace は Session ごと**という区別を明示する。Tool が Sandbox 内へ追加する Python ライブラリ等は、その Session の Workspace に保持し、ホストの Python 環境へ勝手にインストールしない。署名・Hash・信頼済み配布元を検証できない実行コンポーネントは自動導入しない。OS 更新・管理者権限が必要な操作・システムパッケージ導入は、明示同意と管理者ポリシーに従う。
 
-導入成功は単にファイルが存在することではなく、**小さな隔離実行の Probe と Cleanup の成功**で判定する。環境変更・アップデート後は再Probeし、不適合になった場合は実行前に停止する。GUIでは最小限の案内を表示し、CLIでは同じ内容をテキスト表示する。新しい恒久設定項目や初回セットアップ専用サービスは原則追加しない。
+導入成功は単にファイルが存在することではなく、**小さな隔離実行の Probe と Cleanup の成功**で判定する。通常起動の Probe は短い締切付きの軽量チェックとし、初回導入直後の実行確認は別途、有限の制限時間を設けて実施する。環境変更・アップデート後は再Probeし、Timeout を含め不適合になった場合は実行前に停止する。GUIでは最小限の案内を表示し、CLIでは同じ内容をテキスト表示する。新しい恒久設定項目や初回セットアップ専用サービスは原則追加しない。
 
 ## 12. 既存 UAG 実装への組み込み箇所
 
@@ -474,6 +476,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 24. Local Sandbox off の初回起動で依存導入や案内が行われない。opt-in の初回だけ同意が必要な依存を案内し、導入成功後の2回目の起動は再インストールしない。
 25. Windows / macOS / Linux / Raspberry Pi で前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。
 26. Remote Web / A2A の依存不足時、一般利用者に導入プロンプトを出さず Remote Tool を fail closed する。導入済みの場合も Probe / Cleanup の適合性なしに実行を始めない。
+27. `probe()` が永久ブロック・無応答・異常終了する Mock Backend を用い、**Broker が既定15秒以内に `probe_timeout` などの確定失敗を返す**ことを検証する。Local Sandbox opt-in は起動エラー、Remote Web/A2A は fail closed、旧/固着した Helper は回収または隔離され、次回の Probe や Tool Call に使われない。Sandbox off の Local CLI/GUI では Probe 自体を呼ばない。
 
 ### OS 実機検証（導入必須）
 
