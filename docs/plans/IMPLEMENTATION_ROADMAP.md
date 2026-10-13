@@ -51,14 +51,14 @@
 - Project membership、Room-to-Project binding、Room policy
 - verified Entra group claimのpolicy inputと、delegated Graph scopeによるlogin-time group overage解決
 - membership-approved project selectionをprincipal/configuration/expiryへ結び付けるnon-OIDC ProjectContext
+- non-OIDCで固定/OIDC/選択済みbindingがない場合、trusted workspaceから既定Projectを導出し、membership確認後だけ利用するProjectContext fallback
 - directory-derived roleのauthoritative reconciliation（manual membership保護とadmin→viewer downgradeを含む）
 - safe authentication status / configuration invalidation
 - legacy `/api/memories` / `/api/profile` のlocal-mode制限
 - Web Memory APIのrequest境界cleanupとauthorization failure時のSQLite store回収
 
-### 残作業（main `68083fb3` の再照合）
+### 残作業（workspace-derived ProjectContext統合後）
 
-1. 必要なdeployment向けに、non-OIDC ProjectContextの既定値を認証済みworkspaceから自動導出するintegrationを追加する（membership検証は常に必須）。
 1. Entra groupのlogin後のfreshness/revocationと、Entra以外のtrusted Directory API adapterを設計する。
 1. multi-instance / HAを行う前にdurable OIDC session設計を決める。
 1. Trusted Proxy / Windows IWA / OAuth / External adapterを実環境trust boundaryで検証する。

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Derive a membership-checked default ProjectContext from the trusted workspace for authenticated non-OIDC Web requests when no project binding is present.
+
 ## [0.7.30] - 2026-10-13
 
 ### Added

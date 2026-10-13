@@ -951,7 +951,7 @@ class ProjectContext:
 
 実装箇所は `src/uagent/auth/oidc_sessions.py` と `src/uagent/web_impl/routes_api.py`。sessionのproject bindingも期限・authentication configuration fingerprintによる失効対象であり、process-local storeの再起動を越えて永続化しない。WebSocketのprojectは `src/uagent/web_impl/connection_identity.py` でserver側project pathからTurnContextへ導出する。HTTP sessionでの選択が接続済みWebSocketのworkspaceを自動変更する仕様ではない。
 
-Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-projectでは利用者がmembership確認済みprojectを選び、server-side ProjectContext cookieへbindできる。一方、認証済みworkspaceから既定projectを自動導出するdeployment mappingは未実装である。
+Room-to-project bindingはSQLiteで保持し、HTTP / Memory Projectionで検証する。non-OIDC / multi-projectでは利用者がmembership確認済みprojectを選び、server-side ProjectContext cookieへbindできる。加えて、固定project・OIDC session・選択済みcookieがないnon-OIDC requestでは、`resolve_server_workspace_project()` がcaptured startup workdir（startup時にconfigured `UAGENT_WORKDIR`を適用）から既定値を導出する（request-time CWDは使わない）。`GET /api/me/projects`はviewer membership確認後に既定値を`bound_project`として報告するだけで、ProjectContext sessionやcookieを作成しない。永続的なbindingは明示的な`POST /api/project-context`、またはmembership再確認後の`POST /api/me/private-room`で試みる。ProjectContextの容量上限に達しても、認可済みPrivate Roomのserver-side bindingは保持される。未認可のworkspace候補は採用せず、候補project一覧から明示選択を要求する。browser/model requestからworkspaceやprojectを上書きできない。
 
 認可順序は次で固定する。
 
@@ -1608,13 +1608,10 @@ V2 Memory Projectionはすでにdefault ONである。v3で判断するのは、
 
 認証方式ごとに同じ Memory isolation gate を通す。
 
-### 28.1 残るroadmap（main `6f848f20` 時点）
+### 28.1 残るroadmap（v0.7.30 baseline と workspace-default ProjectContext follow-up）
 
-以下はmain `6f848f2069cc9e9365d3a56d6dbb6419dbd1becc` を対象にした課題であり、0.1〜0.4の古い残作業一覧ではない。後続PRの変更はmainへmergeされるまでは完了扱いしない。
+以下は歴史的な `6f848f20` 再照合後のfollow-up状態を含む。Private Web room idle cleanupとstreamed Entra Graph response-byte boundは後続mainで実装済み。workspace-derived non-OIDC ProjectContextはこの実装で追加し、membership未確認時のfallbackは行わない。
 
-- **Private Web room lifecycle**: mainではprivate roomとsessionを発行するが、WebManager room、private-room DB binding、room-scoped Memoryとsession historyをidle TTLでevict / cleanupする処理がない。active WebSocket、worker / streaming、human_ask、reconnectを保護するretention lifecycleを追加する。
-- **Graph response memory bound**: Graph APIはHTTPS / host / pagination等を制限するが、現mainはresponse bodyを全受信してから1 MB上限を検査する。streaming中に上限を適用し、oversized / malformed bodyをfail-closedにする。
-- **Workspace-derived ProjectContext（部分対応）**: non-OIDCでは、認可済みproject selectionをprincipal・authentication configuration・期限に結び付けたserver-side SQLite contextとして保持する。deployment workspaceから既定projectを自動導出するmappingは未実装で、選択時・各operationのmembership確認は必須。
 - **Directory membership freshness（部分対応）**: Entra OIDC group overageは明示設定したGraph scopeとtenant consentの下でlogin時に解決する。session中のgroup membership live refresh / 即時取消反映と、Entra以外のDirectory API adapterは未実装。
 - **OIDC session durability / enterprise integration**: multi-instance / HAの前にdurable session semanticsを定義する。Trusted Proxy / Windows IWA / OAuth / Externalはdeployment固有のverified adapterと実際のtrust boundaryで検証する。
 - **Evaluation / rollout**: regression suite、各deploymentのisolation / revocation gate、migration、single-user regression、認証方式別のproduction testを完了し、multi-user / shared-roomのdefault化を判断する。既存V2 local defaultは維持する。

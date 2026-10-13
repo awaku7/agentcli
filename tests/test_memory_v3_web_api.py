@@ -524,6 +524,188 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
     )
 
 
+def test_non_oidc_workspace_project_is_default_when_membership_allows(
+    tmp_path, monkeypatch
+):
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    workspace = tmp_path / "trusted-workspace"
+    workspace.mkdir()
+    from uagent.runtime import runtime_workdir
+
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
+    )
+    monkeypatch.setenv("UAGENT_WORKDIR", ".")
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.set_membership("root", "trusted-workspace", "alice", "viewer")
+    policy.set_membership("root", "alternative", "alice", "viewer")
+    store.close()
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
+
+    listed = client.get("/api/me/projects")
+    assert listed.status_code == 200
+    assert listed.json()["bound_project"] == "trusted-workspace"
+    assert "uag_project_context=" not in listed.headers.get("set-cookie", "")
+    for _ in range(3):
+        assert (
+            client.get("/api/me/projects").json()["bound_project"]
+            == "trusted-workspace"
+        )
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    assert (
+        store.db.execute("SELECT COUNT(*) FROM project_context_sessions").fetchone()[0]
+        == 0
+    )
+    store.close()
+    created = client.post("/api/me/private-room")
+
+    assert created.status_code == 200, created.json()
+    assert created.json()["project_id"] == "trusted-workspace"
+    assert "uag_project_context=" in created.headers["set-cookie"]
+
+    other = tmp_path / "other-room"
+    other.mkdir()
+    monkeypatch.chdir(other)
+    direct = TestClient(app, headers={"Origin": "https://uag.example"}).post(
+        "/api/me/private-room"
+    )
+    assert direct.status_code == 200, direct.json()
+    assert direct.json()["project_id"] == "trusted-workspace"
+    direct_room = routes_api.web_manager.get_room(direct.json()["room_id"])
+    cookie_room = routes_api.web_manager.get_room(created.json()["room_id"])
+    assert direct_room.base_dir == str(workspace)
+    assert cookie_room.base_dir == str(workspace)
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.revoke_membership("root", "trusted-workspace", "alice")
+    store.close()
+    revoked = client.get("/api/me/projects")
+    assert revoked.status_code == 200
+    assert revoked.json()["projects"] == ["alternative"]
+    assert revoked.json()["bound_project"] == ""
+    assert "uag_project_context=" in revoked.headers["set-cookie"]
+    assert "Max-Age=0" in revoked.headers["set-cookie"]
+    selected = client.post("/api/project-context", json={"project_id": "alternative"})
+    assert selected.status_code == 200
+    assert client.get("/api/me/projects").json()["bound_project"] == "alternative"
+
+
+def test_workspace_project_listing_survives_full_context_store(tmp_path, monkeypatch):
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+    from uagent.runtime.project_context import ProjectContextStore
+    from uagent.runtime import runtime_workdir
+
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    monkeypatch.setenv("UAGENT_PROJECT_CONTEXT_MAX", "1")
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    workspace = tmp_path / "trusted-workspace"
+    workspace.mkdir()
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
+    )
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    try:
+        ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+            "root", "trusted-workspace", "alice", "viewer"
+        )
+        ProjectContextStore(store).bind(
+            "", IdentityContext("bob", True, "trusted_proxy"), "trusted-workspace"
+        )
+    finally:
+        store.close()
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
+    response = client.get("/api/me/projects")
+
+    assert response.status_code == 200
+    assert response.json()["projects"] == ["trusted-workspace"]
+    assert response.json()["bound_project"] == "trusted-workspace"
+    assert "uag_project_context=" not in response.headers.get("set-cookie", "")
+    for _ in range(3):
+        assert client.get("/api/me/projects").status_code == 200
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    try:
+        count = store.db.execute(
+            "SELECT COUNT(*) FROM project_context_sessions"
+        ).fetchone()[0]
+        assert count == 1
+    finally:
+        store.close()
+
+    created = client.post("/api/me/private-room")
+    assert created.status_code == 200, created.json()
+    assert created.json()["project_id"] == "trusted-workspace"
+    assert "uag_project_context=" not in created.headers.get("set-cookie", "")
+
+
+def test_non_oidc_workspace_default_requires_membership_and_allows_explicit_selection(
+    tmp_path, monkeypatch
+):
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    workspace = tmp_path / "unassigned-workspace"
+    workspace.mkdir()
+    from uagent.runtime import runtime_workdir
+
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
+    )
+    monkeypatch.setenv("UAGENT_WORKDIR", str(workspace))
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "assigned-project", "alice", "viewer"
+    )
+    store.close()
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
+
+    projects = client.get("/api/me/projects")
+    assert projects.status_code == 200
+    assert projects.json()["projects"] == ["assigned-project"]
+    assert projects.json()["bound_project"] == ""
+    assert "uag_project_context=" not in projects.headers.get("set-cookie", "")
+    assert client.post("/api/me/private-room").status_code == 403
+
+    selected = client.post(
+        "/api/project-context", json={"project_id": "assigned-project"}
+    )
+    assert selected.status_code == 200
+    created = client.post("/api/me/private-room")
+    assert created.status_code == 200, created.json()
+    assert created.json()["project_id"] == "assigned-project"
+
+
 def test_denied_private_room_request_does_not_allocate_a_web_room(
     tmp_path, monkeypatch
 ):

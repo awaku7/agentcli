@@ -21,6 +21,11 @@ def get_startup_workdir() -> str:
     return _STARTUP_WORKDIR or os.getcwd()
 
 
+def get_captured_startup_workdir() -> str:
+    """Return the initialized startup workdir without a mutable-CWD fallback."""
+    return _STARTUP_WORKDIR or ""
+
+
 def decide_workdir(
     *, cli_workdir: Optional[str] = None, env_workdir: Optional[str] = None
 ) -> WorkdirDecision:
@@ -62,4 +67,4 @@ def apply_workdir(decision: WorkdirDecision) -> None:
     os.makedirs(decision.chosen_expanded, exist_ok=True)
     os.chdir(decision.chosen_expanded)
     if _STARTUP_WORKDIR is None:
-        _STARTUP_WORKDIR = decision.chosen_expanded
+        _STARTUP_WORKDIR = os.path.realpath(os.getcwd())

@@ -51,6 +51,15 @@ def _request_identity(request: Request):
     return identity
 
 
+def _workspace_default_project(identity) -> str:
+    """Resolve a non-OIDC default only from the trusted server workspace."""
+    if identity.authn_kind in {"local", "oidc"}:
+        return ""
+    from ..runtime.memory_scope import resolve_server_workspace_project
+
+    return resolve_server_workspace_project()
+
+
 def _project_context_project(identity, request: Request, store=None) -> str:
     token = str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "").strip()
     if not token or identity.authn_kind in {"local", "oidc"}:
@@ -73,6 +82,8 @@ def _project_id(value: str, request: Request | None = None) -> str:
         if not bound:
             identity = _request_identity(request)
             bound = _project_context_project(identity, request)
+            if not bound:
+                bound = _workspace_default_project(identity)
     if not bound:
         raise MemoryAccessError("server project binding is required")
     if not project:
@@ -439,16 +450,25 @@ async def create_my_private_room(request: Request):
         )
         project_context = _project_context_project(identity, request)
         bound_project = configured_project or oidc_project or project_context or ""
+        if not bound_project and not requested_project:
+            bound_project = _workspace_default_project(identity)
 
         room_id = uuid4().hex
+        from ..runtime.runtime_workdir import get_captured_startup_workdir
         from ..runtime.runtime_workdir import get_startup_workdir
 
-        startup_workdir = str(env_get("UAGENT_WORKDIR", "") or get_startup_workdir())
-        room_base_dir = (
-            os.path.abspath(startup_workdir)
-            if startup_workdir and os.path.isdir(startup_workdir)
-            else os.getcwd()
-        )
+        captured_workdir = get_captured_startup_workdir()
+        if identity.authn_kind != "local" and captured_workdir:
+            room_base_dir = captured_workdir
+        else:
+            startup_workdir = str(
+                env_get("UAGENT_WORKDIR", "") or get_startup_workdir()
+            )
+            room_base_dir = (
+                os.path.abspath(startup_workdir)
+                if startup_workdir and os.path.isdir(startup_workdir)
+                else os.getcwd()
+            )
         if identity.authn_kind == "local":
             project_id = bound_project or project_id_from_path(room_base_dir)
         elif bound_project:
@@ -501,14 +521,18 @@ async def create_my_private_room(request: Request):
                     and not configured_project
                     and not oidc_project
                 ):
-                    (
-                        project_context_token,
-                        project_context_max_age,
-                    ) = ProjectContextStore(store).bind(
-                        str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
-                        identity,
-                        project_id,
-                    )
+                    try:
+                        (
+                            project_context_token,
+                            project_context_max_age,
+                        ) = ProjectContextStore(store).bind(
+                            str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
+                            identity,
+                            project_id,
+                        )
+                    except RuntimeError as exc:
+                        if str(exc) != "project context session capacity reached":
+                            raise
             RoomAccessPolicy(store).create_private_room(
                 identity.principal_id,
                 room_id,
@@ -764,7 +788,29 @@ async def get_my_projects(request: Request):
                     "projects": [configured],
                     "bound_project": configured,
                 }
-            bound = oidc_bound or _project_context_project(identity, request, store)
+            context_bound = _project_context_project(identity, request, store)
+            bound = oidc_bound or context_bound
+            revoked_context = False
+            if (
+                context_bound
+                and not oidc_bound
+                and not policy.can_access(
+                    identity.principal_id, context_bound, "viewer"
+                )
+            ):
+                ProjectContextStore(store).revoke(
+                    str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "")
+                )
+                bound = ""
+                revoked_context = True
+            if not bound:
+                candidate = _workspace_default_project(identity)
+                if candidate and policy.can_access(
+                    identity.principal_id, candidate, "viewer"
+                ):
+                    # A listing must not allocate a browser session: clients
+                    # without cookie persistence may request it repeatedly.
+                    bound = candidate
             if bound:
                 policy.require_access(identity.principal_id, bound, "viewer")
             if policy.is_global_admin(identity.principal_id):
@@ -780,11 +826,16 @@ async def get_my_projects(request: Request):
                     "ORDER BY p.project_id",
                     (identity.principal_id,),
                 ).fetchall()
-            return {
+            payload = {
                 "ok": True,
                 "projects": [str(row["project_id"]) for row in rows],
                 "bound_project": bound,
             }
+            if revoked_context:
+                response = JSONResponse(payload)
+                response.delete_cookie(PROJECT_CONTEXT_COOKIE, path="/")
+                return response
+            return payload
         finally:
             store.close()
     except Exception as exc:
