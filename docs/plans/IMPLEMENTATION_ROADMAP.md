@@ -19,6 +19,7 @@
 - Status: planned（Enterprise E0の実装・受け入れ検証が未完了）
 - Priority: P0（認証付きmulti-user Web / 外部公開A2Aでtool実行を許可する前の必須条件）
 - Source: [Enterprise Platform Design — Phase E0](../UAG_ENTERPRISE_PLATFORM_DESIGN.md)
+- Session-scoped, cross-platform sandbox detail: [UAG Sandbox Session Design](../UAG_SANDBOX_SESSION_DESIGN.md)
 
 ### 必須の実装境界
 
