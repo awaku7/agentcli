@@ -21,10 +21,27 @@ def test_server_workspace_project_uses_captured_workdir_not_mutable_env(
     monkeypatch.setenv("UAGENT_WORKDIR", str(configured))
     assert memory_scope.resolve_server_workspace_project() == "captured-workspace"
 
-    monkeypatch.setattr(
-        runtime_workdir, "get_captured_startup_workdir", lambda: ""
-    )
+    monkeypatch.setattr(runtime_workdir, "get_captured_startup_workdir", lambda: "")
     assert memory_scope.resolve_server_workspace_project() == ""
+
+
+def test_apply_workdir_captures_canonical_workspace_for_relative_paths(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_scope, runtime_workdir
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "nested").mkdir()
+    for relative in (".", "nested/.."):
+        monkeypatch.setattr(runtime_workdir, "_STARTUP_WORKDIR", None)
+        runtime_workdir.apply_workdir(runtime_workdir.decide_workdir(env_workdir=relative))
+        assert runtime_workdir.get_captured_startup_workdir() == str(tmp_path.resolve())
+        assert memory_scope.resolve_server_workspace_project() == tmp_path.name
+
+    other = tmp_path / "other"
+    other.mkdir()
+    monkeypatch.chdir(other)
+    assert memory_scope.resolve_server_workspace_project() == tmp_path.name
 
 
 def test_new_personal_records_store_owner_and_project(

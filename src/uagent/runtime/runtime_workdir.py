@@ -67,4 +67,4 @@ def apply_workdir(decision: WorkdirDecision) -> None:
     os.makedirs(decision.chosen_expanded, exist_ok=True)
     os.chdir(decision.chosen_expanded)
     if _STARTUP_WORKDIR is None:
-        _STARTUP_WORKDIR = decision.chosen_expanded
+        _STARTUP_WORKDIR = os.path.realpath(os.getcwd())
