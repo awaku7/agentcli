@@ -391,7 +391,7 @@ uaga --sandbox auto          # A2A remote toolsには適合Backendが必要
 ~~~
 
 - 新規設定は可能な限り単一の共通引数にまとめ、Backend 固有の細かなオプションを環境変数として大量追加しない。
-- **Remote WebはSandboxの既定値をoffにしても、Remote Tool実行の許可はoffにしない。** offでは一般Toolを無効化/拒否し、必要ならTool対応のRemote Webとしての起動を拒否する。**管理者が明示的に `--sandbox auto` 等でONにしても、実効SecurityProfileが要求する強隔離Backendが使用可能・健全でなければ拒否する。** WebサービスをToolなしチャットとして提供できる場合のみ、Remote offでのToolなし利用を許す。Remote A2Aでは従来どおりSandboxを要求し、offでTool対応サーバーを公開しない。隔離対象は [Enterprise E0](UAG_ENTERPRISE_PLATFORM_DESIGN.md#31-enterprise-phase-e0-remote-execution-isolation) に従い、認証付きMulti-user Web（イントラネットを含む）、外部公開Web/WebSocket、ツールを使うRemote A2A。**SecurityProfileは起動時に信頼できる管理設定として確定**し、RequestのIP・Host header・ブラウザ指定値から弱いProfileを選ばない。**A2Aは起動時にBind Addressを検証し、`0.0.0.0` / `::` / 非LoopbackへListenする場合はRemote Profileを強制するか起動拒否する。**
+- **Remote WebのSandbox既定値をoffにしても、Remote Toolに対する強制隔離要件は緩めない。** offでは一般Toolを無効化/拒否し、必要ならTool対応のRemote Webとしての起動を拒否する。**管理者が明示的に `--sandbox auto` 等でONにしても、実効SecurityProfileが要求する強隔離Backendが使用可能・健全でなければ拒否する。** WebサービスをToolなしチャットとして提供できる場合のみ、Remote offでのToolなし利用を許す。Remote A2Aでは従来どおりSandboxを要求し、offでTool対応サーバーを公開しない。隔離対象は [Enterprise E0](UAG_ENTERPRISE_PLATFORM_DESIGN.md#31-enterprise-phase-e0-remote-execution-isolation) に従い、認証付きMulti-user Web（イントラネットを含む）、外部公開Web/WebSocket、ツールを使うRemote A2A。**SecurityProfileは起動時に信頼できる管理設定として確定**し、RequestのIP・Host header・ブラウザ指定値から弱いProfileを選ばない。**A2Aは起動時にBind Addressを検証し、`0.0.0.0` / `::` / 非LoopbackへListenする場合はRemote Profileを強制するか起動拒否する。**
 - "auto" は OS 判定だけで無条件許可せず、必要な IsolationLevel / Capability / Enterprise Policy を照合する。
 - Local CLI/GUIと明示的に信頼済みのlocal-only単独利用Webの既存直接実行は、SandboxがOFFの間変更しない。外部公開Web・認証付きMulti-user WebのOFFは**Host実行せずToolを拒否**する。
 - 有効化時に Worker/Backend の自動インストールを行う場合も、管理者確認・署名/Hash 検証・配布経路の制約を必要とする。信頼できない SDK や実行ファイルを自動導入しない。
@@ -478,7 +478,7 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 24. Local CLI/GUI/**信頼済みlocal-only Web**でSandbox offの初回起動では依存導入・Probe・案内が行われない。opt-in初回だけ同意が必要な依存を案内し、導入成功後の2回目は再インストールしない。Remote Webのoffでは一般ユーザーに導入を促さない。
 25. **各OSの対応開始前**に、前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。Windows先行段階ではLinux/macOS/Raspberry PiのSandbox起動が明示的に未対応となることも検証する。
 26. Remote Web / A2A の依存不足時、一般利用者に導入プロンプトを出さず Remote Tool を fail closed する。導入済みの場合も Probe / Cleanup の適合性なしに実行を始めない。
-27. `probe()` が永久ブロック・無応答・異常終了する Mock Backend を用い、**Broker が既定15秒以内に `probe_timeout` などの確定失敗を返す**ことを検証する。Local Sandbox opt-in は起動エラー、Remote Web/A2A は fail closed、旧/固着した Helper は回収または隔離され、次回の Probe や Tool Call に使われない。Sandbox off の Local CLI/GUI では Probe 自体を呼ばない。
+27. `probe()` が永久ブロック・無応答・異常終了する Mock Backend を用い、**Broker が既定15秒以内に `probe_timeout` などの確定失敗を返す**ことを検証する。Local Sandbox opt-in は起動エラー、Remote Web/A2A は fail closed、旧/固着した Helper は回収または隔離され、次回の Probe や Tool Call に使われない。Sandbox off の Local CLI/GUIおよび信頼済みlocal-only単独利用WebではProbeを呼ばず、Remote WebのoffではToolの実行を拒否してProbeを呼ばない。
 
 ### OS 実機検証（各OSの対応開始前に必須）
 
