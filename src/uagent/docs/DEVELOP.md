@@ -397,11 +397,18 @@ return the handle to its caller. Explicit route-level `finally: store.close()`
 blocks remain in place. See `WEB_MEMORY_RESOURCE_LIFETIME.md` and
 `tests/test_web_memory_store_lifetime.py`.
 
+Authenticated non-OIDC Web requests without a fixed or selected project now
+derive an authorized default from the immutable, canonical startup workspace.
+`GET /api/me/projects` reports that default without persisting a ProjectContext
+or setting a cookie; explicit `POST /api/project-context` selection and authorized
+private-room creation can persist a ProjectContext. A full context store does
+not block the server-bound private room.
+
 Remaining V3 work is deployment/rollout work rather than the old V3-5/V3-6
-"not connected" state: non-OIDC multi-project server-derived ProjectContext,
-Entra group-overage directory lookup/freshness, durable OIDC sessions for
-multi-instance Web, deployment-specific enterprise identity adapters/validation,
-and the final multi-user rollout gate. See `docs/UAG_MEMORY_ARCHITECTURE_V3.md`,
+"not connected" state: Entra group-overage directory lookup/freshness, durable
+OIDC sessions for multi-instance Web, deployment-specific enterprise identity
+adapters/validation, and the final multi-user rollout gate. See
+`docs/UAG_MEMORY_ARCHITECTURE_V3.md`,
 `docs/UAG_MEMORY_V3_SECURITY_HARDENING.md`, and `docs/WEB_IDENTITY_MEMORY.md`.
 
 Relevant regression suites include `tests/test_memory_access.py`,
