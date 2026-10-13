@@ -207,8 +207,46 @@ SQLite は初期の単一ホスト・単一 Owner 実装として使用可能。
 - CLI の :load / :sessions load と Web の Session 切替は、**Sandbox ID を履歴からロードして無条件に再利用する操作ではない**。現行 src/uagent/util_cmd_session.py はメッセージや最後の Workdir を復元するが、その Workdir は **実行環境への信頼されたアクセス許可ではない**。Target Session の所有者・Project 境界と、現在許可される Workspace を検証する。異なる場合は Load を拒否するか、既存権限の範囲へ安全に読み替える。
 - 再接続できなかったときは自動で以前の Tool Call を再実行しない（削除、メール送信、Git Push 等の副作用を重複させない）。保存した会話の「成功した」という記録は過去の結果であり、現在の Sandbox の実行状態ではない。
 - 新規 Sandbox に復元するのは **明示的に Export/Commit 済みの Workspace 内容**のみ。中断前の未公開ファイル・仮想環境・依存ライブラリ・プロセス・ブラウザ Cookie・Port Forward は自動復元しない。
-- 将来的な環境 Snapshot / Checkpoint は別機能として設計する。Scope、Ownership、Policy Revision、Artifact 完全性、Secret 混入、Malware 検査に合格した Snapshot のみ復元を許可し、履歴テキストから Snapshot を選択できない。**初期実装は Snapshot 無し**。
+- 将来的な環境 Snapshot / Checkpoint は別機能として設計する。Scope、Ownership、Policy Revision、Artifact 完全性、Secret 混入、Malware 検査に合格した Snapshot のみ復元を許可し、履歴テキストから Snapshot を選択できない。**初期実装は Snapshot 無し**。環境構成・Snapshot 参照の保存方式と復元手順は **6.5** で別途定義する。
 - 履歴ロードで Sandbox が切り替わるときは現在の Execution が終了・取消済みであることを確認し、旧 Lease を勝手に破棄しない（他の生存 Session が正当に保有している場合を含む）。異なる Workspace/Scope に混在した実行中状態を作らない。
+
+### 6.5 環境スナップショットと履歴の関係（将来機能の契約）
+
+**会話履歴には復元参照情報を残すが、Sandbox 実体・秘密情報・OS の実行状態を保存しない。** Snapshot 生成や復元は初期導入の対象外。本節は今後実装する際のデータ契約を定める。
+
+| 保存場所 | 保持する情報 | 権限・目的 |
+| --- | --- | --- |
+| SessionStore 内の構造化イベント | opaque `snapshot_id`、Manifest digest、Session/Scope Binding、作成時点、`ready` / `unavailable` 等の状態 | 履歴ロードから候補を見つける。会話メッセージ本文には展開しない |
+| Snapshot Catalog / Manifest | OS・CPU architecture・Backend/バージョン、base image digest、Python/Runtime 版、許可された依存構成の digest、Project Workspace Revision、Policy Revision、所有 Scope、作成日時、保持期限、機密検査結果、署名/検証情報 | 現在の環境で復元可能か、安全かを検査 |
+| アクセス制限付き Artifact Store | 許可された Workspace の差分、対応 Backend が安全に取得した環境イメージ等の Snapshot 本体 | 実際の復元。履歴 DB と物理的・論理的に分離、暗号化と保存期間管理 |
+
+SessionStore に書くイベント例（**概念スキーマ・未実装**）:
+
+~~~json
+{
+  "kind": "sandbox_snapshot_reference",
+  "schema_version": 1,
+  "session_id": "opaque-session-id",
+  "scope_binding": "trusted-scope-fingerprint",
+  "snapshot_id": "opaque-snapshot-id",
+  "manifest_digest": "sha256:...",
+  "workspace_revision": "approved-revision",
+  "availability": "ready"
+}
+~~~
+
+- **履歴データは権限根拠にならない。** 上記イベントは信頼された Broker のみが SessionStore へ書き込み、LLM/ユーザー編集可能なメッセージ、Tool Result、外部から取り込んだ JSON 内の Snapshot ID では復元しない。Scope と Snapshot の紐付けを Catalog 側で改めて検証する。
+- **構成情報と Snapshot を区別する。** Snapshot 未作成なら有効な `snapshot_id` を発行せず、必要に応じて秘密を含まない `environment_manifest` を記録し、状態を `not_snapshotted` とする。過去に実行した環境を自動的に再現できると表示しない。
+- Manifest の値はホワイトリスト方式で収集・最小化し、環境変数一式、任意の Host 絶対 Path、API Key、Token、Cookie、Proxy 認証情報を保存しない。パッケージ名、Private Registry URL、設定値にも秘密が混入し得るため、無検査の `pip freeze` や環境ダンプをそのまま保持しない。
+- Snapshot の種類を `workspace`（承認されたファイル）と `environment`（再現可能な依存関係や Base Image 等）として区別する。**実行中プロセス、Socket、Python 変数、GPU コンテキスト、ブラウザログイン状態は初期の Snapshot 対象外**とする。
+- 作成はユーザー明示操作または承認済み管理ポリシーのみ。初期は明示操作が既定で、Tool ごとの Snapshot や全セッションの無条件自動保存はしない。Session 終了時の自動保存は明示的なポリシー、容量上限、バックグラウンド Job の扱いを決めてから導入する。
+- 作成時は Scope の Tool 受付を一時停止し、実行中 Tool/子孫プロセス、Background Job、Workspace 書込みを安全なチェックポイントに収束させ、整合性ある状態を取得する。Plaintext Credential を受け取った tainted Lease、機密検査失敗、継続中の不明な副作用がある場合は拒否する。
+- Artifact 保存、Manifest 確定、SessionStore 参照公開の順序を定義し、**内容と整合性検証が完了した Snapshot だけ `ready`** とする。中断・保存失敗・孤立 Artifact は `failed` / `unavailable` として回収する。参照だけ存在してデータが無い状況を正常と扱わない。
+- 履歴ロード時は、(1) 健全な同一 Scope の生存 Lease 再接続、(2) Snapshot Catalog からの復元候補提示、(3) 新規クリーン Sandbox の順に判断する。Snapshot は **現在の Principal/Project/Room/Task 権限、Policy Revision、Workspace Revision、Backend/OS/architecture 適合性、Manifest Hash/署名、保存期限、Secret/Malware 検査**を毎回通した後に明示承認を得て復元する。別 Scope への移植は通常の履歴 Load で行わず、別途認可された Export/Import が必要。
+- Snapshot は作成時点の状態であり、会話の最新メッセージ時点と一致するとは限らない。復元対象の時刻・差分・未公開変更の消失を示す。**履歴に記録された Tool Call を再実行しない**ため、削除・Git Push・メール送信などの副作用も再発生しない。
+- Artifact とその Catalog には保存期限、個数/容量制限、手動削除、Project 削除・権限失効、暗号鍵管理、参照切れ時の GC を定義する。履歴が残っていても Artifact が破棄済みなら `unavailable` と表示し、黙って別の Snapshot を選ばない。
+
+**段階的な実装:** ① 非秘密の Environment Manifest / SessionStore イベント契約、② Snapshot Catalog + Artifact Store、③ Backend の安全な保存と再生成、④ CLI/GUI/Web/A2A の履歴復元連携。**本 PR は設計だけで、実際の Snapshot 作成・復元は行わない。**
 
 ## 7. Tool 実行分類と権限
 
@@ -389,6 +427,8 @@ uaga --sandbox auto
 16. :load / :sessions load / GUI 履歴復帰 / Web 再接続で、健全な同一 Scope の Lease だけが再利用され、アプリ再起動や Crash 後は **状態消失を通知し、過去の Tool を再実行しない**。
 17. Saved Session の Workdir 指定だけでは別 Project/Workspace の Host File にアクセスできない。Sandbox 新規生成では承認済み Export/Commit 内容以外は自動復元しない。
 18. 2つの Web インスタンスが同一 Room/Principal/Project を同時に取得しようとした場合、単一原子的 Claim・Fencing Token・Owner ルーティングが無ければ拒否し、競合 Lease を作らない。
+19. Snapshot 未作成時は有効な参照 ID を捏造しない。Artifact 保存失敗時に履歴イベントが ready にならず、履歴本文から任意の Snapshot を復元できない。
+20. Snapshot 復元前に Scope/Policy/Workspace/Backend/署名/秘密検査を行い、不一致を拒否して過去の Tool Call を再実行しない。
 
 ### OS 実機検証（導入必須）
 
@@ -418,6 +458,7 @@ uaga --sandbox auto
 - 各 MXC Backend で長寿命 Worker の子孫プロセスが確実に隔離・強制終了できるか。
 - 現行 CLI/GUI における Session の終了通知・会話削除イベントにどこまで連携できるか。
 - ファイルの永続保持を、Sandbox 破棄と別の Project Workspace export として許可する範囲。履歴ロード時は Export 済み Project ファイルのみを初期再投影し、**Sandbox 内プロセス Snapshot は初期実装で復元しない**。
+- 将来の Snapshot について Manifest の保存許可項目、暗号鍵・保持期限、保存タイミング、Backend の復元適合性を確定する。参照情報の設計だけで、Snapshot 実体が存在するかのように扱わない。
 - Web 同一 Room の共有メンバー交代に対する Lease ローテーションと公開済み成果物の可視性。
 - A2A の複数 Task を一つの上位会話にまとめるユースケースを将来許可する場合の明示的な Shared Scope 設計。
 - Backend ごとの IsolationLevel 判定を、どの OS/API/テスト結果で「適合」と認定するか。
