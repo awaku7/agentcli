@@ -567,9 +567,7 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     assert "uag_project_context=" in created.headers["set-cookie"]
 
 
-def test_workspace_project_listing_survives_full_context_store(
-    tmp_path, monkeypatch
-):
+def test_workspace_project_listing_survives_full_context_store(tmp_path, monkeypatch):
     from uagent.runtime.memory_store import MemoryStore
     from uagent.runtime.project_access import ProjectAccessPolicy
     from uagent.runtime.project_context import ProjectContextStore

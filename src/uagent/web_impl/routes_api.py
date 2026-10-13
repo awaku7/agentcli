@@ -786,9 +786,10 @@ async def get_my_projects(request: Request):
                     identity.principal_id, candidate, "viewer"
                 ):
                     try:
-                        default_context_token, default_context_ttl = ProjectContextStore(
-                            store
-                        ).bind(
+                        (
+                            default_context_token,
+                            default_context_ttl,
+                        ) = ProjectContextStore(store).bind(
                             str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
                             identity,
                             candidate,
