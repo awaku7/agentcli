@@ -117,7 +117,9 @@ def test_local_memory_project_tracks_cwd_after_startup(
         assert memory_scope.resolve_memory_project() == "project-b"
 
 
-def test_unbound_web_turn_does_not_use_unverified_project(tmp_path, monkeypatch) -> None:
+def test_unbound_web_turn_does_not_use_unverified_project(
+    tmp_path, monkeypatch
+) -> None:
     from dataclasses import replace
 
     from uagent.runtime import memory_scope
