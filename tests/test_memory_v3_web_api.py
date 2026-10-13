@@ -567,6 +567,47 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     assert "uag_project_context=" in created.headers["set-cookie"]
 
 
+def test_workspace_project_listing_survives_full_context_store(
+    tmp_path, monkeypatch
+):
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+    from uagent.runtime.project_context import ProjectContextStore
+    from uagent.runtime import runtime_workdir
+
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    monkeypatch.setenv("UAGENT_PROJECT_CONTEXT_MAX", "1")
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    workspace = tmp_path / "trusted-workspace"
+    workspace.mkdir()
+    monkeypatch.setattr(
+        runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
+    )
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    try:
+        ProjectAccessPolicy(
+            store, admin_principals=frozenset({"root"})
+        ).set_membership("root", "trusted-workspace", "alice", "viewer")
+        ProjectContextStore(store).bind(
+            "", IdentityContext("bob", True, "trusted_proxy"), "trusted-workspace"
+        )
+    finally:
+        store.close()
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
+    response = client.get("/api/me/projects")
+
+    assert response.status_code == 200
+    assert response.json()["projects"] == ["trusted-workspace"]
+    assert response.json()["bound_project"] == ""
+    assert "uag_project_context=" not in response.headers.get("set-cookie", "")
+
+
 def test_non_oidc_workspace_default_requires_membership_and_allows_explicit_selection(
     tmp_path, monkeypatch
 ):

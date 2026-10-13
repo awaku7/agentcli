@@ -117,6 +117,30 @@ def test_local_memory_project_tracks_cwd_after_startup(
         assert memory_scope.resolve_memory_project() == "project-b"
 
 
+def test_unbound_web_turn_does_not_use_unverified_project(tmp_path, monkeypatch) -> None:
+    from dataclasses import replace
+
+    from uagent.runtime import memory_scope
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    monkeypatch.setenv("UAGENT_WORKDIR", str(tmp_path / "trusted-workspace"))
+    turn = TurnContext(
+        principal_id="alice",
+        room_id="public",
+        project_id="room-selected-project",
+        session_id="test",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="trusted_proxy",
+        server_bound_project=False,
+    )
+    with bind_turn_context(turn):
+        assert memory_scope.resolve_memory_project() == "trusted-workspace"
+    with bind_turn_context(replace(turn, server_bound_project=True)):
+        assert memory_scope.resolve_memory_project() == "room-selected-project"
+
+
 def test_new_personal_records_store_owner_and_project(
     tmp_path: Path, monkeypatch
 ) -> None:

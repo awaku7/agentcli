@@ -785,14 +785,19 @@ async def get_my_projects(request: Request):
                 if candidate and policy.can_access(
                     identity.principal_id, candidate, "viewer"
                 ):
-                    bound = candidate
-                    default_context_token, default_context_ttl = ProjectContextStore(
-                        store
-                    ).bind(
-                        str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
-                        identity,
-                        candidate,
-                    )
+                    try:
+                        default_context_token, default_context_ttl = (
+                            ProjectContextStore(store).bind(
+                                str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
+                                identity,
+                                candidate,
+                            )
+                        )
+                    except RuntimeError as exc:
+                        if str(exc) != "project context session capacity reached":
+                            raise
+                    else:
+                        bound = candidate
             if bound:
                 policy.require_access(identity.principal_id, bound, "viewer")
             if policy.is_global_admin(identity.principal_id):

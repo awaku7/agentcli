@@ -63,6 +63,7 @@ def resolve_memory_project() -> str:
         and turn.entry_point == "web"
         and turn.authenticated
         and turn.authn_kind != "local"
+        and turn.server_bound_project
         and turn.project_id
     ):
         return turn.project_id
