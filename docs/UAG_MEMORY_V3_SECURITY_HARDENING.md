@@ -16,6 +16,7 @@ This document records the security state rechecked against that main revision. E
 - [x] Add project-isolation and active-revocation regression coverage.
 - [x] Carry Entra group IDs only from verified OIDC claims; resolve signed Entra group-overage markers through Microsoft Graph when the delegated Graph scope is configured, otherwise fail closed.
 - [x] Bind non-OIDC project selection to principal, authentication configuration and expiry in a server-side ProjectContext store; verify membership at selection and use.
+- [x] Derive the non-OIDC default ProjectContext from the trusted workspace when no fixed, OIDC-session or selected ProjectContext binding exists; still require active project membership and allow explicit selection when the default is not authorized.
 - [x] Reconcile only directory-derived memberships against the current mapping; preserve manual membership and downgrade stale directory admin roles.
 - [x] Close request-scoped Web Memory stores on success, denial and exception paths.
 - [x] Add safe authentication status/configuration validation and invalidate stale OIDC/WebSocket identity after security-sensitive configuration changes.
@@ -34,9 +35,11 @@ Current implementation:
 - Project/Room membership and directory policy changes participate in access-generation invalidation;
 - directory groups are policy inputs, never Memory ownership keys.
 
-Remaining project-context work:
+Non-OIDC workspace default:
 
-- deployment-specific automatic derivation of a default HTTP ProjectContext from an authenticated workspace is not implemented;
+- if there is no fixed project, OIDC session binding, or selected ProjectContext cookie, HTTP requests derive the candidate from canonical `resolve_memory_project()` on the trusted server workspace;
+- `/api/me/projects` binds this default in an opaque ProjectContext cookie only when the principal has viewer membership; private-room creation also performs its own membership check and binds the result in the server-side ProjectContext store;
+- when the workspace candidate is unauthorized, no default is bound and the user must explicitly select a membership-approved project;
 - browser-supplied `project_id` remains a selector only and never grants access.
 
 ## Memory / sharing boundary
@@ -108,7 +111,6 @@ Project isolation and active-revocation fixtures exist, but production rollout m
 
 Private Web room idle expiry/cleanup (including active work and pending `human_ask` safeguards) and streamed Entra Graph response-byte enforcement were completed after the historical `6f848f20` baseline. They are not remaining work; see [Memory](MEMORY.md) and the [implementation roadmap](plans/IMPLEMENTATION_ROADMAP.md) for the current status.
 
-1. Add automatic workspace-derived default ProjectContext where deployments require it; retain membership checks for user-selected projects.
 1. Define session-time directory membership freshness/revocation and generalized non-Entra Directory API adapters.
 1. Decide and implement durable OIDC sessions before multi-instance/HA Web rollout.
 1. Validate Trusted Proxy / Windows IWA / OAuth / External adapters in their real trust boundaries.

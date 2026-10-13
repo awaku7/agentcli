@@ -27,6 +27,7 @@ from ..runtime.memory_access import (
     MemoryAccessError,
     ScopedMemoryStore,
 )
+from ..runtime.memory_scope import resolve_memory_project
 from ..runtime.memory_store import MemoryStoreConflictError, open_memory_store
 from ..runtime.session_store import SessionStoreError, project_id_from_path
 from ..runtime.project_access import ProjectAccessPolicy, ProjectMemoryService
@@ -51,6 +52,13 @@ def _request_identity(request: Request):
     return identity
 
 
+def _workspace_default_project(identity) -> str:
+    """Resolve a non-OIDC default only from the trusted server workspace."""
+    if identity.authn_kind in {"local", "oidc"}:
+        return ""
+    return resolve_memory_project()
+
+
 def _project_context_project(identity, request: Request, store=None) -> str:
     token = str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "").strip()
     if not token or identity.authn_kind in {"local", "oidc"}:
@@ -73,6 +81,8 @@ def _project_id(value: str, request: Request | None = None) -> str:
         if not bound:
             identity = _request_identity(request)
             bound = _project_context_project(identity, request)
+            if not bound:
+                bound = _workspace_default_project(identity)
     if not bound:
         raise MemoryAccessError("server project binding is required")
     if not project:
@@ -439,6 +449,8 @@ async def create_my_private_room(request: Request):
         )
         project_context = _project_context_project(identity, request)
         bound_project = configured_project or oidc_project or project_context or ""
+        if not bound_project and not requested_project:
+            bound_project = _workspace_default_project(identity)
 
         room_id = uuid4().hex
         from ..runtime.runtime_workdir import get_startup_workdir
@@ -754,6 +766,8 @@ async def get_my_projects(request: Request):
         try:
             policy = ProjectAccessPolicy(store)
             policy.sync_directory_policy(identity)
+            default_context_token = ""
+            default_context_ttl = 0
             configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
             token = str(request.cookies.get("uag_oidc_session") or "").strip()
             oidc_bound = get_oidc_session_store().project_id(token) or ""
@@ -765,6 +779,19 @@ async def get_my_projects(request: Request):
                     "bound_project": configured,
                 }
             bound = oidc_bound or _project_context_project(identity, request, store)
+            if not bound:
+                candidate = _workspace_default_project(identity)
+                if candidate and policy.can_access(
+                    identity.principal_id, candidate, "viewer"
+                ):
+                    bound = candidate
+                    default_context_token, default_context_ttl = ProjectContextStore(
+                        store
+                    ).bind(
+                        str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
+                        identity,
+                        candidate,
+                    )
             if bound:
                 policy.require_access(identity.principal_id, bound, "viewer")
             if policy.is_global_admin(identity.principal_id):
@@ -780,11 +807,26 @@ async def get_my_projects(request: Request):
                     "ORDER BY p.project_id",
                     (identity.principal_id,),
                 ).fetchall()
-            return {
+            payload = {
                 "ok": True,
                 "projects": [str(row["project_id"]) for row in rows],
                 "bound_project": bound,
             }
+            if default_context_token:
+                response = JSONResponse(payload)
+                secure_cookie = str(env_get("UAGENT_OIDC_COOKIE_SECURE", "1") or "")
+                response.set_cookie(
+                    PROJECT_CONTEXT_COOKIE,
+                    default_context_token,
+                    max_age=default_context_ttl,
+                    httponly=True,
+                    secure=secure_cookie.strip().lower()
+                    not in {"0", "false", "no", "off"},
+                    samesite="lax",
+                    path="/",
+                )
+                return response
+            return payload
         finally:
             store.close()
     except Exception as exc:

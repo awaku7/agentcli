@@ -5,6 +5,7 @@
 ### 変更
 
 - `llmcapa`の最低バージョンを現在の`0.5.62`に合わせて更新。
+- project bindingがない認証済みnon-OIDC Web requestでは、信頼済みworkspaceからviewer membership確認後に既定ProjectContextを導出。
 
 ## [0.7.30] - 2026-10-13
 

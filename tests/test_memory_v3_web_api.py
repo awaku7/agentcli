@@ -524,6 +524,86 @@ def test_private_room_non_oidc_project_selection_is_membership_checked(
     )
 
 
+def test_non_oidc_workspace_project_is_default_when_membership_allows(
+    tmp_path, monkeypatch
+):
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    workspace = tmp_path / "trusted-workspace"
+    workspace.mkdir()
+    monkeypatch.setenv("UAGENT_WORKDIR", str(workspace))
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "trusted-workspace", "alice", "viewer"
+    )
+    store.close()
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
+
+    listed = client.get("/api/me/projects")
+    assert listed.status_code == 200
+    assert listed.json()["bound_project"] == "trusted-workspace"
+    assert "uag_project_context=" in listed.headers["set-cookie"]
+    assert client.get("/api/me/projects").json()["bound_project"] == "trusted-workspace"
+    created = client.post("/api/me/private-room")
+
+    assert created.status_code == 200, created.json()
+    assert created.json()["project_id"] == "trusted-workspace"
+    assert "uag_project_context=" in created.headers["set-cookie"]
+
+
+def test_non_oidc_workspace_default_requires_membership_and_allows_explicit_selection(
+    tmp_path, monkeypatch
+):
+    resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
+    monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
+    monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
+    monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    workspace = tmp_path / "unassigned-workspace"
+    workspace.mkdir()
+    monkeypatch.setenv("UAGENT_WORKDIR", str(workspace))
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
+    monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
+    monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
+
+    from uagent.runtime.memory_store import MemoryStore
+    from uagent.runtime.project_access import ProjectAccessPolicy
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
+        "root", "assigned-project", "alice", "viewer"
+    )
+    store.close()
+    client = TestClient(app, headers={"Origin": "https://uag.example"})
+
+    projects = client.get("/api/me/projects")
+    assert projects.status_code == 200
+    assert projects.json()["projects"] == ["assigned-project"]
+    assert projects.json()["bound_project"] == ""
+    assert "uag_project_context=" not in projects.headers.get("set-cookie", "")
+    assert client.post("/api/me/private-room").status_code == 403
+
+    selected = client.post(
+        "/api/project-context", json={"project_id": "assigned-project"}
+    )
+    assert selected.status_code == 200
+    created = client.post("/api/me/private-room")
+    assert created.status_code == 200, created.json()
+    assert created.json()["project_id"] == "assigned-project"
+
+
 def test_denied_private_room_request_does_not_allocate_a_web_room(
     tmp_path, monkeypatch
 ):
