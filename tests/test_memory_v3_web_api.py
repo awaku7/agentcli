@@ -540,7 +540,7 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     monkeypatch.setattr(
         runtime_workdir, "get_captured_startup_workdir", lambda: str(workspace)
     )
-    monkeypatch.setenv("UAGENT_WORKDIR", str(workspace))
+    monkeypatch.setenv("UAGENT_WORKDIR", ".")
     monkeypatch.setenv("UAGENT_IDENTITY_MODE", "trusted_proxy")
     monkeypatch.setenv("UAGENT_WEB_ALLOWED_ORIGINS", "https://uag.example")
     monkeypatch.setenv("UAGENT_OIDC_COOKIE_SECURE", "0")
@@ -549,9 +549,9 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     from uagent.runtime.project_access import ProjectAccessPolicy
 
     store = MemoryStore(tmp_path / "memory.sqlite3")
-    ProjectAccessPolicy(store, admin_principals=frozenset({"root"})).set_membership(
-        "root", "trusted-workspace", "alice", "viewer"
-    )
+    policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.set_membership("root", "trusted-workspace", "alice", "viewer")
+    policy.set_membership("root", "alternative", "alice", "viewer")
     store.close()
     client = TestClient(app, headers={"Origin": "https://uag.example"})
 
@@ -565,6 +565,35 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     assert created.status_code == 200, created.json()
     assert created.json()["project_id"] == "trusted-workspace"
     assert "uag_project_context=" in created.headers["set-cookie"]
+
+    other = tmp_path / "other-room"
+    other.mkdir()
+    monkeypatch.chdir(other)
+    direct = TestClient(app, headers={"Origin": "https://uag.example"}).post(
+        "/api/me/private-room"
+    )
+    assert direct.status_code == 200, direct.json()
+    assert direct.json()["project_id"] == "trusted-workspace"
+    direct_room = routes_api.web_manager.get_room(direct.json()["room_id"])
+    cookie_room = routes_api.web_manager.get_room(created.json()["room_id"])
+    assert direct_room.base_dir == str(workspace)
+    assert cookie_room.base_dir == str(workspace)
+
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    policy = ProjectAccessPolicy(store, admin_principals=frozenset({"root"}))
+    policy.revoke_membership("root", "trusted-workspace", "alice")
+    store.close()
+    revoked = client.get("/api/me/projects")
+    assert revoked.status_code == 200
+    assert revoked.json()["projects"] == ["alternative"]
+    assert revoked.json()["bound_project"] == ""
+    assert "uag_project_context=" in revoked.headers["set-cookie"]
+    assert "Max-Age=0" in revoked.headers["set-cookie"]
+    selected = client.post(
+        "/api/project-context", json={"project_id": "alternative"}
+    )
+    assert selected.status_code == 200
+    assert client.get("/api/me/projects").json()["bound_project"] == "alternative"
 
 
 def test_workspace_project_listing_survives_full_context_store(tmp_path, monkeypatch):

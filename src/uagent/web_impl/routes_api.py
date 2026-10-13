@@ -454,14 +454,21 @@ async def create_my_private_room(request: Request):
             bound_project = _workspace_default_project(identity)
 
         room_id = uuid4().hex
+        from ..runtime.runtime_workdir import get_captured_startup_workdir
         from ..runtime.runtime_workdir import get_startup_workdir
 
-        startup_workdir = str(env_get("UAGENT_WORKDIR", "") or get_startup_workdir())
-        room_base_dir = (
-            os.path.abspath(startup_workdir)
-            if startup_workdir and os.path.isdir(startup_workdir)
-            else os.getcwd()
-        )
+        captured_workdir = get_captured_startup_workdir()
+        if identity.authn_kind != "local" and captured_workdir:
+            room_base_dir = captured_workdir
+        else:
+            startup_workdir = str(
+                env_get("UAGENT_WORKDIR", "") or get_startup_workdir()
+            )
+            room_base_dir = (
+                os.path.abspath(startup_workdir)
+                if startup_workdir and os.path.isdir(startup_workdir)
+                else os.getcwd()
+            )
         if identity.authn_kind == "local":
             project_id = bound_project or project_id_from_path(room_base_dir)
         elif bound_project:
@@ -783,7 +790,19 @@ async def get_my_projects(request: Request):
                     "projects": [configured],
                     "bound_project": configured,
                 }
-            bound = oidc_bound or _project_context_project(identity, request, store)
+            context_bound = _project_context_project(identity, request, store)
+            bound = oidc_bound or context_bound
+            revoked_context = False
+            if (
+                context_bound
+                and not oidc_bound
+                and not policy.can_access(identity.principal_id, context_bound, "viewer")
+            ):
+                ProjectContextStore(store).revoke(
+                    str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "")
+                )
+                bound = ""
+                revoked_context = True
             if not bound:
                 candidate = _workspace_default_project(identity)
                 if candidate and policy.can_access(
@@ -836,6 +855,10 @@ async def get_my_projects(request: Request):
                     samesite="lax",
                     path="/",
                 )
+                return response
+            if revoked_context:
+                response = JSONResponse(payload)
+                response.delete_cookie(PROJECT_CONTEXT_COOKIE, path="/")
                 return response
             return payload
         finally:
