@@ -58,7 +58,7 @@
 | PR | 推奨PRタイトル | 取り扱う責務 | 完了判定 |
 | --- | --- | --- | --- |
 | 1 | feat: add sandbox broker and fail-closed tool routing | ExecutionClass、共通Broker、Policy、Remote ingressとA2A ID拘束、Mockテスト | リモートHost直実行が発生しない |
-| 2 | feat: add opt-in MXC local sandbox adapter | MXC候補、能力判定、隔離Worker、CLI/GUI opt-in、初回セットアップ | ローカル1Sessionの複数Toolが同一隔離環境で動く |
+| 2 | feat: add opt-in MXC local sandbox adapter | Windows・Linux・macOS 各MXC Adapter、能力判定、隔離Worker、CLI/GUI opt-in、初回セットアップ | **3 OSすべて**で同一Sessionの複数Toolが隔離実行でき、OSごとの実機ゲートを通過する |
 | 3 | feat: bind sandbox leases to web rooms and A2A tasks | 全入口のSessionManager/Lease/回収と履歴再接続 | Room/Taskごとの状態維持・境界・終了が正しい |
 | 4 | feat: enforce production sandbox isolation for remote tools | 強隔離Backend、Workspace/Network/Secret/Resourceの実効Policy | **単一インスタンス構成に限り**E0の実機テストが成立 |
 | 5 | feat: coordinate sandbox lease ownership across instances | 共有Registry、原子的Owner取得、世代/Fencing/ルーティング | 複数Nodeで二重Lease・失効迂回が起きない |
@@ -72,7 +72,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 ### 作業
 
 1. ExecutionClass（SANDBOX / BROKERED / DENY / ローカル限定LOCAL_HOST_PURE）、SecurityProfile、必要Capability、Trusted SandboxScopeの最小モデルを定義。型・エラー形式を必要以上に増やさない。
-2. 既存 UnifiedPolicy / ToolPolicy による拒否・承認後、ExecutionBroker が**ツール名＋引数＋実機能・宛先**から実行先を決める。Host側の狭いBroker操作と、未信頼な汎用Runnerを明確に区別する。
+2. **実行順序を正本 §7 に揃える:** (a) Trusted Principal/Project/Room/Taskと入口を確定 → (b) UnifiedPolicy・Role・ToolPolicyで認可/副作用を判定し、拒否なら終了 → (c) **承認を求める前に**ツール名・引数・実機能・MCP展開先・ネットワーク宛先から ExecutionClass を選び、必要な隔離強度とBackend Capabilityを照合。不可能なら確認ダイアログを出さず拒否 → (d) 必要なHost UI/Broker承認を取得 → (e) **承認後・実行直前に権限とPolicy Revision、Scope/Bindingを再検証**し、失効・変更時は実行拒否（必要なら最初から再判定）→ (f) 許可されたSandbox Leaseまたは狭いBrokerへルーティング。Host側の管理Broker操作と未信頼な汎用Runnerを明確に区別し、古い承認を権限昇格に使わない。
 3. src/uagent/tools/__init__.py の共通入口に導入。CLI/GUIのSandbox offだけ既存実行を維持。run_tools_parallel、動的Toolロード、MCP、Sub-Agent等の別経路が迂回しないことを検証。
 4. Remote Web（HTTP、WebSocket、1-turn Worker）とA2A（通常・ストリーム）への入口で、**ツールを起動する前**に実効SecurityProfileと認証済みScopeを確定する。Web WorkerがProfileを自由に弱められない。
 5. A2Aの信頼済みService Principalと**必須task_id**をServer側で結合。単一Bearer Tokenからユーザーごとの本人識別を捏造せず、Client提供IDでLeaseを選ばない。
@@ -95,15 +95,16 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 - 未分類Tool、遅延ロードTool、MCP子機能、Sub-Agent経由の迂回を拒否できる。
 - 非Loopback A2A + local-trusted / sandbox-off は強制隔離または起動拒否。
 - 認証付き社内Webがlocalhost経由だからといってLocal扱いされない。
+- **認可から確認画面の間・ユーザーの確認待機中・確認直後**にRoomメンバー権限、Principalの権限、Policy Revisionを変更した場合、実行直前の再検証で古い許可が拒否され、Sandbox/HostのどちらのRunnerも起動しない。実行不能なCapabilityの場合は**ユーザー確認前**に拒否する。
 - **このPRだけではRemote Toolが利用できなくても正常**。後続PRで適合Backendが導入されるまでfail closedとする。
 
 ## 4. PR 2 — MXC Local PoC / CLI・GUI Opt-in
 
-**目的:** 最低1つのサポートOSで、実Sandbox上の複数Function Callが同一Session環境を使えることを示し、OS別のCapabilityを正しく扱う。
+**目的:** **Windows・Linux・macOSの3 OSで**MXC Adapterを導入し、実Sandbox上の複数Function Callが同一Session環境を使えることをOSごとに確認する。まず1 OSで小さくPoCを行ってよいが、**1 OSだけの成功ではPR 2完了としない**。
 
 ### 作業
 
-1. MXCの現行API・Backend実装、対応OS/バージョン、Node SDKとNative Runtime依存を**着手時に実際に確認**する。Windows ProcessContainer、Linux Bubblewrap、macOS 15+ Seatbeltは採用候補であり、未検証のまま互換を保証しない。
+1. MXCの現行API・Backend実装、対応OS/バージョン、Node SDKとNative Runtime依存を**着手時に実際に確認**する。**Windows ProcessContainer、Linux Bubblewrap、macOS 15+ Seatbeltの3 AdapterすべてをPR 2の担当範囲**とする。各OSでProbe・隔離付き複数実行・Cleanupと失敗時動作を実機検証し、未検証のまま互換を保証しない。
 2. 必要最小限のPython Host Adapter + 隔離Workerを作る。MXCへの依存はAdapterに隠し、Function Callの公的契約にMXC固有型を出さない。
 3. **Native stateful** が使えれば採用。spawnのみなら隔離した長寿命Worker + 構造化IPCを検証する。子孫プロセスまで封じ込められなければ unsupported。
 4. Worker側には許可された機能だけを投影。Hostの.env/.env.sec、Credential Store、管理設定、Hostのos.environ全体を引き継がない。stdoutとIPCを分離し、結果をサイズ制限付きで受け取る。
@@ -118,7 +119,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 - Windows用コマンドをLinux/macOSで使えるかのように扱わない。
 - このPRの軽量MXC Sandboxを、Enterprise Remote向け強隔離として**有効化しない**。
 - ホストへの安全な書き戻しや高度なネットワーク隔離はPR 4の検証ゲートを満たすまで不許可。
-- 全OSを実機で検証できなければ、未確認環境は「未対応/検証待ち」と記録し、完成と言わない。
+- **Windows・Linux・macOSのいずれかのAdapterが未実装／各OSの実機検証が未完了なら、PR 2の全体完了条件は未充足**とする。検証に必要な環境が無い場合、未検証と明記してユーザーへ報告し、残りのOSをPR 3〜5へ暗黙に先送りしない。工程変更が必要なら正本§15と所有PRを明示的に改訂してから進める。
 
 ### 必須テスト・完了条件
 
@@ -127,7 +128,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 - 子プロセス/任意Host Path/秘密環境変数の隔離を**実際の不正アクセス試験**で確認。
 - Stop/Cancel/Timeout/Crashで子孫プロセスが残らない。wait_executionが無限待機しない。
 - 32-bit拒否、OS未対応、導入拒否、オフライン、Helperハング時に**無隔離へ戻らない**。
-- Local Sandbox off の回帰テストが通る。実機で確認したOS/SDK版と未検証範囲をPR本文に記載。
+- Local Sandbox off の回帰テストが通る。**Windows x64/ARM64、Linux x86-64/ARM64（Raspberry Pi ARM64を含む）、macOS 15+ ARM64/x86-64**の設計対象に対して、各Backend/アーキテクチャの実装・Probe・不正アクセス・Cleanupの検証行列を作り、実際の実行環境・SDK版・テスト結果をPRに記載する。**少なくともWindows・Linux・macOSの各OSで実機の受け入れ試験が合格**するまでPR 2を完了としない。未検証アーキテクチャは許可を有効にせず、正本§14に従う実機検証を次の利用可能な環境で完了させる。
 
 ## 5. PR 3 — 全入口とSandboxSessionManagerの統合
 
@@ -151,6 +152,9 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 
 ### 必須テスト・完了条件
 
+- **CLI Session Aで複数回Toolを呼び、同じLeaseが再利用される**。新規CLI Session Bでは別Leaseとし、終了/明示破棄で回収する。CLI履歴ロードは、生存Leaseが同一実行Scopeで健全なときだけ再接続する。
+- **GUI会話A→B→A**の切替・復帰でLeaseが対応する会話に戻り、Bと混在しない。会話削除で当該Leaseを破棄する。GUIの履歴復帰も権限・Workspace Bindingを再確認する。
+- **CLI/GUIのプロセス再起動後**は古い生存Leaseを当然に再利用せず、新規Sandboxを生成する。保存済み履歴やWorkdirだけでHostへのアクセス権を拡大せず、過去Toolを再実行しない。
 - 同一Room/Principalの再接続では健全なLeaseを再利用、異なるRoom/Principal/Projectは別Lease。
 - WebSocketの切断だけでRoom Leaseを消さず、Room削除・TTL・権限失効時は回収する。
 - A2A別TaskでLeaseを共有せず、Cancel/完了で破棄する。
@@ -171,6 +175,7 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 5. CredentialはBroker内で管理。短寿命認可を優先。Sandboxに平文を注入したLeaseは即tainted、**実行中の当該Tool終了後**に破棄、次Toolへ再利用しない。
 6. CPU、メモリ、Process、Disk、時間、出力、並列実行数の上限を適用。出力は既存のResult/Artifact/SessionStore投影と機密保護を通す。
 7. CLI/GUI/Web/A2Aの本物の入口から、実Providerと主要Function Callを使用して受け入れ試験。Backendなし/低機能時の拒否も試す。
+8. **Browser/Computer UseをRemote隔離対象として明示的に扱う**。Browser Profile、Downloads、Clipboard、Temporary Files、Desktop Sessionを隔離Browser/VM側で保持し、**Hostの可視DesktopやBrowser Profileに接続させない**。GUIが必要なComputer Useに安全な専用Desktop/VMを提供できなければ、Remoteでは当該ToolをDenyし、部分対応をE0機能完了と取り違えない。
 
 ### 今回はやらない
 
@@ -185,6 +190,8 @@ PRごとに新しい作業ブランチを **最新mainから作る**。前のPR�
 - Networkの拒否先へのアクセス失敗、Container側のProxy設定だけではなく強制機構を検証。
 - Tool内で子プロセスを起動してもSandbox外へ逃げず、Crash/Cancel/Stopで回収。
 - Credentialを使う操作の成功・失敗・Cancel・Timeoutの全経路で、次Toolまでに秘密保持状態が破棄される。
+- **CPU、Memory、Process/Fork数、Disk/一時領域、Wall Time、stdout/stderr/Tool Resultサイズ、同時Tool/Lease数、通信接続数（要求Profileで制御する場合）**について、各上限を超える実Tool/子プロセスの違反テストを行い、Operationを有界時間で中断・隔離/回収し、**Host Agentや他Scopeを停止・枯渇させない**ことを実機で確認。Capability宣言値・Mockのみでは合格にしない。
+- **Remote Browser/Computer Use**ではSandbox/VM固有のBrowser Profile・Downloads・Clipboard・Desktop Sessionから操作・画面取得できること、**Host可視Desktop/ブラウザプロファイル/Clipboard/Microphone/Camera/Printer/任意のHost共有フォルダに到達できないこと**を実機で試験する。提供できないComputer UseはRemoteでDenyとなりHostへフォールバックしないことを検証。
 - Export競合時は上書きせず拒否。Tool Result/Telemetryに秘密を流さない。
 - 単一インスタンスでしか検証していない環境はその旨をPRに明示。未検証OS/隔離Backendはリモート実行を拒否。
 
