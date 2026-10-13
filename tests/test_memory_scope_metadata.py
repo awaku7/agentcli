@@ -34,7 +34,9 @@ def test_apply_workdir_captures_canonical_workspace_for_relative_paths(
     (tmp_path / "nested").mkdir()
     for relative in (".", "nested/.."):
         monkeypatch.setattr(runtime_workdir, "_STARTUP_WORKDIR", None)
-        runtime_workdir.apply_workdir(runtime_workdir.decide_workdir(env_workdir=relative))
+        runtime_workdir.apply_workdir(
+            runtime_workdir.decide_workdir(env_workdir=relative)
+        )
         assert runtime_workdir.get_captured_startup_workdir() == str(tmp_path.resolve())
         assert memory_scope.resolve_server_workspace_project() == tmp_path.name
 
