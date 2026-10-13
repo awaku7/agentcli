@@ -589,9 +589,7 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     assert revoked.json()["bound_project"] == ""
     assert "uag_project_context=" in revoked.headers["set-cookie"]
     assert "Max-Age=0" in revoked.headers["set-cookie"]
-    selected = client.post(
-        "/api/project-context", json={"project_id": "alternative"}
-    )
+    selected = client.post("/api/project-context", json={"project_id": "alternative"})
     assert selected.status_code == 200
     assert client.get("/api/me/projects").json()["bound_project"] == "alternative"
 
