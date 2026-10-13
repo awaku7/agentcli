@@ -2,7 +2,7 @@
 
 - Status: **Design / 未実装**
 - Date: 2026-10-14
-- Scope: CLI / GUI / Web / A2A、Windows / Linux / macOS の **64-bit OS のみ**（x86-64 / ARM64）
+- Scope: CLI / GUI / Web / A2A、最終対応候補は Windows / Linux / macOS の **64-bit OS のみ**（x86-64 / ARM64）。**実装は Windows を先行し、Linux・macOS は後続 PR で有効化**
 - Priority: Enterprise E0 の一部。ローカル実行の任意 Sandbox は追加要件
 - Related: [Enterprise E0 設計](UAG_ENTERPRISE_PLATFORM_DESIGN.md)、[実装ロードマップ](plans/IMPLEMENTATION_ROADMAP.md)、[Web Room 並列処理](WEB_ROOM_CONCURRENCY.md)
 
@@ -284,7 +284,7 @@ SessionStore に書くイベント例（**概念スキーマ・未実装**）:
 
 ## 8. OS・Backend 選定
 
-MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ごとに Stateful Lifecycle と安全性が異なる。下表は設計時点の **候補**であり、採用可否は Probe と実機テストの結果で決める。
+MXC は Windows / Linux / macOS 対応の共通 SDK を持つが、Backend ごとに Stateful Lifecycle と安全性が異なる。下表は**将来の対応候補**であり、採用可否は Probe と実機テストの結果で決める。**実装優先順は Windows → Linux → macOS**。Linux/macOS向けのBackendが未実装の間、当該OSでのSandbox opt-inやRemote隔離実行を対応済みとして表示せず、実行を拒否する。UAGの従来の非Sandboxローカル機能まで無効化しない。
 
 | OS | 軽量 MXC 候補 | 永続実行の方針 | リモート高リスク用途 |
 | --- | --- | --- | --- |
@@ -411,8 +411,8 @@ uaga --sandbox auto
 OS 別の候補と前提条件は **8節の Capability Probe と実機検証を正とする**。初期設計時点の案内例は以下とする。
 
 - **Windows 11 64-bit:** 対象 OS ビルドと ProcessContainer 利用条件を検証。要件未達は Windows Update を案内し、UAG が勝手に OS 更新・管理者権限の昇格を実行しない。MXC Adapter は検証済み配布物を優先。
-- **macOS 15+ 64-bit:** OS 標準の Seatbelt を優先。MXC Adapter のみ必要に応じて導入する。OS 非対応なら理由を表示。
-- **Linux / Raspberry Pi ARM64 64-bit:** Bubblewrap、user namespace の実効権限、MXC Adapter のアーキテクチャ適合性を検証。Ubuntu / Debian 系では `bubblewrap` 等の導入コマンドを案内可能だが、全ディストリビューションで同じインストール方式を前提にしない。
+- **macOS 15+ 64-bit（後続PR 7）:** OS 標準の Seatbelt を優先。MXC Adapter のみ必要に応じて導入する。対応するAdapterを実装・検証するまではSandbox非対応として案内し、OS非対応なら理由を表示。
+- **Linux / Raspberry Pi ARM64 64-bit（後続PR 6）:** Bubblewrap、user namespace の実効権限、MXC Adapter のアーキテクチャ適合性を検証。Ubuntu / Debian 系では `bubblewrap` 等の導入コマンドを案内可能だが、全ディストリビューションで同じインストール方式を前提にしない。対応するAdapterを実装・検証するまではSandbox非対応とする。
 - **32-bit OS / 32-bit ユーザーランド:** Sandbox 非対応を明示し、無隔離への暗黙フォールバックを行わない。
 
 インストールは**必要なら1回、隔離された Tool Workspace は Session ごと**という区別を明示する。Tool が Sandbox 内へ追加する Python ライブラリ等は、その Session の Workspace に保持し、ホストの Python 環境へ勝手にインストールしない。署名・Hash・信頼済み配布元を検証できない実行コンポーネントは自動導入しない。OS 更新・管理者権限が必要な操作・システムパッケージ導入は、明示同意と管理者ポリシーに従う。
@@ -474,14 +474,16 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 22. 保存済み CLI/GUI Session をアプリ再起動後にロードした際、**将来の Snapshot 対応機能において**同一 Principal/Project の永続 Session Binding と 6.5 の検証・承認を満たす `ready` Snapshot から、新しい Sandbox に保存時点の環境・ファイルを復元できる。別所有者・別 Project・別 Session の Snapshot の無断引継ぎは拒否する。
 23. 同じ保存済み CLI/GUI Session に `ready` Snapshot がある場合と無い場合の双方を検証し、6.4 と 6.5 の振り分けが一致すること、Snapshot 時点以降の未保存変更・稼働プロセスが復元されないことを確認する。
 24. Local Sandbox off の初回起動で依存導入や案内が行われない。opt-in の初回だけ同意が必要な依存を案内し、導入成功後の2回目の起動は再インストールしない。
-25. Windows / macOS / Linux / Raspberry Pi で前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。
+25. **各OSの対応開始前**に、前提条件不足・32-bit・同意拒否・オフライン・非対話実行の各ケースを確認し、無隔離への暗黙切替を行わない。Windows先行段階ではLinux/macOS/Raspberry PiのSandbox起動が明示的に未対応となることも検証する。
 26. Remote Web / A2A の依存不足時、一般利用者に導入プロンプトを出さず Remote Tool を fail closed する。導入済みの場合も Probe / Cleanup の適合性なしに実行を始めない。
 27. `probe()` が永久ブロック・無応答・異常終了する Mock Backend を用い、**Broker が既定15秒以内に `probe_timeout` などの確定失敗を返す**ことを検証する。Local Sandbox opt-in は起動エラー、Remote Web/A2A は fail closed、旧/固着した Helper は回収または隔離され、次回の Probe や Tool Call に使われない。Sandbox off の Local CLI/GUI では Probe 自体を呼ばない。
 
-### OS 実機検証（導入必須）
+### OS 実機検証（各OSの対応開始前に必須）
 
-- Windows x64 / ARM64 (MXC ProcessContainer)、Linux x86-64 / ARM64 (MXC Bubblewrap)、macOS 15+ ARM64 / x86-64 (MXC Seatbelt) の各サポート対象バージョンで Probe→複数実行→Cleanup。
-- **Raspberry Pi の ARM64 Linux 実機**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。
+- **先行PR 2 / Windows:** Windows 11 x64 のMXC ProcessContainer実機でProbe→複数実行→Cleanup、および隔離違反・取消・ハング時の検査に合格させる。Windows ARM64は実機・SDKの適合が確認できるまで未対応とし、確認なしに対応を宣言しない。
+- **後続PR 6 / Linux:** Linux x86-64 / ARM64 のMXC Bubblewrap実機でProbe→複数実行→Cleanupと隔離違反試験を行う。Linuxを有効化する際に完了が必須。Windows先行PRのマージ条件にはしない。
+- **後続PR 7 / macOS:** macOS 15+ ARM64 / x86-64 のMXC Seatbelt実機でProbe→複数実行→Cleanupと隔離違反試験を行う。macOSを有効化する際に完了が必須。Windows先行PRのマージ条件にはしない。
+- **Raspberry Pi の ARM64 Linux 実機（後続PR 6）**（64-bit OS）について `uname -m`、SDK/Native Binary の動作、unprivileged user namespaces、子孫プロセスの隔離、複数 Tool 実行、リソース上限、Stop/Crash Cleanup を確認する。
 - Windows / Linux / macOS / Raspberry Pi の **32-bit OS または 32-bit ユーザーランド**は非対応として検出し、Sandbox 有効化を明示的な非対応エラーで拒否する。Remote では fail closed、Local の Sandbox opt-in でも無隔離への代替実行を禁止する。
 - Worker 内から起動した子孫プロセスが隔離ポリシーを継承すること。
 - Sandbox 外 Path、Host Credential、ネットワーク制限先、Host Broker 制御 Channel へのアクセスが拒否されること。
@@ -496,12 +498,14 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 | --- | --- | --- |
 | Design PR（本書） | OS 非依存契約、Scope、セキュリティ要件、受け入れテストを決定 | 文書レビュー。コード変更なし |
 | PR 1: Broker / Policy | ExecutionClass、Broker、明示 SecurityProfile、Web 全入口と A2A Service Principal/Task ID Binding を含む remote ingress の fail-closed routing、Mock Backend 契約テスト | Remote で Host 直接実行へ迂回できない。Backend 未対応なら Remote Tool 不許可 |
-| PR 2: MXC local PoC | Windows / Linux / macOS の MXC Adapter、常駐 Worker の可否判定、CLI/GUI opt-in | 同一 Session 複数 Tool が再利用され、停止時に破棄 |
+| PR 2: Windows MXC local PoC | **Windows 11 x64先行**のMXC ProcessContainer Adapter、常駐Workerの可否、CLI/GUI opt-in | Windows実機で同一Session複数Toolが再利用され、停止時に破棄。未検証のOS/archは有効化しない |
 | PR 3: SessionManager 統合 | Web Room・A2A Task と Lease の Binding/Recovery/Cleanup | Room 再接続、Task 終了、Crash、異なる Principal を検証 |
-| PR 4: Production Isolation (single instance) | リモート用の強隔離 Backend、Network/Filesystem/Resource Policy、単一インスタンスでの実環境検証 | **単一インスタンス構成に限定した** E0 隔離の受け入れ条件を満たす。Enterprise 全体の完了は主張しない |
-| PR 5: Multi-instance ownership | 共有 Lease Registry、原子的 Owner Claim、世代/Fencing Token、Owner ルーティング、他 Node への Revoke 伝播と Crash/Partition 回収 | 複数 Node で同一 Scope の Lease を二重作成せず、管理者失効を全 Node で強制。Enterprise 完了判定は E1-E5 等の既存ゲートにも従う |
+| PR 4: Windows Production Isolation (single instance) | **Windows向け**の強隔離Backend（Hyper-V候補）、Network/Filesystem/Resource Policy、単一インスタンスでの実機検証 | **検証済みWindows単一インスタンス構成に限定した** E0隔離の受け入れ条件を満たす。Linux/macOSやEnterprise全体の完了は主張しない |
+| PR 5: Multi-instance ownership (Windows first) | 共有 Lease Registry、原子的 Owner Claim、世代/Fencing Token、Owner ルーティング、他 Node への Revoke 伝播と Crash/Partition 回収 | Windows複数Nodeで同一ScopeのLeaseを二重作成せず、失効を全Nodeへ強制。Linux/macOSの対応完了やEnterprise全体完了とは区別 |
+| PR 6: Linux Backend（後日） | Linux x86-64/ARM64（Raspberry Pi 64-bitを含む）のMXC Bubblewrap Adapter、CLI/GUI・Remoteの該当Backend、実機隔離検証 | Linuxの各対応対象に対するProbe・複数Tool・Cleanup・必要隔離強度の実機試験を完了した構成のみ有効化 |
+| PR 7: macOS Backend（後日） | macOS 15+ x86-64/ARM64のMXC Seatbelt Adapter、CLI/GUI統合、Remoteで必要な強隔離Backendの適合性評価 | macOSでProbe・複数Tool・Cleanup・隔離試験が通る構成のみ有効化。Remote向けの強隔離が無ければDeny |
 
-既存 [Enterprise E0 Delivery Plan](UAG_ENTERPRISE_PLATFORM_DESIGN.md#16-delivery-plan) の置換ではなく、**Session 維持と全 Host 共通化の具体化**である。実装順・PR の統合は差分規模と実機検証の結果で調整し、機能追加を無制限に混ぜない。
+**先行する5本のPRはWindows向け実装・検証まで**を担当する。Linux/macOSは省略するのではなく、**後続PR 6 / PR 7が明示的に担当**し、各OSの必須実機検証をそのPRの完了条件に移す。Windows版の完成をクロスプラットフォーム実装完了と報告しない。既存 [Enterprise E0 Delivery Plan](UAG_ENTERPRISE_PLATFORM_DESIGN.md#16-delivery-plan) の置換ではなく、**Session維持と全Host共通化の具体化**である。実装順・PRの統合は差分規模と実機検証の結果で調整し、機能追加を無制限に混ぜない。
 
 ## 16. 未確定事項 / PoC で決めること
 
