@@ -198,15 +198,15 @@ SQLite は初期の単一ホスト・単一 Owner 実装として使用可能。
 | 履歴ロード時の状態 | Sandbox 側の動作 |
 | --- | --- |
 | UAG が所有する同一 Scope の RUNNING Lease が健全に存在 | 所有者・Project・Workspace Binding・Policy Revision・Owner Generation を再照合して接続 |
-| Lease が無い、正常終了済み、CLI / GUI アプリケーション再起動後 | **新しい Sandbox を遅延生成**。作業領域は承認済み Project Revision から初期化し、過去の未公開ファイル・インストール済み依存・常駐プロセスは復元しない |
-| Lease の Crash / 期限切れ / Policy 変更 / Cancel 後の強制破棄 | 前の Lease を使用禁止にして新規生成。**状態消失と必要な環境再構築を UI/LLM に通知** |
+| Lease が無い、正常終了済み、CLI / GUI アプリケーション再起動後 | **新しい Sandbox を遅延生成**。初期実装または適合する `ready` Snapshot が無い場合は、承認済み Project Revision / Export/Commit 済み内容のみから初期化する。将来の Snapshot 対応時は、6.5 の検証・明示承認が済んだ場合に限り、新 Sandbox に保存時点の `workspace` / `environment` Snapshot を復元できる。いずれも常駐プロセス等は復元しない |
+| Lease の Crash / 期限切れ / Policy 変更 / Cancel 後の強制破棄 | 前の Lease を使用禁止にして新規生成。**未保存の状態消失を UI/LLM に通知**。将来の適合する `ready` Snapshot がある場合のみ6.5の手順で保存済み時点へ復元可能とし、それ以降の変更は戻らない |
 | 別 Principal / Project / Room / Task に履歴を取り込む | **元の Lease に絶対に接続しない**。履歴の内容も別途アクセス認可し、許可された現在 Scope の新しい Workspace を使用 |
 | Web の一時切断と同じ Room の正当な再接続 | Lease が健全なら再接続。WebSocket 接続 ID ではなく信頼済み Room + Principal Binding で判断 |
 | A2A で完了した Task の履歴・Checkpoint を参照 | Task Lease は完了時に破棄済み。新しい A2A Task は別 Scope の Sandbox を作る |
 
 - CLI の :load / :sessions load と Web の Session 切替は、**Sandbox ID を履歴からロードして無条件に再利用する操作ではない**。現行 src/uagent/util_cmd_session.py はメッセージや最後の Workdir を復元するが、その Workdir は **実行環境への信頼されたアクセス許可ではない**。Target Session の所有者・Project 境界と、現在許可される Workspace を検証する。異なる場合は Load を拒否するか、既存権限の範囲へ安全に読み替える。
 - 再接続できなかったときは自動で以前の Tool Call を再実行しない（削除、メール送信、Git Push 等の副作用を重複させない）。保存した会話の「成功した」という記録は過去の結果であり、現在の Sandbox の実行状態ではない。
-- 新規 Sandbox に復元するのは **明示的に Export/Commit 済みの Workspace 内容**のみ。中断前の未公開ファイル・仮想環境・依存ライブラリ・プロセス・ブラウザ Cookie・Port Forward は自動復元しない。
+- **初期実装（Snapshot 非対応）または適合する `ready` Snapshot が無い場合**、新規 Sandbox に初期化する内容は **承認済み Project Revision / 明示的な Export/Commit 済み Workspace 内容**のみ。未保存ファイル・仮想環境・依存ライブラリは自動復元しない。**将来の Snapshot 対応後は例外として**、6.5 の所有者・Policy・整合性・互換性検証と明示承認を満たす `ready` な `workspace` / `environment` Snapshot に限り保存時点のファイルや依存環境を新しい Sandbox へ復元できる。**Snapshot 保存時点以降の未保存変更・実行中プロセス・メモリ変数・ブラウザ Cookie・Port Forward はいずれの場合も復元しない**。
 - 将来的な環境 Snapshot / Checkpoint は別機能として設計する。Scope、Ownership、Policy Revision、Artifact 完全性、Secret 混入、Malware 検査に合格した Snapshot のみ復元を許可し、履歴テキストから Snapshot を選択できない。**初期実装は Snapshot 無し**。環境構成・Snapshot 参照の保存方式と復元手順は **6.5** で別途定義する。
 - 履歴ロードで Sandbox が切り替わるときは現在の Execution が終了・取消済みであることを確認し、旧 Lease を勝手に破棄しない（他の生存 Session が正当に保有している場合を含む）。異なる Workspace/Scope に混在した実行中状態を作らない。
 
@@ -440,12 +440,13 @@ uaga --sandbox auto
 14. 未隔離 Helper 直接呼出し、MCP / Plugin 内部 subprocess、Sub-Agent の越境を拒否し、Host-pure への Remote 第4経路がない。
 15. macOS Seatbelt の宛先絞り込み不能など Backend ごとの Capability 不足で、静かに Network Policy を弱めない。
 16. :load / :sessions load / GUI 履歴復帰 / Web 再接続で、健全な同一 Scope の Lease だけが再利用され、アプリ再起動や Crash 後は **状態消失を通知し、過去の Tool を再実行しない**。
-17. Saved Session の Workdir 指定だけでは別 Project/Workspace の Host File にアクセスできない。Sandbox 新規生成では承認済み Export/Commit 内容以外は自動復元しない。
+17. Saved Session の Workdir 指定だけでは別 Project/Workspace の Host File にアクセスできない。Sandbox 新規生成時、**Snapshot 未対応・未作成・不適合**であれば承認済み Project Revision / Export/Commit 内容以外は自動復元しない。将来、適合する `ready` Snapshot がある場合は、6.5の明示承認・検証を経て保存時点の環境・ファイルだけ復元する。
 18. 2つの Web インスタンスが同一 Room/Principal/Project を同時に取得しようとした場合、単一原子的 Claim・Fencing Token・Owner ルーティングが無ければ拒否し、競合 Lease を作らない。
 19. Snapshot 未作成時は有効な参照 ID を捏造しない。Artifact 保存失敗時に履歴イベントが ready にならず、履歴本文から任意の Snapshot を復元できない。
 20. Snapshot 復元前に Scope/Policy/Workspace/Backend/署名/秘密検査を行い、不一致を拒否して過去の Tool Call を再実行しない。
 21. A2A の起動時、非Loopback Listen + local-trusted/sandbox-off は拒否し、Remote Profile と適切な Backend が揃うまで Host 上の Tool を実行しない。
-22. 保存済み CLI/GUI Session をアプリ再起動後にロードした際、同一 Principal/Project の永続 Session Binding から Snapshot を新しい Sandbox に復元できる。別所有者・別 Project・別 Session の Snapshot の無断引継ぎは拒否する。
+22. 保存済み CLI/GUI Session をアプリ再起動後にロードした際、**将来の Snapshot 対応機能において**同一 Principal/Project の永続 Session Binding と 6.5 の検証・承認を満たす `ready` Snapshot から、新しい Sandbox に保存時点の環境・ファイルを復元できる。別所有者・別 Project・別 Session の Snapshot の無断引継ぎは拒否する。
+23. 同じ保存済み CLI/GUI Session に `ready` Snapshot がある場合と無い場合の双方を検証し、6.4 と 6.5 の振り分けが一致すること、Snapshot 時点以降の未保存変更・稼働プロセスが復元されないことを確認する。
 
 ### OS 実機検証（導入必須）
 
