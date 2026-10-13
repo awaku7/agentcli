@@ -575,6 +575,7 @@ def test_workspace_project_listing_survives_full_context_store(tmp_path, monkeyp
 
     resolver = _Resolver(["alice"], authn_kind="trusted_proxy")
     monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
+    monkeypatch.setattr(routes_api.core, "session_store", None, raising=False)
     monkeypatch.setenv("UAGENT_MEMORY_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_MEMORY_DB", str(tmp_path / "memory.sqlite3"))
     monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
@@ -604,6 +605,11 @@ def test_workspace_project_listing_survives_full_context_store(tmp_path, monkeyp
     assert response.json()["projects"] == ["trusted-workspace"]
     assert response.json()["bound_project"] == ""
     assert "uag_project_context=" not in response.headers.get("set-cookie", "")
+
+    created = client.post("/api/me/private-room")
+    assert created.status_code == 200, created.json()
+    assert created.json()["project_id"] == "trusted-workspace"
+    assert "uag_project_context=" not in created.headers.get("set-cookie", "")
 
 
 def test_non_oidc_workspace_default_requires_membership_and_allows_explicit_selection(

@@ -514,14 +514,18 @@ async def create_my_private_room(request: Request):
                     and not configured_project
                     and not oidc_project
                 ):
-                    (
-                        project_context_token,
-                        project_context_max_age,
-                    ) = ProjectContextStore(store).bind(
-                        str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
-                        identity,
-                        project_id,
-                    )
+                    try:
+                        (
+                            project_context_token,
+                            project_context_max_age,
+                        ) = ProjectContextStore(store).bind(
+                            str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
+                            identity,
+                            project_id,
+                        )
+                    except RuntimeError as exc:
+                        if str(exc) != "project context session capacity reached":
+                            raise
             RoomAccessPolicy(store).create_private_room(
                 identity.principal_id,
                 room_id,
