@@ -48,19 +48,25 @@ def resolve_memory_owner(owner: Any = "") -> str:
 def resolve_memory_project() -> str:
     """Resolve the project using the same basis for save and projection paths.
 
-    ``UAGENT_MEMORY_PROJECT`` is the canonical explicit override. Once
-    initialized, the immutable canonical startup workspace is used for both
-    persistence and projection. Before initialization, use ``UAGENT_WORKDIR``
-    or process CWD as the existing local fallback.
+    ``UAGENT_MEMORY_PROJECT`` is the explicit override. Authenticated
+    non-local Web turns use their server-validated project; other entry points
+    retain the existing ``UAGENT_WORKDIR`` / CWD fallback.
     """
     configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
     if configured:
         return configured
-    from .runtime_workdir import get_captured_startup_workdir
+    from .identity_context import get_current_turn_context
 
-    workdir = get_captured_startup_workdir()
-    if not workdir:
-        workdir = str(env_get("UAGENT_WORKDIR", "") or "").strip() or os.getcwd()
+    turn = get_current_turn_context()
+    if (
+        turn is not None
+        and turn.entry_point == "web"
+        and turn.authenticated
+        and turn.authn_kind != "local"
+        and turn.project_id
+    ):
+        return turn.project_id
+    workdir = str(env_get("UAGENT_WORKDIR", "") or "").strip() or os.getcwd()
     return project_id_from_path(workdir)
 
 

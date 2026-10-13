@@ -50,6 +50,7 @@ def test_memory_tools_use_canonical_startup_project(
     tmp_path: Path, monkeypatch
 ) -> None:
     from uagent.runtime import memory_scope, runtime_workdir
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
     from uagent.tools import long_memory, shared_memory
 
     monkeypatch.chdir(tmp_path)
@@ -70,15 +71,50 @@ def test_memory_tools_use_canonical_startup_project(
     other = tmp_path / "other"
     other.mkdir()
     monkeypatch.chdir(other)
-    assert memory_scope.resolve_memory_project() == tmp_path.name
-    assert long_memory.append_long_memory("personal note")
-    shared_memory.append_shared_memory("shared note")
-    personal_row = json.loads(personal.read_text(encoding="utf-8"))
-    shared_row = json.loads(shared.read_text(encoding="utf-8"))
-    assert personal_row["project"] == shared_row["project"] == tmp_path.name
+    turn = TurnContext(
+        principal_id="alice",
+        room_id="room-a",
+        project_id=tmp_path.name,
+        session_id="session-a",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="trusted_proxy",
+        server_bound_project=True,
+    )
+    with bind_turn_context(turn):
+        assert memory_scope.resolve_memory_project() == tmp_path.name
+        assert long_memory.append_long_memory("personal note")
+        shared_memory.append_shared_memory("shared note")
+        personal_row = json.loads(personal.read_text(encoding="utf-8"))
+        shared_row = json.loads(shared.read_text(encoding="utf-8"))
+        assert personal_row["project"] == shared_row["project"] == tmp_path.name
+        monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "explicit")
+        assert memory_scope.resolve_memory_project() == "explicit"
 
-    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "explicit")
-    assert memory_scope.resolve_memory_project() == "explicit"
+
+def test_local_memory_project_tracks_cwd_after_startup(
+    tmp_path: Path, monkeypatch
+) -> None:
+    from uagent.runtime import memory_scope, runtime_workdir
+    from uagent.runtime.identity_context import TurnContext, bind_turn_context
+
+    monkeypatch.setenv("UAGENT_MEMORY_PROJECT", "")
+    monkeypatch.delenv("UAGENT_WORKDIR", raising=False)
+    monkeypatch.setattr(runtime_workdir, "_STARTUP_WORKDIR", str(tmp_path))
+    other = tmp_path / "project-b"
+    other.mkdir()
+    monkeypatch.chdir(other)
+    turn = TurnContext(
+        principal_id="local",
+        room_id="",
+        project_id="project-b",
+        session_id="",
+        entry_point="cli",
+        authenticated=True,
+        authn_kind="local",
+    )
+    with bind_turn_context(turn):
+        assert memory_scope.resolve_memory_project() == "project-b"
 
 
 def test_new_personal_records_store_owner_and_project(
