@@ -558,8 +558,15 @@ def test_non_oidc_workspace_project_is_default_when_membership_allows(
     listed = client.get("/api/me/projects")
     assert listed.status_code == 200
     assert listed.json()["bound_project"] == "trusted-workspace"
-    assert "uag_project_context=" in listed.headers["set-cookie"]
-    assert client.get("/api/me/projects").json()["bound_project"] == "trusted-workspace"
+    assert "uag_project_context=" not in listed.headers.get("set-cookie", "")
+    for _ in range(3):
+        assert client.get("/api/me/projects").json()["bound_project"] == "trusted-workspace"
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    assert (
+        store.db.execute("SELECT COUNT(*) FROM project_context_sessions").fetchone()[0]
+        == 0
+    )
+    store.close()
     created = client.post("/api/me/private-room")
 
     assert created.status_code == 200, created.json()
@@ -630,8 +637,18 @@ def test_workspace_project_listing_survives_full_context_store(tmp_path, monkeyp
 
     assert response.status_code == 200
     assert response.json()["projects"] == ["trusted-workspace"]
-    assert response.json()["bound_project"] == ""
+    assert response.json()["bound_project"] == "trusted-workspace"
     assert "uag_project_context=" not in response.headers.get("set-cookie", "")
+    for _ in range(3):
+        assert client.get("/api/me/projects").status_code == 200
+    store = MemoryStore(tmp_path / "memory.sqlite3")
+    try:
+        count = store.db.execute(
+            "SELECT COUNT(*) FROM project_context_sessions"
+        ).fetchone()[0]
+        assert count == 1
+    finally:
+        store.close()
 
     created = client.post("/api/me/private-room")
     assert created.status_code == 200, created.json()

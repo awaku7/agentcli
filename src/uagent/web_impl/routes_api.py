@@ -778,8 +778,6 @@ async def get_my_projects(request: Request):
         try:
             policy = ProjectAccessPolicy(store)
             policy.sync_directory_policy(identity)
-            default_context_token = ""
-            default_context_ttl = 0
             configured = str(env_get("UAGENT_MEMORY_PROJECT", "") or "").strip()
             token = str(request.cookies.get("uag_oidc_session") or "").strip()
             oidc_bound = get_oidc_session_store().project_id(token) or ""
@@ -810,20 +808,9 @@ async def get_my_projects(request: Request):
                 if candidate and policy.can_access(
                     identity.principal_id, candidate, "viewer"
                 ):
-                    try:
-                        (
-                            default_context_token,
-                            default_context_ttl,
-                        ) = ProjectContextStore(store).bind(
-                            str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or ""),
-                            identity,
-                            candidate,
-                        )
-                    except RuntimeError as exc:
-                        if str(exc) != "project context session capacity reached":
-                            raise
-                    else:
-                        bound = candidate
+                    # A listing must not allocate a browser session: clients
+                    # without cookie persistence may request it repeatedly.
+                    bound = candidate
             if bound:
                 policy.require_access(identity.principal_id, bound, "viewer")
             if policy.is_global_admin(identity.principal_id):
@@ -844,20 +831,6 @@ async def get_my_projects(request: Request):
                 "projects": [str(row["project_id"]) for row in rows],
                 "bound_project": bound,
             }
-            if default_context_token:
-                response = JSONResponse(payload)
-                secure_cookie = str(env_get("UAGENT_OIDC_COOKIE_SECURE", "1") or "")
-                response.set_cookie(
-                    PROJECT_CONTEXT_COOKIE,
-                    default_context_token,
-                    max_age=default_context_ttl,
-                    httponly=True,
-                    secure=secure_cookie.strip().lower()
-                    not in {"0", "false", "no", "off"},
-                    samesite="lax",
-                    path="/",
-                )
-                return response
             if revoked_context:
                 response = JSONResponse(payload)
                 response.delete_cookie(PROJECT_CONTEXT_COOKIE, path="/")
