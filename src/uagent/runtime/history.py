@@ -13,10 +13,13 @@ from .tool_result_persistence import sanitize_message_for_history
 _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS = 12_000
 
 
-def _truncate_text_to_limit(value: str, limit: int) -> str:
+def _truncate_text_to_limit(
+    value: str, limit: int, *, original_length: int | None = None
+) -> str:
     if len(value) <= limit:
         return value
-    marker = f"\n[tool output truncated: original length={len(value)}]\n"
+    source_length = len(value) if original_length is None else max(0, original_length)
+    marker = f"\n[tool output truncated: original length={source_length}]\n"
     if limit <= len(marker):
         return marker[:limit]
     remaining = limit - len(marker)
@@ -35,6 +38,14 @@ def truncate_history_tool_result(text: Any) -> str:
     because command output often contains a summary at the end.
     """
     value = "" if text is None else str(text)
+    limit = history_tool_result_max_chars()
+    if limit == 0:
+        return value
+    return _truncate_text_to_limit(value, limit)
+
+
+def history_tool_result_max_chars() -> int:
+    """Return the configured maximum for tool results (zero means unlimited)."""
     raw_limit = env_get("UAGENT_TOOL_RESULT_MAX_CHARS")
     if raw_limit is None or str(raw_limit).strip() == "":
         raw_limit = env_get("UAGENT_HISTORY_TOOL_RESULT_MAX_CHARS")
@@ -45,11 +56,20 @@ def truncate_history_tool_result(text: Any) -> str:
             limit = int(str(raw_limit).strip())
         except (TypeError, ValueError):
             limit = _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS
-    if limit == 0:
-        return value
     if limit < 0:
         limit = _DEFAULT_HISTORY_TOOL_RESULT_MAX_CHARS
-    return _truncate_text_to_limit(value, limit)
+    return limit
+
+
+def truncate_tool_result_projection(
+    text: Any, *, max_chars: int, original_length: int
+) -> str:
+    """Bound a final LLM projection while retaining the source length marker."""
+    value = "" if text is None else str(text)
+    limit = max(0, int(max_chars))
+    if limit == 0:
+        return value
+    return _truncate_text_to_limit(value, limit, original_length=original_length)
 
 
 _DEFAULT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS = 100_000
@@ -67,6 +87,23 @@ def tool_result_artifact_threshold() -> int:
     return value if value >= 0 else _DEFAULT_TOOL_RESULT_ARTIFACT_THRESHOLD_CHARS
 
 
+def register_large_tool_result_artifact(
+    text: Any, *, tool_name: str
+) -> dict[str, Any] | None:
+    """Register an over-threshold tool result without building an LLM preview."""
+    value = "" if text is None else str(text)
+    threshold = tool_result_artifact_threshold()
+    if threshold == 0 or len(value) <= threshold:
+        return None
+    try:
+        from .artifact_helpers import register_tool_result
+
+        artifact = register_tool_result(value, tool_name=tool_name)
+    except Exception:
+        return None
+    return artifact if isinstance(artifact, dict) else None
+
+
 def materialize_large_tool_result(text: Any, *, tool_name: str) -> str:
     """Keep a safe context entry while preserving a large result as an artifact.
 
@@ -75,15 +112,7 @@ def materialize_large_tool_result(text: Any, *, tool_name: str) -> str:
     fallback so a storage failure cannot reintroduce an oversized request.
     """
     value = "" if text is None else str(text)
-    threshold = tool_result_artifact_threshold()
-    if threshold == 0 or len(value) <= threshold:
-        return truncate_history_tool_result(value)
-    try:
-        from .artifact_helpers import register_tool_result
-
-        artifact = register_tool_result(value, tool_name=tool_name)
-    except Exception:
-        artifact = None
+    artifact = register_large_tool_result_artifact(value, tool_name=tool_name)
     if not artifact:
         return truncate_history_tool_result(value)
     artifact_id = str(artifact.get("artifact_id") or "")

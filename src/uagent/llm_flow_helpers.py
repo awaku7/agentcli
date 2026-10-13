@@ -12,11 +12,65 @@ from .i18n import _
 from .llm_helpers import _effectively_empty_text
 from .runtime.reasoning_renderer import render_reasoning
 from .runtime.history import (
-    materialize_large_tool_result,
+    history_tool_result_max_chars,
+    register_large_tool_result_artifact,
     truncate_history_tool_result,
+    truncate_tool_result_projection,
 )
 from .runtime.context_manager import ContextManager
 from .runtime.spinner import stop_quietly as _spinner_stop_quietly
+
+_EXTERNAL_CONTENT_BEGIN = "---BEGIN_UAGENT_EXTERNAL_CONTENT---"
+_EXTERNAL_CONTENT_END = "---END_UAGENT_EXTERNAL_CONTENT---"
+
+
+def _escape_external_content_markers(text: str) -> str:
+    return (
+        str(text)
+        .replace(_EXTERNAL_CONTENT_BEGIN, "[escaped external-content begin marker]")
+        .replace(_EXTERNAL_CONTENT_END, "[escaped external-content end marker]")
+    )
+
+
+def _wrap_external_content(text: str) -> str:
+    safe_text = _escape_external_content_markers(text)
+    return f"{_EXTERNAL_CONTENT_BEGIN}\n{safe_text}\n{_EXTERNAL_CONTENT_END}"
+
+
+def _unwrap_external_content(text: str) -> str:
+    prefix = f"{_EXTERNAL_CONTENT_BEGIN}\n"
+    suffix = f"\n{_EXTERNAL_CONTENT_END}"
+    value = str(text)
+    if value.startswith(prefix) and value.endswith(suffix):
+        return value[len(prefix) : -len(suffix)]
+    return value
+
+
+def _bound_final_tool_projection(
+    text: str,
+    *,
+    max_chars: int,
+    original_length: int,
+    external_content: bool,
+) -> str:
+    if not external_content:
+        return truncate_tool_result_projection(
+            text, max_chars=max_chars, original_length=original_length
+        )
+
+    wrapper_overhead = len(_EXTERNAL_CONTENT_BEGIN) + len(_EXTERNAL_CONTENT_END) + 2
+    safe_text = _escape_external_content_markers(text)
+    if max_chars > 0:
+        if max_chars <= wrapper_overhead:
+            # Preserving both untrusted-content delimiters takes precedence
+            # over an impossibly small configured output limit.
+            return f"{_EXTERNAL_CONTENT_BEGIN}\n{_EXTERNAL_CONTENT_END}"
+        safe_text = truncate_tool_result_projection(
+            safe_text,
+            max_chars=max_chars - wrapper_overhead,
+            original_length=original_length,
+        )
+    return f"{_EXTERNAL_CONTENT_BEGIN}\n{safe_text}\n{_EXTERNAL_CONTENT_END}"
 
 
 @lru_cache(maxsize=None)
@@ -861,12 +915,7 @@ def _execute_tool_calls(
 
         # --- Prompt injection defense: wrap external content ---
         if _is_external_data_tool(name):
-            wrapped = (
-                "---BEGIN_UAGENT_EXTERNAL_CONTENT---\n"
-                + tool_msg["content"]
-                + "\n---END_UAGENT_EXTERNAL_CONTENT---"
-            )
-            tool_msg["content"] = wrapped
+            tool_msg["content"] = _wrap_external_content(tool_msg["content"])
         try:
             parsed_tool_result = json.loads(tool_result)
         except Exception:
@@ -887,11 +936,7 @@ def _execute_tool_calls(
             if safe_tool_result != parsed_tool_result:
                 safe_content = json.dumps(safe_tool_result, ensure_ascii=False)
                 if _is_external_data_tool(name):
-                    safe_content = (
-                        "---BEGIN_UAGENT_EXTERNAL_CONTENT---\n"
-                        + safe_content
-                        + "\n---END_UAGENT_EXTERNAL_CONTENT---"
-                    )
+                    safe_content = _wrap_external_content(safe_content)
                 tool_msg["content"] = safe_content
 
             # Responses API can re-capture the current Computer Use screen
@@ -948,19 +993,34 @@ def _execute_tool_calls(
         # history when it exceeds the configured context budget. Attachments
         # and saved paths have already been extracted above.
         raw_context_result = tool_msg["content"]
-        materialized_result = materialize_large_tool_result(
+        external_content = _is_external_data_tool(name)
+        llm_source_text = (
+            _unwrap_external_content(raw_context_result)
+            if external_content
+            else str(raw_context_result)
+        )
+        try:
+            projection_value = json.loads(llm_source_text)
+        except (TypeError, ValueError, json.JSONDecodeError):
+            projection_value = llm_source_text
+
+        artifact = register_large_tool_result_artifact(
             raw_context_result, tool_name=name
         )
-        artifact_ref = ""
-        for line in materialized_result.splitlines():
-            if line.startswith("artifact_ref:"):
-                artifact_ref = line.partition(":")[2].strip()
-                break
-        record_value = (
-            parsed_tool_result
-            if isinstance(parsed_tool_result, dict)
-            else raw_context_result
-        )
+        artifact_id = str(artifact.get("artifact_id") or "") if artifact else ""
+        artifact_ref = f"artifact://{artifact_id}" if artifact_id else ""
+        configured_result_limit = history_tool_result_max_chars()
+        if configured_result_limit == 0:
+            # Preserve the documented unlimited setting unless artifactization
+            # itself produced a bounded reference projection.
+            inline_limit = max(len(llm_source_text), 1)
+            preview_limit = 12_000
+        else:
+            inline_limit = configured_result_limit
+            preview_limit = configured_result_limit
+        if artifact_ref:
+            preview_limit = min(preview_limit, 12_000)
+
         result_status = (
             explicit_execution_status
             if explicit_execution_status
@@ -968,7 +1028,7 @@ def _execute_tool_calls(
             else _tool_result_status(parsed_tool_result or raw_context_result)
         )
         result_record, projections = context_manager.process_result(
-            record_value,
+            projection_value,
             tool_name=name,
             session_id=str(
                 getattr(
@@ -984,6 +1044,9 @@ def _execute_tool_calls(
                 "tool_call_id": str(tc.get("id") or ""),
                 "status": result_status,
             },
+            llm_text=llm_source_text,
+            inline_limit_chars=inline_limit,
+            preview_limit_chars=preview_limit,
         )
         if _cli_tool_result_display_enabled(core):
             print(projections.ui_display)
@@ -994,7 +1057,12 @@ def _execute_tool_calls(
         record_result = getattr(core, "record_tool_result", None)
         if callable(record_result):
             record_result(result_record.to_dict(), projections.persistent_history)
-        tool_msg["content"] = materialized_result
+        tool_msg["content"] = _bound_final_tool_projection(
+            projections.llm_context,
+            max_chars=configured_result_limit,
+            original_length=len(llm_source_text),
+            external_content=external_content,
+        )
 
         auto_user_msg = _build_auto_user_message_from_next_action(
             parsed_tool_result=(
