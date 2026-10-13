@@ -502,8 +502,8 @@ OS 別の候補と前提条件は **8節の Capability Probe と実機検証を�
 | PR 3: SessionManager 統合 | Web Room・A2A Task と Lease の Binding/Recovery/Cleanup | Room 再接続、Task 終了、Crash、異なる Principal を検証 |
 | PR 4: Windows Production Isolation (single instance) | **Windows向け**の強隔離Backend（Hyper-V候補）、Network/Filesystem/Resource Policy、単一インスタンスでの実機検証 | **検証済みWindows単一インスタンス構成に限定した** E0隔離の受け入れ条件を満たす。Linux/macOSやEnterprise全体の完了は主張しない |
 | PR 5: Multi-instance ownership (Windows first) | 共有 Lease Registry、原子的 Owner Claim、世代/Fencing Token、Owner ルーティング、他 Node への Revoke 伝播と Crash/Partition 回収 | Windows複数Nodeで同一ScopeのLeaseを二重作成せず、失効を全Nodeへ強制。Linux/macOSの対応完了やEnterprise全体完了とは区別 |
-| PR 6: Linux Backend（後日） | Linux x86-64/ARM64（Raspberry Pi 64-bitを含む）のMXC Bubblewrap Adapter、CLI/GUI・Remoteの該当Backend、実機隔離検証 | Linuxの各対応対象に対するProbe・複数Tool・Cleanup・必要隔離強度の実機試験を完了した構成のみ有効化 |
-| PR 7: macOS Backend（後日） | macOS 15+ x86-64/ARM64のMXC Seatbelt Adapter、CLI/GUI統合、Remoteで必要な強隔離Backendの適合性評価 | macOSでProbe・複数Tool・Cleanup・隔離試験が通る構成のみ有効化。Remote向けの強隔離が無ければDeny |
+| PR 6: Linux Backend（後日） | Linux x86-64/ARM64（Raspberry Pi 64-bitを含む）のMXC Bubblewrap Adapter、CLI/GUI・Remoteの該当Backend、実機隔離検証 | **Linux x86-64、Linux ARM64、64-bit Raspberry Pi ARM64の各実機で**Probe・複数Tool・Cleanup・隔離違反試験を合格させるまでPR 6全体を完了としない。必要なRemote隔離強度のない構成はDeny |
+| PR 7: macOS Backend（後日） | macOS 15+ x86-64/ARM64のMXC Seatbelt Adapter、CLI/GUI統合、Remoteで必要な強隔離Backendの適合性評価 | **macOS 15+ ARM64とx86-64の両実機で**Probe・複数Tool・Cleanup・隔離違反試験を合格させるまでPR 7全体を完了としない。Remote向けの強隔離が無ければDeny |
 
 **先行する5本のPRはWindows向け実装・検証まで**を担当する。Linux/macOSは省略するのではなく、**後続PR 6 / PR 7が明示的に担当**し、各OSの必須実機検証をそのPRの完了条件に移す。Windows版の完成をクロスプラットフォーム実装完了と報告しない。既存 [Enterprise E0 Delivery Plan](UAG_ENTERPRISE_PLATFORM_DESIGN.md#16-delivery-plan) の置換ではなく、**Session維持と全Host共通化の具体化**である。実装順・PRの統合は差分規模と実機検証の結果で調整し、機能追加を無制限に混ぜない。
 
