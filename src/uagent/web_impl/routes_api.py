@@ -796,7 +796,9 @@ async def get_my_projects(request: Request):
             if (
                 context_bound
                 and not oidc_bound
-                and not policy.can_access(identity.principal_id, context_bound, "viewer")
+                and not policy.can_access(
+                    identity.principal_id, context_bound, "viewer"
+                )
             ):
                 ProjectContextStore(store).revoke(
                     str(request.cookies.get(PROJECT_CONTEXT_COOKIE) or "")
