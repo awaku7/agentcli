@@ -10,7 +10,7 @@
 
 1. UAG 本体の Tool 実行インターフェースと Session 管理を OS 非依存にする。
 2. Sandbox を **Tool Call ごとではなく、認証済み Principal と実行スコープ（Session / Room / A2A Task）の組ごとに確保・再利用**する。再利用中は承認された作業領域・インストール済み依存関係などを保持する。ただし認可取消・秘密情報混入・実体障害があれば安全性を優先して破棄する。
-3. 全エントリーポイント（CLI / GUI / Web / A2A）が共通の **ExecutionBroker** と **SandboxSessionManager** を使う。Host ごとの専用ディスパッチを増やさない。
+3. 全エントリーポイント（CLI / GUI / Web / A2A）が共通の **ExecutionBroker** と **SandboxSessionManager** を使う。Host ごとの専用ディスパッチを増やさない。**各 Tool には Sandbox 用の個別実装を原則追加しない**。
 4. ローカル CLI / GUI は Sandbox を任意とし、既存の直接実行を既定とする。リモート Web / A2A は Enterprise E0 の隔離要件を優先し、必要なバックエンドが無ければ **実行拒否**する。
 5. Tool の「副作用区分」「認可結果」「実行区分」「隔離強度」を独立に扱う。**Sandbox 内だから何でも許可するわけではない**。
 6. Microsoft MXC は最初に評価する実装候補とするが、UAG の公開インターフェースを MXC 固有型に依存させない。
@@ -79,7 +79,7 @@ Local-host-pure は、**ローカルの信頼済み CLI / GUI に限定**した�
 - Web の一時的な WebSocket 切断は Room 終了ではない。再接続しても同一 Scope の健全な Sandbox を再利用する。
 - 同じ Principal/Project でも **異なる room_id の Sandbox は共有しない**。同じ Shared Room でも Principal が異なれば別 Lease を割り当て、Private / shared Room の可変状態は共有しない。Room 自体が共有資産でも、Sandbox 内のファイル・プロセスは自動的に他参加者へ共有しない。
 - A2A の opt-in SessionStore が無効でも **task_id 必須**。Task が異なれば会話履歴が似ていても Sandbox は共有しない。現行 A2A の単一 Bearer Token は個々の利用者の識別情報ではないため、認証済み Server 側 Service Principal として Scope を生成する。利用者別 Principal を必要とする構成では、事前に信頼できる呼出元識別・認可を追加し、Client 提供の owner/user ID を受け入れない。
-- CLI の新規 Session は新しい Scope とする。保存済み Session をロードした場合は所有者・Workspace を再検証し、**同一稼働インスタンス内の健全な既存 Lease** に限り再接続する。CLI 終了後の会話履歴ロードは新規 Sandbox が必要で、終了済みプロセス状態の復元を装わない。会話履歴の Session ID と稼働中 Sandbox Lease は異なる。
+- CLI の新規 Session は新しい Scope とする。保存済み Session をロードした場合は所有者・Workspace を再検証し、**同一稼働インスタンス内の健全な既存 Lease** に限り再接続する。CLI 終了後の会話履歴ロードは新規 Sandbox が必要で、終了済みプロセス状態の復元を装わない。会話履歴の Session ID と稼働中 Sandbox Lease は異なる。**Snapshot の保存時所有権はこの一時的な runtime UUID ではなく、永続 Session ID + Principal/Project Binding で管理**する（6.5参照）。
 - GUI の会話切替でも同様。GUI プロセス内で複数の会話の Lease を保持できるが、切替時は Scope を再検証する。会話を消したときの Sandbox 破棄と、履歴だけを残す動作は分ける。
 - CLI/GUI で Sandbox off のときは SessionManager にリソースを作らない。
 - Sub-Agent / background Job は親 Scope と権限の縮小を基本とし、長寿命 Job は親終了後の孤立実行を許可しない。独立 Scope が必要な場合は別途定義する。
@@ -242,13 +242,15 @@ SessionStore に書くイベント例（**概念スキーマ・未実装**）:
 - 作成はユーザー明示操作または承認済み管理ポリシーのみ。初期は明示操作が既定で、Tool ごとの Snapshot や全セッションの無条件自動保存はしない。Session 終了時の自動保存は明示的なポリシー、容量上限、バックグラウンド Job の扱いを決めてから導入する。
 - 作成時は Scope の Tool 受付を一時停止し、実行中 Tool/子孫プロセス、Background Job、Workspace 書込みを安全なチェックポイントに収束させ、整合性ある状態を取得する。Plaintext Credential を受け取った tainted Lease、機密検査失敗、継続中の不明な副作用がある場合は拒否する。
 - Artifact 保存、Manifest 確定、SessionStore 参照公開の順序を定義し、**内容と整合性検証が完了した Snapshot だけ `ready`** とする。中断・保存失敗・孤立 Artifact は `failed` / `unavailable` として回収する。参照だけ存在してデータが無い状況を正常と扱わない。
-- 履歴ロード時は、(1) 健全な同一 Scope の生存 Lease 再接続、(2) Snapshot Catalog からの復元候補提示、(3) 新規クリーン Sandbox の順に判断する。Snapshot は **現在の Principal/Project/Room/Task 権限、Policy Revision、Workspace Revision、Backend/OS/architecture 適合性、Manifest Hash/署名、保存期限、Secret/Malware 検査**を毎回通した後に明示承認を得て復元する。別 Scope への移植は通常の履歴 Load で行わず、別途認可された Export/Import が必要。
+- 履歴ロード時は、(1) 健全な同一 Scope の生存 Lease 再接続、(2) Snapshot Catalog からの復元候補提示、(3) 新規クリーン Sandbox の順に判断する。Snapshot は **現在の Principal/Project/Room/Task 権限、Policy Revision、Workspace Revision、Backend/OS/architecture 適合性、Manifest Hash/署名、保存期限、Secret/Malware 検査**を毎回通した後に明示承認を得て復元する。**CLI/GUI 再起動後に同じ保存済み Session をロードする場合**は、永続 Session ID と保存時の Principal/Project Binding が一致し、現行の権限を満たせば、新しい runtime Scope の新規 Sandbox への Snapshot 復元を許す。以前の生存 Lease への再接続ではない。別 Session/Principal/Project/Room/Task への転用は通常の履歴 Load で行わず、別途認可された Export/Import が必要。
 - Snapshot は作成時点の状態であり、会話の最新メッセージ時点と一致するとは限らない。復元対象の時刻・差分・未公開変更の消失を示す。**履歴に記録された Tool Call を再実行しない**ため、削除・Git Push・メール送信などの副作用も再発生しない。
 - Artifact とその Catalog には保存期限、個数/容量制限、手動削除、Project 削除・権限失効、暗号鍵管理、参照切れ時の GC を定義する。履歴が残っていても Artifact が破棄済みなら `unavailable` と表示し、黙って別の Snapshot を選ばない。
 
 **段階的な実装:** ① 非秘密の Environment Manifest / SessionStore イベント契約、② Snapshot Catalog + Artifact Store、③ Backend の安全な保存と再生成、④ CLI/GUI/Web/A2A の履歴復元連携。**本 PR は設計だけで、実際の Snapshot 作成・復元は行わない。**
 
 ## 7. Tool 実行分類と権限
+
+**最小実装原則:** 既存 Function Call の名前・引数・戻り値は原則変更せず、共通入口 `tools.run_tool()` で認可して、**Sandbox / 狭い Broker / Deny** の3経路に振り分ける。ローカルで Sandbox=off のときだけ既存 Runner を維持する。ツールごとの新規 `SandboxTool` クラスや大量の個別設定を作らず、**中央の Tool 実行区分マップ**に例外を集約する。通常のファイル・プロセス操作は Sandbox、Memory・Credential・承認・UI は専用 Broker、未分類の Remote Tool は Deny。`git push`、`http_request` などは引数で追加認可する。既存 Runner を隔離環境で安全に使えない場合は共通 Worker 側の薄い互換処理で対応し、安易な Host 直接実行は認めない。
 
 既存の src/uagent/tools/tool_policy.py は READ_ONLY / IDEMPOTENT_WRITE / EXTERNAL_SEND / DESTRUCTIVE を区別する。これは **実行環境の安全性を示す分類ではない**。例えば get_env、read_file、http_request GET は READ_ONLY でも、Host の情報を読み取れるため一般 Host-safe ではない。
 
@@ -386,7 +388,7 @@ uaga --sandbox auto
 ~~~
 
 - 新規設定は可能な限り単一の共通引数にまとめ、Backend 固有の細かなオプションを環境変数として大量追加しない。
-- Remote profile は sandbox=off を許可しない。CLI から指定された値と Deployment Policy のうち **厳しい方**を採用する。隔離対象は [Enterprise E0](UAG_ENTERPRISE_PLATFORM_DESIGN.md#31-enterprise-phase-e0-remote-execution-isolation) に従い、認証付き Multi-user Web（イントラネットを含む）、外部公開 Web / WebSocket、ツールを使う Remote A2A。**SecurityProfile は起動時に信頼できる管理設定として確定**し、リクエストの IP・Host header・ブラウザ指定値から弱い Profile を選ばない。
+- Remote profile は sandbox=off を許可しない。CLI から指定された値と Deployment Policy のうち **厳しい方**を採用する。隔離対象は [Enterprise E0](UAG_ENTERPRISE_PLATFORM_DESIGN.md#31-enterprise-phase-e0-remote-execution-isolation) に従い、認証付き Multi-user Web（イントラネットを含む）、外部公開 Web / WebSocket、ツールを使う Remote A2A。**SecurityProfile は起動時に信頼できる管理設定として確定**し、リクエストの IP・Host header・ブラウザ指定値から弱い Profile を選ばない。**A2A は起動時に Bind Address を検証し、`0.0.0.0` / `::` / 非LoopbackへListenする場合は、隔離対象の Remote Profile を強制するか起動拒否する。`local-trusted` + `sandbox=off` のまま公開しない。**
 - "auto" は OS 判定だけで無条件許可せず、必要な IsolationLevel / Capability / Enterprise Policy を照合する。
 - Local GUI/CLI の既存直接実行は Feature が有効になるまで変更しない。
 - 有効化時に Worker/Backend の自動インストールを行う場合も、管理者確認・署名/Hash 検証・配布経路の制約を必要とする。信頼できない SDK や実行ファイルを自動導入しない。
@@ -442,6 +444,8 @@ uaga --sandbox auto
 18. 2つの Web インスタンスが同一 Room/Principal/Project を同時に取得しようとした場合、単一原子的 Claim・Fencing Token・Owner ルーティングが無ければ拒否し、競合 Lease を作らない。
 19. Snapshot 未作成時は有効な参照 ID を捏造しない。Artifact 保存失敗時に履歴イベントが ready にならず、履歴本文から任意の Snapshot を復元できない。
 20. Snapshot 復元前に Scope/Policy/Workspace/Backend/署名/秘密検査を行い、不一致を拒否して過去の Tool Call を再実行しない。
+21. A2A の起動時、非Loopback Listen + local-trusted/sandbox-off は拒否し、Remote Profile と適切な Backend が揃うまで Host 上の Tool を実行しない。
+22. 保存済み CLI/GUI Session をアプリ再起動後にロードした際、同一 Principal/Project の永続 Session Binding から Snapshot を新しい Sandbox に復元できる。別所有者・別 Project・別 Session の Snapshot の無断引継ぎは拒否する。
 
 ### OS 実機検証（導入必須）
 
