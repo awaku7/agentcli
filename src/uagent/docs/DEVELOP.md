@@ -1286,12 +1286,13 @@ Room/Principal authorization and Policy revision before returning a reply.
 
 Web command input is separately fail-closed at both the WebSocket `command`
 event and `POST /api/command` entry points. Until a Sandbox-aware command
-backend exists, Remote Web and Sandbox-enabled local Web allow only
-reasoning/verbosity mode commands. Help is also denied in these profiles
-because its catalog may import Host plugins; filesystem, credential, skills,
-dynamic, and unclassified commands are denied before `handle_command()` or a
-plugin command handler can run. Legacy command behavior is retained only for
-`local_trusted` Web with Sandbox off. Empty human-confirmation retries reuse
+backend exists, Remote Web allows only reasoning/verbosity mode commands; help
+is denied because its catalog may import Host plugins. Filesystem, credential,
+skills, dynamic, and unclassified commands are denied before `handle_command()`
+or a plugin command handler can run. An explicit Sandbox opt-in on trusted
+local Web fails at startup while no compliant backend is available; command
+checks also fail closed for sandbox-enabled profiles. Legacy command behavior
+is retained only for `local_trusted` Web with Sandbox off. Empty human-confirmation retries reuse
 the original private IPC event so the initiating principal and Job binding
 survive re-display.
 

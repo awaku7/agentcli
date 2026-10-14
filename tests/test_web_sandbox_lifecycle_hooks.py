@@ -83,6 +83,26 @@ def test_local_web_lifecycle_hooks_are_blocked_when_sandbox_enabled(
     assert calls == []
 
 
+def test_local_web_sandbox_opt_in_fails_startup_without_backend():
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    with pytest.raises(SystemExit) as error:
+        init._validate_web_sandbox_startup(
+            parser, trusted_local=True, sandbox_enabled=True
+        )
+    assert error.value.code == 2
+
+
+def test_remote_web_sandbox_opt_in_can_start_toolless():
+    import argparse
+
+    # Remote tools remain broker-denied, but the service may run tool-less.
+    init._validate_web_sandbox_startup(
+        argparse.ArgumentParser(), trusted_local=False, sandbox_enabled=True
+    )
+
+
 def test_local_web_user_prompt_hook_is_blocked_when_sandbox_enabled(monkeypatch):
     from uagent.runtime.execution_broker import SecurityProfile, execution_profile
 

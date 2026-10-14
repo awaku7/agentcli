@@ -91,6 +91,22 @@ def _current_web_ask_principal(room) -> str:
         return ""
 
 
+def _validate_web_sandbox_startup(
+    parser, *, trusted_local: bool, sandbox_enabled: bool
+) -> None:
+    """Fail fast for local Sandbox opt-in until a compliant backend exists."""
+    if trusted_local and sandbox_enabled:
+        from ..i18n import _
+
+        parser.error(
+            _(
+                "Sandbox was enabled for local Web, but no compliant Sandbox "
+                "backend is available; refusing to start. Use --sandbox off "
+                "or install a supported backend."
+            )
+        )
+
+
 def _fire_web_lifecycle_hook(event_name: str) -> None:
     """Run a Web lifecycle hook under the trusted startup ingress profile."""
     from ..runtime.execution_broker import SecurityProfile, execution_profile
@@ -503,6 +519,11 @@ def main():
     _trusted_local_web = is_trusted_local_web(bind_host, _identity_mode)
     web_manager.execution_profile = "local_trusted" if _trusted_local_web else "remote"
     web_manager.sandbox_enabled = web_args.sandbox != "off"
+    _validate_web_sandbox_startup(
+        parser,
+        trusted_local=_trusted_local_web,
+        sandbox_enabled=web_manager.sandbox_enabled,
+    )
     _web_profile = (
         SecurityProfile.LOCAL_TRUSTED if _trusted_local_web else SecurityProfile.REMOTE
     )
