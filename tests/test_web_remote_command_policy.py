@@ -18,15 +18,25 @@ from uagent.web_impl.rooms import WebRoom, web_manager
 
 @pytest.mark.parametrize(
     "command",
-    [":cp source destination", ":mv source destination", ":plugincmd:run"],
+    [
+        ":cp source destination",
+        ":mv source destination",
+        ":plugincmd:run",
+        ":help",
+    ],
 )
-@pytest.mark.parametrize("sandbox_enabled", [False, True])
+@pytest.mark.parametrize(
+    ("execution_profile", "sandbox_enabled"),
+    [("remote", False), ("remote", True), ("local_trusted", True)],
+)
 @pytest.mark.parametrize("entrypoint", ["api", "websocket"])
-def test_remote_web_commands_fail_closed_before_host_dispatch(
-    monkeypatch, command, sandbox_enabled, entrypoint
+def test_web_commands_fail_closed_before_host_dispatch(
+    monkeypatch, command, execution_profile, sandbox_enabled, entrypoint
 ):
     calls = []
-    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(
+        web_manager, "execution_profile", execution_profile, raising=False
+    )
     monkeypatch.setattr(web_manager, "sandbox_enabled", sandbox_enabled, raising=False)
     monkeypatch.setattr(web_manager, "room_worker_pool", None, raising=False)
     monkeypatch.setattr(
@@ -138,37 +148,50 @@ async def _async_noop(*_args, **_kwargs):
     return None
 
 
-def test_local_trusted_web_keeps_command_dispatch_eligible():
+def test_local_trusted_web_keeps_host_commands_when_sandbox_is_off():
     assert (
-        web_command_denial(":cp source destination", execution_profile="local_trusted")
+        web_command_denial(
+            ":cp source destination",
+            execution_profile="local_trusted",
+            sandbox_enabled=False,
+        )
         is None
     )
 
 
-def test_remote_web_allows_only_help_and_reasoning_modes():
-    allowed_commands = (
-        ":help",
-        ":h tools",
-        ":?",
-        ":r high",
-        ":reasoning low",
-        ":v high",
-        ":verbosity low",
-    )
-    for command in allowed_commands:
-        assert web_command_denial(command, execution_profile="remote") is None
+def test_sandboxed_or_remote_web_allows_only_mode_changes():
+    for profile, sandbox_enabled in (
+        ("remote", False),
+        ("remote", True),
+        ("local_trusted", True),
+    ):
+        for command in (":r high", ":reasoning low", ":v high", ":verbosity low"):
+            assert (
+                web_command_denial(
+                    command,
+                    execution_profile=profile,
+                    sandbox_enabled=sandbox_enabled,
+                )
+                is None
+            )
 
-    denied_commands = (
-        ":cp a b",
-        ":mv a b",
-        ":rm a",
-        ":credential list",
-        ":skills install x",
-        ":plugin:run",
-        ":unknown",
-    )
-    for command in denied_commands:
-        assert web_command_denial(command, execution_profile="remote")
+        for command in (
+            ":help",
+            ":h tools",
+            ":?",
+            ":cp a b",
+            ":mv a b",
+            ":rm a",
+            ":credential list",
+            ":skills install x",
+            ":plugin:run",
+            ":unknown",
+        ):
+            assert web_command_denial(
+                command,
+                execution_profile=profile,
+                sandbox_enabled=sandbox_enabled,
+            )
 
 
 def test_empty_human_ask_retry_preserves_private_authorization_metadata(monkeypatch):

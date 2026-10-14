@@ -84,9 +84,7 @@ JSON as attributed evidence, never as system instructions or tool permissions.
 
 `runtime/sub_agent_handoff.py` adds an opt-in runtime connection to
 `SubAgentRunner.run(..., handoff_dispatch=dispatch)`. Before execution or queuing,
-the trusted host calls `capture_sub_agent_dispatch(store, receiving_session_id=...,
-objective=..., task_scope=..., goal_ids=..., source_refs=...,
-source_access_check=...)`. This captures AgentState and revision together and
+the trusted host calls `capture_sub_agent_dispatch(store, receiving_session_id=..., objective=..., task_scope=..., goal_ids=..., source_refs=..., source_access_check=...)`. This captures AgentState and revision together and
 stores the bounded projection and dispatch lineage in a dedicated Sub-Agent
 session.
 If the initial dispatch append fails, capture deletes the newly created,
@@ -249,9 +247,7 @@ there is no Goal/Memory/state mutation, no completion signal, and no
 Auto-pilot resume. Other hosts do not enable this context projection.
 
 Receipt review is a separate, trusted-host-only API:
-`SessionStore.review_sub_agent_receipt(main_id, root_handoff_id,
-reviewer_id=..., outcome="supported"|"rejected",
-evidence_refs=(...), expected_revision=..., source_access_check=...)`.
+`SessionStore.review_sub_agent_receipt(main_id, root_handoff_id, reviewer_id=..., outcome="supported"|"rejected", evidence_refs=(...), expected_revision=..., source_access_check=...)`.
 The reviewer ID, decision and evidence references must be host-owned, never
 taken directly from model output. A first review requires an already-received
 report with available child provenance and at least one separate, exact,
@@ -278,10 +274,8 @@ No reviewer identity, raw review evidence text, or new permissions are
 included. This remains lower-trust, transient context, never verified
 facts, Main state, or Goal completion.
 
-
 A subsequent **trusted-host-only** method,
-`SessionStore.apply_reviewed_sub_agent_receipt(main_id, root_id,
-expected_revision=..., source_access_check=...)`, can atomically register
+`SessionStore.apply_reviewed_sub_agent_receipt(main_id, root_id, expected_revision=..., source_access_check=...)`, can atomically register
 a `supported` review in the protected Main AgentState key
 `sub_agent_review_registry`. The registry holds only the reviewed root ID,
 reviewer identifier, review revision and independent user-message SourceRefs,
@@ -304,8 +298,7 @@ This method is not installed in any host or exposed as an LLM tool.
 The CLI provides explicit local audit commands: `:receipt` lists
 currently visible receipt IDs and review statuses; `:receipt evidence`
 lists the IDs and exact sequence numbers of Main user messages without
-printing their contents. `:receipt review <root-id> <supported|rejected>
-<message-id> <seq>` asks the existing trusted review API to record the
+printing their contents. `:receipt review <root-id> <supported|rejected> <message-id> <seq>` asks the existing trusted review API to record the
 local operator's assessment. This write command requires an interactive
 CLI session and is disabled in headless and Auto-pilot modes. The reviewer
 label `cli:local-operator` identifies a local action, **not an
@@ -1247,14 +1240,12 @@ code_mapの `format="mermaid"` で生成した現在のプロジェクト構造�
   - `UAGENT_LANG=ja python -m pytest -q`
 - `tests/__init__.py` is present so Matter tests can import shared fixtures reliably.
 
-
 Auto-pilot Jev review sends `goal_satisfied` and `material_work_remaining` boolean
 questions together (native `noul`), deriving COMPLETE only from true/false.
 Its masked state excludes execution budgets and call IDs and contains goal,
 latest answer and bounded tool/prior-assistant evidence for cumulative completion.
 Laya's choice/order guard and LLM fallback
 remain unchanged. See `docs/AUTO_PILOT_DECISION_PROVIDER_DESIGN.md`.
-
 
 The shared startup banner displays the resolved Decision Provider and model
 immediately after the workdir line. It honors the already resolved CLI/environment
@@ -1284,22 +1275,25 @@ tools are denied until an isolation backend meeting the required profile is
 available; `--sandbox auto` and `--sandbox mxc` do not imply a backend is present.
 A2A is always remote and binds its broker scope to the server-generated task ID.
 The spawned Web Room worker receives the profile and opt-in mode from a
-server-internal payload, not from room or request fields. Remote hooks are denied
-before command, HTTP, MCP, prompt, or agent hook execution; Web plugin activation
-is skipped for remote deployments. Parallel eligibility checks do not import
+server-internal payload, not from room or request fields. Remote and sandbox-
+enabled hook execution is denied before command, HTTP, MCP, prompt, or agent
+hook dispatch until a compliant hook backend exists. Web plugin activation is
+skipped for remote deployments. Parallel eligibility checks do not import
 plugins for remote calls. Tool dispatch revalidates the current trusted Web Room
 and Project authorization immediately before execution, including after a user
 confirmation wait. The Web `human_ask` UI path independently revalidates its
 Room/Principal authorization and Policy revision before returning a reply.
 
-Remote Web command input is separately fail-closed at both the WebSocket
-`command` event and `POST /api/command` entry points. Until a Sandbox-aware
-command backend exists, only help and reasoning/verbosity mode commands are
-allowed; filesystem, credential, skills, dynamic, and unclassified commands
-are denied before `handle_command()` or a plugin command handler can run. This
-restriction applies with Sandbox both off and on and does not change the trusted
-`local_trusted` Web profile. Empty human-confirmation retries reuse the original
-private IPC event so the initiating principal and Job binding survive re-display.
+Web command input is separately fail-closed at both the WebSocket `command`
+event and `POST /api/command` entry points. Until a Sandbox-aware command
+backend exists, Remote Web and Sandbox-enabled local Web allow only
+reasoning/verbosity mode commands. Help is also denied in these profiles
+because its catalog may import Host plugins; filesystem, credential, skills,
+dynamic, and unclassified commands are denied before `handle_command()` or a
+plugin command handler can run. Legacy command behavior is retained only for
+`local_trusted` Web with Sandbox off. Empty human-confirmation retries reuse
+the original private IPC event so the initiating principal and Job binding
+survive re-display.
 
 Computer Use (including provider-native declarations, local handler calls, and
 explicit navigation) is available only to trusted local CLI/GUI/Web execution

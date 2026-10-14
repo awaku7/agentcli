@@ -194,6 +194,9 @@ async def websocket_endpoint(websocket: WebSocket):
                     execution_profile=getattr(
                         web_manager, "execution_profile", "remote"
                     ),
+                    sandbox_enabled=bool(
+                        getattr(web_manager, "sandbox_enabled", False)
+                    ),
                 )
                 if denial:
                     room.add_message(

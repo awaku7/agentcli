@@ -1731,6 +1731,7 @@ async def api_command(req: Request):
     denial = web_command_denial(
         cmd_line,
         execution_profile=getattr(web_manager, "execution_profile", "remote"),
+        sandbox_enabled=bool(getattr(web_manager, "sandbox_enabled", False)),
     )
     if denial:
         return JSONResponse(status_code=403, content={"error": denial})
