@@ -38,6 +38,24 @@ def _capture_trusted_a2a_user_message(message: object) -> bool:
         return False
 
 
+def _a2a_task_authorization_is_current(scope: Any) -> bool:
+    """Validate the active A2A task using task-local scope and lifecycle state."""
+    try:
+        from ..runtime.execution_broker import current_scope
+        from ..runtime.execution import current_lifecycle
+
+        if current_scope() != scope:
+            return False
+        lifecycle = current_lifecycle()
+        if lifecycle is None:
+            return False
+        snapshot = lifecycle.snapshot()
+        status = str(getattr(snapshot.status, "value", snapshot.status)).upper()
+        return status == "RUNNING"
+    except Exception:
+        return False
+
+
 def run_once_uag(
     *, user_text: str, task_id: str = ""
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
@@ -48,7 +66,7 @@ def run_once_uag(
     # Local imports to avoid import-time side effects unless A2A server is used.
     from .. import core as core
     from .. import uagent_llm as llm_util
-    from .. import util_providers as providers
+    from ..providers import util_providers as providers
     from .. import util_tools as tools_util
     from ..util_tools import build_initial_messages, image_file_to_data_url
     from ..runtime.session_store import (
@@ -60,7 +78,6 @@ def run_once_uag(
     attached_store, _session_id = attach_opt_in_session_store(
         core, project_path=os.getcwd(), entry_point="a2a"
     )
-    core.task_id = str(task_id or "")
 
     def _run_a2a_turn(fn, *args, **kwargs):
         return call_with_resolved_turn_context(
@@ -91,21 +108,6 @@ def run_once_uag(
         execution_profile,
     )
 
-    def _a2a_task_authorization_is_current() -> bool:
-        if str(getattr(core, "task_id", "") or "") != str(task_id).strip():
-            return False
-        try:
-            from ..runtime.execution import current_lifecycle
-
-            lifecycle = current_lifecycle()
-            if lifecycle is None:
-                return False
-            snapshot = lifecycle.snapshot()
-            status = str(getattr(snapshot.status, "value", snapshot.status)).upper()
-            return status == "RUNNING"
-        except Exception:
-            return False
-
     try:
         scope = TrustedSandboxScope(
             deployment_id="a2a",
@@ -118,7 +120,7 @@ def run_once_uag(
             SecurityProfile.REMOTE,
             sandbox_enabled=False,
             scope=scope,
-            authorization_check=_a2a_task_authorization_is_current,
+            authorization_check=lambda: _a2a_task_authorization_is_current(scope),
         ):
             _run_a2a_turn(
                 llm_util.run_llm_rounds,
@@ -134,10 +136,6 @@ def run_once_uag(
     finally:
         if attached_store is not None:
             detach_opt_in_session_store(core)
-        try:
-            delattr(core, "task_id")
-        except AttributeError:
-            pass
 
     def _collect_attachments() -> list[dict[str, Any]]:
         attachments: list[dict[str, Any]] = []

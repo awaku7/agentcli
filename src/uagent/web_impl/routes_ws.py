@@ -62,6 +62,19 @@ def _request_room_interrupt(room) -> bool:
         return True
 
 
+def _human_ask_response_is_authorized(room, principal_id: str) -> bool:
+    """Only the principal whose turn opened the prompt may answer in Remote Web."""
+    if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
+        return True
+    lock = getattr(room, "_lifecycle_lock", None)
+    if lock is None:
+        expected = str(getattr(room, "_human_ask_expected_principal_id", "") or "")
+    else:
+        with lock:
+            expected = str(getattr(room, "_human_ask_expected_principal_id", "") or "")
+    return bool(expected and expected == str(principal_id or ""))
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     try:
@@ -353,6 +366,16 @@ async def websocket_endpoint(websocket: WebSocket):
                     try:
                         _web_server_log(
                             f"[web-ask] drop late response room={str(room.room_id)[:8]}"
+                        )
+                    except Exception:
+                        pass
+                    continue
+                if not _human_ask_response_is_authorized(
+                    room, connection.identity.principal_id
+                ):
+                    try:
+                        _web_server_log(
+                            f"[web-ask] reject non-initiator room={str(room.room_id)[:8]}"
                         )
                     except Exception:
                         pass

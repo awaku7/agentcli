@@ -69,6 +69,61 @@ def test_remote_web_scope_requires_nonlocal_authenticated_identity():
     assert trusted_web_scope(remote_turn, "room-1") is not None
 
 
+def test_concurrent_a2a_broker_authorization_uses_task_local_scope(monkeypatch):
+    from concurrent.futures import ThreadPoolExecutor
+    from threading import Barrier
+
+    from uagent import core
+    import uagent.uagent_llm as uagent_llm
+    import uagent.providers.util_providers as util_providers
+    import uagent.util_tools as util_tools
+    from uagent.runtime.execution import lifecycle_execution
+    from uagent.runtime.execution_broker import current_scope
+    from uagent.runtime import session_store
+
+    barrier = Barrier(2)
+    observed: dict[str, str] = {}
+    monkeypatch.setattr(core, "task_id", "sentinel", raising=False)
+    monkeypatch.setattr(
+        util_providers, "make_client", lambda _core: ("openai", object(), "model")
+    )
+    monkeypatch.setattr(
+        session_store,
+        "attach_opt_in_session_store",
+        lambda *_args, **_kwargs: (None, "a2a-test-session"),
+    )
+    monkeypatch.setattr(
+        session_store, "detach_opt_in_session_store", lambda *_args: None
+    )
+    monkeypatch.setattr(util_tools, "build_initial_messages", lambda **_kwargs: [])
+    monkeypatch.setattr(core, "log_message", lambda _message: None)
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setitem(tools._RUNNERS, "get_current_time", lambda _args: "unused")
+    monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "get_current_time", False)
+
+    def run_rounds(_provider, _client, _model, messages, **_kwargs):
+        barrier.wait(timeout=10)
+        scope = current_scope()
+        assert scope is not None
+        result = tools.run_tool("get_current_time", {})
+        observed[scope.scope_id] = result
+        messages.append({"role": "assistant", "content": "done"})
+
+    monkeypatch.setattr(uagent_llm, "run_llm_rounds", run_rounds)
+
+    def run_task(task_id: str):
+        with lifecycle_execution():
+            return run_once_uag(user_text=task_id, task_id=task_id)
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(run_task, ("task-a", "task-b")))
+
+    assert all(error is None for _message, error in results)
+    assert set(observed) == {"task-a", "task-b"}
+    assert all("[get_current_time]" in result for result in observed.values()), observed
+    assert core.task_id == "sentinel"
+
+
 def test_a2a_requires_server_task_id_before_starting_run():
     with pytest.raises(ValueError, match="task_id is required"):
         run_once_uag(user_text="hello", task_id="")
@@ -473,6 +528,20 @@ def test_remote_user_prompt_submit_hook_cannot_spawn_host_command(
     assert len(results) == 1
     assert not results[0]["ok"]
     assert "remote" in results[0]["error"]
+
+
+def test_remote_human_ask_response_is_bound_to_initiating_principal(monkeypatch):
+    from uagent.web_impl.rooms import WebRoom, web_manager
+    from uagent.web_impl.routes_ws import _human_ask_response_is_authorized
+
+    room = WebRoom("shared-room")
+    room._human_ask_expected_principal_id = "alice"
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+
+    assert _human_ask_response_is_authorized(room, "alice")
+    assert not _human_ask_response_is_authorized(room, "bob")
+    room._human_ask_expected_principal_id = ""
+    assert not _human_ask_response_is_authorized(room, "alice")
 
 
 def test_web_human_ask_revalidates_current_room_principal(monkeypatch):
