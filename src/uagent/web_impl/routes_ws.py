@@ -381,9 +381,11 @@ async def websocket_endpoint(websocket: WebSocket):
                         pass
                     continue
                 pool = web_manager.room_worker_pool
-                if pool is not None:
+                if pool is not None and not getattr(room, "human_ask_job_id", ""):
                     pool.answer(room, payload.get("text", ""))
-                    room.human_ask_pending = False
+                    with room._lifecycle_lock:
+                        room._human_ask_expected_principal_id = ""
+                room.human_ask_pending = False
                 room.human_ask_cancelled = False
                 room.human_ask_result = payload.get("text", "")
                 try:

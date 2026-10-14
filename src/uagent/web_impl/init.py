@@ -77,6 +77,43 @@ def _remote_human_ask_authorized(room) -> bool:
         return False
 
 
+def _current_web_ask_principal(room) -> str:
+    """Return the principal from the server-created TurnContext for this Room."""
+    try:
+        from ..runtime.execution_broker import trusted_web_scope
+        from ..runtime.identity_context import get_current_turn_context
+
+        turn = get_current_turn_context()
+        if trusted_web_scope(turn, str(getattr(room, "room_id", ""))) is None:
+            return ""
+        return str(turn.principal_id)
+    except Exception:
+        return ""
+
+
+def _fire_web_lifecycle_hook(event_name: str) -> None:
+    """Run a Web lifecycle hook under the trusted startup ingress profile."""
+    from ..runtime.execution_broker import SecurityProfile, execution_profile
+
+    if event_name == "SessionStart":
+        from ..hooks_engine import fire_session_start as fire_hook
+    elif event_name == "Stop":
+        from ..hooks_engine import fire_stop as fire_hook
+    else:
+        raise ValueError(f"Unsupported Web lifecycle hook: {event_name}")
+
+    profile = (
+        SecurityProfile.LOCAL_TRUSTED
+        if getattr(web_manager, "execution_profile", "remote") == "local_trusted"
+        else SecurityProfile.REMOTE
+    )
+    with execution_profile(
+        profile,
+        sandbox_enabled=bool(getattr(web_manager, "sandbox_enabled", False)),
+    ):
+        fire_hook()
+
+
 def init_web():
     print(get_welcome_message())
 
@@ -139,7 +176,13 @@ def init_web():
                         "cancelled": True,
                     }
                 )
-            return web_human_ask(room, {"message": message})
+            return web_human_ask(
+                room,
+                {
+                    "message": message,
+                    "_expected_principal_id": _current_web_ask_principal(room),
+                },
+            )
 
         set_ask_user_hook(_web_ask_user)
     except Exception as e:
@@ -206,6 +249,10 @@ def init_web():
                                 "cancelled": True,
                             }
                         )
+                # Do not accept an identity supplied by the model in tool args.
+                # Bind this confirmation to the authenticated turn context.
+                ask_args = dict(args)
+                ask_args["_expected_principal_id"] = _current_web_ask_principal(room)
                 # Keep the room-level confirmation slot and WAIT/LLM status
                 # transition serialized together. web_human_ask() uses the same
                 # RLock, so the nested acquisition is intentional.
@@ -218,7 +265,7 @@ def init_web():
                     except Exception:
                         pass
                     try:
-                        reply = web_human_ask(room, args)
+                        reply = web_human_ask(room, ask_args)
                         if not _remote_human_ask_authorized(room):
                             return json.dumps(
                                 {
@@ -540,13 +587,7 @@ def main():
     sys.__stdout__.flush()
     # Fire SessionStart hook
     try:
-        from ..hooks_engine import fire_session_start
-
-        with execution_profile(
-            _web_profile,
-            sandbox_enabled=web_manager.sandbox_enabled,
-        ):
-            fire_session_start()
+        _fire_web_lifecycle_hook("SessionStart")
     except Exception:
         pass
 
@@ -566,8 +607,6 @@ def main():
     finally:
         # Fire Stop hook
         try:
-            from ..hooks_engine import fire_stop
-
-            fire_stop()
+            _fire_web_lifecycle_hook("Stop")
         except Exception:
             pass

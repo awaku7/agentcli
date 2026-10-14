@@ -337,7 +337,6 @@ class RoomWorkerPool:
         acquired = False
         process = None
         parent = child = None
-        turn_principal_bound = False
         try:
             with self._lock:
                 if self._closed.is_set():
@@ -354,18 +353,6 @@ class RoomWorkerPool:
             if not acquired or self._closed.is_set():
                 return
             room.set_status(True, "QUEUED")
-            turn_context = kwargs.get("turn_context")
-            turn_principal_id = ""
-            if (
-                turn_context is not None
-                and getattr(turn_context, "entry_point", "") == "web"
-                and getattr(turn_context, "room_id", "") == room.room_id
-                and bool(getattr(turn_context, "authenticated", False))
-            ):
-                turn_principal_id = str(getattr(turn_context, "principal_id", "") or "")
-            with room._lifecycle_lock:
-                room._human_ask_expected_principal_id = turn_principal_id
-            turn_principal_bound = True
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
                 _ensure_public_room_session(room, store, room.base_dir)
@@ -479,9 +466,6 @@ class RoomWorkerPool:
                     room._process_stale_history = None
                 room._process_turn_active = False
             room.human_ask_pending = False
-            if turn_principal_bound:
-                with room._lifecycle_lock:
-                    room._human_ask_expected_principal_id = ""
             try:
                 room.set_status(False, "IDLE")
             finally:
@@ -491,6 +475,11 @@ class RoomWorkerPool:
 
     @staticmethod
     def _relay(room, event):
+        # This field is private child-to-parent authorization metadata. Never
+        # forward it to WebSocket clients.
+        event = dict(event)
+        ask_principal_id = event.pop("_authorization_principal_id", None)
+        ask_job_id = event.pop("_authorization_job_id", None)
         with room._lifecycle_lock:
             kind = event.get("type")
             if kind == "message":
@@ -528,6 +517,8 @@ class RoomWorkerPool:
                 room.human_ask_pending = True
                 room.human_ask_message = event["message"]
                 room.human_ask_is_password = event.get("is_password", False)
+                room._human_ask_expected_principal_id = str(ask_principal_id or "")
+                room.human_ask_job_id = str(ask_job_id or "")
             for queue in room._pending_replays.values():
                 queue.append(event.copy())
             recipients = tuple(room.active_connections)

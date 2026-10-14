@@ -282,12 +282,6 @@ def run_agent_worker(
     _orig_active_session_id = None
     _had_active_session_id = False
     _room_session_runtime = None
-    _active_turn_principal_id = str(
-        getattr(turn_context, "principal_id", "")
-        or getattr(identity_context, "principal_id", "")
-        or ""
-    )
-
     # Bind the trusted startup profile for the entire Turn, including hooks,
     # tool loading checks and direct Computer Use dispatch.
     _web_execution_context_entered = False
@@ -295,8 +289,6 @@ def run_agent_worker(
     try:
         _web_execution_context.__enter__()
         _web_execution_context_entered = True
-        with room._lifecycle_lock:
-            room._human_ask_expected_principal_id = _active_turn_principal_id
         # A queued turn already owns this room's lock. Expose that reservation
         # so clients do not mistake it for an idle room and submit another turn.
         room.set_status(True, "QUEUED")
@@ -857,12 +849,6 @@ def run_agent_worker(
             room.human_ask_sync_event.set()
         except Exception:
             pass
-        try:
-            with room._lifecycle_lock:
-                room._human_ask_expected_principal_id = ""
-        except Exception:
-            pass
-
         # End any open assistant stream so the UI does not stay mid-stream.
         try:
             _stream_end()

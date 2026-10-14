@@ -72,6 +72,7 @@ class SubAgentJobOwner:
     session_id: str
     room_id: str | None = None
     a2a_task_id: str | None = None
+    principal_id: str | None = None
 
     def __post_init__(self) -> None:
         entry_point = str(self.entry_point or "").strip().lower()
@@ -83,6 +84,9 @@ class SubAgentJobOwner:
         object.__setattr__(self, "entry_point", entry_point)
         object.__setattr__(self, "session_id", session_id)
         object.__setattr__(self, "room_id", str(self.room_id or "").strip() or None)
+        object.__setattr__(
+            self, "principal_id", str(self.principal_id or "").strip() or None
+        )
         object.__setattr__(
             self, "a2a_task_id", str(self.a2a_task_id or "").strip() or None
         )
@@ -1294,6 +1298,7 @@ class SubAgentJobManager:
                 "entry_point": job.owner.entry_point,
                 "session_id": job.owner.session_id,
                 "room_id": job.owner.room_id,
+                "principal_id": job.owner.principal_id,
                 "a2a_task_id": job.owner.a2a_task_id,
             },
         }

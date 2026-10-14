@@ -69,6 +69,7 @@ def test_web_job_runtime_is_bound_to_the_authenticated_room(monkeypatch):
                     entry_point="web",
                     session_id="private-session-a",
                     room_id="room-a",
+                    principal_id="local",
                 ),
             )
             from uagent import tools
@@ -185,7 +186,10 @@ def test_web_job_confirmation_is_room_owned_and_cancel_wakes_waiter(monkeypatch)
     room.active_connections.append(object())
     monkeypatch.setattr(web_manager, "get_room", lambda _room_id: room)
     owner = SubAgentJobOwner(
-        entry_point="web", session_id="session-web", room_id="room-web"
+        entry_point="web",
+        session_id="session-web",
+        room_id="room-web",
+        principal_id="alice",
     )
     manager = _manager(confirmation_handler=_web_confirmation_handler)
     try:
