@@ -28,6 +28,9 @@ def test_local_web_commands_keep_session_indices_per_room(
 
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
     monkeypatch.setattr(
+        routes_api.web_manager, "execution_profile", "local_trusted", raising=False
+    )
+    monkeypatch.setattr(
         routes_api,
         "_request_identity",
         lambda request: IdentityContext("local", False, "local"),

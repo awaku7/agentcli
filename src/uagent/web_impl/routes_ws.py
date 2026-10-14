@@ -187,6 +187,19 @@ async def websocket_endpoint(websocket: WebSocket):
                         }
                     )
                     continue
+                from .command_policy import web_command_denial
+
+                denial = web_command_denial(
+                    cmd_text,
+                    execution_profile=getattr(
+                        web_manager, "execution_profile", "remote"
+                    ),
+                )
+                if denial:
+                    room.add_message(
+                        {"role": "assistant", "content": f"[DENIED] {denial}"}
+                    )
+                    continue
                 if _handle_mode_command(cmd_text):
                     continue
                 # Route all other :commands through handle_command()

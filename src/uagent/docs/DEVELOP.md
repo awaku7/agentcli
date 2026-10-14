@@ -1292,6 +1292,15 @@ and Project authorization immediately before execution, including after a user
 confirmation wait. The Web `human_ask` UI path independently revalidates its
 Room/Principal authorization and Policy revision before returning a reply.
 
+Remote Web command input is separately fail-closed at both the WebSocket
+`command` event and `POST /api/command` entry points. Until a Sandbox-aware
+command backend exists, only help and reasoning/verbosity mode commands are
+allowed; filesystem, credential, skills, dynamic, and unclassified commands
+are denied before `handle_command()` or a plugin command handler can run. This
+restriction applies with Sandbox both off and on and does not change the trusted
+`local_trusted` Web profile. Empty human-confirmation retries reuse the original
+private IPC event so the initiating principal and Job binding survive re-display.
+
 Computer Use (including provider-native declarations, local handler calls, and
 explicit navigation) is available only to trusted local CLI/GUI/Web execution
 with Sandbox off. It is hidden from model tool definitions and rejected at the

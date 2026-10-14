@@ -170,13 +170,7 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
                     if room.loop:
                         try:
                             asyncio.run_coroutine_threadsafe(
-                                room.broadcast(
-                                    {
-                                        "type": "human_ask",
-                                        "message": message,
-                                        "is_password": is_password,
-                                    }
-                                ),
+                                room.broadcast(payload),
                                 room.loop,
                             )
                         except Exception:
