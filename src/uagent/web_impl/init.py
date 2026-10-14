@@ -163,7 +163,42 @@ def init_web():
                                 web_manager.original_set_status(True, "LLM")
                         except Exception:
                             pass
-            return original_run_tool(name, args)
+            from ..runtime.execution_broker import SecurityProfile, execution_profile
+
+            _profile_name = getattr(web_manager, "execution_profile", "remote")
+            _profile = (
+                SecurityProfile.LOCAL_TRUSTED
+                if _profile_name == "local_trusted"
+                else SecurityProfile.REMOTE
+            )
+            _scope = None
+            if _profile is SecurityProfile.REMOTE:
+                try:
+                    from ..runtime.identity_context import get_current_turn_context
+                    from ..runtime.execution_broker import TrustedSandboxScope
+
+                    _turn = get_current_turn_context()
+                    if (
+                        _turn is not None
+                        and _turn.entry_point == "web"
+                        and room is not None
+                        and _turn.room_id == str(room.room_id)
+                    ):
+                        _scope = TrustedSandboxScope(
+                            deployment_id="web",
+                            principal_id=_turn.principal_id,
+                            project_id=_turn.project_id,
+                            scope_kind="web-room",
+                            scope_id=_turn.room_id,
+                        )
+                except (AttributeError, TypeError, ValueError):
+                    _scope = None
+            with execution_profile(
+                _profile,
+                sandbox_enabled=bool(getattr(web_manager, "sandbox_enabled", False)),
+                scope=_scope,
+            ):
+                return original_run_tool(name, args)
         finally:
             if room is not None and prev_room is None:
                 try:
@@ -233,6 +268,14 @@ def main():
         type=str,
         default=None,
         help=_("Bind address (default: 127.0.0.1). Overrides UAGENT_WEB_HOST env var."),
+    )
+    parser.add_argument(
+        "--sandbox",
+        choices=("off", "auto", "mxc"),
+        default="off",
+        help=_(
+            "Sandbox mode (default: off; remote tools remain denied without a compliant backend)."
+        ),
     )
     parser.add_argument(
         "--no-frontend",
@@ -327,6 +370,26 @@ def main():
     else:
         _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
         core.tools_enabled = _use_tool_env not in ("0", "false", "no", "off")
+
+    # Decide local-only eligibility from trusted startup configuration, never
+    # request headers or client-provided identity. Any ambiguity is remote.
+    bind_host = "127.0.0.1"
+    _env_host = (env_get("UAGENT_WEB_HOST") or "").strip()
+    if _env_host:
+        bind_host = _env_host
+    if web_args.host:
+        bind_host = web_args.host
+    try:
+        from ..runtime.identity_context import resolve_identity_mode
+
+        _identity_mode = resolve_identity_mode()
+    except Exception:
+        _identity_mode = "invalid"
+    from ..runtime.execution_broker import is_trusted_local_web
+
+    _trusted_local_web = is_trusted_local_web(bind_host, _identity_mode)
+    web_manager.execution_profile = "local_trusted" if _trusted_local_web else "remote"
+    web_manager.sandbox_enabled = web_args.sandbox != "off"
 
     from .process_workers import RoomWorkerPool, room_worker_count
 

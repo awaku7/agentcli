@@ -113,6 +113,12 @@ def _child_turn(connection, payload) -> None:
 
     from ..util_mode import set_display_reasoning
 
+    # These are parent-selected trusted startup settings, not room/request data.
+    # Preserve them in the spawned worker rather than re-deriving or weakening
+    # the Web execution profile in the child.
+    web_manager.execution_profile = payload.get("execution_profile", "remote")
+    web_manager.sandbox_enabled = bool(payload.get("sandbox_enabled", False))
+
     configure_decision_settings(cli_provider=payload["decision_provider"])
     set_display_reasoning(payload["display_reasoning"])
     send_lock = threading.Lock()
@@ -298,6 +304,7 @@ class RoomWorkerPool:
         from ..decision.settings import get_decision_settings
         from ..util_mode import get_display_reasoning
         from .agent_worker import _ensure_public_room_session
+        from .rooms import web_manager
 
         if not room.worker_lock.acquire(blocking=False):
             room.add_message(
@@ -361,6 +368,10 @@ class RoomWorkerPool:
                 "turn_context": kwargs.get("turn_context"),
                 "identity_context": kwargs.get("identity_context"),
                 "project_path": kwargs.get("project_path"),
+                "execution_profile": getattr(
+                    web_manager, "execution_profile", "remote"
+                ),
+                "sandbox_enabled": bool(getattr(web_manager, "sandbox_enabled", False)),
             }
             payload["core"].update(getattr(room, "_worker_auto_pilot", {}))
             parent, child = self._context.Pipe()

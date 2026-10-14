@@ -969,3 +969,45 @@ def test_crash_recovery_is_atomic_with_reconnect_snapshot(monkeypatch):
         "[ERROR] worker exited",
     ]
     assert room._partial_streams == {}
+
+
+def _profile_capture_child(connection, payload):
+    connection.send(
+        {
+            "state": {
+                "room_id": payload["room"]["room_id"],
+                "execution_profile": payload["execution_profile"],
+                "sandbox_enabled": payload["sandbox_enabled"],
+            }
+        }
+    )
+    connection.close()
+
+
+@pytest.mark.parametrize(
+    ("execution_profile", "sandbox_enabled"),
+    [("local_trusted", True), ("remote", False)],
+)
+def test_spawned_worker_receives_trusted_web_sandbox_settings(
+    monkeypatch, tmp_path, execution_profile, sandbox_enabled
+):
+    from uagent import core
+    from uagent.web_impl.rooms import web_manager
+
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(
+        web_manager, "execution_profile", execution_profile, raising=False
+    )
+    monkeypatch.setattr(web_manager, "sandbox_enabled", sandbox_enabled, raising=False)
+    room = WebRoom("sandbox-profile-room")
+    room.private_session = True
+    room.base_dir = str(tmp_path)
+
+    pool = RoomWorkerPool(1, target=_profile_capture_child)
+    try:
+        pool.run(room, "profile test", project_path=str(tmp_path))
+    finally:
+        pool.shutdown()
+
+    assert room.execution_profile == execution_profile
+    assert room.sandbox_enabled is sandbox_enabled

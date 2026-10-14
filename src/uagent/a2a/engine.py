@@ -42,6 +42,8 @@ def run_once_uag(
     *, user_text: str, task_id: str = ""
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Run one uagent round-trip and return (assistant_message, error)."""
+    if not str(task_id or "").strip():
+        raise ValueError("A2A task_id is required for tool execution scope")
 
     # Local imports to avoid import-time side effects unless A2A server is used.
     from .. import core as core
@@ -81,19 +83,36 @@ def run_once_uag(
 
     start_idx = len(messages)
 
-    # Execute one round (same as CLI/web usage)
+    # A2A is always a remote ingress. Until a compliant production backend
+    # exists, the common dispatcher permits only explicitly brokered services.
+    from ..runtime.execution_broker import (
+        SecurityProfile,
+        TrustedSandboxScope,
+        execution_profile,
+    )
+
     try:
-        _run_a2a_turn(
-            llm_util.run_llm_rounds,
-            provider,
-            client,
-            depname,
-            messages,
-            core=core,
-            make_client_fn=providers.make_client,
-            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+        scope = TrustedSandboxScope(
+            deployment_id="a2a",
+            principal_id="a2a-service",
+            project_id=str(Path(os.getcwd()).resolve()),
+            scope_kind="a2a-task",
+            scope_id=str(task_id).strip(),
         )
+        with execution_profile(
+            SecurityProfile.REMOTE, sandbox_enabled=False, scope=scope
+        ):
+            _run_a2a_turn(
+                llm_util.run_llm_rounds,
+                provider,
+                client,
+                depname,
+                messages,
+                core=core,
+                make_client_fn=providers.make_client,
+                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+            )
     finally:
         if attached_store is not None:
             detach_opt_in_session_store(core)

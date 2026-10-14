@@ -1271,3 +1271,25 @@ Reasoning visibility is explicitly transferred to spawned turns. When a child
 exits without a final snapshot, reconnects continue to use live display messages
 until a successful turn or explicit history replacement supersedes the stale
 history. The active-worker flag is still cleared to release room admission.
+
+## Sandbox tool-routing status (PR 1)
+
+`runtime/execution_broker.py` defines the initial execution classes and trusted
+scope contract. The common `tools.run_tool()` dispatcher consults it before a
+runner can be invoked. The Web entry point defaults to `--sandbox off`; only the
+startup combination of bind address `127.0.0.1` and identity mode `local` retains
+legacy direct tool execution while Sandbox is off. Other Web deployments are
+remote regardless of the connecting client's address or headers. Remote general
+tools are denied until an isolation backend meeting the required profile is
+available; `--sandbox auto` and `--sandbox mxc` do not imply a backend is present.
+A2A is always remote and binds its broker scope to the server-generated task ID.
+The spawned Web Room worker receives the profile and opt-in mode from a
+server-internal payload, not from room or request fields. Only explicitly fixed
+broker operations may execute without a sandbox. Do not
+expose a localhost Web server through a proxy, port forward, or SSH tunnel while
+relying on local-only behavior.
+
+The current stage has no Sandbox backend: Mock tests verify routing contracts,
+not OS isolation. Do not interpret a successful mock or the local trusted profile
+as Remote E0 isolation. See [the Sandbox design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md)
+and [the staged implementation handoff](../../../docs/plans/UAG_SANDBOX_IMPLEMENTATION_HANDOFF.md).

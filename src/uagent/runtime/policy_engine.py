@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
+import os
+from dataclasses import asdict
 from enum import IntEnum, StrEnum
 from typing import Any
 
@@ -50,6 +54,19 @@ class UnifiedPolicy:
     @classmethod
     def from_environment(cls) -> "UnifiedPolicy":
         return cls(EnterprisePolicy.from_environment(), permission_from_environment())
+
+    @property
+    def revision(self) -> str:
+        """Opaque digest used to invalidate approvals after policy changes."""
+        payload = {
+            "enterprise": asdict(self.enterprise),
+            "permission": None if self.permission is None else int(self.permission),
+            "role": os.environ.get("UAGENT_ROLE", ""),
+        }
+        encoded = json.dumps(
+            payload, sort_keys=True, separators=(",", ":"), default=str
+        )
+        return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
     def decide(
         self, tool_name: str, args: dict[str, Any] | None = None
