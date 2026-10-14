@@ -1250,12 +1250,34 @@ def _computer_use_is_enabled() -> bool:
     }
 
 
+def _computer_use_allowed_for_current_execution() -> bool:
+    try:
+        from ..runtime.execution_broker import computer_use_allowed
+
+        return computer_use_allowed()
+    except Exception:
+        return False
+
+
+def _filter_computer_use_specs(specs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if _computer_use_allowed_for_current_execution():
+        return specs
+    from ..runtime.execution_broker import is_computer_use_tool_spec
+
+    return [spec for spec in specs if not is_computer_use_tool_spec(spec)]
+
+
 def is_computer_use_conflict(spec: dict[str, Any] | None) -> bool:
-    """Whether a TOOL_SPEC must be hidden while Computer Use is enabled."""
+    """Whether a TOOL_SPEC must be hidden by the active Computer Use policy."""
+    if not isinstance(spec, dict):
+        return False
+    if not _computer_use_allowed_for_current_execution():
+        from ..runtime.execution_broker import is_computer_use_tool_spec
+
+        if is_computer_use_tool_spec(spec):
+            return True
     return bool(
-        _computer_use_is_enabled()
-        and isinstance(spec, dict)
-        and spec.get("computer_use_conflict") is True
+        _computer_use_is_enabled() and spec.get("computer_use_conflict") is True
     )
 
 
@@ -1314,7 +1336,9 @@ def get_tool_specs() -> list[dict[str, Any]]:
         and _ANALYZE_IMAGE_HIDDEN == hide_analyze_image
         and _TOOL_SPECS_CACHE_EMBEDDED == _embedded_now
     ):
-        return _filter_sub_agent_job_tools(_TOOL_SPECS_CACHE)
+        return _filter_computer_use_specs(
+            _filter_sub_agent_job_tools(_TOOL_SPECS_CACHE)
+        )
 
     # Embedded mode hides management tools unless explicitly loaded. Native
     # tool_search filtering belongs to the delivery layer, not this catalog
@@ -1401,7 +1425,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
     _TOOL_SPECS_DIRTY = False
     _TOOL_SPECS_CACHE_EMBEDDED = _embedded_now
     _ANALYZE_IMAGE_HIDDEN = hide_analyze_image
-    return _filter_sub_agent_job_tools(clean_specs)
+    return _filter_computer_use_specs(_filter_sub_agent_job_tools(clean_specs))
 
 
 def _expand_catalog_token(token: str) -> list[str]:
@@ -1966,7 +1990,35 @@ def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool
     method-sensitive: read-only methods may run in parallel, while writes
     remain serial.
     """
-    _ensure_loaded()
+    from ..runtime.execution_broker import (
+        ExecutionClass,
+        SecurityProfile,
+        current_profile,
+        current_sandbox_enabled,
+        current_authorization_valid,
+        route_tool,
+    )
+
+    if current_profile() is SecurityProfile.REMOTE:
+        if not current_authorization_valid(require_check=True):
+            return False
+        known_tool = tool_name in _RUNNERS or tool_name in _LAZY_TOOL_NAME_TO_MODULE
+        decision = route_tool(
+            tool_name,
+            args,
+            profile=current_profile(),
+            sandbox_enabled=current_sandbox_enabled(),
+            backend_available=False,
+            known_tool=known_tool,
+        )
+        if (
+            not decision.allowed
+            or decision.execution_class is not ExecutionClass.BROKERED
+        ):
+            return False
+    else:
+        _ensure_loaded()
+
     from .tool_policy import is_parallel_safe as _policy_is_parallel_safe
 
     policy_result = _policy_is_parallel_safe(tool_name, args)
@@ -2152,6 +2204,9 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         current_scope,
         route_tool,
         run_brokered_tool,
+        current_authorization_valid,
+        computer_use_allowed,
+        is_computer_use_tool_name,
     )
 
     # Resolve @A{0}..@A{9} path aliases at the common dispatch boundary.
@@ -2169,6 +2224,15 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     from uuid import uuid4
 
     tool_call_id = str(uuid4())
+    if is_computer_use_tool_name(name) and not computer_use_allowed():
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason="Computer Use is restricted to trusted local Sandbox-off execution",
+            tool_call_id=tool_call_id,
+        )
+        return "[tool policy] Computer Use is disabled for this execution profile"
     policy = get_tool_policy(name, args)
     try:
         from .enterprise_policy import get_enterprise_policy
@@ -2248,6 +2312,15 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             tool_call_id=tool_call_id,
         )
         return f"[tool policy] execution denied: {routing.reason}"
+    if not current_authorization_valid(require_check=profile is SecurityProfile.REMOTE):
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason="current principal or scope authorization is no longer valid",
+            tool_call_id=tool_call_id,
+        )
+        return "[tool policy] current authorization is no longer valid"
     brokered_remote = (
         profile is SecurityProfile.REMOTE
         and routing.execution_class is ExecutionClass.BROKERED
@@ -2377,6 +2450,15 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             return f"[tool policy] revalidation failed: {type(exc).__name__}"
     if current_profile() is not profile or current_scope() != trusted_scope:
         return "[tool policy] trusted execution binding changed; execution denied"
+    if not current_authorization_valid(require_check=profile is SecurityProfile.REMOTE):
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason="principal, project, room, or task authorization was revoked",
+            tool_call_id=tool_call_id,
+        )
+        return "[tool policy] current authorization is no longer valid"
     refreshed_route = route_tool(
         name,
         args,

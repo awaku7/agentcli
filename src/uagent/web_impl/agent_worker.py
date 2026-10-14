@@ -72,6 +72,109 @@ def _ensure_public_room_session(room: WebRoom, store: Any, project_path: str) ->
     return room.session_id
 
 
+def _web_turn_authorization_valid(
+    room: WebRoom,
+    turn_context: TurnContext | None,
+    identity_context: IdentityContext | None,
+    project_path: str | None,
+) -> bool:
+    """Re-check the authenticated Web recipient and project binding at dispatch."""
+    if (
+        turn_context is None
+        or identity_context is None
+        or not identity_context.authenticated
+        or turn_context.entry_point != "web"
+        or turn_context.room_id != room.room_id
+        or turn_context.principal_id != identity_context.principal_id
+    ):
+        return False
+    try:
+        from .connection_identity import require_room_access
+
+        live_project_id, private_session = require_room_access(
+            identity_context, room.room_id, touch_activity=False
+        )
+        if private_session is not turn_context.private_session:
+            return False
+        if turn_context.server_bound_project:
+            if live_project_id != turn_context.project_id:
+                return False
+        elif live_project_id and live_project_id != turn_context.project_id:
+            return False
+        elif not live_project_id and project_path:
+            if project_id_from_path(project_path) != turn_context.project_id:
+                return False
+
+        # In the in-process worker, also revalidate the live auth session and
+        # connection-bound Room access. Spawned workers have no auth cookies;
+        # the durable membership/project check above remains authoritative.
+        lock = getattr(room, "_lifecycle_lock", None)
+        if lock is None:
+            connections = tuple(getattr(room, "_connection_contexts", {}).values())
+        else:
+            with lock:
+                connections = tuple(getattr(room, "_connection_contexts", {}).values())
+        matching = [
+            item
+            for item in connections
+            if getattr(getattr(item, "identity", None), "principal_id", None)
+            == turn_context.principal_id
+        ]
+        if connections and not matching:
+            return False
+        for connection in matching:
+            current_identity = connection.revalidate_identity()
+            if (
+                not current_identity.authenticated
+                or current_identity.principal_id != turn_context.principal_id
+            ):
+                return False
+            connection.validate_room_access(touch_activity=False)
+        return True
+    except Exception:
+        return False
+
+
+def _web_turn_execution_context(
+    room: WebRoom,
+    turn_context: TurnContext | None,
+    identity_context: IdentityContext | None,
+    project_path: str | None,
+):
+    """Construct the trusted execution binding for one complete Web turn."""
+    from ..runtime.execution_broker import (
+        SecurityProfile,
+        execution_profile,
+        trusted_web_scope,
+    )
+
+    profile = (
+        SecurityProfile.LOCAL_TRUSTED
+        if getattr(web_manager, "execution_profile", "remote") == "local_trusted"
+        else SecurityProfile.REMOTE
+    )
+    scope = (
+        trusted_web_scope(turn_context, room.room_id)
+        if profile is SecurityProfile.REMOTE
+        else None
+    )
+    authorization_check = None
+    if profile is SecurityProfile.REMOTE:
+
+        def revalidate_authorization() -> bool:
+            return _web_turn_authorization_valid(
+                room, turn_context, identity_context, project_path
+            )
+
+        authorization_check = revalidate_authorization
+    return execution_profile(
+        profile,
+        sandbox_enabled=bool(getattr(web_manager, "sandbox_enabled", False)),
+        scope=scope,
+        authorization_check=authorization_check,
+    )
+
+
 def run_agent_worker(
     room: WebRoom,
     user_input: str,
@@ -137,6 +240,12 @@ def run_agent_worker(
             **kwargs,
         )
 
+    # Construct the trusted execution profile before taking worker locks so a
+    # context/import failure cannot strand a room reservation.
+    _web_execution_context = _web_turn_execution_context(
+        room, turn_context, identity_context, project_path
+    )
+
     # Ensure logs/status go to this room (thread-local). Parallel tool workers
     # inherit room via tools.run_tool wrapper (see init_web).
     _thread_ctx.room = room
@@ -174,7 +283,13 @@ def run_agent_worker(
     _had_active_session_id = False
     _room_session_runtime = None
 
+    # Bind the trusted startup profile for the entire Turn, including hooks,
+    # tool loading checks and direct Computer Use dispatch.
+    _web_execution_context_entered = False
+
     try:
+        _web_execution_context.__enter__()
+        _web_execution_context_entered = True
         # A queued turn already owns this room's lock. Expose that reservation
         # so clients do not mistake it for an idle room and submit another turn.
         room.set_status(True, "QUEUED")
@@ -688,6 +803,11 @@ def run_agent_worker(
             room.add_message({"role": "assistant", "content": msg})
 
     finally:
+        if _web_execution_context_entered:
+            try:
+                _web_execution_context.__exit__(None, None, None)
+            except Exception:
+                pass
         log_event("web.room.task.completed", room_id=getattr(room, "room_id", ""))
         # Best-effort cleanup; never let one failure skip lock release / IDLE.
         try:

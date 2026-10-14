@@ -199,6 +199,19 @@ def execute_hook(
         Dict with ok, stdout, stderr, etc. May include decision/reason when
         stdout is Claude-compatible JSON.
     """
+    try:
+        from .runtime.execution_broker import SecurityProfile, current_profile
+
+        if current_profile() is SecurityProfile.REMOTE:
+            return {
+                "ok": False,
+                "error": "hook execution is denied for remote tool contexts",
+            }
+    except Exception:
+        # Failure to determine a trusted execution context is not permission
+        # to invoke an arbitrary host hook.
+        return {"ok": False, "error": "hook execution context unavailable"}
+
     hook_type = hook.get("type", "")
 
     if hook_type not in SUPPORTED_TYPES:

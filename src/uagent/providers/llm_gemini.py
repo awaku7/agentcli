@@ -817,8 +817,16 @@ def gemini_chat_with_tools(
 
     tools_list: list[Any] = []
 
+    from ..runtime.execution_broker import (
+        computer_use_allowed,
+        is_computer_use_tool_spec,
+    )
+
+    _computer_use_allowed = computer_use_allowed()
     native_tool = (
-        getattr(core, "computer_use_native_tool", None) if core is not None else None
+        getattr(core, "computer_use_native_tool", None)
+        if core is not None and _computer_use_allowed
+        else None
     )
     if (
         getattr(core, "computer_use_runtime", None) is None
@@ -834,9 +842,17 @@ def gemini_chat_with_tools(
             if context_tool_specs is not None
             else (tools.get_tool_specs() or [])
         )
+        if not _computer_use_allowed:
+            tool_specs = [
+                spec for spec in tool_specs if not is_computer_use_tool_spec(spec)
+            ]
     else:
         tool_specs = []
-    if core is not None and getattr(core, "computer_use_runtime", None) is not None:
+    if (
+        core is not None
+        and _computer_use_allowed
+        and getattr(core, "computer_use_runtime", None) is not None
+    ):
         from ..computer_use.native import local_computer_tool_spec
 
         if not any(

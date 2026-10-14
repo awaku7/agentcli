@@ -198,6 +198,14 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
 ):
     from uagent import core
     from uagent.tools import _genre_control_util
+    from uagent.web_impl.rooms import web_manager
+
+    # This test exercises the legacy trusted-local worker flow. Web startup
+    # assigns this profile from trusted bind/identity configuration.
+    monkeypatch.setattr(
+        web_manager, "execution_profile", "local_trusted", raising=False
+    )
+    monkeypatch.setattr(web_manager, "sandbox_enabled", False, raising=False)
 
     from uagent.decision import settings
 
@@ -259,7 +267,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
         try:
             for thread in threads[:2]:
                 thread.start()
-            _wait(lambda: all(_observations(room) for room in rooms[:2]))
+            _wait(lambda: all(_observations(room) for room in rooms[:2]), timeout=45)
             observed = [_observations(room)[0] for room in rooms[:2]]
             assert observed[0]["pid"] != observed[1]["pid"]
             assert all(item["pid"] != os.getpid() for item in observed)
@@ -978,6 +986,7 @@ def _profile_capture_child(connection, payload):
                 "room_id": payload["room"]["room_id"],
                 "execution_profile": payload["execution_profile"],
                 "sandbox_enabled": payload["sandbox_enabled"],
+                "tools": payload["tools"],
             }
         }
     )
@@ -992,8 +1001,15 @@ def test_spawned_worker_receives_trusted_web_sandbox_settings(
     monkeypatch, tmp_path, execution_profile, sandbox_enabled
 ):
     from uagent import core
+    from uagent.tools import _genre_control_util
     from uagent.web_impl.rooms import web_manager
 
+    tool_name_calls = []
+    monkeypatch.setattr(
+        _genre_control_util,
+        "get_enabled_tool_names",
+        lambda: tool_name_calls.append("loaded") or ["read_file"],
+    )
     monkeypatch.setattr(core, "session_store", None, raising=False)
     monkeypatch.setattr(
         web_manager, "execution_profile", execution_profile, raising=False
@@ -1011,3 +1027,9 @@ def test_spawned_worker_receives_trusted_web_sandbox_settings(
 
     assert room.execution_profile == execution_profile
     assert room.sandbox_enabled is sandbox_enabled
+    if execution_profile == "remote":
+        assert room.tools == []
+        assert tool_name_calls == []
+    else:
+        assert room.tools == ["read_file"]
+        assert tool_name_calls == ["loaded"]

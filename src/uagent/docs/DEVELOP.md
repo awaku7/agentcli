@@ -1284,8 +1284,21 @@ tools are denied until an isolation backend meeting the required profile is
 available; `--sandbox auto` and `--sandbox mxc` do not imply a backend is present.
 A2A is always remote and binds its broker scope to the server-generated task ID.
 The spawned Web Room worker receives the profile and opt-in mode from a
-server-internal payload, not from room or request fields. Only explicitly fixed
-broker operations may execute without a sandbox. Do not
+server-internal payload, not from room or request fields. Remote hooks are denied
+before command, HTTP, MCP, prompt, or agent hook execution; Web plugin activation
+is skipped for remote deployments. Parallel eligibility checks do not import
+plugins for remote calls. Tool dispatch revalidates the current trusted Web Room
+and Project authorization immediately before execution, including after a user
+confirmation wait. The Web `human_ask` UI path independently revalidates its
+Room/Principal authorization and Policy revision before returning a reply.
+
+Computer Use (including provider-native declarations, local handler calls, and
+explicit navigation) is available only to trusted local CLI/GUI/Web execution
+with Sandbox off. It is hidden from model tool definitions and rejected at the
+execution boundary for Remote ingress or whenever Sandbox is enabled. No host
+Browser/Desktop action is redirected into an unverified Sandbox backend.
+
+Only explicitly fixed broker operations may execute without a sandbox. Do not
 expose a localhost Web server through a proxy, port forward, or SSH tunnel while
 relying on local-only behavior.
 

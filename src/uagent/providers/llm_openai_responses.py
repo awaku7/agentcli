@@ -464,6 +464,16 @@ def build_responses_request(
     req_tools: Optional[list[dict[str, Any]]] = None
     if send_tools_this_round:
         raw_specs = tools.get_tool_specs() if tool_specs is None else tool_specs
+        from ..runtime.execution_broker import (
+            computer_use_allowed,
+            is_computer_use_tool_spec,
+        )
+
+        _computer_use_allowed = computer_use_allowed()
+        if not _computer_use_allowed:
+            raw_specs = [
+                spec for spec in raw_specs or [] if not is_computer_use_tool_spec(spec)
+            ]
         flat_tools: list[dict[str, Any]] = []
 
         env_web_search_tool = openai_web_search_tool_for_provider(provider)
@@ -500,7 +510,7 @@ def build_responses_request(
             )
         native_tool = (
             getattr(core, "computer_use_native_tool", None)
-            if core is not None
+            if core is not None and _computer_use_allowed
             else None
         )
         native_provider = (
@@ -514,12 +524,13 @@ def build_responses_request(
         )
         meta_native_added = False
         native_active = bool(
-            getattr(core, "computer_use_native_active", False)
+            _computer_use_allowed and getattr(core, "computer_use_native_active", False)
             if core is not None
             else False
         )
         if (
             core is not None
+            and _computer_use_allowed
             and getattr(core, "computer_use_runtime", None) is not None
             and not native_active
             and not meta_native_candidate

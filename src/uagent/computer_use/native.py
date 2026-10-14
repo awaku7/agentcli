@@ -74,6 +74,14 @@ def prepare_native_computer_use(*, core: Any, provider: str, model: str) -> bool
         except Exception:
             pass
 
+    from ..runtime.execution_broker import computer_use_allowed
+
+    if not computer_use_allowed():
+        core.computer_use_native_diagnostic = (
+            "Computer Use is disabled for Remote or Sandbox-enabled execution"
+        )
+        return False
+
     runtime_bound = getattr(core, "computer_use_runtime", None) is not None
     # The Anthropic client toolset is a protocol declaration; its calls still
     # execute through agentcli's guarded local handler. Meta uses the same

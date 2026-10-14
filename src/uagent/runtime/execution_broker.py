@@ -11,7 +11,7 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass, field
 from enum import Enum, IntEnum
-from typing import Any, Protocol
+from typing import Any, Callable, Protocol
 
 
 class ExecutionClass(str, Enum):
@@ -156,6 +156,28 @@ class TrustedSandboxScope:
             raise ValueError("unsupported sandbox scope kind")
 
 
+def trusted_web_scope(turn_context: Any, room_id: str) -> TrustedSandboxScope | None:
+    """Build a Web scope only from an authenticated, server-created TurnContext."""
+    if (
+        turn_context is None
+        or getattr(turn_context, "entry_point", "") != "web"
+        or getattr(turn_context, "room_id", "") != str(room_id or "")
+        or not bool(getattr(turn_context, "authenticated", False))
+        or str(getattr(turn_context, "authn_kind", "local")).strip().lower() == "local"
+    ):
+        return None
+    try:
+        return TrustedSandboxScope(
+            deployment_id="web",
+            principal_id=turn_context.principal_id,
+            project_id=turn_context.project_id,
+            scope_kind="web-room",
+            scope_id=turn_context.room_id,
+        )
+    except (AttributeError, TypeError, ValueError):
+        return None
+
+
 @dataclass(frozen=True)
 class RoutingDecision:
     execution_class: ExecutionClass
@@ -176,10 +198,61 @@ _sandbox_enabled: ContextVar[bool] = ContextVar("uagent_sandbox_enabled", defaul
 _scope: ContextVar[TrustedSandboxScope | None] = ContextVar(
     "uagent_sandbox_scope", default=None
 )
+_authorization_check: ContextVar[Callable[[], bool] | None] = ContextVar(
+    "uagent_execution_authorization_check", default=None
+)
+_UNSET_AUTHORIZATION_CHECK = object()
 
 
 def current_scope() -> TrustedSandboxScope | None:
     return _scope.get()
+
+
+def current_authorization_valid(*, require_check: bool = False) -> bool:
+    """Revalidate trusted ingress authorization at the execution boundary."""
+    check = _authorization_check.get()
+    if check is None:
+        return not require_check
+    try:
+        return check() is True
+    except Exception:
+        return False
+
+
+def computer_use_allowed() -> bool:
+    """Computer Use is local-host-only and unavailable whenever Sandbox is on."""
+    return (
+        _profile.get() is SecurityProfile.LOCAL_TRUSTED and not _sandbox_enabled.get()
+    )
+
+
+def is_computer_use_tool_name(name: str) -> bool:
+    return str(name or "").strip().lower() in {
+        "computer",
+        "computer_use",
+        "computer_use_preview",
+    }
+
+
+def is_computer_use_tool_spec(spec: Any) -> bool:
+    """Recognize function and provider-native Computer Use declarations."""
+    if not isinstance(spec, dict):
+        return False
+    if (
+        str(spec.get("type") or "").strip().lower()
+        in {
+            "computer",
+            "computer_use",
+            "computer_use_preview",
+            "computer_toolset_20260801",
+        }
+        or "computer_use" in spec
+    ):
+        return True
+    function = spec.get("function")
+    if isinstance(function, dict) and is_computer_use_tool_name(function.get("name")):
+        return True
+    return False
 
 
 @contextmanager
@@ -188,14 +261,26 @@ def execution_profile(
     *,
     sandbox_enabled: bool = False,
     scope: TrustedSandboxScope | None = None,
+    authorization_check: (
+        Callable[[], bool] | None | object
+    ) = _UNSET_AUTHORIZATION_CHECK,
 ):
-    """Bind trusted ingress security settings for the current dispatch context."""
+    """Bind trusted ingress security settings for the current dispatch context.
+
+    Nested dispatch scopes inherit the parent authorization callback unless a
+    trusted caller explicitly supplies a replacement.
+    """
     profile_token = _profile.set(profile)
     sandbox_token = _sandbox_enabled.set(bool(sandbox_enabled))
     scope_token = _scope.set(scope)
+    if authorization_check is _UNSET_AUTHORIZATION_CHECK:
+        authorization_token = _authorization_check.set(_authorization_check.get())
+    else:
+        authorization_token = _authorization_check.set(authorization_check)
     try:
         yield
     finally:
+        _authorization_check.reset(authorization_token)
         _scope.reset(scope_token)
         _sandbox_enabled.reset(sandbox_token)
         _profile.reset(profile_token)

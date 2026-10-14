@@ -42,6 +42,41 @@ from .io import _web_server_log, web_human_ask, web_set_status
 from .rooms import _thread_ctx, get_context_web_room, web_manager
 
 
+def _remote_human_ask_authorized(room) -> bool:
+    """Authorize a Web UI confirmation against the current principal and Room."""
+    if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
+        return True
+    try:
+        from ..runtime.execution_broker import current_scope, trusted_web_scope
+        from ..runtime.identity_context import get_current_turn_context
+
+        turn = get_current_turn_context()
+        scope = trusted_web_scope(turn, str(getattr(room, "room_id", "")))
+        if scope is None or current_scope() != scope:
+            return False
+        lock = getattr(room, "_lifecycle_lock", None)
+        if lock is not None:
+            with lock:
+                contexts = tuple(getattr(room, "_connection_contexts", {}).values())
+        else:
+            contexts = tuple(getattr(room, "_connection_contexts", {}).values())
+        for connection in contexts:
+            identity = getattr(connection, "identity", None)
+            if getattr(identity, "principal_id", None) != turn.principal_id:
+                continue
+            connection.validate_authentication_configuration()
+            connection.validate_room_access(touch_activity=False)
+            return True
+        # Spawned workers do not receive connection credentials. Their parent
+        # process validates inbound responses and broadcasts for this Room.
+        return bool(
+            getattr(room, "_web_parent_authorizes_connections", False)
+            and getattr(room, "active_connections", None)
+        )
+    except Exception:
+        return False
+
+
 def init_web():
     print(get_welcome_message())
 
@@ -135,7 +170,7 @@ def init_web():
             _thread_ctx.room = room
         try:
             if name == "human_ask":
-                if not room:
+                if not room or not _remote_human_ask_authorized(room):
                     return json.dumps(
                         {
                             "user_reply": "",
@@ -143,6 +178,34 @@ def init_web():
                             "cancelled": True,
                         }
                     )
+                _ui_policy_revision = None
+                if (
+                    getattr(web_manager, "execution_profile", "remote")
+                    != "local_trusted"
+                ):
+                    try:
+                        from ..runtime.policy_engine import (
+                            PolicyDecision,
+                            UnifiedPolicy,
+                        )
+
+                        _ui_policy = UnifiedPolicy.from_environment()
+                        if (
+                            _ui_policy.decide("human_ask", args)
+                            is not PolicyDecision.ALLOW
+                        ):
+                            raise ValueError(
+                                "Remote human_ask is not allowed by policy"
+                            )
+                        _ui_policy_revision = _ui_policy.revision
+                    except Exception:
+                        return json.dumps(
+                            {
+                                "user_reply": "",
+                                "display_reply": "",
+                                "cancelled": True,
+                            }
+                        )
                 # Keep the room-level confirmation slot and WAIT/LLM status
                 # transition serialized together. web_human_ask() uses the same
                 # RLock, so the nested acquisition is intentional.
@@ -155,7 +218,35 @@ def init_web():
                     except Exception:
                         pass
                     try:
-                        return web_human_ask(room, args)
+                        reply = web_human_ask(room, args)
+                        if not _remote_human_ask_authorized(room):
+                            return json.dumps(
+                                {
+                                    "user_reply": "",
+                                    "display_reply": "",
+                                    "cancelled": True,
+                                }
+                            )
+                        if _ui_policy_revision is not None:
+                            from ..runtime.policy_engine import (
+                                PolicyDecision,
+                                UnifiedPolicy,
+                            )
+
+                            _fresh_ui_policy = UnifiedPolicy.from_environment()
+                            if (
+                                _fresh_ui_policy.revision != _ui_policy_revision
+                                or _fresh_ui_policy.decide("human_ask", args)
+                                is not PolicyDecision.ALLOW
+                            ):
+                                return json.dumps(
+                                    {
+                                        "user_reply": "",
+                                        "display_reply": "",
+                                        "cancelled": True,
+                                    }
+                                )
+                        return reply
                     finally:
                         try:
                             room.set_status(True, "LLM")
@@ -175,22 +266,11 @@ def init_web():
             if _profile is SecurityProfile.REMOTE:
                 try:
                     from ..runtime.identity_context import get_current_turn_context
-                    from ..runtime.execution_broker import TrustedSandboxScope
+                    from ..runtime.execution_broker import trusted_web_scope
 
                     _turn = get_current_turn_context()
-                    if (
-                        _turn is not None
-                        and _turn.entry_point == "web"
-                        and room is not None
-                        and _turn.room_id == str(room.room_id)
-                    ):
-                        _scope = TrustedSandboxScope(
-                            deployment_id="web",
-                            principal_id=_turn.principal_id,
-                            project_id=_turn.project_id,
-                            scope_kind="web-room",
-                            scope_id=_turn.room_id,
-                        )
+                    if room is not None:
+                        _scope = trusted_web_scope(_turn, str(room.room_id))
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(
@@ -303,24 +383,6 @@ def main():
     # readme/quickstart first-run display removed (files no longer bundled)
     ensure_mcp_config_template()
 
-    # Load and activate enabled plugins (MCP / agents / hooks); status for chat later
-    try:
-        from ..runtime.runtime_plugins import load_plugins_status_at_startup
-
-        _plugins, _plugins_status = load_plugins_status_at_startup(activate=True)
-        if _plugins_status:
-            print(_plugins_status, file=sys.stderr)
-        try:
-            # Keep raw list so each room can format with its own locale.
-            setattr(web_manager, "plugins_startup_list", _plugins)
-        except Exception:
-            pass
-    except Exception:
-        try:
-            setattr(web_manager, "plugins_startup_list", [])
-        except Exception:
-            pass
-
     try:
         decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
@@ -385,11 +447,40 @@ def main():
         _identity_mode = resolve_identity_mode()
     except Exception:
         _identity_mode = "invalid"
-    from ..runtime.execution_broker import is_trusted_local_web
+    from ..runtime.execution_broker import (
+        SecurityProfile,
+        execution_profile,
+        is_trusted_local_web,
+    )
 
     _trusted_local_web = is_trusted_local_web(bind_host, _identity_mode)
     web_manager.execution_profile = "local_trusted" if _trusted_local_web else "remote"
     web_manager.sandbox_enabled = web_args.sandbox != "off"
+    _web_profile = (
+        SecurityProfile.LOCAL_TRUSTED if _trusted_local_web else SecurityProfile.REMOTE
+    )
+    with execution_profile(
+        _web_profile,
+        sandbox_enabled=web_manager.sandbox_enabled,
+    ):
+        # Load hooks/plugins only after the effective ingress profile is known.
+        try:
+            from ..runtime.runtime_plugins import load_plugins_status_at_startup
+
+            _plugins, _plugins_status = load_plugins_status_at_startup(
+                activate=_trusted_local_web
+            )
+            if _plugins_status:
+                print(_plugins_status, file=sys.stderr)
+            try:
+                setattr(web_manager, "plugins_startup_list", _plugins)
+            except Exception:
+                pass
+        except Exception:
+            try:
+                setattr(web_manager, "plugins_startup_list", [])
+            except Exception:
+                pass
 
     from .process_workers import RoomWorkerPool, room_worker_count
 
@@ -401,10 +492,13 @@ def main():
         RoomWorkerPool(room_workers) if room_workers > 1 else None
     )
     init_web()
-    try:
-        tools.start_tools_warmup()
-    except Exception:
-        pass
+    # Remote Web remains tool-less until a compliant sandbox backend exists;
+    # avoid eager runner/plugin imports in that deployment profile.
+    if web_manager.execution_profile == "local_trusted":
+        try:
+            tools.start_tools_warmup()
+        except Exception:
+            pass
 
     if web_args.no_frontend:
         # Remove frontend routes (/, /room/{room_id}, /static) for API-only mode
@@ -448,7 +542,11 @@ def main():
     try:
         from ..hooks_engine import fire_session_start
 
-        fire_session_start()
+        with execution_profile(
+            _web_profile,
+            sandbox_enabled=web_manager.sandbox_enabled,
+        ):
+            fire_session_start()
     except Exception:
         pass
 

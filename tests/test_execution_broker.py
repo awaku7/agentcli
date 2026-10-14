@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 import pytest
 
-from uagent import tools
+from uagent import hooks_engine, tools
 from uagent.a2a.engine import run_once_uag
+from uagent.llm_flow_helpers import _execute_tool_calls
+from uagent.runtime.identity_context import IdentityContext, TurnContext
 from uagent.runtime.execution_broker import (
     CancellationResult,
     ExecutionClass,
@@ -12,11 +16,14 @@ from uagent.runtime.execution_broker import (
     SandboxCapability,
     SecurityProfile,
     cancel_execution_safely,
+    computer_use_allowed,
+    is_computer_use_tool_spec,
     TrustedSandboxScope,
     classify_tool,
     execution_profile,
     is_trusted_local_web,
     route_tool,
+    trusted_web_scope,
 )
 
 
@@ -40,6 +47,26 @@ def test_local_web_requires_exact_loopback_and_local_identity():
         ("localhost", "local"),
     ):
         assert not is_trusted_local_web(bind_host, identity_mode)
+
+
+def test_remote_web_scope_requires_nonlocal_authenticated_identity():
+    local_identity = IdentityContext("local", True, "local")
+    local_turn = TurnContext.from_identity(
+        local_identity,
+        entry_point="web",
+        room_id="room-1",
+        project_id="project-1",
+    )
+    assert trusted_web_scope(local_turn, "room-1") is None
+
+    remote_identity = IdentityContext("alice", True, "oidc")
+    remote_turn = TurnContext.from_identity(
+        remote_identity,
+        entry_point="web",
+        room_id="room-1",
+        project_id="project-1",
+    )
+    assert trusted_web_scope(remote_turn, "room-1") is not None
 
 
 def test_a2a_requires_server_task_id_before_starting_run():
@@ -185,7 +212,10 @@ def test_remote_dispatch_never_calls_host_runner(monkeypatch, tmp_path):
     monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "read_file", False)
 
     with execution_profile(
-        SecurityProfile.REMOTE, sandbox_enabled=False, scope=_remote_scope()
+        SecurityProfile.REMOTE,
+        sandbox_enabled=False,
+        scope=_remote_scope(),
+        authorization_check=lambda: True,
     ):
         result = tools.run_tool("read_file", {"path": "secret.txt"})
 
@@ -208,7 +238,10 @@ def test_remote_brokered_time_does_not_enter_host_runner(monkeypatch, tmp_path):
     monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "get_current_time", False)
 
     with execution_profile(
-        SecurityProfile.REMOTE, sandbox_enabled=False, scope=_remote_scope()
+        SecurityProfile.REMOTE,
+        sandbox_enabled=False,
+        scope=_remote_scope(),
+        authorization_check=lambda: True,
     ):
         result = tools.run_tool("get_current_time", {})
 
@@ -250,7 +283,10 @@ def test_remote_capability_rejection_precedes_confirmation_and_runner(
     )
 
     with execution_profile(
-        SecurityProfile.REMOTE, sandbox_enabled=True, scope=_remote_scope()
+        SecurityProfile.REMOTE,
+        sandbox_enabled=True,
+        scope=_remote_scope(),
+        authorization_check=lambda: True,
     ):
         result = tools.run_tool("delete_file", {"filename": str(tmp_path / "x")})
 
@@ -271,7 +307,10 @@ def test_remote_parallel_dispatch_cannot_bypass_broker(monkeypatch, tmp_path):
     monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "get_env", False)
 
     with execution_profile(
-        SecurityProfile.REMOTE, sandbox_enabled=False, scope=_remote_scope()
+        SecurityProfile.REMOTE,
+        sandbox_enabled=False,
+        scope=_remote_scope(),
+        authorization_check=lambda: True,
     ):
         result = tools.run_tools_parallel([("get_env", {"name": "PATH"})])
 
@@ -328,6 +367,53 @@ def test_confirmation_cannot_change_approved_arguments(monkeypatch, tmp_path):
     assert calls == []
 
 
+def test_tool_dispatch_revalidates_live_authorization_after_confirmation(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setenv("UAGENT_POLICY_FILE", str(tmp_path / "policy.json"))
+    (tmp_path / "policy.json").write_text("{}", encoding="utf-8")
+    calls = []
+    authorization_checks = []
+    monkeypatch.setattr(tools, "_ensure_loaded", lambda: None)
+    monkeypatch.setitem(
+        tools._RUNNERS,
+        "delete_file",
+        lambda _args: calls.append("runner") or "unexpected",
+    )
+    monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "delete_file", False)
+    monkeypatch.setattr(tools, "_CONFIRMATION_CALLBACK", lambda *_args: True)
+
+    def revalidate_room_membership():
+        authorization_checks.append("checked")
+        # Model membership revocation while the confirmation UI is open.
+        return len(authorization_checks) == 1
+
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED,
+        authorization_check=revalidate_room_membership,
+    ):
+        result = tools.run_tool("delete_file", {"filename": str(tmp_path / "x")})
+
+    assert "authorization" in result
+    assert len(authorization_checks) == 2
+    assert calls == []
+
+
+def test_computer_use_is_only_available_to_local_trusted_sandbox_off():
+    computer_spec = {
+        "type": "function",
+        "function": {"name": "computer", "parameters": {"type": "object"}},
+    }
+    assert is_computer_use_tool_spec(computer_spec)
+    assert is_computer_use_tool_spec({"computer_use": {"environment": "browser"}})
+    with execution_profile(SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=False):
+        assert computer_use_allowed()
+    with execution_profile(SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True):
+        assert not computer_use_allowed()
+    with execution_profile(SecurityProfile.REMOTE, scope=_remote_scope()):
+        assert not computer_use_allowed()
+
+
 def test_cancel_contract_terminates_lease_if_execution_stop_is_unconfirmed():
     class FakeBackend:
         def __init__(self):
@@ -350,3 +436,338 @@ def test_cancel_contract_terminates_lease_if_execution_stop_is_unconfirmed():
     assert backend.terminated == ["lease-1"]
     assert not result.safe_to_reuse
     assert result.lease_terminated
+
+
+def test_remote_user_prompt_submit_hook_cannot_spawn_host_command(
+    monkeypatch, tmp_path
+):
+    from uagent.web_impl.agent_worker import _web_turn_execution_context
+    from uagent.web_impl.rooms import WebRoom, web_manager
+
+    calls = []
+    monkeypatch.setattr(
+        hooks_engine.subprocess,
+        "run",
+        lambda *args, **kwargs: calls.append((args, kwargs)),
+    )
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_enabled", False, raising=False)
+    hooks = {
+        "UserPromptSubmit": [
+            {"type": "command", "command": "echo host-hook-must-not-run"}
+        ]
+    }
+    identity = IdentityContext("alice", True, "oidc")
+    turn = TurnContext.from_identity(
+        identity,
+        entry_point="web",
+        room_id="remote-hook-room",
+        project_id="project-1",
+        session_id="session-1",
+    )
+    room = WebRoom("remote-hook-room")
+    with _web_turn_execution_context(room, turn, identity, str(tmp_path)):
+        results = hooks_engine.fire_user_prompt_submit("hello", hooks=hooks)
+
+    assert calls == []
+    assert len(results) == 1
+    assert not results[0]["ok"]
+    assert "remote" in results[0]["error"]
+
+
+def test_web_human_ask_revalidates_current_room_principal(monkeypatch):
+    from uagent.runtime.identity_context import (
+        IdentityContext,
+        TurnContext,
+        call_with_turn_context,
+    )
+    from uagent.runtime.execution_broker import trusted_web_scope
+    from uagent.web_impl.init import _remote_human_ask_authorized
+    from uagent.web_impl.rooms import WebRoom, web_manager
+
+    identity = IdentityContext("alice", True, "oidc")
+    turn = TurnContext.from_identity(
+        identity,
+        entry_point="web",
+        room_id="room-1",
+        project_id="project-1",
+        session_id="session-1",
+    )
+    scope = trusted_web_scope(turn, turn.room_id)
+    assert scope is not None
+    room = WebRoom(turn.room_id)
+
+    class Connection:
+        def __init__(self):
+            self.identity = identity
+            self.authorized = True
+
+        def validate_authentication_configuration(self):
+            return None
+
+        def validate_room_access(self, *, touch_activity=True):
+            if not self.authorized:
+                raise PermissionError("membership revoked")
+
+    connection = Connection()
+    room._connection_contexts["connection-1"] = connection
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+
+    with execution_profile(SecurityProfile.REMOTE, scope=scope):
+        assert call_with_turn_context(
+            turn,
+            _remote_human_ask_authorized,
+            room,
+            identity_context=identity,
+        )
+        connection.authorized = False
+        assert not call_with_turn_context(
+            turn,
+            _remote_human_ask_authorized,
+            room,
+            identity_context=identity,
+        )
+
+
+def test_web_turn_profile_blocks_user_prompt_submit_host_hook(monkeypatch):
+    from uagent.web_impl.agent_worker import _web_turn_execution_context
+    from uagent.web_impl.rooms import WebRoom, web_manager
+
+    calls = []
+    monkeypatch.setattr(
+        hooks_engine.subprocess,
+        "run",
+        lambda *args, **kwargs: calls.append((args, kwargs)),
+    )
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_enabled", False, raising=False)
+    room = WebRoom("room-1")
+    identity = SimpleNamespace(
+        authenticated=True,
+        principal_id="alice",
+        authn_kind="oidc",
+    )
+    turn = SimpleNamespace(
+        authenticated=True,
+        entry_point="web",
+        room_id="room-1",
+        principal_id="alice",
+        project_id="project-1",
+        authn_kind="oidc",
+    )
+    hooks = {
+        "UserPromptSubmit": [
+            {"type": "command", "command": "echo host-hook-must-not-run"}
+        ]
+    }
+
+    with _web_turn_execution_context(room, turn, identity, "project-path"):
+        results = hooks_engine.fire_user_prompt_submit("hello", hooks=hooks)
+
+    assert calls == []
+    assert len(results) == 1
+    assert not results[0]["ok"]
+    assert "remote" in results[0]["error"]
+
+
+def test_remote_parallel_safety_check_does_not_load_plugins(monkeypatch):
+    calls = []
+    monkeypatch.setattr(
+        tools, "_ensure_loaded", lambda: calls.append("plugin_load") or None
+    )
+    with execution_profile(
+        SecurityProfile.REMOTE,
+        scope=_remote_scope(),
+        authorization_check=lambda: True,
+    ):
+        assert not tools.is_parallel_safe("unregistered_plugin_tool", {})
+    assert calls == []
+
+
+def test_llm_tool_loop_rejects_unregistered_remote_tool_before_plugin_load(
+    monkeypatch,
+):
+    plugin_loads = []
+
+    def record_plugin_load():
+        plugin_loads.append("load")
+
+    monkeypatch.setattr(tools, "_ensure_loaded", record_plugin_load)
+    core = SimpleNamespace(
+        show_tool_output=False,
+        set_status=lambda *args: None,
+        log_message=lambda *args: None,
+    )
+    tool_calls = [
+        {
+            "id": "unknown-remote-tool",
+            "type": "function",
+            "function": {
+                "name": "unregistered_plugin_tool",
+                "arguments": "{}",
+            },
+        }
+    ]
+    messages = []
+
+    with execution_profile(
+        SecurityProfile.REMOTE,
+        scope=_remote_scope(),
+        authorization_check=lambda: True,
+    ):
+        _execute_tool_calls(
+            tool_calls_list=tool_calls,
+            messages=messages,
+            core=core,
+            cache_mgr=SimpleNamespace(record_file_access=lambda *_args: None),
+        )
+
+    assert plugin_loads == []
+    assert (
+        "unknown" in messages[-1]["content"]
+        or "execution denied" in messages[-1]["content"]
+    )
+
+
+def test_web_turn_authorization_rechecks_live_room_membership(monkeypatch, tmp_path):
+    from uagent.web_impl import connection_identity
+    from uagent.web_impl.agent_worker import _web_turn_authorization_valid
+    from uagent.web_impl.rooms import WebRoom
+
+    identity = IdentityContext("alice", True, "oidc")
+    turn = TurnContext.from_identity(
+        identity,
+        entry_point="web",
+        room_id="room-1",
+        project_id="project-1",
+        session_id="session-1",
+        server_bound_project=True,
+    )
+    room = WebRoom("room-1")
+    membership_active = True
+
+    def require_room_access(_identity, _room_id, *, touch_activity=True):
+        if not membership_active:
+            raise PermissionError("membership revoked")
+        return "project-1", False
+
+    monkeypatch.setattr(connection_identity, "require_room_access", require_room_access)
+
+    assert _web_turn_authorization_valid(room, turn, identity, str(tmp_path))
+    membership_active = False
+    assert not _web_turn_authorization_valid(room, turn, identity, str(tmp_path))
+
+
+def test_web_broker_operation_is_rejected_when_room_membership_is_revoked(
+    monkeypatch, tmp_path
+):
+    from uagent.web_impl import connection_identity
+    from uagent.web_impl.agent_worker import _web_turn_authorization_valid
+    from uagent.web_impl.rooms import WebRoom
+
+    monkeypatch.setenv("UAGENT_POLICY_FILE", str(tmp_path / "policy.json"))
+    (tmp_path / "policy.json").write_text("{}", encoding="utf-8")
+    identity = IdentityContext("alice", True, "oidc")
+    turn = TurnContext.from_identity(
+        identity,
+        entry_point="web",
+        room_id="room-1",
+        project_id="project-1",
+        session_id="session-1",
+        server_bound_project=True,
+    )
+    room = WebRoom("room-1")
+    membership_active = True
+    calls = []
+    monkeypatch.setattr(
+        tools,
+        "_ensure_loaded",
+        lambda: calls.append("runner registry loaded"),
+    )
+    monkeypatch.setitem(
+        tools._RUNNERS, "get_current_time", lambda _args: "should not execute"
+    )
+    monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "get_current_time", False)
+
+    def require_room_access(_identity, _room_id, *, touch_activity=True):
+        if not membership_active:
+            raise PermissionError("membership revoked")
+        return "project-1", False
+
+    monkeypatch.setattr(connection_identity, "require_room_access", require_room_access)
+    scope = trusted_web_scope(turn, room.room_id)
+    assert scope is not None
+
+    def authorize():
+        return _web_turn_authorization_valid(room, turn, identity, str(tmp_path))
+
+    # The confirmation/execution boundary rechecks the live membership; revoke
+    # it between the first admission check and the final pre-execution check.
+    checks = []
+
+    def revoke_between_checks():
+        nonlocal membership_active
+        checks.append(True)
+        if len(checks) == 2:
+            membership_active = False
+        return authorize()
+
+    with execution_profile(
+        SecurityProfile.REMOTE,
+        scope=scope,
+        authorization_check=revoke_between_checks,
+    ):
+        result = tools.run_tool("get_current_time", {})
+
+    assert "authorization" in result
+    assert checks == [True, True]
+    assert calls == []
+
+
+def test_computer_use_tool_specs_are_filtered_for_remote_and_sandbox_profiles(
+    monkeypatch,
+):
+    computer = {
+        "type": "function",
+        "function": {"name": "computer", "parameters": {"type": "object"}},
+    }
+    ordinary = {
+        "type": "function",
+        "function": {"name": "calculator", "parameters": {"type": "object"}},
+    }
+    monkeypatch.setattr(tools, "_ensure_loaded", lambda: None)
+    monkeypatch.setattr(tools, "TOOL_SPECS", [computer, ordinary])
+    monkeypatch.setattr(tools, "_TOOL_SPECS_DIRTY", True)
+    monkeypatch.setattr(tools, "_TOOL_SPECS_CACHE", None)
+    monkeypatch.setattr(tools, "_TOOL_SPECS_CACHE_EMBEDDED", None)
+    monkeypatch.setattr(tools, "_ANALYZE_IMAGE_HIDDEN", None)
+
+    with execution_profile(SecurityProfile.REMOTE, scope=_remote_scope()):
+        remote_specs = tools.get_tool_specs()
+    assert [spec["function"]["name"] for spec in remote_specs] == ["calculator"]
+
+    with execution_profile(SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True):
+        sandbox_specs = tools.get_tool_specs()
+    assert [spec["function"]["name"] for spec in sandbox_specs] == ["calculator"]
+
+
+@pytest.mark.parametrize(
+    ("profile", "sandbox_enabled"),
+    [
+        (SecurityProfile.REMOTE, False),
+        (SecurityProfile.REMOTE, True),
+        (SecurityProfile.LOCAL_TRUSTED, True),
+    ],
+)
+def test_computer_use_alias_is_denied_before_tool_loading(
+    monkeypatch, profile, sandbox_enabled
+):
+    loads = []
+    monkeypatch.setattr(tools, "_ensure_loaded", lambda: loads.append(True))
+    scope = _remote_scope() if profile is SecurityProfile.REMOTE else None
+
+    with execution_profile(profile, sandbox_enabled=sandbox_enabled, scope=scope):
+        result = tools.run_tool("computer_use", {"action": "screenshot"})
+
+    assert "Computer Use is disabled" in result
+    assert loads == []

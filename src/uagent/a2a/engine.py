@@ -91,6 +91,21 @@ def run_once_uag(
         execution_profile,
     )
 
+    def _a2a_task_authorization_is_current() -> bool:
+        if str(getattr(core, "task_id", "") or "") != str(task_id).strip():
+            return False
+        try:
+            from ..runtime.execution import current_lifecycle
+
+            lifecycle = current_lifecycle()
+            if lifecycle is None:
+                return False
+            snapshot = lifecycle.snapshot()
+            status = str(getattr(snapshot.status, "value", snapshot.status)).upper()
+            return status == "RUNNING"
+        except Exception:
+            return False
+
     try:
         scope = TrustedSandboxScope(
             deployment_id="a2a",
@@ -100,7 +115,10 @@ def run_once_uag(
             scope_id=str(task_id).strip(),
         )
         with execution_profile(
-            SecurityProfile.REMOTE, sandbox_enabled=False, scope=scope
+            SecurityProfile.REMOTE,
+            sandbox_enabled=False,
+            scope=scope,
+            authorization_check=_a2a_task_authorization_is_current,
         ):
             _run_a2a_turn(
                 llm_util.run_llm_rounds,

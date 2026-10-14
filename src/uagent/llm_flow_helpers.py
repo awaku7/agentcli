@@ -120,6 +120,16 @@ def _is_external_data_tool(name: str) -> bool:
     Results from these tools are wrapped with isolation markers to prevent
     embedded instructions from being interpreted as commands.
     """
+    try:
+        from .runtime.execution_broker import SecurityProfile, current_profile
+
+        if current_profile() is SecurityProfile.REMOTE:
+            # Remote calls reach only fixed broker operations; consulting the
+            # dynamic external-tool registry here would import plugins after a
+            # deliberately rejected unknown tool call.
+            return False
+    except Exception:
+        return False
     return name in tools.get_external_data_tools()
 
 
@@ -873,12 +883,32 @@ def _execute_tool_calls(
                     if name in {"computer", "computer_use_preview"} and callable(
                         computer_handler
                     ):
-                        tool_result = computer_handler(
-                            tool_call=tc,
-                            action=parsed_args,
-                            messages=messages,
-                            core=core,
+                        from .runtime.execution_broker import (
+                            current_profile,
+                            current_sandbox_enabled,
+                            route_tool,
                         )
+
+                        computer_route = route_tool(
+                            name,
+                            parsed_args,
+                            profile=current_profile(),
+                            sandbox_enabled=current_sandbox_enabled(),
+                            backend_available=False,
+                            known_tool=True,
+                        )
+                        if not computer_route.allowed:
+                            tool_result = (
+                                "[tool policy] execution denied: "
+                                + computer_route.reason
+                            )
+                        else:
+                            tool_result = computer_handler(
+                                tool_call=tc,
+                                action=parsed_args,
+                                messages=messages,
+                                core=core,
+                            )
                     else:
                         tool_result = tools.run_tool(name, parsed_args)
 
