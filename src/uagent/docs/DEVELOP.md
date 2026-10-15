@@ -1306,7 +1306,12 @@ Only explicitly fixed broker operations may execute without a sandbox. Do not
 expose a localhost Web server through a proxy, port forward, or SSH tunnel while
 relying on local-only behavior.
 
-The current stage has no Sandbox backend: Mock tests verify routing contracts,
-not OS isolation. Do not interpret a successful mock or the local trusted profile
-as Remote E0 isolation. See [the Sandbox design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md)
-and [the staged implementation handoff](../../../docs/plans/UAG_SANDBOX_IMPLEMENTATION_HANDOFF.md).
+The PR 1 Mock tests verify routing contracts, not OS isolation. PR 2 adds an
+explicitly opted-in Windows x64 MXC ProcessContainer backend for trusted local
+CLI/GUI and eligible local Web sessions only; it is not a VM boundary and does
+not establish Remote E0 isolation. While Sandbox is enabled, startup must not
+activate project plugins or select host tools via genre masks or `--enable-tool`.
+The MXC workspace quota includes NTFS alternate data streams; if the host stream
+scanner cannot verify usage, Python execution fails closed. See [the Sandbox
+design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md) and [the staged
+implementation handoff](../../../docs/plans/UAG_SANDBOX_IMPLEMENTATION_HANDOFF.md).

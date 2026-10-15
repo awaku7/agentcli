@@ -94,6 +94,19 @@ def test_mxc_windows_session_isolation_and_cleanup(tmp_path):
         )
         assert other_session["exists"] is False
 
+        directory_ads_result = manager.run_tool(
+            other_scope,
+            "python_exec",
+            {
+                "code": (
+                    "from pathlib import Path\n"
+                    "Path('carrier_dir').mkdir()\n"
+                    "with open('carrier_dir:payload', 'wb') as f: f.truncate(256 * 1024 * 1024 + 1)\n"
+                )
+            },
+        )
+        assert "workspace limit exceeded" in directory_ads_result.lower()
+
         secret_result = _run_python(
             manager,
             scope,
@@ -134,6 +147,18 @@ def test_mxc_windows_session_isolation_and_cleanup(tmp_path):
         while _pid_is_alive(child_pid) and time.monotonic() < deadline:
             time.sleep(0.1)
         assert not _pid_is_alive(child_pid)
+
+        ads_quota_result = manager.run_tool(
+            scope,
+            "python_exec",
+            {
+                "code": (
+                    "with open('carrier', 'wb') as f: f.write(b'x')\n"
+                    "with open('carrier:payload', 'wb') as f: f.truncate(256 * 1024 * 1024 + 1)\n"
+                )
+            },
+        )
+        assert "workspace limit exceeded" in ads_quota_result.lower()
 
         quota_result = manager.run_tool(
             scope,

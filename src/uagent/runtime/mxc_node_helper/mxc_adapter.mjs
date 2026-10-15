@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
@@ -153,6 +154,86 @@ function createReplyQueue(stdout, processHandle) {
   };
 }
 
+const ALTERNATE_STREAM_SCAN_SCRIPT = [
+  "$ErrorActionPreference = 'Stop'",
+  "$ProgressPreference = 'SilentlyContinue'",
+  "$source = @'",
+  "using System;",
+  "using System.Runtime.InteropServices;",
+  "public static class UagentMxcStreamScan {",
+  "  [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]",
+  "  public struct Data {",
+  "    public long StreamSize;",
+  "    [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 296)] public string StreamName;",
+  "  }",
+  "  [DllImport(\"kernel32.dll\", CharSet = CharSet.Unicode, SetLastError = true)]",
+  "  public static extern IntPtr FindFirstStreamW(string path, int level, out Data data, uint flags);",
+  "  [DllImport(\"kernel32.dll\", CharSet = CharSet.Unicode, SetLastError = true)]",
+  "  public static extern bool FindNextStreamW(IntPtr handle, out Data data);",
+  "  [DllImport(\"kernel32.dll\", SetLastError = true)]",
+  "  public static extern bool FindClose(IntPtr handle);",
+  "}",
+  "'@",
+  "Add-Type -TypeDefinition $source",
+  "$root = $env:UAGENT_MXC_SCAN_ROOT",
+  "$items = @((Get-Item -LiteralPath $root -Force)) + @(Get-ChildItem -LiteralPath $root -Force -Recurse -ErrorAction Stop)",
+  "[long]$total = 0",
+  "[long]$streamCount = 0",
+  "foreach ($item in $items) {",
+  "  if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { continue }",
+  "  $streamData = New-Object UagentMxcStreamScan+Data",
+  "  $handle = [UagentMxcStreamScan]::FindFirstStreamW($item.FullName, 0, [ref]$streamData, 0)",
+  "  if ($handle -eq [IntPtr](-1)) {",
+  "    $winError = [Runtime.InteropServices.Marshal]::GetLastWin32Error()",
+  "    if ($winError -ne 38) { throw \"FindFirstStreamW failed: $winError\" }",
+  "    continue",
+  "  }",
+  "  try {",
+  "    do {",
+  "      if ($streamData.StreamName -ne '::$DATA') {",
+  "        $total += [long]$streamData.StreamSize",
+  "        $streamCount += 1",
+  "      }",
+  "      $hasNext = [UagentMxcStreamScan]::FindNextStreamW($handle, [ref]$streamData)",
+  "    } while ($hasNext)",
+  "    $winError = [Runtime.InteropServices.Marshal]::GetLastWin32Error()",
+  "    if ($winError -ne 38) { throw \"FindNextStreamW failed: $winError\" }",
+  "  } finally { [void][UagentMxcStreamScan]::FindClose($handle) }",
+  "}",
+  "[Console]::Out.WriteLine(('{0},{1}' -f $total.ToString([Globalization.CultureInfo]::InvariantCulture), $streamCount.ToString([Globalization.CultureInfo]::InvariantCulture)))",
+].join("\n");
+
+function alternateStreamUsage(root) {
+  const systemRoot = process.env.SystemRoot || process.env.WINDIR || String.raw`C:\Windows`;
+  const powershell = path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
+  const output = execFileSync(
+    powershell,
+    ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", ALTERNATE_STREAM_SCAN_SCRIPT],
+    {
+      encoding: "utf8",
+      maxBuffer: 64 * 1024,
+      timeout: 5_000,
+      windowsHide: true,
+      env: {
+        SystemRoot: systemRoot,
+        WINDIR: systemRoot,
+        PATH: path.join(systemRoot, "System32"),
+        TEMP: process.env.TEMP || "",
+        TMP: process.env.TMP || "",
+        UAGENT_MXC_SCAN_ROOT: path.resolve(root),
+      },
+    },
+  );
+  const match = output.trim().match(/^(\d+),(\d+)$/);
+  if (!match) throw new Error("NTFS alternate-stream scan returned invalid output");
+  const bytes = Number(match[1]);
+  const entries = Number(match[2]);
+  if (!Number.isSafeInteger(bytes) || !Number.isSafeInteger(entries)) {
+    throw new Error("NTFS alternate-stream usage is not a safe integer");
+  }
+  return { bytes, entries };
+}
+
 function workspaceUsage(root) {
   let bytes = 0;
   let entries = 0;
@@ -183,6 +264,12 @@ function workspaceUsage(root) {
       bytes += stat.size;
       if (bytes > MAX_WORKSPACE_BYTES) return { exceeded: true, bytes, entries };
     }
+  }
+  const alternate = alternateStreamUsage(root);
+  bytes += alternate.bytes;
+  entries += alternate.entries;
+  if (bytes > MAX_WORKSPACE_BYTES || entries > MAX_WORKSPACE_ENTRIES) {
+    return { exceeded: true, bytes, entries };
   }
   return { exceeded: false, bytes, entries };
 }

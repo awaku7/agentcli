@@ -125,6 +125,51 @@ def test_cli_startup_turn_uses_local_sandbox_profile_when_enabled(
     assert observed == [(SecurityProfile.LOCAL_TRUSTED, True, scope)]
 
 
+def test_cli_startup_skips_host_tool_selection_when_sandboxed(monkeypatch) -> None:
+    from uagent import cli_startup
+    from uagent.tools import _genre_control_util
+
+    mask_calls = []
+    tool_calls = []
+    monkeypatch.setattr(
+        cli_startup,
+        "_apply_startup_tool_genre_mask",
+        lambda mask: mask_calls.append(mask),
+    )
+    monkeypatch.setattr(
+        _genre_control_util,
+        "enable_single_tool",
+        lambda name: tool_calls.append(("enable", name)) or True,
+    )
+    monkeypatch.setattr(
+        _genre_control_util,
+        "pin_tool",
+        lambda name, *, reason: tool_calls.append(("pin", name, reason)),
+    )
+
+    cli_startup._configure_cli_startup_tools(
+        sandbox_enabled=True,
+        tool_genre_mask=8191,
+        enable_tools=["preprocess_image"],
+    )
+
+    assert mask_calls == []
+    assert tool_calls == []
+
+    cli_startup._configure_cli_startup_tools(
+        sandbox_enabled=False,
+        tool_genre_mask=8191,
+        enable_tools=["first", "second"],
+    )
+    assert mask_calls == [8191]
+    assert [call[:2] for call in tool_calls] == [
+        ("enable", "second"),
+        ("pin", "second"),
+        ("enable", "first"),
+        ("pin", "first"),
+    ]
+
+
 def test_cli_startup_plugin_activation_is_disabled_for_sandbox(monkeypatch) -> None:
     from uagent import cli_startup
     from uagent.runtime import runtime_plugins

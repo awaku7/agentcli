@@ -559,14 +559,15 @@ def main():
         print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
         sys.exit(1)
 
-    if web_args.tool_genre_mask is not None:
-        from ..cli_startup import _apply_startup_tool_genre_mask
+    if web_args.sandbox == "off":
+        if web_args.tool_genre_mask is not None:
+            from ..cli_startup import _apply_startup_tool_genre_mask
 
-        _apply_startup_tool_genre_mask(web_args.tool_genre_mask)
-    else:
-        from ..cli_startup import _apply_startup_tool_genre_mask
+            _apply_startup_tool_genre_mask(web_args.tool_genre_mask)
+        else:
+            from ..cli_startup import _apply_startup_tool_genre_mask
 
-        _apply_startup_tool_genre_mask(0)
+            _apply_startup_tool_genre_mask(0)
 
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.

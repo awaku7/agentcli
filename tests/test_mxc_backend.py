@@ -223,6 +223,20 @@ def test_worker_read_file_applies_byte_limit_after_start_line(monkeypatch, tmp_p
     assert result == "later section\n"
 
 
+@pytest.mark.parametrize(
+    ("name", "args"),
+    [
+        ("read_file", {"path": "carrier:payload"}),
+        ("create_file", {"filename": "carrier:payload", "content": "x"}),
+    ],
+)
+def test_worker_rejects_alternate_data_stream_paths(monkeypatch, tmp_path, name, args):
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+
+    with pytest.raises(ValueError, match="alternate data stream"):
+        sandbox_worker._dispatch({"name": name, "args": args})
+
+
 def test_worker_rejects_absolute_paths_and_unregistered_tools(monkeypatch, tmp_path):
     monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
     with pytest.raises(ValueError, match="absolute paths"):

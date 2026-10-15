@@ -30,6 +30,8 @@ def _resolve_relative(value: Any) -> Path:
     candidate = Path(value)
     if candidate.is_absolute() or candidate.drive or "\\" in value:
         raise ValueError("absolute paths and Windows path separators are not accepted")
+    if ":" in value:
+        raise ValueError("alternate data stream paths are not accepted")
     if any(part in {"..", ""} for part in candidate.parts):
         raise ValueError("path traversal is not accepted")
     target = (ROOT / candidate).resolve(strict=False)

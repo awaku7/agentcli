@@ -88,6 +88,47 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
             )
 
 
+def _apply_startup_tool_genre_mask_for_mode(mask: int, *, sandbox_mode: str) -> None:
+    """Do not activate any host tools for a sandbox-enabled startup."""
+    if sandbox_mode == "off":
+        _apply_startup_tool_genre_mask(mask)
+
+
+def _configure_cli_startup_tools(
+    *,
+    sandbox_enabled: bool,
+    tool_genre_mask: int | None,
+    enable_tools: list[str] | None,
+) -> None:
+    """Apply host tool selection only when startup is not sandboxed."""
+    if tool_genre_mask is not None:
+        _apply_startup_tool_genre_mask_for_mode(
+            tool_genre_mask, sandbox_mode="mxc" if sandbox_enabled else "off"
+        )
+    if sandbox_enabled:
+        return
+    if not enable_tools:
+        return
+
+    from .tools._genre_control_util import enable_single_tool, pin_tool
+    from .i18n import _
+
+    # enable_single_tool() registers single-loaded tools newest-first
+    # (smallest x_single_load_seq sorts to the front), so iterate in reverse to
+    # preserve the user's order in the LLM tool list.
+    for tname in reversed(enable_tools):
+        try:
+            if enable_single_tool(tname):
+                pin_tool(tname, reason="enabled via --enable-tool at startup")
+        except Exception as exc:
+            print(
+                "[WARN] "
+                + _("Failed to enable tool '%(name)s': %(err)s")
+                % {"name": tname, "err": exc},
+                file=sys.stderr,
+            )
+
+
 def _call_cli_startup_turn(
     fn: Any,
     *args: Any,
@@ -411,37 +452,11 @@ def run_cli_startup(
                 print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
             except Exception:
                 pass
-            if tool_genre_mask is not None:
-                _apply_startup_tool_genre_mask(tool_genre_mask)
-            if enable_tools:
-                from .tools._genre_control_util import (
-                    enable_single_tool,
-                    pin_tool,
-                )
-
-                # enable_single_tool() registers single-loaded tools newest-first
-                # (smallest x_single_load_seq sorts to the front), so iterate in
-                # reverse to preserve the user-specified order: the first tool
-                # given on the command line is presented to the LLM first.
-                #
-                # Explicitly requested tools are pinned so they are never
-                # auto-unloaded mid-session: the user asked for exactly these
-                # tools and a silent removal would break the workflow (e.g. a
-                # long-running physical demo).
-                for tname in reversed(enable_tools):
-                    try:
-                        ok = enable_single_tool(tname)
-                        if ok:
-                            pin_tool(
-                                tname, reason="enabled via --enable-tool at startup"
-                            )
-                    except Exception as e:
-                        print(
-                            "[WARN] "
-                            + _("Failed to enable tool '%(name)s': %(err)s")
-                            % {"name": tname, "err": e},
-                            file=sys.stderr,
-                        )
+            _configure_cli_startup_tools(
+                sandbox_enabled=sandbox_enabled,
+                tool_genre_mask=tool_genre_mask,
+                enable_tools=enable_tools,
+            )
             core.set_status(False, "")
 
             messages = build_initial_messages(
