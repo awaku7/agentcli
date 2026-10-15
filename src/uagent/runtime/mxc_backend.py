@@ -665,8 +665,16 @@ class MxcSessionManager:
     def run_tool(
         self, scope: TrustedSandboxScope | None, name: str, args: dict[str, Any]
     ) -> str:
-        if scope is None or scope.scope_kind not in {"cli-session", "gui-session"}:
-            return "[sandbox error] a trusted CLI/GUI session scope is required"
+        allowed_scope_deployments = {
+            "cli-session": "cli",
+            "gui-session": "gui",
+            "web-room": "web",
+        }
+        if (
+            scope is None
+            or allowed_scope_deployments.get(scope.scope_kind) != scope.deployment_id
+        ):
+            return "[sandbox error] a trusted local CLI/GUI/Web Room scope is required"
         if name not in TOOL_NAMES:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)

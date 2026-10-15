@@ -264,21 +264,21 @@ def test_manager_caps_active_session_workers(monkeypatch, tmp_path):
     manager.close_all()
 
 
-def test_manager_refuses_web_and_remote_scopes_without_spawning(local_scope, tmp_path):
+def test_manager_refuses_a2a_scope_without_spawning(tmp_path):
     manager = mxc_backend.MxcSessionManager(
         node=tmp_path / "node.exe",
         runtime=tmp_path,
         capabilities=all_local_capabilities(),
     )
-    web_scope = TrustedSandboxScope(
-        deployment_id="web",
-        principal_id="user",
+    a2a_scope = TrustedSandboxScope(
+        deployment_id="a2a",
+        principal_id="service",
         project_id="project",
-        scope_kind="web-room",
-        scope_id="room",
+        scope_kind="a2a-task",
+        scope_id="task",
     )
-    assert "trusted CLI/GUI session scope" in manager.run_tool(
-        web_scope, "file_exists", {"path": "x"}
+    assert "trusted local CLI/GUI/Web Room scope" in manager.run_tool(
+        a2a_scope, "file_exists", {"path": "x"}
     )
     assert manager._sessions == {}
 
@@ -347,3 +347,57 @@ def test_startup_scope_without_session_id_uses_process_unique_fallback(
         entry_point="cli", project_path=str(tmp_path), session_id=""
     )
     assert other_process_scope.scope_id != scope.scope_id
+
+
+def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(
+    monkeypatch, tmp_path
+):
+    observed = []
+
+    class FakeProcess:
+        @staticmethod
+        def poll():
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            observed.append((scope, node, runtime))
+            self._closed = False
+            self._proc = FakeProcess()
+
+        @staticmethod
+        def run(name, args):
+            return f"{name}:{args['path']}"
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="local-project",
+        scope_kind="web-room",
+        scope_id="room-7",
+    )
+
+    assert manager.run_tool(scope, "file_exists", {"path": "inside.txt"}) == (
+        "file_exists:inside.txt"
+    )
+    assert observed[0][0] == scope
+
+    wrong_binding = TrustedSandboxScope(
+        deployment_id="cli",
+        principal_id="local-user",
+        project_id="local-project",
+        scope_kind="web-room",
+        scope_id="room-8",
+    )
+    assert "trusted local" in manager.run_tool(
+        wrong_binding, "file_exists", {"path": "inside.txt"}
+    )
