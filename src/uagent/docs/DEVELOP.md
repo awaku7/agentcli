@@ -1312,6 +1312,8 @@ CLI/GUI and eligible local Web sessions only; it is not a VM boundary and does
 not establish Remote E0 isolation. While Sandbox is enabled, startup must not
 activate project plugins or select host tools via genre masks or `--enable-tool`.
 The MXC workspace quota includes NTFS alternate data streams; if the host stream
-scanner cannot verify usage, Python execution fails closed. See [the Sandbox
+scanner cannot verify usage, Python execution fails closed. Local Web Room scopes
+include a server-process nonce so concurrent `uagw` processes cannot share or
+clear one another's workspaces for the same room. See [the Sandbox
 design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md) and [the staged
 implementation handoff](../../../docs/plans/UAG_SANDBOX_IMPLEMENTATION_HANDOFF.md).

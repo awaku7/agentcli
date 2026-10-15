@@ -746,6 +746,26 @@ def run_sandbox_tool(
     return manager.run_tool(scope, name, args)
 
 
+def _process_scope_id(scope_id: str) -> str:
+    """Salt a trusted session/Room identifier to this live server process."""
+    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}"
+
+
+def local_web_room_scope(
+    *, principal_id: str, project_id: str, room_id: str
+) -> TrustedSandboxScope:
+    """Return an isolated MXC scope for a trusted local Web Room."""
+    if not principal_id or not project_id or not room_id:
+        raise ValueError("local Web Room scope fields must be non-empty")
+    return TrustedSandboxScope(
+        deployment_id="web",
+        principal_id=principal_id,
+        project_id=project_id,
+        scope_kind="web-room",
+        scope_id=_process_scope_id(room_id),
+    )
+
+
 def startup_scope(
     *, entry_point: str, project_path: str, session_id: str
 ) -> TrustedSandboxScope:
@@ -762,7 +782,7 @@ def startup_scope(
         # persisted session ID exists. This backend deletes a scope workspace
         # when creating its first Worker, so sharing a persisted ID between
         # concurrently running processes would otherwise be destructive.
-        scope_id=f"{session_id or entry_point}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}",
+        scope_id=_process_scope_id(session_id or entry_point),
     )
 
 

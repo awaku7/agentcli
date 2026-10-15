@@ -144,7 +144,6 @@ def _web_turn_execution_context(
     """Construct the trusted execution binding for one complete Web turn."""
     from ..runtime.execution_broker import (
         SecurityProfile,
-        TrustedSandboxScope,
         execution_profile,
         trusted_web_scope,
     )
@@ -173,12 +172,12 @@ def _web_turn_execution_context(
             raise IdentityResolutionError(
                 "local Web Sandbox requires a trusted local Room turn context"
             )
-        scope = TrustedSandboxScope(
-            deployment_id="web",
+        from ..runtime.mxc_backend import local_web_room_scope
+
+        scope = local_web_room_scope(
             principal_id=turn_context.principal_id,
             project_id=turn_context.project_id,
-            scope_kind="web-room",
-            scope_id=turn_context.room_id,
+            room_id=turn_context.room_id,
         )
     authorization_check = None
     if profile is SecurityProfile.REMOTE:

@@ -159,7 +159,7 @@ def test_local_web_user_prompt_hook_is_blocked_when_sandbox_enabled(monkeypatch)
 def test_local_web_sandbox_turn_binds_server_created_room_scope(monkeypatch):
     from types import SimpleNamespace
 
-    from uagent.runtime.execution_broker import TrustedSandboxScope, current_scope
+    from uagent.runtime.execution_broker import current_scope
 
     monkeypatch.setattr(
         web_manager, "execution_profile", "local_trusted", raising=False
@@ -182,13 +182,13 @@ def test_local_web_sandbox_turn_binds_server_created_room_scope(monkeypatch):
 
     context = _web_turn_execution_context(room, turn, identity, "C:/project")
     with context:
-        assert current_scope() == TrustedSandboxScope(
-            deployment_id="web",
-            principal_id="local-user",
-            project_id="local-project",
-            scope_kind="web-room",
-            scope_id="server-room-1",
-        )
+        scope = current_scope()
+        assert scope is not None
+        assert scope.deployment_id == "web"
+        assert scope.principal_id == "local-user"
+        assert scope.project_id == "local-project"
+        assert scope.scope_kind == "web-room"
+        assert scope.scope_id.startswith("server-room-1-")
     assert current_scope() is None
 
 

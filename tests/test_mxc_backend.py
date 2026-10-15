@@ -382,6 +382,23 @@ def test_startup_scope_without_session_id_uses_process_unique_fallback(
     assert other_process_scope.scope_id != scope.scope_id
 
 
+def test_local_web_room_scope_is_unique_per_process(monkeypatch):
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54321)
+    scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user", project_id="project", room_id="room-1"
+    )
+
+    assert scope.deployment_id == "web"
+    assert scope.scope_kind == "web-room"
+    assert scope.scope_id.startswith("room-1-54321-")
+
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54322)
+    other_process_scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user", project_id="project", room_id="room-1"
+    )
+    assert other_process_scope.scope_id != scope.scope_id
+
+
 def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(
     monkeypatch, tmp_path
 ):
