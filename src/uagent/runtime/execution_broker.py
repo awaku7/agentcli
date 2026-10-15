@@ -365,7 +365,11 @@ def route_tool(
     execution_class = classify_tool(tool_name, args)
     if execution_class is ExecutionClass.DENY:
         return RoutingDecision(execution_class, False, "unknown or invalid tool")
-    if profile is SecurityProfile.REMOTE and not known_tool:
+    if (
+        profile is SecurityProfile.REMOTE
+        and execution_class is not ExecutionClass.BROKERED
+        and not known_tool
+    ):
         return RoutingDecision(
             ExecutionClass.DENY, False, "unknown or unregistered remote tool"
         )

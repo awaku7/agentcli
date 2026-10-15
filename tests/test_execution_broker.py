@@ -137,6 +137,15 @@ def test_remote_call_without_trusted_scope_is_denied():
     assert decision.reason == "trusted remote scope is required"
 
 
+def test_remote_brokered_route_does_not_require_runner_registration():
+    with execution_profile(SecurityProfile.REMOTE, scope=_remote_scope()):
+        decision = route_tool(
+            "get_current_time", {}, profile=SecurityProfile.REMOTE, known_tool=False
+        )
+    assert decision.allowed
+    assert decision.execution_class is ExecutionClass.BROKERED
+
+
 def test_remote_general_tools_fail_closed_without_backend():
     for name in ("read_file", "get_env", "http_request"):
         with execution_profile(SecurityProfile.REMOTE, scope=_remote_scope()):
@@ -285,10 +294,11 @@ def test_remote_brokered_time_does_not_enter_host_runner(monkeypatch, tmp_path):
     monkeypatch.setattr(
         tools, "_ensure_loaded", lambda: calls.append("plugin_load") or None
     )
-    monkeypatch.setitem(
-        tools._RUNNERS,
-        "get_current_time",
-        lambda _args: calls.append("runner") or "bad",
+    # Remote fixed broker operations must work even when host tool plugins
+    # have never been loaded and the generic runner registry is empty.
+    monkeypatch.delitem(tools._RUNNERS, "get_current_time", raising=False)
+    monkeypatch.delitem(
+        tools._LAZY_TOOL_NAME_TO_MODULE, "get_current_time", raising=False
     )
     monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "get_current_time", False)
 
