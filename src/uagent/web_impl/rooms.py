@@ -84,6 +84,9 @@ class WebRoom:
         self.human_ask_message = ""
         self.human_ask_job_id = ""
         self.human_ask_cancelled = False
+        # Trusted principal for the currently pending confirmation. This stays
+        # in the parent Room and is never serialized to browser clients.
+        self._human_ask_expected_principal_id = ""
 
         # per-room worker serialization (avoid history/tool collisions)
         self.worker_lock = threading.Lock()

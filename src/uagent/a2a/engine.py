@@ -38,15 +38,35 @@ def _capture_trusted_a2a_user_message(message: object) -> bool:
         return False
 
 
+def _a2a_task_authorization_is_current(scope: Any) -> bool:
+    """Validate the active A2A task using task-local scope and lifecycle state."""
+    try:
+        from ..runtime.execution_broker import current_scope
+        from ..runtime.execution import current_lifecycle
+
+        if current_scope() != scope:
+            return False
+        lifecycle = current_lifecycle()
+        if lifecycle is None:
+            return False
+        snapshot = lifecycle.snapshot()
+        status = str(getattr(snapshot.status, "value", snapshot.status)).upper()
+        return status == "RUNNING"
+    except Exception:
+        return False
+
+
 def run_once_uag(
     *, user_text: str, task_id: str = ""
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     """Run one uagent round-trip and return (assistant_message, error)."""
+    if not str(task_id or "").strip():
+        raise ValueError("A2A task_id is required for tool execution scope")
 
     # Local imports to avoid import-time side effects unless A2A server is used.
     from .. import core as core
     from .. import uagent_llm as llm_util
-    from .. import util_providers as providers
+    from ..providers import util_providers as providers
     from .. import util_tools as tools_util
     from ..util_tools import build_initial_messages, image_file_to_data_url
     from ..runtime.session_store import (
@@ -58,7 +78,6 @@ def run_once_uag(
     attached_store, _session_id = attach_opt_in_session_store(
         core, project_path=os.getcwd(), entry_point="a2a"
     )
-    core.task_id = str(task_id or "")
 
     def _run_a2a_turn(fn, *args, **kwargs):
         return call_with_resolved_turn_context(
@@ -81,26 +100,42 @@ def run_once_uag(
 
     start_idx = len(messages)
 
-    # Execute one round (same as CLI/web usage)
+    # A2A is always a remote ingress. Until a compliant production backend
+    # exists, the common dispatcher permits only explicitly brokered services.
+    from ..runtime.execution_broker import (
+        SecurityProfile,
+        TrustedSandboxScope,
+        execution_profile,
+    )
+
     try:
-        _run_a2a_turn(
-            llm_util.run_llm_rounds,
-            provider,
-            client,
-            depname,
-            messages,
-            core=core,
-            make_client_fn=providers.make_client,
-            append_result_to_outfile_fn=tools_util.append_result_to_outfile,
-            try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+        scope = TrustedSandboxScope(
+            deployment_id="a2a",
+            principal_id="a2a-service",
+            project_id=str(Path(os.getcwd()).resolve()),
+            scope_kind="a2a-task",
+            scope_id=str(task_id).strip(),
         )
+        with execution_profile(
+            SecurityProfile.REMOTE,
+            sandbox_enabled=False,
+            scope=scope,
+            authorization_check=lambda: _a2a_task_authorization_is_current(scope),
+        ):
+            _run_a2a_turn(
+                llm_util.run_llm_rounds,
+                provider,
+                client,
+                depname,
+                messages,
+                core=core,
+                make_client_fn=providers.make_client,
+                append_result_to_outfile_fn=tools_util.append_result_to_outfile,
+                try_open_images_from_text_fn=tools_util.try_open_images_from_text,
+            )
     finally:
         if attached_store is not None:
             detach_opt_in_session_store(core)
-        try:
-            delattr(core, "task_id")
-        except AttributeError:
-            pass
 
     def _collect_attachments() -> list[dict[str, Any]]:
         attachments: list[dict[str, Any]] = []

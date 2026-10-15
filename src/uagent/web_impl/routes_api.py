@@ -1726,6 +1726,15 @@ async def api_command(req: Request):
             status_code=403,
             content={"error": "session history commands are disabled for this room"},
         )
+    from .command_policy import web_command_denial
+
+    denial = web_command_denial(
+        cmd_line,
+        execution_profile=getattr(web_manager, "execution_profile", "remote"),
+        sandbox_enabled=bool(getattr(web_manager, "sandbox_enabled", False)),
+    )
+    if denial:
+        return JSONResponse(status_code=403, content={"error": denial})
     room = web_manager.get_room(room_id)
     if private_session:
         room.private_session = True

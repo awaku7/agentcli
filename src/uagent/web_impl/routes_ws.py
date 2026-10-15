@@ -62,6 +62,19 @@ def _request_room_interrupt(room) -> bool:
         return True
 
 
+def _human_ask_response_is_authorized(room, principal_id: str) -> bool:
+    """Only the principal whose turn opened the prompt may answer in Remote Web."""
+    if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
+        return True
+    lock = getattr(room, "_lifecycle_lock", None)
+    if lock is None:
+        expected = str(getattr(room, "_human_ask_expected_principal_id", "") or "")
+    else:
+        with lock:
+            expected = str(getattr(room, "_human_ask_expected_principal_id", "") or "")
+    return bool(expected and expected == str(principal_id or ""))
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     try:
@@ -172,6 +185,22 @@ async def websocket_endpoint(websocket: WebSocket):
                             "role": "assistant",
                             "content": "Session history commands are disabled for authenticated Web rooms.",
                         }
+                    )
+                    continue
+                from .command_policy import web_command_denial
+
+                denial = web_command_denial(
+                    cmd_text,
+                    execution_profile=getattr(
+                        web_manager, "execution_profile", "remote"
+                    ),
+                    sandbox_enabled=bool(
+                        getattr(web_manager, "sandbox_enabled", False)
+                    ),
+                )
+                if denial:
+                    room.add_message(
+                        {"role": "assistant", "content": f"[DENIED] {denial}"}
                     )
                     continue
                 if _handle_mode_command(cmd_text):
@@ -357,10 +386,22 @@ async def websocket_endpoint(websocket: WebSocket):
                     except Exception:
                         pass
                     continue
+                if not _human_ask_response_is_authorized(
+                    room, connection.identity.principal_id
+                ):
+                    try:
+                        _web_server_log(
+                            f"[web-ask] reject non-initiator room={str(room.room_id)[:8]}"
+                        )
+                    except Exception:
+                        pass
+                    continue
                 pool = web_manager.room_worker_pool
-                if pool is not None:
+                if pool is not None and not getattr(room, "human_ask_job_id", ""):
                     pool.answer(room, payload.get("text", ""))
-                    room.human_ask_pending = False
+                    with room._lifecycle_lock:
+                        room._human_ask_expected_principal_id = ""
+                room.human_ask_pending = False
                 room.human_ask_cancelled = False
                 room.human_ask_result = payload.get("text", "")
                 try:

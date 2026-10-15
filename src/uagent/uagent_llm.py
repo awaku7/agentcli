@@ -1721,6 +1721,13 @@ def _run_one_round(
         )
 
     send_tools_this_round = getattr(_core_module, "tools_enabled", True)
+    from .runtime.execution_broker import SecurityProfile, current_profile
+
+    if current_profile() is SecurityProfile.REMOTE:
+        # PR 1 has no production isolation backend. A remote ingress therefore
+        # runs as tool-less chat; broker routing remains defense in depth for
+        # unsolicited or continued provider tool calls.
+        send_tools_this_round = False
     # The isolated LM Studio SDK adapter can reuse the normal uagent tool
     # executor without importing this module at provider-import time.
     try:
@@ -2320,6 +2327,53 @@ def _observed_llm_rounds(fn: Any) -> Any:
     return wrapped
 
 
+def _computer_use_enabled_for_current_execution(core: Any, policy: Any) -> bool:
+    """Fail closed and tear down host Computer Use outside local Sandbox-off turns."""
+    from .runtime.execution_broker import computer_use_allowed
+
+    enabled = bool(getattr(policy, "enabled", False)) and computer_use_allowed()
+    if enabled:
+        return True
+
+    manager = getattr(core, "computer_use_runtime_manager", None)
+    manager_closed = False
+    if manager is not None and callable(getattr(manager, "close", None)):
+        try:
+            manager.close()
+            manager_closed = True
+        except Exception:
+            pass
+    runtime = getattr(core, "computer_use_runtime", None)
+    if not manager_closed and callable(getattr(runtime, "close", None)):
+        try:
+            runtime.close()
+        except Exception:
+            pass
+    if getattr(policy, "enabled", False):
+        try:
+            core.computer_use_diagnostic = (
+                "Computer Use is disabled for Remote or Sandbox-enabled execution"
+            )
+        except Exception:
+            pass
+    for name in (
+        "computer_use_runtime",
+        "computer_use_runtime_manager",
+        "computer_use_browser_runtime",
+        "computer_use_desktop_runtime",
+        "computer_use_handler",
+        "computer_use_native_tool",
+        "computer_use_native_headers",
+        "computer_use_native_provider",
+        "computer_use_native_active",
+    ):
+        try:
+            setattr(core, name, None)
+        except Exception:
+            pass
+    return False
+
+
 def _maybe_navigate_computer_runtime(
     messages: list[dict[str, Any]], core: Any, policy: Any
 ) -> bool:
@@ -2342,6 +2396,11 @@ def _maybe_navigate_computer_runtime(
     by the provider as a Computer Use ``navigate`` action and executed by the
     selected Runtime in the normal action loop.
     """
+    from .runtime.execution_broker import computer_use_allowed
+
+    if not computer_use_allowed():
+        log_event("computer.explicit_navigation.denied_by_execution_profile")
+        return False
     runtime = getattr(core, "computer_use_runtime", None)
     if runtime is None:
         log_event("computer.explicit_navigation.no_runtime")
@@ -2859,19 +2918,10 @@ def run_llm_rounds(
     if not judgment_mode:
         try:
             policy = core.get_computer_use_policy()
-            if not policy.enabled:
-                for name in (
-                    "computer_use_runtime",
-                    "computer_use_handler",
-                    "computer_use_native_tool",
-                    "computer_use_native_headers",
-                    "computer_use_native_provider",
-                ):
-                    try:
-                        setattr(core, name, None)
-                    except Exception:
-                        pass
-            if policy.enabled:
+            _computer_use_enabled = _computer_use_enabled_for_current_execution(
+                core, policy
+            )
+            if _computer_use_enabled:
                 from .computer_use.integration import (
                     install_computer_use_handler,
                     make_unavailable_computer_use_handler,

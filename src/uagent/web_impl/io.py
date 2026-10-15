@@ -25,7 +25,7 @@ def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
     cancel_event = args.get("_cancel_event")
     if cancel_event is None:
         with room.human_ask_lock:
-            return _web_human_ask_unlocked(room, args)
+            return _web_human_ask_for_principal(room, args)
     while not room.human_ask_lock.acquire(timeout=0.1):
         if cancel_event.is_set():
             return json.dumps(
@@ -33,9 +33,21 @@ def web_human_ask(room: WebRoom, args: dict[str, Any]) -> str:
                 ensure_ascii=False,
             )
     try:
-        return _web_human_ask_unlocked(room, args)
+        return _web_human_ask_for_principal(room, args)
     finally:
         room.human_ask_lock.release()
+
+
+def _web_human_ask_for_principal(room: WebRoom, args: dict[str, Any]) -> str:
+    """Bind the response slot to this ask, not to a mutable foreground Turn."""
+    expected_principal = str(args.get("_expected_principal_id") or "").strip()
+    with room._lifecycle_lock:
+        room._human_ask_expected_principal_id = expected_principal
+    try:
+        return _web_human_ask_unlocked(room, args)
+    finally:
+        with room._lifecycle_lock:
+            room._human_ask_expected_principal_id = ""
 
 
 def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
@@ -73,6 +85,14 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
             "message": str(message or ""),
             "is_password": is_password,
         }
+        # The spawned worker's authenticated TurnContext is server supplied.
+        # Carry its binding over the private IPC relay, but strip it before any
+        # event is broadcast to browser clients.
+        if getattr(room, "_web_parent_authorizes_connections", False):
+            payload["_authorization_principal_id"] = str(
+                getattr(room, "_human_ask_expected_principal_id", "") or ""
+            )
+            payload["_authorization_job_id"] = job_id
         for attempt in range(5):
             try:
                 # Also surface in chat so the user notices even if modal CSS fails.
@@ -150,13 +170,7 @@ def _web_human_ask_unlocked(room: WebRoom, args: dict[str, Any]) -> str:
                     if room.loop:
                         try:
                             asyncio.run_coroutine_threadsafe(
-                                room.broadcast(
-                                    {
-                                        "type": "human_ask",
-                                        "message": message,
-                                        "is_password": is_password,
-                                    }
-                                ),
+                                room.broadcast(payload),
                                 room.loop,
                             )
                         except Exception:

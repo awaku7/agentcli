@@ -499,56 +499,66 @@ def _call_openai_azure_round(
                 # submitted as the continuation of the assistant response.
                 _should_track_rid = True
 
-                discovery = resolve_tool_discovery(
-                    provider=provider,
-                    depname=depname,
-                    use_responses_api=use_responses_api,
-                )
-                _legacy_tool_specs: list[dict[str, Any]] | None = None
-                _native_tool_specs: list[dict[str, Any]] | None = None
-                if discovery.uses_legacy_catalog:
-                    # Legacy mode: narrow tools via tool_catalog (client-side).
-                    _legacy_tool_specs = _select_tool_specs_legacy(call_messages)
-                elif discovery.uses_native_search:
-                    # Native mode: scan all tool modules from disk (bypass genre),
-                    # exclude management tools. Server-side tool_search does narrowing.
-                    _excluded = MANAGEMENT_TOOL_NAMES
-                    _all_tools: list[dict[str, Any]] = []
-                    try:
-                        from .tools._genre_control_util import _find_tool_modules
-                        from .tools import is_computer_use_conflict
+                responses_tool_specs: list[dict[str, Any]] = []
+                if send_tools_this_round:
+                    discovery = resolve_tool_discovery(
+                        provider=provider,
+                        depname=depname,
+                        use_responses_api=use_responses_api,
+                    )
+                    _legacy_tool_specs: list[dict[str, Any]] | None = None
+                    _native_tool_specs: list[dict[str, Any]] | None = None
+                    if discovery.uses_legacy_catalog:
+                        # Legacy mode: narrow tools via tool_catalog (client-side).
+                        _legacy_tool_specs = _select_tool_specs_legacy(call_messages)
+                    elif discovery.uses_native_search:
+                        # Native mode: scan tool modules only when the call may
+                        # actually send tools to the provider.
+                        _excluded = MANAGEMENT_TOOL_NAMES
+                        _all_tools: list[dict[str, Any]] = []
+                        try:
+                            from .tools._genre_control_util import _find_tool_modules
+                            from .tools import is_computer_use_conflict
 
-                        for _mname, _mod in _find_tool_modules():
-                            _spec = getattr(_mod, "TOOL_SPEC", None)
-                            if not isinstance(_spec, dict):
-                                continue
-                            if is_computer_use_conflict(_spec):
-                                continue
-                            _fn = _spec.get("function", {})
-                            if not isinstance(_fn, dict):
-                                continue
-                            if _fn.get("name") in _excluded:
-                                continue
-                            _all_tools.append(_spec)
-                    except Exception:
-                        pass
-                    if not _all_tools:
-                        # Fallback: use already-registered tools, while
-                        # preserving native tool_search's management-tool
-                        # exclusion at the delivery boundary.
-                        _all_tools = [
+                            for _mname, _mod in _find_tool_modules():
+                                _spec = getattr(_mod, "TOOL_SPEC", None)
+                                if not isinstance(_spec, dict):
+                                    continue
+                                if is_computer_use_conflict(_spec):
+                                    continue
+                                _fn = _spec.get("function", {})
+                                if not isinstance(_fn, dict):
+                                    continue
+                                if _fn.get("name") in _excluded:
+                                    continue
+                                _all_tools.append(_spec)
+                        except Exception:
+                            pass
+                        if not _all_tools:
+                            _all_tools = [
+                                spec
+                                for spec in tools.get_tool_specs()
+                                if str((spec.get("function") or {}).get("name") or "")
+                                not in _excluded
+                            ]
+                        _native_tool_specs = _all_tools
+                    responses_tool_specs = select_tool_specs_for_discovery(
+                        discovery,
+                        legacy_specs=_legacy_tool_specs,
+                        native_specs=_native_tool_specs,
+                        selected_specs=getattr(core, "context_tool_specs", None),
+                    )
+                    from .runtime.execution_broker import (
+                        computer_use_allowed,
+                        is_computer_use_tool_spec,
+                    )
+
+                    if not computer_use_allowed():
+                        responses_tool_specs = [
                             spec
-                            for spec in tools.get_tool_specs()
-                            if str((spec.get("function") or {}).get("name") or "")
-                            not in _excluded
+                            for spec in responses_tool_specs or []
+                            if not is_computer_use_tool_spec(spec)
                         ]
-                    _native_tool_specs = _all_tools
-                responses_tool_specs = select_tool_specs_for_discovery(
-                    discovery,
-                    legacy_specs=_legacy_tool_specs,
-                    native_specs=_native_tool_specs,
-                    selected_specs=getattr(core, "context_tool_specs", None),
-                )
                 if provider == "bedrock":
                     _bedrock_req = build_bedrock_responses_request(
                         call_messages,

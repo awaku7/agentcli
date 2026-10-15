@@ -493,9 +493,19 @@ def claude_chat_with_tools(
             if context_tool_specs is not None
             else (tools.get_tool_specs() or [])
         )
+        from ..runtime.execution_broker import (
+            computer_use_allowed,
+            is_computer_use_tool_spec,
+        )
+
+        _computer_use_allowed = computer_use_allowed()
+        if not _computer_use_allowed:
+            _tool_specs_iter = [
+                spec for spec in _tool_specs_iter if not is_computer_use_tool_spec(spec)
+            ]
         native_tool = (
             getattr(core, "computer_use_native_tool", None)
-            if core is not None
+            if core is not None and _computer_use_allowed
             else None
         )
         native_toolset_active = (
@@ -504,6 +514,7 @@ def claude_chat_with_tools(
         )
         if (
             core is not None
+            and _computer_use_allowed
             and getattr(core, "computer_use_runtime", None) is not None
             and not native_toolset_active
         ):

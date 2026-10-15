@@ -113,6 +113,12 @@ def _child_turn(connection, payload) -> None:
 
     from ..util_mode import set_display_reasoning
 
+    # These are parent-selected trusted startup settings, not room/request data.
+    # Preserve them in the spawned worker rather than re-deriving or weakening
+    # the Web execution profile in the child.
+    web_manager.execution_profile = payload.get("execution_profile", "remote")
+    web_manager.sandbox_enabled = bool(payload.get("sandbox_enabled", False))
+
     configure_decision_settings(cli_provider=payload["decision_provider"])
     set_display_reasoning(payload["display_reasoning"])
     send_lock = threading.Lock()
@@ -125,6 +131,9 @@ def _child_turn(connection, payload) -> None:
     room = WebRoom(payload["room"]["room_id"])
     for name, value in payload["room"].items():
         setattr(room, name, value)
+    # Set this after restoring serialized room data so a room field cannot
+    # claim that parent-side WebSocket authorization is being enforced.
+    room._web_parent_authorizes_connections = True
     os.chdir(payload["project_path"] or room.base_dir)
     log_key = hashlib.sha256(room.room_id.encode()).hexdigest()[:16]
     core.LOG_FILE = os.path.join(
@@ -144,9 +153,21 @@ def _child_turn(connection, payload) -> None:
         )
     else:
         os.environ["UAGENT_SESSION_STORE"] = "0"
+    from ..runtime.execution_broker import SecurityProfile, execution_profile
     from ..runtime.runtime_plugins import load_plugins_status_at_startup
 
-    load_plugins_status_at_startup(activate=True)
+    _profile = (
+        SecurityProfile.LOCAL_TRUSTED
+        if web_manager.execution_profile == "local_trusted"
+        else SecurityProfile.REMOTE
+    )
+    with execution_profile(
+        _profile,
+        sandbox_enabled=web_manager.sandbox_enabled,
+    ):
+        load_plugins_status_at_startup(
+            activate=web_manager.execution_profile == "local_trusted"
+        )
     original_log = core.log_message
 
     def log_message(message):
@@ -294,10 +315,10 @@ class RoomWorkerPool:
     def run(self, room, user_input, attachments=None, **kwargs):
         from .. import core
         from ..i18n import _
-        from ..tools._genre_control_util import get_enabled_tool_names
         from ..decision.settings import get_decision_settings
         from ..util_mode import get_display_reasoning
         from .agent_worker import _ensure_public_room_session
+        from .rooms import web_manager
 
         if not room.worker_lock.acquire(blocking=False):
             room.add_message(
@@ -335,12 +356,20 @@ class RoomWorkerPool:
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
                 _ensure_public_room_session(room, store, room.base_dir)
-            parent_tools = get_enabled_tool_names()
-            tool_names = (
-                room._worker_tool_names
-                if getattr(room, "_worker_parent_tool_names", None) == parent_tools
-                else parent_tools
-            )
+            if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
+                from ..tools._genre_control_util import get_enabled_tool_names
+
+                parent_tools = get_enabled_tool_names()
+                tool_names = (
+                    room._worker_tool_names
+                    if getattr(room, "_worker_parent_tool_names", None) == parent_tools
+                    else parent_tools
+                )
+            else:
+                # No production Sandbox backend exists in this PR. Do not load
+                # or advertise Host tool runners in Remote Web child processes.
+                parent_tools = []
+                tool_names = []
             payload = {
                 "room": room_state(room),
                 "decision_provider": get_decision_settings().provider,
@@ -361,6 +390,10 @@ class RoomWorkerPool:
                 "turn_context": kwargs.get("turn_context"),
                 "identity_context": kwargs.get("identity_context"),
                 "project_path": kwargs.get("project_path"),
+                "execution_profile": getattr(
+                    web_manager, "execution_profile", "remote"
+                ),
+                "sandbox_enabled": bool(getattr(web_manager, "sandbox_enabled", False)),
             }
             payload["core"].update(getattr(room, "_worker_auto_pilot", {}))
             parent, child = self._context.Pipe()
@@ -442,6 +475,11 @@ class RoomWorkerPool:
 
     @staticmethod
     def _relay(room, event):
+        # This field is private child-to-parent authorization metadata. Never
+        # forward it to WebSocket clients.
+        event = dict(event)
+        ask_principal_id = event.pop("_authorization_principal_id", None)
+        ask_job_id = event.pop("_authorization_job_id", None)
         with room._lifecycle_lock:
             kind = event.get("type")
             if kind == "message":
@@ -479,6 +517,8 @@ class RoomWorkerPool:
                 room.human_ask_pending = True
                 room.human_ask_message = event["message"]
                 room.human_ask_is_password = event.get("is_password", False)
+                room._human_ask_expected_principal_id = str(ask_principal_id or "")
+                room.human_ask_job_id = str(ask_job_id or "")
             for queue in room._pending_replays.values():
                 queue.append(event.copy())
             recipients = tuple(room.active_connections)

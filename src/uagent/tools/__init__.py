@@ -1250,12 +1250,34 @@ def _computer_use_is_enabled() -> bool:
     }
 
 
+def _computer_use_allowed_for_current_execution() -> bool:
+    try:
+        from ..runtime.execution_broker import computer_use_allowed
+
+        return computer_use_allowed()
+    except Exception:
+        return False
+
+
+def _filter_computer_use_specs(specs: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if _computer_use_allowed_for_current_execution():
+        return specs
+    from ..runtime.execution_broker import is_computer_use_tool_spec
+
+    return [spec for spec in specs if not is_computer_use_tool_spec(spec)]
+
+
 def is_computer_use_conflict(spec: dict[str, Any] | None) -> bool:
-    """Whether a TOOL_SPEC must be hidden while Computer Use is enabled."""
+    """Whether a TOOL_SPEC must be hidden by the active Computer Use policy."""
+    if not isinstance(spec, dict):
+        return False
+    if not _computer_use_allowed_for_current_execution():
+        from ..runtime.execution_broker import is_computer_use_tool_spec
+
+        if is_computer_use_tool_spec(spec):
+            return True
     return bool(
-        _computer_use_is_enabled()
-        and isinstance(spec, dict)
-        and spec.get("computer_use_conflict") is True
+        _computer_use_is_enabled() and spec.get("computer_use_conflict") is True
     )
 
 
@@ -1314,7 +1336,9 @@ def get_tool_specs() -> list[dict[str, Any]]:
         and _ANALYZE_IMAGE_HIDDEN == hide_analyze_image
         and _TOOL_SPECS_CACHE_EMBEDDED == _embedded_now
     ):
-        return _filter_sub_agent_job_tools(_TOOL_SPECS_CACHE)
+        return _filter_computer_use_specs(
+            _filter_sub_agent_job_tools(_TOOL_SPECS_CACHE)
+        )
 
     # Embedded mode hides management tools unless explicitly loaded. Native
     # tool_search filtering belongs to the delivery layer, not this catalog
@@ -1401,7 +1425,7 @@ def get_tool_specs() -> list[dict[str, Any]]:
     _TOOL_SPECS_DIRTY = False
     _TOOL_SPECS_CACHE_EMBEDDED = _embedded_now
     _ANALYZE_IMAGE_HIDDEN = hide_analyze_image
-    return _filter_sub_agent_job_tools(clean_specs)
+    return _filter_computer_use_specs(_filter_sub_agent_job_tools(clean_specs))
 
 
 def _expand_catalog_token(token: str) -> list[str]:
@@ -1966,7 +1990,35 @@ def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool
     method-sensitive: read-only methods may run in parallel, while writes
     remain serial.
     """
-    _ensure_loaded()
+    from ..runtime.execution_broker import (
+        ExecutionClass,
+        SecurityProfile,
+        current_profile,
+        current_sandbox_enabled,
+        current_authorization_valid,
+        route_tool,
+    )
+
+    if current_profile() is SecurityProfile.REMOTE:
+        if not current_authorization_valid(require_check=True):
+            return False
+        known_tool = tool_name in _RUNNERS or tool_name in _LAZY_TOOL_NAME_TO_MODULE
+        decision = route_tool(
+            tool_name,
+            args,
+            profile=current_profile(),
+            sandbox_enabled=current_sandbox_enabled(),
+            backend_available=False,
+            known_tool=known_tool,
+        )
+        if (
+            not decision.allowed
+            or decision.execution_class is not ExecutionClass.BROKERED
+        ):
+            return False
+    else:
+        _ensure_loaded()
+
     from .tool_policy import is_parallel_safe as _policy_is_parallel_safe
 
     policy_result = _policy_is_parallel_safe(tool_name, args)
@@ -1991,7 +2043,6 @@ def run_tools_parallel(
     Returns:
         List of (tool_name, args, result) tuples in the same order as input.
     """
-    _ensure_loaded()
     future_map: dict[concurrent.futures.Future, tuple[int, str, dict[str, Any]]] = {}
 
     from ..runtime.identity_context import submit_with_current_context
@@ -2143,16 +2194,21 @@ def _record_policy_audit(
 
 def run_tool(name: str, args: dict[str, Any]) -> str:
     """Entry point for executing a tool_call."""
-    _ensure_loaded()
-    if name in _SUB_AGENT_JOB_TOOL_NAMES and not _sub_agent_job_tools_visible():
-        return json.dumps(
-            {
-                "status": "blocked",
-                "reason": "foreground_main_agent_only",
-                "message": "Sub-Agent Job orchestration is available only to an integrated foreground Main Agent.",
-            },
-            ensure_ascii=False,
-        )
+    # Every ingress is routed before plugin loading, so rejected remote tools
+    # cannot trigger lazy-import side effects. This stage has no sandbox backend.
+    from ..runtime.execution_broker import (
+        ExecutionClass,
+        SecurityProfile,
+        current_profile,
+        current_sandbox_enabled,
+        current_scope,
+        route_tool,
+        run_brokered_tool,
+        current_authorization_valid,
+        computer_use_allowed,
+        is_computer_use_tool_name,
+    )
+
     # Resolve @A{0}..@A{9} path aliases at the common dispatch boundary.
     try:
         args = resolve_tool_args(args)
@@ -2165,30 +2221,18 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
 
         args = dict(args)
         args.pop(CONFIRMATION_GRANTED_ARG, None)
-    runner = _RUNNERS.get(name)
-    if runner is None:
-        # Lazy-load fallback: try to import and register the module on demand.
-        mod_name = _LAZY_TOOL_NAME_TO_MODULE.get(name)
-        if mod_name:
-            _ensure_lazy_tool_loaded(mod_name)
-            runner = _RUNNERS.get(name)
-        # Auto-load fallback: try to enable a single tool by name.
-        # This handles tools that exist in the module directory but are
-        # currently unloaded (e.g., genre-disabled, not-yet-loaded).
-        if runner is None:
-            try:
-                from ._genre_control_util import enable_single_tool
-
-                if enable_single_tool(name):
-                    runner = _RUNNERS.get(name)
-            except Exception:
-                pass
-        if runner is None:
-            return f"[tool error] unknown tool: {name}"
-
     from uuid import uuid4
 
     tool_call_id = str(uuid4())
+    if is_computer_use_tool_name(name) and not computer_use_allowed():
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason="Computer Use is restricted to trusted local Sandbox-off execution",
+            tool_call_id=tool_call_id,
+        )
+        return "[tool policy] Computer Use is disabled for this execution profile"
     policy = get_tool_policy(name, args)
     try:
         from .enterprise_policy import get_enterprise_policy
@@ -2209,10 +2253,15 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             )
     except Exception:
         pass
+    unified_policy = None
+    unified_policy_revision = ""
+    unified_decision = None
     try:
         from ..runtime.policy_engine import PolicyDecision, UnifiedPolicy
 
-        unified_decision = UnifiedPolicy.from_environment().decide(name, args)
+        unified_policy = UnifiedPolicy.from_environment()
+        unified_policy_revision = getattr(unified_policy, "revision", "")
+        unified_decision = unified_policy.decide(name, args)
         if unified_decision is PolicyDecision.DENY:
             _record_policy_audit(
                 tool_name=name,
@@ -2241,6 +2290,70 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     except Exception as exc:
         return f"[tool policy] unified policy error: {type(exc).__name__}: {exc}"
 
+    # Authorization and side-effect policy are settled before execution class
+    # selection. Capability rejection happens before a confirmation or Runner.
+    profile = current_profile()
+    trusted_scope = current_scope()
+    known_tool = name in _RUNNERS or name in _LAZY_TOOL_NAME_TO_MODULE
+    routing = route_tool(
+        name,
+        args,
+        profile=profile,
+        sandbox_enabled=current_sandbox_enabled(),
+        backend_available=False,
+        known_tool=known_tool,
+    )
+    if not routing.allowed:
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason=routing.reason,
+            tool_call_id=tool_call_id,
+        )
+        return f"[tool policy] execution denied: {routing.reason}"
+    if not current_authorization_valid(require_check=profile is SecurityProfile.REMOTE):
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason="current principal or scope authorization is no longer valid",
+            tool_call_id=tool_call_id,
+        )
+        return "[tool policy] current authorization is no longer valid"
+    brokered_remote = (
+        profile is SecurityProfile.REMOTE
+        and routing.execution_class is ExecutionClass.BROKERED
+    )
+    if name in _SUB_AGENT_JOB_TOOL_NAMES and not _sub_agent_job_tools_visible():
+        return json.dumps(
+            {
+                "status": "blocked",
+                "reason": "foreground_main_agent_only",
+                "message": "Sub-Agent Job orchestration is available only to an integrated foreground Main Agent.",
+            },
+            ensure_ascii=False,
+        )
+    if not brokered_remote:
+        _ensure_loaded()
+    runner = _RUNNERS.get(name)
+    if runner is None and not brokered_remote:
+        # Lazy-load fallback: unknown remote tools never reach this import path.
+        mod_name = _LAZY_TOOL_NAME_TO_MODULE.get(name)
+        if mod_name:
+            _ensure_lazy_tool_loaded(mod_name)
+            runner = _RUNNERS.get(name)
+        if runner is None:
+            try:
+                from ._genre_control_util import enable_single_tool
+
+                if enable_single_tool(name):
+                    runner = _RUNNERS.get(name)
+            except Exception:
+                pass
+        if runner is None:
+            return f"[tool error] unknown tool: {name}"
+
     _record_policy_audit(
         tool_name=name,
         args=args,
@@ -2268,7 +2381,19 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         )
     except Exception:
         pass
-    if policy.requires_confirmation and _CONFIRMATION_CALLBACK is not None:
+    if policy.requires_confirmation:
+        if _CONFIRMATION_CALLBACK is None:
+            _record_policy_audit(
+                tool_name=name,
+                args=args,
+                decision="deny",
+                reason="confirmation unavailable",
+                tool_call_id=tool_call_id,
+            )
+            return "[tool policy] confirmation unavailable"
+        _approved_args = json.dumps(
+            args, sort_keys=True, ensure_ascii=False, default=str
+        )
         try:
             if not bool(_CONFIRMATION_CALLBACK(name, args, policy)):
                 _record_policy_audit(
@@ -2279,6 +2404,18 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                     tool_call_id=tool_call_id,
                 )
                 return "[tool policy] confirmation denied"
+            if (
+                json.dumps(args, sort_keys=True, ensure_ascii=False, default=str)
+                != _approved_args
+            ):
+                _record_policy_audit(
+                    tool_name=name,
+                    args=args,
+                    decision="deny",
+                    reason="arguments changed during confirmation",
+                    tool_call_id=tool_call_id,
+                )
+                return "[tool policy] confirmation invalidated"
             if name == "rename_path":
                 from .tool_policy import (
                     CONFIRMATION_GRANTED_ARG,
@@ -2288,6 +2425,52 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
                 args[CONFIRMATION_GRANTED_ARG] = CONFIRMATION_GRANTED_TOKEN
         except Exception as exc:
             return f"[tool policy] confirmation failed: {type(exc).__name__}"
+
+    # Re-evaluate authorization after any confirmation wait. A policy edit,
+    # role/permission change, or newly-denied decision invalidates this call.
+    if unified_policy is not None:
+        try:
+            from ..runtime.policy_engine import UnifiedPolicy
+
+            fresh_policy = UnifiedPolicy.from_environment()
+            fresh_decision = fresh_policy.decide(name, args)
+            if (
+                getattr(fresh_policy, "revision", "") != unified_policy_revision
+                or fresh_decision != unified_decision
+            ):
+                _record_policy_audit(
+                    tool_name=name,
+                    args=args,
+                    decision="deny",
+                    reason="policy changed while awaiting execution",
+                    tool_call_id=tool_call_id,
+                )
+                return "[tool policy] policy changed; execution denied"
+        except Exception as exc:
+            return f"[tool policy] revalidation failed: {type(exc).__name__}"
+    if current_profile() is not profile or current_scope() != trusted_scope:
+        return "[tool policy] trusted execution binding changed; execution denied"
+    if not current_authorization_valid(require_check=profile is SecurityProfile.REMOTE):
+        _record_policy_audit(
+            tool_name=name,
+            args=args,
+            decision="deny",
+            reason="principal, project, room, or task authorization was revoked",
+            tool_call_id=tool_call_id,
+        )
+        return "[tool policy] current authorization is no longer valid"
+    refreshed_route = route_tool(
+        name,
+        args,
+        profile=current_profile(),
+        sandbox_enabled=current_sandbox_enabled(),
+        backend_available=False,
+        known_tool=known_tool,
+    )
+    if not refreshed_route.allowed or refreshed_route != routing:
+        return "[tool policy] execution route changed; execution denied"
+    if brokered_remote:
+        return run_brokered_tool(name)
 
     # During human_ask, Busy should be turned off (it will wait for input).
     # After completion, set Busy back to "LLM" so GUI does not look stuck in IDLE.

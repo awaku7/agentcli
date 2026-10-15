@@ -14,14 +14,19 @@ from ..runtime.sub_agent_jobs import (
 from .rooms import WebRoom, web_manager
 
 
-def web_job_owner(room: WebRoom, session_id: str = "") -> SubAgentJobOwner | None:
-    """Build an owner from a trusted room binding, never from tool arguments."""
+def web_job_owner(
+    room: WebRoom, session_id: str = "", principal_id: str = ""
+) -> SubAgentJobOwner | None:
+    """Build an owner from trusted turn identity, never from tool arguments."""
     room_id = str(getattr(room, "room_id", "") or "").strip()
     bound_session = str(getattr(room, "session_id", "") or session_id or "").strip()
     if not room_id or not bound_session:
         return None
     return SubAgentJobOwner(
-        entry_point="web", session_id=bound_session, room_id=room_id
+        entry_point="web",
+        session_id=bound_session,
+        room_id=room_id,
+        principal_id=principal_id,
     )
 
 
@@ -39,7 +44,8 @@ def get_web_job_runtime_context(turn: Any) -> tuple[Any, Any] | None:
     room_session = str(getattr(room, "session_id", "") or "")
     if room_session and session_id != room_session:
         return None
-    owner = web_job_owner(room, session_id)
+    principal_id = str(getattr(turn, "principal_id", "") or "")
+    owner = web_job_owner(room, session_id, principal_id=principal_id)
     manager = getattr(web_manager, "sub_agent_job_manager", None)
     if owner is None or manager is None:
         return None
@@ -54,6 +60,13 @@ def _web_confirmation_handler(
     if not room_id:
         raise SubAgentConfirmationUnavailable("Job owner has no Web room")
     room = web_manager.get_room(room_id)
+    if (
+        getattr(web_manager, "execution_profile", "remote") != "local_trusted"
+        and not context.owner.principal_id
+    ):
+        raise SubAgentConfirmationUnavailable(
+            "Remote Web Job owner has no authenticated principal"
+        )
     context.set_waiting_for_user(True)
     try:
         from .io import web_human_ask
@@ -66,6 +79,7 @@ def _web_confirmation_handler(
                 "is_password": is_password,
                 "_job_id": context.job_id,
                 "_cancel_event": context.cancel_event,
+                "_expected_principal_id": context.owner.principal_id or "",
             },
         )
         context.raise_if_cancelled()
@@ -105,7 +119,11 @@ def _web_job_notice(notice: dict[str, Any]) -> None:
     try:
         manager = getattr(web_manager, "sub_agent_job_manager", None)
         if manager is not None:
-            owner_obj = web_job_owner(room, str(owner.get("session_id") or ""))
+            owner_obj = web_job_owner(
+                room,
+                str(owner.get("session_id") or ""),
+                principal_id=str(owner.get("principal_id") or ""),
+            )
             if owner_obj is not None:
                 jobs = manager.summary(owner=owner_obj)
                 if room.loop:
