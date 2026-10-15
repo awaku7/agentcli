@@ -219,6 +219,14 @@ def parse_startup_args() -> tuple[dict[str, Any], list[str]]:
         ),
     )
     parser.add_argument(
+        "--sandbox",
+        choices=("off", "auto", "mxc"),
+        default=None,
+        help=_(
+            "Execution isolation mode: off, auto, or the Windows MXC ProcessContainer backend."
+        ),
+    )
+    parser.add_argument(
         "--non-interactive",
         action="store_true",
         help=_(

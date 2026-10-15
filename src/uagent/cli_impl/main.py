@@ -39,6 +39,7 @@ from .startup import (
     UAGENT_INJECT_MESSAGE_AUTO,
     UAGENT_NON_INTERACTIVE,
     UAGENT_REALTIME,
+    UAGENT_SANDBOX_MODE,
     UAGENT_TOOL_GENRE_MASK,
     _cli_workdir,
     _env_workdir,
@@ -112,6 +113,52 @@ def main() -> int:
     bind_event_context(session_id="cli", correlation_id="cli")
     log_event("cli.start")
     sys.stdout.reconfigure(encoding="utf-8")
+    sandbox_manager = None
+    sandbox_scope = None
+    if UAGENT_SANDBOX_MODE != "off":
+        from ..runtime.mxc_backend import (
+            MxcSessionManager,
+            install_session_manager,
+            mxc_sdk_is_installed,
+            describe_probe,
+        )
+
+        allow_install = False
+        if UAGENT_SANDBOX_MODE == "mxc" and not mxc_sdk_is_installed():
+            if UAGENT_NON_INTERACTIVE:
+                print(
+                    "[sandbox] MXC SDK is missing; non-interactive startup will not install dependencies. "
+                    "Run an interactive `uag --sandbox mxc` after reviewing the dependency prompt.",
+                    file=sys.stderr,
+                )
+                return 2
+            try:
+                answer = input(
+                    "Install the pinned MXC SDK (about 105 MB) in your user profile? [y/N] "
+                )
+            except (EOFError, KeyboardInterrupt):
+                answer = ""
+            if answer.strip().lower() not in {"y", "yes"}:
+                print(
+                    "[sandbox] dependency installation declined; startup stopped",
+                    file=sys.stderr,
+                )
+                return 2
+            allow_install = True
+        try:
+            sandbox_manager, sandbox_report = MxcSessionManager.initialize(
+                allow_install=allow_install
+            )
+            install_session_manager(sandbox_manager)
+            print(
+                f"[sandbox] enabled: {describe_probe(sandbox_report)}", file=sys.stderr
+            )
+        except Exception as exc:
+            print(
+                f"[sandbox] startup refused: {type(exc).__name__}: {exc}",
+                file=sys.stderr,
+            )
+            return 2
     if UAGENT_REALTIME:
         from ..realtime import run as run_realtime
 
@@ -145,8 +192,46 @@ def main() -> int:
 
         restore_imported_session(core, session_store, messages, resume_id)
     process_exit_code = 0
+    if UAGENT_SANDBOX_MODE != "off":
+        from ..runtime.mxc_backend import startup_scope
+
+        sandbox_scope = startup_scope(
+            entry_point="cli",
+            project_path=os.getcwd(),
+            session_id=str(
+                getattr(startup, "session_id", "")
+                or getattr(core, "session_id", "")
+                or "cli"
+            ),
+        )
 
     def _run_cli_turn(fn, *args, **kwargs):
+        if UAGENT_SANDBOX_MODE != "off":
+            from ..runtime.execution_broker import SecurityProfile, execution_profile
+            from ..runtime.mxc_backend import startup_scope as _startup_scope
+
+            active_scope = _startup_scope(
+                entry_point="cli",
+                project_path=os.getcwd(),
+                session_id=str(
+                    getattr(core, "session_id", "")
+                    or getattr(startup, "session_id", "")
+                    or "cli"
+                ),
+            )
+            with execution_profile(
+                SecurityProfile.LOCAL_TRUSTED,
+                sandbox_enabled=True,
+                scope=active_scope,
+            ):
+                return call_with_resolved_turn_context(
+                    fn,
+                    *args,
+                    entry_point="cli",
+                    project_path=os.getcwd(),
+                    session_id=str(getattr(core, "session_id", "") or ""),
+                    **kwargs,
+                )
         return call_with_resolved_turn_context(
             fn,
             *args,
@@ -217,11 +302,23 @@ def main() -> int:
 
     # Preload tool plugins in background so the first ':' command/completion
     # does not pay the full plugin-import cost on the interactive path.
-    if not UAGENT_NON_INTERACTIVE:
+    if not UAGENT_NON_INTERACTIVE and UAGENT_SANDBOX_MODE == "off":
         try:
             tools.start_tools_warmup()
         except Exception:
             pass
+
+    def _run_cli_hook(fn, *args):
+        if UAGENT_SANDBOX_MODE == "off":
+            return fn(*args)
+        from ..runtime.execution_broker import SecurityProfile, execution_profile
+
+        with execution_profile(
+            SecurityProfile.LOCAL_TRUSTED,
+            sandbox_enabled=True,
+            scope=sandbox_scope,
+        ):
+            return fn(*args)
 
     # Fire SessionStart and Setup hooks (inject stdout context into messages)
     try:
@@ -234,7 +331,7 @@ def main() -> int:
             take_pending_session_hook_texts,
         )
 
-        _ss_results = fire_session_start()
+        _ss_results = _run_cli_hook(fire_session_start)
         inject_hook_context(
             messages, _ss_results, event_name="SessionStart", replace_event=False
         )
@@ -242,7 +339,7 @@ def main() -> int:
         take_pending_session_hook_texts()
         _hooks = load_hooks_registry(get_default_registry_path())
         if _hooks:
-            _setup_results = fire_event("Setup", _hooks)
+            _setup_results = _run_cli_hook(fire_event, "Setup", _hooks)
             inject_hook_context(
                 messages, _setup_results, event_name="Setup", replace_event=False
             )
@@ -765,10 +862,10 @@ def main() -> int:
                 get_default_registry_path,
             )
 
-            fire_stop()
+            _run_cli_hook(fire_stop)
             _hooks = load_hooks_registry(get_default_registry_path())
             if _hooks:
-                fire_event("SessionEnd", _hooks)
+                _run_cli_hook(fire_event, "SessionEnd", _hooks)
         except Exception:
             pass
         # Keep the active SQLite session searchable after the CLI exits.  Use
@@ -840,6 +937,14 @@ def main() -> int:
             except Exception:
                 pass
 
+        if sandbox_manager is not None:
+            try:
+                sandbox_manager.close_all()
+                from ..runtime.mxc_backend import install_session_manager
+
+                install_session_manager(None)
+            except Exception:
+                pass
         if session_store is not None:
             try:
                 session_store.close()

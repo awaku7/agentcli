@@ -66,6 +66,14 @@ def main():
         ),
     )
     parser.add_argument(
+        "--sandbox",
+        choices=("off", "auto", "mxc"),
+        default=None,
+        help=_(
+            "Execution isolation mode: off, auto, or the Windows MXC ProcessContainer backend."
+        ),
+    )
+    parser.add_argument(
         "--tool-genre-mask",
         type=int,
         default=None,
@@ -115,6 +123,17 @@ def main():
     if getattr(args, "embedded", False):
         os.environ["UAGENT_SESSION_STORE"] = "0"
         os.environ["UAGENT_EMBEDDED"] = "1"
+    sandbox_mode = (
+        str(
+            args.sandbox
+            if getattr(args, "sandbox", None) is not None
+            else os.environ.get("UAGENT_SANDBOX_MODE", "off")
+        )
+        .strip()
+        .lower()
+    )
+    if sandbox_mode not in {"off", "auto", "mxc"}:
+        raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
 
     decision = _runtime_init.decide_workdir(
         cli_workdir=getattr(args, "workdir", None),
@@ -160,6 +179,56 @@ def main():
     model = ""
 
     app = QtWidgets.QApplication(sys.argv)
+    sandbox_manager = None
+    sandbox_scope = None
+    core._sandbox_enabled = False
+    core._sandbox_scope = None
+    if sandbox_mode != "off":
+        from ..runtime.mxc_backend import (
+            MxcSessionManager,
+            describe_probe,
+            install_session_manager,
+            mxc_sdk_is_installed,
+            startup_scope,
+        )
+
+        allow_install = False
+        if sandbox_mode == "mxc" and not mxc_sdk_is_installed():
+            answer = QtWidgets.QMessageBox.question(
+                None,
+                _("Install MXC Sandbox dependency?"),
+                _("Install the pinned MXC SDK (about 105 MB) in your user profile?"),
+                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                QtWidgets.QMessageBox.No,
+            )
+            if answer != QtWidgets.QMessageBox.Yes:
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    _("Sandbox unavailable"),
+                    _("Sandbox dependency installation was declined; startup stopped."),
+                )
+                return 2
+            allow_install = True
+        try:
+            sandbox_manager, sandbox_report = MxcSessionManager.initialize(
+                allow_install=allow_install
+            )
+            install_session_manager(sandbox_manager)
+            sandbox_scope = startup_scope(
+                entry_point="gui",
+                project_path=os.getcwd(),
+                session_id=str(getattr(core, "session_id", "") or "gui"),
+            )
+            core._sandbox_enabled = True
+            core._sandbox_scope = sandbox_scope
+            print(f"[sandbox] enabled: {describe_probe(sandbox_report)}")
+        except Exception as exc:
+            QtWidgets.QMessageBox.critical(
+                None,
+                _("Sandbox unavailable"),
+                _("Sandbox startup refused: %(error)s") % {"error": exc},
+            )
+            return 2
 
     # Resolve font size config file path
     try:
@@ -203,6 +272,19 @@ def main():
             app.setLayoutDirection(QtCore.Qt.RightToLeft)
     except Exception:
         pass
+
+    def _run_gui_hook(fn, *hook_args):
+        if sandbox_mode == "off":
+            return fn(*hook_args)
+        from ..runtime.execution_broker import SecurityProfile, execution_profile
+
+        with execution_profile(
+            SecurityProfile.LOCAL_TRUSTED,
+            sandbox_enabled=True,
+            scope=sandbox_scope,
+        ):
+            return fn(*hook_args)
+
     win = MainWindow(GuiConfig(prov, model, unknown[0] if unknown else None))
     win.show()
 
@@ -214,7 +296,7 @@ def main():
             take_pending_session_hook_texts,
         )
 
-        _ss_results = fire_session_start()
+        _ss_results = _run_gui_hook(fire_session_start)
         msgs = getattr(win, "messages", None)
         if isinstance(msgs, list):
             inject_hook_context(
@@ -230,8 +312,16 @@ def main():
     try:
         from ..hooks_engine import fire_stop
 
-        fire_stop()
+        _run_gui_hook(fire_stop)
     except Exception:
         pass
+    if sandbox_manager is not None:
+        try:
+            sandbox_manager.close_all()
+            from ..runtime.mxc_backend import install_session_manager
+
+            install_session_manager(None)
+        except Exception:
+            pass
 
     sys.exit(exit_code)

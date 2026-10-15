@@ -65,6 +65,18 @@ UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
 UAGENT_EMBEDDED = bool(_startup_args.get("embedded"))
+_sandbox_arg = _startup_args.get("sandbox")
+UAGENT_SANDBOX_MODE = (
+    str(
+        _sandbox_arg
+        if _sandbox_arg is not None
+        else (env_get("UAGENT_SANDBOX_MODE") or "off")
+    )
+    .strip()
+    .lower()
+)
+if UAGENT_SANDBOX_MODE not in {"off", "auto", "mxc"}:
+    raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
 
 # Embedded mode: no persistent session store, and tool management tools
 # (tool_catalog / tool_load / unload_tool) are hidden from the LLM.

@@ -108,6 +108,28 @@ class ScheckWorker(QtCore.QObject):
             refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
         except Exception:
             pass
+        if bool(getattr(core, "_sandbox_enabled", False)):
+            from ..runtime.execution_broker import SecurityProfile, execution_profile
+            from ..runtime.mxc_backend import startup_scope
+
+            active_scope = startup_scope(
+                entry_point="gui",
+                project_path=os.getcwd(),
+                session_id=str(getattr(core, "session_id", "") or "gui"),
+            )
+            with execution_profile(
+                SecurityProfile.LOCAL_TRUSTED,
+                sandbox_enabled=True,
+                scope=active_scope,
+            ):
+                return call_with_resolved_turn_context(
+                    fn,
+                    *args,
+                    entry_point="gui",
+                    project_path=os.getcwd(),
+                    session_id=str(getattr(core, "session_id", "") or ""),
+                    **kwargs,
+                )
         return call_with_resolved_turn_context(
             fn,
             *args,
@@ -175,31 +197,33 @@ class ScheckWorker(QtCore.QObject):
                 pass
             start_background_scheduler(core.event_queue)
             set_llm_event_queue(core.event_queue)
-            try:
-                self.tools.start_tools_warmup()
-            except Exception:
-                pass
+            if not bool(getattr(core, "_sandbox_enabled", False)):
+                try:
+                    self.tools.start_tools_warmup()
+                except Exception:
+                    pass
 
             try:
                 set_thread_lang(detect_lang())
             except Exception:
                 pass
-            try:
-                from ..runtime.runtime_plugins import load_plugins_status_at_startup
-
-                _plugins, _plugins_status = load_plugins_status_at_startup(
-                    activate=True
-                )
-                if _plugins_status:
-                    print(_plugins_status, flush=True)
-            except Exception as e:
+            if not bool(getattr(core, "_sandbox_enabled", False)):
                 try:
-                    print(
-                        "[WARN] " + _("Plugin load failed: %(err)s") % {"err": e},
-                        flush=True,
+                    from ..runtime.runtime_plugins import load_plugins_status_at_startup
+
+                    _plugins, _plugins_status = load_plugins_status_at_startup(
+                        activate=True
                     )
-                except Exception:
-                    pass
+                    if _plugins_status:
+                        print(_plugins_status, flush=True)
+                except Exception as e:
+                    try:
+                        print(
+                            "[WARN] " + _("Plugin load failed: %(err)s") % {"err": e},
+                            flush=True,
+                        )
+                    except Exception:
+                        pass
 
             try:
                 self._provider, self._client, self._depname = util_make_client(core)

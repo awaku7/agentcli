@@ -390,5 +390,6 @@ def route_tool(
         return RoutingDecision(
             execution_class, False, "sandbox capabilities are insufficient"
         )
-    # Backend routing is intentionally unavailable until a real adapter exists.
-    return RoutingDecision(execution_class, False, "sandbox backend is not implemented")
+    # Capabilities are supplied only by an initialized Adapter after a bounded
+    # host probe; Remote profiles still require VM isolation above.
+    return RoutingDecision(execution_class, True)
