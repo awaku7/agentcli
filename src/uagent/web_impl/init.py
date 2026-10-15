@@ -43,6 +43,25 @@ from .io import _web_server_log, web_human_ask, web_set_status
 from .rooms import _thread_ctx, get_context_web_room, web_manager
 
 
+def _local_web_sandbox_scope(turn, room_id: str):
+    """Build a process-salted scope only from a trusted local Web turn."""
+    if (
+        turn is None
+        or turn.entry_point != "web"
+        or turn.room_id != room_id
+        or not turn.authenticated
+        or turn.authn_kind != "local"
+    ):
+        return None
+    from ..runtime.mxc_backend import local_web_room_scope
+
+    return local_web_room_scope(
+        principal_id=turn.principal_id,
+        project_id=turn.project_id,
+        room_id=turn.room_id,
+    )
+
+
 def _remote_human_ask_authorized(room) -> bool:
     """Authorize a Web UI confirmation against the current principal and Room."""
     if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
@@ -386,29 +405,13 @@ def init_web():
             if _profile is SecurityProfile.REMOTE or _sandbox_enabled:
                 try:
                     from ..runtime.identity_context import get_current_turn_context
-                    from ..runtime.execution_broker import (
-                        TrustedSandboxScope,
-                        trusted_web_scope,
-                    )
+                    from ..runtime.execution_broker import trusted_web_scope
 
                     _turn = get_current_turn_context()
                     if room is not None and _profile is SecurityProfile.REMOTE:
                         _scope = trusted_web_scope(_turn, str(room.room_id))
-                    elif (
-                        room is not None
-                        and _turn is not None
-                        and _turn.entry_point == "web"
-                        and _turn.room_id == str(room.room_id)
-                        and _turn.authenticated
-                        and _turn.authn_kind == "local"
-                    ):
-                        _scope = TrustedSandboxScope(
-                            deployment_id="web",
-                            principal_id=_turn.principal_id,
-                            project_id=_turn.project_id,
-                            scope_kind="web-room",
-                            scope_id=_turn.room_id,
-                        )
+                    elif room is not None and _sandbox_enabled:
+                        _scope = _local_web_sandbox_scope(_turn, str(room.room_id))
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(

@@ -192,6 +192,29 @@ def test_local_web_sandbox_turn_binds_server_created_room_scope(monkeypatch):
     assert current_scope() is None
 
 
+def test_local_web_tool_scope_uses_process_salted_room_scope(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.runtime import mxc_backend
+
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54321)
+    turn = SimpleNamespace(
+        entry_point="web",
+        room_id="room-9",
+        authenticated=True,
+        authn_kind="local",
+        principal_id="local-user",
+        project_id="local-project",
+    )
+
+    scope = init._local_web_sandbox_scope(turn, "room-9")
+
+    assert scope is not None
+    assert scope.scope_kind == "web-room"
+    assert scope.scope_id.startswith("room-9-54321-")
+    assert init._local_web_sandbox_scope(turn, "another-room") is None
+
+
 def test_local_web_sandbox_rejects_missing_trusted_room_context(monkeypatch):
     from types import SimpleNamespace
 
