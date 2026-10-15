@@ -620,3 +620,25 @@ class TestUserPromptSubmitStdinAndBlock:
         assert block["decision"] == "block"
         assert "blocked:/block-me now" in block.get("reason", "")
         assert parse_hook_stdout_context('{"decision":"block","reason":"x"}') is None
+
+
+def test_hook_dispatch_denied_when_sandbox_manager_exists_without_context(
+    monkeypatch,
+) -> None:
+    """A thread without the profile ContextVar must not run Host hooks."""
+    from uagent import hooks_engine
+    from uagent.runtime import mxc_backend
+
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: object())
+    monkeypatch.setattr(
+        hooks_engine,
+        "_execute_command_hook",
+        lambda *args, **kwargs: (_ for _ in ()).throw(
+            AssertionError("sandboxed hook reached host subprocess")
+        ),
+    )
+
+    result = hooks_engine.execute_hook({"type": "command", "command": "echo unsafe"})
+
+    assert result["ok"] is False
+    assert "denied" in result["error"]

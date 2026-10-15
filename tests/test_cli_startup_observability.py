@@ -75,3 +75,51 @@ def test_startup_file_logging_marks_only_the_log_envelope() -> None:
     assert logged[0] is not provider_message
     assert logged[0]["attachments"] is True
     assert capture_logged_message(logged[0]) is False
+
+
+def test_cli_startup_turn_uses_local_sandbox_profile_when_enabled(
+    monkeypatch, tmp_path
+) -> None:
+    from contextlib import contextmanager
+
+    from uagent.runtime.execution_broker import SecurityProfile, TrustedSandboxScope
+
+    observed = []
+    scope = TrustedSandboxScope(
+        deployment_id="cli",
+        principal_id="test-user",
+        project_id="test-project",
+        scope_kind="cli-session",
+        scope_id="session-2",
+    )
+
+    @contextmanager
+    def fake_profile(profile, *, sandbox_enabled, scope):
+        observed.append((profile, sandbox_enabled, scope))
+        yield
+
+    monkeypatch.setattr(
+        "uagent.runtime.execution_broker.execution_profile", fake_profile
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.mxc_backend.startup_scope", lambda **kwargs: scope
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.execution.lifecycle_execution",
+        lambda: __import__("contextlib").nullcontext(),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.turn_context_runtime.call_with_resolved_turn_context",
+        lambda fn, *args, **kwargs: fn(*args),
+    )
+
+    result = _call_cli_startup_turn(
+        lambda value: value,
+        "ok",
+        project_path=str(tmp_path),
+        session_id="session-2",
+        sandbox_enabled=True,
+    )
+
+    assert result == "ok"
+    assert observed == [(SecurityProfile.LOCAL_TRUSTED, True, scope)]

@@ -93,21 +93,39 @@ def _call_cli_startup_turn(
     *args: Any,
     project_path: str,
     session_id: str,
+    sandbox_enabled: bool = False,
     **kwargs: Any,
 ) -> Any:
     """Run one startup-triggered LLM turn under the canonical Agent lifecycle."""
     from .runtime.execution import lifecycle_execution
     from .runtime.turn_context_runtime import call_with_resolved_turn_context
 
-    with lifecycle_execution():
-        return call_with_resolved_turn_context(
-            fn,
-            *args,
-            entry_point="cli",
-            project_path=project_path,
-            session_id=session_id,
-            **kwargs,
-        )
+    def _run_turn() -> Any:
+        with lifecycle_execution():
+            return call_with_resolved_turn_context(
+                fn,
+                *args,
+                entry_point="cli",
+                project_path=project_path,
+                session_id=session_id,
+                **kwargs,
+            )
+
+    if not sandbox_enabled:
+        return _run_turn()
+
+    from .runtime.execution_broker import SecurityProfile, execution_profile
+    from .runtime.mxc_backend import startup_scope
+
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=project_path,
+        session_id=session_id or "cli",
+    )
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=scope
+    ):
+        return _run_turn()
 
 
 def _log_startup_file_message(core: Any, message: dict[str, Any]) -> None:
@@ -131,6 +149,7 @@ def run_cli_startup(
     complete_regex: str | None = None,
     decision_provider: str | None = None,
     enable_tools: list[str] | None = None,
+    sandbox_enabled: bool = False,
 ) -> CliStartupState:
     import io
     import os
@@ -459,7 +478,8 @@ def run_cli_startup(
             fn,
             *args,
             project_path=os.getcwd(),
-            session_id=str(session_id or ""),
+            session_id=str(getattr(core, "session_id", "") or session_id or ""),
+            sandbox_enabled=sandbox_enabled,
             **kwargs,
         )
 

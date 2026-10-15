@@ -178,6 +178,7 @@ def main() -> int:
         complete_regex=UAGENT_COMPLETE_REGEX,
         decision_provider=UAGENT_DECISION_PROVIDER,
         enable_tools=UAGENT_ENABLE_TOOLS,
+        sandbox_enabled=UAGENT_SANDBOX_MODE != "off",
     )
 
     provider = startup.provider
@@ -346,7 +347,11 @@ def main() -> int:
     except Exception:
         pass
 
-    t = threading.Thread(target=stdin_loop, daemon=True)
+    t = threading.Thread(
+        target=stdin_loop,
+        kwargs={"hook_runner": _run_cli_hook},
+        daemon=True,
+    )
     t.start()
     _startup_timing_mark("stdin_loop_started")
 
@@ -636,7 +641,7 @@ def main() -> int:
                         collect_hook_block_decision,
                     )
 
-                    _ups_results = fire_user_prompt_submit(text)
+                    _ups_results = _run_cli_hook(fire_user_prompt_submit, text)
                     _ups_block = collect_hook_block_decision(_ups_results)
                     if _ups_block is not None:
                         _reason = (_ups_block.get("reason") or "").strip()

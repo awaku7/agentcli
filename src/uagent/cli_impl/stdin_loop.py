@@ -29,7 +29,7 @@ from .prompt_session import _get_prompt_session
 from .state import _CLI_SHUTDOWN
 
 
-def stdin_loop() -> None:
+def stdin_loop(*, hook_runner=None) -> None:
     """
     Read standard input and push events to core.event_queue.
     """
@@ -486,7 +486,10 @@ def stdin_loop() -> None:
             try:
                 from ..hooks_engine import fire_stop_failure
 
-                fire_stop_failure()
+                if hook_runner is None:
+                    fire_stop_failure()
+                else:
+                    hook_runner(fire_stop_failure)
             except Exception:
                 pass
             print(

@@ -205,8 +205,16 @@ def execute_hook(
             current_profile,
             current_sandbox_enabled,
         )
+        from .runtime.mxc_backend import current_session_manager
 
-        if current_profile() is SecurityProfile.REMOTE or current_sandbox_enabled():
+        # Hook dispatches can originate on threads that do not inherit the
+        # execution-profile ContextVar (stdin, GUI, or plugin command paths).
+        # Treat an initialized local sandbox backend as an unconditional
+        # process-level deny until hooks have a brokered sandbox implementation.
+        sandbox_enabled = (
+            current_sandbox_enabled() or current_session_manager() is not None
+        )
+        if current_profile() is SecurityProfile.REMOTE or sandbox_enabled:
             return {
                 "ok": False,
                 "error": "hook execution is denied for remote or sandboxed contexts",

@@ -458,7 +458,9 @@ class ScheckWorker(QtCore.QObject):
                                 collect_hook_block_decision,
                             )
 
-                            _ups_results = fire_user_prompt_submit(text)
+                            _ups_results = self._run_gui_turn(
+                                fire_user_prompt_submit, text
+                            )
                             _ups_block = collect_hook_block_decision(_ups_results)
                             if _ups_block is not None:
                                 _reason = (_ups_block.get("reason") or "").strip()
