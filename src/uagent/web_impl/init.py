@@ -91,18 +91,73 @@ def _current_web_ask_principal(room) -> str:
         return ""
 
 
+def _initialize_local_web_sandbox(parser, *, sandbox_mode: str):
+    """Initialize the verified local MXC backend before starting local Web."""
+    from ..i18n import _
+    from ..runtime.mxc_backend import (
+        MxcSessionManager,
+        describe_probe,
+        install_session_manager,
+        mxc_sdk_is_installed,
+    )
+
+    allow_install = False
+    if sandbox_mode == "mxc" and not mxc_sdk_is_installed():
+        if (
+            os.environ.get("UAGENT_NON_INTERACTIVE", "").strip().lower()
+            in {
+                "1",
+                "true",
+                "yes",
+                "on",
+            }
+            or not getattr(sys.stdin, "isatty", lambda: False)()
+        ):
+            parser.error(
+                _(
+                    "The MXC SDK is missing; non-interactive Web startup will not "
+                    "install dependencies. Run `uagw --sandbox mxc` interactively "
+                    "after reviewing the dependency prompt."
+                )
+            )
+        try:
+            answer = input(
+                "Install the pinned MXC SDK (about 105 MB) in your user profile? [y/N] "
+            )
+        except (EOFError, KeyboardInterrupt):
+            answer = ""
+        if answer.strip().lower() not in {"y", "yes"}:
+            parser.error(
+                _("MXC SDK installation was declined; local Web startup stopped.")
+            )
+        allow_install = True
+
+    try:
+        manager, report = MxcSessionManager.initialize(allow_install=allow_install)
+    except Exception as exc:
+        parser.error(
+            _("Local Web Sandbox initialization failed: %(err)s", err=str(exc))
+        )
+    install_session_manager(manager)
+    print(f"[sandbox] enabled: {describe_probe(report)}", file=sys.stderr)
+    return manager
+
+
 def _validate_web_sandbox_startup(
-    parser, *, trusted_local: bool, sandbox_enabled: bool
+    parser,
+    *,
+    trusted_local: bool,
+    sandbox_enabled: bool,
+    backend_ready: bool = False,
 ) -> None:
-    """Fail fast for local Sandbox opt-in until a compliant backend exists."""
-    if trusted_local and sandbox_enabled:
+    """Fail closed if local Web opted into Sandbox without a ready backend."""
+    if trusted_local and sandbox_enabled and not backend_ready:
         from ..i18n import _
 
         parser.error(
             _(
-                "Sandbox was enabled for local Web, but no compliant Sandbox "
-                "backend is available; refusing to start. Use --sandbox off "
-                "or install a supported backend."
+                "Sandbox was enabled for local Web, but the MXC backend is not "
+                "ready; refusing to start."
             )
         )
 
@@ -326,14 +381,33 @@ def init_web():
                 else SecurityProfile.REMOTE
             )
             _scope = None
-            if _profile is SecurityProfile.REMOTE:
+            _sandbox_enabled = bool(getattr(web_manager, "sandbox_enabled", False))
+            if _profile is SecurityProfile.REMOTE or _sandbox_enabled:
                 try:
                     from ..runtime.identity_context import get_current_turn_context
-                    from ..runtime.execution_broker import trusted_web_scope
+                    from ..runtime.execution_broker import (
+                        TrustedSandboxScope,
+                        trusted_web_scope,
+                    )
 
                     _turn = get_current_turn_context()
-                    if room is not None:
+                    if room is not None and _profile is SecurityProfile.REMOTE:
                         _scope = trusted_web_scope(_turn, str(room.room_id))
+                    elif (
+                        room is not None
+                        and _turn is not None
+                        and _turn.entry_point == "web"
+                        and _turn.room_id == str(room.room_id)
+                        and _turn.authenticated
+                        and _turn.authn_kind == "local"
+                    ):
+                        _scope = TrustedSandboxScope(
+                            deployment_id="web",
+                            principal_id=_turn.principal_id,
+                            project_id=_turn.project_id,
+                            scope_kind="web-room",
+                            scope_id=_turn.room_id,
+                        )
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(
@@ -363,6 +437,9 @@ def main():
     from ..i18n import _
 
     parser = argparse.ArgumentParser(prog="uagw", add_help=False)
+    _sandbox_default = (env_get("UAGENT_SANDBOX_MODE") or "off").strip().lower()
+    if _sandbox_default not in {"off", "auto", "mxc"}:
+        parser.error("UAGENT_SANDBOX_MODE must be one of: off, auto, mxc")
     add_decision_provider_argument(parser)
     parser.add_argument(
         "--tool-genre-mask",
@@ -415,7 +492,7 @@ def main():
     parser.add_argument(
         "--sandbox",
         choices=("off", "auto", "mxc"),
-        default="off",
+        default=_sandbox_default,
         help=_(
             "Sandbox mode (default: off; remote tools remain denied without a compliant backend)."
         ),
@@ -519,10 +596,16 @@ def main():
     _trusted_local_web = is_trusted_local_web(bind_host, _identity_mode)
     web_manager.execution_profile = "local_trusted" if _trusted_local_web else "remote"
     web_manager.sandbox_enabled = web_args.sandbox != "off"
+    web_sandbox_manager = None
+    if _trusted_local_web and web_manager.sandbox_enabled:
+        web_sandbox_manager = _initialize_local_web_sandbox(
+            parser, sandbox_mode=web_args.sandbox
+        )
     _validate_web_sandbox_startup(
         parser,
         trusted_local=_trusted_local_web,
         sandbox_enabled=web_manager.sandbox_enabled,
+        backend_ready=web_sandbox_manager is not None,
     )
     _web_profile = (
         SecurityProfile.LOCAL_TRUSTED if _trusted_local_web else SecurityProfile.REMOTE
@@ -536,7 +619,7 @@ def main():
             from ..runtime.runtime_plugins import load_plugins_status_at_startup
 
             _plugins, _plugins_status = load_plugins_status_at_startup(
-                activate=_trusted_local_web
+                activate=_trusted_local_web and not web_manager.sandbox_enabled
             )
             if _plugins_status:
                 print(_plugins_status, file=sys.stderr)
@@ -556,13 +639,27 @@ def main():
         room_workers = room_worker_count(web_args.room_workers)
     except ValueError as exc:
         parser.error(str(exc))
+    if _trusted_local_web and web_manager.sandbox_enabled:
+        # MXC scopes must persist in the owning process across Room turns. The
+        # current spawned-worker pool is per-turn, so keep local Sandbox Web
+        # single-process until PR 3 adds Room-owned worker/lease lifecycle.
+        if room_workers > 1:
+            print(
+                "[sandbox] local Web Sandbox uses one in-process worker until "
+                "Room-owned worker leases are available",
+                file=sys.stderr,
+            )
+        room_workers = 1
     web_manager.room_worker_pool = (
         RoomWorkerPool(room_workers) if room_workers > 1 else None
     )
     init_web()
     # Remote Web remains tool-less until a compliant sandbox backend exists;
     # avoid eager runner/plugin imports in that deployment profile.
-    if web_manager.execution_profile == "local_trusted":
+    if (
+        web_manager.execution_profile == "local_trusted"
+        and not web_manager.sandbox_enabled
+    ):
         try:
             tools.start_tools_warmup()
         except Exception:
@@ -631,3 +728,10 @@ def main():
             _fire_web_lifecycle_hook("Stop")
         except Exception:
             pass
+        if web_sandbox_manager is not None:
+            try:
+                web_sandbox_manager.close_all()
+            finally:
+                from ..runtime.mxc_backend import install_session_manager
+
+                install_session_manager(None)

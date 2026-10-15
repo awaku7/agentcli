@@ -83,13 +83,39 @@ def test_local_web_lifecycle_hooks_are_blocked_when_sandbox_enabled(
     assert calls == []
 
 
-def test_local_web_sandbox_opt_in_fails_startup_without_backend():
+def test_local_web_sandbox_opt_in_initializes_the_verified_backend(monkeypatch):
     import argparse
 
-    parser = argparse.ArgumentParser()
+    from uagent.runtime import mxc_backend
+
+    manager = object()
+    installed = []
+    monkeypatch.setattr(mxc_backend, "mxc_sdk_is_installed", lambda: True)
+    monkeypatch.setattr(
+        mxc_backend.MxcSessionManager,
+        "initialize",
+        classmethod(lambda cls, *, allow_install: (manager, {"sdk": "test"})),
+    )
+    monkeypatch.setattr(mxc_backend, "install_session_manager", installed.append)
+    monkeypatch.setattr(mxc_backend, "describe_probe", lambda _report: "probe-ok")
+
+    result = init._initialize_local_web_sandbox(
+        argparse.ArgumentParser(), sandbox_mode="auto"
+    )
+
+    assert result is manager
+    assert installed == [manager]
+
+
+def test_local_web_sandbox_fails_startup_if_backend_is_not_ready():
+    import argparse
+
     with pytest.raises(SystemExit) as error:
         init._validate_web_sandbox_startup(
-            parser, trusted_local=True, sandbox_enabled=True
+            argparse.ArgumentParser(),
+            trusted_local=True,
+            sandbox_enabled=True,
+            backend_ready=False,
         )
     assert error.value.code == 2
 
@@ -97,9 +123,12 @@ def test_local_web_sandbox_opt_in_fails_startup_without_backend():
 def test_remote_web_sandbox_opt_in_can_start_toolless():
     import argparse
 
-    # Remote tools remain broker-denied, but the service may run tool-less.
+    # Remote tools remain broker-denied; this PoC backend is local-only.
     init._validate_web_sandbox_startup(
-        argparse.ArgumentParser(), trusted_local=False, sandbox_enabled=True
+        argparse.ArgumentParser(),
+        trusted_local=False,
+        sandbox_enabled=True,
+        backend_ready=False,
     )
 
 
@@ -125,3 +154,55 @@ def test_local_web_user_prompt_hook_is_blocked_when_sandbox_enabled(monkeypatch)
     assert not results[0]["ok"]
     assert "sandboxed" in results[0]["error"]
     assert calls == []
+
+
+def test_local_web_sandbox_turn_binds_server_created_room_scope(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.runtime.execution_broker import TrustedSandboxScope, current_scope
+
+    monkeypatch.setattr(
+        web_manager, "execution_profile", "local_trusted", raising=False
+    )
+    monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
+    room = SimpleNamespace(room_id="server-room-1")
+    turn = SimpleNamespace(
+        entry_point="web",
+        room_id="server-room-1",
+        principal_id="local-user",
+        project_id="local-project",
+    )
+    identity = SimpleNamespace(
+        authenticated=True,
+        authn_kind="local",
+        principal_id="local-user",
+    )
+
+    from uagent.web_impl.agent_worker import _web_turn_execution_context
+
+    context = _web_turn_execution_context(room, turn, identity, "C:/project")
+    with context:
+        assert current_scope() == TrustedSandboxScope(
+            deployment_id="web",
+            principal_id="local-user",
+            project_id="local-project",
+            scope_kind="web-room",
+            scope_id="server-room-1",
+        )
+    assert current_scope() is None
+
+
+def test_local_web_sandbox_rejects_missing_trusted_room_context(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.runtime.identity_context import IdentityResolutionError
+
+    monkeypatch.setattr(
+        web_manager, "execution_profile", "local_trusted", raising=False
+    )
+    monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
+
+    with pytest.raises(IdentityResolutionError, match="trusted local Room"):
+        from uagent.web_impl.agent_worker import _web_turn_execution_context
+
+        _web_turn_execution_context(SimpleNamespace(room_id="room"), None, None, None)

@@ -290,3 +290,41 @@ def test_read_file_result_is_bounded(monkeypatch, tmp_path):
         {"name": "read_file", "args": {"path": "large.txt", "max_bytes": 100}}
     )
     assert result == "x" * 100
+
+
+def test_local_web_room_scope_routes_tools_only_to_the_sandbox_manager(
+    monkeypatch,
+):
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="local-project",
+        scope_kind="web-room",
+        scope_id="room-1",
+    )
+    observed = []
+
+    class Manager:
+        capabilities = all_local_capabilities()
+
+        def run_tool(self, received_scope, name, args):
+            observed.append((received_scope, name, args))
+            return "sandbox-result"
+
+    manager = Manager()
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+    monkeypatch.setitem(
+        tools._RUNNERS,
+        "file_exists",
+        lambda _args: (_ for _ in ()).throw(
+            AssertionError("sandbox route reached the Host runner")
+        ),
+    )
+
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=scope
+    ):
+        result = tools.run_tool("file_exists", {"path": "inside.txt"})
+
+    assert result == "sandbox-result"
+    assert observed == [(scope, "file_exists", {"path": "inside.txt"})]

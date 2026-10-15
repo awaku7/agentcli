@@ -6,17 +6,20 @@ E0 completion, or cross-platform support.
 
 ## Usage
 
-- Sandbox is off by default. `uag` and `uagg` do not probe MXC, install Node/npm
-  packages, or change the environment when Sandbox is off.
-- `uag --sandbox auto` / `uagg --sandbox auto` use an already-installed supported
-  backend. They fail closed if Node, the SDK, the host capability probe, or the
-  resource-control prerequisites are missing.
-- `uag --sandbox mxc` / `uagg --sandbox mxc` opt into Windows MXC ProcessContainer.
-  On first use, the CLI asks before installing the pinned SDK in the current
-  user's profile (about 105 MB). The GUI uses a Yes/No prompt. Installation uses
-  the Node runtime already available to the user and does not request elevation.
-  If Node.js 24.21+ x64 or 26.8+ x64 is not available, startup stops with an instruction; UAG
-  does not install Node at machine scope.
+- Sandbox is off by default. `uag`, `uagg`, and `uagw` do not probe MXC, install
+  Node/npm packages, or change the environment when Sandbox is off.
+- `uag --sandbox auto`, `uagg --sandbox auto`, and trusted local-only
+  `uagw --sandbox auto` use an already-installed supported backend. They fail
+  closed if Node, the SDK, the host capability probe, or resource controls are
+  unavailable. Local Web opt-in is accepted only for the exact `127.0.0.1` bind
+  with local identity mode; a remote Web deployment does not use this backend.
+- The `--sandbox mxc` option on CLI/GUI or trusted local-only Web opts into
+  Windows MXC ProcessContainer. On first interactive use, UAG asks before
+  installing the pinned SDK in the current user's profile (about 105 MB). Web
+  startup refuses to install in non-interactive mode. Installation uses the Node
+  runtime already available to the user and does not request elevation. If
+  Node.js 24.21+ x64 or 26.8+ x64 is unavailable, startup stops; UAG does not
+  install Node at machine scope.
 - `UAGENT_SANDBOX_MODE=off|auto|mxc` is the environment equivalent. The command
   line option takes precedence.
 
@@ -30,10 +33,10 @@ is no fallback to Host execution.
 
 The LLM receives only four locally sandboxed tools: `create_file`, `file_exists`,
 `read_file`, and `python_exec`. The first three use relative paths under a
-per-session workspace in the user's local application data directory; they do
+per-scope workspace in the user's local application data directory; they do
 not read or publish the host project tree. Absolute paths, traversal, symlinks,
 and oversized files/results are rejected. `python_exec` runs in its own
-short-lived ProcessContainer using the same session workspace, so files created
+short-lived ProcessContainer using the same scope workspace, so files created
 by one tool remain visible to later tools. Its stdout/stderr are capped at 64 KiB
 per stream and execution is forcibly stopped after 30 seconds. A ProcessContainer
 is terminated after every Python execution to collect any child processes the
@@ -48,14 +51,20 @@ four-hour aggregate user-CPU limit, and kill-on-close cleanup. A 256 MiB / 5,000
 entry workspace watchdog stops the Python execution and tears down the session
 when it detects an over-limit workspace. That workspace guard is an application
 watchdog, not an NTFS hard quota; a short write burst can temporarily exceed the
-threshold. At most four CLI/GUI scope workers may be active in one UAG process;
-a fifth distinct scope is denied instead of creating more host resource usage.
-Failure to create or assign the Job Object rejects the operation.
+threshold. At most four distinct scopes may be active in one UAG process; a
+fifth is denied instead of creating more host resource usage. Failure to create
+or assign the Job Object rejects the operation.
+
+Trusted local-only Web may opt in on Windows using a server-created `web-room`
+scope, with the same static tool allowlist. Until PR 3 adds Room-owned worker
+and lease recovery, sandboxed local Web is constrained to one in-process worker
+and serial Room execution. This is a local PoC restriction, not production
+multi-user isolation; Sandbox mode also blocks host plugin imports, host hooks,
+and general Web commands.
 
 The lightweight ProcessContainer does not meet the Remote profile's VM
-requirement. Remote Web and A2A tools remain denied; PR 2 does not attach this
-backend to Web Rooms. Local Web Room ownership/recovery is a later integration
-stage, and neither Web nor A2A should be enabled with this backend.
+requirement. Remote Web and A2A tools remain denied, regardless of `--sandbox`.
+The local Web opt-in does not enable this backend for remote Web or A2A.
 
 ## Windows 11 x64 validation record
 
