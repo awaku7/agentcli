@@ -453,6 +453,67 @@ def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(
     )
 
 
+def test_manager_prunes_inactive_sessions_before_enforcing_limit(monkeypatch, tmp_path):
+    class FakeProcess:
+        def __init__(self, exit_code=None):
+            self.exit_code = exit_code
+
+        def poll(self):
+            return self.exit_code
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._closed = False
+            self._proc = FakeProcess()
+            self.close_called = False
+
+        def run(self, name, args):
+            return "session-result"
+
+        def close(self):
+            self.close_called = True
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    inactive = []
+    for index in range(mxc_backend.MAX_ACTIVE_SESSIONS):
+        stale_scope = TrustedSandboxScope(
+            deployment_id="cli",
+            principal_id="local-user",
+            project_id="project",
+            scope_kind="cli-session",
+            scope_id=f"stale-{index}",
+        )
+        stale_session = FakeSession(
+            scope=stale_scope, node=manager.node, runtime=manager.runtime
+        )
+        if index % 2:
+            stale_session._closed = True
+        else:
+            stale_session._proc.exit_code = 1
+        manager._sessions[mxc_backend._scope_key(stale_scope)] = stale_session
+        inactive.append(stale_session)
+
+    new_scope = TrustedSandboxScope(
+        deployment_id="cli",
+        principal_id="local-user",
+        project_id="project",
+        scope_kind="cli-session",
+        scope_id="new-scope",
+    )
+
+    assert manager.run_tool(new_scope, "file_exists", {"path": "x"}) == (
+        "session-result"
+    )
+    assert all(session.close_called for session in inactive)
+    assert set(manager._sessions) == {mxc_backend._scope_key(new_scope)}
+
+
 def test_startup_scope_persisted_session_is_process_instance_specific(
     monkeypatch, tmp_path
 ):

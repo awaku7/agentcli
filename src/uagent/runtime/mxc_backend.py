@@ -662,6 +662,13 @@ class MxcSessionManager:
         # Never expose the lightweight ProcessContainer as a Remote/VM backend.
         return cls(node=node, runtime=runtime, capabilities=capabilities), report
 
+    def _prune_inactive_sessions(self) -> None:
+        """Release closed or exited workers before enforcing the live-session cap."""
+        for key, session in list(self._sessions.items()):
+            if session._closed or session._proc.poll() is not None:
+                self._sessions.pop(key, None)
+                session.close()
+
     def run_tool(
         self, scope: TrustedSandboxScope | None, name: str, args: dict[str, Any]
     ) -> str:
@@ -679,13 +686,8 @@ class MxcSessionManager:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)
         with self._lock:
+            self._prune_inactive_sessions()
             session = self._sessions.get(key)
-            if session is not None and (
-                session._closed or session._proc.poll() is not None
-            ):
-                session.close()
-                self._sessions.pop(key, None)
-                session = None
             if session is None:
                 if len(self._sessions) >= MAX_ACTIVE_SESSIONS:
                     return "[sandbox error] active session limit reached; restart UAG to release old scopes"
