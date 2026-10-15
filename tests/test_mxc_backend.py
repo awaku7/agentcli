@@ -401,3 +401,20 @@ def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(
     assert "trusted local" in manager.run_tool(
         wrong_binding, "file_exists", {"path": "inside.txt"}
     )
+
+
+def test_startup_scope_persisted_session_is_process_instance_specific(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54321)
+    first = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="saved-session"
+    )
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54322)
+    second = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id="saved-session"
+    )
+
+    assert first.scope_id.startswith("saved-session-54321-")
+    assert second.scope_id.startswith("saved-session-54322-")
+    assert first.scope_id != second.scope_id

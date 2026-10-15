@@ -758,7 +758,11 @@ def startup_scope(
         principal_id=identity,
         project_id=hashlib.sha256(project.encode("utf-8")).hexdigest(),
         scope_kind="cli-session" if entry_point == "cli" else "gui-session",
-        scope_id=session_id or f"{entry_point}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}",
+        # Every live worker gets a process-instance component, even when a
+        # persisted session ID exists. This backend deletes a scope workspace
+        # when creating its first Worker, so sharing a persisted ID between
+        # concurrently running processes would otherwise be destructive.
+        scope_id=f"{session_id or entry_point}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}",
     )
 
 
