@@ -34,6 +34,32 @@ def _pid_is_alive(pid: int) -> bool:
     return str(pid) in result.stdout
 
 
+def test_mxc_python_waits_for_atexit_handlers(tmp_path):
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id=f"pytest-atexit-{os.getpid()}-{time.time_ns()}",
+    )
+    try:
+        result = _run_python(
+            manager,
+            scope,
+            "import atexit\n"
+            "from pathlib import Path\n"
+            "atexit.register(lambda: Path('atexit-result.txt').write_text('finished'))\n"
+            "print('script finished')\n",
+        )
+        assert result["returncode"] == 0
+        assert (
+            manager.run_tool(scope, "read_file", {"path": "atexit-result.txt"})
+            == "finished"
+        )
+    finally:
+        manager.close_scope(scope)
+        manager.close_all()
+
+
 def test_mxc_windows_session_isolation_and_cleanup(tmp_path):
     manager, _report = MxcSessionManager.initialize(allow_install=False)
     scope = startup_scope(

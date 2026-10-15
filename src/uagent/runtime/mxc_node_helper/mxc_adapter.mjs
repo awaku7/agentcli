@@ -371,8 +371,17 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     clearTimeout(executionTimer);
     clearInterval(workspaceMonitor);
     const timedOut = outcome.kind === "timeout";
-    // This one-shot ProcessContainer is always killed after its root code exits;
-    // any descendants are terminated while the session Worker stays intact.
+    // The wrapper marker is emitted before Python runs atexit handlers. Give the
+    // interpreter a bounded grace period to finish shutdown before killing the
+    // container, then terminate any remaining descendants.
+    if (outcome.kind === "complete") {
+      let gracefulTimer;
+      await Promise.race([
+        waitPromise.then(() => true, () => true),
+        new Promise((resolve) => { gracefulTimer = setTimeout(() => resolve(false), 5_000); }),
+      ]);
+      clearTimeout(gracefulTimer);
+    }
     try { processHandle.kill(); } catch {}
     let stopTimer;
     const processStopped = await Promise.race([
