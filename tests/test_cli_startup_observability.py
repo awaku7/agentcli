@@ -123,3 +123,25 @@ def test_cli_startup_turn_uses_local_sandbox_profile_when_enabled(
 
     assert result == "ok"
     assert observed == [(SecurityProfile.LOCAL_TRUSTED, True, scope)]
+
+
+def test_cli_startup_plugin_activation_is_disabled_for_sandbox(monkeypatch) -> None:
+    from uagent import cli_startup
+    from uagent.runtime import runtime_plugins
+
+    activations = []
+
+    def fake_load_plugins_status_at_startup(*, activate):
+        activations.append(activate)
+        return [], None
+
+    monkeypatch.setattr(
+        runtime_plugins,
+        "load_plugins_status_at_startup",
+        fake_load_plugins_status_at_startup,
+    )
+
+    cli_startup._load_cli_startup_plugins(sandbox_enabled=True)
+    cli_startup._load_cli_startup_plugins(sandbox_enabled=False)
+
+    assert activations == [False, True]

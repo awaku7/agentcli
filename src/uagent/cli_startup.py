@@ -128,6 +128,15 @@ def _call_cli_startup_turn(
         return _run_turn()
 
 
+def _load_cli_startup_plugins(
+    *, sandbox_enabled: bool
+) -> tuple[list[dict[str, Any]], str | None]:
+    """Do not apply host plugin configuration while running a sandbox session."""
+    from .runtime.runtime_plugins import load_plugins_status_at_startup
+
+    return load_plugins_status_at_startup(activate=not sandbox_enabled)
+
+
 def _log_startup_file_message(core: Any, message: dict[str, Any]) -> None:
     """Log a file-derived startup prompt without making it capture-eligible."""
 
@@ -360,10 +369,8 @@ def run_cli_startup(
 
             # Load and activate enabled plugins (MCP / agents / hooks)
             try:
-                from .runtime.runtime_plugins import load_plugins_status_at_startup
-
-                _plugins, _plugins_status = load_plugins_status_at_startup(
-                    activate=True
+                _plugins, _plugins_status = _load_cli_startup_plugins(
+                    sandbox_enabled=sandbox_enabled
                 )
                 if _plugins_status:
                     print(_plugins_status, file=sys.stderr)
