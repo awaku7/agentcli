@@ -120,7 +120,7 @@ def _call_cli_startup_turn(
     scope = startup_scope(
         entry_point="cli",
         project_path=project_path,
-        session_id=session_id or "cli",
+        session_id=session_id,
     )
     with execution_profile(
         SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=scope
@@ -149,7 +149,7 @@ def run_cli_startup(
     complete_regex: str | None = None,
     decision_provider: str | None = None,
     enable_tools: list[str] | None = None,
-    sandbox_enabled: bool = False,
+    sandbox_initializer: Any = None,
 ) -> CliStartupState:
     import io
     import os
@@ -171,6 +171,7 @@ def run_cli_startup(
     startup_timing_marks: dict[str, float] = {}
     session_store = None
     session_id = None
+    sandbox_enabled = False
 
     def _startup_timing_mark(name: str) -> None:
         if startup_timing_enabled:
@@ -336,6 +337,13 @@ def run_cli_startup(
             decision_settings = configure_decision_settings(
                 cli_provider=decision_provider
             )
+            if sandbox_initializer is not None:
+                sandbox_enabled = bool(
+                    sandbox_initializer(
+                        decision.chosen_expanded,
+                        str(getattr(core, "session_id", "") or session_id or ""),
+                    )
+                )
             preload_laya_torch_on_windows(decision_settings)
             _startup_timing_mark("env")
 

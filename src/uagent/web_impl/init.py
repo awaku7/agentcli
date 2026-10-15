@@ -143,6 +143,14 @@ def _initialize_local_web_sandbox(parser, *, sandbox_mode: str):
     return manager
 
 
+def _resolve_web_sandbox_mode(cli_override: str | None, env_value: str | None) -> str:
+    value = cli_override if cli_override is not None else (env_value or "off")
+    mode = str(value).strip().lower()
+    if mode not in {"off", "auto", "mxc"}:
+        raise ValueError("UAGENT_SANDBOX_MODE must be one of: off, auto, mxc")
+    return mode
+
+
 def _validate_web_sandbox_startup(
     parser,
     *,
@@ -437,9 +445,6 @@ def main():
     from ..i18n import _
 
     parser = argparse.ArgumentParser(prog="uagw", add_help=False)
-    _sandbox_default = (env_get("UAGENT_SANDBOX_MODE") or "off").strip().lower()
-    if _sandbox_default not in {"off", "auto", "mxc"}:
-        parser.error("UAGENT_SANDBOX_MODE must be one of: off, auto, mxc")
     add_decision_provider_argument(parser)
     parser.add_argument(
         "--tool-genre-mask",
@@ -492,7 +497,7 @@ def main():
     parser.add_argument(
         "--sandbox",
         choices=("off", "auto", "mxc"),
-        default=_sandbox_default,
+        default=None,
         help=_(
             "Sandbox mode (default: off; remote tools remain denied without a compliant backend)."
         ),
@@ -527,6 +532,12 @@ def main():
         decision = _runtime_init.decide_workdir(env_workdir=env_get("UAGENT_WORKDIR"))
         _runtime_init.apply_workdir(decision)
         _runtime_init.reload_dotenv_custom()
+        try:
+            web_args.sandbox = _resolve_web_sandbox_mode(
+                web_args.sandbox, env_get("UAGENT_SANDBOX_MODE")
+            )
+        except ValueError as exc:
+            parser.error(str(exc))
         try:
             from ..runtime.session_store import attach_opt_in_session_store
 

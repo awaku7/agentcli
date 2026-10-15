@@ -65,18 +65,25 @@ UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
 UAGENT_EMBEDDED = bool(_startup_args.get("embedded"))
-_sandbox_arg = _startup_args.get("sandbox")
-UAGENT_SANDBOX_MODE = (
-    str(
-        _sandbox_arg
-        if _sandbox_arg is not None
+UAGENT_SANDBOX_ARG = _startup_args.get("sandbox")
+
+
+def resolve_sandbox_mode() -> str:
+    """Resolve CLI override before environment, at the point startup config is ready."""
+    value = (
+        UAGENT_SANDBOX_ARG
+        if UAGENT_SANDBOX_ARG is not None
         else (env_get("UAGENT_SANDBOX_MODE") or "off")
     )
-    .strip()
-    .lower()
-)
-if UAGENT_SANDBOX_MODE not in {"off", "auto", "mxc"}:
-    raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
+    mode = str(value).strip().lower()
+    if mode not in {"off", "auto", "mxc"}:
+        raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
+    return mode
+
+
+# Early value is useful only for entry paths that do not load the selected
+# workdir's dotenv. Normal CLI startup resolves again after reload_dotenv_custom.
+UAGENT_SANDBOX_MODE = resolve_sandbox_mode()
 
 # Embedded mode: no persistent session store, and tool management tools
 # (tool_catalog / tool_load / unload_tool) are hidden from the LLM.

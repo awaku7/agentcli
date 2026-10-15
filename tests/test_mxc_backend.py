@@ -328,3 +328,22 @@ def test_local_web_room_scope_routes_tools_only_to_the_sandbox_manager(
 
     assert result == "sandbox-result"
     assert observed == [(scope, "file_exists", {"path": "inside.txt"})]
+
+
+def test_startup_scope_without_session_id_uses_process_unique_fallback(
+    monkeypatch, tmp_path
+):
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54321)
+
+    scope = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id=""
+    )
+
+    assert scope.scope_id.startswith("cli-54321-")
+    assert len(scope.scope_id.rsplit("-", 1)[-1]) == 32
+
+    monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54322)
+    other_process_scope = mxc_backend.startup_scope(
+        entry_point="cli", project_path=str(tmp_path), session_id=""
+    )
+    assert other_process_scope.scope_id != scope.scope_id

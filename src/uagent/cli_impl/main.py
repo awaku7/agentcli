@@ -41,6 +41,7 @@ from .startup import (
     UAGENT_REALTIME,
     UAGENT_SANDBOX_MODE,
     UAGENT_TOOL_GENRE_MASK,
+    resolve_sandbox_mode,
     _cli_workdir,
     _env_workdir,
 )
@@ -115,23 +116,33 @@ def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     sandbox_manager = None
     sandbox_scope = None
-    if UAGENT_SANDBOX_MODE != "off":
+    sandbox_mode = UAGENT_SANDBOX_MODE
+
+    def _initialize_cli_sandbox(mode: str, project_path: str, session_id: str) -> bool:
+        nonlocal sandbox_manager, sandbox_scope, sandbox_mode
+        sandbox_mode = mode
+        if mode == "off":
+            core._sandbox_enabled = False
+            core._sandbox_scope = None
+            return True
+
         from ..runtime.mxc_backend import (
             MxcSessionManager,
+            describe_probe,
             install_session_manager,
             mxc_sdk_is_installed,
-            describe_probe,
+            startup_scope,
         )
 
         allow_install = False
-        if UAGENT_SANDBOX_MODE == "mxc" and not mxc_sdk_is_installed():
+        if mode == "mxc" and not mxc_sdk_is_installed():
             if UAGENT_NON_INTERACTIVE:
                 print(
                     "[sandbox] MXC SDK is missing; non-interactive startup will not install dependencies. "
                     "Run an interactive `uag --sandbox mxc` after reviewing the dependency prompt.",
                     file=sys.stderr,
                 )
-                return 2
+                return False
             try:
                 answer = input(
                     "Install the pinned MXC SDK (about 105 MB) in your user profile? [y/N] "
@@ -143,23 +154,48 @@ def main() -> int:
                     "[sandbox] dependency installation declined; startup stopped",
                     file=sys.stderr,
                 )
-                return 2
+                return False
             allow_install = True
         try:
             sandbox_manager, sandbox_report = MxcSessionManager.initialize(
                 allow_install=allow_install
             )
             install_session_manager(sandbox_manager)
+            sandbox_scope = startup_scope(
+                entry_point="cli",
+                project_path=project_path,
+                session_id=session_id,
+            )
+            core._sandbox_enabled = True
+            core._sandbox_scope = sandbox_scope
             print(
                 f"[sandbox] enabled: {describe_probe(sandbox_report)}", file=sys.stderr
             )
+            return True
         except Exception as exc:
             print(
                 f"[sandbox] startup refused: {type(exc).__name__}: {exc}",
                 file=sys.stderr,
             )
-            return 2
+            return False
+
+    def _initialize_cli_sandbox_after_dotenv(
+        project_path: str, session_id: str
+    ) -> bool:
+        try:
+            mode = resolve_sandbox_mode()
+        except ValueError as exc:
+            print(f"[sandbox] invalid configuration: {exc}", file=sys.stderr)
+            raise SystemExit(2) from exc
+        if not _initialize_cli_sandbox(mode, project_path, session_id):
+            raise SystemExit(2)
+        return mode != "off"
+
     if UAGENT_REALTIME:
+        if not _initialize_cli_sandbox(
+            UAGENT_SANDBOX_MODE, os.getcwd(), str(getattr(core, "session_id", "") or "")
+        ):
+            return 2
         from ..realtime import run as run_realtime
 
         raise SystemExit(run_realtime())
@@ -178,7 +214,7 @@ def main() -> int:
         complete_regex=UAGENT_COMPLETE_REGEX,
         decision_provider=UAGENT_DECISION_PROVIDER,
         enable_tools=UAGENT_ENABLE_TOOLS,
-        sandbox_enabled=UAGENT_SANDBOX_MODE != "off",
+        sandbox_initializer=_initialize_cli_sandbox_after_dotenv,
     )
 
     provider = startup.provider
@@ -193,21 +229,9 @@ def main() -> int:
 
         restore_imported_session(core, session_store, messages, resume_id)
     process_exit_code = 0
-    if UAGENT_SANDBOX_MODE != "off":
-        from ..runtime.mxc_backend import startup_scope
-
-        sandbox_scope = startup_scope(
-            entry_point="cli",
-            project_path=os.getcwd(),
-            session_id=str(
-                getattr(startup, "session_id", "")
-                or getattr(core, "session_id", "")
-                or "cli"
-            ),
-        )
 
     def _run_cli_turn(fn, *args, **kwargs):
-        if UAGENT_SANDBOX_MODE != "off":
+        if sandbox_mode != "off":
             from ..runtime.execution_broker import SecurityProfile, execution_profile
             from ..runtime.mxc_backend import startup_scope as _startup_scope
 
@@ -217,7 +241,7 @@ def main() -> int:
                 session_id=str(
                     getattr(core, "session_id", "")
                     or getattr(startup, "session_id", "")
-                    or "cli"
+                    or ""
                 ),
             )
             with execution_profile(
@@ -303,14 +327,14 @@ def main() -> int:
 
     # Preload tool plugins in background so the first ':' command/completion
     # does not pay the full plugin-import cost on the interactive path.
-    if not UAGENT_NON_INTERACTIVE and UAGENT_SANDBOX_MODE == "off":
+    if not UAGENT_NON_INTERACTIVE and sandbox_mode == "off":
         try:
             tools.start_tools_warmup()
         except Exception:
             pass
 
     def _run_cli_hook(fn, *args):
-        if UAGENT_SANDBOX_MODE == "off":
+        if sandbox_mode == "off":
             return fn(*args)
         from ..runtime.execution_broker import SecurityProfile, execution_profile
 

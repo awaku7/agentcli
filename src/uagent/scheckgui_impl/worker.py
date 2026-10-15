@@ -115,7 +115,7 @@ class ScheckWorker(QtCore.QObject):
             active_scope = startup_scope(
                 entry_point="gui",
                 project_path=os.getcwd(),
-                session_id=str(getattr(core, "session_id", "") or "gui"),
+                session_id=str(getattr(core, "session_id", "") or ""),
             )
             with execution_profile(
                 SecurityProfile.LOCAL_TRUSTED,

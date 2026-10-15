@@ -206,3 +206,8 @@ def test_local_web_sandbox_rejects_missing_trusted_room_context(monkeypatch):
         from uagent.web_impl.agent_worker import _web_turn_execution_context
 
         _web_turn_execution_context(SimpleNamespace(room_id="room"), None, None, None)
+
+
+def test_web_sandbox_mode_resolution_uses_loaded_environment_and_cli_precedence():
+    assert init._resolve_web_sandbox_mode(None, "mxc") == "mxc"
+    assert init._resolve_web_sandbox_mode("off", "mxc") == "off"

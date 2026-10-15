@@ -16,6 +16,7 @@ import shutil
 import subprocess
 import sys
 import threading
+import uuid
 from pathlib import Path
 from queue import Empty, Queue
 from typing import Any
@@ -36,6 +37,7 @@ JOB_MEMORY_LIMIT_BYTES = 1_073_741_824
 JOB_PROCESS_LIMIT = 64
 MAX_ACTIVE_SESSIONS = 4
 JOB_USER_TIME_LIMIT_100NS = 4 * 60 * 60 * 10_000_000
+_PROCESS_SCOPE_NONCE = uuid.uuid4().hex
 
 TOOL_NAMES = frozenset({"create_file", "file_exists", "read_file", "python_exec"})
 
@@ -748,7 +750,7 @@ def startup_scope(
         principal_id=identity,
         project_id=hashlib.sha256(project.encode("utf-8")).hexdigest(),
         scope_kind="cli-session" if entry_point == "cli" else "gui-session",
-        scope_id=session_id or f"{entry_point}-{os.getpid()}",
+        scope_id=session_id or f"{entry_point}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}",
     )
 
 

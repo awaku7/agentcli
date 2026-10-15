@@ -20,8 +20,9 @@ E0 completion, or cross-platform support.
   runtime already available to the user and does not request elevation. If
   Node.js 24.21+ x64 or 26.8+ x64 is unavailable, startup stops; UAG does not
   install Node at machine scope.
-- `UAGENT_SANDBOX_MODE=off|auto|mxc` is the environment equivalent. The command
-  line option takes precedence.
+- `UAGENT_SANDBOX_MODE=off|auto|mxc` is the environment equivalent (including
+  the selected workdir's dotenv files). CLI arguments take precedence and mode
+  resolution occurs after the workdir environment is loaded.
 
 The verified PoC target is Windows 11 x64 with MXC Node SDK `1.0.0`, Node
 `24.22.0`, and the MXC `base-container` ProcessContainer tier. The adapter rejects

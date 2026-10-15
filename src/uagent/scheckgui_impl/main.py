@@ -26,6 +26,14 @@ from .theme import _GUI_STYLESHEET, _is_high_contrast
 from .widgets import RedirectToLog
 
 
+def _resolve_sandbox_mode(cli_override: str | None, env_value: str | None) -> str:
+    mode = str(cli_override if cli_override is not None else (env_value or "off"))
+    mode = mode.strip().lower()
+    if mode not in {"off", "auto", "mxc"}:
+        raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
+    return mode
+
+
 def main():
     from ..runtime.logging_setup import bind_event_context
 
@@ -123,24 +131,15 @@ def main():
     if getattr(args, "embedded", False):
         os.environ["UAGENT_SESSION_STORE"] = "0"
         os.environ["UAGENT_EMBEDDED"] = "1"
-    sandbox_mode = (
-        str(
-            args.sandbox
-            if getattr(args, "sandbox", None) is not None
-            else os.environ.get("UAGENT_SANDBOX_MODE", "off")
-        )
-        .strip()
-        .lower()
-    )
-    if sandbox_mode not in {"off", "auto", "mxc"}:
-        raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
-
     decision = _runtime_init.decide_workdir(
         cli_workdir=getattr(args, "workdir", None),
         env_workdir=os.environ.get("UAGENT_WORKDIR"),
     )
     _runtime_init.apply_workdir(decision)
     _runtime_init.reload_dotenv_custom()
+    sandbox_mode = _resolve_sandbox_mode(
+        getattr(args, "sandbox", None), os.environ.get("UAGENT_SANDBOX_MODE")
+    )
     try:
         from ..runtime.session_store import attach_opt_in_session_store
 
@@ -217,7 +216,7 @@ def main():
             sandbox_scope = startup_scope(
                 entry_point="gui",
                 project_path=os.getcwd(),
-                session_id=str(getattr(core, "session_id", "") or "gui"),
+                session_id=str(getattr(core, "session_id", "") or ""),
             )
             core._sandbox_enabled = True
             core._sandbox_scope = sandbox_scope
