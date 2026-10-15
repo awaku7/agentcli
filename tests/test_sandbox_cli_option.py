@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import sys
 
+import pytest
+
 from uagent.util_common import parse_startup_args
 
 
@@ -30,8 +32,10 @@ def test_cli_sandbox_mode_can_be_resolved_after_dotenv_loading(monkeypatch):
     assert startup.resolve_sandbox_mode() == "off"
 
 
-def test_gui_sandbox_mode_resolution_uses_loaded_environment_and_cli_precedence():
-    from uagent.scheckgui_impl.main import _resolve_sandbox_mode
+def test_shared_sandbox_mode_resolution_uses_cli_precedence_and_validates_values():
+    from uagent.runtime.sandbox_config import resolve_sandbox_mode
 
-    assert _resolve_sandbox_mode(None, "mxc") == "mxc"
-    assert _resolve_sandbox_mode("off", "mxc") == "off"
+    assert resolve_sandbox_mode(None, "mxc") == "mxc"
+    assert resolve_sandbox_mode("off", "mxc") == "off"
+    with pytest.raises(ValueError, match="UAGENT_SANDBOX_MODE"):
+        resolve_sandbox_mode(None, "typo")

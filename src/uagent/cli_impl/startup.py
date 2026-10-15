@@ -35,6 +35,7 @@ gemini_types = None
 gemini_errors = None
 
 from ..runtime.observability.settings import consume_process_otel_cli_flags
+from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_sandbox_mode
 from ..util_tools import parse_startup_args as _parse_startup_args
 
 # Import scheck_core
@@ -70,15 +71,7 @@ UAGENT_SANDBOX_ARG = _startup_args.get("sandbox")
 
 def resolve_sandbox_mode() -> str:
     """Resolve CLI override before environment, at the point startup config is ready."""
-    value = (
-        UAGENT_SANDBOX_ARG
-        if UAGENT_SANDBOX_ARG is not None
-        else (env_get("UAGENT_SANDBOX_MODE") or "off")
-    )
-    mode = str(value).strip().lower()
-    if mode not in {"off", "auto", "mxc"}:
-        raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
-    return mode
+    return _resolve_sandbox_mode(UAGENT_SANDBOX_ARG, env_get("UAGENT_SANDBOX_MODE"))
 
 
 # Early value is useful only for entry paths that do not load the selected

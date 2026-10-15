@@ -55,10 +55,17 @@ def _read_file(args: dict[str, Any]) -> str:
         max(1, int(args.get("max_bytes", MAX_TEXT_BYTES) or MAX_TEXT_BYTES)),
     )
     with target.open("rb") as stream:
+        for _ in range(start_line - 1):
+            while True:
+                skipped = stream.readline(64 * 1024)
+                if not skipped or skipped.endswith(b"\n"):
+                    break
+                # Keep skipping an unusually long line without buffering it all.
+            if not skipped:
+                return ""
         raw = stream.read(max_bytes)
     text = raw.decode(str(args.get("encoding") or "utf-8"), errors="replace")
-    lines = text.splitlines(keepends=True)
-    selected = lines[start_line - 1 :]
+    selected = text.splitlines(keepends=True)
     if max_lines is not None:
         selected = selected[:max_lines]
     return "".join(selected)

@@ -204,6 +204,25 @@ def test_worker_file_tools_are_workspace_relative_and_reject_traversal(
         )
 
 
+def test_worker_read_file_applies_byte_limit_after_start_line(monkeypatch, tmp_path):
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    target = tmp_path / "large.txt"
+    target.write_bytes(b"line\n" * 250_000 + b"later section\n")
+
+    result = sandbox_worker._dispatch(
+        {
+            "name": "read_file",
+            "args": {
+                "path": "large.txt",
+                "start_line": 250_001,
+                "max_bytes": 100,
+            },
+        }
+    )
+
+    assert result == "later section\n"
+
+
 def test_worker_rejects_absolute_paths_and_unregistered_tools(monkeypatch, tmp_path):
     monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
     with pytest.raises(ValueError, match="absolute paths"):

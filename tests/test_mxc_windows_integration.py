@@ -135,6 +135,17 @@ def test_mxc_windows_session_isolation_and_cleanup(tmp_path):
             time.sleep(0.1)
         assert not _pid_is_alive(child_pid)
 
+        quota_result = manager.run_tool(
+            scope,
+            "python_exec",
+            {
+                "code": (
+                    "with open('oversized.bin', 'wb') as f: f.truncate(256 * 1024 * 1024 + 1)\n"
+                )
+            },
+        )
+        assert "workspace limit exceeded" in quota_result.lower()
+
         timeout_result = _run_python(manager, scope, "import time; time.sleep(45)")
         assert timeout_result["timeout"] is True
     finally:

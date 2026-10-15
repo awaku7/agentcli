@@ -18,6 +18,7 @@ from .. import tools
 from .. import util_tools as tools_util
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.logging_setup import log_event
+from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_web_sandbox_mode
 from ..welcome import get_welcome_message
 
 try:
@@ -141,14 +142,6 @@ def _initialize_local_web_sandbox(parser, *, sandbox_mode: str):
     install_session_manager(manager)
     print(f"[sandbox] enabled: {describe_probe(report)}", file=sys.stderr)
     return manager
-
-
-def _resolve_web_sandbox_mode(cli_override: str | None, env_value: str | None) -> str:
-    value = cli_override if cli_override is not None else (env_value or "off")
-    mode = str(value).strip().lower()
-    if mode not in {"off", "auto", "mxc"}:
-        raise ValueError("UAGENT_SANDBOX_MODE must be one of: off, auto, mxc")
-    return mode
 
 
 def _validate_web_sandbox_startup(

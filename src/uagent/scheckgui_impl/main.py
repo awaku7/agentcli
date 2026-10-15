@@ -17,6 +17,7 @@ from ..i18n import _, detect_lang
 from .. import core
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.logging_setup import log_event
+from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_sandbox_mode
 from ..utils.paths import get_state_dir
 from ..welcome import get_welcome_message
 from . import state
@@ -24,14 +25,6 @@ from .config import GuiConfig, _load_font_size_config
 from .mainwindow import MainWindow
 from .theme import _GUI_STYLESHEET, _is_high_contrast
 from .widgets import RedirectToLog
-
-
-def _resolve_sandbox_mode(cli_override: str | None, env_value: str | None) -> str:
-    mode = str(cli_override if cli_override is not None else (env_value or "off"))
-    mode = mode.strip().lower()
-    if mode not in {"off", "auto", "mxc"}:
-        raise ValueError("UAGENT_SANDBOX_MODE must be off, auto, or mxc")
-    return mode
 
 
 def main():
@@ -128,6 +121,7 @@ def main():
         ),
     )
     args, unknown = parser.parse_known_args()
+    app = QtWidgets.QApplication(sys.argv)
     if getattr(args, "embedded", False):
         os.environ["UAGENT_SESSION_STORE"] = "0"
         os.environ["UAGENT_EMBEDDED"] = "1"
@@ -137,9 +131,17 @@ def main():
     )
     _runtime_init.apply_workdir(decision)
     _runtime_init.reload_dotenv_custom()
-    sandbox_mode = _resolve_sandbox_mode(
-        getattr(args, "sandbox", None), os.environ.get("UAGENT_SANDBOX_MODE")
-    )
+    try:
+        sandbox_mode = _resolve_sandbox_mode(
+            getattr(args, "sandbox", None), os.environ.get("UAGENT_SANDBOX_MODE")
+        )
+    except ValueError as exc:
+        QtWidgets.QMessageBox.critical(
+            None,
+            _("Sandbox unavailable"),
+            _("Invalid sandbox configuration: %(error)s") % {"error": exc},
+        )
+        return 2
     try:
         from ..runtime.session_store import attach_opt_in_session_store
 
@@ -177,7 +179,6 @@ def main():
     prov = (os.environ.get("UAGENT_PROVIDER") or "azure").lower()
     model = ""
 
-    app = QtWidgets.QApplication(sys.argv)
     sandbox_manager = None
     sandbox_scope = None
     core._sandbox_enabled = False

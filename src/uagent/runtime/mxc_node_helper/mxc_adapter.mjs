@@ -287,7 +287,23 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     // This one-shot ProcessContainer is always killed after its root code exits;
     // any descendants are terminated while the session Worker stays intact.
     try { processHandle.kill(); } catch {}
-    await Promise.race([waitPromise.catch(() => null), new Promise((resolve) => setTimeout(resolve, 5_000))]);
+    let stopTimer;
+    const processStopped = await Promise.race([
+      waitPromise.then(() => true, () => true),
+      new Promise((resolve) => { stopTimer = setTimeout(() => resolve(false), 5_000); }),
+    ]);
+    clearTimeout(stopTimer);
+    if (!processStopped) workspaceLimitExceeded = true;
+    // The interval is only a watchdog; it may not fire if Python exits quickly.
+    // Recheck synchronously after the one-shot process has been stopped before
+    // returning a result to the persistent Worker.
+    try {
+      if (workspaceUsage(baseRequest.workingDirectory).exceeded) {
+        workspaceLimitExceeded = true;
+      }
+    } catch {
+      workspaceLimitExceeded = true;
+    }
     processHandle.dispose();
     let stdoutText = Buffer.concat(stdout).toString("utf8");
     if (markerExitCode !== null) {
