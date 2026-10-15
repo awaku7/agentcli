@@ -288,11 +288,18 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     if (error?.code !== "ENOENT") throw error;
   }
   const marker = `__UAG_PY_EXEC_${crypto.randomBytes(16).toString("hex")}__`;
+  // Python runs atexit handlers in LIFO order; registering before user code
+  // makes this marker prove that user cleanup has completed before we kill the
+  // one-shot container and reap any remaining child processes.
   const wrapper = [
-    "import sys, traceback",
+    "import atexit, sys, traceback",
     `__uag_source = ${JSON.stringify(code)}`,
     `__uag_marker = ${JSON.stringify(marker)}`,
     "__uag_exit = 0",
+    "def __uag_emit_marker():",
+    "    sys.stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
+    "    sys.stdout.flush()",
+    "atexit.register(__uag_emit_marker)",
     "__uag_globals = {'__name__': '__main__', '__file__': '<python_exec>'}",
     "try:",
     "    exec(compile(__uag_source, '<python_exec>', 'exec'), __uag_globals, __uag_globals)",
@@ -301,9 +308,6 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     "except BaseException:",
     "    traceback.print_exc()",
     "    __uag_exit = 1",
-    "finally:",
-    "    sys.stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
-    "    sys.stdout.flush()",
   ].join("\n");
   const fd = fs.openSync(scriptPath, "wx", 0o600);
   try { fs.writeFileSync(fd, wrapper, { encoding: "utf8" }); } finally { fs.closeSync(fd); }
@@ -371,17 +375,6 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     clearTimeout(executionTimer);
     clearInterval(workspaceMonitor);
     const timedOut = outcome.kind === "timeout";
-    // The wrapper marker is emitted before Python runs atexit handlers. Give the
-    // interpreter a bounded grace period to finish shutdown before killing the
-    // container, then terminate any remaining descendants.
-    if (outcome.kind === "complete") {
-      let gracefulTimer;
-      await Promise.race([
-        waitPromise.then(() => true, () => true),
-        new Promise((resolve) => { gracefulTimer = setTimeout(() => resolve(false), 5_000); }),
-      ]);
-      clearTimeout(gracefulTimer);
-    }
     try { processHandle.kill(); } catch {}
     let stopTimer;
     const processStopped = await Promise.race([
