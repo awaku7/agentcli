@@ -39,7 +39,6 @@ from .startup import (
     UAGENT_INJECT_MESSAGE_AUTO,
     UAGENT_NON_INTERACTIVE,
     UAGENT_REALTIME,
-    UAGENT_SANDBOX_MODE,
     UAGENT_TOOL_GENRE_MASK,
     resolve_sandbox_mode,
     _cli_workdir,
@@ -106,6 +105,23 @@ def _set_status_for_command_result(core: Any, result: Any) -> bool:
     return run_llm
 
 
+def _resolve_realtime_sandbox_mode() -> str:
+    """Load the selected workdir configuration and resolve its Sandbox mode."""
+    from ..runtime.runtime_init import (
+        apply_workdir,
+        decide_workdir,
+        reload_dotenv_custom,
+    )
+
+    decision = decide_workdir(
+        cli_workdir=_cli_workdir,
+        env_workdir=_env_workdir,
+    )
+    apply_workdir(decision)
+    reload_dotenv_custom()
+    return resolve_sandbox_mode()
+
+
 def main() -> int:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
@@ -116,7 +132,7 @@ def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     sandbox_manager = None
     sandbox_scope = None
-    sandbox_mode = UAGENT_SANDBOX_MODE
+    sandbox_mode = "off"
 
     def _initialize_cli_sandbox(mode: str, project_path: str, session_id: str) -> bool:
         nonlocal sandbox_manager, sandbox_scope, sandbox_mode
@@ -192,9 +208,23 @@ def main() -> int:
         return mode != "off"
 
     if UAGENT_REALTIME:
-        if not _initialize_cli_sandbox(
-            UAGENT_SANDBOX_MODE, os.getcwd(), str(getattr(core, "session_id", "") or "")
-        ):
+        try:
+            realtime_sandbox_mode = _resolve_realtime_sandbox_mode()
+        except ValueError as exc:
+            print(f"[sandbox] invalid configuration: {exc}", file=sys.stderr)
+            return 2
+        except Exception as exc:
+            print(
+                f"[sandbox] failed to load realtime startup configuration: {exc}",
+                file=sys.stderr,
+            )
+            return 2
+        if realtime_sandbox_mode != "off":
+            print(
+                "[sandbox] realtime mode is unavailable while Sandbox is enabled; "
+                "use realtime with --sandbox off or disable realtime.",
+                file=sys.stderr,
+            )
             return 2
         from ..realtime import run as run_realtime
 
@@ -387,7 +417,11 @@ def main() -> int:
         # Scheduler execution records are updated when scheduled events enter
         # the interactive worker loop.  The store is durable and independent
         # from the event queue, so a restart does not erase the run history.
-        from ..scheduler import SchedulerRunStore, SchedulerWorker
+        from ..scheduler import (
+            SchedulerRunStore,
+            SchedulerWorker,
+            run_scheduled_callback_with_tools,
+        )
 
         scheduled_run_store = SchedulerRunStore()
 
@@ -397,14 +431,16 @@ def main() -> int:
                 return fn(*args, **kwargs)
             run = scheduled_run_store.get(run_id)
             metadata = dict((run.metadata if run else {}) or {})
-            from ..scheduler import required_tools_guard
 
             def _execute_scheduled(_payload):
-                with required_tools_guard(
-                    metadata.get("required_tools") or [],
+                return run_scheduled_callback_with_tools(
+                    fn,
+                    *args,
+                    required_tools=metadata.get("required_tools") or [],
                     reason=f"scheduled run:{run_id}",
-                ):
-                    return fn(*args, **kwargs)
+                    sandbox_enabled=sandbox_mode != "off",
+                    **kwargs,
+                )
 
             return SchedulerWorker(scheduled_run_store).execute(
                 run_id,
@@ -425,14 +461,18 @@ def main() -> int:
             required = list(metadata.get("required_tools") or [])
             if target_tool and target_tool not in required:
                 required.append(target_tool)
-            from ..scheduler import execute_direct_tool, required_tools_guard
+            from ..scheduler import execute_direct_tool
 
             def _execute_scheduled(_payload):
-                with required_tools_guard(
-                    required,
+                return run_scheduled_callback_with_tools(
+                    _run_cli_turn,
+                    execute_direct_tool,
+                    target_tool,
+                    target_args,
+                    required_tools=required,
                     reason=f"scheduled direct run:{run_id}",
-                ):
-                    return _run_cli_turn(execute_direct_tool, target_tool, target_args)
+                    sandbox_enabled=sandbox_mode != "off",
+                )
 
             result = SchedulerWorker(scheduled_run_store).execute(
                 run_id,

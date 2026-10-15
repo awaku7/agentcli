@@ -1311,8 +1311,12 @@ explicitly opted-in Windows x64 MXC ProcessContainer backend for trusted local
 CLI/GUI and eligible local Web sessions only; it is not a VM boundary and does
 not establish Remote E0 isolation. While Sandbox is enabled, startup must not
 activate project plugins or select host tools via genre masks or `--enable-tool`.
-The MXC workspace quota includes NTFS alternate data streams; if the host stream
-scanner cannot verify usage, Python execution fails closed. Local Web Room scopes
+Scheduled CLI/GUI runs validate required tools against the static sandbox
+allowlist and never load Host tools while sandboxed. The MXC workspace quota includes NTFS alternate data streams; if the host stream
+scanner cannot verify usage, Python execution fails closed. Probe and execution
+requests forbid MXC host-DACL mutation; Node/runtime overrides are accepted only
+from process-startup environment, never project dotenv, and sandboxed realtime is
+refused. Local Web Room scopes
 include a server-process nonce so concurrent `uagw` processes cannot share or
 clear one another's workspaces for the same room. See [the Sandbox
 design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md) and [the staged

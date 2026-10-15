@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -26,6 +28,105 @@ def test_node_helper_pins_the_verified_mxc_sdk_version():
     lock = json.loads((helper / "package-lock.json").read_text(encoding="utf-8"))
     assert manifest["dependencies"]["@microsoft/mxc-sdk"] == "1.0.0"
     assert lock["packages"]["node_modules/@microsoft/mxc-sdk"]["version"] == "1.0.0"
+
+
+def test_mxc_host_paths_ignore_project_dotenv_values(monkeypatch, tmp_path):
+    from uagent.runtime import runtime_init
+
+    local_app_data = tmp_path / "local-app-data"
+    project = tmp_path / "project"
+    local_app_data.mkdir()
+    project.mkdir()
+    project_node = project / "node.exe"
+    project_runtime = project / "mxc-runtime"
+    monkeypatch.setenv("LOCALAPPDATA", str(local_app_data))
+    monkeypatch.setenv("UAGENT_MXC_NODE", str(project_node))
+    monkeypatch.setenv("UAGENT_MXC_RUNTIME_DIR", str(project_runtime))
+    monkeypatch.setattr(runtime_init, "get_startup_uagent_env_snapshot", lambda: {})
+
+    assert project_node not in mxc_backend._node_candidates()
+    assert mxc_backend._runtime_dir() == local_app_data / "uagent" / "mxc_runtime"
+
+
+def test_mxc_host_paths_accept_only_pre_dotenv_overrides(monkeypatch, tmp_path):
+    from uagent.runtime import runtime_init
+
+    local_app_data = tmp_path / "local-app-data"
+    trusted_node = local_app_data / "uagent" / "toolchains" / "node.exe"
+    trusted_runtime = local_app_data / "uagent" / "mxc_runtime_test"
+    monkeypatch.setenv("LOCALAPPDATA", str(local_app_data))
+    monkeypatch.setenv("UAGENT_MXC_NODE", str(tmp_path / "project-node.exe"))
+    monkeypatch.setenv("UAGENT_MXC_RUNTIME_DIR", str(tmp_path / "project-runtime"))
+    monkeypatch.setattr(
+        runtime_init,
+        "get_startup_uagent_env_snapshot",
+        lambda: {
+            "UAGENT_MXC_NODE": str(trusted_node),
+            "UAGENT_MXC_RUNTIME_DIR": str(trusted_runtime),
+        },
+    )
+
+    assert trusted_node in mxc_backend._node_candidates()
+    assert mxc_backend._runtime_dir() == trusted_runtime
+
+
+def test_node_version_uses_only_the_node_and_system_directories(monkeypatch, tmp_path):
+    node = tmp_path / "toolchain" / "node.exe"
+    system_root = tmp_path / "windows"
+    project_path = tmp_path / "project-bin"
+    captured = {}
+
+    def fake_run(_args, **kwargs):
+        captured.update(kwargs["env"])
+        return SimpleNamespace(stdout="v24.22.0")
+
+    monkeypatch.setenv("SystemRoot", str(system_root))
+    monkeypatch.setenv("PATH", str(project_path))
+    monkeypatch.setattr(mxc_backend.subprocess, "run", fake_run)
+
+    assert mxc_backend._node_version(node) == (24, 22, 0)
+    assert captured["PATH"] == os.pathsep.join(
+        (str(node.parent), str(system_root / "System32"))
+    )
+    assert str(project_path) not in captured["PATH"]
+
+
+def test_mxc_host_overrides_must_be_absolute(monkeypatch):
+    from uagent.runtime import runtime_init
+
+    monkeypatch.setattr(
+        runtime_init,
+        "get_startup_uagent_env_snapshot",
+        lambda: {
+            "UAGENT_MXC_NODE": "node.exe",
+            "UAGENT_MXC_RUNTIME_DIR": "mxc-runtime",
+        },
+    )
+
+    with pytest.raises(RuntimeError, match="UAGENT_MXC_NODE must be an absolute"):
+        mxc_backend._node_candidates()
+    with pytest.raises(
+        RuntimeError, match="UAGENT_MXC_RUNTIME_DIR must be an absolute"
+    ):
+        mxc_backend._runtime_dir()
+
+
+def test_mxc_requests_explicitly_forbid_host_dacl_mutation():
+    helper = (
+        Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
+    )
+    source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
+    assert source.count("fallback: { allowDaclMutation: false }") == 2
+
+
+def test_python_workspace_monitor_stays_active_until_process_stop():
+    helper = (
+        Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
+    )
+    source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
+    stopped = source.index("const processStopped = await Promise.race(")
+    assert source.index("clearInterval(workspaceMonitor);", stopped) > stopped
+    assert source.index("clearTimeout(executionTimer);", stopped) > stopped
 
 
 @pytest.fixture

@@ -74,9 +74,9 @@ def resolve_sandbox_mode() -> str:
     return _resolve_sandbox_mode(UAGENT_SANDBOX_ARG, env_get("UAGENT_SANDBOX_MODE"))
 
 
-# Early value is useful only for entry paths that do not load the selected
-# workdir's dotenv. Normal CLI startup resolves again after reload_dotenv_custom.
-UAGENT_SANDBOX_MODE = resolve_sandbox_mode()
+# Keep a safe import-time placeholder. Each entry path resolves the mode after
+# loading the selected workdir dotenv, so invalid values are reported at startup.
+UAGENT_SANDBOX_MODE = "off"
 
 # Embedded mode: no persistent session store, and tool management tools
 # (tool_catalog / tool_load / unload_tool) are hidden from the LLM.

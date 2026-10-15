@@ -63,6 +63,7 @@ async function probeHost() {
   const request = {
     command: "cmd.exe /d /s /c exit 0",
     containment: { type: "processcontainer" },
+    fallback: { allowDaclMutation: false },
     timeoutMs: 10_000,
     filesystem: { readwritePaths: [], readonlyPaths: [path.join(windowsRoot, "System32")], deniedPaths: [] },
     network: { egress: { default: "deny" }, ingress: { default: "deny", hostLoopback: "deny" } },
@@ -293,12 +294,13 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   // one-shot container and reap any remaining child processes.
   const wrapper = [
     "import atexit, sys, traceback",
+    "__uag_stdout = sys.stdout",
     `__uag_source = ${JSON.stringify(code)}`,
     `__uag_marker = ${JSON.stringify(marker)}`,
     "__uag_exit = 0",
     "def __uag_emit_marker():",
-    "    sys.stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
-    "    sys.stdout.flush()",
+    "    __uag_stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
+    "    __uag_stdout.flush()",
     "atexit.register(__uag_emit_marker)",
     "__uag_globals = {'__name__': '__main__', '__file__': '<python_exec>'}",
     "try:",
@@ -372,8 +374,6 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     });
     const outcome = await Promise.race([rootExit, markerReached, timeout]);
     clearInterval(markerPoll);
-    clearTimeout(executionTimer);
-    clearInterval(workspaceMonitor);
     const timedOut = outcome.kind === "timeout";
     try { processHandle.kill(); } catch {}
     let stopTimer;
@@ -382,6 +382,8 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       new Promise((resolve) => { stopTimer = setTimeout(() => resolve(false), 5_000); }),
     ]);
     clearTimeout(stopTimer);
+    clearTimeout(executionTimer);
+    clearInterval(workspaceMonitor);
     if (!processStopped) workspaceLimitExceeded = true;
     // The interval is only a watchdog; it may not fire if Python exits quickly.
     // Recheck synchronously after the one-shot process has been stopped before
@@ -473,6 +475,7 @@ async function serveWorker() {
   const baseRequest = {
     workingDirectory: workspace,
     containment: { type: "processcontainer" },
+    fallback: { allowDaclMutation: false },
     filesystem: { readwritePaths, readonlyPaths, deniedPaths },
     network: {
       egress: { default: "deny" },

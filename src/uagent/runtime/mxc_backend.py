@@ -120,25 +120,42 @@ def _local_app_data() -> Path:
         raise RuntimeError(
             "LOCALAPPDATA is unavailable; MXC needs a per-user runtime directory"
         )
-    return Path(root)
+    path = Path(root).expanduser()
+    if not path.is_absolute():
+        raise RuntimeError("LOCALAPPDATA must be an absolute per-user path")
+    return path.resolve()
+
+
+def _trusted_startup_uagent_value(name: str) -> str:
+    """Read a UAGENT override captured before project dotenv files are loaded."""
+    try:
+        from .runtime_init import get_startup_uagent_env_snapshot
+
+        snapshot = get_startup_uagent_env_snapshot()
+    except Exception:
+        snapshot = None
+    if not isinstance(snapshot, dict):
+        return ""
+    return str(snapshot.get(name) or "").strip()
 
 
 def _node_candidates() -> list[Path]:
     candidates: list[Path] = []
-    configured = os.environ.get("UAGENT_MXC_NODE", "").strip()
+    # This executable runs outside the container. Never let a selected
+    # project's .env choose host code to execute.
+    configured = _trusted_startup_uagent_value("UAGENT_MXC_NODE")
     if configured:
-        candidates.append(Path(configured))
-    local = os.environ.get("LOCALAPPDATA", "")
-    if local:
-        candidates.extend(
-            [
-                Path(local) / "uagent" / "toolchains" / "node-v24.22.0" / "node.exe",
-                Path(local) / "Programs" / "nodejs" / "node.exe",
-            ]
-        )
-    found = shutil.which("node.exe") or shutil.which("node")
-    if found:
-        candidates.append(Path(found))
+        configured_path = Path(configured).expanduser()
+        if not configured_path.is_absolute():
+            raise RuntimeError("UAGENT_MXC_NODE must be an absolute executable path")
+        candidates.append(configured_path.resolve())
+    local = _local_app_data()
+    candidates.extend(
+        [
+            local / "uagent" / "toolchains" / "node-v24.22.0" / "node.exe",
+            local / "Programs" / "nodejs" / "node.exe",
+        ]
+    )
     return candidates
 
 
@@ -156,6 +173,8 @@ def _find_node() -> Path:
 
 
 def _node_version(node: Path) -> tuple[int, int, int]:
+    system_root = os.environ.get("SystemRoot", r"C:\Windows")
+    safe_path = os.pathsep.join((str(node.parent), str(Path(system_root) / "System32")))
     result = subprocess.run(
         [str(node), "--version"],
         check=True,
@@ -166,7 +185,7 @@ def _node_version(node: Path) -> tuple[int, int, int]:
         env={
             "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
             "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
-            "PATH": os.environ.get("PATH", r"C:\Windows\System32"),
+            "PATH": safe_path,
         },
     )
     raw = result.stdout.strip().lstrip("v")
@@ -182,12 +201,15 @@ def _helper_source_dir() -> Path:
 
 
 def _runtime_dir() -> Path:
-    configured = os.environ.get("UAGENT_MXC_RUNTIME_DIR", "").strip()
-    return (
-        Path(configured).expanduser().resolve()
-        if configured
-        else _local_app_data() / "uagent" / "mxc_runtime"
-    )
+    # Runtime files contain executable helper/SDK code; project dotenv values
+    # must not redirect execution into the project checkout.
+    configured = _trusted_startup_uagent_value("UAGENT_MXC_RUNTIME_DIR")
+    if configured:
+        configured_path = Path(configured).expanduser()
+        if not configured_path.is_absolute():
+            raise RuntimeError("UAGENT_MXC_RUNTIME_DIR must be an absolute path")
+        return configured_path.resolve()
+    return _local_app_data() / "uagent" / "mxc_runtime"
 
 
 def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
@@ -234,6 +256,10 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
             raise RuntimeError(
                 "npm.cmd was not found alongside the selected Node.js runtime"
             )
+        system_root = os.environ.get("SystemRoot", r"C:\Windows")
+        safe_path = os.pathsep.join(
+            (str(node.parent), str(Path(system_root) / "System32"))
+        )
         install = subprocess.run(
             [str(npm), "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
             cwd=str(runtime),
@@ -244,7 +270,7 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
             env={
                 "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
                 "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
-                "PATH": f"{node.parent};{os.environ.get('PATH', '')}",
+                "PATH": safe_path,
                 "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
                 "TEMP": os.environ.get("TEMP", ""),
                 "TMP": os.environ.get("TMP", ""),
@@ -300,10 +326,12 @@ def _assign_job_object(proc: subprocess.Popen[bytes]):
 
 def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
     helper = runtime / "mxc_adapter.mjs"
+    system_root = os.environ.get("SystemRoot", r"C:\Windows")
+    safe_path = os.pathsep.join((str(node.parent), str(Path(system_root) / "System32")))
     env = {
         "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
         "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
-        "PATH": f"{node.parent};{os.environ.get('PATH', '')}",
+        "PATH": safe_path,
         "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
         "APPDATA": os.environ.get("APPDATA", ""),
         "TEMP": os.environ.get("TEMP", ""),

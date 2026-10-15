@@ -23,6 +23,13 @@ E0 completion, or cross-platform support.
 - `UAGENT_SANDBOX_MODE=off|auto|mxc` is the environment equivalent (including
   the selected workdir's dotenv files). CLI arguments take precedence and mode
   resolution occurs after the workdir environment is loaded.
+- `UAGENT_MXC_NODE` and `UAGENT_MXC_RUNTIME_DIR`, when used, are trusted
+  process-startup overrides only; values from a project's `.env`/`.env.sec` are
+  ignored. Relative override paths are rejected. Node/npm subprocesses use a
+  minimal PATH containing only the selected Node directory and Windows System32.
+- `uag realtime` is not supported with `--sandbox auto|mxc` or an equivalent
+  environment setting. Realtime dependencies may be installed/executed on the
+  Host; Sandbox-enabled realtime startup is refused before the realtime runner.
 
 The verified PoC target is Windows 11 x64 with MXC Node SDK `1.0.0`, Node
 `24.22.0`, and the MXC `base-container` ProcessContainer tier. The adapter rejects
@@ -39,9 +46,13 @@ not read or publish the host project tree. Absolute paths, traversal, symlinks,
 and oversized files/results are rejected. `python_exec` runs in its own
 short-lived ProcessContainer using the same scope workspace, so files created
 by one tool remain visible to later tools. Its stdout/stderr are capped at 64 KiB
-per stream and execution is forcibly stopped after 30 seconds. A ProcessContainer
-is terminated after every Python execution to collect any child processes the
-code may have started.
+per stream and execution is forcibly stopped after 30 seconds. The completion
+marker is emitted from an `atexit` handler registered before user code, so
+user-registered shutdown handlers complete before cleanup; the workspace quota
+watchdog remains active until the ProcessContainer has been stopped. A
+ProcessContainer is terminated after every Python execution to collect child
+processes the code may have started. Both probe and execution requests explicitly
+forbid MXC's host-DACL-mutation fallback.
 
 The worker receives a minimal environment, not the Host's `os.environ`. Its
 filesystem policy grants write access only to the session workspace and read

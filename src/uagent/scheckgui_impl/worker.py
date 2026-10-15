@@ -290,7 +290,11 @@ class ScheckWorker(QtCore.QObject):
                     % {"err": e}
                 )
 
-            from ..scheduler import SchedulerRunStore, SchedulerWorker
+            from ..scheduler import (
+                SchedulerRunStore,
+                SchedulerWorker,
+                run_scheduled_callback_with_tools,
+            )
 
             scheduled_run_store = SchedulerRunStore()
 
@@ -301,14 +305,18 @@ class ScheckWorker(QtCore.QObject):
                 run = scheduled_run_store.get(run_id)
                 metadata = dict((run.metadata if run else {}) or {})
                 try:
-                    from ..scheduler import required_tools_guard
 
                     def _execute_scheduled(_payload):
-                        with required_tools_guard(
-                            metadata.get("required_tools") or [],
+                        return run_scheduled_callback_with_tools(
+                            _run_lifecycle,
+                            *args,
+                            tool_names=metadata.get("required_tools") or [],
                             reason=f"scheduled run:{run_id}",
-                        ):
-                            return _run_lifecycle(*args, **kwargs)
+                            sandbox_enabled=bool(
+                                getattr(core, "_sandbox_enabled", False)
+                            ),
+                            **kwargs,
+                        )
 
                     result = SchedulerWorker(scheduled_run_store).execute(
                         run_id,
@@ -343,16 +351,18 @@ class ScheckWorker(QtCore.QObject):
                 required = list(metadata.get("required_tools") or [])
                 if target_tool and target_tool not in required:
                     required.append(target_tool)
-                from ..scheduler import execute_direct_tool, required_tools_guard
+                from ..scheduler import execute_direct_tool
 
                 def _execute_scheduled(_payload):
-                    with required_tools_guard(
-                        required,
+                    return run_scheduled_callback_with_tools(
+                        self._run_gui_turn,
+                        execute_direct_tool,
+                        target_tool,
+                        target_args,
+                        tool_names=required,
                         reason=f"scheduled direct run:{run_id}",
-                    ):
-                        return self._run_gui_turn(
-                            execute_direct_tool, target_tool, target_args
-                        )
+                        sandbox_enabled=bool(getattr(core, "_sandbox_enabled", False)),
+                    )
 
                 result = SchedulerWorker(scheduled_run_store).execute(
                     run_id,

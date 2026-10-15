@@ -3,7 +3,17 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Iterator
+from typing import Any, Callable, Iterator
+
+
+def _normalise_tool_names(tool_names: object) -> tuple[str, ...]:
+    if isinstance(tool_names, str):
+        names = (tool_names,)
+    elif isinstance(tool_names, (list, tuple, set, frozenset)):
+        names = tuple(str(name or "") for name in tool_names)
+    else:
+        names = ()
+    return tuple(dict.fromkeys(name.strip() for name in names if name.strip()))
 
 
 @contextmanager
@@ -13,13 +23,7 @@ def required_tools_guard(
     reason: str = "scheduled run",
 ) -> Iterator[tuple[str, ...]]:
     """Load and pin required tools for the lifetime of a scheduled run."""
-    if isinstance(tool_names, str):
-        names = (tool_names,)
-    elif isinstance(tool_names, (list, tuple, set, frozenset)):
-        names = tuple(str(name or "").strip() for name in tool_names)
-    else:
-        names = ()
-    names = tuple(dict.fromkeys(name for name in names if name))
+    names = _normalise_tool_names(tool_names)
     if not names:
         yield ()
         return
@@ -71,4 +75,37 @@ def required_tools_guard(
                 pass
 
 
-__all__ = ["required_tools_guard"]
+def run_scheduled_callback_with_tools(
+    callback: Callable[..., Any],
+    *args: Any,
+    tool_names: object,
+    reason: str = "scheduled run",
+    sandbox_enabled: bool = False,
+    **kwargs: Any,
+) -> Any:
+    """Run scheduled work without loading Host tools in a Sandbox turn."""
+    names = _normalise_tool_names(tool_names)
+    if sandbox_enabled:
+        from ..runtime.mxc_backend import sandbox_tool_specs
+
+        allowed: set[str] = set()
+        for spec in sandbox_tool_specs():
+            if not isinstance(spec, dict):
+                continue
+            function = spec.get("function")
+            name = function.get("name") if isinstance(function, dict) else None
+            if isinstance(name, str) and name:
+                allowed.add(name)
+        unavailable = sorted(set(names) - allowed)
+        if unavailable:
+            raise RuntimeError(
+                "Sandbox scheduled run requires unavailable Host tool(s): "
+                + ", ".join(unavailable)
+            )
+        return callback(*args, **kwargs)
+
+    with required_tools_guard(names, reason=reason):
+        return callback(*args, **kwargs)
+
+
+__all__ = ["required_tools_guard", "run_scheduled_callback_with_tools"]
