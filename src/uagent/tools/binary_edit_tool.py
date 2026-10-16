@@ -8,7 +8,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
 
-from .human_ask_tool import run_tool as human_ask
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -189,10 +188,9 @@ class OpResult:
 
 
 def _confirm_or_cancel(message: str) -> bool:
-    res_json = human_ask({"message": message, "is_password": False})
-    res = json.loads(res_json)
-    ans = (res.get("user_reply") or "").strip().lower()
-    return ans in ("y", "yes")
+    from .tool_confirmation import confirm_operation
+
+    return confirm_operation(message, tool_name="binary_edit")
 
 
 def _ensure_file_ok(path: Path, *, max_bytes: int) -> tuple[int, str]:
