@@ -77,7 +77,10 @@ def test_delete_file_dispatcher_preserves_confirmation_gate(monkeypatch) -> None
     )
 
     # Preview reaches the runner without an interactive confirmation.
-    assert tools.run_tool("delete_file", {"filename": "example.txt", "dry_run": True}) == "ran"
+    assert (
+        tools.run_tool("delete_file", {"filename": "example.txt", "dry_run": True})
+        == "ran"
+    )
     assert calls == []
 
     # Execution must still stop if approval is refused, even when a model
