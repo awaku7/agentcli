@@ -280,6 +280,39 @@ def test_sessions_list_is_compact_by_default(monkeypatch, tmp_path, capsys):
     db.close()
 
 
+def test_sessions_list_limits_rows_without_shifting_load_indices(
+    monkeypatch, tmp_path, capsys
+):
+    monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
+    db = SessionStore(tmp_path / "sessions.sqlite3")
+    try:
+        for index in range(12):
+            session = db.create_session(project=f"project-{index}", entry_point="cli")
+            db.append_message(session.session_id, "user", f"question {index}")
+        rows = db.list_sessions()
+        core = SimpleNamespace(session_store=db, session_id=None)
+
+        assert _handle_cmd_sessions("list", core=core, tr=lambda text, **_: text)
+        output = capsys.readouterr().out
+        assert output.count(" | id: ") == 10
+        assert "[sessions] 10/12 | :sessions list --all" in output
+        assert rows[10]["session_id"] not in output
+        assert core._session_search_results == {
+            index: row["session_id"] for index, row in enumerate(rows[:10])
+        }
+
+        assert _handle_cmd_sessions("list --all", core=core, tr=lambda text, **_: text)
+        output = capsys.readouterr().out
+        assert output.count(" | id: ") == 12
+        assert "[11]" in output
+        assert rows[11]["session_id"] in output
+        assert core._session_search_results == {
+            index: row["session_id"] for index, row in enumerate(rows)
+        }
+    finally:
+        db.close()
+
+
 def test_load_switches_sqlite_persistence_target(monkeypatch, tmp_path):
     monkeypatch.setenv("UAGENT_SESSION_BACKEND", "sqlite")
     monkeypatch.setenv("UAGENT_SESSION_STORE_PATH", str(tmp_path / "sessions.sqlite3"))

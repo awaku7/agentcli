@@ -861,9 +861,9 @@ def main() -> int:
                         continue
                     except Exception as exc:
                         lifecycle.fail()
+                        source = "[bitchat] " if ev.get("src") == "bitchat" else ""
                         print(
-                            "[bitchat] "
-                            + _("LLM round interrupted: %(err)s") % {"err": exc}
+                            source + _("LLM round interrupted: %(err)s") % {"err": exc}
                         )
                 # bitchat 経由のメッセージ: LLM 応答を mesh に自動返信
                 if ev.get("src") == "bitchat":

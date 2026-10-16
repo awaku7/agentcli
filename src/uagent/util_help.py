@@ -210,7 +210,7 @@ def _static_help_catalog(*, tr: Any) -> dict[str, dict[str, Any]]:
         "sessions": e(
             tr("Search and manage opt-in SQLite sessions"),
             usage=(
-                ":sessions list | load [<index|session_id>] | search <query> | candidates | "
+                ":sessions list [--all] [--verbose] | load [<index|session_id>] | search <query> | candidates | "
                 "approve <number> | delete <session_id> --yes | vacuum | "
                 "pdf <session_id> [output.pdf] | import <jsonl_path> | "
                 "export <id> <file.uag> | import-uag <file.uag> | resume <id>"
