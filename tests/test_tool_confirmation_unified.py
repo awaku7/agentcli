@@ -134,7 +134,9 @@ def test_cli_rm_reuses_one_localized_approval(
     from uagent.tools import human_ask_tool
 
     monkeypatch.setenv("UAGENT_LANG", "ja")
-    target = repo_tmp_path / "single_confirmation.tmp"
+    # Pytest parameterized fixture names contain '[...]', which delete_file
+    # correctly treats as glob syntax. Use a sibling path with an ASCII name.
+    target = repo_tmp_path.parent / f"rm_confirmation_{ord(answer[0])}.tmp"
     target.write_text("data", encoding="utf-8")
     calls = []
     monkeypatch.setattr(
@@ -144,9 +146,12 @@ def test_cli_rm_reuses_one_localized_approval(
         or json.dumps({"user_reply": answer, "cancelled": False}),
     )
 
-    assert util_cmd_files._handle_cmd_rm(str(target), tr=None)
-    assert len(calls) == 1
-    assert target.exists() is not deleted
+    try:
+        assert util_cmd_files._handle_cmd_rm(str(target), tr=None)
+        assert len(calls) == 1
+        assert target.exists() is not deleted
+    finally:
+        target.unlink(missing_ok=True)
 
 
 def test_web_confirmation_respects_room_locale_over_server(monkeypatch):
@@ -187,6 +192,7 @@ def test_web_confirmation_respects_room_locale_over_server(monkeypatch):
         assert len(prompts) == 1
         assert "tous" in prompts[0]["message"]
         assert "Autoriser" in prompts[0]["message"]
+        assert "{}" in prompts[0]["message"]
     finally:
         reset_contextvar_locale(token)
         tool_policy.reset_confirmation_grants()
