@@ -91,10 +91,12 @@ def _absolute_confirmation_required(tool_name: str, args: dict[str, Any]) -> boo
     from .enterprise_policy import get_enterprise_policy
 
     enterprise = get_enterprise_policy()
-    if os.environ.get("UAGENT_INJECT_MODE") == "1":
-        return enterprise.inject_requires_confirmation(tool_name, args)
-    return bool(getattr(core, "auto_pilot_active", False)) and (
-        enterprise.auto_pilot_requires_confirmation(tool_name, args)
+    injected = os.environ.get("UAGENT_INJECT_MODE") == "1"
+    auto_pilot = bool(getattr(core, "auto_pilot_active", False))
+    return (
+        injected and enterprise.inject_requires_confirmation(tool_name, args)
+    ) or (
+        auto_pilot and enterprise.auto_pilot_requires_confirmation(tool_name, args)
     )
 
 
