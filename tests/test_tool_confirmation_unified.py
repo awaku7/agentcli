@@ -149,6 +149,49 @@ def test_cli_rm_reuses_one_localized_approval(
     assert target.exists() is not deleted
 
 
+def test_web_confirmation_respects_room_locale_over_server(monkeypatch):
+    from uagent import core, tools
+    from uagent.i18n import reset_contextvar_locale, set_contextvar_locale
+    from uagent.tools import tool_policy
+
+    monkeypatch.setenv("UAGENT_LANG", "ja")
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    monkeypatch.setattr(core, "_is_web", True, raising=False)
+    prompts = []
+
+    def web_ask(name, args):
+        assert name == "human_ask"
+        prompts.append(args)
+        return json.dumps({"user_reply": "tous", "cancelled": False})
+
+    monkeypatch.setattr(tools, "run_tool", web_ask)
+    room_turn = TurnContext(
+        principal_id="p",
+        room_id="room-fr",
+        project_id="project",
+        session_id="s",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
+    tool_policy.reset_confirmation_grants()
+    token = set_contextvar_locale("fr")
+    try:
+        with bind_turn_context(room_turn):
+            assert tool_policy.default_confirmation_callback(
+                "delete_file", {}, tool_policy.policy_for("delete_file")
+            )
+            assert tool_policy.default_confirmation_callback(
+                "delete_file", {}, tool_policy.policy_for("delete_file")
+            )
+        assert len(prompts) == 1
+        assert "tous" in prompts[0]["message"]
+        assert "Autoriser" in prompts[0]["message"]
+    finally:
+        reset_contextvar_locale(token)
+        tool_policy.reset_confirmation_grants()
+
+
 def test_confirm_operation_uses_host_callback_and_never_raw_input(monkeypatch):
     from uagent import tools
 
