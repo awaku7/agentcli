@@ -694,6 +694,8 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
     try:
         from uagent.tools.delete_file_tool import run_tool as delete_file_tool
         from uagent.tools.human_ask_tool import run_tool as human_ask
+        from uagent.tools.tool_confirmation import dispatched_tool
+        from uagent.tools.tool_policy import _confirmation_reply_kind
 
         preview_json = delete_file_tool(
             {
@@ -739,21 +741,24 @@ def _handle_cmd_rm(arg: str, *, tr: Any) -> bool:
         ).format(count=len(matches), paths="\n".join(matches))
         res_json = human_ask({"message": confirm_msg})
         res = json.loads(res_json)
-        user_reply = (res.get("user_reply") or "").strip().lower()
+        user_reply = res.get("user_reply", "")
         cancelled = bool(res.get("cancelled", False))
-        if cancelled or user_reply not in ("y", "yes"):
+        if cancelled or _confirmation_reply_kind(user_reply) != "yes":
             print(_("[rm] Cancelled."))
             return True
 
-        delete_json = delete_file_tool(
-            {
-                "filename": items,
-                "missing_ok": True,
-                "dry_run": False,
-                "allow_dir": True,
-                "confirmed": True,
-            }
-        )
+        # The trusted CLI command obtained one explicit approval above.
+        # The model's confirmed=True argument alone remains insufficient.
+        with dispatched_tool("delete_file", approved=True):
+            delete_json = delete_file_tool(
+                {
+                    "filename": items,
+                    "missing_ok": True,
+                    "dry_run": False,
+                    "allow_dir": True,
+                    "confirmed": True,
+                }
+            )
         delete = json.loads(delete_json)
         if not isinstance(delete, dict):
             print(_("[rm] Unexpected delete_file response."))

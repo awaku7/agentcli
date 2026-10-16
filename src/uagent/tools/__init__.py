@@ -2548,13 +2548,21 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
 
         return run_sandbox_tool(trusted_scope, name, args)
 
+    # Bind only the outcome of the common policy confirmation to this runner.
+    # Keep _call_tool_runner's public signature stable for tracing wrappers.
+    def _run_with_confirmation() -> str:
+        from .tool_confirmation import dispatched_tool
+
+        with dispatched_tool(name, approved=policy.requires_confirmation):
+            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+
     # During human_ask, Busy should be turned off (it will wait for input).
     # After completion, set Busy back to "LLM" so GUI does not look stuck in IDLE.
     if name == "human_ask":
         # human_ask needs to set active state before clearing Busy,
         # so we delegate status handling to the runner implementation.
         try:
-            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+            return _run_with_confirmation()
         finally:
             _safe_set_status(True, "LLM")
 
@@ -2563,12 +2571,12 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
-            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+            return _run_with_confirmation()
         finally:
             _safe_set_status(True, "LLM")
 
     # Otherwise do not touch status
-    return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+    return _run_with_confirmation()
 
 
 # Lazy initialization: tools are loaded on first use

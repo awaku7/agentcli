@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+import unicodedata
 
 from .i18n_helper import make_tool_translator
 from dataclasses import dataclass
@@ -79,9 +80,63 @@ _DESTRUCTIVE = {
 CONFIRMATION_GRANTED_ARG = "_uagent_policy_confirmation_granted"
 CONFIRMATION_GRANTED_TOKEN = object()
 
-# Tool names explicitly approved with "all" are scoped to this process/session.
-_ALLOW_ALL_TOOLS: set[str] = set()
+# Explicit "all" grants are tied to an authenticated Room/Session/Task.
+# An unbound tool call can receive one-time approval but cannot persist "all".
+_ALLOW_ALL_TOOLS: set[tuple[tuple[str, ...], str]] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
+
+_CONFIRM_REPLY_DENY = "deny"
+_CONFIRM_REPLY_YES = "yes"
+_CONFIRM_REPLY_ALL = "all"
+
+
+def _absolute_confirmation_required(tool_name: str, args: dict[str, Any]) -> bool:
+    """A configured absconfirm cannot be bypassed by a previous 'all' grant."""
+    from .. import core
+    from .enterprise_policy import get_enterprise_policy
+
+    enterprise = get_enterprise_policy()
+    injected = os.environ.get("UAGENT_INJECT_MODE") == "1"
+    auto_pilot = bool(getattr(core, "auto_pilot_active", False))
+    return (injected and enterprise.inject_requires_confirmation(tool_name, args)) or (
+        auto_pilot and enterprise.auto_pilot_requires_confirmation(tool_name, args)
+    )
+
+
+def _confirmation_scope_key() -> tuple[str, ...] | None:
+    from ..runtime.identity_context import get_current_turn_context
+
+    turn = get_current_turn_context()
+    if turn is not None:
+        boundary = turn.room_id if turn.entry_point == "web" else turn.session_id
+        if not boundary:
+            return None
+        return (
+            turn.entry_point,
+            turn.principal_id,
+            turn.project_id,
+            boundary,
+        )
+
+    from ..runtime.execution_broker import current_scope
+
+    scope = current_scope()
+    if scope is not None:
+        return (
+            scope.scope_kind,
+            scope.deployment_id,
+            scope.principal_id,
+            scope.project_id,
+            scope.scope_id,
+        )
+
+    # Legacy trusted local CLI/GUI without a TurnContext.
+    from .. import core
+
+    session_id = str(getattr(core, "session_id", "") or "").strip()
+    if session_id:
+        return ("local", session_id)
+    return None
 
 
 def _confirmation_args(args: dict[str, Any]) -> str:
@@ -96,6 +151,49 @@ def _confirmation_args(args: dict[str, Any]) -> str:
     except Exception:
         rendered = repr(safe)
     return rendered if len(rendered) <= 8000 else rendered[:7997] + "..."
+
+
+def _confirmation_reply_kind(raw_reply: Any) -> str:
+    """Classify only exact, explicit replies in the configured UI language."""
+
+    def normalize(value: Any) -> str:
+        return unicodedata.normalize("NFKC", str(value or "")).strip().casefold()
+
+    reply = normalize(raw_reply)
+    if not reply:
+        return _CONFIRM_REPLY_DENY
+
+    if reply in {
+        normalize(item)
+        for item in ("n", "no", "c", "cancel", _tool_("confirm.reply_no", default="no"))
+    }:
+        return _CONFIRM_REPLY_DENY
+    if reply in {
+        normalize(item)
+        for item in (
+            "all",
+            "a",
+            "all yes",
+            "yes to all",
+            "\u3059\u3079\u3066\u306f\u3044",
+            "\u5168\u3066\u306f\u3044",
+            _tool_("confirm.reply_all", default="all"),
+        )
+    }:
+        return _CONFIRM_REPLY_ALL
+    if reply in {
+        normalize(item)
+        for item in (
+            "y",
+            "yes",
+            "\u627f\u8a8d",
+            "\u8a31\u53ef",
+            "\u306f\u3044",
+            _tool_("confirm.reply_yes", default="yes"),
+        )
+    }:
+        return _CONFIRM_REPLY_YES
+    return _CONFIRM_REPLY_DENY
 
 
 def reset_confirmation_grants() -> None:
@@ -224,70 +322,90 @@ def default_confirmation_callback(
     tool_name: str, args: dict[str, Any], policy: ToolPolicy
 ) -> bool:
     """Ask the human for confirmation, with an environment override for automation."""
+    scope_key = _confirmation_scope_key()
+    try:
+        absconfirm = _absolute_confirmation_required(tool_name, args)
+    except Exception:
+        absconfirm = True
     with _ALLOW_ALL_LOCK:
-        if tool_name in _ALLOW_ALL_TOOLS:
+        if (
+            not absconfirm
+            and scope_key is not None
+            and (scope_key, tool_name) in _ALLOW_ALL_TOOLS
+        ):
             return True
 
     value = (os.environ.get("UAGENT_CONFIRM_TOOLS", "") or "").strip().lower()
-    if value in {"1", "true", "yes", "on", "allow"}:
+    if not absconfirm and value in {"1", "true", "yes", "on", "allow"}:
         return True
 
-    # Reuse the normal human_ask callback path so CLI/GUI/Web can all confirm
-    # side effects interactively instead of treating a missing env var as denial.
-    try:
-        from .human_ask_tool import run_tool
-
-        result = json.loads(
-            run_tool(
-                {
-                    "message": (
-                        _tool_(
-                            "confirm.side_effecting_tool",
-                            default=(
-                                "Allow the side-effecting tool '%(tool)s' to run? "
-                                " [Arguments: %(args)s]"
-                                "Reply yes to continue or no to cancel."
-                            ),
-                            tool=tool_name,
-                            args=_confirmation_args(args),
-                        )
-                    ),
-                    "is_password": False,
-                    "confirmation": True,
-                    "_auto_pilot_tool": tool_name,
-                    "_server_name": args.get("server_name", ""),
-                    "_mcp_tool": args.get("tool_name", ""),
-                    "_auto_pilot_mcp_key": (
-                        f"{args.get('server_name')}:{args.get('tool_name')}"
-                        if tool_name == "handle_mcp_v2"
-                        and args.get("server_name")
-                        and args.get("tool_name")
-                        else ""
-                    ),
-                }
-            )
+    # Show the locally translated 'all' answer in CLI, GUI and Web alike.
+    # For absconfirm or unscoped runs, never advertise a persistent grant.
+    allow_all = scope_key is not None and not absconfirm
+    confirmation_message = _tool_(
+        "confirm.side_effecting_tool",
+        default=(
+            "Allow the side-effecting tool '%(tool)s' to run? "
+            "Reply yes to continue or no to cancel."
+        ),
+        tool=tool_name,
+    )
+    # Keep masked arguments visible without invalidating the 38-language
+    # translations, which only interpolate %(tool)s.
+    confirmation_message += "\n" + _confirmation_args(args)
+    if allow_all:
+        confirmation_message += (
+            "\n"
+            + _tool_(
+                "ui.all_yes",
+                default="  - Type 'all' to allow this tool for the rest of the session\n",
+            ).strip()
         )
+
+    # Web human_ask is routed through its authenticated Room UI wrapper.
+    # Calling human_ask_tool directly would wait on an unused CLI queue.
+    try:
+        from .. import core
+        from ..runtime.identity_context import get_current_turn_context
+
+        turn = get_current_turn_context()
+        web_turn = turn is not None and turn.entry_point == "web"
+        if getattr(core, "_is_web", False) and not web_turn:
+            return False
+
+        request = {
+            "message": confirmation_message,
+            "is_password": False,
+            "confirmation": allow_all,
+            "_confirmation_hint_in_message": allow_all,
+            "_auto_pilot_tool": tool_name,
+            "_server_name": args.get("server_name", ""),
+            "_mcp_tool": args.get("tool_name", ""),
+            "_auto_pilot_mcp_key": (
+                f"{args.get('server_name')}:{args.get('tool_name')}"
+                if tool_name == "handle_mcp_v2"
+                and args.get("server_name")
+                and args.get("tool_name")
+                else ""
+            ),
+        }
+        if web_turn:
+            from . import run_tool as frontend_run_tool
+
+            result = json.loads(frontend_run_tool("human_ask", request))
+        else:
+            from .human_ask_tool import run_tool as human_ask
+
+            result = json.loads(human_ask(request))
         if result.get("auto_pilot_skipped") or result.get("cancelled"):
             return False
-        reply = str(result.get("user_reply", "")).strip().lower()
-        if reply in {
-            "all",
-            "a",
-            "all yes",
-            "yes to all",
-            "\u3059\u3079\u3066\u306f\u3044",
-            "\u5168\u3066\u306f\u3044",
-        }:
-            with _ALLOW_ALL_LOCK:
-                _ALLOW_ALL_TOOLS.add(tool_name)
+        reply_kind = _confirmation_reply_kind(result.get("user_reply", ""))
+        if reply_kind == "all":
+            if allow_all:
+                with _ALLOW_ALL_LOCK:
+                    _ALLOW_ALL_TOOLS.add((scope_key, tool_name))
             return True
-        return reply in {
-            "y",
-            "yes",
-            "\u627f\u8a8d",
-            "\u8a31\u53ef",
-            "\u306f\u3044",
-        }
+        return reply_kind == "yes"
     except Exception:
         return False
 

@@ -79,19 +79,15 @@ def run_tool(args: dict[str, Any]) -> str:
     expanded = os.path.abspath(expanded)
 
     if confirm:
-        from .human_ask_tool import run_tool as human_ask
+        from .tool_confirmation import confirm_operation
 
         msg = _(
             "confirm.change_workdir",
             default="Change workdir to: {path}?\nEnter y to proceed, or c to cancel.",
         ).format(path=expanded, new_dir=expanded)
-        res_json = human_ask({"message": msg})
-        import json
+        if not confirm_operation(msg, tool_name="change_workdir"):
+            import json
 
-        payload = json.loads(res_json)
-        user_reply = (payload.get("user_reply", "") or "").strip().lower()
-        cancelled = bool(payload.get("cancelled", False))
-        if cancelled or user_reply not in ("y", "yes"):
             return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
     prev = os.getcwd()

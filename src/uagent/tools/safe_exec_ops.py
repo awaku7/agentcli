@@ -6,9 +6,8 @@ Policy (B: medium):
   shell chaining/redirection, etc.).
 
 Confirmation:
-- Prefer the host's human_ask shared-queue mechanism.
-- If another human_ask is active, wait for a short time before starting confirmation.
-- If callbacks are not available, fall back to input().
+- Use the host's shared ToolPolicy -> human_ask approval path.
+- If interaction is unavailable, reject without falling back to raw input().
 
 Cancellation:
 - User can cancel by replying 'c' or 'cancel'.
@@ -18,11 +17,9 @@ from __future__ import annotations
 
 import os
 import re
-import time
 from dataclasses import dataclass
 from typing import Optional
 
-from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -148,88 +145,12 @@ def decide_cmd_exec(
 
 
 def _human_ask_confirm(message: str) -> Optional[str]:
-    """Ask for confirmation via the host human_ask shared queue.
+    """Return None only when the common host confirmation approves."""
+    from .tool_confirmation import active_tool_name, confirm_operation
 
-    Returns:
-      None when confirmed.
-      error string when rejected/cancelled.
-    """
-    cb = get_callbacks()
-
-    # If callbacks are not set, caller may fallback.
-    if (
-        cb.human_ask_lock is None
-        or cb.human_ask_active_ref is None
-        or cb.human_ask_set_active is None
-        or cb.human_ask_queue_ref is None
-        or cb.human_ask_set_queue is None
-        or cb.human_ask_lines_ref is None
-        or cb.human_ask_set_multiline_active is None
-    ):
-        return _(
-            "err.callbacks_unavailable", default="human_ask callbacks not available"
-        )
-
-    import queue as _queue
-
-    local_q: "_queue.Queue[str]" = _queue.Queue()
-
-    # Wait until no other human_ask is active.
-    wait_timeout_sec = 30.0
-    poll_interval_sec = 0.1
-    start = time.time()
-
-    while True:
-        with cb.human_ask_lock:
-            busy = cb.human_ask_active_ref()
-            if not busy:
-                cb.human_ask_set_active(True)
-                cb.human_ask_set_queue(local_q)
-
-                lines = cb.human_ask_lines_ref()
-                try:
-                    lines.clear()
-                except Exception:
-                    pass
-
-                cb.human_ask_set_multiline_active(False)
-                break
-
-        if time.time() - start > wait_timeout_sec:
-            return _("err.confirm_timeout", default="confirmation timeout")
-        time.sleep(poll_interval_sec)
-
-    try:
-        # Stop + erase the spinner first so no frame sticks to the title.
-        from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
-
-        _spinner_stop_quietly()
-        print(
-            "\n" + _("ui.confirm.title", default="=== Human confirmation request ==="),
-            flush=True,
-        )
-        print(message, flush=True)
-        print(_("ui.confirm.footer", default="=== /confirm ===\n"), flush=True)
-        print(
-            _(
-                "ui.confirm.howto",
-                default="How to answer: y=proceed / c=cancel / other=deny\n",
-            ),
-            flush=True,
-        )
-
-        user_reply = local_q.get()
-    finally:
-        with cb.human_ask_lock:
-            cb.human_ask_set_active(False)
-            cb.human_ask_set_queue(None)
-            cb.human_ask_set_multiline_active(False)
-
-    ur = (user_reply or "").strip().lower()
-    if ur == "y":
+    tool_name = active_tool_name() or "cmd_exec"
+    if confirm_operation(message, tool_name=tool_name):
         return None
-    if ur in ("c", "cancel"):
-        return _("err.blocked_cancelled", default="user cancelled")
     return _("err.blocked_rejected", default="user rejected")
 
 
@@ -238,27 +159,4 @@ def confirm_if_needed(decision: ExecDecision) -> Optional[str]:
     if not decision.require_confirm:
         return None
 
-    # Prefer host human_ask
-    err = _human_ask_confirm(decision.confirm_message)
-    if err is None:
-        return None
-
-    # If human_ask isn't available, fallback to input()
-    if err == _(
-        "err.callbacks_unavailable", default="human_ask callbacks not available"
-    ):
-        try:
-            resp = input(
-                decision.confirm_message + _("ui.fallback_prompt", default=" [y/c/N]: ")
-            )
-        except Exception:
-            return _("err.confirm_failed", default="confirmation failed")
-
-        r = resp.strip().lower()
-        if r == "y":
-            return None
-        if r in ("c", "cancel"):
-            return _("err.blocked_cancelled", default="user cancelled")
-        return _("err.blocked_rejected", default="user rejected")
-
-    return err
+    return _human_ask_confirm(decision.confirm_message)

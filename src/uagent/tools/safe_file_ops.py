@@ -11,9 +11,8 @@ Policy (B: Medium):
 - Otherwise, proceed as usual.
 
 Confirmation UI:
-- Prefer the same mechanism as human_ask (shared queue consumed by stdin_loop).
-- If another human_ask is active, wait for a while and then start confirmation.
-- If callbacks are unavailable, fall back to input().
+- Use the host's shared ToolPolicy -> human_ask approval path.
+- When input is unavailable, reject without falling back to raw input().
 
 Cancel:
 - 'c' or 'cancel' means cancel.
@@ -23,16 +22,11 @@ from __future__ import annotations
 
 import os
 import shutil
-import time
 from pathlib import Path
 
-from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
-
-_allowed_paths: set[str] = set()
-
 
 # --- Internal Helpers ---
 
@@ -59,75 +53,9 @@ def _is_trigger_path(p: str) -> bool:
 
 
 def _human_confirm(message: str) -> bool:
-    cb = get_callbacks()
-    if (
-        cb.human_ask_lock is None
-        or cb.human_ask_active_ref is None
-        or cb.human_ask_set_active is None
-        or cb.human_ask_queue_ref is None
-        or cb.human_ask_set_queue is None
-        or cb.human_ask_lines_ref is None
-        or cb.human_ask_set_multiline_active is None
-    ):
-        try:
-            resp = input(message + "\n[y/c/N]: ")
-        except Exception:
-            return False
-        r = resp.strip().lower()
-        return r == "y"
+    from .tool_confirmation import active_tool_name, confirm_operation
 
-    import queue as _queue
-
-    local_q: "_queue.Queue[str]" = _queue.Queue()
-    wait_timeout_sec = 30.0
-    poll_interval_sec = 0.1
-    start = time.time()
-
-    while True:
-        with cb.human_ask_lock:
-            busy = cb.human_ask_active_ref()
-            if not busy:
-                cb.human_ask_set_active(True)
-                cb.human_ask_set_queue(local_q)
-                lines = cb.human_ask_lines_ref()
-                try:
-                    lines.clear()
-                except Exception:
-                    pass
-                cb.human_ask_set_multiline_active(False)
-                break
-        if time.time() - start > wait_timeout_sec:
-            return False
-        time.sleep(poll_interval_sec)
-
-    try:
-        # Stop + erase the spinner first so no frame sticks to the title.
-        from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
-
-        _spinner_stop_quietly()
-        print(
-            "\n" + _("ui.confirm.title", default="=== Human confirmation request ==="),
-            flush=True,
-        )
-        print(message, flush=True)
-        print(_("ui.confirm.footer", default="=== /confirm ===\n"), flush=True)
-        print(
-            _(
-                "ui.confirm.howto",
-                default="How to answer: y=proceed / c=cancel / other=deny\n",
-            ),
-            flush=True,
-        )
-        user_reply = local_q.get()
-
-    finally:
-        with cb.human_ask_lock:
-            cb.human_ask_set_active(False)
-            cb.human_ask_set_queue(None)
-            cb.human_ask_set_multiline_active(False)
-
-    ur = (user_reply or "").strip().lower()
-    return ur == "y"
+    return confirm_operation(message, tool_name=active_tool_name() or "safe_file_ops")
 
 
 def _ask_user_confirm(path: str, operation: str) -> bool:
@@ -241,8 +169,7 @@ def make_backup_before_overwrite(filename: str) -> str:
 def safe_create_file(
     filename: str, content: str, encoding: str = "utf-8", overwrite: bool = False
 ) -> None:
-    resolved = _resolve_path(filename)
-    if _is_trigger_path(filename) and resolved not in _allowed_paths:
+    if _is_trigger_path(filename):
         ok = _ask_user_confirm(filename, "create")
         if not ok:
             raise PermissionError(
@@ -251,7 +178,6 @@ def safe_create_file(
                     default="Creation cancelled because the user did not allow it: {filename}",
                 ).format(filename=filename)
             )
-        _allowed_paths.add(resolved)
 
     p = Path(filename)
     if p.exists() and not overwrite:
@@ -267,8 +193,7 @@ def safe_create_file(
 
 
 def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
-    resolved = _resolve_path(filename)
-    if _is_trigger_path(filename) and resolved not in _allowed_paths:
+    if _is_trigger_path(filename):
         ok = _ask_user_confirm(filename, "delete")
         if not ok:
             raise PermissionError(
@@ -277,7 +202,6 @@ def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
                     default="Deletion cancelled because the user did not allow it: {filename}",
                 ).format(filename=filename)
             )
-        _allowed_paths.add(resolved)
     try:
         os.remove(filename)
     except FileNotFoundError:
@@ -287,19 +211,7 @@ def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
 
 
 def safe_delete_path(path: str, missing_ok: bool = False) -> None:
-    """Delete a path safely."""
-    resolved = _resolve_path(path)
-    if _is_trigger_path(path) and resolved not in _allowed_paths:
-        ok = _ask_user_confirm(path, "delete")
-        if not ok:
-            raise PermissionError(
-                _(
-                    "err.delete_path_cancel",
-                    default="Deletion cancelled because the user did not allow it: {path}",
-                ).format(path=path)
-            )
-        _allowed_paths.add(resolved)
-
+    """Delete a path safely with at most one confirmation."""
     p = Path(path)
     if not p.exists():
         if missing_ok:
@@ -311,8 +223,7 @@ def safe_delete_path(path: str, missing_ok: bool = False) -> None:
         )
 
     if p.is_dir():
-        ok = _ask_user_confirm(path, "delete_dir")
-        if not ok:
+        if not _ask_user_confirm(path, "delete_dir"):
             raise PermissionError(
                 _(
                     "err.delete_dir_cancel",
@@ -321,6 +232,14 @@ def safe_delete_path(path: str, missing_ok: bool = False) -> None:
             )
         shutil.rmtree(path)
         return
+
+    if _is_trigger_path(path) and not _ask_user_confirm(path, "delete"):
+        raise PermissionError(
+            _(
+                "err.delete_path_cancel",
+                default="Deletion cancelled because the user did not allow it: {path}",
+            ).format(path=path)
+        )
     os.remove(path)
 
 
@@ -340,17 +259,15 @@ def safe_rename_path(
             _("err.src_not_found", default="src does not exist: {src}").format(src=src)
         )
 
-    src_resolved = _resolve_path(src)
-    dst_resolved = _resolve_path(dst)
     need_confirm = False
     reasons: list[str] = []
 
-    if _is_trigger_path(src) and src_resolved not in _allowed_paths:
+    if _is_trigger_path(src):
         need_confirm = True
         reasons.append(
             _("reason.src_trigger", default="src matches risky path conditions")
         )
-    if _is_trigger_path(dst) and dst_resolved not in _allowed_paths:
+    if _is_trigger_path(dst):
         need_confirm = True
         reasons.append(
             _("reason.dst_trigger", default="dst matches risky path conditions")
@@ -383,8 +300,6 @@ def safe_rename_path(
                     default="rename/move cancelled because the user did not allow it: {src} -> {dst}",
                 ).format(src=src, dst=dst)
             )
-        _allowed_paths.add(src_resolved)
-        _allowed_paths.add(dst_resolved)
 
     if mkdirs:
         _ensure_parent_dir_exists(dst)
@@ -399,4 +314,5 @@ def safe_rename_path(
 
 
 def clear_session_allowlist() -> None:
-    _allowed_paths.clear()
+    """Compatibility hook; approval lifetime is now managed by ToolPolicy."""
+    return None
