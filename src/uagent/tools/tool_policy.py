@@ -263,7 +263,7 @@ def default_confirmation_callback(
             return True
 
     value = (os.environ.get("UAGENT_CONFIRM_TOOLS", "") or "").strip().lower()
-    if value in {"1", "true", "yes", "on", "allow"}:
+    if not absconfirm and value in {"1", "true", "yes", "on", "allow"}:
         return True
 
     # Reuse the normal human_ask callback path so CLI/GUI/Web can all confirm
@@ -287,7 +287,7 @@ def default_confirmation_callback(
                         )
                     ),
                     "is_password": False,
-                    "confirmation": True,
+                    "confirmation": scope_key is not None and not absconfirm,
                     "_auto_pilot_tool": tool_name,
                     "_server_name": args.get("server_name", ""),
                     "_mcp_tool": args.get("tool_name", ""),
