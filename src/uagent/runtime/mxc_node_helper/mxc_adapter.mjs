@@ -480,7 +480,11 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       }
     };
     const stopThroughMxc = async () => {
-      try { processHandle.kill(); } catch {}
+      try { processHandle.kill(); } catch {
+        // MXC wait() independently runs terminate_and_reap() on its Job Object.
+        // A successful wait is the cleanup confirmation; wait failures below
+        // still mark the tree unverified and tear down the host session.
+      }
       acceptRootExit(await waitForRoot(15_000));
     };
 
@@ -681,14 +685,14 @@ async function serveWorker() {
             await stopWorker();
             break;
           }
-          if (result.execution_incomplete) {
-            writeHost({ ok: false, error: "Python execution exited before its completion marker" });
-            continue;
-          }
           if (result.workspace_limit_exceeded) {
             writeHost({ ok: false, terminate: true, error: `session workspace limit exceeded (${result.workspace_limit_reason || "unknown"}); the isolated worker was terminated` });
             await stopWorker();
             break;
+          }
+          if (result.execution_incomplete) {
+            writeHost({ ok: false, error: "Python execution exited before its completion marker" });
+            continue;
           }
           writeHost({ ok: true, result });
         } catch (error) {

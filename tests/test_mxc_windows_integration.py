@@ -66,7 +66,17 @@ def test_mxc_python_os_exit_fails_closed_and_reaps_children(tmp_path):
         session_id=f"pytest-os-exit-{os.getpid()}-{time.time_ns()}",
     )
     marker = f"UAG_MXC_ABRUPT_EXIT_{time.time_ns()}"
-    child_code = f"import time; print({marker!r}, flush=True); time.sleep(300)"
+    child_code = (
+        "import time\n"
+        "from pathlib import Path\n"
+        f"print({marker!r}, flush=True)\n"
+        "path = Path('orphan-child-state.txt')\n"
+        "count = 0\n"
+        "while True:\n"
+        "    path.write_text(str(count))\n"
+        "    count += 1\n"
+        "    time.sleep(0.05)\n"
+    )
     code = (
         "import os, subprocess, sys"
         + chr(10)
@@ -78,6 +88,7 @@ def test_mxc_python_os_exit_fails_closed_and_reaps_children(tmp_path):
     try:
         result = manager.run_tool(scope, "python_exec", {"code": code})
         assert "exited before its completion marker" in result.lower()
+        assert len(manager._sessions) == 1
         deadline = time.monotonic() + 5
         while (
             _process_with_command_marker_is_alive(marker)

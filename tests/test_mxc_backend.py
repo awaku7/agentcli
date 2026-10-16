@@ -127,7 +127,7 @@ def test_python_workspace_monitor_stays_active_until_mxc_wait():
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
     outcome = source.index("const outcome = await Promise.race(")
     stop = source.index("const stopThroughMxc = async () => {", outcome)
-    kill = source.index("try { processHandle.kill(); } catch {}", stop)
+    kill = source.index("try { processHandle.kill(); } catch {", stop)
     wait = source.index("acceptRootExit(await waitForRoot", kill)
     monitor_stop = source.index("clearInterval(workspaceMonitor);", wait)
     assert outcome < stop < kill < wait < monitor_stop
