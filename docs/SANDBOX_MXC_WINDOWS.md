@@ -75,8 +75,9 @@ vanished entry are discarded. A missing root or any other scan error still fails
 closed. A host-side OS lock lease is held for each workspace and released during
 normal cleanup; on startup, only directories with an unlocked lease are scavenged,
 so workspaces abandoned by a crashed process are reclaimed on the next startup,
-without removing live sessions. Legacy directories without lease metadata are left
-untouched. CLI session transitions close the previous CLI worker. At most four
+without removing live sessions. Removal clears read-only attributes; an otherwise
+unremovable workspace is skipped rather than blocking startup. Legacy directories
+without lease metadata are left untouched. CLI session transitions close the previous CLI worker. At most four
 distinct scopes may be active in one UAG process; a fifth is denied instead of
 creating more host resource usage. Failure to create or assign the Job Object
 rejects the operation.

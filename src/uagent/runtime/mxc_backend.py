@@ -454,6 +454,35 @@ def _is_reparse_point(path: Path) -> bool:
     )
 
 
+def _remove_workspace_tree(workspace: Path) -> None:
+    """Remove a workspace, clearing read-only bits without following reparse points."""
+    workspace = Path(workspace)
+    if _is_reparse_point(workspace):
+        raise RuntimeError("sandbox workspace root cannot be a reparse point")
+    root = os.path.normcase(os.path.abspath(workspace))
+
+    def onerror(func, failed_path, exc_info):
+        error = exc_info[1]
+        if isinstance(error, FileNotFoundError):
+            return
+        if func not in (os.unlink, os.rmdir):
+            raise error
+        failed = os.path.normcase(os.path.abspath(failed_path))
+        try:
+            inside = os.path.commonpath((root, failed)) == root
+        except ValueError:
+            inside = False
+        if not inside or _is_reparse_point(Path(failed_path)):
+            raise error
+        try:
+            os.chmod(failed_path, stat.S_IREAD | stat.S_IWRITE | stat.S_IEXEC)
+            func(failed_path)
+        except OSError:
+            raise error
+
+    shutil.rmtree(workspace, onerror=onerror)
+
+
 def _workspace_lease_path(sandbox_root: Path, key: str) -> Path:
     return sandbox_root / ".leases" / f"{key}.lock"
 
@@ -561,9 +590,14 @@ def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
             live_keys.add(key)
             continue
         try:
-            shutil.rmtree(workspace)
+            try:
+                _remove_workspace_tree(workspace)
+            except OSError:
+                continue
         finally:
             _release_workspace_lease(lease)
+        if workspace.exists():
+            continue
         try:
             _workspace_lease_path(sandbox_root, key).unlink()
         except OSError:
@@ -638,7 +672,7 @@ class _MxcSession:
         # A new scope hash is created for this process/session; don't reuse on-disk
         # state that could have been replaced while the owner was not running.
         if any(self.workspace.iterdir()):
-            shutil.rmtree(self.workspace)
+            _remove_workspace_tree(self.workspace)
             self.workspace.mkdir(parents=True)
         worker_script = runtime / "sandbox_worker.py"
         source_worker = Path(__file__).with_name("sandbox_worker.py")
@@ -674,7 +708,12 @@ class _MxcSession:
         except Exception:
             self._proc.kill()
             self._proc.wait(timeout=5)
-            shutil.rmtree(self.workspace, ignore_errors=True)
+            try:
+                _remove_workspace_tree(self.workspace)
+            except OSError:
+                pass
+            _release_workspace_lease(self._workspace_lease)
+            self._workspace_lease = None
             raise
         threading.Thread(
             target=self._read_stdout, name="mxc-stdout", daemon=True
@@ -816,7 +855,7 @@ class _MxcSession:
                 except subprocess.TimeoutExpired:
                     pass
             try:
-                shutil.rmtree(self.workspace, ignore_errors=True)
+                _remove_workspace_tree(self.workspace)
             except OSError:
                 pass
             _release_workspace_lease(self._workspace_lease)

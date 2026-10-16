@@ -153,6 +153,40 @@ def test_mxc_workspace_scan_tolerates_concurrent_file_deletions(tmp_path):
         manager.close_all()
 
 
+def test_mxc_close_removes_readonly_workspace_entries(tmp_path):
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id=f"pytest-readonly-{os.getpid()}-{time.time_ns()}",
+    )
+    try:
+        result = _run_python(
+            manager,
+            scope,
+            "from pathlib import Path\n"
+            "read_only = Path('read-only.txt')\n"
+            "read_only.write_text('protected')\n"
+            "read_only.chmod(0o444)\n",
+        )
+        assert result["returncode"] == 0
+        workspace = next(iter(manager._sessions.values())).workspace
+        manager.close_scope(scope)
+        assert not workspace.exists()
+
+        assert (
+            manager.run_tool(
+                scope,
+                "create_file",
+                {"filename": "fresh.txt", "content": "ready"},
+            )
+            == "Created fresh.txt"
+        )
+    finally:
+        manager.close_scope(scope)
+        manager.close_all()
+
+
 def test_mxc_python_waits_for_atexit_handlers(tmp_path):
     manager, _report = MxcSessionManager.initialize(allow_install=False)
     scope = startup_scope(

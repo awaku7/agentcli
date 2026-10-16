@@ -3,6 +3,7 @@ from __future__ import annotations
 import io
 import json
 import os
+import stat
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -757,7 +758,9 @@ def test_workspace_scavenger_removes_only_unleased_workspaces(tmp_path):
     root = tmp_path / "sandboxes"
     workspace = root / key
     workspace.mkdir(parents=True)
-    (workspace / "data.txt").write_text("test", encoding="utf-8")
+    readonly_file = workspace / "data.txt"
+    readonly_file.write_text("test", encoding="utf-8")
+    readonly_file.chmod(stat.S_IREAD)
 
     lease = mxc_backend._acquire_workspace_lease(root, key)
     assert lease is not None
