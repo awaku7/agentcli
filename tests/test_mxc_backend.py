@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import io
 import json
 import os
 from pathlib import Path
@@ -119,14 +120,19 @@ def test_mxc_requests_explicitly_forbid_host_dacl_mutation():
     assert source.count("fallback: { allowDaclMutation: false }") == 2
 
 
-def test_python_workspace_monitor_stays_active_until_process_stop():
+def test_python_workspace_monitor_stays_active_until_container_kill():
     helper = (
         Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
     )
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
-    stopped = source.index("const processStopped = await Promise.race(")
-    assert source.index("clearInterval(workspaceMonitor);", stopped) > stopped
-    assert source.index("clearTimeout(executionTimer);", stopped) > stopped
+    outcome = source.index("const outcome = await Promise.race(")
+    kill = source.index("try { processHandle.kill(); } catch {}", outcome)
+    monitor_stop = source.index("clearInterval(workspaceMonitor);", kill)
+    process_stopped = source.index("const processStopped = await Promise.race(", kill)
+    assert kill < monitor_stop < process_stopped
+    assert (
+        source.index("clearTimeout(executionTimer);", process_stopped) > process_stopped
+    )
 
 
 @pytest.fixture
@@ -322,6 +328,31 @@ def test_worker_read_file_applies_byte_limit_after_start_line(monkeypatch, tmp_p
     )
 
     assert result == "later section\n"
+
+
+def test_worker_read_file_never_exceeds_serialized_result_cap(monkeypatch, tmp_path):
+    monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
+    target = tmp_path / "controls.txt"
+    target.write_bytes(b"\x00" * (sandbox_worker.MAX_READ_BYTES * 2))
+
+    result = sandbox_worker._read_file({"path": "controls.txt", "max_bytes": 1_000_000})
+    assert len(result) == sandbox_worker.MAX_READ_BYTES
+
+    captured = io.StringIO()
+    monkeypatch.setattr(sandbox_worker.sys, "stdout", captured)
+    sandbox_worker._emit({"ok": True, "result": result})
+    output = captured.getvalue()
+    assert "tool result exceeds the bounded response limit" not in output
+    assert len(output.encode("utf-8")) <= sandbox_worker.MAX_RESULT_BYTES + 1
+
+    spec = next(
+        item
+        for item in mxc_backend.sandbox_tool_specs()
+        if item["function"]["name"] == "read_file"
+    )
+    assert spec["function"]["parameters"]["properties"]["max_bytes"]["maximum"] == (
+        sandbox_worker.MAX_READ_BYTES
+    )
 
 
 @pytest.mark.parametrize(

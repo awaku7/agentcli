@@ -86,7 +86,7 @@ TOOL_SPECS: tuple[dict[str, Any], ...] = (
                     "path": {"type": "string"},
                     "start_line": {"type": "integer", "minimum": 1},
                     "max_lines": {"type": ["integer", "null"], "minimum": 1},
-                    "max_bytes": {"type": "integer", "minimum": 1, "maximum": 1000000},
+                    "max_bytes": {"type": "integer", "minimum": 1, "maximum": 128000},
                     "encoding": {"type": "string"},
                 },
                 "required": ["path"],

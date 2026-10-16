@@ -143,6 +143,10 @@ def test_scheduled_tool_guards_respect_cli_and_gui_sandbox_profiles() -> None:
 
     assert cli.count("run_scheduled_callback_with_tools(") == 2
     assert gui.count("run_scheduled_callback_with_tools(") == 2
+    assert 'tool_names=metadata.get("required_tools") or []' in cli
+    assert "tool_names=required" in cli
+    assert 'tool_names=metadata.get("required_tools") or []' in gui
+    assert "tool_names=required" in gui
     assert 'sandbox_enabled=sandbox_mode != "off"' in cli
     assert 'sandbox_enabled=bool(getattr(core, "_sandbox_enabled", False))' in gui
 

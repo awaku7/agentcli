@@ -43,7 +43,9 @@ The LLM receives only four locally sandboxed tools: `create_file`, `file_exists`
 `read_file`, and `python_exec`. The first three use relative paths under a
 per-scope workspace in the user's local application data directory; they do
 not read or publish the host project tree. Absolute paths, traversal, symlinks,
-and oversized files/results are rejected. `python_exec` runs in its own
+and oversized files/results are rejected. `read_file` returns at most 128,000
+source bytes per call so JSON-escaped content stays below the IPC response cap.
+`python_exec` runs in its own
 short-lived ProcessContainer using the same scope workspace, so files created
 by one tool remain visible to later tools. Its stdout/stderr are capped at 64 KiB
 per stream and execution is forcibly stopped after 30 seconds. The completion

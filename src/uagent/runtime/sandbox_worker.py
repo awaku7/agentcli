@@ -9,6 +9,7 @@ from typing import Any
 
 MAX_FRAME_BYTES = 1_100_000
 MAX_RESULT_BYTES = 900_000
+MAX_READ_BYTES = 128_000
 MAX_TEXT_BYTES = 1_000_000
 _ALLOWED = {"create_file", "file_exists", "read_file", "python_exec"}
 ROOT = Path.cwd().resolve()
@@ -53,8 +54,8 @@ def _read_file(args: dict[str, Any]) -> str:
     max_lines_value = args.get("max_lines")
     max_lines = None if max_lines_value is None else max(1, int(max_lines_value))
     max_bytes = min(
-        MAX_TEXT_BYTES,
-        max(1, int(args.get("max_bytes", MAX_TEXT_BYTES) or MAX_TEXT_BYTES)),
+        MAX_READ_BYTES,
+        max(1, int(args.get("max_bytes", MAX_READ_BYTES) or MAX_READ_BYTES)),
     )
     with target.open("rb") as stream:
         for _ in range(start_line - 1):

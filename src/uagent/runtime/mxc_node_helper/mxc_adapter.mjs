@@ -376,6 +376,9 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     clearInterval(markerPoll);
     const timedOut = outcome.kind === "timeout";
     try { processHandle.kill(); } catch {}
+    // Keep quota monitoring through user shutdown handlers and until kill is
+    // requested, but do not scan a process tree while the container is tearing down.
+    clearInterval(workspaceMonitor);
     let stopTimer;
     const processStopped = await Promise.race([
       waitPromise.then(() => true, () => true),
@@ -383,7 +386,6 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     ]);
     clearTimeout(stopTimer);
     clearTimeout(executionTimer);
-    clearInterval(workspaceMonitor);
     if (!processStopped) workspaceLimitExceeded = true;
     // The interval is only a watchdog; it may not fire if Python exits quickly.
     // Recheck synchronously after the one-shot process has been stopped before

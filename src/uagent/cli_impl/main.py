@@ -436,7 +436,7 @@ def main() -> int:
                 return run_scheduled_callback_with_tools(
                     fn,
                     *args,
-                    required_tools=metadata.get("required_tools") or [],
+                    tool_names=metadata.get("required_tools") or [],
                     reason=f"scheduled run:{run_id}",
                     sandbox_enabled=sandbox_mode != "off",
                     **kwargs,
@@ -469,7 +469,7 @@ def main() -> int:
                     execute_direct_tool,
                     target_tool,
                     target_args,
-                    required_tools=required,
+                    tool_names=required,
                     reason=f"scheduled direct run:{run_id}",
                     sandbox_enabled=sandbox_mode != "off",
                 )
