@@ -773,6 +773,28 @@ def test_workspace_scavenger_removes_only_unleased_workspaces(tmp_path):
     assert not mxc_backend._workspace_lease_path(root, key).exists()
 
 
+def test_workspace_scavenger_skips_one_unremovable_directory(monkeypatch, tmp_path):
+    key = "b" * 64
+    root = tmp_path / "sandboxes"
+    workspace = root / key
+    workspace.mkdir(parents=True)
+    lease = mxc_backend._acquire_workspace_lease(root, key)
+    assert lease is not None
+    mxc_backend._release_workspace_lease(lease)
+
+    def fail_remove(_workspace):
+        raise PermissionError("simulated stale workspace failure")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(mxc_backend, "_remove_workspace_tree", fail_remove)
+        mxc_backend._scavenge_orphaned_workspaces(root)
+
+    assert workspace.is_dir()
+    assert mxc_backend._workspace_lease_path(root, key).exists()
+    mxc_backend._scavenge_orphaned_workspaces(root)
+    assert not workspace.exists()
+
+
 def test_startup_scope_persisted_session_is_process_instance_specific(
     monkeypatch, tmp_path
 ):

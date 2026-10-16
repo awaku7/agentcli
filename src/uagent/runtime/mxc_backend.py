@@ -592,7 +592,7 @@ def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
         try:
             try:
                 _remove_workspace_tree(workspace)
-            except OSError:
+            except (OSError, RuntimeError):
                 continue
         finally:
             _release_workspace_lease(lease)
@@ -710,7 +710,7 @@ class _MxcSession:
             self._proc.wait(timeout=5)
             try:
                 _remove_workspace_tree(self.workspace)
-            except OSError:
+            except (OSError, RuntimeError):
                 pass
             _release_workspace_lease(self._workspace_lease)
             self._workspace_lease = None
@@ -856,7 +856,7 @@ class _MxcSession:
                     pass
             try:
                 _remove_workspace_tree(self.workspace)
-            except OSError:
+            except (OSError, RuntimeError):
                 pass
             _release_workspace_lease(self._workspace_lease)
             self._workspace_lease = None
