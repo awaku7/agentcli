@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import threading
+import unicodedata
 
 from .i18n_helper import make_tool_translator
 from dataclasses import dataclass
@@ -146,6 +147,48 @@ def _confirmation_args(args: dict[str, Any]) -> str:
     except Exception:
         rendered = repr(safe)
     return rendered if len(rendered) <= 8000 else rendered[:7997] + "..."
+
+
+def _confirmation_reply_kind(raw_reply: Any) -> str:
+    """Classify only exact, explicit replies in the configured UI language."""
+    def normalize(value: Any) -> str:
+        return unicodedata.normalize("NFKC", str(value or "")).strip().casefold()
+
+    reply = normalize(raw_reply)
+    if not reply:
+        return "deny"
+
+    if reply in {
+        normalize(item)
+        for item in ("n", "no", "c", "cancel", _tool_("confirm.reply_no", default="no"))
+    }:
+        return "deny"
+    if reply in {
+        normalize(item)
+        for item in (
+            "all",
+            "a",
+            "all yes",
+            "yes to all",
+            "すべてはい",
+            "全てはい",
+            _tool_("confirm.reply_all", default="all"),
+        )
+    }:
+        return "all"
+    if reply in {
+        normalize(item)
+        for item in (
+            "y",
+            "yes",
+            "承認",
+            "許可",
+            "はい",
+            _tool_("confirm.reply_yes", default="yes"),
+        )
+    }:
+        return "yes"
+    return "deny"
 
 
 def reset_confirmation_grants() -> None:
@@ -291,6 +334,25 @@ def default_confirmation_callback(
     if not absconfirm and value in {"1", "true", "yes", "on", "allow"}:
         return True
 
+    # Show the locally translated 'all' answer in CLI, GUI and Web alike.
+    # For absconfirm or unscoped runs, never advertise a persistent grant.
+    allow_all = scope_key is not None and not absconfirm
+    confirmation_message = _tool_(
+        "confirm.side_effecting_tool",
+        default=(
+            "Allow the side-effecting tool '%(tool)s' to run? "
+            " [Arguments: %(args)s]"
+            "Reply yes to continue or no to cancel."
+        ),
+        tool=tool_name,
+        args=_confirmation_args(args),
+    )
+    if allow_all:
+        confirmation_message += "\n" + _tool_(
+            "ui.all_yes",
+            default="  - Type 'all' to allow this tool for the rest of the session\n",
+        ).strip()
+
     # Web human_ask is routed through its authenticated Room UI wrapper.
     # Calling human_ask_tool directly would wait on an unused CLI queue.
     try:
@@ -303,18 +365,10 @@ def default_confirmation_callback(
             return False
 
         request = {
-            "message": _tool_(
-                "confirm.side_effecting_tool",
-                default=(
-                    "Allow the side-effecting tool '%(tool)s' to run? "
-                    " [Arguments: %(args)s]"
-                    "Reply yes to continue or no to cancel."
-                ),
-                tool=tool_name,
-                args=_confirmation_args(args),
-            ),
+            "message": confirmation_message,
             "is_password": False,
-            "confirmation": scope_key is not None and not absconfirm,
+            "confirmation": allow_all,
+            "_confirmation_hint_in_message": allow_all,
             "_auto_pilot_tool": tool_name,
             "_server_name": args.get("server_name", ""),
             "_mcp_tool": args.get("tool_name", ""),
@@ -336,26 +390,13 @@ def default_confirmation_callback(
             result = json.loads(human_ask(request))
         if result.get("auto_pilot_skipped") or result.get("cancelled"):
             return False
-        reply = str(result.get("user_reply", "")).strip().lower()
-        if reply in {
-            "all",
-            "a",
-            "all yes",
-            "yes to all",
-            "\u3059\u3079\u3066\u306f\u3044",
-            "\u5168\u3066\u306f\u3044",
-        }:
-            if scope_key is not None and not absconfirm:
+        reply_kind = _confirmation_reply_kind(result.get("user_reply", ""))
+        if reply_kind == "all":
+            if allow_all:
                 with _ALLOW_ALL_LOCK:
                     _ALLOW_ALL_TOOLS.add((scope_key, tool_name))
             return True
-        return reply in {
-            "y",
-            "yes",
-            "\u627f\u8a8d",
-            "\u8a31\u53ef",
-            "\u306f\u3044",
-        }
+        return reply_kind == "yes"
     except Exception:
         return False
 
