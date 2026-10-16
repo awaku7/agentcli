@@ -2107,7 +2107,12 @@ def run_tools_parallel(
 
 
 def _call_tool_runner(
-    name: str, runner: Any, args: dict[str, Any], *, tool_call_id: str
+    name: str,
+    runner: Any,
+    args: dict[str, Any],
+    *,
+    tool_call_id: str,
+    approved: bool = False,
 ) -> str:
     """Invoke a tool runner without letting it terminate the host process."""
     import time
@@ -2129,7 +2134,10 @@ def _call_tool_runner(
         mark_tool_running = None
         mark_tool_waiting = None
     try:
-        result = runner(args)
+        from .tool_confirmation import dispatched_tool
+
+        with dispatched_tool(name, approved=approved):
+            result = runner(args)
     except Exception as e:
         try:
             from ..runtime.logging_setup import log_event
@@ -2554,7 +2562,10 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         # human_ask needs to set active state before clearing Busy,
         # so we delegate status handling to the runner implementation.
         try:
-            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+            return _call_tool_runner(
+                name, runner, args, tool_call_id=tool_call_id,
+                approved=policy.requires_confirmation,
+            )
         finally:
             _safe_set_status(True, "LLM")
 
@@ -2563,12 +2574,18 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     if status_label is not None:
         _safe_set_status(True, status_label)
         try:
-            return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+            return _call_tool_runner(
+                name, runner, args, tool_call_id=tool_call_id,
+                approved=policy.requires_confirmation,
+            )
         finally:
             _safe_set_status(True, "LLM")
 
     # Otherwise do not touch status
-    return _call_tool_runner(name, runner, args, tool_call_id=tool_call_id)
+    return _call_tool_runner(
+                name, runner, args, tool_call_id=tool_call_id,
+                approved=policy.requires_confirmation,
+            )
 
 
 # Lazy initialization: tools are loaded on first use
