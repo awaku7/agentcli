@@ -15,7 +15,6 @@ from uagent.tools.tool_policy import (
     reset_confirmation_grants,
 )
 
-
 _LOCALE_DATA = json.loads(
     (
         Path(__file__).resolve().parents[1]
@@ -44,10 +43,13 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
         )
     assert len(set(expected)) == 3
     assert all(label.strip() for label in expected)
-    assert tuple(
-        tool_policy._tool_("confirm.reply_" + name, default=name)
-        for name in ("yes", "no", "all")
-    ) == expected
+    assert (
+        tuple(
+            tool_policy._tool_("confirm.reply_" + name, default=name)
+            for name in ("yes", "no", "all")
+        )
+        == expected
+    )
     assert tool_policy._confirmation_reply_kind(expected[0]) == "yes"
     assert tool_policy._confirmation_reply_kind(expected[1]) == "deny"
     assert tool_policy._confirmation_reply_kind(expected[2]) == "all"
