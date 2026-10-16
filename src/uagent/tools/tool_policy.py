@@ -291,41 +291,49 @@ def default_confirmation_callback(
     if not absconfirm and value in {"1", "true", "yes", "on", "allow"}:
         return True
 
-    # Reuse the normal human_ask callback path so CLI/GUI/Web can all confirm
-    # side effects interactively instead of treating a missing env var as denial.
+    # Web human_ask is routed through its authenticated Room UI wrapper.
+    # Calling human_ask_tool directly would wait on an unused CLI queue.
     try:
-        from .human_ask_tool import run_tool
+        from .. import core
+        from ..runtime.identity_context import get_current_turn_context
 
-        result = json.loads(
-            run_tool(
-                {
-                    "message": (
-                        _tool_(
-                            "confirm.side_effecting_tool",
-                            default=(
-                                "Allow the side-effecting tool '%(tool)s' to run? "
-                                " [Arguments: %(args)s]"
-                                "Reply yes to continue or no to cancel."
-                            ),
-                            tool=tool_name,
-                            args=_confirmation_args(args),
-                        )
-                    ),
-                    "is_password": False,
-                    "confirmation": scope_key is not None and not absconfirm,
-                    "_auto_pilot_tool": tool_name,
-                    "_server_name": args.get("server_name", ""),
-                    "_mcp_tool": args.get("tool_name", ""),
-                    "_auto_pilot_mcp_key": (
-                        f"{args.get('server_name')}:{args.get('tool_name')}"
-                        if tool_name == "handle_mcp_v2"
-                        and args.get("server_name")
-                        and args.get("tool_name")
-                        else ""
-                    ),
-                }
-            )
-        )
+        turn = get_current_turn_context()
+        web_turn = turn is not None and turn.entry_point == "web"
+        if getattr(core, "_is_web", False) and not web_turn:
+            return False
+
+        request = {
+            "message": _tool_(
+                "confirm.side_effecting_tool",
+                default=(
+                    "Allow the side-effecting tool '%(tool)s' to run? "
+                    " [Arguments: %(args)s]"
+                    "Reply yes to continue or no to cancel."
+                ),
+                tool=tool_name,
+                args=_confirmation_args(args),
+            ),
+            "is_password": False,
+            "confirmation": scope_key is not None and not absconfirm,
+            "_auto_pilot_tool": tool_name,
+            "_server_name": args.get("server_name", ""),
+            "_mcp_tool": args.get("tool_name", ""),
+            "_auto_pilot_mcp_key": (
+                f"{args.get('server_name')}:{args.get('tool_name')}"
+                if tool_name == "handle_mcp_v2"
+                and args.get("server_name")
+                and args.get("tool_name")
+                else ""
+            ),
+        }
+        if web_turn:
+            from . import run_tool as frontend_run_tool
+
+            result = json.loads(frontend_run_tool("human_ask", request))
+        else:
+            from .human_ask_tool import run_tool as human_ask
+
+            result = json.loads(human_ask(request))
         if result.get("auto_pilot_skipped") or result.get("cancelled"):
             return False
         reply = str(result.get("user_reply", "")).strip().lower()
