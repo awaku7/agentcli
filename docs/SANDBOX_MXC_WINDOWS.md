@@ -63,9 +63,10 @@ host-DACL-mutation fallback.
 The worker receives a minimal environment, not the Host's `os.environ`. Its
 filesystem policy grants write access only to the session workspace and read
 access only to the Python runtime, adapter files, and Windows system runtime.
-Python runtime prefixes are rejected if they contain the selected work directory
-or per-user data roots, preventing a project-root venv from exposing the project
-recursively. Sandbox startup also skips the host-side Laya/PyTorch preload.
+Recursive read roots are rejected if they are filesystem roots or contain the
+selected work directory or per-user data roots. This prevents a project-root venv
+from exposing the project recursively. Sandbox startup also skips the host-side
+Laya/PyTorch preload.
 Network egress, ingress, and host loopback are denied. A Windows Job Object
 around the adapter enforces a 1 GiB aggregate memory cap, a 64-process limit, a
 four-hour aggregate user-CPU limit, and kill-on-close cleanup. A 256 MiB / 5,000

@@ -72,6 +72,22 @@ def test_mxc_host_paths_accept_only_pre_dotenv_overrides(monkeypatch, tmp_path):
     assert mxc_backend._runtime_dir() == trusted_runtime
 
 
+@pytest.mark.skipif(os.name != "nt", reason="MXC runtime setup is Windows-only")
+def test_prepare_mxc_runtime_rejects_project_as_helper_root(monkeypatch, tmp_path):
+    project = tmp_path / "project"
+    project.mkdir()
+    monkeypatch.chdir(project)
+    monkeypatch.setattr(mxc_backend, "_find_node", lambda: project / "node.exe")
+    monkeypatch.setattr(mxc_backend, "_node_version", lambda _node: (24, 22, 0))
+    monkeypatch.setattr(mxc_backend.platform, "machine", lambda: "AMD64")
+    monkeypatch.setattr(mxc_backend, "_runtime_dir", lambda: project)
+
+    with pytest.raises(RuntimeError, match="selected work directory"):
+        mxc_backend.prepare_mxc_runtime(allow_install=False)
+
+    assert list(project.iterdir()) == []
+
+
 def test_node_version_uses_only_the_node_and_system_directories(monkeypatch, tmp_path):
     node = tmp_path / "toolchain" / "node.exe"
     system_root = tmp_path / "windows"
@@ -803,8 +819,14 @@ def test_python_prefix_cannot_contain_the_selected_work_directory(
     project.mkdir(parents=True)
     monkeypatch.chdir(project)
 
-    with pytest.raises(RuntimeError, match="must not contain the work directory"):
-        mxc_backend._validate_python_prefix(prefix)
+    with pytest.raises(RuntimeError, match="selected work directory"):
+        mxc_backend._validate_sandbox_read_root(prefix)
+    with pytest.raises(RuntimeError, match="selected work directory"):
+        mxc_backend._validate_sandbox_read_root(
+            prefix, require_existing_directory=False
+        )
+    with pytest.raises(RuntimeError, match="filesystem roots"):
+        mxc_backend._validate_sandbox_read_root(Path(tmp_path.anchor))
 
     profile = tmp_path / "profile"
     profile.mkdir()
@@ -813,12 +835,12 @@ def test_python_prefix_cannot_contain_the_selected_work_directory(
     monkeypatch.setenv("USERPROFILE", str(profile))
     monkeypatch.chdir(outside_workdir)
     with pytest.raises(RuntimeError, match="per-user data"):
-        mxc_backend._validate_python_prefix(profile)
+        mxc_backend._validate_sandbox_read_root(profile)
 
     external_prefix = tmp_path / "external-venv"
     external_prefix.mkdir()
     assert (
-        mxc_backend._validate_python_prefix(external_prefix)
+        mxc_backend._validate_sandbox_read_root(external_prefix)
         == external_prefix.resolve()
     )
 

@@ -227,7 +227,9 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     )
     if not version_supported:
         raise RuntimeError("MXC requires Node.js 24.21.0+ or 26.8.0+ on Windows")
-    runtime = _runtime_dir()
+    runtime = _validate_sandbox_read_root(
+        _runtime_dir(), require_existing_directory=False
+    )
     runtime.mkdir(parents=True, exist_ok=True)
     source = _helper_source_dir()
     for filename in ("mxc_adapter.mjs", "package.json", "package-lock.json"):
@@ -623,10 +625,14 @@ def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
             pass
 
 
-def _validate_python_prefix(prefix: Path) -> Path:
+def _validate_sandbox_read_root(
+    prefix: Path, *, require_existing_directory: bool = True
+) -> Path:
     root = Path(prefix).resolve()
-    if not root.is_dir():
-        raise RuntimeError("Python runtime prefix is unavailable")
+    if require_existing_directory and not root.is_dir():
+        raise RuntimeError("Sandbox runtime read root is unavailable")
+    if os.path.normcase(str(root)) == os.path.normcase(root.anchor):
+        raise RuntimeError("Sandbox recursive read roots cannot be filesystem roots")
     protected_paths = [Path.cwd().resolve(), Path.home().resolve()]
     for variable in ("USERPROFILE", "LOCALAPPDATA", "APPDATA"):
         value = os.environ.get(variable)
@@ -639,18 +645,18 @@ def _validate_python_prefix(prefix: Path) -> Path:
             continue
         if os.path.normcase(common) == os.path.normcase(str(root)):
             raise RuntimeError(
-                "Python runtime prefixes must not contain the work directory or "
-                "per-user data; use a narrower environment outside the project"
+                "Sandbox recursive read roots must not contain the selected work "
+                "directory or per-user data; use a narrower runtime path"
             )
     return root
 
 
 def _python_root() -> Path:
-    return _validate_python_prefix(Path(sys.base_prefix))
+    return _validate_sandbox_read_root(Path(sys.base_prefix))
 
 
 def _python_env_root() -> Path:
-    return _validate_python_prefix(Path(sys.prefix))
+    return _validate_sandbox_read_root(Path(sys.prefix))
 
 
 class _MxcSession:
