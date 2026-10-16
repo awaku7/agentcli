@@ -102,7 +102,6 @@ def test_all_confirmation_grants_are_bound_to_room_and_tool(monkeypatch):
         reset_confirmation_grants()
 
 
-
 def test_absconfirm_ignores_cached_all_grant(monkeypatch):
     from uagent.tools import human_ask_tool, tool_policy
 
