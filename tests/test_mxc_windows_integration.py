@@ -101,6 +101,27 @@ def test_mxc_python_os_exit_fails_closed_and_reaps_children(tmp_path):
         manager.close_all()
 
 
+def test_mxc_os_exit_cannot_bypass_workspace_quota(tmp_path):
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id=f"pytest-os-exit-quota-{os.getpid()}-{time.time_ns()}",
+    )
+    code = (
+        "import os\n"
+        "with open('oversized-on-exit.bin', 'wb') as stream:\n"
+        "    stream.truncate(256 * 1024 * 1024 + 1)\n"
+        "os._exit(0)\n"
+    )
+    try:
+        result = manager.run_tool(scope, "python_exec", {"code": code})
+        assert "workspace limit exceeded" in result.lower()
+    finally:
+        manager.close_scope(scope)
+        manager.close_all()
+
+
 def test_mxc_workspace_scan_tolerates_concurrent_file_deletions(tmp_path):
     manager, _report = MxcSessionManager.initialize(allow_install=False)
     scope = startup_scope(

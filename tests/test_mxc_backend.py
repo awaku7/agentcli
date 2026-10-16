@@ -379,6 +379,9 @@ def test_python_completion_uses_mxc_wait_and_fails_closed():
     assert "process_tree_unverified: processTreeUnverified" in source
     assert "execution_incomplete: executionIncomplete" in source
     assert "Python execution exited before its completion marker" in source
+    assert source.index("if (result.workspace_limit_exceeded)") < source.index(
+        "if (result.execution_incomplete)"
+    )
     assert "terminateMxcProcessTree" not in source
     assert "taskkill.exe" not in source
 
