@@ -224,9 +224,7 @@ def test_delete_file_model_confirmed_flag_cannot_skip_approval(
         "uagent.tools.delete_file_tool._human_confirm", lambda _msg: False
     )
 
-    out = run_tool(
-        {"filename": str(target), "dry_run": False, "confirmed": True}
-    )
+    out = run_tool({"filename": str(target), "dry_run": False, "confirmed": True})
     assert _loads(out)["cancelled"] is True
     assert target.read_text(encoding="utf-8") == "preserved"
 
