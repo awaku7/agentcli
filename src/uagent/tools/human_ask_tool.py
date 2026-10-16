@@ -250,7 +250,9 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
             ),
             flush=True,
         )
-        if bool(args.get("confirmation", False)):
+        if bool(args.get("confirmation", False)) and not bool(
+            args.get("_confirmation_hint_in_message", False)
+        ):
             print(
                 _(
                     "ui.all_yes",
