@@ -1796,17 +1796,24 @@ def _handle_cmd_sessions(
             print(_("[sessions] Session store is not enabled."))
             return True
         verbose = any(flag in parts[1:] for flag in ("--verbose", "-v"))
+        show_all = "--all" in parts[1:]
         sessions = store.list_sessions()
-        # Resolve numbers against the last displayed view, including the active
-        # session, rather than recomputing indices from a filtered load list.
+        visible = sessions if show_all else sessions[:10]
+        # Resolve indices only against displayed rows. Keep the active session
+        # and preserve the mapping when a subsequent load re-queries the store.
         _session_selection_owner(core)._session_search_results = {
-            index: row["session_id"] for index, row in enumerate(sessions)
+            index: row["session_id"] for index, row in enumerate(visible)
         }
-        for index, row in enumerate(sessions):
+        for index, row in enumerate(visible):
             if verbose:
                 _print_session_list_row(index, row)
             else:
                 _print_session_compact_row(index, row)
+        if not show_all and len(sessions) > len(visible):
+            print(
+                f"[sessions] Showing {len(visible)} of {len(sessions)} sessions. "
+                "Use :sessions list --all to show all."
+            )
         return True
     if command == "delete":
         if store is None or not session_id:
