@@ -182,10 +182,11 @@ def test_delete_file_glob_cancelled_without_confirm(
     assert f1.exists()
 
 
-def test_delete_file_glob_execute_confirmed_flag_skips_internal_confirm(
+def test_delete_file_only_dispatcher_approval_skips_internal_confirmation(
     monkeypatch, repo_tmp_path: Path
 ) -> None:
     from uagent.tools.delete_file_tool import run_tool
+    from uagent.tools.tool_confirmation import dispatched_tool
 
     target = repo_tmp_path / "c.tmp"
     target.write_text("z", encoding="utf-8")
@@ -195,20 +196,39 @@ def test_delete_file_glob_execute_confirmed_flag_skips_internal_confirm(
 
     monkeypatch.setattr("uagent.tools.delete_file_tool._human_confirm", _boom)
 
-    out = run_tool(
-        {
-            "filename": str(target),
-            "missing_ok": False,
-            "dry_run": False,
-            "allow_dir": True,
-            "confirmed": True,
-        }
-    )
+    with dispatched_tool("delete_file", approved=True):
+        out = run_tool(
+            {
+                "filename": str(target),
+                "missing_ok": False,
+                "dry_run": False,
+                "allow_dir": True,
+                "confirmed": False,
+            }
+        )
     obj = _loads(out)
     assert obj["ok"] is True
     assert obj["deleted"] is True
     assert obj["count"] == 1
     assert not target.exists()
+
+
+def test_delete_file_model_confirmed_flag_cannot_skip_approval(
+    monkeypatch, repo_tmp_path: Path
+) -> None:
+    from uagent.tools.delete_file_tool import run_tool
+
+    target = repo_tmp_path / "not_deleted.tmp"
+    target.write_text("preserved", encoding="utf-8")
+    monkeypatch.setattr(
+        "uagent.tools.delete_file_tool._human_confirm", lambda _msg: False
+    )
+
+    out = run_tool(
+        {"filename": str(target), "dry_run": False, "confirmed": True}
+    )
+    assert _loads(out)["cancelled"] is True
+    assert target.read_text(encoding="utf-8") == "preserved"
 
 
 def test_git_ops_rejects_force_push_without_allow_danger() -> None:
