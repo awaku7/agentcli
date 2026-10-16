@@ -72,15 +72,20 @@ watchdog, not an NTFS hard quota; a short write burst can temporarily exceed the
 threshold. Quota scans skip child entries concurrently removed from the workspace,
 including during NTFS alternate-stream inspection; partial stream counts for a
 vanished entry are discarded. A missing root or any other scan error still fails
-closed. At most four distinct scopes may be active in one UAG process; a
-fifth is denied instead of creating more host resource usage. Failure to create
-or assign the Job Object rejects the operation.
+closed. A host-side OS lock lease is held for each workspace and released during
+normal cleanup; on startup, only directories with an unlocked lease are scavenged,
+so workspaces abandoned by a crashed process are reclaimed on the next startup,
+without removing live sessions. Legacy directories without lease metadata are left
+untouched. CLI session transitions close the previous CLI worker. At most four
+distinct scopes may be active in one UAG process; a fifth is denied instead of
+creating more host resource usage. Failure to create or assign the Job Object
+rejects the operation.
 
 Trusted local-only Web may opt in on Windows using a server-created `web-room`
 scope, with the same static tool allowlist. Until PR 3 adds Room-owned worker
 and lease recovery, sandboxed local Web is constrained to one in-process worker
 and serial Room execution. This is a local PoC restriction, not production
-multi-user isolation; Sandbox mode also blocks host plugin imports, host hooks,
+multi-user isolation; Sandbox mode also blocks host plugin imports, host hooks, tool-genre changes,
 general Web commands, and non-allowlisted CLI/GUI commands.
 
 The lightweight ProcessContainer does not meet the Remote profile's VM

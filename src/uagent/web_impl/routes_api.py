@@ -273,12 +273,19 @@ async def get_tool_genres():
             if hasattr(web_manager, "status")
             else False
         ),
+        "sandbox_enabled": bool(getattr(web_manager, "sandbox_enabled", False)),
     }
 
 
 @app.post("/api/tool-genres")
 async def set_tool_genre(req: Request):
-    """Toggle a tool genre on/off. Only allowed when idle."""
+    """Toggle a tool genre on/off. Only allowed when idle and not sandboxed."""
+    if bool(getattr(web_manager, "sandbox_enabled", False)):
+        return JSONResponse(
+            status_code=403,
+            content={"error": "tool genre changes are disabled in Sandbox mode"},
+        )
+
     from ..tools._genre_control_util import _GENRE_BITMAP
     from ..tools.genre_control_tool import _set_genre_tools_enabled
 

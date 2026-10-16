@@ -8,11 +8,13 @@ plain JSON-like values and strings.
 from __future__ import annotations
 
 import atexit
+import errno
 import hashlib
 import json
 import os
 import platform
 import shutil
+import stat
 import subprocess
 import sys
 import threading
@@ -441,6 +443,152 @@ def _workspace_for_scope(scope: TrustedSandboxScope) -> Path:
     return _local_app_data() / "uagent" / "sandboxes" / _scope_key(scope)
 
 
+def _is_reparse_point(path: Path) -> bool:
+    try:
+        path_stat = Path(path).lstat()
+    except FileNotFoundError:
+        return False
+    return stat.S_ISLNK(path_stat.st_mode) or bool(
+        getattr(path_stat, "st_file_attributes", 0)
+        & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)
+    )
+
+
+def _workspace_lease_path(sandbox_root: Path, key: str) -> Path:
+    return sandbox_root / ".leases" / f"{key}.lock"
+
+
+def _acquire_workspace_lease(sandbox_root: Path, key: str, *, create: bool = True):
+    """Acquire an OS-backed owner lease for one workspace, or return None if busy."""
+    if len(key) != 64 or any(char not in "0123456789abcdef" for char in key):
+        raise ValueError("invalid sandbox workspace key")
+    sandbox_root = Path(sandbox_root)
+    lease_root = sandbox_root / ".leases"
+    if _is_reparse_point(sandbox_root) or _is_reparse_point(lease_root):
+        raise RuntimeError("sandbox workspace lease directory cannot be a symlink")
+    if create:
+        lease_root.mkdir(parents=True, exist_ok=True)
+    lease_path = _workspace_lease_path(sandbox_root, key)
+    if _is_reparse_point(lease_path):
+        raise RuntimeError("sandbox workspace lease cannot be a symlink")
+    flags = os.O_RDWR | getattr(os, "O_BINARY", 0)
+    if create:
+        flags |= os.O_CREAT
+    if hasattr(os, "O_NOFOLLOW"):
+        flags |= os.O_NOFOLLOW
+    try:
+        fd = os.open(lease_path, flags, 0o600)
+    except FileNotFoundError:
+        return None
+    try:
+        if not stat.S_ISREG(os.fstat(fd).st_mode):
+            raise RuntimeError("sandbox workspace lease must be a regular file")
+        if os.fstat(fd).st_size == 0:
+            os.write(fd, b"\0")
+        try:
+            if os.name == "nt":
+                import msvcrt
+
+                os.lseek(fd, 0, os.SEEK_SET)
+                msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+
+                fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError as exc:
+            if exc.errno in {errno.EACCES, errno.EAGAIN, errno.EDEADLK} or getattr(
+                exc, "winerror", None
+            ) in {32, 33}:
+                os.close(fd)
+                return None
+            raise
+        return os.fdopen(fd, "r+b", buffering=0)
+    except Exception:
+        try:
+            os.close(fd)
+        except OSError:
+            pass
+        raise
+
+
+def _release_workspace_lease(lease) -> None:
+    if lease is None:
+        return
+    try:
+        if os.name == "nt":
+            import msvcrt
+
+            lease.seek(0)
+            msvcrt.locking(lease.fileno(), msvcrt.LK_UNLCK, 1)
+        else:
+            import fcntl
+
+            fcntl.flock(lease.fileno(), fcntl.LOCK_UN)
+    except OSError:
+        pass
+    try:
+        lease.close()
+    except OSError:
+        pass
+
+
+def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
+    """Remove abandoned workspaces only when their OS owner lease is unlocked."""
+    sandbox_root = Path(sandbox_root)
+    if not sandbox_root.exists():
+        return
+    if _is_reparse_point(sandbox_root):
+        raise RuntimeError("sandbox workspace root cannot be a symlink")
+    lease_root = sandbox_root / ".leases"
+    if not lease_root.exists():
+        return
+    if _is_reparse_point(lease_root):
+        raise RuntimeError("sandbox workspace lease directory cannot be a symlink")
+
+    live_keys: set[str] = set()
+    for workspace in sandbox_root.iterdir():
+        key = workspace.name
+        if len(key) != 64 or any(char not in "0123456789abcdef" for char in key):
+            continue
+        try:
+            mode = workspace.lstat().st_mode
+        except FileNotFoundError:
+            continue
+        if not stat.S_ISDIR(mode) or _is_reparse_point(workspace):
+            continue
+        lease = _acquire_workspace_lease(sandbox_root, key, create=False)
+        if lease is None:
+            live_keys.add(key)
+            continue
+        try:
+            shutil.rmtree(workspace)
+        finally:
+            _release_workspace_lease(lease)
+        try:
+            _workspace_lease_path(sandbox_root, key).unlink()
+        except OSError:
+            pass
+
+    for lease_path in lease_root.glob("*.lock"):
+        key = lease_path.stem
+        if (
+            key in live_keys
+            or len(key) != 64
+            or any(char not in "0123456789abcdef" for char in key)
+        ):
+            continue
+        if (sandbox_root / key).exists():
+            continue
+        lease = _acquire_workspace_lease(sandbox_root, key, create=False)
+        if lease is None:
+            continue
+        _release_workspace_lease(lease)
+        try:
+            lease_path.unlink()
+        except OSError:
+            pass
+
+
 def _python_root() -> Path:
     root = Path(sys.base_prefix).resolve()
     if not root.is_dir():
@@ -479,7 +627,12 @@ class _MxcSession:
         self._closed = False
         self._scope = scope
         self.workspace = _workspace_for_scope(scope)
-        if self.workspace.exists() and self.workspace.is_symlink():
+        self._workspace_lease = _acquire_workspace_lease(
+            self.workspace.parent, self.workspace.name
+        )
+        if self._workspace_lease is None:
+            raise RuntimeError("sandbox workspace already has an active owner")
+        if self.workspace.exists() and _is_reparse_point(self.workspace):
             raise RuntimeError("sandbox workspace root cannot be a symlink")
         self.workspace.mkdir(parents=True, exist_ok=True)
         # A new scope hash is created for this process/session; don't reuse on-disk
@@ -666,6 +819,8 @@ class _MxcSession:
                 shutil.rmtree(self.workspace, ignore_errors=True)
             except OSError:
                 pass
+            _release_workspace_lease(self._workspace_lease)
+            self._workspace_lease = None
 
 
 class MxcSessionManager:
@@ -679,6 +834,8 @@ class MxcSessionManager:
         self.capabilities = capabilities
         self._sessions: dict[str, _MxcSession] = {}
         self._lock = threading.RLock()
+        if os.name == "nt":
+            _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
         atexit.register(self.close_all)
 
     @classmethod
@@ -695,6 +852,24 @@ class MxcSessionManager:
         """Release closed or exited workers before enforcing the live-session cap."""
         for key, session in list(self._sessions.items()):
             if session._closed or session._proc.poll() is not None:
+                self._sessions.pop(key, None)
+                session.close()
+
+    def _close_obsolete_cli_sessions(
+        self, current_key: str, scope: TrustedSandboxScope
+    ) -> None:
+        """Release the previous CLI scope after a CLI session transition."""
+        if scope.scope_kind != "cli-session":
+            return
+        for key, session in list(self._sessions.items()):
+            previous_scope = getattr(session, "_scope", None)
+            if (
+                key != current_key
+                and getattr(previous_scope, "scope_kind", None) == "cli-session"
+                and getattr(previous_scope, "deployment_id", None)
+                == scope.deployment_id
+                and getattr(previous_scope, "principal_id", None) == scope.principal_id
+            ):
                 self._sessions.pop(key, None)
                 session.close()
 
@@ -715,6 +890,7 @@ class MxcSessionManager:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)
         with self._lock:
+            self._close_obsolete_cli_sessions(key, scope)
             self._prune_inactive_sessions()
             session = self._sessions.get(key)
             if session is None:

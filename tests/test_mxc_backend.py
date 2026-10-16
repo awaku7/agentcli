@@ -702,6 +702,74 @@ def test_manager_prunes_inactive_sessions_before_enforcing_limit(monkeypatch, tm
     assert set(manager._sessions) == {mxc_backend._scope_key(new_scope)}
 
 
+def test_cli_session_transition_releases_previous_worker(monkeypatch, tmp_path):
+    class FakeProcess:
+        def poll(self):
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProcess()
+
+        def run(self, name, args):
+            return f"{name}:{args['path']}"
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    first = TrustedSandboxScope(
+        deployment_id="cli",
+        principal_id="local-user",
+        project_id="project",
+        scope_kind="cli-session",
+        scope_id="session-one",
+    )
+    second = TrustedSandboxScope(
+        deployment_id="cli",
+        principal_id="local-user",
+        project_id="project",
+        scope_kind="cli-session",
+        scope_id="session-two",
+    )
+
+    assert manager.run_tool(first, "read_file", {"path": "one.txt"}) == (
+        "read_file:one.txt"
+    )
+    old_session = manager._sessions[mxc_backend._scope_key(first)]
+    assert manager.run_tool(second, "read_file", {"path": "two.txt"}) == (
+        "read_file:two.txt"
+    )
+
+    assert old_session._closed is True
+    assert set(manager._sessions) == {mxc_backend._scope_key(second)}
+
+
+def test_workspace_scavenger_removes_only_unleased_workspaces(tmp_path):
+    key = "a" * 64
+    root = tmp_path / "sandboxes"
+    workspace = root / key
+    workspace.mkdir(parents=True)
+    (workspace / "data.txt").write_text("test", encoding="utf-8")
+
+    lease = mxc_backend._acquire_workspace_lease(root, key)
+    assert lease is not None
+    mxc_backend._scavenge_orphaned_workspaces(root)
+    assert workspace.is_dir()
+
+    mxc_backend._release_workspace_lease(lease)
+    mxc_backend._scavenge_orphaned_workspaces(root)
+    assert not workspace.exists()
+    assert not mxc_backend._workspace_lease_path(root, key).exists()
+
+
 def test_startup_scope_persisted_session_is_process_instance_specific(
     monkeypatch, tmp_path
 ):
