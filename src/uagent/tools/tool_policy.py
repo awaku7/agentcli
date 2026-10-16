@@ -79,9 +79,46 @@ _DESTRUCTIVE = {
 CONFIRMATION_GRANTED_ARG = "_uagent_policy_confirmation_granted"
 CONFIRMATION_GRANTED_TOKEN = object()
 
-# Tool names explicitly approved with "all" are scoped to this process/session.
-_ALLOW_ALL_TOOLS: set[str] = set()
+# Explicit "all" grants are tied to an authenticated Room/Session/Task.
+# An unbound tool call can receive one-time approval but cannot persist "all".
+_ALLOW_ALL_TOOLS: set[tuple[tuple[str, ...], str]] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
+
+
+def _confirmation_scope_key() -> tuple[str, ...] | None:
+    from ..runtime.identity_context import get_current_turn_context
+
+    turn = get_current_turn_context()
+    if turn is not None:
+        boundary = turn.room_id if turn.entry_point == "web" else turn.session_id
+        if not boundary:
+            return None
+        return (
+            turn.entry_point,
+            turn.principal_id,
+            turn.project_id,
+            boundary,
+        )
+
+    from ..runtime.execution_broker import current_scope
+
+    scope = current_scope()
+    if scope is not None:
+        return (
+            scope.scope_kind,
+            scope.deployment_id,
+            scope.principal_id,
+            scope.project_id,
+            scope.scope_id,
+        )
+
+    # Legacy trusted local CLI/GUI without a TurnContext.
+    from .. import core
+
+    session_id = str(getattr(core, "session_id", "") or "").strip()
+    if session_id:
+        return ("local", session_id)
+    return None
 
 
 def _confirmation_args(args: dict[str, Any]) -> str:
@@ -199,8 +236,9 @@ def default_confirmation_callback(
     tool_name: str, args: dict[str, Any], policy: ToolPolicy
 ) -> bool:
     """Ask the human for confirmation, with an environment override for automation."""
+    scope_key = _confirmation_scope_key()
     with _ALLOW_ALL_LOCK:
-        if tool_name in _ALLOW_ALL_TOOLS:
+        if scope_key is not None and (scope_key, tool_name) in _ALLOW_ALL_TOOLS:
             return True
 
     value = (os.environ.get("UAGENT_CONFIRM_TOOLS", "") or "").strip().lower()
@@ -253,8 +291,9 @@ def default_confirmation_callback(
             "\u3059\u3079\u3066\u306f\u3044",
             "\u5168\u3066\u306f\u3044",
         }:
-            with _ALLOW_ALL_LOCK:
-                _ALLOW_ALL_TOOLS.add(tool_name)
+            if scope_key is not None:
+                with _ALLOW_ALL_LOCK:
+                    _ALLOW_ALL_TOOLS.add((scope_key, tool_name))
             return True
         return reply in {
             "y",
