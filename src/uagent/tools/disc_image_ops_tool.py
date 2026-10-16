@@ -262,18 +262,9 @@ def _safe_member_relative(path: str) -> Path:
 
 
 def _confirm_overwrite(message: str) -> bool:
-    try:
-        from .human_ask_tool import run_tool as human_ask
+    from .tool_confirmation import confirm_operation
 
-        result = json.loads(human_ask({"message": message}))
-        reply = str(result.get("user_reply", "") or "").strip().lower()
-        return reply in {"y", "yes"}
-    except Exception:
-        try:
-            reply = input(message + " [y/N]: ")
-            return reply.strip().lower() in {"y", "yes"}
-        except Exception:
-            return False
+    return confirm_operation(message, tool_name="disc_image_ops")
 
 
 def _prepare_extract_dir(path: str, overwrite: bool) -> str:
