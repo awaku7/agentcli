@@ -140,6 +140,70 @@ def test_absconfirm_ignores_cached_all_grant(monkeypatch):
         reset_confirmation_grants()
 
 
+def test_injected_autopilot_absconfirm_never_caches_all(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent import core
+    from uagent.tools import human_ask_tool, tool_policy
+
+    monkeypatch.setenv("UAGENT_INJECT_MODE", "1")
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    monkeypatch.setattr(core, "auto_pilot_active", True, raising=False)
+    calls = []
+    policy = SimpleNamespace(
+        inject_requires_confirmation=lambda *_args: False,
+        auto_pilot_requires_confirmation=lambda *_args: True,
+    )
+    monkeypatch.setattr(tool_policy, "get_enterprise_policy", lambda: policy)
+    monkeypatch.setattr(
+        human_ask_tool,
+        "run_tool",
+        lambda _args: calls.append(_args)
+        or '{"user_reply": "all", "cancelled": false}',
+    )
+    turn = TurnContext(
+        principal_id="p",
+        room_id="room",
+        project_id="project",
+        session_id="session",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
+    reset_confirmation_grants()
+    try:
+        with bind_turn_context(turn):
+            assert tool_policy._absolute_confirmation_required("delete_file", {})
+            assert default_confirmation_callback(
+                "delete_file", {}, policy_for("delete_file")
+            )
+            assert default_confirmation_callback(
+                "delete_file", {}, policy_for("delete_file")
+            )
+            # The model can answer "all", but mandatory auto-pilot confirmation
+            # must still be performed on every dangerous tool call.
+            assert len(calls) == 2
+            assert tool_policy._ALLOW_ALL_TOOLS == set()
+    finally:
+        reset_confirmation_grants()
+
+
+def test_injected_absconfirm_still_applies_without_autopilot(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent import core
+    from uagent.tools import tool_policy
+
+    monkeypatch.setenv("UAGENT_INJECT_MODE", "1")
+    monkeypatch.setattr(core, "auto_pilot_active", False, raising=False)
+    policy = SimpleNamespace(
+        inject_requires_confirmation=lambda *_args: True,
+        auto_pilot_requires_confirmation=lambda *_args: False,
+    )
+    monkeypatch.setattr(tool_policy, "get_enterprise_policy", lambda: policy)
+    assert tool_policy._absolute_confirmation_required("delete_file", {})
+
+
 def test_command_guard_uses_dispatch_approval_without_reasking(monkeypatch):
     from uagent.tools.safe_exec_ops import ExecDecision, confirm_if_needed
 
