@@ -153,7 +153,12 @@ def _detect_windows_console_lang() -> str | None:
 
 
 def get_locale() -> str:
-    return detect_lang()
+    # Web workers bind a per-room locale. It takes precedence over the
+    # process environment when translating tool messages and reply tokens.
+    from ..i18n import get_contextvar_locale
+
+    context_locale = get_contextvar_locale()
+    return _normalize_lang_tag(context_locale) if context_locale else detect_lang()
 
 
 @lru_cache(maxsize=256)
