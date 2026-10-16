@@ -41,9 +41,7 @@ def test_confirm_operation_denies_unavailable_or_failing_callback(monkeypatch):
     from uagent.tools import tool_policy
 
     monkeypatch.setattr(tools, "_CONFIRMATION_CALLBACK", None)
-    monkeypatch.setattr(
-        tool_policy, "default_confirmation_callback", lambda *_: False
-    )
+    monkeypatch.setattr(tool_policy, "default_confirmation_callback", lambda *_: False)
     assert not confirm_operation("risk", tool_name="zip_ops")
     monkeypatch.setattr(
         tools,
@@ -93,9 +91,7 @@ def test_all_confirmation_grants_are_bound_to_room_and_tool(monkeypatch):
             assert default_confirmation_callback(
                 "delete_file", {}, policy_for("delete_file")
             )
-            assert default_confirmation_callback(
-                "zip_ops", {}, policy_for("zip_ops")
-            )
+            assert default_confirmation_callback("zip_ops", {}, policy_for("zip_ops"))
         assert len(asks) == 2
         with bind_turn_context(second):
             assert not default_confirmation_callback(
