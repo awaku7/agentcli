@@ -384,6 +384,23 @@ def test_alternate_stream_scan_tolerates_vanished_files():
     assert "$total += $itemTotal" in scanner
 
 
+def test_non_python_tool_writes_are_checked_against_workspace_quota():
+    helper = (
+        Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
+    )
+    source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
+    start = source.index("const reply = nextReply(HARD_EXECUTION_TIMEOUT_MS + 5_000);")
+    end = source.index("if (result?.terminate === true)", start)
+    handler = source[start:end]
+
+    assert "usage = await workspaceUsage(workspace)" in handler
+    assert handler.index("workspaceUsage(workspace)") < handler.index(
+        "if (usage.exceeded)"
+    )
+    assert 'terminate: true, error: "session workspace limit exceeded;' in handler
+    assert handler.index("await stopWorker()") < handler.index("writeHost(result)")
+
+
 def test_python_completion_uses_mxc_wait_and_fails_closed():
     helper = (
         Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
