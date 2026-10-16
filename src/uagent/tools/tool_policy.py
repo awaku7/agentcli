@@ -346,12 +346,13 @@ def default_confirmation_callback(
         "confirm.side_effecting_tool",
         default=(
             "Allow the side-effecting tool '%(tool)s' to run? "
-            " [Arguments: %(args)s]"
             "Reply yes to continue or no to cancel."
         ),
         tool=tool_name,
-        args=_confirmation_args(args),
     )
+    # Keep masked arguments visible without invalidating the 38-language
+    # translations, which only interpolate %(tool)s.
+    confirmation_message += "\n" + _confirmation_args(args)
     if allow_all:
         confirmation_message += (
             "\n"
