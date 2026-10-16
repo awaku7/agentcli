@@ -52,7 +52,7 @@ def test_confirm_operation_denies_unavailable_or_failing_callback(monkeypatch):
 
 
 def test_all_confirmation_grants_are_bound_to_room_and_tool(monkeypatch):
-    from uagent.tools import human_ask_tool
+    from uagent import tools
 
     monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
     asks = []
@@ -63,7 +63,7 @@ def test_all_confirmation_grants_are_bound_to_room_and_tool(monkeypatch):
         answer = next(replies)
         return '{"user_reply": "' + answer + '", "cancelled": false}'
 
-    monkeypatch.setattr(human_ask_tool, "run_tool", _reply)
+    monkeypatch.setattr(tools, "run_tool", lambda _name, args: _reply(args))
     reset_confirmation_grants()
     first = TurnContext(
         principal_id="principal",
@@ -103,7 +103,8 @@ def test_all_confirmation_grants_are_bound_to_room_and_tool(monkeypatch):
 
 
 def test_absconfirm_ignores_cached_all_grant(monkeypatch):
-    from uagent.tools import human_ask_tool, tool_policy
+    from uagent import tools
+    from uagent.tools import tool_policy
 
     monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
     prompts = []
@@ -113,7 +114,7 @@ def test_absconfirm_ignores_cached_all_grant(monkeypatch):
         prompts.append(_args)
         return '{"user_reply": "' + next(answers) + '", "cancelled": false}'
 
-    monkeypatch.setattr(human_ask_tool, "run_tool", _reply)
+    monkeypatch.setattr(tools, "run_tool", lambda _name, args: _reply(args))
     monkeypatch.setattr(
         tool_policy, "_absolute_confirmation_required", lambda *_args: True
     )
@@ -143,8 +144,8 @@ def test_absconfirm_ignores_cached_all_grant(monkeypatch):
 def test_injected_autopilot_absconfirm_never_caches_all(monkeypatch):
     from types import SimpleNamespace
 
-    from uagent import core
-    from uagent.tools import human_ask_tool, tool_policy
+    from uagent import core, tools
+    from uagent.tools import tool_policy
 
     monkeypatch.setenv("UAGENT_INJECT_MODE", "1")
     monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
@@ -158,9 +159,9 @@ def test_injected_autopilot_absconfirm_never_caches_all(monkeypatch):
         "uagent.tools.enterprise_policy.get_enterprise_policy", lambda: policy
     )
     monkeypatch.setattr(
-        human_ask_tool,
+        tools,
         "run_tool",
-        lambda _args: calls.append(_args)
+        lambda _name, args: calls.append(args)
         or '{"user_reply": "all", "cancelled": false}',
     )
     turn = TurnContext(
@@ -206,6 +207,68 @@ def test_injected_absconfirm_still_applies_without_autopilot(monkeypatch):
         "uagent.tools.enterprise_policy.get_enterprise_policy", lambda: policy
     )
     assert tool_policy._absolute_confirmation_required("delete_file", {})
+
+
+def test_web_fallback_confirmation_uses_room_tool_wrapper(monkeypatch):
+    from uagent import core, tools
+    from uagent.tools import human_ask_tool
+
+    monkeypatch.setattr(core, "_is_web", True, raising=False)
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    calls = []
+
+    def web_ask(name, args):
+        calls.append((name, args))
+        return '{"user_reply": "yes", "cancelled": false}'
+
+    monkeypatch.setattr(tools, "run_tool", web_ask)
+    monkeypatch.setattr(
+        human_ask_tool,
+        "run_tool",
+        lambda _args: (_ for _ in ()).throw(
+            AssertionError("Web must not call CLI human_ask")
+        ),
+    )
+    turn = TurnContext(
+        principal_id="p",
+        room_id="web-room",
+        project_id="project",
+        session_id="session",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
+    with bind_turn_context(turn):
+        assert default_confirmation_callback(
+            "bash_exec", {"command": "echo hi"}, policy_for("bash_exec")
+        )
+    assert len(calls) == 1
+    assert calls[0][0] == "human_ask"
+    assert calls[0][1]["_auto_pilot_tool"] == "bash_exec"
+
+
+def test_web_fallback_without_bound_turn_fails_closed(monkeypatch):
+    from uagent import core, tools
+    from uagent.tools import human_ask_tool
+
+    monkeypatch.setattr(core, "_is_web", True, raising=False)
+    monkeypatch.setattr(
+        tools,
+        "run_tool",
+        lambda *_args: (_ for _ in ()).throw(
+            AssertionError("missing Web turn must not prompt")
+        ),
+    )
+    monkeypatch.setattr(
+        human_ask_tool,
+        "run_tool",
+        lambda _args: (_ for _ in ()).throw(
+            AssertionError("must not use CLI queue")
+        ),
+    )
+    assert not default_confirmation_callback(
+        "bash_exec", {"command": "echo hi"}, policy_for("bash_exec")
+    )
 
 
 def test_command_guard_uses_dispatch_approval_without_reasking(monkeypatch):
