@@ -86,10 +86,6 @@ TOOL_SPEC: dict[str, Any] = {
                 "confirmed": {
                     "type": "boolean",
                     "default": False,
-                    "description": _(
-                        "param.confirmed.description",
-                        default="If true, skip the tool's internal confirmation prompt.",
-                    ),
                 },
             },
             "required": [],
