@@ -330,6 +330,19 @@ def test_worker_read_file_applies_byte_limit_after_start_line(monkeypatch, tmp_p
     assert result == "later section\n"
 
 
+def test_workspace_quota_scan_tolerates_vanished_children():
+    helper = (
+        Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
+    )
+    source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
+    start = source.index("function workspaceUsage(root)")
+    end = source.index("async function executePythonInContainer", start)
+    scanner = source[start:end]
+
+    assert "entry !== rootPath && error?.code === \"ENOENT\"" in scanner
+    assert scanner.count("if (vanishedChild(entry, error))") == 4
+
+
 def test_worker_read_file_never_exceeds_serialized_result_cap(monkeypatch, tmp_path):
     monkeypatch.setattr(sandbox_worker, "ROOT", tmp_path.resolve())
     target = tmp_path / "controls.txt"

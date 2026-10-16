@@ -51,10 +51,11 @@ by one tool remain visible to later tools. Its stdout/stderr are capped at 64 Ki
 per stream and execution is forcibly stopped after 30 seconds. The completion
 marker is emitted from an `atexit` handler registered before user code, so
 user-registered shutdown handlers complete before cleanup; the workspace quota
-watchdog remains active until the ProcessContainer has been stopped. A
-ProcessContainer is terminated after every Python execution to collect child
-processes the code may have started. Both probe and execution requests explicitly
-forbid MXC's host-DACL-mutation fallback.
+watchdog remains active until the ProcessContainer has been stopped. After each
+execution, the adapter uses Windows `taskkill /T /F` with the SDK-reported root
+PID before disposal so descendants that inherited stdio are also reaped. If the
+process stop or quota scan cannot be verified, execution fails closed. Both probe
+and execution requests explicitly forbid MXC's host-DACL-mutation fallback.
 
 The worker receives a minimal environment, not the Host's `os.environ`. Its
 filesystem policy grants write access only to the session workspace and read
@@ -65,9 +66,11 @@ four-hour aggregate user-CPU limit, and kill-on-close cleanup. A 256 MiB / 5,000
 entry workspace watchdog stops the Python execution and tears down the session
 when it detects an over-limit workspace. That workspace guard is an application
 watchdog, not an NTFS hard quota; a short write burst can temporarily exceed the
-threshold. At most four distinct scopes may be active in one UAG process; a
-fifth is denied instead of creating more host resource usage. Failure to create
-or assign the Job Object rejects the operation.
+threshold. A quota scan skips child entries concurrently removed from the
+workspace, but fails closed for a missing root or any other scan error. At most
+four distinct scopes may be active in one UAG process; a fifth is denied instead
+of creating more host resource usage. Failure to create or assign the Job Object
+rejects the operation.
 
 Trusted local-only Web may opt in on Windows using a server-created `web-room`
 scope, with the same static tool allowlist. Until PR 3 adds Room-owned worker

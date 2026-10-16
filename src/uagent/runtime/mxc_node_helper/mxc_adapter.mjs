@@ -238,22 +238,51 @@ function alternateStreamUsage(root) {
 function workspaceUsage(root) {
   let bytes = 0;
   let entries = 0;
-  const resolvedRoot = path.resolve(root).toLowerCase();
-  const rootPrefix = `${path.resolve(root)}${path.sep}`.toLowerCase();
-  const pending = [path.resolve(root)];
+  const rootPath = path.resolve(root);
+  const resolvedRoot = rootPath.toLowerCase();
+  const rootPrefix = `${rootPath}${path.sep}`.toLowerCase();
+  const pending = [rootPath];
+  const vanishedChild = (entry, error) =>
+    entry !== rootPath && error?.code === "ENOENT";
+
   while (pending.length) {
     const entry = pending.pop();
-    const stat = fs.lstatSync(entry);
+    let stat;
+    try {
+      stat = fs.lstatSync(entry);
+    } catch (error) {
+      if (vanishedChild(entry, error)) continue;
+      throw error;
+    }
     if (stat.isSymbolicLink()) continue;
-    const resolved = fs.realpathSync(entry).toLowerCase();
+    let resolved;
+    try {
+      resolved = fs.realpathSync(entry).toLowerCase();
+    } catch (error) {
+      if (vanishedChild(entry, error)) continue;
+      throw error;
+    }
     if (resolved !== resolvedRoot && !resolved.startsWith(rootPrefix)) {
       return { exceeded: true, bytes, entries };
     }
     if (stat.isDirectory()) {
-      const directory = fs.opendirSync(entry);
+      let directory;
       try {
-        let child;
-        while ((child = directory.readSync()) !== null) {
+        directory = fs.opendirSync(entry);
+      } catch (error) {
+        if (vanishedChild(entry, error)) continue;
+        throw error;
+      }
+      try {
+        while (true) {
+          let child;
+          try {
+            child = directory.readSync();
+          } catch (error) {
+            if (vanishedChild(entry, error)) break;
+            throw error;
+          }
+          if (child === null) break;
           entries += 1;
           if (entries > MAX_WORKSPACE_ENTRIES) return { exceeded: true, bytes, entries };
           pending.push(path.join(entry, child.name));
@@ -275,6 +304,44 @@ function workspaceUsage(root) {
   return { exceeded: false, bytes, entries };
 }
 
+function terminateMxcProcessTree(processHandle) {
+  const pid = processHandle?.id;
+  if (!Number.isSafeInteger(pid) || pid <= 0) {
+    processHandle.kill();
+    return false;
+  }
+
+  const systemRoot =
+    process.env.SystemRoot ||
+    process.env.WINDIR ||
+    path.win32.join(process.env.SystemDrive || "C:", "Windows");
+  const taskkill = path.join(systemRoot, "System32", "taskkill.exe");
+  try {
+    // Terminate the tree before signaling the root through MXC: once the root
+    // exits, taskkill cannot discover descendants that inherited its pipes.
+    execFileSync(taskkill, ["/PID", String(pid), "/T", "/F"], {
+      stdio: "ignore",
+      timeout: 5_000,
+      windowsHide: true,
+      env: {
+        SystemRoot: systemRoot,
+        WINDIR: systemRoot,
+        PATH: path.join(systemRoot, "System32"),
+      },
+    });
+    return true;
+  } catch (error) {
+    if (error?.status === 128) {
+      // The root exited before taskkill could enumerate its tree. Let MXC
+      // observe completion; the caller still fails closed if wait() stalls.
+      try { processHandle.kill(); } catch {}
+      return false;
+    }
+    try { processHandle.kill(); } catch {}
+    throw error;
+  }
+}
+
 async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   const code = args?.code;
   if (typeof code !== "string" || Buffer.byteLength(code, "utf8") > 1_000_000) {
@@ -290,10 +357,10 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   }
   const marker = `__UAG_PY_EXEC_${crypto.randomBytes(16).toString("hex")}__`;
   // Python runs atexit handlers in LIFO order; registering before user code
-  // makes this marker prove that user cleanup has completed before we kill the
-  // one-shot container and reap any remaining child processes.
+  // makes this marker prove that user cleanup has completed. The short callback
+  // rendezvous keeps the root alive long enough for the host to kill its tree.
   const wrapper = [
-    "import atexit, sys, traceback",
+    "import atexit, sys, time, traceback",
     "__uag_stdout = sys.stdout",
     `__uag_source = ${JSON.stringify(code)}`,
     `__uag_marker = ${JSON.stringify(marker)}`,
@@ -301,6 +368,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     "def __uag_emit_marker():",
     "    __uag_stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
     "    __uag_stdout.flush()",
+    "    time.sleep(0.5)",
     "atexit.register(__uag_emit_marker)",
     "__uag_globals = {'__name__': '__main__', '__file__': '<python_exec>'}",
     "try:",
@@ -331,11 +399,11 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       try {
         if (workspaceUsage(baseRequest.workingDirectory).exceeded) {
           workspaceLimitExceeded = true;
-          processHandle.kill();
+          terminateMxcProcessTree(processHandle);
         }
       } catch {
         workspaceLimitExceeded = true;
-        try { processHandle.kill(); } catch {}
+        try { terminateMxcProcessTree(processHandle); } catch {}
       }
     }, 250);
     const out = processHandle.standardOutput;
@@ -375,7 +443,12 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     const outcome = await Promise.race([rootExit, markerReached, timeout]);
     clearInterval(markerPoll);
     const timedOut = outcome.kind === "timeout";
-    try { processHandle.kill(); } catch {}
+    try {
+      terminateMxcProcessTree(processHandle);
+    } catch {
+      workspaceLimitExceeded = true;
+      try { processHandle.kill(); } catch {}
+    }
     // Keep quota monitoring through user shutdown handlers and until kill is
     // requested, but do not scan a process tree while the container is tearing down.
     clearInterval(workspaceMonitor);
