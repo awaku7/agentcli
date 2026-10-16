@@ -53,6 +53,16 @@ def confirm_operation(message: str, *, tool_name: str) -> bool:
     callback = get_confirmation_callback() or default_confirmation_callback
     policy = ToolPolicy(side_effect=SideEffect.DESTRUCTIVE, requires_confirmation=True)
     try:
-        return bool(callback(tool_name, {"details": message}, policy))
+        if not bool(callback(tool_name, {"details": message}, policy)):
+            return False
+        from ..runtime.execution_broker import (
+            SecurityProfile,
+            current_authorization_valid,
+            current_profile,
+        )
+
+        return current_authorization_valid(
+            require_check=current_profile() is SecurityProfile.REMOTE
+        )
     except Exception:
         return False
