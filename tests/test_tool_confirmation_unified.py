@@ -2,6 +2,11 @@
 
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
+import pytest
+
 from uagent.runtime.identity_context import TurnContext, bind_turn_context
 from uagent.tools.tool_confirmation import confirm_operation, dispatched_tool
 from uagent.tools.tool_policy import (
@@ -9,6 +14,111 @@ from uagent.tools.tool_policy import (
     policy_for,
     reset_confirmation_grants,
 )
+
+
+_LOCALE_DATA = json.loads(
+    (
+        Path(__file__).resolve().parents[1]
+        / "src"
+        / "uagent"
+        / "tools"
+        / "human_ask_tool.json"
+    ).read_text(encoding="utf-8")
+)
+_CONFIRM_LANGUAGES = ["en", *sorted(_LOCALE_DATA)]
+
+
+@pytest.mark.parametrize("language", _CONFIRM_LANGUAGES)
+def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
+    from uagent.tools import tool_policy
+
+    monkeypatch.setenv("UAGENT_LANG", language)
+    assert len(_CONFIRM_LANGUAGES) == 38
+    labels = _LOCALE_DATA.get(language)
+    if language == "en":
+        expected = ("yes", "no", "all")
+    else:
+        assert labels is not None
+        expected = tuple(
+            labels["confirm.reply_" + name] for name in ("yes", "no", "all")
+        )
+    assert len(set(expected)) == 3
+    assert all(label.strip() for label in expected)
+    assert tuple(
+        tool_policy._tool_("confirm.reply_" + name, default=name)
+        for name in ("yes", "no", "all")
+    ) == expected
+    assert tool_policy._confirmation_reply_kind(expected[0]) == "yes"
+    assert tool_policy._confirmation_reply_kind(expected[1]) == "deny"
+    assert tool_policy._confirmation_reply_kind(expected[2]) == "all"
+    assert tool_policy._confirmation_reply_kind("unexpected answer") == "deny"
+    if labels is not None:
+        assert expected[2] in labels["ui.all_yes"]
+
+
+@pytest.mark.parametrize(
+    "language,reply,expected",
+    [
+        ("ja", "全て", "all"),
+        ("ja", "いいえ", "deny"),
+        ("ja", "はい", "yes"),
+        ("fr", "OUI", "yes"),
+        ("es", "SI", "deny"),
+        ("es", "SI\\u0301", "yes"),
+        ("zh_CN", "全部", "all"),
+        ("ko", "아니요", "deny"),
+    ],
+)
+def test_confirmation_reply_normalization_is_strict(
+    monkeypatch, language, reply, expected
+):
+    from uagent.tools import tool_policy
+
+    monkeypatch.setenv("UAGENT_LANG", language)
+    assert tool_policy._confirmation_reply_kind(reply) == expected
+
+
+@pytest.mark.parametrize(
+    "language,approval",
+    [("ja", "全て"), ("fr", "tous"), ("ko", "모두"), ("ar", "الكل")],
+)
+def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, approval):
+    from uagent import core, tools
+    from uagent.tools import tool_policy
+
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    monkeypatch.setenv("UAGENT_LANG", language)
+    seen = []
+    monkeypatch.setattr(
+        "uagent.tools.human_ask_tool.run_tool",
+        lambda req: seen.append(req)
+        or json.dumps({"user_reply": approval, "cancelled": False}),
+    )
+    turn = TurnContext(
+        principal_id="local-user",
+        room_id="",
+        project_id="project",
+        session_id="session-" + language,
+        entry_point="cli",
+        authenticated=True,
+        authn_kind="local",
+    )
+    tool_policy.reset_confirmation_grants()
+    try:
+        with bind_turn_context(turn):
+            assert tool_policy.default_confirmation_callback(
+                "delete_file", {}, tool_policy.policy_for("delete_file")
+            )
+            assert tool_policy.default_confirmation_callback(
+                "delete_file", {}, tool_policy.policy_for("delete_file")
+            )
+        assert len(seen) == 1
+        assert approval in seen[0]["message"]
+        assert seen[0]["confirmation"] is True
+        assert seen[0]["_confirmation_hint_in_message"] is True
+    finally:
+        tool_policy.reset_confirmation_grants()
 
 
 def test_confirm_operation_uses_host_callback_and_never_raw_input(monkeypatch):
@@ -262,9 +372,7 @@ def test_web_fallback_without_bound_turn_fails_closed(monkeypatch):
     monkeypatch.setattr(
         human_ask_tool,
         "run_tool",
-        lambda _args: (_ for _ in ()).throw(
-            AssertionError("must not use CLI queue")
-        ),
+        lambda _args: (_ for _ in ()).throw(AssertionError("must not use CLI queue")),
     )
     assert not default_confirmation_callback(
         "bash_exec", {"command": "echo hi"}, policy_for("bash_exec")
