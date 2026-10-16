@@ -99,16 +99,9 @@ TOOL_SPEC: dict[str, Any] = {
 
 
 def _human_confirm(message: str) -> bool:
-    try:
-        from .human_ask_tool import run_tool as human_ask
+    from .tool_confirmation import confirm_operation
 
-        res_json = human_ask({"message": message})
-        payload = json.loads(res_json)
-        user_reply = (payload.get("user_reply") or "").strip().lower()
-        cancelled = bool(payload.get("cancelled", False))
-        return (not cancelled) and user_reply in ("y", "yes")
-    except Exception:
-        return False
+    return confirm_operation(message, tool_name="delete_file")
 
 
 def _has_glob_meta(s: str) -> bool:
@@ -175,7 +168,8 @@ def run_tool(args: dict[str, Any]) -> str:
 
     missing_ok = missing_ok_raw
     allow_dir = allow_dir_raw
-    confirmed = confirmed_raw
+    # confirmed=True is a legacy model argument, never trusted as approval.
+    # The common host dispatcher exclusively grants the execution approval.
 
     if isinstance(raw_input, str):
         items = [raw_input.strip()] if raw_input.strip() else []
@@ -252,7 +246,9 @@ def run_tool(args: dict[str, Any]) -> str:
         ),
     ).format(count=len(all_matches), paths=preview_list)
 
-    if not confirmed and not _human_confirm(msg):
+    from .tool_confirmation import dispatcher_approved
+
+    if not dispatcher_approved("delete_file") and not _human_confirm(msg):
         return json.dumps({"ok": False, "cancelled": True}, ensure_ascii=False)
 
     deleted: list[str] = []
