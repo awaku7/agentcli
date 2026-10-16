@@ -57,11 +57,13 @@ def run_tool(args: dict[str, Any]) -> str:
         )
 
     dry_run = bool(args.get("dry_run", True))
-    if not dry_run and not bool(args.get("send_confirmed", False)):
-        return _error(
-            "SEND_CONFIRMATION_REQUIRED",
-            "Call human_ask and retry with send_confirmed=true.",
-        )
+    # Only the trusted host dispatcher can approve real packet transmission.
+    # Model-supplied send_confirmed flags do not authorize network sends.
+    if not dry_run:
+        from .tool_confirmation import dispatcher_approved
+
+        if not dispatcher_approved("packet_send"):
+            return _error("SEND_CONFIRMATION_REQUIRED", "Host approval required.")
     if dry_run:
         return json.dumps(
             {
@@ -166,7 +168,6 @@ TOOL_SPEC: dict[str, Any] = {
                     "default": 1,
                 },
                 "dry_run": {"type": "boolean", "default": True},
-                "send_confirmed": {"type": "boolean", "default": False},
             },
             "required": ["action", "target", "port"],
         },
