@@ -102,6 +102,45 @@ def test_all_confirmation_grants_are_bound_to_room_and_tool(monkeypatch):
         reset_confirmation_grants()
 
 
+
+def test_absconfirm_ignores_cached_all_grant(monkeypatch):
+    from uagent.tools import human_ask_tool, tool_policy
+
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    prompts = []
+    answers = iter(["all", "no"])
+
+    def _reply(_args):
+        prompts.append(_args)
+        return '{"user_reply": "' + next(answers) + '", "cancelled": false}'
+
+    monkeypatch.setattr(human_ask_tool, "run_tool", _reply)
+    monkeypatch.setattr(
+        tool_policy, "_absolute_confirmation_required", lambda *_args: True
+    )
+    turn = TurnContext(
+        principal_id="p",
+        room_id="room",
+        project_id="project",
+        session_id="session",
+        entry_point="web",
+        authenticated=True,
+        authn_kind="oidc",
+    )
+    reset_confirmation_grants()
+    try:
+        with bind_turn_context(turn):
+            assert default_confirmation_callback(
+                "delete_file", {}, policy_for("delete_file")
+            )
+            assert not default_confirmation_callback(
+                "delete_file", {}, policy_for("delete_file")
+            )
+        assert len(prompts) == 2
+    finally:
+        reset_confirmation_grants()
+
+
 def test_command_guard_uses_dispatch_approval_without_reasking(monkeypatch):
     from uagent.tools.safe_exec_ops import ExecDecision, confirm_if_needed
 
