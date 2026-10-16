@@ -213,17 +213,7 @@ def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
 
 
 def safe_delete_path(path: str, missing_ok: bool = False) -> None:
-    """Delete a path safely."""
-    if _is_trigger_path(path):
-        ok = _ask_user_confirm(path, "delete")
-        if not ok:
-            raise PermissionError(
-                _(
-                    "err.delete_path_cancel",
-                    default="Deletion cancelled because the user did not allow it: {path}",
-                ).format(path=path)
-            )
-
+    """Delete a path safely with at most one confirmation."""
     p = Path(path)
     if not p.exists():
         if missing_ok:
@@ -235,8 +225,7 @@ def safe_delete_path(path: str, missing_ok: bool = False) -> None:
         )
 
     if p.is_dir():
-        ok = _ask_user_confirm(path, "delete_dir")
-        if not ok:
+        if not _ask_user_confirm(path, "delete_dir"):
             raise PermissionError(
                 _(
                     "err.delete_dir_cancel",
@@ -245,6 +234,14 @@ def safe_delete_path(path: str, missing_ok: bool = False) -> None:
             )
         shutil.rmtree(path)
         return
+
+    if _is_trigger_path(path) and not _ask_user_confirm(path, "delete"):
+        raise PermissionError(
+            _(
+                "err.delete_path_cancel",
+                default="Deletion cancelled because the user did not allow it: {path}",
+            ).format(path=path)
+        )
     os.remove(path)
 
 
