@@ -198,6 +198,34 @@ def test_web_confirmation_respects_room_locale_over_server(monkeypatch):
         tool_policy.reset_confirmation_grants()
 
 
+def test_packet_send_and_privileged_probe_use_host_side_confirmation():
+    from uagent.tools.tool_policy import SideEffect, policy_for
+
+    preview = policy_for("packet_send", {"dry_run": True})
+    assert preview.side_effect is SideEffect.READ_ONLY
+    assert not preview.requires_confirmation
+
+    send = policy_for("packet_send", {"dry_run": False})
+    assert send.side_effect is SideEffect.EXTERNAL_SEND
+    assert send.requires_confirmation
+
+    connect = policy_for("packet_probe", {"action": "tcp_connect"})
+    assert not connect.requires_confirmation
+
+    probe_preview = policy_for(
+        "packet_probe",
+        {"action": "tcp_syn", "allow_elevation": True, "dry_run": True},
+    )
+    assert not probe_preview.requires_confirmation
+
+    elevated = policy_for(
+        "packet_probe",
+        {"action": "tcp_syn", "allow_elevation": True, "dry_run": False},
+    )
+    assert elevated.side_effect is SideEffect.DESTRUCTIVE
+    assert elevated.requires_confirmation
+
+
 def test_confirm_operation_uses_host_callback_and_never_raw_input(monkeypatch):
     from uagent import tools
 
