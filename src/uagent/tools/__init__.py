@@ -2563,7 +2563,10 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         # so we delegate status handling to the runner implementation.
         try:
             return _call_tool_runner(
-                name, runner, args, tool_call_id=tool_call_id,
+                name,
+                runner,
+                args,
+                tool_call_id=tool_call_id,
                 approved=policy.requires_confirmation,
             )
         finally:
@@ -2575,7 +2578,10 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         _safe_set_status(True, status_label)
         try:
             return _call_tool_runner(
-                name, runner, args, tool_call_id=tool_call_id,
+                name,
+                runner,
+                args,
+                tool_call_id=tool_call_id,
                 approved=policy.requires_confirmation,
             )
         finally:
@@ -2583,9 +2589,12 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
 
     # Otherwise do not touch status
     return _call_tool_runner(
-                name, runner, args, tool_call_id=tool_call_id,
-                approved=policy.requires_confirmation,
-            )
+        name,
+        runner,
+        args,
+        tool_call_id=tool_call_id,
+        approved=policy.requires_confirmation,
+    )
 
 
 # Lazy initialization: tools are loaded on first use
