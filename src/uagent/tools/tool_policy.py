@@ -85,6 +85,10 @@ CONFIRMATION_GRANTED_TOKEN = object()
 _ALLOW_ALL_TOOLS: set[tuple[tuple[str, ...], str]] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
 
+_CONFIRM_REPLY_DENY = "deny"
+_CONFIRM_REPLY_YES = "yes"
+_CONFIRM_REPLY_ALL = "all"
+
 
 def _absolute_confirmation_required(tool_name: str, args: dict[str, Any]) -> bool:
     """A configured absconfirm cannot be bypassed by a previous 'all' grant."""
@@ -157,13 +161,13 @@ def _confirmation_reply_kind(raw_reply: Any) -> str:
 
     reply = normalize(raw_reply)
     if not reply:
-        return "deny"
+        return _CONFIRM_REPLY_DENY
 
     if reply in {
         normalize(item)
         for item in ("n", "no", "c", "cancel", _tool_("confirm.reply_no", default="no"))
     }:
-        return "deny"
+        return _CONFIRM_REPLY_DENY
     if reply in {
         normalize(item)
         for item in (
@@ -171,25 +175,25 @@ def _confirmation_reply_kind(raw_reply: Any) -> str:
             "a",
             "all yes",
             "yes to all",
-            "すべてはい",
-            "全てはい",
+            "\u3059\u3079\u3066\u306f\u3044",
+            "\u5168\u3066\u306f\u3044",
             _tool_("confirm.reply_all", default="all"),
         )
     }:
-        return "all"
+        return _CONFIRM_REPLY_ALL
     if reply in {
         normalize(item)
         for item in (
             "y",
             "yes",
-            "承認",
-            "許可",
-            "はい",
+            "\u627f\u8a8d",
+            "\u8a31\u53ef",
+            "\u306f\u3044",
             _tool_("confirm.reply_yes", default="yes"),
         )
     }:
-        return "yes"
-    return "deny"
+        return _CONFIRM_REPLY_YES
+    return _CONFIRM_REPLY_DENY
 
 
 def reset_confirmation_grants() -> None:
