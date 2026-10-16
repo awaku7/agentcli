@@ -85,9 +85,7 @@ _ALLOW_ALL_TOOLS: set[tuple[tuple[str, ...], str]] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
 
 
-def _absolute_confirmation_required(
-    tool_name: str, args: dict[str, Any]
-) -> bool:
+def _absolute_confirmation_required(tool_name: str, args: dict[str, Any]) -> bool:
     """A configured absconfirm cannot be bypassed by a previous 'all' grant."""
     from .. import core
     from .enterprise_policy import get_enterprise_policy
