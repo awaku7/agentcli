@@ -120,19 +120,19 @@ def test_mxc_requests_explicitly_forbid_host_dacl_mutation():
     assert source.count("fallback: { allowDaclMutation: false }") == 2
 
 
-def test_python_workspace_monitor_stays_active_until_container_kill():
+def test_python_workspace_monitor_stays_active_until_mxc_wait():
     helper = (
         Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
     )
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
     outcome = source.index("const outcome = await Promise.race(")
-    kill = source.index("try { processHandle.kill(); } catch {}", outcome)
-    monitor_stop = source.index("clearInterval(workspaceMonitor);", kill)
-    process_stopped = source.index("const processStopped = await Promise.race(", kill)
-    assert kill < monitor_stop < process_stopped
-    assert (
-        source.index("clearTimeout(executionTimer);", process_stopped) > process_stopped
-    )
+    stop = source.index("const stopThroughMxc = async () => {", outcome)
+    kill = source.index("try { processHandle.kill(); } catch {}", stop)
+    wait = source.index("acceptRootExit(await waitForRoot", kill)
+    monitor_stop = source.index("clearInterval(workspaceMonitor);", wait)
+    assert outcome < stop < kill < wait < monitor_stop
+    assert source.index("await workspaceMonitorPromise;", monitor_stop) > monitor_stop
+    assert source.index("clearTimeout(executionTimer);", monitor_stop) > monitor_stop
 
 
 @pytest.fixture
@@ -349,7 +349,7 @@ def test_alternate_stream_scan_tolerates_vanished_files():
     )
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
     start = source.index("const ALTERNATE_STREAM_SCAN_SCRIPT = [")
-    end = source.index("function alternateStreamUsage(root)", start)
+    end = source.index("async function alternateStreamUsage(root)", start)
     scanner = source[start:end]
 
     assert scanner.count("$winError -eq 2 -or $winError -eq 3") == 2
@@ -367,21 +367,20 @@ def test_alternate_stream_scan_tolerates_vanished_files():
     assert "$total += $itemTotal" in scanner
 
 
-def test_unverified_process_tree_termination_fails_closed():
+def test_python_completion_uses_mxc_wait_and_fails_closed():
     helper = (
         Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
     )
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
 
-    assert "const treeTerminated = terminateMxcProcessTree(processHandle);" in source
-    assert "if (!treeTerminated) {" in source
-    assert "if (!workspaceLimitExceeded) {" in source
-    assert "processTreeUnverified = true;" in source
+    assert "const waitPromise = processHandle.wait();" in source
+    assert "processHandle.kill();" in source
+    assert "executionIncomplete = markerExitCode === null;" in source
     assert "process_tree_unverified: processTreeUnverified" in source
-    assert (
-        "terminate: true, error: `Python process tree termination could not be verified ("
-        in source
-    )
+    assert "execution_incomplete: executionIncomplete" in source
+    assert "Python execution exited before its completion marker" in source
+    assert "terminateMxcProcessTree" not in source
+    assert "taskkill.exe" not in source
 
 
 def test_worker_read_file_never_exceeds_serialized_result_cap(monkeypatch, tmp_path):

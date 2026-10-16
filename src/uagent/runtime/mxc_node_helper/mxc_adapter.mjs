@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import { execFile, execFileSync } from "node:child_process";
+import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import fs from "node:fs";
 import path from "node:path";
@@ -343,45 +343,6 @@ async function workspaceUsage(root) {
   return { exceeded: false, bytes, entries };
 }
 
-function terminateMxcProcessTree(processHandle) {
-  const pid = processHandle?.id;
-  if (!Number.isSafeInteger(pid) || pid <= 0) {
-    // The native MXC handle owns cleanup when this backend exposes no host PID.
-    processHandle.kill();
-    return true;
-  }
-
-  const systemRoot =
-    process.env.SystemRoot ||
-    process.env.WINDIR ||
-    path.win32.join(process.env.SystemDrive || "C:", "Windows");
-  const taskkill = path.join(systemRoot, "System32", "taskkill.exe");
-  try {
-    // Terminate the tree before signaling the root through MXC: once the root
-    // exits, taskkill cannot discover descendants that inherited its pipes.
-    execFileSync(taskkill, ["/PID", String(pid), "/T", "/F"], {
-      stdio: "ignore",
-      timeout: 5_000,
-      windowsHide: true,
-      env: {
-        SystemRoot: systemRoot,
-        WINDIR: systemRoot,
-        PATH: path.join(systemRoot, "System32"),
-      },
-    });
-    return true;
-  } catch (error) {
-    if (error?.status === 128) {
-      // The root exited before taskkill could enumerate its tree. Let MXC
-      // observe completion; the caller still fails closed if wait() stalls.
-      try { processHandle.kill(); } catch {}
-      return false;
-    }
-    try { processHandle.kill(); } catch {}
-    throw error;
-  }
-}
-
 async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   const code = args?.code;
   if (typeof code !== "string" || Buffer.byteLength(code, "utf8") > 1_000_000) {
@@ -397,10 +358,10 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   }
   const marker = `__UAG_PY_EXEC_${crypto.randomBytes(16).toString("hex")}__`;
   // Python runs atexit handlers in LIFO order; registering before user code
-  // makes this marker prove that user cleanup has completed. The short callback
-  // rendezvous keeps the root alive long enough for the host to kill its tree.
+  // makes this marker prove that user shutdown handlers have completed. MXC's
+  // native wait then terminates and reaps the ProcessContainer Job Object tree.
   const wrapper = [
-    "import atexit, sys, time, traceback",
+    "import atexit, sys, traceback",
     "__uag_stdout = sys.stdout",
     `__uag_source = ${JSON.stringify(code)}`,
     `__uag_marker = ${JSON.stringify(marker)}`,
@@ -408,7 +369,6 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     "def __uag_emit_marker():",
     "    __uag_stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
     "    __uag_stdout.flush()",
-    "    time.sleep(1)",
     "atexit.register(__uag_emit_marker)",
     "__uag_globals = {'__name__': '__main__', '__file__': '<python_exec>'}",
     "try:",
@@ -432,6 +392,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   let workspaceLimitReason = "";
   let processTreeUnverified = false;
   let processTreeFailureReason = "";
+  let executionIncomplete = false;
   let workspaceMonitor;
   let workspaceScanRunning = false;
   let workspaceMonitorPromise = Promise.resolve();
@@ -447,12 +408,12 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
           if ((await workspaceUsage(baseRequest.workingDirectory)).exceeded) {
             workspaceLimitExceeded = true;
             workspaceLimitReason = "monitor_exceeded";
-            terminateMxcProcessTree(processHandle);
+            processHandle.kill();
           }
         } catch (error) {
           workspaceLimitExceeded = true;
           workspaceLimitReason = `monitor_error:${error?.code || error?.name || "unknown"}`;
-          try { terminateMxcProcessTree(processHandle); } catch {}
+          try { processHandle.kill(); } catch {}
         } finally {
           workspaceScanRunning = false;
         }
@@ -493,49 +454,63 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       executionTimer = setTimeout(() => resolve({ kind: "timeout" }), 30_000);
     });
     const outcome = await Promise.race([rootExit, markerReached, timeout]);
-    clearInterval(markerPoll);
-    const timedOut = outcome.kind === "timeout";
-    if (outcome.kind === "error" || (outcome.kind === "exit" && markerExitCode === null)) {
-      if (!workspaceLimitExceeded) {
-        // The root exited before the completion marker without a quota-triggered
-        // stop, so taskkill could target a reused PID and cannot reliably find
-        // descendants. Fail closed.
+    let timedOut = outcome.kind === "timeout";
+    let terminal;
+    let processStopped = false;
+    const waitForRoot = async (timeoutMs, timeoutKind = "stop_timeout") => {
+      let timer;
+      const result = await Promise.race([
+        rootExit,
+        new Promise((resolve) => {
+          timer = setTimeout(() => resolve({ kind: timeoutKind }), timeoutMs);
+        }),
+      ]);
+      clearTimeout(timer);
+      return result;
+    };
+    const acceptRootExit = (result) => {
+      if (result.kind === "exit") {
+        terminal = result.terminal;
+        processStopped = true;
+      } else {
         processTreeUnverified = true;
-        processTreeFailureReason = `root_${outcome.kind}_before_marker`;
+        processTreeFailureReason = result.kind === "error"
+          ? "mxc_wait_failed"
+          : "mxc_wait_timeout";
       }
+    };
+    const stopThroughMxc = async () => {
       try { processHandle.kill(); } catch {}
-    } else if (outcome.kind !== "exit") {
-      // If the marker was observed and the root then exited normally, MXC's
-      // native handle disposal below owns descendant cleanup; never taskkill a
-      // potentially reused PID.
-      try {
-        const treeTerminated = terminateMxcProcessTree(processHandle);
-        if (!treeTerminated) {
-          processTreeUnverified = true;
-          processTreeFailureReason = "tree_termination_not_confirmed";
-        }
-      } catch (error) {
-        processTreeUnverified = true;
-        processTreeFailureReason = `tree_termination_error:${error?.status ?? error?.code ?? "unknown"}`;
-        workspaceLimitExceeded = true;
-        try { processHandle.kill(); } catch {}
-      }
+      acceptRootExit(await waitForRoot(15_000));
+    };
+
+    if (outcome.kind === "exit" || outcome.kind === "error") {
+      acceptRootExit(outcome);
+    } else {
+      // The marker is emitted only after user atexit handlers have completed.
+      // Use MXC's Job Object kill/wait path to reap the root and descendants.
+      if (outcome.kind === "timeout") timedOut = true;
+      await stopThroughMxc();
     }
-    // Keep quota monitoring through user shutdown handlers and until kill is
-    // requested, but do not scan a process tree while the container is tearing down.
+    if (processStopped && terminal?.timedOut) timedOut = true;
+    if (
+      processStopped &&
+      markerExitCode === null &&
+      !workspaceLimitExceeded &&
+      !timedOut
+    ) {
+      let markerTimer;
+      await Promise.race([
+        markerReached,
+        new Promise((resolve) => { markerTimer = setTimeout(resolve, 100); }),
+      ]);
+      clearTimeout(markerTimer);
+      executionIncomplete = markerExitCode === null;
+    }
+    clearInterval(markerPoll);
     clearInterval(workspaceMonitor);
-    let stopTimer;
-    const processStopped = await Promise.race([
-      waitPromise.then(() => true, () => true),
-      new Promise((resolve) => { stopTimer = setTimeout(() => resolve(false), 5_000); }),
-    ]);
-    clearTimeout(stopTimer);
     clearTimeout(executionTimer);
     await workspaceMonitorPromise;
-    if (!processStopped) {
-      workspaceLimitExceeded = true;
-      workspaceLimitReason ||= "process_not_stopped";
-    }
     // The interval is only a watchdog; it may not fire if Python exits quickly.
     // Recheck after the one-shot process has stopped before returning a result
     // to the persistent Worker.
@@ -559,7 +534,6 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
         stdoutText = stdoutText.slice(0, Math.max(0, lineStart)) + stdoutText.slice(lineEnd < 0 ? stdoutText.length : lineEnd + 1);
       }
     }
-    const terminal = outcome.terminal;
     const stderrText = Buffer.concat(stderr)
       .toString("utf8")
       .split(/\r?\n/)
@@ -573,6 +547,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       output_truncated: outputTruncated,
       workspace_limit_exceeded: workspaceLimitExceeded,
       workspace_limit_reason: workspaceLimitReason,
+      execution_incomplete: executionIncomplete,
       process_tree_unverified: processTreeUnverified,
       process_tree_failure_reason: processTreeFailureReason,
     };
@@ -705,6 +680,10 @@ async function serveWorker() {
             writeHost({ ok: false, terminate: true, error: `Python process tree termination could not be verified (${result.process_tree_failure_reason || "unknown"}); the isolated worker was terminated` });
             await stopWorker();
             break;
+          }
+          if (result.execution_incomplete) {
+            writeHost({ ok: false, error: "Python execution exited before its completion marker" });
+            continue;
           }
           if (result.workspace_limit_exceeded) {
             writeHost({ ok: false, terminate: true, error: `session workspace limit exceeded (${result.workspace_limit_reason || "unknown"}); the isolated worker was terminated` });

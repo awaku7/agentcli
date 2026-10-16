@@ -77,7 +77,7 @@ def test_mxc_python_os_exit_fails_closed_and_reaps_children(tmp_path):
     )
     try:
         result = manager.run_tool(scope, "python_exec", {"code": code})
-        assert "process tree termination could not be verified" in result.lower()
+        assert "exited before its completion marker" in result.lower()
         deadline = time.monotonic() + 5
         while (
             _process_with_command_marker_is_alive(marker)

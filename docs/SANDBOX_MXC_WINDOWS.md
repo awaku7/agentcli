@@ -51,13 +51,14 @@ by one tool remain visible to later tools. Its stdout/stderr are capped at 64 Ki
 per stream and execution is forcibly stopped after 30 seconds. The completion
 marker is emitted from an `atexit` handler registered before user code, so
 user-registered shutdown handlers complete before cleanup; the workspace quota
-watchdog remains active until the ProcessContainer has been stopped. While the
-root process is alive, the adapter uses Windows `taskkill /T /F` with the
-SDK-reported PID to reap descendants that inherited stdio. If the root exits
-before the completion marker, or process-tree termination or quota scanning
-cannot be verified, the operation fails closed and the session is torn down.
-Both probe and execution requests explicitly forbid MXC's host-DACL-mutation
-fallback.
+watchdog remains active until the ProcessContainer has been stopped. MXC's
+ProcessContainer assigns the suspended root process to a Job Object before it is
+resumed; its native `wait()`/`kill()` path terminates and reaps that process tree.
+The adapter uses those SDK lifecycle operations rather than host PID-based
+termination. If MXC cannot confirm process cleanup, quota scanning fails, or the
+completion marker is missing, execution is rejected; unverified cleanup tears
+down the session. Both probe and execution requests explicitly forbid MXC's
+host-DACL-mutation fallback.
 
 The worker receives a minimal environment, not the Host's `os.environ`. Its
 filesystem policy grants write access only to the session workspace and read
