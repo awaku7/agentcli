@@ -29,6 +29,73 @@ def test_lint_format_fix_requires_common_confirmation() -> None:
     assert fix_policy.requires_confirmation
 
 
+def test_delete_file_preview_never_requires_destructive_confirmation() -> None:
+    previews = (
+        {"filename": "example.txt", "dry_run": True},
+        {"filename": "*.org"},
+        {"path": ["example.txt", "backup*.org"]},
+    )
+    for args in previews:
+        policy = policy_for("delete_file", args)
+        assert policy.side_effect is SideEffect.READ_ONLY
+        assert not policy.requires_confirmation
+
+    deletes = (
+        {"filename": "example.txt", "dry_run": False},
+        {"filename": "example.txt"},
+        {"filename": "*.org", "dry_run": False},
+        {"filename": "example.txt", "confirmed": True},
+        {"filename": "example.txt", "dry_run": "true"},
+    )
+    for args in deletes:
+        policy = policy_for("delete_file", args)
+        assert policy.side_effect is SideEffect.DESTRUCTIVE
+        assert policy.requires_confirmation
+
+
+def test_delete_file_dispatcher_preserves_confirmation_gate(monkeypatch) -> None:
+    from uagent import tools
+    from uagent.runtime.policy_engine import PolicyDecision, UnifiedPolicy
+
+    class _AllowPolicy:
+        def decide(self, _name: str, _args: dict) -> PolicyDecision:
+            return PolicyDecision.ALLOW
+
+    calls = []
+    monkeypatch.setattr(tools, "_ensure_loaded", lambda: None)
+    monkeypatch.setitem(tools._RUNNERS, "delete_file", lambda _args: "ran")
+    monkeypatch.setattr(tools, "_emit_tool_trace", lambda *_args: None)
+    monkeypatch.setattr(
+        UnifiedPolicy,
+        "from_environment",
+        classmethod(lambda cls: _AllowPolicy()),
+    )
+    monkeypatch.setattr(
+        tools,
+        "_CONFIRMATION_CALLBACK",
+        lambda name, args, policy: calls.append((name, args, policy)) or False,
+    )
+
+    # Preview reaches the runner without an interactive confirmation.
+    assert (
+        tools.run_tool("delete_file", {"filename": "example.txt", "dry_run": True})
+        == "ran"
+    )
+    assert calls == []
+
+    # Execution must still stop if approval is refused, even when a model
+    # provides confirmed=True in the tool arguments.
+    assert (
+        tools.run_tool("delete_file", {"filename": "example.txt", "dry_run": False})
+        == "[tool policy] confirmation denied"
+    )
+    assert (
+        tools.run_tool("delete_file", {"filename": "example.txt", "confirmed": True})
+        == "[tool policy] confirmation denied"
+    )
+    assert len(calls) == 2
+
+
 def test_provider_registry_distinguishes_unknown_capability() -> None:
     openai = DEFAULT_PROVIDER_REGISTRY.resolve("openai")
     llama_cpp = DEFAULT_PROVIDER_REGISTRY.resolve("llama_cpp")
