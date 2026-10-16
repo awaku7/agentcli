@@ -121,6 +121,32 @@ def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, appro
         tool_policy.reset_confirmation_grants()
 
 
+@pytest.mark.parametrize(
+    "answer,deleted",
+    [("はい", True), ("いいえ", False), ("全て", False)],
+)
+def test_cli_rm_reuses_one_localized_approval(
+    monkeypatch, tmp_path, answer, deleted
+):
+    from uagent import util_cmd_files
+    from uagent.tools import human_ask_tool
+
+    monkeypatch.setenv("UAGENT_LANG", "ja")
+    target = tmp_path / "single_confirmation.tmp"
+    target.write_text("data", encoding="utf-8")
+    calls = []
+    monkeypatch.setattr(
+        human_ask_tool,
+        "run_tool",
+        lambda args: calls.append(args)
+        or json.dumps({"user_reply": answer, "cancelled": False}),
+    )
+
+    assert util_cmd_files._handle_cmd_rm(str(target), tr=None)
+    assert len(calls) == 1
+    assert target.exists() is not deleted
+
+
 def test_confirm_operation_uses_host_callback_and_never_raw_input(monkeypatch):
     from uagent import tools
 
