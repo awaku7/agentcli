@@ -37,6 +37,14 @@ other operating systems/architectures, unsupported Windows builds, probe
 warnings, DACL-augmentation requirements, and missing deny-path support. There
 is no fallback to Host execution.
 
+This PoC assumes that UAG itself, the Host Python interpreter and dependencies,
+and the Python startup/import path are trusted. Running `python -m uagent`
+with an untrusted project on Python's import path can execute project-supplied
+modules on the Host before MXC isolation begins (including shadowed `win32api`
+or `win32job` modules). Do not treat Sandbox mode as protection against
+untrusted Host startup/import code; launch UAG from a trusted environment.
+Hardening that entire startup boundary is outside this local tool-execution PoC.
+
 ## Execution boundary
 
 The LLM receives only four locally sandboxed tools: `create_file`, `file_exists`,
@@ -49,11 +57,15 @@ source bytes per call so JSON-escaped content stays below the IPC response cap.
 short-lived ProcessContainer using the same scope workspace, so files created
 by one tool remain visible to later tools. Its stdout/stderr are capped at 64 KiB
 per stream and execution is forcibly stopped after 30 seconds. The completion
-marker is emitted from an `atexit` handler registered before user code, so
-user-registered shutdown handlers complete before cleanup; the workspace quota
-watchdog remains active until the ProcessContainer has been stopped. MXC's
-ProcessContainer assigns the suspended root process to a Job Object before it is
-resumed; its native `wait()`/`kill()` path terminates and reaps that process tree.
+marker is normally emitted from an `atexit` handler registered before user
+code, but it is an in-process stdout marker that sandboxed Python can inspect
+and spoof. It is therefore not an authenticated guarantee that user shutdown
+handlers completed or that execution ended normally. This is a known PoC
+limitation of result/completion reporting, not a claim of MXC isolation escape.
+The workspace quota watchdog remains active until the ProcessContainer has
+been stopped. MXC's ProcessContainer assigns the suspended root process to a
+Job Object before it is resumed; its native `wait()`/`kill()` path terminates
+and reaps that process tree.
 The adapter uses those SDK lifecycle operations rather than host PID-based
 termination. If MXC cannot confirm process cleanup, quota scanning fails, or the
 completion marker is missing, execution is rejected; unverified cleanup tears
