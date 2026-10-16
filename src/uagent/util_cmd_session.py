@@ -1810,10 +1810,7 @@ def _handle_cmd_sessions(
             else:
                 _print_session_compact_row(index, row)
         if not show_all and len(sessions) > len(visible):
-            print(
-                f"[sessions] Showing {len(visible)} of {len(sessions)} sessions. "
-                "Use :sessions list --all to show all."
-            )
+            print(f"[sessions] {len(visible)}/{len(sessions)} | :sessions list --all")
         return True
     if command == "delete":
         if store is None or not session_id:
