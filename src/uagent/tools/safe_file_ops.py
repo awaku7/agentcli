@@ -55,9 +55,7 @@ def _is_trigger_path(p: str) -> bool:
 def _human_confirm(message: str) -> bool:
     from .tool_confirmation import active_tool_name, confirm_operation
 
-    return confirm_operation(
-        message, tool_name=active_tool_name() or "safe_file_ops"
-    )
+    return confirm_operation(message, tool_name=active_tool_name() or "safe_file_ops")
 
 
 def _ask_user_confirm(path: str, operation: str) -> bool:
