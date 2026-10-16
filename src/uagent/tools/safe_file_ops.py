@@ -11,9 +11,8 @@ Policy (B: Medium):
 - Otherwise, proceed as usual.
 
 Confirmation UI:
-- Prefer the same mechanism as human_ask (shared queue consumed by stdin_loop).
-- If another human_ask is active, wait for a while and then start confirmation.
-- If callbacks are unavailable, fall back to input().
+- Use the host's shared ToolPolicy -> human_ask approval path.
+- When input is unavailable, reject without falling back to raw input().
 
 Cancel:
 - 'c' or 'cancel' means cancel.
@@ -23,10 +22,8 @@ from __future__ import annotations
 
 import os
 import shutil
-import time
 from pathlib import Path
 
-from .context import get_callbacks
 from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
@@ -59,75 +56,11 @@ def _is_trigger_path(p: str) -> bool:
 
 
 def _human_confirm(message: str) -> bool:
-    cb = get_callbacks()
-    if (
-        cb.human_ask_lock is None
-        or cb.human_ask_active_ref is None
-        or cb.human_ask_set_active is None
-        or cb.human_ask_queue_ref is None
-        or cb.human_ask_set_queue is None
-        or cb.human_ask_lines_ref is None
-        or cb.human_ask_set_multiline_active is None
-    ):
-        try:
-            resp = input(message + "\n[y/c/N]: ")
-        except Exception:
-            return False
-        r = resp.strip().lower()
-        return r == "y"
+    from .tool_confirmation import active_tool_name, confirm_operation
 
-    import queue as _queue
-
-    local_q: "_queue.Queue[str]" = _queue.Queue()
-    wait_timeout_sec = 30.0
-    poll_interval_sec = 0.1
-    start = time.time()
-
-    while True:
-        with cb.human_ask_lock:
-            busy = cb.human_ask_active_ref()
-            if not busy:
-                cb.human_ask_set_active(True)
-                cb.human_ask_set_queue(local_q)
-                lines = cb.human_ask_lines_ref()
-                try:
-                    lines.clear()
-                except Exception:
-                    pass
-                cb.human_ask_set_multiline_active(False)
-                break
-        if time.time() - start > wait_timeout_sec:
-            return False
-        time.sleep(poll_interval_sec)
-
-    try:
-        # Stop + erase the spinner first so no frame sticks to the title.
-        from ..runtime.spinner import stop_quietly as _spinner_stop_quietly
-
-        _spinner_stop_quietly()
-        print(
-            "\n" + _("ui.confirm.title", default="=== Human confirmation request ==="),
-            flush=True,
-        )
-        print(message, flush=True)
-        print(_("ui.confirm.footer", default="=== /confirm ===\n"), flush=True)
-        print(
-            _(
-                "ui.confirm.howto",
-                default="How to answer: y=proceed / c=cancel / other=deny\n",
-            ),
-            flush=True,
-        )
-        user_reply = local_q.get()
-
-    finally:
-        with cb.human_ask_lock:
-            cb.human_ask_set_active(False)
-            cb.human_ask_set_queue(None)
-            cb.human_ask_set_multiline_active(False)
-
-    ur = (user_reply or "").strip().lower()
-    return ur == "y"
+    return confirm_operation(
+        message, tool_name=active_tool_name() or "safe_file_ops"
+    )
 
 
 def _ask_user_confirm(path: str, operation: str) -> bool:
