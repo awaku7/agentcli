@@ -257,19 +257,9 @@ def _matches_any_glob(name: str, patterns: list[str]) -> bool:
 
 
 def _human_confirm(message: str) -> bool:
-    try:
-        from .human_ask_tool import run_tool as human_ask
+    from .tool_confirmation import confirm_operation
 
-        res_json = human_ask({"message": message})
-        res = json.loads(res_json)
-        user_reply = (res.get("user_reply") or "").strip().lower()
-        return user_reply in ("y", "yes")
-    except Exception:
-        try:
-            resp = input(message + " [y/c/N]: ")
-            return resp.strip().lower() == "y"
-        except Exception:
-            return False
+    return confirm_operation(message, tool_name="zip_ops")
 
 
 def _run_list(safe_zip_path: str, fmt: str, _) -> str:
