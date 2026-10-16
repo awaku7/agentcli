@@ -625,14 +625,15 @@ class _MxcSession:
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
-            response = self._read_response(timeout=45)
+            response = self._read_response(timeout=60 if name == "python_exec" else 45)
             if response.get("terminate"):
                 self.close()
+                error = response.get("error")
+                if isinstance(error, str) and error:
+                    return f"[sandbox error] {error}"
                 return "[sandbox error] execution timed out; the isolated session was terminated"
             if response.get("ok") is not True:
                 error = str(response.get("error", "execution failed"))
-                if "workspace limit exceeded" in error.lower():
-                    self.close()
                 return f"[sandbox error] {error}"
             result = response.get("result")
             if isinstance(result, (dict, list)):

@@ -34,6 +34,93 @@ def _pid_is_alive(pid: int) -> bool:
     return str(pid) in result.stdout
 
 
+def _process_with_command_marker_is_alive(marker: str) -> bool:
+    system_root = os.environ.get("SystemRoot", r"C:\Windows")
+    powershell = os.path.join(
+        system_root, "System32", "WindowsPowerShell", "v1.0", "powershell.exe"
+    )
+    script = (
+        "$ErrorActionPreference = 'Stop'; "
+        f"$marker = '{marker}'; "
+        "$found = Get-CimInstance Win32_Process -Filter \"Name = 'python.exe'\" "
+        "| Where-Object { $_.CommandLine -and $_.CommandLine.Contains($marker) }; "
+        "if ($found) { Write-Output 'ALIVE' } else { Write-Output 'DEAD' }"
+    )
+    result = subprocess.run(
+        [powershell, "-NoLogo", "-NoProfile", "-NonInteractive", "-Command", script],
+        capture_output=True,
+        text=True,
+        timeout=5,
+        check=False,
+        shell=False,
+    )
+    assert result.returncode == 0, result.stderr
+    return result.stdout.strip() == "ALIVE"
+
+
+def test_mxc_python_os_exit_fails_closed_and_reaps_children(tmp_path):
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id=f"pytest-os-exit-{os.getpid()}-{time.time_ns()}",
+    )
+    marker = f"UAG_MXC_ABRUPT_EXIT_{time.time_ns()}"
+    child_code = f"import time; print({marker!r}, flush=True); time.sleep(300)"
+    code = (
+        "import os, subprocess, sys"
+        + chr(10)
+        + f"subprocess.Popen([sys.executable, '-I', '-X', 'utf8', '-c', {child_code!r}])"
+        + chr(10)
+        + "os._exit(0)"
+        + chr(10)
+    )
+    try:
+        result = manager.run_tool(scope, "python_exec", {"code": code})
+        assert "process tree termination could not be verified" in result.lower()
+        deadline = time.monotonic() + 5
+        while (
+            _process_with_command_marker_is_alive(marker)
+            and time.monotonic() < deadline
+        ):
+            time.sleep(0.1)
+        assert not _process_with_command_marker_is_alive(marker)
+    finally:
+        manager.close_scope(scope)
+        manager.close_all()
+
+
+def test_mxc_workspace_scan_tolerates_concurrent_file_deletions(tmp_path):
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=str(tmp_path),
+        session_id=f"pytest-delete-race-{os.getpid()}-{time.time_ns()}",
+    )
+    try:
+        result = _run_python(
+            manager,
+            scope,
+            "import time\n"
+            "from pathlib import Path\n"
+            "root = Path('delete-race')\n"
+            "root.mkdir()\n"
+            "deadline = time.monotonic() + 3\n"
+            "count = 0\n"
+            "while time.monotonic() < deadline:\n"
+            "    item = root / f'{count}.bin'\n"
+            "    item.write_bytes(b'x')\n"
+            "    item.unlink()\n"
+            "    count += 1\n"
+            "print('DELETE_RACE_COMPLETED', count)\n",
+        )
+        assert result["returncode"] == 0
+        assert "DELETE_RACE_COMPLETED" in result["stdout"]
+    finally:
+        manager.close_scope(scope)
+        manager.close_all()
+
+
 def test_mxc_python_waits_for_atexit_handlers(tmp_path):
     manager, _report = MxcSessionManager.initialize(allow_install=False)
     scope = startup_scope(

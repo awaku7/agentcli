@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
-import { execFileSync } from "node:child_process";
+import { execFile, execFileSync } from "node:child_process";
+import { promisify } from "node:util";
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
@@ -10,6 +11,7 @@ const MAX_SESSION_MS = 12 * 60 * 60 * 1000;
 const MAX_WORKSPACE_BYTES = 256 * 1024 * 1024;
 const MAX_WORKSPACE_ENTRIES = 5_000;
 const PYTHON_OUTPUT_LIMIT = 64 * 1024;
+const execFileAsync = promisify(execFile);
 
 function writeHost(value) {
   process.stdout.write(`${JSON.stringify(value)}\n`);
@@ -177,37 +179,74 @@ const ALTERNATE_STREAM_SCAN_SCRIPT = [
   "'@",
   "Add-Type -TypeDefinition $source",
   "$root = $env:UAGENT_MXC_SCAN_ROOT",
-  "$items = @((Get-Item -LiteralPath $root -Force)) + @(Get-ChildItem -LiteralPath $root -Force -Recurse -ErrorAction Stop)",
+  "$rootFull = [IO.Path]::GetFullPath($root).TrimEnd([char[]]@(92,47))",
+  "function Test-VanishedWorkspacePathError($record) {",
+  "  if ($record.CategoryInfo.Category -eq [System.Management.Automation.ErrorCategory]::ObjectNotFound) { return $true }",
+  "  $exception = $record.Exception",
+  "  while ($null -ne $exception) {",
+  "    if ($exception -is [IO.FileNotFoundException] -or $exception -is [IO.DirectoryNotFoundException]) { return $true }",
+  "    $exception = $exception.InnerException",
+  "  }",
+  "  return $false",
+  "}",
+  "$rootItem = Get-Item -LiteralPath $root -Force -ErrorAction Stop",
+  "$items = [System.Collections.Generic.List[object]]::new()",
+  "[void]$items.Add($rootItem)",
+  "$pending = [System.Collections.Generic.Stack[string]]::new()",
+  "if ($rootItem.PSIsContainer) { $pending.Push($rootFull) }",
+  "while ($pending.Count -gt 0) {",
+  "  $directoryPath = $pending.Pop()",
+  "  try { $children = @(Get-ChildItem -LiteralPath $directoryPath -Force -ErrorAction Stop) } catch {",
+  "    if (-not [String]::Equals($directoryPath, $rootFull, [StringComparison]::OrdinalIgnoreCase) -and (Test-VanishedWorkspacePathError $_)) { continue }",
+  "    throw",
+  "  }",
+  "  foreach ($child in $children) {",
+  "    [void]$items.Add($child)",
+  "    if ($child.PSIsContainer -and ($child.Attributes -band [IO.FileAttributes]::ReparsePoint) -eq 0) { $pending.Push($child.FullName) }",
+  "  }",
+  "}",
   "[long]$total = 0",
   "[long]$streamCount = 0",
   "foreach ($item in $items) {",
   "  if (($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -ne 0) { continue }",
+  "  $itemFullName = [IO.Path]::GetFullPath($item.FullName).TrimEnd([char[]]@(92,47))",
+  "  $isRoot = [String]::Equals($itemFullName, $rootFull, [StringComparison]::OrdinalIgnoreCase)",
+  "  [long]$itemTotal = 0",
+  "  [long]$itemStreamCount = 0",
   "  $streamData = New-Object UagentMxcStreamScan+Data",
   "  $handle = [UagentMxcStreamScan]::FindFirstStreamW($item.FullName, 0, [ref]$streamData, 0)",
   "  if ($handle -eq [IntPtr](-1)) {",
   "    $winError = [Runtime.InteropServices.Marshal]::GetLastWin32Error()",
-  "    if ($winError -ne 38) { throw \"FindFirstStreamW failed: $winError\" }",
-  "    continue",
+  "    if ($winError -eq 38) { continue }",
+  "    if (-not $isRoot -and ($winError -eq 2 -or $winError -eq 3)) { continue }",
+  "    throw \"FindFirstStreamW failed: $winError\"",
   "  }",
   "  try {",
   "    do {",
   "      if ($streamData.StreamName -ne '::$DATA') {",
-  "        $total += [long]$streamData.StreamSize",
-  "        $streamCount += 1",
+  "        $itemTotal += [long]$streamData.StreamSize",
+  "        $itemStreamCount += 1",
   "      }",
   "      $hasNext = [UagentMxcStreamScan]::FindNextStreamW($handle, [ref]$streamData)",
   "    } while ($hasNext)",
   "    $winError = [Runtime.InteropServices.Marshal]::GetLastWin32Error()",
-  "    if ($winError -ne 38) { throw \"FindNextStreamW failed: $winError\" }",
   "  } finally { [void][UagentMxcStreamScan]::FindClose($handle) }",
+  "  if ($winError -eq 38) {",
+  "    $total += $itemTotal",
+  "    $streamCount += $itemStreamCount",
+  "  } elseif (-not $isRoot -and ($winError -eq 2 -or $winError -eq 3)) {",
+  "    continue",
+  "  } else {",
+  "    throw \"FindNextStreamW failed: $winError\"",
+  "  }",
   "}",
   "[Console]::Out.WriteLine(('{0},{1}' -f $total.ToString([Globalization.CultureInfo]::InvariantCulture), $streamCount.ToString([Globalization.CultureInfo]::InvariantCulture)))",
 ].join("\n");
 
-function alternateStreamUsage(root) {
+async function alternateStreamUsage(root) {
   const systemRoot = process.env.SystemRoot || process.env.WINDIR || String.raw`C:\Windows`;
   const powershell = path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
-  const output = execFileSync(
+  const { stdout: output } = await execFileAsync(
     powershell,
     ["-NoLogo", "-NoProfile", "-NonInteractive", "-Command", ALTERNATE_STREAM_SCAN_SCRIPT],
     {
@@ -235,7 +274,7 @@ function alternateStreamUsage(root) {
   return { bytes, entries };
 }
 
-function workspaceUsage(root) {
+async function workspaceUsage(root) {
   let bytes = 0;
   let entries = 0;
   const rootPath = path.resolve(root);
@@ -295,7 +334,7 @@ function workspaceUsage(root) {
       if (bytes > MAX_WORKSPACE_BYTES) return { exceeded: true, bytes, entries };
     }
   }
-  const alternate = alternateStreamUsage(root);
+  const alternate = await alternateStreamUsage(root);
   bytes += alternate.bytes;
   entries += alternate.entries;
   if (bytes > MAX_WORKSPACE_BYTES || entries > MAX_WORKSPACE_ENTRIES) {
@@ -307,8 +346,9 @@ function workspaceUsage(root) {
 function terminateMxcProcessTree(processHandle) {
   const pid = processHandle?.id;
   if (!Number.isSafeInteger(pid) || pid <= 0) {
+    // The native MXC handle owns cleanup when this backend exposes no host PID.
     processHandle.kill();
-    return false;
+    return true;
   }
 
   const systemRoot =
@@ -368,7 +408,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     "def __uag_emit_marker():",
     "    __uag_stdout.write(chr(10) + __uag_marker + ':' + str(__uag_exit) + chr(10))",
     "    __uag_stdout.flush()",
-    "    time.sleep(0.5)",
+    "    time.sleep(1)",
     "atexit.register(__uag_emit_marker)",
     "__uag_globals = {'__name__': '__main__', '__file__': '<python_exec>'}",
     "try:",
@@ -389,22 +429,34 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   let stdoutTail = "";
   let markerExitCode = null;
   let workspaceLimitExceeded = false;
+  let workspaceLimitReason = "";
+  let processTreeUnverified = false;
+  let processTreeFailureReason = "";
   let workspaceMonitor;
+  let workspaceScanRunning = false;
+  let workspaceMonitorPromise = Promise.resolve();
   let processHandle;
   try {
     const command = `${quoteWindowsArgument(config.pythonExe)} -I -X utf8 -u ${quoteWindowsArgument(scriptPath)}`;
-    processHandle = await spawnMxc({ ...baseRequest, command, timeoutMs: 35_000 });
+    processHandle = await spawnMxc({ ...baseRequest, command, timeoutMs: 60_000 });
     workspaceMonitor = setInterval(() => {
-      if (workspaceLimitExceeded) return;
-      try {
-        if (workspaceUsage(baseRequest.workingDirectory).exceeded) {
+      if (workspaceLimitExceeded || workspaceScanRunning) return;
+      workspaceScanRunning = true;
+      workspaceMonitorPromise = (async () => {
+        try {
+          if ((await workspaceUsage(baseRequest.workingDirectory)).exceeded) {
+            workspaceLimitExceeded = true;
+            workspaceLimitReason = "monitor_exceeded";
+            terminateMxcProcessTree(processHandle);
+          }
+        } catch (error) {
           workspaceLimitExceeded = true;
-          terminateMxcProcessTree(processHandle);
+          workspaceLimitReason = `monitor_error:${error?.code || error?.name || "unknown"}`;
+          try { terminateMxcProcessTree(processHandle); } catch {}
+        } finally {
+          workspaceScanRunning = false;
         }
-      } catch {
-        workspaceLimitExceeded = true;
-        try { terminateMxcProcessTree(processHandle); } catch {}
-      }
+      })();
     }, 250);
     const out = processHandle.standardOutput;
     const err = processHandle.standardError;
@@ -443,11 +495,31 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     const outcome = await Promise.race([rootExit, markerReached, timeout]);
     clearInterval(markerPoll);
     const timedOut = outcome.kind === "timeout";
-    try {
-      terminateMxcProcessTree(processHandle);
-    } catch {
-      workspaceLimitExceeded = true;
+    if (outcome.kind === "error" || (outcome.kind === "exit" && markerExitCode === null)) {
+      if (!workspaceLimitExceeded) {
+        // The root exited before the completion marker without a quota-triggered
+        // stop, so taskkill could target a reused PID and cannot reliably find
+        // descendants. Fail closed.
+        processTreeUnverified = true;
+        processTreeFailureReason = `root_${outcome.kind}_before_marker`;
+      }
       try { processHandle.kill(); } catch {}
+    } else if (outcome.kind !== "exit") {
+      // If the marker was observed and the root then exited normally, MXC's
+      // native handle disposal below owns descendant cleanup; never taskkill a
+      // potentially reused PID.
+      try {
+        const treeTerminated = terminateMxcProcessTree(processHandle);
+        if (!treeTerminated) {
+          processTreeUnverified = true;
+          processTreeFailureReason = "tree_termination_not_confirmed";
+        }
+      } catch (error) {
+        processTreeUnverified = true;
+        processTreeFailureReason = `tree_termination_error:${error?.status ?? error?.code ?? "unknown"}`;
+        workspaceLimitExceeded = true;
+        try { processHandle.kill(); } catch {}
+      }
     }
     // Keep quota monitoring through user shutdown handlers and until kill is
     // requested, but do not scan a process tree while the container is tearing down.
@@ -459,16 +531,22 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
     ]);
     clearTimeout(stopTimer);
     clearTimeout(executionTimer);
-    if (!processStopped) workspaceLimitExceeded = true;
-    // The interval is only a watchdog; it may not fire if Python exits quickly.
-    // Recheck synchronously after the one-shot process has been stopped before
-    // returning a result to the persistent Worker.
-    try {
-      if (workspaceUsage(baseRequest.workingDirectory).exceeded) {
-        workspaceLimitExceeded = true;
-      }
-    } catch {
+    await workspaceMonitorPromise;
+    if (!processStopped) {
       workspaceLimitExceeded = true;
+      workspaceLimitReason ||= "process_not_stopped";
+    }
+    // The interval is only a watchdog; it may not fire if Python exits quickly.
+    // Recheck after the one-shot process has stopped before returning a result
+    // to the persistent Worker.
+    try {
+      if ((await workspaceUsage(baseRequest.workingDirectory)).exceeded) {
+        workspaceLimitExceeded = true;
+        workspaceLimitReason ||= "post_stop_exceeded";
+      }
+    } catch (error) {
+      workspaceLimitExceeded = true;
+      workspaceLimitReason ||= `post_stop_error:${error?.code || error?.name || "unknown"}`;
     }
     processHandle.dispose();
     let stdoutText = Buffer.concat(stdout).toString("utf8");
@@ -494,9 +572,13 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       timeout: timedOut,
       output_truncated: outputTruncated,
       workspace_limit_exceeded: workspaceLimitExceeded,
+      workspace_limit_reason: workspaceLimitReason,
+      process_tree_unverified: processTreeUnverified,
+      process_tree_failure_reason: processTreeFailureReason,
     };
   } finally {
     clearInterval(workspaceMonitor);
+    await workspaceMonitorPromise;
     if (processHandle) {
       try { processHandle.kill(); } catch {}
       try { processHandle.dispose(); } catch {}
@@ -619,8 +701,13 @@ async function serveWorker() {
             request.payload.args || {},
             spawn,
           );
+          if (result.process_tree_unverified) {
+            writeHost({ ok: false, terminate: true, error: `Python process tree termination could not be verified (${result.process_tree_failure_reason || "unknown"}); the isolated worker was terminated` });
+            await stopWorker();
+            break;
+          }
           if (result.workspace_limit_exceeded) {
-            writeHost({ ok: false, error: "session workspace limit exceeded; the isolated worker was terminated" });
+            writeHost({ ok: false, terminate: true, error: `session workspace limit exceeded (${result.workspace_limit_reason || "unknown"}); the isolated worker was terminated` });
             await stopWorker();
             break;
           }
@@ -634,9 +721,9 @@ async function serveWorker() {
       stdin.write(`${JSON.stringify(request.payload)}\n`);
       const result = await reply;
       let usage;
-      try { usage = workspaceUsage(workspace); } catch { usage = { exceeded: true }; }
+      try { usage = await workspaceUsage(workspace); } catch { usage = { exceeded: true }; }
       if (usage.exceeded) {
-        writeHost({ ok: false, error: "session workspace limit exceeded; the isolated worker was terminated" });
+        writeHost({ ok: false, terminate: true, error: "session workspace limit exceeded; the isolated worker was terminated" });
         await stopWorker();
         break;
       }

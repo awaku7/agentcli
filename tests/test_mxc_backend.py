@@ -339,8 +339,49 @@ def test_workspace_quota_scan_tolerates_vanished_children():
     end = source.index("async function executePythonInContainer", start)
     scanner = source[start:end]
 
-    assert "entry !== rootPath && error?.code === \"ENOENT\"" in scanner
+    assert 'entry !== rootPath && error?.code === "ENOENT"' in scanner
     assert scanner.count("if (vanishedChild(entry, error))") == 4
+
+
+def test_alternate_stream_scan_tolerates_vanished_files():
+    helper = (
+        Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
+    )
+    source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
+    start = source.index("const ALTERNATE_STREAM_SCAN_SCRIPT = [")
+    end = source.index("function alternateStreamUsage(root)", start)
+    scanner = source[start:end]
+
+    assert scanner.count("$winError -eq 2 -or $winError -eq 3") == 2
+    assert "if (-not $isRoot" in scanner
+    assert "Test-VanishedWorkspacePathError" in scanner
+    assert "ErrorCategory]::ObjectNotFound" in scanner
+    assert "async function alternateStreamUsage(root)" in source
+    assert "const { stdout: output } = await execFileAsync(" in source
+    assert "$pending = [System.Collections.Generic.Stack[string]]::new()" in scanner
+    assert (
+        "Get-ChildItem -LiteralPath $directoryPath -Force -ErrorAction Stop" in scanner
+    )
+    assert "Get-ChildItem -LiteralPath $root -Force -Recurse" not in scanner
+    assert "$itemTotal += [long]$streamData.StreamSize" in scanner
+    assert "$total += $itemTotal" in scanner
+
+
+def test_unverified_process_tree_termination_fails_closed():
+    helper = (
+        Path(__file__).parents[1] / "src" / "uagent" / "runtime" / "mxc_node_helper"
+    )
+    source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
+
+    assert "const treeTerminated = terminateMxcProcessTree(processHandle);" in source
+    assert "if (!treeTerminated) {" in source
+    assert "if (!workspaceLimitExceeded) {" in source
+    assert "processTreeUnverified = true;" in source
+    assert "process_tree_unverified: processTreeUnverified" in source
+    assert (
+        "terminate: true, error: `Python process tree termination could not be verified ("
+        in source
+    )
 
 
 def test_worker_read_file_never_exceeds_serialized_result_cap(monkeypatch, tmp_path):
