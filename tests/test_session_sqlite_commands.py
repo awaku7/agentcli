@@ -280,7 +280,6 @@ def test_sessions_list_is_compact_by_default(monkeypatch, tmp_path, capsys):
     db.close()
 
 
-
 def test_sessions_list_limits_rows_without_shifting_load_indices(
     monkeypatch, tmp_path, capsys
 ):
@@ -302,9 +301,7 @@ def test_sessions_list_limits_rows_without_shifting_load_indices(
             index: row["session_id"] for index, row in enumerate(rows[:10])
         }
 
-        assert _handle_cmd_sessions(
-            "list --all", core=core, tr=lambda text, **_: text
-        )
+        assert _handle_cmd_sessions("list --all", core=core, tr=lambda text, **_: text)
         output = capsys.readouterr().out
         assert output.count(" | id: ") == 12
         assert "[11]" in output
