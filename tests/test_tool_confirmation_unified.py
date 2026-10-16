@@ -154,7 +154,9 @@ def test_injected_autopilot_absconfirm_never_caches_all(monkeypatch):
         inject_requires_confirmation=lambda *_args: False,
         auto_pilot_requires_confirmation=lambda *_args: True,
     )
-    monkeypatch.setattr(tool_policy, "get_enterprise_policy", lambda: policy)
+    monkeypatch.setattr(
+        "uagent.tools.enterprise_policy.get_enterprise_policy", lambda: policy
+    )
     monkeypatch.setattr(
         human_ask_tool,
         "run_tool",
@@ -200,7 +202,9 @@ def test_injected_absconfirm_still_applies_without_autopilot(monkeypatch):
         inject_requires_confirmation=lambda *_args: True,
         auto_pilot_requires_confirmation=lambda *_args: False,
     )
-    monkeypatch.setattr(tool_policy, "get_enterprise_policy", lambda: policy)
+    monkeypatch.setattr(
+        "uagent.tools.enterprise_policy.get_enterprise_policy", lambda: policy
+    )
     assert tool_policy._absolute_confirmation_required("delete_file", {})
 
 
