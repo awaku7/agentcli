@@ -10,6 +10,15 @@ import pytest
 from uagent.util_common import parse_startup_args
 
 
+def test_gui_module_entrypoint_propagates_refusal_exit_status(monkeypatch):
+    from uagent import gui
+
+    monkeypatch.setattr(gui, "main", lambda: 2)
+    with pytest.raises(SystemExit) as exc_info:
+        gui._run_as_module()
+    assert exc_info.value.code == 2
+
+
 def test_cli_sandbox_option_values_are_parsed(monkeypatch):
     for value in ("off", "auto", "mxc"):
         monkeypatch.setattr(sys, "argv", ["uag", "--sandbox", value])
