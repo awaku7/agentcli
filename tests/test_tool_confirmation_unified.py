@@ -64,7 +64,7 @@ def test_all_38_languages_have_exact_yes_no_all_answers(monkeypatch, language):
         ("ja", "はい", "yes"),
         ("fr", "OUI", "yes"),
         ("es", "SI", "deny"),
-        ("es", "SI\\u0301", "yes"),
+        ("es", "SI" + chr(0x301), "yes"),
         ("zh_CN", "全部", "all"),
         ("ko", "아니요", "deny"),
     ],
@@ -83,7 +83,7 @@ def test_confirmation_reply_normalization_is_strict(
     [("ja", "全て"), ("fr", "tous"), ("ko", "모두"), ("ar", "الكل")],
 )
 def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, approval):
-    from uagent import core, tools
+    from uagent import core
     from uagent.tools import tool_policy
 
     monkeypatch.setattr(core, "_is_web", False, raising=False)
