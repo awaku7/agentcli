@@ -28,9 +28,6 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
-_allowed_paths: set[str] = set()
-
-
 # --- Internal Helpers ---
 
 
@@ -174,8 +171,7 @@ def make_backup_before_overwrite(filename: str) -> str:
 def safe_create_file(
     filename: str, content: str, encoding: str = "utf-8", overwrite: bool = False
 ) -> None:
-    resolved = _resolve_path(filename)
-    if _is_trigger_path(filename) and resolved not in _allowed_paths:
+    if _is_trigger_path(filename):
         ok = _ask_user_confirm(filename, "create")
         if not ok:
             raise PermissionError(
@@ -184,7 +180,6 @@ def safe_create_file(
                     default="Creation cancelled because the user did not allow it: {filename}",
                 ).format(filename=filename)
             )
-        _allowed_paths.add(resolved)
 
     p = Path(filename)
     if p.exists() and not overwrite:
@@ -200,8 +195,7 @@ def safe_create_file(
 
 
 def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
-    resolved = _resolve_path(filename)
-    if _is_trigger_path(filename) and resolved not in _allowed_paths:
+    if _is_trigger_path(filename):
         ok = _ask_user_confirm(filename, "delete")
         if not ok:
             raise PermissionError(
@@ -210,7 +204,6 @@ def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
                     default="Deletion cancelled because the user did not allow it: {filename}",
                 ).format(filename=filename)
             )
-        _allowed_paths.add(resolved)
     try:
         os.remove(filename)
     except FileNotFoundError:
@@ -221,8 +214,7 @@ def safe_delete_file(filename: str, missing_ok: bool = False) -> None:
 
 def safe_delete_path(path: str, missing_ok: bool = False) -> None:
     """Delete a path safely."""
-    resolved = _resolve_path(path)
-    if _is_trigger_path(path) and resolved not in _allowed_paths:
+    if _is_trigger_path(path):
         ok = _ask_user_confirm(path, "delete")
         if not ok:
             raise PermissionError(
@@ -231,7 +223,6 @@ def safe_delete_path(path: str, missing_ok: bool = False) -> None:
                     default="Deletion cancelled because the user did not allow it: {path}",
                 ).format(path=path)
             )
-        _allowed_paths.add(resolved)
 
     p = Path(path)
     if not p.exists():
@@ -273,17 +264,15 @@ def safe_rename_path(
             _("err.src_not_found", default="src does not exist: {src}").format(src=src)
         )
 
-    src_resolved = _resolve_path(src)
-    dst_resolved = _resolve_path(dst)
     need_confirm = False
     reasons: list[str] = []
 
-    if _is_trigger_path(src) and src_resolved not in _allowed_paths:
+    if _is_trigger_path(src):
         need_confirm = True
         reasons.append(
             _("reason.src_trigger", default="src matches risky path conditions")
         )
-    if _is_trigger_path(dst) and dst_resolved not in _allowed_paths:
+    if _is_trigger_path(dst):
         need_confirm = True
         reasons.append(
             _("reason.dst_trigger", default="dst matches risky path conditions")
@@ -316,8 +305,6 @@ def safe_rename_path(
                     default="rename/move cancelled because the user did not allow it: {src} -> {dst}",
                 ).format(src=src, dst=dst)
             )
-        _allowed_paths.add(src_resolved)
-        _allowed_paths.add(dst_resolved)
 
     if mkdirs:
         _ensure_parent_dir_exists(dst)
@@ -332,4 +319,5 @@ def safe_rename_path(
 
 
 def clear_session_allowlist() -> None:
-    _allowed_paths.clear()
+    """Compatibility hook; approval lifetime is now managed by ToolPolicy."""
+    return None
