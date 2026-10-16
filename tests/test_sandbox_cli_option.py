@@ -65,6 +65,38 @@ def test_cli_startup_import_defers_invalid_sandbox_env_validation():
     assert result.returncode == 0, result.stderr
 
 
+def test_sandbox_cli_commands_never_load_dynamic_host_tools(monkeypatch, capsys):
+    from types import SimpleNamespace
+
+    from uagent import tools
+    from uagent.util_tools import handle_command
+
+    def forbidden(*_args, **_kwargs):
+        raise AssertionError(
+            "Dynamic host command loading is forbidden in Sandbox mode"
+        )
+
+    monkeypatch.setattr(tools, "_ensure_loaded", forbidden)
+    monkeypatch.setattr(tools, "handle_dynamic_command", forbidden)
+    core = SimpleNamespace(
+        _sandbox_enabled=True,
+        tools_enabled=True,
+        tr=lambda message, **_kwargs: message,
+    )
+
+    assert handle_command(":help", [], None, "", core=core) is True
+    help_text = capsys.readouterr().out
+    assert "Sandbox-safe commands" in help_text
+    assert "Dynamic commands" not in help_text
+
+    result = handle_command(":tools list", [], None, "", core=core)
+    assert result
+    assert "unavailable in Sandbox mode" in capsys.readouterr().out
+
+    handle_command(":tools off", [], None, "", core=core)
+    assert core.tools_enabled is False
+
+
 def test_sandbox_scheduled_callbacks_never_load_host_tools(monkeypatch):
     from uagent import tools
     from uagent.scheduler import tool_guard

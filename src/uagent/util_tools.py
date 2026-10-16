@@ -187,6 +187,28 @@ def handle_command(
             cmd = head
             arg = f"{tail} {arg}".strip() if arg else tail
 
+    if bool(getattr(core, "_sandbox_enabled", False)):
+        if cmd in ("help", "h", "?"):
+            print(
+                tr("Sandbox-safe commands:")
+                + "\n  :help\n  :reasoning\n  :verbosity\n  :tools on|off\n  :exit / :quit"
+            )
+            return True
+        if cmd in ("r", "reasoning"):
+            return _handle_cmd_reasoning(arg, tr=tr)
+        if cmd in ("v", "verbosity"):
+            return _handle_cmd_verbosity(arg, tr=tr)
+        if cmd == "tools" and arg.strip().lower() in {"on", "off"}:
+            core.tools_enabled = arg.strip().lower() == "on"
+            state = "ON" if core.tools_enabled else "OFF"
+            print(tr("[tools] Tool sending to LLM is now %(state)s") % {"state": state})
+            return CommandResult()
+        if cmd in ("exit", "quit"):
+            print(tr("Exiting."))
+            return False
+        print(tr("Command is unavailable in Sandbox mode: :%(cmd)s") % {"cmd": cmd})
+        return CommandResult()
+
     if cmd in ("help", "h", "?"):
         topic = (arg or "").strip() or None
         core.print_help(topic)

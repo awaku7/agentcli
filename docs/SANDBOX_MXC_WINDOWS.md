@@ -81,7 +81,7 @@ scope, with the same static tool allowlist. Until PR 3 adds Room-owned worker
 and lease recovery, sandboxed local Web is constrained to one in-process worker
 and serial Room execution. This is a local PoC restriction, not production
 multi-user isolation; Sandbox mode also blocks host plugin imports, host hooks,
-and general Web commands.
+general Web commands, and non-allowlisted CLI/GUI commands.
 
 The lightweight ProcessContainer does not meet the Remote profile's VM
 requirement. Remote Web and A2A tools remain denied, regardless of `--sandbox`.
