@@ -1310,6 +1310,39 @@ def _hide_analyze_image_for_chat_vision() -> bool:
 
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
+    # In local Sandbox mode, never load Host plugins to build the catalog. The
+    # small static catalog mirrors only operations implemented by the Worker.
+    try:
+        from ..runtime.execution_broker import (
+            SecurityProfile as _SecurityProfile,
+            current_profile as _current_profile,
+            current_sandbox_enabled as _current_sandbox_enabled,
+        )
+
+        if (
+            _current_profile() is _SecurityProfile.LOCAL_TRUSTED
+            and _current_sandbox_enabled()
+        ):
+            from ..runtime.mxc_backend import sandbox_tool_specs
+
+            sandbox_specs = sandbox_tool_specs()
+            try:
+                from .. import core as _sandbox_core
+
+                register = getattr(_sandbox_core, "register_tool_context_names", None)
+                if callable(register):
+                    register(
+                        [
+                            spec["function"]["name"]
+                            for spec in sandbox_specs
+                            if isinstance(spec.get("function"), dict)
+                        ]
+                    )
+            except Exception:
+                pass
+            return sandbox_specs
+    except ImportError:
+        pass
     global _TOOL_SPECS_CACHE, _TOOL_SPECS_DIRTY, _ANALYZE_IMAGE_HIDDEN
     global _TOOL_SPECS_CACHE_EMBEDDED
     _ensure_loaded()
@@ -1999,6 +2032,10 @@ def is_parallel_safe(tool_name: str, args: dict[str, Any] | None = None) -> bool
         route_tool,
     )
 
+    if current_profile() is SecurityProfile.LOCAL_TRUSTED and current_sandbox_enabled():
+        # Sandbox-safe reads need no Host plugin metadata. Mutating/exec tools
+        # remain serial; the adapter also serializes all per-session IPC.
+        return tool_name in {"file_exists", "read_file"}
     if current_profile() is SecurityProfile.REMOTE:
         if not current_authorization_valid(require_check=True):
             return False
@@ -2294,13 +2331,45 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     # selection. Capability rejection happens before a confirmation or Runner.
     profile = current_profile()
     trusted_scope = current_scope()
-    known_tool = name in _RUNNERS or name in _LAZY_TOOL_NAME_TO_MODULE
+    sandboxed_local = (
+        profile is SecurityProfile.LOCAL_TRUSTED and current_sandbox_enabled()
+    )
+    sandbox_manager = None
+    sandbox_capabilities = None
+    sandbox_tool_names: frozenset[str] = frozenset()
+    if sandboxed_local:
+        from ..runtime.mxc_backend import (
+            TOOL_NAMES as sandbox_tool_names,
+            current_session_manager,
+        )
+
+        sandbox_manager = current_session_manager()
+        sandbox_capabilities = getattr(sandbox_manager, "capabilities", None)
+        if trusted_scope is None:
+            return "[tool policy] trusted local sandbox scope is required"
+        if name not in sandbox_tool_names:
+            _record_policy_audit(
+                tool_name=name,
+                args=args,
+                decision="deny",
+                reason="tool is not in the local MXC allowlist",
+                tool_call_id=tool_call_id,
+            )
+            return "[tool policy] tool is not available in the local sandbox"
+    known_tool = (
+        name in _RUNNERS
+        or name in _LAZY_TOOL_NAME_TO_MODULE
+        or (sandboxed_local and name in sandbox_tool_names)
+    )
     routing = route_tool(
         name,
         args,
         profile=profile,
         sandbox_enabled=current_sandbox_enabled(),
-        backend_available=False,
+        backend_available=(
+            sandbox_manager is not None and sandbox_capabilities is not None
+        ),
+        backend_capabilities=sandbox_capabilities,
         known_tool=known_tool,
     )
     if not routing.allowed:
@@ -2334,10 +2403,10 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             },
             ensure_ascii=False,
         )
-    if not brokered_remote:
+    if not brokered_remote and not sandboxed_local:
         _ensure_loaded()
-    runner = _RUNNERS.get(name)
-    if runner is None and not brokered_remote:
+    runner = None if sandboxed_local else _RUNNERS.get(name)
+    if runner is None and not brokered_remote and not sandboxed_local:
         # Lazy-load fallback: unknown remote tools never reach this import path.
         mod_name = _LAZY_TOOL_NAME_TO_MODULE.get(name)
         if mod_name:
@@ -2464,13 +2533,20 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         args,
         profile=current_profile(),
         sandbox_enabled=current_sandbox_enabled(),
-        backend_available=False,
+        backend_available=(
+            sandbox_manager is not None and sandbox_capabilities is not None
+        ),
+        backend_capabilities=sandbox_capabilities,
         known_tool=known_tool,
     )
     if not refreshed_route.allowed or refreshed_route != routing:
         return "[tool policy] execution route changed; execution denied"
     if brokered_remote:
         return run_brokered_tool(name)
+    if sandboxed_local:
+        from ..runtime.mxc_backend import run_sandbox_tool
+
+        return run_sandbox_tool(trusted_scope, name, args)
 
     # During human_ask, Busy should be turned off (it will wait for input).
     # After completion, set Busy back to "LLM" so GUI does not look stuck in IDLE.

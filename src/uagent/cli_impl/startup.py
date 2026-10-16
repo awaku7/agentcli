@@ -35,6 +35,7 @@ gemini_types = None
 gemini_errors = None
 
 from ..runtime.observability.settings import consume_process_otel_cli_flags
+from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_sandbox_mode
 from ..util_tools import parse_startup_args as _parse_startup_args
 
 # Import scheck_core
@@ -65,6 +66,17 @@ UAGENT_TOOL_GENRE_MASK = _startup_args.get("tool_genre_mask")
 UAGENT_ENABLE_TOOLS = _startup_args.get("enable_tools")
 UAGENT_REALTIME = bool(_startup_args.get("realtime"))
 UAGENT_EMBEDDED = bool(_startup_args.get("embedded"))
+UAGENT_SANDBOX_ARG = _startup_args.get("sandbox")
+
+
+def resolve_sandbox_mode() -> str:
+    """Resolve CLI override before environment, at the point startup config is ready."""
+    return _resolve_sandbox_mode(UAGENT_SANDBOX_ARG, env_get("UAGENT_SANDBOX_MODE"))
+
+
+# Keep a safe import-time placeholder. Each entry path resolves the mode after
+# loading the selected workdir dotenv, so invalid values are reported at startup.
+UAGENT_SANDBOX_MODE = "off"
 
 # Embedded mode: no persistent session store, and tool management tools
 # (tool_catalog / tool_load / unload_tool) are hidden from the LLM.

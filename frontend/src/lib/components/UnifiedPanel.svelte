@@ -1,6 +1,6 @@
 <script>
   import { t } from '../../lib/i18n.svelte.js';
-  import { getModes, getGenresEnabled, getStatus, sendSetModes, toggleGenre, sendCommand, sendDisplayReasoningToggle, fetchToolsEnabled, setToolsEnabled, fetchMemories, addMemory, updateMemory, deleteMemory, fetchLogs, fetchProfile, clearProfile, profileFromLogs, updateProfile } from '../../lib/stores.svelte.js';
+  import { getModes, getGenresEnabled, getSandboxEnabled, getStatus, sendSetModes, toggleGenre, sendCommand, sendDisplayReasoningToggle, fetchToolsEnabled, setToolsEnabled, fetchMemories, addMemory, updateMemory, deleteMemory, fetchLogs, fetchProfile, clearProfile, profileFromLogs, updateProfile } from '../../lib/stores.svelte.js';
 
   let { onClose, initialTab = 'settings' } = $props();
   let tab = $state('settings');
@@ -12,6 +12,7 @@
   // --- Settings tab ---
   let modes = $derived(getModes());
   let genresEnabled = $derived(getGenresEnabled());
+  let sandboxEnabled = $derived(getSandboxEnabled());
   let genreKeys = ['basic', 'comm', 'office', 'devel', 'iot', 'exec', 'external', 'media', 'file', 'index'];
   let genres = $derived(genreKeys.map(k => ({ key: k, enabled: genresEnabled[k] || false })));
   let toolsEnabled = $state(true);
@@ -266,6 +267,7 @@
             style="background:{modes.displayReasoning ? 'var(--accent)' : 'var(--border-color)'};border:1px solid {modes.displayReasoning ? 'var(--accent)' : 'var(--text-tertiary)'};"
           ><span class="absolute top-0.5 w-5 h-5 rounded-full shadow transition" style="background:{modes.displayReasoning ? '#fff' : 'var(--text-primary)'};left:{modes.displayReasoning ? 'calc(100% - 22px)' : '2px'};outline:1px solid var(--border-color);outline-offset:-1px;\"></span></button>
         </div>
+        {#if !sandboxEnabled}
         <div>
           <div class="text-sm font-medium mb-2" style="color:var(--text-secondary);">{t('tools')}:</div>
           <div class="flex flex-wrap gap-2">
@@ -279,6 +281,7 @@
             {/each}
           </div>
         </div>
+        {/if}
         <div class="flex items-center justify-between pt-2 border-t" style="border-color:var(--border-color);">
           <span class="text-sm font-medium" style="color:var(--text-secondary);">{t('toolSending')}</span>
           <button aria-label={t('toolSending')} onclick={doToolsToggle} class="relative w-12 h-6 rounded-full transition cursor-pointer"

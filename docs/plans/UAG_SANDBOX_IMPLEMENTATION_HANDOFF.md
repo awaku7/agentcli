@@ -120,6 +120,7 @@
 - Windows用コマンドをLinux/macOSで使えるかのように扱わない。
 - このPRの軽量MXC Sandboxを、Enterprise Remote向け強隔離として**有効化しない**。
 - ホストへの安全な書き戻しや高度なネットワーク隔離はPR 4の検証ゲートを満たすまで不許可。
+- Local WebのPR 2 opt-inは信頼済みの`127.0.0.1`+local identityに限定し、Room scopeを使う。PR 3のRoom-owned Lease/Recovery前は単一のin-process workerで直列実行し、remote Web/A2AにはMXCを使わない。
 - **Windows 11 x64でのAdapter実装・実機検証がPR 2の完了条件**。Linux/macOSは正本§15に明記した**後続PR 6/7の担当**とし、PR 2〜5の未完了条件としない。対応していないOS/CPUではSandbox opt-inおよびRemote Toolを拒否し、暗黙にHost実行へ戻さない。
 
 ### 必須テスト・完了条件

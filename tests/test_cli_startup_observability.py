@@ -55,6 +55,21 @@ def test_cli_startup_turn_enters_lifecycle_before_resolved_context(
     ]
 
 
+def test_sandboxed_cli_skips_host_laya_torch_preload():
+    from uagent.cli_startup import _preload_laya_torch_for_startup
+
+    preloaded = []
+
+    def preload(settings):
+        preloaded.append(settings)
+
+    _preload_laya_torch_for_startup("laya", sandbox_enabled=True, preload=preload)
+    assert preloaded == []
+
+    _preload_laya_torch_for_startup("laya", sandbox_enabled=False, preload=preload)
+    assert preloaded == ["laya"]
+
+
 def test_startup_file_logging_marks_only_the_log_envelope() -> None:
     logged = []
 
@@ -75,3 +90,118 @@ def test_startup_file_logging_marks_only_the_log_envelope() -> None:
     assert logged[0] is not provider_message
     assert logged[0]["attachments"] is True
     assert capture_logged_message(logged[0]) is False
+
+
+def test_cli_startup_turn_uses_local_sandbox_profile_when_enabled(
+    monkeypatch, tmp_path
+) -> None:
+    from contextlib import contextmanager
+
+    from uagent.runtime.execution_broker import SecurityProfile, TrustedSandboxScope
+
+    observed = []
+    scope = TrustedSandboxScope(
+        deployment_id="cli",
+        principal_id="test-user",
+        project_id="test-project",
+        scope_kind="cli-session",
+        scope_id="session-2",
+    )
+
+    @contextmanager
+    def fake_profile(profile, *, sandbox_enabled, scope):
+        observed.append((profile, sandbox_enabled, scope))
+        yield
+
+    monkeypatch.setattr(
+        "uagent.runtime.execution_broker.execution_profile", fake_profile
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.mxc_backend.startup_scope", lambda **kwargs: scope
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.execution.lifecycle_execution",
+        lambda: __import__("contextlib").nullcontext(),
+    )
+    monkeypatch.setattr(
+        "uagent.runtime.turn_context_runtime.call_with_resolved_turn_context",
+        lambda fn, *args, **kwargs: fn(*args),
+    )
+
+    result = _call_cli_startup_turn(
+        lambda value: value,
+        "ok",
+        project_path=str(tmp_path),
+        session_id="session-2",
+        sandbox_enabled=True,
+    )
+
+    assert result == "ok"
+    assert observed == [(SecurityProfile.LOCAL_TRUSTED, True, scope)]
+
+
+def test_cli_startup_skips_host_tool_selection_when_sandboxed(monkeypatch) -> None:
+    from uagent import cli_startup
+    from uagent.tools import _genre_control_util
+
+    mask_calls = []
+    tool_calls = []
+    monkeypatch.setattr(
+        cli_startup,
+        "_apply_startup_tool_genre_mask",
+        lambda mask: mask_calls.append(mask),
+    )
+    monkeypatch.setattr(
+        _genre_control_util,
+        "enable_single_tool",
+        lambda name: tool_calls.append(("enable", name)) or True,
+    )
+    monkeypatch.setattr(
+        _genre_control_util,
+        "pin_tool",
+        lambda name, *, reason: tool_calls.append(("pin", name, reason)),
+    )
+
+    cli_startup._configure_cli_startup_tools(
+        sandbox_enabled=True,
+        tool_genre_mask=8191,
+        enable_tools=["preprocess_image"],
+    )
+
+    assert mask_calls == []
+    assert tool_calls == []
+
+    cli_startup._configure_cli_startup_tools(
+        sandbox_enabled=False,
+        tool_genre_mask=8191,
+        enable_tools=["first", "second"],
+    )
+    assert mask_calls == [8191]
+    assert [call[:2] for call in tool_calls] == [
+        ("enable", "second"),
+        ("pin", "second"),
+        ("enable", "first"),
+        ("pin", "first"),
+    ]
+
+
+def test_cli_startup_plugin_activation_is_disabled_for_sandbox(monkeypatch) -> None:
+    from uagent import cli_startup
+    from uagent.runtime import runtime_plugins
+
+    activations = []
+
+    def fake_load_plugins_status_at_startup(*, activate):
+        activations.append(activate)
+        return [], None
+
+    monkeypatch.setattr(
+        runtime_plugins,
+        "load_plugins_status_at_startup",
+        fake_load_plugins_status_at_startup,
+    )
+
+    cli_startup._load_cli_startup_plugins(sandbox_enabled=True)
+    cli_startup._load_cli_startup_plugins(sandbox_enabled=False)
+
+    assert activations == [False, True]

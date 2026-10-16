@@ -18,7 +18,7 @@ from .service import (
 from .store import SchedulerStore
 from .run_store import SchedulerRun, SchedulerRunStore, VALID_RUN_STATUSES
 from .worker import SchedulerWorker
-from .tool_guard import required_tools_guard
+from .tool_guard import required_tools_guard, run_scheduled_callback_with_tools
 from .direct import execute_direct_tool
 from .identity import scheduler_instance_id
 
@@ -33,6 +33,7 @@ __all__ = [
     "VALID_RUN_STATUSES",
     "SchedulerWorker",
     "required_tools_guard",
+    "run_scheduled_callback_with_tools",
     "execute_direct_tool",
     "scheduler_instance_id",
     "advance_periodic_at",

@@ -18,6 +18,7 @@ const _state = $state({
   _pendingStreamMsg: false,
   humanAskState: { visible: false, message: '', isPassword: false, resolve: null },
   genresEnabled: {},
+  sandboxEnabled: true,
 });
 
 // Reactive getters
@@ -37,6 +38,7 @@ export function getCurrentArtifactHtml() { return _state.currentArtifactHtml; }
 export function getCurrentToolHtml() { return _state.currentToolHtml; }
 export function getHumanAskState() { return _state.humanAskState; }
 export function getGenresEnabled() { return _state.genresEnabled; }
+export function getSandboxEnabled() { return _state.sandboxEnabled; }
 
 // Setters (mutate properties rather than reassign)
 export function setWs(v) { _state.ws = v; }
@@ -319,6 +321,7 @@ export async function fetchGenres() {
     const map = {};
     (data.genres || []).forEach((g) => { map[g.key] = g.enabled; });
     _state.genresEnabled = map;
+    _state.sandboxEnabled = data.sandbox_enabled !== false;
     return map;
   } catch (_) { return {}; }
 }

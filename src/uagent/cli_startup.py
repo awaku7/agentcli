@@ -24,6 +24,14 @@ class CliStartupState:
     startup_timing_marks: dict[str, float] | None = None
 
 
+def _preload_laya_torch_for_startup(
+    decision_settings: Any, *, sandbox_enabled: bool, preload: Any
+) -> None:
+    """Never import host-side Laya dependencies during a sandboxed startup."""
+    if not sandbox_enabled:
+        preload(decision_settings)
+
+
 def _prompt_startup_tool_genre_mask() -> int:
     """Prompt for the startup tool-genre bitmask, using a TTY dialog when available."""
     if (
@@ -88,26 +96,94 @@ def _apply_startup_tool_genre_mask(mask: int) -> None:
             )
 
 
+def _apply_startup_tool_genre_mask_for_mode(mask: int, *, sandbox_mode: str) -> None:
+    """Do not activate any host tools for a sandbox-enabled startup."""
+    if sandbox_mode == "off":
+        _apply_startup_tool_genre_mask(mask)
+
+
+def _configure_cli_startup_tools(
+    *,
+    sandbox_enabled: bool,
+    tool_genre_mask: int | None,
+    enable_tools: list[str] | None,
+) -> None:
+    """Apply host tool selection only when startup is not sandboxed."""
+    if tool_genre_mask is not None:
+        _apply_startup_tool_genre_mask_for_mode(
+            tool_genre_mask, sandbox_mode="mxc" if sandbox_enabled else "off"
+        )
+    if sandbox_enabled:
+        return
+    if not enable_tools:
+        return
+
+    from .tools._genre_control_util import enable_single_tool, pin_tool
+    from .i18n import _
+
+    # enable_single_tool() registers single-loaded tools newest-first
+    # (smallest x_single_load_seq sorts to the front), so iterate in reverse to
+    # preserve the user's order in the LLM tool list.
+    for tname in reversed(enable_tools):
+        try:
+            if enable_single_tool(tname):
+                pin_tool(tname, reason="enabled via --enable-tool at startup")
+        except Exception as exc:
+            print(
+                "[WARN] "
+                + _("Failed to enable tool '%(name)s': %(err)s")
+                % {"name": tname, "err": exc},
+                file=sys.stderr,
+            )
+
+
 def _call_cli_startup_turn(
     fn: Any,
     *args: Any,
     project_path: str,
     session_id: str,
+    sandbox_enabled: bool = False,
     **kwargs: Any,
 ) -> Any:
     """Run one startup-triggered LLM turn under the canonical Agent lifecycle."""
     from .runtime.execution import lifecycle_execution
     from .runtime.turn_context_runtime import call_with_resolved_turn_context
 
-    with lifecycle_execution():
-        return call_with_resolved_turn_context(
-            fn,
-            *args,
-            entry_point="cli",
-            project_path=project_path,
-            session_id=session_id,
-            **kwargs,
-        )
+    def _run_turn() -> Any:
+        with lifecycle_execution():
+            return call_with_resolved_turn_context(
+                fn,
+                *args,
+                entry_point="cli",
+                project_path=project_path,
+                session_id=session_id,
+                **kwargs,
+            )
+
+    if not sandbox_enabled:
+        return _run_turn()
+
+    from .runtime.execution_broker import SecurityProfile, execution_profile
+    from .runtime.mxc_backend import startup_scope
+
+    scope = startup_scope(
+        entry_point="cli",
+        project_path=project_path,
+        session_id=session_id,
+    )
+    with execution_profile(
+        SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True, scope=scope
+    ):
+        return _run_turn()
+
+
+def _load_cli_startup_plugins(
+    *, sandbox_enabled: bool
+) -> tuple[list[dict[str, Any]], str | None]:
+    """Do not apply host plugin configuration while running a sandbox session."""
+    from .runtime.runtime_plugins import load_plugins_status_at_startup
+
+    return load_plugins_status_at_startup(activate=not sandbox_enabled)
 
 
 def _log_startup_file_message(core: Any, message: dict[str, Any]) -> None:
@@ -131,6 +207,7 @@ def run_cli_startup(
     complete_regex: str | None = None,
     decision_provider: str | None = None,
     enable_tools: list[str] | None = None,
+    sandbox_initializer: Any = None,
 ) -> CliStartupState:
     import io
     import os
@@ -152,6 +229,7 @@ def run_cli_startup(
     startup_timing_marks: dict[str, float] = {}
     session_store = None
     session_id = None
+    sandbox_enabled = False
 
     def _startup_timing_mark(name: str) -> None:
         if startup_timing_enabled:
@@ -317,7 +395,18 @@ def run_cli_startup(
             decision_settings = configure_decision_settings(
                 cli_provider=decision_provider
             )
-            preload_laya_torch_on_windows(decision_settings)
+            if sandbox_initializer is not None:
+                sandbox_enabled = bool(
+                    sandbox_initializer(
+                        decision.chosen_expanded,
+                        str(getattr(core, "session_id", "") or session_id or ""),
+                    )
+                )
+            _preload_laya_torch_for_startup(
+                decision_settings,
+                sandbox_enabled=sandbox_enabled,
+                preload=preload_laya_torch_on_windows,
+            )
             _startup_timing_mark("env")
 
             banner = build_startup_banner(
@@ -333,10 +422,8 @@ def run_cli_startup(
 
             # Load and activate enabled plugins (MCP / agents / hooks)
             try:
-                from .runtime.runtime_plugins import load_plugins_status_at_startup
-
-                _plugins, _plugins_status = load_plugins_status_at_startup(
-                    activate=True
+                _plugins, _plugins_status = _load_cli_startup_plugins(
+                    sandbox_enabled=sandbox_enabled
                 )
                 if _plugins_status:
                     print(_plugins_status, file=sys.stderr)
@@ -377,37 +464,11 @@ def run_cli_startup(
                 print("[INFO] " + _("current workdir = %(cwd)s") % {"cwd": cwd})
             except Exception:
                 pass
-            if tool_genre_mask is not None:
-                _apply_startup_tool_genre_mask(tool_genre_mask)
-            if enable_tools:
-                from .tools._genre_control_util import (
-                    enable_single_tool,
-                    pin_tool,
-                )
-
-                # enable_single_tool() registers single-loaded tools newest-first
-                # (smallest x_single_load_seq sorts to the front), so iterate in
-                # reverse to preserve the user-specified order: the first tool
-                # given on the command line is presented to the LLM first.
-                #
-                # Explicitly requested tools are pinned so they are never
-                # auto-unloaded mid-session: the user asked for exactly these
-                # tools and a silent removal would break the workflow (e.g. a
-                # long-running physical demo).
-                for tname in reversed(enable_tools):
-                    try:
-                        ok = enable_single_tool(tname)
-                        if ok:
-                            pin_tool(
-                                tname, reason="enabled via --enable-tool at startup"
-                            )
-                    except Exception as e:
-                        print(
-                            "[WARN] "
-                            + _("Failed to enable tool '%(name)s': %(err)s")
-                            % {"name": tname, "err": e},
-                            file=sys.stderr,
-                        )
+            _configure_cli_startup_tools(
+                sandbox_enabled=sandbox_enabled,
+                tool_genre_mask=tool_genre_mask,
+                enable_tools=enable_tools,
+            )
             core.set_status(False, "")
 
             messages = build_initial_messages(
@@ -459,7 +520,8 @@ def run_cli_startup(
             fn,
             *args,
             project_path=os.getcwd(),
-            session_id=str(session_id or ""),
+            session_id=str(getattr(core, "session_id", "") or session_id or ""),
+            sandbox_enabled=sandbox_enabled,
             **kwargs,
         )
 

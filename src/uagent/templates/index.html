@@ -261,7 +261,7 @@
                         <option value="high">high</option>
                     </select>
                 </div>
-                <div class="flex items-center gap-2 flex-wrap">
+                <div id="genre-controls" class="hidden flex items-center gap-2 flex-wrap">
                     <span class="font-medium text-gray-500 dark:text-gray-400">Tools:</span>
                     <span id="genre-checkboxes" class="flex items-center gap-2">
                         <label class="flex items-center gap-0.5 cursor-pointer hover:opacity-80"><input type="checkbox" data-genre="comm" class="genre-toggle"> comm</label>
@@ -1094,6 +1094,10 @@
             function loadGenreState() {
                 fetch('/api/tool-genres').then(function(r) { return r.json(); }).then(function(data) {
                     busy = data.busy || false;
+                    var genreControls = document.getElementById('genre-controls');
+                    if (genreControls) {
+                        genreControls.classList.toggle('hidden', data.sandbox_enabled !== false);
+                    }
                     data.genres.forEach(function(g) {
                         var cb = document.querySelector('.genre-toggle[data-genre="' + g.key + '"]');
                         if (cb) cb.checked = g.enabled;

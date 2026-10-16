@@ -153,11 +153,32 @@ def _web_turn_execution_context(
         if getattr(web_manager, "execution_profile", "remote") == "local_trusted"
         else SecurityProfile.REMOTE
     )
-    scope = (
-        trusted_web_scope(turn_context, room.room_id)
-        if profile is SecurityProfile.REMOTE
-        else None
-    )
+    sandbox_enabled = bool(getattr(web_manager, "sandbox_enabled", False))
+    scope = None
+    if profile is SecurityProfile.REMOTE:
+        scope = trusted_web_scope(turn_context, room.room_id)
+    elif sandbox_enabled:
+        # Local Sandbox scopes are derived only from the connection-bound,
+        # server-created turn and Room, never from browser payloads.
+        if (
+            turn_context is None
+            or identity_context is None
+            or not identity_context.authenticated
+            or identity_context.authn_kind != "local"
+            or turn_context.entry_point != "web"
+            or turn_context.room_id != str(room.room_id)
+            or turn_context.principal_id != identity_context.principal_id
+        ):
+            raise IdentityResolutionError(
+                "local Web Sandbox requires a trusted local Room turn context"
+            )
+        from ..runtime.mxc_backend import local_web_room_scope
+
+        scope = local_web_room_scope(
+            principal_id=turn_context.principal_id,
+            project_id=turn_context.project_id,
+            room_id=turn_context.room_id,
+        )
     authorization_check = None
     if profile is SecurityProfile.REMOTE:
 

@@ -24,5 +24,10 @@ def main():
 __all__ = ["main"]
 
 
+def _run_as_module() -> None:
+    """Propagate GUI startup failures to the ``python -m`` process status."""
+    raise SystemExit(main())
+
+
 if __name__ == "__main__":
-    main()
+    _run_as_module()

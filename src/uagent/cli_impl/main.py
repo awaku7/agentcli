@@ -40,6 +40,7 @@ from .startup import (
     UAGENT_NON_INTERACTIVE,
     UAGENT_REALTIME,
     UAGENT_TOOL_GENRE_MASK,
+    resolve_sandbox_mode,
     _cli_workdir,
     _env_workdir,
 )
@@ -104,6 +105,23 @@ def _set_status_for_command_result(core: Any, result: Any) -> bool:
     return run_llm
 
 
+def _resolve_realtime_sandbox_mode() -> str:
+    """Load the selected workdir configuration and resolve its Sandbox mode."""
+    from ..runtime.runtime_init import (
+        apply_workdir,
+        decide_workdir,
+        reload_dotenv_custom,
+    )
+
+    decision = decide_workdir(
+        cli_workdir=_cli_workdir,
+        env_workdir=_env_workdir,
+    )
+    apply_workdir(decision)
+    reload_dotenv_custom()
+    return resolve_sandbox_mode()
+
+
 def main() -> int:
     _CLI_SHUTDOWN.clear()
     from ..runtime.logging_setup import bind_event_context
@@ -112,7 +130,102 @@ def main() -> int:
     bind_event_context(session_id="cli", correlation_id="cli")
     log_event("cli.start")
     sys.stdout.reconfigure(encoding="utf-8")
+    sandbox_manager = None
+    sandbox_scope = None
+    sandbox_mode = "off"
+
+    def _initialize_cli_sandbox(mode: str, project_path: str, session_id: str) -> bool:
+        nonlocal sandbox_manager, sandbox_scope, sandbox_mode
+        sandbox_mode = mode
+        if mode == "off":
+            core._sandbox_enabled = False
+            core._sandbox_scope = None
+            return True
+
+        from ..runtime.mxc_backend import (
+            MxcSessionManager,
+            describe_probe,
+            install_session_manager,
+            mxc_sdk_is_installed,
+            startup_scope,
+        )
+
+        allow_install = False
+        if mode == "mxc" and not mxc_sdk_is_installed():
+            if UAGENT_NON_INTERACTIVE:
+                print(
+                    "[sandbox] MXC SDK is missing; non-interactive startup will not install dependencies. "
+                    "Run an interactive `uag --sandbox mxc` after reviewing the dependency prompt.",
+                    file=sys.stderr,
+                )
+                return False
+            try:
+                answer = input(
+                    "Install the pinned MXC SDK (about 105 MB) in your user profile? [y/N] "
+                )
+            except (EOFError, KeyboardInterrupt):
+                answer = ""
+            if answer.strip().lower() not in {"y", "yes"}:
+                print(
+                    "[sandbox] dependency installation declined; startup stopped",
+                    file=sys.stderr,
+                )
+                return False
+            allow_install = True
+        try:
+            sandbox_manager, sandbox_report = MxcSessionManager.initialize(
+                allow_install=allow_install
+            )
+            install_session_manager(sandbox_manager)
+            sandbox_scope = startup_scope(
+                entry_point="cli",
+                project_path=project_path,
+                session_id=session_id,
+            )
+            core._sandbox_enabled = True
+            core._sandbox_scope = sandbox_scope
+            print(
+                f"[sandbox] enabled: {describe_probe(sandbox_report)}", file=sys.stderr
+            )
+            return True
+        except Exception as exc:
+            print(
+                f"[sandbox] startup refused: {type(exc).__name__}: {exc}",
+                file=sys.stderr,
+            )
+            return False
+
+    def _initialize_cli_sandbox_after_dotenv(
+        project_path: str, session_id: str
+    ) -> bool:
+        try:
+            mode = resolve_sandbox_mode()
+        except ValueError as exc:
+            print(f"[sandbox] invalid configuration: {exc}", file=sys.stderr)
+            raise SystemExit(2) from exc
+        if not _initialize_cli_sandbox(mode, project_path, session_id):
+            raise SystemExit(2)
+        return mode != "off"
+
     if UAGENT_REALTIME:
+        try:
+            realtime_sandbox_mode = _resolve_realtime_sandbox_mode()
+        except ValueError as exc:
+            print(f"[sandbox] invalid configuration: {exc}", file=sys.stderr)
+            return 2
+        except Exception as exc:
+            print(
+                f"[sandbox] failed to load realtime startup configuration: {exc}",
+                file=sys.stderr,
+            )
+            return 2
+        if realtime_sandbox_mode != "off":
+            print(
+                "[sandbox] realtime mode is unavailable while Sandbox is enabled; "
+                "use realtime with --sandbox off or disable realtime.",
+                file=sys.stderr,
+            )
+            return 2
         from ..realtime import run as run_realtime
 
         raise SystemExit(run_realtime())
@@ -131,6 +244,7 @@ def main() -> int:
         complete_regex=UAGENT_COMPLETE_REGEX,
         decision_provider=UAGENT_DECISION_PROVIDER,
         enable_tools=UAGENT_ENABLE_TOOLS,
+        sandbox_initializer=_initialize_cli_sandbox_after_dotenv,
     )
 
     provider = startup.provider
@@ -147,6 +261,32 @@ def main() -> int:
     process_exit_code = 0
 
     def _run_cli_turn(fn, *args, **kwargs):
+        if sandbox_mode != "off":
+            from ..runtime.execution_broker import SecurityProfile, execution_profile
+            from ..runtime.mxc_backend import startup_scope as _startup_scope
+
+            active_scope = _startup_scope(
+                entry_point="cli",
+                project_path=os.getcwd(),
+                session_id=str(
+                    getattr(core, "session_id", "")
+                    or getattr(startup, "session_id", "")
+                    or ""
+                ),
+            )
+            with execution_profile(
+                SecurityProfile.LOCAL_TRUSTED,
+                sandbox_enabled=True,
+                scope=active_scope,
+            ):
+                return call_with_resolved_turn_context(
+                    fn,
+                    *args,
+                    entry_point="cli",
+                    project_path=os.getcwd(),
+                    session_id=str(getattr(core, "session_id", "") or ""),
+                    **kwargs,
+                )
         return call_with_resolved_turn_context(
             fn,
             *args,
@@ -217,11 +357,23 @@ def main() -> int:
 
     # Preload tool plugins in background so the first ':' command/completion
     # does not pay the full plugin-import cost on the interactive path.
-    if not UAGENT_NON_INTERACTIVE:
+    if not UAGENT_NON_INTERACTIVE and sandbox_mode == "off":
         try:
             tools.start_tools_warmup()
         except Exception:
             pass
+
+    def _run_cli_hook(fn, *args):
+        if sandbox_mode == "off":
+            return fn(*args)
+        from ..runtime.execution_broker import SecurityProfile, execution_profile
+
+        with execution_profile(
+            SecurityProfile.LOCAL_TRUSTED,
+            sandbox_enabled=True,
+            scope=sandbox_scope,
+        ):
+            return fn(*args)
 
     # Fire SessionStart and Setup hooks (inject stdout context into messages)
     try:
@@ -234,7 +386,7 @@ def main() -> int:
             take_pending_session_hook_texts,
         )
 
-        _ss_results = fire_session_start()
+        _ss_results = _run_cli_hook(fire_session_start)
         inject_hook_context(
             messages, _ss_results, event_name="SessionStart", replace_event=False
         )
@@ -242,14 +394,18 @@ def main() -> int:
         take_pending_session_hook_texts()
         _hooks = load_hooks_registry(get_default_registry_path())
         if _hooks:
-            _setup_results = fire_event("Setup", _hooks)
+            _setup_results = _run_cli_hook(fire_event, "Setup", _hooks)
             inject_hook_context(
                 messages, _setup_results, event_name="Setup", replace_event=False
             )
     except Exception:
         pass
 
-    t = threading.Thread(target=stdin_loop, daemon=True)
+    t = threading.Thread(
+        target=stdin_loop,
+        kwargs={"hook_runner": _run_cli_hook},
+        daemon=True,
+    )
     t.start()
     _startup_timing_mark("stdin_loop_started")
 
@@ -261,7 +417,11 @@ def main() -> int:
         # Scheduler execution records are updated when scheduled events enter
         # the interactive worker loop.  The store is durable and independent
         # from the event queue, so a restart does not erase the run history.
-        from ..scheduler import SchedulerRunStore, SchedulerWorker
+        from ..scheduler import (
+            SchedulerRunStore,
+            SchedulerWorker,
+            run_scheduled_callback_with_tools,
+        )
 
         scheduled_run_store = SchedulerRunStore()
 
@@ -271,14 +431,16 @@ def main() -> int:
                 return fn(*args, **kwargs)
             run = scheduled_run_store.get(run_id)
             metadata = dict((run.metadata if run else {}) or {})
-            from ..scheduler import required_tools_guard
 
             def _execute_scheduled(_payload):
-                with required_tools_guard(
-                    metadata.get("required_tools") or [],
+                return run_scheduled_callback_with_tools(
+                    fn,
+                    *args,
+                    tool_names=metadata.get("required_tools") or [],
                     reason=f"scheduled run:{run_id}",
-                ):
-                    return fn(*args, **kwargs)
+                    sandbox_enabled=sandbox_mode != "off",
+                    **kwargs,
+                )
 
             return SchedulerWorker(scheduled_run_store).execute(
                 run_id,
@@ -299,14 +461,18 @@ def main() -> int:
             required = list(metadata.get("required_tools") or [])
             if target_tool and target_tool not in required:
                 required.append(target_tool)
-            from ..scheduler import execute_direct_tool, required_tools_guard
+            from ..scheduler import execute_direct_tool
 
             def _execute_scheduled(_payload):
-                with required_tools_guard(
-                    required,
+                return run_scheduled_callback_with_tools(
+                    _run_cli_turn,
+                    execute_direct_tool,
+                    target_tool,
+                    target_args,
+                    tool_names=required,
                     reason=f"scheduled direct run:{run_id}",
-                ):
-                    return _run_cli_turn(execute_direct_tool, target_tool, target_args)
+                    sandbox_enabled=sandbox_mode != "off",
+                )
 
             result = SchedulerWorker(scheduled_run_store).execute(
                 run_id,
@@ -539,7 +705,7 @@ def main() -> int:
                         collect_hook_block_decision,
                     )
 
-                    _ups_results = fire_user_prompt_submit(text)
+                    _ups_results = _run_cli_hook(fire_user_prompt_submit, text)
                     _ups_block = collect_hook_block_decision(_ups_results)
                     if _ups_block is not None:
                         _reason = (_ups_block.get("reason") or "").strip()
@@ -765,10 +931,10 @@ def main() -> int:
                 get_default_registry_path,
             )
 
-            fire_stop()
+            _run_cli_hook(fire_stop)
             _hooks = load_hooks_registry(get_default_registry_path())
             if _hooks:
-                fire_event("SessionEnd", _hooks)
+                _run_cli_hook(fire_event, "SessionEnd", _hooks)
         except Exception:
             pass
         # Keep the active SQLite session searchable after the CLI exits.  Use
@@ -840,6 +1006,14 @@ def main() -> int:
             except Exception:
                 pass
 
+        if sandbox_manager is not None:
+            try:
+                sandbox_manager.close_all()
+                from ..runtime.mxc_backend import install_session_manager
+
+                install_session_manager(None)
+            except Exception:
+                pass
         if session_store is not None:
             try:
                 session_store.close()

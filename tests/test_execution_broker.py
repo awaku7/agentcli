@@ -212,8 +212,8 @@ def test_remote_capability_probe_requires_vm_and_all_controls():
             backend_capabilities=claims_vm,
             known_tool=True,
         )
-    assert not still_unavailable.allowed
-    assert still_unavailable.reason == "sandbox backend is not implemented"
+    assert still_unavailable.allowed
+    assert still_unavailable.reason == ""
 
 
 def test_cancel_result_requires_confirmed_execution_stop():
@@ -827,7 +827,12 @@ def test_computer_use_tool_specs_are_filtered_for_remote_and_sandbox_profiles(
 
     with execution_profile(SecurityProfile.LOCAL_TRUSTED, sandbox_enabled=True):
         sandbox_specs = tools.get_tool_specs()
-    assert [spec["function"]["name"] for spec in sandbox_specs] == ["calculator"]
+    assert {spec["function"]["name"] for spec in sandbox_specs} == {
+        "create_file",
+        "file_exists",
+        "read_file",
+        "python_exec",
+    }
 
 
 @pytest.mark.parametrize(
