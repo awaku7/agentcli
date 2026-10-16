@@ -295,7 +295,7 @@ def test_sessions_list_limits_rows_without_shifting_load_indices(
         assert _handle_cmd_sessions("list", core=core, tr=lambda text, **_: text)
         output = capsys.readouterr().out
         assert output.count(" | id: ") == 10
-        assert "[sessions] Showing 10 of 12 sessions." in output
+        assert "[sessions] 10/12 | :sessions list --all" in output
         assert rows[10]["session_id"] not in output
         assert core._session_search_results == {
             index: row["session_id"] for index, row in enumerate(rows[:10])
