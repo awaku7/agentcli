@@ -127,12 +127,14 @@ def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, appro
     "answer,deleted",
     [("はい", True), ("いいえ", False), ("全て", False)],
 )
-def test_cli_rm_reuses_one_localized_approval(monkeypatch, tmp_path, answer, deleted):
+def test_cli_rm_reuses_one_localized_approval(
+    monkeypatch, repo_tmp_path, answer, deleted
+):
     from uagent import util_cmd_files
     from uagent.tools import human_ask_tool
 
     monkeypatch.setenv("UAGENT_LANG", "ja")
-    target = tmp_path / "single_confirmation.tmp"
+    target = repo_tmp_path / "single_confirmation.tmp"
     target.write_text("data", encoding="utf-8")
     calls = []
     monkeypatch.setattr(
