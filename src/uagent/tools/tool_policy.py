@@ -85,6 +85,21 @@ _ALLOW_ALL_TOOLS: set[tuple[tuple[str, ...], str]] = set()
 _ALLOW_ALL_LOCK = threading.RLock()
 
 
+def _absolute_confirmation_required(
+    tool_name: str, args: dict[str, Any]
+) -> bool:
+    """A configured absconfirm cannot be bypassed by a previous 'all' grant."""
+    from .. import core
+    from .enterprise_policy import get_enterprise_policy
+
+    enterprise = get_enterprise_policy()
+    if os.environ.get("UAGENT_INJECT_MODE") == "1":
+        return enterprise.inject_requires_confirmation(tool_name, args)
+    return bool(getattr(core, "auto_pilot_active", False)) and (
+        enterprise.auto_pilot_requires_confirmation(tool_name, args)
+    )
+
+
 def _confirmation_scope_key() -> tuple[str, ...] | None:
     from ..runtime.identity_context import get_current_turn_context
 
@@ -237,8 +252,16 @@ def default_confirmation_callback(
 ) -> bool:
     """Ask the human for confirmation, with an environment override for automation."""
     scope_key = _confirmation_scope_key()
+    try:
+        absconfirm = _absolute_confirmation_required(tool_name, args)
+    except Exception:
+        absconfirm = True
     with _ALLOW_ALL_LOCK:
-        if scope_key is not None and (scope_key, tool_name) in _ALLOW_ALL_TOOLS:
+        if (
+            not absconfirm
+            and scope_key is not None
+            and (scope_key, tool_name) in _ALLOW_ALL_TOOLS
+        ):
             return True
 
     value = (os.environ.get("UAGENT_CONFIRM_TOOLS", "") or "").strip().lower()
@@ -291,7 +314,7 @@ def default_confirmation_callback(
             "\u3059\u3079\u3066\u306f\u3044",
             "\u5168\u3066\u306f\u3044",
         }:
-            if scope_key is not None:
+            if scope_key is not None and not absconfirm:
                 with _ALLOW_ALL_LOCK:
                     _ALLOW_ALL_TOOLS.add((scope_key, tool_name))
             return True
