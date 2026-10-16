@@ -151,6 +151,7 @@ def _confirmation_args(args: dict[str, Any]) -> str:
 
 def _confirmation_reply_kind(raw_reply: Any) -> str:
     """Classify only exact, explicit replies in the configured UI language."""
+
     def normalize(value: Any) -> str:
         return unicodedata.normalize("NFKC", str(value or "")).strip().casefold()
 
@@ -348,10 +349,13 @@ def default_confirmation_callback(
         args=_confirmation_args(args),
     )
     if allow_all:
-        confirmation_message += "\n" + _tool_(
-            "ui.all_yes",
-            default="  - Type 'all' to allow this tool for the rest of the session\n",
-        ).strip()
+        confirmation_message += (
+            "\n"
+            + _tool_(
+                "ui.all_yes",
+                default="  - Type 'all' to allow this tool for the rest of the session\n",
+            ).strip()
+        )
 
     # Web human_ask is routed through its authenticated Room UI wrapper.
     # Calling human_ask_tool directly would wait on an unused CLI queue.
