@@ -795,6 +795,34 @@ def test_workspace_scavenger_skips_one_unremovable_directory(monkeypatch, tmp_pa
     assert not workspace.exists()
 
 
+def test_python_prefix_cannot_contain_the_selected_work_directory(
+    monkeypatch, tmp_path
+):
+    prefix = tmp_path / "venv"
+    project = prefix / "project"
+    project.mkdir(parents=True)
+    monkeypatch.chdir(project)
+
+    with pytest.raises(RuntimeError, match="must not contain the work directory"):
+        mxc_backend._validate_python_prefix(prefix)
+
+    profile = tmp_path / "profile"
+    profile.mkdir()
+    outside_workdir = tmp_path / "outside-workdir"
+    outside_workdir.mkdir()
+    monkeypatch.setenv("USERPROFILE", str(profile))
+    monkeypatch.chdir(outside_workdir)
+    with pytest.raises(RuntimeError, match="per-user data"):
+        mxc_backend._validate_python_prefix(profile)
+
+    external_prefix = tmp_path / "external-venv"
+    external_prefix.mkdir()
+    assert (
+        mxc_backend._validate_python_prefix(external_prefix)
+        == external_prefix.resolve()
+    )
+
+
 def test_startup_scope_persisted_session_is_process_instance_specific(
     monkeypatch, tmp_path
 ):

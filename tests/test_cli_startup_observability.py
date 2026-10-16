@@ -55,6 +55,21 @@ def test_cli_startup_turn_enters_lifecycle_before_resolved_context(
     ]
 
 
+def test_sandboxed_cli_skips_host_laya_torch_preload():
+    from uagent.cli_startup import _preload_laya_torch_for_startup
+
+    preloaded = []
+
+    def preload(settings):
+        preloaded.append(settings)
+
+    _preload_laya_torch_for_startup("laya", sandbox_enabled=True, preload=preload)
+    assert preloaded == []
+
+    _preload_laya_torch_for_startup("laya", sandbox_enabled=False, preload=preload)
+    assert preloaded == ["laya"]
+
+
 def test_startup_file_logging_marks_only_the_log_envelope() -> None:
     logged = []
 

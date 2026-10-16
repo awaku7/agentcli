@@ -24,6 +24,14 @@ class CliStartupState:
     startup_timing_marks: dict[str, float] | None = None
 
 
+def _preload_laya_torch_for_startup(
+    decision_settings: Any, *, sandbox_enabled: bool, preload: Any
+) -> None:
+    """Never import host-side Laya dependencies during a sandboxed startup."""
+    if not sandbox_enabled:
+        preload(decision_settings)
+
+
 def _prompt_startup_tool_genre_mask() -> int:
     """Prompt for the startup tool-genre bitmask, using a TTY dialog when available."""
     if (
@@ -394,7 +402,11 @@ def run_cli_startup(
                         str(getattr(core, "session_id", "") or session_id or ""),
                     )
                 )
-            preload_laya_torch_on_windows(decision_settings)
+            _preload_laya_torch_for_startup(
+                decision_settings,
+                sandbox_enabled=sandbox_enabled,
+                preload=preload_laya_torch_on_windows,
+            )
             _startup_timing_mark("env")
 
             banner = build_startup_banner(

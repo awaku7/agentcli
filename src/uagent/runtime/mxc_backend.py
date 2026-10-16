@@ -623,18 +623,34 @@ def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
             pass
 
 
-def _python_root() -> Path:
-    root = Path(sys.base_prefix).resolve()
+def _validate_python_prefix(prefix: Path) -> Path:
+    root = Path(prefix).resolve()
     if not root.is_dir():
-        raise RuntimeError("Python standard-library root is unavailable")
+        raise RuntimeError("Python runtime prefix is unavailable")
+    protected_paths = [Path.cwd().resolve(), Path.home().resolve()]
+    for variable in ("USERPROFILE", "LOCALAPPDATA", "APPDATA"):
+        value = os.environ.get(variable)
+        if value:
+            protected_paths.append(Path(value).expanduser().resolve())
+    for protected_path in protected_paths:
+        try:
+            common = os.path.commonpath((str(root), str(protected_path)))
+        except ValueError:
+            continue
+        if os.path.normcase(common) == os.path.normcase(str(root)):
+            raise RuntimeError(
+                "Python runtime prefixes must not contain the work directory or "
+                "per-user data; use a narrower environment outside the project"
+            )
     return root
+
+
+def _python_root() -> Path:
+    return _validate_python_prefix(Path(sys.base_prefix))
 
 
 def _python_env_root() -> Path:
-    root = Path(sys.prefix).resolve()
-    if not root.is_dir():
-        raise RuntimeError("Python environment root is unavailable")
-    return root
+    return _validate_python_prefix(Path(sys.prefix))
 
 
 class _MxcSession:
@@ -680,6 +696,8 @@ class _MxcSession:
         python_exe = Path(sys.executable).resolve()
         if not python_exe.is_file():
             raise RuntimeError("current Python executable is unavailable")
+        python_root = _python_root()
+        python_env_root = _python_env_root()
         system_root = Path(os.environ.get("SystemRoot", r"C:\Windows"))
         helper_env = {
             "SystemRoot": str(system_root),
@@ -724,8 +742,8 @@ class _MxcSession:
         config = {
             "workspace": str(self.workspace),
             "pythonExe": str(python_exe),
-            "pythonRoot": str(_python_root()),
-            "pythonEnvRoot": str(_python_env_root()),
+            "pythonRoot": str(python_root),
+            "pythonEnvRoot": str(python_env_root),
             "workerScript": str(worker_script),
             "helperRoot": str(runtime),
             "deniedPaths": [],
