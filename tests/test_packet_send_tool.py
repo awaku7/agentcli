@@ -42,23 +42,25 @@ def test_udp_send_can_be_mocked(monkeypatch) -> None:
         def close(self):
             pass
 
+    from uagent.tools.tool_confirmation import dispatched_tool
+
     fake = FakeSocket()
     monkeypatch.setattr(packet_send_tool.socket, "socket", lambda *args, **kwargs: fake)
 
-    result = json.loads(
-        packet_send_tool.run_tool(
-            {
-                "action": "udp_send",
-                "target": "192.168.1.10",
-                "port": 9999,
-                "payload": "test",
-                "dry_run": False,
-                "send_confirmed": True,
-                "count": 2,
-                "interval": 0,
-            }
+    with dispatched_tool("packet_send", approved=True):
+        result = json.loads(
+            packet_send_tool.run_tool(
+                {
+                    "action": "udp_send",
+                    "target": "192.168.1.10",
+                    "port": 9999,
+                    "payload": "test",
+                    "dry_run": False,
+                    "count": 2,
+                    "interval": 0,
+                }
+            )
         )
-    )
 
     assert result["ok"] is True
     assert result["dry_run"] is False
