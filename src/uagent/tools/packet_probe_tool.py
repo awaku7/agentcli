@@ -94,10 +94,13 @@ def run_tool(args: dict[str, Any]) -> str:
     if action in {"tcp_syn", "icmp", "arp"}:
         dry_run = bool(args.get("dry_run", False))
         if bool(args.get("allow_elevation", False)) and not dry_run:
-            if not bool(args.get("elevation_confirmed", False)):
+            # The Windows UAC dialog is additional OS authorization.
+            # Only the host tool policy may approve starting that helper.
+            from .tool_confirmation import dispatcher_approved
+
+            if not dispatcher_approved("packet_probe"):
                 return _error(
-                    "ELEVATION_CONFIRMATION_REQUIRED",
-                    "Call human_ask and retry with elevation_confirmed=true.",
+                    "ELEVATION_CONFIRMATION_REQUIRED", "Host approval required."
                 )
             return _run_elevated_raw(action, target, port)
         if dry_run:
@@ -178,7 +181,6 @@ TOOL_SPEC: dict[str, Any] = {
                 },
                 "dry_run": {"type": "boolean", "default": False},
                 "allow_elevation": {"type": "boolean", "default": False},
-                "elevation_confirmed": {"type": "boolean", "default": False},
             },
             "required": ["action", "target"],
         },

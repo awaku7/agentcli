@@ -8,7 +8,6 @@
     "param.count.description": "عدد المرسلات.",
     "param.interval.description": "الفاصل الزمني بين الإرسال بالثواني.",
     "param.dry_run.description": "لا ترسل البيانات. إرجاع العملية المخطط لها.",
-    "param.send_confirmed.description": "يتم التعيين فقط بعد تأكيد human_ask صراحةً لعملية الإرسال.",
     "x_search_terms": [
       "إرسال الحزمة",
       "إرسال UDP",
@@ -25,7 +24,6 @@
     "param.count.description": "পাঠানোর সংখ্যা।",
     "param.interval.description": "সেকেন্ডে পাঠানোর মধ্যে ব্যবধান।",
     "param.dry_run.description": "ডেটা পাঠাবেন না; পরিকল্পিত অপারেশন ফিরে.",
-    "param.send_confirmed.description": "মানব_আস্ক স্পষ্টভাবে প্রেরণ অপারেশন নিশ্চিত করার পরেই সেট করুন।",
     "x_search_terms": [
       "প্যাকেট send",
       "udp পাঠান",
@@ -42,7 +40,6 @@
     "param.count.description": "Počet odeslání.",
     "param.interval.description": "Interval mezi odesláními v sekundách.",
     "param.dry_run.description": "Neposílejte data; vrátit plánovanou operaci.",
-    "param.send_confirmed.description": "Nastavte pouze poté, co human_ask explicitně potvrdí operaci odeslání.",
     "x_search_terms": [
       "odeslání paketu",
       "udp odeslat",
@@ -59,7 +56,6 @@
     "param.count.description": "Antal afsendelser.",
     "param.interval.description": "Interval mellem afsendelser i sekunder.",
     "param.dry_run.description": "Send ikke data; returnere den planlagte operation.",
-    "param.send_confirmed.description": "Indstil kun efter human_ask eksplicit bekræfter afsendelsesoperationen.",
     "x_search_terms": [
       "pakke send",
       "udp send",
@@ -76,7 +72,6 @@
     "param.count.description": "Anzahl der Versendungen.",
     "param.interval.description": "Intervall zwischen den Sendungen in Sekunden.",
     "param.dry_run.description": "Senden Sie keine Daten; die geplante Operation zurückgeben.",
-    "param.send_confirmed.description": "Wird nur gesetzt, nachdem human_ask den Sendevorgang explizit bestätigt hat.",
     "x_search_terms": [
       "Paket senden",
       "UDP senden",
@@ -93,7 +88,6 @@
     "param.count.description": "Αριθμός αποστολών.",
     "param.interval.description": "Το διάστημα μεταξύ των αποστολών σε δευτερόλεπτα.",
     "param.dry_run.description": "Μην στέλνετε δεδομένα. επιστροφή της προγραμματισμένης λειτουργίας.",
-    "param.send_confirmed.description": "Ορίστε μόνο αφού το human_ask επιβεβαιώσει ρητά τη λειτουργία αποστολής.",
     "x_search_terms": [
       "αποστολή πακέτου",
       "udp αποστολή",
@@ -110,7 +104,6 @@
     "param.count.description": "Número de envíos.",
     "param.interval.description": "Intervalo entre envíos en segundos.",
     "param.dry_run.description": "No envíe datos; devolver la operación planificada.",
-    "param.send_confirmed.description": "Se establece solo después de que human_ask confirme explícitamente la operación de envío.",
     "x_search_terms": [
       "envío de paquetes",
       "udp envío",
@@ -127,7 +120,6 @@
     "param.count.description": "تعداد ارسال ها",
     "param.interval.description": "فاصله بین ارسال در ثانیه",
     "param.dry_run.description": "داده ارسال نکنید؛ عملیات برنامه ریزی شده را برگردانید.",
-    "param.send_confirmed.description": "تنها پس از تأیید صریح عملیات ارسال توسط human_ask تنظیم شود.",
     "x_search_terms": [
       "ارسال بسته",
       "udp ارسال",
@@ -144,7 +136,6 @@
     "param.count.description": "Lähetysten määrä.",
     "param.interval.description": "Lähetysten välinen aika sekunneissa.",
     "param.dry_run.description": "Älä lähetä tietoja; palauta suunniteltu toimenpide.",
-    "param.send_confirmed.description": "Aseta vasta sen jälkeen, kun human_ask on erikseen vahvistanut lähetystoiminnon.",
     "x_search_terms": [
       "pakettilähetys",
       "udp lähettää",
@@ -161,7 +152,6 @@
     "param.count.description": "Bilang ng mga ipinadala.",
     "param.interval.description": "Interval sa pagitan ng mga pagpapadala sa ilang segundo.",
     "param.dry_run.description": "Huwag magpadala ng data; ibalik ang nakaplanong operasyon.",
-    "param.send_confirmed.description": "Itakda lamang pagkatapos na tahasang kumpirmahin ng human_ask ang pagpapatakbo ng pagpapadala.",
     "x_search_terms": [
       "pagpapadala ng packet",
       "udp ipadala",
@@ -178,7 +168,6 @@
     "param.count.description": "Nombre d'envois.",
     "param.interval.description": "Intervalle entre les envois en secondes.",
     "param.dry_run.description": "N'envoyez pas de données ; retourner l'opération prévue.",
-    "param.send_confirmed.description": "Défini uniquement après que human_ask ait explicitement confirmé l'opération d'envoi.",
     "x_search_terms": [
       "envoi de paquets",
       "envoi UDP",
@@ -195,7 +184,6 @@
     "param.count.description": "מספר שליחות.",
     "param.interval.description": "מרווח בין השליחה בשניות.",
     "param.dry_run.description": "אל תשלח נתונים; להחזיר את המבצע המתוכנן.",
-    "param.send_confirmed.description": "מוגדר רק לאחר ש-human_ask מאשר במפורש את פעולת השליחה.",
     "x_search_terms": [
       "משלוח מנות",
       "udp שלח",
@@ -212,7 +200,6 @@
     "param.count.description": "भेजे जाने की संख्या.",
     "param.interval.description": "सेकंड में प्रेषण के बीच का अंतराल.",
     "param.dry_run.description": "डेटा न भेजें; नियोजित ऑपरेशन वापस करें.",
-    "param.send_confirmed.description": "ह्यूमन_आस्क द्वारा स्पष्ट रूप से सेंड ऑपरेशन की पुष्टि करने के बाद ही सेट करें।",
     "x_search_terms": [
       "पैकेट भेजें",
       "यूडीपी भेजें",
@@ -229,7 +216,6 @@
     "param.count.description": "Küldések száma.",
     "param.interval.description": "A küldések közötti intervallum másodpercben.",
     "param.dry_run.description": "Ne küldjön adatokat; vissza a tervezett műveletet.",
-    "param.send_confirmed.description": "Csak azután állítsa be, hogy a human_ask kifejezetten megerősíti a küldési műveletet.",
     "x_search_terms": [
       "csomagküldés",
       "udp küldés",
@@ -246,7 +232,6 @@
     "param.count.description": "Jumlah pengiriman.",
     "param.interval.description": "Interval antar pengiriman dalam hitungan detik.",
     "param.dry_run.description": "Jangan mengirim data; mengembalikan operasi yang direncanakan.",
-    "param.send_confirmed.description": "Ditetapkan hanya setelah human_ask secara eksplisit mengonfirmasi operasi pengiriman.",
     "x_search_terms": [
       "paket kirim",
       "udp kirim",
@@ -263,7 +248,6 @@
     "param.count.description": "Numero di invii.",
     "param.interval.description": "Intervallo tra gli invii in secondi.",
     "param.dry_run.description": "Non inviare dati; restituire l'operazione pianificata.",
-    "param.send_confirmed.description": "Impostato solo dopo che human_ask ha confermato esplicitamente l'operazione di invio.",
     "x_search_terms": [
       "invio pacchetto",
       "invio udp",
@@ -280,7 +264,6 @@
     "param.count.description": "送信数。",
     "param.interval.description": "送信間の間隔 (秒単位)。",
     "param.dry_run.description": "データは送信しないでください。計画された操作を返します。",
-    "param.send_confirmed.description": "human_ask が送信操作を明示的に確認した後にのみ設定します。",
     "x_search_terms": [
       "パケット送信",
       "udp送信",
@@ -297,7 +280,6 @@
     "param.count.description": "전송 횟수.",
     "param.interval.description": "전송 사이의 간격(초)입니다.",
     "param.dry_run.description": "데이터를 보내지 마십시오. 계획된 작업을 반환합니다.",
-    "param.send_confirmed.description": "human_ask가 전송 작업을 명시적으로 확인한 후에만 설정됩니다.",
     "x_search_terms": [
       "패킷 보내기",
       "udp 보내기",
@@ -314,7 +296,6 @@
     "param.count.description": "Илгээлтийн тоо.",
     "param.interval.description": "Илгээлтийн хоорондох интервал секундээр.",
     "param.dry_run.description": "Өгөгдөл илгээхгүй байх; төлөвлөсөн үйл ажиллагааг буцаах.",
-    "param.send_confirmed.description": "Зөвхөн human_ask нь илгээх үйлдлийг тодорхой баталгаажуулсны дараа тохируулна.",
     "x_search_terms": [
       "paket send",
       "udp илгээх",
@@ -331,7 +312,6 @@
     "param.count.description": "पाठवण्याची संख्या.",
     "param.interval.description": "सेकंदात पाठवण्यामधील मध्यांतर.",
     "param.dry_run.description": "डेटा पाठवू नका; नियोजित ऑपरेशन परत करा.",
-    "param.send_confirmed.description": "human_ask ने पाठवण्याच्या ऑपरेशनची स्पष्टपणे पुष्टी केल्यानंतरच सेट करा.",
     "x_search_terms": [
       "पॅकेट पाठवा",
       "udp पाठवा",
@@ -348,7 +328,6 @@
     "param.count.description": "Bilangan hantaran.",
     "param.interval.description": "Selang antara hantaran dalam beberapa saat.",
     "param.dry_run.description": "Jangan hantar data; mengembalikan operasi yang dirancang.",
-    "param.send_confirmed.description": "Tetapkan hanya selepas human_ask secara jelas mengesahkan operasi hantar.",
     "x_search_terms": [
       "paket hantar",
       "udp hantar",
@@ -365,7 +344,6 @@
     "param.count.description": "Antall sendinger.",
     "param.interval.description": "Intervall mellom sendinger i sekunder.",
     "param.dry_run.description": "Ikke send data; returnere den planlagte operasjonen.",
-    "param.send_confirmed.description": "Sett kun etter at human_ask eksplisitt bekrefter sendeoperasjonen.",
     "x_search_terms": [
       "pakke send",
       "utp send",
@@ -382,7 +360,6 @@
     "param.count.description": "Aantal verzendingen.",
     "param.interval.description": "Interval tussen verzendingen in seconden.",
     "param.dry_run.description": "Stuur geen gegevens; de geplande bewerking retourneren.",
-    "param.send_confirmed.description": "Wordt alleen ingesteld nadat human_ask de verzendbewerking expliciet heeft bevestigd.",
     "x_search_terms": [
       "pakket verzonden",
       "udp verzenden",
@@ -399,7 +376,6 @@
     "param.count.description": "Antall sendinger.",
     "param.interval.description": "Intervall mellom sendinger i sekunder.",
     "param.dry_run.description": "Ikke send data; returner den planlagte operasjonen.",
-    "param.send_confirmed.description": "Set først etter at human_ask eksplisitt har bekreftet send-operasjonen.",
     "x_search_terms": [
       "pakke sendutp sendtcp send nettverkstest",
       "udp send",
@@ -416,7 +392,6 @@
     "param.count.description": "Liczba wysłań.",
     "param.interval.description": "Odstęp między wysyłkami w sekundach.",
     "param.dry_run.description": "Nie wysyłaj danych; zwrócić zaplanowaną operację.",
-    "param.send_confirmed.description": "Ustawiane tylko wtedy, gdy human_ask jawnie potwierdzi operację wysyłania.",
     "x_search_terms": [
       "wysyłanie pakietu ",
       "udp wysyłanie ",
@@ -433,7 +408,6 @@
     "param.count.description": "Número de envios.",
     "param.interval.description": "Intervalo entre envios em segundos.",
     "param.dry_run.description": "Não envie dados; devolver a operação planejada.",
-    "param.send_confirmed.description": "Definido somente após human_ask confirmar explicitamente a operação de envio.",
     "x_search_terms": [
       "pacote send",
       "envio udp",
@@ -450,7 +424,6 @@
     "param.count.description": "Número de envios.",
     "param.interval.description": "Intervalo entre envios em segundos.",
     "param.dry_run.description": "Não envie dados; devolver a operação planejada.",
-    "param.send_confirmed.description": "Definido somente após human_ask confirmar explicitamente a operação de envio.",
     "x_search_terms": [
       "pacote send",
       "envio udp",
@@ -467,7 +440,6 @@
     "param.count.description": "Numărul de trimiteri.",
     "param.interval.description": "Interval între trimiteri în secunde.",
     "param.dry_run.description": "Nu trimiteți date; returnează operațiunea planificată.",
-    "param.send_confirmed.description": "Setați numai după ce human_ask confirmă în mod explicit operația de trimitere.",
     "x_search_terms": [
       "trimitere pachet",
       "udp trimite",
@@ -484,7 +456,6 @@
     "param.count.description": "Количество отправок.",
     "param.interval.description": "Интервал между отправками в секундах.",
     "param.dry_run.description": "Не отправлять данные; вернуть запланированную операцию.",
-    "param.send_confirmed.description": "Устанавливается только после того, как human_ask явно подтвердит операцию отправки.",
     "x_search_terms": [
       "отправка пакета",
       "udp отправить",
@@ -501,7 +472,6 @@
     "param.count.description": "Antal sändningar.",
     "param.interval.description": "Intervall mellan sändningar i sekunder.",
     "param.dry_run.description": "Skicka inte data; returnera den planerade operationen.",
-    "param.send_confirmed.description": "Ställ in endast efter att human_ask uttryckligen bekräftar sändningsoperationen.",
     "x_search_terms": [
       "paket skicka",
       "udp skicka",
@@ -518,7 +488,6 @@
     "param.count.description": "Idadi ya kutuma.",
     "param.interval.description": "Muda kati ya kutuma kwa sekunde.",
     "param.dry_run.description": "Usitume data; kurudisha operesheni iliyopangwa.",
-    "param.send_confirmed.description": "Imewekwa tu baada ya human_ask kuthibitisha kwa uwazi utendakazi wa kutuma.",
     "x_search_terms": [
       "pakiti send",
       "udp kutuma",
@@ -535,7 +504,6 @@
     "param.count.description": "จำนวนการส่ง.",
     "param.interval.description": "ช่วงเวลาระหว่างการส่งเป็นวินาที",
     "param.dry_run.description": "อย่าส่งข้อมูล ส่งคืนการดำเนินการตามแผน",
-    "param.send_confirmed.description": "ตั้งค่าหลังจากที่ human_ask ยืนยันการดำเนินการส่งอย่างชัดเจนแล้วเท่านั้น",
     "x_search_terms": [
       "แพ็คเก็ต send",
       "ยูดีพีส่ง",
@@ -552,7 +520,6 @@
     "param.count.description": "Gönderim sayısı.",
     "param.interval.description": "Saniye cinsinden gönderimler arasındaki aralık.",
     "param.dry_run.description": "Veri göndermeyin; Planlanan işlemi geri döndürün.",
-    "param.send_confirmed.description": "Yalnızca human_ask gönderme işlemini açıkça onayladıktan sonra ayarlayın.",
     "x_search_terms": [
       "paket gönderimi",
       "udp gönderimi",
@@ -569,7 +536,6 @@
     "param.count.description": "Кількість відправок.",
     "param.interval.description": "Інтервал між відправками в секундах.",
     "param.dry_run.description": "Не надсилати дані; повернути планову операцію.",
-    "param.send_confirmed.description": "Встановлюється лише після того, як human_ask явно підтвердить операцію надсилання.",
     "x_search_terms": [
       "відправка пакета",
       "udp відправити",
@@ -586,7 +552,6 @@
     "param.count.description": "Số lượng gửi.",
     "param.interval.description": "Khoảng thời gian giữa các lần gửi tính bằng giây.",
     "param.dry_run.description": "Không gửi dữ liệu; trả lại hoạt động theo kế hoạch.",
-    "param.send_confirmed.description": "Chỉ đặt sau khi human_ask xác nhận rõ ràng thao tác gửi.",
     "x_search_terms": [
       "gửi gói",
       "udp gửi",
@@ -603,7 +568,6 @@
     "param.count.description": "发送数量。",
     "param.interval.description": "发送之间的间隔（以秒为单位）。",
     "param.dry_run.description": "不发送数据；返回计划的操作。",
-    "param.send_confirmed.description": "仅在 human_ask 明确确认发送操作后设置。",
     "x_search_terms": [
       "数据包发送",
       "udp发送",
@@ -620,7 +584,6 @@
     "param.count.description": "發送數量。",
     "param.interval.description": "發送之間的間隔（以秒為單位）。",
     "param.dry_run.description": "不發送資料；返回計劃的操作。",
-    "param.send_confirmed.description": "僅在 human_ask 明確確認發送操作後設定。",
     "x_search_terms": [
       "資料包發送",
       "udp發送",

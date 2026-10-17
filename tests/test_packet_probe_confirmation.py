@@ -14,7 +14,7 @@ def test_raw_probe_requires_human_confirmation_before_uac() -> None:
                 "port": 443,
                 "dry_run": False,
                 "allow_elevation": True,
-                "elevation_confirmed": False,
+                "elevation_confirmed": True,
             }
         )
     )

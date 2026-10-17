@@ -14,7 +14,7 @@ def test_real_send_requires_human_confirmation() -> None:
                 "port": 9999,
                 "payload": "test",
                 "dry_run": False,
-                "send_confirmed": False,
+                "send_confirmed": True,
             }
         )
     )
