@@ -436,7 +436,7 @@ msgstr ""
 "## Chính sách thao tác nguy hiểm (delete_file)\n"
 "- Khi xóa bằng công cụ delete_file, KHÔNG hỏi xác nhận trước khi xem trước.\n"
 "- Luôn chạy delete_file với dry_run=true trước để lấy danh sách các mục sẽ bị xóa.\n"
-"\n"
+"- Nếu không có mục nào, không hỏi; chỉ báo rằng sẽ không có gì bị xóa.\n"
 
 #: src/uagent/core.py:2118
 msgid ""
