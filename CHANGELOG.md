@@ -2,10 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.31] - 2026-10-17
+
+### Added
+
+- Add support for the Sarashina AI provider.
+
 ### Changed
 
-- Raise the minimum `llmcapa` version to the current `0.5.65` release.
+- Raise the minimum `llmcapa` version to `0.5.65`.
 - Derive a membership-checked default ProjectContext from the trusted workspace for authenticated non-OIDC Web requests when no project binding is present.
+- Centralize packet probe/send confirmation behavior in the shared tool policy instead of duplicating it in tool definitions.
+- Remove legacy LLM confirmation prompts for delete operations across all 38 shipped locales.
+
+### Fixed
+
+- Initialize Web room history before processing user input.
+- Display the decision model in the model command.
+- Preserve zero-candidate delete instructions in Thai and Vietnamese translations.
 
 ## [0.7.30] - 2026-10-13
 

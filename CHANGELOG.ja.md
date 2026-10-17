@@ -2,10 +2,24 @@
 
 ## [Unreleased]
 
+## [0.7.31] - 2026-10-17
+
+### 追加
+
+- Sarashina AI providerへの対応を追加。
+
 ### 変更
 
-- `llmcapa`の最低バージョンを現在の`0.5.65`に合わせて更新。
+- `llmcapa`の最低バージョン要件を`0.5.65`へ引き上げ。
 - project bindingがない認証済みnon-OIDC Web requestでは、信頼済みworkspaceからviewer membership確認後に既定ProjectContextを導出。
+- packet probe/sendの確認処理を共通のtool policyへ集約し、tool定義での重複を解消。
+- 38言語すべての削除プロンプトから、従来のLLM確認手順を削除。
+
+### 修正
+
+- ユーザー入力の処理前にWeb roomの履歴を初期化。
+- modelコマンドにDecision modelを表示。
+- Thai／Vietnameseの翻訳で、対象0件の場合の削除指示を維持。
 
 ## [0.7.30] - 2026-10-13
 
