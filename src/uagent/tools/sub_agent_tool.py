@@ -1075,7 +1075,7 @@ class SubAgentRunner:
 
         instructions, input_items, response_tools = build_responses_request(
             [{"role": "system", "content": system_prompt}] + messages,
-            send_tools_this_round=True,
+            send_tools_this_round=bool(tool_specs),
             provider=provider,
             tool_specs=tool_specs,
         )

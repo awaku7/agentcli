@@ -258,3 +258,38 @@ def test_final_native_tool_request_is_blocked_without_execution(monkeypatch):
     assert executed == [("read_file", {"filename": "notes.txt"})]
     assert "tool-turn budget exhausted" in result[0]
     assert result[3][-1]["status"] == "budget_exhausted"
+
+
+def test_final_responses_turn_does_not_inject_hosted_web_search(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.providers import responses_common
+
+    monkeypatch.setenv("UAGENT_OPENAI_WEB_SEARCH", "1")
+    request = {}
+
+    def create(**kwargs):
+        request.update(kwargs)
+        return SimpleNamespace(
+            usage=SimpleNamespace(input_tokens=1, completion_tokens=1, total_tokens=2)
+        )
+
+    client = SimpleNamespace(responses=SimpleNamespace(create=create))
+    monkeypatch.setattr(
+        responses_common,
+        "parse_responses_response",
+        lambda _response: ("final answer", "", [], None, []),
+    )
+
+    result = sub_agent_tool.SubAgentRunner()._call_responses_with_tools(
+        client,
+        model_name="gpt-6-luna",
+        system_prompt="final only",
+        messages=[{"role": "user", "content": "finish"}],
+        tool_specs=[],
+        timeout=10,
+        provider="openai",
+    )
+
+    assert result[0] == "final answer"
+    assert request["tools"] == []

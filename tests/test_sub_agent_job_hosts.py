@@ -259,10 +259,8 @@ def test_web_private_room_is_retained_while_owned_background_job_runs():
     class ActiveJobManager:
         active = True
 
-        def running_count(self, *, owner):
-            assert owner == SubAgentJobOwner(
-                entry_point="web", session_id="private-session", room_id="private-room"
-            )
+        def running_count_for_room(self, room_id):
+            assert room_id == "private-room"
             return 1 if self.active else 0
 
     jobs = ActiveJobManager()
