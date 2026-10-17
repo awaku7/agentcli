@@ -1185,6 +1185,12 @@ def _try_registry_simple_chat_round(
                 )
                 if management_specs:
                     tool_specs = management_specs
+        if provider == "sarashina" and send_tools_this_round and round_count <= 1:
+            from .runtime.chat_tool_policy import (
+                initial_sarashina_chat_completion_tools,
+            )
+
+            tool_specs = tuple(initial_sarashina_chat_completion_tools(tool_specs))
         if send_tools_this_round and not use_responses_api:
             from .runtime.chat_tool_policy import (
                 limit_chat_completion_tools as _limit_chat_completion_tools,

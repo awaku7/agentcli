@@ -33,6 +33,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "lmstudio",
         "foundry_local",
         "minimax",
+        "sarashina",
         "hf",
         "sakana",
         "sakura",
@@ -100,6 +101,7 @@ _TEMPERATURE_ENV_NAMES: dict[str, str] = {
         "together",
         "vercel",
         "inception",
+        "sarashina",
     )
 }
 
@@ -136,8 +138,12 @@ _CHAT_VISION_FORMATS: dict[str, str] = {
 # wire formats that UAG has an explicit adapter for, so provider names do not
 # leak into the shared structured-output orchestration code.
 _STRUCTURED_OUTPUT_WIRE_FORMATS: dict[str, frozenset[str]] = {
-    provider: frozenset({"chat_completions", "responses"})
-    for provider in ("openai", "azure", "openrouter", "perplexity", "deepseek")
+    **{
+        provider: frozenset({"chat_completions", "responses"})
+        for provider in ("openai", "azure", "openrouter", "perplexity", "deepseek")
+    },
+    # Sarashina documents response_format/json_schema only on Chat Completions.
+    "sarashina": frozenset({"chat_completions"}),
 }
 
 

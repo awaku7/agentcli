@@ -38,6 +38,7 @@ _SUPPORTED = frozenset(
         "meta",
         "pfn",
         "grok",
+        "sarashina",
     }
 )
 

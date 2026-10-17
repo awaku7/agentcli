@@ -9,7 +9,7 @@ the provider runtime.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Mapping
 
 from .. import llmcapa_util
 from ..env_utils import env_get
@@ -31,6 +31,164 @@ class OpenAIProjection:
     reasoning: str
     auto_user_text: str
     effort_used: str | None
+
+
+def sanitize_sarashina_tool_specs(tool_specs: Any) -> list[dict[str, Any]]:
+    """Strip tool-schema keywords outside Sarashina's documented subset."""
+
+    def sanitize(value: Any) -> Any:
+        if isinstance(value, Mapping):
+            return {
+                key: sanitize(item)
+                for key, item in value.items()
+                if key
+                not in {
+                    "additionalProperties",
+                    "default",
+                    "description",
+                    "maximum",
+                    "minimum",
+                }
+                and not (key == "required" and item == [])
+            }
+        if isinstance(value, list):
+            return [sanitize(item) for item in value]
+        return value
+
+    normalized: list[dict[str, Any]] = []
+    for spec in tool_specs or ():
+        if not isinstance(spec, Mapping):
+            continue
+        item = dict(spec)
+        function = item.get("function")
+        if isinstance(function, Mapping):
+            function_item = dict(function)
+            parameters = function_item.get("parameters")
+            if isinstance(parameters, Mapping):
+                projected_parameters = sanitize(parameters)
+                if function_item.get("name") == "tool_load":
+                    properties = projected_parameters.get("properties")
+                    if isinstance(properties, dict):
+                        properties.pop("names", None)
+                    projected_parameters["required"] = ["name"]
+                    function_item["description"] = (
+                        "Load one or more tools by name after tool_catalog identifies "
+                        "them. Put multiple comma- or whitespace-separated tool names "
+                        "in the name string."
+                    )
+                function_item["parameters"] = projected_parameters
+            item["function"] = function_item
+        normalized.append(item)
+    return normalized
+
+
+def sanitize_sarashina_messages(messages: Any) -> list[dict[str, Any]]:
+    """Project messages to the roles and keys documented by Sarashina."""
+    normalized: list[dict[str, Any]] = []
+    allowed_roles = {"system", "user", "assistant", "tool"}
+    for message in messages or ():
+        if not isinstance(message, Mapping):
+            continue
+        role = str(message.get("role") or "").strip().lower()
+        if role == "developer":
+            role = "system"
+        if role not in allowed_roles:
+            raise ValueError(
+                f"Sarashina Chat Completions does not support role {role!r}"
+            )
+        item: dict[str, Any] = {"role": role}
+        if "content" in message:
+            content = message.get("content")
+            if content is None or isinstance(content, str):
+                item["content"] = content
+            else:
+                raise ValueError(
+                    "Sarashina Chat Completions currently accepts text-only message content"
+                )
+        if role == "assistant":
+            tool_calls = message.get("tool_calls")
+            if isinstance(tool_calls, list):
+                item["tool_calls"] = [
+                    {
+                        "id": str(call.get("id") or ""),
+                        "type": "function",
+                        "function": {
+                            "name": str((call.get("function") or {}).get("name") or ""),
+                            "arguments": str(
+                                (call.get("function") or {}).get("arguments") or "{}"
+                            ),
+                        },
+                    }
+                    for call in tool_calls
+                    if isinstance(call, Mapping)
+                    and isinstance(call.get("function"), Mapping)
+                ]
+        elif role == "tool" and message.get("tool_call_id") is not None:
+            item["tool_call_id"] = str(message.get("tool_call_id"))
+        normalized.append(item)
+    return normalized
+
+
+def sarashina_message_shapes(messages: Any) -> list[dict[str, Any]]:
+    """Describe Sarashina message roles/keys without logging message values."""
+    shapes: list[dict[str, Any]] = []
+    for message in messages or ():
+        if not isinstance(message, Mapping):
+            continue
+        content = message.get("content")
+        content_type = "null" if content is None else type(content).__name__
+        shapes.append(
+            {
+                "role": str(message.get("role") or ""),
+                "fields": sorted(str(key) for key in message),
+                "content_type": content_type,
+            }
+        )
+    return shapes
+
+
+def sarashina_tool_schema_field_names(tool_specs: Any) -> list[str]:
+    """Return schema keyword names only; never include tool values or arguments."""
+    names: set[str] = set()
+
+    def visit(schema: Any) -> None:
+        if not isinstance(schema, Mapping):
+            return
+        for key, value in schema.items():
+            names.add(str(key))
+            if key == "properties" and isinstance(value, Mapping):
+                for child_schema in value.values():
+                    visit(child_schema)
+            elif key == "items":
+                visit(value)
+            elif key in {"anyOf", "oneOf", "allOf"} and isinstance(value, list):
+                for child_schema in value:
+                    visit(child_schema)
+
+    for spec in tool_specs or ():
+        if not isinstance(spec, Mapping):
+            continue
+        function = spec.get("function")
+        parameters = (
+            function.get("parameters") if isinstance(function, Mapping) else None
+        )
+        visit(parameters)
+    return sorted(names)
+
+
+def sarashina_tool_schema_fields_by_tool(tool_specs: Any) -> dict[str, list[str]]:
+    """Report schema keyword names per function, without exposing values."""
+    fields: dict[str, list[str]] = {}
+    for spec in tool_specs or ():
+        if not isinstance(spec, Mapping):
+            continue
+        function = spec.get("function")
+        if not isinstance(function, Mapping):
+            continue
+        name = str(function.get("name") or "")
+        if name:
+            fields[name] = sarashina_tool_schema_field_names([spec])
+    return dict(sorted(fields.items()))
 
 
 def build_openai_projection(
@@ -63,11 +221,10 @@ def build_openai_projection(
     if effort_used:
         if use_responses_api:
             options["reasoning"] = {"effort": effort_used}
-        elif provider_key != "foundry_local":
-            # Foundry Local's REST Chat Completions surface does not document
-            # reasoning_effort. Reasoning-capable local models expose their
-            # reasoning in the response instead, so let the model/runtime own
-            # that behavior rather than sending an unsupported request field.
+        elif provider_key not in {"foundry_local", "sarashina"}:
+            # These Chat Completions surfaces do not document reasoning_effort.
+            # Let the model/runtime own reasoning rather than sending an
+            # unsupported request field.
             options["reasoning_effort"] = effort_used
 
     response_format = native_structured_output_request_for_runtime(
@@ -113,9 +270,14 @@ def build_openai_projection(
     if max_tokens:
         try:
             limit = llmcapa_util.clamp_max_tokens(int(max_tokens), model, provider)
+            if provider_key == "sarashina":
+                # Sarashina currently accepts max_completion_tokens up to 8000.
+                limit = min(limit, 8000)
             if use_responses_api:
                 options["max_output_tokens"] = limit
-            elif str(model or "").lower().startswith(("gpt-5", "o1", "o2", "o3", "o4")):
+            elif provider_key == "sarashina" or str(model or "").lower().startswith(
+                ("gpt-5", "o1", "o2", "o3", "o4")
+            ):
                 options["max_completion_tokens"] = limit
             else:
                 options["max_tokens"] = limit
@@ -144,7 +306,7 @@ def build_openai_projection(
 
     if send_tools:
         options["tool_choice"] = "auto"
-        if not use_responses_api and provider_key != "foundry_local":
+        if not use_responses_api and provider_key not in {"foundry_local", "sarashina"}:
             options["reasoning_effort"] = "none"
 
     return OpenAIProjection(
@@ -155,4 +317,12 @@ def build_openai_projection(
     )
 
 
-__all__ = ["OpenAIProjection", "build_openai_projection"]
+__all__ = [
+    "OpenAIProjection",
+    "build_openai_projection",
+    "sanitize_sarashina_messages",
+    "sanitize_sarashina_tool_specs",
+    "sarashina_message_shapes",
+    "sarashina_tool_schema_field_names",
+    "sarashina_tool_schema_fields_by_tool",
+]

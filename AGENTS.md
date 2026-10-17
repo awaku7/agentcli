@@ -84,6 +84,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | `hf` | HuggingFace |
 | `sakana` | Sakana AI (Fugu) |
 | `sakura` | SAKURA AI Engine |
+| `sarashina` | Sarashina AI (SB Intuitions) |
 | `novita` | Novita AI |
 | `together` | Together AI |
 | `vercel` | Vercel AI Gateway |

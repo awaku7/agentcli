@@ -72,6 +72,7 @@ from .providers.responses_runtime import (
 )
 from .runtime.chat_tool_policy import (
     initial_chat_completion_tools as _initial_chat_completion_tools,
+    initial_sarashina_chat_completion_tools as _initial_sarashina_chat_completion_tools,
     limit_chat_completion_tools as _limit_chat_completion_tools,
 )
 
@@ -934,7 +935,16 @@ def _call_openai_azure_round(
                     else (tools.get_tool_specs() if send_tools_this_round else None)
                 )
                 if send_tools_this_round:
-                    if provider in ("openai", "azure"):
+                    if provider == "sarashina":
+                        if round_count <= 1:
+                            req_tools = _initial_sarashina_chat_completion_tools(
+                                req_tools
+                            )
+                        else:
+                            req_tools = _limit_chat_completion_tools(
+                                req_tools, call_messages
+                            )
+                    elif provider in ("openai", "azure"):
                         if round_count <= 1:
                             req_tools = _initial_chat_completion_tools(req_tools)
                         else:
@@ -942,6 +952,16 @@ def _call_openai_azure_round(
                                 req_tools, call_messages
                             )
                     tools.log_tools_being_sent(req_tools, where="chatcompletions")
+                if provider == "sarashina" and req_tools is not None:
+                    from .providers.openai_projection_policy import (
+                        sanitize_sarashina_tool_specs,
+                    )
+
+                    req_tools = sanitize_sarashina_tool_specs(req_tools)
+                    # Sarashina treats tools as optional; an empty array may be
+                    # rejected, so omit both tools and tool_choice when disabled.
+                    if not req_tools:
+                        req_tools = None
 
                 # Resolve temperature (Inception requires 0.5..1.0; use its
                 # documented default rather than the generic tool-use default).
@@ -962,9 +982,16 @@ def _call_openai_azure_round(
                     # 0.5..1.0.
                     resolved_temp = min(1.0, max(0.5, resolved_temp))
 
+                chat_messages = _normalize_chat_image_content(call_messages)
+                if provider == "sarashina":
+                    from .providers.openai_projection_policy import (
+                        sanitize_sarashina_messages,
+                    )
+
+                    chat_messages = sanitize_sarashina_messages(chat_messages)
                 chat_kwargs: dict[str, Any] = {
                     "model": depname,
-                    "messages": _normalize_chat_image_content(call_messages),
+                    "messages": chat_messages,
                     "temperature": resolved_temp,
                 }
                 if provider == "inception":
@@ -1028,10 +1055,12 @@ def _call_openai_azure_round(
                         )
                         from .llmcapa_util import openai_uses_max_completion_tokens
 
-                        if (
-                            provider == "inception"
-                            or openai_uses_max_completion_tokens(depname, provider)
-                        ):
+                        if provider in {
+                            "inception",
+                            "sarashina",
+                        } or openai_uses_max_completion_tokens(depname, provider):
+                            if provider == "sarashina":
+                                _chat_token_limit = min(_chat_token_limit, 8000)
                             chat_kwargs["max_completion_tokens"] = _chat_token_limit
                         else:
                             chat_kwargs["max_tokens"] = _chat_token_limit
@@ -1117,6 +1146,52 @@ def _call_openai_azure_round(
                         message_count=len(chat_kwargs.get("messages") or ()),
                         tool_count=len(_foundry_specs),
                         tool_names=_foundry_tool_names,
+                    )
+
+                if provider == "sarashina" and (
+                    (env_get("UAGENT_DEBUG_OPENAI_RUNTIME", "") or "").strip().lower()
+                    in {"1", "true", "yes", "on"}
+                ):
+                    from .providers.openai_projection_policy import (
+                        sarashina_message_shapes,
+                        sarashina_tool_schema_field_names,
+                        sarashina_tool_schema_fields_by_tool,
+                    )
+
+                    _debug_tools = chat_kwargs.get("tools") or ()
+                    _debug_tool_names = []
+                    for _debug_tool in _debug_tools:
+                        if not isinstance(_debug_tool, dict):
+                            continue
+                        _debug_function = _debug_tool.get("function") or {}
+                        _debug_name = (
+                            _debug_function.get("name")
+                            if isinstance(_debug_function, dict)
+                            else ""
+                        )
+                        if isinstance(_debug_name, str) and _debug_name:
+                            _debug_tool_names.append(_debug_name)
+                    print(
+                        "[SARASHINA_DEBUG] request shape: "
+                        + json.dumps(
+                            {
+                                "request_fields": sorted(set(chat_kwargs) | {"stream"}),
+                                "message_shapes": sarashina_message_shapes(
+                                    chat_kwargs.get("messages") or ()
+                                ),
+                                "stream": bool(stream_responses),
+                                "tool_count": len(chat_kwargs.get("tools") or ()),
+                                "tool_names": _debug_tool_names,
+                                "tool_schema_fields": sarashina_tool_schema_field_names(
+                                    chat_kwargs.get("tools") or ()
+                                ),
+                                "tool_schema_fields_by_tool": sarashina_tool_schema_fields_by_tool(
+                                    chat_kwargs.get("tools") or ()
+                                ),
+                            },
+                            ensure_ascii=False,
+                            sort_keys=True,
+                        )
                     )
 
                 if provider == "inception" and stream_responses:

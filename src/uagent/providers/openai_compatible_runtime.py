@@ -21,6 +21,13 @@ from ..runtime.provider_context import (
     apply_recovery_projection,
     project_messages_for_provider,
 )
+from .openai_projection_policy import (
+    sanitize_sarashina_messages,
+    sanitize_sarashina_tool_specs,
+    sarashina_message_shapes,
+    sarashina_tool_schema_field_names,
+    sarashina_tool_schema_fields_by_tool,
+)
 from ..runtime.round_contracts import (
     CancellationToken,
     ContextPlan,
@@ -136,6 +143,8 @@ class OpenAICompatibleRuntime:
             provider=self._provider,
             model=self._model,
         )
+        if self._provider == "sarashina" and self._transport != "responses":
+            messages = sanitize_sarashina_messages(messages)
         tool_specs = plan.tool_specs
         options = dict(self._options)
         if self._transport == "responses":
@@ -209,6 +218,11 @@ class OpenAICompatibleRuntime:
                 if projection.transport == "responses"
                 else list(projection.tool_specs)
             )
+            if (
+                projection.provider == "sarashina"
+                and projection.transport != "responses"
+            ):
+                tools = sanitize_sarashina_tool_specs(tuple(tools))
             payload.setdefault("tools", tools)
 
         if projection.provider == "openrouter":
@@ -284,6 +298,18 @@ class OpenAICompatibleRuntime:
                 name = function.get("name")
             if isinstance(name, str) and name:
                 tool_names.append(name)
+        provider_debug_fields: dict[str, Any] = {}
+        if self._provider == "sarashina":
+            provider_debug_fields = {
+                "request_fields": sorted(set(request.payload) | {"stream"}),
+                "message_shapes": sarashina_message_shapes(
+                    request.payload.get("messages") or ()
+                ),
+                "tool_schema_fields": sarashina_tool_schema_field_names(request_tools),
+                "tool_schema_fields_by_tool": sarashina_tool_schema_fields_by_tool(
+                    request_tools
+                ),
+            }
         _debug_runtime(
             "request",
             provider=self._provider,
@@ -299,6 +325,7 @@ class OpenAICompatibleRuntime:
                 for key in request.payload
                 if key not in {"model", "input", "messages", "tools"}
             ),
+            **provider_debug_fields,
         )
         yield self._event("ResponseStarted", {"stream_mode": "delta"})
         stream: Any = None

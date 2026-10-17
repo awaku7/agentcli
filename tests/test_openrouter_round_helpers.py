@@ -8,6 +8,51 @@ from uagent.providers.responses_common import recover_openrouter_invoke_tool_cal
 from uagent.uagent_llm import run_llm_rounds
 
 
+@pytest.mark.parametrize("provider", ["openai", "azure", "sarashina"])
+@pytest.mark.parametrize("initial_tools", [None, []])
+def test_tool_schema_sync_omits_empty_tools_for_all_providers(
+    provider: str, initial_tools: list | None
+) -> None:
+    from uagent.providers.llm_openrouter import finalize_tool_schema_sync
+
+    request = {
+        "model": "test-model",
+        "messages": [],
+        "tool_choice": "auto",
+    }
+    if initial_tools is not None:
+        request["tools"] = initial_tools
+
+    finalize_tool_schema_sync(request, provider=provider)
+
+    assert "tools" not in request
+    assert "tool_choice" not in request
+
+
+def test_tool_schema_sync_preserves_sarashina_function_schema_shape() -> None:
+    from uagent.providers.llm_openrouter import finalize_tool_schema_sync
+
+    parameters = {
+        "type": "object",
+        "properties": {"query": {"type": "string"}, "all": {"type": "boolean"}},
+        "required": ["query"],
+    }
+    request = {
+        "tools": [
+            {
+                "type": "function",
+                "function": {"name": "tool_catalog", "parameters": parameters},
+            }
+        ]
+    }
+
+    finalize_tool_schema_sync(request, provider="sarashina")
+
+    tool = request["tools"][0]
+    assert "parameters" not in tool
+    assert tool["function"]["parameters"] == parameters
+
+
 class _DummyResponses:
     def __init__(self) -> None:
         self.calls: list[dict[str, object]] = []

@@ -34,6 +34,7 @@ _PROVIDER_ENV_NAMES: dict[str, tuple[str, ...]] = {
     ),
     "anthropic": ("UAGENT_CLAUDE_API_KEY", "ANTHROPIC_API_KEY"),
     "claude": ("UAGENT_CLAUDE_API_KEY", "ANTHROPIC_API_KEY"),
+    "sarashina": ("UAGENT_SARASHINA_API_KEY", "SARASHINA_API_KEY"),
     # Ollama is local and the key is optional; keep the explicit name for
     # credential lookup while the client falls back to a dummy value.
     "ollama": ("UAGENT_OLLAMA_API_KEY",),

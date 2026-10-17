@@ -433,6 +433,15 @@ Required if `UAGENT_PROVIDER=sakura`:
 - `UAGENT_SAKURA_DEPNAME` (optional, default: `llm`).
 - `UAGENT_SAKURA_TEMPERATURE` (optional): Temperature setting for the model.
 
+#### Sarashina AI
+
+Required if `UAGENT_PROVIDER=sarashina`:
+
+- `UAGENT_SARASHINA_API_KEY` (required; `SARASHINA_API_KEY` is also accepted).
+- `UAGENT_SARASHINA_BASE_URL` (optional, default: `https://api.sarashina.ai/v1`).
+- `UAGENT_SARASHINA_DEPNAME` (optional, default: `sarashina3-mini`; `sarashina3-nano` is also a chat model. `sarashina3-guard` is moderation-only, not a general chat model).
+- `UAGENT_SARASHINA_TEMPERATURE` (optional): Sampling temperature.
+
 ### Decision Provider
 
 The dedicated decision layer is opt-in and defaults to `none`.
@@ -500,7 +509,7 @@ Optional parameters passed directly to the LLM API.
 - `UAGENT_OPENAI_FAST_MODE`: Set to `1`/`true`/`yes`/`on` to request OpenAI Fast mode (`service_tier=fast`). OpenAI only; ignored by Azure and other providers.
 - `UAGENT_REASONING`: Reasoning effort level for reasoning models (`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`).
 - `UAGENT_REASONING_EFFORT`: Reasoning effort level for Grok / xAI models (`none`, `low`, `medium`, `high`).
-- `UAGENT_DEBUG_OPENAI_RUNTIME`: Set to `1` to log OpenAI-compatible runtime metadata. For Foundry Local this includes request tool names/count and response finish/tool-call counts, but never prompt, response, or tool-argument contents.
+- `UAGENT_DEBUG_OPENAI_RUNTIME`: Set to `1` to log OpenAI-compatible runtime metadata. For Sarashina it also reports request field names, message roles/field names/content types, tool names/count, and per-tool schema keyword names, never prompt, response, API-key, or tool-argument values. For Foundry Local it includes request tool names/count and response finish/tool-call counts, but not prompt, response, or tool-argument contents.
 - `UAGENT_STREAMING_DEBUG`: Set to `1` to dump each streaming event (JSON) to `outputs/streaming_debug/`.
 
 ### 5. Built-in Web Search

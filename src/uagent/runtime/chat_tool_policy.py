@@ -91,3 +91,13 @@ def initial_chat_completion_tools(tool_specs: Any) -> list[dict[str, Any]]:
         if _tool_spec_name(spec) in {"tool_catalog", "tool_load", "unload_tool"}
     ]
     return initial or limit_chat_completion_tools(specs, [])
+
+
+def initial_sarashina_chat_completion_tools(
+    tool_specs: Any,
+) -> list[dict[str, Any]]:
+    """Bootstrap Sarashina with the three minimal tool-discovery helpers."""
+    specs = [spec for spec in (tool_specs or []) if isinstance(spec, dict)]
+    discovery_names = {"tool_catalog", "tool_load", "unload_tool"}
+    discovery = [spec for spec in specs if _tool_spec_name(spec) in discovery_names]
+    return discovery or initial_chat_completion_tools(specs)

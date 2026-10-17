@@ -415,6 +415,10 @@ def get_model_name() -> str:
         return env_get("UAGENT_NOVITA_DEPNAME", "tensent/hy3") or "tensent/hy3"
     if provider == "sakura":
         return env_get("UAGENT_SAKURA_DEPNAME", "llm") or "llm"
+    if provider == "sarashina":
+        return (
+            env_get("UAGENT_SARASHINA_DEPNAME", "sarashina3-mini") or "sarashina3-mini"
+        )
     if provider == "together":
         return (
             env_get("UAGENT_TOGETHER_DEPNAME", "MiniMaxAI/MiniMax-M3")
@@ -995,6 +999,20 @@ def make_client(core: Any) -> tuple[str, Any, str]:
         except TypeError:
             client = OpenAI(api_key=api_key, base_url=base_url)
 
+        return provider, client, model_name
+
+    if provider == "sarashina":
+        from openai import OpenAI  # lazy
+
+        api_key = _provider_api_key(core, "SARASHINA")
+        base_url = core.get_env_url(
+            "UAGENT_SARASHINA_BASE_URL", "https://api.sarashina.ai/v1"
+        )
+        http_client = make_httpx_client()
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
         return provider, client, model_name
 
     if provider == "sakana":

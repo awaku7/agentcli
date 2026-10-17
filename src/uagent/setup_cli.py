@@ -91,6 +91,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("hf", "HuggingFace"),
     ("sakana", "Sakana AI (Fugu)"),
     ("sakura", "SAKURA AI Engine"),
+    ("sarashina", "Sarashina AI (SB Intuitions)"),
     ("novita", "Novita AI"),
     ("together", "Together AI"),
     ("inception", "Inception Labs / Mercury"),
@@ -472,6 +473,20 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             False,
             _("SAKURA AI Engine temperature (optional)"),
         ),
+    ],
+    "sarashina": [
+        ("UAGENT_SARASHINA_API_KEY", True, _("Sarashina API key")),
+        (
+            "UAGENT_SARASHINA_BASE_URL",
+            False,
+            _("Sarashina base URL (optional, default: https://api.sarashina.ai/v1)"),
+        ),
+        (
+            "UAGENT_SARASHINA_DEPNAME",
+            False,
+            _("Sarashina model name (optional, default: sarashina3-mini)"),
+        ),
+        ("UAGENT_SARASHINA_TEMPERATURE", False, _("Sarashina temperature (optional)")),
     ],
     "vercel": [
         ("UAGENT_VERCEL_API_KEY", True, _("Vercel AI Gateway API key")),

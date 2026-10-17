@@ -331,7 +331,12 @@ def finalize_tool_schema_sync(
     tools[i].parameters at the top level, so we skip this for provider='hf'.
     """
 
-    if provider == "hf":
+    tools = chat_kwargs.get("tools")
+    if not tools:
+        chat_kwargs.pop("tools", None)
+        chat_kwargs.pop("tool_choice", None)
+        return
+    if provider in {"hf", "sarashina"}:
         return
 
     try:

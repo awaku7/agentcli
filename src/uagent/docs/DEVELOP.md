@@ -40,9 +40,10 @@ Queued rooms have a disabled Stop button. The WebSocket interrupt handler checks
 foreground `worker_room` ownership under `active_room_lock` before changing the shared
 interrupt flag or cancelling a confirmation; queued/idle rooms cannot stop another
 room. Run `tests/test_web_loaded_session_runtime.py` for the concurrent A/B and
-interrupt ownership regressions. Connect-time bootstrap may temporarily change
-`active_room` for display routing, but only the serialized worker sets/clears
-`worker_room`; bootstrap cannot acquire another room's Stop authorization.
+interrupt ownership regressions. In serial mode, connect-time bootstrap may
+briefly bind `active_room` for display routing, but only the serialized worker
+sets/clears `worker_room`; bootstrap cannot acquire another room's Stop
+authorization.
 
 Web foreground concurrency is configurable with `uagw --room-workers N` or
 `UAGENT_WEB_ROOM_WORKERS=N`. The default is 5. Explicitly selecting 1 retains the serial worker; counts greater

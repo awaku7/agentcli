@@ -407,6 +407,15 @@ Azureのサービスプリンシパル情報が揃っていない場合は、`az
 - `UAGENT_SAKURA_DEPNAME`（省略可、既定: `llm`）。
 - `UAGENT_SAKURA_TEMPERATURE`（省略可）: モデルの Temperature 設定。
 
+#### Sarashina AI
+
+`UAGENT_PROVIDER=sarashina` の場合に必要：
+
+- `UAGENT_SARASHINA_API_KEY`（必須。`SARASHINA_API_KEY` も使用可）。
+- `UAGENT_SARASHINA_BASE_URL`（省略可、既定: `https://api.sarashina.ai/v1`）。
+- `UAGENT_SARASHINA_DEPNAME`（省略可、既定: `sarashina3-mini`。チャットモデルは `sarashina3-nano` も利用可。`sarashina3-guard` はモデレーション専用で、通常のチャットモデルではありません）。
+- `UAGENT_SARASHINA_TEMPERATURE`（省略可）: サンプリング温度。
+
 ### Decision Provider
 
 Decision Providerは通常は既定値 `none` です。ただし、
@@ -479,7 +488,7 @@ LLM API に直接渡されるオプションパラメータです。
 - `UAGENT_OPENAI_FAST_MODE`: `1`/`true`/`yes`/`on` に設定すると OpenAI Fast mode（`service_tier=fast`）を要求します。OpenAI 専用で、Azure や他のプロバイダーでは無視されます。
 - `UAGENT_REASONING`: 推論モデルの推論努力レベル（`off`, `auto`, `minimal`, `low`, `medium`, `high`, `xhigh`）。
 - `UAGENT_REASONING_EFFORT`: Grok / xAI モデルの推論努力レベル（`none`, `low`, `medium`, `high`）。
-- `UAGENT_DEBUG_OPENAI_RUNTIME`: `1` に設定すると、OpenAI互換ランタイムのメタデータを記録します。Foundry Localでは、ツール名/数や応答のfinish reason/ツール呼び出し数を記録しますが、プロンプト、応答本文、ツール引数は記録しません。
+- `UAGENT_DEBUG_OPENAI_RUNTIME`: `1` に設定すると、OpenAI互換ランタイムのメタデータを記録します。Sarashinaではリクエストのフィールド名、メッセージのrole/フィールド名/content型、ツール名/数、ツールごとのスキーマキーワード名を記録します（プロンプト、応答、APIキー、ツール引数の値は記録しません）。Foundry Localではツール名/数や応答のfinish reason/ツール呼び出し数を記録しますが、プロンプト、応答本文、ツール引数は記録しません。
 - `UAGENT_STREAMING_DEBUG`: `1` に設定すると、ストリーミング中の各イベント（JSON）を `outputs/streaming_debug/` に保存します。
 
 ### 5. 組み込み Web 検索

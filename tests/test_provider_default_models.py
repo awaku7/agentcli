@@ -13,6 +13,7 @@ from uagent.providers.util_providers import get_model_name
         ("grok", "grok-4.7"),
         ("zai", "glm-5.3"),
         ("alibaba", "qwen3.7-plus"),
+        ("sarashina", "sarashina3-mini"),
         ("moonshot", "kimi-k3"),
     ],
 )
