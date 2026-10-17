@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Raise the minimum `llmcapa` version to the current `0.5.65` release.
 - Derive a membership-checked default ProjectContext from the trusted workspace for authenticated non-OIDC Web requests when no project binding is present.
 
 ## [0.7.30] - 2026-10-13
