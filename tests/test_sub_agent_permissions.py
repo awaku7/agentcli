@@ -149,9 +149,14 @@ def test_native_tool_calls_cannot_bypass_read_only_gate(monkeypatch):
         ]
     )
 
+    tool_specs_seen = []
+
     def fake_native_call(*args, **kwargs):
         tool_specs = args[4]
+        tool_specs_seen.append(tool_specs)
         assert "delete_file" not in {item["function"]["name"] for item in tool_specs}
+        if len(tool_specs_seen) == 2:
+            assert tool_specs == []
         return next(calls)
 
     monkeypatch.setattr(runner, "_call_openai_with_tools", fake_native_call)
@@ -176,3 +181,80 @@ def test_native_tool_calls_cannot_bypass_read_only_gate(monkeypatch):
     assert result[0] == "finished"
     assert result[3][0]["status"] == "blocked"
     assert dispatched == []
+
+
+def test_final_native_tool_request_is_blocked_without_execution(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        tools,
+        "get_tool_specs",
+        lambda: [{"function": {"name": "read_file"}}],
+    )
+    calls = iter(
+        [
+            (
+                "",
+                [
+                    {
+                        "id": "call-1",
+                        "function": {
+                            "name": "read_file",
+                            "arguments": json.dumps({"filename": "notes.txt"}),
+                        },
+                    }
+                ],
+                {},
+            ),
+            (
+                "",
+                [
+                    {
+                        "id": "call-2",
+                        "function": {
+                            "name": "file_exists",
+                            "arguments": json.dumps({"path": "final.txt"}),
+                        },
+                    }
+                ],
+                {},
+            ),
+        ]
+    )
+    tool_specs_seen = []
+
+    def fake_native_call(*args, **kwargs):
+        tool_specs_seen.append(args[4])
+        return next(calls)
+
+    executed = []
+    monkeypatch.setattr(runner, "_call_openai_with_tools", fake_native_call)
+    monkeypatch.setattr(
+        runner,
+        "_run_permissioned_tool",
+        lambda name, args, *_rest: executed.append((name, args))
+        or ("read result", "success"),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="openai",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=2,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test", description="", system_prompt=""
+        ),
+        agent_name="test",
+    )
+
+    assert tool_specs_seen[0] == [{"function": {"name": "read_file"}}]
+    assert tool_specs_seen[1] == []
+    assert executed == [("read_file", {"filename": "notes.txt"})]
+    assert "tool-turn budget exhausted" in result[0]
+    assert result[3][-1]["status"] == "budget_exhausted"

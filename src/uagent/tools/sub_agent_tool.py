@@ -1142,7 +1142,7 @@ class SubAgentRunner:
             "model": model_name,
             "messages": [{"role": "system", "content": system_prompt}] + messages,
             "tools": tool_specs,
-            "tool_choice": "auto",
+            "tool_choice": "auto" if tool_specs else "none",
         }
         model_lower = str(model_name or "").lower()
         modern = model_lower.startswith("gpt-5") or re.match(
@@ -1238,6 +1238,7 @@ class SubAgentRunner:
     ) -> str:
         messages = {
             "max_rounds": "Sub-Agent reached max_agent_rounds before completion.",
+            "tool_budget_exhausted": "Sub-Agent requested a tool on its final turn and could not produce a final answer.",
             "empty_output": "Sub-Agent returned no content; stopping before another completion check.",
             "no_progress": "Sub-Agent repeated the same result without new tool evidence.",
             "sentinel_invalid": (
@@ -1914,6 +1915,11 @@ class SubAgentRunner:
         )
 
         def deterministic_completion() -> str | None:
+            if any(
+                item.get("status") == "budget_exhausted"
+                for item in latest_tool_evidence
+            ):
+                return "tool_budget_exhausted"
             if completion_regex_matches(latest_raw, completion_regex):
                 return "completion_regex"
             # Do not spend another completion-judge request on an empty or
@@ -2181,14 +2187,21 @@ class SubAgentRunner:
                     pass
 
             current_response_mode = response_mode if is_last else ""
+            current_tool_specs = [] if is_last else tool_specs
+            current_system_prompt = system_prompt
+            if is_last and permission_level != PermissionLevel.NONE.value:
+                current_system_prompt += (
+                    "This is the final response turn. No tools are available; "
+                    "return your final answer now and do not request or emit tool calls."
+                )
 
             if use_responses_tools:
                 raw, native_calls, usage = self._call_responses_with_tools(
                     client,
                     model_name,
-                    system_prompt,
+                    current_system_prompt,
                     conversation_messages,
-                    tool_specs,
+                    current_tool_specs,
                     self._job_call_timeout(timeout),
                     provider,
                 )
@@ -2197,9 +2210,9 @@ class SubAgentRunner:
                 raw, native_calls, usage = self._call_openai_with_tools(
                     client,
                     model_name,
-                    system_prompt,
+                    current_system_prompt,
                     conversation_messages,
-                    tool_specs,
+                    current_tool_specs,
                     self._job_call_timeout(timeout),
                     provider,
                 )
@@ -2209,7 +2222,7 @@ class SubAgentRunner:
                     provider,
                     client,
                     model_name,
-                    system_prompt,
+                    current_system_prompt,
                     conversation,
                     self._job_call_timeout(timeout),
                     max_retries,
@@ -2223,9 +2236,25 @@ class SubAgentRunner:
 
             last_raw = raw
 
-            # On the final budgeted turn there is no remaining LLM turn in which
-            # to reflect on new tool results, so return the model's answer as-is.
+            # No tools are offered on the final turn. If a provider nevertheless
+            # emits a tool call, report the exhausted budget instead of returning
+            # an empty answer that would trigger another completion round.
             if is_last:
+                if native_calls:
+                    for call in native_calls:
+                        fn_data = call.get("function", {})
+                        add_tool_evidence(
+                            tool_name=fn_data.get("name", "tool"),
+                            result=(
+                                "Final-turn tool request was not executed because "
+                                "the Sub-Agent tool-turn budget is exhausted."
+                            ),
+                            status="budget_exhausted",
+                        )
+                    raw = raw or (
+                        "[Sub-Agent tool-turn budget exhausted before a final answer; "
+                        "the final-turn tool request was not executed.]"
+                    )
                 return raw, total_retries, total_usage, tool_evidence
 
             if native_tools and native_calls:
