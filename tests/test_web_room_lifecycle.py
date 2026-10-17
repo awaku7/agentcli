@@ -167,6 +167,61 @@ def test_idle_public_room_scope_is_retained_while_job_is_running():
     assert closed_scopes == []
 
 
+def test_idle_public_scope_cleanup_reserves_room_until_scope_close_finishes():
+    import threading
+
+    from uagent.runtime.execution_broker import TrustedSandboxScope
+
+    manager = WebManager()
+    close_started = threading.Event()
+    allow_close_to_finish = threading.Event()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+            close_started.set()
+            assert allow_close_to_finish.wait(timeout=5)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("public-room")
+    room.last_activity = 100.0
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="public-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+    results = []
+    cleanup = threading.Thread(
+        target=lambda: results.append(
+            manager.release_idle_public_room_sandbox_scopes(
+                idle_ttl_seconds=30, now=1000.0
+            )
+        )
+    )
+
+    cleanup.start()
+    assert close_started.wait(timeout=5)
+    assert room.current_sandbox_scope() is None
+    assert not room.worker_lock.acquire(blocking=False)
+
+    allow_close_to_finish.set()
+    cleanup.join(timeout=5)
+    assert not cleanup.is_alive()
+    assert results == [1]
+    assert closed_scopes == [scope]
+
+    assert room.worker_lock.acquire(blocking=False)
+    try:
+        manager.bind_sandbox_scope(room, scope)
+        assert room.current_sandbox_scope() == scope
+    finally:
+        room.worker_lock.release()
+
+
 @pytest.mark.parametrize("sqlite_backend", [False, True])
 def test_periodic_room_cleanup_releases_idle_public_leases(monkeypatch, sqlite_backend):
     import asyncio

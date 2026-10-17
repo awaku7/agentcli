@@ -634,7 +634,7 @@ class WebManager:
         """Return the reconnect grace period before an idle room is evicted."""
         return private_room_idle_ttl_seconds()
 
-    def _room_is_active(self, room: WebRoom) -> bool:
+    def _room_is_active(self, room: WebRoom, *, worker_lock_held: bool = False) -> bool:
         # The worker lock covers agent execution, streaming and human_ask waits.
         # Keep the explicit checks as defense in depth if worker/status contracts
         # change independently in the future.
@@ -654,7 +654,7 @@ class WebManager:
                     active_jobs = True
         return bool(
             connected
-            or room.worker_lock.locked()
+            or (not worker_lock_held and room.worker_lock.locked())
             or room.status.get("busy")
             or room.human_ask_pending
             or active_jobs
@@ -711,23 +711,34 @@ class WebManager:
             ),
         )
         current = time.monotonic() if now is None else now
-        expired_scopes: list[Any] = []
+        expired_scopes: list[tuple[WebRoom, Any]] = []
         with self.rooms_lock:
             for room in self.rooms.values():
-                if room.private_session or self._room_is_active(room):
+                if room.private_session or not room.worker_lock.acquire(blocking=False):
                     continue
-                scope = room.current_sandbox_scope()
-                if scope is None:
-                    continue
-                with room._activity_lock:
-                    idle_for = current - room.last_activity
-                if idle_for < ttl:
-                    continue
-                detached = room.take_sandbox_scope(expected_scope=scope)
-                if detached is not None:
-                    expired_scopes.append(detached)
-        for scope in expired_scopes:
-            self._close_sandbox_scope(scope)
+                reserved_for_cleanup = False
+                try:
+                    if self._room_is_active(room, worker_lock_held=True):
+                        continue
+                    with room._activity_lock:
+                        idle_for = current - room.last_activity
+                    if idle_for < ttl:
+                        continue
+                    scope = room.current_sandbox_scope()
+                    if scope is None:
+                        continue
+                    detached = room.take_sandbox_scope(expected_scope=scope)
+                    if detached is not None:
+                        expired_scopes.append((room, detached))
+                        reserved_for_cleanup = True
+                finally:
+                    if not reserved_for_cleanup:
+                        room.worker_lock.release()
+        for room, scope in expired_scopes:
+            try:
+                self._close_sandbox_scope(scope)
+            finally:
+                room.worker_lock.release()
         return len(expired_scopes)
 
     def active_room_ids(self) -> set[str]:

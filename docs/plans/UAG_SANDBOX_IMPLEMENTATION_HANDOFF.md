@@ -14,7 +14,7 @@
 
 ### 2026-10-17 — PR 3 ローカルLease lifecycle統合（進行中）
 
-- CLI/GUIでは新しいローカルSession scopeの開始時に旧scopeを回収する。WebはRoomがscopeを保持し、Socket切断後のreconnect grace中は維持する。private Roomはidle TTL・削除・Web停止時にscopeごと回収し、public Roomはidle TTL後にSandbox Leaseだけ回収してRoom履歴を残す。
+- CLI/GUIでは新しいローカルSession scopeの開始時に旧scopeを回収する。WebはRoomがscopeを保持し、Socket切断後のreconnect grace中は維持する。private Roomはidle TTL・削除・Web停止時にscopeごと回収し、public Roomはidle TTL後にSandbox Leaseだけ回収してRoom履歴を残し、Lease close完了までRoomのWorker lockを保持して新規Turnとの競合を防ぐ。
 - Web RoomでSub-Agent Jobが実行中の場合、scope差し替えとRoom evictionを拒否する。Jobには親のExecutionProfile/SandboxScopeがContextVar経由で継承される。
 - local Web SandboxはTool実行時にもRoom/Project認可を再確認し、Project/Room membershipの失効やRoom binding変更時に一致するscopeを回収する。回収時はscope一致も検証し、並行再bind後の新Leaseを誤って閉じない。
 - A2AのTrustedSandboxScopeをサーバー生成task IDへ束縛するが、Remote向けLeaseは作成しない。Remote sandbox backend未実装のため一般Tool拒否を維持する。A2Aの実Lease lifecycleはPR 4の適合Backendなしに実装しない。
