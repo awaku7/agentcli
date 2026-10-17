@@ -1238,6 +1238,8 @@ class SubAgentRunner:
     ) -> str:
         messages = {
             "max_rounds": "Sub-Agent reached max_agent_rounds before completion.",
+            "empty_output": "Sub-Agent returned no content; stopping before another completion check.",
+            "no_progress": "Sub-Agent repeated the same result without new tool evidence.",
             "sentinel_invalid": (
                 "Sub-Agent completion sentinel was missing or invalid."
             ),
@@ -1856,6 +1858,7 @@ class SubAgentRunner:
 
         latest_raw, latest_tool_evidence = execute_work_round(initial_prompt)
         prior_outputs: list[str] = []
+        prior_tool_evidence: list[list[dict[str, str]]] = []
         agent_round = 1
 
         def review_with_llm(state: dict[str, Any]) -> tuple[str, str]:
@@ -1913,6 +1916,21 @@ class SubAgentRunner:
         def deterministic_completion() -> str | None:
             if completion_regex_matches(latest_raw, completion_regex):
                 return "completion_regex"
+            # Do not spend another completion-judge request on an empty or
+            # unchanged result. Preserve the partial answer as blocked rather
+            # than treating lack of progress as successful completion.
+            if completion_sentinel:
+                return None
+            normalized_output = strip_sentinel(latest_raw).strip()
+            if not normalized_output:
+                return "empty_output"
+            if prior_outputs and prior_tool_evidence:
+                previous_output = strip_sentinel(prior_outputs[-1]).strip()
+                if (
+                    normalized_output == previous_output
+                    and latest_tool_evidence == prior_tool_evidence[-1]
+                ):
+                    return "no_progress"
             return None
 
         def judge_once():
@@ -1939,6 +1957,7 @@ class SubAgentRunner:
             nonlocal latest_tool_evidence
             self._check_job_active()
             prior_outputs.append(latest_raw)
+            prior_tool_evidence.append(list(latest_tool_evidence))
             followup = build_followup_prompt(task.task, latest_raw, feedback)
             followup += "\n\n[Original context]\n" + initial_prompt
             if cb and getattr(cb, "set_status", None):
