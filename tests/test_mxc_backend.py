@@ -478,6 +478,42 @@ def test_scope_key_does_not_expose_session_identifiers(local_scope):
     assert "test-session" not in hashed
 
 
+def test_manager_closes_obsolete_gui_session_after_session_transition():
+    import threading
+
+    old_scope = TrustedSandboxScope(
+        deployment_id="gui",
+        principal_id="local-user",
+        project_id="project",
+        scope_kind="gui-session",
+        scope_id="old-session",
+    )
+    new_scope = TrustedSandboxScope(
+        deployment_id="gui",
+        principal_id="local-user",
+        project_id="project",
+        scope_kind="gui-session",
+        scope_id="new-session",
+    )
+
+    class FakeSession:
+        _scope = old_scope
+        closed = False
+
+        def close(self):
+            self.closed = True
+
+    session = FakeSession()
+    manager = object.__new__(mxc_backend.MxcSessionManager)
+    manager._sessions = {"old-key": session}
+    manager._lock = threading.RLock()
+
+    manager.activate_scope(new_scope)
+
+    assert session.closed
+    assert manager._sessions == {}
+
+
 def test_manager_caps_active_session_workers(monkeypatch, tmp_path):
     class FakeProc:
         def poll(self):

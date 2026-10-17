@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1 実装済み。PR 2 実装済み・Windows 11 Home x64（Build 26300）でMXC統合テスト6/6通過。PR 3〜7未着手。
+- 状態: PR 1・2実装済み。PR 3はローカルCLI/GUI/WebのLease lifecycle統合を実装・検証中。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -11,6 +11,14 @@
 > 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
 
 ## 進捗記録
+
+### 2026-10-17 — PR 3 ローカルLease lifecycle統合（進行中）
+
+- CLI/GUIでは新しいローカルSession scopeの開始時に旧scopeを回収する。WebはRoomがscopeを保持し、Socket切断では維持し、private Roomのidle TTL・削除・Web停止時に回収する。
+- Web RoomでSub-Agent Jobが実行中の場合、scope差し替えとRoom evictionを拒否する。Jobには親のExecutionProfile/SandboxScopeがContextVar経由で継承される。
+- A2AのTrustedSandboxScopeをサーバー生成task IDへ束縛するが、Remote向けLeaseは作成しない。Remote sandbox backend未実装のため一般Tool拒否を維持する。A2Aの実Lease lifecycleはPR 4の適合Backendなしに実装しない。
+- 関連ユニットテスト8ファイル（ExecutionBroker、MXC manager、Web Room、Web shutdown、Sub-Agent、A2A task）計152件通過。ruff、Black、Python compileも通過。
+- 未完了: 既存の全入口・Session遷移との追加回帰確認、およびPR 4までRemote A2A Leaseを導入しない境界の維持。
 
 ### 2026-10-17 — PR 2 Windows MXC統合検証
 

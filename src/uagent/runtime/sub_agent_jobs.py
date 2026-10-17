@@ -865,6 +865,25 @@ class SubAgentJobManager:
                 for job in self._jobs.values()
             )
 
+    def running_count_for_room(self, room_id: str) -> int:
+        """Count active Web jobs in a Room across its trusted principals."""
+        room = str(room_id or "").strip()
+        if not room:
+            return 0
+        active_states = {
+            SubAgentJobState.QUEUED,
+            SubAgentJobState.RUNNING,
+            SubAgentJobState.WAITING_FOR_USER,
+        }
+        with self._condition:
+            self._evict_completed_locked(time.monotonic())
+            return sum(
+                job.state in active_states
+                and job.owner.entry_point == "web"
+                and job.owner.room_id == room
+                for job in self._jobs.values()
+            )
+
     def pause_owner(self, owner: SubAgentJobOwner) -> None:
         """Atomically prevent new admissions for one lifecycle owner."""
         with self._condition:

@@ -56,6 +56,105 @@ def _dispatch(owner: SubAgentJobOwner, task: str):
     )
 
 
+def test_spawn_inherits_parent_sandbox_scope_and_profile():
+    from uagent.runtime.execution_broker import (
+        SecurityProfile,
+        TrustedSandboxScope,
+        current_profile,
+        current_sandbox_enabled,
+        current_scope,
+        execution_profile,
+    )
+
+    manager = _manager()
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="alice",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="room-a",
+    )
+    observed = []
+    owner = SubAgentJobOwner(
+        entry_point="web",
+        session_id="session-a",
+        room_id="room-a",
+        principal_id="alice",
+    )
+    try:
+        with execution_profile(
+            SecurityProfile.LOCAL_TRUSTED,
+            sandbox_enabled=True,
+            scope=scope,
+        ):
+            result = manager.spawn(
+                owner=owner,
+                agent_name="planner",
+                task="inspect within parent scope",
+                worker=lambda _context: observed.append(
+                    (current_profile(), current_sandbox_enabled(), current_scope())
+                )
+                or "done",
+            )
+        assert result["status"] == "accepted"
+        completed = manager.wait(owner=owner, job_id=result["job_id"], timeout=2)
+        assert completed["state"] == "completed"
+        assert observed == [(SecurityProfile.LOCAL_TRUSTED, True, scope)]
+    finally:
+        manager.shutdown()
+
+
+def test_running_count_for_room_includes_all_active_room_principals():
+    manager = _manager()
+    release = threading.Event()
+    started = [threading.Event(), threading.Event()]
+    owners = [
+        SubAgentJobOwner(
+            entry_point="web",
+            session_id="session-a",
+            room_id="shared-room",
+            principal_id="alice",
+        ),
+        SubAgentJobOwner(
+            entry_point="web",
+            session_id="session-b",
+            room_id="shared-room",
+            principal_id="bob",
+        ),
+    ]
+    job_ids = []
+    try:
+        for index, owner in enumerate(owners):
+
+            def worker(_context, index=index):
+                started[index].set()
+                assert release.wait(2)
+                return "done"
+
+            result = manager.spawn(
+                owner=owner,
+                agent_name="planner",
+                task="hold until test releases",
+                worker=worker,
+            )
+            assert result["status"] == "accepted"
+            job_ids.append(result["job_id"])
+
+        assert started[0].wait(1)
+        assert manager.running_count_for_room("shared-room") == 2
+        assert manager.running_count_for_room("another-room") == 0
+        release.set()
+        for owner, job_id in zip(owners, job_ids):
+            assert (
+                manager.wait(owner=owner, job_id=job_id, timeout=2)["state"]
+                == "completed"
+            )
+        assert manager.running_count_for_room("shared-room") == 0
+    finally:
+        release.set()
+        manager.shutdown()
+
+
 def test_spawn_returns_before_worker_finishes_and_context_is_propagated():
     manager = _manager()
     started = threading.Event()

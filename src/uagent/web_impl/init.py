@@ -609,6 +609,7 @@ def main():
         web_sandbox_manager = _initialize_local_web_sandbox(
             parser, sandbox_mode=web_args.sandbox
         )
+    web_manager.sandbox_session_manager = web_sandbox_manager
     _validate_web_sandbox_startup(
         parser,
         trusted_local=_trusted_local_web,

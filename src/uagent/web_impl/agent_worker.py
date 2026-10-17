@@ -310,6 +310,20 @@ def run_agent_worker(
     try:
         _web_execution_context.__enter__()
         _web_execution_context_entered = True
+        from ..runtime.execution_broker import (
+            SecurityProfile,
+            current_profile,
+            current_sandbox_enabled,
+            current_scope,
+        )
+
+        if (
+            current_profile() is SecurityProfile.LOCAL_TRUSTED
+            and current_sandbox_enabled()
+        ):
+            sandbox_scope = current_scope()
+            if sandbox_scope is not None:
+                web_manager.bind_sandbox_scope(room, sandbox_scope)
         # A queued turn already owns this room's lock. Expose that reservation
         # so clients do not mistake it for an idle room and submit another turn.
         room.set_status(True, "QUEUED")

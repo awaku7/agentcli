@@ -234,3 +234,41 @@ def test_local_web_sandbox_rejects_missing_trusted_room_context(monkeypatch):
 def test_web_sandbox_mode_resolution_uses_loaded_environment_and_cli_precedence():
     assert init._resolve_web_sandbox_mode(None, "mxc") == "mxc"
     assert init._resolve_web_sandbox_mode("off", "mxc") == "off"
+
+
+def test_web_shutdown_closes_room_sandbox_manager(monkeypatch):
+    import asyncio
+
+    from uagent.runtime import mxc_backend
+    from uagent.web_impl import app as web_app_module
+    from uagent.web_impl import routes_api, sub_agent_jobs
+
+    class FakeSandboxManager:
+        def __init__(self):
+            self.close_all_calls = 0
+
+        def close_all(self):
+            self.close_all_calls += 1
+
+    manager = FakeSandboxManager()
+    installed = []
+    monkeypatch.setattr(web_manager, "sandbox_session_manager", manager)
+    monkeypatch.setattr(web_manager, "room_worker_pool", None)
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+    monkeypatch.setattr(mxc_backend, "install_session_manager", installed.append)
+    monkeypatch.setattr(sub_agent_jobs, "shutdown_web_job_runtime", lambda: None)
+
+    async def idle_cleanup_loop():
+        await asyncio.Event().wait()
+
+    monkeypatch.setattr(routes_api, "_private_room_cleanup_loop", idle_cleanup_loop)
+
+    async def run_lifespan():
+        async with web_app_module._web_lifespan(web_app_module.app):
+            pass
+
+    asyncio.run(run_lifespan())
+
+    assert manager.close_all_calls == 1
+    assert installed == [None]
+    assert web_manager.sandbox_session_manager is None
