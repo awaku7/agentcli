@@ -643,18 +643,83 @@ def test_startup_scope_without_session_id_uses_process_unique_fallback(
 def test_local_web_room_scope_is_unique_per_process(monkeypatch):
     monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54321)
     scope = mxc_backend.local_web_room_scope(
-        principal_id="local-user", project_id="project", room_id="room-1"
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-1",
+        room_generation="generation-1",
     )
 
     assert scope.deployment_id == "web"
     assert scope.scope_kind == "web-room"
     assert scope.scope_id.startswith("room-1-54321-")
+    recreated_room_scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-1",
+        room_generation="generation-2",
+    )
+    assert recreated_room_scope.scope_id != scope.scope_id
 
     monkeypatch.setattr(mxc_backend.os, "getpid", lambda: 54322)
     other_process_scope = mxc_backend.local_web_room_scope(
-        principal_id="local-user", project_id="project", room_id="room-1"
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-1",
+        room_generation="generation-1",
     )
     assert other_process_scope.scope_id != scope.scope_id
+
+
+def test_closing_evicted_room_scope_does_not_close_recreated_room_scope(
+    monkeypatch, tmp_path
+):
+    class FakeProcess:
+        @staticmethod
+        def poll():
+            return None
+
+    sessions = []
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProcess()
+            sessions.append(self)
+
+        def run(self, name, args):
+            return f"{name}:{self._scope.scope_id}"
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    old_scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-1",
+        room_generation="old-room-instance",
+    )
+    recreated_scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-1",
+        room_generation="new-room-instance",
+    )
+
+    manager.run_tool(old_scope, "file_exists", {"path": "old.txt"})
+    manager.run_tool(recreated_scope, "file_exists", {"path": "new.txt"})
+    manager.close_scope(old_scope)
+
+    assert sessions[0]._closed
+    assert not sessions[1]._closed
+    assert manager.run_tool(recreated_scope, "file_exists", {"path": "newer.txt"})
+    manager.close_all()
 
 
 def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(

@@ -1025,23 +1025,28 @@ def run_sandbox_tool(
     return manager.run_tool(scope, name, args)
 
 
-def _process_scope_id(scope_id: str) -> str:
+def _process_scope_id(scope_id: str, *, generation: str = "") -> str:
     """Salt a trusted session/Room identifier to this live server process."""
-    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}"
+    generation_suffix = f"-{generation}" if generation else ""
+    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}{generation_suffix}"
 
 
 def local_web_room_scope(
-    *, principal_id: str, project_id: str, room_id: str
+    *,
+    principal_id: str,
+    project_id: str,
+    room_id: str,
+    room_generation: str,
 ) -> TrustedSandboxScope:
-    """Return an isolated MXC scope for a trusted local Web Room."""
-    if not principal_id or not project_id or not room_id:
+    """Return an isolated MXC scope for one trusted Web Room incarnation."""
+    if not principal_id or not project_id or not room_id or not room_generation:
         raise ValueError("local Web Room scope fields must be non-empty")
     return TrustedSandboxScope(
         deployment_id="web",
         principal_id=principal_id,
         project_id=project_id,
         scope_kind="web-room",
-        scope_id=_process_scope_id(room_id),
+        scope_id=_process_scope_id(room_id, generation=room_generation),
     )
 
 

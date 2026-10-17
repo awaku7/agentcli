@@ -165,7 +165,9 @@ def test_local_web_sandbox_turn_binds_server_created_room_scope(monkeypatch):
         web_manager, "execution_profile", "local_trusted", raising=False
     )
     monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
-    room = SimpleNamespace(room_id="server-room-1")
+    room = SimpleNamespace(
+        room_id="server-room-1", _sandbox_scope_generation="room-instance-1"
+    )
     turn = SimpleNamespace(
         entry_point="web",
         room_id="server-room-1",
@@ -207,12 +209,15 @@ def test_local_web_tool_scope_uses_process_salted_room_scope(monkeypatch):
         project_id="local-project",
     )
 
-    scope = init._local_web_sandbox_scope(turn, "room-9")
+    scope = init._local_web_sandbox_scope(turn, "room-9", "instance-1")
 
     assert scope is not None
     assert scope.scope_kind == "web-room"
     assert scope.scope_id.startswith("room-9-54321-")
-    assert init._local_web_sandbox_scope(turn, "another-room") is None
+    recreated_scope = init._local_web_sandbox_scope(turn, "room-9", "instance-2")
+    assert recreated_scope is not None
+    assert recreated_scope.scope_id != scope.scope_id
+    assert init._local_web_sandbox_scope(turn, "another-room", "instance-1") is None
 
 
 def test_local_web_sandbox_rejects_missing_trusted_room_context(monkeypatch):

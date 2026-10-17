@@ -43,7 +43,7 @@ from .io import _web_server_log, web_human_ask, web_set_status
 from .rooms import _thread_ctx, get_context_web_room, web_manager
 
 
-def _local_web_sandbox_scope(turn, room_id: str):
+def _local_web_sandbox_scope(turn, room_id: str, room_generation: str):
     """Build a process-salted scope only from a trusted local Web turn."""
     if (
         turn is None
@@ -59,6 +59,7 @@ def _local_web_sandbox_scope(turn, room_id: str):
         principal_id=turn.principal_id,
         project_id=turn.project_id,
         room_id=turn.room_id,
+        room_generation=room_generation,
     )
 
 
@@ -411,7 +412,11 @@ def init_web():
                     if room is not None and _profile is SecurityProfile.REMOTE:
                         _scope = trusted_web_scope(_turn, str(room.room_id))
                     elif room is not None and _sandbox_enabled:
-                        _scope = _local_web_sandbox_scope(_turn, str(room.room_id))
+                        _scope = _local_web_sandbox_scope(
+                            _turn,
+                            str(room.room_id),
+                            str(getattr(room, "_sandbox_scope_generation", "") or ""),
+                        )
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(

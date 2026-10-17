@@ -22,6 +22,45 @@ def test_idle_room_eviction_preserves_reconnect_grace_period():
     assert "room-a" not in manager.rooms
 
 
+def test_recreated_web_room_gets_a_distinct_sandbox_scope_generation():
+    from uagent.runtime.mxc_backend import local_web_room_scope
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    old_room = manager.get_room("reused-room-id")
+    old_room.private_session = True
+    old_room.last_activity = 100.0
+    old_scope = local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=old_room.room_id,
+        room_generation=old_room._sandbox_scope_generation,
+    )
+    manager.bind_sandbox_scope(old_room, old_scope)
+
+    assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=130.0) == [
+        "reused-room-id"
+    ]
+    new_room = manager.get_room("reused-room-id")
+    new_scope = local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=new_room.room_id,
+        room_generation=new_room._sandbox_scope_generation,
+    )
+    manager.bind_sandbox_scope(new_room, new_scope)
+
+    assert old_scope.scope_id != new_scope.scope_id
+    assert closed_scopes == [old_scope]
+    assert new_room.current_sandbox_scope() == new_scope
+
+
 def test_idle_private_room_eviction_leaves_non_private_rooms_unchanged():
     manager = WebManager()
     room = manager.get_room("local-room")

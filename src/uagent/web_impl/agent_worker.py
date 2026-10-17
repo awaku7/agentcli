@@ -168,6 +168,7 @@ def _web_turn_execution_context(
             or turn_context.entry_point != "web"
             or turn_context.room_id != str(room.room_id)
             or turn_context.principal_id != identity_context.principal_id
+            or not str(getattr(room, "_sandbox_scope_generation", "") or "").strip()
         ):
             raise IdentityResolutionError(
                 "local Web Sandbox requires a trusted local Room turn context"
@@ -178,6 +179,7 @@ def _web_turn_execution_context(
             principal_id=turn_context.principal_id,
             project_id=turn_context.project_id,
             room_id=turn_context.room_id,
+            room_generation=room._sandbox_scope_generation,
         )
     authorization_check = None
     if profile is SecurityProfile.REMOTE or (

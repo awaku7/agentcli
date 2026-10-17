@@ -9,6 +9,7 @@ import os
 import threading
 import time
 from typing import Any, Optional
+from uuid import uuid4
 
 from fastapi import WebSocket
 from ..i18n import _, set_thread_lang
@@ -50,6 +51,8 @@ def _prepare_display_message(msg: dict[str, Any]) -> dict[str, Any]:
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
+        # Distinguish successive in-memory Room lifetimes that reuse the same ID.
+        self._sandbox_scope_generation = uuid4().hex
         self.session_id: str = ""
         self.private_session: bool = False
         self.project_id: str = ""
