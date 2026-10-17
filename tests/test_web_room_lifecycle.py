@@ -170,6 +170,9 @@ def test_rebinding_web_room_scope_closes_previous_principal_or_project():
     manager.bind_sandbox_scope(room, second)
 
     assert closed_scopes == [first]
+    assert not manager.release_room_sandbox_scope(room, expected_scope=first)
+    assert room.current_sandbox_scope() == second
+    assert closed_scopes == [first]
     assert room.take_sandbox_scope() == second
 
 
@@ -242,6 +245,48 @@ def test_running_room_jobs_block_scope_rebind_and_room_eviction():
     assert closed_scopes == []
     assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=1000.0) == []
     assert manager.rooms["shared-room"] is room
+
+
+def test_membership_revocation_releases_only_matching_room_scopes():
+    from uagent.runtime.execution_broker import TrustedSandboxScope
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    cases = [
+        ("room-a", "alice", "project-a"),
+        ("room-b", "bob", "project-a"),
+        ("room-c", "alice", "project-b"),
+    ]
+    scopes = []
+    for room_id, principal_id, project_id in cases:
+        room = manager.get_room(room_id)
+        scope = TrustedSandboxScope(
+            deployment_id="web",
+            principal_id=principal_id,
+            project_id=project_id,
+            scope_kind="web-room",
+            scope_id=f"{room_id}-process-1",
+        )
+        manager.bind_sandbox_scope(room, scope)
+        scopes.append(scope)
+
+    assert (
+        manager.release_sandbox_scopes(principal_id="alice", project_id="project-a")
+        == 1
+    )
+    assert closed_scopes == [scopes[0]]
+    assert manager.rooms["room-a"].current_sandbox_scope() is None
+    assert manager.rooms["room-b"].current_sandbox_scope() == scopes[1]
+    assert manager.rooms["room-c"].current_sandbox_scope() == scopes[2]
+
+    with pytest.raises(ValueError, match="at least one"):
+        manager.release_sandbox_scopes()
 
 
 def test_migrated_private_room_gets_a_fresh_reconnect_grace_period(tmp_path):

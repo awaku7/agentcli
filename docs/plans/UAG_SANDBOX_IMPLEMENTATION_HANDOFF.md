@@ -16,9 +16,10 @@
 
 - CLI/GUIでは新しいローカルSession scopeの開始時に旧scopeを回収する。WebはRoomがscopeを保持し、Socket切断では維持し、private Roomのidle TTL・削除・Web停止時に回収する。
 - Web RoomでSub-Agent Jobが実行中の場合、scope差し替えとRoom evictionを拒否する。Jobには親のExecutionProfile/SandboxScopeがContextVar経由で継承される。
+- local Web SandboxはTool実行時にもRoom/Project認可を再確認し、Project/Room membershipの失効やRoom binding変更時に一致するscopeを回収する。回収時はscope一致も検証し、並行再bind後の新Leaseを誤って閉じない。
 - A2AのTrustedSandboxScopeをサーバー生成task IDへ束縛するが、Remote向けLeaseは作成しない。Remote sandbox backend未実装のため一般Tool拒否を維持する。A2Aの実Lease lifecycleはPR 4の適合Backendなしに実装しない。
-- 関連ユニットテスト8ファイル（ExecutionBroker、MXC manager、Web Room、Web shutdown、Sub-Agent、A2A task）計152件通過。ruff、Black、Python compileも通過。
-- 未完了: 既存の全入口・Session遷移との追加回帰確認、およびPR 4までRemote A2A Leaseを導入しない境界の維持。
+- 関連ユニットテスト12ファイル（Broker/MXC、Web認可・Room・Worker・Session、Sub-Agent、A2A）計205件通過。ruff、Black、Python compileも通過。
+- 未完了: 変更後のMXC Windows実機統合再確認。Remote A2A Leaseは適合Backendがないため引き続きPR 4まで延期。
 
 ### 2026-10-17 — PR 2 Windows MXC統合検証
 

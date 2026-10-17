@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
 
@@ -151,6 +152,50 @@ def test_sandboxed_web_rejects_tool_genre_changes_before_plugin_import(monkeypat
     )
     assert response.status_code == 403
     assert "Sandbox mode" in response.json()["error"]
+
+
+def test_project_membership_revocation_invalidates_matching_sandbox_scope(
+    monkeypatch,
+):
+    calls = []
+    identity = IdentityContext("admin", True, "local")
+
+    class Store:
+        def close(self):
+            calls.append("store-closed")
+
+    class Policy:
+        def __init__(self, _store):
+            pass
+
+        def revoke_membership(self, actor, project, principal):
+            calls.append(("revoke", actor, project, principal))
+
+    monkeypatch.setattr(routes_api, "_request_identity", lambda _request: identity)
+    monkeypatch.setattr(
+        routes_api, "_project_id", lambda project_id, _request: project_id
+    )
+    monkeypatch.setattr(routes_api, "_memory_store", Store)
+    monkeypatch.setattr(routes_api, "ProjectAccessPolicy", Policy)
+    monkeypatch.setattr(
+        routes_api.web_manager,
+        "release_sandbox_scopes",
+        lambda **filters: calls.append(("release", filters)) or 1,
+    )
+
+    result = asyncio.run(
+        routes_api.delete_project_member("project-a", "alice", object())
+    )
+
+    assert result == {"ok": True}
+    assert calls == [
+        ("revoke", "admin", "project-a", "alice"),
+        "store-closed",
+        (
+            "release",
+            {"principal_id": "alice", "project_id": "project-a"},
+        ),
+    ]
 
 
 def test_http_mutations_require_allowed_origin_outside_local(monkeypatch):

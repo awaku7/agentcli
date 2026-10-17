@@ -911,9 +911,10 @@ async def bind_project_room(project_id: str, room_id: str, request: Request):
             ProjectAccessPolicy(store).bind_room(
                 identity.principal_id, bound_project, room_id
             )
-            return {"ok": True, "project_id": bound_project, "room_id": room_id}
         finally:
             store.close()
+        web_manager.release_sandbox_scopes(room_id=room_id)
+        return {"ok": True, "project_id": bound_project, "room_id": room_id}
     except Exception as exc:
         return _memory_error(exc)
 
@@ -966,9 +967,12 @@ async def delete_project_member(project_id: str, principal_id: str, request: Req
             ProjectAccessPolicy(store).revoke_membership(
                 identity.principal_id, bound_project, principal_id
             )
-            return {"ok": True}
         finally:
             store.close()
+        web_manager.release_sandbox_scopes(
+            principal_id=principal_id, project_id=bound_project
+        )
+        return {"ok": True}
     except Exception as exc:
         return _memory_error(exc)
 
@@ -1196,9 +1200,10 @@ async def delete_room_member(room_id: str, principal_id: str, request: Request):
             RoomAccessPolicy(store).revoke_membership(
                 identity.principal_id, room_id, principal_id
             )
-            return {"ok": True}
         finally:
             store.close()
+        web_manager.release_sandbox_scopes(principal_id=principal_id, room_id=room_id)
+        return {"ok": True}
     except Exception as exc:
         return _memory_error(exc)
 

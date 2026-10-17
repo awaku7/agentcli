@@ -110,9 +110,11 @@ class WebRoom:
         with self._sandbox_scope_lock:
             return self._sandbox_scope
 
-    def take_sandbox_scope(self) -> Any | None:
+    def take_sandbox_scope(self, expected_scope: Any | None = None) -> Any | None:
         """Detach and return the Room's scope for terminal cleanup."""
         with self._sandbox_scope_lock:
+            if expected_scope is not None and self._sandbox_scope != expected_scope:
+                return None
             scope = self._sandbox_scope
             self._sandbox_scope = None
             return scope
@@ -559,10 +561,44 @@ class WebManager:
         if previous is not None:
             self._close_sandbox_scope(previous)
 
-    def release_room_sandbox_scope(self, room: WebRoom) -> None:
-        scope = room.take_sandbox_scope()
-        if scope is not None:
-            self._close_sandbox_scope(scope)
+    def release_room_sandbox_scope(
+        self, room: WebRoom, *, expected_scope: Any | None = None
+    ) -> bool:
+        scope = room.take_sandbox_scope(expected_scope)
+        if scope is None:
+            return False
+        self._close_sandbox_scope(scope)
+        return True
+
+    def release_sandbox_scopes(
+        self,
+        *,
+        principal_id: str = "",
+        project_id: str = "",
+        room_id: str = "",
+    ) -> int:
+        """Revoke Room leases matching a trusted membership/binding change."""
+        principal = str(principal_id or "").strip()
+        project = str(project_id or "").strip()
+        target_room = str(room_id or "").strip()
+        if not any((principal, project, target_room)):
+            raise ValueError("at least one sandbox scope filter is required")
+        with self.rooms_lock:
+            rooms = list(self.rooms.values())
+        released = 0
+        for room in rooms:
+            if target_room and str(room.room_id) != target_room:
+                continue
+            scope = room.current_sandbox_scope()
+            if scope is None:
+                continue
+            if principal and getattr(scope, "principal_id", None) != principal:
+                continue
+            if project and getattr(scope, "project_id", None) != project:
+                continue
+            if self.release_room_sandbox_scope(room, expected_scope=scope):
+                released += 1
+        return released
 
     def _close_sandbox_scope(self, scope: Any) -> None:
         manager = self.sandbox_session_manager

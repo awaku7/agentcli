@@ -180,12 +180,22 @@ def _web_turn_execution_context(
             room_id=turn_context.room_id,
         )
     authorization_check = None
-    if profile is SecurityProfile.REMOTE:
+    if profile is SecurityProfile.REMOTE or (
+        profile is SecurityProfile.LOCAL_TRUSTED and sandbox_enabled
+    ):
 
         def revalidate_authorization() -> bool:
-            return _web_turn_authorization_valid(
+            valid = _web_turn_authorization_valid(
                 room, turn_context, identity_context, project_path
             )
+            if (
+                not valid
+                and profile is SecurityProfile.LOCAL_TRUSTED
+                and sandbox_enabled
+                and scope is not None
+            ):
+                web_manager.release_room_sandbox_scope(room, expected_scope=scope)
+            return valid
 
         authorization_check = revalidate_authorization
     return execution_profile(

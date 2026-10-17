@@ -737,6 +737,82 @@ def test_web_turn_authorization_rechecks_live_room_membership(monkeypatch, tmp_p
     assert not _web_turn_authorization_valid(room, turn, identity, str(tmp_path))
 
 
+def test_local_sandbox_revocation_closes_bound_room_lease(monkeypatch, tmp_path):
+    from uagent.runtime.execution_broker import (
+        IsolationLevel,
+        SandboxCapabilities,
+        SandboxCapability,
+        current_authorization_valid,
+        current_scope,
+    )
+    from uagent import tools
+    from uagent.runtime import mxc_backend
+    from uagent.web_impl import connection_identity
+    from uagent.web_impl.agent_worker import _web_turn_execution_context
+    from uagent.web_impl.rooms import WebRoom, web_manager
+
+    identity = IdentityContext("local-user", True, "local")
+    turn = TurnContext.from_identity(
+        identity,
+        entry_point="web",
+        room_id="local-room",
+        project_id="project-1",
+        session_id="session-1",
+        server_bound_project=True,
+    )
+    room = WebRoom("local-room")
+    membership_active = True
+    closed_scopes = []
+    sandbox_calls = []
+    capabilities = SandboxCapabilities(
+        isolation_level=IsolationLevel.PROCESS,
+        available=frozenset(SandboxCapability),
+    )
+
+    class FakeSandboxManager:
+        def __init__(self):
+            self.capabilities = capabilities
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+        def run_tool(self, scope, name, args):
+            sandbox_calls.append((scope, name, args))
+            return "unexpected sandbox result"
+
+    monkeypatch.setattr(
+        web_manager, "execution_profile", "local_trusted", raising=False
+    )
+    monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
+    monkeypatch.setattr(
+        web_manager, "sandbox_session_manager", FakeSandboxManager(), raising=False
+    )
+
+    def require_room_access(_identity, _room_id, *, touch_activity=True):
+        if not membership_active:
+            raise PermissionError("membership revoked")
+        return "project-1", False
+
+    monkeypatch.setattr(connection_identity, "require_room_access", require_room_access)
+    monkeypatch.setattr(
+        mxc_backend, "current_session_manager", lambda: FakeSandboxManager()
+    )
+    context = _web_turn_execution_context(room, turn, identity, str(tmp_path))
+    with context:
+        scope = current_scope()
+        assert scope is not None
+        web_manager.bind_sandbox_scope(room, scope)
+        assert current_authorization_valid()
+
+        membership_active = False
+        result = tools.run_tool("file_exists", {"path": "must-not-run"})
+        assert "authorization" in result
+
+    assert room.current_sandbox_scope() is None
+    assert closed_scopes == [scope]
+    assert sandbox_calls == []
+
+
 def test_web_broker_operation_is_rejected_when_room_membership_is_revoked(
     monkeypatch, tmp_path
 ):
