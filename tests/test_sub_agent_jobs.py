@@ -155,6 +155,45 @@ def test_running_count_for_room_includes_all_active_room_principals():
         manager.shutdown()
 
 
+def test_running_count_for_room_includes_cancelled_inflight_worker():
+    manager = _manager()
+    started = threading.Event()
+    release = threading.Event()
+    owner = SubAgentJobOwner(
+        entry_point="web",
+        session_id="session-a",
+        room_id="shared-room",
+        principal_id="alice",
+    )
+
+    def worker(_context):
+        started.set()
+        assert release.wait(2)
+        return "done"
+
+    try:
+        result = manager.spawn(
+            owner=owner,
+            agent_name="planner",
+            task="hold until cancelled worker exits",
+            worker=worker,
+        )
+        assert result["status"] == "accepted"
+        job_id = result["job_id"]
+        assert started.wait(1)
+
+        cancelled = manager.cancel(owner=owner, job_id=job_id)
+        assert cancelled["state"] == "cancelled"
+        assert manager.running_count_for_room("shared-room") == 1
+
+        release.set()
+        assert manager.wait_owner_workers(owner, timeout=2)
+        assert manager.running_count_for_room("shared-room") == 0
+    finally:
+        release.set()
+        manager.shutdown()
+
+
 def test_spawn_returns_before_worker_finishes_and_context_is_propagated():
     manager = _manager()
     started = threading.Event()

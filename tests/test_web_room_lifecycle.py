@@ -449,6 +449,70 @@ def test_discarding_expired_private_room_releases_its_sandbox_scope():
     assert not manager.discard_expired_private_room_if_idle("expired-private-room")
 
 
+def test_private_room_retirement_rejects_reconnect_racing_cleanup(monkeypatch):
+    import threading
+
+    from uagent.runtime.execution_broker import TrustedSandboxScope
+    from uagent.runtime.identity_context import IdentityResolutionError
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("expired-private-room")
+    room.private_session = True
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="expired-private-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+    activity_checked = threading.Event()
+    allow_retirement = threading.Event()
+    original_room_is_active = manager._room_is_active
+
+    def pause_after_activity_check(candidate, *, worker_lock_held=False):
+        active = original_room_is_active(candidate, worker_lock_held=worker_lock_held)
+        if worker_lock_held:
+            activity_checked.set()
+            assert allow_retirement.wait(timeout=5)
+        return active
+
+    monkeypatch.setattr(manager, "_room_is_active", pause_after_activity_check)
+    results = []
+    cleanup = threading.Thread(
+        target=lambda: results.append(
+            manager.discard_expired_private_room_if_idle("expired-private-room")
+        )
+    )
+    cleanup.start()
+    assert activity_checked.wait(timeout=5)
+
+    connection = object()
+    room._begin_connection(connection)
+    allow_retirement.set()
+    cleanup.join(timeout=5)
+
+    assert not cleanup.is_alive()
+    assert results == [False]
+    assert manager.rooms[room.room_id] is room
+    assert room.current_sandbox_scope() == scope
+    assert closed_scopes == []
+
+    room.disconnect(connection)
+    monkeypatch.setattr(manager, "_room_is_active", original_room_is_active)
+    assert manager.discard_expired_private_room_if_idle(room.room_id)
+    assert closed_scopes == [scope]
+    with pytest.raises(IdentityResolutionError, match="being retired"):
+        room._begin_connection(object())
+
+
 def test_running_room_jobs_block_scope_rebind_and_room_eviction():
     from uagent.runtime.execution_broker import TrustedSandboxScope
 

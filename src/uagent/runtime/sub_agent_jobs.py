@@ -877,12 +877,19 @@ class SubAgentJobManager:
         }
         with self._condition:
             self._evict_completed_locked(time.monotonic())
-            return sum(
-                job.state in active_states
+            active_job_ids = {
+                job.job_id
+                for job in self._jobs.values()
+                if job.state in active_states
                 and job.owner.entry_point == "web"
                 and job.owner.room_id == room
-                for job in self._jobs.values()
+            }
+            active_job_ids.update(
+                job_id
+                for job_id, owner in self._active_worker_owners.items()
+                if owner.entry_point == "web" and owner.room_id == room
             )
+            return len(active_job_ids)
 
     def pause_owner(self, owner: SubAgentJobOwner) -> None:
         """Atomically prevent new admissions for one lifecycle owner."""

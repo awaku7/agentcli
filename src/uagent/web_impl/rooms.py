@@ -64,6 +64,7 @@ class WebRoom:
         self._lifecycle_lock = threading.Lock()
         self._pending_replays: dict[int, list[dict[str, Any]]] = {}
         self._bootstrapping_connections: set[int] = set()
+        self._retiring = False
         self._ended_streams: set[str] = set()
         self._activity_lock = threading.Lock()
         self.last_activity = time.monotonic()
@@ -122,6 +123,25 @@ class WebRoom:
             self._sandbox_scope = None
             return scope
 
+    def _begin_connection(self, websocket: WebSocket) -> None:
+        """Reserve the Room for a connection before the first await."""
+        with self._lifecycle_lock:
+            if self._retiring:
+                raise IdentityResolutionError("Web Room is being retired")
+            self._bootstrapping_connections.add(id(websocket))
+
+    def reserve_retirement_if_idle(self) -> bool:
+        """Atomically prevent reconnects after confirming no connection is active."""
+        with self._lifecycle_lock:
+            if (
+                self._retiring
+                or self.active_connections
+                or self._bootstrapping_connections
+            ):
+                return False
+            self._retiring = True
+            return True
+
     def touch(self) -> None:
         with self._activity_lock:
             self.last_activity = time.monotonic()
@@ -160,10 +180,9 @@ class WebRoom:
     async def connect(self, websocket: WebSocket, connection_context: Any = None):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
+            self._begin_connection(websocket)
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
-            with self._lifecycle_lock:
-                self._bootstrapping_connections.add(id(websocket))
             self.touch()
             welcome_added = False
 
@@ -608,25 +627,66 @@ class WebManager:
         if manager is not None:
             manager.close_scope(scope)
 
+    def _reserve_room_retirement(
+        self,
+        room: WebRoom,
+        *,
+        idle_ttl_seconds: int | None = None,
+        now: float | None = None,
+    ) -> bool:
+        """Reserve an idle Room through removal and lease cleanup."""
+        if not room.worker_lock.acquire(blocking=False):
+            return False
+        reserved = False
+        try:
+            if self._room_is_active(room, worker_lock_held=True):
+                return False
+            if idle_ttl_seconds is not None:
+                current = time.monotonic() if now is None else now
+                with room._activity_lock:
+                    if current - room.last_activity < idle_ttl_seconds:
+                        return False
+            if not room.reserve_retirement_if_idle():
+                return False
+            reserved = True
+            return True
+        finally:
+            if not reserved:
+                room.worker_lock.release()
+
     def discard_if_idle(self, room_id: str, expected_room: WebRoom) -> bool:
         """Remove a just-created room if its connection was denied."""
         with self.rooms_lock:
             if self.rooms.get(room_id) is not expected_room:
                 return False
-            if self._room_is_active(expected_room):
+            if not self._reserve_room_retirement(expected_room):
                 return False
             self.rooms.pop(room_id, None)
-        self.release_room_sandbox_scope(expected_room)
+            scope = expected_room.take_sandbox_scope()
+        try:
+            if scope is not None:
+                self._close_sandbox_scope(scope)
+        finally:
+            expected_room.worker_lock.release()
         return True
 
     def discard_expired_private_room_if_idle(self, room_id: str) -> bool:
         """Forget cached room state only after its durable private binding expired."""
         with self.rooms_lock:
             room = self.rooms.get(room_id)
-            if room is None or not room.private_session or self._room_is_active(room):
+            if (
+                room is None
+                or not room.private_session
+                or not self._reserve_room_retirement(room)
+            ):
                 return False
             self.rooms.pop(room_id, None)
-        self.release_room_sandbox_scope(room)
+            scope = room.take_sandbox_scope()
+        try:
+            if scope is not None:
+                self._close_sandbox_scope(scope)
+        finally:
+            room.worker_lock.release()
         return True
 
     @staticmethod
@@ -678,21 +738,24 @@ class WebManager:
         )
         current = time.monotonic() if now is None else now
         evicted: list[str] = []
-        evicted_rooms: list[WebRoom] = []
+        evicted_rooms: list[tuple[WebRoom, Any | None]] = []
         with self.rooms_lock:
             for room_id, room in list(self.rooms.items()):
                 if private_only and not room.private_session:
                     continue
-                if self._room_is_active(room):
+                if not self._reserve_room_retirement(
+                    room, idle_ttl_seconds=ttl, now=current
+                ):
                     continue
-                with room._activity_lock:
-                    idle_for = current - room.last_activity
-                if idle_for >= ttl:
-                    self.rooms.pop(room_id, None)
-                    evicted.append(room_id)
-                    evicted_rooms.append(room)
-        for room in evicted_rooms:
-            self.release_room_sandbox_scope(room)
+                self.rooms.pop(room_id, None)
+                evicted.append(room_id)
+                evicted_rooms.append((room, room.take_sandbox_scope()))
+        for room, scope in evicted_rooms:
+            try:
+                if scope is not None:
+                    self._close_sandbox_scope(scope)
+            finally:
+                room.worker_lock.release()
         return evicted
 
     def release_idle_public_room_sandbox_scopes(
