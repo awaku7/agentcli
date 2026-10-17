@@ -452,12 +452,14 @@ def _handle_cmd_model(
     # Resolve optional modalities with the same logic as startup banner.
     try:
         from .runtime.runtime_banner import (
+            _decision_model_info,
             _audio_model_info,
             _embedding_model_info,
             _image_analysis_model_info,
             _image_generation_model_info,
         )
     except Exception:
+        _decision_model_info = None  # type: ignore[assignment]
         _audio_model_info = None  # type: ignore[assignment]
         _embedding_model_info = None  # type: ignore[assignment]
         _image_analysis_model_info = None  # type: ignore[assignment]
@@ -470,6 +472,13 @@ def _handle_cmd_model(
             return fn()
         except Exception:
             return None
+
+    decision_resolved = _safe_resolve(_decision_model_info)
+    if decision_resolved:
+        decision_provider, decision_model = decision_resolved
+        lines.append(_("  Decision:"))
+        lines.append(_("    Provider: %(provider)s") % {"provider": decision_provider})
+        lines.append(_("    Model:    %(model)s") % {"model": decision_model})
 
     ia_resolved = _safe_resolve(_image_analysis_model_info)
     ia_keys: list[str] = []

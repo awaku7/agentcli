@@ -86,6 +86,32 @@ def test_decision_banner_model_override_and_blank_default(
     )
 
 
+def test_cmd_model_shows_decision_provider_and_model(monkeypatch, capsys):
+    from uagent.i18n import set_thread_lang
+    from uagent.util_tools import _handle_cmd_model
+
+    set_thread_lang("en")
+    monkeypatch.setenv("UAGENT_LANG", "en")
+    monkeypatch.setenv("UAGENT_PROVIDER", "openai")
+    monkeypatch.setattr(
+        settings, "_current_settings", settings.DecisionSettings("auto", "cli")
+    )
+    monkeypatch.setenv("UAGENT_DECISION_PROVIDER", "none")
+    monkeypatch.setenv("UAGENT_DECISION_MODEL", "Microsoft-Decision-1")
+    monkeypatch.setattr(runtime_banner, "_", lambda text: text)
+
+    _handle_cmd_model(
+        "",
+        core=SimpleNamespace(tr=lambda text, **_kwargs: text),
+        tr=lambda text: text,
+    )
+
+    output = capsys.readouterr().out
+    assert "Decision:" in output
+    assert "Provider: auto" in output
+    assert "Microsoft-Decision-1" in output
+
+
 LOCALE_ROOT = Path(__file__).resolve().parents[1] / "src/uagent/locales"
 
 
