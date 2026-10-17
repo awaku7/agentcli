@@ -259,9 +259,8 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
     # Keep ordinary socket probes on their existing policy.
     if tool_name == "packet_probe":
         action = str(args.get("action", "tcp_connect")).lower()
-        if action in {"tcp_syn", "icmp", "arp"} and bool(
-            args.get("dry_run", False)
-        ):
+        dry_run = bool(args.get("dry_run", False))
+        if action in {"tcp_syn", "icmp", "arp"} and dry_run:
             return ToolPolicy(
                 SideEffect.READ_ONLY,
                 parallel_safe=True,
@@ -270,7 +269,7 @@ def policy_for(tool_name: str, args: dict[str, Any] | None = None) -> ToolPolicy
         if (
             action in {"tcp_syn", "icmp", "arp"}
             and bool(args.get("allow_elevation", False))
-            and not bool(args.get("dry_run", False))
+            and not dry_run
         ):
             return ToolPolicy(
                 SideEffect.DESTRUCTIVE,
