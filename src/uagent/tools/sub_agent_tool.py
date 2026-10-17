@@ -990,23 +990,37 @@ class SubAgentRunner:
         agent_name: str = "",
         spec: Optional[AgentSpec] = None,
     ) -> List[str]:
-        """Parse tool call patterns and execute them, returning list of result strings."""
+        """Parse tool call patterns and execute them, returning result strings."""
         if (
             self._normalize_permission_level(permission_level)
             == PermissionLevel.NONE.value
         ):
             return []
+        results: List[str] = []
+        for tool_name, args in self._parse_compat_tool_calls(text):
+            self._check_job_active()
+            try:
+                result, status = self._run_permissioned_tool(
+                    tool_name, args, permission_level, agent_name, spec
+                )
+                results.append(f"[tool:{tool_name} {status}]\n{result}")
+            except Exception as exc:
+                results.append(f"[tool:{tool_name} error: {exc}]")
+        return results
+
+    def _parse_compat_tool_calls(self, text: str) -> list[tuple[str, Dict[str, Any]]]:
+        """Parse compatibility-format calls without executing them."""
         pattern = r"(\w+)\s*\(\s*([^)]*)\s*\)"
         seen_signatures: set[str] = set()
-        results: List[str] = []
+        parsed: list[tuple[str, Dict[str, Any]]] = []
         for match in re.finditer(pattern, text):
             self._check_job_active()
             tool_name = match.group(1)
             args_str = match.group(2)
-            sig = f"{tool_name}({args_str.strip()})"
-            if sig in seen_signatures:
+            signature = f"{tool_name}({args_str.strip()})"
+            if signature in seen_signatures:
                 continue
-            seen_signatures.add(sig)
+            seen_signatures.add(signature)
             args: Dict[str, Any] = {}
             for arg_match in re.finditer(
                 r'(\w+)\s*=\s*(?:"([^"]*)"|(\d+(?:\.\d+)?)|(True|False)|(None))',
@@ -1023,14 +1037,8 @@ class SubAgentRunner:
                     args[key] = arg_match.group(4) == "True"
                 elif arg_match.group(5) is not None:
                     args[key] = None
-            try:
-                result, status = self._run_permissioned_tool(
-                    tool_name, args, permission_level, agent_name, spec
-                )
-                results.append(f"[tool:{tool_name} {status}]\n{result}")
-            except Exception as exc:
-                results.append(f"[tool:{tool_name} error: {exc}]")
-        return results
+            parsed.append((tool_name, args))
+        return parsed
 
     def _parse_and_execute_tools(
         self,
@@ -2256,6 +2264,16 @@ class SubAgentRunner:
                         "[Sub-Agent tool-turn budget exhausted before a final answer; "
                         "the final-turn tool request was not executed.]"
                     )
+                elif permission_level != PermissionLevel.NONE.value:
+                    for tool_name, _args in self._parse_compat_tool_calls(raw):
+                        add_tool_evidence(
+                            tool_name=tool_name,
+                            result=(
+                                "Final-turn tool request was not executed because "
+                                "the Sub-Agent tool-turn budget is exhausted."
+                            ),
+                            status="budget_exhausted",
+                        )
                 return raw, total_retries, total_usage, tool_evidence
 
             if native_tools and native_calls:

@@ -260,6 +260,51 @@ def test_final_native_tool_request_is_blocked_without_execution(monkeypatch):
     assert result[3][-1]["status"] == "budget_exhausted"
 
 
+def test_final_compatibility_tool_request_is_blocked_without_execution(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    responses = iter(
+        [
+            ('read_file(filename="notes.txt")', 0, {}),
+            ('read_file(filename="final.txt")', 0, {}),
+        ]
+    )
+    monkeypatch.setattr(
+        runner, "_call_with_retry", lambda *args, **kwargs: next(responses)
+    )
+    executed = []
+    monkeypatch.setattr(
+        runner,
+        "_run_permissioned_tool",
+        lambda name, args, *_rest: executed.append((name, args))
+        or ("read result", "success"),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="gemini",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=2,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test",
+            description="",
+            system_prompt="",
+            allowed_tools=["read_file"],
+        ),
+        agent_name="test",
+    )
+
+    assert executed == [("read_file", {"filename": "notes.txt"})]
+    assert result[3][-1]["tool"] == "read_file"
+    assert result[3][-1]["status"] == "budget_exhausted"
+
+
 def test_final_responses_turn_does_not_inject_hosted_web_search(monkeypatch):
     from types import SimpleNamespace
 
