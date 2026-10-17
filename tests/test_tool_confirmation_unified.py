@@ -216,7 +216,14 @@ def test_packet_send_and_privileged_probe_use_host_side_confirmation():
         "packet_probe",
         {"action": "tcp_syn", "allow_elevation": True, "dry_run": True},
     )
+    assert probe_preview.side_effect is SideEffect.READ_ONLY
+    assert probe_preview.parallel_safe
     assert not probe_preview.requires_confirmation
+
+    unprivileged_preview = policy_for(
+        "packet_probe", {"action": "icmp", "dry_run": True}
+    )
+    assert unprivileged_preview.side_effect is SideEffect.READ_ONLY
 
     elevated = policy_for(
         "packet_probe",
