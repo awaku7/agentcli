@@ -695,6 +695,41 @@ class WebManager:
             self.release_room_sandbox_scope(room)
         return evicted
 
+    def release_idle_public_room_sandbox_scopes(
+        self,
+        *,
+        idle_ttl_seconds: int | None = None,
+        now: float | None = None,
+    ) -> int:
+        """Release idle public Room leases without discarding Room history."""
+        ttl = max(
+            0,
+            int(
+                self.idle_ttl_seconds()
+                if idle_ttl_seconds is None
+                else idle_ttl_seconds
+            ),
+        )
+        current = time.monotonic() if now is None else now
+        expired_scopes: list[Any] = []
+        with self.rooms_lock:
+            for room in self.rooms.values():
+                if room.private_session or self._room_is_active(room):
+                    continue
+                scope = room.current_sandbox_scope()
+                if scope is None:
+                    continue
+                with room._activity_lock:
+                    idle_for = current - room.last_activity
+                if idle_for < ttl:
+                    continue
+                detached = room.take_sandbox_scope(expected_scope=scope)
+                if detached is not None:
+                    expired_scopes.append(detached)
+        for scope in expired_scopes:
+            self._close_sandbox_scope(scope)
+        return len(expired_scopes)
+
     def active_room_ids(self) -> set[str]:
         """Return rooms that must not be expired from persistent storage."""
         with self.rooms_lock:

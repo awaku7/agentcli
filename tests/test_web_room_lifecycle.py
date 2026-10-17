@@ -61,6 +61,158 @@ def test_recreated_web_room_gets_a_distinct_sandbox_scope_generation():
     assert new_room.current_sandbox_scope() == new_scope
 
 
+def test_idle_public_room_cleanup_releases_lease_but_preserves_room_history():
+    from uagent.runtime.execution_broker import TrustedSandboxScope
+
+    manager = WebManager()
+    active_scopes = set()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def run_tool(self, scope, _name, _args):
+            if scope not in active_scopes and len(active_scopes) >= 4:
+                return "active session limit reached; restart UAG"
+            active_scopes.add(scope)
+            return "isolated"
+
+        def close_scope(self, scope):
+            active_scopes.discard(scope)
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    public_rooms = []
+    for index in range(4):
+        room = manager.get_room(f"public-room-{index}")
+        room.messages.append({"role": "user", "content": f"history-{index}"})
+        room.active_connections.append(object())
+        room.disconnect(room.active_connections[0])
+        room.last_activity = 100.0
+        scope = TrustedSandboxScope(
+            deployment_id="web",
+            principal_id="local-user",
+            project_id="project-a",
+            scope_kind="web-room",
+            scope_id=f"public-room-{index}-scope",
+        )
+        manager.bind_sandbox_scope(room, scope)
+        assert manager.sandbox_session_manager.run_tool(scope, "file_exists", {}) == (
+            "isolated"
+        )
+        public_rooms.append((room, scope))
+
+    fifth_scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="public-room-fifth-scope",
+    )
+    assert "active session limit" in manager.sandbox_session_manager.run_tool(
+        fifth_scope, "file_exists", {}
+    )
+
+    assert (
+        manager.release_idle_public_room_sandbox_scopes(idle_ttl_seconds=30, now=129.0)
+        == 0
+    )
+    assert (
+        manager.release_idle_public_room_sandbox_scopes(idle_ttl_seconds=30, now=130.0)
+        == 4
+    )
+    assert len(closed_scopes) == 4
+    assert (
+        manager.sandbox_session_manager.run_tool(fifth_scope, "file_exists", {})
+        == "isolated"
+    )
+    for index, (room, scope) in enumerate(public_rooms):
+        assert manager.rooms[room.room_id] is room
+        assert room.messages == [{"role": "user", "content": f"history-{index}"}]
+        assert room.current_sandbox_scope() is None
+        assert scope in closed_scopes
+
+
+def test_idle_public_room_scope_is_retained_while_job_is_running():
+    from uagent.runtime.execution_broker import TrustedSandboxScope
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    class FakeJobs:
+        def running_count_for_room(self, room_id):
+            assert room_id == "public-room"
+            return 1
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    manager.sub_agent_job_manager = FakeJobs()
+    room = manager.get_room("public-room")
+    room.last_activity = 100.0
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="public-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+
+    assert (
+        manager.release_idle_public_room_sandbox_scopes(idle_ttl_seconds=30, now=1000.0)
+        == 0
+    )
+    assert room.current_sandbox_scope() == scope
+    assert closed_scopes == []
+
+
+@pytest.mark.parametrize("sqlite_backend", [False, True])
+def test_periodic_room_cleanup_releases_idle_public_leases(monkeypatch, sqlite_backend):
+    import asyncio
+
+    from uagent.runtime.execution_broker import TrustedSandboxScope
+    from uagent.web_impl import routes_api
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("public-room")
+    room.last_activity = time.monotonic() - 3600
+    monkeypatch.setattr(manager, "idle_ttl_seconds", lambda: 30)
+    scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="public-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+    monkeypatch.setattr(routes_api, "web_manager", manager)
+    monkeypatch.setattr(
+        routes_api._long_memory_mod,
+        "is_sqlite_backend",
+        lambda: sqlite_backend,
+    )
+    monkeypatch.setattr(routes_api, "_cleanup_expired_private_rooms", lambda: [])
+
+    async def stop_after_one_pass(_delay):
+        raise asyncio.CancelledError
+
+    monkeypatch.setattr(routes_api.asyncio, "sleep", stop_after_one_pass)
+    with pytest.raises(asyncio.CancelledError):
+        asyncio.run(routes_api._private_room_cleanup_loop())
+
+    assert closed_scopes == [scope]
+    assert manager.rooms["public-room"] is room
+    assert room.current_sandbox_scope() is None
+
+
 def test_idle_private_room_eviction_leaves_non_private_rooms_unchanged():
     manager = WebManager()
     room = manager.get_room("local-room")
