@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: 実装エージェント向け作業手順／実装未着手
+- 状態: PR 1 実装済み。PR 2 実装済み・Windows 11 Home x64（Build 26300）でMXC統合テスト6/6通過。PR 3〜7未着手。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -9,6 +9,16 @@
 - 開発規約: [AGENTS.md](../../AGENTS.md)
 
 > 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
+
+## 進捗記録
+
+### 2026-10-17 — PR 2 Windows MXC統合検証
+
+- `tests/test_mxc_windows_integration.py`: Windows x64実機環境で6件すべて通過（skipなし）。
+- 関連ユニットテスト: `test_execution_broker.py`、`test_mxc_backend.py`、`test_sandbox_cli_option.py`、`test_web_sandbox_lifecycle_hooks.py` が通過。
+- Node.js: `v24.22.0`。MXC SDK: ピン留め版`1.0.0`での初期化・検証に成功。
+- 実機環境: Windows 11 Home x64、Version 10.0.26300、Build 26300。MXC SDKの実導入版は`1.0.0`。
+- pytest直接起動ではstartup env snapshotが未初期化で`UAGENT_MXC_NODE`が無視されたため、`capture_startup_uagent_env_snapshot(force=True)`後にpytestを起動して検証した。テスト起動経路の改善候補。
 
 ## 1. 全PR共通の実装ルール
 
