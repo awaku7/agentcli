@@ -293,3 +293,37 @@ def test_final_responses_turn_does_not_inject_hosted_web_search(monkeypatch):
 
     assert result[0] == "final answer"
     assert request["tools"] == []
+
+
+def test_final_chat_completion_turn_omits_empty_tool_fields():
+    from types import SimpleNamespace
+
+    request = {}
+    message = SimpleNamespace(content="final answer", tool_calls=None)
+    response = SimpleNamespace(
+        choices=[SimpleNamespace(message=message)],
+        usage=SimpleNamespace(prompt_tokens=1, completion_tokens=1, total_tokens=2),
+    )
+
+    def create(**kwargs):
+        request.update(kwargs)
+        return response
+
+    client = SimpleNamespace(
+        chat=SimpleNamespace(
+            completions=SimpleNamespace(create=create),
+        )
+    )
+    result = sub_agent_tool.SubAgentRunner()._call_openai_with_tools(
+        client,
+        model_name="sarashina-chat",
+        system_prompt="final only",
+        messages=[{"role": "user", "content": "finish"}],
+        tool_specs=[],
+        timeout=10,
+        provider="sarashina",
+    )
+
+    assert result[0] == "final answer"
+    assert "tools" not in request
+    assert "tool_choice" not in request

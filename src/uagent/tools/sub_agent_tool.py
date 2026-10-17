@@ -1141,9 +1141,10 @@ class SubAgentRunner:
         kwargs: Dict[str, Any] = {
             "model": model_name,
             "messages": [{"role": "system", "content": system_prompt}] + messages,
-            "tools": tool_specs,
-            "tool_choice": "auto" if tool_specs else "none",
         }
+        if tool_specs:
+            kwargs["tools"] = tool_specs
+            kwargs["tool_choice"] = "auto"
         model_lower = str(model_name or "").lower()
         modern = model_lower.startswith("gpt-5") or re.match(
             r"^o[1-4](?:[-.]|$)", model_lower
