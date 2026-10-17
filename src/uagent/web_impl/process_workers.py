@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import copy
+from dataclasses import replace as dataclass_replace
 import hashlib
 import json
 import multiprocessing
@@ -239,14 +240,38 @@ def _child_turn(connection, payload) -> None:
             if hasattr(room, name):
                 setattr(core, name, getattr(room, name))
     try:
-        run_agent_worker(
-            room,
-            payload["input"],
-            payload["attachments"],
-            turn_context=payload["turn_context"],
-            identity_context=payload["identity_context"],
-            project_path=payload["project_path"],
-        )
+        if payload.get("bootstrap_only"):
+            from ..runtime.identity_context import call_with_turn_context
+            from ..runtime.turn_context_runtime import call_with_resolved_turn_context
+            from .history import _ensure_room_history_initialized
+
+            turn_context = payload.get("turn_context")
+            identity_context = payload.get("identity_context")
+            if turn_context is not None:
+                call_with_turn_context(
+                    turn_context,
+                    _ensure_room_history_initialized,
+                    room,
+                    identity_context=identity_context,
+                )
+            else:
+                call_with_resolved_turn_context(
+                    _ensure_room_history_initialized,
+                    room,
+                    entry_point="web",
+                    room_id=str(room.room_id),
+                    project_path=str(room.base_dir),
+                    session_id=str(room.session_id or ""),
+                )
+        else:
+            run_agent_worker(
+                room,
+                payload["input"],
+                payload["attachments"],
+                turn_context=payload["turn_context"],
+                identity_context=payload["identity_context"],
+                project_path=payload["project_path"],
+            )
         if room.private_session or not room.session_id:
             for name in (
                 "responses_state",
@@ -312,6 +337,10 @@ class RoomWorkerPool:
     def answer(self, room, text) -> bool:
         return self._send(room, {"type": "answer", "text": text})
 
+    def bootstrap(self, room, **kwargs):
+        """Initialize a Web room in its isolated worker before accepting turns."""
+        return self.run(room, "", None, _bootstrap_only=True, **kwargs)
+
     def run(self, room, user_input, attachments=None, **kwargs):
         from .. import core
         from ..i18n import _
@@ -337,6 +366,7 @@ class RoomWorkerPool:
         acquired = False
         process = None
         parent = child = None
+        bootstrap_only = bool(kwargs.pop("_bootstrap_only", False))
         try:
             with self._lock:
                 if self._closed.is_set():
@@ -355,7 +385,13 @@ class RoomWorkerPool:
             room.set_status(True, "QUEUED")
             store = getattr(core, "session_store", None)
             if store is not None and not room.private_session:
-                _ensure_public_room_session(room, store, room.base_dir)
+                bound_session_id = _ensure_public_room_session(
+                    room, store, room.base_dir
+                )
+                if kwargs.get("turn_context") is not None:
+                    kwargs["turn_context"] = dataclass_replace(
+                        kwargs["turn_context"], session_id=bound_session_id
+                    )
             if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
                 from ..tools._genre_control_util import get_enabled_tool_names
 
@@ -390,6 +426,7 @@ class RoomWorkerPool:
                 "turn_context": kwargs.get("turn_context"),
                 "identity_context": kwargs.get("identity_context"),
                 "project_path": kwargs.get("project_path"),
+                "bootstrap_only": bootstrap_only,
                 "execution_profile": getattr(
                     web_manager, "execution_profile", "remote"
                 ),

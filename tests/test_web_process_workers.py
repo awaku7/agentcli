@@ -66,6 +66,26 @@ def _offline_child(connection, payload):
     _child_turn(connection, payload)
 
 
+def _bootstrap_only_child(connection, payload):
+    from uagent.runtime import runtime_plugins
+    from uagent.web_impl import agent_worker, history
+    from uagent.web_impl.process_workers import _child_turn
+    from uagent.tools import _genre_control_util
+
+    runtime_plugins.load_plugins_status_at_startup = lambda **kwargs: ([], "")
+    _genre_control_util.get_enabled_tool_names = lambda: []
+
+    def initialize_room(room):
+        room.history = [{"role": "system", "content": "initialized before input"}]
+        room.history_initialized = True
+
+    history._ensure_room_history_initialized = initialize_room
+    agent_worker.run_agent_worker = lambda *args, **kwargs: (_ for _ in ()).throw(
+        AssertionError("bootstrap-only child must not run a user turn")
+    )
+    _child_turn(connection, payload)
+
+
 def _state_child(connection, payload):
     from uagent import core
     from uagent.runtime import runtime_plugins
@@ -349,6 +369,30 @@ def test_attach_worker_reuses_session_without_creating_an_empty_startup_session(
         assert attached.list_messages(session_id)[0]["content"] == "worker turn"
     finally:
         attached.close()
+
+
+def test_process_pool_bootstraps_room_without_a_user_turn(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.tools import _genre_control_util
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
+    monkeypatch.setenv("UAGENT_IDENTITY_MODE", "local")
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(_genre_control_util, "get_enabled_tool_names", lambda: [])
+    room = WebRoom("bootstrap-only")
+    room.private_session = True
+    room.base_dir = str(tmp_path)
+    room.active_connections = [True]
+    pool = RoomWorkerPool(1, target=_bootstrap_only_child)
+    try:
+        pool.bootstrap(room, project_path=str(tmp_path))
+        assert room.history_initialized is True
+        assert room.history == [
+            {"role": "system", "content": "initialized before input"}
+        ]
+        assert not any(message.get("role") == "user" for message in room.messages)
+    finally:
+        pool.shutdown()
 
 
 @pytest.mark.parametrize("value", [0, -1])

@@ -340,3 +340,29 @@ def test_bootstrap_display_room_cannot_take_worker_interrupt_ownership(
     assert observed == [True]
     assert manager.worker_room is active
     assert manager.active_room is active
+
+
+def test_web_bootstrap_disables_input_before_starting_thread(monkeypatch):
+    from uagent.web_impl import history
+    from uagent.web_impl.rooms import WebManager
+
+    manager = WebManager()
+    monkeypatch.setattr(history, "web_manager", manager)
+    room = WebRoom("bootstrap-status")
+    started = []
+
+    class DeferredThread:
+        def __init__(self, **kwargs):
+            started.append(kwargs)
+
+        def start(self):
+            pass
+
+    monkeypatch.setattr(history.threading, "Thread", DeferredThread)
+
+    history._bootstrap_room_on_connect(room)
+
+    assert room.status["busy"] is True
+    assert room.status["label"] == "INIT"
+    assert room._bootstrap_started is True
+    assert len(started) == 1

@@ -33,8 +33,12 @@ by multiple rooms remain shared; process isolation does not merge file edits.
 
 History/working-directory commands are serialized with that room's worker so a
 returned child snapshot cannot overwrite a command issued during its turn.
-Connect-time history initialization is deferred to the child's first turn to
-avoid changing server cwd while other rooms execute.
+Connect-time history initialization runs in a bootstrap-only child before the
+room accepts user turns. This keeps project-instruction selection (including
+AGENTS.md) ahead of the first user message without changing the server cwd while
+other rooms execute. The bootstrap child returns initialized history to the room
+and exits without running an LLM turn; ordinary foreground turns continue to use
+one child process each.
 
 ## Current limits and verification
 

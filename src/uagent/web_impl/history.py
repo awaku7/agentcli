@@ -67,8 +67,6 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
         room.history = tools_util.build_initial_messages(core=core)
         room.history.extend(getattr(room, "portable_history", []))
         room.portable_history = []
-        room.history_initialized = True
-
         # Surface instruction-load result in the Web chat (print alone is console-only).
         # Prefer session-tracked paths (I18N-safe) over parsing translated headers.
         try:
@@ -193,6 +191,7 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             )
         except Exception:
             pass
+        room.history_initialized = True
     finally:
         try:
             room.set_status(False, "IDLE")
@@ -220,18 +219,26 @@ def _ensure_room_history_initialized(room: WebRoom) -> None:
             pass
 
 
-def _bootstrap_room_on_connect(room: WebRoom) -> None:
+def _bootstrap_room_on_connect(
+    room: WebRoom,
+    *,
+    turn_context=None,
+    identity_context=None,
+) -> None:
     """Run once after first websocket connect so AGENTS.md is asked immediately."""
     if getattr(room, "history_initialized", False):
-        return
-    # Parallel workers initialize history inside their isolated child at the
-    # first turn. Connect-time initialization must not change the server cwd.
-    if web_manager.room_worker_pool is not None:
         return
     if getattr(room, "_bootstrap_started", False):
         return
     try:
         setattr(room, "_bootstrap_started", True)
+    except Exception:
+        pass
+    # Disable the chat input immediately, before the delayed bootstrap thread
+    # starts. Otherwise the browser can submit a turn while AGENTS.md selection
+    # is still pending and race the history initialization.
+    try:
+        room.set_status(True, "INIT")
     except Exception:
         pass
 
@@ -254,8 +261,28 @@ def _bootstrap_room_on_connect(room: WebRoom) -> None:
                 time.sleep(0.05)
             if not room.active_connections:
                 # Client already gone; skip prompt.
+                room._bootstrap_started = False
+                room.set_status(False, "IDLE")
                 return
-            _ensure_room_history_initialized(room)
+            pool = web_manager.room_worker_pool
+            if pool is not None:
+                pool.bootstrap(
+                    room,
+                    turn_context=turn_context,
+                    identity_context=identity_context,
+                    project_path=room.base_dir,
+                )
+            elif turn_context is not None:
+                from ..runtime.identity_context import call_with_turn_context
+
+                call_with_turn_context(
+                    turn_context,
+                    _ensure_room_history_initialized,
+                    room,
+                    identity_context=identity_context,
+                )
+            else:
+                _ensure_room_history_initialized(room)
         except Exception as e:
             try:
                 _web_server_log(
@@ -263,6 +290,17 @@ def _bootstrap_room_on_connect(room: WebRoom) -> None:
                 )
             except Exception:
                 pass
+        finally:
+            if getattr(room, "history_initialized", False):
+                room._bootstrap_started = False
+            # Let a later reconnect retry bootstrap if initialization failed
+            # before completing.
+            if not getattr(room, "history_initialized", False):
+                room._bootstrap_started = False
+                try:
+                    room.set_status(False, "IDLE")
+                except Exception:
+                    pass
 
     threading.Thread(
         target=_runner,

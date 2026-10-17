@@ -103,7 +103,9 @@ def test_web_commands_fail_closed_before_host_dispatch(
             "trusted_ingress_carrier_for_request",
             lambda _ws: object(),
         )
-        monkeypatch.setattr(routes_ws, "_bootstrap_room_on_connect", lambda _room: None)
+        monkeypatch.setattr(
+            routes_ws, "_bootstrap_room_on_connect", lambda _room, **_kwargs: None
+        )
 
         class Connection:
             session_id = "session-a"
@@ -117,6 +119,9 @@ def test_web_commands_fail_closed_before_host_dispatch(
                 return None
 
             def validate_room_access(self, *, touch_activity=True):
+                return None
+
+            def make_turn(self, **_kwargs):
                 return None
 
         monkeypatch.setattr(
@@ -146,6 +151,74 @@ def test_web_commands_fail_closed_before_host_dispatch(
 
 async def _async_noop(*_args, **_kwargs):
     return None
+
+
+def test_websocket_rejects_input_until_startup_initialization_finishes(monkeypatch):
+    room = WebRoom("initializing-room")
+    room._bootstrap_started = True
+    room.history_initialized = False
+    room.messages = []
+    room.add_message = room.messages.append
+
+    async def connect(socket, _connection):
+        room.active_connections.append(socket)
+
+    room.connect = connect
+    room.disconnect = lambda socket: room.active_connections.remove(socket)
+    monkeypatch.setattr(
+        web_manager, "get_or_create_room", lambda _room_id: (room, False)
+    )
+    monkeypatch.setattr(routes_ws, "validate_websocket_origin", lambda _ws: None)
+    monkeypatch.setattr(
+        routes_ws, "trusted_ingress_carrier_for_request", lambda _ws: None
+    )
+    monkeypatch.setattr(
+        routes_ws, "_bootstrap_room_on_connect", lambda _room, **_kwargs: None
+    )
+    monkeypatch.setattr(
+        routes_ws,
+        "run_agent_worker",
+        lambda *args, **kwargs: pytest.fail("worker started before init"),
+    )
+
+    class Connection:
+        session_id = "session-a"
+        private_session = False
+        project_id = "project-a"
+        identity = IdentityContext("alice", True, "oidc")
+
+        def validate_authentication_configuration(self):
+            return None
+
+        def validate_room_access(self):
+            return None
+
+        def make_turn(self, **_kwargs):
+            return None
+
+    monkeypatch.setattr(
+        routes_ws, "resolve_web_connection", lambda _ws, _room_id: Connection()
+    )
+
+    class Socket:
+        query_params = {"room": "initializing-room", "lang": "en"}
+
+        def __init__(self):
+            self.received = False
+
+        async def receive_text(self):
+            if self.received:
+                raise WebSocketDisconnect(code=1000)
+            self.received = True
+            return json.dumps({"type": "user_input", "text": "early message"})
+
+        async def close(self, code=1000):
+            return None
+
+    asyncio.run(routes_ws.websocket_endpoint(Socket()))
+
+    assert len(room.messages) == 1
+    assert "initialization is still in progress" in room.messages[0]["content"]
 
 
 def test_local_trusted_web_keeps_host_commands_when_sandbox_is_off():

@@ -120,7 +120,18 @@ async def websocket_endpoint(websocket: WebSocket):
         raise
     room.loop = asyncio.get_event_loop()
     # Ask AGENTS.md / init history immediately (no user message required).
-    _bootstrap_room_on_connect(room)
+    bootstrap_project_path = room.base_dir
+    bootstrap_turn_context = connection.make_turn(
+        project_path=bootstrap_project_path,
+        session_id=str(
+            getattr(room, "session_id", "") or getattr(core, "session_id", "") or ""
+        ),
+    )
+    _bootstrap_room_on_connect(
+        room,
+        turn_context=bootstrap_turn_context,
+        identity_context=connection.identity,
+    )
 
     try:
         while True:
@@ -134,6 +145,14 @@ async def websocket_endpoint(websocket: WebSocket):
                 return
 
             if payload.get("type") == "user_input":
+                if getattr(room, "_bootstrap_started", False):
+                    room.add_message(
+                        {
+                            "role": "assistant",
+                            "content": "Startup initialization is still in progress. Please wait before sending a message.",
+                        }
+                    )
+                    continue
                 user_text = payload.get("text")
                 if _handle_mode_command(str(user_text or "")):
                     continue
