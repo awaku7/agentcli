@@ -909,12 +909,13 @@ async def bind_project_room(project_id: str, room_id: str, request: Request):
         bound_project = _project_id(project_id, request)
         store = _memory_store()
         try:
-            ProjectAccessPolicy(store).bind_room(
+            binding_changed = ProjectAccessPolicy(store).bind_room(
                 identity.principal_id, bound_project, room_id
             )
         finally:
             store.close()
-        web_manager.release_sandbox_scopes(room_id=room_id)
+        if binding_changed:
+            await asyncio.to_thread(web_manager.release_sandbox_scopes, room_id=room_id)
         return {"ok": True, "project_id": bound_project, "room_id": room_id}
     except Exception as exc:
         return _memory_error(exc)
@@ -970,8 +971,10 @@ async def delete_project_member(project_id: str, principal_id: str, request: Req
             )
         finally:
             store.close()
-        web_manager.release_sandbox_scopes(
-            principal_id=principal_id, project_id=bound_project
+        await asyncio.to_thread(
+            web_manager.release_sandbox_scopes,
+            principal_id=principal_id,
+            project_id=bound_project,
         )
         return {"ok": True}
     except Exception as exc:
@@ -1203,7 +1206,11 @@ async def delete_room_member(room_id: str, principal_id: str, request: Request):
             )
         finally:
             store.close()
-        web_manager.release_sandbox_scopes(principal_id=principal_id, room_id=room_id)
+        await asyncio.to_thread(
+            web_manager.release_sandbox_scopes,
+            principal_id=principal_id,
+            room_id=room_id,
+        )
         return {"ok": True}
     except Exception as exc:
         return _memory_error(exc)
