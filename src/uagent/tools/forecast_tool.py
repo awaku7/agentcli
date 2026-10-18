@@ -889,18 +889,31 @@ def _run_with_timeout(
 
     * its cancel event is set, and the forecast loops check ``_cancelled()``
       to stop starting further model evaluations, and
-    * the worker is recorded as abandoned. While an abandoned worker is alive,
-      new forecasts are refused with ForecastBusyError so repeated timeouts
-      cannot accumulate background work.
+    * the worker is recorded as abandoned, and top-level runs reserve a slot
+      that is only released when the thread exits, so repeated timeouts cannot
+      accumulate background work.
+
+    Nested calls (model evaluation started from inside a forecast worker) do
+    not reserve a slot and share the caller's cancel event: they are part of
+    the parent run's work, so charging them a slot would make overlapping
+    ``model="auto"`` calls reject their own evaluations or report busy.
     """
     if _cancelled():
         # Reachable only from inside an abandoned worker: never let it start
         # another thread, so a timed-out run cannot fan out further work.
         raise ForecastCancelledError("Forecast cancelled by its caller")
 
-    _reserve_run_slot()
+    parent_cancel = _current_cancel_event()
+    nested = parent_cancel is not None
+    if not nested:
+        _reserve_run_slot()
 
-    cancel_event = cancel if cancel is not None else _threading.Event()
+    if cancel is not None:
+        cancel_event = cancel
+    elif parent_cancel is not None:
+        cancel_event = parent_cancel
+    else:
+        cancel_event = _threading.Event()
     outcome: dict[str, Any] = {}
 
     def _call() -> None:
@@ -912,15 +925,17 @@ def _run_with_timeout(
             outcome["error"] = exc
         finally:
             _run_state.cancel = previous
-            # Released only when the thread really exits, so an abandoned
-            # worker keeps holding its slot until it is done.
-            _release_run_slot()
+            if not nested:
+                # Released only when the thread really exits, so an abandoned
+                # top-level worker keeps holding its slot until it is done.
+                _release_run_slot()
 
     worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
     try:
         worker.start()
     except BaseException:
-        _release_run_slot()
+        if not nested:
+            _release_run_slot()
         raise
     worker.join(timeout_sec)
     if worker.is_alive():
@@ -1801,6 +1816,11 @@ def _select_best_model(
                     _eval, _TIMEOUT_SEC
                 )
                 tier_results.append((rmse_val, elapsed, name, model))
+            except (ForecastBusyError, ForecastCancelledError):
+                # Not a model failure: the run itself was refused or cancelled,
+                # so falling through to the Dummy model would report a wrong
+                # forecast instead of a retryable error.
+                raise
             except Exception:
                 _logger.debug(
                     "Forecast model evaluation failed: %s", name, exc_info=True

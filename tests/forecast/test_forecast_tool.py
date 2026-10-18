@@ -594,6 +594,83 @@ def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch)
     assert ft._run_with_timeout(lambda: 42, 5) == 42
 
 
+def test_nested_evaluation_does_not_consume_a_run_slot(monkeypatch):
+    """Overlapping auto-selection must not reject its own model evaluations."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 1)
+
+    def outer():
+        # A nested call runs inside a forecast worker; two slots are "full"
+        # from the caller's point of view, yet evaluation must still work.
+        return ft._run_with_timeout(lambda: "evaluated", 5)
+
+    assert ft._run_with_timeout(outer, 10) == "evaluated"
+    assert ft.active_run_count() == 0
+
+
+def test_nested_evaluation_inherits_the_caller_cancel_event():
+    """A nested run must stop when its parent is abandoned."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    seen: dict[str, bool] = {}
+
+    def outer():
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            try:
+                return ft._run_with_timeout(lambda: time.sleep(3), 5)
+            except ft.ForecastCancelledError:
+                seen["cancelled"] = True
+                return None
+            except TimeoutError:
+                seen["timeout"] = True
+                return None
+        return None
+
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(outer, 1)
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and not seen:
+        time.sleep(0.02)
+    # Either the nested call inherited the cancel event or the parent stopped.
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and ft.active_run_count():
+        time.sleep(0.02)
+    assert ft.active_run_count() == 0
+
+
+def test_busy_is_not_reported_as_a_model_failure(monkeypatch):
+    """_select_best_model must propagate busy instead of using the Dummy model."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    # Name it after a real tier member so the selection loop reaches it.
+    monkeypatch.setattr(
+        ft, "_get_available_models", lambda *a, **k: [("AutoARIMA", lambda: object())]
+    )
+
+    def refuse(*_args, **_kwargs):
+        raise ft.ForecastBusyError("full")
+
+    monkeypatch.setattr(ft, "_run_with_timeout", refuse)
+    with pytest.raises(ft.ForecastBusyError):
+        ft._select_best_model(
+            pd.DataFrame(
+                {"date": pd.date_range("2024-01-01", periods=5), "value": range(5)}
+            ),
+            pd.DataFrame(
+                {"date": pd.date_range("2024-01-06", periods=2), "value": range(2)}
+            ),
+            "date",
+            "value",
+            "D",
+            2,
+        )
+
+
 def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
     """Reserving a slot atomically is what makes the cap hold under contention."""
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
