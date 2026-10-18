@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1・2実装済み。PR 3はローカルCLI/GUI/WebのLease lifecycle統合を実装・検証中。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
+- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4/5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -12,14 +12,16 @@
 
 ## 進捗記録
 
-### 2026-10-17 — PR 3 ローカルLease lifecycle統合（進行中）
+### 2026-10-18 — PR 3 ローカルLease lifecycle統合（PR #263 マージ済み）
 
-- CLI/GUIでは新しいローカルSession scopeの開始時に旧scopeを回収する。WebはRoomがscopeを保持し、Socket切断後のreconnect grace中は維持する。private Roomはidle TTL・削除・Web停止時にscopeごと回収し、public Roomはidle TTL後にSandbox Leaseだけ回収してRoom履歴を残し、Lease close完了までRoomのWorker lockを保持して新規Turnとの競合を防ぐ。
-- Web RoomでSub-Agent Jobが実行中の場合（cancel/timeout後もworker callbackの終了まで含む）、scope差し替えとRoom evictionを拒否する。Private Roomのretirementはlifecycle reservationで再接続と排他する。Jobには親のExecutionProfile/SandboxScopeがContextVar経由で継承される。
-- local Web SandboxはTool実行時にもRoom/Project認可を再確認し、Project/Room membershipの失効やRoom binding変更時に一致するscopeを回収する。回収時はscope一致も検証し、並行再bind後の新Leaseを誤って閉じない。
+- PR #263（head `f0fdb963438d5d324188d4ba0b3a66a605646696`、merge commit `60590a7234a36ea8c4d08d6bc04d7bbf73dac802`）でローカルCLI/GUI/WebのLease lifecycle統合をマージした。PR必須CI（pull-request-tests、quality、compatibility-tests 3.11/3.13/3.14）はすべて成功。
+- CLI/GUIではSession scopeを明示的に有効化し、Session/Workdir切替時の古いscopeを拒否する。CLIはSession切替時に旧Jobを停止・排出し、戻ってきたSessionのJob ownerも再開する。GUIの`:load` / `:cont` / `:session(s) load|resume`も切替前に旧Jobを排出し、切替後にownerを更新する。
+- WebはRoomがscopeを保持し、Socket切断後のreconnect grace中は維持する。private Roomはidle TTL・削除・Web停止時にscopeごと回収し、public Roomはidle TTL後にSandbox Leaseだけ回収してRoom履歴を残す。Room retirementはlifecycle reservationとWorker lockで再接続・新規Turnと排他する。
+- Web RoomでSub-Agent Jobが実行中の場合（cancel/timeout後もworker callbackの終了まで含む）、scope差し替えとRoom evictionを拒否する。Jobには親のExecutionProfile/SandboxScopeがContextVar経由で継承される。
+- local Web SandboxはTool実行時にもRoom/Project認可を再確認し、membership失効・Room binding変更時はRoom scopeをSessionManager側で先に失効させてからdetachする。失効後にSession lock待ちとなっていたTool要求も実行しない。再bindはRoom generationが更新された新scopeのみ許可する。
 - A2AのTrustedSandboxScopeをサーバー生成task IDへ束縛するが、Remote向けLeaseは作成しない。Remote sandbox backend未実装のため一般Tool拒否を維持する。A2Aの実Lease lifecycleはPR 4の適合Backendなしに実装しない。
-- 関連ユニットテスト12ファイル（Broker/MXC、Web認可・Room・Worker・Session、Sub-Agent、A2A）計205件通過。ruff、Black、Python compileも通過。
-- 未完了: 変更後のMXC Windows実機統合再確認。Remote A2A Leaseは適合Backendがないため引き続きPR 4まで延期。
+- PR関連テスト、Ruff、Black、Python compileは通過。マージ後にローカルで `python -m pytest -q . --durations=30` も成功した（skipあり）。GitHubの `full-tests` check-run自体はskipped。
+- 未完了: PR 3の変更を含むMXC Windows実機統合の再確認。PR 2時点のWindows 11 x64実機テスト（6件成功）は再確認の代替にしない。Remote A2A Leaseは適合Backendがないため引き続きPR 4まで延期。
 
 ### 2026-10-17 — PR 2 Windows MXC統合検証
 
