@@ -2116,15 +2116,12 @@ class SubAgentRunner:
         """Run one autonomous work round, including its bounded tool-use loop."""
 
         permission_level = self._normalize_permission_level(permission_level)
+        compatibility_tool_providers = frozenset(
+            {"gemini", "vertexai", "claude", "grok"}
+        )
         native_tools = (
             permission_level != PermissionLevel.NONE.value
-            and provider
-            not in (
-                "gemini",
-                "vertexai",
-                "claude",
-                "grok",
-            )
+            and provider not in compatibility_tool_providers
         )
         tool_specs = (
             self._native_tool_specs(agent_spec, permission_level)
@@ -2264,8 +2261,17 @@ class SubAgentRunner:
                         "[Sub-Agent tool-turn budget exhausted before a final answer; "
                         "the final-turn tool request was not executed.]"
                     )
-                elif permission_level != PermissionLevel.NONE.value:
+                elif (
+                    permission_level != PermissionLevel.NONE.value
+                    and provider in compatibility_tool_providers
+                    and agent_spec is not None
+                ):
+                    visible_tool_names = self._permission_visible_tool_names(
+                        permission_level, agent_spec
+                    )
                     for tool_name, _args in self._parse_compat_tool_calls(raw):
+                        if tool_name not in visible_tool_names:
+                            continue
                         add_tool_evidence(
                             tool_name=tool_name,
                             result=(

@@ -102,12 +102,9 @@ class ScheckWorker(QtCore.QObject):
         self._depname = ""
 
     def _run_gui_turn(self, fn, *args, **kwargs):
-        try:
-            from .sub_agent_jobs import refresh_gui_job_owner
+        from .sub_agent_jobs import refresh_gui_job_owner
 
-            refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
-        except Exception:
-            pass
+        refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
         if bool(getattr(core, "_sandbox_enabled", False)):
             from ..runtime.execution_broker import SecurityProfile, execution_profile
             from ..runtime.mxc_backend import current_session_manager, startup_scope

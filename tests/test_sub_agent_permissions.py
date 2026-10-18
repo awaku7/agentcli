@@ -372,3 +372,73 @@ def test_final_chat_completion_turn_omits_empty_tool_fields():
     assert result[0] == "final answer"
     assert "tools" not in request
     assert "tool_choice" not in request
+
+
+def test_native_final_answer_call_syntax_is_not_budget_exhausted(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        runner,
+        "_call_openai_with_tools",
+        lambda *_args, **_kwargs: ('print("ok")', [], {}),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="openai",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=1,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test",
+            description="",
+            system_prompt="",
+            allowed_tools=["read_file"],
+        ),
+        agent_name="test",
+    )
+
+    assert result[0] == 'print("ok")'
+    assert not any(item["status"] == "budget_exhausted" for item in result[3])
+
+
+def test_final_compatibility_scan_only_accepts_visible_tool_names(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        runner,
+        "_call_with_retry",
+        lambda *_args, **_kwargs: (
+            'print("ok") read_file(filename="final.txt")',
+            0,
+            {},
+        ),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="gemini",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=1,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test",
+            description="",
+            system_prompt="",
+            allowed_tools=["read_file"],
+        ),
+        agent_name="test",
+    )
+
+    assert [item["tool"] for item in result[3]] == ["read_file"]
+    assert [item["status"] for item in result[3]] == ["budget_exhausted"]

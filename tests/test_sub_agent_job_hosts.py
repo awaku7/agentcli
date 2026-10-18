@@ -317,3 +317,121 @@ def test_a2a_job_runtime_is_scoped_to_the_bound_task():
             assert get_job_runtime_context() == (manager, owner)
             cancel_event.set()
             assert get_job_runtime_context() is None
+
+
+def test_gui_session_owner_refresh_aborts_when_previous_workers_linger():
+    import pytest
+
+    from uagent.scheckgui_impl.sub_agent_jobs import refresh_gui_job_owner
+
+    previous = SubAgentJobOwner(entry_point="gui", session_id="old-session")
+    calls = []
+
+    class Manager:
+        def pause_owner(self, owner):
+            calls.append(("pause", owner))
+
+        def cancel_all(self, *, owner, reason):
+            calls.append(("cancel", owner, reason))
+
+        def wait_owner_workers(self, *, owner, timeout):
+            calls.append(("wait", owner, timeout))
+            return False
+
+        def active_job_ids(self, owner):
+            calls.append(("active", owner))
+            return ["lingering-job"]
+
+        def resume_owner(self, owner):
+            calls.append(("resume", owner))
+
+    core = SimpleNamespace(
+        session_id="new-session",
+        _sub_agent_job_owner=previous,
+        _sub_agent_job_manager=Manager(),
+    )
+
+    with pytest.raises(RuntimeError, match="lingering-job"):
+        refresh_gui_job_owner(core, core.session_id)
+
+    assert core._sub_agent_job_owner == previous
+    assert calls == [
+        ("pause", previous),
+        ("cancel", previous, "GUI session changed"),
+        ("wait", previous, 5.0),
+        ("active", previous),
+    ]
+
+
+def test_gui_turn_does_not_activate_scope_when_owner_refresh_fails(monkeypatch):
+    import pytest
+
+    pytest.importorskip("PySide6")
+    from uagent.runtime import mxc_backend
+    from uagent.scheckgui_impl import sub_agent_jobs as gui_jobs
+    from uagent.scheckgui_impl import worker as gui_worker
+
+    core = SimpleNamespace(session_id="new-session", _sandbox_enabled=True)
+    monkeypatch.setattr(gui_worker, "core", core)
+    monkeypatch.setattr(
+        gui_jobs,
+        "refresh_gui_job_owner",
+        lambda *_args: (_ for _ in ()).throw(RuntimeError("transition refused")),
+    )
+    activations = []
+    manager = SimpleNamespace(activate_scope=lambda scope: activations.append(scope))
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+    monkeypatch.setattr(
+        mxc_backend,
+        "startup_scope",
+        lambda **_kwargs: SimpleNamespace(scope_id="new-scope"),
+    )
+    executed = []
+    monkeypatch.setattr(
+        gui_worker,
+        "call_with_resolved_turn_context",
+        lambda fn, *args, **kwargs: fn(*args, **kwargs),
+    )
+
+    with pytest.raises(RuntimeError, match="transition refused"):
+        gui_worker.ScheckWorker._run_gui_turn(object(), lambda: executed.append("ran"))
+
+    assert activations == []
+    assert executed == []
+
+
+def test_gui_session_owner_refresh_resumes_the_new_owner_after_workers_exit():
+    from uagent.scheckgui_impl.sub_agent_jobs import refresh_gui_job_owner
+
+    previous = SubAgentJobOwner(entry_point="gui", session_id="old-session")
+    expected = SubAgentJobOwner(entry_point="gui", session_id="new-session")
+    calls = []
+
+    class Manager:
+        def pause_owner(self, owner):
+            calls.append(("pause", owner))
+
+        def cancel_all(self, *, owner, reason):
+            calls.append(("cancel", owner, reason))
+
+        def wait_owner_workers(self, *, owner, timeout):
+            calls.append(("wait", owner, timeout))
+            return True
+
+        def resume_owner(self, owner):
+            calls.append(("resume", owner))
+
+    core = SimpleNamespace(
+        session_id="new-session",
+        _sub_agent_job_owner=previous,
+        _sub_agent_job_manager=Manager(),
+    )
+
+    assert refresh_gui_job_owner(core, core.session_id) == expected
+    assert core._sub_agent_job_owner == expected
+    assert calls == [
+        ("pause", previous),
+        ("cancel", previous, "GUI session changed"),
+        ("wait", previous, 5.0),
+        ("resume", expected),
+    ]
