@@ -263,7 +263,10 @@ def main() -> int:
     def _run_cli_turn(fn, *args, **kwargs):
         if sandbox_mode != "off":
             from ..runtime.execution_broker import SecurityProfile, execution_profile
-            from ..runtime.mxc_backend import startup_scope as _startup_scope
+            from ..runtime.mxc_backend import (
+                current_session_manager,
+                startup_scope as _startup_scope,
+            )
 
             active_scope = _startup_scope(
                 entry_point="cli",
@@ -274,6 +277,9 @@ def main() -> int:
                     or ""
                 ),
             )
+            sandbox_manager = current_session_manager()
+            if sandbox_manager is not None:
+                sandbox_manager.activate_scope(active_scope)
             with execution_profile(
                 SecurityProfile.LOCAL_TRUSTED,
                 sandbox_enabled=True,

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import asyncio
 import hashlib
 import json
+import threading
 
 from fastapi.testclient import TestClient
 
@@ -153,6 +155,58 @@ def test_sandboxed_web_rejects_tool_genre_changes_before_plugin_import(monkeypat
     assert "Sandbox mode" in response.json()["error"]
 
 
+def test_project_membership_revocation_invalidates_matching_sandbox_scope(
+    monkeypatch,
+):
+    calls = []
+    release_thread_ids = []
+    caller_thread_id = threading.get_ident()
+    identity = IdentityContext("admin", True, "local")
+
+    class Store:
+        def close(self):
+            calls.append("store-closed")
+
+    class Policy:
+        def __init__(self, _store):
+            pass
+
+        def revoke_membership(self, actor, project, principal):
+            calls.append(("revoke", actor, project, principal))
+
+    monkeypatch.setattr(routes_api, "_request_identity", lambda _request: identity)
+    monkeypatch.setattr(
+        routes_api, "_project_id", lambda project_id, _request: project_id
+    )
+    monkeypatch.setattr(routes_api, "_memory_store", Store)
+    monkeypatch.setattr(routes_api, "ProjectAccessPolicy", Policy)
+
+    def release_scopes(**filters):
+        release_thread_ids.append(threading.get_ident())
+        calls.append(("release", filters))
+        return 1
+
+    monkeypatch.setattr(
+        routes_api.web_manager, "release_sandbox_scopes", release_scopes
+    )
+
+    result = asyncio.run(
+        routes_api.delete_project_member("project-a", "alice", object())
+    )
+
+    assert result == {"ok": True}
+    assert len(release_thread_ids) == 1
+    assert release_thread_ids[0] != caller_thread_id
+    assert calls == [
+        ("revoke", "admin", "project-a", "alice"),
+        "store-closed",
+        (
+            "release",
+            {"principal_id": "alice", "project_id": "project-a"},
+        ),
+    ]
+
+
 def test_http_mutations_require_allowed_origin_outside_local(monkeypatch):
     resolver = _Resolver("admin", authn_kind="trusted_proxy")
     monkeypatch.setattr(routes_api, "create_identity_resolver", lambda: resolver)
@@ -272,3 +326,101 @@ def test_management_api_refreshes_directory_role_before_admin_check(
             store.close()
     finally:
         register_directory_group_policy_adapter(None)
+
+
+def test_project_room_binding_only_releases_scope_after_a_real_change(monkeypatch):
+    identity = IdentityContext("admin", True, "local")
+    binding_changed = {"value": False}
+    release_thread_ids = []
+    caller_thread_id = threading.get_ident()
+
+    class Store:
+        def close(self):
+            pass
+
+    class Policy:
+        def __init__(self, _store):
+            pass
+
+        def bind_room(self, _actor, _project, _room):
+            return binding_changed["value"]
+
+    monkeypatch.setattr(routes_api, "_request_identity", lambda _request: identity)
+    monkeypatch.setattr(
+        routes_api, "_project_id", lambda project_id, _request: project_id
+    )
+    monkeypatch.setattr(routes_api, "_memory_store", Store)
+    monkeypatch.setattr(routes_api, "ProjectAccessPolicy", Policy)
+    monkeypatch.setattr(
+        routes_api.web_manager,
+        "release_sandbox_scopes",
+        lambda **_filters: release_thread_ids.append(threading.get_ident()),
+    )
+
+    unchanged = asyncio.run(
+        routes_api.bind_project_room("project-a", "room-a", object())
+    )
+    assert unchanged == {
+        "ok": True,
+        "project_id": "project-a",
+        "room_id": "room-a",
+    }
+    assert release_thread_ids == []
+
+    binding_changed["value"] = True
+    changed = asyncio.run(routes_api.bind_project_room("project-a", "room-a", object()))
+    assert changed == {
+        "ok": True,
+        "project_id": "project-a",
+        "room_id": "room-a",
+    }
+    assert len(release_thread_ids) == 1
+    assert release_thread_ids[0] != caller_thread_id
+
+
+def test_room_membership_revocation_offloads_scope_close(monkeypatch):
+    identity = IdentityContext("admin", True, "local")
+    release_thread_ids = []
+    caller_thread_id = threading.get_ident()
+
+    class Request:
+        async def json(self):
+            return {"project_id": "project-a"}
+
+    class Store:
+        def close(self):
+            pass
+
+    class ProjectPolicy:
+        def __init__(self, _store):
+            pass
+
+        def require_access(self, *_args):
+            pass
+
+        def require_room_binding(self, *_args):
+            pass
+
+    class RoomPolicy:
+        def __init__(self, _store):
+            pass
+
+        def revoke_membership(self, *_args):
+            pass
+
+    monkeypatch.setattr(routes_api, "_request_identity", lambda _request: identity)
+    monkeypatch.setattr(routes_api, "_project_id", lambda value, _request: value)
+    monkeypatch.setattr(routes_api, "_memory_store", Store)
+    monkeypatch.setattr(routes_api, "ProjectAccessPolicy", ProjectPolicy)
+    monkeypatch.setattr(routes_api, "RoomAccessPolicy", RoomPolicy)
+    monkeypatch.setattr(
+        routes_api.web_manager,
+        "release_sandbox_scopes",
+        lambda **_filters: release_thread_ids.append(threading.get_ident()),
+    )
+
+    result = asyncio.run(routes_api.delete_room_member("room-a", "alice", Request()))
+
+    assert result == {"ok": True}
+    assert len(release_thread_ids) == 1
+    assert release_thread_ids[0] != caller_thread_id

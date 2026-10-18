@@ -918,23 +918,32 @@ class MxcSessionManager:
                 self._sessions.pop(key, None)
                 session.close()
 
-    def _close_obsolete_cli_sessions(
+    def _close_obsolete_local_sessions(
         self, current_key: str, scope: TrustedSandboxScope
     ) -> None:
-        """Release the previous CLI scope after a CLI session transition."""
-        if scope.scope_kind != "cli-session":
+        """Release the previous CLI/GUI scope after a local session transition."""
+        local_session_kinds = {"cli-session", "gui-session"}
+        if scope.scope_kind not in local_session_kinds:
             return
         for key, session in list(self._sessions.items()):
             previous_scope = getattr(session, "_scope", None)
             if (
                 key != current_key
-                and getattr(previous_scope, "scope_kind", None) == "cli-session"
+                and getattr(previous_scope, "scope_kind", None) == scope.scope_kind
                 and getattr(previous_scope, "deployment_id", None)
                 == scope.deployment_id
                 and getattr(previous_scope, "principal_id", None) == scope.principal_id
             ):
                 self._sessions.pop(key, None)
                 session.close()
+
+    def activate_scope(self, scope: TrustedSandboxScope) -> None:
+        """End obsolete local-session leases before beginning a new turn."""
+        if scope.scope_kind not in {"cli-session", "gui-session"}:
+            return
+        with self._lock:
+            self._close_obsolete_local_sessions(_scope_key(scope), scope)
+            self._prune_inactive_sessions()
 
     def run_tool(
         self, scope: TrustedSandboxScope | None, name: str, args: dict[str, Any]
@@ -953,7 +962,7 @@ class MxcSessionManager:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)
         with self._lock:
-            self._close_obsolete_cli_sessions(key, scope)
+            self._close_obsolete_local_sessions(key, scope)
             self._prune_inactive_sessions()
             session = self._sessions.get(key)
             if session is None:
@@ -1016,23 +1025,28 @@ def run_sandbox_tool(
     return manager.run_tool(scope, name, args)
 
 
-def _process_scope_id(scope_id: str) -> str:
+def _process_scope_id(scope_id: str, *, generation: str = "") -> str:
     """Salt a trusted session/Room identifier to this live server process."""
-    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}"
+    generation_suffix = f"-{generation}" if generation else ""
+    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}{generation_suffix}"
 
 
 def local_web_room_scope(
-    *, principal_id: str, project_id: str, room_id: str
+    *,
+    principal_id: str,
+    project_id: str,
+    room_id: str,
+    room_generation: str,
 ) -> TrustedSandboxScope:
-    """Return an isolated MXC scope for a trusted local Web Room."""
-    if not principal_id or not project_id or not room_id:
+    """Return an isolated MXC scope for one trusted Web Room incarnation."""
+    if not principal_id or not project_id or not room_id or not room_generation:
         raise ValueError("local Web Room scope fields must be non-empty")
     return TrustedSandboxScope(
         deployment_id="web",
         principal_id=principal_id,
         project_id=project_id,
         scope_kind="web-room",
-        scope_id=_process_scope_id(room_id),
+        scope_id=_process_scope_id(room_id, generation=room_generation),
     )
 
 

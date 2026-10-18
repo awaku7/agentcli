@@ -18,8 +18,16 @@ def test_project_membership_is_server_side_and_role_bound(tmp_path) -> None:
     assert policy.can_access("bob", "demo", "viewer")
     assert not policy.can_access("bob", "demo", "editor")
     assert not policy.can_access("alice", "other", "viewer")
-    policy.bind_room("root", "demo", "room-x")
+    assert policy.bind_room("root", "demo", "room-x") is True
     assert policy.room_project("room-x") == "demo"
+    revision_before = store.db.execute(
+        "SELECT revision FROM room_projects WHERE room_id = ?", ("room-x",)
+    ).fetchone()["revision"]
+    assert policy.bind_room("root", "demo", "room-x") is False
+    revision_after = store.db.execute(
+        "SELECT revision FROM room_projects WHERE room_id = ?", ("room-x",)
+    ).fetchone()["revision"]
+    assert revision_after == revision_before
     policy.require_room_binding("demo", "room-x")
     with pytest.raises(MemoryAccessError):
         policy.require_access("alice", "other")

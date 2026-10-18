@@ -116,12 +116,19 @@ def refresh_gui_job_owner(core: object, session_id: str) -> SubAgentJobOwner | N
     owner = SubAgentJobOwner(entry_point="gui", session_id=session)
     previous = getattr(core, "_sub_agent_job_owner", None)
     manager = getattr(core, "_sub_agent_job_manager", None)
-    if manager is not None and previous is not None and previous != owner:
-        try:
+    if manager is not None:
+        if previous is not None and previous != owner:
+            manager.pause_owner(previous)
             manager.cancel_all(owner=previous, reason="GUI session changed")
-            manager.wait_owner_workers(owner=previous, timeout=5.0)
-        except Exception:
-            pass
+            if not manager.wait_owner_workers(owner=previous, timeout=5.0):
+                lingering = ", ".join(manager.active_job_ids(previous)) or "unknown"
+                raise RuntimeError(
+                    "GUI session switch cancelled; Sub-Agent workers are still "
+                    f"running: {lingering}"
+                )
+        setattr(core, "_sub_agent_job_owner", owner)
+        manager.resume_owner(owner)
+        return owner
     setattr(core, "_sub_agent_job_owner", owner)
     return owner
 
