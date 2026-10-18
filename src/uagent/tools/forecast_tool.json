@@ -41,7 +41,8 @@
     "param.future_data.description": "重回帰モデル用の将来の日付と説明変数を含むCSVパスまたはDataFrame JSON。",
     "param.model.enum_linearregression": "LinearRegression",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "前回の予測がまだ終了処理中です。完了してから再試行してください。"
   },
   "fil": {
     "tool.forecast.description": "Isagawa ang pagtataya ng serye ng oras. Gamitin ito kapag tinanong tungkol sa mga hula sa hinaharap, pagsusuri sa trend, mga pagtataya sa benta, o anumang gawain sa pagtataya ng numero.",

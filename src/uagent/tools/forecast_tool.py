@@ -784,26 +784,116 @@ def _run_regression_forecast(
 import threading as _threading
 
 
-def _run_with_timeout(func, timeout_sec: int, *args, **kwargs):
+class ForecastCancelledError(RuntimeError):
+    """Raised inside a forecast worker after its caller already timed out."""
+
+
+class ForecastBusyError(RuntimeError):
+    """Raised when a timed-out forecast is still winding down.
+
+    A Python thread cannot be killed, so a timed-out forecast keeps running
+    until it reaches a cancellation checkpoint or returns. Refusing new work
+    while such a run is alive bounds that leftover work to a single run
+    instead of letting repeated timeouts accumulate.
+    """
+
+
+# How many timed-out runs may still be alive before new work is refused.
+# Two allows one legitimate retry while a previous run winds down, while still
+# bounding the leftover work to a small, fixed number of workers.
+_MAX_ABANDONED_RUNS = 2
+_abandoned_guard = _threading.Lock()
+_abandoned_runs: "list[_threading.Thread]" = []
+_run_state = _threading.local()
+
+
+def _current_cancel_event() -> "_threading.Event | None":
+    return getattr(_run_state, "cancel", None)
+
+
+def _cancelled() -> bool:
+    """Whether the current forecast worker was abandoned by its caller."""
+    event = _current_cancel_event()
+    return event is not None and event.is_set()
+
+
+def _prune_abandoned_locked() -> None:
+    _abandoned_runs[:] = [thread for thread in _abandoned_runs if thread.is_alive()]
+
+
+def abandoned_run_count() -> int:
+    """Number of timed-out forecast workers that are still running."""
+    with _abandoned_guard:
+        _prune_abandoned_locked()
+        return len(_abandoned_runs)
+
+
+def reset_abandoned_runs() -> None:
+    """Forget timed-out workers without touching them.
+
+    The host never needs this; tests use it so a worker abandoned by one test
+    cannot make an unrelated later test look busy.
+    """
+    with _abandoned_guard:
+        _abandoned_runs.clear()
+
+
+def _run_with_timeout(
+    func,
+    timeout_sec: int,
+    *args,
+    cancel: "_threading.Event | None" = None,
+    **kwargs,
+):
     """Run func in a daemon thread and raise TimeoutError once it overruns.
 
-    A ``ThreadPoolExecutor`` context manager is not used here on purpose:
-    its ``__exit__`` joins the worker, so the caller would keep waiting for
-    the whole run time of the timed-out call. A daemon thread also keeps a
-    long training run from delaying interpreter shutdown.
+    A ``ThreadPoolExecutor`` context manager is not used here on purpose: its
+    ``__exit__`` joins the worker, so the caller would keep waiting for the
+    whole run time of the timed-out call.
+
+    The worker cannot be killed when the timeout fires, so two things bound
+    the leftover work instead:
+
+    * its cancel event is set, and the forecast loops check ``_cancelled()``
+      to stop starting further model evaluations, and
+    * the worker is recorded as abandoned. While an abandoned worker is alive,
+      new forecasts are refused with ForecastBusyError so repeated timeouts
+      cannot accumulate background work.
     """
+    if _cancelled():
+        # Reachable only from inside an abandoned worker: never let it start
+        # another thread, so a timed-out run cannot fan out further work.
+        raise ForecastCancelledError("Forecast cancelled by its caller")
+
+    with _abandoned_guard:
+        _prune_abandoned_locked()
+        if len(_abandoned_runs) >= _MAX_ABANDONED_RUNS:
+            raise ForecastBusyError(
+                "A previous forecast is still shutting down; retry shortly."
+            )
+
+    cancel_event = cancel if cancel is not None else _threading.Event()
     outcome: dict[str, Any] = {}
 
     def _call() -> None:
+        previous = getattr(_run_state, "cancel", None)
+        _run_state.cancel = cancel_event
         try:
             outcome["value"] = func(*args, **kwargs)
         except BaseException as exc:  # re-raised in the caller thread
             outcome["error"] = exc
+        finally:
+            _run_state.cancel = previous
 
     worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
     worker.start()
     worker.join(timeout_sec)
     if worker.is_alive():
+        cancel_event.set()
+        with _abandoned_guard:
+            _prune_abandoned_locked()
+            if len(_abandoned_runs) < _MAX_ABANDONED_RUNS:
+                _abandoned_runs.append(worker)
         raise TimeoutError(f"Forecast timed out ({timeout_sec}s)")
     if "error" in outcome:
         raise outcome["error"]
@@ -1646,6 +1736,10 @@ def _select_best_model(
     ]
 
     for tier in tiers:
+        # A caller that already timed out must not keep this run spawning
+        # further model training threads.
+        if _cancelled():
+            raise ForecastCancelledError("Forecast cancelled by its caller")
         tier_results = []
         tier_names = [n for n, b in candidates if n in tier]
         if not tier_names:
@@ -1653,6 +1747,8 @@ def _select_best_model(
         for name, builder in candidates:
             if name not in tier:
                 continue
+            if _cancelled():
+                raise ForecastCancelledError("Forecast cancelled by its caller")
             t0 = time.time()
             try:
 
@@ -2024,8 +2120,23 @@ def run_tool(args: dict[str, Any]) -> str:
             return cb.truncate_output("forecast", output, limit=10000)
         return output
 
+    cancel = _threading.Event()
     try:
-        return _run_with_timeout(_execute, _TIMEOUT_SEC)
+        return _run_with_timeout(_execute, _TIMEOUT_SEC, cancel=cancel)
+    except ForecastBusyError:
+        return json.dumps(
+            {
+                "error": _(
+                    "error.previous_run_running",
+                    default=(
+                        "A previous forecast is still shutting down. "
+                        "Retry once it finishes."
+                    ),
+                ),
+                "retryable": True,
+            },
+            ensure_ascii=False,
+        )
     except DataTooSmallError as e:
         return json.dumps(
             {

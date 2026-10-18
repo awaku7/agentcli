@@ -13,6 +13,17 @@ import numpy as np
 import pandas as pd
 import pytest
 
+
+@pytest.fixture(autouse=True)
+def _isolate_abandoned_forecast_runs():
+    """Keep a worker abandoned by one test from leaking into the next."""
+    from uagent.tools import forecast_tool as _forecast_tool
+
+    _forecast_tool.reset_abandoned_runs()
+    yield
+    _forecast_tool.reset_abandoned_runs()
+
+
 # ── Cycle 1: TOOL_SPEC structure ──────────────────────────────────────
 
 
@@ -519,6 +530,104 @@ def test_timeout_error():
     # The timeout must not be followed by a join on the worker thread, which
     # would make the caller wait for the whole timed-out call.
     assert time.monotonic() - started < 3.0
+
+
+def test_abandoned_worker_observes_cancellation():
+    """A timed-out worker must be told to stop, not simply abandoned."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    seen: dict[str, bool] = {}
+
+    def worker():
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            if ft._cancelled():
+                seen["cancelled"] = True
+                return
+            time.sleep(0.01)
+        seen["cancelled"] = False
+        return None
+
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(worker, 1)
+
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and "cancelled" not in seen:
+        time.sleep(0.02)
+    assert seen.get("cancelled") is True
+    # The worker is gone, so nothing is left running behind the caller.
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and ft.abandoned_run_count():
+        time.sleep(0.02)
+    assert ft.abandoned_run_count() == 0
+
+
+def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch):
+    """Leftover work is bounded instead of accumulating per timeout."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_ABANDONED_RUNS", 1)
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(lambda: time.sleep(3), 1)
+    assert ft.abandoned_run_count() == 1
+    with pytest.raises(ft.ForecastBusyError):
+        ft._run_with_timeout(lambda: 1, 1)
+
+    # Once the leftover run is gone, work is accepted again.
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and ft.abandoned_run_count():
+        time.sleep(0.05)
+    assert ft._run_with_timeout(lambda: 42, 5) == 42
+
+
+def test_abandoned_worker_cannot_start_further_work():
+    """A cancelled worker must not spawn a second thread."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    seen: dict[str, str] = {}
+
+    def nested():
+        # Wait until the caller abandons this worker, then try to fan out.
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline and not ft._cancelled():
+            time.sleep(0.01)
+        try:
+            ft._run_with_timeout(lambda: time.sleep(5), 5)
+            seen["result"] = "ran"
+        except Exception as exc:  # noqa: BLE001 - recorded for the assertion
+            seen["result"] = type(exc).__name__
+
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(nested, 1)
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and "result" not in seen:
+        time.sleep(0.02)
+    assert seen.get("result") == "ForecastCancelledError"
+
+
+def test_run_tool_reports_busy_as_retryable(sample_df, monkeypatch):
+    """run_tool turns a busy guard into a retryable JSON error."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_ABANDONED_RUNS", 1)
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(lambda: time.sleep(3), 1)
+    parsed = json.loads(
+        ft.run_tool(
+            {
+                "data": sample_df.to_json(orient="split", index=False),
+                "date_column": "date",
+                "value_column": "value",
+                "horizon": 2,
+            }
+        )
+    )
+    assert parsed.get("retryable") is True
+    assert "error" in parsed
 
 
 # ── Cycle 25: run_tool timeout returns error JSON ─────────────────────
