@@ -8,7 +8,7 @@ from .i18n import _
 import time
 import queue
 import threading
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 # ==============================
 # Configuration
@@ -226,7 +226,25 @@ from .core_impl.fim import _normalize_fim_base_url, fim
 
 SYSTEM_PROMPT_MSGID = _build_system_prompt_full()
 SYSTEM_PROMPT_COMPACT_MSGID = _build_system_prompt_compact()
-SYSTEM_PROMPT = _select_system_prompt()
+if TYPE_CHECKING:  # pragma: no cover - resolves the public name for linters
+    SYSTEM_PROMPT: str
+
+
+def __getattr__(name: str) -> "Any":
+    """Resolve SYSTEM_PROMPT on first use.
+
+    Building it resolves model capabilities through llmcapa, which loads its
+    whole catalog (seconds) on first access. Keeping it lazy means short-lived
+    paths (CLI help, worker bootstrapping, imports in tests) that never build a
+    prompt do not pay that cost. The first access caches the value into the
+    module namespace, so later lookups are plain attribute reads.
+    """
+    if name == "SYSTEM_PROMPT":
+        value = _select_system_prompt()
+        globals()["SYSTEM_PROMPT"] = value
+        return value
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
 
 __all__ = [
     "BASE_LOG_DIR",
