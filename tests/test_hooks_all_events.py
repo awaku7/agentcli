@@ -112,12 +112,20 @@ class TestHttpHookType:
     """Tests for http-type hooks."""
 
     def test_http_hook_invalid_url(self) -> None:
-        """http hook with invalid URL should return error."""
+        """http hook with an unreachable endpoint should return error."""
+        import socket
+
         from uagent.hooks_engine import execute_hook
+
+        # A closed loopback port fails immediately, while a bogus hostname
+        # costs a real DNS round trip (seconds on some networks).
+        with socket.socket() as probe:
+            probe.bind(("127.0.0.1", 0))
+            port = probe.getsockname()[1]
 
         hook = {
             "type": "http",
-            "url": "http://nonexistent.example.com/hook",
+            "url": f"http://127.0.0.1:{port}/hook",
             "method": "POST",
         }
         result = execute_hook(hook, timeout_ms=500)

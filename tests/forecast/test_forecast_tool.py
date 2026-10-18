@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import json
 import sys
+import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -512,8 +513,12 @@ def test_timeout_error():
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools.forecast_tool import _run_with_timeout
 
+    started = time.monotonic()
     with pytest.raises(TimeoutError):
-        _run_with_timeout(lambda: __import__("time").sleep(10), 1)
+        _run_with_timeout(lambda: time.sleep(10), 1)
+    # The timeout must not be followed by a join on the worker thread, which
+    # would make the caller wait for the whole timed-out call.
+    assert time.monotonic() - started < 3.0
 
 
 # ── Cycle 25: run_tool timeout returns error JSON ─────────────────────

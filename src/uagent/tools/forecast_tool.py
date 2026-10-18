@@ -781,17 +781,33 @@ def _run_regression_forecast(
 
 # ── Timeout guard ──────────────────────────────────────────────────────
 
-import concurrent.futures as _cf
+import threading as _threading
 
 
 def _run_with_timeout(func, timeout_sec: int, *args, **kwargs):
-    """Run func in a thread with timeout."""
-    with _cf.ThreadPoolExecutor(max_workers=1) as pool:
-        fut = pool.submit(func, *args, **kwargs)
+    """Run func in a daemon thread and raise TimeoutError once it overruns.
+
+    A ``ThreadPoolExecutor`` context manager is not used here on purpose:
+    its ``__exit__`` joins the worker, so the caller would keep waiting for
+    the whole run time of the timed-out call. A daemon thread also keeps a
+    long training run from delaying interpreter shutdown.
+    """
+    outcome: dict[str, Any] = {}
+
+    def _call() -> None:
         try:
-            return fut.result(timeout=timeout_sec)
-        except _cf.TimeoutError:
-            raise TimeoutError(f"Forecast timed out ({timeout_sec}s)")
+            outcome["value"] = func(*args, **kwargs)
+        except BaseException as exc:  # re-raised in the caller thread
+            outcome["error"] = exc
+
+    worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
+    worker.start()
+    worker.join(timeout_sec)
+    if worker.is_alive():
+        raise TimeoutError(f"Forecast timed out ({timeout_sec}s)")
+    if "error" in outcome:
+        raise outcome["error"]
+    return outcome["value"]
 
 
 # ── Model Selection ────────────────────────────────────────────────────
