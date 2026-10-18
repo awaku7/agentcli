@@ -21,12 +21,6 @@ import uuid
 from typing import Any
 from urllib.error import URLError
 
-try:
-    from openai import APIConnectionError, BadRequestError
-except Exception:
-    APIConnectionError = None
-    BadRequestError = None
-
 from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
@@ -38,6 +32,7 @@ from ..llm_helpers import (
 )
 from ..reasoning_display import show_reasoning
 from ..runtime.stream_renderer import StreamCallbacks
+from .._lazy_sdk import is_openai_error
 
 _LABEL = "Together"
 _ENV_PREFIX = "UAGENT_TOGETHER"
@@ -526,7 +521,7 @@ def together_chat_with_tools(
                 print(repr(e))
                 return False, client, "", "", []
 
-            if BadRequestError is not None and isinstance(e, BadRequestError):
+            if is_openai_error(e, "BadRequestError"):
                 err_text_lower = err.lower()
                 if "does not support tools" in err_text_lower:
                     print(
@@ -547,7 +542,7 @@ def together_chat_with_tools(
                 )
                 return False, client, "", "", []
 
-            if APIConnectionError is not None and isinstance(e, APIConnectionError):
+            if is_openai_error(e, "APIConnectionError"):
                 print(f"[{_LABEL} Error] " + _("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))

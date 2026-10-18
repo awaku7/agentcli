@@ -13,10 +13,7 @@ from .i18n import _
 from .providers.llm_gemini import _message_content_text, _sanitize_gemini_parameters
 from .providers.responses_manager import is_server_side_compaction_enabled
 
-try:
-    from google.genai import types as gemini_types
-except Exception:
-    gemini_types = None
+from ._lazy_sdk import gemini_types as _lazy_gemini_types
 
 
 def _init_gemini_cache(
@@ -31,12 +28,13 @@ def _init_gemini_cache(
 
     cache_mgr = GeminiCacheManager(depname)
     gemini_cache_name = None
+    gemini_types = _lazy_gemini_types()
 
     use_cache_env = env_get("UAGENT_GEMINI_CACHE", "1").lower()
     if (
         provider in ("gemini", "vertexai")
         and use_cache_env not in ("0", "false", "no")
-        and gemini_types
+        and gemini_types is not None
     ):
         clear_on_start = env_get("UAGENT_GEMINI_CACHE_CLEAR_ON_START", "1").lower() in (
             "1",

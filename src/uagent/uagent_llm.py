@@ -22,17 +22,6 @@ try:
 except Exception:
     certifi = None
 
-try:
-    from google.genai import types as gemini_types
-except ImportError:
-    gemini_types = None
-
-try:
-    from openai import APIConnectionError, BadRequestError
-except Exception:
-    BadRequestError = None
-    APIConnectionError = None
-
 from .llm_message_helpers import (
     _build_call_messages,
     build_auto_shrink_projection,

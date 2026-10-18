@@ -23,12 +23,6 @@ import uuid
 from typing import Any
 from urllib.error import URLError
 
-try:
-    from openai import APIConnectionError, BadRequestError
-except Exception:
-    APIConnectionError = None
-    BadRequestError = None
-
 from .. import tools as _tools
 from ..env_utils import env_get
 from ..i18n import _
@@ -42,6 +36,7 @@ from ..llm_helpers import (
     _is_thinking_task,
     _maybe_print_certifi_where,
 )
+from .._lazy_sdk import is_openai_error
 
 # ---------------------------------------------------------------------------
 # Thinking-mode effort mapping
@@ -814,7 +809,7 @@ def deepseek_chat_with_tools(
                 print(repr(e))
                 return False, client, "", "", []
             # 400 BadRequest
-            if BadRequestError is not None and isinstance(e, BadRequestError):
+            if is_openai_error(e, "BadRequestError"):
                 err_text_lower = err.lower()
                 if "does not support tools" in err_text_lower:
                     print(
@@ -871,7 +866,7 @@ def deepseek_chat_with_tools(
                     + _("Error code: %(code)d - %(err)s") % {"code": 400, "err": e}
                 )
                 return False, client, "", "", []
-            if APIConnectionError is not None and isinstance(e, APIConnectionError):
+            if is_openai_error(e, "APIConnectionError"):
                 print(f"[{_label} Error] " + _("Connection error"))
                 _maybe_print_certifi_where(e)
                 print(repr(e))
