@@ -7,11 +7,6 @@ from ..i18n import _
 import hashlib
 from typing import Any, Optional
 
-try:
-    from google.genai import types as gemini_types
-except ImportError:
-    gemini_types = None
-
 # キャッシュメタデータの保存先を決定
 # 優先順位:
 # 1. 環境変数 UAGENT_CACHE_DIR
@@ -224,6 +219,9 @@ class GeminiCacheManager:
         initial_messages: list[dict[str, Any]],
     ) -> Optional[str]:
         """新しいキャッシュを作成し、メタデータを更新する"""
+
+        # Import the SDK only when a Gemini cache is actually created.
+        from google.genai import types as gemini_types
 
         # メッセージ順序の検証
         if not _validate_message_sequence(initial_messages):
