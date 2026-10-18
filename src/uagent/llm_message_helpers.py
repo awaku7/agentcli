@@ -28,14 +28,17 @@ def _init_gemini_cache(
 
     cache_mgr = GeminiCacheManager(depname)
     gemini_cache_name = None
-    gemini_types = _lazy_gemini_types()
 
     use_cache_env = env_get("UAGENT_GEMINI_CACHE", "1").lower()
-    if (
-        provider in ("gemini", "vertexai")
+    # Resolve the Gemini SDK only for Gemini traffic: every other provider
+    # would otherwise pay the ~1s google.genai import for this call.
+    gemini_types = (
+        _lazy_gemini_types()
+        if provider in ("gemini", "vertexai")
         and use_cache_env not in ("0", "false", "no")
-        and gemini_types is not None
-    ):
+        else None
+    )
+    if gemini_types is not None:
         clear_on_start = env_get("UAGENT_GEMINI_CACHE_CLEAR_ON_START", "1").lower() in (
             "1",
             "true",

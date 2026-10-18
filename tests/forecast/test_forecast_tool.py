@@ -580,7 +580,7 @@ def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch)
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
     with pytest.raises(TimeoutError):
         ft._run_with_timeout(lambda: time.sleep(3), 1)
     assert ft.abandoned_run_count() == 1
@@ -601,7 +601,7 @@ def test_nested_evaluation_is_not_refused_at_capacity(monkeypatch):
 
     # The parent already occupies the only slot, so the nested call has to run
     # without being refused; failing here would degrade to the Dummy model.
-    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
 
     def outer():
         return ft._run_with_timeout(lambda: "evaluated", 5)
@@ -615,7 +615,7 @@ def test_timed_out_nested_worker_keeps_consuming_capacity(monkeypatch):
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
     nested_timeouts = []
 
     def outer():
@@ -706,7 +706,7 @@ def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 4)
     started = []
     lock = threading.Lock()
     gate = threading.Event()
@@ -728,9 +728,10 @@ def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
     for thread in callers:
         thread.start()
     deadline = time.monotonic() + 5
-    while time.monotonic() < deadline and ft.active_run_count() < 2:
+    while time.monotonic() < deadline and len(started) < 2:
         time.sleep(0.01)
-    # Only the reserved slots may have started; the rest are refused.
+    time.sleep(0.3)  # let the remaining callers be refused
+    # Two parents fit (each reserving 2 slots) and no more.
     assert len(started) == 2
     gate.set()
     for thread in callers:
@@ -738,6 +739,47 @@ def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
     assert results.count("ForecastBusyError") == 4
     assert results.count("done") == 2
     assert ft.active_run_count() == 0
+
+
+def test_admission_reserves_room_for_nested_evaluation(monkeypatch):
+    """Synchronized callers cannot take the last slot and then add nested work."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 4)
+    started = []
+    lock = threading.Lock()
+    gate = threading.Event()
+
+    def parent():
+        with lock:
+            started.append("parent")
+        # Each admitted parent then runs one nested evaluation.
+        ft._run_with_timeout(lambda: time.sleep(0.3), 10)
+        gate.wait(5)
+        return "done"
+
+    outcomes = []
+
+    def caller():
+        try:
+            outcomes.append(ft._run_with_timeout(parent, 20))
+        except Exception as exc:  # noqa: BLE001 - recorded for the assertion
+            outcomes.append(type(exc).__name__)
+
+    threads = [threading.Thread(target=caller) for _ in range(4)]
+    for thread in threads:
+        thread.start()
+    time.sleep(0.5)
+    # At most two parents, so at most four workers counting nested ones.
+    assert started.count("parent") <= 2
+    assert ft.active_run_count() <= 4
+    gate.set()
+    for thread in threads:
+        thread.join(20)
+    assert ft.active_run_count() == 0
+    assert outcomes.count("done") == started.count("parent")
+    assert outcomes.count("ForecastBusyError") == 4 - started.count("parent")
 
 
 def test_abandoned_worker_cannot_start_further_work():
@@ -771,7 +813,7 @@ def test_run_tool_reports_busy_as_retryable(sample_df, monkeypatch):
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
     with pytest.raises(TimeoutError):
         ft._run_with_timeout(lambda: time.sleep(3), 1)
     parsed = json.loads(

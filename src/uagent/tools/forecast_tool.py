@@ -803,11 +803,25 @@ class ForecastBusyError(RuntimeError):
 # evaluations, so a nested worker that outlives a timed-out parent keeps
 # consuming capacity and new forecasts stay refused until it really stops.
 # Two concurrent runs, each with one nested evaluation, is the intended load.
+# Total forecast worker threads allowed in this process. A top-level run
+# reserves two slots at admission: its own worker and one nested evaluation.
+# The reservation is released only when the last thread of that run exits, so
+# a nested worker that outlives its parent keeps its run's capacity.
 _MAX_LIVE_WORKERS = 4
-_live_workers = 0
+_reserved_slots = 0
 _abandoned_guard = _threading.Lock()
 _abandoned_runs: "list[_threading.Thread]" = []
 _run_state = _threading.local()
+
+
+class _RunTicket:
+    """Reservation shared by a top-level forecast run and its nested workers."""
+
+    __slots__ = ("slots", "threads")
+
+    def __init__(self, slots: int) -> None:
+        self.slots = slots
+        self.threads = 0
 
 
 def _current_cancel_event() -> "_threading.Event | None":
@@ -832,9 +846,9 @@ def abandoned_run_count() -> int:
 
 
 def active_run_count() -> int:
-    """Number of live forecast worker threads, including abandoned ones."""
+    """Number of reserved worker threads, including abandoned ones."""
     with _abandoned_guard:
-        return _live_workers
+        return _reserved_slots
 
 
 def reset_abandoned_runs() -> None:
@@ -847,33 +861,49 @@ def reset_abandoned_runs() -> None:
         _abandoned_runs.clear()
 
 
-def _acquire_worker_slot(*, nested: bool) -> None:
-    """Account for one worker thread, refusing top-level work at capacity.
+def _acquire_run_ticket() -> "_RunTicket":
+    """Join the caller's run, or admit a new top-level run at capacity.
 
-    The counter is only ever changed under the same lock as the abandoned
-    bookkeeping, and it is released when the thread exits rather than when the
-    caller gives up, so a worker whose caller timed out keeps occupying
-    capacity. That is what makes the bound hold for concurrent callers.
-
-    Nested evaluations are not refused (their parent already passed
-    admission) but they are counted, so a nested worker that outlives its
-    timed-out parent still consumes capacity.
+    Every reservation change happens under the lock that also guards the
+    abandoned bookkeeping, so synchronized callers cannot all observe free
+    capacity. A ticket is released only when its last thread exits, so a
+    nested worker that outlives a timed-out parent keeps its run's slots.
     """
-    global _live_workers
+    global _reserved_slots
+    parent = getattr(_run_state, "ticket", None)
     with _abandoned_guard:
-        _prune_abandoned_locked()
-        if not nested and _live_workers >= _MAX_LIVE_WORKERS:
+        if parent is not None:
+            # Nested evaluation: it belongs to the parent's reservation. Deeper
+            # nesting than reserved takes one extra slot when available.
+            if parent.threads + 1 > parent.slots:
+                if _reserved_slots + 1 > _MAX_LIVE_WORKERS:
+                    _prune_abandoned_locked()
+                    raise ForecastBusyError(
+                        "A previous forecast is still shutting down; retry shortly."
+                    )
+                _reserved_slots += 1
+                parent.slots += 1
+            parent.threads += 1
+            return parent
+        if _reserved_slots + 2 > _MAX_LIVE_WORKERS:
+            _prune_abandoned_locked()
             raise ForecastBusyError(
                 "A previous forecast is still shutting down; retry shortly."
             )
-        _live_workers += 1
+        _reserved_slots += 2
+        ticket = _RunTicket(2)
+        ticket.threads = 1
+        return ticket
 
 
-def _release_worker_slot() -> None:
-    global _live_workers
+def _release_run_ticket(ticket: "_RunTicket") -> None:
+    global _reserved_slots
     with _abandoned_guard:
-        if _live_workers > 0:
-            _live_workers -= 1
+        if ticket.threads > 0:
+            ticket.threads -= 1
+        if ticket.threads == 0 and ticket.slots:
+            _reserved_slots = max(0, _reserved_slots - ticket.slots)
+            ticket.slots = 0
 
 
 def _run_with_timeout(
@@ -909,8 +939,7 @@ def _run_with_timeout(
         raise ForecastCancelledError("Forecast cancelled by its caller")
 
     parent_cancel = _current_cancel_event()
-    nested = parent_cancel is not None
-    _acquire_worker_slot(nested=nested)
+    ticket = _acquire_run_ticket()
 
     if cancel is not None:
         cancel_event = cancel
@@ -921,23 +950,26 @@ def _run_with_timeout(
     outcome: dict[str, Any] = {}
 
     def _call() -> None:
-        previous = getattr(_run_state, "cancel", None)
+        previous_cancel = getattr(_run_state, "cancel", None)
+        previous_ticket = getattr(_run_state, "ticket", None)
         _run_state.cancel = cancel_event
+        _run_state.ticket = ticket
         try:
             outcome["value"] = func(*args, **kwargs)
         except BaseException as exc:  # re-raised in the caller thread
             outcome["error"] = exc
         finally:
-            _run_state.cancel = previous
-            # Released only when the thread really exits, so an abandoned
-            # worker keeps consuming capacity until it is done.
-            _release_worker_slot()
+            _run_state.cancel = previous_cancel
+            _run_state.ticket = previous_ticket
+            # Released only when the last thread of the run exits, so an
+            # abandoned worker keeps consuming capacity until it is done.
+            _release_run_ticket(ticket)
 
     worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
     try:
         worker.start()
     except BaseException:
-        _release_worker_slot()
+        _release_run_ticket(ticket)
         raise
     worker.join(timeout_sec)
     if worker.is_alive():
