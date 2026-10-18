@@ -798,10 +798,12 @@ class ForecastBusyError(RuntimeError):
     """
 
 
-# How many timed-out runs may still be alive before new work is refused.
-# Two allows one legitimate retry while a previous run winds down, while still
-# bounding the leftover work to a small, fixed number of workers.
-_MAX_ABANDONED_RUNS = 2
+# Upper bound on forecast worker threads in this process, counted from the
+# moment a slot is reserved at admission until the worker thread exits. That
+# covers workers whose caller already timed out and walked away, so concurrent
+# callers cannot each start work that later runs untracked.
+_MAX_ACTIVE_RUNS = 2
+_active_runs = 0
 _abandoned_guard = _threading.Lock()
 _abandoned_runs: "list[_threading.Thread]" = []
 _run_state = _threading.local()
@@ -828,6 +830,12 @@ def abandoned_run_count() -> int:
         return len(_abandoned_runs)
 
 
+def active_run_count() -> int:
+    """Number of reserved forecast slots (running, including abandoned ones)."""
+    with _abandoned_guard:
+        return _active_runs
+
+
 def reset_abandoned_runs() -> None:
     """Forget timed-out workers without touching them.
 
@@ -836,6 +844,31 @@ def reset_abandoned_runs() -> None:
     """
     with _abandoned_guard:
         _abandoned_runs.clear()
+
+
+def _reserve_run_slot() -> None:
+    """Reserve one worker slot, or refuse when the process is at capacity.
+
+    Reserving under the same lock as the abandoned-worker bookkeeping is what
+    makes the bound hold: concurrent callers cannot all observe a free slot.
+    The slot stays reserved until the worker thread exits, so a worker whose
+    caller timed out keeps occupying it.
+    """
+    global _active_runs
+    with _abandoned_guard:
+        _prune_abandoned_locked()
+        if _active_runs >= _MAX_ACTIVE_RUNS:
+            raise ForecastBusyError(
+                "A previous forecast is still shutting down; retry shortly."
+            )
+        _active_runs += 1
+
+
+def _release_run_slot() -> None:
+    global _active_runs
+    with _abandoned_guard:
+        if _active_runs > 0:
+            _active_runs -= 1
 
 
 def _run_with_timeout(
@@ -865,12 +898,7 @@ def _run_with_timeout(
         # another thread, so a timed-out run cannot fan out further work.
         raise ForecastCancelledError("Forecast cancelled by its caller")
 
-    with _abandoned_guard:
-        _prune_abandoned_locked()
-        if len(_abandoned_runs) >= _MAX_ABANDONED_RUNS:
-            raise ForecastBusyError(
-                "A previous forecast is still shutting down; retry shortly."
-            )
+    _reserve_run_slot()
 
     cancel_event = cancel if cancel is not None else _threading.Event()
     outcome: dict[str, Any] = {}
@@ -884,16 +912,21 @@ def _run_with_timeout(
             outcome["error"] = exc
         finally:
             _run_state.cancel = previous
+            # Released only when the thread really exits, so an abandoned
+            # worker keeps holding its slot until it is done.
+            _release_run_slot()
 
     worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
-    worker.start()
+    try:
+        worker.start()
+    except BaseException:
+        _release_run_slot()
+        raise
     worker.join(timeout_sec)
     if worker.is_alive():
         cancel_event.set()
         with _abandoned_guard:
-            _prune_abandoned_locked()
-            if len(_abandoned_runs) < _MAX_ABANDONED_RUNS:
-                _abandoned_runs.append(worker)
+            _abandoned_runs.append(worker)
         raise TimeoutError(f"Forecast timed out ({timeout_sec}s)")
     if "error" in outcome:
         raise outcome["error"]

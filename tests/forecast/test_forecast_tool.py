@@ -5,6 +5,7 @@ from __future__ import annotations
 import ast
 import json
 import sys
+import threading
 import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -16,12 +17,23 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def _isolate_abandoned_forecast_runs():
-    """Keep a worker abandoned by one test from leaking into the next."""
+    """Keep workers abandoned by one test from leaking into the next.
+
+    Workers wait for their slot to be released on exit, so this also proves the
+    reservation is returned when a timed-out worker finally stops.
+    """
     from uagent.tools import forecast_tool as _forecast_tool
 
-    _forecast_tool.reset_abandoned_runs()
+    def _drain(timeout=15.0):
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline and _forecast_tool.active_run_count():
+            time.sleep(0.02)
+        _forecast_tool.reset_abandoned_runs()
+        return _forecast_tool.active_run_count()
+
+    _drain()
     yield
-    _forecast_tool.reset_abandoned_runs()
+    assert _drain() == 0
 
 
 # ── Cycle 1: TOOL_SPEC structure ──────────────────────────────────────
@@ -568,7 +580,7 @@ def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch)
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_ABANDONED_RUNS", 1)
+    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 1)
     with pytest.raises(TimeoutError):
         ft._run_with_timeout(lambda: time.sleep(3), 1)
     assert ft.abandoned_run_count() == 1
@@ -580,6 +592,45 @@ def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch)
     while time.monotonic() < deadline and ft.abandoned_run_count():
         time.sleep(0.05)
     assert ft._run_with_timeout(lambda: 42, 5) == 42
+
+
+def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
+    """Reserving a slot atomically is what makes the cap hold under contention."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 2)
+    started = []
+    lock = threading.Lock()
+    gate = threading.Event()
+    results = []
+
+    def worker():
+        with lock:
+            started.append(threading.get_ident())
+        gate.wait(5)
+        return "done"
+
+    def caller():
+        try:
+            results.append(ft._run_with_timeout(worker, 10))
+        except Exception as exc:  # noqa: BLE001 - recorded for the assertion
+            results.append(type(exc).__name__)
+
+    callers = [threading.Thread(target=caller) for _ in range(6)]
+    for thread in callers:
+        thread.start()
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and ft.active_run_count() < 2:
+        time.sleep(0.01)
+    # Only the reserved slots may have started; the rest are refused.
+    assert len(started) == 2
+    gate.set()
+    for thread in callers:
+        thread.join(15)
+    assert results.count("ForecastBusyError") == 4
+    assert results.count("done") == 2
+    assert ft.active_run_count() == 0
 
 
 def test_abandoned_worker_cannot_start_further_work():
@@ -613,7 +664,7 @@ def test_run_tool_reports_busy_as_retryable(sample_df, monkeypatch):
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_ABANDONED_RUNS", 1)
+    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 1)
     with pytest.raises(TimeoutError):
         ft._run_with_timeout(lambda: time.sleep(3), 1)
     parsed = json.loads(
