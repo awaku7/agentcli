@@ -25,6 +25,8 @@ from ..runtime.sub_agent_jobs import SubAgentJobOwner
 from ..runtime.sub_agent_jobs import (
     SubAgentConfirmationUnavailable,
     SubAgentJobExecutionContext,
+    is_session_transition_command,
+    prepare_session_owner_transition,
 )
 
 
@@ -439,25 +441,7 @@ def _follow_job(manager: Any, owner: Any, job_id: str, poll_interval: float) -> 
         print("Stopped following the Job; the Job continues running.")
 
 
-def is_cli_session_transition_command(line: str) -> bool:
-    try:
-        parts = shlex.split(str(line or "").strip())
-    except ValueError:
-        return False
-    if not parts:
-        return False
-    command = parts[0].lstrip(":").lower()
-    if command == "cont":
-        return True
-    if command == "load":
-        return len(parts) > 1
-    if command in {"session", "sessions"}:
-        return (
-            len(parts) > 2
-            and parts[1].lower() in {"load", "resume"}
-            and bool(parts[2].strip())
-        )
-    return False
+is_cli_session_transition_command = is_session_transition_command
 
 
 def current_cli_job_owner(core: Any, fallback_session_id: str = "") -> SubAgentJobOwner:
@@ -475,13 +459,12 @@ def prepare_cli_session_transition(
     manager: Any, owner: SubAgentJobOwner, *, timeout: float = 5.0
 ) -> tuple[bool, list[str]]:
     """Cancel old-owner work before a CLI session can be rebound."""
-    manager.pause_owner(owner)
-    manager.cancel_all(owner=owner, reason="CLI session transition")
-    if manager.wait_owner_workers(owner, timeout=max(0.0, timeout)):
-        return True, []
-    lingering = manager.active_job_ids(owner)
-    manager.resume_owner(owner)
-    return False, lingering
+    return prepare_session_owner_transition(
+        manager,
+        owner,
+        reason="CLI session transition",
+        timeout=timeout,
+    )
 
 
 __all__ = [

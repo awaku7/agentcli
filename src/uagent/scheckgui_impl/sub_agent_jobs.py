@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
+import os
 import threading
 from dataclasses import dataclass, field
-from typing import Callable
+from typing import Any, Callable
 
 from ..runtime.sub_agent_jobs import (
     SubAgentJobExecutionContext,
     SubAgentJobManager,
     SubAgentJobOwner,
+    is_session_transition_command,
+    prepare_session_owner_transition,
 )
 
 
@@ -133,6 +136,52 @@ def refresh_gui_job_owner(core: object, session_id: str) -> SubAgentJobOwner | N
     return owner
 
 
+def prepare_gui_session_transition(
+    core: object, *, timeout: float = 5.0
+) -> tuple[bool, list[str]]:
+    """Drain the current GUI owner's Sub-Agents before a session command runs."""
+    manager = getattr(core, "_sub_agent_job_manager", None)
+    owner = getattr(core, "_sub_agent_job_owner", None)
+    if manager is None or owner is None:
+        return True, []
+    return prepare_session_owner_transition(
+        manager,
+        owner,
+        reason="GUI session transition",
+        timeout=timeout,
+    )
+
+
+def run_gui_command_with_session_transition_guard(
+    core: object,
+    command: str,
+    callback: Callable[[], Any],
+    *,
+    timeout: float | None = None,
+) -> tuple[bool, Any, list[str]]:
+    """Fence old GUI Sub-Agents around commands that replace the session."""
+    if not is_session_transition_command(command):
+        return True, callback(), []
+    if timeout is None:
+        try:
+            timeout = max(
+                0.0,
+                float(
+                    os.environ.get("UAGENT_SUB_AGENT_JOB_SESSION_SWITCH_TIMEOUT", "5")
+                ),
+            )
+        except (TypeError, ValueError):
+            timeout = 5.0
+    prepared, lingering = prepare_gui_session_transition(core, timeout=timeout)
+    if not prepared:
+        return False, None, lingering
+    try:
+        result = callback()
+    finally:
+        refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
+    return True, result, []
+
+
 def shutdown_gui_job_runtime(core: object) -> None:
     manager = getattr(core, "_sub_agent_job_manager", None)
     if manager is None:
@@ -156,5 +205,8 @@ __all__ = [
     "GUIJobConfirmationRequest",
     "initialize_gui_job_runtime",
     "refresh_gui_job_owner",
+    "is_session_transition_command",
+    "prepare_gui_session_transition",
+    "run_gui_command_with_session_transition_guard",
     "shutdown_gui_job_runtime",
 ]

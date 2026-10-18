@@ -380,13 +380,30 @@ class ScheckWorker(QtCore.QObject):
                     kind = ev.get("kind")
 
                     if kind == "command":
-                        result = handle_command(
-                            ev.get("text", ""),
-                            self.messages,
-                            self._client,
-                            self._depname,
-                            core=core,
+                        command_text = ev.get("text", "")
+                        from .sub_agent_jobs import (
+                            run_gui_command_with_session_transition_guard,
                         )
+
+                        command_executed, result, lingering = (
+                            run_gui_command_with_session_transition_guard(
+                                core,
+                                command_text,
+                                lambda: handle_command(
+                                    command_text,
+                                    self.messages,
+                                    self._client,
+                                    self._depname,
+                                    core=core,
+                                ),
+                            )
+                        )
+                        if not command_executed:
+                            print(
+                                "GUI session switch cancelled; Sub-Agent workers "
+                                "are still running: " + ", ".join(lingering)
+                            )
+                            continue
                         if not result:
                             self._stop.set()
                             break
