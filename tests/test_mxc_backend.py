@@ -506,12 +506,76 @@ def test_manager_closes_obsolete_gui_session_after_session_transition():
     session = FakeSession()
     manager = object.__new__(mxc_backend.MxcSessionManager)
     manager._sessions = {"old-key": session}
+    manager._active_local_scopes = {
+        (
+            old_scope.deployment_id,
+            old_scope.principal_id,
+            old_scope.scope_kind,
+        ): old_scope
+    }
     manager._lock = threading.RLock()
 
     manager.activate_scope(new_scope)
 
     assert session.closed
     assert manager._sessions == {}
+    assert manager.run_tool(old_scope, "file_exists", {"path": "x"}) == (
+        "[sandbox error] stale local execution scope rejected"
+    )
+    assert manager._sessions == {}
+
+
+def test_manager_rejects_stale_gui_scope_after_workdir_change(monkeypatch, tmp_path):
+    created_projects = []
+
+    class FakeProc:
+        def poll(self):
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProc()
+            created_projects.append(scope.project_id)
+
+        def run(self, name, args):
+            return self._scope.project_id
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    old_scope = TrustedSandboxScope(
+        deployment_id="gui",
+        principal_id="local-user",
+        project_id="old-workdir",
+        scope_kind="gui-session",
+        scope_id="same-session",
+    )
+    new_scope = TrustedSandboxScope(
+        deployment_id="gui",
+        principal_id="local-user",
+        project_id="new-workdir",
+        scope_kind="gui-session",
+        scope_id="same-session",
+    )
+
+    manager.activate_scope(old_scope)
+    assert manager.run_tool(old_scope, "file_exists", {"path": "x"}) == "old-workdir"
+    manager.activate_scope(new_scope)
+
+    assert manager.run_tool(old_scope, "file_exists", {"path": "x"}) == (
+        "[sandbox error] stale local execution scope rejected"
+    )
+    assert manager.run_tool(new_scope, "file_exists", {"path": "x"}) == "new-workdir"
+    assert created_projects == ["old-workdir", "new-workdir"]
+    manager.close_all()
 
 
 def test_manager_caps_active_session_workers(monkeypatch, tmp_path):

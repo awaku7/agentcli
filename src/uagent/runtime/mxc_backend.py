@@ -896,6 +896,7 @@ class MxcSessionManager:
         self.runtime = runtime
         self.capabilities = capabilities
         self._sessions: dict[str, _MxcSession] = {}
+        self._active_local_scopes: dict[tuple[str, str, str], TrustedSandboxScope] = {}
         self._lock = threading.RLock()
         if os.name == "nt":
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
@@ -921,7 +922,7 @@ class MxcSessionManager:
     def _close_obsolete_local_sessions(
         self, current_key: str, scope: TrustedSandboxScope
     ) -> None:
-        """Release the previous CLI/GUI scope after a local session transition."""
+        """Release prior CLI/GUI leases after session or project changes."""
         local_session_kinds = {"cli-session", "gui-session"}
         if scope.scope_kind not in local_session_kinds:
             return
@@ -944,6 +945,9 @@ class MxcSessionManager:
         with self._lock:
             self._close_obsolete_local_sessions(_scope_key(scope), scope)
             self._prune_inactive_sessions()
+            self._active_local_scopes[
+                (scope.deployment_id, scope.principal_id, scope.scope_kind)
+            ] = scope
 
     def run_tool(
         self, scope: TrustedSandboxScope | None, name: str, args: dict[str, Any]
@@ -962,6 +966,12 @@ class MxcSessionManager:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)
         with self._lock:
+            if scope.scope_kind in {"cli-session", "gui-session"}:
+                active_scope = self._active_local_scopes.get(
+                    (scope.deployment_id, scope.principal_id, scope.scope_kind)
+                )
+                if active_scope is not None and active_scope != scope:
+                    return "[sandbox error] stale local execution scope rejected"
             self._close_obsolete_local_sessions(key, scope)
             self._prune_inactive_sessions()
             session = self._sessions.get(key)
@@ -994,6 +1004,7 @@ class MxcSessionManager:
         with self._lock:
             sessions = list(self._sessions.values())
             self._sessions.clear()
+            self._active_local_scopes.clear()
         for session in sessions:
             session.close()
 
