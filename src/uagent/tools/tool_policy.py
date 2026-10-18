@@ -391,6 +391,11 @@ def default_confirmation_callback(
                 default="  - Type 'all' to allow this tool for the rest of the session\n",
             ).strip()
         )
+    # Name the ASCII answers next to the localized words: they are accepted in
+    # every language, so GUI and Web users see them here too.
+    from .human_ask_tool import confirmation_short_answer_hint
+
+    confirmation_message += "\n" + confirmation_short_answer_hint(include_all=allow_all)
 
     # Web human_ask is routed through its authenticated Room UI wrapper.
     # Calling human_ask_tool directly would wait on an unused CLI queue.
