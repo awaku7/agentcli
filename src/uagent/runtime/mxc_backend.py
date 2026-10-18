@@ -680,6 +680,7 @@ class _MxcSession:
         self._responses: Queue[str | None] = Queue()
         self._stderr = bytearray()
         self._stderr_lock = threading.Lock()
+        self._revoked = threading.Event()
         self._closed = False
         self._scope = scope
         self.workspace = _workspace_for_scope(scope)
@@ -838,6 +839,8 @@ class _MxcSession:
         if name not in TOOL_NAMES:
             raise PermissionError("tool is not available in the local MXC PoC")
         with self._lock:
+            if self._revoked.is_set():
+                raise PermissionError("sandbox scope has been revoked")
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
@@ -856,10 +859,15 @@ class _MxcSession:
                 return json.dumps(result, ensure_ascii=False, default=str)
             return str(result if result is not None else "")
 
+    def revoke(self) -> None:
+        """Prevent queued requests from entering the worker after revocation."""
+        self._revoked.set()
+
     def close(self) -> None:
         with self._lock:
             if self._closed:
                 return
+            self._revoked.set()
             self._closed = True
             try:
                 if self._proc.stdin:
@@ -936,6 +944,9 @@ class MxcSessionManager:
                 == scope.deployment_id
                 and getattr(previous_scope, "principal_id", None) == scope.principal_id
             ):
+                revoke = getattr(session, "revoke", None)
+                if callable(revoke):
+                    revoke()
                 self._sessions.pop(key, None)
                 session.close()
 
@@ -997,9 +1008,13 @@ class MxcSessionManager:
         try:
             return session.run(name, args)
         except Exception as exc:
+            revoke = getattr(session, "revoke", None)
+            if callable(revoke):
+                revoke()
             session.close()
             with self._lock:
-                self._sessions.pop(key, None)
+                if self._sessions.get(key) is session:
+                    self._sessions.pop(key, None)
             return f"[sandbox error] isolated session terminated: {type(exc).__name__}: {exc}"
 
     def revoke_scope(self, scope: TrustedSandboxScope) -> Callable[[], None] | None:
@@ -1009,6 +1024,9 @@ class MxcSessionManager:
             if scope.scope_kind == "web-room":
                 self._active_web_scopes.discard(scope)
             session = self._sessions.pop(key, None)
+            revoke = getattr(session, "revoke", None)
+            if callable(revoke):
+                revoke()
         return session.close if session is not None else None
 
     def close_scope(self, scope: TrustedSandboxScope) -> None:
@@ -1022,6 +1040,10 @@ class MxcSessionManager:
             self._sessions.clear()
             self._active_local_scopes.clear()
             self._active_web_scopes.clear()
+            for session in sessions:
+                revoke = getattr(session, "revoke", None)
+                if callable(revoke):
+                    revoke()
         for session in sessions:
             session.close()
 

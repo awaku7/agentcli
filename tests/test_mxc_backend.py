@@ -899,6 +899,77 @@ def test_manager_fences_revoked_web_room_scopes(monkeypatch, tmp_path):
     manager.close_all()
 
 
+def test_revocation_blocks_web_tool_queued_on_session_lock(monkeypatch, tmp_path):
+    import threading
+
+    class FakeProcess:
+        @staticmethod
+        def poll():
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProcess()
+            self._lock = threading.RLock()
+            self._revoked = threading.Event()
+            self.run_attempted = threading.Event()
+            self.executed = []
+
+        def run(self, name, _args):
+            self.run_attempted.set()
+            with self._lock:
+                if self._revoked.is_set():
+                    raise PermissionError("sandbox scope has been revoked")
+                self.executed.append(name)
+                return "executed"
+
+        def revoke(self):
+            self._revoked.set()
+
+        def close(self):
+            with self._lock:
+                self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    scope = mxc_backend.local_web_room_scope(
+        principal_id="alice",
+        project_id="project",
+        room_id="room-a",
+        room_generation="generation-a",
+    )
+    manager.activate_scope(scope)
+    assert manager.run_tool(scope, "file_exists", {"path": "first"}) == "executed"
+    session = manager._sessions[mxc_backend._scope_key(scope)]
+
+    outcome = []
+    with session._lock:
+        worker = threading.Thread(
+            target=lambda: outcome.append(
+                manager.run_tool(scope, "read_file", {"path": "queued"})
+            )
+        )
+        worker.start()
+        assert session.run_attempted.wait(1)
+        cleanup = manager.revoke_scope(scope)
+        assert cleanup is not None
+        assert session._revoked.is_set()
+
+    worker.join(2)
+    assert not worker.is_alive()
+    assert len(outcome) == 1
+    assert "revoked" in outcome[0]
+    assert session.executed == ["file_exists"]
+    cleanup()
+    manager.close_all()
+
+
 def test_web_room_release_revokes_scope_before_fresh_binding(monkeypatch, tmp_path):
     from uagent.web_impl.rooms import WebManager
 
