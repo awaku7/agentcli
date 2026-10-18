@@ -172,20 +172,41 @@ def _web_turn_execution_context(
             raise IdentityResolutionError(
                 "local Web Sandbox requires a trusted local Room turn context"
             )
+        generation_getter = getattr(room, "sandbox_scope_generation", None)
+        room_generation = (
+            generation_getter()
+            if callable(generation_getter)
+            else str(getattr(room, "_sandbox_scope_generation", "") or "")
+        )
+        if not room_generation.strip():
+            raise IdentityResolutionError(
+                "local Web Sandbox requires a trusted local Room turn context"
+            )
         from ..runtime.mxc_backend import local_web_room_scope
 
         scope = local_web_room_scope(
             principal_id=turn_context.principal_id,
             project_id=turn_context.project_id,
             room_id=turn_context.room_id,
+            room_generation=room_generation,
         )
     authorization_check = None
-    if profile is SecurityProfile.REMOTE:
+    if profile is SecurityProfile.REMOTE or (
+        profile is SecurityProfile.LOCAL_TRUSTED and sandbox_enabled
+    ):
 
         def revalidate_authorization() -> bool:
-            return _web_turn_authorization_valid(
+            valid = _web_turn_authorization_valid(
                 room, turn_context, identity_context, project_path
             )
+            if (
+                not valid
+                and profile is SecurityProfile.LOCAL_TRUSTED
+                and sandbox_enabled
+                and scope is not None
+            ):
+                web_manager.release_room_sandbox_scope(room, expected_scope=scope)
+            return valid
 
         authorization_check = revalidate_authorization
     return execution_profile(
@@ -310,6 +331,20 @@ def run_agent_worker(
     try:
         _web_execution_context.__enter__()
         _web_execution_context_entered = True
+        from ..runtime.execution_broker import (
+            SecurityProfile,
+            current_profile,
+            current_sandbox_enabled,
+            current_scope,
+        )
+
+        if (
+            current_profile() is SecurityProfile.LOCAL_TRUSTED
+            and current_sandbox_enabled()
+        ):
+            sandbox_scope = current_scope()
+            if sandbox_scope is not None:
+                web_manager.bind_sandbox_scope(room, sandbox_scope)
         # A queued turn already owns this room's lock. Expose that reservation
         # so clients do not mistake it for an idle room and submit another turn.
         room.set_status(True, "QUEUED")

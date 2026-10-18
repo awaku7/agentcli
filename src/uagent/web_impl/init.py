@@ -43,7 +43,7 @@ from .io import _web_server_log, web_human_ask, web_set_status
 from .rooms import _thread_ctx, get_context_web_room, web_manager
 
 
-def _local_web_sandbox_scope(turn, room_id: str):
+def _local_web_sandbox_scope(turn, room_id: str, room_generation: str):
     """Build a process-salted scope only from a trusted local Web turn."""
     if (
         turn is None
@@ -59,6 +59,7 @@ def _local_web_sandbox_scope(turn, room_id: str):
         principal_id=turn.principal_id,
         project_id=turn.project_id,
         room_id=turn.room_id,
+        room_generation=room_generation,
     )
 
 
@@ -411,7 +412,21 @@ def init_web():
                     if room is not None and _profile is SecurityProfile.REMOTE:
                         _scope = trusted_web_scope(_turn, str(room.room_id))
                     elif room is not None and _sandbox_enabled:
-                        _scope = _local_web_sandbox_scope(_turn, str(room.room_id))
+                        generation_getter = getattr(
+                            room, "sandbox_scope_generation", None
+                        )
+                        room_generation = (
+                            generation_getter()
+                            if callable(generation_getter)
+                            else str(
+                                getattr(room, "_sandbox_scope_generation", "") or ""
+                            )
+                        )
+                        _scope = _local_web_sandbox_scope(
+                            _turn,
+                            str(room.room_id),
+                            room_generation,
+                        )
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(
@@ -609,6 +624,7 @@ def main():
         web_sandbox_manager = _initialize_local_web_sandbox(
             parser, sandbox_mode=web_args.sandbox
         )
+    web_manager.sandbox_session_manager = web_sandbox_manager
     _validate_web_sandbox_startup(
         parser,
         trusted_local=_trusted_local_web,

@@ -56,6 +56,22 @@ def _a2a_task_authorization_is_current(scope: Any) -> bool:
         return False
 
 
+def _trusted_a2a_task_scope(task_id: str, project_path: str) -> Any:
+    """Build the task scope from server-owned Task ID and Project context."""
+    task = str(task_id or "").strip()
+    if not task:
+        raise ValueError("A2A task_id is required for tool execution scope")
+    from ..runtime.execution_broker import TrustedSandboxScope
+
+    return TrustedSandboxScope(
+        deployment_id="a2a",
+        principal_id="a2a-service",
+        project_id=str(Path(project_path).resolve()),
+        scope_kind="a2a-task",
+        scope_id=task,
+    )
+
+
 def run_once_uag(
     *, user_text: str, task_id: str = ""
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
@@ -102,20 +118,10 @@ def run_once_uag(
 
     # A2A is always a remote ingress. Until a compliant production backend
     # exists, the common dispatcher permits only explicitly brokered services.
-    from ..runtime.execution_broker import (
-        SecurityProfile,
-        TrustedSandboxScope,
-        execution_profile,
-    )
+    from ..runtime.execution_broker import SecurityProfile, execution_profile
 
     try:
-        scope = TrustedSandboxScope(
-            deployment_id="a2a",
-            principal_id="a2a-service",
-            project_id=str(Path(os.getcwd()).resolve()),
-            scope_kind="a2a-task",
-            scope_id=str(task_id).strip(),
-        )
+        scope = _trusted_a2a_task_scope(task_id, os.getcwd())
         with execution_profile(
             SecurityProfile.REMOTE,
             sandbox_enabled=False,

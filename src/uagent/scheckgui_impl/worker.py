@@ -102,21 +102,21 @@ class ScheckWorker(QtCore.QObject):
         self._depname = ""
 
     def _run_gui_turn(self, fn, *args, **kwargs):
-        try:
-            from .sub_agent_jobs import refresh_gui_job_owner
+        from .sub_agent_jobs import refresh_gui_job_owner
 
-            refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
-        except Exception:
-            pass
+        refresh_gui_job_owner(core, str(getattr(core, "session_id", "") or ""))
         if bool(getattr(core, "_sandbox_enabled", False)):
             from ..runtime.execution_broker import SecurityProfile, execution_profile
-            from ..runtime.mxc_backend import startup_scope
+            from ..runtime.mxc_backend import current_session_manager, startup_scope
 
             active_scope = startup_scope(
                 entry_point="gui",
                 project_path=os.getcwd(),
                 session_id=str(getattr(core, "session_id", "") or ""),
             )
+            sandbox_manager = current_session_manager()
+            if sandbox_manager is not None:
+                sandbox_manager.activate_scope(active_scope)
             with execution_profile(
                 SecurityProfile.LOCAL_TRUSTED,
                 sandbox_enabled=True,
@@ -380,13 +380,30 @@ class ScheckWorker(QtCore.QObject):
                     kind = ev.get("kind")
 
                     if kind == "command":
-                        result = handle_command(
-                            ev.get("text", ""),
-                            self.messages,
-                            self._client,
-                            self._depname,
-                            core=core,
+                        command_text = ev.get("text", "")
+                        from .sub_agent_jobs import (
+                            run_gui_command_with_session_transition_guard,
                         )
+
+                        command_executed, result, lingering = (
+                            run_gui_command_with_session_transition_guard(
+                                core,
+                                command_text,
+                                lambda: handle_command(
+                                    command_text,
+                                    self.messages,
+                                    self._client,
+                                    self._depname,
+                                    core=core,
+                                ),
+                            )
+                        )
+                        if not command_executed:
+                            print(
+                                "GUI session switch cancelled; Sub-Agent workers "
+                                "are still running: " + ", ".join(lingering)
+                            )
+                            continue
                         if not result:
                             self._stop.set()
                             break

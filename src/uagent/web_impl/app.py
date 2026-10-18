@@ -49,6 +49,22 @@ async def _web_lifespan(_app):
             await asyncio.to_thread(shutdown_web_job_runtime)
         except Exception:
             pass
+        manager = getattr(web_manager, "sandbox_session_manager", None)
+        if manager is not None:
+            try:
+                await asyncio.to_thread(manager.close_all)
+            finally:
+                web_manager.sandbox_session_manager = None
+                try:
+                    from ..runtime.mxc_backend import (
+                        current_session_manager,
+                        install_session_manager,
+                    )
+
+                    if current_session_manager() is manager:
+                        install_session_manager(None)
+                except Exception:
+                    pass
 
 
 app = FastAPI(title="uag Web", lifespan=_web_lifespan)

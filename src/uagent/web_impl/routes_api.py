@@ -153,7 +153,8 @@ async def _private_room_cleanup_loop() -> None:
             if _long_memory_mod.is_sqlite_backend():
                 await asyncio.to_thread(_cleanup_expired_private_rooms)
             else:
-                web_manager.evict_idle_rooms()
+                await asyncio.to_thread(web_manager.evict_idle_rooms)
+            await asyncio.to_thread(web_manager.release_idle_public_room_sandbox_scopes)
         except Exception:
             print("[WARN] Private Web room cleanup failed; it will be retried.")
         ttl = web_manager.idle_ttl_seconds()
@@ -908,12 +909,14 @@ async def bind_project_room(project_id: str, room_id: str, request: Request):
         bound_project = _project_id(project_id, request)
         store = _memory_store()
         try:
-            ProjectAccessPolicy(store).bind_room(
+            binding_changed = ProjectAccessPolicy(store).bind_room(
                 identity.principal_id, bound_project, room_id
             )
-            return {"ok": True, "project_id": bound_project, "room_id": room_id}
         finally:
             store.close()
+        if binding_changed:
+            await asyncio.to_thread(web_manager.release_sandbox_scopes, room_id=room_id)
+        return {"ok": True, "project_id": bound_project, "room_id": room_id}
     except Exception as exc:
         return _memory_error(exc)
 
@@ -966,9 +969,14 @@ async def delete_project_member(project_id: str, principal_id: str, request: Req
             ProjectAccessPolicy(store).revoke_membership(
                 identity.principal_id, bound_project, principal_id
             )
-            return {"ok": True}
         finally:
             store.close()
+        await asyncio.to_thread(
+            web_manager.release_sandbox_scopes,
+            principal_id=principal_id,
+            project_id=bound_project,
+        )
+        return {"ok": True}
     except Exception as exc:
         return _memory_error(exc)
 
@@ -1196,9 +1204,14 @@ async def delete_room_member(room_id: str, principal_id: str, request: Request):
             RoomAccessPolicy(store).revoke_membership(
                 identity.principal_id, room_id, principal_id
             )
-            return {"ok": True}
         finally:
             store.close()
+        await asyncio.to_thread(
+            web_manager.release_sandbox_scopes,
+            principal_id=principal_id,
+            room_id=room_id,
+        )
+        return {"ok": True}
     except Exception as exc:
         return _memory_error(exc)
 

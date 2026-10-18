@@ -81,8 +81,10 @@ def test_websocket_worker_uses_connection_identity_not_message_owner():
     root = Path(__file__).resolve().parents[1]
     source = (root / "src/uagent/web_impl/routes_ws.py").read_text(encoding="utf-8")
     assert "resolve_web_connection(websocket, room_id)" in source
-    assert source.count("connection.make_turn(") == 2
-    assert source.count("identity_context=connection.identity") == 0
+    # Bootstrap, user input, and LLM-backed command turns each create a turn.
+    assert source.count("connection.make_turn(") == 3
+    # Bootstrap passes directly; the two worker launch paths use kwargs maps.
+    assert source.count("identity_context=connection.identity") == 1
     assert source.count('"identity_context": connection.identity') == 2
     validation = source.index("connection.validate_authentication_configuration()")
     assert validation < source.index('payload.get("type") == "user_input"')

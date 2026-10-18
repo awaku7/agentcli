@@ -259,10 +259,8 @@ def test_web_private_room_is_retained_while_owned_background_job_runs():
     class ActiveJobManager:
         active = True
 
-        def running_count(self, *, owner):
-            assert owner == SubAgentJobOwner(
-                entry_point="web", session_id="private-session", room_id="private-room"
-            )
+        def running_count_for_room(self, room_id):
+            assert room_id == "private-room"
             return 1 if self.active else 0
 
     jobs = ActiveJobManager()
@@ -319,3 +317,215 @@ def test_a2a_job_runtime_is_scoped_to_the_bound_task():
             assert get_job_runtime_context() == (manager, owner)
             cancel_event.set()
             assert get_job_runtime_context() is None
+
+
+def test_gui_session_owner_refresh_aborts_when_previous_workers_linger():
+    import pytest
+
+    from uagent.scheckgui_impl.sub_agent_jobs import refresh_gui_job_owner
+
+    previous = SubAgentJobOwner(entry_point="gui", session_id="old-session")
+    calls = []
+
+    class Manager:
+        def pause_owner(self, owner):
+            calls.append(("pause", owner))
+
+        def cancel_all(self, *, owner, reason):
+            calls.append(("cancel", owner, reason))
+
+        def wait_owner_workers(self, *, owner, timeout):
+            calls.append(("wait", owner, timeout))
+            return False
+
+        def active_job_ids(self, owner):
+            calls.append(("active", owner))
+            return ["lingering-job"]
+
+        def resume_owner(self, owner):
+            calls.append(("resume", owner))
+
+    core = SimpleNamespace(
+        session_id="new-session",
+        _sub_agent_job_owner=previous,
+        _sub_agent_job_manager=Manager(),
+    )
+
+    with pytest.raises(RuntimeError, match="lingering-job"):
+        refresh_gui_job_owner(core, core.session_id)
+
+    assert core._sub_agent_job_owner == previous
+    assert calls == [
+        ("pause", previous),
+        ("cancel", previous, "GUI session changed"),
+        ("wait", previous, 5.0),
+        ("active", previous),
+    ]
+
+
+def test_gui_turn_does_not_activate_scope_when_owner_refresh_fails(monkeypatch):
+    import pytest
+
+    pytest.importorskip("PySide6")
+    from uagent.runtime import mxc_backend
+    from uagent.scheckgui_impl import sub_agent_jobs as gui_jobs
+    from uagent.scheckgui_impl import worker as gui_worker
+
+    core = SimpleNamespace(session_id="new-session", _sandbox_enabled=True)
+    monkeypatch.setattr(gui_worker, "core", core)
+    monkeypatch.setattr(
+        gui_jobs,
+        "refresh_gui_job_owner",
+        lambda *_args: (_ for _ in ()).throw(RuntimeError("transition refused")),
+    )
+    activations = []
+    manager = SimpleNamespace(activate_scope=lambda scope: activations.append(scope))
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+    monkeypatch.setattr(
+        mxc_backend,
+        "startup_scope",
+        lambda **_kwargs: SimpleNamespace(scope_id="new-scope"),
+    )
+    executed = []
+    monkeypatch.setattr(
+        gui_worker,
+        "call_with_resolved_turn_context",
+        lambda fn, *args, **kwargs: fn(*args, **kwargs),
+    )
+
+    with pytest.raises(RuntimeError, match="transition refused"):
+        gui_worker.ScheckWorker._run_gui_turn(object(), lambda: executed.append("ran"))
+
+    assert activations == []
+    assert executed == []
+
+
+def test_gui_session_owner_refresh_resumes_the_new_owner_after_workers_exit():
+    from uagent.scheckgui_impl.sub_agent_jobs import refresh_gui_job_owner
+
+    previous = SubAgentJobOwner(entry_point="gui", session_id="old-session")
+    expected = SubAgentJobOwner(entry_point="gui", session_id="new-session")
+    calls = []
+
+    class Manager:
+        def pause_owner(self, owner):
+            calls.append(("pause", owner))
+
+        def cancel_all(self, *, owner, reason):
+            calls.append(("cancel", owner, reason))
+
+        def wait_owner_workers(self, *, owner, timeout):
+            calls.append(("wait", owner, timeout))
+            return True
+
+        def resume_owner(self, owner):
+            calls.append(("resume", owner))
+
+    core = SimpleNamespace(
+        session_id="new-session",
+        _sub_agent_job_owner=previous,
+        _sub_agent_job_manager=Manager(),
+    )
+
+    assert refresh_gui_job_owner(core, core.session_id) == expected
+    assert core._sub_agent_job_owner == expected
+    assert calls == [
+        ("pause", previous),
+        ("cancel", previous, "GUI session changed"),
+        ("wait", previous, 5.0),
+        ("resume", expected),
+    ]
+
+
+def test_gui_session_command_drains_old_owner_before_dispatch():
+    from uagent.scheckgui_impl.sub_agent_jobs import (
+        run_gui_command_with_session_transition_guard,
+    )
+
+    old_owner = SubAgentJobOwner(entry_point="gui", session_id="old-session")
+    new_owner = SubAgentJobOwner(entry_point="gui", session_id="new-session")
+    events = []
+
+    class Manager:
+        def pause_owner(self, owner):
+            events.append(("pause", owner.session_id))
+
+        def cancel_all(self, *, owner, reason):
+            events.append(("cancel", owner.session_id, reason))
+
+        def wait_owner_workers(self, owner, timeout):
+            events.append(("wait", owner.session_id, timeout))
+            return True
+
+        def active_job_ids(self, owner):
+            return []
+
+        def resume_owner(self, owner):
+            events.append(("resume", owner.session_id))
+
+    core = SimpleNamespace(
+        session_id="old-session",
+        _sub_agent_job_owner=old_owner,
+        _sub_agent_job_manager=Manager(),
+    )
+
+    def dispatch():
+        events.append(("dispatch",))
+        core.session_id = new_owner.session_id
+        return "loaded"
+
+    executed, result, lingering = run_gui_command_with_session_transition_guard(
+        core, ":sessions load new-session", dispatch, timeout=2.5
+    )
+
+    assert executed is True
+    assert result == "loaded"
+    assert lingering == []
+    assert events.index(("wait", "old-session", 2.5)) < events.index(("dispatch",))
+    assert events.index(("dispatch",)) < events.index(("resume", "new-session"))
+    assert core._sub_agent_job_owner == new_owner
+
+
+def test_gui_session_command_is_not_dispatched_when_old_jobs_linger():
+    from uagent.scheckgui_impl.sub_agent_jobs import (
+        run_gui_command_with_session_transition_guard,
+    )
+
+    owner = SubAgentJobOwner(entry_point="gui", session_id="old-session")
+    calls = []
+
+    class Manager:
+        def pause_owner(self, _owner):
+            calls.append("pause")
+
+        def cancel_all(self, *, owner, reason):
+            calls.append(("cancel", owner, reason))
+
+        def wait_owner_workers(self, _owner, timeout):
+            calls.append(("wait", timeout))
+            return False
+
+        def active_job_ids(self, _owner):
+            return ["job-still-running"]
+
+        def resume_owner(self, _owner):
+            calls.append("resume")
+
+    core = SimpleNamespace(
+        session_id="old-session",
+        _sub_agent_job_owner=owner,
+        _sub_agent_job_manager=Manager(),
+    )
+    dispatched = []
+    executed, result, lingering = run_gui_command_with_session_transition_guard(
+        core,
+        ":load session-2",
+        lambda: dispatched.append(True),
+        timeout=0.25,
+    )
+
+    assert executed is False
+    assert result is None
+    assert lingering == ["job-still-running"]
+    assert dispatched == []
+    assert "resume" in calls

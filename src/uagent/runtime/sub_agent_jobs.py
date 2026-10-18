@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import shlex
 import threading
 import time
 import uuid
@@ -90,6 +91,45 @@ class SubAgentJobOwner:
         object.__setattr__(
             self, "a2a_task_id", str(self.a2a_task_id or "").strip() or None
         )
+
+
+def is_session_transition_command(line: str) -> bool:
+    """Return whether a host command can switch the active session."""
+    try:
+        parts = shlex.split(str(line or "").strip())
+    except ValueError:
+        return False
+    if not parts:
+        return False
+    command = parts[0].lstrip(":").lower()
+    if command == "cont":
+        return True
+    if command == "load":
+        return len(parts) > 1
+    if command in {"session", "sessions"}:
+        return (
+            len(parts) > 2
+            and parts[1].lower() in {"load", "resume"}
+            and bool(parts[2].strip())
+        )
+    return False
+
+
+def prepare_session_owner_transition(
+    manager: Any,
+    owner: SubAgentJobOwner,
+    *,
+    reason: str,
+    timeout: float = 5.0,
+) -> tuple[bool, list[str]]:
+    """Cancel and drain owner workers before a host switches session context."""
+    manager.pause_owner(owner)
+    manager.cancel_all(owner=owner, reason=reason)
+    if manager.wait_owner_workers(owner, timeout=max(0.0, timeout)):
+        return True, []
+    lingering = manager.active_job_ids(owner)
+    manager.resume_owner(owner)
+    return False, lingering
 
 
 class SubAgentJobCancelled(Exception):
@@ -864,6 +904,32 @@ class SubAgentJobManager:
                 and job.owner == owner
                 for job in self._jobs.values()
             )
+
+    def running_count_for_room(self, room_id: str) -> int:
+        """Count active Web jobs in a Room across its trusted principals."""
+        room = str(room_id or "").strip()
+        if not room:
+            return 0
+        active_states = {
+            SubAgentJobState.QUEUED,
+            SubAgentJobState.RUNNING,
+            SubAgentJobState.WAITING_FOR_USER,
+        }
+        with self._condition:
+            self._evict_completed_locked(time.monotonic())
+            active_job_ids = {
+                job.job_id
+                for job in self._jobs.values()
+                if job.state in active_states
+                and job.owner.entry_point == "web"
+                and job.owner.room_id == room
+            }
+            active_job_ids.update(
+                job_id
+                for job_id, owner in self._active_worker_owners.items()
+                if owner.entry_point == "web" and owner.room_id == room
+            )
+            return len(active_job_ids)
 
     def pause_owner(self, owner: SubAgentJobOwner) -> None:
         """Atomically prevent new admissions for one lifecycle owner."""

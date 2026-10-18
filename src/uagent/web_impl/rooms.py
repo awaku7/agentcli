@@ -8,7 +8,8 @@ from datetime import datetime
 import os
 import threading
 import time
-from typing import Any, Optional
+from typing import Any, Callable, Optional
+from uuid import uuid4
 
 from fastapi import WebSocket
 from ..i18n import _, set_thread_lang
@@ -50,6 +51,8 @@ def _prepare_display_message(msg: dict[str, Any]) -> dict[str, Any]:
 class WebRoom:
     def __init__(self, room_id: str):
         self.room_id = room_id
+        # Distinguish successive in-memory Room lifetimes that reuse the same ID.
+        self._sandbox_scope_generation = uuid4().hex
         self.session_id: str = ""
         self.private_session: bool = False
         self.project_id: str = ""
@@ -61,6 +64,7 @@ class WebRoom:
         self._lifecycle_lock = threading.Lock()
         self._pending_replays: dict[int, list[dict[str, Any]]] = {}
         self._bootstrapping_connections: set[int] = set()
+        self._retiring = False
         self._ended_streams: set[str] = set()
         self._activity_lock = threading.Lock()
         self.last_activity = time.monotonic()
@@ -93,6 +97,54 @@ class WebRoom:
 
         # event loop for run_coroutine_threadsafe
         self.loop: Optional[asyncio.AbstractEventLoop] = None
+        # Server-owned sandbox scope for this Room. Never sent to clients.
+        self._sandbox_scope_lock = threading.Lock()
+        self._sandbox_scope: Any | None = None
+
+    def current_sandbox_scope(self) -> Any | None:
+        with self._sandbox_scope_lock:
+            return self._sandbox_scope
+
+    def sandbox_scope_generation(self) -> str:
+        with self._sandbox_scope_lock:
+            return self._sandbox_scope_generation
+
+    def _detach_sandbox_scope(
+        self,
+        expected_scope: Any | None = None,
+        *,
+        before_detach: Callable[[Any], Callable[[], None] | None],
+    ) -> tuple[Any | None, Callable[[], None] | None]:
+        """Fence a scope before detaching it and rotate its binding generation."""
+        with self._sandbox_scope_lock:
+            if expected_scope is not None and self._sandbox_scope != expected_scope:
+                return None, None
+            scope = self._sandbox_scope
+            if scope is None:
+                return None, None
+            cleanup = before_detach(scope)
+            self._sandbox_scope = None
+            self._sandbox_scope_generation = uuid4().hex
+            return scope, cleanup
+
+    def _begin_connection(self, websocket: WebSocket) -> None:
+        """Reserve the Room for a connection before the first await."""
+        with self._lifecycle_lock:
+            if self._retiring:
+                raise IdentityResolutionError("Web Room is being retired")
+            self._bootstrapping_connections.add(id(websocket))
+
+    def reserve_retirement_if_idle(self) -> bool:
+        """Atomically prevent reconnects after confirming no connection is active."""
+        with self._lifecycle_lock:
+            if (
+                self._retiring
+                or self.active_connections
+                or self._bootstrapping_connections
+            ):
+                return False
+            self._retiring = True
+            return True
 
     def touch(self) -> None:
         with self._activity_lock:
@@ -132,10 +184,9 @@ class WebRoom:
     async def connect(self, websocket: WebSocket, connection_context: Any = None):
         set_thread_lang(getattr(self, "lang", "en"))
         try:
+            self._begin_connection(websocket)
             await self._validate_connection_context(websocket, connection_context)
             await websocket.accept()
-            with self._lifecycle_lock:
-                self._bootstrapping_connections.add(id(websocket))
             self.touch()
             welcome_added = False
 
@@ -472,6 +523,8 @@ class WebManager:
         self.original_log_message = None
         self.original_set_status = None
         self.sub_agent_job_manager = None
+        # The Web process owns Room scopes; one-turn workers only borrow them.
+        self.sandbox_session_manager = None
 
     def broadcast_all(self, data: dict[str, Any]) -> None:
         # Best-effort broadcast to all active rooms
@@ -502,53 +555,219 @@ class WebManager:
     def get_room(self, room_id: str) -> WebRoom:
         return self.get_or_create_room(room_id)[0]
 
+    def bind_sandbox_scope(self, room: WebRoom, scope: Any) -> None:
+        """Bind only the current trusted Web Room scope to the Web process."""
+        if (
+            getattr(scope, "deployment_id", None) != "web"
+            or getattr(scope, "scope_kind", None) != "web-room"
+            or not getattr(scope, "scope_id", "")
+        ):
+            raise ValueError("a trusted Web Room scope is required")
+        generation = room.sandbox_scope_generation()
+        if getattr(scope, "binding_generation", "") != generation:
+            raise RuntimeError("stale Web Room sandbox scope generation")
+        previous_scope = room.current_sandbox_scope()
+        if previous_scope is not None and previous_scope != scope:
+            jobs = self.sub_agent_job_manager
+            if jobs is not None:
+                running_for_room = getattr(jobs, "running_count_for_room", None)
+                if not callable(running_for_room):
+                    raise RuntimeError(
+                        "cannot change a Room sandbox scope without checking its jobs"
+                    )
+                try:
+                    if running_for_room(str(room.room_id)) > 0:
+                        raise RuntimeError(
+                            "cannot change a Room sandbox scope while jobs are running"
+                        )
+                except RuntimeError:
+                    raise
+                except Exception as exc:
+                    raise RuntimeError(
+                        "cannot verify background jobs before changing the Room sandbox scope"
+                    ) from exc
+
+        cleanups: list[Callable[[], None]] = []
+        try:
+            with room._sandbox_scope_lock:
+                if room._sandbox_scope_generation != generation:
+                    raise RuntimeError("Web Room sandbox scope changed during binding")
+                previous = room._sandbox_scope
+                if previous != previous_scope:
+                    raise RuntimeError("Web Room sandbox scope changed during binding")
+                manager = self.sandbox_session_manager
+                if manager is not None and not callable(
+                    getattr(manager, "activate_scope", None)
+                ):
+                    raise RuntimeError("sandbox manager cannot fence Web Room scopes")
+                if previous != scope and previous is not None:
+                    cleanup = self._revoke_sandbox_scope(previous)
+                    if cleanup is not None:
+                        cleanups.append(cleanup)
+                try:
+                    if manager is not None:
+                        manager.activate_scope(scope)
+                    room._sandbox_scope = scope
+                except Exception:
+                    room._sandbox_scope = None
+                    room._sandbox_scope_generation = uuid4().hex
+                    cleanup = self._revoke_sandbox_scope(scope)
+                    if cleanup is not None:
+                        cleanups.append(cleanup)
+                    raise
+        finally:
+            for cleanup in cleanups:
+                cleanup()
+
+    def _revoke_sandbox_scope(self, scope: Any) -> Callable[[], None] | None:
+        manager = self.sandbox_session_manager
+        if manager is None:
+            return None
+        revoke_scope = getattr(manager, "revoke_scope", None)
+        if not callable(revoke_scope):
+            raise RuntimeError("sandbox manager cannot revoke Web Room scopes safely")
+        return revoke_scope(scope)
+
+    def _detach_room_sandbox_scope(
+        self, room: WebRoom, expected_scope: Any | None = None
+    ) -> tuple[Any | None, Callable[[], None] | None]:
+        return room._detach_sandbox_scope(
+            expected_scope, before_detach=self._revoke_sandbox_scope
+        )
+
+    def release_room_sandbox_scope(
+        self, room: WebRoom, *, expected_scope: Any | None = None
+    ) -> bool:
+        scope, cleanup = self._detach_room_sandbox_scope(room, expected_scope)
+        if scope is None:
+            return False
+        if cleanup is not None:
+            cleanup()
+        return True
+
+    def release_sandbox_scopes(
+        self,
+        *,
+        principal_id: str = "",
+        project_id: str = "",
+        room_id: str = "",
+    ) -> int:
+        """Revoke Room leases matching a trusted membership/binding change."""
+        principal = str(principal_id or "").strip()
+        project = str(project_id or "").strip()
+        target_room = str(room_id or "").strip()
+        if not any((principal, project, target_room)):
+            raise ValueError("at least one sandbox scope filter is required")
+        with self.rooms_lock:
+            rooms = list(self.rooms.values())
+        released = 0
+        for room in rooms:
+            if target_room and str(room.room_id) != target_room:
+                continue
+            scope = room.current_sandbox_scope()
+            if scope is None:
+                continue
+            if principal and getattr(scope, "principal_id", None) != principal:
+                continue
+            if project and getattr(scope, "project_id", None) != project:
+                continue
+            if self.release_room_sandbox_scope(room, expected_scope=scope):
+                released += 1
+        return released
+
+    def _close_sandbox_scope(self, scope: Any) -> None:
+        cleanup = self._revoke_sandbox_scope(scope)
+        if cleanup is not None:
+            cleanup()
+
+    def _reserve_room_retirement(
+        self,
+        room: WebRoom,
+        *,
+        idle_ttl_seconds: int | None = None,
+        now: float | None = None,
+    ) -> bool:
+        """Reserve an idle Room through removal and lease cleanup."""
+        if not room.worker_lock.acquire(blocking=False):
+            return False
+        reserved = False
+        try:
+            if self._room_is_active(room, worker_lock_held=True):
+                return False
+            if idle_ttl_seconds is not None:
+                current = time.monotonic() if now is None else now
+                with room._activity_lock:
+                    if current - room.last_activity < idle_ttl_seconds:
+                        return False
+            if not room.reserve_retirement_if_idle():
+                return False
+            reserved = True
+            return True
+        finally:
+            if not reserved:
+                room.worker_lock.release()
+
     def discard_if_idle(self, room_id: str, expected_room: WebRoom) -> bool:
         """Remove a just-created room if its connection was denied."""
         with self.rooms_lock:
             if self.rooms.get(room_id) is not expected_room:
                 return False
-            if self._room_is_active(expected_room):
+            if not self._reserve_room_retirement(expected_room):
                 return False
             self.rooms.pop(room_id, None)
-            return True
+            _scope, cleanup = self._detach_room_sandbox_scope(expected_room)
+        try:
+            if cleanup is not None:
+                cleanup()
+        finally:
+            expected_room.worker_lock.release()
+        return True
 
     def discard_expired_private_room_if_idle(self, room_id: str) -> bool:
         """Forget cached room state only after its durable private binding expired."""
         with self.rooms_lock:
             room = self.rooms.get(room_id)
-            if room is None or not room.private_session or self._room_is_active(room):
+            if (
+                room is None
+                or not room.private_session
+                or not self._reserve_room_retirement(room)
+            ):
                 return False
             self.rooms.pop(room_id, None)
-            return True
+            _scope, cleanup = self._detach_room_sandbox_scope(room)
+        try:
+            if cleanup is not None:
+                cleanup()
+        finally:
+            room.worker_lock.release()
+        return True
 
     @staticmethod
     def idle_ttl_seconds() -> int:
         """Return the reconnect grace period before an idle room is evicted."""
         return private_room_idle_ttl_seconds()
 
-    def _room_is_active(self, room: WebRoom) -> bool:
+    def _room_is_active(self, room: WebRoom, *, worker_lock_held: bool = False) -> bool:
         # The worker lock covers agent execution, streaming and human_ask waits.
         # Keep the explicit checks as defense in depth if worker/status contracts
         # change independently in the future.
         with room._lifecycle_lock:
             connected = bool(room.active_connections or room._bootstrapping_connections)
         active_jobs = False
-        try:
-            manager = getattr(self, "sub_agent_job_manager", None)
-            if manager is not None:
-                from ..runtime.sub_agent_jobs import SubAgentJobOwner
-
-                owner = SubAgentJobOwner(
-                    entry_point="web",
-                    session_id=str(getattr(room, "session_id", "") or core.session_id),
-                    room_id=str(room.room_id),
-                )
-                active_jobs = manager.running_count(owner=owner) > 0
-        except Exception:
-            active_jobs = False
+        manager = getattr(self, "sub_agent_job_manager", None)
+        if manager is not None:
+            running_for_room = getattr(manager, "running_count_for_room", None)
+            if not callable(running_for_room):
+                active_jobs = True
+            else:
+                try:
+                    active_jobs = running_for_room(str(room.room_id)) > 0
+                except Exception:
+                    # Unknown job state must keep the Room and Lease alive.
+                    active_jobs = True
         return bool(
             connected
-            or room.worker_lock.locked()
+            or (not worker_lock_held and room.worker_lock.locked())
             or room.status.get("busy")
             or room.human_ask_pending
             or active_jobs
@@ -572,18 +791,75 @@ class WebManager:
         )
         current = time.monotonic() if now is None else now
         evicted: list[str] = []
+        evicted_rooms: list[tuple[WebRoom, Callable[[], None] | None]] = []
         with self.rooms_lock:
             for room_id, room in list(self.rooms.items()):
                 if private_only and not room.private_session:
                     continue
-                if self._room_is_active(room):
+                if not self._reserve_room_retirement(
+                    room, idle_ttl_seconds=ttl, now=current
+                ):
                     continue
-                with room._activity_lock:
-                    idle_for = current - room.last_activity
-                if idle_for >= ttl:
-                    self.rooms.pop(room_id, None)
-                    evicted.append(room_id)
+                self.rooms.pop(room_id, None)
+                evicted.append(room_id)
+                _scope, cleanup = self._detach_room_sandbox_scope(room)
+                evicted_rooms.append((room, cleanup))
+        for room, cleanup in evicted_rooms:
+            try:
+                if cleanup is not None:
+                    cleanup()
+            finally:
+                room.worker_lock.release()
         return evicted
+
+    def release_idle_public_room_sandbox_scopes(
+        self,
+        *,
+        idle_ttl_seconds: int | None = None,
+        now: float | None = None,
+    ) -> int:
+        """Release idle public Room leases without discarding Room history."""
+        ttl = max(
+            0,
+            int(
+                self.idle_ttl_seconds()
+                if idle_ttl_seconds is None
+                else idle_ttl_seconds
+            ),
+        )
+        current = time.monotonic() if now is None else now
+        expired_scopes: list[tuple[WebRoom, Callable[[], None] | None]] = []
+        with self.rooms_lock:
+            for room in self.rooms.values():
+                if room.private_session or not room.worker_lock.acquire(blocking=False):
+                    continue
+                reserved_for_cleanup = False
+                try:
+                    if self._room_is_active(room, worker_lock_held=True):
+                        continue
+                    with room._activity_lock:
+                        idle_for = current - room.last_activity
+                    if idle_for < ttl:
+                        continue
+                    scope = room.current_sandbox_scope()
+                    if scope is None:
+                        continue
+                    _detached, cleanup = self._detach_room_sandbox_scope(
+                        room, expected_scope=scope
+                    )
+                    if _detached is not None:
+                        expired_scopes.append((room, cleanup))
+                        reserved_for_cleanup = True
+                finally:
+                    if not reserved_for_cleanup:
+                        room.worker_lock.release()
+        for room, cleanup in expired_scopes:
+            try:
+                if cleanup is not None:
+                    cleanup()
+            finally:
+                room.worker_lock.release()
+        return len(expired_scopes)
 
     def active_room_ids(self) -> set[str]:
         """Return rooms that must not be expired from persistent storage."""

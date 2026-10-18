@@ -149,9 +149,14 @@ def test_native_tool_calls_cannot_bypass_read_only_gate(monkeypatch):
         ]
     )
 
+    tool_specs_seen = []
+
     def fake_native_call(*args, **kwargs):
         tool_specs = args[4]
+        tool_specs_seen.append(tool_specs)
         assert "delete_file" not in {item["function"]["name"] for item in tool_specs}
+        if len(tool_specs_seen) == 2:
+            assert tool_specs == []
         return next(calls)
 
     monkeypatch.setattr(runner, "_call_openai_with_tools", fake_native_call)
@@ -176,3 +181,264 @@ def test_native_tool_calls_cannot_bypass_read_only_gate(monkeypatch):
     assert result[0] == "finished"
     assert result[3][0]["status"] == "blocked"
     assert dispatched == []
+
+
+def test_final_native_tool_request_is_blocked_without_execution(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        tools,
+        "get_tool_specs",
+        lambda: [{"function": {"name": "read_file"}}],
+    )
+    calls = iter(
+        [
+            (
+                "",
+                [
+                    {
+                        "id": "call-1",
+                        "function": {
+                            "name": "read_file",
+                            "arguments": json.dumps({"filename": "notes.txt"}),
+                        },
+                    }
+                ],
+                {},
+            ),
+            (
+                "",
+                [
+                    {
+                        "id": "call-2",
+                        "function": {
+                            "name": "file_exists",
+                            "arguments": json.dumps({"path": "final.txt"}),
+                        },
+                    }
+                ],
+                {},
+            ),
+        ]
+    )
+    tool_specs_seen = []
+
+    def fake_native_call(*args, **kwargs):
+        tool_specs_seen.append(args[4])
+        return next(calls)
+
+    executed = []
+    monkeypatch.setattr(runner, "_call_openai_with_tools", fake_native_call)
+    monkeypatch.setattr(
+        runner,
+        "_run_permissioned_tool",
+        lambda name, args, *_rest: executed.append((name, args))
+        or ("read result", "success"),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="openai",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=2,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test", description="", system_prompt=""
+        ),
+        agent_name="test",
+    )
+
+    assert tool_specs_seen[0] == [{"function": {"name": "read_file"}}]
+    assert tool_specs_seen[1] == []
+    assert executed == [("read_file", {"filename": "notes.txt"})]
+    assert "tool-turn budget exhausted" in result[0]
+    assert result[3][-1]["status"] == "budget_exhausted"
+
+
+def test_final_compatibility_tool_request_is_blocked_without_execution(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    responses = iter(
+        [
+            ('read_file(filename="notes.txt")', 0, {}),
+            ('read_file(filename="final.txt")', 0, {}),
+        ]
+    )
+    monkeypatch.setattr(
+        runner, "_call_with_retry", lambda *args, **kwargs: next(responses)
+    )
+    executed = []
+    monkeypatch.setattr(
+        runner,
+        "_run_permissioned_tool",
+        lambda name, args, *_rest: executed.append((name, args))
+        or ("read result", "success"),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="gemini",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=2,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test",
+            description="",
+            system_prompt="",
+            allowed_tools=["read_file"],
+        ),
+        agent_name="test",
+    )
+
+    assert executed == [("read_file", {"filename": "notes.txt"})]
+    assert result[3][-1]["tool"] == "read_file"
+    assert result[3][-1]["status"] == "budget_exhausted"
+
+
+def test_final_responses_turn_does_not_inject_hosted_web_search(monkeypatch):
+    from types import SimpleNamespace
+
+    from uagent.providers import responses_common
+
+    monkeypatch.setenv("UAGENT_OPENAI_WEB_SEARCH", "1")
+    request = {}
+
+    def create(**kwargs):
+        request.update(kwargs)
+        return SimpleNamespace(
+            usage=SimpleNamespace(input_tokens=1, completion_tokens=1, total_tokens=2)
+        )
+
+    client = SimpleNamespace(responses=SimpleNamespace(create=create))
+    monkeypatch.setattr(
+        responses_common,
+        "parse_responses_response",
+        lambda _response: ("final answer", "", [], None, []),
+    )
+
+    result = sub_agent_tool.SubAgentRunner()._call_responses_with_tools(
+        client,
+        model_name="gpt-6-luna",
+        system_prompt="final only",
+        messages=[{"role": "user", "content": "finish"}],
+        tool_specs=[],
+        timeout=10,
+        provider="openai",
+    )
+
+    assert result[0] == "final answer"
+    assert request["tools"] == []
+
+
+def test_final_chat_completion_turn_omits_empty_tool_fields():
+    from types import SimpleNamespace
+
+    request = {}
+    message = SimpleNamespace(content="final answer", tool_calls=None)
+    response = SimpleNamespace(
+        choices=[SimpleNamespace(message=message)],
+        usage=SimpleNamespace(prompt_tokens=1, completion_tokens=1, total_tokens=2),
+    )
+
+    def create(**kwargs):
+        request.update(kwargs)
+        return response
+
+    client = SimpleNamespace(
+        chat=SimpleNamespace(
+            completions=SimpleNamespace(create=create),
+        )
+    )
+    result = sub_agent_tool.SubAgentRunner()._call_openai_with_tools(
+        client,
+        model_name="sarashina-chat",
+        system_prompt="final only",
+        messages=[{"role": "user", "content": "finish"}],
+        tool_specs=[],
+        timeout=10,
+        provider="sarashina",
+    )
+
+    assert result[0] == "final answer"
+    assert "tools" not in request
+    assert "tool_choice" not in request
+
+
+def test_native_final_answer_call_syntax_is_not_budget_exhausted(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        runner,
+        "_call_openai_with_tools",
+        lambda *_args, **_kwargs: ('print("ok")', [], {}),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="openai",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=1,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test",
+            description="",
+            system_prompt="",
+            allowed_tools=["read_file"],
+        ),
+        agent_name="test",
+    )
+
+    assert result[0] == 'print("ok")'
+    assert not any(item["status"] == "budget_exhausted" for item in result[3])
+
+
+def test_final_compatibility_scan_only_accepts_visible_tool_names(monkeypatch):
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        runner,
+        "_call_with_retry",
+        lambda *_args, **_kwargs: (
+            'print("ok") read_file(filename="final.txt")',
+            0,
+            {},
+        ),
+    )
+
+    result = runner._run_llm_multi_turn(
+        cb=None,
+        provider="gemini",
+        client=object(),
+        model_name="test-model",
+        system_prompt="system",
+        user_prompt="task",
+        timeout=1,
+        max_retries=0,
+        response_mode="text",
+        permission_level="read_only",
+        max_turns=1,
+        agent_spec=sub_agent_tool.AgentSpec(
+            name="test",
+            description="",
+            system_prompt="",
+            allowed_tools=["read_file"],
+        ),
+        agent_name="test",
+    )
+
+    assert [item["tool"] for item in result[3]] == ["read_file"]
+    assert [item["status"] for item in result[3]] == ["budget_exhausted"]

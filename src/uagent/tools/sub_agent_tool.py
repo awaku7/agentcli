@@ -990,23 +990,37 @@ class SubAgentRunner:
         agent_name: str = "",
         spec: Optional[AgentSpec] = None,
     ) -> List[str]:
-        """Parse tool call patterns and execute them, returning list of result strings."""
+        """Parse tool call patterns and execute them, returning result strings."""
         if (
             self._normalize_permission_level(permission_level)
             == PermissionLevel.NONE.value
         ):
             return []
+        results: List[str] = []
+        for tool_name, args in self._parse_compat_tool_calls(text):
+            self._check_job_active()
+            try:
+                result, status = self._run_permissioned_tool(
+                    tool_name, args, permission_level, agent_name, spec
+                )
+                results.append(f"[tool:{tool_name} {status}]\n{result}")
+            except Exception as exc:
+                results.append(f"[tool:{tool_name} error: {exc}]")
+        return results
+
+    def _parse_compat_tool_calls(self, text: str) -> list[tuple[str, Dict[str, Any]]]:
+        """Parse compatibility-format calls without executing them."""
         pattern = r"(\w+)\s*\(\s*([^)]*)\s*\)"
         seen_signatures: set[str] = set()
-        results: List[str] = []
+        parsed: list[tuple[str, Dict[str, Any]]] = []
         for match in re.finditer(pattern, text):
             self._check_job_active()
             tool_name = match.group(1)
             args_str = match.group(2)
-            sig = f"{tool_name}({args_str.strip()})"
-            if sig in seen_signatures:
+            signature = f"{tool_name}({args_str.strip()})"
+            if signature in seen_signatures:
                 continue
-            seen_signatures.add(sig)
+            seen_signatures.add(signature)
             args: Dict[str, Any] = {}
             for arg_match in re.finditer(
                 r'(\w+)\s*=\s*(?:"([^"]*)"|(\d+(?:\.\d+)?)|(True|False)|(None))',
@@ -1023,14 +1037,8 @@ class SubAgentRunner:
                     args[key] = arg_match.group(4) == "True"
                 elif arg_match.group(5) is not None:
                     args[key] = None
-            try:
-                result, status = self._run_permissioned_tool(
-                    tool_name, args, permission_level, agent_name, spec
-                )
-                results.append(f"[tool:{tool_name} {status}]\n{result}")
-            except Exception as exc:
-                results.append(f"[tool:{tool_name} error: {exc}]")
-        return results
+            parsed.append((tool_name, args))
+        return parsed
 
     def _parse_and_execute_tools(
         self,
@@ -1075,7 +1083,7 @@ class SubAgentRunner:
 
         instructions, input_items, response_tools = build_responses_request(
             [{"role": "system", "content": system_prompt}] + messages,
-            send_tools_this_round=True,
+            send_tools_this_round=bool(tool_specs),
             provider=provider,
             tool_specs=tool_specs,
         )
@@ -1141,9 +1149,10 @@ class SubAgentRunner:
         kwargs: Dict[str, Any] = {
             "model": model_name,
             "messages": [{"role": "system", "content": system_prompt}] + messages,
-            "tools": tool_specs,
-            "tool_choice": "auto",
         }
+        if tool_specs:
+            kwargs["tools"] = tool_specs
+            kwargs["tool_choice"] = "auto"
         model_lower = str(model_name or "").lower()
         modern = model_lower.startswith("gpt-5") or re.match(
             r"^o[1-4](?:[-.]|$)", model_lower
@@ -1238,6 +1247,9 @@ class SubAgentRunner:
     ) -> str:
         messages = {
             "max_rounds": "Sub-Agent reached max_agent_rounds before completion.",
+            "tool_budget_exhausted": "Sub-Agent requested a tool on its final turn and could not produce a final answer.",
+            "empty_output": "Sub-Agent returned no content; stopping before another completion check.",
+            "no_progress": "Sub-Agent repeated the same result without new tool evidence.",
             "sentinel_invalid": (
                 "Sub-Agent completion sentinel was missing or invalid."
             ),
@@ -1856,6 +1868,7 @@ class SubAgentRunner:
 
         latest_raw, latest_tool_evidence = execute_work_round(initial_prompt)
         prior_outputs: list[str] = []
+        prior_tool_evidence: list[list[dict[str, str]]] = []
         agent_round = 1
 
         def review_with_llm(state: dict[str, Any]) -> tuple[str, str]:
@@ -1911,8 +1924,28 @@ class SubAgentRunner:
         )
 
         def deterministic_completion() -> str | None:
+            if any(
+                item.get("status") == "budget_exhausted"
+                for item in latest_tool_evidence
+            ):
+                return "tool_budget_exhausted"
             if completion_regex_matches(latest_raw, completion_regex):
                 return "completion_regex"
+            # Do not spend another completion-judge request on an empty or
+            # unchanged result. Preserve the partial answer as blocked rather
+            # than treating lack of progress as successful completion.
+            if completion_sentinel:
+                return None
+            normalized_output = strip_sentinel(latest_raw).strip()
+            if not normalized_output:
+                return "empty_output"
+            if prior_outputs and prior_tool_evidence:
+                previous_output = strip_sentinel(prior_outputs[-1]).strip()
+                if (
+                    normalized_output == previous_output
+                    and latest_tool_evidence == prior_tool_evidence[-1]
+                ):
+                    return "no_progress"
             return None
 
         def judge_once():
@@ -1939,6 +1972,7 @@ class SubAgentRunner:
             nonlocal latest_tool_evidence
             self._check_job_active()
             prior_outputs.append(latest_raw)
+            prior_tool_evidence.append(list(latest_tool_evidence))
             followup = build_followup_prompt(task.task, latest_raw, feedback)
             followup += "\n\n[Original context]\n" + initial_prompt
             if cb and getattr(cb, "set_status", None):
@@ -2082,15 +2116,12 @@ class SubAgentRunner:
         """Run one autonomous work round, including its bounded tool-use loop."""
 
         permission_level = self._normalize_permission_level(permission_level)
+        compatibility_tool_providers = frozenset(
+            {"gemini", "vertexai", "claude", "grok"}
+        )
         native_tools = (
             permission_level != PermissionLevel.NONE.value
-            and provider
-            not in (
-                "gemini",
-                "vertexai",
-                "claude",
-                "grok",
-            )
+            and provider not in compatibility_tool_providers
         )
         tool_specs = (
             self._native_tool_specs(agent_spec, permission_level)
@@ -2162,14 +2193,21 @@ class SubAgentRunner:
                     pass
 
             current_response_mode = response_mode if is_last else ""
+            current_tool_specs = [] if is_last else tool_specs
+            current_system_prompt = system_prompt
+            if is_last and permission_level != PermissionLevel.NONE.value:
+                current_system_prompt += (
+                    "This is the final response turn. No tools are available; "
+                    "return your final answer now and do not request or emit tool calls."
+                )
 
             if use_responses_tools:
                 raw, native_calls, usage = self._call_responses_with_tools(
                     client,
                     model_name,
-                    system_prompt,
+                    current_system_prompt,
                     conversation_messages,
-                    tool_specs,
+                    current_tool_specs,
                     self._job_call_timeout(timeout),
                     provider,
                 )
@@ -2178,9 +2216,9 @@ class SubAgentRunner:
                 raw, native_calls, usage = self._call_openai_with_tools(
                     client,
                     model_name,
-                    system_prompt,
+                    current_system_prompt,
                     conversation_messages,
-                    tool_specs,
+                    current_tool_specs,
                     self._job_call_timeout(timeout),
                     provider,
                 )
@@ -2190,7 +2228,7 @@ class SubAgentRunner:
                     provider,
                     client,
                     model_name,
-                    system_prompt,
+                    current_system_prompt,
                     conversation,
                     self._job_call_timeout(timeout),
                     max_retries,
@@ -2204,9 +2242,44 @@ class SubAgentRunner:
 
             last_raw = raw
 
-            # On the final budgeted turn there is no remaining LLM turn in which
-            # to reflect on new tool results, so return the model's answer as-is.
+            # No tools are offered on the final turn. If a provider nevertheless
+            # emits a tool call, report the exhausted budget instead of returning
+            # an empty answer that would trigger another completion round.
             if is_last:
+                if native_calls:
+                    for call in native_calls:
+                        fn_data = call.get("function", {})
+                        add_tool_evidence(
+                            tool_name=fn_data.get("name", "tool"),
+                            result=(
+                                "Final-turn tool request was not executed because "
+                                "the Sub-Agent tool-turn budget is exhausted."
+                            ),
+                            status="budget_exhausted",
+                        )
+                    raw = raw or (
+                        "[Sub-Agent tool-turn budget exhausted before a final answer; "
+                        "the final-turn tool request was not executed.]"
+                    )
+                elif (
+                    permission_level != PermissionLevel.NONE.value
+                    and provider in compatibility_tool_providers
+                    and agent_spec is not None
+                ):
+                    visible_tool_names = self._permission_visible_tool_names(
+                        permission_level, agent_spec
+                    )
+                    for tool_name, _args in self._parse_compat_tool_calls(raw):
+                        if tool_name not in visible_tool_names:
+                            continue
+                        add_tool_evidence(
+                            tool_name=tool_name,
+                            result=(
+                                "Final-turn tool request was not executed because "
+                                "the Sub-Agent tool-turn budget is exhausted."
+                            ),
+                            status="budget_exhausted",
+                        )
                 return raw, total_retries, total_usage, tool_evidence
 
             if native_tools and native_calls:

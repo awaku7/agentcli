@@ -110,13 +110,13 @@ async def websocket_endpoint(websocket: WebSocket):
         await room.connect(websocket, connection)
     except (IdentityConfigurationError, IdentityResolutionError):
         if room_created:
-            web_manager.discard_if_idle(room_id, room)
+            await asyncio.to_thread(web_manager.discard_if_idle, room_id, room)
         await websocket.close(code=1008)
         return
     except Exception:
         room.disconnect(websocket)
         if room_created:
-            web_manager.discard_if_idle(room_id, room)
+            await asyncio.to_thread(web_manager.discard_if_idle, room_id, room)
         raise
     room.loop = asyncio.get_event_loop()
     # Ask AGENTS.md / init history immediately (no user message required).

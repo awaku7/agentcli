@@ -21,7 +21,7 @@ import threading
 import uuid
 from pathlib import Path
 from queue import Empty, Queue
-from typing import Any
+from typing import Any, Callable
 
 from .execution_broker import (
     IsolationLevel,
@@ -680,6 +680,7 @@ class _MxcSession:
         self._responses: Queue[str | None] = Queue()
         self._stderr = bytearray()
         self._stderr_lock = threading.Lock()
+        self._revoked = threading.Event()
         self._closed = False
         self._scope = scope
         self.workspace = _workspace_for_scope(scope)
@@ -838,6 +839,8 @@ class _MxcSession:
         if name not in TOOL_NAMES:
             raise PermissionError("tool is not available in the local MXC PoC")
         with self._lock:
+            if self._revoked.is_set():
+                raise PermissionError("sandbox scope has been revoked")
             self._write_line(
                 {"operation": "run", "payload": {"name": name, "args": args}}
             )
@@ -856,10 +859,15 @@ class _MxcSession:
                 return json.dumps(result, ensure_ascii=False, default=str)
             return str(result if result is not None else "")
 
+    def revoke(self) -> None:
+        """Prevent queued requests from entering the worker after revocation."""
+        self._revoked.set()
+
     def close(self) -> None:
         with self._lock:
             if self._closed:
                 return
+            self._revoked.set()
             self._closed = True
             try:
                 if self._proc.stdin:
@@ -896,6 +904,8 @@ class MxcSessionManager:
         self.runtime = runtime
         self.capabilities = capabilities
         self._sessions: dict[str, _MxcSession] = {}
+        self._active_local_scopes: dict[tuple[str, str, str], TrustedSandboxScope] = {}
+        self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
         if os.name == "nt":
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
@@ -918,23 +928,44 @@ class MxcSessionManager:
                 self._sessions.pop(key, None)
                 session.close()
 
-    def _close_obsolete_cli_sessions(
+    def _close_obsolete_local_sessions(
         self, current_key: str, scope: TrustedSandboxScope
     ) -> None:
-        """Release the previous CLI scope after a CLI session transition."""
-        if scope.scope_kind != "cli-session":
+        """Release prior CLI/GUI leases after session or project changes."""
+        local_session_kinds = {"cli-session", "gui-session"}
+        if scope.scope_kind not in local_session_kinds:
             return
         for key, session in list(self._sessions.items()):
             previous_scope = getattr(session, "_scope", None)
             if (
                 key != current_key
-                and getattr(previous_scope, "scope_kind", None) == "cli-session"
+                and getattr(previous_scope, "scope_kind", None) == scope.scope_kind
                 and getattr(previous_scope, "deployment_id", None)
                 == scope.deployment_id
                 and getattr(previous_scope, "principal_id", None) == scope.principal_id
             ):
+                revoke = getattr(session, "revoke", None)
+                if callable(revoke):
+                    revoke()
                 self._sessions.pop(key, None)
                 session.close()
+
+    def activate_scope(self, scope: TrustedSandboxScope) -> None:
+        """Activate a trusted CLI/GUI scope or bind a Web Room lease."""
+        if scope.scope_kind == "web-room":
+            if not scope.binding_generation:
+                raise ValueError("Web Room scope requires a binding generation")
+            with self._lock:
+                self._active_web_scopes.add(scope)
+            return
+        if scope.scope_kind not in {"cli-session", "gui-session"}:
+            return
+        with self._lock:
+            self._close_obsolete_local_sessions(_scope_key(scope), scope)
+            self._prune_inactive_sessions()
+            self._active_local_scopes[
+                (scope.deployment_id, scope.principal_id, scope.scope_kind)
+            ] = scope
 
     def run_tool(
         self, scope: TrustedSandboxScope | None, name: str, args: dict[str, Any]
@@ -953,7 +984,15 @@ class MxcSessionManager:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)
         with self._lock:
-            self._close_obsolete_cli_sessions(key, scope)
+            if scope.scope_kind == "web-room" and scope not in self._active_web_scopes:
+                return "[sandbox error] revoked or unbound Web Room scope rejected"
+            if scope.scope_kind in {"cli-session", "gui-session"}:
+                active_scope = self._active_local_scopes.get(
+                    (scope.deployment_id, scope.principal_id, scope.scope_kind)
+                )
+                if active_scope is not None and active_scope != scope:
+                    return "[sandbox error] stale local execution scope rejected"
+            self._close_obsolete_local_sessions(key, scope)
             self._prune_inactive_sessions()
             session = self._sessions.get(key)
             if session is None:
@@ -969,22 +1008,42 @@ class MxcSessionManager:
         try:
             return session.run(name, args)
         except Exception as exc:
+            revoke = getattr(session, "revoke", None)
+            if callable(revoke):
+                revoke()
             session.close()
             with self._lock:
-                self._sessions.pop(key, None)
+                if self._sessions.get(key) is session:
+                    self._sessions.pop(key, None)
             return f"[sandbox error] isolated session terminated: {type(exc).__name__}: {exc}"
 
-    def close_scope(self, scope: TrustedSandboxScope) -> None:
+    def revoke_scope(self, scope: TrustedSandboxScope) -> Callable[[], None] | None:
+        """Fence a scope immediately and return its detached-session cleanup."""
         key = _scope_key(scope)
         with self._lock:
+            if scope.scope_kind == "web-room":
+                self._active_web_scopes.discard(scope)
             session = self._sessions.pop(key, None)
-        if session is not None:
-            session.close()
+            revoke = getattr(session, "revoke", None)
+            if callable(revoke):
+                revoke()
+        return session.close if session is not None else None
+
+    def close_scope(self, scope: TrustedSandboxScope) -> None:
+        cleanup = self.revoke_scope(scope)
+        if cleanup is not None:
+            cleanup()
 
     def close_all(self) -> None:
         with self._lock:
             sessions = list(self._sessions.values())
             self._sessions.clear()
+            self._active_local_scopes.clear()
+            self._active_web_scopes.clear()
+            for session in sessions:
+                revoke = getattr(session, "revoke", None)
+                if callable(revoke):
+                    revoke()
         for session in sessions:
             session.close()
 
@@ -1016,23 +1075,29 @@ def run_sandbox_tool(
     return manager.run_tool(scope, name, args)
 
 
-def _process_scope_id(scope_id: str) -> str:
+def _process_scope_id(scope_id: str, *, generation: str = "") -> str:
     """Salt a trusted session/Room identifier to this live server process."""
-    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}"
+    generation_suffix = f"-{generation}" if generation else ""
+    return f"{scope_id}-{os.getpid()}-{_PROCESS_SCOPE_NONCE}{generation_suffix}"
 
 
 def local_web_room_scope(
-    *, principal_id: str, project_id: str, room_id: str
+    *,
+    principal_id: str,
+    project_id: str,
+    room_id: str,
+    room_generation: str,
 ) -> TrustedSandboxScope:
-    """Return an isolated MXC scope for a trusted local Web Room."""
-    if not principal_id or not project_id or not room_id:
+    """Return an isolated MXC scope for one trusted Web Room incarnation."""
+    if not principal_id or not project_id or not room_id or not room_generation:
         raise ValueError("local Web Room scope fields must be non-empty")
     return TrustedSandboxScope(
         deployment_id="web",
         principal_id=principal_id,
         project_id=project_id,
         scope_kind="web-room",
-        scope_id=_process_scope_id(room_id),
+        scope_id=_process_scope_id(room_id, generation=room_generation),
+        binding_generation=room_generation,
     )
 
 

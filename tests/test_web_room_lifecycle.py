@@ -8,7 +8,21 @@ import pytest
 from uagent.runtime.memory_store import MemoryStore
 from uagent.runtime.room_access import RoomAccessPolicy
 from uagent.runtime.session_store import SessionStore, SessionStoreError
+from uagent.runtime.execution_broker import TrustedSandboxScope
 from uagent.web_impl.rooms import WebManager
+
+
+def _room_scope(
+    room, *, principal_id: str, project_id: str, scope_id: str
+) -> TrustedSandboxScope:
+    return TrustedSandboxScope(
+        deployment_id="web",
+        principal_id=principal_id,
+        project_id=project_id,
+        scope_kind="web-room",
+        scope_id=scope_id,
+        binding_generation=room.sandbox_scope_generation(),
+    )
 
 
 def test_idle_room_eviction_preserves_reconnect_grace_period():
@@ -20,6 +34,279 @@ def test_idle_room_eviction_preserves_reconnect_grace_period():
     assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=129.0) == []
     assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=130.0) == ["room-a"]
     assert "room-a" not in manager.rooms
+
+
+def test_recreated_web_room_gets_a_distinct_sandbox_scope_generation():
+    from uagent.runtime.mxc_backend import local_web_room_scope
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    old_room = manager.get_room("reused-room-id")
+    old_room.private_session = True
+    old_room.last_activity = 100.0
+    old_scope = local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=old_room.room_id,
+        room_generation=old_room._sandbox_scope_generation,
+    )
+    manager.bind_sandbox_scope(old_room, old_scope)
+
+    assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=130.0) == [
+        "reused-room-id"
+    ]
+    new_room = manager.get_room("reused-room-id")
+    new_scope = local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=new_room.room_id,
+        room_generation=new_room._sandbox_scope_generation,
+    )
+    manager.bind_sandbox_scope(new_room, new_scope)
+
+    assert old_scope.scope_id != new_scope.scope_id
+    assert closed_scopes == [old_scope]
+    assert new_room.current_sandbox_scope() == new_scope
+
+
+def test_idle_public_room_cleanup_releases_lease_but_preserves_room_history():
+
+    manager = WebManager()
+    active_scopes = set()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, scope):
+            active_scopes.add(scope)
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def run_tool(self, scope, _name, _args):
+            if scope not in active_scopes and len(active_scopes) >= 4:
+                return "active session limit reached; restart UAG"
+            active_scopes.add(scope)
+            return "isolated"
+
+        def close_scope(self, scope):
+            active_scopes.discard(scope)
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    public_rooms = []
+    for index in range(4):
+        room = manager.get_room(f"public-room-{index}")
+        room.messages.append({"role": "user", "content": f"history-{index}"})
+        room.active_connections.append(object())
+        room.disconnect(room.active_connections[0])
+        room.last_activity = 100.0
+        scope = _room_scope(
+            room,
+            principal_id="local-user",
+            project_id="project-a",
+            scope_id=f"public-room-{index}-scope",
+        )
+        manager.bind_sandbox_scope(room, scope)
+        assert manager.sandbox_session_manager.run_tool(scope, "file_exists", {}) == (
+            "isolated"
+        )
+        public_rooms.append((room, scope))
+
+    fifth_scope = TrustedSandboxScope(
+        deployment_id="web",
+        principal_id="local-user",
+        project_id="project-a",
+        scope_kind="web-room",
+        scope_id="public-room-fifth-scope",
+    )
+    assert "active session limit" in manager.sandbox_session_manager.run_tool(
+        fifth_scope, "file_exists", {}
+    )
+
+    assert (
+        manager.release_idle_public_room_sandbox_scopes(idle_ttl_seconds=30, now=129.0)
+        == 0
+    )
+    assert (
+        manager.release_idle_public_room_sandbox_scopes(idle_ttl_seconds=30, now=130.0)
+        == 4
+    )
+    assert len(closed_scopes) == 4
+    assert (
+        manager.sandbox_session_manager.run_tool(fifth_scope, "file_exists", {})
+        == "isolated"
+    )
+    for index, (room, scope) in enumerate(public_rooms):
+        assert manager.rooms[room.room_id] is room
+        assert room.messages == [{"role": "user", "content": f"history-{index}"}]
+        assert room.current_sandbox_scope() is None
+        assert scope in closed_scopes
+
+
+def test_idle_public_room_scope_is_retained_while_job_is_running():
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    class FakeJobs:
+        def running_count_for_room(self, room_id):
+            assert room_id == "public-room"
+            return 1
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    manager.sub_agent_job_manager = FakeJobs()
+    room = manager.get_room("public-room")
+    room.last_activity = 100.0
+    scope = _room_scope(
+        room,
+        principal_id="local-user",
+        project_id="project-a",
+        scope_id="public-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+
+    assert (
+        manager.release_idle_public_room_sandbox_scopes(idle_ttl_seconds=30, now=1000.0)
+        == 0
+    )
+    assert room.current_sandbox_scope() == scope
+    assert closed_scopes == []
+
+
+def test_idle_public_scope_cleanup_reserves_room_until_scope_close_finishes():
+    import threading
+
+    manager = WebManager()
+    close_started = threading.Event()
+    allow_close_to_finish = threading.Event()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+            close_started.set()
+            assert allow_close_to_finish.wait(timeout=5)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("public-room")
+    room.last_activity = 100.0
+    scope = _room_scope(
+        room,
+        principal_id="local-user",
+        project_id="project-a",
+        scope_id="public-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+    results = []
+    cleanup = threading.Thread(
+        target=lambda: results.append(
+            manager.release_idle_public_room_sandbox_scopes(
+                idle_ttl_seconds=30, now=1000.0
+            )
+        )
+    )
+
+    cleanup.start()
+    assert close_started.wait(timeout=5)
+    assert room.current_sandbox_scope() is None
+    assert not room.worker_lock.acquire(blocking=False)
+
+    allow_close_to_finish.set()
+    cleanup.join(timeout=5)
+    assert not cleanup.is_alive()
+    assert results == [1]
+    assert closed_scopes == [scope]
+
+    assert room.worker_lock.acquire(blocking=False)
+    try:
+        fresh_scope = _room_scope(
+            room,
+            principal_id="local-user",
+            project_id="project-a",
+            scope_id="public-room-scope",
+        )
+        manager.bind_sandbox_scope(room, fresh_scope)
+        assert room.current_sandbox_scope() == fresh_scope
+    finally:
+        room.worker_lock.release()
+
+
+@pytest.mark.parametrize("sqlite_backend", [False, True])
+def test_periodic_room_cleanup_releases_idle_public_leases(monkeypatch, sqlite_backend):
+    import asyncio
+
+    from uagent.web_impl import routes_api
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("public-room")
+    room.last_activity = time.monotonic() - 3600
+    monkeypatch.setattr(manager, "idle_ttl_seconds", lambda: 30)
+    scope = _room_scope(
+        room,
+        principal_id="local-user",
+        project_id="project-a",
+        scope_id="public-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+    monkeypatch.setattr(routes_api, "web_manager", manager)
+    monkeypatch.setattr(
+        routes_api._long_memory_mod,
+        "is_sqlite_backend",
+        lambda: sqlite_backend,
+    )
+    monkeypatch.setattr(routes_api, "_cleanup_expired_private_rooms", lambda: [])
+
+    async def stop_after_one_pass(_delay):
+        raise asyncio.CancelledError
+
+    monkeypatch.setattr(routes_api.asyncio, "sleep", stop_after_one_pass)
+    with pytest.raises(asyncio.CancelledError):
+        asyncio.run(routes_api._private_room_cleanup_loop())
+
+    assert closed_scopes == [scope]
+    assert manager.rooms["public-room"] is room
+    assert room.current_sandbox_scope() is None
 
 
 def test_idle_private_room_eviction_leaves_non_private_rooms_unchanged():
@@ -100,6 +387,319 @@ def test_expired_private_room_cleanup_removes_session_and_room_binding(
     with pytest.raises(SessionStoreError, match="unknown session"):
         sessions.get_session(session.session_id)
     sessions.close()
+
+
+def test_web_room_scope_survives_disconnect_and_is_closed_after_idle_ttl():
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("room-sandbox")
+    room.private_session = True
+    scope = _room_scope(
+        room,
+        principal_id="local-user",
+        project_id="project-a",
+        scope_id="room-sandbox-process-1",
+    )
+    manager.bind_sandbox_scope(room, scope)
+
+    connection = object()
+    room.active_connections.append(connection)
+    room.disconnect(connection)
+    room.last_activity = 100.0
+
+    manager.bind_sandbox_scope(room, scope)
+    assert room.current_sandbox_scope() == scope
+    assert closed_scopes == []
+    assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=129.0) == []
+    assert closed_scopes == []
+    assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=130.0) == ["room-sandbox"]
+    assert closed_scopes == [scope]
+    assert room.current_sandbox_scope() is None
+
+
+def test_revoked_web_room_scope_requires_a_fresh_binding_generation():
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("room-a")
+    scope = _room_scope(
+        room,
+        principal_id="alice",
+        project_id="project-a",
+        scope_id="room-a-process",
+    )
+    manager.bind_sandbox_scope(room, scope)
+
+    assert manager.release_room_sandbox_scope(room, expected_scope=scope)
+    assert room.current_sandbox_scope() is None
+    assert room.sandbox_scope_generation() != scope.binding_generation
+    assert closed_scopes == [scope]
+    with pytest.raises(RuntimeError, match="stale Web Room sandbox scope"):
+        manager.bind_sandbox_scope(room, scope)
+
+    fresh_scope = _room_scope(
+        room,
+        principal_id="alice",
+        project_id="project-a",
+        scope_id="room-a-process",
+    )
+    manager.bind_sandbox_scope(room, fresh_scope)
+    assert room.current_sandbox_scope() == fresh_scope
+
+
+def test_rebinding_web_room_scope_closes_previous_principal_or_project():
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("shared-room")
+    first = _room_scope(
+        room,
+        principal_id="alice",
+        project_id="project-a",
+        scope_id="shared-room-process-1",
+    )
+    second = _room_scope(
+        room,
+        principal_id="bob",
+        project_id="project-b",
+        scope_id="shared-room-process-1",
+    )
+
+    manager.bind_sandbox_scope(room, first)
+    manager.bind_sandbox_scope(room, second)
+
+    assert closed_scopes == [first]
+    assert not manager.release_room_sandbox_scope(room, expected_scope=first)
+    assert room.current_sandbox_scope() == second
+    assert closed_scopes == [first]
+    assert manager.release_room_sandbox_scope(room, expected_scope=second)
+    assert room.current_sandbox_scope() is None
+    assert closed_scopes == [first, second]
+
+
+def test_discarding_expired_private_room_releases_its_sandbox_scope():
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("expired-private-room")
+    room.private_session = True
+    scope = _room_scope(
+        room,
+        principal_id="local-user",
+        project_id="project-a",
+        scope_id="expired-private-room-process-1",
+    )
+    manager.bind_sandbox_scope(room, scope)
+
+    assert manager.discard_expired_private_room_if_idle("expired-private-room")
+    assert closed_scopes == [scope]
+    assert not manager.discard_expired_private_room_if_idle("expired-private-room")
+
+
+def test_private_room_retirement_rejects_reconnect_racing_cleanup(monkeypatch):
+    import threading
+
+    from uagent.runtime.identity_context import IdentityResolutionError
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("expired-private-room")
+    room.private_session = True
+    scope = _room_scope(
+        room,
+        principal_id="local-user",
+        project_id="project-a",
+        scope_id="expired-private-room-scope",
+    )
+    manager.bind_sandbox_scope(room, scope)
+    activity_checked = threading.Event()
+    allow_retirement = threading.Event()
+    original_room_is_active = manager._room_is_active
+
+    def pause_after_activity_check(candidate, *, worker_lock_held=False):
+        active = original_room_is_active(candidate, worker_lock_held=worker_lock_held)
+        if worker_lock_held:
+            activity_checked.set()
+            assert allow_retirement.wait(timeout=5)
+        return active
+
+    monkeypatch.setattr(manager, "_room_is_active", pause_after_activity_check)
+    results = []
+    cleanup = threading.Thread(
+        target=lambda: results.append(
+            manager.discard_expired_private_room_if_idle("expired-private-room")
+        )
+    )
+    cleanup.start()
+    assert activity_checked.wait(timeout=5)
+
+    connection = object()
+    room._begin_connection(connection)
+    allow_retirement.set()
+    cleanup.join(timeout=5)
+
+    assert not cleanup.is_alive()
+    assert results == [False]
+    assert manager.rooms[room.room_id] is room
+    assert room.current_sandbox_scope() == scope
+    assert closed_scopes == []
+
+    room.disconnect(connection)
+    monkeypatch.setattr(manager, "_room_is_active", original_room_is_active)
+    assert manager.discard_expired_private_room_if_idle(room.room_id)
+    assert closed_scopes == [scope]
+    with pytest.raises(IdentityResolutionError, match="being retired"):
+        room._begin_connection(object())
+
+
+def test_running_room_jobs_block_scope_rebind_and_room_eviction():
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    class FakeJobs:
+        def running_count_for_room(self, room_id):
+            assert room_id == "shared-room"
+            return 1
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    manager.sub_agent_job_manager = FakeJobs()
+    room = manager.get_room("shared-room")
+    room.private_session = True
+    room.last_activity = 100.0
+    first = _room_scope(
+        room,
+        principal_id="alice",
+        project_id="project-a",
+        scope_id="shared-room-process-1",
+    )
+    second = _room_scope(
+        room,
+        principal_id="bob",
+        project_id="project-b",
+        scope_id="shared-room-process-1",
+    )
+    manager.bind_sandbox_scope(room, first)
+
+    with pytest.raises(RuntimeError, match="jobs are running"):
+        manager.bind_sandbox_scope(room, second)
+    assert room.current_sandbox_scope() == first
+    assert closed_scopes == []
+    assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=1000.0) == []
+    assert manager.rooms["shared-room"] is room
+
+
+def test_membership_revocation_releases_only_matching_room_scopes():
+
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
+        def close_scope(self, scope):
+            closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    cases = [
+        ("room-a", "alice", "project-a"),
+        ("room-b", "bob", "project-a"),
+        ("room-c", "alice", "project-b"),
+    ]
+    scopes = []
+    for room_id, principal_id, project_id in cases:
+        room = manager.get_room(room_id)
+        scope = _room_scope(
+            room,
+            principal_id=principal_id,
+            project_id=project_id,
+            scope_id=f"{room_id}-process-1",
+        )
+        manager.bind_sandbox_scope(room, scope)
+        scopes.append(scope)
+
+    assert (
+        manager.release_sandbox_scopes(principal_id="alice", project_id="project-a")
+        == 1
+    )
+    assert closed_scopes == [scopes[0]]
+    assert manager.rooms["room-a"].current_sandbox_scope() is None
+    assert manager.rooms["room-b"].current_sandbox_scope() == scopes[1]
+    assert manager.rooms["room-c"].current_sandbox_scope() == scopes[2]
+
+    with pytest.raises(ValueError, match="at least one"):
+        manager.release_sandbox_scopes()
 
 
 def test_migrated_private_room_gets_a_fresh_reconnect_grace_period(tmp_path):

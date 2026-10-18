@@ -214,7 +214,8 @@ class ProjectAccessPolicy:
         if bound_project != project_id:
             raise MemoryAccessError("room is not bound to this project")
 
-    def bind_room(self, actor_id: str, project_id: str, room_id: str) -> None:
+    def bind_room(self, actor_id: str, project_id: str, room_id: str) -> bool:
+        """Bind a Room to a Project and report whether its binding changed."""
         project_id = str(project_id or "").strip()
         room_id = str(room_id or "").strip()
         if not project_id or not room_id:
@@ -232,6 +233,11 @@ class ProjectAccessPolicy:
             existing = self.room_project(room_id)
             if existing is not None and existing != project_id:
                 raise MemoryAccessError("room is already bound to another project")
+            if existing == project_id:
+                # Idempotent rebinding must not detach a lease that a still-
+                # authorized Turn may reuse after its next tool-boundary check.
+                self._store.db.commit()
+                return False
             self._store.db.execute(
                 "INSERT INTO room_projects(room_id, project_id, revision, bound_by, "
                 "created_at, updated_at) VALUES (?, ?, 1, ?, ?, ?) "
@@ -240,6 +246,7 @@ class ProjectAccessPolicy:
                 (room_id, project_id, actor_id, now, now),
             )
             self._store.db.commit()
+            return True
         except Exception:
             self._store.db.rollback()
             raise

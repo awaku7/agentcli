@@ -21,6 +21,23 @@ def _task_id(response) -> str:
     return str(response.json()["task"]["id"])
 
 
+def test_a2a_sandbox_scopes_are_bound_to_server_task_ids(tmp_path):
+    import pytest
+
+    from uagent.a2a.engine import _trusted_a2a_task_scope
+
+    first = _trusted_a2a_task_scope("task-a", str(tmp_path))
+    second = _trusted_a2a_task_scope("task-b", str(tmp_path))
+
+    assert first.scope_kind == "a2a-task"
+    assert first.principal_id == "a2a-service"
+    assert first.scope_id == "task-a"
+    assert second.scope_id == "task-b"
+    assert first != second
+    with pytest.raises(ValueError, match="task_id is required"):
+        _trusted_a2a_task_scope("", str(tmp_path))
+
+
 def test_a2a_task_waits_for_child_jobs_and_returns_results(monkeypatch):
     monkeypatch.setattr(server, "require_bearer_auth", _allow_auth)
     monkeypatch.setattr(server, "_build_task_store", InMemoryTaskStore)

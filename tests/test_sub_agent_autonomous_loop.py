@@ -134,6 +134,130 @@ def test_sub_agent_max_agent_rounds_limits_total_work_rounds(monkeypatch):
     assert review_count == 2
 
 
+def test_sub_agent_empty_output_stops_before_completion_judgment(monkeypatch):
+    _disable_decision_provider(monkeypatch)
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "make_client",
+        lambda _cb: ("openai", object(), "test-model"),
+    )
+
+    work_count = 0
+    review_count = 0
+
+    def fake_call(
+        provider,
+        client,
+        model_name,
+        system_prompt,
+        user_prompt,
+        timeout,
+        max_retries,
+        response_mode,
+    ):
+        nonlocal work_count, review_count
+        if system_prompt.startswith("You are a conservative completion reviewer"):
+            review_count += 1
+            return "CONTINUE: retry", 0, {}
+        work_count += 1
+        return "", 0, {}
+
+    monkeypatch.setattr(runner, "_call_with_retry", fake_call)
+
+    result = json.loads(runner.run("general", "finish the task", max_agent_rounds=5))
+
+    assert result["status"] == "blocked"
+    assert result["reason"] == "empty_output"
+    assert result["agent_rounds"] == 1
+    assert work_count == 1
+    assert review_count == 0
+
+
+def test_sub_agent_repeated_output_stops_before_repeating_completion_judgment(
+    monkeypatch,
+):
+    from uagent.decision.models import DecisionAnswer, DecisionResult
+
+    class FakeDecisionProvider:
+        name = "openai"
+        model = "gpt-6-luna"
+
+        def __init__(self):
+            self.calls = 0
+
+        def decide(self, request):
+            self.calls += 1
+            assert {question.id for question in request.questions} == {
+                "goal_satisfied",
+                "material_work_remaining",
+            }
+            return DecisionResult(
+                provider=self.name,
+                model=self.model,
+                answers={
+                    "goal_satisfied": DecisionAnswer(False),
+                    "material_work_remaining": DecisionAnswer(True),
+                },
+            )
+
+        def close(self):
+            pass
+
+    decision_provider = FakeDecisionProvider()
+    monkeypatch.setattr(
+        sub_agent_autonomy,
+        "get_decision_settings",
+        lambda: DecisionSettings(provider="openai"),
+    )
+    monkeypatch.setattr(
+        sub_agent_autonomy,
+        "create_decision_provider",
+        lambda _settings: decision_provider,
+    )
+    monkeypatch.setattr(
+        sub_agent_autonomy, "provider_supports_goal_completion", lambda _provider: True
+    )
+    runner = sub_agent_tool.SubAgentRunner()
+    monkeypatch.setattr(
+        sub_agent_tool,
+        "make_client",
+        lambda _cb: ("openai", object(), "test-model"),
+    )
+
+    work_count = 0
+    review_count = 0
+
+    def fake_call(
+        provider,
+        client,
+        model_name,
+        system_prompt,
+        user_prompt,
+        timeout,
+        max_retries,
+        response_mode,
+    ):
+        nonlocal work_count, review_count
+        if system_prompt.startswith("You are a conservative completion reviewer"):
+            review_count += 1
+            return "CONTINUE: make more progress", 0, {}
+        work_count += 1
+        return _general_json("unchanged result"), 0, {}
+
+    monkeypatch.setattr(runner, "_call_with_retry", fake_call)
+
+    result = json.loads(runner.run("general", "finish the task", max_agent_rounds=5))
+
+    assert result["status"] == "blocked"
+    assert result["reason"] == "no_progress"
+    assert result["agent_rounds"] == 2
+    assert result["partial_result"]["summary"] == "unchanged result"
+    assert work_count == 2
+    assert review_count == 0
+    assert decision_provider.calls == 1
+
+
 def test_sub_agent_completion_regex_skips_other_judges(monkeypatch):
     _disable_decision_provider(monkeypatch)
     runner = sub_agent_tool.SubAgentRunner()
