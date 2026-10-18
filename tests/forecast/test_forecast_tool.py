@@ -580,7 +580,7 @@ def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch)
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 1)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
     with pytest.raises(TimeoutError):
         ft._run_with_timeout(lambda: time.sleep(3), 1)
     assert ft.abandoned_run_count() == 1
@@ -594,20 +594,50 @@ def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch)
     assert ft._run_with_timeout(lambda: 42, 5) == 42
 
 
-def test_nested_evaluation_does_not_consume_a_run_slot(monkeypatch):
-    """Overlapping auto-selection must not reject its own model evaluations."""
+def test_nested_evaluation_is_not_refused_at_capacity(monkeypatch):
+    """Auto-selection must not reject its own evaluations at the worker cap."""
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 1)
+    # The parent already occupies the only slot, so the nested call has to run
+    # without being refused; failing here would degrade to the Dummy model.
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
 
     def outer():
-        # A nested call runs inside a forecast worker; two slots are "full"
-        # from the caller's point of view, yet evaluation must still work.
         return ft._run_with_timeout(lambda: "evaluated", 5)
 
     assert ft._run_with_timeout(outer, 10) == "evaluated"
     assert ft.active_run_count() == 0
+
+
+def test_timed_out_nested_worker_keeps_consuming_capacity(monkeypatch):
+    """A nested worker outliving its parent must still block new forecasts."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
+    nested_timeouts = []
+
+    def outer():
+        # The nested evaluation overruns its own deadline, so its thread is
+        # still alive when the parent unwinds and gives up.
+        try:
+            ft._run_with_timeout(lambda: time.sleep(3), 1)
+        except TimeoutError:
+            nested_timeouts.append(True)
+        return "parent gave up"
+
+    assert ft._run_with_timeout(outer, 10) == "parent gave up"
+    assert nested_timeouts == [True]
+    # The leftover nested thread is still counted, so the cap still refuses.
+    assert ft.active_run_count() >= 1
+    with pytest.raises(ft.ForecastBusyError):
+        ft._run_with_timeout(lambda: "too soon", 5)
+
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and ft.active_run_count():
+        time.sleep(0.02)
+    assert ft._run_with_timeout(lambda: "ok now", 5) == "ok now"
 
 
 def test_nested_evaluation_inherits_the_caller_cancel_event():
@@ -676,7 +706,7 @@ def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 2)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
     started = []
     lock = threading.Lock()
     gate = threading.Event()
@@ -741,7 +771,7 @@ def test_run_tool_reports_busy_as_retryable(sample_df, monkeypatch):
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools import forecast_tool as ft
 
-    monkeypatch.setattr(ft, "_MAX_ACTIVE_RUNS", 1)
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 1)
     with pytest.raises(TimeoutError):
         ft._run_with_timeout(lambda: time.sleep(3), 1)
     parsed = json.loads(

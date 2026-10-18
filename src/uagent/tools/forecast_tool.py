@@ -798,12 +798,13 @@ class ForecastBusyError(RuntimeError):
     """
 
 
-# Upper bound on forecast worker threads in this process, counted from the
-# moment a slot is reserved at admission until the worker thread exits. That
-# covers workers whose caller already timed out and walked away, so concurrent
-# callers cannot each start work that later runs untracked.
-_MAX_ACTIVE_RUNS = 2
-_active_runs = 0
+# Upper bound on live forecast worker threads in this process, counted from
+# admission until the thread exits. Every worker counts, including nested
+# evaluations, so a nested worker that outlives a timed-out parent keeps
+# consuming capacity and new forecasts stay refused until it really stops.
+# Two concurrent runs, each with one nested evaluation, is the intended load.
+_MAX_LIVE_WORKERS = 4
+_live_workers = 0
 _abandoned_guard = _threading.Lock()
 _abandoned_runs: "list[_threading.Thread]" = []
 _run_state = _threading.local()
@@ -831,9 +832,9 @@ def abandoned_run_count() -> int:
 
 
 def active_run_count() -> int:
-    """Number of reserved forecast slots (running, including abandoned ones)."""
+    """Number of live forecast worker threads, including abandoned ones."""
     with _abandoned_guard:
-        return _active_runs
+        return _live_workers
 
 
 def reset_abandoned_runs() -> None:
@@ -846,29 +847,33 @@ def reset_abandoned_runs() -> None:
         _abandoned_runs.clear()
 
 
-def _reserve_run_slot() -> None:
-    """Reserve one worker slot, or refuse when the process is at capacity.
+def _acquire_worker_slot(*, nested: bool) -> None:
+    """Account for one worker thread, refusing top-level work at capacity.
 
-    Reserving under the same lock as the abandoned-worker bookkeeping is what
-    makes the bound hold: concurrent callers cannot all observe a free slot.
-    The slot stays reserved until the worker thread exits, so a worker whose
-    caller timed out keeps occupying it.
+    The counter is only ever changed under the same lock as the abandoned
+    bookkeeping, and it is released when the thread exits rather than when the
+    caller gives up, so a worker whose caller timed out keeps occupying
+    capacity. That is what makes the bound hold for concurrent callers.
+
+    Nested evaluations are not refused (their parent already passed
+    admission) but they are counted, so a nested worker that outlives its
+    timed-out parent still consumes capacity.
     """
-    global _active_runs
+    global _live_workers
     with _abandoned_guard:
         _prune_abandoned_locked()
-        if _active_runs >= _MAX_ACTIVE_RUNS:
+        if not nested and _live_workers >= _MAX_LIVE_WORKERS:
             raise ForecastBusyError(
                 "A previous forecast is still shutting down; retry shortly."
             )
-        _active_runs += 1
+        _live_workers += 1
 
 
-def _release_run_slot() -> None:
-    global _active_runs
+def _release_worker_slot() -> None:
+    global _live_workers
     with _abandoned_guard:
-        if _active_runs > 0:
-            _active_runs -= 1
+        if _live_workers > 0:
+            _live_workers -= 1
 
 
 def _run_with_timeout(
@@ -905,8 +910,7 @@ def _run_with_timeout(
 
     parent_cancel = _current_cancel_event()
     nested = parent_cancel is not None
-    if not nested:
-        _reserve_run_slot()
+    _acquire_worker_slot(nested=nested)
 
     if cancel is not None:
         cancel_event = cancel
@@ -925,17 +929,15 @@ def _run_with_timeout(
             outcome["error"] = exc
         finally:
             _run_state.cancel = previous
-            if not nested:
-                # Released only when the thread really exits, so an abandoned
-                # top-level worker keeps holding its slot until it is done.
-                _release_run_slot()
+            # Released only when the thread really exits, so an abandoned
+            # worker keeps consuming capacity until it is done.
+            _release_worker_slot()
 
     worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
     try:
         worker.start()
     except BaseException:
-        if not nested:
-            _release_run_slot()
+        _release_worker_slot()
         raise
     worker.join(timeout_sec)
     if worker.is_alive():
