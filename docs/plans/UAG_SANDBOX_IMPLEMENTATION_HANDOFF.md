@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4はWindows Sandbox executorの契約調査、Remote acceptance fail-closed gate、Windows Pro実機試験手順を準備中。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）は非昇格セッションのためVM実機検証未実施であり、Remote Backendは未接続・未承認。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
+- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4はWindows Sandbox executorの契約調査、Remote acceptance fail-closed gate、Windows Pro実機試験手順を準備中。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）ではWindows Sandbox optional featureが無効でVM実機検証未実施。Remote Backendは未接続・未承認。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -16,11 +16,11 @@
 
 - Pinned local runtimeの`@microsoft/mxc-sdk@1.0.0`に含まれる`bin/x64/wxc-exec.exe`を確認。`--help`で`--experimental`、`--dry-run`、config path引数、`--force-reclaim`（所有証明なしの危険な回収）を確認した。SDK V1のProcessContainer APIをWindows Sandbox VMに流用しない。
 - `wxc-exec --experimental --dry-run`で`version: 1.1.0-alpha`、`containment: windows_sandbox`、`process.commandLine`の形式を非実行で確認。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）でminimal requestと専用workspaceのdry-runは通過した（VMは未起動）。`network`/`ui`設定を追加したrequestはvalidation failedとなったが、原因が未対応fieldかホスト設定か特定できていないため、いずれの結果もVM隔離・機能対応の証拠として扱わない。
-- `-RunVmTests`は非昇格PowerShellで実行し、管理者権限が必要なため事前ガードで安全に拒否された。Windows Sandbox feature queryもDISM error 740（elevation required）となり、VMは起動していない。
+- 初回の非昇格セッションではDISM error 740（elevation required）を確認。続いてユーザーが`-RunVmTests`を実行し、管理者ガードとdry-runを通過した後、`Containers-DisposableClientVM`が無効としてスクリプトが停止した。VMは起動していない。
 - `SandboxCapabilities.remote_acceptance_passed`を分離し、VM/機能の宣言だけではRemote routingを許可しないBroker gateを追加。現在のMXC ProcessContainer probeはこの証拠を設定せず、Remote Backendのproduction wiringもないためRemote toolは引き続き拒否される。
 - `docs/plans/PR4_WINDOWS_SANDBOX_ACCEPTANCE.md`と`.ps1`に、Windows Pro受入れ環境用の逐次実機スモーク手順と、全必須E0試験マトリクスを準備。dry-run、mock、単純な成功マーカーだけではPR4を承認しない。
 - 確認済み: `test_execution_broker.py`（37件）、`test_mxc_backend.py`（47件）、変更Pythonのcompile/Ruff/Black、PowerShell構文parse、受入れスクリプトのno-VM preflight、Markdown format、`git diff --check`が成功。preflightは`--dry-run`のみでVMは起動していない。
-- 未完了: 昇格権限のあるWindows 11 Proでの実VM・隔離・資源違反試験、およびWindows Sandbox BackendをRemote入口へ接続するproduction実装。現在の非昇格セッションではfeature状態を確認・変更できず、VM実行もしていない。必要な受入れ試験を完了するまではfail-closedを維持する。
+- 未完了: Windows Sandbox optional featureを有効化して再起動した後の実VM・隔離・資源違反試験、およびWindows Sandbox BackendをRemote入口へ接続するproduction実装。feature未有効のためVM受入れ試験は未実施。必要な試験完了まではfail-closedを維持する。
 
 ### 2026-10-18 — PR 3 ローカルLease lifecycle統合（PR #263 マージ済み）
 
