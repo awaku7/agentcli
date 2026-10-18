@@ -872,12 +872,14 @@ def _acquire_run_ticket() -> "_RunTicket":
     global _reserved_slots
     parent = getattr(_run_state, "ticket", None)
     with _abandoned_guard:
+        # Drop finished threads on every admission: a long-lived process would
+        # otherwise keep one Thread object per historical timeout.
+        _prune_abandoned_locked()
         if parent is not None:
             # Nested evaluation: it belongs to the parent's reservation. Deeper
             # nesting than reserved takes one extra slot when available.
             if parent.threads + 1 > parent.slots:
                 if _reserved_slots + 1 > _MAX_LIVE_WORKERS:
-                    _prune_abandoned_locked()
                     raise ForecastBusyError(
                         "A previous forecast is still shutting down; retry shortly."
                     )
@@ -886,7 +888,6 @@ def _acquire_run_ticket() -> "_RunTicket":
             parent.threads += 1
             return parent
         if _reserved_slots + 2 > _MAX_LIVE_WORKERS:
-            _prune_abandoned_locked()
             raise ForecastBusyError(
                 "A previous forecast is still shutting down; retry shortly."
             )
@@ -904,6 +905,9 @@ def _release_run_ticket(ticket: "_RunTicket") -> None:
         if ticket.threads == 0 and ticket.slots:
             _reserved_slots = max(0, _reserved_slots - ticket.slots)
             ticket.slots = 0
+        # A worker that has stopped is no longer abandoned, so drop it now
+        # instead of waiting for the next admission to prune the list.
+        _prune_abandoned_locked()
 
 
 def _run_with_timeout(

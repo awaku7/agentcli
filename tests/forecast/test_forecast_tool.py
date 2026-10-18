@@ -741,6 +741,22 @@ def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
     assert ft.active_run_count() == 0
 
 
+def test_completed_abandoned_workers_are_pruned(monkeypatch):
+    """Sequential timeouts must not accumulate Thread objects in the process."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+    for _ in range(3):
+        with pytest.raises(TimeoutError):
+            ft._run_with_timeout(lambda: time.sleep(2), 1)
+        # Let the abandoned worker notice the cancel event and exit.
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline and ft.abandoned_run_count():
+            time.sleep(0.02)
+        assert ft.abandoned_run_count() == 0
+
+
 def test_admission_reserves_room_for_nested_evaluation(monkeypatch):
     """Synchronized callers cannot take the last slot and then add nested work."""
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
