@@ -123,6 +123,51 @@ def test_localized_all_approval_is_shown_and_scoped(monkeypatch, language, appro
         tool_policy.reset_confirmation_grants()
 
 
+@pytest.mark.parametrize("language", ["ja", "en", "fr", "ko", "ar"])
+def test_confirmation_help_shows_ascii_answers_next_to_localized_words(
+    monkeypatch, language
+):
+    """The ASCII replies are accepted everywhere, so the help must name them."""
+    from uagent import core
+    from uagent.tools import tool_policy
+
+    monkeypatch.setattr(core, "_is_web", False, raising=False)
+    monkeypatch.delenv("UAGENT_CONFIRM_TOOLS", raising=False)
+    monkeypatch.setenv("UAGENT_LANG", language)
+    labels = _LOCALE_DATA.get(language, {})
+    expected = tuple(
+        labels.get("confirm.reply_" + name, name) for name in ("yes", "no", "all")
+    )
+    seen = []
+    monkeypatch.setattr(
+        "uagent.tools.human_ask_tool.run_tool",
+        lambda req: seen.append(req)
+        or json.dumps({"user_reply": expected[1], "cancelled": False}),
+    )
+    turn = TurnContext(
+        principal_id="local-user",
+        room_id="",
+        project_id="project",
+        session_id="session-hint-" + language,
+        entry_point="cli",
+        authenticated=True,
+        authn_kind="local",
+    )
+    tool_policy.reset_confirmation_grants()
+    try:
+        with bind_turn_context(turn):
+            assert not tool_policy.default_confirmation_callback(
+                "delete_file", {}, tool_policy.policy_for("delete_file")
+            )
+    finally:
+        tool_policy.reset_confirmation_grants()
+
+    message = seen[0]["message"]
+    assert "y = " + expected[0] in message
+    assert "n = " + expected[1] in message
+    assert "all" in message
+
+
 @pytest.mark.parametrize(
     "answer,deleted",
     [("はい", True), ("いいえ", False), ("全て", False)],

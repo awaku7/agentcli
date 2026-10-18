@@ -433,20 +433,24 @@ class SessionStore:
     redacted text only and uses parameterized SQL for all user-controlled data.
     """
 
-    def __init__(self, path: str | Path):
+    def __init__(self, path: str | Path, *, busy_timeout_ms: int = 5000):
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._db_lock = threading.RLock()
+        wait_ms = max(int(busy_timeout_ms), 0)
         try:
             # Multiple CLI/Web/A2A processes may share one store. WAL lets
             # readers proceed while a writer commits, and the longer busy
             # timeout avoids failing on normal short-lived writer contention.
             self._connection = sqlite3.connect(
-                self.path, timeout=5.0, isolation_level=None, check_same_thread=False
+                self.path,
+                timeout=wait_ms / 1000.0,
+                isolation_level=None,
+                check_same_thread=False,
             )
             self._connection.row_factory = sqlite3.Row
             self._connection.execute("PRAGMA foreign_keys = ON")
-            self._connection.execute("PRAGMA busy_timeout = 5000")
+            self._connection.execute(f"PRAGMA busy_timeout = {wait_ms}")
             self._connection.execute("PRAGMA journal_mode = WAL")
             self._connection.execute("PRAGMA synchronous = NORMAL")
             self._initialize()
