@@ -4,7 +4,7 @@
 
 PR 4 is **not accepted** and Remote execution must remain fail-closed. The Windows MXC local `ProcessContainer` backend is not a VM backend and must not be treated as one. No `windows_sandbox` production manager is wired into the Remote dispatcher.
 
-The pinned local runtime contains `@microsoft/mxc-sdk@1.0.0` and `bin/x64/wxc-exec.exe`. Its observed CLI contract (`wxc-exec.exe --help`) includes `--experimental`, `--dry-run`, and a positional config path. A no-execution dry-run accepted the minimal `version: 1.1.0-alpha`, `containment: windows_sandbox`, and `process.commandLine` request syntax, but the host's fuller `windows_sandbox` validation returned `validation failed`. This machine is Windows Home, not the Windows 11 Pro acceptance host. No VM was started and this is not evidence of isolation or backend availability.
+The pinned local runtime contains `@microsoft/mxc-sdk@1.0.0` and `bin/x64/wxc-exec.exe`. Its observed CLI contract (`wxc-exec.exe --help`) includes `--experimental`, `--dry-run`, and a positional config path. A no-execution dry-run accepted the minimal `version: 1.1.0-alpha`, `containment: windows_sandbox`, and `process.commandLine` request syntax with a dedicated workspace. This environment reports Windows 11 Pro (`EditionID=Professional`, build 26200), but the shell is not elevated: DISM returned error 740 and the Windows Sandbox feature state could not be queried. The `-RunVmTests` script guard correctly stopped before creating a workspace or launching a VM. A fuller request including `network`/`ui` fields returned `validation failed`; the cause was not isolated. None of these results proves VM isolation or backend availability.
 
 The first-stage schema used for the explicit smoke procedure is:
 
@@ -27,7 +27,7 @@ The executor must be invoked with `--experimental`. Never use the V1 SDK `spawn`
 
 ## Running the prepared smoke procedure
 
-Run only on a dedicated Windows 11 Pro/Enterprise acceptance machine with Windows Sandbox enabled and the exact pinned MXC runtime installed. The script does not kill or reclaim unrelated Sandbox processes. It creates and removes only its unique temporary test directory.
+Run only from an elevated PowerShell on a dedicated Windows 11 Pro/Enterprise acceptance machine with Windows Sandbox enabled, at least 2 GB free memory, no active Windows Sandbox process in that logon session, and the exact pinned MXC runtime installed. The script checks these prerequisites and refuses before creating a test workspace if elevation, memory, or exclusivity is missing. It does not kill or reclaim unrelated Sandbox processes. It creates and removes only its unique temporary test directory.
 
 ```powershell
 pwsh -File .\docs\plans\PR4_WINDOWS_SANDBOX_ACCEPTANCE.ps1

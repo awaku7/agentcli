@@ -68,6 +68,20 @@ $isProOrEnterprise = $edition -match 'Professional|Enterprise|Education'
 if ($RunVmTests -and (-not $isWin11 -or -not $isProOrEnterprise)) {
     throw "VM acceptance requires Windows 11 Pro/Enterprise/Education; build='$windowsBuild', EditionID='$edition'."
 }
+if ($RunVmTests) {
+    $principal = [Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent())
+    if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        throw 'Run -RunVmTests from an elevated PowerShell session; no VM was started.'
+    }
+    $freeMemoryMb = [math]::Floor((Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory / 1024)
+    if ($freeMemoryMb -lt 2048) {
+        throw "VM acceptance needs at least 2048 MB free memory; found ${freeMemoryMb} MB. No VM was started."
+    }
+    $activeSandbox = @(Get-Process -Name 'WindowsSandbox*' -ErrorAction SilentlyContinue)
+    if ($activeSandbox.Count -gt 0) {
+        throw 'A Windows Sandbox process is already active in this logon session; refusing to overlap VMs.'
+    }
+}
 
 $workRoot = Join-Path ([IO.Path]::GetTempPath()) ("uag-pr4-wsb-" + [guid]::NewGuid().ToString('N'))
 $workspace = Join-Path $workRoot 'scope-workspace'
