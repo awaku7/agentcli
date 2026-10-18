@@ -55,6 +55,7 @@ from .sub_agent_jobs import (
     handle_cli_job_command,
     is_cli_session_transition_command,
     prepare_cli_session_transition,
+    refresh_cli_job_owner,
 )
 from ..runtime.sub_agent_host_policy import cli_scoped_handoff_policy_from_environment
 from ..runtime.sub_agent_cli_receipt import deliver_cli_finished_job_notice
@@ -543,12 +544,9 @@ def main() -> int:
                     result = handle_command(line, messages, client, depname, core=core)
                 finally:
                     if session_transition:
-                        new_owner = current_cli_job_owner(core, fallback_session_id)
-                        if new_owner.session_id == old_owner.session_id:
-                            job_manager.resume_owner(old_owner)
-                        else:
-                            job_owner = new_owner
-                            core._sub_agent_job_owner = job_owner
+                        job_owner = refresh_cli_job_owner(
+                            job_manager, core, fallback_session_id
+                        )
                 if not result:
                     running = False
                     break

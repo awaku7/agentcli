@@ -14,6 +14,7 @@ from uagent.cli_impl.sub_agent_jobs import (
     handle_cli_job_command,
     is_cli_session_transition_command,
     prepare_cli_session_transition,
+    refresh_cli_job_owner,
 )
 from uagent.runtime.prompt_context import format_prompt
 from uagent.runtime.sub_agent_jobs import (
@@ -275,6 +276,33 @@ def test_session_transition_command_detection_and_owner_selection():
     fake_core = SimpleNamespace(session_id="loaded-session", SESSION_ID="process")
     owner = current_cli_job_owner(fake_core, "fallback")
     assert owner == SubAgentJobOwner(entry_point="cli", session_id="loaded-session")
+
+
+def test_switching_back_to_a_cli_session_resumes_its_job_owner():
+    manager = _manager()
+    owner_a = SubAgentJobOwner(entry_point="cli", session_id="session-a")
+    owner_b = SubAgentJobOwner(entry_point="cli", session_id="session-b")
+    manager.pause_owner(owner_a)
+    manager.pause_owner(owner_b)
+    core_state = SimpleNamespace(session_id="session-a", SESSION_ID="process")
+    try:
+        assert refresh_cli_job_owner(manager, core_state, "fallback") == owner_a
+        accepted = manager.spawn(
+            owner=owner_a,
+            agent_name="planner",
+            task="session A is active again",
+            worker=lambda _ctx: "ok",
+        )
+        assert accepted.get("status") == "accepted"
+        rejected = manager.spawn(
+            owner=owner_b,
+            agent_name="planner",
+            task="session B remains inactive",
+            worker=lambda _ctx: "unexpected",
+        )
+        assert rejected == {"status": "rejected", "reason": "owner_transition"}
+    finally:
+        manager.shutdown()
 
 
 def test_core_idle_prompt_reads_owner_scoped_job_count(monkeypatch):

@@ -455,6 +455,16 @@ def current_cli_job_owner(core: Any, fallback_session_id: str = "") -> SubAgentJ
     return SubAgentJobOwner(entry_point="cli", session_id=session_id)
 
 
+def refresh_cli_job_owner(
+    manager: Any, core: Any, fallback_session_id: str = ""
+) -> SubAgentJobOwner:
+    """Bind and resume the owner for the active session after a switch."""
+    owner = current_cli_job_owner(core, fallback_session_id)
+    setattr(core, "_sub_agent_job_owner", owner)
+    manager.resume_owner(owner)
+    return owner
+
+
 def prepare_cli_session_transition(
     manager: Any, owner: SubAgentJobOwner, *, timeout: float = 5.0
 ) -> tuple[bool, list[str]]:
@@ -474,4 +484,5 @@ __all__ = [
     "current_cli_job_owner",
     "is_cli_session_transition_command",
     "prepare_cli_session_transition",
+    "refresh_cli_job_owner",
 ]
