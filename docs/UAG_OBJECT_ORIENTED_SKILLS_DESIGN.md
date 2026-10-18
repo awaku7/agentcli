@@ -222,6 +222,7 @@ MVPでは一つのランタイムサービス `SkillObjectRuntime` に `create /
 ## 6. インスタンス状態と永続化
 
 - **保存先**: 既存SQLite Session Storeと関連する名前空間付きの追加テーブル。既存 `agent_states` をSkill単位の格納先として流用しない。
+- **初期状態の検証**: `create()` は定義スナップショット内で解決した `state.schema` に対して `state.initial` を保存前に検証する。必須項目不足・型不一致・不正な参照などで検証に失敗した場合は `OBJECT_SPEC_INVALID` とし、**インスタンスや状態レコードを一切作成しない**。読み取り専用メソッドしかないSkillでもこの検証を省略しない。
 - **識別**: `instance_id`（UUID）に、`session_id`、Skill定義のパス/識別子、定義ハッシュ、バージョン、所有ユーザー/ルーム文脈を関連付ける。
 - **機密性**: 状態はJSONシリアライズ可能な値に限定し、認証情報・アクセストークン・Cookieなどを保存しない。保存前に既存の秘匿化機構を通す。
 - **排他制御**: 各状態に `state_revision` を持たせ、楽観的排他制御（CAS）で更新する。同時更新は自動上書きせず `REVISION_CONFLICT`。
@@ -329,6 +330,7 @@ methods:
 
 - インスタンスID、参照閉包を含む定義ハッシュ・スナップショット、状態管理、SQLite連携、楽観的排他制御。
 - `create/get_state/finish/list_methods`。
+- `create()` にて固定した `state.schema` と `state.initial` を検証後に保存し、失敗時はレコードを作成しない。
 - この段階では実際のLLM/ツール実行は追加しない。
 - 再起動復元・二重終了・並列セッションのテスト。
 
@@ -362,6 +364,8 @@ test_object_spec_invalid_does_not_break_legacy_loading
 test_object_path_traversal_and_symlink_escape_denied
 test_object_instance_session_isolation
 test_object_instance_persistence_after_restart
+test_object_initial_state_validated_before_persistence
+test_object_invalid_initial_state_creates_no_instance
 test_object_state_revision_conflict
 test_object_definition_change_rejected
 test_object_definition_change_in_prompt_file_rejected
