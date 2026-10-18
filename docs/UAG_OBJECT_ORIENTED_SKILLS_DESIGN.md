@@ -72,7 +72,13 @@ python-review/
 └── references/
     ├── analyze.md
     ├── verify.md
-    └── state.schema.json
+    ├── state.schema.json
+    ├── analyze.input.schema.json
+    ├── analyze.output.schema.json
+    ├── analyze.state-update.schema.json
+    ├── verify.input.schema.json
+    ├── verify.output.schema.json
+    └── verify.state-update.schema.json
 ```
 
 ```yaml
@@ -145,18 +151,34 @@ methods:
     description: "差分を調査して問題点を抽出する"
     kind: prompt
     source: "references/analyze.md"
+    input_schema: "references/analyze.input.schema.json"
+    output_schema: "references/analyze.output.schema.json"
+    state_update_schema: "references/analyze.state-update.schema.json"
     tools: [git_ops]
 
   verify:
     description: "Black・Ruff・関連pytestを検証する"
     kind: prompt
     source: "references/verify.md"
+    input_schema: "references/verify.input.schema.json"
+    output_schema: "references/verify.output.schema.json"
+    state_update_schema: "references/verify.state-update.schema.json"
     tools: [run_tests, lint_format]
 ```
 
 `methods` のキーは外部公開名である。`kind: prompt` は既存LLMの実行経路を利用する。メソッド実行時には対象Skillの手順とインスタンス状態（スキーマで許可された部分）を入力として渡す。構造化した結果を取得し、明示された状態変更だけを検証・適用する。
 
-### 5.1 メソッドの種類
+### 5.1 メソッドの入出力・状態更新スキーマ（v1の必須契約）
+
+- `input_schema` / `output_schema` はすべてのv1公開メソッドに**必須**。前者は `call(inputs=...)` の引数、後者は構造化された `result` のJSON Schemaを指す。引数を取らないメソッドにも空オブジェクトを許可するスキーマを明示する。呼び出し前に入力を、成功扱いする前に結果を検証する。
+- `state_update_schema` は**状態更新を行うメソッドのみ必須**。状態を変更しないメソッドでは省略する。省略時に `state_update` が返された場合は拒否する。
+- いずれもSkillルート内のJSON Schemaファイルへの相対パス。v1ではJSON Schema Draft 2020-12を採用する。ローカルの `$ref` （同一ファイル内とSkillルート内の相対ファイル）のみ許可し、ネットワーク参照、絶対パス、ルート外参照を拒否する。全参照を事前に解決・検証し、循環とファイル容量に上限を設ける。
+- `prompt` 型のLLM応答は `{"result": {...}, "state_update": {...}}` を構造化出力として受け取る。`result` は `output_schema`、存在する `state_update` は `state_update_schema` と更新後の完全な `state.schema` の両方で検証する。未定義フィールド、必須項目不足、型不一致、検証不能な出力は `METHOD_FAILED` とし、状態を**更新しない**。
+- 状態更新は宣言されたキーのみを変更する浅いパッチ（トップレベルキーの置換、未指定キーは維持、削除はv1では禁止）とする。取得した `state_revision` に対しCASで単一トランザクションとして適用し、競合時には `REVISION_CONFLICT` を返す。LLMが直接保存状態を書き換えることは認めない。
+- 将来の `tool` 型は `input_schema` に検証済みの値だけを宣言的な引数マッピングで既存ツールのJSON Schemaに渡す。任意式評価・プロンプト文字列の実行は許可しない。 `skill` 型も子Skillの入力・出力スキーマを双方で検証する。
+- PR1で上記3フィールドの存在、スキーマ構造・参照、型、状態更新の宣言を検証する。実行時の入出力・状態更新検証はメソッド呼び出しを実装するPR3で実施し、PR2では永続化・CASを整備する。
+
+### 5.2 メソッドの種類
 
 | 種類 | 役割 | 導入段階 |
 |---|---|---|
@@ -166,7 +188,7 @@ methods:
 
 `tool` 型は任意のPythonを評価・実行する形式にしない。入力からツール引数へのマッピングは宣言的で、入力スキーマとツールスキーマの検証後、**既存の実行ルーター**へ送る。セキュリティを迂回する `import` や `eval` は認めない。
 
-### 5.2 インターフェース（擬似API）
+### 5.3 インターフェース（擬似API）
 
 以下は**設計上のAPIであり、現行UAGに実装されていない**。
 
@@ -180,7 +202,7 @@ skill_object.finish(instance.id)
 
 MVPでは一つのランタイムサービス `SkillObjectRuntime` に `create / list_methods / call / get_state / finish` をまとめる。LLM公開ツールを何個増やすかは別途判断し、既存 `skills_*` に破壊的変更を加えない。
 
-### 5.3 メソッドの戻り値
+### 5.4 メソッドの戻り値
 
 成功例（概念）:
 
@@ -204,12 +226,19 @@ MVPでは一つのランタイムサービス `SkillObjectRuntime` に `create /
 - **機密性**: 状態はJSONシリアライズ可能な値に限定し、認証情報・アクセストークン・Cookieなどを保存しない。保存前に既存の秘匿化機構を通す。
 - **排他制御**: 各状態に `state_revision` を持たせ、楽観的排他制御（CAS）で更新する。同時更新は自動上書きせず `REVISION_CONFLICT`。
 - **復元**: 再起動後にセッションを復元すると、同じインスタンスの状態を読み直せる。
-- **定義の変更**: 作成時にSkillファイルと参照する拡張マニフェストのハッシュを固定。途中で変更された場合、黙って別定義で実行せず `DEFINITION_CHANGED` にする。
+- **定義の変更**: 作成時に `SKILL.md`、拡張マニフェストと、実行・検証に影響する**すべての推移的な参照ファイル**（メソッド本文、入出力・状態更新・状態スキーマとローカル `$ref` 先など）を検証・固定する。途中でいずれかが変更された場合は `DEFINITION_CHANGED` とし、別の内容を黙って実行しない。
 - **状態上限**: 初期案として1インスタンス64KiB。大きなファイルや成果物は既存Artifact/Session Storeの参照を持つ。
 - **クリーンアップ**: セッションの削除に連動してインスタンス状態を削除。終了済みインスタンスは参照可能だが書き込み不可。
 - **失敗・中断**: 副作用を伴うツールを勝手に再実行しない。将来のリトライでは明示的な冪等キーと実行記録を使う。
 
-### 6.1 状態遷移（実行インスタンス）
+### 6.1 定義スナップショットと参照の閉包
+
+- `create()` 時、`SKILL.md` / `uag-object.yaml` を起点に、マニフェストで宣言された `source` / `schema` / `input_schema` / `output_schema` / `state_update_schema`、そこから参照されるローカルMarkdownリンク・JSON Schemaの相対 `$ref` を再帰的に列挙する。本文から間接参照する命令・テンプレート等は `definition_files`（マニフェスト上の任意の相対パス配列）に明示し、参照の閉包に含める。宣言やローカルリンクから解決できない外部・動的参照はv1オブジェクト実行では拒否する（既存Skillの読込み動作は変更しない）。
+- 閉包内の各ファイルについて、正規化したSkill内相対パスと**読み込んだバイト列**を固定する。パス順で安定ソートした一覧からSHA-256の `definition_hash` を計算し、インスタンスに記録する。消失、ルート外参照、参照循環、過大サイズ、不正なパスは `OBJECT_SPEC_INVALID` とする。
+- `call()` の前に閉包を再読み込みしてハッシュを照合し、**照合済みスナップショットのバイト列だけを実行・検証に使用**する。照合後に再びディスク上のプロンプトやスキーマを読み直さない。状態確定前にも定義変更を確認し、変化時は変更を保存しない。実行中に元ファイルが変更されても、新しい内容に切り替えて実行してはならない。
+- この検査はオブジェクト型の `create/call` に限る。従来の `skills_list` / `skills_load` / `skills_read_file` の読み込み順、戻り値、権限を変えない。
+
+### 6.2 状態遷移（実行インスタンス）
 
 ```text
 created -> active -> finished
@@ -289,6 +318,8 @@ methods:
 ### PR1: 拡張マニフェストの読み込み・検証だけ
 
 - `uag-object.yaml` のスキーマと読み込み・検証モジュール。
+- メソッドの `input_schema` / `output_schema` / `state_update_schema` とローカル `$ref` の宣言・形式を検証。
+- 定義参照の閉包を解決できることを確認する。
 - `metadata.uag-object-spec` があるときだけオブジェクト定義を検証。
 - 既存 `skills_list` / `skills_load` の戻り値・振る舞いを変更しない。
 - 初期段階では実行APIを追加しない。
@@ -296,7 +327,7 @@ methods:
 
 ### PR2: SkillInstanceと永続状態
 
-- インスタンスID、定義ハッシュ、状態管理、SQLite連携、楽観的排他制御。
+- インスタンスID、参照閉包を含む定義ハッシュ・スナップショット、状態管理、SQLite連携、楽観的排他制御。
 - `create/get_state/finish/list_methods`。
 - この段階では実際のLLM/ツール実行は追加しない。
 - 再起動復元・二重終了・並列セッションのテスト。
@@ -333,6 +364,14 @@ test_object_instance_session_isolation
 test_object_instance_persistence_after_restart
 test_object_state_revision_conflict
 test_object_definition_change_rejected
+test_object_definition_change_in_prompt_file_rejected
+test_object_definition_change_in_state_schema_rejected
+test_object_definition_change_in_transitive_schema_ref_rejected
+test_object_method_input_output_schema_required
+test_object_invalid_method_input_rejected
+test_object_invalid_method_output_does_not_mutate_state
+test_object_state_update_schema_and_cas_enforced
+test_object_external_or_undeclared_reference_rejected
 test_object_methods_do_not_bypass_policy
 test_object_method_requires_human_ask_when_dangerous
 test_object_tool_leases_parallel_instances
