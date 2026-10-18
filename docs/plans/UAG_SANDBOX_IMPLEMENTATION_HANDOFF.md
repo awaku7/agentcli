@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4は技術調査・作業指示を追記済みだが、Backend実装は未着手。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
+- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4はWindows Sandbox executorの契約調査、Remote acceptance fail-closed gate、Windows Pro実機試験手順を準備中。現在のWindows HomeホストではVM実機検証不可であり、Remote Backendは未接続・未承認。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -11,6 +11,15 @@
 > 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
 
 ## 進捗記録
+
+### 2026-10-18 — PR4 executor契約確認とfail-closed準備
+
+- Pinned local runtimeの`@microsoft/mxc-sdk@1.0.0`に含まれる`bin/x64/wxc-exec.exe`を確認。`--help`で`--experimental`、`--dry-run`、config path引数、`--force-reclaim`（所有証明なしの危険な回収）を確認した。SDK V1のProcessContainer APIをWindows Sandbox VMに流用しない。
+- `wxc-exec --experimental --dry-run`で`version: 1.1.0-alpha`、`containment: windows_sandbox`、`process.commandLine`の形式を非実行で確認。Windows Homeでもminimal requestと専用workspaceのdry-runは通過した（VMは未起動）。`network`/`ui`設定を追加したrequestはvalidation failedとなったが、原因がホストeditionか未対応fieldかを特定できていないため、いずれの結果もVM隔離・機能対応の証拠として扱わない。
+- `SandboxCapabilities.remote_acceptance_passed`を分離し、VM/機能の宣言だけではRemote routingを許可しないBroker gateを追加。現在のMXC ProcessContainer probeはこの証拠を設定せず、Remote Backendのproduction wiringもないためRemote toolは引き続き拒否される。
+- `docs/plans/PR4_WINDOWS_SANDBOX_ACCEPTANCE.md`と`.ps1`に、Windows Pro受入れ環境用の逐次実機スモーク手順と、全必須E0試験マトリクスを準備。dry-run、mock、単純な成功マーカーだけではPR4を承認しない。
+- 確認済み: `test_execution_broker.py`（37件）、`test_mxc_backend.py`（47件）、変更Pythonのcompile/Ruff/Black、PowerShell構文parse、受入れスクリプトのno-VM preflight、Markdown format、`git diff --check`が成功。preflightは`--dry-run`のみでVMは起動していない。
+- 未完了: Windows 11 Proでの実VM・隔離・資源違反試験、およびWindows Sandbox BackendをRemote入口へ接続するproduction実装。現ホストはWindows Homeのため、必要な受入れ環境で全試験を完了するまではfail-closedを維持する。
 
 ### 2026-10-18 — PR 3 ローカルLease lifecycle統合（PR #263 マージ済み）
 
