@@ -137,6 +137,7 @@ class TrustedSandboxScope:
     project_id: str
     scope_kind: str
     scope_id: str
+    binding_generation: str = ""
 
     def __post_init__(self) -> None:
         required = (

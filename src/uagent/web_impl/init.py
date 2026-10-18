@@ -412,10 +412,20 @@ def init_web():
                     if room is not None and _profile is SecurityProfile.REMOTE:
                         _scope = trusted_web_scope(_turn, str(room.room_id))
                     elif room is not None and _sandbox_enabled:
+                        generation_getter = getattr(
+                            room, "sandbox_scope_generation", None
+                        )
+                        room_generation = (
+                            generation_getter()
+                            if callable(generation_getter)
+                            else str(
+                                getattr(room, "_sandbox_scope_generation", "") or ""
+                            )
+                        )
                         _scope = _local_web_sandbox_scope(
                             _turn,
                             str(room.room_id),
-                            str(getattr(room, "_sandbox_scope_generation", "") or ""),
+                            room_generation,
                         )
                 except (AttributeError, TypeError, ValueError):
                     _scope = None

@@ -153,7 +153,7 @@ async def _private_room_cleanup_loop() -> None:
             if _long_memory_mod.is_sqlite_backend():
                 await asyncio.to_thread(_cleanup_expired_private_rooms)
             else:
-                web_manager.evict_idle_rooms()
+                await asyncio.to_thread(web_manager.evict_idle_rooms)
             await asyncio.to_thread(web_manager.release_idle_public_room_sandbox_scopes)
         except Exception:
             print("[WARN] Private Web room cleanup failed; it will be retried.")

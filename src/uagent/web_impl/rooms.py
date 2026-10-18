@@ -8,7 +8,7 @@ from datetime import datetime
 import os
 import threading
 import time
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 from uuid import uuid4
 
 from fastapi import WebSocket
@@ -101,27 +101,31 @@ class WebRoom:
         self._sandbox_scope_lock = threading.Lock()
         self._sandbox_scope: Any | None = None
 
-    def replace_sandbox_scope(self, scope: Any) -> Any | None:
-        """Bind a trusted scope to this Room and return the replaced scope."""
-        with self._sandbox_scope_lock:
-            if self._sandbox_scope == scope:
-                return None
-            previous = self._sandbox_scope
-            self._sandbox_scope = scope
-            return previous
-
     def current_sandbox_scope(self) -> Any | None:
         with self._sandbox_scope_lock:
             return self._sandbox_scope
 
-    def take_sandbox_scope(self, expected_scope: Any | None = None) -> Any | None:
-        """Detach and return the Room's scope for terminal cleanup."""
+    def sandbox_scope_generation(self) -> str:
+        with self._sandbox_scope_lock:
+            return self._sandbox_scope_generation
+
+    def _detach_sandbox_scope(
+        self,
+        expected_scope: Any | None = None,
+        *,
+        before_detach: Callable[[Any], Callable[[], None] | None],
+    ) -> tuple[Any | None, Callable[[], None] | None]:
+        """Fence a scope before detaching it and rotate its binding generation."""
         with self._sandbox_scope_lock:
             if expected_scope is not None and self._sandbox_scope != expected_scope:
-                return None
+                return None, None
             scope = self._sandbox_scope
+            if scope is None:
+                return None, None
+            cleanup = before_detach(scope)
             self._sandbox_scope = None
-            return scope
+            self._sandbox_scope_generation = uuid4().hex
+            return scope, cleanup
 
     def _begin_connection(self, websocket: WebSocket) -> None:
         """Reserve the Room for a connection before the first await."""
@@ -552,13 +556,16 @@ class WebManager:
         return self.get_or_create_room(room_id)[0]
 
     def bind_sandbox_scope(self, room: WebRoom, scope: Any) -> None:
-        """Bind only a trusted Web Room scope to the owning Web process."""
+        """Bind only the current trusted Web Room scope to the Web process."""
         if (
             getattr(scope, "deployment_id", None) != "web"
             or getattr(scope, "scope_kind", None) != "web-room"
             or not getattr(scope, "scope_id", "")
         ):
             raise ValueError("a trusted Web Room scope is required")
+        generation = room.sandbox_scope_generation()
+        if getattr(scope, "binding_generation", "") != generation:
+            raise RuntimeError("stale Web Room sandbox scope generation")
         previous_scope = room.current_sandbox_scope()
         if previous_scope is not None and previous_scope != scope:
             jobs = self.sub_agent_job_manager
@@ -579,17 +586,63 @@ class WebManager:
                     raise RuntimeError(
                         "cannot verify background jobs before changing the Room sandbox scope"
                     ) from exc
-        previous = room.replace_sandbox_scope(scope)
-        if previous is not None:
-            self._close_sandbox_scope(previous)
+
+        cleanups: list[Callable[[], None]] = []
+        try:
+            with room._sandbox_scope_lock:
+                if room._sandbox_scope_generation != generation:
+                    raise RuntimeError("Web Room sandbox scope changed during binding")
+                previous = room._sandbox_scope
+                if previous != previous_scope:
+                    raise RuntimeError("Web Room sandbox scope changed during binding")
+                manager = self.sandbox_session_manager
+                if manager is not None and not callable(
+                    getattr(manager, "activate_scope", None)
+                ):
+                    raise RuntimeError("sandbox manager cannot fence Web Room scopes")
+                if previous != scope and previous is not None:
+                    cleanup = self._revoke_sandbox_scope(previous)
+                    if cleanup is not None:
+                        cleanups.append(cleanup)
+                try:
+                    if manager is not None:
+                        manager.activate_scope(scope)
+                    room._sandbox_scope = scope
+                except Exception:
+                    room._sandbox_scope = None
+                    room._sandbox_scope_generation = uuid4().hex
+                    cleanup = self._revoke_sandbox_scope(scope)
+                    if cleanup is not None:
+                        cleanups.append(cleanup)
+                    raise
+        finally:
+            for cleanup in cleanups:
+                cleanup()
+
+    def _revoke_sandbox_scope(self, scope: Any) -> Callable[[], None] | None:
+        manager = self.sandbox_session_manager
+        if manager is None:
+            return None
+        revoke_scope = getattr(manager, "revoke_scope", None)
+        if not callable(revoke_scope):
+            raise RuntimeError("sandbox manager cannot revoke Web Room scopes safely")
+        return revoke_scope(scope)
+
+    def _detach_room_sandbox_scope(
+        self, room: WebRoom, expected_scope: Any | None = None
+    ) -> tuple[Any | None, Callable[[], None] | None]:
+        return room._detach_sandbox_scope(
+            expected_scope, before_detach=self._revoke_sandbox_scope
+        )
 
     def release_room_sandbox_scope(
         self, room: WebRoom, *, expected_scope: Any | None = None
     ) -> bool:
-        scope = room.take_sandbox_scope(expected_scope)
+        scope, cleanup = self._detach_room_sandbox_scope(room, expected_scope)
         if scope is None:
             return False
-        self._close_sandbox_scope(scope)
+        if cleanup is not None:
+            cleanup()
         return True
 
     def release_sandbox_scopes(
@@ -623,9 +676,9 @@ class WebManager:
         return released
 
     def _close_sandbox_scope(self, scope: Any) -> None:
-        manager = self.sandbox_session_manager
-        if manager is not None:
-            manager.close_scope(scope)
+        cleanup = self._revoke_sandbox_scope(scope)
+        if cleanup is not None:
+            cleanup()
 
     def _reserve_room_retirement(
         self,
@@ -662,10 +715,10 @@ class WebManager:
             if not self._reserve_room_retirement(expected_room):
                 return False
             self.rooms.pop(room_id, None)
-            scope = expected_room.take_sandbox_scope()
+            _scope, cleanup = self._detach_room_sandbox_scope(expected_room)
         try:
-            if scope is not None:
-                self._close_sandbox_scope(scope)
+            if cleanup is not None:
+                cleanup()
         finally:
             expected_room.worker_lock.release()
         return True
@@ -681,10 +734,10 @@ class WebManager:
             ):
                 return False
             self.rooms.pop(room_id, None)
-            scope = room.take_sandbox_scope()
+            _scope, cleanup = self._detach_room_sandbox_scope(room)
         try:
-            if scope is not None:
-                self._close_sandbox_scope(scope)
+            if cleanup is not None:
+                cleanup()
         finally:
             room.worker_lock.release()
         return True
@@ -738,7 +791,7 @@ class WebManager:
         )
         current = time.monotonic() if now is None else now
         evicted: list[str] = []
-        evicted_rooms: list[tuple[WebRoom, Any | None]] = []
+        evicted_rooms: list[tuple[WebRoom, Callable[[], None] | None]] = []
         with self.rooms_lock:
             for room_id, room in list(self.rooms.items()):
                 if private_only and not room.private_session:
@@ -749,11 +802,12 @@ class WebManager:
                     continue
                 self.rooms.pop(room_id, None)
                 evicted.append(room_id)
-                evicted_rooms.append((room, room.take_sandbox_scope()))
-        for room, scope in evicted_rooms:
+                _scope, cleanup = self._detach_room_sandbox_scope(room)
+                evicted_rooms.append((room, cleanup))
+        for room, cleanup in evicted_rooms:
             try:
-                if scope is not None:
-                    self._close_sandbox_scope(scope)
+                if cleanup is not None:
+                    cleanup()
             finally:
                 room.worker_lock.release()
         return evicted
@@ -774,7 +828,7 @@ class WebManager:
             ),
         )
         current = time.monotonic() if now is None else now
-        expired_scopes: list[tuple[WebRoom, Any]] = []
+        expired_scopes: list[tuple[WebRoom, Callable[[], None] | None]] = []
         with self.rooms_lock:
             for room in self.rooms.values():
                 if room.private_session or not room.worker_lock.acquire(blocking=False):
@@ -790,16 +844,19 @@ class WebManager:
                     scope = room.current_sandbox_scope()
                     if scope is None:
                         continue
-                    detached = room.take_sandbox_scope(expected_scope=scope)
-                    if detached is not None:
-                        expired_scopes.append((room, detached))
+                    _detached, cleanup = self._detach_room_sandbox_scope(
+                        room, expected_scope=scope
+                    )
+                    if _detached is not None:
+                        expired_scopes.append((room, cleanup))
                         reserved_for_cleanup = True
                 finally:
                     if not reserved_for_cleanup:
                         room.worker_lock.release()
-        for room, scope in expired_scopes:
+        for room, cleanup in expired_scopes:
             try:
-                self._close_sandbox_scope(scope)
+                if cleanup is not None:
+                    cleanup()
             finally:
                 room.worker_lock.release()
         return len(expired_scopes)

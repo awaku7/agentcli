@@ -776,7 +776,9 @@ def test_closing_evicted_room_scope_does_not_close_recreated_room_scope(
         room_generation="new-room-instance",
     )
 
+    manager.activate_scope(old_scope)
     manager.run_tool(old_scope, "file_exists", {"path": "old.txt"})
+    manager.activate_scope(recreated_scope)
     manager.run_tool(recreated_scope, "file_exists", {"path": "new.txt"})
     manager.close_scope(old_scope)
 
@@ -815,13 +817,13 @@ def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(
         runtime=tmp_path,
         capabilities=all_local_capabilities(),
     )
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = mxc_backend.local_web_room_scope(
         principal_id="local-user",
         project_id="local-project",
-        scope_kind="web-room",
-        scope_id="room-7",
+        room_id="room-7",
+        room_generation="generation-1",
     )
+    manager.activate_scope(scope)
 
     assert manager.run_tool(scope, "file_exists", {"path": "inside.txt"}) == (
         "file_exists:inside.txt"
@@ -838,6 +840,183 @@ def test_mxc_session_manager_accepts_only_matching_local_web_room_scope(
     assert "trusted local" in manager.run_tool(
         wrong_binding, "file_exists", {"path": "inside.txt"}
     )
+
+
+def test_manager_fences_revoked_web_room_scopes(monkeypatch, tmp_path):
+    created_scopes = []
+
+    class FakeProcess:
+        @staticmethod
+        def poll():
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProcess()
+            created_scopes.append(scope)
+
+        def run(self, _name, _args):
+            return self._scope.scope_id
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-a",
+        room_generation="generation-a",
+    )
+
+    assert "revoked or unbound" in manager.run_tool(scope, "file_exists", {"path": "x"})
+    manager.activate_scope(scope)
+    assert manager.run_tool(scope, "file_exists", {"path": "x"}) == scope.scope_id
+    cleanup = manager.revoke_scope(scope)
+    assert cleanup is not None
+    cleanup()
+
+    assert "revoked or unbound" in manager.run_tool(scope, "file_exists", {"path": "x"})
+    fresh_scope = mxc_backend.local_web_room_scope(
+        principal_id="local-user",
+        project_id="project",
+        room_id="room-a",
+        room_generation="generation-b",
+    )
+    manager.activate_scope(fresh_scope)
+    assert (
+        manager.run_tool(fresh_scope, "file_exists", {"path": "x"})
+        == fresh_scope.scope_id
+    )
+    assert created_scopes == [scope, fresh_scope]
+    manager.close_all()
+
+
+def test_web_room_release_revokes_scope_before_fresh_binding(monkeypatch, tmp_path):
+    from uagent.web_impl.rooms import WebManager
+
+    class FakeProcess:
+        @staticmethod
+        def poll():
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProcess()
+
+        def run(self, _name, _args):
+            return self._scope.scope_id
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    sessions = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    rooms = WebManager()
+    rooms.sandbox_session_manager = sessions
+    room = rooms.get_room("room-a")
+    scope = mxc_backend.local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=room.room_id,
+        room_generation=room.sandbox_scope_generation(),
+    )
+    rooms.bind_sandbox_scope(room, scope)
+    assert sessions.run_tool(scope, "file_exists", {"path": "x"}) == scope.scope_id
+
+    assert rooms.release_room_sandbox_scope(room, expected_scope=scope)
+    assert "revoked or unbound" in sessions.run_tool(
+        scope, "file_exists", {"path": "x"}
+    )
+    fresh_scope = mxc_backend.local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=room.room_id,
+        room_generation=room.sandbox_scope_generation(),
+    )
+    rooms.bind_sandbox_scope(room, fresh_scope)
+    assert (
+        sessions.run_tool(fresh_scope, "file_exists", {"path": "x"})
+        == fresh_scope.scope_id
+    )
+    sessions.close_all()
+
+
+def test_web_room_release_fences_scope_before_detaching_lease(monkeypatch, tmp_path):
+    from uagent.web_impl.rooms import WebManager
+
+    created_scopes = []
+
+    class FakeProcess:
+        @staticmethod
+        def poll():
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProcess()
+            created_scopes.append(scope)
+
+        def run(self, _name, _args):
+            return self._scope.scope_id
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    session_manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    web_manager = WebManager()
+    web_manager.sandbox_session_manager = session_manager
+    room = web_manager.get_room("room-a")
+    scope = mxc_backend.local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=room.room_id,
+        room_generation=room.sandbox_scope_generation(),
+    )
+    web_manager.bind_sandbox_scope(room, scope)
+    assert session_manager.run_tool(scope, "file_exists", {"path": "x"}) == (
+        scope.scope_id
+    )
+
+    assert web_manager.release_room_sandbox_scope(room, expected_scope=scope)
+    assert room.current_sandbox_scope() is None
+    assert room.sandbox_scope_generation() != scope.binding_generation
+    assert "revoked or unbound" in session_manager.run_tool(
+        scope, "file_exists", {"path": "x"}
+    )
+
+    fresh_scope = mxc_backend.local_web_room_scope(
+        principal_id="alice",
+        project_id="project-a",
+        room_id=room.room_id,
+        room_generation=room.sandbox_scope_generation(),
+    )
+    web_manager.bind_sandbox_scope(room, fresh_scope)
+    assert session_manager.run_tool(fresh_scope, "file_exists", {"path": "x"}) == (
+        fresh_scope.scope_id
+    )
+    assert created_scopes == [scope, fresh_scope]
+    session_manager.close_all()
 
 
 def test_manager_prunes_inactive_sessions_before_enforcing_limit(monkeypatch, tmp_path):

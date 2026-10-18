@@ -773,6 +773,13 @@ def test_local_sandbox_revocation_closes_bound_room_lease(monkeypatch, tmp_path)
         def __init__(self):
             self.capabilities = capabilities
 
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            closed_scopes.append(scope)
+            return None
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 

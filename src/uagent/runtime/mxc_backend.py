@@ -21,7 +21,7 @@ import threading
 import uuid
 from pathlib import Path
 from queue import Empty, Queue
-from typing import Any
+from typing import Any, Callable
 
 from .execution_broker import (
     IsolationLevel,
@@ -897,6 +897,7 @@ class MxcSessionManager:
         self.capabilities = capabilities
         self._sessions: dict[str, _MxcSession] = {}
         self._active_local_scopes: dict[tuple[str, str, str], TrustedSandboxScope] = {}
+        self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
         if os.name == "nt":
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
@@ -939,7 +940,13 @@ class MxcSessionManager:
                 session.close()
 
     def activate_scope(self, scope: TrustedSandboxScope) -> None:
-        """End obsolete local-session leases before beginning a new turn."""
+        """Activate a trusted CLI/GUI scope or bind a Web Room lease."""
+        if scope.scope_kind == "web-room":
+            if not scope.binding_generation:
+                raise ValueError("Web Room scope requires a binding generation")
+            with self._lock:
+                self._active_web_scopes.add(scope)
+            return
         if scope.scope_kind not in {"cli-session", "gui-session"}:
             return
         with self._lock:
@@ -966,6 +973,8 @@ class MxcSessionManager:
             return "[sandbox policy] tool is not in the local sandbox allowlist"
         key = _scope_key(scope)
         with self._lock:
+            if scope.scope_kind == "web-room" and scope not in self._active_web_scopes:
+                return "[sandbox error] revoked or unbound Web Room scope rejected"
             if scope.scope_kind in {"cli-session", "gui-session"}:
                 active_scope = self._active_local_scopes.get(
                     (scope.deployment_id, scope.principal_id, scope.scope_kind)
@@ -993,18 +1002,26 @@ class MxcSessionManager:
                 self._sessions.pop(key, None)
             return f"[sandbox error] isolated session terminated: {type(exc).__name__}: {exc}"
 
-    def close_scope(self, scope: TrustedSandboxScope) -> None:
+    def revoke_scope(self, scope: TrustedSandboxScope) -> Callable[[], None] | None:
+        """Fence a scope immediately and return its detached-session cleanup."""
         key = _scope_key(scope)
         with self._lock:
+            if scope.scope_kind == "web-room":
+                self._active_web_scopes.discard(scope)
             session = self._sessions.pop(key, None)
-        if session is not None:
-            session.close()
+        return session.close if session is not None else None
+
+    def close_scope(self, scope: TrustedSandboxScope) -> None:
+        cleanup = self.revoke_scope(scope)
+        if cleanup is not None:
+            cleanup()
 
     def close_all(self) -> None:
         with self._lock:
             sessions = list(self._sessions.values())
             self._sessions.clear()
             self._active_local_scopes.clear()
+            self._active_web_scopes.clear()
         for session in sessions:
             session.close()
 
@@ -1058,6 +1075,7 @@ def local_web_room_scope(
         project_id=project_id,
         scope_kind="web-room",
         scope_id=_process_scope_id(room_id, generation=room_generation),
+        binding_generation=room_generation,
     )
 
 

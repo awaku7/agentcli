@@ -8,7 +8,21 @@ import pytest
 from uagent.runtime.memory_store import MemoryStore
 from uagent.runtime.room_access import RoomAccessPolicy
 from uagent.runtime.session_store import SessionStore, SessionStoreError
+from uagent.runtime.execution_broker import TrustedSandboxScope
 from uagent.web_impl.rooms import WebManager
+
+
+def _room_scope(
+    room, *, principal_id: str, project_id: str, scope_id: str
+) -> TrustedSandboxScope:
+    return TrustedSandboxScope(
+        deployment_id="web",
+        principal_id=principal_id,
+        project_id=project_id,
+        scope_kind="web-room",
+        scope_id=scope_id,
+        binding_generation=room.sandbox_scope_generation(),
+    )
 
 
 def test_idle_room_eviction_preserves_reconnect_grace_period():
@@ -29,6 +43,12 @@ def test_recreated_web_room_gets_a_distinct_sandbox_scope_generation():
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
@@ -62,13 +82,18 @@ def test_recreated_web_room_gets_a_distinct_sandbox_scope_generation():
 
 
 def test_idle_public_room_cleanup_releases_lease_but_preserves_room_history():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     active_scopes = set()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, scope):
+            active_scopes.add(scope)
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def run_tool(self, scope, _name, _args):
             if scope not in active_scopes and len(active_scopes) >= 4:
                 return "active session limit reached; restart UAG"
@@ -87,11 +112,10 @@ def test_idle_public_room_cleanup_releases_lease_but_preserves_room_history():
         room.active_connections.append(object())
         room.disconnect(room.active_connections[0])
         room.last_activity = 100.0
-        scope = TrustedSandboxScope(
-            deployment_id="web",
+        scope = _room_scope(
+            room,
             principal_id="local-user",
             project_id="project-a",
-            scope_kind="web-room",
             scope_id=f"public-room-{index}-scope",
         )
         manager.bind_sandbox_scope(room, scope)
@@ -132,12 +156,17 @@ def test_idle_public_room_cleanup_releases_lease_but_preserves_room_history():
 
 
 def test_idle_public_room_scope_is_retained_while_job_is_running():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
@@ -150,11 +179,10 @@ def test_idle_public_room_scope_is_retained_while_job_is_running():
     manager.sub_agent_job_manager = FakeJobs()
     room = manager.get_room("public-room")
     room.last_activity = 100.0
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = _room_scope(
+        room,
         principal_id="local-user",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="public-room-scope",
     )
     manager.bind_sandbox_scope(room, scope)
@@ -170,14 +198,18 @@ def test_idle_public_room_scope_is_retained_while_job_is_running():
 def test_idle_public_scope_cleanup_reserves_room_until_scope_close_finishes():
     import threading
 
-    from uagent.runtime.execution_broker import TrustedSandboxScope
-
     manager = WebManager()
     close_started = threading.Event()
     allow_close_to_finish = threading.Event()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
             close_started.set()
@@ -186,11 +218,10 @@ def test_idle_public_scope_cleanup_reserves_room_until_scope_close_finishes():
     manager.sandbox_session_manager = FakeSandboxManager()
     room = manager.get_room("public-room")
     room.last_activity = 100.0
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = _room_scope(
+        room,
         principal_id="local-user",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="public-room-scope",
     )
     manager.bind_sandbox_scope(room, scope)
@@ -216,8 +247,14 @@ def test_idle_public_scope_cleanup_reserves_room_until_scope_close_finishes():
 
     assert room.worker_lock.acquire(blocking=False)
     try:
-        manager.bind_sandbox_scope(room, scope)
-        assert room.current_sandbox_scope() == scope
+        fresh_scope = _room_scope(
+            room,
+            principal_id="local-user",
+            project_id="project-a",
+            scope_id="public-room-scope",
+        )
+        manager.bind_sandbox_scope(room, fresh_scope)
+        assert room.current_sandbox_scope() == fresh_scope
     finally:
         room.worker_lock.release()
 
@@ -226,13 +263,18 @@ def test_idle_public_scope_cleanup_reserves_room_until_scope_close_finishes():
 def test_periodic_room_cleanup_releases_idle_public_leases(monkeypatch, sqlite_backend):
     import asyncio
 
-    from uagent.runtime.execution_broker import TrustedSandboxScope
     from uagent.web_impl import routes_api
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
@@ -240,11 +282,10 @@ def test_periodic_room_cleanup_releases_idle_public_leases(monkeypatch, sqlite_b
     room = manager.get_room("public-room")
     room.last_activity = time.monotonic() - 3600
     monkeypatch.setattr(manager, "idle_ttl_seconds", lambda: 30)
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = _room_scope(
+        room,
         principal_id="local-user",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="public-room-scope",
     )
     manager.bind_sandbox_scope(room, scope)
@@ -349,23 +390,27 @@ def test_expired_private_room_cleanup_removes_session_and_room_binding(
 
 
 def test_web_room_scope_survives_disconnect_and_is_closed_after_idle_ttl():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
     manager.sandbox_session_manager = FakeSandboxManager()
     room = manager.get_room("room-sandbox")
     room.private_session = True
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = _room_scope(
+        room,
         principal_id="local-user",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="room-sandbox-process-1",
     )
     manager.bind_sandbox_scope(room, scope)
@@ -382,33 +427,74 @@ def test_web_room_scope_survives_disconnect_and_is_closed_after_idle_ttl():
     assert closed_scopes == []
     assert manager.evict_idle_rooms(idle_ttl_seconds=30, now=130.0) == ["room-sandbox"]
     assert closed_scopes == [scope]
-    assert room.take_sandbox_scope() is None
+    assert room.current_sandbox_scope() is None
+
+
+def test_revoked_web_room_scope_requires_a_fresh_binding_generation():
+    manager = WebManager()
+    closed_scopes = []
+
+    class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: closed_scopes.append(scope)
+
+    manager.sandbox_session_manager = FakeSandboxManager()
+    room = manager.get_room("room-a")
+    scope = _room_scope(
+        room,
+        principal_id="alice",
+        project_id="project-a",
+        scope_id="room-a-process",
+    )
+    manager.bind_sandbox_scope(room, scope)
+
+    assert manager.release_room_sandbox_scope(room, expected_scope=scope)
+    assert room.current_sandbox_scope() is None
+    assert room.sandbox_scope_generation() != scope.binding_generation
+    assert closed_scopes == [scope]
+    with pytest.raises(RuntimeError, match="stale Web Room sandbox scope"):
+        manager.bind_sandbox_scope(room, scope)
+
+    fresh_scope = _room_scope(
+        room,
+        principal_id="alice",
+        project_id="project-a",
+        scope_id="room-a-process",
+    )
+    manager.bind_sandbox_scope(room, fresh_scope)
+    assert room.current_sandbox_scope() == fresh_scope
 
 
 def test_rebinding_web_room_scope_closes_previous_principal_or_project():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
     manager.sandbox_session_manager = FakeSandboxManager()
     room = manager.get_room("shared-room")
-    first = TrustedSandboxScope(
-        deployment_id="web",
+    first = _room_scope(
+        room,
         principal_id="alice",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="shared-room-process-1",
     )
-    second = TrustedSandboxScope(
-        deployment_id="web",
+    second = _room_scope(
+        room,
         principal_id="bob",
         project_id="project-b",
-        scope_kind="web-room",
         scope_id="shared-room-process-1",
     )
 
@@ -419,27 +505,33 @@ def test_rebinding_web_room_scope_closes_previous_principal_or_project():
     assert not manager.release_room_sandbox_scope(room, expected_scope=first)
     assert room.current_sandbox_scope() == second
     assert closed_scopes == [first]
-    assert room.take_sandbox_scope() == second
+    assert manager.release_room_sandbox_scope(room, expected_scope=second)
+    assert room.current_sandbox_scope() is None
+    assert closed_scopes == [first, second]
 
 
 def test_discarding_expired_private_room_releases_its_sandbox_scope():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
     manager.sandbox_session_manager = FakeSandboxManager()
     room = manager.get_room("expired-private-room")
     room.private_session = True
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = _room_scope(
+        room,
         principal_id="local-user",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="expired-private-room-process-1",
     )
     manager.bind_sandbox_scope(room, scope)
@@ -452,24 +544,28 @@ def test_discarding_expired_private_room_releases_its_sandbox_scope():
 def test_private_room_retirement_rejects_reconnect_racing_cleanup(monkeypatch):
     import threading
 
-    from uagent.runtime.execution_broker import TrustedSandboxScope
     from uagent.runtime.identity_context import IdentityResolutionError
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
     manager.sandbox_session_manager = FakeSandboxManager()
     room = manager.get_room("expired-private-room")
     room.private_session = True
-    scope = TrustedSandboxScope(
-        deployment_id="web",
+    scope = _room_scope(
+        room,
         principal_id="local-user",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="expired-private-room-scope",
     )
     manager.bind_sandbox_scope(room, scope)
@@ -514,12 +610,17 @@ def test_private_room_retirement_rejects_reconnect_racing_cleanup(monkeypatch):
 
 
 def test_running_room_jobs_block_scope_rebind_and_room_eviction():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
@@ -533,18 +634,16 @@ def test_running_room_jobs_block_scope_rebind_and_room_eviction():
     room = manager.get_room("shared-room")
     room.private_session = True
     room.last_activity = 100.0
-    first = TrustedSandboxScope(
-        deployment_id="web",
+    first = _room_scope(
+        room,
         principal_id="alice",
         project_id="project-a",
-        scope_kind="web-room",
         scope_id="shared-room-process-1",
     )
-    second = TrustedSandboxScope(
-        deployment_id="web",
+    second = _room_scope(
+        room,
         principal_id="bob",
         project_id="project-b",
-        scope_kind="web-room",
         scope_id="shared-room-process-1",
     )
     manager.bind_sandbox_scope(room, first)
@@ -558,12 +657,17 @@ def test_running_room_jobs_block_scope_rebind_and_room_eviction():
 
 
 def test_membership_revocation_releases_only_matching_room_scopes():
-    from uagent.runtime.execution_broker import TrustedSandboxScope
 
     manager = WebManager()
     closed_scopes = []
 
     class FakeSandboxManager:
+        def activate_scope(self, _scope):
+            pass
+
+        def revoke_scope(self, scope):
+            return lambda: self.close_scope(scope)
+
         def close_scope(self, scope):
             closed_scopes.append(scope)
 
@@ -576,11 +680,10 @@ def test_membership_revocation_releases_only_matching_room_scopes():
     scopes = []
     for room_id, principal_id, project_id in cases:
         room = manager.get_room(room_id)
-        scope = TrustedSandboxScope(
-            deployment_id="web",
+        scope = _room_scope(
+            room,
             principal_id=principal_id,
             project_id=project_id,
-            scope_kind="web-room",
             scope_id=f"{room_id}-process-1",
         )
         manager.bind_sandbox_scope(room, scope)
