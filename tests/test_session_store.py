@@ -559,9 +559,13 @@ def test_unknown_session_and_invalid_tool_status_raise(tmp_path):
         )
 
 
-def test_busy_database_is_reported_as_store_error(tmp_path):
+def test_busy_database_is_reported_as_store_error(tmp_path, monkeypatch):
     db_path = tmp_path / "sessions.sqlite3"
-    store = SessionStore(db_path)
+    # The exclusive lock is held for the whole test, so both the SQLite busy
+    # timeout and the lock-retry backoff only add latency. Shortening them
+    # keeps the failure mode intact while removing ~22s of idle waiting.
+    monkeypatch.setattr(session_store_module, "_SQLITE_LOCK_RETRY_DELAY", 0.001)
+    store = SessionStore(db_path, busy_timeout_ms=50)
     lock = sqlite3.connect(db_path)
     lock.execute("BEGIN EXCLUSIVE")
     try:

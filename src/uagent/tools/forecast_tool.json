@@ -41,7 +41,8 @@
     "param.future_data.description": "重回帰モデル用の将来の日付と説明変数を含むCSVパスまたはDataFrame JSON。",
     "param.model.enum_linearregression": "LinearRegression",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "前回の予測がまだ終了処理中です。完了してから再試行してください。"
   },
   "fil": {
     "tool.forecast.description": "Isagawa ang pagtataya ng serye ng oras. Gamitin ito kapag tinanong tungkol sa mga hula sa hinaharap, pagsusuri sa trend, mga pagtataya sa benta, o anumang gawain sa pagtataya ng numero.",
@@ -85,7 +86,8 @@
     "param.future_data.description": "CSV path o DataFrame JSON na naglalaman ng mga petsa sa hinaharap at mga paliwanag na variable para sa mga modelo ng regression.",
     "param.model.enum_linearregression": "LinearRegression",
     "param.model.enum_ridge": "tagaytay",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Isang nakaraang forecast ang tumatapos pa. Subukan muli kapag natapos na ito."
   },
   "ms": {
     "tool.forecast.description": "Laksanakan ramalan siri masa. Gunakan ini apabila ditanya tentang ramalan masa depan, analisis aliran, ramalan jualan atau sebarang tugas ramalan berangka.",
@@ -129,7 +131,8 @@
     "param.future_data.description": "Laluan CSV atau DataFrame JSON yang mengandungi tarikh masa hadapan dan pembolehubah penjelasan untuk model regresi.",
     "param.model.enum_linearregression": "Regresi Linear",
     "param.model.enum_ridge": "rabung",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Ramalan sebelumnya masih dalam proses penutupan. Cuba lagi selepas ia selesai."
   },
   "da": {
     "tool.forecast.description": "Udfør tidsserieprognoser. Brug dette, når du bliver spurgt om fremtidige forudsigelser, trendanalyse, salgsprognoser eller enhver numerisk prognoseopgave.",
@@ -173,7 +176,8 @@
     "param.future_data.description": "CSV-sti eller DataFrame JSON, der indeholder fremtidige datoer og forklarende variabler for regressionsmodeller.",
     "param.model.enum_linearregression": "Lineær regression",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "En tidligere prognose er stadig ved at afslutte. Prøv igen, når den er færdig."
   },
   "nn": {
     "tool.forecast.description": "Utfør tidsserieprognoser. Bruk dette når du blir spurt om fremtidige spådommer, trendanalyse, salgsprognoser eller en kva som helst numerisk prognoseoppgave.",
@@ -217,7 +221,8 @@
     "param.future_data.description": "CSV-bane eller DataFrame JSON som inneheld framtidige datoar og forklarande variablar for regresjonsmodellar.",
     "param.model.enum_linearregression": "LineærRegresjon",
     "param.model.enum_ridge": "@ item: inlistbox See http: // krecipes. sourceforge. net/ bordertypes. png for an example",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Ein tidlegare prognose held framleis på å avslutte. Prøv igjen når han er ferdig."
   },
   "ar": {
     "tool.forecast.description": "تنفيذ التنبؤ بالسلاسل الزمنية. استخدم هذا عند سؤالك عن التنبؤات المستقبلية، أو تحليل الاتجاه، أو توقعات المبيعات، أو أي مهمة تنبؤ رقمية.",
@@ -261,7 +266,8 @@
     "param.future_data.description": "مسار CSV أو DataFrame JSON يحتوي على تواريخ مستقبلية ومتغيرات توضيحية لنماذج الانحدار.",
     "param.model.enum_linearregression": "الانحدار الخطي",
     "param.model.enum_ridge": "ريدج",
-    "param.model.enum_lasso": "لاسو"
+    "param.model.enum_lasso": "لاسو",
+    "error.previous_run_running": "لا يزال تنبؤ سابق قيد الإنهاء. أعد المحاولة بعد انتهائه."
   },
   "bn": {
     "tool.forecast.description": "সময় সিরিজের পূর্বাভাস কার্যকর করুন। ভবিষ্যত ভবিষ্যদ্বাণী, প্রবণতা বিশ্লেষণ, বিক্রয় পূর্বাভাস, বা কোনো সংখ্যাসূচক পূর্বাভাস কাজ সম্পর্কে জিজ্ঞাসা করা হলে এটি ব্যবহার করুন।",
@@ -305,7 +311,8 @@
     "param.future_data.description": "CSV পাথ বা ডেটাফ্রেম JSON ভবিষ্যতের তারিখ এবং রিগ্রেশন মডেলের ব্যাখ্যামূলক ভেরিয়েবল সমন্বিত।",
     "param.model.enum_linearregression": "লিনিয়ার রিগ্রেশন",
     "param.model.enum_ridge": "রিজ",
-    "param.model.enum_lasso": "ল্যাসো"
+    "param.model.enum_lasso": "ল্যাসো",
+    "error.previous_run_running": "একটি পূর্ববর্তী পূর্বাভাস এখনও সমাপ্ত হচ্ছে। এটি শেষ হলে আবার চেষ্টা করুন।"
   },
   "cs": {
     "tool.forecast.description": "Proveďte prognózu časových řad. Použijte to, když se vás zeptáte na budoucí předpovědi, analýzu trendů, předpovědi prodeje nebo jakýkoli numerický předpovědní úkol.",
@@ -349,7 +356,8 @@
     "param.future_data.description": "Cesta CSV nebo DataFrame JSON obsahující budoucí data a vysvětlující proměnné pro regresní modely.",
     "param.model.enum_linearregression": "Lineární regrese",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Laso"
+    "param.model.enum_lasso": "Laso",
+    "error.previous_run_running": "Předchozí prognóza se stále ukončuje. Zkuste to znovu, až skončí."
   },
   "de": {
     "tool.forecast.description": "Führen Sie Zeitreihenprognosen aus. Verwenden Sie diese Option, wenn Sie nach Zukunftsprognosen, Trendanalysen, Verkaufsprognosen oder anderen numerischen Prognoseaufgaben gefragt werden.",
@@ -393,7 +401,8 @@
     "param.future_data.description": "CSV-Pfad oder DataFrame-JSON mit zukünftigen Daten und erklärenden Variablen für Regressionsmodelle.",
     "param.model.enum_linearregression": "LineareRegression",
     "param.model.enum_ridge": "Grat",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Eine vorherige Prognose wird noch beendet. Versuchen Sie es erneut, sobald sie fertig ist."
   },
   "el": {
     "tool.forecast.description": "Εκτελέστε πρόβλεψη χρονοσειρών. Χρησιμοποιήστε το όταν ρωτάτε για μελλοντικές προβλέψεις, ανάλυση τάσεων, προβλέψεις πωλήσεων ή οποιαδήποτε εργασία αριθμητικής πρόβλεψης.",
@@ -437,7 +446,8 @@
     "param.future_data.description": "Διαδρομή CSV ή DataFrame JSON που περιέχει μελλοντικές ημερομηνίες και επεξηγηματικές μεταβλητές για μοντέλα παλινδρόμησης.",
     "param.model.enum_linearregression": "Γραμμική παλινδρόμηση",
     "param.model.enum_ridge": "Κορυφογραμμή",
-    "param.model.enum_lasso": "Λάσο"
+    "param.model.enum_lasso": "Λάσο",
+    "error.previous_run_running": "Μια προηγούμενη πρόβλεψη εξακολουθεί να τερματίζεται. Δοκιμάστε ξανά όταν ολοκληρωθεί."
   },
   "es": {
     "tool.forecast.description": "Ejecutar pronósticos de series de tiempo. Úselo cuando se le pregunte sobre predicciones futuras, análisis de tendencias, pronósticos de ventas o cualquier tarea de pronóstico numérico.",
@@ -481,7 +491,8 @@
     "param.future_data.description": "Ruta CSV o DataFrame JSON que contiene fechas futuras y variables explicativas para modelos de regresión.",
     "param.model.enum_linearregression": "Regresión lineal",
     "param.model.enum_ridge": "cresta",
-    "param.model.enum_lasso": "lazo"
+    "param.model.enum_lasso": "lazo",
+    "error.previous_run_running": "Una predicción anterior todavía se está cerrando. Vuelve a intentarlo cuando termine."
   },
   "fa": {
     "tool.forecast.description": "اجرای پیش بینی سری های زمانی هنگامی که در مورد پیش‌بینی‌های آینده، تحلیل روند، پیش‌بینی فروش یا هر کار پیش‌بینی عددی سؤال می‌شود، از آن استفاده کنید.",
@@ -525,7 +536,8 @@
     "param.future_data.description": "مسیر CSV یا DataFrame JSON حاوی تاریخ‌های آینده و متغیرهای توضیحی برای مدل‌های رگرسیون.",
     "param.model.enum_linearregression": "رگرسیون خطی",
     "param.model.enum_ridge": "ریج",
-    "param.model.enum_lasso": "کمند"
+    "param.model.enum_lasso": "کمند",
+    "error.previous_run_running": "یک پیش‌بینی قبلی هنوز در حال پایان یافتن است. پس از پایان آن دوباره تلاش کنید."
   },
   "fi": {
     "tool.forecast.description": "Suorita aikasarjaennustus. Käytä tätä, kun sinulta kysytään tulevaisuuden ennusteista, trendianalyysistä, myyntiennusteista tai mistä tahansa numeerisesta ennustetehtävästä.",
@@ -569,7 +581,8 @@
     "param.future_data.description": "CSV-polku tai DataFrame JSON, joka sisältää tulevat päivämäärät ja selittävät muuttujat regressiomalleja varten.",
     "param.model.enum_linearregression": "Lineaarinen regressio",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Edellinen ennuste on vielä lopettamassa. Yritä uudelleen, kun se on valmis."
   },
   "fr": {
     "tool.forecast.description": "Exécuter des prévisions de séries chronologiques. Utilisez-le lorsque vous êtes interrogé sur les prévisions futures, l'analyse des tendances, les prévisions de ventes ou toute tâche de prévision numérique.",
@@ -613,7 +626,8 @@
     "param.future_data.description": "Chemin CSV ou DataFrame JSON contenant les dates futures et les variables explicatives pour les modèles de régression.",
     "param.model.enum_linearregression": "Régression Linéaire",
     "param.model.enum_ridge": "Crête",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Une prévision précédente est encore en cours d'arrêt. Réessayez une fois qu'elle sera terminée."
   },
   "he": {
     "tool.forecast.description": "ביצוע חיזוי סדרות זמן. השתמש בזה כששואלים אותך לגבי תחזיות עתידיות, ניתוח מגמות, תחזיות מכירות או כל משימת חיזוי מספרית.",
@@ -657,7 +671,8 @@
     "param.future_data.description": "נתיב CSV או DataFrame JSON המכילים תאריכים עתידיים ומשתני הסבר עבור מודלים של רגרסיה.",
     "param.model.enum_linearregression": "רגרסיה לינארית",
     "param.model.enum_ridge": "רכס",
-    "param.model.enum_lasso": "לאסו"
+    "param.model.enum_lasso": "לאסו",
+    "error.previous_run_running": "תחזית קודמת עדיין מסתיימת. נסה שוב לאחר שתסתיים."
   },
   "hi": {
     "tool.forecast.description": "समय श्रृंखला पूर्वानुमान निष्पादित करें. भविष्य की भविष्यवाणियों, प्रवृत्ति विश्लेषण, बिक्री पूर्वानुमान, या किसी संख्यात्मक पूर्वानुमान कार्य के बारे में पूछे जाने पर इसका उपयोग करें।",
@@ -701,7 +716,8 @@
     "param.future_data.description": "CSV पथ या डेटाफ़्रेम JSON जिसमें प्रतिगमन मॉडल के लिए भविष्य की तारीखें और व्याख्यात्मक चर शामिल हैं।",
     "param.model.enum_linearregression": "रैखिक प्रतिगमन",
     "param.model.enum_ridge": "रिज",
-    "param.model.enum_lasso": "लैस्सो"
+    "param.model.enum_lasso": "लैस्सो",
+    "error.previous_run_running": "पिछला पूर्वानुमान अभी समाप्त हो रहा है। समाप्त होने पर पुनः प्रयास करें।"
   },
   "hu": {
     "tool.forecast.description": "Idősoros előrejelzés végrehajtása. Használja ezt, ha jövőbeli előrejelzésekről, trendelemzésről, értékesítési előrejelzésekről vagy bármilyen numerikus előrejelzési feladatról kérdezik.",
@@ -745,7 +761,8 @@
     "param.future_data.description": "CSV-útvonal vagy DataFrame JSON, amely jövőbeli dátumokat és magyarázó változókat tartalmaz a regressziós modellekhez.",
     "param.model.enum_linearregression": "Lineáris regresszió",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasszó"
+    "param.model.enum_lasso": "Lasszó",
+    "error.previous_run_running": "Egy korábbi előrejelzés még leáll. Próbálja újra, amikor befejeződött."
   },
   "id": {
     "tool.forecast.description": "Jalankan perkiraan deret waktu. Gunakan ini ketika ditanya tentang prediksi masa depan, analisis tren, perkiraan penjualan, atau tugas perkiraan numerik apa pun.",
@@ -789,7 +806,8 @@
     "param.future_data.description": "Jalur CSV atau DataFrame JSON berisi tanggal mendatang dan variabel penjelas untuk model regresi.",
     "param.model.enum_linearregression": "Regresi Linier",
     "param.model.enum_ridge": "Punggung bukit",
-    "param.model.enum_lasso": "laso"
+    "param.model.enum_lasso": "laso",
+    "error.previous_run_running": "Peramalan sebelumnya masih dalam proses penutupan. Coba lagi setelah selesai."
   },
   "it": {
     "tool.forecast.description": "Eseguire previsioni di serie temporali. Utilizzalo quando ti viene chiesto informazioni su previsioni future, analisi delle tendenze, previsioni di vendita o qualsiasi attività di previsione numerica.",
@@ -833,7 +851,8 @@
     "param.future_data.description": "Percorso CSV o DataFrame JSON contenente date future e variabili esplicative per i modelli di regressione.",
     "param.model.enum_linearregression": "Regressione lineare",
     "param.model.enum_ridge": "Cresta",
-    "param.model.enum_lasso": "Lazo"
+    "param.model.enum_lasso": "Lazo",
+    "error.previous_run_running": "Una previsione precedente è ancora in fase di chiusura. Riprova quando sarà terminata."
   },
   "ko": {
     "tool.forecast.description": "시계열 예측을 실행합니다. 미래 예측, 추세 분석, 판매 예측 또는 수치 예측 작업에 대해 질문을 받을 때 이를 사용하세요.",
@@ -877,7 +896,8 @@
     "param.future_data.description": "회귀 모델에 대한 미래 날짜와 설명 변수를 포함하는 CSV 경로 또는 DataFrame JSON입니다.",
     "param.model.enum_linearregression": "선형회귀",
     "param.model.enum_ridge": "능선",
-    "param.model.enum_lasso": "올가미"
+    "param.model.enum_lasso": "올가미",
+    "error.previous_run_running": "이전 예측이 아직 종료 중입니다. 완료된 후 다시 시도하세요."
   },
   "mn": {
     "tool.forecast.description": "Хугацааны цувралын таамаглалыг гүйцэтгэх. Ирээдүйн таамаглал, чиг хандлагын дүн шинжилгээ, борлуулалтын таамаглал эсвэл аливаа тоон таамаглалын талаар асуухад үүнийг ашиглана уу.",
@@ -921,7 +941,8 @@
     "param.future_data.description": "CSV зам эсвэл регрессийн загварт зориулсан ирээдүйн огноо, тайлбарлах хувьсагчдыг агуулсан DataFrame JSON.",
     "param.model.enum_linearregression": "Шугаман регресс",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Лассо"
+    "param.model.enum_lasso": "Лассо",
+    "error.previous_run_running": "Өмнөх таамаглал хараахан дуусч байна. Дууссаны дараа дахин оролдоно уу."
   },
   "mr": {
     "tool.forecast.description": "वेळ मालिका अंदाज कार्यान्वित करा. भविष्यातील अंदाज, कल विश्लेषण, विक्री अंदाज किंवा कोणत्याही संख्यात्मक अंदाज कार्याबद्दल विचारल्यावर याचा वापर करा.",
@@ -965,7 +986,8 @@
     "param.future_data.description": "CSV पथ किंवा DataFrame JSON ज्यामध्ये भविष्यातील तारखा आणि प्रतिगमन मॉडेल्ससाठी स्पष्टीकरणात्मक चल असतात.",
     "param.model.enum_linearregression": "लिनियर रिग्रेशन",
     "param.model.enum_ridge": "रिज",
-    "param.model.enum_lasso": "लॅसो"
+    "param.model.enum_lasso": "लॅसो",
+    "error.previous_run_running": "मागील अंदाज अजून बंद होत आहे. तो पूर्ण झाल्यावर पुन्हा प्रयत्न करा."
   },
   "nb": {
     "tool.forecast.description": "Utfør tidsserieprognoser. Bruk dette når du blir spurt om fremtidige spådommer, trendanalyse, salgsprognoser eller en hvilken som helst numerisk prognoseoppgave.",
@@ -1009,7 +1031,8 @@
     "param.future_data.description": "CSV-bane eller DataFrame JSON som inneholder fremtidige datoer og forklarende variabler for regresjonsmodeller.",
     "param.model.enum_linearregression": "Lineær regresjon",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "En tidligere prognose er fortsatt i ferd med å avsluttes. Prøv igjen når den er ferdig."
   },
   "nl": {
     "tool.forecast.description": "Voer tijdreeksprognoses uit. Gebruik dit wanneer u wordt gevraagd naar toekomstige voorspellingen, trendanalyses, verkoopprognoses of welke numerieke voorspellingstaak dan ook.",
@@ -1053,7 +1076,8 @@
     "param.future_data.description": "CSV-pad of DataFrame JSON met toekomstige datums en verklarende variabelen voor regressiemodellen.",
     "param.model.enum_linearregression": "Lineaire regressie",
     "param.model.enum_ridge": "Rand",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Een eerdere prognose wordt nog afgesloten. Probeer het opnieuw zodra die klaar is."
   },
   "pl": {
     "tool.forecast.description": "Wykonaj prognozowanie szeregów czasowych. Użyj tej opcji, gdy zostaniesz zapytany o przyszłe przewidywania, analizę trendów, prognozę sprzedaży lub dowolne zadanie prognozowania numerycznego.",
@@ -1097,7 +1121,8 @@
     "param.future_data.description": "Ścieżka CSV lub DataFrame JSON zawierająca przyszłe daty i zmienne objaśniające dla modeli regresji.",
     "param.model.enum_linearregression": "Regresja liniowa",
     "param.model.enum_ridge": "Grzbiet",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Poprzednia prognoza wciąż się kończy. Spróbuj ponownie, gdy się zakończy."
   },
   "pt": {
     "tool.forecast.description": "Executar previsão de série temporal. Use-o quando questionado sobre previsões futuras, análises de tendências, previsões de vendas ou qualquer tarefa de previsão numérica.",
@@ -1141,7 +1166,8 @@
     "param.future_data.description": "Caminho CSV ou DataFrame JSON contendo datas futuras e variáveis ​​explicativas para modelos de regressão.",
     "param.model.enum_linearregression": "Regressão Linear",
     "param.model.enum_ridge": "Cume",
-    "param.model.enum_lasso": "Laço"
+    "param.model.enum_lasso": "Laço",
+    "error.previous_run_running": "Uma previsão anterior ainda está a terminar. Tente novamente quando terminar."
   },
   "pt_BR": {
     "tool.forecast.description": "Executar previsão de série temporal. Use-o quando questionado sobre previsões futuras, análises de tendências, previsões de vendas ou qualquer tarefa de previsão numérica.",
@@ -1185,7 +1211,8 @@
     "param.future_data.description": "Caminho CSV ou DataFrame JSON contendo datas futuras e variáveis ​​explicativas para modelos de regressão.",
     "param.model.enum_linearregression": "Regressão Linear",
     "param.model.enum_ridge": "Cume",
-    "param.model.enum_lasso": "Laço"
+    "param.model.enum_lasso": "Laço",
+    "error.previous_run_running": "Uma previsão anterior ainda está sendo encerrada. Tente novamente quando terminar."
   },
   "ro": {
     "tool.forecast.description": "Efectuați prognoza serii temporale. Utilizați acest lucru atunci când sunteți întrebat despre previziuni viitoare, analiza tendințelor, prognozele vânzărilor sau orice sarcină de prognoză numerică.",
@@ -1229,7 +1256,8 @@
     "param.future_data.description": "Calea CSV sau DataFrame JSON care conține date viitoare și variabile explicative pentru modelele de regresie.",
     "param.model.enum_linearregression": "Regresie liniară",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "O prognoză anterioară se află încă în curs de închidere. Încearcă din nou după ce se termină."
   },
   "ru": {
     "tool.forecast.description": "Выполнение прогнозирования временных рядов. Используйте это, когда вас спрашивают о прогнозах на будущее, анализе тенденций, прогнозах продаж или любой задаче численного прогнозирования.",
@@ -1273,7 +1301,8 @@
     "param.future_data.description": "Путь CSV или DataFrame JSON, содержащий будущие даты и независимые переменные для моделей регрессии.",
     "param.model.enum_linearregression": "Линейная регрессия",
     "param.model.enum_ridge": "Ридж",
-    "param.model.enum_lasso": "Лассо"
+    "param.model.enum_lasso": "Лассо",
+    "error.previous_run_running": "Предыдущий прогноз всё ещё завершается. Повторите попытку после его завершения."
   },
   "sv": {
     "tool.forecast.description": "Utför tidsserieprognoser. Använd detta när du frågas om framtida förutsägelser, trendanalys, försäljningsprognoser eller någon numerisk prognosuppgift.",
@@ -1317,7 +1346,8 @@
     "param.future_data.description": "CSV-sökväg eller DataFrame JSON som innehåller framtida datum och förklarande variabler för regressionsmodeller.",
     "param.model.enum_linearregression": "Linjär regression",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "En tidigare prognos håller fortfarande på att avslutas. Försök igen när den är klar."
   },
   "sw": {
     "tool.forecast.description": "Tekeleza utabiri wa mfululizo wa saa. Tumia hii unapoulizwa kuhusu ubashiri wa siku zijazo, uchanganuzi wa mwenendo, utabiri wa mauzo, au kazi yoyote ya utabiri wa nambari.",
@@ -1361,7 +1391,8 @@
     "param.future_data.description": "Njia ya CSV au DataFrame JSON iliyo na tarehe za siku zijazo na vigezo vya ufafanuzi kwa miundo ya urejeshaji.",
     "param.model.enum_linearregression": "LinearRegression",
     "param.model.enum_ridge": "Ridge",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Utabiri uliopita bado unamaliza. Jaribu tena ukiisha."
   },
   "th": {
     "tool.forecast.description": "ดำเนินการพยากรณ์อนุกรมเวลา ใช้สิ่งนี้เมื่อถามเกี่ยวกับการคาดการณ์ในอนาคต การวิเคราะห์แนวโน้ม การคาดการณ์การขาย หรืองานการคาดการณ์เชิงตัวเลขใดๆ",
@@ -1405,7 +1436,8 @@
     "param.future_data.description": "เส้นทาง CSV หรือ DataFrame JSON ที่มีวันที่ในอนาคตและตัวแปรอธิบายสำหรับโมเดลการถดถอย",
     "param.model.enum_linearregression": "การถดถอยเชิงเส้น",
     "param.model.enum_ridge": "สันเขา",
-    "param.model.enum_lasso": "ลาสโซ"
+    "param.model.enum_lasso": "ลาสโซ",
+    "error.previous_run_running": "การพยากรณ์ก่อนหน้ากำลังสิ้นสุดอยู่ โปรดลองอีกครั้งเมื่อเสร็จสิ้น"
   },
   "tr": {
     "tool.forecast.description": "Zaman serisi tahminini yürütün. Gelecek tahminleri, trend analizi, satış tahminleri veya herhangi bir sayısal tahmin görevi hakkında soru sorulduğunda bunu kullanın.",
@@ -1449,7 +1481,8 @@
     "param.future_data.description": "Regresyon modelleri için gelecekteki tarihleri ​​ve açıklayıcı değişkenleri içeren CSV yolu veya DataFrame JSON.",
     "param.model.enum_linearregression": "Doğrusal Regresyon",
     "param.model.enum_ridge": "Sırt",
-    "param.model.enum_lasso": "Kement"
+    "param.model.enum_lasso": "Kement",
+    "error.previous_run_running": "Önceki bir tahmin hâlâ kapatılıyor. Bittiğinde tekrar deneyin."
   },
   "uk": {
     "tool.forecast.description": "Виконати прогнозування часових рядів. Використовуйте це, коли вас запитають про майбутні прогнози, аналіз тенденцій, прогнози продажів або будь-яке завдання чисельного прогнозування.",
@@ -1493,7 +1526,8 @@
     "param.future_data.description": "Шлях CSV або DataFrame JSON, що містить майбутні дати та пояснювальні змінні для моделей регресії.",
     "param.model.enum_linearregression": "Лінійна регресія",
     "param.model.enum_ridge": "Хребет",
-    "param.model.enum_lasso": "Ласо"
+    "param.model.enum_lasso": "Ласо",
+    "error.previous_run_running": "Попередній прогноз усе ще завершується. Повторіть спробу після його завершення."
   },
   "vi": {
     "tool.forecast.description": "Thực hiện dự báo chuỗi thời gian. Hãy sử dụng thông tin này khi được hỏi về dự đoán trong tương lai, phân tích xu hướng, dự báo doanh số hoặc bất kỳ nhiệm vụ dự báo số nào.",
@@ -1537,7 +1571,8 @@
     "param.future_data.description": "Đường dẫn CSV hoặc DataFrame JSON chứa các ngày trong tương lai và các biến giải thích cho mô hình hồi quy.",
     "param.model.enum_linearregression": "Hồi quy tuyến tính",
     "param.model.enum_ridge": "Sườn núi",
-    "param.model.enum_lasso": "Lasso"
+    "param.model.enum_lasso": "Lasso",
+    "error.previous_run_running": "Một dự báo trước đó vẫn đang kết thúc. Hãy thử lại sau khi hoàn tất."
   },
   "zh_CN": {
     "tool.forecast.description": "执行时间序列预测。当被问及未来预测、趋势分析、销售预测或任何数值预测任务时，请使用此选项。",
@@ -1581,7 +1616,8 @@
     "param.future_data.description": "包含回归模型的未来日期和解释变量的 CSV 路径或 DataFrame JSON。",
     "param.model.enum_linearregression": "线性回归",
     "param.model.enum_ridge": "山脊",
-    "param.model.enum_lasso": "套索"
+    "param.model.enum_lasso": "套索",
+    "error.previous_run_running": "上一次预测仍在结束中。请在完成后重试。"
   },
   "zh_TW": {
     "tool.forecast.description": "執行時間序列預測。當被問及未來預測、趨勢分析、銷售預測或任何數值預測任務時，請使用此選項。",
@@ -1625,6 +1661,7 @@
     "param.future_data.description": "包含迴歸模型的未來日期和解釋變數的 CSV 路徑或 DataFrame JSON。",
     "param.model.enum_linearregression": "線性迴歸",
     "param.model.enum_ridge": "山脊",
-    "param.model.enum_lasso": "套索"
+    "param.model.enum_lasso": "套索",
+    "error.previous_run_running": "上一次預測仍在結束中。請在完成後重試。"
   }
 }

@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.7.32] - 2026-10-18
+
+### Fixed
+
+- Fix forecast worker capacity handling by reserving slots atomically, counting nested workers toward per-run limits, excluding nested evaluations from the run cap, and pruning finished workers promptly.
+- Avoid importing Google's Gemini SDK during cache setup for non-Gemini providers, and load Gemini-specific types only when needed.
+
 ## [0.7.31] - 2026-10-17
 
 ### Added

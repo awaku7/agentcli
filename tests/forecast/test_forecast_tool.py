@@ -5,12 +5,36 @@ from __future__ import annotations
 import ast
 import json
 import sys
+import threading
+import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import numpy as np
 import pandas as pd
 import pytest
+
+
+@pytest.fixture(autouse=True)
+def _isolate_abandoned_forecast_runs():
+    """Keep workers abandoned by one test from leaking into the next.
+
+    Workers wait for their slot to be released on exit, so this also proves the
+    reservation is returned when a timed-out worker finally stops.
+    """
+    from uagent.tools import forecast_tool as _forecast_tool
+
+    def _drain(timeout=15.0):
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline and _forecast_tool.active_run_count():
+            time.sleep(0.02)
+        _forecast_tool.reset_abandoned_runs()
+        return _forecast_tool.active_run_count()
+
+    _drain()
+    yield
+    assert _drain() == 0
+
 
 # ── Cycle 1: TOOL_SPEC structure ──────────────────────────────────────
 
@@ -512,8 +536,314 @@ def test_timeout_error():
     sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
     from uagent.tools.forecast_tool import _run_with_timeout
 
+    started = time.monotonic()
     with pytest.raises(TimeoutError):
-        _run_with_timeout(lambda: __import__("time").sleep(10), 1)
+        _run_with_timeout(lambda: time.sleep(10), 1)
+    # The timeout must not be followed by a join on the worker thread, which
+    # would make the caller wait for the whole timed-out call.
+    assert time.monotonic() - started < 3.0
+
+
+def test_abandoned_worker_observes_cancellation():
+    """A timed-out worker must be told to stop, not simply abandoned."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    seen: dict[str, bool] = {}
+
+    def worker():
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            if ft._cancelled():
+                seen["cancelled"] = True
+                return
+            time.sleep(0.01)
+        seen["cancelled"] = False
+        return None
+
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(worker, 1)
+
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and "cancelled" not in seen:
+        time.sleep(0.02)
+    assert seen.get("cancelled") is True
+    # The worker is gone, so nothing is left running behind the caller.
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and ft.abandoned_run_count():
+        time.sleep(0.02)
+    assert ft.abandoned_run_count() == 0
+
+
+def test_new_forecast_is_rejected_while_abandoned_workers_are_alive(monkeypatch):
+    """Leftover work is bounded instead of accumulating per timeout."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(lambda: time.sleep(3), 1)
+    assert ft.abandoned_run_count() == 1
+    with pytest.raises(ft.ForecastBusyError):
+        ft._run_with_timeout(lambda: 1, 1)
+
+    # Once the leftover run is gone, work is accepted again.
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and ft.abandoned_run_count():
+        time.sleep(0.05)
+    assert ft._run_with_timeout(lambda: 42, 5) == 42
+
+
+def test_nested_evaluation_is_not_refused_at_capacity(monkeypatch):
+    """Auto-selection must not reject its own evaluations at the worker cap."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    # The parent already occupies the only slot, so the nested call has to run
+    # without being refused; failing here would degrade to the Dummy model.
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+
+    def outer():
+        return ft._run_with_timeout(lambda: "evaluated", 5)
+
+    assert ft._run_with_timeout(outer, 10) == "evaluated"
+    assert ft.active_run_count() == 0
+
+
+def test_timed_out_nested_worker_keeps_consuming_capacity(monkeypatch):
+    """A nested worker outliving its parent must still block new forecasts."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+    nested_timeouts = []
+
+    def outer():
+        # The nested evaluation overruns its own deadline, so its thread is
+        # still alive when the parent unwinds and gives up.
+        try:
+            ft._run_with_timeout(lambda: time.sleep(3), 1)
+        except TimeoutError:
+            nested_timeouts.append(True)
+        return "parent gave up"
+
+    assert ft._run_with_timeout(outer, 10) == "parent gave up"
+    assert nested_timeouts == [True]
+    # The leftover nested thread is still counted, so the cap still refuses.
+    assert ft.active_run_count() >= 1
+    with pytest.raises(ft.ForecastBusyError):
+        ft._run_with_timeout(lambda: "too soon", 5)
+
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and ft.active_run_count():
+        time.sleep(0.02)
+    assert ft._run_with_timeout(lambda: "ok now", 5) == "ok now"
+
+
+def test_nested_evaluation_inherits_the_caller_cancel_event():
+    """A nested run must stop when its parent is abandoned."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    seen: dict[str, bool] = {}
+
+    def outer():
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline:
+            try:
+                return ft._run_with_timeout(lambda: time.sleep(3), 5)
+            except ft.ForecastCancelledError:
+                seen["cancelled"] = True
+                return None
+            except TimeoutError:
+                seen["timeout"] = True
+                return None
+        return None
+
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(outer, 1)
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and not seen:
+        time.sleep(0.02)
+    # Either the nested call inherited the cancel event or the parent stopped.
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline and ft.active_run_count():
+        time.sleep(0.02)
+    assert ft.active_run_count() == 0
+
+
+def test_busy_is_not_reported_as_a_model_failure(monkeypatch):
+    """_select_best_model must propagate busy instead of using the Dummy model."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    # Name it after a real tier member so the selection loop reaches it.
+    monkeypatch.setattr(
+        ft, "_get_available_models", lambda *a, **k: [("AutoARIMA", lambda: object())]
+    )
+
+    def refuse(*_args, **_kwargs):
+        raise ft.ForecastBusyError("full")
+
+    monkeypatch.setattr(ft, "_run_with_timeout", refuse)
+    with pytest.raises(ft.ForecastBusyError):
+        ft._select_best_model(
+            pd.DataFrame(
+                {"date": pd.date_range("2024-01-01", periods=5), "value": range(5)}
+            ),
+            pd.DataFrame(
+                {"date": pd.date_range("2024-01-06", periods=2), "value": range(2)}
+            ),
+            "date",
+            "value",
+            "D",
+            2,
+        )
+
+
+def test_concurrent_callers_cannot_exceed_the_worker_cap(monkeypatch):
+    """Reserving a slot atomically is what makes the cap hold under contention."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 4)
+    started = []
+    lock = threading.Lock()
+    gate = threading.Event()
+    results = []
+
+    def worker():
+        with lock:
+            started.append(threading.get_ident())
+        gate.wait(5)
+        return "done"
+
+    def caller():
+        try:
+            results.append(ft._run_with_timeout(worker, 10))
+        except Exception as exc:  # noqa: BLE001 - recorded for the assertion
+            results.append(type(exc).__name__)
+
+    callers = [threading.Thread(target=caller) for _ in range(6)]
+    for thread in callers:
+        thread.start()
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and len(started) < 2:
+        time.sleep(0.01)
+    time.sleep(0.3)  # let the remaining callers be refused
+    # Two parents fit (each reserving 2 slots) and no more.
+    assert len(started) == 2
+    gate.set()
+    for thread in callers:
+        thread.join(15)
+    assert results.count("ForecastBusyError") == 4
+    assert results.count("done") == 2
+    assert ft.active_run_count() == 0
+
+
+def test_completed_abandoned_workers_are_pruned(monkeypatch):
+    """Sequential timeouts must not accumulate Thread objects in the process."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+    for _ in range(3):
+        with pytest.raises(TimeoutError):
+            ft._run_with_timeout(lambda: time.sleep(2), 1)
+        # Let the abandoned worker notice the cancel event and exit.
+        deadline = time.monotonic() + 10
+        while time.monotonic() < deadline and ft.abandoned_run_count():
+            time.sleep(0.02)
+        assert ft.abandoned_run_count() == 0
+
+
+def test_admission_reserves_room_for_nested_evaluation(monkeypatch):
+    """Synchronized callers cannot take the last slot and then add nested work."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 4)
+    started = []
+    lock = threading.Lock()
+    gate = threading.Event()
+
+    def parent():
+        with lock:
+            started.append("parent")
+        # Each admitted parent then runs one nested evaluation.
+        ft._run_with_timeout(lambda: time.sleep(0.3), 10)
+        gate.wait(5)
+        return "done"
+
+    outcomes = []
+
+    def caller():
+        try:
+            outcomes.append(ft._run_with_timeout(parent, 20))
+        except Exception as exc:  # noqa: BLE001 - recorded for the assertion
+            outcomes.append(type(exc).__name__)
+
+    threads = [threading.Thread(target=caller) for _ in range(4)]
+    for thread in threads:
+        thread.start()
+    time.sleep(0.5)
+    # At most two parents, so at most four workers counting nested ones.
+    assert started.count("parent") <= 2
+    assert ft.active_run_count() <= 4
+    gate.set()
+    for thread in threads:
+        thread.join(20)
+    assert ft.active_run_count() == 0
+    assert outcomes.count("done") == started.count("parent")
+    assert outcomes.count("ForecastBusyError") == 4 - started.count("parent")
+
+
+def test_abandoned_worker_cannot_start_further_work():
+    """A cancelled worker must not spawn a second thread."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    seen: dict[str, str] = {}
+
+    def nested():
+        # Wait until the caller abandons this worker, then try to fan out.
+        deadline = time.monotonic() + 5
+        while time.monotonic() < deadline and not ft._cancelled():
+            time.sleep(0.01)
+        try:
+            ft._run_with_timeout(lambda: time.sleep(5), 5)
+            seen["result"] = "ran"
+        except Exception as exc:  # noqa: BLE001 - recorded for the assertion
+            seen["result"] = type(exc).__name__
+
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(nested, 1)
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline and "result" not in seen:
+        time.sleep(0.02)
+    assert seen.get("result") == "ForecastCancelledError"
+
+
+def test_run_tool_reports_busy_as_retryable(sample_df, monkeypatch):
+    """run_tool turns a busy guard into a retryable JSON error."""
+    sys.path.insert(0, str(Path(__file__).parents[2] / "src"))
+    from uagent.tools import forecast_tool as ft
+
+    monkeypatch.setattr(ft, "_MAX_LIVE_WORKERS", 2)
+    with pytest.raises(TimeoutError):
+        ft._run_with_timeout(lambda: time.sleep(3), 1)
+    parsed = json.loads(
+        ft.run_tool(
+            {
+                "data": sample_df.to_json(orient="split", index=False),
+                "date_column": "date",
+                "value_column": "value",
+                "horizon": 2,
+            }
+        )
+    )
+    assert parsed.get("retryable") is True
+    assert "error" in parsed
 
 
 # ── Cycle 25: run_tool timeout returns error JSON ─────────────────────

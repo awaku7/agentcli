@@ -781,17 +781,209 @@ def _run_regression_forecast(
 
 # ── Timeout guard ──────────────────────────────────────────────────────
 
-import concurrent.futures as _cf
+import threading as _threading
 
 
-def _run_with_timeout(func, timeout_sec: int, *args, **kwargs):
-    """Run func in a thread with timeout."""
-    with _cf.ThreadPoolExecutor(max_workers=1) as pool:
-        fut = pool.submit(func, *args, **kwargs)
+class ForecastCancelledError(RuntimeError):
+    """Raised inside a forecast worker after its caller already timed out."""
+
+
+class ForecastBusyError(RuntimeError):
+    """Raised when a timed-out forecast is still winding down.
+
+    A Python thread cannot be killed, so a timed-out forecast keeps running
+    until it reaches a cancellation checkpoint or returns. Refusing new work
+    while such a run is alive bounds that leftover work to a single run
+    instead of letting repeated timeouts accumulate.
+    """
+
+
+# Upper bound on live forecast worker threads in this process, counted from
+# admission until the thread exits. Every worker counts, including nested
+# evaluations, so a nested worker that outlives a timed-out parent keeps
+# consuming capacity and new forecasts stay refused until it really stops.
+# Two concurrent runs, each with one nested evaluation, is the intended load.
+# Total forecast worker threads allowed in this process. A top-level run
+# reserves two slots at admission: its own worker and one nested evaluation.
+# The reservation is released only when the last thread of that run exits, so
+# a nested worker that outlives its parent keeps its run's capacity.
+_MAX_LIVE_WORKERS = 4
+_reserved_slots = 0
+_abandoned_guard = _threading.Lock()
+_abandoned_runs: "list[_threading.Thread]" = []
+_run_state = _threading.local()
+
+
+class _RunTicket:
+    """Reservation shared by a top-level forecast run and its nested workers."""
+
+    __slots__ = ("slots", "threads")
+
+    def __init__(self, slots: int) -> None:
+        self.slots = slots
+        self.threads = 0
+
+
+def _current_cancel_event() -> "_threading.Event | None":
+    return getattr(_run_state, "cancel", None)
+
+
+def _cancelled() -> bool:
+    """Whether the current forecast worker was abandoned by its caller."""
+    event = _current_cancel_event()
+    return event is not None and event.is_set()
+
+
+def _prune_abandoned_locked() -> None:
+    _abandoned_runs[:] = [thread for thread in _abandoned_runs if thread.is_alive()]
+
+
+def abandoned_run_count() -> int:
+    """Number of timed-out forecast workers that are still running."""
+    with _abandoned_guard:
+        _prune_abandoned_locked()
+        return len(_abandoned_runs)
+
+
+def active_run_count() -> int:
+    """Number of reserved worker threads, including abandoned ones."""
+    with _abandoned_guard:
+        return _reserved_slots
+
+
+def reset_abandoned_runs() -> None:
+    """Forget timed-out workers without touching them.
+
+    The host never needs this; tests use it so a worker abandoned by one test
+    cannot make an unrelated later test look busy.
+    """
+    with _abandoned_guard:
+        _abandoned_runs.clear()
+
+
+def _acquire_run_ticket() -> "_RunTicket":
+    """Join the caller's run, or admit a new top-level run at capacity.
+
+    Every reservation change happens under the lock that also guards the
+    abandoned bookkeeping, so synchronized callers cannot all observe free
+    capacity. A ticket is released only when its last thread exits, so a
+    nested worker that outlives a timed-out parent keeps its run's slots.
+    """
+    global _reserved_slots
+    parent = getattr(_run_state, "ticket", None)
+    with _abandoned_guard:
+        # Drop finished threads on every admission: a long-lived process would
+        # otherwise keep one Thread object per historical timeout.
+        _prune_abandoned_locked()
+        if parent is not None:
+            # Nested evaluation: it belongs to the parent's reservation. Deeper
+            # nesting than reserved takes one extra slot when available.
+            if parent.threads + 1 > parent.slots:
+                if _reserved_slots + 1 > _MAX_LIVE_WORKERS:
+                    raise ForecastBusyError(
+                        "A previous forecast is still shutting down; retry shortly."
+                    )
+                _reserved_slots += 1
+                parent.slots += 1
+            parent.threads += 1
+            return parent
+        if _reserved_slots + 2 > _MAX_LIVE_WORKERS:
+            raise ForecastBusyError(
+                "A previous forecast is still shutting down; retry shortly."
+            )
+        _reserved_slots += 2
+        ticket = _RunTicket(2)
+        ticket.threads = 1
+        return ticket
+
+
+def _release_run_ticket(ticket: "_RunTicket") -> None:
+    global _reserved_slots
+    with _abandoned_guard:
+        if ticket.threads > 0:
+            ticket.threads -= 1
+        if ticket.threads == 0 and ticket.slots:
+            _reserved_slots = max(0, _reserved_slots - ticket.slots)
+            ticket.slots = 0
+        # A worker that has stopped is no longer abandoned, so drop it now
+        # instead of waiting for the next admission to prune the list.
+        _prune_abandoned_locked()
+
+
+def _run_with_timeout(
+    func,
+    timeout_sec: int,
+    *args,
+    cancel: "_threading.Event | None" = None,
+    **kwargs,
+):
+    """Run func in a daemon thread and raise TimeoutError once it overruns.
+
+    A ``ThreadPoolExecutor`` context manager is not used here on purpose: its
+    ``__exit__`` joins the worker, so the caller would keep waiting for the
+    whole run time of the timed-out call.
+
+    The worker cannot be killed when the timeout fires, so two things bound
+    the leftover work instead:
+
+    * its cancel event is set, and the forecast loops check ``_cancelled()``
+      to stop starting further model evaluations, and
+    * the worker is recorded as abandoned, and top-level runs reserve a slot
+      that is only released when the thread exits, so repeated timeouts cannot
+      accumulate background work.
+
+    Nested calls (model evaluation started from inside a forecast worker) do
+    not reserve a slot and share the caller's cancel event: they are part of
+    the parent run's work, so charging them a slot would make overlapping
+    ``model="auto"`` calls reject their own evaluations or report busy.
+    """
+    if _cancelled():
+        # Reachable only from inside an abandoned worker: never let it start
+        # another thread, so a timed-out run cannot fan out further work.
+        raise ForecastCancelledError("Forecast cancelled by its caller")
+
+    parent_cancel = _current_cancel_event()
+    ticket = _acquire_run_ticket()
+
+    if cancel is not None:
+        cancel_event = cancel
+    elif parent_cancel is not None:
+        cancel_event = parent_cancel
+    else:
+        cancel_event = _threading.Event()
+    outcome: dict[str, Any] = {}
+
+    def _call() -> None:
+        previous_cancel = getattr(_run_state, "cancel", None)
+        previous_ticket = getattr(_run_state, "ticket", None)
+        _run_state.cancel = cancel_event
+        _run_state.ticket = ticket
         try:
-            return fut.result(timeout=timeout_sec)
-        except _cf.TimeoutError:
-            raise TimeoutError(f"Forecast timed out ({timeout_sec}s)")
+            outcome["value"] = func(*args, **kwargs)
+        except BaseException as exc:  # re-raised in the caller thread
+            outcome["error"] = exc
+        finally:
+            _run_state.cancel = previous_cancel
+            _run_state.ticket = previous_ticket
+            # Released only when the last thread of the run exits, so an
+            # abandoned worker keeps consuming capacity until it is done.
+            _release_run_ticket(ticket)
+
+    worker = _threading.Thread(target=_call, name="forecast-task", daemon=True)
+    try:
+        worker.start()
+    except BaseException:
+        _release_run_ticket(ticket)
+        raise
+    worker.join(timeout_sec)
+    if worker.is_alive():
+        cancel_event.set()
+        with _abandoned_guard:
+            _abandoned_runs.append(worker)
+        raise TimeoutError(f"Forecast timed out ({timeout_sec}s)")
+    if "error" in outcome:
+        raise outcome["error"]
+    return outcome["value"]
 
 
 # ── Model Selection ────────────────────────────────────────────────────
@@ -1630,6 +1822,10 @@ def _select_best_model(
     ]
 
     for tier in tiers:
+        # A caller that already timed out must not keep this run spawning
+        # further model training threads.
+        if _cancelled():
+            raise ForecastCancelledError("Forecast cancelled by its caller")
         tier_results = []
         tier_names = [n for n, b in candidates if n in tier]
         if not tier_names:
@@ -1637,6 +1833,8 @@ def _select_best_model(
         for name, builder in candidates:
             if name not in tier:
                 continue
+            if _cancelled():
+                raise ForecastCancelledError("Forecast cancelled by its caller")
             t0 = time.time()
             try:
 
@@ -1656,6 +1854,11 @@ def _select_best_model(
                     _eval, _TIMEOUT_SEC
                 )
                 tier_results.append((rmse_val, elapsed, name, model))
+            except (ForecastBusyError, ForecastCancelledError):
+                # Not a model failure: the run itself was refused or cancelled,
+                # so falling through to the Dummy model would report a wrong
+                # forecast instead of a retryable error.
+                raise
             except Exception:
                 _logger.debug(
                     "Forecast model evaluation failed: %s", name, exc_info=True
@@ -2008,8 +2211,23 @@ def run_tool(args: dict[str, Any]) -> str:
             return cb.truncate_output("forecast", output, limit=10000)
         return output
 
+    cancel = _threading.Event()
     try:
-        return _run_with_timeout(_execute, _TIMEOUT_SEC)
+        return _run_with_timeout(_execute, _TIMEOUT_SEC, cancel=cancel)
+    except ForecastBusyError:
+        return json.dumps(
+            {
+                "error": _(
+                    "error.previous_run_running",
+                    default=(
+                        "A previous forecast is still shutting down. "
+                        "Retry once it finishes."
+                    ),
+                ),
+                "retryable": True,
+            },
+            ensure_ascii=False,
+        )
     except DataTooSmallError as e:
         return json.dumps(
             {

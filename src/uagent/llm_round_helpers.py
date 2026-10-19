@@ -9,13 +9,6 @@ from typing import TYPE_CHECKING, Any, Optional
 if TYPE_CHECKING:
     from .runtime.capability_resolver import CapabilityResolverPort
 
-try:
-    from openai import APIConnectionError, APIResponseValidationError, BadRequestError
-except Exception:
-    APIConnectionError = None
-    APIResponseValidationError = None
-    BadRequestError = None
-
 from . import tools
 from .runtime.message_transform import normalize_surrogates as _normalize_surrogates
 from .runtime.round_ui import stop_round_spinner
@@ -167,6 +160,7 @@ from .env_utils import env_get
 from .i18n import _
 from .llm_helpers import _env_default_true
 from .translate import translate_text
+from ._lazy_sdk import is_openai_error
 
 
 def _call_gemini_round(**kwargs: Any) -> Any:
@@ -1416,9 +1410,7 @@ def _call_openai_azure_round(
                     )
                 return True
 
-            _is_bad_request = BadRequestError is not None and isinstance(
-                e, BadRequestError
-            )
+            _is_bad_request = is_openai_error(e, "BadRequestError")
             if (
                 use_responses_api
                 and not _responses_proxy_retried
@@ -1434,9 +1426,7 @@ def _call_openai_azure_round(
                     + "retrying once..."
                 )
                 continue
-            _is_resp_validation = APIResponseValidationError is not None and isinstance(
-                e, APIResponseValidationError
-            )
+            _is_resp_validation = is_openai_error(e, "APIResponseValidationError")
             if _is_bad_request or _is_resp_validation:
                 err_text = _err_text_of(e)
                 if (
@@ -1492,7 +1482,7 @@ def _call_openai_azure_round(
                     }
                 )
                 return False, client, "", "", []
-            if APIConnectionError is not None and isinstance(e, APIConnectionError):
+            if is_openai_error(e, "APIConnectionError"):
                 from .providers.util_providers import (
                     is_ssl_cert_error,
                     set_ssl_verify_disabled,

@@ -12,6 +12,23 @@ from .i18n_helper import make_tool_translator
 
 _ = make_tool_translator(__file__)
 
+
+def confirmation_short_answer_hint(include_all: bool = True) -> str:
+    """Render the ASCII answer keys next to the localized yes/no/all words.
+
+    The confirmation parser already accepts ``y``, ``n`` and ``all`` in every
+    language, so the hint names those keys instead of being translated.
+    """
+    hint = "  - y = %s / n = %s" % (
+        _("confirm.reply_yes", default="yes"),
+        _("confirm.reply_no", default="no"),
+    )
+    if include_all:
+        all_word = str(_("confirm.reply_all", default="all")).strip()
+        hint += " / all" if all_word.casefold() == "all" else " / all = " + all_word
+    return hint
+
+
 BUSY_LABEL = False  # human_ask disables Busy (handled specially by tools/__init__.py)
 _HUMAN_ASK_SERIAL_LOCK = threading.RLock()
 
@@ -260,6 +277,7 @@ def _run_tool_unserialized(args: dict[str, Any]) -> str:
                 ),
                 flush=True,
             )
+            print(confirmation_short_answer_hint(), flush=True)
 
     if cb.human_ask_lock is None:
         return _error_result(
