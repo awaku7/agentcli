@@ -87,8 +87,21 @@ Use the same agent runtime and tool registry from multiple entry points.
 | **A2A** | `uaga` | Agent-to-agent integration |
 | **VS Code** | [Extension guide](docs/VSCODE.md) | Working alongside code |
 
-The GUI and Web UI require their relevant optional dependencies. See
-[platform setup](docs/USAGE.md) and [environment configuration](docs/ENVIRONMENT.md).
+Desktop and Web interfaces use additional dependencies that are not included
+in the quick-start `uag[core,providers,tools]` installation:
+
+~~~bash
+# Desktop GUI (PySide6 and platform integrations)
+python -m pip install "uag[platform]"
+
+# Web UI (web authentication dependencies, FastAPI, and Uvicorn)
+python -m pip install "uag[web]" fastapi uvicorn
+~~~
+
+The Web server can also attempt to install FastAPI and Uvicorn at launch;
+installing them up front does not depend on runtime auto-installation.
+See [interface options](docs/USAGE.md) and
+[environment configuration](docs/ENVIRONMENT.md) for further setup.
 
 ## What you can build
 
