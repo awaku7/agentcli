@@ -125,7 +125,7 @@ try {
         return
     }
 
-    $feature = (& dism.exe /online /Get-FeatureInfo /FeatureName:Containers-DisposableClientVM 2>&1 | Out-String)
+    $feature = (& dism.exe /English /online /Get-FeatureInfo /FeatureName:Containers-DisposableClientVM 2>&1 | Out-String)
     if ($LASTEXITCODE -ne 0 -or $feature -notmatch 'State\s*:\s*Enabled') {
         throw 'Windows Sandbox feature Containers-DisposableClientVM is not enabled.'
     }
