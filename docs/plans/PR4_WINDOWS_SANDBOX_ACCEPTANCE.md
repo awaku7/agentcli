@@ -6,6 +6,14 @@ PR 4 is **not accepted** and Remote execution must remain fail-closed. The Windo
 
 The pinned local runtime contains `@microsoft/mxc-sdk@1.0.0` and `bin/x64/wxc-exec.exe`. Its observed CLI contract (`wxc-exec.exe --help`) includes `--experimental`, `--dry-run`, and a positional config path. A no-execution dry-run accepted the minimal `version: 1.1.0-alpha`, `containment: windows_sandbox`, and `process.commandLine` request syntax with a dedicated workspace. This environment reports Windows 11 Pro (`EditionID=Professional`, build 26200). An initial non-elevated feature query returned DISM error 740; the subsequent `-RunVmTests` invocation passed the elevation guard but reported `Containers-DisposableClientVM` disabled and stopped before launching a VM. A fuller request including `network`/`ui` fields returned `validation failed`; the cause was not isolated. None of these results proves VM isolation or backend availability.
 
+### Latest local smoke result (2026-10-22)
+
+After enabling Windows Sandbox and rebooting, a real one-shot run on this Windows 11 Pro host (build 26200, pinned `@microsoft/mxc-sdk@1.0.0`) completed with guest exit code 0 and emitted both `UAG_PR4_VM_SMOKE` and `UAG_PR4_HOST_PATH_BLOCKED`. The execution request explicitly set `fallback.allowDaclMutation` to `false`. Diagnostics: `%LOCALAPPDATA%\uagent\pr4_acceptance\wxc-exec-20261022-211100-528d83aed1ba413db39987f11a03b7a8.log`.
+
+The first revised harness incorrectly waited for `vmmemWindowsSandbox` and reported a 900-second shutdown timeout. The pinned-version MXC Windows Sandbox reference says SYSTEM-owned `vmmem*` residuals are not ownership targets and do not block a new launch once `WindowsSandbox*` host processes exit. At timeout, only `vmmemWindowsSandbox` was reported; the run's temporary workspace was later removed after confirming no Windows Sandbox process remained. This timeout alone is therefore **not evidence of a live owned VM or a failed teardown**. The harness now checks/waits for `WindowsSandbox*` host processes only; it does not terminate or reclaim `vmmem*` processes.
+
+This is smoke-test evidence only. The required network, lifecycle/resource, credentials, scope isolation, export, Browser/Computer Use, and authenticated-entrypoint matrix remains pending; PR 4 is not accepted and Remote routing remains fail-closed.
+
 The first-stage schema used for the explicit smoke procedure is:
 
 ```json
