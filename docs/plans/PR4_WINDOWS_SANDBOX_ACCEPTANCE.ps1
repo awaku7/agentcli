@@ -1,10 +1,16 @@
 [CmdletBinding()]
 param(
     [string]$RuntimeDir = (Join-Path $env:LOCALAPPDATA 'uagent\mxc_runtime'),
-    [switch]$RunVmTests
+    [switch]$RunVmTests,
+    [string]$DiagnosticsDir = (Join-Path $env:LOCALAPPDATA 'uagent\pr4_acceptance')
 )
 
 $ErrorActionPreference = 'Stop'
+$runId = '{0}-{1}' -f (Get-Date -Format 'yyyyMMdd-HHmmss'), [guid]::NewGuid().ToString('N')
+New-Item -ItemType Directory -Path $DiagnosticsDir -Force | Out-Null
+$diagnosticPath = Join-Path $DiagnosticsDir "wxc-exec-$runId.log"
+[IO.File]::WriteAllText($diagnosticPath, "PR4 Windows Sandbox acceptance diagnostics`nRun ID: $runId`n", [Text.UTF8Encoding]::new($false))
+Write-Output "Executor diagnostics will be saved to: $diagnosticPath"
 
 function Get-ProcessOutputText {
     param([string]$Text)
@@ -29,10 +35,11 @@ function Invoke-WxcConfig {
     param(
         [string]$Executor,
         [string]$ConfigPath,
+        [string]$LogPath,
         [switch]$DryRun
     )
 
-    $arguments = @('--experimental')
+    $arguments = @('--experimental', '--debug', '--log-file', $LogPath)
     if ($DryRun) {
         $arguments += '--dry-run'
     }
@@ -40,6 +47,19 @@ function Invoke-WxcConfig {
     $output = (& $Executor @arguments 2>&1 | Out-String)
     $exitCode = $LASTEXITCODE
     $decoded = Get-ProcessOutputText -Text $output
+    $logEntry = @"
+
+===== WXC EXECUTION =====
+Config: $ConfigPath
+DryRun: $([bool]$DryRun)
+ExitCode: $exitCode
+--- Raw executor output ---
+$output
+--- Decoded executor output ---
+$decoded
+===== END WXC EXECUTION =====
+"@
+    [IO.File]::AppendAllText($LogPath, $logEntry + [Environment]::NewLine, [Text.UTF8Encoding]::new($false))
     [pscustomobject]@{
         ExitCode = $exitCode
         Output = $decoded
@@ -91,11 +111,14 @@ New-Item -ItemType Directory -Path $workspace, $configDir -Force | Out-Null
 Set-Content -LiteralPath $hostCanary -Value 'UAG_PR4_HOST_CANARY_MUST_NOT_BE_VISIBLE' -NoNewline
 
 try {
+    $escapedCanary = $hostCanary.Replace("'", "''")
+    $vmCommand = "Write-Output UAG_PR4_VM_SMOKE; `$p='$escapedCanary'; if (Test-Path -LiteralPath `$p) { Write-Output UAG_PR4_HOST_PATH_VISIBLE; exit 9 } else { Write-Output UAG_PR4_HOST_PATH_BLOCKED; exit 0 }"
+
     $config = [ordered]@{
         version = '1.1.0-alpha'
         containment = 'windows_sandbox'
         process = [ordered]@{
-            commandLine = 'powershell.exe -NoLogo -NoProfile -NonInteractive -Command Write-Output UAG_PR4_VM_SMOKE'
+            commandLine = "powershell.exe -NoLogo -NoProfile -NonInteractive -Command `"$vmCommand`""
             timeout = 30000
         }
         filesystem = [ordered]@{
@@ -107,7 +130,7 @@ try {
     $configPath = Join-Path $configDir 'windows-sandbox-smoke.json'
     $json = $config | ConvertTo-Json -Depth 10
     [IO.File]::WriteAllText($configPath, $json, [Text.UTF8Encoding]::new($false))
-    $dryRun = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath -DryRun
+    $dryRun = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath -LogPath $diagnosticPath -DryRun
     if ($dryRun.ExitCode -ne 0 -or $dryRun.Output -notmatch 'Dry run completed\. Result: validation passed') {
         if ($RunVmTests) {
             throw "Executor dry-run did not validate the pinned Windows Sandbox request. Output:`n$($dryRun.Output)"
@@ -130,34 +153,33 @@ try {
         throw 'Windows Sandbox feature Containers-DisposableClientVM is not enabled.'
     }
 
-    # Sequential one-shot invocations only: MXC Windows Sandbox supports one VM
-    # per logon session. Do not run this acceptance script concurrently.
-    $smoke = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath
-    if ($smoke.ExitCode -ne 0 -or $smoke.Output -notmatch 'UAG_PR4_VM_SMOKE') {
-        throw "Real Windows Sandbox smoke execution failed. Output:`n$($smoke.Output)"
+    # Keep the positive smoke and host-path denial check in one VM invocation.
+    # MXC Windows Sandbox supports one VM per logon session.
+    $vm = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath -LogPath $diagnosticPath
+    if ($vm.ExitCode -ne 0 -or
+        $vm.Output -notmatch 'UAG_PR4_VM_SMOKE' -or
+        $vm.Output -notmatch 'UAG_PR4_HOST_PATH_BLOCKED' -or
+        $vm.Output -match 'UAG_PR4_HOST_PATH_VISIBLE|UAG_PR4_HOST_CANARY_MUST_NOT_BE_VISIBLE') {
+        throw "Windows Sandbox smoke/host-path denial check failed. Output:`n$($vm.Output)"
     }
-    Write-Output 'Real VM smoke command completed; retain the complete executor diagnostics for review.'
-
-    $escapedCanary = $hostCanary.Replace("'", "''")
-    $canaryCommand = "`$p='$escapedCanary'; if (Test-Path -LiteralPath `$p) { Write-Output UAG_PR4_HOST_PATH_VISIBLE; exit 9 } else { Write-Output UAG_PR4_HOST_PATH_BLOCKED; exit 0 }"
-    $config['process']['commandLine'] = "powershell.exe -NoLogo -NoProfile -NonInteractive -Command `"$canaryCommand`""
-    $configPath = Join-Path $configDir 'host-path-denial.json'
-    $json = $config | ConvertTo-Json -Depth 10
-    [IO.File]::WriteAllText($configPath, $json, [Text.UTF8Encoding]::new($false))
-    $canaryDryRun = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath -DryRun
-    if ($canaryDryRun.ExitCode -ne 0 -or $canaryDryRun.Output -notmatch 'Dry run completed\. Result: validation passed') {
-        throw "Host-path denial request failed dry-run validation. Output:`n$($canaryDryRun.Output)"
-    }
-    $canary = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath
-    if ($canary.ExitCode -ne 0 -or $canary.Output -notmatch 'UAG_PR4_HOST_PATH_BLOCKED' -or $canary.Output -match 'UAG_PR4_HOST_PATH_VISIBLE|UAG_PR4_HOST_CANARY_MUST_NOT_BE_VISIBLE') {
-        throw "Host-only canary was visible or the negative test failed. Output:`n$($canary.Output)"
-    }
+    Write-Output 'Real Windows Sandbox smoke command completed; retain the complete executor diagnostics for review.'
     Write-Output 'Host-only canary denial check passed.'
+    Write-Output "Executor diagnostics: $diagnosticPath"
     Write-Warning 'This script is a smoke/host-path check only; it does not establish full PR4 acceptance or Remote eligibility.'
     Write-Warning 'Complete the resource-limit, network, credential, lifecycle, multi-scope, export, and Browser/Computer Use matrix in PR4_WINDOWS_SANDBOX_ACCEPTANCE.md.'
 }
 finally {
     if (Test-Path -LiteralPath $workRoot) {
-        Remove-Item -LiteralPath $workRoot -Recurse -Force
+        try {
+            Remove-Item -LiteralPath $workRoot -Recurse -Force -ErrorAction Stop
+            [IO.File]::AppendAllText($diagnosticPath, "`nWorkspace cleanup succeeded: $workRoot`n", [Text.UTF8Encoding]::new($false))
+            Write-Output "Temporary test workspace cleaned: $workRoot"
+        }
+        catch {
+            $cleanupMessage = "Acceptance incomplete: temporary workspace cleanup failed at '$workRoot'. Error: $($_.Exception.Message). Diagnostics: $diagnosticPath"
+            [IO.File]::AppendAllText($diagnosticPath, "`n$cleanupMessage`n", [Text.UTF8Encoding]::new($false))
+            Write-Warning $cleanupMessage
+            throw $cleanupMessage
+        }
     }
 }

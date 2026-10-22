@@ -34,7 +34,7 @@ pwsh -File .\docs\plans\PR4_WINDOWS_SANDBOX_ACCEPTANCE.ps1
 pwsh -File .\docs\plans\PR4_WINDOWS_SANDBOX_ACCEPTANCE.ps1 -RunVmTests
 ```
 
-Without `-RunVmTests`, the script performs CLI/schema preflight only and never launches a VM. `-RunVmTests` runs a sequential one-shot VM smoke and a host-only canary denial check. MXC permits only one Windows Sandbox VM per logon session, so do not run concurrent test invocations. Retain the full executor diagnostics and verify that the actual backend is Windows Sandbox; a command marker or a passing mock is not sufficient.
+Without `-RunVmTests`, the script performs CLI/schema preflight only and never launches a VM. `-RunVmTests` performs the positive smoke and host-only canary denial checks within a single one-shot VM invocation, respecting MXC's one-VM-per-logon-session limit. Do not run concurrent test invocations. The script writes a unique persistent executor diagnostic log under `%LOCALAPPDATA%\uagent\pr4_acceptance\`; retain that log and verify that the actual backend is Windows Sandbox. A command marker or a passing mock is not sufficient. If temporary-workspace cleanup fails, the script reports the retained workspace and log paths and exits as incomplete; do not rerun until the orphaned VM/lock is resolved.
 
 The script is a harness starter, not a PR 4 pass. Its output must not be used to enable Remote tool routing by itself.
 
