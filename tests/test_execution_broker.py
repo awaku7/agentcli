@@ -212,8 +212,17 @@ def test_remote_capability_probe_requires_vm_and_all_controls():
             backend_capabilities=claims_vm,
             known_tool=True,
         )
-    assert still_unavailable.allowed
-    assert still_unavailable.reason == ""
+    assert not still_unavailable.allowed
+    assert still_unavailable.reason == "remote sandbox acceptance evidence is missing"
+
+
+def test_remote_acceptance_status_must_be_a_boolean():
+    with pytest.raises(ValueError, match="must be a boolean"):
+        SandboxCapabilities(
+            isolation_level=IsolationLevel.VM,
+            available=frozenset(SandboxCapability),
+            remote_acceptance_passed=1,
+        )
 
 
 def test_cancel_result_requires_confirmed_execution_stop():

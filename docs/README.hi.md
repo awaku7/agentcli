@@ -98,6 +98,27 @@ tools, interfaces और policies को साथ मिलकर काम क
 
 देखें [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) और [Enterprise Policy](ENTERPRISE_POLICY.md)।
 
+### 📈 OpenTelemetry अवलोकनशीलता
+
+uag में Agent, LLM, टूल, Context, Memory और पुनर्प्राप्ति संचालन के लिए ऑप्ट-इन, प्रदाता-तटस्थ OpenTelemetry ट्रेसिंग और मेट्रिक्स शामिल हैं। अवलोकनशीलता डिफ़ॉल्ट रूप से अक्षम है.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+विश्वसनीय प्रचार समर्थन Sub-Agent, A2A, MCP HTTP और स्पष्ट रूप से विश्वसनीय Web रिवर्स प्रॉक्सी के लिए उपलब्ध है।
+
+सक्षम होने पर, गुम OpenTelemetry Python निर्भरता को uag की मौजूदा ऑटो-इंस्टॉल नीति के माध्यम से स्थापित किया जा सकता है। निर्यातक, समापन बिंदु, प्रोटोकॉल और नमूना व्यवहार मानक OTEL\_\* सेटिंग्स का उपयोग करते हैं। उन्नत सामग्री कैप्चर, छद्मनाम सहसंबंध, प्रदाता एसडीके डायग्नोस्टिक्स, और साधारण-उपयोगकर्ता ट्रेस क्वेरी अलग-अलग ऑप्ट-इन सुविधाएं हैं।
+
+Phase 4D ट्रेस-क्वेरी रूट प्राधिकरण-जागरूक है लेकिन जानबूझकर इसमें कोई सामान्य विक्रेता क्वेरी एडाप्टर नहीं बनाया गया है: एक समीक्षा किए गए एप्लिकेशन एकीकरण को बैकएंड एडाप्टर को पंजीकृत करना होगा। OTLP निर्यात समापन बिंदु को कभी भी क्वेरी API के रूप में नहीं माना जाता है।
+
+[OpenTelemetry डिज़ाइन](UAG_OPENTELEMETRY_DESIGN.md), [पर्यावरण विन्यास](ENVIRONMENT.md#opentelemetry-observability), और [डेवलपर अवलोकन अनुबंध](../src/uagent/docs/DEVELOP_OBSERVABILITY.md) देखें।
+
 ### ⚡ Parallel tool execution
 
 सुरक्षित होने पर स्वतंत्र read-only operations concurrent रूप से चलती हैं। Web searches, file inspection,

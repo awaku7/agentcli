@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4/5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
+- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4はWindows Sandbox executorの契約調査、Remote acceptance fail-closed gate、Windows Pro実機試験手順を準備中。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）ではWindows Sandbox optional featureが無効でVM実機検証未実施。Remote Backendは未接続・未承認。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -11,6 +11,16 @@
 > 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
 
 ## 進捗記録
+
+### 2026-10-18 — PR4 executor契約確認とfail-closed準備
+
+- Pinned local runtimeの`@microsoft/mxc-sdk@1.0.0`に含まれる`bin/x64/wxc-exec.exe`を確認。`--help`で`--experimental`、`--dry-run`、config path引数、`--force-reclaim`（所有証明なしの危険な回収）を確認した。SDK V1のProcessContainer APIをWindows Sandbox VMに流用しない。
+- `wxc-exec --experimental --dry-run`で`version: 1.1.0-alpha`、`containment: windows_sandbox`、`process.commandLine`の形式を非実行で確認。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）でminimal requestと専用workspaceのdry-runは通過した（VMは未起動）。`network`/`ui`設定を追加したrequestはvalidation failedとなったが、原因が未対応fieldかホスト設定か特定できていないため、いずれの結果もVM隔離・機能対応の証拠として扱わない。
+- 初回の非昇格セッションではDISM error 740（elevation required）を確認。続いてユーザーが`-RunVmTests`を実行し、管理者ガードとdry-runを通過した後、`Containers-DisposableClientVM`が無効としてスクリプトが停止した。VMは起動していない。
+- `SandboxCapabilities.remote_acceptance_passed`を分離し、VM/機能の宣言だけではRemote routingを許可しないBroker gateを追加。現在のMXC ProcessContainer probeはこの証拠を設定せず、Remote Backendのproduction wiringもないためRemote toolは引き続き拒否される。
+- `docs/plans/PR4_WINDOWS_SANDBOX_ACCEPTANCE.md`と`.ps1`に、Windows Pro受入れ環境用の逐次実機スモーク手順と、全必須E0試験マトリクスを準備。dry-run、mock、単純な成功マーカーだけではPR4を承認しない。
+- 確認済み: `test_execution_broker.py`（37件）、`test_mxc_backend.py`（47件）、変更Pythonのcompile/Ruff/Black、PowerShell構文parse、受入れスクリプトのno-VM preflight、Markdown format、`git diff --check`が成功。preflightは`--dry-run`のみでVMは起動していない。
+- 未完了: Windows Sandbox optional featureを有効化して再起動した後の実VM・隔離・資源違反試験、およびWindows Sandbox BackendをRemote入口へ接続するproduction実装。feature未有効のためVM受入れ試験は未実施。必要な試験完了まではfail-closedを維持する。
 
 ### 2026-10-18 — PR 3 ローカルLease lifecycle統合（PR #263 マージ済み）
 
@@ -189,6 +199,22 @@
 ## 6. PR 4 — Remote Production Isolation（単一インスタンス）
 
 **目的:** Remote Web/A2Aの実Toolを、対象環境で**実効的な隔離ポリシー**のもとに起動できるようにする。単一インスタンスに限ってE0の合否を判定する。
+
+### 6.1 PR4開始時の作業指示（2026-10-19）
+
+- 実装候補は MXC の `windows_sandbox` VM Backend とする。`processcontainer` はプロセス／コンテナ境界であり、Remote向けVM隔離として流用・格上げしてはならない。
+- 現在のUAGピン `@microsoft/mxc-sdk@1.0.0` のV1 high-level `spawn` 経路は `windows_sandbox` を選べない。調査時点の公開 `1.0.1` でもV1 high-level APIの対応外である。実装前に、locked packageに含まれる `wxc-exec.exe` の実際の契約と使い方を確認する。公式資料上の候補は `wxc-exec.exe --experimental` と開発版 request schema `1.1.0-alpha`。バージョンを固定し、内部SDK APIや推測した引数に依存しない。
+- Windows Sandboxは実験的Backendで、1ログオンセッションにつきVMは1台。競合する起動は安全に直列化するか、有界時間で拒否し、Scope間のVM/workspace混同を起こさない。所有証明のないVMを自動reclaimしない。Backendのteardownはbest-effortでidle watchdogもないため、終了確認・孤児検出・失敗時のfail-closedを明示する。
+- Windows Sandboxのegressはblock-only。`network`設定やproxyによる許可通信を足さず、外部接続が必要なRemote Toolは別途実測可能な強制機構がない限り拒否する。Credentialを環境変数・共有workspaceへ置かない。Browser/Computer Use、Clipboard/Desktopアクセスも実測による隔離証明までRemote拒否を維持する。
+- 各Remote Scopeには専用workspaceを割り当て、共有するのは必要最小限のruntimeだけ。Project/Host Home全体やCredential領域をmountしない。成果物はcopy-out先でPath Traversal、reparse point、Hardlink、競合Revisionを検証し、承認済みExport以外はHost Projectに反映しない。
+- この作業ブランチでは実装・unit test・PowerShell実機試験手順を準備する。Windows 11 Proの別環境を受け入れ試験に使うが、現在の開発ホスト（Windows Home）での成功を代替証拠にしない。実機試験は本物のMXC executor/VMから実行し、capability宣言、mock、dry-runだけでRemoteを許可しない。
+- `resource_limits` を含むRemote必須capabilityは、CPU/Memory/Process/Disk/時間/出力/並列数の上限超過テストが実環境で通るまでは報告しない。必要capabilityが不足・未検証ならRemote Toolは従来どおり拒否し、Host runnerへfallbackさせない。
+
+### 6.2 2026-10-19 — PR4着手状況
+
+- 作業ブランチ: `feat/sandbox-pr4-mxc-windows-sandbox`（`origin/main` の `c73e37342c3f37754dc46cde3389df3ed33bfcbf` から開始）。この記録時点ではコード変更・実装コミットなし。
+- 使用候補と制約を確認済み: MXC公式Windows Sandbox資料ではVM隔離、実験的扱い、1 VM/ログオン、egress block-only、best-effort teardownが明記される。UAG既存adapterは `processcontainer` 固定のため、Remote用Backendとの分離が必要。
+- ユーザーからWindows 11 Proの受け入れ試験環境を別途利用できる旨を確認。現セッションから当該端末へ直接接続できる手段は未設定のため、実機試験スクリプトを用意し、準備後に実行結果を照合する。
 
 ### 作業
 

@@ -96,6 +96,27 @@ Web UI 包含使用 Authorization Code + PKCE 的 OIDC 登录、已验证的 ID 
 
 参见 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 和 [Enterprise Policy](ENTERPRISE_POLICY.md)。
 
+### 📈 OpenTelemetry 可观察性
+
+uag 提供可选启用、与提供商无关的 OpenTelemetry 跟踪和指标，覆盖 Agent、LLM、工具、Context、Memory 和检索操作。可观察性默认关闭。
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+可信传播支持适用于 Sub-Agent、A2A、MCP HTTP 和明确可信的 Web 反向代理。
+
+启用后，可以通过 uag 的现有自动安装策略安装缺少的 OpenTelemetry Python 依赖项。导出器、端点、协议和采样行为使用标准 OTEL\_\* 设置。高级内容捕获、假名关联、提供商 SDK 诊断和普通用户跟踪查询是单独的选择加入功能。
+
+Phase 4D 跟踪查询路由是授权感知的，但故意没有内置通用供应商查询适配器：经过审核的应用程序集成必须注册后端适配器。 OTLP 导出端点永远不会被视为查询 API。
+
+请参阅[OpenTelemetry 设计](UAG_OPENTELEMETRY_DESIGN.md)、[环境配置](ENVIRONMENT.md#opentelemetry-observability) 和[开发者可观察性合约](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)。
+
 ### ⚡ 并行工具执行
 
 在安全的情况下，独立的只读操作会并发运行。Web 搜索、文件检查、仓库分析及类似工作负载可以通过可配置的工作池（`UAGENT_PARALLEL_WORKERS`）并行完成。写入操作仍会串行执行，或需要确认。

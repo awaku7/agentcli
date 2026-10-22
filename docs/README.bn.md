@@ -99,6 +99,27 @@ flowchart LR
 
 দেখুন [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) এবং [Enterprise Policy](ENTERPRISE_POLICY.md)।
 
+### 📈 OpenTelemetry পর্যবেক্ষণযোগ্যতা
+
+uag এর মধ্যে রয়েছে অপ্ট-ইন, প্রদানকারী-নিরপেক্ষ OpenTelemetry ট্রেসিং এবং Agent, LLM, টুল, Context, Memory, এবং পুনরুদ্ধার ক্রিয়াকলাপের জন্য মেট্রিক্স। পর্যবেক্ষণযোগ্যতা ডিফল্টরূপে অক্ষম করা হয়।
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+বিশ্বস্ত প্রচার সমর্থন Sub-Agent, A2A, MCP HTTP, এবং স্পষ্টভাবে বিশ্বস্ত Web বিপরীত প্রক্সির জন্য উপলব্ধ।
+
+যখন সক্ষম করা থাকে, অনুপস্থিত OpenTelemetry Python নির্ভরতা uag এর বিদ্যমান স্বয়ংক্রিয়-ইনস্টল নীতির মাধ্যমে ইনস্টল করা যেতে পারে৷ রপ্তানিকারী, এন্ডপয়েন্ট, প্রোটোকল, এবং নমুনা আচরণ মানক OTEL\_\* সেটিংস ব্যবহার করে। উন্নত বিষয়বস্তু ক্যাপচার, ছদ্মনাম পারস্পরিক সম্পর্ক, প্রদানকারী SDK ডায়াগনস্টিকস, এবং সাধারণ-ব্যবহারকারীর ট্রেস কোয়েরি হল পৃথক অপ্ট-ইন বৈশিষ্ট্য।
+
+Phase 4D ট্রেস-কোয়েরি রুট অনুমোদন-সচেতন কিন্তু ইচ্ছাকৃতভাবে বিল্ট-ইন কোনো জেনেরিক ভেন্ডর কোয়েরি অ্যাডাপ্টার নেই: একটি পর্যালোচনা করা অ্যাপ্লিকেশন ইন্টিগ্রেশন অবশ্যই ব্যাকএন্ড অ্যাডাপ্টার নিবন্ধন করতে হবে। OTLP এক্সপোর্ট এন্ডপয়েন্টকে কখনই একটি ক্যোয়ারী হিসাবে বিবেচনা করা হয় না API৷
+
+[OpenTelemetry ডিজাইন](UAG_OPENTELEMETRY_DESIGN.md), [পরিবেশ কনফিগারেশন](ENVIRONMENT.md#opentelemetry-observability), এবং [ডেভেলপার অবজারভেবিলিটি কন্ট্রাক্ট](../src/uagent/docs/DEVELOP_OBSERVABILITY.md) দেখুন।
+
 ### ⚡ সমান্তরাল টুল সম্পাদন
 
 নিরাপদ হলে স্বাধীন, শুধু-পাঠযোগ্য কাজগুলো একসঙ্গে চলে। ওয়েব অনুসন্ধান, ফাইল পরিদর্শন, রিপোজিটরি বিশ্লেষণ

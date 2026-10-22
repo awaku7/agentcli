@@ -99,6 +99,27 @@ flowchart LR
 
 راجع [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) و[Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry إمكانية الملاحظة
+
+يتضمن uag تتبع OpenTelemetry المحايد للموفر ومقاييس لعمليات Agent وLLM والأداة وContext وMemory وعمليات الاسترداد. يتم تعطيل إمكانية الملاحظة بشكل افتراضي.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+يتوفر دعم النشر الموثوق لـ Sub-Agent، وA2A، وMCP HTTP، والوكلاء العكسيين الموثوق بهم Web.
+
+عند التمكين، يمكن تثبيت تبعيات OpenTelemetry Python المفقودة من خلال سياسة التثبيت التلقائي الحالية لـ uag. يستخدم المُصدِّر ونقطة النهاية والبروتوكول وسلوك أخذ العينات إعدادات OTEL\_\* القياسية. يعد التقاط المحتوى المتقدم، والارتباط بأسماء مستعارة، وتشخيصات SDK للموفر، واستعلام تتبع المستخدم العادي من ميزات الاشتراك المنفصلة.
+
+مسار استعلام التتبع Phase 4D مدرك للتخويل ولكنه لا يحتوي عن عمد على محول استعلام عام للمورد مضمن: يجب أن يقوم تكامل التطبيق الذي تمت مراجعته بتسجيل محول الواجهة الخلفية. لا يتم التعامل مع نقطة نهاية التصدير OTLP مطلقًا على أنها استعلام API.
+
+راجع [OpenTelemetry التصميم](UAG_OPENTELEMETRY_DESIGN.md) و[تكوين البيئة](ENVIRONMENT.md#opentelemetry-observability) و[عقد إمكانية ملاحظة المطور](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ تنفيذ الأدوات بالتوازي
 
 تعمل العمليات المستقلة للقراءة فقط بالتزامن عندما يكون ذلك آمنًا. ويمكن لعمليات البحث على الويب وفحص

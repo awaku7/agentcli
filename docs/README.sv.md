@@ -99,6 +99,27 @@ Webbgränssnittet inkluderar OIDC-inloggning med Authorization Code + PKCE, veri
 
 Se [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) och [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry observerbarhet
+
+uag inkluderar opt-in, leverantörsneutral OpenTelemetry-spårning och mätvärden för Agent, LLM, verktyg, Context, Memory och hämtning. Observerbarhet är inaktiverat som standard.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Stöd för betrodd spridning är tillgängligt för Sub-Agent, A2A, MCP HTTP och uttryckligen betrodda Web omvända proxyservrar.
+
+När det är aktiverat kan saknade OpenTelemetry Python beroenden installeras genom uags befintliga autoinstallationspolicy. Exportör, slutpunkt, protokoll och samplingsbeteende använder standardinställningarna OTEL\_\*. Avancerad innehållsfångst, pseudonym korrelation, leverantörs SDK-diagnostik och spårningsfråga för vanliga användare är separata opt-in-funktioner.
+
+Rutten Phase 4D spårningsfråga är auktoriseringsmedveten men har avsiktligt ingen generisk leverantörsfrågeadapter inbyggd: en granskad applikationsintegration måste registrera backend-adaptern. Exportslutpunkten OTLP behandlas aldrig som en fråga API.
+
+Se [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [miljökonfiguration](ENVIRONMENT.md#opentelemetry-observability) och [observabilitetskontrakt för utvecklare](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Parallell verktygskörning
 
 Oberoende skrivskyddade åtgärder körs samtidigt när det är säkert. Webbsökningar, filinspektion,

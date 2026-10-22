@@ -99,6 +99,27 @@ UI ya Wavuti inajumuisha kuingia kwa OIDC kwa kutumia Authorization Code + PKCE,
 
 Tazama [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) na [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 Uchunguzi wa OpenTelemetry
+
+uag inajumuisha kuchagua kuingia, kufuatilia OpenTelemetry bila mtoa huduma na vipimo vya Agent, LLM, zana, Context, Memory na shughuli za kurejesha. Uangalizi umezimwa kwa chaguo-msingi.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Usaidizi wa uenezi unaoaminika unapatikana kwa Sub-Agent, A2A, MCP HTTP, na seva mbadala Web zinazoaminika kwa njia dhahiri.
+
+Ikiwashwa, vitegemezi OpenTelemetry Python vinavyokosekana vinaweza kusakinishwa kupitia uag sera iliyopo ya usakinishaji kiotomatiki. Kisafirishaji nje, sehemu ya mwisho, itifaki, na tabia ya sampuli hutumia mipangilio ya kawaida ya OTEL\_\*. Upigaji picha wa kina wa maudhui, uunganisho wa majina bandia, uchunguzi wa SDK wa mtoa huduma, na hoja ya ufuatiliaji wa mtumiaji wa kawaida ni vipengele tofauti vya kujijumuisha.
+
+Njia ya Phase 4D ya kutafuta-tafuta inafahamu uidhinishaji lakini kwa makusudi haina adapta ya swali la mchuuzi iliyojengwa ndani: muunganisho wa programu iliyopitiwa lazima usajili adapta ya nyuma. OTLP sehemu ya mwisho ya kuhamisha haichukuliwi kama swali API.
+
+Angalia [OpenTelemetry muundo](UAG_OPENTELEMETRY_DESIGN.md), [usanidi wa mazingira](ENVIRONMENT.md#opentelemetry-observability), na [mkataba wa uangalizi wa msanidi](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Utekelezaji sambamba wa zana
 
 Operesheni huru za kusoma pekee huendeshwa kwa wakati mmoja inapokuwa salama. Utafutaji wa wavuti, ukaguzi wa faili,

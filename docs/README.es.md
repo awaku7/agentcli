@@ -99,6 +99,27 @@ La interfaz web incluye inicio de sesión OIDC usando Authorization Code + PKCE,
 
 Consulte [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) y [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry observabilidad
+
+uag incluye trazas y métricas de OpenTelemetry, independientes del proveedor y de activación opcional, para operaciones de Agent, LLM, herramientas, Context, Memory y recuperación. La observabilidad está deshabilitada de forma predeterminada.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+El soporte de propagación confiable está disponible para Sub-Agent, A2A, MCP HTTP y los servidores proxy inversos Web de confianza explícita.
+
+Cuando está habilitado, las OpenTelemetry Python dependencias que faltan se pueden instalar a través de la política de instalación automática existente de uag. El exportador, el punto final, el protocolo y el comportamiento de muestreo utilizan la configuración estándar OTEL\_\*. La captura de contenido avanzada, la correlación seudónima, el diagnóstico del SDK del proveedor y la consulta de seguimiento de usuarios normales son funciones opcionales independientes.
+
+La ruta de consulta de seguimiento Phase 4D tiene en cuenta la autorización, pero intencionalmente no tiene incorporado un adaptador de consulta de proveedor genérico: una integración de aplicación revisada debe registrar el adaptador de backend. El punto final de exportación OTLP nunca se trata como una consulta API.
+
+Consulte [diseño OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md), [configuración del entorno](ENVIRONMENT.md#opentelemetry-observability) y [contrato de observabilidad del desarrollador](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Ejecución paralela de herramientas
 
 Las operaciones independientes de solo lectura se ejecutan simultáneamente cuando es seguro. Las búsquedas web, la inspección de archivos,

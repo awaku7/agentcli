@@ -96,6 +96,27 @@ Web UI, Authorization Code + PKCE kullanarak OIDC oturum açmayı, doğrulanmı�
 
 Bkz. [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ve [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry gözlemlenebilirlik
+
+uag, Agent, LLM, araç, Context, Memory ve alma işlemlerine yönelik isteğe bağlı, sağlayıcıdan bağımsız OpenTelemetry izleme ve ölçümleri içerir. Gözlemlenebilirlik varsayılan olarak devre dışıdır.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Güvenilir yayılma desteği Sub-Agent, A2A, MCP HTTP ve açıkça güvenilen Web ters proxy'ler için mevcuttur.
+
+Etkinleştirildiğinde, eksik OpenTelemetry Python bağımlılıkları uag'nin mevcut otomatik yükleme politikası aracılığıyla yüklenebilir. Dışa aktarıcı, uç nokta, protokol ve örnekleme davranışı standart OTEL\_\* ayarlarını kullanır. Gelişmiş içerik yakalama, takma adlı korelasyon, sağlayıcı SDK tanılaması ve sıradan kullanıcı izleme sorgusu ayrı katılım özellikleridir.
+
+Phase 4D izleme sorgusu yolu, yetkilendirmeye duyarlıdır ancak kasıtlı olarak yerleşik bir genel satıcı sorgu bağdaştırıcısına sahip değildir: gözden geçirilmiş bir uygulama entegrasyonunun, arka uç bağdaştırıcısını kaydetmesi gerekir. OTLP dışa aktarma uç noktası hiçbir zaman API sorgusu olarak değerlendirilmez.
+
+Bkz. [OpenTelemetry tasarımı](UAG_OPENTELEMETRY_DESIGN.md), [ortam yapılandırması](ENVIRONMENT.md#opentelemetry-observability) ve [geliştirici gözlemlenebilirlik sözleşmesi](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Paralel araç çalıştırma
 
 Bağımsız, yalnızca okuma yapan işlemler güvenli olduğunda eşzamanlı yürütülür. Web aramaları, dosya inceleme, depo analizi ve benzer iş yükleri yapılandırılabilir bir worker havuzuyla (`UAGENT_PARALLEL_WORKERS`) paralel olarak tamamlanabilir. Yazma işlemleri serileştirilir veya onay gerektirir.

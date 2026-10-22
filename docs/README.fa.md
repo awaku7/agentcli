@@ -99,6 +99,27 @@ flowchart LR
 
 مراجعه کنید به [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) و [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry قابلیت مشاهده
+
+uag شامل ردیابی و سنجه‌های OpenTelemetry است که به‌صورت اختیاری فعال می‌شوند و به ارائه‌دهنده وابسته نیستند؛ این قابلیت‌ها عملیات Agent، LLM، ابزار، Context، Memory و بازیابی را پوشش می‌دهند. قابلیت مشاهده به‌طور پیش‌فرض غیرفعال است.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+پشتیبانی انتشار معتمد برای Sub-Agent، A2A، MCP HTTP و پروکسی معکوس Web به طور صریح قابل اعتماد در دسترس است.
+
+وقتی فعال باشد، OpenTelemetry Python وابستگی از دست رفته را می توان از طریق خط مشی نصب خودکار موجود uag نصب کرد. صادرکننده، نقطه پایانی، پروتکل، و رفتار نمونه گیری از تنظیمات استاندارد OTEL\_\* استفاده می کنند. ضبط محتوای پیشرفته، همبستگی مستعار، تشخیص SDK ارائه‌دهنده، و جستجوی ردیابی کاربر معمولی ویژگی‌های انتخابی جداگانه هستند.
+
+مسیر Phase 4D ردیابی پرس و جو از مجوز آگاه است اما عمداً هیچ آداپتور پرس و جو فروشنده عمومی داخلی ندارد: یک ادغام برنامه بررسی شده باید آداپتور پشتیبان را ثبت کند. نقطه پایانی صادرات OTLP هرگز به عنوان یک جستجو API در نظر گرفته نمی شود.
+
+[OpenTelemetry طراحی](UAG_OPENTELEMETRY_DESIGN.md)، [پیکربندی محیط](ENVIRONMENT.md#opentelemetry-observability) و [قرارداد مشاهده‌پذیری توسعه‌دهنده](../src/uagent/docs/DEVELOP_OBSERVABILITY.md) را ببینید.
+
 ### ⚡ اجرای موازی ابزارها
 
 عملیات مستقلِ فقط‌خواندنی، هر زمان که ایمن باشد، هم‌زمان اجرا می‌شوند. جست‌وجوهای وب، بررسی فایل‌ها،

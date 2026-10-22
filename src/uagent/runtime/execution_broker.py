@@ -42,10 +42,22 @@ class SandboxCapability(str, Enum):
 
 @dataclass(frozen=True)
 class SandboxCapabilities:
-    """Observed backend capabilities; declarations alone are not proof."""
+    """Observed backend capabilities; declarations alone are not proof.
+
+    ``remote_acceptance_passed`` is deliberately separate from the advertised
+    isolation level and feature set. Remote routing must not be enabled by a
+    backend probe, mock, or dry-run alone; a backend may set this only after
+    the required host-specific isolation and limit-violation acceptance tests
+    have passed.
+    """
 
     isolation_level: IsolationLevel = IsolationLevel.NONE
     available: frozenset[SandboxCapability] = field(default_factory=frozenset)
+    remote_acceptance_passed: bool = False
+
+    def __post_init__(self) -> None:
+        if type(self.remote_acceptance_passed) is not bool:
+            raise ValueError("remote acceptance status must be a boolean")
 
     def satisfies(
         self,
@@ -390,6 +402,15 @@ def route_tool(
     if not backend_capabilities.satisfies(minimum_isolation=minimum, required=required):
         return RoutingDecision(
             execution_class, False, "sandbox capabilities are insufficient"
+        )
+    if (
+        profile is SecurityProfile.REMOTE
+        and not backend_capabilities.remote_acceptance_passed
+    ):
+        return RoutingDecision(
+            execution_class,
+            False,
+            "remote sandbox acceptance evidence is missing",
         )
     # Capabilities are supplied only by an initialized Adapter after a bounded
     # host probe; Remote profiles still require VM isolation above.
