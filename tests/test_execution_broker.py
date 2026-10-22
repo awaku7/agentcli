@@ -215,6 +215,7 @@ def test_remote_capability_probe_requires_vm_and_all_controls():
     assert not still_unavailable.allowed
     assert still_unavailable.reason == "remote sandbox acceptance evidence is missing"
 
+
 def test_remote_acceptance_status_must_be_a_boolean():
     with pytest.raises(ValueError, match="must be a boolean"):
         SandboxCapabilities(
