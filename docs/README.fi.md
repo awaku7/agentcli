@@ -99,6 +99,27 @@ Verkkokäyttöliittymä sisältää OIDC-kirjautumisen Authorization Code + PKCE
 
 Katso [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ja [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry havaittavuus
+
+uag sisältää valinnaisen, toimittajaneutraalin OpenTelemetry-seurannan ja mittarit kohteille Agent, LLM, työkalu, Context, Memory ja hakutoiminnot. Havainnointi on oletuksena pois käytöstä.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Luotettu levitystuki on saatavilla Sub-Agent, A2A, MCP HTTP ja nimenomaisesti luotetuille Web käänteisille välityspalvelimille.
+
+Kun tämä on käytössä, puuttuvat OpenTelemetry Python riippuvuutta voidaan asentaa uag:n olemassa olevan automaattisen asennuksen käytännön avulla. Viejä, päätepiste, protokolla ja otantakäyttäytyminen käyttävät vakioasetuksia OTEL\_\*. Edistynyt sisällön sieppaus, pseudonyymikorrelaatio, tarjoajan SDK-diagnostiikka ja tavallisen käyttäjän jäljityskysely ovat erillisiä valinnaisia ​​ominaisuuksia.
+
+Jäljityskyselyreitti Phase 4D on valtuutustietoinen, mutta siinä ei tarkoituksella ole sisäänrakennettua yleistä toimittajan kyselysovitinta: tarkistetun sovellusintegraation on rekisteröitävä taustasovitin. Viennin päätepistettä OTLP ei koskaan käsitellä kyselynä API.
+
+Katso [OpenTelemetry-suunnittelu](UAG_OPENTELEMETRY_DESIGN.md), [ympäristön määritys](ENVIRONMENT.md#opentelemetry-observability) ja [kehittäjän tarkkailusopimus](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Rinnakkainen työkalujen suoritus
 
 Toisistaan riippumattomat vain luku -operaatiot suoritetaan turvallisissa tilanteissa samanaikaisesti. Verkkohaut, tiedostojen tarkastelu,

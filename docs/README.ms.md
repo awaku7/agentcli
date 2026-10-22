@@ -99,6 +99,27 @@ UI Web merangkumi log masuk OIDC menggunakan Authorization Code + PKCE, token ID
 
 Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry kebolehmerhatian
+
+uag termasuk penjejakan OpenTelemetry dan metrik ikut serta, neutral pembekal untuk Agent, LLM, alat, Context, Memory dan operasi pengambilan semula. Kebolehlihatan dilumpuhkan secara lalai.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Sokongan penyebaran dipercayai tersedia untuk Sub-Agent, A2A, MCP HTTP dan proksi terbalik Web yang dipercayai secara eksplisit.
+
+Apabila didayakan, kebergantungan OpenTelemetry Python yang tiada boleh dipasang melalui dasar pemasangan automatik sedia ada uag. Pengeksport, titik akhir, protokol dan gelagat pensampelan menggunakan tetapan OTEL\_\* standard. Tangkapan kandungan lanjutan, korelasi nama samaran, diagnostik SDK pembekal dan pertanyaan jejak pengguna biasa ialah ciri ikut serta yang berasingan.
+
+Laluan pertanyaan jejak Phase 4D mengambil kira kebenaran akses, tetapi sengaja tidak menyediakan penyesuai pertanyaan vendor generik terbina dalam: penyepaduan aplikasi yang telah disemak mesti mendaftarkan penyesuai bahagian belakang. Titik akhir eksport OTLP tidak pernah dianggap sebagai API pertanyaan.
+
+Lihat [OpenTelemetry reka bentuk](UAG_OPENTELEMETRY_DESIGN.md), [konfigurasi persekitaran](ENVIRONMENT.md#opentelemetry-observability) dan [kontrak pemerhatian pembangun](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Pelaksanaan alat selari
 
 Operasi baca sahaja yang bebas berjalan serentak apabila selamat. Carian web, pemeriksaan fail,

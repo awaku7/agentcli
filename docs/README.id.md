@@ -99,6 +99,27 @@ Web UI mencakup sign-in OIDC menggunakan Authorization Code + PKCE, token ID yan
 
 Lihat [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) dan [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry kemampuan observasi
+
+uag mencakup penelusuran dan metrik OpenTelemetry netral penyedia untuk Agent, LLM, alat, Context, Memory, dan operasi pengambilan. Observabilitas dinonaktifkan secara default.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Dukungan propagasi tepercaya tersedia untuk Sub-Agent, A2A, MCP HTTP, dan Web reverse proxy yang dipercaya secara eksplisit.
+
+Jika diaktifkan, dependensi OpenTelemetry Python yang hilang dapat dipasang melalui kebijakan pemasangan otomatis uag yang ada. Eksportir, titik akhir, protokol, dan perilaku pengambilan sampel menggunakan setelan OTEL\_\* standar. Pengambilan konten tingkat lanjut, korelasi nama samaran, diagnostik SDK penyedia, dan kueri pelacakan pengguna biasa merupakan fitur keikutsertaan yang terpisah.
+
+Rute kueri penelusuran Phase 4D sadar akan otorisasi tetapi sengaja tidak memiliki adaptor kueri vendor umum yang terpasang di dalamnya: integrasi aplikasi yang ditinjau harus mendaftarkan adaptor backend. Titik akhir ekspor OTLP tidak pernah diperlakukan sebagai kueri API.
+
+Lihat [OpenTelemetry desain](UAG_OPENTELEMETRY_DESIGN.md), [konfigurasi lingkungan](ENVIRONMENT.md#opentelemetry-observability), dan [kontrak observabilitas pengembang](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Eksekusi alat secara paralel
 
 Operasi baca-saja yang independen berjalan secara bersamaan jika aman. Pencarian web, pemeriksaan file,

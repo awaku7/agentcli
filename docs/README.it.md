@@ -99,6 +99,27 @@ L'interfaccia Web include l'accesso OIDC utilizzando Authorization Code + PKCE, 
 
 Vedi [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) e [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry osservabilità
+
+uag include tracciamento e metriche OpenTelemetry indipendenti dal fornitore e di attivazione per Agent, LLM, strumento, Context, Memory e operazioni di recupero. L'osservabilità è disabilitata per impostazione predefinita.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Il supporto della propagazione attendibile è disponibile per Sub-Agent, A2A, MCP HTTP e proxy inversi Web esplicitamente attendibili.
+
+Se abilitate, le dipendenze OpenTelemetry Python mancanti possono essere installate tramite il criterio di installazione automatica esistente di uag. L'esportazione, l'endpoint, il protocollo e il comportamento di campionamento utilizzano le impostazioni OTEL\_\* standard. L'acquisizione avanzata dei contenuti, la correlazione con pseudonimi, la diagnostica dell'SDK del provider e la query di traccia dell'utente ordinario sono funzionalità di attivazione separate.
+
+Il percorso delle query di traccia Phase 4D riconosce l'autorizzazione ma non ha intenzionalmente alcun adattatore di query del fornitore generico integrato: un'integrazione dell'applicazione rivista deve registrare l'adattatore backend. L'endpoint di esportazione OTLP non viene mai trattato come una query API.
+
+Consulta [progettazione OpenTelemetry](UAG_OPENTELEMETRY_DESIGN.md), [configurazione dell'ambiente](ENVIRONMENT.md#opentelemetry-observability) e [contratto di osservabilità dello sviluppatore](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Esecuzione parallela degli strumenti
 
 Le operazioni indipendenti in sola lettura vengono eseguite contemporaneamente quando è sicuro farlo. Ricerche web, ispezione dei file,

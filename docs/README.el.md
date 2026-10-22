@@ -99,6 +99,27 @@ flowchart LR
 
 Δείτε [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) και [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry παρατηρησιμότητα
+
+Το uag περιλαμβάνει προαιρετική, ανεξάρτητη από τον πάροχο ιχνηλάτηση OpenTelemetry και μετρήσεις για λειτουργίες Agent, LLM, εργαλείων, Context, Memory και ανάκτησης. Η παρατηρησιμότητα είναι απενεργοποιημένη από προεπιλογή.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Η υποστήριξη αξιόπιστης διάδοσης είναι διαθέσιμη για Sub-Agent, A2A, MCP HTTP και ρητά αξιόπιστους Web αντίστροφους μεσολάβησης.
+
+Όταν είναι ενεργοποιημένη, οι εξαρτήσεις OpenTelemetry Python που λείπουν μπορούν να εγκατασταθούν μέσω της υπάρχουσας πολιτικής αυτόματης εγκατάστασης του uag. Ο εξαγωγέας, το τελικό σημείο, το πρωτόκολλο και η συμπεριφορά δειγματοληψίας χρησιμοποιούν τυπικές ρυθμίσεις OTEL\_\*. Η σύνθετη λήψη περιεχομένου, η ψευδώνυμη συσχέτιση, τα διαγνωστικά SDK παρόχου και το ερώτημα ανίχνευσης απλού χρήστη είναι ξεχωριστές δυνατότητες συμμετοχής.
+
+Η Phase 4D διαδρομή ερωτήματος ανίχνευσης είναι ενήμερη για εξουσιοδότηση, αλλά σκόπιμα δεν έχει ενσωματωμένο γενικό προσαρμογέα ερωτήματος προμηθευτή: μια ενσωμάτωση εφαρμογών που έχει ελεγχθεί πρέπει να καταχωρίσει τον προσαρμογέα υποστήριξης. Το τελικό σημείο εξαγωγής OTLP δεν αντιμετωπίζεται ποτέ ως ερώτημα API.
+
+Δείτε τα [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [environment configuration](ENVIRONMENT.md#opentelemetry-observability) και [developer observability contract](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Παράλληλη εκτέλεση εργαλείων
 
 Οι ανεξάρτητες λειτουργίες μόνο για ανάγνωση εκτελούνται ταυτόχρονα όταν αυτό είναι ασφαλές. Αναζητήσεις στον ιστό, επιθεώρηση αρχείων,

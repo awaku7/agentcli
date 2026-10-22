@@ -99,6 +99,27 @@ A Web UI tartalmazza az OIDC bejelentkezést Authorization Code + PKCE használa
 
 Lásd: [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) és [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry megfigyelhetőség
+
+A uag opcionális, szolgáltatófüggetlen OpenTelemetry-nyomkövetést és metrikákat biztosít az Agent, LLM, eszköz, Context, Memory és visszakeresési műveletekhez. A megfigyelhetőség alapértelmezés szerint le van tiltva.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Megbízható terjesztési támogatás érhető el a Sub-Agent, A2A, MCP HTTP és a kifejezetten megbízható Web fordított proxyk számára.
+
+Ha engedélyezve van, a hiányzó OpenTelemetry Python függőség telepíthető a uag meglévő automatikus telepítési szabályzatával. Az exportőr, a végpont, a protokoll és a mintavételi viselkedés szabványos OTEL\_\* beállításokat használ. A speciális tartalomrögzítés, az álnevű korreláció, a szolgáltatói SDK-diagnosztika és a közönséges felhasználók nyomkövetési lekérdezése külön választható funkciók.
+
+A Phase 4D nyomkövetési lekérdezési útvonal jogosultságtudatos, de szándékosan nem rendelkezik beépített általános szállítói lekérdezési adapterrel: a felülvizsgált alkalmazásintegrációnak regisztrálnia kell a háttérillesztőt. A OTLP exportvégpontot soha nem kezeli lekérdezésként API.
+
+Lásd: [OpenTelemetry tervezés](UAG_OPENTELEMETRY_DESIGN.md), [környezetkonfiguráció](ENVIRONMENT.md#opentelemetry-observability) és [fejlesztői megfigyelési szerződés](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Párhuzamos eszköz-végrehajtás
 
 A független, csak olvasási műveletek biztonságos esetben párhuzamosan futnak. A webes keresések, a fájlvizsgálat,

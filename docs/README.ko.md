@@ -99,6 +99,27 @@ flowchart LR
 
 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) 및 [Enterprise Policy](ENTERPRISE_POLICY.md)를 참조하세요.
 
+### 📈 OpenTelemetry 관찰 가능성
+
+uag에는 Agent, LLM, 도구, Context, Memory 및 검색 작업에 대한 선택형, 공급자 중립적 OpenTelemetry 추적 및 측정항목이 포함되어 있습니다. 관찰 가능성은 기본적으로 비활성화되어 있습니다.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+신뢰할 수 있는 전파 지원은 Sub-Agent, A2A, MCP HTTP 및 명시적으로 신뢰할 수 있는 Web 역방향 프록시에 사용할 수 있습니다.
+
+활성화되면 uag의 기존 자동 설치 정책을 통해 누락된 OpenTelemetry Python 종속성을 설치할 수 있습니다. 내보내기, 엔드포인트, 프로토콜 및 샘플링 동작은 표준 OTEL\_\* 설정을 사용합니다. 고급 콘텐츠 캡처, 가명 상관 관계, 공급자 SDK 진단 및 일반 사용자 추적 쿼리는 별도의 선택 기능입니다.
+
+Phase 4D 추적 쿼리 경로는 인가를 고려하지만, 의도적으로 범용 공급업체 쿼리 어댑터를 기본 제공하지 않습니다. 검토를 거친 애플리케이션 통합에서 백엔드 어댑터를 등록해야 합니다. OTLP 내보내기 엔드포인트는 쿼리 API로 취급되지 않습니다.
+
+[OpenTelemetry 디자인](UAG_OPENTELEMETRY_DESIGN.md), [환경 구성](ENVIRONMENT.md#opentelemetry-observability) 및 [개발자 관찰 계약](../src/uagent/docs/DEVELOP_OBSERVABILITY.md)을 참조하세요.
+
 ### ⚡ 병렬 도구 실행
 
 안전한 경우 독립적인 읽기 전용 작업을 동시에 실행합니다. 웹 검색, 파일 검사,

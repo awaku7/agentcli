@@ -99,6 +99,27 @@ De web-UI bevat OIDC-aanmelding met Authorization Code + PKCE, geverifieerde ID-
 
 Zie [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) en [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry waarneembaarheid
+
+uag omvat opt-in, provider-neutrale OpenTelemetry tracering en statistieken voor Agent, LLM, tool, Context, Memory en ophaalbewerkingen. Waarneembaarheid is standaard uitgeschakeld.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Ondersteuning voor vertrouwde verspreiding is beschikbaar voor Sub-Agent, A2A, MCP HTTP en expliciet vertrouwde Web reverse proxy's.
+
+Indien ingeschakeld kunnen ontbrekende OpenTelemetry Python afhankelijkheden worden geïnstalleerd via het bestaande automatische installatiebeleid van uag. Exporteur, eindpunt, protocol en steekproefgedrag gebruiken standaard OTEL\_\*-instellingen. Geavanceerde contentregistratie, pseudonieme correlatie, SDK-diagnostiek van de provider en traceringsquery's voor gewone gebruikers zijn afzonderlijke aanmeldingsfuncties.
+
+De Phase 4D traceringsqueryroute is autorisatiebewust, maar heeft opzettelijk geen generieke leverancierqueryadapter ingebouwd: een beoordeelde applicatie-integratie moet de backend-adapter registreren. Het exporteindpunt OTLP wordt nooit behandeld als een query API.
+
+Zie [OpenTelemetry ontwerp](UAG_OPENTELEMETRY_DESIGN.md), [omgevingsconfiguratie](ENVIRONMENT.md#opentelemetry-observability) en [observatiecontract voor ontwikkelaars](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Parallelle uitvoering van tools
 
 Onafhankelijke alleen-lezenbewerkingen worden, wanneer dat veilig is, gelijktijdig uitgevoerd. Webzoekopdrachten, bestandsinspectie,

@@ -99,6 +99,27 @@ Kasama sa Web UI ang OIDC sign-in gamit ang Authorization Code + PKCE, mga na-ve
 
 Tingnan ang [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) at [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry pagmamasid
+
+Kasama sa uag ang pag-opt-in, provider-neutral na OpenTelemetry na pagsubaybay at mga sukatan para sa Agent, LLM, tool, Context, Memory, at mga operasyon sa pagkuha. Ang Observability ay hindi pinagana bilang default.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Available ang trusted propagation support para sa Sub-Agent, A2A, MCP HTTP, at tahasang pinagkakatiwalaang Web reverse proxy.
+
+Kapag pinagana, ang mga nawawalang OpenTelemetry Python dependencies ay maaaring i-install sa pamamagitan ng umiiral na patakaran sa auto-install ng uag. Gumagamit ng karaniwang OTEL\_\* na mga setting ang exporter, endpoint, protocol, at sampling na gawi. Ang advanced na pagkuha ng content, pseudonymous correlation, provider SDK diagnostics, at ordinary-user trace query ay magkahiwalay na feature sa pag-opt in.
+
+Ang Phase 4D trace-query route ay may alam sa awtorisasyon ngunit sadyang walang generic na vendor query adapter na naka-built in: dapat na irehistro ng sinuri na pagsasama ng application ang backend adapter. Ang OTLP export endpoint ay hindi kailanman itinuturing bilang isang query na API.
+
+Tingnan ang [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [environment configuration](ENVIRONMENT.md#opentelemetry-observability), at [developer observability contract](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Parallel na pagpapatakbo ng tool
 
 Sabay-sabay na tumatakbo ang magkakahiwalay na read-only operation kapag ligtas ito. Maaaring makumpleto nang parallel ang mga web search, inspeksyon ng file,

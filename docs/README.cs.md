@@ -99,6 +99,27 @@ Webové uživatelské rozhraní zahrnuje přihlášení pomocí OIDC s Authoriza
 
 Viz [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) a [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry pozorovatelnost
+
+uag zahrnuje volitelné, na poskytovateli nezávislé trasování OpenTelemetry a metriky pro operace Agent, LLM, nástrojů, Context, Memory a vyhledávání. Pozorovatelnost je ve výchozím nastavení zakázána.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Podpora důvěryhodného šíření je k dispozici pro Sub-Agent, A2A, MCP HTTP a explicitně důvěryhodné reverzní proxy servery Web.
+
+Pokud je tato možnost povolena, chybějící OpenTelemetry Python závislosti lze nainstalovat prostřednictvím stávajících zásad automatické instalace uag. Chování exportéru, koncového bodu, protokolu a vzorkování používají standardní nastavení OTEL\_\*. Pokročilé zachycování obsahu, pseudonymní korelace, diagnostika SDK poskytovatele a trasovací dotaz běžného uživatele jsou samostatné funkce pro přihlášení.
+
+Trasa trasovacího dotazu Phase 4D podporuje autorizaci, ale záměrně nemá vestavěn žádný obecný adaptér dotazů dodavatele: zkontrolovaná integrace aplikace musí registrovat koncový adaptér. Koncový bod exportu OTLP není nikdy považován za dotaz API.
+
+Viz [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [konfigurace prostředí](ENVIRONMENT.md#opentelemetry-observability) a [smlouva o pozorovatelnosti pro vývojáře](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Paralelní provádění nástrojů
 
 Nezávislé operace pouze pro čtení běží při bezpečném provádění souběžně. Webová vyhledávání, kontrola souborů,

@@ -99,6 +99,27 @@ Giao diện Web bao gồm đăng nhập OIDC sử dụng Authorization Code + PK
 
 Xem [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) và [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry khả năng quan sát
+
+uag bao gồm chọn tham gia, theo dõi OpenTelemetry trung lập với nhà cung cấp và các số liệu cho Agent, LLM, công cụ, Context, Memory và các hoạt động truy xuất. Khả năng quan sát bị tắt theo mặc định.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Hỗ trợ truyền bá đáng tin cậy hiện có sẵn cho Sub-Agent, A2A, MCP HTTP và proxy ngược Web được tin cậy rõ ràng.
+
+Khi được bật, các phần phụ thuộc OpenTelemetry Python bị thiếu có thể được cài đặt thông qua chính sách tự động cài đặt hiện có của uag. Hành vi của nhà xuất khẩu, điểm cuối, giao thức và lấy mẫu sử dụng cài đặt OTEL\_\* tiêu chuẩn. Ghi lại nội dung nâng cao, tương quan biệt danh, chẩn đoán SDK của nhà cung cấp và truy vấn theo dõi người dùng thông thường là các tính năng chọn tham gia riêng biệt.
+
+Tuyến truy vấn theo dõi Phase 4D nhận biết ủy quyền nhưng cố ý không tích hợp bộ điều hợp truy vấn chung của nhà cung cấp: tích hợp ứng dụng được xem xét phải đăng ký bộ điều hợp phụ trợ. Điểm cuối xuất OTLP không bao giờ được coi là truy vấn API.
+
+Xem [OpenTelemetry thiết kế](UAG_OPENTELEMETRY_DESIGN.md), [cấu hình môi trường](ENVIRONMENT.md#opentelemetry-observability) và [hợp đồng quan sát của nhà phát triển](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Thực thi công cụ song song
 
 Các thao tác độc lập, chỉ đọc sẽ chạy đồng thời khi an toàn. Tìm kiếm web, kiểm tra tệp,

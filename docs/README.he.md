@@ -99,6 +99,27 @@ flowchart LR
 
 עיין ב-[Web Identity and Memory](WEB_IDENTITY_MEMORY.md) ו-[Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 יכולת התצפית של OpenTelemetry
+
+uag כולל מעקב ומדדים של OpenTelemetry שניתנים להפעלה לפי בחירה ואינם תלויים בספק, עבור פעולות Agent, LLM, כלי, Context, Memory ואחזור. יכולת התצפית מושבתת כברירת מחדל.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+תמיכה בהפצה מהימנה זמינה עבור Sub-Agent, A2A, MCP HTTP וWeb פרוקסי הפוך מהימנים במפורש.
+
+כאשר מופעל, ניתן להתקין OpenTelemetry Python תלות חסרות באמצעות מדיניות ההתקנה האוטומטית הקיימת של uag. ייצואן, נקודת קצה, פרוטוקול והתנהגות דגימה משתמשים בהגדרות OTEL\_\* סטנדרטיות. לכידת תוכן מתקדמת, מתאם בדוי, אבחון SDK של ספק ושאילתת מעקב של משתמשים רגילים הם תכונות נפרדות להצטרפות.
+
+נתיב שאילתת המעקב Phase 4D הוא מודע להרשאה, אך בכוונה אין לו מתאם גנרי לשאילתות של ספקים מובנה: שילוב יישום שנבדק חייב לרשום את מתאם הקצה האחורי. נקודת הקצה OTLP של הייצוא לעולם אינה מטופלת כשאילתה API.
+
+ראה [OpenTelemetry עיצוב](UAG_OPENTELEMETRY_DESIGN.md), [תצורת סביבה](ENVIRONMENT.md#opentelemetry-observability) ו[חוזה צפיות למפתחים](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ ביצוע מקבילי של כלים
 
 פעולות בלתי תלויות לקריאה בלבד פועלות במקביל כאשר הדבר בטוח. חיפושי web, בדיקת קבצים,

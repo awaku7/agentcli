@@ -99,6 +99,27 @@ Interfața web include autentificare OIDC folosind Authorization Code + PKCE, to
 
 Consultați [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) și [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry observabilitate
+
+uag include urmărire OpenTelemetry opțională și independentă de furnizor, precum și metrici pentru operațiile Agent, LLM, instrument, Context, Memory și recuperare. Observabilitatea este dezactivată în mod implicit.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Asistența de propagare de încredere este disponibilă pentru Sub-Agent, A2A, MCP HTTP și proxy-uri inverse de încredere explicit Web.
+
+Când este activată, dependențele OpenTelemetry Python lipsă pot fi instalate prin politica de instalare automată existentă a uag. Exportatorul, punctul final, protocolul și comportamentul de eșantionare folosesc setările standard OTEL\_\*. Captura avansată de conținut, corelarea pseudonimă, diagnosticarea SDK a furnizorului și interogarea de urmărire a utilizatorului obișnuit sunt funcții de înscriere separate.
+
+Ruta de interogare de urmărire Phase 4D ține cont de autorizare, dar nu are în mod intenționat un adaptor de interogare generic al furnizorului încorporat: o integrare de aplicație revizuită trebuie să înregistreze adaptorul backend. Punctul final de export OTLP nu este niciodată tratat ca o interogare API.
+
+Consultați [OpenTelemetry design](UAG_OPENTELEMETRY_DESIGN.md), [Configurația mediului](ENVIRONMENT.md#opentelemetry-observability) și [Contractul de observabilitate al dezvoltatorului](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Execuția paralelă a instrumentelor
 
 Operațiunile independente, doar pentru citire, rulează simultan atunci când este sigur. Căutările web, inspectarea fișierelor,

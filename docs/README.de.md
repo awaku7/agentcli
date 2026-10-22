@@ -99,6 +99,27 @@ Die Web-Oberfläche beinhaltet die OIDC-Anmeldung mittels Authorization Code + P
 
 Siehe [Web Identity and Memory](WEB_IDENTITY_MEMORY.md) und [Enterprise Policy](ENTERPRISE_POLICY.md).
 
+### 📈 OpenTelemetry Beobachtbarkeit
+
+uag umfasst optionales, anbieterneutrales OpenTelemetry Tracing und Metriken für Agent, LLM, Tool, Context, Memory und Abrufvorgänge. Die Beobachtbarkeit ist standardmäßig deaktiviert.
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+Unterstützung für vertrauenswürdige Weitergabe ist für Sub-Agent, A2A, MCP HTTP und explizit vertrauenswürdige Web-Reverse-Proxys verfügbar.
+
+Wenn diese Option aktiviert ist, können fehlende OpenTelemetry Python-Abhängigkeiten über die vorhandene automatische Installationsrichtlinie von uag installiert werden. Exporter, Endpunkt, Protokoll und Sampling-Verhalten verwenden Standardeinstellungen von OTEL\_\*. Erweiterte Inhaltserfassung, pseudonyme Korrelation, Anbieter-SDK-Diagnose und Trace-Abfrage für normale Benutzer sind separate Opt-in-Funktionen.
+
+Die Trace-Abfrageroute Phase 4D ist autorisierungsorientiert, verfügt jedoch absichtlich über keinen integrierten generischen Anbieter-Abfrageadapter: Eine überprüfte Anwendungsintegration muss den Backend-Adapter registrieren. Der Exportendpunkt OTLP wird niemals als Abfrage API behandelt.
+
+Siehe [OpenTelemetry Design](UAG_OPENTELEMETRY_DESIGN.md), [Umgebungskonfiguration](ENVIRONMENT.md#opentelemetry-observability) und [Developer Observability Contract](../src/uagent/docs/DEVELOP_OBSERVABILITY.md).
+
 ### ⚡ Parallele Tool-Ausführung
 
 Unabhängige schreibgeschützte Vorgänge werden, sofern sicher, gleichzeitig ausgeführt. Websuchen, Dateiprüfung,

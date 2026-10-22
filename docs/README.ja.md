@@ -99,6 +99,27 @@ Web UIは、Authorization Code + PKCEを使ったOIDCサインイン、検証済
 
 [Web Identity and Memory](WEB_IDENTITY_MEMORY.md)および[Enterprise Policy](ENTERPRISE_POLICY.md)を参照してください。
 
+### 📈 OpenTelemetry 可観測性
+
+uag には、オプトイン、プロバイダー中立の OpenTelemetry トレースと、Agent、LLM、ツール、Context、Memory、および取得操作のメトリクスが含まれています。可観測性はデフォルトでは無効になっています。
+
+```bash
+uag --otel
+
+# Equivalent environment activation
+export UAGENT_OTEL_ENABLED=1
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+```
+
+信頼された伝播のサポートは、Sub-Agent、A2A、MCP HTTP、および明示的に信頼された Web リバース プロキシで利用できます。
+
+有効にすると、不足している OpenTelemetry Python 依存関係を uag の既存の自動インストール ポリシーを通じてインストールできます。エクスポーター、エンドポイント、プロトコル、およびサンプリング動作では、標準の OTEL\_\* 設定が使用されます。高度なコンテンツ キャプチャ、仮名相関、プロバイダー SDK 診断、および一般ユーザーのトレース クエリは、別個のオプトイン機能です。
+
+Phase 4D トレース クエリ ルートは承認を認識しますが、意図的に汎用ベンダー クエリ アダプターが組み込まれていません。レビューされたアプリケーション統合ではバックエンド アダプターを登録する必要があります。 OTLP エクスポート エンドポイントはクエリ API として扱われることはありません。
+
+[OpenTelemetry 設計](UAG_OPENTELEMETRY_DESIGN.md)、[環境構成](ENVIRONMENT.md#opentelemetry-observability)、および [開発者可観測性契約](../src/uagent/docs/DEVELOP_OBSERVABILITY.md) を参照してください。
+
 ### ⚡ 並列ツール実行
 
 独立した読み取り専用操作は、安全な場合に並行して実行されます。Web検索、ファイル検査、リポジトリ分析などの
