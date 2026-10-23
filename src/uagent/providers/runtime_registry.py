@@ -39,6 +39,7 @@ _SUPPORTED = frozenset(
         "pfn",
         "grok",
         "sarashina",
+        "vllm",
     }
 )
 

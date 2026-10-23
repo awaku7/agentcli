@@ -40,8 +40,8 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
         missing += _require(
             ["UAGENT_PROVIDER"],
             reason=_(
-                "Required to select the LLM provider (azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel).",
-                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel).",
+                "Required to select the LLM provider (azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm).",
+                default="Required to select the LLM provider (azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm).",
             ),
         )
         return provider, missing, warnings
@@ -133,6 +133,14 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
                     ),
                 )
             )
+    elif provider == "vllm":
+        missing += _require(
+            ["UAGENT_VLLM_DEPNAME"],
+            reason=_(
+                "vLLM served model name (must match the model exposed by /v1/models).",
+                default="vLLM served model name (must match the model exposed by /v1/models).",
+            ),
+        )
     elif provider == "grok":
         missing += _require(
             ["UAGENT_GROK_API_KEY"],
@@ -245,7 +253,7 @@ def validate_startup_env() -> tuple[str, list[MissingEnv], list[str]]:
                 default="Foundry Local OpenAI-compatible loopback base URL (for example http://localhost:<port>/v1).",
             ),
         )
-    elif provider in {"ollama", "lmstudio"}:
+    elif provider in {"ollama", "lmstudio", "vllm"}:
         # Local OpenAI-compatible endpoints do not require an API key. The
         # provider client supplies a dummy value when one is not configured.
         pass

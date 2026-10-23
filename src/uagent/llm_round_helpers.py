@@ -233,7 +233,10 @@ def _resolve_round_runtime_flags(
     lmstudio_transport = (
         (env_get("UAGENT_LMSTUDIO_TRANSPORT", "") or "").lower().strip()
     )
-    if provider == "lmstudio" and lmstudio_transport in {
+    if provider == "vllm":
+        # The UAG vLLM adapter currently targets Chat Completions only.
+        responses_env = "0"
+    elif provider == "lmstudio" and lmstudio_transport in {
         "sdk",
         "chat",
         "chat_completions",

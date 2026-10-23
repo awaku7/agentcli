@@ -384,6 +384,10 @@ def get_model_name() -> str:
         return env_get("UAGENT_OLLAMA_DEPNAME", "llama3.3") or "llama3.3"
     if provider == "llama_cpp":
         return env_get("UAGENT_LLAMA_CPP_DEPNAME", "local-model") or "local-model"
+    if provider == "vllm":
+        # vLLM requires the request's model value to match the model it serves.
+        # Startup validation reports a missing name rather than guessing one.
+        return (env_get("UAGENT_VLLM_DEPNAME", "") or "").strip()
     if provider == "nvidia":
         return (
             env_get("UAGENT_NVIDIA_DEPNAME", "nvidia/nemotron-3-nano-30b-a3b")
@@ -669,6 +673,19 @@ def make_client(core: Any) -> tuple[str, Any, str]:
             "UAGENT_LLAMA_CPP_BASE_URL", "http://localhost:8080/v1"
         )
         timeout_sec = _env_float("UAGENT_LLAMA_CPP_TIMEOUT_SEC", 120.0)
+        http_client = make_httpx_client(timeout=timeout_sec)
+        try:
+            client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)
+        except TypeError:
+            client = OpenAI(api_key=api_key, base_url=base_url)
+        return provider, client, model_name
+
+    if provider == "vllm":
+        from openai import OpenAI  # vLLM exposes an OpenAI-compatible Chat API
+
+        api_key = _provider_api_key(core, "VLLM") or "dummy"
+        base_url = core.get_env_url("UAGENT_VLLM_BASE_URL", "http://localhost:8000/v1")
+        timeout_sec = _env_float("UAGENT_VLLM_TIMEOUT_SEC", 120.0)
         http_client = make_httpx_client(timeout=timeout_sec)
         try:
             client = OpenAI(api_key=api_key, base_url=base_url, http_client=http_client)

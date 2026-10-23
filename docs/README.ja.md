@@ -32,7 +32,7 @@ uagは、好みのモデルを実際のツールにつなぐ、ローカルフ�
 ファイル、ブラウザー、コードベース、コミュニケーション、クラウドAPI、IoTデバイス、MCPサーバー、
 マルチエージェントワークフローを扱う、単一の拡張可能なランタイムを提供します。
 
-- **プロバイダーの自由** — OpenAI、Anthropic、Gemini、Azure、Bedrock、Ollama、llama.cpp、Grok、DeepSeekなど。
+- **プロバイダーの自由** — OpenAI、Anthropic、Gemini、Azure、Bedrock、Ollama、llama.cpp、vLLM、Grok、DeepSeekなど。
 - **ローカルファースト実行** — エージェントのランタイムとツールは手元のマシン上で動作し、選択したAPI呼び出しだけが外部へ送られます。
 - **統一されたツールレイヤー** — CLI、デスクトップGUI、Web UI、VS Code、A2Aのどこからでも同じツールを利用できます。
 - **並列実行を前提とした設計** — 独立した読み取り専用操作を同時に実行できます。
@@ -55,7 +55,7 @@ flowchart LR
     I[CLI · GUI · Web · VS Code · A2A]
     G[uag<br/>Agent runtime & control plane]
     P[Hosted models<br/>OpenAI · Claude · Gemini · Grok · Azure · Bedrock]
-    L[Local models<br/>Ollama · llama.cpp · LM Studio]
+    L[Local models<br/>Ollama · llama.cpp · LM Studio · vLLM]
     T[Tool layer<br/>Files · Web · Code · Media · Documents]
     E[Extension layer<br/>Plugins · Agent Skills · Custom tools]
     X[Connected systems<br/>MCP · A2A · Cloud · Communication]

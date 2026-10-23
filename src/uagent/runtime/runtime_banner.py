@@ -454,6 +454,16 @@ def build_startup_banner(*, core: Any, workdir: str, workdir_source: str) -> str
                 )
             }
         )
+    elif provider == "vllm":
+        lines.append(
+            _("[INFO] base_url = %(base_url)s")
+            % {
+                "base_url": _normalize_url(
+                    core,
+                    env_get("UAGENT_VLLM_BASE_URL", "http://localhost:8000/v1"),
+                )
+            }
+        )
     elif provider == "mimo":
         lines.append(
             _("[INFO] base_url = %(base_url)s")

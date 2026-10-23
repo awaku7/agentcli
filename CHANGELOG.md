@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Add vLLM as a local OpenAI-compatible Chat Completions provider.
+
 ## [0.7.32] - 2026-10-18
 
 ### Fixed

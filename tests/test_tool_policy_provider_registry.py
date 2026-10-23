@@ -127,6 +127,9 @@ def test_provider_registry_classifies_auth_requirements() -> None:
         == "local_endpoint"
     )
     assert (
+        DEFAULT_PROVIDER_REGISTRY.resolve("vllm").auth_requirement == "local_endpoint"
+    )
+    assert (
         DEFAULT_PROVIDER_REGISTRY.resolve("bedrock").auth_requirement
         == "cloud_credentials"
     )

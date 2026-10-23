@@ -42,6 +42,7 @@ ALL_PROVIDERS: frozenset[str] = frozenset(
         "vercel",
         "inception",
         "pfn",
+        "vllm",
     }
 )
 
@@ -102,6 +103,7 @@ _TEMPERATURE_ENV_NAMES: dict[str, str] = {
         "vercel",
         "inception",
         "sarashina",
+        "vllm",
     )
 }
 
@@ -158,7 +160,7 @@ def supports_structured_output_wire(provider: str, transport: str) -> bool:
 
 # Providers backed by a locally configured endpoint rather than a cloud API key.
 LOCAL_ENDPOINT_PROVIDERS: frozenset[str] = frozenset(
-    {"ollama", "llama_cpp", "lmstudio", "foundry_local"}
+    {"ollama", "llama_cpp", "lmstudio", "foundry_local", "vllm"}
 )
 
 CLOUD_CREDENTIAL_PROVIDERS: frozenset[str] = frozenset({"bedrock", "vertexai"})
