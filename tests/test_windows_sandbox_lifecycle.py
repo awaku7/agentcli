@@ -45,7 +45,7 @@ def make_client(tmp_path, runner):
     return WindowsSandboxLifecycleClient(runtime, command_runner=runner)
 
 
-def test_lifecycle_client_uses_owner_id_and_dacl_denial(tmp_path):
+def test_lifecycle_client_uses_narrow_schema_and_owner_id(tmp_path):
     runner = ScriptedRunner(
         [
             WxcCommandResult(0, json.dumps({"sandboxId": SANDBOX_ID}), ""),
@@ -64,7 +64,7 @@ def test_lifecycle_client_uses_owner_id_and_dacl_denial(tmp_path):
     provision_args, _, config = runner.calls[0]
     assert provision_args[provision_args.index("--operation") + 1] == "provision"
     assert config["containment"] == "windows_sandbox"
-    assert config["fallback"] == {"allowDaclMutation": False}
+    assert "fallback" not in config
     assert config["filesystem"] == {
         "readwritePaths": [str(workspace.resolve())],
         "readonlyPaths": [],

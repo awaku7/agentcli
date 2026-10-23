@@ -242,10 +242,11 @@ class WindowsSandboxLifecycleClient:
                 raise WindowsSandboxLifecycleError(
                     "this client already owns the single Windows Sandbox lease"
                 )
+            # The v1.1-alpha lifecycle provision schema rejects `fallback`;
+            # it is supported by the one-shot execution request, not here.
             config: dict[str, object] = {
                 "version": WINDOWS_SANDBOX_SCHEMA,
                 "containment": "windows_sandbox",
-                "fallback": {"allowDaclMutation": False},
                 "filesystem": {"readwritePaths": [str(root)], "readonlyPaths": []},
             }
             try:
@@ -299,6 +300,8 @@ class WindowsSandboxLifecycleClient:
                 return self._invoke(
                     "exec",
                     sandbox_id=lease.sandbox_id,
+                    # Lifecycle exec has its own narrow schema and rejects
+                    # the one-shot-only `fallback` field as well.
                     config={
                         "version": WINDOWS_SANDBOX_SCHEMA,
                         "process": {
