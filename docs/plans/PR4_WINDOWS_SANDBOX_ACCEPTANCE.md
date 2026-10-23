@@ -44,6 +44,15 @@ pwsh -File .\docs\plans\PR4_WINDOWS_SANDBOX_ACCEPTANCE.ps1 -RunVmTests
 
 Without `-RunVmTests`, the script performs CLI/schema preflight only and never launches a VM. `-RunVmTests` performs the positive smoke and host-only canary denial checks within a single one-shot VM invocation, respecting MXC's one-VM-per-logon-session limit. Do not run concurrent test invocations. The script writes a unique persistent executor diagnostic log under `%LOCALAPPDATA%\uagent\pr4_acceptance\`; retain that log and verify that the actual backend is Windows Sandbox. A command marker or a passing mock is not sufficient. If temporary-workspace cleanup fails, the script reports the retained workspace and log paths and exits as incomplete; do not rerun until the orphaned VM/lock is resolved.
 
+For the state-aware lifecycle smoke (provision → start → guest exec with a host-only canary → stop → deprovision), run the dedicated helper from an elevated PowerShell at the repository root:
+
+```powershell
+$env:PYTHONPATH = "src;$env:PYTHONPATH"
+python scripts/run_pr4_windows_sandbox_lifecycle_smoke.py
+```
+
+It refuses to start if the host is not elevated, supported, has less than 2 GB free memory, the Sandbox feature is not enabled, or another `WindowsSandbox*` host process is present. It uses the owner-bound ID for cleanup, never force-reclaims, and preserves its workspace if provisioning has an ambiguous result or teardown cannot be confirmed. The report is written under `%LOCALAPPDATA%\uagent\pr4_acceptance\`. This smoke exercises lifecycle plumbing only; it does not test resource limits, network policy, credentials, scope separation, or qualify the backend for Remote execution.
+
 The script is a harness starter, not a PR 4 pass. Its output must not be used to enable Remote tool routing by itself.
 
 ## Required real-VM evidence matrix

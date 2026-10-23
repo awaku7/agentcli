@@ -1,0 +1,262 @@
+"""Run one real owner-bound MXC Windows Sandbox lifecycle smoke on Windows.
+
+This is a manual acceptance helper, not a PR4 pass. Run from an elevated
+PowerShell on the dedicated Windows Pro/Enterprise/Education test host. It
+performs provision -> start -> guest exec -> stop -> deprovision and preserves
+the temporary workspace if ownership-bound cleanup cannot be confirmed.
+"""
+
+from __future__ import annotations
+
+import ctypes
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import time
+import uuid
+from pathlib import Path
+from typing import Any
+
+from uagent.runtime.windows_sandbox_lifecycle import (
+    PINNED_MXC_VERSION,
+    WindowsSandboxLease,
+    WindowsSandboxLifecycleClient,
+)
+
+MIN_FREE_MEMORY_MB = 2048
+GUEST_MARKER = "UAG_PR4_LIFECYCLE_EXEC_OK"
+HOST_BLOCKED_MARKER = "UAG_PR4_LIFECYCLE_HOST_PATH_BLOCKED"
+HOST_VISIBLE_MARKER = "UAG_PR4_LIFECYCLE_HOST_PATH_VISIBLE"
+
+
+def _require_windows_acceptance_host() -> dict[str, Any]:
+    if os.name != "nt" or sys.maxsize <= 2**32:
+        raise RuntimeError("lifecycle VM smoke requires Windows x64")
+    if not ctypes.windll.shell32.IsUserAnAdmin():
+        raise RuntimeError("run this script from an elevated PowerShell")
+
+    import winreg
+
+    with winreg.OpenKey(
+        winreg.HKEY_LOCAL_MACHINE,
+        r"SOFTWARE\Microsoft\Windows NT\CurrentVersion",
+    ) as key:
+        edition = winreg.QueryValueEx(key, "EditionID")[0]
+        build = winreg.QueryValueEx(key, "CurrentBuildNumber")[0]
+    if edition not in {"Professional", "Enterprise", "Education"}:
+        raise RuntimeError(f"unsupported Windows edition: {edition}")
+
+    class _MemoryStatus(ctypes.Structure):
+        _fields_ = [
+            ("dwLength", ctypes.c_ulong),
+            ("dwMemoryLoad", ctypes.c_ulong),
+            ("ullTotalPhys", ctypes.c_ulonglong),
+            ("ullAvailPhys", ctypes.c_ulonglong),
+            ("ullTotalPageFile", ctypes.c_ulonglong),
+            ("ullAvailPageFile", ctypes.c_ulonglong),
+            ("ullTotalVirtual", ctypes.c_ulonglong),
+            ("ullAvailVirtual", ctypes.c_ulonglong),
+            ("ullAvailExtendedVirtual", ctypes.c_ulonglong),
+        ]
+
+    memory = _MemoryStatus()
+    memory.dwLength = ctypes.sizeof(memory)
+    if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(memory)):
+        raise RuntimeError("could not read host memory status")
+    free_mb = memory.ullAvailPhys // (1024 * 1024)
+    if free_mb < MIN_FREE_MEMORY_MB:
+        raise RuntimeError(
+            f"need at least {MIN_FREE_MEMORY_MB} MB free memory; found {free_mb} MB"
+        )
+
+    dism = subprocess.run(
+        [
+            "dism.exe",
+            "/English",
+            "/Online",
+            "/Get-FeatureInfo",
+            "/FeatureName:Containers-DisposableClientVM",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=30,
+        check=False,
+    )
+    if dism.returncode != 0 or "State : Enabled" not in dism.stdout:
+        raise RuntimeError("Windows Sandbox feature is not confirmed enabled")
+
+    active = _active_windows_sandbox_processes()
+    if active:
+        raise RuntimeError(
+            "refusing to overlap an active Windows Sandbox host process: "
+            + ", ".join(active)
+        )
+    return {
+        "edition": edition,
+        "build": str(build),
+        "free_memory_mb": int(free_mb),
+        "sdk_version": PINNED_MXC_VERSION,
+    }
+
+
+def _active_windows_sandbox_processes() -> list[str]:
+    check = subprocess.run(
+        [
+            "powershell.exe",
+            "-NoLogo",
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            "Get-Process -Name 'WindowsSandbox*' -ErrorAction SilentlyContinue | "
+            "ForEach-Object { '{0}:{1}' -f $_.ProcessName, $_.Id }",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=15,
+        check=False,
+    )
+    if check.returncode != 0:
+        raise RuntimeError("could not verify Windows Sandbox host processes")
+    return [line.strip() for line in check.stdout.splitlines() if line.strip()]
+
+
+def _guest_command(host_canary: Path) -> str:
+    canary = str(host_canary).replace("'", "''")
+    script = (
+        f"Write-Output {GUEST_MARKER}; "
+        f"$p='{canary}'; "
+        f"if (Test-Path -LiteralPath $p) "
+        f"{{ Write-Output {HOST_VISIBLE_MARKER}; exit 9 }} "
+        f"else {{ Write-Output {HOST_BLOCKED_MARKER}; exit 0 }}"
+    )
+    return "powershell.exe -NoLogo -NoProfile -NonInteractive " f'-Command "{script}"'
+
+
+def run() -> int:
+    host = _require_windows_acceptance_host()
+    runtime_dir = Path(
+        os.environ.get(
+            "UAG_PR4_MXC_RUNTIME_DIR",
+            str(Path(os.environ["LOCALAPPDATA"]) / "uagent" / "mxc_runtime"),
+        )
+    )
+    run_id = f"{time.strftime('%Y%m%d-%H%M%S')}-{uuid.uuid4().hex}"
+    diagnostics_dir = Path(os.environ["LOCALAPPDATA"]) / "uagent" / "pr4_acceptance"
+    diagnostics_dir.mkdir(parents=True, exist_ok=True)
+    diagnostics_path = diagnostics_dir / f"lifecycle-{run_id}.json"
+    client = WindowsSandboxLifecycleClient(
+        runtime_dir,
+        command_timeout_seconds=600,
+    )
+    work_root = Path(tempfile.mkdtemp(prefix=f"uag-pr4-lifecycle-{run_id}-"))
+    workspace = work_root / "scope-workspace"
+    host_canary = work_root / "host-only-canary.txt"
+    report: dict[str, Any] = {
+        "run_id": run_id,
+        "host": host,
+        "operations": [],
+        "workspace": str(work_root),
+        "diagnostics": str(diagnostics_path),
+    }
+    lease: WindowsSandboxLease | None = None
+    provision_attempted = False
+    cleanup_confirmed = False
+    failure: str | None = None
+
+    try:
+        workspace.mkdir()
+        host_canary.write_text("UAG_PR4_HOST_CANARY", encoding="utf-8")
+        provision_attempted = True
+        lease = client.provision(workspace)
+        report["sandbox_id"] = lease.sandbox_id
+        report["operations"].append("provision:ok")
+
+        client.start(lease)
+        report["operations"].append("start:ok")
+
+        result = client.execute(
+            lease,
+            command_line=_guest_command(host_canary),
+            timeout_ms=30_000,
+        )
+        report["guest_exit_code"] = result.returncode
+        report["guest_stdout"] = result.stdout[-8192:]
+        report["guest_stderr"] = result.stderr[-8192:]
+        if (
+            result.returncode != 0
+            or GUEST_MARKER not in result.stdout
+            or HOST_BLOCKED_MARKER not in result.stdout
+            or HOST_VISIBLE_MARKER in result.stdout
+            or "UAG_PR4_HOST_CANARY" in result.stdout
+        ):
+            raise RuntimeError("guest lifecycle smoke or host-canary denial failed")
+        report["operations"].append("exec:ok")
+
+        client.stop(lease)
+        report["operations"].append("stop:ok")
+        client.deprovision(lease)
+        report["operations"].append("deprovision:ok")
+        cleanup_confirmed = lease.state == "closed"
+        if not cleanup_confirmed:
+            raise RuntimeError("MXC deprovision did not close the owned lease")
+    except Exception as exc:  # retain diagnostics and perform owner-bound cleanup
+        failure = f"{type(exc).__name__}: {exc}"
+    finally:
+        safe_to_remove_workspace = lease is None and not provision_attempted
+        if lease is not None:
+            if lease.state == "closed":
+                safe_to_remove_workspace = True
+                cleanup_confirmed = True
+            else:
+                try:
+                    client.terminate(lease)
+                    safe_to_remove_workspace = lease.state == "closed"
+                    cleanup_confirmed = safe_to_remove_workspace
+                    report["operations"].append("owner_bound_cleanup:ok")
+                except Exception as exc:
+                    report["cleanup_error"] = f"{type(exc).__name__}: {exc}"
+        elif provision_attempted:
+            # A provision command with no trustworthy returned ID cannot be
+            # reclaimed safely. Preserve its workspace and fail closed.
+            report["cleanup_error"] = "provision outcome has no trustworthy owner ID"
+
+        try:
+            active = _active_windows_sandbox_processes()
+        except Exception as exc:
+            active = [f"process check failed: {type(exc).__name__}: {exc}"]
+        report["active_windows_sandbox_processes_after_cleanup"] = active
+        safe_to_remove_workspace = safe_to_remove_workspace and not active
+        cleanup_confirmed = cleanup_confirmed and not active
+        if safe_to_remove_workspace:
+            try:
+                import shutil
+
+                shutil.rmtree(work_root)
+                report["workspace_removed"] = True
+            except OSError as exc:
+                report["workspace_removed"] = False
+                report["cleanup_error"] = f"workspace cleanup: {exc}"
+                cleanup_confirmed = False
+        else:
+            report["workspace_removed"] = False
+            report["workspace_preserved_for_safety"] = True
+
+        if failure:
+            report["failure"] = failure
+        report["cleanup_confirmed"] = cleanup_confirmed and report["workspace_removed"]
+        diagnostics_path.write_text(
+            json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if not failure and cleanup_confirmed else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(run())
