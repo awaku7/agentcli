@@ -17,12 +17,14 @@ import tempfile
 import time
 import uuid
 from pathlib import Path
-from typing import Any
+from typing import Any, Sequence
 
 from uagent.runtime.windows_sandbox_lifecycle import (
     PINNED_MXC_VERSION,
     WindowsSandboxLease,
     WindowsSandboxLifecycleClient,
+    WxcCommandResult,
+    _default_command_runner,
 )
 
 MIN_FREE_MEMORY_MB = 2048
@@ -126,6 +128,38 @@ def _active_windows_sandbox_processes() -> list[str]:
     return [line.strip() for line in check.stdout.splitlines() if line.strip()]
 
 
+def _recording_command_runner(records: list[dict[str, Any]]):
+    """Capture bounded executor output for this fixed, credential-free smoke."""
+
+    def run(argv: Sequence[str], timeout_seconds: float) -> WxcCommandResult:
+        operation = "unknown"
+        if "--operation" in argv:
+            index = argv.index("--operation")
+            if index + 1 < len(argv):
+                operation = str(argv[index + 1])
+        try:
+            result = _default_command_runner(argv, timeout_seconds)
+        except Exception as exc:
+            records.append(
+                {
+                    "operation": operation,
+                    "runner_error": f"{type(exc).__name__}: {str(exc)[:1000]}",
+                }
+            )
+            raise
+        records.append(
+            {
+                "operation": operation,
+                "exit_code": result.returncode,
+                "stdout": result.stdout[-8192:],
+                "stderr": result.stderr[-8192:],
+            }
+        )
+        return result
+
+    return run
+
+
 def _guest_command(host_canary: Path) -> str:
     canary = str(host_canary).replace("'", "''")
     script = (
@@ -150,8 +184,10 @@ def run() -> int:
     diagnostics_dir = Path(os.environ["LOCALAPPDATA"]) / "uagent" / "pr4_acceptance"
     diagnostics_dir.mkdir(parents=True, exist_ok=True)
     diagnostics_path = diagnostics_dir / f"lifecycle-{run_id}.json"
+    executor_calls: list[dict[str, Any]] = []
     client = WindowsSandboxLifecycleClient(
         runtime_dir,
+        command_runner=_recording_command_runner(executor_calls),
         command_timeout_seconds=600,
     )
     work_root = Path(tempfile.mkdtemp(prefix=f"uag-pr4-lifecycle-{run_id}-"))
@@ -161,6 +197,7 @@ def run() -> int:
         "run_id": run_id,
         "host": host,
         "operations": [],
+        "executor_calls": executor_calls,
         "workspace": str(work_root),
         "diagnostics": str(diagnostics_path),
     }

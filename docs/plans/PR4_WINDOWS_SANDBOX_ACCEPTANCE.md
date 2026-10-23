@@ -14,6 +14,10 @@ The first revised harness incorrectly waited for `vmmemWindowsSandbox` and repor
 
 This is smoke-test evidence only. The required network, lifecycle/resource, credentials, scope isolation, export, Browser/Computer Use, and authenticated-entrypoint matrix remains pending; PR 4 is not accepted and Remote routing remains fail-closed.
 
+### State-aware lifecycle smoke attempt (2026-10-23)
+
+On the same Pro host/build and pinned SDK, the lifecycle helper passed preflight and provisioned an owner ID, but `start` failed with executor exit code 1; the operator reported `E_ACCESSDENIED`. The first helper report recorded the phase and exit code but omitted the executor's captured stdout/stderr, so the cause is undetermined. Owner-bound deprovision succeeded, the report confirms the workspace was removed, and a follow-up process check found no `WindowsSandbox*` host process. No VM remains from this attempt. The helper now records bounded stdout/stderr per executor phase. Do not rerun until reviewing that diagnostic change; this attempt is not a successful VM lifecycle test.
+
 The first-stage schema used for the explicit smoke procedure is:
 
 ```json
