@@ -12,6 +12,13 @@
 
 ## 進捗記録
 
+### 2026-10-23 — PR4 owner-bound lifecycle client scaffold
+
+- Added `src/uagent/runtime/windows_sandbox_lifecycle.py`, a low-level direct `wxc-exec` lifecycle client for `provision/start/exec/stop/deprovision`. It verifies the pinned SDK version and `wsb:<8-hex>` returned ID, restricts operations to a lease object issued by the same client, sets `fallback.allowDaclMutation=false`, passes a minimal host environment, and never invokes `--force-reclaim`.
+- The client is deliberately **not wired to the broker or Remote dispatcher** and advertises no capabilities or acceptance evidence. It is a tested implementation scaffold, not a production backend. The direct provision output and lifecycle semantics still require validation against the pinned executor before any integration; mock tests do not count as VM acceptance.
+- Added offline contract tests for owner-ID binding, DACL fallback denial, ambiguous provision results, timeout cleanup, and exact SDK pinning. `tests/test_execution_broker.py`, `tests/test_mxc_backend.py`, and `tests/test_windows_sandbox_lifecycle.py` pass (90 tests); Ruff and Black pass.
+- Next: verify direct lifecycle operation/output semantics on the pinned executor without enabling Remote routing, then add only owner-bound, fail-closed broker integration. The complete real-VM acceptance matrix remains pending.
+
 ### 2026-10-22 — PR4 Windows Sandbox local smoke evidence
 
 - Windows 11 Pro / build 26200、installed `@microsoft/mxc-sdk@1.0.0` で、`fallback.allowDaclMutation=false` を明示したone-shot VM smokeを実行。MXCログはguest exit code `0`、`UAG_PR4_VM_SMOKE`、`UAG_PR4_HOST_PATH_BLOCKED` を記録。診断ログ: `%LOCALAPPDATA%\uagent\pr4_acceptance\wxc-exec-20261022-211100-528d83aed1ba413db39987f11a03b7a8.log`。
