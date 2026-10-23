@@ -123,7 +123,7 @@ ______________________________________________________________________
 ### 1. プロバイダの選択
 
 - `UAGENT_PROVIDER`（必須）: LLMプロバイダ名。
-  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `perplexity`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`。
+  サポート値: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `perplexity`, `ollama`, `llama_cpp`, `vllm`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`。
 - `UAGENT_USE_TOOL`: `0`, `false`, `no`, `off` に設定すると、LLMへのツール送信を無効化します。
 
 #### Azure OpenAI
@@ -220,6 +220,18 @@ InceptionはOpenAI互換のChat Completions APIを使用します。reasoningの
 これらの値は llama-server の `extra_body` サンプリングパラメータとして送信されます。不正な値および 0 以下の値は送信されません。
 
 llama.cpp 連携は現在 Chat Completions を使用します。互換プロキシ／サーバーを構成していない限り、`UAGENT_RESPONSES=0` を維持してください。
+
+#### vLLM
+
+`UAGENT_PROVIDER=vllm` の場合：
+
+- `UAGENT_VLLM_DEPNAME`（必須）: vLLMの`/v1/models`が返すモデルID（または`--served-model-name`の値）と完全一致させます。
+- `UAGENT_VLLM_BASE_URL`（省略可、既定: `http://localhost:8000/v1`）
+- `UAGENT_VLLM_API_KEY`（省略可。`VLLM_API_KEY`も利用可。サーバーを`--api-key`付きで起動した場合に設定。未設定時は`dummy`を送信）
+- `UAGENT_VLLM_TIMEOUT_SEC`（省略可、既定: `120`）
+- `UAGENT_VLLM_TEMPERATURE`（省略可。未設定時は共通の`UAGENT_TEMPERATURE`を使用）
+
+UAGはvLLMのOpenAI互換Chat Completionsエンドポイントを使用します。vLLMの起動、モデルのダウンロード、サーバー管理は行いません。この連携ではResponses API、Vision、ネイティブ構造化出力を機能対応として通知しません。ツール呼び出しにはモデル側の対応とvLLM側のtool-call parser設定が必要です。ツールを使う場合は`--enable-auto-tool-choice`と、モデルに合った`--tool-call-parser`を指定してください。起動例とセキュリティ上の注意は[vLLMプロバイダー設定ガイド](VLLM.ja.md)を参照してください。
 
 #### Google Gemini
 

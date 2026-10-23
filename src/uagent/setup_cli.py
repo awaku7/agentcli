@@ -96,6 +96,7 @@ PROVIDERS: list[tuple[str, str]] = [
     ("together", "Together AI"),
     ("inception", "Inception Labs / Mercury"),
     ("vercel", "Vercel AI Gateway"),
+    ("vllm", "vLLM (OpenAI-compatible)"),
 ]
 
 # NOTE: When adding/removing a provider here, also update
@@ -291,6 +292,29 @@ PROVIDER_FIELDS: dict[str, list[tuple[str, bool, str]]] = {
             False,
             _("llama.cpp repeat_penalty (optional)"),
         ),
+    ],
+    "vllm": [
+        (
+            "UAGENT_VLLM_BASE_URL",
+            False,
+            _("vLLM server base URL (optional, default: http://localhost:8000/v1)"),
+        ),
+        (
+            "UAGENT_VLLM_API_KEY",
+            False,
+            _("vLLM API key (optional; required only if the server is protected)"),
+        ),
+        (
+            "UAGENT_VLLM_DEPNAME",
+            True,
+            _("vLLM served model name (required; must match the server model ID)"),
+        ),
+        (
+            "UAGENT_VLLM_TIMEOUT_SEC",
+            False,
+            _("vLLM request timeout in seconds (default: 120)"),
+        ),
+        ("UAGENT_VLLM_TEMPERATURE", False, _("vLLM temperature (optional)")),
     ],
     "deepseek": [
         ("UAGENT_DEEPSEEK_API_KEY", True, _("DeepSeek API key")),

@@ -73,6 +73,7 @@ Gemini, DeepSeek, Ollama, OpenRouter, etc.).
 | `grok` | Grok |
 | `claude` | Claude |
 | `ollama` | Ollama |
+| `vllm` | vLLM OpenAI-compatible server |
 | `nvidia` | NVIDIA |
 | `deepseek` | DeepSeek |
 | `zai` | Z.AI (Zhipu AI) |

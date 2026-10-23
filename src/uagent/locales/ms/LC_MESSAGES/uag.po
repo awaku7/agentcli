@@ -577,10 +577,10 @@ msgstr "buka dengan OS"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "Diperlukan untuk memilih penyedia LLM "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 
 #: src/uagent/env_validate.py:53
 msgid ""
@@ -4994,3 +4994,26 @@ msgstr "Penyedia keputusan"
 msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
 msgstr ""
 "[amaran sesi] Kegigihan sesi dinyahdayakan untuk larian ini: %(error)s"
+
+#: src/uagent/setup_cli.py:300
+msgid "vLLM server base URL (optional, default: http://localhost:8000/v1)"
+msgstr "vLLM URL pangkalan pelayan (pilihan, lalai: http://localhost:8000/v1)"
+#: src/uagent/setup_cli.py:305
+msgid "vLLM API key (optional; required only if the server is protected)"
+msgstr "vLLM API kunci (pilihan; diperlukan hanya jika pelayan dilindungi)"
+#: src/uagent/setup_cli.py:310
+msgid "vLLM served model name (required; must match the server model ID)"
+msgstr ""
+"vLLM disajikan nama model (diperlukan; mesti sepadan dengan ID model"
+" pelayan)"
+#: src/uagent/setup_cli.py:315
+msgid "vLLM request timeout in seconds (default: 120)"
+msgstr "vLLM permintaan tamat masa dalam beberapa saat (lalai: 120)"
+#: src/uagent/setup_cli.py:317
+msgid "vLLM temperature (optional)"
+msgstr "vLLM suhu (pilihan)"
+#: src/uagent/env_validate.py:140
+msgid "vLLM served model name (must match the model exposed by /v1/models)."
+msgstr ""
+"vLLM nama model yang disampaikan (mesti sepadan dengan model yang di"
+"dedahkan oleh /v1/models)."

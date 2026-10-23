@@ -411,6 +411,8 @@ def test_projection_policy_is_pure_and_keeps_transport_shapes(monkeypatch) -> No
     monkeypatch.setenv("UAGENT_REASONING", "high")
     monkeypatch.setenv("UAGENT_MAX_TOKENS", "999")
     monkeypatch.setenv("UAGENT_TOP_P", "0.3")
+    monkeypatch.delenv("UAGENT_OPENAI_TEMPERATURE", raising=False)
+    monkeypatch.delenv("UAGENT_TEMPERATURE", raising=False)
     monkeypatch.setattr("uagent.llmcapa_util.clamp_max_tokens", lambda *args: 321)
 
     projection = build_openai_projection(

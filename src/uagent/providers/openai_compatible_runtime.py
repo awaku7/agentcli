@@ -58,6 +58,15 @@ def _mapping_value(value: Any, key: str) -> Any:
     return getattr(value, key, None)
 
 
+def _reasoning_text(value: Any) -> str:
+    """Return optional reasoning text from an OpenAI-compatible response."""
+    for key in ("reasoning_content", "reasoning"):
+        candidate = _mapping_value(value, key)
+        if isinstance(candidate, str) and candidate:
+            return candidate
+    return ""
+
+
 def _responses_tool_specs(
     tool_specs: tuple[Mapping[str, Any], ...],
 ) -> list[dict[str, Any]]:
@@ -396,6 +405,9 @@ class OpenAICompatibleRuntime:
             return
         choices = getattr(response, "choices", None) or []
         message = getattr(choices[0], "message", None) if choices else None
+        reasoning = _reasoning_text(message)
+        if reasoning:
+            yield self._event("ReasoningDelta", {"text": reasoning})
         content = getattr(message, "content", None) if message is not None else None
         if isinstance(content, str) and content:
             yield self._event("TextDelta", {"text": content})
@@ -484,6 +496,9 @@ class OpenAICompatibleRuntime:
             delta = getattr(choices[0], "delta", None) if choices else None
             if delta is None:
                 continue
+            reasoning = _reasoning_text(delta)
+            if reasoning:
+                yield self._event("ReasoningDelta", {"text": reasoning})
             content = getattr(delta, "content", None)
             if isinstance(content, str) and content:
                 yield self._event("TextDelta", {"text": content})

@@ -593,10 +593,10 @@ msgstr "OS सह उघडा"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "LLM प्रदाता "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)"
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)"
 " निवडण्यासाठी आवश्यक आहे."
 
 #: src/uagent/env_validate.py:53
@@ -5231,3 +5231,26 @@ msgstr "निर्णय प्रदाता"
 #, python-format
 msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
 msgstr "[सत्र चेतावणी] या रनसाठी सत्र टिकाऊपणा अक्षम केला आहे: %(error)s"
+
+#: src/uagent/setup_cli.py:300
+msgid "vLLM server base URL (optional, default: http://localhost:8000/v1)"
+msgstr "vLLM सर्व्हर बेस URL (पर्यायी, डीफॉल्ट: http://localhost:8000/v1)"
+#: src/uagent/setup_cli.py:305
+msgid "vLLM API key (optional; required only if the server is protected)"
+msgstr "vLLM API की (पर्यायी; सर्व्हर संरक्षित असल्यासच आवश्यक)"
+#: src/uagent/setup_cli.py:310
+msgid "vLLM served model name (required; must match the server model ID)"
+msgstr ""
+"vLLM सर्व्ह केलेले मॉडेल नाव (आवश्यक; सर्व्हर मॉडेल आयडीशी जुळले पाह"
+"िजे)"
+#: src/uagent/setup_cli.py:315
+msgid "vLLM request timeout in seconds (default: 120)"
+msgstr "vLLM सेकंदात विनंती कालबाह्य (डीफॉल्ट: 120)"
+#: src/uagent/setup_cli.py:317
+msgid "vLLM temperature (optional)"
+msgstr "vLLM तापमान (पर्यायी)"
+#: src/uagent/env_validate.py:140
+msgid "vLLM served model name (must match the model exposed by /v1/models)."
+msgstr ""
+"vLLM सर्व्ह केलेले मॉडेल नाव (/v1/models द्वारे उघड केलेल्या मॉडेलशी"
+" जुळले पाहिजे)."

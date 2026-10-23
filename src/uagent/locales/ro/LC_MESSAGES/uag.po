@@ -608,10 +608,10 @@ msgstr "deschide cu OS"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "Este necesar să selectați furnizorul LLM "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 
 #: src/uagent/env_validate.py:53
 #, python-format
@@ -5339,3 +5339,28 @@ msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
 msgstr ""
 "[avertisment sesiune] Persistența sesiunii este dezactivată pentru această "
 "rulare: %(error)s"
+
+#: src/uagent/setup_cli.py:300
+msgid "vLLM server base URL (optional, default: http://localhost:8000/v1)"
+msgstr ""
+"vLLM Adresa URL de bază a serverului (opțional, prestabilit: http://"
+"localhost:8000/v1)"
+#: src/uagent/setup_cli.py:305
+msgid "vLLM API key (optional; required only if the server is protected)"
+msgstr "vLLM API cheie (opțional; necesară numai dacă serverul este protejat)"
+#: src/uagent/setup_cli.py:310
+msgid "vLLM served model name (required; must match the server model ID)"
+msgstr ""
+"vLLM nume de model difuzat (obligatoriu; trebuie să se potrivească c"
+"u ID-ul modelului de server)"
+#: src/uagent/setup_cli.py:315
+msgid "vLLM request timeout in seconds (default: 120)"
+msgstr "vLLM expirare a cererii în secunde (implicit: 120)"
+#: src/uagent/setup_cli.py:317
+msgid "vLLM temperature (optional)"
+msgstr "vLLM temperatură (opțional)"
+#: src/uagent/env_validate.py:140
+msgid "vLLM served model name (must match the model exposed by /v1/models)."
+msgstr ""
+"vLLM nume de model difuzat (trebuie să se potrivească cu modelul exp"
+"us de /v1/models)."

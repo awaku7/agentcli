@@ -38,6 +38,7 @@ def provider_error_label(provider: str) -> str:
         "together": "Together AI",
         "vercel": "Vercel",
         "vertexai": "Vertex AI",
+        "vllm": "vLLM",
         "zai": "Z.ai",
     }
     # Preserve the configured provider name for custom/future providers rather

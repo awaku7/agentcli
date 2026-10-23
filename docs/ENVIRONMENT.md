@@ -150,7 +150,7 @@ ______________________________________________________________________
 ### 1. Provider selection
 
 - `UAGENT_PROVIDER` (required): LLM provider name.
-  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `perplexity`, `ollama`, `llama_cpp`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`.
+  Supported values: `azure`, `openai`, `pfn`, `bedrock`, `openrouter`, `perplexity`, `ollama`, `llama_cpp`, `vllm`, `gemini`, `vertexai`, `claude`, `grok`, `nvidia`, `deepseek`, `zai`, `alibaba`, `moonshot`, `mimo`, `lmstudio`, `minimax`, `hf`, `novita`, `sakana`, `sakura`, `together`, `inception`, `vercel`.
 - `UAGENT_USE_TOOL`: Set to `0`, `false`, `no`, or `off` to disable tool sending to LLM.
 
 #### Azure OpenAI
@@ -247,6 +247,18 @@ Required when `UAGENT_PROVIDER=llama_cpp`:
 These values are sent as llama-server `extra_body` sampling parameters. Invalid values and values less than or equal to zero are not sent.
 
 The llama.cpp integration currently uses Chat Completions. Keep `UAGENT_RESPONSES=0` unless a compatible proxy/server is configured.
+
+#### vLLM
+
+Required if `UAGENT_PROVIDER=vllm`:
+
+- `UAGENT_VLLM_DEPNAME` (required): exact model ID exposed by vLLM at `/v1/models` (or the `--served-model-name` value).
+- `UAGENT_VLLM_BASE_URL` (optional, default: `http://localhost:8000/v1`)
+- `UAGENT_VLLM_API_KEY` (optional; `VLLM_API_KEY` is also accepted; set it when the server uses `--api-key`; otherwise UAG sends `dummy`)
+- `UAGENT_VLLM_TIMEOUT_SEC` (optional, default: `120`)
+- `UAGENT_VLLM_TEMPERATURE` (optional; otherwise the shared `UAGENT_TEMPERATURE` is used)
+
+UAG uses vLLM's OpenAI-compatible Chat Completions endpoint. It does not start or manage the vLLM server, and this integration does not enable Responses API, vision, or native structured-output capabilities. Tool calls require a compatible model and a vLLM tool-call parser; start the server with `--enable-auto-tool-choice` and a model-appropriate `--tool-call-parser` when using tools. See [vLLM provider setup](VLLM.md) for a server example and security notes.
 
 #### Google Gemini
 

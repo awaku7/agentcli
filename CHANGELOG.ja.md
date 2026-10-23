@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### 追加
+
+- ローカルのOpenAI互換Chat CompletionsプロバイダーとしてvLLMに対応。
+
 ## [0.7.32] - 2026-10-18
 
 ### 修正

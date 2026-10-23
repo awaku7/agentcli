@@ -573,10 +573,10 @@ msgstr "使用系统打开"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "需要选择 LLM 提供商 "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)。"
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)。"
 
 #: src/uagent/env_validate.py:53
 #, python-format
@@ -5060,3 +5060,22 @@ msgstr "决策提供方"
 #, python-format
 msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
 msgstr "[会话警告] 本次运行已禁用会话持久化: %(error)s"
+
+#: src/uagent/setup_cli.py:300
+msgid "vLLM server base URL (optional, default: http://localhost:8000/v1)"
+msgstr "vLLM 服务器基本 URL（可选，默认值：http://localhost:8000/v1）"
+#: src/uagent/setup_cli.py:305
+msgid "vLLM API key (optional; required only if the server is protected)"
+msgstr "vLLM API 密钥（可选；仅当服务器受保护时才需要）"
+#: src/uagent/setup_cli.py:310
+msgid "vLLM served model name (required; must match the server model ID)"
+msgstr "vLLM 服务模型名称（必需；必须与服务器模型 ID 匹配）"
+#: src/uagent/setup_cli.py:315
+msgid "vLLM request timeout in seconds (default: 120)"
+msgstr "vLLM 请求超时（以秒为单位）（默认值：120）"
+#: src/uagent/setup_cli.py:317
+msgid "vLLM temperature (optional)"
+msgstr "vLLM 温度（可选）"
+#: src/uagent/env_validate.py:140
+msgid "vLLM served model name (must match the model exposed by /v1/models)."
+msgstr "vLLM 提供的模型名称（必须与 /v1/models 公开的模型匹配）。"

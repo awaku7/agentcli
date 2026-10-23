@@ -49,6 +49,7 @@ def test_registry_builds_openai_and_azure_compatible_adapters() -> None:
         "ollama",
         "lmstudio",
         "meta",
+        "vllm",
     ):
         registry = build_provider_runtime_registry(
             provider=provider,
@@ -178,6 +179,7 @@ def test_registry_support_check_is_normalized_and_has_one_source_of_truth(
     assert supports_provider_runtime("bedrock") is True
     assert supports_provider_runtime("ollama") is True
     assert supports_provider_runtime("lmstudio") is True
+    assert supports_provider_runtime("vllm") is True
     monkeypatch.setenv("UAGENT_LMSTUDIO_TRANSPORT", "sdk")
     assert supports_provider_runtime("lmstudio") is False
     assert supports_provider_runtime("meta") is True
