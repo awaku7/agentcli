@@ -72,6 +72,31 @@ def test_vllm_registry_projection_honors_provider_and_shared_temperature(monkeyp
     assert projection.options["temperature"] == 0.2
 
 
+def test_vllm_tool_projection_preserves_configured_reasoning_effort(monkeypatch):
+    monkeypatch.setenv("UAGENT_REASONING", "high")
+    projection = build_openai_projection(
+        provider="vllm",
+        model="served-model",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "solve this"}],
+        send_tools=True,
+        compaction_threshold=1000,
+    )
+    assert projection.options["reasoning_effort"] == "high"
+    assert projection.options["tool_choice"] == "auto"
+
+    monkeypatch.delenv("UAGENT_REASONING")
+    projection = build_openai_projection(
+        provider="vllm",
+        model="served-model",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "solve this"}],
+        send_tools=True,
+        compaction_threshold=1000,
+    )
+    assert "reasoning_effort" not in projection.options
+
+
 def test_vllm_forces_chat_completions_even_when_responses_are_requested(monkeypatch):
     from uagent.llm_round_helpers import _resolve_round_runtime_flags
 

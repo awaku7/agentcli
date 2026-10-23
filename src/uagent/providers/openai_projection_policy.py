@@ -332,7 +332,7 @@ def build_openai_projection(
 
     if send_tools:
         options["tool_choice"] = "auto"
-        if not use_responses_api and provider_key not in {"foundry_local", "sarashina"}:
+        if not use_responses_api and provider_key in {"openai", "azure"}:
             options["reasoning_effort"] = "none"
 
     return OpenAIProjection(
