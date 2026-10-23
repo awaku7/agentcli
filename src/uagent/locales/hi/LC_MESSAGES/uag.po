@@ -595,10 +595,10 @@ msgstr "OS के साथ खोलें"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "LLM प्रदाता "
-"(एज़्योर/ओपनई/प्लामो/बेडरॉक/ओपनराउटर/जेमिनी/ग्रोक/क्लाउड/एनवीडिया/डीपसीक/ज़ई/अलीबाबा/मूनशॉट/मिमो/एलएमस्टूडियो/मिनीमैक्स/एचएफ)"
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)"
 " का चयन करना आवश्यक है।"
 
 #: src/uagent/env_validate.py:53

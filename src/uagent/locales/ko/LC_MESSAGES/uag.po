@@ -578,10 +578,10 @@ msgstr "OS로 열기"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "LLM "
-"공급자(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)를"
+"공급자(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)를"
 " 선택하는 데 필요합니다."
 
 #: src/uagent/env_validate.py:53

@@ -602,10 +602,10 @@ msgstr "öppna med OS"
 #: src/uagent/env_validate.py:43
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "Krävs för att välja LLM-leverantör "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 
 #: src/uagent/env_validate.py:53
 #, python-format

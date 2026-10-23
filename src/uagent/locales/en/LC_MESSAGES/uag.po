@@ -472,10 +472,10 @@ msgstr "open with OS"
 
 msgid ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 msgstr ""
 "Required to select the LLM provider "
-"(azure/openai/plamo/bedrock/openrouter/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf)."
+"(azure/openai/bedrock/openrouter/perplexity/inception/gemini/grok/claude/nvidia/deepseek/zai/alibaba/moonshot/mimo/lmstudio/minimax/hf/together/vercel/vllm)."
 
 msgid ""
 "Unknown provider: %(provider)r. Allowed: %(allowed)s (startup will likely "
