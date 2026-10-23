@@ -60,6 +60,17 @@ def test_vllm_registry_projection_honors_provider_and_shared_temperature(monkeyp
     )
     assert projection.options["temperature"] == 0.4
 
+    monkeypatch.delenv("UAGENT_TEMPERATURE")
+    projection = build_openai_projection(
+        provider="vllm",
+        model="served-model",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "hello"}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+    assert projection.options["temperature"] == 0.2
+
 
 def test_vllm_forces_chat_completions_even_when_responses_are_requested(monkeypatch):
     from uagent.llm_round_helpers import _resolve_round_runtime_flags

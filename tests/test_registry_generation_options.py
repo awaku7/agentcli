@@ -431,7 +431,6 @@ def test_projection_policy_is_pure_and_keeps_transport_shapes(monkeypatch) -> No
         "reasoning_effort": "high",
         "max_tokens": 321,
         "top_p": 0.3,
-        "temperature": 0.2,
     }
 
 

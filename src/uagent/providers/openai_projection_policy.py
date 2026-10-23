@@ -293,25 +293,29 @@ def build_openai_projection(
             pass
 
     if not use_responses_api:
-        # Match the legacy Chat Completions path: provider-specific temperature
-        # wins, then the shared setting, then the standard default. Inception
-        # has a narrower documented range and a different default.
+        # Provider-specific temperature wins over the shared setting. Avoid
+        # adding a generic default on the registry path: some reasoning models
+        # reject any explicit temperature. vLLM and Inception retain their
+        # provider-specific defaults from the legacy path.
         temp_name = temperature_env_name(provider_key)
         temperature = (env_get(temp_name) if temp_name else "") or ""
         if not temperature.strip():
             temperature = env_get("UAGENT_TEMPERATURE", "") or ""
         default_temperature = 0.75 if provider_key == "inception" else 0.2
-        try:
-            resolved_temperature = (
-                float(temperature.strip())
-                if temperature.strip()
-                else default_temperature
-            )
-        except ValueError:
+        provider_has_default = provider_key in {"inception", "vllm"}
+        resolved_temperature: float | None = None
+        if temperature.strip():
+            try:
+                resolved_temperature = float(temperature.strip())
+            except ValueError:
+                if provider_has_default:
+                    resolved_temperature = default_temperature
+        elif provider_has_default:
             resolved_temperature = default_temperature
-        if provider_key == "inception":
-            resolved_temperature = min(1.0, max(0.5, resolved_temperature))
-        options["temperature"] = resolved_temperature
+        if resolved_temperature is not None:
+            if provider_key == "inception":
+                resolved_temperature = min(1.0, max(0.5, resolved_temperature))
+            options["temperature"] = resolved_temperature
 
     if provider == "openai" and (
         env_get("UAGENT_OPENAI_FAST_MODE", "") or ""
