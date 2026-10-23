@@ -195,20 +195,18 @@ class WindowsSandboxLifecycleClient:
         if sandbox_id is not None:
             self._validate_sandbox_id(sandbox_id)
             argv.extend(("--container-id", sandbox_id))
+        request = config if config is not None else {"version": WINDOWS_SANDBOX_SCHEMA}
         try:
-            if config is None:
-                result = self._command_runner(argv, self.command_timeout_seconds)
-            else:
-                with tempfile.TemporaryDirectory(prefix="uag-wxc-config-") as temp_dir:
-                    config_path = Path(temp_dir) / "request.json"
-                    config_path.write_text(
-                        json.dumps(config, ensure_ascii=False, separators=(",", ":")),
-                        encoding="utf-8",
-                    )
-                    result = self._command_runner(
-                        [*argv, "--config", str(config_path)],
-                        self.command_timeout_seconds,
-                    )
+            with tempfile.TemporaryDirectory(prefix="uag-wxc-config-") as temp_dir:
+                config_path = Path(temp_dir) / "request.json"
+                config_path.write_text(
+                    json.dumps(request, ensure_ascii=False, separators=(",", ":")),
+                    encoding="utf-8",
+                )
+                result = self._command_runner(
+                    [*argv, "--config", str(config_path)],
+                    self.command_timeout_seconds,
+                )
         except subprocess.TimeoutExpired as exc:
             raise WindowsSandboxCommandTimeout(
                 f"MXC {operation} timed out; do not reuse the lease until owner-bound cleanup succeeds"

@@ -80,9 +80,15 @@ def test_lifecycle_client_uses_narrow_schema_and_owner_id(tmp_path):
     client.deprovision(lease)
 
     for operation in ("start", "exec", "stop", "deprovision"):
-        args = next(args for args, _, _ in runner.calls if operation in args)
+        args, _, phase_config = next(
+            call for call in runner.calls if operation in call[0]
+        )
         assert args[args.index("--container-id") + 1] == SANDBOX_ID
         assert "--force-reclaim" not in args
+        assert phase_config["version"] == "1.1.0-alpha"
+        assert "fallback" not in phase_config
+        if operation in {"start", "stop", "deprovision"}:
+            assert phase_config == {"version": "1.1.0-alpha"}
     assert lease.state == "closed"
 
 
