@@ -192,3 +192,32 @@ def test_daemon_log_capture_is_owner_scoped_and_redacts_secrets(tmp_path, monkey
     assert "[REDACTED]" in captured
     assert "0123456789abcdef" not in captured
     assert _daemon_error_log_before_cleanup("foreign-id") is not None
+
+
+def test_lifecycle_preflight_ignores_only_baseline_vmmem(monkeypatch):
+    monkeypatch.setattr(
+        lifecycle_smoke,
+        "_vmmem_processes",
+        lambda: ["vmmemCmZygote:6572"],
+    )
+
+    waited, processes = lifecycle_smoke._wait_for_stale_vmmem(timeout_seconds=1)
+
+    assert 0 <= waited < 0.1
+    assert processes == ["vmmemCmZygote:6572"]
+
+
+def test_lifecycle_preflight_refuses_stale_vmmem_without_killing_it(monkeypatch):
+    clock = [0.0]
+    monkeypatch.setattr(
+        lifecycle_smoke, "_vmmem_processes", lambda: ["vmmemWindowsSandbox:42"]
+    )
+    monkeypatch.setattr(lifecycle_smoke.time, "monotonic", lambda: clock[0])
+    monkeypatch.setattr(
+        lifecycle_smoke.time,
+        "sleep",
+        lambda seconds: clock.__setitem__(0, clock[0] + seconds),
+    )
+
+    with pytest.raises(RuntimeError, match="prior Hyper-V utility VM memory process"):
+        lifecycle_smoke._wait_for_stale_vmmem(timeout_seconds=10, poll_seconds=5)

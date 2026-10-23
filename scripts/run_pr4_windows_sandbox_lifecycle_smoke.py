@@ -51,6 +51,20 @@ def _require_windows_acceptance_host() -> dict[str, Any]:
     if edition not in {"Professional", "Enterprise", "Education"}:
         raise RuntimeError(f"unsupported Windows edition: {edition}")
 
+    active = _active_windows_sandbox_processes()
+    if active:
+        raise RuntimeError(
+            "refusing to overlap an active Windows Sandbox host process: "
+            + ", ".join(active)
+        )
+    daemons = _active_lifecycle_daemons()
+    if daemons:
+        raise RuntimeError(
+            "refusing to overlap an active MXC Windows Sandbox daemon: "
+            + ", ".join(daemons)
+        )
+    vmmem_wait_seconds, vmmem_before_start = _wait_for_stale_vmmem()
+
     class _MemoryStatus(ctypes.Structure):
         _fields_ = [
             ("dwLength", ctypes.c_ulong),
@@ -92,16 +106,12 @@ def _require_windows_acceptance_host() -> dict[str, Any]:
     if dism.returncode != 0 or "State : Enabled" not in dism.stdout:
         raise RuntimeError("Windows Sandbox feature is not confirmed enabled")
 
-    active = _active_windows_sandbox_processes()
-    if active:
-        raise RuntimeError(
-            "refusing to overlap an active Windows Sandbox host process: "
-            + ", ".join(active)
-        )
     return {
         "edition": edition,
         "build": str(build),
         "free_memory_mb": int(free_mb),
+        "vmmem_wait_seconds": round(vmmem_wait_seconds, 1),
+        "vmmem_processes_before_start": vmmem_before_start,
         "sdk_version": PINNED_MXC_VERSION,
     }
 
@@ -127,6 +137,77 @@ def _active_windows_sandbox_processes() -> list[str]:
     if check.returncode != 0:
         raise RuntimeError("could not verify Windows Sandbox host processes")
     return [line.strip() for line in check.stdout.splitlines() if line.strip()]
+
+
+def _active_lifecycle_daemons() -> list[str]:
+    check = subprocess.run(
+        [
+            "powershell.exe",
+            "-NoLogo",
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            "Get-Process -Name 'wxc-windows-sandbox-daemon' "
+            "-ErrorAction SilentlyContinue | "
+            "ForEach-Object { '{0}:{1}' -f $_.ProcessName, $_.Id }",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=15,
+        check=False,
+    )
+    if check.returncode != 0:
+        raise RuntimeError("could not verify MXC Windows Sandbox daemon process")
+    return [line.strip() for line in check.stdout.splitlines() if line.strip()]
+
+
+def _vmmem_processes() -> list[str]:
+    check = subprocess.run(
+        [
+            "powershell.exe",
+            "-NoLogo",
+            "-NoProfile",
+            "-NonInteractive",
+            "-Command",
+            "Get-Process -Name 'vmmem*' -ErrorAction SilentlyContinue | "
+            "ForEach-Object { '{0}:{1}' -f $_.ProcessName, $_.Id }",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        timeout=15,
+        check=False,
+    )
+    if check.returncode != 0:
+        raise RuntimeError("could not inspect residual Hyper-V utility VM processes")
+    return [line.strip() for line in check.stdout.splitlines() if line.strip()]
+
+
+def _wait_for_stale_vmmem(
+    *, timeout_seconds: int = 120, poll_seconds: int = 5
+) -> tuple[float, list[str]]:
+    """Wait briefly for prior WSB memory residue; never terminate vmmem processes."""
+    started = time.monotonic()
+    deadline = started + timeout_seconds
+    while True:
+        processes = _vmmem_processes()
+        residual = [
+            item
+            for item in processes
+            if item.partition(":")[0].lower() != "vmmemcmzygote"
+        ]
+        if not residual:
+            return time.monotonic() - started, processes
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise RuntimeError(
+                "prior Hyper-V utility VM memory process remains; refusing a new start: "
+                + ", ".join(residual)
+            )
+        time.sleep(min(poll_seconds, remaining))
 
 
 def _recording_command_runner(records: list[dict[str, Any]]):
