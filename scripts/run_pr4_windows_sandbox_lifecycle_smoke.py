@@ -147,7 +147,7 @@ def _active_lifecycle_daemons() -> list[str]:
             "-NoProfile",
             "-NonInteractive",
             "-Command",
-            "Get-Process -Name 'wxc-windows-sandbox-daemon' "
+            "Get-Process -Name 'wxc-windows-sandbox-daemon*' "
             "-ErrorAction SilentlyContinue | "
             "ForEach-Object { '{0}:{1}' -f $_.ProcessName, $_.Id }",
         ],

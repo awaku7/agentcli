@@ -194,6 +194,19 @@ def test_daemon_log_capture_is_owner_scoped_and_redacts_secrets(tmp_path, monkey
     assert _daemon_error_log_before_cleanup("foreign-id") is not None
 
 
+def test_active_daemon_probe_allows_no_existing_daemon(monkeypatch):
+    calls = []
+
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        return subprocess.CompletedProcess(argv, 0, "", "")
+
+    monkeypatch.setattr(lifecycle_smoke.subprocess, "run", fake_run)
+
+    assert lifecycle_smoke._active_lifecycle_daemons() == []
+    assert "wxc-windows-sandbox-daemon*" in calls[0][-1]
+
+
 def test_lifecycle_preflight_ignores_only_baseline_vmmem(monkeypatch):
     monkeypatch.setattr(
         lifecycle_smoke,
