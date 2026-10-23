@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4はWindows Sandbox executorの契約調査、Remote acceptance fail-closed gate、Windows Pro実機試験手順を準備中。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）ではWindows Sandbox optional featureが無効でVM実機検証未実施。Remote Backendは未接続・未承認。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
+- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4ではWindows 11 Pro（EditionID=Professional、Build 26200）上で、ピン留め `@microsoft/mxc-sdk@1.0.0` のWindows Sandbox one-shot smokeとホストcanary拒否を実測済み（2026-10-22、DACL fallback禁止）。MXCログ上のguest exit code 0と拒否マーカーを確認したが、全必須実機マトリクスとRemote production wiringは未完了のため、Remoteはfail-closedを維持。受入れスクリプトは公式MXC文書に合わせ、SYSTEM所有 `vmmem*` 残留をVM所有プロセスとして扱わないよう修正済み。PR 5は未着手、Linux PR 6・macOS PR 7は後続。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -11,6 +11,21 @@
 > 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
 
 ## 進捗記録
+
+### 2026-10-23 — PR4 owner-bound lifecycle client scaffold
+
+- Added `src/uagent/runtime/windows_sandbox_lifecycle.py`, a low-level direct `wxc-exec` lifecycle client for `provision/start/exec/stop/deprovision`. It verifies the pinned SDK version and `wsb:<8-hex>` returned ID, restricts operations to a lease object issued by the same client, passes a minimal host environment, and never invokes `--force-reclaim`. The lifecycle schema rejects the one-shot-only `fallback` field; the client does not claim explicit lifecycle DACL fallback control.
+- The client is deliberately **not wired to the broker or Remote dispatcher** and advertises no capabilities or acceptance evidence. It is a tested implementation scaffold, not a production backend. A no-VM direct executor dry-run found that the lifecycle `provision` and `exec` schemas reject the `fallback` field; the client therefore omits it. The one-shot request accepted `fallback.allowDaclMutation=false`, but the lifecycle no-DACL behavior still requires source-level/security review and must not be assumed from the smoke run.
+- Added offline contract tests for owner-ID binding, narrow lifecycle schemas, ambiguous provision results, timeout cleanup, and exact SDK pinning. `tests/test_execution_broker.py`, `tests/test_mxc_backend.py`, and `tests/test_windows_sandbox_lifecycle.py` pass (90 tests); Ruff and Black pass.
+- With the pinned executor, direct no-VM dry-runs for `provision` and `exec` passed using their narrow lifecycle schemas. A real `provision` returned `wsb:7ad8e5c7`, and owner-bound `deprovision` succeeded; no VM was launched and no `WindowsSandbox*` host process remained. This validates the ID parser and provision/deprovision CLI calls only; real `start/exec/stop`, broker wiring, and VM acceptance remain unverified.
+- Next: verify direct lifecycle operation/output semantics on the pinned executor without enabling Remote routing, then add only owner-bound, fail-closed broker integration. The complete real-VM acceptance matrix remains pending.
+
+### 2026-10-22 — PR4 Windows Sandbox local smoke evidence
+
+- Windows 11 Pro / build 26200、installed `@microsoft/mxc-sdk@1.0.0` で、`fallback.allowDaclMutation=false` を明示したone-shot VM smokeを実行。MXCログはguest exit code `0`、`UAG_PR4_VM_SMOKE`、`UAG_PR4_HOST_PATH_BLOCKED` を記録。診断ログ: `%LOCALAPPDATA%\uagent\pr4_acceptance\wxc-exec-20261022-211100-528d83aed1ba413db39987f11a03b7a8.log`。
+- 一時的な受入れスクリプト版は `vmmemWindowsSandbox` も所有VMとして誤検出し、900秒後にcleanup incompleteと報告した。MXC v1.0.0公式[Windows Sandbox reference](https://github.com/microsoft/mxc/blob/v1.0.0/docs/backends/windows-sandbox/windows-sandbox-reference.md)は、SYSTEM所有 `vmmem*` 残留はownership targetでなく、`WindowsSandbox*` host process終了後は新規起動を妨げないと明記する。timeout時の報告はvmmemだけであり、これ単独では生存VM/teardown失敗の証拠にならない。後にVM関連processなしを確認し、このrun専用temp workspaceを削除した。
+- 受入れスクリプトを公式仕様に合わせ、事前確認・shutdown waitは `WindowsSandbox*` のみを対象とし、vmmemをkill/reclaim/待機対象にしないよう修正。DACL fallback falseを設定し、debug request内のコマンド文字列とguest実出力を分離して判定する。PowerShell構文checkは成功。VM実行の再試験はしていない。
+- 判定: local smokeとhost-path canaryの実行証拠あり。ただしcleanup待ちの修正後実行、およびnetwork、resource、credentials、lifecycle、scope separation、export、Browser/Computer Use、authenticated entrypointの必須実測は未完了。PR4は未承認、Remote routingは引き続きfail-closed。
 
 ### 2026-10-18 — PR4 executor契約確認とfail-closed準備
 

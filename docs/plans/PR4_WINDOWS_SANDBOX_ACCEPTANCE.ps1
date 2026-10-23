@@ -66,6 +66,30 @@ $decoded
     }
 }
 
+function Get-ActiveSandboxProcesses {
+    # MXC's Windows Sandbox reference treats WindowsSandbox* host processes as
+    # ownership targets. SYSTEM-owned vmmem* residuals are not ownership targets
+    # and do not block a new launch once the WindowsSandbox* processes exit.
+    @(Get-Process -Name 'WindowsSandbox*' -ErrorAction SilentlyContinue)
+}
+
+function Get-WxcWorkloadResult {
+    param([string]$Text)
+
+    # --debug echoes the request (including the command string) before the
+    # actual guest result. Parse markers only after the guest exit-code line.
+    $matches = [regex]::Matches($Text, '(?m)^Exit code:\s*(?<code>\d+)(?:\s+\([^)]+\))?\s*$')
+    if ($matches.Count -eq 0) {
+        return $null
+    }
+    $match = $matches[$matches.Count - 1]
+    $resultText = $Text.Substring($match.Index + $match.Length).TrimStart([char]13, [char]10)
+    [pscustomobject]@{
+        ExitCode = [int]$match.Groups['code'].Value
+        Output = $resultText
+    }
+}
+
 $manifestPath = Join-Path $RuntimeDir 'node_modules\@microsoft\mxc-sdk\package.json'
 $manifest = Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
 if ($manifest.version -ne '1.0.0') {
@@ -97,9 +121,10 @@ if ($RunVmTests) {
     if ($freeMemoryMb -lt 2048) {
         throw "VM acceptance needs at least 2048 MB free memory; found ${freeMemoryMb} MB. No VM was started."
     }
-    $activeSandbox = @(Get-Process -Name 'WindowsSandbox*' -ErrorAction SilentlyContinue)
+    $activeSandbox = @(Get-ActiveSandboxProcesses)
     if ($activeSandbox.Count -gt 0) {
-        throw 'A Windows Sandbox process is already active in this logon session; refusing to overlap VMs.'
+        $activeNames = ($activeSandbox | ForEach-Object { '{0} (PID {1})' -f $_.ProcessName, $_.Id }) -join ', '
+        throw "A Windows Sandbox VM process is already active in this logon session ($activeNames); refusing to overlap VMs."
     }
 }
 
@@ -120,6 +145,9 @@ try {
         process = [ordered]@{
             commandLine = "powershell.exe -NoLogo -NoProfile -NonInteractive -Command `"$vmCommand`""
             timeout = 30000
+        }
+        fallback = [ordered]@{
+            allowDaclMutation = $false
         }
         filesystem = [ordered]@{
             readwritePaths = @($workspace)
@@ -156,11 +184,15 @@ try {
     # Keep the positive smoke and host-path denial check in one VM invocation.
     # MXC Windows Sandbox supports one VM per logon session.
     $vm = Invoke-WxcConfig -Executor $executor -ConfigPath $configPath -LogPath $diagnosticPath
+    $guest = Get-WxcWorkloadResult -Text $vm.Output
+    $guestExitCode = if ($null -ne $guest) { $guest.ExitCode } else { -1 }
+    $guestOutput = if ($null -ne $guest) { $guest.Output } else { '' }
     if ($vm.ExitCode -ne 0 -or
-        $vm.Output -notmatch 'UAG_PR4_VM_SMOKE' -or
-        $vm.Output -notmatch 'UAG_PR4_HOST_PATH_BLOCKED' -or
-        $vm.Output -match 'UAG_PR4_HOST_PATH_VISIBLE|UAG_PR4_HOST_CANARY_MUST_NOT_BE_VISIBLE') {
-        throw "Windows Sandbox smoke/host-path denial check failed. Output:`n$($vm.Output)"
+        $guestExitCode -ne 0 -or
+        $guestOutput -notmatch 'UAG_PR4_VM_SMOKE' -or
+        $guestOutput -notmatch 'UAG_PR4_HOST_PATH_BLOCKED' -or
+        $guestOutput -match 'UAG_PR4_HOST_PATH_VISIBLE|UAG_PR4_HOST_CANARY_MUST_NOT_BE_VISIBLE') {
+        throw "Windows Sandbox smoke/host-path denial check failed. Executor exit=$($vm.ExitCode), guest exit=$guestExitCode. Guest output:`n$guestOutput`nFull diagnostics: $diagnosticPath"
     }
     Write-Output 'Real Windows Sandbox smoke command completed; retain the complete executor diagnostics for review.'
     Write-Output 'Host-only canary denial check passed.'
@@ -170,16 +202,70 @@ try {
 }
 finally {
     if (Test-Path -LiteralPath $workRoot) {
+        if ($RunVmTests) {
+            # wxc-exec may return after the guest command completes while the
+            # WindowsSandbox host process is still shutting down. MXC documents
+            # vmmemWindowsSandbox as a non-owning residual, not a VM owner.
+            $shutdownWaitSeconds = 120
+            $shutdownStart = Get-Date
+            $shutdownDeadline = $shutdownStart.AddSeconds($shutdownWaitSeconds)
+            $nextStatus = $shutdownStart
+            do {
+                $activeSandbox = @(Get-ActiveSandboxProcesses)
+                if ($activeSandbox.Count -eq 0) {
+                    break
+                }
+                $now = Get-Date
+                if ($now -ge $nextStatus) {
+                    $elapsed = [math]::Floor(($now - $shutdownStart).TotalSeconds)
+                    Write-Output "Waiting for Windows Sandbox shutdown... ${elapsed}s elapsed."
+                    $nextStatus = $now.AddSeconds(30)
+                }
+                Start-Sleep -Seconds 2
+            } while ((Get-Date) -lt $shutdownDeadline)
+
+            if ($activeSandbox.Count -gt 0) {
+                $activeNames = ($activeSandbox | ForEach-Object { '{0} (PID {1})' -f $_.ProcessName, $_.Id }) -join ', '
+                $cleanupMessage = "Acceptance incomplete: WindowsSandbox host process(es) remain after the $shutdownWaitSeconds-second shutdown wait ($activeNames). Workspace preserved at '$workRoot'. Diagnostics: $diagnosticPath"
+                [IO.File]::AppendAllText($diagnosticPath, "`n$cleanupMessage`n", [Text.UTF8Encoding]::new($false))
+                Write-Warning $cleanupMessage
+                throw $cleanupMessage
+            }
+        }
+
+        # Retry briefly for transient filesystem scanners, but never force-kill
+        # a process or delete the workspace while it is still in use.
+        $cleanupDeadline = (Get-Date).AddSeconds(20)
+        $cleanupError = $null
+        do {
+            try {
+                if (Test-Path -LiteralPath $workRoot) {
+                    Remove-Item -LiteralPath $workRoot -Recurse -Force -ErrorAction Stop
+                }
+                $cleanupError = $null
+                break
+            }
+            catch {
+                $cleanupError = $_
+                if ((Get-Date) -lt $cleanupDeadline) {
+                    Start-Sleep -Seconds 2
+                }
+            }
+        } while ((Get-Date) -lt $cleanupDeadline)
+
+        if ($null -ne $cleanupError) {
+            $cleanupMessage = "Acceptance incomplete: temporary workspace cleanup failed at '$workRoot' after bounded retries. Error: $($cleanupError.Exception.Message). Workspace preserved if still present. Diagnostics: $diagnosticPath"
+            [IO.File]::AppendAllText($diagnosticPath, "`n$cleanupMessage`n", [Text.UTF8Encoding]::new($false))
+            Write-Warning $cleanupMessage
+            throw $cleanupMessage
+        }
+
         try {
-            Remove-Item -LiteralPath $workRoot -Recurse -Force -ErrorAction Stop
             [IO.File]::AppendAllText($diagnosticPath, "`nWorkspace cleanup succeeded: $workRoot`n", [Text.UTF8Encoding]::new($false))
             Write-Output "Temporary test workspace cleaned: $workRoot"
         }
         catch {
-            $cleanupMessage = "Acceptance incomplete: temporary workspace cleanup failed at '$workRoot'. Error: $($_.Exception.Message). Diagnostics: $diagnosticPath"
-            [IO.File]::AppendAllText($diagnosticPath, "`n$cleanupMessage`n", [Text.UTF8Encoding]::new($false))
-            Write-Warning $cleanupMessage
-            throw $cleanupMessage
+            Write-Warning "Workspace was removed, but the cleanup success record could not be appended to diagnostics: $($_.Exception.Message)"
         }
     }
 }

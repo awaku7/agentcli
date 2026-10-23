@@ -188,6 +188,29 @@ def test_remote_profile_still_requires_vm_even_with_processcontainer_caps():
     assert minimum is IsolationLevel.VM
 
 
+def test_processcontainer_probe_never_claims_remote_acceptance(monkeypatch, tmp_path):
+    node = tmp_path / "node.exe"
+    runtime = tmp_path / "mxc-runtime"
+    monkeypatch.setattr(
+        mxc_backend,
+        "prepare_mxc_runtime",
+        lambda *, allow_install=False: (node, runtime),
+    )
+    monkeypatch.setattr(
+        mxc_backend,
+        "_run_probe",
+        lambda _node, _runtime: {"backend": "processcontainer"},
+    )
+
+    capabilities, report, probed_node, probed_runtime = mxc_backend.probe_mxc_backend()
+
+    assert report["backend"] == "processcontainer"
+    assert probed_node == node
+    assert probed_runtime == runtime
+    assert capabilities.isolation_level is IsolationLevel.CONTAINER
+    assert capabilities.remote_acceptance_passed is False
+
+
 def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
     monkeypatch, local_scope
 ):
