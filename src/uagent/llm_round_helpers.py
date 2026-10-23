@@ -129,7 +129,10 @@ from .providers.llm_openrouter import (
 )
 from .providers.llm_openrouter_responses import apply_openrouter_responses_compat
 from .providers.llm_ollama import apply_ollama_extra_body
-from .providers.llm_llama_cpp import apply_llama_cpp_extra_body
+from .providers.llm_llama_cpp import (
+    apply_llama_cpp_extra_body,
+    normalize_llama_cpp_messages,
+)
 from .providers.structured_output import (
     apply_openai_chat_structured_output,
     apply_openai_responses_structured_output,
@@ -977,6 +980,8 @@ def _call_openai_azure_round(
                     resolved_temp = min(1.0, max(0.5, resolved_temp))
 
                 chat_messages = _normalize_chat_image_content(call_messages)
+                if provider == "llama_cpp":
+                    chat_messages = normalize_llama_cpp_messages(chat_messages)
                 if provider == "sarashina":
                     from .providers.openai_projection_policy import (
                         sanitize_sarashina_messages,
