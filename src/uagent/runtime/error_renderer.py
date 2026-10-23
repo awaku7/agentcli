@@ -8,9 +8,41 @@ import re
 
 def provider_error_label(provider: str) -> str:
     """Return a user-facing error label for the active provider."""
-    if (provider or "").strip().lower() == "meta":
-        return "Meta"
-    return "Azure/OpenAI"
+    name = (provider or "").strip().lower()
+    labels = {
+        "alibaba": "Alibaba",
+        "azure": "Azure",
+        "bedrock": "Amazon Bedrock",
+        "claude": "Claude",
+        "deepseek": "DeepSeek",
+        "foundry_local": "Foundry Local",
+        "gemini": "Gemini",
+        "grok": "Grok",
+        "hf": "Hugging Face",
+        "inception": "Inception",
+        "llama_cpp": "llama.cpp",
+        "lmstudio": "LM Studio",
+        "meta": "Meta",
+        "minimax": "MiniMax",
+        "mimo": "Mimo",
+        "moonshot": "Moonshot",
+        "novita": "Novita",
+        "nvidia": "NVIDIA",
+        "ollama": "Ollama",
+        "openai": "OpenAI",
+        "openrouter": "OpenRouter",
+        "perplexity": "Perplexity",
+        "pfn": "PFN",
+        "sakura": "Sakura",
+        "sakana": "Sakana AI",
+        "together": "Together AI",
+        "vercel": "Vercel",
+        "vertexai": "Vertex AI",
+        "zai": "Z.ai",
+    }
+    # Preserve the configured provider name for custom/future providers rather
+    # than incorrectly labelling every non-Meta provider as Azure/OpenAI.
+    return labels.get(name, name or "LLM")
 
 
 def is_zscaler_responses_block(exc: BaseException) -> bool:
