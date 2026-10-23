@@ -182,6 +182,70 @@ def test_vllm_runtime_uses_generic_chat_completions_adapter() -> None:
     assert runtime.capabilities.transport == "chat_completions"
 
 
+def test_vllm_runtime_preserves_reasoning_content_in_both_chat_modes() -> None:
+    registry = build_provider_runtime_registry(
+        provider="vllm",
+        client=SimpleNamespace(),
+        model="served-model",
+        identifiers=RoundIdentifiers(
+            "turn", "round", "attempt", "request", "stream", 1
+        ),
+    )
+    runtime = registry.resolve("vllm")
+    cancellation = SimpleNamespace(is_cancelled=lambda: False)
+
+    response = SimpleNamespace(
+        choices=[
+            SimpleNamespace(
+                message=SimpleNamespace(
+                    reasoning_content="non-streamed reasoning",
+                    content="final answer",
+                    tool_calls=[],
+                )
+            )
+        ]
+    )
+    response_events = list(runtime._chat_response_events(response, cancellation))
+    assert [event.type for event in response_events] == [
+        "ReasoningDelta",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+    assert response_events[0].data["text"] == "non-streamed reasoning"
+
+    chunks = [
+        SimpleNamespace(
+            choices=[
+                SimpleNamespace(
+                    delta=SimpleNamespace(
+                        reasoning_content="streamed reasoning",
+                        content=None,
+                        tool_calls=[],
+                    )
+                )
+            ]
+        ),
+        SimpleNamespace(
+            choices=[
+                SimpleNamespace(
+                    delta=SimpleNamespace(
+                        reasoning_content=None,
+                        content="final answer",
+                        tool_calls=[],
+                    )
+                )
+            ]
+        ),
+    ]
+    stream_events = list(runtime._chat_events(iter(chunks), cancellation))
+    assert [event.type for event in stream_events] == [
+        "ReasoningDelta",
+        "TextDelta",
+        "ResponseCompleted",
+    ]
+    assert stream_events[0].data["text"] == "streamed reasoning"
+
+
 def test_vllm_startup_banner_displays_default_base_url(monkeypatch) -> None:
     from uagent.runtime import runtime_banner
 
