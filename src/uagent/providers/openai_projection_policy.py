@@ -334,6 +334,12 @@ def build_openai_projection(
         options["tool_choice"] = "auto"
         if not use_responses_api and provider_key in {"openai", "azure"}:
             options["reasoning_effort"] = "none"
+        elif (
+            not use_responses_api
+            and provider_key == "vllm"
+            and reasoning in {"off", "false", "none"}
+        ):
+            options["reasoning_effort"] = "none"
 
     return OpenAIProjection(
         options=options,

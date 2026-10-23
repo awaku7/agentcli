@@ -4521,3 +4521,22 @@ msgstr ""
 #: src/uagent/runtime/runtime_banner.py:324 src/uagent/setup_cli.py:1598
 msgid "Decision Provider"
 msgstr ""
+
+#: src/uagent/setup_cli.py:300
+msgid "vLLM server base URL (optional, default: http://localhost:8000/v1)"
+msgstr ""
+#: src/uagent/setup_cli.py:305
+msgid "vLLM API key (optional; required only if the server is protected)"
+msgstr ""
+#: src/uagent/setup_cli.py:310
+msgid "vLLM served model name (required; must match the server model ID)"
+msgstr ""
+#: src/uagent/setup_cli.py:315
+msgid "vLLM request timeout in seconds (default: 120)"
+msgstr ""
+#: src/uagent/setup_cli.py:317
+msgid "vLLM temperature (optional)"
+msgstr ""
+#: src/uagent/env_validate.py:140
+msgid "vLLM served model name (must match the model exposed by /v1/models)."
+msgstr ""

@@ -5254,3 +5254,24 @@ msgid "[sessions warn] Session persistence disabled for this run: %(error)s"
 msgstr ""
 "[sesjonsadvarsel] Sesjonslagring er deaktivert for denne kjøringen: "
 "%(error)s"
+
+#: src/uagent/setup_cli.py:300
+msgid "vLLM server base URL (optional, default: http://localhost:8000/v1)"
+msgstr "vLLM tjenerbase-URL (valgfritt, standard: http://localhost:8000/v1)"
+#: src/uagent/setup_cli.py:305
+msgid "vLLM API key (optional; required only if the server is protected)"
+msgstr "vLLM API nøkkel (valgfritt; nødvendig bare hvis serveren er beskyttet)"
+#: src/uagent/setup_cli.py:310
+msgid "vLLM served model name (required; must match the server model ID)"
+msgstr "vLLM levert modellnavn (obligatorisk; må samsvare med servermodell-ID)"
+#: src/uagent/setup_cli.py:315
+msgid "vLLM request timeout in seconds (default: 120)"
+msgstr "vLLM tidsavbrudd for forespørsel i sekunder (standard: 120)"
+#: src/uagent/setup_cli.py:317
+msgid "vLLM temperature (optional)"
+msgstr "vLLM temperatur (valgfritt)"
+#: src/uagent/env_validate.py:140
+msgid "vLLM served model name (must match the model exposed by /v1/models)."
+msgstr ""
+"vLLM levert modellnavn (må samsvare med modellen eksponert av /v1/mo"
+"dels)."

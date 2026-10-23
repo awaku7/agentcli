@@ -96,6 +96,18 @@ def test_vllm_tool_projection_preserves_configured_reasoning_effort(monkeypatch)
     )
     assert "reasoning_effort" not in projection.options
 
+    for disabled in ("off", "false", "none"):
+        monkeypatch.setenv("UAGENT_REASONING", disabled)
+        projection = build_openai_projection(
+            provider="vllm",
+            model="served-model",
+            transport="chat_completions",
+            messages=[{"role": "user", "content": "solve this"}],
+            send_tools=True,
+            compaction_threshold=1000,
+        )
+        assert projection.options["reasoning_effort"] == "none"
+
 
 def test_vllm_forces_chat_completions_even_when_responses_are_requested(monkeypatch):
     from uagent.llm_round_helpers import _resolve_round_runtime_flags
