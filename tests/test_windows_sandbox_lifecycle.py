@@ -6,6 +6,10 @@ from pathlib import Path
 
 import pytest
 
+import scripts.run_pr4_windows_sandbox_lifecycle_smoke as lifecycle_smoke
+from scripts.run_pr4_windows_sandbox_lifecycle_smoke import (
+    _daemon_error_log_before_cleanup,
+)
 from uagent.runtime.windows_sandbox_lifecycle import (
     WindowsSandboxLease,
     WindowsSandboxLifecycleClient,
@@ -170,3 +174,21 @@ def test_client_rejects_wrong_pinned_sdk_version(tmp_path):
     with pytest.raises(WindowsSandboxLifecycleError, match="expected pinned"):
         WindowsSandboxLifecycleClient(runtime, command_runner=runner)
     assert runner.calls == []
+
+
+def test_daemon_log_capture_is_owner_scoped_and_redacts_secrets(tmp_path, monkeypatch):
+    monkeypatch.setattr(lifecycle_smoke.tempfile, "gettempdir", lambda: str(tmp_path))
+    log_path = tmp_path / "wxc-wsb" / "state-aware" / "deadbeef" / "daemon.log"
+    log_path.parent.mkdir(parents=True)
+    log_path.write_text(
+        "[daemon] E_ACCESSDENIED while launching\nnonce=0123456789abcdef0123456789abcdef\n",
+        encoding="utf-8",
+    )
+
+    captured = _daemon_error_log_before_cleanup("wsb:deadbeef")
+
+    assert captured is not None
+    assert "E_ACCESSDENIED" in captured
+    assert "[REDACTED]" in captured
+    assert "0123456789abcdef" not in captured
+    assert _daemon_error_log_before_cleanup("foreign-id") is not None

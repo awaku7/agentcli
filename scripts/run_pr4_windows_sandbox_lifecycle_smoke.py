@@ -11,6 +11,7 @@ from __future__ import annotations
 import ctypes
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -160,6 +161,33 @@ def _recording_command_runner(records: list[dict[str, Any]]):
     return run
 
 
+def _daemon_error_log_before_cleanup(sandbox_id: str) -> str | None:
+    """Read the owner-specific daemon log before deprovision removes its state."""
+    match = re.fullmatch(r"wsb:([0-9a-f]{8})", sandbox_id)
+    if not match:
+        return "sandbox ID is not in the expected owner-bound form"
+    path = (
+        Path(tempfile.gettempdir())
+        / "wxc-wsb"
+        / "state-aware"
+        / match.group(1)
+        / "daemon.log"
+    )
+    if not path.is_file():
+        return None
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except OSError as exc:
+        return f"daemon log could not be read: {type(exc).__name__}"
+    text = re.sub(
+        r"(?i)\b(nonce|token|secret|password)\b(\s*[=:]\s*)[^\s,;]+",
+        r"\1\2[REDACTED]",
+        text,
+    )
+    text = re.sub(r"\b[0-9a-fA-F]{32,}\b", "[REDACTED]", text)
+    return chr(10).join(text.splitlines()[-100:])[-16_000:]
+
+
 def _guest_command(host_canary: Path) -> str:
     canary = str(host_canary).replace("'", "''")
     script = (
@@ -246,6 +274,10 @@ def run() -> int:
         failure = f"{type(exc).__name__}: {exc}"
     finally:
         safe_to_remove_workspace = lease is None and not provision_attempted
+        if lease is not None and lease.state != "closed":
+            daemon_log = _daemon_error_log_before_cleanup(lease.sandbox_id)
+            if daemon_log:
+                report["daemon_log_tail_before_cleanup"] = daemon_log
         if lease is not None:
             if lease.state == "closed":
                 safe_to_remove_workspace = True
