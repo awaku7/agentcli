@@ -98,15 +98,17 @@ def test_vllm_tool_projection_preserves_configured_reasoning_effort(monkeypatch)
 
     for disabled in ("off", "false", "none"):
         monkeypatch.setenv("UAGENT_REASONING", disabled)
-        projection = build_openai_projection(
-            provider="vllm",
-            model="served-model",
-            transport="chat_completions",
-            messages=[{"role": "user", "content": "solve this"}],
-            send_tools=True,
-            compaction_threshold=1000,
-        )
-        assert projection.options["reasoning_effort"] == "none"
+        for send_tools in (False, True):
+            projection = build_openai_projection(
+                provider="vllm",
+                model="served-model",
+                transport="chat_completions",
+                messages=[{"role": "user", "content": "solve this"}],
+                send_tools=send_tools,
+                compaction_threshold=1000,
+            )
+            assert projection.options["reasoning_effort"] == "none"
+            assert ("tool_choice" in projection.options) is send_tools
 
 
 def test_vllm_forces_chat_completions_even_when_responses_are_requested(monkeypatch):
