@@ -21,6 +21,7 @@ from ..llm_helpers import (
 from ..runtime.capability_resolver import (
     native_structured_output_request_for_runtime,
 )
+from .provider_caps import temperature_env_name
 
 
 @dataclass(frozen=True)
@@ -290,6 +291,27 @@ def build_openai_projection(
             options["top_p"] = float(top_p)
         except ValueError:
             pass
+
+    if not use_responses_api:
+        # Match the legacy Chat Completions path: provider-specific temperature
+        # wins, then the shared setting, then the standard default. Inception
+        # has a narrower documented range and a different default.
+        temp_name = temperature_env_name(provider_key)
+        temperature = (env_get(temp_name) if temp_name else "") or ""
+        if not temperature.strip():
+            temperature = env_get("UAGENT_TEMPERATURE", "") or ""
+        default_temperature = 0.75 if provider_key == "inception" else 0.2
+        try:
+            resolved_temperature = (
+                float(temperature.strip())
+                if temperature.strip()
+                else default_temperature
+            )
+        except ValueError:
+            resolved_temperature = default_temperature
+        if provider_key == "inception":
+            resolved_temperature = min(1.0, max(0.5, resolved_temperature))
+        options["temperature"] = resolved_temperature
 
     if provider == "openai" and (
         env_get("UAGENT_OPENAI_FAST_MODE", "") or ""

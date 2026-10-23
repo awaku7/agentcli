@@ -12,6 +12,7 @@ from uagent.providers.provider_caps import (
     RESPONSES_PROVIDERS,
     temperature_env_name,
 )
+from uagent.providers.openai_projection_policy import build_openai_projection
 from uagent.providers.runtime_registry import (
     build_provider_runtime_registry,
     supports_provider_runtime,
@@ -32,6 +33,32 @@ def test_vllm_is_local_chat_only_openai_compatible_provider() -> None:
     assert "responses" not in spec.capabilities
     assert temperature_env_name("vllm") == "UAGENT_VLLM_TEMPERATURE"
     assert supports_provider_runtime("vllm")
+
+
+def test_vllm_registry_projection_honors_provider_and_shared_temperature(monkeypatch):
+    monkeypatch.setenv("UAGENT_VLLM_TEMPERATURE", "0.65")
+    monkeypatch.setenv("UAGENT_TEMPERATURE", "0.4")
+
+    projection = build_openai_projection(
+        provider="vllm",
+        model="served-model",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "hello"}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+    assert projection.options["temperature"] == 0.65
+
+    monkeypatch.delenv("UAGENT_VLLM_TEMPERATURE")
+    projection = build_openai_projection(
+        provider="vllm",
+        model="served-model",
+        transport="chat_completions",
+        messages=[{"role": "user", "content": "hello"}],
+        send_tools=False,
+        compaction_threshold=1000,
+    )
+    assert projection.options["temperature"] == 0.4
 
 
 def test_vllm_forces_chat_completions_even_when_responses_are_requested(monkeypatch):
