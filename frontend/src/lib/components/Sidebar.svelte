@@ -1,72 +1,89 @@
 <script>
-  import { onMount } from 'svelte';
-  import { t } from '../../lib/i18n.svelte.js';
-  import { getRoomId, fetchLogs } from '../../lib/stores.svelte.js';
+// Biome does not resolve references from this component's Svelte markup.
+// biome-ignore-all lint/correctness/noUnusedImports: template expressions use these imports.
+// biome-ignore-all lint/correctness/noUnusedVariables: template expressions use these declarations.
+import { onMount } from "svelte";
+import { t } from "../../lib/i18n.svelte.js";
+import { fetchLogs, getRoomId } from "../../lib/stores.svelte.js";
 
-  let { onClose, onOpenPanel } = $props();
-  let roomId = $derived(getRoomId());
-  let sessions = $state([]);
-  let loading = $state(false);
-  let error = $state('');
-  let query = $state('');
-  let filteredSessions = $derived(sessions.filter((session) => {
-    const text = `${session.summary || ''} ${session.first_message || ''} ${session.project || ''} ${session.name || ''} ${session.path || ''}`.toLowerCase();
-    return !query.trim() || text.includes(query.trim().toLowerCase());
-  }));
+let { onClose, onOpenPanel } = $props();
+let roomId = $derived(getRoomId());
+let sessions = $state([]);
+let loading = $state(false);
+let error = $state("");
+let query = $state("");
+let filteredSessions = $derived(
+	sessions.filter((session) => {
+		const text =
+			`${session.summary || ""} ${session.first_message || ""} ${session.project || ""} ${session.name || ""} ${session.path || ""}`.toLowerCase();
+		return !query.trim() || text.includes(query.trim().toLowerCase());
+	}),
+);
 
-  async function loadSessions() {
-    loading = true;
-    error = '';
-    try {
-      const result = await fetchLogs(1, 30);
-      if (result.ok === false) {
-        error = 'セッション履歴を読み込めませんでした';
-      } else {
-        sessions = result.logs || [];
-      }
-    } catch (e) {
-      error = 'セッション履歴を読み込めませんでした';
-    } finally {
-      loading = false;
-    }
-  }
+async function loadSessions() {
+	loading = true;
+	error = "";
+	try {
+		const result = await fetchLogs(1, 30);
+		if (result.ok === false) {
+			error = "セッション履歴を読み込めませんでした";
+		} else {
+			sessions = result.logs || [];
+		}
+	} catch {
+		error = "セッション履歴を読み込めませんでした";
+	} finally {
+		loading = false;
+	}
+}
 
-  function openSession(session) {
-    if (!session?.path) return;
-    if (session.room_id) {
-      // Reopen the original authorized Web Room. Do not send :load with a
-      // session ID: authenticated rooms intentionally block cross-room loads.
-      window.location.href = `/room/${encodeURIComponent(session.room_id)}`;
-    } else {
-      // Legacy local JSONL sessions have no durable Room binding.
-      window.dispatchEvent(new CustomEvent('uag-load-session', { detail: { path: session.path } }));
-    }
-    onClose?.();
-  }
+function openSession(session) {
+	if (!session?.path) return;
+	if (session.room_id) {
+		// Reopen the original authorized Web Room. Do not send :load with a
+		// session ID: authenticated rooms intentionally block cross-room loads.
+		window.location.href = `/room/${encodeURIComponent(session.room_id)}`;
+	} else {
+		// Legacy local JSONL sessions have no durable Room binding.
+		window.dispatchEvent(
+			new CustomEvent("uag-load-session", { detail: { path: session.path } }),
+		);
+	}
+	onClose?.();
+}
 
-  function newSession() {
-    // Start without a room ID so the app creates an authorized private Room
-    // through /api/me/private-room instead of opening an unregistered URL.
-    window.location.href = '/';
-  }
+function newSession() {
+	// Start without a room ID so the app creates an authorized private Room
+	// through /api/me/private-room instead of opening an unregistered URL.
+	window.location.href = "/";
+}
 
-  function formatTime(ts) {
-    if (!ts) return '';
-    const date = new Date(typeof ts === 'number' ? ts * 1000 : ts);
-    if (Number.isNaN(date.getTime())) return '';
-    return date.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-  }
+function formatTime(ts) {
+	if (!ts) return "";
+	const date = new Date(typeof ts === "number" ? ts * 1000 : ts);
+	if (Number.isNaN(date.getTime())) return "";
+	return date.toLocaleString(undefined, {
+		month: "short",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+	});
+}
 
-  function shortId(path) {
-    const value = String(path || '');
-    return value.length > 12 ? `${value.slice(0, 8)}…` : value;
-  }
+function shortId(path) {
+	const value = String(path || "");
+	return value.length > 12 ? `${value.slice(0, 8)}…` : value;
+}
 
-  function sessionTitle(session) {
-    return session.summary || session.first_message || `要約なし (${shortId(session.path)})`;
-  }
+function sessionTitle(session) {
+	return (
+		session.summary ||
+		session.first_message ||
+		`要約なし (${shortId(session.path)})`
+	);
+}
 
-  onMount(loadSessions);
+onMount(loadSessions);
 </script>
 
 <aside class="sidebar" aria-label="Navigation">

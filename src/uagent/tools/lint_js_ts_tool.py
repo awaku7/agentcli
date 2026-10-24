@@ -25,6 +25,40 @@ def _msg(key: str, default: str, **kwargs: Any) -> str:
     return _(key, default=default).format(**kwargs)
 
 
+def _decode_npx_output(output: bytes | str | None) -> str:
+    """Decode piped Node output as UTF-8 without using the host code page."""
+    if isinstance(output, bytes):
+        return output.decode("utf-8", errors="replace")
+    return output or ""
+
+
+def _run_npx(
+    arguments: list[str],
+    *,
+    timeout: int,
+    filepath: str | None = None,
+    is_windows: bool | None = None,
+):
+    """Run npx in binary mode so Windows locale codecs cannot crash reader threads."""
+    if is_windows is None:
+        is_windows = os.name == "nt"
+    if is_windows:
+        command = "npx.cmd " + " ".join(arguments)
+        if filepath is not None:
+            command += " " + filepath
+        return subprocess.run(
+            command,
+            capture_output=True,
+            timeout=timeout,
+            shell=True,
+        )
+
+    command = ["npx", *arguments]
+    if filepath is not None:
+        command.append(filepath)
+    return subprocess.run(command, capture_output=True, timeout=timeout)
+
+
 BUSY_LABEL = True
 STATUS_LABEL = "tool:lint_js_ts"
 
@@ -94,25 +128,10 @@ TOOL_SPEC: dict[str, Any] = {
 
 def run_tool(args: dict[str, Any]) -> str:
     """Run Biome lint on JS/TS files."""
-    is_win = os.name == "nt"
 
     # Check npx availability
     try:
-        if is_win:
-            subprocess.run(
-                ["npx.cmd", "--version"],
-                capture_output=True,
-                text=True,
-                timeout=10,
-                shell=True,
-            )
-        else:
-            subprocess.run(
-                ["npx", "--version"],
-                capture_output=True,
-                text=True,
-                timeout=10,
-            )
+        _run_npx(["--version"], timeout=10)
     except Exception:
         return make_response(
             ok=False,
@@ -164,22 +183,7 @@ def run_tool(args: dict[str, Any]) -> str:
 
     for filepath in sorted(matched_files):
         try:
-            if is_win:
-                full_cmd = "npx.cmd " + " ".join(cmd_args) + " " + filepath
-                proc = subprocess.run(
-                    full_cmd,
-                    capture_output=True,
-                    text=True,
-                    timeout=60,
-                    shell=True,
-                )
-            else:
-                proc = subprocess.run(
-                    ["npx"] + cmd_args + [filepath],
-                    capture_output=True,
-                    text=True,
-                    timeout=60,
-                )
+            proc = _run_npx(cmd_args, timeout=60, filepath=filepath)
 
             if proc.returncode == 0:
                 ok_count += 1
@@ -190,7 +194,7 @@ def run_tool(args: dict[str, Any]) -> str:
                 )
             else:
                 failed_count += 1
-                diag = _parse_biome_output(proc.stdout)
+                diag = _parse_biome_output(_decode_npx_output(proc.stdout))
                 if diag:
                     results.append(
                         _msg(
