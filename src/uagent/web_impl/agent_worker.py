@@ -140,6 +140,8 @@ def _web_turn_execution_context(
     turn_context: TurnContext | None,
     identity_context: IdentityContext | None,
     project_path: str | None,
+    *,
+    sandbox_scope_override: Any | None = None,
 ):
     """Construct the trusted execution binding for one complete Web turn."""
     from ..runtime.execution_broker import (
@@ -182,14 +184,30 @@ def _web_turn_execution_context(
             raise IdentityResolutionError(
                 "local Web Sandbox requires a trusted local Room turn context"
             )
-        from ..runtime.mxc_backend import local_web_room_scope
+        if sandbox_scope_override is not None:
+            from ..runtime.execution_broker import TrustedSandboxScope
 
-        scope = local_web_room_scope(
-            principal_id=turn_context.principal_id,
-            project_id=turn_context.project_id,
-            room_id=turn_context.room_id,
-            room_generation=room_generation,
-        )
+            if (
+                not isinstance(sandbox_scope_override, TrustedSandboxScope)
+                or sandbox_scope_override.deployment_id != "web"
+                or sandbox_scope_override.scope_kind != "web-room"
+                or sandbox_scope_override.principal_id != turn_context.principal_id
+                or sandbox_scope_override.project_id != turn_context.project_id
+                or sandbox_scope_override.binding_generation != room_generation
+            ):
+                raise IdentityResolutionError(
+                    "local Web Sandbox scope does not match the trusted Room turn"
+                )
+            scope = sandbox_scope_override
+        else:
+            from ..runtime.mxc_backend import local_web_room_scope
+
+            scope = local_web_room_scope(
+                principal_id=turn_context.principal_id,
+                project_id=turn_context.project_id,
+                room_id=turn_context.room_id,
+                room_generation=room_generation,
+            )
     authorization_check = None
     if profile is SecurityProfile.REMOTE or (
         profile is SecurityProfile.LOCAL_TRUSTED and sandbox_enabled
@@ -225,6 +243,7 @@ def run_agent_worker(
     turn_context: TurnContext | None = None,
     identity_context: IdentityContext | None = None,
     project_path: str | None = None,
+    sandbox_scope_override: Any | None = None,
 ):
     """Run one user turn for a room.
 
@@ -285,7 +304,11 @@ def run_agent_worker(
     # Construct the trusted execution profile before taking worker locks so a
     # context/import failure cannot strand a room reservation.
     _web_execution_context = _web_turn_execution_context(
-        room, turn_context, identity_context, project_path
+        room,
+        turn_context,
+        identity_context,
+        project_path,
+        sandbox_scope_override=sandbox_scope_override,
     )
 
     # Ensure logs/status go to this room (thread-local). Parallel tool workers

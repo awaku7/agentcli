@@ -6,6 +6,7 @@ import socket
 import subprocess
 import threading
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 
@@ -20,6 +21,57 @@ pytestmark = pytest.mark.skipif(
 def _run_python(manager, scope, code: str) -> dict:
     raw = manager.run_tool(scope, "python_exec", {"code": code})
     return json.loads(raw)
+
+
+def test_mxc_parallel_web_room_scopes_keep_workspaces_isolated(tmp_path):
+    from uagent.runtime.mxc_backend import local_web_room_scope
+
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scopes = [
+        local_web_room_scope(
+            principal_id="mxc-parallel-test",
+            project_id=f"project-{label}",
+            room_id=f"parallel-{label}",
+            room_generation=f"generation-{label}-{time.time_ns()}",
+        )
+        for label in ("alpha", "beta")
+    ]
+    for scope in scopes:
+        manager.activate_scope(scope)
+
+    def write_marker(scope, label):
+        code = (
+            "from pathlib import Path\n"
+            "import time\n"
+            f"Path('parallel-marker.txt').write_text({label!r}, encoding='utf-8')\n"
+            "time.sleep(1)\n"
+            f"print({label!r})\n"
+        )
+        return _run_python(manager, scope, code)
+
+    try:
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            results = list(
+                executor.map(
+                    lambda item: write_marker(*item),
+                    zip(scopes, ("alpha", "beta")),
+                )
+            )
+        assert all(result["returncode"] == 0 for result in results), results
+        assert "alpha" in results[0]["stdout"]
+        assert "beta" in results[1]["stdout"]
+        assert (
+            manager.run_tool(scopes[0], "read_file", {"path": "parallel-marker.txt"})
+            == "alpha"
+        )
+        assert (
+            manager.run_tool(scopes[1], "read_file", {"path": "parallel-marker.txt"})
+            == "beta"
+        )
+    finally:
+        for scope in scopes:
+            manager.close_scope(scope)
+        manager.close_all()
 
 
 def _pid_is_alive(pid: int) -> bool:

@@ -20,9 +20,20 @@ room's Stop button remains disabled.
 
 For counts greater than 1, the server starts an isolated Python process for each
 foreground turn. The child runs the existing Web worker and normal foreground
-tools. Process cwd, core state, tool callbacks, providers and interrupt flags
-are separate. The parent owns authenticated connections and relays streaming,
-messages, status, images and confirmations over a private local pipe.
+tools when Sandbox is off. Process cwd, core state, tool callbacks, providers and
+interrupt flags are separate. The parent owns authenticated connections and
+relays streaming, messages, status, images and confirmations over a private
+local pipe. For trusted local Web with MXC Sandbox enabled, a separate
+size-bounded JSON pipe carries only allowlisted Sandbox tool requests. The
+parent revalidates the bound Room scope and current authorization, then invokes
+its own MXC session manager. Host tool runners are
+not exposed to the spawned Sandbox worker.
+
+Different trusted local Sandbox Rooms may execute concurrently, up to the MXC
+manager's four-session capacity. Each Room remains single-turn-at-a-time and
+retains its parent-owned MXC session across turns. A Stop request reaches the
+Room's child immediately, but an already-running parent-side MXC call is bounded
+by its tool deadline rather than being forcibly cancelled by the child.
 
 History, Responses continuation, tool context, agent state and dynamically loaded
 tool names are returned to the originating room. SQLite writes use the room's

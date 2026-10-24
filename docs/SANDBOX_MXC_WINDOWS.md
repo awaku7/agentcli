@@ -100,16 +100,16 @@ rejects the operation.
 
 Trusted local-only Web may opt in on Windows using a server-created `web-room`
 scope, with the same static tool allowlist. PR 3 integrated Room scope and lease
-lifecycle management, but did not add a persistent Room worker. The current
-`RoomWorkerPool` starts a fresh child process for each turn and does not transfer
-or broker sandbox tool calls to the Web process's `MxcSessionManager`, which owns
-the Room-bound MXC sessions. Therefore sandboxed local Web disables that
-per-turn process pool and runs turns in-process, serializing Room execution.
-Parallel Room workers require a Room-persistent worker or an explicit broker to
-the owning Web process, with corresponding scope lifecycle and revocation
-handling. This is a local PoC restriction, not production multi-user isolation;
-Sandbox mode also blocks host plugin imports, host hooks, tool-genre changes,
-general Web commands, and non-allowlisted CLI/GUI commands.
+lifecycle management. When multiple Room workers are configured, the Web process
+keeps ownership of each Room scope and its MXC session manager; spawned per-turn
+workers send fixed-schema Sandbox tool requests over a size-bounded private JSON
+pipe. The parent revalidates the active Room scope and authorization for each request, then
+dispatches only the local Sandbox allowlist to the Room-bound MXC session. This
+allows independent Rooms to run concurrently while each Room remains serialized.
+The worker count is capped at the MXC manager's four-session limit. This is still
+a local PoC restriction, not production multi-user isolation; Sandbox mode also
+blocks host plugin imports, host hooks, tool-genre changes, general Web commands,
+and non-allowlisted CLI/GUI commands.
 
 The lightweight ProcessContainer does not meet the Remote profile's VM
 requirement. Remote Web and A2A tools remain denied, regardless of `--sandbox`.

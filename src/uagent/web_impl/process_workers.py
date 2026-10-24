@@ -16,8 +16,19 @@ import multiprocessing
 import os
 import threading
 import time
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from typing import Any
+
+from .sandbox_rpc import (
+    MAX_FRAME_BYTES,
+    RPC_SCOPE_REVOKE,
+    RPC_TOOL_REQUEST,
+    SandboxToolRPCClient,
+    decode_rpc_message,
+    encode_rpc_message,
+    make_tool_response,
+    validate_tool_request,
+)
 
 ROOM_FIELDS = (
     "room_id",
@@ -129,12 +140,58 @@ def _child_turn(connection, payload) -> None:
         with send_lock:
             connection.send(value)
 
+    rpc_connection = payload.pop("sandbox_rpc_connection", None)
+    rpc_send_lock = threading.Lock()
+
+    def send_rpc(value):
+        if rpc_connection is None:
+            raise RuntimeError("Sandbox RPC pipe is unavailable")
+        frame = encode_rpc_message(value)
+        with rpc_send_lock:
+            rpc_connection.send_bytes(frame)
+
     room = WebRoom(payload["room"]["room_id"])
     for name, value in payload["room"].items():
         setattr(room, name, value)
     # Set this after restoring serialized room data so a room field cannot
     # claim that parent-side WebSocket authorization is being enforced.
     room._web_parent_authorizes_connections = True
+    sandbox_scope = payload.get("sandbox_scope")
+    sandbox_rpc_client = None
+    if web_manager.execution_profile == "local_trusted" and web_manager.sandbox_enabled:
+        from ..runtime.execution_broker import SandboxCapabilities, TrustedSandboxScope
+        from ..runtime.mxc_backend import install_session_manager
+
+        sandbox_capabilities = payload.get("sandbox_capabilities")
+        if not isinstance(sandbox_scope, TrustedSandboxScope) or not isinstance(
+            sandbox_capabilities, SandboxCapabilities
+        ):
+            raise RuntimeError("trusted parent Sandbox scope/capabilities are missing")
+        room._sandbox_scope_generation = sandbox_scope.binding_generation
+        sandbox_rpc_client = SandboxToolRPCClient(
+            scope=sandbox_scope,
+            capabilities=sandbox_capabilities,
+            send=send_rpc,
+        )
+        install_session_manager(sandbox_rpc_client)
+        web_manager.sandbox_session_manager = sandbox_rpc_client
+
+        def receive_sandbox_rpc_responses():
+            while not finished.is_set():
+                try:
+                    if rpc_connection is None or not rpc_connection.poll(0.1):
+                        continue
+                    raw = rpc_connection.recv_bytes(MAX_FRAME_BYTES)
+                    sandbox_rpc_client.deliver_response(decode_rpc_message(raw))
+                except (EOFError, OSError, ValueError):
+                    sandbox_rpc_client.close_all()
+                    return
+
+        threading.Thread(
+            target=receive_sandbox_rpc_responses,
+            name="web-sandbox-rpc-reader",
+            daemon=True,
+        ).start()
     os.chdir(payload["project_path"] or room.base_dir)
     log_key = hashlib.sha256(room.room_id.encode()).hexdigest()[:16]
     core.LOG_FILE = os.path.join(
@@ -167,7 +224,10 @@ def _child_turn(connection, payload) -> None:
         sandbox_enabled=web_manager.sandbox_enabled,
     ):
         load_plugins_status_at_startup(
-            activate=web_manager.execution_profile == "local_trusted"
+            activate=(
+                web_manager.execution_profile == "local_trusted"
+                and not web_manager.sandbox_enabled
+            )
         )
     original_log = core.log_message
 
@@ -213,17 +273,20 @@ def _child_turn(connection, payload) -> None:
                 if not connection.poll(0.1):
                     continue
                 request = connection.recv()
-                if request["type"] == "interrupt":
+                if not isinstance(request, dict):
+                    continue
+                request_type = request.get("type")
+                if request_type == "interrupt":
                     with core.interrupt_lock:
                         core.interrupt_requested = True
                     room.human_ask_cancelled = True
                     room.human_ask_sync_event.set()
-                elif request["type"] == "answer" and room.human_ask_pending:
-                    room.human_ask_result = request["text"]
+                elif request_type == "answer" and room.human_ask_pending:
+                    room.human_ask_result = request.get("text", "")
                     room.human_ask_cancelled = False
                     room.human_ask_sync_event.set()
-                elif request["type"] == "connected":
-                    room.active_connections = [True] if request["value"] else []
+                elif request_type == "connected":
+                    room.active_connections = [True] if request.get("value") else []
             except (EOFError, OSError):
                 with core.interrupt_lock:
                     core.interrupt_requested = True
@@ -271,6 +334,7 @@ def _child_turn(connection, payload) -> None:
                 turn_context=payload["turn_context"],
                 identity_context=payload["identity_context"],
                 project_path=payload["project_path"],
+                sandbox_scope_override=sandbox_scope,
             )
         if room.private_session or not room.session_id:
             for name in (
@@ -293,12 +357,33 @@ def _child_turn(connection, payload) -> None:
         send({"state": room_state(room)})
     finally:
         finished.set()
+        if sandbox_rpc_client is not None:
+            sandbox_rpc_client.close_all()
+            try:
+                from ..runtime.mxc_backend import (
+                    current_session_manager,
+                    install_session_manager,
+                )
+
+                if current_session_manager() is sandbox_rpc_client:
+                    install_session_manager(None)
+                web_manager.sandbox_session_manager = None
+            except Exception:
+                pass
         loop.call_soon_threadsafe(loop.stop)
         loop_thread.join(5)
         connection.close()
+        if rpc_connection is not None:
+            rpc_connection.close()
         store = getattr(core, "session_store", None)
         if store is not None:
             store.close()
+
+
+def _spawn_worker_entry(target, connection, payload, rpc_connection) -> None:
+    """Start one trusted worker with a separate, bounded JSON Sandbox RPC pipe."""
+    payload["sandbox_rpc_connection"] = rpc_connection
+    target(connection, payload)
 
 
 class RoomWorkerPool:
@@ -341,12 +426,84 @@ class RoomWorkerPool:
         """Initialize a Web room in its isolated worker before accepting turns."""
         return self.run(room, "", None, _bootstrap_only=True, **kwargs)
 
+    def _sandbox_tool_response(self, room, scope, message):
+        from ..runtime.execution_broker import (
+            SecurityProfile,
+            current_authorization_valid,
+            current_profile,
+            current_sandbox_enabled,
+            current_scope,
+        )
+        from ..runtime.mxc_backend import current_session_manager
+        from .rooms import web_manager
+
+        request_id = message.get("request_id") if isinstance(message, dict) else None
+        if not isinstance(request_id, str) or not request_id or len(request_id) > 64:
+            return None
+        try:
+            request_id, name, args = validate_tool_request(message)
+        except ValueError:
+            return make_tool_response(
+                request_id, "[sandbox policy] malformed Sandbox tool request"
+            )
+
+        manager = getattr(web_manager, "sandbox_session_manager", None)
+        if (
+            current_profile() is not SecurityProfile.LOCAL_TRUSTED
+            or not current_sandbox_enabled()
+            or scope is None
+            or current_scope() != scope
+            or manager is None
+            or current_session_manager() is not manager
+        ):
+            return make_tool_response(
+                request_id, "[sandbox policy] Sandbox tool broker is unavailable"
+            )
+        if (
+            room.current_sandbox_scope() != scope
+            or room.sandbox_scope_generation() != scope.binding_generation
+        ):
+            return make_tool_response(
+                request_id, "[sandbox policy] Room Sandbox scope is stale"
+            )
+        if not current_authorization_valid(require_check=True):
+            web_manager.release_room_sandbox_scope(room, expected_scope=scope)
+            return make_tool_response(
+                request_id,
+                "[tool policy] current Room authorization is no longer valid",
+            )
+        try:
+            result = manager.run_tool(scope, name, args)
+        except Exception as exc:
+            result = f"[sandbox error] broker execution failed: {type(exc).__name__}"
+        if not isinstance(result, str):
+            result = str(result)
+        return make_tool_response(request_id, result)
+
+    def _handle_sandbox_scope_revoke(self, room, scope, message) -> None:
+        from .rooms import web_manager
+
+        if (
+            scope is None
+            or not isinstance(message, dict)
+            or set(message) != {"type", "scope_id", "binding_generation"}
+            or message.get("type") != RPC_SCOPE_REVOKE
+            or message.get("scope_id") != scope.scope_id
+            or message.get("binding_generation") != scope.binding_generation
+            or room.current_sandbox_scope() != scope
+        ):
+            return
+        web_manager.release_room_sandbox_scope(room, expected_scope=scope)
+
     def run(self, room, user_input, attachments=None, **kwargs):
         from .. import core
         from ..i18n import _
         from ..decision.settings import get_decision_settings
         from ..util_mode import get_display_reasoning
-        from .agent_worker import _ensure_public_room_session
+        from .agent_worker import (
+            _ensure_public_room_session,
+            _web_turn_execution_context,
+        )
         from .rooms import web_manager
 
         if not room.worker_lock.acquire(blocking=False):
@@ -365,7 +522,11 @@ class RoomWorkerPool:
             room._ended_streams.clear()
         acquired = False
         process = None
-        parent = child = None
+        parent = child = rpc_parent = rpc_child = None
+        sandbox_scope = None
+        sandbox_capabilities = None
+        sandbox_execution_stack = ExitStack()
+        pipe_lock = threading.Lock()
         bootstrap_only = bool(kwargs.pop("_bootstrap_only", False))
         try:
             with self._lock:
@@ -392,7 +553,36 @@ class RoomWorkerPool:
                     kwargs["turn_context"] = dataclass_replace(
                         kwargs["turn_context"], session_id=bound_session_id
                     )
-            if getattr(web_manager, "execution_profile", "remote") == "local_trusted":
+            if getattr(
+                web_manager, "execution_profile", "remote"
+            ) == "local_trusted" and bool(
+                getattr(web_manager, "sandbox_enabled", False)
+            ):
+                sandbox_execution_stack.enter_context(
+                    _web_turn_execution_context(
+                        room,
+                        kwargs.get("turn_context"),
+                        kwargs.get("identity_context"),
+                        kwargs.get("project_path"),
+                    )
+                )
+                from ..runtime.execution_broker import current_scope
+
+                sandbox_scope = current_scope()
+                manager = getattr(web_manager, "sandbox_session_manager", None)
+                sandbox_capabilities = getattr(manager, "capabilities", None)
+                if (
+                    sandbox_scope is None
+                    or manager is None
+                    or sandbox_capabilities is None
+                ):
+                    raise RuntimeError("local Web Sandbox broker is not ready")
+                web_manager.bind_sandbox_scope(room, sandbox_scope)
+            if getattr(
+                web_manager, "execution_profile", "remote"
+            ) == "local_trusted" and not bool(
+                getattr(web_manager, "sandbox_enabled", False)
+            ):
                 from ..tools._genre_control_util import get_enabled_tool_names
 
                 parent_tools = get_enabled_tool_names()
@@ -431,11 +621,16 @@ class RoomWorkerPool:
                     web_manager, "execution_profile", "remote"
                 ),
                 "sandbox_enabled": bool(getattr(web_manager, "sandbox_enabled", False)),
+                "sandbox_scope": sandbox_scope,
+                "sandbox_capabilities": sandbox_capabilities,
             }
             payload["core"].update(getattr(room, "_worker_auto_pilot", {}))
             parent, child = self._context.Pipe()
+            rpc_parent, rpc_child = self._context.Pipe()
             process = self._context.Process(
-                target=self._target, args=(child, payload), daemon=False
+                target=_spawn_worker_entry,
+                args=(self._target, child, payload, rpc_child),
+                daemon=False,
             )
             with self._lock:
                 if self._closed.is_set():
@@ -444,31 +639,119 @@ class RoomWorkerPool:
                     room._process_stale_history = room.history
                     room._process_turn_active = True
                 process.start()
-                self._running[room.room_id] = (room, parent, process, threading.Lock())
+                self._running[room.room_id] = (room, parent, process, pipe_lock)
             child.close()
+            rpc_child.close()
             # Do not expose Stop as available until interrupt() can reach the child.
             room.set_status(True, "BUSY")
             connected = payload["connected"]
+            rpc_closed = False
+            process_exit_deadline = None
             while True:
                 try:
-                    ready = parent.poll(0.1)
+                    event_ready = parent.poll(0.1)
                 except (EOFError, OSError):
                     break
-                if ready:
+                if rpc_closed:
+                    rpc_ready = False
+                else:
+                    try:
+                        rpc_ready = rpc_parent.poll(0)
+                    except (EOFError, OSError):
+                        rpc_closed = True
+                        rpc_ready = False
+                if rpc_ready:
+                    try:
+                        raw_rpc = rpc_parent.recv_bytes(MAX_FRAME_BYTES)
+                    except EOFError:
+                        rpc_closed = True
+                    except OSError:
+                        if process.is_alive():
+                            process.terminate()
+                        break
+                    else:
+                        try:
+                            rpc_message = decode_rpc_message(raw_rpc)
+                        except ValueError:
+                            if process.is_alive():
+                                process.terminate()
+                            break
+                        if rpc_message.get("type") == RPC_TOOL_REQUEST:
+                            response = self._sandbox_tool_response(
+                                room, sandbox_scope, rpc_message
+                            )
+                            if response is None:
+                                if process.is_alive():
+                                    process.terminate()
+                                break
+                            try:
+                                rpc_parent.send_bytes(encode_rpc_message(response))
+                            except (EOFError, OSError, ValueError):
+                                if process.is_alive():
+                                    process.terminate()
+                                break
+                        elif rpc_message.get("type") == RPC_SCOPE_REVOKE:
+                            self._handle_sandbox_scope_revoke(
+                                room, sandbox_scope, rpc_message
+                            )
+                        else:
+                            if process.is_alive():
+                                process.terminate()
+                            break
+                if event_ready:
                     try:
                         value = parent.recv()
                     except (EOFError, OSError):
                         break
+                    if not isinstance(value, dict):
+                        if process.is_alive():
+                            process.terminate()
+                        break
                     if "state" in value:
+                        state = value["state"]
+                        if not isinstance(state, dict):
+                            room.add_message(
+                                {
+                                    "role": "assistant",
+                                    "content": "[ERROR] Room worker returned malformed state.",
+                                }
+                            )
+                            if process.is_alive():
+                                process.terminate()
+                            break
+                        unexpected = set(state).difference(ROOM_FIELDS)
+                        if state.get("room_id") != room.room_id or unexpected:
+                            room.add_message(
+                                {
+                                    "role": "assistant",
+                                    "content": (
+                                        "[ERROR] Room worker returned mismatched state "
+                                        f"(room_id_match={state.get('room_id') == room.room_id}, "
+                                        f"unexpected_fields={sorted(unexpected)})."
+                                    ),
+                                }
+                            )
+                            if process.is_alive():
+                                process.terminate()
+                            break
                         with room._lifecycle_lock:
-                            for name, item in value["state"].items():
+                            for name, item in state.items():
                                 if name != "room_id":
                                     setattr(room, name, item)
                         state_received = True
-                    elif "event" in value:
+                    elif "event" in value and isinstance(value["event"], dict):
                         self._relay(room, value["event"])
-                elif not process.is_alive():
-                    break
+                    else:
+                        if process.is_alive():
+                            process.terminate()
+                        break
+                elif not rpc_ready and not process.is_alive():
+                    if process_exit_deadline is None:
+                        process_exit_deadline = time.monotonic() + 1.0
+                    elif time.monotonic() >= process_exit_deadline:
+                        break
+                else:
+                    process_exit_deadline = None
                 current_connected = bool(
                     room.active_connections or room._bootstrapping_connections
                 )
@@ -478,13 +761,18 @@ class RoomWorkerPool:
             process.join(5)
             if not state_received:
                 room.recover_partial_streams(
-                    "[ERROR] Room worker exited before returning its state."
+                    "[ERROR] Room worker exited before returning its state "
+                    f"(exit code {process.exitcode})."
                 )
         except Exception as exc:
             room.add_message(
                 {"role": "assistant", "content": f"[ERROR] Room worker failed: {exc}"}
             )
         finally:
+            try:
+                sandbox_execution_stack.close()
+            except Exception:
+                pass
             with self._lock:
                 self._running.pop(room.room_id, None)
                 self._reserved_rooms.discard(room.room_id)
@@ -493,7 +781,7 @@ class RoomWorkerPool:
             if process is not None and process.pid is not None and process.is_alive():
                 process.terminate()
                 process.join(5)
-            for pipe in (parent, child):
+            for pipe in (parent, child, rpc_parent, rpc_child):
                 if pipe is not None:
                     pipe.close()
             with room._lifecycle_lock:
@@ -575,3 +863,4 @@ class RoomWorkerPool:
             process.join(max(0, deadline - time.monotonic()))
             if process.is_alive():
                 process.terminate()
+                process.join(5)

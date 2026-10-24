@@ -149,6 +149,11 @@ def _interruptible_child(connection, payload):
     connection.send({"state": payload["room"]})
 
 
+def _unresponsive_child(connection, payload):
+    while True:
+        time.sleep(0.1)
+
+
 def _crashing_child(connection, payload):
     for role, content in (("user", payload["input"]), ("assistant", "partial output")):
         connection.send(
@@ -332,7 +337,7 @@ def test_parallel_rooms_respect_cap_and_isolate_cwd_stop_and_persistence(
             assert not pool.busy
             assert os.getcwd() == initial_cwd
             for room in rooms:
-                assert room._process_stale_history is None
+                assert room._process_stale_history is None, room.messages
                 assert not room._process_turn_active
                 assert not room.worker_lock.locked()
                 assert room.status["label"] == "IDLE"
@@ -438,6 +443,34 @@ def test_confirmation_responses_reach_only_their_own_process(monkeypatch, tmp_pa
         pool.shutdown()
         for thread in threads:
             thread.join(10)
+
+
+def test_shutdown_terminates_and_reaps_unresponsive_worker(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.web_impl.rooms import web_manager
+
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_enabled", False, raising=False)
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    room = WebRoom("unresponsive-shutdown")
+    room.private_session = True
+    room.base_dir = str(tmp_path)
+    pool = RoomWorkerPool(1, target=_unresponsive_child)
+    thread = threading.Thread(target=pool.run, args=(room, "wait"))
+    thread.start()
+    try:
+        _wait(lambda: room.room_id in pool._running)
+        with pool._lock:
+            process = pool._running[room.room_id][2]
+        pool.shutdown()
+        thread.join(10)
+        assert not thread.is_alive()
+        assert not process.is_alive()
+        assert not pool.busy
+        assert not room.worker_lock.locked()
+    finally:
+        pool.shutdown()
+        thread.join(10)
 
 
 def test_crashed_worker_releases_room_and_capacity(monkeypatch, tmp_path):
@@ -744,7 +777,7 @@ def test_crashed_stream_preserves_partial_reply_on_reconnect(monkeypatch, tmp_pa
             "previous",
             "question",
             "partial reply",
-            "[ERROR] Room worker exited before returning its state.",
+            "[ERROR] Room worker exited before returning its state (exit code 7).",
         ]
         assert not room.worker_lock.locked()
         assert not pool.busy
@@ -1024,16 +1057,28 @@ def test_crash_recovery_is_atomic_with_reconnect_snapshot(monkeypatch):
 
 
 def _profile_capture_child(connection, payload):
+    scope = payload.get("sandbox_scope")
     connection.send(
         {
-            "state": {
-                "room_id": payload["room"]["room_id"],
-                "execution_profile": payload["execution_profile"],
-                "sandbox_enabled": payload["sandbox_enabled"],
-                "tools": payload["tools"],
+            "event": {
+                "type": "message",
+                "message": {
+                    "role": "assistant",
+                    "content": json.dumps(
+                        {
+                            "execution_profile": payload["execution_profile"],
+                            "sandbox_enabled": payload["sandbox_enabled"],
+                            "tools": payload["tools"],
+                            "sandbox_scope_kind": getattr(scope, "scope_kind", None),
+                            "sandbox_capabilities": payload.get("sandbox_capabilities")
+                            is not None,
+                        }
+                    ),
+                },
             }
         }
     )
+    connection.send({"state": {"room_id": payload["room"]["room_id"]}})
     connection.close()
 
 
@@ -1045,7 +1090,9 @@ def test_spawned_worker_receives_trusted_web_sandbox_settings(
     monkeypatch, tmp_path, execution_profile, sandbox_enabled
 ):
     from uagent import core
+    from uagent.runtime import mxc_backend
     from uagent.tools import _genre_control_util
+    from uagent.web_impl import agent_worker
     from uagent.web_impl.rooms import web_manager
 
     tool_name_calls = []
@@ -1059,21 +1106,77 @@ def test_spawned_worker_receives_trusted_web_sandbox_settings(
         web_manager, "execution_profile", execution_profile, raising=False
     )
     monkeypatch.setattr(web_manager, "sandbox_enabled", sandbox_enabled, raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_session_manager", None, raising=False)
     room = WebRoom("sandbox-profile-room")
     room.private_session = True
     room.base_dir = str(tmp_path)
 
+    run_kwargs = {"project_path": str(tmp_path)}
+    manager = None
+    if execution_profile == "local_trusted" and sandbox_enabled:
+        from uagent.runtime.execution_broker import (
+            IsolationLevel,
+            SandboxCapabilities,
+            SandboxCapability,
+        )
+        from uagent.runtime.identity_context import IdentityContext, TurnContext
+
+        class FakeManager:
+            capabilities = SandboxCapabilities(
+                isolation_level=IsolationLevel.CONTAINER,
+                available=frozenset(SandboxCapability),
+            )
+
+            def activate_scope(self, scope):
+                self.scope = scope
+
+            def revoke_scope(self, scope):
+                return None
+
+        identity = IdentityContext(
+            principal_id="local-user",
+            authenticated=True,
+            authn_kind="local",
+        )
+        turn = TurnContext.from_identity(
+            identity,
+            room_id=room.room_id,
+            project_id="sandbox-profile-project",
+            session_id="",
+            entry_point="web",
+            private_session=True,
+            server_bound_project=True,
+        )
+        manager = FakeManager()
+        monkeypatch.setattr(web_manager, "sandbox_session_manager", manager)
+        monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+        monkeypatch.setattr(
+            agent_worker, "_web_turn_authorization_valid", lambda *args: True
+        )
+        run_kwargs.update(turn_context=turn, identity_context=identity)
+
     pool = RoomWorkerPool(1, target=_profile_capture_child)
     try:
-        pool.run(room, "profile test", project_path=str(tmp_path))
+        pool.run(room, "profile test", **run_kwargs)
     finally:
         pool.shutdown()
+        if manager is not None:
+            web_manager.release_room_sandbox_scope(room)
 
-    assert room.execution_profile == execution_profile
-    assert room.sandbox_enabled is sandbox_enabled
-    if execution_profile == "remote":
-        assert room.tools == []
-        assert tool_name_calls == []
+    captured = json.loads(
+        next(
+            message["content"]
+            for message in reversed(room.messages)
+            if message.get("role") == "assistant"
+        )
+    )
+    assert captured["execution_profile"] == execution_profile
+    assert captured["sandbox_enabled"] is sandbox_enabled
+    assert captured["tools"] == []
+    assert tool_name_calls == []
+    if sandbox_enabled:
+        assert captured["sandbox_scope_kind"] == "web-room"
+        assert captured["sandbox_capabilities"] is True
     else:
-        assert room.tools == ["read_file"]
-        assert tool_name_calls == ["loaded"]
+        assert captured["sandbox_scope_kind"] is None
+        assert captured["sandbox_capabilities"] is False

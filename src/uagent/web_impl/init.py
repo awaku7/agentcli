@@ -183,6 +183,13 @@ def _validate_web_sandbox_startup(
         )
 
 
+def _local_sandbox_room_worker_limit(room_workers: int) -> int:
+    """Bound parallel local Room workers by the MXC manager's session capacity."""
+    from ..runtime.mxc_backend import MAX_ACTIVE_SESSIONS
+
+    return min(room_workers, MAX_ACTIVE_SESSIONS)
+
+
 def _fire_web_lifecycle_hook(event_name: str) -> None:
     """Run a Web lifecycle hook under the trusted startup ingress profile."""
     from ..runtime.execution_broker import SecurityProfile, execution_profile
@@ -393,7 +400,11 @@ def init_web():
                                 web_manager.original_set_status(True, "LLM")
                         except Exception:
                             pass
-            from ..runtime.execution_broker import SecurityProfile, execution_profile
+            from ..runtime.execution_broker import (
+                SecurityProfile,
+                current_scope,
+                execution_profile,
+            )
 
             _profile_name = getattr(web_manager, "execution_profile", "remote")
             _profile = (
@@ -412,21 +423,23 @@ def init_web():
                     if room is not None and _profile is SecurityProfile.REMOTE:
                         _scope = trusted_web_scope(_turn, str(room.room_id))
                     elif room is not None and _sandbox_enabled:
-                        generation_getter = getattr(
-                            room, "sandbox_scope_generation", None
-                        )
-                        room_generation = (
-                            generation_getter()
-                            if callable(generation_getter)
-                            else str(
-                                getattr(room, "_sandbox_scope_generation", "") or ""
+                        _scope = current_scope()
+                        if _scope is None:
+                            generation_getter = getattr(
+                                room, "sandbox_scope_generation", None
                             )
-                        )
-                        _scope = _local_web_sandbox_scope(
-                            _turn,
-                            str(room.room_id),
-                            room_generation,
-                        )
+                            room_generation = (
+                                generation_getter()
+                                if callable(generation_getter)
+                                else str(
+                                    getattr(room, "_sandbox_scope_generation", "") or ""
+                                )
+                            )
+                            _scope = _local_web_sandbox_scope(
+                                _turn,
+                                str(room.room_id),
+                                room_generation,
+                            )
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(
@@ -664,16 +677,14 @@ def main():
     except ValueError as exc:
         parser.error(str(exc))
     if _trusted_local_web and web_manager.sandbox_enabled:
-        # The Web process owns Room scopes and their persistent MXC sessions.
-        # RoomWorkerPool starts a fresh child per turn and does not broker tool
-        # calls back to that process, so Sandbox Web must run inline/serially.
-        if room_workers > 1:
+        limited_workers = _local_sandbox_room_worker_limit(room_workers)
+        if limited_workers < room_workers:
             print(
-                "[sandbox] local Web Sandbox is serialized because the per-turn "
-                "process pool cannot reuse the Web process's MXC session manager",
+                "[sandbox] local Web Sandbox limits concurrent Room workers to "
+                f"{limited_workers} because the MXC session manager has the same cap",
                 file=sys.stderr,
             )
-        room_workers = 1
+        room_workers = limited_workers
     web_manager.room_worker_pool = (
         RoomWorkerPool(room_workers) if room_workers > 1 else None
     )
