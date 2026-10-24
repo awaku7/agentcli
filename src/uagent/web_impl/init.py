@@ -664,13 +664,13 @@ def main():
     except ValueError as exc:
         parser.error(str(exc))
     if _trusted_local_web and web_manager.sandbox_enabled:
-        # MXC scopes must persist in the owning process across Room turns. The
-        # current spawned-worker pool is per-turn, so keep local Sandbox Web
-        # single-process until PR 3 adds Room-owned worker/lease lifecycle.
+        # The Web process owns Room scopes and their persistent MXC sessions.
+        # RoomWorkerPool starts a fresh child per turn and does not broker tool
+        # calls back to that process, so Sandbox Web must run inline/serially.
         if room_workers > 1:
             print(
-                "[sandbox] local Web Sandbox uses one in-process worker until "
-                "Room-owned worker leases are available",
+                "[sandbox] local Web Sandbox is serialized because the per-turn "
+                "process pool cannot reuse the Web process's MXC session manager",
                 file=sys.stderr,
             )
         room_workers = 1

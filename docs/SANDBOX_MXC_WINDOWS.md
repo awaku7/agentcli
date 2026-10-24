@@ -99,10 +99,16 @@ creating more host resource usage. Failure to create or assign the Job Object
 rejects the operation.
 
 Trusted local-only Web may opt in on Windows using a server-created `web-room`
-scope, with the same static tool allowlist. Until PR 3 adds Room-owned worker
-and lease recovery, sandboxed local Web is constrained to one in-process worker
-and serial Room execution. This is a local PoC restriction, not production
-multi-user isolation; Sandbox mode also blocks host plugin imports, host hooks, tool-genre changes,
+scope, with the same static tool allowlist. PR 3 integrated Room scope and lease
+lifecycle management, but did not add a persistent Room worker. The current
+`RoomWorkerPool` starts a fresh child process for each turn and does not transfer
+or broker sandbox tool calls to the Web process's `MxcSessionManager`, which owns
+the Room-bound MXC sessions. Therefore sandboxed local Web disables that
+per-turn process pool and runs turns in-process, serializing Room execution.
+Parallel Room workers require a Room-persistent worker or an explicit broker to
+the owning Web process, with corresponding scope lifecycle and revocation
+handling. This is a local PoC restriction, not production multi-user isolation;
+Sandbox mode also blocks host plugin imports, host hooks, tool-genre changes,
 general Web commands, and non-allowlisted CLI/GUI commands.
 
 The lightweight ProcessContainer does not meet the Remote profile's VM
