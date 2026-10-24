@@ -93,10 +93,13 @@ normal cleanup; on startup, only directories with an unlocked lease are scavenge
 so workspaces abandoned by a crashed process are reclaimed on the next startup,
 without removing live sessions. Removal clears read-only attributes; an otherwise
 unremovable workspace is skipped rather than blocking startup. Legacy directories
-without lease metadata are left untouched. CLI session transitions close the previous CLI worker. At most four
-distinct scopes may be active in one UAG process; a fifth is denied instead of
-creating more host resource usage. Failure to create or assign the Job Object
-rejects the operation.
+without lease metadata are left untouched. CLI session transitions close the previous CLI worker. At most four MXC worker
+processes are live at once. When all slots are occupied, the least-recently-used
+idle Web Room worker is closed while its room-specific workspace is parked and
+reused on that Room's next tool call. Revoking a parked Room scope deletes its
+workspace. Non-Web scopes are not evicted; if no idle Web worker can be parked,
+the request fails closed. Failure to create or assign the Job Object rejects the
+operation.
 
 Trusted local-only Web may opt in on Windows using a server-created `web-room`
 scope, with the same static tool allowlist. PR 3 integrated Room scope and lease

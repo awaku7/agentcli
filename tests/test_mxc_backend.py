@@ -619,6 +619,95 @@ def test_manager_caps_active_session_workers(monkeypatch, tmp_path):
     manager.close_all()
 
 
+def test_manager_parks_and_resumes_web_room_workspaces_at_worker_capacity(
+    monkeypatch, tmp_path
+):
+    workspaces = {}
+    created = []
+    cleaned_dormant = []
+
+    class FakeProc:
+        def poll(self):
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime, resume_workspace=False):
+            self._scope = scope
+            self._closed = False
+            self._workspace_preserved = False
+            self._proc = FakeProc()
+            self.was_resumed = resume_workspace
+            if resume_workspace:
+                assert scope.scope_id in workspaces
+            else:
+                workspaces[scope.scope_id] = {}
+            created.append((scope.scope_id, resume_workspace))
+
+        def run(self, name, args):
+            workspace = workspaces[self._scope.scope_id]
+            if name == "create_file":
+                workspace[args["filename"]] = args["content"]
+                return "created"
+            return workspace.get(args["path"], "missing")
+
+        def close(self, *, preserve_workspace=False):
+            self._closed = True
+            self._workspace_preserved = preserve_workspace
+            if not preserve_workspace:
+                workspaces.pop(self._scope.scope_id, None)
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    monkeypatch.setattr(
+        mxc_backend,
+        "_remove_dormant_web_workspace",
+        lambda scope: cleaned_dormant.append(scope),
+    )
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    scopes = [
+        TrustedSandboxScope(
+            deployment_id="web",
+            principal_id="user",
+            project_id=f"project-{index}",
+            scope_kind="web-room",
+            scope_id=f"room-{index}",
+            binding_generation=f"generation-{index}",
+        )
+        for index in range(mxc_backend.MAX_ACTIVE_SESSIONS + 2)
+    ]
+    for scope in scopes:
+        manager.activate_scope(scope)
+        assert (
+            manager.run_tool(
+                scope,
+                "create_file",
+                {"filename": "marker.txt", "content": scope.scope_id},
+            )
+            == "created"
+        )
+
+    assert len(manager._sessions) == mxc_backend.MAX_ACTIVE_SESSIONS
+    assert manager._dormant_web_scopes[mxc_backend._scope_key(scopes[0])] == scopes[0]
+    assert workspaces[scopes[0].scope_id]["marker.txt"] == scopes[0].scope_id
+
+    assert (
+        manager.run_tool(scopes[0], "read_file", {"path": "marker.txt"})
+        == scopes[0].scope_id
+    )
+    assert created[-1] == (scopes[0].scope_id, True)
+    assert len(manager._sessions) == mxc_backend.MAX_ACTIVE_SESSIONS
+
+    cleanup = manager.revoke_scope(scopes[1])
+    assert cleanup is not None
+    cleanup()
+    assert cleaned_dormant == [scopes[1]]
+    manager.close_all()
+    assert len(cleaned_dormant) == 2
+
+
 def test_manager_refuses_a2a_scope_without_spawning(tmp_path):
     manager = mxc_backend.MxcSessionManager(
         node=tmp_path / "node.exe",

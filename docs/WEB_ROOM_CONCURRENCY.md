@@ -30,10 +30,14 @@ its own MXC session manager. Host tool runners are
 not exposed to the spawned Sandbox worker.
 
 Different trusted local Sandbox Rooms may execute concurrently, up to the MXC
-manager's four-session capacity. Each Room remains single-turn-at-a-time and
-retains its parent-owned MXC session across turns. A Stop request reaches the
-Room's child immediately, but an already-running parent-side MXC call is bounded
-by its tool deadline rather than being forcibly cancelled by the child.
+manager's four live-worker capacity. Each Room remains single-turn-at-a-time and
+retains its isolated workspace across turns. When all worker slots are occupied,
+the least-recently-used idle Web Room worker is parked; its MXC process closes but
+its workspace remains leased to that Room and is resumed on its next tool call.
+In-flight sessions are never evicted, and revoking a Room scope removes its
+parked workspace. A Stop request reaches the Room's child immediately, but an
+already-running parent-side MXC call is bounded by its tool deadline rather than
+being forcibly cancelled by the child.
 
 History, Responses continuation, tool context, agent state and dynamically loaded
 tool names are returned to the originating room. SQLite writes use the room's

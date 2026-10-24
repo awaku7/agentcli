@@ -55,10 +55,13 @@ Run `tests/test_web_process_workers.py` when changing this path.
 Trusted local Web with MXC Sandbox can run independent Rooms concurrently through
 bounded per-turn child workers. Sandbox tool calls use a size-limited JSON RPC pipe
 to the Web process, which owns the MXC manager and revalidates the bound Room
-scope/authorization for each request. Each Room remains single-turn-at-a-time, and
-the local Sandbox worker count is capped by the MXC manager's four-session limit.
-A Stop request cannot cancel an MXC call already running in the parent; it completes
-under the tool's bounded deadline before the child handles the interrupt.
+scope/authorization for each request. Each Room remains single-turn-at-a-time, and the local Sandbox worker count is
+capped at four. If all MXC worker slots are occupied, the least-recently-used
+idle Web Room worker is parked without deleting that Room's workspace; the worker
+is recreated on the next tool call. In-flight sessions are not evicted, and
+revoking a parked Room scope removes its workspace. A Stop request cannot cancel
+an MXC call already running in the parent; it completes under the tool's bounded
+deadline before the child handles the interrupt.
 
 This document is developer-facing notes for **uag** (a local tool-execution agent).
 

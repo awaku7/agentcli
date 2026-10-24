@@ -18,6 +18,7 @@ import stat
 import subprocess
 import sys
 import threading
+import time
 import uuid
 from pathlib import Path
 from queue import Empty, Queue
@@ -445,6 +446,22 @@ def _workspace_for_scope(scope: TrustedSandboxScope) -> Path:
     return _local_app_data() / "uagent" / "sandboxes" / _scope_key(scope)
 
 
+def _remove_dormant_web_workspace(scope: TrustedSandboxScope) -> None:
+    """Delete a parked Room workspace only after acquiring its owner lease."""
+    workspace = _workspace_for_scope(scope)
+    lease = _acquire_workspace_lease(workspace.parent, workspace.name)
+    if lease is None:
+        return
+    try:
+        if workspace.exists():
+            _remove_workspace_tree(workspace)
+    except (OSError, RuntimeError):
+        # Cleanup failure must not follow a reparse point or abort Room teardown.
+        pass
+    finally:
+        _release_workspace_lease(lease)
+
+
 def _is_reparse_point(path: Path) -> bool:
     try:
         path_stat = Path(path).lstat()
@@ -661,7 +678,12 @@ def _python_env_root() -> Path:
 
 class _MxcSession:
     def __init__(
-        self, *, scope: TrustedSandboxScope, node: Path, runtime: Path
+        self,
+        *,
+        scope: TrustedSandboxScope,
+        node: Path,
+        runtime: Path,
+        resume_workspace: bool = False,
     ) -> None:
         if os.name != "nt":
             raise RuntimeError(
@@ -682,6 +704,7 @@ class _MxcSession:
         self._stderr_lock = threading.Lock()
         self._revoked = threading.Event()
         self._closed = False
+        self._workspace_preserved = False
         self._scope = scope
         self.workspace = _workspace_for_scope(scope)
         self._workspace_lease = _acquire_workspace_lease(
@@ -692,9 +715,9 @@ class _MxcSession:
         if self.workspace.exists() and _is_reparse_point(self.workspace):
             raise RuntimeError("sandbox workspace root cannot be a symlink")
         self.workspace.mkdir(parents=True, exist_ok=True)
-        # A new scope hash is created for this process/session; don't reuse on-disk
-        # state that could have been replaced while the owner was not running.
-        if any(self.workspace.iterdir()):
+        # Web Room sessions may be parked by the owning manager. Only that
+        # trusted in-process path opts into resuming its still-leased scope.
+        if not resume_workspace and any(self.workspace.iterdir()):
             _remove_workspace_tree(self.workspace)
             self.workspace.mkdir(parents=True)
         worker_script = runtime / "sandbox_worker.py"
@@ -733,10 +756,11 @@ class _MxcSession:
         except Exception:
             self._proc.kill()
             self._proc.wait(timeout=5)
-            try:
-                _remove_workspace_tree(self.workspace)
-            except (OSError, RuntimeError):
-                pass
+            if not resume_workspace:
+                try:
+                    _remove_workspace_tree(self.workspace)
+                except (OSError, RuntimeError):
+                    pass
             _release_workspace_lease(self._workspace_lease)
             self._workspace_lease = None
             raise
@@ -763,7 +787,7 @@ class _MxcSession:
                     str(ready.get("error") or "MXC worker did not become ready")
                 )
         except Exception:
-            self.close()
+            self.close(preserve_workspace=resume_workspace)
             raise
 
     def _create_job(self, proc: subprocess.Popen[bytes]):
@@ -863,7 +887,7 @@ class _MxcSession:
         """Prevent queued requests from entering the worker after revocation."""
         self._revoked.set()
 
-    def close(self) -> None:
+    def close(self, *, preserve_workspace: bool = False) -> None:
         with self._lock:
             if self._closed:
                 return
@@ -886,16 +910,23 @@ class _MxcSession:
                     self._proc.wait(timeout=5)
                 except subprocess.TimeoutExpired:
                     pass
-            try:
-                _remove_workspace_tree(self.workspace)
-            except (OSError, RuntimeError):
-                pass
+            # Never park a workspace unless the helper process is confirmed
+            # stopped; otherwise it could keep mutating the shared directory.
+            preserve_workspace = bool(
+                preserve_workspace and self._proc.poll() is not None
+            )
+            self._workspace_preserved = preserve_workspace
+            if not preserve_workspace:
+                try:
+                    _remove_workspace_tree(self.workspace)
+                except (OSError, RuntimeError):
+                    pass
             _release_workspace_lease(self._workspace_lease)
             self._workspace_lease = None
 
 
 class MxcSessionManager:
-    """Own one persistent ProcessContainer Worker per trusted local scope."""
+    """Own bounded MXC workers and park idle Web Room workspaces for reuse."""
 
     def __init__(
         self, *, node: Path, runtime: Path, capabilities: SandboxCapabilities
@@ -904,6 +935,9 @@ class MxcSessionManager:
         self.runtime = runtime
         self.capabilities = capabilities
         self._sessions: dict[str, _MxcSession] = {}
+        self._session_inflight: dict[str, int] = {}
+        self._session_last_used: dict[str, float] = {}
+        self._dormant_web_scopes: dict[str, TrustedSandboxScope] = {}
         self._active_local_scopes: dict[tuple[str, str, str], TrustedSandboxScope] = {}
         self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
@@ -922,11 +956,54 @@ class MxcSessionManager:
         return cls(node=node, runtime=runtime, capabilities=capabilities), report
 
     def _prune_inactive_sessions(self) -> None:
-        """Release closed or exited workers before enforcing the live-session cap."""
+        """Release exited workers, parking live Web Room workspaces for reuse."""
         for key, session in list(self._sessions.items()):
             if session._closed or session._proc.poll() is not None:
                 self._sessions.pop(key, None)
-                session.close()
+                self._session_last_used.pop(key, None)
+                scope = getattr(session, "_scope", None)
+                preserve = bool(
+                    not session._closed
+                    and getattr(scope, "scope_kind", None) == "web-room"
+                    and scope in self._active_web_scopes
+                )
+                if preserve:
+                    try:
+                        session.close(preserve_workspace=True)
+                    except TypeError:
+                        session.close()
+                        preserve = False
+                    if preserve and getattr(session, "_workspace_preserved", True):
+                        self._dormant_web_scopes[key] = scope
+                else:
+                    session.close()
+
+    def _evict_idle_web_session(self) -> bool:
+        """Park the least-recently-used idle Web session without losing its files."""
+        candidates = [
+            (self._session_last_used.get(key, 0.0), key, session)
+            for key, session in self._sessions.items()
+            if self._session_inflight.get(key, 0) == 0
+            and getattr(getattr(session, "_scope", None), "scope_kind", None)
+            == "web-room"
+            and getattr(session, "_scope", None) in self._active_web_scopes
+        ]
+        if not candidates:
+            return False
+        _, key, session = min(candidates, key=lambda item: item[0])
+        scope = session._scope
+        self._sessions.pop(key, None)
+        self._session_last_used.pop(key, None)
+        try:
+            session.close(preserve_workspace=True)
+        except TypeError:
+            # Unknown session implementations must not claim a reusable workspace.
+            session.close()
+            return False
+        if not getattr(session, "_workspace_preserved", True):
+            return False
+        self._dormant_web_scopes[key] = scope
+        return True
 
     def _close_obsolete_local_sessions(
         self, current_key: str, scope: TrustedSandboxScope
@@ -997,14 +1074,31 @@ class MxcSessionManager:
             session = self._sessions.get(key)
             if session is None:
                 if len(self._sessions) >= MAX_ACTIVE_SESSIONS:
-                    return "[sandbox error] active session limit reached; restart UAG to release old scopes"
+                    if (
+                        scope.scope_kind != "web-room"
+                        or not self._evict_idle_web_session()
+                    ):
+                        return (
+                            "[sandbox error] active session limit reached; no idle "
+                            "Web Room session can be parked safely"
+                        )
+                resume_workspace = self._dormant_web_scopes.get(key) == scope
                 try:
-                    session = _MxcSession(
-                        scope=scope, node=self.node, runtime=self.runtime
-                    )
+                    session_args = {
+                        "scope": scope,
+                        "node": self.node,
+                        "runtime": self.runtime,
+                    }
+                    if resume_workspace:
+                        session_args["resume_workspace"] = True
+                    session = _MxcSession(**session_args)
                 except Exception as exc:
                     return f"[sandbox error] unable to create MXC session: {type(exc).__name__}: {exc}"
                 self._sessions[key] = session
+                self._session_last_used[key] = time.monotonic()
+                if resume_workspace:
+                    self._dormant_web_scopes.pop(key, None)
+            self._session_inflight[key] = self._session_inflight.get(key, 0) + 1
         try:
             return session.run(name, args)
         except Exception as exc:
@@ -1015,19 +1109,36 @@ class MxcSessionManager:
             with self._lock:
                 if self._sessions.get(key) is session:
                     self._sessions.pop(key, None)
+                self._session_last_used.pop(key, None)
+                self._dormant_web_scopes.pop(key, None)
             return f"[sandbox error] isolated session terminated: {type(exc).__name__}: {exc}"
+        finally:
+            with self._lock:
+                in_flight = self._session_inflight.get(key, 0)
+                if in_flight <= 1:
+                    self._session_inflight.pop(key, None)
+                else:
+                    self._session_inflight[key] = in_flight - 1
+                if self._sessions.get(key) is session:
+                    self._session_last_used[key] = time.monotonic()
 
     def revoke_scope(self, scope: TrustedSandboxScope) -> Callable[[], None] | None:
-        """Fence a scope immediately and return its detached-session cleanup."""
+        """Fence a scope and return cleanup for its active or parked workspace."""
         key = _scope_key(scope)
         with self._lock:
             if scope.scope_kind == "web-room":
                 self._active_web_scopes.discard(scope)
             session = self._sessions.pop(key, None)
+            self._session_last_used.pop(key, None)
+            dormant_scope = self._dormant_web_scopes.pop(key, None)
             revoke = getattr(session, "revoke", None)
             if callable(revoke):
                 revoke()
-        return session.close if session is not None else None
+        if session is not None:
+            return session.close
+        if dormant_scope is not None:
+            return lambda: _remove_dormant_web_workspace(dormant_scope)
+        return None
 
     def close_scope(self, scope: TrustedSandboxScope) -> None:
         cleanup = self.revoke_scope(scope)
@@ -1037,7 +1148,11 @@ class MxcSessionManager:
     def close_all(self) -> None:
         with self._lock:
             sessions = list(self._sessions.values())
+            dormant_scopes = list(self._dormant_web_scopes.values())
             self._sessions.clear()
+            self._session_inflight.clear()
+            self._session_last_used.clear()
+            self._dormant_web_scopes.clear()
             self._active_local_scopes.clear()
             self._active_web_scopes.clear()
             for session in sessions:
@@ -1046,6 +1161,8 @@ class MxcSessionManager:
                     revoke()
         for session in sessions:
             session.close()
+        for scope in dormant_scopes:
+            _remove_dormant_web_workspace(scope)
 
 
 _manager: MxcSessionManager | None = None

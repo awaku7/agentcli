@@ -74,6 +74,46 @@ def test_mxc_parallel_web_room_scopes_keep_workspaces_isolated(tmp_path):
         manager.close_all()
 
 
+def test_mxc_web_room_lru_parking_preserves_room_files():
+    from uagent.runtime.mxc_backend import MAX_ACTIVE_SESSIONS, local_web_room_scope
+
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scopes = [
+        local_web_room_scope(
+            principal_id="mxc-lru-test",
+            project_id=f"project-{index}",
+            room_id=f"lru-{index}",
+            room_generation=f"generation-{index}-{time.time_ns()}",
+        )
+        for index in range(MAX_ACTIVE_SESSIONS + 1)
+    ]
+    try:
+        for index, scope in enumerate(scopes):
+            manager.activate_scope(scope)
+            result = manager.run_tool(
+                scope,
+                "create_file",
+                {
+                    "filename": "room-marker.txt",
+                    "content": f"room-{index}",
+                    "encoding": "utf-8",
+                    "overwrite": False,
+                },
+            )
+            assert result.startswith("Created "), result
+
+        assert len(manager._sessions) == MAX_ACTIVE_SESSIONS
+        assert (
+            manager.run_tool(scopes[0], "read_file", {"path": "room-marker.txt"})
+            == "room-0"
+        )
+        assert len(manager._sessions) == MAX_ACTIVE_SESSIONS
+    finally:
+        for scope in scopes:
+            manager.close_scope(scope)
+        manager.close_all()
+
+
 def _pid_is_alive(pid: int) -> bool:
     result = subprocess.run(
         ["tasklist.exe", "/FI", f"PID eq {pid}", "/NH"],
