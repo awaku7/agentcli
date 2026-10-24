@@ -2,13 +2,25 @@
 
 ## [Unreleased]
 
+## [0.7.33] - 2026-10-25
+
 ### Added
 
 - Add vLLM as a local OpenAI-compatible Chat Completions provider.
+- Support parallel execution of independent local Web Sandbox rooms.
+- Add browser-scoped guest identities for Web sessions and isolate browser session history.
 
 ### Changed
 
+- Default Remote Web and tool-enabled A2A sandboxing to MXC ProcessContainer.
+- Update the CI checkout action to the Node.js 24-compatible release.
 - Raise the minimum `llmcapa` version to `0.5.68`.
+
+### Fixed
+
+- Keep idle Web Sandbox workers parked and resume them when needed.
+- Preserve vLLM reasoning behavior, including explicit reasoning opt-out in tool-less rounds.
+- Decode Windows Biome output as UTF-8 to prevent locale-codec failures in lint runs.
 
 ## [0.7.32] - 2026-10-18
 

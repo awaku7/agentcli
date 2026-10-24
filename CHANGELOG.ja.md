@@ -2,13 +2,25 @@
 
 ## [Unreleased]
 
+## [0.7.33] - 2026-10-25
+
 ### 追加
 
 - ローカルのOpenAI互換Chat CompletionsプロバイダーとしてvLLMに対応。
+- 独立したローカルWeb Sandbox roomの並列実行に対応。
+- Webセッションにブラウザ単位のguest identityを導入し、ブラウザごとにセッション履歴を分離。
 
 ### 変更
 
+- Remote Webとtool-enabled A2AのsandboxでMXC ProcessContainerを既定に設定。
+- CIのcheckout actionをNode.js 24対応版へ更新。
 - `llmcapa`の最低バージョン要件を`0.5.68`へ引き上げ。
+
+### 修正
+
+- アイドル状態のWeb Sandbox workerを休止し、必要に応じて再開するよう修正。
+- tool-less roundでのreasoning無効化を含め、vLLMのreasoning設定を維持。
+- WindowsのBiome出力をUTF-8として扱い、lint時のロケール依存デコードエラーを修正。
 
 ## [0.7.32] - 2026-10-18
 
