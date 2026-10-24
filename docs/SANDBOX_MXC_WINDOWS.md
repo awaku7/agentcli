@@ -1,25 +1,35 @@
-# Windows MXC Sandbox PoC (PR 2)
+# Windows MXC ProcessContainer Sandbox
 
-This is a local, opt-in proof of concept. It is **not** the production remote
-isolation boundary and does not claim Windows Sandbox/Hyper-V VM isolation,
-E0 completion, or cross-platform support.
+The Windows MXC ProcessContainer backend is the default baseline for Remote Web
+and tool-enabled A2A; trusted local CLI/GUI and local-only Web remain opt-in or
+off as documented below. It is **not** Windows Sandbox/Hyper-V VM isolation and
+does not, by itself, establish Enterprise E0 completion or a production
+multi-tenant security guarantee. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
+for the current decision and explicit limits.
 
 ## Usage
 
-- Sandbox is off by default. `uag`, `uagg`, and `uagw` do not probe MXC, install
-  Node/npm packages, or change the environment when Sandbox is off.
-- `uag --sandbox auto`, `uagg --sandbox auto`, and trusted local-only
-  `uagw --sandbox auto` use an already-installed supported backend. They fail
-  closed if Node, the SDK, the host capability probe, or resource controls are
-  unavailable. Local Web opt-in is accepted only for the exact `127.0.0.1` bind
-  with local identity mode; a remote Web deployment does not use this backend.
-- The `--sandbox mxc` option on CLI/GUI or trusted local-only Web opts into
-  Windows MXC ProcessContainer. On first interactive use, UAG asks before
+- Trusted local CLI/GUI and trusted local-only Web retain Sandbox-off behavior
+  unless explicitly enabled; when off, they do not probe MXC or install
+  dependencies.
+- Remote Web defaults to `--sandbox auto`; tool-enabled A2A initializes MXC at
+  startup. Both use only an already-installed supported backend and fail closed
+  if Node, the SDK, the host capability probe, or resource controls are
+  unavailable. Remote startup never prompts to install dependencies and never
+  falls back to Host tool execution. Remote Web is determined from trusted
+  startup bind/identity configuration, not request headers or the client's IP.
+- `uag --sandbox auto`, `uagg --sandbox auto`, and explicit local Web
+  `--sandbox auto` also use an already-installed supported backend. The
+  `--sandbox mxc` option on CLI/GUI or trusted local-only Web opts into Windows
+  MXC ProcessContainer. On first interactive local use, UAG asks before
   installing the pinned SDK in the current user's profile (about 105 MB). Web
   startup refuses to install in non-interactive mode. Installation uses the Node
   runtime already available to the user and does not request elevation. If
   Node.js 24.21+ x64 or 26.8+ x64 is unavailable, startup stops; UAG does not
   install Node at machine scope.
+- `--sandbox off` on Remote Web does not enable Host tools. `--no-use-tool` /
+  `UAGENT_USE_TOOL=off` is the explicit tool-less mode for A2A and avoids MXC
+  initialization.
 - `UAGENT_SANDBOX_MODE=off|auto|mxc` is the environment equivalent (including
   the selected workdir's dotenv files). CLI arguments take precedence and mode
   resolution occurs after the workdir environment is loaded.
@@ -101,22 +111,22 @@ workspace. Non-Web scopes are not evicted; if no idle Web worker can be parked,
 the request fails closed. Failure to create or assign the Job Object rejects the
 operation.
 
-Trusted local-only Web may opt in on Windows using a server-created `web-room`
-scope, with the same static tool allowlist. PR 3 integrated Room scope and lease
-lifecycle management. When multiple Room workers are configured, the Web process
-keeps ownership of each Room scope and its MXC session manager; spawned per-turn
-workers send fixed-schema Sandbox tool requests over a size-bounded private JSON
-pipe. The parent revalidates the active Room scope and authorization for each request, then
-dispatches only the local Sandbox allowlist to the Room-bound MXC session. This
-allows independent Rooms to run concurrently while each Room remains serialized.
-The worker count is capped at the MXC manager's four-session limit. This is still
-a local PoC restriction, not production multi-user isolation; Sandbox mode also
-blocks host plugin imports, host hooks, tool-genre changes, general Web commands,
-and non-allowlisted CLI/GUI commands.
+Web and A2A use the same static MXC tool allowlist. Web Room scopes are bound
+to authenticated server-created Room/Principal context. Spawned per-turn workers
+send fixed-schema Sandbox tool requests over a size-bounded private JSON pipe;
+the parent revalidates the active Room scope and authorization for each request
+before dispatching to its MXC session. A2A receives a server-created per-task
+scope and closes it at task completion. The MXC manager caps active sessions.
+Sandbox mode also blocks Host plugin imports, Host hooks, tool-genre changes,
+general Web commands, and non-allowlisted tools.
 
-The lightweight ProcessContainer does not meet the Remote profile's VM
-requirement. Remote Web and A2A tools remain denied, regardless of `--sandbox`.
-The local Web opt-in does not enable this backend for remote Web or A2A.
+Remote Web and tool-enabled A2A now use ProcessContainer by default. This is a
+process/container boundary, **not** VM isolation and not a claim of completed
+Enterprise E0 acceptance. The high-assurance VM tier remains deferred; setting
+`UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` requires a future VM-capable backend and
+fails closed with the current ProcessContainer. The recorded Windows 11 Home
+smoke test below exercised the local Web route, not a real Remote Web/A2A
+production flow.
 
 ## Windows 11 x64 validation record
 

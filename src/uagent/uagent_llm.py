@@ -1716,12 +1716,15 @@ def _run_one_round(
         )
 
     send_tools_this_round = getattr(_core_module, "tools_enabled", True)
-    from .runtime.execution_broker import SecurityProfile, current_profile
+    from .runtime.execution_broker import (
+        SecurityProfile,
+        current_profile,
+        current_sandbox_enabled,
+    )
 
-    if current_profile() is SecurityProfile.REMOTE:
-        # PR 1 has no production isolation backend. A remote ingress therefore
-        # runs as tool-less chat; broker routing remains defense in depth for
-        # unsolicited or continued provider tool calls.
+    if current_profile() is SecurityProfile.REMOTE and not current_sandbox_enabled():
+        # Remote tools are sent only when the ingress is bound to an enabled
+        # sandbox. The common dispatcher still rejects any unsolicited calls.
         send_tools_this_round = False
     # The isolated LM Studio SDK adapter can reuse the normal uagent tool
     # executor without importing this module at provider-import time.

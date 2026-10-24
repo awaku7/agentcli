@@ -2,7 +2,7 @@
 
 ## Current disposition
 
-PR 4 is **not accepted** and Remote execution must remain fail-closed. The Windows MXC local `ProcessContainer` backend is not a VM backend and must not be treated as one. No `windows_sandbox` production manager is wired into the Remote dispatcher.
+PR 4 is **not accepted**. The high-assurance VM tier remains fail-closed: the Windows MXC `ProcessContainer` backend is not a VM backend and must not be treated as one. A separate baseline decision now enables ProcessContainer for Remote Web/A2A by default; that does not satisfy this VM acceptance gate or establish Enterprise E0 completion. No `windows_sandbox` production manager is wired into the Remote dispatcher.
 
 The pinned local runtime contains `@microsoft/mxc-sdk@1.0.0` and `bin/x64/wxc-exec.exe`. Its observed CLI contract (`wxc-exec.exe --help`) includes `--experimental`, `--dry-run`, and a positional config path. A no-execution dry-run accepted the minimal `version: 1.1.0-alpha`, `containment: windows_sandbox`, and `process.commandLine` request syntax with a dedicated workspace. This environment reports Windows 11 Pro (`EditionID=Professional`, build 26200). An initial non-elevated feature query returned DISM error 740; the subsequent `-RunVmTests` invocation passed the elevation guard but reported `Containers-DisposableClientVM` disabled and stopped before launching a VM. A fuller request including `network`/`ui` fields returned `validation failed`; the cause was not isolated. None of these results proves VM isolation or backend availability.
 
@@ -56,4 +56,4 @@ Every row must be run from the actual pinned `wxc-exec.exe` Windows Sandbox VM o
 
 ## Enablement rule
 
-Remote routing remains unavailable until every required row is supported by actual evidence and a reviewed backend integration explicitly carries that host-specific acceptance result. The current ProcessContainer probe reports only local container capabilities; it does not set Remote acceptance. Windows Home, untested Pro hosts, other operating systems, and any incomplete capability profile must continue to deny Remote tools. Enterprise E0 and multi-instance ownership/fencing are not complete in PR 4.
+VM-tier Remote routing remains unavailable until every required row is supported by actual evidence and a reviewed VM backend integration explicitly carries that host-specific acceptance result. The current ProcessContainer probe reports container capabilities only and does not set VM Remote acceptance. Windows Home, untested Pro hosts, other operating systems, and any incomplete capability profile must deny tools whenever `UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` is required. The default ProcessContainer tier is tracked separately and is not VM acceptance. Enterprise E0 and multi-instance ownership/fencing are not complete in PR 4.

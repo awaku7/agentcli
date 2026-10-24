@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import sys
 
 import argparse
 import asyncio
@@ -104,13 +105,62 @@ def _build_task_store() -> InMemoryTaskStore | SQLiteTaskStore:
 
 
 def build_app(
-    *, credential_store: CredentialStore | None = None, recover_tasks: bool = False
+    *,
+    credential_store: CredentialStore | None = None,
+    recover_tasks: bool = False,
+    sandbox_manager: Any | None = None,
+    sandbox_required: bool = True,
 ) -> FastAPI:
+    """Build the Remote A2A app; require MXC unless explicitly tool-less."""
     shutdown_callback: Any = None
 
     @asynccontextmanager
     async def _lifespan(_app: FastAPI):
+        nonlocal sandbox_manager
         try:
+            if sandbox_required:
+                from ..runtime.execution_broker import (
+                    IsolationLevel,
+                    SecurityProfile,
+                    required_sandbox_capabilities,
+                )
+                from ..runtime.mxc_backend import (
+                    MxcSessionManager,
+                    current_session_manager,
+                    describe_probe,
+                    install_session_manager,
+                )
+
+                report = None
+                if sandbox_manager is None:
+                    sandbox_manager, report = await asyncio.to_thread(
+                        MxcSessionManager.initialize, allow_install=False
+                    )
+                minimum, required = required_sandbox_capabilities(
+                    SecurityProfile.REMOTE
+                )
+                capabilities = getattr(sandbox_manager, "capabilities", None)
+                if (
+                    capabilities is None
+                    or not capabilities.satisfies(
+                        minimum_isolation=minimum, required=required
+                    )
+                    or (
+                        minimum >= IsolationLevel.VM
+                        and not capabilities.remote_acceptance_passed
+                    )
+                ):
+                    raise RuntimeError(
+                        "MXC backend does not meet the configured Remote isolation minimum"
+                    )
+                if current_session_manager() is not sandbox_manager:
+                    install_session_manager(sandbox_manager)
+                _app.state.sandbox_session_manager = sandbox_manager
+                if report is not None:
+                    print(
+                        f"[sandbox] A2A enabled: {describe_probe(report)}",
+                        file=sys.stderr,
+                    )
             yield
         finally:
             if shutdown_callback is not None:
@@ -118,6 +168,11 @@ def build_app(
 
     app = FastAPI(title=_("uagent A2A"), lifespan=_lifespan)
     app.state.credential_store = credential_store or get_default_credential_store()
+    app.state.sandbox_session_manager = sandbox_manager
+    if sandbox_manager is not None:
+        from ..runtime.mxc_backend import install_session_manager
+
+        install_session_manager(sandbox_manager)
 
     store = _build_task_store()
     if recover_tasks:
@@ -132,7 +187,10 @@ def build_app(
     # Tool confirmation is configured by the executable entry point. Keeping
     # app construction free of the large tools package makes unit tests and
     # embedders deterministic and avoids unrelated plugin warmup work.
-    sem = asyncio.Semaphore(int(env_get("UAGENT_A2A_CONCURRENCY", "1") or "1"))
+    from ..runtime.mxc_backend import MAX_ACTIVE_SESSIONS
+
+    configured_concurrency = max(1, int(env_get("UAGENT_A2A_CONCURRENCY", "1") or "1"))
+    sem = asyncio.Semaphore(min(configured_concurrency, MAX_ACTIVE_SESSIONS))
     job_manager: SubAgentJobManager | None = None
 
     def _get_job_manager() -> SubAgentJobManager:
@@ -226,6 +284,16 @@ def build_app(
                 )
         if job_manager is not None:
             await asyncio.to_thread(job_manager.shutdown)
+        if sandbox_manager is not None:
+            from ..runtime.mxc_backend import (
+                current_session_manager,
+                install_session_manager,
+            )
+
+            if current_session_manager() is sandbox_manager:
+                install_session_manager(None)
+            else:
+                await asyncio.to_thread(sandbox_manager.close_all)
 
     @app.exception_handler(A2AHttpError)
     async def _handle_a2a_http_error(_req: Request, exc: A2AHttpError):
@@ -802,27 +870,27 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
-    try:
-        from .. import core as _core_module
+    from .. import core as _core_module
 
-        _use_tool_arg = getattr(args, "use_tool", None)
-        if _use_tool_arg is not None:
-            _core_module.tools_enabled = bool(_use_tool_arg)
-        else:
-            _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
-            _core_module.tools_enabled = _use_tool_env not in (
-                "0",
-                "false",
-                "no",
-                "off",
-            )
-    except Exception:
-        pass
+    _use_tool_arg = getattr(args, "use_tool", None)
+    if _use_tool_arg is not None:
+        _core_module.tools_enabled = bool(_use_tool_arg)
+    else:
+        _use_tool_env = (env_get("UAGENT_USE_TOOL") or "").strip().lower()
+        _core_module.tools_enabled = _use_tool_env not in (
+            "0",
+            "false",
+            "no",
+            "off",
+        )
 
     from ..tools import configure_default_confirmation
 
     configure_default_confirmation()
-    app = build_app(recover_tasks=True)
+    app = build_app(
+        recover_tasks=True,
+        sandbox_required=bool(_core_module.tools_enabled),
+    )
     uvicorn.run(app, host=str(args.host), port=int(args.port), reload=bool(args.reload))
 
 

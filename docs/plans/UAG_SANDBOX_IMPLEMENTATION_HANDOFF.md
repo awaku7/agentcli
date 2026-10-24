@@ -1,7 +1,7 @@
 # UAG Sandbox 実装引き継ぎ手順書（Windows先行5 PR + 後続2 PR）
 
 - 作成日: 2026-10-14
-- 状態: PR 1〜3実装済み。PR 3はPR #263として2026-10-18にマージ済み。PR 4はWindows Sandbox executorの契約調査、Remote acceptance fail-closed gate、Windows Pro実機試験手順を準備中。現在のWindows 11 Pro環境（EditionID=Professional、Build 26200）ではWindows Sandbox optional featureが無効でVM実機検証未実施。Remote Backendは未接続・未承認。PR 5は未着手、Linux PR 6・macOS PR 7は後続。変更後のWindows MXC実機再確認は未実施。A2AのRemote Leaseは適合Backendがないためfail-closedを維持し、PR 4以降に延期。
+- 状態（2026-10-24更新）: Remote WebはMXC ProcessContainerを既定`auto`、tool-enabled A2Aは起動時MXC必須とする実装が完了。全pytest、Ruff、Black、変更Python compile、対象mdformat、`git diff --check`を確認済み。Windows 11 Home x64で実ProcessContainerを通したA2A Remote `python_exec` dispatchとA2A MXC startup/cleanupも成功。実認証付きRemote Webのend-to-end入口試験は未実施。ProcessContainer既定はVM隔離やEnterprise E0完了を意味しない。VM級は`UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm`で後日要求可能とするが、現在のWindows Sandbox VM Backendは未接続・未受け入れ。以下の2026-10-18以前の記録は、その時点の設計・実装状態を示す履歴。PR 5は未着手、Linux PR 6・macOS PR 7は後続。
 - 対象: awaku7/agentcli
 - 基点: main（設計 PR #252 マージ済み）
 - 仕様の正本: [UAG_SANDBOX_SESSION_DESIGN.md](../UAG_SANDBOX_SESSION_DESIGN.md)
@@ -11,6 +11,13 @@
 > 本書は設計書 §15 の **Windows先行PR 1〜5と、後日実施するLinux PR 6・macOS PR 7**を、別エージェントが実装・検証するための手順にしたもの。**今回すぐ実装するのはWindows向けPR 1〜5のみ**。Linux/macOSは省略せず後続PRに担当を割り当てるが、前倒ししない。矛盾時は最新版の正本設計書とEnterprise E0を優先する。
 
 ## 進捗記録
+
+### 2026-10-24 — Remote Web / A2A ProcessContainer default decision
+
+- 方針: Windows MXC ProcessContainerをRemote Webとtool-enabled A2Aの既定実行境界にする。Windows Sandbox VMは初期導入で必須にせず、VM級が必要な配置だけ明示設定し、未対応ならfail-closedとする。
+- 変更実装: remote Web default `auto` / A2A startup initialization / A2A Task scope lease lifecycle / shared static allowlist / no Host fallback / opt-in VM minimum isolation gate。
+- 限定: 現行Workerの静的tool catalogは`create_file`、`file_exists`、`read_file`、`python_exec`。これはProcessContainerの隔離・運用上の制約と、高保証VM/E0を別に扱う。Local trusted Webは引き続きSandbox off既定。
+- 検証: full pytest / Ruff / Black / changed Python compile / changed Markdown format / diff check pass。Windows 11 Home x64でA2A Remote ProcessContainer実Tool dispatchを通過し、A2A lifespan startupがMXC SDK 1.0.0 / Node 24.22.0 / base-containerを初期化し、終了時にglobal managerを解除することを確認。Remote Webの認証付き実機E2EとVM tierは未実施。古い日付の下記記録は履歴であり、現行既定値を示すものではない。
 
 ### 2026-10-18 — PR4 executor契約確認とfail-closed準備
 

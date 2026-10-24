@@ -124,6 +124,88 @@ def test_concurrent_a2a_broker_authorization_uses_task_local_scope(monkeypatch):
     assert core.task_id == "sentinel"
 
 
+def test_a2a_sandbox_tools_use_and_revoke_the_task_scoped_manager(
+    monkeypatch, tmp_path
+):
+    from uagent import core
+    import uagent.uagent_llm as uagent_llm
+    import uagent.providers.util_providers as util_providers
+    import uagent.util_tools as util_tools
+    from uagent.runtime import mxc_backend, session_store
+    from uagent.runtime.execution import lifecycle_execution
+
+    class FakeManager:
+        capabilities = SandboxCapabilities(
+            isolation_level=IsolationLevel.CONTAINER,
+            available=frozenset(SandboxCapability),
+        )
+
+        def __init__(self):
+            self.active = set()
+            self.calls = []
+            self.closed = []
+
+        def activate_scope(self, scope):
+            self.active.add(scope)
+
+        def run_tool(self, scope, name, args):
+            assert scope in self.active
+            self.calls.append((scope, name, args))
+            return "a2a-sandboxed-result"
+
+        def close_scope(self, scope):
+            self.active.discard(scope)
+            self.closed.append(scope)
+
+    manager = FakeManager()
+    host_runner_calls = []
+    monkeypatch.delenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", raising=False)
+    monkeypatch.setenv("UAGENT_POLICY_FILE", str(tmp_path / "policy.json"))
+    (tmp_path / "policy.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setattr(core, "tools_enabled", True, raising=False)
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+    monkeypatch.setattr(
+        util_providers, "make_client", lambda _core: ("openai", object(), "model")
+    )
+    monkeypatch.setattr(
+        session_store,
+        "attach_opt_in_session_store",
+        lambda *_args, **_kwargs: (None, "a2a-sandbox-test-session"),
+    )
+    monkeypatch.setattr(
+        session_store, "detach_opt_in_session_store", lambda *_args: None
+    )
+    monkeypatch.setattr(util_tools, "build_initial_messages", lambda **_kwargs: [])
+    monkeypatch.setattr(core, "log_message", lambda _message: None)
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setitem(
+        tools._RUNNERS,
+        "python_exec",
+        lambda _args: host_runner_calls.append(True) or "host-runner-called",
+    )
+    monkeypatch.setitem(tools._TOOL_TRACE_FLAGS, "python_exec", False)
+
+    def run_rounds(_provider, _client, _model, messages, **_kwargs):
+        result = tools.run_tool("python_exec", {"code": "print('isolated')"})
+        messages.append({"role": "assistant", "content": result})
+
+    monkeypatch.setattr(uagent_llm, "run_llm_rounds", run_rounds)
+    with lifecycle_execution():
+        message, error = run_once_uag(user_text="run isolated", task_id="task-mxc")
+
+    assert error is None
+    assert message["content"] == "a2a-sandboxed-result"
+    assert host_runner_calls == []
+    assert len(manager.calls) == 1
+    scope, name, args = manager.calls[0]
+    assert scope.scope_kind == "a2a-task"
+    assert scope.scope_id == "task-mxc"
+    assert name == "python_exec"
+    assert args == {"code": "print('isolated')"}
+    assert manager.closed == [scope]
+    assert manager.active == set()
+
+
 def test_a2a_requires_server_task_id_before_starting_run():
     with pytest.raises(ValueError, match="task_id is required"):
         run_once_uag(user_text="hello", task_id="")
@@ -176,7 +258,10 @@ def test_unregistered_remote_tool_is_denied_even_if_backend_exists():
     assert "unknown" in decision.reason
 
 
-def test_remote_capability_probe_requires_vm_and_all_controls():
+def test_remote_capability_probe_uses_container_by_default_and_vm_on_request(
+    monkeypatch,
+):
+    monkeypatch.delenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", raising=False)
     partial = SandboxCapabilities(
         isolation_level=IsolationLevel.PROCESS,
         available=frozenset({SandboxCapability.FILESYSTEM_POLICY}),
@@ -196,6 +281,26 @@ def test_remote_capability_probe_requires_vm_and_all_controls():
     assert not denied.allowed
     assert denied.reason == "sandbox capabilities are insufficient"
 
+    standard = SandboxCapabilities(
+        isolation_level=IsolationLevel.CONTAINER,
+        available=frozenset(SandboxCapability),
+    )
+    with execution_profile(
+        SecurityProfile.REMOTE, sandbox_enabled=True, scope=_remote_scope()
+    ):
+        standard_route = route_tool(
+            "python_exec",
+            {},
+            profile=SecurityProfile.REMOTE,
+            sandbox_enabled=True,
+            backend_available=True,
+            backend_capabilities=standard,
+            known_tool=True,
+        )
+    assert standard_route.allowed
+    assert not standard.remote_acceptance_passed
+
+    monkeypatch.setenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", "vm")
     claims_vm = SandboxCapabilities(
         isolation_level=IsolationLevel.VM,
         available=frozenset(SandboxCapability),
@@ -213,7 +318,9 @@ def test_remote_capability_probe_requires_vm_and_all_controls():
             known_tool=True,
         )
     assert not still_unavailable.allowed
-    assert still_unavailable.reason == "remote sandbox acceptance evidence is missing"
+    assert (
+        still_unavailable.reason == "remote VM sandbox acceptance evidence is missing"
+    )
 
 
 def test_remote_acceptance_status_must_be_a_boolean():
@@ -345,9 +452,12 @@ def test_remote_capability_rejection_precedes_confirmation_and_runner(
     monkeypatch.setattr(
         tools, "_ensure_loaded", lambda: calls.append("plugin_load") or None
     )
+    from uagent.runtime import mxc_backend
+
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: None)
     monkeypatch.setitem(
         tools._RUNNERS,
-        "delete_file",
+        "python_exec",
         lambda _args: calls.append("runner") or "bad",
     )
     monkeypatch.setattr(
@@ -362,7 +472,7 @@ def test_remote_capability_rejection_precedes_confirmation_and_runner(
         scope=_remote_scope(),
         authorization_check=lambda: True,
     ):
-        result = tools.run_tool("delete_file", {"filename": str(tmp_path / "x")})
+        result = tools.run_tool("python_exec", {"code": "print('blocked')"})
 
     assert "no compliant sandbox backend" in result
     assert calls == []

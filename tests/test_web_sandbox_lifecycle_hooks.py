@@ -90,6 +90,9 @@ def test_local_web_sandbox_opt_in_initializes_the_verified_backend(monkeypatch):
 
     manager = object()
     installed = []
+    monkeypatch.setattr(
+        init.web_manager, "execution_profile", "local_trusted", raising=False
+    )
     monkeypatch.setattr(mxc_backend, "mxc_sdk_is_installed", lambda: True)
     monkeypatch.setattr(
         mxc_backend.MxcSessionManager,
@@ -99,7 +102,7 @@ def test_local_web_sandbox_opt_in_initializes_the_verified_backend(monkeypatch):
     monkeypatch.setattr(mxc_backend, "install_session_manager", installed.append)
     monkeypatch.setattr(mxc_backend, "describe_probe", lambda _report: "probe-ok")
 
-    result = init._initialize_local_web_sandbox(
+    result = init._initialize_web_sandbox(
         argparse.ArgumentParser(), sandbox_mode="auto"
     )
 
@@ -120,16 +123,17 @@ def test_local_web_sandbox_fails_startup_if_backend_is_not_ready():
     assert error.value.code == 2
 
 
-def test_remote_web_sandbox_opt_in_can_start_toolless():
+def test_remote_web_sandbox_fails_startup_without_backend():
     import argparse
 
-    # Remote tools remain broker-denied; this PoC backend is local-only.
-    init._validate_web_sandbox_startup(
-        argparse.ArgumentParser(),
-        trusted_local=False,
-        sandbox_enabled=True,
-        backend_ready=False,
-    )
+    with pytest.raises(SystemExit) as error:
+        init._validate_web_sandbox_startup(
+            argparse.ArgumentParser(),
+            trusted_local=False,
+            sandbox_enabled=True,
+            backend_ready=False,
+        )
+    assert error.value.code == 2
 
 
 def test_local_web_user_prompt_hook_is_blocked_when_sandbox_enabled(monkeypatch):
@@ -236,7 +240,9 @@ def test_local_web_sandbox_rejects_missing_trusted_room_context(monkeypatch):
         _web_turn_execution_context(SimpleNamespace(room_id="room"), None, None, None)
 
 
-def test_web_sandbox_mode_resolution_uses_loaded_environment_and_cli_precedence():
+def test_web_sandbox_mode_resolution_uses_profile_defaults_and_precedence():
+    assert init._resolve_web_sandbox_mode(None, None) == "auto"
+    assert init._resolve_web_sandbox_mode(None, None, trusted_local=True) == "off"
     assert init._resolve_web_sandbox_mode(None, "mxc") == "mxc"
     assert init._resolve_web_sandbox_mode("off", "mxc") == "off"
 

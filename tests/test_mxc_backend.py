@@ -181,11 +181,17 @@ def test_mxc_backend_rejects_non_windows_without_trying_to_install(monkeypatch):
         mxc_backend.prepare_mxc_runtime(allow_install=True)
 
 
-def test_remote_profile_still_requires_vm_even_with_processcontainer_caps():
+def test_remote_profile_defaults_to_container_and_can_require_vm(monkeypatch):
     caps = all_local_capabilities()
+    monkeypatch.delenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", raising=False)
     minimum, required = required_sandbox_capabilities(SecurityProfile.REMOTE)
-    assert not caps.satisfies(minimum_isolation=minimum, required=required)
+    assert minimum is IsolationLevel.CONTAINER
+    assert caps.satisfies(minimum_isolation=minimum, required=required)
+
+    monkeypatch.setenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", "vm")
+    minimum, required = required_sandbox_capabilities(SecurityProfile.REMOTE)
     assert minimum is IsolationLevel.VM
+    assert not caps.satisfies(minimum_isolation=minimum, required=required)
 
 
 def test_sandbox_tool_catalog_is_static_and_does_not_load_host_plugins(
@@ -708,6 +714,51 @@ def test_manager_parks_and_resumes_web_room_workspaces_at_worker_capacity(
     assert len(cleaned_dormant) == 2
 
 
+def test_manager_activates_and_revokes_a2a_task_scopes(monkeypatch, tmp_path):
+    created = []
+
+    class FakeProc:
+        def poll(self):
+            return None
+
+    class FakeSession:
+        def __init__(self, *, scope, node, runtime):
+            self._scope = scope
+            self._closed = False
+            self._proc = FakeProc()
+            created.append(self)
+
+        def run(self, name, args):
+            return f"{self._scope.scope_id}:{name}"
+
+        def close(self):
+            self._closed = True
+
+    monkeypatch.setattr(mxc_backend, "_MxcSession", FakeSession)
+    manager = mxc_backend.MxcSessionManager(
+        node=tmp_path / "node.exe",
+        runtime=tmp_path,
+        capabilities=all_local_capabilities(),
+    )
+    scope = TrustedSandboxScope(
+        deployment_id="a2a",
+        principal_id="a2a-service",
+        project_id="project",
+        scope_kind="a2a-task",
+        scope_id="task-42",
+    )
+
+    manager.activate_scope(scope)
+    assert manager.run_tool(scope, "file_exists", {"path": "x"}) == (
+        "task-42:file_exists"
+    )
+    manager.close_scope(scope)
+    assert created[0]._closed
+    assert manager._sessions == {}
+    assert "unbound A2A Task" in manager.run_tool(scope, "file_exists", {"path": "x"})
+    manager.close_all()
+
+
 def test_manager_refuses_a2a_scope_without_spawning(tmp_path):
     manager = mxc_backend.MxcSessionManager(
         node=tmp_path / "node.exe",
@@ -721,7 +772,7 @@ def test_manager_refuses_a2a_scope_without_spawning(tmp_path):
         scope_kind="a2a-task",
         scope_id="task",
     )
-    assert "trusted local CLI/GUI/Web Room scope" in manager.run_tool(
+    assert "unbound A2A Task" in manager.run_tool(
         a2a_scope, "file_exists", {"path": "x"}
     )
     assert manager._sessions == {}

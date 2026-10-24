@@ -30,5 +30,5 @@ def test_a2a_client_prefers_credential_store() -> None:
 
 
 def test_a2a_app_accepts_shared_credential_store() -> None:
-    app = build_app(credential_store=_store())
+    app = build_app(credential_store=_store(), sandbox_required=False)
     assert app.state.credential_store.get("a2a/default").secret == "stored-token"

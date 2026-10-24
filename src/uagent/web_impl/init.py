@@ -18,7 +18,7 @@ from .. import tools
 from .. import util_tools as tools_util
 from ..runtime import runtime_init as _runtime_init
 from ..runtime.logging_setup import log_event
-from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_web_sandbox_mode
+from ..runtime.sandbox_config import resolve_sandbox_mode as _resolve_sandbox_mode
 from ..welcome import get_welcome_message
 
 try:
@@ -41,6 +41,17 @@ from ..runtime.observability.trusted_ingress import RawSocketPeerCaptureMiddlewa
 from .app import app
 from .io import _web_server_log, web_human_ask, web_set_status
 from .rooms import _thread_ctx, get_context_web_room, web_manager
+
+
+def _resolve_web_sandbox_mode(
+    cli_override: str | None,
+    env_value: str | None,
+    *,
+    trusted_local: bool = False,
+) -> str:
+    """Default remote Web to MXC; preserve Host-local behavior on localhost."""
+    default = "off" if trusted_local else "auto"
+    return _resolve_sandbox_mode(cli_override, env_value or default)
 
 
 def _local_web_sandbox_scope(turn, room_id: str, room_generation: str):
@@ -112,8 +123,8 @@ def _current_web_ask_principal(room) -> str:
         return ""
 
 
-def _initialize_local_web_sandbox(parser, *, sandbox_mode: str):
-    """Initialize the verified local MXC backend before starting local Web."""
+def _initialize_web_sandbox(parser, *, sandbox_mode: str):
+    """Initialize MXC before starting Web; no Host fallback is permitted."""
     from ..i18n import _
     from ..runtime.mxc_backend import (
         MxcSessionManager,
@@ -156,9 +167,27 @@ def _initialize_local_web_sandbox(parser, *, sandbox_mode: str):
     try:
         manager, report = MxcSessionManager.initialize(allow_install=allow_install)
     except Exception as exc:
-        parser.error(
-            _("Local Web Sandbox initialization failed: %(err)s", err=str(exc))
+        parser.error(_("Web Sandbox initialization failed: %(err)s", err=str(exc)))
+    if getattr(web_manager, "execution_profile", "remote") == "remote":
+        from ..runtime.execution_broker import (
+            IsolationLevel,
+            SecurityProfile,
+            required_sandbox_capabilities,
         )
+
+        minimum, required = required_sandbox_capabilities(SecurityProfile.REMOTE)
+        if not manager.capabilities.satisfies(
+            minimum_isolation=minimum, required=required
+        ) or (
+            minimum >= IsolationLevel.VM
+            and not manager.capabilities.remote_acceptance_passed
+        ):
+            manager.close_all()
+            parser.error(
+                _(
+                    "MXC does not meet the configured Remote sandbox isolation minimum; refusing to start."
+                )
+            )
     install_session_manager(manager)
     print(f"[sandbox] enabled: {describe_probe(report)}", file=sys.stderr)
     return manager
@@ -171,20 +200,20 @@ def _validate_web_sandbox_startup(
     sandbox_enabled: bool,
     backend_ready: bool = False,
 ) -> None:
-    """Fail closed if local Web opted into Sandbox without a ready backend."""
-    if trusted_local and sandbox_enabled and not backend_ready:
+    """Fail closed if Web opted into Sandbox without a ready backend."""
+    if sandbox_enabled and not backend_ready:
         from ..i18n import _
 
         parser.error(
             _(
-                "Sandbox was enabled for local Web, but the MXC backend is not "
+                "Sandbox was enabled for Web, but the MXC backend is not "
                 "ready; refusing to start."
             )
         )
 
 
-def _local_sandbox_room_worker_limit(room_workers: int) -> int:
-    """Bound parallel local Room workers by the MXC manager's session capacity."""
+def _sandbox_room_worker_limit(room_workers: int) -> int:
+    """Bound Sandbox-enabled Room workers by MXC session capacity."""
     from ..runtime.mxc_backend import MAX_ACTIVE_SESSIONS
 
     return min(room_workers, MAX_ACTIVE_SESSIONS)
@@ -420,11 +449,9 @@ def init_web():
                     from ..runtime.execution_broker import trusted_web_scope
 
                     _turn = get_current_turn_context()
-                    if room is not None and _profile is SecurityProfile.REMOTE:
-                        _scope = trusted_web_scope(_turn, str(room.room_id))
-                    elif room is not None and _sandbox_enabled:
+                    if room is not None and _sandbox_enabled:
                         _scope = current_scope()
-                        if _scope is None:
+                        if _scope is None and _profile is SecurityProfile.LOCAL_TRUSTED:
                             generation_getter = getattr(
                                 room, "sandbox_scope_generation", None
                             )
@@ -440,6 +467,8 @@ def init_web():
                                 str(room.room_id),
                                 room_generation,
                             )
+                    elif room is not None and _profile is SecurityProfile.REMOTE:
+                        _scope = trusted_web_scope(_turn, str(room.room_id))
                 except (AttributeError, TypeError, ValueError):
                     _scope = None
             with execution_profile(
@@ -522,9 +551,7 @@ def main():
         "--sandbox",
         choices=("off", "auto", "mxc"),
         default=None,
-        help=_(
-            "Sandbox mode (default: off; remote tools remain denied without a compliant backend)."
-        ),
+        help=_("Sandbox mode (default: auto; remote tools fail closed without MXC)."),
     )
     parser.add_argument(
         "--no-frontend",
@@ -557,12 +584,6 @@ def main():
         _runtime_init.apply_workdir(decision)
         _runtime_init.reload_dotenv_custom()
         try:
-            web_args.sandbox = _resolve_web_sandbox_mode(
-                web_args.sandbox, env_get("UAGENT_SANDBOX_MODE")
-            )
-        except ValueError as exc:
-            parser.error(str(exc))
-        try:
             from ..runtime.session_store import attach_opt_in_session_store
 
             attach_opt_in_session_store(
@@ -589,16 +610,6 @@ def main():
     except Exception as e:
         print(_("[FATAL] Failed to set workdir: %(err)s") % {"err": e}, file=sys.stderr)
         sys.exit(1)
-
-    if web_args.sandbox == "off":
-        if web_args.tool_genre_mask is not None:
-            from ..cli_startup import _apply_startup_tool_genre_mask
-
-            _apply_startup_tool_genre_mask(web_args.tool_genre_mask)
-        else:
-            from ..cli_startup import _apply_startup_tool_genre_mask
-
-            _apply_startup_tool_genre_mask(0)
 
     # Initialize runtime tools_enabled flag.
     # Priority: --use-tool / --no-use-tool CLI arg > UAGENT_USE_TOOL env var > default ON.
@@ -630,11 +641,25 @@ def main():
     )
 
     _trusted_local_web = is_trusted_local_web(bind_host, _identity_mode)
+    try:
+        web_args.sandbox = _resolve_web_sandbox_mode(
+            web_args.sandbox,
+            env_get("UAGENT_SANDBOX_MODE"),
+            trusted_local=_trusted_local_web,
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
+
+    if web_args.sandbox == "off":
+        from ..cli_startup import _apply_startup_tool_genre_mask
+
+        _apply_startup_tool_genre_mask(web_args.tool_genre_mask or 0)
+
     web_manager.execution_profile = "local_trusted" if _trusted_local_web else "remote"
     web_manager.sandbox_enabled = web_args.sandbox != "off"
     web_sandbox_manager = None
-    if _trusted_local_web and web_manager.sandbox_enabled:
-        web_sandbox_manager = _initialize_local_web_sandbox(
+    if web_manager.sandbox_enabled:
+        web_sandbox_manager = _initialize_web_sandbox(
             parser, sandbox_mode=web_args.sandbox
         )
     web_manager.sandbox_session_manager = web_sandbox_manager
@@ -676,11 +701,11 @@ def main():
         room_workers = room_worker_count(web_args.room_workers)
     except ValueError as exc:
         parser.error(str(exc))
-    if _trusted_local_web and web_manager.sandbox_enabled:
-        limited_workers = _local_sandbox_room_worker_limit(room_workers)
+    if web_manager.sandbox_enabled:
+        limited_workers = _sandbox_room_worker_limit(room_workers)
         if limited_workers < room_workers:
             print(
-                "[sandbox] local Web Sandbox limits concurrent Room workers to "
+                "[sandbox] Web Sandbox limits concurrent Room workers to "
                 f"{limited_workers} because the MXC session manager has the same cap",
                 file=sys.stderr,
             )
@@ -689,8 +714,8 @@ def main():
         RoomWorkerPool(room_workers) if room_workers > 1 else None
     )
     init_web()
-    # Remote Web remains tool-less until a compliant sandbox backend exists;
-    # avoid eager runner/plugin imports in that deployment profile.
+    # Only trusted local Web with Sandbox off uses the legacy Host runner path;
+    # avoid eager runner/plugin imports for Remote and sandboxed profiles.
     if (
         web_manager.execution_profile == "local_trusted"
         and not web_manager.sandbox_enabled

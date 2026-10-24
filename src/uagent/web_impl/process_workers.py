@@ -158,7 +158,7 @@ def _child_turn(connection, payload) -> None:
     room._web_parent_authorizes_connections = True
     sandbox_scope = payload.get("sandbox_scope")
     sandbox_rpc_client = None
-    if web_manager.execution_profile == "local_trusted" and web_manager.sandbox_enabled:
+    if web_manager.sandbox_enabled:
         from ..runtime.execution_broker import SandboxCapabilities, TrustedSandboxScope
         from ..runtime.mxc_backend import install_session_manager
 
@@ -449,7 +449,8 @@ class RoomWorkerPool:
 
         manager = getattr(web_manager, "sandbox_session_manager", None)
         if (
-            current_profile() is not SecurityProfile.LOCAL_TRUSTED
+            current_profile()
+            not in {SecurityProfile.LOCAL_TRUSTED, SecurityProfile.REMOTE}
             or not current_sandbox_enabled()
             or scope is None
             or current_scope() != scope
@@ -553,11 +554,7 @@ class RoomWorkerPool:
                     kwargs["turn_context"] = dataclass_replace(
                         kwargs["turn_context"], session_id=bound_session_id
                     )
-            if getattr(
-                web_manager, "execution_profile", "remote"
-            ) == "local_trusted" and bool(
-                getattr(web_manager, "sandbox_enabled", False)
-            ):
+            if bool(getattr(web_manager, "sandbox_enabled", False)):
                 sandbox_execution_stack.enter_context(
                     _web_turn_execution_context(
                         room,
@@ -576,7 +573,7 @@ class RoomWorkerPool:
                     or manager is None
                     or sandbox_capabilities is None
                 ):
-                    raise RuntimeError("local Web Sandbox broker is not ready")
+                    raise RuntimeError("Web Sandbox broker is not ready")
                 web_manager.bind_sandbox_scope(room, sandbox_scope)
             if getattr(
                 web_manager, "execution_profile", "remote"
@@ -592,8 +589,8 @@ class RoomWorkerPool:
                     else parent_tools
                 )
             else:
-                # No production Sandbox backend exists in this PR. Do not load
-                # or advertise Host tool runners in Remote Web child processes.
+                # Remote Web never loads or advertises Host tool runners; with
+                # Sandbox off it stays tool-less, while Sandbox-on uses static specs.
                 parent_tools = []
                 tool_names = []
             payload = {

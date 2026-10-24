@@ -165,7 +165,7 @@ def test_a2a_stream_reattaches_trusted_context_inside_generator(monkeypatch) -> 
     monkeypatch.setattr("uagent.a2a.auth.get_observability_backend", lambda: backend)
     monkeypatch.setattr("uagent.a2a.server.get_observability_backend", lambda: backend)
 
-    app = build_app(credential_store=SimpleNamespace())
+    app = build_app(credential_store=SimpleNamespace(), sandbox_required=False)
     response = TestClient(app).post(
         "/message:stream",
         json={

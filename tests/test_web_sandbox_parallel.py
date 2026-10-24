@@ -75,13 +75,13 @@ class _ParallelSandboxManager:
                 self._active_calls -= 1
 
 
-def _trusted_turn(room_id: str, project_id: str):
+def _trusted_turn(room_id: str, project_id: str, *, authn_kind: str = "local"):
     from uagent.runtime.identity_context import IdentityContext, TurnContext
 
     identity = IdentityContext(
         principal_id="local-smoke-user",
         authenticated=True,
-        authn_kind="local",
+        authn_kind=authn_kind,
     )
     turn = TurnContext.from_identity(
         identity,
@@ -220,6 +220,82 @@ def test_parent_sandbox_broker_revalidates_room_authorization(monkeypatch, tmp_p
         web_manager.release_room_sandbox_scope(room)
 
 
+def test_remote_web_sandbox_workers_use_authenticated_mxc_scopes(monkeypatch, tmp_path):
+    from uagent import core
+    from uagent.runtime import mxc_backend
+    from uagent.web_impl import agent_worker
+    from uagent.web_impl.process_workers import RoomWorkerPool
+    from uagent.web_impl.rooms import WebRoom, web_manager
+
+    monkeypatch.setenv("UAGENT_PROVIDER", "offline-test")
+    manager = _ParallelSandboxManager()
+    monkeypatch.setattr(web_manager, "execution_profile", "remote", raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_enabled", True, raising=False)
+    monkeypatch.setattr(web_manager, "sandbox_session_manager", manager, raising=False)
+    monkeypatch.setattr(core, "session_store", None, raising=False)
+    monkeypatch.setattr(mxc_backend, "current_session_manager", lambda: manager)
+    monkeypatch.setattr(
+        agent_worker, "_web_turn_authorization_valid", lambda *args: True
+    )
+
+    pool = RoomWorkerPool(2, target=_sandbox_real_worker_child)
+    rooms = [WebRoom("remote-room-a"), WebRoom("remote-room-b")]
+    contexts = []
+    for index, room in enumerate(rooms):
+        room.private_session = True
+        room.base_dir = str(tmp_path)
+        turn, identity = _trusted_turn(
+            room.room_id, f"remote-project-{index}", authn_kind="oidc"
+        )
+        contexts.append((turn, identity))
+
+    results = [None, None]
+    failures = []
+
+    def run_room(index):
+        room = rooms[index]
+        turn, identity = contexts[index]
+        try:
+            pool.run(
+                room,
+                "check remote sandbox RPC",
+                [],
+                turn_context=turn,
+                identity_context=identity,
+                project_path=str(tmp_path),
+            )
+            results[index] = next(
+                (
+                    message.get("content")
+                    for message in reversed(room.messages)
+                    if message.get("role") == "assistant"
+                ),
+                None,
+            )
+        except Exception as exc:  # pragma: no cover - diagnostic on thread failure
+            failures.append(exc)
+
+    threads = [threading.Thread(target=run_room, args=(index,)) for index in range(2)]
+    try:
+        for thread in threads:
+            thread.start()
+        for thread in threads:
+            thread.join(20)
+        assert not any(thread.is_alive() for thread in threads)
+        assert failures == []
+        assert all(isinstance(result, str) for result in results), [
+            room.messages for room in rooms
+        ]
+        assert all(result.startswith("brokered:") for result in results), results
+        assert manager.peak_active_calls == 2
+        assert len({scope.scope_id for scope in manager.seen_scopes}) == 2
+        assert all(scope.scope_kind == "web-room" for scope in manager.seen_scopes)
+    finally:
+        pool.shutdown()
+        for room in rooms:
+            web_manager.release_room_sandbox_scope(room)
+
+
 def _malformed_room_state_child(connection, payload):
     connection.send(
         {
@@ -256,14 +332,12 @@ def test_spawned_worker_cannot_mutate_unlisted_room_state(monkeypatch, tmp_path)
     assert not room.worker_lock.locked()
 
 
-def test_local_sandbox_room_workers_are_capped_by_mxc_session_capacity():
+def test_sandbox_room_workers_are_capped_by_mxc_session_capacity():
     from uagent.runtime.mxc_backend import MAX_ACTIVE_SESSIONS
-    from uagent.web_impl.init import _local_sandbox_room_worker_limit
+    from uagent.web_impl.init import _sandbox_room_worker_limit
 
-    assert _local_sandbox_room_worker_limit(2) == 2
-    assert _local_sandbox_room_worker_limit(MAX_ACTIVE_SESSIONS + 1) == (
-        MAX_ACTIVE_SESSIONS
-    )
+    assert _sandbox_room_worker_limit(2) == 2
+    assert _sandbox_room_worker_limit(MAX_ACTIVE_SESSIONS + 1) == (MAX_ACTIVE_SESSIONS)
 
 
 def test_sandbox_rpc_rejects_unapproved_tools_and_oversized_frames(monkeypatch):

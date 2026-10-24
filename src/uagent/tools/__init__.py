@@ -1310,8 +1310,8 @@ def _hide_analyze_image_for_chat_vision() -> bool:
 
 def get_tool_specs() -> list[dict[str, Any]]:
     """Return tool specs for the LLM."""
-    # In local Sandbox mode, never load Host plugins to build the catalog. The
-    # small static catalog mirrors only operations implemented by the Worker.
+    # In Sandbox mode, including Remote Web/A2A, never load Host plugins to
+    # build the catalog. Only static operations implemented by the Worker show.
     try:
         from ..runtime.execution_broker import (
             SecurityProfile as _SecurityProfile,
@@ -1320,7 +1320,8 @@ def get_tool_specs() -> list[dict[str, Any]]:
         )
 
         if (
-            _current_profile() is _SecurityProfile.LOCAL_TRUSTED
+            _current_profile()
+            in {_SecurityProfile.LOCAL_TRUSTED, _SecurityProfile.REMOTE}
             and _current_sandbox_enabled()
         ):
             from ..runtime.mxc_backend import sandbox_tool_specs
@@ -2331,13 +2332,14 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
     # selection. Capability rejection happens before a confirmation or Runner.
     profile = current_profile()
     trusted_scope = current_scope()
-    sandboxed_local = (
-        profile is SecurityProfile.LOCAL_TRUSTED and current_sandbox_enabled()
+    sandboxed_execution = (
+        profile in {SecurityProfile.LOCAL_TRUSTED, SecurityProfile.REMOTE}
+        and current_sandbox_enabled()
     )
     sandbox_manager = None
     sandbox_capabilities = None
     sandbox_tool_names: frozenset[str] = frozenset()
-    if sandboxed_local:
+    if sandboxed_execution:
         from ..runtime.mxc_backend import (
             TOOL_NAMES as sandbox_tool_names,
             current_session_manager,
@@ -2346,20 +2348,36 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         sandbox_manager = current_session_manager()
         sandbox_capabilities = getattr(sandbox_manager, "capabilities", None)
         if trusted_scope is None:
-            return "[tool policy] trusted local sandbox scope is required"
+            return "[tool policy] trusted sandbox scope is required"
         if name not in sandbox_tool_names:
-            _record_policy_audit(
-                tool_name=name,
-                args=args,
-                decision="deny",
-                reason="tool is not in the local MXC allowlist",
-                tool_call_id=tool_call_id,
-            )
-            return "[tool policy] tool is not available in the local sandbox"
+            brokered = False
+            if profile is SecurityProfile.REMOTE:
+                from ..runtime.execution_broker import (
+                    ExecutionClass,
+                    classify_tool,
+                )
+
+                brokered = classify_tool(name, args) is ExecutionClass.BROKERED
+            if not brokered:
+                local_denial = profile is SecurityProfile.LOCAL_TRUSTED
+                _record_policy_audit(
+                    tool_name=name,
+                    args=args,
+                    decision="deny",
+                    reason=(
+                        "tool is not in the local MXC allowlist"
+                        if local_denial
+                        else "tool is not in the MXC allowlist or remote broker"
+                    ),
+                    tool_call_id=tool_call_id,
+                )
+                if local_denial:
+                    return "[tool policy] tool is not available in the local sandbox"
+                return "[tool policy] tool is not available in the configured sandbox"
     known_tool = (
         name in _RUNNERS
         or name in _LAZY_TOOL_NAME_TO_MODULE
-        or (sandboxed_local and name in sandbox_tool_names)
+        or (sandboxed_execution and name in sandbox_tool_names)
     )
     routing = route_tool(
         name,
@@ -2403,10 +2421,10 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
             },
             ensure_ascii=False,
         )
-    if not brokered_remote and not sandboxed_local:
+    if not brokered_remote and not sandboxed_execution:
         _ensure_loaded()
-    runner = None if sandboxed_local else _RUNNERS.get(name)
-    if runner is None and not brokered_remote and not sandboxed_local:
+    runner = None if sandboxed_execution else _RUNNERS.get(name)
+    if runner is None and not brokered_remote and not sandboxed_execution:
         # Lazy-load fallback: unknown remote tools never reach this import path.
         mod_name = _LAZY_TOOL_NAME_TO_MODULE.get(name)
         if mod_name:
@@ -2543,7 +2561,7 @@ def run_tool(name: str, args: dict[str, Any]) -> str:
         return "[tool policy] execution route changed; execution denied"
     if brokered_remote:
         return run_brokered_tool(name)
-    if sandboxed_local:
+    if sandboxed_execution:
         from ..runtime.mxc_backend import run_sandbox_tool
 
         return run_sandbox_tool(trusted_scope, name, args)

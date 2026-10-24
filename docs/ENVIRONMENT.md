@@ -1,5 +1,24 @@
 # Environment Variables and Configuration
 
+## Remote Web / A2A Sandbox defaults
+
+Remote Web defaults to MXC ProcessContainer (`UAGENT_SANDBOX_MODE=auto`); trusted
+local-only Web and CLI/GUI preserve Sandbox-off defaults. Tool-enabled A2A
+initializes an already-installed MXC backend at startup. Remote startup does not
+prompt to install dependencies and fails closed when its backend is unavailable.
+Use `UAGENT_USE_TOOL=off` (or `--no-use-tool` for the A2A server) for tool-less
+A2A startup.
+
+```env
+# Minimum isolation required by Remote ingress; default: container.
+# Set to vm to require a future VM backend; current ProcessContainer fails closed.
+UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=container
+```
+
+The default ProcessContainer is not VM isolation and does not by itself mean
+Enterprise E0 acceptance is complete. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
+and [Windows MXC Sandbox notes](SANDBOX_MXC_WINDOWS.md).
+
 `uag` uses environment variables to manage LLM provider credentials and control agent behavior. These variables are typically stored in a `.env` file in your current working directory.
 
 ## Session Store and unified policy

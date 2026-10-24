@@ -74,6 +74,56 @@ def test_mxc_parallel_web_room_scopes_keep_workspaces_isolated(tmp_path):
         manager.close_all()
 
 
+def test_mxc_remote_a2a_tools_dispatch_only_to_processcontainer(monkeypatch, tmp_path):
+    from uagent import tools
+    from uagent.runtime.execution_broker import (
+        SecurityProfile,
+        TrustedSandboxScope,
+        execution_profile,
+    )
+    from uagent.runtime.mxc_backend import (
+        MxcSessionManager,
+        install_session_manager,
+    )
+
+    monkeypatch.delenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", raising=False)
+    monkeypatch.setenv("UAGENT_POLICY_FILE", str(tmp_path / "policy.json"))
+    (tmp_path / "policy.json").write_text("{}", encoding="utf-8")
+    manager, _report = MxcSessionManager.initialize(allow_install=False)
+    scope = TrustedSandboxScope(
+        deployment_id="a2a",
+        principal_id="a2a-service",
+        project_id=str(tmp_path),
+        scope_kind="a2a-task",
+        scope_id=f"task-{time.time_ns()}",
+    )
+    manager.activate_scope(scope)
+    host_runner_calls = []
+    monkeypatch.setitem(
+        tools._RUNNERS,
+        "python_exec",
+        lambda _args: host_runner_calls.append(True) or "host-runner-called",
+    )
+    install_session_manager(manager)
+    try:
+        with execution_profile(
+            SecurityProfile.REMOTE,
+            sandbox_enabled=True,
+            scope=scope,
+            authorization_check=lambda: True,
+        ):
+            result = tools.run_tool(
+                "python_exec", {"code": "print('MXC_REMOTE_A2A_OK')"}
+            )
+        payload = json.loads(result)
+        assert payload["returncode"] == 0, payload
+        assert "MXC_REMOTE_A2A_OK" in payload["stdout"]
+        assert host_runner_calls == []
+    finally:
+        manager.close_scope(scope)
+        install_session_manager(None)
+
+
 def test_mxc_web_room_lru_parking_preserves_room_files():
     from uagent.runtime.mxc_backend import MAX_ACTIVE_SESSIONS, local_web_room_scope
 

@@ -116,15 +116,22 @@ def run_once_uag(
 
     start_idx = len(messages)
 
-    # A2A is always a remote ingress. Until a compliant production backend
-    # exists, the common dispatcher permits only explicitly brokered services.
+    # A2A is always a Remote ingress. Tool-enabled Tasks receive an isolated
+    # ProcessContainer scope; no path falls back to the Host runner.
     from ..runtime.execution_broker import SecurityProfile, execution_profile
+    from ..runtime.mxc_backend import current_session_manager
 
+    scope = _trusted_a2a_task_scope(task_id, os.getcwd())
+    sandbox_enabled = bool(getattr(core, "tools_enabled", True))
+    sandbox_manager = current_session_manager() if sandbox_enabled else None
+    scope_activated = False
     try:
-        scope = _trusted_a2a_task_scope(task_id, os.getcwd())
+        if sandbox_enabled and sandbox_manager is not None:
+            sandbox_manager.activate_scope(scope)
+            scope_activated = True
         with execution_profile(
             SecurityProfile.REMOTE,
-            sandbox_enabled=False,
+            sandbox_enabled=sandbox_enabled,
             scope=scope,
             authorization_check=lambda: _a2a_task_authorization_is_current(scope),
         ):
@@ -140,6 +147,8 @@ def run_once_uag(
                 try_open_images_from_text_fn=tools_util.try_open_images_from_text,
             )
     finally:
+        if sandbox_manager is not None and scope_activated:
+            sandbox_manager.close_scope(scope)
         if attached_store is not None:
             detach_opt_in_session_store(core)
 

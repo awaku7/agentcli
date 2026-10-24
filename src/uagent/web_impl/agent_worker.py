@@ -158,7 +158,51 @@ def _web_turn_execution_context(
     sandbox_enabled = bool(getattr(web_manager, "sandbox_enabled", False))
     scope = None
     if profile is SecurityProfile.REMOTE:
-        scope = trusted_web_scope(turn_context, room.room_id)
+        trusted_scope = trusted_web_scope(turn_context, room.room_id)
+        if sandbox_enabled:
+            # Remote Sandbox scopes combine the authenticated principal with
+            # the server-owned Room incarnation; client room IDs alone are not
+            # sufficient to reuse a workspace after a Room is recreated.
+            if trusted_scope is None:
+                raise IdentityResolutionError(
+                    "remote Web Sandbox requires an authenticated Room context"
+                )
+            generation_getter = getattr(room, "sandbox_scope_generation", None)
+            room_generation = (
+                generation_getter()
+                if callable(generation_getter)
+                else str(getattr(room, "_sandbox_scope_generation", "") or "")
+            )
+            if not room_generation.strip():
+                raise IdentityResolutionError(
+                    "remote Web Sandbox requires a server-bound Room generation"
+                )
+            if sandbox_scope_override is not None:
+                from ..runtime.execution_broker import TrustedSandboxScope
+
+                if (
+                    not isinstance(sandbox_scope_override, TrustedSandboxScope)
+                    or sandbox_scope_override.deployment_id != "web"
+                    or sandbox_scope_override.scope_kind != "web-room"
+                    or sandbox_scope_override.principal_id != trusted_scope.principal_id
+                    or sandbox_scope_override.project_id != trusted_scope.project_id
+                    or sandbox_scope_override.binding_generation != room_generation
+                ):
+                    raise IdentityResolutionError(
+                        "remote Web Sandbox scope does not match the trusted Room turn"
+                    )
+                scope = sandbox_scope_override
+            else:
+                from ..runtime.mxc_backend import local_web_room_scope
+
+                scope = local_web_room_scope(
+                    principal_id=trusted_scope.principal_id,
+                    project_id=trusted_scope.project_id,
+                    room_id=trusted_scope.scope_id,
+                    room_generation=room_generation,
+                )
+        else:
+            scope = trusted_scope
     elif sandbox_enabled:
         # Local Sandbox scopes are derived only from the connection-bound,
         # server-created turn and Room, never from browser payloads.

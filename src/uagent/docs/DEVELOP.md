@@ -1276,36 +1276,43 @@ exits without a final snapshot, reconnects continue to use live display messages
 until a successful turn or explicit history replacement supersedes the stale
 history. The active-worker flag is still cleared to release room admission.
 
-## Sandbox tool-routing status (PR 1)
+## Sandbox tool-routing status (Remote Web / A2A MXC default)
 
-`runtime/execution_broker.py` defines the initial execution classes and trusted
-scope contract. The common `tools.run_tool()` dispatcher consults it before a
-runner can be invoked. The Web entry point defaults to `--sandbox off`; only the
-startup combination of bind address `127.0.0.1` and identity mode `local` retains
-legacy direct tool execution while Sandbox is off. Other Web deployments are
-remote regardless of the connecting client's address or headers. Remote general
-tools are denied until an isolation backend meeting the required profile is
-available; `--sandbox auto` and `--sandbox mxc` do not imply a backend is present.
-A2A is always remote and binds its broker scope to the server-generated task ID.
-The spawned Web Room worker receives the profile and opt-in mode from a
-server-internal payload, not from room or request fields. Remote and sandbox-
-enabled hook execution is denied before command, HTTP, MCP, prompt, or agent
-hook dispatch until a compliant hook backend exists. Web plugin activation is
-skipped for remote deployments. Parallel eligibility checks do not import
-plugins for remote calls. Tool dispatch revalidates the current trusted Web Room
-and Project authorization immediately before execution, including after a user
-confirmation wait. The Web `human_ask` UI path independently revalidates its
-Room/Principal authorization and Policy revision before returning a reply.
+`runtime/execution_broker.py` defines execution classes, trusted scope contracts,
+and the Remote minimum isolation setting. The common `tools.run_tool()`
+dispatcher consults it before a Host runner can be invoked. Remote Web defaults
+to `--sandbox auto` (MXC ProcessContainer); tool-enabled A2A initializes the
+already-installed MXC backend at startup and binds each task to a server-created
+scope. The exact startup combination of bind address `127.0.0.1` and identity
+mode `local` remains trusted local Web and defaults to Sandbox off. All other Web
+deployments are Remote regardless of the connecting client's address or
+headers. Missing backend/capabilities fail closed; there is no Host fallback or
+non-interactive dependency installation. `--no-use-tool` / `UAGENT_USE_TOOL=off`
+keeps A2A tool-less without initializing MXC.
+
+The default MXC ProcessContainer tier is a process/container boundary, not a VM
+and not proof that Enterprise E0 acceptance is complete. Set
+`UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` when VM-level isolation is required;
+the current backend fails closed for that request. Remote Web worker children
+receive profile, Sandbox setting, Room identity and trusted authorization data
+from a server-internal payload, not request fields. Web scopes are revalidated
+against current Room/Project authorization; A2A scopes are task-local and are
+closed at task completion. Remote tool declarations remain the static MXC
+allowlist. A fixed `get_current_time` operation uses the narrow broker, not a
+generic Host runner. Remote and sandbox-enabled hook execution is denied before
+command, HTTP, MCP, prompt, or agent hook dispatch. Web plugin activation is
+skipped for Remote deployments, and parallel eligibility checks do not import
+plugins for Remote calls. The Web `human_ask` UI path independently revalidates
+its Room/Principal authorization and Policy revision before returning a reply.
 
 Web command input is separately fail-closed at both the WebSocket `command`
-event and `POST /api/command` entry points. Until a Sandbox-aware command
-backend exists, Remote Web allows only reasoning/verbosity mode commands; help
-is denied because its catalog may import Host plugins. Filesystem, credential,
-skills, dynamic, and unclassified commands are denied before `handle_command()`
-or a plugin command handler can run. An explicit Sandbox opt-in on trusted
-local Web fails at startup while no compliant backend is available; command
-checks also fail closed for sandbox-enabled profiles. Legacy command behavior
-is retained only for `local_trusted` Web with Sandbox off. Empty human-confirmation retries reuse
+event and `POST /api/command` entry points. Remote Web allows only reasoning /
+verbosity mode commands; help is denied because its catalog may import Host
+plugins. Filesystem, credential, skills, dynamic, and unclassified commands are
+denied before `handle_command()` or a plugin command handler can run. General
+Sandboxed tools use the static MXC catalog, while explicit Sandbox-off Remote
+Web denies tool execution. Legacy command behavior is retained only for
+`local_trusted` Web with Sandbox off. Empty human-confirmation retries reuse
 the original private IPC event so the initiating principal and Job binding
 survive re-display.
 

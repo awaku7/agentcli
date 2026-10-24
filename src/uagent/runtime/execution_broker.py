@@ -1,8 +1,8 @@
 """Fail-closed execution routing primitives for tools.
 
-This first-stage broker intentionally has no production sandbox backend. Remote
-execution therefore rejects sandbox-required and unknown tools rather than
-falling back to a host runner.
+Remote Web and A2A can use the configured MXC ProcessContainer baseline. The
+broker never falls back to a Host runner when isolation is required; higher
+minimum isolation tiers remain fail-closed until an accepted backend exists.
 """
 
 from __future__ import annotations
@@ -11,6 +11,7 @@ from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass, field
 from enum import Enum, IntEnum
+import os
 from typing import Any, Callable, Protocol
 
 
@@ -311,13 +312,24 @@ def is_trusted_local_web(bind_host: str, identity_mode: str) -> bool:
 def required_sandbox_capabilities(
     profile: SecurityProfile,
 ) -> tuple[IsolationLevel, frozenset[SandboxCapability]]:
-    """Return the minimum isolation boundary for an execution profile."""
+    """Return the minimum isolation boundary selected for an execution profile.
+
+    Standard Remote execution uses process/container isolation. Deployments that
+    need VM isolation can set UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm; until a
+    VM backend with acceptance evidence is available, that setting fails closed.
+    """
     required = frozenset(SandboxCapability)
-    minimum = (
-        IsolationLevel.VM
-        if profile is SecurityProfile.REMOTE
-        else IsolationLevel.PROCESS
-    )
+    if profile is SecurityProfile.REMOTE:
+        configured = (
+            os.environ.get("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", "container")
+            .strip()
+            .lower()
+        )
+        minimum = (
+            IsolationLevel.CONTAINER if configured == "container" else IsolationLevel.VM
+        )
+    else:
+        minimum = IsolationLevel.PROCESS
     return minimum, required
 
 
@@ -405,13 +417,15 @@ def route_tool(
         )
     if (
         profile is SecurityProfile.REMOTE
+        and minimum >= IsolationLevel.VM
         and not backend_capabilities.remote_acceptance_passed
     ):
         return RoutingDecision(
             execution_class,
             False,
-            "remote sandbox acceptance evidence is missing",
+            "remote VM sandbox acceptance evidence is missing",
         )
-    # Capabilities are supplied only by an initialized Adapter after a bounded
-    # host probe; Remote profiles still require VM isolation above.
+    # The default Remote tier accepts verified ProcessContainer capabilities.
+    # VM/high-assurance selection additionally requires host-specific acceptance
+    # evidence and fails closed when that evidence is absent.
     return RoutingDecision(execution_class, True)

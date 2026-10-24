@@ -52,7 +52,13 @@ def test_a2a_main_accepts_explicit_otel_argv(
     monkeypatch.setattr(uagent, "core", fake_core, raising=False)
 
     app = object()
-    monkeypatch.setattr(server, "build_app", lambda *, recover_tasks: app)
+    build_app_calls = []
+
+    def fake_build_app(*, recover_tasks, sandbox_required):
+        build_app_calls.append((recover_tasks, sandbox_required))
+        return app
+
+    monkeypatch.setattr(server, "build_app", fake_build_app)
     uvicorn_calls: list[tuple[object, str, int, bool]] = []
     monkeypatch.setattr(
         server.uvicorn,
@@ -68,4 +74,5 @@ def test_a2a_main_accepts_explicit_otel_argv(
     assert settings.enabled is expected
     assert settings.enabled_source == "explicit"
     assert uvicorn_calls == [(app, "127.0.0.1", 9876, False)]
+    assert build_app_calls == [(True, True)]
     _reset_observability_settings_for_tests()

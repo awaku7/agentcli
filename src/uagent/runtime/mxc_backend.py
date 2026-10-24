@@ -940,6 +940,7 @@ class MxcSessionManager:
         self._dormant_web_scopes: dict[str, TrustedSandboxScope] = {}
         self._active_local_scopes: dict[tuple[str, str, str], TrustedSandboxScope] = {}
         self._active_web_scopes: set[TrustedSandboxScope] = set()
+        self._active_a2a_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
         if os.name == "nt":
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
@@ -1028,12 +1029,18 @@ class MxcSessionManager:
                 session.close()
 
     def activate_scope(self, scope: TrustedSandboxScope) -> None:
-        """Activate a trusted CLI/GUI scope or bind a Web Room lease."""
+        """Activate a trusted local, Web Room, or A2A Task scope."""
         if scope.scope_kind == "web-room":
-            if not scope.binding_generation:
+            if scope.deployment_id != "web" or not scope.binding_generation:
                 raise ValueError("Web Room scope requires a binding generation")
             with self._lock:
                 self._active_web_scopes.add(scope)
+            return
+        if scope.scope_kind == "a2a-task":
+            if scope.deployment_id != "a2a":
+                raise ValueError("A2A Task scope has an invalid deployment")
+            with self._lock:
+                self._active_a2a_scopes.add(scope)
             return
         if scope.scope_kind not in {"cli-session", "gui-session"}:
             return
@@ -1051,6 +1058,7 @@ class MxcSessionManager:
             "cli-session": "cli",
             "gui-session": "gui",
             "web-room": "web",
+            "a2a-task": "a2a",
         }
         if (
             scope is None
@@ -1063,6 +1071,8 @@ class MxcSessionManager:
         with self._lock:
             if scope.scope_kind == "web-room" and scope not in self._active_web_scopes:
                 return "[sandbox error] revoked or unbound Web Room scope rejected"
+            if scope.scope_kind == "a2a-task" and scope not in self._active_a2a_scopes:
+                return "[sandbox error] revoked or unbound A2A Task scope rejected"
             if scope.scope_kind in {"cli-session", "gui-session"}:
                 active_scope = self._active_local_scopes.get(
                     (scope.deployment_id, scope.principal_id, scope.scope_kind)
@@ -1128,6 +1138,8 @@ class MxcSessionManager:
         with self._lock:
             if scope.scope_kind == "web-room":
                 self._active_web_scopes.discard(scope)
+            elif scope.scope_kind == "a2a-task":
+                self._active_a2a_scopes.discard(scope)
             session = self._sessions.pop(key, None)
             self._session_last_used.pop(key, None)
             dormant_scope = self._dormant_web_scopes.pop(key, None)
@@ -1155,6 +1167,7 @@ class MxcSessionManager:
             self._dormant_web_scopes.clear()
             self._active_local_scopes.clear()
             self._active_web_scopes.clear()
+            self._active_a2a_scopes.clear()
             for session in sessions:
                 revoke = getattr(session, "revoke", None)
                 if callable(revoke):

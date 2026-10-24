@@ -38,6 +38,43 @@ def test_a2a_sandbox_scopes_are_bound_to_server_task_ids(tmp_path):
         _trusted_a2a_task_scope("", str(tmp_path))
 
 
+def test_a2a_sandbox_is_initialized_and_closed_with_server_lifespan(
+    monkeypatch, tmp_path
+):
+    from uagent.runtime import mxc_backend
+    from uagent.runtime.execution_broker import (
+        IsolationLevel,
+        SandboxCapabilities,
+        SandboxCapability,
+    )
+
+    monkeypatch.delenv("UAGENT_REMOTE_SANDBOX_MIN_ISOLATION", raising=False)
+
+    class FakeManager:
+        capabilities = SandboxCapabilities(
+            isolation_level=IsolationLevel.CONTAINER,
+            available=frozenset(SandboxCapability),
+        )
+        close_all_calls = 0
+
+        def close_all(self):
+            self.close_all_calls += 1
+
+    manager = FakeManager()
+    monkeypatch.setattr(
+        mxc_backend.MxcSessionManager,
+        "initialize",
+        classmethod(lambda cls, *, allow_install=False: (manager, {"probe": "ok"})),
+    )
+    monkeypatch.setattr(mxc_backend, "describe_probe", lambda _report: "test backend")
+    app = server.build_app(credential_store=object())
+    with TestClient(app):
+        assert app.state.sandbox_session_manager is manager
+        assert mxc_backend.current_session_manager() is manager
+    assert manager.close_all_calls == 1
+    assert mxc_backend.current_session_manager() is None
+
+
 def test_a2a_task_waits_for_child_jobs_and_returns_results(monkeypatch):
     monkeypatch.setattr(server, "require_bearer_auth", _allow_auth)
     monkeypatch.setattr(server, "_build_task_store", InMemoryTaskStore)
@@ -58,7 +95,7 @@ def test_a2a_task_waits_for_child_jobs_and_returns_results(monkeypatch):
         return {"role": "assistant", "content": "parent result"}, None
 
     monkeypatch.setattr(server, "run_once", fake_run_once)
-    app = server.build_app(credential_store=object())
+    app = server.build_app(credential_store=object(), sandbox_required=False)
     with TestClient(app) as client:
         response = client.post(
             "/message:send",
@@ -113,7 +150,7 @@ def test_a2a_task_cancel_cancels_jobs_owned_by_that_task(monkeypatch):
         return {"role": "assistant", "content": "parent result"}, None
 
     monkeypatch.setattr(server, "run_once", fake_run_once)
-    app = server.build_app(credential_store=object())
+    app = server.build_app(credential_store=object(), sandbox_required=False)
     with TestClient(app) as client:
         response = client.post(
             "/message:send",
@@ -154,7 +191,7 @@ def test_a2a_stream_route_registers_runtime_and_completes(monkeypatch):
         return {"role": "assistant", "content": "stream result"}, None
 
     monkeypatch.setattr(server, "run_once", fake_run_once)
-    app = server.build_app(credential_store=object())
+    app = server.build_app(credential_store=object(), sandbox_required=False)
     with TestClient(app) as client:
         response = client.post(
             "/message:stream",
