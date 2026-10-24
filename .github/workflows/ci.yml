@@ -12,7 +12,7 @@ on:
 jobs:
   changes:
     if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       run-python: ${{ steps.scope.outputs.run-python }}
     steps:
@@ -63,7 +63,7 @@ jobs:
   quality:
     needs: changes
     if: needs.changes.outputs.run-python == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -109,7 +109,7 @@ jobs:
     # Keep the complete suite on pushes to main; scheduled/manual runs use the
     # all-version matrix below. Pull requests run changed-area tests instead.
     if: needs.changes.outputs.run-python == 'true' && github.event_name == 'push'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -133,7 +133,7 @@ jobs:
   pull-request-tests:
     needs: changes
     if: needs.changes.outputs.run-python == 'true' && github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -247,7 +247,7 @@ jobs:
   compatibility-tests:
     needs: changes
     if: needs.changes.outputs.run-python == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -309,7 +309,7 @@ jobs:
     # Scheduled/manual runs preserve the former four-version full-suite
     # safety net without charging every pull request for it.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
