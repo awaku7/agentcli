@@ -123,7 +123,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[core,providers,test]"
+          python -m pip install -e ".[core,providers,test,quality]"
 
       - name: Full test suite
         env:
@@ -149,7 +149,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[core,providers,test]"
+          python -m pip install -e ".[core,providers,test,quality]"
 
       - name: Run changed-area tests (full-suite fallback for unmapped changes)
         env:
@@ -265,7 +265,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[core,providers,test]"
+          python -m pip install -e ".[core,providers,test,quality]"
 
       - name: Compile all Python sources
         run: python -m compileall -q src tests
@@ -327,7 +327,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -e ".[core,providers,test]"
+          python -m pip install -e ".[core,providers,test,quality]"
 
       - name: Full test suite
         env:
