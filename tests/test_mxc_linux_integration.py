@@ -16,6 +16,7 @@ from uagent.runtime.mxc_backend import (
     _workspace_for_scope,
     startup_scope,
 )
+from uagent.runtime.runtime_init import capture_startup_uagent_env_snapshot
 
 pytestmark = pytest.mark.skipif(
     not sys.platform.startswith("linux")
@@ -33,6 +34,9 @@ def _python_result(manager: MxcSessionManager, scope, code: str) -> dict:
 def test_linux_mxc_bubblewrap_denies_host_file_and_loopback_and_reaps_children(
     tmp_path,
 ):
+    # Direct backend integration bypasses application startup, so explicitly
+    # snapshot the CI-provided trusted overrides before any dotenv loading.
+    capture_startup_uagent_env_snapshot(force=True)
     canary = tmp_path / "host-canary.txt"
     canary.write_text("host-secret", encoding="utf-8")
     listener = socket.socket()
