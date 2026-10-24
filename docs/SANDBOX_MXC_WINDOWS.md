@@ -130,3 +130,28 @@ A real ProcessContainer run validated:
 These are host-specific PoC results, not evidence of Hyper-V/VM isolation or a
 production multi-tenant security guarantee. Windows ARM64 and all non-Windows
 platforms remain unsupported in this PR.
+
+### Windows 11 Home smoke test (2026-10-24)
+
+Separate local PoC validation on Windows 11 Home, build `26300`, AMD64; MXC
+SDK `@microsoft/mxc-sdk@1.0.0`; Node `24.22.0`. The MXC probe selected
+`base-container`, reported no warnings, and reported that DACL augmentation was
+not required. Node was installed at `F:\Program Files\nodejs\node.exe` and
+was supplied through the trusted process-startup `UAGENT_MXC_NODE` override; the
+SDK was already installed in the per-user runtime.
+
+A direct local MXC session smoke test successfully ran `create_file`,
+`read_file`, and `python_exec`. With the local Web UI started using
+`--sandbox mxc --host 127.0.0.1`, `/` served the frontend and the status API
+reported Sandbox enabled. Web-originated checks confirmed:
+
+1. `create_file` → `read_file` returned the expected `Web MXC test` content.
+1. A `python_exec` attempt to read the host repository's `README.md` returned
+   `BLOCKED`.
+1. A 35-second `python_exec` sleep returned a timeout response.
+1. A `python_exec` connection attempt to the host's listening
+   `127.0.0.1:8000` returned `BLOCKED`.
+
+These are host-specific local ProcessContainer smoke-test results, not evidence
+of VM isolation, complete network-egress enforcement, comprehensive resource
+limit verification, or a production multi-tenant security guarantee.
