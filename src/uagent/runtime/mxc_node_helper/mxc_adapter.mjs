@@ -22,6 +22,18 @@ function quoteWindowsArgument(value) {
   return `"${text.replace(/(\\*)"/g, "$1$1\\\"").replace(/(\\+)$/g, "$1$1")}"`;
 }
 
+function quotePosixArgument(value) {
+  const quote = String.fromCharCode(39);
+  const slash = String.fromCharCode(92);
+  return quote + String(value).split(quote).join(quote + slash + quote + quote) + quote;
+}
+
+function quoteArgument(value) {
+  return process.platform === "win32"
+    ? quoteWindowsArgument(value)
+    : quotePosixArgument(value);
+}
+
 function readHostConfig() {
   return new Promise((resolve, reject) => {
     let text = "";
@@ -53,8 +65,52 @@ async function probeHost() {
   if (!handshake || handshake.probe !== true) {
     throw new Error("MXC probe requires the bounded host-adapter handshake");
   }
+  if (process.platform === "linux" && process.arch === "x64") {
+    const { getAvailableBackends, getPlatformSupport, spawn } = await import("@microsoft/mxc-sdk/v1");
+    const support = getPlatformSupport();
+    const backends = getAvailableBackends();
+    if (!support.isSupported || !support.availableMethods?.includes("bubblewrap")) {
+      writeHost({ ok: false, error: "MXC SDK does not report Linux Bubblewrap support", support, backends });
+      process.exitCode = 2;
+      return;
+    }
+    const request = {
+      command: "/usr/bin/true",
+      workingDirectory: "/",
+      containment: { type: "process" },
+      timeoutMs: 10_000,
+      filesystem: { readwritePaths: [], readonlyPaths: ["/usr", "/lib", "/lib64"], deniedPaths: [] },
+      network: { egress: { default: "deny" }, ingress: { default: "deny", hostLoopback: "deny" } },
+      ui: { disable: true },
+      inheritDefaultEnvironment: false,
+      environment: { HOME: "/tmp", PATH: "/usr/bin:/bin", LANG: "C.UTF-8" },
+    };
+    let processHandle;
+    let terminal;
+    try {
+      processHandle = await spawn(request);
+      terminal = await processHandle.wait();
+    } finally {
+      try { processHandle?.dispose(); } catch {}
+    }
+    const accepted = terminal?.exitCode === 0 && terminal?.timedOut !== true;
+    writeHost({
+      ok: accepted,
+      sdk: "@microsoft/mxc-sdk@1.0.0",
+      node: process.versions.node,
+      platform: process.platform,
+      arch: process.arch,
+      backend: "bubblewrap",
+      support,
+      backends,
+      probe: { exitCode: terminal?.exitCode, timedOut: terminal?.timedOut === true },
+      error: accepted ? undefined : "MXC Bubblewrap probe did not complete successfully",
+    });
+    if (!accepted) process.exitCode = 2;
+    return;
+  }
   if (process.platform !== "win32" || process.arch !== "x64") {
-    writeHost({ ok: false, error: "MXC ProcessContainer supports only verified Windows x64 in this release" });
+    writeHost({ ok: false, error: "MXC supports verified Windows x64 and Linux x64 in this release" });
     process.exitCode = 2;
     return;
   }
@@ -244,6 +300,7 @@ const ALTERNATE_STREAM_SCAN_SCRIPT = [
 ].join("\n");
 
 async function alternateStreamUsage(root) {
+  if (process.platform !== "win32") return { bytes: 0, entries: 0 };
   const systemRoot = process.env.SystemRoot || process.env.WINDIR || String.raw`C:\Windows`;
   const powershell = path.join(systemRoot, "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
   const { stdout: output } = await execFileAsync(
@@ -278,8 +335,9 @@ async function workspaceUsage(root) {
   let bytes = 0;
   let entries = 0;
   const rootPath = path.resolve(root);
-  const resolvedRoot = rootPath.toLowerCase();
-  const rootPrefix = `${rootPath}${path.sep}`.toLowerCase();
+  const foldPath = (value) => process.platform === "win32" ? value.toLowerCase() : value;
+  const resolvedRoot = foldPath(rootPath);
+  const rootPrefix = foldPath(`${rootPath}${path.sep}`);
   const pending = [rootPath];
   const vanishedChild = (entry, error) =>
     entry !== rootPath && error?.code === "ENOENT";
@@ -296,7 +354,7 @@ async function workspaceUsage(root) {
     if (stat.isSymbolicLink()) continue;
     let resolved;
     try {
-      resolved = fs.realpathSync(entry).toLowerCase();
+      resolved = foldPath(fs.realpathSync(entry));
     } catch (error) {
       if (vanishedChild(entry, error)) continue;
       throw error;
@@ -359,7 +417,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   const marker = `__UAG_PY_EXEC_${crypto.randomBytes(16).toString("hex")}__`;
   // Python runs atexit handlers in LIFO order; registering before user code
   // makes this marker prove that user shutdown handlers have completed. MXC's
-  // native wait then terminates and reaps the ProcessContainer Job Object tree.
+  // native wait confirms that the one-shot MXC process container has stopped.
   const wrapper = [
     "import atexit, sys, traceback",
     "__uag_stdout = sys.stdout",
@@ -398,7 +456,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
   let workspaceMonitorPromise = Promise.resolve();
   let processHandle;
   try {
-    const command = `${quoteWindowsArgument(config.pythonExe)} -I -X utf8 -u ${quoteWindowsArgument(scriptPath)}`;
+    const command = `${quoteArgument(config.pythonExe)} -I -X utf8 -u ${quoteArgument(scriptPath)}`;
     processHandle = await spawnMxc({ ...baseRequest, command, timeoutMs: 60_000 });
     workspaceMonitor = setInterval(() => {
       if (workspaceLimitExceeded || workspaceScanRunning) return;
@@ -492,7 +550,7 @@ async function executePythonInContainer(config, baseRequest, args, spawnMxc) {
       acceptRootExit(outcome);
     } else {
       // The marker is emitted only after user atexit handlers have completed.
-      // Use MXC's Job Object kill/wait path to reap the root and descendants.
+      // Use MXC's native kill/wait path to stop the isolated process tree.
       if (outcome.kind === "timeout") timedOut = true;
       await stopThroughMxc();
     }
@@ -580,19 +638,22 @@ async function serveWorker() {
   const pythonEnvRoot = path.resolve(config.pythonEnvRoot);
   const helperRoot = path.resolve(config.helperRoot);
   const readwritePaths = [workspace];
-  const readonlyPaths = [
-    pythonRoot,
-    pythonEnvRoot,
-    helperRoot,
-    path.join(process.env.SystemRoot || "C:\\Windows", "System32"),
-  ];
+  const readonlyPaths = [pythonRoot, pythonEnvRoot, helperRoot];
+  if (process.platform === "win32") {
+    readonlyPaths.push(path.join(process.env.SystemRoot || "C:/Windows", "System32"));
+  } else if (process.platform === "linux" && process.arch === "x64") {
+    readonlyPaths.push("/usr", "/lib", "/lib64", "/etc/ld.so.cache");
+  } else {
+    throw new Error("MXC worker is unsupported on this host platform");
+  }
   const deniedPaths = Array.isArray(config.deniedPaths)
     ? config.deniedPaths.filter((item) => typeof item === "string" && path.isAbsolute(item))
     : [];
-  const environment = {
-    SystemRoot: process.env.SystemRoot || "C:\\Windows",
-    WINDIR: process.env.WINDIR || process.env.SystemRoot || "C:\\Windows",
-    PATH: `${path.join(process.env.SystemRoot || "C:\\Windows", "System32")};${pythonRoot};${pythonEnvRoot}`,
+  const windowsRoot = process.env.SystemRoot || "C:/Windows";
+  const environment = process.platform === "win32" ? {
+    SystemRoot: windowsRoot,
+    WINDIR: process.env.WINDIR || windowsRoot,
+    PATH: `${path.join(windowsRoot, "System32")};${pythonRoot};${pythonEnvRoot}`,
     LOCALAPPDATA: path.join(workspace, ".localappdata"),
     APPDATA: path.join(workspace, ".appdata"),
     TEMP: path.join(workspace, ".temp"),
@@ -604,14 +665,30 @@ async function serveWorker() {
     PYTHONIOENCODING: "utf-8",
     UAGENT_AUTO_INSTALL: "0",
     UAGENT_SESSION_STORE: "0",
+  } : {
+    HOME: path.join(workspace, ".home"),
+    PATH: `${path.join(pythonEnvRoot, "bin")}:${path.join(pythonRoot, "bin")}` + ":/usr/bin:/bin",
+    LANG: "C.UTF-8",
+    TMPDIR: path.join(workspace, ".temp"),
+    TEMP: path.join(workspace, ".temp"),
+    TMP: path.join(workspace, ".temp"),
+    PYTHONDONTWRITEBYTECODE: "1",
+    PYTHONNOUSERSITE: "1",
+    PYTHONIOENCODING: "utf-8",
+    UAGENT_AUTO_INSTALL: "0",
+    UAGENT_SESSION_STORE: "0",
   };
-  for (const directory of [environment.LOCALAPPDATA, environment.APPDATA, environment.TEMP]) {
-    fs.mkdirSync(directory, { recursive: true });
+  const workerDirs = process.platform === "win32"
+    ? [environment.LOCALAPPDATA, environment.APPDATA, environment.TEMP]
+    : [environment.HOME, environment.TMPDIR];
+  for (const directory of workerDirs) {
+    fs.mkdirSync(directory, { recursive: true, mode: 0o700 });
+    if (process.platform === "linux") fs.chmodSync(directory, 0o700);
   }
   const baseRequest = {
     workingDirectory: workspace,
-    containment: { type: "processcontainer" },
-    fallback: { allowDaclMutation: false },
+    containment: { type: process.platform === "win32" ? "processcontainer" : "process" },
+    ...(process.platform === "win32" ? { fallback: { allowDaclMutation: false } } : {}),
     filesystem: { readwritePaths, readonlyPaths, deniedPaths },
     network: {
       egress: { default: "deny" },
@@ -621,7 +698,7 @@ async function serveWorker() {
     inheritDefaultEnvironment: false,
     environment,
   };
-  const command = `${quoteWindowsArgument(config.pythonExe)} -I -X utf8 -u ${quoteWindowsArgument(config.workerScript)}`;
+  const command = `${quoteArgument(config.pythonExe)} -I -X utf8 -u ${quoteArgument(config.workerScript)}`;
   const processHandle = await spawn({
     ...baseRequest,
     command,
@@ -655,7 +732,7 @@ async function serveWorker() {
     await stopWorker();
     throw error;
   }
-  writeHost({ ready: true, backend: "mxc-processcontainer" });
+  writeHost({ ready: true, backend: process.platform === "win32" ? "mxc-processcontainer" : "mxc-bubblewrap" });
   const hostLines = readline.createInterface({ input: process.stdin, crlfDelay: Infinity });
   process.stdin.on("close", () => { void stopWorker(); });
   process.stdin.on("error", () => { void stopWorker(); });

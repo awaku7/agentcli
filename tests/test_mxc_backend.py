@@ -144,7 +144,7 @@ def test_python_workspace_monitor_stays_active_until_mxc_wait():
     source = (helper / "mxc_adapter.mjs").read_text(encoding="utf-8")
     outcome = source.index("const outcome = await Promise.race(")
     stop = source.index("const stopThroughMxc = async () => {", outcome)
-    kill = source.index("try { processHandle.kill(); } catch {", stop)
+    kill = source.index("processHandle.kill();", stop)
     wait = source.index("acceptRootExit(await waitForRoot", kill)
     monitor_stop = source.index("clearInterval(workspaceMonitor);", wait)
     assert outcome < stop < kill < wait < monitor_stop
@@ -170,14 +170,15 @@ def all_local_capabilities() -> SandboxCapabilities:
     )
 
 
-def test_mxc_backend_rejects_non_windows_without_trying_to_install(monkeypatch):
+def test_mxc_backend_rejects_unsupported_platform_without_node_lookup(monkeypatch):
     monkeypatch.setattr(mxc_backend.os, "name", "posix")
+    monkeypatch.setattr(mxc_backend.sys, "platform", "darwin")
     monkeypatch.setattr(
         mxc_backend,
         "_find_node",
         lambda: (_ for _ in ()).throw(AssertionError("Node lookup must not run")),
     )
-    with pytest.raises(RuntimeError, match="Windows x64"):
+    with pytest.raises(RuntimeError, match="Windows or Linux x86_64"):
         mxc_backend.prepare_mxc_runtime(allow_install=True)
 
 
@@ -403,7 +404,10 @@ def test_non_python_tool_writes_are_checked_against_workspace_quota():
     assert handler.index("workspaceUsage(workspace)") < handler.index(
         "if (usage.exceeded)"
     )
-    assert 'terminate: true, error: "session workspace limit exceeded;' in handler
+    assert (
+        "session workspace limit exceeded; the isolated worker was terminated"
+        in handler
+    )
     assert handler.index("await stopWorker()") < handler.index("writeHost(result)")
 
 

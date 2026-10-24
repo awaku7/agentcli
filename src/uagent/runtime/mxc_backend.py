@@ -41,6 +41,7 @@ JOB_PROCESS_LIMIT = 64
 MAX_ACTIVE_SESSIONS = 4
 JOB_USER_TIME_LIMIT_100NS = 4 * 60 * 60 * 10_000_000
 _PROCESS_SCOPE_NONCE = uuid.uuid4().hex
+_UNREAPED_LINUX_SESSIONS: list[Any] = []
 
 TOOL_NAMES = frozenset({"create_file", "file_exists", "read_file", "python_exec"})
 
@@ -117,16 +118,34 @@ def sandbox_tool_specs() -> list[dict[str, Any]]:
     return json.loads(json.dumps(TOOL_SPECS))
 
 
+def _trusted_home() -> Path:
+    if sys.platform.startswith("linux"):
+        try:
+            import pwd
+
+            return Path(pwd.getpwuid(os.getuid()).pw_dir).resolve()
+        except (ImportError, KeyError, OSError) as exc:
+            raise RuntimeError(
+                "Linux MXC requires a resolvable local user home"
+            ) from exc
+    return Path.home().resolve()
+
+
 def _local_app_data() -> Path:
-    root = os.environ.get("LOCALAPPDATA")
-    if not root:
-        raise RuntimeError(
-            "LOCALAPPDATA is unavailable; MXC needs a per-user runtime directory"
-        )
-    path = Path(root).expanduser()
-    if not path.is_absolute():
-        raise RuntimeError("LOCALAPPDATA must be an absolute per-user path")
-    return path.resolve()
+    if os.name == "nt":
+        root = os.environ.get("LOCALAPPDATA")
+        if not root:
+            raise RuntimeError(
+                "LOCALAPPDATA is unavailable; MXC needs a per-user runtime directory"
+            )
+        path = Path(root).expanduser()
+        if not path.is_absolute():
+            raise RuntimeError("LOCALAPPDATA must be an absolute per-user path")
+        return path.resolve()
+    if sys.platform.startswith("linux"):
+        # Ignore XDG_DATA_HOME/HOME from project dotenv; use the passwd entry.
+        return _trusted_home() / ".local" / "share"
+    raise RuntimeError("MXC runtime paths are unsupported on this operating system")
 
 
 def _trusted_startup_uagent_value(name: str) -> str:
@@ -153,22 +172,38 @@ def _node_candidates() -> list[Path]:
             raise RuntimeError("UAGENT_MXC_NODE must be an absolute executable path")
         candidates.append(configured_path.resolve())
     local = _local_app_data()
-    candidates.extend(
-        [
-            local / "uagent" / "toolchains" / "node-v24.22.0" / "node.exe",
-            local / "Programs" / "nodejs" / "node.exe",
-        ]
-    )
+    if os.name == "nt":
+        candidates.extend(
+            [
+                local / "uagent" / "toolchains" / "node-v24.22.0" / "node.exe",
+                local / "Programs" / "nodejs" / "node.exe",
+            ]
+        )
+    elif sys.platform.startswith("linux"):
+        candidates.append(
+            local / "uagent" / "toolchains" / "node-v24.22.0" / "bin" / "node"
+        )
+        system_node = shutil.which("node", path="/usr/local/bin:/usr/bin:/bin")
+        if system_node:
+            candidates.append(Path(system_node))
     return candidates
 
 
 def _find_node() -> Path:
     for candidate in _node_candidates():
         try:
-            if candidate.is_file():
+            if candidate.is_file() and (
+                os.name == "nt" or os.access(candidate, os.X_OK)
+            ):
                 return candidate.resolve()
         except OSError:
             continue
+    if sys.platform.startswith("linux"):
+        raise RuntimeError(
+            "Node.js 24.21+ x64 is required for Linux MXC. Install Node.js in a trusted "
+            "system path or user-local toolchain, or set the trusted startup override "
+            "UAGENT_MXC_NODE; no host-level installation is attempted."
+        )
     raise RuntimeError(
         "Node.js 24.21+ x64 is required for MXC. Install a user-local Node 24 runtime "
         "or set UAGENT_MXC_NODE to node.exe; no host-level installation is attempted."
@@ -176,8 +211,20 @@ def _find_node() -> Path:
 
 
 def _node_version(node: Path) -> tuple[int, int, int]:
-    system_root = os.environ.get("SystemRoot", r"C:\Windows")
-    safe_path = os.pathsep.join((str(node.parent), str(Path(system_root) / "System32")))
+    if sys.platform.startswith("linux"):
+        safe_path = os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin"))
+        home = str(_trusted_home())
+        env = {"PATH": safe_path, "HOME": home, "LANG": "C.UTF-8"}
+    else:
+        system_root = os.environ.get("SystemRoot", r"C:\Windows")
+        safe_path = os.pathsep.join(
+            (str(node.parent), str(Path(system_root) / "System32"))
+        )
+        env = {
+            "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
+            "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
+            "PATH": safe_path,
+        }
     result = subprocess.run(
         [str(node), "--version"],
         check=True,
@@ -185,11 +232,7 @@ def _node_version(node: Path) -> tuple[int, int, int]:
         text=True,
         timeout=5,
         shell=False,
-        env={
-            "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
-            "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
-            "PATH": safe_path,
-        },
+        env=env,
     )
     raw = result.stdout.strip().lstrip("v")
     try:
@@ -215,11 +258,29 @@ def _runtime_dir() -> Path:
     return _local_app_data() / "uagent" / "mxc_runtime"
 
 
+def _npm_command(node: Path) -> list[str]:
+    if os.name == "nt":
+        npm = node.with_name("npm.cmd")
+        if not npm.is_file():
+            raise RuntimeError(
+                "npm.cmd was not found alongside the selected Node.js runtime"
+            )
+        return [str(npm)]
+    path = os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin"))
+    npm = shutil.which("npm", path=path)
+    if not npm:
+        raise RuntimeError("npm is required to provision the pinned Linux MXC SDK")
+    return [str(Path(npm).resolve())]
+
+
 def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
     """Prepare the per-user helper and, only with opt-in consent, install the pinned SDK."""
-    if os.name != "nt" or platform.machine().lower() not in {"amd64", "x86_64"}:
+    machine = platform.machine().lower()
+    is_windows_x64 = os.name == "nt" and machine in {"amd64", "x86_64"}
+    is_linux_x64 = sys.platform.startswith("linux") and machine in {"amd64", "x86_64"}
+    if not (is_windows_x64 or is_linux_x64):
         raise RuntimeError(
-            "MXC ProcessContainer is supported only on verified Windows x64 in this release"
+            "MXC is supported only on verified Windows or Linux x86_64 in this release"
         )
     node = _find_node()
     node_version = _node_version(node)
@@ -227,11 +288,15 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
         node_version[0] == 26 and node_version >= (26, 8, 0)
     )
     if not version_supported:
-        raise RuntimeError("MXC requires Node.js 24.21.0+ or 26.8.0+ on Windows")
+        raise RuntimeError(
+            "MXC requires Node.js 24.21.0+ or 26.8.0+ on Windows/Linux x86_64"
+        )
     runtime = _validate_sandbox_read_root(
         _runtime_dir(), require_existing_directory=False
     )
-    runtime.mkdir(parents=True, exist_ok=True)
+    runtime.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if is_linux_x64:
+        runtime.chmod(0o700)
     source = _helper_source_dir()
     for filename in ("mxc_adapter.mjs", "package.json", "package-lock.json"):
         src = source / filename
@@ -256,32 +321,46 @@ def prepare_mxc_runtime(*, allow_install: bool = False) -> tuple[Path, Path]:
                 "to review and install the per-user dependency (about 105 MB), or provision "
                 "the runtime with npm ci in UAGENT_MXC_RUNTIME_DIR."
             )
-        npm = node.with_name("npm.cmd")
-        if not npm.is_file():
-            raise RuntimeError(
-                "npm.cmd was not found alongside the selected Node.js runtime"
+        npm = _npm_command(node)
+        if is_windows_x64:
+            system_root = os.environ.get("SystemRoot", "C:/Windows")
+            safe_path = os.pathsep.join(
+                (str(node.parent), str(Path(system_root) / "System32"))
             )
-        system_root = os.environ.get("SystemRoot", r"C:\Windows")
-        safe_path = os.pathsep.join(
-            (str(node.parent), str(Path(system_root) / "System32"))
-        )
-        install = subprocess.run(
-            [str(npm), "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
-            cwd=str(runtime),
-            capture_output=True,
-            text=True,
-            timeout=600,
-            shell=False,
-            env={
-                "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
-                "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
+            install_env = {
+                "SystemRoot": os.environ.get("SystemRoot", "C:/Windows"),
+                "WINDIR": os.environ.get("WINDIR", "C:/Windows"),
                 "PATH": safe_path,
                 "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
                 "TEMP": os.environ.get("TEMP", ""),
                 "TMP": os.environ.get("TMP", ""),
                 "APPDATA": os.environ.get("APPDATA", ""),
                 "USERPROFILE": os.environ.get("USERPROFILE", ""),
-            },
+            }
+        else:
+            npm_home = runtime / ".npm-home"
+            npm_tmp = runtime / ".tmp"
+            npm_cache = runtime / ".npm-cache"
+            for directory in (npm_home, npm_tmp, npm_cache):
+                directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+                directory.chmod(0o700)
+            install_env = {
+                "PATH": os.pathsep.join(
+                    (str(node.parent), "/usr/local/bin:/usr/bin:/bin")
+                ),
+                "HOME": str(npm_home),
+                "TMPDIR": str(npm_tmp),
+                "npm_config_cache": str(npm_cache),
+                "LANG": "C.UTF-8",
+            }
+        install = subprocess.run(
+            [*npm, "ci", "--ignore-scripts", "--no-audit", "--no-fund"],
+            cwd=str(runtime),
+            capture_output=True,
+            text=True,
+            timeout=600,
+            shell=False,
+            env=install_env,
         )
         if install.returncode != 0:
             detail = (install.stderr or install.stdout or "npm ci failed")[-4000:]
@@ -331,62 +410,100 @@ def _assign_job_object(proc: subprocess.Popen[bytes]):
 
 def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
     helper = runtime / "mxc_adapter.mjs"
-    system_root = os.environ.get("SystemRoot", r"C:\Windows")
-    safe_path = os.pathsep.join((str(node.parent), str(Path(system_root) / "System32")))
-    env = {
-        "SystemRoot": os.environ.get("SystemRoot", r"C:\Windows"),
-        "WINDIR": os.environ.get("WINDIR", r"C:\Windows"),
-        "PATH": safe_path,
-        "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
-        "APPDATA": os.environ.get("APPDATA", ""),
-        "TEMP": os.environ.get("TEMP", ""),
-        "TMP": os.environ.get("TMP", ""),
-        "USERPROFILE": os.environ.get("USERPROFILE", ""),
-    }
-    proc = subprocess.Popen(
-        [str(node), str(helper), "probe"],
-        cwd=str(runtime),
-        stdin=subprocess.PIPE,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        shell=False,
-        env=env,
-    )
-    try:
-        job_api, job = _assign_job_object(proc)
-    except Exception:
-        proc.kill()
-        proc.wait(timeout=5)
-        raise
+    linux_scope = None
+    if sys.platform.startswith("linux"):
+        from .mxc_linux_scope import LinuxSystemdScope
+
+        temp = runtime / ".tmp"
+        temp.mkdir(parents=True, exist_ok=True, mode=0o700)
+        env = {
+            "PATH": os.pathsep.join((str(node.parent), "/usr/local/bin:/usr/bin:/bin")),
+            "HOME": str(_trusted_home()),
+            "TMPDIR": str(temp),
+            "LANG": "C.UTF-8",
+        }
+        linux_scope = LinuxSystemdScope.launch(
+            [str(node), str(helper), "probe"],
+            cwd=runtime,
+            env=env,
+            unit_prefix="uagent-mxc-probe",
+        )
+        proc = linux_scope.process
+    else:
+        system_root = os.environ.get("SystemRoot", "C:/Windows")
+        safe_path = os.pathsep.join(
+            (str(node.parent), str(Path(system_root) / "System32"))
+        )
+        env = {
+            "SystemRoot": os.environ.get("SystemRoot", "C:/Windows"),
+            "WINDIR": os.environ.get("WINDIR", "C:/Windows"),
+            "PATH": safe_path,
+            "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
+            "APPDATA": os.environ.get("APPDATA", ""),
+            "TEMP": os.environ.get("TEMP", ""),
+            "TMP": os.environ.get("TMP", ""),
+            "USERPROFILE": os.environ.get("USERPROFILE", ""),
+        }
+        proc = subprocess.Popen(
+            [str(node), str(helper), "probe"],
+            cwd=str(runtime),
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            shell=False,
+            env=env,
+        )
+    job_api = None
+    job = None
+    if linux_scope is None:
+        try:
+            job_api, job = _assign_job_object(proc)
+        except Exception:
+            proc.kill()
+            proc.wait(timeout=5)
+            raise
     try:
         assert proc.stdin is not None
-        proc.stdin.write('{"probe":true}\n')
+        if linux_scope is not None:
+            proc.stdin.write(b'{"probe":true}' + bytes([10]))
+        else:
+            proc.stdin.write('{"probe":true}' + chr(10))
         proc.stdin.flush()
         try:
             stdout, stderr = proc.communicate(timeout=PROBE_TIMEOUT_SECONDS)
         except subprocess.TimeoutExpired as exc:
-            job_api.CloseHandle(job)
-            job = None
-            try:
-                stdout, stderr = proc.communicate(timeout=5)
-            except subprocess.TimeoutExpired:
-                proc.kill()
-                stdout, stderr = proc.communicate()
+            if linux_scope is not None:
+                linux_scope.close()
+            elif job is not None:
+                job_api.CloseHandle(job)
+                job = None
+                try:
+                    stdout, stderr = proc.communicate(timeout=5)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    stdout, stderr = proc.communicate()
             raise RuntimeError(
                 "MXC host probe exceeded the 15-second deadline"
             ) from exc
     finally:
-        if job is not None:
-            job_api.CloseHandle(job)
-        if proc.poll() is None:
-            proc.kill()
-            try:
-                proc.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                pass
+        if linux_scope is not None:
+            linux_scope.close()
+        else:
+            if job is not None:
+                job_api.CloseHandle(job)
+            if proc.poll() is None:
+                proc.kill()
+                try:
+                    proc.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    pass
+    if isinstance(stdout, bytes):
+        stdout = stdout.decode("utf-8", errors="replace")
+    if isinstance(stderr, bytes):
+        stderr = stderr.decode("utf-8", errors="replace")
     if len(stdout.encode("utf-8", errors="replace")) > MAX_FRAME_BYTES:
         raise RuntimeError("MXC host probe returned an oversized response")
     try:
@@ -396,9 +513,7 @@ def _run_probe(node: Path, runtime: Path) -> dict[str, Any]:
             f"MXC host probe returned invalid JSON: {stderr[-1000:]}"
         ) from exc
     if proc.returncode != 0 or report.get("ok") is not True:
-        raise RuntimeError(
-            str(report.get("error") or "MXC ProcessContainer probe failed")
-        )
+        raise RuntimeError(str(report.get("error") or "MXC backend probe failed"))
     return report
 
 
@@ -515,7 +630,11 @@ def _acquire_workspace_lease(sandbox_root: Path, key: str, *, create: bool = Tru
     if _is_reparse_point(sandbox_root) or _is_reparse_point(lease_root):
         raise RuntimeError("sandbox workspace lease directory cannot be a symlink")
     if create:
-        lease_root.mkdir(parents=True, exist_ok=True)
+        sandbox_root.mkdir(parents=True, exist_ok=True, mode=0o700)
+        lease_root.mkdir(parents=True, exist_ok=True, mode=0o700)
+        if sys.platform.startswith("linux"):
+            sandbox_root.chmod(0o700)
+            lease_root.chmod(0o700)
     lease_path = _workspace_lease_path(sandbox_root, key)
     if _is_reparse_point(lease_path):
         raise RuntimeError("sandbox workspace lease cannot be a symlink")
@@ -531,6 +650,8 @@ def _acquire_workspace_lease(sandbox_root: Path, key: str, *, create: bool = Tru
     try:
         if not stat.S_ISREG(os.fstat(fd).st_mode):
             raise RuntimeError("sandbox workspace lease must be a regular file")
+        if sys.platform.startswith("linux"):
+            os.fchmod(fd, 0o600)
         if os.fstat(fd).st_size == 0:
             os.write(fd, b"\0")
         try:
@@ -610,6 +731,10 @@ def _scavenge_orphaned_workspaces(sandbox_root: Path) -> None:
             continue
         try:
             try:
+                if sys.platform.startswith("linux"):
+                    from .mxc_linux_scope import stop_stale_scope
+
+                    stop_stale_scope(key)
                 _remove_workspace_tree(workspace)
             except (OSError, RuntimeError):
                 continue
@@ -650,8 +775,15 @@ def _validate_sandbox_read_root(
         raise RuntimeError("Sandbox runtime read root is unavailable")
     if os.path.normcase(str(root)) == os.path.normcase(root.anchor):
         raise RuntimeError("Sandbox recursive read roots cannot be filesystem roots")
-    protected_paths = [Path.cwd().resolve(), Path.home().resolve()]
-    for variable in ("USERPROFILE", "LOCALAPPDATA", "APPDATA"):
+    protected_paths = [Path.cwd().resolve(), _trusted_home()]
+    for variable in (
+        "USERPROFILE",
+        "LOCALAPPDATA",
+        "APPDATA",
+        "HOME",
+        "XDG_DATA_HOME",
+        "XDG_RUNTIME_DIR",
+    ):
         value = os.environ.get(variable)
         if value:
             protected_paths.append(Path(value).expanduser().resolve())
@@ -685,19 +817,25 @@ class _MxcSession:
         runtime: Path,
         resume_workspace: bool = False,
     ) -> None:
-        if os.name != "nt":
-            raise RuntimeError(
-                "MXC ProcessContainer session requested on a non-Windows host"
-            )
-        try:
-            import win32api
-            import win32job
-        except ImportError as exc:
-            raise RuntimeError(
-                "pywin32 Job Object support is required for safe MXC cleanup and resource limits"
-            ) from exc
-        self._win32api = win32api
-        self._win32job = win32job
+        self._linux_scope = None
+        if os.name == "nt":
+            try:
+                import win32api
+                import win32job
+            except ImportError as exc:
+                raise RuntimeError(
+                    "pywin32 Job Object support is required for safe MXC cleanup and resource limits"
+                ) from exc
+            self._win32api = win32api
+            self._win32job = win32job
+        elif sys.platform.startswith("linux") and platform.machine().lower() in {
+            "amd64",
+            "x86_64",
+        }:
+            self._win32api = None
+            self._win32job = None
+        else:
+            raise RuntimeError("MXC session requested on an unsupported host platform")
         self._lock = threading.RLock()
         self._responses: Queue[str | None] = Queue()
         self._stderr = bytearray()
@@ -714,12 +852,16 @@ class _MxcSession:
             raise RuntimeError("sandbox workspace already has an active owner")
         if self.workspace.exists() and _is_reparse_point(self.workspace):
             raise RuntimeError("sandbox workspace root cannot be a symlink")
-        self.workspace.mkdir(parents=True, exist_ok=True)
+        self.workspace.mkdir(parents=True, exist_ok=True, mode=0o700)
+        if sys.platform.startswith("linux"):
+            self.workspace.chmod(0o700)
         # Web Room sessions may be parked by the owning manager. Only that
         # trusted in-process path opts into resuming its still-leased scope.
         if not resume_workspace and any(self.workspace.iterdir()):
             _remove_workspace_tree(self.workspace)
-            self.workspace.mkdir(parents=True)
+            self.workspace.mkdir(parents=True, mode=0o700)
+        if sys.platform.startswith("linux"):
+            self.workspace.chmod(0o700)
         worker_script = runtime / "sandbox_worker.py"
         source_worker = Path(__file__).with_name("sandbox_worker.py")
         shutil.copy2(source_worker, worker_script)
@@ -728,42 +870,83 @@ class _MxcSession:
             raise RuntimeError("current Python executable is unavailable")
         python_root = _python_root()
         python_env_root = _python_env_root()
-        system_root = Path(os.environ.get("SystemRoot", r"C:\Windows"))
-        helper_env = {
-            "SystemRoot": str(system_root),
-            "WINDIR": str(system_root),
-            "PATH": f"{node.parent};{system_root / 'System32'}",
-            "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
-            "APPDATA": os.environ.get("APPDATA", ""),
-            "TEMP": os.environ.get("TEMP", ""),
-            "TMP": os.environ.get("TMP", ""),
-            "USERPROFILE": os.environ.get("USERPROFILE", ""),
-        }
-        self._proc = subprocess.Popen(
-            [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
-            cwd=str(runtime),
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=False,
-            bufsize=0,
-            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-            shell=False,
-            env=helper_env,
-        )
-        try:
-            self._job = self._create_job(self._proc)
-        except Exception:
-            self._proc.kill()
-            self._proc.wait(timeout=5)
-            if not resume_workspace:
-                try:
-                    _remove_workspace_tree(self.workspace)
-                except (OSError, RuntimeError):
-                    pass
-            _release_workspace_lease(self._workspace_lease)
-            self._workspace_lease = None
-            raise
+        if os.name == "nt":
+            system_root = Path(os.environ.get("SystemRoot", "C:/Windows"))
+            helper_env = {
+                "SystemRoot": str(system_root),
+                "WINDIR": str(system_root),
+                "PATH": f"{node.parent};{system_root / 'System32'}",
+                "LOCALAPPDATA": os.environ.get("LOCALAPPDATA", ""),
+                "APPDATA": os.environ.get("APPDATA", ""),
+                "TEMP": os.environ.get("TEMP", ""),
+                "TMP": os.environ.get("TMP", ""),
+                "USERPROFILE": os.environ.get("USERPROFILE", ""),
+            }
+            self._proc = subprocess.Popen(
+                [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
+                cwd=str(runtime),
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=False,
+                bufsize=0,
+                creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+                shell=False,
+                env=helper_env,
+            )
+            try:
+                self._job = self._create_job(self._proc)
+            except Exception:
+                self._proc.kill()
+                self._proc.wait(timeout=5)
+                if not resume_workspace:
+                    try:
+                        _remove_workspace_tree(self.workspace)
+                    except (OSError, RuntimeError):
+                        pass
+                _release_workspace_lease(self._workspace_lease)
+                self._workspace_lease = None
+                raise
+        else:
+            from .mxc_linux_scope import LinuxSystemdScope
+
+            helper_tmp = runtime / ".tmp"
+            helper_tmp.mkdir(parents=True, exist_ok=True, mode=0o700)
+            helper_env = {
+                "PATH": os.pathsep.join(
+                    (str(node.parent), "/usr/local/bin:/usr/bin:/bin")
+                ),
+                "HOME": str(_trusted_home()),
+                "TMPDIR": str(helper_tmp),
+                "LANG": "C.UTF-8",
+            }
+            try:
+                self._linux_scope = LinuxSystemdScope.launch(
+                    [str(node), str(runtime / "mxc_adapter.mjs"), "worker"],
+                    cwd=runtime,
+                    env=helper_env,
+                    unit=f"uagent-mxc-{_scope_key(scope)}.scope",
+                )
+                self._proc = self._linux_scope.process
+                self._job = None
+            except Exception as exc:
+                unreaped_scope = getattr(exc, "scope", None)
+                if unreaped_scope is not None:
+                    # Retain both the scope and its workspace lease: an
+                    # unverified child must never overlap a reused workspace.
+                    _UNREAPED_LINUX_SESSIONS.append(
+                        (unreaped_scope, self._workspace_lease)
+                    )
+                    self._workspace_lease = None
+                else:
+                    if not resume_workspace:
+                        try:
+                            _remove_workspace_tree(self.workspace)
+                        except (OSError, RuntimeError):
+                            pass
+                    _release_workspace_lease(self._workspace_lease)
+                    self._workspace_lease = None
+                raise
         threading.Thread(
             target=self._read_stdout, name="mxc-stdout", daemon=True
         ).start()
@@ -849,6 +1032,14 @@ class _MxcSession:
             ) from exc
         if raw is None:
             stderr = self._stderr.decode("utf-8", errors="replace")
+            if self._linux_scope is not None and self._linux_scope.cpu_exceeded:
+                raise RuntimeError(
+                    "Linux MXC aggregate CPU budget exceeded; the cgroup was stopped"
+                )
+            if self._linux_scope is not None and self._linux_scope.watchdog_error:
+                raise RuntimeError(
+                    f"Linux MXC cgroup watchdog failed closed: {self._linux_scope.watchdog_error}"
+                )
             raise RuntimeError(f"MXC adapter exited unexpectedly: {stderr[-1000:]}")
         try:
             parsed = json.loads(raw)
@@ -898,31 +1089,45 @@ class _MxcSession:
                     self._proc.stdin.close()
             except OSError:
                 pass
-            try:
-                self._win32api.CloseHandle(self._job)
-            except Exception:
-                pass
-            try:
-                self._proc.wait(timeout=5)
-            except subprocess.TimeoutExpired:
-                self._proc.kill()
+            cleanup_verified = True
+            if self._linux_scope is not None:
+                try:
+                    self._linux_scope.close()
+                except Exception:
+                    # Keep the scope object and workspace lease alive. Releasing
+                    # either after an unverified cgroup stop could let a live
+                    # worker mutate a workspace that has been reused.
+                    cleanup_verified = False
+                    _UNREAPED_LINUX_SESSIONS.append(self)
+            else:
+                try:
+                    self._win32api.CloseHandle(self._job)
+                except Exception:
+                    pass
                 try:
                     self._proc.wait(timeout=5)
                 except subprocess.TimeoutExpired:
-                    pass
-            # Never park a workspace unless the helper process is confirmed
-            # stopped; otherwise it could keep mutating the shared directory.
+                    self._proc.kill()
+                    try:
+                        self._proc.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        cleanup_verified = False
+            # Never park or delete a workspace unless the host process group is
+            # confirmed stopped; otherwise it could keep mutating the directory.
             preserve_workspace = bool(
-                preserve_workspace and self._proc.poll() is not None
+                cleanup_verified
+                and preserve_workspace
+                and self._proc.poll() is not None
             )
             self._workspace_preserved = preserve_workspace
-            if not preserve_workspace:
-                try:
-                    _remove_workspace_tree(self.workspace)
-                except (OSError, RuntimeError):
-                    pass
-            _release_workspace_lease(self._workspace_lease)
-            self._workspace_lease = None
+            if cleanup_verified:
+                if not preserve_workspace:
+                    try:
+                        _remove_workspace_tree(self.workspace)
+                    except (OSError, RuntimeError):
+                        pass
+                _release_workspace_lease(self._workspace_lease)
+                self._workspace_lease = None
 
 
 class MxcSessionManager:
@@ -942,7 +1147,7 @@ class MxcSessionManager:
         self._active_web_scopes: set[TrustedSandboxScope] = set()
         self._active_a2a_scopes: set[TrustedSandboxScope] = set()
         self._lock = threading.RLock()
-        if os.name == "nt":
+        if os.name == "nt" or sys.platform.startswith("linux"):
             _scavenge_orphaned_workspaces(_local_app_data() / "uagent" / "sandboxes")
         atexit.register(self.close_all)
 

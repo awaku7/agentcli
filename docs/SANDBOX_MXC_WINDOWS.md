@@ -1,10 +1,11 @@
-# Windows MXC ProcessContainer Sandbox
+# MXC ProcessContainer and Bubblewrap Sandbox
 
-The Windows MXC ProcessContainer backend is the default baseline for Remote Web
-and tool-enabled A2A; trusted local CLI/GUI and local-only Web remain opt-in or
-off as documented below. It is **not** Windows Sandbox/Hyper-V VM isolation and
-does not, by itself, establish Enterprise E0 completion or a production
-multi-tenant security guarantee. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
+The MXC backend is the default baseline for Remote Web and tool-enabled A2A;
+trusted local CLI/GUI and local-only Web remain opt-in or off as documented
+below. Windows x64 uses MXC ProcessContainer; Linux x86_64 uses MXC's Bubblewrap
+backend plus a host-enforced systemd/cgroup-v2 scope. Neither is VM isolation,
+and neither establishes Enterprise E0 completion or a production multi-tenant
+security guarantee. See [Remote Web / A2A MXC default policy](REMOTE_MXC_DEFAULT.md)
 for the current decision and explicit limits.
 
 ## Usage
@@ -22,8 +23,9 @@ for the current decision and explicit limits.
   startup bind/identity configuration, not request headers or the client's IP.
 - `uag --sandbox auto`, `uagg --sandbox auto`, and explicit trusted local Web
   `--sandbox auto` also use an already-installed supported backend. The
-  `--sandbox mxc` option on CLI/GUI or trusted local Web opts into Windows MXC
-  ProcessContainer. On first interactive local use, UAG asks before
+  `--sandbox mxc` option on CLI/GUI or trusted local Web opts into the native
+  MXC backend for the supported host (Windows ProcessContainer or Linux
+  Bubblewrap). On first interactive local use, UAG asks before
   installing the pinned SDK in the current user's profile (about 105 MB). Web
   startup refuses to install in non-interactive mode. Installation uses the Node
   runtime already available to the user and does not request elevation. If
@@ -37,17 +39,61 @@ for the current decision and explicit limits.
   resolution occurs after the workdir environment is loaded.
 - `UAGENT_MXC_NODE` and `UAGENT_MXC_RUNTIME_DIR`, when used, are trusted
   process-startup overrides only; values from a project's `.env`/`.env.sec` are
-  ignored. Relative override paths are rejected. Node/npm subprocesses use a
-  minimal PATH containing only the selected Node directory and Windows System32.
+  ignored. Relative override paths are rejected. On Windows, Node/npm use only
+  the selected Node directory and Windows System32; Linux uses the selected Node
+  directory plus fixed system binary directories.
 - `uag realtime` is not supported with `--sandbox auto|mxc` or an equivalent
   environment setting. Realtime dependencies may be installed/executed on the
   Host; Sandbox-enabled realtime startup is refused before the realtime runner.
 
-The verified PoC target is Windows 11 x64 with MXC Node SDK `1.0.0`, Node
-`24.22.0`, and the MXC `base-container` ProcessContainer tier. The adapter rejects
-other operating systems/architectures, unsupported Windows builds, probe
-warnings, DACL-augmentation requirements, and missing deny-path support. There
-is no fallback to Host execution.
+The Windows acceptance target is Windows 11 x64 with MXC Node SDK `1.0.0`,
+Node `24.22.0`, and the MXC `base-container` ProcessContainer tier. The adapter
+rejects unsupported Windows builds, probe warnings, DACL-augmentation
+requirements, and missing deny-path support. Linux x86_64 uses the pinned SDK's
+Bubblewrap backend; the host probe also verifies a live cgroup-v2 systemd scope
+with the required limits before enabling it. Both platforms fail closed, with
+no fallback to Host execution.
+
+## Linux x86_64 prerequisites and controls
+
+The Linux implementation targets Ubuntu 24.04 and 26.04 x86_64. Its real-host
+integration job is configured for both versions; this checkout has not yet
+received those remote CI results. It requires Node.js `24.21.0+` (or `26.8.0+`), npm, the pinned
+MXC SDK, and working MXC Bubblewrap support. Install the host tools with the
+system package manager:
+
+```bash
+sudo apt-get install bubblewrap iptables iproute2 slirp4netns util-linux
+```
+
+The host must permit unprivileged Bubblewrap/user namespaces and provide a
+unified cgroup-v2 hierarchy with the `cpu`, `memory`, and `pids` controllers. A
+running systemd user manager and its D-Bus socket (`/run/user/<uid>/bus`) are
+required; `systemd-run --user` and `systemctl --user` must be able to create,
+inspect, stop, and kill transient user scopes. The user manager must be delegated
+the cgroup controllers required to apply the scope limits. MXC startup performs
+a real Bubblewrap probe and verifies those resource controls; missing packages,
+permissions, controllers, user bus, or properties disable MXC with no host or
+weaker-isolation fallback. Containers/WSL environments that do not expose these
+facilities are unsupported.
+
+The user-local runtime defaults to `~/.local/share/uagent/mxc_runtime`; Node and
+npm are resolved only from the trusted startup override or explicit system
+locations, not from the selected project's dotenv/PATH. Linux applies a
+1 GiB aggregate cgroup memory cap, disables swap for the scope, sets `TasksMax`
+to 64 (Linux tasks include threads, so this is stricter than Windows' process
+count), and limits the scope to one CPU. A host watchdog stops the scope at four
+hours of aggregate CPU time. Scope shutdown kills all remaining cgroup tasks and
+checks cgroup emptiness before releasing the workspace lease. If the systemd
+user manager cannot verify cleanup, the workspace remains leased and cannot be
+reused. Bubblewrap denies filesystem access outside the explicit runtime and
+workspace read roots and denies network egress/ingress and host loopback.
+
+The `mxc-linux-integration` CI matrix runs real-host acceptance on both Ubuntu
+versions. Unit tests and a successful build alone do
+not prove that a particular host's user namespaces, Bubblewrap, cgroup
+controllers, and systemd delegation are correctly configured; use the same
+fail-closed probe on each deployment host.
 
 This PoC assumes that UAG itself, the Host Python interpreter and dependencies,
 and the Python startup/import path are trusted. Running `python -m uagent`
@@ -149,8 +195,9 @@ A real ProcessContainer run validated:
    its child processes.
 
 These are host-specific PoC results, not evidence of Hyper-V/VM isolation or a
-production multi-tenant security guarantee. Windows ARM64 and all non-Windows
-platforms remain unsupported in this PR.
+production multi-tenant security guarantee. Windows ARM64 and macOS remain
+unsupported; Linux x86_64 requires the Linux host prerequisites and a successful
+MXC probe described above.
 
 ### Windows 11 Home smoke test (2026-10-24)
 

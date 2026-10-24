@@ -46,13 +46,16 @@ sharing browser sessions across processes must configure the same
 
 ## Deliberate baseline and deferred high assurance
 
-The currently integrated Windows MXC backend is `base-container` /
-ProcessContainer. It provides a bounded process/container execution boundary,
-not a Hyper-V/Windows Sandbox VM. This is the selected default baseline for
-Remote Web and A2A; the user decision is to defer VM setup until a deployment
-explicitly requires it. Windows 11 Home can use this ProcessContainer path when
-its runtime prerequisites are installed; this does **not** mean Windows Sandbox
-VM is available on Home.
+The Windows MXC backend uses `base-container` / ProcessContainer. Linux x86_64
+uses MXC Bubblewrap behind a host-enforced cgroup-v2 systemd scope. These provide
+bounded process/container execution boundaries, not a Hyper-V, Windows Sandbox,
+or Linux VM. This is the selected default baseline for Remote Web and A2A; the
+user decision is to defer VM setup until a deployment explicitly requires it.
+Windows 11 Home can use the ProcessContainer path when its runtime prerequisites
+are installed; this does **not** mean Windows Sandbox VM is available on Home.
+Linux must satisfy the Bubblewrap, cgroup-v2, and systemd-user prerequisites in
+[MXC Sandbox platform notes](SANDBOX_MXC_WINDOWS.md); the backend fails closed if
+the host probe cannot verify isolation and resource limits.
 
 Set `UAGENT_REMOTE_SANDBOX_MIN_ISOLATION=vm` to demand VM-level isolation. The
 current ProcessContainer backend does not meet that setting and Remote tool

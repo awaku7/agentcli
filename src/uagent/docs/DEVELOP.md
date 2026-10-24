@@ -1330,17 +1330,18 @@ Only explicitly fixed broker operations may execute without a sandbox. Do not
 expose a localhost Web server through a proxy, port forward, or SSH tunnel while
 relying on local-only behavior.
 
-The PR 1 Mock tests verify routing contracts, not OS isolation. PR 2 adds an
-explicitly opted-in Windows x64 MXC ProcessContainer backend for trusted local
-CLI/GUI and eligible local Web sessions only; it is not a VM boundary and does
-not establish Remote E0 isolation. While Sandbox is enabled, startup must not
-activate project plugins or select host tools via genre masks or `--enable-tool`.
-Scheduled CLI/GUI runs validate required tools against the static sandbox
-allowlist and never load Host tools while sandboxed. The MXC workspace quota includes NTFS alternate data streams; if the host stream
-scanner cannot verify usage, Python execution fails closed. Probe and execution
-requests forbid MXC host-DACL mutation; Node/runtime overrides are accepted only
-from process-startup environment, never project dotenv, and sandboxed realtime is
-refused. Local Web Room scopes
+The PR 1 Mock tests verify routing contracts, not OS isolation. The trusted-local
+MXC backend supports Windows x64 ProcessContainer and Linux x86_64 Bubblewrap
+with a verified systemd/cgroup-v2 scope; neither is VM isolation or proof of
+Remote E0 acceptance. While Sandbox is enabled, startup must not activate project
+plugins or select host tools via genre masks or `--enable-tool`. Scheduled
+CLI/GUI runs validate required tools against the static sandbox allowlist and
+never load Host tools while sandboxed. Windows workspace quota scanning includes
+NTFS alternate data streams; Linux uses the host cgroup for aggregate memory,
+task and CPU limits. If quota/resource verification fails, execution fails
+closed. Windows requests forbid MXC host-DACL mutation; Node/runtime overrides
+are accepted only from process-startup environment, never project dotenv, and
+sandboxed realtime is refused. Local Web Room scopes
 include a server-process nonce so concurrent `uagw` processes cannot share or
 clear one another's workspaces for the same room. See [the Sandbox
 design](../../../docs/UAG_SANDBOX_SESSION_DESIGN.md) and [the staged
